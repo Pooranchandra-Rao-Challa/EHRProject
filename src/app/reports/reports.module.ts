@@ -13,32 +13,32 @@ import { MatSelectFilterModule } from 'mat-select-filter';
 import { MatTableExporterModule } from 'mat-table-exporter';
 import { Ng2OrderModule } from 'ng2-order-pipe';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { MatMenuModule } from '@angular/material';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
-import { NavbarComponent } from '../navbar/navbar.component';
-import { FooterComponent } from '../footer/footer.component';
-import { CQMReportsComponent } from '../CQMReports/CQMReports.component';
-import { SharedModule } from '../Shared/shared';
-import { MUReportsComponent } from '../mu-reports/mu-reports.component';
+//import { NavbarComponent } from '../navbar/navbar.component';
+//import { FooterComponent } from '../footer/footer.component';
+//import { CQMReportsComponent } from '../CQMReports/CQMReports.component';
+//import { SharedModule } from '../Shared/shared';
+//import { MUReportsComponent } from '../mu-reports/mu-reports.component';
 import { LayoutComponent } from './layout.component';
 import { ReportsRoutingModule } from './reports-routing.module';
 
 @NgModule({
     exports: [
-        MatInputModule 
+        MatInputModule
     ],
     declarations: [
-        NavbarComponent,
-        FooterComponent,
-        CQMReportsComponent,
-        MUReportsComponent,
+        //NavbarComponent,
+       // FooterComponent,
+       // CQMReportsComponent,
+       // MUReportsComponent,
         LayoutComponent,
-        
+
     ],
     imports: [
         ReportsRoutingModule,
-        SharedModule,
+      //  SharedModule,
         NgxPaginationModule,
         CommonModule,
         MatMenuModule,

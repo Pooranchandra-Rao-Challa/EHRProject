@@ -27,6 +27,7 @@
     "bufferutil": "^4.0.1",
     "font-awesome": "^4.7.0",
     "html-to-pdfmake": "^2.3.8",
+    "html-webpack-plugin": "^5.5.0",
     "mat-select-filter": "^2.3.9",
     "mat-table-exporter": "^10.2.3",
     "ng-bootstrap": "^1.6.3",

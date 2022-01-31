@@ -3,7 +3,7 @@ import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, CanAc
 
 import { Observable } from 'rxjs';
 
-import { AuthenticationService } from '../Services/authentication.service';
+import { AuthenticationService } from '../_services/authentication.service';
 import { IdService} from './_id.service';
 
 
@@ -17,7 +17,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<u
     private authenticationService: AuthenticationService,
     private idService: IdService
   ) { }
-  
+
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const user = this.authenticationService.userValue;
@@ -25,7 +25,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<u
       // authorised so return true
       return true;
     }
-    
+
     // not logged in so redirect to login page with the return url
     this.router.navigate(['/account/login'], { queryParams: { returnUrl: state.url } });
     return false;

@@ -2,7 +2,7 @@ import { getLocaleDateTimeFormat } from '@angular/common';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { AuthenticationService } from '../Services/authentication.service';
+import { AuthenticationService } from '../_services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
 
     this.authenticationService.loginWithFormCredentials(creds).subscribe(resp => {
 
-      if (!resp.IsSuccess){
+      if (!resp.IsSuccess) {
         this.showspinner = false;
         this.message = '';
         this.authfailedmessage = "Enter valid Email Id and Password";

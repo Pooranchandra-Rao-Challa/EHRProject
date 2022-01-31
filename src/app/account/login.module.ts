@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatCheckboxModule } from '@angular/material'
+import { MatCheckboxModule } from '@angular/material/checkbox'
 
 import { LoginRoutingModule } from './login-rounting.module';
 import { LayoutComponent } from './layout.component';
