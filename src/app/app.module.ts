@@ -1,18 +1,83 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatInputModule } from '@angular/material/input';
+import { ToastrModule } from 'ngx-toastr';
+import { SharedModule } from './_common/shared';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { MatSelectFilterModule } from 'mat-select-filter';
+import { MatTableExporterModule } from 'mat-table-exporter';
+import { Ng2OrderModule } from 'ng2-order-pipe';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+
+
+import { CommonModule, DatePipe } from '@angular/common';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+
+import { Accountservice } from './_services/account.service';
+import { Accountserviceendpoint } from './_services/account.endpoint.service';
+import { EndpointBase } from './_services/endpoint.base.service';
+import { EhrInterceptor } from './_helpers';
+import { AuthenticationService } from './_services/authentication.service';
+//import { HomeComponent } from './home/home.comonent';
 @NgModule({
+  exports: [
+    MatInputModule
+  ],
   declarations: [
-    AppComponent
+    AppComponent,
+    //HomeComponent,
+    //RubyAuthenticationFailedComponenet
   ],
   imports: [
+    ToastrModule.forRoot(),
+
+    CommonModule,
+    SharedModule,
+    NgxPaginationModule,
     BrowserModule,
-    AppRoutingModule
+    RouterModule,
+    MatMenuModule,
+    AppRoutingModule,
+    FormsModule,
+    NgbModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatCardModule,
+    MatDialogModule,
+    MatPaginatorModule,
+    MatExpansionModule,
+    NgxMatSelectSearchModule,
+    MatSelectFilterModule,
+    MatTableExporterModule,
+    Ng2OrderModule,
+    MatAutocompleteModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: EhrInterceptor, multi: true },
+    Accountservice,
+    DatePipe,
+    Accountserviceendpoint,
+    AuthenticationService,
+    EndpointBase
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
