@@ -34,14 +34,14 @@ import { Accountserviceendpoint } from './_services/account.endpoint.service';
 import { EndpointBase } from './_services/endpoint.base.service';
 import { EhrInterceptor } from './_helpers';
 import { AuthenticationService } from './_services/authentication.service';
-//import { HomeComponent } from './home/home.comonent';
+import { HomeComponent } from './home/home.comonent';
 @NgModule({
   exports: [
     MatInputModule
   ],
   declarations: [
     AppComponent,
-    //HomeComponent,
+    HomeComponent,
     //RubyAuthenticationFailedComponenet
   ],
   imports: [
