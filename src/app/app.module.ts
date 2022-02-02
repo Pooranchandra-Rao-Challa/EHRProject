@@ -23,18 +23,19 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 
 import { CommonModule, DatePipe } from '@angular/common';
-
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
-
 import { Accountservice } from './_services/account.service';
 import { Accountserviceendpoint } from './_services/account.endpoint.service';
 import { EndpointBase } from './_services/endpoint.base.service';
 import { EhrInterceptor } from './_helpers';
 import { AuthenticationService } from './_services/authentication.service';
 import { HomeComponent } from './home/home.comonent';
+import { DownloadService } from "./_services/download.service";
+import { IdService } from "./_helpers/_id.service";
+import { AuthGuard } from "./_helpers/auth.guard";
+//import { RubyAuthenticationFailedComponenet } from "./login/ruby.authentication.failed.component";
+
 @NgModule({
   exports: [
     MatInputModule
@@ -73,10 +74,13 @@ import { HomeComponent } from './home/home.comonent';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: EhrInterceptor, multi: true },
     Accountservice,
+    DownloadService,
     DatePipe,
     Accountserviceendpoint,
     AuthenticationService,
-    EndpointBase
+    EndpointBase,
+    IdService,
+    AuthGuard,
   ],
   bootstrap: [AppComponent]
 })

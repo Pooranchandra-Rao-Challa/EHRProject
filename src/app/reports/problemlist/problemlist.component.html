@@ -1,0 +1,187 @@
+<div id="pause" class="d-flex align-items-center justify-content-center" *ngIf="customizedspinner">
+  <div id="spinner"></div>
+</div>
+<div class="container-fluid">
+  <form [formGroup]="problemreportform">
+    <div class="row" style="background-color: #e5f8f5;">
+      <div class="col-lg-2 col-md-3">
+      </div>
+      <div class="col-lg-1 col-md-3">
+        <p class="float-left my-4 ">Provider:<span class="asterisk">*</span></p>
+      </div>
+      <mat-form-field appearance="outline" class="col-lg-2 col-md-6 hover my-2">
+        <mat-select placeholder="Select One" disabledOptionCentering #searchedItem formControlName="ProviderId"
+          (selectionChange)="disableApplyButtonProblemlist()">
+          <mat-select-filter disabledOptionCentering [placeholder]="'Search...'" [displayMember]="'Provider_Name'"
+            [array]="providerlist" (filteredReturn)="filteredproviderList =$event" *ngIf="searchedItem.focused">
+          </mat-select-filter>
+          <mat-option *ngFor="let item of filteredproviderList" [value]="item.Provider_Id"
+            (click)="getLocationsList(item)">
+            {{item.Provider_Name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="col-lg-1 col-md-6 col-sm-12">
+        <p class="float-left my-4 mr-md-2">Location(s):</p>
+      </div>
+      <mat-form-field appearance="outline" class="col-lg-2 col-md-6 my-2 hover">
+        <mat-select placeholder="Select One" disableOptionCentering formControlName="LocationId">
+          <!-- <mat-select-filter disabledOptionCentering [placeholder]="'Search...'" [displayMember]="'Location_Name'"
+              [array]="locationslist" (filteredReturn)="filteredlocationList =$event"></mat-select-filter> -->
+          <mat-option *ngFor="let name of filteredlocationList" [value]="name.Location_Id"
+            (click)="getProviderList(name)">
+            {{name.Location_Name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="row" style="background-color: #e5f8f5;">
+
+      <div class="col-lg-2 col-md-3">
+        <p class="float-left my-4">Encounter Date</p>
+      </div>
+      <div class="col-lg-1 col-md-3">
+        <p class="float-left my-4">From:</p>
+      </div>
+      <mat-form-field appearance="outline" class="col-lg-2 col-md-6">
+        <input matInput class="pointer" autocomplete="off" (dateChange)="disableApplyButtonProblemlist()"
+          [max]="tomorrow" [matDatepicker]="picker17" (click)="picker17.open()" readonly placeholder="Start Date"
+          formControlName="StartDate">
+        <mat-datepicker-toggle matSuffix [for]="picker17"></mat-datepicker-toggle>
+        <mat-datepicker #picker17></mat-datepicker>
+      </mat-form-field>
+      <div class="col-lg-1 col-md-6">
+        <p class="float-left my-4">To:<span *ngIf="!disableEndDateInput" class="asterisk">*</span></p>
+      </div>
+      <mat-form-field appearance="outline" class="col-lg-2 col-md-6">
+        <input matInput class="pointer" autocomplete="off" (dateChange)="disableApplyButtonProblemlist()"
+          [min]="problemreportform.value.StartDate" [max]="tomorrow" [matDatepicker]="picker18"
+          (click)="picker18.open()" readonly placeholder="Stop Date" formControlName="EndDate"
+          [disabled]="disableEndDateInput">
+        <mat-datepicker-toggle matSuffix [for]="picker18"></mat-datepicker-toggle>
+        <mat-datepicker #picker18></mat-datepicker>
+      </mat-form-field>
+      <div class="col-lg-2 col-md-12">
+        <button class="btn col-lg-12 col-md-3 btn-height my-1 float-right" (click)="onSubmitProblemReportList()"
+          [disabled]='applyButtonToDisableproblem'>
+          Apply Filters
+        </button>
+      </div>
+      <div class="col-lg-2">
+        <button class="btn col-lg-12 btn-height my-1 px-lg-3 px-2 my-1" (click)="downloadProblemListExcel()"
+          [disabled]="disabledowloadExportbtn">
+          Export CSV
+        </button>
+      </div>
+    </div>
+    <div class="row" style="background-color: #e5f8f5;">
+      <div class="col-lg-3"></div>
+      <div class="col-lg-4 my-1 mb-3">
+        <mat-checkbox class="col-lg-12 col-md-12 example-margin" style="margin-left: 0px;" formControlName="Checked">
+        </mat-checkbox><span>Include Inactive
+          Patients</span>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="ehr-cqm-table-container problem" [hidden]="!showPromblemListTable">
+  <mat-table [dataSource]="problemreportlist" matSort>
+    <ng-container matColumnDef="PatientName">
+      <mat-header-cell class="flex3" *matHeaderCellDef mat-sort-header="PatientName">Patient Name</mat-header-cell>
+      <mat-cell class="flex3 submenu" *matCellDef="let lesson"> {{lesson.PatientName}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Sex">
+      <mat-header-cell class="flex1" *matHeaderCellDef mat-sort-header="Sex"> Sex</mat-header-cell>
+      <mat-cell class="flex1 submenu" *matCellDef="let lesson"> {{lesson.Sex}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="DOB">
+      <mat-header-cell class="flex2" *matHeaderCellDef mat-sort-header="DOB">DOB</mat-header-cell>
+      <mat-cell class="flex2 submenu" *matCellDef="let lesson"> {{lesson.DOB | date: 'yyyy/MM/dd'}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Address1">
+      <mat-header-cell class="flex2" *matHeaderCellDef mat-sort-header="Address1">Address1</mat-header-cell>
+      <mat-cell class="flex2 submenu" *matCellDef="let lesson"> {{lesson.Address1}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Address2">
+      <mat-header-cell class="flex1" fxFlex="25%" *matHeaderCellDef mat-sort-header="Address2">Address2
+      </mat-header-cell>
+      <mat-cell class="flex1 submenu" *matCellDef="let lesson"> {{lesson.Address2}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="City">
+      <mat-header-cell class="flex1" *matHeaderCellDef mat-sort-header="City">City</mat-header-cell>
+      <mat-cell class="flex1 submenu" style="padding-left: 20px;" *matCellDef="let lesson"> {{lesson.City}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="State">
+      <mat-header-cell class="flex1" *matHeaderCellDef mat-sort-header="State">State</mat-header-cell>
+      <mat-cell class="flex1 submenu" *matCellDef="let lesson"> {{lesson.State}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="ZipCode">
+      <mat-header-cell class="flex3" *matHeaderCellDef mat-sort-header="ZipCode">Zip Code</mat-header-cell>
+      <mat-cell class="flex3 submenu" *matCellDef="let lesson"> {{lesson.ZipCode}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="LastEncounter">
+      <mat-header-cell class="flex2" *matHeaderCellDef mat-sort-header="LastEncounter">Last Encounter
+      </mat-header-cell>
+      <mat-cell class="flex2 submenu" *matCellDef="let lesson"> {{lesson.LastEncounter | date: 'MM/dd/yyyy'}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Active">
+      <mat-header-cell class="flex1" *matHeaderCellDef mat-sort-header="Active">Active</mat-header-cell>
+      <mat-cell class="flex1 submenu" *matCellDef="let lesson"> {{lesson.Active}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="DxCode">
+      <mat-header-cell class="flex2" *matHeaderCellDef mat-sort-header="DxCode">Dx ICD10/SNOMED Code</mat-header-cell>
+      <mat-cell class="flex1 submenu" *matCellDef="let lesson"> {{lesson.DxCode}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="DxDescription">
+      <mat-header-cell class="flex2" *matHeaderCellDef mat-sort-header="DxDescription">Dx ICD10/SNOMED Description
+      </mat-header-cell>
+      <mat-cell class="flex1 submenu" *matCellDef="let lesson"> {{lesson.DxDescription}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="DxStartDate">
+      <mat-header-cell class="flex2" *matHeaderCellDef mat-sort-header="DxStartDate">Dx Start Date</mat-header-cell>
+      <mat-cell class="flex2 submenu" *matCellDef="let lesson"> {{lesson.DxStartDate}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="DxEndDate">
+      <mat-header-cell class="flex1" *matHeaderCellDef mat-sort-header="DxEndDate">Dx End Date</mat-header-cell>
+      <mat-cell class="flex1 submenu" *matCellDef="let lesson"> {{lesson.DxEndDate}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="SmokingStatus">
+      <mat-header-cell class="flex2" *matHeaderCellDef mat-sort-header="SmokingStatus">Smoking Status
+      </mat-header-cell>
+      <mat-cell class="flex1 submenu" *matCellDef="let lesson"> {{lesson.SmokingStatus}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Allergy">
+      <mat-header-cell class="flex3" *matHeaderCellDef mat-sort-header="Allergy">Allergy</mat-header-cell>
+      <mat-cell class="flex1 submenu" *matCellDef="let lesson"> {{lesson.Allergy}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="ProblemListColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: ProblemListColumns;"></mat-row>
+  </mat-table>
+  <div style="color: red;text-align: center;" *ngIf="problemreportlist.data.length==0">
+    No Records Found!
+  </div>
+</div>
+<mat-paginator [hidden]="!problemreportlist.data.length" class="arrow" #paginator
+  [length]="problemreportlist.data.length" [pageIndex]="pageIndex" [pageSize]="pageSize"
+  [pageSizeOptions]="pageSizeOptions">
+</mat-paginator>

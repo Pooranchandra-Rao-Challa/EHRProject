@@ -12,19 +12,6 @@ export class Accountservice {
   GetProviders() {
     return this.accountEndpoint.GetAllProviders<any>();
   }
-  GetDetailsReport(data: any) {
-    return this.accountEndpoint.GetDetailsReport<any>(data);
-  }
-  GetSubDetailsReport(data: any) {
-    return this.accountEndpoint.GetSubDetailsReport<any>(data);
-  }
-  GetReportByUserid() {
-
-    return this.accountEndpoint.GetReportByUserid<any>();
-  }
-  GetBasicReportInfo(data) {
-    return this.accountEndpoint.GetBasicReportInfo<any>(data);
-  }
   GetDashBoardReport(data) {
     return this.accountEndpoint.GetDashBoardReport<any>(data);
   }
@@ -48,6 +35,7 @@ export class Accountservice {
     return this.accountEndpoint.getAllPatientList<any>(data);
   }
   getEncountersList(data: any) {
+    debugger;
     return this.accountEndpoint.getEncountersList<any>(data);
   }
   GetStage2NumeDenomiCount(data: any) {
@@ -60,14 +48,11 @@ export class Accountservice {
     return this.accountEndpoint.getProblemListReportByProviderId<any>(data);
   }
 
-  getProviderList(ProviderId: any) {
-    return this.accountEndpoint.getProviderList<any>(ProviderId);
+  getProviderList(req: any) {
+    return this.accountEndpoint.getProviderList<any>(req);
   }
   getLocationsList(LocationId: any) {
     return this.accountEndpoint.getLocationsList<any>(LocationId);
-  }
-  getdownloadQRDA3Report(ReportId: any) {
-    return this.accountEndpoint.getdownloadQRDA3Report<any>(ReportId);
   }
 
   // login
@@ -75,28 +60,31 @@ export class Accountservice {
   //     return this.accountEndpoint.loginCredentials<any>(Data);
   // }
   getCQMReportsQueuedReports(data: any) {
-    debugger;
     return this.accountEndpoint.getCQMReportsQueuedReports<any>(data);
   }
   getCQMReportsDashboard(data: any) {
-    debugger;
     return this.accountEndpoint.getCQMReportsQueuedReports<any>(data);
   }
   getCQMReportsPatientList(data: any) {
-    debugger;
     return this.accountEndpoint.getCQMReportsQueuedReports<any>(data);
   }
 
   CreateQueuedReport(data: any) {
-    debugger;
     return this.accountEndpoint.CreateQueuedReport<any>(data);
+  }
+  DrilldownViewConditions(data: any) {
+    return this.accountEndpoint.DrilldownViewConditions<any>(data);
   }
   VerifyUserCreds(data) {
     return this.accountEndpoint.VerifyUserCreds<any>(data);
   }
   getProvidersLocationwise() {
-    debugger;
     return this.accountEndpoint.getProvidersLocationwise<any>();
   }
+
+  getCQMReportsMeasurePatientMetInfo(cmscoditions_data: any) {
+    return this.accountEndpoint.getCQMReportsMeasurePatientMetInfo<any>(cmscoditions_data);
+  }
+
 
 }

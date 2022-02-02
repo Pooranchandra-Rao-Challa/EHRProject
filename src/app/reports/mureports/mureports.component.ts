@@ -1,59 +1,57 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
-declare var require: any;
-import { PageEvent } from '@angular/material/paginator';
+import { DatePipe } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Accountservice } from '../../_services/account.service';
+import { AuthenticationService } from '../../_services/authentication.service';
 import * as pdfMake from "pdfmake/build/pdfmake";
-import * as pdfFonts from "pdfmake/build/vfs_fonts";
-import { Accountservice } from '../_services/account.service';
-import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from "@angular/material/table";
-import { DatePipe, formatDate, NgStyle } from '@angular/common';
-import { TableUtil } from './tableUtil';
-
-import { PatientData, ProblemData, EncounterData, MUPatientData } from '../_models';
-import { Observable } from 'rxjs';
-
-
-
-const htmlToPdfmake = require("html-to-pdfmake");
-(pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
-
+import pdfFonts from "pdfmake/build/vfs_fonts";
+declare const $: any;
 
 @Component({
-  selector: 'app-mu-reports',
-  templateUrl: './mu-reports.component.html',
-  styleUrls: ['./mu-reports.component.scss']
+  selector: 'app-mureports',
+  templateUrl: './mureports.component.html',
+  styleUrls: ['./mureports.component.scss']
 })
-export class MUReportsComponent implements OnInit, AfterViewInit {
-
-  @Input() max: any;
+export class MureportsComponent implements OnInit {
+  checkboxValue021: boolean = false;
+  checkboxValue01: boolean = false;
+  checkboxValue022: boolean = false;
+  checkboxValue031: boolean = false;
+  checkboxValue032: boolean = false;
+  checkboxValue033: boolean = false;
+  checkboxValue04: boolean = false;
+  checkboxValue05: boolean = false;
+  checkboxValue06: boolean = false;
+  checkboxValue07: boolean = false;
+  checkboxValue081: boolean = false;
+  checkboxValue082: boolean = false;
+  checkboxValue09: boolean = false;
+  checkboxValue0101: boolean = false;
+  checkboxValue0102: boolean = false;
+  checkboxValue0103: boolean = false;
+  checkboxValuery1: boolean = false;
+  checkboxValuern1: boolean = false;
+  checkboxValuery21: boolean = false;
+  checkboxValuern21: boolean = false;
+  checkboxValuery22: boolean = false;
+  checkboxValuern22: boolean = false;
+  checkboxValuery101: boolean = false;
+  checkboxValuern101: boolean = false;
+  checkboxValuery102: boolean = false;
+  checkboxValuern102: boolean = false;
+  checkboxValuery103: boolean = false;
+  checkboxValuern103: boolean = false;
+  sortDir = 1;
   tomorrow = new Date();
-  fileName = 'ExcelSheet.xlsx';
-  category: any[] = [];
-  Reports: any[] = [];
-  startDate: string;
-  endDate: string;
+  // beforestartdate = Date('06/06/2020');
   provider_Id: string;
   stage_type: string;
-
-  showControls: boolean = false;
-  showPatientControls: boolean;
-  showEncounterControls: boolean;
-  showProblemListControls: boolean;
-  ifMeaningfulUse: boolean;
-  enableDropdown: boolean;
-  enableExportCSV: boolean;
-  categoryId: number;
-  RepId: number;
-  disable: boolean;
   muReportForm: FormGroup;
-  Cqmreports: boolean = false;
   customizedspinner: boolean = false;
   Stage3: boolean = false;
   patientlist: boolean = false;
   showPromblemListTable: boolean;
-  DataSource: any;
+  stage3NumeDenomicount: any;
   numerator2: any;
   denominator2: any;
   percentage2: any;
@@ -91,34 +89,8 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
   denominator73: any;
   percentage73: any;
   providers: any;
-
-  patientlistForm: any;
-  patientForm: any;
-  encounterForm: FormGroup;
-  displaypatientpopup = ["patient_id", "full_name", "Req_date_format", "Numerator"]
-  displayedColumns = ["Patient_Id", "Patient_Name", "Date_of_Birth", "Age", "Cell_Phone", "Home_phone", "Work_Phone",
-    "Email_Address", "Gender", "Address", "City", "State", "Zip", "Prime_Subscriber_No", "Prime_Subscriber_Name"];
-  DisplayedColumns = ["Encounter_Id", "Patient_Name", "Provider_Name", "Birth_Date", "Patient_Age", "Encounter_Date", "Proc_Code",
-    "Encounter_Description", "Proc_Fees", "Prime_Subscriber_No", "Prime_Ins_Company_Name", "Prim_Source_Payment_Typology"];
-  ProblemListColumns: string[] = ['PatientName', 'Sex', 'DOB', 'Address1', 'Address2', 'City', 'State', 'ZipCode', 'LastEncounter',
-    'Active', 'DxCode', 'DxDescription', 'DxStartDate', 'DxEndDate', 'SmokingStatus', 'Allergy'];
-
-  @ViewChildren(MatPaginator) paginator = new QueryList<MatPaginator>();
-  @ViewChildren(MatSort) sort = new QueryList<MatSort>();
-  public mupatientList = new MatTableDataSource<MUPatientData>();
-  public allPatientList = new MatTableDataSource<PatientData>();
-  public encounterlist = new MatTableDataSource<EncounterData>();
-  public problemreportlist = new MatTableDataSource<ProblemData>();
-  patientlisttable: boolean = false;
-  length: number;
-  pageSize = 10;
-  pageIndex = 0;
-  pageSizeOptions: number[] = [5, 10, 25, 100];
-  pageEvent: PageEvent;
-  encounterlength: number;
-  panelOpenState = true;
   Stage2: boolean;
-  DataSource1: any;
+  stage2NumeDenomicount: any;
   numerator3_1: any;
   denominator3_1: any;
   percentage3_1: any;
@@ -150,12 +122,10 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
   denominator9: any;
   percentage9: any;
   Stage2PatientList: any;
-  problemreportform: any;
-  problemreportlistlength: number;
   providerlist: any = [];
   locationslist: any;
-  filteredList: any = [];
-  filteredList1: any;
+  filteredproviderList: any = [];
+  filteredlocationList: any = [];
   checkbox2: boolean;
   patientelectronicacess2: number;
   checkbox41: boolean;
@@ -201,9 +171,6 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
   patientelectronicacess85: number;
   result3: any;
   result8: any;
-  showencounterTable: boolean;
-  showpatientTable: boolean;
-  showCreateReport: boolean = false;
   pdfcheckbox2: string;
   pdfcheckbox41: string;
   pdfcheckbox42: string;
@@ -301,87 +268,103 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
   pdfcheckbox85c: string;
   patientelectronicacess1: number;
   result1: number;
-  ReportingDate: any;
+  Stage2PatientListlength: any;
+  ReportingDate: string;
   Dates: string;
-  ProviderName: string;
-  LocationName: string;
+  disabledowloadPDF: boolean = true;
+  mupatientList: any[];
+  mupatientListlength: number;
+  showControls: boolean;
+  LocationZip: any;
+  ProviderName: any;
+  locationname: any;
+  locationstreetaddress: any;
+  locationcity: string;
+  locationstate: string;
+  locationzip: string;
+  locationphone: any;
+  LocationName: any;
   LocationPhone: any;
   LocationStreetAddress: any;
   LocationCity: any;
   LocationState: any;
-  LocationZip: any;
-  locationname: string | number;
-  locationphone: any;
-  locationstreetaddress: any;
-  locationcity: any;
-  locationstate: any;
-  locationzip: any;
-  patientlistdata: { SstartDate: any; SendDate: any; AstartDate: any; AendDate: any; Checked: any; provider_Id: any; location_Id: any; };
-  encounterdata: { SstartDate: any; SendDate: any; Checked: any; provider_Id: any; location_Id: any; };
-  problemreportlistdata: { StartDate: any; EndDate: any; Checked: any; ProviderId: any; LocationId: any; };
-  LocationId: string;
-  ProviderId: string;
-  PatientListlength: any;
-  Stage2PatientListlength: any;
-  disablevalue: boolean = false;
-  // image:"data:image/jpg;base64,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";
-
-  applyButtonToDisable: boolean = true;
-  applyButtonToDisableencounter: boolean = true;
-  applyButtonToDisableproblem: boolean = true;
-  mupatientListlength: any;
-
-
+  disableEndDateInput: boolean = true;
+  checkboxvalue1: boolean = false;
+  checkboxvalue2: boolean = false;
+  checkboxvalue31: boolean = false;
+  checkboxvalue32: boolean = false;
+  checkboxvalue41: boolean = false;
+  checkboxvalue42: boolean = false;
+  checkboxvalue43: boolean = false;
+  checkboxvalue51: boolean = false;
+  checkboxvalue52: boolean = false;
+  checkboxvalue61: boolean = false;
+  checkboxvalue62: boolean = false;
+  checkboxvalue63: boolean = false;
+  checkboxvalue71: boolean = false;
+  checkboxvalue72: boolean = false;
+  checkboxvalue31c: boolean = false;
+  checkboxvalue32c: boolean = false;
+  checkboxvalue81c: boolean = false;
+  checkboxvalue82c: boolean = false;
+  checkboxvalue83c: boolean = false;
+  checkboxvalue84c: boolean = false;
+  checkboxvalue85c: boolean = false;
+  checkboxvalue73: boolean = false;
+  checkboxvalue81: boolean = false;
+  checkboxvalue82: boolean = false;
+  checkboxvalue83: boolean = false;
+  checkboxvalue84: boolean = false;
+  checkboxvalue85: boolean = false;
+  protectvalue = null;
+  clinicalvalue = null;
+  drugvalue = null;
+  immunizationvalue = null;
+  syndromicvalue = null;
+  specializedvalue = null;
 
   public downloadAsPDF() {
-    //debugger;
-
-    if (this.DataSource != null) {
-
+    debugger;
+    if (this.stage3NumeDenomicount != null) {
       const documenDefinition = {
         content:
           [
             {
-
               text: 'Promoting Interoperability (PI/MU) - Stage 3',
               style: "tableHeader",
               alignment: "center"
-
             },
             {
               text: this.ProviderName, alignment: 'left'
             },
             {
-              text: this.locationname, alignment: 'left'
+              text: this.LocationName, alignment: 'left'
             },
             {
-              text: this.locationstreetaddress, alignment: 'left'
+              text: this.LocationStreetAddress, alignment: 'left'
             },
             {
-              text: this.locationcity + ', ' + this.locationstate + ' ' + this.locationzip, alignment: 'left'
+              text: this.LocationCity + ' ' + this.LocationState + ' ' + this.LocationZip, alignment: 'left'
             },
             {
-              text: this.locationphone, alignment: 'left'
+              text: this.LocationPhone, alignment: 'left'
             },
-
             {
               image: 'data:image/jpg;base64,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',
               fit: [100, 100], absolutePosition: { x: 21, y: 53 },
               alignment: 'right'
             },
-
-
             {
               text: 'Date Ranges Of Report: ' + this.ReportingDate + ' - ' + this.Dates, alignment: 'left'
             },
             {
-
+              text: "  ", alignment: 'left'
+            },
+            {
               table: {
                 widths: [200, 100, 100, 100],
-
                 font: 'sans-serif',
                 body: [
-
                   [{ text: 'Name', fillColor: '#41b6a6', color: 'white' }, { text: 'Goal', fillColor: '#41b6a6', color: 'white' }, { text: 'Status', fillColor: '#41b6a6', color: 'white' }, { text: 'Exclusion Claimed', fillColor: '#41b6a6', color: 'white' }],
                   [{ text: '1. Protect Electronic Protected Health Info | ' + this.result1 + ' of 1', style: 'tableHeader', colSpan: '4', alignment: 'left', fillColor: '#ffb080' }],
                   ['Protect Electronic Protected Health Information', 'Complete Security Risk Analysis',
@@ -389,7 +372,6 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                       table: {
                         widths: [5, 80],
                         body: [
-
                           [
                             {
                               table: {
@@ -402,16 +384,13 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                             },
                             {
                               text: '| Complete',
-
                               lineHeight: 1.1,
                               margin: [7, 1],
-
                               fontSize: 12,
                               alignment: 'center',
                             },
                           ],
                         ],
-
                       },
                       layout: {
                         defaultBorder: false,
@@ -424,7 +403,6 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                       table: {
                         widths: [5, 80],
                         body: [
-
                           [
                             {
                               table: {
@@ -433,15 +411,12 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                                   [{ text: this.pdfcheckbox2, preserveLeadingSpaces: true }],
                                 ],
                               },
-
-
                               margin: [1, 0],
                             },
                             {
                               text: '| Exclusion',
                               lineHeight: 1.1,
                               margin: [5, 0],
-
                               fontSize: 12,
                               alignment: 'center',
                             },
@@ -453,11 +428,10 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                       },
                     },]],
                   [{ text: '3. Clinical Decision Support (CDS) | ' + this.result3 + ' of 2', style: 'tableHeader', colSpan: '4', alignment: 'left', fillColor: '#ffb080' }],
-                  ['3-1. Clinical Decision Support interventions', '5 CDS Interventions Implemented', [{
+                  ['3-1. Clinical Decision Support Interventions', '5 CDS Interventions Implemented', [{
                     table: {
                       widths: [5, 80],
                       body: [
-
                         [
                           {
                             table: {
@@ -466,16 +440,12 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                                 [{ text: this.pdfcheckbox31c, preserveLeadingSpaces: true }],
                               ],
                             },
-
-
                             margin: [1, 0],
                           },
                           {
                             text: '| Complete',
-
                             lineHeight: 1.1,
                             margin: [5, 0],
-
                             fontSize: 12,
                             alignment: 'center',
                           },
@@ -489,7 +459,6 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                     table: {
                       widths: [5, 80],
                       body: [
-
                         [
                           {
                             table: {
@@ -498,16 +467,12 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                                 [{ text: this.pdfcheckbox31, preserveLeadingSpaces: true }],
                               ],
                             },
-
-
                             margin: [1, 0],
                           },
                           {
                             text: '| Exclusion ',
-
                             lineHeight: 1.1,
                             margin: [5, 0],
-
                             fontSize: 12,
                             alignment: 'center',
                           },
@@ -518,11 +483,10 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                       defaultBorder: false,
                     },
                   },]],
-                  ['3-2. Drug-Drug/Drug-allergy Interaction ', 'Enable Interactions Alerts', [{
+                  ['3-2. Drug-Drug/Drug-Allergy Interaction ', 'Enable Interactions Alerts', [{
                     table: {
                       widths: [5, 80],
                       body: [
-
                         [
                           {
                             table: {
@@ -531,16 +495,12 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                                 [{ text: this.pdfcheckbox32c, preserveLeadingSpaces: true }],
                               ],
                             },
-
-
                             margin: [1, 0],
                           },
                           {
                             text: '| Complete',
-
                             lineHeight: 1.1,
                             margin: [5, 0],
-
                             fontSize: 12,
                             alignment: 'center',
                           },
@@ -554,7 +514,6 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                     table: {
                       widths: [5, 80],
                       body: [
-
                         [
                           {
                             table: {
@@ -563,16 +522,12 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                                 [{ text: this.pdfcheckbox32, preserveLeadingSpaces: true }],
                               ],
                             },
-
-
                             margin: [1, 0],
                           },
                           {
                             text: '| Exclusion ',
-
                             lineHeight: 1.1,
                             margin: [5, 0],
-
                             fontSize: 12,
                             alignment: 'center',
                           },
@@ -588,7 +543,6 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                     table: {
                       widths: [5, 80],
                       body: [
-
                         [
                           {
                             table: {
@@ -597,16 +551,12 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                                 [{ text: this.pdfcheckbox41, preserveLeadingSpaces: true }],
                               ],
                             },
-
-
                             margin: [1, 0],
                           },
                           {
                             text: '| Exclusion ',
-
                             lineHeight: 1.1,
                             margin: [5, 0],
-
                             fontSize: 12,
                             alignment: 'center',
                           },
@@ -621,7 +571,6 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                     table: {
                       widths: [5, 80],
                       body: [
-
                         [
                           {
                             table: {
@@ -630,16 +579,12 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                                 [{ text: this.pdfcheckbox42, preserveLeadingSpaces: true }],
                               ],
                             },
-
-
                             margin: [1, 0],
                           },
                           {
                             text: '| Exclusion ',
-
                             lineHeight: 1.1,
                             margin: [5, 0],
-
                             fontSize: 12,
                             alignment: 'center',
                           },
@@ -654,7 +599,6 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                     table: {
                       widths: [5, 80],
                       body: [
-
                         [
                           {
                             table: {
@@ -663,16 +607,12 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                                 [{ text: this.pdfcheckbox43, preserveLeadingSpaces: true }],
                               ],
                             },
-
-
                             margin: [1, 0],
                           },
                           {
                             text: '| Exclusion ',
-
                             lineHeight: 1.1,
                             margin: [5, 0],
-
                             fontSize: 12,
                             alignment: 'center',
                           },
@@ -688,7 +628,6 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                     table: {
                       widths: [5, 80],
                       body: [
-
                         [
                           {
                             table: {
@@ -697,16 +636,12 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                                 [{ text: this.pdfcheckbox51, preserveLeadingSpaces: true }],
                               ],
                             },
-
-
                             margin: [1, 0],
                           },
                           {
                             text: '| Exclusion ',
-
                             lineHeight: 1.1,
                             margin: [5, 0],
-
                             fontSize: 12,
                             alignment: 'center',
                           },],
@@ -720,7 +655,6 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                     table: {
                       widths: [5, 80],
                       body: [
-
                         [
                           {
                             table: {
@@ -729,16 +663,12 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                                 [{ text: this.pdfcheckbox52, preserveLeadingSpaces: true }],
                               ],
                             },
-
-
                             margin: [1, 0],
                           },
                           {
                             text: '| Exclusion ',
-
                             lineHeight: 1.1,
                             margin: [5, 0],
-
                             fontSize: 12,
                             alignment: 'center',
                           },
@@ -754,7 +684,6 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                     table: {
                       widths: [5, 80],
                       body: [
-
                         [
                           {
                             table: {
@@ -763,16 +692,12 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                                 [{ text: this.pdfcheckbox61, preserveLeadingSpaces: true }],
                               ],
                             },
-
-
                             margin: [1, 0],
                           },
                           {
                             text: '| Exclusion ',
-
                             lineHeight: 1.1,
                             margin: [5, 0],
-
                             fontSize: 12,
                             alignment: 'center',
                           },
@@ -787,7 +712,6 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                     table: {
                       widths: [5, 80],
                       body: [
-
                         [
                           {
                             table: {
@@ -796,16 +720,12 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                                 [{ text: this.pdfcheckbox62, preserveLeadingSpaces: true }],
                               ],
                             },
-
-
                             margin: [1, 0],
                           },
                           {
                             text: '| Exclusion ',
-
                             lineHeight: 1.1,
                             margin: [5, 0],
-
                             fontSize: 12,
                             alignment: 'center',
                           },
@@ -820,7 +740,6 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                     table: {
                       widths: [5, 80],
                       body: [
-
                         [
                           {
                             table: {
@@ -829,16 +748,12 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                                 [{ text: this.pdfcheckbox63, preserveLeadingSpaces: true }],
                               ],
                             },
-
-
                             margin: [1, 0],
                           },
                           {
                             text: '| Exclusion ',
-
                             lineHeight: 1.1,
                             margin: [5, 0],
-
                             fontSize: 12,
                             alignment: 'center',
                           },
@@ -854,7 +769,6 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                     table: {
                       widths: [5, 80],
                       body: [
-
                         [
                           {
                             table: {
@@ -863,16 +777,12 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                                 [{ text: this.pdfcheckbox71, preserveLeadingSpaces: true }],
                               ],
                             },
-
-
                             margin: [1, 0],
                           },
                           {
                             text: '| Exclusion ',
-
                             lineHeight: 1.1,
                             margin: [5, 0],
-
                             fontSize: 12,
                             alignment: 'center',
                           },
@@ -887,7 +797,6 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                     table: {
                       widths: [5, 80],
                       body: [
-
                         [
                           {
                             table: {
@@ -896,17 +805,13 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                                 [{ text: this.pdfcheckbox72, preserveLeadingSpaces: true }],
                               ],
                             },
-
-
                             margin: [1, 0],
                           },
                           {
                             text: '| Exclusion ',
-
                             lineHeight: 1.1,
                             margin: [5, 0],
-
-                            fontSize: 10,
+                            fontSize: 12,
                             alignment: 'center',
                           },
                         ],
@@ -920,7 +825,6 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                     table: {
                       widths: [5, 80],
                       body: [
-
                         [
                           {
                             table: {
@@ -929,16 +833,12 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                                 [{ text: this.pdfcheckbox73, preserveLeadingSpaces: true }],
                               ],
                             },
-
-
                             margin: [1, 0],
                           },
                           {
                             text: '| Exclusion ',
-
                             lineHeight: 1.1,
                             margin: [5, 0],
-
                             fontSize: 12,
                             alignment: 'center',
                           },
@@ -948,13 +848,12 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                     layout: {
                       defaultBorder: false,
                     },
-                  },]],
-                  [{ text: '8. Public Health Reporting | ' + this.result8 + ' of 5', style: 'tableHeader', colSpan: '4', alignment: 'left', fillColor: '#ffb080' }],
+                  },],],
+                  [{ text: '8. Public Health Reporting | ' + this.result8 + ' of 5', style: 'tableHeader', colSpan: '4', alignment: 'left', fillColor: '#ffb080', pageBreak: "before" },],
                   ['8-1. Immunization Registry Reporting', 'Complete Agent Engagement', [{
                     table: {
                       widths: [5, 80],
                       body: [
-
                         [
                           {
                             table: {
@@ -963,16 +862,12 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                                 [{ text: this.pdfcheckbox81c, preserveLeadingSpaces: true }],
                               ],
                             },
-
-
                             margin: [1, 0],
                           },
                           {
                             text: '| Complete',
-
                             lineHeight: 1.1,
                             margin: [5, 0],
-
                             fontSize: 12,
                             alignment: 'center',
                           },
@@ -987,7 +882,6 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                       table: {
                         widths: [5, 80],
                         body: [
-
                           [
                             {
                               table: {
@@ -996,16 +890,12 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                                   [{ text: this.pdfcheckbox81, preserveLeadingSpaces: true }],
                                 ],
                               },
-
-
                               margin: [1, 0],
                             },
                             {
                               text: '| Exclusion ',
-
                               lineHeight: 1.1,
                               margin: [5, 0],
-
                               fontSize: 12,
                               alignment: 'center',
                             },
@@ -1016,11 +906,10 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                         defaultBorder: false,
                       },
                     },]],
-                  ['8-2. Syndromic Suriveillance Reporting', 'Complete Agent Engagement', [{
+                  ['8-2. Syndromic Surveillance Reporting', 'Complete Agent Engagement', [{
                     table: {
                       widths: [5, 80],
                       body: [
-
                         [
                           {
                             table: {
@@ -1029,16 +918,12 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                                 [{ text: this.pdfcheckbox82c, preserveLeadingSpaces: true }],
                               ],
                             },
-
-
                             margin: [1, 0],
                           },
                           {
                             text: '| Complete',
-
                             lineHeight: 1.1,
                             margin: [5, 0],
-
                             fontSize: 12,
                             alignment: 'center',
                           },
@@ -1052,7 +937,6 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                     table: {
                       widths: [5, 80],
                       body: [
-
                         [
                           {
                             table: {
@@ -1061,16 +945,12 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                                 [{ text: this.pdfcheckbox82, preserveLeadingSpaces: true }],
                               ],
                             },
-
-
                             margin: [1, 0],
                           },
                           {
                             text: '| Exclusion ',
-
                             lineHeight: 1.1,
                             margin: [5, 0],
-
                             fontSize: 12,
                             alignment: 'center',
                           },
@@ -1085,7 +965,6 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                     table: {
                       widths: [5, 80],
                       body: [
-
                         [
                           {
                             table: {
@@ -1094,16 +973,12 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                                 [{ text: this.pdfcheckbox83c, preserveLeadingSpaces: true }],
                               ],
                             },
-
-
                             margin: [1, 0],
                           },
                           {
                             text: '| Complete',
-
                             lineHeight: 1.1,
                             margin: [5, 0],
-
                             fontSize: 12,
                             alignment: 'center',
                           },
@@ -1117,7 +992,6 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                     table: {
                       widths: [5, 80],
                       body: [
-
                         [
                           {
                             table: {
@@ -1126,16 +1000,12 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                                 [{ text: this.pdfcheckbox83, preserveLeadingSpaces: true }],
                               ],
                             },
-
-
                             margin: [1, 0],
                           },
                           {
                             text: '| Exclusion ',
-
                             lineHeight: 1.1,
                             margin: [5, 0],
-
                             fontSize: 12,
                             alignment: 'center',
                           },
@@ -1150,7 +1020,6 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                     table: {
                       widths: [5, 80],
                       body: [
-
                         [
                           {
                             table: {
@@ -1159,16 +1028,12 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                                 [{ text: this.pdfcheckbox84c, preserveLeadingSpaces: true }],
                               ],
                             },
-
-
                             margin: [1, 0],
                           },
                           {
                             text: '| Complete',
-
                             lineHeight: 1.1,
                             margin: [5, 0],
-
                             fontSize: 12,
                             alignment: 'center',
                           },
@@ -1182,7 +1047,6 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                     table: {
                       widths: [5, 80],
                       body: [
-
                         [
                           {
                             table: {
@@ -1191,16 +1055,12 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                                 [{ text: this.pdfcheckbox84, preserveLeadingSpaces: true }],
                               ],
                             },
-
-
                             margin: [1, 0],
                           },
                           {
                             text: '| Exclusion ',
-
                             lineHeight: 1.1,
                             margin: [5, 0],
-
                             fontSize: 12,
                             alignment: 'center',
                           },
@@ -1216,7 +1076,6 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                       table: {
                         widths: [5, 80],
                         body: [
-
                           [
                             {
                               table: {
@@ -1225,16 +1084,12 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                                   [{ text: this.pdfcheckbox85c, preserveLeadingSpaces: true }],
                                 ],
                               },
-
-
                               margin: [1, 0],
                             },
                             {
                               text: '| Complete',
-
                               lineHeight: 1.1,
                               margin: [5, 0],
-
                               fontSize: 12,
                               alignment: 'center',
                             },
@@ -1248,7 +1103,6 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                       table: {
                         widths: [5, 80],
                         body: [
-
                           [
                             {
                               table: {
@@ -1257,16 +1111,12 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                                   [{ text: this.pdfcheckbox85, preserveLeadingSpaces: true }],
                                 ],
                               },
-
-
                               margin: [1, 0],
                             },
                             {
                               text: '| Exclusion ',
-
                               lineHeight: 1.1,
                               margin: [5, 0],
-
                               fontSize: 12,
                               alignment: 'center',
                             },
@@ -1281,11 +1131,10 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
               }
             }
           ]
-
       };
       pdfMake.createPdf(documenDefinition).download('Stage3.Pdf');
     }
-    else if (this.DataSource1 != null) {
+    else if (this.stage2NumeDenomicount != null) {
       const documentColor = { content1: this.numerator3_3 === 0 ? { text: this.numerator3_3, fillColor: '#e6a2a2' } : { text: this.numerator3_3, fillColor: '#fff' } }
       const documenDefinition = {
         content:
@@ -1300,28 +1149,27 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
             text: this.ProviderName, alignment: 'left'
           },
           {
-            text: this.locationname, alignment: 'left'
+            text: this.LocationName, alignment: 'left'
           },
           {
-            text: this.locationstreetaddress, alignment: 'left'
+            text: this.LocationStreetAddress, alignment: 'left'
           },
           {
-            text: this.locationcity + ', ' + this.locationstate + ' ' + this.locationzip, alignment: 'left'
+            text: this.LocationCity + ' ' + this.LocationState + ' ' + this.LocationZip, alignment: 'left'
           },
           {
-            text: this.locationphone, alignment: 'left'
+            text: this.LocationPhone, alignment: 'left'
           },
-
-
           {
             image: 'data:image/jpg;base64,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',
             fit: [100, 100], absolutePosition: { x: 21, y: 53 },
             alignment: 'right'
           },
-
-
           {
             text: 'Date Ranges Of Report: ' + this.ReportingDate + ' - ' + this.Dates, alignment: 'left'
+          },
+          {
+            text: "  ", alignment: 'left'
           },
           {
             table: {
@@ -1335,6 +1183,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
             table: {
               widths: [30, 130, 277, 60],
               font: 'sans-serif',
+              absolutePosition: { y: 60 },
               body: [
                 [{ text: '1' }, { text: 'Protect PHI' },
                 [
@@ -1342,24 +1191,18 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                     table: {
                       widths: [130, 5, 10, 10, 10],
                       body: [
-
                         [
                           {
                             text: 'SRA Completed? ',
-
                             lineHeight: 1.1,
-                            margin: [20, 7],
-
+                            margin: [20, 4],
                             fontSize: 12,
                             alignment: 'left',
                           },
-
                           {
                             text: 'Y',
-
                             lineHeight: 1.1,
-                            margin: [1, 7],
-
+                            margin: [1, 4],
                             fontSize: 11,
                             alignment: 'right',
                           },
@@ -1370,17 +1213,12 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                                 [{ text: this.pdfradioy1, preserveLeadingSpaces: true }],
                               ],
                             },
-
-
                             margin: [1, 1],
                           },
-
                           {
                             text: 'N',
-
                             lineHeight: 1.1,
-                            margin: [5, 7],
-
+                            margin: [5, 4],
                             fontSize: 11,
                             alignment: 'left',
                           },
@@ -1391,23 +1229,16 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                                 [{ text: this.pdfradion1, preserveLeadingSpaces: true }],
                               ],
                             },
-
-
                             margin: [1, 1],
                           },
-
                         ],
                       ],
-
                     },
                     layout: {
                       defaultBorder: false,
                     },
                   },],
                 ]
-
-
-
                   , {
                   table: {
                     widths: [8],
@@ -1415,7 +1246,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                       [{ text: this.pdfcheckbox01, preserveLeadingSpaces: true }],
                     ],
                   },
-                  margin: [10, 6],
+                  margin: [10, 4],
                 },],
               ]
             }
@@ -1431,24 +1262,18 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                     table: {
                       widths: [130, 5, 10, 10, 10],
                       body: [
-
                         [
                           {
                             text: '5 Min. Enabled?',
-
                             lineHeight: 1.1,
-                            margin: [20, 7],
-
+                            margin: [20, 4],
                             fontSize: 12,
                             alignment: 'left',
                           },
-
                           {
                             text: 'Y',
-
                             lineHeight: 1.1,
-                            margin: [1, 7],
-
+                            margin: [1, 4],
                             fontSize: 11,
                             alignment: 'right',
                           },
@@ -1459,17 +1284,12 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                                 [{ text: this.pdfradioy21, preserveLeadingSpaces: true }],
                               ],
                             },
-
-
                             margin: [1, 1],
                           },
-
                           {
                             text: 'N',
-
                             lineHeight: 1.1,
-                            margin: [5, 7],
-
+                            margin: [5, 4],
                             fontSize: 11,
                             alignment: 'left',
                           },
@@ -1480,14 +1300,10 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                                 [{ text: this.pdfradion21, preserveLeadingSpaces: true }],
                               ],
                             },
-
-
                             margin: [1, 1],
                           },
-
                         ],
                       ],
-
                     },
                     layout: {
                       defaultBorder: false,
@@ -1500,43 +1316,34 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                       [{ text: this.pdfcheckbox021, preserveLeadingSpaces: true }],
                     ],
                   },
-
-
-                  margin: [10, 5],
+                  margin: [10, 4],
                 },],
               ]
             }
           },
           {
-
             table: {
               widths: [30, 130, 277, 60],
               font: 'sans-serif',
               body: [
-                [{ text: '2-2' }, { text: 'Drug-Drug/Drugallergy Interaction' },
+                [{ text: '2-2' }, { text: 'Drug-Drug/Drug-Allergy Interaction' },
                 [
                   [{
                     table: {
                       widths: [130, 5, 10, 10, 10],
                       body: [
-
                         [
                           {
                             text: '5 Min. Enabled?',
-
                             lineHeight: 1.1,
-                            margin: [20, 7],
-
+                            margin: [20, 4],
                             fontSize: 12,
                             alignment: 'left',
                           },
-
                           {
                             text: 'Y',
-
                             lineHeight: 1.1,
-                            margin: [1, 7],
-
+                            margin: [1, 4],
                             fontSize: 11,
                             alignment: 'right',
                           },
@@ -1547,17 +1354,12 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                                 [{ text: this.pdfradioy22, preserveLeadingSpaces: true }],
                               ],
                             },
-
-
                             margin: [1, 1],
                           },
-
                           {
                             text: 'N',
-
                             lineHeight: 1.1,
-                            margin: [5, 7],
-
+                            margin: [5, 4],
                             fontSize: 11,
                             alignment: 'left',
                           },
@@ -1568,14 +1370,10 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                                 [{ text: this.pdfradion22, preserveLeadingSpaces: true }],
                               ],
                             },
-
-
                             margin: [1, 1],
                           },
-
                         ],
                       ],
-
                     },
                     layout: {
                       defaultBorder: false,
@@ -1588,9 +1386,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                       [{ text: this.pdfcheckbox022, preserveLeadingSpaces: true }],
                     ],
                   },
-
-
-                  margin: [10, 6],
+                  margin: [10, 4],
                 },],
               ]
             }
@@ -1613,9 +1409,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                       [{ text: this.pdfcheckbox031, preserveLeadingSpaces: true }],
                     ],
                   },
-
-
-                  margin: [7, 10],
+                  margin: [10, 4],
                   fillColor: '#e6a2a2'
                 } : {
                   table: {
@@ -1624,9 +1418,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                       [{ text: this.pdfcheckbox031, preserveLeadingSpaces: true }],
                     ],
                   },
-
-
-                  margin: [10, 5],
+                  margin: [10, 4],
                   fillColor: '#fff'
                 },],
               ]
@@ -1650,9 +1442,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                       [{ text: this.pdfcheckbox032, preserveLeadingSpaces: true }],
                     ],
                   },
-
-
-                  margin: [7, 10],
+                  margin: [10, 4],
                   fillColor: '#e6a2a2'
                 } : {
                   table: {
@@ -1661,9 +1451,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                       [{ text: this.pdfcheckbox032, preserveLeadingSpaces: true }],
                     ],
                   },
-
-
-                  margin: [10, 5],
+                  margin: [10, 4],
                   fillColor: '#fff'
                 }],
               ]
@@ -1687,9 +1475,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                       [{ text: this.pdfcheckbox033, preserveLeadingSpaces: true }],
                     ],
                   },
-
-
-                  margin: [7, 10],
+                  margin: [10, 4],
                   fillColor: '#e6a2a2'
                 } : {
                   table: {
@@ -1698,9 +1484,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                       [{ text: this.pdfcheckbox033, preserveLeadingSpaces: true }],
                     ],
                   },
-
-
-                  margin: [10, 5],
+                  margin: [10, 4],
                   fillColor: '#fff'
                 }],
               ]
@@ -1724,9 +1508,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                       [{ text: this.pdfcheckbox04, preserveLeadingSpaces: true }],
                     ],
                   },
-
-
-                  margin: [7, 10],
+                  margin: [10, 4],
                   fillColor: '#e6a2a2'
                 } : {
                   table: {
@@ -1735,9 +1517,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                       [{ text: this.pdfcheckbox04, preserveLeadingSpaces: true }],
                     ],
                   },
-
-
-                  margin: [10, 5],
+                  margin: [10, 4],
                   fillColor: '#fff'
                 }],
               ]
@@ -1749,7 +1529,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
               font: 'sans-serif',
               body: [
                 [this.numerator5 === 0 || this.denominator5 === 0 ? { text: '5', fillColor: '#e6a2a2' } : { text: '5', fillColor: '#fff' },
-                this.numerator5 === 0 || this.denominator5 === 0 ? { text: 'Health Info Exchange', fillColor: '#e6a2a2' } : { text: 'Health Info Exchange', fillColor: '#fff' },
+                this.numerator5 === 0 || this.denominator5 === 0 ? { text: 'Health Information Exchange', fillColor: '#e6a2a2' } : { text: 'Health Information Exchange', fillColor: '#fff' },
                 this.numerator5 === 0 || this.denominator5 === 0 ? { text: this.numerator5, fillColor: '#e6a2a2' } : { text: this.numerator5, fillColor: '#fff' },
                 this.numerator5 === 0 || this.denominator5 === 0 ? { text: this.denominator5, fillColor: '#e6a2a2' } : { text: this.denominator5, fillColor: '#fff' },
                 this.numerator5 === 0 || this.denominator5 === 0 ? { text: this.percentage5 + '%', fillColor: '#e6a2a2' } : { text: this.percentage5 + '%', fillColor: '#fff' },
@@ -1761,9 +1541,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                       [{ text: this.pdfcheckbox05, preserveLeadingSpaces: true }],
                     ],
                   },
-
-
-                  margin: [7, 10],
+                  margin: [10, 4],
                   fillColor: '#e6a2a2'
                 } : {
                   table: {
@@ -1772,9 +1550,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                       [{ text: this.pdfcheckbox05, preserveLeadingSpaces: true }],
                     ],
                   },
-
-
-                  margin: [10, 5],
+                  margin: [10, 4],
                   fillColor: '#fff'
                 }],
               ]
@@ -1798,9 +1574,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                       [{ text: this.pdfcheckbox06, preserveLeadingSpaces: true }],
                     ],
                   },
-
-
-                  margin: [7, 10],
+                  margin: [10, 4],
                   fillColor: '#e6a2a2'
                 } : {
                   table: {
@@ -1809,9 +1583,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                       [{ text: this.pdfcheckbox06, preserveLeadingSpaces: true }],
                     ],
                   },
-
-
-                  margin: [10, 5],
+                  margin: [10, 4],
                   fillColor: '#fff'
                 }],
               ]
@@ -1836,9 +1608,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                       [{ text: this.pdfcheckbox07, preserveLeadingSpaces: true }],
                     ],
                   },
-
-
-                  margin: [7, 10],
+                  margin: [10, 4],
                   fillColor: '#e6a2a2'
                 } : {
                   table: {
@@ -1847,9 +1617,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                       [{ text: this.pdfcheckbox07, preserveLeadingSpaces: true }],
                     ],
                   },
-
-
-                  margin: [7, 10],
+                  margin: [10, 4],
                   fillColor: '#fff'
                 }],
               ]
@@ -1873,9 +1641,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                       [{ text: this.pdfcheckbox081, preserveLeadingSpaces: true }],
                     ],
                   },
-
-
-                  margin: [7, 10],
+                  margin: [10, 4],
                   fillColor: '#e6a2a2'
                 } : {
                   table: {
@@ -1884,9 +1650,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                       [{ text: this.pdfcheckbox081, preserveLeadingSpaces: true }],
                     ],
                   },
-
-
-                  margin: [10, 5],
+                  margin: [10, 4],
                   fillColor: '#fff'
                 }],
 
@@ -1912,8 +1676,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                       [{ text: this.pdfcheckbox082, preserveLeadingSpaces: true }],
                     ],
                   },
-
-                  margin: [7, 10],
+                  margin: [10, 4],
                   fillColor: '#e6a2a2'
                 } : {
                   table: {
@@ -1922,9 +1685,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                       [{ text: this.pdfcheckbox082, preserveLeadingSpaces: true }],
                     ],
                   },
-
-
-                  margin: [10, 5],
+                  margin: [10, 4],
                   fillColor: '#fff'
                 }],
               ]
@@ -1948,9 +1709,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                       [{ text: this.pdfcheckbox09, preserveLeadingSpaces: true }],
                     ],
                   },
-
-
-                  margin: [7, 10],
+                  margin: [10, 4],
                   fillColor: '#e6a2a2'
                 } : {
                   table: {
@@ -1959,9 +1718,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                       [{ text: this.pdfcheckbox09, preserveLeadingSpaces: true }],
                     ],
                   },
-
-
-                  margin: [10, 5],
+                  margin: [10, 4],
                   fillColor: '#fff'
                 }],
               ]
@@ -1978,24 +1735,18 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                     table: {
                       widths: [190, 5, 10, 10, 10],
                       body: [
-
                         [
                           {
                             text: 'Registered Intent or Submitted Data?',
-
                             lineHeight: 1.1,
-                            margin: [1, 7],
-
+                            margin: [1, 4],
                             fontSize: 12,
                             alignment: 'left',
                           },
-
                           {
                             text: 'Y',
-
                             lineHeight: 1.1,
-                            margin: [1, 7],
-
+                            margin: [1, 4],
                             fontSize: 11,
                             alignment: 'right',
                           },
@@ -2006,17 +1757,12 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                                 [{ text: this.pdfradioy101, preserveLeadingSpaces: true }],
                               ],
                             },
-
-
                             margin: [1, 1],
                           },
-
                           {
                             text: 'N',
-
                             lineHeight: 1.1,
-                            margin: [5, 7],
-
+                            margin: [5, 4],
                             fontSize: 11,
                             alignment: 'left',
                           },
@@ -2027,14 +1773,10 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                                 [{ text: this.pdfradion101, preserveLeadingSpaces: true }],
                               ],
                             },
-
-
                             margin: [1, 1],
                           },
-
                         ],
                       ],
-
                     },
                     layout: {
                       defaultBorder: false,
@@ -2047,9 +1789,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                       [{ text: this.pdfcheckbox0101, preserveLeadingSpaces: true }],
                     ],
                   },
-
-
-                  margin: [10, 5],
+                  margin: [10, 4],
                 },],
               ]
             }
@@ -2065,24 +1805,18 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                     table: {
                       widths: [190, 5, 10, 10, 10],
                       body: [
-
                         [
                           {
                             text: 'Registered Intent or Submitted Data?',
-
                             lineHeight: 1.1,
-                            margin: [1, 7],
-
+                            margin: [1, 4],
                             fontSize: 12,
                             alignment: 'left',
                           },
-
                           {
                             text: 'Y',
-
                             lineHeight: 1.1,
-                            margin: [1, 7],
-
+                            margin: [1, 4],
                             fontSize: 11,
                             alignment: 'right',
                           },
@@ -2093,17 +1827,12 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                                 [{ text: this.pdfradioy102, preserveLeadingSpaces: true }],
                               ],
                             },
-
-
                             margin: [1, 1],
                           },
-
                           {
                             text: 'N',
-
                             lineHeight: 1.1,
-                            margin: [5, 7],
-
+                            margin: [5, 4],
                             fontSize: 11,
                             alignment: 'left',
                           },
@@ -2114,14 +1843,10 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                                 [{ text: this.pdfradion102, preserveLeadingSpaces: true }],
                               ],
                             },
-
-
                             margin: [1, 1],
                           },
-
                         ],
                       ],
-
                     },
                     layout: {
                       defaultBorder: false,
@@ -2134,9 +1859,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                       [{ text: this.pdfcheckbox0102, preserveLeadingSpaces: true }],
                     ],
                   },
-
-
-                  margin: [10, 5],
+                  margin: [10, 4],
                 },],
               ]
             }
@@ -2152,24 +1875,18 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                     table: {
                       widths: [190, 5, 10, 10, 10],
                       body: [
-
                         [
                           {
                             text: 'Registered Intent or Submitted Data?',
-
                             lineHeight: 1.1,
-                            margin: [1, 7],
-
+                            margin: [1, 4],
                             fontSize: 12,
                             alignment: 'left',
                           },
-
                           {
                             text: 'Y',
-
                             lineHeight: 1.1,
-                            margin: [1, 7],
-
+                            margin: [1, 4],
                             fontSize: 11,
                             alignment: 'right',
                           },
@@ -2180,17 +1897,12 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                                 [{ text: this.pdfradioy103, preserveLeadingSpaces: true }],
                               ],
                             },
-
-
                             margin: [1, 1],
                           },
-
                           {
                             text: 'N',
-
                             lineHeight: 1.1,
-                            margin: [5, 7],
-
+                            margin: [5, 4],
                             fontSize: 11,
                             alignment: 'left',
                           },
@@ -2201,14 +1913,10 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                                 [{ text: this.pdfradion103, preserveLeadingSpaces: true }],
                               ],
                             },
-
-
                             margin: [1, 1],
                           },
-
                         ],
                       ],
-
                     },
                     layout: {
                       defaultBorder: false,
@@ -2221,16 +1929,11 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
                       [{ text: this.pdfcheckbox0103, preserveLeadingSpaces: true }],
                     ],
                   },
-
-
-                  margin: [10, 5],
+                  margin: [10, 4],
                 },],
               ]
             }
           },
-
-
-
           ]
       };
       pdfMake.createPdf(documenDefinition).download('Stage2.Pdf');
@@ -2240,337 +1943,58 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
     }
   }
 
-  constructor(private service: Accountservice, private fb: FormBuilder, private tableutil: TableUtil, public datepipe: DatePipe) {
-    this.allPatientList = new MatTableDataSource<PatientData>();
-    this.encounterlist = new MatTableDataSource<EncounterData>();
-    this.problemreportlist = new MatTableDataSource<ProblemData>();
-    this.mupatientList = new MatTableDataSource<MUPatientData>();
-    this.tomorrow.setDate(this.tomorrow.getDate());
+  constructor(private authenticationService: AuthenticationService, private service: Accountservice, private fb: FormBuilder, public datepipe: DatePipe) {
+    pdfMake.vfs = pdfFonts.pdfMake.vfs;
+  }
 
-
-  }
-  key: string = 'name';
-  reverse: boolean = false;
-  sort1(key) {
-    this.key = key;
-    this.reverse = !this.reverse;
-  }
-  // @ViewChild(MatPaginator,{static:true}) paginator: MatPaginator | undefined;
-  ngAfterViewInit(): void {
-    // this.allPatientList.paginator = this.paginator;
-    this.allPatientList.paginator = this.paginator.toArray()[0];
-    this.allPatientList.sort = this.sort.toArray()[0];
-    this.encounterlist.paginator = this.paginator.toArray()[1];
-    this.encounterlist.sort = this.sort.toArray()[1];
-    this.problemreportlist.paginator = this.paginator.toArray()[2];
-    this.problemreportlist.sort = this.sort.toArray()[2];
-    this.mupatientList.paginator = this.paginator.toArray()[3];
-    this.mupatientList.sort = this.sort.toArray()[3];
-  }
   ngOnInit() {
-    this.ProblemReportForm();
-    this.EncounterForm();
-    this.Stage3Form();
-    this.PatientForm();
-    this.category = [
-      { Id: 1, Name: 'Meaningful Use' },
-      { Id: 2, Name: ' Clinical Quality Measures' },
-      { Id: 3, Name: ' Patient List' },
-      { Id: 4, Name: ' Encouters' },
-      { Id: 5, Name: ' Problem List' },
-    ];
-    this.change(this.Reports);
-    this.showControls = false;
-    this.showPatientControls = false;
-    this.showEncounterControls = false;
-    this.showProblemListControls = false;
-    this.disable = false;
-    this.getProviderList('');
     this.getLocationsList('');
-  }
-
-  change(req) {
-    this.categoryId = req;
-    if (req == 1) {
-      this.Reports = [
-        { RepId: 1, Name: 'MU Summary', Id: 1 },
-        { RepId: 2, Name: 'CPOE: Medical Orders', Id: 1 },
-        { RepId: 3, Name: 'CPOE: Laboratory Orders', Id: 1 },
-        { RepId: 4, Name: 'CPOE: Radiology Orders', Id: 1 },
-        { RepId: 5, Name: 'Electronic Prescribing', Id: 1 },
-        { RepId: 6, Name: 'Health Info Exchange', Id: 1 },
-        { RepId: 7, Name: 'Patient Electronic Access', Id: 1 },
-        { RepId: 8, Name: 'View, Download, Transmit', Id: 1 },
-        { RepId: 9, Name: 'Secure Messaging', Id: 1 },
-      ];
-    }
-    else if (req == 2) {
-      this.Reports = [
-        { RepId: 1, Name: 'CQM Summary', Id: 2 },
-        { RepId: 2, Name: 'CQM: CMS 68', Id: 2 },
-        { RepId: 3, Name: 'CQM: CMS 69', Id: 2 },
-        { RepId: 4, Name: 'CQM: CMS 74', Id: 2 },
-        { RepId: 5, Name: 'CQM: CMS 75', Id: 2 },
-        { RepId: 6, Name: 'CQM: CMS 127', Id: 2 },
-        { RepId: 7, Name: 'CQM: CMS 147', Id: 2 },
-        { RepId: 8, Name: 'CQM: CMS 155', Id: 2 },
-        { RepId: 9, Name: 'CQM: CMS 165', Id: 2 },
-      ];
-    }
-    else if (req == 3) {
-      this.Reports = [
-        { RepId: 1, Name: 'Patient List Report', Id: 3 },
-      ];
-    }
-    else if (req == 4) {
-      this.Reports = [
-        { RepId: 1, Name: 'Encouter Report', Id: 4 },
-      ];
-    }
-    else if (req == 5) {
-      this.Reports = [
-        { RepId: 1, Name: 'Problem List Report', Id: 5 },
-      ];
-    }
-    else {
-      this.Reports = [
-        { Name: 'No results found' },
-      ];
-    }
-  }
-
-  reportsId(req) {
-    if (req == 0 || req == null) {
-      this.disable = false;
-    }
-    else if (req >= 1) {
-      this.disable = true;
-    }
-  }
-
-
-  showReport() {
-    if (this.categoryId == 1 && this.disable == true) {
-      this.showControls = true;
-      this.problemreportform.reset();
-      this.ifMeaningfulUse = true;
-      this.showProblemListControls = false;
-      this.showPatientControls = false;
-      this.showEncounterControls = false;
-      this.Cqmreports = false;
-      this.enableDropdown = true;
-      this.enableExportCSV = false;
-
-      this.LocationId = "";
-      this.getLocationsList(this.LocationId);
-
-    }
-    else if (this.categoryId == 2 && this.disable == true) {
-      debugger;
-      this.showControls = false;
-      this.problemreportform.reset();
-      this.ifMeaningfulUse = false;
-      this.showProblemListControls = false;
-      this.showPatientControls = false;
-      this.Stage3 = false;
-      this.Stage2 = false;
-      this.showEncounterControls = false;
-      this.Cqmreports = true;
-      this.enableDropdown = false;
-      this.enableExportCSV = false;
-      this.DataSource = null;
-      this.DataSource1 = null;
-      this.muReportForm.reset();
-      this.patientForm.reset();
-      this.encounterForm.reset();
-      this.problemreportform.reset();
-    }
-    else if (this.categoryId == 3 && this.disable == true) {
-      this.showControls = false;
-      this.ifMeaningfulUse = false;
-      this.patientlist = true;
-      this.problemreportform.reset();
-      this.encounterForm.reset();
-      this.showPatientControls = true;
-      this.Stage3 = false;
-      this.Stage2 = false;
-      this.showProblemListControls = false;
-      // this.onSubmitallpatientlist();
-      this.showEncounterControls = false;
-      this.Cqmreports = false;
-      this.enableDropdown = false;
-      this.enableExportCSV = true;
-      this.DataSource = null;
-      this.DataSource1 = null;
-      this.muReportForm.reset();
-      this.showpatientTable = false;
-      this.showencounterTable = false;
-      this.showPromblemListTable = false;
-      this.getProviderList('');
-      this.LocationId = "";
-      this.getLocationsList(this.LocationId);
-      this.getProviderList('');
-
-    }
-    else if (this.categoryId == 4 && this.disable == true) {
-      this.showControls = false;
-      this.problemreportform.reset();
-      this.patientForm.reset();
-      this.showPatientControls = false;
-      this.showEncounterControls = true;
-      // this.onSubmitEncounterlist();
-      this.Stage3 = false;
-      this.Stage2 = false;
-      this.patientlist = false;
-      this.showProblemListControls = false;
-      this.Cqmreports = false;
-      this.enableDropdown = false;
-      this.enableExportCSV = true;
-      this.DataSource = null;
-      this.DataSource1 = null;
-      this.muReportForm.reset();
-      this.showpatientTable = false;
-      this.showencounterTable = false;
-      this.showPromblemListTable = false;
-      this.getProviderList('');
-      this.LocationId = "";
-      this.getLocationsList(this.LocationId);
-      this.getProviderList('');
-    }
-    else if (this.categoryId == 5 && this.disable == true) {
-      this.showControls = false;
-      this.encounterForm.reset();
-      this.patientForm.reset();
-      this.showPatientControls = false;
-      this.showProblemListControls = true;
-      this.Stage2 = false;
-      this.Stage3 = false;
-      this.patientlist = false;
-      this.showEncounterControls = false;
-      // this.onSubmitProblemReportList();
-      this.Cqmreports = false;
-      this.enableDropdown = false;
-      this.enableExportCSV = true;
-      this.DataSource = null;
-      this.DataSource1 = null;
-      this.muReportForm.reset();
-      this.showpatientTable = false;
-      this.showencounterTable = false;
-      this.showPromblemListTable = false;
-      this.getProviderList('');
-      this.LocationId = "";
-      this.getLocationsList(this.LocationId);
-      this.getProviderList('');
-    }
-  }
-
-  disableApplyButton() {
-    debugger;
-    if ((this.patientForm.value.provider_Id != "") && (this.patientForm.value.SstartDate == "") && (this.patientForm.value.SendDate == "") && (this.patientForm.value.AstartDate == "") && (this.patientForm.value.AendDate == "")) {
-
-      this.applyButtonToDisable = false;
-    }
-    else if ((this.patientForm.value.provider_Id != "") && (this.patientForm.value.SstartDate != "") && (this.patientForm.value.SendDate != "") && (this.patientForm.value.AstartDate == "") && (this.patientForm.value.AendDate == "")) {
-      this.applyButtonToDisable = false;
-    }
-    else if ((this.patientForm.value.provider_Id != "") && (this.patientForm.value.SstartDate == "") && (this.patientForm.value.SendDate == "") && (this.patientForm.value.AstartDate != "") && (this.patientForm.value.AendDate != "")) {
-      this.applyButtonToDisable = false;
-    }
-    else if ((this.patientForm.value.provider_Id != "") && (this.patientForm.value.SstartDate != "") && (this.patientForm.value.SendDate != "") && (this.patientForm.value.AstartDate != "") && (this.patientForm.value.AendDate != "")) {
-      this.applyButtonToDisable = false;
-    }
-    else if ((this.patientForm.value.provider_Id != "") && (this.patientForm.value.SstartDate != "")) {
-      this.applyButtonToDisable = true;
-    }
-    else if ((this.patientForm.value.provider_Id != "") && (this.patientForm.value.AstartDate != "")) {
-      this.applyButtonToDisable = true;
-    }
-    else {
-      this.applyButtonToDisable = true;
-    }
-  }
-  disableApplyButtonEncounterlist() {
-    debugger;
-    if ((this.encounterForm.value.provider_Id != "") && (this.encounterForm.value.SstartDate == "") && (this.encounterForm.value.SendDate == "")) {
-
-      this.applyButtonToDisableencounter = false;
-    }
-    else if ((this.encounterForm.value.provider_Id != "") && (this.encounterForm.value.SstartDate != "") && (this.encounterForm.value.SendDate != "")) {
-      this.applyButtonToDisableencounter = false;
-    }
-    else if ((this.encounterForm.value.provider_Id != "") && (this.encounterForm.value.SstartDate != "") && (this.encounterForm.value.SendDate == "")) {
-      this.applyButtonToDisableencounter = true;
-    }
-    else if ((this.encounterForm.value.provider_Id != "") && (this.encounterForm.value.SstartDate == "") && (this.encounterForm.value.SendDate != "")) {
-      this.applyButtonToDisableencounter = true;
-    }
-
-    else {
-      this.applyButtonToDisableencounter = true;
-    }
+    this.getProviderList('');
+    this.Stage3Form();
 
   }
-  disableApplyButtonProblemlist() {
-    debugger;
-    if ((this.problemreportform.value.ProviderId != "") && (this.problemreportform.value.StartDate == "") && (this.problemreportform.value.EndDate == "")) {
 
-      this.applyButtonToDisableproblem = false;
-    }
-    else if ((this.problemreportform.value.ProviderId != "") && (this.problemreportform.value.StartDate != "") && (this.problemreportform.value.EndDate != "")) {
-      this.applyButtonToDisableproblem = false;
-    }
-    else if ((this.problemreportform.value.ProviderId != "") && (this.problemreportform.value.StartDate != "") && (this.problemreportform.value.EndDate == "")) {
-      this.applyButtonToDisableproblem = true;
-    }
-    else if ((this.problemreportform.value.ProviderId != "") && (this.problemreportform.value.StartDate == "") && (this.problemreportform.value.EndDate != "")) {
-      this.applyButtonToDisableproblem = true;
-    }
+  getProviderList(Providersdata: any) {
+    this.LocationName = Providersdata.Location_Name;
+    this.LocationPhone = Providersdata.Location_Phone;
+    this.LocationStreetAddress = Providersdata.Location_Street_Address;
+    this.LocationCity = Providersdata.Location_City == undefined ? '' : Providersdata.Location_City;
+    this.LocationState = Providersdata.Location_State == undefined ? '' : Providersdata.Location_State;
+    this.LocationName == undefined ? 0 : this.LocationName;
+    this.LocationZip = Providersdata.Location_Zip == undefined ? '' : Providersdata.Location_Zip;
 
-    else {
-      this.applyButtonToDisableproblem = true;
-    }
+    let locationid = localStorage.getItem('providerlocation');
 
-  }
-  onSubmitMUReport() {
-    debugger;
-    if (this.muReportForm.invalid) {
-
-      return;
+    var req = {
+      "LocationId": locationid,
     }
-    var MUreport = {
-
-      "startDate": this.datepipe.transform(this.muReportForm.value.strSDate, 'MM/dd/yyyy', 'en-US'),
-      "endDate": this.datepipe.transform(this.muReportForm.value.strEDate, 'MM/dd/yyyy', 'en-US'),
-      "provider_Id": this.muReportForm.value.provider_Id,
-      "stage_type": this.muReportForm.value.stage_type,
-    }
-    this.ReportingDate = this.datepipe.transform(this.muReportForm.value.strSDate, 'MM/dd/yyyy', 'en-US');
-    this.Dates = this.datepipe.transform(this.muReportForm.value.strEDate, 'MM/dd/yyyy', 'en-US');
-    // this.ProviderName=this.muReportForm.value.provider_Id;
-    //  this.checkboxeventry21=(this.radioy21);
-    //  this.checkboxeventrn21=(this.radion21);
-    //  this.checkboxeventry22=(this.radioy22);
-    //  this.checkboxeventrn22=(this.radion22);
-    //  this.checkboxeventry101=(this.radioy101);
-    //  this.checkboxeventrn101=(this.radion101);
-    //  this.checkboxeventry102=(this.radioy102);
-    //  this.checkboxeventrn102=(this.radion102);
-    //  this.checkboxeventry103=(this.radioy103);
-    //  this.checkboxeventrn103=(this.radion103);
-
-    if (this.muReportForm.value.stage_type == 2) {
-      //debugger;
-      this.GetNumeDenomicount1(MUreport);
-      this.checkboxeventry1(this.radioy1);
-    }
-    else if (this.muReportForm.value.stage_type == 3) {
-      //debugger;
-      this.GetNumeDenomicount(MUreport);
-    }
+    this.service.getProviderList(req).subscribe(data => {
+      if (data.IsSuccess) {
+        this.providerlist = data.ListResult;
+        this.filteredproviderList = this.providerlist.slice();
+      }
+    });
   }
 
+  getLocationsList(Location: any) {
+    this.ProviderName = Location.Provider_Name;
+    this.service.getLocationsList(Location.Provider_Id).subscribe(data => {
+      if (data.IsSuccess) {
+        this.locationslist = data.ListResult;
+        this.filteredlocationList = this.locationslist.slice();
+      }
+    });
+    // if (Location == "") {
+    //   this.service.getLocationsList(Location).subscribe(data => {
+    //     if (data.IsSuccess) {
+    //       this.locationslist = data.ListResult;
+    //       this.filteredlocationList = this.locationslist.slice();
+    //     }
+    //   });
+    // }
+  }
   onStage2SubmitPatientList(req) {
-    this.customizedspinner = true;
+    this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
     var Patientreport = {
       "startDate": this.datepipe.transform(this.muReportForm.value.strSDate, 'yyyy-MM-dd', 'en-US'),
       "endDate": this.datepipe.transform(this.muReportForm.value.strEDate, 'yyyy-MM-dd', 'en-US'),
@@ -2581,38 +2005,143 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
     this.getStage2PatientList(Patientreport);
   }
 
+  disableEndDate() {
+    var StartDate =
+      this.muReportForm.value.strSDate == null
+        ? ""
+        : this.muReportForm.value.strSDate;
+    if (StartDate != "") {
+      this.disableEndDateInput = false;
+    }
+    else {
+      this.disableEndDateInput = true;
+    }
+  }
+
   getStage2PatientList(data: any) {
     this.Stage2PatientList = [];
     this.Stage2PatientListlength = null;
     this.service.getStage2PatientList(data).subscribe(data => {
-      this.Stage2PatientListlength = 0;
       if (data.IsSuccess) {
         this.Stage2PatientList = data.ListResult;
         this.Stage2PatientListlength = data.ListResult.length;
+      }
+      else {
+        this.Stage2PatientListlength = 0;
       }
       this.customizedspinner = false;
     });
   }
 
-  GetNumeDenomicount1(data: any) {
-    //debugger;
-    this.customizedspinner = true;
+  hideScroll() {
+    this.customizedspinner = false; $('body').removeClass('loadactive');
+  }
+
+  onSubmitMUReport() {
+    debugger;
+    if (this.muReportForm.invalid) {
+      return;
+    }
+    var MUreport = {
+      "startDate": this.datepipe.transform(this.muReportForm.value.strSDate, 'MM/dd/yyyy', 'en-US'),
+      "endDate": this.datepipe.transform(this.muReportForm.value.strEDate, 'MM/dd/yyyy', 'en-US'),
+      "provider_Id": this.muReportForm.value.provider_Id,
+      "stage_type": this.muReportForm.value.stage_type,
+    }
+    this.ReportingDate = this.datepipe.transform(this.muReportForm.value.strSDate, 'MM/dd/yyyy', 'en-US');
+    this.Dates = this.datepipe.transform(this.muReportForm.value.strEDate, 'MM/dd/yyyy', 'en-US');
+
+    if (this.muReportForm.value.stage_type == 2) {
+      this.protectvalue = null;
+      this.clinicalvalue = null;
+      this.drugvalue = null;
+      this.immunizationvalue = null;
+      this.syndromicvalue = null;
+      this.specializedvalue = null;
+      this.getStage2NumeDenomicount(MUreport);
+      this.checkboxeventry1(this.radioy1);
+    }
+    else if (this.muReportForm.value.stage_type == 3) {
+      this.getStage3NumeDenomicount(MUreport);
+    }
+    this.checkboxeventry1(false);
+    this.checkboxeventrn1(false);
+    this.checkboxeventry21(false);
+    this.checkboxeventrn21(false);
+    this.checkboxeventry22(false);
+    this.checkboxeventrn22(false);
+    this.checkboxeventry101(false);
+    this.checkboxeventrn101(false);
+    this.checkboxeventry102(false);
+    this.checkboxeventrn102(false);
+    this.checkboxeventry103(false);
+    this.checkboxeventrn103(false);
+    this.checkboxevent1(false);
+    this.checkboxevent2(false);
+    this.checkboxevent31(false);
+    this.checkboxevent32(false);
+    this.checkboxevent41(false);
+    this.checkboxevent42(false);
+    this.checkboxevent43(false);
+    this.checkboxevent51(false);
+    this.checkboxevent52(false);
+    this.checkboxevent61(false);
+    this.checkboxevent62(false);
+    this.checkboxevent63(false);
+    this.checkboxevent71(false);
+    this.checkboxevent72(false);
+    this.checkboxevent73(false);
+    this.checkboxevent81(false);
+    this.checkboxevent82(false);
+    this.checkboxevent83(false);
+    this.checkboxevent84(false);
+    this.checkboxevent85(false);
+    this.checkboxevent01(false);
+    this.checkboxevent021(false);
+    this.checkboxevent022(false);
+    this.checkboxevent031(false);
+    this.checkboxevent032(false);
+    this.checkboxevent033(false);
+    this.checkboxevent04(false);
+    this.checkboxevent05(false);
+    this.checkboxevent06(false);
+    this.checkboxevent07(false);
+    this.checkboxevent081(false);
+    this.checkboxevent082(false);
+    this.checkboxevent09(false);
+    this.checkboxevent0101(false);
+    this.checkboxevent0102(false);
+    this.checkboxevent0103(false);
+    this.checkboxeventry103(false);
+    this.checkboxeventrn103(false);
+    this.checkboxeventry102(false);
+    this.checkboxeventrn103(false);
+    this.checkboxeventry101(false);
+    this.checkboxeventrn101(false);
+    this.checkboxeventry22(false);
+    this.checkboxeventrn22(false);
+    this.checkboxeventry21(false);
+    this.checkboxeventrn21(false);
+    this.checkboxeventry1(false);
+    this.checkboxeventrn1(false);
+    this.checkboxevent1(false);
+    this.checkboxevent85c(false);
+    this.checkboxevent84c(false);
+    this.checkboxevent31c(false);
+    this.checkboxevent32c(false);
+    this.checkboxevent81c(false);
+    this.checkboxevent82c(false);
+    this.checkboxevent83c(false);
+  }
+
+  getStage2NumeDenomicount(data: any) {
+    this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
+    this.stage2NumeDenomicount = null;
+    this.stage3NumeDenomicount = null;
     this.service.GetStage2NumeDenomiCount(data).subscribe(data => {
       if (data.IsSuccess) {
-        this.customizedspinner = true;
         this.Stage2 = true;
         this.Stage3 = false;
-        // this.checkboxeventrn1=(this.radion1);
-        // this.checkboxeventry21=(this.radioy21);
-        // this.checkboxeventrn21=(this.radion21);
-        // this.checkboxeventry22=(this.radioy22);
-        // this.checkboxeventrn22=(this.radion22);
-        // this.checkboxeventry101=(this.radioy101);
-        // this.checkboxeventrn101=(this.radion101);
-        // this.checkboxeventry102=(this.radioy102);
-        // this.checkboxeventrn102=(this.radion102);
-        // this.checkboxeventry103=(this.radioy103);
-        // this.checkboxeventrn103=(this.radion103);
         this.checkboxevent01(this.checkbox01);
         this.checkboxevent021(this.checkbox021);
         this.checkboxevent022(this.checkbox022);
@@ -2629,7 +2158,8 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
         this.checkboxevent0101(this.checkbox0101);
         this.checkboxevent0102(this.checkbox0102);
         this.checkboxevent0103(this.checkbox0103);
-        this.DataSource1 = data.ListResult;
+        this.stage2NumeDenomicount = data.ListResult;
+        this.disabledowloadPDF = false;
         for (var val of data.ListResult) {
           if (val.TypeName == '3-1') {
             this.numerator3_1 = val.Numerator;
@@ -2682,7 +2212,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
             this.percentage9 = val.Percentage;
           }
         }
-        this.customizedspinner = false;
+        this.customizedspinner = false; $('body').removeClass('loadactive');
       }
     });
   }
@@ -2831,6 +2361,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
     }
   }
   checkboxevent2(event) {
+    this.checkboxvalue2 = event;
     var count: number = 0;
     this.checkbox2 = event;
     if (this.percentage2 > 60.0 || this.checkbox2 == true) {
@@ -2847,9 +2378,9 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
       this.pdfcheckbox2 = "\t";
     }
     this.result2 = this.patientelectronicacess2 == undefined ? 0 : this.patientelectronicacess2;
-    //this.onSubmitMUReport();
   }
   checkboxevent1(event) {
+    this.checkboxvalue1 = event;
     this.checkbox1 = event;
     var count: number = 0;
     if (this.checkbox1 == true) {
@@ -2864,12 +2395,11 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
       this.pdfcheckbox1 = "√"
     }
     else if (this.checkbox1 == false || this.checkbox1 == undefined) {
-      // this.pdfcheckbox1=this.image;
       this.pdfcheckbox1 = "\t"
     }
-    //this.onSubmitMUReport();
   }
   checkboxevent31c(event) {
+    this.checkboxvalue31c = event;
     this.checkbox31c = event;
     var count: number = 0;
     if (this.checkbox31c == true || this.checkbox31 == true) {
@@ -2886,9 +2416,9 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
     else if (this.checkbox31c == false || this.checkbox31c == undefined) {
       this.pdfcheckbox31c = "\t"
     }
-    //this.onSubmitMUReport();
   }
   checkboxevent32c(event) {
+    this.checkboxvalue32c = event;
     this.checkbox32c = event;
     var count: number = 0;
     if (this.checkbox32c == true || this.checkbox32 == true) {
@@ -2905,9 +2435,9 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
     else if (this.checkbox32c == false || this.checkbox32c == undefined) {
       this.pdfcheckbox32c = "\t"
     }
-    //this.onSubmitMUReport();
   }
   checkboxevent41(event) {
+    this.checkboxvalue41 = event;
     this.checkbox41 = event;
     var count: number = 0;
     if (this.percentage41 > 60.0 || this.checkbox41 == true) {
@@ -2924,9 +2454,9 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
     else if (this.checkbox41 == false || this.checkbox41 == undefined) {
       this.pdfcheckbox41 = "\t"
     }
-    //this.onSubmitMUReport();
   }
   checkboxevent42(event) {
+    this.checkboxvalue42 = event;
     this.checkbox42 = event;
     var count: number = 0;
     if (this.percentage42 > 60.0 || this.checkbox42 == true) {
@@ -2943,9 +2473,9 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
     else if (this.checkbox42 == false || this.checkbox42 == undefined) {
       this.pdfcheckbox42 = "\t"
     }
-    //this.onSubmitMUReport();
   }
   checkboxevent43(event) {
+    this.checkboxvalue43 = event;
     this.checkbox43 = event;
     var count: number = 0;
     if (this.percentage43 > 60.0 || this.checkbox43 == true) {
@@ -2962,9 +2492,9 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
     else if (this.checkbox43 == false || this.checkbox43 == undefined) {
       this.pdfcheckbox43 = "\t"
     }
-    //this.onSubmitMUReport();
   }
   checkboxevent51(event) {
+    this.checkboxvalue51 = event;
     this.checkbox51 = event;
     var count: number = 0;
     if (this.percentage51 > 80.0 || this.checkbox51 == true) {
@@ -2981,9 +2511,9 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
     else if (this.checkbox51 == false || this.checkbox51 == undefined) {
       this.pdfcheckbox51 = "\t"
     }
-    //this.onSubmitMUReport();
   }
   checkboxevent52(event) {
+    this.checkboxvalue52 = event;
 
     this.checkbox52 = event;
     var count: number = 0;
@@ -3001,9 +2531,9 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
     else if (this.checkbox52 == false || this.checkbox52 == undefined) {
       this.pdfcheckbox52 = "\t"
     }
-    //this.onSubmitMUReport();
   }
   checkboxevent61(event) {
+    this.checkboxvalue61 = event;
 
     this.checkbox61 = event;
     var count: number = 0;
@@ -3021,9 +2551,9 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
     else if (this.checkbox61 == false || this.checkbox61 == undefined) {
       this.pdfcheckbox61 = "\t"
     }
-    //this.onSubmitMUReport();
   }
   checkboxevent62(event) {
+    this.checkboxvalue62 = event;
 
     this.checkbox62 = event;
     var count: number = 0;
@@ -3041,9 +2571,9 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
     else if (this.checkbox62 == false || this.checkbox62 == undefined) {
       this.pdfcheckbox62 = "\t"
     }
-    //this.onSubmitMUReport();
   }
   checkboxevent63(event) {
+    this.checkboxvalue63 = event;
 
     this.checkbox63 = event;
     var count: number = 0;
@@ -3061,9 +2591,9 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
     else if (this.checkbox63 == false || this.checkbox63 == undefined) {
       this.pdfcheckbox63 = "\t"
     }
-    //this.onSubmitMUReport();
   }
   checkboxevent71(event) {
+    this.checkboxvalue71 = event;
 
     this.checkbox71 = event;
     var count: number = 0;
@@ -3081,9 +2611,9 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
     else if (this.checkbox71 == false || this.checkbox71 == undefined) {
       this.pdfcheckbox71 = "\t"
     }
-    //this.onSubmitMUReport();
   }
   checkboxevent72(event) {
+    this.checkboxvalue72 = event;
 
     this.checkbox72 = event;
     var count: number = 0;
@@ -3104,6 +2634,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
     //this.onSubmitMUReport();
   }
   checkboxevent73(event) {
+    this.checkboxvalue73 = event;
 
     this.checkbox73 = event;
     var count: number = 0;
@@ -3124,6 +2655,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
     //this.onSubmitMUReport();
   }
   checkboxevent31(event) {
+    this.checkboxvalue31 = event;
 
     this.checkbox31 = event;
     var count: number = 0;
@@ -3144,6 +2676,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
     //this.onSubmitMUReport();
   }
   checkboxevent32(event) {
+    this.checkboxvalue32 = event;
 
     this.checkbox32 = event;
     var count: number = 0;
@@ -3164,6 +2697,8 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
     //this.onSubmitMUReport();
   }
   checkboxevent81c(event) {
+    debugger;
+    this.checkboxvalue81c = event;
     this.checkbox81c = event;
     var count: number = 0;
     if (this.checkbox81c == true || this.checkbox81 == true) {
@@ -3183,7 +2718,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
     //this.onSubmitMUReport();
   }
   checkboxevent82c(event) {
-
+    this.checkboxvalue82c = event;
     this.checkbox82c = event;
     var count: number = 0;
     if (this.checkbox82c == true || this.checkbox82 == true) {
@@ -3203,7 +2738,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
     //this.onSubmitMUReport();
   }
   checkboxevent83c(event) {
-
+    this.checkboxvalue83c = event;
     this.checkbox83c = event;
     var count: number = 0;
     if (this.checkbox83c == true || this.checkbox83 == true) {
@@ -3223,7 +2758,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
     //this.onSubmitMUReport();
   }
   checkboxevent84c(event) {
-
+    this.checkboxvalue84c = event;
     this.checkbox84c = event;
     var count: number = 0;
     if (this.checkbox84c == true || this.checkbox84 == true) {
@@ -3243,7 +2778,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
     //this.onSubmitMUReport();
   }
   checkboxevent85c(event) {
-
+    this.checkboxvalue85c = event;
     this.checkbox85c = event;
     var count: number = 0;
     if (this.checkbox85c == true || this.checkbox85 == true) {
@@ -3263,6 +2798,8 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
     //this.onSubmitMUReport();
   }
   checkboxevent81(event) {
+    debugger;
+    this.checkboxvalue81 = event;
 
     this.checkbox81 = event;
     var count: number = 0;
@@ -3283,6 +2820,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
     //this.onSubmitMUReport();
   }
   checkboxevent82(event) {
+    this.checkboxvalue82 = event;
 
     this.checkbox82 = event;
     var count: number = 0;
@@ -3303,6 +2841,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
     //this.onSubmitMUReport();
   }
   checkboxevent83(event) {
+    this.checkboxvalue83 = event;
 
     this.checkbox83 = event;
     var count: number = 0;
@@ -3323,6 +2862,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
     //this.onSubmitMUReport();
   }
   checkboxevent84(event) {
+    this.checkboxvalue84 = event;
 
     this.checkbox84 = event;
     var count: number = 0;
@@ -3343,6 +2883,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
     //this.onSubmitMUReport();
   }
   checkboxevent85(event) {
+    this.checkboxvalue85 = event;
 
     this.checkbox85 = event;
     var count: number = 0;
@@ -3364,8 +2905,9 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
   }
   //stage2 checkbox
   checkboxevent01(event) {
-
+    debugger;
     this.checkbox01 = event;
+    this.checkboxValue01 = event;
     if (this.checkbox01 == true) {
       this.pdfcheckbox01 = "√"
     }
@@ -3377,6 +2919,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
   checkboxevent021(event) {
 
     this.checkbox021 = event;
+    this.checkboxValue021 = event;
     if (this.checkbox021 == true) {
       this.pdfcheckbox021 = "√"
     }
@@ -3388,6 +2931,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
   checkboxevent022(event) {
 
     this.checkbox022 = event;
+    this.checkboxValue022 = event;
     if (this.checkbox022 == true) {
       this.pdfcheckbox022 = "√"
     }
@@ -3397,7 +2941,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
 
   }
   checkboxevent031(event) {
-
+    this.checkboxValue031 = event;
     this.checkbox031 = event;
     if (this.checkbox031 == true) {
       this.pdfcheckbox031 = "√"
@@ -3408,7 +2952,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
 
   }
   checkboxevent032(event) {
-
+    this.checkboxValue032 = event;
     this.checkbox032 = event;
     if (this.checkbox032 == true) {
       this.pdfcheckbox032 = "√"
@@ -3419,7 +2963,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
 
   }
   checkboxevent033(event) {
-
+    this.checkboxValue033 = event;
     this.checkbox033 = event;
     if (this.checkbox033 == true) {
       this.pdfcheckbox033 = "√"
@@ -3430,7 +2974,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
 
   }
   checkboxevent04(event) {
-
+    this.checkboxValue04 = event;
     this.checkbox04 = event;
     if (this.checkbox04 == true) {
       this.pdfcheckbox04 = "√"
@@ -3441,7 +2985,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
 
   }
   checkboxevent05(event) {
-
+    this.checkboxValue05 = event;
     this.checkbox05 = event;
     if (this.checkbox05 == true) {
       this.pdfcheckbox05 = "√"
@@ -3452,7 +2996,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
 
   }
   checkboxevent06(event) {
-
+    this.checkboxValue06 = event;
     this.checkbox06 = event;
     if (this.checkbox06 == true) {
       this.pdfcheckbox06 = "√"
@@ -3463,7 +3007,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
 
   }
   checkboxevent07(event) {
-
+    this.checkboxValue07 = event;
     this.checkbox07 = event;
     if (this.checkbox07 == true) {
       this.pdfcheckbox07 = "√"
@@ -3474,7 +3018,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
 
   }
   checkboxevent081(event) {
-
+    this.checkboxValue081 = event;
     this.checkbox081 = event;
     if (this.checkbox081 == true) {
       this.pdfcheckbox081 = "√"
@@ -3487,6 +3031,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
   checkboxevent082(event) {
 
     this.checkbox082 = event;
+    this.checkboxValue082 = event;
     if (this.checkbox082 == true) {
       this.pdfcheckbox082 = "√"
     }
@@ -3496,7 +3041,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
 
   }
   checkboxevent09(event) {
-
+    this.checkboxValue09 = event;
     this.checkbox09 = event;
     if (this.checkbox09 == true) {
       this.pdfcheckbox09 = "√"
@@ -3507,7 +3052,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
 
   }
   checkboxevent0101(event) {
-
+    this.checkboxValue0101 = event;
     this.checkbox0101 = event;
     if (this.checkbox0101 == true) {
       this.pdfcheckbox0101 = "√"
@@ -3518,7 +3063,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
 
   }
   checkboxevent0102(event) {
-
+    this.checkboxValue0102 = event;
     this.checkbox0102 = event;
     if (this.checkbox0102 == true) {
       this.pdfcheckbox0102 = "√"
@@ -3529,7 +3074,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
 
   }
   checkboxevent0103(event) {
-
+    this.checkboxValue0103 = event;
     this.checkbox0103 = event;
     if (this.checkbox0103 == true) {
       this.pdfcheckbox0103 = "√"
@@ -3539,12 +3084,13 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
     }
 
   }
-  GetNumeDenomicount(data1: any) {
-    //debugger;
-    this.customizedspinner = true;
-    this.service.GetNumeDenomicount(data1).subscribe(data => {
+  getStage3NumeDenomicount(data: any) {
+    debugger;
+    this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
+    this.stage2NumeDenomicount = null;
+    this.stage3NumeDenomicount = null;
+    this.service.GetNumeDenomicount(data).subscribe(data => {
       if (data.IsSuccess) {
-        //alert(JSON.stringify(data))
         this.Stage2 = false;
         this.Stage3 = true;
         this.checkboxevent1(this.checkbox1);
@@ -3576,8 +3122,9 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
         this.checkboxevent85c(this.checkbox85c);
         var count: number = 0;
 
-        this.customizedspinner = true;
-        this.DataSource = data.ListResult;
+        this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
+        this.stage3NumeDenomicount = data.ListResult;
+        this.disabledowloadPDF = false;
         for (var val of data.ListResult) {
 
           if (val.TypeName == '2') {
@@ -3738,88 +3285,10 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
             else {
               this.patientelectronicacess73 = count;
             }
-
           }
-
-          this.customizedspinner = false;
-
-
+          this.customizedspinner = false; $('body').removeClass('loadactive');
         }
-
       }
-      // if (this.checkbox1 == true) {
-      //   var count: number = 0;
-      //   count++;
-      //   this.patientelectronicacess1 = count;
-      // }
-      // else if (this.checkbox32 == false) {
-      //   var count: number = 0;
-      //   this.patientelectronicacess1 = count;
-      // }
-      // if (this.checkbox32 == true||this.checkbox32c ==true) {
-      //   var count: number = 0;
-      //   count++;
-      //   this.patientelectronicacess32 = count;
-      // }
-      // else if (this.checkbox32 == false||this.checkbox32c ==false) {
-      //   var count: number = 0;
-      //   this.patientelectronicacess32 = count;
-      // }
-
-      // if (this.checkbox31 == true||this.checkbox31c == true) {
-      //   var count: number = 0;
-      //   count++;
-      //   this.patientelectronicacess31 = count;
-      // }
-      // else if (this.checkbox31 == false||this.checkbox31c == false) {
-      //   var count: number = 0;
-      //   this.patientelectronicacess31 = count;
-      // }
-      // if (this.checkbox81 == true||this.checkbox81c == true) {
-      //   var count: number = 0;
-      //   count++;
-      //   this.patientelectronicacess81 = count;
-      // }
-      // else if (this.checkbox81 == false||this.checkbox81c == false) {
-      //   var count: number = 0;
-      //   this.patientelectronicacess81 = count;
-      // }
-      // if (this.checkbox82 == true||this.checkbox82c == true) {
-      //   var count: number = 0;
-      //   count++;
-      //   this.patientelectronicacess82 = count;
-      // }
-      // else if (this.checkbox82 == false||this.checkbox82c == false) {
-      //   var count: number = 0;
-      //   this.patientelectronicacess82 = count;
-      // }
-      // if (this.checkbox83 == true||this.checkbox83c == true) {
-      //   var count: number = 0;
-      //   count++;
-      //   this.patientelectronicacess83 = count;
-      // }
-      // else if (this.checkbox83 == false||this.checkbox83c == false) {
-      //   var count: number = 0;
-      //   this.patientelectronicacess83 = count;
-      // }
-      // if (this.checkbox84 == true||this.checkbox84c == true) {
-      //   var count: number = 0;
-      //   count++;
-      //   this.patientelectronicacess84 = count;
-      // }
-      // else if (this.checkbox84 == false||this.checkbox84c == false) {
-      //   var count: number = 0;
-      //   this.patientelectronicacess84 = count;
-      // }
-      // if (this.checkbox85 == true||this.checkbox85c == true) {
-      //   var count: number = 0;
-      //   count++;
-      //   this.patientelectronicacess85 = count;
-      // }
-      // else if (this.checkbox85 == false||this.checkbox85c == false) {
-      //   var count: number = 0;
-      //   this.patientelectronicacess85 = count;
-      // }
       this.result1 = this.patientelectronicacess1 == undefined ? 0 : this.patientelectronicacess1;
       this.result2 = this.patientelectronicacess2 == undefined ? 0 : this.patientelectronicacess2;
       this.result3 = (this.patientelectronicacess31 == undefined ? 0 : this.patientelectronicacess31) + (this.patientelectronicacess32 == undefined ? 0 : this.patientelectronicacess32);
@@ -3828,13 +3297,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
       this.result6 = this.patientelectronicacess61 + this.patientelectronicacess62 + this.patientelectronicacess63;
       this.result7 = this.patientelectronicacess71 + this.patientelectronicacess72 + this.patientelectronicacess73;
       this.result8 = (this.patientelectronicacess81 == undefined ? 0 : this.patientelectronicacess81) + (this.patientelectronicacess82 == undefined ? 0 : this.patientelectronicacess82) + (this.patientelectronicacess83 == undefined ? 0 : this.patientelectronicacess83) + (this.patientelectronicacess84 == undefined ? 0 : this.patientelectronicacess84) + (this.patientelectronicacess85 == undefined ? 0 : this.patientelectronicacess85);
-      this.customizedspinner = false;
-    });
-  }
-  GetProviders() {
-    //debugger;
-    this.service.GetProviders().subscribe(data => {
-      this.providers = data.ListResult;
+      this.customizedspinner = false; $('body').removeClass('loadactive');
     });
   }
   Stage3Form() {
@@ -3847,7 +3310,7 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
   }
 
   onSubmitPatientList(req) {
-    this.customizedspinner = true;
+    this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
     var Patientreport = {
       "startDate": this.muReportForm.value.strSDate,
       "endDate": this.muReportForm.value.strEDate,
@@ -3856,332 +3319,223 @@ export class MUReportsComponent implements OnInit, AfterViewInit {
     }
     console.log(this.muReportForm.value);
     this.getPatientList(Patientreport);
-
-
   }
 
   getPatientList(data: any) {
-    this.customizedspinner = true;
-
+    this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
+    this.mupatientList = [];
+    this.mupatientListlength = null;
     this.service.getPatientList(data).subscribe(data => {
-      this.mupatientList.data = [];
-      // this.PatientList.data = data.ListResult as MUPatientData[];
-      this.mupatientListlength = 0;
-
-
       if (data.IsSuccess) {
-        // this.showPatientControls = true;
-
-        this.customizedspinner = true;
-        //this.PatientList = data.ListResult;
-        this.mupatientList.data = data.ListResult as MUPatientData[];
+        this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
+        this.mupatientList = data.ListResult;
         this.mupatientListlength = data.ListResult.length;
-
-        console.log(data);
       }
-
-      this.customizedspinner = false;
-    });
-
-  }
-  // getPatientList(data: any) {
-
-  //   this.PatientListlength = null;
-  //   this.service.getPatientList(data).subscribe(data => {
-  //     this.PatientListlength = 0;
-  //     this.problemreportlist.data = [];
-  //     if (data.IsSuccess) {
-  //       this.PatientList = data.ListResult;
-  //       this.PatientList.data = data.ListResult as MUPatientData[];
-  //       this.PatientListlength = data.ListResult.length;
-  //     }
-  //     this.customizedspinner = false;
-  //   });
-  // }
-  PatientForm() {
-    this.patientForm = this.fb.group({
-      SstartDate: [''],
-      SendDate: [''],
-      AstartDate: [''],
-      AendDate: [''],
-      Checked: [''],
-      provider_Id: [''],
-      location_Id: ['']
-    })
-  }
-  onSubmitallpatientlist() {
-    if (this.patientForm.value.provider_Id == "" && this.patientForm.value.location_Id == "") {
-
-      return;
-    }
-    var patientlist = {
-      "SstartDate": this.datepipe.transform(this.patientForm.value.SstartDate, 'yyyy-MM-dd', 'en-US'),
-      "SendDate": this.datepipe.transform(this.patientForm.value.SendDate, 'yyyy-MM-dd', 'en-US'),
-      "AstartDate": this.datepipe.transform(this.patientForm.value.AstartDate, 'yyyy-MM-dd', 'en-US'),
-      "AendDate": this.datepipe.transform(this.patientForm.value.AendDate, 'yyyy-MM-dd', 'en-US'),
-      "Checked": this.patientForm.value.Checked,
-      "provider_Id": this.patientForm.value.provider_Id == "" ? null : this.patientForm.value.provider_Id,
-      "location_Id": this.patientForm.value.location_Id == "" ? null : this.patientForm.value.location_Id
-
-
-    }
-    //  if(this.patientlisttable==false||this.patientlisttable==undefined){
-    //   debugger;
-    //
-
-
-    // }
-    // else if(this.patientlisttable=true){
-
-    //   this. exportPatientlist(patientlist);
-    // }
-    this.getAllPatientList(patientlist);
-    this.patientlistdata = patientlist;
-
-
-
-  }
-  getAllPatientList(data: any) {
-    this.customizedspinner = true;
-    this.muReportForm.reset();
-    this.problemreportform.reset();
-    this.encounterForm.reset();
-    this.service.getAllPatientList(data).subscribe(data => {
-      this.allPatientList.data = [];
-      this.allPatientList.data = data.ListResult as PatientData[];
-      this.patientlistlength = 0;
-      this.showpatientTable = true;
-
-      if (data.IsSuccess) {
-        this.showPatientControls = true;
-        this.customizedspinner = true;
-        this.allPatientList.data = data.ListResult as PatientData[];
-        this.patientlistlength = data.ListResult.length;
-        this.showpatientTable = true;
-        // this.allPatientList= new MatTableDataSource(data.ListResult == null ? [] : data.ListResult);
-        // this.allPatientList.paginator = this.paginator;
-        console.log(data);
-      }
-
-      this.customizedspinner = false;
-    });
-
-  }
-
-  EncounterForm() {
-    debugger;
-    this.encounterForm = this.fb.group({
-      SstartDate: [''],
-      SendDate: [''],
-      Checked: false,
-      provider_Id: [''],
-      location_Id: ['']
-
-    })
-  }
-
-  onSubmitEncounterlist() {
-    debugger;
-    if (this.encounterForm.value.provider_Id == "" && this.encounterForm.value.location_Id == "") {
-
-      return;
-    }
-    var encounterlist = {
-      // "SstartDate": formatDate(this.encounterForm.value.SstartDate, 'yyyy-MM-dd','en-US'),
-      // "SendDate": formatDate(this.encounterForm.value.SendDate, 'yyyy-MM-dd','en-US'),
-      "SstartDate": this.datepipe.transform(this.encounterForm.value.SstartDate, 'yyyy-MM-dd', 'en-US'),
-      "SendDate": this.datepipe.transform(this.encounterForm.value.SendDate, 'yyyy-MM-dd', 'en-US'),
-      "Checked": this.encounterForm.value.Checked,
-      "provider_Id": this.encounterForm.value.provider_Id == "" ? null : this.encounterForm.value.provider_Id,
-      "location_Id": this.encounterForm.value.location_Id == "" ? null : this.encounterForm.value.location_Id
-    }
-    this.getEncountersList(encounterlist);
-
-    this.encounterdata = encounterlist;
-  }
-  getEncountersList(data: any) {
-    this.customizedspinner = true;
-    this.muReportForm.reset();
-    this.patientForm.reset();
-    this.problemreportform.reset();
-    this.service.getEncountersList(data).subscribe(data => {
-      this.encounterlist.data = [];
-      this.encounterlength = 0;
-
-      this.showencounterTable = true;
-      if (data.IsSuccess) {
-        this.showEncounterControls = true;
-        this.customizedspinner = true;
-        this.encounterlist.data = data.ListResult as EncounterData[];
-        this.encounterlength = data.ListResult.length;
-        this.showencounterTable = true;
-
-
+      else {
+        this.mupatientListlength = 0;
       }
       this.customizedspinner = false;
     });
-
-
   }
-
-  ProblemReportForm() {
-    this.problemreportform = this.fb.group({
-      StartDate: [''],
-      EndDate: [''],
-      Checked: [''],
-      ProviderId: [''],
-      LocationId: ['']
-
-    })
-  }
-  onSubmitProblemReportList() {
-    if (this.problemreportform.value.ProviderId == "" && this.problemreportform.value.LocationId == "") {
-
-      return;
+  onSortClick(event) {
+    let target = event.currentTarget,
+      classList = target.classList;
+    if (classList.contains('fa-chevron-up')) {
+      classList.remove('fa-chevron-up');
+      classList.add('fa-chevron-down');
+      this.sortDir = -1;
+    } else {
+      classList.add('fa-chevron-up');
+      classList.remove('fa-chevron-down');
+      this.sortDir = 1;
     }
+    this.sortArr('patient_id');
+  }
 
-    var problemreportlist = {
-      "StartDate": this.datepipe.transform(this.problemreportform.value.StartDate, 'yyyy-MM-dd', 'en-US'),
-      "EndDate": this.datepipe.transform(this.problemreportform.value.EndDate, 'yyyy-MM-dd', 'en-US'),
-      "Checked": this.problemreportform.value.Checked,
-      "ProviderId": this.problemreportform.value.ProviderId == "" ? null : this.problemreportform.value.ProviderId,
-      "LocationId": this.problemreportform.value.LocationId == "" ? null : this.problemreportform.value.LocationId,
-      //  "ProviderId":'5b686dd4c832dd0c444f271b'
+  sortArr(colName: any) {
+    this.mupatientList.sort((a, b) => {
+      a = a[colName].toLowerCase();
+      b = b[colName].toLowerCase();
+      return a.localeCompare(b) * this.sortDir;
+    });
+  }
+  onSortClick2(event) {
+    let target = event.currentTarget,
+      classList = target.classList;
+
+    if (classList.contains('fa-chevron-up')) {
+      classList.remove('fa-chevron-up');
+      classList.add('fa-chevron-down');
+      this.sortDir = -1;
+    } else {
+      classList.add('fa-chevron-up');
+      classList.remove('fa-chevron-down');
+      this.sortDir = 1;
     }
-    this.getProblemReportList(problemreportlist);
-    this.problemreportlistdata = problemreportlist;
-
+    this.sortArr1('full_name');
   }
-  getProblemReportList(data: any) {
-    this.customizedspinner = true;
-    this.muReportForm.reset();
-    this.patientForm.reset();
-    this.encounterForm.reset();
-    this.service.getProblemListReportByProviderId(data).subscribe(data => {
-      this.problemreportlist.data = [];
-      this.problemreportlistlength = 0;
 
-      this.showPromblemListTable = true;
-      if (data.IsSuccess) {
-        this.showProblemListControls = true;
-        this.customizedspinner = true;
-        this.problemreportlist.data = data.ListResult as ProblemData[];
-        this.problemreportlistlength = data.ListResult.length;
-        this.showPromblemListTable = true;
-      }
-      this.customizedspinner = false;
+  sortArr1(colName: any) {
+    this.mupatientList.sort((a, b) => {
+      a = a[colName].toLowerCase();
+      b = b[colName].toLowerCase();
+      return a.localeCompare(b) * this.sortDir;
     });
-
-
   }
-  getProviderList(ProviderId: any) {
-    //debugger;
-    this.LocationName = ProviderId.Location_Name;
-    this.locationname = this.LocationName == undefined ? "  " : this.LocationName;
-    this.LocationPhone = ProviderId.Location_Phone;
-    this.locationphone = this.LocationPhone == undefined ? "  " : this.LocationPhone;
-    this.LocationStreetAddress = ProviderId.Location_Street_Address;
-    this.locationstreetaddress = this.LocationStreetAddress == undefined ? "  " : this.LocationStreetAddress;
-    this.LocationCity = ProviderId.Location_City;
-    this.locationcity = this.LocationCity == undefined ? "  " : this.LocationCity;
-    this.LocationState = ProviderId.Location_State;
-    this.locationstate = this.LocationState == undefined ? "  " : this.LocationState;
-    this.LocationZip = ProviderId.Location_Zip;
-    this.locationzip = this.LocationZip == undefined ? "  " : this.LocationZip;
-    // this.service.getProviderList(ProviderId.Location_Id).subscribe(data => {
-    //   if(data.IsSuccess){
-    //     this.providerlist = data.ListResult;
-    //      this.filteredList = this.providerlist.slice();
-    //   }
-    // });
-    if (ProviderId == "") {
-      this.service.getProviderList(ProviderId).subscribe(data => {
-        if (data.IsSuccess) {
-          this.providerlist = data.ListResult;
-          this.filteredList = this.providerlist.slice();
-          // let res = [];
-          // res = data.ListResult;
-          // this.providerlist = res;
-          // let filter = [];
-          // filter = this.providerlist.slice();
-          //  this.filteredList = filter;
-          console.log(this.providerlist);
-          console.log(this.filteredList);
-
-
-        }
-      });
+  onSortClick3(event) {
+    let target = event.currentTarget,
+      classList = target.classList;
+    if (classList.contains('fa-chevron-up')) {
+      classList.remove('fa-chevron-up');
+      classList.add('fa-chevron-down');
+      this.sortDir = -1;
+    } else {
+      classList.add('fa-chevron-up');
+      classList.remove('fa-chevron-down');
+      this.sortDir = 1;
     }
+    this.sortArr2('Req_date_format');
   }
 
-  getLocationsList(LocationId: any) {
-    this.ProviderName = LocationId.Provider_Name;
-    this.LocationName = LocationId.Location_Name;
-    this.LocationPhone = LocationId.Location_Phone;
-    this.LocationStreetAddress = LocationId.Location_Street_Address;
-    this.LocationCity = LocationId.Location_City;
-    this.LocationState = LocationId.Location_State;
-    this.LocationName == undefined ? 0 : this.LocationName;
-    this.LocationZip = LocationId.Location_Zip;
-    this.service.getLocationsList(LocationId.Provider_Id).subscribe(data => {
-      if (data.IsSuccess) {
-        this.locationslist = data.ListResult;
-        this.filteredList1 = this.locationslist.slice();
-
-      }
+  sortArr2(colName: any) {
+    this.mupatientList.sort((a, b) => {
+      a = a[colName].toLowerCase();
+      b = b[colName].toLowerCase();
+      return a.localeCompare(b) * this.sortDir;
     });
-    if (LocationId == "") {
-      this.service.getLocationsList(LocationId).subscribe(data => {
-        if (data.IsSuccess) {
-          this.locationslist = data.ListResult;
-          this.filteredList1 = this.locationslist.slice();
-
-        }
-      });
+  }
+  onSortClick4(event) {
+    let target = event.currentTarget,
+      classList = target.classList;
+    if (classList.contains('fa-chevron-up')) {
+      classList.remove('fa-chevron-up');
+      classList.add('fa-chevron-down');
+      this.sortDir = -1;
+    } else {
+      classList.add('fa-chevron-up');
+      classList.remove('fa-chevron-down');
+      this.sortDir = 1;
     }
+    this.sortArr3('Numerator');
   }
 
-  exportPatientlist(data: any): void {
-    data = this.patientlistdata;
-    this.service.getAllPatientList(data).subscribe(result => {
-      this.allPatientList.data = result.ListResult as PatientData[];
-
-      this.tableutil.exportAsExcelFile(this.allPatientList.data, 'patientlist');
-    });
-
-  }
-  exportEncounterlist(pdata: any): void {
-    pdata = this.encounterdata;
-
-    this.service.getEncountersList(pdata).subscribe(data => {
-      //debugger;
-      this.encounterlist.data = data.ListResult as EncounterData[];
-      this.tableutil.exportAsExcelFile(this.encounterlist.data, 'encounterlist');
-
-
+  sortArr3(colName: any) {
+    this.mupatientList.sort((a, b) => {
+      a = a[colName].toLowerCase();
+      b = b[colName].toLowerCase();
+      return a.localeCompare(b) * this.sortDir;
     });
   }
-  exportProblemlist(epdata: any): void {
-
-    epdata = this.problemreportlistdata;
-    this.service.getProblemListReportByProviderId(epdata).subscribe(data => {
-      this.problemreportlist.data = data.ListResult as ProblemData[];
-      this.tableutil.exportAsExcelFile(this.problemreportlist.data, 'problemreportlist');
-
-
+  onSortClick21(event) {
+    let target = event.currentTarget,
+      classList = target.classList;
+    if (classList.contains('fa-chevron-up')) {
+      classList.remove('fa-chevron-up');
+      classList.add('fa-chevron-down');
+      this.sortDir = -1;
+    } else {
+      classList.add('fa-chevron-up');
+      classList.remove('fa-chevron-down');
+      this.sortDir = 1;
+    }
+    this.sortArr22('patient_id');
+  }
+  sortArr21(colName: any) {
+    this.Stage2PatientList.sort((a, b) => {
+      a = a[colName].toLowerCase();
+      b = b[colName].toLowerCase();
+      return a.localeCompare(b) * this.sortDir;
     });
   }
-  getdownloadQRDA3Report(ReportId: any) {
 
-    this.service.getdownloadQRDA3Report(ReportId).subscribe(data => {
-      if (data.IsSuccess) {
-        this.locationslist = data.ListResult;
-        this.filteredList1 = this.locationslist.slice();
-
-
-      }
-    });
-
+  onSortClick22(event) {
+    let target = event.currentTarget,
+      classList = target.classList;
+    if (classList.contains('fa-chevron-up')) {
+      classList.remove('fa-chevron-up');
+      classList.add('fa-chevron-down');
+      this.sortDir = -1;
+    } else {
+      classList.add('fa-chevron-up');
+      classList.remove('fa-chevron-down');
+      this.sortDir = 1;
+    }
+    this.sortArr22('full_name');
   }
 
+  sortArr22(colName: any) {
+    this.Stage2PatientList.sort((a, b) => {
+      a = a[colName].toLowerCase();
+      b = b[colName].toLowerCase();
+      return a.localeCompare(b) * this.sortDir;
+    });
+  }
+
+  onSortClick23(event) {
+    let target = event.currentTarget,
+      classList = target.classList;
+    if (classList.contains('fa-chevron-up')) {
+      classList.remove('fa-chevron-up');
+      classList.add('fa-chevron-down');
+      this.sortDir = -1;
+    } else {
+      classList.add('fa-chevron-up');
+      classList.remove('fa-chevron-down');
+      this.sortDir = 1;
+    }
+    this.sortArr23('display_name');
+  }
+
+  sortArr23(colName: any) {
+    this.Stage2PatientList.sort((a, b) => {
+      a = a[colName].toLowerCase();
+      b = b[colName].toLowerCase();
+      return a.localeCompare(b) * this.sortDir;
+    });
+  }
+
+  onSortClick24(event) {
+    let target = event.currentTarget,
+      classList = target.classList;
+    if (classList.contains('fa-chevron-up')) {
+      classList.remove('fa-chevron-up');
+      classList.add('fa-chevron-down');
+      this.sortDir = -1;
+    } else {
+      classList.add('fa-chevron-up');
+      classList.remove('fa-chevron-down');
+      this.sortDir = 1;
+    }
+    this.sortArr24('Date_Submitted');
+  }
+
+  sortArr24(colName: any) {
+    this.Stage2PatientList.sort((a, b) => {
+      a = a[colName].toLowerCase();
+      b = b[colName].toLowerCase();
+      return a.localeCompare(b) * this.sortDir;
+    });
+  }
+  onSortClick25(event) {
+    let target = event.currentTarget,
+      classList = target.classList;
+    if (classList.contains('fa-chevron-up')) {
+      classList.remove('fa-chevron-up');
+      classList.add('fa-chevron-down');
+      this.sortDir = -1;
+    } else {
+      classList.add('fa-chevron-up');
+      classList.remove('fa-chevron-down');
+      this.sortDir = 1;
+    }
+    this.sortArr25('Numerator');
+  }
+
+  sortArr25(colName: any) {
+    this.Stage2PatientList.sort((a, b) => {
+      a = a[colName].toLowerCase();
+      b = b[colName].toLowerCase();
+      return a.localeCompare(b) * this.sortDir;
+    });
+  }
 }

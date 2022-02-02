@@ -1,0 +1,15 @@
+<div class="ehr-cqm-table-container" *ngFor="let condition of Conditions">
+  <mat-expansion-panel class="expansion-panel" (opened)="panelOpenState = true" (closed)="panelOpenState = false"
+    [expanded]="true">
+    <mat-expansion-panel-header class="expansion-panel-header">
+      <mat-panel-title>
+        {{condition.Section}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <br />
+    <div class="row" *ngFor="let cond of condition.Conditions">
+      <div [innerHTML]="cond.Condition | conditionformater: 'cross-mark' : 'tick-mark'"
+        [style]="cond.TabIndex | conditionpadder: cond.LineIndex"></div>
+    </div>
+  </mat-expansion-panel>
+</div>

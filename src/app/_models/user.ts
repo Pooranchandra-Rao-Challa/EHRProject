@@ -1,5 +1,4 @@
 export interface User {
-  Token: string;
   UserId: string;
   ProviderId: string;
   AdminId: string;
@@ -10,7 +9,9 @@ export interface User {
   Role: string;
   FirstName: string;
   LastName: string;
-  Location: string;
-  RubyId: string;
+  Token: string;
+  LocationName: string;
   IsSuccess: boolean;
+  RubyId: string;
+  LocationId:string;
 }

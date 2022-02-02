@@ -7,7 +7,7 @@ import { Accountservice } from '../_services/account.service';
 
 
 @Component({
-  selector: 'app-navbar',
+  selector: 'provider-app-navbar',
   templateUrl: './provider.navbar.component.html',
   styleUrls: ['./provider.navbar.component.scss'],
   providers: [NgbDropdownConfig]

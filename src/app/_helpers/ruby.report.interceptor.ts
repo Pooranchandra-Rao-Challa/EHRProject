@@ -3,21 +3,21 @@ import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor, HTT
 import { Observable, of, throwError } from 'rxjs';
 import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
 
-import { AuthenticationService } from '../Services/authentication.service';
+import { AuthenticationService } from '../_services/authentication.service';
 
 
 // array in local storage for registered users
 /*let users = JSON.parse(localStorage.getItem('user') ||'{}') || [];*/
 
-@Injectable({providedIn:'root'})
+@Injectable({ providedIn: 'root' })
 export class RubyReportInterceptor implements HttpInterceptor {
 
   constructor(private authenticationService: AuthenticationService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    
+
     const { url, method, headers, body } = request;
-    
+
     // wrap in delayed observable to simulate server api call
     return of(null)
       .pipe(mergeMap(() => {
@@ -55,7 +55,7 @@ export class RubyReportInterceptor implements HttpInterceptor {
 
     function rubySessionId() {
       const urlParts = url.split('/');
-      return urlParts[urlParts.length - 1].replace("?","").split('&')[0].split('=')[1];
+      return urlParts[urlParts.length - 1].replace("?", "").split('&')[0].split('=')[1];
     }
   }
 }

@@ -1,0 +1,168 @@
+<div id="pause" class="d-flex align-items-center justify-content-center" *ngIf="customizedspinner">
+  <div id="spinner"></div>
+</div>
+<div class="container-fluid">
+  <form [formGroup]="encounterForm">
+    <div class="row" style="background-color: #e5f8f5;">
+      <div class="col-lg-2 col-md-3">
+
+      </div>
+      <div class="col-lg-1 col-md-3">
+        <p class="float-left my-4">Provider:<span class="asterisk">*</span></p>
+      </div>
+      <mat-form-field appearance="outline" class="col-lg-2 col-md-6 hover my-2">
+        <mat-select placeholder="Select One" disabledOptionCentering #searchedItem formControlName="provider_Id"
+          (selectionChange)="disableApplyButtonEncounterlist()">
+          <mat-select-filter disabledOptionCentering [placeholder]="'Search...'" [displayMember]="'Provider_Name'"
+            [array]="providerlist" (filteredReturn)="filteredproviderList =$event" *ngIf="searchedItem.focused">
+          </mat-select-filter>
+          <mat-option *ngFor="let item of filteredproviderList" [value]="item.Provider_Id"
+            (click)="getLocationsList(item)">
+            {{item.Provider_Name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="col-lg-1 col-md-6 col-sm-12">
+        <p class="float-left my-4 mr-md-2">Location(s):</p>
+      </div>
+      <mat-form-field appearance="outline" class="col-lg-2 col-md-6 my-2 hover">
+        <mat-select placeholder="Select One" disableOptionCentering formControlName="location_Id">
+          <!-- <mat-select-filter disabledOptionCentering [placeholder]="'Search...'" [displayMember]="'Location_Name'"
+              [array]="locationslist" (filteredReturn)="filteredlocationList =$event"></mat-select-filter> -->
+          <mat-option *ngFor="let name of filteredlocationList" [value]="name.Location_Id"
+            (click)="getProviderList(name)">
+            {{name.Location_Name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="row" style="background-color: #e5f8f5;">
+      <div class="col-lg-2">
+        <p class="float-left my-4">Encounter Date</p>
+      </div>
+      <div class="col-lg-1">
+        <p class="float-left my-4">From:</p>
+      </div>
+      <mat-form-field appearance="outline" class="col-lg-2 col-md-6">
+        <input matInput class="pointer" autocomplete="off" (dateChange)="disableApplyButtonEncounterlist()"
+          [max]="tomorrow" [matDatepicker]="picker7" (click)="picker7.open()" readonly placeholder="Start Date"
+          formControlName="SstartDate">
+        <mat-datepicker-toggle matSuffix [for]="picker7"></mat-datepicker-toggle>
+        <mat-datepicker #picker7></mat-datepicker>
+      </mat-form-field>
+      <div class="col-lg-1">
+        <p class="float-left my-4">To:<span *ngIf="!disableEndDateInput" class="asterisk">*</span></p>
+      </div>
+      <mat-form-field appearance="outline" class="col-lg-2 col-md-6">
+        <input matInput class="pointer" autocomplete="off" (dateChange)="disableApplyButtonEncounterlist()"
+          [min]="encounterForm.value.SstartDate" [max]="tomorrow" [matDatepicker]="picker8" (click)="picker8.open()"
+          readonly placeholder="Stop Date" formControlName="SendDate" [disabled]="disableEndDateInput">
+        <mat-datepicker-toggle matSuffix [for]="picker8"></mat-datepicker-toggle>
+        <mat-datepicker #picker8></mat-datepicker>
+      </mat-form-field>
+      <div class="col-lg-2">
+        <button class="btn col-lg-12 btn-height my-1" (click)="onSubmitEncounterlist()"
+          [disabled]='applyButtonToDisableencounter'>
+          Apply Filters
+        </button>
+      </div>
+      <div class="col-lg-2">
+        <button class="btn col-lg-12 btn-height my-1 px-lg-3 px-2 my-1" (click)="downloadEncountersExcel()"
+          [disabled]="disabledowloadExportbtn">
+          Export CSV
+        </button>
+      </div>
+    </div>
+    <div class="row" style="background-color: #e5f8f5;">
+      <div class="col-lg-3"></div>
+      <div class="col-lg-4 my-1 mb-3">
+        <mat-checkbox class="col-lg-12 col-md-12 example-margin" style="margin-left: 0px;" formControlName="Checked">
+        </mat-checkbox><span>Include Inactive
+          Patients</span>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="ehr-cqm-table-container encounter" [hidden]="!showencounterTable">
+  <mat-table [dataSource]="encounterlist" matSort>
+    <ng-container matColumnDef="Encounter_Id">
+      <mat-header-cell class="flex3" *matHeaderCellDef mat-sort-header="Encounter_Id">Encounter Id
+      </mat-header-cell>
+      <mat-cell class="flex3 submenu" *matCellDef="let lesson"> {{lesson.Encounter_Id}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Patient_Name">
+      <mat-header-cell class="flex1" *matHeaderCellDef mat-sort-header="Patient_Name"> Patient Name
+      </mat-header-cell>
+      <mat-cell class="flex1 submenu" *matCellDef="let lesson"> {{lesson.Patient_Name}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Provider_Name">
+      <mat-header-cell class="flex2" *matHeaderCellDef mat-sort-header="Provider_Name">Provider Name
+      </mat-header-cell>
+      <mat-cell class="flex2 submenu" *matCellDef="let lesson"> {{lesson.Provider_Name}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Birth_Date">
+      <mat-header-cell class="flex2" *matHeaderCellDef mat-sort-header="Birth_Date">Birth Date</mat-header-cell>
+      <mat-cell class="flex2 submenu" *matCellDef="let lesson"> {{lesson.Birth_Date | date: 'yyyy/MM/dd' }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Patient_Age">
+      <mat-header-cell class="flex1" fxFlex="25%" *matHeaderCellDef mat-sort-header="Patient_Age">Age
+      </mat-header-cell>
+      <mat-cell class="flex1 submenu" *matCellDef="let lesson"> {{lesson.Patient_Age}} </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="Encounter_Date">
+      <mat-header-cell class="flex1" *matHeaderCellDef mat-sort-header="Encounter_Date">Encounter Date
+      </mat-header-cell>
+      <mat-cell class="flex1 submenu" *matCellDef="let lesson"> {{lesson.Encounter_Date |
+        date: 'yyyy/MM/dd'}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Proc_Code">
+      <mat-header-cell class="flex1" *matHeaderCellDef mat-sort-header="Proc_Code">Proc Code
+      </mat-header-cell>
+      <mat-cell class="flex1 submenu" *matCellDef="let lesson"> {{lesson.Proc_Code}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Encounter_Description">
+      <mat-header-cell class="flex3" *matHeaderCellDef mat-sort-header="Encounter_Description">Description
+      </mat-header-cell>
+      <mat-cell class="flex3 submenu" *matCellDef="let lesson"> {{lesson.Encounter_Description}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="Proc_Fees">
+      <mat-header-cell class="flex2" *matHeaderCellDef mat-sort-header="Proc_Fees">Proc Fees
+      </mat-header-cell>
+      <mat-cell class="flex2 submenu" *matCellDef="let lesson"> {{lesson.Proc_Fees}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="Prime_Subscriber_No">
+      <mat-header-cell class="flex1" *matHeaderCellDef mat-sort-header="Prime_Subscriber_No">Prime Subscriber Id
+      </mat-header-cell>
+      <mat-cell class="flex1 submenu" *matCellDef="let lesson"> {{lesson.Prime_Subscriber_No}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="Prime_Ins_Company_Name">
+      <mat-header-cell class="flex2" *matHeaderCellDef mat-sort-header="Prime_Ins_Company_Name">Prime Ins Company Name
+      </mat-header-cell>
+      <mat-cell class="flex1 submenu" *matCellDef="let lesson"> {{lesson.Prime_Ins_Company_Name}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="Prim_Source_Payment_Typology">
+      <mat-header-cell class="flex2" *matHeaderCellDef mat-sort-header="Prim_Source_Payment_Typology">Prime Source of
+        Payment Typology
+      </mat-header-cell>
+      <mat-cell class="flex1 submenu" *matCellDef="let lesson"> {{lesson.Prim_Source_Payment_Typology}} </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="EncountersColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: EncountersColumns;">
+    </mat-row>
+  </mat-table>
+  <div style="color: red;text-align: center;" *ngIf="encounterlist.data.length==0">
+    No Records Found!
+  </div>
+</div>
+<mat-paginator class="arrow" #paginator [length]="encounterlist.data.length" [pageIndex]="pageIndex"
+  [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" [hidden]="!encounterlist.data.length">
+</mat-paginator>

@@ -1,0 +1,168 @@
+.container-fluid {
+  width: 100%;
+  border: 1px solid #41b6a6;
+  border-bottom: 1px solid #41b6a6;
+  padding-left: 12.5px;
+}
+.btn-border {
+  border-color: #fff;
+}
+button {
+  background-color: #fff;
+  border: 1px solid #41b6a6;
+  height: 45px;
+  color: #41b6a6;
+  border-radius: 3px;
+}
+button:hover {
+  background-color: #41b6a6;
+  color: #fff;
+  border: 1px solid #fff;
+}
+.btn-height {
+  height: 50px;
+}
+p {
+  font-size: 16px !important;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+::ng-deep .example-margin {
+  & .mat-checkbox-background,
+  .mat-checkbox-frame {
+    border-radius: 20% !important;
+    border-color: #cacaca;
+    background-color: #eeeaea;
+    border-width: 1px;
+    border-style: solid;
+    width: 20px;
+    height: 20px;
+  }
+}
+::ng-deep .example-margin:hover {
+  & .mat-checkbox-background,
+  .mat-checkbox-frame {
+    border-color: #41b6a6;
+  }
+}
+@media (max-width: 1350px) {
+  .example-container {
+    max-width: 1200px;
+    overflow-x: scroll;
+  }
+  .mat-table {
+    width: 1350px;
+  }
+}
+
+table {
+  border-collapse: collapse;
+}
+.table {
+  width: 100% !important;
+}
+.ehr-cqm-table-container {
+  position: relative;
+  overflow-x: scroll;
+  border: #41b6a6 1px solid;
+  text-align: center;
+}
+.patient {
+  .mat-cell,
+  .mat-header-cell {
+    font-size: 15px;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    padding: 6px 10px;
+    display: block !important;
+    align-self: stretch !important;
+  }
+  .mat-header-cell {
+    background-color: #41b6a6 !important;
+    width: 100%;
+    text-align: left !important;
+  }
+  .mat-cell {
+    border-right: 1px solid #41b6a6;
+    border-bottom: 1px solid #41b6a6;
+    text-align: left !important;
+    background-color: white !important;
+  }
+  .mat-cell:last-child {
+    border-right: none;
+  }
+  .mat-header-cell {
+    color: white;
+    border-right: 1px solid white;
+    border-bottom: none;
+  }
+  .mat-header-cell:last-child {
+    border-right: none;
+  }
+  .mat-header-row {
+    background-color: #41b6a6;
+  }
+
+  mat-cell:nth-child(1),
+  mat-header-cell:nth-child(1) {
+    flex: 0 0 17%;
+  }
+  mat-cell:nth-child(2),
+  mat-header-cell:nth-child(2) {
+    flex: 0 0 13%;
+  }
+  mat-cell:nth-child(3),
+  mat-header-cell:nth-child(3) {
+    flex: 0 0 8%;
+  }
+  mat-cell:nth-child(4),
+  mat-header-cell:nth-child(4) {
+    flex: 0 0 5%;
+  }
+  mat-cell:nth-child(5),
+  mat-header-cell:nth-child(5) {
+    flex: 0 0 10%;
+  }
+  mat-cell:nth-child(6),
+  mat-header-cell:nth-child(6) {
+    flex: 0 0 10%;
+  }
+  mat-cell:nth-child(7),
+  mat-header-cell:nth-child(7) {
+    flex: 0 0 10%;
+  }
+  mat-cell:nth-child(8),
+  mat-header-cell:nth-child(8) {
+    flex: 0 0 13%;
+  }
+  mat-cell:nth-child(9),
+  mat-header-cell:nth-child(9) {
+    flex: 0 0 5%;
+  }
+  mat-cell:nth-child(10),
+  mat-header-cell:nth-child(10) {
+    flex: 0 0 10%;
+  }
+  mat-cell:nth-child(11),
+  mat-header-cell:nth-child(11) {
+    flex: 0 0 8%;
+  }
+  mat-cell:nth-child(12),
+  mat-header-cell:nth-child(12) {
+    flex: 0 0 5%;
+  }
+  mat-cell:nth-child(13),
+  mat-header-cell:nth-child(13) {
+    flex: 0 0 5%;
+  }
+  mat-cell:nth-child(14),
+  mat-header-cell:nth-child(14) {
+    flex: 0 0 13%;
+  }
+  mat-cell:nth-child(15),
+  mat-header-cell:nth-child(15) {
+    flex: 0 0 13%;
+  }
+  // mat-cell:nth-child(16),
+  // mat-header-cell:nth-child(16) {
+  //   flex: 0 0 10%;
+  // }
+}

@@ -37,7 +37,7 @@ export class AuthenticationService {
   loginWithRubyCredentials(ruby_session_id: any) {
     localStorage.setItem('ruby_session_id', ruby_session_id);
     //console.log(this.baseUrl + 'VerifyUserCredentials/' + ruby_session_id);
-    try{
+    try {
       this.http.get<ResponseData>(this.baseUrl + '/VerifyUserCredentials/' + ruby_session_id).subscribe(resp => {
         if (resp.IsSuccess) {
           let sessionToken = this.idService.generate();
@@ -46,16 +46,16 @@ export class AuthenticationService {
           this.userSubject.value.RubyId = ruby_session_id;
           localStorage.setItem('user', JSON.stringify(resp.Result as User));
           localStorage.setItem('session_token', sessionToken);
-          this.router.navigate(['/reports/mureports']);
+          this.router.navigate(['/reports/categoryreports']);
         } else {
           this.router.navigate(['/account/rubyloginfailed']);
         }
-        }),
+      }),
         (error) => {
           this.router.navigate(['/account/rubyloginfailed']);
         };
 
-    }catch{ this.router.navigate(['/account/rubyloginfailed']);}
+    } catch { this.router.navigate(['/account/rubyloginfailed']); }
 
   }
 
@@ -69,19 +69,19 @@ export class AuthenticationService {
         this.userSubject.value.Token = sessionToken;
         localStorage.setItem('user', JSON.stringify(resp.Result as User));
         localStorage.setItem('session_token', sessionToken);
-        this.router.navigate(['/reports/mureports']);
+        this.router.navigate(['/reports/categoryreports']);
       }
     }),
-    (error) => {
-      this.logout();
-    };
+      (error) => {
+        this.logout();
+      };
     return observable;
   }
 
   logout() {
-    if(this.userValue.RubyId){
+    if (this.userValue.RubyId) {
       const endpointUrl = this.baseUrl + "RemoveAngularSessionInMongo/";
-      this.http.post<ResponseData>(endpointUrl,{"RubyId": this.userValue.RubyId});
+      this.http.post<ResponseData>(endpointUrl, { "RubyId": this.userValue.RubyId });
     }
     localStorage.removeItem('user');
     localStorage.removeItem('session_token');
