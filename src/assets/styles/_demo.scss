@@ -3,16 +3,16 @@
 // Add spacing to Boostrap components for demo purpose
 .template-demo {
   >.btn {
-    @extend .mt-2;
-    @extend .mr-2;
+    @extend .mt-2 !optional;
+    @extend .mr-2 !optional;
   }
   >.btn-toolbar {
-    @extend .mt-2;
-    @extend .mr-2;
+    @extend .mt-2 !optional;
+    @extend .mr-2 !optional;
   }
   >.btn-group {
-    @extend .mt-2;
-    @extend .mr-2;
+    @extend .mt-2 !optional;
+    @extend .mr-2 !optional;
     .btn {
       margin: 0 !important;
     }
@@ -42,12 +42,12 @@
   }
   .dropdown {
     display: inline-block;
-    @extend .mr-2;
+    @extend .mr-2 !optional;
     margin-bottom: 0.5rem;
   }
   .dropup {
     display: inline-block;
-    @extend .mr-2;
+    @extend .mr-2 !optional;
     margin-top: 0.5rem;
   }
   nav {

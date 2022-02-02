@@ -12,7 +12,7 @@ html {
 
 .page-body-wrapper {
   min-height: calc(100vh - #{$navbar-height});
-  @include display-flex();
+  @include display-flex;
   @include flex-direction(row);
   padding-left: 0;
   padding-right: 0;
@@ -27,7 +27,7 @@ html {
   transition: width $action-transition-duration $action-transition-timing-function, margin $action-transition-duration $action-transition-timing-function;
   width: calc(100% - #{$sidebar-width-lg});
   min-height: calc(100vh - #{$navbar-height});
-  @include display-flex();
+  @include display-flex;
   @include flex-direction(column);
   @media (max-width: 991px) {
     margin-left: 0;

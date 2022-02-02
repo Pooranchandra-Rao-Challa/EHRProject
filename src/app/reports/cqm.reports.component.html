@@ -1,0 +1,4134 @@
+<div
+  id="pause"
+  class="d-flex align-items-center justify-content-center"
+  *ngIf="customizedspinner"
+>
+  <div id="spinner"></div>
+</div>
+
+<div class="row" *ngIf="isViewResults && ViewResults">
+  <div class="col-md-12 grid-margin stretch-card">
+    <div class="card mat-elevation-z8">
+      <div class="card-body">
+        <div class="float-right">
+          <button (click)="createreport()" class="mr-3">Create Report</button>
+          <button (click)="queuedreport()" class="mr-3">Queued Report</button>
+        </div>
+        <br />
+        <br />
+        <div class="row" *ngFor="let details of getbasicreport">
+          <div class="col-md-6" *ngIf="showTopData">
+            <ul>
+              <li>
+                <b> Report ID :</b>
+                {{ details.lngID }}
+              </li>
+              <li>
+                <b>Description :</b>
+                {{ details.Description }}
+              </li>
+              <li>
+                <b>Created on: </b>
+                {{ details.dtmDateCreated }}
+              </li>
+              <li>
+                <b>Measurement Period:</b> {{ details.vchMeasurePeriodStart }} -
+                {{ details.vchMeasurePeriodStop }}
+              </li>
+              <li><b>Bundle: </b>{{ details.Bundle }} {{ details.vchType }}</li>
+            </ul>
+          </div>
+          <div class="col-md-6" *ngIf="showTopData">
+            <ul>
+              <li><b>Measures: </b> {{ details.vchMeasureList }}</li>
+              <li>
+                <b>Provider:</b> {{ details.ProviderName }}
+                {{ details.vchProviderNPI }}
+              </li>
+              <li><b>Ran by user:</b> {{ details.UserName }}</li>
+              <li><b>Patient count:</b> {{ details.PatientCount }}</li>
+            </ul>
+          </div>
+        </div>
+        <ngb-tabset
+          [(activeId)]="tabId"
+          class="tab-basic"
+          (tabChange)="detailsTab($event)"
+        >
+          <ngb-tab title="Details" id="details">
+            <!-- <ng-template ngbTabTitle>
+              <div (click)="detailsTab()">Details</div>
+            </ng-template> -->
+            <ng-template ngbTabContent>
+              <div
+                class="row panel panel-default mx-1 my-3"
+                style="width: 100%; height: 100%"
+              >
+                <div class="panel-body col-md-6">
+                  <ul class="cstm-size">
+                    <b>Provider: </b>
+                    <span>{{ patientlistmeasure.ProviderName }}</span>
+                  </ul>
+                  <ul class="cstm-size">
+                    <b>Ran by user: </b>
+                    <span>{{ patientlistmeasure.ProviderName }}</span>
+                  </ul>
+                  <ul class="cstm-size">
+                    <b>Data Source: </b>
+                    <span> {{ patientlistmeasure.LocationName }}</span>
+                  </ul>
+                  <ul class="cstm-size">
+                    <b>Patient Count: </b>
+                    <span> {{ patientlistmeasure.PatientsCount }} </span>
+                  </ul>
+                  <ul class="cstm-size">
+                    <b>Bundle: </b>
+                    <span> {{ patientlistmeasure.Bundle }} </span>
+                  </ul>
+                  <ul class="cstm-size">
+                    <b>Measures: </b>
+                    <span> {{ patientlistmeasure.MeasuresList }}</span>
+                  </ul>
+                </div>
+
+                <div class="col-md-6 my-3">
+                  <ul class="nolistpoint">
+                    <li class="row">
+                      <b class="col-md-6">Report Id: </b>
+                      <span class="col-md-6">{{
+                        patientlistmeasure.ReportId
+                      }}</span>
+                    </li>
+                    <li class="row">
+                      <b class="col-md-6">Description:</b>
+                      <span class="col-md-6">{{
+                        patientlistmeasure.Description
+                      }}</span>
+                    </li>
+                    <li class="row">
+                      <b class="col-md-6">Created on:</b>
+                      <span class="col-md-6">{{
+                        patientlistmeasure.DateCreated
+                      }}</span>
+                    </li>
+                    <li class="row">
+                      <b class="col-md-6">Measurement Period:</b>
+                      <span class="col-md-6">{{
+                        patientlistmeasure.MeasurementPeriod
+                      }}</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="row cstm-tabwidth details">
+                <div class="col-md-12 table-responsive px-4">
+                  <button mat-button [matMenuTriggerFor]="menu">
+                    Downloads
+                  </button>
+                  <mat-menu #menu="matMenu">
+                    <button mat-menu-item>Download QRDA I</button>
+                    <button mat-menu-item>Download QRDA III</button>
+                    <button mat-menu-item (click)="downloadAsPDF()">
+                      Download QRDA III PDF
+                    </button>
+                    <button mat-menu-item>
+                      <a
+                        [href]="fileUrl"
+                        download="file.txt"
+                        (click)="
+                          getdownloadQRDA3Report(
+                            this.patientlistmeasure.ReportId
+                          )
+                        "
+                        >Download QRDA III Medicaid</a
+                      >
+                    </button>
+                    <!-- <button mat-menu-item >Download QRDA I
+      I MIPS Individual</button> -->
+                  </mat-menu>
+                </div>
+                <br />
+                <br />
+                <br />
+                <div class="col-md-12 table-responsive px-4">
+                  <div>
+                    <table
+                      id="common"
+                      class="cus-table-border"
+                      style="width: 100%"
+                    >
+                      <tbody>
+                        <tr>
+                          <td class="col-md-4 col-4">Document Created</td>
+                          <td class="col-md-8 col-8">
+                            {{ patientlistmeasure.DateCreated }}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="col-md-4 col-4">Performer</td>
+                          <td class="col-md-8 col-8">
+                            {{
+                              patientlistmeasure.ProviderName
+                            }}&nbsp;&nbsp;&nbsp;{{
+                              patientlistmeasure.LocationName
+                            }}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="col-md-4 col-4">Author</td>
+                          <td class="col-md-8 col-8">
+                            {{ patientlistmeasure.LocationName }}
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td class="col-md-4 col-4">Regulated product</td>
+                          <td class="col-md-8 col-8">Medical record,Device</td>
+                        </tr>
+
+                        <tr>
+                          <td class="cstm-border col-md-4 col-4">
+                            Document maintained by
+                          </td>
+                          <td class="col-md-8 col-8">
+                            {{ patientlistmeasure.LocationName }}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="cstm-border col-md-4 col-4">
+                            Contact Info
+                          </td>
+                          <td class="col-md-8 col-8"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <br />
+                  <div>
+                    <h4>Table of Contents:</h4>
+                    <ul style="padding-left: 41px">
+                      <li
+                        (click)="ReportingParameters()"
+                        style="text-decoration: underline"
+                      >
+                        <p>Reporting Parameters</p>
+                      </li>
+                      <li
+                        (click)="Measuresection()"
+                        style="text-decoration: underline"
+                      >
+                        <p>Measure section</p>
+                      </li>
+                    </ul>
+                  </div>
+                  <div style="border-bottom: 3px solid #41b6a6"></div>
+
+                  <div id="ReportingParameters">
+                    <h4>Reporting Parameters</h4>
+                    <ul style="padding-left: 41px">
+                      <li>
+                        <b>Reporting period:</b>
+                        {{ patientlistmeasure.MeasurementPeriod }}
+                      </li>
+                      <li><b> First encounter:</b>23 March 2018</li>
+
+                      <li><b>Last encounter:</b>25 September 2021</li>
+                    </ul>
+                  </div>
+
+                  <h4><b>Measure Section</b></h4>
+                  <div
+                    *ngFor="
+                      let details of getDetailsTabData;
+                      let details1;
+                      of: getDetailsTabData1
+                    "
+                    id="Measuresection"
+                  >
+                    <div class="example-table-container">
+                      <table style="border: 1; width: 100%" id="cst-table">
+                        <thead>
+                          <tr>
+                            <th>eMeasure Title</th>
+                            <th>Version neutral identifier</th>
+                            <th>eMeasure Version Number</th>
+                            <th>NQF eMeasure Number</th>
+                            <th>eMeasure Identifier (MAT)</th>
+                            <th>Version specific identifier</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>{{ details.eMeasure_Title }}</td>
+                            <td>{{ details.Version_neutral_identifier }}</td>
+                            <td>{{ details.eMeasure_Version_Number }}</td>
+                            <td>{{ details.NQF_eMeasure_Number }}</td>
+                            <td>{{ details.eMeasure_Identifier_MAT }}</td>
+                            <td>{{ details.Version_specific_identifier }}</td>
+                          </tr>
+                        </tbody>
+                        <tbody>
+                          <div style="border: 1; width: 100%">
+                            <b class="texthigh">Member of Measure Set:</b>
+
+                            <ul style="padding-left: 41px" id="lineheight">
+                              <div
+                                [ngClass]="{
+                                  'd-none':
+                                    details.eMeasure_Identifier_MAT == '155' ||
+                                    details.eMeasure_Identifier_MAT == '138'
+                                }"
+                              >
+                                <li>
+                                  <b class="texthigh">Performance Rate:</b>
+                                  {{ details.Performance_Rate1 }}
+                                </li>
+                              </div>
+                              <div
+                                [ngClass]="{
+                                  'd-none':
+                                    details.eMeasure_Identifier_MAT == '68' ||
+                                    details.eMeasure_Identifier_MAT == '69' ||
+                                    details.eMeasure_Identifier_MAT == '74' ||
+                                    details.eMeasure_Identifier_MAT == '75' ||
+                                    details.eMeasure_Identifier_MAT == '127' ||
+                                    details.eMeasure_Identifier_MAT == '147' ||
+                                    details.eMeasure_Identifier_MAT == '165'
+                                }"
+                              >
+                                <li>
+                                  <b class="texthigh">Performance Rate 1:</b>
+                                  {{ details.Performance_Rate1 }}
+                                </li>
+                                <li>
+                                  <b class="texthigh">Performance Rate 2:</b>
+                                  {{ details.Performance_Rate2 }}
+                                </li>
+                                <li>
+                                  <b class="texthigh">Performance Rate 3:</b>
+                                  {{ details.Performance_Rate3 }}
+                                </li>
+                              </div>
+                              <div
+                                [ngClass]="{
+                                  'd-none':
+                                    details.eMeasure_Identifier_MAT == '155' ||
+                                    details.eMeasure_Identifier_MAT == '138'
+                                }"
+                              >
+                                <li>
+                                  <b class="texthigh">Reporting Rate:</b>
+                                  {{ details.Reporting_Rate1 }}
+                                </li>
+                              </div>
+                              <div
+                                [ngClass]="{
+                                  'd-none':
+                                    details.eMeasure_Identifier_MAT == '68' ||
+                                    details.eMeasure_Identifier_MAT == '69' ||
+                                    details.eMeasure_Identifier_MAT == '74' ||
+                                    details.eMeasure_Identifier_MAT == '75' ||
+                                    details.eMeasure_Identifier_MAT == '127' ||
+                                    details.eMeasure_Identifier_MAT == '147' ||
+                                    details.eMeasure_Identifier_MAT == '165'
+                                }"
+                              >
+                                <li>
+                                  <b class="texthigh">Reporting Rate 1:</b>
+                                  {{ details.Reporting_Rate1 }}
+                                </li>
+                                <li>
+                                  <b class="texthigh">Reporting Rate 2:</b>
+                                  {{ details.Reporting_Rate2 }}
+                                </li>
+                                <li>
+                                  <b class="texthigh">Reporting Rate 3:</b>
+                                  {{ details.Reporting_Rate3 }}
+                                </li>
+                                <!-- <div>
+                                  <li>
+                                    <b class="texthigh">Initial Patient Population:</b>
+                                    {{details1.IPP}}
+                                  </li>
+                                  <ul style=" padding-left: 41px;">
+                                    <li>
+                                      <b class="texthigh">Male: </b>
+                                      {{details1.Male}}
+                                    </li>
+                                    <li>
+                                      <b class="texthigh"> Female: </b>
+                                      {{details1.Female}}
+                                    </li>
+                                    <li>
+                                      <b class="texthigh">Not Hispanic or Latino:</b>
+                                      {{details1.NotHispanic}}
+                                    </li>
+                                    <li>
+                                      <b class="texthigh">Hispanic or Latino:</b>
+                                      {{details1.Hispanic}}
+                                    </li>
+
+                                    <li>
+                                      <b class="texthigh">Payer - Other:</b>
+
+                                      {{details1.PayerOther}}
+                                    </li>
+                                  </ul>
+                                </div>
+                                <div>
+                                  <li>
+                                    <b class="texthigh">Denominator:</b>
+                                    {{details1.DENPayOther}}
+                                  </li>
+                                  <ul style=" padding-left: 41px; ">
+                                    <li>
+                                      <b class="texthigh">Male: </b>
+                                      {{details1.DENMale}}
+                                    </li>
+                                    <li>
+                                      <b class="texthigh"> Female: </b>
+                                      {{details1.DENFeMale}}
+                                    </li>
+                                    <li>
+                                      <b class="texthigh">Not Hispanic or Latino: </b>
+                                      {{details.DENNOTHispanic}}
+                                    </li>
+                                    <li>
+                                      <b class="texthigh">Hispanic or Latino: </b>
+                                      {{details.DENHispanic}}
+                                    </li>
+
+                                    <li>
+                                      <b class="texthigh">Payer - Other: </b>
+                                      {{details.DENPayOther}}
+                                    </li>
+                                  </ul>
+                                </div> -->
+                              </div>
+                              <div>
+                                <div>
+                                  <div>
+                                    <div
+                                      *ngFor="
+                                        let childDetail of details?.details1
+                                      "
+                                    >
+                                      <li>
+                                        <b class="texthigh">
+                                          <span
+                                            *ngIf="
+                                              childDetail?.ResultsFor == 'IPP'
+                                            "
+                                            >Initial Patient Population
+                                            <span
+                                              *ngIf="childDetail?.seq != 0"
+                                              >{{ childDetail?.seq }}</span
+                                            >
+                                            :</span
+                                          >
+                                          <span
+                                            *ngIf="
+                                              childDetail?.ResultsFor ==
+                                              'Denominator'
+                                            "
+                                            >Denominator
+                                            <span
+                                              *ngIf="childDetail?.seq != 0"
+                                              >{{ childDetail?.seq }}</span
+                                            >:</span
+                                          >
+                                          <span
+                                            *ngIf="
+                                              childDetail?.ResultsFor ==
+                                              'DenException'
+                                            "
+                                            >Denominator Exception
+                                            <span
+                                              *ngIf="childDetail?.seq != 0"
+                                              >{{ childDetail?.seq }}</span
+                                            >:</span
+                                          >
+                                          <span
+                                            *ngIf="
+                                              childDetail?.ResultsFor ==
+                                              'DenExclusion'
+                                            "
+                                            >Denominator Exclusion
+                                            <span
+                                              *ngIf="childDetail?.seq != 0"
+                                              >{{ childDetail?.seq }}</span
+                                            >:</span
+                                          >
+                                          <span
+                                            *ngIf="
+                                              childDetail?.ResultsFor ==
+                                              'Numerator'
+                                            "
+                                            >Numerator
+                                            <span
+                                              *ngIf="childDetail?.seq != 0"
+                                              >{{ childDetail?.seq }}</span
+                                            >:</span
+                                          >
+                                        </b>
+                                        {{ childDetail?.ResultsForCount }}
+                                      </li>
+                                      <ul>
+                                        <li
+                                          *ngIf="
+                                            details.eMeasure_Identifier_MAT ==
+                                              '74' ||
+                                            (details.eMeasure_Identifier_MAT ==
+                                              '155' &&
+                                              childDetail.seq == 1)
+                                          "
+                                        >
+                                          <b class="texthigh"
+                                            >Reporting Stratum 1 :
+                                          </b>
+                                          {{ childDetail?.Reporting_Stratum1 }}
+                                        </li>
+                                        <li
+                                          *ngIf="
+                                            details.eMeasure_Identifier_MAT ==
+                                              '74' ||
+                                            (details.eMeasure_Identifier_MAT ==
+                                              '155' &&
+                                              childDetail.seq == 1)
+                                          "
+                                        >
+                                          <b class="texthigh"
+                                            >Reporting Stratum 2 :
+                                          </b>
+                                          {{ childDetail?.Reporting_Stratum2 }}
+                                        </li>
+                                        <li
+                                          *ngIf="
+                                            details.eMeasure_Identifier_MAT ==
+                                              '74' ||
+                                            (details.eMeasure_Identifier_MAT ==
+                                              '155' &&
+                                              childDetail.seq == 2)
+                                          "
+                                        >
+                                          <b class="texthigh"
+                                            >Reporting Stratum 3 :
+                                          </b>
+                                          {{ childDetail?.Reporting_Stratum3 }}
+                                        </li>
+                                        <li
+                                          *ngIf="
+                                            details.eMeasure_Identifier_MAT ==
+                                              '155' && childDetail.seq == 2
+                                          "
+                                        >
+                                          <b class="texthigh"
+                                            >Reporting Stratum 4 :
+                                          </b>
+                                          {{ childDetail?.Reporting_Stratum4 }}
+                                        </li>
+                                        <li
+                                          *ngIf="
+                                            details.eMeasure_Identifier_MAT ==
+                                              '155' && childDetail.seq == 3
+                                          "
+                                        >
+                                          <b class="texthigh"
+                                            >Reporting Stratum 5 :
+                                          </b>
+                                          {{ childDetail?.Reporting_Stratum5 }}
+                                        </li>
+                                        <li
+                                          *ngIf="
+                                            details.eMeasure_Identifier_MAT ==
+                                              '155' && childDetail.seq == 3
+                                          "
+                                        >
+                                          <b class="texthigh"
+                                            >Reporting Stratum 6 :
+                                          </b>
+                                          {{ childDetail?.Reporting_Stratum6 }}
+                                        </li>
+                                        <li>
+                                          <b class="texthigh">Male: </b>
+                                          {{ childDetail?.Male }}
+                                        </li>
+                                        <li>
+                                          <b class="texthigh"> Female: </b>
+                                          {{ childDetail?.Female }}
+                                        </li>
+                                        <li>
+                                          <b class="texthigh"
+                                            >Not Hispanic or Latino:</b
+                                          >
+                                          {{ childDetail?.NotHispanic }}
+                                        </li>
+                                        <li>
+                                          <b class="texthigh"
+                                            >Hispanic or Latino:</b
+                                          >
+                                          {{ childDetail?.Hispanic }}
+                                        </li>
+                                        <li>
+                                          <b class="texthigh">Other Race:</b>
+                                          {{ childDetail?.OtherRace }}
+                                        </li>
+                                        <li>
+                                          <b class="texthigh">Payer - Other:</b>
+                                          {{ childDetail?.PayerOther }}
+                                        </li>
+                                      </ul>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- <div [ngClass]="{'d-none': details.eMeasure_Identifier_MAT == '68' || details.eMeasure_Identifier_MAT == '69' || details.eMeasure_Identifier_MAT == '74' || details.eMeasure_Identifier_MAT == '75' || details.eMeasure_Identifier_MAT == '127' || details.eMeasure_Identifier_MAT == '147' || details.eMeasure_Identifier_MAT == '165'}">
+                                <div *ngFor="let childDetail of details?.details1">
+                                  <li>
+                                    <b class="texthigh">
+                                      <span *ngIf="childDetail?.ResultsFor == 'IPP'">Initial Patient Population {{childDetail?.seq}}:</span>
+                                      <span *ngIf="childDetail?.ResultsFor == 'Denominator'">Denominator {{childDetail?.seq}}:</span>
+                                      <span *ngIf="childDetail?.ResultsFor == 'DenException'">Denominator Exception {{childDetail?.seq}}:</span>
+                                      <span *ngIf="childDetail?.ResultsFor == 'DenExclusion'">Denominator Exclusion {{childDetail?.seq}}:</span>
+                                      <span *ngIf="childDetail?.ResultsFor == 'Numerator'">Numerator {{childDetail?.seq}}:</span>
+                                    </b>
+                                    {{childDetail?.ResultsForCount}}
+                                  </li>
+                                  <ul style=" padding-left: 41px;">
+                                    <li>
+                                      <b class="texthigh">Male: </b>
+                                      {{childDetail?.Male}}
+                                    </li>
+                                    <li>
+                                      <b class="texthigh"> Female: </b>
+                                      {{childDetail?.Female}}
+                                    </li>
+                                    <li>
+                                      <b class="texthigh">Not Hispanic or Latino:</b>
+                                      {{childDetail?.NotHispanic}}
+                                    </li>
+                                    <li>
+                                      <b class="texthigh">Hispanic or Latino:</b>
+                                      {{childDetail?.Hispanic}}
+                                    </li>
+
+                                    <li>
+                                      <b class="texthigh">Payer - Other:</b>
+                                      {{childDetail?.PayerOther}}
+                                    </li>
+                                  </ul>
+                                </div> </div> -->
+                              </div>
+                            </ul>
+                          </div>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-tab>
+
+          <ngb-tab title="Dashboard" id="dashBoard">
+            <ng-template ngbTabContent>
+              <div class="row">
+                <div class="col-md-12">
+                  <ngb-tabset class="tab-basic">
+                    <ngb-tab title="ALL">
+                      <ng-template ngbTabContent>
+                        <div
+                          class="
+                            row
+                            panel panel-default
+                            container-fluid
+                            mx-1
+                            my-3
+                          "
+                          style="width: 100%; height: 100%"
+                        >
+                          <div class="panel-body col-md-6">
+                            <ul class="cstm-size">
+                              <b>Provider: </b>
+                              <span>{{ patientlistmeasure.ProviderName }}</span>
+                            </ul>
+                            <ul class="cstm-size">
+                              <b>Ran by user: </b>
+                              <span>{{ patientlistmeasure.ProviderName }}</span>
+                            </ul>
+                            <ul class="cstm-size">
+                              <b>Data Source: </b>
+                              <span>
+                                {{ patientlistmeasure.LocationName }}</span
+                              >
+                            </ul>
+                            <ul class="cstm-size">
+                              <b>Patient Count: </b>
+                              <span>
+                                {{ patientlistmeasure.PatientsCount }}
+                              </span>
+                            </ul>
+                            <ul class="cstm-size">
+                              <b>Bundle: </b>
+                              <span> {{ patientlistmeasure.Bundle }} </span>
+                            </ul>
+                            <ul class="cstm-size">
+                              <b>Measures: </b>
+                              <span>
+                                {{ patientlistmeasure.MeasuresList }}</span
+                              >
+                            </ul>
+                          </div>
+
+                          <div class="col-md-6 my-3">
+                            <ul class="nolistpoint">
+                              <li class="row">
+                                <b class="col-md-6">Report Id: </b>
+                                <span class="col-md-6">{{
+                                  patientlistmeasure.ReportId
+                                }}</span>
+                              </li>
+                              <li class="row">
+                                <b class="col-md-6">Description:</b>
+                                <span class="col-md-6">{{
+                                  patientlistmeasure.Description
+                                }}</span>
+                              </li>
+                              <li class="row">
+                                <b class="col-md-6">Created on:</b>
+                                <span class="col-md-6">{{
+                                  patientlistmeasure.DateCreated
+                                }}</span>
+                              </li>
+                              <li class="row">
+                                <b class="col-md-6">Measurement Period:</b>
+                                <span class="col-md-6">{{
+                                  patientlistmeasure.MeasurementPeriod
+                                }}</span>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <table id="cst-table" style="width: 100%">
+                              <thead>
+                                <tr>
+                                  <th>Measure Description</th>
+                                  <th>Performance Rate</th>
+                                  <th>IPP</th>
+                                  <th>Den.</th>
+                                  <th>Excl.</th>
+                                  <th>Num.</th>
+                                  <th>Excep.</th>
+                                  <th>Performance Not Met</th>
+                                  <th></th>
+                                </tr>
+                              </thead>
+
+                              <!-- Performance Column -->
+                              <tbody>
+                                <tr *ngFor="let details of getDashBoardreport">
+                                  <td>
+                                    {{ details.MeasureIdentifier }}/MIPS -
+                                    {{ details.MeasureTitle }}
+                                    <br
+                                      [ngClass]="{
+                                        'd-none':
+                                          details.PopulationDescription == null
+                                      }"
+                                    />
+
+                                    <b style="color: #2e86c1">{{
+                                      details.PopulationDescription
+                                    }}</b>
+                                    <br
+                                      [ngClass]="{
+                                        'd-none':
+                                          details.StratificationText == null
+                                      }"
+                                    />
+                                    <b style="color: #239b56">{{
+                                      details.StratificationText
+                                    }}</b>
+                                    <br
+                                      *ngIf="
+                                        (details.MeasureIdentifier ==
+                                          'CMS 74' ||
+                                          details.MeasureIdentifier ==
+                                            'CMS 155') &&
+                                        details.StratificationText == null
+                                      "
+                                    />
+                                    <b
+                                      *ngIf="
+                                        (details.MeasureIdentifier ==
+                                          'CMS 74' ||
+                                          details.MeasureIdentifier ==
+                                            'CMS 155') &&
+                                        details.StratificationText == null
+                                      "
+                                      style="color: #239b56"
+                                      >Unstratified</b
+                                    >
+                                  </td>
+                                  <td style="width: 15%">
+                                    <div class="row">
+                                      <b
+                                        class="col-xl-3 col-lg-4 col-md-4 col-4"
+                                        >{{ details.PerformanceRate }}%</b
+                                      >
+
+                                      <div
+                                        class="
+                                          progress
+                                          col-xl-9 col-lg-8 col-md-8 col-8
+                                        "
+                                      >
+                                        <div
+                                          id="progressBar"
+                                          class="progress-bar"
+                                          style="width: 0%; background: #428bca"
+                                        ></div>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td style="width: 5%">{{ details.IPP }}</td>
+                                  <td style="width: 5%">
+                                    {{ details.Denominator }}
+                                  </td>
+                                  <td style="width: 5%">
+                                    {{ details.DenExclusion }}
+                                  </td>
+                                  <td style="width: 5%">
+                                    {{ details.Numerator }}
+                                  </td>
+                                  <td style="width: 5%">
+                                    {{ details.DenException }}
+                                  </td>
+                                  <td style="width: 5%">N/A</td>
+                                  <td (click)="showPatientListTab(details)">
+                                    <button class="viewResult">
+                                      View Details
+                                    </button>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </ng-template>
+                    </ngb-tab>
+                    <ngb-tab title="Core">
+                      <ng-template ngbTabContent>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <h5 class="mb-3"></h5>
+                          </div>
+                        </div>
+                      </ng-template>
+                    </ngb-tab>
+                    <ngb-tab title="Dental">
+                      <ng-template ngbTabContent>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <h5 class="mb-3"></h5>
+                          </div>
+                        </div>
+                      </ng-template>
+                    </ngb-tab>
+                    <ngb-tab title="GPA">
+                      <ng-template ngbTabContent>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <h5 class="mb-3"></h5>
+                          </div>
+                        </div>
+                      </ng-template>
+                    </ngb-tab>
+                    <ngb-tab title="GPP">
+                      <ng-template ngbTabContent>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <h5 class="mb-3"></h5>
+                          </div>
+                        </div>
+                      </ng-template>
+                    </ngb-tab>
+                  </ngb-tabset>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-tab>
+          <!-- <div *ngFor="let childDetail of details?.details1">
+            <li>
+              <b class="texthigh">
+                <span *ngIf="childDetail?.ResultsFor == 'IPP'">Initial Patient Population <span *ngIf="childDetail?.seq != 0">{{childDetail?.seq}}</span> :</span>
+                <span *ngIf="childDetail?.ResultsFor == 'Denominator'">Denominator <span *ngIf="childDetail?.seq != 0">{{childDetail?.seq}}</span>:</span>
+                <span *ngIf="childDetail?.ResultsFor == 'DenException'">Denominator Exception <span *ngIf="childDetail?.seq != 0">{{childDetail?.seq}}</span>:</span>
+                <span *ngIf="childDetail?.ResultsFor == 'DenExclusion'">Denominator Exclusion <span *ngIf="childDetail?.seq != 0">{{childDetail?.seq}}</span>:</span>
+                <span *ngIf="childDetail?.ResultsFor == 'Numerator'">Numerator <span *ngIf="childDetail?.seq != 0">{{childDetail?.seq}}</span>:</span>
+              </b> -->
+          <ngb-tab title="Summary" id="summary">
+            <ng-template ngbTabContent>
+              <div class="row panel panel-default container-fluid mx-1 my-3">
+                <div class="panel-body col-md-6">
+                  <ul class="cstm-size">
+                    <b>Provider: </b>
+                    <span>{{ patientlistmeasure.ProviderName }}</span>
+                  </ul>
+                  <ul class="cstm-size">
+                    <b>Ran by user: </b>
+                    <span>{{ patientlistmeasure.ProviderName }}</span>
+                  </ul>
+                  <ul class="cstm-size">
+                    <b>Data Source: </b>
+                    <span> {{ patientlistmeasure.LocationName }}</span>
+                  </ul>
+                  <ul class="cstm-size">
+                    <b>Patient Count: </b>
+                    <span> {{ patientlistmeasure.PatientsCount }} </span>
+                  </ul>
+                  <ul class="cstm-size">
+                    <b>Bundle: </b>
+                    <span> {{ patientlistmeasure.Bundle }} </span>
+                  </ul>
+                  <ul class="cstm-size">
+                    <b>Measures: </b>
+                    <span> {{ patientlistmeasure.MeasuresList }}</span>
+                  </ul>
+                </div>
+
+                <div class="col-md-6 my-3">
+                  <ul class="nolistpoint">
+                    <li class="row">
+                      <b class="col-md-6">Report Id: </b>
+                      <span class="col-md-6">{{
+                        patientlistmeasure.ReportId
+                      }}</span>
+                    </li>
+                    <li class="row">
+                      <b class="col-md-6">Description:</b>
+                      <span class="col-md-6">{{
+                        patientlistmeasure.Description
+                      }}</span>
+                    </li>
+                    <li class="row">
+                      <b class="col-md-6">Created on:</b>
+                      <span class="col-md-6">{{
+                        patientlistmeasure.DateCreated
+                      }}</span>
+                    </li>
+                    <li class="row">
+                      <b class="col-md-6">Measurement Period:</b>
+                      <span class="col-md-6">{{
+                        patientlistmeasure.MeasurementPeriod
+                      }}</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-1 col-md-2">
+                  <h2>Index</h2>
+                  <ul class="list-group">
+                    <li class="list-group-item">
+                      <a (click)="toTop68()">CMS {{ y[0] }}</a>
+                    </li>
+                    <li class="list-group-item">
+                      <a (click)="toTop69()">CMS {{ y[1] }}</a>
+                    </li>
+                    <li class="list-group-item">
+                      <a (click)="toTop74()">CMS {{ y[2] }}</a>
+                    </li>
+                    <li class="list-group-item">
+                      <a (click)="toTop75()">CMS {{ y[3] }}</a>
+                    </li>
+                    <li class="list-group-item">
+                      <a (click)="toTop127()">CMS {{ y[4] }}</a>
+                    </li>
+                    <li class="list-group-item">
+                      <a (click)="toTop138()">CMS {{ y[5] }}</a>
+                    </li>
+                    <li class="list-group-item">
+                      <a (click)="toTop147()">CMS {{ y[6] }}</a>
+                    </li>
+                    <li class="list-group-item">
+                      <a (click)="toTop155()">CMS {{ y[7] }}</a>
+                    </li>
+                    <li class="list-group-item">
+                      <a (click)="toTop165()">CMS {{ y[8] }}</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-lg-11 col-md-10">
+                  <div>
+                    <div class="example-table-container">
+                      <table class="summary" id="p68">
+                        <thead class="summaryheader">
+                          CMS
+                          {{
+                            y[0]
+                          }}&nbsp;-&nbsp;{{
+                            getDashBoardreport[0].MeasureTitle
+                          }}
+                        </thead>
+                        <tbody>
+                          <h4 class="pp">Populations :</h4>
+                          <hr />
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              *ngIf="summary.MeasureIdentifier == 'CMS 68'"
+                              class="pp"
+                              >Initial Patient Population :{{
+                                summary.IPP
+                              }}</span
+                            >
+                          </tr>
+
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              *ngIf="summary.MeasureIdentifier == 'CMS 68'"
+                              class="pp"
+                              >Denominator :{{ summary.Denominator }}</span
+                            >
+                          </tr>
+                          <!-- <div *ngFor="let summary of getDashBoardreport"><span *ngIf="summary.MeasureIdentifier=='CMS 68'">Denominator Exclusion :{{summary.DenExclusion}}</span></div> -->
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              *ngIf="summary.MeasureIdentifier == 'CMS 68'"
+                              class="pp"
+                              >Numerator :{{ summary.Numerator }}</span
+                            >
+                          </tr>
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              *ngIf="summary.MeasureIdentifier == 'CMS 68'"
+                              class="pp"
+                              >Denominator Exception :{{
+                                summary.DenException
+                              }}</span
+                            >
+                          </tr>
+                        </tbody>
+                      </table>
+
+                      <table class="summary" id="p69">
+                        <thead class="summaryheader">
+                          CMS
+                          {{
+                            y[1]
+                          }}&nbsp;-&nbsp;{{
+                            getDashBoardreport[1].MeasureTitle
+                          }}
+                        </thead>
+                        <tbody>
+                          <h4 class="pp">Populations :</h4>
+                          <hr />
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              *ngIf="summary.MeasureIdentifier == 'CMS 69'"
+                              class="pp"
+                              >Initial Patient Population :{{
+                                summary.IPP
+                              }}</span
+                            >
+                          </tr>
+
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              *ngIf="summary.MeasureIdentifier == 'CMS 69'"
+                              class="pp"
+                              >Denominator :{{ summary.Denominator }}</span
+                            >
+                          </tr>
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              *ngIf="summary.MeasureIdentifier == 'CMS 69'"
+                              class="pp"
+                              >Denominator Exclusion :{{
+                                summary.DenExclusion
+                              }}</span
+                            >
+                          </tr>
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              *ngIf="summary.MeasureIdentifier == 'CMS 69'"
+                              class="pp"
+                              >Numerator :{{ summary.Numerator }}</span
+                            >
+                          </tr>
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              *ngIf="summary.MeasureIdentifier == 'CMS 69'"
+                              class="pp"
+                              >Denominator Exception :{{
+                                summary.DenException
+                              }}</span
+                            >
+                          </tr>
+                        </tbody>
+                      </table>
+
+                      <table class="summary" id="p74">
+                        <thead class="summaryheader">
+                          CMS
+                          {{
+                            y[2]
+                          }}&nbsp;-&nbsp;{{
+                            getDashBoardreport[2].MeasureTitle
+                          }}
+                        </thead>
+                        <tbody>
+                          <h4 class="pp">Populations :</h4>
+                          <hr />
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              *ngIf="summary.MeasureIdentifier == 'CMS 74'"
+                              class="pp"
+                              >Initial Patient Population :{{
+                                summary.IPP
+                              }}</span
+                            >
+                          </tr>
+
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              *ngIf="summary.MeasureIdentifier == 'CMS 74'"
+                              class="pp"
+                              >Denominator :{{ summary.Denominator }}</span
+                            >
+                          </tr>
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              *ngIf="summary.MeasureIdentifier == 'CMS 74'"
+                              class="pp"
+                              >Denominator Exclusion :{{
+                                summary.DenExclusion
+                              }}</span
+                            >
+                          </tr>
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              *ngIf="summary.MeasureIdentifier == 'CMS 74'"
+                              class="pp"
+                              >Numerator :{{ summary.Numerator }}</span
+                            >
+                          </tr>
+                          <!-- <div *ngFor="let summary of getDashBoardreport"><span *ngIf="summary.MeasureIdentifier=='CMS 74'">Denominator Exception :{{summary.DenException}}</span></div> -->
+                        </tbody>
+                      </table>
+
+                      <table class="summary" id="p75">
+                        <thead class="summaryheader">
+                          CMS
+                          {{
+                            y[3]
+                          }}&nbsp;-&nbsp;{{
+                            getDashBoardreport[3].MeasureTitle
+                          }}
+                        </thead>
+                        <tbody>
+                          <h4 class="pp">Populations :</h4>
+                          <hr />
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              *ngIf="summary.MeasureIdentifier == 'CMS 75'"
+                              class="pp"
+                              >Initial Patient Population :{{
+                                summary.IPP
+                              }}</span
+                            >
+                          </tr>
+
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              *ngIf="summary.MeasureIdentifier == 'CMS 75'"
+                              class="pp"
+                            >
+                              Denominator :{{ summary.Denominator }}</span
+                            >
+                          </tr>
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              *ngIf="summary.MeasureIdentifier == 'CMS 75'"
+                              class="pp"
+                              >Denominator Exclusion :{{
+                                summary.DenExclusion
+                              }}</span
+                            >
+                          </tr>
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              *ngIf="summary.MeasureIdentifier == 'CMS 75'"
+                              class="pp"
+                              >Numerator :{{ summary.Numerator }}</span
+                            >
+                          </tr>
+                          <!-- <div *ngFor="let summary of getDashBoardreport"><span *ngIf="summary.MeasureIdentifier=='CMS 74'">Denominator Exception :{{summary.DenException}}</span></div> -->
+                        </tbody>
+                      </table>
+                      <table class="summary" id="p127">
+                        <thead class="summaryheader">
+                          CMS
+                          {{
+                            y[4]
+                          }}&nbsp;-&nbsp;{{
+                            getDashBoardreport[4].MeasureTitle
+                          }}
+                        </thead>
+                        <tbody>
+                          <h4 class="pp">Populations :</h4>
+                          <hr />
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              *ngIf="summary.MeasureIdentifier == 'CMS 127'"
+                              class="pp"
+                              >Initial Patient Population :{{
+                                summary.IPP
+                              }}</span
+                            >
+                          </tr>
+
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              *ngIf="summary.MeasureIdentifier == 'CMS 127'"
+                              class="pp"
+                              >Denominator :{{ summary.Denominator }}</span
+                            >
+                          </tr>
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              *ngIf="summary.MeasureIdentifier == 'CMS 127'"
+                              class="pp"
+                              >Denominator Exclusion :{{
+                                summary.DenExclusion
+                              }}</span
+                            >
+                          </tr>
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              *ngIf="summary.MeasureIdentifier == 'CMS 127'"
+                              class="pp"
+                              >Numerator :{{ summary.Numerator }}</span
+                            >
+                          </tr>
+                          <!-- <div *ngFor="let summary of getDashBoardreport"><span *ngIf="summary.MeasureIdentifier=='CMS 74'">Denominator Exception :{{summary.DenException}}</span></div> -->
+                        </tbody>
+                      </table>
+                      <table class="summary" id="p138">
+                        <thead class="summaryheader">
+                          CMS
+                          {{
+                            y[5]
+                          }}&nbsp;-&nbsp;{{
+                            getDashBoardreport[5].MeasureTitle
+                          }}
+                        </thead>
+                        <tbody>
+                          <h4 class="pp">Populations :</h4>
+                          <hr />
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              class="pp"
+                              *ngIf="
+                                summary.MeasureIdentifier == 'CMS 138' &&
+                                summary.PopulationDescription ==
+                                  'Population 1: Screened for tobacco use at least once within 24 mos'
+                              "
+                              >Initial Patient Population 1:{{
+                                summary.IPP
+                              }}</span
+                            >
+                          </tr>
+
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              class="pp"
+                              *ngIf="
+                                summary.MeasureIdentifier == 'CMS 138' &&
+                                summary.PopulationDescription ==
+                                  'Population 1: Screened for tobacco use at least once within 24 mos'
+                              "
+                              >Denominator 1:{{ summary.Denominator }}</span
+                            >
+                          </tr>
+                          <!-- <div *ngFor="let summary of getDashBoardreport"><span *ngIf="summary.MeasureIdentifier=='CMS 138'">Denominator Exclusion :{{summary.DenExclusion}}</span></div> -->
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              class="pp"
+                              *ngIf="
+                                summary.MeasureIdentifier == 'CMS 138' &&
+                                summary.PopulationDescription ==
+                                  'Population 1: Screened for tobacco use at least once within 24 mos'
+                              "
+                              >Numerator 1:{{ summary.Numerator }}</span
+                            >
+                          </tr>
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              class="pp"
+                              *ngIf="
+                                summary.MeasureIdentifier == 'CMS 138' &&
+                                summary.PopulationDescription ==
+                                  'Population 1: Screened for tobacco use at least once within 24 mos'
+                              "
+                              >Denominator Exception 1:{{
+                                summary.DenException
+                              }}</span
+                            >
+                          </tr>
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              class="pp"
+                              *ngIf="
+                                summary.MeasureIdentifier == 'CMS 138' &&
+                                summary.PopulationDescription ==
+                                  'Population 2: Received tobacco cessation intervention'
+                              "
+                              >Initial Patient Population 2:{{
+                                summary.IPP
+                              }}</span
+                            >
+                          </tr>
+
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              class="pp"
+                              *ngIf="
+                                summary.MeasureIdentifier == 'CMS 138' &&
+                                summary.PopulationDescription ==
+                                  'Population 2: Received tobacco cessation intervention'
+                              "
+                              >Denominator 2:{{ summary.Denominator }}</span
+                            >
+                          </tr>
+                          <!-- <div *ngFor="let summary of getDashBoardreport"><span *ngIf="summary.MeasureIdentifier=='CMS 138'">Denominator Exclusion :{{summary.DenExclusion}}</span></div> -->
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              class="pp"
+                              *ngIf="
+                                summary.MeasureIdentifier == 'CMS 138' &&
+                                summary.PopulationDescription ==
+                                  'Population 2: Received tobacco cessation intervention'
+                              "
+                              >Numerator 2 :{{ summary.Numerator }}</span
+                            >
+                          </tr>
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              class="pp"
+                              *ngIf="
+                                summary.MeasureIdentifier == 'CMS 138' &&
+                                summary.PopulationDescription ==
+                                  'Population 2: Received tobacco cessation intervention'
+                              "
+                              >Denominator Exception 2:{{
+                                summary.DenException
+                              }}</span
+                            >
+                          </tr>
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              class="pp"
+                              *ngIf="
+                                summary.MeasureIdentifier == 'CMS 138' &&
+                                summary.PopulationDescription ==
+                                  'Population 3: Screened for tobacco use at least once within 24 mos AND received cessation intervention if identified as a tobacco user'
+                              "
+                              >Initial Patient Population 3:{{
+                                summary.IPP
+                              }}</span
+                            >
+                          </tr>
+
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              class="pp"
+                              *ngIf="
+                                summary.MeasureIdentifier == 'CMS 138' &&
+                                summary.PopulationDescription ==
+                                  'Population 3: Screened for tobacco use at least once within 24 mos AND received cessation intervention if identified as a tobacco user'
+                              "
+                              >Denominator 3:{{ summary.Denominator }}</span
+                            >
+                          </tr>
+                          <!-- <div *ngFor="let summary of getDashBoardreport"><span *ngIf="summary.MeasureIdentifier=='CMS 138'">Denominator Exclusion :{{summary.DenExclusion}}</span></div> -->
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              class="pp"
+                              *ngIf="
+                                summary.MeasureIdentifier == 'CMS 138' &&
+                                summary.PopulationDescription ==
+                                  'Population 3: Screened for tobacco use at least once within 24 mos AND received cessation intervention if identified as a tobacco user'
+                              "
+                              >Numerator 3:{{ summary.Numerator }}</span
+                            >
+                          </tr>
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              class="pp"
+                              *ngIf="
+                                summary.MeasureIdentifier == 'CMS 138' &&
+                                summary.PopulationDescription ==
+                                  'Population 3: Screened for tobacco use at least once within 24 mos AND received cessation intervention if identified as a tobacco user'
+                              "
+                              >Denominator Exception 3:{{
+                                summary.DenException
+                              }}</span
+                            >
+                          </tr>
+                        </tbody>
+                      </table>
+                      <table class="summary" id="p147">
+                        <thead class="summaryheader">
+                          CMS
+                          {{
+                            y[6]
+                          }}&nbsp;-&nbsp;{{
+                            getDashBoardreport[6].MeasureTitle
+                          }}
+                        </thead>
+                        <tbody>
+                          <h4 class="pp">Populations :</h4>
+                          <hr />
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              class="pp"
+                              *ngIf="summary.MeasureIdentifier == 'CMS 147'"
+                              >Initial Patient Population :{{
+                                summary.IPP
+                              }}</span
+                            >
+                          </tr>
+
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              class="pp"
+                              *ngIf="summary.MeasureIdentifier == 'CMS 147'"
+                              >Denominator :{{ summary.Denominator }}</span
+                            >
+                          </tr>
+                          <!-- <tr *ngFor="let summary of getDashBoardreport"><span *ngIf="summary.MeasureIdentifier=='CMS 147'">Denominator Exclusion :{{summary.DenExclusion}}</span></tr> -->
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              class="pp"
+                              *ngIf="summary.MeasureIdentifier == 'CMS 147'"
+                              >Numerator :{{ summary.Numerator }}</span
+                            >
+                          </tr>
+                          <div *ngFor="let summary of getDashBoardreport">
+                            <span
+                              class="pp"
+                              *ngIf="summary.MeasureIdentifier == 'CMS 147'"
+                              >Denominator Exception :{{
+                                summary.DenException
+                              }}</span
+                            >
+                          </div>
+                        </tbody>
+                      </table>
+                      <table class="summary" id="p155">
+                        <thead class="summaryheader">
+                          CMS
+                          {{
+                            y[7]
+                          }}&nbsp;-&nbsp;{{
+                            getDashBoardreport[7].MeasureTitle
+                          }}
+                        </thead>
+                        <tbody>
+                          <h4 class="pp">Populations :</h4>
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              class="pp"
+                              *ngIf="
+                                summary.MeasureIdentifier == 'CMS 155' &&
+                                summary.StratificationText == null
+                              "
+                              >Initial Patient Population 1:{{
+                                summary.IPP
+                              }}</span
+                            >
+                          </tr>
+
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              class="pp"
+                              *ngIf="
+                                summary.MeasureIdentifier == 'CMS 155' &&
+                                summary.StratificationText == null
+                              "
+                              >Denominator 1:{{ summary.Denominator }}</span
+                            >
+                          </tr>
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              class="pp"
+                              *ngIf="
+                                summary.MeasureIdentifier == 'CMS 155' &&
+                                summary.StratificationText == null
+                              "
+                              >Denominator Exclusion 1:{{
+                                summary.DenExclusion
+                              }}</span
+                            >
+                          </tr>
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              class="pp"
+                              *ngIf="
+                                summary.MeasureIdentifier == 'CMS 155' &&
+                                summary.StratificationText == null
+                              "
+                              >Numerator 1:{{ summary.Numerator }}</span
+                            >
+                          </tr>
+
+                          <tr
+                            *ngFor="
+                              let summary of getDashBoardreport;
+                              let childDetail;
+                              of: details?.details1
+                            "
+                          >
+                            <span
+                              class="pp"
+                              *ngIf="
+                                summary.MeasureIdentifier == 'CMS 155' &&
+                                summary.StratificationText ==
+                                  'Stratum 1: age 3-10'
+                              "
+                              >Initial Patient Population 2: :{{
+                                summary.IPP
+                              }}</span
+                            >
+                          </tr>
+
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              class="pp"
+                              *ngIf="
+                                summary.MeasureIdentifier == 'CMS 155' &&
+                                summary.StratificationText ==
+                                  'Stratum 1: age 3-10'
+                              "
+                              >Denominator 2:{{ summary.Denominator }}</span
+                            >
+                          </tr>
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              class="pp"
+                              *ngIf="
+                                summary.MeasureIdentifier == 'CMS 155' &&
+                                summary.StratificationText ==
+                                  'Stratum 1: age 3-10'
+                              "
+                              >Denominator Exclusion 2:{{
+                                summary.DenExclusion
+                              }}</span
+                            >
+                          </tr>
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              class="pp"
+                              *ngIf="
+                                summary.MeasureIdentifier == 'CMS 155' &&
+                                summary.StratificationText ==
+                                  'Stratum 1: age 3-10'
+                              "
+                              >Numerator 2:{{ summary.Numerator }}</span
+                            >
+                          </tr>
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              class="pp"
+                              *ngIf="
+                                summary.MeasureIdentifier == 'CMS 155' &&
+                                summary.StratificationText ==
+                                  'Stratum 2: age 11-16'
+                              "
+                              >Initial Patient Population 3:{{
+                                summary.IPP
+                              }}</span
+                            >
+                          </tr>
+
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              class="pp"
+                              *ngIf="
+                                summary.MeasureIdentifier == 'CMS 155' &&
+                                summary.StratificationText ==
+                                  'Stratum 2: age 11-16'
+                              "
+                              >Denominator 3:{{ summary.Denominator }}</span
+                            >
+                          </tr>
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              class="pp"
+                              *ngIf="
+                                summary.MeasureIdentifier == 'CMS 155' &&
+                                summary.StratificationText ==
+                                  'Stratum 2: age 11-16'
+                              "
+                              >Denominator Exclusion 3:{{
+                                summary.DenExclusion
+                              }}</span
+                            >
+                          </tr>
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              class="pp"
+                              *ngIf="
+                                summary.MeasureIdentifier == 'CMS 155' &&
+                                summary.StratificationText ==
+                                  'Stratum 2: age 11-16'
+                              "
+                              >Numerator 3:{{ summary.Numerator }}</span
+                            >
+                          </tr>
+                        </tbody>
+                      </table>
+                      <table class="summary" id="p165">
+                        <thead class="summaryheader">
+                          CMS
+                          {{
+                            y[8]
+                          }}&nbsp;-&nbsp;{{
+                            getDashBoardreport[8].MeasureTitle
+                          }}
+                        </thead>
+                        <tbody>
+                          <h4 class="pp">Populations :</h4>
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              class="pp"
+                              *ngIf="summary.MeasureIdentifier == 'CMS 165'"
+                              >Initial Patient Population :{{
+                                summary.IPP
+                              }}</span
+                            >
+                          </tr>
+
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              class="pp"
+                              *ngIf="summary.MeasureIdentifier == 'CMS 165'"
+                              >Denominator :{{ summary.Denominator }}</span
+                            >
+                          </tr>
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              class="pp"
+                              *ngIf="summary.MeasureIdentifier == 'CMS 165'"
+                              >Denominator Exclusion :{{
+                                summary.DenExclusion
+                              }}</span
+                            >
+                          </tr>
+                          <tr *ngFor="let summary of getDashBoardreport">
+                            <span
+                              class="pp"
+                              *ngIf="summary.MeasureIdentifier == 'CMS 165'"
+                              >Numerator :{{ summary.Numerator }}</span
+                            >
+                          </tr>
+                          <!-- <div *ngFor="let summary of getDashBoardreport"><span *ngIf="summary.MeasureIdentifier=='CMS 74'">Denominator Exception :{{summary.DenException}}</span></div> -->
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-tab>
+
+          <ngb-tab
+            id="patientList"
+            title="Patient List"
+            *ngIf="showPatientList"
+          >
+            <ng-template ngbTabContent>
+              <div class="row cstm-tabwidth">
+                <div class="col-md-3">
+                  <ul class="list-group">
+                    <li class="list-group-item">
+                      {{ patientlistdata.MeasureIdentifier }}
+                    </li>
+                    <li class="list-group-item">
+                      {{ patientlistdata.MeasureTitle }}
+                    </li>
+                    <li
+                      class="list-group-item"
+                      [ngClass]="{
+                        'd-none': patientlistdata.StratificationText == null
+                      }"
+                    >
+                      {{ patientlistdata.StratificationText }}
+                    </li>
+                    <li
+                      class="list-group-item"
+                      [ngClass]="{
+                        'd-none': patientlistdata.PopulationDescription == null
+                      }"
+                    >
+                      {{ patientlistdata.PopulationDescription }}
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-md-9">
+                  <ul class="nolistpoint">
+                    <li class="row">
+                      <b class="col-md-6">Report Id:</b>
+                      <span class="col-md-6">{{
+                        patientlistmeasure.ReportId
+                      }}</span>
+                    </li>
+                    <li class="row">
+                      <b class="col-md-6">Description:</b>
+                      <span class="col-md-6">{{
+                        patientlistmeasure.Description
+                      }}</span>
+                    </li>
+                    <li class="row">
+                      <b class="col-md-6">Created on:</b>
+                      <span class="col-md-6">{{
+                        patientlistmeasure.DateCreated
+                      }}</span>
+                    </li>
+                    <li class="row">
+                      <b class="col-md-6">Measurement Period:</b>
+                      <span class="col-md-6">{{
+                        patientlistmeasure.MeasurementPeriod
+                      }}</span>
+                    </li>
+                  </ul>
+
+                  <!-- <table>
+                    <tbody>
+                      <tr>
+                        <th>Report Id:</th>
+                        <td>101990</td>
+                      </tr>
+                      <tr>
+                        <th>Description:</th>
+                        <td>CQM for Boitran Nguyen</td>
+                      </tr>
+                      <tr>
+                        <th>Created on:</th>
+                        <td>2021-09-14 07:08 AM</td>
+                      </tr>
+                      <tr>
+                        <th>Measurement Period:</th>
+                        <td>2021-06-01 to 2021-08-29</td>
+                      </tr>
+                    </tbody>
+                  </table> -->
+                </div>
+              </div>
+              <h4>Filter by</h4>
+              <form [formGroup]="patientlistfilterForm">
+                <div class="row">
+                  <div class="col-lg-2 col-md-4 col-12">
+                    <p>First Name</p>
+                  </div>
+                  <div class="col-lg-2 col-md-4 col-12">
+                    <p>Last Name</p>
+                  </div>
+                  <div class="col-lg-2 col-md-4 col-12">
+                    <p>Patient ID</p>
+                  </div>
+                </div>
+                <div class="row" style="margin-top: -10px">
+                  <mat-form-field
+                    appearance="outline"
+                    class="col-lg-2 col-md-4 col-12"
+                  >
+                    <input
+                      matInput
+                      placeholder="First Name Filter"
+                      formControlName="firstName"
+                    />
+                  </mat-form-field>
+
+                  <mat-form-field
+                    appearance="outline"
+                    class="col-lg-2 col-md-4 col-12"
+                  >
+                    <input
+                      matInput
+                      placeholder="Last Name Filter"
+                      formControlName="lastName"
+                    />
+                  </mat-form-field>
+
+                  <mat-form-field
+                    appearance="outline"
+                    class="col-lg-2 col-md-4 col-12"
+                  >
+                    <input
+                      matInput
+                      placeholder="Patient ID Filter"
+                      formControlName="patientId"
+                    />
+                  </mat-form-field>
+                  <div class="col-lg-6">
+                    <div class="row">
+                      <div class="col-xl-6 col-lg-8 col-md-8">
+                        <button
+                          mat-button
+                          class="col-xl-3 col-lg-3 col-md-3 col-11 mx-1"
+                          style="height: 38px; margin-top: 2px"
+                          (click)="patientlisttabfilter()"
+                        >
+                          Filter
+                        </button>
+                        <button
+                          mat-button
+                          class="col-xl-3 col-lg-3 col-md-3 col-11 mx-1"
+                          style="height: 38px; margin-top: 2px"
+                          (click)="patientlisttabfilterClear()"
+                        >
+                          Clear
+                        </button>
+                        <button
+                          mat-button
+                          class="col-xl-5 col-lg-5 col-md-5"
+                          style="height: 38px; margin-top: 2px"
+                        >
+                          Default View
+                        </button>
+                      </div>
+                      <!-- <div class="col-xl-4 col-lg-4 col-md-4" *ngIf="showcheckcountbtn">
+                        <button mat-button class="col-xl-6 col-lg-6 col-md-6 col-6" style="border-bottom-right-radius: 0%; border-top-right-radius: 0%; height: 38px; margin-top: 2px; max-width: 50%;" (click)="checks()">Checks</button>
+                        <button mat-button class="col-xl-6 col-lg-6 col-md-6 col-6" style="border-bottom-left-radius: 0%; border-top-left-radius: 0%; height: 38px; margin-top: 2px; max-width: 50%;" (click)="counts()">Counts</button>
+                      </div> -->
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <br />
+              <div class="example-table-container">
+                <table id="cst-table">
+                  <thead>
+                    <tr>
+                      <th class="col-md-3">Patient Name</th>
+                      <th class="col-md-2">DOB</th>
+                      <th class="col-md-3">Patient ID</th>
+                      <th class="col-md-4">Account Number</th>
+                      <th>IPP</th>
+                      <th>Den</th>
+                      <th>Num</th>
+                      <th>Excp</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="
+                        let i of patientlistfilter
+                          | paginate: { itemsPerPage: 50, currentPage: p }
+                      "
+                    >
+                      <td>{{ i.Patient_Name }}</td>
+                      <td>{{ i.DoB }}</td>
+                      <td>{{ i.PatientId }}</td>
+                      <td>{{ i.Account }}</td>
+                      <!-- <td (click)="showDrilldownTab(i.PatientId)"><i class="fa fa-check-square-o" aria-hidden="true"></i></td> -->
+                      <td>
+                        <i
+                          class="fa fa-check-square-o"
+                          style="cursor: pointer"
+                          (click)="
+                            showDrilldownTab(
+                              i,
+                              i.PatientId,
+                              patientlistmeasure.PracticeId
+                            )
+                          "
+                          aria-hidden="true"
+                          [ngClass]="{ 'd-none': i.IppCheck == false }"
+                          *ngIf="checksbtn"
+                        ></i>
+                        <i
+                          class="fa fa-square-o"
+                          style="cursor: pointer"
+                          (click)="
+                            showDrilldownTab(
+                              i,
+                              i.PatientId,
+                              patientlistmeasure.PracticeId
+                            )
+                          "
+                          [ngClass]="{ 'd-none': i.IppCheck == true }"
+                          *ngIf="checksbtn"
+                        ></i>
+                        <i
+                          class="fa fa-square-o"
+                          [ngClass]="{ 'd-none': i.IppCount > 0 }"
+                          *ngIf="countsbtn"
+                        ></i>
+                        <div
+                          class="roundedCountGreen"
+                          [ngClass]="{
+                            'd-none':
+                              i.IppCount == 0 || i.DenExceptionCount == null
+                          }"
+                          *ngIf="countsbtn"
+                        >
+                          {{ i.IppCount }}
+                        </div>
+                      </td>
+                      <td>
+                        <i
+                          class="fa fa-check-square-o"
+                          aria-hidden="true"
+                          [ngClass]="{ 'd-none': i.DenominatorCheck == false }"
+                          *ngIf="checksbtn"
+                        ></i>
+                        <i
+                          class="fa fa-square-o"
+                          [ngClass]="{ 'd-none': i.DenominatorCheck == true }"
+                          *ngIf="checksbtn"
+                        ></i>
+                        <i
+                          class="fa fa-square-o"
+                          [ngClass]="{ 'd-none': i.DenominatorCount > 0 }"
+                          *ngIf="countsbtn"
+                        ></i>
+                        <div
+                          class="roundedCountGreen"
+                          [ngClass]="{
+                            'd-none':
+                              i.DenominatorCount == 0 ||
+                              i.DenExceptionCount == null
+                          }"
+                          *ngIf="countsbtn"
+                        >
+                          {{ i.IppCount }}
+                        </div>
+                      </td>
+                      <td>
+                        <i
+                          class="fa fa-check-square-o"
+                          aria-hidden="true"
+                          [ngClass]="{
+                            'd-none':
+                              i.NumeratorCheck == false ||
+                              i.NumeratorCheck == null
+                          }"
+                        ></i>
+                        <i
+                          class="fa fa-square-o"
+                          [ngClass]="{ 'd-none': i.NumeratorCheck == true }"
+                        ></i>
+                        <!-- <i class="fa fa-square-o" [ngClass]="{'d-none': i.NumeratorCount > 0 }" *ngIf="countsbtn"></i>
+                        <div class="roundedCountGreen" [ngClass]="{'d-none': i.NumeratorCount == 0 }" *ngIf="countsbtn">{{i.IppCount}}</div> -->
+                      </td>
+                      <td>
+                        <i
+                          class="fa fa-check-square-o"
+                          aria-hidden="true"
+                          [ngClass]="{
+                            'd-none':
+                              i.DenExceptionCheck == false ||
+                              i.DenExceptionCheck == null
+                          }"
+                        ></i>
+                        <i
+                          class="fa fa-square-o"
+                          [ngClass]="{ 'd-none': i.DenExceptionCheck == true }"
+                        ></i>
+                        <!-- <i class="fa fa-square-o" [ngClass]="{'d-none': i.DenExceptionCount > 0 }" *ngIf="countsbtn"></i> -->
+                        <!-- <div class="roundedCountGreen" [ngClass]="{'d-none': i.DenExceptionCount == 0 || i.DenExceptionCount == null}" *ngIf="countsbtn">{{i.IppCount}}</div> -->
+                      </td>
+                      <td><i class="fa fa-plus" aria-hidden="true"></i></td>
+                    </tr>
+                  </tbody>
+                  <!-- <tbody>
+                    <tr *ngIf="patientlistfilterlength==0" style="color: red; text-align: center; width: 100%;">
+                      No Records Found!
+                    </tr>
+                  </tbody> -->
+                </table>
+                <div
+                  style="color: red; text-align: center; font-size: 14px"
+                  class="my-2"
+                  *ngIf="patientlistfilterlength == 0"
+                >
+                  No Records Found!
+                </div>
+                <ul class="pagination">
+                  <pagination-controls
+                    (pageChange)="p = $event"
+                  ></pagination-controls>
+                </ul>
+              </div>
+            </ng-template>
+          </ngb-tab>
+
+          <ngb-tab id="drilldown" title="Drilldown" *ngIf="showDrilldown">
+            <ng-template ngbTabContent>
+              <div class="row cstm-tabwidth">
+                <div class="col-md-12">
+                  <div class="row panel panel-default container-fluid mx-1">
+                    <!-- <div class="panel-heading">
+                      <h5>CMS </h5>
+                    </div> -->
+                    <div class="panel-body col-md-6">
+                      <ul class="cstm-size">
+                        <b>Measure: </b>
+                        <span> {{ patientlistdata.MeasureIdentifier }}</span>
+                        <span>{{ patientlistdata.MeasureTitle }}</span>
+                      </ul>
+                      <ul class="cstm-size">
+                        <b>Patient Name: </b>
+                        <span *ngFor="let i of getDrilldownListTabData"
+                          >{{ i.Patient_FirstName }}
+                          {{ i.Patient_LastName }}</span
+                        >
+                      </ul>
+                      <ul class="cstm-size">
+                        <b>Date of Birth: </b>
+                        <span *ngFor="let i of getDrilldownListTabData">
+                          {{ i.Patient_DoB }}</span
+                        >
+                      </ul>
+                      <ul class="cstm-size">
+                        <b>Account #: </b>
+                        <span *ngFor="let i of getDrilldownListTabData">
+                          {{ i.Patient_FirstName }}
+                          {{ i.Patient_LastName }}</span
+                        >
+                      </ul>
+                      <ul class="cstm-size">
+                        <b>Patient ID: </b>
+                        <span> {{ patientinfo.PatientId }}</span>
+                      </ul>
+                      <ul class="cstm-size">
+                        <b>Race: </b>
+                        <span *ngFor="let i of getDrilldownListTabData">
+                          {{ i.Patient_FirstName }}
+                          {{ i.Patient_LastName }}</span
+                        >
+                      </ul>
+                    </div>
+                    <!-- <div class="panel-body col-md-6">
+                        <ul class="cstm-size row"><b class="col-md-6">Report Id: </b>
+                          <span class="col-md-6"> 101993</span>
+                        </ul>
+                        <ul class="cstm-size row"><b class="col-md-6">Description: </b>
+                          <span class="col-md-6"> CQM for Shawn Jepsen</span>
+                        </ul>
+                        <ul class="cstm-size row"><b class="col-md-6">Created on: </b>
+                          <span class="col-md-6"> 2021-09-20 03:51 AM</span>
+                        </ul>
+                        <ul class="cstm-size row"><b class="col-md-6">Measurement Period: </b>
+                          <span class="col-md-6">2021-06-01 to 2021-08-29</span>
+                        </ul>
+                    </div> -->
+                    <div class="col-md-6 my-3">
+                      <ul class="nolistpoint">
+                        <li class="row">
+                          <b class="col-md-6">Report Id: </b>
+                          <span class="col-md-6">{{
+                            patientlistmeasure.ReportId
+                          }}</span>
+                        </li>
+                        <li class="row">
+                          <b class="col-md-6">Description:</b>
+                          <span class="col-md-6">{{
+                            patientlistmeasure.Description
+                          }}</span>
+                        </li>
+                        <li class="row">
+                          <b class="col-md-6">Created on:</b>
+                          <span class="col-md-6">{{
+                            patientlistmeasure.DateCreated
+                          }}</span>
+                        </li>
+                        <li class="row">
+                          <b class="col-md-6">Measurement Period:</b>
+                          <span class="col-md-6">{{
+                            patientlistmeasure.MeasurementPeriod
+                          }}</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <mat-expansion-panel
+                    class="expansion-panel"
+                    (opened)="panelOpenState = true"
+                    (closed)="panelOpenState = false"
+                    [expanded]="true"
+                  >
+                    <mat-expansion-panel-header class="expansion-panel-header">
+                      <mat-panel-title>
+                        Initial Patient Population Episodes: 3
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <br />
+                    <div class="row">
+                      <ul class="nolistpoint">
+                        <li>
+                          <p>✓ define "Initial Population":</p>
+                        </li>
+                        <ul class="nolistpoint">
+                          <li>
+                            <p>
+                              ✓ ✓ "Qualifying Encounters During Measurement
+                              Period" QualifyingEncounter
+                            </p>
+                          </li>
+                          <ul class="nolistpoint">
+                            <li>
+                              <p>
+                                ✓ where ✓ "Patient Age 18 or Older at Start of
+                                Measurement Period"
+                              </p>
+                            </li>
+                          </ul>
+                        </ul>
+                      </ul>
+                    </div>
+                    <div class="row">
+                      <ul class="nolistpoint">
+                        <li>
+                          <p>
+                            ✓ define "Patient Age 18 or Older at Start of
+                            Measurement Period":
+                          </p>
+                        </li>
+                        <ul class="nolistpoint">
+                          <li>
+                            <p>
+                              ✓ exists ✓ ✓ ✓ ["Patient Characteristic
+                              Birthdate"] BirthDate
+                            </p>
+                          </li>
+                          <ul class="nolistpoint">
+                            <li>
+                              <p>
+                                ✓ where ✓
+                                Global."CalendarAgeInYearsAt"(BirthDate.birthDatetime,
+                                start of "Measurement Period")>= 18
+                              </p>
+                            </li>
+                          </ul>
+                        </ul>
+                      </ul>
+                    </div>
+                    <div class="row">
+                      <ul class="nolistpoint">
+                        <li>
+                          <p>
+                            ✓ define "Qualifying Encounters During Measurement
+                            Period":
+                          </p>
+                        </li>
+                        <ul class="nolistpoint">
+                          <li>
+                            <p>
+                              ✓ ✓ ✓ ["Encounter, Performed": "Medications
+                              Encounter Code Set"] QualifyingEncounter
+                            </p>
+                          </li>
+                          <ul class="nolistpoint">
+                            <li>
+                              <p>
+                                ✓ where ✓ QualifyingEncounter.relevantPeriod
+                                during "Measurement Period"
+                              </p>
+                            </li>
+                          </ul>
+                        </ul>
+                      </ul>
+                    </div>
+                  </mat-expansion-panel>
+                  <mat-expansion-panel
+                    class="expansion-panel"
+                    (opened)="panelOpenState = true"
+                    (closed)="panelOpenState = false"
+                    [expanded]="true"
+                  >
+                    <mat-expansion-panel-header class="expansion-panel-header">
+                      <mat-panel-title>
+                        Denominator Episodes: 3
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <br />
+                    <div class="row">
+                      <ul class="nolistpoint">
+                        <li>
+                          <p>✓ define "Denominator":</p>
+                        </li>
+                        <ul class="nolistpoint">
+                          <li>
+                            <p>✓ "Initial Population"</p>
+                          </li>
+                        </ul>
+                      </ul>
+                    </div>
+                    <div class="row">
+                      <ul class="nolistpoint">
+                        <li>
+                          <p>✓ define "Initial Population":</p>
+                        </li>
+                        <ul class="nolistpoint">
+                          <li>
+                            <p>
+                              ✓ ✓ "Qualifying Encounters During Measurement
+                              Period" QualifyingEncounter
+                            </p>
+                          </li>
+                          <ul class="nolistpoint">
+                            <li>
+                              <p>
+                                ✓ where ✓ "Patient Age 18 or Older at Start of
+                                Measurement Period"
+                              </p>
+                            </li>
+                          </ul>
+                        </ul>
+                      </ul>
+                    </div>
+                    <div class="row">
+                      <ul class="nolistpoint">
+                        <li>
+                          <p>
+                            ✓ define "Patient Age 18 or Older at Start of
+                            Measurement Period":
+                          </p>
+                        </li>
+                        <ul class="nolistpoint">
+                          <li>
+                            <p>
+                              ✓ exists ✓ ✓ ✓ ["Patient Characteristic
+                              Birthdate"] BirthDate
+                            </p>
+                          </li>
+                          <ul class="nolistpoint">
+                            <li>
+                              <p>
+                                ✓ where ✓
+                                Global."CalendarAgeInYearsAt"(BirthDate.birthDatetime,
+                                start of "Measurement Period")>= 18
+                              </p>
+                            </li>
+                          </ul>
+                        </ul>
+                      </ul>
+                    </div>
+                    <div class="row">
+                      <ul class="nolistpoint">
+                        <li>
+                          <p>
+                            ✓ define "Qualifying Encounters During Measurement
+                            Period":
+                          </p>
+                        </li>
+                        <ul class="nolistpoint">
+                          <li>
+                            <p>
+                              ✓ ✓ ✓ ["Encounter, Performed": "Medications
+                              Encounter Code Set"] QualifyingEncounter
+                            </p>
+                          </li>
+                          <ul class="nolistpoint">
+                            <li>
+                              <p>
+                                ✓ where ✓ QualifyingEncounter.relevantPeriod
+                                during "Measurement Period"
+                              </p>
+                            </li>
+                          </ul>
+                        </ul>
+                      </ul>
+                    </div>
+                  </mat-expansion-panel>
+                  <mat-expansion-panel
+                    class="expansion-panel"
+                    (opened)="panelOpenState = true"
+                    (closed)="panelOpenState = false"
+                    [expanded]="true"
+                  >
+                    <mat-expansion-panel-header class="expansion-panel-header">
+                      <mat-panel-title> Numerator </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <br />
+                    <div class="row">
+                      <ul class="nolistpoint">
+                        <li>
+                          <p>✓ define "Numerator":</p>
+                        </li>
+                        <ul class="nolistpoint">
+                          <li>
+                            <p>
+                              ✓ "Medications Documented During Qualifying
+                              Encounter"
+                            </p>
+                          </li>
+                        </ul>
+                      </ul>
+                    </div>
+                    <div class="row">
+                      <ul class="nolistpoint">
+                        <li>
+                          <p>
+                            ✓ define "Medications Documented During Qualifying
+                            Encounter":
+                          </p>
+                        </li>
+                        <ul class="nolistpoint">
+                          <li>
+                            <p>
+                              ✓ ✓ "Qualifying Encounters During Measurement
+                              Period" QualifyingEncounterDuringMeasurementPeriod
+                            </p>
+                          </li>
+                          <ul class="nolistpoint">
+                            <li>
+                              <p>
+                                ✓ with ✓ ["Procedure, Performed": "Documentation
+                                of current medications (procedure)"]
+                                MedicationsDocumented
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                                such that MedicationsDocumented.relevantPeriod
+                                during
+                                QualifyingEncounterDuringMeasurementPeriod.relevantPeriod
+                              </p>
+                            </li>
+                          </ul>
+                        </ul>
+                      </ul>
+                    </div>
+                    <div class="row">
+                      <ul class="nolistpoint">
+                        <li>
+                          <p>
+                            ✓ define "Qualifying Encounters During Measurement
+                            Period":
+                          </p>
+                        </li>
+                        <ul class="nolistpoint">
+                          <li>
+                            <p>
+                              ✓ ✓ ✓ ["Procedure, Not Performed": "Documentation
+                              of current medications (procedure)"] NotPerformed
+                            </p>
+                          </li>
+                          <ul class="nolistpoint">
+                            <li>
+                              <p>
+                                where NotPerformed.negationRationale in "Medical
+                                or Other reason not done"
+                              </p>
+                            </li>
+                          </ul>
+                        </ul>
+                      </ul>
+                    </div>
+                  </mat-expansion-panel>
+                  <mat-expansion-panel
+                    class="expansion-panel"
+                    (opened)="panelOpenState = true"
+                    (closed)="panelOpenState = false"
+                    [expanded]="true"
+                  >
+                    <mat-expansion-panel-header class="expansion-panel-header">
+                      <mat-panel-title> Denominator Exception </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <br />
+                    <div class="row">
+                      <ul class="nolistpoint">
+                        <li>
+                          <p>✓ define "Denominator Exceptions":</p>
+                        </li>
+                        <ul class="nolistpoint">
+                          <li>
+                            <p>
+                              ✓ "Qualifying Encounters During Measurement
+                              Period" EncounterDuringMeasurementPeriod
+                            </p>
+                          </li>
+                          <ul class="nolistpoint">
+                            <li>
+                              <p>
+                                ✗ with ✗ "Medications Not Documented for Medical
+                                Reason" MedicationsNotDocumented
+                              </p>
+                            </li>
+
+                            <ul class="nolistpoint">
+                              <li>
+                                <p>
+                                  such that
+                                  MedicationsNotDocumented.authorDatetime during
+                                  EncounterDuringMeasurementPeriod.relevantPeriod
+                                </p>
+                              </li>
+                            </ul>
+                          </ul>
+                        </ul>
+                      </ul>
+                    </div>
+                    <div class="row">
+                      <ul class="nolistpoint">
+                        <li>
+                          <p>
+                            ✗ define "Medications Not Documented for Medical
+                            Reason":
+                          </p>
+                        </li>
+                        <ul class="nolistpoint">
+                          <li>
+                            <p>
+                              ✗ ✗ ✗ ["Procedure, Not Performed": "Documentation
+                              of current medications (procedure)"] NotPerformed
+                            </p>
+                          </li>
+                          <ul class="nolistpoint">
+                            <li>
+                              <p>
+                                where NotPerformed.negationRationale in "Medical
+                                or Other reason not done"
+                              </p>
+                            </li>
+                          </ul>
+                        </ul>
+                      </ul>
+                    </div>
+                    <div class="row">
+                      <ul class="nolistpoint">
+                        <li>
+                          <p>
+                            ✓ define "Patient Age 18 or Older at Start of
+                            Measurement Period":
+                          </p>
+                        </li>
+                        <ul class="nolistpoint">
+                          <li>
+                            <p>
+                              ✓ exists ✓ ✓ ✓ ["Patient Characteristic
+                              Birthdate"] BirthDate
+                            </p>
+                          </li>
+                          <ul class="nolistpoint">
+                            <li>
+                              <p>
+                                ✓ where ✓
+                                Global."CalendarAgeInYearsAt"(BirthDate.birthDatetime,
+                                start of "Measurement Period")>= 18
+                              </p>
+                            </li>
+                          </ul>
+                        </ul>
+                      </ul>
+                    </div>
+                    <div class="row">
+                      <ul class="nolistpoint">
+                        <li>
+                          <p>
+                            ✓ define "Qualifying Encounters During Measurement
+                            Period":
+                          </p>
+                        </li>
+                        <ul class="nolistpoint">
+                          <li>
+                            <p>
+                              ✓ ✓ ✓ ["Encounter, Performed": "Medications
+                              Encounter Code Set"] QualifyingEncounter
+                            </p>
+                          </li>
+                          <ul class="nolistpoint">
+                            <li>
+                              <p>
+                                ✓ where ✓ QualifyingEncounter.relevantPeriod
+                                during "Measurement Period"
+                              </p>
+                            </li>
+                          </ul>
+                        </ul>
+                      </ul>
+                    </div>
+                  </mat-expansion-panel>
+
+                  <!-- mat expansion table -->
+                  <mat-expansion-panel
+                    class="expansion-panel"
+                    (opened)="panelOpenState = true"
+                    (closed)="panelOpenState = false"
+                    [expanded]="true"
+                  >
+                    <mat-expansion-panel-header class="expansion-panel-header">
+                      <mat-panel-title> Patient Data </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <br />
+                    <!-- <mat-expansion-panel class="expansion-panel" (opened)="panelOpenState = true" (closed)="panelOpenState = false" [expanded]="true">
+                      <mat-expansion-panel-header class="expansion-panel-header">
+                        <mat-panel-title>
+                          Client
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <br>
+                      <table border="1" style="width: 100%;">
+                        <thead>
+                          <tr>
+                            <th></th>
+                            <th>Last Name</th>
+                            <th>First Name</th>
+                            <th>Middle Name</th>
+                            <th>Date Of Birth</th>
+                            <th>Gender</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let i of getDrilldownListTabData">
+
+
+                            <td>{{i.Patient_LastName}}</td>
+                            <td>{{i.Patient_FirstName}}</td>
+                            <td>{{i.Patient_MiddleName}}</td>
+                            <td>{{i.Patient_DoB}}</td>
+                            <td>{{i.Patient_Gender}}</td>
+                          </tr>
+                        </tbody>
+
+                      </table>
+
+
+                    </mat-expansion-panel> -->
+
+                    <mat-expansion-panel
+                      (opened)="panelOpenState = true"
+                      (closed)="panelOpenState = false"
+                      [expanded]="true"
+                      class="mat-elevation-z1"
+                    >
+                      <mat-expansion-panel-header
+                        class="panelheader"
+                        [collapsedHeight]="'40px'"
+                        [expandedHeight]="'40px'"
+                      >
+                        <mat-panel-title> Client </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <br />
+                      <table
+                        mat-table
+                        class="drilltab"
+                        [dataSource]="getDrilldownListTabData"
+                        multiTemplateDataRows
+                        class="mat-elevation-z1 custom-expand-table"
+                      >
+                        <ng-container
+                          matColumnDef="{{ column }}"
+                          *ngFor="let column of columnsToDisplay1"
+                        >
+                          <ng-container
+                            *ngIf="
+                              column !== 'action' &&
+                                column == 'Patient_FirstName';
+                              else action
+                            "
+                          >
+                            <th
+                              mat-header-cell
+                              *matHeaderCellDef
+                              class="drillcell"
+                            >
+                              Name Last
+                            </th>
+                            <td
+                              mat-cell
+                              *matCellDef="let element"
+                              class="drillrow"
+                            >
+                              {{ element[column] }}
+                            </td>
+                          </ng-container>
+                          <ng-container
+                            *ngIf="
+                              column !== 'action' &&
+                                column == 'Patient_MiddleName';
+                              else action
+                            "
+                          >
+                            <th
+                              mat-header-cell
+                              *matHeaderCellDef
+                              class="drillcell"
+                            >
+                              Name First
+                            </th>
+                            <td
+                              mat-cell
+                              *matCellDef="let element"
+                              class="drillrow"
+                            >
+                              {{ element[column] }}
+                            </td>
+                          </ng-container>
+                          <ng-container
+                            *ngIf="
+                              column !== 'action' &&
+                                column == 'Patient_LastName';
+                              else action
+                            "
+                          >
+                            <th
+                              mat-header-cell
+                              *matHeaderCellDef
+                              class="drillcell"
+                            >
+                              Name Middle
+                            </th>
+                            <td
+                              mat-cell
+                              *matCellDef="let element"
+                              class="drillrow"
+                            >
+                              {{ element[column] }}
+                            </td>
+                          </ng-container>
+                          <ng-container
+                            *ngIf="
+                              column !== 'action' && column == 'Patient_DoB';
+                              else action
+                            "
+                          >
+                            <th
+                              mat-header-cell
+                              *matHeaderCellDef
+                              class="drillcell"
+                            >
+                              Date Of Birth
+                            </th>
+                            <td
+                              mat-cell
+                              *matCellDef="let element"
+                              class="drillrow"
+                            >
+                              {{ element[column] }}
+                            </td>
+                          </ng-container>
+                          <ng-container
+                            *ngIf="
+                              column !== 'action' && column == 'Patient_Gender';
+                              else action
+                            "
+                          >
+                            <th
+                              mat-header-cell
+                              *matHeaderCellDef
+                              class="drillcell"
+                            >
+                              Gender
+                            </th>
+                            <td
+                              mat-cell
+                              *matCellDef="let element"
+                              class="drillrow"
+                            >
+                              {{ element[column] }}
+                            </td>
+                          </ng-container>
+                          <ng-template #action>
+                            <th
+                              mat-header-cell
+                              *matHeaderCellDef
+                              class="drillcell"
+                            ></th>
+                            <td
+                              mat-cell
+                              *matCellDef="let element"
+                              class="drillrow"
+                            >
+                              <mat-icon
+                                class="icon"
+                                (click)="
+                                  expandedElement1 =
+                                    expandedElement1 === element
+                                      ? null
+                                      : element
+                                "
+                                >{{
+                                  expandedElement1 === element
+                                    ? "remove"
+                                    : "add"
+                                }}</mat-icon
+                              >
+                            </td>
+                          </ng-template>
+                        </ng-container>
+
+                        <ng-container matColumnDef="expandedDetail1">
+                          <td
+                            mat-cell
+                            *matCellDef="let element"
+                            [attr.colspan]="columnsToDisplay1.length"
+                          >
+                            <div
+                              class="example-element-detail"
+                              [@detailExpand]="
+                                element == expandedElement1
+                                  ? 'expanded'
+                                  : 'collapsed'
+                              "
+                            >
+                              <div class="example-element-description">
+                                <table id="expansiontable">
+                                  <tbody
+                                    *ngFor="let i of getDrilldownListTabData"
+                                  >
+                                    <tr>
+                                      <th>Patient ID</th>
+                                      <td>{{ patientinfo.PatientId }}</td>
+                                    </tr>
+                                    <tr>
+                                      <th>Address Type</th>
+                                      <td>{{ i.Patient_Address }}</td>
+                                    </tr>
+                                    <tr>
+                                      <th>Address Country</th>
+                                      <td>{{ i.Patient_Address }}</td>
+                                    </tr>
+                                    <tr>
+                                      <th>Language Code</th>
+                                      <td>{{ i.Patient_LanguageCode }}</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </td>
+                        </ng-container>
+
+                        <tr
+                          mat-header-row
+                          *matHeaderRowDef="columnsToDisplay1"
+                        ></tr>
+                        <tr
+                          mat-row
+                          *matRowDef="let element; columns: columnsToDisplay1"
+                          class="example-element-row"
+                          [class.example-expanded-row]="
+                            expandedElement1 === element
+                          "
+                        ></tr>
+                        <tr
+                          mat-row
+                          *matRowDef="let row; columns: ['expandedDetail1']"
+                          class="example-detail-row"
+                        ></tr>
+                      </table>
+                    </mat-expansion-panel>
+
+                    <!-- <mat-accordion>
+                            <mat-expansion-panel (opened)="panelOpenState = true"
+                                                 (closed)="panelOpenState = false" hideToggle="true">
+                                <mat-expansion-panel-header>
+                               <table style="width: 1050px;">
+                                <thead>
+                                  <tr>
+                                    <th></th>
+
+                                    <th style="text-align: center;">First Name</th>
+                                    <th style="text-align: left;">Middle Name</th>
+                                    <th style="text-align: left;">Last Name</th>
+                                    <th>Date Of Birth</th>
+                                    <th style="text-align: right;">Gender</th>
+                                  </tr>
+                                </thead>
+                                </table>
+                                <mat-panel-title>
+                                <mat-icon *ngIf="!panelOpenState">add</mat-icon>
+                                <mat-icon *ngIf="panelOpenState">remove</mat-icon>
+                                <table  style="width: 1050px;" *ngFor="let i of getDrilldownListTabData">
+                                  <thead>
+                                    <tr>
+
+                                      <td style="text-align: center;">{{i.Patient_FirstName}}</td>
+                                      <td  style="text-align: center;">{{i.Patient_MiddleName=="" ? "\t":i.Patient_MiddleName}}</td>
+                                      <td  style="text-align: right;">{{i.Patient_LastName}}</td>
+
+                                      <td  style="text-align: center;">{{i.Patient_DoB}}</td>
+                                      <td  style="text-align: left;">{{i.Patient_Gender}}</td>
+                                    </tr>
+
+                                  </thead>
+
+                                  </table>
+                                </mat-panel-title>
+
+                              </mat-expansion-panel-header>
+                              <div class="row">
+                                <div class="col-md-12">
+
+                                  <table id="expansiontable">
+                                    <tbody *ngFor="let i of getDrilldownListTabData">
+                                      <tr>
+                                        <th>Patient ID</th>
+                                        <td>{{patientinfo.PatientId}}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Address Type</th>
+                                        <td>{{i.Patient_Address}}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Address Country</th>
+                                        <td>{{i.Patient_Address}}</td>
+                                      </tr>
+                                      <tr>
+                                        <th>Language Code</th>
+                                        <td>{{i.Patient_LanguageCode}}</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+
+                            </mat-expansion-panel>
+                          </mat-accordion> -->
+
+                    <!-- <mat-accordion displayMode="" multi >
+                      <mat-expansion-panel *ngFor="let item of displayedRows$ | async" [expanded]="true" hideToggle="true">
+                        <mat-expansion-panel-header  class="mat-row" style="background-color: #41b6a6;">
+
+                          <mat-panel-description>
+                            Client
+                            <mat-icon *ngIf="!panelOpenState">add</mat-icon>
+                            <mat-icon *ngIf="panelOpenState">remove</mat-icon>
+                          </mat-panel-description>
+                        </mat-expansion-panel-header>
+
+                        <mat-accordion >
+                          <table style="width: 1050px;">
+                            <thead>
+                              <tr>
+                                <th></th>
+
+                                <th style="text-align: center;">First Name</th>
+                                <th style="text-align: left;">Middle Name</th>
+                                <th style="text-align: left;">Last Name</th>
+                                <th>Date Of Birth</th>
+                                <th style="text-align: right;">Gender</th>
+                              </tr>
+                            </thead>
+
+                            </table>
+                          <mat-expansion-panel *ngFor="let i of item.c_s">
+                            <mat-expansion-panel-header  *ngFor="let i of getDrilldownListTabData">
+                              <div>  <table  style="width: 1050px;">
+                                <thead>
+                                  <tr>
+
+                                    <td style="text-align: center;">{{i.Patient_FirstName}}</td>
+                                    <td  style="text-align: center;">{{i.Patient_MiddleName=="" ? "\t":i.Patient_MiddleName}}</td>
+                                    <td  style="text-align: right;">{{i.Patient_LastName}}</td>
+
+                                    <td  style="text-align: center;">{{i.Patient_DoB}}</td>
+                                    <td  style="text-align: left;">{{i.Patient_Gender}}</td>
+                                  </tr>
+
+                                </thead>
+
+                                </table>
+                                </div>
+                            </mat-expansion-panel-header>
+                            <div class="row">
+                            <div class="col-md-12">
+
+                              <table id="expansiontable">
+                                <tbody *ngFor="let i of getDrilldownListTabData">
+                                  <tr>
+                                    <th>Patient ID</th>
+                                    <td>{{patientinfo.PatientId}}</td>
+                                  </tr>
+                                  <tr>
+                                    <th>Address Type</th>
+                                    <td>{{i.Patient_Address}}</td>
+                                  </tr>
+                                  <tr>
+                                    <th>Address Country</th>
+                                    <td>{{i.Patient_Address}}</td>
+                                  </tr>
+                                  <tr>
+                                    <th>Language Code</th>
+                                    <td>{{i.Patient_LanguageCode}}</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                          </mat-expansion-panel>
+                        </mat-accordion>
+                      </mat-expansion-panel>
+                    </mat-accordion> -->
+
+                    <!-- <table mat-table
+                    [dataSource]="getDrilldownListTabData" multiTemplateDataRows
+                    class="mat-elevation-z8">
+
+               <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay1">
+                 <ng-container *ngIf="column !== 'action'; else action">
+                   <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+                   <td mat-cell *matCellDef="let element"> {{element}} </td>
+                 </ng-container>
+                 <ng-template #action>
+                   <th mat-header-cell *matHeaderCellDef></th>
+                   <td mat-cell *matCellDef="let element">
+
+
+                     <mat-icon
+                     (click)="expandedElement1 = expandedElement1 === element ? null : element">{{expandedElement1 === element ? 'remove' : 'add'}}</mat-icon>
+                   </td>
+                 </ng-template>
+               </ng-container>
+
+               <ng-container matColumnDef="expandedDetail">
+                 <td mat-cell *matCellDef="let element" [attr.colspan]="getDrilldownEncountersData">
+                   <div class="example-element-detail"
+                        [@detailExpand]="element == expandedElement1 ? 'expanded' : 'collapsed'">
+
+                     <div class="example-element-description">
+                    No data Available
+                     </div>
+                   </div>
+                 </td>
+               </ng-container>
+
+               <tr mat-header-row *matHeaderRowDef="columnsToDisplay1"></tr>
+               <tr mat-row *matRowDef="let element; columns: getDrilldownEncountersData;"
+                   class="example-element-row"
+                   [class.example-expanded-row]="expandedElement1 === element">
+               </tr>
+               <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+             </table> -->
+
+                    <mat-expansion-panel
+                      (opened)="panelOpenState = true"
+                      (closed)="panelOpenState = false"
+                      [expanded]="true"
+                      class="mat-elevation-z1"
+                    >
+                      <mat-expansion-panel-header
+                        class="panelheader"
+                        [collapsedHeight]="'40px'"
+                        [expandedHeight]="'40px'"
+                      >
+                        <mat-panel-title> Encounters </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <br />
+                      <table
+                        mat-table
+                        class="drilltab"
+                        [dataSource]="getDrilldownEncountersData"
+                        multiTemplateDataRows
+                        class="mat-elevation-z1 custom-expand-table"
+                      >
+                        <ng-container
+                          matColumnDef="{{ column }}"
+                          *ngFor="let column of columnsToDisplay"
+                        >
+                          <ng-container
+                            *ngIf="
+                              column !== 'Action' && column == 'Date_Start';
+                              else Action
+                            "
+                          >
+                            <th
+                              mat-header-cell
+                              *matHeaderCellDef
+                              class="drillcell"
+                            >
+                              Date Start(Admission)
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                              {{ element[column] }}
+                            </td>
+                          </ng-container>
+                          <ng-container
+                            *ngIf="
+                              column !== 'Action' && column == 'Date_Stop';
+                              else Action
+                            "
+                          >
+                            <th
+                              mat-header-cell
+                              *matHeaderCellDef
+                              class="drillcell"
+                            >
+                              Date Stop(Discharge)
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                              {{ element[column] }}
+                            </td>
+                          </ng-container>
+                          <ng-container
+                            *ngIf="
+                              column !== 'Action' && column == 'code';
+                              else Action
+                            "
+                          >
+                            <th
+                              mat-header-cell
+                              *matHeaderCellDef
+                              class="drillcell"
+                            >
+                              Code
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                              {{ element[column] }}
+                            </td>
+                          </ng-container>
+                          <ng-container
+                            *ngIf="
+                              column !== 'Action' &&
+                                column == 'Code_System_Name';
+                              else Action
+                            "
+                          >
+                            <th
+                              mat-header-cell
+                              *matHeaderCellDef
+                              class="drillcell"
+                            >
+                              Code System Name
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                              {{ element[column] }}
+                            </td>
+                          </ng-container>
+                          <ng-container
+                            *ngIf="
+                              column !== 'Action' &&
+                                column == 'Code_Description';
+                              else Action
+                            "
+                          >
+                            <th
+                              mat-header-cell
+                              *matHeaderCellDef
+                              class="drillcell"
+                            >
+                              Code Description
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                              {{ element[column] }}
+                            </td>
+                          </ng-container>
+                          <ng-container
+                            *ngIf="
+                              column !== 'Action' && column == 'Status';
+                              else Action
+                            "
+                          >
+                            <th
+                              mat-header-cell
+                              *matHeaderCellDef
+                              class="drillcell"
+                            >
+                              Status
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                              {{ element[column] }}
+                            </td>
+                          </ng-container>
+                          <ng-template #Action>
+                            <th
+                              mat-header-cell
+                              *matHeaderCellDef
+                              class="drillcell"
+                            ></th>
+                            <td mat-cell *matCellDef="let element">
+                              <mat-icon
+                                class="icon"
+                                (click)="
+                                  expandedElement =
+                                    expandedElement === element ? null : element
+                                "
+                                >{{
+                                  expandedElement === element ? "remove" : "add"
+                                }}</mat-icon
+                              >
+                            </td>
+                          </ng-template>
+                        </ng-container>
+
+                        <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+                        <ng-container matColumnDef="expandedDetail">
+                          <td
+                            mat-cell
+                            *matCellDef="let element"
+                            [attr.colspan]="columnsToDisplay.length"
+                          >
+                            <div
+                              class="example-element-detail"
+                              [@detailExpand]="
+                                element == expandedElement
+                                  ? 'expanded'
+                                  : 'collapsed'
+                              "
+                            >
+                              <div class="example-element-description">
+                                No Data Available
+                              </div>
+                            </div>
+                          </td>
+                        </ng-container>
+
+                        <tr
+                          mat-header-row
+                          *matHeaderRowDef="columnsToDisplay"
+                        ></tr>
+                        <tr
+                          mat-row
+                          *matRowDef="let element; columns: columnsToDisplay"
+                          class="example-element-row"
+                          [class.example-expanded-row]="
+                            expandedElement === element
+                          "
+                        ></tr>
+                        <tr
+                          mat-row
+                          *matRowDef="let row; columns: ['expandedDetail']"
+                          class="example-detail-row"
+                        ></tr>
+                      </table>
+                    </mat-expansion-panel>
+
+                    <!-- <mat-accordion displayMode="" multi >
+                      <mat-expansion-panel *ngFor="let item of displayedRows$ | async">
+                        <mat-expansion-panel-header class="mat-row" style="background-color: #41b6a6;">
+                          <span class="mat-cell" style="color: white;">Encounters</span>
+                        </mat-expansion-panel-header>
+
+                        <mat-accordion >
+                          <table border="1" style="width: 1150px;">
+                            <thead>
+                              <tr>
+
+                                <th>Date Start(Admission)</th>
+                                <th>Date Stop(Discharge)</th>
+                                <th>Code</th>
+                                <th>Code System Name</th>
+                                <th>Code Description</th>
+                                <th>Status</th>
+                              </tr>
+                            </thead>
+
+                            </table>
+                          <mat-expansion-panel *ngFor="let i of item.c_s">
+                            <mat-expansion-panel-header *ngFor="let i of getDrilldownEncountersData">
+                              <div>  <table border="1" style="width: 1000px;">
+                                <thead>
+                                  <tr >
+
+                                    <td>{{i.Date_Start}}</td>
+                                    <td>{{i.Date_Stop}}</td>
+                                    <td>{{i.code}}</td>
+                                    <td>{{i.Code_System_Name}}</td>
+                                    <td>{{i.Code_Description}}</td>
+                                    <td>{{i.Status}}</td>
+                                  </tr>
+
+                                </thead>
+
+
+                                </table>
+                                </div>
+
+
+                            </mat-expansion-panel-header>
+                            <div>
+
+                            </div>
+                          </mat-expansion-panel>
+                        </mat-accordion>
+                      </mat-expansion-panel>
+                    </mat-accordion> -->
+
+                    <mat-expansion-panel
+                      [expanded]="true"
+                      (opened)="panelOpenState = true"
+                      (closed)="panelOpenState = false"
+                      [expanded]="true"
+                      class="mat-elevation-z1"
+                    >
+                      <mat-expansion-panel-header
+                        class="panelheader"
+                        [collapsedHeight]="'40px'"
+                        [expandedHeight]="'40px'"
+                      >
+                        <span class="mat-cell">Authors</span>
+                      </mat-expansion-panel-header>
+                      <br />
+                      <table
+                        mat-table
+                        class="drilltab"
+                        [dataSource]="getDrilldownListTabData"
+                        multiTemplateDataRows
+                        class="mat-elevation-z1 custom-expand-table"
+                      >
+                        <ng-container
+                          matColumnDef="{{ column }}"
+                          *ngFor="let column of columnsToDisplay2"
+                        >
+                          <ng-container
+                            *ngIf="
+                              column !== 'actionn' &&
+                                column == 'Author_BusinessName';
+                              else actionn
+                            "
+                          >
+                            <th
+                              mat-header-cell
+                              *matHeaderCellDef
+                              class="drillcell"
+                            >
+                              Name Family
+                            </th>
+
+                            <td mat-cell *matCellDef="let column">
+                              {{ column.Author_BusinessName }}
+                            </td>
+                          </ng-container>
+                          <ng-container
+                            *ngIf="
+                              column !== 'actionn' && column == 'NameGiven';
+                              else actionn
+                            "
+                          >
+                            <th
+                              mat-header-cell
+                              *matHeaderCellDef
+                              class="drillcell"
+                            >
+                              Name Given
+                            </th>
+
+                            <td mat-cell *matCellDef="let column">
+                              {{ column.Author_BusinessName }}
+                            </td>
+                          </ng-container>
+                          <ng-container
+                            *ngIf="
+                              column !== 'actionn' && column == 'NameSuffix';
+                              else actionn
+                            "
+                          >
+                            <th
+                              mat-header-cell
+                              *matHeaderCellDef
+                              class="drillcell"
+                            >
+                              Name Suffix
+                            </th>
+
+                            <td mat-cell *matCellDef="let column">
+                              {{ column.Author_BusinessName }}
+                            </td>
+                          </ng-container>
+                          <ng-container
+                            *ngIf="
+                              column !== 'actionn' &&
+                                column == 'Author_BusinessPhone';
+                              else actionn
+                            "
+                          >
+                            <th
+                              mat-header-cell
+                              *matHeaderCellDef
+                              class="drillcell"
+                            >
+                              Telecom
+                            </th>
+
+                            <td mat-cell *matCellDef="let column">
+                              {{ column.Author_BusinessPhone }}
+                            </td>
+                          </ng-container>
+
+                          <!-- <ng-container *ngIf="column !== 'actionn' && column == 'Author_BusinessName'; else actionn">
+                    <th mat-header-cell *matHeaderCellDef class="drillcell">	Name Family</th>
+
+                    <td mat-cell *matCellDef="let column"> {{column.Author_BusinessName}} </td>
+
+
+                 </ng-container>
+                 <ng-container *ngIf="column !== 'actionn' && column == 'Author_BusinessName'; else actionn">
+                  <th mat-header-cell *matHeaderCellDef class="drillcell">	Name Family</th>
+
+                  <td mat-cell *matCellDef="let column"> {{column.Author_BusinessName}} </td>
+
+
+               </ng-container> -->
+                          <ng-template #actionn>
+                            <th
+                              mat-header-cell
+                              *matHeaderCellDef
+                              class="drillcell"
+                            ></th>
+                            <td mat-cell *matCellDef="let element">
+                              <mat-icon
+                                class="icon"
+                                (click)="
+                                  expandedElement2 =
+                                    expandedElement2 === element
+                                      ? null
+                                      : element
+                                "
+                                >{{
+                                  expandedElement2 === element
+                                    ? "remove"
+                                    : "add"
+                                }}</mat-icon
+                              >
+                            </td>
+                          </ng-template>
+                        </ng-container>
+
+                        <ng-container matColumnDef="expandedDetail2">
+                          <td
+                            mat-cell
+                            *matCellDef="let element"
+                            [attr.colspan]="columnsToDisplay2.length"
+                          >
+                            <div
+                              class="example-element-detail"
+                              [@detailExpand]="
+                                element == expandedElement2
+                                  ? 'expanded'
+                                  : 'collapsed'
+                              "
+                            >
+                              <div class="example-element-description">
+                                <table id="expansiontable">
+                                  <tbody
+                                    *ngFor="let i of getDrilldownListTabData"
+                                  >
+                                    <tr>
+                                      <th>Author Id</th>
+                                      <td>{{ i.Author_Id }}</td>
+                                    </tr>
+                                    <tr>
+                                      <th>Address Street</th>
+                                      <td>{{ i.Author_Addres }}</td>
+                                    </tr>
+                                    <tr>
+                                      <th>Address City</th>
+                                      <td>{{ i.Author_City }}</td>
+                                    </tr>
+                                    <tr>
+                                      <th>Address State</th>
+                                      <td>{{ i.Author_State }}</td>
+                                    </tr>
+                                    <tr>
+                                      <th>Address Zip</th>
+                                      <td>{{ i.Author_Zip }}</td>
+                                    </tr>
+                                    <tr>
+                                      <th>Represented Organisation name</th>
+                                      <td>{{ i.Author_BusinessName }}</td>
+                                    </tr>
+                                    <tr>
+                                      <th>EffectiveDate</th>
+                                      <td>{{ i.EffectiveDate }}</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </td>
+                        </ng-container>
+
+                        <tr
+                          mat-header-row
+                          *matHeaderRowDef="columnsToDisplay2"
+                        ></tr>
+                        <tr
+                          mat-row
+                          *matRowDef="let element; columns: columnsToDisplay2"
+                          class="example-element-row"
+                          [class.example-expanded-row]="
+                            expandedElement2 === element
+                          "
+                        ></tr>
+                        <tr
+                          mat-row
+                          *matRowDef="let row; columns: ['expandedDetail2']"
+                          class="example-detail-row"
+                        ></tr>
+                      </table>
+                    </mat-expansion-panel>
+
+                    <!-- <mat-expansion-panel class="expansion-panel" (opened)="panelOpenState = true" (closed)="panelOpenState = false" [expanded]="true">
+                      <mat-expansion-panel-header class="expansion-panel-header">
+                        <mat-panel-title>
+                          AUTHORS
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <br>
+                      <table border="1" style="width: 100%;">
+                        <thead>
+                          <tr>
+                            <th></th>
+                            <th>Name Family</th>
+                            <th>Name Given</th>
+                            <th>Name Suffix</th>
+                            <th>Telecom</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let i of getDrilldownListTabData" [hidden]="(getDrilldownListTabData.data.length==0)">
+                            <td>
+
+                            </td>
+                            <td>{{i.Author_BusinessName}}</td>
+                            <td>{{i.Author_BusinessName}}</td>
+                            <td>{{i.Author_BusinessName}}</td>
+                            <td>{{i.Author_BusinessPhone}}</td>
+                          </tr>
+                        </tbody>
+
+                      </table>
+
+
+                    </mat-expansion-panel> -->
+                  </mat-expansion-panel>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-tab>
+        </ngb-tabset>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" [hidden]="isViewResults" [hidden]="!ViewResults">
+  <!-- <div class="row" [hidden]="isViewResults" *ngIf="ViewResults"> -->
+  <div class="col-md-12 grid-margin stretch-card">
+    <div class="card mat-elevation-z8" style="min-height: 500px">
+      <!-- <div class="col-md-10 col-10"><button mat-button (click)="createreport()" class="float-right viewResult">Create Report</button></div>
+        <div class="col-md-10 col-10"><button mat-button (click)="createreport()" class="float-right viewResult">Queue Report</button></div> -->
+      <div class="card-body">
+        <h3>Queued Reports</h3>
+        <div class="row my-4">
+          <div class="col-md-2 col-2">
+            <button mat-button class="viewResult" (click)="useFilterbtn()">
+              Use Filter
+            </button>
+          </div>
+          <!-- <button (click)="createreport()">Create Report</button> -->
+          <div class="col-md-10 col-10">
+            <button
+              mat-button
+              (click)="createreport()"
+              class="float-right viewResult"
+            >
+              Create Report
+            </button>
+          </div>
+        </div>
+        <div
+          class="panel panel-default container-fluid mx-1 my-3"
+          [hidden]="!showUseFilterForm"
+        >
+          <div class="row panel-heading">Filter by</div>
+          <!-- <div class="panel-body col-md-6"> -->
+          <form [formGroup]="queuedreportfilterForm" class="my-3">
+            <div class="row">
+              <mat-form-field
+                appearance="outline"
+                class="col-xl-3 col-lg-2 col-md-4 col-12"
+              >
+                <input
+                  matInput
+                  placeholder="Report Id"
+                  formControlName="reportId"
+                />
+              </mat-form-field>
+
+              <mat-form-field
+                appearance="outline"
+                class="col-xl-3 col-lg-2 col-md-4 col-12"
+              >
+                <input
+                  matInput
+                  placeholder="Description"
+                  formControlName="description"
+                />
+              </mat-form-field>
+
+              <mat-form-field
+                appearance="outline"
+                class="col-xl-3 col-lg-2 col-md-4 col-12"
+              >
+                <input
+                  matInput
+                  placeholder="Provider Name"
+                  formControlName="providerName"
+                />
+              </mat-form-field>
+
+              <mat-form-field
+                appearance="outline"
+                class="col-xl-3 col-lg-2 col-md-4 col-12"
+              >
+                <input
+                  matInput
+                  placeholder="Location Name"
+                  formControlName="locationName"
+                />
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field
+                appearance="outline"
+                class="col-xl-3 col-lg-2 col-md-4 col-12"
+              >
+                <mat-select
+                  placeholder="Report Status"
+                  disableOptionCentering
+                  formControlName="reportStatus"
+                >
+                  <mat-option value="Complete">Complete</mat-option>
+                  <mat-option value="Failure">Failure</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <div class="col-xl-3 col-lg-2 col-md-4 col-12">
+                <mat-form-field appearance="outline" class="w-75">
+                  <!-- <mat-label>Choose a date</mat-label> -->
+                  <input
+                    matInput
+                    class="pointer"
+                    style="text-overflow: ellipsis"
+                    placeholder="Begin Date"
+                    autocomplete="off"
+                    [matDatepicker]="picker"
+                    (click)="picker.open()"
+                    readonly
+                    formControlName="startDate"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+
+                <button appearance="outline" class="w-25">
+                  <mat-select placeholder="Add">
+                    <mat-option
+                      value="3"
+                      (click)="endDateCalculationInQueuedReport(3)"
+                    >
+                      3 months
+                    </mat-option>
+                    <mat-option
+                      value="6"
+                      (click)="endDateCalculationInQueuedReport(6)"
+                    >
+                      6 months
+                    </mat-option>
+                    <mat-option
+                      value="9"
+                      (click)="endDateCalculationInQueuedReport(9)"
+                    >
+                      9 months
+                    </mat-option>
+                    <mat-option
+                      value="12"
+                      (click)="endDateCalculationInQueuedReport(12)"
+                    >
+                      12 months
+                    </mat-option>
+                  </mat-select>
+                </button>
+              </div>
+              <mat-form-field
+                appearance="outline"
+                class="col-lg-3 col-md-4 col-12"
+              >
+                <input
+                  matInput
+                  class="pointer"
+                  style="text-overflow: ellipsis"
+                  placeholder="End Date"
+                  autocomplete="off"
+                  [matDatepicker]="picker2"
+                  (click)="picker2.open()"
+                  readonly
+                  formControlName="endDate"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker2"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <div class="col-lg-10">
+                <button
+                  mat-button
+                  class="col-xl-1 mr-3"
+                  (click)="queuedreporttabfilter()"
+                >
+                  Apply Filter
+                </button>
+                <button
+                  mat-button
+                  class="col-xl-1"
+                  (click)="queuedreporttabfilterClear()"
+                >
+                  Clear Filter
+                </button>
+              </div>
+              <div class="col-lg-2">
+                <span>Show:</span
+                ><button
+                  appearance="outline"
+                  class="mx-1"
+                  style="width: 57px; height: 25px"
+                >
+                  <mat-select [(value)]="selected" disableOptionCentering>
+                    <mat-option value="10" (click)="cstmPagination(10)">
+                      10
+                    </mat-option>
+                    <mat-option value="25" (click)="cstmPagination(25)">
+                      25
+                    </mat-option>
+                    <mat-option value="50" (click)="cstmPagination(50)">
+                      50
+                    </mat-option>
+                    <mat-option value="100" (click)="cstmPagination(100)">
+                      100
+                    </mat-option>
+                    <mat-option value="1000" (click)="cstmPagination(1000)">
+                      1000
+                    </mat-option>
+                  </mat-select>
+                </button>
+                <span class="mx-1">Records</span>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="example-table-container">
+          <mat-table
+            class="table table-responsive"
+            [dataSource]="getoverrallreport"
+            matSort
+          >
+            <ng-container matColumnDef="Description">
+              <mat-header-cell
+                fxFlex="20%"
+                *matHeaderCellDef
+                mat-sort-header="Description"
+                class="cstm-widthgd qr"
+                >Description</mat-header-cell
+              >
+              <mat-cell
+                fxFlex="20%"
+                *matCellDef="let lesson"
+                class="cstm-widthgd mat-row qc"
+              >
+                {{ lesson.Description }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Measures">
+              <mat-header-cell
+                fxFlex="15%"
+                *matHeaderCellDef
+                mat-sort-header="Measures"
+                class="cstm-widthgd1 qr"
+                >Measures</mat-header-cell
+              >
+              <mat-cell
+                fxFlex="15%"
+                *matCellDef="let lesson"
+                class="cstm-widthgd1 mat-row qc"
+              >
+                {{ lesson.MeasuresList }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Measurement">
+              <mat-header-cell
+                fxFlex="20%"
+                *matHeaderCellDef
+                mat-sort-header="Measurement"
+                class="cstm-widthgd qr"
+                >Measurement Period
+              </mat-header-cell>
+              <mat-cell
+                fxFlex="20%"
+                *matCellDef="let lesson"
+                class="cstm-widthgd mat-row qc"
+              >
+                {{ lesson.MeasurementPeriod }}</mat-cell
+              >
+            </ng-container>
+
+            <ng-container matColumnDef="Date">
+              <mat-header-cell
+                fxFlex="15%"
+                *matHeaderCellDef
+                mat-sort-header="Date"
+                class="cstm-widthgd1 qr"
+                >Date Created</mat-header-cell
+              >
+              <mat-cell
+                fxFlex="15%"
+                *matCellDef="let lesson"
+                class="cstm-widthgd1 qc"
+              >
+                {{ lesson.DateCreated }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Type">
+              <mat-header-cell
+                fxFlex="6%"
+                *matHeaderCellDef
+                mat-sort-header="Type"
+                class="cstm-widthgdType qr"
+                >Type</mat-header-cell
+              >
+              <mat-cell
+                fxFlex="6%"
+                *matCellDef="let lesson"
+                class="cstm-widthgdType qc"
+              >
+                {{ lesson.Type }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Report">
+              <mat-header-cell
+                fxFlex="12%"
+                *matHeaderCellDef
+                mat-sort-header="Report"
+                class="cstm-widthgdStatus qr"
+                >Report Status</mat-header-cell
+              >
+              <mat-cell
+                fxFlex="12%"
+                *matCellDef="let lesson"
+                class="cstm-widthgdStatus qc"
+              >
+                {{ lesson.ReportStatus }}
+                <!-- <mat-icon> insert_drive_file</mat-icon> -->
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Action">
+              <mat-header-cell
+                fxFlex="12%"
+                *matHeaderCellDef
+                mat-sort-header="Action"
+                class="cstm-widthgdAction qr"
+                >View Results</mat-header-cell
+              >
+              <mat-cell
+                fxFlex="12%"
+                *matCellDef="let lesson"
+                class="cstm-widthgdAction qc"
+              >
+                <button
+                  mat-button
+                  class="viewResult"
+                  (click)="onViewResults(lesson)"
+                >
+                  View Results
+                </button>
+              </mat-cell>
+            </ng-container>
+            <mat-header-row
+              *matHeaderRowDef="DisplayedColumns"
+            ></mat-header-row>
+            <mat-row *matRowDef="let row; columns: DisplayedColumns"></mat-row>
+          </mat-table>
+          <table class="Norecordstable">
+            <tr [hidden]="getoverrallreportlength != 0">
+              <td style="color: red; text-align: center">No Records Found!</td>
+            </tr>
+          </table>
+        </div>
+        <!-- <mat-paginator class="arrow" #paginator [length]="getoverrallreportlength" [pageIndex]="pageIndex" [pageSize]="pageSize"
+          [pageSizeOptions]="pageSizeOptions">
+          </mat-paginator> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Create Cqm report-->
+<div *ngIf="cqmcreatereport">
+  <mat-card>
+    <div class="row">
+      <h1>Queue A Report</h1>
+      <div class="col-md-8"></div>
+      <button (click)="queuedreport()" class="col-md-1">Queued Report</button>
+    </div>
+    <br />
+    <form [formGroup]="createReportForm" (ngSubmit)="onSubmitCreateReport()">
+      <div class="row">
+        <div class="col-lg-2 queuereprt">
+          <div>
+            <h6>Description:</h6>
+          </div>
+          <div class="row">
+            <mat-form-field appearance="outline" class="col-lg-12">
+              <!-- <mat-label>Description</mat-label> -->
+              <input
+                matInput
+                placeholder="Description"
+                formControlName="description"
+              />
+            </mat-form-field>
+            <div class="col-lg-12 cqmlabel">
+              <h6>Begin Date:</h6>
+            </div>
+            <div class="row" style="margin-left: 3%">
+              <div class="col-md-12">
+                <mat-form-field appearance="outline" class="w-50">
+                  <!-- <mat-label>Choose a date</mat-label> -->
+                  <input
+                    matInput
+                    class="pointer"
+                    style="text-overflow: ellipsis"
+                    placeholder="Begin Date"
+                    autocomplete="off"
+                    [matDatepicker]="picker"
+                    (click)="picker.open()"
+                    readonly
+                    formControlName="startDate"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+
+                <button appearance="outline" class="w-25">
+                  <mat-select placeholder="Add">
+                    <mat-option value="3" (click)="endDateCalculation(3)">
+                      3 months
+                    </mat-option>
+                    <mat-option value="6" (click)="endDateCalculation(6)">
+                      6 months
+                    </mat-option>
+                    <mat-option value="9" (click)="endDateCalculation(9)">
+                      9 months
+                    </mat-option>
+                    <mat-option value="12" (click)="endDateCalculation(12)">
+                      12 months
+                    </mat-option>
+                  </mat-select>
+                </button>
+              </div>
+            </div>
+
+            <div class="col-lg-12">
+              <h6>End Date:</h6>
+            </div>
+            <mat-form-field appearance="outline" class="col-lg-12">
+              <!-- <mat-label>Choose a date</mat-label> -->
+              <input
+                matInput
+                class="pointer"
+                style="text-overflow: ellipsis"
+                placeholder="End Date"
+                autocomplete="off"
+                [matDatepicker]="picker2"
+                (click)="picker2.open()"
+                readonly
+                formControlName="endDate"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker2"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+            <div class="col-lg-12 cqmlabel">
+              <h6>CQM Update Year:</h6>
+            </div>
+            <mat-form-field appearance="outline" class="col-lg-12">
+              <mat-select
+                placeholder="Select Year"
+                disableOptionCentering
+                formControlName="bundleYear"
+              >
+                <mat-option value="2018">2018</mat-option>
+                <mat-option value="2019">2019</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div class="col-lg-12 cqmlabel">
+              <h6>
+                Use zip Folder :
+                <mat-checkbox
+                  class="example-margin"
+                  (change)="zipFolder($event)"
+                ></mat-checkbox>
+                <mat-label class="col-lg-12 my-1">
+                  <input type="file" *ngIf="showChooseFile" />
+                </mat-label>
+              </h6>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-10 body">
+          <div class="row" style="margin-top: 1%; margin-left: 1%">
+            <mat-form-field
+              appearance="outline"
+              class="col-lg-4 col-md-6 my-2 hover"
+            >
+              <mat-select
+                placeholder="Select Provider"
+                disableOptionCentering
+                formControlName="providerId"
+              >
+                <mat-select-filter
+                  [placeholder]="'Search...'"
+                  [displayMember]="'Provider_Name'"
+                  [array]="providerlist"
+                  (filteredReturn)="filteredList = $event"
+                >
+                </mat-select-filter>
+                <mat-option value="0" (click)="getLocationsList(0)"
+                  >Show all providers</mat-option
+                >
+                <mat-option
+                  *ngFor="let item of filteredList"
+                  [value]="item.Provider_Id"
+                  (click)="getLocationsList(item.Provider_Id)"
+                >
+                  {{ item.Provider_Name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field
+              appearance="outline"
+              class="col-lg-4 col-md-4 my-2 hover"
+            >
+              <mat-select
+                placeholder="Select Location"
+                disableOptionCentering
+                formControlName="locationId"
+              >
+                <mat-select-filter
+                  [placeholder]="'Search...'"
+                  [displayMember]="'Location_Name'"
+                  [array]="locationslist"
+                  (filteredReturn)="filteredList1 = $event"
+                ></mat-select-filter>
+                <mat-option
+                  *ngFor="let name of filteredList1"
+                  [value]="name.Location_Id"
+                  (click)="searchByLocationId(name.Location_Id)"
+                >
+                  {{ name.Location_Name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="panel panel-overflow col-md-12">
+            <mat-expansion-panel
+              (opened)="panelOpenState = true"
+              (closed)="panelOpenState = false"
+              [expanded]="true"
+              *ngFor="let location of providerslocationwisefilter"
+            >
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{ location.LocationName }}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="row">
+                <div
+                  class="panel-body col-lg-12"
+                  *ngFor="let loc of location.Provider"
+                >
+                  <mat-checkbox
+                    class="example-margin"
+                    [checked]="loc.Provider_Id"
+                    (click)="matCheckbox(loc, location)"
+                    formControlName="measureList"
+                  >
+                    <span>
+                      {{ loc.ProviderName }} &nbsp;({{ loc.Measures }})</span
+                    >
+                    <!-- {{ loc | json }} -->
+                  </mat-checkbox>
+                </div>
+                <!-- <div class="panel-body col-lg-12">
+                <mat-checkbox class="example-margin" (change)="measureList2()" formControlName="measureList">
+                   Gail Mateka ( 68, 69, 74, 75, 127, 138, 147, 155, 165 )
+                </mat-checkbox>
+              </div> -->
+              </div>
+            </mat-expansion-panel>
+            <br />
+            <!-- <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" [expanded]="true">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                A Better Smile Dental Care (A Better Smile Denture Care)
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="row ">
+              <div class="panel-body col-lg-12">
+                <mat-checkbox class="example-margin" (change)="measureList3()" formControlName="measureList">
+                  Kymberli Mumford-Clarke ( 68, 69, 74, 75, 127, 138, 147, 155, 165 )
+                </mat-checkbox>
+              </div>
+            </div>
+          </mat-expansion-panel>
+          <br />
+          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" [expanded]="true">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                A Plus Dental Group LLC
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="row ">
+              <div class="panel-body col-lg-12">
+                <mat-checkbox class="example-margin" (change)="measureList4()" formControlName="measureList">
+                  Leila Khossoosi ( 68, 69, 74, 75, 127, 138, 147, 155, 165 )
+                </mat-checkbox>
+              </div>
+              <div class="panel-body col-lg-12">
+                <mat-checkbox class="example-margin" (change)="measureList5()" formControlName="measureList"> Mohammad Khosousi ( 68, 69, 74, 75, 127, 138, 147, 155, 165 )
+                </mat-checkbox>
+              </div>
+            </div>
+          </mat-expansion-panel>
+          <br />
+          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" [expanded]="true">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                A Street Dental Clinic
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="row ">
+              <div class="panel-body col-lg-12">
+                <mat-checkbox class="example-margin" (change)="measureList6()" formControlName="measureList">
+                  Kevin Leung ( 68, 69, 74, 75, 127, 138, 147, 155, 165 )
+                </mat-checkbox>
+              </div>
+              <div class="panel-body col-lg-12">
+                <mat-checkbox class="example-margin" (change)="measureList7()" formControlName="measureList"> Uyen Tran ( 68, 69, 74, 75, 127, 138, 147, 155, 165 )
+                </mat-checkbox>
+              </div>
+            </div>
+          </mat-expansion-panel>
+          <br />
+          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" [expanded]="true">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                AAA Family Dental Center
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="row ">
+              <div class="panel-body col-lg-12">
+                <mat-checkbox class="example-margin" (change)="measureList8()" formControlName="measureList">
+                  Constanza Cubillos ( 68, 69, 74, 75, 127, 138, 147, 155, 165 )
+                </mat-checkbox>
+              </div>
+            </div>
+          </mat-expansion-panel>
+          <br />
+          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" [expanded]="true">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                ABC Dental Care
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="row ">
+              <div class="panel-body col-lg-12">
+                <mat-checkbox (change)="measureList9()" formControlName="measureList">
+                  Daniel Vu ( 68, 69, 74, 75, 127, 138, 147, 155, 165 )
+                </mat-checkbox>
+              </div>
+
+            </div>
+          </mat-expansion-panel>
+          <br />
+          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" [expanded]="true">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Achyut & Megha Joshi DDS
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="row ">
+              <div class="panel-body col-lg-12">
+                <mat-checkbox (change)="measureList10()" formControlName="measureList">
+                  Achyut Joshi ( 68, 69, 74, 75, 127, 138, 147, 155, 165 )
+                </mat-checkbox>
+              </div>
+              <div class="panel-body col-lg-12">
+                <mat-checkbox (change)="measureList11()" formControlName="measureList">Megha Joshi ( 68, 69, 74, 75, 127, 138, 147, 155, 165 )
+                </mat-checkbox>
+              </div>
+            </div>
+          </mat-expansion-panel>
+          <br />
+          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" [expanded]="true">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Advanced Puyallup Dentistry
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="row ">
+              <div class="panel-body col-lg-12">
+                <mat-checkbox (change)="measureList12()" formControlName="measureList">
+                  Parvin Abedi ( 68, 69, 74, 75, 127, 138, 147, 155, 165 )
+                </mat-checkbox>
+              </div>
+            </div>
+          </mat-expansion-panel>
+          <br />
+          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" [expanded]="true">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Aesthetic Dental Institute
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="row ">
+              <div class="panel-body col-lg-12">
+                <mat-checkbox (change)="measureList13()" formControlName="measureList">
+                  Aubrey Henshaw III ( 68, 69, 74, 75, 127, 138, 147, 155, 165 )
+                </mat-checkbox>
+              </div>
+            </div>
+          </mat-expansion-panel> -->
+            <br />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-4 text-wrap my-3">
+          <mat-checkbox class="example-margin"></mat-checkbox
+          ><span class="cqmcheckbox" style="margin-left: 2%"
+            >Override all provider pre-selected measures</span
+          >
+        </div>
+      </div>
+      <button mat-button>Queue Report</button>
+    </form>
+  </mat-card>
+</div>

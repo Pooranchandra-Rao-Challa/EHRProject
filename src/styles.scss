@@ -1,1 +1,296 @@
 /* You can add global styles to this file, and also import other style files */
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import "~@angular/material/theming";
+// Plus imports for other components in your app.
+@font-face {
+  font-family: "SF UI Text Regular";
+  font-style: normal;
+  font-weight: normal;
+  src: url ("assets/fonts/SFUIText/SFUIText-Regular.woff") format("woff");
+}
+
+@font-face {
+  font-family: "SF UI Text Medium";
+  font-style: normal;
+  font-weight: normal;
+  src: url ("assets/fonts/SFUIText/SFUIText-Medium.woff") format("woff");
+}
+
+@font-face {
+  font-family: "SF UI Text Bold";
+  font-style: normal;
+  font-weight: normal;
+  src: url ("assets/fonts/SFUIText/SFUIText-Bold.woff") format("woff");
+}
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$ehr-angular-primary: mat-palette($mat-indigo);
+$ehr-angular-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$ehr-angular-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$ehr-angular-theme: mat-light-theme(
+  $ehr-angular-primary,
+  $ehr-angular-accent,
+  $ehr-angular-warn
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($ehr-angular-theme);
+
+@import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/bootstrap";
+@import "../node_modules/font-awesome/scss/font-awesome";
+@import "./assets/styles/fonts";
+@import "./assets/styles/variables";
+@import "./assets/styles/functions";
+@import "./assets/styles/mixins/displayflex";
+@import "./assets/styles/mixins/flexbox";
+@import "./assets/styles/mixins/background";
+@import "./assets/styles/mixins/transition";
+@import "./assets/styles/mixins/animation";
+@import "./assets/styles/mixins/badges";
+@import "./assets/styles/mixins/breadcrumbs";
+@import "./assets/styles/mixins/pagination";
+@import "./assets/styles/mixins/buttons";
+@import "./assets/styles/mixins/misc";
+@import "./assets/styles/mixins/color-functions";
+@import "./assets/styles/mixins/cards";
+@import "./assets/styles/mixins/tooltips";
+@import "./assets/styles/mixins/popovers";
+@import "./assets/styles/mixins/blockqoute";
+@import "./assets/styles/misc";
+@import "./assets/styles/utilities";
+@import "./assets/styles/demo";
+
+
+html,
+body {
+  height: 100%;
+  font-family: "SF UI Text Regular" !important;
+}
+body {
+  margin: 0;
+  font-family: "SF UI Text Regular" !important;
+  outline: none !important;
+}
+.content-wrapper {
+  padding: 1.5rem 1rem;
+}
+.mat-form-field-appearance-outline .mat-form-field-infix {
+  padding: 0.51em 0 0.89em 0 !important;
+}
+
+/* Mat Paginator */
+
+mat-paginator {
+  color: #fff !important;
+  background-color: #41b6a6 !important;
+  font-size: 16px !important;
+}
+::ng-deep .arrow .mat-select-value {
+  color: #fff !important;
+  font-size: 16px !important;
+}
+::ng-deep .arrow .mat-select-arrow {
+  color: #fff !important;
+  font-size: 16px !important;
+}
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
+  background-color: white !important;
+}
+
+/* mat sort  */
+.mat-sort-header-arrow {
+  color: white !important;
+}
+
+/* Loading Spinner */
+
+#spinner {
+  -webkit-animation: frames 1s infinite linear;
+  animation: frames 3s infinite linear;
+  background: transparent;
+  border: 10px solid #41b6a6;
+  border-radius: 100%;
+  border-top-color: orange;
+  width: 5vw;
+  height: 5vw;
+  opacity: 0.9;
+  padding: 0;
+  position: absolute;
+  z-index: 999;
+}
+@keyframes frames {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+
+#pause {
+  display: block;
+  background: rgba(0, 0, 0, 0.36) no-repeat 0 0;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+/* Dropdown */
+.mat-option.mat-active {
+  background: #e5f8f5 !important;
+}
+.mat-option.mat-selected:not(.mat-option-disabled) {
+  color: black !important;
+  text-shadow: black;
+}
+.mat-option:hover {
+  background-color: #e5f8f5 !important;
+}
+// ::ng-deep
+//   .hover.mat-form-field-appearance-outline:hover
+//   .mat-form-field-outline,
+// .hover.mat-form-field-appearance-outline:active .mat-form-field-outline {
+//   background: #41b6a6 !important;
+//   border: none !important;
+// }
+// ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+//   background-color: #fff !important;
+//   border-radius: 6px;
+//   border: 1px solid #41b6a6 !important;
+// }
+::ng-deep {
+  mat-form-field {
+    ::placeholder {
+      color: #4d4b4b !important;
+    }
+  }
+}
+
+/* check box */
+::ng-deep .example-margin {
+  & .mat-checkbox-background,
+  .mat-checkbox-frame {
+    border-radius: 20% !important;
+    border-color: #cacaca !important;
+    background-color: #eeeaea !important;
+    border-width: 1px;
+    border-style: solid;
+    width: 18px;
+    height: 18px;
+  }
+}
+::ng-deep .example-margin:hover {
+  & .mat-checkbox-background,
+  .mat-checkbox-frame {
+    border-color: #41b6a6;
+  }
+}
+::ng-deep .mat-checkbox-checked.mat-accent {
+  .mat-checkbox-background,
+  .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+    background-color: rgb(243, 242, 242) !important;
+    border-radius: 20% !important ;
+    border-color: rgb(151, 150, 150) !important;
+    height: 18px;
+    width: 18px;
+  }
+  .mat-checkbox-checkmark-path {
+    stroke: grey !important;
+  }
+}
+
+/* Mat Calender */
+.mat-calendar-body-selected {
+  background-color: #41b6a6;
+  color: #fff;
+}
+.mat-calendar-body-selected:hover {
+  background-color: #41b6a6;
+  color: #fff;
+}
+// .mat-calendar-body-today:not(.mat-calendar-body-selected) {
+//   border-color: #ffb733;
+//   background-color: #ffdb99;
+//   color: #000000;
+// }
+.mat-datepicker-content
+  .mat-calendar-body-today:not(.mat-calendar-body-selected) {
+  border-color: #ffb733;
+  background-color: #ffdb99;
+  color: #000000;
+}
+.mat-calendar-body-today {
+  border-color: #ffb733;
+  background-color: #ffdb99;
+  color: #000000;
+}
+.mat-calendar-body-cell-content:hover {
+  background-color: #41b6a6 !important;
+  color: #fff;
+}
+.mat-calendar-table-header {
+  color: #41b6a6;
+  font-weight: 550;
+}
+.mat-calendar-body-label {
+  color: #41b6a6;
+}
+.mat-calendar.mat-button {
+  color: #fff;
+  background-color: #41b6a6;
+}
+.mat-calendar-period-button {
+  color: #41b6a6;
+  background-color: #fff;
+  border: 1px solid #41b6a6 !important;
+}
+// .mat-calendar-arrow {
+//   border: 1px solid #41b6a6;
+// }
+// .mat-calendar-arrow:hover {
+//   border: 1px solid #fff;
+// }
+.mat-calendar-period-button:hover {
+  color: #fff;
+  background-color: #41b6a6;
+}
+.mat-datepicker-content .mat-calendar-previous-button,
+.mat-datepicker-content .mat-calendar-next-button {
+  color: #41b6a6;
+}
+.mat-datepicker-content .mat-calendar-previous-button:hover,
+.mat-calendar-next-button:hover {
+  color: #fff;
+  background-color: #41b6a6;
+}
+.mat-datepicker-content {
+  border: 1px solid #41b6a6;
+}
+// .mat-calendar-period-button {
+//   color: #41b6a6;
+//   border-color: #41b6a6;
+// }
+.pointer {
+  cursor: pointer !important;
+}

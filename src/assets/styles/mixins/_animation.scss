@@ -11,10 +11,14 @@
     transform: translate3d(0, 0px, 0);
   }
 }
+@mixin animation-fill-mode($direction){
+  animation-fill-mode: $direction;
+  animation-delay: 1s;
 
+}
 .dropdownAnimation {
   animation-name: dropdownAnimation;
-  @include animation-duration($action-transition-duration);
+  @include transition-duration($action-transition-duration);
   @include animation-fill-mode(both);
 }
 @mixin transition($settings) {
