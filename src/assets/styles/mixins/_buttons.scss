@@ -20,11 +20,11 @@
   background-color: rgba($color, 0.2);
   background-image: none;
   border-color: rgba($color, 0);
- /* @include hover {
+  &:hover {
     color: $color-hover;
     background-color: $color;
     border-color: $color;
-  }*/
+  }
 
   &.focus,
   &:focus {

@@ -37,6 +37,7 @@
 
 @each $color, $value in $theme-colors {
   .card-inverse-#{$color} {
-    @include card-inverse-variant(rgba($theme-colors($color), .2), theme-color-level($color, 1), theme-color-level($color, 3));
+    //map-get($theme-colors, "primary");
+    @include card-inverse-variant(rgba(map-get($theme-colors, $color), .2), theme-color-level($color, 1), theme-color-level($color, 3));
   }
 }

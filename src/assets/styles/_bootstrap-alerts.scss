@@ -12,12 +12,16 @@
 
 @each $color, $value in $theme-colors {
   .alert-#{$color} {
-    @include alert-variant(rgba(theme-color($color), .2), theme-color-level($color, 1), theme-color-level($color, 3));
+    //@debug "divider offset: #{$color}";
+    $color1: map-get($theme-colors, $color);
+    //@include alert-variant(rgba($color1, .2), theme-color-level($color, 1), theme-color-level($color, 3));
+    @include alert-variant(rgba($color1, .2), theme-color-level($color, 1),  map-get($theme-colors, $color));
   }
 }
 
 @each $color, $value in $theme-colors {
   .alert-fill-#{$color} {
-    @include alert-variant(theme-color($color), theme-color($color), color(white));
+    //@include alert-variant(map-get($theme-colors, $color), map-get($theme-colors, $color), color(white));
+    @include alert-variant(map-get($theme-colors, $color), map-get($theme-colors, $color), white);
   }
 }
