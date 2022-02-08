@@ -274,13 +274,13 @@ mat-expansion-panel {
 .card-revenue-table {
   .revenue-item {
     border-bottom: 1px solid $border-color;
-    @extend .py-3;
+    @extend .py-3 !optional;
     &:last-child {
       border-bottom: 0;
-      @extend .pb-0;
+      @extend .pb-0 !optional;
     }
     &:first-child {
-      @extend .pt-0;
+      @extend .pt-0 !optional;
     }
     .revenue-desc {
       margin-right: auto;

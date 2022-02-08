@@ -105,8 +105,8 @@
         }
 
         .dropdown-item {
-          @extend .d-flex;
-          @extend .align-items-center;
+          @extend .d-flex !optional;
+          @extend .align-items-center !optional;
           margin-bottom: 0;
           padding: 7px 25px;
 

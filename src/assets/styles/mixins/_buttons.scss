@@ -15,17 +15,16 @@
 		}
 	}
 }
-
 @mixin button-inverse-variant($color, $color-hover: $white) {
   color: $color;
   background-color: rgba($color, 0.2);
   background-image: none;
   border-color: rgba($color, 0);
-  @include hover {
+ /* @include hover {
     color: $color-hover;
     background-color: $color;
     border-color: $color;
-  }
+  }*/
 
   &.focus,
   &:focus {

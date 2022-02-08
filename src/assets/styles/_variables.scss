@@ -20,9 +20,17 @@ $gray-600:#bbbbbb;
 $gray-700:#cacaca;
 $gray-dark: #292b2c;
 $theme-dark: #424964;
+$light: #f3f5f6;
+$secondary: #e5e5e5;
+$success: #00ce68;
+$primary: #308ee0;
+$info: #8862e0;
+$warning: #ffaf00;
+$danger: #e65251;
+$dark: #424964;
 $blue-teal-gradient: linear-gradient(120deg, #41b6a6, #41b6a6);
 $blue-teal-gradient-light: linear-gradient(120deg, rgba(0, 228, 208, 0.7), rgba(89, 131, 232, 0.7));
-$theme-colors: ( primary: #308ee0, secondary: #e5e5e5, success: #00ce68, info: #8862e0, warning: #ffaf00, danger: #e65251, light: #f3f5f6, dark: #424964);
+$theme-colors: ( "primary": #308ee0, "secondary": #e5e5e5, "success": #00ce68, "info": #8862e0, "warning": #ffaf00, "danger": #e65251, "light": #f3f5f6, "dark": #424964);
 $colors: ( "blue": $blue, "indigo": $indigo, "purple": $purple, "pink": $pink, "red": $red, "orange": $orange, "yellow": $yellow, "green": $green, "teal": $teal, "cyan": $cyan, "white": $white, "white-smoke": #f3f5f6, "gray": $gray-600, "gray-light": #8ba2b5, "gray-lightest": #f7f7f9, "gray-dark": #292b2c);
 ////////// COLOR SYSTEM //////////
 ////////// COLOR VARIABLES //////////
@@ -199,7 +207,7 @@ $breadcrumb-custom-item-color: $black;
 $breadcrumb-item-bg: #dbe3e6;
 ////////// BREAD CRUMBS VARIABLES //////////
 ////////// MODALS VARIABLES //////////
-$line-height-base:10px;
+$line-height-base:10;
 $border-width:5px;
 $modal-inner-padding: 0.9375rem;
 $modal-dialog-margin: 10px;

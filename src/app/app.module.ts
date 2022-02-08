@@ -1,13 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { MatPaginatorModule } from '@angular/material/paginator';
 import { RouterModule } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+/*
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { ToastrModule } from 'ngx-toastr';
 import { SharedModule } from './_common/shared';
 import { MatCardModule } from '@angular/material/card';
@@ -19,7 +20,7 @@ import { MatTableExporterModule } from 'mat-table-exporter';
 import { Ng2OrderModule } from 'ng2-order-pipe';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';*/
 
 
 import { CommonModule, DatePipe } from '@angular/common';
@@ -38,7 +39,7 @@ import { AuthGuard } from "./_helpers/auth.guard";
 
 @NgModule({
   exports: [
-    MatInputModule
+    //MatInputModule
   ],
   declarations: [
     AppComponent,
@@ -46,19 +47,21 @@ import { AuthGuard } from "./_helpers/auth.guard";
     //RubyAuthenticationFailedComponenet
   ],
   imports: [
-    ToastrModule.forRoot(),
 
-    CommonModule,
-    SharedModule,
-    NgxPaginationModule,
-    BrowserModule,
-    RouterModule,
-    MatMenuModule,
-    AppRoutingModule,
-    FormsModule,
     NgbModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    AppRoutingModule,
+    BrowserModule,
+    RouterModule,
+    CommonModule,
+
+    /*
+    ToastrModule.forRoot(),
+    SharedModule,
+    NgxPaginationModule,
+    MatMenuModule,
+    FormsModule,
     MatFormFieldModule,
     ReactiveFormsModule,
     MatCardModule,
@@ -70,6 +73,7 @@ import { AuthGuard } from "./_helpers/auth.guard";
     MatTableExporterModule,
     Ng2OrderModule,
     MatAutocompleteModule
+    */
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: EhrInterceptor, multi: true },

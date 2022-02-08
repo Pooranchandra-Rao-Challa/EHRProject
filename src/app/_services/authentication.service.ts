@@ -83,8 +83,10 @@ export class AuthenticationService {
       const endpointUrl = this.baseUrl + "RemoveAngularSessionInMongo/";
       this.http.post<ResponseData>(endpointUrl, { "RubyId": this.userValue.RubyId });
     }
+    let token = localStorage.getItem("session_token");
     localStorage.removeItem('user');
     localStorage.removeItem('session_token');
+    this.idService.remove(token);
     this.router.navigate(['/account/login']);
 
   }

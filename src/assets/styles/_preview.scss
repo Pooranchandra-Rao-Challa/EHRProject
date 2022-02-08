@@ -91,7 +91,7 @@
           font-family: $type-1;
           padding-right: 15px;
           border-right: 1px solid $border-color;
-          @extend .text-muted;
+          @extend .text-muted !optional;
         }
       }
     }

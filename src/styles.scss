@@ -32,31 +32,32 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$ehr-angular-primary: mat-palette($mat-indigo);
-$ehr-angular-accent: mat-palette($mat-pink, A200, A100, A400);
+//$ehr-angular-primary: mat-palette($mat-indigo);
+//$ehr-angular-accent: mat-palette($mat-pink, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
-$ehr-angular-warn: mat-palette($mat-red);
+//$ehr-angular-warn: mat-palette($mat-red);
 
 // Create the theme object (a Sass map containing all of the palettes).
-$ehr-angular-theme: mat-light-theme(
-  $ehr-angular-primary,
-  $ehr-angular-accent,
-  $ehr-angular-warn
-);
+//$ehr-angular-theme: mat-light-theme(
+//  $ehr-angular-primary,
+//  $ehr-angular-accent,
+//  $ehr-angular-warn
+//);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-@include angular-material-theme($ehr-angular-theme);
+//@include angular-material-theme($ehr-angular-theme);
 
 @import "../node_modules/bootstrap/scss/functions";
 @import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/mixins";
+@import "./assets/styles/variables";
 @import "../node_modules/bootstrap/scss/bootstrap";
+@import "./assets/styles/functions";
 @import "../node_modules/font-awesome/scss/font-awesome";
 @import "./assets/styles/fonts";
-@import "./assets/styles/variables";
-@import "./assets/styles/functions";
 @import "./assets/styles/mixins/displayflex";
 @import "./assets/styles/mixins/flexbox";
 @import "./assets/styles/mixins/background";
@@ -72,10 +73,35 @@ $ehr-angular-theme: mat-light-theme(
 @import "./assets/styles/mixins/tooltips";
 @import "./assets/styles/mixins/popovers";
 @import "./assets/styles/mixins/blockqoute";
+@import "./assets/styles/accordions";
+@import "./assets/styles/breadcrumbs";
+@import "./assets/styles/forms";
+@import "./assets/styles/icons";
+@import "./assets/styles/tables";
+@import "./assets/styles/buttons";
+@import "./assets/styles/badges";
+//@import "./assets/styles/cards";
+@import "./assets/styles/typography";
+@import "./assets/styles/preview";
+@import "./assets/styles/lists";
+@import "./assets/styles/bootstrap-progress";
+//@import "./assets/styles/bootstrap-alerts";
+@import "./assets/styles/tabs";
+@import "./assets/styles/dropdowns";
+@import "./assets/styles/pagination";
+@import "./assets/styles/popovers";
+@import "./assets/styles/modals";
+@import "./assets/styles/nav";
+@import "./assets/styles/reset";
+@import "./assets/styles/rating";
+@import "./assets/styles/layouts";
+@import "./assets/styles/tooltips";
+//@import "./assets/styles/responsive";
 @import "./assets/styles/misc";
 @import "./assets/styles/utilities";
 @import "./assets/styles/demo";
-
+@import "~ngx-toastr/toastr.css";
+/* You can add global styles to this file, and also import other style files */
 
 html,
 body {
@@ -88,6 +114,7 @@ body {
   outline: none !important;
 }
 .content-wrapper {
+  background-color: #fff;
   padding: 1.5rem 1rem;
 }
 .mat-form-field-appearance-outline .mat-form-field-infix {
@@ -127,8 +154,8 @@ mat-paginator {
   border: 10px solid #41b6a6;
   border-radius: 100%;
   border-top-color: orange;
-  width: 5vw;
-  height: 5vw;
+  width: 90px;
+  height: 90px;
   opacity: 0.9;
   padding: 0;
   position: absolute;
@@ -149,7 +176,7 @@ mat-paginator {
   display: block;
   background: rgba(0, 0, 0, 0.36) no-repeat 0 0;
   width: 100%;
-  height: 100%;
+  height: 100vh !important;
   position: fixed;
   bottom: 0;
   left: 0;
@@ -167,18 +194,10 @@ mat-paginator {
 .mat-option:hover {
   background-color: #e5f8f5 !important;
 }
-// ::ng-deep
-//   .hover.mat-form-field-appearance-outline:hover
-//   .mat-form-field-outline,
-// .hover.mat-form-field-appearance-outline:active .mat-form-field-outline {
-//   background: #41b6a6 !important;
-//   border: none !important;
-// }
-// ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
-//   background-color: #fff !important;
-//   border-radius: 6px;
-//   border: 1px solid #41b6a6 !important;
-// }
+.mat-option {
+  color: black !important;
+}
+
 ::ng-deep {
   mat-form-field {
     ::placeholder {
@@ -229,11 +248,7 @@ mat-paginator {
   background-color: #41b6a6;
   color: #fff;
 }
-// .mat-calendar-body-today:not(.mat-calendar-body-selected) {
-//   border-color: #ffb733;
-//   background-color: #ffdb99;
-//   color: #000000;
-// }
+
 .mat-datepicker-content
   .mat-calendar-body-today:not(.mat-calendar-body-selected) {
   border-color: #ffb733;
@@ -265,12 +280,7 @@ mat-paginator {
   background-color: #fff;
   border: 1px solid #41b6a6 !important;
 }
-// .mat-calendar-arrow {
-//   border: 1px solid #41b6a6;
-// }
-// .mat-calendar-arrow:hover {
-//   border: 1px solid #fff;
-// }
+
 .mat-calendar-period-button:hover {
   color: #fff;
   background-color: #41b6a6;
@@ -287,10 +297,32 @@ mat-paginator {
 .mat-datepicker-content {
   border: 1px solid #41b6a6;
 }
-// .mat-calendar-period-button {
-//   color: #41b6a6;
-//   border-color: #41b6a6;
-// }
+
 .pointer {
   cursor: pointer !important;
+}
+.cdk-overlay-container {
+  height: 100vh !important;
+  z-index: 9999 !important;
+}
+a {
+  color: #41b6a6;
+  text-decoration: none;
+  background-color: transparent;
+}
+body.loadactive {
+  overflow: hidden !important;
+}
+.asterisk {
+  color: #ff0000;
+  margin-left: 0.25rem !important;
+}
+body,
+b,
+li,
+.nav-tabs .nav-item .nav-link {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  font-size: 14px !important;
+  line-height: 1.428571429;
+  -webkit-filter: blur(0px);
 }

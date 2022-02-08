@@ -73,7 +73,7 @@
   }
 
   &.btn-outline-light {
-    @include button-outline-variant(theme-color(light), color(white));
+    @include button-outline-variant($light, color(white));
   }
 
   &.btn-outline-secondary {
@@ -81,7 +81,7 @@
   }
 
   &.btn-inverse-secondary {
-    background-color: rgba(theme-color(secondary), 0.5);
+    background-color: rgba($secondary, 0.5);
     color: rgba($black, 0.5);
 
     &:hover {
@@ -115,35 +115,35 @@
     }
 
     &.btn-primary {
-      border-color: darken(theme-color(primary),3%);
+      border-color: darken($primary,3%);
     }
 
     &.btn-secondary {
-      border-color: darken(theme-color(secondary),3%);
+      border-color: darken($secondary,3%);
     }
 
     &.btn-info {
-      border-color: darken(theme-color(info),3%);
+      border-color: darken($info,3%);
     }
 
     &.btn-warning {
-      border-color: darken(theme-color(warning),3%);
+      border-color: darken($warning,3%);
     }
 
     &.btn-success {
-      border-color: darken(theme-color(success),3%);
+      border-color: darken($success,3%);
     }
 
     &.btn-danger {
-      border-color: darken(theme-color(danger),3%);
+      border-color: darken($danger,3%);
     }
 
     &.btn-dark {
-      border-color: darken(theme-color(dark),3%);
+      border-color: darken($dark,3%);
     }
 
     &.btn-light {
-      border-color: darken(theme-color(light),3%);
+      border-color: darken($light,3%);
     }
   }
 }
@@ -151,7 +151,7 @@
 .btn-toolbar {
   .btn-group {
     +.btn-group {
-      @extend .ml-2;
+      @extend .ml-2 !optional;
     }
   }
 }

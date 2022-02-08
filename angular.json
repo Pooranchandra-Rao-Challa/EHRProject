@@ -17,6 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": ["ng2-order-pipe","rxjs-compat","xlsx","rxjs","file-saver"],
             "outputPath": "dist/EHRProject",
             "index": "src/index.html",
             "main": "src/main.ts",
