@@ -32,7 +32,7 @@ import { ProviderRoutingModule } from './provider-routing.module';
     MatInputModule
   ],
   declarations: [
-    ProviderNavbarComponent,
+    // ProviderNavbarComponent,
     ProviderFooterComponent,
     ProviderComponent,
 

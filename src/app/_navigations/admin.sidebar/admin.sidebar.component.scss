@@ -1,0 +1,21 @@
+/* Google Fonts Import Link */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+@import url("https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  //font-family: "Poppins", sans-serif;
+}
+.sidebar .nav-links > li > a > i {
+  color: #6b788b;
+  font-size: 16px;
+}
+.iocn-link > a > i {
+  color: #6b788b;
+  font-size: 16px;
+}
+.admin-side-logo {
+  margin: 7px 0 0 0;
+  height: 35px;
+}

@@ -1,10 +1,16 @@
-
-img {
-  width: 100%;
-  height: 100%;
+.cstm-container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
-#authfailedmessage{
+// img {
+//   width: 100%;
+//   height: 100%;
+// }
+
+#authfailedmessage {
   color: rgba(240, 13, 13, 0.932);
 }
 .signup {
@@ -26,33 +32,19 @@ img {
     color: #dedede;
   }
   //input outline color
-::ng-deep .mat-form-field-appearance-outline:hover .mat-form-field-outline {
-  color: #41b6a6 !important;
-  // opacity: 1!important;
+  ::ng-deep .mat-form-field-appearance-outline:hover .mat-form-field-outline {
+    color: #41b6a6 !important;
+    // opacity: 1!important;
+  }
+
+  //mat-input focused color
+  ::ng-deep
+    .mat-form-field-appearance-outline.mat-focused
+    .mat-form-field-outline-thick {
+    color: #41b6a6 !important;
+  }
 }
 
-//mat-input focused color
-::ng-deep
-  .mat-form-field-appearance-outline.mat-focused
-  .mat-form-field-outline-thick {
-  color: #41b6a6 !important;
-}
-}
-
-.login {
-  background-color: #ebe9e9;
-}
-
-// #flexbox{
-//     column-gap: 40px;
-// }
-// .authorization-signin-wrapper, .authorization-signup-wrapper, .passwords-wrapper, .secure-questions-wrapper {
-//     height: auto;
-//     font-family: 'Times New Roman';
-//     color: #4a4a4a;
-//     background-color:#ebe9e9 ;
-//     //line-height: 1.42857143;
-// }
 button {
   width: 50% !important;
   height: 45px !important;
@@ -132,11 +124,10 @@ hr {
   z-index: 1000;
 }
 
-
-
 .authorization-signin-wrapper .authorization-top,
- .authorization-signup-wrapper .authorization-top, .passwords-wrapper .passwords-top,
- .secure-questions-wrapper .secure-questions-top {
+.authorization-signup-wrapper .authorization-top,
+.passwords-wrapper .passwords-top,
+.secure-questions-wrapper .secure-questions-top {
   text-align: center;
   margin-bottom: 20px;
   color: #fff;
@@ -157,20 +148,22 @@ hr {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-user agent stylesheet
-div {
+user agent stylesheet div {
   display: block;
 }
-.authorization-signin-wrapper, .authorization-signup-wrapper, .passwords-wrapper, .secure-questions-wrapper {
+.authorization-signin-wrapper,
+.authorization-signup-wrapper,
+.passwords-wrapper,
+.secure-questions-wrapper {
   height: auto;
-  font-family: 'Times New Roman';
+  font-family: "Times New Roman";
   color: #4a4a4a;
 }
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 body {
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.42857143;
   color: #333;
@@ -185,13 +178,45 @@ html {
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
 }
-:after, :before {
+:after,
+:before {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-:after, :before {
+:after,
+:before {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+}
+// my code
+.login {
+  height: auto;
+  font-family: "Times New Roman";
+  color: #4a4a4a;
+  background: url(../../assets/images/pro-reg-bg.png);
+}
+.one-ehr-images {
+  margin-top: -6rem;
+}
+.login .ehr-img-top {
+  position: relative;
+  width: 100%;
+  left: 0%;
+  height: 89px;
+  top: 168px;
+  background-color: #41b6a6;
+}
+.ehr-img-top {
+  background-color: #41b6a6;
+}
+.ehr-img-top .text-center {
+  background-color: #41b6a6;
+}
+.logo-rectangle {
+  width: 277.2px;
+  margin: 0 auto;
+  background-image: url(../../assets/images/logo-rectangle.svg);
+  background-repeat: no-repeat;
 }

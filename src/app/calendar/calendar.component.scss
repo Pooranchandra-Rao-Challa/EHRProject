@@ -1,0 +1,107 @@
+.schedule-wrapper {
+  min-height: calc(100vh - 140px);
+}
+.schedule-wrapper .left-container {
+  height: 76vh;
+  overflow: scroll;
+  padding-top: 15px;
+  border: 1px solid #41b6a6;
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 3px;
+  border-left: none;
+}
+// .schedule-wrapper .left-container {
+//   height: 70vh;
+// }
+.right-container {
+  border: 1px solid #41b6a6;
+  height: 76vh;
+  overflow-y: scroll;
+}
+.schedule-bottom {
+  bottom: -21px;
+  margin-bottom: 0px;
+  position: fixed;
+  right: 0;
+  left: 0;
+}
+.new-search {
+  background-color: #f5f5f5;
+  border-color: #fe8f00 !important;
+}
+.schedule-wrapper .patientbtn {
+  background-color: #ffdd57;
+  border-color: #ffdd57;
+  color: black;
+}
+.schedule-wrapper .switchbtn {
+  color: black;
+  background: #41b6a6;
+  border-color: #41b6a6;
+}
+.schedule-wrapper .btn {
+  margin-top: 2px;
+  height: 45px;
+  display: block;
+  padding: 0;
+  line-height: 2.7;
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 16px;
+  text-align: center;
+  text-overflow: ellipsis;
+}
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  color: #41b6a6 !important;
+  background-color: #fff;
+  height: 45px;
+}
+// related to popup
+.modal-dialog {
+  max-width: 920px;
+}
+.modal-content {
+  background-color: #fff;
+}
+fieldset {
+  border: 1px solid #41b6a6;
+}
+
+legend {
+  padding: 5px 10px;
+}
+
+input {
+  margin: 5px;
+}
+fieldset {
+  display: block;
+  margin-left: 2px;
+  margin-right: 2px;
+  padding-top: 0.35em;
+  padding-bottom: 0.625em;
+  padding-left: 0.75em;
+  padding-right: 0.75em;
+  border: 2px groove (internal value);
+}
+.modal-header {
+  height: 30px !important;
+  background-color: #41b6a6;
+  color: #fff;
+}
+.fadeIn {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+}
+
+.animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+// related to scheduler
+
+// ::ng-deep .e-toolbar-item .e-work-week .e-month .e-agenda {
+//   display: none !important;
+// }

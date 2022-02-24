@@ -1,0 +1,122 @@
+/* Navbar */
+
+.navbar-dark {
+  background-color: #41b6a6;
+}
+.navbar-dark .navbar-nav .nav-link {
+  font-size: 16px !important;
+  color: white;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+i {
+  font-size: 18px;
+  color: #fff;
+}
+.nav-link {
+  margin-top: 0.5rem;
+}
+@media (min-width: 1024px) {
+  .nav-link {
+    text-align: center;
+  }
+  .navbar-collapse {
+    justify-content: center;
+  }
+}
+@media (max-width: 768px) {
+  .navbar-nav {
+    margin-left: 1rem;
+  }
+}
+.navbar-expand-lg.navbar-nav.nav-link {
+  padding-bottom: 0px !important;
+  padding-top: -1px !important;
+}
+.headertext {
+  display: inline;
+}
+.navbar {
+  padding-top: 0rem;
+  padding-bottom: 0rem;
+  line-height: initial;
+}
+.navbar-nav > .nav-item:hover {
+  background-color: #2e877b;
+  border-bottom: 3px solid #fe8f00;
+}
+.navbar-dark.navbar .navbar-collapse .navbar-nav li a {
+  border: 4px solid transparent;
+}
+.img-fluid {
+  height: 65px;
+}
+button.mat-menu-item {
+  width: 100%;
+  height: 32px;
+  background-color: #2e877b;
+}
+::ng-deep .mat-menu-panel {
+  border: 1px solid #2e877b !important;
+  background-color: #2e877b !important;
+}
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  background-color: #fff !important;
+}
+// nav-provider icons
+.collapse .navbar-nav li a.item-prov-dashboard {
+  background: url(../../assets/images/nav-provider/dashboard.svg) 100% 100%
+    no-repeat;
+  width: 100%;
+}
+.collapse .navbar-nav li a.item-schedule {
+  background: url(../../assets/images/nav-provider/schedule.svg) 100% 100%
+    no-repeat;
+  width: 100%;
+}
+.collapse .navbar-nav li a.item-patients {
+  background: url(../../assets/images/nav-provider/patients.svg) 100% 100%
+    no-repeat;
+  width: 100%;
+}
+.collapse .navbar-nav li a.item-messages {
+  background: url(../../assets/images/nav-provider/messages.svg) 100% 100%
+    no-repeat;
+  width: 100%;
+}
+.collapse .navbar-nav li a.item-direct-messages {
+  background: url(../../assets/images/nav-provider/direct-messages.svg) 100%
+    100% no-repeat;
+  width: 100%;
+}
+.collapse .navbar-nav li a.item-erx {
+  background: url(../../assets/images/nav-provider/erx.svg) 100% 100% no-repeat;
+  width: 100%;
+}
+.collapse .navbar-nav li a.item-labsimaging {
+  background: url(../../assets/images/nav-provider/labsimaging.svg) 100% 100%
+    no-repeat;
+  width: 100%;
+}
+.collapse .navbar-nav li a.item-reports {
+  background: url(../../assets/images/nav-provider/reports.svg) 100% 100%
+    no-repeat;
+  width: 100%;
+}
+.collapse .navbar-nav li a.item-billing {
+  background: url(../../assets/images/nav-provider/billing.svg) 100% 100%
+    no-repeat;
+  width: 100%;
+}
+.collapse .navbar-nav li a.item-settings {
+  background: url(../../assets/images/nav-provider/settings.svg) 100% 100%
+    no-repeat;
+  width: 100%;
+}
+.collapse .navbar-nav li a {
+  width: 90px;
+  height: 80px;
+  padding: 48px 6px 16px 6px;
+  text-align: center;
+  background-position: center 21px !important;
+  background-size: 17px !important;
+}

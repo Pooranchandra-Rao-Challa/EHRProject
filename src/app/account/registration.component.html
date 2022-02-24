@@ -1,0 +1,278 @@
+<div class="authorization-signup-wrapper pt-4">
+  <div class="one-ehr-images">
+    <div class="ehr-img-top">
+      <div class="text-center logo-rectangle">
+        <img width="232" height="88" src="./assets/images/EHR.svg">
+      </div>
+    </div>
+    <div class="text-center">
+      <img width="146" height="248" class="img-fluid" src="./assets/images/one.svg">
+    </div>
+  </div>
+
+  <div class="content-top">
+    <div class="container pt-5">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="main-title">
+            <h3>SIGN UP FOR A PRACTITIONER ACCOUNT</h3>
+            <p>Already have an account? <a href="/account/home">Sign in here</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container pt-4">
+    <div class="row align-items-center">
+      <div class="col-lg-10 tab-content border-0 form-wrapper" id="v-pills-tabContent">
+        <div class="tab-pane fade show active" id="personalInfo" role="tabpanel" aria-labelledby="personalInfo-tab">
+          <!-- personal info -->
+          <div class="content">
+            <!-- *ngIf="showpersonalInfoReq" -->
+            <div class="row">
+              <div class="secondary-title col-lg-12">
+                <img style="width: 25px; height: 60px;" src="../../assets/images/avatar-people.svg" class="pb-2">
+                <span class="mx-4">Personal Information</span>
+              </div>
+            </div>
+            <form class="pt-4">
+              <div class="row">
+                <div class="col-lg-12">
+                  <p>Your Name</p>
+                  <div class="row">
+                    <mat-form-field appearance="outline" class="col-lg-2 col-md-2 col-sm-2">
+                      <mat-select>
+                        <mat-option *ngFor="let title of nameTitle" [value]="title.titleId">{{title.titleName}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="col-lg-3 col-md-3 col-sm-3 col-12">
+                      <input matInput placeholder="First Name">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="col-lg-3 col-md-3 col-sm-3 col-12">
+                      <input matInput placeholder="Middle Name">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="col-lg-4 col-md-4 col-sm-4 col-12">
+                      <input matInput placeholder="Last Name">
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <p>PRACTICE NAME</p>
+                  <div class="row">
+                    <mat-form-field appearance="outline" class="col-lg-12">
+                      <input matInput placeholder="Practice Name">
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                  <p>CREDENTIALS</p>
+                  <mat-form-field appearance="outline" class="col-12">
+                    <mat-select placeholder="Credentials">
+                      <mat-option *ngFor="let cred of credentials" [value]="cred.credId">{{cred.credName}}</mat-option>
+                      <!-- <mat-option>Mr</mat-option>
+                  <mat-option>Ms</mat-option>
+                  <mat-option>Mrs</mat-option> -->
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                  <p>SPECIALITY</p>
+                  <mat-form-field appearance="outline" class="col-12">
+                    <mat-select placeholder="Speciality">
+                      <mat-option *ngFor="let spec of speciality" [value]="spec.specId">{{spec.specName}}</mat-option>
+                      <!-- <mat-option>Mr</mat-option>
+                  <mat-option>Ms</mat-option>
+                  <mat-option>Mrs</mat-option> -->
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                  <p>NPI NUMBER</p>
+                  <mat-form-field appearance="outline" class="col-12">
+                    <input matInput placeholder="National Provider Identifier(NPI)">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="controls">
+                    <button type="button" class="reg-button col-md-2 next-step1">NEXT STEP</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- end personal info -->
+        </div>
+        <div class="tab-pane fade" id="contactinfo" role="tabpanel" aria-labelledby="contactinfo-tab">
+          <!-- contact info -->
+          <div class="content">
+            <!-- *ngIf="showcontactInfoReq" -->
+            <div class="row">
+              <div class="secondary-title col-lg-12">
+                <img style="width: 25px; height: 60px;" src="../../assets/images/avatar-people.svg" class="pb-2">
+                <span class="mx-4">Contact Information</span>
+              </div>
+            </div>
+            <form class="pt-4">
+              <div class="row">
+                <div class="col-lg-12">
+                  <p>PRACTICE ADDRESS</p>
+                  <div class="row">
+                    <mat-form-field appearance="outline" class="col-md-6">
+                      <input matInput placeholder="Enter the full name here (including suite number)">
+                    </mat-form-field>
+                    <div class="col-md-2 pt-1">
+                      <button mat-button class="reg-button col-md-12">VERIFY</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                  <p>PRIMARY PHONE NUMBER</p>
+                  <mat-form-field appearance="outline" class="col-12">
+                    <input matInput placeholder="(123)-456-7890" type="tel" maxlength="10" class="cstm-tel">
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                  <p>MOBILE PHONE NUMBER</p>
+                  <mat-form-field appearance="outline" class="col-12">
+                    <input matInput placeholder="(123)-456-7890" type="tel" maxlength="10" class="cstm-tel">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="controls">
+                    <button mat-button class="reg-button col-md-2 prev-step2" data-bs-target="#personalInfo">PREV.
+                      STEP</button>
+                    <!-- (click)="contactInfoReq('prev')" -->
+                    <button mat-button class="reg-button col-md-2 mx-4 next-step2" data-bs-target="#additionalinfo">NEXT
+                      STEP</button>
+                    <!-- (click)="contactInfoReq()" -->
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- end contact info-->
+        </div>
+        <div class="tab-pane fade" id="additionalinfo" role="tabpanel" aria-labelledby="additionalinfo-tab">
+          <!-- account info -->
+          <div class="content">
+            <!-- *ngIf="showaccountInfoReq" -->
+            <div class="row">
+              <div class="secondary-title col-lg-12">
+                <img style="width: 25px; height: 60px;" src="../../assets/images/avatar-people.svg" class="pb-2">
+                <span class="mx-4">Account Information</span>
+              </div>
+            </div>
+            <form class="pt-4">
+              <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                  <p>PRIMARY EMAIL ADDRESS</p>
+                  <mat-form-field appearance="outline" class="col-12">
+                    <input matInput placeholder="Email Adress">
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                  <p>ALT. EMAIL ADDRESS</p>
+                  <mat-form-field appearance="outline" class="col-12">
+                    <input matInput placeholder="Email Address">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                  <p>PASSWORD</p>
+                  <mat-form-field appearance="outline" class="col-12">
+                    <input matInput placeholder="Password">
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                  <p>CONFIRM PASSWORD</p>
+                  <mat-form-field appearance="outline" class="col-12">
+                    <input matInput placeholder="Confirm Password">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12 pb-4">
+                  <mat-checkbox></mat-checkbox>
+                  <span class="mx-2">NOTIFY ME OF ALL UPCOMNG OUTAGES AND PLANNED SERVICE UPGRADES</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="controls">
+                    <button mat-button class="reg-button col-md-2 prev-step3" (click)="accountInfoReq('prev')">PREV.
+                      STEP</button>
+                    <button mat-button class="reg-button col-md-2 mx-2 next-step3">
+                      <!-- (click)="alertWithSuccess()" -->
+                      NEXT STEP
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- end account info -->
+        </div>
+        <div class="tab-pane fade" id="signup-additionalinfo" role="tabpanel"
+          aria-labelledby="signup-additionalinfo-tab">
+          <div class="content">
+            ---
+            <button mat-button class="reg-button col-md-2 prev-step4" (click)="accountInfoReq('prev')">PREV.
+              STEP</button>
+            <button mat-button class="reg-button col-md-2 mx-2" (click)="alertWithSuccess()">
+              COMPLETE REGISTRATION</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-2 d-none d-lg-flex flex-column align-items-end nav category-buttons" id="v-pills-tab"
+        role="tablist" aria-orientation="vertical">
+        <a class="item active box-top disabled" id="personalInfo-tab" data-bs-toggle="tab"
+          data-bs-target="#personalInfo" role="tab" aria-controls="v-pills-home" aria-selected="true">
+          <div class="dots-container"><span class="dots"><i class="fa fa-ellipsis-h"></i></span></div>
+          <div class="performed-container"><span class="performed-icon"><i class="fa fa-check"></i></span></div>
+          <span class="title-a">
+            <p>PERSONAL<br />INFO</p>
+          </span>
+        </a>
+        <a class="item disabled" id="contactinfo-tab" data-bs-toggle="tab" data-bs-target="#contactinfo" role="tab"
+          aria-controls="v-pills-profile" aria-selected="false">
+          <div class="dots-container"><span class="dots"><i class="fa fa-ellipsis-h"></i></span></div>
+          <div class="performed-container"><span class="performed-icon"><i class="fa fa-check"></i></span></div>
+          <span class="title-a">
+            <p>CONTACT<br />INFO</p>
+          </span>
+        </a>
+        <a class="item disabled" id="additionalinfo-tab" data-bs-toggle="tab" data-bs-target="#additionalinfo"
+          role="tab" aria-controls="v-pills-messages" aria-selected="false">
+          <div class="dots-container"><span class="dots"><i class="fa fa-ellipsis-h"></i></span></div>
+          <div class="performed-container"><span class="performed-icon"><i class="fa fa-check"></i></span></div>
+          <span class="title-a">
+            <p>ADDITIONAL<br />INFO</p>
+          </span>
+        </a>
+        <a class="item box-bottom disabled" id="signup-additionalinfo-tab" data-bs-toggle="tab"
+          data-bs-target="#signup-additionalinfo" role="tab" aria-controls="v-pills-settings" aria-selected="false">
+          <div class="dots-container"><span class="dots"><i class="fa fa-ellipsis-h"></i></span></div>
+          <div class="performed-container"><span class="performed-icon"><i class="fa fa-check"></i></span></div>
+          <span class="title-a">
+            <p>SIGN UP<br />COMPLETE</p>
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

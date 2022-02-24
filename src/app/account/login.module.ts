@@ -1,15 +1,21 @@
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatCheckboxModule } from '@angular/material/checkbox'
+// import { MatCardModule } from '@angular/material/card';
+// import { MatInputModule } from '@angular/material/input';
+// import { MatFormFieldModule } from '@angular/material/form-field';
+// import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { LoginRoutingModule } from './login-rounting.module';
 import { LayoutComponent } from './layout.component';
 import { LoginComponent } from './login.component';
-import { RubyAuthenticationFailedComponenet} from './ruby.authentication.failed.component';
+import { RubyAuthenticationFailedComponenet } from './ruby.authentication.failed.component';
+import { RegistrationComponent } from "../account/registration.component";
+import { HomeComponent } from "../account/home.comonent";
+import { SharedModule } from '../_common/shared';
+
+
+
 /*
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -34,15 +40,18 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     ReactiveFormsModule,
     FormsModule,
     LoginRoutingModule,
-    MatCardModule,
-    MatInputModule,
-    MatCheckboxModule,
-    MatFormFieldModule
+    // MatFormFieldModule,
+    // MatCardModule,
+    // MatInputModule,
+    // MatCheckboxModule,
+    SharedModule
   ],
   declarations: [
     LayoutComponent,
     LoginComponent,
-    RubyAuthenticationFailedComponenet
+    RubyAuthenticationFailedComponenet,
+    RegistrationComponent,
+    HomeComponent
   ]
 })
 export class LoginModule { }

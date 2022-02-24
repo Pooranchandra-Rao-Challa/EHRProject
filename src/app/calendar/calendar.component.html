@@ -1,0 +1,390 @@
+<div class="schedule-wrapper">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-3">
+        <mat-drawer-container class="left-container">
+          <button mat-button (click)="drawer.toggle()" class="btn btn-outline-secondary" type="button"
+            style="border: none">
+            <mat-icon>menu</mat-icon>
+          </button>
+          <mat-drawer #drawer class="example-sidenav" mode="side">
+            <div>
+              <mat-calendar></mat-calendar>
+            </div>
+            <mat-accordion>
+              <mat-expansion-panel class="panel">
+                <mat-expansion-panel-header class="border">
+                  <mat-panel-title> Provider/Staff </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-form-field appearance="fill">
+                  <input matInput />
+                  <mat-checkbox>Select all</mat-checkbox>
+                </mat-form-field>
+                <div>
+                  <mat-checkbox>Provider_Name</mat-checkbox>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <br />
+            <mat-accordion>
+              <mat-expansion-panel class="panel">
+                <mat-expansion-panel-header class="border">
+                  <mat-panel-title> Appointment Status </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <mat-form-field appearance="fill">
+                  <input matInput />
+                  <mat-checkbox>Select all</mat-checkbox>
+                </mat-form-field>
+
+                <div>
+                  <mat-checkbox>Trevor</mat-checkbox>
+                </div>
+                <div>
+                  <mat-checkbox>Albert Davis</mat-checkbox>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <br />
+            <mat-accordion>
+              <mat-expansion-panel class="panel">
+                <mat-expansion-panel-header class="border">
+                  <mat-panel-title> Appointment Type </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <mat-form-field appearance="fill">
+                  <input matInput />
+                  <mat-checkbox>Select all</mat-checkbox>
+                </mat-form-field>
+
+                <div>
+                  <mat-checkbox>Trevor</mat-checkbox>
+                </div>
+                <div>
+                  <mat-checkbox>Albert Davis</mat-checkbox>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <br />
+            <button mat-button class="blockbutton panel">Block Out Time</button>
+          </mat-drawer>
+
+          <!-- <div class="example-sidenav-content">
+            <div class="row header">
+              <button mat-button (click)="drawer.toggle()" class="btn btn-outline-secondary" type="button"
+                style="border: none">
+                <mat-icon>menu</mat-icon>
+              </button>
+            </div>
+          </div> -->
+        </mat-drawer-container>
+      </div>
+      <div class="col-lg-9">
+        <div class="right-container">
+          <ejs-schedule>
+            <!-- <ng-template #editorTemplate let-data>
+              <div class="row header">
+                <div class="col-lg-11">
+                  <p>Add New appointment</p>
+                </div>
+                <div class="col-lg-1">
+                  <button mat-icon-button aria-label="close dialog" mat-dialog-close class="float-right close">
+                    <mat-icon>close</mat-icon>
+                  </button>
+                </div>
+              </div>
+              <form [formGroup]="createappointmentReportForm">
+                <h5>
+                  Search for Patient:
+                </h5>
+                <div class="input-group search">
+                  <span class="input-group-prepend">
+                    <div class="input-group-text bg-transparent border-right-0">
+                      <mat-select placeholder="Select Provider" disableOptionCentering>
+                        <mat-select-filter [placeholder]="'Search...'" (filteredReturn)="filteredproviderList =$event">
+                        </mat-select-filter>
+                        <mat-option>
+                          Enter atleast 2 letters
+                        </mat-option>
+                      </mat-select>
+                    </div>
+                  </span>
+
+                  <span class="input-group-append">
+                    <button class="btn btn-outline-secondary border-left-0 border" type="button">
+                      Search
+                    </button>
+                  </span>
+                </div>
+                <br />
+                <h5>
+                  Select Provider:
+                </h5>
+                <mat-form-field appearance="outline" class="col-lg-4 col-md-6 my-2 hover">
+                  <mat-select placeholder="Select Provider" disableOptionCentering formControlName="ProviderName">
+                    <mat-select-filter [placeholder]="'Search...'" [displayMember]="'Provider_Name'"
+                      (filteredReturn)="filteredproviderList =$event"> </mat-select-filter>
+                    <mat-option *ngFor="let item of filteredproviderList" [value]="item.Provider_Name"
+                      (click)="getLocationsList(item)">
+                      {{item.Provider_Name}}
+                    </mat-option>
+
+                  </mat-select>
+                </mat-form-field>
+                <br />
+                <br />
+                <h5>
+                  Select Appointment Type:
+                </h5>
+                <mat-form-field appearance="outline" class="col-lg-4 col-md-6 my-2 hover">
+                  <mat-select placeholder="Select Provider" disableOptionCentering>
+
+                    <mat-option>Consultation</mat-option>
+                    <mat-option>Crown/Bridge Delivery</mat-option>
+                    <mat-option>Crown/Bridge Prep</mat-option>
+                    <mat-option>Emergency</mat-option>
+                    <mat-option>Endo</mat-option>
+                    <mat-option>New Patient</mat-option>
+                    <mat-option>New Patient-Child</mat-option>
+                    <mat-option>Oral Surgery</mat-option>
+                    <mat-option>Prophy Appointment</mat-option>
+                    <mat-option>Prophy-Child</mat-option>
+                    <mat-option>Prophy/Regular Appointment</mat-option>
+                    <mat-option>Regular Appointment</mat-option>
+                    <mat-option>general</mat-option>
+
+                  </mat-select>
+                </mat-form-field>
+                <br />
+                <h5>Notes:</h5>
+                <mat-form-field style="width: 300px;">
+                  <textarea matInput rows="5" cols="40" placeholder="text"></textarea>
+                </mat-form-field>
+                <h5>Select Location:</h5>
+                <div class="row">
+                  <div class="col-lg-9">
+                    <mat-select placeholder="Select Location" disableOptionCentering formControlName="AppointmentType">
+                      <mat-option *ngFor="let name of filteredlocationList" [value]="name.Location_Name">
+                        {{name.Location_Name}}</mat-option>
+                    </mat-select>
+                  </div>
+                  <div class="col-lg-3">
+                    <mat-select placeholder="Select Location" disableOptionCentering>
+
+                      <mat-option>OP 1</mat-option>
+                      <mat-option>Station 2</mat-option>
+                      <mat-option>Chair 3</mat-option>
+
+
+                    </mat-select>
+                  </div>
+                </div>
+                <br />
+                <br />
+                <div class="row">
+                  <div class="col-lg-6">
+                    <h5>Select Date</h5>
+                    <mat-form-field appearance="outline" class="example-form-field">
+                      <mat-label>Choose a date</mat-label>
+                      <input matInput [matDatepicker]="datepicker">
+                      <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                      <mat-datepicker #datepicker>
+                      </mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-lg-3">
+                    <h5>Duration</h5>
+                    <mat-select placeholder="Select Location" disableOptionCentering>
+                      <mat-option>15 min</mat-option>
+                      <mat-option>30 min</mat-option>
+                      <mat-option>40 min</mat-option>
+
+                    </mat-select>
+                  </div>
+                  <div class="col-lg-3">
+                    <button mat-button class="btn">Find Open Time</button>
+                  </div>
+                </div>
+                <br>
+                <div class="slots">
+                  <div class="p-4">
+                    <div style="font-size: 16px;">Available Time Slots (Select Only One):</div>
+                    <div class="row">
+                      <div class="col-lg-4">
+                        <button mat-button>8:30 pm - 9:30 pm</button>
+                      </div>
+                      <div class="col-lg-4">
+                        <button mat-button>8:30 pm - 9:30 pm</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <br />
+
+              </form>
+            </ng-template> -->
+            <!-- <ng-template #editorTemplate>
+
+            </ng-template> -->
+            <!-- Header template -->
+            <ng-template #quickInfoTemplatesHeader let-data>
+              <!-- <div *ngIf="data.elementType == 'cell' || data.elementType == 'event'"> -->
+              <div class="e-popup-header">
+                <div class="e-header-icon-wrapper">
+                  <div *ngIf="data.elementType == 'event'" class="subject">{{data.Subject}}</div>
+                  <button class="e-close e-close-icon e-icons" title="Close" (click)="onCloseClick($event)"></button>
+                </div>
+              </div>
+              <!-- </div> -->
+            </ng-template>
+
+            <!-- Content Template -->
+            <ng-template #quickInfoTemplatesContent let-data>
+              <div *ngIf="data.elementType == 'cell'" class="e-cell-content">
+                <form class="e-schedule-form">
+                  <div style="padding:10px">
+                    <input class="subject e-field e-input" type="text" name="Subject" placeholder="Title"
+                      style="width:100%">
+                  </div>
+                  <div style="padding:10px">
+                    <input class="location e-field e-input" type="text" name="Location" placeholder="Location"
+                      style="width:100%">
+                  </div>
+                </form>
+              </div>
+              <div *ngIf="data.elementType == 'event'" class="e-event-content">
+                <div class="start-time">Start: {{data.StartTime.toLocaleString()}}</div>
+                <div class="end-time">End: {{data.EndTime.toLocaleString()}}</div>
+                <div *ngIf="data.Location != undefined && data.Location != ''" class="location">Location:
+                  {{data.Location}}</div>
+              </div>
+            </ng-template>
+
+            <!-- Footer Template -->
+            <ng-template #quickInfoTemplatesFooter let-data>
+              <div *ngIf="data.elementType == 'cell'" class="e-cell-footer">
+                <div class="left-button">
+                  <button class="e-event-details" title="Extra Details" (click)="onDetailsClick($event)">More
+                    Details</button>
+                </div>
+                <div class="right-button">
+                  <button class="e-event-create" title="Add" (click)="onAddClick($event)">Add</button>
+                </div>
+              </div>
+              <div *ngIf="data.elementType == 'event'" class="e-event-footer">
+                <div class="left-button">
+                  <button class="e-delete" title="Delete" (click)="onDeleteClick($event)">Delete</button>
+                  <button *ngIf="data.RecurrenceRule != undefined && data.RecurrenceRule != ''" class="e-delete-series"
+                    title="Delete" (click)="onDeleteClick($event)">Delete Series</button>
+                </div>
+                <div class="right-button">
+                  <button class="e-edit" title="Edit" (click)="onEditClick($event)">Edit</button>
+                  <button *ngIf="data.RecurrenceRule != undefined && data.RecurrenceRule != ''" class="e-edit-series"
+                    title="Edit" (click)="onEditClick($event)">Edit Series</button>
+                </div>
+              </div>
+            </ng-template>
+          </ejs-schedule>
+        </div>
+      </div>
+    </div>
+    <div class="schedule-bottom container-fluid">
+      <div class="row">
+        <div class="col-lg-8">
+          <mat-form-field appearance="outline" class="new-search col-12">
+            <input matInput placeholder="Schedule Appointment ( Enter a patient's name or phone number )">
+          </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+          <button mat-button class="btn patientbtn col-12" (click)="openPopup()">
+            Add New Patient
+          </button>
+        </div>
+        <div class="col-lg-2">
+          <button mat-button class="btn switchbtn col-12">
+            Switch View
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+// new patient popup
+<!-- Location Modal Popup -->
+<div class="modal animated fadeIn" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Add a New Patient</h4>
+        <span type="button" (click)="closePopup">
+          X
+        </span>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <mat-form-field appearance="outline" class="col-4">
+            <span matPrefix>First Name</span>
+            <input matInput placeholder="First Name" class="mx-3">
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="col-4">
+            <span matPrefix>Middle Name</span>
+            <input matInput placeholder="Middle Name" class="mx-3">
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="col-4">
+            <span matPrefix>Last Name</span>
+            <input matInput placeholder="Last Name" class="mx-3">
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-form-field appearance="outline" class="col-6">
+            <input matInput class="pointer" autocomplete="off" [matDatepicker]="picker1" (click)="picker1.open()"
+              readonly placeholder="DOB (mm/dd/yyyy)" formControlName="strSDate">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+          <div class="col-6">
+            <mat-radio-group class="col-12">
+              <p>Gender :</p>
+              <mat-radio-button [value]="1"></mat-radio-button>Male
+              <mat-radio-button [value]="2"></mat-radio-button>Female
+              <mat-radio-button [value]="3"></mat-radio-button>Other
+              <mat-radio-button [value]="4"></mat-radio-button>Unknow
+            </mat-radio-group>
+          </div>
+        </div>
+        <div class="row">
+          <mat-form-field appearance="outline" class="col-6">
+            <span matPrefix>Cell Phone</span>
+            <input matInput placeholder="Cell Phone" class="mx-3">
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="col-6">
+            <span matPrefix>Home Phone</span>
+            <input matInput placeholder="Home Phone" class="mx-3">
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-form-field appearance="outline" class="col-6">
+            <span matPrefix>Email</span>
+            <input matInput placeholder="Email Address" class="mx-3">
+          </mat-form-field>
+          <div class="col-6">
+            <mat-checkbox class="col-12" style="margin-left: 0px;">
+            </mat-checkbox><span>Patient does not have an email address</span>
+          </div>
+        </div>
+        <div class="row">
+          <fieldset>
+            <legend>Address</legend>
+            <mat-form-field appearance="outline" class="col-12">
+              <input matInput placeholder="Enter full address here (including suite number)">
+            </mat-form-field>
+            <button class="btn col-3">Verify</button>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,101 @@
+<div class="home-wrapper pt-4">
+  <div class="home-top pb-5">
+    <div class="one-ehr-images">
+      <div class="ehr-img-top">
+        <div class="text-center logo-rectangle">
+          <img width="232" height="88" src="../../assets/images/EHR.svg">
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="text-center">
+        <img width="146" height="248" class="img-fluid" src="../../assets/images/one.svg">
+      </div>
+      <div class="main-title" id="main_title">
+        <h1>Your New EHR is just a few clicks away.</h1>
+        <p>Want an EHR that is easy to use, affordable, and still has all of the practice management functions you
+          need
+          for your busy practice?</p>
+        <p>Then you've come to the right place. With an outstanding support team ready to help get you setup, you'll
+          be
+          charting before you know it.</p>
+      </div>
+      <div class="select-type">
+        <span class="select">Please select the account type</span>
+        <div class="accounts" id="portal_types">
+          <span class="provider-acc active" id="provider_btn" (click)="providerBtn()"
+            [ngStyle]="{'background-color':providerType == 'block' ? '#fe8f00' : '#fff' }">provider</span>
+          <span class="patient-acc" id="patient_btn" (click)="patientBtn()"
+            [ngStyle]="{'background-color':patientType == 'block' ? '#fe8f00' : '#fff' }">patient</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="homescreen-content pb-5">
+    <div class="container">
+      <div class="registration">
+        <div class="row col-12">
+          <div class="col-lg-4 col-md-4 col-sm-4" id="register_container" [ngStyle]="{'display':providerType}">
+            <div class="content">
+              <h4 class="title">Not an EHR1 Provider yet?</h4>
+              <h5 class="sub-title">Register today!</h5>
+            </div><a class="button-landing change-button" href="/account/registration">Register now</a>
+          </div>
+          <div class="col-lg-8 col-md-8 col-sm-8 offset-md-2 offset-lg-3 offset-xl-2"
+            [ngStyle]="{'display':patientType}">
+            <div class="content">
+              <h4 class="title">Sign in to your Patient Portal!</h4>
+            </div><a class="button-landing" id="sign-in-user" href="/account/login">Sign in</a>
+            <div class="content content-bottom">
+              <h5 class="sub-title">Don't have a Patient Portal account?</h5>
+              <h5 class="sub-title">Contact your doctor's office and request a Patient Portal invite email or setup your
+                Patient Portal account today!</h5>
+            </div>
+          </div>
+          <div class="col-lg-7 col-md-7 col-sm-7 block" id="sign_in_container" [ngStyle]="{'display':providerType}">
+            <div class="content offset-md-8">
+              <h4 class="title">Already registered?</h4>
+              <h5 class="sub-title">Sign in now</h5>
+              <a class="button-landing" id="sign-in-user" href="/account/login">Sign in</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="home-bottom">
+    <div class="container-fluid">
+      <div class="row col-12">
+        <div class="col-lg-4 col-md-12 col-12 col-md-offset-1">
+          <a target="_blank" href="https://chpl.healthit.gov/#/listing/10277">
+            <img alt="" class="img-responsive newlogo" src="../../assets/images/ONC-Cretified.png"></a>
+          <div class="login_page_address">
+            <h5><strong>Contact Us Anytime:</strong></h5>
+            <table>
+              <tbody>
+                <tr>
+                  <td>Office:</td>
+                  <td>&nbsp; (888)-804-3471</td>
+                </tr>
+                <tr>
+                  <td>Email:</td>
+                  <td>&nbsp;ehr1support@ehr1.com</td>
+                </tr>
+                <tr>
+                  <td>Fax:</td>
+                  <td>&nbsp;(714)-729-8707</td>
+                </tr>
+              </tbody>
+            </table>
+          </div><br>
+          <div>
+            <p><strong>Hours of Operation:</strong><br>Monday-Friday 7am-4pm (PST)</p>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-12 col-12 col-md-offset-2"><img alt="" class="img-responsive"
+            src="../../assets/images/home-rightimg.png">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

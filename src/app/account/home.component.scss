@@ -1,0 +1,163 @@
+.home-wrapper {
+  height: auto;
+  background-color: #fff;
+  overflow-x: auto;
+}
+.home-wrapper .home-top {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #fff;
+  background: url(../../assets/images/home-top-bg.png) 100% 100% no-repeat;
+  height: auto;
+}
+.one-ehr-images {
+  margin-top: -6rem;
+}
+.home-wrapper .ehr-img-top {
+  position: relative;
+  width: 100%;
+  left: 0%;
+  height: 89px;
+  top: 168px;
+  background-color: #41b6a6;
+}
+.ehr-img-top {
+  background-color: #41b6a6;
+}
+.ehr-img-top .text-center {
+  background-color: #41b6a6;
+}
+.logo-rectangle {
+  width: 277.2px;
+  margin: 0 auto;
+  background-image: url(../../assets/images/logo-rectangle.svg);
+  background-repeat: no-repeat;
+}
+.home-wrapper .main-title h1 {
+  font-family: "SF UI Text Regular";
+  font-weight: 300;
+  font-style: normal;
+  margin-top: 15px;
+}
+.home-wrapper .main-title p {
+  font-family: "SF UI Text Regular";
+  font-size: 19px;
+  font-weight: 300;
+  font-style: normal;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.home-wrapper .select-type {
+  margin-top: 32px;
+}
+.home-wrapper .accounts {
+  width: 250px;
+  margin: 0 auto;
+}
+// provider btn
+.home-wrapper .accounts span:first-child {
+  border-radius: 50px 0 0 50px;
+}
+.home-wrapper .accounts .patient-acc,
+.home-wrapper .accounts .provider-acc {
+  color: #000;
+  display: block;
+  padding: 10px 0;
+  font-size: 14px;
+  cursor: pointer;
+}
+// .home-wrapper .accounts .active {
+//   background: #fe8f00 !important;
+//   color: #fff !important;
+// }
+.home-wrapper .accounts .provider-acc,
+.home-wrapper .accounts .patient-acc {
+  color: #000;
+  background: #fff;
+}
+.home-wrapper .accounts > span {
+  display: block;
+  float: left;
+  width: 125px;
+  text-transform: uppercase;
+}
+.home-wrapper .select-type span {
+  display: block;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+// patient btn
+.home-wrapper .accounts .patient-acc:hover,
+.home-wrapper .accounts .provider-acc:hover {
+  background: #f9f9f9;
+}
+
+.home-wrapper .accounts span:last-child {
+  border-radius: 0px 50px 50px 0;
+}
+.home-wrapper .accounts .patient-acc,
+.home-wrapper .accounts .provider-acc {
+  color: #000;
+  display: block;
+  padding: 10px 0;
+  font-size: 14px;
+  cursor: pointer;
+}
+.home-wrapper .accounts .provider-acc,
+.home-wrapper .accounts .patient-acc {
+  color: #000;
+  background: #fff;
+}
+.home-wrapper .accounts > span {
+  display: block;
+  float: left;
+  width: 125px;
+  text-transform: uppercase;
+}
+.home-wrapper .select-type span {
+  display: block;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+// registration
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
+}
+// home bottom
+@media (min-width: 992px) {
+  .col-md-offset-1 {
+    margin-left: 8.33333333%;
+  }
+}
+@media (min-width: 992px) {
+  .col-md-offset-2 {
+    width: 50%;
+  }
+}
+.newlogo {
+  width: 18rem;
+}
+.home-wrapper .home-bottom {
+  padding-top: 25px;
+  padding-bottom: 50px;
+  border-top: 1px solid #979797;
+}
+// patient account
+.home-wrapper .registration a {
+  display: block;
+  padding: 7px 0 6px 0;
+  font-size: 18px;
+  text-transform: uppercase;
+  color: #4a4a4a;
+}
+.button-landing {
+  width: 167px;
+  border-radius: 5px;
+  border: 1px solid #c9c7c7;
+  margin: 20px 0 20px 0;
+  text-align: center;
+  box-shadow: 1px 1px 1px 0px rgb(0 0 0 / 50%);
+  background-image: linear-gradient(to top, #edeaea 50%, #d5d2d2 100%);
+}

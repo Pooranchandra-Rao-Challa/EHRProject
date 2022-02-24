@@ -87,7 +87,9 @@ export class AuthenticationService {
     localStorage.removeItem('user');
     localStorage.removeItem('session_token');
     this.idService.remove(token);
-    this.router.navigate(['/account/login']);
+    // this.router.navigate(['/account/login']);
+    this.router.navigate(['/account/home']);
+
 
   }
 

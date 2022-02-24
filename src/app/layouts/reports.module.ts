@@ -1,5 +1,5 @@
 
-import { NgModule } from "@angular/core";
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { ReportsRoutingModule } from "./reports-routing.module";
 import { CategoryreportsComponent } from "../reports/categoryreports/categoryreports.component";
@@ -15,6 +15,10 @@ import { ConditionpadderPipe } from "../reports/cqmreports/viewhelpers/condition
 import { ConditionformaterPipe } from "../reports/cqmreports/viewhelpers/conditionformater.pipe";
 import { FooterComponent } from "../_navigations/footer.component";
 import { ReportsComponent } from "./reports.component";
+import { PatientNavbarComponent } from "../_navigations/patient.navbar/patient.navbar.component";
+import { ProviderNavbarComponent } from "../_navigations/provider.navbar.component";
+import { AdminNavbarComponent } from "../_navigations/admin.navbar/admin.navbar.component";
+import { AdminSidebarComponent } from "../_navigations/admin.sidebar/admin.sidebar.component";
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -32,6 +36,9 @@ import { Ng2OrderModule } from 'ng2-order-pipe';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { CalendarComponent } from '../calendar/calendar.component';
+import { ScheduleModule, AgendaService, DayService, WeekService, WorkWeekService, MonthService } from '@syncfusion/ej2-angular-schedule';
+
 @NgModule({
   exports: [],
   declarations: [
@@ -48,14 +55,18 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     ConditionpadderPipe,
     ConditionformaterPipe,
     FooterComponent,
-
+    PatientNavbarComponent,
+    ProviderNavbarComponent,
+    AdminNavbarComponent,
+    AdminSidebarComponent,
+    CalendarComponent
   ],
   imports: [
     CommonModule,
     ReportsRoutingModule,
     SharedModule,
     ToastrModule.forRoot(),
-    SharedModule,
+    // SharedModule,
     NgxPaginationModule,
     MatMenuModule,
     FormsModule,
@@ -70,8 +81,11 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatTableExporterModule,
     Ng2OrderModule,
     MatAutocompleteModule,
-    MatInputModule
+    MatInputModule,
+    ScheduleModule
   ],
+  providers: [DayService, WeekService],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ReportsModule {
 

@@ -13,7 +13,7 @@ import { Accountservice } from '../_services/account.service';
   providers: [NgbDropdownConfig]
 })
 export class ProviderNavbarComponent implements OnInit {
-
+  navbarOpen: boolean = false;
   user: User;
   constructor(
     config: NgbDropdownConfig, private router: Router,
@@ -31,4 +31,7 @@ export class ProviderNavbarComponent implements OnInit {
     this.authenticationService.logout();
   }
 
+  toggleNavbar() {
+    this.navbarOpen = !this.navbarOpen;
+  }
 }

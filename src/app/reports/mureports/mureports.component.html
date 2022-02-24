@@ -53,7 +53,7 @@
           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
           <mat-datepicker #picker1></mat-datepicker>
         </mat-form-field>
-        <span style="font-size: 30px;" class="d-none d-lg-inline-block my-1">-</span>
+        <!-- <span style="font-size: 30px;" class="d-none d-lg-inline-block my-1">-</span> -->
         <mat-form-field appearance="outline" class="col-lg-2 col-md-6">
           <input matInput class="cstm-disable pointer" autocomplete="off" [max]="tomorrow"
             [min]="muReportForm.value.strSDate" placeholder="Stop Date *" [matDatepicker]="picker2"
@@ -91,7 +91,8 @@
         <div class="mat-cell col-md-5 submenu">Protect Electronic Protected Health Information</div>
         <div class="mat-cell col-md-3 submenu" style="text-align: center;">Complete Security Risk Analysis</div>
         <div class="mat-cell col-md-2 submenu" style="text-align: center;">
-          <mat-checkbox class="example-margin" [checked]="checkboxvalue1" #checkbox1 (change)='checkboxevent1(checkbox1.checked)'>&nbsp;&nbsp;|
+          <mat-checkbox class="example-margin" [checked]="checkboxvalue1" #checkbox1
+            (change)='checkboxevent1(checkbox1.checked)'>&nbsp;&nbsp;|
             Complete</mat-checkbox>
         </div>
         <div class="mat-cell col-md-2 submenu" style="text-align: center;">None Available</div>
@@ -106,7 +107,8 @@
         <div class="mat-cell col-md-2 submenu" style="text-align: center;"> {{this.percentage2}} % |
           {{this.numerator2}}/{{this.denominator2}}</div>
         <div class="mat-cell col-md-2 submenu" style="text-align: center;">
-          <mat-checkbox class="example-margin"  [checked]="checkboxvalue2" #checkbox2 (change)='checkboxevent2(checkbox2.checked)'>&nbsp;&nbsp;|
+          <mat-checkbox class="example-margin" [checked]="checkboxvalue2" #checkbox2
+            (change)='checkboxevent2(checkbox2.checked)'>&nbsp;&nbsp;|
             Exclusion</mat-checkbox>
         </div>
       </div>
@@ -118,12 +120,14 @@
         <div class="mat-cell col-md-5 submenu">3-1. Clinical Decision Support Interventions</div>
         <div class="mat-cell col-md-3 submenu" style="text-align: center;">5 CDS Interventions Implemented</div>
         <div class="mat-cell col-md-2 submenu" style="text-align: center;">
-          <mat-checkbox class="example-margin"  [checked]="checkboxvalue31c" #checkbox31c (change)='checkboxevent31c(checkbox31c.checked)'>
+          <mat-checkbox class="example-margin" [checked]="checkboxvalue31c" #checkbox31c
+            (change)='checkboxevent31c(checkbox31c.checked)'>
             &nbsp;&nbsp;|
             Complete</mat-checkbox>
         </div>
         <div class="mat-cell col-md-2 submenu" style="text-align: center;">
-          <mat-checkbox class="example-margin" #checkbox31 [checked]="checkboxvalue31" (change)='checkboxevent31(checkbox31.checked)'>&nbsp;&nbsp;|
+          <mat-checkbox class="example-margin" #checkbox31 [checked]="checkboxvalue31"
+            (change)='checkboxevent31(checkbox31.checked)'>&nbsp;&nbsp;|
             Exclusion</mat-checkbox>
         </div>
       </div>
@@ -131,12 +135,14 @@
         <div class="mat-cell col-md-5 submenu">3-2. Drug-Drug/Drug-Allergy Interaction</div>
         <div class="mat-cell col-md-3 submenu" style="text-align: center;">Enable Interactions Alerts</div>
         <div class="mat-cell col-md-2 submenu" style="text-align: center;">
-          <mat-checkbox class="example-margin"[checked]="checkboxvalue32c" #checkbox32c (change)='checkboxevent32c(checkbox32c.checked)'>
+          <mat-checkbox class="example-margin" [checked]="checkboxvalue32c" #checkbox32c
+            (change)='checkboxevent32c(checkbox32c.checked)'>
             &nbsp;&nbsp;|
             Complete</mat-checkbox>
         </div>
         <div class="mat-cell col-md-2 submenu" style="text-align: center;">
-          <mat-checkbox class="example-margin" #checkbox32 [checked]="checkboxvalue32" (change)='checkboxevent32(checkbox32.checked)'>&nbsp;&nbsp;|
+          <mat-checkbox class="example-margin" #checkbox32 [checked]="checkboxvalue32"
+            (change)='checkboxevent32(checkbox32.checked)'>&nbsp;&nbsp;|
             Exclusion</mat-checkbox>
         </div>
       </div>
@@ -150,7 +156,8 @@
         <div class="mat-cell col-md-2 submenu" style="text-align: center;"> {{this.percentage41}} % |
           {{this.numerator41}}/{{this.denominator41}}</div>
         <div class="mat-cell col-md-2 submenu" style="text-align: center;">
-          <mat-checkbox class="example-margin" [checked]="checkboxvalue41" #checkbox41 (change)='checkboxevent41(checkbox41.checked)'>&nbsp;&nbsp;|
+          <mat-checkbox class="example-margin" [checked]="checkboxvalue41" #checkbox41
+            (change)='checkboxevent41(checkbox41.checked)'>&nbsp;&nbsp;|
             Exclusion</mat-checkbox>
         </div>
       </div>
@@ -161,7 +168,8 @@
         <div class="mat-cell col-md-2 submenu" style="text-align: center;"> {{this.percentage42}} % |
           {{this.numerator42}}/{{this.denominator42}}</div>
         <div class="mat-cell col-md-2 submenu" style="text-align: center;">
-          <mat-checkbox class="example-margin" [checked]="checkboxvalue42" #checkbox42 (change)='checkboxevent42(checkbox42.checked)'>&nbsp;&nbsp;|
+          <mat-checkbox class="example-margin" [checked]="checkboxvalue42" #checkbox42
+            (change)='checkboxevent42(checkbox42.checked)'>&nbsp;&nbsp;|
             Exclusion</mat-checkbox>
         </div>
       </div>
@@ -172,7 +180,8 @@
         <div class="mat-cell col-md-2 submenu" style="text-align: center;"> {{this.percentage43}} % |
           {{this.numerator43}}/{{this.denominator43}}</div>
         <div class="mat-cell col-md-2 submenu" style="text-align: center;">
-          <mat-checkbox class="example-margin" [checked]="checkboxvalue43" #checkbox43 (change)='checkboxevent43(checkbox43.checked)'>&nbsp;&nbsp;|
+          <mat-checkbox class="example-margin" [checked]="checkboxvalue43" #checkbox43
+            (change)='checkboxevent43(checkbox43.checked)'>&nbsp;&nbsp;|
             Exclusion</mat-checkbox>
         </div>
       </div>
@@ -186,7 +195,8 @@
         <div class="mat-cell col-md-2 submenu" style="text-align: center;"> {{this.percentage51}} % |
           {{this.numerator51}}/{{this.denominator51}}</div>
         <div class="mat-cell col-md-2 submenu" style="text-align: center;">
-          <mat-checkbox class="example-margin" [checked]="checkboxvalue51" #checkbox51 (change)='checkboxevent51(checkbox51.checked)'> &nbsp;&nbsp;|
+          <mat-checkbox class="example-margin" [checked]="checkboxvalue51" #checkbox51
+            (change)='checkboxevent51(checkbox51.checked)'> &nbsp;&nbsp;|
             Exclusion</mat-checkbox>
         </div>
       </div>
@@ -197,7 +207,8 @@
         <div class="mat-cell col-md-2 submenu" style="text-align: center;"> {{this.percentage52}} % |
           {{this.numerator52}}/{{this.denominator52}}</div>
         <div class="mat-cell col-md-2 submenu" style="text-align: center;">
-          <mat-checkbox class="example-margin"[checked]="checkboxvalue52"  #checkbox52 (change)='checkboxevent52(checkbox52.checked)'> &nbsp;&nbsp;|
+          <mat-checkbox class="example-margin" [checked]="checkboxvalue52" #checkbox52
+            (change)='checkboxevent52(checkbox52.checked)'> &nbsp;&nbsp;|
             Exclusion</mat-checkbox>
         </div>
       </div>
@@ -211,7 +222,8 @@
         <div class="mat-cell col-md-2 submenu" style="text-align: center;"> {{this.percentage61}} % |
           {{this.numerator61}}/{{this.denominator61}}</div>
         <div class="mat-cell col-md-2 submenu" style="text-align: center;">
-          <mat-checkbox class="example-margin" #checkbox61 [checked]="checkboxvalue61" (change)='checkboxevent61(checkbox61.checked)'>&nbsp;&nbsp;|
+          <mat-checkbox class="example-margin" #checkbox61 [checked]="checkboxvalue61"
+            (change)='checkboxevent61(checkbox61.checked)'>&nbsp;&nbsp;|
             Exclusion</mat-checkbox>
         </div>
       </div>
@@ -222,7 +234,8 @@
         <div class="mat-cell col-md-2 submenu" style="text-align: center;"> {{this.percentage62}} % |
           {{this.numerator62}}/{{this.denominator62}}</div>
         <div class="mat-cell col-md-2 submenu" style="text-align: center;">
-          <mat-checkbox class="example-margin" #checkbox62 [checked]="checkboxvalue62" (change)='checkboxevent62(checkbox62.checked)'>&nbsp;&nbsp;|
+          <mat-checkbox class="example-margin" #checkbox62 [checked]="checkboxvalue62"
+            (change)='checkboxevent62(checkbox62.checked)'>&nbsp;&nbsp;|
             Exclusion</mat-checkbox>
         </div>
       </div>
@@ -233,7 +246,8 @@
         <div class="mat-cell col-md-2 submenu" style="text-align: center;"> {{this.percentage63}} % |
           {{this.numerator63}}/{{this.denominator63}}</div>
         <div class="mat-cell col-md-2 submenu" style="text-align: center;">
-          <mat-checkbox class="example-margin" [checked]="checkboxvalue63" #checkbox63 (change)='checkboxevent63(checkbox63.checked)'>&nbsp;&nbsp;|
+          <mat-checkbox class="example-margin" [checked]="checkboxvalue63" #checkbox63
+            (change)='checkboxevent63(checkbox63.checked)'>&nbsp;&nbsp;|
             Exclusion</mat-checkbox>
         </div>
       </div>
@@ -247,7 +261,8 @@
         <div class="mat-cell col-md-2 submenu" style="text-align: center;"> {{this.percentage71}} % |
           {{this.numerator71}}/{{this.denominator71}}</div>
         <div class="mat-cell col-md-2 submenu" style="text-align: center;">
-          <mat-checkbox class="example-margin" [checked]="checkboxvalue71" #checkbox71 (change)='checkboxevent71(checkbox71.checked)'>&nbsp;&nbsp;|
+          <mat-checkbox class="example-margin" [checked]="checkboxvalue71" #checkbox71
+            (change)='checkboxevent71(checkbox71.checked)'>&nbsp;&nbsp;|
             Exclusion</mat-checkbox>
         </div>
       </div>
@@ -258,7 +273,8 @@
         <div class="mat-cell col-md-2 submenu" style="text-align: center;"> {{this.percentage72}} % |
           {{this.numerator72}}/{{this.denominator72}}</div>
         <div class="mat-cell col-md-2 submenu" style="text-align: center;">
-          <mat-checkbox class="example-margin" [checked]="checkboxvalue72" #checkbox72 (change)='checkboxevent72(checkbox72.checked)'>&nbsp;&nbsp;|
+          <mat-checkbox class="example-margin" [checked]="checkboxvalue72" #checkbox72
+            (change)='checkboxevent72(checkbox72.checked)'>&nbsp;&nbsp;|
             Exclusion</mat-checkbox>
         </div>
       </div>
@@ -269,7 +285,8 @@
         <div class="mat-cell col-md-2 submenu" style="text-align: center;"> {{this.percentage73}} % |
           {{this.numerator73}}/{{this.denominator73}}</div>
         <div class="mat-cell col-md-2 submenu" style="text-align: center;">
-          <mat-checkbox class="example-margin" [checked]="checkboxvalue73" #checkbox73 (change)='checkboxevent73(checkbox73.checked)'>&nbsp;&nbsp;|
+          <mat-checkbox class="example-margin" [checked]="checkboxvalue73" #checkbox73
+            (change)='checkboxevent73(checkbox73.checked)'>&nbsp;&nbsp;|
             Exclusion</mat-checkbox>
         </div>
       </div>
@@ -281,12 +298,14 @@
         <div class="mat-cell col-md-5 submenu">8-1. Immunization Registry Reporting</div>
         <div class="mat-cell col-md-3 submenu" style="text-align: center;">Complete Agent Engagement</div>
         <div class="mat-cell col-md-2 submenu" style="text-align: center;">
-          <mat-checkbox class="example-margin" [checked]="checkboxvalue81c" #checkbox81c (change)='checkboxevent81c(checkbox81c.checked)'>
+          <mat-checkbox class="example-margin" [checked]="checkboxvalue81c" #checkbox81c
+            (change)='checkboxevent81c(checkbox81c.checked)'>
             &nbsp;&nbsp;|
             Complete</mat-checkbox>
         </div>
         <div class="mat-cell col-md-2 submenu" style="text-align: center;">
-          <mat-checkbox class="example-margin" [checked]="checkboxvalue81" #checkbox81 (change)='checkboxevent81(checkbox81.checked)'>&nbsp;&nbsp;|
+          <mat-checkbox class="example-margin" [checked]="checkboxvalue81" #checkbox81
+            (change)='checkboxevent81(checkbox81.checked)'>&nbsp;&nbsp;|
             Exclusion</mat-checkbox>
         </div>
       </div>
@@ -294,12 +313,14 @@
         <div class="mat-cell col-md-5 submenu">8-2. Syndromic Surveillance Reporting</div>
         <div class="mat-cell col-md-3 submenu" style="text-align: center;">Complete Agent Engagement</div>
         <div class="mat-cell col-md-2 submenu" style="text-align: center;">
-          <mat-checkbox class="example-margin" [checked]="checkboxvalue82c" #checkbox82c (change)='checkboxevent82c(checkbox82c.checked)'>
+          <mat-checkbox class="example-margin" [checked]="checkboxvalue82c" #checkbox82c
+            (change)='checkboxevent82c(checkbox82c.checked)'>
             &nbsp;&nbsp;|
             Complete</mat-checkbox>
         </div>
         <div class="mat-cell col-md-2 submenu" style="text-align: center;">
-          <mat-checkbox class="example-margin" #checkbox82 [checked]="checkboxvalue82" (change)='checkboxevent82(checkbox82.checked)'>&nbsp;&nbsp;|
+          <mat-checkbox class="example-margin" #checkbox82 [checked]="checkboxvalue82"
+            (change)='checkboxevent82(checkbox82.checked)'>&nbsp;&nbsp;|
             Exclusion</mat-checkbox>
         </div>
       </div>
@@ -307,12 +328,14 @@
         <div class="mat-cell col-md-5 submenu">8-3. Electronic Case Reporting</div>
         <div class="mat-cell col-md-3 submenu" style="text-align: center;">Complete Agent Engagement</div>
         <div class="mat-cell col-md-2 submenu" style="text-align: center;">
-          <mat-checkbox class="example-margin" #checkbox83c [checked]="checkboxvalue83c" (change)='checkboxevent83c(checkbox83c.checked)'>
+          <mat-checkbox class="example-margin" #checkbox83c [checked]="checkboxvalue83c"
+            (change)='checkboxevent83c(checkbox83c.checked)'>
             &nbsp;&nbsp;|
             Complete</mat-checkbox>
         </div>
         <div class="mat-cell col-md-2 submenu" style="text-align: center;">
-          <mat-checkbox class="example-margin" #checkbox83 [checked]="checkboxvalue83" (change)='checkboxevent83(checkbox83.checked)'>&nbsp;&nbsp;|
+          <mat-checkbox class="example-margin" #checkbox83 [checked]="checkboxvalue83"
+            (change)='checkboxevent83(checkbox83.checked)'>&nbsp;&nbsp;|
             Exclusion</mat-checkbox>
         </div>
       </div>
@@ -320,12 +343,14 @@
         <div class="mat-cell col-md-5 submenu">8-4. Public Health Registry Reporting</div>
         <div class="mat-cell col-md-3 submenu" style="text-align: center;">Complete Agent Engagement</div>
         <div class="mat-cell col-md-2 submenu" style="text-align: center;">
-          <mat-checkbox class="example-margin" [checked]="checkboxvalue84c" #checkbox84c (change)='checkboxevent84c(checkbox84c.checked)'>
+          <mat-checkbox class="example-margin" [checked]="checkboxvalue84c" #checkbox84c
+            (change)='checkboxevent84c(checkbox84c.checked)'>
             &nbsp;&nbsp;|
             Complete</mat-checkbox>
         </div>
         <div class="mat-cell col-md-2 submenu" style="text-align: center;">
-          <mat-checkbox class="example-margin" #checkbox84 [checked]="checkboxvalue84" (change)='checkboxevent84(checkbox84.checked)'>&nbsp;&nbsp;|
+          <mat-checkbox class="example-margin" #checkbox84 [checked]="checkboxvalue84"
+            (change)='checkboxevent84(checkbox84.checked)'>&nbsp;&nbsp;|
             Exclusion</mat-checkbox>
         </div>
       </div>
@@ -333,12 +358,14 @@
         <div class="mat-cell col-md-5 submenu">8-5. Clinical Data Registry Reporting</div>
         <div class="mat-cell col-md-3 submenu" style="text-align: center;">Complete Agent Engagement</div>
         <div class="mat-cell col-md-2 submenu" style="text-align: center;">
-          <mat-checkbox class="example-margin" #checkbox85c [checked]="checkboxvalue85c" (change)='checkboxevent85c(checkbox85c.checked)'>
+          <mat-checkbox class="example-margin" #checkbox85c [checked]="checkboxvalue85c"
+            (change)='checkboxevent85c(checkbox85c.checked)'>
             &nbsp;&nbsp;|
             Complete</mat-checkbox>
         </div>
         <div class="mat-cell col-md-2 submenu" style="text-align: center;">
-          <mat-checkbox class="example-margin" #checkbox85 [checked]="checkboxvalue85" (change)='checkboxevent85(checkbox85.checked)'>&nbsp;&nbsp;|
+          <mat-checkbox class="example-margin" #checkbox85 [checked]="checkboxvalue85"
+            (change)='checkboxevent85(checkbox85.checked)'>&nbsp;&nbsp;|
             Exclusion</mat-checkbox>
         </div>
       </div>
@@ -1028,8 +1055,9 @@
         <div class="mat-cell col-md-3 col-3 submenu">Protect PHI</div>
         <div class="mat-cell col-md-4 col-4 submenu">SRA Completed? Y
           <mat-radio-group [(ngModel)]="protectvalue">
-            <mat-radio-button [value]="1"  #radioy1 (change)='checkboxeventry1(radioy1.checked)'></mat-radio-button>N
-            <mat-radio-button [value]="2"   #checkboxn1 (change)='checkboxeventrn1(checkboxn1.checked)'></mat-radio-button>
+            <mat-radio-button [value]="1" #radioy1 (change)='checkboxeventry1(radioy1.checked)'></mat-radio-button>N
+            <mat-radio-button [value]="2" #checkboxn1 (change)='checkboxeventrn1(checkboxn1.checked)'>
+            </mat-radio-button>
           </mat-radio-group>
         </div>
         <div class="mat-cell col-md-1 col-1 submenu"></div>
@@ -1047,8 +1075,10 @@
         <div class="mat-cell col-md-3 col-3 submenu">Clinical Decision Support</div>
         <div class="mat-cell col-md-4 col-4 submenu">5 Min. Enabled? Y
           <mat-radio-group [(ngModel)]="clinicalvalue">
-            <mat-radio-button [value]="1" [checked]="checkboxValuery21"  #radioy21 (change)='checkboxeventry21(radioy21.checked)'></mat-radio-button>N
-            <mat-radio-button [value]="2" [checked]="checkboxValuern21" #radion21 (change)='checkboxeventrn21(radion21.checked)'></mat-radio-button>
+            <mat-radio-button [value]="1" [checked]="checkboxValuery21" #radioy21
+              (change)='checkboxeventry21(radioy21.checked)'></mat-radio-button>N
+            <mat-radio-button [value]="2" [checked]="checkboxValuern21" #radion21
+              (change)='checkboxeventrn21(radion21.checked)'></mat-radio-button>
           </mat-radio-group>
         </div>
         <div class="mat-cell col-md-1 col-1 submenu"></div>
@@ -1064,8 +1094,10 @@
         <div class="mat-cell col-md-3 col-3 submenu">Drug-Drug/Drug-Allergy Interaction</div>
         <div class="mat-cell col-md-4 col-4 submenu">5 Min. Enabled? Y
           <mat-radio-group [(ngModel)]="drugvalue">
-            <mat-radio-button [value]="1" [checked]="checkboxValuery22"  #radioy22 (change)='checkboxeventry22(radioy22.checked)'></mat-radio-button>N
-            <mat-radio-button [value]="2" [checked]="checkboxValuern22"  #radion22 (change)='checkboxeventrn22(radion22.checked)'></mat-radio-button>
+            <mat-radio-button [value]="1" [checked]="checkboxValuery22" #radioy22
+              (change)='checkboxeventry22(radioy22.checked)'></mat-radio-button>N
+            <mat-radio-button [value]="2" [checked]="checkboxValuern22" #radion22
+              (change)='checkboxeventrn22(radion22.checked)'></mat-radio-button>
           </mat-radio-group>
         </div>
         <div class="mat-cell col-md-1 col-1 submenu"></div>
@@ -1241,8 +1273,10 @@
         <div class="mat-cell col-md-3 col-3 submenu">PHR: Immunizations</div>
         <div class="mat-cell col-md-4 col-4 submenu">Registered Intent or Submitted Data? Y
           <mat-radio-group [(ngModel)]="immunizationvalue">
-            <mat-radio-button [value]="1"  [checked]="checkboxValuery101" #radioy101 (change)='checkboxeventry101(radioy101.checked)'></mat-radio-button>N
-            <mat-radio-button [value]="2"  [checked]="checkboxValuern101" #radion101 (change)='checkboxeventrn101(radion101.checked)'></mat-radio-button>
+            <mat-radio-button [value]="1" [checked]="checkboxValuery101" #radioy101
+              (change)='checkboxeventry101(radioy101.checked)'></mat-radio-button>N
+            <mat-radio-button [value]="2" [checked]="checkboxValuern101" #radion101
+              (change)='checkboxeventrn101(radion101.checked)'></mat-radio-button>
           </mat-radio-group>
         </div>
         <div class="mat-cell col-md-1 col-1 submenu"></div>
@@ -1258,8 +1292,10 @@
         <div class="mat-cell col-md-3 col-3 submenu">PHR: Syndromic Surveillance</div>
         <div class="mat-cell col-md-4 col-4 submenu">Registered Intent or Submitted Data? Y
           <mat-radio-group [(ngModel)]="syndromicvalue">
-            <mat-radio-button [value]="1"  [checked]="checkboxValuery102" #radioy102 (change)='checkboxeventry102(radioy102.checked)'></mat-radio-button>N
-            <mat-radio-button [value]="2"  [checked]="checkboxValuern102" #radion102 (change)='checkboxeventrn102(radion102.checked)'></mat-radio-button>
+            <mat-radio-button [value]="1" [checked]="checkboxValuery102" #radioy102
+              (change)='checkboxeventry102(radioy102.checked)'></mat-radio-button>N
+            <mat-radio-button [value]="2" [checked]="checkboxValuern102" #radion102
+              (change)='checkboxeventrn102(radion102.checked)'></mat-radio-button>
           </mat-radio-group>
         </div>
         <div class="mat-cell col-md-1 col-1 submenu"></div>
@@ -1275,8 +1311,10 @@
         <div class="mat-cell col-md-3 col-3 submenu">PHR: Specialized Registry</div>
         <div class="mat-cell col-md-4 col-4 submenu">Registered Intent or Submitted Data? Y
           <mat-radio-group [(ngModel)]="specializedvalue">
-            <mat-radio-button [value]="1"  [checked]="checkboxValuery103" #radioy103 (change)='checkboxeventry103(radioy103.checked)'></mat-radio-button>N
-            <mat-radio-button [value]="2"  [checked]="checkboxValuern103" #radion103 (change)='checkboxeventrn103(radion103.checked)'></mat-radio-button>
+            <mat-radio-button [value]="1" [checked]="checkboxValuery103" #radioy103
+              (change)='checkboxeventry103(radioy103.checked)'></mat-radio-button>N
+            <mat-radio-button [value]="2" [checked]="checkboxValuern103" #radion103
+              (change)='checkboxeventrn103(radion103.checked)'></mat-radio-button>
           </mat-radio-group>
         </div>
         <div class="mat-cell col-md-1 col-1 submenu"></div>

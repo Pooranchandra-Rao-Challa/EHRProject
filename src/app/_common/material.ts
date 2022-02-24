@@ -3,7 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
@@ -30,6 +30,7 @@ import { RouterModule } from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { ReactiveFormsModule } from "@angular/forms";
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 
 @NgModule({
@@ -64,6 +65,7 @@ import { ReactiveFormsModule } from "@angular/forms";
     MatRadioModule,
     MatDatepickerModule,
     MatListModule,
+    MatSidenavModule
   ],
   exports: [
     NgxPaginationModule,
@@ -96,6 +98,9 @@ import { ReactiveFormsModule } from "@angular/forms";
     MatRadioModule,
     MatDatepickerModule,
     MatListModule,
+    MatSidenavModule,
+
+
   ],
 })
 export class QuickAppProMaterialModule { }
