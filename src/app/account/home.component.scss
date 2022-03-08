@@ -161,3 +161,20 @@
   box-shadow: 1px 1px 1px 0px rgb(0 0 0 / 50%);
   background-image: linear-gradient(to top, #edeaea 50%, #d5d2d2 100%);
 }
+// footer
+.home-footer {
+  height: 40px;
+  color: #949ca7;
+  background: #41b6a6;
+}
+.app-version {
+  color: #fff !important;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.42857143;
+}
+.as {
+  color: currentColor;
+  text-decoration: underline;
+  cursor: pointer !important;
+}

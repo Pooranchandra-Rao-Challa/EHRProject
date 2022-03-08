@@ -16,7 +16,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link item-schedule">Calender
+        <a href="/reports/calendar" class="nav-link item-schedule">Calender
           <!-- <i class="fa fa-calendar-o" aria-hidden="true"></i>
           <span class="d-flex"> Calender</span> -->
         </a>
@@ -53,7 +53,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="reports/categoryreports" class="nav-link item-reports">Reports
+        <a href="/reports/categoryreports" class="nav-link item-reports">Reports
           <!-- <i class="fa fa-bar-chart-o" aria-hidden="true"></i>
           <span class="d-flex">Reports</span> -->
         </a>
@@ -74,32 +74,35 @@
     </ul>
   </div>
 
-  <ul class="navbar-nav">
+  <!-- <div class="collapse navbar-collapse"> -->
+  <ul class="navbar-nav pull-right">
     <li [matMenuTriggerFor]="menu" class="nav-item" ngbDropdown [autoClose]="false">
       <a class="nav-link dropdown-toggle" id="UserDropdown" ngbDropdownToggle>
         <span class="profile-text">{{ this.user.FirstName}}&nbsp;&nbsp;{{this.user.LastName}}</span>
         <img class="img-xs rounded-circle mx-1" src="../../assets/images/default.png">
       </a>
-      <mat-menu #menu="matMenu">
-        <mat-form-field appearance="outline">
-          <mat-select [value]="0" name="locationarray" disableOptionCentering>
-            <mat-option> loc
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <button mat-menu-item>
-          <span>My Account</span>
-        </button>
-        <button mat-menu-item>
-          <span>About EHR1</span>
-        </button>
-        <button mat-menu-item>
-          <span>Lock</span>
-        </button>
-        <button mat-menu-item (click)="logout()">
-          <span>Log Out</span>
-        </button>
-      </mat-menu>
     </li>
+    <mat-menu #menu="matMenu">
+      <mat-form-field appearance="outline">
+        <mat-select [value]="0" name="locationarray" disableOptionCentering>
+          <mat-option> loc
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div>
+        <button mat-menu-item class="nav-right-dropdown">
+          <span>My Account</span></button>
+      </div>
+      <button mat-menu-item class="nav-right-dropdown">
+        <span>About EHR1</span>
+      </button>
+      <button mat-menu-item class="nav-right-dropdown">
+        <span>Lock</span>
+      </button>
+      <button mat-menu-item class="nav-right-dropdown" (click)="logout()">
+        <span>Log Out</span>
+      </button>
+    </mat-menu>
   </ul>
+  <!-- </div> -->
 </nav>

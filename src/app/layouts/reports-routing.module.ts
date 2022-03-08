@@ -9,6 +9,7 @@ import { EncounterlistComponent } from "../reports/encounterlist/encounterlist.c
 import { MureportsComponent } from "../reports/mureports/mureports.component";
 import { PatientlistComponent } from "../reports/patientlist/patientlist.component";
 import { ProblemlistComponent } from "../reports/problemlist/problemlist.component";
+import { CalendarComponent } from '../calendar/calendar.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,7 @@ const routes: Routes = [
       { path: "encounterlist", component: EncounterlistComponent },
       { path: "mureports", component: MureportsComponent },
       { path: "categoryreports", component: CategoryreportsComponent },
+      { path: "calendar", component: CalendarComponent }
     ],
     canActivate: [AuthGuard],
   }

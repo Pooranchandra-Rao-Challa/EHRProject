@@ -24,6 +24,8 @@
     "@angular/router": "~10.2.0",
     "@ng-bootstrap/ng-bootstrap": "^8.0.4",
     "@popperjs/core": "^2.10.2",
+    "@syncfusion/ej2-angular-calendars": "^19.4.52",
+    "@syncfusion/ej2-angular-dropdowns": "^19.4.52",
     "@syncfusion/ej2-angular-schedule": "^19.4.52",
     "@types/jspdf": "^2.0.0",
     "bootstrap": "^5.1.3",

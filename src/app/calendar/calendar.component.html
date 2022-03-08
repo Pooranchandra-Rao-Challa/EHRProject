@@ -3,70 +3,86 @@
     <div class="row">
       <div class="col-lg-3">
         <mat-drawer-container class="left-container">
-          <button mat-button (click)="drawer.toggle()" class="btn btn-outline-secondary" type="button"
+          <!-- <button mat-button (click)="drawer.toggle()" class="btn btn-outline-secondary" type="button"
             style="border: none">
-            <mat-icon>menu</mat-icon>
-          </button>
+            <i class="fa fa-angle-double-left"></i>
+          </button> -->
+          <div class="pull-right arrows-toggle" (click)="drawer.toggle()">
+            <a>
+              <i class="fa fa-angle-double-left"></i>
+            </a>
+          </div>
           <mat-drawer #drawer class="example-sidenav" mode="side">
-            <div>
-              <mat-calendar></mat-calendar>
+            <div class="pt-5 pb-4">
+              <mat-calendar class="mat-calendar"></mat-calendar>
             </div>
-            <mat-accordion>
-              <mat-expansion-panel class="panel">
-                <mat-expansion-panel-header class="border">
-                  <mat-panel-title> Provider/Staff </mat-panel-title>
-                </mat-expansion-panel-header>
-                <mat-form-field appearance="fill">
-                  <input matInput />
-                  <mat-checkbox>Select all</mat-checkbox>
-                </mat-form-field>
-                <div>
-                  <mat-checkbox>Provider_Name</mat-checkbox>
-                </div>
-              </mat-expansion-panel>
-            </mat-accordion>
-            <br />
-            <mat-accordion>
-              <mat-expansion-panel class="panel">
-                <mat-expansion-panel-header class="border">
-                  <mat-panel-title> Appointment Status </mat-panel-title>
-                </mat-expansion-panel-header>
-
-                <mat-form-field appearance="fill">
-                  <input matInput />
-                  <mat-checkbox>Select all</mat-checkbox>
-                </mat-form-field>
-
-                <div>
-                  <mat-checkbox>Trevor</mat-checkbox>
-                </div>
-                <div>
-                  <mat-checkbox>Albert Davis</mat-checkbox>
-                </div>
-              </mat-expansion-panel>
-            </mat-accordion>
-            <br />
-            <mat-accordion>
-              <mat-expansion-panel class="panel">
-                <mat-expansion-panel-header class="border">
-                  <mat-panel-title> Appointment Type </mat-panel-title>
-                </mat-expansion-panel-header>
-
-                <mat-form-field appearance="fill">
-                  <input matInput />
-                  <mat-checkbox>Select all</mat-checkbox>
-                </mat-form-field>
-
-                <div>
-                  <mat-checkbox>Trevor</mat-checkbox>
-                </div>
-                <div>
-                  <mat-checkbox>Albert Davis</mat-checkbox>
-                </div>
-              </mat-expansion-panel>
-            </mat-accordion>
-            <br />
-            <button mat-button class="blockbutton panel">Block Out Time</button>
+            <!-- <mat-accordion> -->
+            <mat-expansion-panel class="panel">
+              <mat-expansion-panel-header class="panel-header">
+                <mat-panel-title> Provider/Staff </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="row cstm-checkbox-1 pt-2">
+                <mat-checkbox>
+                  <span class="cstm-mat-checkbox-label">Select all</span>
+                </mat-checkbox>
+              </div>
+              <div class="row pt-2">
+                <mat-checkbox><span>Karina m</span></mat-checkbox>
+                <mat-checkbox><span>Angie Keith</span></mat-checkbox>
+              </div>
+            </mat-expansion-panel>
+            <!-- </mat-accordion> -->
+            <br>
+            <mat-expansion-panel class="panel">
+              <mat-expansion-panel-header class="panel-header">
+                <mat-panel-title> Appointment Status </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="row cstm-checkbox-1 pt-2">
+                <mat-checkbox>
+                  <span class="cstm-mat-checkbox-label">Select all</span>
+                </mat-checkbox>
+              </div>
+              <div class="row pt-2">
+                <mat-checkbox><span>Confirmed</span></mat-checkbox>
+                <mat-checkbox><span>Not Confirmed</span></mat-checkbox>
+                <mat-checkbox><span>Cancelled</span></mat-checkbox>
+                <mat-checkbox><span>Rescheduled</span></mat-checkbox>
+                <mat-checkbox><span>Checked in</span></mat-checkbox>
+                <mat-checkbox><span>Checked out</span></mat-checkbox>
+                <mat-checkbox><span>Waiting</span></mat-checkbox>
+                <mat-checkbox><span>Scheduled</span></mat-checkbox>
+              </div>
+            </mat-expansion-panel>
+            <br>
+            <mat-expansion-panel class="panel">
+              <mat-expansion-panel-header class="panel-header">
+                <mat-panel-title> Appointment Type </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="row cstm-checkbox-1 pt-2">
+                <mat-checkbox>
+                  <span class="cstm-mat-checkbox-label">Select all</span>
+                </mat-checkbox>
+              </div>
+              <div class="row pt-2">
+                <mat-checkbox><span>Consultation</span></mat-checkbox>
+                <mat-checkbox><span>Crown/Bridge Delivery</span></mat-checkbox>
+                <mat-checkbox><span>Crown/Bridge Prep</span></mat-checkbox>
+                <mat-checkbox><span>Emergency</span></mat-checkbox>
+                <mat-checkbox><span>Endo</span></mat-checkbox>
+                <mat-checkbox><span>New Patient</span></mat-checkbox>
+                <mat-checkbox><span>New Patient - Child</span></mat-checkbox>
+                <mat-checkbox><span>Oral Surgery</span></mat-checkbox>
+                <mat-checkbox><span>Prophy Appointment</span></mat-checkbox>
+                <mat-checkbox><span>Prophy-Child</span></mat-checkbox>
+                <mat-checkbox><span>Prophy/Regular Appointment</span></mat-checkbox>
+                <mat-checkbox><span>Regular Appointment</span></mat-checkbox>
+                <mat-checkbox><span>Root canel</span></mat-checkbox>
+                <mat-checkbox><span>braces</span></mat-checkbox>
+                <mat-checkbox><span>extraction</span></mat-checkbox>
+              </div>
+            </mat-expansion-panel>
+            <br>
+            <button mat-button class="panel col-12">Block Out Time</button>
           </mat-drawer>
 
           <!-- <div class="example-sidenav-content">
@@ -81,7 +97,8 @@
       </div>
       <div class="col-lg-9">
         <div class="right-container">
-          <ejs-schedule>
+          <ejs-schedule [views]="setView">
+            <h1>Calendar Screen</h1>
             <!-- <ng-template #editorTemplate let-data>
               <div class="row header">
                 <div class="col-lg-11">
@@ -93,196 +110,233 @@
                   </button>
                 </div>
               </div>
-              <form [formGroup]="createappointmentReportForm">
-                <h5>
-                  Search for Patient:
-                </h5>
-                <div class="input-group search">
-                  <span class="input-group-prepend">
-                    <div class="input-group-text bg-transparent border-right-0">
-                      <mat-select placeholder="Select Provider" disableOptionCentering>
-                        <mat-select-filter [placeholder]="'Search...'" (filteredReturn)="filteredproviderList =$event">
-                        </mat-select-filter>
-                        <mat-option>
-                          Enter atleast 2 letters
-                        </mat-option>
+              <form>
+                <div class="row">
+                  <mat-label>Search for Patient :</mat-label>
+                  <mat-form-field appearance="outline" class="col-12">
+                    <mat-select placeholder="Select One" disableOptionCentering>
+                      <mat-option value="0">Patient Name</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-label>Select Provider :</mat-label>
+                  <mat-form-field appearance="outline" class="col-12">
+                    <mat-select placeholder="Select One" disableOptionCentering>
+                      <mat-option value="0">Angie Keith</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-label>Select Appointment Type :</mat-label>
+                  <mat-form-field appearance="outline" class="col-12">
+                    <mat-select placeholder="Select One" disableOptionCentering>
+                      <mat-option value="0">Appointment type</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <mat-label class="col-12">Notes</mat-label>
+                    <textarea class="col-12"></textarea>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-9">
+                    <mat-label class="col-12">Select Location:</mat-label>
+                    <mat-form-field appearance="outline" class="col-12">
+                      <mat-select placeholder="Select One" disableOptionCentering>
+                        <mat-option value="2">Celia Infante Hernandez</mat-option>
                       </mat-select>
-                    </div>
-                  </span>
-
-                  <span class="input-group-append">
-                    <button class="btn btn-outline-secondary border-left-0 border" type="button">
-                      Search
-                    </button>
-                  </span>
-                </div>
-                <br />
-                <h5>
-                  Select Provider:
-                </h5>
-                <mat-form-field appearance="outline" class="col-lg-4 col-md-6 my-2 hover">
-                  <mat-select placeholder="Select Provider" disableOptionCentering formControlName="ProviderName">
-                    <mat-select-filter [placeholder]="'Search...'" [displayMember]="'Provider_Name'"
-                      (filteredReturn)="filteredproviderList =$event"> </mat-select-filter>
-                    <mat-option *ngFor="let item of filteredproviderList" [value]="item.Provider_Name"
-                      (click)="getLocationsList(item)">
-                      {{item.Provider_Name}}
-                    </mat-option>
-
-                  </mat-select>
-                </mat-form-field>
-                <br />
-                <br />
-                <h5>
-                  Select Appointment Type:
-                </h5>
-                <mat-form-field appearance="outline" class="col-lg-4 col-md-6 my-2 hover">
-                  <mat-select placeholder="Select Provider" disableOptionCentering>
-
-                    <mat-option>Consultation</mat-option>
-                    <mat-option>Crown/Bridge Delivery</mat-option>
-                    <mat-option>Crown/Bridge Prep</mat-option>
-                    <mat-option>Emergency</mat-option>
-                    <mat-option>Endo</mat-option>
-                    <mat-option>New Patient</mat-option>
-                    <mat-option>New Patient-Child</mat-option>
-                    <mat-option>Oral Surgery</mat-option>
-                    <mat-option>Prophy Appointment</mat-option>
-                    <mat-option>Prophy-Child</mat-option>
-                    <mat-option>Prophy/Regular Appointment</mat-option>
-                    <mat-option>Regular Appointment</mat-option>
-                    <mat-option>general</mat-option>
-
-                  </mat-select>
-                </mat-form-field>
-                <br />
-                <h5>Notes:</h5>
-                <mat-form-field style="width: 300px;">
-                  <textarea matInput rows="5" cols="40" placeholder="text"></textarea>
-                </mat-form-field>
-                <h5>Select Location:</h5>
-                <div class="row">
-                  <div class="col-lg-9">
-                    <mat-select placeholder="Select Location" disableOptionCentering formControlName="AppointmentType">
-                      <mat-option *ngFor="let name of filteredlocationList" [value]="name.Location_Name">
-                        {{name.Location_Name}}</mat-option>
-                    </mat-select>
-                  </div>
-                  <div class="col-lg-3">
-                    <mat-select placeholder="Select Location" disableOptionCentering>
-
-                      <mat-option>OP 1</mat-option>
-                      <mat-option>Station 2</mat-option>
-                      <mat-option>Chair 3</mat-option>
-
-
-                    </mat-select>
-                  </div>
-                </div>
-                <br />
-                <br />
-                <div class="row">
-                  <div class="col-lg-6">
-                    <h5>Select Date</h5>
-                    <mat-form-field appearance="outline" class="example-form-field">
-                      <mat-label>Choose a date</mat-label>
-                      <input matInput [matDatepicker]="datepicker">
-                      <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
-                      <mat-datepicker #datepicker>
-                      </mat-datepicker>
                     </mat-form-field>
                   </div>
-                  <div class="col-lg-3">
-                    <h5>Duration</h5>
-                    <mat-select placeholder="Select Location" disableOptionCentering>
-                      <mat-option>15 min</mat-option>
-                      <mat-option>30 min</mat-option>
-                      <mat-option>40 min</mat-option>
-
-                    </mat-select>
-                  </div>
-                  <div class="col-lg-3">
-                    <button mat-button class="btn">Find Open Time</button>
+                  <div class="col-3">
+                    <mat-form-field appearance="outline" class="col-12">
+                      <mat-select placeholder="Select One" disableOptionCentering>
+                        <mat-option value="0">3</mat-option>
+                      </mat-select>
+                    </mat-form-field>
                   </div>
                 </div>
-                <br>
-                <div class="slots">
-                  <div class="p-4">
-                    <div style="font-size: 16px;">Available Time Slots (Select Only One):</div>
-                    <div class="row">
-                      <div class="col-lg-4">
-                        <button mat-button>8:30 pm - 9:30 pm</button>
-                      </div>
-                      <div class="col-lg-4">
-                        <button mat-button>8:30 pm - 9:30 pm</button>
-                      </div>
-                    </div>
+                <div class="row">
+                  <div class="col-5">
+                    <mat-label class="col-12">Select Date:</mat-label>
+                    <mat-form-field appearance="outline" class="col-12">
+                      <input matInput class="pointer" autocomplete="off" [matDatepicker]="picker2"
+                        (click)="picker2.open()" readonly placeholder="Start Date *">
+                      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                      <mat-datepicker #picker2></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-4">
+                    <mat-label>Duration:</mat-label>
+                    <mat-form-field appearance="outline" class="col-12">
+                      <mat-select placeholder="Select One" disableOptionCentering>
+                        <mat-option value="0">30 min</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-3 pt-3">
+                    <button class="btn col-12" style="border-color: #41b6a6; font-size: 10px; height: 45px;">Find Open
+                      Time</button>
                   </div>
                 </div>
-                <br />
-
+                <div class="row">
+                  <div class="available-slots">
+                    <p>Available Time Slots (Select Only One):</p>
+                    <button class="col-lg-4 col-md-3 col-12">08:00 am - 08:30 am</button>
+                    <button class="col-lg-4 col-md-3 col-12">08:30 am - 09:00 am</button>
+                    <button class="col-lg-4 col-md-3 col-12">09:00 am - 09:30 am</button>
+                    <button class="col-lg-4 col-md-3 col-12">09:30 am - 10:00 am</button>
+                    <button class="col-lg-4 col-md-3 col-12">10:00 am - 10:30 am</button>
+                  </div>
+                </div>
+                <ejs-datetimepicker id="StartTime" class="e-field" data-name="StartTime" format="M/dd/yy h:mm a"
+                  (change)="onDateChange($event)">
+                </ejs-datetimepicker>
+                <ejs-datetimepicker id="EndTime" class="e-field" data-name="EndTime" format="M/dd/yy h:mm a"
+                  (change)="onDateChange($event)">
+                </ejs-datetimepicker>
               </form>
             </ng-template> -->
-            <!-- <ng-template #editorTemplate>
-
+            <!-- <ng-template #editorTemplate let-data>
+              <div class="row header">
+                <div class="col-lg-11">
+                  <p>Add New appointment</p>
+                </div>
+                <div class="col-lg-1">
+                  <button mat-icon-button aria-label="close dialog" mat-dialog-close class="float-right close">
+                    <mat-icon>close</mat-icon>
+                  </button>
+                </div>
+              </div>
+              <form>
+                <div class="row">
+                  <mat-label>Search for Patient :</mat-label>
+                  <mat-form-field appearance="outline" class="e-field col-12">
+                    <mat-select id="PatientName" placeholder="Select One" data-name="PatientName"
+                      disableOptionCentering>
+                      <mat-option value="0">Patient Name</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <mat-label class="col-12">Notes</mat-label>
+                    <textarea id="Notes" class="e-field col-12" data-name="Notes"></textarea>
+                  </div>
+                </div>
+                <ejs-datetimepicker id="StartTime" class="e-field" data-name="StartTime" format="M/dd/yy h:mm a"
+                  (change)="onDateChange($event)">
+                </ejs-datetimepicker>
+                <ejs-datetimepicker id="EndTime" class="e-field" data-name="EndTime" format="M/dd/yy h:mm a"
+                  (change)="onDateChange($event)">
+                </ejs-datetimepicker>
+              </form>
             </ng-template> -->
-            <!-- Header template -->
-            <ng-template #quickInfoTemplatesHeader let-data>
-              <!-- <div *ngIf="data.elementType == 'cell' || data.elementType == 'event'"> -->
-              <div class="e-popup-header">
-                <div class="e-header-icon-wrapper">
-                  <div *ngIf="data.elementType == 'event'" class="subject">{{data.Subject}}</div>
-                  <button class="e-close e-close-icon e-icons" title="Close" (click)="onCloseClick($event)"></button>
+            <ng-template #editorTemplate>
+              <div class="row">
+                <label>Search for Patient:</label>
+                <div>
+                  <ejs-dropdownlist id='PatientName' class="e-field e-input" data-name="PatientName"
+                    placeholder='Patient Name' [dataSource]='sportsData'>
+                  </ejs-dropdownlist>
                 </div>
               </div>
-              <!-- </div> -->
-            </ng-template>
-
-            <!-- Content Template -->
-            <ng-template #quickInfoTemplatesContent let-data>
-              <div *ngIf="data.elementType == 'cell'" class="e-cell-content">
-                <form class="e-schedule-form">
-                  <div style="padding:10px">
-                    <input class="subject e-field e-input" type="text" name="Subject" placeholder="Title"
-                      style="width:100%">
+              <div class="row">
+                <label>Select Provider:</label>
+                <div>
+                  <ejs-dropdownlist id='SelectProvider' class="e-field e-input" data-name="SelectProvider"
+                    placeholder='Select Provide' [dataSource]='data'>
+                  </ejs-dropdownlist>
+                </div>
+              </div>
+              <div class="row">
+                <label>Select Appointment Type:</label>
+                <div>
+                  <ejs-dropdownlist id='AppointmentType' class="e-field e-input" data-name="AppointmentType"
+                    placeholder='Select Appointment Type' [dataSource]='data'>
+                  </ejs-dropdownlist>
+                </div>
+              </div>
+              <div class="row">
+                <label>Notes</label>
+                <div>
+                  <textarea id="Notes" class="schedule-textarea e-field e-input" data-name="Notes"></textarea>
+                </div>
+              </div>
+              <div class="row">
+                <label>Select Location</label>
+                <div class="col-8">
+                  <ejs-dropdownlist id='Location' class="e-field e-input" data-name="Location"
+                    placeholder='Select Location' [dataSource]='data'>
+                  </ejs-dropdownlist>
+                </div>
+                <div class="col-4">
+                  <ejs-dropdownlist id='Location' class="e-field e-input" data-name="Location"
+                    placeholder='Select Location' [dataSource]='data'>
+                  </ejs-dropdownlist>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-5">
+                  <label>Select Date</label>
+                  <div style="  margin-top: 0.6rem;margin-bottom: 1.5rem;">
+                    <ejs-datetimepicker id="StartTime" class="e-field" data-name="StartTime" format="M/dd/yy h:mm a"
+                      (change)="onDateChange($event)">
+                    </ejs-datetimepicker>
                   </div>
-                  <div style="padding:10px">
-                    <input class="location e-field e-input" type="text" name="Location" placeholder="Location"
-                      style="width:100%">
+                </div>
+                <div class="col-4">
+                  <label>Duration</label>
+                  <div>
+                    <ejs-dropdownlist id='Duration' class="e-field e-input" data-name="Duration" placeholder='Duration'
+                      [dataSource]='data'>
+                    </ejs-dropdownlist>
                   </div>
-                </form>
-              </div>
-              <div *ngIf="data.elementType == 'event'" class="e-event-content">
-                <div class="start-time">Start: {{data.StartTime.toLocaleString()}}</div>
-                <div class="end-time">End: {{data.EndTime.toLocaleString()}}</div>
-                <div *ngIf="data.Location != undefined && data.Location != ''" class="location">Location:
-                  {{data.Location}}</div>
-              </div>
-            </ng-template>
-
-            <!-- Footer Template -->
-            <ng-template #quickInfoTemplatesFooter let-data>
-              <div *ngIf="data.elementType == 'cell'" class="e-cell-footer">
-                <div class="left-button">
-                  <button class="e-event-details" title="Extra Details" (click)="onDetailsClick($event)">More
-                    Details</button>
                 </div>
-                <div class="right-button">
-                  <button class="e-event-create" title="Add" (click)="onAddClick($event)">Add</button>
+                <div class="col-3">
+                  <div style="margin-top: 23px;">
+                    <button
+                      style="height: 40px; border: 1px solid #41b6a6; background-color: #fff; border-radius: 4px;">Find
+                      Open Time</button>
+                  </div>
                 </div>
               </div>
-              <div *ngIf="data.elementType == 'event'" class="e-event-footer">
-                <div class="left-button">
-                  <button class="e-delete" title="Delete" (click)="onDeleteClick($event)">Delete</button>
-                  <button *ngIf="data.RecurrenceRule != undefined && data.RecurrenceRule != ''" class="e-delete-series"
-                    title="Delete" (click)="onDeleteClick($event)">Delete Series</button>
-                </div>
-                <div class="right-button">
-                  <button class="e-edit" title="Edit" (click)="onEditClick($event)">Edit</button>
-                  <button *ngIf="data.RecurrenceRule != undefined && data.RecurrenceRule != ''" class="e-edit-series"
-                    title="Edit" (click)="onEditClick($event)">Edit Series</button>
-                </div>
-              </div>
+              <ejs-datetimepicker id="EndTime" class="e-field" data-name="EndTime" format="M/dd/yy h:mm a"
+                (change)="onDateChange($event)">
+              </ejs-datetimepicker>
+              <!-- <table class="custom-event-editor" width="100%" cellpadding="5">
+                <tbody>
+                  <tr>
+                    <td class="e-textlabel col-12">Search for Patient</td>
+                    <td class="col-12">
+                      <ejs-dropdownlist id='EventType' class="e-field e-input" data-name="EventType"
+                        placeholder='Choose Status' [dataSource]='data'>
+                      </ejs-dropdownlist>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="e-textlabel">From</td>
+                    <td colspan="4">
+                      <ejs-datetimepicker id="StartTime" class="e-field" data-name="StartTime" format="M/dd/yy h:mm a"
+                        (change)="onDateChange($event)">
+                      </ejs-datetimepicker>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="e-textlabel">To</td>
+                    <td colspan="4">
+                      <ejs-datetimepicker id="EndTime" class="e-field" data-name="EndTime" format="M/dd/yy h:mm a"
+                        (change)="onDateChange($event)">
+                      </ejs-datetimepicker>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="e-textlabel">Reason</td>
+                    <td colspan="4">
+                      <textarea id="Description" class="e-field e-input" name="Description" rows="3" cols="50"
+                        style="width: 100%; height: 60px !important; resize: vertical"></textarea>
+                    </td>
+                  </tr>
+                </tbody>
+              </table> -->
             </ng-template>
           </ejs-schedule>
         </div>
@@ -312,40 +366,63 @@
 
 
 
-// new patient popup
-<!-- Location Modal Popup -->
+<!-- New patient popup -->
 <div class="modal animated fadeIn" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">Add a New Patient</h4>
-        <span type="button" (click)="closePopup">
+        <span type="button" (click)="closePopup()">
           X
         </span>
       </div>
       <div class="modal-body">
         <div class="row">
-          <mat-form-field appearance="outline" class="col-4">
-            <span matPrefix>First Name</span>
-            <input matInput placeholder="First Name" class="mx-3">
-          </mat-form-field>
-          <mat-form-field appearance="outline" class="col-4">
-            <span matPrefix>Middle Name</span>
-            <input matInput placeholder="Middle Name" class="mx-3">
-          </mat-form-field>
-          <mat-form-field appearance="outline" class="col-4">
-            <span matPrefix>Last Name</span>
-            <input matInput placeholder="Last Name" class="mx-3">
-          </mat-form-field>
+          <div class="col-4">
+            <div class="form-group">
+              <div class="input-group">
+                <label class="control-label input-group-addon required">First Name</label>
+                <input class="form-control" placeholder="First Name" type="text">
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="form-group">
+              <div class="input-group">
+                <label class="control-label input-group-addon">Middle Name</label>
+                <input class="form-control" placeholder="Middle Name" type="text">
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="form-group">
+              <div class="input-group">
+                <label class="control-label input-group-addon required">Last Name</label>
+                <input class="form-control" placeholder="Last Name" type="text">
+              </div>
+            </div>
+          </div>
         </div>
         <div class="row">
-          <mat-form-field appearance="outline" class="col-6">
+          <div class="col-6">
+            <div class="form-group">
+              <div class="input-group">
+                <label class="control-label input-group-addon required">DOB</label>
+                <input class="form-control" placeholder="DOB (mm/dd/yyyy)" type="date">
+                <!-- <input matInput class="col-8" autocomplete="off" [matDatepicker]="picker1" (click)="picker1.open()"
+                  readonly placeholder="DOB (mm/dd/yyyy)">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker> -->
+              </div>
+            </div>
+          </div>
+          <!-- <mat-form-field appearance="outline" class="col-6">
             <input matInput class="pointer" autocomplete="off" [matDatepicker]="picker1" (click)="picker1.open()"
-              readonly placeholder="DOB (mm/dd/yyyy)" formControlName="strSDate">
+              readonly placeholder="DOB (mm/dd/yyyy)">
             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
             <mat-datepicker #picker1></mat-datepicker>
-          </mat-form-field>
-          <div class="col-6">
+          </mat-form-field> -->
+          <div class="col-6" style="margin-top: -9px;">
             <mat-radio-group class="col-12">
               <p>Gender :</p>
               <mat-radio-button [value]="1"></mat-radio-button>Male
@@ -356,22 +433,34 @@
           </div>
         </div>
         <div class="row">
-          <mat-form-field appearance="outline" class="col-6">
-            <span matPrefix>Cell Phone</span>
-            <input matInput placeholder="Cell Phone" class="mx-3">
-          </mat-form-field>
-          <mat-form-field appearance="outline" class="col-6">
-            <span matPrefix>Home Phone</span>
-            <input matInput placeholder="Home Phone" class="mx-3">
-          </mat-form-field>
+          <div class="col-6">
+            <div class="form-group">
+              <div class="input-group">
+                <label class="control-label input-group-addon">Cell Phone</label>
+                <input class="form-control" placeholder="Cell Phone" type="tel">
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <div class="input-group">
+                <label class="control-label input-group-addon">Home Phone</label>
+                <input class="form-control" placeholder="Home Phone" type="tel">
+              </div>
+            </div>
+          </div>
         </div>
         <div class="row">
-          <mat-form-field appearance="outline" class="col-6">
-            <span matPrefix>Email</span>
-            <input matInput placeholder="Email Address" class="mx-3">
-          </mat-form-field>
           <div class="col-6">
-            <mat-checkbox class="col-12" style="margin-left: 0px;">
+            <div class="form-group">
+              <div class="input-group">
+                <label class="control-label input-group-addon">Email</label>
+                <input class="form-control" placeholder="Email Address" type="text">
+              </div>
+            </div>
+          </div>
+          <div class="col-6 pt-2">
+            <mat-checkbox class="example-margin col-12 mx-2" style="margin-left: 0px;">
             </mat-checkbox><span>Patient does not have an email address</span>
           </div>
         </div>
@@ -381,7 +470,7 @@
             <mat-form-field appearance="outline" class="col-12">
               <input matInput placeholder="Enter full address here (including suite number)">
             </mat-form-field>
-            <button class="btn col-3">Verify</button>
+            <button class="btn verify-btn col-3">Verify</button>
           </fieldset>
         </div>
       </div>

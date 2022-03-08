@@ -10,6 +10,10 @@
   border-top-right-radius: 3px;
   border-left: none;
 }
+.example-sidenav {
+  width: 90%;
+  padding: 8px 40px 0 40px;
+}
 // .schedule-wrapper .left-container {
 //   height: 70vh;
 // }
@@ -19,14 +23,14 @@
   overflow-y: scroll;
 }
 .schedule-bottom {
-  bottom: -21px;
+  bottom: -63px;
   margin-bottom: 0px;
-  position: fixed;
+  position: relative;
   right: 0;
   left: 0;
 }
 .new-search {
-  background-color: #f5f5f5;
+  // background-color: #f5f5f5;
   border-color: #fe8f00 !important;
 }
 .schedule-wrapper .patientbtn {
@@ -56,12 +60,50 @@
   background-color: #fff;
   height: 45px;
 }
+.mat-calendar {
+  border: 1px solid #41b6a6;
+}
+// left container
+.arrows-toggle {
+  background-color: #41b6a6;
+  width: 30px;
+  height: 25px;
+}
+.arrows-toggle a {
+  padding: 0px 10px;
+}
+.arrows-toggle .fa-angle-double-left {
+  color: #fff;
+}
+.panel {
+  background-color: #fff;
+  border: 1px solid #41b6a6;
+  line-height: 3.1;
+  color: #41b6a6;
+}
+.panel-header {
+  border-bottom: 1px solid #41b6a6;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+.panel .mat-checkbox {
+  font-weight: normal;
+  font-size: 15px;
+  height: 30px;
+}
+.cstm-checkbox-1 {
+  border-bottom: 1px solid #41b6a6;
+}
 // related to popup
+.modal {
+  background: rgba(24, 24, 24, 0.82);
+}
 .modal-dialog {
   max-width: 920px;
 }
 .modal-content {
   background-color: #fff;
+  border: 1px solid #41b6a6;
 }
 fieldset {
   border: 1px solid #41b6a6;
@@ -71,9 +113,9 @@ legend {
   padding: 5px 10px;
 }
 
-input {
-  margin: 5px;
-}
+// input {
+//   margin: 5px;
+// }
 fieldset {
   display: block;
   margin-left: 2px;
@@ -84,24 +126,181 @@ fieldset {
   padding-right: 0.75em;
   border: 2px groove (internal value);
 }
+.verify-btn {
+  border: 1px solid #41b6a6;
+}
 .modal-header {
   height: 30px !important;
   background-color: #41b6a6;
   color: #fff;
+  border: none;
 }
-.fadeIn {
-  -webkit-animation-name: fadeIn;
-  animation-name: fadeIn;
+.modal-body .form-group {
+  margin-bottom: 25px;
+}
+.input-group .input-group-addon {
+  height: 45px;
+  background-color: #d0d2db;
+  padding: 14px 15px;
+}
+.input-group-addon {
+  padding: 0 20px;
+  font-size: 14px;
+  line-height: 1;
+  color: #555;
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.input-group .form-control {
+  padding: 0 20px;
+  font-size: 14px;
+  color: #74757e;
+  border: 1px solid #dedede;
+  background-color: #f5f5f5;
+  border-radius: 3px;
+  height: 45px;
+  margin: 0px;
+}
+.input-group .form-control:hover {
+  border: 1px solid #41b6a6;
+}
+.required::after {
+  content: "*";
+  color: red;
+}
+::ng-deep .example-margin:hover {
+  & .mat-checkbox-background,
+  .mat-checkbox-frame {
+    border-color: #41b6a6;
+  }
+}
+::ng-deep .mat-checkbox-checked.mat-accent {
+  .mat-checkbox-background,
+  .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+    background-color: rgb(243, 242, 242);
+    border-radius: 20% !important ;
+    border-color: rgb(151, 150, 150);
+    height: 19px;
+    width: 19px;
+  }
+  .mat-checkbox-checkmark-path {
+    stroke: grey !important;
+  }
+}
+::ng-deep .example-margin:hover {
+  & .mat-checkbox-background,
+  .mat-checkbox-frame {
+    border-color: #41b6a6;
+  }
+}
+::ng-deep .example-margin {
+  & .mat-checkbox-background,
+  .mat-checkbox-frame {
+    border-radius: 20% !important;
+    border-color: #cacaca;
+    background-color: #eeeaea;
+    border-width: 2px;
+    border-style: solid;
+    width: 19px;
+    height: 19px;
+  }
+}
+.mat-checkbox {
+  font-weight: bold;
+}
+::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+  height: 23px;
+  width: 23px;
+  background-color: #41b6a6 !important;
 }
 
-.animated {
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
+::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
+  background-color: #fff !important; /*inner circle color change*/
+}
+
+::ng-deep.mat-radio-button.mat-accent.mat-radio-checked
+  .mat-radio-outer-circle {
+  border-width: 5px;
+  border-color: #41b6a6 !important; /*outer ring color change*/
+}
+fieldset {
+  border: 1px solid #ccc;
+  padding: 12px 25px;
+  margin-bottom: 32px;
+  border-radius: 2px;
 }
 // related to scheduler
 
 // ::ng-deep .e-toolbar-item .e-work-week .e-month .e-agenda {
 //   display: none !important;
 // }
+::ng-deep .e-schedule .e-schedule-toolbar .e-toolbar-items {
+  box-shadow: none !important;
+  background-color: #41b6a6 !important;
+}
+::ng-deep .e-schedule .e-vertical-view .e-date-header-wrap table tbody td {
+  background-color: #41b6a6 !important;
+  color: #fff;
+}
+::ng-deep .e-schedule .e-vertical-view .e-left-indent-wrap table tbody td {
+  background-color: #41b6a6 !important;
+}
+::ng-deep .e-schedule .e-vertical-view .e-time-cells-wrap table td {
+  color: #41b6a6 !important;
+}
+::ng-deep .e-today {
+  display: none !important; // To hide Today option
+}
+::ng-deep .e-date-range {
+  display: none !important;
+}
+// ::ng-deep .e-toolbar .e-toolbar-items.e-tbar-pos .e-toolbar-right {
+//   left: 0 !important;
+// }
+// ::ng-deep .e-toolbar .e-toolbar-items.e-tbar-pos .e-toolbar-left {
+//   right: 0 !important;
+// }
+ejs-dropdownlist {
+  border: 1px solid #41b6a6;
+  border-radius: 4px;
+  // margin-bottom: 20px;
+  margin-top: 0.5rem !important;
+  margin-bottom: 1.5rem !important;
+}
+.e-input-group {
+  border: none !important;
+  margin: 0px;
+  height: 38px;
+  padding: 0px 10px;
+}
+.e-input-group:not(.e-float-icon-left):not(.e-float-input)::before {
+  background: none !important;
+}
+.e-input-group.e-control-wrapper:not(.e-float-icon-left):not(.e-float-input)::before {
+  background: none !important;
+}
+::ng-deep .e-control.e-datetimepicker {
+  font-size: 30px !important;
+  border: 1px solid #41b6a6 !important;
+  border-radius: 4px !important;
+}
+::ng-deep .e-schedule .e-vertical-view .e-day-wrapper .e-appointment {
+  background: #41b6a6 !important;
+  border: 1px solid #41b6a6 !important;
+}
+.schedule-textarea {
+  border: 1px solid #41b6a6 !important;
+}
+::ng-deep .e-btn.e-flat.e-primary {
+  border-color: #41b6a6 !important;
+  color: #41b6a6 !important;
+}
+::ng-deep .e-btn.e-flat {
+  border-color: #41b6a6 !important;
+  color: #41b6a6 !important;
+}
+::ng-deep .e-dlg-header-content {
+  background-color: #41b6a6 !important;
+  margin-bottom: 20px !important;
+}

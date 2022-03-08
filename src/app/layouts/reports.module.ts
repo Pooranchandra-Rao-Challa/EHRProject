@@ -37,6 +37,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { CalendarComponent } from '../calendar/calendar.component';
+import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
+import { DateTimePickerModule } from "@syncfusion/ej2-angular-calendars";
 import { ScheduleModule, AgendaService, DayService, WeekService, WorkWeekService, MonthService } from '@syncfusion/ej2-angular-schedule';
 
 @NgModule({
@@ -82,7 +84,9 @@ import { ScheduleModule, AgendaService, DayService, WeekService, WorkWeekService
     Ng2OrderModule,
     MatAutocompleteModule,
     MatInputModule,
-    ScheduleModule
+    ScheduleModule,
+    DropDownListModule,
+    DateTimePickerModule
   ],
   providers: [DayService, WeekService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

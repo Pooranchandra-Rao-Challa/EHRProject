@@ -52,8 +52,12 @@ i {
 }
 button.mat-menu-item {
   width: 100%;
-  height: 32px;
+  height: 35px;
   background-color: #2e877b;
+}
+button.mat-menu-item:hover {
+  background-color: #22645b !important;
+  border-left: 3px solid #fe8f00;
 }
 ::ng-deep .mat-menu-panel {
   border: 1px solid #2e877b !important;
@@ -61,6 +65,10 @@ button.mat-menu-item {
 }
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
   background-color: #fff !important;
+}
+::ng-deep .mat-menu-content:not(:empty) {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
 }
 // nav-provider icons
 .collapse .navbar-nav li a.item-prov-dashboard {

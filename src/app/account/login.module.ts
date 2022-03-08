@@ -1,11 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-// import { MatCardModule } from '@angular/material/card';
-// import { MatInputModule } from '@angular/material/input';
-// import { MatFormFieldModule } from '@angular/material/form-field';
-// import { MatCheckboxModule } from '@angular/material/checkbox';
-
 import { LoginRoutingModule } from './login-rounting.module';
 import { LayoutComponent } from './layout.component';
 import { LoginComponent } from './login.component';
@@ -40,10 +35,6 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     ReactiveFormsModule,
     FormsModule,
     LoginRoutingModule,
-    // MatFormFieldModule,
-    // MatCardModule,
-    // MatInputModule,
-    // MatCheckboxModule,
     SharedModule
   ],
   declarations: [
