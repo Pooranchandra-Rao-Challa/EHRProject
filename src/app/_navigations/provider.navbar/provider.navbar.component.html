@@ -4,7 +4,7 @@
   </button>
 
   <div>
-    <img src="assets/images/logo.svg" alt="logo" class="img-fluid mx-3" />
+    <img src="../../../assets/images/logo.svg" alt="logo" class="img-fluid mx-3" />
   </div>
 
   <div class="collapse navbar-collapse" [ngClass]="{ 'show': navbarOpen }">
@@ -16,7 +16,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="/reports/calendar" class="nav-link item-schedule">Calender
+        <a href="/provider/calendar" class="nav-link item-schedule">Calender
           <!-- <i class="fa fa-calendar-o" aria-hidden="true"></i>
           <span class="d-flex"> Calender</span> -->
         </a>
@@ -79,7 +79,7 @@
     <li [matMenuTriggerFor]="menu" class="nav-item" ngbDropdown [autoClose]="false">
       <a class="nav-link dropdown-toggle" id="UserDropdown" ngbDropdownToggle>
         <span class="profile-text">{{ this.user.FirstName}}&nbsp;&nbsp;{{this.user.LastName}}</span>
-        <img class="img-xs rounded-circle mx-1" src="../../assets/images/default.png">
+        <img class="img-xs rounded-circle mx-1" src="../../../assets/images/default.png">
       </a>
     </li>
     <mat-menu #menu="matMenu">

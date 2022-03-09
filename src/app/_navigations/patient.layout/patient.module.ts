@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -17,12 +17,13 @@ import { Ng2OrderModule } from 'ng2-order-pipe';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-
-import { ProviderNavbarComponent } from '../_navigations/provider.navbar.component';
-import { ProviderFooterComponent } from '../_navigations/provider.footer.component';
-import { SharedModule } from '../_common/shared';
-import { ProviderComponent } from './provider.component';
-import { ProviderRoutingModule } from './provider-routing.module';
+import { SharedModule } from '../../_common/shared';
+import { PatientNavbarComponent } from "../patient.navbar/patient.navbar.component";
+import { PatientRoutingModule } from "./patient-routing.module";
+import { PatientComponent } from './patient.component';
+import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
+import { DateTimePickerModule } from "@syncfusion/ej2-angular-calendars";
+import { ScheduleModule, DayService, WeekService } from '@syncfusion/ej2-angular-schedule';
 
 
 
@@ -32,13 +33,11 @@ import { ProviderRoutingModule } from './provider-routing.module';
     MatInputModule
   ],
   declarations: [
-    // ProviderNavbarComponent,
-    ProviderFooterComponent,
-    ProviderComponent,
-
+    PatientNavbarComponent,
+    PatientComponent,
   ],
   imports: [
-    ProviderRoutingModule,
+    PatientRoutingModule,
     SharedModule,
     NgxPaginationModule,
     CommonModule,
@@ -57,12 +56,20 @@ import { ProviderRoutingModule } from './provider-routing.module';
     MatSelectFilterModule,
     MatTableExporterModule,
     Ng2OrderModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    ScheduleModule,
+    DropDownListModule,
+    DateTimePickerModule
   ],
-  providers: [
+  providers: [DayService, WeekService
 
-  ]
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class ProviderModule {
-
+export class PatientModule {
 }
+
+
+
+
+

@@ -1,15 +1,14 @@
 <div class="container-scroller">
-  <app-navbar></app-navbar>
   <!-- <app-patient-navbar></app-patient-navbar> -->
+  <app-admin-sidebar></app-admin-sidebar>
   <section class="home-section left-space">
+    <app-admin-navbar></app-admin-navbar>
     <div class="container-fluid page-body-wrapper">
       <div class="main-panel" style="width: 100%">
         <div class="content-wrapper">
-          <!-- <app-provider-registration></app-provider-registration> -->
-          <!-- <app-home></app-home> -->
           <router-outlet></router-outlet>
         </div>
-        <app-footer></app-footer>
+        <!-- <app-footer></app-footer> -->
       </div>
     </div>
   </section>

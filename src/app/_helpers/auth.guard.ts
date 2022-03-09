@@ -23,6 +23,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<u
     const user = this.authenticationService.userValue;
     if (this.authenticationService.isLoggedIn()) {
       // authorised so return true
+
       return true;
     }
 

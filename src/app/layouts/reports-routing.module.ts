@@ -20,8 +20,7 @@ const routes: Routes = [
       { path: "patientlist", component: PatientlistComponent },
       { path: "encounterlist", component: EncounterlistComponent },
       { path: "mureports", component: MureportsComponent },
-      { path: "categoryreports", component: CategoryreportsComponent },
-      { path: "calendar", component: CalendarComponent }
+      { path: "categoryreports", component: CategoryreportsComponent }
     ],
     canActivate: [AuthGuard],
   }

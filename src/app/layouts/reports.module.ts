@@ -8,17 +8,14 @@ import { EncounterlistComponent } from "../reports/encounterlist/encounterlist.c
 import { MureportsComponent } from "../reports/mureports/mureports.component";
 import { PatientlistComponent } from "../reports/patientlist/patientlist.component";
 import { ProblemlistComponent } from "../reports/problemlist/problemlist.component";
-import { Condition } from "../reports/cqmreports/viewhelpers/condition.renderer/condition.renderer.component"
 import { SharedModule } from "../_common/shared";
+import { Condition } from "../reports/cqmreports/viewhelpers/condition.renderer/condition.renderer.component"
 import { NavbarComponent } from "../_navigations/navbar.component";
 import { ConditionpadderPipe } from "../reports/cqmreports/viewhelpers/conditionpadder.pipe";
 import { ConditionformaterPipe } from "../reports/cqmreports/viewhelpers/conditionformater.pipe";
 import { FooterComponent } from "../_navigations/footer.component";
 import { ReportsComponent } from "./reports.component";
-import { PatientNavbarComponent } from "../_navigations/patient.navbar/patient.navbar.component";
-import { ProviderNavbarComponent } from "../_navigations/provider.navbar.component";
-import { AdminNavbarComponent } from "../_navigations/admin.navbar/admin.navbar.component";
-import { AdminSidebarComponent } from "../_navigations/admin.sidebar/admin.sidebar.component";
+
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -36,11 +33,6 @@ import { Ng2OrderModule } from 'ng2-order-pipe';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { CalendarComponent } from '../calendar/calendar.component';
-import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
-import { DateTimePickerModule } from "@syncfusion/ej2-angular-calendars";
-import { ScheduleModule, AgendaService, DayService, WeekService, WorkWeekService, MonthService } from '@syncfusion/ej2-angular-schedule';
-
 @NgModule({
   exports: [],
   declarations: [
@@ -57,11 +49,6 @@ import { ScheduleModule, AgendaService, DayService, WeekService, WorkWeekService
     ConditionpadderPipe,
     ConditionformaterPipe,
     FooterComponent,
-    PatientNavbarComponent,
-    ProviderNavbarComponent,
-    AdminNavbarComponent,
-    AdminSidebarComponent,
-    CalendarComponent
   ],
   imports: [
     CommonModule,
@@ -84,11 +71,9 @@ import { ScheduleModule, AgendaService, DayService, WeekService, WorkWeekService
     Ng2OrderModule,
     MatAutocompleteModule,
     MatInputModule,
-    ScheduleModule,
-    DropDownListModule,
-    DateTimePickerModule
+
   ],
-  providers: [DayService, WeekService],
+  providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ReportsModule {

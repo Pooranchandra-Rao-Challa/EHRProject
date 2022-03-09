@@ -46,7 +46,7 @@ export class AuthenticationService {
           this.userSubject.value.RubyId = ruby_session_id;
           localStorage.setItem('user', JSON.stringify(resp.Result as User));
           localStorage.setItem('session_token', sessionToken);
-          this.router.navigate(['/reports/categoryreports']);
+            this.router.navigate(['/reports/categoryreports']);
         } else {
           this.router.navigate(['/account/rubyloginfailed']);
         }
@@ -69,7 +69,15 @@ export class AuthenticationService {
         this.userSubject.value.Token = sessionToken;
         localStorage.setItem('user', JSON.stringify(resp.Result as User));
         localStorage.setItem('session_token', sessionToken);
-        this.router.navigate(['/reports/categoryreports']);
+        console.log(this.userValue);
+        if (this.isProvider)
+          this.router.navigate(['/provider/smartscheduler']);
+        else if (this.isAdmin)
+          this.router.navigate(['/admin/providers']);
+        else if (this.isPatient)
+          this.router.navigate(['/patinet/patientview']);
+        else
+          this.router.navigate(['/reports/categoryreports']);
       }
     }),
       (error) => {
@@ -89,12 +97,25 @@ export class AuthenticationService {
     this.idService.remove(token);
     // this.router.navigate(['/account/login']);
     this.router.navigate(['/account/home']);
-
-
   }
 
   isLoggedIn() {
     let token = localStorage.getItem('session_token');
     return token != undefined || token != null;
+  }
+
+  get isProvider(): boolean {
+    if (this.userValue == undefined || this.userValue == null) return false;
+    return this.userValue.Role.toLowerCase() == "provider"
+  }
+
+  get isAdmin(): boolean {
+    if (this.userValue == undefined || this.userValue == null) return false;
+    return this.userValue.Role.toLowerCase() == "admin"
+  }
+
+  get isPatient(): boolean {
+    if (this.userValue == undefined || this.userValue == null) return false;
+    return this.userValue.Role.toLowerCase() == "patient"
   }
 }
