@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { SettingsComponent } from 'src/app/settings/settings.component';
 
 import { CalendarComponent } from '../../calendar/calendar.component';
 import { SmartSchedulerComponent } from '../../provider/smart.scheduler.component';
@@ -11,6 +12,7 @@ const routes: Routes = [
     children: [
       { path: "calendar", component: CalendarComponent },
       { path: 'smartscheduler', component: SmartSchedulerComponent },
+      { path: 'setting', component: SettingsComponent },
     ]
   }
 ]

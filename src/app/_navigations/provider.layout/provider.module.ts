@@ -29,6 +29,7 @@ import { CalendarComponent } from '../../calendar/calendar.component';
 import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { DateTimePickerModule } from "@syncfusion/ej2-angular-calendars";
 import { ScheduleModule,DayService, WeekService} from '@syncfusion/ej2-angular-schedule';
+import { SettingsComponent } from 'src/app/settings/settings.component';
 
 
 
@@ -42,6 +43,7 @@ import { ScheduleModule,DayService, WeekService} from '@syncfusion/ej2-angular-s
     ProviderComponent,
     CalendarComponent,
     SmartSchedulerComponent,
+    SettingsComponent
   ],
   imports: [
     ProviderRoutingModule,
