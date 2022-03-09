@@ -18,8 +18,8 @@ export class ProviderNavbarComponent implements OnInit {
   constructor(
     config: NgbDropdownConfig, private router: Router,
     private authenticationService: AuthenticationService) {
-    config.placement = 'bottom-right';
-    this.user = JSON.parse(localStorage.getItem("user"));
+    config.placement = 'bottom-right';    
+    this.user = authenticationService.userValue;
   }
   ngOnInit() {
 

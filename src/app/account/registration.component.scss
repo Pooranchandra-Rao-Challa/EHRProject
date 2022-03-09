@@ -1,3 +1,5 @@
+
+@import "https://fonts.googleapis.com/icon?family=Material+Icons";
 body {
   margin: 0px;
 }
@@ -238,7 +240,83 @@ a:hover {
   padding: 0em 0em 0;
   background-color: #41b6a6;
   color: #fff;
-  font-size: 24px;
+  font-size: 42px;
   font-family: "Times New Roman";
   font-weight: 100;
 }
+.swal2-container.swal2-center>.swal2-popup {
+  width: 705px !important;
+}
+.addressSuccess{
+  height: 55px;
+  background: #48a948;
+  }
+  .addressInvalid{
+  height: 55px;
+  background: red;
+  }
+
+.modal-lg, .modal-xl {
+    max-width: 50%;
+}
+.modal .modal-dialog {
+  margin-top: calc(300px + 60px);
+}
+.modal-content{
+  background: white;
+}
+.btn.btn-sm, .btn-group-sm > .btn {
+  font-size: 0.875rem;
+  border: 1px solid white;
+  background: #48a948;
+}
+.link{
+  color: #41b6a6;
+  margin-left: -50px;
+  text-decoration: underline;
+  text-transform: lowercase;
+}
+
+.croxbtn{
+    border-radius: 77%;
+    height: 27px;
+    background: red;
+    color: white;
+    border-color: red;
+}
+.croxbtn:hover{
+  border: 1px solid red;
+  background: white;
+  color: red;
+}
+.erroclose{
+  font-size: 0.875rem;
+  border: 1px solid white;
+  background: #ff0000 !important;
+}
+// .FieldValid{
+//   border-radius: 77%;
+//   height: 27px;
+//   background: rgb(75, 240, 54);
+//   color: white;
+//   border-color: rgb(81, 255, 0);
+
+ .FieldValid{
+   border-radius: 83%;
+    height: 22px;
+    background: #64ab5b;
+    color: #f7f2f2;
+    border-color: #51ff00;
+    text-align: center;
+}
+
+.FieldInvalid{
+  border-radius: 77%;
+  height: 24px;
+  background: red;
+  color: white;
+  border-color: red;
+  text-align: center;
+}
+
+

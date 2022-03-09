@@ -85,6 +85,36 @@ export class Accountservice {
   getCQMReportsMeasurePatientMetInfo(cmscoditions_data: any) {
     return this.accountEndpoint.getCQMReportsMeasurePatientMetInfo<any>(cmscoditions_data);
   }
-
+  getDateTimeZone(data){
+    return this.accountEndpoint.GetDateTimeZone<any>(data);
+  }
+  getTimeZoneList(){
+    return this.accountEndpoint.GetTimeZoneList<any>();
+  }
+  getPractiseLocations(LocationId: any) {
+    return this.accountEndpoint.getPractiseLocations<any>(LocationId);
+  }
+  PostAddressVerification(reqparams){
+    debugger;
+    return this.accountEndpoint.PostAddressVerification(reqparams)
+      
+  }
+  PostProvdierAdminAccess(data)
+  {
+    return this.accountEndpoint.PostProvdierAdminAccess(data)
+  }
+  PostAddUpdateLocation(reqparams){
+    return this.accountEndpoint.PostAddUpdateLocation(reqparams)
+  }
+  GetLocationById(reqparams){
+    return this.accountEndpoint.GetLocationById(reqparams)
+  }
+  GetProviderDetails(reqparams){
+    return this.accountEndpoint.GetProviderDetails(reqparams)
+  }
+  PostUserRegistration(reqparams){
+    debugger;
+    return this.accountEndpoint.PostUserRegistration(reqparams)
+  }
 
 }

@@ -35,28 +35,36 @@
                 <span class="mx-4">Personal Information</span>
               </div>
             </div>
-            <form class="pt-4">
+            <form class="pt-4" [formGroup]="PersonalInfo">
               <div class="row">
                 <div class="col-lg-12">
                   <p>Your Name</p>
                   <div class="row">
                     <mat-form-field appearance="outline" class="col-lg-2 col-md-2 col-sm-2">
-                      <mat-select>
-                        <mat-option *ngFor="let title of nameTitle" [value]="title.titleId">{{title.titleName}}
+                      <mat-select formControlName="Title">
+                        <mat-option *ngFor="let title of nameTitle" [value]="title.titleName">{{title.titleName}}
                         </mat-option>
                       </mat-select>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline" class="col-lg-3 col-md-3 col-sm-3 col-12">
-                      <input matInput placeholder="First Name">
+
+                      <input matInput (mouseover)="checkfield1()" (mouseleave)="unchekedfiled()"
+                        formControlName="FirstName" placeholder="First Name">
+                      <mat-icon matSuffix *ngIf="Checked1" class="FieldValid">check</mat-icon>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline" class="col-lg-3 col-md-3 col-sm-3 col-12">
-                      <input matInput placeholder="Middle Name">
+                      <input matInput (mouseover)="checkfield2()" (mouseleave)="unchekedfiled()"
+                        formControlName="MiddleName" placeholder="Middle Name">
+                      <mat-icon matSuffix *ngIf="Checked2" class="FieldValid">check</mat-icon>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline" class="col-lg-4 col-md-4 col-sm-4 col-12">
-                      <input matInput placeholder="Last Name">
+                      <input matInput (mouseover)="checkfield3()" (mouseleave)="unchekedfiled()"
+                        formControlName="LastName" placeholder="Last Name">
+                      <mat-icon matSuffix *ngIf="Checked3" class="FieldValid">check</mat-icon>
+
                     </mat-form-field>
                   </div>
                 </div>
@@ -66,7 +74,10 @@
                   <p>PRACTICE NAME</p>
                   <div class="row">
                     <mat-form-field appearance="outline" class="col-lg-12">
-                      <input matInput placeholder="Practice Name">
+                      <input matInput (mouseover)="checkfield4()" (mouseleave)="unchekedfiled()"
+                        formControlName="PracticeName" placeholder="Practice Name">
+                      <mat-icon matSuffix *ngIf="Checked4" class="FieldValid">check</mat-icon>
+
                     </mat-form-field>
                   </div>
                 </div>
@@ -75,36 +86,38 @@
                 <div class="col-lg-4 col-md-4 col-sm-4">
                   <p>CREDENTIALS</p>
                   <mat-form-field appearance="outline" class="col-12">
-                    <mat-select placeholder="Credentials">
-                      <mat-option *ngFor="let cred of credentials" [value]="cred.credId">{{cred.credName}}</mat-option>
-                      <!-- <mat-option>Mr</mat-option>
-                  <mat-option>Ms</mat-option>
-                  <mat-option>Mrs</mat-option> -->
+                    <mat-select formControlName="Degree" placeholder="Credentials">
+                      <mat-option *ngFor="let cred of credentials" [value]="cred.credName">{{cred.credName}}
+                      </mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4">
                   <p>SPECIALITY</p>
                   <mat-form-field appearance="outline" class="col-12">
-                    <mat-select placeholder="Speciality">
-                      <mat-option *ngFor="let spec of speciality" [value]="spec.specId">{{spec.specName}}</mat-option>
-                      <!-- <mat-option>Mr</mat-option>
-                  <mat-option>Ms</mat-option>
-                  <mat-option>Mrs</mat-option> -->
+                    <mat-select placeholder="Speciality" formControlName="Speciality">
+                      <mat-option *ngFor="let spec of speciality" [value]="spec.specName">{{spec.specName}}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4">
                   <p>NPI NUMBER</p>
                   <mat-form-field appearance="outline" class="col-12">
-                    <input matInput placeholder="National Provider Identifier(NPI)">
+                    <input matInput (mouseover)="checkfield5()" (mouseleave)="unchekedfiled()" formControlName="NPI"
+                      placeholder="National Provider Identifier(NPI)">
+                    <mat-icon matSuffix *ngIf="Checked5" class="FieldValid">check</mat-icon>
+
                   </mat-form-field>
                 </div>
               </div>
               <div class="row">
                 <div class="col-lg-12">
+                  <div class="form-group">
+                  </div>
+              
                   <div class="controls">
-                    <button type="button" class="reg-button col-md-2 next-step1">NEXT STEP</button>
+                    <button type="button" class="reg-button col-md-2 next-step1" [disabled]="!PersonalInfo.valid"
+                      (click)="GetPersonalInfo()">NEXT STEP</button>
                   </div>
                 </div>
               </div>
@@ -122,17 +135,30 @@
                 <span class="mx-4">Contact Information</span>
               </div>
             </div>
-            <form class="pt-4">
+            <form class="pt-4" [formGroup]="ContactInfomation">
               <div class="row">
                 <div class="col-lg-12">
                   <p>PRACTICE ADDRESS</p>
                   <div class="row">
                     <mat-form-field appearance="outline" class="col-md-6">
-                      <input matInput placeholder="Enter the full name here (including suite number)">
+                      <input matInput (mouseover)="checkfield6()" (mouseleave)="unchekedfiled6()"
+                        formControlName="StreetAddress" (keyup)="EnterAddress($event.target.value)" [readonly]="displayVerifybtn"
+                        placeholder="Enter the full name here (including suite number)">
+                      <mat-icon matSuffix  *ngIf="Checked6" class="FieldValid">check</mat-icon>
+                      <mat-icon matSuffix *ngIf="!UnChecked6" class="FieldInvalid">clear</mat-icon>
                     </mat-form-field>
+
                     <div class="col-md-2 pt-1">
-                      <button mat-button class="reg-button col-md-12">VERIFY</button>
+                      <button mat-button class="reg-button col-md-12" (click)="AddressVerification()"
+                        [disabled]="displayVerifybtn">VERIFY</button>
                     </div>
+                  </div>
+                  <div class="row">
+                    <mat-form-field class="field" appearance="outline" class="example-full-width" *ngIf="displayfeild">
+                      <input type="text" class="w-100" readonly [value]="UseThisValue" placeholder="address" matInput>
+                      <mat-icon matSuffix class="FieldInvalid" (click)="CrossAddressbtn()" *ngIf="!sucessdisplay">clear
+                      </mat-icon>
+                    </mat-form-field>
                   </div>
                 </div>
               </div>
@@ -140,13 +166,19 @@
                 <div class="col-lg-4 col-md-4 col-sm-6">
                   <p>PRIMARY PHONE NUMBER</p>
                   <mat-form-field appearance="outline" class="col-12">
-                    <input matInput placeholder="(123)-456-7890" type="tel" maxlength="10" class="cstm-tel">
+                    <input matInput formControlName="PrimaryPhone" placeholder="(123)-456-7890" type="tel"
+                      maxlength="10" class="cstm-tel" (mouseover)="checkfield10()" (mouseleave)="unchekedfiled()">
+                    <mat-icon matSuffix *ngIf="Checked10" class="FieldValid">check</mat-icon>
+
                   </mat-form-field>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6">
                   <p>MOBILE PHONE NUMBER</p>
                   <mat-form-field appearance="outline" class="col-12">
-                    <input matInput placeholder="(123)-456-7890" type="tel" maxlength="10" class="cstm-tel">
+                    <input matInput (mouseover)="checkfield11()" (mouseleave)="unchekedfiled()"
+                      formControlName="MobilePhone" placeholder="(123)-456-7890" type="tel" maxlength="10"
+                      class="cstm-tel">
+                    <mat-icon matSuffix *ngIf="Checked11" class="FieldValid">check</mat-icon>
                   </mat-form-field>
                 </div>
               </div>
@@ -155,10 +187,9 @@
                   <div class="controls">
                     <button mat-button class="reg-button col-md-2 prev-step2" data-bs-target="#personalInfo">PREV.
                       STEP</button>
-                    <!-- (click)="contactInfoReq('prev')" -->
-                    <button mat-button class="reg-button col-md-2 mx-4 next-step2" data-bs-target="#additionalinfo">NEXT
+                    <button mat-button class="reg-button col-md-2 mx-4 next-step2" [disabled]="!ContactInfomation.valid"
+                      (click)="GetContactInfo()" data-bs-target="#additionalinfo">NEXT
                       STEP</button>
-                    <!-- (click)="contactInfoReq()" -->
                   </div>
                 </div>
               </div>
@@ -176,18 +207,26 @@
                 <span class="mx-4">Account Information</span>
               </div>
             </div>
-            <form class="pt-4">
+           
+            <form class="pt-4" [formGroup]="AccountInfomation">
               <div class="row">
                 <div class="col-lg-4 col-md-4 col-sm-6">
                   <p>PRIMARY EMAIL ADDRESS</p>
                   <mat-form-field appearance="outline" class="col-12">
-                    <input matInput placeholder="Email Adress">
+                    <input matInput (mouseover)="checkField7()" (mouseleave)="UncheckField7()" formControlName="Email"
+                      placeholder="Email Adress">
+                    <mat-icon matSuffix *ngIf="Checked7" class="FieldValid">check</mat-icon>
+                    <mat-icon matSuffix *ngIf="UnChecked7" class="FieldInvalid">clear</mat-icon>
                   </mat-form-field>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6">
                   <p>ALT. EMAIL ADDRESS</p>
                   <mat-form-field appearance="outline" class="col-12">
-                    <input matInput placeholder="Email Address">
+                    <input matInput formControlName="AltEmail" placeholder="Alter Email Address"
+                      (mouseover)="checkfield12()" (mouseleave)="unchekedfiled12()">
+                    <mat-icon matSuffix *ngIf="Checked12" class="FieldValid">check</mat-icon>
+                    <mat-icon matSuffix *ngIf="UnChecked12" class="FieldInvalid">clear</mat-icon>
+
                   </mat-form-field>
                 </div>
               </div>
@@ -195,13 +234,21 @@
                 <div class="col-lg-4 col-md-4 col-sm-6">
                   <p>PASSWORD</p>
                   <mat-form-field appearance="outline" class="col-12">
-                    <input matInput placeholder="Password">
+                    <input matInput type="password" (keyup)="EnterPassword($event.target.value)" (mouseover)="checkField8()" (mouseleave)="UncheckField8()"
+                      formControlName="EncryptedPassword" placeholder="Password">
+                    <mat-icon matSuffix *ngIf="Checked8" class="FieldValid">check</mat-icon>
+                    <mat-icon matSuffix *ngIf="UnChecked8" class="FieldInvalid">clear</mat-icon>
+
                   </mat-form-field>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6">
                   <p>CONFIRM PASSWORD</p>
                   <mat-form-field appearance="outline" class="col-12">
-                    <input matInput placeholder="Confirm Password">
+                    <input matInput type="password" (mouseover)="checkField9()" (mouseleave)="UncheckField9()"
+                      formControlName="ConfirmPassword" placeholder="Confirm Password">
+                    <mat-icon matSuffix *ngIf="Checked9" class="FieldValid">check</mat-icon>
+                    <mat-icon matSuffix *ngIf="UnChecked9" class="FieldInvalid">clear</mat-icon>
+
                   </mat-form-field>
                 </div>
               </div>
@@ -216,13 +263,17 @@
                   <div class="controls">
                     <button mat-button class="reg-button col-md-2 prev-step3" (click)="accountInfoReq('prev')">PREV.
                       STEP</button>
-                    <button mat-button class="reg-button col-md-2 mx-2 next-step3">
-                      <!-- (click)="alertWithSuccess()" -->
+
+
+                    <button mat-button class="reg-button col-md-2 mx-2 next-step3" [disabled]="!AccountInfomation.valid"
+                      (click)="GetAccountInfo()">
+
                       NEXT STEP
                     </button>
                   </div>
                 </div>
               </div>
+              <!-- {{AccountInfomation.value|josn}} -->
             </form>
           </div>
           <!-- end account info -->
@@ -230,10 +281,9 @@
         <div class="tab-pane fade" id="signup-additionalinfo" role="tabpanel"
           aria-labelledby="signup-additionalinfo-tab">
           <div class="content">
-            ---
             <button mat-button class="reg-button col-md-2 prev-step4" (click)="accountInfoReq('prev')">PREV.
               STEP</button>
-            <button mat-button class="reg-button col-md-2 mx-2" (click)="alertWithSuccess()">
+            <button mat-button class="reg-button col-md-2 mx-2" (click)="SaveRegitration()">
               COMPLETE REGISTRATION</button>
           </div>
         </div>
@@ -275,4 +325,45 @@
       </div>
     </div>
   </div>
+</div>
+
+
+<!-- // address verification model -->
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayAddress}">
+  <div class="modal-dialog  modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header" [ngClass]="sucessdisplay?'addressInvalid':'addressSuccess'">
+        <h3 *ngIf="!sucessdisplay">Success</h3>
+        <h3 *ngIf="sucessdisplay" class="text-white">Invalid Address</h3>
+        <button type="button" *ngIf="!sucessdisplay" class="btn btn-sm btn-success adrsbtn"
+          (click)="closePopupAddress()">
+          X
+        </button>
+        <button type="button" *ngIf="sucessdisplay" class="btn btn-sm btn-success erroclose"
+          (click)="closePopupAddress()">
+          X
+        </button>
+
+      </div>
+      <form>
+        <div class="modal-body">
+          <div class="row">
+            <h4 class="text-center" style="margin-top: 1rem;margin-bottom: 2rem;">
+              {{displaymsg}}</h4>
+            <div class="col-lg-12 col-md-4 col-sm-4" *ngIf="!sucessdisplay">
+              <mat-form-field appearance="outline" class="example-full-width" [style.width.px]=700>
+                <input type="text" class="w-100" [value]="addressdata" placeholder="address" matInput>
+                <!-- <mat-icon matSuffix >
+                  <a class="link" (click)="UserThis()" >use this</a>
+                </mat-icon>   -->
+                <md-icon class="link" (click)="UserThis()">Use this</md-icon>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
 </div>

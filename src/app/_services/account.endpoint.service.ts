@@ -39,6 +39,17 @@ export class Accountserviceendpoint extends EndpointBase {
   private readonly _DrilldownViewConditions =
     "CQMReports/DrilldownViewConditions";
 
+    private readonly _GetPractiseLocations =
+  "GetLocationsList?Provider_Id";
+  private readonly _DateTimeZone ="DisplayTimeZone?timeZoneId=";
+  private readonly _TimeZoneList ="GetTimeZone";
+  private readonly _AddressVerification ="AddressVerification"; 
+  private readonly _ProvdierAdminAccess = "CQMReports/TimeZoneList";
+  private readonly _AddUpdateLocation = "AddUpdateLocation";
+  private readonly _GetLocationById = "GetLocationById?id";
+  private readonly _GetProviderDetails = "GetProviderListByLocation";
+  private readonly _UserRegistration = "CreateRegistration";
+
   get GetProvidersLocationwise() {
     return this.baseUrl + this._GetProvidersLocationwise;
   }
@@ -106,6 +117,33 @@ export class Accountserviceendpoint extends EndpointBase {
 
   get DrilldownViewConditionsUrl() {
     return this.baseUrl + this._DrilldownViewConditions;
+  }
+  get getPractiseLocationsUrl() {
+    return this.baseUrl + this._GetPractiseLocations;
+  }
+  get DateTimeZoneUrl() {
+    return this.baseUrl + this._DateTimeZone;
+  }
+  get TimeZoneListUrl() {
+    return this.baseUrl + this._TimeZoneList;
+  }
+  get AddressVerificationUrl() {
+    return this.baseUrl + this._AddressVerification;
+  }
+  get ProvdierAdminAccessUrl() {
+    return this.baseUrl + this._ProvdierAdminAccess;
+  }
+  get AddUpdateLocationUrl() {
+    return this.baseUrl + this._AddUpdateLocation;
+  }
+  get GetLocationByIdUrl() {
+    return this.baseUrl + this._GetLocationById;
+  }
+  get GetProviderDetailsUrl() {
+    return this.baseUrl + this._GetProviderDetails;
+  }
+  get UserRegistrationUrl() {
+    return this.baseUrl + this._UserRegistration;
   }
 
   constructor(private http: HttpClient) {
@@ -356,6 +394,93 @@ export class Accountserviceendpoint extends EndpointBase {
     return this.http.get<T>(endpointUrl).pipe(
       tap((data) => {
         return data;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  GetDateTimeZone<T>(data: any): Observable<T> {
+    const endpointUrl = this.DateTimeZoneUrl +data;
+    return this.http.post<T>(endpointUrl, data).pipe(
+      tap((data) => {
+        return data;
+      }),
+      catchError(this.handleError)
+    );
+  }
+  GetTimeZoneList<T>(): Observable<T> {
+    const endpointUrl = this.TimeZoneListUrl;
+    return this.http.get<T>(endpointUrl).pipe(
+      tap((data) => {
+        return data;
+      }),
+      catchError(this.handleError)
+    );
+  }
+  getPractiseLocations<T>(LocationId: any): Observable<T> {
+    const endpointUrl = this.getPractiseLocationsUrl + '=';
+    return this.http.post<T>(endpointUrl, LocationId).pipe(
+      tap((data) => {
+        return data;
+      }),
+      catchError(this.handleError)
+    );
+  }
+  PostAddressVerification<T>(reqparams: any): Observable<T> {
+    debugger;
+    const endpointUrl = this.AddressVerificationUrl;
+    return this.http.post<T>(endpointUrl, reqparams).pipe(
+      tap((messageinfo) => {       
+        return messageinfo;
+      }),
+      catchError(this.handleError)
+    );
+  }
+  PostProvdierAdminAccess<T>(data: any): Observable<T> {
+    const endpointUrl = this.ProvdierAdminAccessUrl ;
+    return this.http.post<T>(endpointUrl, data).pipe(
+      tap((data) => {
+        return data;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  PostAddUpdateLocation<T>(reqparams:any): Observable<T>{
+    const endpointUrl = this.AddUpdateLocationUrl;
+    return this.http.post<T>(endpointUrl, reqparams).pipe(
+      tap((messageinfo) => {
+        return messageinfo;
+      }),
+      catchError(this.handleError)
+    );
+  }
+  
+  GetLocationById<T>(reqparam: any): Observable<T> {
+    const endpointUrl = this.GetLocationByIdUrl + "=" + reqparam;
+    return this.http.get<T>(endpointUrl).pipe(
+      tap((locationAndWeekList) => {
+        return locationAndWeekList;
+      }),
+      catchError(this.handleError)
+    );
+  }
+  GetProviderDetails<T>(reqparams: any): Observable<T> {
+    debugger;
+    const endpointUrl = this.GetProviderDetailsUrl ;
+    return this.http.post<T>(endpointUrl,reqparams).pipe(
+      tap((UserList) => {
+        return UserList;
+      }),
+      catchError(this.handleError)
+    );
+  }
+  PostUserRegistration<T>(reqparams:any): Observable<T>{
+    debugger;
+    const endpointUrl = this.UserRegistrationUrl;
+    return this.http.post<T>(endpointUrl, reqparams).pipe(
+      tap((messageinfo) => {
+        return messageinfo;
       }),
       catchError(this.handleError)
     );

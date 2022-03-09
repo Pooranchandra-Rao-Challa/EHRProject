@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { User } from '../_models';
+import { Accountservice } from '../_services/account.service';
 declare var $: any;
 
 @Component({
@@ -14,12 +17,64 @@ export class RegistrationComponent implements OnInit {
   showpersonalInfoReq: boolean = true;
   showcontactInfoReq: boolean = false;
   showaccountInfoReq: boolean = false;
+  Registration: FormGroup;
+  PersonalInfo: FormGroup;
+  ContactInfomation: FormGroup;
+  AccountInfomation: FormGroup;
+  users: User;
+  sucessdisplay: boolean;
+  displayAddress = "none";
+  addressdata: any;
+  displaymsg: any;
+  errorDisplay: boolean;
+  PersonalDetials: any;
+  ContactDetails: any;
+  AccountDetails: any;
+  DisPersonInfoForm: boolean = false;
+  DisContactnfoForm: boolean;
+  DisAccountInfoForm: boolean = false;
+  getResponse: any = {};
+  DisableStepbtn: boolean = false;
+  DisableStep1Btn: boolean;
+  DisableStep2Btn: boolean;
+  DisableStep3Btn: boolean;
+  UseThisValue: any;
+  displayfeild: boolean;
+  displayVerifybtn: boolean;
+  Checked1: boolean;
+  Checked2: boolean;
+  Checked3: boolean;
+  Checked4: boolean;
+  Checked5: boolean;
+  Checked6: boolean;
+  UnChecked6: boolean;
+  unChecked: boolean;
+  Checked7: boolean;
+  UnChecked7: boolean;
+  Checked8: boolean;
+  UnChecked8: boolean;
+  UnChecked9: boolean;
+  Checked9: boolean;
+  Checked10: boolean;
+  Checked11: boolean;
+  Checked12: boolean;
+  UnChecked12: boolean;
+  UserEmail: any;
+  constructor(private fb: FormBuilder, private accountservice: Accountservice,) {
+    this.users = JSON.parse(localStorage.getItem("user"));
+    console.log(this.users);
 
-  constructor() { }
+  }
 
   ngOnInit(): void {
     debugger
+    this.buildPersonalForm();
+    this.buildContInfoForm();
+    this.buildAcctInfoForm();
     this.dropdownMenusList();
+
+    
+
     $(document).ready(function () {
       // Step1
       $("button.next-step1").click(function () {
@@ -64,6 +119,54 @@ export class RegistrationComponent implements OnInit {
     });
   }
 
+
+  buildPersonalForm() {
+    this.PersonalInfo = this.fb.group({
+      Title: [],
+      FirstName: ['', Validators.required],
+      MiddleName: [''],
+      LastName: ['', Validators.required],
+      PracticeId: ['new provider'],
+      PracticeName: ['', Validators.required],
+      Degree: ['', Validators.required,],
+      Speciality: ['', Validators.required],
+      NPI: ['', Validators.required],
+
+    })
+    this.PersonalInfo.get('Title').setValue('Dr')
+  }
+
+  buildContInfoForm() {
+    this.ContactInfomation = this.fb.group({
+      StreetAddress: ['', Validators.required],
+      SuiteNumber: [''],
+      PrimaryPhone: ['', Validators.required],
+      MobilePhone: [''],
+
+    })
+  }
+  buildAcctInfoForm() {
+    this.AccountInfomation = this.fb.group({
+      Email: ['', [Validators.required, Validators.pattern('^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$')]],
+      AltEmail: ['',Validators.pattern('^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$')],
+      EncryptedPassword: ['', [Validators.required,Validators.minLength(5)]],
+      ConfirmPassword: ['', Validators.required]
+    }, { validators: this.MatchPassword })
+    
+  }
+
+  MatchPassword(AC: AbstractControl) {
+    let password = AC.get('EncryptedPassword').value;
+    if (AC.get('ConfirmPassword').touched || AC.get('ConfirmPassword').dirty) {
+      let verifyPassword = AC.get('ConfirmPassword').value;
+
+      if (password != verifyPassword) {
+        AC.get('ConfirmPassword').setErrors({ MatchPassword: true })
+      } else {
+        return null
+      }
+    }
+  }
   dropdownMenusList() {
     this.nameTitle = [
       { titleId: 1, titleName: 'Dr' },
@@ -92,7 +195,6 @@ export class RegistrationComponent implements OnInit {
       { specId: 10, specName: 'N/A speciality' },
     ];
   }
-
   personalInfoReq() {
     debugger
     this.showpersonalInfoReq = false;
@@ -116,20 +218,328 @@ export class RegistrationComponent implements OnInit {
     if (event == 'prev') {
       this.showcontactInfoReq = true;
       this.showaccountInfoReq = false;
-    }
-    else {
-
-    }
+    }    
   }
 
-  alertWithSuccess() {
-    // Swal.fire('Any fool can use a computer')
-    Swal.fire({
-      title: 'Thank you for registering for an EHR1 Account! An email with instructions for how to complete setup of your account has been sent to spooorthy@calibrage.in',
-      showConfirmButton: true,
-      confirmButtonText: 'Close',
-      padding: '0em',
+
+  AddressVerification() {
+    this.ContactInfomation.value;
+    var Street = this.ContactInfomation.value.StreetAddress
+    if (Street != null) {
+      var address = Street.split(',');
+      let obj1 = {
+        street: address[0],
+        city: address[1],
+        stateName: address[2],
+        zipcode: address[3]
+      }
+      this.accountservice.PostAddressVerification(obj1).subscribe(addresslist => {
+        this.getResponse = addresslist;
+        if (this.getResponse.IsSuccess) {
+          console.log('IsSuccess');
+          this.sucessdisplay = false;
+          this.openPopupAddress();
+          this.addressdata = this.ContactInfomation.value.StreetAddress;
+          this.displaymsg = this.getResponse.EndUserMessage;
+          console.log(this.addressdata);
+        }
+        else {
+          console.log('failed');
+          this.sucessdisplay = true;
+          this.errorDisplay = false;
+          this.openPopupAddress();
+          this.displaymsg = this.getResponse.EndUserMessage;
+        }
+      });
+
+    }
+
+  }
+  CrossAddressbtn() {
+    this.displayfeild = false;
+    this.displayVerifybtn = false;
+  }
+  UserThis() {
+    this.closePopupAddress();
+    this.displayfeild = true;
+    this.displayVerifybtn = true;
+    this.UseThisValue = this.addressdata;
+  }
+  openPopupAddress() {
+    this.displayAddress = "block";
+  }
+  closePopupAddress() {
+    this.displayAddress = "none";
+  }
+ 
+  GetPersonalInfo() {
+    this.PersonalDetials = this.PersonalInfo.value;
+    console.log(this.PersonalDetials);
+
+  }
+  GetContactInfo() {
+
+    this.ContactDetails = this.ContactInfomation.value;
+    console.log(this.ContactDetails);
+    //this.buildAcctInfoForm();
+  }
+  GetAccountInfo() {
+    debugger;
+    this.AccountDetails = this.AccountInfomation.value;
+    console.log(this.AccountDetails);
+  }
+
+  SaveRegitration() {
+    debugger;
+    let reqparams = {
+      UserId: '16',
+      ProviderID: '123457',
+      Title: this.PersonalDetials.Title,
+      FirstName: this.PersonalDetials.FirstName,
+      MiddleName: this.PersonalDetials.MiddleName,
+      LastName: this.PersonalDetials.LastName,
+      PracticeId: '2',
+      PracticeName: this.PersonalDetials.PracticeName,
+      Degree: this.PersonalDetials.Degree,
+      Speciality: this.PersonalDetials.Speciality,
+      NPI: this.PersonalDetials.NPI,
+      StreetAddress: this.ContactDetails.StreetAddress,
+      SuiteNumber: 'new suit',
+      PrimaryPhone: this.ContactDetails.PrimaryPhone,
+      MobilePhone: this.ContactDetails.MobilePhone,
+      Email: this.AccountDetails.Email,
+      AltEmail: this.AccountDetails.AltEmail,
+      EncryptedPassword: this.AccountDetails.EncryptedPassword,
+    }
+    console.log(reqparams)
+    this.accountservice.PostUserRegistration(reqparams).subscribe(registrationlist => {
+      this.getResponse = registrationlist
+      console.log(this.getResponse);
+      if (this.getResponse.IsSuccess) {
+        this.UserEmail = this.AccountDetails.Email
+        this.alertWithSuccess();
+      }
+      else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: this.getResponse.EndUserMessage,
+          width: '700',
+        })        
+      }
     })
   }
 
+  checkfield1() {
+    let Firstname = this.PersonalInfo.value.FirstName;
+    if (Firstname != "") {
+      this.Checked1 = true;
+      this.unChecked = false;
+    }
+  }
+  checkfield2() {
+    let MiddleName = this.PersonalInfo.value.MiddleName;
+    if (MiddleName != "") {
+      this.Checked2 = true;
+      this.unChecked = false;
+    }
+  }
+  checkfield3() {
+
+    let LastName = this.PersonalInfo.value.LastName;
+    if (LastName != "") {
+      this.Checked3 = true;
+      this.unChecked = false;
+    }
+  }
+  checkfield4() {
+    let PracticeName = this.PersonalInfo.value.PracticeName;
+    if (PracticeName != "") {
+      this.Checked4 = true;
+      this.unChecked = false;
+    }
+  }
+  checkfield5() {
+    let NPI = this.PersonalInfo.value.NPI;
+    if (NPI != "") {
+      this.Checked5 = true;
+      this.unChecked = false;
+    }
+  }  
+  unchekedfiled() {
+    this.Checked1 = false;
+    this.Checked2 = false;
+    this.Checked3 = false;
+    this.Checked4 = false;
+    this.Checked5 = false;
+    this.unChecked = false;
+    this.Checked10 = false;
+    this.Checked11 = false;
+    //this.Checked12=true;
+  } 
+  checkfield6() {
+    let address = this.ContactInfomation.value.StreetAddress;
+    if (address == "") {
+      this.Checked6 = false;
+      this.UnChecked6 = false;
+    }
+    else {
+      this.Checked6 = true;
+      this.UnChecked6 = true;
+    }
+  }
+  unchekedfiled6() {
+    let address = this.ContactInfomation.value.StreetAddress;
+    if (address == "") {
+      this.Checked6 = false;
+      this.UnChecked6 = false;
+    }
+    if(address!="")
+    {
+      this.Checked6=false;
+      //this.Checked6=false;
+    }
+    // else {
+    //   this.Checked6 = false;
+    //   this.UnChecked6 = false;
+    // }
+
+  } 
+  checkField7() {
+    if (this.AccountInfomation.value.Email == "") {
+      this.UnChecked7 = true;
+      this.Checked7 = false
+    }
+    if (this.AccountInfomation.controls['Email'].invalid) {
+      this.Checked7 = false;
+      this.UnChecked7 = true;
+    }
+    else {
+      this.Checked7 = true;
+    }
+  }
+  UncheckField7() {
+    this.UnChecked7 = false;
+    this.Checked7 = false;
+
+  } 
+  checkField8() {
+    if (this.AccountInfomation.value.EncryptedPassword == "") {
+      this.UnChecked8 = true;
+      this.Checked8 = false
+    }
+    if(this.AccountInfomation.controls['EncryptedPassword'].invalid){
+      this.UnChecked8 = true;
+      this.Checked8 = false
+    }
+    else {
+      this.Checked8 = true;
+      this.UnChecked8 = false;
+    }
+
+  }
+   UncheckField8() {
+    this.UnChecked8 = false;
+    this.Checked8 = false;
+  }
+  checkField9() {
+
+    if (this.AccountInfomation.value.ConfirmPassword == "") {
+      this.Checked9 = false;
+      this.UnChecked9 = true;
+
+    }
+    if (this.AccountInfomation.controls['ConfirmPassword'].invalid) {
+      this.Checked9 = false;
+      this.UnChecked9 = true;
+    }
+    else {
+      this.Checked9 = true;
+      this.UnChecked9 = false;
+    }
+  }
+  UncheckField9() {
+    this.UnChecked9 = false;
+    this.Checked9 = false;
+  } 
+  checkfield10() {
+    let PrimaryPhone = this.ContactInfomation.value.PrimaryPhone;
+    if (PrimaryPhone == "") {
+      this.Checked10 = false;
+
+    }
+    if (PrimaryPhone != "") {
+      this.Checked10 = true;
+
+    }
+  }
+  unchekedfiled10() {
+    this.Checked10 = false
+  }
+  checkfield11() {
+    let MobilePhone= this.ContactInfomation.value.MobilePhone;
+    if (MobilePhone == "") {
+      this.Checked11 = false;
+    }
+    if(MobilePhone !="")
+    {
+      this.Checked11=true
+    }
+  }
+  checkfield12() {
+    if (this.AccountInfomation.value.AltEmail == "") {     
+      this.Checked12 = true
+    }
+    if(this.AccountInfomation.controls['AltEmail'].invalid)
+    {
+      this.Checked12 = false
+      this.UnChecked12 = true;
+    }
+    else {      
+      this.Checked12 = true;
+      this.UnChecked12 = false;      
+    }
+  }
+  unchekedfiled12() {
+    if (this.AccountInfomation.value.AltEmail == "") {
+     
+      this.Checked12 = false
+    }
+    if(this.AccountInfomation.controls['AltEmail'].invalid)
+    {
+      this.Checked12=false;
+      this.UnChecked12=false;
+    }
+  }
+ 
+  EnterAddress(event)
+  {
+    debugger;   
+     if(event!="")
+     {
+       this.Checked6=false
+       this.UnChecked6=true;
+     }
+  }
+  EnterPassword(event)
+  {
+    let ConfirmPassword= this.AccountInfomation.value.ConfirmPassword;
+    if( event== ConfirmPassword)
+    {
+      this.Checked9=true;
+      this.UnChecked9=false;
+    }
+  }
+  
+  alertWithSuccess() { 
+    Swal.fire({
+      icon: 'success',
+      title: 'Thank you for registering for an EHR1 Account! An email with instructions for how to complete  setup of your account has been sent to ' + this.UserEmail,
+      showConfirmButton: true,
+      confirmButtonText: 'Close',
+      width: '700',
+    });  
+ }
 }
+
+
