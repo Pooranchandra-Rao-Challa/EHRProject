@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
       if (this.ruby_session_id != '' && this.ruby_session_id != null) {
         this.showspinner = true;
         this.message = 'Please wait while navigating to reports page';
-        this.authenticationService.loginWithRubyCredentials(this.ruby_session_id);
+        //this.authenticationService.loginWithRubyCredentials(this.ruby_session_id);
       }
     }
     this.buildForm();

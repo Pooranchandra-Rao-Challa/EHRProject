@@ -84,8 +84,8 @@
     </li>
     <mat-menu #menu="matMenu">
       <mat-form-field appearance="outline">
-        <mat-select [value]="0" name="locationarray" disableOptionCentering>
-          <mat-option> loc
+        <mat-select name="selectlocation" disableOptionCentering [(value)]="locationsInfo[0].locationId" >
+          <mat-option *ngFor="let location of locationsInfo" [value]="location.locationId"> {{ location.locationName }}
           </mat-option>
         </mat-select>
       </mat-form-field>

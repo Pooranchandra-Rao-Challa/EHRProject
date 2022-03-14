@@ -16,6 +16,8 @@ import { HomeComponent } from './account/home.comonent';
 import { DownloadService } from "./_services/download.service";
 import { IdService } from "./_helpers/_id.service";
 import { AuthGuard } from "./_helpers/auth.guard";
+//import { LoggerModule, NgxLoggerLevel  } from 'ngx-logger';
+// HttpClientModule is only needed if you want to log on server or if you want to inspect sourcemaps
 
 @NgModule({
   exports: [
@@ -34,6 +36,11 @@ import { AuthGuard } from "./_helpers/auth.guard";
     BrowserModule,
     RouterModule,
     CommonModule,
+    //LoggerModule.forRoot({
+    //  serverLoggingUrl: '/EHRAPI/logs',
+    //  level: NgxLoggerLevel.DEBUG,
+    //  serverLogLevel: NgxLoggerLevel.ERROR
+    //}),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: EhrInterceptor, multi: true },

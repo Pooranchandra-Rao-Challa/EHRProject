@@ -3,6 +3,7 @@ import { Observable, BehaviorSubject, Observer, observable, throwError, of } fro
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { map, observeOn, tap, retry, catchError } from 'rxjs/operators';
+import { timer } from 'rxjs/observable/timer';
 
 import { environment } from "src/environments/environment";
 import { User, ResponseData } from '../_models';
@@ -15,6 +16,7 @@ export class AuthenticationService {
   private userSubject: BehaviorSubject<User>;
   public user: Observable<User>;
   public resp: Observable<ResponseData>;
+  private refreshTokenTimeout;
 
   public get userValue(): User {
     if (this.userSubject != undefined)
@@ -34,42 +36,19 @@ export class AuthenticationService {
 
   }
 
-  loginWithRubyCredentials(ruby_session_id: any) {
-    localStorage.setItem('ruby_session_id', ruby_session_id);
-    //console.log(this.baseUrl + 'VerifyUserCredentials/' + ruby_session_id);
-    try {
-      this.http.get<ResponseData>(this.baseUrl + '/VerifyUserCredentials/' + ruby_session_id).subscribe(resp => {
-        if (resp.IsSuccess) {
-          let sessionToken = this.idService.generate();
-          this.userSubject = new BehaviorSubject<User>(resp.Result as User);
-          this.userSubject.value.Token = sessionToken;
-          this.userSubject.value.RubyId = ruby_session_id;
-          localStorage.setItem('user', JSON.stringify(resp.Result as User));
-          localStorage.setItem('session_token', sessionToken);
-            this.router.navigate(['/reports/categoryreports']);
-        } else {
-          this.router.navigate(['/account/rubyloginfailed']);
-        }
-      }),
-        (error) => {
-          this.router.navigate(['/account/rubyloginfailed']);
-        };
-
-    } catch { this.router.navigate(['/account/rubyloginfailed']); }
-
-  }
-
   loginWithFormCredentials(creds: any): Observable<ResponseData> {
     const endpointUrl = this.baseUrl + "Authenticate/";
     let observable = this.http.post<ResponseData>(endpointUrl, creds);
     observable.subscribe(resp => {
       if (resp.IsSuccess) {
-        let sessionToken = this.idService.generate();
+        //let sessionToken = this.idService.generate();
         this.userSubject = new BehaviorSubject<User>(resp.Result as User);
-        this.userSubject.value.Token = sessionToken;
+        //this.userSubject.value.JwtToken = sessionToken;
         localStorage.setItem('user', JSON.stringify(resp.Result as User));
-        localStorage.setItem('session_token', sessionToken);
+
+        this.startRefreshTokenTimer();
         console.log(this.userValue);
+        console.log(this.userValue.LocationInfo);
         if (this.isProvider)
           this.router.navigate(['/provider/smartscheduler']);
         else if (this.isAdmin)
@@ -86,16 +65,28 @@ export class AuthenticationService {
     return observable;
   }
 
+  refreshToken() {
+    return this.http.post<any>('${this.baseUrl + /refreshtoken', {}, { withCredentials: true })
+      .pipe(map((resp) => {
+        this.userSubject.next(resp.Result as User);
+        this.startRefreshTokenTimer();
+        return resp;
+      }));
+  }
+
+  revokeToken() {
+    return this.http.post<any>('${this.baseUrl + /revoketoken', {}, { withCredentials: true })
+      .pipe(map((resp) => {
+        this.userSubject.next(resp.Result as User);
+        this.startRefreshTokenTimer();
+        return resp.Result;
+      }));
+  }
   logout() {
-    if (this.userValue.RubyId) {
-      const endpointUrl = this.baseUrl + "RemoveAngularSessionInMongo/";
-      this.http.post<ResponseData>(endpointUrl, { "RubyId": this.userValue.RubyId });
-    }
-    let token = localStorage.getItem("session_token");
     localStorage.removeItem('user');
-    localStorage.removeItem('session_token');
-    this.idService.remove(token);
+    this.revokeToken();
     // this.router.navigate(['/account/login']);
+    this.stopRefreshTokenTimer();
     this.router.navigate(['/account/home']);
   }
 
@@ -117,5 +108,18 @@ export class AuthenticationService {
   get isPatient(): boolean {
     if (this.userValue == undefined || this.userValue == null) return false;
     return this.userValue.Role.toLowerCase() == "patient"
+  }
+
+  private startRefreshTokenTimer() {
+    // parse json object from base64 encoded jwt token
+    const jwtToken = JSON.parse(atob(this.userValue.JwtToken.split('.')[1]));
+    // set a timeout to refresh the token a minute before it expires
+    const expires = new Date(jwtToken.exp * 1000);
+    const timeout = expires.getTime() - Date.now() - (60 * 1000);
+    this.refreshTokenTimeout = setTimeout(() => this.refreshToken().subscribe(), timeout);
+  }
+
+  private stopRefreshTokenTimer() {
+    clearTimeout(this.refreshTokenTimeout);
   }
 }

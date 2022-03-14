@@ -26,12 +26,14 @@ import {
 import { ToastrService } from "ngx-toastr";
 import { DomSanitizer } from "@angular/platform-browser";
 
+
 import {
   CQMReportsData,
   DrillEncounters,
   DrillPatient,
   DrillAuthor,
   User,
+  UserLocations,
 } from "../../_models";
 
 import { DownloadService } from "../../_services/download.service";
@@ -180,12 +182,13 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
   populationdescription: any;
   stratificationText: any;
   patientdob: string;
-  locationarray: string[];
+  //locationarray: string[];
   measures: any;
   filteredproviders: any;
   providerid: any;
   patientlistfilterlength: number;
   getoverrallreportlength: number;
+  userLocationInfo: UserLocations[];
 
   public downloadAsPDF() {
     debugger;
@@ -349,6 +352,7 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
   ) {
     this.getoverrallreport = new MatTableDataSource<CQMReportsData>();
     this.user = authenticationService.userValue;
+    this.userLocationInfo = JSON.parse(this.user.LocationInfo);
     pdfMake.vfs = pdfFonts.pdfMake.vfs;
   }
 
@@ -410,11 +414,12 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
     });
   }
   getlocations() {
-    var location = this.user.LocationName;
-    this.locationarray = location.split(',');
-    for (var i = 0; i < this.locationarray.length; i++) {
-      this.locationarray[i] = this.locationarray[i].replace(/^\s*/, "").replace(/\s*$/, "");
-    }
+    //var location = this.user.LocationName;
+    //this.locationarray = location.split(',');
+    //for (var i = 0; i < this.locationarray.length; i++) {
+      //this.locationarray[i] = this.locationarray[i].replace(/^\s*/, "").replace(/\s*$/, "");
+    //}
+
   }
 
   onViewResults(queuedReportData: any) {
@@ -1816,7 +1821,7 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
       locationId:
         this.createReportForm.value.locationId == "" ||
           this.createReportForm.value.locationId == null
-          ? this.user.LocationId
+          ? this.userLocationInfo[0].locationId
           : this.createReportForm.value.locationId,
       bundleYear: this.createReportForm.value.bundleYear,
       startDate: formatDate(

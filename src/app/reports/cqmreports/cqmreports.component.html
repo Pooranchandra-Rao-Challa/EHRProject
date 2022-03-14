@@ -1578,10 +1578,10 @@
 
             <div class="panel panel-overflow col-md-12">
               <mat-expansion-panel class="my-4" (opened)="panelOpenState = true" (closed)="panelOpenState = false"
-                [expanded]="true" *ngFor="let location of locationarray">
+                [expanded]="true" *ngFor="let location of userlocationInfo">
                 <mat-expansion-panel-header>
                   <mat-panel-title>
-                    {{location}}
+                    {{location.locationName}}
                     <span class="asterisk">*</span>
                   </mat-panel-title>
                 </mat-expansion-panel-header>
