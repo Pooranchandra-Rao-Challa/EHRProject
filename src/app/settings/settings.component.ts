@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Accountservice } from '../_services/account.service';
+import { AuthenticationService } from '../_services/authentication.service';
+import { SettingsService } from '../_services/settings.service';
 import { User } from '../_models';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -143,10 +144,9 @@ export class SettingsComponent implements OnInit {
   stateList: { stateCode: string; stateName: string }[];
   UserInformation: FormGroup;
   constructor(private fb: FormBuilder,
-    private accountservice: Accountservice,) {
-    this.users = JSON.parse(localStorage.getItem("user"));
+    private authService: AuthenticationService,private settingsService: SettingsService) {
+    this.users = authService.userValue;
     console.log(this.users);
-
   }
 
   ngOnInit(): void {
@@ -368,7 +368,7 @@ export class SettingsComponent implements OnInit {
   getLocationsList() {
     this.ProviderId = this.users.ProviderId;
     console.log(this.ProviderId)
-    this.accountservice.getLocationsList(this.ProviderId).subscribe(data => {
+    this.settingsService.LocationList(this.ProviderId).subscribe(data => {
       if (data.IsSuccess) {
         this.dataSource = data.ListResult;
         this.LocationAddress = data.ListResult;
@@ -385,7 +385,7 @@ export class SettingsComponent implements OnInit {
       provider_Id: "615ad0cb391cba75e3388e5d",//this.users.ProviderId,
       location_Id: "5b686dd7c832dd0c444f288a" //this.users.LocationId
     }
-    this.accountservice.GetProviderDetails(reqparams).subscribe(data => {
+    this.settingsService.ProviderDetails(reqparams).subscribe(data => {
       this.getResponse = data;
       if (this.getResponse.IsSuccess) {
         this.dataSource2 = this.getResponse.ListResult;
@@ -404,7 +404,7 @@ export class SettingsComponent implements OnInit {
       Active: row.active,
       UpdatedAt: new Date()
     }
-    this.accountservice.PostProvdierAdminAccess(reqparams).subscribe(data => {
+    /*this.accountservice.PostProvdierAdminAccess(reqparams).subscribe(data => {
       if (data) {
 
       }
@@ -412,12 +412,12 @@ export class SettingsComponent implements OnInit {
 
       }
 
-    })
+    })*/
   }
   // dropdown for TimeZone
   getTimeZoneList() {
     debugger;
-    this.accountservice.getTimeZoneList().subscribe(data => {
+    this.settingsService.TimeZones().subscribe(data => {
       if (data.IsSuccess) {
         this.TimeZoneList = data.ListResult;
         var data = this.TimeZoneList[6];
@@ -433,7 +433,7 @@ export class SettingsComponent implements OnInit {
     debugger;
     var data = event;
     var time = this.LocationForm.value.TimeZones;
-    this.accountservice.getDateTimeZone(data).subscribe(data => {
+    this.settingsService.ZoneDateTime(data).subscribe(data => {
       if (data.IsSuccess) {
         var UTC = data.EndUserMessage;
         var datas = UTC.split(" ");
@@ -459,7 +459,7 @@ export class SettingsComponent implements OnInit {
         stateName: address[2],
         zipcode: address[3]
       }
-      this.accountservice.PostAddressVerification(obj1).subscribe(addresslist => {
+      this.settingsService.AddressVerification(obj1).subscribe(addresslist => {
         this.getResponse = addresslist;
         if (this.getResponse.IsSuccess) {
 
@@ -486,7 +486,7 @@ export class SettingsComponent implements OnInit {
         stateName: this.LocationForm.value.State,
         zipcode: this.LocationForm.value.Zipcode
       }
-      this.accountservice.PostAddressVerification(obj2).subscribe(addresslist => {
+      this.settingsService.AddressVerification(obj2).subscribe(addresslist => {
         this.getResponse = addresslist
         if (this.getResponse.IsSuccess) {
           this.displaymsg = this.getResponse.EndUserMessage
@@ -542,7 +542,7 @@ export class SettingsComponent implements OnInit {
     this.disforEdit = true;
     let id = reqparam.Location_Id;
 
-    this.accountservice.GetLocationById(id).subscribe(locationAndWeekList => {
+    this.settingsService.Location(id).subscribe(locationAndWeekList => {
       this.getResponse = locationAndWeekList;
       if (this.getResponse.IsSuccess) {
         let location = this.getResponse.ListResult[0];
@@ -725,8 +725,8 @@ export class SettingsComponent implements OnInit {
     }
   }
   SaveupateLocation(reqparams) {
-    this.accountservice.PostAddUpdateLocation(reqparams).subscribe(Locationlist => {
-      this.getResponse = Locationlist;
+    this.settingsService.AddUpdateLocation(reqparams).subscribe(resp => {
+      this.getResponse = resp;
 
       if (this.getResponse.IsSuccess) {
         Swal.fire({

@@ -33,7 +33,6 @@ export class DownloadService {
       .subscribe(
         (res) => {
 
-          //console.log(data1);
 
           const blob = new Blob([res.body], {
             type: res.headers.get("content-type"),
@@ -50,15 +49,12 @@ export class DownloadService {
   getdownloadQRDA3MIPSReport<T>(reqObj: any) {
     debugger;
     const endpointUrl = this.DownloadQRDA3MIPSReport;
-    // const reportid = reqObj;
     console.log(endpointUrl);
 
     this.http
       .post(endpointUrl, reqObj, { observe: "response", responseType: "text" })
       .subscribe(
         (res) => {
-
-          //console.log(data1);
 
           const blob = new Blob([res.body], {
             type: res.headers.get("content-type"),
@@ -73,15 +69,13 @@ export class DownloadService {
   }
   getdownloadQRDA3<T>(reqObj: any) {
     const endpointUrl = this.DownloadQRDA3;
-    // const reportid = reqObj;
+
     console.log(endpointUrl);
 
     this.http
       .post(endpointUrl, reqObj, { observe: "response", responseType: "text" })
       .subscribe(
         (res) => {
-
-          //console.log(data1);
 
           const blob = new Blob([res.body], {
             type: res.headers.get("content-type"),

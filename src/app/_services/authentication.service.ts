@@ -7,11 +7,13 @@ import { timer } from 'rxjs/observable/timer';
 
 import { environment } from "src/environments/environment";
 import { User, ResponseData } from '../_models';
-import { IdService } from '../_helpers/_id.service';
-
-
+import { getLogger } from "../logger.config";
+const logModel = getLogger("ehr");
+const logger = logModel.getChildCategory("AuthenticationService");
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
+
+
   baseUrl: string = environment.baseUrl;
   private userSubject: BehaviorSubject<User>;
   public user: Observable<User>;
@@ -26,8 +28,7 @@ export class AuthenticationService {
 
   constructor(
     private router: Router,
-    private http: HttpClient,
-    private idService: IdService
+    private http: HttpClient
   ) {
     if (localStorage.getItem('user')) {
       this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user') || '{}'));
@@ -38,6 +39,7 @@ export class AuthenticationService {
 
   loginWithFormCredentials(creds: any): Observable<ResponseData> {
     const endpointUrl = this.baseUrl + "Authenticate/";
+    logger.info("endpointurl: "+endpointUrl);
     let observable = this.http.post<ResponseData>(endpointUrl, creds);
     observable.subscribe(resp => {
       if (resp.IsSuccess) {
@@ -47,8 +49,8 @@ export class AuthenticationService {
         localStorage.setItem('user', JSON.stringify(resp.Result as User));
 
         this.startRefreshTokenTimer();
-        console.log(this.userValue);
-        console.log(this.userValue.LocationInfo);
+        //console.log(this.userValue);
+        //console.log(this.userValue.LocationInfo);
         if (this.isProvider)
           this.router.navigate(['/provider/smartscheduler']);
         else if (this.isAdmin)

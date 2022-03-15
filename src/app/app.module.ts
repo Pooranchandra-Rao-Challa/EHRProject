@@ -8,7 +8,8 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { Accountservice } from './_services/account.service';
-import { Accountserviceendpoint } from './_services/account.endpoint.service';
+import { SettingsService } from './_services/settings.service';
+import { APIEndPoint } from './_services/api.endpoint.service';
 import { EndpointBase } from './_services/endpoint.base.service';
 import { EhrInterceptor } from './_helpers';
 import { AuthenticationService } from './_services/authentication.service';
@@ -16,7 +17,6 @@ import { HomeComponent } from './account/home.comonent';
 import { DownloadService } from "./_services/download.service";
 import { IdService } from "./_helpers/_id.service";
 import { AuthGuard } from "./_helpers/auth.guard";
-//import { LoggerModule, NgxLoggerLevel  } from 'ngx-logger';
 // HttpClientModule is only needed if you want to log on server or if you want to inspect sourcemaps
 
 @NgModule({
@@ -28,7 +28,6 @@ import { AuthGuard } from "./_helpers/auth.guard";
 
   ],
   imports: [
-
     NgbModule,
     HttpClientModule,
     BrowserAnimationsModule,
@@ -36,18 +35,14 @@ import { AuthGuard } from "./_helpers/auth.guard";
     BrowserModule,
     RouterModule,
     CommonModule,
-    //LoggerModule.forRoot({
-    //  serverLoggingUrl: '/EHRAPI/logs',
-    //  level: NgxLoggerLevel.DEBUG,
-    //  serverLogLevel: NgxLoggerLevel.ERROR
-    //}),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: EhrInterceptor, multi: true },
     Accountservice,
+    SettingsService,
     DownloadService,
     DatePipe,
-    Accountserviceendpoint,
+    APIEndPoint,
     AuthenticationService,
     EndpointBase,
     IdService,
