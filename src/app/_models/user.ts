@@ -1,4 +1,5 @@
 export interface User {
+  LocationName: any;
   UserId: string;
   ProviderId: string;
   AdminId: string;

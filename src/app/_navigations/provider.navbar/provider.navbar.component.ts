@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 import { AuthenticationService } from '../../_services/authentication.service';
-import { User,UserLocations } from '../../_models';
+import { User, UserLocations } from '../../_models';
 //import { NGXLogger   } from 'ngx-logger';
 
 
@@ -44,7 +44,7 @@ export class ProviderNavbarComponent implements OnInit {
   }
   change(req: any) {
     this.req1 = req == "" ? 0 : req;
-    var locationId = this.user.LocationId;
+    var locationId = this.user.LocationInfo;
     this.locationIdarray = locationId.split(',');
     for (var i = 0; i < this.locationIdarray.length; i++) {
       this.locationIdarray[i] = this.locationIdarray[i].replace(/^\s*/, "").replace(/\s*$/, "");
