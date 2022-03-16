@@ -1,120 +1,109 @@
 import { Injectable } from "@angular/core";
-import { Accountserviceendpoint } from "./account.endpoint.service";
-
+import { APIEndPoint } from "./api.endpoint.service";
+import { HttpClient } from "@angular/common/http";
 @Injectable()
-export class Accountservice {
+export class Accountservice extends APIEndPoint {
 
-  constructor(private accountEndpoint: Accountserviceendpoint) { }
+  constructor(http: HttpClient) { super(http); }
 
-  creatreport(data) {
-    return this.accountEndpoint.Creatreport<any>(data);
+  creatreport(reqdata) {
+    return this._ProcessPostRequestWithHeaders<any>(this._creatReportUrl,reqdata);
   }
+
   GetProviders() {
-    return this.accountEndpoint.GetAllProviders<any>();
+    return this._ProcessGetRequest<any>(this._providersUrl);
   }
-  GetDashBoardReport(data) {
-    return this.accountEndpoint.GetDashBoardReport<any>(data);
+  GetDashBoardReport(reqdata) {
+    return this._ProcessPostRequest<any>(this._dashBoardReportUrl,reqdata);
   }
-  GetUserLogin(data) {
-    return this.accountEndpoint.GetUserLogin<any>(data);
+  GetUserLogin(reqdata) {
+    return this._ProcessPostRequest<any>(this._userLoginUrl,reqdata);
   }
+
   GetUserCreds() {
-    return this.accountEndpoint.GetUserCreds<any>();
+    return this._ProcessGetRequest<any>(this._readUserCredentialsUrl);
   }
   SetUserCreds() {
-    return this.accountEndpoint.SetUserCreds<any>();
+    return this._ProcessGetRequest<any>(this._updateUserCredentialsUrl);
   }
 
-  GetNumeDenomicount(data: any) {
-    return this.accountEndpoint.getNumerator<any>(data);
+  GetNumeDenomicount(reqdata: any) {
+    return this._ProcessPostRequest<any>(this._numeratorDenominatorCountUrl,reqdata);
   }
-  getPatientList(data: any) {
-    return this.accountEndpoint.getPatientList<any>(data);
-  }
-  getAllPatientList(data: any) {
-    return this.accountEndpoint.getAllPatientList<any>(data);
-  }
-  getEncountersList(data: any) {
-    debugger;
-    return this.accountEndpoint.getEncountersList<any>(data);
-  }
-  GetStage2NumeDenomiCount(data: any) {
-    return this.accountEndpoint.getStage2NumeDenomiCount<any>(data);
-  }
-  getStage2PatientList(data: any) {
-    return this.accountEndpoint.getStage2PatientList<any>(data);
-  }
-  getProblemListReportByProviderId(data: any) {
-    return this.accountEndpoint.getProblemListReportByProviderId<any>(data);
+  getPatientList(reqdata: any) {
+    return this._ProcessPostRequest<any>(this._stage3MUPatients,reqdata);
   }
 
-  getProviderList(req: any) {
-    return this.accountEndpoint.getProviderList<any>(req);
+  getAllPatientList(reqdata: any) {
+    return this._ProcessPostRequest<any>(this._patientListtUrl,reqdata);
   }
-  getLocationsList(LocationId: any) {
-    return this.accountEndpoint.getLocationsList<any>(LocationId);
+  getEncountersList(reqdata: any) {
+    return this._ProcessPostRequest<any>(this._encountersListUrl,reqdata);
   }
-
-  // login
-  // loginCredentials(Data:any){
-  //     return this.accountEndpoint.loginCredentials<any>(Data);
-  // }
-  getCQMReportsQueuedReports(data: any) {
-    return this.accountEndpoint.getCQMReportsQueuedReports<any>(data);
+  GetStage2NumeDenomiCount(reqdata: any) {
+    return this._ProcessPostRequest<any>(this._stage2NumeratorDenominatorCountUrl,reqdata);
   }
-  getCQMReportsDashboard(data: any) {
-    return this.accountEndpoint.getCQMReportsQueuedReports<any>(data);
+  getStage2PatientList(reqdata: any) {
+    return this._ProcessPostRequest<any>(this._stage2PatientListUrl,reqdata);
   }
-  getCQMReportsPatientList(data: any) {
-    return this.accountEndpoint.getCQMReportsQueuedReports<any>(data);
+  getProblemListReportByProviderId(reqdata: any) {
+    return this._ProcessPostRequest<any>(this._problemListReportByProviderIdUrl,reqdata);
   }
 
-  CreateQueuedReport(data: any) {
-    return this.accountEndpoint.CreateQueuedReport<any>(data);
+  getProviderList(reqdata: any) {
+    const apiEndPoint = this._providersListUrl + reqdata.LocationId;
+    return this._ProcessPostRequest<any>(apiEndPoint,reqdata);
   }
-  DrilldownViewConditions(data: any) {
-    return this.accountEndpoint.DrilldownViewConditions<any>(data);
+
+
+  getCQMReportsQueuedReports(reqdata: any) {
+    return this._ProcessPostRequest<any>(this._cqmReportsUrl,reqdata);
   }
-  VerifyUserCreds(data) {
-    return this.accountEndpoint.VerifyUserCreds<any>(data);
+  getCQMReportsDashboard(reqdata: any) {
+    return this._ProcessPostRequest<any>(this._cqmReportsUrl,reqdata);
+  }
+  getCQMReportsPatientList(reqdata: any) {
+    return this._ProcessPostRequest<any>(this._cqmReportsUrl,reqdata);
+  }
+
+  CreateQueuedReport(reqdata: any) {
+    return this._ProcessPostRequest<any>(this._createQueuedReportUrl,reqdata);
+  }
+  DrilldownViewConditions(reqdata: any) {
+    return this._ProcessPostRequest<any>(this._drilldownViewConditionsUrl,reqdata);
+  }
+  VerifyUserCreds(reqdata) {
+    const apiEndPoint = this._verifyUserCredentialsUrl + "/" + reqdata;
+    return this._ProcessGetRequest<any>(apiEndPoint);
   }
   getProvidersLocationwise() {
-    return this.accountEndpoint.getProvidersLocationwise<any>();
+    return this._ProcessGetRequest<any>(this._providersForLocation);
   }
 
-  getCQMReportsMeasurePatientMetInfo(cmscoditions_data: any) {
-    return this.accountEndpoint.getCQMReportsMeasurePatientMetInfo<any>(cmscoditions_data);
-  }
-  getDateTimeZone(data){
-    return this.accountEndpoint.GetDateTimeZone<any>(data);
-  }
-  getTimeZoneList(){
-    return this.accountEndpoint.GetTimeZoneList<any>();
-  }
-  getPractiseLocations(LocationId: any) {
-    return this.accountEndpoint.getPractiseLocations<any>(LocationId);
-  }
-  PostAddressVerification(reqparams){
-    debugger;
-    return this.accountEndpoint.PostAddressVerification(reqparams)
-      
-  }
-  PostProvdierAdminAccess(data)
-  {
-    return this.accountEndpoint.PostProvdierAdminAccess(data)
-  }
-  PostAddUpdateLocation(reqparams){
-    return this.accountEndpoint.PostAddUpdateLocation(reqparams)
-  }
-  GetLocationById(reqparams){
-    return this.accountEndpoint.GetLocationById(reqparams)
-  }
-  GetProviderDetails(reqparams){
-    return this.accountEndpoint.GetProviderDetails(reqparams)
-  }
-  PostUserRegistration(reqparams){
-    debugger;
-    return this.accountEndpoint.PostUserRegistration(reqparams)
+  getCQMReportsMeasurePatientMetInfo(reqdata: any) {
+    return this._ProcessPostRequest<any>(this._cqmReportMeasurePatientsUrl,reqdata);
   }
 
+
+  getPractiseLocations(reqdata: any) {
+    return this._ProcessPostRequest<any>(this._practiseLocationsUrl,reqdata);
+  }
+
+  PostProvdierAdminAccess(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._provdierAdminAccessUrl,reqparams);
+  }
+
+
+  PostUserRegistration(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._userRegistrationUrl,reqparams);
+  }
+
+  getLocationsList(providerId: any) {
+    const apiEndPoint = this._locationsListUrl + providerId;
+    return this._ProcessPostRequest<any>(apiEndPoint,providerId);
+  }
+
+  PostAddressVerification(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._addressVerificationUrl,reqparams);
+  }
 }

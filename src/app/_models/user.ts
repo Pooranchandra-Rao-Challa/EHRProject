@@ -5,13 +5,15 @@ export interface User {
   PatientId: string;
   RepresentativeId: string;
   UserName: string;
-  Password: string;
   Role: string;
   FirstName: string;
   LastName: string;
-  Token: string;
-  LocationName: string;
+  JwtToken: string;
+  LocationInfo: string;
   IsSuccess: boolean;
-  RubyId: string;
-  LocationId:string;
+
+}
+export interface UserLocations {
+  locationId: string;
+  locationName: string;
 }

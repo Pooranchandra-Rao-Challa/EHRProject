@@ -2,8 +2,8 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 import { AuthenticationService } from '../../_services/authentication.service';
-import { User } from '../../_models';
-import { Accountservice } from '../../_services/account.service';
+import { User,UserLocations } from '../../_models';
+//import { NGXLogger   } from 'ngx-logger';
 
 
 @Component({
@@ -19,11 +19,16 @@ export class ProviderNavbarComponent implements OnInit {
   req1: any;
   navbarOpen: boolean = false;
   user: User;
+  locationsInfo: UserLocations[];
   constructor(
     config: NgbDropdownConfig, private router: Router,
     private authenticationService: AuthenticationService) {
     config.placement = 'bottom-right';
+
     this.user = authenticationService.userValue;
+    this.locationsInfo = JSON.parse(this.user.LocationInfo);
+    console.log(this.locationsInfo);
+    //this.logger.debug("locationInfo:" + this.locationsInfo);
   }
   ngOnInit() {
     this.getlocations();
