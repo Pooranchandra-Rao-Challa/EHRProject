@@ -185,6 +185,24 @@ mat-paginator {
 }
 
 /* Dropdown */
+.mat-option {
+  border-left: 1px solid #41b6a6;
+  border-right: 1px solid #41b6a6;
+}
+.mat-option:last-child {
+  border-right: 1px solid #41b6a6;
+}
+.mat-option:last-child {
+  border-bottom: 1px solid #41b6a6;
+}
+.mat-option:hover {
+  background-color: #e5f8f5;
+}
+.mat-option.mat-selected:not(.mat-option-disabled) {
+  color: black;
+  text-shadow: black;
+}
+
 .mat-option.mat-active {
   background: #e5f8f5 !important;
 }
@@ -242,6 +260,13 @@ mat-paginator {
 }
 
 /* Mat Calender */
+::ng-deep
+  .mat-form-field:not(.mat-form-field-appearance-legacy)
+  .mat-form-field-suffix
+  .mat-icon-button
+  .mat-datepicker-toggle-default-icon {
+  color: #41b6a6 !important;
+}
 .mat-calendar-body-selected {
   background-color: #41b6a6;
   color: #fff;
@@ -584,4 +609,11 @@ li,
 }
 i {
   color: #c6cfda;
+}
+.cstm-width .mat-form-field-wrapper {
+  width: 0px !important;
+  position: absolute !important;
+}
+.mat-form-field-wrapper {
+  padding-bottom: 1rem;
 }

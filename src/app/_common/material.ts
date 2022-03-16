@@ -31,7 +31,7 @@ import { FormsModule } from "@angular/forms";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { ReactiveFormsModule } from "@angular/forms";
 import { MatSidenavModule } from '@angular/material/sidenav';
-
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   imports: [
@@ -99,7 +99,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatDatepickerModule,
     MatListModule,
     MatSidenavModule,
-
+    MatTabsModule
 
   ],
 })

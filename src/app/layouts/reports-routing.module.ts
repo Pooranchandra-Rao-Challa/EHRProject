@@ -9,7 +9,7 @@ import { EncounterlistComponent } from "../reports/encounterlist/encounterlist.c
 import { MureportsComponent } from "../reports/mureports/mureports.component";
 import { PatientlistComponent } from "../reports/patientlist/patientlist.component";
 import { ProblemlistComponent } from "../reports/problemlist/problemlist.component";
-import { CalendarComponent } from '../calendar/calendar.component';
+import { CalendarComponent } from '../provider/calendar/calendar.component';
 
 const routes: Routes = [
   {

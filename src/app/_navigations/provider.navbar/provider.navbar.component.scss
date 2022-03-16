@@ -41,8 +41,12 @@ i {
   line-height: initial;
 }
 .navbar-nav > .nav-item:hover {
+  height: 88px;
   background-color: #2e877b;
   border-bottom: 3px solid #fe8f00;
+}
+.navbar-nav > .nav-item.nav-top-right:hover {
+  padding-top: 13px;
 }
 .navbar-dark.navbar .navbar-collapse .navbar-nav li a {
   border: 4px solid transparent;
@@ -72,12 +76,12 @@ button.mat-menu-item:hover {
 }
 // nav-provider icons
 .collapse .navbar-nav li a.item-prov-dashboard {
-  background: url(../../../assets/images/nav-provider/dashboard.svg) 100% 100%
-    no-repeat;
+  background: url(../../../assets/images/nav-provider/smart-schedule.svg) 100%
+    100% no-repeat;
   width: 100%;
 }
 .collapse .navbar-nav li a.item-schedule {
-  background: url(../../../assets/images/nav-provider/schedule.svg) 100% 100%
+  background: url(../../../assets/images/nav-provider/calendar.svg) 100% 100%
     no-repeat;
   width: 100%;
 }
@@ -97,7 +101,8 @@ button.mat-menu-item:hover {
   width: 100%;
 }
 .collapse .navbar-nav li a.item-erx {
-  background: url(../../../assets/images/nav-provider/erx.svg) 100% 100% no-repeat;
+  background: url(../../../assets/images/nav-provider/erx.svg) 100% 100%
+    no-repeat;
   width: 100%;
 }
 .collapse .navbar-nav li a.item-labsimaging {
@@ -127,4 +132,10 @@ button.mat-menu-item:hover {
   text-align: center;
   background-position: center 21px !important;
   background-size: 17px !important;
+}
+.navbar-link {
+  margin-top: 0px !important;
+}
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-wrapper {
+  margin: 0px !important;
 }

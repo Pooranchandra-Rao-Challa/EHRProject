@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA,NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -23,12 +23,12 @@ import { ProviderFooterComponent } from '../provider.navbar/provider.footer.comp
 import { SharedModule } from '../../_common/shared';
 import { ProviderComponent } from './provider.component';
 import { ProviderRoutingModule } from './provider-routing.module';
-import { SmartSchedulerComponent } from '../../provider/smart.scheduler.component';
+import { SmartScheduleComponent } from '../../provider/smart.schedule/smart.schedule.component';
 //import { PatientNavbarComponent } from "../patient.navbar/patient.navbar.component";
-import { CalendarComponent } from '../../calendar/calendar.component';
+import { CalendarComponent } from '../../provider/calendar/calendar.component';
 import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { DateTimePickerModule } from "@syncfusion/ej2-angular-calendars";
-import { ScheduleModule,DayService, WeekService} from '@syncfusion/ej2-angular-schedule';
+import { ScheduleModule, DayService, WeekService } from '@syncfusion/ej2-angular-schedule';
 
 
 
@@ -41,7 +41,7 @@ import { ScheduleModule,DayService, WeekService} from '@syncfusion/ej2-angular-s
     ProviderFooterComponent,
     ProviderComponent,
     CalendarComponent,
-    SmartSchedulerComponent,
+    SmartScheduleComponent
   ],
   imports: [
     ProviderRoutingModule,

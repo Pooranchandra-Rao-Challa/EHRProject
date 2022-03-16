@@ -46,7 +46,7 @@ export class AuthenticationService {
           this.userSubject.value.RubyId = ruby_session_id;
           localStorage.setItem('user', JSON.stringify(resp.Result as User));
           localStorage.setItem('session_token', sessionToken);
-            this.router.navigate(['/reports/categoryreports']);
+          this.router.navigate(['/reports/categoryreports']);
         } else {
           this.router.navigate(['/account/rubyloginfailed']);
         }
@@ -71,7 +71,7 @@ export class AuthenticationService {
         localStorage.setItem('session_token', sessionToken);
         console.log(this.userValue);
         if (this.isProvider)
-          this.router.navigate(['/provider/smartscheduler']);
+          this.router.navigate(['/provider/smartschedule']);
         else if (this.isAdmin)
           this.router.navigate(['/admin/providers']);
         else if (this.isPatient)

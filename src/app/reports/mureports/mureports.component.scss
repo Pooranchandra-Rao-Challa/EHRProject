@@ -146,33 +146,6 @@
   max-width: calc(min-width) !important;
   margin-left: 5px !important;
 }
-.mat-option {
-  border-left: 1px solid #41b6a6;
-  border-right: 1px solid #41b6a6;
-}
-.mat-option:last-child {
-  border-right: 1px solid #41b6a6;
-}
-.mat-option:last-child {
-  border-bottom: 1px solid #41b6a6;
-}
-.mat-option:hover {
-  background-color: #e5f8f5;
-}
-.mat-option.mat-selected:not(.mat-option-disabled) {
-  color: black;
-  text-shadow: black;
-}
-
-/* Mat Calendar icon  */
-
-::ng-deep
-  .mat-form-field:not(.mat-form-field-appearance-legacy)
-  .mat-form-field-suffix
-  .mat-icon-button
-  .mat-datepicker-toggle-default-icon {
-  color: #41b6a6;
-}
 
 .mat-row:hover {
   a {
@@ -419,42 +392,11 @@ td {
 #sortpointer th {
   cursor: pointer;
 }
-// ::ng-deep
-//   .mat-form-field-appearance:disabled
-//   .mat-form-field-appearance-legacy:disabled
-//   .mat-form-field-underline:disabled {
-//   .matInput:disabled {
-//     background: #dddddd !important;
-//   }
-// }
-// ::ng-deep {
-//   .asterisk .mat-input-element::after {
-//     content: "*";
-//     color: #ee0d0d !important;
-//   }
-// }
+
 .required {
   color: red !important;
 }
-// .stage2 {
-//   .w3-modal {
-//     height: 138.5% !important;
-//   }
-//   body {
-//     overflow: hidden !important;
-//   }
-// }
-// .stage3 {
-//   .w3-modal {
-//     height: 210% !important;
-//   }
-//   body {
-//     overflow: hidden !important;
-//   }
-// }
-// body.stage2 {
-//   overflow: hidden !important;
-// }
+
 .fa {
   color: #fff !important;
   font-size: 14px !important;

@@ -1,16 +1,13 @@
 <div class="container-scroller">
   <app-navbar></app-navbar>
-  <!-- <app-patient-navbar></app-patient-navbar> -->
-  <section class="home-section left-space">
-    <div class="container-fluid page-body-wrapper">
-      <div class="main-panel" style="width: 100%">
-        <div class="content-wrapper">
-          <!-- <app-provider-registration></app-provider-registration> -->
-          <!-- <app-home></app-home> -->
-          <router-outlet></router-outlet>
-        </div>
-        <app-footer></app-footer>
+  <!-- <section class="home-section left-space"> -->
+  <div class="container-fluid" style="padding-top: 63px;">
+    <div class="main-panel" style="width: 100%; min-height: calc(100vh - 103px);">
+      <div class="content-wrapper">
+        <router-outlet></router-outlet>
       </div>
     </div>
-  </section>
+  </div>
+  <!-- </section> -->
+  <app-footer></app-footer>
 </div>
