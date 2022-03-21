@@ -84,7 +84,7 @@ export class SettingsComponent implements OnInit {
   newUserName: any;
   tabledata: any=[];
   providerList: any;
-  successUserModel = 'none';
+  successUserModel = 'none'; 
   saveUserModel = "none";
   locationsInfo: UserLocations[];
   
