@@ -11,7 +11,7 @@ const adminModule = () => import('./_navigations/admin.layout/admin.module').the
 const patientModule = () => import('./_navigations/patient.layout/patient.module').then(x => x.PatientModule);
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: '', redirectTo: 'account/home', pathMatch: 'full', canActivate: [AuthGuard] },
   { path: 'account', loadChildren: loginModule },
   { path: 'reports', loadChildren: reportsModule, canActivate: [AuthGuard]  },
   { path: 'provider', loadChildren: providerModule, canActivate: [AuthGuard]  },

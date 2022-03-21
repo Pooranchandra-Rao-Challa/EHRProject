@@ -17,7 +17,13 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "allowedCommonJsDependencies": ["ng2-order-pipe","rxjs-compat","xlsx","rxjs","file-saver"],
+            "allowedCommonJsDependencies": [
+              "ng2-order-pipe",
+              "rxjs-compat",
+              "xlsx",
+              "rxjs",
+              "file-saver"
+            ],
             "outputPath": "dist/EHRProject",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -130,6 +136,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "EHRProject"
+    }
+  },
+  "defaultProject": "EHRProject",
+  "cli": {
+    "analytics": "83ac8974-528e-4acf-9942-7ef07d6ded6b"
+  }
 }

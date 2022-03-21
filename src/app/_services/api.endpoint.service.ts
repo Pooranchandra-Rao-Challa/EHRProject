@@ -78,15 +78,15 @@ export class APIEndPoint extends EndpointBase {
   get _practiseLocationsUrl() {
     return this._baseUrl + "GetLocationsList?Provider_Id";
   }
-  get _zoneDateTimeUrl() {
-    return this._baseUrl + "DisplayTimeZone?timeZoneId=";
+  get _displayDateTimeOfZoneUrl() {
+    return this._baseUrl + "DisplayDateTimeOfZone?timeZoneId=";
   }
   get _listOfTimeZoneUrl() {
     return this._baseUrl + "GetTimeZone";
   }
 
   get _addressVerificationUrl() {
-    return this._baseUrl + "AddressVerification";
+    return this._baseUrl + "VerifyAddress";
   }
   get _provdierAdminAccessUrl() {
     return this._baseUrl + "CQMReports/TimeZoneList";
@@ -100,8 +100,8 @@ export class APIEndPoint extends EndpointBase {
   get _providerDetailsUrl() {
     return this._baseUrl + "GetProviderListByLocation";
   }
-  get _userRegistrationUrl() {
-    return this._baseUrl + "CreateRegistration";
+  get _providerRegistrationUrl() {
+    return this._baseUrl + "RegisterNewProvider";
   }
 
   get _appointmentTypesUrl(){
@@ -128,6 +128,16 @@ export class APIEndPoint extends EndpointBase {
   get _dropAppointmentStatusUrl(){
     return this._baseUrl + "DropAppointmentStatus";
   }
+  get _updateProviderAdmineAccess(){
+    return this._baseUrl + "UpdateProviderAdminAccess";
+  }
+  get _getUserList(){
+    return this._baseUrl + "GetUserDetails";
+  }
+  get _addUpdateUser(){
+    return this._baseUrl + "AddUpdateUser";
+  }
+
   constructor(public http: HttpClient) {
     super();
   }

@@ -103,7 +103,7 @@
                   <p>NPI NUMBER</p>
                   <mat-form-field appearance="outline" class="col-12">
                     <input matInput (mouseover)="checkfield5()" (mouseleave)="unchekedfiled()" formControlName="NPI"
-                      placeholder="National Provider Identifier(NPI)">
+                      placeholder="National Provider Identifier(NPI)" formControlName="NPI">
                     <mat-icon matSuffix *ngIf="Checked5" class="FieldValid">check</mat-icon>
 
                   </mat-form-field>
@@ -113,7 +113,7 @@
                 <div class="col-lg-12">
                   <div class="form-group">
                   </div>
-              
+
                   <div class="controls">
                     <button type="button" class="reg-button col-md-2 next-step1" [disabled]="!PersonalInfo.valid"
                       (click)="GetPersonalInfo()">NEXT STEP</button>
@@ -141,7 +141,7 @@
                   <div class="row">
                     <mat-form-field appearance="outline" class="col-md-6">
                       <input matInput (mouseover)="checkfield6()" (mouseleave)="unchekedfiled6()"
-                        formControlName="StreetAddress" (keyup)="EnterAddress($event.target.value)" [readonly]="displayVerifybtn"
+                        formControlName="PracticeAddress" (keyup)="EnterAddress($event.target.value)" [readonly]="displayVerifybtn"
                         placeholder="Enter the full name here (including suite number)">
                       <mat-icon matSuffix  *ngIf="Checked6" class="FieldValid">check</mat-icon>
                       <mat-icon matSuffix *ngIf="!UnChecked6" class="FieldInvalid">clear</mat-icon>
@@ -152,30 +152,35 @@
                         [disabled]="displayVerifybtn">VERIFY</button>
                     </div>
                   </div>
+
+
                   <div class="row">
-                    <mat-form-field class="field" appearance="outline" class="example-full-width" *ngIf="displayfeild">
+                    <mat-form-field class="field" appearance="outline" class="example-full-width" *ngIf="ValidAddressToUse">
                       <input type="text" class="w-100" readonly [value]="UseThisValue" placeholder="address" matInput>
-                      <mat-icon matSuffix class="FieldInvalid" (click)="CrossAddressbtn()" *ngIf="!sucessdisplay">clear
+                      <mat-icon matSuffix class="FieldInvalid" (click)="UseValidAddress()" *ngIf="!sucessdisplay">clear
                       </mat-icon>
                     </mat-form-field>
                   </div>
+
+
                 </div>
               </div>
               <div class="row">
                 <div class="col-lg-4 col-md-4 col-sm-6">
                   <p>PRIMARY PHONE NUMBER</p>
                   <mat-form-field appearance="outline" class="col-12">
-                    <input matInput formControlName="PrimaryPhone" placeholder="(123)-456-7890" type="tel"
-                      maxlength="10" class="cstm-tel" (mouseover)="checkfield10()" (mouseleave)="unchekedfiled()">
+                    <input matInput formControlName="PrimaryPhone" class="cstm-tel" type="tel" prefix="+1"
+                    mask=" (000) 000 0000"  [showMaskTyped]="true"  [patterns]="PhonePattern"
+                    (mouseover)="checkfield10()" (mouseleave)="unchekedfiled()" placeHolderCharacter="0"  />
                     <mat-icon matSuffix *ngIf="Checked10" class="FieldValid">check</mat-icon>
-
                   </mat-form-field>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6">
                   <p>MOBILE PHONE NUMBER</p>
                   <mat-form-field appearance="outline" class="col-12">
-                    <input matInput (mouseover)="checkfield11()" (mouseleave)="unchekedfiled()"
-                      formControlName="MobilePhone" placeholder="(123)-456-7890" type="tel" maxlength="10"
+                    <input matInput (mouseover)="checkfield11()" (mouseleave)="unchekedfiled()" prefix="+1"
+                    mask=" (000) 000 0000"  [showMaskTyped]="true"  [patterns]="PhonePattern" placeHolderCharacter="0"
+                      formControlName="MobilePhone" placeholder="(123)-456-7890" type="tel"
                       class="cstm-tel">
                     <mat-icon matSuffix *ngIf="Checked11" class="FieldValid">check</mat-icon>
                   </mat-form-field>
@@ -206,7 +211,7 @@
                 <span class="mx-4">Account Information</span>
               </div>
             </div>
-           
+
             <form class="pt-4" [formGroup]="AccountInfomation">
               <div class="row">
                 <div class="col-lg-4 col-md-4 col-sm-6">
@@ -331,14 +336,14 @@
 <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayAddress}">
   <div class="modal-dialog  modal-lg" role="document">
     <div class="modal-content">
-      <div class="modal-header" [ngClass]="sucessdisplay?'addressInvalid':'addressSuccess'">
-        <h3 *ngIf="!sucessdisplay">Success</h3>
-        <h3 *ngIf="sucessdisplay" class="text-white">Invalid Address</h3>
-        <button type="button" *ngIf="!sucessdisplay" class="btn btn-sm btn-success adrsbtn"
+      <div class="modal-header" [ngClass]="displayDialog?'addressInvalid':'addressSuccess'">
+        <h3 *ngIf="!displayDialog">Success</h3>
+        <h3 *ngIf="displayDialog" class="text-white">Invalid Address</h3>
+        <button type="button" *ngIf="!displayDialog" class="btn btn-sm btn-success adrsbtn"
           (click)="closePopupAddress()">
           X
         </button>
-        <button type="button" *ngIf="sucessdisplay" class="btn btn-sm btn-success erroclose"
+        <button type="button" *ngIf="displayDialog" class="btn btn-sm btn-success erroclose"
           (click)="closePopupAddress()">
           X
         </button>
@@ -349,13 +354,11 @@
           <div class="row">
             <h4 class="text-center" style="margin-top: 1rem;margin-bottom: 2rem;">
               {{displaymsg}}</h4>
-            <div class="col-lg-12 col-md-4 col-sm-4" *ngIf="!sucessdisplay">
+            <div class="col-lg-12 col-md-4 col-sm-4" *ngIf="!displayDialog">
               <mat-form-field appearance="outline" class="example-full-width" [style.width.px]=700>
-                <input type="text" class="w-100" [value]="addressdata" placeholder="address" matInput>
-                <!-- <mat-icon matSuffix >
-                  <a class="link" (click)="UserThis()" >use this</a>
-                </mat-icon>   -->
-                <md-icon class="link" (click)="UserThis()">Use this</md-icon>
+                <input type="text" class="w-100" [value]="ValidAddressForUse" placeholder="address" matInput>
+
+                <md-icon class="link" (click)="UseValidatedAddress()">Use this</md-icon>
               </mat-form-field>
             </div>
           </div>

@@ -617,3 +617,65 @@ i {
 .mat-form-field-wrapper {
   padding-bottom: 1rem;
 }
+.modal:nth-of-type(even) {
+  z-index: 1052 !important;
+}
+.modal-backdrop.show:nth-of-type(even) {
+  z-index: 1051 !important;
+}
+.swal2-container.swal2-top>.swal2-popup{
+  margin-top:300px !important;
+}
+.swal2-icon.swal2-error{
+  border-color: #e5e1e1 !important;
+}
+.swal2-icon.swal2-success .swal2-success-ring { 
+  border: 0.25em solid rgb(225 221 221) !important;
+}
+.swal2-container.swal2-top > .swal2-popup {
+  margin-top: 295px !important;
+}
+.swal2-popup {  
+  padding: 52px 0 7.25em !important; 
+}
+.swal2-title.title-error{
+  background-color: #c73333 !important;
+}
+.swal2-styled.swal2-confirm.close-error-button{
+  color: #af1010 !important;
+  border-color: #c73333 !important;
+  box-shadow: none !important;
+  outline: none !important;
+} 
+.swal2-styled.swal2-confirm.close-error-button :hover{
+  color: white !important;
+  border-color: #c73333 !important;
+  background-color: #c73333 !important;
+}
+.EHR1Id.mat-form-field-appearance-outline .mat-form-field-outline{
+  background:#e2e1e1 !important;
+  //border: 0.4px solid black;
+  border-radius: 2px !important;
+}
+
+
+.readonly.mat-form-field-appearance-outline .mat-form-field-outline{
+  background:#f5f5f5 !important;
+  //border: 0.4px solid black;
+  border-radius: 3px !important;
+}
+.readonly.mat-form-field-appearance-outline .mat-form-field-outline:hover{
+  background:#f5f5f5 !important;
+  border: 1px solid #41b6a6 !important;
+  border-radius: 3px !important;
+}
+.readonly .mat-input-element{
+  color: #696868;
+}
+.userfromPractable.mat-header-row.mat-row{
+  border-bottom-color:red!important ;
+  border-bottom-style: none;
+}
+.locationnames{
+  cursor: pointer; 
+}
