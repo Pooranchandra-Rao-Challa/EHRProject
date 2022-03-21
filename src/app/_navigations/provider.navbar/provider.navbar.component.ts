@@ -28,7 +28,7 @@ export class ProviderNavbarComponent implements OnInit {
     this.locationsInfo = JSON.parse(this.user.LocationInfo);
     this.currentLocation = this.locationsInfo[0].locationId;
     console.log(this.locationsInfo);
-    
+     
   }
   ngOnInit() {
     
