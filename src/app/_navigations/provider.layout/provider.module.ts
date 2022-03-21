@@ -24,7 +24,6 @@ import { SharedModule } from '../../_common/shared';
 import { ProviderComponent } from './provider.component';
 import { ProviderRoutingModule } from './provider-routing.module';
 import { SmartScheduleComponent } from '../../provider/smart.schedule/smart.schedule.component';
-//import { PatientNavbarComponent } from "../patient.navbar/patient.navbar.component";
 import { CalendarComponent } from '../../provider/calendar/calendar.component';
 import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { DateTimePickerModule } from "@syncfusion/ej2-angular-calendars";
