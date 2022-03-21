@@ -3,6 +3,10 @@ import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn,
 import Swal from 'sweetalert2';
 import { User } from '../_models';
 import { Accountservice } from '../_services/account.service';
+import { CustomKeyboardEvent } from 'ngx-mask';
+
+
+
 declare var $: any;
 
 @Component({
@@ -22,9 +26,9 @@ export class RegistrationComponent implements OnInit {
   ContactInfomation: FormGroup;
   AccountInfomation: FormGroup;
   users: User;
-  sucessdisplay: boolean;
+  displayDialog: boolean;
   displayAddress = "none";
-  addressdata: any;
+  ValidAddressForUse: any;
   displaymsg: any;
   errorDisplay: boolean;
   PersonalDetials: any;
@@ -39,7 +43,7 @@ export class RegistrationComponent implements OnInit {
   DisableStep2Btn: boolean;
   DisableStep3Btn: boolean;
   UseThisValue: any;
-  displayfeild: boolean;
+  ValidAddressToUse: boolean;
   displayVerifybtn: boolean;
   Checked1: boolean;
   Checked2: boolean;
@@ -60,10 +64,17 @@ export class RegistrationComponent implements OnInit {
   Checked12: boolean;
   UnChecked12: boolean;
   UserEmail: any;
+  PrimaryPhoneValue: string;
+  PhonePattern: any;
   constructor(private fb: FormBuilder, private accountservice: Accountservice,) {
     this.users = JSON.parse(localStorage.getItem("user"));
     console.log(this.users);
-
+    this.PhonePattern = {
+      0: {
+        pattern: new RegExp('\\d'),
+        symbol: 'X',
+      },
+    };
   }
 
   ngOnInit(): void {
@@ -73,7 +84,7 @@ export class RegistrationComponent implements OnInit {
     this.buildAcctInfoForm();
     this.dropdownMenusList();
 
-    
+
 
     $(document).ready(function () {
       // Step1
@@ -112,8 +123,6 @@ export class RegistrationComponent implements OnInit {
       });
 
       $('.category-buttons .item').on('shown.bs.tab', function (event) {
-        // var x = $(event.target);         // active tab
-        //  var y = $(event.relatedTarget);  // previous tab
         $(event.relatedTarget).addClass('done');
       });
     });
@@ -138,21 +147,20 @@ export class RegistrationComponent implements OnInit {
 
   buildContInfoForm() {
     this.ContactInfomation = this.fb.group({
-      StreetAddress: ['', Validators.required],
+      PracticeAddress: ['', Validators.required],
       SuiteNumber: [''],
       PrimaryPhone: ['', Validators.required],
       MobilePhone: [''],
-
     })
   }
   buildAcctInfoForm() {
     this.AccountInfomation = this.fb.group({
       Email: ['', [Validators.required, Validators.pattern('^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$')]],
-      AltEmail: ['',Validators.pattern('^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$')],
-      EncryptedPassword: ['', [Validators.required,Validators.minLength(5)]],
+      AltEmail: ['', Validators.pattern('^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$')],
+      EncryptedPassword: ['', [Validators.required, Validators.minLength(5)]],
       ConfirmPassword: ['', Validators.required]
     }, { validators: this.MatchPassword })
-    
+
   }
 
   MatchPassword(AC: AbstractControl) {
@@ -167,6 +175,7 @@ export class RegistrationComponent implements OnInit {
       }
     }
   }
+
   dropdownMenusList() {
     this.nameTitle = [
       { titleId: 1, titleName: 'Dr' },
@@ -195,14 +204,13 @@ export class RegistrationComponent implements OnInit {
       { specId: 10, specName: 'N/A speciality' },
     ];
   }
+
   personalInfoReq() {
-    debugger
     this.showpersonalInfoReq = false;
     this.showcontactInfoReq = true;
   }
 
   contactInfoReq(event) {
-    debugger
     if (event == 'prev') {
       this.showpersonalInfoReq = true;
       this.showcontactInfoReq = false;
@@ -214,56 +222,45 @@ export class RegistrationComponent implements OnInit {
   }
 
   accountInfoReq(event) {
-    debugger
     if (event == 'prev') {
       this.showcontactInfoReq = true;
       this.showaccountInfoReq = false;
-    }    
+    }
   }
 
 
   AddressVerification() {
     this.ContactInfomation.value;
-    var Street = this.ContactInfomation.value.StreetAddress
-    if (Street != null) {
-      var address = Street.split(',');
-      let obj1 = {
-        street: address[0],
-        city: address[1],
-        stateName: address[2],
-        zipcode: address[3]
-      }
-      this.accountservice.PostAddressVerification(obj1).subscribe(addresslist => {
-        this.getResponse = addresslist;
-        if (this.getResponse.IsSuccess) {
-          console.log('IsSuccess');
-          this.sucessdisplay = false;
+    var practiceAddress = this.ContactInfomation.value.PracticeAddress || "";
+    if (practiceAddress != null) {
+      this.accountservice.VerifyAddress(practiceAddress).subscribe(resp => {
+        if (resp.IsSuccess) {
+          this.displayDialog = false;
           this.openPopupAddress();
-          this.addressdata = this.ContactInfomation.value.StreetAddress;
-          this.displaymsg = this.getResponse.EndUserMessage;
-          console.log(this.addressdata);
+          this.ValidAddressForUse = resp.Result["delivery_line_1"]+", "+resp.Result["last_line"]
+          this.displaymsg = resp.EndUserMessage;
         }
         else {
-          console.log('failed');
-          this.sucessdisplay = true;
+          this.displayDialog = true;
           this.errorDisplay = false;
           this.openPopupAddress();
-          this.displaymsg = this.getResponse.EndUserMessage;
+          this.displaymsg = resp.EndUserMessage;
         }
       });
 
     }
 
   }
-  CrossAddressbtn() {
-    this.displayfeild = false;
-    this.displayVerifybtn = false;
+  UseValidAddress() {
+    //this.ValidAddressToUse = false;
+    //this.displayVerifybtn = false;
   }
-  UserThis() {
+  UseValidatedAddress() {
     this.closePopupAddress();
-    this.displayfeild = true;
-    this.displayVerifybtn = true;
-    this.UseThisValue = this.addressdata;
+    //this.ValidAddressToUse = false;
+    //this.displayVerifybtn = true;
+    this.ContactInfomation.value.PracticeAddress = this.ValidAddressForUse;
+    //this.displayAddress = "none";
   }
   openPopupAddress() {
     this.displayAddress = "block";
@@ -271,48 +268,42 @@ export class RegistrationComponent implements OnInit {
   closePopupAddress() {
     this.displayAddress = "none";
   }
- 
+
   GetPersonalInfo() {
     this.PersonalDetials = this.PersonalInfo.value;
-    console.log(this.PersonalDetials);
 
   }
   GetContactInfo() {
-
     this.ContactDetails = this.ContactInfomation.value;
     console.log(this.ContactDetails);
-    //this.buildAcctInfoForm();
   }
   GetAccountInfo() {
-    debugger;
+
     this.AccountDetails = this.AccountInfomation.value;
-    console.log(this.AccountDetails);
+
   }
 
   SaveRegitration() {
-    debugger;
+
     let reqparams = {
-      UserId: '16',
-      ProviderID: '123457',
       Title: this.PersonalDetials.Title,
       FirstName: this.PersonalDetials.FirstName,
       MiddleName: this.PersonalDetials.MiddleName,
       LastName: this.PersonalDetials.LastName,
-      PracticeId: '2',
       PracticeName: this.PersonalDetials.PracticeName,
       Degree: this.PersonalDetials.Degree,
       Speciality: this.PersonalDetials.Speciality,
       NPI: this.PersonalDetials.NPI,
-      StreetAddress: this.ContactDetails.StreetAddress,
+      PracticeAddress: this.ContactDetails.PracticeAddress,
       SuiteNumber: 'new suit',
       PrimaryPhone: this.ContactDetails.PrimaryPhone,
       MobilePhone: this.ContactDetails.MobilePhone,
       Email: this.AccountDetails.Email,
       AltEmail: this.AccountDetails.AltEmail,
-      EncryptedPassword: this.AccountDetails.EncryptedPassword,
+      Password: this.AccountDetails.EncryptedPassword,
     }
-    console.log(reqparams)
-    this.accountservice.PostUserRegistration(reqparams).subscribe(registrationlist => {
+
+    this.accountservice.RegisterNewProvider(reqparams).subscribe(registrationlist => {
       this.getResponse = registrationlist
       console.log(this.getResponse);
       if (this.getResponse.IsSuccess) {
@@ -325,7 +316,7 @@ export class RegistrationComponent implements OnInit {
           title: 'Oops...',
           text: this.getResponse.EndUserMessage,
           width: '700',
-        })        
+        })
       }
     })
   }
@@ -365,7 +356,7 @@ export class RegistrationComponent implements OnInit {
       this.Checked5 = true;
       this.unChecked = false;
     }
-  }  
+  }
   unchekedfiled() {
     this.Checked1 = false;
     this.Checked2 = false;
@@ -376,9 +367,9 @@ export class RegistrationComponent implements OnInit {
     this.Checked10 = false;
     this.Checked11 = false;
     //this.Checked12=true;
-  } 
+  }
   checkfield6() {
-    let address = this.ContactInfomation.value.StreetAddress;
+    let address = this.ContactInfomation.value.PracticeAddress;
     if (address == "") {
       this.Checked6 = false;
       this.UnChecked6 = false;
@@ -389,14 +380,13 @@ export class RegistrationComponent implements OnInit {
     }
   }
   unchekedfiled6() {
-    let address = this.ContactInfomation.value.StreetAddress;
+    let address = this.ContactInfomation.value.PracticeAddress;
     if (address == "") {
       this.Checked6 = false;
       this.UnChecked6 = false;
     }
-    if(address!="")
-    {
-      this.Checked6=false;
+    if (address != "") {
+      this.Checked6 = false;
       //this.Checked6=false;
     }
     // else {
@@ -404,7 +394,7 @@ export class RegistrationComponent implements OnInit {
     //   this.UnChecked6 = false;
     // }
 
-  } 
+  }
   checkField7() {
     if (this.AccountInfomation.value.Email == "") {
       this.UnChecked7 = true;
@@ -422,13 +412,13 @@ export class RegistrationComponent implements OnInit {
     this.UnChecked7 = false;
     this.Checked7 = false;
 
-  } 
+  }
   checkField8() {
     if (this.AccountInfomation.value.EncryptedPassword == "") {
       this.UnChecked8 = true;
       this.Checked8 = false
     }
-    if(this.AccountInfomation.controls['EncryptedPassword'].invalid){
+    if (this.AccountInfomation.controls['EncryptedPassword'].invalid) {
       this.UnChecked8 = true;
       this.Checked8 = false
     }
@@ -438,7 +428,7 @@ export class RegistrationComponent implements OnInit {
     }
 
   }
-   UncheckField8() {
+  UncheckField8() {
     this.UnChecked8 = false;
     this.Checked8 = false;
   }
@@ -461,7 +451,7 @@ export class RegistrationComponent implements OnInit {
   UncheckField9() {
     this.UnChecked9 = false;
     this.Checked9 = false;
-  } 
+  }
   checkfield10() {
     let PrimaryPhone = this.ContactInfomation.value.PrimaryPhone;
     if (PrimaryPhone == "") {
@@ -470,76 +460,71 @@ export class RegistrationComponent implements OnInit {
     }
     if (PrimaryPhone != "") {
       this.Checked10 = true;
-
     }
+    $.event.propagate();
   }
   unchekedfiled10() {
     this.Checked10 = false
+    $.event.propagate();
   }
+
   checkfield11() {
-    let MobilePhone= this.ContactInfomation.value.MobilePhone;
+    let MobilePhone = this.ContactInfomation.value.MobilePhone;
     if (MobilePhone == "") {
       this.Checked11 = false;
     }
-    if(MobilePhone !="")
-    {
-      this.Checked11=true
+    if (MobilePhone != "") {
+      this.Checked11 = true
     }
   }
   checkfield12() {
-    if (this.AccountInfomation.value.AltEmail == "") {     
+    if (this.AccountInfomation.value.AltEmail == "") {
       this.Checked12 = true
     }
-    if(this.AccountInfomation.controls['AltEmail'].invalid)
-    {
+    if (this.AccountInfomation.controls['AltEmail'].invalid) {
       this.Checked12 = false
       this.UnChecked12 = true;
     }
-    else {      
+    else {
       this.Checked12 = true;
-      this.UnChecked12 = false;      
+      this.UnChecked12 = false;
     }
   }
   unchekedfiled12() {
     if (this.AccountInfomation.value.AltEmail == "") {
-     
+
       this.Checked12 = false
     }
-    if(this.AccountInfomation.controls['AltEmail'].invalid)
-    {
-      this.Checked12=false;
-      this.UnChecked12=false;
+    if (this.AccountInfomation.controls['AltEmail'].invalid) {
+      this.Checked12 = false;
+      this.UnChecked12 = false;
     }
   }
- 
-  EnterAddress(event)
-  {
-    debugger;   
-     if(event!="")
-     {
-       this.Checked6=false
-       this.UnChecked6=true;
-     }
-  }
-  EnterPassword(event)
-  {
-    let ConfirmPassword= this.AccountInfomation.value.ConfirmPassword;
-    if( event== ConfirmPassword)
-    {
-      this.Checked9=true;
-      this.UnChecked9=false;
+
+  EnterAddress(event) {
+    debugger;
+    if (event != "") {
+      this.Checked6 = false
+      this.UnChecked6 = true;
     }
   }
-  
-  alertWithSuccess() { 
+  EnterPassword(event) {
+    let ConfirmPassword = this.AccountInfomation.value.ConfirmPassword;
+    if (event == ConfirmPassword) {
+      this.Checked9 = true;
+      this.UnChecked9 = false;
+    }
+  }
+
+  alertWithSuccess() {
     Swal.fire({
       icon: 'success',
       title: 'Thank you for registering for an EHR1 Account! An email with instructions for how to complete  setup of your account has been sent to ' + this.UserEmail,
       showConfirmButton: true,
       confirmButtonText: 'Close',
       width: '700',
-    });  
- }
+    });
+  }
 }
 
 
