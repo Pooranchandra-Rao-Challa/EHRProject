@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../_services/authentication.service';
 import { SettingsService } from '../_services/settings.service';
 import { User } from '../_models';
+import { UUID } from 'angular2-uuid'
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
@@ -144,9 +145,8 @@ export class SettingsComponent implements OnInit {
   stateList: { stateCode: string; stateName: string }[];
   UserInformation: FormGroup;
   constructor(private fb: FormBuilder,
-    private authService: AuthenticationService,private settingsService: SettingsService) {
+    private authService: AuthenticationService, private settingsService: SettingsService) {
     this.users = authService.userValue;
-    console.log(this.users);
   }
 
   ngOnInit(): void {
@@ -429,19 +429,15 @@ export class SettingsComponent implements OnInit {
   }
 
   // DatetimeZone data
-  DisplayDateTimeZone(event) {
+  DisplayDateTimeZone(zoneId) {
     debugger;
-    var data = event;
     var time = this.LocationForm.value.TimeZones;
-    this.settingsService.ZoneDateTime(data).subscribe(data => {
-      if (data.IsSuccess) {
-        var UTC = data.EndUserMessage;
-        var datas = UTC.split(" ");
-        this.UTCTime = datas[1] + ' ' + datas[2];
-        this.CurrentTime = datas[5] + ' ' + datas[6];
-
+    this.settingsService.DisplayDateTimeOfZone(zoneId).subscribe(resp => {
+      if (resp.IsSuccess) {
+        var zoneDateTimeWithUTC = JSON.parse(resp.Result);
+        this.UTCTime = zoneDateTimeWithUTC.UTC;
+        this.CurrentTime = zoneDateTimeWithUTC.ZoneDateTime;
       }
-
     });
   }
 
@@ -631,7 +627,7 @@ export class SettingsComponent implements OnInit {
           this.address1 = Street.split(',');
 
           if (locationId != null) {
-            let obj = {
+            let locationdata = {
               "ProviderId": this.users.ProviderId,
               "LocationId": locationId,
               "LocationName": data.LocationName,
@@ -650,12 +646,12 @@ export class SettingsComponent implements OnInit {
               "SpecificHour": ActivityStatus,
               "locationprimary": data.locationprimary
             }
-            this.SaveupateLocation(obj);
+            this.SaveupateLocation(locationdata);
           }
           else {
-            let obj = {
+            let locationdata = {
               "ProviderId": this.users.ProviderId,
-              "LocationId": '153',
+              "LocationId": UUID.UUID(),
               "LocationName": data.LocationName,
               "LocationPhone": data.LocationPhone,
               "Fax": data.Fax,
@@ -672,12 +668,12 @@ export class SettingsComponent implements OnInit {
               "SpecificHour": ActivityStatus,
               "locationprimary": data.locationprimary
             }
-            this.SaveupateLocation(obj);
+            this.SaveupateLocation(locationdata);
           }
         }
         else {
           if (locationId != null) {
-            let obj = {
+            let locationdata = {
               "ProviderId": this.users.ProviderId,
               "LocationId": locationId,
               "LocationName": data.LocationName,
@@ -696,12 +692,12 @@ export class SettingsComponent implements OnInit {
               "SpecificHour": ActivityStatus,
               "locationprimary": data.locationprimary
             }
-            this.SaveupateLocation(obj);
+            this.SaveupateLocation(locationdata);
           }
           else {
-            let obj = {
+            let locationdata = {
               "ProviderId": this.users.ProviderId,
-              "LocationId": '225',
+              "LocationId": UUID.UUID(),
               "LocationName": data.LocationName,
               "LocationPhone": data.LocationPhone,
               "Fax": data.Fax,
@@ -718,7 +714,7 @@ export class SettingsComponent implements OnInit {
               "SpecificHour": ActivityStatus,
               "locationprimary": data.locationprimary
             }
-            this.SaveupateLocation(obj);
+            this.SaveupateLocation(locationdata);
           }
         }
       }

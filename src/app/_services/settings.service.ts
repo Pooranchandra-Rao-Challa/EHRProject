@@ -25,8 +25,8 @@ export class SettingsService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._addUpdateLocationUrl,reqparams);
   }
 
-  ZoneDateTime(reqdata: any) {
-    return this._ProcessPostRequest<any>(this._zoneDateTimeUrl,reqdata);
+  DisplayDateTimeOfZone(reqdata: any) {
+    return this._ProcessPostRequest<any>(this._displayDateTimeOfZoneUrl,reqdata);
   }
 
   AddressVerification(reqparams: any) {
