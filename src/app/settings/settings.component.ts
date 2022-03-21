@@ -58,7 +58,7 @@ export class SettingsComponent implements OnInit {
   hover1: any;
   getResponse: any = {}
 
-  
+
 
   myString: number;
   PhoneNumber: HTMLInputElement;
@@ -66,7 +66,7 @@ export class SettingsComponent implements OnInit {
   displayedColumns1: string[] = ['Status', 'Color', 'isEdit'];
   dataSource3: any;
   // dataSchema = this.USERSCHEMA;
-  
+
   show: boolean;
   searchElement: any;
   LocationAddress: any;
@@ -84,10 +84,10 @@ export class SettingsComponent implements OnInit {
   newUserName: any;
   tabledata: any=[];
   providerList: any;
-  successUserModel = 'none'; 
+  successUserModel = 'none';
   saveUserModel = "none";
   locationsInfo: UserLocations[];
-  
+
   constructor(private fb: FormBuilder,
     private authService: AuthenticationService, private settingsService: SettingsService) {
     this.user = authService.userValue;
@@ -111,7 +111,7 @@ export class SettingsComponent implements OnInit {
     });
     //user deatils
     this.dropdownMenusList();
-    this.buildUserForm();  
+    this.buildUserForm();
     this.buildChangePwdForm();
   }
 
@@ -124,7 +124,7 @@ export class SettingsComponent implements OnInit {
       Status: []
     });
 
-  } 
+  }
   dropdownMenusList() {
     this.nameTitle = [
       { titleId: 1, titleName: 'Dr' },
@@ -348,11 +348,11 @@ export class SettingsComponent implements OnInit {
 
   // get display Location Details
   getLocationsList() {
-    this.ProviderId = this.user.ProviderId;    
+    this.ProviderId = this.user.ProviderId;
     this.settingsService.LocationList(this.ProviderId).subscribe(data => {
       if (data.IsSuccess) {
         this.dataSource = data.ListResult;
-        this.LocationAddress = data.ListResult;      
+        this.LocationAddress = data.ListResult;
 
       }
     });
@@ -362,22 +362,23 @@ export class SettingsComponent implements OnInit {
   getProviderDetails() {
     debugger;
     var reqparams = {
-      provider_Id: this.user.ProviderId, 
+      provider_Id: this.user.ProviderId,
       location_Id: this.locationsInfo[0].locationId  //location id of login user
     }
     this.settingsService.ProviderDetails(reqparams).subscribe(data => {
       this.getResponse = data;
       if (this.getResponse.IsSuccess) {
-        this.dataSource2 = this.getResponse.ListResult;       
+        this.dataSource2 = this.getResponse.ListResult;
       }
 
     });
   }
-  
+
   // dropdown for TimeZone
   getTimeZoneList() {
     debugger;
     this.settingsService.TimeZones().subscribe(data => {
+
       if (data.IsSuccess) {
         this.TimeZoneList = data.ListResult;
         var data = this.TimeZoneList[6];
@@ -391,6 +392,7 @@ export class SettingsComponent implements OnInit {
   // DatetimeZone data
   DisplayDateTimeZone(zoneId) {
     debugger;
+    console.log(zoneId)
     var time = this.LocationForm.value.TimeZones;
     this.settingsService.DisplayDateTimeOfZone(zoneId).subscribe(resp => {
       if (resp.IsSuccess) {
@@ -692,7 +694,7 @@ export class SettingsComponent implements OnInit {
           showConfirmButton: true,
           confirmButtonText: 'Close',
           width: '700',
-        });        
+        });
         this.closePopup();
         this.getLocationsList();
         this.clearForm();
@@ -759,9 +761,9 @@ export class SettingsComponent implements OnInit {
   }
   //user
 
-  
+
   checkAdminAccess(userdetails) {
-   
+
     let reqparams = {
       ProviderId: userdetails._id,
       AdminRole: !userdetails.admin,
@@ -801,21 +803,21 @@ export class SettingsComponent implements OnInit {
          this.getProviderDetails();
       }
     })
-   } 
+   }
   alertmsgforAddUser(msg:any)
-  {  
+  {
      Swal.fire({
-      customClass: {            
-        container: 'container-class',  
-        title: 'title-error', 
-        confirmButton: 'close-error-button',    
-      },    
+      customClass: {
+        container: 'container-class',
+        title: 'title-error',
+        confirmButton: 'close-error-button',
+      },
       position: 'top',
-      title: msg, 
+      title: msg,
       width: '700',
       confirmButtonText: 'Close',
       background: '#e5e1e1',
-      showConfirmButton: true,              
+      showConfirmButton: true,
       });
   }
   ChangePassword() {
@@ -831,16 +833,16 @@ export class SettingsComponent implements OnInit {
       })
     }
     else {
-     
+
     }
-  } 
+  }
 
   AddUser() {
-    
-    let formValue = this.AddUserFrom.value;  
-   
+
+    let formValue = this.AddUserFrom.value;
+
     if(formValue.FirstName==null && formValue.LastName==null && formValue.Role==null)
-    { 
+    {
       var msg='Email can not be blank, Email is invalid, and Provider is invalid';
       this.alertmsgforAddUser(msg);
       return;
@@ -854,8 +856,8 @@ export class SettingsComponent implements OnInit {
       var msg='Provider is invalid';
       this.alertmsgforAddUser(msg);
       return;
-    }   
-    
+    }
+
     else{
       let reqparams = {
         "Id": 0,
@@ -866,7 +868,7 @@ export class SettingsComponent implements OnInit {
         "MiddleName": formValue.MiddleName,
         "LastName": formValue.LastName,
         "PracticeId":  this.NavbarlocationId, //current loction id
-        "PracticeName": "", //current loction name       
+        "PracticeName": "", //current loction name
         "Degree": "",
         "Speciality": "",
         "SecondarySpeciality": "",
@@ -897,48 +899,48 @@ export class SettingsComponent implements OnInit {
           this.openSaveUserModel();
           //this.newUserName = this.AddUserFrom.value.FirstName;
           this.closePopup();
-          this.getProviderDetails();        
+          this.getProviderDetails();
         }
         else {
           Swal.fire({
-            customClass: {            
-              container: 'container-class',  
-              title: 'title-error', 
-              confirmButton: 'close-error-button',    
-            },           
+            customClass: {
+              container: 'container-class',
+              title: 'title-error',
+              confirmButton: 'close-error-button',
+            },
             position: 'top',
-            title: msg, 
+            title: msg,
             width: '700',
             confirmButtonText: 'Close',
             background: '#e5e1e1',
-            showConfirmButton: true,              
+            showConfirmButton: true,
             });
         }
       });
-    }   
-   
+    }
+
   }
   closeAddUserModel() {
     this.displayuser = "none";
-  } 
+  }
 
   getUserDataforEdit(user) {
-      
+
     var reqparams = {
       ProviderId: this.user.ProviderId,//this.users.ProviderId,
       UserProviderId: user._id
-    } 
-   
+    }
+
     this.settingsService.UserList(reqparams).subscribe(Userlist => {
-      this.getResponse = Userlist;     
+      this.getResponse = Userlist;
       this.userList = this.getResponse.ListResult[0];
       this.providerList = this.getResponse.ListResult[1];
-      this.locationList = this.getResponse.ListResult[2];      
-      if (this.getResponse.IsSuccess) {        
+      this.locationList = this.getResponse.ListResult[2];
+      if (this.getResponse.IsSuccess) {
         this.tabledata=this.locationList;
-       
+
         this.tabledata.map((e) => {
-          
+
           if(e.assigend_location==1)
           {
             e.assigend_locations==true;
@@ -946,28 +948,28 @@ export class SettingsComponent implements OnInit {
             e.assigend_locations==false;
           }
           switch (e._weekday.toLowerCase()) {
-            case 'sunday': 
+            case 'sunday':
               e.shortofWeek = "su";
               break;
             case 'monday':
               e.shortofWeek = "m";
               break;
-            case 'tuesday': 
+            case 'tuesday':
             e.shortofWeek = "t";
               break
             case 'wednesday':
             e.shortofWeek = "w";
               break;
-            case 'thursday':  
+            case 'thursday':
             e.shortofWeek = "th";
               break;
-            case 'friday': 
+            case 'friday':
             e.shortofWeek = "f";
               break;
             case 'saturday':
             e.shortofWeek = "sa";
-              break;       
-          }     
+              break;
+          }
         });
         this.dataSource5= this.tabledata;
         console.log(this.tabledata)
@@ -992,19 +994,19 @@ export class SettingsComponent implements OnInit {
         this.UserInformation.get('EmailAddress').setValue(this.userList[0].email);
         this.UserInformation.get('LoginPhone').setValue(this.providerList[0].primary_phone);
         this.UserInformation.get('RecoveryEmail').setValue(this.userList[0].recovery_email);
-      
+
       }
 
     });
   }
- 
+
   openSaveUserModel() {
     this.saveUserModel = "block";
   }
 
   UpdateUser() {
       var UserFormDetails = this.UserInformation.value;
-      this.userList[0];     
+      this.userList[0];
       let reqparams = {
         "Id": 1,
         "UserId": "122abcd",
@@ -1042,8 +1044,8 @@ export class SettingsComponent implements OnInit {
         if (this.getResponse.IsSuccess) {
           this.closeAddUserModel();
           this.closePopup();
-          Swal.fire({          
-          // icon: 'success',       
+          Swal.fire({
+          // icon: 'success',
             position: 'top',
             background: '#e1dddd',
             title: 'Provider updated successfully',
@@ -1051,22 +1053,22 @@ export class SettingsComponent implements OnInit {
             confirmButtonText: 'Close',
             width: '700',
           });
-          this.getProviderDetails();        
+          this.getProviderDetails();
         }
         else {
           Swal.fire({
-            customClass: {            
-              container: 'container-class',  
-              title: 'title-error', 
-              confirmButton: 'close-error-button',    
-            },    
+            customClass: {
+              container: 'container-class',
+              title: 'title-error',
+              confirmButton: 'close-error-button',
+            },
             position: 'top',
-            title: this.getResponse.EndUserMessage, 
+            title: this.getResponse.EndUserMessage,
             width: '700',
             confirmButtonText: 'Close',
             background: '#e5e1e1',
-            showConfirmButton: true,              
-            });         
+            showConfirmButton: true,
+            });
         }
       });
   }

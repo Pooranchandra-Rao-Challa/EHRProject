@@ -79,7 +79,7 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "GetLocationsList?Provider_Id";
   }
   get _displayDateTimeOfZoneUrl() {
-    return this._baseUrl + "DisplayDateTimeOfZone?timeZoneId=";
+    return this._baseUrl + "DisplayDateTimeOfZone";
   }
   get _listOfTimeZoneUrl() {
     return this._baseUrl + "GetTimeZone";

@@ -40,8 +40,11 @@ export class AuthenticationService {
   loginWithFormCredentials(creds: any): Observable<ResponseData> {
     const endpointUrl = this.baseUrl + "Authenticate/";
     logger.info("endpointurl: " + endpointUrl);
+    console.log(endpointUrl)
     let observable = this.http.post<ResponseData>(endpointUrl, creds);
+    console.log(observable);
     observable.subscribe(resp => {
+      console.log(resp.IsSuccess);
       if (resp.IsSuccess) {
         //let sessionToken = this.idService.generate();
         this.userSubject = new BehaviorSubject<User>(resp.Result as User);
@@ -49,16 +52,16 @@ export class AuthenticationService {
         localStorage.setItem('user', JSON.stringify(resp.Result as User));
 
         this.startRefreshTokenTimer();
-        //console.log(this.userValue);
-        //console.log(this.userValue.LocationInfo);
+        console.log(this.userValue);
+        console.log(this.userValue.LocationInfo);
         if (this.isProvider)
           this.router.navigate(['/provider/smartschedule']);
         else if (this.isAdmin)
           this.router.navigate(['/admin/providers']);
         else if (this.isPatient)
           this.router.navigate(['/patinet/patientview']);
-        else
-          this.router.navigate(['/reports/categoryreports']);
+        //else
+          //this.router.navigate(['/reports/categoryreports']);
       }
     }),
       (error) => {
@@ -93,8 +96,12 @@ export class AuthenticationService {
   }
 
   isLoggedIn() {
-    let token = localStorage.getItem('session_token');
-    return token != undefined || token != null;
+    const jwtToken = JSON.parse(atob(this.userValue.JwtToken.split('.')[1]));
+    const expires = new Date(jwtToken.exp * 1000);
+    console.log(expires);
+    console.log(expires.getTime() - Date.now() );
+    const timediff = expires.getTime() - Date.now()
+    return timediff > 0;
   }
 
   get isProvider(): boolean {
