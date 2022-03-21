@@ -259,7 +259,8 @@ export class RegistrationComponent implements OnInit {
     this.closePopupAddress();
     //this.ValidAddressToUse = false;
     //this.displayVerifybtn = true;
-    this.ContactInfomation.value.PracticeAddress = this.ValidAddressForUse;
+    this.ContactInfomation.get('PracticeAddress').setValue(this.ValidAddressForUse);
+    //this.ContactInfomation.value.PracticeAddress = this.ValidAddressForUse;
     //this.displayAddress = "none";
   }
   openPopupAddress() {
