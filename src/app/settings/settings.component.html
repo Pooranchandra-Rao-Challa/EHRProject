@@ -86,7 +86,7 @@
                 <div class="panel-heading form-inline">
                   <div class="row panel-title m-0">
                     <div class="col-md-3">Practice Location</div>
-                    <div class="col-md-7"></div>
+                    <div class="col-md-8"></div>
                     <div class="col-md-2 plusicon" data-bs-toggle="modal" data-bs-target="#staticBackdrop4">
                       <i class="fa fa-plus"></i>
                     </div>
@@ -99,8 +99,9 @@
                   <ng-container matColumnDef="Location">
                     <mat-header-cell *matHeaderCellDef>Location name</mat-header-cell>
                     <mat-cell *matCellDef="let loc"><span class="text-decoration ">
-                        <a data-remote="true" data-bs-toggle="modal" class="cursorpointer" data-bs-target="#staticBackdrop4"
-                          (click)="getEditLocData(loc)"> {{loc.Location_Name}}</a></span></mat-cell>
+                        <a data-remote="true" data-bs-toggle="modal" class="cursorpointer"
+                          data-bs-target="#staticBackdrop4" (click)="getEditLocData(loc)">
+                          {{loc.Location_Name}}</a></span></mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="Address">
                     <mat-header-cell *matHeaderCellDef>Address</mat-header-cell>
@@ -125,10 +126,10 @@
               <div class="panel  panel-default panel-nomargin panel-procedures">
                 <div class="panel-heading form-inline">
                   <div class="row panel-title m-0">
-                    <div class="col-md-2">Users</div>
-                    <div class="col-md-4 ">Practice ID#: <u>5b686dd4c832dd0c444f271a</u></div>
-                    <div class="col-md-4">Practice Name: Friendly Rebels Dental Clinic</div>
-                    <div class="col-md-2 plusicon" data-bs-toggle="modal" data-bs-target="#staticBackdrop2"><i
+                    <div class="col-md-2 col-xl-1">Users</div>
+                    <div class="col-md-4 col-xl-5">Practice ID#: <u>5b686dd4c832dd0c444f271a</u></div>
+                    <div class="col-md-4 col-xl-5">Practice Name: Friendly Rebels Dental Clinic</div>
+                    <div class="col-md-2 col-xl-1 plusicon" data-bs-toggle="modal" data-bs-target="#staticBackdrop2"><i
                         class="fa fa-plus" (click)="openPopupLocation()"></i></div>
                   </div>
                 </div>
@@ -145,8 +146,9 @@
                             src="/assets/images/avatar-empty-0b15d6123f5339b0505eef6ad8a8fe0d22d1406692b5c16b3839c561e9c92e60.svg"
                             alt="Avatar empty" width="32" height="32" style="border-radius: 36px ;background: #cfcaca;">
                         </span>
-                        <a data-remote="true" data-bs-toggle="modal" data-bs-target="#staticBackdrop3" class="cursorpointer"
-                          (click)="getUserDataforEdit(user)">{{user.first_name}} {{user.last_name}}</a></span></mat-cell>                    
+                        <a data-remote="true" data-bs-toggle="modal" data-bs-target="#staticBackdrop3"
+                          class="cursorpointer" (click)="getUserDataforEdit(user)">{{user.first_name}}
+                          {{user.last_name}}</a></span></mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="Email">
                     <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
@@ -158,24 +160,28 @@
                   </ng-container>
                   <ng-container matColumnDef="Space">
                     <mat-header-cell *matHeaderCellDef></mat-header-cell>
-                    <mat-cell *matCellDef="let user">  
-                      <mat-checkbox class="example-margin" [(ngModel)]="user.admin" (click)="checkAdminAccess(user)"><span class="admineclass">Admin</span></mat-checkbox> 
-                    </mat-cell>                   
+                    <mat-cell *matCellDef="let user">
+                      <mat-checkbox class="example-margin" [(ngModel)]="user.admin" (click)="checkAdminAccess(user)">
+                        <span class="admineclass">Admin</span>
+                      </mat-checkbox>
+                    </mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="Status">
                     <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
                     <mat-cell *matCellDef="let user">
-                      <a role="button" (click)="changeStatusAccess(user)"  [ngClass]="user.active?'StatusActive':'inactive'">
-                        <span  *ngIf="user.active">Active</span>
+                      <a role="button" (click)="changeStatusAccess(user)"
+                        [ngClass]="user.active?'StatusActive':'inactive'">
+                        <span *ngIf="user.active">Active</span>
                         <span *ngIf="!user.active">Inactive</span>
                       </a>
                     </mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="EmergencyAccess">
                     <mat-header-cell *matHeaderCellDef>Emergency Access</mat-header-cell>
-                    <mat-cell *matCellDef="let user">  
-                      <mat-checkbox class="example-margin"  (click)="changeEmergencyAccess(user)" [(ngModel)]="user.emergency_access"></mat-checkbox> 
-            
+                    <mat-cell *matCellDef="let user">
+                      <mat-checkbox class="example-margin" (click)="changeEmergencyAccess(user)"
+                        [(ngModel)]="user.emergency_access"></mat-checkbox>
+
                     </mat-cell>
                   </ng-container>
 
@@ -621,10 +627,11 @@
                 <div class="row-container">
                   <div class="row" *ngIf="disforEdit">
                     <div class="col-lg-9"></div>
-                    <div class="col-lg-3">                      
-                        <input type="checkbox" formControlName="locationprimary" class="mx-2" /><label class="mx-1 " style="font-size: 17px;">Primary Location</label>
-                   </div>
-                  
+                    <div class="col-lg-3">
+                      <input type="checkbox" formControlName="locationprimary" class="mx-2" /><label class="mx-1 "
+                        style="font-size: 17px;">Primary Location</label>
+                    </div>
+
                   </div>
                   <div class="row">
                     <div class="col-lg-12">
@@ -691,7 +698,7 @@
 
                               <button type="submit" [disabled]="LocationForm.controls.Street.value===null"
                                 (click)="AddressVerification()"
-                                class="btn-success btn mb-2 btn-lg btn-md mt-1">Verify</button> 
+                                class="btn-success btn mb-2 btn-lg btn-md mt-1">Verify</button>
                             </div>
 
                           </div>
@@ -1034,7 +1041,7 @@
             Delete
           </button>
         </div>
-        <div class="col-md-5 "></div>        
+        <div class="col-md-5 "></div>
         <div class="col-md-3 mx-0  py-0">
           <button type="button" class="btn btn-lg btn-success " data-bs-dismiss="modal" (click)="AddLocation()">
             Save Changes
@@ -1044,22 +1051,22 @@
           <button type="button" class="btn btn-lg btn-success" data-bs-dismiss="modal" (click)="closePopup()">
             Close
           </button>
-        </div>         
-      </div>      
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
 <!-- User Edit Modal Popup -->
-<div class="modal fade " id="staticBackdrop3"  data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<div class="modal fade " id="staticBackdrop3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content UserModal">
       <div class="modal-header">
-        <h4 class="modal-title">Edit User</h4> 
+        <h4 class="modal-title">Edit User</h4>
         <button type="button" class="btn btn-sm btn-success" (click)="closeUserPopup()" data-bs-dismiss="modal"
           aria-label="Close">x
-        </button>   
+        </button>
       </div>
       <div class="modal-body ex3">
         <form [formGroup]="UserInformation">
@@ -1076,7 +1083,7 @@
                       <h6 class="text-mute mx-3 my-0">300x300 px.</h6>
                       <label class="btn btn-default border mx-2 my-2" style="color: #41b6a6;">
                         Upload File <input type="file" hidden>
-                    </label>
+                      </label>
                     </div>
                   </div>
                 </div>
@@ -1129,7 +1136,7 @@
                   <div class="col-lg-5 col-md-5 col-sm-5"><label class="labelfontzise">Speciality</label>
                     <div class="form-group">
                       <mat-form-field appearance="outline" class="readonly">
-                        <mat-select  formControlName="Speciality" placeholder="Speciality">
+                        <mat-select formControlName="Speciality" placeholder="Speciality">
                           <mat-option *ngFor="let spec of speciality" [value]="spec.specName">{{spec.specName}}
                           </mat-option>
                         </mat-select>
@@ -1159,14 +1166,14 @@
               <div class="col-lg-4"><label class="labelfontzise">State</label>
                 <div class="form-group">
                   <mat-form-field appearance="outline" class="readonly">
-                    <mat-select placeholder="State" formControlName="State"  class="readonly">
+                    <mat-select placeholder="State" formControlName="State" class="readonly">
                       <mat-option *ngFor="let state of stateList" [value]="state.stateCode">{{state.stateName}}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
               </div>
-              <div class="col-lg-4 "><label><span class="labelfontzise" >Expiration Date</span>
+              <div class="col-lg-4 "><label><span class="labelfontzise">Expiration Date</span>
                 </label>
                 <div class="form-group ">
                   <mat-form-field appearance="outline" class="readonly">
@@ -1202,7 +1209,8 @@
                 </label>
                 <div class="form-group">
                   <mat-form-field appearance="outline" class="EHR1Id">
-                    <input matInput formControlName="UserId" [readonly]="true" class="notallowCursor" placeholder="6345474dffsfdf" style="cursor: not-allowed;">
+                    <input matInput formControlName="UserId" [readonly]="true" class="notallowCursor"
+                      placeholder="6345474dffsfdf" style="cursor: not-allowed;">
                   </mat-form-field>
                 </div>
               </div>
@@ -1223,33 +1231,36 @@
                 </div>
               </div>
             </div>
-           
+
             <div class="panel  panel-default panel-nomargin panel-procedures">
               <div class="panel-heading form-inline">
                 <div class="row panel-title m-0">
-                  <div class="col-md-4 py-3"><h4>Practice Location and Provider Schedule </h4></div>
+                  <div class="col-md-4 py-3">
+                    <h4>Practice Location and Provider Schedule </h4>
+                  </div>
                 </div>
               </div>
-            </div> 
-            
-            <mat-table class="table table-responsive userfromPractable"
-             [dataSource]="dataSource5">
+            </div>
+
+            <mat-table class="table table-responsive userfromPractable" [dataSource]="dataSource5">
               <ng-container matColumnDef="LocationName">
                 <mat-header-cell *matHeaderCellDef>Location Name</mat-header-cell>
-                <mat-cell *matCellDef="let loc">{{loc.name}} </mat-cell> 
+                <mat-cell *matCellDef="let loc">{{loc.name}} </mat-cell>
               </ng-container>
               <ng-container matColumnDef="CityState">
                 <mat-header-cell *matHeaderCellDef>City, State</mat-header-cell>
-               <mat-cell *matCellDef="let loc">{{loc.city}}, {{loc.state}}</mat-cell> 
+                <mat-cell *matCellDef="let loc">{{loc.city}}, {{loc.state}}</mat-cell>
               </ng-container>
-              <ng-container matColumnDef="PracticeSchedule" >
+              <ng-container matColumnDef="PracticeSchedule">
                 <mat-header-cell *matHeaderCellDef>Practice Schedule</mat-header-cell>
-                <mat-cell *matCellDef="let loc" ><span class="cell-breakWord">{{loc.shortofWeek}}, {{loc.from}} - {{loc.to}}, {{loc.specific_hour}}</span></mat-cell>
+                <mat-cell *matCellDef="let loc"><span class="cell-breakWord">{{loc.shortofWeek}}, {{loc.from}} -
+                    {{loc.to}}, {{loc.specific_hour}}</span></mat-cell>
               </ng-container>
               <ng-container matColumnDef="ServicedLocation">
-                <mat-header-cell *matHeaderCellDef>Serviced Location(s)</mat-header-cell>                
-                <mat-cell *matCellDef="let loc">  
-                  <mat-checkbox class="example-margin" [ngModelOptions]="{standalone: true}" [ngModel]="loc.assigend_locations"></mat-checkbox>         
+                <mat-header-cell *matHeaderCellDef>Serviced Location(s)</mat-header-cell>
+                <mat-cell *matCellDef="let loc">
+                  <mat-checkbox class="example-margin" [ngModelOptions]="{standalone: true}"
+                    [ngModel]="loc.assigend_locations"></mat-checkbox>
                 </mat-cell>
               </ng-container>
 
@@ -1258,8 +1269,10 @@
             </mat-table>
             <div class="panel my-3 panel-default panel-nomargin panel-procedures">
               <div class="panel-heading form-inline">
-                <div class="row panel-title m-0" >
-                  <div class="col-md-4 py-3"><h4>User Login Info</h4></div>
+                <div class="row panel-title m-0">
+                  <div class="col-md-4 py-3">
+                    <h4>User Login Info</h4>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1267,7 +1280,7 @@
               <div class="col-lg-4"><label class="labelfontzise">Role</label>
                 <div class="form-group">
                   <mat-form-field appearance="outline" class="readonly">
-                    <mat-select placeholder="Role" formControlName="Role" >
+                    <mat-select placeholder="Role" formControlName="Role">
                       <mat-option *ngFor="let role of role" [value]="role.roleName">{{role.roleName}}
                       </mat-option>
                     </mat-select>
@@ -1275,19 +1288,20 @@
                 </div>
               </div>
               <div class="col-lg-4 " style="margin-top: 27px">
-                <mat-checkbox class="example-margin" 
-                formControlName="Active"> 
-                <label class="labelfontzise mt-2">Active</label></mat-checkbox> 
+                <mat-checkbox class="example-margin" formControlName="Active">
+                  <label class="labelfontzise mt-2">Active</label>
+                </mat-checkbox>
 
                 <!-- <mat-checkbox formControlName="Active" class="" >
                   <label class="labelfontzise">Active</label>
                 </mat-checkbox>          -->
               </div>
               <div class="col-lg-4">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-top: 27px" class="btn btn-lg btn-success">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                  style="margin-top: 27px" class="btn btn-lg btn-success">
                   Change Password
                 </button>
-              </div>            
+              </div>
             </div>
             <div class="row">
               <div class="col-lg-4"><label class="labelfontzise">Login Email Address</label>
@@ -1299,13 +1313,14 @@
               </div>
               <div class="col-lg-4"><label class="labelfontzise">Login Phone</label>
                 <div class="form-group">
-                  <mat-form-field appearance="outline" class="readonly" >
-                    <input matInput  formControlName="LoginPhone" placeholder="Login Phone">
+                  <mat-form-field appearance="outline" class="readonly">
+                    <input matInput formControlName="LoginPhone" placeholder="Login Phone">
                   </mat-form-field>
                 </div>
               </div>
               <div class="col-lg-4">
-                <button type="submit" class="btn btn-lg btn-success" style="margin-top: 27px">Resend Inviation Email</button>
+                <button type="submit" class="btn btn-lg btn-success" style="margin-top: 27px">Resend Inviation
+                  Email</button>
               </div>
               <div class="col-lg-4"><label class="labelfontzise">Recovery Email</label>
                 <div class="form-group">
@@ -1326,10 +1341,11 @@
             </button>
           </div>
           <div class="col-md-2">
-            <button type="button" class="btn btn-lg btn-success mx-2" data-bs-dismiss="modal" (click)="closeUserPopup()">
+            <button type="button" class="btn btn-lg btn-success mx-2" data-bs-dismiss="modal"
+              (click)="closeUserPopup()">
               Cancel
             </button>
-          </div>         
+          </div>
         </div>
       </div>
     </div>
@@ -1362,7 +1378,8 @@
               <mat-form-field appearance="outline" class="example-full-width" [style.width.px]=565>
                 <input type="text" [value]="addressdata" placeholder="address" matInput>
                 <md-icon class="link" (click)="splitAddress()" *ngIf="!sucessdisplay">
-                  <a class="link" (click)="splitAddress()">use this</a></md-icon>
+                  <a class="link" (click)="splitAddress()">use this</a>
+                </md-icon>
                 <!-- <mat-icon matSuffix (click)="splitAddress()" >
                   <a class="link" (click)="splitAddress()">use this</a>
                 </mat-icon> -->
@@ -1379,13 +1396,14 @@
 
 <!-- Add User Modal Popup -->
 
-<div class="modal fade" id="staticBackdrop2" [ngStyle]="{'display':displayuser}" 
-  data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="staticBackdrop2" [ngStyle]="{'display':displayuser}" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog  modal-md" role="document" style="top: 250px;width: 450px;">
     <div class="modal-content AddUserModal">
       <div class="modal-header">
-        <h4 class="modal-title" style="font-size: 18px;">Add New User</h4>       
-        <button type="button" class="btn btn-sm btn-success ClosebtnAddForm" data-bs-dismiss="modal" aria-label="Close">x</button>
+        <h4 class="modal-title" style="font-size: 18px;">Add New User</h4>
+        <button type="button" class="btn btn-sm btn-success ClosebtnAddForm" data-bs-dismiss="modal"
+          aria-label="Close">x</button>
       </div>
       <div class="modal-body">
         <form [formGroup]="AddUserFrom">
@@ -1394,7 +1412,8 @@
               <div class="form-group">
                 <div class="input-group">
                   <span class="my-2 labelclass form-control">First Name</span>
-                  <input style="margin: 8px;" formControlName="FirstName" class="addfromdesign form-control mx-0" type="text" name="FirstName" id="FirstName">
+                  <input style="margin: 8px;" formControlName="FirstName" class="addfromdesign form-control mx-0"
+                    type="text" name="FirstName" id="FirstName">
                 </div>
               </div>
             </div>
@@ -1402,7 +1421,8 @@
               <div class="form-group">
                 <div class="input-group">
                   <span class="my-2 labelclass form-control">Last Name</span>
-                  <input style="margin: 8px;" formControlName="LastName" class="addfromdesign form-control mx-0" type="text" name="LastName" id="LastName">
+                  <input style="margin: 8px;" formControlName="LastName" class="addfromdesign form-control mx-0"
+                    type="text" name="LastName" id="LastName">
                 </div>
               </div>
             </div>
@@ -1410,8 +1430,9 @@
               <div class="form-group">
                 <div class="input-group input-group-phone">
                   <span class="my-2 labelclass form-control">Email</span>
-                  <input style="margin: 8px;" formControlName="Email" class="addfromdesign form-control mx-0" type="text" name="Email" id="Email">
-  
+                  <input style="margin: 8px;" formControlName="Email" class="addfromdesign form-control mx-0"
+                    type="text" name="Email" id="Email">
+
                 </div>
               </div>
             </div>
@@ -1419,7 +1440,7 @@
               <div class="col-lg-6 col-md-6 col-sm-4 my-2">
                 <div class="form-group">
                   <mat-form-field appearance="outline" class="readonly">
-                    <mat-select placeholder="Role"  formControlName="Role" >
+                    <mat-select placeholder="Role" formControlName="Role">
                       <mat-option *ngFor="let role of role" [value]="role.roleName">{{role.roleName}}
                       </mat-option>
                     </mat-select>
@@ -1434,7 +1455,7 @@
                       <mat-option value="False">Disable</mat-option>
                     </mat-select>
                   </mat-form-field>
-  
+
                 </div>
               </div>
             </div>
@@ -1443,15 +1464,15 @@
             <div class="col-md-10"></div>
             <div class="col-md-2">
               <button type="button" class="btn  text-right  btn-lg btn-success" data-bs-dismiss="modal"
-               (click)="AddUser()">
+                (click)="AddUser()">
                 Add
               </button>
             </div>
-            
+
           </div>
-        </form>     
+        </form>
       </div>
-     
+
     </div>
   </div>
 </div>
