@@ -62,4 +62,14 @@ export class SettingsService extends APIEndPoint {
   DropAppointmentType(reqdata: any) {
     return this._ProcessPostRequest<any>(this._dropAppointmentTypeUrl,reqdata);
   }
+  PostProvdierAdminAccess(reqdata:any){
+    return this._ProcessPostRequest<any>(this._updateProviderAdmineAccess,reqdata);
+  }
+  UserList(reqdata:any){
+    return this._ProcessPostRequest<any>(this._getUserList,reqdata);
+  }
+  AddUpdateUserDetails(reqdata:any){
+    return this._ProcessPostRequest<any>(this._addUpdateUser,reqdata);
+  }
+
 }

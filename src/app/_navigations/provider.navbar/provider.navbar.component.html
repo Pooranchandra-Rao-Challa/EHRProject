@@ -61,8 +61,8 @@
       <mat-menu #menu="matMenu" [hasBackdrop]="false">
         <div (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()">
           <mat-form-field appearance="outline" class="col-lg-12 hover">
-            <mat-select class="textcolor" [value]="0" name="locationarray" disableOptionCentering>
-              <mat-option *ngFor="let loc of locationarray; index as i" [value]="i" (click)="change(i)"> {{ loc }}
+            <mat-select class="textcolor" [value]="currentLocation" name="location" disableOptionCentering>
+              <mat-option *ngFor="let location of locationsInfo" [value]="location.locationId" (click)="changeLocation(location.locationId)"> {{ location.locationName }}
               </mat-option>
             </mat-select>
           </mat-form-field>

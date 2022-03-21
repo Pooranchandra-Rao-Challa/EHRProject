@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../_services/authentication.service';
 import { SettingsService } from '../_services/settings.service';
-import { User } from '../_models';
+import { User, UserLocations } from '../_models';
 import { UUID } from 'angular2-uuid'
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 declare var $: any;
@@ -19,57 +19,11 @@ export class SettingsComponent implements OnInit {
   disSechudle: boolean;
   ProviderId: any;
   LocationId: any;
-  users: User;
+  user: User;
   AdminCheck: boolean;
   displayStyle = "none";
   displayuser = "none";
   displayAddress = "none";
-
-  user: any = [{
-
-    "FullName": "Joha",
-    "Email": "jkiffin0@google.pl",
-    "Role": "Kiffin",
-    "Space": "Admin",
-    "Status": "Active",
-    "EmergencyAccess": ""
-
-  }, {
-
-    "FullName": "Johannah",
-    "Email": "jkiffin0@google.pl",
-    "Role": "Kiffin",
-    "Space": "Admin",
-    "Status": "Active",
-    "EmergencyAccess": ""
-  },
-  {
-
-    "FullName": "Anna",
-    "Email": "jkiffin0@google.pl",
-    "Role": "Kiffin",
-    "Space": "Admin",
-    "Status": "Active",
-    "EmergencyAccess": ""
-  },
-  {
-
-    "FullName": "Johan",
-    "Email": "jkiffin0@google.pl",
-    "Role": "Kiffin",
-    "Space": "Admin",
-    "Status": "Active",
-    "EmergencyAccess": ""
-  },
-  {
-
-    "FullName": "Joha",
-    "Email": "jkiffin0@google.pl",
-    "Role": "Kiffin",
-    "Space": "Admin",
-    "Status": "Active",
-    "EmergencyAccess": ""
-  }];
   valueid: any;
 
   tableColumns: string[] = ['Location', 'Address', 'Phone', 'Providers'];
@@ -104,29 +58,7 @@ export class SettingsComponent implements OnInit {
   hover1: any;
   getResponse: any = {}
 
-  AppointData = {
-    "Status": "text",
-    "Color": "text",
-    "isEdit": "isEdit"
-  }
-  AppointStatusData = [
-    { "Status": "Sechduled", "Color": "gdfg" },
-    { "Status": "Confirmed", "Color": "gdfgd" },
-    { "Status": "Not Confirmed", "Color": "fdsgs" },
-    { "Status": "Cancelled", "Color": "sdfg" },
-
-  ];
-  AppointType = {
-    "Type": "text",
-    "Color": "text",
-    "isEdit": "isEdit"
-  }
-  AppointTypeData = [
-    { "Type": "Consultation", "Color": "Abcd" },
-    { "Type": "Crown/Bridge Delivery", "Color": "Abcd" },
-    { "Type": "Emergency", "Color": "Abcd" },
-    { "Type": "Endo", "Color": "Abcd" },
-  ]
+  
 
   myString: number;
   PhoneNumber: HTMLInputElement;
@@ -134,7 +66,7 @@ export class SettingsComponent implements OnInit {
   displayedColumns1: string[] = ['Status', 'Color', 'isEdit'];
   dataSource3: any;
   // dataSchema = this.USERSCHEMA;
-  dataSchema = this.AppointData;
+  
   show: boolean;
   searchElement: any;
   LocationAddress: any;
@@ -144,17 +76,29 @@ export class SettingsComponent implements OnInit {
   role: { roleId: number; roleName: string }[];
   stateList: { stateCode: string; stateName: string }[];
   UserInformation: FormGroup;
+  NavbarlocationId: any;
+  AddUserFrom: FormGroup;
+  ChangePasswords: FormGroup;
+  userList: any;
+  locationList: any;
+  newUserName: any;
+  tabledata: any=[];
+  providerList: any;
+  successUserModel = 'none'; 
+  saveUserModel = "none";
+  locationsInfo: UserLocations[];
+  
   constructor(private fb: FormBuilder,
     private authService: AuthenticationService, private settingsService: SettingsService) {
-    this.users = authService.userValue;
+    this.user = authService.userValue;
+    this.locationsInfo = JSON.parse(this.user.LocationInfo);
   }
 
   ngOnInit(): void {
 
-    this.dataSource3 = this.AppointTypeData;
-    this.dataSource4 = this.AppointStatusData;
     this.buildTimeZoneForm();
     this.buildLocationForm();
+    this.buildAddUserForm();
     this.getLocationsList()
     this.getProviderDetails();
     this.getTimeZoneList();
@@ -167,8 +111,20 @@ export class SettingsComponent implements OnInit {
     });
     //user deatils
     this.dropdownMenusList();
-    this.buildUserForm();
+    this.buildUserForm();  
+    this.buildChangePwdForm();
   }
+
+  buildAddUserForm() {
+    this.AddUserFrom = this.fb.group({
+      FirstName: [],
+      LastName: [],
+      Email: [],
+      Role: [],
+      Status: []
+    });
+
+  } 
   dropdownMenusList() {
     this.nameTitle = [
       { titleId: 1, titleName: 'Dr' },
@@ -279,18 +235,44 @@ export class SettingsComponent implements OnInit {
       NPI: [''],
       Speciality: [''],
       SecondarySpeciality: [''],
-      MedicalLicense: [''],
+      DentalLicense: [''],
       State: [''],
+      UPIN: [''],
+      UserId: [''],
       ExpirationDate: [''],
+      NADEAN: [''],
+      SSN: [''],
       DEA: [''],
       EHR1UserID: [''],
       Role: [''],
-      // NPI: ['', Validators.required],
+      Active: [''],
+      EmailAddress: [''],
+      LoginPhone: [''],
+      RecoveryEmail: ['']
 
     })
     this.UserInformation.get('Title').setValue('Dr')
   }
+  buildChangePwdForm() {
+    this.ChangePasswords = this.fb.group({
+      Email: [],
+      NewPassword: [],
+      ConfirmPassword: [, Validators.required]
+    }, { validators: this.matchPassword });
 
+  }
+  matchPassword(AC: AbstractControl) {
+    let password = AC.get('NewPassword').value;
+    if (AC.get('ConfirmPassword').touched || AC.get('ConfirmPassword').dirty) {
+      let verifyPassword = AC.get('ConfirmPassword').value;
+
+      if (password != verifyPassword) {
+        AC.get('ConfirmPassword').setErrors({ MatchPassword: true })
+      } else {
+        return null
+      }
+    }
+  }
 
   addStatus() {
     const newRow = { "Status": "", "Color": "", isEdit: true }
@@ -366,13 +348,11 @@ export class SettingsComponent implements OnInit {
 
   // get display Location Details
   getLocationsList() {
-    this.ProviderId = this.users.ProviderId;
-    console.log(this.ProviderId)
+    this.ProviderId = this.user.ProviderId;    
     this.settingsService.LocationList(this.ProviderId).subscribe(data => {
       if (data.IsSuccess) {
         this.dataSource = data.ListResult;
-        this.LocationAddress = data.ListResult;
-        console.log(this.LocationAddress);
+        this.LocationAddress = data.ListResult;      
 
       }
     });
@@ -382,38 +362,18 @@ export class SettingsComponent implements OnInit {
   getProviderDetails() {
     debugger;
     var reqparams = {
-      provider_Id: "615ad0cb391cba75e3388e5d",//this.users.ProviderId,
-      location_Id: "5b686dd7c832dd0c444f288a" //this.users.LocationId
+      provider_Id: this.user.ProviderId, 
+      location_Id: this.locationsInfo[0].locationId  //location id of login user
     }
     this.settingsService.ProviderDetails(reqparams).subscribe(data => {
       this.getResponse = data;
       if (this.getResponse.IsSuccess) {
-        this.dataSource2 = this.getResponse.ListResult;
-        console.log(this.dataSource2);
+        this.dataSource2 = this.getResponse.ListResult;       
       }
 
     });
   }
-
-  // Update User Grid
-  CheckAdminAccess(row) {
-    let reqparams = {
-      ProviderId: row.C_id,
-      AdminRole: row.admin,
-      EmergencyAcess: row.emergency_access,
-      Active: row.active,
-      UpdatedAt: new Date()
-    }
-    /*this.accountservice.PostProvdierAdminAccess(reqparams).subscribe(data => {
-      if (data) {
-
-      }
-      else {
-
-      }
-
-    })*/
-  }
+  
   // dropdown for TimeZone
   getTimeZoneList() {
     debugger;
@@ -628,7 +588,7 @@ export class SettingsComponent implements OnInit {
 
           if (locationId != null) {
             let locationdata = {
-              "ProviderId": this.users.ProviderId,
+              "ProviderId": this.user.ProviderId,
               "LocationId": locationId,
               "LocationName": data.LocationName,
               "LocationPhone": data.LocationPhone,
@@ -650,7 +610,7 @@ export class SettingsComponent implements OnInit {
           }
           else {
             let locationdata = {
-              "ProviderId": this.users.ProviderId,
+              "ProviderId": this.user.ProviderId,
               "LocationId": UUID.UUID(),
               "LocationName": data.LocationName,
               "LocationPhone": data.LocationPhone,
@@ -674,7 +634,7 @@ export class SettingsComponent implements OnInit {
         else {
           if (locationId != null) {
             let locationdata = {
-              "ProviderId": this.users.ProviderId,
+              "ProviderId": this.user.ProviderId,
               "LocationId": locationId,
               "LocationName": data.LocationName,
               "LocationPhone": data.LocationPhone,
@@ -696,7 +656,7 @@ export class SettingsComponent implements OnInit {
           }
           else {
             let locationdata = {
-              "ProviderId": this.users.ProviderId,
+              "ProviderId": this.user.ProviderId,
               "LocationId": UUID.UUID(),
               "LocationName": data.LocationName,
               "LocationPhone": data.LocationPhone,
@@ -726,15 +686,13 @@ export class SettingsComponent implements OnInit {
 
       if (this.getResponse.IsSuccess) {
         Swal.fire({
-          icon: 'success',
+          position: 'top',
+          background: '#e1dddd',
           title: 'Location Save Successfully',
-          // showConfirmButton: true,
-          // confirmButtonText: 'Close',
+          showConfirmButton: true,
+          confirmButtonText: 'Close',
           width: '700',
-          position: 'top-end',
-          timer: 1500
-        });
-        console.log(this.getResponse)
+        });        
         this.closePopup();
         this.getLocationsList();
         this.clearForm();
@@ -799,19 +757,343 @@ export class SettingsComponent implements OnInit {
     this.buildLocationForm();
 
   }
+  //user
 
-  //////user
-
-
-
-
-  GetEditUserData(user) {
-
+  
+  checkAdminAccess(userdetails) {
+   
+    let reqparams = {
+      ProviderId: userdetails._id,
+      AdminRole: !userdetails.admin,
+      EmergencyAcess: userdetails.emergency_access,
+      Active: userdetails.active,
+      UpdatedAt: new Date()
+    }
+    this.updateAdminAccess(reqparams);
   }
-  UpdateUser() {
+  // update Status of the User
+  changeStatusAccess(userdetails){
+    let reqparams = {
+      ProviderId: userdetails._id,
+      AdminRole: userdetails.admin,
+      EmergencyAcess: userdetails.emergency_access,
+      Active: !userdetails.active,
+      UpdatedAt: new Date()
+    }
+    this.updateAdminAccess(reqparams);
+  }
+  // udateEmmergencyAccess
+  changeEmergencyAccess(userdetails){
+    let reqparams = {
+      ProviderId: userdetails._id,
+      AdminRole: userdetails.admin,
+      EmergencyAcess: !userdetails.emergency_access,
+      Active: userdetails.active,
+      UpdatedAt: new Date()
+    }
+    this.updateAdminAccess(reqparams);
+  }
 
+  updateAdminAccess(reqparams){
+    this.settingsService.PostProvdierAdminAccess(reqparams).subscribe(useraccess => {
+      this.getResponse = useraccess;
+      if (this.getResponse.IsSuccess){
+         this.getProviderDetails();
+      }
+    })
+   } 
+  alertmsgforAddUser(msg:any)
+  {  
+     Swal.fire({
+      customClass: {            
+        container: 'container-class',  
+        title: 'title-error', 
+        confirmButton: 'close-error-button',    
+      },    
+      position: 'top',
+      title: msg, 
+      width: '700',
+      confirmButtonText: 'Close',
+      background: '#e5e1e1',
+      showConfirmButton: true,              
+      });
+  }
+  ChangePassword() {
+    let pwd = this.ChangePasswords.value;
+    if (pwd.NewPassword != pwd.ConfirmPassword) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Confirm Password Must Match With NewPassword',
+        showConfirmButton: true,
+        confirmButtonText: 'Ok',
+        width: '600',
+        position: 'top-end',
+      })
+    }
+    else {
+     
+    }
+  } 
+
+  AddUser() {
+    
+    let formValue = this.AddUserFrom.value;  
+   
+    if(formValue.FirstName==null && formValue.LastName==null && formValue.Role==null)
+    { 
+      var msg='Email can not be blank, Email is invalid, and Provider is invalid';
+      this.alertmsgforAddUser(msg);
+      return;
+    }
+    if(formValue.Email==null){
+      var msg='Email can not be blank and Email is invalid';
+      this.alertmsgforAddUser(msg);
+      return;
+    }
+    if(formValue.Role==null){
+      var msg='Provider is invalid';
+      this.alertmsgforAddUser(msg);
+      return;
+    }   
+    
+    else{
+      let reqparams = {
+        "Id": 0,
+        "UserId": "124abcd",
+        "UserProviderId": "24",
+        "Title": "",
+        "FirstName": formValue.FirstName,
+        "MiddleName": formValue.MiddleName,
+        "LastName": formValue.LastName,
+        "PracticeId":  this.NavbarlocationId, //current loction id
+        "PracticeName": "", //current loction name       
+        "Degree": "",
+        "Speciality": "",
+        "SecondarySpeciality": "",
+        "PracticeRole": formValue.Role,
+        "assigend_location": "",
+        "DentalLicense": "",
+        "ExpirationAt": "",
+        "Active": formValue.Status,
+        "State": "",
+        "NPI": "",
+        "Dea": "",
+        "Upin": "",
+        "Nadean": "",
+        "Ssn": "",
+        "StreetAddress": "",
+        "SuiteNumber": "",
+        "PrimarPhone": "",
+        "MobilePhone": "",
+        "Email": formValue.Email,
+        "AltEmail": "",
+        "EncryptedPassword": "",
+        "SelectedUserLocationIds": ""
+      }
+      this.settingsService.AddUpdateUserDetails(reqparams).subscribe(UserList => {
+        this.getResponse = UserList;
+        if (this.getResponse.IsSuccess) {
+          this.closeAddUserModel();
+          this.openSaveUserModel();
+          //this.newUserName = this.AddUserFrom.value.FirstName;
+          this.closePopup();
+          this.getProviderDetails();        
+        }
+        else {
+          Swal.fire({
+            customClass: {            
+              container: 'container-class',  
+              title: 'title-error', 
+              confirmButton: 'close-error-button',    
+            },           
+            position: 'top',
+            title: msg, 
+            width: '700',
+            confirmButtonText: 'Close',
+            background: '#e5e1e1',
+            showConfirmButton: true,              
+            });
+        }
+      });
+    }   
+   
+  }
+  closeAddUserModel() {
+    this.displayuser = "none";
+  } 
+
+  getUserDataforEdit(user) {
+      
+    var reqparams = {
+      ProviderId: this.user.ProviderId,//this.users.ProviderId,
+      UserProviderId: user._id
+    } 
+   
+    this.settingsService.UserList(reqparams).subscribe(Userlist => {
+      this.getResponse = Userlist;     
+      this.userList = this.getResponse.ListResult[0];
+      this.providerList = this.getResponse.ListResult[1];
+      this.locationList = this.getResponse.ListResult[2];      
+      if (this.getResponse.IsSuccess) {        
+        this.tabledata=this.locationList;
+       
+        this.tabledata.map((e) => {
+          
+          if(e.assigend_location==1)
+          {
+            e.assigend_locations==true;
+          }else{
+            e.assigend_locations==false;
+          }
+          switch (e._weekday.toLowerCase()) {
+            case 'sunday': 
+              e.shortofWeek = "su";
+              break;
+            case 'monday':
+              e.shortofWeek = "m";
+              break;
+            case 'tuesday': 
+            e.shortofWeek = "t";
+              break
+            case 'wednesday':
+            e.shortofWeek = "w";
+              break;
+            case 'thursday':  
+            e.shortofWeek = "th";
+              break;
+            case 'friday': 
+            e.shortofWeek = "f";
+              break;
+            case 'saturday':
+            e.shortofWeek = "sa";
+              break;       
+          }     
+        });
+        this.dataSource5= this.tabledata;
+        console.log(this.tabledata)
+        this.UserInformation.get('Title').setValue('Dr');
+        this.UserInformation.get('FirstName').setValue(this.providerList[0].first_name);
+        this.UserInformation.get('MiddleName').setValue(this.providerList[0].middle_name);
+        this.UserInformation.get('LastName').setValue(this.providerList[0].last_name);
+        this.UserInformation.get('Degree').setValue(this.providerList[0].degree);
+        this.UserInformation.get('Speciality').setValue(this.providerList[0].speciality);
+        this.UserInformation.get('SecondarySpeciality').setValue(this.providerList[0].secondary_speciality);
+        this.UserInformation.get('DentalLicense').setValue(this.providerList[0].dental_licence);
+        this.UserInformation.get('State').setValue(this.providerList[0].state);
+        this.UserInformation.get('ExpirationDate').setValue(this.providerList[0].expiration_at);
+        this.UserInformation.get('NPI').setValue(this.providerList[0].npi);
+        this.UserInformation.get('DEA').setValue(this.providerList[0].dea);
+        this.UserInformation.get('UPIN').setValue(this.providerList[0].upin);
+        this.UserInformation.get('UserId').setValue(this.providerList[0].user_id);
+        this.UserInformation.get('NADEAN').setValue(this.providerList[0].nadean);
+        this.UserInformation.get('SSN').setValue(this.providerList[0].ssn);
+        this.UserInformation.get('Role').setValue(this.userList[0]._role);
+        this.UserInformation.get('Active').setValue(this.providerList[0].active);
+        this.UserInformation.get('EmailAddress').setValue(this.userList[0].email);
+        this.UserInformation.get('LoginPhone').setValue(this.providerList[0].primary_phone);
+        this.UserInformation.get('RecoveryEmail').setValue(this.userList[0].recovery_email);
+      
+      }
+
+    });
+  }
+ 
+  openSaveUserModel() {
+    this.saveUserModel = "block";
+  }
+
+  UpdateUser() {
+      var UserFormDetails = this.UserInformation.value;
+      this.userList[0];     
+      let reqparams = {
+        "Id": 1,
+        "UserId": "122abcd",
+        "UserProviderId": "22",
+        "Title": UserFormDetails.Title,
+        "FirstName": UserFormDetails.FirstName,
+        "MiddleName": UserFormDetails.MiddleName,
+        "LastName": UserFormDetails.LastName,
+        "PracticeId": "5b686dd7c832dd0c444f288a",
+        "PracticeName": "Mumbai",
+        "Degree": UserFormDetails.Degree,
+        "Speciality": UserFormDetails.Speciality,
+        "SecondarySpeciality": UserFormDetails.SecondarySpeciality,
+        "PracticeRole": UserFormDetails.Role,
+        "DentalLicense": UserFormDetails.DentalLicense,
+        "ExpirationAt": UserFormDetails.ExpirationDate,
+        "Active": true,
+        "State": UserFormDetails.State,
+        "NPI": UserFormDetails.NPI,
+        "Dea": UserFormDetails.DEA,
+        "Upin": UserFormDetails.UPIN,
+        "Nadean": UserFormDetails.NADEAN,
+        "Ssn": UserFormDetails.SSN,
+        "StreetAddress": 'Abcd',
+        "SuiteNumber": '123',
+        "PrimarPhone": UserFormDetails.LoginPhone,
+        "MobilePhone": UserFormDetails.LoginPhone,
+        "Email": UserFormDetails.EmailAddress,
+        "AltEmail": UserFormDetails.RecoveryEmail,
+        "EncryptedPassword": "Abcd@123",
+        "SelectedUserLocationIds": "5b686dd7c832dd0c444f288a"//select user location
+      }
+      this.settingsService.AddUpdateUserDetails(reqparams).subscribe(UserList => {
+        this.getResponse = UserList;
+        if (this.getResponse.IsSuccess) {
+          this.closeAddUserModel();
+          this.closePopup();
+          Swal.fire({          
+          // icon: 'success',       
+            position: 'top',
+            background: '#e1dddd',
+            title: 'Provider updated successfully',
+            showConfirmButton: true,
+            confirmButtonText: 'Close',
+            width: '700',
+          });
+          this.getProviderDetails();        
+        }
+        else {
+          Swal.fire({
+            customClass: {            
+              container: 'container-class',  
+              title: 'title-error', 
+              confirmButton: 'close-error-button',    
+            },    
+            position: 'top',
+            title: this.getResponse.EndUserMessage, 
+            width: '700',
+            confirmButtonText: 'Close',
+            background: '#e5e1e1',
+            showConfirmButton: true,              
+            });         
+        }
+      });
+  }
+
+ closeUserPopup() {
+    this.buildUserForm();
+  }
+  // openPopupLocation(){
+  //  this.buildAddUserForm();
+  // }
+  closeSaveUserModel() {
+    this.saveUserModel = "none";
+    this.opensuccessUserModel();
+    Swal.fire({
+      // icon: 'success',
+      position: 'top',
+      background: '#e1dddd',
+      title: 'User created successfully',
+      showConfirmButton: true,
+      confirmButtonText: 'Close',
+      width: '700',
+    });
   }
   CloseUserPopup() {
     this.buildUserForm();
+  }
+  opensuccessUserModel() {
+    this.successUserModel = 'block';
   }
 }

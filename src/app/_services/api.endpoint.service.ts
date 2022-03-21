@@ -128,6 +128,16 @@ export class APIEndPoint extends EndpointBase {
   get _dropAppointmentStatusUrl(){
     return this._baseUrl + "DropAppointmentStatus";
   }
+  get _updateProviderAdmineAccess(){
+    return this._baseUrl + "UpdateProviderAdminAccess";
+  }
+  get _getUserList(){
+    return this._baseUrl + "GetUserDetails";
+  }
+  get _addUpdateUser(){
+    return this._baseUrl + "AddUpdateUser";
+  }
+
   constructor(public http: HttpClient) {
     super();
   }
