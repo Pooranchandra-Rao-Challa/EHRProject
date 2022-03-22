@@ -93,7 +93,7 @@ export class AuthenticationService {
         else if (this.isAdmin)
           this.router.navigate(['/admin/providers']);
         else if (this.isPatient)
-          this.router.navigate(['/patinet/patientview']);
+          this.router.navigate(['/patient/dashboard']);
         //else
           //this.router.navigate(['/reports/categoryreports']);
       }

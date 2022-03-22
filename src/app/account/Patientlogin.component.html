@@ -35,10 +35,10 @@
                             <form class="my-form" [formGroup]="loginForm">
                                 <div>
                                     <mat-form-field class="w-100" appearance="outline">
-                                        <input matInput placeholder="Email /UserName" />
+                                        <input matInput placeholder="Email /UserName" name="EmailId" formControlName="EmailId" />
                                     </mat-form-field>
                                     <mat-form-field class="w-100" appearance="outline">
-                                        <input matInput placeholder="Password" type="password" />
+                                        <input matInput placeholder="Password" name="Password" formControlName="Password" type="password" />
                                     </mat-form-field>
                                 </div>
                                 <div style="color: #287066" class="pull-right">
@@ -54,7 +54,7 @@
                         <mat-checkbox class="example-margin"><span>Remember me</span></mat-checkbox>
                     </div>
                     <div>
-                        <button mat-raised-button (click)="OnFormSubmit()">Sign in</button>
+                        <button mat-raised-button (click)="OnLoginSubmit()">Sign in</button>
                     </div>
                 </div>
 
