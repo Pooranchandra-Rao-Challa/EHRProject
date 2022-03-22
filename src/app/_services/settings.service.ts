@@ -6,15 +6,15 @@ export class SettingsService extends APIEndPoint {
   constructor(http: HttpClient) { super(http); }
 
   AppointmentTypes(reqparams: any) {
-    return this._ProcessPostRequest<any>(this._appointmentTypesUrl,reqparams);
+    return this._ProcessPostRequest<any>(this._appointmentTypesUrl, reqparams);
   }
 
   AppointmentStatuses(reqparams: any) {
-    return this._ProcessPostRequest<any>(this._appointmentStatusesUrl,reqparams);
+    return this._ProcessPostRequest<any>(this._appointmentStatusesUrl, reqparams);
   }
 
   AddUpdateUser(reqdata: any) {
-    return this._ProcessPostRequest<any>(this._addUpdateUserUrl,reqdata);
+    return this._ProcessPostRequest<any>(this._addUpdateUserUrl, reqdata);
   }
 
   TimeZones() {
@@ -22,15 +22,16 @@ export class SettingsService extends APIEndPoint {
   }
 
   AddUpdateLocation(reqparams: any) {
-    return this._ProcessPostRequest<any>(this._addUpdateLocationUrl,reqparams);
+    return this._ProcessPostRequest<any>(this._addUpdateLocationUrl, reqparams);
   }
 
   DisplayDateTimeOfZone(reqdata: any) {
-    return this._ProcessPostRequest<any>(this._displayDateTimeOfZoneUrl,reqdata);
+    let postdata = { timeZoneId: reqdata };
+    return this._ProcessGetRequest<any>(this._displayDateTimeOfZoneUrl+"?timeZoneId="+encodeURIComponent(reqdata)  );
   }
 
   AddressVerification(reqparams: any) {
-    return this._ProcessPostRequest<any>(this._addressVerificationUrl,reqparams);
+    return this._ProcessPostRequest<any>(this._addressVerificationUrl, reqparams);
   }
 
   Location(reqparams: any) {
@@ -40,26 +41,36 @@ export class SettingsService extends APIEndPoint {
 
   LocationList(providerId: any) {
     const apiEndPoint = this._locationsListUrl + providerId;
-    return this._ProcessPostRequest<any>(apiEndPoint,providerId);
+    return this._ProcessPostRequest<any>(apiEndPoint, providerId);
   }
 
   ProviderDetails(reqparams: any) {
-    return this._ProcessPostRequest<any>(this._providerDetailsUrl,reqparams);
+    return this._ProcessPostRequest<any>(this._providerDetailsUrl, reqparams);
   }
 
   AddUpdateAppointmentStatus(reqdata: any) {
-    return this._ProcessPostRequest<any>(this._addUpdateAppointmentStatusUrl,reqdata);
+    return this._ProcessPostRequest<any>(this._addUpdateAppointmentStatusUrl, reqdata);
   }
 
   AddUpdateAppointmentType(reqdata: any) {
-    return this._ProcessPostRequest<any>(this._addUpdateAppointmentTypeUrl,reqdata);
+    return this._ProcessPostRequest<any>(this._addUpdateAppointmentTypeUrl, reqdata);
   }
 
   DropAppointmentStatus(reqdata: any) {
-    return this._ProcessPostRequest<any>(this._dropAppointmentStatusUrl,reqdata);
+    return this._ProcessPostRequest<any>(this._dropAppointmentStatusUrl, reqdata);
   }
 
   DropAppointmentType(reqdata: any) {
-    return this._ProcessPostRequest<any>(this._dropAppointmentTypeUrl,reqdata);
+    return this._ProcessPostRequest<any>(this._dropAppointmentTypeUrl, reqdata);
   }
+  PostProvdierAdminAccess(reqdata: any) {
+    return this._ProcessPostRequest<any>(this._updateProviderAdmineAccess, reqdata);
+  }
+  UserList(reqdata: any) {
+    return this._ProcessPostRequest<any>(this._getUserList, reqdata);
+  }
+  AddUpdateUserDetails(reqdata: any) {
+    return this._ProcessPostRequest<any>(this._addUpdateUser, reqdata);
+  }
+
 }

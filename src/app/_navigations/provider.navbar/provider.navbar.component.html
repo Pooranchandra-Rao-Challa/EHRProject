@@ -9,72 +9,49 @@
 
   <div class="collapse navbar-collapse" [ngClass]="{ 'show': navbarOpen }">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a href="/provider/smartschedule" class="nav-link item-prov-dashboard">Smart Schedule
-          <!-- <i class="fa fa-qrcode" aria-hidden="true"></i> -->
-          <!-- <span class="d-flex">Smart Schedule</span> -->
+      <li class="nav-item">
+        <a href="/provider/smartschedule" class="nav-link active item-prov-dashboard">Smart Schedule
         </a>
       </li>
       <li class="nav-item">
         <a href="/provider/calendar" class="nav-link item-schedule">Calender
-          <!-- <i class="fa fa-calendar-o" aria-hidden="true"></i>
-          <span class="d-flex"> Calender</span> -->
         </a>
       </li>
       <li class="nav-item">
         <a href="#" class="nav-link item-patients">Patient
-          <!-- <i class="fa fa-user-o" aria-hidden="true"></i>
-          <span class="d-flex"> Patient</span> -->
         </a>
       </li>
       <li class="nav-item">
         <a href="#" class="nav-link item-messages">Messages
-          <!-- <i class="fa fa-comments" aria-hidden="true"></i>
-          <i class="far fa-comment-alt-o"></i>
-          <span class="d-flex">Messages</span> -->
         </a>
       </li>
       <li class="nav-item">
         <a href="#" class="nav-link item-direct-messages">Direct Msg
-          <!-- <i class="fa fa-envelope" aria-hidden="true"></i>
-          <span class="d-flex"> Direct Msg</span> -->
         </a>
       </li>
       <li class="nav-item">
         <a href="#" class="nav-link item-erx disabled">eRx
-          <!-- <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-          <span class="d-flex">eRx</span> -->
         </a>
       </li>
       <li class="nav-item">
         <a href="#" class="nav-link item-labsimaging">Labs
-          <!-- <i class="fa fa-flask" aria-hidden="true"></i>
-          <span class="d-flex">Labs/magining</span> -->
         </a>
       </li>
       <li class="nav-item">
         <a href="/reports/categoryreports" class="nav-link item-reports">Reports
-          <!-- <i class="fa fa-bar-chart-o" aria-hidden="true"></i>
-          <span class="d-flex">Reports</span> -->
         </a>
       </li>
       <li class="nav-item">
         <a href="#" class="nav-link item-billing">Billing
-          <!-- <i class="fa fa-microchip" aria-hidden="true"></i>
-          <span class="d-flex">Billing</span> -->
         </a>
       </li>
       <li class="nav-item">
         <a href="/provider/setting" class="nav-link item-settings">Setting
-          <!-- <i class="fa fa-cog" aria-hidden="true"></i>
-          <span class="d-flex">Setting</span> -->
         </a>
       </li>
-
     </ul>
   </div>
 
-  <!-- <div class="collapse navbar-collapse"> -->
   <ul class="navbar-nav pull-right">
     <li [matMenuTriggerFor]="menu" class="nav-item nav-top-right">
       <a class="nav-link dropdown-toggle" id="UserDropdown">
@@ -84,8 +61,8 @@
       <mat-menu #menu="matMenu" [hasBackdrop]="false">
         <div (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()">
           <mat-form-field appearance="outline" class="col-lg-12 hover">
-            <mat-select class="textcolor" [value]="0" name="locationarray" disableOptionCentering>
-              <mat-option *ngFor="let loc of locationarray; index as i" [value]="i" (click)="change(i)"> {{ loc }}
+            <mat-select class="textcolor" [value]="currentLocation" name="location" disableOptionCentering>
+              <mat-option *ngFor="let location of locationsInfo" [value]="location.locationId" (click)="changeLocation(location.locationId)"> {{ location.locationName }}
               </mat-option>
             </mat-select>
           </mat-form-field>

@@ -79,7 +79,7 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "GetLocationsList?Provider_Id";
   }
   get _displayDateTimeOfZoneUrl() {
-    return this._baseUrl + "DisplayDateTimeOfZone?timeZoneId=";
+    return this._baseUrl + "DisplayDateTimeOfZone";
   }
   get _listOfTimeZoneUrl() {
     return this._baseUrl + "GetTimeZone";
@@ -128,6 +128,20 @@ export class APIEndPoint extends EndpointBase {
   get _dropAppointmentStatusUrl(){
     return this._baseUrl + "DropAppointmentStatus";
   }
+  get _updateProviderAdmineAccess(){
+    return this._baseUrl + "UpdateProviderAdminAccess";
+  }
+  get _getUserList(){
+    return this._baseUrl + "GetUserDetails";
+  }
+  get _addUpdateUser(){
+    return this._baseUrl + "AddUpdateUser";
+  }
+
+  get _authenticatePatientUrl(){
+    return this._baseUrl + "AuthenticatePatient";
+  }
+
   constructor(public http: HttpClient) {
     super();
   }

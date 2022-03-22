@@ -110,16 +110,22 @@ p {
   // height: 2.1em;
   // margin-top: -7px;
   height: 2.5em;
-  margin-top: 15px;
+  margin-top: 10px;
 }
 ::ng-deep .smart-schedule-dropdown .mat-select-arrow {
-  margin: -15px 4px;
+  margin: 0px;
   color: #41b6a6;
 }
+::ng-deep
+  .smart-schedule-dropdown
+  .mat-form-field-appearance-outline
+  .mat-select-arrow-wrapper {
+  transform: translateY(0%);
+}
 div.smart-schedule-header {
-  height: 3em;
-  padding: 10px 0px;
-  margin-bottom: 5px;
+  // height: 3em;
+  padding: 0px;
+  margin-bottom: 0px;
 }
 // accordion
 .mat-form-field + .mat-form-field {
@@ -132,6 +138,7 @@ div.smart-schedule-header {
   position: relative;
   right: 0;
   left: 0;
+  padding: 0px;
 }
 .new-search {
   // background-color: #f5f5f5;
@@ -206,6 +213,15 @@ div.smart-schedule-header {
   font-size: 15px;
   font-family: "SF UI Text Regular";
 }
+@media (max-width: 1440px) {
+  .smartschedule-wrapper .table-container {
+    width: 1903px;
+  }
+  .scrollable-table {
+    overflow-x: scroll;
+  }
+}
+
 ::ng-deep .smartschedule-wrapper .schedule-accordion .mat-expansion-panel-body {
   padding: 0px !important;
 }
@@ -247,10 +263,11 @@ fieldset {
   border: 1px solid #41b6a6;
 }
 .modal-header {
-  height: 30px !important;
+  min-height: 30px !important;
   background-color: #41b6a6;
   color: #fff;
   border: none;
+  padding: 10px !important;
 }
 .modal-body .form-group {
   margin-bottom: 25px;
@@ -399,9 +416,8 @@ fieldset {
   border-top-color: 1px #f2f2f2 !important;
 }
 .appointment-form .modal-body {
-  height: 790px;
+  height: 780px;
   padding: 13px 26px;
-  height: 790px;
   overflow-y: auto;
 }
 // apointment content
@@ -412,6 +428,7 @@ fieldset {
 // existing appointment form
 .existingappointment-form .modal-dialog {
   max-width: 660px;
+  padding-top: 40px;
 }
 .existingappointment-form.modal {
   background-color: transparent;
@@ -444,7 +461,7 @@ fieldset {
   margin: 0 15px 0 15px;
 }
 .existingappointment-form .modal-body .content-data {
-  overflow: hidden;
+  overflow-y: auto;
   width: 100%;
   height: 300px;
 }
@@ -488,6 +505,11 @@ fieldset {
   max-width: 82%;
   margin-top: 10px;
   margin-bottom: 10px;
+}
+@media (max-width: 425px) {
+  #modal-patient-add-encounter .modal-dialog {
+    max-width: 100%;
+  }
 }
 #modal-patient-add-encounter .modal-body {
   padding: 10px 15px;
@@ -571,17 +593,18 @@ fieldset {
 }
 .btn-search {
   height: 45px;
-  margin-top: -3px;
+  margin-top: -2px;
   border: 1px solid #41b6a6;
   vertical-align: middle;
   padding: 0.56rem 1.375rem;
   background-color: #41b6a6;
   color: #fff;
-  border-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
 }
-#modal-patient-add-encounter span {
-  padding: 23px 10px;
-}
+// #modal-patient-add-encounter span {
+//   padding: 23px 10px;
+// }
 .popupInfoBox {
   padding: 10px;
 }
@@ -604,54 +627,6 @@ fieldset {
   background-position: center;
   transition: background-color 0.2s, background-image 0.2s;
 }
-// #popup {
-//   height: 110px;
-//   width: 320px;
-//   text-align: center;
-//   vertical-align: middle;
-//   background-color: #fff;
-//   color: #000;
-//   display: none;
-//   padding-top: 8px;
-//   border: 1px solid #41b6a6;
-//   border-radius: 5px;
-//   margin: -140px 0 0 -12px;
-//   position: absolute;
-// }
-// #popup:before {
-//   border-color: rgba(194, 225, 245, 0);
-//   border-top-color: #41b6a6;
-//   border-width: 11px;
-//   margin-left: -150px;
-// }
-// #popup:after,
-// #popup:before {
-//   top: 100%;
-//   left: 50%;
-//   border: solid transparent;
-//   content: " ";
-//   height: 0;
-//   width: 0;
-//   position: absolute;
-//   pointer-events: none;
-// }
-// #popup:after {
-//   border-color: rgba(136, 183, 213, 0);
-//   border-top-color: #fff;
-//   border-width: 10px;
-//   margin-left: -150px;
-// }
-// #popup:after,
-// #popup:before {
-//   top: 100%;
-//   left: 50%;
-//   border: solid transparent;
-//   content: " ";
-//   height: 0;
-//   width: 0;
-//   position: absolute;
-//   pointer-events: none;
-// }
 #procedure-table .mat-header-row {
   border: 1px solid #41b6a6;
   background-color: #41b6a6;
@@ -694,7 +669,8 @@ fieldset {
 }
 ::ng-deep .mat-tab-label .mat-tab-label-content {
   background-color: #28776c;
-  height: 32px !important;
+  //height: 32px !important;
+  height: 29px !important;
   min-width: 100px !important;
   color: #fff;
   font-size: 16px;
@@ -777,4 +753,60 @@ fieldset {
 .fa.fa-compress,
 .fa.fa-expand {
   color: #fff;
+}
+.scrollable-mat-tabs {
+  height: 785px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+@media (max-width: 1350px) {
+  .scrollable-mat-table {
+    max-width: 1200px;
+    overflow-x: scroll;
+  }
+  .mat-table {
+    width: 1350px;
+    height: 300px;
+  }
+}
+::ng-deep .mat-datepicker-toggle-default-icon {
+  color: #41b6a6 !important;
+}
+::ng-deep .cstm-datepicker-toggle .mat-focus-indicator {
+  background-color: #fff;
+}
+::ng-deep
+  .mat-tab-header-pagination-controls-enabled
+  .mat-tab-header-pagination {
+  color: #fff !important;
+}
+@media (max-width: 1024px) {
+  ::ng-deep .mat-tab-header-pagination {
+    display: block !important;
+    margin-top: 14px;
+    margin-left: 10px;
+    color: #fff;
+  }
+}
+@media (min-width: 1440px) {
+  ::ng-deep .mat-tab-header-pagination {
+    display: none !important;
+  }
+}
+
+::ng-deep .mat-tab-label-active:not(.mat-tab-disabled),
+.mat-tab-label.mat-tab-label-active.cdk-keyboard-focused:not(.mat-tab-disabled) {
+  ::ng-deep .mat-tab-label-content {
+    background-color: #fff;
+    color: #41b6a6;
+    border-bottom: 1px solid #41b6a6;
+    height: 29px;
+  }
+}
+::ng-deep .mat-tab-label:first-child {
+  .mat-tab-label-content {
+    background-color: #fe8f00;
+    color: #fff;
+    border-bottom-color: #fe8f00;
+  }
 }
