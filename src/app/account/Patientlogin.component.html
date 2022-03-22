@@ -1,0 +1,83 @@
+<div id="pause" class="d-flex align-items-center justify-content-center" *ngIf="showspinner">
+    <div id="spinner"></div>
+    <div id="message"></div>
+</div>
+<div class="login" *ngIf="!showspinner">
+    <div class="one-ehr-images pt-4 pb-4">
+        <div class="ehr-img-top">
+            <div class="text-center logo-rectangle">
+                <img width="232" height="88" src="../../assets/images/EHR.svg">
+            </div>
+        </div>
+        <div class="text-center">
+            <img width="146" height="248" class="img-fluid" src="../../assets/images/one.svg">
+        </div>
+    </div>
+    <div class="container cstm-container pt-3">
+        <h2 class="signup">PLEASE SIGN IN TO VIEW YOUR ACCOUNT</h2>
+        <h4 class="sign mt-2">
+            Don't have an account yet?
+            <!-- <span style="color: #287066" href="/account/registration">Sign up here</span> -->
+            <a style="color: #287066" href="/account/registration">Sign up here</a>
+        </h4>
+    </div>
+    <hr />
+    <div>
+        <div class="container cstm-container pb-4" id="flexbox">
+            <!-- Top header -->
+            <div class="row top-header">
+                <div class="col-lg-4 col-md-12 col-sm-12 ">
+                    <div class="Login-form">
+                        <div id="authfailedmessage" class="message-error">
+                            {{ this.authfailedmessage }}
+                        </div>
+                        <mat-card-content>
+                            <form class="my-form" [formGroup]="loginForm">
+                                <div>
+                                    <mat-form-field class="w-100" appearance="outline">
+                                        <input matInput placeholder="Email /UserName" />
+                                    </mat-form-field>
+                                    <mat-form-field class="w-100" appearance="outline">
+                                        <input matInput placeholder="Password" type="password" />
+                                    </mat-form-field>
+                                </div>
+                                <div style="color: #287066" class="pull-right">
+                                    <div>Forgot your password?</div>
+                                    <div onclick="document.getElementById('resendverification').style.display='block'">
+                                        Resend Email Verification
+                                    </div>
+                                </div>
+                            </form>
+                        </mat-card-content>
+                    </div>
+                    <div style="margin-top: 8%">
+                        <mat-checkbox class="example-margin"><span>Remember me</span></mat-checkbox>
+                    </div>
+                    <div>
+                        <button mat-raised-button (click)="OnFormSubmit()">Sign in</button>
+                    </div>
+                </div>
+
+                <div class="col-lg-8 col-md-12 col-sm-12 px-3">
+                    <div class="row">
+                        <h4>To make our EHR evenmore secure for you, please download our two-factor authentication application</h4>
+                    </div>
+                    <div>
+                        <div class="services mt-4">
+                            <a aria-label="android application" href="https://goo.gl/6S9W6g">
+                                <img width="70" height="140" class="img-fluid" src="assets/qr_code_PNG25.png">
+                                <img width="200" height="100" class="img-fluid" src="assets/google-play-logo-9f0984.png">                       
+                            </a>                           
+                        </div>
+                        <div class="services">
+                            <a aria-label="android application" href="https://goo.gl/XW81jL">
+                                <img width="70" height="140" class="img-fluid" src="assets/qr_code_PNG25.png">
+                                <img  width="200" height="150" class="img-fluid mt-2 mb-2" src="assets/app store.png" >                       
+                            </a>                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

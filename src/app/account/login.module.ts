@@ -10,6 +10,7 @@ import { RegistrationComponent } from "../account/registration.component";
 import { HomeComponent } from "../account/home.comonent";
 import { SharedModule } from '../_common/shared';
 import { IConfig, NgxMaskModule} from 'ngx-mask'
+import { PatientLoginComponent } from './Patientlogin.component';
 
 
 /*
@@ -38,14 +39,16 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     FormsModule,
     LoginRoutingModule,
     SharedModule,
-    NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(),
+    
   ],
   declarations: [
     LayoutComponent,
     LoginComponent,
     RubyAuthenticationFailedComponenet,
     RegistrationComponent,
-    HomeComponent
+    HomeComponent,
+    PatientLoginComponent,
   ]
 })
 export class LoginModule { }

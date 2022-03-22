@@ -8,37 +8,37 @@
   <div class="collapse navbar-collapse" [ngClass]="{ 'show': navbarOpen }">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a href="#" class="nav-link item-dashboard">Dashboard
+        <a href="patient/dashboard" class="nav-link item-dashboard">Dashboard
           <!-- <i class="fa fa-pie-chart" aria-hidden="true"></i>
           <span class="d-flex">Dashboard</span> -->
         </a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link item-appointments">Appointments
+        <a href="patient/appointment" class="nav-link item-appointments">Appointments
           <!-- <i class="fa fa fa-calendar-o" aria-hidden="true"></i>
           <span class="d-flex">Appointments</span> -->
         </a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link item-messages">Messages
+        <a href="patient/message" class="nav-link item-messages">Messages
           <!-- <i class="fa fa-comments-o" aria-hidden="true"></i>
           <span class="d-flex">Messages</span> -->
         </a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link item-myhealth">My Health
+        <a href="patient/health" class="nav-link item-myhealth">My Health
           <!-- <i class="fa fa-heart-o" aria-hidden="true"></i>
           <span class="d-flex">My Health</span> -->
         </a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link item-myprofile">My Profile
+        <a href="patient/profile" class="nav-link item-myprofile">My Profile
           <!-- <i class="fa fa-user-o" aria-hidden="true"></i>
           <span class="d-flex">My Profile</span> -->
         </a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link item-mydocuments">My Documents
+        <a href="patient/document" class="nav-link item-mydocuments">My Documents
           <!-- <i class="fa fa fa-file-text-o" aria-hidden="true"></i>
           <span class="d-flex">My Documents</span> -->
         </a>
@@ -47,6 +47,26 @@
   </div>
 
   <!-- <ul class="navbar-nav">
+    <li class="nav-item ml-0" ngbDropdown>
+      <a class="nav-link pull-right" id="UserDropdown" ngbDropdownToggle>
+        <span class="profile-text d-none d-xl-inline-block">spoorthy@calibrage.in</span>
+        <img class="img-xs mx-2 rounded-circle" src="../../assets/images/default.png">
+      </a>
+      <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="UserDropdown">
+        <a class="dropdown-item">
+          Location :
+        </a>
+        <div>
+        </div>
+        <a class="dropdown-item">
+          Sign Out
+        </a>
+      </div>
+    </li>
+  </ul> -->
+
+
+  <ul class="navbar-nav">
     <li [matMenuTriggerFor]="menu" class="nav-item" ngbDropdown [autoClose]="false">
       <a class="nav-link dropdown-toggle" id="UserDropdown" ngbDropdownToggle>
         <span class="profile-text">Koteshwarao Koti</span>
@@ -74,7 +94,7 @@
       </mat-menu>
     </li>
   </ul> -->
-  <ul class="navbar-nav pull-right">
+  <!-- <ul class="navbar-nav pull-right">
     <li [matMenuTriggerFor]="menu" class="nav-item nav-top-right">
       <a class="nav-link dropdown-toggle" id="UserDropdown">
         <span class="profile-text">Koteshwarao Koti(Testing User)</span>
@@ -102,5 +122,5 @@
         </div>
       </mat-menu>
     </li>
-  </ul>
+  </ul> -->
 </nav>

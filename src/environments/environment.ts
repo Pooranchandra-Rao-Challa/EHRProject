@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost:4345/'
+   baseUrl: 'http://183.82.111.111/EHRCQMReports/API/',
+  //baseUrl: 'http://localhost:4345/'
 };
 
 /*

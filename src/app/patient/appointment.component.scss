@@ -1,0 +1,214 @@
+
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+textarea {
+  resize: none;
+}
+
+ li:after, :before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.btn.btn-orange {
+  color: #fe8f00;
+  background-color: #fff;
+  border-color: #fe8f00;
+}
+.btn-group {
+  border: 2px solid #fe8f00;
+  border-radius: 0.1875rem;
+}
+.btn.btn-default, .btn.btn-info, .btn.btn-danger, .btn.btn-warning {
+  background: #fff;
+}
+#appointments-wrapper .top-block .buttons {
+  padding: 10px 0;
+  text-align: right;
+}
+.btn-group a:hover {
+  background-color: #fe8f00;
+  color: #fff;
+  border: 1px solid #fff;
+}
+.button{
+  padding: 10px 0;
+  text-align: right;
+}
+.tab-content table,thead, th, td{
+  // padding: 37px 18px 29px 24px;
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  line-height: 0.10;
+  border: 2px solid #f2f2f2;
+  border-radius: 2px;
+}
+  tr th  {
+  font-weight: normal;
+  font-size:medium;
+
+}
+
+.fade.in {
+  opacity: 1;
+}
+.table-grayed-checkboxed tr th:first-child, .table-grayed-checkboxed tr td:first-child {
+  width: 51px;
+  height: 51px;
+  margin: 0;
+  padding: 13px !important;
+  text-align: center;
+
+}
+.table {
+  /* --bs-table-bg: transparent; */
+  --bs-table-accent-bg: white;
+}
+.modal-header {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1rem;
+  border-bottom: 2px solid white;
+  border-top-left-radius: calc(0.3rem - 1px);
+  border-top-right-radius: calc(0.3rem - 1px);
+  background-color: #41b6a6;
+  color: white;
+}
+.modal-dialog .modal-content {
+  box-shadow: none;
+  border: 1px solid #41b6a6;
+  border-radius: 3px;
+}
+.modal-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  pointer-events: auto;
+  background-color: white;
+}
+
+
+.reg-button {
+  background-color: #fff;
+  border: 1px solid #41b6a6;
+  height: 50px;
+  color: #41b6a6;
+  border-radius: 3px;
+  width: auto;
+  // margin-left: 82.2%;
+}
+.reg-button:hover {
+  background-color: #41b6a6;
+  color: #fff;
+  border: 1px solid #fff;
+}
+.content span {
+  //font-size: 15px;
+  //text-transform: uppercase;
+    font-family: 'Times New Roman';
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 28px;
+    margin-bottom: 0;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  background-color:#f5f5f5 !important;
+  height: 45px;
+  border-radius: 5%;
+  background-color: #f5f5f5;
+  color: #dedede;
+}
+//input outline color
+::ng-deep .mat-form-field-appearance-outline:hover .mat-form-field-outline {
+  color: #41b6a6 !important;
+  // opacity: 1!important;
+}
+
+//mat-input focused color
+::ng-deep
+  .mat-form-field-appearance-outline.mat-focused
+  .mat-form-field-outline-thick {
+  color: #41b6a6 !important;
+}
+.secondary-title span {
+  font-size: 24px;
+}
+
+.mat-option.mat-active {
+  background: #e5f8f5 !important;
+}
+.mat-option {
+  border-left: 1px solid #41b6a6;
+  border-right: 1px solid #41b6a6;
+}
+.mat-option:last-child {
+  border-right: 1px solid #41b6a6;
+}
+.mat-option:last-child {
+  border-bottom: 1px solid #41b6a6;
+}
+.mat-option:hover {
+  background-color: #e5f8f5;
+}
+.mat-option.mat-selected:not(.mat-option-disabled) {
+  color: black;
+  text-shadow: black;
+}
+// mat-select
+::ng-deep .mat-select-arrow {
+  color: #4d4b4b !important;
+}
+::ng-deep .mat-select-placeholder {
+  color: #4d4b4b !important;
+
+::ng-deep .hover.mat-form-field-appearance-outline:hover .mat-select-arrow {
+  color: white !important;
+}
+::ng-deep
+  .hover.mat-form-field-appearance-outline:hover
+  .mat-select-placeholder {
+  color: white !important;
+
+}
+}
+::ng-deep
+  .hover.mat-form-field-appearance-outline:hover
+  .mat-select-value-text {
+  color: white !important;
+}
+::ng-deep .mat-select-panel {
+  min-width: calc(100% + 22px) !important;
+  max-width: calc(min-width) !important;
+  margin-left: 5px !important;
+}
+// .nav-tabs .li.a:active {
+//   margin-bottom: -1px;
+//   background: #5f1d1d;
+//   border: 1px solid transparent;
+//   border-top-left-radius: 0.25rem;
+//   border-top-right-radius: 0.25rem;
+// }
+.nav .nav-item, .navbar-nav .nav-item {
+  line-height: 1;
+  margin-left: 2%;
+
+}
+.checkbox-custom
+{
+  border: 1px solid #e00606;
+}
+.tabsactive .nav-link{
+  background-color: #e0e0e0;
+}
+.tabsactive .nav-link.active{
+  background-color: #fff;
+}
+

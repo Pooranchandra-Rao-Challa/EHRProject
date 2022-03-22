@@ -1,9 +1,15 @@
+import { MessageComponent } from './../../patient/message.component';
+import { DocumentComponent } from './../../patient/document.component';
+import { PartnerSignupComponent } from './../../patient/partner-signup.component';
+import { AppointmentComponent } from './../../patient/appointment.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
 //import { CalendarComponent } from '../../calendar/calendar.component';
 import { DashboardComponent } from '../../patient/dashboard.component';
 import { PatientComponent} from './patient.component';
+
+import { MyprofileComponent } from 'src/app/patient/myprofile.component';
+import { MyhealthComponent } from 'src/app/patient/myhealth.component';
 
 const routes: Routes = [
   {
@@ -11,6 +17,12 @@ const routes: Routes = [
     children: [
       //{ path: "calendar", component: CalendarComponent },
       { path: 'dashboard', component: DashboardComponent },
+      { path: 'appointment', component: AppointmentComponent },
+      { path: 'partnersignup', component: PartnerSignupComponent },
+      { path: 'document', component: DocumentComponent },
+      { path: 'message', component: MessageComponent },
+      { path: 'health', component: MyhealthComponent },
+      { path: 'profile', component: MyprofileComponent },
     ]
   }
 ]

@@ -1,3 +1,305 @@
-<div class="container-scroller">
-  Will be done shortly
+
+<div class="dashboard-patient wrapper">
+  <div class="content container ignore_spinner">
+    <h4 class="h4-title">
+      Welcome
+      <span class="authorization-welcome-username"> dddddddd ddddddddd</span>
+    </h4>
+    <div class="row">
+      <div class="col-lg-9 left-block">
+        <div class="form-row-field">
+          <h4>
+            Upcoming Appointments
+            <span>(0)</span>
+          </h4>
+        </div>
+        <div class="form-row-field">
+          <h4>
+            New Messages
+            <span>(0)</span>
+          </h4>
+        </div>
+        <div class="form-row-field" *ngIf="isHealth">
+          <div class="panel panel-default">
+            <div class="panel-body" style="margin-left: 2%;
+                     margin-right: 2%;">
+              <h4>How do I link my EHR1 Patients Portal account to another application ?</h4>
+              <hr>
+              <p>This guide will show you how to use your EHR1 patient portal to integrate your dental records with a
+                third-party application that has connected to EHR�s public API�s.</p>
+              <p>Any practice with an active EHR1 license has access to use the EHR1 API�s at anytime during their
+                subscription period and can offer access to their patients allowing them to connect to a registered
+                third-party app EHR�s public API.</p>
+
+
+              <h4>How to authorize a registered third-party application to access your data</h4>
+              <hr>
+              <p>Any patient who has created an EHR1 Patient Portal account and has received records in their portal can
+                use
+                their EHR1 Patient Portal credentials to authenticate access for any third-party application that has
+                been
+                registered with EHR1.</p>
+
+              <p>You will need to check within the third-party application you want to connect your records to in order
+                to
+                begin the linking process. Once you have sent the request to link your patient data through the third
+                party-application, you will need to authorize the application through your portal.</p>
+
+              <p>** Please be sure to read the details in terms of the scope of your patient data that will be shared
+                with the
+                application</p>
+
+              <img src="assets/images/ScreenShot1.jpg" alt="logo" class="img-fluid mx-3" />
+              <h4>How to revoke access to a third-party application that has previously been linked</h4>
+              <p>A patient may revoke access to an authorized third-party application at anytime by clicking the "revoke
+                access" button under authorized apps in their EHR1 Patient Portal account</p>
+              <img src="assets/images/ScreenShot2.png" alt="logo" class="img-fluid mx-3" />
+
+              <h4>Supported Third-Party Applications
+              </h4>
+              <hr>
+              <p>No third-party applications currently registered as partner applications. </p>
+              <h4> How to Become an Authorized EHR1 HealthIT Partner</h4>
+              <hr>
+              <p>Register to become a HealthIT partner here: <a href="/patient/partnersignup" class="as">Register
+                  Now</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="form-row-field" *ngIf="isAccees">
+          <div class="panel panel-default">
+            <div class="panel-body" style="margin-left: 2%;
+                     margin-right: 2%;">
+              <h4 class="Access">Authorized Applications</h4>
+              <p>No Applications Authorized</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-lg-3 right-block">
+        <div class="form-row-field">
+          <h4>
+            Quick Links
+          </h4>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <ul>
+              <li>
+                <a class="secondary-text-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop4">
+                  <i class="fa fa-angle-right">
+                  </i>
+                  <a>Request an Appt</a>
+                </a>
+              </li>
+              <li>
+                <a class="secondary-text-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
+                  <i class="fa fa-angle-right">
+                  </i>
+                  <a>Send a Message</a>
+                </a>
+              </li>
+              <li>
+                <a class="secondary-text-dark" data-remote="true" (click)="onhealth()">
+                  <i class="fa fa-angle-right">
+                  </i>
+                  <a>Link health information</a>
+                </a>
+              </li>
+              <li>
+                <a class="secondary-text-dark" data-remote="true" (click)="onAcess()">
+                  <i class="fa fa-angle-right">
+                  </i>
+                  <a>Application Access</a>
+                </a>
+              </li>
+            </ul>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+<div class="modal fade" id="staticBackdrop4"[ngStyle]="{'display':displayReq}" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop4"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4>Request an Appointment</h4>
+        <span type="button"  data-bs-dismiss="modal">
+          X
+        </span>
+      </div>
+      <div class="modal-body">
+        <div class="content">
+          <form class="pt-4">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="row">
+                  <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                    <mal-lable>Date </mal-lable>
+                    <mat-form-field appearance="outline" >
+                      <input matInput placeholder="Date">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                    <mal-lable>Select Provider </mal-lable>
+                    <mat-form-field appearance="outline">
+                      <mat-select placeholder="select Provider">
+                        <mat-option>Select Provider
+                        </mat-option>
+                        <mat-option>Select Provider
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="row">
+                  <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                    <mal-lable>Time </mal-lable>
+                   <mat-form-field appearance="outline" >
+                    <input matInput placeholder="Time">
+                  </mat-form-field>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                    <mal-lable>Select Location </mal-lable>
+                    <mat-form-field appearance="outline">
+                      <mat-select placeholder="select Location">
+                        <mat-option>Select Location
+                        </mat-option>
+                        <mat-option>Select Location
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="row">
+                  <mal-lable>Note </mal-lable>
+                  <mat-form-field appearance="outline" class="col-lg-12">
+                    <textarea matInput matInput placeholder="Note"></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="row">
+                  <p>*We will make every effort to accommodate exact times requested, but may need to suggest alternate
+                    dates/times.</p>
+                </div>
+              </div>
+            </div>
+            <div class="row" style="float: right;">
+              <button type="button" style="margin-left: -18%;margin-right: 9%;"
+                class="reg-button col-md-4" data-bs-dismiss="modal">Cancel</button>
+              <button type="button" class="reg-button col-md-4">Submit</button>
+
+            </div>
+
+          </form>
+
+          <!-- end personal info -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<div class="modal fade" id="staticBackdrop1" [ngStyle]="{'display':displayNew}" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop1"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header modal-header-md">
+        <h4>New Message</h4>
+
+        <span type="button"  data-bs-dismiss="modal">
+          X
+        </span>
+      </div>
+      <div class="modal-body">
+        <div class="content">
+          <form class="pt-4">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="row">
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span style="font-size: 100%;" class="input-group-text">To</span>
+                    </div>
+                    <input type="text" class="form-control ser" aria-label="Amount" placeholder="Search">
+                    <div class="input-group-append" style=" width: 12%;">
+                      <span class="input-group-addon input-group-addon-right input-group-addon-search"
+                        id="find-messages-button"><i class="fa fa-search serch"></i></span>
+                    </div>
+                  </div>
+
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend ">
+                      <span style="font-size: 100%;" class="input-group-text">From </span>
+                    </div>
+                    <input type="text" class="form-control ser" aria-label="Amount">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="row">
+                  <mal-lable>Subject </mal-lable>
+                  <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-sm-12 col-12">
+                    <input matInput placeholder="Subject:">
+                  </mat-form-field>
+
+                  <mal-lable>Message </mal-lable>
+                  <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-sm-12 col-12">
+                    <input matInput placeholder="Message:">
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-1 file_upload_glyph">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span type="button" class="reg-button col-md-4 btn btn-default btn-padding-md">
+                      <i class="fa fa-paperclip" aria-hidden="true"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row" style="margin-top: 5%;">
+              <div class="col-lg-4 ">
+                <mat-checkbox class="col-lg-12 col-md-12 example-margin" style="margin-left: 0px;" formControlName="Checked">
+                  <mat-lable >Urgent</mat-lable>
+                </mat-checkbox>
+              </div>
+            </div>
+
+            <div class="row" style="float: right;">
+              <button type="button" style="margin-left: -18%;margin-right: 9%;"
+                class="reg-button col-md-4"  data-bs-dismiss="modal">Cancel</button>
+              <button type="button" class="reg-button col-md-4">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

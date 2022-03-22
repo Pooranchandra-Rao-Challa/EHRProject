@@ -1,0 +1,152 @@
+#myprofile-wrapper .panel {
+    margin-bottom: 0;
+    box-shadow: none;
+  }
+  
+  .panel-default {
+    border-color: rgb(207, 56, 56);
+  }
+  .panel {
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
+    box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
+  }
+  
+  .home-button {
+    background-color: #fff;
+    border: 1px solid #41b6a6;
+    height: 50px;
+    color: #41b6a6;
+    border-radius: 3px;
+    margin-left: 3%;
+    width: 100%;
+  }
+  .home-button:hover {
+    background-color: #41b6a6;
+    color: #fff;
+    border: 1px solid #fff;
+  }
+  
+  .save-button {
+    background-color: #fff;
+    border: 1px solid #41b6a6;
+    height: 50px;
+    color: #41b6a6;
+    border-radius: 3px;
+    margin-left: 60%;
+    width: 40%;
+    margin-top: 7%
+  }
+  .save-button:hover {
+    background-color: #41b6a6;
+    color: #fff;
+    border: 1px solid #fff;
+  }
+  .reg-button {
+    background-color: #fff;
+    border: 1px solid #41b6a6;
+    height: 35px;
+    color: #41b6a6;
+    border-radius: 3px;
+    //margin-left: 82.2%;
+    width: 100%;
+    margin-bottom: 2%;
+  
+  }
+  .reg-button:hover {
+    background-color: #41b6a6;
+    color: #fff;
+    border: 1px solid #fff;
+  }
+  .down-button:hover {
+    background-color: #41b6a6;
+    color: #fff;
+    border: 1px solid #fff;
+  }
+  
+  
+  .down-button{
+    background-color: #fff;
+    border: 1px solid #41b6a6;
+    height: 50px;
+    color: #41b6a6;
+    border-radius: 3px;
+    margin-left: 80%;
+    width: 20%;
+  }
+  .content span {
+    //font-size: 15px;
+    //text-transform: uppercase;
+      font-family: 'Times New Roman';
+      font-size: 24px;
+      font-weight: 400;
+      line-height: 28px;
+      margin-bottom: 0;
+  }
+  .btn-outline-secondary{
+    border-color: #dddddd;
+    height: 100%;
+  }
+  
+  
+  .btn-outline-secondary:hover {
+    color: rgb(20, 18, 18);
+     background-color: #fff;
+     border: 1px solid #41b6a6;
+  }
+  .dropdown-menu.show {
+    display: block;
+    border-color: #41b6a6;
+  }
+  .input-group > :not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
+    margin-left: -1px;
+    background-color: #f5f5f5;
+    border-color:#dddddd;    
+    height: 120%;
+  }
+  .input-group > :not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback):hover {
+    border-color: #41b6a6;
+    border-left-color: 1px solid #41b6a6;
+  }
+  .mb-3, .template-demo .circle-progress-block {
+    margin-bottom: 2rem !important;
+  }
+  .input-group-append, .input-group-prepend {
+    background: color(white);
+    color: #2e1a1a;
+    width: auto;
+    border: none;
+    background-color: #f5f5f5;
+    border-color: #dddddd;
+  }
+  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    background-color: #f5f5f5 !important;
+    height: 45px;
+    border-radius: 5%;
+    background-color: #f5f5f5;
+    color: #dedede;
+  }
+  //input outline color
+  ::ng-deep .mat-form-field-appearance-outline:hover .mat-form-field-outline {
+    color: #41b6a6 !important;
+    // opacity: 1!important;
+  }
+  
+  .panel-body{
+    margin-left: 3%;
+    margin-right: 3%;
+  }
+  .mat-option-text {
+    display: inline-block;
+    flex-grow: 1;
+    border: 1px solid #41b6a6;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .pull-left {
+    float: left !important;
+  }
+  
+  
