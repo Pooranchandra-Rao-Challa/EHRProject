@@ -138,6 +138,10 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "AddUpdateUser";
   }
 
+  get _authenticatePatientUrl(){
+    return this._baseUrl + "AuthenticatePatient";
+  }
+
   constructor(public http: HttpClient) {
     super();
   }
