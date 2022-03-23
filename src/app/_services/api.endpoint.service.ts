@@ -128,18 +128,43 @@ export class APIEndPoint extends EndpointBase {
   get _dropAppointmentStatusUrl(){
     return this._baseUrl + "DropAppointmentStatus";
   }
-  get _updateProviderAdmineAccess(){
+  get _updateProviderAdmineAccessUrl(){
     return this._baseUrl + "UpdateProviderAdminAccess";
   }
-  get _getUserList(){
+  get _getUserListUrl(){
     return this._baseUrl + "GetUserDetails";
-  }
-  get _addUpdateUser(){
-    return this._baseUrl + "AddUpdateUser";
   }
 
   get _authenticatePatientUrl(){
     return this._baseUrl + "AuthenticatePatient";
+  }
+
+  get _statesUrl(){
+    return this._baseUrl + "States";
+  }
+
+  get _titlesUrl(){
+    return this._baseUrl + "Titles";
+  }
+
+  get _specialityUrl(){
+    return this._baseUrl + "Speciality";
+  }
+
+  get _degreeUrl(){
+    return this._baseUrl + "Degree";
+  }
+
+  get _providerRolesUrl(){
+    return this._baseUrl + "ProviderRoles";
+  }
+
+  get _appointmentStatusesUtitlityUrl(){
+    return this._baseUrl + "AppointmentStatusesUtility";
+  }
+
+  get _appointmentTypesUtilityUrl(){
+    return this._baseUrl + "AppointmentTypesUtility";
   }
 
   constructor(public http: HttpClient) {

@@ -1,5 +1,6 @@
 import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { NewPatient } from '../../_models/newPatient';
 
 @Component({
   selector: 'app-smart.schedule',
@@ -14,8 +15,17 @@ export class SmartScheduleComponent implements OnInit {
   availableTimeSlots: any[] = [];
   encounterdiagnosesColumns = ["CODE", "CODE SYSTEM", "DESCRIPTION", "PATIENT EDUCATION", "Primary DX"];
   procedureColumns = ["CODE", "CODE SYSTEM", "DESCRIPTION", "TOOTH", "SURFACE"];
-  data = "";
+  EncounterData = "";
+  PatinetData: NewPatient
   constructor() {
+    this.PatinetData = {
+      PatientId: "32432143kderwiiew",
+      FirstName: "Kartheek",
+      LastName: "T",
+      DateofBirth: "07/09/1998",
+      Gender: "Male"
+    }
+
   }
 
   ngOnInit(): void {
@@ -42,5 +52,10 @@ export class SmartScheduleComponent implements OnInit {
   }
   closeExistingAppointment() {
     this.existingappointment = "none";
+  }
+
+  UpdatePatient(){
+    console.log(this.PatinetData);
+
   }
 }

@@ -64,13 +64,13 @@ export class SettingsService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._dropAppointmentTypeUrl, reqdata);
   }
   PostProvdierAdminAccess(reqdata: any) {
-    return this._ProcessPostRequest<any>(this._updateProviderAdmineAccess, reqdata);
+    return this._ProcessPostRequest<any>(this._updateProviderAdmineAccessUrl, reqdata);
   }
   UserList(reqdata: any) {
-    return this._ProcessPostRequest<any>(this._getUserList, reqdata);
+    return this._ProcessPostRequest<any>(this._getUserListUrl, reqdata);
   }
   AddUpdateUserDetails(reqdata: any) {
-    return this._ProcessPostRequest<any>(this._addUpdateUser, reqdata);
+    return this._ProcessPostRequest<any>(this._addUpdateUserUrl, reqdata);
   }
 
 }
