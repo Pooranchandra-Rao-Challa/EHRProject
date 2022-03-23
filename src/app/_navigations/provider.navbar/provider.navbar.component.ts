@@ -13,7 +13,7 @@ import { User, UserLocations } from '../../_models';
   providers: [NgbDropdownConfig]
 })
 export class ProviderNavbarComponent implements OnInit {
- 
+
   navbarOpen: boolean = false;
   user: User;
   locationsInfo: UserLocations[];
@@ -28,21 +28,24 @@ export class ProviderNavbarComponent implements OnInit {
     this.locationsInfo = JSON.parse(this.user.LocationInfo);
     this.currentLocation = this.locationsInfo[0].locationId;
     console.log(this.locationsInfo);
-     
-  }
-  ngOnInit() {
-    
 
   }
-  
+  ngOnInit() {
+
+
+  }
+
   changeLocation(locationId) {
-    console.log(locationId)
-    
+    console.log(locationId);
+    this.LocationChanged.emit(locationId);
+
   }
 
   logout() {
     this.authenticationService.logout();
   }
+
+
 
   toggleNavbar() {
     this.navbarOpen = !this.navbarOpen;

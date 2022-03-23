@@ -1,14 +1,28 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 
-
-
-@Component({ templateUrl: 'dashboard.component.html' })
+@Component({
+  selector: 'app-patientdashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.scss']
+})
 export class DashboardComponent {
-  constructor(
-    private router: Router
-  ) {
+  isHealth:boolean=false;
+  isAccees:boolean=false;
+  displayReq = "none";
+  displayNew = "none";
+  constructor() { }
 
+  ngOnInit(): void {
+  }
+
+  onhealth(){
+    this.isAccees=false;
+    this.isHealth=true;
+  }
+  onAcess(){
+    this.isHealth=false;
+    this.isAccees=true;
 
   }
+ 
 }

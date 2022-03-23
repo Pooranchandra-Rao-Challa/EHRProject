@@ -8,59 +8,42 @@
   <div class="collapse navbar-collapse" [ngClass]="{ 'show': navbarOpen }">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a href="#" class="nav-link item-dashboard">Dashboard
+        <a href="patient/dashboard" class="nav-link item-dashboard">Dashboard
+          <!-- <i class="fa fa-pie-chart" aria-hidden="true"></i>
+          <span class="d-flex">Dashboard</span> -->
         </a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link item-appointments">Appointments
+        <a href="patient/appointment" class="nav-link item-appointments">Appointments
+          <!-- <i class="fa fa fa-calendar-o" aria-hidden="true"></i>
+          <span class="d-flex">Appointments</span> -->
         </a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link item-messages">Messages
+        <a href="patient/message" class="nav-link item-messages">Messages
+          <!-- <i class="fa fa-comments-o" aria-hidden="true"></i>
+          <span class="d-flex">Messages</span> -->
         </a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link item-myhealth">My Health
+        <a href="patient/health" class="nav-link item-myhealth">My Health
+          <!-- <i class="fa fa-heart-o" aria-hidden="true"></i>
+          <span class="d-flex">My Health</span> -->
         </a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link item-myprofile">My Profile
+        <a href="patient/profile" class="nav-link item-myprofile">My Profile
+          <!-- <i class="fa fa-user-o" aria-hidden="true"></i>
+          <span class="d-flex">My Profile</span> -->
         </a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link item-mydocuments">My Documents
+        <a href="patient/document" class="nav-link item-mydocuments">My Documents
+          <!-- <i class="fa fa fa-file-text-o" aria-hidden="true"></i>
+          <span class="d-flex">My Documents</span> -->
         </a>
       </li>
     </ul>
   </div>
 
-  <ul class="navbar-nav pull-right">
-    <li [matMenuTriggerFor]="menu" class="nav-item nav-top-right">
-      <a class="nav-link dropdown-toggle" id="UserDropdown">
-        <span class="profile-text">Koteshwarao Koti(Testing User)</span>
-        <img class="img-xs rounded-circle mx-1" src="../../../assets/images/default.png">
-      </a>
-      <mat-menu #menu="matMenu" [hasBackdrop]="false">
-        <div (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()">
-          <mat-form-field appearance="outline" class="col-lg-12 hover">
-            <mat-select class="textcolor" [value]="0" name="locationarray" disableOptionCentering>
-              <mat-option> No Locations Found
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <button mat-menu-item class="nav-right-dropdown">
-            <span>My Account</span></button>
-          <button mat-menu-item class="nav-right-dropdown">
-            <span>About EHR1</span>
-          </button>
-          <button mat-menu-item class="nav-right-dropdown">
-            <span>Lock</span>
-          </button>
-          <button mat-menu-item class="nav-right-dropdown" (click)="logout()">
-            <span>Log Out</span>
-          </button>
-        </div>
-      </mat-menu>
-    </li>
-  </ul>
 </nav>

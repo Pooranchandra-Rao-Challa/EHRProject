@@ -28,7 +28,11 @@ import { CalendarComponent } from '../../provider/calendar/calendar.component';
 import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { DateTimePickerModule } from "@syncfusion/ej2-angular-calendars";
 import { ScheduleModule, DayService, WeekService } from '@syncfusion/ej2-angular-schedule';
-import { SettingsComponent } from 'src/app/settings/settings.component';
+import { LocationSelectService } from './location.service';
+import { UtilityService } from '../../_services/utiltiy.service';
+import { SettingsModule } from '../../settings/settings.module'
+import { SettingsComponent } from '../../settings/settings.component'
+
 
 
 
@@ -67,9 +71,10 @@ import { SettingsComponent } from 'src/app/settings/settings.component';
     MatAutocompleteModule,
     ScheduleModule,
     DropDownListModule,
-    DateTimePickerModule
+    DateTimePickerModule,
+    SettingsModule
   ],
-  providers: [DayService, WeekService
+  providers: [DayService, WeekService, LocationSelectService, UtilityService
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
