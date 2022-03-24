@@ -1,6 +1,5 @@
 import { MessageComponent } from './../../patient/message.component';
 import { DocumentComponent } from './../../patient/document.component';
-import { PartnerSignupComponent } from './../../patient/partner-signup.component';
 import { AppointmentComponent } from './../../patient/appointment.component';
 import { DashboardComponent } from './../../patient/dashboard.component';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
@@ -26,7 +25,7 @@ import { MyprofileComponent } from 'src/app/patient/myprofile.component';
     PatientComponent,
     DashboardComponent,
     AppointmentComponent,
-    PartnerSignupComponent,
+
     DocumentComponent,
     MessageComponent,
     MyhealthComponent,

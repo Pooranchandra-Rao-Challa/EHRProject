@@ -78,6 +78,7 @@ export class AuthenticationService {
     let observable = this.http.post<ResponseData>(endpointUrl, creds);
     console.log(observable);
     observable.subscribe(resp => {
+      debugger;
       console.log(resp.IsSuccess);
       if (resp.IsSuccess) {
         //let sessionToken = this.idService.generate();

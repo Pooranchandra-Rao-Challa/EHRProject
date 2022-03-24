@@ -61,7 +61,7 @@
               <p>No third-party applications currently registered as partner applications. </p>
               <h4> How to Become an Authorized EHR1 HealthIT Partner</h4>
               <hr>
-              <p>Register to become a HealthIT partner here: <a href="/patient/partnersignup" class="as">Register
+              <p>Register to become a HealthIT partner here: <a href="/account/partnersignup" class="as">Register
                   Now</a></p>
             </div>
           </div>
@@ -87,14 +87,14 @@
           <div class="panel-body">
             <ul>
               <li>
-                <a class="secondary-text-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop4">
+                <a class="secondary-text-dark"  data-bs-target="#staticBackdrop4">
                   <i class="fa fa-angle-right">
                   </i>
                   <a>Request an Appt</a>
                 </a>
               </li>
               <li>
-                <a class="secondary-text-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
+                <a class="secondary-text-dark"  data-bs-target="#staticBackdrop1">
                   <i class="fa fa-angle-right">
                   </i>
                   <a>Send a Message</a>
@@ -136,17 +136,19 @@
       <div class="modal-body">
         <div class="content">
           <form class="pt-4">
-            <div class="row">
+            <div class="row ">
               <div class="col-lg-12">
                 <div class="row">
-                  <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-                    <mal-lable>Date </mal-lable>
-                    <mat-form-field appearance="outline" >
-                      <input matInput placeholder="Date">
-                    </mat-form-field>
+                  <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
+                    <label>Date</label>
+                        <div class="form-group">
+                          <mat-form-field class="w-100" appearance="outline" >
+                            <input matInput placeholder="Date">
+                          </mat-form-field>
+                        </div>
                   </div>
-                  <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-                    <mal-lable>Select Provider </mal-lable>
+                  <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3 ">
+                    <mal-lable >Select Provider </mal-lable>
                     <mat-form-field appearance="outline">
                       <mat-select placeholder="select Provider">
                         <mat-option>Select Provider
@@ -162,15 +164,17 @@
             </div>
             <div class="row">
               <div class="col-lg-12">
-                <div class="row">
-                  <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-                    <mal-lable>Time </mal-lable>
-                   <mat-form-field appearance="outline" >
-                    <input matInput placeholder="Time">
-                  </mat-form-field>
+                <div class="row ">
+                  <div class="col-lg-6 col-md-6 col-sm-12 col-12 mt-3 ">
+                    <label>Time</label>
+                    <div class="form-group">
+                      <mat-form-field class="w-100" appearance="outline" >
+                        <input matInput placeholder="Time">
+                      </mat-form-field>
+                    </div>
                   </div>
-                  <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-                    <mal-lable>Select Location </mal-lable>
+                  <div class="col-lg-6 col-md-6 col-sm-12 col-12 mt-3">
+                    <mal-lable  >Select Location </mal-lable>
                     <mat-form-field appearance="outline">
                       <mat-select placeholder="select Location">
                         <mat-option>Select Location
@@ -186,8 +190,8 @@
             </div>
             <div class="row">
               <div class="col-lg-12">
-                <div class="row">
-                  <mal-lable>Note </mal-lable>
+                <div class="row mt-2">
+                  <mal-lable >Note </mal-lable>
                   <mat-form-field appearance="outline" class="col-lg-12">
                     <textarea matInput matInput placeholder="Note"></textarea>
                   </mat-form-field>
@@ -265,7 +269,7 @@
                     <input matInput placeholder="Subject:">
                   </mat-form-field>
 
-                  <mal-lable>Message </mal-lable>
+                  <mal-lable class="mt-3">Message </mal-lable>
                   <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-sm-12 col-12">
                     <input matInput placeholder="Message:">
                   </mat-form-field>
@@ -275,7 +279,7 @@
             <div class="row">
               <div class="col-lg-1 file_upload_glyph">
                 <div class="form-group">
-                  <div class="input-group">
+                  <div class="input-group mt-4">
                     <span type="button" class="reg-button col-md-4 btn btn-default btn-padding-md">
                       <i class="fa fa-paperclip" aria-hidden="true"></i>
                     </span>
