@@ -11,6 +11,7 @@ import { HomeComponent } from "../account/home.comonent";
 import { SharedModule } from '../_common/shared';
 import { IConfig, NgxMaskModule} from 'ngx-mask'
 import { PatientLoginComponent } from './Patientlogin.component';
+import { PartnerSignupComponent } from '../patient/partner-signup.component';
 
 
 /*
@@ -49,6 +50,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     RegistrationComponent,
     HomeComponent,
     PatientLoginComponent,
+    PartnerSignupComponent,
   ]
 })
 export class LoginModule { }

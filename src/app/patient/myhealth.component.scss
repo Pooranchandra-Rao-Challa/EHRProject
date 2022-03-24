@@ -12,11 +12,36 @@
     line-height: 20%;
     border-bottom: 2px solid #41b6a6;
   }
+  @media (max-width: 320px) {
+    .title{
+      line-height: 120%;
+    }
+  }
+  @media (max-width: 376px) {
+    .title{
+      max-width: -webkit-fill-available;
+     
+    }
+  }
+  @media (max-width: 332px) {
+  .title[_ngcontent-tce-c300] {
+    margin-top: 2%;
+    margin-left: 2%;
+    color: #41b6a6;
+    font-size: small;
+  }
+  }
   .title{
     margin-top: 2%;
     margin-left: 2% ;
     color: #41b6a6;
     font-size: large;
+  } 
+  @media (max-width: 320px) {
+    .dashboard-patient-wrapper .photo-patient, .dashboard-patient-wrapper .avatar{
+      width: 129px;
+      height: 137px;
+    }
   }
   .title1{
     margin-top: 2%;
@@ -39,8 +64,8 @@
     box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
   }
   .dashboard-patient-wrapper .photo-patient, .dashboard-patient-wrapper .avatar {
-    width: 200px;
-    height: 200px;
+    width: -webkit-fill-available;;
+    // height: 200px;
     display: block;
     border: 1px solid #2e877b;
     border-radius: 3px;

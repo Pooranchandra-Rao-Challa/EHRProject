@@ -22,7 +22,9 @@ a:hover {
 .fa-angle-right:hover {
   color: #fe8f00;
  }
-
+ .fa-angle-right:active {
+  color: #fe8f00;
+ }
  .fa{
   font-size: larger;
   margin-right: 3%;
@@ -140,7 +142,9 @@ body {
 .performed-container {
   display: none;
 }
-textarea {
+ textarea.mat-input-element {
+  padding: 2px 0;
+  margin: -2px 0;
   resize: none;
 }
 .performed-icon,
@@ -362,12 +366,12 @@ h4 {
   .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
     background-color: rgb(243, 242, 242);
     border-radius: 20% !important ;
-    border-color: rgb(151, 150, 150);
+    border-color: red;
     height: 19px;
     width: 19px;
   }
   .mat-checkbox-checkmark-path {
-    stroke: grey !important;
+    stroke: red !important;
   }
 }
 ::ng-deep .example-margin:hover {
@@ -381,10 +385,10 @@ h4 {
   & .mat-checkbox-background,
   .mat-checkbox-frame {
     border-radius: 20% !important;
-    border-color: #cacaca;
+    border-color: RED;
     background-color: #eeeaea;
-    border-width: 2px;
-    border-style: solid;
+    border-width: 1px;
+    border-style:solid;
     width: 19px;
     height: 19px;
   }

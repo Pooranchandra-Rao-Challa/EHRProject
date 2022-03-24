@@ -5,7 +5,9 @@
   margin-right: auto;
   margin-left: auto;
 }
-textarea {
+textarea.mat-input-element {
+  padding: 2px 0;
+  margin: -2px 0;
   resize: none;
 }
 
@@ -30,7 +32,7 @@ textarea {
   padding: 10px 0;
   text-align: right;
 }
-.btn-group a:hover {
+.btn-group a:hover a.active {
   background-color: #fe8f00;
   color: #fff;
   border: 1px solid #fff;

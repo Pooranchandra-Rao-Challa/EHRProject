@@ -7,6 +7,7 @@ import { RubyAuthenticationFailedComponenet } from './ruby.authentication.failed
 import { RegistrationComponent } from "../account/registration.component";
 import { HomeComponent } from "../account/home.comonent";
 import { PatientLoginComponent } from './Patientlogin.component';
+import { PartnerSignupComponent } from '../patient/partner-signup.component';
 
 const routes: Routes = [
   {
@@ -16,7 +17,8 @@ const routes: Routes = [
       { path: 'rubyloginfailed', component: RubyAuthenticationFailedComponenet },
       { path: 'registration', component: RegistrationComponent },
       { path: 'home', component: HomeComponent },
-      { path: 'patientlogin', component: PatientLoginComponent }
+      { path: 'patientlogin', component: PatientLoginComponent },
+      { path: 'partnersignup', component: PartnerSignupComponent },
     ]
   }
 ]

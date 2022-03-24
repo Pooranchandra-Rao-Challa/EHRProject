@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-expand-lg navbar-dark">
   <button class="navbar-toggler" type="button" (click)="toggleNavbar()">
     <span class="navbar-toggler-icon"></span>
@@ -6,7 +7,8 @@
   <img src="assets/images/logo.svg" alt="logo" class="img-fluid mx-3" />
 
   <div class="collapse navbar-collapse" [ngClass]="{ 'show': navbarOpen }">
-    <ul class="navbar-nav mr-auto">
+    <ul class="navbar-nav mr-auto menuactive">
+  
       <li class="nav-item active">
         <a href="patient/dashboard" class="nav-link item-dashboard">Dashboard
           <!-- <i class="fa fa-pie-chart" aria-hidden="true"></i>
@@ -46,4 +48,30 @@
     </ul>
   </div>
 
+
+
+  
+  
+  <ul class="navbar-nav pull-right">
+    <li [matMenuTriggerFor]="menu" class="nav-item nav-top-right">
+      <a class="nav-link dropdown-toggle" id="UserDropdown">
+        <span class="profile-text">{{ this.user.FirstName}}&nbsp;&nbsp;{{this.user.LastName}}</span>
+        <img class="img-xs rounded-circle mx-1" src="../../../assets/images/default.png">
+      </a>
+
+      <mat-menu #menu="matMenu"  [hasBackdrop]="false">
+        <div class="list" style="border-top: 1px solid #86c1bb; width: 100%;">
+          <li><a class="nav-li" href="patient/profile">My Profile</a></li>
+          <li><a class="nav-li" href="patient/health">My Health</a></li>
+          <li><a class="nav-li" href="patient/document">Activity Log</a></li>
+          <li><a class="nav-li" style="border-top:  1px solid #86c1bb;" (click)="logout()">LogOut</a></li>
+    </div>
+    </mat-menu>
+    </li>
+  </ul>
 </nav>
+
+
+
+
+
