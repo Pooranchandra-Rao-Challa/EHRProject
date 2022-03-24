@@ -179,7 +179,7 @@
             <div class="form-group">
               <div class="input-group">
                 <label class="control-label input-group-addon required">First Name</label>
-                <input class="form-control" placeholder="First Name" type="text">
+                <input class="form-control" placeholder="First Name" type="text" [(ngModel)]="PatinetData.FirstName">
               </div>
             </div>
           </div>
@@ -195,15 +195,15 @@
             <div class="form-group">
               <div class="input-group">
                 <label class="control-label input-group-addon required">Last Name</label>
-                <input class="form-control" placeholder="Last Name" type="text">
+                <input class="form-control" placeholder="Last Name" type="text" [(ngModel)]="PatinetData.LastName">
               </div>
             </div>
           </div>
           <div class="col-lg-6 col-md-6 col-12">
             <div class="form-group">
               <div class="input-group">
-                <label class="control-label input-group-addon required">DOB</label>
-                <input class="form-control" placeholder="DOB (mm/dd/yyyy)" type="date">
+                <label class="control-label input-group-addon required" >DOB</label>
+                <input class="form-control" placeholder="DOB (mm/dd/yyyy)" type="date" [(ngModel)]="PatinetData.DateofBirth">
                 <!-- <input matInput class="col-8" autocomplete="off" [matDatepicker]="picker1" (click)="picker1.open()"
                   readonly placeholder="DOB (mm/dd/yyyy)">
                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
@@ -260,7 +260,7 @@
         </div>
       </div>
       <div class="modal-footer appointment-form">
-        <button class="btn">Save</button>
+        <button class="btn" (click)="UpdatePatient()" >Save</button>
         <button class="btn" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
       </div>
     </div>
@@ -700,7 +700,7 @@
                         </div>
                       </div>
                       <div class="scrollable-mat-table">
-                        <mat-table mat-table [dataSource]="data" id="procedure-table" class="pt-2">
+                        <mat-table mat-table [dataSource]="EncounterData" id="procedure-table" class="pt-2">
                           <ng-container *ngFor="let column of encounterdiagnosesColumns" [matColumnDef]="column">
                             <mat-header-cell *matHeaderCellDef>
                               <p class="text-capitalize-first">{{column}}</p>
@@ -746,7 +746,7 @@
                       </div>
                     </div>
                     <div class="scrollable-mat-table">
-                      <mat-table mat-table [dataSource]="data" id="procedure-table" class="ehr-cqm-container pt-2">
+                      <mat-table mat-table [dataSource]="EncounterData" id="procedure-table" class="ehr-cqm-container pt-2">
                         <ng-container *ngFor="let column of procedureColumns" [matColumnDef]="column">
                           <mat-header-cell *matHeaderCellDef>
                             <p class="text-capitalize-first">{{column}}</p>

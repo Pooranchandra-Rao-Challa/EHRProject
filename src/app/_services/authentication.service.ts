@@ -132,9 +132,7 @@ export class AuthenticationService {
   isLoggedIn() {
     const jwtToken = JSON.parse(atob(this.userValue.JwtToken.split('.')[1]));
     const expires = new Date(jwtToken.exp * 1000);
-    console.log(expires);
-    console.log(expires.getTime() - Date.now() );
-    const timediff = expires.getTime() - Date.now()
+    const timediff = expires.getTime() - Date.now();
     return timediff > 0;
   }
 

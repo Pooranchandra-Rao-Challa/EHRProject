@@ -12,7 +12,7 @@ const routes: Routes = [
     children: [
       { path: "calendar", component: CalendarComponent },
       { path: 'smartschedule', component: SmartScheduleComponent },
-      { path: 'setting', component: SettingsComponent },
+      { path: 'settings', component: SettingsComponent },
     ]
   }
 ]
