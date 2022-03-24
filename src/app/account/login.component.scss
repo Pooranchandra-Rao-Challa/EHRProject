@@ -59,6 +59,21 @@ button:hover {
   background-color: #41b6a6 !important;
   color: #fff !important;
 }
+.reg-button {
+  width: 43% !important;
+  height: 45px !important;
+  border: 1px solid #41b6a6 !important;
+  background-color: white;
+  //padding: 0px 5px !important;
+  color: #41b6a6 !important;
+  margin-top: 8%;
+  font-size: 16px;
+  margin-left: 5%;
+}
+.reg-button:hover {
+  background-color: #41b6a6 !important;
+  color: #fff !important;
+}
 video {
   margin-top: 4%;
   width: 100%;
@@ -219,4 +234,105 @@ html {
   margin: 0 auto;
   background-image: url(../../assets/images/logo-rectangle.svg);
   background-repeat: no-repeat;
+}
+
+
+.modal .modal-dialog {
+
+  margin-left: 38%;
+  margin-top: 10%;
+}
+.modal-dialog .modal-content {
+  box-shadow: none;
+  border: 1px solid #41b6a6;
+  border-radius: 3px;
+}
+.modal-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  pointer-events: auto;
+  background-color: #eee;
+}
+.modal-header {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1rem;
+  border-bottom: 2px solid #41b6a6;
+  border-top-left-radius: calc(0.3rem - 1px);
+  border-top-right-radius: calc(0.3rem - 1px);
+  background-color: #41b6a6;
+  color: white;
+  
+}
+.hederfont{
+  font-size: 20px;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    font-family: 'Roboto' !important;
+}
+.modal-body p {
+  padding: 0 14px 0 14px;
+  font-weight: 400;
+  margin-bottom: 0;
+  font-size: 18px;
+  font-family: 'Roboto' !important;
+}
+.content{
+  text-align: center;
+  color: #74757e;
+  
+}
+
+::ng-deep.mat-form-field-outline {
+  color: #41b6a6 !important;
+  // opacity: 1!important;
+}
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  background-color:#f5f5f5 !important;
+  height: 45px;
+  border-radius: 5%;
+  background-color: #f5f5f5;
+  color: #dedede;
+  margin-bottom: 20%;
+}
+.modal-content.body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  pointer-events: auto;
+  background-color: #fff;
+}
+
+.verify{
+  margin-top: 2%;
+}
+@media (max-width: 572px) {
+  .modal .modal-dialog{
+margin-left: 0%;}}
+
+
+@media (max-width: 620px)and (min-width: 572px)  {
+  .modal .modal-dialog{
+margin-left: 10%;}}
+
+
+@media (max-width: 730px)and (min-width: 620px)  {
+  .modal .modal-dialog{
+margin-left: 15%;}}
+
+@media (max-width: 940px)and (min-width: 730px)  {
+  .modal .modal-dialog{
+margin-left: 23%;
+
+}}
+
+.form-group label {
+  font-size: 17px;
+  padding-top: 13px;
 }

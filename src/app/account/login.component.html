@@ -42,10 +42,12 @@
                   </mat-form-field>
                 </div>
                 <div style="color: #287066" class="pull-right">
-                  <div>Forgot your password?</div>
-                  <div onclick="document.getElementById('resendverification').style.display='block'">
+                  <div data-bs-toggle="modal" data-bs-target="#staticBackdrop">Forgot your password?</div>
+                  <div data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
                     Resend Email Verification
                   </div>
+
+
                 </div>
               </form>
             </mat-card-content>
@@ -99,6 +101,104 @@
             </div>
             <div>Monday-Friday 7am-4pm (PST)</div>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="hederfont">Reset Your Password</h4>
+
+      </div>
+      <div class="modal-body">
+        <div class="content">
+          <form class="pt-4">
+            <div class="row ">
+              <div class="col-lg-12">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-12 ">
+
+                    <P>Enter the email address associated with your account and an email with password reset
+                      instructions will be sent.</P>
+                    <div class="form-group mt-5">
+                      <mat-form-field class=" field w-100" appearance="outline">
+                        <input matInput>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+            <div class="row">
+              <button type="button" class="reg-button col-md-4" data-bs-dismiss="modal">Go Back</button>
+              <button type="button" class="reg-button col-md-4">Okay-Send it ! </button>
+
+            </div>
+
+          </form>
+
+          <!-- end personal info -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content body">
+      <div class="modal-header">
+        <h4 class="hederfont">Email Verification </h4>
+        <span type="button" data-bs-dismiss="modal">
+          X
+        </span>
+      </div>
+      <div class="modal-body">
+        <div class="content">
+          <form>
+            <!-- <div>
+              <mat-label>Email Address</mat-label>
+              <mat-form-field class="w-100" appearance="outline">
+                <input matInput placeholder="Enter an email">
+              </mat-form-field>
+            </div> -->
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label>Email Address :</label>
+                </div>
+              </div>
+              <div class="col-lg-8 ">
+                <div class="form-group ">
+                  <mat-form-field class=" w-100"  appearance="outline">
+                    <input  matInput placeholder="Enter an email">
+                  </mat-form-field>
+                </div>
+              </div>
+
+            </div>
+            <div class="row">
+              <button type="button" style="margin-left: 33%;" class="col-md-4 verify" >Resend
+                Verification</button>
+            </div>
+            <div> <button type="button" style="margin-left:16%;" class="col-md-4 verify" data-bs-dismiss="modal">Register
+                Now</button></div>
+          </form>
+
+          <!-- end personal info -->
         </div>
       </div>
     </div>

@@ -28,7 +28,7 @@ export class PatientLoginComponent implements OnInit {
     OnLoginSubmit() {
         this.showspinner = true;
         this.message = 'Please wait while verifying your Email Id and Password';
-        debugger;
+
         if (this.loginForm.Invalid) {
             return
         };
@@ -39,6 +39,7 @@ export class PatientLoginComponent implements OnInit {
         };
 
         this.authenticationService.patientLoginWithFormCredentials(creds).subscribe(resp => {
+            
 
             if (!resp.IsSuccess) {
                 this.showspinner = false;

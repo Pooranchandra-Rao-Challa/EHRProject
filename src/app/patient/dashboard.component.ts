@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { User, UserLocations } from '../_models';
+import { AuthenticationService } from '../_services/authentication.service';
 
 @Component({
   selector: 'app-patientdashboard',
@@ -10,7 +12,13 @@ export class DashboardComponent {
   isAccees:boolean=false;
   displayReq = "none";
   displayNew = "none";
-  constructor() { }
+  user: User;
+  locationsInfo: UserLocations[];
+  constructor(private authenticationService: AuthenticationService) {
+
+    this.user = authenticationService.userValue;
+    this.locationsInfo = JSON.parse(this.user.LocationInfo)
+   }
 
   ngOnInit(): void {
   }

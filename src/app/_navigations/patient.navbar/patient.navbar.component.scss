@@ -13,21 +13,17 @@
   background-color: #2e877b;
   border-bottom: 3px solid #fe8f00;
 }
+ .nav-item.active {
+  height: 88px;
+  background-color: #2e877b;
+  border-bottom: 3px solid #fe8f00;
+}
+
 .navbar-nav > .nav-item.nav-top-right:hover {
   padding-top: 13px;
 }
-// mat memu
-button.mat-menu-item {
-  width: 100%;
-  height: 35px;
-  background-color: #2e877b;
-}
-button.mat-menu-item:hover {
-  background-color: #22645b !important;
-  border-left: 3px solid #fe8f00;
-}
 ::ng-deep .mat-menu-panel {
-  border: 1px solid #2e877b !important;
+  border: 0px solid #2e877b !important;
   background-color: #2e877b !important;
 }
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
@@ -37,6 +33,11 @@ button.mat-menu-item:hover {
   padding-top: 0px !important;
   padding-bottom: 0px !important;
 }
+
+::ng-deep .mat-menu-content {
+  width: 270px !important;
+}
+
 i {
   font-size: 17px;
 }
@@ -56,6 +57,39 @@ i {
     margin-left: 1rem;
   }
 }
+.list{
+  list-style-type: none;
+  margin-left: 0%;
+  width: 100%;
+  
+    box-shadow: none;
+    background-color: #2e877b;
+    position: relative;
+    left: 0;
+}
+
+hr{
+ color:  #fff;
+}
+.nav-li{
+    color: #fff;
+    width: initial;
+    display: block;
+    border-radius: 0;
+    border: 0;
+    height: 33px;
+    padding: 5px 23px 0 20px;
+    font-size: 14px;
+    font-family: 'Helvetica Neue';
+    border-left: 3px solid transparent;
+    color: rgba(255,255,255,0.8);
+    //border-top:  1px solid #fff!important;
+}
+
+.nav-li:hover{
+  background-color: #22645b !important;
+  border-left: 3px solid #fe8f00;
+  }
 .navbar-expand-lg.navbar-nav.nav-link {
   padding-bottom: 0px !important;
   padding-top: -1px !important;
@@ -69,6 +103,10 @@ i {
   line-height: initial;
 }
 .navbar-nav > .nav-item:hover {
+  background-color: #2e877b;
+  border-bottom: 3px solid #fe8f00;
+}
+.navbar-nav > .nav-item.active {
   background-color: #2e877b;
   border-bottom: 3px solid #fe8f00;
 }
@@ -127,3 +165,57 @@ i {
 ::ng-deep .cdk-overlay-connected-position-bounding-box {
   right: 0px !important;
 }
+
+.nav-link {
+  color: green;
+}
+
+.nav-item>a:hover {
+  color: green;
+}
+
+/*code to change background color*/
+.navbar-nav>.active>a {
+  background-color: #C0C0C0;
+  color: green;
+}
+
+
+.menu {
+  padding: 16px;
+  border: 1px solid black;
+  margin-bottom: 32px;
+}
+
+.link {
+  text-decoration: none;
+  color: black;
+  padding: 8px;
+  border: 1px solid black;
+  border-radius: 16px;
+  display: inline-block;
+  width: 50px;
+  background-color: white;
+  margin-right: 8px;
+  text-align: center;
+}
+
+.active {
+  font-weight: bold;
+  background-color: yellow;
+  text-decoration: none;
+}
+
+.active-group {
+  background-color: green;
+}
+
+h4 {
+  padding: 0;
+  margin: 0;
+}
+
+
+
+
+

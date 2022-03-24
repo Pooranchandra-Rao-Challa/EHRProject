@@ -10,6 +10,7 @@ export interface User {
   FirstName: string;
   LastName: string;
   JwtToken: string;
+  TimeZone: string;
   LocationInfo: string;
   IsSuccess: boolean;
 
