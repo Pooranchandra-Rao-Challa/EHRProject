@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Component, OnInit, Output ,EventEmitter} from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { User, UserLocations } from '../../_models';
@@ -19,6 +19,7 @@ export class ProviderNavbarComponent implements OnInit {
   locationsInfo: UserLocations[];
   currentLocation: string;
   @Output() LocationChanged = new EventEmitter<String>();
+  view: string;
 
   constructor(
     config: NgbDropdownConfig, private router: Router,
@@ -31,7 +32,6 @@ export class ProviderNavbarComponent implements OnInit {
 
   }
   ngOnInit() {
-
 
   }
 

@@ -27,7 +27,7 @@ export class SettingsService extends APIEndPoint {
 
   DisplayDateTimeOfZone(reqdata: any) {
     let postdata = { timeZoneId: reqdata };
-    return this._ProcessGetRequest<any>(this._displayDateTimeOfZoneUrl+"?timeZoneId="+encodeURIComponent(reqdata)  );
+    return this._ProcessGetRequest<any>(this._displayDateTimeOfZoneUrl + "?timeZoneId=" + encodeURIComponent(reqdata));
   }
 
   AddressVerification(reqparams: any) {
