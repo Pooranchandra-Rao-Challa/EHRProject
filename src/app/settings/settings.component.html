@@ -1,84 +1,56 @@
-<div class="col-lg-2 col-md-3">
-  <div class="left-block border mx-2">
-    <div class="colA" id="sidebar">
-      <ul class="list-unstyled menuclass" id="myDIV">
-        <li class="active panel-heading2">
-          <a class="ptitle2" href="/provider/settings?view=practice">Practice</a>
-        </li>
-        <li class="my-2 panel-heading2">
-          <a
-            href="#"
-            class="ptitle2 m-0"
-            href="/provider/settings?view=accesspermission"
-            >Access Permission</a
-          >
-        </li>
-        <li class="my-2 panel-heading2">
-          <a class="ptitle2 m-0" href="/provider/settings?view=schedule"
-            >Schedule</a
-          >
-        </li>
-        <li class="my-2 panel-heading2">
-          <a class="ptitle2 m-0" href="/provider/settings?view=patient"
-            >Patient
-          </a>
-        </li>
-        <li class="my-2 panel-heading2">
-          <a href="#" class="ptitle2" href="/provider/settings?view=message"
-            >Messages</a
-          >
-        </li>
-        <li class="my-2 panel-heading2">
-          <a href="#" class="ptitle2 m-0" href="/provider/settings?view=erx"
-            >eRx</a
-          >
-        </li>
-        <li class="my-2 panel-heading2">
-          <a
-            href="#"
-            class="ptitle2 m-0"
-            href="/provider/settings?view=labmapping"
-            >Lab/Mapping</a
-          >
-        </li>
-        <li class="my-2 panel-heading2">
-          <a href="#" class="ptitle2 m-0" href="/provider/settings?view=reports"
-            >Reports</a
-          >
-        </li>
-        <li class="my-2 panel-heading2">
-          <a
-            href="#"
-            class="ptitle2 m-0"
-            href="/provider/settings?view=clinicdecision"
-            >Clinic Decision Support</a
-          >
-        </li>
-        <li class="my-2 panel-heading2">
-          <a
-            href="#"
-            class="ptitle2 m-0"
-            href="/provider/settings?view=patientednmaterial"
-            >Patient Education Material</a
-          >
-        </li>
-        <li class="my-2 panel-heading2">
-          <a
-            href="#"
-            class="ptitle2 m-0"
-            href="/provider/settings?view=auditlog"
-            >Audit Log</a
-          >
-        </li>
-      </ul>
+<div class="row">
+  <div class="col-xl-2 col-lg-3 col-md-12">
+    <div class="left-block mx-2">
+      <div class="colA" id="sidebar">
+        <ul class="list-unstyled menuclass border pt-1" id="myDIV">
+          <li [class]="view !== 'practice' ? 'panel-heading2': 'active panel-heading2'">
+            <a class="ptitle2" href="/provider/settings?view=practice">Practice</a>
+          </li>
+          <li [class]="view !== 'accesspermission' ? 'panel-heading2': 'active panel-heading2'">
+            <a href="#" class="ptitle2 m-0" href="/provider/settings?view=accesspermission">Access Permission</a>
+          </li>
+          <li [class]="view !== 'schedule' ? 'panel-heading2': 'active panel-heading2'">
+            <a class="ptitle2 m-0" href="/provider/settings?view=schedule">Schedule</a>
+          </li>
+          <li [class]="view !== 'patient' ? 'panel-heading2': 'active panel-heading2'">
+            <a class="ptitle2 m-0" href="/provider/settings?view=patient">Patient
+            </a>
+          </li>
+          <li [class]="view !== 'message' ? 'panel-heading2': 'active panel-heading2'">
+            <a href="#" class="ptitle2" href="/provider/settings?view=message">Messages</a>
+          </li>
+          <li [class]="view !== 'erx' ? 'panel-heading2': 'active panel-heading2'">
+            <a href="#" class="ptitle2 m-0" href="/provider/settings?view=erx">eRx</a>
+          </li>
+          <li [class]="view !== 'labmapping' ? 'panel-heading2': 'active panel-heading2'">
+            <a href="#" class="ptitle2 m-0" href="/provider/settings?view=labmapping">Lab/Mapping</a>
+          </li>
+          <li [class]="view !== 'reports' ? 'panel-heading2': 'active panel-heading2'">
+            <a href="#" class="ptitle2 m-0" href="/provider/settings?view=reports">Reports</a>
+          </li>
+          <li [class]="view !== 'clinicdecision' ? 'panel-heading2': 'active panel-heading2'">
+            <a href="#" class="ptitle2 m-0" href="/provider/settings?view=clinicdecision">Clinic Decision Support</a>
+          </li>
+          <li [class]="view !== 'patientednmaterial' ? 'panel-heading2': 'active panel-heading2'">
+            <a href="#" class="ptitle2 m-0" href="/provider/settings?view=patientednmaterial">Patient Education
+              Material</a>
+          </li>
+          <li [class]="view !== 'auditlog' ? 'panel-heading2': 'active panel-heading2'">
+            <a href="#" class="ptitle2 m-0" href="/provider/settings?view=auditlog">Audit Log</a>
+          </li>
+        </ul>
+      </div>
     </div>
-    <div class="col-lg-10 col-md-9" [hidden]="view !== 'practice'">
+  </div>
+  <!-- <div class="col-xl-10 col-lg-9 col-md-12 pt-3 pt-lg-0"> -->
+  <div class="right-block col-xl-10 col-lg-9 col-md-12 pt-3 pt-lg-0">
+    <div class="col-12" [hidden]="view !== 'practice'">
       <practice-settings></practice-settings>
     </div>
-    <div class="col-lg-10 col-md-9" [hidden]="view !== 'accesspermission'">
+    <div class="col-12" [hidden]="view !== 'accesspermission'">
       <access-permission-settings></access-permission-settings>
     </div>
-    <div class="col-lg-10 col-md-9" [hidden]="view !== 'schedule'">
+    <div class="col-12" [hidden]="view !== 'schedule'">
       <schedule-settings></schedule-settings>
     </div>
     <div class="col-lg-10 col-md-9" [hidden]="view !== 'patient'">
@@ -107,3 +79,4 @@
     </div>
   </div>
 </div>
+<!-- </div> -->

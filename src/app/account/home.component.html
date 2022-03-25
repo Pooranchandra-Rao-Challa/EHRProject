@@ -24,9 +24,9 @@
         <span class="select">Please select the account type</span>
         <div class="accounts" id="portal_types">
           <span class="provider-acc active" id="provider_btn" (click)="providerBtn()"
-            [ngStyle]="{'background-color':providerType == 'block' ? '#fe8f00' : '#fff' }">provider</span>
+            [ngStyle]="{'background-color':providerType == 'block' ? '#fe8f00' : '#fff' ,'color':patientType == 'block' ? 'black' :'#fff'}">provider</span>
           <span class="patient-acc" id="patient_btn" (click)="patientBtn()"
-            [ngStyle]="{'background-color':patientType == 'block' ? '#fe8f00' : '#fff' }">patient</span>
+            [ngStyle]="{'background-color':patientType == 'block' ? '#fe8f00' : '#fff', 'color':patientType == 'block' ? '#fff' :'black'}">patient</span>
         </div>
       </div>
     </div>

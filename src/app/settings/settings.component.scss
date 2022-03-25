@@ -1,14 +1,12 @@
-// font-family: Roboto, "Helvetica Neue", sans-serif;
 .panel-title {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background-color: #41b6a6;
   color: white;
   border: #41b6a6;
-  height: 60px;
+  min-height: 60px;
   text-align: 10px;
   margin-top: -1px;
-  padding: 10px;
-  padding-bottom: 19px;
+  padding: 10px 0px;
   font-size: 18px;
 }
 .ptitle {
@@ -32,70 +30,47 @@
   background-color: white;
   color: #41b6a6;
   border: #41b6a6;
-  height: 60px;
+  min-height: 70px;
   text-align: left;
   margin-top: -1px;
-  // padding: 12px;
-  // padding-bottom: 19px;
   font-size: 25px;
 }
-
-// .ptitle2:hover{
-//   background: #41b6a6;
-//   color: black;
+// .colA {
+//   min-height: 875px;
+//   border: 0px solid #41b6a6 !important;
 // }
-// .panel-heading2{
-//   font-family: Roboto, "Helvetica Neue", sans-serif;
-//   background-color: white;
-//   color: #41b6a6;
-//   border: #41b6a6;
-//   height: 60px;
-//   text-align: 10px;
-//   margin-top: -1px;
-//   padding: 12px;
-//   padding-bottom: 19px;
-//   font-size: 25px;
-// }
-// .ptitle:hover{
-//   color: black;
-//   background-color: #41b6a6;
-// }
-
-// .panel-heading2:hover{
-//   color: rgb(253, 251, 251);
-//   border-color: #fe8f00;
-//   background-color: #41b6a6;
-// }
-// .active{
-//   border-color: #fe8f00;
-//   background: #41b6a6 !important;
-//   text-decoration: none!important;
-//   border-radius: 0px !important;
-//   padding: 2px !important;
-// }
-.colA {
-  height: 875px;
-  border: 1px solid #41b6a6;
-}
 .colB {
   min-height: 1500px;
 }
 .colF {
   min-height: 2500px;
 }
-// .btnSave{
-//   width: 165px;
-// }
 .btnSave {
   width: 167px;
-  height: 53px;
+  height: 57px;
   font-size: 20px;
+}
+.closemodel {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  color: white;
+  background-color: #41b6a6;
+  font-size: 14px !important;
+  white-space: nowrap;
+  border: 1px solid white;
+}
+.closemodel:hover {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  color: rgb(233, 227, 227);
+  background-color: #41b6a6;
+  border-color: #41b6a6;
+  border: 1px solid rgb(248, 245, 245);
 }
 .btn-success {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   color: #41b6a6;
   background-color: white;
   font-size: 20px !important;
+  white-space: nowrap;
 }
 .btn-success:hover {
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -122,6 +97,14 @@ div.ex3 {
   white-space: nowrap;
   overflow-y: scroll;
 }
+.scroolbar {
+  height: 900px;
+  top: 84%;
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow-y: scroll;
+  background: white;
+}
 
 .bs-example {
   margin-left: 300px;
@@ -134,7 +117,6 @@ div.ex3 {
 .colC {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   margin: 30px;
-  // height: 200px;
 }
 .praset1 {
   margin-left: 50px;
@@ -142,16 +124,15 @@ div.ex3 {
 }
 
 .plusicon {
-  border-radius: 7%;
-  // margin-left: 146px;
-  width: 103px;
+  border-radius: 5%;
   border: 1px solid white;
   background: white;
+  height: 100%;
 }
 .fa-plus {
-  padding: 9px;
-  padding-left: 29px;
   color: #41b6a6;
+  text-align: center;
+  padding: 9px 29px;
 }
 .fa-plus:hover {
   color: white;
@@ -181,7 +162,6 @@ div.ex3 {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background-color: #f5f6f6;
   color: #41b6a6;
-  /* max-width: 122%; */
   padding: 14px;
   font-size: 20px;
 }
@@ -199,9 +179,10 @@ div.ex3 {
     margin: 1.75rem auto;
   }
 }
-.modal-content {
-  width: 843px !important;
-}
+// .modal-content {
+//     width: 843px !important;
+// }
+
 .labelclass {
   max-width: 190px;
   padding: 16px;
@@ -217,8 +198,12 @@ div.ex3 {
   font-size: 15px;
   background-color: #f5f5f5;
 }
+.inputclass:hover {
+  border: 1px solid #41b6a6;
+}
+
 .form-group .input-group .input-group-addon {
-  padding: 16px 10px;
+  padding: 20px 10px;
 }
 .week {
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -272,23 +257,11 @@ hr {
   font-size: 18px;
 }
 .dropdown {
-  width: 500px;
-}
-
-.dropdown:hover {
-  border-color: red;
-}
-::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline:hover {
-  color: #41b6a6 !important;
-  background-color: #fff;
+  min-width: 500px;
 }
 .modal-content {
-  //width: 670px !important;
   border: 1px solid rgb(65 182 166) !important;
 }
-// .modal{
-//   background: rgba(24, 24, 24, 0.82) !important;
-// }
 
 .RomeCard {
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -303,7 +276,6 @@ hr {
   font-size: 18px;
 }
 #Actbtn {
-  // margin-left: -20px;
   font-size: 18px;
   width: 200px;
 }
@@ -367,15 +339,9 @@ input[type="checkbox"] {
   transform: scale(2);
   margin-left: 18px;
 }
-input-group {
-  height: 64px !important;
-}
-.align-items-center,
-.loader-demo-box {
-  // align-items: center !important;
-  margin-left: 49px !important;
-  font-size: 110% !important;
-}
+// input-group {
+//   height: 64px  !important
+// }
 .addressSuccess {
   height: 55px;
   background: #48a948;
@@ -424,11 +390,7 @@ input-group {
 .colE {
   height: 500px;
 }
-// .btn{
-//   white-space:normal !important;
-//   word-wrap: break-word;
-//   max-width:150px;
-//   }
+
 .manuallbtn {
   white-space: normal !important;
   word-wrap: normal;
@@ -488,17 +450,12 @@ td.mat-cell,
 td.mat-footer-cell {
   border-bottom-color: rgb(65 182 166);
 }
-// .heading{
-//   border-left-color: red;
-// }
+
 .modal .modal-dialog .modal-content .modal-header {
   padding: 20px 16px;
 }
 
 .table > :not(caption) > * > * {
-  // padding: 0.5rem 0.5rem;
-  // background-color: var(--bs-table-bg);
-  // border-bottom-width: 1px;
   box-shadow: inset 0 0 0 9999px var(--bs-white) !important;
 }
 .mat-header-cell[_ngcontent-xhc-c178] {
@@ -515,11 +472,6 @@ td.mat-footer-cell {
   font-size: 17px;
   padding-top: 10px;
 }
-.col-lg-2 {
-  font-size: 10px;
-  flex: 0 0 auto;
-  width: 16.666667%;
-}
 .weeks {
   color: #808387;
   font-size: 19px;
@@ -527,19 +479,15 @@ td.mat-footer-cell {
 .mat-form-field-flex {
   background: #f5bdbd;
 }
-// .mat-form-field-appearance-outline .mat-form-field-outline{
-//   background-color: grey!important;
-// }
+
 input.mat-input-element {
   color: #524f4f !important;
-  font-size: 18px !important;
+  // font-size: 18px !important;
 }
 .inputbg {
   background-color: #f5f5f5;
 }
-// .mat-form-field-appearance-outline .mat-form-field-outline {
 
-//   background: whitesmoke !important;
 .privdertext {
   font-size: 18px;
 }
@@ -598,14 +546,6 @@ input.mat-input-element {
 .Locationcolumn {
   margin-left: 30px;
 }
-// #sidebar {
-
-//   top: 0;
-//   left: 0;
-//   z-index: 999;
-//   color: #fff;
-//   transition: all 0.3s;
-// }
 
 ul.menuclass li a {
   display: block !important;
@@ -620,11 +560,11 @@ ul.menuclass li.active a {
   background-color: #41b6a6 !important;
   color: #fff !important;
 }
-.modal-content.UserModal {
-  width: 1200px !important;
-  min-height: 500px !important;
-  margin-left: -196px !important;
-}
+//  .modal-content.UserModal{
+//   width: 1200px !important;
+//   min-height: 500px !important;
+//   margin-left: -196px !important;
+// }
 
 .form-group {
   display: flex;
@@ -638,7 +578,6 @@ ul.menuclass li.active a {
 }
 .labelfontzise {
   font-size: 17px;
-  // font-weight: 600;
   display: inline-block;
   max-width: 100%;
   margin-bottom: 5px;
@@ -651,9 +590,7 @@ ul.menuclass li.active a {
 .modal-backdrop.show:nth-of-type(even) {
   z-index: 1051 !important;
 }
-.AddUserModal {
-  width: 708px !important;
-}
+
 .SaveUserModel {
   margin-top: 320px;
   margin-left: 109px;
@@ -734,18 +671,317 @@ ul.menuclass li.active a {
 
 .cursorpointer {
   color: black !important;
-  //text-decoration: underline !important;
 }
 .cursorpointer:hover {
   cursor: pointer !important;
   color: #fdb009 !important;
-  //text-decoration: underline !important;
 }
 .notallowCursor {
   cursor: not-allowed !important;
 }
-.readonly.mat-form-field-appearance-outline .mat-form-field-outline:hover {
-  background: #f5f5f5 !important;
-  border: 1px solid #41b6a6 !important;
-  border-radius: 3px !important;
+
+//   ::ng-deep
+//   .hover.mat-form-field-appearance-outline:hover
+//   .mat-form-field-outline,
+// .hover.mat-form-field-appearance-outline:active .mat-form-field-outline {
+//   border: 1px solid #41b6a6 !important;
+// }
+.top-block {
+  font-size: 16px !important;
+  color: black;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+@media (max-width: 1350px) {
+  .scrollable-mat-table {
+    max-width: 1200px;
+    overflow-x: scroll !important;
+  }
+  .mat-table {
+    width: 1200px;
+    height: 500px;
+  }
+  .cstm-scroll-header {
+    width: 100%;
+  }
+}
+// @media screen and (min-device-width: 320px) and (max-device-width: 768px) {
+//   .savebtnsize {
+//     max-width: 20px;
+//     margin-left: 20px;
+//   }
+// }
+// @media (max-width: 1024px) {
+//   .savebtnsize {
+//     margin-left: 27px;
+//   }
+// }
+
+@media (max-width: 768px) {
+  .plusicon {
+    border-radius: 5%;
+    margin-right: -5px;
+    margin-top: -3px;
+    width: 89px;
+    height: 35px;
+  }
+}
+@media (max-width: 320px) {
+  .plusicon {
+    border-radius: 5%;
+    margin-right: 26px;
+    margin-top: 3px;
+  }
+}
+@media (max-width: 475px) {
+  .plusicon {
+    border-radius: 5%;
+    margin-right: 125px;
+    margin-top: 3px;
+  }
+}
+@media (max-width: 375px) {
+  .plusicon {
+    border-radius: 5%;
+    margin-right: 21px;
+    margin-top: 3px;
+  }
+}
+// @media (max-width: 768px) {
+//   .left-block {
+//     width: 169px;
+//   }
+// }
+// @media (max-width: 425px) {
+//   .left-block {
+//     width: 326px;
+//   }
+// }
+// @media (max-width: 375px) {
+//   .left-block {
+//     max-width: 278px;
+//   }
+// }
+// @media (max-width: 320px) {
+//   .left-block {
+//     max-width: 223px;
+//   }
+// }
+// @media (max-width: 2560px) {
+//   .modal-content.Location {
+//     width: 750px;
+//     max-height: 1000px;
+//   }
+// }
+// @media (max-width: 768px) {
+//   .modal-content.Location {
+//     margin-left: 10px;
+//     background: white;
+//   }
+// }
+// @media (max-width: 425px) {
+//   .modal-content.Location {
+//     max-width: 391px;
+//     background: white;
+//   }
+// }
+// @media (max-width: 320) {
+//   .modal-content.Location {
+//     max-width: 283;
+//     background: white;
+//   }
+// }
+// @media (max-width: 375) {
+//   .modal-content.Location {
+//     max-width: 300px;
+//     background: white;
+//   }
+// }
+@media (max-width: 2560px) {
+  .modal-content.UserModal {
+    width: 1200px;
+    min-height: 500px;
+    margin-left: -196px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .modal-content.UserModal {
+    max-width: 983px;
+  }
+}
+@media (max-width: 768px) {
+  .modal-content.UserModal {
+    max-width: 720px;
+    margin-left: 9px;
+  }
+}
+
+@media (max-width: 425px) {
+  .modal-content.UserModal {
+    max-width: 371px;
+  }
+}
+@media (max-width: 320px) {
+  .modal-content.UserModal {
+    max-width: 250px;
+  }
+}
+@media (max-width: 1440px) {
+  .modal-content.UserModal {
+    width: 1057px !important ;
+  }
+}
+@media screen and (min-device-width: 320px) and (max-device-width: 768px) {
+  .avatar.border {
+    max-width: 500px;
+  }
+}
+#user-modal .modal-footer {
+  background-color: #fff;
+  padding: 10px;
+  border-top: none;
+}
+// @media (max-width: 2560px) {
+//   .modal-content.AddUserModal {
+//     width: 700px;
+//   }
+//   .addbutton {
+//     margin-top: 57px;
+//     margin-left: -10px;
+//   }
+// }
+// @media (max-width: 1440px) {
+//   .modal-content.AddUserModal {
+//     max-width: 600px;
+//   }
+//   .addbutton {
+//     margin-left: -28px;
+//   }
+// }
+// @media (max-width: 1024px) {
+//   .modal-content.AddUserModal {
+//     max-width: 500px;
+//   }
+//   .addbutton {
+//     margin-left: -40px;
+//     margin-top: 57px;
+//   }
+// }
+// @media (max-width: 1024px) {
+//   .modal-content.AddUserModal {
+//     max-width: 500px;
+//   }
+//   .addbutton {
+//     margin-left: -40px;
+//     margin-top: 57px;
+//   }
+// }
+// @media (max-width: 425px) {
+//   .modal-content.AddUserModal {
+//     max-width: 408px;
+//   }
+//   .addbutton {
+//     margin-top: 57px;
+//   }
+// }
+// @media (max-width: 375px) {
+//   .modal-content.AddUserModal {
+//     max-width: 352px;
+//   }
+//   .addbutton {
+//     margin-top: 57px;
+//   }
+// }
+
+@media screen and (min-device-width: 320px) and (max-device-width: 768px) {
+  .timedropdown.mat-form-field-appearance-outline .mat-form-field-outline {
+    min-width: 133px;
+    margin-left: 5px;
+  }
+}
+@media (max-width: 768px) {
+  .addbtn {
+    margin-right: 154px;
+    margin-top: -23px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .addbtn {
+    margin-right: 154px;
+    margin-top: -23px;
+    height: 40px;
+    width: 100px;
+  }
+}
+
+@media (max-width: 1440px) {
+  .addprovider {
+    padding: 1px 22px;
+  }
+  // .addbtn{
+  //   height: 99%;
+  //   width: 70px;
+  // }
+}
+@media (max-width: 768px) {
+  .plusicon[_ngcontent-jax-c295] {
+    border-radius: 5%;
+    border: 1px solid white;
+    background: white;
+    height: 100%;
+  }
+  .fa-plus.addlocation {
+    color: #41b6a6;
+    text-align: center;
+    padding: -3px 36px;
+  }
+}
+.addbtn {
+  width: 88%;
+}
+.cursorallow {
+  cursor: pointer;
+}
+.cursornotallow {
+  cursor: not-allowed;
+}
+// border-radius for mat-from-field
+
+.mat-form-field-appearance-outline .mat-form-field-outline-start {
+  border-radius: 2px 0 0 2px !important;
+  border-right-style: none;
+}
+.mat-form-field-appearance-outline .mat-form-field-outline-end {
+  border-radius: 2px 0 0 2px !important;
+  border-right-style: none;
+}
+.readonly.mat-form-field
+  .mat-form-field-appearance-outline
+  .mat-form-field-outline-thick {
+  color: #41b6a6 !important;
+}
+//mat-input focused color
+::ng-deep
+  .mat-form-field-appearance-outline.mat-focused
+  .mat-form-field-outline-thick {
+  color: hsl(172, 47%, 48%) !important;
+}
+.mat-form-field-appearance-outline:not(.mat-form-field-disabled)
+  .mat-form-field-flex:hover
+  .mat-form-field-outline-thick {
+  opacity: 1;
+  color: hsl(172, 47%, 48%) !important;
+}
+// Mat dropdown bottom-padding
+.mat-form-field-appearance-outline .mat-form-field-wrapper {
+  padding-bottom: 5px !important;
+}
+// Mat form field custom font-size
+mat-form-field.mat-form-field {
+  font-size: 18px !important;
+}
+// Mat form width
+mat-form-field.mat-form-field {
+  width: 100% !important;
 }

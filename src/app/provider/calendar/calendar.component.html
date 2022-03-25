@@ -43,6 +43,10 @@
                 </mat-checkbox>
               </div>
               <div class="row pt-2">
+                <!-- <mat-form-field>
+                  <input fornControlName="color" matInput [style.background]="color" autocomplete="off"
+                    [(colorPicker)]="color" [cpPosition]="'bottom'" placeholder="Colour" />
+                </mat-form-field> -->
                 <mat-checkbox><span>Confirmed</span></mat-checkbox>
                 <mat-checkbox><span>Not Confirmed</span></mat-checkbox>
                 <mat-checkbox><span>Cancelled</span></mat-checkbox>
@@ -88,36 +92,30 @@
       </div>
       <div class="col-lg-9">
         <div class="right-container">
-          <ejs-schedule [views]="setView">
-            <h1>Calendar Screen</h1>
-            <!-- <ng-template #editorTemplate let-data>
-              <div class="row header">
-                <div class="col-lg-11">
-                  <p>Add New appointment</p>
-                </div>
-                <div class="col-lg-1">
-                  <button mat-icon-button aria-label="close dialog" mat-dialog-close class="float-right close">
-                    <mat-icon>close</mat-icon>
-                  </button>
-                </div>
-              </div>
-              <form>
+          <ejs-schedule [views]="setView" [selectedDate]='selectedDate' [eventSettings]='eventSettings'>
+            <!-- <h1>Calendar Screen</h1> -->
+            <ng-template #editorTemplate>
+              <form [formGroup]="appointmentForm" (ngSubmit)="onSubmitAppointmentForm()" class="appointment-form">
                 <div class="row">
-                  <mat-label>Search for Patient :</mat-label>
-                  <mat-form-field appearance="outline" class="col-12">
-                    <mat-select placeholder="Select One" disableOptionCentering>
-                      <mat-option value="0">Patient Name</mat-option>
+                  <mat-label>Patient :</mat-label>
+                  <mat-form-field appearance="outline" id='PatientName' data-name="PatientName"
+                    class="col-12 hover e-field e-input pb-3">
+                    <mat-select placeholder="Select Patient" disableOptionCentering formControlName="patient">
+                      <mat-option value="1">Patient Name</mat-option>
                     </mat-select>
                   </mat-form-field>
-                  <mat-label>Select Provider :</mat-label>
-                  <mat-form-field appearance="outline" class="col-12">
-                    <mat-select placeholder="Select One" disableOptionCentering>
+                  <mat-label>Providers :</mat-label>
+                  <mat-form-field appearance="outline" id='ProviderName' data-name="ProviderName"
+                    class="col-12 hover e-field e-input pb-3">
+                    <mat-select placeholder="Select Provider" disableOptionCentering formControlName="provider">
                       <mat-option value="0">Angie Keith</mat-option>
                     </mat-select>
                   </mat-form-field>
-                  <mat-label>Select Appointment Type :</mat-label>
-                  <mat-form-field appearance="outline" class="col-12">
-                    <mat-select placeholder="Select One" disableOptionCentering>
+                  <mat-label>Appointment Types :</mat-label>
+                  <mat-form-field appearance="outline" id='AppointmentType' data-name="AppointmentType"
+                    class="col-12 e-field e-input">
+                    <mat-select placeholder="Select Appointment Type" disableOptionCentering
+                      formControlName="appointmentType">
                       <mat-option value="0">Appointment type</mat-option>
                     </mat-select>
                   </mat-form-field>
@@ -125,20 +123,21 @@
                 <div class="row">
                   <div class="col-12">
                     <mat-label class="col-12">Notes</mat-label>
-                    <textarea class="col-12"></textarea>
+                    <textarea class="col-12 text-area" formControlName="notes"></textarea>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-9">
-                    <mat-label class="col-12">Select Location:</mat-label>
-                    <mat-form-field appearance="outline" class="col-12">
-                      <mat-select placeholder="Select One" disableOptionCentering>
+                  <div class="col-md-9 col-12">
+                    <mat-label class="col-12">Locations:</mat-label>
+                    <mat-form-field appearance="outline" id='Locations' data-name="Locations"
+                      class="col-12 e-field e-input">
+                      <mat-select placeholder="Select Location" disableOptionCentering formControlName="location">
                         <mat-option value="2">Celia Infante Hernandez</mat-option>
                       </mat-select>
                     </mat-form-field>
                   </div>
-                  <div class="col-3">
-                    <mat-form-field appearance="outline" class="col-12">
+                  <div class="col-md-3 col-12">
+                    <mat-form-field appearance="outline" class="col-12" style="padding-top: 23px;">
                       <mat-select placeholder="Select One" disableOptionCentering>
                         <mat-option value="0">3</mat-option>
                       </mat-select>
@@ -146,82 +145,44 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-5">
+                  <div class="col-md-5">
                     <mat-label class="col-12">Select Date:</mat-label>
-                    <mat-form-field appearance="outline" class="col-12">
+                    <mat-form-field appearance="outline" id='StartDate' data-name="StartDate"
+                      class="col-12 e-field e-input">
                       <input matInput class="pointer" autocomplete="off" [matDatepicker]="picker2"
-                        (click)="picker2.open()" readonly placeholder="Start Date *">
+                        (click)="picker2.open()" readonly placeholder="Start Date">
                       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                       <mat-datepicker #picker2></mat-datepicker>
                     </mat-form-field>
                   </div>
-                  <div class="col-4">
+                  <div class="col-md-4">
                     <mat-label>Duration:</mat-label>
-                    <mat-form-field appearance="outline" class="col-12">
-                      <mat-select placeholder="Select One" disableOptionCentering>
+                    <mat-form-field appearance="outline" id='Duration' data-name="Duration"
+                      class="col-12 e-field e-input">
+                      <mat-select placeholder="Select Duration" disableOptionCentering>
                         <mat-option value="0">30 min</mat-option>
                       </mat-select>
                     </mat-form-field>
                   </div>
-                  <div class="col-3 pt-3">
-                    <button class="btn col-12" style="border-color: #41b6a6; font-size: 10px; height: 45px;">Find Open
+                  <div class="col-md-3" style="padding-top: 23px;">
+                    <button class="btn col-12">Find Open
                       Time</button>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="available-slots">
+                <div class="available-slots">
+                  <div class="row">
                     <p>Available Time Slots (Select Only One):</p>
-                    <button class="col-lg-4 col-md-3 col-12">08:00 am - 08:30 am</button>
-                    <button class="col-lg-4 col-md-3 col-12">08:30 am - 09:00 am</button>
-                    <button class="col-lg-4 col-md-3 col-12">09:00 am - 09:30 am</button>
-                    <button class="col-lg-4 col-md-3 col-12">09:30 am - 10:00 am</button>
-                    <button class="col-lg-4 col-md-3 col-12">10:00 am - 10:30 am</button>
+                    <div class="col-lg-4 col-md-3 col-12 pb-3" *ngFor="let slots of availableTimeSlots">
+                      <button class="btn col-12">{{slots}}</button>
+                    </div>
                   </div>
                 </div>
-                <ejs-datetimepicker id="StartTime" class="e-field" data-name="StartTime" format="M/dd/yy h:mm a"
-                  (change)="onDateChange($event)">
-                </ejs-datetimepicker>
-                <ejs-datetimepicker id="EndTime" class="e-field" data-name="EndTime" format="M/dd/yy h:mm a"
-                  (change)="onDateChange($event)">
-                </ejs-datetimepicker>
+                <div class="pt-2">
+                  <button class="btn" type="submit" (click)="onSubmitAppointmentForm()">Save</button>
+                </div>
               </form>
-            </ng-template> -->
-            <!-- <ng-template #editorTemplate let-data>
-              <div class="row header">
-                <div class="col-lg-11">
-                  <p>Add New appointment</p>
-                </div>
-                <div class="col-lg-1">
-                  <button mat-icon-button aria-label="close dialog" mat-dialog-close class="float-right close">
-                    <mat-icon>close</mat-icon>
-                  </button>
-                </div>
-              </div>
-              <form>
-                <div class="row">
-                  <mat-label>Search for Patient :</mat-label>
-                  <mat-form-field appearance="outline" class="e-field col-12">
-                    <mat-select id="PatientName" placeholder="Select One" data-name="PatientName"
-                      disableOptionCentering>
-                      <mat-option value="0">Patient Name</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-                <div class="row">
-                  <div class="col-12">
-                    <mat-label class="col-12">Notes</mat-label>
-                    <textarea id="Notes" class="e-field col-12" data-name="Notes"></textarea>
-                  </div>
-                </div>
-                <ejs-datetimepicker id="StartTime" class="e-field" data-name="StartTime" format="M/dd/yy h:mm a"
-                  (change)="onDateChange($event)">
-                </ejs-datetimepicker>
-                <ejs-datetimepicker id="EndTime" class="e-field" data-name="EndTime" format="M/dd/yy h:mm a"
-                  (change)="onDateChange($event)">
-                </ejs-datetimepicker>
-              </form>
-            </ng-template> -->
-            <ng-template #editorTemplate>
+            </ng-template>
+            <!-- <ng-template #editorTemplate>
               <div class="row">
                 <label>Search for Patient:</label>
                 <div>
@@ -293,43 +254,10 @@
               <ejs-datetimepicker id="EndTime" class="e-field" data-name="EndTime" format="M/dd/yy h:mm a"
                 (change)="onDateChange($event)">
               </ejs-datetimepicker>
-              <!-- <table class="custom-event-editor" width="100%" cellpadding="5">
-                <tbody>
-                  <tr>
-                    <td class="e-textlabel col-12">Search for Patient</td>
-                    <td class="col-12">
-                      <ejs-dropdownlist id='EventType' class="e-field e-input" data-name="EventType"
-                        placeholder='Choose Status' [dataSource]='data'>
-                      </ejs-dropdownlist>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="e-textlabel">From</td>
-                    <td colspan="4">
-                      <ejs-datetimepicker id="StartTime" class="e-field" data-name="StartTime" format="M/dd/yy h:mm a"
-                        (change)="onDateChange($event)">
-                      </ejs-datetimepicker>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="e-textlabel">To</td>
-                    <td colspan="4">
-                      <ejs-datetimepicker id="EndTime" class="e-field" data-name="EndTime" format="M/dd/yy h:mm a"
-                        (change)="onDateChange($event)">
-                      </ejs-datetimepicker>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="e-textlabel">Reason</td>
-                    <td colspan="4">
-                      <textarea id="Description" class="e-field e-input" name="Description" rows="3" cols="50"
-                        style="width: 100%; height: 60px !important; resize: vertical"></textarea>
-                    </td>
-                  </tr>
-                </tbody>
-              </table> -->
-            </ng-template>
+            </ng-template> -->
           </ejs-schedule>
+          <!-- <ejs-schedule [selectedDate]='selectedDate' [eventSettings]='eventSettings'>
+          </ejs-schedule> -->
         </div>
       </div>
     </div>
