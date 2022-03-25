@@ -27,4 +27,7 @@ export class UtilityService extends APIEndPoint {
   AppointmentTypes() {
     return this._ProcessGetRequest<any>(this._appointmentTypesUtilityUrl);
   }
+  VerifyAddress(addressLine: any) {
+    return this._ProcessGetRequest<any>(this._addressVerificationUrl + "?addressLine=" + encodeURIComponent(addressLine));
+  }
 }
