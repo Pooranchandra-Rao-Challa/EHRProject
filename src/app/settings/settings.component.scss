@@ -69,8 +69,9 @@
   font-family: Roboto, "Helvetica Neue", sans-serif;
   color: #41b6a6;
   background-color: white;
-  font-size: 20px !important;
+  font-size: 16px !important;
   white-space: nowrap;
+  height: 45px;
 }
 .btn-success:hover {
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -156,7 +157,9 @@ div.ex3 {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   color: white;
   background-color: #41b6a6;
-  height: 70px;
+  border-bottom: none;
+  min-height: 50px;
+  max-height: 70px;
 }
 .row-heading {
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -165,35 +168,21 @@ div.ex3 {
   padding: 14px;
   font-size: 20px;
 }
-@media (min-width: 576px) {
-  .modal-dialog {
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-    max-width: 881px !important;
-    margin: 1.75rem auto;
-  }
-}
-@media (min-width: 800px) {
-  .modal-dialog {
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-    max-width: 600px !important;
-    margin: 1.75rem auto;
-  }
-}
-// .modal-content {
-//     width: 843px !important;
-// }
 
 .labelclass {
+  border-radius: 4px;
   max-width: 190px;
   padding: 16px;
   color: #525358;
-  height: 57px;
+  height: 45px;
   font-size: 17px;
   background: #d6d8df;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 .inputclass {
-  padding: 16px;
+  border-radius: 4px;
+  padding: 0px 10px;
+  height: 45px;
   color: #525358;
   font-size: 15px;
   background-color: #f5f5f5;
@@ -203,7 +192,7 @@ div.ex3 {
 }
 
 .form-group .input-group .input-group-addon {
-  padding: 20px 10px;
+  padding: 15px 10px;
 }
 .week {
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -454,7 +443,14 @@ td.mat-footer-cell {
 .modal .modal-dialog .modal-content .modal-header {
   padding: 20px 16px;
 }
-
+#practice-modal .modal-dialog {
+  margin-top: 10px;
+  max-width: 550px;
+}
+#edit-user-modal .modal-dialog {
+  margin-top: 10px;
+  max-width: 1005px;
+}
 .table > :not(caption) > * > * {
   box-shadow: inset 0 0 0 9999px var(--bs-white) !important;
 }
@@ -560,11 +556,6 @@ ul.menuclass li.active a {
   background-color: #41b6a6 !important;
   color: #fff !important;
 }
-//  .modal-content.UserModal{
-//   width: 1200px !important;
-//   min-height: 500px !important;
-//   margin-left: -196px !important;
-// }
 
 .form-group {
   display: flex;
@@ -746,91 +737,7 @@ ul.menuclass li.active a {
     margin-top: 3px;
   }
 }
-// @media (max-width: 768px) {
-//   .left-block {
-//     width: 169px;
-//   }
-// }
-// @media (max-width: 425px) {
-//   .left-block {
-//     width: 326px;
-//   }
-// }
-// @media (max-width: 375px) {
-//   .left-block {
-//     max-width: 278px;
-//   }
-// }
-// @media (max-width: 320px) {
-//   .left-block {
-//     max-width: 223px;
-//   }
-// }
-// @media (max-width: 2560px) {
-//   .modal-content.Location {
-//     width: 750px;
-//     max-height: 1000px;
-//   }
-// }
-// @media (max-width: 768px) {
-//   .modal-content.Location {
-//     margin-left: 10px;
-//     background: white;
-//   }
-// }
-// @media (max-width: 425px) {
-//   .modal-content.Location {
-//     max-width: 391px;
-//     background: white;
-//   }
-// }
-// @media (max-width: 320) {
-//   .modal-content.Location {
-//     max-width: 283;
-//     background: white;
-//   }
-// }
-// @media (max-width: 375) {
-//   .modal-content.Location {
-//     max-width: 300px;
-//     background: white;
-//   }
-// }
-@media (max-width: 2560px) {
-  .modal-content.UserModal {
-    width: 1200px;
-    min-height: 500px;
-    margin-left: -196px;
-  }
-}
 
-@media (max-width: 1024px) {
-  .modal-content.UserModal {
-    max-width: 983px;
-  }
-}
-@media (max-width: 768px) {
-  .modal-content.UserModal {
-    max-width: 720px;
-    margin-left: 9px;
-  }
-}
-
-@media (max-width: 425px) {
-  .modal-content.UserModal {
-    max-width: 371px;
-  }
-}
-@media (max-width: 320px) {
-  .modal-content.UserModal {
-    max-width: 250px;
-  }
-}
-@media (max-width: 1440px) {
-  .modal-content.UserModal {
-    width: 1057px !important ;
-  }
-}
 @media screen and (min-device-width: 320px) and (max-device-width: 768px) {
   .avatar.border {
     max-width: 500px;
@@ -841,57 +748,6 @@ ul.menuclass li.active a {
   padding: 10px;
   border-top: none;
 }
-// @media (max-width: 2560px) {
-//   .modal-content.AddUserModal {
-//     width: 700px;
-//   }
-//   .addbutton {
-//     margin-top: 57px;
-//     margin-left: -10px;
-//   }
-// }
-// @media (max-width: 1440px) {
-//   .modal-content.AddUserModal {
-//     max-width: 600px;
-//   }
-//   .addbutton {
-//     margin-left: -28px;
-//   }
-// }
-// @media (max-width: 1024px) {
-//   .modal-content.AddUserModal {
-//     max-width: 500px;
-//   }
-//   .addbutton {
-//     margin-left: -40px;
-//     margin-top: 57px;
-//   }
-// }
-// @media (max-width: 1024px) {
-//   .modal-content.AddUserModal {
-//     max-width: 500px;
-//   }
-//   .addbutton {
-//     margin-left: -40px;
-//     margin-top: 57px;
-//   }
-// }
-// @media (max-width: 425px) {
-//   .modal-content.AddUserModal {
-//     max-width: 408px;
-//   }
-//   .addbutton {
-//     margin-top: 57px;
-//   }
-// }
-// @media (max-width: 375px) {
-//   .modal-content.AddUserModal {
-//     max-width: 352px;
-//   }
-//   .addbutton {
-//     margin-top: 57px;
-//   }
-// }
 
 @media screen and (min-device-width: 320px) and (max-device-width: 768px) {
   .timedropdown.mat-form-field-appearance-outline .mat-form-field-outline {
@@ -984,4 +840,7 @@ mat-form-field.mat-form-field {
 // Mat form width
 mat-form-field.mat-form-field {
   width: 100% !important;
+}
+.main-info .row {
+  padding-bottom: 20px;
 }
