@@ -31,9 +31,7 @@ export class SettingsComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams
       .subscribe(params => {
-        console.log(params); // { orderby: "price" }
         this.view = params.view;
-        console.log(this.view); // price
       }
       );
   }
