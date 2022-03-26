@@ -30,6 +30,7 @@ export class PracticeComponent implements OnInit {
   user: User;
   locationColumns: string[] = ['Location', 'Address', 'Phone', 'Providers'];
   providerColumns: string[] = ['FullName', 'Email', 'Role', 'Space', 'Status', 'EmergencyAccess']
+  providerLocationColumn: string[] = ['LocationName', 'CityState', 'PracticeSchedule', 'ServicedLocation'];
   locationsInfo: UserLocations[];
   LocationForm: FormGroup;
   hover: any;
@@ -62,6 +63,7 @@ export class PracticeComponent implements OnInit {
   locationList: any;
   TemptableData: any = [];
   providerLocationDataSource: any;
+  ChangePasswords: FormGroup;
 
 
   constructor(private fb: FormBuilder,
@@ -79,6 +81,8 @@ export class PracticeComponent implements OnInit {
     this.getProviderDetails();
     this.buildLocationForm();
     this.loadFormDefaults();
+    this.buildUserForm();
+    this.buildChangePwdForm();
   }
 
   loadFormDefaults() {
@@ -425,7 +429,7 @@ export class PracticeComponent implements OnInit {
       if (resp.IsSuccess) {
         let location = resp.ListResult[0];
         let weekdata = resp.ListResult[1];
-
+        // this.LocationForm.patchValue(location[0]);
         this.LocationForm.get("LocationId").setValue(reqparam.Location_Id);
         this.LocationForm.get("LocationName").setValue(location[0].name);
         this.LocationForm.get('LocationPhone').patchValue(location[0].phone);
@@ -684,5 +688,111 @@ export class PracticeComponent implements OnInit {
         this.UserInformation.get('RecoveryEmail').setValue(this.userList[0].recovery_email);
       }
     });
+  }
+  UpdateUser() {
+    var UserFormDetails = this.UserInformation.value;
+    this.userList[0];
+    let reqparams = {
+      "Id": 1,
+      "UserId": "122abcd",
+      "UserProviderId": "22",
+      "Title": UserFormDetails.Title,
+      "FirstName": UserFormDetails.FirstName,
+      "MiddleName": UserFormDetails.MiddleName,
+      "LastName": UserFormDetails.LastName,
+      "PracticeId": "5b686dd7c832dd0c444f288a",
+      "PracticeName": "Mumbai",
+      "Degree": UserFormDetails.Degree,
+      "Speciality": UserFormDetails.Speciality,
+      "SecondarySpeciality": UserFormDetails.SecondarySpeciality,
+      "PracticeRole": UserFormDetails.Role,
+      "DentalLicense": UserFormDetails.DentalLicense,
+      "ExpirationAt": UserFormDetails.ExpirationDate,
+      "Active": true,
+      "State": UserFormDetails.State,
+      "NPI": UserFormDetails.NPI,
+      "Dea": UserFormDetails.DEA,
+      "Upin": UserFormDetails.UPIN,
+      "Nadean": UserFormDetails.NADEAN,
+      "Ssn": UserFormDetails.SSN,
+      "StreetAddress": 'Abcd',
+      "SuiteNumber": '123',
+      "PrimarPhone": UserFormDetails.LoginPhone,
+      "MobilePhone": UserFormDetails.LoginPhone,
+      "Email": UserFormDetails.EmailAddress,
+      "AltEmail": UserFormDetails.RecoveryEmail,
+      "EncryptedPassword": "Abcd@123",
+      "SelectedUserLocationIds": "5b686dd7c832dd0c444f288a"//select user location
+    }
+    this.settingsService.AddUpdateUser(reqparams).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.closeAddUserModel();
+        this.closePopup();
+        Swal.fire({
+          // icon: 'success',
+          position: 'top',
+          background: '#e1dddd',
+          title: 'Provider updated successfully',
+          showConfirmButton: true,
+          confirmButtonText: 'Close',
+          width: '700',
+        });
+        this.getProviderDetails();
+      }
+      else {
+        Swal.fire({
+          customClass: {
+            container: 'container-class',
+            title: 'title-error',
+            confirmButton: 'close-error-button',
+          },
+          position: 'top',
+          title: resp.EndUserMessage,
+          width: '700',
+          confirmButtonText: 'Close',
+          background: '#e5e1e1',
+          showConfirmButton: true,
+        });
+      }
+    });
+  }
+  closeUserPopup() {
+    this.buildUserForm();
+  }
+  buildChangePwdForm() {
+    this.ChangePasswords = this.fb.group({
+      Email: [],
+      NewPassword: [],
+      ConfirmPassword: [, Validators.required]
+    }, { validators: this.matchPassword });
+
+  }
+  ChangePassword() {
+    let pwd = this.ChangePasswords.value;
+    if (pwd.NewPassword != pwd.ConfirmPassword) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Confirm Password Must Match With NewPassword',
+        showConfirmButton: true,
+        confirmButtonText: 'Ok',
+        width: '600',
+        position: 'top-end',
+      })
+    }
+    else {
+
+    }
+  }
+  matchPassword(AC: AbstractControl) {
+    let password = AC.get('NewPassword').value;
+    if (AC.get('ConfirmPassword').touched || AC.get('ConfirmPassword').dirty) {
+      let verifyPassword = AC.get('ConfirmPassword').value;
+
+      if (password != verifyPassword) {
+        AC.get('ConfirmPassword').setErrors({ MatchPassword: true })
+      } else {
+        return null
+      }
+    }
   }
 }

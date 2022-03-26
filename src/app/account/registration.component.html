@@ -171,7 +171,7 @@
                   <mat-form-field appearance="outline" class="col-12">
                     <input matInput formControlName="PrimaryPhone" class="cstm-tel" type="tel" prefix="+1"
                     mask=" (000) 000 0000"  [showMaskTyped]="true"  [patterns]="PhonePattern"
-                    (mouseover)="checkfield10()" (mouseleave)="unchekedfiled()" placeHolderCharacter="0"  />
+                    (mouseover)="checkfield10()" (mouseleave)="unchekedfiled()" placeHolderCharacter=" "  />
                     <mat-icon matSuffix *ngIf="Checked10" class="FieldValid">check</mat-icon>
                   </mat-form-field>
                 </div>
@@ -179,7 +179,7 @@
                   <p>MOBILE PHONE NUMBER</p>
                   <mat-form-field appearance="outline" class="col-12">
                     <input matInput (mouseover)="checkfield11()" (mouseleave)="unchekedfiled()" prefix="+1"
-                    mask=" (000) 000 0000"  [showMaskTyped]="true"  [patterns]="PhonePattern" placeHolderCharacter="0"
+                    mask=" (000) 000 0000"  [showMaskTyped]="true"  [patterns]="PhonePattern" placeHolderCharacter=" "
                       formControlName="MobilePhone" placeholder="(123)-456-7890" type="tel"
                       class="cstm-tel">
                     <mat-icon matSuffix *ngIf="Checked11" class="FieldValid">check</mat-icon>

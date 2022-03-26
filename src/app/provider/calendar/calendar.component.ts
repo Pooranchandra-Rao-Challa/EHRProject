@@ -7,9 +7,6 @@ import { L10n } from '@syncfusion/ej2-base';
 import { DropDownList } from '@syncfusion/ej2-dropdowns';
 import { extend, isNullOrUndefined } from '@syncfusion/ej2-base';
 import { FormBuilder, FormGroup } from "@angular/forms";
-import { ColorPickerService, Cmyk } from 'ngx-color-picker';
-
-
 
 L10n.load({
   'en-US': {

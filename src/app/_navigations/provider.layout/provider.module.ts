@@ -34,6 +34,9 @@ import { SettingsModule } from '../../settings/settings.module'
 import { SettingsComponent } from '../../settings/settings.component'
 import { LabsImagingComponent } from '../../provider/labs.imaging/labs.imaging.component';
 
+import { IConfig, NgxMaskModule} from 'ngx-mask'
+import { NgbDateUSParserFormatter } from '../../_helpers/ngb-date-us-parser-formatter';
+import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -73,9 +76,11 @@ import { LabsImagingComponent } from '../../provider/labs.imaging/labs.imaging.c
     ScheduleModule,
     DropDownListModule,
     DateTimePickerModule,
-    SettingsModule
+    SettingsModule,
+    NgxMaskModule.forRoot(),
   ],
-  providers: [DayService, WeekService, LocationSelectService, UtilityService
+  providers: [DayService, WeekService, LocationSelectService, UtilityService,
+    {provide: NgbDateParserFormatter, useClass: NgbDateUSParserFormatter}
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
