@@ -516,9 +516,10 @@ fieldset {
 }
 
 #modal-patient-add-encounter .encounder-top p {
-  font-size: 30px;
+  font-size: 20px;
   color: #41b6a6;
-  padding: 23px 10px;
+  margin-top: 30px;
+  margin-left: 20px;
 }
 #modal-patient-add-encounter .mat-form-field.cstm-mat-padding {
   margin-top: 19px;
@@ -550,6 +551,7 @@ fieldset {
   font-size: 13px;
   height: 45px;
 }
+
 .encounter-navigation {
   margin-left: -15px;
   margin-right: -15px;
@@ -596,11 +598,18 @@ fieldset {
   margin-top: -2px;
   border: 1px solid #41b6a6;
   vertical-align: middle;
-  padding: 0.56rem 1.375rem;
+  padding: 0.56rem;
   background-color: #41b6a6;
   color: #fff;
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+div.mat-field-no-round-right div.mat-form-field-wrapper{
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
 }
 // #modal-patient-add-encounter span {
 //   padding: 23px 10px;
@@ -809,4 +818,43 @@ fieldset {
     color: #fff;
     border-bottom-color: #fe8f00;
   }
+}
+
+button#dob.btn-outline-secondary {
+  //border-right-color: #dedede;
+  border-right-color: #dedede;
+  border-top-color: #dedede;
+  border-bottom-color: #dedede;
+  border-left-color: #dedede;
+}
+button#dob.btn-outline-secondary.calendar {
+  background-image: url(../../../assets/images/calendar.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #f5f5f5;
+}
+
+.modal-dialog {
+  overflow-y: initial !important;
+}
+.modal-body {
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+}
+
+div#modal-add-patient div.modal-body {
+  overflow-y: auto;
+}
+
+.addressSuccess {
+  height: 45;
+  background: #5bb85c;
+}
+.addressInvalid {
+  height: 545px;
+  background: red;
+}
+.address-valid-invalid-message-header {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
 }

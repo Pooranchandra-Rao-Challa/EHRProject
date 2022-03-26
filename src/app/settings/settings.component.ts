@@ -35,7 +35,7 @@ export class SettingsComponent implements OnInit {
         this.view = params.view;
         console.log(this.view); // price
       }
-    );
+      );
   }
 
 

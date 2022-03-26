@@ -1,0 +1,148 @@
+.lab-drodown{
+  border: 1px solid white;
+   size: 22px;  
+   font-size: 33px;
+   color: white;
+   background: white;
+}
+.lab-drodown:hover{
+  background: #41b6a6;
+  .plus-icon{
+    color: white;
+  }
+}
+.menu-option-dropdown.active{
+
+  background: #e4f6f3;
+  color: black;
+  font-size: 15px;
+}
+.menu-option-dropdown{
+  font-size: 15px;
+  
+}
+.scroll-menu{
+  overflow-y: scroll;
+  height: 187px !important;
+}
+
+.top-header {
+    background-color: #41b6a6;
+    margin-top: 2px;
+  }
+
+.container,
+.container-fluid,
+.container-sm,
+.container-md,
+.container-lg,
+.container-xl {
+  padding-left: 13px;
+}
+.plus-icon{
+  color: #41b6a6;
+  font-size: 24px !important;
+}
+
+.search {
+    position: relative;
+    box-shadow: 0 0 40px rgba(51, 51, 51, .1)
+}
+.search input {
+    height: 48px;
+    text-indent: 3px;
+    border: 0px solid #d6d4d4;
+    margin-top: 6px;
+}
+.search input:focus {
+    box-shadow: none;
+    border: 2px solid blue
+}
+.search .fa-search {
+  position: absolute;
+  top: 12px;
+  left: 17px;
+  color: white;
+  font-size: 24px;
+}
+.search button {
+    position: absolute;
+    top:  -0.89px;;
+    right: -50px;
+    height: 49px;
+    width: 55px;
+    background: #41b6a6;
+    border-color: white;
+    
+}
+.search-input-dropdown
+{
+  border: 1px solid #41b6a6;
+    width: 97%;
+    /* margin: 1px; */
+    padding: 8px;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+  .btn-lab{
+    color: #41b6a6;
+    background: #ffffff;
+    width: 137%;   
+    margin-left: -10px;
+    border: 1px solid #41b6a6;
+    margin-bottom: -23px;
+    
+  }
+  li {
+    display: inline-block;
+    margin: 0 10px;
+  }
+  .LabsimagingTable table th{ 
+  
+    background: #41b6a6 !important;
+}
+.mat-header-cell {
+    font-size: 13px;
+    font-weight: 500;
+    background: #41b6a6;
+    border: cred;
+    border: 1px solid white;
+    padding: 5px;
+    text-align: center;
+    border-bottom-color: #41b6a6;
+}
+
+
+   .nav-tabs {
+    border-bottom: 1px solid #ffffff !important;
+}
+
+  .dropdown-toggle::after{
+    position: absolute;
+    top: 50%;
+    right: 2%;
+   }
+   table{
+     width: 100% !important;
+   }
+   .form-control:focus {
+    border-color: transparent !important;
+    outline: none !important;
+    box-shadow: none !important;
+    outline-color: transparent !important;
+}
+
+ul li button {
+  display: block !important;
+  color: #41b6a6 !important;
+  background: white !important;    
+  padding: 9px 15px 9px 13px !important;
+  border-left: 13px solid transparent !important;
+  transition: background-color 0.2s, color 0.1s, border-color 0.2s !important;
+  margin-bottom: -18px !important;
+}
+ul li.active button{   
+  background-color: #41b6a6 !important;
+  color: #fff !important;
+ }

@@ -15,5 +15,5 @@ declare var $: any;
   styleUrls: ['./settings.component.scss']
 })
 export class ReportsSettingsComponent implements OnInit {
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }

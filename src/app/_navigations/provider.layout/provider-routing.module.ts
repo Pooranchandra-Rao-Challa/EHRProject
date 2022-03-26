@@ -5,6 +5,7 @@ import { SettingsComponent } from 'src/app/settings/settings.component';
 import { CalendarComponent } from '../../provider/calendar/calendar.component';
 import { SmartScheduleComponent } from '../../provider/smart.schedule/smart.schedule.component';
 import { ProviderComponent } from './provider.component';
+import {LabsImagingComponent } from 'src/app/provider/labs.imaging/labs.imaging.component';
 
 const routes: Routes = [
   {
@@ -13,6 +14,7 @@ const routes: Routes = [
       { path: "calendar", component: CalendarComponent },
       { path: 'smartschedule', component: SmartScheduleComponent },
       { path: 'settings', component: SettingsComponent },
+      { path: 'labsimaging', component: LabsImagingComponent },
     ]
   }
 ]
