@@ -24,9 +24,9 @@ export class SmartScheduleComponent implements OnInit {
   PhonePattern: any;
   NewPatinetForm: FormGroup;
 
-  displayAddress:string;
-  displayAddressDialog:boolean;
-  addressMessage:string;
+  displayAddress: string;
+  displayAddressDialog: boolean;
+  addressMessage: string;
   ValidAddressForUse: string;
   constructor(private fb: FormBuilder,
     private authService: AuthenticationService,
@@ -43,7 +43,7 @@ export class SmartScheduleComponent implements OnInit {
       FirstName: "FirstName",
       LastName: "LastName",
       MiddleName: "MiddleName",
-      DateofBirth: { day: date.getUTCDate(), month: date.getUTCMonth() + 1, year: date.getUTCFullYear()},
+      DateofBirth: { day: date.getUTCDate(), month: date.getUTCMonth() + 1, year: date.getUTCFullYear() },
       Gender: "male",
       CellPhone: "9894839403",
       Homephone: "8493820394",
@@ -52,24 +52,24 @@ export class SmartScheduleComponent implements OnInit {
       PatinetHasNoEmail: false
     }
   }
-  buildPatientForm() {
-    this.NewPatinetForm = this.fb.group({
-      FirstName: ['', Validators.required],
-      MiddleName: [''],
-      LastName: ['', Validators.required],
-      ProviderId: ['new provider'],
-      DateofBirth: ['', Validators.required],
-      Gender: ['', Validators.required,],
-      CellPhone: ['', Validators.required],
-      Homephone: [''],
-      Email: ['', Validators.required],
-      Address: ['']
-    });
+  // buildPatientForm() {
+  //   this.NewPatinetForm = this.fb.group({
+  //     FirstName: ['', Validators.required],
+  //     MiddleName: [''],
+  //     LastName: ['', Validators.required],
+  //     ProviderId: ['new provider'],
+  //     DateofBirth: ['', Validators.required],
+  //     Gender: ['', Validators.required,],
+  //     CellPhone: ['', Validators.required],
+  //     Homephone: [''],
+  //     Email: ['', Validators.required],
+  //     Address: ['']
+  //   });
 
-  }
+  // }
 
   ngOnInit(): void {
-    this.buildPatientForm();
+    // this.buildPatientForm();
     this.selectedDate = new Date();
     this.selectedWeekday = this.selectedDate.toLocaleString('en-us', { weekday: 'long' });
     this.availableTimeSlots = ["08:00 am - 08:30 am", "08:30 am - 09:00 am", "09:00 am - 09:30 am", "09:30 am - 10:00 am", "10:00 am - 10:30 am"];
@@ -104,7 +104,7 @@ export class SmartScheduleComponent implements OnInit {
     console.log(this.PatinetData);
   }
 
-  ClearEmailWhenPatientHasNoEmail(event){
+  ClearEmailWhenPatientHasNoEmail(event) {
     this.PatinetData.Email = "";
   }
   openPopupAddress() {
@@ -117,12 +117,12 @@ export class SmartScheduleComponent implements OnInit {
     this.closePopupAddress();
     this.PatinetData.Address = this.PatinetData.ValidatedAddress;
   }
-  VerifyPatientAddress(){
+  VerifyPatientAddress() {
     console.log(this.PatinetData.Address);
     this.utilityService.VerifyAddress(this.PatinetData.Address).subscribe(resp => {
       console.log(resp.Result)
       if (resp.IsSuccess && resp.Result != null) {
-        this.PatinetData.ValidatedAddress = resp.Result["delivery_line_1"]+", "+resp.Result["last_line"];
+        this.PatinetData.ValidatedAddress = resp.Result["delivery_line_1"] + ", " + resp.Result["last_line"];
         this.ValidAddressForUse = this.PatinetData.ValidatedAddress;
         this.addressMessage = resp.EndUserMessage;
         this.openPopupAddress();

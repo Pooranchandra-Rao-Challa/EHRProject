@@ -172,355 +172,385 @@
             <div class="modal-body">
               <div class="mb-0">
                 <div class="">
-                  <form [formGroup]="LocationForm">
-                    <div class="content">
-                      <div class="row-container">
-                        <div class="row" *ngIf="displayforEditLocation">
-                          <div class="col-12">
-                            <div class="pull-right mb-2">
-                              <input type="checkbox" class="mx-2" /><label class="mx-1 fs-6">Primary Location</label>
-                            </div>
+                  <!-- <form> -->
+                  <div class="content">
+                    <div class="row-container">
+                      <div class="row" *ngIf="displayforEditLocation">
+                        <div class="col-12">
+                          <div class="pull-right mb-2">
+                            <input type="checkbox" class="mx-2" /><label class="mx-1 fs-6">Primary Location</label>
                           </div>
                         </div>
-                        <div class="row">
-                          <div class="col-lg-12">
-                            <div class="form-group">
-                              <div class="input-group">
-                                <span class="input-group-addon labelclass form-control">Location Name*</span>
-                                <input class="form-control mx-0 inputclass" type="text" name="locationname"
-                                  id="location_name">
+                      </div>
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <div class="form-group">
+                            <div class="input-group">
+                              <span class="input-group-addon labelclass form-control">Location Name*</span>
+                              <input class="form-control mx-0 inputclass" type="text"
+                                [(ngModel)]="PracticeLocData.LocationName" id="locationName" name="locationName"
+                                #locationName="ngModel" required pattern="[a-zA-Z ]*" />
+                            </div>
+                            <div *ngIf="locationName.errors && (locationName.touched)">
+                              <div class="error_message" *ngIf="locationName.errors?.required">
+                                <span class="e_arrow"></span>
+                                <i>Please enter Location Name</i>
                               </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row my-3">
-                          <div class="col-lg-12">
-                            <div class="form-group">
-                              <div class="input-group input-group-phone">
-                                <span class="input-group-addon labelclass form-control">Phone Number</span>
-                                <input (mouseover)="hover1='+1(___) ___-____'" (mouseleave)="hover1='Phone'" appFax
-                                  placeholder="{{ hover1 }}" class="string required form-control mx-0 inputclass"
-                                  type="text" name="Phone Number" id="Phone Number">
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row my-2">
-                          <div class="col-lg-12">
-                            <div class="form-group">
-                              <div class="input-group input-group-phone">
-                                <span class="input-group-addon labelclass form-control">Fax</span>
-                                <input (mouseover)="hover='+1(___) ___-____'" (mouseleave)="hover='Fax'"
-                                  placeholder="{{ hover }}" type="text" appFax
-                                  class="string required form-control mx-0 inputclass" id="phone-number">
-
+                              <div class="error_message" *ngIf="locationName.errors?.pattern">
+                                <span class="e_arrow"></span>
+                                <i>Location name not valid, Use only Alphabets and space</i>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
-
-                      <div class="row-container my-2">
-                        <div class="left-block" id="signup-wrapper-patient"><input
-                            class="hidden validate user_street_address" aria-label="street" type="hidden"
-                            name="location[street_address]" id="location_street_address">
-                          <div class="row profile-block-body">
-                            <div class="col-lg-12">
-                              <div class="form-group"><label>ADDRESS</label></div>
-                              <div class="row">
-                                <div class="col-lg-9 col-md-9 col-sm-9">
-                                  <div class="form-group">
-                                    <input [readonly]="!visiblebtn" placeholder="Enter Full Address here"
-                                      class="form-control mx-0 my-2 inputclass" type="text" name="Street" id="Street">
-                                  </div>
-                                  <h6>Enter Address - Street Address, City, State, Zipcode</h6>
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-sm-3">
-                                  <div class="form-group">
-                                    <button type="submit" [disabled]="LocationForm.controls.Street.value===null"
-                                      (click)="AddressVerification()"
-                                      class="btn-success btn mb-2 btn-lg btn-md mt-2">VERIFY</button>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="row my-3 street-add showAddressfield">
-                                <div class="col-lg-9 col-md-8 col-sm-9 patient-street-address">
-                                  <div class="form-group" *ngIf="!dispalyOptionStreet">
-                                    <div class="input-group"> <span
-                                        class="input-group-addon labelclass form-control">Street Address</span>
-                                      <input [readonly]="visiblebtn2" placeholder="Street Address"
-                                        style="background: white" class="string required form-control mx-0" type="text"
-                                        name="streeaddress" id="streeaddress">
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col-lg-3 col-md-2 col-sm-9 patient-street-address">
-                                  <div class="form-group">
-                                    <a class="btn1  mt-3" *ngIf="enterbtn" (click)="EnterAddress()">x</a>
-                                  </div>
-                                  <div class="form-group">
-                                    <button class="btn-success btn manuallbtn  py-0 btn-lg btn-md mt-2"
-                                      *ngIf="!manuallybtn" (click)="enterAddressManually()">Enter Address
-                                      Manually</button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row ">
-                            <div class="col-lg-4 col-md-4 col-sm-4">
-                              <div class="form-group">
-                                <div class="input-group">
-                                  <span class="input-group-addon labelclass form-control">City</span>
-                                  <input [ngClass]="visiblebtn2?'cursorallow':'cursornotallow'" [readonly]="visiblebtn2"
-                                    class="string required inputbg form-control mx-0" type="text" name="City" id="City">
-                                </div>
-                              </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 my-2 my-md-0">
-                              <div class="form-group">
-                                <div class="input-group">
-                                  <span class="input-group-addon labelclass form-control">State</span>
-                                  <input [readonly]="visiblebtn2" class="string required inputbg form-control mx-0"
-                                    type="text" name="State" id="State">
-                                </div>
-                              </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4">
-                              <div class="form-group">
-                                <div class="input-group">
-                                  <span class="input-group-addon labelclass form-control">Zip</span>
-                                  <input class="form-conrtol" [readonly]="visiblebtn2"
-                                    class="string required inputbg form-control mx-0" type="text" name="Zip" id="Zip">
-                                </div>
-                              </div>
+                      <div class="row my-3">
+                        <div class="col-lg-12">
+                          <div class="form-group">
+                            <div class="input-group input-group-phone">
+                              <span class="input-group-addon labelclass form-control">Phone Number</span>
+                              <input class="form-control mx-0 inputclass" placeholder="Cell Phone" type="tel"
+                                [(ngModel)]="PracticeLocData.LocationPhone" mask=" (000) 000-0000"
+                                [showMaskTyped]="true" [patterns]="PhonePattern" />
                             </div>
                           </div>
                         </div>
                       </div>
-
-                      <hr>
-                      <div class="row-container my-2">
-                        <div class="row">
-                          <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="form-group"><label>Organization NPI:</label>
-                              <input class="form-control mt-1 mx-0 inputclass" type="text" name="OrganizationNPI">
-                            </div>
-                          </div>
-                          <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="form-group"><label>Rendering NPI:</label>
-                              <input class="form-control mt-1 mx-0 inputclass" type="text" name="RenderingNPI">
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row my-2">
-                          <div class="col-lg-12 col-md-12 col-sm-12">
-                            <div class="form-group"><label>TIN/EIN:</label>
-                              <input class="form-control mt-1 mx-0 inputclass" type="text" name="TIN/EIN">
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <hr>
-                      <div class="row-container my-2">
-                        <div class="row my-3">
-                          <div class="col-lg-2 col-md-2 col-sm-2"></div>
-                          <div class="col-lg-3 col-md-3 col-sm-3 col-lg-offset-left-10 text-center ">
-                            <label>Open:</label>
-                          </div>
-                          <div class="collabel-lg-3 col-md-3 col-sm-3 col-lg-offset-left-10 text-center">
-                            <label>Closed:</label>
-                          </div>
-                          <div class="col-lg-4"></div>
-                        </div>
-                        <div class="row">
-                          <input value="sunday" class="hidden" type="hidden"
-                            name="location[timeslots_attributes[0]][weekday]"
-                            id="location_timeslots_attributes_0__weekday">
-                          <div class="col-lg-2 col-md-2 col-sm-2 mt-3 week">
-                            <p class="weeks">Sunday</p>
-                          </div>
-                          <div class="col-lg-3 col-md-3 col-sm-3">
-                            <div class="form-group">
-                              <input type="text" class="col-12 inputclass" placeholder="03:00 PM" name="Sunday">
-                            </div>
-                          </div>
-                          <div class="col-lg-3 col-md-3 col-sm-3">
-                            <div class="form-group">
-                              <input type="text" class="col-12 inputclass" placeholder="09:00 PM" name="Sunday">
-                            </div>
-                          </div>
-                          <div class="col-lg-4 col-md-4 col-sm-4">
-                            <div class="form-group">
-                              <select class="col-12 inputclass">
-                                <option value="Specific Hours" selected>Specific Hours</option>
-                                <option value="Closed/NA">Closed/NA</option>
-                                <option value="Open 24 Hrs">Open 24 Hrs</option>
-                              </select>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row my-3">
-                          <input value="monday" class="hidden" type="hidden"
-                            name="location[timeslots_attributes[1]][weekday]"
-                            id="location_timeslots_attributes_1__weekday">
-                          <div class="col-lg-2 col-md-2 col-sm-2 mt-3 week">
-                            <p class="weeks">Monday</p>
-                          </div>
-                          <div class="col-lg-3 col-md-3 col-sm-3">
-                            <div class="form-group">
-                              <input type="text" class="col-12 inputclass" placeholder="03:00 PM" name="Monday">
-                            </div>
-                          </div>
-                          <div class="col-lg-3 col-md-3 col-sm-3">
-                            <div class="form-group">
-                              <input type="text" class="col-12 inputclass" placeholder="09:00 PM" name="Monday">
-                            </div>
-                          </div>
-                          <div class="col-lg-4 col-md-4 col-sm-4">
-                            <div class="form-group">
-                              <select class="col-12 inputclass">
-                                <option value="Specific Hours" selected>Specific Hours</option>
-                                <option value="Closed/NA">Closed/NA</option>
-                                <option value="Open 24 Hrs">Open 24 Hrs</option>
-                              </select>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row my-3"><input value="tuesday" class="hidden" type="hidden"
-                            name="location[timeslots_attributes[2]][weekday]"
-                            id="location_timeslots_attributes_2__weekday">
-                          <div class="col-lg-2 col-md-2 col-sm-2 mt-3 week">
-                            <p class="weeks">Tuesday</p>
-                          </div>
-                          <div class="col-lg-3 col-md-3 col-sm-3">
-                            <div class="form-group">
-                              <input type="text" class="col-12 inputclass" placeholder="03:00 PM" name="Tuesday">
-                            </div>
-                          </div>
-                          <div class="col-lg-3 col-md-3 col-sm-3">
-                            <div class="form-group">
-                              <input type="text" class="col-12 inputclass" placeholder="09:00 PM" name="Tuesday">
-                            </div>
-                          </div>
-                          <div class="col-lg-4 col-md-4 col-sm-4">
-                            <div class="form-group">
-                              <select class="col-12 inputclass">
-                                <option value="Specific Hours" selected>Specific Hours</option>
-                                <option value="Closed/NA">Closed/NA</option>
-                                <option value="Open 24 Hrs">Open 24 Hrs</option>
-                              </select>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row my-3"><input value="wednesday" class="hidden" type="hidden"
-                            name="location[timeslots_attributes[3]][weekday]"
-                            id="location_timeslots_attributes_3__weekday">
-                          <div class="col-lg-2 col-md-2 col-sm-2 mt-3 week">
-                            <p class="weeks">Wednesday</p>
-                          </div>
-                          <div class="col-lg-3 col-md-3 col-sm-3">
-                            <div class="form-group">
-                              <input type="text" class="col-12 inputclass" placeholder="03:00 PM" name="Wednesday">
-                            </div>
-                          </div>
-                          <div class="col-lg-3 col-md-3 col-sm-3">
-                            <div class="form-group">
-                              <input type="text" class="col-12 inputclass" placeholder="09:00 PM" name="Tuesday">
-                            </div>
-                          </div>
-                          <div class="col-lg-4 col-md-4 col-sm-4">
-                            <div class="form-group">
-                              <select class="col-12 inputclass">
-                                <option value="Specific Hours" selected>Specific Hours</option>
-                                <option value="Closed/NA">Closed/NA</option>
-                                <option value="Open 24 Hrs">Open 24 Hrs</option>
-                              </select>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row my-3"><input value="thursday" class="hidden" type="hidden"
-                            name="location[timeslots_attributes[4]][weekday]"
-                            id="location_timeslots_attributes_4__weekday">
-                          <div class="col-lg-2 col-md-2 col-sm-2 mx-0 mt-3 week">
-                            <p class="weeks">Thursday</p>
-                          </div>
-                          <div class="col-lg-3 col-md-3 col-sm-3">
-                            <div class="form-group ">
-                              <input type="text" class="col-12 inputclass" placeholder="03:00 PM" name="Tuesday">
-                            </div>
-                          </div>
-                          <div class="col-lg-3 col-md-3 col-sm-3">
-                            <div class="form-group">
-                              <input type="text" class="col-12 inputclass" placeholder="09:00 PM" name="Tuesday">
-                            </div>
-                          </div>
-                          <div class="col-lg-4 col-md-4 col-sm-4">
-                            <div class="form-group">
-                              <select class="col-12 inputclass">
-                                <option value="Specific Hours" selected>Specific Hours</option>
-                                <option value="Closed/NA">Closed/NA</option>
-                                <option value="Open 24 Hrs">Open 24 Hrs</option>
-                              </select>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row my-3">
-                          <input value="friday" class="hidden" type="hidden"
-                            name="location[timeslots_attributes[5]][weekday]"
-                            id="location_timeslots_attributes_5__weekday">
-                          <div class="col-lg-2 col-md-2 col-sm-2 mt-3 week">
-                            <p class="weeks">Friday</p>
-                          </div>
-                          <div class="col-lg-3 col-md-3 col-sm-3">
-                            <div class="form-group">
-                              <input type="text" class="col-12 inputclass" placeholder="03:00 PM" name="Tuesday">
-                            </div>
-                          </div>
-                          <div class="col-lg-3 col-md-3 col-sm-3">
-                            <div class="form-group">
-                              <input type="text" class="col-12 inputclass" placeholder="09:00 PM" name="Tuesday">
-                            </div>
-                          </div>
-                          <div class="col-lg-4 col-md-4 col-sm-4">
-                            <div class="form-group">
-                              <select class="col-12 inputclass">
-                                <option value="Specific Hours" selected>Specific Hours</option>
-                                <option value="Closed/NA">Closed/NA</option>
-                                <option value="Open 24 Hrs">Open 24 Hrs</option>
-                              </select>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row my-3"><input value="saturday" class="hidden" type="hidden"
-                            name="location[timeslots_attributes[6]][weekday]"
-                            id="location_timeslots_attributes_6__weekday">
-                          <div class="col-lg-2 col-md-2 col-sm-2 mt-3 week">
-                            <p class="weeks">Saturday</p>
-                          </div>
-                          <div class="col-lg-3 col-md-3 col-sm-3">
-                            <div class="form-group">
-                              <input type="text" class="col-12 inputclass" placeholder="03:00 PM" name="Tuesday">
-                            </div>
-                          </div>
-                          <div class="col-lg-3 col-md-3 col-sm-3">
-                            <div class="form-group">
-                              <input type="text" class="col-12 inputclass" placeholder="09:00 PM" name="Tuesday">
-                            </div>
-                          </div>
-                          <div class="col-lg-4 col-md-4 col-sm-4">
-                            <div class="form-group">
-                              <select class="col-12 inputclass">
-                                <option value="Specific Hours" selected>Specific Hours</option>
-                                <option value="Closed/NA">Closed/NA</option>
-                                <option value="Open 24 Hrs">Open 24 Hrs</option>
-                              </select>
+                      <div class="row my-2">
+                        <div class="col-lg-12">
+                          <div class="form-group">
+                            <div class="input-group input-group-phone">
+                              <span class="input-group-addon labelclass form-control">Fax</span>
+                              <input class="form-control mx-0 inputclass" placeholder="Cell Phone" type="tel"
+                                [(ngModel)]="PracticeLocData.Fax" mask=" (000) 000-0000" [showMaskTyped]="true"
+                                [patterns]="PhonePattern" />
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </form>
+
+                    <div class="row-container my-2">
+                      <div class="left-block" id="signup-wrapper-patient"><input
+                          class="hidden validate user_street_address" aria-label="street" type="hidden"
+                          name="location[street_address]" id="location_street_address">
+                        <div class="row profile-block-body">
+                          <div class="col-lg-12">
+                            <div class="form-group"><label>ADDRESS</label></div>
+                            <div class="row">
+                              <div class="col-lg-9 col-md-9 col-sm-9">
+                                <div class="form-group">
+                                  <input [readonly]="!visiblebtn" placeholder="Enter Full Address here"
+                                    class="form-control mx-0 my-2 inputclass" [(ngModel)]="PracticeLocData.Street"
+                                    #Address />
+                                </div>
+                                <h6>Enter Address - Street Address, City, State, Zipcode</h6>
+                              </div>
+                              <div class="col-lg-3 col-md-3 col-sm-3">
+                                <div class="form-group">
+                                  <button type="submit" [disabled]="PracticeLocData.Street==''"
+                                    (click)="AddressVerification()"
+                                    class="btn-success btn mb-2 btn-lg btn-md mt-2">VERIFY</button>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row my-3 street-add showAddressfield">
+                              <div class="col-lg-9 col-md-8 col-sm-9 patient-street-address">
+                                <div class="form-group" *ngIf="!dispalyOptionStreet">
+                                  <div class="input-group"> <span
+                                      class="input-group-addon labelclass form-control">Street Address</span>
+                                    <input [readonly]="visiblebtn2" placeholder="Street Address"
+                                      style="background: white" class="form-control mx-0 inputclass"
+                                      [(ngModel)]="PracticeLocData.Stree2" #streetAddress />
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-lg-3 col-md-2 col-sm-9 patient-street-address">
+                                <div class="form-group">
+                                  <a class="btn1  mt-3" *ngIf="enterbtn" (click)="EnterAddress()">x</a>
+                                </div>
+                                <div class="form-group">
+                                  <button class="btn-success btn manuallbtn  py-0 btn-lg btn-md mt-2"
+                                    *ngIf="!manuallybtn" (click)="enterAddressManually()">Enter Address
+                                    Manually</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row ">
+                          <div class="col-lg-4 col-md-4 col-sm-4">
+                            <div class="form-group">
+                              <div class="input-group">
+                                <span class="input-group-addon labelclass form-control">City</span>
+                                <input [ngClass]="visiblebtn2?'cursorallow':'cursornotallow'" [readonly]="visiblebtn2"
+                                  class="string required inputbg form-control mx-0" type="text" name="City" id="City"
+                                  [(ngModel)]="PracticeLocData.City">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-lg-4 col-md-4 col-sm-4 my-2 my-md-0">
+                            <div class="form-group">
+                              <div class="input-group">
+                                <span class="input-group-addon labelclass form-control">State</span>
+                                <input [readonly]="visiblebtn2" class="string required inputbg form-control mx-0"
+                                  type="text" name="State" id="State" [(ngModel)]="PracticeLocData.State">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-lg-4 col-md-4 col-sm-4">
+                            <div class="form-group">
+                              <div class="input-group">
+                                <span class="input-group-addon labelclass form-control">Zip</span>
+                                <input class="form-conrtol" [readonly]="visiblebtn2"
+                                  class="string required inputbg form-control mx-0" type="text" name="Zip" id="Zip"
+                                  [(ngModel)]="PracticeLocData.Zipcode">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <hr>
+                    <div class="row-container my-2">
+                      <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                          <div class="form-group"><label>Organization NPI:</label>
+                            <input class="form-control mt-1 mx-0 inputclass" type="text"
+                              [(ngModel)]="PracticeLocData.NPI">
+                          </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                          <div class="form-group"><label>Rendering NPI:</label>
+                            <input class="form-control mt-1 mx-0 inputclass" type="text"
+                              [(ngModel)]="PracticeLocData.RenderNPI">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row my-2">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                          <div class="form-group"><label>TIN/EIN:</label>
+                            <input class="form-control mt-1 mx-0 inputclass" type="text"
+                              [(ngModel)]="PracticeLocData.Tin">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="row-container my-2">
+                      <div class="row my-3">
+                        <div class="col-lg-2 col-md-2 col-sm-2"></div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-lg-offset-left-10 text-center ">
+                          <label>Open:</label>
+                        </div>
+                        <div class="collabel-lg-3 col-md-3 col-sm-3 col-lg-offset-left-10 text-center">
+                          <label>Closed:</label>
+                        </div>
+                        <div class="col-lg-4"></div>
+                      </div>
+                      <div class="row">
+                        <input value="sunday" class="hidden" type="hidden"
+                          name="location[timeslots_attributes[0]][weekday]"
+                          id="location_timeslots_attributes_0__weekday">
+                        <div class="col-lg-2 col-md-2 col-sm-2 mt-3 week">
+                          <p class="weeks">Sunday</p>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                          <div class="form-group">
+                            <input type="text" class="col-12 inputclass" placeholder="03:00 PM"
+                              [(ngModel)]="PracticeLocData.SunOpenTime">
+                          </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                          <div class="form-group">
+                            <input type="text" class="col-12 inputclass" placeholder="09:00 PM"
+                              [(ngModel)]="PracticeLocData.SunCloseTime">
+                          </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                          <div class="form-group">
+                            <select class="col-12 inputclass" [(ngModel)]="PracticeLocData.SunDDL">
+                              <option value="Specific Hours" selected>Specific Hours</option>
+                              <option value="Closed/NA">Closed/NA</option>
+                              <option value="Open 24 Hrs">Open 24 Hrs</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row my-3">
+                        <input value="monday" class="hidden" type="hidden"
+                          name="location[timeslots_attributes[1]][weekday]"
+                          id="location_timeslots_attributes_1__weekday">
+                        <div class="col-lg-2 col-md-2 col-sm-2 mt-3 week">
+                          <p class="weeks">Monday</p>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                          <div class="form-group">
+                            <input type="text" class="col-12 inputclass" placeholder="03:00 PM"
+                              [(ngModel)]="PracticeLocData.MonOpenTime">
+                          </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                          <div class="form-group">
+                            <input type="text" class="col-12 inputclass" placeholder="09:00 PM"
+                              [(ngModel)]="PracticeLocData.MonCloseTime">
+                          </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                          <div class="form-group">
+                            <select class="col-12 inputclass" [(ngModel)]="PracticeLocData.MonDDL">
+                              <option value="Specific Hours" selected>Specific Hours</option>
+                              <option value="Closed/NA">Closed/NA</option>
+                              <option value="Open 24 Hrs">Open 24 Hrs</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row my-3"><input value="tuesday" class="hidden" type="hidden"
+                          name="location[timeslots_attributes[2]][weekday]"
+                          id="location_timeslots_attributes_2__weekday">
+                        <div class="col-lg-2 col-md-2 col-sm-2 mt-3 week">
+                          <p class="weeks">Tuesday</p>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                          <div class="form-group">
+                            <input type="text" class="col-12 inputclass" placeholder="03:00 PM"
+                              [(ngModel)]="PracticeLocData.TueOpenTime">
+                          </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                          <div class="form-group">
+                            <input type="text" class="col-12 inputclass" placeholder="09:00 PM"
+                              [(ngModel)]="PracticeLocData.TueCloseTime">
+                          </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                          <div class="form-group">
+                            <select class="col-12 inputclass" [(ngModel)]="PracticeLocData.TueDDL">
+                              <option value="Specific Hours" selected>Specific Hours</option>
+                              <option value="Closed/NA">Closed/NA</option>
+                              <option value="Open 24 Hrs">Open 24 Hrs</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row my-3"><input value="wednesday" class="hidden" type="hidden"
+                          name="location[timeslots_attributes[3]][weekday]"
+                          id="location_timeslots_attributes_3__weekday">
+                        <div class="col-lg-2 col-md-2 col-sm-2 mt-3 week">
+                          <p class="weeks">Wednesday</p>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                          <div class="form-group">
+                            <input type="text" class="col-12 inputclass" placeholder="03:00 PM"
+                              [(ngModel)]="PracticeLocData.WedOpenTime">
+                          </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                          <div class="form-group">
+                            <input type="text" class="col-12 inputclass" placeholder="09:00 PM"
+                              [(ngModel)]="PracticeLocData.WedCloseTime">
+                          </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                          <div class="form-group">
+                            <select class="col-12 inputclass" [(ngModel)]="PracticeLocData.WedDDL">
+                              <option value="Specific Hours" selected>Specific Hours</option>
+                              <option value="Closed/NA">Closed/NA</option>
+                              <option value="Open 24 Hrs">Open 24 Hrs</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row my-3"><input value="thursday" class="hidden" type="hidden"
+                          name="location[timeslots_attributes[4]][weekday]"
+                          id="location_timeslots_attributes_4__weekday">
+                        <div class="col-lg-2 col-md-2 col-sm-2 mx-0 mt-3 week">
+                          <p class="weeks">Thursday</p>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                          <div class="form-group ">
+                            <input type="text" class="col-12 inputclass" placeholder="03:00 PM"
+                              [(ngModel)]="PracticeLocData.ThursOpenTime">
+                          </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                          <div class="form-group">
+                            <input type="text" class="col-12 inputclass" placeholder="09:00 PM"
+                              [(ngModel)]="PracticeLocData.ThursCloseTime">
+                          </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                          <div class="form-group">
+                            <select class="col-12 inputclass" [(ngModel)]="PracticeLocData.ThursDDL">
+                              <option value="Specific Hours" selected>Specific Hours</option>
+                              <option value="Closed/NA">Closed/NA</option>
+                              <option value="Open 24 Hrs">Open 24 Hrs</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row my-3">
+                        <input value="friday" class="hidden" type="hidden"
+                          name="location[timeslots_attributes[5]][weekday]"
+                          id="location_timeslots_attributes_5__weekday">
+                        <div class="col-lg-2 col-md-2 col-sm-2 mt-3 week">
+                          <p class="weeks">Friday</p>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                          <div class="form-group">
+                            <input type="text" class="col-12 inputclass" placeholder="03:00 PM"
+                              [(ngModel)]="PracticeLocData.FriOpenTime">
+                          </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                          <div class="form-group">
+                            <input type="text" class="col-12 inputclass" placeholder="09:00 PM"
+                              [(ngModel)]="PracticeLocData.FriCloseTime">
+                          </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                          <div class="form-group">
+                            <select class="col-12 inputclass" [(ngModel)]="PracticeLocData.FriDDL">
+                              <option value="Specific Hours" selected>Specific Hours</option>
+                              <option value="Closed/NA">Closed/NA</option>
+                              <option value="Open 24 Hrs">Open 24 Hrs</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row my-3"><input value="saturday" class="hidden" type="hidden"
+                          name="location[timeslots_attributes[6]][weekday]"
+                          id="location_timeslots_attributes_6__weekday">
+                        <div class="col-lg-2 col-md-2 col-sm-2 mt-3 week">
+                          <p class="weeks">Saturday</p>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                          <div class="form-group">
+                            <input type="text" class="col-12 inputclass" placeholder="03:00 PM"
+                              [(ngModel)]="PracticeLocData.SatOpenTime">
+                          </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                          <div class="form-group">
+                            <input type="text" class="col-12 inputclass" placeholder="09:00 PM"
+                              [(ngModel)]="PracticeLocData.SatCloseTime">
+                          </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                          <div class="form-group">
+                            <select class="col-12 inputclass" [(ngModel)]="PracticeLocData.SatDDL">
+                              <option value="Specific Hours" selected>Specific Hours</option>
+                              <option value="Closed/NA">Closed/NA</option>
+                              <option value="Open 24 Hrs">Open 24 Hrs</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- </form> -->
                 </div>
               </div>
             </div>
@@ -601,56 +631,59 @@
             aria-label="Close">x</button>
         </div>
         <div class="modal-body">
-          <form [formGroup]="AddUserFrom">
-            <div class="row">
-              <div class="col-lg-12 col-md-12 col-12">
-                <div class="form-group">
-                  <div class="input-group">
-                    <span class="labelclass form-control">First Name</span>
-                    <input class="addfromdesign inputclass form-control mx-0" type="text" name="FirstName"
-                      id="FirstName">
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-12 col-md-12 col-12 my-2">
-                <div class="form-group">
-                  <div class="input-group">
-                    <span class="labelclass form-control">Last Name</span>
-                    <input class="addfromdesign inputclass form-control mx-0" type="text" name="LastName" id="LastName">
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-12 col-md-12 col-12">
-                <div class="form-group">
-                  <div class="input-group input-group-phone">
-                    <span class="labelclass form-control">Email</span>
-                    <input class="addfromdesign inputclass form-control mx-0" type="text" name="Email" id="Email">
-
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-6 col-md-6 col-12 my-2">
-                  <div class="form-group">
-                    <select class="col-12 inputclass">
-                      <option value="" disabled selected hidden>User Role</option>
-                      <option *ngFor="let pRole of providerRoles" [value]="pRole.Value">{{pRole.Name}}
-                      </option>
-                    </select>
-                  </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-12 my-2">
-                  <div class="form-group">
-                    <select class="col-12 inputclass">
-                      <option value="" disabled selected hidden>Status</option>
-                      <option value="True">Enable</option>
-                      <option value="False">Disable</option>
-                    </select>
-                  </div>
+          <!-- <form [formGroup]="AddUserFrom"> -->
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-12">
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="labelclass form-control">First Name</span>
+                  <input class="addfromdesign inputclass form-control mx-0" type="text"
+                    [(ngModel)]="AddUserData.FirstName" id="firstName" name="firstName" #firstName="ngModel" required
+                    pattern="[a-zA-Z ]*" />
                 </div>
               </div>
             </div>
-          </form>
+            <div class="col-lg-12 col-md-12 col-12 my-2">
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="labelclass form-control">Last Name</span>
+                  <input class="addfromdesign inputclass form-control mx-0" type="text"
+                    [(ngModel)]="AddUserData.LastName" id="lastName" name="lastName" #lastName="ngModel" required
+                    pattern="[a-zA-Z ]*" />
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-12">
+              <div class="form-group">
+                <div class="input-group input-group-phone">
+                  <span class="labelclass form-control">Email</span>
+                  <input class="addfromdesign inputclass form-control mx-0" type="text" [(ngModel)]="AddUserData.Email"
+                    id="email" name="email" #email="ngModel" required pattern="[a-zA-Z ]*" />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6 col-md-6 col-12 my-2">
+                <div class="form-group">
+                  <select class="col-12 inputclass" [(ngModel)]="AddUserData.Role">
+                    <option value="" disabled selected hidden>User Role</option>
+                    <option *ngFor="let pRole of providerRoles" [value]="pRole.Value">{{pRole.Name}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-12 my-2">
+                <div class="form-group">
+                  <select aria-placeholder="Status" class="col-12 inputclass" [(ngModel)]="AddUserData.Status">
+                    <option value="" disabled selected hidden>Status</option>
+                    <option value="True">Enable</option>
+                    <option value="False">Disable</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- </form> -->
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-lg btn-success" data-bs-dismiss="modal" (click)="AddUser()">
