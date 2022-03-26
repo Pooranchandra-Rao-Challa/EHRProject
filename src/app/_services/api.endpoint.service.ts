@@ -167,6 +167,23 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "AppointmentTypesUtility";
   }
 
+  get _practiceProvidersUrl(){
+    return this._baseUrl + "PracticeProviders";
+  }
+  get _createNewPatientUrl(){
+    return this._baseUrl + "CreateNewPatient";
+  }
+  get _providerStaffUrl(){
+    return this._baseUrl + "ProviderStaff";
+  }
+  get _individualProvidersUrl(){
+    return this._baseUrl + "IndividualProviders";
+  }
+
+  get _searchPatientsUrl(){
+    return this._baseUrl + "SearchPatients";
+  }
+
   constructor(public http: HttpClient) {
     super();
   }

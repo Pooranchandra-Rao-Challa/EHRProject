@@ -23,7 +23,7 @@
                       </mat-option>
                     </mat-select>
                   </mat-form-field> -->
-                  <select class="col-12 inputclass">
+                  <select class="col-12 inputclass" [(ngModel)]="user.TimeZone">
                     <option value="" disabled selected hidden>Eastern Time (US & Canada)</option>
                     <option *ngFor="let timezone of TimeZoneList" [value]="timezone.DisplayName">
                       {{timezone.DisplayName}}

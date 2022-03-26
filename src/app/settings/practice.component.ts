@@ -206,15 +206,14 @@ export class PracticeComponent implements OnInit {
     this.settingsService.TimeZones().subscribe(resp => {
       if (resp.IsSuccess) {
         this.TimeZoneList = resp.ListResult;
-        var zoneId = this.TimeZoneList[6].Id;
-        this.TimeZoneForm.get("TimeZones").setValue(zoneId);
-        this.DisplayDateTimeZone(zoneId);
+        this.TimeZoneForm.get("TimeZones").setValue(this.user.TimeZone);
+        this.DisplayDateTimeZone();
       }
     });
   }
   // DatetimeZone data
-  DisplayDateTimeZone(zoneId) {
-    this.settingsService.DisplayDateTimeOfZone(zoneId).subscribe(resp => {
+  DisplayDateTimeZone() {
+    this.settingsService.DisplayDateTimeOfZone(this.user.TimeZone).subscribe(resp => {
       if (resp.IsSuccess) {
         var zoneDateTimeWithUTC = JSON.parse(resp.Result);
         this.UTCTime = zoneDateTimeWithUTC.UTC;

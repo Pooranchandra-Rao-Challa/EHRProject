@@ -1,6 +1,7 @@
 export interface User {
   LocationName: any;
   UserId: string;
+  ClinicId: string;
   ProviderId: string;
   AdminId: string;
   PatientId: string;

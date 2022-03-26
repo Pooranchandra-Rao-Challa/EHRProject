@@ -14,13 +14,14 @@
   color: rgba(240, 13, 13, 0.932);
 }
 .signup {
-  font-family: "Times New Roman";
-  font-size: 30px;
+  font-family: "SF UI Text Regular";
+  font-size:24px;
   color: rgb(83, 83, 83);
 }
 .sign {
-  font-family: "Times New Roman";
-  font-size: 25px;
+  font-family: "SF UI Text Regular";
+  font-size: 18px;
+  margin-top: 1%;
   color: rgb(83, 83, 83);
 }
 .Login-form {
@@ -31,6 +32,11 @@
     background-color: #f5f5f5;
     color: #dedede;
   }
+
+  .login_logo span {
+    position: relative;
+    top: 10px;
+}
   //input outline color
   ::ng-deep .mat-form-field-appearance-outline:hover .mat-form-field-outline {
     color: #41b6a6 !important;
@@ -54,6 +60,7 @@ button {
   color: #41b6a6 !important;
   margin-top: 8%;
   font-size: 16px;
+  font-family: sans-serif;
 }
 button:hover {
   background-color: #41b6a6 !important;
@@ -150,6 +157,9 @@ hr {
   background-position: center center;
   background-position: center center;
 }
+strong {
+  font-weight: 700;
+}
 * {
   margin: 0;
   padding: 0;
@@ -211,6 +221,7 @@ html {
   font-family: "Times New Roman";
   color: #4a4a4a;
   background: url(../../assets/images/pro-reg-bg.png);
+  
 }
 .one-ehr-images {
   margin-top: -6rem;
@@ -335,4 +346,94 @@ margin-left: 23%;
 .form-group label {
   font-size: 17px;
   padding-top: 13px;
+}
+::ng-deep .example-margin {
+  & .mat-checkbox-background,
+  .mat-checkbox-frame {
+    border-radius: 20% !important;
+    //border-color: #cacaca;
+    background-color: #eeeaea;
+    border: 1px solid #41b6a6;
+    border-style: solid;
+    width: 20px;
+    height: 20px;
+  }
+}
+::ng-deep .example-margin:hover {
+  & .mat-checkbox-background,
+  .mat-checkbox-frame {
+    border-color: red;
+
+  }
+}
+::ng-deep .mat-checkbox-checked.mat-accent {
+  .mat-checkbox-background,
+  .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+    background-color: rgb(243, 242, 242);
+    border-radius: 20% !important ;
+    border-color: rgb(151, 150, 150);
+    height: 19px;
+    width: 19px;
+  }
+  .mat-checkbox-checkmark-path {
+    stroke: grey !important;
+  }
+}
+
+::ng-deep .example-margin {
+  & .mat-checkbox-background,
+  .mat-checkbox-frame {
+    border-radius: 20% !important;
+    border-color: #cacaca;
+    background-color: #eeeaea;
+    border-width: 2px;
+    border-style: solid;
+    width: 19px;
+    height: 19px;
+  }
+}
+::ng-deep .example-margin:hover {
+  & .mat-checkbox-background,
+  .mat-checkbox-frame {
+    border-color:#41b6a6;
+  }
+}
+::ng-deep {
+  mat-form-field {
+    ::placeholder {
+      //color: #141414 !important;
+      font-size: 100%;
+      font-family: sans-serif;
+    }
+  }
+}
+.pull-right{
+  color: #287066;
+  font-family: sans-serif;
+}
+
+.check{
+  margin-top: 8%;
+}
+.example-margin span{
+  font-family: sans-serif;
+  font-size: medium;
+}
+.vediologo img{
+  height: 90%;
+  width: 95%;
+  margin-top: 2%;
+}
+.login_address strong{
+  font-weight: 600;
+  font-size: initial;
+  color: #4a4a4a;
+  margin-top: 5;
+  font-family: sans-serif;
+} 
+.address div,\.{
+  font-style: normal;
+    font-weight: 400;
+    margin-top: 2%;
+    font-family: sans-serif;
 }
