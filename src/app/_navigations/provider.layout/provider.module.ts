@@ -32,7 +32,7 @@ import { LocationSelectService } from './location.service';
 import { UtilityService } from '../../_services/utiltiy.service';
 import { SettingsModule } from '../../settings/settings.module'
 import { SettingsComponent } from '../../settings/settings.component'
-
+import { LabsImagingComponent } from '../../provider/labs.imaging/labs.imaging.component';
 
 
 
@@ -46,7 +46,8 @@ import { SettingsComponent } from '../../settings/settings.component'
     ProviderComponent,
     CalendarComponent,
     SmartScheduleComponent,
-    SettingsComponent
+    SettingsComponent,
+    LabsImagingComponent
   ],
   imports: [
     ProviderRoutingModule,
