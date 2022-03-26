@@ -105,7 +105,9 @@ body {
 .secondary-title span {
   font-size: 24px;
 }
-
+.secondary-title img{
+  width: 25px;
+}
 .mat-option.mat-active {
   background: #e5f8f5 !important;
 }
@@ -179,4 +181,12 @@ body {
   font-size: 24px;
   font-family: "Times New Roman";
   font-weight: 100;
+}
+::ng-deep {
+  mat-form-field {
+    ::placeholder {
+      color: #141414 !important;
+      font-size: 120%;
+    }
+  }
 }

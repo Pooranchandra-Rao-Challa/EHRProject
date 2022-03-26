@@ -43,13 +43,14 @@
   
   button {
     width: 50% !important;
-    height: 45px !important;
-    border: 1px solid #41b6a6 !important;
-    background-color: white;
-    //padding: 0px 5px !important;
-    color: #41b6a6 !important;
-    margin-top: 8%;
-    font-size: 16px;
+  height: 45px !important;
+  border: 1px solid #41b6a6 !important;
+  background-color: white;
+  //padding: 0px 5px !important;
+  color: #41b6a6 !important;
+  margin-top: 8%;
+  font-size: 16px;
+  font-family: sans-serif;
   }
   button:hover {
     background-color: #41b6a6 !important;
@@ -161,11 +162,17 @@
   }
   // my code
   .login {
-    height: 110%;
+    height: auto;
     font-family: "Times New Roman";
     color: #4a4a4a;
     background: url(../../assets/images/pro-reg-bg.png);
+    // overflow: hidden;
   }
+  @media (min-width: 994px) {
+    .login {
+      height: 115%;;}}
+  
+  
   .one-ehr-images {
     margin-top: -6rem;
   }
@@ -274,4 +281,32 @@
   
   h4{
     font-size: 20px;
+  }
+
+  .check{
+    margin-top: 8%;
+  .example-margin span{
+    font-family: sans-serif;
+    font-size: medium;
+  }
+
+  // .address div{
+  //     font-style: normal;
+  //     font-weight: 400;
+  //     margin-top: 2%;
+  //     font-family: sans-serif;
+  // }
+  }
+  .forgot{
+    font-family: sans-serif;
+    color: #287066;
+  }
+  ::ng-deep {
+    mat-form-field {
+      ::placeholder {
+        //color: #141414 !important;
+        font-size: 100%;
+        font-family: sans-serif;
+      }
+    }
   }

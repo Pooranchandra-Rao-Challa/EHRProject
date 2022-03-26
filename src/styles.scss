@@ -221,7 +221,8 @@ mat-paginator {
 ::ng-deep {
   mat-form-field {
     ::placeholder {
-      color: #4d4b4b !important;
+      color: #141414 !important;
+      font-size: 120%;
     }
   }
 }
