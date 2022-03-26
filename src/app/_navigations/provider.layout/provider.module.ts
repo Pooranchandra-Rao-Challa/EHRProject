@@ -33,6 +33,8 @@ import { UtilityService } from '../../_services/utiltiy.service';
 import { SmartSchedulerService } from '../../_services/smart.scheduler.service';
 import { SettingsModule } from '../../settings/settings.module'
 import { SettingsComponent } from '../../settings/settings.component'
+import { LabsImagingComponent } from '../../provider/labs.imaging/labs.imaging.component';
+
 import { IConfig, NgxMaskModule} from 'ngx-mask'
 import { NgbDateUSParserFormatter } from '../../_helpers/ngb-date-us-parser-formatter';
 import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
@@ -48,7 +50,8 @@ import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstra
     ProviderComponent,
     CalendarComponent,
     SmartScheduleComponent,
-    SettingsComponent
+    SettingsComponent,
+    LabsImagingComponent
   ],
   imports: [
     ProviderRoutingModule,
