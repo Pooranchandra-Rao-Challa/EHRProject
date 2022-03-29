@@ -46,10 +46,10 @@
         </mat-form-field>
         <!-- <div class="col-lg-1 col-md-6">
           </div> -->
-        <mat-form-field appearance="outline" class="col-lg-2 col-md-6">
-          <input matInput class="pointer" autocomplete="off" [max]="tomorrow" (dateChange)="disableEndDate()"
-            [matDatepicker]="picker1" (click)="picker1.open()" readonly placeholder="Start Date *"
-            formControlName="strSDate">
+        <mat-form-field appearance="outline" class="col-lg-2 col-md-6 ">
+          <input matInput class="pointer date-mat-class" autocomplete="off" [max]="tomorrow"
+            (dateChange)="disableEndDate()" [matDatepicker]="picker1" (click)="picker1.open()" readonly
+            placeholder="Start Date *" formControlName="strSDate">
           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
           <mat-datepicker #picker1></mat-datepicker>
         </mat-form-field>

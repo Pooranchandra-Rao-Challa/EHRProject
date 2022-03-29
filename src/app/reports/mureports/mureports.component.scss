@@ -401,3 +401,11 @@ td {
   color: #fff !important;
   font-size: 14px !important;
 }
+
+#date-mat-new.date-mat-class {
+  background-color: red;
+}
+::ng-deep .mat-datepicker-toggle {
+  margin-right: 10px !important;
+  background-color: red;
+}

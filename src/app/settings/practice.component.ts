@@ -11,7 +11,8 @@ import { LocationSelectService } from '../_navigations/provider.layout/location.
 import Swal from 'sweetalert2';
 import { Accountservice } from '../_services/account.service';
 import { PracticeLocation } from '../_models/practiceLocation';
-import { AddUser } from '../_models/addUser';
+import { NewUser } from '../_models/settings';
+import { interval } from 'rxjs';
 declare var $: any;
 
 
@@ -34,7 +35,6 @@ export class PracticeComponent implements OnInit {
   providerColumns: string[] = ['FullName', 'Email', 'Role', 'Space', 'Status', 'EmergencyAccess']
   providerLocationColumn: string[] = ['LocationName', 'CityState', 'PracticeSchedule', 'ServicedLocation'];
   locationsInfo: UserLocations[];
-  LocationForm: FormGroup;
   hover: any;
   hover1: any;
   manuallybtn: boolean = true;
@@ -50,11 +50,9 @@ export class PracticeComponent implements OnInit {
   visiblebtn: boolean = true;
   visiblebtn2: boolean = true;
   locationDisplayModel = "none";
-  AddUserFrom: FormGroup;
   saveUserModel = "none";
   displayuser = "none";
   providerRoles: {}[];
-  UserInformation: FormGroup;
   titles: {}[];
   degrees: {}[];
   specialities: {}[];
@@ -65,12 +63,12 @@ export class PracticeComponent implements OnInit {
   locationList: any;
   TemptableData: any = [];
   providerLocationDataSource: any;
-  ChangePasswords: FormGroup;
   locationsubscription: Subscription;
   PracticeLocData: PracticeLocation;
   PhonePattern: any;
   changedLocationId: string;
-  AddUserData: AddUser;
+  NewUserData: NewUser;
+  private updateSubscription: Subscription;
 
   constructor(private fb: FormBuilder,
     private authService: AuthenticationService,
@@ -80,9 +78,9 @@ export class PracticeComponent implements OnInit {
     private locationSelectService: LocationSelectService) {
     this.user = authService.userValue;
     this.locationsInfo = JSON.parse(this.user.LocationInfo);
+    this.changedLocationId = this.user.CurrentLocation;
     this.locationsubscription = this.locationSelectService.getData().subscribe(locationId => {
       this.changedLocationId = locationId;
-      console.log(this.changedLocationId);
     });
     this.PhonePattern = {
       0: {
@@ -131,18 +129,9 @@ export class PracticeComponent implements OnInit {
       SatDDL: "Specific Hours",
       locationprimary: ""
     }
-    this.AddUserData = {
-      Id: 0,
-      FirstName: "",
-      LastName: "",
-      Email: "",
-      Role: "User Role",
-      Status: "Status",
-      UserId: this.user.UserId,
-      UserProviderId: this.user.ProviderId,
-      PracticeId: this.locationsInfo[0].locationId
+    this.NewUserData = {
     }
-    console.log(this.changedLocationId);
+
 
   }
   ngOnDestroy() {
@@ -150,14 +139,10 @@ export class PracticeComponent implements OnInit {
     this.locationsubscription.unsubscribe();
   }
   ngOnInit(): void {
-    this.buildTimeZoneForm();
     this.getTimeZoneList();
     this.getLocationsList();
     this.getProviderDetails();
-    this.buildLocationForm();
     this.loadFormDefaults();
-    this.buildUserForm();
-    this.buildChangePwdForm();
   }
 
   loadFormDefaults() {
@@ -187,26 +172,12 @@ export class PracticeComponent implements OnInit {
       }
     });
   }
-  buildTimeZoneForm() {
-    this.TimeZoneForm = this.fb.group({
-      TimeZones: ['']
-    });
-  }
-  buildAddUserForm() {
-    this.AddUserFrom = this.fb.group({
-      FirstName: [],
-      LastName: [],
-      Email: [],
-      Role: [],
-      Status: []
-    });
-  }
   // dropdown for TimeZone
   getTimeZoneList() {
     this.settingsService.TimeZones().subscribe(resp => {
       if (resp.IsSuccess) {
         this.TimeZoneList = resp.ListResult;
-        this.TimeZoneForm.get("TimeZones").setValue(this.user.TimeZone);
+        // this.TimeZoneForm.get("TimeZones").setValue(this.user.TimeZone);
         this.DisplayDateTimeZone();
       }
     });
@@ -223,9 +194,7 @@ export class PracticeComponent implements OnInit {
   }
   // get display Location Details
   getLocationsList() {
-    this.ProviderId = this.user.ProviderId;
-    // this.ProviderId = this.changedLocationId;
-    this.settingsService.LocationList(this.ProviderId).subscribe(resp => {
+    this.settingsService.LocationList(this.user.ProviderId).subscribe(resp => {
       if (resp.IsSuccess) {
         this.locationdataSource = resp.ListResult;
         this.LocationAddress = resp.ListResult;
@@ -234,11 +203,10 @@ export class PracticeComponent implements OnInit {
   }
   // get display User Details
   getProviderDetails() {
-    debugger;
     var reqparams = {
       provider_Id: this.user.ProviderId,
-      location_Id: this.locationsInfo[0].locationId  //location id of login user
-      // location_Id: this.changedLocationId
+      // location_Id: this.locationsInfo[0].locationId  //location id of login user
+      location_Id: this.changedLocationId
     }
     this.settingsService.ProviderDetails(reqparams).subscribe(resp => {
       if (resp.IsSuccess) {
@@ -246,67 +214,21 @@ export class PracticeComponent implements OnInit {
       }
     });
   }
-  buildLocationForm() {
-    this.LocationForm = this.fb.group({
-      ProviderId: [],
-      LocationId: [],
-      LocationName: [],
-      LocationPhone: [''],
-      Fax: [],
-      Street: [],
-      Stree2: [],
-      City: [],
-      State: [],
-      Zipcode: [],
-      NPI: [],
-      RenderNPI: [],
-      Tin: [],
-      WeekDays: [],
-      From: [],
-      To: [],
-      ActivityStatus: [],
-      SunOpenTime: ['09:00 AM'],
-      MonOpenTime: ['09:00 AM'],
-      TueOpenTime: ['09:00 AM'],
-      WedOpenTime: ['09:00 AM'],
-      ThursOpenTime: ['09:00 AM'],
-      FriOpenTime: ['09:00 AM'],
-      SatOpenTime: ['09:00 AM'],
-      SunCloseTime: ['10:00 PM'],
-      MonCloseTime: ['10:00 PM'],
-      TueCloseTime: ['10:00 PM'],
-      WedCloseTime: ['10:00 PM'],
-      ThursCloseTime: ['10:00 PM'],
-      FriCloseTime: ['10:00 PM'],
-      SatCloseTime: ['10:00 PM'],
-      SunDDL: ['Specific Hours'],
-      MonDDL: ['Specific Hours'],
-      TueDDL: ['Specific Hours'],
-      WedDDL: ['Specific Hours'],
-      ThursDDL: ['Specific Hours'],
-      FriDDL: ['Specific Hours'],
-      SatDDL: ['Specific Hours'],
-      locationprimary: []
-    });
-  }
   // address verification
   AddressVerification() {
     debugger;
     this.manuallybtn = true;
-    this.LocationForm.value;
-    var practiceAddress = this.LocationForm.value.Street || "";
+    var practiceAddress = this.PracticeLocData.Street || "";
     if (practiceAddress != null) {
       this.accountservice.VerifyAddress(practiceAddress).subscribe(resp => {
         if (resp.IsSuccess) {
           this.sucessdisplay = false;
-          this.openPopupAddress();
-          this.addressdata = this.LocationForm.value.Street;
+          this.addressdata = this.PracticeLocData.Street;
           this.addressVerifymsg = resp.EndUserMessage;
         }
         else {
           this.sucessdisplay = true;
           this.errorDisplay = false;
-          this.openPopupAddress();
           this.addressVerifymsg = resp.EndUserMessage;
         }
       });
@@ -319,18 +241,16 @@ export class PracticeComponent implements OnInit {
       });
     }
   }
-  openPopupAddress() {
-    this.displayAddress = "block";
-  }
-  AddLocation() {
+  updateLocation() {
     debugger;
     // var name = this.LocationForm.value.LocationName;
     var name = this.PracticeLocData.LocationName;
     this.splitAddress = null;
-    var Street = this.LocationForm.value.Street;
+    var Street = this.PracticeLocData.Street;
 
-    let data = this.LocationForm.value;
-    let locationId = this.LocationForm.value.LocationId;
+    let data = this.PracticeLocData;
+    // let locationId = this.PracticeLocData.LocationId;
+    let locationId = this.changedLocationId;
 
     let fromDate = data.SunOpenTime + ',' + data.MonOpenTime + ',' + data.TueOpenTime + ',' + data.WedOpenTime +
       ',' + data.ThursOpenTime + ',' + data.FriOpenTime + ',' + data.SatOpenTime;
@@ -343,114 +263,7 @@ export class PracticeComponent implements OnInit {
 
     let Weekday = "Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday";
     {
-      if (name == null) {
-
-        Swal.fire({
-          icon: 'warning',
-          title: 'Location Name is Required',
-          showConfirmButton: false,
-          confirmButtonText: 'Ok',
-          width: '700',
-          position: 'top-end',
-          timer: 1500
-        });
-      }
-      else {
-        if (Street != null) {
-          this.splitAddress = Street.split(',');
-
-          if (locationId != null) {
-            let locationdata = {
-              "ProviderId": this.user.ProviderId,
-              "LocationId": locationId,
-              "LocationName": data.LocationName,
-              "LocationPhone": data.LocationPhone,
-              "Fax": data.Fax,
-              "StreetAddress": this.splitAddress[0],
-              "City": this.splitAddress[1],
-              "State": this.splitAddress[2],
-              "Zip": this.splitAddress[3],
-              "NPI": data.NPI,
-              "RenderNPI": data.RenderNPI,
-              "Tin": data.Tin,
-              "WeekDays": Weekday,
-              "From": fromDate,
-              "To": ToDate,
-              "SpecificHour": ActivityStatus,
-              "locationprimary": data.locationprimary
-            }
-            this.SaveupateLocation(locationdata);
-          }
-          else {
-            let locationdata = {
-              "ProviderId": this.user.ProviderId,
-              "LocationId": UUID.UUID(),
-              "LocationName": data.LocationName,
-              "LocationPhone": data.LocationPhone,
-              "Fax": data.Fax,
-              "StreetAddress": this.splitAddress[0],
-              "City": this.splitAddress[1],
-              "State": this.splitAddress[2],
-              "Zip": this.splitAddress[3],
-              "NPI": data.NPI,
-              "RenderNPI": data.RenderNPI,
-              "Tin": data.Tin,
-              "WeekDays": Weekday,
-              "From": fromDate,
-              "To": ToDate,
-              "SpecificHour": ActivityStatus,
-              "locationprimary": data.locationprimary
-            }
-            this.SaveupateLocation(locationdata);
-          }
-        }
-        else {
-          if (locationId != null) {
-            let locationdata = {
-              "ProviderId": this.user.ProviderId,
-              "LocationId": locationId,
-              "LocationName": data.LocationName,
-              "LocationPhone": data.LocationPhone,
-              "Fax": data.Fax,
-              "StreetAddress": this.LocationForm.value.Stree2,
-              "City": this.LocationForm.value.City,
-              "State": this.LocationForm.value.State,
-              "Zip": this.LocationForm.value.Zipcode,
-              "NPI": data.NPI,
-              "RenderNPI": data.RenderNPI,
-              "Tin": data.Tin,
-              "WeekDays": Weekday,
-              "From": fromDate,
-              "To": ToDate,
-              "SpecificHour": ActivityStatus,
-              "locationprimary": data.locationprimary
-            }
-            this.SaveupateLocation(locationdata);
-          }
-          else {
-            let locationdata = {
-              "ProviderId": this.user.ProviderId,
-              "LocationId": UUID.UUID(),
-              "LocationName": data.LocationName,
-              "LocationPhone": data.LocationPhone,
-              "Fax": data.Fax,
-              "StreetAddress": this.LocationForm.value.Stree2,
-              "City": this.LocationForm.value.City,
-              "State": this.LocationForm.value.State,
-              "Zip": this.LocationForm.value.Zipcode,
-              "NPI": data.NPI,
-              "RenderNPI": data.RenderNPI,
-              "Tin": data.Tin,
-              "WeekDays": Weekday,
-              "From": fromDate,
-              "To": ToDate,
-              "SpecificHour": ActivityStatus,
-              "locationprimary": data.locationprimary
-            }
-            this.SaveupateLocation(this.PracticeLocData);
-          }
-        }
-      }
+      this.SaveupateLocation(this.PracticeLocData);
     }
   }
   SaveupateLocation(reqparams) {
@@ -466,8 +279,6 @@ export class PracticeComponent implements OnInit {
         });
         this.closePopup();
         this.getLocationsList();
-        this.clearForm();
-
       }
 
       else {
@@ -483,7 +294,6 @@ export class PracticeComponent implements OnInit {
     });
   }
   closePopup() {
-    this.clearForm();
     this.displayforEditLocation = false;
     this.locationDisplayModel = "none";
     this.manuallybtn = true;
@@ -491,331 +301,73 @@ export class PracticeComponent implements OnInit {
     this.dispalyOptionStreet = false;
     this.visiblebtn = true
   }
-  clearForm() {
-    this.buildLocationForm();
-
-  }
 
   getEditLocData(reqparam) {
-    debugger;
-    this.locationDisplayModel = "block";
     this.displayforEditLocation = true;
-    let id = reqparam.Location_Id;
-
-    this.settingsService.Location(id).subscribe(resp => {
+    this.settingsService.Location(reqparam.Location_Id).subscribe(resp => {
       if (resp.IsSuccess) {
         let location = resp.ListResult[0];
         let weekdata = resp.ListResult[1];
+        let sunday = weekdata[0];
+        let monday = weekdata[1];
+        let tuesday = weekdata[2];
+        let wednesday = weekdata[3];
+        let thursday = weekdata[4];
+        let friday = weekdata[5];
+        let saturday = weekdata[6];
         // this.LocationForm.patchValue(location[0]);
-        this.LocationForm.get("LocationId").setValue(reqparam.Location_Id);
-        this.LocationForm.get("LocationName").setValue(location[0].name);
-        this.LocationForm.get('LocationPhone').patchValue(location[0].phone);
-        this.LocationForm.get('Fax').patchValue(location[0].fax);
-        this.LocationForm.get('Stree2').patchValue(location[0].street_address);
-        this.LocationForm.get('City').patchValue(location[0].city);
-        this.LocationForm.get('State').patchValue(location[0].state);
-        this.LocationForm.get('Zipcode').patchValue(location[0].zip);
-        this.LocationForm.get('NPI').patchValue(location[0].npi);
-        this.LocationForm.get('RenderNPI').patchValue(location[0].render_npi);
-        this.LocationForm.get('Tin').patchValue(location[0].tin_en);
-        this.LocationForm.get('locationprimary').patchValue(location[0].location_primary);
-        this.LocationForm.get('SunOpenTime').patchValue(weekdata[0].from);
-        this.LocationForm.get('SunCloseTime').patchValue(weekdata[0].to);
-        this.LocationForm.controls['SunDDL'].setValue(weekdata[0].specific_hour);
-        this.LocationForm.get('MonOpenTime').patchValue(weekdata[1].from);
-        this.LocationForm.get('MonCloseTime').patchValue(weekdata[1].to);
-        this.LocationForm.get('MonDDL').patchValue(weekdata[1].specific_hour);
-        this.LocationForm.get('TueOpenTime').patchValue(weekdata[2].from);
-        this.LocationForm.get('TueCloseTime').patchValue(weekdata[2].to);
-        this.LocationForm.get('TueDDL').patchValue(weekdata[2].specific_hour);
-        this.LocationForm.get('WedOpenTime').patchValue(weekdata[3].from);
-        this.LocationForm.get('WedCloseTime').patchValue(weekdata[3].to);
-        this.LocationForm.get('WedDDL').patchValue(weekdata[3].specific_hour);
-        this.LocationForm.get('ThursOpenTime').patchValue(weekdata[4].from);
-        this.LocationForm.get('ThursCloseTime').patchValue(weekdata[4].to);
-        this.LocationForm.get('ThursDDL').patchValue(weekdata[4].specific_hour);
-        this.LocationForm.get('FriOpenTime').patchValue(weekdata[5].from);
-        this.LocationForm.get('FriCloseTime').patchValue(weekdata[5].to);
-        this.LocationForm.get('FriDDL').patchValue(weekdata[5].specific_hour);
-        this.LocationForm.get('SatOpenTime').patchValue(weekdata[6].from);
-        this.LocationForm.get('SatCloseTime').patchValue(weekdata[6].to);
-        this.LocationForm.get('SatDDL').patchValue(weekdata[6].specific_hour);
+        this.PracticeLocData.LocationName = location[0].name;
+        this.PracticeLocData.Fax = location[0].fax;
+        this.PracticeLocData.LocationPhone = location[0].phone;
+        this.PracticeLocData.NPI = location[0].npi;
+        this.PracticeLocData.RenderNPI = location[0].render_npi;
+        this.PracticeLocData.Tin = location[0].tin_en;
+        // this.PracticeLocData.Street = location[0].street_address;
+        this.PracticeLocData.Stree2 = location[0].street_address;
+        this.PracticeLocData.City = location[0].city;
+        this.PracticeLocData.State = location[0].state;
+        this.PracticeLocData.Zipcode = location[0].zip;
+
+        this.PracticeLocData.SunOpenTime = sunday.from;
+        this.PracticeLocData.SunCloseTime = sunday.to;
+        this.PracticeLocData.SunDDL = sunday.specific_hour;
+        this.PracticeLocData.MonOpenTime = monday.from;
+        this.PracticeLocData.MonCloseTime = monday.to;
+        this.PracticeLocData.MonDDL = monday.specific_hour;
+        this.PracticeLocData.TueOpenTime = tuesday.from;
+        this.PracticeLocData.TueCloseTime = tuesday.to;
+        this.PracticeLocData.TueDDL = tuesday.specific_hour;
+
+        this.PracticeLocData.WedOpenTime = wednesday.from;
+        this.PracticeLocData.WedCloseTime = wednesday.to;
+        this.PracticeLocData.WedDDL = wednesday.specific_hour;
+
+        this.PracticeLocData.ThursOpenTime = thursday.from;
+        this.PracticeLocData.ThursCloseTime = thursday.to;
+        this.PracticeLocData.ThursDDL = thursday.specific_hour;
+
+        this.PracticeLocData.FriOpenTime = friday.from;
+        this.PracticeLocData.FriCloseTime = friday.to;
+        this.PracticeLocData.FriDDL = friday.specific_hour;
+
+        this.PracticeLocData.SatOpenTime = saturday.from;
+        this.PracticeLocData.SatCloseTime = saturday.to;
+        this.PracticeLocData.SatDDL = saturday.specific_hour;
       }
     });
   }
-  AddUser() {
+  updateUser(activity) {
+    if (activity == 'add') {
+      this.NewUserData.ClinicId = this.user.ClinicId;
+      this.NewUserData.UserProviderId = this.user.ProviderId;
+      this.NewUserData.LocationId = this.user.CurrentLocation;
+      this.NewUserData.UserId = this.user.ProviderId;
+    } else {
 
-    // let formValue = this.AddUserFrom.value;
-
-    if (this.AddUserData.FirstName == null && this.AddUserData.LastName == null && this.AddUserData.Role == null) {
-      var msg = 'Email can not be blank, Email is invalid, and Provider is invalid';
-      this.alertmsgforAddUser(msg);
-      return;
     }
-    if (this.AddUserData.Email == null) {
-      var msg = 'Email can not be blank and Email is invalid';
-      this.alertmsgforAddUser(msg);
-      return;
-    }
-    if (this.AddUserData.Role == null) {
-      var msg = 'Provider is invalid';
-      this.alertmsgforAddUser(msg);
-      return;
-    }
-
-    else {
-      // let reqparams = {
-      //   "Id": 0,
-      //   "UserId": "124abcd",
-      //   "UserProviderId": "24",
-      //   "Title": "",
-      //   "FirstName": formValue.FirstName,
-      //   "MiddleName": formValue.MiddleName,
-      //   "LastName": formValue.LastName,
-      //   "PracticeId": this.locationsInfo[0].locationId, //current loction id
-      //   "PracticeName": "", //current loction name
-      //   "Degree": "",
-      //   "Speciality": "",
-      //   "SecondarySpeciality": "",
-      //   "PracticeRole": formValue.Role,
-      //   "assigend_location": "",
-      //   "DentalLicense": "",
-      //   "ExpirationAt": "",
-      //   "Active": formValue.Status,
-      //   "State": "",
-      //   "NPI": "",
-      //   "Dea": "",
-      //   "Upin": "",
-      //   "Nadean": "",
-      //   "Ssn": "",
-      //   "StreetAddress": "",
-      //   "SuiteNumber": "",
-      //   "PrimarPhone": "",
-      //   "MobilePhone": "",
-      //   "Email": formValue.Email,
-      //   "AltEmail": "",
-      //   "EncryptedPassword": "",
-      //   "SelectedUserLocationIds": ""
-      // }
-      let reqparams = this.AddUserData;
-      console.log(reqparams)
-      this.settingsService.AddUpdateUser(reqparams).subscribe(resp => {
-        if (resp.IsSuccess) {
-          this.closeAddUserModel();
-          this.openSaveUserModel();
-          this.closePopup();
-          this.getProviderDetails();
-        }
-        else {
-          Swal.fire({
-            customClass: {
-              container: 'container-class',
-              title: 'title-error',
-              confirmButton: 'close-error-button',
-            },
-            position: 'top',
-            title: msg,
-            width: '700',
-            confirmButtonText: 'Close',
-            background: '#e5e1e1',
-            showConfirmButton: true,
-          });
-        }
-      });
-    }
-
-  }
-  closeAddUserModel() {
-    this.displayuser = "none";
-  }
-  openSaveUserModel() {
-    this.saveUserModel = "block";
-  }
-  alertmsgforAddUser(msg: any) {
-    Swal.fire({
-      customClass: {
-        container: 'container-class',
-        title: 'title-error',
-        confirmButton: 'close-error-button',
-      },
-      position: 'top',
-      title: msg,
-      width: '700',
-      confirmButtonText: 'Close',
-      background: '#e5e1e1',
-      showConfirmButton: true,
-    });
-  }
-
-  buildUserForm() {
-    this.UserInformation = this.fb.group({
-      Title: [],
-      FirstName: [''],
-      MiddleName: [''],
-      LastName: [''],
-      PracticeName: [''],
-      Degree: [''],
-      NPI: [''],
-      Speciality: [''],
-      SecondarySpeciality: [''],
-      DentalLicense: [''],
-      State: [''],
-      UPIN: [''],
-      UserId: [''],
-      ExpirationDate: [''],
-      NADEAN: [''],
-      SSN: [''],
-      DEA: [''],
-      EHR1UserID: [''],
-      Role: [''],
-      Active: [''],
-      EmailAddress: [''],
-      LoginPhone: [''],
-      RecoveryEmail: ['']
-
-    })
-    this.UserInformation.get('Title').setValue('Dr')
-  }
-  splitAddresses() {
-    debugger;
-    var street = this.LocationForm.value.Street;
-    if (street != null) {
-      this.address = street.split(',');
-      this.LocationForm.get("Stree2").setValue(this.address[0]);
-      this.LocationForm.get("City").setValue(this.address[1]);
-      this.LocationForm.get("State").setValue(this.address[2]);
-      this.LocationForm.get("Zipcode").setValue(this.address[3]);
-      this.closePopupAddress()
-    }
-    this.visiblebtn = false;
-    this.visiblebtn2 = true;
-    this.dispalyOptionStreet = false;
-    this.manuallybtn = true;
-    this.enterbtn = true;
-    this.LocationForm.get("Street").setValue(null);
-  }
-  closePopupAddress() {
-    this.displayAddress = "none";
-  }
-  getUserDataforEdit(user) {
-
-    var reqparams = {
-      ProviderId: this.user.ProviderId,//this.users.ProviderId,
-      UserProviderId: user._id
-    }
-
-    this.settingsService.UserList(reqparams).subscribe(resp => {
-      this.userList = resp.ListResult[0];
-      this.providerList = resp.ListResult[1];
-      this.locationList = resp.ListResult[2];
+    this.settingsService.AddUpdateUser(this.NewUserData).subscribe(resp => {
       if (resp.IsSuccess) {
-        this.TemptableData = this.locationList;
-
-        this.TemptableData.map((e) => {
-
-          if (e.assigend_location == 1) {
-            e.assigend_locations == true;
-          } else {
-            e.assigend_locations == false;
-          }
-          switch (e._weekday.toLowerCase()) {
-            case 'sunday':
-              e.shortofWeek = "su";
-              break;
-            case 'monday':
-              e.shortofWeek = "m";
-              break;
-            case 'tuesday':
-              e.shortofWeek = "t";
-              break
-            case 'wednesday':
-              e.shortofWeek = "w";
-              break;
-            case 'thursday':
-              e.shortofWeek = "th";
-              break;
-            case 'friday':
-              e.shortofWeek = "f";
-              break;
-            case 'saturday':
-              e.shortofWeek = "sa";
-              break;
-          }
-        });
-        this.providerLocationDataSource = this.TemptableData;
-        // console.log(this.TemptableData)
-        this.UserInformation.get('Title').setValue('Dr');
-        this.UserInformation.get('FirstName').setValue(this.providerList[0].first_name);
-        this.UserInformation.get('MiddleName').setValue(this.providerList[0].middle_name);
-        this.UserInformation.get('LastName').setValue(this.providerList[0].last_name);
-        this.UserInformation.get('Degree').setValue(this.providerList[0].degree);
-        this.UserInformation.get('Speciality').setValue(this.providerList[0].speciality);
-        this.UserInformation.get('SecondarySpeciality').setValue(this.providerList[0].secondary_speciality);
-        this.UserInformation.get('DentalLicense').setValue(this.providerList[0].dental_licence);
-        this.UserInformation.get('State').setValue(this.providerList[0].state);
-        this.UserInformation.get('ExpirationDate').setValue(this.providerList[0].expiration_at);
-        this.UserInformation.get('NPI').setValue(this.providerList[0].npi);
-        this.UserInformation.get('DEA').setValue(this.providerList[0].dea);
-        this.UserInformation.get('UPIN').setValue(this.providerList[0].upin);
-        this.UserInformation.get('UserId').setValue(this.providerList[0].user_id);
-        this.UserInformation.get('NADEAN').setValue(this.providerList[0].nadean);
-        this.UserInformation.get('SSN').setValue(this.providerList[0].ssn);
-        this.UserInformation.get('Role').setValue(this.userList[0]._role);
-        this.UserInformation.get('Active').setValue(this.providerList[0].active);
-        this.UserInformation.get('EmailAddress').setValue(this.userList[0].email);
-        this.UserInformation.get('LoginPhone').setValue(this.providerList[0].primary_phone);
-        this.UserInformation.get('RecoveryEmail').setValue(this.userList[0].recovery_email);
-      }
-    });
-  }
-  UpdateUser() {
-    var UserFormDetails = this.UserInformation.value;
-    this.userList[0];
-    let reqparams = {
-      "Id": 1,
-      "UserId": "122abcd",
-      "UserProviderId": "22",
-      "Title": UserFormDetails.Title,
-      "FirstName": UserFormDetails.FirstName,
-      "MiddleName": UserFormDetails.MiddleName,
-      "LastName": UserFormDetails.LastName,
-      "PracticeId": "5b686dd7c832dd0c444f288a",
-      "PracticeName": "Mumbai",
-      "Degree": UserFormDetails.Degree,
-      "Speciality": UserFormDetails.Speciality,
-      "SecondarySpeciality": UserFormDetails.SecondarySpeciality,
-      "PracticeRole": UserFormDetails.Role,
-      "DentalLicense": UserFormDetails.DentalLicense,
-      "ExpirationAt": UserFormDetails.ExpirationDate,
-      "Active": true,
-      "State": UserFormDetails.State,
-      "NPI": UserFormDetails.NPI,
-      "Dea": UserFormDetails.DEA,
-      "Upin": UserFormDetails.UPIN,
-      "Nadean": UserFormDetails.NADEAN,
-      "Ssn": UserFormDetails.SSN,
-      "StreetAddress": 'Abcd',
-      "SuiteNumber": '123',
-      "PrimarPhone": UserFormDetails.LoginPhone,
-      "MobilePhone": UserFormDetails.LoginPhone,
-      "Email": UserFormDetails.EmailAddress,
-      "AltEmail": UserFormDetails.RecoveryEmail,
-      "EncryptedPassword": "Abcd@123",
-      "SelectedUserLocationIds": "5b686dd7c832dd0c444f288a"//select user location
-    }
-    this.settingsService.AddUpdateUser(reqparams).subscribe(resp => {
-      if (resp.IsSuccess) {
-        this.closeAddUserModel();
         this.closePopup();
-        Swal.fire({
-          // icon: 'success',
-          position: 'top',
-          background: '#e1dddd',
-          title: 'Provider updated successfully',
-          showConfirmButton: true,
-          confirmButtonText: 'Close',
-          width: '700',
-        });
         this.getProviderDetails();
       }
       else {
@@ -826,7 +378,7 @@ export class PracticeComponent implements OnInit {
             confirmButton: 'close-error-button',
           },
           position: 'top',
-          title: resp.EndUserMessage,
+          //title: msg,
           width: '700',
           confirmButtonText: 'Close',
           background: '#e5e1e1',
@@ -835,43 +387,40 @@ export class PracticeComponent implements OnInit {
       }
     });
   }
-  closeUserPopup() {
-    this.buildUserForm();
-  }
-  buildChangePwdForm() {
-    this.ChangePasswords = this.fb.group({
-      Email: [],
-      NewPassword: [],
-      ConfirmPassword: [, Validators.required]
-    }, { validators: this.matchPassword });
-
-  }
-  ChangePassword() {
-    let pwd = this.ChangePasswords.value;
-    if (pwd.NewPassword != pwd.ConfirmPassword) {
-      Swal.fire({
-        icon: 'warning',
-        title: 'Confirm Password Must Match With NewPassword',
-        showConfirmButton: true,
-        confirmButtonText: 'Ok',
-        width: '600',
-        position: 'top-end',
-      })
+  splitAddresses() {
+    debugger;
+    var street = this.PracticeLocData.Street;
+    if (street != null) {
+      this.address = street.split(',');
+      this.PracticeLocData.Stree2 = this.address[0];
+      this.PracticeLocData.City = this.address[1];
+      this.PracticeLocData.State = this.address[2];
+      this.PracticeLocData.Zipcode = this.address[3];
+      this.closePopupAddress()
     }
-    else {
-
-    }
+    this.visiblebtn = false;
+    this.visiblebtn2 = true;
+    this.dispalyOptionStreet = false;
+    this.manuallybtn = true;
+    this.enterbtn = true;
+    // this.PracticeLocData.Street = null;
   }
-  matchPassword(AC: AbstractControl) {
-    let password = AC.get('NewPassword').value;
-    if (AC.get('ConfirmPassword').touched || AC.get('ConfirmPassword').dirty) {
-      let verifyPassword = AC.get('ConfirmPassword').value;
+  closePopupAddress() {
+    this.displayAddress = "none";
+  }
+  getUserDataforEdit(user) {
+    var reqparams = {
+      ProviderId: this.user.ProviderId,//this.users.ProviderId,
+      UserProviderId: this.user.ProviderId
+    }
+    // this.getProviderDetails();
+    this.settingsService.UserList(reqparams).subscribe(resp => {
+      this.userList = resp.ListResult[0];
+      this.providerList = resp.ListResult[1];
+      this.locationList = resp.ListResult[2];
+      if (resp.IsSuccess) {
 
-      if (password != verifyPassword) {
-        AC.get('ConfirmPassword').setErrors({ MatchPassword: true })
-      } else {
-        return null
       }
-    }
+    });
   }
 }
