@@ -30,6 +30,7 @@ import { DateTimePickerModule } from "@syncfusion/ej2-angular-calendars";
 import { ScheduleModule, DayService, WeekService } from '@syncfusion/ej2-angular-schedule';
 import { LocationSelectService } from './location.service';
 import { UtilityService } from '../../_services/utiltiy.service';
+import { SmartSchedulerService } from '../../_services/smart.scheduler.service';
 import { SettingsModule } from '../../settings/settings.module'
 import { SettingsComponent } from '../../settings/settings.component'
 import { LabsImagingComponent } from '../../provider/labs.imaging/labs.imaging.component';
@@ -79,7 +80,7 @@ import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstra
     SettingsModule,
     NgxMaskModule.forRoot(),
   ],
-  providers: [DayService, WeekService, LocationSelectService, UtilityService,
+  providers: [DayService, WeekService, LocationSelectService, UtilityService,SmartSchedulerService,
     {provide: NgbDateParserFormatter, useClass: NgbDateUSParserFormatter}
 
   ],

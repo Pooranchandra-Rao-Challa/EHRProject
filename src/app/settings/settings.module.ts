@@ -13,9 +13,10 @@ import { LabMappingComponent } from './labmapping.component';
 import { ClinicDecisionComponent } from './clinicdecision.component';
 import { SharedModule } from '../_common/shared';
 import { CommonModule } from '@angular/common';
+import { IConfig, NgxMaskModule } from 'ngx-mask'
 
 @NgModule({
-  imports: [SharedModule, CommonModule],
+  imports: [SharedModule, CommonModule, NgxMaskModule.forRoot()],
   exports: [PracticeComponent, ScheduleComponent, ErxComponent, AuditLogComponent,
     AccessPermissionComponent, PatientSettinsComponent, ReportsSettingsComponent,
     PatientEdnMaterialComponent, MessageSettingsComponent, LabMappingComponent,

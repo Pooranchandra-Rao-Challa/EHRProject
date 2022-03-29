@@ -27,7 +27,7 @@
             <div class="col-xl-2 col-lg-3 col-md-6 col-12">
               <!-- <b>Thursday, March 10th 2022</b> -->
               <b>{{ selectedWeekday }},
-                {{ selectedDate | date: "MMMM dd yyyy" }}</b>
+                {{ selectedAppointmentDate | date: "MMMM dd yyyy" }}</b>
             </div>
             <div class="col-xl-1 col-lg-2 col-md-6 col-12">
               <div class="buttons">
@@ -152,10 +152,26 @@
         <div class="schedule-bottom">
           <div class="row">
             <div class="col-lg-8 col-md-6 col-12">
+              <!--
               <mat-form-field appearance="outline" class="new-search col-12">
                 <input matInput placeholder="Schedule Appointment ( Enter a patient's name or phone number )"
                   data-bs-toggle="modal" data-bs-target="#modal-appointment-form" />
-              </mat-form-field>
+              </mat-form-field> -->
+              <div class="form-group">
+                <div class="input-group" appearance="outline" class="new-search col-12">
+                    <input class="form-control" placeholder="Schedule Appointment ( Enter a patient's name or phone number )"
+                     type="text" [(ngModel)]="patientNameOrCellNumber" (keyup)="searchPatient(patientNameOrCellNumber)" />
+
+
+                </div>
+            </div>
+            <div class="search-result" *ngIf="flag" appearance="outline">
+                <ul>
+                    <li *ngFor="let patient of patients " >
+                        <a (click)="onselectPatient(patient)" data-bs-toggle="modal" data-bs-target="#modal-appointment-form">{{patient.Name}}</a>
+                    </li>
+                </ul>
+            </div>
             </div>
             <div class="col-lg-2 col-md-3 col-12">
               <button mat-button class="btn patientbtn col-12" type="button" data-bs-toggle="modal"
@@ -188,14 +204,13 @@
           X
         </span>
       </div>
-
       <div class="modal-body">
         <div class="row">
           <div class="col-lg-4 col-md-6 col-12">
             <div class="form-group">
               <div class="input-group">
                 <label class="control-label input-group-addon required">First Name</label>
-                <input class="form-control" placeholder="First Name" type="text" [(ngModel)]="PatinetData.FirstName"
+                <input class="form-control" placeholder="First Name" type="text" [(ngModel)]="PatientData.FirstName"
                   id="firstName" name="firstName" #firstName="ngModel" required pattern="[a-zA-Z ]*" />
               </div>
               <div *ngIf="firstName.errors && (firstName.touched)">
@@ -214,7 +229,7 @@
             <div class="form-group">
               <div class="input-group">
                 <label class="control-label input-group-addon">Middle Name</label>
-                <input class="form-control" placeholder="Middle Name" type="text" [(ngModel)]="PatinetData.MiddleName"
+                <input class="form-control" placeholder="Middle Name" type="text" [(ngModel)]="PatientData.MiddleName"
                   pattern="[a-zA-Z ]*" #middleName="ngModel" />
               </div>
             </div>
@@ -229,7 +244,7 @@
             <div class="form-group">
               <div class="input-group">
                 <label class="control-label input-group-addon required">Last Name</label>
-                <input class="form-control" placeholder="Last Name" type="text" [(ngModel)]="PatinetData.LastName"
+                <input class="form-control" placeholder="Last Name" type="text" [(ngModel)]="PatientData.LastName"
                   id="lastName" name="lastName" #lastName="ngModel" required pattern="[a-zA-Z ]*" />
               </div>
               <div *ngIf="lastName.errors && (lastName.touched)">
@@ -249,15 +264,15 @@
             <div class="form-group">
               <div class="input-group">
                 <label class="control-label input-group-addon required">DOB</label>
-                <!-- <input class="form-control" placeholder="DOB (yyyy-MM-dd)" type="date" [(ngModel)]="PatinetData.DateofBirth"
+                <!-- <input class="form-control" placeholder="DOB (yyyy-MM-dd)" type="date" [(ngModel)]="PatientData.DateofBirth"
                 id="dateofBirth" name="dateofBirth" #dateofBirth="ngModel" required
-                [value]="PatinetData.DateofBirth | date:'yyyy-MM-dd'"/> -->
+                [value]="PatientData.DateofBirth | date:'yyyy-MM-dd'"/> -->
                 <input class="form-control" placeholder="mm-dd-yyyy" name="dateofBirth"
-                  [(ngModel)]="PatinetData.DateofBirth" ngbDatepicker #d="ngbDatepicker" name="dateofBirth"
+                  [(ngModel)]="PatientData.DateofBirth" ngbDatepicker #d="ngbDatepicker" name="dateofBirth"
                   #dateofBirth="ngModel" required [autoClose]="true">
                 <button id="dob" class="btn btn-outline-secondary calendar" autoClose="true" (click)="d.toggle()"
                   type="button"></button>
-                <!-- (input)="PatinetData.DateofBirth=parseDate($event.target.value)"-->
+                <!-- (input)="PatientData.DateofBirth=parseDate($event.target.value)"-->
               </div>
               <div *ngIf="dateofBirth.errors && (dateofBirth.touched)">
                 <div class="error_message" *ngIf="dateofBirth.errors?.required">
@@ -268,7 +283,7 @@
             </div>
           </div>
           <div class="col-lg-6 col-md-6 col-12 pb-2" style="margin-top: -9px">
-            <mat-radio-group class="col-12" [(ngModel)]="PatinetData.Gender">
+            <mat-radio-group class="col-12" [(ngModel)]="PatientData.Gender">
               <p>Gender :</p>
               <mat-radio-button value="male"></mat-radio-button>Male
               <mat-radio-button value="female"></mat-radio-button>Female
@@ -280,7 +295,7 @@
             <div class="form-group">
               <div class="input-group">
                 <label class="control-label input-group-addon">Cell Phone</label>
-                <input class="form-control" placeholder="Cell Phone" type="tel" [(ngModel)]="PatinetData.CellPhone"
+                <input class="form-control" placeholder="Cell Phone" type="tel" [(ngModel)]="PatientData.CellPhone"
                   mask=" (000) 000-0000" [showMaskTyped]="true" [patterns]="PhonePattern" placeHolderCharacter=" " />
               </div>
             </div>
@@ -289,7 +304,7 @@
             <div class="form-group">
               <div class="input-group">
                 <label class="control-label input-group-addon">Home Phone</label>
-                <input class="form-control" placeholder="Home Phone" type="tel" [(ngModel)]="PatinetData.Homephone"
+                <input class="form-control" placeholder="Home Phone" type="tel" [(ngModel)]="PatientData.Homephone"
                   mask=" (000) 000-0000" [showMaskTyped]="true" [patterns]="PhonePattern" placeHolderCharacter=" " />
               </div>
             </div>
@@ -299,7 +314,7 @@
               <div class="input-group">
                 <label class="control-label input-group-addon">Email</label>
                 <input class="form-control" placeholder="Email Address" type="text"
-                  [disabled]="patinetHasNoEmail.checked" [(ngModel)]="PatinetData.Email" #patientEmail="ngModel"
+                  [disabled]="patinetHasNoEmail.checked" [(ngModel)]="PatientData.Email" #patientEmail="ngModel"
                   pattern="^[A-Z0-9+_.-]+@[A-Z0-9.-]+$" />
               </div>
               <div *ngIf="patientEmail.errors">
@@ -321,7 +336,7 @@
             <legend>Address</legend>
             <mat-form-field appearance="outline" class="col-12">
               <input matInput placeholder="Enter full address here (including suite number)"
-                [(ngModel)]="PatinetData.Address" #patientAddress />
+                [(ngModel)]="PatientData.Address" #patientAddress />
             </mat-form-field>
             <button class="btn verify-btn col-lg-2 col-md-2 col-5" (click)="VerifyPatientAddress()">
               Verify

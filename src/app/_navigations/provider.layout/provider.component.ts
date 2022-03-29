@@ -1,27 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocationSelectService } from './location.service';
+
 @Component({ templateUrl: 'provider.component.html' })
-export class ProviderComponent {
+export class ProviderComponent implements OnInit {
   constructor(
     private router: Router,
-    private locationSelectService : LocationSelectService
+    private locationSelectService: LocationSelectService
   ) {
 
 
   }
-  locationChanged(locationId){
-    console.log(locationId);
-    this.locationSelectService.sendData(locationId);
+
+  ngOnInit() {
 
   }
-  ngOnDestroy(){
+  locationChanged(locationId) {
+    this.locationSelectService.sendData(locationId);
+  }
+  ngOnDestroy() {
     // clear message
     this.locationSelectService.clearData();
-}
+  }
 
-  clearData(){
+  clearData() {
     // clear message
-      this.locationSelectService.clearData();
+    this.locationSelectService.clearData();
   }
 }

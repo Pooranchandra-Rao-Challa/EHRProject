@@ -30,15 +30,14 @@ export class ProviderNavbarComponent implements OnInit {
     this.currentLocation = this.locationsInfo[0].locationId;
     console.log(this.locationsInfo);
 
+
   }
   ngOnInit() {
 
   }
 
   changeLocation(locationId) {
-    console.log(locationId);
     this.LocationChanged.emit(locationId);
-
   }
 
   logout() {

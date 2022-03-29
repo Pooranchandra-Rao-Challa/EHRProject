@@ -10,6 +10,8 @@ import { Subscription } from 'rxjs';
 import { LocationSelectService } from '../_navigations/provider.layout/location.service';
 import Swal from 'sweetalert2';
 import { Accountservice } from '../_services/account.service';
+import { PracticeLocation } from '../_models/practiceLocation';
+import { AddUser } from '../_models/addUser';
 declare var $: any;
 
 
@@ -64,15 +66,88 @@ export class PracticeComponent implements OnInit {
   TemptableData: any = [];
   providerLocationDataSource: any;
   ChangePasswords: FormGroup;
-
+  locationsubscription: Subscription;
+  PracticeLocData: PracticeLocation;
+  PhonePattern: any;
+  changedLocationId: string;
+  AddUserData: AddUser;
 
   constructor(private fb: FormBuilder,
     private authService: AuthenticationService,
     private settingsService: SettingsService,
     private accountservice: Accountservice,
-    private utilityService: UtilityService) {
+    private utilityService: UtilityService,
+    private locationSelectService: LocationSelectService) {
     this.user = authService.userValue;
     this.locationsInfo = JSON.parse(this.user.LocationInfo);
+    this.locationsubscription = this.locationSelectService.getData().subscribe(locationId => {
+      this.changedLocationId = locationId;
+      console.log(this.changedLocationId);
+    });
+    this.PhonePattern = {
+      0: {
+        pattern: new RegExp('\\d'),
+        symbol: 'X',
+      },
+    };
+    this.PracticeLocData = {
+      ProviderId: "",
+      LocationId: "",
+      LocationName: "",
+      LocationPhone: "",
+      Fax: "",
+      Street: "",
+      Stree2: "",
+      City: "",
+      State: "",
+      Zipcode: "",
+      NPI: "",
+      RenderNPI: "",
+      Tin: "",
+      WeekDays: "",
+      From: "",
+      To: "",
+      ActivityStatus: "",
+      SunOpenTime: "",
+      MonOpenTime: "",
+      TueOpenTime: "",
+      WedOpenTime: "",
+      ThursOpenTime: "",
+      FriOpenTime: "",
+      SatOpenTime: "",
+      SunCloseTime: "",
+      MonCloseTime: "",
+      TueCloseTime: "",
+      WedCloseTime: "",
+      ThursCloseTime: "",
+      FriCloseTime: "",
+      SatCloseTime: "",
+      SunDDL: "Specific Hours",
+      MonDDL: "Specific Hours",
+      TueDDL: "Specific Hours",
+      WedDDL: "Specific Hours",
+      ThursDDL: "Specific Hours",
+      FriDDL: "Specific Hours",
+      SatDDL: "Specific Hours",
+      locationprimary: ""
+    }
+    this.AddUserData = {
+      Id: 0,
+      FirstName: "",
+      LastName: "",
+      Email: "",
+      Role: "User Role",
+      Status: "Status",
+      UserId: this.user.UserId,
+      UserProviderId: this.user.ProviderId,
+      PracticeId: this.locationsInfo[0].locationId
+    }
+    console.log(this.changedLocationId);
+
+  }
+  ngOnDestroy() {
+    // unsubscribe to ensure no memory leaks
+    this.locationsubscription.unsubscribe();
   }
   ngOnInit(): void {
     this.buildTimeZoneForm();
@@ -131,15 +206,14 @@ export class PracticeComponent implements OnInit {
     this.settingsService.TimeZones().subscribe(resp => {
       if (resp.IsSuccess) {
         this.TimeZoneList = resp.ListResult;
-        var zoneId = this.TimeZoneList[6].Id;
-        this.TimeZoneForm.get("TimeZones").setValue(zoneId);
-        this.DisplayDateTimeZone(zoneId);
+        this.TimeZoneForm.get("TimeZones").setValue(this.user.TimeZone);
+        this.DisplayDateTimeZone();
       }
     });
   }
   // DatetimeZone data
-  DisplayDateTimeZone(zoneId) {
-    this.settingsService.DisplayDateTimeOfZone(zoneId).subscribe(resp => {
+  DisplayDateTimeZone() {
+    this.settingsService.DisplayDateTimeOfZone(this.user.TimeZone).subscribe(resp => {
       if (resp.IsSuccess) {
         var zoneDateTimeWithUTC = JSON.parse(resp.Result);
         this.UTCTime = zoneDateTimeWithUTC.UTC;
@@ -150,6 +224,7 @@ export class PracticeComponent implements OnInit {
   // get display Location Details
   getLocationsList() {
     this.ProviderId = this.user.ProviderId;
+    // this.ProviderId = this.changedLocationId;
     this.settingsService.LocationList(this.ProviderId).subscribe(resp => {
       if (resp.IsSuccess) {
         this.locationdataSource = resp.ListResult;
@@ -163,6 +238,7 @@ export class PracticeComponent implements OnInit {
     var reqparams = {
       provider_Id: this.user.ProviderId,
       location_Id: this.locationsInfo[0].locationId  //location id of login user
+      // location_Id: this.changedLocationId
     }
     this.settingsService.ProviderDetails(reqparams).subscribe(resp => {
       if (resp.IsSuccess) {
@@ -248,7 +324,8 @@ export class PracticeComponent implements OnInit {
   }
   AddLocation() {
     debugger;
-    var name = this.LocationForm.value.LocationName;
+    // var name = this.LocationForm.value.LocationName;
+    var name = this.PracticeLocData.LocationName;
     this.splitAddress = null;
     var Street = this.LocationForm.value.Street;
 
@@ -370,7 +447,7 @@ export class PracticeComponent implements OnInit {
               "SpecificHour": ActivityStatus,
               "locationprimary": data.locationprimary
             }
-            this.SaveupateLocation(locationdata);
+            this.SaveupateLocation(this.PracticeLocData);
           }
         }
       }
@@ -468,58 +545,60 @@ export class PracticeComponent implements OnInit {
   }
   AddUser() {
 
-    let formValue = this.AddUserFrom.value;
+    // let formValue = this.AddUserFrom.value;
 
-    if (formValue.FirstName == null && formValue.LastName == null && formValue.Role == null) {
+    if (this.AddUserData.FirstName == null && this.AddUserData.LastName == null && this.AddUserData.Role == null) {
       var msg = 'Email can not be blank, Email is invalid, and Provider is invalid';
       this.alertmsgforAddUser(msg);
       return;
     }
-    if (formValue.Email == null) {
+    if (this.AddUserData.Email == null) {
       var msg = 'Email can not be blank and Email is invalid';
       this.alertmsgforAddUser(msg);
       return;
     }
-    if (formValue.Role == null) {
+    if (this.AddUserData.Role == null) {
       var msg = 'Provider is invalid';
       this.alertmsgforAddUser(msg);
       return;
     }
 
     else {
-      let reqparams = {
-        "Id": 0,
-        "UserId": "124abcd",
-        "UserProviderId": "24",
-        "Title": "",
-        "FirstName": formValue.FirstName,
-        "MiddleName": formValue.MiddleName,
-        "LastName": formValue.LastName,
-        "PracticeId": this.locationsInfo[0].locationId, //current loction id
-        "PracticeName": "", //current loction name
-        "Degree": "",
-        "Speciality": "",
-        "SecondarySpeciality": "",
-        "PracticeRole": formValue.Role,
-        "assigend_location": "",
-        "DentalLicense": "",
-        "ExpirationAt": "",
-        "Active": formValue.Status,
-        "State": "",
-        "NPI": "",
-        "Dea": "",
-        "Upin": "",
-        "Nadean": "",
-        "Ssn": "",
-        "StreetAddress": "",
-        "SuiteNumber": "",
-        "PrimarPhone": "",
-        "MobilePhone": "",
-        "Email": formValue.Email,
-        "AltEmail": "",
-        "EncryptedPassword": "",
-        "SelectedUserLocationIds": ""
-      }
+      // let reqparams = {
+      //   "Id": 0,
+      //   "UserId": "124abcd",
+      //   "UserProviderId": "24",
+      //   "Title": "",
+      //   "FirstName": formValue.FirstName,
+      //   "MiddleName": formValue.MiddleName,
+      //   "LastName": formValue.LastName,
+      //   "PracticeId": this.locationsInfo[0].locationId, //current loction id
+      //   "PracticeName": "", //current loction name
+      //   "Degree": "",
+      //   "Speciality": "",
+      //   "SecondarySpeciality": "",
+      //   "PracticeRole": formValue.Role,
+      //   "assigend_location": "",
+      //   "DentalLicense": "",
+      //   "ExpirationAt": "",
+      //   "Active": formValue.Status,
+      //   "State": "",
+      //   "NPI": "",
+      //   "Dea": "",
+      //   "Upin": "",
+      //   "Nadean": "",
+      //   "Ssn": "",
+      //   "StreetAddress": "",
+      //   "SuiteNumber": "",
+      //   "PrimarPhone": "",
+      //   "MobilePhone": "",
+      //   "Email": formValue.Email,
+      //   "AltEmail": "",
+      //   "EncryptedPassword": "",
+      //   "SelectedUserLocationIds": ""
+      // }
+      let reqparams = this.AddUserData;
+      console.log(reqparams)
       this.settingsService.AddUpdateUser(reqparams).subscribe(resp => {
         if (resp.IsSuccess) {
           this.closeAddUserModel();
@@ -664,7 +743,7 @@ export class PracticeComponent implements OnInit {
           }
         });
         this.providerLocationDataSource = this.TemptableData;
-        console.log(this.TemptableData)
+        // console.log(this.TemptableData)
         this.UserInformation.get('Title').setValue('Dr');
         this.UserInformation.get('FirstName').setValue(this.providerList[0].first_name);
         this.UserInformation.get('MiddleName').setValue(this.providerList[0].middle_name);

@@ -1,7 +1,8 @@
+import { PatientData } from './../_models/patient';
 import { Injectable } from "@angular/core";
 import { APIEndPoint } from "./api.endpoint.service";
 import { HttpClient } from "@angular/common/http";
-
+import { NewPatient } from './../_models/newPatient';
 @Injectable()
 export class UtilityService extends APIEndPoint {
   constructor(http: HttpClient) { super(http); }
@@ -29,5 +30,8 @@ export class UtilityService extends APIEndPoint {
   }
   VerifyAddress(addressLine: any) {
     return this._ProcessGetRequest<any>(this._addressVerificationUrl + "?addressLine=" + encodeURIComponent(addressLine));
+  }
+  CreateNewPatient(patient: NewPatient){
+    return this._ProcessPostRequest<any>(this._createNewPatientUrl,patient);
   }
 }
