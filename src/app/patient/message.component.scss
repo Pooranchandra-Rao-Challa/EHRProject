@@ -184,6 +184,16 @@ textarea {
   width: 40%;
   // margin-left: 82.2%;
 }
+@media (max-width: 1014px) {
+  .drop-button {
+    background-color: #fff;
+    border: 1px solid #41b6a6;
+    height: 50px;
+    color: #41b6a6;
+    border-radius: 3px;
+    width: 100%;
+}
+}
 .drop-button:hover {
   background-color: #41b6a6;
   color: #fff;
@@ -204,6 +214,7 @@ textarea {
 .messages-wrapper .controls .input-group, .messages-wrapper .controls .select2-container, .messages-wrapper .controls .btn {
   margin-top: 15px;
   margin-bottom: 15px;
+  color: #41b6a6;
 }
 .messages-wrapper .input-group-custom #find-messages-input {
   border-color: #41b6a6;
@@ -284,25 +295,71 @@ textarea {
   font-size: 18px;
   float: left;
 }
-::ng-deep .mat-form-field-appearance-outline:hover .mat-form-field-outline {
-  color: #41b6a6 !important;
-}
-// .mat-form-field-appearance-outline {
+// ::ng-deep .mat-form-field-appearance-outline:hover .mat-form-field-outline {
 //   color: #41b6a6 !important;
 // }
-::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
-  background-color:#f5f5f5 !important;
-  height: 45px;
-  border-radius: 5%;
-  background-color: #fff;
-  color: #dedede;
+// // .mat-form-field-appearance-outline {
+// //   color: #41b6a6 !important;
+// // }
+// ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+//   background-color:#f5f5f5 !important;
+//   height: 45px;
+//   border-radius: 5%;
+//   background-color: #fff;
+//   color: #dedede;
+// }
+// ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline.outer {
+//   background-color:#f5f5f5 !important;
+//   height: 45px;
+//   border-radius: 5%;
+//   background-color: red;
+//   color: red;
+// }
+.drop-input{
+  margin-top: 2%;
+  margin-bottom: 2%;
 }
-::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline.outer {
-  background-color:#f5f5f5 !important;
-  height: 45px;
-  border-radius: 5%;
+
+.form-select {
+  font-size: inherit;
+  font-weight: 300;
+  line-height: 1.7;
+}
+input::-webkit-input-placeholder {
+  color: #141414 !important;
+  font-size: 100%;
+  font-family: sans-serif;
+}
+.border-input{
+  border-color: #dedede;
+  background-color: #f5f5f5;
+}
+.form-control {
+  line-height: 19px;
+}
+
+form .form-control:focus{
+  border-color: #41b6a6;
+  
+}
+form .form-control:hover{
+  border-color: #41b6a6;
+  
+}
+form .form-select:hover{
+  border-color: #41b6a6;
+  box-shadow: none;
+  
+}
+form .form-select.option{
+  border-color: #41b6a6;
+  box-shadow: none;
   background-color: red;
-  color: red;
+  
+}
+form .form-select:focus{
+  border-color: #41b6a6;
+  box-shadow: none;
 }
 .modal-content {
   position: relative;
