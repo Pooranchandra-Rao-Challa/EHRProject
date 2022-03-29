@@ -28,7 +28,12 @@
     color: #fff;
     border: 1px solid #fff;
   }
-  
+  h4{
+    font-weight: 400;
+  }
+  h5{
+    font-weight: 400;
+  }
   .save-button {
     background-color: #fff;
     border: 1px solid #41b6a6;
@@ -39,6 +44,19 @@
     width: 40%;
     margin-top: 7%
   }
+  @media (max-width: 974px) {
+    .save-button {
+      background-color: #fff;
+      border: 1px solid #41b6a6;
+      height: 50px;
+      color: #41b6a6;
+      border-radius: 3px;
+      margin-left: 288%;
+      width: 40%;
+      margin-top: 7%
+    }
+  }
+  
   .save-button:hover {
     background-color: #41b6a6;
     color: #fff;
@@ -66,7 +84,7 @@
     border: 1px solid #fff;
   }
   
-  
+
   .down-button{
     background-color: #fff;
     border: 1px solid #41b6a6;
@@ -149,4 +167,17 @@
     float: left !important;
   }
   
+  ::ng-deep {
+    mat-form-field {
+      ::placeholder {
+        color: black;
+        font-size: 100%;
+      }
+    }
+  }
   
+input::-webkit-input-placeholder {
+  color: #141414 !important;
+  font-size: 100%;
+  font-family: sans-serif;
+}
