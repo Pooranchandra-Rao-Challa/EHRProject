@@ -7,7 +7,7 @@
 
             <div class="row">
               <div class="col-md-2">
-                <img src="../../assets/images/default.png" styclass="admin-side-logo mx-2" style="max-width: inherit;">
+                <img src="../../assets/images/default.png" styclass="admin-side-logo mx-2" class="img" >
               </div>
 
               <div class="col-md-10">
@@ -90,7 +90,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-lg-6 col-md-12 col-sm-12 col-12">
         <h4>My Contact Information</h4>
         <div class="panel panel-default">
           <div class="panel-body">
@@ -98,19 +98,23 @@
 
               <div class="row">
                 <label class="labelfontzise mt-3">Cell Phone </label>
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <button class="btn btn-outline-secondary " type="button" data-bs-toggle="dropdown"
-                      aria-expanded="false">( :</button>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Plese enter 1 more character</a></li>
-                    </ul>
-                  </div>
-                  <input type="text" class="form-control" placeholder="Cell Phone" aria-label="Amount">
+                <div class="input-group ">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <input type="text" placeholder="( :" aria-label="Number" matInput [formControl]="myControl"
+                        [matAutocomplete]="auto">
+                      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                          {{option}}
+                        </mat-option>
+                      </mat-autocomplete>
+                    </mat-form-field>
+                  <mat-form-field appearance="outline" class="example-width"> 
+                    <input matInput placeholder="Cell Phone">
+                  </mat-form-field>
                 </div>
               </div>
 
-              <div class="row">
+              <div class="row mt-4">
                 <label class="labelfontzise">Email </label>
                 <div class="form-group">
                   <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-sm-12 col-12">
@@ -122,28 +126,36 @@
               <div class="row">
                 <label class="labelfontzise mt-3">Home Phone </label>
                 <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <button class="btn btn-outline-secondary " type="button" data-bs-toggle="dropdown"
-                      aria-expanded="false">( :</button>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Plese enter 1 more character</a></li>
-                    </ul>
-                  </div>
-                  <input type="text" class="form-control" placeholder="Cell Phone" aria-label="Amount">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <input type="text" placeholder="( :" aria-label="Number" matInput [formControl]="myControl"
+                        [matAutocomplete]="auto">
+                      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                          {{option}}
+                        </mat-option>
+                      </mat-autocomplete>
+                    </mat-form-field>
+                  <mat-form-field appearance="outline" class="example-width"> 
+                    <input matInput placeholder=" Home Phone">
+                  </mat-form-field>
                 </div>
               </div>
-
+             
               <div class="row">
-                <label class="labelfontzise">Work Phone </label>
+                <label class="labelfontzise ">Work Phone </label>
                 <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <button class="btn btn-outline-secondary " type="button" data-bs-toggle="dropdown"
-                      aria-expanded="false">( :</button>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Plese enter 1 more character</a></li>
-                    </ul>
-                  </div>
-                  <input type="text" class="form-control" placeholder="Work Phone" aria-label="Amount">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <input type="input" placeholder="( :" aria-label="Number" matInput [formControl]="myControl"
+                        [matAutocomplete]="auto">
+                      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                          {{option}}
+                        </mat-option>
+                      </mat-autocomplete>
+                    </mat-form-field>
+                  <mat-form-field appearance="outline" class="example-width"> 
+                    <input matInput placeholder="Work Phone">
+                  </mat-form-field>
                 </div>
               </div>
 
@@ -155,7 +167,7 @@
                   </mat-form-field>
                 </div>
                 <div class="col-md-3 mt-3">
-                  <button type="button" class="home-button ">Verify</button>
+                  <button type="button" class="verify-button ">Verify</button>
                 </div>
               </div>
 
@@ -189,14 +201,14 @@
         </div>
       </div>
 
-      <div class="col-md-6">
+      <div class="col-lg-6 col-md-12 col-sm-12 col-12">
         <h4>Emergency Contact</h4>
         <div class="panel panel-default">
           <div class="panel-body">
             <form class="pt-4">
 
               <div class="row">
-                <div class="col-lg-4 col-md-4 col-sm-12 col-12 mt-3">
+                <div class="col-lg-4 col-md-12 col-sm-12 col-12 mt-3">
                   <label class="labelfontzise">First Name</label>
                   <div class="form-group">
                     <mat-form-field class="w-100" appearance="outline">
@@ -204,19 +216,19 @@
                     </mat-form-field>
                   </div>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 col-12 mt-3">
+                <div class="col-lg-4 col-md-12 col-sm-12 col-12 mt-3">
                   <label class="labelfontzise">Middle Name</label>
                   <div class="form-group">
                     <mat-form-field class="w-100" appearance="outline">
-                      <input matInput placeholder="First Name">
+                      <input matInput placeholder="Middle Name">
                     </mat-form-field>
                   </div>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 col-12 mt-3">
+                <div class="col-lg-4 col-md-12 col-sm-12 col-12 mt-3">
                   <label class="labelfontzise">Last Name</label>
                   <div class="form-group">
                     <mat-form-field class="w-100" appearance="outline">
-                      <input matInput placeholder="First Name">
+                      <input matInput placeholder="Last Name">
                     </mat-form-field>
                   </div>
                 </div>
@@ -230,38 +242,48 @@
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
-
-                <div class="row">
-                  <label class="labelfontzise mt-3">Phone </label>
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <button class="btn btn-outline-secondary " type="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">( :</button>
-                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Plese enter 1 more character</a></li>
-                      </ul>
-                    </div>
-                    <input type="text" class="form-control" placeholder="Phone" aria-label="Amount">
-                  </div>
-                </div>
-
-                <div class="row">
-                  <mat-label>Email</mat-label>
-                  <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-sm-12 col-12">
-                    <input matInput placeholder="Email">
+              </div>
+                  
+              <div class="row">
+                <label class="labelfontzise mt-4">Phone </label>
+                <div class="input-group mb-3">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <input type="input" placeholder="( :" aria-label="Number" matInput [formControl]="myControl"
+                        [matAutocomplete]="auto">
+                      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                          {{option}}
+                        </mat-option>
+                        <!-- <mat-option  *ngIf="myControl.value.length===0">
+                          Please Enter some text
+                      </mat-option> -->
+                        <mat-option  *ngIf="(filteredOptions | async)?.length===0">
+                          No Data found
+                      </mat-option>
+                      </mat-autocomplete>
+                    </mat-form-field>
+                  <mat-form-field appearance="outline" class="example-width"> 
+                    <input matInput placeholder="Phone">
                   </mat-form-field>
                 </div>
               </div>
 
+              <div class="row">
+                <mat-label>Email</mat-label>
+                <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-sm-12 col-12">
+                  <input matInput placeholder="Email">
+                </mat-form-field>
+              </div>
+
               <div class="row mt-4">
-                <h5>HOME ADDRESS </h5>
+                <h5>HOME ADDRESS</h5>
                 <div class="col-md-9 mt-3">
                   <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-sm-12 col-12">
                     <input matInput placeholder="Enter full address here (including suite number)">
                   </mat-form-field>
                 </div>
                 <div class="col-md-3 mt-3">
-                  <button type="button" class="home-button ">Verify</button>
+                  <button type="button" class="verify-button ">Verify</button>
                 </div>
               </div>
 
@@ -270,24 +292,23 @@
                   <input matInput placeholder="Street Address">
                 </mat-form-field>
               </div>
-
-              <div class="row">
-                <mat-form-field appearance="outline" class="col-lg-4 col-md-4 col-sm-4 col-12 mt-3">
+              <div class="row ">
+                <mat-form-field appearance="outline" class="col-lg-4 col-md-4 col-sm-12 col-12 mt-3">
                   <input matInput placeholder="City">
                 </mat-form-field>
 
 
-                <mat-form-field appearance="outline" class="col-lg-4 col-md-4 col-sm-4 col-12 mt-3">
+                <mat-form-field appearance="outline" class="col-lg-4 col-md-4 col-sm-12 col-12 mt-3">
                   <input matInput placeholder="State">
                 </mat-form-field>
 
-                <mat-form-field appearance="outline" class="col-lg-4 col-md-4 col-sm-4 col-12 mt-3">
+                <mat-form-field appearance="outline" class="col-lg-4 col-md-4 col-sm-12 col-12 mt-3">
                   <input matInput placeholder="Zip">
                 </mat-form-field>
               </div>
 
-              <div class="row mb-3 mt-3">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-12 ">
+              <div class="row mb-3">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-12 mt-3">
                   <button type="button" class="down-button ">Save</button>
                 </div>
               </div>
@@ -295,6 +316,7 @@
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </div>

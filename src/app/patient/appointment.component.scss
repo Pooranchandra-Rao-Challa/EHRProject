@@ -174,7 +174,8 @@ form .form-select:hover{
 form .form-select:focus{
   border-color: #41b6a6;
   box-shadow: none;
-}select option:checked {
+}
+select option:checked {
   background-color: red !important;
   color: white!important;
 }

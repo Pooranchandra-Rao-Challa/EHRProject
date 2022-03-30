@@ -3,7 +3,7 @@ import { User, UserLocations } from '../_models';
 import { AuthenticationService } from '../_services/authentication.service';
 
 @Component({
-  selector: 'app-patientdashboard',
+  selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
