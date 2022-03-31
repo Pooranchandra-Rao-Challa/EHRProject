@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { User, UserLocations } from '../_models';
 import { AuthenticationService } from '../_services/authentication.service';
-
+declare var $: any;
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -21,6 +21,15 @@ export class DashboardComponent {
    }
 
   ngOnInit(): void {
+    $(document).ready(function () {
+  
+      $('ul.navbar-nav > li')
+              .click(function (e) {
+          $('ul.navbar-nav > li')
+              .removeClass('active');
+          $(this).addClass('active');
+      });
+  });
   }
 
   onhealth(){

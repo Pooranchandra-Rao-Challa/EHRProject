@@ -7,7 +7,7 @@
 
             <div class="row">
               <div class="col-md-2">
-                <img src="../../assets/images/default.png" styclass="admin-side-logo mx-2" class="img" >
+                <img src="../../assets/images/default.png" styclass="admin-side-logo mx-2" class="img">
               </div>
 
               <div class="col-md-10">
@@ -65,16 +65,18 @@
                   </div>
                 </div>
 
-                <div class="row">
+                <div class="row mt-2">
                   <div class="col-lg-10 col-md-10">
                     <p>Account Access</p>
                     <div class="row controls">
                       <div class="col-lg-6 col-md-6">
-                        <button type="button" class="reg-button ">Change Password</button>
+                        <button type="button" class="reg-button" data-bs-toggle="modal"
+                          data-bs-target="#staticBackdrop1">Change Password</button>
                       </div>
 
                       <div class="col-lg-6 col-md-6">
-                        <button type="button" class="reg-button ">Change Your Security Question</button>
+                        <button type="button" class="reg-button " data-bs-toggle="modal"
+                          data-bs-target="#staticBackdrop2">Change Your Security Question</button>
                       </div>
 
                     </div>
@@ -99,16 +101,15 @@
               <div class="row">
                 <label class="labelfontzise mt-3">Cell Phone </label>
                 <div class="input-group ">
-                    <mat-form-field class="example-full-width" appearance="outline">
-                      <input type="text" placeholder="( :" aria-label="Number" matInput [formControl]="myControl"
-                        [matAutocomplete]="auto">
-                      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                          {{option}}
-                        </mat-option>
-                      </mat-autocomplete>
-                    </mat-form-field>
-                  <mat-form-field appearance="outline" class="example-width"> 
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <input type="text" placeholder="( :" aria-label="Number" matInput [matAutocomplete]="auto">
+                    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                        {{option}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+                  <mat-form-field appearance="outline" class="example-width">
                     <input matInput placeholder="Cell Phone">
                   </mat-form-field>
                 </div>
@@ -126,34 +127,32 @@
               <div class="row">
                 <label class="labelfontzise mt-3">Home Phone </label>
                 <div class="input-group mb-3">
-                    <mat-form-field class="example-full-width" appearance="outline">
-                      <input type="text" placeholder="( :" aria-label="Number" matInput [formControl]="myControl"
-                        [matAutocomplete]="auto">
-                      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                          {{option}}
-                        </mat-option>
-                      </mat-autocomplete>
-                    </mat-form-field>
-                  <mat-form-field appearance="outline" class="example-width"> 
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <input type="text" placeholder="( :" aria-label="Number" matInput [matAutocomplete]="auto">
+                    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                        {{option}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+                  <mat-form-field appearance="outline" class="example-width">
                     <input matInput placeholder=" Home Phone">
                   </mat-form-field>
                 </div>
               </div>
-             
+
               <div class="row">
                 <label class="labelfontzise ">Work Phone </label>
                 <div class="input-group mb-3">
-                    <mat-form-field class="example-full-width" appearance="outline">
-                      <input type="input" placeholder="( :" aria-label="Number" matInput [formControl]="myControl"
-                        [matAutocomplete]="auto">
-                      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                          {{option}}
-                        </mat-option>
-                      </mat-autocomplete>
-                    </mat-form-field>
-                  <mat-form-field appearance="outline" class="example-width"> 
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <input type="input" placeholder="( :" aria-label="Number" matInput [matAutocomplete]="auto">
+                    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                        {{option}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+                  <mat-form-field appearance="outline" class="example-width">
                     <input matInput placeholder="Work Phone">
                   </mat-form-field>
                 </div>
@@ -243,26 +242,22 @@
                   </mat-select>
                 </mat-form-field>
               </div>
-                  
+
               <div class="row">
                 <label class="labelfontzise mt-4">Phone </label>
                 <div class="input-group mb-3">
-                    <mat-form-field class="example-full-width" appearance="outline">
-                      <input type="input" placeholder="( :" aria-label="Number" matInput [formControl]="myControl"
-                        [matAutocomplete]="auto">
-                      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                          {{option}}
-                        </mat-option>
-                        <!-- <mat-option  *ngIf="myControl.value.length===0">
-                          Please Enter some text
-                      </mat-option> -->
-                        <mat-option  *ngIf="(filteredOptions | async)?.length===0">
-                          No Data found
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <input type="input" placeholder="( :" aria-label="Number" matInput [formControl]="myControl"
+                      [matAutocomplete]="auto">
+                    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                        <h1>{{option}}</h1>
                       </mat-option>
-                      </mat-autocomplete>
-                    </mat-form-field>
-                  <mat-form-field appearance="outline" class="example-width"> 
+                         <!-- <mat-option *ngIf="!myControl.value">Please enter 1 or more characters</mat-option> -->
+                      <!-- <mat-option>No Data Found</mat-option> -->
+                    </mat-autocomplete>
+                  </mat-form-field>
+                  <mat-form-field appearance="outline" class="example-width">
                     <input matInput placeholder="Phone">
                   </mat-form-field>
                 </div>
@@ -317,6 +312,169 @@
         </div>
       </div>
 
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div class="modal fade" id="staticBackdrop1" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content body">
+      <div class="modal-header">
+        <h4 class="hederfont">Edit Password</h4>
+        <span type="button" data-bs-dismiss="modal">
+          X
+        </span>
+      </div>
+      <div class="modal-body">
+        <div class="content">
+          <form>
+            <!-- <div>
+              <mat-label>Email Address</mat-label>
+              <mat-form-field class="w-100" appearance="outline">
+                <input matInput placeholder="Enter an email">
+              </mat-form-field>
+            </div> -->
+            <div class="row mt-3">
+              <div class="col-lg-12">
+                <label>Email Address</label>
+
+              </div>
+              <div class="col-lg-12 ">
+                <div class="form-group ">
+                  <mat-form-field class=" w-100" appearance="outline">
+                    <input matInput placeholder="E-Mail">
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-lg-12">
+                <label>New Password</label>
+              </div>
+              <div class="col-lg-12">
+                <div class="form-group ">
+                  <mat-form-field class=" w-100" appearance="outline">
+                    <input matInput placeholder="New Password">
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-lg-12">
+                <label>New Password Confirmation</label>
+              </div>
+              <div class="col-lg-12 ">
+                <div class="form-group ">
+                  <mat-form-field class=" w-100" appearance="outline">
+                    <input matInput placeholder="New Password Confirmation">
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <button type="button" class="down-button">Save
+              </button>
+            </div>
+
+          </form>
+
+          <!-- end personal info -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="staticBackdrop2" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content body">
+      <div class="modal-header">
+        <h4 class="hederfont">CHANGE SECURITY QUESTION</h4>
+        <span type="button" data-bs-dismiss="modal">
+          X
+        </span>
+      </div>
+      <div class="modal-body">
+        <div class="content">
+          <form>
+            <p>
+              Answer your existing security question in order to create a new one. Please choose a question you can
+              remember! You will get locked out of your portal if you are unable to answer correctly.
+            </p>
+            <h5 class="title">EXISTING QUESTION:</h5>
+            <p>In what city was your first job?</p>
+            <div class="row mt-3">
+              <div class="col-lg-12">
+                <div class="form-group">
+                  <label class="title">ANSWER</label>
+                </div>
+              </div>
+              <div class="col-lg-12 ">
+                <div class="form-group ">
+                  <mat-form-field class=" w-100" appearance="outline">
+                    <input matInput>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-lg-12">
+                <div class="form-group">
+                  <label class="title">NEW QUESTION</label>
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <div class="form-group ">
+                  <mat-form-field appearance="outline" class="dropdown col-lg-12 col-md-12 col-sm-12 col-12">
+                    <mat-select placeholder="In what city was your first job?">
+                      <mat-option class="menu" *ngFor="let question of questions" [value]="question">{{questions}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class="row mt-3">
+              <div class="col-lg-12">
+                <div class="form-group">
+                  <label class="title">ANSWER</label>
+                </div>
+              </div>
+              <div class="col-lg-12 ">
+                <div class="form-group ">
+                  <mat-form-field class=" w-100" appearance="outline">
+                    <input matInput>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-4">
+              <label class="title ">IMPORTANT</label>
+              <mat-checkbox class="example-margin mt-2">
+                <mat-lable class="checkbox-label">I understand my access to patients portal will be locked if I am
+                  unable to answer this question</mat-lable>
+              </mat-checkbox>
+            </div>
+
+            <div class="row mt-4" style="float: right;">
+              <button type="button" style="margin-left: -18%;margin-right: 9%;" class="Change-button col-md-4"
+                data-bs-dismiss="modal">Change</button>
+              <button type="button" class="Change-button col-md-4">Cancel</button>
+            </div>
+
+          </form>
+          <!-- end personal info -->
+        </div>
+      </div>
     </div>
   </div>
 </div>
