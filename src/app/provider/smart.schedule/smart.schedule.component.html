@@ -159,19 +159,23 @@
               </mat-form-field> -->
               <div class="form-group">
                 <div class="input-group" appearance="outline" class="new-search col-12">
-                    <input class="form-control" placeholder="Schedule Appointment ( Enter a patient's name or phone number )"
-                     type="text" [(ngModel)]="patientNameOrCellNumber" (keyup)="searchPatient(patientNameOrCellNumber)" />
+                  <input class="form-control"
+                    placeholder="Schedule Appointment ( Enter a patient's name or phone number )" type="text"
+                    [(ngModel)]="patientNameOrCellNumber" (keyup)="searchPatient(patientNameOrCellNumber)" />
 
 
                 </div>
-            </div>
-            <div class="search-result" *ngIf="flag" appearance="outline">
+              </div>
+              <div class="search-result" *ngIf="flag" appearance="outline">
                 <ul>
-                    <li *ngFor="let patient of patients " >
-                        <a (click)="onselectPatient(patient)" data-bs-toggle="modal" data-bs-target="#modal-appointment-form">{{patient.Name}}</a>
-                    </li>
+                  <li *ngFor="let patient of patients ">
+                    <a (click)="onselectPatient(patient)" data-bs-toggle="modal"
+                      data-bs-target="#modal-appointment-form">{{patient.Name}},
+                      {{patient.DateofBirth | date: 'MM/dd/yyyy'}}-{{patient.Age}} :-
+                      {{patient.NumberOfAppointments}}</a>
+                  </li>
                 </ul>
-            </div>
+              </div>
             </div>
             <div class="col-lg-2 col-md-3 col-12">
               <button mat-button class="btn patientbtn col-12" type="button" data-bs-toggle="modal"

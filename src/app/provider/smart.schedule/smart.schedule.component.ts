@@ -57,16 +57,6 @@ export class SmartScheduleComponent implements OnInit {
     };
     let date = new Date();
     this.PatientData = {
-      PatientId: "",
-      FirstName: "",
-      LastName: "",
-      MiddleName: "",
-      DateofBirth: { day: date.getUTCDate(), month: date.getUTCMonth() + 1, year: date.getUTCFullYear() },
-      Gender: "",
-      CellPhone: "",
-      Homephone: "",
-      Email: "",
-      Address: "",
       PatinetHasNoEmail: false
     }
 
@@ -160,6 +150,7 @@ export class SmartScheduleComponent implements OnInit {
   }
   UpdatePatient() {
     console.log(JSON.stringify(this.PatientData));
+
     this.utilityService.CreateNewPatient(this.PatientData).subscribe(resp => {
       if (resp.IsSuccess) {
 

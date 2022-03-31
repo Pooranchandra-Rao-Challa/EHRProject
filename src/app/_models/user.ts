@@ -1,5 +1,5 @@
 export interface User {
-  LocationName: any;
+  CurrentLocation: string;
   UserId: string;
   ClinicId: string;
   ProviderId: string;

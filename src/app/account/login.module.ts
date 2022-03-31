@@ -9,10 +9,10 @@ import { RubyAuthenticationFailedComponenet } from './ruby.authentication.failed
 import { RegistrationComponent } from "../account/registration.component";
 import { HomeComponent } from "../account/home.comonent";
 import { SharedModule } from '../_common/shared';
-import { IConfig, NgxMaskModule} from 'ngx-mask'
+import { IConfig, NgxMaskModule } from 'ngx-mask'
 import { PatientLoginComponent } from './Patientlogin.component';
 import { PartnerSignupComponent } from '../patient/partner-signup.component';
-
+import { CreatePasswordComponent } from './createpassword.component';
 
 /*
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -41,7 +41,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     LoginRoutingModule,
     SharedModule,
     NgxMaskModule.forRoot(),
-    
+
   ],
   declarations: [
     LayoutComponent,
@@ -51,6 +51,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     HomeComponent,
     PatientLoginComponent,
     PartnerSignupComponent,
+    CreatePasswordComponent
   ]
 })
 export class LoginModule { }
