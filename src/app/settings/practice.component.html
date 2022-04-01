@@ -43,7 +43,7 @@
                 <div class="col-xl-1 col-lg-3 col-md-4 col-12">
                   <button class="plusicon pull-right" data-bs-toggle="modal" data-bs-target="#practice-modal"
                     (click)="closePopup()">
-                    <i class="fa fa-plus addlocation mx-2"></i>
+                    <i class="fa fa-plus addlocation mx-1"></i>
                   </button>
                 </div>
               </div>
@@ -54,7 +54,7 @@
                     <mat-header-cell *matHeaderCellDef>Location name</mat-header-cell>
                     <mat-cell *matCellDef="let loc"><span class="text-decoration ">
                         <a data-remote="true" data-bs-toggle="modal" class="cursorpointer"
-                          data-bs-target="#practice-modal" (click)="getEditLocData(loc)">
+                          data-bs-target="#practice-modal" (click)="editPracticeLocation(loc)">
                           {{loc.Location_Name}}</a></span></mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="Address">
@@ -81,20 +81,19 @@
                 <div class="row panel-title  m-0">
                   <div class="col-xl-2 col-lg-12 col-md-12 col-12 providerlabel">Users</div>
                   <div class="col-xl-4 col-lg-12 col-md-12 col-12 providerlabel">Practice ID#:
-                    <u>5b686dd4c832dd0c444f271a</u>
+                    <u>{{user.UserId}}</u>
                   </div>
-                  <div class="col-xl-5 col-lg-9 col-md-9 col-12 providerlabel">Practice Name: Friendly Rebels Dental
-                    Clinic</div>
+                  <div class="col-xl-5 col-lg-9 col-md-9 col-12 providerlabel">{{user.BusinessName}}</div>
                   <div class="col-xl-1 col-lg-3 col-md-3 col-12">
-                    <button class="plusicon addbtn" data-bs-toggle="modal" data-bs-target="#user-modal">
-                      <i class="fa fa-plus addprovider"></i>
+                    <button class="plusicon pull-right" data-bs-toggle="modal" data-bs-target="#user-modal">
+                      <i class="fa fa-plus addprovider mx-1"></i>
                     </button>
                   </div>
                 </div>
               </div>
 
               <div class="scrollable-mat-table">
-                <mat-table class="table table-responsive " [dataSource]="providerDataSource">
+                <mat-table class="table table-responsive " [dataSource]="providersDataSource">
                   <ng-container matColumnDef="FullName">
                     <mat-header-cell *matHeaderCellDef>Full Name</mat-header-cell>
 
@@ -105,8 +104,8 @@
                             alt="Avatar empty" width="32" height="32" style="border-radius: 36px ;background: #cfcaca;">
                         </span>
                         <a data-remote="true" data-bs-toggle="modal" data-bs-target="#edit-user-modal"
-                          class="cursorpointer" (click)="getUserDataforEdit(user)">{{user.first_name}}
-                          {{user.last_name}}</a></span></mat-cell>
+                          class="cursorpointer" (click)="getUserDataforEdit(user)">{{user.FirstName}}
+                          {{user.LastName}}</a></span></mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="Email">
                     <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
@@ -114,12 +113,13 @@
                   </ng-container>
                   <ng-container matColumnDef="Role">
                     <mat-header-cell *matHeaderCellDef>Role</mat-header-cell>
-                    <mat-cell *matCellDef="let user">{{user._practice_role}}</mat-cell>
+                    <mat-cell *matCellDef="let user">{{user.PracticeRole}}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="Space">
                     <mat-header-cell *matHeaderCellDef></mat-header-cell>
                     <mat-cell *matCellDef="let user">
-                      <mat-checkbox class="example-margin" [(ngModel)]="user.admin" (click)="checkAdminAccess(user)">
+                      <mat-checkbox class="example-margin" [(ngModel)]="user.Admin"
+                        (ngModelChange)="toggleAdmin(user,$event)">
                         <span class="admineclass">Admin</span>
                       </mat-checkbox>
                     </mat-cell>
@@ -127,22 +127,21 @@
                   <ng-container matColumnDef="Status">
                     <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
                     <mat-cell *matCellDef="let user">
-                      <a role="button" (click)="changeStatusAccess(user)"
-                        [ngClass]="user.active?'StatusActive':'inactive'">
-                        <span *ngIf="user.active">Active</span>
-                        <span *ngIf="!user.active">Inactive</span>
+                      <a role="button"
+                       (click)="toggleStatus(user,$event)"
+                        [ngClass]="user.Active?'StatusActive':'inactive'">
+                        <span *ngIf="user.Active">Active</span>
+                        <span *ngIf="!user.Active">Inactive</span>
                       </a>
                     </mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="EmergencyAccess">
                     <mat-header-cell *matHeaderCellDef>Emergency Access</mat-header-cell>
                     <mat-cell *matCellDef="let user">
-                      <mat-checkbox class="example-margin" (click)="changeEmergencyAccess(user)"
-                        [(ngModel)]="user.emergency_access"></mat-checkbox>
-
+                      <mat-checkbox class="example-margin" [(ngModel)]="user.EmergencyAccess"
+                        (ngModelChange)="toggleEmergencyAccess(user,$event)"></mat-checkbox>
                     </mat-cell>
                   </ng-container>
-
                   <mat-header-row *matHeaderRowDef="providerColumns"></mat-header-row>
                   <mat-row *matRowDef="let row; columns: providerColumns"></mat-row>
                 </mat-table>
@@ -158,7 +157,7 @@
   <!-- Location Modal Popup -->
   <div class="modal fade " id="practice-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-md" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title" *ngIf="!displayforEditLocation">Add location</h4>
@@ -730,7 +729,7 @@
               </div>
               <div class="col-lg-10 col-md-9 col-12">
                 <div class="row">
-                  <div class="col-lg-2 col-md-4 col-12"><label class="labelfontzise">Title</label>
+                  <div class="col-lg-2 col-md-4 col-12"><label class="settings-label">Title</label>
                     <div class="form-group">
                       <select class="col-12 inputclass" [(ngModel)]="NewUserData.Title">
                         <option value="" disabled selected hidden>Title</option>
@@ -739,26 +738,26 @@
                       </select>
                     </div>
                   </div>
-                  <div class="col-lg-4 col-md-8 col-12"><label class="labelfontzise">First Name</label>
+                  <div class="col-lg-4 col-md-8 col-12"><label class="settings-label">First Name</label>
                     <div class="form-group">
                       <input class="inputclass" type="text" placeholder="First Name"
                         [(ngModel)]="NewUserData.FirstName">
                     </div>
                   </div>
-                  <div class="col-lg-3 col-md-6 col-12"><label class="labelfontzise">Middle Name</label>
+                  <div class="col-lg-3 col-md-6 col-12"><label class="settings-label">Middle Name</label>
                     <div class="form-group">
                       <input type="text" placeholder="Middle Name" class="inputclass"
                         [(ngModel)]="NewUserData.MiddleName">
                     </div>
                   </div>
-                  <div class="col-lg-3 col-md-6 col-12"><label class="labelfontzise">Last Name</label>
+                  <div class="col-lg-3 col-md-6 col-12"><label class="settings-label">Last Name</label>
                     <div class="form-group ">
                       <input type="text" placeholder="Last Name" class="inputclass" [(ngModel)]="NewUserData.LastName">
                     </div>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-lg-2 col-md-4 col-12"><label class="labelfontzise">Degree</label>
+                  <div class="col-lg-2 col-md-4 col-12"><label class="settings-label">Degree</label>
                     <div class="form-group">
                       <select class="col-12 inputclass" [(ngModel)]="NewUserData.Degree">
                         <option value="" disabled selected hidden>Credentials</option>
@@ -767,7 +766,7 @@
                       </select>
                     </div>
                   </div>
-                  <div class="col-lg-5 col-md-8 col-12"><label class="labelfontzise">Speciality</label>
+                  <div class="col-lg-5 col-md-8 col-12"><label class="settings-label">Speciality</label>
                     <div class="form-group">
                       <select class="col-12 inputclass" [(ngModel)]="NewUserData.Speciality">
                         <option value="" disabled selected hidden>Speciality</option>
@@ -776,10 +775,10 @@
                       </select>
                     </div>
                   </div>
-                  <div class="col-lg-5 col-md-12 col-12"><label class="labelfontzise">Secondary Speciality</label>
+                  <div class="col-lg-5 col-md-12 col-12"><label class="settings-label">Secondary Speciality</label>
                     <div class="form-group">
                       <input type="text" placeholder="Secondary speciality" class="inputclass"
-                        [(ngModel)]="NewUserData.SecondaryPpeciality">
+                        [(ngModel)]="NewUserData.SecondarySpeciality">
                     </div>
                   </div>
                 </div>
@@ -787,13 +786,13 @@
 
             </div>
             <div class="row">
-              <div class="col-lg-4"><label class="labelfontzise">Medical/ Dental License #</label>
+              <div class="col-lg-4"><label class="settings-label">Medical/ Dental License #</label>
                 <div class="form-group">
                   <input type="text" placeholder="Medical/ Dental License #" class="inputclass"
                     [(ngModel)]="NewUserData.DentalLicense">
                 </div>
               </div>
-              <div class="col-lg-4"><label class="labelfontzise">State</label>
+              <div class="col-lg-4"><label class="settings-label">State</label>
                 <div class="form-group">
                   <select class="col-12 inputclass" [(ngModel)]="NewUserData.State">
                     <option value="" disabled selected hidden>State</option>
@@ -802,31 +801,31 @@
                   </select>
                 </div>
               </div>
-              <div class="col-lg-4 "><label><span class="labelfontzise">Expiration Date</span>
+              <div class="col-lg-4 "><label><span class="settings-label">Expiration Date</span>
                 </label>
                 <div class="form-group ">
                   <input type="text" placeholder="Expiration Date" class="inputclass"
-                    [(ngModel)]="NewUserData.ExpirationAt">
+                    [(ngModel)]="NewUserData.ExpirationDate">
                 </div>
               </div>
             </div>
             <div class="row">
-              <div class="col-lg-3"><label class="labelfontzise">NPI</label>
+              <div class="col-lg-3"><label class="settings-label">NPI</label>
                 <div class="form-group">
-                  <input type="text" placeholder="NPI" class="inputclass" [(ngModel)]="NewUserData.NPI">
+                  <input type="text" placeholder="NPI" class="inputclass" [(ngModel)]="NewUserData.Npi">
                 </div>
               </div>
-              <div class="col-lg-3"><label class="labelfontzise">DEA #</label>
+              <div class="col-lg-3"><label class="settings-label">DEA #</label>
                 <div class="form-group">
                   <input type="text" placeholder="DEA #" class="inputclass" [(ngModel)]="NewUserData.Dea">
                 </div>
               </div>
-              <div class="col-lg-3 "><label class="labelfontzise">UPIN</label>
+              <div class="col-lg-3 "><label class="settings-label">UPIN</label>
                 <div class="form-group ">
-                  <input type="text" placeholder="UPIN" class="inputclass" [(ngModel)]="NewUserData.Upin">
+                  <input type="text" placeholder="UPIN" class="inputclass" [(ngModel)]="NewUserData.UPin">
                 </div>
               </div>
-              <div class="col-lg-3 "><label class="labelfontzise">EHR1 User ID
+              <div class="col-lg-3 "><label class="settings-label">EHR1 User ID
                 </label>
                 <div class="form-group">
                   <input type="text" placeholder="6345474dffsfdf" readonly class="inputclass notallowCursor"
@@ -835,20 +834,20 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-lg-3"><label class="labelfontzise">NADEAN</label>
+              <div class="col-lg-3"><label class="settings-label">NADEAN</label>
                 <div class="form-group">
-                  <input type="text" placeholder="NADEAN" class="inputclass" [(ngModel)]="NewUserData.Nadean">
+                  <input type="text" placeholder="NADEAN" class="inputclass" [(ngModel)]="NewUserData.NADean">
                 </div>
               </div>
-              <div class="col-lg-3"><label class="labelfontzise">SOCIAL SECURITY NUMBER</label>
+              <div class="col-lg-3"><label class="settings-label">SOCIAL SECURITY NUMBER</label>
                 <div class="form-group">
-                  <input type="text" placeholder="SSN" class="inputclass" [(ngModel)]="NewUserData.Ssn">
+                  <input type="text" placeholder="SSN" class="inputclass" [(ngModel)]="NewUserData.SSN">
                 </div>
               </div>
             </div>
             <div class="row panel-title m-0">
               <div class="col-xl-11 col-lg-9 col-md-8 col-12">
-                <h4>Practice Location and Provider Schedule </h4>
+                <h5>Practice Location and Provider Schedule </h5>
               </div>
               <div class="col-xl-1 col-lg-3 col-md-4 col-12">
                 <button class="plusicon pull-right" data-bs-toggle="modal" data-bs-target="#practice-modal"
@@ -858,25 +857,34 @@
               </div>
             </div>
             <div class="scrollable-mat-table">
-              <mat-table class="table table-responsive userfromPractable" [dataSource]="providerLocationDataSource">
+              <mat-table class="table table-responsive userfromPractable" [dataSource]="NewUserData.LocationInfo">
                 <ng-container matColumnDef="LocationName">
                   <mat-header-cell *matHeaderCellDef>Location Name</mat-header-cell>
-                  <mat-cell *matCellDef="let loc">{{loc.name}} </mat-cell>
+                  <mat-cell *matCellDef="let loc">{{loc.Name}} </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="CityState">
                   <mat-header-cell *matHeaderCellDef>City, State</mat-header-cell>
-                  <mat-cell *matCellDef="let loc">{{loc.city}}, {{loc.state}}</mat-cell>
+                  <mat-cell *matCellDef="let loc">{{loc.City}}, {{loc.State}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="PracticeSchedule">
                   <mat-header-cell *matHeaderCellDef>Practice Schedule</mat-header-cell>
-                  <mat-cell *matCellDef="let loc"><span class="cell-breakWord">{{loc.shortofWeek}}, {{loc.from}} -
-                      {{loc.to}}, {{loc.specific_hour}}</span></mat-cell>
+                  <mat-cell *matCellDef="let loc">
+                      <ul  >
+                        <li *ngFor="let timeSlot of loc.TimeSlots"
+                        style="flex-wrap: wrap;line-break: auto;font-size: 11px !important; line-height: 15px;">
+                          {{timeSlot.WeekDay}},<br/>
+                          {{timeSlot.From}} - {{timeSlot.To}},<br/>
+                          {{timeSlot.SpecificHour}}
+                        </li>
+                      </ul>
+
+                  </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="ServicedLocation">
                   <mat-header-cell *matHeaderCellDef>Serviced Location(s)</mat-header-cell>
                   <mat-cell *matCellDef="let loc">
                     <mat-checkbox class="example-margin" [ngModelOptions]="{standalone: true}"
-                      [ngModel]="loc.assigend_locations"></mat-checkbox>
+                      [ngModel]="loc.Assigned"></mat-checkbox>
                   </mat-cell>
                 </ng-container>
 
@@ -892,18 +900,18 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-lg-4"><label class="labelfontzise">Role</label>
+              <div class="col-lg-4"><label class="settings-label">Role</label>
                 <div class="form-group">
                   <select class="col-12 inputclass" placeholder="Role" [(ngModel)]="NewUserData.PracticeRole">
                     <option value="" disabled selected hidden>Role</option>
-                    <option *ngFor="let pRole of providerRoles" [value]="pRole.Name">{{pRole.Name}}
+                    <option *ngFor="let pRole of providerRoles" [value]="pRole.Value">{{pRole.Name}}
                     </option>
                   </select>
                 </div>
               </div>
               <div class="col-lg-4 " style="margin-top: 27px">
                 <mat-checkbox class="example-margin" [(ngModel)]="NewUserData.Active">
-                  <label class="labelfontzise mt-2">Active</label>
+                  <label class="settings-label mt-2">Active</label>
                 </mat-checkbox>
               </div>
               <div class="col-lg-4">
@@ -914,21 +922,21 @@
               </div>
             </div>
             <div class="row align-items-center">
-              <div class="col-lg-4"><label class="labelfontzise">Login Email Address</label>
+              <div class="col-lg-4"><label class="settings-label">Login Email Address</label>
                 <div class="form-group">
                   <input type="text" placeholder="Login Email Address" class="inputclass"
                     [(ngModel)]="NewUserData.Email">
                 </div>
               </div>
-              <div class="col-lg-4"><label class="labelfontzise">Login Phone</label>
+              <div class="col-lg-4"><label class="settings-label">Login Phone</label>
                 <div class="form-group">
-                  <input type="text" placeholder="Login Phone" class="inputclass" [(ngModel)]="NewUserData.MobilePhone">
+                  <input type="text" placeholder="Login Phone" class="inputclass" [(ngModel)]="NewUserData.PrimaryPhone">
                 </div>
               </div>
               <div class="col-lg-4">
                 <button type="submit" class="btn btn-lg btn-success">Resend Inviation Email</button>
               </div>
-              <div class="col-lg-4"><label class="labelfontzise">Recovery Email</label>
+              <div class="col-lg-4"><label class="settings-label">Recovery Email</label>
                 <div class="form-group">
                   <input type="text" placeholder="Recovery Email" class="inputclass" [(ngModel)]="NewUserData.AltEmail">
                 </div>
@@ -939,7 +947,7 @@
           <div class="row">
             <div class="col-md-12">
               <div class="d-flex justify-content-end">
-                <button type="button" class="btn btn-lg btn-success mx-2" data-bs-dismiss="modal">
+                <button type="button" class="btn btn-lg btn-success mx-2" (click)="updateUser('update')" data-bs-dismiss="modal">
                   Save Changes
                 </button>
                 <button type="button" class="btn btn-lg btn-success" data-bs-dismiss="modal">
