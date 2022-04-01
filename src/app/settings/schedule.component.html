@@ -1,0 +1,222 @@
+<div class="scrollable-container">
+  <div class="content ">
+    <div class="row denatal-chart-top">
+      <div class="col-xl-12 col-lg-12 col-md-12 Sechudle px-0">
+        <div class="right-block mx-4">
+          <div class="colF border">
+            <div class="row schedule-section">
+              <div class="col-xl-8 col-lg-6 col-12">
+                <p class="plabel">Location Address:</p>
+                <div class="form-group col-xl-4 col-lg-12">
+                  <mat-form-field appearance="outline" class="col-12">
+                    <mat-select disableOptionCentering>
+                      <mat-option *ngFor="let item of LocationAddress" [value]="item.Location_Name">
+                        {{item.Location_Name}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-xl-4 col-lg-6 col-12 border">
+                <div class="row room-card">
+                  <div class="col-md-8 col-6">
+                    <p class="pt-2">Rooms</p>
+                  </div>
+                  <div class="col-md-4 col-6">
+                    <div class="col-md-6 schedule-plusicon pull-right" (click)="addRoom()"><span><i
+                          class="fa fa-plus"></i></span></div>
+                  </div>
+                </div>
+                <form [formGroup]="roomForm">
+                  <div formArrayName="rooms">
+                    <div *ngFor="let room of rooms().controls; let roomIndex=index">
+                      <div [formGroupName]="roomIndex">
+                        <div class="row room-section pt-3 pb-2">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <input type="text" [class]="showInput !== true ? 'schedule-inputclass': 'inputclass'"
+                                class="form-control" formControlName="roomOP" [readonly]="!showInput">
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <button type="button" id="Actbtn" *ngIf="showSaveBtn"
+                              class="btn btn-md btn-sm btn-success pull-right"
+                              (click)="onSubmitBasedOnIndex(roomIndex)">
+                              Save
+                            </button>
+                            <button type="button" id="Actbtn" *ngIf="showEditBtn"
+                              class="btn btn-md btn-sm btn-success pull-right" (click)="onSubmitEdit(roomIndex)">
+                              Edit
+                            </button>
+                          </div>
+                          <div class="col-md-12 pt-2 cstm-border-bottom">
+                            <button type="button" id="Actbtn" class="btn btn-md btn-sm btn-success pull-right"
+                              (click)="removeEmployee(roomIndex)" style="height: 30px;">
+                              Remove
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <p class="panel-title m-0 text-black">General</p>
+            <div class="row schedule-section">
+              <div class="col-xl-3 col-lg-5 col-md-6 pt-2">
+                <p class="plabel ">Calendar Time Display Range :</p>
+              </div>
+              <div class="col-xl-3 col-lg-5 col-md-6" style="display: flex;">
+                <p class="mx-2 my-2">From</p>
+                <input class="form-Group form-control time" type="time" name="Zip" id="Zip">
+                <p class="mx-2 my-2">To</p>
+                <input class=" form-control time" type="time" name="Zip" id="Zip">
+              </div>
+            </div>
+            <div class="row schedule-section">
+              <div class="col-xl-3 col-lg-5 col-md-6">
+                <p class="plabel">Allow Scheduling Outside Location Hours:</p>
+              </div>
+              <div class="col-xl-3 col-lg-5 col-md-6">
+                <mat-radio-group>
+                  <mat-radio-button [value]="1"></mat-radio-button>Yes
+                  <mat-radio-button class="ms-4" [value]="2"></mat-radio-button>No
+                </mat-radio-group>
+              </div>
+            </div>
+            <div class="row schedule-section">
+              <div class="col-xl-3 col-lg-5 col-md-6">
+                <p class="plabel">Allow Scheduling Concurrent Appointments:</p>
+              </div>
+              <div class="col-xl-3 col-lg-5 col-md-6">
+                <mat-radio-group>
+                  <mat-radio-button [value]="1"></mat-radio-button>Yes
+                  <mat-radio-button class="ms-4" [value]="2"></mat-radio-button>No
+                </mat-radio-group>
+              </div>
+            </div>
+            <div class="row schedule-section">
+              <div class="col-xl-5 col-lg-8 col-md-8">
+                <p class="plabel">Accept Appointment Change Requests and Cancellations from the Patient Portal:</p>
+              </div>
+              <div class="col-md-4">
+                <mat-radio-group>
+                  <mat-radio-button [value]="1"></mat-radio-button>Yes
+                  <mat-radio-button class="ms-4" [value]="2"></mat-radio-button>No
+                </mat-radio-group>
+              </div>
+            </div>
+            <div class="row schedule-section">
+              <div class="col-12">
+                <button class="btn btn-success col-xl-2 col-lg-3 col-md-3 col-12 pull-right">Save Changes</button>
+              </div>
+            </div>
+            <div>
+              <p class="panel-title m-0 text-black">Providers & Rooms
+              </p>
+            </div>
+            <div class="scrollable-provider-rooms">
+              <div class="provider-rooms">
+                <div class="row panel-title m-0">
+                  <div class="col-lg-9">Providers & Rooms</div>
+                  <div class="col-lg-3 pull-right"><span class="pull-right">Edit Provider Schedule</span></div>
+                </div>
+                <div class="row my-3 mx-2">
+                  <div class="col-lg-9">
+                    <p class="mt-2 privdertext">EHRApplication ehr</p>
+                  </div>
+                  <div class="col-lg-3">
+                    <button type="button" class="btn btn-md btn-success py-3 px-4 pull-right">Edit</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="panel-title m-0 text-black">Appointment Statuses & Types
+            <div class="row my-3  mx-2">
+              <div class="col-lg-6 col-md-6">
+                <div class="appointment-form">
+                  <div class="room-card px-4">
+                    <div class="row">
+                      <div class="col-md-5 col-5">
+                        <p class="pt-2">Status</p>
+                      </div>
+                      <div class="col-md-3 col-3">
+                        <p class="pt-2">Color</p>
+                      </div>
+                      <div class="col-md-4 col-4">
+                        <p class="pt-2 pull-right">Edit Status</p>
+                      </div>
+                      <!-- <div class="col-md-4 col-6">
+                        <div class="col-md-6 schedule-plusicon pull-right" (click)="addRoom()"><span><i
+                              class="fa fa-plus"></i></span></div>
+                      </div> -->
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="col-lg-6 col-md-6 appointment-form">
+                <div class="StatusTable border">
+                  <table mat-table class="StatusTable" [dataSource]="appointmentTypeList">
+                    <ng-container [matColumnDef]="col" *ngFor="let col of appointmentTypeColumns">
+                      <th mat-header-cell *matHeaderCellDef>
+                        <span>
+                          {{col}}
+                        </span>
+                      </th>
+
+
+                      <td mat-cell *matCellDef="let element ; let j= index;">
+                        <div [ngSwitch]="dataSchema[col]" *ngIf="!element.isEdit">
+                          <div class="btn-edit" *ngSwitchCase="'isEdit'">
+                            <button type="submit" (click)="element.isEdit = !element.isEdit"
+                              class="btn-success btn btn-lg mx-3 btn-md btnSave mt-3 w-75">Edit</button>
+                            <button type="submit" (click)="deleteType(j)"
+                              class="btn-success btn btn-lg btn-md btnSave mx-3 my-3 w-75">Remove</button>
+                          </div>
+                          <span *ngSwitchDefault>
+                            <label>{{element[col]}}</label>
+                          </span>
+                        </div>
+                        <div [ngSwitch]="dataSchema[col]" *ngIf="element.isEdit">
+                          <div class="btn-edit" *ngSwitchCase="'isEdit'">
+                            <button type="submit" (click)="element.isEdit = !element.isEdit"
+                              class="btn-success btn btn-lg mx-3 btn-md btnSave mt-3 w-75">Save</button>
+                            <button type="submit" (click)="deleteType(j)"
+                              class="btn-success btn btn-lg btn-md btnSave mx-3 my-3 w-75">Remove</button>
+                          </div>
+
+                          <mat-form-field *ngSwitchDefault appearance="outline">
+
+                            <input [type]="dataSchema[col]" matInput class="age-input" [readonly]
+                              [(ngModel)]="element[col]">
+                          </mat-form-field>
+
+                        </div>
+                      </td>
+
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="appointmentTypeColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: appointmentTypeColumns;"></tr>
+                  </table>
+                  <div class="px-3">
+                    <button type="submit" class="btn-success btn btn-lg btn-md btnSave  my-3 w-100" (click)="addType()">
+                      Add Custome Type</button>
+
+                  </div>
+                </div>
+
+
+              </div>
+              <div class="clearfix w-100"></div>
+            </div>
+          </div>
+
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

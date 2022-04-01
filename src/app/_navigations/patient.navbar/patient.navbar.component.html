@@ -1,4 +1,3 @@
-
 <nav class="navbar navbar-expand-lg navbar-dark">
   <button class="navbar-toggler" type="button" (click)="toggleNavbar()">
     <span class="navbar-toggler-icon"></span>
@@ -8,41 +7,29 @@
 
   <div class="collapse navbar-collapse" [ngClass]="{ 'show': navbarOpen }">
     <ul class="navbar-nav mr-auto menuactive">
-  
-      <li class="nav-item active">
-        <a href="patient/dashboard" class="nav-link item-dashboard">Dashboard
-          <!-- <i class="fa fa-pie-chart" aria-hidden="true"></i>
-          <span class="d-flex">Dashboard</span> -->
+
+      <li [class]="view !== 'dashboard' ? 'nav-item': 'active nav-item'">
+        <a href="patient/dashboard?view=dashboard" class="nav-link item-dashboard">Dashboard
         </a>
       </li>
-      <li class="nav-item">
-        <a href="patient/appointment" class="nav-link item-appointments">Appointments
-          <!-- <i class="fa fa fa-calendar-o" aria-hidden="true"></i>
-          <span class="d-flex">Appointments</span> -->
+      <li [class]="view !== 'appointment' ? 'nav-item': 'active nav-item'">
+        <a href="patient/appointment?view=appointment" class="nav-link item-appointments">Appointments
         </a>
       </li>
-      <li class="nav-item">
-        <a href="patient/message" class="nav-link item-messages">Messages
-          <!-- <i class="fa fa-comments-o" aria-hidden="true"></i>
-          <span class="d-flex">Messages</span> -->
+      <li [class]="view !== 'message' ? 'nav-item': 'active nav-item'">
+        <a href="patient/message?view=message" class="nav-link item-messages">Messages
         </a>
       </li>
-      <li class="nav-item">
-        <a href="patient/health" class="nav-link item-myhealth">My Health
-          <!-- <i class="fa fa-heart-o" aria-hidden="true"></i>
-          <span class="d-flex">My Health</span> -->
+      <li [class]="view !== 'health' ? 'nav-item': 'active nav-item'">
+        <a href="patient/health?view=health" class="nav-link item-myhealth">My Health
         </a>
       </li>
-      <li class="nav-item">
-        <a href="patient/profile" class="nav-link item-myprofile">My Profile
-          <!-- <i class="fa fa-user-o" aria-hidden="true"></i>
-          <span class="d-flex">My Profile</span> -->
+      <li [class]="view !== 'profile' ? 'nav-item': 'active nav-item'">
+        <a href="patient/profile?view=profile" class="nav-link item-myprofile">My Profile
         </a>
       </li>
-      <li class="nav-item">
-        <a href="patient/document" class="nav-link item-mydocuments">My Documents
-          <!-- <i class="fa fa fa-file-text-o" aria-hidden="true"></i>
-          <span class="d-flex">My Documents</span> -->
+      <li [class]="view !== 'document' ? 'nav-item': 'active nav-item'">
+        <a href="patient/document?view=document" class="nav-link item-mydocuments">My Documents
         </a>
       </li>
     </ul>
@@ -50,8 +37,8 @@
 
 
 
-  
-  
+
+
   <ul class="navbar-nav pull-right">
     <li [matMenuTriggerFor]="menu" class="nav-item nav-top-right">
       <a class="nav-link dropdown-toggle" id="UserDropdown">
@@ -59,19 +46,14 @@
         <img class="img-xs rounded-circle mx-1" src="../../../assets/images/default.png">
       </a>
 
-      <mat-menu #menu="matMenu"  [hasBackdrop]="false">
+      <mat-menu #menu="matMenu" [hasBackdrop]="false">
         <div class="list" style="border-top: 1px solid #86c1bb; width: 100%;">
-          <li><a class="nav-li" href="patient/profile">My Profile</a></li>
-          <li><a class="nav-li" href="patient/health">My Health</a></li>
-          <li><a class="nav-li" href="patient/document">Activity Log</a></li>
-          <li><a class="nav-li" style="border-top:  1px solid #86c1bb;" (click)="logout()">LogOut</a></li>
+    <li><a class="nav-li" href="patient/profile">My Profile</a></li>
+    <li><a class="nav-li" href="patient/health">My Health</a></li>
+    <li><a class="nav-li" href="patient/document">Activity Log</a></li>
+    <li><a class="nav-li" style="border-top:  1px solid #86c1bb;" (click)="logout()">LogOut</a></li>
     </div>
     </mat-menu>
     </li>
   </ul>
 </nav>
-
-
-
-
-

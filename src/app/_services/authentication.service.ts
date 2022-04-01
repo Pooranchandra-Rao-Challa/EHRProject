@@ -3,7 +3,7 @@ import { Observable, BehaviorSubject, Observer, observable, throwError, of } fro
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { map, observeOn, tap, retry, catchError } from 'rxjs/operators';
-import { APIEndPoint} from './api.endpoint.service';
+import { APIEndPoint } from './api.endpoint.service';
 
 
 import { environment } from "src/environments/environment";
@@ -30,7 +30,7 @@ export class AuthenticationService {
   constructor(
     private router: Router,
     private http: HttpClient,
-    private apiEndPoint:APIEndPoint
+    private apiEndPoint: APIEndPoint
   ) {
     if (localStorage.getItem('user')) {
       this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user') || '{}'));
@@ -63,7 +63,7 @@ export class AuthenticationService {
         else if (this.isPatient)
           this.router.navigate(['/patinet/patientview']);
         //else
-          //this.router.navigate(['/reports/categoryreports']);
+        //this.router.navigate(['/reports/categoryreports']);
       }
     }),
       (error) => {
@@ -96,7 +96,7 @@ export class AuthenticationService {
         else if (this.isPatient)
           this.router.navigate(['/patient/dashboard']);
         //else
-          //this.router.navigate(['/reports/categoryreports']);
+        //this.router.navigate(['/reports/categoryreports']);
       }
     }),
       (error) => {

@@ -1,3 +1,5 @@
+@import "../../assets/cstm.material.scss";
+
 .panel-title {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background-color: #41b6a6;
@@ -6,7 +8,7 @@
   min-height: 60px;
   text-align: 10px;
   margin-top: -1px;
-  padding: 10px 0px;
+  padding: 10px 20px; // schedule panel
   font-size: 18px;
 }
 .ptitle {
@@ -30,9 +32,9 @@
   background-color: white;
   color: #41b6a6;
   border: #41b6a6;
-  min-height: 70px;
+  height: 100%;
   text-align: left;
-  margin-top: -1px;
+  margin-top: -4px;
   font-size: 25px;
 }
 // .colA {
@@ -119,9 +121,13 @@ div.ex3 {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   margin: 30px;
 }
-.praset1 {
-  margin-left: 50px;
-  padding: 40px;
+.provider-rooms {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  margin: 30px;
+  border: 1px solid #41b6a6;
+}
+.schedule-section {
+  padding: 20px 50px;
 }
 
 .plusicon {
@@ -190,6 +196,24 @@ div.ex3 {
 .inputclass:hover {
   border: 1px solid #41b6a6;
 }
+.schedule-inputclass {
+  background-color: #fff;
+  border: 1px solid #fff;
+  cursor: not-allowed !important;
+  border-radius: 4px;
+  padding: 0px 10px;
+  height: 45px;
+  font-size: 15px;
+}
+.schedule-inputclass:hover {
+  background-color: #fff;
+  border: 1px solid #d6d8df;
+  cursor: not-allowed !important;
+  border-radius: 4px;
+  padding: 0px 10px;
+  height: 45px;
+  font-size: 15px;
+}
 
 .form-group .input-group .input-group-addon {
   padding: 15px 10px;
@@ -241,18 +265,18 @@ hr {
   border: 1px solid #2faa9a;
 }
 .plabel {
-  color: black;
+  color: #4a4a4a;
   background-color: white;
-  font-size: 18px;
+  font-size: 16px;
 }
-.dropdown {
-  min-width: 500px;
-}
+// .dropdown {
+//   min-width: 500px;
+// }
 .modal-content {
   border: 1px solid rgb(65 182 166) !important;
 }
 
-.RomeCard {
+.room-card {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background-color: #41b6a6;
   color: white;
@@ -268,11 +292,11 @@ hr {
   font-size: 18px;
   width: 200px;
 }
-.Roomp {
-  padding-top: 27px;
-  margin-left: 25px;
-  font-size: 20px;
-}
+// .Roomp {
+//   padding-top: 27px;
+//   margin-left: 25px;
+//   font-size: 20px;
+// }
 
 .customCheck1 {
   padding: 20px;
@@ -376,8 +400,9 @@ input[type="checkbox"] {
 .appointment {
   font-size: 20px;
 }
-.colE {
-  height: 500px;
+.appointment-form {
+  min-height: 500px;
+  border: 1px solid #41b6a6;
 }
 
 .manuallbtn {
@@ -427,13 +452,6 @@ h6 {
 }
 .table-border {
   height: 100%;
-}
-.Sechudle {
-  min-height: 3000px;
-}
-.Sechudle .border {
-  min-height: 300px;
-  border: 1px solid #2faa9a !important;
 }
 td.mat-cell,
 td.mat-footer-cell {
@@ -489,6 +507,7 @@ input.mat-input-element {
 }
 .border {
   border: 1px solid #41b6a6 !important;
+  border-radius: 2px;
 }
 // sweetalert
 ::ng-deep .swal2-styled.swal2-confirm {
@@ -546,10 +565,15 @@ input.mat-input-element {
 ul.menuclass li a {
   display: block !important;
   color: #41b6a6 !important;
-  font-size: 20px !important;
+  font-size: 16px !important;
   padding: 15px 20px 14px 7px !important;
   border-left: 13px solid transparent !important;
   transition: background-color 0.2s, color 0.1s, border-color 0.2s !important;
+}
+ul.menuclass li a:hover {
+  border-color: #fe8f00 !important;
+  background-color: #41b6a6 !important;
+  color: #fff !important;
 }
 ul.menuclass li.active a {
   border-color: #fe8f00 !important;
@@ -834,13 +858,50 @@ ul.menuclass li.active a {
   padding-bottom: 5px !important;
 }
 // Mat form field custom font-size
-mat-form-field.mat-form-field {
-  font-size: 18px !important;
-}
+// mat-form-field.mat-form-field {
+//   font-size: 18px !important;
+// }
 // Mat form width
 mat-form-field.mat-form-field {
   width: 100% !important;
 }
 .main-info .row {
   padding-bottom: 20px;
+}
+.schedule-plusicon {
+  border-radius: 5%;
+  border: 1px solid white;
+  background: white;
+  width: 80px;
+  height: 30px;
+  text-align: center;
+}
+.schedule-plusicon:hover {
+  background-color: #41b6a6;
+  .fa-plus {
+    color: #fff;
+  }
+}
+.schedule-plusicon .fa-plus {
+  padding: 5px;
+}
+.room-section {
+  padding: 0px 10px;
+}
+.cstm-border-bottom {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #41b6a6;
+}
+.form-control.time {
+  border: 1px solid #dedede;
+  background-color: #f5f5f5;
+  cursor: text !important;
+}
+@media (max-width: 1440px) {
+  .provider-rooms {
+    width: 1085px;
+  }
+  .scrollable-provider-rooms {
+    overflow-x: auto;
+  }
 }
