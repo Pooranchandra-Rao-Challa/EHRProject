@@ -1,0 +1,36 @@
+.dashbord-header{
+  list-style-type:none;
+}
+ul li, ol li, dl li {
+  line-height: 1.8;
+  display: initial !important;
+  padding: 6px;
+}
+.anchorStyle{
+  color: grey !important;
+  font-size: 16px;
+  padding: 10px 0px;
+}
+ul{
+  background: #edeff3 !important
+}
+.card-border{
+  border: 1px solid #f2f2f2 !important;
+}
+
+.table>:not(caption)>*>* {
+  padding: 0.5rem 0.5rem;
+  background-color: var(--bs-table-bg);
+  border-bottom-width: 1px;
+  box-shadow: inset 0 0 0 0000px var(--bs-table-accent-bg); 
+}
+.Cancelbtn{
+border-radius: 70px;
+  width: 29px;
+  height: 30px;
+  background: #e30e0e;
+  color: white;
+  font-size: 20px;
+  border: 1pz solid red;
+  border: none;
+}

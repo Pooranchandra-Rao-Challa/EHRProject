@@ -10,26 +10,38 @@
 
       <li [class]="view !== 'dashboard' ? 'nav-item': 'active nav-item'">
         <a href="patient/dashboard?view=dashboard" class="nav-link item-dashboard">Dashboard
+          <!-- <i class="fa fa-pie-chart" aria-hidden="true"></i>
+          <span class="d-flex">Dashboard</span> -->
         </a>
       </li>
       <li [class]="view !== 'appointment' ? 'nav-item': 'active nav-item'">
         <a href="patient/appointment?view=appointment" class="nav-link item-appointments">Appointments
+          <!-- <i class="fa fa fa-calendar-o" aria-hidden="true"></i>
+          <span class="d-flex">Appointments</span> -->
         </a>
       </li>
       <li [class]="view !== 'message' ? 'nav-item': 'active nav-item'">
         <a href="patient/message?view=message" class="nav-link item-messages">Messages
+          <!-- <i class="fa fa-comments-o" aria-hidden="true"></i>
+          <span class="d-flex">Messages</span> -->
         </a>
       </li>
       <li [class]="view !== 'health' ? 'nav-item': 'active nav-item'">
         <a href="patient/health?view=health" class="nav-link item-myhealth">My Health
+          <!-- <i class="fa fa-heart-o" aria-hidden="true"></i>
+          <span class="d-flex">My Health</span> -->
         </a>
       </li>
       <li [class]="view !== 'profile' ? 'nav-item': 'active nav-item'">
         <a href="patient/profile?view=profile" class="nav-link item-myprofile">My Profile
+          <!-- <i class="fa fa-user-o" aria-hidden="true"></i>
+          <span class="d-flex">My Profile</span> -->
         </a>
       </li>
       <li [class]="view !== 'document' ? 'nav-item': 'active nav-item'">
         <a href="patient/document?view=document" class="nav-link item-mydocuments">My Documents
+          <!-- <i class="fa fa fa-file-text-o" aria-hidden="true"></i>
+          <span class="d-flex">My Documents</span> -->
         </a>
       </li>
     </ul>
@@ -48,8 +60,8 @@
 
       <mat-menu #menu="matMenu" [hasBackdrop]="false">
         <div class="list" style="border-top: 1px solid #86c1bb; width: 100%;">
-    <li><a class="nav-li" href="patient/profile">My Profile</a></li>
-    <li><a class="nav-li" href="patient/health">My Health</a></li>
+    <li><a class="nav-li" href="patient/profile?view=profile">My Profile</a></li>
+    <li><a class="nav-li" href="patient/health?view=health">My Health</a></li>
     <li><a class="nav-li" href="patient/document">Activity Log</a></li>
     <li><a class="nav-li" style="border-top:  1px solid #86c1bb;" (click)="logout()">LogOut</a></li>
     </div>

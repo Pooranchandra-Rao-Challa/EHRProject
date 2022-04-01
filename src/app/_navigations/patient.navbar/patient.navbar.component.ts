@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { User, UserLocations } from '../../_models';
-declare var $: any;
 import { ActivatedRoute } from '@angular/router';
+declare var $: any;
 
 @Component({
   selector: 'app-patient-navbar',
@@ -14,9 +14,9 @@ import { ActivatedRoute } from '@angular/router';
 export class PatientNavbarComponent implements OnInit {
   navbarOpen: boolean = false;
   user: User;
+  view: string;
   locationsInfo: UserLocations[];
   currentLocation: string;
-  view: string = 'dashboard';
 
   constructor(private authenticationService: AuthenticationService, private route: ActivatedRoute) {
     this.user = authenticationService.userValue;
@@ -27,12 +27,12 @@ export class PatientNavbarComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams
       .subscribe(params => {
-        if (params.view != undefined) {
+        if (params.view == undefined) {
+          this.view = "dashboard"
+        } else {
           this.view = params.view;
         }
-        else {
-          this.view = this.view;
-        }
+
       }
       );
   }

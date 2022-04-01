@@ -28,6 +28,7 @@
 form .form-control:focus{
   border-color: #41b6a6;
   
+  
 }
 form .form-control:hover{
   border-color: #41b6a6;
@@ -368,4 +369,8 @@ h4 {
   background: white;
 }
 
-
+/*code to change background color*/
+.navbar-nav>.active>a {
+ 
+  color: #fe8f00;
+}

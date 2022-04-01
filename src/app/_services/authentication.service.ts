@@ -57,9 +57,13 @@ export class AuthenticationService {
         console.log(this.userValue);
         console.log(this.userValue.LocationInfo);
         if (this.isProvider)
-          this.router.navigate(['/provider/smartschedule']);
+          // this.router.navigate(['/provider/smartschedule']);
+          this.router.navigate(
+            ['/provider/smartschedule'],
+            { queryParams: { name: 'Smart Schedule' } }
+          );
         else if (this.isAdmin)
-          this.router.navigate(['/admin/providers']);
+          this.router.navigate(['/admin/dashboard']);
         else if (this.isPatient)
           this.router.navigate(['/patinet/patientview']);
         //else
@@ -90,7 +94,11 @@ export class AuthenticationService {
         console.log(this.userValue);
         console.log(this.userValue.LocationInfo);
         if (this.isProvider)
-          this.router.navigate(['/provider/smartschedule']);
+          // this.router.navigate(['/provider/smartschedule']);
+          this.router.navigate(
+            ['/provider/smartschedule'],
+            { queryParams: { name: 'Smart Schedule' } }
+          );
         else if (this.isAdmin)
           this.router.navigate(['/admin/providers']);
         else if (this.isPatient)

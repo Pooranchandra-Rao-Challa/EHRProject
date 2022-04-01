@@ -34,12 +34,12 @@ export class SettingsService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._addressVerificationUrl, reqparams);
   }
 
-  Location(reqparams: any) {
+  EditProviderLocation(reqparams: any) {
     const apiEndPoint = this._locationByIdUrl + "=" + reqparams;
     return this._ProcessGetRequest<any>(apiEndPoint);
   }
 
-  LocationList(providerId: any) {
+  PractiveLocations(providerId: any) {
     const apiEndPoint = this._locationsListUrl + providerId;
     return this._ProcessPostRequest<any>(apiEndPoint, providerId);
   }
@@ -66,11 +66,14 @@ export class SettingsService extends APIEndPoint {
   PostProvdierAdminAccess(reqdata: any) {
     return this._ProcessPostRequest<any>(this._updateProviderAdmineAccessUrl, reqdata);
   }
-  UserList(reqdata: any) {
-    return this._ProcessPostRequest<any>(this._getUserListUrl, reqdata);
+  UserInfoWithPraceticeLocations(reqdata: any) {
+    return this._ProcessPostRequest<any>(this._userInfoWithPraceticeLocations, reqdata);
   }
   AddUpdateUserDetails(reqdata: any) {
     return this._ProcessPostRequest<any>(this._addUpdateUserUrl, reqdata);
   }
-
+  ToggleUserFieldValues(reqData: any){
+    console.log(reqData)
+    return this._ProcessPostRequest<any>(this._toggleUserFieldValuesUrl, reqData);
+  }
 }

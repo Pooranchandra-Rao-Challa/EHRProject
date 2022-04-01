@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 import { AuthenticationService } from '../../_services/authentication.service';
@@ -21,7 +21,7 @@ export class ProviderNavbarComponent implements OnInit {
   @Output() LocationChanged = new EventEmitter<String>();
   view: string;
 
-  constructor(
+  constructor(private route: ActivatedRoute,
     config: NgbDropdownConfig, private router: Router,
     private authenticationService: AuthenticationService) {
     config.placement = 'bottom-right';
@@ -30,8 +30,9 @@ export class ProviderNavbarComponent implements OnInit {
     this.user.CurrentLocation = this.locationsInfo[0].locationId;
 
   }
-  ngOnInit() {
 
+  ngOnInit() {
+    debugger;
   }
 
   changeLocation(locationId) {
@@ -43,9 +44,27 @@ export class ProviderNavbarComponent implements OnInit {
     this.authenticationService.logout();
   }
 
-
-
   toggleNavbar() {
     this.navbarOpen = !this.navbarOpen;
   }
+
+  onChangeBreadCrum(name,url){  
+  
+      this.router.navigate(
+        [url],
+        { queryParams: { name: name} }
+      );
+    
+  }
+
+  onChangeeBreadCrumsetting(name,url){
+    debugger;
+ 
+      this.router.navigate(
+        [url],
+        { queryParams: { name: name,view:'practice'  } }
+      );
+   
+  }
+ 
 }

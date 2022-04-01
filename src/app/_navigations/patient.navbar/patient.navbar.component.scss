@@ -102,6 +102,16 @@ hr{
   padding-bottom: 0rem;
   line-height: initial;
 }
+.profile-text{
+  display: inline-block;
+  vertical-align: middle;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 12px;
+  font-size: x-large;
+  max-width: 183px;
+}
 .navbar-nav > .nav-item:hover {
   background-color: #2e877b;
   border-bottom: 3px solid #fe8f00;
@@ -109,6 +119,9 @@ hr{
 .navbar-nav > .nav-item.active {
   background-color: #2e877b;
   border-bottom: 3px solid #fe8f00;
+}
+.navbar-nav{
+  color: red;
 }
 .navbar-dark.navbar .navbar-collapse .navbar-nav li a {
   border: 4px solid transparent;
@@ -174,13 +187,6 @@ hr{
   color: green;
 }
 
-/*code to change background color*/
-.navbar-nav>.active>a {
-  background-color: #C0C0C0;
-  color: green;
-}
-
-
 .menu {
   padding: 16px;
   border: 1px solid black;
@@ -200,20 +206,8 @@ hr{
   text-align: center;
 }
 
-.active {
-  font-weight: bold;
-  background-color: yellow;
-  text-decoration: none;
-}
 
-.active-group {
-  background-color: green;
-}
 
-h4 {
-  padding: 0;
-  margin: 0;
-}
 
 
 
