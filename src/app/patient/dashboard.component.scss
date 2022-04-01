@@ -1,3 +1,5 @@
+
+
 .h4-title {
   margin-top: 36px !important;
   font-size: x-large;
@@ -15,7 +17,7 @@
 .form-row-field {
   margin-top: 15px;
 }
-.boder{
+.border-input{
   border-color: #dedede;
   background-color: #f5f5f5;
 }
@@ -25,6 +27,7 @@
 
 form .form-control:focus{
   border-color: #41b6a6;
+  
   
 }
 form .form-control:hover{
@@ -120,6 +123,11 @@ ul {
 }
 
 
+input::-webkit-input-placeholder {
+   color: #141414 !important;
+   font-size: 100%;
+   font-family: sans-serif;
+}
 
 
 
@@ -189,6 +197,7 @@ body {
   color: #41b6a6;
   border-radius: 3px;
   width: auto;
+  
   // margin-left: 82.2%;
 }
 .reg-button:hover {
@@ -201,98 +210,28 @@ body {
   background-color: #41b6a6;
 
 }
+.content span.input-group-text
+{
+  font-family: 'Times New Roman';
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 28px;
+  margin-bottom: 0;
+}
 .content span {
   //font-size: 15px;
   //text-transform: uppercase;
     font-family: 'Times New Roman';
-    font-size: 24px;
+    font-size: 25px;
     font-weight: 400;
     line-height: 28px;
     margin-bottom: 0;
 }
-
-// ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
-//   background-color:#f5f5f5 !important;
-//   height: 45px;
-//   border-radius: 5%;
-//   background-color: #f5f5f5;
-//   color: #dedede;
-// }
-//input outline color
-::ng-deep .mat-form-field-appearance-outline:hover .mat-form-field-outline {
-  color: #41b6a6 !important;
-  // opacity: 1!important;
-}
-
 .ser:hover {
   border: 1px solid #41b6a6;
   border-radius: 5px;
 }
-//mat-input focused color
-::ng-deep
-  .mat-form-field-appearance-outline.mat-focused
-  .mat-form-field-outline-thick {
-  color: #41b6a6 !important;
-}
-.secondary-title span {
-  font-size: 24px;
-}
 
-.mat-option.mat-active {
-  background: #e5f8f5 !important;
-}
-.mat-option {
-  border-left: 1px solid #41b6a6;
-  border-right: 1px solid #41b6a6;
-}
-.mat-option:last-child {
-  border-right: 1px solid #41b6a6;
-}
-.mat-option:last-child {
-  border-bottom: 1px solid #41b6a6;
-}
-.mat-option:hover {
-  background-color: #e5f8f5;
-}
-.mat-option.mat-selected:not(.mat-option-disabled) {
-  color: black;
-  text-shadow: black;
-}
-// mat-select
-::ng-deep .mat-select-arrow {
-  color: #4d4b4b !important;
-}
-::ng-deep .mat-select-placeholder {
-  color: #4d4b4b !important;
-
-::ng-deep .hover.mat-form-field-appearance-outline:hover .mat-select-arrow {
-  color: white !important;
-}
-::ng-deep
-  .hover.mat-form-field-appearance-outline:hover
-  .mat-select-placeholder {
-  color: white !important;
-
-}
-}
-::ng-deep
-  .hover.mat-form-field-appearance-outline:hover
-  .mat-select-value-text {
-  color: white !important;
-}
-::ng-deep .mat-select-panel {
-  min-width: calc(100% + 22px) !important;
-  max-width: calc(min-width) !important;
-  margin-left: 5px !important;
-}
-// .mat-option.mat-selected:not(.mat-option-disabled) {
-//   color: black;
-//   text-shadow: black;
-// }
-
-// .fa-ellipsis-h {
-//   color: #41b6a6;
-// }
 
 .content-top {
   background: none;
@@ -340,6 +279,11 @@ body {
   width: 1%;
   min-width: 0;
 }
+.form-select {
+  font-size: inherit;
+  font-weight: 300;
+  line-height: 1.7;
+}
 h4 {
   font-size: 22px;
   margin-top: 20px;
@@ -360,30 +304,7 @@ h4 {
     margin-top: 11%;
 }
 
-.checkbox-custom label .checkbox-icon-container {
-  display: table-cell;
-  vertical-align: middle;
-}
-.checkbox-custom label {
-  height: 45px;
-  margin-bottom: 0;
-  cursor: default;
-  display: table-cell;
-  vertical-align: middle;
-}
 
-::ng-deep .example-margin {
-  & .mat-checkbox-background,
-  .mat-checkbox-frame {
-    border-radius: 20% !important;
-    //border-color: #cacaca;
-    background-color: #eeeaea;
-    border: 1px solid #41b6a6;
-    border-style: solid;
-    width: 20px;
-    height: 20px;
-  }
-}
 ::ng-deep .example-margin:hover {
   & .mat-checkbox-background,
   .mat-checkbox-frame {
@@ -421,6 +342,7 @@ h4 {
     border-style:solid;
     width: 19px;
     height: 19px;
+    margin-left: 0%;
   }
 }
 ::ng-deep .example-margin:hover {
@@ -433,3 +355,22 @@ h4 {
   font-weight: bold;
 }
 
+
+.custom-control-label{
+  color: red;
+  margin-left: 2%;
+  font-weight: 400;
+}
+.select-input {
+  color: black;
+}
+
+.select-input.form-control[readonly]:not([disabled]) {
+  background: white;
+}
+
+/*code to change background color*/
+.navbar-nav>.active>a {
+ 
+  color: #fe8f00;
+}

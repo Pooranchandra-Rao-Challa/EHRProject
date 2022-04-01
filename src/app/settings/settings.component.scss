@@ -72,6 +72,7 @@
   font-size: 16px !important;
   white-space: nowrap;
   height: 45px;
+  width: 100px;
 }
 .btn-success:hover {
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -130,14 +131,13 @@ div.ex3 {
   background: white;
   height: 100%;
 }
-.fa-plus {
+
+.plusicon .fa-plus {
   color: #41b6a6;
   text-align: center;
-  padding: 9px 29px;
+  padding: 9px 20px;
 }
-.fa-plus:hover {
-  color: white;
-}
+
 .plusicon:hover {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   color: white;
@@ -145,6 +145,10 @@ div.ex3 {
   background-color: #41b6a6;
   border-color: white;
   border: 1px solid white;
+}
+
+.plusicon:hover  i.fa-plus {
+  color: white;
 }
 .mat-header-cell {
   font-size: 18px !important;
@@ -159,7 +163,9 @@ div.ex3 {
   background-color: #41b6a6;
   border-bottom: none;
   min-height: 50px;
-  max-height: 70px;
+  max-height: 50px;
+  margin-top: -1px;
+  margin-left: -1px;
 }
 .row-heading {
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -181,6 +187,7 @@ div.ex3 {
 }
 .inputclass {
   border-radius: 4px;
+  border: 1px solid #EBEBEB;
   padding: 0px 10px;
   height: 45px;
   color: #525358;
@@ -230,7 +237,7 @@ hr {
 }
 .mat-cell,
 .mat-footer-cell {
-  font-size: 19px !important;
+  font-size: 16px !important;
 }
 .mat-header-row {
   background: #ebeced !important;
@@ -567,11 +574,12 @@ ul.menuclass li.active a {
 .fieldbgcolor {
   background-color: red !important;
 }
-.labelfontzise {
-  font-size: 17px;
+.settings-label {
+  font-size: 14px;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
   display: inline-block;
   max-width: 100%;
-  margin-bottom: 5px;
+  margin-bottom: 2px;
   font-weight: 700;
   color: #585656;
 }
@@ -605,6 +613,7 @@ ul.menuclass li.active a {
   max-width: 38px;
   max-height: 27px;
   padding: 3px;
+  margin-right: -7px;
 }
 .ClosebtnAddForm:hover {
   background: #55d1c1;
@@ -844,3 +853,4 @@ mat-form-field.mat-form-field {
 .main-info .row {
   padding-bottom: 20px;
 }
+

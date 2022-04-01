@@ -27,8 +27,8 @@ export class ProviderNavbarComponent implements OnInit {
     config.placement = 'bottom-right';
     this.user = authenticationService.userValue;
     this.locationsInfo = JSON.parse(this.user.LocationInfo);
-    this.currentLocation = this.locationsInfo[0].locationId;
-    console.log(this.locationsInfo);
+    this.user.CurrentLocation = this.locationsInfo[0].locationId;
+
   }
 
   ngOnInit() {
@@ -36,6 +36,7 @@ export class ProviderNavbarComponent implements OnInit {
   }
 
   changeLocation(locationId) {
+    this.user.CurrentLocation = locationId;
     this.LocationChanged.emit(locationId);
   }
 

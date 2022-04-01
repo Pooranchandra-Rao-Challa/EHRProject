@@ -24,10 +24,10 @@
               <h4>How do I link my EHR1 Patients Portal account to another application ?</h4>
               <hr>
               <p>This guide will show you how to use your EHR1 patient portal to integrate your dental records with a
-                third-party application that has connected to EHR�s public API�s.</p>
-              <p>Any practice with an active EHR1 license has access to use the EHR1 API�s at anytime during their
+                third-party application that has connected to EHR’s public API’s.</p>
+              <p>Any practice with an active EHR1 license has access to use the EHR1 API’s. at anytime during their
                 subscription period and can offer access to their patients allowing them to connect to a registered
-                third-party app EHR�s public API.</p>
+                third-party app EHR’s public API.</p>
               <h4>How to authorize a registered third-party application to access your data</h4>
               <hr>
               <p>Any patient who has created an EHR1 Patient Portal account and has received records in their portal can
@@ -80,30 +80,30 @@
         </div>
         <div class="panel panel-default">
           <div class="panel-body">
-            <ul>
-              <li>
-                <a class="secondary-text-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop4">
+            <ul class="navbar-nav active">
+              <li class="nav-item ">
+                <a class="secondary-text-dark nav-link"  data-bs-toggle="modal" data-bs-target="#staticBackdrop4">
                   <i class="fa fa-angle-right">
                   </i>
                   <a>Request an Appt</a>
                 </a>
               </li>
-              <li>
-                <a class="secondary-text-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
+              <li class="nav-item">
+                <a class="secondary-text-dark nav-link"  data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
                   <i class="fa fa-angle-right">
                   </i>
                   <a>Send a Message</a>
                 </a>
               </li>
-              <li>
-                <a class="secondary-text-dark" data-remote="true" (click)="onhealth()">
+              <li class="nav-item">
+                <a class="secondary-text-dark nav-link"  data-remote="true" (click)="onhealth()">
                   <i class="fa fa-angle-right">
                   </i>
                   <a>Link health information</a>
                 </a>
               </li>
-              <li>
-                <a class="secondary-text-dark" data-remote="true" (click)="onAcess()">
+              <li class="nav-item">
+                <a class="secondary-text-dark nav-link"  data-remote="true" (click)="onAcess()">
                   <i class="fa fa-angle-right">
                   </i>
                   <a>Application Access</a>
@@ -135,12 +135,12 @@
             <div class="row ">
               <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
                 <label for="Date" class="form-label">Date</label>
-                <input type="input" class="form-control boder" id="Date" placeholder="Date">
+                <input type="input" class="form-control border-input" id="Date" placeholder="Date">
               </div>
               <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
                 <label for="Date" class="form-label">Select Provider</label>
-                <select class="form-select boder" id="sel1" name="sellist1">
-                  <option>1</option>
+                <select class="form-select border-input" id="sel1" name="sellist1">
+                  <option class="dropdown-menu"  disabled selected>Select Provider</option>
                   <option>2</option>
                   <option>3</option>
                   <option>4</option>
@@ -149,25 +149,26 @@
             </div>
 
             <div class="row">
-              <div class="col-lg-6 col-md-6 col-sm-12 col-12 mt-3">
+              <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
                 <label for="Time" class="form-label">Time</label>
-                <input type="input" class="form-control boder" id="Time" placeholder="Time">
+                <input type="input" class="form-control border-input" id="Time" placeholder="Time">
               </div>
               <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
                 <label for="Date" class="form-label">Location </label>
-                <select class="form-select boder" id="sel1" name="sellist1">
-                  <option>1</option>
+                <select class="form-select border-input" id="sel1" name="sellist1">
+                  <option class="dropdown-menu"  disabled selected>Select Location</option>
                   <option>2</option>
                   <option>3</option>
                   <option>4</option>
                 </select>
               </div>
             </div>
+            
 
             <div class="row">
               <div class="col-lg-12 mt-3">
                 <label for="Note" class="form-label">Note</label>
-                <textarea class="form-control boder" id="Note" rows="3"></textarea>
+                <textarea class="form-control border-input" id="Note" rows="3"></textarea>
               </div>
             </div>
             <div class="row">
@@ -211,7 +212,7 @@
                 <div class="row">
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                      <span style="font-size: 100%;" class="input-group-text">To</span>
+                      <span  class="input-group-text ">To</span>
                     </div>
                     <input type="text" class="form-control ser" aria-label="Amount" placeholder="Search">
                     <div class="input-group-append" style=" width: 12%;">
@@ -222,7 +223,7 @@
 
                   <div class="input-group mb-3">
                     <div class="input-group-prepend ">
-                      <span style="font-size: 100%;" class="input-group-text">From </span>
+                      <span  class="input-group-text">From </span>
                     </div>
                     <input type="text" class="form-control ser" aria-label="Amount">
                   </div>
@@ -232,15 +233,14 @@
             <div class="row">
               <div class="col-lg-12">
                 <div class="row">
-                  <mal-lable>Subject </mal-lable>
-                  <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-sm-12 col-12">
-                    <input matInput placeholder="Subject:">
-                  </mat-form-field>
-
-                  <mal-lable class="mt-3">Message </mal-lable>
-                  <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-sm-12 col-12">
-                    <input matInput placeholder="Message:">
-                  </mat-form-field>
+                  <div>
+                    <label for="subject" class="form-label">Subject</label>
+                    <input type="input" class="form-control border-input" id="Subject" placeholder="Subject :" aria-describedby="subjectlHelp">
+                  </div>
+                  <div class="mt-2">
+                    <label for="message" class="form-label">Message</label>
+                    <input type="input" class="form-control border-input" id="message" placeholder="Message :" aria-describedby="messageHelp">
+                  </div>
                 </div>
               </div>
             </div>
@@ -255,13 +255,15 @@
                 </div>
               </div>
             </div>
-            <div class="row" style="margin-top: 5%;">
+            <div class="row mt-5">
               <div class="col-lg-4 ">
-                <mat-checkbox class="col-lg-12 col-md-12 example-margin" style="margin-left: 0px;"
-                  formControlName="Checked">
-                  <mat-lable>Urgent</mat-lable>
-                </mat-checkbox>
+                <div class="col-lg-4 ">
+                  <mat-checkbox class="col-lg-12 col-md-12 example-margin">
+                    <mat-lable class="custom-control-label">URGENT</mat-lable>
+                  </mat-checkbox>
+                </div>
               </div>
+              
             </div>
 
             <div class="row" style="float: right;">

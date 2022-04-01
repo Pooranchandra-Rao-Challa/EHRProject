@@ -1,5 +1,5 @@
 export interface User {
-  LocationName: any;
+  CurrentLocation: string;
   UserId: string;
   ClinicId: string;
   ProviderId: string;
@@ -13,6 +13,7 @@ export interface User {
   JwtToken: string;
   TimeZone: string;
   LocationInfo: string;
+  BusinessName: string;
   IsSuccess: boolean;
 
 }

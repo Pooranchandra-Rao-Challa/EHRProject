@@ -3,29 +3,29 @@ export interface NewAppointment {
   PatientId: string;
   ProviderId: string;
   AppointmentTypeId: string;
-  ApoointmentStatusId:string;
+  ApoointmentStatusId: string;
   Colour: string;
-  Reason?:string;
-  Duration:number;
-  RoomId:string;
-  Remainder?:string;
-  LocationId:string;
-  RemainderSent?:string;
-  Startat:NgbDateStruct;
+  Reason?: string;
+  Duration: number;
+  RoomId: string;
+  Remainder?: string;
+  LocationId: string;
+  RemainderSent?: string;
+  Startat: NgbDateStruct;
   ContactMail?: string;
-  Note?:string;
+  Note?: string;
   RequestFrom?: string;
 };
 
-export interface SearchPatient{
+export interface SearchPatient {
   SearchTerm: string;
 };
 
-export interface PatientSearchResults{
+export interface PatientSearchResults {
   Name: string;
   Age: number;
   ContactNumber: string;
-  DateOfBirt: string;
+  DateofBirth: string;
   ContactEmail: string;
   NumberOfAppointments: number;
   AppointmentId: string;

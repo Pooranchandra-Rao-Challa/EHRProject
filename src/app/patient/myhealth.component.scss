@@ -31,6 +31,9 @@
     font-size: small;
   }
   }
+  .img{
+        margin-right: 8%;
+  }
   .title{
     margin-top: 2%;
     margin-left: 2% ;
@@ -41,6 +44,12 @@
     .dashboard-patient-wrapper .photo-patient, .dashboard-patient-wrapper .avatar{
       width: 129px;
       height: 137px;
+    }
+  }
+  @media (max-width: 990px) {
+    .dashboard-patient-wrapper .photo-patient, .dashboard-patient-wrapper .avatar{
+      width: 50%;
+      //height: 100px;
     }
   }
   .title1{

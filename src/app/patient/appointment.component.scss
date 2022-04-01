@@ -121,83 +121,7 @@ textarea.mat-input-element {
     margin-bottom: 0;
 }
 
-::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
-  background-color:#f5f5f5 !important;
-  height: 45px;
-  border-radius: 5%;
-  background-color: #f5f5f5;
-  color: #dedede;
-}
-//input outline color
-::ng-deep .mat-form-field-appearance-outline:hover .mat-form-field-outline {
-  color: #41b6a6 !important;
-  // opacity: 1!important;
-}
 
-//mat-input focused color
-::ng-deep
-  .mat-form-field-appearance-outline.mat-focused
-  .mat-form-field-outline-thick {
-  color: #41b6a6 !important;
-}
-.secondary-title span {
-  font-size: 24px;
-}
-
-.mat-option.mat-active {
-  background: #e5f8f5 !important;
-}
-.mat-option {
-  border-left: 1px solid #41b6a6;
-  border-right: 1px solid #41b6a6;
-}
-.mat-option:last-child {
-  border-right: 1px solid #41b6a6;
-}
-.mat-option:last-child {
-  border-bottom: 1px solid #41b6a6;
-}
-.mat-option:hover {
-  background-color: #e5f8f5;
-}
-.mat-option.mat-selected:not(.mat-option-disabled) {
-  color: black;
-  text-shadow: black;
-}
-// mat-select
-::ng-deep .mat-select-arrow {
-  color: #4d4b4b !important;
-}
-::ng-deep .mat-select-placeholder {
-  color: #4d4b4b !important;
-
-::ng-deep .hover.mat-form-field-appearance-outline:hover .mat-select-arrow {
-  color: white !important;
-}
-::ng-deep
-  .hover.mat-form-field-appearance-outline:hover
-  .mat-select-placeholder {
-  color: white !important;
-
-}
-}
-::ng-deep
-  .hover.mat-form-field-appearance-outline:hover
-  .mat-select-value-text {
-  color: white !important;
-}
-::ng-deep .mat-select-panel {
-  min-width: calc(100% + 22px) !important;
-  max-width: calc(min-width) !important;
-  margin-left: 5px !important;
-}
-// .nav-tabs .li.a:active {
-//   margin-bottom: -1px;
-//   background: #5f1d1d;
-//   border: 1px solid transparent;
-//   border-top-left-radius: 0.25rem;
-//   border-top-right-radius: 0.25rem;
-// }
 .nav .nav-item, .navbar-nav .nav-item {
   line-height: 1;
   margin-left: 2%;
@@ -209,8 +133,53 @@ textarea.mat-input-element {
 }
 .tabsactive .nav-link{
   background-color: #e0e0e0;
+  color: rgba(73,73,73,0.69);
 }
 .tabsactive .nav-link.active{
   background-color: #fff;
+  color: #141414;
 }
 
+.form-select {
+  font-size: inherit;
+  font-weight: 300;
+  line-height: 1.7;
+}
+input::-webkit-input-placeholder {
+  color: #141414 !important;
+  font-size: 100%;
+  font-family: sans-serif;
+}
+.border-input{
+  border-color: #dedede;
+  background-color: #f5f5f5;
+}
+.form-control {
+  line-height: 19px;
+}
+
+form .form-control:focus{
+  border-color: #41b6a6;
+  
+}
+form .form-control:hover{
+  border-color: #41b6a6;
+  
+}
+form .form-select:hover{
+  border-color: #41b6a6;
+  box-shadow: none;
+  
+}
+form .form-select:focus{
+  border-color: #41b6a6;
+  box-shadow: none;
+}
+select option:checked {
+  background-color: red !important;
+  color: white!important;
+}
+
+// option {
+//   background-color: black !important;
+// }

@@ -14,7 +14,7 @@ const routes: Routes = [
       { path: "calendar", component: CalendarComponent },
       { path: 'smartschedule', component: SmartScheduleComponent },
       { path: 'settings', component: SettingsComponent },
-      { path: 'labsimaging', component: LabsImagingComponent },
+      { path: 'labsimaging', component: LabsImagingComponent }, 
     ]
   }
 ]

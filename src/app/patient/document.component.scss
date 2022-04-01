@@ -42,11 +42,12 @@
 
 .tabsactive .nav-link{
   background-color: #e0e0e0;
+  color: rgba(73,73,73,0.69);
 }
 .tabsactive .nav-link.active{
   background-color: #fff;
+  color: #141414;
 }
-
 ::ng-deep .example-margin {
   & .mat-checkbox-background,
   .mat-checkbox-frame {
@@ -80,7 +81,7 @@
     width: 19px;
   }
   .mat-checkbox-checkmark-path {
-    stroke: grey !important;
+    stroke: #41b6a6!important;
   }
 }
 ::ng-deep .example-margin:hover {
