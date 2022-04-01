@@ -35,7 +35,6 @@ export class ScheduleComponent implements OnInit {
     this.user = authService.userValue;
   }
   ngOnInit(): void {
-    this.getLocationsList()
     this.roomForm = this.fb.group({
       rooms: this.fb.array([]),
     })
@@ -79,38 +78,4 @@ export class ScheduleComponent implements OnInit {
     console.log(testing);
   }
 
-
-
-  // get display Location Details
-  getLocationsList() {
-    this.ProviderId = this.user.ProviderId;
-    this.settingsService.LocationList(this.ProviderId).subscribe(data => {
-      if (data.IsSuccess) {
-        this.locationdataSource = data.ListResult;
-        this.LocationAddress = data.ListResult;
-
-      }
-    });
-  }
-  addStatus() {
-    const newRow = { "Status": "", "Color": "", isEdit: true }
-    this.appointmentStatusList = [...this.appointmentStatusList, newRow];
-  }
-  deleteStatus(rowid: number) {
-    if (rowid > -1) {
-      this.appointmentStatusList.splice(rowid, 1);
-      this.appointmentStatusList = [...this.appointmentStatusList]; // new ref!
-    }
-  }
-  addType() {
-    const newRow = { "Type": "", "Color": "", isEdit: true }
-    this.appointmentTypeList = [...this.appointmentTypeList, newRow];
-  }
-
-  deleteType(rowid: number) {
-    if (rowid > -1) {
-      this.appointmentTypeList.splice(rowid, 1);
-      this.appointmentTypeList = [...this.appointmentTypeList]; // new ref!
-    }
-  }
 }
