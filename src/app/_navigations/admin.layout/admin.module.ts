@@ -28,6 +28,8 @@ import { AdminComponent } from './admin.component';
 import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { DateTimePickerModule } from "@syncfusion/ej2-angular-calendars";
 import { ScheduleModule,DayService, WeekService} from '@syncfusion/ej2-angular-schedule';
+import { DashboardComponent } from 'src/app/admin/dashboard/dashboard.component';
+
 
 
 
@@ -39,6 +41,7 @@ import { ScheduleModule,DayService, WeekService} from '@syncfusion/ej2-angular-s
     AdminSidebarComponent,
     AdminNavbarComponent,
     AdminComponent,
+    DashboardComponent
   ],
   imports: [
     AdminRoutingModule,

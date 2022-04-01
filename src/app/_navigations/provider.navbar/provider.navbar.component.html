@@ -10,15 +10,15 @@
   <div class="collapse navbar-collapse" [ngClass]="{ 'show': navbarOpen }">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a href="/provider/smartschedule" class="nav-link active item-prov-dashboard">Smart Schedule
+        <a href="javascript:void(0)"  (click)="onChangeBreadCrum('Smart Schedule','/provider/smartschedule')"  routerLinkActive="router-link-active"  class="nav-link active item-prov-dashboard">Smart Schedule
         </a>
       </li>
       <li class="nav-item">
-        <a href="/provider/calendar" class="nav-link item-schedule">Calender
+        <a href="javascript:void(0)" (click)="onChangeBreadCrum('Calender','/provider/calendar')" class="nav-link item-schedule">Calender
         </a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link item-patients">Patient
+        <a href="#"  class="nav-link item-patients">Patient
         </a>
       </li>
       <li class="nav-item">
@@ -34,7 +34,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="/provider/labsimaging" class="nav-link item-labsimaging">Labs/Imaging
+        <a  href="javascript:void(0)"  (click)="onChangeBreadCrum('Labs&Imaging','/provider/labsimaging')" class="nav-link item-labsimaging">Labs/Imaging
         </a>
       </li>
       <li class="nav-item">
@@ -46,7 +46,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="/provider/settings?view=practice" class="nav-link item-settings">Setting
+        <a href="javascript:void(0)" (click)="onChangeeBreadCrumsetting('settings','/provider/settings')" class="nav-link item-settings">Settings
         </a>
       </li>
     </ul>
