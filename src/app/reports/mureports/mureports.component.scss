@@ -405,7 +405,38 @@ td {
 #date-mat-new.date-mat-class {
   background-color: red;
 }
-::ng-deep .mat-datepicker-toggle {
-  margin-right: 10px !important;
-  background-color: red;
+
+::ng-deep
+  mat-datepicker-toggle.mat-datepicker-toggle
+  button.mat-icon-button
+  span.mat-button-wrapper
+  svg.mat-datepicker-toggle-default-icon
+  > path {
+  fill: #fff;
+  stroke: rgb(224, 220, 220);
+  stroke-linejoin: round;
+  transition: d 0.2s;
+}
+::ng-deep
+  mat-datepicker-toggle.mat-datepicker-toggle
+  button.mat-focus-indicator.mat-icon-button {
+  background-color: #41b6a6;
+  color: #fff;
+  border-radius: 0%;
+  margin-top: 0px;
+  margin-bottom: -14px;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  margin-right: -10px;
+  border: 1px solid #41b6a6;
+  height: 3.1em !important;
+  width: 3.1em !important;
+}
+.mat-form-field:not(.mat-form-field-appearance-legacy)
+  .mat-form-field-suffix
+  .mat-icon-button {
+  display: block;
+  font-size: inherit;
+  width: 1em;
+  height: 1em;
 }

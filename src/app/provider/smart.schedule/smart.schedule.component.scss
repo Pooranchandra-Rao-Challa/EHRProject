@@ -49,7 +49,10 @@ ul {
 .smart-schedule-logo {
   border: 3px solid #00d1b2;
   height: 70px;
-  margin: 0;
+  margin-top: 10px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
 }
 .imgsmartlogo {
   float: left;
@@ -107,14 +110,17 @@ p {
   .mat-form-field-outline {
   color: #41b6a6 !important;
   background-color: #fff;
-  // height: 2.1em;
-  // margin-top: -7px;
-  height: 2.5em;
-  margin-top: 10px;
+  height: 2em;
+  margin-top: 19px;
 }
 ::ng-deep .smart-schedule-dropdown .mat-select-arrow {
-  margin: 0px;
+  margin-top: 8px;
+  margin-right: 2px;
   color: #41b6a6;
+}
+::ng-deep .smart-schedule-dropdown .mat-select-trigger{
+  margin-top: 11px;
+  margin-right: 0px !important;
 }
 ::ng-deep
   .smart-schedule-dropdown
@@ -123,7 +129,7 @@ p {
   transform: translateY(0%);
 }
 div.smart-schedule-header {
-  // height: 3em;
+  height: 4.5em;
   padding: 0px;
   margin-bottom: 0px;
 }
@@ -410,6 +416,24 @@ fieldset {
 .appointment-form .modal {
   overflow: hidden;
 }
+
+.smart-schedule-header .appointment-filter-count-bar{
+  display: inline-block;
+  white-space: nowrap;
+  margin-left: 10px;
+}
+.smart-schedule-header .appointment-filter-date-bar{
+  display: inline-block;
+  white-space: nowrap;
+  width: 150px;
+}
+
+.smart-schedule-header .appointment-filter-dropdown-bar{
+  display: inline-block;
+  white-space: nowrap;
+  width: 200px;
+}
+//style="display: inline-block; white-space: nowrap;"
 .modal .modal-dialog .modal-content .modal-footer {
   padding: 0px 31px;
   height: 70px;
