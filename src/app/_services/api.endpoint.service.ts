@@ -186,6 +186,11 @@ export class APIEndPoint extends EndpointBase {
   get _toggleUserFieldValuesUrl(){
     return this._baseUrl + "ToggleUserFieldValues";
   }
+
+  get _activeAppointmentsUrl(){
+    return this._baseUrl + "ActiveAppointments";
+  }
+
   constructor(public http: HttpClient) {
     super();
   }

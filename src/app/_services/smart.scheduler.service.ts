@@ -15,4 +15,10 @@ export class SmartSchedulerService extends APIEndPoint {
     console.log(reqdata);
     return this._ProcessPostRequest<any>(this._searchPatientsUrl,reqdata);
   }
+
+  ActiveAppointments(reqdata: any){
+    console.log(reqdata);
+    return this._ProcessPostRequest<any>(this._activeAppointmentsUrl,reqdata);
+  }
+  //
 }
