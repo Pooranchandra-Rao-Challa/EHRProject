@@ -38,6 +38,8 @@ export class SmartScheduleComponent implements OnInit {
   PracticeProviders: PracticeProviders[];
   Appointments: ScheduledAppointment[];
   NoofAppointment: Number;
+  SelectedProviderId: string;
+  psw: boolean;
 
   //Auto Search Paramters
   public patients: PatientSearchResults[];
@@ -51,14 +53,14 @@ export class SmartScheduleComponent implements OnInit {
     private authService: AuthenticationService,
     private utilityService: UtilityService,
     private smartSchedulerService: SmartSchedulerService) {
-
+    this.SelectedProviderId = authService.userValue.ProviderId;
     this.PhonePattern = {
       0: {
         pattern: new RegExp('\\d'),
         symbol: 'X',
       },
     };
-    let date = new Date();
+
     this.PatientData = {
       PatinetHasNoEmail: false
     }
@@ -70,12 +72,10 @@ export class SmartScheduleComponent implements OnInit {
         this.smartSchedulerService
           .SearchPatients({ ProviderId: this.authService.userValue.ProviderId, SearchTerm: term })
           .subscribe(resp => {
-            console.log(resp.IsSuccess);
             if (resp.IsSuccess) {
-              console.log(JSON.stringify(resp.ListResult));
               this.patients = resp.ListResult; this.flag = true;
-              console.log(this.patients);
-            } else { this.flag = false; }
+              this.psw = true;
+            } else { this.flag = false; this.psw = false;}
           })
       );
     this.loadDefaults();
@@ -84,17 +84,14 @@ export class SmartScheduleComponent implements OnInit {
   loadDefaults() {
     let req = { "ClinicId": this.authService.userValue.ClinicId };
     this.smartSchedulerService.PracticeProviders(req).subscribe(resp => {
-      console.log(resp.IsSuccess)
       if (resp.IsSuccess) {
         this.PracticeProviders = resp.ListResult as PracticeProviders[];
       }
     });
     this.filterAppointments();
-    //appointments
   }
 
   filterAppointments() {
-
     let req = {
       "ClinicId": this.authService.userValue.ClinicId,
       "ProviderId": this.authService.userValue.ProviderId,
@@ -154,8 +151,6 @@ export class SmartScheduleComponent implements OnInit {
     this.selectedAppointmentDate = event.value;
     this.selectedWeekday = event.value.toLocaleString('en-us', { weekday: 'long' });
   }
-
-
 
   openAppointment() {
     this.appointment = "block";
