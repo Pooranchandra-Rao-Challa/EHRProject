@@ -39,7 +39,7 @@ export class SmartScheduleComponent implements OnInit {
   Appointments: ScheduledAppointment[];
   NoofAppointment: Number;
   SelectedProviderId: string;
-  patientSearchWidget: string;
+  psw: boolean;
 
   //Auto Search Paramters
   public patients: PatientSearchResults[];
@@ -74,8 +74,8 @@ export class SmartScheduleComponent implements OnInit {
           .subscribe(resp => {
             if (resp.IsSuccess) {
               this.patients = resp.ListResult; this.flag = true;
-              this.patientSearchWidget = "display: none; top: -29233.4px;left: 15px; width: 772px;"
-            } else { this.flag = false; this.patientSearchWidget="";}
+              this.psw = true;
+            } else { this.flag = false; this.psw = false;}
           })
       );
     this.loadDefaults();
