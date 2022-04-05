@@ -24,7 +24,7 @@
       <div class="row">
         <div class="smart-schedule-header">
           <div class="row" style="align-items: center">
-            <div class="col-xl-2 col-lg-3 col-md-6 col-12">
+            <div class="col-xl-2 col-lg-3 col-md-6 col-12 appointment-filter-datestring-bar">
               <!-- <b>Thursday, March 10th 2022</b> -->
               <b>{{ selectedWeekday }},
                 {{ selectedAppointmentDate | date: "MMMM dd yyyy" }}</b>
@@ -47,9 +47,10 @@
             </div>
             <div class="col-xl-1 col-lg-2 col-md-6 col-12 appointment-filter-dropdown-bar">
               <mat-form-field appearance="outline" class="col-12 smart-schedule-dropdown">
-                <mat-select disableOptionCentering id="practiveProviders" placeholder="Select Provider">
+                <mat-select disableOptionCentering id="practiveProviders" placeholder="Select Provider"
+                [(ngModel)]="SelectedProviderId">
                 <mat-option>None</mat-option>
-                <mat-option *ngFor="let provider of PracticeProviders" [value]="provider">{{provider.FullName}}</mat-option>
+                <mat-option *ngFor="let provider of PracticeProviders" [value]="provider.ProviderId">{{provider.FullName}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -68,7 +69,7 @@
                 }}"></i>
             </mat-expansion-panel-header>
             <div class="scrollable-table">
-              <div class="table-container" style="height: 540px">
+              <div class="table-container" style="height:391px">
                 <div class="table-appointments-for-today table table-dashboard finished_appointments">
                   <div class="row text-center table-header">
                     <div class="col-md-1 col-1 appointment-time">Time</div>
@@ -160,13 +161,11 @@
                   <input class="form-control"
                     placeholder="Schedule Appointment ( Enter a patient's name or phone number )" type="text"
                     [(ngModel)]="patientNameOrCellNumber" (keyup)="searchPatient(patientNameOrCellNumber)" />
-
-
                 </div>
               </div>
-              <div class="search-result" *ngIf="flag" appearance="outline">
-                <ul>
-                  <li *ngFor="let patient of patients ">
+              <div [ngStyle]="(patientSearchWidget)" class="smartview-patient-search-result" *ngIf="flag" appearance="outline">
+                <ul class="ui-widget">
+                  <li *ngFor="let patient of patients" class="ui-menu-item">
                     <a (click)="onselectPatient(patient)" data-bs-toggle="modal"
                       data-bs-target="#modal-appointment-form">{{patient.Name}},
                       {{patient.DateofBirth | date: 'MM/dd/yyyy'}}-{{patient.Age}} :-
@@ -576,8 +575,10 @@
                 </div>
                 <div class="col-xl-8">
                   <mat-form-field appearance="outline" class="col-10 hover cstm-mat-padding">
-                    <mat-select placeholder="Select One" disableOptionCentering>
-                      <mat-option>Riya Gupta</mat-option>
+                    <mat-select placeholder="Select One" disableOptionCentering id="ePracticeProviders"
+                    placeholder="Select Provider">
+                      <mat-option>None</mat-option>
+                      <mat-option *ngFor="let provider of PracticeProviders" [value]="provider">{{provider.FullName}}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>

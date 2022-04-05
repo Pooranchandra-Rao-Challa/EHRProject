@@ -87,18 +87,18 @@ p {
   margin: 0 0 10px;
 }
 .buttons .button:not(:last-child) {
-  margin-right: 0.5rem;
+  margin-right: 0.3rem;
 }
 .buttons .button {
   align-items: center;
   border: 1px solid transparent;
   border-radius: 4px;
   font-size: 0.7rem;
-  line-height: 1.5;
-  padding-bottom: calc(0.375em - 1px);
-  padding-left: calc(0.625em - 1px);
-  padding-right: calc(0.625em - 1px);
-  padding-top: calc(0.375em - 1px);
+  line-height: 1.6;
+  //padding-bottom: calc(0.375em - 1px);
+  //padding-left: calc(0.625em - 1px);
+  //padding-right: calc(0.625em - 1px);
+  //padding-top: calc(0.375em - 1px);
 }
 .button.is-primary {
   background-color: #00d1b2;
@@ -130,8 +130,8 @@ p {
 }
 div.smart-schedule-header {
   height: 4.5em;
-  padding: 0px;
-  margin-bottom: 0px;
+  padding: 0px !important;
+  margin-bottom: 0px !important;
 }
 // accordion
 .mat-form-field + .mat-form-field {
@@ -417,21 +417,81 @@ fieldset {
   overflow: hidden;
 }
 
-.smart-schedule-header .appointment-filter-count-bar{
-  display: inline-block;
-  white-space: nowrap;
-  margin-left: 10px;
-}
-.smart-schedule-header .appointment-filter-date-bar{
-  display: inline-block;
-  white-space: nowrap;
-  width: 150px;
-}
-
+.smart-schedule-header .appointment-filter-count-bar,
+.smart-schedule-header .appointment-filter-date-bar ,
 .smart-schedule-header .appointment-filter-dropdown-bar{
   display: inline-block;
   white-space: nowrap;
-  width: 200px;
+  margin-right: 10px;
+  width:fit-content;
+}
+::ng-deep .smart-schedule-header .appointment-datestring-date-bar{
+  display: inline-block;
+  white-space: nowrap;
+  margin-right: 10px;
+  width: 180px !important;
+
+}
+
+.smartview-patient-search-result {
+  font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;
+  font-size: 1.1em;
+  border: 1px #41b6a6 solid;
+}
+
+.smartview-patient-search-result ul.ui-widget {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: block;
+  outline: none;
+  z-index: 100;
+  width:inherit;
+}
+
+.smartview-patient-search-result ul.ui-widget li.ui-menu-item{
+  position: relative;
+  margin: 0;
+  padding: 3px 1em 3px 0.4em;
+  cursor: pointer;
+  width: inherit;
+  list-style-image: url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7);
+}
+
+.smartview-patient-search-result ul.ui-widget li.ui-menu-item :hover{
+  border: 1px solid #fbcb09;
+	//background: #fdf5ce url("images/ui-bg_glass_100_fdf5ce_1x400.png") 50% 50% repeat-x;
+  background: #fdf5ce 50% 50% repeat-x;
+	font-weight: bold;
+	color: #c77405;
+}
+
+::ng-deep div#practiveProviders-panel.mat-select-panel{
+  //border-color: #41b6a6;
+  border-radius: 4px;
+  border: 1px solid #41b6a6;
+  position: fixed;
+  top: 20px;
+}
+::ng-deep div#practiveProviders-panel mat-option.mat-option{
+  //border-color: #41b6a6;
+
+  border: 1px solid white !important;
+
+}
+
+::ng-deep div#ePracticeProviders-panel.mat-select-panel{
+  //border-color: #41b6a6;
+  border-radius: 4px;
+  border: 1px solid #41b6a6;
+  position: fixed;
+  top: 29px;
+}
+::ng-deep div#ePracticeProviders-panel mat-option.mat-option{
+  //border-color: #41b6a6;
+
+  border: 1px solid white !important;
+
 }
 //style="display: inline-block; white-space: nowrap;"
 .modal .modal-dialog .modal-content .modal-footer {
