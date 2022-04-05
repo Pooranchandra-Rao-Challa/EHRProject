@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
 import { LocationSelectService } from '../_navigations/provider.layout/location.service';
 import Swal from 'sweetalert2';
 declare var $: any;
+import { ColorEvent } from 'ngx-color';
 
 @Component({
   selector: 'schedule-settings',
@@ -16,6 +17,7 @@ declare var $: any;
   styleUrls: ['./settings.component.scss']
 })
 export class ScheduleComponent implements OnInit {
+  private color: string = "#127bdc";
   user: User;
   LocationAddress: any;
   ProviderId: string;
@@ -25,11 +27,12 @@ export class ScheduleComponent implements OnInit {
   appointmentTypeColumns: string[] = ['Type', 'Color', 'isEdit'];
   appointmentTypeList: any[];
   roomForm: FormGroup;
+  statusForm: FormGroup;
+  typeForm: FormGroup;
   dataSource4: any;
   showEditBtn: boolean = false;
   showSaveBtn: boolean = false;
   showInput: boolean = true;
-  appointmentStatusForm: FormGroup;
 
   constructor(private authService: AuthenticationService, private settingsService: SettingsService, private fb: FormBuilder) {
     this.user = authService.userValue;
@@ -38,8 +41,14 @@ export class ScheduleComponent implements OnInit {
     this.roomForm = this.fb.group({
       rooms: this.fb.array([]),
     })
+    this.statusForm = this.fb.group({
+      status: this.fb.array([]),
+    })
+    this.typeForm = this.fb.group({
+      type: this.fb.array([]),
+    })
   }
-
+  // Rooms
   rooms(): FormArray {
     return this.roomForm.get("rooms") as FormArray
   }
@@ -57,7 +66,7 @@ export class ScheduleComponent implements OnInit {
     this.rooms().push(this.newRoom());
   }
 
-  removeEmployee(roomIndex: number) {
+  removeRoom(roomIndex: number) {
     this.rooms().removeAt(roomIndex);
   }
 
@@ -77,5 +86,37 @@ export class ScheduleComponent implements OnInit {
     var testing = this.roomForm.controls.rooms["controls"][roomIndex].get('roomOP').value;
     console.log(testing);
   }
-
+  // Appointment Statuses
+  status(): FormArray {
+    return this.statusForm.get("status") as FormArray
+  }
+  newStatus(): FormGroup {
+    return this.fb.group({
+      appointmentStatus: ['']
+    })
+  }
+  addStatus() {
+    this.status().push(this.newStatus());
+  }
+  removeStatus(statusIndex: number) {
+    this.status().removeAt(statusIndex);
+  }
+  // Appointment Type
+  type(): FormArray {
+    return this.typeForm.get("type") as FormArray
+  }
+  newType(): FormGroup {
+    return this.fb.group({
+      appointmentType: ['']
+    })
+  }
+  addType() {
+    this.type().push(this.newType());
+  }
+  removeType(typeIndex: number) {
+    this.type().removeAt(typeIndex);
+  }
+  handleChange($event: ColorEvent) {
+    console.log($event.color);
+  }
 }

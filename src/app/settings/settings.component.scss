@@ -5,11 +5,11 @@
   background-color: #41b6a6;
   color: white;
   border: #41b6a6;
-  min-height: 60px;
+  min-height: 50px;
   text-align: 10px;
   margin-top: -1px;
   padding: 10px 20px; // schedule panel
-  font-size: 18px;
+  font-size: 15px;
 }
 .ptitle {
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -45,7 +45,7 @@
   min-height: 1500px;
 }
 .colF {
-  min-height: 2500px;
+  min-height: 1120px;
 }
 .btnSave {
   width: 167px;
@@ -74,7 +74,7 @@
   font-size: 16px !important;
   white-space: nowrap;
   height: 45px;
-  width: 100px;
+  //width: 100px;
 }
 .btn-success:hover {
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -129,6 +129,22 @@ div.ex3 {
 }
 .schedule-section {
   padding: 20px 50px;
+}
+@media (max-width: 1440px) {
+  .schedule-section{
+    padding: 20px 20px;
+  }
+}
+@media (width: 1440px) {
+  .schedule-section .cstm-location-section{
+    width: 525px;
+  }
+  .schedule-section .cstm-room-section{
+    width: 600px;
+  }
+  .schedule-section .cstm-loc-dropdown{
+    width: 250px !important;
+  }
 }
 
 .plusicon {
@@ -288,12 +304,8 @@ hr {
   background-color: #41b6a6;
   color: white;
   border: #41b6a6;
-  height: 60px;
-  text-align: 10px;
-  margin-top: -1px;
-  padding: 12px;
-  padding-bottom: 19px;
-  font-size: 18px;
+  min-height: 50px;
+  font-size: 15px;
 }
 #Actbtn {
   font-size: 18px;
@@ -408,8 +420,20 @@ input[type="checkbox"] {
   font-size: 20px;
 }
 .appointment-form {
-  min-height: 500px;
+  min-height: 150px;
   border: 1px solid #41b6a6;
+}
+@media (max-width: 1024px) {
+  .appointment-form{
+    width: 675px;
+  }
+  .cstm-appointment-status{
+    overflow-x: auto;
+  }
+  .cstm-appointment-type{
+    overflow-x: auto;
+  }
+
 }
 
 .manuallbtn {
@@ -879,8 +903,8 @@ mat-form-field.mat-form-field {
 }
 .schedule-plusicon {
   border-radius: 5%;
-  border: 1px solid white;
-  background: white;
+  border: 1px solid #fff;
+  background: #fff;
   width: 80px;
   height: 30px;
   text-align: center;
@@ -893,10 +917,9 @@ mat-form-field.mat-form-field {
 }
 .schedule-plusicon .fa-plus {
   padding: 5px;
+  color: #41b6a6;
 }
-.room-section {
-  padding: 0px 10px;
-}
+
 .cstm-border-bottom {
   padding-bottom: 10px;
   border-bottom: 1px solid #41b6a6;
