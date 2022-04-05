@@ -31,3 +31,16 @@ export interface PatientSearchResults {
   AppointmentId: string;
   Gender: string;
 }
+
+export interface ScheduleVisitStatus
+{
+
+}
+export interface ScheduledAppointment{
+  ScheduleTime? : string;
+  PatientInfo? : string;
+  Provider? : string;
+  Status?: string;
+  AppointmentType? :string;
+  Notes? :string;
+}

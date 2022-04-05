@@ -54,8 +54,6 @@ export class AuthenticationService {
         localStorage.setItem('user', JSON.stringify(resp.Result as User));
 
         this.startRefreshTokenTimer();
-        console.log(this.userValue);
-        console.log(this.userValue.LocationInfo);
         if (this.isProvider)
           // this.router.navigate(['/provider/smartschedule']);
           this.router.navigate(
@@ -68,6 +66,8 @@ export class AuthenticationService {
           this.router.navigate(['/patinet/patientview']);
         //else
         //this.router.navigate(['/reports/categoryreports']);
+      }else{
+
       }
     }),
       (error) => {

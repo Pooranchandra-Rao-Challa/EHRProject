@@ -32,7 +32,7 @@ export class ProviderNavbarComponent implements OnInit {
   }
 
   ngOnInit() {
-    debugger;
+
   }
 
   changeLocation(locationId) {
@@ -48,23 +48,23 @@ export class ProviderNavbarComponent implements OnInit {
     this.navbarOpen = !this.navbarOpen;
   }
 
-  onChangeBreadCrum(name,url){  
-  
+  onChangeBreadCrum(name,url){
+
       this.router.navigate(
         [url],
         { queryParams: { name: name} }
       );
-    
+
   }
 
   onChangeeBreadCrumsetting(name,url){
     debugger;
- 
+
       this.router.navigate(
         [url],
         { queryParams: { name: name,view:'practice'  } }
       );
-   
+
   }
- 
+
 }

@@ -29,9 +29,9 @@
               <b>{{ selectedWeekday }},
                 {{ selectedAppointmentDate | date: "MMMM dd yyyy" }}</b>
             </div>
-            <div class="col-xl-1 col-lg-2 col-md-6 col-12">
-              <div class="buttons">
-                <button class="button is-primary lte">&lt;</button>
+            <div class="col-xl-1 col-lg-2 col-md-6 col-12 appointment-filter-date-bar">
+              <div class="buttons ">
+                <button class="button is-primary lte" (click)="DateUpDown('movedown')" >&lt;</button>
                 <mat-form-field class="cstm-width" appearance="fill">
                   <!-- <mat-label>Choose a date</mat-label> -->
                   <input hidden matInput [matDatepicker]="picker" (dateChange)="selectedCalendarDate($event)" />
@@ -39,19 +39,17 @@
                 </mat-form-field>
                 <!-- <button mat-raised-button class="is-primary button fa fa-calendar" (click)="picker.open()"></button> -->
                 <button aria-hidden="true" class="is-primary button fa fa-calendar" (click)="picker.open()"></button>
-                <button class="button is-primary gte">&gt;</button>
+                <button class="button is-primary gte" (click)="DateUpDown('moveup')">&gt;</button>
               </div>
             </div>
-            <div class="col-xl-1 col-lg-2 col-md-6 col-12">
-              <b><span id="appointments-count">0</span></b>
-              <span>&nbsp; Appointment(s)</span>
+            <div class="col-xl-1 col-lg-2 col-md-6 col-12 appointment-filter-count-bar">
+              <b>{{NoofAppointment}}</b> Appointment(s)
             </div>
-            <div class="col-xl-1 col-lg-2 col-md-6 col-12">
+            <div class="col-xl-1 col-lg-2 col-md-6 col-12 appointment-filter-dropdown-bar">
               <mat-form-field appearance="outline" class="col-12 smart-schedule-dropdown">
-                <mat-select disableOptionCentering>
-                  <mat-option>View All Providers</mat-option>
-                  <mat-option>karina m</mat-option>
-                  <mat-option>Angie Keith</mat-option>
+                <mat-select disableOptionCentering id="practiveProviders" placeholder="Select Provider">
+                <mat-option>None</mat-option>
+                <mat-option *ngFor="let provider of PracticeProviders" [value]="provider">{{provider.FullName}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>

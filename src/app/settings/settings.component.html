@@ -4,39 +4,39 @@
       <div class="colA" id="sidebar">
         <ul class="list-unstyled menuclass border pt-1" id="myDIV">
           <li [class]="view !== 'practice' ? 'panel-heading2': 'active panel-heading2'">
-            <a class="ptitle2" href="/provider/settings?view=practice">Practice</a>
+            <a class="ptitle2" (click)="onChangePractice('settings','/provider/settings')" href="javascript:void(0)">Practice</a>
           </li>
           <li [class]="view !== 'accesspermission' ? 'panel-heading2': 'active panel-heading2'">
-            <a href="#" class="ptitle2 m-0" href="/provider/settings?view=accesspermission">Access Permission</a>
+            <a href="#" class="ptitle2 m-0" (click)="onChangeAccessPermission('settings','/provider/settings')" href="javascript:void(0)">Access Permission</a>
           </li>
           <li [class]="view !== 'schedule' ? 'panel-heading2': 'active panel-heading2'">
-            <a class="ptitle2 m-0" href="/provider/settings?view=schedule">Schedule</a>
+            <a class="ptitle2 m-0" (click)="onChangeSchedule('settings','/provider/settings')" href="javascript:void(0)">Schedule</a>
           </li>
           <li [class]="view !== 'patient' ? 'panel-heading2': 'active panel-heading2'">
-            <a class="ptitle2 m-0" href="/provider/settings?view=patient">Patient
+            <a class="ptitle2 m-0" (click)="onChangePatient('settings','/provider/settings')" href="javascript:void(0)">Patient
             </a>
           </li>
           <li [class]="view !== 'message' ? 'panel-heading2': 'active panel-heading2'">
-            <a href="#" class="ptitle2" href="/provider/settings?view=message">Messages</a>
+            <a href="#" class="ptitle2" (click)="onChangeMessages('settings','/provider/settings')" href="javascript:void(0)">Messages</a>
           </li>
           <li [class]="view !== 'erx' ? 'panel-heading2': 'active panel-heading2'">
-            <a href="#" class="ptitle2 m-0" href="/provider/settings?view=erx">eRx</a>
+            <a href="#" class="ptitle2 m-0" (click)="onChangeeRx('settings','/provider/settings')" href="javascript:void(0)">eRx</a>
           </li>
           <li [class]="view !== 'labmapping' ? 'panel-heading2': 'active panel-heading2'">
-            <a href="#" class="ptitle2 m-0" href="/provider/settings?view=labmapping">Lab/Mapping</a>
+            <a href="#" class="ptitle2 m-0" (click)="onChangelabmapping('settings','/provider/settings')" href="javascript:void(0)">Lab/Mapping</a>
           </li>
           <li [class]="view !== 'reports' ? 'panel-heading2': 'active panel-heading2'">
-            <a href="#" class="ptitle2 m-0" href="/provider/settings?view=reports">Reports</a>
+            <a href="#" class="ptitle2 m-0" (click)="onChangeReports('settings','/provider/settings')" href="javascript:void(0)">Reports</a>
           </li>
           <li [class]="view !== 'clinicdecision' ? 'panel-heading2': 'active panel-heading2'">
-            <a href="#" class="ptitle2 m-0" href="/provider/settings?view=clinicdecision">Clinic Decision Support</a>
+            <a href="#" class="ptitle2 m-0" (click)="onChangeClinicDecision('settings','/provider/settings')" href="javascript:void(0)">Clinic Decision Support</a>
           </li>
           <li [class]="view !== 'patientednmaterial' ? 'panel-heading2': 'active panel-heading2'">
-            <a href="#" class="ptitle2 m-0" href="/provider/settings?view=patientednmaterial">Patient Education
+            <a href="#" class="ptitle2 m-0" (click)="onChangePatientednmaterial('settings','/provider/settings')" href="javascript:void(0)">Patient Education
               Material</a>
           </li>
           <li [class]="view !== 'auditlog' ? 'panel-heading2': 'active panel-heading2'">
-            <a href="#" class="ptitle2 m-0" href="/provider/settings?view=auditlog">Audit Log</a>
+            <a href="#" class="ptitle2 m-0" (click)="onChangeAuditlog('settings','/provider/settings')" href="javascript:void(0)">Audit Log</a>
           </li>
         </ul>
       </div>
