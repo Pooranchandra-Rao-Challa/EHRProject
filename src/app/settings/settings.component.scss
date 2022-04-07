@@ -5,11 +5,11 @@
   background-color: #41b6a6;
   color: white;
   border: #41b6a6;
-  min-height: 60px;
+  min-height: 50px;
   text-align: 10px;
-  margin-top: -1px;
-  padding: 10px 20px; // schedule panel
-  font-size: 18px;
+  //margin-top: -1px;
+  padding: 14px 20px; // schedule panel
+  font-size: 15px;
 }
 .ptitle {
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -37,6 +37,15 @@
   margin-top: -4px;
   font-size: 25px;
 }
+.schedule-right-block{
+  padding-left: 10px;
+  padding-right: 20px;
+}
+@media (max-width: 768px){
+  .schedule-right-block{
+    padding: 0px 20px;
+  }
+}
 // .colA {
 //   min-height: 875px;
 //   border: 0px solid #41b6a6 !important;
@@ -45,7 +54,7 @@
   min-height: 1500px;
 }
 .colF {
-  min-height: 2500px;
+  min-height: 1120px;
 }
 .btnSave {
   width: 167px;
@@ -73,14 +82,24 @@
   background-color: white;
   font-size: 16px !important;
   white-space: nowrap;
+  //width: 165px;
   height: 45px;
-  width: 100px;
+  border-color: #41b6a6;
 }
 .btn-success:hover {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   color: white;
   background-color: #41b6a6;
   border-color: #41b6a6;
+}
+#general.btn-success{
+  width: 165px !important;
+}
+#providerrooms.btn-success{
+  min-width: 80px;
+}
+.btn:focus{
+  box-shadow: none !important;
 }
 .btn-danger {
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -124,11 +143,36 @@ div.ex3 {
 }
 .provider-rooms {
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  margin: 30px;
+  margin: 20px;
   border: 1px solid #41b6a6;
 }
+.general-content .schedule-section p.plabel{
+  font-size: 16px;
+  color: #4A4A4A;
+  margin-bottom: 0;
+}
 .schedule-section {
-  padding: 20px 50px;
+  //padding: 20px 50px;
+  padding-left: 50px;
+    padding-right: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+@media (max-width: 1440px) {
+  .schedule-section{
+    padding: 20px 20px;
+  }
+}
+@media (width: 1440px) {
+  .schedule-section .cstm-location-section{
+    width: 525px;
+  }
+  .schedule-section .cstm-room-section{
+    width: 600px;
+  }
+  .schedule-section .cstm-loc-dropdown{
+    width: 250px !important;
+  }
 }
 
 .plusicon {
@@ -273,8 +317,8 @@ hr {
 }
 .plabel {
   color: #4a4a4a;
-  background-color: white;
-  font-size: 16px;
+  //background-color: white;
+  font-size: 15px; // schedule screen location
 }
 // .dropdown {
 //   min-width: 500px;
@@ -288,16 +332,13 @@ hr {
   background-color: #41b6a6;
   color: white;
   border: #41b6a6;
-  height: 60px;
-  text-align: 10px;
-  margin-top: -1px;
-  padding: 12px;
-  padding-bottom: 19px;
-  font-size: 18px;
+  min-height: 50px;
+  font-size: 15px;
 }
 #Actbtn {
-  font-size: 18px;
-  width: 200px;
+  font-size: 16px;
+  min-width: 100px;
+  width: 100%;
 }
 // .Roomp {
 //   padding-top: 27px;
@@ -408,8 +449,20 @@ input[type="checkbox"] {
   font-size: 20px;
 }
 .appointment-form {
-  min-height: 500px;
+  min-height: 150px;
   border: 1px solid #41b6a6;
+}
+@media (max-width: 590px) {
+  .appointment-form{
+    width: 680px;
+  }
+  .cstm-appointment-status{
+    overflow-x: auto;
+  }
+  .cstm-appointment-type{
+    overflow-x: auto;
+  }
+
 }
 
 .manuallbtn {
@@ -497,9 +550,9 @@ td.mat-footer-cell {
   color: #808387;
   font-size: 19px;
 }
-.mat-form-field-flex {
-  background: #f5bdbd;
-}
+// .mat-form-field-flex {
+//   background: #f5bdbd;
+// }
 
 input.mat-input-element {
   color: #524f4f !important;
@@ -510,11 +563,11 @@ input.mat-input-element {
 }
 
 .privdertext {
-  font-size: 18px;
+  font-size: 16px;
 }
 .border {
   border: 1px solid #41b6a6 !important;
-  border-radius: 2px;
+  border-radius: 3px;
 }
 // sweetalert
 ::ng-deep .swal2-styled.swal2-confirm {
@@ -782,12 +835,12 @@ ul.menuclass li.active a {
   border-top: none;
 }
 
-@media screen and (min-device-width: 320px) and (max-device-width: 768px) {
-  .timedropdown.mat-form-field-appearance-outline .mat-form-field-outline {
-    min-width: 133px;
-    margin-left: 5px;
-  }
-}
+// @media screen and (min-device-width: 320px) and (max-device-width: 768px) {
+//   .timedropdown.mat-form-field-appearance-outline .mat-form-field-outline {
+//     min-width: 133px;
+//     margin-left: 5px;
+//   }
+// }
 @media (max-width: 768px) {
   .addbtn {
     margin-right: 154px;
@@ -837,50 +890,50 @@ ul.menuclass li.active a {
 }
 // border-radius for mat-from-field
 
-.mat-form-field-appearance-outline .mat-form-field-outline-start {
-  border-radius: 2px 0 0 2px !important;
-  border-right-style: none;
-}
-.mat-form-field-appearance-outline .mat-form-field-outline-end {
-  border-radius: 2px 0 0 2px !important;
-  border-right-style: none;
-}
-.readonly.mat-form-field
-  .mat-form-field-appearance-outline
-  .mat-form-field-outline-thick {
-  color: #41b6a6 !important;
-}
+// .mat-form-field-appearance-outline .mat-form-field-outline-start {
+//   border-radius: 2px 0 0 2px !important;
+//   border-right-style: none;
+// }
+// .mat-form-field-appearance-outline .mat-form-field-outline-end {
+//   border-radius: 2px 0 0 2px !important;
+//   border-right-style: none;
+// }
+// .readonly.mat-form-field
+//   .mat-form-field-appearance-outline
+//   .mat-form-field-outline-thick {
+//   color: #41b6a6 !important;
+// }
 //mat-input focused color
-::ng-deep
-  .mat-form-field-appearance-outline.mat-focused
-  .mat-form-field-outline-thick {
-  color: hsl(172, 47%, 48%) !important;
-}
-.mat-form-field-appearance-outline:not(.mat-form-field-disabled)
-  .mat-form-field-flex:hover
-  .mat-form-field-outline-thick {
-  opacity: 1;
-  color: hsl(172, 47%, 48%) !important;
-}
+// ::ng-deep
+//   .mat-form-field-appearance-outline.mat-focused
+//   .mat-form-field-outline-thick {
+//   color: hsl(172, 47%, 48%) !important;
+// }
+// .mat-form-field-appearance-outline:not(.mat-form-field-disabled)
+//   .mat-form-field-flex:hover
+//   .mat-form-field-outline-thick {
+//   opacity: 1;
+//   color: hsl(172, 47%, 48%) !important;
+// }
 // Mat dropdown bottom-padding
-.mat-form-field-appearance-outline .mat-form-field-wrapper {
-  padding-bottom: 5px !important;
-}
+// .mat-form-field-appearance-outline .mat-form-field-wrapper {
+//   padding-bottom: 5px !important;
+// }
 // Mat form field custom font-size
 // mat-form-field.mat-form-field {
 //   font-size: 18px !important;
 // }
 // Mat form width
-mat-form-field.mat-form-field {
-  width: 100% !important;
-}
+// mat-form-field.mat-form-field {
+//   width: 100% !important;
+// }
 .main-info .row {
   padding-bottom: 20px;
 }
 .schedule-plusicon {
   border-radius: 5%;
-  border: 1px solid white;
-  background: white;
+  border: 1px solid #fff;
+  background: #fff;
   width: 80px;
   height: 30px;
   text-align: center;
@@ -892,19 +945,39 @@ mat-form-field.mat-form-field {
   }
 }
 .schedule-plusicon .fa-plus {
-  padding: 5px;
+  padding: 2px;
+  color: #41b6a6;
+  font-size: 24px;
 }
-.room-section {
-  padding: 0px 10px;
-}
+
 .cstm-border-bottom {
-  padding-bottom: 10px;
+  margin-bottom: 10px;
   border-bottom: 1px solid #41b6a6;
 }
+.cstm-padding{
+  padding-left: 38px;
+  padding-bottom: 10px;
+}
+.cstm-border-bottom-appointment{
+  padding-bottom: 10px;
+  padding-left: 60px;
+  border-bottom: 1px solid #41b6a6;
+}
+@media (max-width: 767px){
+  .cstm-padding {
+    padding-left: 10px;
+    padding-bottom: 10px;
+  }}
 .form-control.time {
   border: 1px solid #dedede;
   background-color: #f5f5f5;
   cursor: text !important;
+  width: 120px;
+  height: 45px;
+  border-radius: 3px;
+}
+.form-control.time:hover{
+  border: 1px solid #41b6a6;
 }
 @media (max-width: 1440px) {
   .provider-rooms {
@@ -913,4 +986,30 @@ mat-form-field.mat-form-field {
   .scrollable-provider-rooms {
     overflow-x: auto;
   }
+}
+// @media (min-width: 1700px) {
+//   .schedule-section .cstm-location-section{
+//     width: 990px;
+//   }
+//   .schedule-section .cstm-room-section{
+//     width: 500px;
+//   }
+//   .schedule-section .cstm-loc-dropdown{
+//     width: 300px !important;
+//   }
+// }
+::ng-deep .color-picker{
+    height: 270px !important;
+    margin-top: -26px !important;
+    top: initial !important;
+    left: initial !important;
+}
+.cstm-color-picker{
+  width: 25px;
+  height: 25px;
+  border: 0;
+  margin-top: 20px;
+  background: url(../../assets/images/color-picker.png) 100%
+    100% no-repeat;
+  background-position: -80px 0;
 }

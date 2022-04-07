@@ -25,11 +25,13 @@ export class ScheduleComponent implements OnInit {
   appointmentTypeColumns: string[] = ['Type', 'Color', 'isEdit'];
   appointmentTypeList: any[];
   roomForm: FormGroup;
+  statusForm: FormGroup;
+  typeForm: FormGroup;
   dataSource4: any;
   showEditBtn: boolean = false;
   showSaveBtn: boolean = false;
   showInput: boolean = true;
-  appointmentStatusForm: FormGroup;
+  color: any;
 
   constructor(private authService: AuthenticationService, private settingsService: SettingsService, private fb: FormBuilder) {
     this.user = authService.userValue;
@@ -38,8 +40,14 @@ export class ScheduleComponent implements OnInit {
     this.roomForm = this.fb.group({
       rooms: this.fb.array([]),
     })
+    this.statusForm = this.fb.group({
+      status: this.fb.array([]),
+    })
+    this.typeForm = this.fb.group({
+      type: this.fb.array([]),
+    })
   }
-
+  // Rooms
   rooms(): FormArray {
     return this.roomForm.get("rooms") as FormArray
   }
@@ -57,7 +65,7 @@ export class ScheduleComponent implements OnInit {
     this.rooms().push(this.newRoom());
   }
 
-  removeEmployee(roomIndex: number) {
+  removeRoom(roomIndex: number) {
     this.rooms().removeAt(roomIndex);
   }
 
@@ -76,6 +84,36 @@ export class ScheduleComponent implements OnInit {
     this.showInput = true;
     var testing = this.roomForm.controls.rooms["controls"][roomIndex].get('roomOP').value;
     console.log(testing);
+  }
+  // Appointment Statuses
+  status(): FormArray {
+    return this.statusForm.get("status") as FormArray
+  }
+  newStatus(): FormGroup {
+    return this.fb.group({
+      appointmentStatus: ['']
+    })
+  }
+  addStatus() {
+    this.status().push(this.newStatus());
+  }
+  removeStatus(statusIndex: number) {
+    this.status().removeAt(statusIndex);
+  }
+  // Appointment Type
+  type(): FormArray {
+    return this.typeForm.get("type") as FormArray
+  }
+  newType(): FormGroup {
+    return this.fb.group({
+      appointmentType: ['']
+    })
+  }
+  addType() {
+    this.type().push(this.newType());
+  }
+  removeType(typeIndex: number) {
+    this.type().removeAt(typeIndex);
   }
 
 }
