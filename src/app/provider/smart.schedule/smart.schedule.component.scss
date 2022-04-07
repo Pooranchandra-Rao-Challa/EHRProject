@@ -1,55 +1,10 @@
-.smartschedule-wrapper {
-  margin-top: -24px;
-}
-.smartschedule-wrapper .header {
-  margin-left: -12px;
-  margin-right: -17px;
-}
-.smartschedule-wrapper .header .categories-header {
-  min-height: 30px;
-  background: #f2f2f2;
-  padding: 0px 50px;
-}
-.smartschedule-wrapper .header .categories-header .categories-container {
-  padding-top: 4px;
-  padding-bottom: 4px;
-}
-ul {
-  margin-bottom: 0 !important;
-  margin-top: 0;
-}
-.smartschedule-wrapper .header .categories-header .categories li {
-  display: inline-block;
-}
-.smartschedule-wrapper .header .categories-header .categories li a {
-  color: #41b6a6;
-  font-family: "SF UI Text Regular";
-  font-size: 12px;
-  text-decoration: none;
-}
-.smartschedule-wrapper
-  .header
-  .categories-header
-  .categories
-  li
-  .category-arrow {
-  color: #41b6a6;
-  margin: 0 17px 0 23px;
-}
-.smartschedule-wrapper .header .categories-header .categories li a.active {
-  pointer-events: none;
-  cursor: default;
-  color: #fe8f00;
-}
-.smartschedule-wrapper .header .categories-header .categories li a {
-  font-family: "SF UI Text Regular";
-  font-size: 12px;
-}
+
 // content
 .smart-schedule-logo {
   border: 3px solid #00d1b2;
   height: 70px;
   margin-top: 2px;
+  //margin-top: -24px;
   margin-bottom: 0px;
   margin-left: 0px;
   margin-right: 0px;

@@ -126,8 +126,7 @@
                   <ng-container matColumnDef="Status">
                     <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
                     <mat-cell *matCellDef="let user">
-                      <a role="button"
-                       (click)="toggleStatus(user,$event)"
+                      <a role="button" (click)="toggleStatus(user,$event)"
                         [ngClass]="user.Active?'StatusActive':'inactive'">
                         <span *ngIf="user.Active">Active</span>
                         <span *ngIf="!user.Active">Inactive</span>
@@ -868,22 +867,22 @@
                 <ng-container matColumnDef="PracticeSchedule">
                   <mat-header-cell *matHeaderCellDef>Practice Schedule</mat-header-cell>
                   <mat-cell *matCellDef="let loc">
-                      <ul  >
-                        <li *ngFor="let timeSlot of loc.TimeSlots"
+                    <ul>
+                      <li *ngFor="let timeSlot of loc.TimeSlots"
                         style="flex-wrap: wrap;line-break: auto;font-size: 11px !important; line-height: 15px;">
-                          {{timeSlot.WeekDay}},<br/>
-                          {{timeSlot.From}} - {{timeSlot.To}},<br/>
-                          {{timeSlot.SpecificHour}}
-                        </li>
-                      </ul>
+                        {{timeSlot.WeekDay}},<br />
+                        {{timeSlot.From}} - {{timeSlot.To}},<br />
+                        {{timeSlot.SpecificHour}}
+                      </li>
+                    </ul>
 
                   </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="ServicedLocation">
                   <mat-header-cell *matHeaderCellDef>Serviced Location(s)</mat-header-cell>
                   <mat-cell *matCellDef="let loc">
-                    <mat-checkbox class="example-margin" [ngModelOptions]="{standalone: true}"
-                      [ngModel]="loc.Assigned"></mat-checkbox>
+                    <mat-checkbox class="example-margin" [ngModelOptions]="{standalone: true}" [ngModel]="loc.Assigned">
+                    </mat-checkbox>
                   </mat-cell>
                 </ng-container>
 
@@ -929,7 +928,8 @@
               </div>
               <div class="col-lg-4"><label class="settings-label">Login Phone</label>
                 <div class="form-group">
-                  <input type="text" placeholder="Login Phone" class="inputclass" [(ngModel)]="NewUserData.PrimaryPhone">
+                  <input type="text" placeholder="Login Phone" class="inputclass"
+                    [(ngModel)]="NewUserData.PrimaryPhone">
                 </div>
               </div>
               <div class="col-lg-4">
@@ -946,7 +946,8 @@
           <div class="row">
             <div class="col-md-12">
               <div class="d-flex justify-content-end">
-                <button type="button" class="btn btn-lg btn-success mx-2" (click)="updateUser('update')" data-bs-dismiss="modal">
+                <button type="button" class="btn btn-lg btn-success mx-2" (click)="updateUser('update')"
+                  data-bs-dismiss="modal">
                   Save Changes
                 </button>
                 <button type="button" class="btn btn-lg btn-success" data-bs-dismiss="modal">

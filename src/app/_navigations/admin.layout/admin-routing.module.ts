@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { ProviderlistComponent } from 'src/app/admin/providerlist.component';
 import { DashboardComponent } from 'src/app/admin/dashboard/dashboard.component';
 
 //import { CalendarComponent } from '../../calendar/calendar.component';
@@ -12,6 +13,7 @@ const routes: Routes = [
     children: [
       //{ path: "calendar", component: CalendarComponent },
       { path: 'providers', component: AdminProviderListComponent },
+      { path: 'providerslist', component: ProviderlistComponent },
       { path: 'dashboard', component: DashboardComponent },
     ]
   }

@@ -7,41 +7,39 @@ import { Location } from '@angular/common';
   styleUrls: ['./breadcrum.component.scss']
 })
 export class BreadcrumComponent implements OnInit {
-  menuName:any;
-  isSubscribe:boolean=false;
+  menuName: any;
+  isSubscribe: boolean = false;
 
 
-  constructor(private router: Router,private location:Location,
+  constructor(private router: Router, private location: Location,
     private route: ActivatedRoute,) {
-
-   }
+  }
 
   ngOnInit(): void {
     this.getComponentName()
   }
 
-  getComponentName(){
+  getComponentName() {
     this.route.queryParams.subscribe((params) => {
-      if(params.name != null)
-      {
+      if (params.name != null) {
         this.menuName = params.name;
-      }     
+      }
     });
   }
 
-  onChangeBreadCum(name,url){
+  onChangeBreadCum(name, url) {
     this.router.navigate(
       [url],
       { queryParams: { name: name } }
     );
     console.log(url)
   }
-  onChangeBreadCumSetting(name,url){
+  onChangeBreadCumSetting(name, url) {
     this.router.navigate(
-      [url +'?view=practice'],
+      [url + '?view=practice'],
       { queryParams: { name: name } }
     );
     console.log(url)
   }
- 
+
 }

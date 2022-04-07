@@ -1,35 +1,32 @@
 //breadcrum design
+
 .category-arrow {
-    color: #41b6a6;
-    margin: 0 17px 0 23px;
-  }
-  // .categories{
-  //   padding: 7px 140px;;
-  // }
-  .categories
-  li
-  .category-arrow {
+    color: #41b6a6;    
+}
+ .categories li .category-arrow {
   color: #41b6a6;
   margin: 0 17px 0 23px;
   }
+a.home:hover{
+  color: #fe8f00 !important;
+}
   .header .categories-header .categories-container {
     padding-top: 4px;
     padding-bottom: 4px;
   }
   .header .categories-header .categories li a {
     color: #41b6a6;
-    font-family: "SF UI Text Regular";
-    font-size: 15px;
+   // font-family: "SF UI Text Regular";
+    font-size: 13px;
     text-decoration: none;
   }
   .header .categories-header .categories li a.active {
     pointer-events: none;
     cursor: default;
     color: #fe8f00;
-    font-size: 15px;
+    font-size: 13px;
   }
-  .header .categories-header .categories li a {
-    font-family: 'Poppins';
+  .header .categories-header .categories li a {   
     font-size: 13px;
   }
   .categories-header{
@@ -63,10 +60,10 @@
 .subsbtn{
   background: white;
   color: #41b6a6;
-  font-size: 17px;
-  margin-left: -32px;
+  font-size: 17px;  
   margin-top: -16px;
-  padding: 10px 19px;
+  padding: 11px 28px;
+    
 }
 .subsbtn:hover{
   background: #41b6a6;
@@ -87,7 +84,7 @@
     margin-left: 20px;
   }
   .subsbtn{
-    margin-right: -20px;  
+    margin-right: -27px;  
 }
 }
 @media(max-width:580px){
@@ -100,14 +97,12 @@
     font-size: 15px;
     margin-right: 9px;
     margin-top: -13px;  
-}
-
+ }
 }
 @media(max-width:768px){
   .categories-header{
     height: 102px;
-  }
- 
+  } 
 }
 .nav-tabs.styled li.active a {
   background-color: #41b6a6;
@@ -117,3 +112,56 @@
 b{
   font-size: 17px !important;
 }
+@media (min-width: 770px) and (max-width: 990px) {
+  .header .categories-header .categories-container {
+   margin-left: 50;
+  }
+  .categories-header{
+    height: 101px !important;
+  } 
+  .subsbtn{
+    background: white;
+    color: #41b6a6;  
+    font-size: 15px;
+    margin-right: 9px;
+    margin-top: -13px;  
+}
+}
+@media (min-width: 1200px) and (max-width: 1440px) { 
+ .subsbtn{
+    background: white;
+    color: #41b6a6;  
+    font-size: 15px;
+    margin-right: -40px;
+    margin-top: -18px; 
+}
+}
+@media (min-width: 1280px) and (max-width: 1400px) { 
+ .subsbtn{
+    background: white;
+    color: #41b6a6;  
+    font-size: 15px;
+    margin-right: -40px;
+    margin-top: -18px;
+    padding: 11px 28px; 
+ }
+}
+@media (min-width: 1439px) and (max-width: 2000px) {
+  .subsbtn{
+    background: white;
+    color: #41b6a6;  
+    font-size: 15px;
+    margin-right: -43px;
+    margin-top: -13px;  
+ }
+}
+@media(min-width:1680px){
+  .subsbtn{
+    background: white;
+    color: #41b6a6;  
+    font-size: 15px;
+    margin-right: -20px;
+    margin-top: -13px;  
+ }
+}
+

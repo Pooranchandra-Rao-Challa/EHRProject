@@ -12,3 +12,25 @@
   border-width: 5px;
   border-color: #41b6a6 !important; /*outer ring color change*/
 }
+::ng-deep .mat-radio-inner-circle{
+  height: 23px !important;
+  width: 25px !important;
+}
+::ng-deep .mat-radio-outer-circle{
+  height: 25px !important;
+  width: 25px !important;
+  top: -3px !important;
+}
+::ng-deep .mat-radio-container{
+  width: 30px !important;
+  height: 22px !important;
+}
+// mat-form-field outline color
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  background-color: #fff !important;
+  border-radius: 6px !important;
+  color: #41b6a6 !important;
+}
+::ng-deep .mat-select-arrow{
+  color: #41b6a6 !important;
+}

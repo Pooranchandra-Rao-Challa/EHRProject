@@ -402,7 +402,7 @@ li,
   pointer-events: none;
 }
 .sidebar .nav-links {
-  height: 100%;
+  height: auto !important;
   padding: 30px 0 150px 0;
   overflow: auto;
 }
@@ -718,4 +718,15 @@ i {
   border-right: 0.3em solid transparent;
   border-bottom: 0.3em solid;
   border-left: 0.3em solid transparent;
+}
+
+//active page
+.page-item.active .page-link { 
+  color: white !important;
+  background-color: #0d6efd !important;
+  border-color: #0d6efd !important;
+}
+
+.page-item.disabled .page-link {
+  color: #c4c0c1 !important;
 }

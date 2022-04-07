@@ -203,6 +203,10 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "CreateAppointment";
   }
 
+  get _providerListUrl(){
+    return this._baseUrl + "GetProviderList";
+  }
+
   constructor(public http: HttpClient) {
     super();
   }
