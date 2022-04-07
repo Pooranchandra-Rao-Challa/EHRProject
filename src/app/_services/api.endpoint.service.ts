@@ -190,7 +190,10 @@ export class APIEndPoint extends EndpointBase {
   get _activeAppointmentsUrl(){
     return this._baseUrl + "ActiveAppointments";
   }
-
+  get _providerListUrl(){
+    return this._baseUrl + "GetProviderList";
+  }
+  
   constructor(public http: HttpClient) {
     super();
   }
