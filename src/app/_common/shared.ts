@@ -9,7 +9,7 @@ import { QuickAppProMaterialModule } from "./material";
     FormsModule
   ],
   exports: [
-    QuickAppProMaterialModule,
+    QuickAppProMaterialModule
 
   ],
   declarations: [],

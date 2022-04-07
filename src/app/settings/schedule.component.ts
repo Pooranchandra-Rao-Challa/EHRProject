@@ -9,7 +9,6 @@ import { Subscription } from 'rxjs';
 import { LocationSelectService } from '../_navigations/provider.layout/location.service';
 import Swal from 'sweetalert2';
 declare var $: any;
-import { ColorEvent } from 'ngx-color';
 
 @Component({
   selector: 'schedule-settings',
@@ -17,7 +16,6 @@ import { ColorEvent } from 'ngx-color';
   styleUrls: ['./settings.component.scss']
 })
 export class ScheduleComponent implements OnInit {
-  private color: string = "#127bdc";
   user: User;
   LocationAddress: any;
   ProviderId: string;
@@ -33,6 +31,7 @@ export class ScheduleComponent implements OnInit {
   showEditBtn: boolean = false;
   showSaveBtn: boolean = false;
   showInput: boolean = true;
+  color: any;
 
   constructor(private authService: AuthenticationService, private settingsService: SettingsService, private fb: FormBuilder) {
     this.user = authService.userValue;
@@ -116,7 +115,5 @@ export class ScheduleComponent implements OnInit {
   removeType(typeIndex: number) {
     this.type().removeAt(typeIndex);
   }
-  handleChange($event: ColorEvent) {
-    console.log($event.color);
-  }
+
 }
