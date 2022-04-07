@@ -719,3 +719,12 @@ i {
   border-bottom: 0.3em solid;
   border-left: 0.3em solid transparent;
 }
+//active page
+.page-item.active .page-link { 
+  color: white !important;
+  background-color: #0d6efd !important;
+  border-color: #0d6efd !important;
+}
+.page-item.disabled .page-link {
+  color: #c4c0c1 !important;
+}
