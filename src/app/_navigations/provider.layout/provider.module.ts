@@ -38,6 +38,7 @@ import { LabsImagingComponent } from '../../provider/labs.imaging/labs.imaging.c
 import { IConfig, NgxMaskModule} from 'ngx-mask'
 import { NgbDateUSParserFormatter } from '../../_helpers/ngb-date-us-parser-formatter';
 import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { BreadcrumComponent } from '../breadcrum/breadcrum.component';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstra
     CalendarComponent,
     SmartScheduleComponent,
     SettingsComponent,
-    LabsImagingComponent
+    LabsImagingComponent,
+    BreadcrumComponent
   ],
   imports: [
     ProviderRoutingModule,

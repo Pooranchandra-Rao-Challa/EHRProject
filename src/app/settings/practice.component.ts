@@ -13,6 +13,8 @@ import { Accountservice } from '../_services/account.service';
 import { PracticeLocation } from '../_models/practiceLocation';
 import { NewUser } from '../_models/settings';
 import { interval } from 'rxjs';
+import { BookType } from 'xlsx';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 declare var $: any;
 
 
@@ -27,7 +29,7 @@ export class PracticeComponent implements OnInit {
   UTCTime: any;
   CurrentTime: any;
   locationdataSource: any;
-  providerDataSource: any;
+  providersDataSource: NewUser[];
   ProviderId: any;
   LocationAddress: any;
   user: User;
@@ -81,6 +83,8 @@ export class PracticeComponent implements OnInit {
     this.changedLocationId = this.user.CurrentLocation;
     this.locationsubscription = this.locationSelectService.getData().subscribe(locationId => {
       this.changedLocationId = locationId;
+      console.log(this.changedLocationId );
+      this.getProviderDetails();
     });
     this.PhonePattern = {
       0: {
@@ -140,7 +144,7 @@ export class PracticeComponent implements OnInit {
   }
   ngOnInit(): void {
     this.getTimeZoneList();
-    this.getLocationsList();
+    this.practiveLocations();
     this.getProviderDetails();
     this.loadFormDefaults();
   }
@@ -177,7 +181,6 @@ export class PracticeComponent implements OnInit {
     this.settingsService.TimeZones().subscribe(resp => {
       if (resp.IsSuccess) {
         this.TimeZoneList = resp.ListResult;
-        // this.TimeZoneForm.get("TimeZones").setValue(this.user.TimeZone);
         this.DisplayDateTimeZone();
       }
     });
@@ -193,11 +196,12 @@ export class PracticeComponent implements OnInit {
     });
   }
   // get display Location Details
-  getLocationsList() {
-    this.settingsService.LocationList(this.user.ProviderId).subscribe(resp => {
+  practiveLocations() {
+    this.settingsService.PractiveLocations(this.user.ProviderId).subscribe(resp => {
       if (resp.IsSuccess) {
         this.locationdataSource = resp.ListResult;
         this.LocationAddress = resp.ListResult;
+        console.log(this.locationdataSource );
       }
     });
   }
@@ -205,18 +209,46 @@ export class PracticeComponent implements OnInit {
   getProviderDetails() {
     var reqparams = {
       provider_Id: this.user.ProviderId,
-      // location_Id: this.locationsInfo[0].locationId  //location id of login user
       location_Id: this.changedLocationId
     }
     this.settingsService.ProviderDetails(reqparams).subscribe(resp => {
       if (resp.IsSuccess) {
-        this.providerDataSource = resp.ListResult;
+        this.providersDataSource = resp.ListResult as NewUser[];
+      }else this.providersDataSource = [];
+    });
+  }
+
+  toggleAdmin(user: NewUser){
+    console.log(JSON.stringify(user))
+    this.updateToggleUserFieldValues("Admin",user);
+  }
+  toggleEmergencyAccess(user: NewUser){
+    console.log(JSON.stringify(user))
+    this.updateToggleUserFieldValues("EmergencyAccess",user);
+  }
+  toggleStatus(user: NewUser){
+    user.Active = user.Active == null ? true : user.Active.valueOf() == false ? true: false;
+    console.log(JSON.stringify(user))
+    this.updateToggleUserFieldValues("Active",user);
+  }
+
+  updateToggleUserFieldValues(fieldToUpdate:string, user: NewUser){
+    var reqparams = {
+      fieldToUpdate: fieldToUpdate,
+      user: user
+    }
+    this.settingsService.ToggleUserFieldValues(reqparams).subscribe(resp => {
+
+      let message:string;
+      if (resp.IsSuccess) {
+        // show update message;
+        message = resp.Message;
       }
     });
+
   }
   // address verification
   AddressVerification() {
-    debugger;
     this.manuallybtn = true;
     var practiceAddress = this.PracticeLocData.Street || "";
     if (practiceAddress != null) {
@@ -278,7 +310,7 @@ export class PracticeComponent implements OnInit {
           width: '700',
         });
         this.closePopup();
-        this.getLocationsList();
+        this.practiveLocations();
       }
 
       else {
@@ -302,9 +334,9 @@ export class PracticeComponent implements OnInit {
     this.visiblebtn = true
   }
 
-  getEditLocData(reqparam) {
+  editPracticeLocation(reqparam) {
     this.displayforEditLocation = true;
-    this.settingsService.Location(reqparam.Location_Id).subscribe(resp => {
+    this.settingsService.EditProviderLocation(reqparam.Location_Id).subscribe(resp => {
       if (resp.IsSuccess) {
         let location = resp.ListResult[0];
         let weekdata = resp.ListResult[1];
@@ -359,12 +391,14 @@ export class PracticeComponent implements OnInit {
   updateUser(activity) {
     if (activity == 'add') {
       this.NewUserData.ClinicId = this.user.ClinicId;
-      this.NewUserData.UserProviderId = this.user.ProviderId;
       this.NewUserData.LocationId = this.user.CurrentLocation;
-      this.NewUserData.UserId = this.user.ProviderId;
     } else {
 
     }
+    if(this.NewUserData.PracticeName == null)
+      this.NewUserData.PracticeName = this.user.BusinessName;
+
+    console.log(JSON.stringify(this.NewUserData))
     this.settingsService.AddUpdateUser(this.NewUserData).subscribe(resp => {
       if (resp.IsSuccess) {
         this.closePopup();
@@ -408,19 +442,17 @@ export class PracticeComponent implements OnInit {
   closePopupAddress() {
     this.displayAddress = "none";
   }
-  getUserDataforEdit(user) {
+  getUserDataforEdit(u: NewUser) {
     var reqparams = {
-      ProviderId: this.user.ProviderId,//this.users.ProviderId,
-      UserProviderId: this.user.ProviderId
+      UserId: u.UserId,
+      LoginProviderId: this.user.ProviderId,
+      ClinicId: this.user.ClinicId
     }
-    // this.getProviderDetails();
-    this.settingsService.UserList(reqparams).subscribe(resp => {
-      this.userList = resp.ListResult[0];
-      this.providerList = resp.ListResult[1];
-      this.locationList = resp.ListResult[2];
-      if (resp.IsSuccess) {
 
-      }
+    this.settingsService.UserInfoWithPraceticeLocations(reqparams).subscribe(resp => {
+        this.NewUserData = resp.Result as NewUser;
+        this.NewUserData.LocationInfo = JSON.parse(resp.Result.LocationInfo);
+        console.log(this.NewUserData)
     });
   }
 }

@@ -131,8 +131,8 @@ export class APIEndPoint extends EndpointBase {
   get _updateProviderAdmineAccessUrl(){
     return this._baseUrl + "UpdateProviderAdminAccess";
   }
-  get _getUserListUrl(){
-    return this._baseUrl + "GetUserDetails";
+  get _userInfoWithPraceticeLocations(){
+    return this._baseUrl + "UserInfoWithPracticeLocations";
   }
 
   get _authenticatePatientUrl(){
@@ -183,7 +183,17 @@ export class APIEndPoint extends EndpointBase {
   get _searchPatientsUrl(){
     return this._baseUrl + "SearchPatients";
   }
+  get _toggleUserFieldValuesUrl(){
+    return this._baseUrl + "ToggleUserFieldValues";
+  }
 
+  get _activeAppointmentsUrl(){
+    return this._baseUrl + "ActiveAppointments";
+  }
+  get _providerListUrl(){
+    return this._baseUrl + "GetProviderList";
+  }
+  
   constructor(public http: HttpClient) {
     super();
   }
@@ -206,6 +216,7 @@ export class APIEndPoint extends EndpointBase {
       catchError(this._handleError)
     );
   }
+
 
   _ProcessGetRequest<T>(apiurl: string):Observable<T>{
     return this.http.get<T>(apiurl).pipe(

@@ -1,25 +1,139 @@
+
+/* Matterial Dropdown */
+
+::ng-deep
+  .hover.mat-form-field-appearance-outline:hover
+  .mat-form-field-outline,
+.hover.mat-form-field-appearance-outline:active .mat-form-field-outline {
+  background: #41b6a6 !important;
+  border: none !important;
+}
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  background-color: #fff !important;
+  border-radius: 6px;
+  border: 1px solid #41b6a6 !important;
+}
+.mat-option.mat-active {
+  background: #e5f8f5 !important;
+}
+::ng-deep .mat-select-arrow {
+  color: #4d4b4b !important;
+}
+::ng-deep .mat-select-placeholder {
+  color: #4d4b4b !important;
+}
+::ng-deep .matInput-placeholder {
+  color: #4d4b4b !important;
+}
+.mat-form-field-wrapper {
+  height: 34px !important;
+}
+::ng-deep .hover.mat-form-field-appearance-outline:hover .mat-select-arrow {
+  color: white !important;
+}
+::ng-deep
+  .hover.mat-form-field-appearance-outline:hover
+  .mat-select-placeholder {
+  color: white !important;
+}
+::ng-deep
+  .hover.mat-form-field-appearance-outline:hover
+  .mat-select-value-text {
+  color: white !important;
+}
+//input outline color
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  color: #fff !important;
+  // opacity: 1!important;
+}
+
+//mat-input focused color
+::ng-deep
+  .mat-form-field-appearance-outline.mat-focused
+  .mat-form-field-outline-thick {
+  color: #fff !important;
+}
+
+// mat-input error outline color
+::ng-deep
+  .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid
+  .mat-form-field-outline-thick {
+  color: #fff !important;
+  opacity: 0.8 !important;
+}
+
+// mat-input carent color
+::ng-deep .mat-input-element {
+  caret-color: black !important;
+}
+
+// mat-input error carent color
+::ng-deep .mat-form-field-invalid .mat-input-element,
+.mat-warn .mat-input-element {
+  caret-color: #fff !important;
+}
+
+
+// mat-label focused style
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+  color: #fff !important;
+}
+
+// mat-label error style
+::ng-deep .mat-form-field.mat-form-field-invalid .mat-form-field-label {
+  color: #fff !important;
+}
+
+::ng-deep .mat-select-panel {
+  min-width: calc(100% + 22px) !important;
+  max-width: calc(min-width) !important;
+  margin-left: 5px !important;
+}
+.mat-option {
+  border-left: 1px solid #41b6a6;
+  border-right: 1px solid #41b6a6;
+}
+.mat-option:last-child {
+  border-right: 1px solid #41b6a6;
+}
+.mat-option:last-child {
+  border-bottom: 1px solid #41b6a6;
+}
+.mat-option:hover {
+  background-color: #e5f8f5;
+}
+.mat-option.mat-selected:not(.mat-option-disabled) {
+  color: black;
+  text-shadow: black;
+}
+@media (max-width: 950px) {
+  .drodpdown-size{
+    width: 50%;
+  }
+}
+// bootsrap drodpdown
 .lab-drodown{
   border: 1px solid white;
-   size: 22px;  
-   font-size: 33px;
-   color: white;
-   background: white;
+  size: 22px;
+  font-size: 20px;
+  color: white;
+  background: white;
 }
 .lab-drodown:hover{
-  background: #41b6a6;
-  .plus-icon{
-    color: white;
-  }
+ background: #41b6a6;
+ .plus-icon{
+   color: white;
+ }
 }
 .menu-option-dropdown.active{
 
-  background: #e4f6f3;
-  color: black;
-  font-size: 15px;
+ background: #e4f6f3;
+ color: black;
+ font-size: 15px;
 }
 .menu-option-dropdown{
-  font-size: 15px;
-  
+ font-size: 15px;
+
 }
 .scroll-menu{
   overflow-y: scroll;
@@ -28,36 +142,24 @@
 
 .top-header {
     background-color: #41b6a6;
-    margin-top: 2px;
-  }
-
-.container,
-.container-fluid,
-.container-sm,
-.container-md,
-.container-lg,
-.container-xl {
-  padding-left: 13px;
+    margin-top: -17px;
 }
-.plus-icon{
-  color: #41b6a6;
-  font-size: 24px !important;
-}
-
+// search textbox
 .search {
     position: relative;
     box-shadow: 0 0 40px rgba(51, 51, 51, .1)
 }
 .search input {
-    height: 48px;
+    height: 42px;
     text-indent: 3px;
     border: 0px solid #d6d4d4;
-    margin-top: 6px;
+    margin-top: 8px;
 }
 .search input:focus {
     box-shadow: none;
     border: 2px solid blue
 }
+
 .search .fa-search {
   position: absolute;
   top: 12px;
@@ -69,40 +171,55 @@
     position: absolute;
     top:  -0.89px;;
     right: -50px;
-    height: 49px;
+    height: 43px;
     width: 55px;
     background: #41b6a6;
     border-color: white;
-    
+}
+.plus-icon{
+  color: #41b6a6;
+  font-size: 23px !important;
+  margin-left: -11px;
 }
 .search-input-dropdown
 {
   border: 1px solid #41b6a6;
     width: 97%;
-    /* margin: 1px; */
     padding: 8px;
     margin-left: 3px;
     margin-right: 3px;
 }
-
-  .btn-lab{
+.btn-lab{
     color: #41b6a6;
     background: #ffffff;
-    width: 137%;   
+    width: 137%;
     margin-left: -10px;
     border: 1px solid #41b6a6;
     margin-bottom: -23px;
-    
-  }
-  li {
-    display: inline-block;
-    margin: 0 10px;
-  }
-  .LabsimagingTable table th{ 
-  
-    background: #41b6a6 !important;
 }
-.mat-header-cell {
+
+.LabsimagingTable{
+    width: 100%;
+    border: 1px solid #41b6a6;
+}
+.LabsimagingTable table th{
+    background: #41b6a6 !important;
+    font-size: 15px;
+}
+.LabsimagingTable table td{
+  background: white !important;
+  border-right: 1px solid #41b6a6;
+  border-bottom:none !important;
+
+}
+.LabsimagingTable  tr.table-row :hover {
+  background: #c3f1eb !important;
+}
+tr.mat-header-row {
+  height: 45px !important;
+}
+
+ .mat-header-cell {
     font-size: 13px;
     font-weight: 500;
     background: #41b6a6;
@@ -112,8 +229,6 @@
     text-align: center;
     border-bottom-color: #41b6a6;
 }
-
-
    .nav-tabs {
     border-bottom: 1px solid #ffffff !important;
 }
@@ -125,6 +240,21 @@
    }
    table{
      width: 100% !important;
+     border-bottom-color: #41b6a6 !important ;
+   }
+   table .table-th-FirstCell{
+    border-left: 1px solid #41b6a6 !important;
+   }
+   table .table-th-LastCell{
+    border-right: 1px solid #41b6a6 !important;
+   }
+   table tr td{
+    border-bottom-color: white;
+   }
+
+   .table-NoRecord{
+     background: White;
+
    }
    .form-control:focus {
     border-color: transparent !important;
@@ -133,16 +263,116 @@
     outline-color: transparent !important;
 }
 
-ul li button {
-  display: block !important;
-  color: #41b6a6 !important;
-  background: white !important;    
-  padding: 9px 15px 9px 13px !important;
-  border-left: 13px solid transparent !important;
-  transition: background-color 0.2s, color 0.1s, border-color 0.2s !important;
-  margin-bottom: -18px !important;
+.modal-content{
+  background: white;
+  border: 0px  solid white !important;
 }
-ul li.active button{   
-  background-color: #41b6a6 !important;
-  color: #fff !important;
- }
+.modal-dialog {
+  max-width: 800px;
+}
+
+.modal .modal-dialog .modal-content .modal-body {
+  padding: 1px 10px !important;
+}
+.table-row{
+    margin-top: -8px;
+    background: white;
+}
+@media (max-width: 425px) {
+  #modal-Lab-Oder .modal-dialog {
+    max-width: 100%;
+  }
+}
+
+.nav-tabs.styled {
+  border-bottom: 1px solid #41b6a6;
+}
+.nav-tabs {
+  border-bottom: 1px solid #ddd;
+}
+
+.nav-tabs.styled li {
+  border-radius: 3px 3px 0 0;
+  border: 1px solid #41b6a6;
+}
+.nav-tabs>li {
+  float: left;
+  margin-bottom: -1px;
+}
+.nav>li {
+  position: relative;
+  display: block;
+}
+
+.nav-tabs.styled li a {
+  margin-bottom: 1px;
+  margin-right: 0;
+  border-radius: 3px 3px 0 0;
+  padding: 8px 13px 5px 24px; 
+  border: 0;
+}
+
+.nav-tabs.styled li.active a {
+  background-color: #41b6a6;
+  color: #fff;
+  border-bottom: 0;
+}
+.nav-tabs.styled li a:focus, .nav-tabs.styled li a:hover, .nav-tabs.styled li a:active {
+  border: 0;
+  background-color: #41b6a6;
+  color: #fff;
+}
+
+.nav-tabs li a{
+  border: 0;
+  color: #41b6a6;
+  background-color: #fff;
+}
+.styled .nav-link.active{
+  background-color: #41b6a6;
+  color: #fff;
+}
+.styled .nav-link.active{
+  background-color: #41b6a6;
+  color: #fff;
+}
+
+.nav-tabs.styled li.active a {
+  background-color: #41b6a6;
+  color: #fff;
+}
+.nav-item{
+  width: 100px;
+  font-size: 20px;
+}
+.top-header {
+  background-color: #41b6a6;
+}
+.row {
+  border-bottom: none;
+  max-height: 100%;
+}
+.container-fluid {
+  width: 100%;
+  padding-left: 12.5px;
+  margin-top: 40px;
+}
+
+.top-block {
+  font-size: 16px !important;
+  color: white;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+@media (max-width:768px ) {
+  
+  .scrollable-mat-table{
+    overflow-y: scroll !important;
+  }
+  .LabsimagingTable{
+    width: 1000px !important;
+      } 
+}
+.table-responsive{
+  overflow-x: hidden !important;
+}

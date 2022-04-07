@@ -1,55 +1,12 @@
-.smartschedule-wrapper {
-  margin-top: -24px;
-}
-.smartschedule-wrapper .header {
-  margin-left: -12px;
-  margin-right: -17px;
-}
-.smartschedule-wrapper .header .categories-header {
-  min-height: 30px;
-  background: #f2f2f2;
-  padding: 0px 50px;
-}
-.smartschedule-wrapper .header .categories-header .categories-container {
-  padding-top: 4px;
-  padding-bottom: 4px;
-}
-ul {
-  margin-bottom: 0 !important;
-  margin-top: 0;
-}
-.smartschedule-wrapper .header .categories-header .categories li {
-  display: inline-block;
-}
-.smartschedule-wrapper .header .categories-header .categories li a {
-  color: #41b6a6;
-  font-family: "SF UI Text Regular";
-  font-size: 12px;
-  text-decoration: none;
-}
-.smartschedule-wrapper
-  .header
-  .categories-header
-  .categories
-  li
-  .category-arrow {
-  color: #41b6a6;
-  margin: 0 17px 0 23px;
-}
-.smartschedule-wrapper .header .categories-header .categories li a.active {
-  pointer-events: none;
-  cursor: default;
-  color: #fe8f00;
-}
-.smartschedule-wrapper .header .categories-header .categories li a {
-  font-family: "SF UI Text Regular";
-  font-size: 12px;
-}
+
 // content
 .smart-schedule-logo {
   border: 3px solid #00d1b2;
   height: 70px;
-  margin: 0;
+  margin-top: -24px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
 }
 .imgsmartlogo {
   float: left;
@@ -84,18 +41,18 @@ p {
   margin: 0 0 10px;
 }
 .buttons .button:not(:last-child) {
-  margin-right: 0.5rem;
+  margin-right: 0.3rem;
 }
 .buttons .button {
   align-items: center;
   border: 1px solid transparent;
   border-radius: 4px;
   font-size: 0.7rem;
-  line-height: 1.5;
-  padding-bottom: calc(0.375em - 1px);
-  padding-left: calc(0.625em - 1px);
-  padding-right: calc(0.625em - 1px);
-  padding-top: calc(0.375em - 1px);
+  line-height: 1.6;
+  //padding-bottom: calc(0.375em - 1px);
+  //padding-left: calc(0.625em - 1px);
+  //padding-right: calc(0.625em - 1px);
+  //padding-top: calc(0.375em - 1px);
 }
 .button.is-primary {
   background-color: #00d1b2;
@@ -107,14 +64,17 @@ p {
   .mat-form-field-outline {
   color: #41b6a6 !important;
   background-color: #fff;
-  // height: 2.1em;
-  // margin-top: -7px;
-  height: 2.5em;
-  margin-top: 10px;
+  height: 2em;
+  margin-top: 19px;
 }
 ::ng-deep .smart-schedule-dropdown .mat-select-arrow {
-  margin: 0px;
+  margin-top: 8px;
+  margin-right: 2px;
   color: #41b6a6;
+}
+::ng-deep .smart-schedule-dropdown .mat-select-trigger{
+  margin-top: 11px;
+  margin-right: 0px !important;
 }
 ::ng-deep
   .smart-schedule-dropdown
@@ -123,9 +83,9 @@ p {
   transform: translateY(0%);
 }
 div.smart-schedule-header {
-  // height: 3em;
-  padding: 0px;
-  margin-bottom: 0px;
+  height: 4.5em;
+  padding: 0px !important;
+  margin-bottom: 0px !important;
 }
 // accordion
 .mat-form-field + .mat-form-field {
@@ -410,6 +370,84 @@ fieldset {
 .appointment-form .modal {
   overflow: hidden;
 }
+
+.smart-schedule-header .appointment-filter-count-bar,
+.smart-schedule-header .appointment-filter-date-bar ,
+.smart-schedule-header .appointment-filter-dropdown-bar{
+  display: inline-block;
+  white-space: nowrap;
+  margin-right: 10px;
+  width:fit-content;
+}
+::ng-deep .smart-schedule-header .appointment-datestring-date-bar{
+  display: inline-block;
+  white-space: nowrap;
+  margin-right: 10px;
+  width: 180px !important;
+
+}
+
+.smartview-patient-search-result {
+  font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;
+  font-size: 1.1em;
+  border: 1px #41b6a6 solid;
+}
+
+.smartview-patient-search-result ul.ui-widget {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: block;
+  outline: none;
+  z-index: 100;
+  width:inherit;
+}
+
+.smartview-patient-search-result ul.ui-widget li.ui-menu-item{
+  position: relative;
+  margin: 0;
+  padding: 3px 1em 3px 0.4em;
+  cursor: pointer;
+  width: inherit;
+  list-style-image: url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7);
+}
+
+.smartview-patient-search-result ul.ui-widget li.ui-menu-item :hover{
+  border: 1px solid #fbcb09;
+	//background: #fdf5ce url("images/ui-bg_glass_100_fdf5ce_1x400.png") 50% 50% repeat-x;
+  background: #fdf5ce 50% 50% repeat-x;
+	font-weight: bold;
+	color: #c77405;
+}
+
+::ng-deep div#practiveProviders-panel.mat-select-panel{
+  //border-color: #41b6a6;
+  border-radius: 4px;
+  border: 1px solid #41b6a6;
+  position: fixed;
+  top: 20px;
+}
+::ng-deep div#practiveProviders-panel mat-option.mat-option{
+  //border-color: #41b6a6;
+
+  border: 1px solid white !important;
+
+}
+
+::ng-deep div#ePracticeProviders-panel.mat-select-panel{
+  //border-color: #41b6a6;
+  border-radius: 4px;
+  border: 1px solid #41b6a6;
+  position: fixed;
+  top: 29px;
+}
+::ng-deep div#ePracticeProviders-panel mat-option.mat-option{
+  //border-color: #41b6a6;
+
+  border: 1px solid white !important;
+
+}
+//style="display: inline-block; white-space: nowrap;"
 .modal .modal-dialog .modal-content .modal-footer {
   padding: 0px 31px;
   height: 70px;

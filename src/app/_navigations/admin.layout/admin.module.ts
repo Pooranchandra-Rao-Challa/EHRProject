@@ -27,6 +27,10 @@ import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { DateTimePickerModule } from "@syncfusion/ej2-angular-calendars";
 import { ScheduleModule,DayService, WeekService} from '@syncfusion/ej2-angular-schedule';
 import { ProviderlistComponent } from 'src/app/admin/providerlist.component';
+import { DashboardComponent } from 'src/app/admin/dashboard/dashboard.component';
+
+
+
 
 @NgModule({
   exports: [
@@ -36,7 +40,8 @@ import { ProviderlistComponent } from 'src/app/admin/providerlist.component';
     AdminSidebarComponent,
     AdminNavbarComponent,
     AdminComponent,
-    ProviderlistComponent
+    ProviderlistComponent,
+    DashboardComponent
   ],
   imports: [
     AdminRoutingModule,

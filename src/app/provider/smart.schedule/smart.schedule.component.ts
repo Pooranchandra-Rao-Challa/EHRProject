@@ -11,7 +11,8 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { TimelineMonthService } from '@syncfusion/ej2-angular-schedule';
 import { Observable, Subject, of } from 'rxjs';
 import { debounceTime, switchMap, distinctUntilChanged, tap } from 'rxjs/operators';
-import { PatientSearchResults, SearchPatient } from 'src/app/_models/smar.scheduler.data';
+import { PatientSearchResults, SearchPatient, ScheduledAppointment } from 'src/app/_models/smar.scheduler.data';
+import { Console } from 'console';
 
 @Component({
   selector: 'app-smart.schedule',
@@ -19,7 +20,7 @@ import { PatientSearchResults, SearchPatient } from 'src/app/_models/smar.schedu
   styleUrls: ['./smart.schedule.component.scss']
 })
 export class SmartScheduleComponent implements OnInit {
-  selectedAppointmentDate: any;
+  selectedAppointmentDate: Date;
   selectedWeekday: any;
   appointment: string = "none";
   existingappointment: string = "none";
@@ -35,6 +36,10 @@ export class SmartScheduleComponent implements OnInit {
   addressMessage: string;
   ValidAddressForUse: string;
   PracticeProviders: PracticeProviders[];
+  Appointments: ScheduledAppointment[];
+  NoofAppointment: Number;
+  SelectedProviderId: string;
+  psw: boolean;
 
   //Auto Search Paramters
   public patients: PatientSearchResults[];
@@ -48,14 +53,14 @@ export class SmartScheduleComponent implements OnInit {
     private authService: AuthenticationService,
     private utilityService: UtilityService,
     private smartSchedulerService: SmartSchedulerService) {
-
+    this.SelectedProviderId = authService.userValue.ProviderId;
     this.PhonePattern = {
       0: {
         pattern: new RegExp('\\d'),
         symbol: 'X',
       },
     };
-    let date = new Date();
+
     this.PatientData = {
       PatinetHasNoEmail: false
     }
@@ -67,22 +72,41 @@ export class SmartScheduleComponent implements OnInit {
         this.smartSchedulerService
           .SearchPatients({ ProviderId: this.authService.userValue.ProviderId, SearchTerm: term })
           .subscribe(resp => {
-            console.log(resp.IsSuccess);
             if (resp.IsSuccess) {
-              console.log(JSON.stringify(resp.ListResult));
               this.patients = resp.ListResult; this.flag = true;
-              console.log(this.patients);
-            } else { this.flag = false; }
+              this.psw = true;
+            } else { this.flag = false; this.psw = false;}
           })
       );
+    this.loadDefaults();
   }
 
   loadDefaults() {
-    let req = { "clinicId": this.authService.userValue.ClinicId };
+    let req = { "ClinicId": this.authService.userValue.ClinicId };
     this.smartSchedulerService.PracticeProviders(req).subscribe(resp => {
       if (resp.IsSuccess) {
-        this.PracticeProviders = resp.Result as PracticeProviders[];
+        this.PracticeProviders = resp.ListResult as PracticeProviders[];
       }
+    });
+    this.filterAppointments();
+  }
+
+  filterAppointments() {
+    let req = {
+      "ClinicId": this.authService.userValue.ClinicId,
+      "ProviderId": this.authService.userValue.ProviderId,
+      "LocationId": this.authService.userValue.CurrentLocation,
+      "AppointmentDate": this.selectedAppointmentDate
+    };
+
+    this.smartSchedulerService.ActiveAppointments(req).subscribe(resp => {
+      if (resp.IsSuccess) {
+
+        this.Appointments = resp.ListResult as ScheduledAppointment[];
+        this.NoofAppointment = this.Appointments.length;
+        console.log(this.NoofAppointment);
+      } else this.NoofAppointment = 0;
+      console.log(this.NoofAppointment);
     });
   }
 
@@ -125,11 +149,6 @@ export class SmartScheduleComponent implements OnInit {
 
   selectedCalendarDate(event) {
     this.selectedAppointmentDate = event.value;
-    this.selectedAppointmentDate = formatDate(
-      this.selectedAppointmentDate,
-      "MM ddd yyyy",
-      "en-US"
-    );
     this.selectedWeekday = event.value.toLocaleString('en-us', { weekday: 'long' });
   }
 
@@ -148,9 +167,18 @@ export class SmartScheduleComponent implements OnInit {
     }
     return null;
   }
+
+  DateUpDown(direction: string) {
+    if (direction == "moveup")
+      this.selectedAppointmentDate.setDate(this.selectedAppointmentDate.getDate() + 1)
+    else
+      this.selectedAppointmentDate.setDate(this.selectedAppointmentDate.getDate() - 1)
+
+    this.selectedWeekday = this.selectedAppointmentDate.toLocaleString('en-us', { weekday: 'long' });
+    this.filterAppointments();
+  }
   UpdatePatient() {
     console.log(JSON.stringify(this.PatientData));
-
     this.utilityService.CreateNewPatient(this.PatientData).subscribe(resp => {
       if (resp.IsSuccess) {
 

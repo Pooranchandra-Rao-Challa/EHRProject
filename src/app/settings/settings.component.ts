@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../_services/authentication.service';
 import { User } from '../_models';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 
 
 @Component({
@@ -16,7 +16,8 @@ export class SettingsComponent implements OnInit {
   view: string;
   constructor(
     private authService: AuthenticationService,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private router:Router) {
     this.user = this.authService.userValue;
     /*this.locationsubscription = this.locationSelectService.getData().subscribe(locationId => {
         console.log("From Header:"+locationId);
@@ -35,6 +36,73 @@ export class SettingsComponent implements OnInit {
       }
       );
   }
+  onChangePractice(name,url){
+     this.router.navigate(
+       [url],
+       {queryParams:{name:name,view:'practice'}}
+     );
+  }
+  onChangeSchedule(name,url){   
+   debugger;
+      this.router.navigate(
+        [url],
+        { queryParams: { name: name,view:'schedule'  } }
+      );   
+  }
+  onChangeAccessPermission(name,url){
+    this.router.navigate(
+      [url],
+      {queryParams:{name:name,view:'accesspermission'}}
+    );
+  }
+  onChangePatient(name,url){
+    this.router.navigate(
+      [url],
+      {queryParams:{name:name,view:'patient'}}
+    );
+  }
+  onChangeMessages(name,url){
+    this.router.navigate(
+      [url],
+      {queryParams:{name:name,view:'message'}}
+    );
+  }
+  onChangeeRx(name,url){
+    this.router.navigate(
+      [url],
+      {queryParams:{name:name,view:'erx'}}
+    );
+  }
+  onChangelabmapping(name,url){
+    this.router.navigate(
+      [url],
+      {queryParams:{name:name,view:'labmapping'}}
+    );
+  }
+  onChangeReports(name,url)
+  {
+    this.router.navigate(
+      [url],
+      {queryParams:{name:name,view:'reports'}}
+    );
+  }
 
-
+  onChangeClinicDecision(name,url){
+    this.router.navigate(
+      [url],
+      {queryParams:{name:name,view:'clinicdecision'}}
+    );
+  }
+  onChangePatientednmaterial(name,url){
+    this.router.navigate(
+      [url],
+      {queryParams:{name:name,view:'patientednmaterial'}}
+    );
+  }
+  onChangeAuditlog(name,url){
+    this.router.navigate(
+      [url],
+      {queryParams:{name:name,view:'auditlog'}}
+    );
+  }
 }

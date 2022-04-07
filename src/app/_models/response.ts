@@ -3,6 +3,7 @@ export class ResponseData {
   EndUserMessage!: string;
   Exception!: string;
   IsSuccess!: boolean;
+  ShowExceptionMessage!: boolean;
   Result!: {};
   Results!: {};
  }

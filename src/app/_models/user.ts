@@ -13,6 +13,7 @@ export interface User {
   JwtToken: string;
   TimeZone: string;
   LocationInfo: string;
+  BusinessName: string;
   IsSuccess: boolean;
 
 }

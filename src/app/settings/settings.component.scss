@@ -1,13 +1,15 @@
+@import "../../assets/cstm.material.scss";
+
 .panel-title {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background-color: #41b6a6;
   color: white;
   border: #41b6a6;
-  min-height: 60px;
+  min-height: 50px;
   text-align: 10px;
-  margin-top: -1px;
-  padding: 10px 0px;
-  font-size: 18px;
+  //margin-top: -1px;
+  padding: 14px 20px; // schedule panel
+  font-size: 15px;
 }
 .ptitle {
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -30,10 +32,19 @@
   background-color: white;
   color: #41b6a6;
   border: #41b6a6;
-  min-height: 70px;
+  height: 100%;
   text-align: left;
-  margin-top: -1px;
+  margin-top: -4px;
   font-size: 25px;
+}
+.schedule-right-block{
+  padding-left: 10px;
+  padding-right: 20px;
+}
+@media (max-width: 768px){
+  .schedule-right-block{
+    padding: 0px 20px;
+  }
 }
 // .colA {
 //   min-height: 875px;
@@ -43,7 +54,7 @@
   min-height: 1500px;
 }
 .colF {
-  min-height: 2500px;
+  min-height: 1120px;
 }
 .btnSave {
   width: 167px;
@@ -71,13 +82,24 @@
   background-color: white;
   font-size: 16px !important;
   white-space: nowrap;
+  //width: 165px;
   height: 45px;
+  border-color: #41b6a6;
 }
 .btn-success:hover {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   color: white;
   background-color: #41b6a6;
   border-color: #41b6a6;
+}
+#general.btn-success{
+  width: 165px !important;
+}
+#providerrooms.btn-success{
+  min-width: 80px;
+}
+.btn:focus{
+  box-shadow: none !important;
 }
 .btn-danger {
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -119,9 +141,38 @@ div.ex3 {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   margin: 30px;
 }
-.praset1 {
-  margin-left: 50px;
-  padding: 40px;
+.provider-rooms {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  margin: 20px;
+  border: 1px solid #41b6a6;
+}
+.general-content .schedule-section p.plabel{
+  font-size: 16px;
+  color: #4A4A4A;
+  margin-bottom: 0;
+}
+.schedule-section {
+  //padding: 20px 50px;
+  padding-left: 50px;
+    padding-right: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+@media (max-width: 1440px) {
+  .schedule-section{
+    padding: 20px 20px;
+  }
+}
+@media (width: 1440px) {
+  .schedule-section .cstm-location-section{
+    width: 525px;
+  }
+  .schedule-section .cstm-room-section{
+    width: 600px;
+  }
+  .schedule-section .cstm-loc-dropdown{
+    width: 250px !important;
+  }
 }
 
 .plusicon {
@@ -130,14 +181,13 @@ div.ex3 {
   background: white;
   height: 100%;
 }
-.fa-plus {
+
+.plusicon .fa-plus {
   color: #41b6a6;
   text-align: center;
-  padding: 9px 29px;
+  padding: 9px 20px;
 }
-.fa-plus:hover {
-  color: white;
-}
+
 .plusicon:hover {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   color: white;
@@ -145,6 +195,10 @@ div.ex3 {
   background-color: #41b6a6;
   border-color: white;
   border: 1px solid white;
+}
+
+.plusicon:hover i.fa-plus {
+  color: white;
 }
 .mat-header-cell {
   font-size: 18px !important;
@@ -159,7 +213,9 @@ div.ex3 {
   background-color: #41b6a6;
   border-bottom: none;
   min-height: 50px;
-  max-height: 70px;
+  max-height: 50px;
+  margin-top: -1px;
+  margin-left: -1px;
 }
 .row-heading {
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -181,6 +237,7 @@ div.ex3 {
 }
 .inputclass {
   border-radius: 4px;
+  border: 1px solid #ebebeb;
   padding: 0px 10px;
   height: 45px;
   color: #525358;
@@ -189,6 +246,24 @@ div.ex3 {
 }
 .inputclass:hover {
   border: 1px solid #41b6a6;
+}
+.schedule-inputclass {
+  background-color: #fff;
+  border: 1px solid #fff;
+  cursor: not-allowed !important;
+  border-radius: 4px;
+  padding: 0px 10px;
+  height: 45px;
+  font-size: 15px;
+}
+.schedule-inputclass:hover {
+  background-color: #fff;
+  border: 1px solid #d6d8df;
+  cursor: not-allowed !important;
+  border-radius: 4px;
+  padding: 0px 10px;
+  height: 45px;
+  font-size: 15px;
 }
 
 .form-group .input-group .input-group-addon {
@@ -230,7 +305,7 @@ hr {
 }
 .mat-cell,
 .mat-footer-cell {
-  font-size: 19px !important;
+  font-size: 16px !important;
 }
 .mat-header-row {
   background: #ebeced !important;
@@ -241,38 +316,35 @@ hr {
   border: 1px solid #2faa9a;
 }
 .plabel {
-  color: black;
-  background-color: white;
-  font-size: 18px;
+  color: #4a4a4a;
+  //background-color: white;
+  font-size: 15px; // schedule screen location
 }
-.dropdown {
-  min-width: 500px;
-}
+// .dropdown {
+//   min-width: 500px;
+// }
 .modal-content {
   border: 1px solid rgb(65 182 166) !important;
 }
 
-.RomeCard {
+.room-card {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background-color: #41b6a6;
   color: white;
   border: #41b6a6;
-  height: 60px;
-  text-align: 10px;
-  margin-top: -1px;
-  padding: 12px;
-  padding-bottom: 19px;
-  font-size: 18px;
+  min-height: 50px;
+  font-size: 15px;
 }
 #Actbtn {
-  font-size: 18px;
-  width: 200px;
+  font-size: 16px;
+  min-width: 100px;
+  width: 100%;
 }
-.Roomp {
-  padding-top: 27px;
-  margin-left: 25px;
-  font-size: 20px;
-}
+// .Roomp {
+//   padding-top: 27px;
+//   margin-left: 25px;
+//   font-size: 20px;
+// }
 
 .customCheck1 {
   padding: 20px;
@@ -376,8 +448,21 @@ input[type="checkbox"] {
 .appointment {
   font-size: 20px;
 }
-.colE {
-  height: 500px;
+.appointment-form {
+  min-height: 150px;
+  border: 1px solid #41b6a6;
+}
+@media (max-width: 590px) {
+  .appointment-form{
+    width: 680px;
+  }
+  .cstm-appointment-status{
+    overflow-x: auto;
+  }
+  .cstm-appointment-type{
+    overflow-x: auto;
+  }
+
 }
 
 .manuallbtn {
@@ -428,13 +513,6 @@ h6 {
 .table-border {
   height: 100%;
 }
-.Sechudle {
-  min-height: 3000px;
-}
-.Sechudle .border {
-  min-height: 300px;
-  border: 1px solid #2faa9a !important;
-}
 td.mat-cell,
 td.mat-footer-cell {
   border-bottom-color: rgb(65 182 166);
@@ -472,9 +550,9 @@ td.mat-footer-cell {
   color: #808387;
   font-size: 19px;
 }
-.mat-form-field-flex {
-  background: #f5bdbd;
-}
+// .mat-form-field-flex {
+//   background: #f5bdbd;
+// }
 
 input.mat-input-element {
   color: #524f4f !important;
@@ -485,10 +563,11 @@ input.mat-input-element {
 }
 
 .privdertext {
-  font-size: 18px;
+  font-size: 16px;
 }
 .border {
   border: 1px solid #41b6a6 !important;
+  border-radius: 3px;
 }
 // sweetalert
 ::ng-deep .swal2-styled.swal2-confirm {
@@ -546,10 +625,15 @@ input.mat-input-element {
 ul.menuclass li a {
   display: block !important;
   color: #41b6a6 !important;
-  font-size: 20px !important;
+  font-size: 16px !important;
   padding: 15px 20px 14px 7px !important;
   border-left: 13px solid transparent !important;
   transition: background-color 0.2s, color 0.1s, border-color 0.2s !important;
+}
+ul.menuclass li a:hover {
+  border-color: #fe8f00 !important;
+  background-color: #41b6a6 !important;
+  color: #fff !important;
 }
 ul.menuclass li.active a {
   border-color: #fe8f00 !important;
@@ -567,11 +651,12 @@ ul.menuclass li.active a {
 .fieldbgcolor {
   background-color: red !important;
 }
-.labelfontzise {
-  font-size: 17px;
+.settings-label {
+  font-size: 14px;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
   display: inline-block;
   max-width: 100%;
-  margin-bottom: 5px;
+  margin-bottom: 2px;
   font-weight: 700;
   color: #585656;
 }
@@ -605,6 +690,7 @@ ul.menuclass li.active a {
   max-width: 38px;
   max-height: 27px;
   padding: 3px;
+  margin-right: -7px;
 }
 .ClosebtnAddForm:hover {
   background: #55d1c1;
@@ -749,12 +835,12 @@ ul.menuclass li.active a {
   border-top: none;
 }
 
-@media screen and (min-device-width: 320px) and (max-device-width: 768px) {
-  .timedropdown.mat-form-field-appearance-outline .mat-form-field-outline {
-    min-width: 133px;
-    margin-left: 5px;
-  }
-}
+// @media screen and (min-device-width: 320px) and (max-device-width: 768px) {
+//   .timedropdown.mat-form-field-appearance-outline .mat-form-field-outline {
+//     min-width: 133px;
+//     margin-left: 5px;
+//   }
+// }
 @media (max-width: 768px) {
   .addbtn {
     margin-right: 154px;
@@ -804,43 +890,126 @@ ul.menuclass li.active a {
 }
 // border-radius for mat-from-field
 
-.mat-form-field-appearance-outline .mat-form-field-outline-start {
-  border-radius: 2px 0 0 2px !important;
-  border-right-style: none;
-}
-.mat-form-field-appearance-outline .mat-form-field-outline-end {
-  border-radius: 2px 0 0 2px !important;
-  border-right-style: none;
-}
-.readonly.mat-form-field
-  .mat-form-field-appearance-outline
-  .mat-form-field-outline-thick {
-  color: #41b6a6 !important;
-}
+// .mat-form-field-appearance-outline .mat-form-field-outline-start {
+//   border-radius: 2px 0 0 2px !important;
+//   border-right-style: none;
+// }
+// .mat-form-field-appearance-outline .mat-form-field-outline-end {
+//   border-radius: 2px 0 0 2px !important;
+//   border-right-style: none;
+// }
+// .readonly.mat-form-field
+//   .mat-form-field-appearance-outline
+//   .mat-form-field-outline-thick {
+//   color: #41b6a6 !important;
+// }
 //mat-input focused color
-::ng-deep
-  .mat-form-field-appearance-outline.mat-focused
-  .mat-form-field-outline-thick {
-  color: hsl(172, 47%, 48%) !important;
-}
-.mat-form-field-appearance-outline:not(.mat-form-field-disabled)
-  .mat-form-field-flex:hover
-  .mat-form-field-outline-thick {
-  opacity: 1;
-  color: hsl(172, 47%, 48%) !important;
-}
+// ::ng-deep
+//   .mat-form-field-appearance-outline.mat-focused
+//   .mat-form-field-outline-thick {
+//   color: hsl(172, 47%, 48%) !important;
+// }
+// .mat-form-field-appearance-outline:not(.mat-form-field-disabled)
+//   .mat-form-field-flex:hover
+//   .mat-form-field-outline-thick {
+//   opacity: 1;
+//   color: hsl(172, 47%, 48%) !important;
+// }
 // Mat dropdown bottom-padding
-.mat-form-field-appearance-outline .mat-form-field-wrapper {
-  padding-bottom: 5px !important;
-}
+// .mat-form-field-appearance-outline .mat-form-field-wrapper {
+//   padding-bottom: 5px !important;
+// }
 // Mat form field custom font-size
-mat-form-field.mat-form-field {
-  font-size: 18px !important;
-}
+// mat-form-field.mat-form-field {
+//   font-size: 18px !important;
+// }
 // Mat form width
-mat-form-field.mat-form-field {
-  width: 100% !important;
-}
+// mat-form-field.mat-form-field {
+//   width: 100% !important;
+// }
 .main-info .row {
   padding-bottom: 20px;
+}
+.schedule-plusicon {
+  border-radius: 5%;
+  border: 1px solid #fff;
+  background: #fff;
+  width: 80px;
+  height: 30px;
+  text-align: center;
+}
+.schedule-plusicon:hover {
+  background-color: #41b6a6;
+  .fa-plus {
+    color: #fff;
+  }
+}
+.schedule-plusicon .fa-plus {
+  padding: 2px;
+  color: #41b6a6;
+  font-size: 24px;
+}
+
+.cstm-border-bottom {
+  margin-bottom: 10px;
+  border-bottom: 1px solid #41b6a6;
+}
+.cstm-padding{
+  padding-left: 38px;
+  padding-bottom: 10px;
+}
+.cstm-border-bottom-appointment{
+  padding-bottom: 10px;
+  padding-left: 60px;
+  border-bottom: 1px solid #41b6a6;
+}
+@media (max-width: 767px){
+  .cstm-padding {
+    padding-left: 10px;
+    padding-bottom: 10px;
+  }}
+.form-control.time {
+  border: 1px solid #dedede;
+  background-color: #f5f5f5;
+  cursor: text !important;
+  width: 120px;
+  height: 45px;
+  border-radius: 3px;
+}
+.form-control.time:hover{
+  border: 1px solid #41b6a6;
+}
+@media (max-width: 1440px) {
+  .provider-rooms {
+    width: 1085px;
+  }
+  .scrollable-provider-rooms {
+    overflow-x: auto;
+  }
+}
+// @media (min-width: 1700px) {
+//   .schedule-section .cstm-location-section{
+//     width: 990px;
+//   }
+//   .schedule-section .cstm-room-section{
+//     width: 500px;
+//   }
+//   .schedule-section .cstm-loc-dropdown{
+//     width: 300px !important;
+//   }
+// }
+::ng-deep .color-picker{
+    height: 270px !important;
+    margin-top: -26px !important;
+    top: initial !important;
+    left: initial !important;
+}
+.cstm-color-picker{
+  width: 25px;
+  height: 25px;
+  border: 0;
+  margin-top: 20px;
+  background: url(../../assets/images/color-picker.png) 100%
+    100% no-repeat;
+  background-position: -80px 0;
 }
