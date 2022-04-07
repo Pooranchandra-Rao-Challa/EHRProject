@@ -1,0 +1,87 @@
+<ul class="nav">
+    <li><a>Home</a></li>
+    <li><i class="fa fa-angle-right anchorStyle"></i></li>
+    <li><a>Providers</a></li>
+</ul>
+
+<div class="row check-provid mb-2 mt-5 ">
+    <div class="col-md-3">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+            <label class="form-check-label " for="flexCheckDefault">Active Providers</label>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-check">
+            <input class="form-check-input " type="checkbox" value="" id="flexCheckDefault1" />
+            <label class="form-check-label " for="flexCheckDefault1">Inactive Providers</label>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2" />
+            <label class="form-check-label" for="flexCheckDefault2">Paid Providers</label>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3" />
+            <label class="form-check-label" for="flexCheckDefault3">Trial Providers</label>
+        </div>
+    </div>
+</div>
+
+
+<div class="border-input ">
+    <div class="contain">
+
+        <div class="row mt-4">
+            <div class="col-lg-8 col-md-7 col-12 fw-bolder">
+                <h4 class="fw-bolder">PROVIDERS</h4>
+            </div>
+            <div class="example col-lg-4 col-md-5 col-12 ">
+                <input type="text" placeholder="Search Providers" name="search">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </div>
+        </div>
+        <hr>
+        <div class="table-responsive">
+            <table class="table mt-4">
+                <thead>
+                    <tr class="table-heaer">
+                        <th scope="row">Name</th>
+                        <th scope="row">Email</th>
+                        <th scope="row">Phone</th>
+                        <th scope="row" width="20%">Address</th>
+                        <th scope="row">Status</th>
+                        <th scope="row">Cqm</th>
+                        <th scope="row"></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr *ngFor="let item of data | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+                        <td class="tbl-col">{{item.Name}}
+                            <div class="row">
+                                <button class="btn-log">Login</button>
+                            </div>
+                        </td>
+                        <td>{{item.Email}}</td>
+                        <td>{{item.Phone}}</td>
+                        <td>{{item.Address}}</td>
+                        <td class="column">{{item.Status}}</td>
+                        <td class="column"><button class="btn-lock">User Agent Export</button></td>
+                        <td><button class="btn-lock">Lock</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-end mt-4">
+            <ngb-pagination [pageSize]="5" [collectionSize]="10" [(page)]="page" aria-label="Default pagination">
+            </ngb-pagination>
+        </ul>
+    </nav>
+    <!-- <ngb-pagination [collectionSize]="totalItems" [pageSize]="itemsPerPage" [(page)]="page" [maxSize]="7" [rotate]="true" (pageChange)="loadPage($event)"></ngb-pagination> -->
+</div>
