@@ -191,6 +191,18 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "ActiveAppointments";
   }
 
+  get _roomsForLocationUrl(){
+    return this._baseUrl + "RoomsForLocation";
+  }
+
+  get _availableTimeSlotsUrl(){
+    return this._baseUrl + "AvailableTimeSlots";
+  }
+
+  get _createAppointmentUrl(){
+    return this._baseUrl + "CreateAppointment";
+  }
+
   constructor(public http: HttpClient) {
     super();
   }

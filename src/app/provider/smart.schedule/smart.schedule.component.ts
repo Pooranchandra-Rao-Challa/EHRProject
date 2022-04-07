@@ -1,19 +1,23 @@
+
 import { UtilityService } from './../../_services/utiltiy.service';
-import { Pipe } from '@angular/core';
-import { formatDate } from '@angular/common';
-import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, Input, EventEmitter, ElementRef } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { NewPatient } from '../../_models/newPatient';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { SmartSchedulerService } from '../../_services/smart.scheduler.service';
 import { PracticeProviders } from '../../_models/practiceProviders';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { TimelineMonthService } from '@syncfusion/ej2-angular-schedule';
+import { MatSelectionListChange } from '@angular/material/list'
+
 import { Observable, Subject, of } from 'rxjs';
 import { debounceTime, switchMap, distinctUntilChanged, tap } from 'rxjs/operators';
-import { PatientSearchResults, SearchPatient, ScheduledAppointment } from 'src/app/_models/smar.scheduler.data';
-import { Console } from 'console';
-
+import {
+  PatientSearchResults, SearchPatient,
+  ScheduledAppointment, AppointmentTypes, NewAppointment,
+  UserLocations, Room, AvailableTimeSlot
+} from 'src/app/_models/smar.scheduler.data';
+declare const CloseAppointment: any;
+declare const OpenSaveSuccessAppointment: any;
+declare const CloseSaveSuccessAppointment: any;
 @Component({
   selector: 'app-smart.schedule',
   templateUrl: './smart.schedule.component.html',
@@ -39,8 +43,18 @@ export class SmartScheduleComponent implements OnInit {
   Appointments: ScheduledAppointment[];
   NoofAppointment: Number;
   SelectedProviderId: string;
-  psw: boolean;
-
+  SelectedLocationId: string;
+  psw: {};
+  AppointmentTypes: AppointmentTypes[]
+  PatientAppointment: NewAppointment;
+  AppointmentsOfPatient: NewAppointment[];
+  Locations: UserLocations[];
+  Rooms: Room[];
+  AvaliableTimeSlots: AvailableTimeSlot[]
+  messageToShowTimeSlots: string;
+  PeriodsOfTimeSlots: {};
+  SaveInputDisable: boolean;
+  OperationMessage: string;
   //Auto Search Paramters
   public patients: PatientSearchResults[];
   private patientSearchTerms = new Subject<string>();
@@ -53,7 +67,12 @@ export class SmartScheduleComponent implements OnInit {
     private authService: AuthenticationService,
     private utilityService: UtilityService,
     private smartSchedulerService: SmartSchedulerService) {
+
+
+    this.SaveInputDisable = false;
     this.SelectedProviderId = authService.userValue.ProviderId;
+    this.SelectedLocationId = authService.userValue.CurrentLocation;
+    this.Locations = JSON.parse(this.authService.userValue.LocationInfo);
     this.PhonePattern = {
       0: {
         pattern: new RegExp('\\d'),
@@ -74,8 +93,20 @@ export class SmartScheduleComponent implements OnInit {
           .subscribe(resp => {
             if (resp.IsSuccess) {
               this.patients = resp.ListResult; this.flag = true;
-              this.psw = true;
-            } else { this.flag = false; this.psw = false;}
+              let currentHeight = 550;
+              if (this.patients.length * 31.5 < 550)
+                currentHeight = this.patients.length * 31.5;
+              this.psw = {
+                'border-radius.px': '4',
+                'top.px': (currentHeight + 4) * -1,
+                'position': 'absolute',
+                'height.px': currentHeight + 4,
+                'overflow-y': 'auto',
+                'background': 'white',
+                'width': 'inherit',
+                'border': '1px #41b6a6 solid'
+              };
+            } else { this.flag = false; this.psw = {}; }
           })
       );
     this.loadDefaults();
@@ -88,9 +119,26 @@ export class SmartScheduleComponent implements OnInit {
         this.PracticeProviders = resp.ListResult as PracticeProviders[];
       }
     });
+    let preq = { "ProviderId": this.SelectedProviderId };
+    this.smartSchedulerService.AppointmentTypes(preq).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.AppointmentTypes = resp.ListResult as AppointmentTypes[];
+      }
+    });
+
+    let lreq = { "LocationId": this.SelectedLocationId };
+    this.smartSchedulerService.RoomsForLocation(lreq).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.Rooms = resp.ListResult as Room[];
+      }
+    });
+
+
     this.filterAppointments();
   }
-
+  onTimeSlotChanged(change: MatSelectionListChange) {
+    console.log(change);
+  }
   filterAppointments() {
     let req = {
       "ClinicId": this.authService.userValue.ClinicId,
@@ -101,29 +149,130 @@ export class SmartScheduleComponent implements OnInit {
 
     this.smartSchedulerService.ActiveAppointments(req).subscribe(resp => {
       if (resp.IsSuccess) {
-
         this.Appointments = resp.ListResult as ScheduledAppointment[];
         this.NoofAppointment = this.Appointments.length;
-        console.log(this.NoofAppointment);
       } else this.NoofAppointment = 0;
-      console.log(this.NoofAppointment);
+
     });
+  }
+
+  LoadAvailableTimeSlots() {
+    let ats = {
+      "LocationId": this.PatientAppointment.LocationId,
+      "RoomId": this.PatientAppointment.RoomId,
+      "Duration": this.PatientAppointment.Duration,
+      "RequestDate": this.PatientAppointment.Startat,
+      "AppointmentId": this.PatientAppointment.AppointmentId
+    };
+    this.smartSchedulerService.AvailableTimeSlots(ats).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.AvaliableTimeSlots = resp.ListResult as AvailableTimeSlot[];
+        this.AvaliableTimeSlots.forEach(obj => {
+          if(obj.Selected)
+          this.PatientAppointment.TimeSlot =  obj;
+        });
+      console.log(this.PatientAppointment.TimeSlot);
+        this.messageToShowTimeSlots = null;
+      }
+      else {
+        this.messageToShowTimeSlots = "There are no available time slots that match your request. Please try selecting a different date, time, or duration."
+      }
+    });
+
+  }
+
+  onTimeSlotSelect(slot) {
+    this.PatientAppointment.TimeSlot = slot
+  }
+  calculateClasses() {
+    return "ui-widget";
   }
 
   searchPatient(term: string): void {
     this.flag = true;
     this.patientSearchTerms.next(term);
   }
-  onselectPatient(PatientObj) {
-    if (PatientObj.PatientId != 0) {
-      this.selectedPatient = PatientObj;
-      this.flag = false;
+  onSelectPatient(PatientObj) {
+    this.flag = false;
+    this.selectedPatient = PatientObj as PatientSearchResults;
+    if(this.selectedPatient.NumberOfAppointments == 0){
+      this.ClearPatientAppointment();
+      this.PatientAppointment.AppointmentId = this.selectedPatient.AppointmentId;
+      this.PatientAppointment.PatientId = this.selectedPatient.PatientId;
+      this.PatientAppointment.PatientName = this.selectedPatient.Name;
+      this.PatientAppointment.LocationId = this.authService.userValue.CurrentLocation;
+      this.PatientAppointment.ProviderId = this.authService.userValue.ProviderId;
+      this.PatientAppointment.ClinicId = this.authService.userValue.ClinicId;
+      this.PatientAppointment.Duration = 30;
     }
-    else {
-      return false;
-    }
+    else this.PatientAppointments(this.selectedPatient)
   }
 
+  onSelectNewAppointmentofPatientFromEditAppointments() {
+    this.flag = false;
+    this.ClearPatientAppointment();
+    this.PatientAppointment.AppointmentId = this.selectedPatient.AppointmentId;
+    this.PatientAppointment.PatientId = this.selectedPatient.PatientId;
+    this.PatientAppointment.PatientName = this.selectedPatient.Name;
+    this.PatientAppointment.LocationId = this.authService.userValue.CurrentLocation;
+    this.PatientAppointment.ProviderId = this.authService.userValue.ProviderId;
+    this.PatientAppointment.ClinicId = this.authService.userValue.ClinicId;
+    this.PatientAppointment.Duration = 30;
+    this.PatientAppointment.Startat = new Date();
+  }
+
+  ClearPatientAppointment() {
+    this.PatientAppointment = {};
+    this.ClearTimeSlots();
+    this.SaveInputDisable = false;
+
+  }
+
+
+
+  PatientAppointments(PatientObj){
+    let req = {
+      "PatientId": PatientObj.PatientId
+    };
+
+    this.smartSchedulerService.ActiveAppointments(req).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.AppointmentsOfPatient = resp.ListResult as ScheduledAppointment[];
+        //console.log(this.AppointmentsOfPatient);
+      }
+
+    });
+  }
+
+  DiabledAppointmentSave() {
+    return !(this.PatientAppointment.Duration != null
+      && this.PatientAppointment.LocationId != null
+      && this.PatientAppointment.TimeSlot != null
+      && this.PatientAppointment.AppointmentTypeId != null
+      && this.PatientAppointment.RoomId != null
+      && this.PatientAppointment.Startat != null) || this.SaveInputDisable
+    //console.log(retfalg);
+  }
+  onAppointmentSave() {
+    this.PatientAppointment.AppointmentTime = this.PatientAppointment.TimeSlot.StartDateTime;
+    console.log(JSON.stringify(this.PatientAppointment));
+    this.SaveInputDisable = true;
+    this.smartSchedulerService.CreateAppointment(this.PatientAppointment).subscribe(resp => {
+      if (resp.IsSuccess) {
+        CloseAppointment();
+        this.OperationMessage = resp.EndUserMessage;
+        OpenSaveSuccessAppointment();
+      }
+      else {
+        this.SaveInputDisable = false;
+        this.OperationMessage = "Appointment is not saved"
+      }
+    });
+  }
+
+  onSuccessCloseMessageBox(){
+    CloseSaveSuccessAppointment();
+  }
   buildPatientForm() {
     this.NewPatientForm = this.fb.group({
       FirstName: ['', Validators.required],
@@ -142,18 +291,42 @@ export class SmartScheduleComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildPatientForm();
+    this.PatientAppointment = {};
+    this.PatientAppointment.ProviderId = this.authService.userValue.ProviderId;
+    this.PatientAppointment.LocationId = this.authService.userValue.CurrentLocation;
+    this.PatientAppointment.Duration = 30;
     this.selectedAppointmentDate = new Date();
     this.selectedWeekday = this.selectedAppointmentDate.toLocaleString('en-us', { weekday: 'long' });
-    this.availableTimeSlots = ["08:00 am - 08:30 am", "08:30 am - 09:00 am", "09:00 am - 09:30 am", "09:30 am - 10:00 am", "10:00 am - 10:30 am"];
-  }
+    this.PeriodsOfTimeSlots = [
+      { Text: '15 min', Value: 15 },
+      { Text: "30 min", Value: 30 },
+      { Text: "45 min", Value: 45 },
+      { Text: "1 hour", Value: 60 },
+      { Text: "1 hour 15 min", Value: 75 },
+      { Text: "1 hour 30 min", Value: 90 },
+      { Text: "1 hour 45 min", Value: 105 },
+      { Text: "2 hours", Value: 120 },
+      { Text: "2 hours 15 min", Value: 135 },
+      { Text: "2 hours 30 min", Value: 150 },
+      { Text: "2 hours 45 min", Value: 165 },
+      { Text: "3 hours", Value: 180 },
+      { Text: "Full Day", Value: 1440 }];
 
+  }
+  ClearTimeSlots() {
+    this.AvaliableTimeSlots = [];
+  }
   selectedCalendarDate(event) {
     this.selectedAppointmentDate = event.value;
     this.selectedWeekday = event.value.toLocaleString('en-us', { weekday: 'long' });
   }
 
-  openAppointment() {
-    this.appointment = "block";
+  viewAppointment(patientapp) {
+    this.ClearPatientAppointment();
+    this.PatientAppointment = patientapp;
+    console.log(JSON.stringify(this.PatientAppointment))
+    this.LoadAvailableTimeSlots();
+
   }
   openExistingAppointment() {
     this.existingappointment = "block";
@@ -161,6 +334,7 @@ export class SmartScheduleComponent implements OnInit {
   closeExistingAppointment() {
     this.existingappointment = "none";
   }
+
   parseDate(dateString: string): Date {
     if (dateString) {
       return new Date(dateString);

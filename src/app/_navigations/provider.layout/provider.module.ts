@@ -35,6 +35,7 @@ import { SettingsModule } from '../../settings/settings.module'
 import { SettingsComponent } from '../../settings/settings.component'
 import { LabsImagingComponent } from '../../provider/labs.imaging/labs.imaging.component';
 
+
 import { IConfig, NgxMaskModule} from 'ngx-mask'
 import { NgbDateUSParserFormatter } from '../../_helpers/ngb-date-us-parser-formatter';
 import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
@@ -82,7 +83,8 @@ import { BreadcrumComponent } from '../breadcrum/breadcrum.component';
     SettingsModule,
     NgxMaskModule.forRoot(),
   ],
-  providers: [DayService, WeekService, LocationSelectService, UtilityService,SmartSchedulerService,
+  providers: [DayService, WeekService, LocationSelectService,
+    UtilityService,SmartSchedulerService,
     {provide: NgbDateParserFormatter, useClass: NgbDateUSParserFormatter}
 
   ],
