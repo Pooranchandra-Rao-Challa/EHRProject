@@ -52,7 +52,7 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "GetDashBoardReport";
   }
   get _userLoginUrl() {
-    return this._baseUrl +  "UserLogin";
+    return this._baseUrl + "UserLogin";
   }
   get _updateUserCredentialsUrl() {
     return this._baseUrl + "SetUserCredentials";
@@ -104,90 +104,91 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "RegisterNewProvider";
   }
 
-  get _appointmentTypesUrl(){
+  get _appointmentTypesUrl() {
     return this._baseUrl + "AppointmentTypes";
   }
 
-  get _appointmentStatusesUrl(){
+  get _appointmentStatusesUrl() {
+
     return this._baseUrl + "AppointmentStatuses";
   }
 
-  get _addUpdateUserUrl(){
+  get _addUpdateUserUrl() {
     return this._baseUrl + "AddUpdateUser";
   }
 
-  get _addUpdateAppointmentStatusUrl(){
+  get _addUpdateAppointmentStatusUrl() {
     return this._baseUrl + "AddUpdateAppointmentStatus";
   }
-  get _addUpdateAppointmentTypeUrl(){
+  get _addUpdateAppointmentTypeUrl() {
     return this._baseUrl + "AddUpdateAppointmentType";
   }
-  get _dropAppointmentTypeUrl(){
+  get _dropAppointmentTypeUrl() {
     return this._baseUrl + "DropAppointmentType";
   }
-  get _dropAppointmentStatusUrl(){
+  get _dropAppointmentStatusUrl() {
     return this._baseUrl + "DropAppointmentStatus";
   }
-  get _updateProviderAdmineAccessUrl(){
+  get _updateProviderAdmineAccessUrl() {
     return this._baseUrl + "UpdateProviderAdminAccess";
   }
-  get _userInfoWithPraceticeLocations(){
+  get _userInfoWithPraceticeLocations() {
     return this._baseUrl + "UserInfoWithPracticeLocations";
   }
 
-  get _authenticatePatientUrl(){
+  get _authenticatePatientUrl() {
     return this._baseUrl + "AuthenticatePatient";
   }
 
-  get _statesUrl(){
+  get _statesUrl() {
     return this._baseUrl + "States";
   }
 
-  get _titlesUrl(){
+  get _titlesUrl() {
     return this._baseUrl + "Titles";
   }
 
-  get _specialityUrl(){
+  get _specialityUrl() {
     return this._baseUrl + "Speciality";
   }
 
-  get _degreeUrl(){
+  get _degreeUrl() {
     return this._baseUrl + "Degree";
   }
 
-  get _providerRolesUrl(){
+  get _providerRolesUrl() {
     return this._baseUrl + "ProviderRoles";
   }
 
-  get _appointmentStatusesUtitlityUrl(){
+  get _appointmentStatusesUtitlityUrl() {
     return this._baseUrl + "AppointmentStatusesUtility";
   }
 
-  get _appointmentTypesUtilityUrl(){
+  get _appointmentTypesUtilityUrl() {
     return this._baseUrl + "AppointmentTypesUtility";
   }
 
-  get _practiceProvidersUrl(){
+  get _practiceProvidersUrl() {
     return this._baseUrl + "PracticeProviders";
   }
-  get _createNewPatientUrl(){
+  get _createNewPatientUrl() {
     return this._baseUrl + "CreateNewPatient";
   }
-  get _providerStaffUrl(){
+  get _providerStaffUrl() {
     return this._baseUrl + "ProviderStaff";
   }
-  get _individualProvidersUrl(){
+  get _individualProvidersUrl() {
     return this._baseUrl + "IndividualProviders";
   }
 
-  get _searchPatientsUrl(){
+  get _searchPatientsUrl() {
     return this._baseUrl + "SearchPatients";
   }
-  get _toggleUserFieldValuesUrl(){
+  get _toggleUserFieldValuesUrl() {
     return this._baseUrl + "ToggleUserFieldValues";
   }
 
-  get _activeAppointmentsUrl(){
+  get _activeAppointmentsUrl() {
     return this._baseUrl + "ActiveAppointments";
   }
 
@@ -195,7 +196,7 @@ export class APIEndPoint extends EndpointBase {
     super();
   }
 
-  _ProcessPostRequestWithHeaders<T>(apiurl: string, reqdata: any): Observable<T>{
+  _ProcessPostRequestWithHeaders<T>(apiurl: string, reqdata: any): Observable<T> {
     return this.http.post<T>(apiurl, reqdata, this.requestHeaders).pipe(
       tap((data) => {
         return data;
@@ -205,7 +206,7 @@ export class APIEndPoint extends EndpointBase {
   }
 
 
-  _ProcessPostRequest<T>(apiurl: string, reqdata: any): Observable<T>{
+  _ProcessPostRequest<T>(apiurl: string, reqdata: any): Observable<T> {
     return this.http.post<T>(apiurl, reqdata).pipe(
       tap((data) => {
         return data;
@@ -215,7 +216,7 @@ export class APIEndPoint extends EndpointBase {
   }
 
 
-  _ProcessGetRequest<T>(apiurl: string):Observable<T>{
+  _ProcessGetRequest<T>(apiurl: string): Observable<T> {
     return this.http.get<T>(apiurl).pipe(
       tap((data) => {
         return data;
@@ -224,8 +225,8 @@ export class APIEndPoint extends EndpointBase {
     );
   }
 
-   //Handel Errorss
-   private _handleError(error: HttpErrorResponse) {
+  //Handel Errorss
+  private _handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       console.error("An error occurred:", error.error.message);
     } else {

@@ -10,10 +10,9 @@
                 <div class="form-group col-xl-4 col-lg-12">
                   <mat-form-field appearance="outline" class="col-12 cstm-loc-dropdown">
                     <mat-select disableOptionCentering>
-                      <!-- <mat-option *ngFor="let item of LocationAddress" [value]="item.Location_Name">
+                      <mat-option *ngFor="let item of LocationAddress" [value]="item.Location_Name">
                         {{item.Location_Name}}
-                      </mat-option> -->
-                      <mat-option>CD Tustin Park</mat-option>
+                      </mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
@@ -167,15 +166,16 @@
                           <div class="row px-4 pt-3 pb-2">
                             <div class="col-md-5 col-5">
                               <div class="form-group">
-                                <input type="text" class="form-control inputclass"
-                                  placeholder="Prophy/Regular Appointment" formControlName="appointmentStatus">
+                                <input type="text" class="form-control inputclass" formControlName="Name">
                               </div>
                             </div>
                             <div class="col-md-3 col-3">
-                              <input class="cstm-color-picker" [(colorPicker)]="color" [style.background]="color" />
+                              <input class="cstm-color-picker" [(colorPicker)]="color" [style.background]="color"
+                                formControlName="Colour" />
                             </div>
                             <div class="col-md-4 col-4 pt-2 pt-md-0">
-                              <button type="button" id="Actbtn" class="btn btn-md btn-sm btn-success pull-right">
+                              <button type="button" id="Actbtn" class="btn btn-md btn-sm btn-success pull-right"
+                                (click)="saveAppointmentStatus(statusIndex)">
                                 Save
                               </button>
                               <!-- <button type="button" id="Actbtn"
@@ -226,15 +226,16 @@
                           <div class="row px-4 pt-3 pb-2">
                             <div class="col-md-5 col-5">
                               <div class="form-group">
-                                <input type="text" class="form-control inputclass" placeholder="Scheduled"
-                                  formControlName="appointmentType">
+                                <input type="text" class="form-control inputclass" formControlName="appointmentType">
                               </div>
                             </div>
                             <div class="col-md-3 col-3">
-                              <input class="cstm-color-picker" [(colorPicker)]="color" [style.background]="color" />
+                              <input class="cstm-color-picker" [(colorPicker)]="typecolor"
+                                [style.background]="typecolor" />
                             </div>
                             <div class="col-md-4 col-4 pt-2 pt-md-0">
-                              <button type="button" id="Actbtn" class="btn btn-md btn-sm btn-success pull-right">
+                              <button type="button" id="Actbtn" class="btn btn-md btn-sm btn-success pull-right"
+                                (click)="saveAppointmentType(typeIndex)">
                                 Save
                               </button>
                             </div>

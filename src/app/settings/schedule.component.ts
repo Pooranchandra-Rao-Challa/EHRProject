@@ -8,6 +8,7 @@ import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '
 import { Subscription } from 'rxjs';
 import { LocationSelectService } from '../_navigations/provider.layout/location.service';
 import Swal from 'sweetalert2';
+import * as ts from 'typescript';
 declare var $: any;
 
 @Component({
@@ -18,25 +19,22 @@ declare var $: any;
 export class ScheduleComponent implements OnInit {
   user: User;
   LocationAddress: any;
-  ProviderId: string;
-  locationdataSource: any;
-  appointmentStatusList: any[];
-  appointmentStatusColumns: string[] = ['Status', 'Color', 'isEdit'];
-  appointmentTypeColumns: string[] = ['Type', 'Color', 'isEdit'];
-  appointmentTypeList: any[];
   roomForm: FormGroup;
   statusForm: FormGroup;
   typeForm: FormGroup;
-  dataSource4: any;
   showEditBtn: boolean = false;
   showSaveBtn: boolean = false;
   showInput: boolean = true;
   color: any;
+  typecolor: any;
+  appointmentStatusData: any;
 
   constructor(private authService: AuthenticationService, private settingsService: SettingsService, private fb: FormBuilder) {
     this.user = authService.userValue;
   }
   ngOnInit(): void {
+    this.getAppointmentStatus();
+    this.getLocationsList();
     this.roomForm = this.fb.group({
       rooms: this.fb.array([]),
     })
@@ -70,7 +68,6 @@ export class ScheduleComponent implements OnInit {
   }
 
   onSubmitBasedOnIndex(roomIndex: number) {
-    debugger
     this.showEditBtn = true;
     this.showInput = false;
     this.showSaveBtn = false;
@@ -78,7 +75,6 @@ export class ScheduleComponent implements OnInit {
     console.log(testing);
   }
   onSubmitEdit(roomIndex: number) {
-    debugger
     this.showSaveBtn = true;
     this.showEditBtn = false;
     this.showInput = true;
@@ -91,7 +87,8 @@ export class ScheduleComponent implements OnInit {
   }
   newStatus(): FormGroup {
     return this.fb.group({
-      appointmentStatus: ['']
+      Name: [''],
+      Colour: ['']
     })
   }
   addStatus() {
@@ -106,7 +103,7 @@ export class ScheduleComponent implements OnInit {
   }
   newType(): FormGroup {
     return this.fb.group({
-      appointmentType: ['']
+      appointmentType: [''],
     })
   }
   addType() {
@@ -114,6 +111,104 @@ export class ScheduleComponent implements OnInit {
   }
   removeType(typeIndex: number) {
     this.type().removeAt(typeIndex);
+  }
+
+  // get display Location Details
+  getLocationsList() {
+    this.settingsService.PractiveLocations(this.user.ProviderId).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.LocationAddress = resp.ListResult;
+      }
+    });
+  }
+
+  get formControls() {
+    return this.statusForm.controls;
+  }
+  getAppointmentStatus() {
+    var req = {
+      'ProviderId': this.user.ProviderId
+    };
+    this.settingsService.AppointmentStatuses(req).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.appointmentStatusData = resp.ListResult;
+        console.log(this.appointmentStatusData);
+
+        //this.statusForm.controls.status
+
+        for (let i = 0; i < this.appointmentStatusData.length; i++) {
+          this.addStatus();
+          this.formControls.status['controls'][i].get('Name').patchValue(this.appointmentStatusData[i].Name);
+          this.formControls.status['controls'][i].get('Colour').patchValue('#' + this.appointmentStatusData[i].Colour);
+        }
+
+        console.log(JSON.stringify(this.statusForm.value))
+
+      }
+
+    });
+  }
+
+  // Add Update Appointment Status
+  saveAppointmentStatus(statusIndex: number) {
+    var reqparams = {
+      ProviderId: this.user.ProviderId,
+      StatusId: null,
+      Editable: true,
+      StatusName: this.statusForm.controls.status["controls"][statusIndex].get('appointmentStatus').value,
+      Colour: this.color
+    }
+    console.log(reqparams);
+    this.settingsService.AddUpdateAppointmentStatus(reqparams).subscribe(resp => {
+      if (resp.IsSuccess) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Successfully Inserted',
+          showConfirmButton: true,
+          confirmButtonText: 'Close',
+          width: '700',
+        });
+      }
+      else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: resp.EndUserMessage,
+          width: '700',
+        })
+      }
+    })
+  }
+
+  // Add Update Appointment Type
+  saveAppointmentType(typeIndex: number) {
+    var reqparams = {
+      ProviderId: this.user.ProviderId,
+      TypeId: null,
+      Editable: true,
+      TypeName: this.typeForm.controls.type["controls"][typeIndex].get('appointmentType').value,
+      Colour: this.typecolor
+    }
+    console.log(reqparams);
+    this.settingsService.AddUpdateAppointmentType(reqparams).subscribe(resp => {
+      if (resp.IsSuccess) {
+        Swal.fire({
+          icon: 'success',
+          title: resp.EndUserMessage,
+          showConfirmButton: true,
+          confirmButtonText: 'Close',
+          width: '700',
+        });
+      }
+      else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: resp.EndUserMessage,
+          width: '700',
+        })
+      }
+    })
   }
 
 }
