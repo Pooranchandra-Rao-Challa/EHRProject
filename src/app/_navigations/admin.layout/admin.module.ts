@@ -17,8 +17,6 @@ import { Ng2OrderModule } from 'ng2-order-pipe';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-
-
 import { SharedModule } from '../../_common/shared';
 //import { PatientNavbarComponent } from "../patient.navbar/patient.navbar.component";
 import { AdminNavbarComponent } from "../admin.navbar/admin.navbar.component";
@@ -28,6 +26,7 @@ import { AdminComponent } from './admin.component';
 import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { DateTimePickerModule } from "@syncfusion/ej2-angular-calendars";
 import { ScheduleModule,DayService, WeekService} from '@syncfusion/ej2-angular-schedule';
+import { ProviderlistComponent } from 'src/app/admin/providerlist.component';
 import { DashboardComponent } from 'src/app/admin/dashboard/dashboard.component';
 
 
@@ -41,6 +40,7 @@ import { DashboardComponent } from 'src/app/admin/dashboard/dashboard.component'
     AdminSidebarComponent,
     AdminNavbarComponent,
     AdminComponent,
+    ProviderlistComponent,
     DashboardComponent
   ],
   imports: [
@@ -66,7 +66,7 @@ import { DashboardComponent } from 'src/app/admin/dashboard/dashboard.component'
     MatAutocompleteModule,
     ScheduleModule,
     DropDownListModule,
-    DateTimePickerModule
+    DateTimePickerModule,
   ],
   providers: [DayService, WeekService
 

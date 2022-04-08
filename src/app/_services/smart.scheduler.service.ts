@@ -20,5 +20,19 @@ export class SmartSchedulerService extends APIEndPoint {
     console.log(reqdata);
     return this._ProcessPostRequest<any>(this._activeAppointmentsUrl,reqdata);
   }
-  //
+  AppointmentTypes(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._appointmentTypesUrl, reqparams);
+  }
+
+  RoomsForLocation(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._roomsForLocationUrl, reqparams);
+  }
+
+  AvailableTimeSlots(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._availableTimeSlotsUrl, reqparams);
+  }
+
+  CreateAppointment(reqparams: any){
+    return this._ProcessPostRequest<any>(this._createAppointmentUrl, reqparams);
+  }
 }
