@@ -1,0 +1,88 @@
+<div class="col-lg-12 col-xl-12 col-md-12 col-12">
+    <ul class="dashbord-header">
+      <li><a href="admin/dashboard" class="anchorStyle pr-3">Home</a></li>
+      <li><i class="category-arrow fa fa-angle-right anchorStyle"></i></li>
+      <li><a class="active text-nowrap" href="javascript:void(0)" class="anchorStyle">Providers</a></li>
+    </ul>
+  </div>
+<div class="row check-provid mb-2 mt-4 "  >
+    <div class="col-md-3">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Active" id="Active" [(ngModel)]="Active" (ngModelChange)="filterChange('ActiveStatus','Active')"/>
+            <label class="form-check-label" for="Active">Active Providers</label>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Suspended" id="Suspended" [(ngModel)]="Suspended" (ngModelChange)="filterChange('ActiveStatus','Suspended')"/>
+            <label class="form-check-label" for="Suspended">Inactive Providers</label>
+        </div>
+    </div>
+   
+    <div class="col-md-3">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Trial" id="Trial" [(ngModel)]="Trial" (ngModelChange)="filterChange('TrailStatus','Trial')"/>
+            <label class="form-check-label" for="Trial">Trial Providers</label>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Paid" id="Paid" [(ngModel)]="Paid" (ngModelChange)="filterChange('TrailStatus','Paid')" />
+            <label class="form-check-label" for="Paid">Paid Providers</label>
+        </div>
+    </div>
+</div>
+
+
+<div class="border-input ">
+    <div class="contain">
+
+        <div class="row mt-4">
+            <div class="col-lg-7 col-md-7 col-12 fw-bolder">
+                <h4 class="fw-bolder">PROVIDERS</h4>
+            </div>
+            <div class="example col-lg-5 col-md-5 col-12 ">
+                <input type="text" placeholder="Search Providers"  [(ngModel)]="filterTerm" name="search">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </div>
+        </div>
+        <hr>
+        <div class="table-responsive">
+            <table class="table mt-4">
+                <thead>
+                    <tr class="table-heaer">
+                        <th scope="row">Name</th>
+                        <th scope="row">Email</th>
+                        <th scope="row">Phone</th>
+                        <th scope="row" width="20%">Address</th>
+                        <th scope="row">Status</th>
+                        <th scope="row">Cqm</th>
+                        <th scope="row"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of providersDataSource | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize | filter: filterTerm">
+                        <td class="tbl-col">{{item.ProviderName}}
+                            <div class="row">
+                                <button class="btn-log">Login</button>
+                            </div>
+                        </td>
+                        <td>{{item.Email}}</td>
+                        <td>{{item.PrimaryPhone}}</td>
+                        <td>{{item.Address}}</td>
+                        <td class="column">{{item.ActiveStatus}}</td>
+                        <td class="column"><button class="btn-lock">User Agent Export</button></td>
+                        <td><button class="btn-lock">Lock</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-end mt-4">
+            <ngb-pagination [pageSize]="pageSize" [collectionSize]="providersDataSource.length" [(page)]="page" aria-label="Default pagination">
+            </ngb-pagination>
+        </ul>
+    </nav>
+    <!-- <ngb-pagination [collectionSize]="totalItems" [pageSize]="itemsPerPage" [(page)]="page" [maxSize]="7" [rotate]="true" (pageChange)="loadPage($event)"></ngb-pagination> -->
+</div>

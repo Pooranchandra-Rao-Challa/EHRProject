@@ -26,8 +26,11 @@ import { AdminComponent } from './admin.component';
 import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { DateTimePickerModule } from "@syncfusion/ej2-angular-calendars";
 import { ScheduleModule,DayService, WeekService} from '@syncfusion/ej2-angular-schedule';
-import { ProviderlistComponent } from 'src/app/admin/providerlist.component';
+
 import { DashboardComponent } from 'src/app/admin/dashboard/dashboard.component';
+import { AdminService } from '../../_services/admin.service';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { ProviderlistComponent } from '../../admin/providerlist/providerlist.component';
 
 
 
@@ -41,7 +44,8 @@ import { DashboardComponent } from 'src/app/admin/dashboard/dashboard.component'
     AdminNavbarComponent,
     AdminComponent,
     ProviderlistComponent,
-    DashboardComponent
+    DashboardComponent,
+    
   ],
   imports: [
     AdminRoutingModule,
@@ -67,8 +71,9 @@ import { DashboardComponent } from 'src/app/admin/dashboard/dashboard.component'
     ScheduleModule,
     DropDownListModule,
     DateTimePickerModule,
+    Ng2SearchPipeModule
   ],
-  providers: [DayService, WeekService
+  providers: [DayService, WeekService,AdminService
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
