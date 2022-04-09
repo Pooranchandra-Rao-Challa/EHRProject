@@ -66,7 +66,7 @@ export class AuthenticationService {
           this.router.navigate(['/patinet/patientview']);
         //else
         //this.router.navigate(['/reports/categoryreports']);
-      }else{
+      } else {
 
       }
     }),
@@ -166,9 +166,11 @@ export class AuthenticationService {
     const expires = new Date(jwtToken.exp * 1000);
     const timeout = expires.getTime() - Date.now() - (60 * 1000);
     this.refreshTokenTimeout = setTimeout(() => this.refreshToken().subscribe(), timeout);
+
   }
 
   private stopRefreshTokenTimer() {
     clearTimeout(this.refreshTokenTimeout);
+
   }
 }

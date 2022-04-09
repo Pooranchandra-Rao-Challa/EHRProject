@@ -18,7 +18,7 @@
             </div>
             <div class="col-xl-1 col-lg-2 col-md-6 col-12 appointment-filter-date-bar">
               <div class="buttons ">
-                <button class="button is-primary lte" (click)="DateUpDown('movedown')" >&lt;</button>
+                <button class="button is-primary lte" (click)="DateUpDown('movedown')">&lt;</button>
                 <mat-form-field class="cstm-width" appearance="fill">
                   <!-- <mat-label>Choose a date</mat-label> -->
                   <input hidden matInput [matDatepicker]="picker" (dateChange)="selectedCalendarDate($event)" />
@@ -35,9 +35,10 @@
             <div class="col-xl-1 col-lg-2 col-md-6 col-12 appointment-filter-dropdown-bar">
               <mat-form-field appearance="outline" class="col-12 smart-schedule-dropdown">
                 <mat-select disableOptionCentering id="practiveProviders" placeholder="Select Provider"
-                [(ngModel)]="SelectedProviderId">
-                <mat-option>None</mat-option>
-                <mat-option *ngFor="let provider of PracticeProviders" [value]="provider.ProviderId">{{provider.FullName}}</mat-option>
+                  [(ngModel)]="SelectedProviderId">
+                  <mat-option>None</mat-option>
+                  <mat-option *ngFor="let provider of PracticeProviders" [value]="provider.ProviderId">
+                    {{provider.FullName}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -67,14 +68,17 @@
                     <div class="col-md-2 col-2 appointment-note">Notes</div>
                     <div class="col-md-1 col-1">Encounter</div>
                   </div>
-                  <div class="row text-center table-body">
+                  <div class="row text-center table-body" *ngFor="let appointment of Appointments">
                     <div class="col-md-1 col-1 appointment-time">
-                      03/11/2022 05:00 AM
+                     {{appointment.AppointmentTime | date:'MM/dd/yyyy'}}
+                     &nbsp;
+                     Time: {{appointment.AppointmentTime | date:'hh:mm a'}}
                     </div>
                     <div class="col-md-2 col-2 patient">
-                      Testr t DOB: Jun 21, 1994
+                      {{appointment.PatientName}}&nbsp;
+                      DOB: {{appointment.DateofBirth | date:'MMM d, y'}}
                     </div>
-                    <div class="col-md-2 col-2 provider">Riya Gupta</div>
+                    <div class="col-md-2 col-2 provider">{{appointment.ProviderName}}</div>
                     <div class="col-md-2 col-2 visit-status">
                       <img class="col-md-2 col-2" src="../../../assets/images/smart-schedule/scheduled.svg" />
                       <img class="col-md-2 col-2" src="../../../assets/images/smart-schedule/waiting.svg" />
@@ -83,9 +87,9 @@
                       <img class="col-md-2 col-2" src="../../../assets/images/smart-schedule/cancel.svg" />
                       <img class="col-md-2 col-2" src="../../../assets/images/smart-schedule/no_show.svg" />
                     </div>
-                    <div class="col-md-2 col-2 appt-type">Consultation</div>
+                    <div class="col-md-2 col-2 appt-type">{{appointment.AppointmentType}}</div>
                     <div class="col-md-2 col-2 appointment-note">
-                      Add notes here
+                      {{appointment.Notes}}
                     </div>
                     <div class="col-md-1 col-1">
                       <button class="btn btn-orange" type="button" data-bs-toggle="modal"
@@ -93,9 +97,7 @@
                         Record Encounter
                       </button>
                     </div>
-                    <!-- <div class="content message-empty">
-                    <p>You don't have any appointments for today</p>
-                  </div> -->
+
                   </div>
                 </div>
               </div>
@@ -131,35 +133,34 @@
           </mat-expansion-panel>
         </mat-accordion>
       </div>
-      <button class="btn" (click)="openExistingAppointment()">
-        Existing Appointments
-      </button>
+
       <div class="row">
         <div class="schedule-bottom">
           <div class="row">
             <div class="col-lg-8 col-md-6 col-12">
-              <!--
-              <mat-form-field appearance="outline" class="new-search col-12">
-                <input matInput placeholder="Schedule Appointment ( Enter a patient's name or phone number )"
-                  data-bs-toggle="modal" data-bs-target="#modal-appointment-form" />
-              </mat-form-field> -->
+
               <div class="form-group">
                 <div class="input-group" appearance="outline" class="new-search col-12">
-                  <input class="form-control"
+                  <input class="form-control new-search "
                     placeholder="Schedule Appointment ( Enter a patient's name or phone number )" type="text"
                     [(ngModel)]="patientNameOrCellNumber" (keyup)="searchPatient(patientNameOrCellNumber)" />
                 </div>
               </div>
-              <div class="smartview-patient-search-result" *ngIf="!flag" appearance="outline">
+              <div class="smartview-patient-search-result" *ngIf="flag" appearance="outline" [ngStyle]="psw">
                 <ul class="ui-widget">
-                  <li *ngFor="let patient of patients" class="ui-menu-item">
-                    <a (click)="onselectPatient(patient)" data-bs-toggle="modal"
-                      data-bs-target="#modal-appointment-form">{{patient.Name}},
-                      {{patient.DateofBirth | date: 'MM/dd/yyyy'}}-{{patient.Age}} :-
-                      {{patient.NumberOfAppointments}}</a>
+                  <li *ngFor="let patient of patients" class="ui-menu-item"
+                  data-bs-toggle="modal"
+                    [attr.data-bs-target]="patient.NumberOfAppointments == 0 ? '#modal-appointment-form' : '#modal-existingappointment-form'"
+                    (click)="onSelectPatient(patient);">
+
+                    {{patient.Name}},
+                    {{patient.DateofBirth | date: 'MM/dd/yyyy'}}-{{patient.Age}} :-
+                    {{patient.NumberOfAppointments}}
+
                   </li>
                 </ul>
               </div>
+
             </div>
             <div class="col-lg-2 col-md-3 col-12">
               <button mat-button class="btn patientbtn col-12" type="button" data-bs-toggle="modal"
@@ -252,15 +253,11 @@
             <div class="form-group">
               <div class="input-group">
                 <label class="control-label input-group-addon required">DOB</label>
-                <!-- <input class="form-control" placeholder="DOB (yyyy-MM-dd)" type="date" [(ngModel)]="PatientData.DateofBirth"
-                id="dateofBirth" name="dateofBirth" #dateofBirth="ngModel" required
-                [value]="PatientData.DateofBirth | date:'yyyy-MM-dd'"/> -->
                 <input class="form-control" placeholder="mm-dd-yyyy" name="dateofBirth"
                   [(ngModel)]="PatientData.DateofBirth" ngbDatepicker #d="ngbDatepicker" name="dateofBirth"
                   #dateofBirth="ngModel" required [autoClose]="true">
                 <button id="dob" class="btn btn-outline-secondary calendar" autoClose="true" (click)="d.toggle()"
                   type="button"></button>
-                <!-- (input)="PatientData.DateofBirth=parseDate($event.target.value)"-->
               </div>
               <div *ngIf="dateofBirth.errors && (dateofBirth.touched)">
                 <div class="error_message" *ngIf="dateofBirth.errors?.required">
@@ -344,7 +341,9 @@
 </div>
 
 <!-- Add New Appointment Form-->
-<div class="modal fade appointment-form" id="modal-appointment-form" data-bs-backdrop="static" data-bs-keyboard="false"
+
+<div class="modal fade appointment-form" id="modal-appointment-form"
+  data-bs-backdrop="static" data-bs-keyboard="false"
   tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -359,42 +358,57 @@
           <div class="row">
             <mat-label>Patient :</mat-label>
             <mat-form-field appearance="outline" class="col-12 hover">
-              <mat-select placeholder="Select Patient" disableOptionCentering>
-                <mat-option value="0">Patient Name</mat-option>
-              </mat-select>
+              <input matInput placeholder="Password" [(ngModel)]="PatientAppointment.PatientName"
+                [ngModelOptions]="{standalone:true}" [readonly]="true">
             </mat-form-field>
             <mat-label>Providers :</mat-label>
             <mat-form-field appearance="outline" class="col-12 hover">
-              <mat-select placeholder="Select Provider" disableOptionCentering>
-                <mat-option value="0">Angie Keith</mat-option>
+              <mat-select id="practiveProviders2" placeholder="Select Provider" disableOptionCentering
+                placeholder="Select Provider" [(ngModel)]="PatientAppointment.ProviderId"
+                [ngModelOptions]="{standalone:true}">
+                <mat-option>None</mat-option>
+                <mat-option *ngFor="let provider of PracticeProviders" [value]="provider.ProviderId">
+                  {{provider.FullName}}</mat-option>
               </mat-select>
             </mat-form-field>
             <mat-label>Appointment Types :</mat-label>
             <mat-form-field appearance="outline" class="col-12">
-              <mat-select placeholder="Select Appointment Type" disableOptionCentering>
-                <mat-option value="0">Appointment type</mat-option>
+              <mat-select id="selSmartAppointmentTypes" placeholder="Select Appointment Type" disableOptionCentering
+                placeholder="Select Appointment Type" [(ngModel)]="PatientAppointment.AppointmentTypeId"
+                [ngModelOptions]="{standalone:true}">
+                <mat-option *ngFor="let appointment of AppointmentTypes" [value]="appointment.Id">
+                  {{appointment.AppointmentType}}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
           <div class="row">
             <div class="col-12">
               <mat-label class="col-12">Notes</mat-label>
-              <textarea class="col-12 text-area"></textarea>
+              <textarea class="col-12 text-area" [(ngModel)]="PatientAppointment.Notes"
+                [ngModelOptions]="{standalone:true}"></textarea>
             </div>
           </div>
           <div class="row">
             <div class="col-md-9 col-12">
               <mat-label class="col-12">Locations:</mat-label>
               <mat-form-field appearance="outline" class="col-12">
-                <mat-select placeholder="Select Location" disableOptionCentering>
-                  <mat-option value="2">Celia Infante Hernandez</mat-option>
+                <mat-select id="selSmartLocations" placeholder="Select Location" disableOptionCentering
+                  [(ngModel)]="PatientAppointment.LocationId" [ngModelOptions]="{standalone:true}"
+                  (selectionChange)="ClearTimeSlots()">
+
+                  <mat-option *ngFor="let location of Locations" [value]="location.locationId">{{location.locationName}}
+                  </mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
             <div class="col-md-3 col-12">
-              <mat-form-field appearance="outline" class="col-12" style="padding-top: 23px">
-                <mat-select placeholder="Select One" disableOptionCentering>
-                  <mat-option value="0">3</mat-option>
+              <mat-label class="col-12">Rooms:</mat-label>
+              <mat-form-field appearance="outline" class="col-12">
+                <mat-select id="selSmartRooms" placeholder="Select One" disableOptionCentering
+                  [(ngModel)]="PatientAppointment.RoomId" (selectionChange)="ClearTimeSlots()"
+                  [ngModelOptions]="{standalone:true}">
+
+                  <mat-option *ngFor="let room of Rooms" [value]="room.RoomId">{{room.RoomName}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -403,37 +417,50 @@
             <div class="col-md-5">
               <mat-label class="col-12">Select Date:</mat-label>
               <mat-form-field appearance="outline" class="col-12">
-                <input matInput class="pointer" autocomplete="off" [matDatepicker]="picker2" (click)="picker2.open()"
-                  readonly placeholder="Start Date" />
-                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                <mat-datepicker #picker2></mat-datepicker>
+                <input matInput class="pointer" autocomplete="off"
+                [matDatepicker]="appointmentDate" (click)="appointmentDate.open()"
+                  readonly placeholder="Request Date" [(ngModel)]="PatientAppointment.Startat"
+                  [ngModelOptions]="{standalone: true}" />
+                <mat-datepicker-toggle matSuffix [for]="appointmentDate"
+                dateChange="ClearTimeSlots()"></mat-datepicker-toggle>
+                <mat-datepicker #appointmentDate></mat-datepicker>
               </mat-form-field>
             </div>
             <div class="col-md-4">
               <mat-label>Duration:</mat-label>
               <mat-form-field appearance="outline" class="col-12">
-                <mat-select placeholder="Select Duration" disableOptionCentering>
-                  <mat-option value="0">30 min</mat-option>
+                <mat-select id="selSmartDurations" placeholder="Select Duration" disableOptionCentering
+                  [(ngModel)]="PatientAppointment.Duration" (selectionChange)="ClearTimeSlots()"
+                  [ngModelOptions]="{standalone:true}">
+                  <mat-option *ngFor="let period of PeriodsOfTimeSlots" [value]="period.Value">{{period.Text}}
+                  </mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
             <div class="col-md-3 pb-3" style="padding-top: 23px">
-              <button class="btn col-12">Find Open Time</button>
+              <button class="btn col-12" (click)="LoadAvailableTimeSlots()">Find Open Time</button>
             </div>
           </div>
           <div class="available-slots">
             <div class="row">
               <p>Available Time Slots (Select Only One):</p>
-              <div class="col-lg-4 col-md-3 col-12 pb-3" *ngFor="let slots of availableTimeSlots">
-                <button class="btn col-12">{{ slots }}</button>
+              <span id="spantimeSlots"
+                (show)="messageToShowTimeSlots != null && messageToShowTimeSlots != ''">{{messageToShowTimeSlots}}</span>
+              <div class="col-lg-4 col-md-3 col-12 pb-3" *ngFor="let slot of AvaliableTimeSlots">
+                <button class="btn col-12" [class.timeslot-selected]="slot === this.PatientAppointment.TimeSlot"
+                  type="button" (click)="onTimeSlotSelect(slot)">
+                  <span class="name timeslots">{{slot.TimeSlot}}</span>
+                </button>
               </div>
             </div>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button class="btn col-md-4 col-7">Save Appointment</button>
-        <button class="btn col-md-3 col-4" data-bs-dismiss="modal" aria-label="Close">
+        <button class="btn col-md-4 col-7" [disabled]="DiabledAppointmentSave()" (click)="onAppointmentSave()">Save
+          Appointment</button>
+        <button id="appointmentClose" class="btn col-md-3 col-4 fa fa-close" data-bs-dismiss="modal" aria-label="Close"
+          (click)="ClearPatientAppointment()">
           Cancel
         </button>
       </div>
@@ -443,7 +470,7 @@
 
 <!-- Upcoming Appointment popup -->
 <div class="modal animated fadeIn existingappointment-form" tabindex="-1" role="dialog"
-  [ngStyle]="{ display: existingappointment }">
+ id="modal-existingappointment-form">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -455,58 +482,29 @@
       </div>
       <div class="modal-body">
         <div class="content-data">
-          <div class="row appointment">
-            <div class="col-md-7">
-              <div>
-                03/10/2022&nbsp;
-                <a class="main-list-link" data-remote="true" (click)="openAppointment()">View/Edit</a>
+          <div class="row appointment" *ngFor="let patientapp of AppointmentsOfPatient">
+            <div class="col-md-7" >
+              <div class="upcomming-appointment">
+                {{patientapp.AppointmentTime | date:'MM/dd/yyyy'}}&nbsp;
+                <a class="main-list-link" data-remote="true"
+                (click)="viewAppointment(patientapp)" data-bs-toggle="modal"
+                data-bs-target="#modal-appointment-form">View/Edit</a>
               </div>
-              <div><b>Time: &nbsp;</b>12:00 PM&nbsp;(~ 30Min.)</div>
+              <div><b>Time: &nbsp;</b>{{patientapp.AppointmentTime | date:'h:mm a'}}&nbsp;(~ {{patientapp.Duration}}Min.)</div>
               <div>
-                <p>Provider: &nbsp; Riya Gupta</p>
-              </div>
-            </div>
-            <div class="col-md-5">
-              <div><b>Type: &nbsp;</b>Prophy Appointment</div>
-              <div><a data-remote="true" href="#">Cancel</a></div>
-            </div>
-          </div>
-          <div class="row appointment">
-            <div class="col-md-7">
-              <div>
-                03/11/2022&nbsp;
-                <a class="main-list-link" data-remote="true" (click)="openAppointment()">View/Edit</a>
-              </div>
-              <div><b>Time: &nbsp;</b>06:00 AM&nbsp;(~ 30Min.)</div>
-              <div>
-                <p>Provider: &nbsp; Riya Gupta</p>
+                <p>Provider: &nbsp; {{patientapp.ProviderName}}</p>
               </div>
             </div>
             <div class="col-md-5">
-              <div><b>Type: &nbsp;</b>Prophy-Child</div>
-              <div><a data-remote="true" href="#">Cancel</a></div>
-            </div>
-          </div>
-          <div class="row appointment">
-            <div class="col-md-7">
-              <div>
-                03/11/2022&nbsp;
-                <a class="main-list-link" data-remote="true" (click)="openAppointment()">View/Edit</a>
-              </div>
-              <div><b>Time: &nbsp;</b>05:00 AM&nbsp;(~ 30Min.)</div>
-              <div>
-                <p>Provider: &nbsp; Riya Gupta</p>
-              </div>
-            </div>
-            <div class="col-md-5">
-              <div><b>Type: &nbsp;</b></div>
+              <div><b>Type: &nbsp;</b>{{patientapp.AppointmentType}}</div>
               <div><a data-remote="true" href="#">Cancel</a></div>
             </div>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button class="btn pull-left" data-bs-toggle="modal" data-bs-target="#modal-appointment-form">
+        <button class="btn pull-left" data-bs-toggle="modal" data-bs-target="#modal-appointment-form"
+        (click)="onSelectNewAppointmentofPatientFromEditAppointments();">
           New Appointment
         </button>
       </div>
@@ -563,9 +561,10 @@
                 <div class="col-xl-8">
                   <mat-form-field appearance="outline" class="col-10 hover cstm-mat-padding">
                     <mat-select placeholder="Select One" disableOptionCentering id="ePracticeProviders"
-                    placeholder="Select Provider">
+                      placeholder="Select Provider">
                       <mat-option>None</mat-option>
-                      <mat-option *ngFor="let provider of PracticeProviders" [value]="provider">{{provider.FullName}}</mat-option>
+                      <mat-option *ngFor="let provider of PracticeProviders" [value]="provider">{{provider.FullName}}
+                      </mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
@@ -906,4 +905,29 @@
     </div>
   </div>
 
+</div>
+
+<!-- data-bs-toggle="modal"
+                    data-bs-target="#modal-appointment-form"-->
+<div class="modal" id="modal-message-success" tabindex="-1"
+role="dialog" data-bs-backdrop="static" data-bs-keyboard="false"
+aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="scrollable-container" style="height: auto;">
+          <div class="content">
+            <div class="flash-title">
+              <p>{{OperationMessage}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-default" data-bs-dismiss="modal"
+        data-bs-target="#modal-message-success" aria-label="Close"
+        (click)="onSuccessCloseMessageBox()">Close</a>
+      </div>
+    </div>
+  </div>
 </div>
