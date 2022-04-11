@@ -72,7 +72,7 @@ export class SettingsService extends APIEndPoint {
   AddUpdateUserDetails(reqdata: any) {
     return this._ProcessPostRequest<any>(this._addUpdateUserUrl, reqdata);
   }
-  ToggleUserFieldValues(reqData: any){
+  ToggleUserFieldValues(reqData: any) {
     console.log(reqData)
     return this._ProcessPostRequest<any>(this._toggleUserFieldValuesUrl, reqData);
   }

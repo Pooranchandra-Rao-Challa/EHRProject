@@ -3,7 +3,8 @@
 .smart-schedule-logo {
   border: 3px solid #00d1b2;
   height: 70px;
-  margin-top: -24px;
+  margin-top: 2px;
+  //margin-top: -24px;
   margin-bottom: 0px;
   margin-left: 0px;
   margin-right: 0px;
@@ -65,17 +66,19 @@ p {
   color: #41b6a6 !important;
   background-color: #fff;
   height: 2em;
-  margin-top: 19px;
+  margin-top: 15px;
 }
 ::ng-deep .smart-schedule-dropdown .mat-select-arrow {
-  margin-top: 8px;
+  margin-top: 4px;
   margin-right: 2px;
   color: #41b6a6;
 }
 ::ng-deep .smart-schedule-dropdown .mat-select-trigger{
-  margin-top: 11px;
+  margin-top: 7px;
   margin-right: 0px !important;
 }
+
+
 ::ng-deep
   .smart-schedule-dropdown
   .mat-form-field-appearance-outline
@@ -83,7 +86,7 @@ p {
   transform: translateY(0%);
 }
 div.smart-schedule-header {
-  height: 4.5em;
+  height: 4em;
   padding: 0px !important;
   margin-bottom: 0px !important;
 }
@@ -103,6 +106,7 @@ div.smart-schedule-header {
 .new-search {
   // background-color: #f5f5f5;
   border-color: #fe8f00 !important;
+  height: 40px;
 }
 .schedule-bottom .patientbtn {
   background-color: #ffdd57;
@@ -116,15 +120,16 @@ div.smart-schedule-header {
 }
 .schedule-bottom .btn {
   margin-top: 2px;
-  height: 45px;
+  height: 40px;
   display: block;
   padding: 0;
-  line-height: 2.7;
+  line-height: 2.5;
   cursor: pointer;
   border-radius: 3px;
   font-size: 16px;
   text-align: center;
   text-overflow: ellipsis;
+  margin: 0px !important;
 }
 // expansion
 .schedule-accordion {
@@ -390,7 +395,7 @@ fieldset {
 .smartview-patient-search-result {
   font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;
   font-size: 1.1em;
-  border: 1px #41b6a6 solid;
+
 }
 
 .smartview-patient-search-result ul.ui-widget {
@@ -400,7 +405,7 @@ fieldset {
   display: block;
   outline: none;
   z-index: 100;
-  width:inherit;
+  width:100%;
 }
 
 .smartview-patient-search-result ul.ui-widget li.ui-menu-item{
@@ -408,15 +413,19 @@ fieldset {
   margin: 0;
   padding: 3px 1em 3px 0.4em;
   cursor: pointer;
-  width: inherit;
+  width: 100%;
   list-style-image: url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7);
 }
 
-.smartview-patient-search-result ul.ui-widget li.ui-menu-item :hover{
+.smartview-patient-search-result ul.ui-widget li.ui-menu-item a{
+  width:inherit;
+}
+
+.smartview-patient-search-result ul.ui-widget li.ui-menu-item:hover{
   border: 1px solid #fbcb09;
-	//background: #fdf5ce url("images/ui-bg_glass_100_fdf5ce_1x400.png") 50% 50% repeat-x;
   background: #fdf5ce 50% 50% repeat-x;
 	font-weight: bold;
+  width: 100%;
 	color: #c77405;
 }
 
@@ -430,6 +439,27 @@ fieldset {
 ::ng-deep div#practiveProviders-panel mat-option.mat-option{
   //border-color: #41b6a6;
 
+  border: 1px solid white !important;
+
+}
+
+::ng-deep div#practiveProviders2-panel.mat-select-panel,
+::ng-deep div#selSmartAppointmentTypes-panel.mat-select-panel,
+::ng-deep div#selSmartLocations-panel.mat-select-panel,
+::ng-deep div#selSmartRooms-panel.mat-select-panel,
+::ng-deep div#selSmartDurations-panel.mat-select-panel{
+
+  border-radius: 4px;
+  border: 1px solid #41b6a6;
+  position: fixed;
+  top: 29px;
+}
+
+::ng-deep div#practiveProviders2-panel mat-option.mat-option,
+::ng-deep div#selSmartAppointmentTypes-panel mat-option.mat-option,
+::ng-deep div#selSmartLocations-panel mat-option.mat-option,
+::ng-deep div#selSmartRooms-panel.mat-select-panel,
+::ng-deep div#selSmartDurations-panel.mat-select-panel{
   border: 1px solid white !important;
 
 }
@@ -901,3 +931,144 @@ div#modal-add-patient div.modal-body {
   margin-top: 1rem;
   margin-bottom: 2rem;
 }
+
+::ng-deep
+  mat-datepicker-toggle.mat-datepicker-toggle
+  button.mat-icon-button
+  span.mat-button-wrapper
+  svg.mat-datepicker-toggle-default-icon
+  > path {
+  fill: #fff;
+  stroke: rgb(224, 220, 220);
+  stroke-linejoin: round;
+  transition: d 0.2s;
+}
+::ng-deep
+  mat-datepicker-toggle.mat-datepicker-toggle
+  button.mat-focus-indicator.mat-icon-button {
+  background-color: #41b6a6;
+  color: #fff;
+  border-radius: 0%;
+  margin-top: 0px;
+  margin-bottom: -14px;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  margin-right: -10px;
+  border: 1px solid #41b6a6;
+  height: 3.1em !important;
+  width: 3.1em !important;
+  top: 0.06em;
+}
+
+button.timeslot-selected{
+  background-color: #41b6a6;
+  color: #fff;
+  border: 1px solid #fe8f00;
+}
+span#spantimeSlots{
+  color: #F75857;
+}
+.timeslots{
+  font-size: 12px;
+  padding: auto;
+  font-weight: 500;
+}
+
+div.existingappointment-form div.modal-dialog
+  div.modal-content div.modal-body div.content-data div.appointment
+   div.upcomming-appointment a{
+    cursor: default;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
+
+div.existingappointment-form div.modal-dialog
+  div.modal-content div.modal-body div.content-data div.appointment
+   div.upcomming-appointment a:hover{
+    cursor: default;
+    background-color: #41b6a6;
+    color: #fff;
+}
+
+// Success Message Styles.
+div#modal-message-success{
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  //z-index: 1052 !important;
+}
+div#modal-message-success .modal-dialog .modal-content {
+  background-color: #d8d8d8;
+}
+div#modal-message-success .modal-dialog,
+div#modal-message-success .modal-dialog .modal-content {
+  max-width: 500px;
+}
+div#modal-message-success .modal-content {
+  position: relative;
+  background-color: #fff;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  border: 1px solid #999;
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 6px;
+  outline: 0;
+  -webkit-box-shadow: 0 3px 9px rgb(0 0 0 / 50%);
+  box-shadow: 0 3px 9px rgb(0 0 0 / 50%);
+}
+
+div#modal-message-success.modal-notice .modal-dialog .modal-content .modal-body .flash-title,
+div#modal-message-success .modal-dialog .modal-content .modal-body .flash-title {
+  background-color: #41b6a6;
+}
+
+div#modal-message-success .modal-dialog .modal-content .modal-body .flash-title {
+  width: 100%;
+  vertical-align: middle;
+  padding: 20px;
+  text-align: center;
+}
+
+@media (max-height: 768px){
+  div#modal-message-success .modal-dialog, #modal-flash .modal-dialog .modal-content {
+    max-width: 500px;
+  }
+}
+
+@media (min-width: 768px){
+  .modal-content {
+    -webkit-box-shadow: 0 5px 15px rgb(0 0 0 / 50%);
+    box-shadow: 0 5px 15px rgb(0 0 0 / 50%);
+  }
+}
+
+div#modal-message-success.modal-notice .modal-dialog .modal-content .modal-body .flash-title, #modal-flash.modal-alert .modal-dialog .modal-content .modal-body .flash-title {
+  background-color: #41b6a6;
+}
+div#modal-message-success .modal-dialog .modal-content .modal-body .flash-title {
+  width: 100%;
+  vertical-align: middle;
+  padding: 20px;
+  text-align: center;
+}
+
+@media (max-height: 768px){
+  div#modal-message-success .modal-dialog .modal-content .modal-body {
+    padding: 110px 0 15px 0;
+}
+}
+div#modal-message-success .modal-dialog .modal-content .modal-body {
+    padding: 100px 0 45px 0;
+    /* border-radius: 8px 8px 0 0; */
+    text-align: center;
+}
+div#modal-message-success .modal-dialog .modal-content .modal-body .flash-title p {
+  font-size: 24px;
+  color: #fff;
+  margin-bottom: 0;
+}
+div#modal-message-success .modal .modal-dialog {
+  margin-top: calc(63px + 120px);
+}
+// End of message model

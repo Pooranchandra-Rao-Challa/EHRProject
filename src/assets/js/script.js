@@ -15,6 +15,15 @@ sidebarBtn.addEventListener("click", ()=>{
   debugger
   sidebar.classList.toggle("close");
 });
-// $(".bx-menu").click(function(){
-//   $(".sidebar").toggleClass("close");
-// });
+
+function CloseAppointment(){
+  var appevent = jQuery.Event( "click" );
+  $( "#appointmentClose").trigger( appevent );
+}
+
+function OpenSaveSuccessAppointment(){
+  $( "#modal-message-success").css("display", "block");
+}
+function CloseSaveSuccessAppointment(){
+  $( "#modal-message-success").css("display", "none");
+}
