@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ProviderData } from 'src/app/_models/Admin.ts/Providedata';
 import { AdminService } from 'src/app/_services/admin.service';
 
 @Component({
@@ -30,7 +29,7 @@ export class AdminPracticeComponent implements OnInit {
   }
 
   GetProivderList() {
-    this.adminservice.GetProviders().subscribe(resp => {
+    this.adminservice.GetProviderList().subscribe(resp => {
       if (resp.IsSuccess) {
         this.ProviderList = resp.ListResult;
         this.ProviderList.map((e) => {

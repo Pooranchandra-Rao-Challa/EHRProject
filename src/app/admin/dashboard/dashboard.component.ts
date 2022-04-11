@@ -8,32 +8,32 @@ import { AdminService } from 'src/app/_services/admin.service';
 })
 export class DashboardComponent implements OnInit {
   page = 1;
-  pageSize :number=50; 
+  pageSize :number=50;
   ProviderList:any;
- 
+
   constructor(private adminservice:AdminService) { }
 
-  ngOnInit(): void {   
-    this.GetProivderList();    
+  ngOnInit(): void {
+    this.GetProivderList();
   }
 
-  GetProivderList(){       
-    this.adminservice.GetProviders().subscribe(resp => {
+  GetProivderList(){
+    this.adminservice.GetProviderList().subscribe(resp => {
       if(resp.IsSuccess){
         this.ProviderList = resp.ListResult;
-     
-        this.ProviderList.map((e) => { 
-          if(e.Trial == 'Trial'){            
-            e.ToggleButton=false;             
-           }         
+
+        this.ProviderList.map((e) => {
+          if(e.Trial == 'Trial'){
+            e.ToggleButton=false;
+           }
           else{
-             e.ToggleButton=true; 
+             e.ToggleButton=true;
            }
           if(e.PrimaryPhone != null)
-          {           
-            var phoneno = e.PrimaryPhone          
+          {
+            var phoneno = e.PrimaryPhone
             phoneno = phoneno.slice(0, 0) + phoneno.slice(1);
-            phoneno = phoneno.slice(1, 1) + phoneno.slice(1);             
+            phoneno = phoneno.slice(1, 1) + phoneno.slice(1);
             phoneno = Array.from(phoneno)
             phoneno.splice(0, 0, '(')
             phoneno.splice(4, 0, ')')
@@ -43,12 +43,12 @@ export class DashboardComponent implements OnInit {
           }
           else{
             e.NewPhoneNo=null;
-          }        
+          }
         });
       }
       else{
             this.ProviderList=[];
       }
     });
-  } 
+  }
 }
