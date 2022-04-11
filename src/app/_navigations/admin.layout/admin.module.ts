@@ -28,20 +28,28 @@ import { DateTimePickerModule } from "@syncfusion/ej2-angular-calendars";
 import { ScheduleModule,DayService, WeekService} from '@syncfusion/ej2-angular-schedule';
 import { ProviderlistComponent } from 'src/app/admin/providerlist.component';
 import { DashboardComponent } from 'src/app/admin/dashboard/dashboard.component';
+import { AdminService } from 'src/app/_services/admin.service';
+import { AdminPracticeComponent } from 'src/app/admin/admin-practice/admin-practice.component';
+import { BreadcrumComponent } from '../admin.breadcrum/admin.breadcrum.component';
+// import { PracticesComponent } from 'src/app/admin/practices/practices.component';
+
+
 
 
 
 
 @NgModule({
   exports: [
-    MatInputModule
+    MatInputModule,
   ],
   declarations: [
     AdminSidebarComponent,
     AdminNavbarComponent,
     AdminComponent,
     ProviderlistComponent,
-    DashboardComponent
+    DashboardComponent,
+    AdminPracticeComponent,
+    BreadcrumComponent
   ],
   imports: [
     AdminRoutingModule,
@@ -68,7 +76,7 @@ import { DashboardComponent } from 'src/app/admin/dashboard/dashboard.component'
     DropDownListModule,
     DateTimePickerModule,
   ],
-  providers: [DayService, WeekService
+  providers: [DayService, WeekService,AdminService
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
