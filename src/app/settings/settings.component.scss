@@ -145,6 +145,7 @@ div.ex3 {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   margin: 20px;
   border: 1px solid #41b6a6;
+  border-radius: 3px;
 }
 .general-content .schedule-section p.plabel{
   font-size: 16px;
@@ -451,6 +452,7 @@ input[type="checkbox"] {
 .appointment-form {
   min-height: 150px;
   border: 1px solid #41b6a6;
+  border-radius: 3px;
 }
 @media (max-width: 590px) {
   .appointment-form{

@@ -1,8 +1,8 @@
 <div class="container-fluid">
-  <div class="row">
+  <div class="row">    
     <div class="col-lg-12 col-xl-12 col-md-12 col-12">
       <ul class="dashbord-header">
-        <li><a href="javascript:void(0)" class="anchorStyle pr-3">Home</a></li>
+        <li><a href="admin/dashboard" class="anchorStyle pr-3">Home</a></li>
         <li><i class="category-arrow fa fa-angle-right anchorStyle"></i></li>
         <li><a class="active text-nowrap" href="javascript:void(0)" class="anchorStyle">Dashboard</a></li>
       </ul>
@@ -40,8 +40,8 @@
               <div class="p-2"><button type="button" class="common-button-style">User Agent Exprot</button></div>
               <div class="p-2"> <button type="button" class="common-button-style">Add New User</button></div>
             </div>
-            <div class="col-lg12 col-md-12 col-12 col-sm-12 "> <hr></div>
-            <div class="col-lg12 col-md-12 col-12 col-sm-12 ">             
+            <div class="col-lg-12 col-md-12 col-12 col-sm-12 "> <hr></div>
+            <div class="col-lg-12 col-md-12 col-12 col-sm-12 ">             
               <div class="table-responsive">              
                 <table class="table table-sm">
                   <thead class="th-border">
@@ -57,18 +57,18 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let item of UserDummyList| slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
-                      <td>{{item.Name}}</td>
+                    <tr *ngFor="let item of ProviderList| slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+                      <td>{{item.ProviderName}} , {{item.Degree}}</td>
                       <td>{{item.Email}}</td>
-                      <td class="td-width text-success">{{item.Type}}</td>
-                      <td>{{item.Phone}}</td>
+                      <td class="td-width text-success">{{item.EmailVerifyStatus}}</td>
+                      <td>{{item.NewPhoneNo}}</td>
                       <td class="td-col-width" colspan="3">
                         <div class="d-flex justify-content-between">
-                         <div> Trial (0 d left)</div> 
-                          <div class="form-check form-switch mx-3">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                          </div>
-                           <div>{{item.TrailOrPaid}}</div>
+                         <div [ngClass]="item.ToggleButton?'text-mute':'text-black'">Trail (d {{item.TrailDays}} left)</div> 
+                            <div class="form-check form-switch mx-3">
+                              <input class="form-check-input" type="checkbox" [checked]="item.ToggleButton" id="flexSwitchCheckDefault">
+                            </div>
+                          <div>{{item.Trial}}</div>
                         </div>                       
                       </td>     
                       <td class="td-col-width "><button type="button" class="table-col-button mx-3">View</button></td>                
@@ -86,8 +86,13 @@
       </div>      
     </div>    
 
-    <div class="d-flex justify-content-end my-3">           
-       <ngb-pagination [pageSize] = "8"   [collectionSize]="15" [(page)]="page" aria-label="Default pagination"></ngb-pagination>    
-    </div>     
+   <div class="d-flex justify-content-end my-3">           
+    <nav aria-label="Page navigation">
+      <ul class="pagination justify-content-end mt-4">
+          <ngb-pagination [pageSize]="5" [collectionSize]="10" [(page)]="page" aria-label="Default pagination">
+          </ngb-pagination>
+      </ul>
+    </nav>
+    </div>      
   </div>
 </div>

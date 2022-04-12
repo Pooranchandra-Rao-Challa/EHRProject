@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AdminService } from 'src/app/_services/admin.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,38 +8,47 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
   page = 1;
-  pageSize =7;  
-  userList:any=[];
-  UserDummyList:any;
-  constructor() {
-  
-   }
+  pageSize :number=50;
+  ProviderList:any;
+
+  constructor(private adminservice:AdminService) { }
 
   ngOnInit(): void {
-    this.getuserList();
-    
+    this.GetProivderList();
   }
 
-  getuserList()
-  {   
-    debugger;
-    this.UserDummyList=
-      [
-      { Name: 'Marcela Arizmendi ,DDS1', Email: 'smilelifedental@gmail.com', Type: 'Verified',Phone:'(714) 345-643',TrailOrPaid:'Trial'},
-      { Name: 'Marcela Arizmendi ,DDS2', Email: 'newlifedental@gmail.com', Type: 'Verified',Phone:'(714) 345-643',TrailOrPaid:'Trial'},
-      { Name: 'Marcela Arizmendi ,DDS3', Email: 'smilelifedental@gmail.com', Type: 'Verified',Phone:'(714) 345-643',TrailOrPaid:'Trial'},
-      { Name: 'Marcela Arizmendi ,DDS4', Email: 'smilelifedental@gmail.com', Type: 'Verified',Phone:'(714) 345-643',TrailOrPaid:'Paid'},
-      { Name: 'Marcela Arizmendi ,DDS5', Email: 'smilelifedental@gmail.com', Type: 'Verified',Phone:'(714) 345-643',TrailOrPaid:'Trial'},
-      { Name: 'Marcela Arizmendi ,DDS6', Email: 'newlifedental@gmail.com', Type: 'Verified',Phone:'(714) 345-643',TrailOrPaid:'Trial'},
-      { Name: 'Marcela Arizmendi ,DDS7', Email: 'smilelifedental@gmail.com', Type: 'Verified',Phone:'(714) 345-643',TrailOrPaid:'Trial'},
-      { Name: 'Marcela Arizmendi ,DDS8', Email: 'smilelifedental@gmail.com', Type: 'Verified',Phone:'(714) 345-643',TrailOrPaid:'Paid'},
-      { Name: 'Marcela Arizmendi ,DDS9', Email: 'smilelifedental@gmail.com', Type: 'Verified',Phone:'(714) 345-643',TrailOrPaid:'Trial'},
-      { Name: 'Marcela Arizmendi ,DDS10',Email: 'newlifedental@gmail.com', Type: 'Verified',Phone:'(714) 345-643',TrailOrPaid:'Trial'},
-      { Name: 'Marcela Arizmendi ,DDS11',Email: 'smilelifedental@gmail.com', Type: 'Verified',Phone:'(714) 345-643',TrailOrPaid:'Trial'},
-      { Name: 'Marcela Arizmendi ,DDS12',Email: 'smilelifedental@gmail.com', Type: 'Verified',Phone:'(714) 345-643',TrailOrPaid:'Trial'},
-      
-      ]
-     
-  }  
+  GetProivderList(){
+    this.adminservice.GetProviderList().subscribe(resp => {
+      if(resp.IsSuccess){
+        this.ProviderList = resp.ListResult;
 
+        this.ProviderList.map((e) => {
+          if(e.Trial == 'Trial'){
+            e.ToggleButton=false;
+           }
+          else{
+             e.ToggleButton=true;
+           }
+          if(e.PrimaryPhone != null)
+          {
+            var phoneno = e.PrimaryPhone
+            phoneno = phoneno.slice(0, 0) + phoneno.slice(1);
+            phoneno = phoneno.slice(1, 1) + phoneno.slice(1);
+            phoneno = Array.from(phoneno)
+            phoneno.splice(0, 0, '(')
+            phoneno.splice(4, 0, ')')
+            phoneno.splice(5, 0, ' ')
+            phoneno.splice(9, 0, '-')
+            e.NewPhoneNo = phoneno.join('');
+          }
+          else{
+            e.NewPhoneNo=null;
+          }
+        });
+      }
+      else{
+            this.ProviderList=[];
+      }
+    });
+  }
 }

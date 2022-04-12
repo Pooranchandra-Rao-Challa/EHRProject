@@ -40,10 +40,12 @@ import { ErxComponent } from '../../provider/erx/erx.component';
 import { BillingComponent } from '../../provider/billing/billing.component';
 import { MessagesComponent } from '../../provider/messages/messages.component';
 
-import { IConfig, NgxMaskModule} from 'ngx-mask'
+import { IConfig, NgxMaskModule } from 'ngx-mask'
 import { NgbDateUSParserFormatter } from '../../_helpers/ngb-date-us-parser-formatter';
 import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { BreadcrumComponent } from '../breadcrum/breadcrum.component';
+import { PatientDetailsComponent } from '../../provider/patients/patients/patient.details/patient.details.component';
+import { PatientsComponent } from '../../provider/patients/patients/patients.component';
 
 
 //import { ReportsRoutingModule } from "../..//reports-routing.module";
@@ -91,6 +93,8 @@ import { ConditionformaterPipe } from "../../reports/cqmreports/viewhelpers/cond
     Condition,
     ConditionpadderPipe,
     ConditionformaterPipe,
+    PatientsComponent,
+    PatientDetailsComponent
   ],
   imports: [
     ProviderRoutingModule,
@@ -120,8 +124,8 @@ import { ConditionformaterPipe } from "../../reports/cqmreports/viewhelpers/cond
     NgxMaskModule.forRoot(),
   ],
   providers: [DayService, WeekService, LocationSelectService,
-    UtilityService,SmartSchedulerService,
-    {provide: NgbDateParserFormatter, useClass: NgbDateUSParserFormatter}
+    UtilityService, SmartSchedulerService,
+    { provide: NgbDateParserFormatter, useClass: NgbDateUSParserFormatter }
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
