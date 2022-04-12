@@ -9,6 +9,7 @@ import { ProviderlistComponent } from '../../admin/providerlist/providerlist.com
 //import { CalendarComponent } from '../../calendar/calendar.component';
 import { AdminProviderListComponent } from '../../provider/admin/provider.list.component';
 import { AdminComponent} from './admin.component';
+import { AdminPracticeComponent } from 'src/app/admin/admin-practice/admin-practice.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,7 @@ const routes: Routes = [
       { path: 'defaultmessage', component: DefaultmessagesComponent },
       { path: 'setting', component: AdminsettingComponent},
       { path: 'communication', component: CommunicationsettingsComponent },
+      { path: 'practice', component: AdminPracticeComponent },
     ]
   }
 ]

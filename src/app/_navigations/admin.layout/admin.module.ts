@@ -28,8 +28,14 @@ import { DateTimePickerModule } from "@syncfusion/ej2-angular-calendars";
 import { ScheduleModule,DayService, WeekService} from '@syncfusion/ej2-angular-schedule';
 
 import { DashboardComponent } from 'src/app/admin/dashboard/dashboard.component';
+
+import { AdminPracticeComponent } from 'src/app/admin/admin-practice/admin-practice.component';
+import { BreadcrumComponent } from '../admin.breadcrum/admin.breadcrum.component';
+// import { PracticesComponent } from 'src/app/admin/practices/practices.component';
+
+
 import { AdminService } from '../../_services/admin.service';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
+//import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { ProviderlistComponent } from '../../admin/providerlist/providerlist.component';
 import { AdminsComponent } from 'src/app/admin/admins/admins.component';
 
@@ -43,7 +49,7 @@ import { AdminsettingComponent } from 'src/app/admin/adminsetting/adminsetting.c
 
 @NgModule({
   exports: [
-    MatInputModule
+    MatInputModule,
   ],
   declarations: [
     AdminSidebarComponent,
@@ -55,10 +61,9 @@ import { AdminsettingComponent } from 'src/app/admin/adminsetting/adminsetting.c
     AdminsettingComponent,
     DefaultmessagesComponent,
     CommunicationsettingsComponent,
-    
-    
-    
-    
+    AdminPracticeComponent,
+    BreadcrumComponent
+
   ],
   imports: [
     AdminRoutingModule,
@@ -84,7 +89,7 @@ import { AdminsettingComponent } from 'src/app/admin/adminsetting/adminsetting.c
     ScheduleModule,
     DropDownListModule,
     DateTimePickerModule,
-    Ng2SearchPipeModule
+    //Ng2SearchPipeModule
   ],
   providers: [DayService, WeekService,AdminService
 
