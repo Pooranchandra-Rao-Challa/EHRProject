@@ -48,23 +48,23 @@ export class ProviderNavbarComponent implements OnInit {
     this.navbarOpen = !this.navbarOpen;
   }
 
-  onChangeBreadCrum(name,url){
-
+  onChangeBreadCrum(url: string,name: string, view?: string, ) {
+    console.log(view)
+    if(view != null){
+      console.log(view)
       this.router.navigate(
         [url],
-        { queryParams: { name: name} }
+        { queryParams: { name: name, view: view } }
       );
+    }
 
-  }
-
-  onChangeeBreadCrumsetting(name,url){
-    debugger;
-
+    else
       this.router.navigate(
         [url],
-        { queryParams: { name: name,view:'practice'  } }
+        { queryParams: { name: name } }
       );
-
   }
+
+
 
 }

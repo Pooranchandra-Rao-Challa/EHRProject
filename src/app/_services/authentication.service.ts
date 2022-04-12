@@ -41,48 +41,44 @@ export class AuthenticationService {
 
   loginWithFormCredentials(creds: any): Observable<ResponseData> {
     const endpointUrl = this.baseUrl + "Authenticate/";
-    logger.info("endpointurl: " + endpointUrl);
     console.log(endpointUrl)
-    let observable = this.http.post<ResponseData>(endpointUrl, creds);
-    console.log(observable);
-    observable.subscribe(resp => {
-      console.log(resp.IsSuccess);
-      if (resp.IsSuccess) {
-        //let sessionToken = this.idService.generate();
-        this.userSubject = new BehaviorSubject<User>(resp.Result as User);
-        //this.userSubject.value.JwtToken = sessionToken;
-        localStorage.setItem('user', JSON.stringify(resp.Result as User));
+    console.log(creds)
+    debugger;
 
-        this.startRefreshTokenTimer();
-        if (this.isProvider)
-          // this.router.navigate(['/provider/smartschedule']);
-          this.router.navigate(
-            ['/provider/smartschedule'],
-            { queryParams: { name: 'Smart Schedule' } }
-          );
-        else if (this.isAdmin)
-          this.router.navigate(['/admin/dashboard']);
-        else if (this.isPatient)
-          this.router.navigate(['/patinet/patientview']);
-        //else
-        //this.router.navigate(['/reports/categoryreports']);
-      }else{
+    let observable = this.http.post<ResponseData>(endpointUrl, creds).pipe<ResponseData>(
+      tap(resp => {
+        if (resp.IsSuccess) {
+          //let sessionToken = this.idService.generate();
+          this.userSubject = new BehaviorSubject<User>(resp.Result as User);
+          //this.userSubject.value.JwtToken = sessionToken;
+          localStorage.setItem('user', JSON.stringify(resp.Result as User));
 
-      }
-    }),
-      (error) => {
-        this.logout();
-      };
+          this.startRefreshTokenTimer();
+          if (this.isProvider)
+            // this.router.navigate(['/provider/smartschedule']);
+            this.router.navigate(
+              ['/provider/smartschedule'],
+              { queryParams: { name: 'Smart Schedule' } }
+            );
+          else if (this.isAdmin)
+            this.router.navigate(['/admin/dashboard']);
+          else if (this.isPatient)
+            this.router.navigate(['/patinet/patientview']);
+          //else
+          //this.router.navigate(['/reports/categoryreports']);
+        }
+      })
+    );
     return observable;
   }
   patientLoginWithFormCredentials(creds: any): Observable<ResponseData> {
     const endpointUrl = this.apiEndPoint._authenticatePatientUrl;
-    logger.info("endpointurl: " + endpointUrl);
+
     console.log(endpointUrl)
+    console.log(creds)
     let observable = this.http.post<ResponseData>(endpointUrl, creds);
     console.log(observable);
     observable.subscribe(resp => {
-      debugger;
       console.log(resp.IsSuccess);
       if (resp.IsSuccess) {
         //let sessionToken = this.idService.generate();

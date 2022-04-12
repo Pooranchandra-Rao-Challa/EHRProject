@@ -116,7 +116,7 @@ body {
 }
 .content-wrapper {
   background-color: #fff;
-  padding: 1.5rem 1rem;
+  //padding: 1.5rem 1rem;
 }
 .mat-form-field-appearance-outline .mat-form-field-infix {
   padding: 0.51em 0 0.89em 0 !important;
@@ -721,7 +721,7 @@ i {
 }
 
 //active page
-.page-item.active .page-link { 
+.page-item.active .page-link {
   color: white !important;
   background-color: #0d6efd !important;
   border-color: #0d6efd !important;

@@ -10,7 +10,6 @@ export class BreadcrumComponent implements OnInit {
   menuName: any;
   isSubscribe: boolean = false;
 
-
   constructor(private router: Router, private location: Location,
     private route: ActivatedRoute,) {
   }

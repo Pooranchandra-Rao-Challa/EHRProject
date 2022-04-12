@@ -1,4 +1,17 @@
-<div class="smartschedule-wrapper">  
+<div class="smartschedule-wrapper">
+  <!-- <div class="header">
+    <div class="categories-header">
+      <div class="row">
+        <div class="categories-container col-lg-12">
+          <ul class="categories">
+            <li><a href="/provider/smartschedule">Home</a></li>
+            <li><i class="category-arrow fa fa-angle-right"></i></li>
+            <li><a class="active" href="#">Smart Schedule</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div> -->
   <div class="content">
     <div class="container-fluid">
       <div class="row">
@@ -13,8 +26,7 @@
           <div class="row" style="align-items: center">
             <div class="col-xl-2 col-lg-3 col-md-6 col-12 appointment-filter-datestring-bar">
               <!-- <b>Thursday, March 10th 2022</b> -->
-              <b>{{ selectedWeekday }},
-                {{ selectedAppointmentDate | date: "MMMM dd yyyy" }}</b>
+              <b>{{ selectedWeekday }}</b>
             </div>
             <div class="col-xl-1 col-lg-2 col-md-6 col-12 appointment-filter-date-bar">
               <div class="buttons ">
@@ -35,7 +47,7 @@
             <div class="col-xl-1 col-lg-2 col-md-6 col-12 appointment-filter-dropdown-bar">
               <mat-form-field appearance="outline" class="col-12 smart-schedule-dropdown">
                 <mat-select disableOptionCentering id="practiveProviders" placeholder="Select Provider"
-                  [(ngModel)]="SelectedProviderId">
+                  [(ngModel)]="SelectedProviderId" (selectionChange)="onProviderChange()">
                   <mat-option>None</mat-option>
                   <mat-option *ngFor="let provider of PracticeProviders" [value]="provider.ProviderId">
                     {{provider.FullName}}</mat-option>
@@ -57,7 +69,7 @@
                 }}"></i>
             </mat-expansion-panel-header>
             <div class="scrollable-table">
-              <div class="table-container" style="height:391px">
+              <div class="table-container" style="height:371px">
                 <div class="table-appointments-for-today table table-dashboard finished_appointments">
                   <div class="row text-center table-header">
                     <div class="col-md-1 col-1 appointment-time">Time</div>
@@ -70,22 +82,23 @@
                   </div>
                   <div class="row text-center table-body" *ngFor="let appointment of Appointments">
                     <div class="col-md-1 col-1 appointment-time">
-                     {{appointment.AppointmentTime | date:'MM/dd/yyyy'}}
-                     &nbsp;
-                     Time: {{appointment.AppointmentTime | date:'hh:mm a'}}
+                      {{appointment.AppointmentTime | date:'MM/dd/yyyy'}}
+                      &nbsp;
+                      Time: {{appointment.AppointmentTime | date:'hh:mm a'}}
                     </div>
                     <div class="col-md-2 col-2 patient">
                       {{appointment.PatientName}}&nbsp;
                       DOB: {{appointment.DateofBirth | date:'MMM d, y'}}
                     </div>
-                    <div class="col-md-2 col-2 provider">{{appointment.ProviderName}}</div>
+                    <div class="col-md-2 col-2 provider">{{appointment.ProviderName}},{{appointment.Status}}</div>
                     <div class="col-md-2 col-2 visit-status">
-                      <img class="col-md-2 col-2" src="../../../assets/images/smart-schedule/scheduled.svg" />
-                      <img class="col-md-2 col-2" src="../../../assets/images/smart-schedule/waiting.svg" />
-                      <img class="col-md-2 col-2" src="../../../assets/images/smart-schedule/in_progress.svg" />
-                      <img class="col-md-2 col-2" src="../../../assets/images/smart-schedule/completed.svg" />
-                      <img class="col-md-2 col-2" src="../../../assets/images/smart-schedule/cancel.svg" />
-                      <img class="col-md-2 col-2" src="../../../assets/images/smart-schedule/no_show.svg" />
+
+                      <img [class]="appointment.Status == 'Scheduled' ? 'img-smart-status' : 'img-smart-status-path'" src="../../../assets/images/smart-schedule/scheduled.svg" title="Scheduled" />
+                      <img class="img-smart-status" src="../../../assets/images/smart-schedule/waiting.svg" title="Wating" />
+                      <img class="img-smart-status" src="../../../assets/images/smart-schedule/in_progress.svg" title="In-Progress" />
+                      <img class="img-smart-status" src="../../../assets/images/smart-schedule/completed.svg" title="Completed"/>
+                      <img class="img-smart-status" src="../../../assets/images/smart-schedule/cancel.svg" title="Cancel" />
+                      <img class="img-smart-status" src="../../../assets/images/smart-schedule/no_show.svg" title="No-Show" />
                     </div>
                     <div class="col-md-2 col-2 appt-type">{{appointment.AppointmentType}}</div>
                     <div class="col-md-2 col-2 appointment-note">
@@ -141,15 +154,14 @@
 
               <div class="form-group">
                 <div class="input-group" appearance="outline" class="new-search col-12">
-                  <input class="form-control new-search "
+                  <input class="form-control new-search"
                     placeholder="Schedule Appointment ( Enter a patient's name or phone number )" type="text"
                     [(ngModel)]="patientNameOrCellNumber" (keyup)="searchPatient(patientNameOrCellNumber)" />
                 </div>
               </div>
               <div class="smartview-patient-search-result" *ngIf="flag" appearance="outline" [ngStyle]="psw">
                 <ul class="ui-widget">
-                  <li *ngFor="let patient of patients" class="ui-menu-item"
-                  data-bs-toggle="modal"
+                  <li *ngFor="let patient of patients" class="ui-menu-item" data-bs-toggle="modal"
                     [attr.data-bs-target]="patient.NumberOfAppointments == 0 ? '#modal-appointment-form' : '#modal-existingappointment-form'"
                     (click)="onSelectPatient(patient);">
 
@@ -342,14 +354,14 @@
 
 <!-- Add New Appointment Form-->
 
-<div class="modal fade appointment-form" id="modal-appointment-form"
-  data-bs-backdrop="static" data-bs-keyboard="false"
+<div class="modal fade appointment-form" id="modal-appointment-form" data-bs-backdrop="static" data-bs-keyboard="false"
   tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Add New Appointment</h4>
-        <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close">
+        <h4 class="modal-title">{{appointmentTitle}}</h4>
+        <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close"
+          (onclick)="closeEditAppointment()">
           X
         </span>
       </div>
@@ -417,12 +429,11 @@
             <div class="col-md-5">
               <mat-label class="col-12">Select Date:</mat-label>
               <mat-form-field appearance="outline" class="col-12">
-                <input matInput class="pointer" autocomplete="off"
-                [matDatepicker]="appointmentDate" (click)="appointmentDate.open()"
-                  readonly placeholder="Request Date" [(ngModel)]="PatientAppointment.Startat"
-                  [ngModelOptions]="{standalone: true}" />
-                <mat-datepicker-toggle matSuffix [for]="appointmentDate"
-                dateChange="ClearTimeSlots()"></mat-datepicker-toggle>
+                <input matInput class="pointer" autocomplete="off" [matDatepicker]="appointmentDate"
+                  (click)="appointmentDate.open()" readonly placeholder="Request Date"
+                  [(ngModel)]="PatientAppointment.Startat" [ngModelOptions]="{standalone: true}" />
+                <mat-datepicker-toggle matSuffix [for]="appointmentDate" dateChange="ClearTimeSlots()">
+                </mat-datepicker-toggle>
                 <mat-datepicker #appointmentDate></mat-datepicker>
               </mat-form-field>
             </div>
@@ -457,6 +468,11 @@
         </form>
       </div>
       <div class="modal-footer">
+        <!--data-bs-dismiss="modal" data-remote="true" -->
+        <button class="btn btn-default btn-danger pull-left btn-appointment-cancel-right"
+          data-bs-target='#modal-update-appointment-status' data-bs-toggle="modal"
+          [hidden]="PatientAppointment.AppointmentId == null"
+          (click)="cancelAppointment(PatientAppointment.AppointmentId)">Cancel</button>
         <button class="btn col-md-4 col-7" [disabled]="DiabledAppointmentSave()" (click)="onAppointmentSave()">Save
           Appointment</button>
         <button id="appointmentClose" class="btn col-md-3 col-4 fa fa-close" data-bs-dismiss="modal" aria-label="Close"
@@ -470,7 +486,7 @@
 
 <!-- Upcoming Appointment popup -->
 <div class="modal animated fadeIn existingappointment-form" tabindex="-1" role="dialog"
- id="modal-existingappointment-form">
+  id="modal-existingappointment-form">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -483,28 +499,29 @@
       <div class="modal-body">
         <div class="content-data">
           <div class="row appointment" *ngFor="let patientapp of AppointmentsOfPatient">
-            <div class="col-md-7" >
+            <div class="col-md-7">
               <div class="upcomming-appointment">
                 {{patientapp.AppointmentTime | date:'MM/dd/yyyy'}}&nbsp;
-                <a class="main-list-link" data-remote="true"
-                (click)="viewAppointment(patientapp)" data-bs-toggle="modal"
-                data-bs-target="#modal-appointment-form">View/Edit</a>
+                <a class="main-list-link" data-remote="true" (click)="viewAppointment(patientapp)"
+                  data-bs-toggle="modal" data-bs-target="#modal-appointment-form">View/Edit</a>
               </div>
-              <div><b>Time: &nbsp;</b>{{patientapp.AppointmentTime | date:'h:mm a'}}&nbsp;(~ {{patientapp.Duration}}Min.)</div>
+              <div><b>Time: &nbsp;</b>{{patientapp.AppointmentTime | date:'h:mm a'}}&nbsp;(~
+                {{patientapp.Duration}}Min.)</div>
               <div>
                 <p>Provider: &nbsp; {{patientapp.ProviderName}}</p>
               </div>
             </div>
             <div class="col-md-5">
               <div><b>Type: &nbsp;</b>{{patientapp.AppointmentType}}</div>
-              <div><a data-remote="true" href="#">Cancel</a></div>
+              <div><a data-remote="true" href="javascript:void(0)" (click)="cancelAppointment(patientapp.AppointmentId)"
+                  data-bs-target='#modal-update-appointment-status' data-bs-toggle="modal">Cancel</a></div>
             </div>
           </div>
         </div>
       </div>
       <div class="modal-footer">
         <button class="btn pull-left" data-bs-toggle="modal" data-bs-target="#modal-appointment-form"
-        (click)="onSelectNewAppointmentofPatientFromEditAppointments();">
+          (click)="onSelectNewAppointmentofPatientFromEditAppointments();">
           New Appointment
         </button>
       </div>
@@ -909,9 +926,8 @@
 
 <!-- data-bs-toggle="modal"
                     data-bs-target="#modal-appointment-form"-->
-<div class="modal" id="modal-message-success" tabindex="-1"
-role="dialog" data-bs-backdrop="static" data-bs-keyboard="false"
-aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal" id="modal-message-success" tabindex="-1" role="dialog" data-bs-backdrop="static"
+  data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog  modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-body">
@@ -924,9 +940,30 @@ aria-labelledby="staticBackdropLabel" aria-hidden="true">
         </div>
       </div>
       <div class="modal-footer">
-        <a class="btn btn-default" data-bs-dismiss="modal"
-        data-bs-target="#modal-message-success" aria-label="Close"
-        (click)="onSuccessCloseMessageBox()">Close</a>
+        <a class="btn btn-default" data-bs-dismiss="modal" data-bs-target="#modal-message-success" aria-label="Close"
+          (click)="onSuccessCloseMessageBox()">Close</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- appointment cancel-->
+<div class="modal animated fadeIn in" id="modal-update-appointment-status">
+  <div class="modal-dialog" style="margin-top: 243px; margin-bottom: 243px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <p class="title">Change Status to "Cancelled"?</p><button aria-label="Close" class="close"
+          data-bs-dismiss="modal" type="button"><span aria-hidden="true">×</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-warning"><strong>Warning:</strong>&nbsp; Appointment will be locked.</div>
+      </div>
+      <div class="modal-footer">
+        <div class="controls">
+          <button class="btn btn-default modal-add-patient-save seen-status-change"
+            (click)="confirmAppointment()">Confirm</button><button class="btn btn-default seen-status-change"
+            data-bs-dismiss="modal" (click)="confirmIsCancelledAppointment()">Cancel</button>
+        </div>
       </div>
     </div>
   </div>
