@@ -17,6 +17,10 @@ import { HomeComponent } from './account/home.comonent';
 import { DownloadService } from "./_services/download.service";
 import { IdService } from "./_helpers/_id.service";
 import { AuthGuard } from "./_helpers/auth.guard";
+import { AdminsComponent } from './admin/admins/admins.component';
+import { SettingsComponent } from './admin/settings/settings.component';
+import { DefaultmessagesComponent } from './admin/defaultmessages/defaultmessages.component';
+import { CommunicationsettingsComponent } from './admin/communicationsettings/communicationsettings.component';
 // HttpClientModule is only needed if you want to log on server or if you want to inspect sourcemaps
 
 @NgModule({
@@ -24,7 +28,11 @@ import { AuthGuard } from "./_helpers/auth.guard";
 
   ],
   declarations: [
-    AppComponent
+    AppComponent,
+    AdminsComponent,
+    SettingsComponent,
+    DefaultmessagesComponent,
+    CommunicationsettingsComponent,
 
   ],
   imports: [

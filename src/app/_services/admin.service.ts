@@ -10,4 +10,7 @@ export class AdminService extends APIEndPoint {
   PracticeProviders(reqdata: any) {
     return this._ProcessPostRequest<any>(this._practiceProvidersUrl, reqdata);
   }
+  GetProviderList() {
+    return this._ProcessGetRequest<any>(this._providerListUrl);
+  }
 }

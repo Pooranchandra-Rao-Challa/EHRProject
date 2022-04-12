@@ -1,26 +1,25 @@
-li {
-    display: inline;
-    color: #888;
-    font-size: larger;
+.dashbord-header{
+    list-style-type:none;
+  }
+  ul li, ol li, dl li {
     line-height: 1.8;
     display: initial !important;
     padding: 6px;
-}
-a {
-    font-size: large;
-}
+  }
+  .anchorStyle{
+    color: grey !important;
+    font-size: 15px;
+    padding: 12px 2px;
+  }
+  ul{
+    min-height: 43px;
+    background: #f1f4f7 !important
+  }
 .pagination {
     margin-right: 2%;
+    background: #fff !important
 }
-.fa-angle-right {
-    color: #888;
-    font-size: large;
-    padding-top: 100%;
-}
-.nav {
-    background-color: #f1f4f7;
-    height: 5%;
-}
+
 .table>:not(caption)>*>* {
     padding: 0.5rem 0.5rem;
     background-color: var(--bs-table-bg);
@@ -110,27 +109,27 @@ input[type='checkbox']:checked:after {
     // content: '✔';
     color: black;
     content: "\2714";
-    font-size: large;
+    font-size: small;
     
   }
 
 .form-check-input {
-    width: 1.4em;
-    height: 1.4em;
+    width: 1.2em;
+    height: 1.2em;
     margin-top: 0%;
     border-radius: 2%;
     margin-right: 2%;
     box-shadow: none !important;
 }
 .form-check-label{
-    font-size: 16px;
+    font-size: 15px;
     display: inline;
     
 }
 .table td,
 .table th {
     vertical-align: middle;
-    font-size: 16px;
+    font-size: 15px;
     line-height: 2;
     white-space: nowrap;
 }

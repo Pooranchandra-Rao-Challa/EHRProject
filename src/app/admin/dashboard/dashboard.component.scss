@@ -7,13 +7,13 @@ ul li, ol li, dl li {
   padding: 6px;
 }
 .anchorStyle{
-  color: grey !important;
-  font-size: 19px;
+  color: #888 !important;
+  font-size: 14px;
   padding: 12px 2px;
 }
 ul{
   min-height: 43px;
-  background: #edeff3 !important
+  background: #f1f4f7 !important
 }
 .card-border{
   border: 1px solid #f2f2f2 !important;
@@ -21,6 +21,9 @@ ul{
 hr:not([size]) {
   height: 1px;
   color: #96989d;
+}
+.fs-6 {
+  font-size: 1.1rem!important;
 }
 .table>:not(caption)>*>* {
   padding: 0.5rem 0.5rem;
@@ -30,12 +33,13 @@ hr:not([size]) {
 }
 .Cancelbtn{
   border-radius: 70px;
-  width: 35px;
-  height: 35px;
-  background: #f33333;
-  color: white;
+  width: 32px;
+  height: 33px;
+  background: #e7505a;;
+  color: #ffffff;
   font-size: 19px;
-  border: 1pz solid red;
+  border: 1px solid red;
+  border-color: #e7505a;
   border: none;
 
 }
@@ -44,7 +48,8 @@ table thead tr th{
   border-bottom-color: red;
 }
 table thead tr th{
- font-size: 19px;;
+  font-size: 14px;
+  font-weight: 600;
 }
 table tbody tr td{
   font-size: 17px;
@@ -71,6 +76,7 @@ thead, tbody, tfoot, tr, td, th {
 }
 .icon-close{
   color: white;
+  font-size: 16px;
 }
 .common-button-style{   
   background: white;
@@ -84,18 +90,19 @@ thead, tbody, tfoot, tr, td, th {
     font-size: 14px;
 }
 .form-switch .form-check-input {
-  width: 3em !important; 
+  width: 2.8rem !important;
   border-radius: 2em;
   margin-top: 1px;
-  height: 24px;
+  height: 22px;
 }
 .col-data{
   margin-top: 20px;
 }
 .form-check-input:checked {
-  background-color: #79c579;
+  background-color: #92c792;
   border-color: green;
   border: 0px;
+
 }
 .page-style{
   background: rgb(218, 25, 25) !important;  
@@ -103,4 +110,7 @@ thead, tbody, tfoot, tr, td, th {
 
 tbody > tr:last-child > td {
   border-bottom: 0;
+}
+.text-mute{
+  color: #7d7b7b;
 }
