@@ -34,7 +34,11 @@ import { SmartSchedulerService } from '../../_services/smart.scheduler.service';
 import { SettingsModule } from '../../settings/settings.module'
 import { SettingsComponent } from '../../settings/settings.component'
 import { LabsImagingComponent } from '../../provider/labs.imaging/labs.imaging.component';
-
+import { PatientComponent } from '../../provider/patient/patient.component';
+import { DirectMsgComponent } from '../../provider/directmsg/directmsg.component';
+import { ErxComponent } from '../../provider/erx/erx.component';
+import { BillingComponent } from '../../provider/billing/billing.component';
+import { MessagesComponent } from '../../provider/messages/messages.component';
 
 import { IConfig, NgxMaskModule } from 'ngx-mask'
 import { NgbDateUSParserFormatter } from '../../_helpers/ngb-date-us-parser-formatter';
@@ -43,6 +47,21 @@ import { BreadcrumComponent } from '../breadcrum/breadcrum.component';
 import { PatientDetailsComponent } from '../../provider/patients/patients/patient.details/patient.details.component';
 import { PatientsComponent } from '../../provider/patients/patients/patients.component';
 
+
+//import { ReportsRoutingModule } from "../..//reports-routing.module";
+//import { NavbarComponent } from "../../_navigations/navbar.component";
+//import { FooterComponent } from "../../_navigations/footer.component";
+//import { ReportsComponent } from "./reports.component";
+
+import { CategoryreportsComponent } from "../../reports/categoryreports/categoryreports.component";
+import { CqmreportsComponent } from "../../reports/cqmreports/cqmreports.component";
+import { EncounterlistComponent } from "../../reports/encounterlist/encounterlist.component";
+import { MureportsComponent } from "../../reports/mureports/mureports.component";
+import { PatientlistComponent } from "../../reports/patientlist/patientlist.component";
+import { ProblemlistComponent } from "../../reports/problemlist/problemlist.component";
+import { Condition } from "../../reports/cqmreports/viewhelpers/condition.renderer/condition.renderer.component"
+import { ConditionpadderPipe } from "../../reports/cqmreports/viewhelpers/conditionpadder.pipe";
+import { ConditionformaterPipe } from "../../reports/cqmreports/viewhelpers/conditionformater.pipe";
 
 @NgModule({
   exports: [
@@ -57,6 +76,23 @@ import { PatientsComponent } from '../../provider/patients/patients/patients.com
     SettingsComponent,
     LabsImagingComponent,
     BreadcrumComponent,
+
+    PatientComponent,
+    DirectMsgComponent,
+    ErxComponent,
+    BillingComponent,
+    MessagesComponent,
+
+    CategoryreportsComponent,
+    CqmreportsComponent,
+    EncounterlistComponent,
+    MureportsComponent,
+    EncounterlistComponent,
+    PatientlistComponent,
+    ProblemlistComponent,
+    Condition,
+    ConditionpadderPipe,
+    ConditionformaterPipe,
     PatientsComponent,
     PatientDetailsComponent
   ],

@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
       "EmailId": data.UserName,
       "Password": data.Password,
     };
-
+    console.log(creds);
     this.authenticationService.loginWithFormCredentials(creds).subscribe(resp => {
       debugger;
       if (!resp.IsSuccess) {
@@ -68,6 +68,13 @@ export class LoginComponent implements OnInit {
           this.authfailedmessage = "Enter valid Email Id and Password";
         console.log(resp.EndUserMessage);
       }
+    },
+    (error) =>{
+      this.showspinner = false;
+      this.message = 'Check with admistartor.';
+    },
+    () => {
+      this.showspinner = false;
     });
 
   }

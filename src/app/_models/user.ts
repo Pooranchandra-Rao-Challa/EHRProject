@@ -15,7 +15,7 @@ export interface User {
   LocationInfo: string;
   BusinessName: string;
   IsSuccess: boolean;
-
+  IsInTrailPeriod:boolean;
 }
 export interface UserLocations {
   locationId: string;

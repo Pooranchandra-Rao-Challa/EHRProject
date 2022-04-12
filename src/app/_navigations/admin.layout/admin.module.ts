@@ -35,7 +35,7 @@ import { BreadcrumComponent } from '../admin.breadcrum/admin.breadcrum.component
 
 
 import { AdminService } from '../../_services/admin.service';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
+//import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { ProviderlistComponent } from '../../admin/providerlist/providerlist.component';
 
 
@@ -79,7 +79,7 @@ import { ProviderlistComponent } from '../../admin/providerlist/providerlist.com
     ScheduleModule,
     DropDownListModule,
     DateTimePickerModule,
-    Ng2SearchPipeModule
+    //Ng2SearchPipeModule
   ],
   providers: [DayService, WeekService, AdminService
 

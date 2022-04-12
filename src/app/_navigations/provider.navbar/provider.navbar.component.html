@@ -10,43 +10,43 @@
   <div class="collapse navbar-collapse" [ngClass]="{ 'show': navbarOpen }">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a href="javascript:void(0)"  (click)="onChangeBreadCrum('Smart Schedule','/provider/smartschedule')"  routerLinkActive="router-link-active"  class="nav-link active item-prov-dashboard">Smart Schedule
+        <a href="javascript:void(0)"  (click)="onChangeBreadCrum('/provider/smartschedule','Smart Schedule')"  routerLinkActive="router-link-active"  class="nav-link active item-prov-dashboard">Smart Schedule
         </a>
       </li>
       <li class="nav-item">
-        <a href="javascript:void(0)" (click)="onChangeBreadCrum('Calender','/provider/calendar')" class="nav-link item-schedule">Calender
+        <a href="javascript:void(0)" (click)="onChangeBreadCrum('/provider/calendar','Calender')" class="nav-link item-schedule">Calender
         </a>
       </li>
       <li class="nav-item">
-        <a href="#"  class="nav-link item-patients">Patient
+        <a href="javascript:void(0)"  class="nav-link item-patients" (click)="onChangeBreadCrum('/provider/patients','Patient')" >Patient
         </a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link item-messages">Messages
+        <a href="javascript:void(0)" class="nav-link item-messages" (click)="onChangeBreadCrum('/provider/messages','Messages')">Messages
         </a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link item-direct-messages">Direct Msg
+        <a href="javascript:void(0)" class="nav-link item-direct-messages" (click)="onChangeBreadCrum('/provider/directmsg','Direct Msg')">Direct Msg
         </a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link item-erx disabled">eRx
+        <a href="javascript:void(0)" class="nav-link item-erx" (click)="onChangeBreadCrum('/provider/erx','eRx')">eRx
         </a>
       </li>
       <li class="nav-item">
-        <a  href="javascript:void(0)"  (click)="onChangeBreadCrum('Labs&Imaging','/provider/labsimaging')" class="nav-link item-labsimaging">Labs/Imaging
+        <a  href="javascript:void(0)"  (click)="onChangeBreadCrum('/provider/labsimaging','Labs&Imaging')" class="nav-link item-labsimaging">Labs/Imaging
         </a>
       </li>
       <li class="nav-item">
-        <a href="/reports/categoryreports" class="nav-link item-reports">Reports
+        <a href="javascript:void(0)" class="nav-link item-reports" (click)="onChangeBreadCrum('/provider/categoryreports','Reports')">Reports
         </a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link item-billing">Billing
+        <a href="javascript:void(0)" class="nav-link item-billing" (click)="onChangeBreadCrum('/provider/billing','Billing')">Billing
         </a>
       </li>
       <li class="nav-item">
-        <a href="javascript:void(0)" (click)="onChangeeBreadCrumsetting('settings','/provider/settings')" class="nav-link item-settings">Settings
+        <a href="javascript:void(0)" (click)="onChangeBreadCrum('/provider/settings','Settings','practice')" class="nav-link item-settings">Settings
         </a>
       </li>
     </ul>

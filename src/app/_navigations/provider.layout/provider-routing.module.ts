@@ -5,7 +5,13 @@ import { SettingsComponent } from 'src/app/settings/settings.component';
 import { CalendarComponent } from '../../provider/calendar/calendar.component';
 import { SmartScheduleComponent } from '../../provider/smart.schedule/smart.schedule.component';
 import { ProviderComponent } from './provider.component';
-import {LabsImagingComponent } from 'src/app/provider/labs.imaging/labs.imaging.component';
+import { LabsImagingComponent } from 'src/app/provider/labs.imaging/labs.imaging.component';
+import { PatientComponent } from '../../provider/patient/patient.component';
+import { DirectMsgComponent } from '../../provider/directmsg/directmsg.component';
+import { ErxComponent } from '../../provider/erx/erx.component';
+import { BillingComponent } from '../../provider/billing/billing.component';
+import { MessagesComponent } from '../../provider/messages/messages.component';
+import { CategoryreportsComponent } from "../../reports/categoryreports/categoryreports.component";
 
 const routes: Routes = [
   {
@@ -14,7 +20,13 @@ const routes: Routes = [
       { path: "calendar", component: CalendarComponent },
       { path: 'smartschedule', component: SmartScheduleComponent },
       { path: 'settings', component: SettingsComponent },
-      { path: 'labsimaging', component: LabsImagingComponent }, 
+      { path: 'patients', component: PatientComponent },
+      { path: 'directmsg', component: DirectMsgComponent },
+      { path: 'erx', component: ErxComponent },
+      { path: 'billing', component: BillingComponent },
+      { path: 'messages', component: MessagesComponent },
+      { path: 'labsimaging', component: LabsImagingComponent },
+      { path: "categoryreports", component: CategoryreportsComponent }
     ]
   }
 ]
