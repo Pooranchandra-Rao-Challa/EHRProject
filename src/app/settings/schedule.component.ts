@@ -25,7 +25,6 @@ export class ScheduleComponent implements OnInit {
   showEditBtn: boolean = false;
   showSaveBtn: boolean = false;
   showInput: boolean = true;
-  color: any;
   typecolor: any;
   Colour: any;
   appointmentStatusData: any;
@@ -93,7 +92,7 @@ export class ScheduleComponent implements OnInit {
     return this.fb.group({
       Id: [''],
       Name: [''],
-      Colour: ['']
+      color: ['']
     })
   }
   addStatus() {
@@ -146,7 +145,7 @@ export class ScheduleComponent implements OnInit {
           this.addStatus();
           this.statusForm.controls.status['controls'][i].get('Id').patchValue(this.appointmentStatusData[i].Id);
           this.statusForm.controls.status['controls'][i].get('Name').patchValue(this.appointmentStatusData[i].Name);
-          this.statusForm.controls.status['controls'][i].get('Colour').patchValue(this.appointmentStatusData[i].Colour);
+          this.statusForm.controls.status['controls'][i].get('color').patchValue(this.appointmentStatusData[i].Colour);
         }
       }
     });
