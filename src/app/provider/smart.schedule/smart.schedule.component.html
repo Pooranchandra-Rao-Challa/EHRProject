@@ -377,8 +377,7 @@
             <mat-form-field appearance="outline" class="col-12 hover">
               <mat-select id="practiveProviders2" placeholder="Select Provider" disableOptionCentering
                 placeholder="Select Provider" [(ngModel)]="PatientAppointment.ProviderId"
-                [ngModelOptions]="{standalone:true}">
-                <mat-option>None</mat-option>
+                [ngModelOptions]="{standalone:true}" (selectionChange)="onProviderChangeFromAppointmentForm()">
                 <mat-option *ngFor="let provider of PracticeProviders" [value]="provider.ProviderId">
                   {{provider.FullName}}</mat-option>
               </mat-select>
@@ -926,14 +925,14 @@
 
 <!-- data-bs-toggle="modal"
                     data-bs-target="#modal-appointment-form"-->
-<div class="modal" id="modal-message-success" tabindex="-1" role="dialog" data-bs-backdrop="static"
+<div class="modal modal-notice" id="modal-message-success" tabindex="-1" role="dialog" data-bs-backdrop="static"
   data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog  modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-body">
         <div class="scrollable-container" style="height: auto;">
           <div class="content">
-            <div class="flash-title">
+            <div [class]="onError ? 'message-error-title': 'message-title'">
               <p>{{OperationMessage}}</p>
             </div>
           </div>

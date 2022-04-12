@@ -125,7 +125,7 @@ export class ScheduleComponent implements OnInit {
 
   // get display Location Details
   getLocationsList() {
-    this.settingsService.PractiveLocations(this.user.ProviderId).subscribe(resp => {
+    this.settingsService.PracticeLocations(this.user.ProviderId).subscribe(resp => {
       if (resp.IsSuccess) {
         this.LocationAddress = resp.ListResult;
       }
