@@ -4,8 +4,8 @@
     margin-right: auto;
     margin-left: auto;
   }
-  
- 
+
+
   #authfailedmessage {
     color: rgba(240, 13, 13, 0.932);
   }
@@ -32,7 +32,7 @@
       color: #41b6a6 !important;
       // opacity: 1!important;
     }
-  
+
     //mat-input focused color
     ::ng-deep
       .mat-form-field-appearance-outline.mat-focused
@@ -40,7 +40,7 @@
       color: #41b6a6 !important;
     }
   }
-  
+
   button {
     width: 50% !important;
   height: 45px !important;
@@ -56,7 +56,7 @@
     background-color: #41b6a6 !important;
     color: #fff !important;
   }
-  
+
   li {
     margin-top: 3%;
     font-size: 16px;
@@ -81,7 +81,7 @@
     border-top: 1px solid grey;
     margin: 20px 0;
   }
-  
+
 
   @keyframes frames {
     0% {
@@ -93,7 +93,7 @@
       transform: rotate(359deg);
     }
   }
-  
+
   .authorization-signin-wrapper .authorization-top,
   .authorization-signup-wrapper .authorization-top,
   .passwords-wrapper .passwords-top,
@@ -195,7 +195,7 @@
     background-image: url(../../assets/images/logo-rectangle.svg);
     background-repeat: no-repeat;
   }
- 
+
 .col-lg-8 {
     width: 28.33333333%;
     text-align: center;
@@ -208,7 +208,7 @@
     -webkit-box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
     box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
     background-color: white;
-  
+
 
   }
   .checkbox-custom label .checkbox-icon-container {
@@ -222,7 +222,7 @@
     display: table-cell;
     vertical-align: middle;
   }
-  
+
   ::ng-deep .example-margin {
     & .mat-checkbox-background,
     .mat-checkbox-frame {
@@ -239,7 +239,7 @@
     & .mat-checkbox-background,
     .mat-checkbox-frame {
       border-color: red;
-  
+
     }
   }
   ::ng-deep .mat-checkbox-checked.mat-accent {
@@ -277,7 +277,7 @@
   .mat-checkbox {
     font-weight: bold;
   }
-  
+
   h4{
     font-size: 20px;
   }
@@ -309,3 +309,4 @@
       }
     }
   }
+
