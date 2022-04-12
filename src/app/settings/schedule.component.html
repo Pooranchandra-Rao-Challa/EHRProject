@@ -1,3 +1,6 @@
+<div id="pause" class="d-flex align-items-center justify-content-center" *ngIf="customizedspinner">
+  <div id="spinner"></div>
+</div>
 <div class="scrollable-container">
   <div class="content ">
     <div class="row denatal-chart-top">
@@ -167,10 +170,11 @@
                             <div class="col-md-5 col-5">
                               <div class="form-group">
                                 <input type="text" class="form-control inputclass" formControlName="Name">
+                                <!-- <input type="text" hidden class="form-control inputclass" formControlName="Id"> -->
                               </div>
                             </div>
                             <div class="col-md-3 col-3">
-                              <input class="cstm-color-picker" [(colorPicker)]="color" [style.background]="color"
+                              <input class="cstm-color-picker" [colorPicker]="Colour" [style.background]="Colour"
                                 formControlName="Colour" />
                             </div>
                             <div class="col-md-4 col-4 pt-2 pt-md-0">
@@ -178,15 +182,14 @@
                                 (click)="saveAppointmentStatus(statusIndex)">
                                 Save
                               </button>
-                              <!-- <button type="button" id="Actbtn"
-                                class="btn btn-md btn-sm btn-success pull-right" (click)="onSubmitEdit(statusIndex)">
+                              <!-- <button type="button" id="Actbtn" class="btn btn-md btn-sm btn-success pull-right">
                                 Edit
                               </button> -->
                             </div>
                             <div class="col-md-12 col-12 pt-2 cstm-border-bottom-appointment">
                               <div class="col-4 pull-right">
                                 <button type="button" id="Actbtn" class="btn btn-md btn-sm btn-success pull-right"
-                                  (click)="removeStatus(statusIndex)" style="height: 30px;">
+                                  (click)="removeAppointmentStatus(statusIndex)" style="height: 30px;">
                                   Remove
                                 </button>
                               </div>
@@ -226,12 +229,12 @@
                           <div class="row px-4 pt-3 pb-2">
                             <div class="col-md-5 col-5">
                               <div class="form-group">
-                                <input type="text" class="form-control inputclass" formControlName="appointmentType">
+                                <input type="text" class="form-control inputclass" formControlName="AppointmentType">
                               </div>
                             </div>
                             <div class="col-md-3 col-3">
-                              <input class="cstm-color-picker" [(colorPicker)]="typecolor"
-                                [style.background]="typecolor" />
+                              <input class="cstm-color-picker" [(colorPicker)]="Colour" [style.background]="Colour"
+                                formControlName="Colour" />
                             </div>
                             <div class="col-md-4 col-4 pt-2 pt-md-0">
                               <button type="button" id="Actbtn" class="btn btn-md btn-sm btn-success pull-right"
@@ -242,7 +245,7 @@
                             <div class="col-md-12 col-12 pt-2 cstm-border-bottom-appointment">
                               <div class="col-4 pull-right">
                                 <button type="button" id="Actbtn" class="btn btn-md btn-sm btn-success pull-right"
-                                  (click)="removeType(typeIndex)" style="height: 30px;">
+                                  (click)="removeAppointmentType(typeIndex)" style="height: 30px;">
                                   Remove
                                 </button>
                               </div>

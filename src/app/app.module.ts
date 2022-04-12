@@ -24,7 +24,7 @@ import { AuthGuard } from "./_helpers/auth.guard";
 
   ],
   declarations: [
-    AppComponent,
+    AppComponent
 
   ],
   imports: [

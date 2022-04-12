@@ -36,10 +36,12 @@ import { SettingsComponent } from '../../settings/settings.component'
 import { LabsImagingComponent } from '../../provider/labs.imaging/labs.imaging.component';
 
 
-import { IConfig, NgxMaskModule} from 'ngx-mask'
+import { IConfig, NgxMaskModule } from 'ngx-mask'
 import { NgbDateUSParserFormatter } from '../../_helpers/ngb-date-us-parser-formatter';
 import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { BreadcrumComponent } from '../breadcrum/breadcrum.component';
+import { PatientDetailsComponent } from '../../provider/patients/patients/patient.details/patient.details.component';
+import { PatientsComponent } from '../../provider/patients/patients/patients.component';
 
 
 @NgModule({
@@ -54,7 +56,9 @@ import { BreadcrumComponent } from '../breadcrum/breadcrum.component';
     SmartScheduleComponent,
     SettingsComponent,
     LabsImagingComponent,
-    BreadcrumComponent
+    BreadcrumComponent,
+    PatientsComponent,
+    PatientDetailsComponent
   ],
   imports: [
     ProviderRoutingModule,
@@ -84,8 +88,8 @@ import { BreadcrumComponent } from '../breadcrum/breadcrum.component';
     NgxMaskModule.forRoot(),
   ],
   providers: [DayService, WeekService, LocationSelectService,
-    UtilityService,SmartSchedulerService,
-    {provide: NgbDateParserFormatter, useClass: NgbDateUSParserFormatter}
+    UtilityService, SmartSchedulerService,
+    { provide: NgbDateParserFormatter, useClass: NgbDateUSParserFormatter }
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
