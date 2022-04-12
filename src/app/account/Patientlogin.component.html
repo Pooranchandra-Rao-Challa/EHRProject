@@ -17,14 +17,14 @@
         <h2 class="signup">PLEASE SIGN IN TO VIEW YOUR ACCOUNT</h2>
         <h4 class="sign mt-2">
             Don't have an account yet?
-            <!-- <span style="color: #287066" href="/account/registration">Sign up here</span> -->
+
             <a style="color: #287066" href="/account/registration">Sign up here</a>
         </h4>
     </div>
     <hr />
     <div>
         <div class="container cstm-container pb-4" id="flexbox">
-            <!-- Top header -->
+
             <div class="row top-header">
                 <div class="col-lg-4 col-md-4 col-sm-12 ">
                     <div class="Login-form">
@@ -35,18 +35,21 @@
                             <form class="my-form" [formGroup]="loginForm">
                                 <div>
                                     <mat-form-field class="w-100" appearance="outline">
-                                        <input matInput placeholder="Email / UserName" name="EmailId" formControlName="EmailId" />
+                                        <input matInput placeholder="Email / UserName" name="EmailId"
+                                            formControlName="EmailId" />
                                     </mat-form-field>
                                     <mat-form-field class="w-100" appearance="outline">
-                                        <input matInput placeholder="Password" name="Password" formControlName="Password" type="password" />
+                                        <input matInput placeholder="Password" name="Password"
+                                            formControlName="Password" type="password" />
                                     </mat-form-field>
                                 </div>
                                 <div class="pull-right">
-                                    <div class="forgot" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Forgot your password?</div>
+                                    <div class="forgot" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Forgot
+                                        your password?</div>
                                     <div class="forgot" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
-                                      Resend Email Verification
+                                        Resend Email Verification
                                     </div>
-                                  </div>
+                                </div>
                             </form>
                         </mat-card-content>
                     </div>
@@ -60,20 +63,22 @@
 
                 <div class="col-lg-8 col-md-8 col-sm-12 px-3">
                     <div class="row mt-2">
-                        <h4>To make our EHR evenmore secure for you, please download our two-factor authentication application</h4>
+                        <h4>To make our EHR evenmore secure for you, please download our two-factor authentication
+                            application</h4>
                     </div>
                     <div>
                         <div class="services mt-4">
                             <a aria-label="android application" href="https://goo.gl/6S9W6g">
                                 <img width="70" height="140" class="img-fluid" src="assets/qr_code_PNG25.png">
-                                <img width="200" height="100" class="img-fluid" src="assets/google-play-logo-9f0984.png">                       
-                            </a>                           
+                                <img width="200" height="100" class="img-fluid"
+                                    src="assets/google-play-logo-9f0984.png">
+                            </a>
                         </div>
                         <div class="services">
                             <a aria-label="android application" href="https://goo.gl/XW81jL">
                                 <img width="70" height="140" class="img-fluid" src="assets/qr_code_PNG25.png">
-                                <img  width="200" height="150" class="img-fluid mt-2 mb-2" src="assets/app store.png" >                       
-                            </a>                           
+                                <img width="200" height="150" class="img-fluid mt-2 mb-2" src="assets/app store.png">
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -81,3 +86,4 @@
         </div>
     </div>
 </div>
+
