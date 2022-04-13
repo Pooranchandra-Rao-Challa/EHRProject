@@ -12,32 +12,35 @@
 </head>
 
 <body> -->
-<div class="sidebar close">
-  <div class="logo-details">
+<div class="sidebar">
+
+  <div class="logo-details top-header">
     <img src="../../../assets/images/logo.svg" class="admin-side-logo mx-2">
   </div>
+
   <ul class="nav-links">
-    <h5 style="color: #b4bcc8;">PAGES</h5>
+    <h6 class="heading">PAGES</h6>
     <li>
-      <a href="#">
-        <i class='icon-people icons'></i>
+      <a href="javascript:void(0)" (click)="onChangeBreadCrum('Practices','admin/practice')">
+        <i class='icon-people icons icon-align'></i>
         <span class="link_name">Practices</span>
       </a>
       <ul class="sub-menu blank">
-        <li><a class="link_name" href="#">Practices</a></li>
+        <li><a class="link_name"  href="javascript:void(0)" (click)="onChangeBreadCrum('Practices','admin/practice')"
+         >Practices</a></li>
       </ul>
     </li>
     <li>
-      <a href="admin/providerslist">
-        <i class='icon-people'></i>
+      <a href="javascript:void(0)" (click)="onChangeBreadCrum('Providers','admin/providerslist')">
+        <i class='icon-people icons icon-align'></i>
         <span class="link_name">Providers</span>
       </a>
       <ul class="sub-menu blank">
-        <li><a class="link_name" href="admin/providerslist">Providers</a></li>
+        <li><a class="link_name"  href="javascript:void(0)" (click)="onChangeBreadCrum('Providers','admin/providerslist')">Providers</a></li>
       </ul>
     </li>
     <li>
-      <div class="iocn-link">
+      <div class="iocn-link icon-align">
         <a href="#">
           <i class='icon-people'></i>
           <span class="link_name">Patients</span>
@@ -45,32 +48,32 @@
         <i class='bx bxs-chevron-down arrow'></i>
       </div>
       <ul class="sub-menu">
-        <li><a class="link_name" href="#">Patients</a></li>
-        <li><a href="#">Active Patients</a></li>
-        <li><a href="#">Inactive Patients</a></li>
+        <li class="link-boder"><a class="link_name" href="#">Patients</a></li>
+        <li class="link-boder"><a href="#">Active Patients</a></li>
+        <li class="link-boder"><a href="#">Inactive Patients</a></li>
       </ul>
     </li>
-    <li>
+    <li class="">
       <a href="#">
-        <i class='icon-people'></i>
+        <i class='icon-people icon-align'></i>
         <span class="link_name">Admins</span>
       </a>
       <ul class="sub-menu blank">
-        <li><a class="link_name" href="#">Admins</a></li>
+        <li class=""><a class="link_name" href="#">Admins</a></li>
       </ul>
     </li>
     <li>
       <a href="#">
-        <i class='icon-wallet'></i>
+        <i class='icon-wallet icon-align'></i>
         <span class="link_name">Billing</span>
       </a>
-      <ul class="sub-menu blank">
+      <ul class="sub-menu blank ">
         <li><a class="link_name" href="#">Billing</a></li>
       </ul>
     </li>
     <li>
       <a href="#">
-        <i class='icon-docs'></i>
+        <i class='icon-docs icon-align'></i>
         <span class="link_name">Reports</span>
       </a>
       <ul class="sub-menu blank">
@@ -79,7 +82,7 @@
     </li>
     <li>
       <a href="#">
-        <i class='icon-settings'></i>
+        <i class='icon-settings icon-align'></i>
         <span class="link_name">Settings</span>
       </a>
       <ul class="sub-menu blank">
@@ -89,21 +92,21 @@
     <li>
       <div class="iocn-link">
         <a href="#">
-          <i class='icon-folder'></i>
+          <i class='icon-folder icon-align'></i>
           <span class="link_name">Upload Data</span>
         </a>
         <i class='bx bxs-chevron-down arrow'></i>
       </div>
       <ul class="sub-menu">
-        <li><a class="link_name" href="#">Upload Data</a></li>
-        <li><a href="#">List Imported Data</a></li>
-        <li><a href="#">Import Patient</a></li>
-        <li><a href="#">Import Encounter</a></li>
+        <li class="link-boder"><a class="link_name" href="#">Upload Data</a></li>
+        <li class="link-boder"><a href="#">List Imported Data</a></li>
+        <li class="link-boder"><a href="#">Import Patient</a></li>
+        <li class="link-boder"><a href="#">Import Encounter</a></li>
       </ul>
     </li>
     <li>
       <a href="#">
-        <i class='icon-notebook'></i>
+        <i class='icon-notebook icon-align'></i>
         <span class="link_name">Weekly Update</span>
       </a>
       <ul class="sub-menu blank">
@@ -112,16 +115,16 @@
     </li>
     <li>
       <a href="#">
-        <i class='icon-docs'></i>
+        <i class='icon-docs icon-align'></i>
         <span class="link_name">Default Messages</span>
       </a>
       <ul class="sub-menu blank">
         <li><a class="link_name" href="#">Default Messages</a></li>
       </ul>
     </li>
-    <li>
+    <li class="link-boder">
       <a href="#">
-        <i class='icon-settings'></i>
+        <i class='icon-settings icon-align'></i>
         <span class="link_name">Communication Settings</span>
       </a>
       <ul class="sub-menu blank">

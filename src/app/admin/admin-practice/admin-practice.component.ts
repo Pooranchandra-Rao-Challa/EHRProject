@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AnyTxtRecord } from 'dns';
 import { AdminService } from 'src/app/_services/admin.service';
 
 @Component({
@@ -10,9 +11,7 @@ export class AdminPracticeComponent implements OnInit {
 
   pageSize = 50;
   page = 0;
-  data: any[] = [];
-  // provide:ProviderData=new ProviderData();
-
+  GlobalSearch:any;
   ProviderList: any;
   GetFilterList: any;
   FitlerGetStatus: any = [];
@@ -69,7 +68,6 @@ export class AdminPracticeComponent implements OnInit {
   }
 
 
-
   FilterTrailPaid() {
     debugger;
     if(this.PaidChecked == true) {
@@ -92,5 +90,9 @@ export class AdminPracticeComponent implements OnInit {
     else {
       this.GetProivderList();
     }
+  }
+
+  SearchPractices(){
+
   }
 }

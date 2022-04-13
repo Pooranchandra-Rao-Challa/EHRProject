@@ -1,262 +1,318 @@
-.practice-header{
-    list-style-type:none;
-  }
+.practice-header {
+  list-style-type: none;
+}
+
 li {
-    display: inline;
-    color: #888;
-    font-size: larger;
-    line-height: 1.8;
-    display: initial !important;
-    padding: 6px;
+  display: inline;
+  color: #888;
+  font-size: larger;
+  line-height: 1.8;
+  display: initial !important;
+  padding: 6px;
 }
+
 a {
-    color: #888 !important;
-    font-size: 14px;
+  color: #888 !important;
+  font-size: 14px;
 }
+
 .pagination {
-    margin-right: 2%;
+  margin-right: 2%;
 }
+
 .fa-angle-right {
-    color: #888;
-    font-size: large;
-    padding-top: 100%;
+  color: #888;
+  font-size: large;
+  padding-top: 100%;
 }
+
 .nav {
-    background-color: #f1f4f7;
-    height: 1%;
+  background-color: #f1f4f7;
+  height: 1%;
 }
+
 .table>:not(caption)>*>* {
-    padding: 0.5rem 0.5rem;
-    background-color: var(--bs-table-bg);
-    border-bottom-width: 1px;
-    box-shadow: inset 0 0 0 0000px var(--bs-table-accent-bg);
+  padding: 0.5rem 0.5rem;
+  background-color: var(--bs-table-bg);
+  border-bottom-width: 1px;
+  box-shadow: inset 0 0 0 0000px var(--bs-table-accent-bg);
 }
-hr{
-    color: #8d8c8c;
+
+hr {
+  color: #8d8c8c;
 }
+
 .card-border {
-    border: 1px solid #dad8d8;
+  border: 1px solid #dad8d8;
 }
 
 div.search-box input[type=text] {
-    padding: 8px;    
-    border: 1px solid #b4bcc8;
-    float: left;
-    width: 78%;
-    background: #fff;
+  padding: 8px;
+  border: 1px solid #b4bcc8;
+  float: left;
+  width: 78%;
+  background: #fff;
 }
+
 div.search-box button {
-    float: left;
-    width: 7%;
-    padding: 3px;
-    background: #2b3643;
-    color: white;
-    font-size: 21px;
-    border: 1px solid #b4bcc8;
-    border-left: none;
-    cursor: pointer;
+  float: left;
+  width: 6%;
+  padding: 3px;
+  background: #2b3643;
+  color: white;
+  font-size: 22px;
+  border: 1px solid #b4bcc8;
+  border-left: none;
+  cursor: pointer;
 }
 
 .search {
-    position: relative;
-    box-shadow: 0 0 40px rgba(51, 51, 51, .1)
+  position: relative;
+  box-shadow: 0 0 40px rgba(51, 51, 51, .1)
 }
+
 .search .fa-search {
-    position: absolute;
-    top: 12px;
-    left: 17px;
-    color: white;
-    font-size: 24px;
-  }
-  .search button {
-    position: absolute;
-    top:  -0.89px;;
-    right: -50px;
-    height: 49px;
-    width: 55px;
-    background: #41b6a6;
-    border-color: white;    
+  position: absolute;
+  top: 12px;
+  left: 17px;
+  color: white;
+  font-size: 24px;
+}
+
+.search button {
+  position: absolute;
+  top: -0.89px;
+  ;
+  right: -50px;
+  height: 49px;
+  width: 55px;
+  background: #41b6a6;
+  border-color: white;
 }
 
 div.search-box button:hover {
-    background: #2b3643;
+  background: #2b3643;
 }
-.tbl-col{
-    width: 15%;
+
+.tbl-col {
+  width: 15%;
 }
-.column{
-    width: 5%;
+
+.column {
+  width: 5%;
 }
+
 div.search-box::after {
-    content: "";
-    clear: both;
-    display: table;
+  content: "";
+  clear: both;
+  display: table;
 }
-.i-search{
-    color: #fff;
-    font-size: 23px;
+
+.i-search {
+  color: #fff;
+  font-size: 23px;
 }
+
 input::-webkit-input-placeholder {
-    color: #b4bcc8 !important;
-    font-size: 100%;
-    font-family: sans-serif;
+  color: #b4bcc8 !important;
+  font-size: 100%;
+  font-family: sans-serif;
 }
+
 .form-check-input:checked {
-    background-color: #fff;
-    border-color: #b4bcc8;
+  background-color: #fff;
+  border-color: #b4bcc8;
 }
+
 input[type='checkbox']:checked:after {
-    // content: '✔';
-    color: black;
-    content: "\2714";
-    font-size: large;
-    
-  }
+  // content: '✔';
+  color: black;
+  content: "\2714";
+  font-size: large;
+
+}
 
 .form-check-input {
-    width: 1.4em;
-    height: 1.4em;
-    margin-top: 0%;
-    border-radius: 2%;
-    margin-right: 2%;
-    box-shadow: none !important;
-}
-.form-check-label{
-    font-size: 14px;
-    display: inline;    
+  width: 1.4em;
+  height: 1.4em;
+  margin-top: 0%;
+  border-radius: 2%;
+  margin-right: 2%;
+  box-shadow: none !important;
 }
 
-thead {
-    border-bottom-width: 3px;
-}
-.th-col{
-    font-size: 15px !important;
-}
-.th-practiceName{
-    font-size: 15px !important;
-    max-width: 32px;
-}
-.table th {
-    font-weight: bold;
-}
-.td-col-width{
-    width: 4%;
-  }
-  .com-btn-style{  
-    background: white;
-    border: 1.5px solid #b1a7a7;
-    padding: 4px 9px;
-    font-size: 13px;
- }
-.addbtn{
-    border-radius: 71px;
-    width: 35px;
-    height: 36px;
-    font-size: 9px;
-    color: #666;
-    background-color: #dbe1ee;
-    border-color: #e1e5ec;
-    border: 1px solid #5e6064;
-    border: none;
-}
- .Cancelbtn{
-    border-radius: 71px;
-    width: 32px;
-    height: 33px;
-    background: #e7505a;
-    color: #ffffff;
-    font-size: 17px;
-    border: 1px solid red;
-    border-color: #e7505a;
-    border: none;
-  
-  }
-  .button-style{
-    border: none;
-    font-size: 13px;  
-    background: white;
-    border: 1px solid #898585;
-    padding: 6px 8px;
-    color: black;
-    font-family: sans-serif;
-  }
-  .button-style:hover{
-    border: none;
-    font-size: 13px;  
-    background: #2f353b;
-    border: 1px solid #2f353b;
-    padding: 6px 8px;
-    color: white;
-    font-family: sans-serif;
-  }
-  .icon-add{
-    font-size: 16px;
-    color: #666;
-  }
-  .icon-close{
-    font-size: 16px;
-    color: white;
-  }
-  .fs-6 {
-    font-size: 1.1rem!important;
-  }  
-  .addbtn-margin {  
-    margin-top: -6px !important;
+.form-check-label {
+  font-size: 14px;
+  display: inline;
 }
 
-@media (min-width: 1440px) and (max-width: 1780px) { 
-    .form-check-input{   
+thead{
+  border-bottom-width: 2px;
+  border-color: #f1f4f7;
+}
+
+.th-col {
+  font-size: 14px !important;
+  font-weight: 600;
+}
+
+.th-practiceName {
+  font-size: 15px !important;
+  max-width: 32px;
+}
+
+.td-col-width {
+  width: 4%;
+}
+
+.com-btn-style {
+  background: white;
+  border: 1.5px solid #b1a7a7;
+  padding: 4px 9px;
+  font-size: 13px;
+}
+
+.addbtn {
+  border-radius: 71px;
+  width: 32px;
+  height: 32px;
+  font-size: 9px;
+  color: #666;
+  background-color: #dbe1ee;
+  border-color: #e1e5ec;
+  border: 1px solid #5e6064;
+  border: none;
+}
+
+.Cancelbtn {
+  border-radius: 71px;
+  width: 32px;
+  height: 33px;
+  background: #e7505a;
+  color: #ffffff;
+  font-size: 17px;
+  border: 1px solid red;
+  border-color: #e7505a;
+  border: none;
+
+}
+
+.button-style {
+  border: none;
+  font-size: 13px;
+  background: white;
+  border: 1px solid #898585;
+  padding: 6px 8px;
+  color: black;
+  font-family: sans-serif;
+}
+
+.button-style:hover {
+  border: none;
+  font-size: 13px;
+  background: #2f353b;
+  border: 1px solid #2f353b;
+  padding: 6px 8px;
+  color: white;
+  font-family: sans-serif;
+}
+
+.icon-add {
+  font-size: 16px;
+  color: #666;
+}
+
+.icon-close {
+  font-size: 16px;
+  color: white;
+}
+
+.fs-6 {
+  font-size: 1.0rem !important;
+}
+
+.addbtn-margin {
+  margin-top: -6px !important;
+}
+
+@media (min-width: 1440px) and (max-width: 1780px) {
+  .form-check-input {
     margin-right: 1% !important;
- } 
-}
-@media (min-width: 1290px) and (max-width: 1440px) { 
-    .form-check-input{   
-    margin-right: 1% !important;
- } 
-}
-@media (min-width: 420px) and (max-width: 670px) { 
-    .form-check-input{   
-    margin-right: 1% !important;
- }
-}  
-@media (min-width: 300px) and (max-width: 768px) { 
-    div.search-box button {       
-        width: 17%;
-        padding: 3px;    
-    }
-    div.search-box input[type=text]{ 
-        width: 83%;
-    }
-    .button-style{
-        margin-top: 15px; 
-    }
-}
-@media (min-width:769px) and (max-width:1024px){
-    div.search-box button{
-        float: left;
-        width: 14%;
-    }
-    .col-btn {
-        margin-left: 43px;
-    }
-    .form-check-input{   
-        margin-right: 1% !important;
-     }
-}
-.practice-header{
-    list-style-type:none;
-}
-.anchorStyle{
-    color: #888 !important;
-    font-size: 14px;
-    padding: 12px 2px;
   }
-  .practice-header{
-    min-height: 25px;
-    background: #f1f4f7 !important
+}
+
+@media (min-width: 1290px) and (max-width: 1440px) {
+  .form-check-input {
+    margin-right: 1% !important;
   }
-  input::-webkit-input-placeholder {
-    color: #999898 !important;
-    font-size: 100%;
-    font-family: sans-serif;
- }
+}
+
+@media (min-width: 420px) and (max-width: 670px) {
+  .form-check-input {
+    margin-right: 1% !important;
+  }
+}
+
+@media (min-width: 300px) and (max-width: 768px) {
+  div.search-box button {
+    width: 17%;
+    padding: 3px;
+  }
+
+  div.search-box input[type=text] {
+    width: 83%;
+  }
+
+  .button-style {
+    margin-top: 15px;
+  }
+}
+
+@media (min-width:769px) and (max-width:1024px) {
+  div.search-box button {
+    float: left;
+    width: 14%;
+  }
+
+  .col-btn {
+    margin-left: 43px;
+  }
+
+  .form-check-input {
+    margin-right: 1% !important;
+  }
+}
+
+.practice-header {
+  list-style-type: none;
+}
+
+.anchorStyle {
+  color: #888 !important;
+  font-size: 14px;
+  padding: 12px 2px;
+}
+
+.practice-header {
+  min-height: 25px;
+  background: #f1f4f7 !important
+}
+
+input::-webkit-input-placeholder {
+  color: #999898 !important;
+  font-size: 100%;
+  font-family: sans-serif;
+}
+
+
+//  @media (min-width:320px) and (max-width: 425px) {
+//   .Page{
+//     margin-right: -205px;
+
+//    }
+
+// }
+.table-NoRecord {
+  background: White;
+
+}
