@@ -1018,17 +1018,7 @@ div#modal-message-success .modal-content {
   box-shadow: 0 3px 9px rgb(0 0 0 / 50%);
 }
 
-div#modal-message-success.modal-notice .modal-dialog .modal-content .modal-body .flash-title,
-div#modal-message-success .modal-dialog .modal-content .modal-body .flash-title {
-  background-color: #41b6a6;
-}
 
-div#modal-message-success .modal-dialog .modal-content .modal-body .flash-title {
-  width: 100%;
-  vertical-align: middle;
-  padding: 20px;
-  text-align: center;
-}
 
 @media (max-height: 768px){
   div#modal-message-success .modal-dialog, #modal-flash .modal-dialog .modal-content {
@@ -1043,10 +1033,16 @@ div#modal-message-success .modal-dialog .modal-content .modal-body .flash-title 
   }
 }
 
-div#modal-message-success.modal-notice .modal-dialog .modal-content .modal-body .flash-title, #modal-flash.modal-alert .modal-dialog .modal-content .modal-body .flash-title {
+div#modal-message-success.modal-notice .modal-dialog .modal-content .modal-body .scrollable-container .message-title,
+#modal-flash.modal-alert .modal-dialog .modal-content .modal-body .scrollable-container .flash-title {
   background-color: #41b6a6;
 }
-div#modal-message-success .modal-dialog .modal-content .modal-body .flash-title {
+div#modal-message-success.modal-notice .modal-dialog .modal-content .modal-body .scrollable-container .message-error-title{
+  background-color:  #c43636;;
+}
+
+div#modal-message-success .modal-dialog .modal-content .modal-body .scrollable-container .message-title,
+div#modal-message-success .modal-dialog .modal-content .modal-body .scrollable-container .message-error-title {
   width: 100%;
   vertical-align: middle;
   padding: 20px;
@@ -1063,7 +1059,8 @@ div#modal-message-success .modal-dialog .modal-content .modal-body {
     /* border-radius: 8px 8px 0 0; */
     text-align: center;
 }
-div#modal-message-success .modal-dialog .modal-content .modal-body .flash-title p {
+div#modal-message-success .modal-dialog .modal-content .modal-body .message-title p,
+div#modal-message-success .modal-dialog .modal-content .modal-body .message-error-title p  {
   font-size: 24px;
   color: #fff;
   margin-bottom: 0;

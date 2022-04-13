@@ -206,7 +206,6 @@ a:hover {
 }
 ::ng-deep .mat-select-panel {
   min-width: calc(100% + 22px) !important;
-  max-width: calc(min-width) !important;
   margin-left: 5px !important;
 }
 .mat-option.mat-selected:not(.mat-option-disabled) {

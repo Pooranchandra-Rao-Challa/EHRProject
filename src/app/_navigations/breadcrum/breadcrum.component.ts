@@ -26,19 +26,4 @@ export class BreadcrumComponent implements OnInit {
     });
   }
 
-  onChangeBreadCum(name, url) {
-    this.router.navigate(
-      [url],
-      { queryParams: { name: name } }
-    );
-    console.log(url)
-  }
-  onChangeBreadCumSetting(name, url) {
-    this.router.navigate(
-      [url + '?view=practice'],
-      { queryParams: { name: name } }
-    );
-    console.log(url)
-  }
-
 }

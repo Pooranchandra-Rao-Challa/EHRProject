@@ -21,6 +21,8 @@ export class ProviderlistComponent {
   ActiveStatus: string = '';
   TrailStatus: string = '';
 
+
+
   constructor(private adminservice: AdminService) {
   }
 
@@ -28,15 +30,13 @@ export class ProviderlistComponent {
     this.getProviderList();
   }
   getProviderList() {
-    debugger;
     this.adminservice.GetProviderList().subscribe(resp => {
-      debugger;
       if (resp.IsSuccess) {
         this.providersDataSource = resp.ListResult;
         this.dataSource = resp.ListResult;
-
       } else
         this.providersDataSource = [];
+        this.providersDataSource
     });
   }
 

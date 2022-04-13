@@ -37,6 +37,12 @@ import { BreadcrumComponent } from '../admin.breadcrum/admin.breadcrum.component
 import { AdminService } from '../../_services/admin.service';
 //import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { ProviderlistComponent } from '../../admin/providerlist/providerlist.component';
+import { AdminsComponent } from 'src/app/admin/admins/admins.component';
+
+import { DefaultmessagesComponent } from 'src/app/admin/defaultmessages/defaultmessages.component';
+import { CommunicationsettingsComponent } from 'src/app/admin/communicationsettings/communicationsettings.component';
+import { AdminsettingComponent } from 'src/app/admin/adminsetting/adminsetting.component';
+
 
 
 
@@ -51,6 +57,10 @@ import { ProviderlistComponent } from '../../admin/providerlist/providerlist.com
     AdminComponent,
     ProviderlistComponent,
     DashboardComponent,
+    AdminsComponent,
+    AdminsettingComponent,
+    DefaultmessagesComponent,
+    CommunicationsettingsComponent,
     AdminPracticeComponent,
     BreadcrumComponent
 

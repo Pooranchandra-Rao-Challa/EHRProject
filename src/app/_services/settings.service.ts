@@ -43,7 +43,7 @@ export class SettingsService extends APIEndPoint {
     return this._ProcessGetRequest<any>(apiEndPoint);
   }
 
-  PractiveLocations(providerId: any) {
+  PracticeLocations(providerId: any) {
     const apiEndPoint = this._locationsListUrl + providerId;
     return this._ProcessPostRequest<any>(apiEndPoint, providerId);
   }
