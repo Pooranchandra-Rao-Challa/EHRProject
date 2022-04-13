@@ -13,6 +13,10 @@ export class SettingsService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._appointmentStatusesUrl, reqparams);
   }
 
+  RoomsForLocation(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._roomsforLocationUrl, reqparams);
+  }
+
   AddUpdateUser(reqdata: any) {
     return this._ProcessPostRequest<any>(this._addUpdateUserUrl, reqdata);
   }
@@ -56,6 +60,10 @@ export class SettingsService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._addUpdateAppointmentTypeUrl, reqdata);
   }
 
+  AddUpdateRoom(reqdata: any) {
+    return this._ProcessPostRequest<any>(this._addUpdateRoomUrl, reqdata);
+  }
+
   DropAppointmentStatus(statusId: any) {
     const apiEndPoint = this._dropAppointmentStatusUrl + '?statusId=' + statusId;
     return this._ProcessPostRequest<any>(apiEndPoint, statusId);
@@ -65,6 +73,12 @@ export class SettingsService extends APIEndPoint {
     const apiEndPoint = this._dropAppointmentTypeUrl + '?typeId=' + typeId;
     return this._ProcessPostRequest<any>(apiEndPoint, typeId);
   }
+
+  DropRoom(roomId: any) {
+    const apiEndPoint = this._dropRoomUrl + '?roomId=' + roomId;
+    return this._ProcessPostRequest<any>(apiEndPoint, roomId);
+  }
+
   PostProvdierAdminAccess(reqdata: any) {
     return this._ProcessPostRequest<any>(this._updateProviderAdmineAccessUrl, reqdata);
   }

@@ -29,8 +29,10 @@ export class ScheduleComponent implements OnInit {
   Colour: any;
   appointmentStatusData: any;
   appointmentTypeData: any;
+  roomsData: any;
   arrayColors: any[] = [];
   customizedspinner: boolean;
+  color: any;
 
   constructor(private authService: AuthenticationService, private settingsService: SettingsService, private fb: FormBuilder) {
     this.user = authService.userValue;
@@ -39,15 +41,16 @@ export class ScheduleComponent implements OnInit {
     this.getLocationsList();
     this.getAppointmentStatus();
     this.getAppointmentType();
+    this.getRoomsForLocation();
     this.roomForm = this.fb.group({
       rooms: this.fb.array([]),
-    })
+    });
     this.statusForm = this.fb.group({
       status: this.fb.array([]),
-    })
+    });
     this.typeForm = this.fb.group({
       type: this.fb.array([]),
-    })
+    });
   }
   // Rooms
   rooms(): FormArray {
@@ -56,7 +59,8 @@ export class ScheduleComponent implements OnInit {
 
   newRoom(): FormGroup {
     return this.fb.group({
-      roomOP: ['']
+      RoomId: [''],
+      RoomName: ['']
     })
   }
 
@@ -67,9 +71,9 @@ export class ScheduleComponent implements OnInit {
     this.rooms().push(this.newRoom());
   }
 
-  removeRoom(roomIndex: number) {
-    this.rooms().removeAt(roomIndex);
-  }
+  // removeRoom(roomIndex: number) {
+  //   this.rooms().removeAt(roomIndex);
+  // }
 
   // onSubmitBasedOnIndex(roomIndex: number) {
   //   this.showEditBtn = true;
@@ -96,9 +100,9 @@ export class ScheduleComponent implements OnInit {
     })
   }
   addStatus() {
-    // this.showSaveBtn = true;
-    // this.showInput = true;
-    // this.showEditBtn = false;
+    this.showSaveBtn = true;
+    this.showInput = true;
+    this.showEditBtn = false;
     this.status().push(this.newStatus());
   }
   removeStatus(statusIndex: number) {
@@ -121,7 +125,6 @@ export class ScheduleComponent implements OnInit {
   removeType(typeIndex: number) {
     this.type().removeAt(typeIndex);
   }
-
   // get display Location Details
   getLocationsList() {
     this.settingsService.PractiveLocations(this.user.ProviderId).subscribe(resp => {
@@ -129,6 +132,30 @@ export class ScheduleComponent implements OnInit {
         this.LocationAddress = resp.ListResult;
       }
     });
+  }
+
+  get roomformControls() {
+    return this.roomForm.controls;
+  }
+
+  // get rooms data for location
+  getRoomsForLocation() {
+    var reqparams = {
+      'LocationId': this.user.CurrentLocation
+    };
+
+    this.settingsService.RoomsForLocation(reqparams).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.roomsData = resp.ListResult;
+        // this.roomForm.controls.rooms['controls'].reset();
+        console.log(this.roomsData);
+        for (let i = 0; i < this.roomsData.length; i++) {
+          this.addRoom();
+          this.roomForm.controls.rooms['controls'][i].get('RoomId').patchValue(this.roomsData[i].RoomId);
+          this.roomForm.controls.rooms['controls'][i].get('RoomName').patchValue(this.roomsData[i].RoomName);
+        }
+      }
+    })
   }
 
   // get appointment statuses data
@@ -145,7 +172,7 @@ export class ScheduleComponent implements OnInit {
           this.addStatus();
           this.statusForm.controls.status['controls'][i].get('Id').patchValue(this.appointmentStatusData[i].Id);
           this.statusForm.controls.status['controls'][i].get('Name').patchValue(this.appointmentStatusData[i].Name);
-          this.statusForm.controls.status['controls'][i].get('color').patchValue(this.appointmentStatusData[i].Colour);
+          this.color = this.statusForm.controls.status['controls'][i].get('color').patchValue(this.appointmentStatusData[i].Colour);
         }
       }
     });
@@ -171,6 +198,20 @@ export class ScheduleComponent implements OnInit {
           this.formControls.type['controls'][i].get('Colour').patchValue(this.appointmentTypeData[i].Colour);
           // this.color = this.formControls.type['controls'][i].get('Colour').patchValue(this.appointmentTypeData[i].Colour);
         }
+      }
+    })
+  }
+
+  // Add Update Room
+  saveRooms(roomIndex: number) {
+    var reqparams = {
+      'RoomId': this.roomForm.controls.rooms["controls"][roomIndex].get('RoomId').value == "" ? null : this.roomForm.controls.rooms["controls"][roomIndex].get('RoomId').value,
+      'RoomName': this.roomForm.controls.rooms["controls"][roomIndex].get('RoomName').value,
+      'LocationId': this.user.CurrentLocation
+    };
+    this.settingsService.AddUpdateRoom(reqparams).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.getRoomsForLocation();
       }
     })
   }
@@ -203,6 +244,18 @@ export class ScheduleComponent implements OnInit {
   //   this.showEditBtn[statusIndex] = false;
   //   this.showInput[statusIndex] = true;
   // }
+
+  removeRoom(roomIndex: number) {
+    let roomId = this.roomForm.controls.rooms["controls"][roomIndex].get('RoomId').value;
+    if (roomId == "") {
+      this.rooms().removeAt(roomIndex);
+    }
+    this.settingsService.DropRoom(roomId).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.getRoomsForLocation();
+      }
+    })
+  }
 
   removeAppointmentStatus(statusIndex: number) {
     let statusId = this.statusForm.controls.status["controls"][statusIndex].get('Id').value;

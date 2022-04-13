@@ -113,6 +113,11 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "AppointmentStatuses";
   }
 
+  get _roomsforLocationUrl() {
+
+    return this._baseUrl + "RoomsForLocation";
+  }
+
   get _addUpdateUserUrl() {
     return this._baseUrl + "AddUpdateUser";
   }
@@ -120,16 +125,29 @@ export class APIEndPoint extends EndpointBase {
   get _addUpdateAppointmentStatusUrl() {
     return this._baseUrl + "AddUpdateAppointmentStatus";
   }
+
   get _addUpdateAppointmentTypeUrl() {
     return this._baseUrl + "AddUpdateAppointmentType";
   }
+
+  get _addUpdateRoomUrl() {
+    return this._baseUrl + "AddUpdateRoom";
+  }
+
   get _dropAppointmentTypeUrl() {
     return this._baseUrl + "DropAppointmentType";
   }
+
   get _dropAppointmentStatusUrl() {
     debugger;
     return this._baseUrl + "DropAppointmentStatus";
   }
+
+  get _dropRoomUrl() {
+    debugger;
+    return this._baseUrl + "DropRoom";
+  }
+
   get _updateProviderAdmineAccessUrl() {
     return this._baseUrl + "UpdateProviderAdminAccess";
   }
@@ -210,7 +228,7 @@ export class APIEndPoint extends EndpointBase {
   }
 
 
-  get _confirmAppointmentCancellationUrl(){
+  get _confirmAppointmentCancellationUrl() {
     return this._baseUrl + "ConfirmAppointmentCancellation";
   }
 

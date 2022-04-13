@@ -5,15 +5,16 @@
   <div class="content ">
     <div class="row denatal-chart-top">
       <div class="col-xl-12 col-lg-12 col-md-12 Sechudle px-0">
-        <div class="schedule-right-block">
+        <div class="schedule-right-block pb-5">
           <div class="colF border">
             <div class="row schedule-section">
               <div class="col-xl-8 col-lg-12 col-12 cstm-location-section">
                 <p class="plabel">Location Address:</p>
                 <div class="form-group col-xl-4 col-lg-12">
                   <mat-form-field appearance="outline" class="col-12 cstm-loc-dropdown">
-                    <mat-select disableOptionCentering>
-                      <mat-option *ngFor="let item of LocationAddress" [value]="item.Location_Name">
+                    <mat-select disableOptionCentering [(ngModel)]="user.CurrentLocation"
+                      (selectionChange)="getRoomsForLocation()">
+                      <mat-option *ngFor="let item of LocationAddress" [value]="item.Location_Id">
                         {{item.Location_Name}}
                       </mat-option>
                     </mat-select>
@@ -38,20 +39,19 @@
                           <div class="col-md-6">
                             <div class="form-group">
                               <input type="text" [class]="showInput !== true ? 'schedule-inputclass': 'inputclass'"
-                                class="form-control" formControlName="roomOP" [readonly]="!showInput">
+                                class="form-control" formControlName="RoomName" [readonly]="!showInput">
                             </div>
                           </div>
                           <div class="col-md-6 col-12 pt-2 pt-md-0">
                             <div class="col-md-12 col-6 pull-right">
-                              <button type="button" id="Actbtn" *ngIf="showSaveBtn"
-                                class="btn btn-md btn-sm btn-success pull-right"
-                                (click)="onSubmitBasedOnIndex(roomIndex)">
+                              <button type="button" id="Actbtn" class="btn btn-md btn-sm btn-success pull-right"
+                                (click)="saveRooms(roomIndex)">
                                 Save
                               </button>
-                              <button type="button" id="Actbtn" *ngIf="showEditBtn"
+                              <!-- <button type="button" id="Actbtn" *ngIf="showEditBtn"
                                 class="btn btn-md btn-sm btn-success pull-right" (click)="onSubmitEdit(roomIndex)">
                                 Edit
-                              </button>
+                              </button> -->
                             </div>
                           </div>
                         </div>
