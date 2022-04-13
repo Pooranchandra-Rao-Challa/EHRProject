@@ -7,9 +7,6 @@ import { HttpClient } from "@angular/common/http";
 export class AdminService extends APIEndPoint {
   constructor(http: HttpClient) { super(http); }
 
-  PracticeProviders(reqdata: any) {
-    return this._ProcessPostRequest<any>(this._practiceProvidersUrl, reqdata);
-  }
   GetProviderList() {
     return this._ProcessGetRequest<any>(this._providerListUrl);
   }
