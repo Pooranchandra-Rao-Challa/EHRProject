@@ -44,6 +44,7 @@ export class LoginComponent implements OnInit {
   }
 
   OnFormSubmit() {
+    debugger;
     this.showspinner = true;
     this.message = 'Please wait while verifying your Email Id and Password';
 
@@ -55,18 +56,25 @@ export class LoginComponent implements OnInit {
       "EmailId": data.UserName,
       "Password": data.Password,
     };
-
+    console.log(creds);
     this.authenticationService.loginWithFormCredentials(creds).subscribe(resp => {
-
+      debugger;
       if (!resp.IsSuccess) {
         this.showspinner = false;
         this.message = '';
-        if(resp.ShowExceptionMessage)
-        this.authfailedmessage = resp.EndUserMessage ;
+        if (resp.ShowExceptionMessage)
+          this.authfailedmessage = resp.EndUserMessage;
         else
           this.authfailedmessage = "Enter valid Email Id and Password";
-        console.log(resp.EndUserMessage );
+        console.log(resp.EndUserMessage);
       }
+    },
+    (error) =>{
+      this.showspinner = false;
+      this.message = 'Check with admistartor.';
+    },
+    () => {
+      this.showspinner = false;
     });
 
   }

@@ -36,73 +36,12 @@ export class SettingsComponent implements OnInit {
       }
       );
   }
-  onChangePractice(name,url){
-     this.router.navigate(
-       [url],
-       {queryParams:{name:name,view:'practice'}}
-     );
-  }
-  onChangeSchedule(name,url){   
-   debugger;
-      this.router.navigate(
-        [url],
-        { queryParams: { name: name,view:'schedule'  } }
-      );   
-  }
-  onChangeAccessPermission(name,url){
+
+  onChangeViewState(view){
     this.router.navigate(
-      [url],
-      {queryParams:{name:name,view:'accesspermission'}}
-    );
-  }
-  onChangePatient(name,url){
-    this.router.navigate(
-      [url],
-      {queryParams:{name:name,view:'patient'}}
-    );
-  }
-  onChangeMessages(name,url){
-    this.router.navigate(
-      [url],
-      {queryParams:{name:name,view:'message'}}
-    );
-  }
-  onChangeeRx(name,url){
-    this.router.navigate(
-      [url],
-      {queryParams:{name:name,view:'erx'}}
-    );
-  }
-  onChangelabmapping(name,url){
-    this.router.navigate(
-      [url],
-      {queryParams:{name:name,view:'labmapping'}}
-    );
-  }
-  onChangeReports(name,url)
-  {
-    this.router.navigate(
-      [url],
-      {queryParams:{name:name,view:'reports'}}
+      ['/provider/settings'],
+      {queryParams:{name:"settings",view:view}}
     );
   }
 
-  onChangeClinicDecision(name,url){
-    this.router.navigate(
-      [url],
-      {queryParams:{name:name,view:'clinicdecision'}}
-    );
-  }
-  onChangePatientednmaterial(name,url){
-    this.router.navigate(
-      [url],
-      {queryParams:{name:name,view:'patientednmaterial'}}
-    );
-  }
-  onChangeAuditlog(name,url){
-    this.router.navigate(
-      [url],
-      {queryParams:{name:name,view:'auditlog'}}
-    );
-  }
 }

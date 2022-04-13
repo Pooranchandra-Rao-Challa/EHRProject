@@ -10,7 +10,6 @@ export class BreadcrumComponent implements OnInit {
   menuName: any;
   isSubscribe: boolean = false;
 
-
   constructor(private router: Router, private location: Location,
     private route: ActivatedRoute,) {
   }
@@ -25,21 +24,6 @@ export class BreadcrumComponent implements OnInit {
         this.menuName = params.name;
       }
     });
-  }
-
-  onChangeBreadCum(name, url) {
-    this.router.navigate(
-      [url],
-      { queryParams: { name: name } }
-    );
-    console.log(url)
-  }
-  onChangeBreadCumSetting(name, url) {
-    this.router.navigate(
-      [url + '?view=practice'],
-      { queryParams: { name: name } }
-    );
-    console.log(url)
   }
 
 }

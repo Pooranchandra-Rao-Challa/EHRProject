@@ -27,3 +27,44 @@ function OpenSaveSuccessAppointment(){
 function CloseSaveSuccessAppointment(){
   $( "#modal-message-success").css("display", "none");
 }
+/*
+var mouse_is_patientsearch = false;
+
+$(document).ready(function()
+{
+    $('.smartview-patient-search-result').handleIn(function(){
+      mouse_is_patientsearch=true;
+    }, function(){
+      mouse_is_patientsearch=false;
+    });
+    var appevent = jQuery.Event( "click" );
+    $("body").trigger(function(){
+        if(!mouse_is_patientsearch) $('.form_wrapper').hide();
+    });
+});
+
+
+var closePatientSearchClicked = false;
+
+$('.smartview-patient-search-result').on('click', function () {
+    closePatientSearchClicked = true;
+});
+
+$('#myModal').on('hide.bs.modal', function (e) {
+    if (!closePatientSearchClicked) {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+    }
+    closePatientSearchClicked = false;
+});
+*/
+
+
+$(function() {
+  $( "document" ).on('click','',function(event){
+    //if($('.smartview-patient-search-result'))
+    alert($('.smartview-patient-search-result'));
+  });
+
+});

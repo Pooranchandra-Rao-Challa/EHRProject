@@ -13,6 +13,10 @@ export class SettingsService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._appointmentStatusesUrl, reqparams);
   }
 
+  RoomsForLocation(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._roomsforLocationUrl, reqparams);
+  }
+
   AddUpdateUser(reqdata: any) {
     return this._ProcessPostRequest<any>(this._addUpdateUserUrl, reqdata);
   }
@@ -39,7 +43,7 @@ export class SettingsService extends APIEndPoint {
     return this._ProcessGetRequest<any>(apiEndPoint);
   }
 
-  PractiveLocations(providerId: any) {
+  PracticeLocations(providerId: any) {
     const apiEndPoint = this._locationsListUrl + providerId;
     return this._ProcessPostRequest<any>(apiEndPoint, providerId);
   }
@@ -56,13 +60,25 @@ export class SettingsService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._addUpdateAppointmentTypeUrl, reqdata);
   }
 
-  DropAppointmentStatus(reqdata: any) {
-    return this._ProcessPostRequest<any>(this._dropAppointmentStatusUrl, reqdata);
+  AddUpdateRoom(reqdata: any) {
+    return this._ProcessPostRequest<any>(this._addUpdateRoomUrl, reqdata);
   }
 
-  DropAppointmentType(reqdata: any) {
-    return this._ProcessPostRequest<any>(this._dropAppointmentTypeUrl, reqdata);
+  DropAppointmentStatus(statusId: any) {
+    const apiEndPoint = this._dropAppointmentStatusUrl + '?statusId=' + statusId;
+    return this._ProcessPostRequest<any>(apiEndPoint, statusId);
   }
+
+  DropAppointmentType(typeId: any) {
+    const apiEndPoint = this._dropAppointmentTypeUrl + '?typeId=' + typeId;
+    return this._ProcessPostRequest<any>(apiEndPoint, typeId);
+  }
+
+  DropRoom(roomId: any) {
+    const apiEndPoint = this._dropRoomUrl + '?roomId=' + roomId;
+    return this._ProcessPostRequest<any>(apiEndPoint, roomId);
+  }
+
   PostProvdierAdminAccess(reqdata: any) {
     return this._ProcessPostRequest<any>(this._updateProviderAdmineAccessUrl, reqdata);
   }

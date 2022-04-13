@@ -46,7 +46,7 @@
         <div class="table-responsive">
             <table class="table mt-4">
                 <thead>
-                    <tr class="table-heaer">
+                    <tr>
                         <th scope="row">Name</th>
                         <th scope="row">Email</th>
                         <th scope="row">Phone</th>
@@ -57,7 +57,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of providersDataSource | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize | filter: filterTerm">
+                    <tr *ngFor="let item of providersDataSource | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
                         <td class="tbl-col">{{item.ProviderName}}
                             <div class="row">
                                 <button class="btn-log">Login</button>

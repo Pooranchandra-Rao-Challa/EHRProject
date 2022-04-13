@@ -10,7 +10,6 @@ import { PatientLoginComponent } from './Patientlogin.component';
 import { PartnerSignupComponent } from '../patient/partner-signup.component';
 import { CreatePasswordComponent } from './createpassword.component'
 
-
 const routes: Routes = [
   {
     path: '', component: LayoutComponent,
@@ -21,7 +20,7 @@ const routes: Routes = [
       { path: 'home', component: HomeComponent },
       { path: 'patientlogin', component: PatientLoginComponent },
       { path: 'partnersignup', component: PartnerSignupComponent },
-      { path: 'createpassword', component: CreatePasswordComponent },
+      { path: 'createpassword', component: CreatePasswordComponent }
     ]
   }
 ]

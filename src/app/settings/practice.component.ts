@@ -4,18 +4,14 @@ import { AuthenticationService } from '../_services/authentication.service';
 import { SettingsService } from '../_services/settings.service';
 import { UtilityService } from '../_services/utiltiy.service';
 import { User, UserLocations } from '../_models';
-import { UUID } from 'angular2-uuid';
-import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { LocationSelectService } from '../_navigations/provider.layout/location.service';
 import Swal from 'sweetalert2';
 import { Accountservice } from '../_services/account.service';
 import { PracticeLocation } from '../_models/practiceLocation';
 import { NewUser } from '../_models/settings';
-import { interval } from 'rxjs';
-import { BookType } from 'xlsx';
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
-declare var $: any;
+
 
 
 @Component({
@@ -197,7 +193,7 @@ export class PracticeComponent implements OnInit {
   }
   // get display Location Details
   practiveLocations() {
-    this.settingsService.PractiveLocations(this.user.ProviderId).subscribe(resp => {
+    this.settingsService.PracticeLocations(this.user.ProviderId).subscribe(resp => {
       if (resp.IsSuccess) {
         this.locationdataSource = resp.ListResult;
         this.LocationAddress = resp.ListResult;

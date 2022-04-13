@@ -1,6 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { isSetAccessor } from 'typescript';
 import { AuthenticationService } from '../_services/authentication.service';
 
 
@@ -14,11 +15,14 @@ export class PatientLoginComponent implements OnInit {
     showspinner: boolean;
     message: string = '';
     authfailedmessage; string = '';
-
-    constructor(private fb: FormBuilder, private authenticationService: AuthenticationService) { }
+isdefaultEdit:boolean=false;
+isdefault:boolean=true;
+     constructor(private fb: FormBuilder, private authenticationService: AuthenticationService) { }
     ngOnInit() {
         this.buildForm();
     }
+
+
     buildForm() {
         this.loginForm = this.fb.group({
             EmailId: [''],

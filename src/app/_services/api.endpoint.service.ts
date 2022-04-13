@@ -113,6 +113,11 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "AppointmentStatuses";
   }
 
+  get _roomsforLocationUrl() {
+
+    return this._baseUrl + "RoomsForLocation";
+  }
+
   get _addUpdateUserUrl() {
     return this._baseUrl + "AddUpdateUser";
   }
@@ -120,15 +125,29 @@ export class APIEndPoint extends EndpointBase {
   get _addUpdateAppointmentStatusUrl() {
     return this._baseUrl + "AddUpdateAppointmentStatus";
   }
+
   get _addUpdateAppointmentTypeUrl() {
     return this._baseUrl + "AddUpdateAppointmentType";
   }
+
+  get _addUpdateRoomUrl() {
+    return this._baseUrl + "AddUpdateRoom";
+  }
+
   get _dropAppointmentTypeUrl() {
     return this._baseUrl + "DropAppointmentType";
   }
+
   get _dropAppointmentStatusUrl() {
+    debugger;
     return this._baseUrl + "DropAppointmentStatus";
   }
+
+  get _dropRoomUrl() {
+    debugger;
+    return this._baseUrl + "DropRoom";
+  }
+
   get _updateProviderAdmineAccessUrl() {
     return this._baseUrl + "UpdateProviderAdminAccess";
   }
@@ -192,20 +211,25 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "ActiveAppointments";
   }
 
-  get _roomsForLocationUrl(){
+  get _roomsForLocationUrl() {
     return this._baseUrl + "RoomsForLocation";
   }
 
-  get _availableTimeSlotsUrl(){
+  get _availableTimeSlotsUrl() {
     return this._baseUrl + "AvailableTimeSlots";
   }
 
-  get _createAppointmentUrl(){
+  get _createAppointmentUrl() {
     return this._baseUrl + "CreateAppointment";
   }
 
-  get _providerListUrl(){
+  get _providerListUrl() {
     return this._baseUrl + "GetProviderList";
+  }
+
+
+  get _confirmAppointmentCancellationUrl() {
+    return this._baseUrl + "ConfirmAppointmentCancellation";
   }
 
   constructor(public http: HttpClient) {

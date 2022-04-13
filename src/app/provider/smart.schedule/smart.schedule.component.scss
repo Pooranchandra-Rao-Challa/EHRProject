@@ -3,7 +3,7 @@
 .smart-schedule-logo {
   border: 3px solid #00d1b2;
   height: 70px;
-  margin-top: 2px;
+  //margin-top: 2px;
   //margin-top: -24px;
   margin-bottom: 0px;
   margin-left: 0px;
@@ -161,7 +161,7 @@ div.smart-schedule-header {
   background-color: #efefef;
   line-height: 40px;
   vertical-align: baseline;
-  margin: 0;
+  margin: 0px;
 }
 .smartschedule-wrapper .content .windows .window .content.message-empty {
   width: 100%;
@@ -177,6 +177,9 @@ div.smart-schedule-header {
   color: #74757e;
   font-size: 15px;
   font-family: "SF UI Text Regular";
+}
+.smartschedule-wrapper{
+  padding: 0 1.0rem;
 }
 @media (max-width: 1440px) {
   .smartschedule-wrapper .table-container {
@@ -759,10 +762,7 @@ div.mat-field-no-round-right div.mat-form-field-wrapper {
   margin-left: 12px;
   opacity: 1 !important;
 }
-.visit-status img {
-  height: 50px;
-  width: 35px;
-}
+
 ::ng-deep .my-custom-class .tooltip {
   top: -18px !important;
   line-height: 1px !important;
@@ -1018,17 +1018,7 @@ div#modal-message-success .modal-content {
   box-shadow: 0 3px 9px rgb(0 0 0 / 50%);
 }
 
-div#modal-message-success.modal-notice .modal-dialog .modal-content .modal-body .flash-title,
-div#modal-message-success .modal-dialog .modal-content .modal-body .flash-title {
-  background-color: #41b6a6;
-}
 
-div#modal-message-success .modal-dialog .modal-content .modal-body .flash-title {
-  width: 100%;
-  vertical-align: middle;
-  padding: 20px;
-  text-align: center;
-}
 
 @media (max-height: 768px){
   div#modal-message-success .modal-dialog, #modal-flash .modal-dialog .modal-content {
@@ -1043,10 +1033,16 @@ div#modal-message-success .modal-dialog .modal-content .modal-body .flash-title 
   }
 }
 
-div#modal-message-success.modal-notice .modal-dialog .modal-content .modal-body .flash-title, #modal-flash.modal-alert .modal-dialog .modal-content .modal-body .flash-title {
+div#modal-message-success.modal-notice .modal-dialog .modal-content .modal-body .scrollable-container .message-title,
+#modal-flash.modal-alert .modal-dialog .modal-content .modal-body .scrollable-container .flash-title {
   background-color: #41b6a6;
 }
-div#modal-message-success .modal-dialog .modal-content .modal-body .flash-title {
+div#modal-message-success.modal-notice .modal-dialog .modal-content .modal-body .scrollable-container .message-error-title{
+  background-color:  #c43636;;
+}
+
+div#modal-message-success .modal-dialog .modal-content .modal-body .scrollable-container .message-title,
+div#modal-message-success .modal-dialog .modal-content .modal-body .scrollable-container .message-error-title {
   width: 100%;
   vertical-align: middle;
   padding: 20px;
@@ -1063,7 +1059,8 @@ div#modal-message-success .modal-dialog .modal-content .modal-body {
     /* border-radius: 8px 8px 0 0; */
     text-align: center;
 }
-div#modal-message-success .modal-dialog .modal-content .modal-body .flash-title p {
+div#modal-message-success .modal-dialog .modal-content .modal-body .message-title p,
+div#modal-message-success .modal-dialog .modal-content .modal-body .message-error-title p  {
   font-size: 24px;
   color: #fff;
   margin-bottom: 0;
@@ -1072,3 +1069,54 @@ div#modal-message-success .modal .modal-dialog {
   margin-top: calc(63px + 120px);
 }
 // End of message model
+
+/*
+modal-provider:not(.modal-flash) .modal-dialog .modal-content .modal-footer .controls .btn {
+  display: inline-block;
+  margin: 5px 15px;
+}*/
+
+.btn-appointment-cancel-right{
+  margin-right: 144px;
+  display: flow-root;
+  float: inherit;
+  margin-left: -6px;
+}
+/*
+div.visit-status img.img-smart-schedule-status-schedule
+{
+  background-color: white;
+  border: 1px solid #41b6a6;
+  background-image: url(../../../assets/images/smart-schedule/scheduled.svg);
+  background-size: 6px 12px;
+}*/
+.visit-status{
+  margin: -10px;
+}
+.visit-status img {
+  background-color: transparent;
+  width: 20px;
+  padding: 0;
+  margin: 0px;
+}
+div.visit-status img.img-smart-status
+ {
+    background-color: transparent;
+    background-size: 6px 12px;
+    margin: 8px;
+}
+
+
+div.visit-status img.img-smart-status-path {
+  background: linear-gradient(
+    0deg,
+    rgba(194, 197, 197, 0.5),
+    rgba(121, 131, 130, 0.5)
+  ),
+  ;
+  fill: gray;
+  background-color: #c77405;
+  stroke: rgb(224, 220, 220);
+  stroke-linejoin: round;
+  transition: d 0.2s;
+}
