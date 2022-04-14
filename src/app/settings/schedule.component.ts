@@ -33,6 +33,7 @@ export class ScheduleComponent implements OnInit {
   arrayColors: any[] = [];
   customizedspinner: boolean;
   color: any;
+  Editable: any;
 
   constructor(private authService: AuthenticationService, private settingsService: SettingsService, private fb: FormBuilder) {
     this.user = authService.userValue;
@@ -42,89 +43,11 @@ export class ScheduleComponent implements OnInit {
     this.getAppointmentStatus();
     this.getAppointmentType();
     this.getRoomsForLocation();
-    this.roomForm = this.fb.group({
-      rooms: this.fb.array([]),
-    });
-    this.statusForm = this.fb.group({
-      status: this.fb.array([]),
-    });
-    this.typeForm = this.fb.group({
-      type: this.fb.array([]),
-    });
-  }
-  // Rooms
-  rooms(): FormArray {
-    return this.roomForm.get("rooms") as FormArray
+    this.buildRoomsForm();
+    this.buildStatusForm();
+    this.buildTypeForm();
   }
 
-  newRoom(): FormGroup {
-    return this.fb.group({
-      RoomId: [''],
-      RoomName: ['']
-    })
-  }
-
-  addRoom() {
-    // this.showSaveBtn = true;
-    // this.showInput = true;
-    // this.showEditBtn = false;
-    this.rooms().push(this.newRoom());
-  }
-
-  // removeRoom(roomIndex: number) {
-  //   this.rooms().removeAt(roomIndex);
-  // }
-
-  // onSubmitBasedOnIndex(roomIndex: number) {
-  //   this.showEditBtn = true;
-  //   this.showInput = false;
-  //   this.showSaveBtn = false;
-  //   var testing = this.roomForm.controls.rooms["controls"][roomIndex].get('roomOP').value;
-  // }
-  // onSubmitEdit(roomIndex: number) {
-  //   this.showSaveBtn = true;
-  //   this.showEditBtn = false;
-  //   this.showInput = true;
-  //   var testing = this.roomForm.controls.rooms["controls"][roomIndex].get('roomOP').value;
-  // }
-
-  // Appointment Statuses
-  status(): FormArray {
-    return this.statusForm.get("status") as FormArray
-  }
-  newStatus(): FormGroup {
-    return this.fb.group({
-      Id: [''],
-      Name: [''],
-      color: ['']
-    })
-  }
-  addStatus() {
-    this.showSaveBtn = true;
-    this.showInput = true;
-    this.showEditBtn = false;
-    this.status().push(this.newStatus());
-  }
-  removeStatus(statusIndex: number) {
-    this.status().removeAt(statusIndex);
-  }
-  // Appointment Type
-  type(): FormArray {
-    return this.typeForm.get("type") as FormArray
-  }
-  newType(): FormGroup {
-    return this.fb.group({
-      Id: [''],
-      AppointmentType: [''],
-      Colour: ['']
-    })
-  }
-  addType() {
-    this.type().push(this.newType());
-  }
-  removeType(typeIndex: number) {
-    this.type().removeAt(typeIndex);
-  }
   // get display Location Details
   getLocationsList() {
     this.settingsService.PracticeLocations(this.user.ProviderId).subscribe(resp => {
@@ -132,6 +55,85 @@ export class ScheduleComponent implements OnInit {
         this.LocationAddress = resp.ListResult;
       }
     });
+  }
+
+  // Rooms
+  buildRoomsForm() {
+    this.roomForm = this.fb.group({
+      rooms: this.fb.array([]),
+    });
+  }
+  rooms(): FormArray {
+    return this.roomForm.get("rooms") as FormArray
+  }
+  newRoom(): FormGroup {
+    return this.fb.group({
+      RoomId: [''],
+      RoomName: ['']
+    })
+  }
+  addRoom() {
+    this.showSaveBtn = true;
+    this.showInput = true;
+    this.showEditBtn = false;
+    this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
+    this.rooms().push(this.newRoom());
+    setTimeout(() => {
+      this.customizedspinner = false;
+      $('body').removeClass('loadactive')
+    }, 1000);
+  }
+
+  // Appointment Statuses
+  buildStatusForm() {
+    this.statusForm = this.fb.group({
+      status: this.fb.array([]),
+    });
+  }
+  status(): FormArray {
+    return this.statusForm.get("status") as FormArray
+  }
+  newStatus(): FormGroup {
+    return this.fb.group({
+      Id: [''],
+      Name: [''],
+      color: [''],
+      Editable: ['true']
+    })
+  }
+  addStatus() {
+    this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
+    this.status().push(this.newStatus());
+    setTimeout(() => {
+      this.customizedspinner = false;
+      $('body').removeClass('loadactive')
+    }, 1000);
+  }
+
+  // Appointment Type
+  buildTypeForm() {
+    this.typeForm = this.fb.group({
+      type: this.fb.array([]),
+    });
+  }
+  type(): FormArray {
+    return this.typeForm.get("type") as FormArray
+  }
+  newType(): FormGroup {
+    return this.fb.group({
+      Id: [''],
+      AppointmentType: [''],
+      Colour: [''],
+      Editable: ['true']
+    })
+  }
+  addType() {
+    this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
+    this.type().push(this.newType());
+    setTimeout(() => {
+      this.customizedspinner = false;
+      $('body').removeClass('loadactive')
+    }, 1000);
   }
 
   get roomformControls() {
@@ -143,17 +145,19 @@ export class ScheduleComponent implements OnInit {
     var reqparams = {
       'LocationId': this.user.CurrentLocation
     };
-
     this.settingsService.RoomsForLocation(reqparams).subscribe(resp => {
       if (resp.IsSuccess) {
         this.roomsData = resp.ListResult;
-        // this.roomForm.controls.rooms['controls'].reset();
-        console.log(this.roomsData);
+        this.roomForm.setControl('rooms', this.fb.array([]));
         for (let i = 0; i < this.roomsData.length; i++) {
           this.addRoom();
           this.roomForm.controls.rooms['controls'][i].get('RoomId').patchValue(this.roomsData[i].RoomId);
           this.roomForm.controls.rooms['controls'][i].get('RoomName').patchValue(this.roomsData[i].RoomName);
         }
+      }
+      else if (resp.IsSuccess == false) {
+        this.roomsData = resp.ListResult;
+        this.roomForm.setControl('rooms', this.fb.array([]));
       }
     })
   }
@@ -167,12 +171,14 @@ export class ScheduleComponent implements OnInit {
       if (resp.IsSuccess) {
         this.appointmentStatusData = resp.ListResult;
         console.log(this.appointmentStatusData);
-        this.statusForm.controls['status'].value.length = 0;
+
+        this.statusForm.setControl('status', this.fb.array([]));
         for (let i = 0; i < this.appointmentStatusData.length; i++) {
           this.addStatus();
           this.statusForm.controls.status['controls'][i].get('Id').patchValue(this.appointmentStatusData[i].Id);
           this.statusForm.controls.status['controls'][i].get('Name').patchValue(this.appointmentStatusData[i].Name);
           this.color = this.statusForm.controls.status['controls'][i].get('color').patchValue(this.appointmentStatusData[i].Colour);
+          this.statusForm.controls.status['controls'][i].get('Editable').patchValue(this.appointmentStatusData[i].Editable);
         }
       }
     });
@@ -181,6 +187,7 @@ export class ScheduleComponent implements OnInit {
   get formControls() {
     return this.typeForm.controls;
   }
+
   // get appointment type data
   getAppointmentType() {
     var reqparams = {
@@ -189,14 +196,14 @@ export class ScheduleComponent implements OnInit {
     this.settingsService.AppointmentTypes(reqparams).subscribe(resp => {
       if (resp.IsSuccess) {
         this.appointmentTypeData = resp.ListResult;
-        console.log(this.appointmentTypeData);
-        this.formControls['type'].value.length = 0;
+        this.typeForm.setControl('type', this.fb.array([]));
         for (let i = 0; i < this.appointmentTypeData.length; i++) {
           this.addType();
           this.formControls.type['controls'][i].get('Id').patchValue(this.appointmentTypeData[i].Id);
           this.formControls.type['controls'][i].get('AppointmentType').patchValue(this.appointmentTypeData[i].AppointmentType);
           this.formControls.type['controls'][i].get('Colour').patchValue(this.appointmentTypeData[i].Colour);
           // this.color = this.formControls.type['controls'][i].get('Colour').patchValue(this.appointmentTypeData[i].Colour);
+          this.formControls.type['controls'][i].get('Editable').patchValue(this.appointmentTypeData[i].Editable);
         }
       }
     })
@@ -204,6 +211,9 @@ export class ScheduleComponent implements OnInit {
 
   // Add Update Room
   saveRooms(roomIndex: number) {
+    this.showEditBtn = true;
+    this.showInput = false;
+    this.showSaveBtn = false;
     var reqparams = {
       'RoomId': this.roomForm.controls.rooms["controls"][roomIndex].get('RoomId').value == "" ? null : this.roomForm.controls.rooms["controls"][roomIndex].get('RoomId').value,
       'RoomName': this.roomForm.controls.rooms["controls"][roomIndex].get('RoomName').value,
@@ -217,33 +227,26 @@ export class ScheduleComponent implements OnInit {
   }
 
   // Add Update Appointment Status
-  saveAppointmentStatus(statusIndex: number, color: string) {
-    debugger;
-    this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
-    // this.showEditBtn[statusIndex] = true;
-    // this.showInput[statusIndex] = false;
-    // this.showSaveBtn[statusIndex] = false;
+  saveAppointmentStatus(statusIndex: number) {
     var reqparams = {
       ProviderId: this.user.ProviderId,
       StatusId: this.statusForm.controls.status["controls"][statusIndex].get('Id').value == "" ? null : this.statusForm.controls.status["controls"][statusIndex].get('Id').value,
       Editable: true,
       StatusName: this.statusForm.controls.status["controls"][statusIndex].get('Name').value,
-      Colour: this.statusForm.controls.status["controls"][statusIndex].get('Colour').value
+      Colour: this.statusForm.controls.status["controls"][statusIndex].get('color').value
     };
     this.settingsService.AddUpdateAppointmentStatus(reqparams).subscribe(resp => {
       if (resp.IsSuccess) {
-        this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
-        // this.getAppointmentStatus();
+        this.getAppointmentStatus();
       }
-      this.customizedspinner = false; $('body').removeClass('loadactive');
     })
   }
 
-  // edit(statusIndex) {
-  //   this.showSaveBtn[statusIndex] = true;
-  //   this.showEditBtn[statusIndex] = false;
-  //   this.showInput[statusIndex] = true;
-  // }
+  edit() {
+    this.showSaveBtn = true;
+    this.showEditBtn = false;
+    this.showInput = true;
+  }
 
   removeRoom(roomIndex: number) {
     let roomId = this.roomForm.controls.rooms["controls"][roomIndex].get('RoomId').value;
@@ -266,6 +269,9 @@ export class ScheduleComponent implements OnInit {
       if (resp.IsSuccess) {
         this.getAppointmentStatus();
       }
+      else {
+        this.getAppointmentStatus();
+      }
     })
   }
 
@@ -280,21 +286,7 @@ export class ScheduleComponent implements OnInit {
     }
     this.settingsService.AddUpdateAppointmentType(reqparams).subscribe(resp => {
       if (resp.IsSuccess) {
-        Swal.fire({
-          icon: 'success',
-          title: resp.EndUserMessage,
-          showConfirmButton: true,
-          confirmButtonText: 'Close',
-          width: '700',
-        });
-      }
-      else {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: resp.EndUserMessage,
-          width: '700',
-        })
+        this.getAppointmentType();
       }
     })
   }
@@ -307,6 +299,9 @@ export class ScheduleComponent implements OnInit {
     else {
       this.settingsService.DropAppointmentType(typeId).subscribe(resp => {
         if (resp.IsSuccess) {
+          this.getAppointmentType();
+        }
+        else {
           this.getAppointmentType();
         }
       })

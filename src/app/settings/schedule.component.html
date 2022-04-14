@@ -44,14 +44,14 @@
                           </div>
                           <div class="col-md-6 col-12 pt-2 pt-md-0">
                             <div class="col-md-12 col-6 pull-right">
-                              <button type="button" id="Actbtn" class="btn btn-md btn-sm btn-success pull-right"
-                                (click)="saveRooms(roomIndex)">
+                              <button type="button" id="Actbtn" *ngIf="showSaveBtn"
+                                class="btn btn-md btn-sm btn-success pull-right" (click)="saveRooms(roomIndex)">
                                 Save
                               </button>
-                              <!-- <button type="button" id="Actbtn" *ngIf="showEditBtn"
-                                class="btn btn-md btn-sm btn-success pull-right" (click)="onSubmitEdit(roomIndex)">
+                              <button type="button" id="Actbtn" *ngIf="showEditBtn"
+                                class="btn btn-md btn-sm btn-success pull-right" (click)="edit()">
                                 Edit
-                              </button> -->
+                              </button>
                             </div>
                           </div>
                         </div>
@@ -164,7 +164,7 @@
                   </div>
                   <form [formGroup]="statusForm">
                     <div formArrayName="status">
-                      <div *ngFor="let stat of status().controls; let statusIndex=index">
+                      <div *ngFor="let stat of status().controls; let statusIndex=index;">
                         <div [formGroupName]="statusIndex">
                           <div class="row px-4 pt-3 pb-2">
                             <div class="col-md-5 col-5">
@@ -174,11 +174,13 @@
                               </div>
                             </div>
                             <div class="col-md-3 col-3">
-                              <input class="cstm-color-picker" [(colorPicker)]="color" [style.background]="color"
-                                formControlName="color" />
+                              <input class="cstm-color-picker"
+                                [(colorPicker)]="statusForm.controls.status.controls[statusIndex].get('color').value"
+                                [style.background]="statusForm.controls.status.controls[statusIndex].get('color').value" />
                             </div>
                             <div class="col-md-4 col-4 pt-2 pt-md-0">
                               <button type="button" id="Actbtn" class="btn btn-md btn-sm btn-success pull-right"
+                                *ngIf="statusForm.controls.status.controls[statusIndex].get('Editable').value"
                                 (click)="saveAppointmentStatus(statusIndex)">
                                 Save
                               </button>
@@ -189,6 +191,7 @@
                             <div class="col-md-12 col-12 pt-2 cstm-border-bottom-appointment">
                               <div class="col-4 pull-right">
                                 <button type="button" id="Actbtn" class="btn btn-md btn-sm btn-success pull-right"
+                                  *ngIf="statusForm.controls.status.controls[statusIndex].get('Editable').value"
                                   (click)="removeAppointmentStatus(statusIndex)" style="height: 30px;">
                                   Remove
                                 </button>
@@ -233,11 +236,13 @@
                               </div>
                             </div>
                             <div class="col-md-3 col-3">
-                              <input class="cstm-color-picker" [(colorPicker)]="Colour" [style.background]="Colour"
-                                formControlName="Colour" />
+                              <input class="cstm-color-picker"
+                                [(colorPicker)]="typeForm.controls.type.controls[typeIndex].get('Colour').value"
+                                [style.background]="typeForm.controls.type.controls[typeIndex].get('Colour').value" />
                             </div>
                             <div class="col-md-4 col-4 pt-2 pt-md-0">
                               <button type="button" id="Actbtn" class="btn btn-md btn-sm btn-success pull-right"
+                                *ngIf="typeForm.controls.type.controls[typeIndex].get('Editable').value"
                                 (click)="saveAppointmentType(typeIndex)">
                                 Save
                               </button>
@@ -245,6 +250,7 @@
                             <div class="col-md-12 col-12 pt-2 cstm-border-bottom-appointment">
                               <div class="col-4 pull-right">
                                 <button type="button" id="Actbtn" class="btn btn-md btn-sm btn-success pull-right"
+                                  *ngIf="typeForm.controls.type.controls[typeIndex].get('Editable').value"
                                   (click)="removeAppointmentType(typeIndex)" style="height: 30px;">
                                   Remove
                                 </button>
