@@ -10,15 +10,19 @@
   font-family: "SF UI Text Regular";
   margin-bottom: 10px;
   margin-top: -16px;
+  font-weight: 400;
+  color: #111112;
+  font-size: 20px;
 }
 hr:not([size]) {
   height: 1px;
   color: #96989d;
 }
 .fs-6 {
-  font-size: 1.1rem!important;
+  font-size: 1.0rem !important;
 }
 .table>:not(caption)>*>* {
+  font-family: "Open Sans", sans-serif;
   padding: 0.5rem 0.5rem;
   background-color: var(--bs-table-bg);
   border-bottom-width: 1px;
@@ -45,7 +49,7 @@ table thead tr th{
   font-weight: 600;
 }
 table tbody tr td{
-  font-size: 17px;
+  font-size: 15px;
 }
 .th-border{
   border-bottom: 2px solid #edeff3  !important;
@@ -56,10 +60,11 @@ thead, tbody, tfoot, tr, td, th {
 }
 .th-col-width{
   min-width: 180px;
+
 }
 
 .td-col-width{
-  width: 4%;
+  width: 6%;
 }
 .td-width {
   width: 4%;
@@ -72,15 +77,54 @@ thead, tbody, tfoot, tr, td, th {
   font-size: 16px;
 }
 .common-button-style{
+  color: #2f353b;
   background: white;
-  border: 1.5px solid #858282;
-  padding: 5px 9px;
+  border: 1.5px solid #2f353b;
+  padding: 3px 7px;
+  text-align: center;
+}
+.common-button-style:hover{
+  color: white;
+  background: black;
+  border: 1.5px solid #2f353b;
+  padding: 3px 7px;
+  text-align: center;
 }
 .table-col-button{
    background: white ;
     border: 1.5px solid #b1a7a7 ;
-    padding: 5px 9px ;
+    padding: 3px 5px;
     font-size: 14px;
+    width: 80p;
+}
+.table-col-button:hover{
+  color: black;
+  background: rgb(234, 233, 233);
+  border: 1.5px solid #b1a7a7 ;
+}
+.Actives{
+  background: white ;
+  border: 1.5px solid #b1a7a7 ;
+  padding: 3px 5px;
+  font-size: 14px;
+  width: 62px;
+}
+.Actives:hover{
+  color: black;
+  background: rgb(234, 233, 233);
+  border: 1.5px solid #b1a7a7 ;
+}
+.Suspended{
+  background: white;
+  border: 1.5px solid #b1a7a7;
+  padding: 3px 5px;
+  font-size: 14px;
+  width: 67px;
+}
+.Suspended:hover{
+  color: black;
+  background: rgb(229, 229, 229);
+  border: 1.5px solid #b1a7a7 ;
 }
 .form-switch .form-check-input {
   width: 2.8rem !important;
@@ -106,4 +150,11 @@ tbody > tr:last-child > td {
 }
 .table-NoRecord{
   background-color: white !important;
+}
+.form-check-input {
+  width: 1em;
+  height: 1em;
+  margin-top: 4.5em;
+  vertical-align: top;
+  background-color: #eee;
 }

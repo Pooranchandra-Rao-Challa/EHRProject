@@ -1020,3 +1020,6 @@ ul.menuclass li.active a {
     100% no-repeat;
   background-position: -80px 0;
 }
+body.loadactive {
+  overflow: hidden !important;
+}

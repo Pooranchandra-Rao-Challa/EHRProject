@@ -30,6 +30,7 @@ export class AdminPracticeComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetProivderList();
+    this.activeSataus();
   }
 
   GetProivderList() {
@@ -44,11 +45,21 @@ export class AdminPracticeComponent implements OnInit {
           else {
             e.Trial = 'Paid';
           }
+          this.FitlerGetStatus = this.ProviderList.filter(x =>
+            (x.ActiveStatus === 'Active')
+          );
+          // if(e.ActiveStatus == 'Suspended'){
+          //   e.ActiveStatus = 'Suspend'
+          // }
         });
         this.GetFilterList = this.ProviderList;
       } else
         this.ProviderList = [];
     });
+  }
+  activeSataus(){
+    this.Active = true;
+    this.FilterProvider(this.ActiveStatus,this.Active);
   }
 
 
