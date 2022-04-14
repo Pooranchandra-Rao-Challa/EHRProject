@@ -32,12 +32,19 @@ a {
 }
 
 .table>:not(caption)>*>* {
+  font-family: "Open Sans", sans-serif;
   padding: 0.5rem 0.5rem;
   background-color: var(--bs-table-bg);
   border-bottom-width: 1px;
   box-shadow: inset 0 0 0 0000px var(--bs-table-accent-bg);
 }
-
+table thead tr th{
+  font-size: 14px;
+  font-weight: 600;
+}
+table tbody tr td{
+  font-size: 15px;;
+}
 hr {
   color: #8d8c8c;
 }
@@ -162,7 +169,7 @@ thead{
 }
 
 .td-col-width {
-  width: 4%;
+  width: 5%;
 }
 
 .com-btn-style {
@@ -303,16 +310,12 @@ input::-webkit-input-placeholder {
   font-size: 100%;
   font-family: sans-serif;
 }
-
-
-//  @media (min-width:320px) and (max-width: 425px) {
-//   .Page{
-//     margin-right: -205px;
-
-//    }
-
-// }
 .table-NoRecord {
   background: White;
-
 }
+tr:last-child td {
+  border-bottom: none;
+}
+
+
+
