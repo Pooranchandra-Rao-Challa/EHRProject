@@ -59,7 +59,7 @@ div.example button {
     width: 55px;
     background: #41b6a6;
     border-color: white;
-    
+
 }
 
 div.example button:hover {
@@ -94,7 +94,7 @@ input[type='checkbox']:checked:after {
     color: black;
     content: "\2714";
     font-size: small;
-    
+
   }
 
 .form-check-input {
@@ -108,7 +108,7 @@ input[type='checkbox']:checked:after {
 .form-check-label{
     font-size: 15px;
     display: inline;
-    
+
 }
 .table td,
 .table th {
@@ -137,7 +137,7 @@ input[type='checkbox']:checked:after {
     margin-left: 4%;
     background-color: #fff;
     border: 1px solid #b4bcc8;
-} 
+}
   @media (max-width: 902px) {
     .btn-log {
         cursor: pointer;
@@ -148,7 +148,7 @@ input[type='checkbox']:checked:after {
         margin-left: 6%;
         background-color: #fff;
         border: 1px solid #b4bcc8;
-    } 
+    }
   }
 thead {
     border-bottom-width: 3px;

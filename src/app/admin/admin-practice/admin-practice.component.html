@@ -1,109 +1,122 @@
 
-<div class="practice-container">
-    <div class="col-lg-12 col-xl-12 col-md-12 col-12">
-        <ul class="practice-header">
-          <li><a href="admin/dashboard" class="anchorStyle pr-3">Home</a></li>
-          <li><i class="category-arrow fa fa-angle-right anchorStyle"></i></li>
-          <li><a class="active text-nowrap" href="javascript:void(0)" class="anchorStyle">Practices</a></li>
-        </ul>
-      </div>   
-    <div class="row  mb-2 mt-5 mx-1">    
-        <div class="col-lg-3 col-md-3 col-12">
-            <div class="form-check col-6 col-md-4 mx-2">
-                <input class="form-check-input" type="checkbox" (change)="FilterStatus()" [(ngModel)]="ActiveStatus" id="flexCheckDefault" />
-                <label class="form-check-label text-nowrap mb-3"  for="flexCheckDefault2">Active Providers</label>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-12">
-            <div class="form-check col-6 col-md-4 mx-2">
-                <input class="form-check-input" type="checkbox" (change)="FilterStatus()" [(ngModel)]="SuspendedStatus" value="Suspended" id="flexCheckDefault" />
-                <label class="form-check-label text-nowrap mb-3" for="flexCheckDefault2">Inactive Providers</label>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-6">
-            <div class="form-check col-6 col-md-4 mx-2">
-                <input class="form-check-input" type="checkbox" (change)="FilterTrailPaid()" [(ngModel)]="NotPaidChecked" value="NotPaid" id="flexCheckDefault" />
-                <label class="form-check-label text-nowrap" for="flexCheckDefault2">Paid Providers</label>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-6">
-            <div class="form-check col-6 col-md-4 mx-2">
-                <input class="form-check-input" type="checkbox" (change)="FilterTrailPaid()" [(ngModel)]="PaidChecked" value="Paid" id="flexCheckDefault" />
-                <label class="form-check-label text-nowrap" for="flexCheckDefault3">Trial Providers</label>
-            </div>
-        </div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-12 col-xl-12 col-md-12 col-12 mt-4">
+      <app-admin-breadcrum></app-admin-breadcrum>
     </div>
-    <div class="card card-border">   
-        <div class="row mt-4 mx-2">   
-                <div class="col-xl-6 col-lg-5 col-md-5 col-5 col-sm-5">           
-                    <b class="fw-bold fs-6">PRACTICES</b> 
-                  </div>                 
-                    <div class="col-xl-6 col-lg-7 col-md-7 col-12 ">
-                      <div class="row pt-0 ">
-                        <div class="search-box col-xl-11 col-lg-10 col-md-12 col-12">                       
-                            <input type="text" placeholder="Search Practices" name="search">
-                            <button type="submit"><i class="fa fa-search i-search"></i></button>  
-                        </div>
-                        <div class="col-xl-1 col-lg-1 col-md-12 col-12  mb-3 col-btn ">
-                          <button type="button" class="button-style text-nowrap btn pull-right ml-3">Add New User</button>                         
-                        </div>
-                      </div>
-                    </div>  
-            <div class="col-lg-12 col-md-12 col-12">
-                <hr>       
+
+    <div class="row mx-1 mt-3">
+      <div class="col-lg-3 col-md-3 col-6">
+        <div class="form-check col-6 col-md-4 mx-2">
+          <input class="form-check-input" type="checkbox" (change)="FilterProvider('ActiveStatus','Active')" [(ngModel)]="Active"
+            id="flexCheckDefault" />
+          <label class="form-check-label text-nowrap mb-3" for="flexCheckDefault2">Active Providers</label>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-3 col-6">
+        <div class="form-check col-6 col-md-4 mx-2">
+          <input class="form-check-input" type="checkbox" [(ngModel)]="Suspended" (change)="FilterProvider('ActiveStatus','Suspended')"
+            value="Suspended" id="flexCheckDefault" />
+          <label class="form-check-label text-nowrap mb-3" for="flexCheckDefault2">Inactive Providers</label>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-3 col-6">
+        <div class="form-check col-6 col-md-4 mx-2">
+          <input class="form-check-input" type="checkbox" [(ngModel)]="NotPaidChecked" (change)="FilterProvider('TrailStatus','Not Paid')"
+            value="NotPaid" id="flexCheckDefault" />
+          <label class="form-check-label text-nowrap" for="flexCheckDefault2">Paid Providers</label>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-3 col-6">
+        <div class="form-check col-6 col-md-4 mx-2">
+          <input class="form-check-input" type="checkbox" [(ngModel)]="PaidChecked" (change)="FilterProvider('TrailStatus','Paid')"
+            value="Paid" id="flexCheckDefault" />
+          <label class="form-check-label text-nowrap" for="flexCheckDefault3">Trial Providers</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-12 col-xl-12 col-md-12 col-12  mb-3">
+      <div class="card card-border">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-xl-6 col-lg-5 col-md-5 col-5 col-sm-5">
+              <b class="fw-bold fs-6">PRACTICES</b>
             </div>
-         
-            <div class="col-lg-12 col-md-12 col-12">
-                <div class="table-responsive">
-                    <table class="table mt-4">
-                        <thead>
-                            <tr>
-                                <th class="th-col">Name</th>
-                                <th class="th-col">Email</th>
-                                <th class="th-col text-wrap"style="width: 6rem;">Practice Name</th>
-                                <th class="th-col">Phone</th>                       
-                                <th class="th-col">Status</th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>                            
-                            </tr>
-                        </thead>
-                        <tbody>        
-                            <tr *ngFor="let item of ProviderList | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">                                                      
-                                <td class="tbl-col">
-                                    <button type="button" class="addbtn "><i class="fa fa-plus icon-add my-1"></i></button>
-                                    <span class="mx-1"> {{item.ProviderName}} , {{item.Degree}}</span>
-                                    <div class="d-flex justify-content-start mt-2">
-                                        <button class="com-btn-style">Login</button>
-                                        <button class="com-btn-style mx-2">Remove as Primary</button>
-                                    </div>
-                                </td>
-                                <td>{{item.Email}}</td>
-                                <td>{{item.ProviderName}}</td>
-                                <td>{{item.PrimaryPhone}}</td>                        
-                                <td class="column text-uppercase">{{item.ActiveStatus}}</td>
-                                <td class="td-col-width"><button type="button" class="com-btn-style">View</button></td>
-                                <td class="td-col-width"><button type="button" class="com-btn-style">{{item.Trial}}</button></td>
-                                <td class="td-col-width"><button type="button" class="com-btn-style">Suspended</button></td>
-                                <td class="td-col-width"><button type="button" class="com-btn-style">Reset MFA</button></td>
-                                <td class="td-col-width"><button type="button" class="com-btn-style">Lock</button></td>
-                                <td> <button type="button" class="Cancelbtn"><i class="fa fa-close icon-close"></i></button></td> 
-                            </tr>
-                        </tbody>
-                    </table>
+            <div class="col-xl-6 col-lg-7 col-md-7 col-12 ">
+              <div class="row pt-0 ">
+                <div class="search-box col-xl-11 col-lg-10 col-md-12 col-12">
+                  <input type="text" placeholder="Search Practices" [(ngModel)]="filterString">
+                  <button type="submit" (click)="SearchDetails()"><i class="fa fa-search i-search"></i></button>
                 </div>
+                <div class="col-xl-1 col-lg-1 col-md-12 col-12  mb-3 col-btn ">
+                  <button type="button" class="button-style text-nowrap btn pull-right ml-3">Add New User</button>
+                </div>
+              </div>
             </div>
-        </div>  
+            <div class="col-lg-12 col-md-12 col-12 col-sm-12 "> <hr></div>
+            <div class="col-lg-12 col-md-12 col-12 col-sm-12 ">
+              <div class="table-responsive">
+                <table class="table table-sm">
+                  <thead class="th-border">
+                    <tr>
+                      <th class="th-col">Name</th>
+                      <th class="th-col">Email</th>
+                      <th class="th-col text-wrap" style="width: 6rem;">Practice Name</th>
+                      <th class="th-col">Phone</th>
+                      <th class="th-col">Status</th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of ProviderList | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+                      <td class="tbl-col">
+                        <button type="button" class="addbtn "><i class="fa fa-plus icon-add my-1"></i></button>
+                        <span class="mx-1"> {{item.ProviderName}} , {{item.Degree}}</span>
+                        <div class="d-flex justify-content-start mt-2">
+                          <button class="com-btn-style">Login</button>
+                          <button class="com-btn-style mx-2">Remove as Primary</button>
+                        </div>
+                      </td>
+                      <td>{{item.Email}}</td>
+                      <td>{{item.ProviderName}}</td>
+                      <td>{{item.PrimaryPhone}}</td>
+                      <td class="column text-uppercase">{{item.ActiveStatus}}</td>
+                      <td class="td-col-width"><button type="button" class="com-btn-style">View</button></td>
+                      <td class="td-col-width"><button type="button" class="com-btn-style">{{item.Trial}}</button></td>
+                      <td class="td-col-width"><button type="button" class="com-btn-style">Suspended</button></td>
+                      <td class="td-col-width"><button type="button" class="com-btn-style">Reset MFA</button></td>
+                      <td class="td-col-width"><button type="button" class="com-btn-style">Lock</button></td>
+                      <td> <button type="button" class="Cancelbtn"><i class="fa fa-close icon-close"></i></button></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="table-NoRecord text-center py-2 col-12" *ngIf="ProviderList== 0">
+                  Practices Not Found
+                </div>
+               <div class="d-flex justify-content-end my-3"> <button type="button" class="common-button-style py-2 px-3 ml-3">View all</button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+
+   <div class="d-flex justify-content-end my-3">
+    <nav aria-label="Page navigation">
+      <ul class="pagination justify-content-end mt-4">
+        <ngb-pagination [pageSize]="pageSize" [collectionSize]="ProviderList.length" [(page)]="page" aria-label="Default pagination">
+        </ngb-pagination>
+      </ul>
+    </nav>
+    </div>
+  </div>
 </div>
 
 
 
-<nav aria-label="Page navigation">
-    <ul class="pagination justify-content-end mt-4">
-        <ngb-pagination [pageSize]="5" [collectionSize]="10" [(page)]="page" aria-label="Default pagination">
-        </ngb-pagination>
-    </ul>
-</nav>
+

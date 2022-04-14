@@ -7,8 +7,8 @@ import { AdminService } from 'src/app/_services/admin.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  page = 1;
-  pageSize :number=50;
+  pageSize: number = 50;
+  page: number = 1;
   ProviderList:any;
 
   constructor(private adminservice:AdminService) { }
