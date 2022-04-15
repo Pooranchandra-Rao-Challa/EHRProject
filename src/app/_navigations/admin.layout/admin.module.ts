@@ -31,7 +31,7 @@ import { DashboardComponent } from 'src/app/admin/dashboard/dashboard.component'
 import { AdminPracticeComponent } from 'src/app/admin/admin-practice/admin-practice.component';
 
 import { AdminService } from '../../_services/admin.service';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
+// import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { ProviderlistComponent } from '../../admin/providerlist/providerlist.component';
 import { AdminsettingComponent } from 'src/app/admin/adminsetting/adminsetting.component';
 import { AdminsComponent } from 'src/app/admin/admins/admins.component';
@@ -79,7 +79,7 @@ import { BreadcrumComponent } from '../admin.breadcrum/admin.breadcrum.component
     ScheduleModule,
     DropDownListModule,
     DateTimePickerModule,
-    Ng2SearchPipeModule
+    // Ng2SearchPipeModule
   ],
   providers: [DayService, WeekService,AdminService
 
