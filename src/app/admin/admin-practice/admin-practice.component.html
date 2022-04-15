@@ -46,7 +46,7 @@
             <div class="col-xl-6 col-lg-7 col-md-7 col-12 ">
               <div class="row pt-0 ">
                 <div class="search-box col-xl-11 col-lg-10 col-md-12 col-12">
-                  <input type="text" placeholder="Search Practices" [(ngModel)]="filterString">
+                  <input type="text" placeholder="Search Practices" [(ngModel)]="SearchKey">
                   <button type="submit" (click)="SearchDetails()"><i class="fa fa-search i-search"></i></button>
                 </div>
                 <div class="col-xl-1 col-lg-1 col-md-12 col-12  mb-3 col-btn ">
@@ -75,7 +75,7 @@
                   <tbody>
                     <tr *ngFor="let item of ProviderList | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
                       <td class="tbl-col">
-                        <button type="button" class="addbtn "><i class="fa fa-plus icon-add my-1"></i></button>
+                        <button type="button" class="addbtn"><i class="fa fa-plus icon-add my-1"></i></button>
                         <span class="mx-1"> {{item.ProviderName}} , {{item.Degree}}</span>
                         <div class="d-flex justify-content-start mt-2">
                           <button class="com-btn-style">Login</button>
@@ -88,7 +88,7 @@
                       <td class="column text-uppercase">{{item.ActiveStatus}}</td>
                       <td class="td-col-width"><button type="button" class="com-btn-style">View</button></td>
                       <td class="td-col-width"><button type="button" class="com-btn-style">{{item.Trial}}</button></td>
-                      <td class="td-col-width"><button type="button" class="com-btn-style">Suspend</button></td>
+                      <td class="td-col-width"><button type="button" class="com-btn-style" >{{AlterStatus}}</button></td>
                       <td class="td-col-width"><button type="button" class="com-btn-style">Reset MFA</button></td>
                       <td class="td-col-width"><button type="button" class="com-btn-style">Lock</button></td>
                       <td> <button type="button" class="Cancelbtn"><i class="fa fa-close icon-close"></i></button></td>

@@ -5,6 +5,7 @@
 }
 
 .table>:not(caption)>*>* {
+    font-family: "Open Sans", sans-serif;
     padding: 0.5rem 0.5rem;
     background-color: var(--bs-table-bg);
     border-bottom-width: 1px;
@@ -25,16 +26,16 @@ div.example input[type=text] {
     font-size: 17px;
     border: 1px solid #b4bcc8;
     float: left;
-    width: 87%;
+    width: 92%;
     background: #fff;
 }
 div.example button {
     float: left;
-    width: 13%;
+    width: 6%;
     padding: 5px;
     background: #2b3643;
     color: white;
-    font-size: 17px;
+    font-size: 20.08px;
     border: 1px solid #b4bcc8;
     border-left: none;
     cursor: pointer;
@@ -128,6 +129,13 @@ input[type='checkbox']:checked:after {
     background-color: #fff;
     border: 1px solid #b4bcc8;
 }
+.btn-lock:hover {
+  cursor: pointer;
+  color: black;
+  background: rgb(234, 233, 233);
+  border: 1px solid #b4bcc8;
+}
+
 .btn-log {
     cursor: pointer;
     font-size: 80%;
@@ -137,6 +145,12 @@ input[type='checkbox']:checked:after {
     margin-left: 4%;
     background-color: #fff;
     border: 1px solid #b4bcc8;
+}
+.btn-log:hover {
+  cursor: pointer;
+  color: black;
+  background: rgb(234, 233, 233);
+  border: 1px solid #b4bcc8;
 }
   @media (max-width: 902px) {
     .btn-log {
@@ -156,7 +170,31 @@ thead {
 .table th {
     font-weight: bold;
 }
+tbody > tr:last-child > td {
+  border-bottom: 0;
+}
+@media (min-width:300px) and(max-width:768px){
+  div.example input[type=text] {
+    padding: 7px;
+    font-size: 17px;
+    border: 1px solid #b4bcc8;
+    float: left;
+    width: 85%;
+    background: #fff;
+}
+div.example button {
+    float: left;
+    width: 15%;
+    padding: 5px;
+    background: #2b3643;
+    color: white;
+    font-size: 20.08px;
+    border: 1px solid #b4bcc8;
+    border-left: none;
+    cursor: pointer;
+}
 
+}
 
 
 

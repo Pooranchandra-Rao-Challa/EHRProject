@@ -15,22 +15,21 @@ export class AdminPracticeComponent implements OnInit {
   GlobalSearch:any;
   ProviderList: any;
   GetFilterList: any;
-  FitlerGetStatus: any = [];
-  Active: boolean = false;
+  FitlerActiveStatus: any = [];
+  Active: boolean = true;
   Suspended: boolean = false;
   NotPaidChecked: boolean = false;
   PaidChecked: boolean = false;
   ActiveStatus: string = '';
   TrailStatus: string = '';
   ProviderColumnList: providerList[];
-  SearchKey:string=" ";
-  filterString = "";
+  SearchKey = "";
+  AlterStatus:any;
 
   constructor(private adminservice: AdminService) { }
 
   ngOnInit(): void {
     this.GetProivderList();
-    this.activeSataus();
   }
 
   GetProivderList() {
@@ -45,21 +44,21 @@ export class AdminPracticeComponent implements OnInit {
           else {
             e.Trial = 'Paid';
           }
-          this.FitlerGetStatus = this.ProviderList.filter(x =>
+          this.FitlerActiveStatus = this.ProviderList.filter(x =>
             (x.ActiveStatus === 'Active')
           );
-          // if(e.ActiveStatus == 'Suspended'){
-          //   e.ActiveStatus = 'Suspend'
-          // }
+          this.ProviderList = this.FitlerActiveStatus;
+          if(e.ActiveStatus == 'Active'){
+            this.AlterStatus = 'Suspend'
+          }
+          else if(e.ActiveStatus == 'Suspended'){
+            this.AlterStatus = 'Activate'
+          }
         });
         this.GetFilterList = this.ProviderList;
       } else
         this.ProviderList = [];
     });
-  }
-  activeSataus(){
-    this.Active = true;
-    this.FilterProvider(this.ActiveStatus,this.Active);
   }
 
 
@@ -69,9 +68,11 @@ export class AdminPracticeComponent implements OnInit {
       if (event == 'Active' && this.Active) {
         this.Suspended = false;
         this.ActiveStatus = 'Active';
+        this.AlterStatus = 'Suspend';
       } else if (event == 'Suspended' && this.Suspended) {
         this.Active = false;
-        this.ActiveStatus = 'Suspended'
+        this.ActiveStatus = 'Suspended';
+        this.AlterStatus = 'Activate'
       } else {
         this.ActiveStatus = '';
       }
@@ -113,7 +114,7 @@ export class AdminPracticeComponent implements OnInit {
     if (item instanceof Object) {
       return Object.keys(item).some((k) => this.isMatch(item[k]));
     } else {
-      return item == null?'':item.toString().indexOf(this.filterString) > -1
+      return item == null?'':item.toString().indexOf(this.SearchKey) > -1
     }
   }
 

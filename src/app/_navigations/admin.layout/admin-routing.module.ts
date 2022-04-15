@@ -1,3 +1,4 @@
+import { WeeklyUpdatedComponent } from './../../admin/weekly-updated/weekly-updated.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminsComponent } from 'src/app/admin/admins/admins.component';
@@ -24,6 +25,7 @@ const routes: Routes = [
       { path: 'setting', component: AdminsettingComponent},
       { path: 'communication', component: CommunicationsettingsComponent },
       { path: 'practice', component: AdminPracticeComponent },
+      { path: 'weeklyupdates', component: WeeklyUpdatedComponent },
     ]
   }
 ]
