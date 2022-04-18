@@ -32,22 +32,44 @@ export interface NewUser {
   LocationInfo?: Location[];
 }
 
-export interface Location{
-    Name?: string,
-		LocationId?: string,
-		City?: string,
-		State?: string,
-		WeekDay?: string,
-		From?: string,
-		To?: string,
-		SpecifiHour?: string,
-		Assigned?: boolean
-    TimeSlots: TimeSlot[]
+export interface Location {
+  Name?: string,
+  LocationId?: string,
+  City?: string,
+  State?: string,
+  WeekDay?: string,
+  From?: string,
+  To?: string,
+  SpecifiHour?: string,
+  Assigned?: boolean
+  TimeSlots: TimeSlot[]
 }
 
-export interface TimeSlot{
+export interface TimeSlot {
   From?: string,
   SpecificHour?: string,
   To?: string,
   WeekDay?: string
+}
+
+export interface RoomsSlot {
+  RoomId?: string,
+  RoomName?: string,
+  Status?: boolean
+}
+
+export interface AppointmentStatus {
+  Id?: string,
+  Name?: string,
+  Colour?: string,
+  Editable?: boolean,
+  Appointmentstatus?: boolean
+}
+
+export interface AppointmentType {
+  Id?: string,
+  AppointmentType?: string,
+  Colour?: string,
+  Editable?: boolean,
+  AppointmenttypeStatus?: boolean
 }

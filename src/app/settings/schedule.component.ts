@@ -1,14 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../_services/authentication.service';
 import { SettingsService } from '../_services/settings.service';
-import { UtilityService } from '../_services/utiltiy.service';
-import { User, UserLocations } from '../_models';
-import { UUID } from 'angular2-uuid'
-import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { LocationSelectService } from '../_navigations/provider.layout/location.service';
-import Swal from 'sweetalert2';
-import * as ts from 'typescript';
+import { User } from '../_models';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { AppointmentStatus, AppointmentType, RoomsSlot } from '../_models/settings';
+import { IdService } from '../_helpers/_id.service';
 declare var $: any;
 
 @Component({
@@ -22,26 +18,19 @@ export class ScheduleComponent implements OnInit {
   roomForm: FormGroup;
   statusForm: FormGroup;
   typeForm: FormGroup;
-  showEditBtn: boolean = false;
-  showSaveBtn: boolean = false;
-  showInput: boolean = true;
-  typecolor: any;
-  Colour: any;
-  appointmentStatusData: any;
-  appointmentTypeData: any;
-  roomsData: any;
-  arrayColors: any[] = [];
+  appointmentStatusData: AppointmentStatus[];
+  appointmentTypeData: AppointmentType[];
+  roomsData: RoomsSlot[];
   customizedspinner: boolean;
-  color: any;
-  Editable: any;
-  buttonValue: string;
   displayappointmentTime: boolean = false;
+  roomsOnEdit: number[] = [];
+  statusOnEdit: number[] = [];
+  typeOnEdit: number[] = [];
 
-  constructor(private authService: AuthenticationService, private settingsService: SettingsService, private fb: FormBuilder) {
+  constructor(private authService: AuthenticationService, private settingsService: SettingsService, private fb: FormBuilder, private idService: IdService) {
     this.user = authService.userValue;
   }
   ngOnInit(): void {
-    // this.currentAppointmentStatusId = null;
     this.getLocationsList();
     this.getAppointmentStatus();
     this.getAppointmentType();
@@ -53,6 +42,7 @@ export class ScheduleComponent implements OnInit {
 
   // get display Location Details
   getLocationsList() {
+    this.LocationAddress = [];
     this.settingsService.PracticeLocations(this.user.ProviderId).subscribe(resp => {
       if (resp.IsSuccess) {
         this.LocationAddress = resp.ListResult;
@@ -72,41 +62,41 @@ export class ScheduleComponent implements OnInit {
   newRoom(): FormGroup {
     return this.fb.group({
       RoomId: [''],
-      RoomName: [''],
-      status: [false]
+      RoomName: ['']
     })
   }
   addRoom() {
+    let room = this.newRoom();
+    let newroomId = this.idService.decrementIds('room');
+    room.controls["RoomId"].setValue(newroomId)
+    this.pushRoom(room);
+    this.roomsOnEdit.push(this.rooms().length);
+  }
+  pushRoom(room: FormGroup) {
     this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
-    this.rooms().push(this.newRoom());
+    this.rooms().push(room);
     setTimeout(() => {
       this.customizedspinner = false;
       $('body').removeClass('loadactive')
     }, 1000);
   }
-
-  // toggleSaveEditBtn(roomIndex: number) {
-  //   debugger;
-  //   const controlArray = this.roomForm.get('rooms') as FormArray;
-  //   if (controlArray.controls[roomIndex].status === 'DISABLED') {
-  //     controlArray.controls[roomIndex].enable();
-  //   }
-  //   else {
-  //     controlArray.controls[roomIndex].disable();
-  //     this.saveRooms(roomIndex);
-  //   }
-  // }
-
-  // formArrayRooms(roomIndex) {
-  //   debugger;
-  //   const controlArray = this.roomForm.get('rooms') as FormArray;
-  //   if (controlArray.controls[roomIndex].value.RoomId == "") {
-  //     return controlArray.controls[roomIndex].disabled;
-  //   }
-  //   else {
-  //     return controlArray.controls[roomIndex].enable;
-  //   }
-  // }
+  clearRooms() {
+    this.rooms().clear();
+  }
+  clearSaveIndex(roomIndex: number) {
+    let findIndex = this.roomsOnEdit.findIndex(roomindex => roomIndex)
+    findIndex !== -1 && this.roomsOnEdit.splice(findIndex, 1)
+    //if(!isNaN(addIndex))
+  }
+  isNewRoom(roomIndex: number) {
+    let id = this.rooms().controls[roomIndex].get('RoomId').value
+    if (isNaN(Number(id))) {
+      return false || this.roomsOnEdit.findIndex(roomindex => roomindex === roomIndex) > -1;
+    } return true;
+  }
+  onEditRooms(roomIndex: number) {
+    this.roomsOnEdit.push(roomIndex);
+  }
 
   // Appointment Statuses
   buildStatusForm() {
@@ -121,23 +111,41 @@ export class ScheduleComponent implements OnInit {
     return this.fb.group({
       Id: [''],
       Name: [''],
-      color: [''],
-      Editable: ['true'],
-      Appointmentstatus: [false]
+      Colour: [''],
+      Editable: ['true']
     })
   }
   addStatus() {
+    let status = this.newStatus();
+    let newstatusId = this.idService.decrementIds('appointmentStatus');
+    status.controls["Id"].setValue(newstatusId)
+    this.pushStatus(status);
+    this.statusOnEdit.push(this.status().length);
+  }
+  pushStatus(appointmentstatus: FormGroup) {
     this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
-    this.status().push(this.newStatus());
+    this.status().push(appointmentstatus);
     setTimeout(() => {
       this.customizedspinner = false;
       $('body').removeClass('loadactive')
     }, 1000);
   }
-
-  // negativeIndexing(statusIndex) {
-  //   this.statusForm.controls.status["controls"][statusIndex].get('Id').value
-  // }
+  clearStatus() {
+    this.status().clear();
+  }
+  clearSaveStatusIndex(statusIndex: number) {
+    let findIndex = this.statusOnEdit.findIndex(statusindex => statusIndex)
+    findIndex !== -1 && this.statusOnEdit.splice(findIndex, 1)
+  }
+  isNewStatus(statusIndex: number) {
+    let id = this.status().controls[statusIndex].get('Id').value
+    if (isNaN(Number(id))) {
+      return false || this.statusOnEdit.findIndex(statusindex => statusindex === statusIndex) > -1;
+    } return true;
+  }
+  onEditStatus(statusIndex: number) {
+    this.statusOnEdit.push(statusIndex);
+  }
 
   // Appointment Type
   buildTypeForm() {
@@ -158,16 +166,36 @@ export class ScheduleComponent implements OnInit {
     })
   }
   addType() {
+    let type = this.newType();
+    let newtypeId = this.idService.decrementIds('appointmentType');
+    type.controls["Id"].setValue(newtypeId)
+    this.pushType(type);
+    this.typeOnEdit.push(this.type().length);
+  }
+  pushType(appointmenttype: FormGroup) {
     this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
-    this.type().push(this.newType());
+    this.type().push(appointmenttype);
     setTimeout(() => {
       this.customizedspinner = false;
       $('body').removeClass('loadactive')
     }, 1000);
   }
-
-  get roomformControls() {
-    return this.roomForm.controls;
+  clearType() {
+    this.type().clear();
+  }
+  clearSaveTypeIndex(typeIndex: number) {
+    let findIndex = this.typeOnEdit.findIndex(typeindex => typeIndex)
+    findIndex !== -1 && this.typeOnEdit.splice(findIndex, 1)
+  }
+  isNewType(typeIndex: number) {
+    debugger;
+    let id = this.type().controls[typeIndex].get('Id').value;
+    if (isNaN(Number(id))) {
+      return false || this.typeOnEdit.findIndex(typeindex => typeindex === typeIndex) > -1;
+    } return true;
+  }
+  onEditType(typeIndex: number) {
+    this.typeOnEdit.push(typeIndex);
   }
 
   // get rooms data for location
@@ -175,19 +203,21 @@ export class ScheduleComponent implements OnInit {
     var reqparams = {
       'LocationId': this.user.CurrentLocation
     };
+    this.roomsData = null;
     this.settingsService.RoomsForLocation(reqparams).subscribe(resp => {
       if (resp.IsSuccess) {
         this.roomsData = resp.ListResult;
-        this.roomForm.setControl('rooms', this.fb.array([]));
-        for (let i = 0; i < this.roomsData.length; i++) {
-          this.addRoom();
-          this.roomForm.controls.rooms['controls'][i].get('RoomId').patchValue(this.roomsData[i].RoomId);
-          this.roomForm.controls.rooms['controls'][i].get('RoomName').patchValue(this.roomsData[i].RoomName);
-        }
+        this.clearRooms();
+        this.roomsData.forEach((roomdata, indexx) => {
+          let room = this.newRoom();
+          room.controls["RoomId"].setValue(roomdata.RoomId);
+          room.controls["RoomName"].setValue(roomdata.RoomName);
+          this.pushRoom(room);
+        })
       }
       else if (resp.IsSuccess == false) {
         this.roomsData = resp.ListResult;
-        this.roomForm.setControl('rooms', this.fb.array([]));
+        this.clearRooms();
       }
     })
   }
@@ -197,83 +227,85 @@ export class ScheduleComponent implements OnInit {
     var req = {
       'ProviderId': this.user.ProviderId
     };
+    this.appointmentStatusData = [];
     this.settingsService.AppointmentStatuses(req).subscribe(resp => {
       if (resp.IsSuccess) {
         this.appointmentStatusData = resp.ListResult;
-        console.log(this.appointmentStatusData);
-
-        this.statusForm.setControl('status', this.fb.array([]));
-        for (let i = 0; i < this.appointmentStatusData.length; i++) {
-          this.addStatus();
-          this.statusForm.controls.status['controls'][i].get('Id').patchValue(this.appointmentStatusData[i].Id);
-          this.statusForm.controls.status['controls'][i].get('Name').patchValue(this.appointmentStatusData[i].Name);
-          this.color = this.statusForm.controls.status['controls'][i].get('color').patchValue(this.appointmentStatusData[i].Colour);
-          this.statusForm.controls.status['controls'][i].get('Editable').patchValue(this.appointmentStatusData[i].Editable);
-        }
+        this.clearStatus();
+        this.appointmentStatusData.forEach((appointmentStatus) => {
+          let appointmentstatus = this.newStatus();
+          appointmentstatus.controls["Id"].setValue(appointmentStatus.Id);
+          appointmentstatus.controls["Name"].setValue(appointmentStatus.Name);
+          appointmentstatus.controls["Colour"].setValue(appointmentStatus.Colour);
+          appointmentstatus.controls["Editable"].setValue(appointmentStatus.Editable);
+          this.pushStatus(appointmentstatus);
+        })
+      }
+      else if (resp.IsSuccess == false) {
+        this.appointmentStatusData = resp.ListResult;
+        this.clearStatus();
       }
     });
   }
 
-  get formControls() {
-    return this.typeForm.controls;
-  }
-
   // get appointment type data
   getAppointmentType() {
-    var reqparams = {
+    let reqparams = {
       'ProviderId': this.user.ProviderId
     };
+    this.appointmentTypeData = [];
     this.settingsService.AppointmentTypes(reqparams).subscribe(resp => {
       if (resp.IsSuccess) {
         this.appointmentTypeData = resp.ListResult;
-        console.log(this.appointmentTypeData);
-        this.typeForm.setControl('type', this.fb.array([]));
-        for (let i = 0; i < this.appointmentTypeData.length; i++) {
-          this.addType();
-          this.formControls.type['controls'][i].get('Id').patchValue(this.appointmentTypeData[i].Id);
-          this.formControls.type['controls'][i].get('AppointmentType').patchValue(this.appointmentTypeData[i].AppointmentType);
-          this.formControls.type['controls'][i].get('Colour').patchValue(this.appointmentTypeData[i].Colour);
-          // this.color = this.formControls.type['controls'][i].get('Colour').patchValue(this.appointmentTypeData[i].Colour);
-          this.formControls.type['controls'][i].get('Editable').patchValue(this.appointmentTypeData[i].Editable);
-        }
+        this.clearType();
+        this.appointmentTypeData.forEach((appointmentType) => {
+          let appointmenttype = this.newType();
+          appointmenttype.controls["Id"].setValue(appointmentType.Id);
+          appointmenttype.controls["AppointmentType"].setValue(appointmentType.AppointmentType);
+          appointmenttype.controls["Colour"].setValue(appointmentType.Colour);
+          appointmenttype.controls["Editable"].setValue(appointmentType.Editable);
+          this.pushType(appointmenttype);
+        })
+      }
+      else if (resp.IsSuccess == false) {
+        this.appointmentTypeData = resp.ListResult;
+        this.clearType();
       }
     })
   }
 
   // Add Update Room
   saveRooms(roomIndex: number) {
-    ((this.roomForm.get("rooms") as FormArray).at(roomIndex).get("status").setValue(false));
-    var reqparams = {
-      'RoomId': this.roomForm.controls.rooms["controls"][roomIndex].get('RoomId').value == "" ? null : this.roomForm.controls.rooms["controls"][roomIndex].get('RoomId').value,
-      'RoomName': this.roomForm.controls.rooms["controls"][roomIndex].get('RoomName').value,
+    let reqparams = {
+      'RoomId': this.rooms().controls[roomIndex].get('RoomId').value == "" ? null : this.rooms().controls[roomIndex].get('RoomId').value,
+      'RoomName': this.rooms().controls[roomIndex].get('RoomName').value,
       'LocationId': this.user.CurrentLocation
     };
+    if (!isNaN(Number(reqparams.RoomId))) reqparams.RoomId = null;
     this.settingsService.AddUpdateRoom(reqparams).subscribe(resp => {
       if (resp.IsSuccess) {
+        this.clearSaveIndex(roomIndex);
         this.getRoomsForLocation();
       }
       else {
         this.getRoomsForLocation();
       }
     })
-  }
-  onEditRooms(roomIndex: number) {
-    debugger;
-    ((this.roomForm.get("rooms") as FormArray).at(roomIndex).get("status").setValue(true));
   }
 
   // Add Update Appointment Status
   saveAppointmentStatus(statusIndex: number) {
-    ((this.statusForm.get("status") as FormArray).at(statusIndex).get("Appointmentstatus").setValue(false));
-    var reqparams = {
+    let reqparams = {
       ProviderId: this.user.ProviderId,
-      StatusId: this.statusForm.controls.status["controls"][statusIndex].get('Id').value == "" ? null : this.statusForm.controls.status["controls"][statusIndex].get('Id').value,
+      StatusId: this.status().controls[statusIndex].get('Id').value == "" ? null : this.status().controls[statusIndex].get('Id').value,
       Editable: true,
-      StatusName: this.statusForm.controls.status["controls"][statusIndex].get('Name').value,
-      Colour: this.statusForm.controls.status["controls"][statusIndex].get('color').value
+      StatusName: this.status().controls[statusIndex].get('Name').value,
+      Colour: this.status().controls[statusIndex].get('Colour').value
     };
+    if (!isNaN(Number(reqparams.StatusId))) reqparams.StatusId = null;
     this.settingsService.AddUpdateAppointmentStatus(reqparams).subscribe(resp => {
       if (resp.IsSuccess) {
+        this.clearSaveStatusIndex(statusIndex);
         this.getAppointmentStatus();
       }
       else {
@@ -282,21 +314,28 @@ export class ScheduleComponent implements OnInit {
     })
   }
 
-  onEditStatus(statusIndex: number) {
-    debugger;
-    ((this.statusForm.get("status") as FormArray).at(statusIndex).get("Appointmentstatus").setValue(true));
+  // Add Update Appointment Type
+  saveAppointmentType(typeIndex: number) {
+    let reqparams = {
+      ProviderId: this.user.ProviderId,
+      TypeId: this.typeForm.controls.type["controls"][typeIndex].get('Id').value == "" ? null : this.typeForm.controls.type["controls"][typeIndex].get('Id').value,
+      Editable: true,
+      TypeName: this.typeForm.controls.type["controls"][typeIndex].get('AppointmentType').value,
+      Colour: this.typeForm.controls.type["controls"][typeIndex].get('Colour').value
+    }
+    if (!isNaN(Number(reqparams.TypeId))) reqparams.TypeId = null;
+    this.settingsService.AddUpdateAppointmentType(reqparams).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.clearSaveTypeIndex(typeIndex);
+        this.getAppointmentType();
+      }
+      else {
+        this.getAppointmentType();
+      }
+    })
   }
 
-  // currentAppointmentStatusId: string;
-  // editAppointmentStatus(statusIndex: number) {
-  //   this.currentAppointmentStatusId = this.statusForm.controls.status["controls"][statusIndex].get('Id').value;
-  // }
-  // edit() {
-  //   this.showSaveBtn = true;
-  //   this.showEditBtn = false;
-  //   this.showInput = true;
-  // }
-
+  // Remove Room
   removeRoom(roomIndex: number) {
     let roomId = this.roomForm.controls.rooms["controls"][roomIndex].get('RoomId').value;
     if (roomId == "") {
@@ -309,6 +348,7 @@ export class ScheduleComponent implements OnInit {
     })
   }
 
+  // Remove Appointment Status
   removeAppointmentStatus(statusIndex: number) {
     let statusId = this.statusForm.controls.status["controls"][statusIndex].get('Id').value;
     if (statusId == "") {
@@ -324,31 +364,7 @@ export class ScheduleComponent implements OnInit {
     })
   }
 
-  // Add Update Appointment Type
-  saveAppointmentType(typeIndex: number) {
-    ((this.typeForm.get("type") as FormArray).at(typeIndex).get("AppointmenttypeStatus").setValue(false));
-    var reqparams = {
-      ProviderId: this.user.ProviderId,
-      TypeId: this.typeForm.controls.type["controls"][typeIndex].get('Id').value == "" ? null : this.typeForm.controls.type["controls"][typeIndex].get('Id').value,
-      Editable: true,
-      TypeName: this.typeForm.controls.type["controls"][typeIndex].get('AppointmentType').value,
-      Colour: this.typeForm.controls.type["controls"][typeIndex].get('Colour').value
-    }
-    this.settingsService.AddUpdateAppointmentType(reqparams).subscribe(resp => {
-      if (resp.IsSuccess) {
-        this.getAppointmentType();
-      }
-      else {
-        this.getAppointmentType();
-      }
-    })
-  }
-
-  onEditType(typeIndex: number) {
-    debugger;
-    ((this.typeForm.get("type") as FormArray).at(typeIndex).get("AppointmenttypeStatus").setValue(true));
-  }
-
+  // Remove Appointment Type
   removeAppointmentType(typeIndex: number) {
     let typeId = this.typeForm.controls.type["controls"][typeIndex].get('Id').value;
     if (typeId == "") {
@@ -366,8 +382,8 @@ export class ScheduleComponent implements OnInit {
     }
   }
 
+  // online appointment duration in general section
   appointmentTime(checked) {
-    debugger;
     if (checked == true) {
       this.displayappointmentTime = true;
     }
