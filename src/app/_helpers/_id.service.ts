@@ -8,6 +8,8 @@ export class IdService {
 
   public ids: string[] = [];
 
+  public IdsFor: {} = {};
+
   constructor() { }
 
   public generate(): string {
@@ -42,4 +44,16 @@ export class IdService {
   private S4(): string {
     return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
   }
+
+  public decrementIds(decrementFor: string): number {
+    console.log(this.IdsFor[decrementFor])
+    if (this.IdsFor[decrementFor] === undefined)
+      this.IdsFor[decrementFor] = 0;
+    return --this.IdsFor[decrementFor]
+  }
+  public clearIds(decrementFor: string) {
+    delete this.IdsFor[decrementFor];
+  }
+
+
 }

@@ -38,21 +38,17 @@
                         <div class="row pt-2 pb-1">
                           <div class="col-md-6">
                             <div class="form-group">
-                              <input type="text"
-                                [class]="(!roomForm.controls.rooms.controls[roomIndex].get('RoomId').value == '' && !roomForm.controls.rooms.controls[roomIndex].get('status').value) ? 'schedule-inputclass': 'inputclass'"
-                                class="form-control" formControlName="RoomName"
-                                [readonly]="!roomForm.controls.rooms.controls[roomIndex].get('RoomId').value == '' && !roomForm.controls.rooms.controls[roomIndex].get('status').value">
+                              <input type="text" [class]="(!isNewRoom(roomIndex)) ? 'schedule-inputclass': 'inputclass'"
+                                class="form-control" formControlName="RoomName" [readonly]="!isNewRoom(roomIndex)">
                             </div>
                           </div>
                           <div class="col-md-6 col-12 pt-2 pt-md-0">
                             <div class="col-md-12 col-6 pull-right">
-                              <button type="button" id="Actbtn"
-                                *ngIf="roomForm.controls.rooms.controls[roomIndex].get('RoomId').value == '' || roomForm.controls.rooms.controls[roomIndex].get('status').value"
+                              <button type="button" id="Actbtn" *ngIf="isNewRoom(roomIndex)"
                                 class="btn btn-md btn-sm btn-success pull-right" (click)="saveRooms(roomIndex)">
                                 Save
                               </button>
-                              <button type="button" id="Actbtn"
-                                *ngIf="!roomForm.controls.rooms.controls[roomIndex].get('RoomId').value == '' && !roomForm.controls.rooms.controls[roomIndex].get('status').value"
+                              <button type="button" id="Actbtn" *ngIf="!isNewRoom(roomIndex)"
                                 (click)="onEditRooms(roomIndex)" class="btn btn-md btn-sm btn-success pull-right">
                                 Edit
                               </button>
@@ -180,33 +176,30 @@
                             <div class="col-md-5 col-5">
                               <div class="form-group">
                                 <input type="text" class="form-control inputclass" formControlName="Name"
-                                  [class]="(!statusForm.controls.status.controls[statusIndex].get('Id').value == '' && !statusForm.controls.status.controls[statusIndex].get('Appointmentstatus').value) ? 'schedule-inputclass': 'inputclass'"
-                                  [readonly]="!statusForm.controls.status.controls[statusIndex].get('Id').value == '' && !statusForm.controls.status.controls[statusIndex].get('Appointmentstatus').value">
-                                <!-- <input type="text" hidden class="form-control inputclass" formControlName="Id"> -->
+                                  [class]="(!isNewStatus(statusIndex) || !status().controls[statusIndex].get('Editable').value) ? 'schedule-inputclass': 'inputclass'"
+                                  [readonly]="!isNewStatus(statusIndex) || !status().controls[statusIndex].get('Editable').value">
                               </div>
                             </div>
                             <div class="col-md-3 col-3">
                               <input class="cstm-color-picker"
-                                [(colorPicker)]="statusForm.controls.status.controls[statusIndex].get('color').value"
-                                [style.background]="statusForm.controls.status.controls[statusIndex].get('color').value" />
+                                [(colorPicker)]="status().controls[statusIndex].get('Colour').value"
+                                [style.background]="status().controls[statusIndex].get('Colour').value" />
                             </div>
                             <div class="col-md-4 col-4 pt-2 pt-md-0"
-                              *ngIf="statusForm.controls.status.controls[statusIndex].get('Editable').value">
+                              *ngIf="status().controls[statusIndex].get('Editable').value">
                               <button type="button" id="Actbtn" class="btn btn-md btn-sm btn-success pull-right"
-                                *ngIf="statusForm.controls.status.controls[statusIndex].get('Id').value == '' || statusForm.controls.status.controls[statusIndex].get('Appointmentstatus').value"
-                                (click)="saveAppointmentStatus(statusIndex)">
+                                *ngIf="isNewStatus(statusIndex)" (click)="saveAppointmentStatus(statusIndex)">
                                 Save
                               </button>
                               <button type="button" id="Actbtn" class="btn btn-md btn-sm btn-success pull-right"
-                                *ngIf="!statusForm.controls.status.controls[statusIndex].get('Id').value == '' && !statusForm.controls.status.controls[statusIndex].get('Appointmentstatus').value"
-                                (click)="onEditStatus(statusIndex)">
+                                *ngIf="!isNewStatus(statusIndex)" (click)="onEditStatus(statusIndex)">
                                 Edit
                               </button>
                             </div>
                             <div class="col-md-12 col-12 pt-2 cstm-border-bottom-appointment">
                               <div class="col-4 pull-right">
                                 <button type="button" id="Actbtn" class="btn btn-md btn-sm btn-success pull-right"
-                                  *ngIf="statusForm.controls.status.controls[statusIndex].get('Editable').value"
+                                  *ngIf="status().controls[statusIndex].get('Editable').value"
                                   (click)="removeAppointmentStatus(statusIndex)" style="height: 30px;">
                                   Remove
                                 </button>
@@ -248,8 +241,8 @@
                             <div class="col-md-5 col-5">
                               <div class="form-group">
                                 <input type="text"
-                                  [class]="(!typeForm.controls.type.controls[typeIndex].get('Id').value == '' && !typeForm.controls.type.controls[typeIndex].get('AppointmenttypeStatus').value) ? 'schedule-inputclass': 'inputclass'"
-                                  [readonly]="!typeForm.controls.type.controls[typeIndex].get('Id').value == '' && !typeForm.controls.type.controls[typeIndex].get('AppointmenttypeStatus').value"
+                                  [class]="(!isNewType(typeIndex) || !typeForm.controls.type.controls[typeIndex].get('Editable').value) ? 'schedule-inputclass': 'inputclass'"
+                                  [readonly]="!isNewType(typeIndex) || !typeForm.controls.type.controls[typeIndex].get('Editable').value"
                                   class="form-control inputclass" formControlName="AppointmentType">
                               </div>
                             </div>
@@ -261,12 +254,10 @@
                             <div class="col-md-4 col-4 pt-2 pt-md-0"
                               *ngIf="typeForm.controls.type.controls[typeIndex].get('Editable').value">
                               <button type="button" id="Actbtn" class="btn btn-md btn-sm btn-success pull-right"
-                                *ngIf="typeForm.controls.type.controls[typeIndex].get('Id').value == '' || typeForm.controls.type.controls[typeIndex].get('AppointmenttypeStatus').value"
-                                (click)="saveAppointmentType(typeIndex)">
+                                *ngIf="isNewType(typeIndex)" (click)="saveAppointmentType(typeIndex)">
                                 Save
                               </button>
-                              <button type="button" id="Actbtn"
-                                *ngIf="!typeForm.controls.type.controls[typeIndex].get('Id').value == '' && !typeForm.controls.type.controls[typeIndex].get('AppointmenttypeStatus').value"
+                              <button type="button" id="Actbtn" *ngIf="!isNewType(typeIndex)"
                                 (click)="onEditType(typeIndex)" class="btn btn-md btn-sm btn-success pull-right">
                                 Edit
                               </button>
@@ -292,11 +283,8 @@
                   </div>
                 </div>
               </div>
-              <!-- <div class="clearfix w-100"></div> -->
             </div>
           </div>
-
-          <!-- <div class="clearfix"></div> -->
         </div>
       </div>
     </div>
