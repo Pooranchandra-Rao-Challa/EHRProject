@@ -11,6 +11,9 @@ import { ProviderlistComponent } from '../../admin/providerlist/providerlist.com
 import { AdminProviderListComponent } from '../../provider/admin/provider.list.component';
 import { AdminComponent} from './admin.component';
 import { AdminPracticeComponent } from 'src/app/admin/admin-practice/admin-practice.component';
+import { ActivepatientComponent } from 'src/app/admin/activepatient/activepatient.component';
+import { InactivepatientComponent } from 'src/app/admin/inactivepatient/inactivepatient.component';
+import { EditdefaultmessageComponent } from 'src/app/admin/editdefaultmessage/editdefaultmessage.component';
 
 const routes: Routes = [
   {
@@ -26,6 +29,9 @@ const routes: Routes = [
       { path: 'communication', component: CommunicationsettingsComponent },
       { path: 'practice', component: AdminPracticeComponent },
       { path: 'weeklyupdates', component: WeeklyUpdatedComponent },
+      { path: 'activepatient', component: ActivepatientComponent },
+      { path: 'inactivepatient', component: InactivepatientComponent },
+      { path: 'editdefaultmessage', component: EditdefaultmessageComponent },
     ]
   }
 ]
