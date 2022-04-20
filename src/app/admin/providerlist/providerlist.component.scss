@@ -90,11 +90,23 @@ input::-webkit-input-placeholder {
     background-color: #fff;
     border-color: #b4bcc8;
 }
+input[type=checkbox] {
+  cursor: pointer;
+  border: 1px solid #ddd6d6;
+  width: 17px;
+  height: 17px;
+}
 input[type='checkbox']:checked:after {
     // content: '✔';
-    color: black;
     content: "\2714";
-    font-size: small;
+  display: unset;
+  font-size: 15px;
+  font-weight: bold;
+  margin: 2px 0;
+  padding: 0 3px;
+  color: grey;
+  width: 30px;
+  height: 50px;
 
   }
 
@@ -103,7 +115,7 @@ input[type='checkbox']:checked:after {
     height: 1.2em;
     margin-top: 0%;
     border-radius: 2%;
-    margin-right: 2%;
+    margin-right: 1%;
     box-shadow: none !important;
 }
 .form-check-label{

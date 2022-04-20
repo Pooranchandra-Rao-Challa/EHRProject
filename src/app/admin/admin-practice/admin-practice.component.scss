@@ -130,14 +130,24 @@ input::-webkit-input-placeholder {
   background-color: #fff;
   border-color: #b4bcc8;
 }
-
-input[type='checkbox']:checked:after {
-  // content: '✔';
-  color: black;
-  content: "\2714";
-  font-size: large;
-
+input[type=checkbox] {
+  cursor: pointer;
+  border: 1px solid #ddd6d6;
+  width: 19px;
+  height: 18px;
 }
+input[type=checkbox]:checked:after {
+  content: "\2714";
+  display: unset;
+  font-size: 15px;
+  font-weight: bold;
+  margin: 2px 0;
+  padding: 0 3px;
+  color: grey;
+  width: 30px;
+  height: 50px;
+}
+
 
 .form-check-input {
   width: 1.4em;
@@ -218,6 +228,7 @@ thead{
   padding: 6px 8px;
   color: black;
   font-family: sans-serif;
+  border-radius: inherit;
 }
 
 .button-style:hover {
@@ -321,6 +332,20 @@ input::-webkit-input-placeholder {
 }
 tr:last-child td {
   border-bottom: none;
+}
+@media (min-width:375px) and (max-width:410px)
+{
+  input[type=checkbox]{
+    width: 19px !important;
+    margin-left: -23px;
+
+  }
+  // input[type=checkbox] {
+  //   cursor: pointer;
+  //   border: 1px solid #ddd6d6;
+  //   // width: 20px;
+  //   height: 18px;
+  // }
 }
 
 

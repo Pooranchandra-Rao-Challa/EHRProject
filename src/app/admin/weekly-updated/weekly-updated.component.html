@@ -1,9 +1,74 @@
 
  <div class="container-fluid">
   <div class="row">
-    <div class="col-lg-12 col-xl-12 col-md-12 col-12 mt-4">
+    <div class="col-lg-12 col-xl-12 col-md-12 col-12 mt-3">
       <app-admin-breadcrum></app-admin-breadcrum>
     </div>
+    <div class="col-lg-3 col-xl-3 col-md-12 col-12 mt-3">
+      <ul>
+         <li>Display Status: Enabled
+         <button type="button" class="btn-style mx-1">Disable</button></li>
+      </ul>
+     </div>
+     <div class="col-lg-2 col-xl-2 col-md-6 col-12 mt-3">
+      <div class="statusDropdownContainer ">
+        <a class="btn dropdown-toggle statusFilterDropdown"  href="#" role="button" id="dropdownMenuLink"
+         data-bs-toggle="dropdown" aria-expanded="false">
+          <span class="text-truncate">{{selectedValue ? selectedValue : 'select'}}</span>
+        </a>
+        <ul class="dropdown-menu searchmenu" aria-labelledby="dropdownMenuLink">
+          <input type="text" class="w-100 p-2 searchInput" [(ngModel)]="searchValue" (ngModelChange)="filterDropdown($event)">
+          <a *ngFor="let option of filteredList; let i=index" class="dropdown-item pointer text-containt drodownlist"
+            [ngClass]="{'alternateBackground': i%2 == 0 }" (click)="selectValue(option.name)">
+            {{option.name}}
+          </a>
+        </ul>
+      </div>
+     </div>
+     <div class="col-lg-2 col-xl-2 col-md-3 col-12 mt-3">
+       <button type="button" class="btn-style btn-Preview mx-1 py-2">Preview</button>
+     </div>
+     <div class="col-lg-12 col-xl-12 col-md-12 col-12 mt-2">
+      <h1>Weekly Update</h1>
+     </div>
+     <div class="col-lg-12 col-xl-12 col-md-12 col-12 mt-2">
+       <button type="button" class="btn-style mx-1">Add New Section</button>
+      </div>
+      <div class="col-lg-12 col-xl-12 col-md-12 col-12 mt-3">
+      <div class="table-responsive">
+       <table class="table">
+         <thead>
+           <tr >
+             <th class="th-Sequance">Sequence</th>
+             <th class="th-body">Body</th>
+             <th class="th-header">Header</th>
+             <th>Slide Type</th>
+             <th>Logo Type</th>
+             <th>Status</th>
+             <th>News Text</th>
+             <th>Tag Line</th>
+             <th></th>
+           </tr>
+         </thead>
+         <tbody>
+           <tr *ngFor="let item of WeeklyUpdateList">
+            <td>{{item.Sequence}}</td>
+             <td>{{item.Body}}</td>
+             <td>{{item.Header}}</td>
+             <td>{{item.SlideType}}</td>
+             <td>{{item.LogoType}}</td>
+             <td class="td-status">{{item.Status}}</td>
+             <td>{{item.NewsText}}</td>
+             <td>{{item.TagLine}}</td>
+             <td>
+               <button type="button" class="btn-primary mx-1">Edit</button>
+               <button type="button" class="btn-danger mx-1">Delete</button>
+             </td>
+           </tr>
+           </tbody>
+       </table>
+      </div>
+      </div>
    </div>
 </div>
 
