@@ -13,11 +13,11 @@ import { APIEndPoint } from './_services/api.endpoint.service';
 import { EndpointBase } from './_services/endpoint.base.service';
 import { EhrInterceptor } from './_helpers';
 import { AuthenticationService } from './_services/authentication.service';
-import { HomeComponent } from './account/home.comonent';
 import { DownloadService } from "./_services/download.service";
 import { IdService } from "./_helpers/_id.service";
 import { AuthGuard } from "./_helpers/auth.guard";
 import { LabsImagingService } from './_services/labsimaging.service';
+
 
 // HttpClientModule is only needed if you want to log on server or if you want to inspect sourcemaps
 
@@ -27,7 +27,6 @@ import { LabsImagingService } from './_services/labsimaging.service';
   ],
   declarations: [
     AppComponent,
-
 
   ],
   imports: [

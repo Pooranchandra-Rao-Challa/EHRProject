@@ -18,16 +18,25 @@
     border-radius: 0%;
     margin-top: 2%;
 }
-@media (max-width:1351px )and (min-width: 992px) {
-    .control-label{
-        margin-left: 68%;
-    }
-  }
-
-.control-label{
-    margin-left: 80%;
-    font-size: 100%;
-    white-space: nowrap;
+// @media (max-width:1351px )and (min-width: 992px) {
+//     .control-label{
+//         margin-left: 68%;
+//     }
+//   }
+//   @media (max-width:1506px )and (min-width: 1012px) {
+//     .control-label{
+//         margin-left: 55px;
+//         color: red;
+//     }
+//   }
+// .control-label{
+//     margin-left: 80%;
+//     font-size: 100%;
+//     white-space: nowrap;
+// }
+label {
+  float: right;
+  display: inline-block;
 }
 .btn-save{
     cursor: pointer;

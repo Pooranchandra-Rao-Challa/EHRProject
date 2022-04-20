@@ -37,6 +37,9 @@ import { AdminsettingComponent } from 'src/app/admin/adminsetting/adminsetting.c
 import { AdminsComponent } from 'src/app/admin/admins/admins.component';
 import { WeeklyUpdatedComponent } from 'src/app/admin/weekly-updated/weekly-updated.component';
 import { BreadcrumComponent } from '../admin.breadcrum/admin.breadcrum.component';
+import { ActivepatientComponent } from 'src/app/admin/activepatient/activepatient.component';
+import { InactivepatientComponent } from 'src/app/admin/inactivepatient/inactivepatient.component';
+import { EditdefaultmessageComponent } from 'src/app/admin/editdefaultmessage/editdefaultmessage.component';
 
 @NgModule({
   exports: [
@@ -52,7 +55,11 @@ import { BreadcrumComponent } from '../admin.breadcrum/admin.breadcrum.component
     BreadcrumComponent,
     AdminsettingComponent,
     AdminsComponent,
-    WeeklyUpdatedComponent
+    WeeklyUpdatedComponent,
+    ActivepatientComponent,
+    InactivepatientComponent,
+    EditdefaultmessageComponent,
+    
 
   ],
   imports: [
