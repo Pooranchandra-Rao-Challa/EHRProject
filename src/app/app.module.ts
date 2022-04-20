@@ -27,8 +27,6 @@ import { LabsImagingService } from './_services/labsimaging.service';
   ],
   declarations: [
     AppComponent,
-
-
   ],
   imports: [
     NgbModule,

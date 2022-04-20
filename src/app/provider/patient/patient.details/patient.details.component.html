@@ -1,0 +1,177 @@
+<div class="patients-navigation">
+  <ul id="patient_navigation">
+    <li class="active">
+      <a class="patient_link">
+        <div class="patient_name">Patients</div>
+      </a>
+      <i class="category-arrow"></i>
+    </li>
+    <li id="patient">
+      <a class="patient_link">
+        <div class="patient_name">Karthik test</div>
+        <div class="patient_dob">03/24/22</div>
+      </a>
+      <a class="remove-chart-patient patient-remove-link" data-id="6243ec4a391cba0a3bf13cc8">
+        <i class="fa fa-times"></i>
+      </a>
+    </li>
+    <li class="arrow-navigation">
+      <i class="category-arrow"></i>
+    </li>
+  </ul>
+</div>
+
+
+<div class="patients-navigation-info">
+  <img class="avatar avatar-empty mx-2"
+    src="../../../assets/images/avatar-empty-0b15d6123f5339b0505eef6ad8a8fe0d22d1406692b5c16b3839c561e9c92e60.svg"
+    alt="Avatar empty">
+  <ul class="patient-main-info">
+    <li>Karthik test</li>
+    <li>
+      <b>DOB:</b>
+      <time datetime="2022-03-24T04:00:00Z" data-local="time" data-format="%m/%d/%Y">03/24/2022</time>
+    </li>
+    <li>
+      <b>C:</b>4565654675
+    </li>
+    <li>
+      <b>H:</b>5346456547
+    </li>
+    <li>
+      <a class="btn-modal inivte-to-portal-button">
+        <span class="fa fa-plus-circle"></span> Invite to Patient Portal</a>
+    </li>
+  </ul>
+  <!-- <div style="display: inline;">
+    <div class="dropdown dropdown-actions air-dropdown"></div>
+    <div class="dropdown dropdown-actions air-dropdown"><a class="dropdown-toggle btn btn-default btn-orange"
+        data-toggle="dropdown">Patient Actions</a>
+      <ul class="dropdown-menu">
+        <li><a class="checker unchecked btn-modal" data-target="#modal-patient-add-procedure" data-remote="true"
+            href="/procedures/new?patient_id=6243ec4a391cba0a3bf13cc8">Add Procedure</a></li>
+        <li><a class="btn-modal" data-target="#modal-patient-add-encounter" data-remote="true"
+            href="/encounters/form?patient_id=6243ec4a391cba0a3bf13cc8">Add Encounter Note</a></li>
+        <li>
+          <hr>
+        </li>
+        <li><a class="btn-modal" data-target="#modal-lab-order" data-remote="true"
+            href="/lab_procedures/new?procedure_type=lab">Add Lab Order</a></li>
+        <li><a class="btn-modal" data-target="#modal-lab-result-search-by-lab-order" data-remote="true"
+            href="/lab_procedures/search_by_procedure_num?procedure_type=lab">Add Lab Results</a></li>
+        <li><a class="btn-modal" data-target="#modal-lab-results" data-remote="true"
+            href="/lab_procedures/new?procedure_type=image">Add Imaging Order</a></li>
+        <li><a class="btn-modal" data-target="#modal-lab-order" data-remote="true"
+            href="/lab_procedures/search_by_procedure_num?procedure_type=image">Add Imaging Results</a></li>
+        <li>
+          <hr>
+        </li>
+        <li><a class="btn-modal" data-target="#modal-add-patient-invite-to-portal" data-remote="true"
+            href="/patients/invite_to_portal?code=ka5SyQ&amp;id=6243ec4a391cba0a3bf13cc8&amp;setup_account=true">Invite
+            to Patient Portal</a></li>
+        <li><a class="btn-modal" data-target="#modal-patient-add-message" data-remote="true"
+            href="/email_messages/new?id=6243ec4a391cba0a3bf13cc8">Send a Message</a></li>
+        <li>
+          <hr>
+        </li>
+        <li class="dropdown-submenu"><a data-toggle="dropdown" href="#">Print / Send To</a>
+          <ul class="dropdown-menu pull-middle bullet" style="margin-top: -88px;">
+            <li><a class="disabled" href="#">
+                <p>Patient Chart</p>
+                <p class="padding">| (includes everything)</p>
+              </a></li>
+            <li><a class="disabled" href="#">Treatments</a></li>
+            <li><a class="disabled" href="#">Encounter Note(s)</a></li>
+            <li><a class="disabled" href="#">Perio Chart</a></li>
+          </ul>
+        </li>
+        <li><a class="btn-modal create-ccda-button" data-target="#modal-ccda" data-remote="true"
+            href="/ccdas/new?patient_id=6243ec4a391cba0a3bf13cc8">Create C-CDA</a></li>
+        <li>
+          <hr>
+        </li>
+        <li><a class="btn-modal delete-patient" data-target="#modal-delete-patient" data-remote="true"
+            href="/patients/destroy_confirm?id=6243ec4a391cba0a3bf13cc8">Delete Patient</a></li>
+      </ul>
+    </div>
+  </div> -->
+</div>
+<div class="show-patient" role="tabpanel">
+  <!-- <ul class="nav nav-tabs nav-tabs-main" role="tablist">
+    <li role="presentation" class="active">
+      <a aria-controls="chart" class="tab-control" role="tab" aria-expanded="true">Chart</a>
+    </li>
+    <li role="presentation">
+      <a aria-controls="dentalchart" class="tab-control" role="tab" aria-expanded="false">Dental Chart</a>
+    </li>
+    <li role="presentation">
+      <a aria-controls="profile" class="tab-control" role="tab" aria-expanded="false">Profile</a>
+    </li>
+    <li role="presentation">
+      <a aria-controls="insurance" class="tab-control" role="tab" aria-expanded="false">Insurance</a>
+    </li>
+    <li role="presentation">
+      <a aria-controls="amendments" class="tab-control" role="tab" aria-expanded="false">Amendments</a>
+    </li>
+    <li role="presentation">
+      <a aria-controls="amendments" class="tab-control" role="tab" aria-expanded="false">Patients</a>
+    </li>
+    <li role="presentation">
+      <a aria-controls="cqms" class="tab-control patientCqmsButton" role="tab" aria-expanded="false">CQMs
+        Not Performed</a>
+    </li>
+  </ul> -->
+  <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="pills-chart-tab" data-bs-toggle="pill" data-bs-target="#pills-chart"
+        type="button" role="tab" aria-controls="pills-chart" aria-selected="true">Chart</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="pills-dentalchart-tab" data-bs-toggle="pill" data-bs-target="#pills-dentalchart"
+        type="button" role="tab" aria-controls="pills-dentalchart" aria-selected="false">Dental Chart</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile"
+        type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Profile</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="pills-insurance-tab" data-bs-toggle="pill" data-bs-target="#pills-insurance"
+        type="button" role="tab" aria-controls="pills-insurance" aria-selected="false">Insurance</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="pills-amendments-tab" data-bs-toggle="pill" data-bs-target="#pills-amendments"
+        type="button" role="tab" aria-controls="pills-amendments" aria-selected="false">Amendments</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="pills-patients-tab" data-bs-toggle="pill" data-bs-target="#pills-patients"
+        type="button" role="tab" aria-controls="pills-patients" aria-selected="false">Patients</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="pills-cqmNperformed-tab" data-bs-toggle="pill" data-bs-target="#pills-cqmNperformed"
+        type="button" role="tab" aria-controls="pills-cqmNperformed" aria-selected="false">CQMs Not Performed</button>
+    </li>
+  </ul>
+  <div class="tab-content" id="pills-tabContent">
+    <div class="tab-pane fade show active" id="pills-chart" role="tabpanel" aria-labelledby="pills-chart-tab">
+      <app-chart></app-chart>
+    </div>
+    <div class="tab-pane fade" id="pills-dentalchart" role="tabpanel" aria-labelledby="pills-dentalchart-tab">
+      <app-dentalchart></app-dentalchart>
+    </div>
+    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+      <app-profile></app-profile>
+    </div>
+    <div class="tab-pane fade" id="pills-insurance" role="tabpanel" aria-labelledby="pills-insurance-tab">
+      <app-insurance></app-insurance>
+    </div>
+    <div class="tab-pane fade" id="pills-amendments" role="tabpanel" aria-labelledby="pills-amendments-tab">
+      <app-amendments></app-amendments>
+    </div>
+    <div class="tab-pane fade" id="pills-patients" role="tabpanel" aria-labelledby="pills-patients-tab">
+      <app-patients></app-patients>
+    </div>
+    <div class="tab-pane fade" id="pills-cqmNperformed" role="tabpanel" aria-labelledby="pills-cqmNperformed-tab">
+      <app-cqmsnotperformed></app-cqmsnotperformed>
+    </div>
+  </div>
+</div>
