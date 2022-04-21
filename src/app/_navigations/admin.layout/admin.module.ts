@@ -40,6 +40,7 @@ import { BreadcrumComponent } from '../admin.breadcrum/admin.breadcrum.component
 import { ActivepatientComponent } from 'src/app/admin/activepatient/activepatient.component';
 import { InactivepatientComponent } from 'src/app/admin/inactivepatient/inactivepatient.component';
 import { EditdefaultmessageComponent } from 'src/app/admin/editdefaultmessage/editdefaultmessage.component';
+import { SectionNewComponent } from 'src/app/admin/section-new/section-new.component';
 
 @NgModule({
   exports: [
@@ -59,8 +60,7 @@ import { EditdefaultmessageComponent } from 'src/app/admin/editdefaultmessage/ed
     ActivepatientComponent,
     InactivepatientComponent,
     EditdefaultmessageComponent,
-    
-
+    SectionNewComponent
   ],
   imports: [
     AdminRoutingModule,

@@ -74,6 +74,7 @@ td {
   padding: 11px 14px;
   border: 1px solid #2e6da4;
   font-size: 14px;
+  border-radius: 1px;
 }
 .btn-primary:hover {
   background-color: #2b6aa1;
@@ -84,6 +85,7 @@ td {
   padding: 11px 14px;
   border: 1px solid #ea5460;
   font-size: 14px;
+  border-radius: 1px;
 }
 .btn-danger:hover {
   background-color: #ed4040;
@@ -103,17 +105,20 @@ p {
 }
 .statusFilterDropdown{
     border: 1px solid #d3d3d3;
+    border-radius: 1px;
+
 }
 .searchmenu{
   position: absolute;
     inset: 0px auto auto 0px;
-    margin: -2px 2px !important;
+    margin: -3px 2px !important;
     transform: translate(542px, 205px);
-    border: 1px solid lightgrey;
+    border: 1px solid #d3d3d3;
     border-radius: 0px;
     width: 15.38%;
-    height: 190px;
+    height: 215px;
     overflow-y: auto;
+    border-block-start: inherit;
 }
 .flex-middle{
   display: flex;
@@ -137,22 +142,72 @@ input, .form-control:focus, input:focus, select:focus, textarea:focus, button:fo
   color: white;
   background-color: #337ab7 !important;
 }
-@media(min-width:980px) and (max-width:1500px)
+.dropdown-toggle::after {
+  position: relative;
+  right: -150px;
+  color: grey;
+}
+
+// media query for drodown box and menulist
+@media(min-width:980px) and (max-width:3000px)
 {
   .text-truncate {
-    margin-left: -10px;
+    margin-left: -145px;
   }
- .statusDropdownContainer{
-   width: 250px;
- }
- .btn-Preview{
-  margin-left: 150px !important;
- }
 }
-@media(min-width:1200px) and (max-width:1440px)
+@media(max-width:600px)
 {
-
- .btn-Preview{
-  margin-left: 130px !important;
- }
+  .dropdown-toggle{
+    width: 300px   !important;
+  }
+  .searchmenu{
+    width: 298px !important;
+  }
+  .btn-Preview{
+    display: block;
+    margin-left:-150px !important;
+    margin-top:60px !important;
+   }
 }
+@media (min-width:601px) and (max-width:990px)
+{
+  .dropdown-toggle{
+    width: 360px !important;
+  }
+  .searchmenu{
+    width: 358px !important;
+  }
+  .btn-Preview{
+    margin-left:20px !important;
+   }
+
+}
+@media (min-width:991px) and (max-width:1350px)
+{
+  .dropdown-toggle{
+     margin-left:100px !important;
+    width: 302px !important;
+  }
+  .searchmenu{
+    width: 299px !important;
+  }
+  .btn-Preview{
+    margin-left:300px !important;
+   }
+
+}
+@media (min-width:1351px) and (max-width:1650px)
+{
+  .dropdown-toggle{
+    margin-left:200px !important;
+    width: 350px !important;
+  }
+  .searchmenu{
+    width: 341px   !important;
+  }
+  .btn-Preview{
+    margin-left:38px !important;
+   }
+
+}
+
