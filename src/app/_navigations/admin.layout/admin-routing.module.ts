@@ -14,6 +14,8 @@ import { AdminPracticeComponent } from 'src/app/admin/admin-practice/admin-pract
 import { ActivepatientComponent } from 'src/app/admin/activepatient/activepatient.component';
 import { InactivepatientComponent } from 'src/app/admin/inactivepatient/inactivepatient.component';
 import { EditdefaultmessageComponent } from 'src/app/admin/editdefaultmessage/editdefaultmessage.component';
+import { BillingComponent } from 'src/app/admin/billing/billing.component';
+import { ReportsComponent } from 'src/app/admin/reports/reports.component';
 
 const routes: Routes = [
   {
@@ -32,6 +34,8 @@ const routes: Routes = [
       { path: 'activepatient', component: ActivepatientComponent },
       { path: 'inactivepatient', component: InactivepatientComponent },
       { path: 'editdefaultmessage', component: EditdefaultmessageComponent },
+      { path: 'billing', component: BillingComponent },
+      { path: 'reports', component: ReportsComponent },
     ]
   }
 ]
