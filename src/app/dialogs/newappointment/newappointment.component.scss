@@ -1,0 +1,109 @@
+.modal .modal-dialog .modal-content .modal-header {
+  padding: 20px 16px;
+}
+.modal-content {
+  border: 1px solid rgb(65 182 166) !important;
+}
+.appointment-form .modal-body {
+  height: 780px;
+  padding: 13px 26px;
+  overflow-y: auto;
+}
+.modal-header {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  color: white;
+  background-color: #41b6a6;
+  border-bottom: none;
+  min-height: 50px;
+  max-height: 50px;
+  margin-top: -1px;
+  margin-left: -1px;
+}
+.appointment-form .modal-dialog {
+  max-width: 660px;
+  margin-top: 20px;
+}
+.appointment-form .text-area {
+  height: 100px;
+  border-radius: 4px;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+  padding: 0 20px;
+  color: #74757e;
+  border: 1px solid #dedede;
+  background-color: #f5f5f5;
+}
+.appointment-form .text-area:hover {
+  border: 1px solid #41b6a6;
+}
+.appointment-form mat-label {
+  display: inline-block;
+  max-width: 100%;
+  margin-bottom: 3px;
+  font-weight: 700;
+}
+.appointment-form .btn:hover {
+  background-color: #41b6a6;
+  color: #fff;
+}
+.appointment-form .btn {
+  border-color: #41b6a6;
+  font-size: 13px;
+  height: 45px;
+}
+.appointment-form .modal {
+  overflow: hidden;
+}
+.available-slots {
+  border: 1px solid #41b6a6;
+  border-radius: 4px;
+  padding: 10px 12px;
+}
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  color: #41b6a6 !important;
+  background-color: #fff;
+  height: 45px;
+} // common mat-form-field
+.appointment-form .btn:hover {
+  background-color: #41b6a6;
+  color: #fff;
+}
+.appointment-form .btn {
+  border-color: #41b6a6;
+  font-size: 13px;
+  height: 45px;
+}
+.timeslots{
+  font-size: 12px;
+  padding: auto;
+  font-weight: 500;
+}
+.btn-appointment-cancel-right{
+  margin-right: 144px;
+  display: flow-root;
+  float: inherit;
+  margin-left: -6px;
+}
+::ng-deep div#practiveProviders2-panel.mat-select-panel,
+::ng-deep div#selSmartAppointmentTypes-panel.mat-select-panel,
+::ng-deep div#selSmartLocations-panel.mat-select-panel,
+::ng-deep div#selSmartRooms-panel.mat-select-panel,
+::ng-deep div#selSmartDurations-panel.mat-select-panel{
+
+  border-radius: 4px;
+  border: 1px solid #41b6a6;
+  position: fixed;
+  top: 29px;
+}
+
+::ng-deep div#practiveProviders2-panel mat-option.mat-option,
+::ng-deep div#selSmartAppointmentTypes-panel mat-option.mat-option,
+::ng-deep div#selSmartLocations-panel mat-option.mat-option,
+::ng-deep div#selSmartRooms-panel.mat-select-panel,
+::ng-deep div#selSmartDurations-panel.mat-select-panel{
+  border: 1px solid white !important;
+
+}
+span#spantimeSlots{
+  color: #F75857;
+}

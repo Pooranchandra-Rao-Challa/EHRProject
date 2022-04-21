@@ -1,0 +1,226 @@
+@import"../../../assets/cstm.material.scss";
+
+#patient_navigation {
+  display: inline-flex;
+  width: 100%;
+  height: auto;
+  margin-bottom: 0rem;
+  background-color: rgba(65,182,166,0.1);
+}
+ul#patient_navigation li{
+  padding: 0px 10px;
+    list-style: none;
+}
+// a.patient_link{
+//   color: #2e877b;
+// }
+a.patient_link{
+  color: #4A4A4A;
+  font-weight: bold;
+}
+.patient_link .patient_name{
+  font-size: 15px;
+}
+#patient_navigation li a {
+  height: 70px;
+  display: table-cell;
+  vertical-align: middle;
+  top: 0px;
+  width: calc(100% - 30px);
+}
+.patients-navigation>ul li.active a {
+  color: #2e877b !important;
+}
+.patient_link div {
+  line-height: 18px;
+}
+.patient_name {
+  word-wrap: break-word;
+}
+.patients-wrapper .patients-navigation>ul li .remove-chart-patient {
+  padding-left: 5px;
+}
+.patient-remove-link {
+  width: 25px !important;
+}
+.fa {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+}
+.patients-wrapper .patients-navigation .patients-navigation-info {
+  min-height: 50px;
+  padding: 0 20px;
+  line-height: 50px;
+  background-color: #41b6a6;
+  font-size: 28px;
+  color: #fff;
+  margin-top: -5px;
+}
+.patients-wrapper .content .controls {
+  padding: 20px 10px 0 10px;
+  background-color: rgba(65,182,166,0.1);
+  margin-left: 0;
+  margin-right: 0;
+}
+.controls .btn.btn-orange {
+  color: #fe8f00;
+  background-color: #fff;
+  border-color: #fe8f00;
+}
+.controls .btn.btn-orange:hover{
+  background-color: #fe8f00;
+  color: #fff;
+}
+.btn-search {
+  height: 44px;
+  margin-top: -4px;
+  border: 1px solid #41b6a6;
+  vertical-align: middle;
+  padding: 0.56rem;
+  background-color: #41b6a6;
+  color: #fff;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+.btn {
+  width: 165px;
+  height: 45px;
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 16px;
+}
+.mat-header-row{
+  background-color: #41b6a6;
+  color: #fff;
+  border-bottom-width: 0px;
+  min-height: 30px;
+}
+.mat-row{
+  border-bottom: 1px solid #41b6a6;
+  padding: 9px 0px;
+}
+mat-cell:first-of-type{
+  padding-left: 0px;
+}
+mat-cell:last-of-type{
+  padding-right: 0px;
+}
+.mat-row:hover{
+  background-color: #e5f8f5;
+}
+.mat-header-cell{
+  font-size: 15px;
+  font-weight: normal;
+  padding: 0px 10px;
+}
+.mat-cell{
+  font-size: 15px;
+  padding: 0px 10px;
+}
+.mat-row:hover {
+  a {
+    cursor: pointer;
+    text-decoration: underline;
+    color: #4A4A4A;
+  }
+}
+a {
+  color: #4A4A4A;
+}
+.patients a:hover{
+  opacity: 0.75;
+  color: #4A4A4A;
+}
+// .mat-table{
+//   border: 1px solid #41b6a6;
+//   border-radius: 4px;
+// }
+.patients{
+  border: 1px solid #41b6a6;
+  border-radius: 4px;
+}
+.norecords-found{
+  text-align: center;
+  font-size: 15px;
+  min-height: 40px;
+  padding-top: 10px;
+}
+@media (max-width: 1350px) {
+  .scrollable-mat-table {
+    max-width: 1200px;
+    overflow-x: scroll;
+  }
+  .mat-table {
+    width: 1350px;
+  }
+}
+.patients {
+  mat-cell:nth-child(1),
+  mat-header-cell:nth-child(1) {
+    flex: 0 0 6%;
+  }
+  mat-cell:nth-child(2),
+  mat-header-cell:nth-child(2) {
+    flex: 0 0 8%;
+  }
+  mat-cell:nth-child(3),
+  mat-header-cell:nth-child(3) {
+    flex: 0 0 8%;
+  }
+  mat-cell:nth-child(4),
+  mat-header-cell:nth-child(4) {
+    flex: 0 0 6%;
+  }
+  mat-cell:nth-child(5),
+  mat-header-cell:nth-child(5) {
+    flex: 0 0 10%;
+  }
+  mat-cell:nth-child(6),
+  mat-header-cell:nth-child(6) {
+    flex: 0 0 6%;
+  }
+  mat-cell:nth-child(7),
+  mat-header-cell:nth-child(7) {
+    flex: 0 0 26%;
+  }
+  mat-cell:nth-child(8),
+  mat-header-cell:nth-child(8) {
+    flex: 0 0 12%;
+  }
+  mat-cell:nth-child(9),
+  mat-header-cell:nth-child(9) {
+    flex: 0 0 11%;
+  }
+  mat-cell:nth-child(10),
+  mat-header-cell:nth-child(10) {
+    flex: 0 0 7%;
+  }
+}
+::ng-deep .mat-checkbox-layout{
+  padding-top: 5px !important;
+}
+::ng-deep .mat-checkbox-label{
+  padding-top: 10px !important;
+    padding-left: 10px !important;
+}
+::ng-deep .mat-checkbox-layout{
+  white-space: normal !important;
+}
+@media (width: 1440px){
+  ::ng-deep .mat-checkbox-layout{
+    padding-top: 0px !important;
+  }
+  ::ng-deep .mat-checkbox-label{
+    padding-top: 0px !important;
+      padding-left: 10px !important;
+  }
+}
+.patients .avatar{
+  width: 45px;
+  height: 45px;
+  border-radius: 36px;
+  background: #D8D8D8;
+}

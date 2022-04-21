@@ -273,6 +273,14 @@ div.ex3 {
 .form-group .input-group .input-group-addon {
   padding: 15px 10px;
 }
+.form-group label {
+  font-size: 17px;
+  padding-top: 10px;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
 .week {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
@@ -547,10 +555,7 @@ td.mat-footer-cell {
   border-top: 0px solid currentColor;
   border-bottom-color: #41b6a6 !important;
 }
-.form-group label {
-  font-size: 17px;
-  padding-top: 10px;
-}
+
 .weeks {
   color: #808387;
   font-size: 19px;
@@ -648,10 +653,6 @@ ul.menuclass li.active a {
   color: #fff !important;
 }
 
-.form-group {
-  display: flex;
-  flex-direction: column;
-}
 .userfromPractable {
   border: 3px solid #2faa9a;
 }
@@ -1075,3 +1076,32 @@ input[type=number] {
 }
 input[type="time"]::-webkit-calendar-picker-indicator { background: none; display:none; }
 
+// testing
+
+.testing .form-group {
+  margin-bottom: 20px !important;
+}
+.testing .radio-group-horizontal {
+  width: 100%;
+  display: table;
+  font-size: 0;
+}
+.dib {
+  display: inline-block;
+}
+.dib {
+  padding: 4px 20px;
+  text-align: center;
+}
+.testing p{
+  font-size: 16px;
+color: #4A4A4A;
+margin-bottom: 0;
+}
+.radio-group-horizontal p {
+  display: table-cell;
+  vertical-align: middle;
+  padding: 0 15px 3px 0;
+  height: 45px;
+  min-height: 45px;
+}

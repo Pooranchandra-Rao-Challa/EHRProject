@@ -31,10 +31,11 @@ import { ScheduleModule, DayService, WeekService } from '@syncfusion/ej2-angular
 import { LocationSelectService } from './location.service';
 import { UtilityService } from '../../_services/utiltiy.service';
 import { SmartSchedulerService } from '../../_services/smart.scheduler.service';
-import { SettingsModule } from '../../settings/settings.module'
-import { SettingsComponent } from '../../settings/settings.component'
+import { SettingsModule } from '../../settings/settings.module';
+import { PatientModule } from '../../provider/patient/patient.module'
+import { SettingsComponent } from '../../settings/settings.component';
+// import { PatientComponent } from '../patient.layout/patient.component';
 import { LabsImagingComponent } from '../../provider/labs.imaging/labs.imaging.component';
-import { PatientComponent } from '../../provider/patient/patient.component';
 import { DirectMsgComponent } from '../../provider/directmsg/directmsg.component';
 import { ErxComponent } from '../../provider/erx/erx.component';
 import { BillingComponent } from '../../provider/billing/billing.component';
@@ -44,8 +45,7 @@ import { IConfig, NgxMaskModule } from 'ngx-mask'
 import { NgbDateUSParserFormatter } from '../../_helpers/ngb-date-us-parser-formatter';
 import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { BreadcrumComponent } from '../breadcrum/breadcrum.component';
-import { PatientDetailsComponent } from '../../provider/patients/patients/patient.details/patient.details.component';
-import { PatientsComponent } from '../../provider/patients/patients/patients.component';
+// import { PatientsComponent } from '../../provider/patients/patients/patients.component';
 
 
 //import { ReportsRoutingModule } from "../..//reports-routing.module";
@@ -62,6 +62,12 @@ import { ProblemlistComponent } from "../../reports/problemlist/problemlist.comp
 import { Condition } from "../../reports/cqmreports/viewhelpers/condition.renderer/condition.renderer.component"
 import { ConditionpadderPipe } from "../../reports/cqmreports/viewhelpers/conditionpadder.pipe";
 import { ConditionformaterPipe } from "../../reports/cqmreports/viewhelpers/conditionformater.pipe";
+import { UserComponent } from '../../dialogs/user/user.component';
+import { NewPatientComponent } from '../../dialogs/newpatient/newpatient.component';
+import { NewappointmentComponent } from '../../dialogs/newappointment/newappointment.component';
+import { UpcomingAppointmentsComponent } from '../../dialogs/upcoming.appointments/upcoming.appointments.component';
+import { AddressVerificationComponent } from '../../dialogs/address.verification/address.verification.component';
+import { EncounterComponent } from '../../dialogs/encounter/encounter.component';
 
 @NgModule({
   exports: [
@@ -74,10 +80,9 @@ import { ConditionformaterPipe } from "../../reports/cqmreports/viewhelpers/cond
     CalendarComponent,
     SmartScheduleComponent,
     SettingsComponent,
+    // PatientComponent,
     LabsImagingComponent,
     BreadcrumComponent,
-
-    PatientComponent,
     DirectMsgComponent,
     ErxComponent,
     BillingComponent,
@@ -93,8 +98,12 @@ import { ConditionformaterPipe } from "../../reports/cqmreports/viewhelpers/cond
     Condition,
     ConditionpadderPipe,
     ConditionformaterPipe,
-    PatientsComponent,
-    PatientDetailsComponent
+    UserComponent,
+    NewPatientComponent,
+    NewappointmentComponent,
+    UpcomingAppointmentsComponent,
+    AddressVerificationComponent,
+    EncounterComponent
   ],
   imports: [
     ProviderRoutingModule,
@@ -121,6 +130,7 @@ import { ConditionformaterPipe } from "../../reports/cqmreports/viewhelpers/cond
     DropDownListModule,
     DateTimePickerModule,
     SettingsModule,
+    PatientModule,
     NgxMaskModule.forRoot(),
   ],
   providers: [DayService, WeekService, LocationSelectService,
