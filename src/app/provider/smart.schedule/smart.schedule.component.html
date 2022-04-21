@@ -93,12 +93,18 @@
                     <div class="col-md-2 col-2 provider">{{appointment.ProviderName}},{{appointment.Status}}</div>
                     <div class="col-md-2 col-2 visit-status">
 
-                      <img [class]="appointment.Status == 'Scheduled' ? 'img-smart-status' : 'img-smart-status-path'" src="../../../assets/images/smart-schedule/scheduled.svg" title="Scheduled" />
-                      <img class="img-smart-status" src="../../../assets/images/smart-schedule/waiting.svg" title="Wating" />
-                      <img class="img-smart-status" src="../../../assets/images/smart-schedule/in_progress.svg" title="In-Progress" />
-                      <img class="img-smart-status" src="../../../assets/images/smart-schedule/completed.svg" title="Completed"/>
-                      <img class="img-smart-status" src="../../../assets/images/smart-schedule/cancel.svg" title="Cancel" />
-                      <img class="img-smart-status" src="../../../assets/images/smart-schedule/no_show.svg" title="No-Show" />
+                      <img [class]="appointment.Status == 'Scheduled' ? 'img-smart-status' : 'img-smart-status-path'"
+                        src="../../../assets/images/smart-schedule/scheduled.svg" title="Scheduled" />
+                      <img class="img-smart-status" src="../../../assets/images/smart-schedule/waiting.svg"
+                        title="Wating" />
+                      <img class="img-smart-status" src="../../../assets/images/smart-schedule/in_progress.svg"
+                        title="In-Progress" />
+                      <img class="img-smart-status" src="../../../assets/images/smart-schedule/completed.svg"
+                        title="Completed" />
+                      <img class="img-smart-status" src="../../../assets/images/smart-schedule/cancel.svg"
+                        title="Cancel" />
+                      <img class="img-smart-status" src="../../../assets/images/smart-schedule/no_show.svg"
+                        title="No-Show" />
                     </div>
                     <div class="col-md-2 col-2 appt-type">{{appointment.AppointmentType}}</div>
                     <div class="col-md-2 col-2 appointment-note">
@@ -195,7 +201,7 @@
 </div>
 
 <!-- New patient popup -->
-<div class="modal fade" id="modal-add-patient" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<!-- <div class="modal fade" id="modal-add-patient" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -350,11 +356,11 @@
 
     </div>
   </div>
-</div>
+</div> -->
 
 <!-- Add New Appointment Form-->
 
-<div class="modal fade appointment-form" id="modal-appointment-form" data-bs-backdrop="static" data-bs-keyboard="false"
+<!-- <div class="modal fade appointment-form" id="modal-appointment-form" data-bs-backdrop="static" data-bs-keyboard="false"
   tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -467,7 +473,6 @@
         </form>
       </div>
       <div class="modal-footer">
-        <!--data-bs-dismiss="modal" data-remote="true" -->
         <button class="btn btn-default btn-danger pull-left btn-appointment-cancel-right"
           data-bs-target='#modal-update-appointment-status' data-bs-toggle="modal"
           [hidden]="PatientAppointment.AppointmentId == null"
@@ -481,10 +486,10 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 <!-- Upcoming Appointment popup -->
-<div class="modal animated fadeIn existingappointment-form" tabindex="-1" role="dialog"
+<!-- <div class="modal animated fadeIn existingappointment-form" tabindex="-1" role="dialog"
   id="modal-existingappointment-form">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -526,7 +531,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 <!-- Encounter Modal -->
 <div class="modal fade" id="modal-patient-add-encounter" data-bs-backdrop="static" data-bs-keyboard="false"
@@ -887,7 +892,7 @@
 <!-- Address Validation result display-->
 
 <!-- // address verification model -->
-<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayAddress}">
+<!-- <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayAddress}">
   <div class="modal-dialog  modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header" [ngClass]="displayAddressDialog?'addressInvalid':'addressSuccess'">
@@ -921,7 +926,7 @@
     </div>
   </div>
 
-</div>
+</div> -->
 
 <!-- data-bs-toggle="modal"
                     data-bs-target="#modal-appointment-form"-->

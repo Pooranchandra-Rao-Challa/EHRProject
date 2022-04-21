@@ -16,6 +16,7 @@ import { InactivepatientComponent } from 'src/app/admin/inactivepatient/inactive
 import { EditdefaultmessageComponent } from 'src/app/admin/editdefaultmessage/editdefaultmessage.component';
 import { BillingComponent } from 'src/app/admin/billing/billing.component';
 import { ReportsComponent } from 'src/app/admin/reports/reports.component';
+import { SectionNewComponent } from 'src/app/admin/section-new/section-new.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,7 @@ const routes: Routes = [
       { path: 'editdefaultmessage', component: EditdefaultmessageComponent },
       { path: 'billing', component: BillingComponent },
       { path: 'reports', component: ReportsComponent },
+      { path: 'sectionnew', component: SectionNewComponent },
     ]
   }
 ]

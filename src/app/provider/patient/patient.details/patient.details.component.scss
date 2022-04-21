@@ -1,0 +1,141 @@
+.patients-navigation{
+  background-color: rgba(65,182,166,0.1);
+}
+#patient_navigation {
+  display: inline-flex;
+  width: 100%;
+  height: auto;
+  margin-bottom: 0rem;
+}
+ul#patient_navigation li{
+  padding: 0px 10px;
+    list-style: none;
+}
+// a.patient_link{
+//   color: #2e877b;
+// }
+a.patient_link{
+  color: #4A4A4A;
+  font-weight: bold;
+}
+.patient_link .patient_name{
+  font-size: 15px;
+}
+#patient_navigation li a {
+  height: 70px;
+  display: table-cell;
+  vertical-align: middle;
+  top: 0px;
+  width: calc(100% - 30px);
+}
+.patients-navigation>ul li.active a {
+  color: #2e877b !important;
+}
+.patient_link div {
+  line-height: 18px;
+}
+.patient_name {
+  word-wrap: break-word;
+}
+.patients-wrapper .patients-navigation>ul li .remove-chart-patient {
+  padding-left: 5px;
+}
+.patient-remove-link {
+  width: 25px !important;
+}
+.fa {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+}
+
+
+.patients-navigation-info {
+  min-height: 50px;
+  padding: 0 20px;
+  line-height: 50px;
+  background-color: #41b6a6;
+  font-size: 28px;
+  color: #fff;
+}
+.patients-navigation-info .avatar {
+  display: inline-block;
+  height: 45px;
+  width: 45px;
+}
+.avatar.avatar-empty {
+  background: #D8D8D8;
+}
+.avatar {
+  border-radius: 50%;
+  border: 0;
+  background-color: transparent;
+  transition: background 0.2s, border 0.2s;
+}
+img {
+  vertical-align: middle;
+}
+.patients-navigation-info>ul {
+  display: inline-block;
+  padding: 0%;
+}
+ul {
+  margin-bottom: 0 !important;
+}
+.patient-main-info li:first-child {
+  font-size: 30px !important;
+}
+.patient-main-info li {
+  font-size: 18px !important;
+  vertical-align: middle;
+}
+.patients-navigation-info>ul li {
+  list-style: none;
+  display: inline-block;
+  padding: 0 10px;
+  border-right: 1px solid #fff;
+}
+b {
+  font-weight: 700;
+  font-size: 18px !important;
+}
+.inivte-to-portal-button {
+  color: #fff;
+}
+a.inivte-to-portal-button {
+  text-decoration: none !important;
+  cursor: pointer;
+}
+
+// nav tabs
+.show-patient .nav-pills {
+  padding-bottom: 10px;
+}
+.show-patient .nav-pills {
+  border-bottom: 0;
+  background-color: #41b6a6;
+  padding-left: 28px;
+}
+.show-patient .nav-pills li {
+  border-radius: 0;
+  margin: 7px 10px 0 0;
+}
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  color: #41b6a6;
+  background-color: #fff;
+}
+.nav-pills .nav-link {
+  background: #28776C;
+  color: #fff;
+  min-width: 150px;
+  justify-content: center;
+  font-size: 14px;
+  border-radius: 0;
+  font-weight: 400;
+}
+.nav-pills .nav-item .nav-link{
+  padding: 8px 28px;
+}
+#pills-tabContent.tab-content{
+  border: 0;
+}

@@ -42,6 +42,7 @@ import { InactivepatientComponent } from 'src/app/admin/inactivepatient/inactive
 import { EditdefaultmessageComponent } from 'src/app/admin/editdefaultmessage/editdefaultmessage.component';
 import { ReportsComponent } from 'src/app/admin/reports/reports.component';
 import { BillingComponent } from 'src/app/admin/billing/billing.component';
+import { SectionNewComponent } from 'src/app/admin/section-new/section-new.component';
 
 @NgModule({
   exports: [
@@ -63,8 +64,7 @@ import { BillingComponent } from 'src/app/admin/billing/billing.component';
     EditdefaultmessageComponent,
     BillingComponent,
     ReportsComponent,
-    
-
+    SectionNewComponent
   ],
   imports: [
     AdminRoutingModule,

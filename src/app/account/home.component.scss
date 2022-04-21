@@ -1,7 +1,6 @@
 .home-wrapper {
   height: auto;
   background-color: #fff;
-  overflow-x: auto;
 }
 .home-wrapper .home-top {
   text-align: center;
@@ -148,6 +147,7 @@
   padding-top: 25px;
   padding-bottom: 50px;
   border-top: 1px solid #979797;
+  overflow-x: auto;
 }
 // patient account
 .home-wrapper .registration a {
@@ -192,4 +192,4 @@ strong{
   font-weight: 600;
   font-size: inherit;
   color: #4a4a4a;
-} 
+}
