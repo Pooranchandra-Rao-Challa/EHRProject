@@ -43,7 +43,7 @@ import { EditdefaultmessageComponent } from 'src/app/admin/editdefaultmessage/ed
 import { ReportsComponent } from 'src/app/admin/reports/reports.component';
 import { BillingComponent } from 'src/app/admin/billing/billing.component';
 import { SectionNewComponent } from 'src/app/admin/section-new/section-new.component';
-
+import { CKEditorModule } from 'ckeditor4-angular';
 @NgModule({
   exports: [
     MatInputModule,
@@ -90,6 +90,7 @@ import { SectionNewComponent } from 'src/app/admin/section-new/section-new.compo
     ScheduleModule,
     DropDownListModule,
     DateTimePickerModule,
+    CKEditorModule
     // Ng2SearchPipeModule
   ],
   providers: [DayService, WeekService,AdminService
