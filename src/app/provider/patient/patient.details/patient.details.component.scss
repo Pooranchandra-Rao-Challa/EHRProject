@@ -55,7 +55,7 @@ a.patient_link{
   padding: 0 20px;
   line-height: 50px;
   background-color: #41b6a6;
-  font-size: 28px;
+  // font-size: 28px;
   color: #fff;
 }
 .patients-navigation-info .avatar {
@@ -114,7 +114,8 @@ a.inivte-to-portal-button {
 .show-patient .nav-pills {
   border-bottom: 0;
   background-color: #41b6a6;
-  padding-left: 28px;
+  // padding-left: 28px;
+  padding-left: 20px;
 }
 .show-patient .nav-pills li {
   border-radius: 0;
@@ -138,4 +139,81 @@ a.inivte-to-portal-button {
 }
 #pills-tabContent.tab-content{
   border: 0;
+  padding: 0;
+}
+.btn.btn-orange {
+  color: #fe8f00;
+  background-color: #fff;
+  border-color: #fe8f00;
+}
+.btn.btn-orange:hover {
+  color: #41b6a6;
+  background-color: #fff;
+  border-color: #41b6a6;
+}
+.btn {
+  width: 165px;
+  height: 45px;
+  display: block;
+  padding: 0;
+  line-height: 2.7;
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 16px;
+  text-align: center;
+  box-shadow: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.dropdown-menu{
+  border-color: #41b6a6;
+  background-color: #fff;
+  padding: 0;
+  margin-top: 3px;
+  border-radius: 3px;
+  min-width: 185px;
+  right: 0 !important;
+  left: auto !important;
+}
+.dropdown-menu li {
+  height: 17px;
+  width: calc(100% - 6px);
+  display: table;
+  margin: 3px;
+}
+.dropdown-menu li a {
+  padding: 0 0 0 10px;
+  color: #4a4a4a;
+  font-size: 15px;
+}
+.dropdown-menu li a:hover{
+  color: #41b6a6;
+  text-decoration: underline;
+}
+a.delete-patient{
+  color: #d64841 !important;
+}
+a.create-ccda{
+  color: #fe8f00 !important;
+}
+a.disabled{
+  opacity: 0.5 !important;
+  pointer-events: none;
+}
+.dropdown .dropdown-menu li a {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  display: table-cell;
+  vertical-align: middle;
+  border-radius: 3px;
+  border: 1px solid transparent;
+  transition: background-color 0.2s, border 0.2s;
+}
+.dropdown-divider{
+  border-top: 1px solid #41b6a6;
+  opacity: 1;
+}
+.dropdown-menu .dropdown-menu {
+  top: -.5rem !important;
 }
