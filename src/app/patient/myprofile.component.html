@@ -101,8 +101,9 @@
               <div class="row">
                 <label class="labelfontzise mt-3">Cell Phone </label>
                 <div class="input-group ">
-                  <mat-form-field class="example-full-width" appearance="outline">
-                    <input type="text" placeholder="( :" aria-label="Number" matInput [matAutocomplete]="auto">
+                  <mat-form-field class="example-full-width" appearance="outline" [formControl]="myControl">
+                    <input type="input" placeholder="( :" aria-label="Number" matInput [formControl]="myControl"
+                    [matAutocomplete]="auto">
                     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
                       <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
                         {{option}}
@@ -128,7 +129,8 @@
                 <label class="labelfontzise mt-3">Home Phone </label>
                 <div class="input-group mb-3">
                   <mat-form-field class="example-full-width" appearance="outline">
-                    <input type="text" placeholder="( :" aria-label="Number" matInput [matAutocomplete]="auto">
+                    <input type="input" placeholder="( :" aria-label="Number" matInput [formControl]="myControl"
+                    [matAutocomplete]="auto">
                     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
                       <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
                         {{option}}
@@ -145,7 +147,8 @@
                 <label class="labelfontzise ">Work Phone </label>
                 <div class="input-group mb-3">
                   <mat-form-field class="example-full-width" appearance="outline">
-                    <input type="input" placeholder="( :" aria-label="Number" matInput [matAutocomplete]="auto">
+                    <input type="input" placeholder="( :" aria-label="Number" matInput [formControl]="myControl"
+                      [matAutocomplete]="auto">
                     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
                       <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
                         {{option}}

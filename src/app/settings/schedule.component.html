@@ -5,15 +5,16 @@
   <div class="content ">
     <div class="row denatal-chart-top">
       <div class="col-xl-12 col-lg-12 col-md-12 Sechudle px-0">
-        <div class="schedule-right-block">
+        <div class="schedule-right-block pb-5">
           <div class="colF border">
             <div class="row schedule-section">
               <div class="col-xl-8 col-lg-12 col-12 cstm-location-section">
                 <p class="plabel">Location Address:</p>
                 <div class="form-group col-xl-4 col-lg-12">
                   <mat-form-field appearance="outline" class="col-12 cstm-loc-dropdown">
-                    <mat-select disableOptionCentering>
-                      <mat-option *ngFor="let item of LocationAddress" [value]="item.Location_Name">
+                    <mat-select disableOptionCentering [(ngModel)]="user.CurrentLocation"
+                      (selectionChange)="getRoomsForLocation()">
+                      <mat-option *ngFor="let item of LocationAddress" [value]="item.Location_Id">
                         {{item.Location_Name}}
                       </mat-option>
                     </mat-select>
@@ -34,29 +35,28 @@
                   <div formArrayName="rooms">
                     <div *ngFor="let room of rooms().controls; let roomIndex=index">
                       <div [formGroupName]="roomIndex" class="cstm-border-bottom">
-                        <div class="row pt-3 pb-2">
+                        <div class="row pt-2 pb-1">
                           <div class="col-md-6">
                             <div class="form-group">
-                              <input type="text" [class]="showInput !== true ? 'schedule-inputclass': 'inputclass'"
-                                class="form-control" formControlName="roomOP" [readonly]="!showInput">
+                              <input type="text" [class]="(!isNewRoom(roomIndex)) ? 'schedule-inputclass': 'inputclass'"
+                                class="form-control" formControlName="RoomName" [readonly]="!isNewRoom(roomIndex)">
                             </div>
                           </div>
                           <div class="col-md-6 col-12 pt-2 pt-md-0">
                             <div class="col-md-12 col-6 pull-right">
-                              <button type="button" id="Actbtn" *ngIf="showSaveBtn"
-                                class="btn btn-md btn-sm btn-success pull-right"
-                                (click)="onSubmitBasedOnIndex(roomIndex)">
+                              <button type="button" id="Actbtn" *ngIf="isNewRoom(roomIndex)"
+                                class="btn btn-md btn-sm btn-success pull-right" (click)="saveRooms(roomIndex)">
                                 Save
                               </button>
-                              <button type="button" id="Actbtn" *ngIf="showEditBtn"
-                                class="btn btn-md btn-sm btn-success pull-right" (click)="onSubmitEdit(roomIndex)">
+                              <button type="button" id="Actbtn" *ngIf="!isNewRoom(roomIndex)"
+                                (click)="onEditRooms(roomIndex)" class="btn btn-md btn-sm btn-success pull-right">
                                 Edit
                               </button>
                             </div>
                           </div>
                         </div>
                         <div class="row">
-                          <div class="col-md-12 col-12 pt-2 cstm-padding">
+                          <div class="col-md-12 col-12 pt-1 pb-0 cstm-padding">
                             <div class="col-md-6 col-6 pull-right">
                               <button type="button" id="Actbtn" class="btn btn-md btn-sm btn-success pull-right"
                                 (click)="removeRoom(roomIndex)" style="height: 30px;">
@@ -79,9 +79,9 @@
                 </div>
                 <div class="col-xl-4 col-lg-5 col-md-6" style="display: flex;">
                   <p class="mx-2 my-2">From</p>
-                  <input class="form-Group form-control time" type="time" name="Zip" id="Zip">
+                  <input class="form-Group form-control time" type="time" name="calTimeDisFrom" id="calTimeDisFrom">
                   <p class="mx-2 my-2">To</p>
-                  <input class=" form-control time" type="time" name="Zip" id="Zip">
+                  <input class="form-Group form-control time" type="time" name="calTimeDisTo" id="calTimeDisTo">
                 </div>
               </div>
               <div class="row schedule-section">
@@ -112,10 +112,16 @@
                 </div>
                 <div class="col-md-4">
                   <mat-radio-group>
-                    <mat-radio-button [value]="1"></mat-radio-button>Yes
-                    <mat-radio-button class="ms-4" [value]="2"></mat-radio-button>No
+                    <mat-radio-button [value]="1" #Yes (change)='appointmentTime(Yes.checked)'></mat-radio-button>Yes
+                    <mat-radio-button class="ms-4" [value]="2" #No (change)='appointmentTime(Yes.checked)'>
+                    </mat-radio-button>No
                   </mat-radio-group>
                 </div>
+              </div>
+              <div class="row patients-reschedule-time" *ngIf="displayappointmentTime">
+                <p>Patients can reschedule/cancel appointments online within</p>
+                <input class="numeric form-control" type="number">
+                <p>hours of the start time of their scheduled appointment.</p>
               </div>
               <div class="row schedule-section">
                 <div class="col-12">
@@ -164,31 +170,36 @@
                   </div>
                   <form [formGroup]="statusForm">
                     <div formArrayName="status">
-                      <div *ngFor="let stat of status().controls; let statusIndex=index">
+                      <div *ngFor="let stat of status().controls; let statusIndex=index;">
                         <div [formGroupName]="statusIndex">
-                          <div class="row px-4 pt-3 pb-2">
+                          <div class="row px-4 pt-1 pb-2">
                             <div class="col-md-5 col-5">
                               <div class="form-group">
-                                <input type="text" class="form-control inputclass" formControlName="Name">
-                                <!-- <input type="text" hidden class="form-control inputclass" formControlName="Id"> -->
+                                <input type="text" class="form-control inputclass" formControlName="Name"
+                                  [class]="(!isNewStatus(statusIndex) || !status().controls[statusIndex].get('Editable').value) ? 'schedule-inputclass': 'inputclass'"
+                                  [readonly]="!isNewStatus(statusIndex) || !status().controls[statusIndex].get('Editable').value">
                               </div>
                             </div>
                             <div class="col-md-3 col-3">
-                              <input class="cstm-color-picker" [colorPicker]="Colour" [style.background]="Colour"
-                                formControlName="Colour" />
+                              <input class="cstm-color-picker"
+                                [(colorPicker)]="status().controls[statusIndex].get('Colour').value"
+                                [style.background]="status().controls[statusIndex].get('Colour').value" />
                             </div>
-                            <div class="col-md-4 col-4 pt-2 pt-md-0">
+                            <div class="col-md-4 col-4 pt-2 pt-md-0"
+                              *ngIf="status().controls[statusIndex].get('Editable').value">
                               <button type="button" id="Actbtn" class="btn btn-md btn-sm btn-success pull-right"
-                                (click)="saveAppointmentStatus(statusIndex)">
+                                *ngIf="isNewStatus(statusIndex)" (click)="saveAppointmentStatus(statusIndex)">
                                 Save
                               </button>
-                              <!-- <button type="button" id="Actbtn" class="btn btn-md btn-sm btn-success pull-right">
+                              <button type="button" id="Actbtn" class="btn btn-md btn-sm btn-success pull-right"
+                                *ngIf="!isNewStatus(statusIndex)" (click)="onEditStatus(statusIndex)">
                                 Edit
-                              </button> -->
+                              </button>
                             </div>
                             <div class="col-md-12 col-12 pt-2 cstm-border-bottom-appointment">
                               <div class="col-4 pull-right">
                                 <button type="button" id="Actbtn" class="btn btn-md btn-sm btn-success pull-right"
+                                  *ngIf="status().controls[statusIndex].get('Editable').value"
                                   (click)="removeAppointmentStatus(statusIndex)" style="height: 30px;">
                                   Remove
                                 </button>
@@ -200,7 +211,7 @@
                     </div>
                   </form>
                   <div class="px-3">
-                    <button type="submit" class="btn-success btn btn-lg btn-md btnSave my-3 w-100"
+                    <button type="submit" class="btn-success btn btn-lg btn-md btnSave mb-2 w-100"
                       (click)="addStatus()">
                       Add Status
                     </button>
@@ -226,25 +237,35 @@
                     <div formArrayName="type">
                       <div *ngFor="let type of type().controls; let typeIndex=index">
                         <div [formGroupName]="typeIndex">
-                          <div class="row px-4 pt-3 pb-2">
+                          <div class="row px-4 pt-1 pb-2">
                             <div class="col-md-5 col-5">
                               <div class="form-group">
-                                <input type="text" class="form-control inputclass" formControlName="AppointmentType">
+                                <input type="text"
+                                  [class]="(!isNewType(typeIndex) || !typeForm.controls.type.controls[typeIndex].get('Editable').value) ? 'schedule-inputclass': 'inputclass'"
+                                  [readonly]="!isNewType(typeIndex) || !typeForm.controls.type.controls[typeIndex].get('Editable').value"
+                                  class="form-control inputclass" formControlName="AppointmentType">
                               </div>
                             </div>
                             <div class="col-md-3 col-3">
-                              <input class="cstm-color-picker" [(colorPicker)]="Colour" [style.background]="Colour"
-                                formControlName="Colour" />
+                              <input class="cstm-color-picker"
+                                [(colorPicker)]="typeForm.controls.type.controls[typeIndex].get('Colour').value"
+                                [style.background]="typeForm.controls.type.controls[typeIndex].get('Colour').value" />
                             </div>
-                            <div class="col-md-4 col-4 pt-2 pt-md-0">
+                            <div class="col-md-4 col-4 pt-2 pt-md-0"
+                              *ngIf="typeForm.controls.type.controls[typeIndex].get('Editable').value">
                               <button type="button" id="Actbtn" class="btn btn-md btn-sm btn-success pull-right"
-                                (click)="saveAppointmentType(typeIndex)">
+                                *ngIf="isNewType(typeIndex)" (click)="saveAppointmentType(typeIndex)">
                                 Save
+                              </button>
+                              <button type="button" id="Actbtn" *ngIf="!isNewType(typeIndex)"
+                                (click)="onEditType(typeIndex)" class="btn btn-md btn-sm btn-success pull-right">
+                                Edit
                               </button>
                             </div>
                             <div class="col-md-12 col-12 pt-2 cstm-border-bottom-appointment">
                               <div class="col-4 pull-right">
                                 <button type="button" id="Actbtn" class="btn btn-md btn-sm btn-success pull-right"
+                                  *ngIf="typeForm.controls.type.controls[typeIndex].get('Editable').value"
                                   (click)="removeAppointmentType(typeIndex)" style="height: 30px;">
                                   Remove
                                 </button>
@@ -256,17 +277,14 @@
                     </div>
                   </form>
                   <div class="px-3">
-                    <button type="submit" class="btn-success btn btn-lg btn-md btnSave my-3 w-100" (click)="addType()">
+                    <button type="submit" class="btn-success btn btn-lg btn-md btnSave mb-2 w-100" (click)="addType()">
                       Add Custom Type
                     </button>
                   </div>
                 </div>
               </div>
-              <!-- <div class="clearfix w-100"></div> -->
             </div>
           </div>
-
-          <!-- <div class="clearfix"></div> -->
         </div>
       </div>
     </div>

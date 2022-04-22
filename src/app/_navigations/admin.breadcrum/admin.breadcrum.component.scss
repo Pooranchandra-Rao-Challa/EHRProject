@@ -4,14 +4,18 @@
   ul li, ol li, dl li {
     line-height: 1.8;
     display: initial !important;
-    padding: 6px;
   }
   .anchorStyle{
     color: #888 !important;
     font-size: 14px;
     padding: 12px 2px;
+    text-shadow: none;
   }
   ul{
-    min-height: 43px;
+    min-height: 35px;
     background: #f1f4f7 !important
   }
+ .li-home:hover{
+  text-decoration: underline !important;
+  cursor: pointer !important;
+}

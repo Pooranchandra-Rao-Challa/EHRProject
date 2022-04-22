@@ -162,7 +162,7 @@
 
 .search .fa-search {
   position: absolute;
-  top: 12px;
+  top: 9px;
   left: 17px;
   color: white;
   font-size: 24px;
@@ -308,7 +308,7 @@ tr.mat-header-row {
   margin-bottom: 1px;
   margin-right: 0;
   border-radius: 3px 3px 0 0;
-  padding: 8px 13px 5px 24px; 
+  padding: 8px 13px 5px 24px;
   border: 0;
 }
 
@@ -365,13 +365,13 @@ tr.mat-header-row {
 }
 
 @media (max-width:768px ) {
-  
+
   .scrollable-mat-table{
     overflow-y: scroll !important;
   }
   .LabsimagingTable{
     width: 1000px !important;
-      } 
+      }
 }
 .table-responsive{
   overflow-x: hidden !important;

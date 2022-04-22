@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-defaultmessages',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DefaultmessagesComponent implements OnInit {
 
-  constructor() { }
+  constructor( private router: Router,) { }
 
   ngOnInit(): void {
   }
-
+  onSubmit() {  
+    this.router.navigate(['admin/editdefaultmessage'])  
+} 
 }

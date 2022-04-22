@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AnyTxtRecord } from 'dns';
+import { providerList } from 'src/app/_models/Admin.ts/providerList';
 import { AdminService } from 'src/app/_services/admin.service';
 
 @Component({
@@ -10,17 +12,19 @@ export class AdminPracticeComponent implements OnInit {
 
   pageSize = 50;
   page = 0;
-  data: any[] = [];
-  // provide:ProviderData=new ProviderData();
-
+  GlobalSearch:any;
   ProviderList: any;
   GetFilterList: any;
-  FitlerGetStatus: any = [];
-  ActiveStatus: boolean = false
-  SuspendedStatus: boolean = false;
-  FilterTrialPaid: any = [];
+  FitlerActiveStatus: any = [];
+  Active: boolean = true;
+  Suspended: boolean = false;
   NotPaidChecked: boolean = false;
   PaidChecked: boolean = false;
+  ActiveStatus: string = '';
+  TrailStatus: string = '';
+  ProviderColumnList: providerList[];
+  SearchKey = "";
+  AlterStatus:any;
 
   constructor(private adminservice: AdminService) { }
 
@@ -32,36 +36,66 @@ export class AdminPracticeComponent implements OnInit {
     this.adminservice.GetProviderList().subscribe(resp => {
       if (resp.IsSuccess) {
         this.ProviderList = resp.ListResult;
-        this.ProviderList.map((e) => {
+        this.ProviderColumnList = resp.ListResult;
+        this.ProviderColumnList.map((e) => {
           if (e.Trial.toLowerCase() == 'trial') {
             e.Trial = 'Not Paid';
           }
           else {
             e.Trial = 'Paid';
           }
+          this.FitlerActiveStatus = this.ProviderList.filter(x =>
+            (x.ActiveStatus === 'Active')
+          );
+          this.ProviderList = this.FitlerActiveStatus;
+          if(e.ActiveStatus == 'Active'){
+            this.AlterStatus = 'Suspend'
+          }
+          else if(e.ActiveStatus == 'Suspended'){
+            this.AlterStatus = 'Activate'
+          }
         });
         this.GetFilterList = this.ProviderList;
-      }
+      } else
+        this.ProviderList = [];
     });
   }
 
-  FilterStatus() {
+
+  FilterProvider(eventType, event) {
     debugger;
-    if (this.SuspendedStatus == true) {
-      this.ActiveStatus = false;
-      this.ProviderList = this.GetFilterList;
-      this.FitlerGetStatus = this.ProviderList.filter(x =>
-        (x.ActiveStatus === 'Suspended')
-      );
-      this.ProviderList = this.FitlerGetStatus;
+    if (eventType == 'ActiveStatus') {
+      if (event == 'Active' && this.Active) {
+        this.Suspended = false;
+        this.ActiveStatus = 'Active';
+        this.AlterStatus = 'Suspend';
+      } else if (event == 'Suspended' && this.Suspended) {
+        this.Active = false;
+        this.ActiveStatus = 'Suspended';
+        this.AlterStatus = 'Activate'
+      } else {
+        this.ActiveStatus = '';
+      }
+    } else {
+      if (event == 'Not Paid' && this.NotPaidChecked) {
+        this.PaidChecked = false;
+        this.TrailStatus = 'Not Paid';
+      }
+      else if (event == 'Paid' && this.PaidChecked) {
+        this.NotPaidChecked = false;
+        this.TrailStatus = 'Paid'
+      } else {
+        this.TrailStatus = '';
+      }
     }
-    else if (this.ActiveStatus == true) {
-      this.SuspendedStatus = false;
-      this.ProviderList = this.GetFilterList;
-      this.FitlerGetStatus = this.ProviderList.filter(x =>
-        (x.ActiveStatus === 'Active')
-      );
-      this.ProviderList = this.FitlerGetStatus;
+    if (this.ActiveStatus != '' || this.TrailStatus != '') {
+      if (this.ActiveStatus != '' && this.TrailStatus == '') {
+        this.ProviderList = this.ProviderColumnList.filter(x => x.ActiveStatus.toLocaleLowerCase() == this.ActiveStatus.toLocaleLowerCase());
+      } else if (this.TrailStatus != '' && this.ActiveStatus == '') {
+        this.ProviderList = this.ProviderColumnList.filter(x => x.Trial.toLocaleLowerCase() == this.TrailStatus.toLocaleLowerCase());
+      } else {
+        this.ProviderList = this.ProviderColumnList.filter(x => x.ActiveStatus.toLocaleLowerCase() == this.ActiveStatus.toLocaleLowerCase() && x.Trial.toLocaleLowerCase() == this.TrailStatus.toLocaleLowerCase());
+      }
     }
     else {
       this.GetProivderList();
@@ -70,27 +104,18 @@ export class AdminPracticeComponent implements OnInit {
 
 
 
-  FilterTrailPaid() {
+  SearchDetails() {
     debugger;
-    if(this.PaidChecked == true) {
-      this.NotPaidChecked = false;
-      this.ProviderList = this.GetFilterList;
-      this.FilterTrialPaid = this.ProviderList.filter(x =>
-        (x.Trial === 'Paid')
-      );
-      this.ProviderList = this.FilterTrialPaid;
-    }
-    else if(this.NotPaidChecked == true) {
-      this.NotPaidChecked = true;
-      this.PaidChecked = false;
-      this.ProviderList = this.GetFilterList;
-      this.FilterTrialPaid = this.ProviderList.filter(x =>
-        (x.Trial === 'Not Paid')
-      );
-      this.ProviderList = this.FilterTrialPaid;
-    }
-    else {
-      this.GetProivderList();
+    this.ProviderList=this.GetFilterList.filter((invoice) => this.isMatch(invoice));
+  }
+
+  isMatch(item) {
+    debugger;
+    if (item instanceof Object) {
+      return Object.keys(item).some((k) => this.isMatch(item[k]));
+    } else {
+      return item == null?'':item.toString().indexOf(this.SearchKey) > -1
     }
   }
+
 }

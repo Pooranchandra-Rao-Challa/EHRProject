@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,7 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./admin.sidebar.component.scss']
 })
 export class AdminSidebarComponent implements OnInit {
-  constructor() { }
+
+  constructor(private router:Router) { }
 
   ngOnInit(): void {
     let arrow = document.querySelectorAll(".arrow");
@@ -26,5 +28,13 @@ export class AdminSidebarComponent implements OnInit {
       homeSection.classList.toggle("left-space")
     });
   }
+
+  onChangeBreadCrum(name,url){
+    this.router.navigate(
+      [url],
+      { queryParams: { name: name} }
+    );
+  }
+
 
 }

@@ -160,8 +160,11 @@ div.ex3 {
     padding-bottom: 20px;
 }
 @media (max-width: 1440px) {
-  .schedule-section{
+  .schedule-section {
     padding: 20px 20px;
+  }
+  .patients-reschedule-time{
+    margin: 20px 20px !important;
   }
 }
 @media (width: 1440px) {
@@ -241,7 +244,7 @@ div.ex3 {
   border: 1px solid #ebebeb;
   padding: 0px 10px;
   height: 45px;
-  color: #525358;
+  color: #333333;
   font-size: 15px;
   background-color: #f5f5f5;
 }
@@ -251,7 +254,7 @@ div.ex3 {
 .schedule-inputclass {
   background-color: #fff;
   border: 1px solid #fff;
-  cursor: not-allowed !important;
+  // cursor: not-allowed !important;
   border-radius: 4px;
   padding: 0px 10px;
   height: 45px;
@@ -269,6 +272,14 @@ div.ex3 {
 
 .form-group .input-group .input-group-addon {
   padding: 15px 10px;
+}
+.form-group label {
+  font-size: 17px;
+  padding-top: 10px;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
 }
 .week {
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -317,7 +328,7 @@ hr {
   border: 1px solid #2faa9a;
 }
 .plabel {
-  color: #4a4a4a;
+  color: #4A4A4A;
   //background-color: white;
   font-size: 15px; // schedule screen location
 }
@@ -544,10 +555,7 @@ td.mat-footer-cell {
   border-top: 0px solid currentColor;
   border-bottom-color: #41b6a6 !important;
 }
-.form-group label {
-  font-size: 17px;
-  padding-top: 10px;
-}
+
 .weeks {
   color: #808387;
   font-size: 19px;
@@ -623,12 +631,14 @@ input.mat-input-element {
 .Locationcolumn {
   margin-left: 30px;
 }
-
+ul.menuclass li{
+  line-height: normal;
+}
 ul.menuclass li a {
   display: block !important;
   color: #41b6a6 !important;
   font-size: 16px !important;
-  padding: 15px 20px 14px 7px !important;
+  padding: 14px 20px 14px 7px !important;
   border-left: 13px solid transparent !important;
   transition: background-color 0.2s, color 0.1s, border-color 0.2s !important;
 }
@@ -643,10 +653,6 @@ ul.menuclass li.active a {
   color: #fff !important;
 }
 
-.form-group {
-  display: flex;
-  flex-direction: column;
-}
 .userfromPractable {
   border: 3px solid #2faa9a;
 }
@@ -959,7 +965,8 @@ ul.menuclass li.active a {
 
 .cstm-border-bottom {
   margin-bottom: 10px;
-  border-bottom: 1px solid #41b6a6;
+  margin-top: -1px;
+  border-top: 1px solid #41b6a6;
 }
 .cstm-padding{
   padding-left: 38px;
@@ -982,6 +989,7 @@ ul.menuclass li.active a {
   width: 120px;
   height: 45px;
   border-radius: 3px;
+  padding: 8px 20px;
 }
 .form-control.time:hover{
   border: 1px solid #41b6a6;
@@ -1019,4 +1027,81 @@ ul.menuclass li.active a {
   background: url(../../assets/images/color-picker.png) 100%
     100% no-repeat;
   background-position: -80px 0;
+}
+body.loadactive {
+  overflow: hidden !important;
+}
+.numeric.form-control{
+  width: 67px;
+  margin: 0px 8px;
+  text-align: center;
+  border: 1px solid #dedede;
+  background-color: #f5f5f5;
+  color: #74757E ;
+  cursor: text !important;
+  height: 45px;
+  border-radius: 3px;
+  margin-top: -10px;
+  font-size: 16px;
+}
+@media (max-width: 1024px){
+  .numeric.form-control{
+    margin-top: 0px;
+  }
+}
+.numeric.form-control:hover{
+  border: 1px solid #41b6a6;
+}
+.patients-reschedule-time {
+  margin: 0;
+  margin-left: 32px;
+  margin-top: 20px;
+}
+.patients-reschedule-time p{
+  display: contents;
+  font-size: 16px;
+  color: #4A4A4A;
+  margin-bottom: 0;
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+input[type="time"]::-webkit-calendar-picker-indicator { background: none; display:none; }
+
+// testing
+
+.testing .form-group {
+  margin-bottom: 20px !important;
+}
+.testing .radio-group-horizontal {
+  width: 100%;
+  display: table;
+  font-size: 0;
+}
+.dib {
+  display: inline-block;
+}
+.dib {
+  padding: 4px 20px;
+  text-align: center;
+}
+.testing p{
+  font-size: 16px;
+color: #4A4A4A;
+margin-bottom: 0;
+}
+.radio-group-horizontal p {
+  display: table-cell;
+  vertical-align: middle;
+  padding: 0 15px 3px 0;
+  height: 45px;
+  min-height: 45px;
 }

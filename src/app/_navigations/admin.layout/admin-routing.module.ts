@@ -1,3 +1,4 @@
+import { WeeklyUpdatedComponent } from './../../admin/weekly-updated/weekly-updated.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminsComponent } from 'src/app/admin/admins/admins.component';
@@ -10,6 +11,12 @@ import { ProviderlistComponent } from '../../admin/providerlist/providerlist.com
 import { AdminProviderListComponent } from '../../provider/admin/provider.list.component';
 import { AdminComponent} from './admin.component';
 import { AdminPracticeComponent } from 'src/app/admin/admin-practice/admin-practice.component';
+import { ActivepatientComponent } from 'src/app/admin/activepatient/activepatient.component';
+import { InactivepatientComponent } from 'src/app/admin/inactivepatient/inactivepatient.component';
+import { EditdefaultmessageComponent } from 'src/app/admin/editdefaultmessage/editdefaultmessage.component';
+import { BillingComponent } from 'src/app/admin/billing/billing.component';
+import { ReportsComponent } from 'src/app/admin/reports/reports.component';
+import { SectionNewComponent } from 'src/app/admin/section-new/section-new.component';
 
 const routes: Routes = [
   {
@@ -24,6 +31,13 @@ const routes: Routes = [
       { path: 'setting', component: AdminsettingComponent},
       { path: 'communication', component: CommunicationsettingsComponent },
       { path: 'practice', component: AdminPracticeComponent },
+      { path: 'weeklyupdates', component: WeeklyUpdatedComponent },
+      { path: 'activepatient', component: ActivepatientComponent },
+      { path: 'inactivepatient', component: InactivepatientComponent },
+      { path: 'editdefaultmessage', component: EditdefaultmessageComponent },
+      { path: 'billing', component: BillingComponent },
+      { path: 'reports', component: ReportsComponent },
+      { path: 'sectionnew', component: SectionNewComponent },
     ]
   }
 ]

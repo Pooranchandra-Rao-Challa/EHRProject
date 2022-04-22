@@ -1,3 +1,6 @@
+import { AuthenticationService } from './../../_services/authentication.service';
+import { User } from './../../_models/user';
+import { LabsImagingService } from './../../_services/labsimaging.service';
 import { Component, OnInit } from '@angular/core';
 declare var $:any;
 @Component({
@@ -8,37 +11,40 @@ declare var $:any;
 export class LabsImagingComponent implements OnInit {
 
   labImagingColumn: string[] = ['Order', 'Test', 'Type', 'Patient', 'Provider','Status', 'LabImagingStatus','Created'];
-  labImagingTableList:any;
-  labImagingDataSource:any 
-
-  constructor() { }
-
+  labImagingDataSource:any;
+  user:User;
+  constructor(private labimage:LabsImagingService,private authService:AuthenticationService) {
+    this.user = authService.userValue;
+    console.log(this.user);
+  }
 
   ngOnInit(): void {
-    this.getLabList();
+    this.GetLabDetails();
   }
-  
-  getLabList()
-  {   
-    this.labImagingDataSource=
-      [
-      { Order: 'Title 1', Test: 'Test', Type: 'Type1',Patient:'Patient',Provider:'Provider1',Status:'Status1',LabImagingStatus:'LabImagingStatus1',Created:'Created1' },
-      { Order: 'Title 2', Test: 'Test2', Type: 'Type2',Patient:'Patient',Provider:'Provider2',Status:'Status2',LabImagingStatus:'LabImagingStatus2',Created:'Created2' }
-      ]
-  }
-  
-  getLabNullList()
+
+  GetLabDetails()
   {
-    this.labImagingDataSource= 0;
+   var reqparam = {
+     "clinic_Id": this.user.CurrentLocation
+   }
+    debugger;
+    this.labimage.LabsDetails(reqparam).subscribe(resp => {
+     if (resp.IsSuccess) {
+       this.labImagingDataSource = resp.ListResult;
+     }
+   });
   }
 
-  getImagingList(){   
-    this.labImagingDataSource=
-      [
-        { Order: '1', Test: 'TestImg', Type: 'Type1',Patient:'Patient',Provider:'Provider1',Status:'Status1',LabImagingStatus:'LabImagingStatus1',Created:'Created1' },     
-        { Order: '2', Test: 'TestImg2', Type: 'Type2',Patient:'Patient',Provider:'Provider2',Status:'Status2',LabImagingStatus:'LabImagingStatus2',Created:'Created2' }
-      ]
-
-   }
-
+  GetImagingDetails()
+  {
+    var reqparam = {
+      "clinic_Id": this.user.CurrentLocation
+    }
+     debugger;
+     this.labimage.ImageDetails(reqparam).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.labImagingDataSource = resp.ListResult;
+      }
+    });
+  }
 }

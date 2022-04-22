@@ -7,9 +7,10 @@ import { AdminService } from 'src/app/_services/admin.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  page = 1;
-  pageSize :number=50;
+  pageSize: number = 50;
+  page: number = 1;
   ProviderList:any;
+  TotalItems:number;
 
   constructor(private adminservice:AdminService) { }
 
@@ -21,7 +22,7 @@ export class DashboardComponent implements OnInit {
     this.adminservice.GetProviderList().subscribe(resp => {
       if(resp.IsSuccess){
         this.ProviderList = resp.ListResult;
-
+        this.TotalItems = this.ProviderList.length;
         this.ProviderList.map((e) => {
           if(e.Trial == 'Trial'){
             e.ToggleButton=false;
@@ -43,6 +44,12 @@ export class DashboardComponent implements OnInit {
           }
           else{
             e.NewPhoneNo=null;
+          }
+          if(e.ActiveStatus == 'Active'){
+            e.ActiveStatus = 'Activate';
+          }
+          else{
+            e.ActiveStatus = 'Suspend';
           }
         });
       }
