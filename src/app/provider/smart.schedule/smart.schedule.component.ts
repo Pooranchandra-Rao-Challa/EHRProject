@@ -1,22 +1,27 @@
 
-import { UtilityService } from './../../_services/utiltiy.service';
-import { Component, OnInit, ViewChild, Output, Input, EventEmitter, ElementRef } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { NewPatient } from '../../_models/newPatient';
+
+import { Component, OnInit,TemplateRef} from '@angular/core';
+import { FormBuilder, FormGroup,  Validators } from '@angular/forms';
+import { ComponentType } from '@angular/cdk/portal';
+import { MatSelectionListChange } from '@angular/material/list'
+import { Observable, Subject, Subscription } from 'rxjs';
+import { debounceTime, switchMap, distinctUntilChanged, map } from 'rxjs/operators';
+
+import { OverlayService } from '../../overlay.service';
+import { Patient } from '../../_models/newPatient';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { SmartSchedulerService } from '../../_services/smart.scheduler.service';
+import { UtilityService } from './../../_services/utiltiy.service';
 import { PracticeProviders } from '../../_models/practiceProviders';
-import { MatSelectionListChange } from '@angular/material/list'
-
+import { PatientDialogComponent } from '../../dialogs/patient.dialog.component';
 import { LocationSelectService } from '../../_navigations/provider.layout/location.service';
-import { Observable, Subject, Subscription } from 'rxjs';
-import { debounceTime, switchMap, distinctUntilChanged, tap } from 'rxjs/operators';
+
 import {
   PatientSearchResults, SearchPatient,
   ScheduledAppointment, AppointmentTypes, NewAppointment,
   UserLocations, Room, AvailableTimeSlot
 } from 'src/app/_models/smar.scheduler.data';
-import { ThrowStmt } from '@angular/compiler';
+
 declare const CloseAppointment: any;
 declare const OpenSaveSuccessAppointment: any;
 declare const CloseSaveSuccessAppointment: any;
@@ -36,7 +41,7 @@ export class SmartScheduleComponent implements OnInit {
   encounterdiagnosesColumns = ["CODE", "CODE SYSTEM", "DESCRIPTION", "PATIENT EDUCATION", "Primary DX"];
   procedureColumns = ["CODE", "CODE SYSTEM", "DESCRIPTION", "TOOTH", "SURFACE"];
   EncounterData = "";
-  PatientData: NewPatient;
+  PatientData: Patient;
   PhonePattern: any;
   NewPatientForm: FormGroup;
   displayAddress: string;
@@ -64,6 +69,11 @@ export class SmartScheduleComponent implements OnInit {
   locationsubscription: Subscription
   onError: boolean;
 
+  //isWideScreen$: Observable<boolean>;
+
+  patientDialogComponent = PatientDialogComponent;
+  dialogResponse = null;
+
   //Auto Search Paramters
   public patients: PatientSearchResults[];
   private patientSearchTerms = new Subject<string>();
@@ -79,7 +89,11 @@ export class SmartScheduleComponent implements OnInit {
     private authService: AuthenticationService,
     private utilityService: UtilityService,
     private smartSchedulerService: SmartSchedulerService,
-    private locationSelectService: LocationSelectService) {
+    private locationSelectService: LocationSelectService,
+
+    public overlayService: OverlayService
+
+    ) {
 
     this.onError = false;
     this.patientSearchScript = document.createElement("script");
@@ -135,6 +149,22 @@ export class SmartScheduleComponent implements OnInit {
       });
   }
 
+  openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string) {
+    const ref = this.overlayService.open(content, null);
+
+    ref.afterClosed$.subscribe(res => {
+      if (typeof content === 'string') {
+      //} else if (content === this.yesNoComponent) {
+        //this.yesNoComponentResponse = res.data;
+      }
+      else if (content === this.patientDialogComponent) {
+        this.dialogResponse = res.data;
+      }
+    });
+  }
+
+
+
   loadDefaults() {
     let req = { "ClinicId": this.authService.userValue.ClinicId };
     this.smartSchedulerService.PracticeProviders(req).subscribe(resp => {
@@ -148,7 +178,6 @@ export class SmartScheduleComponent implements OnInit {
         this.AppointmentTypes = resp.ListResult as AppointmentTypes[];
       }
     });
-
 
     this.filterAppointments();
   }
@@ -286,7 +315,6 @@ export class SmartScheduleComponent implements OnInit {
       if (resp.IsSuccess) {
         this.confirmIsCancelledAppointment();
         this.AppointmentsOfPatient = resp.ListResult as ScheduledAppointment[];
-        //console.log(this.AppointmentsOfPatient);
       }
     });
   }
@@ -340,6 +368,10 @@ export class SmartScheduleComponent implements OnInit {
   }
 
   ngOnInit(): void {
+   // this.isWideScreen$ = this.breakpointObserver
+  //    .observe([Breakpoints.HandsetLandscape])
+  //    .pipe(map(({ matches }) => matches));
+
     this.buildPatientForm();
     this.PatientAppointment = {};
     this.SelectedLocationId = this.authService.userValue.CurrentLocation;
@@ -383,7 +415,6 @@ export class SmartScheduleComponent implements OnInit {
     this.PatientAppointment = patientapp;
     console.log(JSON.stringify(this.PatientAppointment))
     this.LoadAvailableTimeSlots();
-
   }
 
   cancelAppointment(appointmentId: string) {

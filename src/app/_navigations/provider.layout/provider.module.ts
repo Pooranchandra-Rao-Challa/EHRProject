@@ -17,6 +17,8 @@ import { Ng2OrderModule } from 'ng2-order-pipe';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { MouseOverHintDirective} from '../../dialogs/mouseover.hint.directive'
 
 import { ProviderNavbarComponent } from '../provider.navbar/provider.navbar.component';
 import { ProviderFooterComponent } from '../provider.navbar/provider.footer.component';
@@ -46,12 +48,11 @@ import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstra
 import { BreadcrumComponent } from '../breadcrum/breadcrum.component';
 import { PatientDetailsComponent } from '../../provider/patients/patients/patient.details/patient.details.component';
 import { PatientsComponent } from '../../provider/patients/patients/patients.component';
+import { PatientDialogComponent} from '../../dialogs/patient.dialog.component'
 
-
-//import { ReportsRoutingModule } from "../..//reports-routing.module";
-//import { NavbarComponent } from "../../_navigations/navbar.component";
-//import { FooterComponent } from "../../_navigations/footer.component";
-//import { ReportsComponent } from "./reports.component";
+import { OverlayComponent } from '../../overlay/overlay.component';
+import { OverlayService } from '../../overlay.service'
+//import { IConfig, NgxMaskModule } from 'ngx-mask'
 
 import { CategoryreportsComponent } from "../../reports/categoryreports/categoryreports.component";
 import { CqmreportsComponent } from "../../reports/cqmreports/cqmreports.component";
@@ -65,7 +66,8 @@ import { ConditionformaterPipe } from "../../reports/cqmreports/viewhelpers/cond
 
 @NgModule({
   exports: [
-    MatInputModule
+    MatInputModule,
+    PatientDialogComponent
   ],
   declarations: [
     ProviderNavbarComponent,
@@ -94,9 +96,14 @@ import { ConditionformaterPipe } from "../../reports/cqmreports/viewhelpers/cond
     ConditionpadderPipe,
     ConditionformaterPipe,
     PatientsComponent,
-    PatientDetailsComponent
+    PatientDetailsComponent,
+    PatientDialogComponent,
+    OverlayComponent,
+    MouseOverHintDirective
   ],
   imports: [
+
+    OverlayModule,
     ProviderRoutingModule,
     SharedModule,
     NgxPaginationModule,
@@ -122,13 +129,15 @@ import { ConditionformaterPipe } from "../../reports/cqmreports/viewhelpers/cond
     DateTimePickerModule,
     SettingsModule,
     NgxMaskModule.forRoot(),
+
   ],
   providers: [DayService, WeekService, LocationSelectService,
-    UtilityService, SmartSchedulerService,
+    UtilityService, SmartSchedulerService,OverlayService,
     { provide: NgbDateParserFormatter, useClass: NgbDateUSParserFormatter }
 
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  entryComponents: [OverlayComponent, PatientDialogComponent]
 })
 export class ProviderModule {
 

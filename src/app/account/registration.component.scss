@@ -206,12 +206,16 @@ a:hover {
 }
 ::ng-deep .mat-select-panel {
   min-width: calc(100% + 22px) !important;
-  margin-left: 5px !important;
+  //margin-left: 5px !important;
 }
 .mat-option.mat-selected:not(.mat-option-disabled) {
   color: black;
   text-shadow: black;
 }
+//@use ; .cdk-overlay-pane{
+  //width: calc(100% - 22px) !important;
+  //top : 200px;
+//}
 
 // .fa-ellipsis-h {
 //   color: #41b6a6;
