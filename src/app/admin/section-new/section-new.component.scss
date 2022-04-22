@@ -45,3 +45,13 @@ input::-webkit-input-placeholder {
   border-radius: 1px;
   font-family: "Open Sans", sans-serif;
 }
+.note {
+  margin: 0 0 20px 0;
+  padding: 15px 30px 15px 15px;
+  border-left: 5px solid #eee;
+  -webkit-border-radius: 0 4px 4px 0;
+  -moz-border-radius: 0 4px 4px 0;
+  -ms-border-radius: 0 4px 4px 0;
+  -o-border-radius: 0 4px 4px 0;
+  border-radius: 0 4px 4px 0;
+}
