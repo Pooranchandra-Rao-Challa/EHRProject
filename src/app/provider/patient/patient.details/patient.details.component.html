@@ -23,7 +23,7 @@
 
 
 <div class="patients-navigation-info">
-  <img class="avatar avatar-empty mx-2"
+  <img class="avatar avatar-empty"
     src="../../../assets/images/avatar-empty-0b15d6123f5339b0505eef6ad8a8fe0d22d1406692b5c16b3839c561e9c92e60.svg"
     alt="Avatar empty">
   <ul class="patient-main-info">
@@ -43,84 +43,52 @@
         <span class="fa fa-plus-circle"></span> Invite to Patient Portal</a>
     </li>
   </ul>
-  <!-- <div style="display: inline;">
-    <div class="dropdown dropdown-actions air-dropdown"></div>
-    <div class="dropdown dropdown-actions air-dropdown"><a class="dropdown-toggle btn btn-default btn-orange"
-        data-toggle="dropdown">Patient Actions</a>
-      <ul class="dropdown-menu">
-        <li><a class="checker unchecked btn-modal" data-target="#modal-patient-add-procedure" data-remote="true"
-            href="/procedures/new?patient_id=6243ec4a391cba0a3bf13cc8">Add Procedure</a></li>
-        <li><a class="btn-modal" data-target="#modal-patient-add-encounter" data-remote="true"
-            href="/encounters/form?patient_id=6243ec4a391cba0a3bf13cc8">Add Encounter Note</a></li>
-        <li>
-          <hr>
-        </li>
-        <li><a class="btn-modal" data-target="#modal-lab-order" data-remote="true"
-            href="/lab_procedures/new?procedure_type=lab">Add Lab Order</a></li>
-        <li><a class="btn-modal" data-target="#modal-lab-result-search-by-lab-order" data-remote="true"
-            href="/lab_procedures/search_by_procedure_num?procedure_type=lab">Add Lab Results</a></li>
-        <li><a class="btn-modal" data-target="#modal-lab-results" data-remote="true"
-            href="/lab_procedures/new?procedure_type=image">Add Imaging Order</a></li>
-        <li><a class="btn-modal" data-target="#modal-lab-order" data-remote="true"
-            href="/lab_procedures/search_by_procedure_num?procedure_type=image">Add Imaging Results</a></li>
-        <li>
-          <hr>
-        </li>
-        <li><a class="btn-modal" data-target="#modal-add-patient-invite-to-portal" data-remote="true"
-            href="/patients/invite_to_portal?code=ka5SyQ&amp;id=6243ec4a391cba0a3bf13cc8&amp;setup_account=true">Invite
-            to Patient Portal</a></li>
-        <li><a class="btn-modal" data-target="#modal-patient-add-message" data-remote="true"
-            href="/email_messages/new?id=6243ec4a391cba0a3bf13cc8">Send a Message</a></li>
-        <li>
-          <hr>
-        </li>
-        <li class="dropdown-submenu"><a data-toggle="dropdown" href="#">Print / Send To</a>
-          <ul class="dropdown-menu pull-middle bullet" style="margin-top: -88px;">
-            <li><a class="disabled" href="#">
-                <p>Patient Chart</p>
-                <p class="padding">| (includes everything)</p>
-              </a></li>
-            <li><a class="disabled" href="#">Treatments</a></li>
-            <li><a class="disabled" href="#">Encounter Note(s)</a></li>
-            <li><a class="disabled" href="#">Perio Chart</a></li>
-          </ul>
-        </li>
-        <li><a class="btn-modal create-ccda-button" data-target="#modal-ccda" data-remote="true"
-            href="/ccdas/new?patient_id=6243ec4a391cba0a3bf13cc8">Create C-CDA</a></li>
-        <li>
-          <hr>
-        </li>
-        <li><a class="btn-modal delete-patient" data-target="#modal-delete-patient" data-remote="true"
-            href="/patients/destroy_confirm?id=6243ec4a391cba0a3bf13cc8">Delete Patient</a></li>
-      </ul>
-    </div>
-  </div> -->
+  <div class="dropdown" style="display: inline-block;">
+    <button class="btn btn-orange dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown"
+      aria-expanded="false" data-bs-auto-close="outside">
+      Patient Actions
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+      <li><a>Add Procedure</a></li>
+      <li><a>Add Encounter Note</a></li>
+      <li>
+        <hr class="dropdown-divider">
+      </li>
+      <li><a>Add Lab Order</a></li>
+      <li><a>Add Lab Results</a></li>
+      <li><a>Add Imaging Order</a></li>
+      <li><a>Add Imaging Results</a></li>
+      <li>
+        <hr class="dropdown-divider">
+      </li>
+      <li><a>Invite to Patient Portal</a></li>
+      <li><a>Send a Message</a></li>
+      <li>
+        <hr class="dropdown-divider">
+      </li>
+      <li class="dropend">
+        <a class="dropdown-toggle" id="dropdownSubMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+          <span>Print / Send To</span>
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="dropdownSubMenuLink">
+          <li><a class="disabled">
+              <p>Patient Chart</p>
+              <p>| (includes everything)</p>
+            </a></li>
+          <li><a class="disabled">Treatments</a></li>
+          <li><a class="disabled">Encounter Note(s)</a></li>
+          <li><a class="disabled">Perio Chart</a></li>
+        </ul>
+      </li>
+      <li><a class="create-ccda">Create C-CDA</a></li>
+      <li>
+        <hr class="dropdown-divider">
+      </li>
+      <li><a class="delete-patient">Delete Patient</a></li>
+    </ul>
+  </div>
 </div>
 <div class="show-patient" role="tabpanel">
-  <!-- <ul class="nav nav-tabs nav-tabs-main" role="tablist">
-    <li role="presentation" class="active">
-      <a aria-controls="chart" class="tab-control" role="tab" aria-expanded="true">Chart</a>
-    </li>
-    <li role="presentation">
-      <a aria-controls="dentalchart" class="tab-control" role="tab" aria-expanded="false">Dental Chart</a>
-    </li>
-    <li role="presentation">
-      <a aria-controls="profile" class="tab-control" role="tab" aria-expanded="false">Profile</a>
-    </li>
-    <li role="presentation">
-      <a aria-controls="insurance" class="tab-control" role="tab" aria-expanded="false">Insurance</a>
-    </li>
-    <li role="presentation">
-      <a aria-controls="amendments" class="tab-control" role="tab" aria-expanded="false">Amendments</a>
-    </li>
-    <li role="presentation">
-      <a aria-controls="amendments" class="tab-control" role="tab" aria-expanded="false">Patients</a>
-    </li>
-    <li role="presentation">
-      <a aria-controls="cqms" class="tab-control patientCqmsButton" role="tab" aria-expanded="false">CQMs
-        Not Performed</a>
-    </li>
-  </ul> -->
   <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
     <li class="nav-item" role="presentation">
       <button class="nav-link active" id="pills-chart-tab" data-bs-toggle="pill" data-bs-target="#pills-chart"
