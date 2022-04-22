@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NewPatient } from 'src/app/_models/newPatient';
+import { Patient } from 'src/app/_models/newPatient';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 
 @Component({
@@ -12,7 +12,7 @@ export class AddressVerificationComponent implements OnInit {
   displayAddressDialog: boolean;
   addressMessage: string;
   ValidAddressForUse: string;
-  PatientData: NewPatient;
+  PatientData: Patient;
 
   constructor(private utilityService: UtilityService) {
     this.PatientData = {

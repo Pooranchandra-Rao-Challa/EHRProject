@@ -1,1 +1,253 @@
-<p>chart works!</p>
+<div class="chart-wrapper">
+  <div class="controls-container">
+    <div class="row controls">
+      <div class="col-xl-6 col-lg-5 col-md-12 col-12">
+        <div class="row">
+          <div class="pull-left col-xl-2 col-lg-3 col-md-3 col-12">
+            <div class="dropdown">
+              <a class="btn btn-green dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown"
+                aria-expanded="false" data-bs-auto-close="outside">
+                <span>Go to...</span>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                <li>
+                  <ul class="go-to-nav">
+                    <li>
+                      <a>Diagnoses (Dx)</a>
+                    </li>
+                    <li><a>Smoking Status</a></li>
+                    <li><a>Past Medical History</a></li>
+                    <li><a>Advanced Directives</a></li>
+                  </ul>
+                  <ul class="go-to-nav">
+                    <li><a>Allergies</a></li>
+                    <li><a>Medications (Rx)</a></li>
+                    <li><a>Immunizations</a></li>
+                    <li><a>Screenings/Interventions/<br>Assessments</a></li>
+                  </ul>
+                  <ul class="go-to-nav">
+                    <li><a>Encounters</a></li>
+                    <li><a>Messages</a></li>
+                    <li><a>Appointments</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div
+            class="input-group new-search-group chart-patient-new-search-group col-xl-10 col-lg-9 col-md-9 col-12 mt-2 mt-md-0">
+            <div class="new-search-input">
+              <input type="text" name="chart_find_patient" id="chart_find_patient"
+                class="new-search form-control ignore_spinner" placeholder="Search Patients...">
+              <span class="input-group-addon input-group-addon-search chart-find-patient-btn"></span>
+            </div>
+            <!-- <div class="wrapper-for-search" id="wrapper-for-search-chart_find_patient_list" style="display: none;">
+          <div class="slimScrollDiv slimScrollDiv--green-lighter"
+            style="position: relative; overflow: hidden; width: 100%;">
+            <ul class="new-search-results" id="chart_find_patient_list" style="overflow: hidden; width: 100%;"></ul>
+            <div class="slimScrollBar"
+              style="width: 20px; position: absolute; top: 0px; opacity: 1; display: block; z-index: 99; right: 5px; height: 20px;">
+            </div>
+            <div class="slimScrollRail"
+              style="height: 100%; position: absolute; top: 0px; display: block; opacity: 1; z-index: 90; right: 10px;">
+              <div class="slimRailTop" style="height: 19px; z-index: 99;"></div>
+            </div>
+          </div>
+        </div> -->
+          </div>
+        </div>
+      </div>
+      <div class="pull-right col-xl-6 col-lg-7 col-md-12 col-12">
+        <div class="row pull-right">
+          <a class="btn btn-green col-lg-4 col-md-4 col-12 mt-2 mt-lg-0" id="check-alerts">Check CDS Alerts</a>
+          <a class="btn btn-green col-lg-4 col-md-4 col-12 mt-2 mt-lg-0">Refresh Chart</a>
+          <a class="btn btn-orange col-md-4 col-12 mt-2 mt-lg-0" data-remote="true">New
+            encounter note
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="chart-tab-content">
+    <div class="patientChartTab">
+      <div class="content">
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="card">
+              <div class="card-header">
+                <div class="row">
+                  <div class="col-md-8 col-6">
+                    <p class="card-title">Diagnoses (Dx)</p>
+                  </div>
+                  <div class="col-md-4 col-6">
+                    <div class="col-12 plusicon pull-right"><span><i class="fa fa-plus"></i></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <ul class="main-list">
+                  <li>
+                    <span>No active Dx.</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <div class="row">
+                  <div class="col-12">
+                    <p class="card-title">Smoking StatusandTobacco Use</p>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <ul class="main-list">
+                  <li>
+                    <span>- No smoking status recorded</span>
+                  </li>
+                  <li>
+                    <span>- No tobacco screening and use recorded</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <div class="row">
+                  <div class="col-md-8 col-6">
+                    <p class="card-title">Past Medical History</p>
+                  </div>
+                  <div class="col-md-4 col-6">
+                    <div class="col-12">
+                      <div class="edit-icon pull-right">
+                        <span class="cstm-icon-pencil"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <ul class="main-list">
+                  <li>
+                    <span>No past medical history recorded</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <div class="row">
+                  <div class="col-md-8 col-6">
+                    <p class="card-title">Advanced Directives</p>
+                  </div>
+                  <div class="col-md-4 col-6">
+                    <div class="col-12">
+                      <div class="edit-icon pull-right">
+                        <span class="cstm-icon-pencil"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <ul class="main-list">
+                  <li>
+                    <span></span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="card">
+              <div class="card-header">
+                <div class="row">
+                  <div class="col-md-8 col-6">
+                    <p class="card-title">Diagnoses (Dx)</p>
+                  </div>
+                  <div class="col-md-4 col-6">
+                    <div class="col-12 plusicon pull-right"><span><i class="fa fa-plus"></i></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <ul class="main-list">
+                  <li>
+                    <span>No active Dx.</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <div class="row">
+                  <div class="col-12">
+                    <p class="card-title">Smoking StatusandTobacco Use</p>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <ul class="main-list">
+                  <li>
+                    <span>- No smoking status recorded</span>
+                  </li>
+                  <li>
+                    <span>- No tobacco screening and use recorded</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <div class="row">
+                  <div class="col-md-8 col-6">
+                    <p class="card-title">Past Medical History</p>
+                  </div>
+                  <div class="col-md-4 col-6">
+                    <div class="col-12">
+                      <div class="edit-icon pull-right">
+                        <span class="cstm-icon-pencil"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <ul class="main-list">
+                  <li>
+                    <span>No past medical history recorded</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <div class="row">
+                  <div class="col-md-8 col-6">
+                    <p class="card-title">Advanced Directives</p>
+                  </div>
+                  <div class="col-md-4 col-6">
+                    <div class="col-12">
+                      <div class="edit-icon pull-right">
+                        <span class="cstm-icon-pencil"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <ul class="main-list">
+                  <li>
+                    <span></span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

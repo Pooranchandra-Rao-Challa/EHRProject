@@ -171,11 +171,11 @@
                         </div>
 
                         <div class="row border mt-4">
-                            <div class="col-lg-6 col-md-3 col-sm-12 col-12 mt-3">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-text p-0 example-full-width">
+                            <!-- <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
+                                <div class="input-group ">
+                                    <div class="example-full-width">
                                         <input class="form-control" type="text" list="codes"  [formControl]="myControl"
-                                            placeholder="( )">
+                                            placeholder="(    )">
                                         <datalist id="codes">
                                             <option *ngFor="let c of codeList" [value]="c">{{c}}</option>
                                         </datalist>
@@ -184,27 +184,65 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6 col-md-3 col-sm-12 col-12 mt-3">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-text p-0 example-full-width">
+                            <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
+                                <div class="input-group ">
+                                    <div class="p-0 example-full-width">
                                         <input class="form-control" type="text" list="codes"  [formControl]="myControl"
-                                            placeholder="( )">
+                                            placeholder="(    )">
                                         <datalist id="codes">
                                             <option *ngFor="let c of codeList" [value]="c">{{c}}</option>
                                         </datalist>
                                     </div>
                                     <input type="text" class="form-control" placeholder="Mobile Phone Number">
                                 </div>
+                            </div> -->
+
+                            <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
+                                <div class="input-group ">
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <input type="input" placeholder="(    )" aria-label="Number" matInput
+                                            [formControl]="myControl" [matAutocomplete]="auto">
+                                        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                                            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                                                <h1>{{option}}</h1>
+                                            </mat-option>
+                                            <!-- <mat-option *ngIf="!myControl.value">Please enter 1 or more characters</mat-option> -->
+                                            <!-- <mat-option>No Data Found</mat-option> -->
+                                        </mat-autocomplete>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline" class="example-width">
+                                        <input matInput placeholder="Phone NUmber">
+                                    </mat-form-field>
+                                </div>
                             </div>
 
-
-                            <div class="col-lg-6 col-md-3 col-sm-12 col-12 mt-3 mb-4">
-                                <input type="input" class="form-control border-input" id="Date"
-                                    placeholder="Email Address">
+                            <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
+                                <div class="input-group mb-3">
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <input type="input" placeholder="(    )" aria-label="Number" matInput
+                                            [formControl]="myControl" [matAutocomplete]="auto">
+                                        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                                            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                                                <h1>{{option}}</h1>
+                                            </mat-option>
+                                            <!-- <mat-option *ngIf="!myControl.value">Please enter 1 or more characters</mat-option> -->
+                                            <!-- <mat-option>No Data Found</mat-option> -->
+                                        </mat-autocomplete>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline" class="example-width">
+                                        <input matInput placeholder="Phone Number">
+                                    </mat-form-field>
+                                </div>
                             </div>
-                            <div class="col-lg-6 col-md-3 col-sm-12 col-12 mt-3 mb-4">
-                                <input type="input" class="form-control border-input" id="Date"
-                                    placeholder="Alternative EMail Address">
+                            <div>
+                                <div class="col-lg-6 col-md-12 col-sm-12 col-12  mb-4">
+                                    <input type="input" class="form-control border-input" id="Date"
+                                        placeholder="Email Address">
+                                </div>
+                                <div class="col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+                                    <input type="input" class="form-control border-input" id="Date"
+                                        placeholder="Alternative EMail Address">
+                                </div>
                             </div>
                         </div>
 

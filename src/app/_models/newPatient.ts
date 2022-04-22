@@ -1,6 +1,5 @@
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { BitwiseOperator } from 'typescript';
-export interface NewPatient {
+export interface Patient {
   PatientId?: string;
   FirstName?: string;
   LastName?: string;

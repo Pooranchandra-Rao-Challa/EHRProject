@@ -80,3 +80,11 @@ export interface AvailableTimeSlot{
   EndDateTime? :Date;
   Selected? : boolean;
 }
+
+export interface AppointmentDialogInfo{
+  Title?: string;
+  ProviderId?: string;
+  LocationId?: string;
+  ClinicId?: string;
+
+}
