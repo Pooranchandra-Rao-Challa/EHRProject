@@ -13,22 +13,16 @@ export class AdminsComponent implements OnInit {
   isSave: boolean = true;
   codeValue= new FormControl();
   myControl = new FormControl();
-  filteredOptions: Observable<string[]>;
+  filteredOptions:any;
   codeList :string[]  = ['501', '502', '401','402','601','603'];
 
   constructor() { }
 
   ngOnInit(): void {
-   
-    this.filteredOptions = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value)),
-    );
-    // this.filteredOptions = this.codeValue.valueChanges.pipe(startWith(''),map(value => this._filter(value)),);
+    this.filteredOptions = this.myControl.valueChanges.pipe(startWith(''),map(value => this._filter(value)),);
     console.log("Data",JSON.stringify(this.filteredOptions));
-
-  }
-
+  }  
+    
   private _filter(value: string): string[] {
     debugger;
     if(value==""){
@@ -41,9 +35,12 @@ export class AdminsComponent implements OnInit {
     }
     return searchData;
   }
+
  isView() {
+  debugger;
     this.isSave = true;
     this.isAddAdmin = false;
+    
   }
   onAddAdmin() {
     this.isAddAdmin = true;

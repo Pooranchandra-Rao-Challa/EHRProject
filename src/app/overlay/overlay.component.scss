@@ -1,0 +1,54 @@
+:host {
+  display: block;
+  width: 60rem;
+  height: calc(45vh + 180px);
+  background-color: #fff;
+}
+.cdk-overlay-backdrop.modal-background.cdk-overlay-backdrop-showing {
+  background-color: rgba(10, 10, 10, 0.86) !important;
+}
+.modal.is-active {
+  display: flex;
+}
+.is-large.modal-close, .is-large.delete {
+  height: 32px;
+  max-height: 32px;
+  max-width: 32px;
+  min-height: 32px;
+  min-width: 32px;
+  width: 32px;
+}
+.modal-close {
+  background: none;
+  height: 40px;
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  width: 40px;
+}
+.modal-close, .delete {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background-color: rgba(10, 10, 10, 0.2);
+  border: none;
+  border-radius: 290486px;
+  cursor: pointer;
+  pointer-events: auto;
+  display: inline-block;
+  flex-grow: 0;
+  flex-shrink: 0;
+  font-size: 0;
+  height: 20px;
+  max-height: 20px;
+  max-width: 20px;
+  min-height: 20px;
+  min-width: 20px;
+  outline: none;
+  //position: relative;
+  vertical-align: top;
+  width: 20px;
+}
+.cdk-overlay-pane.model.is-active  {
+  transform:none !important;
+  margin-top:0px !important;
+}

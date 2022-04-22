@@ -43,8 +43,6 @@ export class AuthenticationService {
     const endpointUrl = this.baseUrl + "Authenticate/";
     console.log(endpointUrl)
     console.log(creds)
-    debugger;
-
     let observable = this.http.post<ResponseData>(endpointUrl, creds).pipe<ResponseData>(
       tap(resp => {
         if (resp.IsSuccess) {

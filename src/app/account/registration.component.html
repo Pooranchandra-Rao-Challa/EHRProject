@@ -40,7 +40,7 @@
                   <p>Your Name</p>
                   <div class="row">
                     <mat-form-field appearance="outline" class="col-lg-2 col-md-2 col-sm-2">
-                      <mat-select formControlName="Title">
+                      <mat-select formControlName="Title" [disableOptionCentering]="true">
                         <mat-option *ngFor="let title of nameTitle" [value]="title.titleName">{{title.titleName}}
                         </mat-option>
                       </mat-select>
@@ -85,7 +85,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-4">
                   <p>CREDENTIALS</p>
                   <mat-form-field appearance="outline" class="col-12">
-                    <mat-select formControlName="Degree" placeholder="Credentials">
+                    <mat-select id="selCredentials" formControlName="Degree" placeholder="Credentials" [disableOptionCentering]="true" >
                       <mat-option *ngFor="let cred of credentials" [value]="cred.credName">{{cred.credName}}
                       </mat-option>
                     </mat-select>
@@ -94,7 +94,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-4">
                   <p>SPECIALITY</p>
                   <mat-form-field appearance="outline" class="col-12">
-                    <mat-select placeholder="Speciality" formControlName="Speciality">
+                    <mat-select placeholder="Speciality" formControlName="Speciality" [disableOptionCentering]="true">
                       <mat-option *ngFor="let spec of speciality" [value]="spec.specName">{{spec.specName}}</mat-option>
                     </mat-select>
                   </mat-form-field>

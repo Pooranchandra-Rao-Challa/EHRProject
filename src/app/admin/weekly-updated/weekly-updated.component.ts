@@ -1,3 +1,4 @@
+import { Route, ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../../_services/admin.service';
 var $
@@ -31,7 +32,7 @@ export class WeeklyUpdatedComponent implements OnInit {
   public filteredList: any = [];
 
 
- constructor() { }
+ constructor(private router:Router) { }
 
   ngOnInit(): void {
     this.filteredList = this.data;
@@ -72,4 +73,12 @@ export class WeeklyUpdatedComponent implements OnInit {
   selectValue(name) {
     this.selectedValue = name;
   }
+
+  AddSectionNew(name,url){
+    this.router.navigate(
+      [url],
+      { queryParams: { name: name} }
+    );
+  }
+
 }

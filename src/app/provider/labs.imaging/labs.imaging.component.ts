@@ -1,3 +1,5 @@
+import { AuthenticationService } from './../../_services/authentication.service';
+import { User } from './../../_models/user';
 import { LabsImagingService } from './../../_services/labsimaging.service';
 import { Component, OnInit } from '@angular/core';
 declare var $:any;
@@ -9,8 +11,12 @@ declare var $:any;
 export class LabsImagingComponent implements OnInit {
 
   labImagingColumn: string[] = ['Order', 'Test', 'Type', 'Patient', 'Provider','Status', 'LabImagingStatus','Created'];
-  labImagingDataSource:any
-  constructor(private labimage:LabsImagingService) { }
+  labImagingDataSource:any;
+  user:User;
+  constructor(private labimage:LabsImagingService,private authService:AuthenticationService) {
+    this.user = authService.userValue;
+    console.log(this.user);
+  }
 
   ngOnInit(): void {
     this.GetLabDetails();
@@ -19,7 +25,7 @@ export class LabsImagingComponent implements OnInit {
   GetLabDetails()
   {
    var reqparam = {
-     "clinic_Id": "5b686dd7c832dd0c444f288a"
+     "clinic_Id": this.user.CurrentLocation
    }
     debugger;
     this.labimage.LabsDetails(reqparam).subscribe(resp => {
@@ -32,7 +38,7 @@ export class LabsImagingComponent implements OnInit {
   GetImagingDetails()
   {
     var reqparam = {
-      "clinic_Id": "5b686dd7c832dd0c444f288a"
+      "clinic_Id": this.user.CurrentLocation
     }
      debugger;
      this.labimage.ImageDetails(reqparam).subscribe(resp => {

@@ -44,7 +44,6 @@ export class LoginComponent implements OnInit {
   }
 
   OnFormSubmit() {
-    debugger;
     this.showspinner = true;
     this.message = 'Please wait while verifying your Email Id and Password';
 
@@ -58,7 +57,6 @@ export class LoginComponent implements OnInit {
     };
     console.log(creds);
     this.authenticationService.loginWithFormCredentials(creds).subscribe(resp => {
-      debugger;
       if (!resp.IsSuccess) {
         this.showspinner = false;
         this.message = '';

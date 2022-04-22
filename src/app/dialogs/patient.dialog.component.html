@@ -1,0 +1,208 @@
+
+<div class="modal-dialog">
+  <div class="modal-content">
+
+    <div class="modal-header">
+      <h4 class="modal-title">Add a New Patient</h4>
+      <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close"  (click)="cancel()">
+        X
+      </span>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-lg-4 col-md-6 col-12">
+          <div class="form-group">
+            <div class="input-group" >
+              <label class="control-label input-group-addon required">First Name</label>
+              <input class="form-control" mouse-over-hint tickImagePath="../../assets/images/tick-mark.svg"
+              crossImagePath="../../assets/images/cross-mark.svg"  placeholder="First Name"
+              type="text" id="firstName" name="firstName" required
+                pattern="[a-zA-Z ]*" #firstName="ngModel" [(ngModel)]="PatientData.FirstName"
+                [ngModelOptions]="{standalone: true}" />
+            </div>
+            <div *ngIf="firstName.errors && (firstName.touched)">
+              <div class="error_message" *ngIf="firstName.errors?.required">
+                <span class="e_arrow"></span>
+                <i>Please enter First Name</i>
+              </div>
+              <div class="error_message" *ngIf="firstName.errors?.pattern">
+                <span class="e_arrow"></span>
+                <i>First name not valid, Use only Alphabets and space</i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-12">
+          <div class="form-group">
+            <div class="input-group">
+              <label class="control-label input-group-addon">Middle Name</label>
+              <input class="form-control" mouse-over-hint tickImagePath="../../assets/images/tick-mark.svg"
+              crossImagePath="../../assets/images/cross-mark.svg" placeholder="Middle Name" type="text" pattern="[a-zA-Z ]*"
+                #middleName="ngModel" [ngModelOptions]="{standalone: true}" [(ngModel)]="PatientData.MiddleName" />
+            </div>
+          </div>
+          <div *ngIf="middleName.errors && (middleName.touched)">
+            <div class="error_message" *ngIf="middleName.errors?.pattern">
+              <span class="e_arrow"></span>
+              <i>Middle name not valid, Use only Alphabets and space</i>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-12">
+          <div class="form-group">
+            <div class="input-group">
+              <label class="control-label input-group-addon required">Last Name</label>
+              <input class="form-control" mouse-over-hint tickImagePath="../../assets/images/tick-mark.svg"
+              crossImagePath="../../assets/images/cross-mark.svg" placeholder="Last Name" type="text" id="lastName" name="lastName" required
+                pattern="[a-zA-Z ]*" #lastName="ngModel" [ngModelOptions]="{standalone: true}"
+                [(ngModel)]="PatientData.LastName" />
+            </div>
+            <div *ngIf="lastName.errors && (lastName.touched)">
+              <div class="error_message" *ngIf="lastName.errors?.required">
+                <span class="e_arrow"></span>
+                <i>Please enter Last Name</i>
+              </div>
+              <div class="error_message" *ngIf="lastName.errors?.pattern">
+                <span class="e_arrow"></span>
+                <i>Lasst name not valid, Use only Alphabets and space</i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-12 ">
+          <div class="form-group">
+            <div class="input-group">
+              <label class="control-label input-group-addon required">DOB</label>
+              <input ngbDatepicker class="form-control dateofbirth-txt" placeholder="mm-dd-yyyy" name="dateofBirth"
+                [(ngModel)]="PatientData.DateofBirth" mouse-over-hint tickImagePath="../../assets/images/tick-mark.svg"
+                crossImagePath="../../assets/images/cross-mark.svg" ngbDatepickername="dateofBirth" #d="ngbDatepicker"
+                [autoClose]="true" #dateofBirth="ngModel" required [ngModelOptions]="{standalone: true}">
+              <button id="dob" class="btn btn-outline-secondary calendar" autoClose="true" type="button"
+                (click)="d.toggle()"></button>
+            </div>
+            <div *ngIf="dateofBirth.errors && (dateofBirth.touched)">
+              <div class="error_message" *ngIf="dateofBirth.errors?.required">
+                <span class="e_arrow"></span>
+                <i>Please enter Date of Birth</i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-12 gender-radio-button-group">
+          <div class="form-group">
+            <div class="input-group">
+              <label class="control-label input-group-addon required">Gender</label>
+              <mat-radio-group [(ngModel)]="PatientData.Gender" [ngModelOptions]="{standalone: true}">
+                <mat-radio-button value="male"></mat-radio-button>Male
+                <mat-radio-button value="female"></mat-radio-button>Female
+                <mat-radio-button value="other"></mat-radio-button>Other
+                <mat-radio-button value="unknown"></mat-radio-button>Unknow
+              </mat-radio-group>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-12">
+          <div class="form-group">
+            <div class="input-group">
+              <label class="control-label input-group-addon">Cell Phone</label>
+              <input class="form-control" placeholder="Cell Phone" type="tel" mask=" (000) 000-0000"
+                placeHolderCharacter="0" naem="cellPhone" [showMaskTyped]="true" [patterns]="PhonePattern"
+                [(ngModel)]="PatientData.CellPhone" [ngModelOptions]="{standalone: true}" />
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-12">
+          <div class="form-group">
+            <div class="input-group">
+              <label class="control-label input-group-addon">Home Phone</label>
+              <input class="form-control" placeholder="Home Phone" type="tel" mask=" (000) 000-0000"
+                name="homephone" [ngModelOptions]="{standalone: true}" [showMaskTyped]="true"
+                [patterns]="PhonePattern" [(ngModel)]="PatientData.Homephone" placeHolderCharacter="0" />
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-12">
+          <div class="form-group">
+            <div class="input-group">
+              <label class="control-label input-group-addon">Email</label>
+              <input class="form-control" placeholder="Email Address" type="text" #patientEmail="ngModel"
+                [disabled]="patinetHasNoEmail.checked" pattern="^[A-Z0-9+_.-]+@[A-Z0-9.-]+$"
+                [(ngModel)]="PatientData.Email" required
+                mouse-over-hint tickImagePath="../../assets/images/tick-mark.svg"
+                crossImagePath="../../assets/images/cross-mark.svg" />
+            </div>
+            <div *ngIf="patientEmail.errors">
+              <div class="error_message" *ngIf="patientEmail.errors?.pattern == fasle">
+                <span class="e_arrow"></span>
+                <i>Please enter valid Eamil</i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-12 pt-2 pb-3">
+
+          <input type="checkbox" class="patient-email-checkbox col-12 mx-2" #patinetHasNoEmail ngModel id="patinetHasNoEmail"
+            name="patinetHasNoEmail" (click)="ClearEmailWhenPatientHasNoEmail($event)"
+            [(ngModel)]="PatientData.PatinetHasNoEmail"/>
+          <span>Patient does not have an email address</span>
+
+        </div>
+      </div>
+      <div class="row">
+        <fieldset>
+          <legend>Address</legend>
+          <mat-form-field appearance="outline" class="col-6">
+            <input matInput placeholder="Enter full address here (including suite number)"
+              [(ngModel)]="PatientData.Address" />
+          </mat-form-field>
+          <button class="btn verify-btn col-lg-2 col-md-2 col-5" (click)="VerifyPatientAddress()">
+            Verify
+          </button>
+        </fieldset>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <button class="btn" (click)="UpdatePatient()">Save</button>
+      <button class="btn" data-bs-dismiss="modal" aria-label="Close" (click)="cancel()">
+        Cancel
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- // address verification model -->
+
+  <div class="address-pop" role="document" [ngStyle]="{'display':displayAddress}">
+    <div class="modal-content address-pop-content">
+      <div class="modal-header" [ngClass]="displayAddressDialog?'addressInvalid':'addressSuccess'">
+        <h4 *ngIf="!displayAddressDialog">Success</h4>
+        <h4 *ngIf="displayAddressDialog" class="text-white">Invalid Address</h4>
+        <button type="button" *ngIf="!displayAddressDialog" class="btn btn-sm btn-success success-address"
+          (click)="closePopupAddress()">
+          X
+        </button>
+        <button type="button" *ngIf="displayAddressDialog" class="btn btn-sm btn-success error-address"
+          (click)="closePopupAddress()">
+          X
+        </button>
+      </div>
+      <form>
+        <div class="modal-body">
+          <div class="row">
+            <h4 class="text-center" class="address-valid-invalid-message-header">
+              {{addressMessage}}</h4>
+            <div class="col-lg-12 col-md-4 col-sm-4" *ngIf="!displayAddressDialog">
+              <mat-form-field appearance="outline" [style.width.px]=700>
+                <input type="text" [style.width.px]=600 [value]="ValidAddressForUse" placeholder="address" matInput>
+                <md-icon class="link" (click)="UseValidatedAddress()">Use this</md-icon>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
