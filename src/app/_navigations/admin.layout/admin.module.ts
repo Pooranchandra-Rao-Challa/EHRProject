@@ -44,6 +44,9 @@ import { ReportsComponent } from 'src/app/admin/reports/reports.component';
 import { BillingComponent } from 'src/app/admin/billing/billing.component';
 import { SectionNewComponent } from 'src/app/admin/section-new/section-new.component';
 import { CKEditorModule } from 'ckeditor4-angular';
+import { OverlayService } from 'src/app/overlay.service';
+import { AddUserDailougeComponent } from 'src/app/dialogs/adduser.dailouge/adduser.dailouge.component';
+
 @NgModule({
   exports: [
     MatInputModule,
@@ -64,7 +67,8 @@ import { CKEditorModule } from 'ckeditor4-angular';
     EditdefaultmessageComponent,
     BillingComponent,
     ReportsComponent,
-    SectionNewComponent
+    SectionNewComponent,
+    AddUserDailougeComponent
   ],
   imports: [
     AdminRoutingModule,
@@ -90,10 +94,10 @@ import { CKEditorModule } from 'ckeditor4-angular';
     ScheduleModule,
     DropDownListModule,
     DateTimePickerModule,
-    CKEditorModule
+    CKEditorModule,
     // Ng2SearchPipeModule
   ],
-  providers: [DayService, WeekService,AdminService
+  providers: [DayService, WeekService,AdminService,OverlayService
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

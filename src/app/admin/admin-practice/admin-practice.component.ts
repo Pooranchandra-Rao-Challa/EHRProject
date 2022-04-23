@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,TemplateRef } from '@angular/core';
 import { AnyTxtRecord } from 'dns';
 import { providerList } from 'src/app/_models/Admin.ts/providerList';
 import { AdminService } from 'src/app/_services/admin.service';
+import { ComponentType } from '@angular/cdk/portal';
+import { OverlayService } from './../../overlay.service';
+import { AddUserDailougeComponent } from 'src/app/dialogs/adduser.dailouge/adduser.dailouge.component';
 
 @Component({
   selector: 'app-admin-practice',
@@ -25,8 +28,10 @@ export class AdminPracticeComponent implements OnInit {
   ProviderColumnList: providerList[];
   SearchKey = "";
   AlterStatus:any;
+  UserDialogComponent = AddUserDailougeComponent;
+  DialogResponse = null;
 
-  constructor(private adminservice: AdminService) { }
+  constructor(private adminservice: AdminService,private overlayService :OverlayService) { }
 
   ngOnInit(): void {
     this.GetProivderList();
@@ -116,6 +121,20 @@ export class AdminPracticeComponent implements OnInit {
     } else {
       return item == null?'':item.toString().indexOf(this.SearchKey) > -1
     }
+  }
+
+  openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string) {
+    const ref = this.overlayService.open(content, null);
+
+    ref.afterClosed$.subscribe(res => {
+      if (typeof content === 'string') {
+      //} else if (content === this.yesNoComponent) {
+        //this.yesNoComponentResponse = res.data;
+      }
+      else if (content === this.UserDialogComponent) {
+        this.DialogResponse = res.data;
+      }
+    });
   }
 
 }
