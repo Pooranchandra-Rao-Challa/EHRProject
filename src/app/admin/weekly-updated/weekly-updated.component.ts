@@ -81,4 +81,10 @@ export class WeeklyUpdatedComponent implements OnInit {
     );
   }
 
+  EditSectionNew(name,url){
+    this.router.navigate(
+      [url],
+      { queryParams: { name: name,edit:'EditSection'} }
+    );
+  }
 }

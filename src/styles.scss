@@ -191,10 +191,15 @@ mat-paginator {
   border-right: 1px solid #41b6a6;
 }
 .mat-option:last-child {
-  border-right: 1px solid #41b6a6;
-}
-.mat-option:last-child {
+
   border-bottom: 1px solid #41b6a6;
+  border-bottom-left-radius:  4px;
+  border-bottom-right-radius:  4px;
+}
+.mat-option:first-child {
+  border-top: 1px solid #41b6a6;
+  border-top-left-radius:  4px;
+  border-top-right-radius:  4px;
 }
 .mat-option:hover {
   background-color: #e5f8f5;
@@ -218,6 +223,29 @@ mat-paginator {
   color: black !important;
   background-color: #fff;
 }
+
+
+//.mat-select-panel-wrap{
+//  position: relative;
+  //top: 26px;
+//}
+/*
+.mat-select-panel-wrap .mat-select-panel{
+  min-width: calc(100% + 12px) !important;
+  transform: translateX(4px) !important
+}
+
+
+.mat-select-panel{
+  position: absolute;
+  top: 32px;
+  left: 4px;
+  min-width: calc(100% + 22px) !important;
+  border-radius: 0px !important;
+  border: 1px solid blue;
+  border-top-style: none;
+}
+*/
 
 ::ng-deep {
   mat-form-field {
@@ -735,6 +763,39 @@ i {
 
 .page-item.disabled .page-link {
   color: #c4c0c1 !important;
+}
+
+.modal {
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  position: fixed;
+  z-index: 1000;
+  background: #aaa;
+}
+
+.modal {
+  pointer-events: none !important;
+}
+
+.modal-content {
+  pointer-events: all !important;
+}
+
+
+.cdk-overlay-pane  {
+  position:absolute;
+  pointer-events:auto;
+  box-sizing:border-box;
+  z-index:1000;
+  display:flex;
+  max-width:100%;
+  max-height:100%;
+  transform:none !important;
+}
+
+.model{
+  height: fit-content;
 }
 .page-item.disabled{
   cursor: not-allowed;

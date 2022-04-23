@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { ComponentType } from '@angular/cdk/portal';
+import { OverlayService } from '../../overlay.service';
+import { PatientDialogComponent } from '../../dialogs/patient.dialog.component';
 
 @Component({
   selector: 'app-patient',
@@ -10,8 +13,10 @@ export class PatientComponent implements OnInit {
   patientsDataSource: any;
   filteredPatients: any;
   searchName: any;
+  patientDialogComponent = PatientDialogComponent;
+  dialogResponse = null;
 
-  constructor() { }
+  constructor(public overlayService: OverlayService) { }
 
   ngOnInit(): void {
     this.patientsDataSource = [
@@ -31,6 +36,20 @@ export class PatientComponent implements OnInit {
     else {
       this.ngOnInit();
     }
+  }
+
+  openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string) {
+    const ref = this.overlayService.open(content, null);
+
+    ref.afterClosed$.subscribe(res => {
+      if (typeof content === 'string') {
+        //} else if (content === this.yesNoComponent) {
+        //this.yesNoComponentResponse = res.data;
+      }
+      else if (content === this.patientDialogComponent) {
+        this.dialogResponse = res.data;
+      }
+    });
   }
 
   filtered() {
