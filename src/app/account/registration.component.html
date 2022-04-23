@@ -40,8 +40,7 @@
                   <p class="category-title">Your Name</p>
                   <div class="row">
                     <mat-form-field appearance="outline" class="col-lg-2 col-md-2 col-sm-2">
-                      <mat-select formControlName="Title" class=" white-light select2-selection">
-                      <mat-select formControlName="Title" [disableOptionCentering]="true">
+                      <mat-select formControlName="Title" class=" white-light select2-selection" [disableOptionCentering]="true">
                         <mat-option *ngFor="let title of nameTitle" [value]="title.titleName">{{title.titleName}}
                         </mat-option>
                       </mat-select>
