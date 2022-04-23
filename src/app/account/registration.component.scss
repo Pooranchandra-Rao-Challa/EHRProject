@@ -5,7 +5,6 @@ body {
 }
 .authorization-signup-wrapper {
   height: auto;
-  font-family: "Times New Roman";
   color: #4a4a4a;
   // background-color: #ebe9e9;
   background: url(../../assets/images/pro-reg-bg.png);
@@ -37,7 +36,6 @@ body {
   font-size: 18px;
 }
 h3{
-  font-family: 'Times New Roman';
   font-size: 24px;
   text-transform: uppercase;
 
@@ -138,12 +136,13 @@ h3{
   color: #fff;
   border: 1px solid #fff;
 }
-.content span {
-  font-size: 15px;
-  text-transform: uppercase;
-}
+
 .secondary-title span {
   font-size: 24px;
+  font-weight: 400;
+  line-height: 28px;
+  margin-bottom: 0;
+  font-family: 'Times New Roman';
 }
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
   color: #41b6a6 !important;
@@ -155,6 +154,7 @@ h3{
 a {
   color: #41b6a6;
   text-decoration: none !important;
+  font-family: 'Times New Roman';
 }
 a:hover {
   color: #41b6a6;
@@ -245,7 +245,6 @@ a:hover {
   background-color: #41b6a6;
   color: #fff;
   font-size: 42px;
-  font-family: "Times New Roman";
   font-weight: 100;
 }
 .swal2-container.swal2-center>.swal2-popup {
@@ -322,5 +321,30 @@ a:hover {
   border-color: red;
   text-align: center;
 }
+
+form.pt-4 p.category-title{
+  font-size: 15px;
+  font-weight: 400;
+  text-transform: uppercase;
+  margin: 0;
+  
+}
+.white-light .select2-selection {
+  background-color: #fff;
+  border: 1px solid #dedede;
+  border-radius: 3px;
+  outline: 0;
+  transition: border-color .2s, background-color .2s;
+  height: 45px;
+  box-shadow: none;
+}
+
+mat-form-field{
+  line-height: inherit;
+  font-family: 'SF UI Text Regular';
+  
+}
+
+
 
 

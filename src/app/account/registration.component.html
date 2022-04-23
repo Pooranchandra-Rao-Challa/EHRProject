@@ -26,7 +26,7 @@
       <div class="col-lg-10 tab-content border-0 form-wrapper" id="v-pills-tabContent">
         <div class="tab-pane fade show active" id="personalInfo" role="tabpanel" aria-labelledby="personalInfo-tab">
           <!-- personal info -->
-          <div class="content">
+          <div>
             <!-- *ngIf="showpersonalInfoReq" -->
             <div class="row">
               <div class="secondary-title col-lg-12">
@@ -37,10 +37,10 @@
             <form class="pt-4" [formGroup]="PersonalInfo">
               <div class="row">
                 <div class="col-lg-12">
-                  <p>Your Name</p>
+                  <p class="category-title">Your Name</p>
                   <div class="row">
                     <mat-form-field appearance="outline" class="col-lg-2 col-md-2 col-sm-2">
-                      <mat-select formControlName="Title">
+                      <mat-select formControlName="Title" class=" white-light select2-selection">
                         <mat-option *ngFor="let title of nameTitle" [value]="title.titleName">{{title.titleName}}
                         </mat-option>
                       </mat-select>
@@ -70,7 +70,7 @@
               </div>
               <div class="row">
                 <div class="col-lg-12">
-                  <p>PRACTICE NAME</p>
+                  <p  class="category-title">PRACTICE NAME</p>
                   <div class="row">
                     <mat-form-field appearance="outline" class="col-lg-12">
                       <input matInput (mouseover)="checkfield4()" (mouseleave)="unchekedfiled()"
@@ -83,7 +83,7 @@
               </div>
               <div class="row">
                 <div class="col-lg-4 col-md-4 col-sm-4">
-                  <p>CREDENTIALS</p>
+                  <p  class="category-title">CREDENTIALS</p>
                   <mat-form-field appearance="outline" class="col-12">
                     <mat-select formControlName="Degree" placeholder="Credentials">
                       <mat-option *ngFor="let cred of credentials" [value]="cred.credName">{{cred.credName}}
@@ -92,7 +92,7 @@
                   </mat-form-field>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4">
-                  <p>SPECIALITY</p>
+                  <p  class="category-title">SPECIALITY</p>
                   <mat-form-field appearance="outline" class="col-12">
                     <mat-select placeholder="Speciality" formControlName="Speciality">
                       <mat-option *ngFor="let spec of speciality" [value]="spec.specName">{{spec.specName}}</mat-option>
@@ -100,7 +100,7 @@
                   </mat-form-field>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4">
-                  <p>NPI NUMBER</p>
+                  <p  class="category-title">NPI NUMBER</p>
                   <mat-form-field appearance="outline" class="col-12">
                     <input matInput (mouseover)="checkfield5()" (mouseleave)="unchekedfiled()" formControlName="NPI"
                       placeholder="National Provider Identifier(NPI)" formControlName="NPI">

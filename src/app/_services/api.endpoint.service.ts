@@ -244,6 +244,18 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "GetImaging";
   }
 
+  get _AllActivepatientsUrl() {
+    return this._baseUrl + "GetAllActivePatients";
+  }
+
+  get _AllInActivepatientsUrl() {
+    return this._baseUrl + "GetAllInActivePatients";
+  }
+
+  get _patientsByProviderUrl() {
+    return this._baseUrl + "PatientsByProvider";
+  }
+
   constructor(public http: HttpClient) {
     super();
   }
@@ -287,4 +299,5 @@ export class APIEndPoint extends EndpointBase {
     return throwError(error.error.Message);
   }
 
+  
 }

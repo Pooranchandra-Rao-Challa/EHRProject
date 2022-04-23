@@ -107,11 +107,12 @@
 html,
 body {
   height: 100%;
-  font-family: "SF UI Text Regular" !important;
+  //font-family: "SF UI Text Regular" !important;
+  font-family: $type-2;
 }
 body {
   margin: 0;
-  font-family: "SF UI Text Regular" !important;
+  //font-family: "SF UI Text Regular" !important;
   outline: none !important;
 }
 .content-wrapper {
@@ -744,4 +745,6 @@ i {
   width: 100%;
   @extend .flex-wrap;
 }
+
+
 
