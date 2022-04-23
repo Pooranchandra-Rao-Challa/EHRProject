@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,11 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./section-new.component.scss']
 })
 export class SectionNewComponent implements OnInit {
-
-  constructor(private router:Router) { }
+  menuName: any;
+  displayHeading:string=''
+  constructor(private router:Router,private route: ActivatedRoute,) { }
 
   ngOnInit(): void {
+  this.getComponentName()
   }
+
   BackWeeklyUpdate(name,url)
   {
     this.router.navigate(
@@ -20,5 +23,21 @@ export class SectionNewComponent implements OnInit {
     );
   }
 
+ getComponentName() {
+   debugger;
+    this.route.queryParams.subscribe((params) => {
+      console.log(params.edit)
+      if (params.name != null) {
+        if(params.edit == 'EditSection')
+        {
+          this.displayHeading = 'Edit Section'
+        }
+        else{
+          this.displayHeading = 'Add new Section'
+        }
+        this.menuName = params.name;
+      }
+    });
+  }
 
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NewPatient } from 'src/app/_models/newPatient';
+import { Patient } from 'src/app/_models/newPatient';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { UtilityService } from 'src/app/_services/utiltiy.service';
   styleUrls: ['./newpatient.component.scss']
 })
 export class NewPatientComponent implements OnInit {
-  PatientData: NewPatient;
+  PatientData: Patient;
   displayAddress: string;
   ValidAddressForUse: string;
   addressMessage: string;

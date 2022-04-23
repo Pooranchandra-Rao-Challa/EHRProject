@@ -191,6 +191,9 @@ div.ex3 {
   text-align: center;
   padding: 9px 20px;
 }
+.plusicon:hover i.fa-plus {
+  color: white;
+}
 
 .plusicon:hover {
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -199,10 +202,6 @@ div.ex3 {
   background-color: #41b6a6;
   border-color: white;
   border: 1px solid white;
-}
-
-.plusicon:hover i.fa-plus {
-  color: white;
 }
 .mat-header-cell {
   font-size: 18px !important;

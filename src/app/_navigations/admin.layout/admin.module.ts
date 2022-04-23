@@ -47,6 +47,7 @@ import { ListImportedDataComponent } from 'src/app/admin/list-imported-data/list
 import { ImportPatientsComponent } from 'src/app/admin/import-patients/import-patients.component';
 import { ImportEncountersComponent } from 'src/app/admin/import-encounters/import-encounters.component';
 
+import { CKEditorModule } from 'ckeditor4-angular';
 @NgModule({
   exports: [
     MatInputModule,
@@ -96,6 +97,7 @@ import { ImportEncountersComponent } from 'src/app/admin/import-encounters/impor
     ScheduleModule,
     DropDownListModule,
     DateTimePickerModule,
+    CKEditorModule
     // Ng2SearchPipeModule
   ],
   providers: [DayService, WeekService,AdminService

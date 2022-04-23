@@ -5,36 +5,34 @@
       <app-admin-breadcrum></app-admin-breadcrum>
     </div>
 
-    <div class="row mx-1 mt-3">
-      <div class="col-lg-3 col-md-3 col-6">
-        <div class="form-check col-6 col-md-4 mx-2">
-          <input class="form-check-input" type="checkbox" (change)="FilterProvider('ActiveStatus','Active')" [(ngModel)]="Active"
-            id="flexCheckDefault" />
-          <label class="form-check-label text-nowrap mb-3" for="flexCheckDefault2">Active Providers</label>
+
+  <div class="row check-provid mt-4 mx-2"  >
+    <div class="col-md-3">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Active" id="Active"(change)="FilterProvider('ActiveStatus','Active')" [(ngModel)]="Active" />
+            <label class="form-check-label" for="Active">Active Providers</label>
         </div>
-      </div>
-      <div class="col-lg-3 col-md-3 col-6">
-        <div class="form-check col-6 col-md-4 mx-2">
-          <input class="form-check-input" type="checkbox" [(ngModel)]="Suspended" (change)="FilterProvider('ActiveStatus','Suspended')"
-            value="Suspended" id="flexCheckDefault" />
-          <label class="form-check-label text-nowrap mb-3" for="flexCheckDefault2">Inactive Providers</label>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-3 col-6">
-        <div class="form-check col-6 col-md-4 mx-2">
-          <input class="form-check-input" type="checkbox" [(ngModel)]="NotPaidChecked" (change)="FilterProvider('TrailStatus','Not Paid')"
-            value="NotPaid" id="flexCheckDefault" />
-          <label class="form-check-label text-nowrap" for="flexCheckDefault2">Paid Providers</label>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-3 col-6">
-        <div class="form-check col-6 col-md-4 mx-2">
-          <input class="form-check-input" type="checkbox" [(ngModel)]="PaidChecked" (change)="FilterProvider('TrailStatus','Paid')"
-            value="Paid" id="flexCheckDefault" />
-          <label class="form-check-label text-nowrap" for="flexCheckDefault3">Trial Providers</label>
-        </div>
-      </div>
     </div>
+    <div class="col-md-3">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Suspended" id="Suspended"  [(ngModel)]="Suspended" (change)="FilterProvider('ActiveStatus','Suspended')" />
+            <label class="form-check-label" for="Suspended">Inactive Providers</label>
+        </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="Paid" id="Paid"  [(ngModel)]="NotPaidChecked" (change)="FilterProvider('TrailStatus','Not Paid')" />
+          <label class="form-check-label" for="Paid">Paid Providers</label>
+      </div>
+  </div>
+    <div class="col-md-3">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Trial" id="Trial" [(ngModel)]="PaidChecked" (change)="FilterProvider('TrailStatus','Paid')"/>
+            <label class="form-check-label" for="Trial">Trial Providers</label>
+        </div>
+    </div>
+  </div>
+
 
     <div class="col-lg-12 col-xl-12 col-md-12 col-12  mb-3">
       <div class="card card-border">

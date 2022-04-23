@@ -1,0 +1,255 @@
+
+
+:host {
+  display: block;
+  width: 60rem;
+  height: calc(45vh + 180px);
+  background-color: #fff;
+}
+
+
+.modal-dialog {
+  overflow-y: initial !important;
+  max-width: inherit !important;
+  margin: 0 !important;
+}
+.modal-body {
+  max-height: calc(90vh - 180px);
+  overflow-y: auto;
+}
+
+
+.modal-header {
+  min-height: 30px !important;
+  background-color: #41b6a6;
+  color: #fff;
+  border: none;
+  padding: 10px !important;
+}
+.modal-body .form-group {
+  margin-bottom: 25px;
+}
+.modal-title {
+   line-height: 10px !important;
+}
+
+.input-group .input-group-addon {
+  height: 45px;
+  background-color: #d0d2db;
+  padding: 14px 15px;
+}
+.input-group-addon {
+  padding: 0 20px;
+  font-size: 14px;
+  color: #555;
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.input-group .form-control {
+  padding: 0 20px;
+  font-size: 14px;
+  color: #74757e;
+  border: 1px solid #dedede;
+  background-color: #f5f5f5;
+  border-radius: 3px;
+  height: 45px;
+  margin: 0px;
+}
+.input-group .form-control:hover {
+  border: 1px solid #41b6a6;
+}
+.required::after {
+  content: "*";
+  color: red;
+}
+.form-group .input-group .form-control{
+  width: 40px
+}
+
+button#dob.btn-outline-secondary {
+  //border-right-color: #dedede;
+  border-right-color: #dedede;
+  border-top-color: #dedede;
+  border-bottom-color: #dedede;
+  border-left-color: #dedede;
+}
+button#dob.btn-outline-secondary.calendar {
+  background: linear-gradient(
+      0deg,
+      rgba(194, 197, 197, 0.5),
+      rgba(121, 131, 130, 0.5)
+    ),
+    url(../../assets/images/calendar.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-blend-mode: multiply;
+}
+.dateofbirth-txt{
+  width:80px;
+}
+::ng-deep .ngb-dp-day,
+ ::ng-deep .ngb-dp-week-number,
+ ::ng-deep .ngb-dp-weekday {
+  height: 1.5rem !important;
+  width: 1.5rem !important;
+}
+::ng-deep .ngb-dp-day :hover{
+  background-color: #f5f5f5;
+}
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+  height: 20px;
+  width: 20px;
+  background-color: #41b6a6 !important;
+}
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
+  background-color: #fff !important; /*inner circle color change*/
+}
+
+::ng-deep.mat-radio-button.mat-accent.mat-radio-checked
+  .mat-radio-outer-circle {
+  //border-width: 5px;
+  border-color: #41b6a6 !important; /*outer ring color change*/
+}
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
+  border-radius: 50%;
+  box-sizing: border-box;
+  height: 10px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  transition: transform ease 280ms,background-color ease 280ms;
+  width: 10px;
+  transform: scale(0.001);
+}
+
+.gender-radio-button-group{
+  width: 100%;
+}
+::ng-deep .mat-radio-button{
+  margin: 5px !important;
+}
+::ng-deep .mat-radio-button.mat-accent .mat-radio-outer-circle {
+  box-sizing: border-box;
+  height: 15px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  transition: border-color ease 280ms;
+  width: 15px;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 50%;
+}
+.gender-radio-button-group{
+  width: 50%;
+}
+
+::ng-deep .patient-email-checkbox:hover {
+  & .mat-checkbox-background,
+  .mat-checkbox-frame {
+    border-color: #41b6a6;
+  }
+}
+::ng-deep .patient-email-checkbox {
+  & .mat-checkbox-background,
+  .mat-checkbox-frame {
+    border-radius: 20% !important;
+    border-color: #cacaca;
+    background-color: #eeeaea;
+    border-width: 2px;
+    border-style: solid;
+    width: 19px;
+    height: 19px;
+  }
+}
+.mat-checkbox {
+  font-weight: bold;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #41b6a6;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #bbb;
+}
+
+
+.addressSuccess {
+  height: 45;
+  background: #41b6a6;
+}
+.addressInvalid {
+  background: red;
+}
+.address-valid-invalid-message-header {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+.address-pop{
+  z-index: 100000;
+  position: relative;
+  top: -600px;
+  height: 600px;
+  background-color: #949494;
+  background-position: 0;
+}
+.address-pop-content{
+  top:250px;
+}
+.error-address {
+  color: #fff;
+  background-color: transparent !important;
+  border-color: transparent;
+}
+
+.error-address:hover {
+  color: red;
+  background-color: white !important;
+  border-color: white;
+}
+
+.success-address {
+  color: #fff;
+  background-color: #41b6a6 !important;
+  border-color: #41b6a6;
+}
+
+.success-address:hover {
+  color: #41b6a6;
+  background-color: white !important;
+  border-color: white;
+}
+.link{
+  cursor: pointer;
+}
+.patient-email-checkbox{
+  width:20px;
+  height: 20px;
+  margin-left: 0px !important;
+}
+
+.tooltip {
+  display:flexbox;
+  border-bottom: 1px solid black;
+  position: absolute;
+  z-index: 2000000 !important;
+  background-color: red;
+  visibility: visible;
+}
