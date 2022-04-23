@@ -1,0 +1,104 @@
+.btn-primary {
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+    border-radius: 0%;
+    font-size: 15px;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 300;
+}
+.input-lable {
+    font-size: 14px;
+}
+.body-input{
+    width: 280px;
+    margin: 0 ;
+    // padding-top:40px;
+    margin-left: 1%;
+}
+.file {
+    border: 0;
+}
+.btn-default {
+    font-size: 15px;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 300;
+    border-radius: 0%;
+    border-color: #e7e7e7;
+    margin-left: 3%;
+}
+input::-webkit-input-placeholder {
+    color: #5c5b5b !important;
+    font-size: 100%;
+    font-family: sans-serif;
+    padding-left: 5%;
+  }
+.btn-default:hover {
+    background: #e7e7e7;
+
+}
+.col-md-8{
+    margin-left: 1%;
+}
+h1 {
+    font-size: 32px;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 300;
+}
+.drodownlist:hover{
+    font-size: 14px;
+    color: white;
+    background-color: #337ab7 !important;
+  }
+.page-content {
+    margin-top: 1%; 
+}
+p {
+    font-family: Lato;
+}
+.e-control {
+    box-sizing: border-box;
+    border: ridge;
+}
+.e-input-group:not(.e-success):not(.e-warning):not(.e-error):not(.e-float-icon-left)
+{
+    border-color: rgb(251 251 251 / 42%);
+}
+.e-input-group[_ngcontent-nxq-c318]:not(.e-success):not(.e-warning):not(.e-error):not(.e-float-icon-left) {
+    border-color: rgb(255 255 255 / 92%);
+}
+.e-custom.e-input-group:not(.e-float-icon-left):not(.e-float-input)::before, 
+.e-custom.e-input-group:not(.e-float-icon-left):not(.e-float-input)::after { 
+  height: 1px; 
+  background:   rgb(250, 250, 250) ;
+} 
+.e-custom .e-dropdownbase .e-list-item.e-active, 
+.e-custom .e-dropdownbase .e-list-item.e-active.e-hover { 
+  color:  #fff;
+}
+// .e-dropdownbase .e-list-item, .e-dropdownbase .e-list-item.e-item-focus {
+//     background-color: #29c2b8;
+//     color: #207cd9;
+//     font-family: emoji;
+//     min-height: 29px;
+// }
+
+// .e-input-group:not(.e-success):not(.e-warning):not(.e-error):not(.e-float-icon-left)
+// {
+//     border-color: rgb(251 251 251 / 42%);
+// }
+
+// .e-custommultiselect 
+//   .e-input-group.e-control-wrapper:not(.e-float-icon-left):not(.e-float-input)::before, 
+// .e-custommultiselect 
+//   .e-input-group.e-control-wrapper:not(.e-float-icon-left):not(.e-float-input)::after { 
+//   height: 1px; 
+//   background: blue; 
+//   bottom: -1px; 
+// } 
+// .e-custommultiselect .e-checkbox-wrapper .e-frame.e-check, 
+// .e-css.e-checkbox-wrapper .e-frame.e-check { 
+//   background-color: blue; 
+// } 
+
+
