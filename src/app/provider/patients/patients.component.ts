@@ -4,11 +4,11 @@ import { OverlayService } from '../../overlay.service';
 import { PatientDialogComponent } from '../../dialogs/patient.dialog.component';
 
 @Component({
-  selector: 'app-patient',
-  templateUrl: './patient.component.html',
-  styleUrls: ['./patient.component.scss']
+  selector: 'app-patients',
+  templateUrl: './patients.component.html',
+  styleUrls: ['./patients.component.scss']
 })
-export class PatientComponent implements OnInit {
+export class PatientsComponent implements OnInit {
   patientColumns: string[] = ['Image', 'First', 'Middle', 'Last', 'DOB', 'Age', 'ContactInfo', 'LastAccessed', 'Created', 'Select'];
   patientsDataSource: any;
   filteredPatients: any;

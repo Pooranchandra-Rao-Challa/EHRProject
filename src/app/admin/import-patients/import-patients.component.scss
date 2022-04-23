@@ -1,0 +1,70 @@
+.btn-primary {
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+    border-radius: 0%;
+    font-size: 15px;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 300;
+}
+
+.input-lable {
+    font-size: 14px;
+}
+.body-input{
+    width: 280px;
+    margin: 0 ;
+    padding-top:40px;
+    margin-left: 33%;
+}
+.file {
+    border: 0;
+}
+input::-webkit-input-placeholder {
+    color: #5c5b5b !important;
+    font-size: 100%;
+    font-family: sans-serif;
+    padding-left: 5%;
+  }
+.btn-default {
+    font-size: 15px;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 300;
+    border-radius: 0%;
+    border-color: #e7e7e7;
+    margin-left: 3%;
+}
+
+.btn-default:hover {
+    background: #e7e7e7;
+
+}
+.col-md-8{
+    margin-left: 25%;
+}
+h1 {
+    font-size: 32px;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 300;
+}
+
+.page-content {
+    margin-top: 1%; 
+}
+
+p {
+    font-family: Lato;
+}
+
+
+
+
+
+.e-control {
+    box-sizing: border-box;
+    border: ridge;
+}
+.e-input-group:not(.e-success):not(.e-warning):not(.e-error):not(.e-float-icon-left)
+{
+    border-color: rgb(251 251 251 / 42%);
+}
