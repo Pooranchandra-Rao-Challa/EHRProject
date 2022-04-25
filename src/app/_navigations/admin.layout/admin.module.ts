@@ -48,6 +48,9 @@ import { ImportPatientsComponent } from 'src/app/admin/import-patients/import-pa
 import { ImportEncountersComponent } from 'src/app/admin/import-encounters/import-encounters.component';
 
 import { CKEditorModule } from 'ckeditor4-angular';
+import { OverlayService } from 'src/app/overlay.service';
+import { AddUserDailougeComponent } from 'src/app/dialogs/adduser.dailouge/adduser.dailouge.component';
+
 @NgModule({
   exports: [
     MatInputModule,
@@ -69,6 +72,7 @@ import { CKEditorModule } from 'ckeditor4-angular';
     BillingComponent,
     ReportsComponent,
     SectionNewComponent,
+    AddUserDailougeComponent,
     ListImportedDataComponent,
     ImportPatientsComponent,
     ImportEncountersComponent,
@@ -97,10 +101,10 @@ import { CKEditorModule } from 'ckeditor4-angular';
     ScheduleModule,
     DropDownListModule,
     DateTimePickerModule,
-    CKEditorModule
+    CKEditorModule,
     // Ng2SearchPipeModule
   ],
-  providers: [DayService, WeekService,AdminService
+  providers: [DayService, WeekService,AdminService,OverlayService
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
