@@ -97,14 +97,19 @@
               <div class="card-header">
                 <div class="row">
                   <div class="col-12">
-                    <p class="card-title">Smoking StatusandTobacco Use</p>
+                    <p class="card-title">
+                      <span (click)="openComponentDialog(smokingStatusDialogComponent)">Smoking Status</span>
+                      and
+                      <span>Tobacco Use</span>
+                    </p>
                   </div>
                 </div>
               </div>
               <div class="card-body">
                 <ul class="main-list">
                   <li>
-                    <span>- No smoking status recorded</span>
+                    <span>- No smoking status
+                      recorded</span>
                   </li>
                   <li>
                     <span>- No tobacco screening and use recorded</span>
@@ -228,7 +233,8 @@
                     <p class="card-title">Screenings/Interventions/Assessments</p>
                   </div>
                   <div class="col-md-4 col-6">
-                    <div class="col-12 plusicon pull-right"><span><i class="fa fa-plus"></i></span>
+                    <div class="col-12 plusicon pull-right" (click)="openComponentDialog(interventionDialogComponent)">
+                      <span><i class="fa fa-plus"></i></span>
                     </div>
                   </div>
                 </div>

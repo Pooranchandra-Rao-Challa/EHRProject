@@ -4,11 +4,11 @@ import { AuthenticationService } from 'src/app/_services/authentication.service'
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
 
 @Component({
-  selector: 'app-upcoming.appointments',
-  templateUrl: './upcoming.appointments.component.html',
-  styleUrls: ['./upcoming.appointments.component.scss']
+  selector: 'app-upcoming.appointments.dialog',
+  templateUrl: './upcoming.appointments.dialog.component.html',
+  styleUrls: ['./upcoming.appointments.dialog.component.scss']
 })
-export class UpcomingAppointmentsComponent implements OnInit {
+export class UpcomingAppointmentsDialogComponent implements OnInit {
   AppointmentsOfPatient: NewAppointment[];
   messageToShowTimeSlots: string;
   PatientAppointment: NewAppointment;
