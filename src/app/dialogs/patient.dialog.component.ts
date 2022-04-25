@@ -9,7 +9,6 @@ import {
 import { UtilityService } from '../_services/utiltiy.service';
 import { EHROverlayRef } from '../ehr-overlay-ref';
 import { Patient } from '../_models/NewPatient';
-import { HighlightDirective } from './highlight.directive';
 declare const RequiredFormCountrolMouseEnter: any;
 
 
@@ -36,6 +35,7 @@ export class PatientDialogComponent implements OnInit {
         symbol: 'X',
       },
     };
+
   }
   ngOnInit(): void {
   }

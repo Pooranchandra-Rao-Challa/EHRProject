@@ -7,9 +7,6 @@ export class ehrTooltipDirective {
 
   @Input() toolTip: string;
 
-  @Input() tickImmagePath: string;
-
-  @Input() crossImmagePath: string;
 
   elToolTip: any;
 
@@ -34,7 +31,6 @@ export class ehrTooltipDirective {
     this.renderer.removeClass(this.elToolTip, 'tooltip');
     this.renderer.removeChild(document.body, this.elToolTip);
     this.elToolTip = null;
-    (this.elementRef.nativeElement as HTMLInputElement).style.background = '';
   }
 
   showHint() {
@@ -50,15 +46,12 @@ export class ehrTooltipDirective {
     let tooltipPos= this.elToolTip.getBoundingClientRect();
 
     let top = hostPos.top ;
-    let left = hostPos.left+hostPos.width - 20;
-    console.log('top: '+top+'left: '+left);
+    let left = hostPos.left + (this.elementRef.nativeElement as HTMLElement).clientWidth + 4;
 
 
     this.renderer.setStyle(this.elToolTip, 'top', top+'px');
     this.renderer.setStyle(this.elToolTip, 'left', left+'px');
-    this.renderer.setStyle(this.elToolTip, 'width', '20px');
-    this.renderer.setStyle(this.elToolTip, 'height', '20px');
 
-    (this.elementRef.nativeElement as HTMLInputElement).style.background = 'url(../../assets/images/calendar.svg) no-repeat right';
+
   }
 }
