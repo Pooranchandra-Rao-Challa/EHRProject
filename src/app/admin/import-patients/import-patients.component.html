@@ -1,0 +1,44 @@
+<div class="page-content settings-wrapper" id="settings-wrapper">
+    <div class="row">
+        <div class="form-group col-md-8 col-md-offset-3">
+            <h1>Upload excel file to import patients</h1>
+        </div>
+    </div>
+    <div class="body-input" >
+        <label>Import data for provider :</label>
+        <div class="control-section mt-2">
+            <div class="content" >
+                <ejs-dropdownlist class="ejs-dropdownlist" id='country' [dataSource]='data' [fields]='fields'
+                    (filtering)='onFiltering($event)' 
+                    [allowFiltering]='true' placeholder="Select Provider "></ejs-dropdownlist>
+            </div>
+        </div>
+        
+
+        <div class="form-group col-lg-12 mt-3 ">
+            <label class="input-lable" for="admin_import_datum_data_file">Data file</label>
+        </div>
+        <div class="form-group col-lg-12 mt-2">
+            <input accept=".csv" type="file" name="admin_import_datum[data_file]" id="admin_import_datum_data_file">
+        </div>
+
+        <div class="form-group  col-lg-12 mt-3 ">
+            <div class="actions">
+                <button type="submit" 
+                     class="btn btn-primary"
+                    >Import</button>
+                <button type="button" class="btn btn-default left-alignemnt ">Back</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 
+<div class="control-section">
+    <div class='content' style="width: 280px;margin: 0 auto; padding-top:40px">
+        <ejs-dropdownlist class="ejs-dropdownlist" id='country' [dataSource]='data' [fields]='fields'
+            (filtering)='onFiltering($event)' 
+            [allowFiltering]='true' placeholder="Select Provider "></ejs-dropdownlist>
+    </div>
+</div>
+ -->

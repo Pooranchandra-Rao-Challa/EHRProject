@@ -17,6 +17,9 @@ import { EditdefaultmessageComponent } from 'src/app/admin/editdefaultmessage/ed
 import { BillingComponent } from 'src/app/admin/billing/billing.component';
 import { ReportsComponent } from 'src/app/admin/reports/reports.component';
 import { SectionNewComponent } from 'src/app/admin/section-new/section-new.component';
+import { ImportPatientsComponent } from 'src/app/admin/import-patients/import-patients.component';
+import { ImportEncountersComponent } from 'src/app/admin/import-encounters/import-encounters.component';
+import { ListImportedDataComponent } from 'src/app/admin/list-imported-data/list-imported-data.component';
 
 const routes: Routes = [
   {
@@ -38,6 +41,9 @@ const routes: Routes = [
       { path: 'billing', component: BillingComponent },
       { path: 'reports', component: ReportsComponent },
       { path: 'sectionnew', component: SectionNewComponent },
+      { path: 'importpatient', component: ImportPatientsComponent },
+      { path: 'importencounter', component: ImportEncountersComponent },
+      { path: 'importeddata', component: ListImportedDataComponent },
     ]
   }
 ]

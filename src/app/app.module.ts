@@ -19,6 +19,7 @@ import { AuthGuard } from "./_helpers/auth.guard";
 import { LabsImagingService } from './_services/labsimaging.service';
 
 
+
 // HttpClientModule is only needed if you want to log on server or if you want to inspect sourcemaps
 
 @NgModule({
@@ -27,6 +28,7 @@ import { LabsImagingService } from './_services/labsimaging.service';
   ],
   declarations: [
     AppComponent,
+
   ],
   imports: [
     NgbModule,

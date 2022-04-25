@@ -107,11 +107,12 @@
 html,
 body {
   height: 100%;
-  font-family: "SF UI Text Regular" !important;
+  //font-family: "SF UI Text Regular" !important;
+  font-family: $type-2;
 }
 body {
   margin: 0;
-  font-family: "SF UI Text Regular" !important;
+  //font-family: "SF UI Text Regular" !important;
   outline: none !important;
 }
 .content-wrapper {
@@ -770,7 +771,7 @@ i {
   justify-content: center;
   position: fixed;
   z-index: 1000;
-  background: #aaa;
+  // background: #aaa;
 }
 
 .modal {
@@ -805,4 +806,117 @@ i {
   width: 100%;
   @extend .flex-wrap;
 }
-
+// card
+.card{
+  border: 1px solid #41b6a6;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+.card-header{
+  background-color: #41b6a6;
+  border-bottom: 1px solid #41b6a6;
+  min-height: 50px;
+  border-radius: 0px !important;
+}
+.card .card-body {
+  padding: 15px 20px;
+}
+.card-title{
+  // max-width: 133px;
+  padding: 4px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: table-cell;
+  vertical-align: middle;
+  font-size: 15px;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 400;
+}
+.plusicon {
+  border-radius: 3px;
+  border: 1px solid #fff;
+  background: #fff;
+  width: 80px;
+  height: 30px;
+  text-align: center;
+  cursor: pointer;
+}
+.plusicon:hover {
+  background-color: #41b6a6;
+  .fa-plus {
+    color: #fff;
+  }
+}
+.plusicon .fa-plus {
+  padding: 2px;
+  color: #41b6a6;
+  font-size: 24px;
+  font-family: 'FontAwesome';
+}
+.btn.btn-green {
+  color: #41b6a6;
+  border-color: #41b6a6;
+  background: #fff;
+}
+.btn.btn-green:hover {
+  color: #fff;
+  border-color: #41b6a6;
+  background: #41b6a6;
+}
+.btn.btn-orange {
+  color: #fe8f00;
+  background-color: #fff;
+  border-color: #fe8f00;
+}
+.btn.btn-orange:hover{
+  background-color: #fe8f00;
+  color: #fff;
+}
+// modal
+.modal-content{
+  box-shadow: none;
+  border: 1px solid #41b6a6;
+  border-radius: 5px;
+  background-color: #fff;
+}
+.modal-header {
+  min-height: 50px !important;
+  background-color: #41b6a6;
+  color: #fff;
+  border-radius: 3px 3px 0 0;
+  border-bottom: 0;
+  padding: 14px 10px !important;
+}
+.modal-header .modal-title{
+  font-size: 16px;
+  margin: 0;
+  color: #fff;
+}
+.modal-title{
+  line-height: normal;
+}
+.modal-body .modal-title{
+  font-size: 16px;
+  margin: 0;
+}
+.modal-body{
+  padding: 0px 10px !important;
+  padding-top: 14px !important;
+  background-color: #fff;
+}
+.modal-footer{
+  padding: 10px 10px !important;
+  border-top: 0px;
+}
+.modal .cross-mark {
+  border: 1px solid currentColor;
+  width: 23px;
+  height: 23px;
+  text-align: center;
+  border-radius: 3px;
+  padding: 0px !important;
+}
+.modal .cross-mark:hover {
+  opacity: 0.75;
+}

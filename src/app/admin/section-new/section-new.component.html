@@ -4,7 +4,7 @@
       <app-admin-breadcrum></app-admin-breadcrum>
     </div>
     <div class="col-lg-12 col-xl-12 col-md-12 col-12 mt-2 mx-1">
-      <h1>Add new Section</h1>
+      <h1>{{displayHeading}}</h1>
     </div>
     <div class="col-lg-12 col-xl-12 col-md-12 col-12 mt-2">
       <form class="row  form-border my-3">
@@ -41,11 +41,11 @@
         </div>
         <div class="col-md-12 mt-3">
           <label for="Body" class="form-label">Body</label>
-          <input type="Body" class="form-control text-design" id="Body">
+          <ckeditor></ckeditor>
         </div>
         <div class="col-12 mb-3 mt-4">
           <button type="submit" class="btn btn-danger btn-priview">Preview </button>
-          <div class="note mx-4 mt-4">Note: Use below tags to show counts for patients, encounters and returning patients<br>
+          <div class="note mt-4">Note: Use below tags to show counts for patients, encounters and returning patients<br>
             &lt;patients&gt;, &lt;encounters&gt;, &lt;returning_patients&gt;, &lt;old_patients&gt;,
             &lt;old_encounters&gt;, &lt;old_returning_patients&gt;</div>
         </div>

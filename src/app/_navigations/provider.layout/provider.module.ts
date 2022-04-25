@@ -18,7 +18,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { OverlayModule } from '@angular/cdk/overlay';
-import { MouseOverHintDirective} from '../../dialogs/mouseover.hint.directive'
+import { MouseOverHintDirective } from '../../dialogs/mouseover.hint.directive'
 
 import { ProviderNavbarComponent } from '../provider.navbar/provider.navbar.component';
 import { ProviderFooterComponent } from '../provider.navbar/provider.footer.component';
@@ -34,9 +34,8 @@ import { LocationSelectService } from './location.service';
 import { UtilityService } from '../../_services/utiltiy.service';
 import { SmartSchedulerService } from '../../_services/smart.scheduler.service';
 import { SettingsModule } from '../../settings/settings.module';
-import { PatientModule } from '../../provider/patient/patient.module'
+import { PatientsModule } from '../../provider/patients/patients.module'
 import { SettingsComponent } from '../../settings/settings.component';
-// import { PatientComponent } from '../patient.layout/patient.component';
 import { LabsImagingComponent } from '../../provider/labs.imaging/labs.imaging.component';
 import { DirectMsgComponent } from '../../provider/directmsg/directmsg.component';
 import { ErxComponent } from '../../provider/erx/erx.component';
@@ -47,10 +46,9 @@ import { IConfig, NgxMaskModule } from 'ngx-mask'
 import { NgbDateUSParserFormatter } from '../../_helpers/ngb-date-us-parser-formatter';
 import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { BreadcrumComponent } from '../breadcrum/breadcrum.component';
-//import { PatientDetailsComponent } from '../../provider/patients/patients/patient.details/patient.details.component';
-//import { PatientsComponent } from '../../provider/patients/patients/patients.component';
-import { PatientDialogComponent} from '../../dialogs/patient.dialog.component'
-// import { PatientsComponent } from '../../provider/patients/patients/patients.component';
+import { PatientDialogComponent } from '../../dialogs/patient.dialog.component'
+import { AdvancedDirectivesDialogComponent } from '../../dialogs/advanced.directives.dialog/advanced.directives.dialog.component';
+
 
 import { OverlayComponent } from '../../overlay/overlay.component';
 import { OverlayService } from '../../overlay.service'
@@ -75,7 +73,8 @@ import { EncounterComponent } from '../../dialogs/encounter/encounter.component'
 @NgModule({
   exports: [
     MatInputModule,
-    PatientDialogComponent
+    PatientDialogComponent,
+    AdvancedDirectivesDialogComponent
   ],
   declarations: [
     ProviderNavbarComponent,
@@ -105,6 +104,7 @@ import { EncounterComponent } from '../../dialogs/encounter/encounter.component'
     //PatientsComponent,
     //PatientDetailsComponent,
     PatientDialogComponent,
+    AdvancedDirectivesDialogComponent,
     OverlayComponent,
     MouseOverHintDirective,
     UserComponent,
@@ -141,17 +141,17 @@ import { EncounterComponent } from '../../dialogs/encounter/encounter.component'
     DropDownListModule,
     DateTimePickerModule,
     SettingsModule,
-    PatientModule,
+    PatientsModule,
     NgxMaskModule.forRoot(),
 
   ],
   providers: [DayService, WeekService, LocationSelectService,
-    UtilityService, SmartSchedulerService,OverlayService,
+    UtilityService, SmartSchedulerService, OverlayService,
     { provide: NgbDateParserFormatter, useClass: NgbDateUSParserFormatter }
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  entryComponents: [OverlayComponent, PatientDialogComponent]
+  entryComponents: [OverlayComponent, PatientDialogComponent, AdvancedDirectivesDialogComponent]
 })
 export class ProviderModule {
 
