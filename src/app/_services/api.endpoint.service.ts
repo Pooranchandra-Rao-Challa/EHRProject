@@ -255,6 +255,9 @@ export class APIEndPoint extends EndpointBase {
   get _patientsByProviderUrl() {
     return this._baseUrl + "PatientsByProvider";
   }
+  get _AllAdminListUrl() {
+    return this._baseUrl + "GetAllAdmins";
+  }
 
   get _GeneralScheduleUrl() {
     return this._baseUrl + "GetGeneralSchedule";

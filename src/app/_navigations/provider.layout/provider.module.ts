@@ -63,18 +63,22 @@ import { ProblemlistComponent } from "../../reports/problemlist/problemlist.comp
 import { Condition } from "../../reports/cqmreports/viewhelpers/condition.renderer/condition.renderer.component"
 import { ConditionpadderPipe } from "../../reports/cqmreports/viewhelpers/conditionpadder.pipe";
 import { ConditionformaterPipe } from "../../reports/cqmreports/viewhelpers/conditionformater.pipe";
-import { UserComponent } from '../../dialogs/user/user.component';
-import { NewPatientComponent } from '../../dialogs/newpatient/newpatient.component';
-import { NewappointmentComponent } from '../../dialogs/newappointment/newappointment.component';
-import { UpcomingAppointmentsComponent } from '../../dialogs/upcoming.appointments/upcoming.appointments.component';
-import { AddressVerificationComponent } from '../../dialogs/address.verification/address.verification.component';
-import { EncounterComponent } from '../../dialogs/encounter/encounter.component';
+import { UserDialogComponent } from '../../dialogs/user.dialog/user.dialog.component';
+import { NewappointmentDialogComponent } from '../../dialogs/newappointment.dialog/newappointment.dialog.component';
+import { UpcomingAppointmentsDialogComponent } from '../../dialogs/upcoming.appointments.dialog/upcoming.appointments.dialog.component';
+import { AddressVerificationDialogComponent } from '../../dialogs/address.verification.dialog/address.verification.dialog.component';
+import { EncounterDialogComponent } from '../../dialogs/encounter.dialog/encounter.dialog.component';
+import { SmokingStatusDialogComponent } from '../../dialogs/smoking.status.dialog/smoking.status.dialog.component';
+import { InterventionDialogComponent } from '../../dialogs/intervention.dialog/intervention.dialog.component';
+import { patientService } from 'src/app/_services/patient.service';
 
 @NgModule({
   exports: [
     MatInputModule,
     PatientDialogComponent,
-    AdvancedDirectivesDialogComponent
+    AdvancedDirectivesDialogComponent,
+    SmokingStatusDialogComponent,
+    InterventionDialogComponent
   ],
   declarations: [
     ProviderNavbarComponent,
@@ -107,12 +111,13 @@ import { EncounterComponent } from '../../dialogs/encounter/encounter.component'
     AdvancedDirectivesDialogComponent,
     OverlayComponent,
     MouseOverHintDirective,
-    UserComponent,
-    NewPatientComponent,
-    NewappointmentComponent,
-    UpcomingAppointmentsComponent,
-    AddressVerificationComponent,
-    EncounterComponent
+    UserDialogComponent,
+    NewappointmentDialogComponent,
+    UpcomingAppointmentsDialogComponent,
+    AddressVerificationDialogComponent,
+    EncounterDialogComponent,
+    SmokingStatusDialogComponent,
+    InterventionDialogComponent
   ],
   imports: [
 
@@ -146,12 +151,12 @@ import { EncounterComponent } from '../../dialogs/encounter/encounter.component'
 
   ],
   providers: [DayService, WeekService, LocationSelectService,
-    UtilityService, SmartSchedulerService, OverlayService,
+    UtilityService, SmartSchedulerService, OverlayService, patientService,
     { provide: NgbDateParserFormatter, useClass: NgbDateUSParserFormatter }
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  entryComponents: [OverlayComponent, PatientDialogComponent, AdvancedDirectivesDialogComponent]
+  entryComponents: [OverlayComponent, PatientDialogComponent, AdvancedDirectivesDialogComponent, SmokingStatusDialogComponent, InterventionDialogComponent]
 })
 export class ProviderModule {
 

@@ -28,18 +28,18 @@ hr:not([size]) {
   border-bottom-width: 1px;
   box-shadow: inset 0 0 0 0000px var(--bs-table-accent-bg);
 }
-.Cancelbtn{
-  border-radius: 70px;
-  width: 32px;
-  height: 33px;
-  background: #e7505a;;
-  color: #ffffff;
-  font-size: 19px;
-  border: 1px solid red;
-  border-color: #e7505a;
-  border: none;
+// .Cancelbtn{
+//   border-radius: 70px;
+//   width: 32px;
+//   height: 33px;
+//   background: #e7505a;;
+//   color: #ffffff;
+//   font-size: 19px;
+//   border: 1px solid red;
+//   border-color: #e7505a;
+//   border: none;
 
-}
+// }
 table thead tr th{
   border-bottom: #858282;
   border-bottom-color: red;
@@ -72,10 +72,10 @@ thead, tbody, tfoot, tr, td, th {
 .td-button{
   width: 0%;
 }
-.icon-close{
-  color: white;
-  font-size: 16px;
-}
+// .icon-close{
+//   color: white;
+//   font-size: 16px;
+// }
 .common-button-style{
   color: #2f353b;
   background: white;

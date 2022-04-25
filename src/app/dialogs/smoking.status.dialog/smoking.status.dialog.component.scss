@@ -1,0 +1,41 @@
+@import"../../../assets/cstm.material.scss";
+
+*{
+  font-size: 15px;
+  font-family: 'Roboto';
+  font-weight: 400;
+}
+.smoking-status .modal-content{
+  min-width: 570px;
+  max-width: 605px;
+}
+.btn.ehr-btn{
+  width: 165px;
+  height: 45px;
+}
+.btn{
+  height: 45px;
+}
+.body-header.modal-header{
+  min-height: 50px;
+  padding: 16px 18px !important;
+  background-color: #F7F7F7;
+}
+.modal-body{
+  padding: 16px 18px !important;
+}
+.body-header p{
+  padding: 4px 0;
+  text-overflow: ellipsis;
+  display: table-cell;
+  vertical-align: middle;
+  font-size: 15px;
+  color: #4A4A4A;
+}
+::ng-deep .mat-radio-label-content{
+  height: 25px;
+  padding: 2px 0 0 6px;
+  font-size: 15px;
+  color: #74757e;
+  font-weight: 400;
+}

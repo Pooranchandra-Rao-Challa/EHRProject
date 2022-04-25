@@ -13,9 +13,6 @@ import { DayService, WeekService } from '@syncfusion/ej2-angular-schedule';
 import { MyhealthComponent } from 'src/app/patient/myhealth.component';
 import { MyprofileComponent } from 'src/app/patient/myprofile.component';
 
-
-
-
 @NgModule({
   exports: [
     MatInputModule
