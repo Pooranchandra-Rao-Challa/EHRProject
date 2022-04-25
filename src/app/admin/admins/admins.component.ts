@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { admins } from 'src/app/_models/Admin.ts/Admins';
+import { AdminService } from 'src/app/_services/admin.service';
 
 @Component({
   selector: 'app-admins',
@@ -12,16 +14,33 @@ export class AdminsComponent implements OnInit {
   isAddAdmin: boolean = false;
   isSave: boolean = true;
   codeValue= new FormControl();
+  adminDataSource: admins[];
+  dataSource: admins[];
   myControl = new FormControl();
   filteredOptions:any;
   codeList :string[]  = ['501', '502', '401','402','601','603'];
 
-  constructor() { }
+  constructor(private adminservice: AdminService) { }
 
   ngOnInit(): void {
     this.filteredOptions = this.myControl.valueChanges.pipe(startWith(''),map(value => this._filter(value)),);
     console.log("Data",JSON.stringify(this.filteredOptions));
+    this. getAdminList();
   }  
+
+
+  getAdminList() {
+    debugger
+    this.adminservice.GetAllAdminList().subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.adminDataSource = resp.ListResult;
+        this.dataSource = resp.ListResult;
+      } else
+        this.adminDataSource = [];
+        this.adminDataSource
+    });
+  }
+
     
   private _filter(value: string): string[] {
     debugger;
