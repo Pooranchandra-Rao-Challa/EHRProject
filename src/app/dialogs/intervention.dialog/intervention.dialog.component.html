@@ -1,0 +1,98 @@
+<div class="modal-dialog intervention-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <p class="modal-title">Add/Edit Intervention</p>
+      <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close" (click)="cancel()">
+        X
+      </span>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-lg-2">
+          <mat-label>Date*:</mat-label>
+        </div>
+        <mat-form-field appearance="outline" class="green-calendar col-lg-2">
+          <input matInput class="pointer date-mat-class" autocomplete="off" [matDatepicker]="startDate"
+            (click)="startDate.open()" readonly placeholder="Start Date">
+          <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+          <mat-datepicker #startDate></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="green-calendar col-lg-2">
+          <input matInput class="pointer date-mat-class" autocomplete="off" [matDatepicker]="endDate"
+            (click)="endDate.open()" readonly placeholder="End Date">
+          <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+          <mat-datepicker #endDate></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <div class="col-lg-2">
+          <mat-label>Intervention Type*:</mat-label>
+        </div>
+        <mat-form-field appearance="outline" class="col-lg-4 hover cstm-mat-padding">
+          <mat-select placeholder="Select One" disableOptionCentering id="ePracticeProviders"
+            placeholder="Select Provider">
+            <mat-option>BMI
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div class="col-lg-6">
+          <mat-form-field appearance="outline" class="input-search col-xl-11 col-lg-10 col-md-11 col-10">
+            <input matInput autocomplete="off" placeholder="Search by name or phone number" />
+          </mat-form-field>
+          <button class="btn-search col-xl-1 col-lg-2 col-md-1 col-2">
+            <mat-icon>search</mat-icon>
+          </button>
+        </div>
+      </div>
+      <div>
+        <mat-table>
+          <ng-container matColumnDef="Empty">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell></mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="InterventionType">
+            <mat-header-cell *matHeaderCellDef>Intervention Type</mat-header-cell>
+            <mat-cell *matCellDef></mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="Code">
+            <mat-header-cell *matHeaderCellDef>Code</mat-header-cell>
+            <mat-cell *matCellDef></mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="Description">
+            <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
+            <mat-cell *matCellDef></mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="ReasonNotPerformed">
+            <mat-header-cell *matHeaderCellDef>Add Reason Not Performed</mat-header-cell>
+            <mat-cell *matCellDef></mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="Reason">
+            <mat-header-cell *matHeaderCellDef>Reason</mat-header-cell>
+            <mat-cell *matCellDef></mat-cell>
+          </ng-container>
+
+
+          <mat-header-row *matHeaderRowDef="interventionColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: interventionColumns;"></mat-row>
+        </mat-table>
+      </div>
+      <div class="row pt-3">
+        <div class="col-lg-2">
+          <mat-label>Notes:</mat-label>
+        </div>
+        <div class="col-lg-10">
+          <textarea class="form-control col-12"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-green">Save</button>
+      <button class="btn btn-green" (click)="cancel()">Cancel</button>
+    </div>
+  </div>
+</div>

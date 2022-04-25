@@ -27,10 +27,11 @@
     src="../../../assets/images/avatar-empty-0b15d6123f5339b0505eef6ad8a8fe0d22d1406692b5c16b3839c561e9c92e60.svg"
     alt="Avatar empty">
   <ul class="patient-main-info">
-    <li>Karthik test</li>
+    <li>{{patient.FirstName}} {{patient.LastName}}</li>
+    <li>{{patient.Age}} yrs {{patient.Gender}}</li>
     <li>
       <b>DOB:</b>
-      <time datetime="2022-03-24T04:00:00Z" data-local="time" data-format="%m/%d/%Y">03/24/2022</time>
+      <time>{{patient.Dob | date: 'MM/dd/yyyy'}}</time>
     </li>
     <li>
       <b>C:</b>4565654675
@@ -44,8 +45,8 @@
     </li>
   </ul>
   <div class="dropdown" style="display: inline-block;">
-    <button class="btn btn-orange dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown"
-      aria-expanded="false" data-bs-auto-close="outside">
+    <button class="btn btn-orange font-family dropdown-toggle" type="button" id="dropdownMenuButton2"
+      data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
       Patient Actions
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">

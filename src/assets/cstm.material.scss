@@ -96,3 +96,84 @@
     stroke: #41b6a6 !important;
   }
 }
+// Grey Calendar
+::ng-deep .grey-calendar.mat-form-field-appearance-outline .mat-form-field-outline {
+  background-color: #f5f5f5 !important;
+  color: #dedede !important;
+  height: 45px;
+}
+
+// ::ng-deep
+// .grey-calendar.mat-form-field-appearance-outline:hover
+//   .mat-form-field-outline,
+// .mat-form-field-appearance-outline:active .mat-form-field-outline {
+//   border: #41b6a6 !important;
+// }
+
+::ng-deep .grey-calendar
+  mat-datepicker-toggle.mat-datepicker-toggle
+  button.mat-icon-button
+  span.mat-button-wrapper
+  svg.mat-datepicker-toggle-default-icon
+  > path {
+  fill: #fff;
+  stroke: rgb(224, 220, 220);
+  stroke-linejoin: round;
+  transition: d 0.2s;
+}
+::ng-deep .grey-calendar
+  mat-datepicker-toggle.mat-datepicker-toggle
+  button.mat-focus-indicator.mat-icon-button {
+  background-color: #d0d2db;
+  color: #fff;
+  border-radius: 0%;
+  margin-top: 0px;
+  margin-bottom: -14px;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  margin-right: -11px;
+  border: 1px solid #d0d2db;
+  height: 3em;
+  width: 3.5em;
+}
+// .mat-form-field:not(.mat-form-field-appearance-legacy)
+//   .mat-form-field-suffix
+//   .mat-icon-button {
+//   display: block;
+//   font-size: inherit;
+//   width: 1em;
+//   height: 1em;
+// }
+
+// Green Calendar
+::ng-deep .green-calendar.mat-form-field-appearance-outline .mat-form-field-outline {
+  background-color: #f5f5f5 !important;
+  color: #dedede !important;
+  height: 45px;
+}
+::ng-deep .green-calendar
+  mat-datepicker-toggle.mat-datepicker-toggle
+  button.mat-icon-button
+  span.mat-button-wrapper
+  svg.mat-datepicker-toggle-default-icon
+  > path {
+  fill: #fff;
+  stroke: rgb(224, 220, 220);
+  stroke-linejoin: round;
+  transition: d 0.2s;
+}
+::ng-deep .green-calendar
+  mat-datepicker-toggle.mat-datepicker-toggle
+  button.mat-focus-indicator.mat-icon-button {
+  background-color: #41b6a6;
+  color: #fff;
+  border-radius: 0%;
+  margin-top: 0px;
+  margin-bottom: -14px;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  margin-right: -11px;
+  border: 1px solid #41b6a6;
+  height: 3em;
+  width: 3.5em;
+}

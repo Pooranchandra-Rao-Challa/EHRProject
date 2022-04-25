@@ -6,11 +6,11 @@ import { NewUser } from '../../_models/settings';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 
 @Component({
-  selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss']
+  selector: 'app-user.dialog',
+  templateUrl: './user.dialog.component.html',
+  styleUrls: ['./user.dialog.component.scss']
 })
-export class UserComponent implements OnInit {
+export class UserDialogComponent implements OnInit {
   NewUserData: NewUser;
   user: User;
   providerLocationColumn: string[] = ['LocationName', 'CityState', 'PracticeSchedule', 'ServicedLocation'];

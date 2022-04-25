@@ -7,11 +7,11 @@ declare const CloseAppointment: any;
 declare const OpenSaveSuccessAppointment: any;
 
 @Component({
-  selector: 'app-newappointment',
-  templateUrl: './newappointment.component.html',
-  styleUrls: ['./newappointment.component.scss']
+  selector: 'app-newappointment.dialog',
+  templateUrl: './newappointment.dialog.component.html',
+  styleUrls: ['./newappointment.dialog.component.scss']
 })
-export class NewappointmentComponent implements OnInit {
+export class NewappointmentDialogComponent implements OnInit {
   PatientAppointment: NewAppointment;
   SaveInputDisable: boolean;
   SelectedProviderId: string;

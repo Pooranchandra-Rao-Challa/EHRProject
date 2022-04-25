@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA,NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -25,7 +25,7 @@ import { AdminSidebarComponent } from "../admin.sidebar/admin.sidebar.component"
 import { AdminComponent } from './admin.component';
 import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { DateTimePickerModule } from "@syncfusion/ej2-angular-calendars";
-import { ScheduleModule,DayService, WeekService} from '@syncfusion/ej2-angular-schedule';
+import { ScheduleModule, DayService, WeekService } from '@syncfusion/ej2-angular-schedule';
 
 import { DashboardComponent } from 'src/app/admin/dashboard/dashboard.component';
 import { AdminPracticeComponent } from 'src/app/admin/admin-practice/admin-practice.component';
@@ -105,7 +105,7 @@ import { AddUserDialogComponent } from 'src/app/dialogs/adduser.dialog/adduser.d
     CKEditorModule,
     // Ng2SearchPipeModule
   ],
-  providers: [DayService, WeekService,AdminService,OverlayService
+  providers: [DayService, WeekService, AdminService, OverlayService
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

@@ -3,11 +3,11 @@ import { Patient } from 'src/app/_models/newPatient';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 
 @Component({
-  selector: 'app-address.verification',
-  templateUrl: './address.verification.component.html',
-  styleUrls: ['./address.verification.component.scss']
+  selector: 'app-address.verification.dialog',
+  templateUrl: './address.verification.dialog.component.html',
+  styleUrls: ['./address.verification.dialog.component.scss']
 })
-export class AddressVerificationComponent implements OnInit {
+export class AddressVerificationDialogComponent implements OnInit {
   displayAddress: string;
   displayAddressDialog: boolean;
   addressMessage: string;
