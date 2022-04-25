@@ -256,6 +256,13 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "PatientsByProvider";
   }
 
+  get _GeneralScheduleUrl() {
+    return this._baseUrl + "GetGeneralSchedule";
+  }
+
+  get _UpdateRescheduleUrl() {
+    return this._baseUrl + "UpdateSchdulegeneral";
+  }
   constructor(public http: HttpClient) {
     super();
   }
