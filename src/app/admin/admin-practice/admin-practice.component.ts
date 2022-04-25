@@ -4,7 +4,7 @@ import { providerList } from 'src/app/_models/Admin.ts/providerList';
 import { AdminService } from 'src/app/_services/admin.service';
 import { ComponentType } from '@angular/cdk/portal';
 import { OverlayService } from './../../overlay.service';
-import { AddUserDailougeComponent } from 'src/app/dialogs/adduser.dailouge/adduser.dailouge.component';
+import { AddUserDialogComponent } from 'src/app/dialogs/adduser.dialog/adduser.dialog.component';
 
 @Component({
   selector: 'app-admin-practice',
@@ -28,7 +28,7 @@ export class AdminPracticeComponent implements OnInit {
   ProviderColumnList: providerList[];
   SearchKey = "";
   AlterStatus:any;
-  UserDialogComponent = AddUserDailougeComponent;
+  UserDialogComponent = AddUserDialogComponent;
   DialogResponse = null;
 
   constructor(private adminservice: AdminService,private overlayService :OverlayService) { }

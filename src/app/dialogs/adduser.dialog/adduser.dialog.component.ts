@@ -1,19 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
+import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
 
 @Component({
-  selector: 'app-adduser.dailouge',
-  templateUrl: './adduser.dailouge.component.html',
-  styleUrls: ['./adduser.dailouge.component.scss']
+  selector: 'app-adduser.dialog',
+  templateUrl: './adduser.dialog.component.html',
+  styleUrls: ['./adduser.dialog.component.scss']
 })
-export class AddUserDailougeComponent implements OnInit {
+export class AddUserDialogComponent implements OnInit {
 
   myControl = new FormControl();
   filteredOptions:any;
   codeList :string[]  = ['501', '502', '401','402','601','603'];
   DisplayPwdInput:boolean=true;
-  constructor() { }
+  constructor(private ref: EHROverlayRef,) { }
 
   ngOnInit(): void {
     this.filteredOptions = this.myControl.valueChanges.pipe(startWith(''),map(value => this.Filter(value)),);
@@ -36,5 +37,7 @@ export class AddUserDailougeComponent implements OnInit {
   {
     this.DisplayPwdInput=false;
   }
-
+  cancel() {
+    this.ref.close(null);
+  }
 }

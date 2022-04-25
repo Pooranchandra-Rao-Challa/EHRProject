@@ -2,7 +2,8 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { OverlayService } from 'src/app/overlay.service';
 import { AdminService } from 'src/app/_services/admin.service';
 import { ComponentType } from '@angular/cdk/portal';
-import { AddUserDailougeComponent } from 'src/app/dialogs/adduser.dailouge/adduser.dailouge.component';
+import { AddUserDialogComponent } from 'src/app/dialogs/adduser.dialog/adduser.dialog.component';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -14,7 +15,7 @@ export class DashboardComponent implements OnInit {
   page: number = 1;
   ProviderList:any;
   TotalItems:number;
-  UserDialogComponent = AddUserDailougeComponent;
+  UserDialogComponent = AddUserDialogComponent;
   DialogResponse = null;
 
   constructor(private adminservice:AdminService,private overlayService :OverlayService) { }

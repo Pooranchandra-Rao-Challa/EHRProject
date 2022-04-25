@@ -49,7 +49,8 @@ import { ImportEncountersComponent } from 'src/app/admin/import-encounters/impor
 
 import { CKEditorModule } from 'ckeditor4-angular';
 import { OverlayService } from 'src/app/overlay.service';
-import { AddUserDailougeComponent } from 'src/app/dialogs/adduser.dailouge/adduser.dailouge.component';
+import { AddUserDialogComponent } from 'src/app/dialogs/adduser.dialog/adduser.dialog.component';
+
 
 @NgModule({
   exports: [
@@ -72,7 +73,7 @@ import { AddUserDailougeComponent } from 'src/app/dialogs/adduser.dailouge/addus
     BillingComponent,
     ReportsComponent,
     SectionNewComponent,
-    AddUserDailougeComponent,
+    AddUserDialogComponent,
     ListImportedDataComponent,
     ImportPatientsComponent,
     ImportEncountersComponent,
