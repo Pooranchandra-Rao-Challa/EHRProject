@@ -13,6 +13,7 @@
       <img width="146" height="248" class="img-fluid" src="../../assets/images/one.svg">
     </div>
   </div>
+  <div class="content-top">
   <div class="container cstm-container pt-3">
     <h2 class="signup">PLEASE SIGN IN TO VIEW YOUR ACCOUNT</h2>
     <h4 class="sign">
@@ -21,7 +22,8 @@
       <a style="color: #287066" href="/account/registration">Sign up here</a>
     </h4>
   </div>
-  <hr />
+</div>
+  <div class="content">
   <div>
     <div class="container cstm-container pt-2 pb-4" id="flexbox">
       <!-- Top header -->
@@ -41,24 +43,24 @@
                     <input matInput placeholder="Password" type="password" name="Password" formControlName="Password" />
                   </mat-form-field>
                 </div>
-                <div class="pull-right address ">
-                  <div data-bs-toggle="modal" data-bs-target="#staticBackdrop">Forgot your password?</div>
-                  <div data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
+                <div class="pull-right address " style="text-align: right">
+                  <div data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="text-align: right">Forgot your password?</div>
+                  <div data-bs-toggle="modal" data-bs-target="#staticBackdrop1" style="text-align: right">
                     Resend Email Verification
                   </div>
                 </div>
               </form>
             </mat-card-content>
           </div>
-          <div class="check">
+          <div class="check" style="text-align: left;">
             <mat-checkbox class="example-margin"><span>Remember me</span></mat-checkbox>
           </div>
-          <div>
+          <div style="text-align: left;">
             <button mat-raised-button (click)="OnFormSubmit()">Sign in</button>
           </div>
         </div>
 
-        <div class="col-lg-6 col-md-6 col-sm-12 px-5">
+        <div class="col-lg-6 col-md-6 col-sm-12 px-5" style="width:45%">
           <div class="row">
             <div class="col-lg-6 col-md-12 vediologo col-sm-12 ">
               <img src="../assets/videologo.png" />
@@ -82,7 +84,7 @@
               </video>
             </div>
           </div>
-          <div>
+          <div class="video-content">
             <ul>
               <li><i></i>Cut prescription errors down from<strong> 42.5% to 6%</strong></li>
               <li>
@@ -96,8 +98,8 @@
           </div>
         </div>
         <div class="col-lg-2 col-md-12 col-sm-12 mt-3 login_address">
-          <div>
-            <div>
+          <div style="text-align: left;">
+            <div >
               <strong>Contact Us Anytime:</strong>
             </div>
             <div class="address">
@@ -108,7 +110,7 @@
 
           </div>
           <div>
-            <div class="mt-3">
+            <div class="mt-3" style="text-align: left">
               <strong>Hours of Operation:</strong>
             </div>
             <div class="address">
@@ -119,6 +121,7 @@
       </div>
     </div>
   </div>
+</div>
 </div>
 
 

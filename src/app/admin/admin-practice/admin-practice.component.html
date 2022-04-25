@@ -6,7 +6,7 @@
     </div>
 
 
-  <div class="row check-provid mt-4 mx-2"  >
+  <div class="row check-provid mt-4 mx-2">
     <div class="col-md-3">
         <div class="form-check">
             <input class="form-check-input" type="checkbox" value="Active" id="Active"(change)="FilterProvider('ActiveStatus','Active')" [(ngModel)]="Active" />
@@ -48,7 +48,8 @@
                   <button type="submit" (click)="SearchDetails()"><i class="fa fa-search i-search"></i></button>
                 </div>
                 <div class="col-xl-1 col-lg-1 col-md-12 col-12  mb-3 col-btn ">
-                  <button type="button" class="button-style text-nowrap btn pull-right ml-3">Add New User</button>
+                  <button type="button" class="button-style text-nowrap btn pull-right ml-3"
+                  (click)="openComponentDialog(UserDialogComponent)" >Add New User</button>
                 </div>
               </div>
             </div>

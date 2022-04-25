@@ -150,6 +150,7 @@ export class SmartScheduleComponent implements OnInit {
   }
 
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string) {
+
     const ref = this.overlayService.open(content, null);
 
     ref.afterClosed$.subscribe(res => {
