@@ -239,17 +239,17 @@ export class APIEndPoint extends EndpointBase {
   get _labDetailsUrl() {
     return this._baseUrl + "GetLabs";
   }
-  
+
   get _imagingDetailsUrl() {
     return this._baseUrl + "GetImaging";
   }
 
-  get _AllActivepatientsUrl() {
-    return this._baseUrl + "GetAllActivePatients";
+  get _activepatientsUrl() {
+    return this._baseUrl + "ActivePatients";
   }
 
-  get _AllInActivepatientsUrl() {
-    return this._baseUrl + "GetAllInActivePatients";
+  get _inActivepatientsUrl() {
+    return this._baseUrl + "InActivePatients";
   }
 
   get _patientsByProviderUrl() {
@@ -299,5 +299,5 @@ export class APIEndPoint extends EndpointBase {
     return throwError(error.error.Message);
   }
 
-  
+
 }
