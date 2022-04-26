@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { EHROverlayRef } from '../../ehr-overlay-ref';
 
 @Component({
-  selector: 'app-advanced.directives.dialog',
-  templateUrl: './advanced.directives.dialog.component.html',
-  styleUrls: ['./advanced.directives.dialog.component.scss']
+  selector: 'app-smoking.status.dialog',
+  templateUrl: './smoking.status.dialog.component.html',
+  styleUrls: ['./smoking.status.dialog.component.scss']
 })
-export class AdvancedDirectivesDialogComponent implements OnInit {
+export class SmokingStatusDialogComponent implements OnInit {
 
   constructor(private ref: EHROverlayRef) { }
 

@@ -5,11 +5,11 @@ import { AuthenticationService } from 'src/app/_services/authentication.service'
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
 
 @Component({
-  selector: 'app-encounter',
-  templateUrl: './encounter.component.html',
-  styleUrls: ['./encounter.component.scss']
+  selector: 'app-encounter.dialog',
+  templateUrl: './encounter.dialog.component.html',
+  styleUrls: ['./encounter.dialog.component.scss']
 })
-export class EncounterComponent implements OnInit {
+export class EncounterDialogComponent implements OnInit {
   PracticeProviders: PracticeProviders[];
   SelectedProviderId: string;
   AppointmentTypes: AppointmentTypes[];

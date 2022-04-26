@@ -66,23 +66,23 @@
             </mat-cell>
           </ng-container>
           <ng-container matColumnDef="First">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="First">FIRST</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="FirstName">FIRST</mat-header-cell>
             <mat-cell *matCellDef="let patient">
-              <a routerLink="/provider/patientdetails">{{patient.First}}</a>
+              <a (click)="onChangeViewState(patient)">{{patient.FirstName}}</a>
             </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="Middle">
             <mat-header-cell *matHeaderCellDef> MIDDLE</mat-header-cell>
             <mat-cell *matCellDef="let patient">
-              <a routerLink="/provider/patientdetails">{{patient.Middle}}</a>
+              <a routerLink="/provider/patientdetails">{{patient.MiddleName}}</a>
             </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="Last">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="Last">LAST</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="LastName">LAST</mat-header-cell>
             <mat-cell *matCellDef="let patient">
-              <a routerLink="/provider/patientdetails">{{patient.Last}}</a>
+              <a routerLink="/provider/patientdetails">{{patient.LastName}}</a>
             </mat-cell>
           </ng-container>
 
@@ -90,7 +90,7 @@
             <mat-header-cell *matHeaderCellDef>DOB</mat-header-cell>
             <mat-cell *matCellDef="let patient">
               <span>
-                {{patient.DOB}}
+                {{patient.Dob}}
                 <br>
                 {{patient.Gender}}
               </span>
@@ -107,9 +107,9 @@
             <mat-header-cell *matHeaderCellDef>CONTACT INFO</mat-header-cell>
             <mat-cell *matCellDef="let patient">
               <span>
-                {{patient.ContactInfo}}
+                {{patient.MobilePhone}}
                 <br>
-                {{patient.Mail}}
+                {{patient.Email}}
               </span>
             </mat-cell>
           </ng-container>
@@ -128,7 +128,7 @@
             <mat-header-cell class="justify-content-center" *matHeaderCellDef>SELECT
             </mat-header-cell>
             <mat-cell class="justify-content-center" *matCellDef="let patient">
-              <mat-checkbox class="patient-check-box" [checked]="patient.Select">
+              <mat-checkbox class="patient-check-box" [checked]="patient.active">
               </mat-checkbox>
             </mat-cell>
           </ng-container>
@@ -136,9 +136,9 @@
           <mat-header-row *matHeaderRowDef="patientColumns"></mat-header-row>
           <mat-row *matRowDef="let row; columns: patientColumns;"></mat-row>
         </mat-table>
-        <div class="norecords-found" *ngIf="patientsDataSource.length==0">
+        <!-- <div class="norecords-found" *ngIf="patientsDataSource.data.length">
           No Patients Found
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

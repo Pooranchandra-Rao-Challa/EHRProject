@@ -16,4 +16,7 @@ export class AdminService extends APIEndPoint {
   GetAllInActivePatientsList() {
     return this._ProcessGetRequest<any>(this._AllInActivepatientsUrl);
   }
+  GetAllAdminList() {
+    return this._ProcessGetRequest<any>(this._AllAdminListUrl);
+  }
 }

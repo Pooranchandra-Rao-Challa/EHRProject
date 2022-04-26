@@ -26,81 +26,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td class="full-name">Mr. Trevor Ogata</td>
-                                        <td class="user-email">trevoro@ihealthone.com</td>
-                                        <td class="column"><button class="btn-lock" data-bs-toggle="modal"
-                                                data-bs-target="#staticBackdrop1" (click)="isView()">View</button></td>
-                                        <td><button type="button" class="Cancelbtn"><i
-                                                    class="fa fa-close icon-close"></i></button></td>
-                                        <td><button class="btn-lock">Disable Duo</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="full-name">Mr. Ross Seymour</td>
-                                        <td class="user-email">ross@ihealthone.com</td>
-                                        <td class="column"><button class="btn-lock" data-bs-toggle="modal"
-                                                data-bs-target="#staticBackdrop1" (click)="isView()">View</button></td>
-                                        <td><button type="button" class="Cancelbtn"><i
-                                                    class="fa fa-close icon-close"></i></button></td>
-                                        <td><button class="btn-lock">Disable Duo</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="full-name">Ms. Kaitlan G</td>
-                                        <td class="user-email">kaitlang@ehr1.com</td>
-                                        <td class="column"><button class="btn-lock" data-bs-toggle="modal"
-                                                data-bs-target="#staticBackdrop1" (click)="isView()">View</button></td>
-                                        <td><button type="button" class="Cancelbtn"><i
-                                                    class="fa fa-close icon-close"></i></button></td>
-                                        <td><button class="btn-lock">Disable Duo</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="full-name">Mr. Ross Seymour</td>
-                                        <td class="user-email">majyktryx@gmail.com</td>
-                                        <td class="column"><button class="btn-lock" data-bs-toggle="modal"
-                                                data-bs-target="#staticBackdrop1" (click)="isView()">View</button></td>
-                                        <td><button type="button" class="Cancelbtn"><i
-                                                    class="fa fa-close icon-close"></i></button></td>
-                                        <td><button class="btn-lock">Disable Duo</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="full-name">Mr. Amy Richison</td>
-                                        <td class="user-email">amyr@ehr1.com</td>
-                                        <td class="column"><button class="btn-lock" data-bs-toggle="modal"
-                                                data-bs-target="#staticBackdrop1" (click)="isView()">View</button></td>
-                                        <td><button type="button" class="Cancelbtn"><i
-                                                    class="fa fa-close icon-close"></i></button></td>
-                                        <td><button class="btn-lock">Disable Duo</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="full-name">Mr. hr hr</td>
-                                        <td class="user-email">gapaquaubraura-9551@yopmail.com</td>
-                                        <td class="column"><button class="btn-lock" data-bs-toggle="modal"
-                                                data-bs-target="#staticBackdrop1" (click)="isView()">View</button></td>
-                                        <td><button type="button" class="Cancelbtn"><i
-                                                    class="fa fa-close icon-close"></i></button></td>
-                                        <td><button class="btn-lock">Disable Duo</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="full-name">Mr. Testing t</td>
-                                        <td class="user-email">saxabaf263@naluzotan.com</td>
-                                        <td class="column"><button class="btn-lock" data-bs-toggle="modal"
-                                                data-bs-target="#staticBackdrop1" (click)="isView()">View</button></td>
-                                        <td><button type="button" class="Cancelbtn"><i
-                                                    class="fa fa-close icon-close"></i></button></td>
-                                        <td><button class="btn-lock">Disable Duo</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="full-name">Mr. Satya Satya</td>
-                                        <td class="user-email">jeiquijafuno-6990@yopmail.com</td>
-                                        <td class="column"><button class="btn-lock" data-bs-toggle="modal"
-                                                data-bs-target="#staticBackdrop1" (click)="isView()">View</button></td>
-                                        <td><button type="button" class="Cancelbtn"><i
-                                                    class="fa fa-close icon-close"></i></button></td>
-                                        <td><button class="btn-lock">Disable Duo</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="full-name">Mr. MyTest MyTest</td>
-                                        <td class="user-email">nasibradeddu-5918@yopmail.com</td>
+                                    <tr *ngFor="let item of adminDataSource ">
+                                        <td class="full-name">
+                                            {{item.C_title}} {{item.first_name}}  {{item.last_name}}
+                                        </td>
+                                        <td class="user-email">{{item.email}}</td>
                                         <td class="column"><button class="btn-lock" data-bs-toggle="modal"
                                                 data-bs-target="#staticBackdrop1" (click)="isView()">View</button></td>
                                         <td><button type="button" class="Cancelbtn"><i
@@ -113,7 +43,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
@@ -234,16 +163,16 @@
                                     </mat-form-field>
                                 </div>
                             </div>
-                            
-                                <div class="col-lg-6 col-md-12 col-sm-12 col-12  mb-4">
-                                    <input type="input" class="form-control border-input" id="Date"
-                                        placeholder="Email Address">
-                                </div>
-                                <div class="col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
-                                    <input type="input" class="form-control border-input" id="Date"
-                                        placeholder="Alternative EMail Address">
-                                </div>
-                            
+
+                            <div class="col-lg-6 col-md-12 col-sm-12 col-12  mb-4">
+                                <input type="input" class="form-control border-input" id="Date"
+                                    placeholder="Email Address">
+                            </div>
+                            <div class="col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+                                <input type="input" class="form-control border-input" id="Date"
+                                    placeholder="Alternative EMail Address">
+                            </div>
+
                         </div>
 
                         <div class="row mt-4" style="float: right;">
