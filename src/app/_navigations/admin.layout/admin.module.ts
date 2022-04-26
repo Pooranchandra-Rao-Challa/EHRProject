@@ -37,9 +37,9 @@ import { AdminsettingComponent } from 'src/app/admin/adminsetting/adminsetting.c
 import { AdminsComponent } from 'src/app/admin/admins/admins.component';
 import { WeeklyUpdatedComponent } from 'src/app/admin/weekly-updated/weekly-updated.component';
 import { BreadcrumComponent } from '../admin.breadcrum/admin.breadcrum.component';
-import { ActivepatientComponent } from 'src/app/admin/activepatient/activepatient.component';
-import { InactivepatientComponent } from 'src/app/admin/inactivepatient/inactivepatient.component';
-import { EditdefaultmessageComponent } from 'src/app/admin/editdefaultmessage/editdefaultmessage.component';
+import { ActivePatientsComponent } from 'src/app/admin/activepatients/activepatients.component';
+import { InActivePatientsComponent } from 'src/app/admin/inactivepatients/inactivepatients.component';
+import { EditDefaultMessageComponent } from 'src/app/admin/editdefaultmessage/editdefaultmessage.component';
 import { ReportsComponent } from 'src/app/admin/reports/reports.component';
 import { BillingComponent } from 'src/app/admin/billing/billing.component';
 import { SectionNewComponent } from 'src/app/admin/section-new/section-new.component';
@@ -67,9 +67,9 @@ import { AddUserDialogComponent } from 'src/app/dialogs/adduser.dialog/adduser.d
     AdminsettingComponent,
     AdminsComponent,
     WeeklyUpdatedComponent,
-    ActivepatientComponent,
-    InactivepatientComponent,
-    EditdefaultmessageComponent,
+    ActivePatientsComponent,
+    InActivePatientsComponent,
+    EditDefaultMessageComponent,
     BillingComponent,
     ReportsComponent,
     SectionNewComponent,

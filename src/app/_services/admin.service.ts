@@ -7,16 +7,17 @@ import { HttpClient } from "@angular/common/http";
 export class AdminService extends APIEndPoint {
   constructor(http: HttpClient) { super(http); }
 
+  AdminList(){
+    return this._ProcessGetRequest<any>(this._adminListUrl);
+  }
   GetProviderList() {
     return this._ProcessGetRequest<any>(this._providerListUrl);
   }
-  GetAllActivePatientsList() {
-    return this._ProcessGetRequest<any>(this._AllActivepatientsUrl);
+
+  ActivePatients() {
+    return this._ProcessGetRequest<any>(this._activePatientsUrl);
   }
-  GetAllInActivePatientsList() {
-    return this._ProcessGetRequest<any>(this._AllInActivepatientsUrl);
-  }
-  GetAllAdminList() {
-    return this._ProcessGetRequest<any>(this._AllAdminListUrl);
+  InActivePatients() {
+    return this._ProcessGetRequest<any>(this._inActivePatientsUrl);
   }
 }

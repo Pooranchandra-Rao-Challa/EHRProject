@@ -244,18 +244,18 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "GetImaging";
   }
 
-  get _activepatientsUrl() {
+  get _activePatientsUrl() {
     return this._baseUrl + "ActivePatients";
   }
 
-  get _inActivepatientsUrl() {
+  get _inActivePatientsUrl() {
     return this._baseUrl + "InActivePatients";
   }
 
   get _patientsByProviderUrl() {
     return this._baseUrl + "PatientsByProvider";
   }
-  get _AllAdminListUrl() {
+  get _adminListUrl() {
     return this._baseUrl + "GetAllAdmins";
   }
 

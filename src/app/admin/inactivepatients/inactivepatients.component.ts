@@ -3,11 +3,11 @@ import { inactivepatient } from 'src/app/_models/Admin.ts/inactivepatient';
 import { AdminService } from 'src/app/_services/admin.service';
 
 @Component({
-  selector: 'app-inactivepatient',
-  templateUrl: './inactivepatient.component.html',
-  styleUrls: ['./inactivepatient.component.scss']
+  selector: 'app-inactivepatients',
+  templateUrl: './inactivepatients.component.html',
+  styleUrls: ['./inactivepatients.component.scss']
 })
-export class InactivepatientComponent implements OnInit {
+export class InActivePatientsComponent implements OnInit {
 
   inactivepatientDataSource: inactivepatient[];
   dataSource: inactivepatient[];
@@ -15,14 +15,14 @@ export class InactivepatientComponent implements OnInit {
   page: number = 1;
   GetFilterList: any;
   SearchKey = "";
-  
+
   constructor(private adminservice: AdminService) { }
 
   ngOnInit(): void {
     this.getInactivepatientList();
   }
   getInactivepatientList() {
-    this.adminservice.GetAllInActivePatientsList().subscribe(resp => {
+    this.adminservice.InActivePatients().subscribe(resp => {
       if (resp.IsSuccess) {
         this.inactivepatientDataSource = resp.ListResult;
         this.GetFilterList = this.inactivepatientDataSource;
@@ -45,5 +45,5 @@ export class InactivepatientComponent implements OnInit {
     }
   }
   }
-  
+
 

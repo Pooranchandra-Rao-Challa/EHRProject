@@ -3,11 +3,11 @@ import { activepatient } from 'src/app/_models/Admin.ts/activepatietn';
 import { AdminService } from 'src/app/_services/admin.service';
 
 @Component({
-  selector: 'app-activepatient',
-  templateUrl: './activepatient.component.html',
-  styleUrls: ['./activepatient.component.scss']
+  selector: 'app-activepatients',
+  templateUrl: './activepatients.component.html',
+  styleUrls: ['./activepatients.component.scss']
 })
-export class ActivepatientComponent implements OnInit {
+export class ActivePatientsComponent implements OnInit {
   activepatientDataSource: activepatient[];
   dataSource: activepatient[];
   pageSize: number = 50;
@@ -21,7 +21,7 @@ export class ActivepatientComponent implements OnInit {
   }
 
   getactivepatientList() {
-    this.adminservice.GetAllActivePatientsList().subscribe(resp => {
+    this.adminservice.ActivePatients().subscribe(resp => {
       if (resp.IsSuccess) {
         this.activepatientDataSource = resp.ListResult;
         this.GetFilterList = this.activepatientDataSource;
@@ -45,5 +45,5 @@ export class ActivepatientComponent implements OnInit {
     }
   }
   }
-  
+
 
