@@ -308,6 +308,13 @@ html {
   margin-bottom: 20%;
 }
 
+::ng-deep .mat-input-element{
+  width: 95% !important;
+}
+.img-svg-eye{
+  width: 5%;
+  position: absolute;
+}
 .verify {
   margin-top: 2%;
 }

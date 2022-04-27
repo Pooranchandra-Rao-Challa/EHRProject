@@ -40,7 +40,9 @@
                     <input matInput placeholder="Email / UserName" name="Username" formControlName="UserName" />
                   </mat-form-field>
                   <mat-form-field class="w-100" appearance="outline">
-                    <input matInput placeholder="Password" type="password" name="Password" formControlName="Password" />
+                    <input matInput placeholder="Password" [type]="showPassword ? 'text' : 'password'"  name="Password" formControlName="Password" />
+
+                    <img [src]="showPassword ? '../../assets/images/eye-open.svg' : '../../assets/images/eye-close.svg'" class="img-svg-eye" (click)="togglePasswordVisibility()" />
                   </mat-form-field>
                 </div>
                 <div class="pull-right address " style="text-align: right">
