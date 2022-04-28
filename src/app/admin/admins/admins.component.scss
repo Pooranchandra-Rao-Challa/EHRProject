@@ -1,4 +1,9 @@
 
+.modal-body {
+  padding: 2px 21px !important;
+  padding-top: 14px !important;
+  background-color: #fff;
+}
 .contain {
   margin-left: 1.5%;
   margin-right: 1.5%;
@@ -131,7 +136,7 @@ h1 {
   width: 250%;
   pointer-events: auto;
   background-color: white;
-  
+
 }
 @media (max-width:1596px )and (min-width: 930px) {
   .modal-content {
@@ -177,7 +182,7 @@ h1 {
   margin-left: 4%;
   background-color: #fff;
   border: 1px solid #ccc;
-} 
+}
 .cancel-button:hover  {
   cursor: pointer;
   font-size: 100%;
@@ -187,7 +192,7 @@ h1 {
   margin-left: 4%;
   background-color: rgb(223, 221, 221);
   border: 1px solid rgb(160, 159, 159);
-} 
+}
 .save-button  {
   cursor: pointer;
   font-size: 100%;
@@ -198,7 +203,7 @@ h1 {
   background-color: #fff;
   border: 1px solid #3598dc;
   color: #3598dc;
-} 
+}
 .save-button:hover  {
   cursor: pointer;
   font-size: 100%;
@@ -209,7 +214,7 @@ h1 {
   background-color: #3598dc;
   border: 1px solid #3598dc;
   color: #fff;
-} 
+}
 .border, .loader-demo-box {
   border: 1px solid #ddd !important;
 }
@@ -224,7 +229,7 @@ thead {
 }
 .form-control, .form-control:focus {
   border: 1px solid #c2cad8;
- 
+
 }
 h4{
   font-family: "Open Sans", sans-serif;
@@ -249,7 +254,7 @@ form .form-select:focus{
 }
 .portlet-title {
   border-bottom: 1px solid #eef1f5 !important;
-  margin-bottom: 2%; 
+  margin-bottom: 2%;
 }
 .portlet>.portlet-title>.caption {
   // float: left;
@@ -262,7 +267,7 @@ form .form-select:focus{
   //float: right;
   display: inline-block;
   padding: 6px 0;
-  
+
 }
 .col-lg-11 {
   flex: 0 0 auto;

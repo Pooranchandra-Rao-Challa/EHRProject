@@ -6,13 +6,13 @@ import { Router } from '@angular/router';
   templateUrl: './defaultmessages.component.html',
   styleUrls: ['./defaultmessages.component.scss']
 })
-export class DefaultmessagesComponent implements OnInit {
+export class DefaultMessagesComponent implements OnInit {
 
   constructor( private router: Router,) { }
 
   ngOnInit(): void {
   }
-  onSubmit() {  
-    this.router.navigate(['admin/editdefaultmessage'])  
-} 
+  onSubmit() {
+    this.router.navigate(['admin/editdefaultmessage'])
+}
 }

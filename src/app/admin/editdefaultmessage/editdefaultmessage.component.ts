@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './editdefaultmessage.component.html',
   styleUrls: ['./editdefaultmessage.component.scss']
 })
-export class EditdefaultmessageComponent implements OnInit {
+export class EditDefaultMessageComponent implements OnInit {
 
   constructor() { }
 

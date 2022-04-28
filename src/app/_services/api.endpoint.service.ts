@@ -244,29 +244,28 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "GetImaging";
   }
 
-  get _AllActivepatientsUrl() {
-    return this._baseUrl + "GetAllActivePatients";
+  get _activePatientsUrl() {
+    return this._baseUrl + "ActivePatients";
   }
 
-  get _AllInActivepatientsUrl() {
-    return this._baseUrl + "GetAllInActivePatients";
+  get _inActivePatientsUrl() {
+    return this._baseUrl + "InActivePatients";
   }
 
   get _patientsByProviderUrl() {
     return this._baseUrl + "PatientsByProvider";
   }
-  get _AllAdminListUrl() {
-    return this._baseUrl + "GetAllAdmins";
+  get _adminListUrl() {
+    return this._baseUrl + "api/Admin";
   }
 
-  get _generalScheduleUrl() {
+  get _GeneralScheduleUrl() {
     return this._baseUrl + "GetGeneralSchedule";
   }
 
-  get _updateSchedulegeneralUrl() {
-    return this._baseUrl + "UpdateSchdulegeneral";
+  get _UpdateRescheduleUrl() {
+    return this._baseUrl + "UpdateSchedulegeneral";
   }
-
   constructor(public http: HttpClient) {
     super();
   }
