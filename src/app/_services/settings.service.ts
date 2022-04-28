@@ -92,4 +92,10 @@ export class SettingsService extends APIEndPoint {
     console.log(reqData)
     return this._ProcessPostRequest<any>(this._toggleUserFieldValuesUrl, reqData);
   }
+  GetGeneralSchedule(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._generalScheduleUrl, reqparams);
+  }
+  UpdateSchedulegeneral(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._updateSchedulegeneralUrl, reqparams);
+  }
 }

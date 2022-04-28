@@ -239,7 +239,7 @@ export class APIEndPoint extends EndpointBase {
   get _labDetailsUrl() {
     return this._baseUrl + "GetLabs";
   }
-  
+
   get _imagingDetailsUrl() {
     return this._baseUrl + "GetImaging";
   }
@@ -257,6 +257,14 @@ export class APIEndPoint extends EndpointBase {
   }
   get _AllAdminListUrl() {
     return this._baseUrl + "GetAllAdmins";
+  }
+
+  get _generalScheduleUrl() {
+    return this._baseUrl + "GetGeneralSchedule";
+  }
+
+  get _updateSchedulegeneralUrl() {
+    return this._baseUrl + "UpdateSchdulegeneral";
   }
 
   constructor(public http: HttpClient) {
@@ -302,5 +310,5 @@ export class APIEndPoint extends EndpointBase {
     return throwError(error.error.Message);
   }
 
-  
+
 }
