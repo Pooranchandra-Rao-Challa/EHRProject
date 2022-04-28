@@ -45,10 +45,10 @@
                         class="img-svg-eye" (click)="togglePasswordVisibility()" />
                     </mat-form-field>
                   </div>
-                  <div class="pull-right address " style="text-align: right">
-                    <div data-bs-toggle="modal" data-bs-target="#reset-password" style="text-align: right">Forgot your
+                  <div class="pull-right address" >
+                    <div data-bs-toggle="modal" data-bs-target="#reset-password" class="message-hints">Forgot your
                       password?</div>
-                    <div data-bs-toggle="modal" data-bs-target="#email-verification" style="text-align: right">
+                    <div data-bs-toggle="modal" data-bs-target="#email-verification" class="message-hints">
                       Resend Email Verification
                     </div>
                   </div>
@@ -145,9 +145,9 @@
 
                     <P>Enter the email address associated with your account and an email with password reset
                       instructions will be sent.</P>
-                    <div class="form-group mt-5 reset-password-border" >
+                    <div class="form-group mt-5" >
 
-                        <input type="text" class="" style="border: none; padding-left: 5px; padding-top: 10px; padding-bottom: 10px;">
+                        <input type="text">
 
                     </div>
                   </div>
@@ -158,8 +158,8 @@
 
 
             <div class="row">
-              <button type="button" class="reg-button col-md-4" data-bs-dismiss="modal">Go Back</button>
-              <button type="button" class="reg-button col-md-4">Okay-Send it ! </button>
+              <button type="button" class="resetpassword-button col-md-4" data-bs-dismiss="modal">Go Back</button>
+              <button type="button" class="resetpassword-button col-md-4">Okay-Send it ! </button>
 
             </div>
 
@@ -194,9 +194,9 @@
               </div>
               <div class="col-lg-8 ">
                 <div class="form-group ">
-                  <mat-form-field class=" w-100" appearance="outline">
-                    <input matInput placeholder="Enter an email">
-                  </mat-form-field>
+
+                    <input  placeholder="Enter an email">
+
                 </div>
               </div>
 

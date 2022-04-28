@@ -104,9 +104,9 @@ export class SettingsService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._toggleUserFieldValuesUrl, reqData);
   }
   GetGeneralSchedule(reqparams: any) {
-    return this._ProcessPostRequest<any>(this._GeneralScheduleUrl, reqparams);
+    return this._ProcessPostRequest<any>(this._generalScheduleUrl, reqparams);
   }
   UpdateSchedulegeneral(reqparams: any) {
-    return this._ProcessPostRequest<any>(this._UpdateRescheduleUrl, reqparams);
+    return this._ProcessPostRequest<any>(this._updateRescheduleUrl, reqparams);
   }
 }

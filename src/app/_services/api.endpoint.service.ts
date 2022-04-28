@@ -263,7 +263,7 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "GetGeneralSchedule";
   }
 
-  get _UpdateRescheduleUrl() {
+  get _updateRescheduleUrl() {
     return this._baseUrl + "UpdateSchedulegeneral";
   }
   constructor(public http: HttpClient) {

@@ -71,7 +71,7 @@ button:hover {
   color: #fff !important;
 }
 
-.reg-button {
+.resetpassword-button {
   width: 43% !important;
   height: 45px !important;
   border: 1px solid #41b6a6 !important;
@@ -81,9 +81,12 @@ button:hover {
   margin-top: 8%;
   font-size: 16px;
   margin-left: 5%;
+  color:#41b6a6;
+  width:165px;
+  opacity: .65;
 }
 
-.reg-button:hover {
+.resetpassword:hover {
   background-color: #41b6a6 !important;
   color: #fff !important;
 }
@@ -457,8 +460,12 @@ html {
   margin-top: 2%;
   font-family: sans-serif;
   text-align: left;
+  align-items: flex-end;
 }
-
+.address .message-hints{
+  text-align: right;
+  cursor: pointer;
+}
 .content-top {
   border-bottom: 1px solid rgba(74, 74, 74, 0.5);
   //margin-top: 25px;
@@ -467,7 +474,7 @@ html {
 .video-content ul li{
   text-align: left;
   padding-left: 20px;
-  font-family: "SF UI Text Regular";
+  font-family: Roboto !important;
   font-style: normal;
   font-weight: 400;
   outline: none !important;
@@ -517,7 +524,9 @@ div#reset-password div.modal-dialog {
   border-radius: 6px !important;
   max-width: 500px;
 }
-
+div#email-verification{
+  z-index: 1060;
+}
 div#email-verification div.modal-dialog {
   overflow-y: initial !important;
   max-width: inherit !important;
@@ -525,10 +534,10 @@ div#email-verification div.modal-dialog {
   position: absolute;
   left: 500px;
   width: 100%;
-  top: 100px;
+  top: 200px;
   border-radius: 6px !important;
-  max-width: 500px;
-  z-index: 10000;
+  max-width: 600px;
+  height: 300px;
 }
 
 div#modal-message .modal-dialog .modal-content{
@@ -536,12 +545,23 @@ div#modal-message .modal-dialog .modal-content{
   max-width: 500px;
 
 }
-div#reset-password .modal-dialog .modal-content,
-div#email-verification .modal-dialog .modal-content  {
+div#reset-password .modal-dialog .modal-content
+{
   background-color: #d8d8d8;
   max-width: 400px;
-
 }
+div#email-verification .modal-dialog .modal-content  {
+  background-color: #d8d8d8;
+  max-width: 600px;
+  max-height: 300px;
+}
+div#email-verification label{
+  display: inline-block;
+  max-width: 100%;
+  margin-bottom: 5px;
+  font-weight: 700;
+}
+
 div#modal-message .modal-content,
 div#reset-password .modal-content,
 div#email-verification .modal-content {
@@ -575,13 +595,18 @@ div#email-verification .modal-dialog .modal-content .modal-body{
 }
 
 @media (max-height: 768px){
-  div#reset-password .modal-dialog .modal-content,
-  div#email-verification .modal-dialog .modal-content {
+  div#reset-password .modal-dialog .modal-content {
     max-width: 400px;
     background: #f9f9f9;
   }
 }
 
+@media (max-height: 768px){
+  div#email-verification .modal-dialog .modal-content {
+    max-width: 600px;
+    background: #f9f9f9;
+  }
+}
 
 @media (min-width: 768px){
   .modal-content {
@@ -604,26 +629,33 @@ div#modal-message .modal-dialog .modal-content .modal-body .scrollable-container
   padding: 20px;
   text-align: center;
 }
-div#reset-password input{
-    border: 1px solid #41b6a6 !important;
+div#reset-password input,
+div#email-verification input{
+    border: 1px solid #e9e9e9 !important;
     border-radius: 6px;
-    padding: 5px;
+    padding: 10px 5px 10px 5px;
     width: 100%;
     line-height: 25px;
     font-size: 20px;
     text-align: center;
     background: #f9f9f9;
+    font-family: Roboto !important;
+}
+div#reset-password input:hover,
+div#email-verification input:hover{
+  border: 1px solid #41a6b6 !important;
+}
+div#email-verification button{
+  border-radius: 6px;
 }
 div#reset-password p,
-div#mail-verification p{
+div#email-verification label{
   color: #74757e;
-    text-align: center;
-    font-size: 18px;
-    font-family: 'Helvetica Neue' !important;
+  text-align: center;
+  font-size: 15px;
+  font-family: Roboto !important;
 }
-div#reset-password .reset-password-border{
-  border: 1p solid #41b6a6
-}
+
 @media (max-height: 768px){
   div#modal-message .modal-dialog .modal-content .modal-body {
     padding: 110px 0 15px 0;
@@ -655,7 +687,7 @@ div#modal-message .modal .modal-dialog {
 .modal-body {
   max-height: calc(90vh - 180px);
   overflow-y: auto;
-  padding-top: 130px !important;
+  padding-top: 10px !important;
   border-radius: 6px;
 }
 
