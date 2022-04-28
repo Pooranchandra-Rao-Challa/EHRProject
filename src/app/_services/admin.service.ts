@@ -19,5 +19,4 @@ export class AdminService extends APIEndPoint {
   InActivePatients(reqdata: any) {
     return this._ProcessPostRequest<any>(this._inActivePatientsUrl, reqdata);
   }
-
 }
