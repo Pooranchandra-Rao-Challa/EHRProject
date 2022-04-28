@@ -578,50 +578,6 @@ input.mat-input-element {
   border: 1px solid #41b6a6 !important;
   border-radius: 3px;
 }
-// sweetalert
-::ng-deep .swal2-styled.swal2-confirm {
-  background-color: #fff !important;
-  color: #41b6a6 !important;
-  border: 1px solid #41b6a6 !important;
-  width: 163px;
-  padding: 11px;
-  font-size: 22px;
-}
-::ng-deep .swal2-title {
-  padding: 1em 1em 17px;
-  background-color: #41b6a6;
-  color: #fff;
-  font-size: 37px;
-  font-family: "Times New Roman";
-  font-weight: 100;
-  margin-top: 114px;
-  margin-bottom: 63px;
-}
-
-.swal2-container.swal2-center > .swal2-popup {
-  width: 705px !important;
-  margin-top: 50px;
-}
-.swal2-styled.swal2-confirm {
-  background-color: #fff !important;
-  color: #41b6a6 !important;
-  border: 1px solid #41b6a6 !important;
-  width: 163px;
-  padding: 11px;
-  font-size: 22px;
-}
-.swal2-styled.swal2-confirm :hover {
-  background-color: #41b6a6 !important;
-  color: #fff !important;
-  border: 1px solid #41b6a6 !important;
-  width: 163px;
-  padding: 11px;
-  font-size: 22px;
-}
-.swal2-icon.swal2-error {
-  background-color: #e5e1e1 !important;
-  height: 0.3125em !important;
-}
 
 .components {
   min-height: 1000px;
@@ -788,48 +744,6 @@ ul.menuclass li.active a {
     width: 100%;
   }
 }
-// @media screen and (min-device-width: 320px) and (max-device-width: 768px) {
-//   .savebtnsize {
-//     max-width: 20px;
-//     margin-left: 20px;
-//   }
-// }
-// @media (max-width: 1024px) {
-//   .savebtnsize {
-//     margin-left: 27px;
-//   }
-// }
-
-// @media (max-width: 768px) {
-//   .plusicon {
-//     border-radius: 5%;
-//     margin-right: -5px;
-//     margin-top: -3px;
-//     width: 89px;
-//     height: 35px;
-//   }
-// }
-// @media (max-width: 320px) {
-//   .plusicon {
-//     border-radius: 5%;
-//     margin-right: 26px;
-//     margin-top: 3px;
-//   }
-// }
-// @media (max-width: 475px) {
-//   .plusicon {
-//     border-radius: 5%;
-//     margin-right: 125px;
-//     margin-top: 3px;
-//   }
-// }
-// @media (max-width: 375px) {
-//   .plusicon {
-//     border-radius: 5%;
-//     margin-right: 21px;
-//     margin-top: 3px;
-//   }
-// }
 
 @media screen and (min-device-width: 320px) and (max-device-width: 768px) {
   .avatar.border {
@@ -873,19 +787,7 @@ ul.menuclass li.active a {
   //   width: 70px;
   // }
 }
-// @media (max-width: 768px) {
-//   .plusicon[_ngcontent-jax-c295] {
-//     border-radius: 5%;
-//     border: 1px solid white;
-//     background: white;
-//     height: 100%;
-//   }
-//   .fa-plus.addlocation {
-//     color: #41b6a6;
-//     text-align: center;
-//     padding: -3px 36px;
-//   }
-// }
+
 .addbtn {
   width: 88%;
 }
@@ -1103,4 +1005,40 @@ margin-bottom: 0;
   padding: 0 15px 3px 0;
   height: 45px;
   min-height: 45px;
+}
+// common sweetalert
+::ng-deep .swal2-styled.swal2-confirm {
+  background-color: #fff !important;
+  color: #41b6a6 !important;
+  border: 1px solid #41b6a6 !important;
+  width: 163px;
+  padding: 0px;
+  font-size: 18px;
+  font-family: 'Roboto';
+  font-weight: 400;
+  height: 45px;
+}
+::ng-deep .swal2-styled.swal2-confirm:focus{
+  box-shadow: none;
+}
+::ng-deep .swal2-title {
+  padding: 20px;
+  background-color: #41b6a6;
+  color: #fff;
+  font-size: 24px;
+  font-family: 'Roboto';
+  font-weight: 400;
+  margin-top: 200px;
+  margin-bottom: 40px;
+}
+::ng-deep .swal2-actions{
+  margin: 1.25em auto 60px;
+}
+::ng-deep .swal2-container.swal2-center > .swal2-popup {
+  width: 600px;
+  background: url(../../assets/images/pro-reg-bg.png);
+}
+::ng-deep .swal2-actions:not(.swal2-loading) .swal2-styled:hover {
+  background-color: #41b6a6 !important;
+  color: #fff !important;
 }

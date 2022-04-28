@@ -11,38 +11,42 @@ export class InActivePatientsComponent implements OnInit {
 
   inactivepatientDataSource: inactivepatient[];
   dataSource: inactivepatient[];
-  pageSize: number = 10;
-  page: number = 1;
-  GetFilterList: any;
-  SearchKey = "";
-
+  pageSize:any=50
+  page:any=1;
+  searchKey = "";
+  collectionSize:any=50000;
+  premiumData : any[] = [];
+  
   constructor(private adminservice: AdminService) { }
 
   ngOnInit(): void {
     this.getInactivepatientList();
+    // this.collectionSize = this.inactivepatientDataSource.length;
   }
   getInactivepatientList() {
-    this.adminservice.InActivePatients().subscribe(resp => {
+    debugger
+    var data = {
+      // Sort: '',
+      // Direction: '',
+      Active: true,
+      NameFilter: this.searchKey,
+      PageSize: this.pageSize,
+      RecordIndex: this.page
+    }
+    this.adminservice.InActivePatients(data).subscribe(resp => {
       if (resp.IsSuccess) {
         this.inactivepatientDataSource = resp.ListResult;
-        this.GetFilterList = this.inactivepatientDataSource;
+       // this.collectionSize = resp.count;
       } else
         this.inactivepatientDataSource = [];
-        // this.inactivepatientDataSource
     });
   }
 
-
-  SearchDetails() {
-    this.inactivepatientDataSource=this.GetFilterList.filter((invoice) => this.isMatch(invoice));
-  }
-
-  isMatch(item) {
-    if (item instanceof Object) {
-      return Object.keys(item).some((k) => this.isMatch(item[k]));
-    } else {
-      return item == null?'':item.toString().indexOf(this.SearchKey) > -1
-    }
+  onPageChange(index){
+    debugger;
+    this.inactivepatientDataSource =  this.premiumData
+      .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
+    this.getInactivepatientList();
   }
   }
 

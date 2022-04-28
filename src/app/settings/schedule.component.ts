@@ -3,8 +3,9 @@ import { AuthenticationService } from '../_services/authentication.service';
 import { SettingsService } from '../_services/settings.service';
 import { User } from '../_models';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { AppointmentStatus, AppointmentType, RoomsSlot } from '../_models/settings';
+import { AppointmentStatus, AppointmentType, GeneralSchedule, RoomsSlot } from '../_models/settings';
 import { IdService } from '../_helpers/_id.service';
+import Swal from 'sweetalert2';
 declare var $: any;
 
 @Component({
@@ -22,15 +23,16 @@ export class ScheduleComponent implements OnInit {
   appointmentTypeData: AppointmentType[];
   roomsData: RoomsSlot[];
   customizedspinner: boolean;
-  displayappointmentTime: boolean = false;
   roomsOnEdit: number[] = [];
   statusOnEdit: number[] = [];
   typeOnEdit: number[] = [];
+  generalSchedule: GeneralSchedule;
 
   constructor(private authService: AuthenticationService, private settingsService: SettingsService, private fb: FormBuilder, private idService: IdService) {
     this.user = authService.userValue;
   }
   ngOnInit(): void {
+    this.getGeneralSchedule();
     this.getLocationsList();
     this.getAppointmentStatus();
     this.getAppointmentType();
@@ -382,13 +384,54 @@ export class ScheduleComponent implements OnInit {
     }
   }
 
-  // online appointment duration in general section
-  appointmentTime(checked) {
-    if (checked == true) {
-      this.displayappointmentTime = true;
+  // get General Schedule details
+  getGeneralSchedule() {
+    let reqparams = {
+      clinicId: this.user.ClinicId
+    };
+    this.settingsService.GetGeneralSchedule(reqparams).subscribe((resp) => {
+      this.generalSchedule = resp.ListResult[0];
+      console.log(this.generalSchedule);
+      console.log(this.generalSchedule.OutSidePracticeHour);
+
+    })
+  }
+
+  updateScheduleGeneral() {
+    let reqparams = {
+      ClinicId: this.user.ClinicId,
+      FromDate: this.generalSchedule.CalendarFrom,
+      ToDate: this.generalSchedule.CalendarTo,
+      outsidehours: this.generalSchedule.OutSidePracticeHour,
+      concurrentapps: this.generalSchedule.ConcurrentApps,
+      reschedulepatient: this.generalSchedule.PatientRescedule
     }
-    else {
-      this.displayappointmentTime = false;
-    }
+    // this.settingsService.Swal();
+    // Swal.fire({
+    //   title: 'General schedule updated successfuly',
+    //   showConfirmButton: true,
+    //   confirmButtonText: 'Close'
+    // });
+    this.settingsService.UpdateSchedulegeneral(reqparams).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.getGeneralSchedule();
+        Swal.fire({
+          title: resp.EndUserMessage,
+          showConfirmButton: true,
+          confirmButtonText: 'Close',
+          width: '700'
+
+        });
+      }
+      else {
+        this.getGeneralSchedule();
+        Swal.fire({
+          title: resp.EndUserMessage,
+          showConfirmButton: true,
+          confirmButtonText: 'Close',
+          width: '700',
+        })
+      }
+    })
   }
 }

@@ -9,7 +9,7 @@
                         </div>
                         <div class="example col-lg-5 col-md-5 col-12 ">
                             <input type="text" placeholder="Search Patient" name="search" [(ngModel)]="SearchKey">
-                            <button type="submit" (click)="SearchDetails()"><i class="fa fa-search"></i></button>
+                            <button type="submit" (click)="getactivepatientList()"><i class="fa fa-search"></i></button>
                         </div>
                     </div>
                     <div class="portlet-body mt-4">
@@ -26,8 +26,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let item of activepatientDataSource | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
-                                        
+                                    <tr *ngFor="let item of activepatientDataSource ">
                                         <td class="user-email">{{item.FullName}}
                                             <div class="row">
                                                 <button class="btn-log">Login</button>
@@ -37,27 +36,27 @@
                                         <td>{{item.PatientPortalAccount}}</td>
                                         <td>{{item.PrimaryPhone}}</td>
                                         <td>{{item.Address}}</td>
-                                        <td>{{item.active}}</td>
+                                        <td>{{item.Active}}</td>
                                     </tr>
                                 </tbody>
                             </table>
                             <!-- <div class="table-NoRecord text-center py-2 col-12" >
                             Data Not Found
-                          </div>
-                          -->
+                          </div> -->
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="d-flex justify-content-end my-3">
-            <nav aria-label="Page navigation">
-                <ul class="pagination mt-4">
-                    <ngb-pagination [pageSize]="pageSize" [collectionSize]="activepatientDataSource.length" [maxSize]="9" [(page)]="page" aria-label="Default pagination">
-                    </ngb-pagination>
-                   
-                </ul>
-            </nav>
-        </div>
+          <nav aria-label="Page navigation">
+              <ul class="pagination mt-4">
+                  <ngb-pagination [pageSize]="pageSize"  [collectionSize]="collectionSize" (pageChange)="onPageChange($event)"
+                      [maxSize]="10" [(page)]="page" aria-label="Default pagination">
+                  </ngb-pagination>
+              </ul>
+          </nav>
+      </div>
     </div>
 </div>

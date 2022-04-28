@@ -11,13 +11,13 @@
         <div class="col-lg-2">
           <mat-label>Date*:</mat-label>
         </div>
-        <mat-form-field appearance="outline" class="green-calendar col-lg-2">
+        <mat-form-field appearance="outline" class="green-calendar col-lg-2 col-md-6">
           <input matInput class="pointer date-mat-class" autocomplete="off" [matDatepicker]="startDate"
             (click)="startDate.open()" readonly placeholder="Start Date">
           <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
           <mat-datepicker #startDate></mat-datepicker>
         </mat-form-field>
-        <mat-form-field appearance="outline" class="green-calendar col-lg-2">
+        <mat-form-field appearance="outline" class="green-calendar col-lg-2 col-md-6">
           <input matInput class="pointer date-mat-class" autocomplete="off" [matDatepicker]="endDate"
             (click)="endDate.open()" readonly placeholder="End Date">
           <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
@@ -28,58 +28,60 @@
         <div class="col-lg-2">
           <mat-label>Intervention Type*:</mat-label>
         </div>
-        <mat-form-field appearance="outline" class="col-lg-4 hover cstm-mat-padding">
+        <mat-form-field appearance="outline" class="col-lg-4 col-md-6 hover cstm-mat-padding">
           <mat-select placeholder="Select One" disableOptionCentering id="ePracticeProviders"
-            placeholder="Select Provider">
+            placeholder="Select Intervention Type">
             <mat-option>BMI
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <div class="col-lg-6">
+        <div class="col-lg-6 col-md-6">
           <mat-form-field appearance="outline" class="input-search col-xl-11 col-lg-10 col-md-11 col-10">
-            <input matInput autocomplete="off" placeholder="Search by name or phone number" />
+            <input matInput autocomplete="off" placeholder="Search Interventions" />
           </mat-form-field>
           <button class="btn-search col-xl-1 col-lg-2 col-md-1 col-2">
             <mat-icon>search</mat-icon>
           </button>
         </div>
       </div>
-      <div>
-        <mat-table>
+      <div class="table-responsive">
+        <mat-table [dataSource]="interventionList">
           <ng-container matColumnDef="Empty">
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
-            <mat-cell></mat-cell>
+            <mat-cell *matCellDef="let intervention"> {{intervention.Empty}} </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="InterventionType">
-            <mat-header-cell *matHeaderCellDef>Intervention Type</mat-header-cell>
-            <mat-cell *matCellDef></mat-cell>
+            <mat-header-cell *matHeaderCellDef> Intervention Type </mat-header-cell>
+            <mat-cell *matCellDef="let intervention"> {{intervention.InterventionType}} </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="Code">
-            <mat-header-cell *matHeaderCellDef>Code</mat-header-cell>
-            <mat-cell *matCellDef></mat-cell>
+            <mat-header-cell *matHeaderCellDef> Code </mat-header-cell>
+            <mat-cell *matCellDef="let intervention"> {{intervention.Code}} </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="Description">
-            <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
-            <mat-cell *matCellDef></mat-cell>
+            <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+            <mat-cell *matCellDef="let intervention"> {{intervention.Description}} </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="ReasonNotPerformed">
-            <mat-header-cell *matHeaderCellDef>Add Reason Not Performed</mat-header-cell>
-            <mat-cell *matCellDef></mat-cell>
+            <mat-header-cell *matHeaderCellDef> Reason Not Performed </mat-header-cell>
+            <mat-cell *matCellDef="let intervention"> {{intervention.ReasonNotPerformed}} </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="Reason">
-            <mat-header-cell *matHeaderCellDef>Reason</mat-header-cell>
-            <mat-cell *matCellDef></mat-cell>
+            <mat-header-cell *matHeaderCellDef> Reason </mat-header-cell>
+            <mat-cell *matCellDef="let intervention"> {{intervention.Reason}} </mat-cell>
           </ng-container>
-
 
           <mat-header-row *matHeaderRowDef="interventionColumns"></mat-header-row>
           <mat-row *matRowDef="let row; columns: interventionColumns;"></mat-row>
         </mat-table>
+        <!-- <div class="norecords-found" *ngIf="interventionList.length">
+          No Patients Found
+        </div> -->
       </div>
       <div class="row pt-3">
         <div class="col-lg-2">

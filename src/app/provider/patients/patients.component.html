@@ -54,7 +54,8 @@
         </div>
       </div>
       <div class="patients scrollable-mat-table">
-        <mat-table [dataSource]="patientsDataSource" matSort>
+        <mat-table [dataSource]="patientsDataSource1 | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize"
+          matSort>
           <ng-container matColumnDef="Image">
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
             <mat-cell *matCellDef>
@@ -134,11 +135,23 @@
           </ng-container>
 
           <mat-header-row *matHeaderRowDef="patientColumns"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: patientColumns;"></mat-row>
+          <mat-row *matRowDef="let row; columns: patientColumns;">
+          </mat-row>
         </mat-table>
         <!-- <div class="norecords-found" *ngIf="patientsDataSource.data.length">
           No Patients Found
         </div> -->
+        <!-- <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true">
+        </mat-paginator> -->
+        <div class="d-flex justify-content-end my-3">
+          <nav aria-label="Page navigation">
+            <ul class="pagination mt-4">
+              <ngb-pagination [pageSize]="pageSize" [collectionSize]="patientsDataSource1.length" [maxSize]="9"
+                [(page)]="page" aria-label="Default pagination">
+              </ngb-pagination>
+            </ul>
+          </nav>
+        </div>
       </div>
     </div>
   </div>

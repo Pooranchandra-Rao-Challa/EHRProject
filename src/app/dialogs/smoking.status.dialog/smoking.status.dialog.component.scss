@@ -5,10 +5,34 @@
   font-family: 'Roboto';
   font-weight: 400;
 }
-.smoking-status .modal-content{
-  min-width: 570px;
-  max-width: 605px;
+.modal-dialog {
+  overflow-y: initial !important;
+  // max-width: inherit !important;
+  // margin: 0 !important;
 }
+.modal-body {
+  max-height: calc(90vh - 180px);
+  overflow-y: auto;
+}
+.smoking-status .modal-content{
+  width: 650px;
+}
+
+@media (max-width: 768px){
+  .modal-dialog {
+    overflow-y: initial !important;
+    max-width: inherit !important;
+    margin: 0 !important;
+  }
+  .modal-body {
+    max-height: calc(90vh - 250px);
+    overflow-y: auto;
+  }
+  .smoking-status .modal-content{
+    width: 100% !important;
+  }
+}
+
 .btn.ehr-btn{
   width: 165px;
   height: 45px;
@@ -38,4 +62,7 @@
   font-size: 15px;
   color: #74757e;
   font-weight: 400;
+}
+::ng-deep .radio-group .mat-radio-button{
+  display: flex;
 }

@@ -28,7 +28,14 @@ export class PatientsComponent implements OnInit {
   patientDialogComponent = PatientDialogComponent;
   dialogResponse = null;
   user: User;
-
+  // pageSize = 10;
+  // pageIndex = 0;
+  // pageSizeOptions: number[] = [5, 10, 25, 100];
+  // showTotalPages: number;
+  // pageEvent: PageEvent;
+  patientsDataSource1: { Image: string; First: string; Middle: string; Last: string; DOB: string; Age: number; ContactInfo: string; LastAccessed: string; Created: string; Select: boolean; }[];
+  pageSize = 5;
+  page = 0;
   constructor(public overlayService: OverlayService,
     private patientService: patientService,
     private authService: AuthenticationService,
@@ -37,10 +44,46 @@ export class PatientsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // this.patientsDataSource1 = [
+    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
+    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
+    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
+    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
+    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
+    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
+    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
+    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
+    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
+    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
+    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
+    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
+    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
+    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
+    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
+    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
+    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
+    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
+    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
+    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
+    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
+    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
+    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
+    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
+    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
+    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
+    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
+    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
+    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
+    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
+    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
+    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
+
+    // ]
     this.getPatientsByProvider();
   }
 
   ngAfterViewInit(): void {
+    this.patientsDataSource.paginator = this.paginator.toArray()[0];
     this.patientsDataSource.sort = this.sort.toArray()[0];
   }
 
@@ -66,6 +109,9 @@ export class PatientsComponent implements OnInit {
     }
     this.patientService.PatientsByProvider(reqparams).subscribe((resp) => {
       this.patientsDataSource.data = resp.ListResult;
+      this.patientsDataSource1 = resp.ListResult;
+      console.log(this.patientsDataSource.data);
+
     });
   }
 

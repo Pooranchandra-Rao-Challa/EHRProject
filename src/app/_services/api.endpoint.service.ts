@@ -256,15 +256,15 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "PatientsByProvider";
   }
   get _adminListUrl() {
-    return this._baseUrl + "GetAllAdmins";
+    return this._baseUrl + "api/Admin";
   }
 
   get _generalScheduleUrl() {
     return this._baseUrl + "GetGeneralSchedule";
   }
 
-  get _updateRescheduleUrl() {
-    return this._baseUrl + "UpdateSchdulegeneral";
+  get _UpdateRescheduleUrl() {
+    return this._baseUrl + "UpdateSchedulegeneral";
   }
   constructor(public http: HttpClient) {
     super();
