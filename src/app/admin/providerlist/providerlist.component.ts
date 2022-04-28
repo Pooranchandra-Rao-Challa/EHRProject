@@ -12,8 +12,8 @@ export class ProviderlistComponent {
   pageSize: number = 50;
   page: number = 1;
   filterTerm!: string;
-  providersDataSource: providerList[];
-  dataSource: providerList[];
+  providersDataSource: providerList[] = [];
+  dataSource: providerList[] = [];
   Active: boolean = true;
   Suspended: boolean = false;
   Trial: boolean = false;
@@ -27,9 +27,9 @@ export class ProviderlistComponent {
   }
 
   ngOnInit(): void {
-    
+
     this.getProviderList();
-    
+
   }
   getProviderList() {
     this.adminservice.GetProviderList().subscribe(resp => {
@@ -39,7 +39,7 @@ export class ProviderlistComponent {
         this.filterChange('ActiveStatus', 'Active')
       } else
         this.providersDataSource = [];
-        this.providersDataSource
+        // this.providersDataSource
     });
   }
 

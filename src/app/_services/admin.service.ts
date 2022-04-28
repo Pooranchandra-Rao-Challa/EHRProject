@@ -13,11 +13,11 @@ export class AdminService extends APIEndPoint {
   GetProviderList() {
     return this._ProcessGetRequest<any>(this._providerListUrl);
   }
+  ActivePatients(reqdata: any) {
+    return this._ProcessPostRequest<any>(this._activePatientsUrl, reqdata);
+  }
+  InActivePatients(reqdata: any) {
+    return this._ProcessPostRequest<any>(this._inActivePatientsUrl, reqdata);
+  }
 
-  ActivePatients() {
-    return this._ProcessGetRequest<any>(this._activePatientsUrl);
-  }
-  InActivePatients() {
-    return this._ProcessGetRequest<any>(this._inActivePatientsUrl);
-  }
 }

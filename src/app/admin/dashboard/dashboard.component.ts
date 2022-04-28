@@ -13,7 +13,7 @@ import { AddUserDialogComponent } from 'src/app/dialogs/adduser.dialog/adduser.d
 export class DashboardComponent implements OnInit {
   pageSize: number = 50;
   page: number = 1;
-  ProviderList:any;
+  ProviderList:any =[];
   TotalItems:number;
   UserDialogComponent = AddUserDialogComponent;
   DialogResponse = null;

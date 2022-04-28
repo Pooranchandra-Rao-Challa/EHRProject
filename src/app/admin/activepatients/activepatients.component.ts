@@ -8,12 +8,14 @@ import { AdminService } from 'src/app/_services/admin.service';
   styleUrls: ['./activepatients.component.scss']
 })
 export class ActivePatientsComponent implements OnInit {
+
   activepatientDataSource: activepatient[];
-  dataSource: activepatient[];
-  pageSize: number = 50;
-  page: number = 1;
+  pageSize:number=10;
+  // recordIndex:any=0;
   SearchKey = "";
-  GetFilterList: any;
+  collectionSize:any=5000;
+  page: number = 1;
+  premiumData : any[] = [];
   constructor(private adminservice: AdminService) { }
 
   ngOnInit(): void {
@@ -21,29 +23,32 @@ export class ActivePatientsComponent implements OnInit {
   }
 
   getactivepatientList() {
-    this.adminservice.ActivePatients().subscribe(resp => {
+    debugger
+    var data = {
+      // Sort: '',
+      // Direction: '',
+      Active: true,
+      NameFilter: this.SearchKey,
+      PageSize: this.pageSize,
+      RecordIndex: this.page
+    }
+
+    this.adminservice.ActivePatients(data).subscribe(resp => {
+
       if (resp.IsSuccess) {
         this.activepatientDataSource = resp.ListResult;
-        this.GetFilterList = this.activepatientDataSource;
-      } else
+        console.log(JSON.stringify(this.activepatientDataSource));
+      } else{
         this.activepatientDataSource = [];
-        this.activepatientDataSource
+      }
     });
   }
-
-  SearchDetails() {
+  onPageChange(index){
     debugger;
-    this.activepatientDataSource=this.GetFilterList.filter((invoice) => this.isMatch(invoice));
+    this.activepatientDataSource =  this.premiumData
+      .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
+    this.getactivepatientList();
   }
-
-  isMatch(item) {
-    debugger;
-    if (item instanceof Object) {
-      return Object.keys(item).some((k) => this.isMatch(item[k]));
-    } else {
-      return item == null?'':item.toString().indexOf(this.SearchKey) > -1
-    }
-  }
-  }
+}
 
 

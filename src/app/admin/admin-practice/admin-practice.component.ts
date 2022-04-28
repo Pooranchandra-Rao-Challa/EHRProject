@@ -16,7 +16,7 @@ export class AdminPracticeComponent implements OnInit {
   pageSize = 50;
   page = 0;
   GlobalSearch:any;
-  ProviderList: any;
+  ProviderList: any = [];
   GetFilterList: any;
   FitlerActiveStatus: any = [];
   Active: boolean = true;
