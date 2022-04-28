@@ -1,0 +1,80 @@
+
+// Success Message Styles.
+div#modal-message{
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  //z-index: 1052 !important;
+}
+div#modal-message .modal-dialog .modal-content {
+  background-color: #d8d8d8;
+}
+div#modal-message .modal-dialog,
+div#modal-message .modal-dialog .modal-content {
+  max-width: 500px;
+}
+div#modal-message .modal-content {
+  position: relative;
+  background-color: #fff;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  border: 1px solid #999;
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 6px;
+  outline: 0;
+  -webkit-box-shadow: 0 3px 9px rgb(0 0 0 / 50%);
+  box-shadow: 0 3px 9px rgb(0 0 0 / 50%);
+}
+
+
+
+@media (max-height: 768px){
+  div#modal-message .modal-dialog, #modal-flash .modal-dialog .modal-content {
+    max-width: 500px;
+  }
+}
+
+@media (min-width: 768px){
+  .modal-content {
+    -webkit-box-shadow: 0 5px 15px rgb(0 0 0 / 50%);
+    box-shadow: 0 5px 15px rgb(0 0 0 / 50%);
+  }
+}
+
+div#modal-message.modal-notice .modal-dialog .modal-content .modal-body .scrollable-container .message-title {
+  background-color: #41b6a6;
+}
+div#modal-message.modal-notice .modal-dialog .modal-content .modal-body .scrollable-container .error-title{
+  background-color:  #c43636;;
+}
+
+div#modal-message .modal-dialog .modal-content .modal-body .scrollable-container .message-title,
+div#modal-message .modal-dialog .modal-content .modal-body .scrollable-container .error-title {
+  width: 100%;
+  vertical-align: middle;
+  padding: 20px;
+  text-align: center;
+}
+
+@media (max-height: 768px){
+  div#modal-message .modal-dialog .modal-content .modal-body {
+    padding: 110px 0 15px 0;
+}
+}
+div#modal-message .modal-dialog .modal-content .modal-body {
+    padding: 100px 0 45px 0;
+    /* border-radius: 8px 8px 0 0; */
+    text-align: center;
+}
+div#modal-message .modal-dialog .modal-content .modal-body .message-title p,
+div#modal-message .modal-dialog .modal-content .modal-body .message-error-title p  {
+  font-size: 24px;
+  color: #fff;
+  margin-bottom: 0;
+}
+div#modal-message .modal .modal-dialog {
+  margin-top: calc(63px + 120px);
+}
+// End of message model

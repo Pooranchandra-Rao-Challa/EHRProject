@@ -1,16 +1,17 @@
-.modal .modal-dialog .modal-content .modal-header {
+.modal-dialog{
+  overflow-y: initial !important;
+  padding-left: 80px;
+  margin: 0 !important;
+}
+
+.modal-dialog .modal-content .modal-header {
   padding: 20px 16px;
-}
-.modal-content {
-  border: 1px solid rgb(65 182 166) !important;
-}
-.appointment-form .modal-body {
-  height: 780px;
-  padding: 13px 26px;
-  overflow-y: auto;
-}
-.modal-header {
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  min-height: 30px !important;
+  background-color: #41b6a6;
+  color: #fff;
+  border: none;
+  //padding: 10px !important;
+
   color: white;
   background-color: #41b6a6;
   border-bottom: none;
@@ -19,9 +20,28 @@
   margin-top: -1px;
   margin-left: -1px;
 }
-.appointment-form .modal-dialog {
+.modal-content {
+  border: 1px solid rgb(65 182 166) !important;
+}
+
+.modal-body {
+  max-height: calc(90vh - 180px);
+  overflow-y: auto;
+}
+
+.modal-body .form-group {
+  margin-bottom: 25px;
+}
+.modal-title {
+   line-height: 10px !important;
+   font-size: 15px;
+   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+
+.appointment-form.modal-dialog {
   max-width: 660px;
-  margin-top: 20px;
+  //margin-top: 20px;
 }
 .appointment-form .text-area {
   height: 100px;
@@ -48,16 +68,18 @@
 }
 .appointment-form .btn {
   border-color: #41b6a6;
-  font-size: 13px;
+  font-size: 15px;
   height: 45px;
+  padding: 0px;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
-.appointment-form .modal {
-  overflow: hidden;
-}
+
 .available-slots {
   border: 1px solid #41b6a6;
+  padding: 30px 25px 15px 20px;
   border-radius: 4px;
-  padding: 10px 12px;
+  background-color: rgba(65,182,166,0.1);
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
   color: #41b6a6 !important;
@@ -83,6 +105,12 @@
   display: flow-root;
   float: inherit;
   margin-left: -6px;
+  padding: 10px !important;
+  border: 1px solid #d64841 !important;
+}
+.btn-appointment-cancel-right:hover{
+  background-color: #d64841 !important;
+  color: white !important;
 }
 ::ng-deep div#practiveProviders2-panel.mat-select-panel,
 ::ng-deep div#selSmartAppointmentTypes-panel.mat-select-panel,
@@ -92,8 +120,10 @@
 
   border-radius: 4px;
   border: 1px solid #41b6a6;
-  position: fixed;
+  position: absolute !important;
   top: 29px;
+  min-width: calc(100% + 18px) !important;
+  margin-left: -9px;
 }
 
 ::ng-deep div#practiveProviders2-panel mat-option.mat-option,
@@ -104,6 +134,44 @@
   border: 1px solid white !important;
 
 }
+
+::ng-deep div.mat-calendar-content table.mat-calendar-table td.mat-calendar-body-disabled{
+  color: #ccc;
+}
+
 span#spantimeSlots{
   color: #F75857;
+}
+
+button.timeslot-selected{
+  background-color: #41b6a6;
+  color: #fff;
+  border: 1px solid #fe8f00;
+}
+.timeslots{
+  font-size: 13px;
+  padding: auto;
+  font-weight: 500;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #41b6a6;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #bbb;
 }

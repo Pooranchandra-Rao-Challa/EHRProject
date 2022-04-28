@@ -1,8 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { AvailableTimeSlot, NewAppointment, PatientSearchResults, ScheduledAppointment, UserLocations } from 'src/app/_models/smar.scheduler.data';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { AvailableTimeSlot, NewAppointment,Actions,
+        AppointmentDialogInfo, PatientSearchResults,
+        ScheduledAppointment, UserLocations } from 'src/app/_models/smar.scheduler.data';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
-
+import { EHROverlayRef } from '../../ehr-overlay-ref';
+import { NewAppointmentDialogComponent } from '../../dialogs/newappointment.dialog/newappointment.dialog.component';
+import { ComponentType } from '@angular/cdk/portal';
+import { OverlayService } from '../../overlay.service';
+import { A } from '@angular/cdk/keycodes';
 @Component({
   selector: 'app-upcoming.appointments.dialog',
   templateUrl: './upcoming.appointments.dialog.component.html',
@@ -22,73 +28,87 @@ export class UpcomingAppointmentsDialogComponent implements OnInit {
   Appointments: ScheduledAppointment[];
   public selectedPatient: PatientSearchResults;
   SelectedLocationId: string;
+  data: AppointmentDialogInfo
+  newAppointmentDialogComponent = NewAppointmentDialogComponent;
+  appointmentDialogResponse: any;
 
-  constructor(private smartSchedulerService: SmartSchedulerService,
-    private authService: AuthenticationService) { }
+  constructor(
+    private ref: EHROverlayRef,
+    private smartSchedulerService: SmartSchedulerService,
+    private overlayService: OverlayService) {
+      this.data = ref.RequestData;
+      this.PatientAppointments(this.data.PatientAppointment.PatientId)
+    }
 
   ngOnInit(): void {
   }
 
-  closeExistingAppointment() {
-    this.ClearPatientAppointment();
-    this.messageToShowTimeSlots = '';
+
+  close() {
+    this.ref.close(null);
   }
 
-  ClearPatientAppointment() {
-    this.PatientAppointment = {};
-    this.ClearTimeSlots();
-    this.SaveInputDisable = false;
-    this.messageToShowTimeSlots = '';
-  }
 
-  ClearTimeSlots() {
-    this.LoadAppointmentDefalts();
-    this.AvaliableTimeSlots = [];
-  }
 
-  LoadAppointmentDefalts() {
-    this.SaveInputDisable = false;
-    if (this.SelectedProviderId == this.authService.userValue.ProviderId)
-      this.Locations = JSON.parse(this.authService.userValue.LocationInfo);
-    else {
-      this.smartSchedulerService.PracticeLocations({ "provider_Id": this.SelectedProviderId })
-        .subscribe(resp => {
-          if (resp.IsSuccess) {
-            this.Locations = resp.ListResult as UserLocations[];
-          }
-        });
-    }
-  }
-  onSelectNewAppointmentofPatientFromEditAppointments() {
-    this.flag = false;
-    this.appointmentTitle = "Add New Appointment";
-    this.ClearPatientAppointment();
-    this.confirmIsCancelledAppointment();
-    this.PatientAppointment.AppointmentId = this.selectedPatient.AppointmentId;
-    this.PatientAppointment.PatientId = this.selectedPatient.PatientId;
-    this.PatientAppointment.PatientName = this.selectedPatient.Name;
-    this.PatientAppointment.LocationId = this.SelectedLocationId;
-    this.PatientAppointment.ProviderId = this.SelectedProviderId;
-    this.PatientAppointment.ClinicId = this.authService.userValue.ClinicId;
-    this.PatientAppointment.Duration = 30;
-    this.PatientAppointment.Startat = new Date();
-  }
-
-  PatientAppointments(PatientObj) {
+  PatientAppointments(PatientId) {
     let req = {
-      "PatientId": PatientObj.PatientId
+      "PatientId": PatientId
     };
 
     this.smartSchedulerService.ActiveAppointments(req).subscribe(resp => {
       if (resp.IsSuccess) {
-        this.confirmIsCancelledAppointment();
         this.AppointmentsOfPatient = resp.ListResult as ScheduledAppointment[];
-        //console.log(this.AppointmentsOfPatient);
       }
     });
   }
 
-  confirmIsCancelledAppointment() {
-    this.appointmentId = null;
+
+  confirmAppointment() {
+    if (this.appointmentId != null) {
+      this.smartSchedulerService.ConfirmAppointmentCancellation({ AppointmentId: this.appointmentId })
+        .subscribe(resp => {
+          if (resp.IsSuccess) {
+            this.appointmentId = null;
+            //this.OperationMessage = resp.EndUserMessage;
+
+            //OpenSaveSuccessAppointment();
+          }
+          else {
+            //this.SaveInputDisable = false;
+            //this.OperationMessage = "Appointment is not saved"
+          }
+        });
+    }
+  }
+
+  ViewAppointment(content,status,patientapp?:NewAppointment) {
+    if(status == 'view') {
+      this.data.status = Actions.view;
+      this.data.Title = "Edit Appointment";
+      this.data.PatientAppointment.AppointmentId = patientapp.AppointmentId
+      this.data.PatientAppointment.Startat = patientapp.Startat
+      this.data.PatientAppointment.AppointmentStatusId = patientapp.AppointmentStatusId;
+      this.data.PatientAppointment.AppointmentTypeId = patientapp.AppointmentTypeId;
+      this.data.PatientAppointment.Notes = patientapp.Notes;
+    }
+    else {
+      this.data.status = Actions.new;
+      this.data.Title = "Add New Appointment";
+    }
+
+    this.ref.close("upcomming dialog closed");
+    this.openComponentDialog(content);
+  }
+
+  openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string ) {
+    const ref = this.overlayService.open(content,this.data );
+    ref.afterClosed$.subscribe(res => {
+       if (content === this.newAppointmentDialogComponent) {
+        this.appointmentDialogResponse = res.data;
+      }
+
+    });
+
+
   }
 }

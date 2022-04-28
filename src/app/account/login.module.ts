@@ -13,6 +13,7 @@ import { IConfig, NgxMaskModule } from 'ngx-mask'
 import { PatientLoginComponent } from './Patientlogin.component';
 import { PartnerSignupComponent } from '../patient/partner-signup.component';
 import { CreatePasswordComponent } from './createpassword.component';
+import { ErrorMessageComponent } from '../_components/error.message.component';
 
 @NgModule({
   imports: [
@@ -32,7 +33,8 @@ import { CreatePasswordComponent } from './createpassword.component';
     HomeComponent,
     PatientLoginComponent,
     PartnerSignupComponent,
-    CreatePasswordComponent
+    CreatePasswordComponent,
+    ErrorMessageComponent
   ]
 })
 export class LoginModule { }

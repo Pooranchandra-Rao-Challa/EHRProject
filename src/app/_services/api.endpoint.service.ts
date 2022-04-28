@@ -259,11 +259,11 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "GetAllAdmins";
   }
 
-  get _GeneralScheduleUrl() {
+  get _generalScheduleUrl() {
     return this._baseUrl + "GetGeneralSchedule";
   }
 
-  get _UpdateRescheduleUrl() {
+  get _updateRescheduleUrl() {
     return this._baseUrl + "UpdateSchdulegeneral";
   }
   constructor(public http: HttpClient) {

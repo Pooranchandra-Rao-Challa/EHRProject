@@ -21,9 +21,10 @@ export class EHROverlayRef<R = any, T = any> {
     overlay.backdropClick().subscribe(() => this._close('backdropClick', null));
   }
 
-  get RequestData(){
+  get RequestData(): T {
     return this.data;
   }
+
   close(resdata?: R) {
     this._close('close', resdata);
   }

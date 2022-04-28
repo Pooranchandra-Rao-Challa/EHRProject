@@ -1,4 +1,7 @@
+
+import { Location } from './settings';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import{ PracticeProviders} from'./practiceProviders';
 export interface NewAppointment {
   AppointmentId?: string;
   PatientId?: string;
@@ -6,7 +9,7 @@ export interface NewAppointment {
   ProviderId?: string;
   PatientName?: string;
   AppointmentTypeId?: string;
-  ApoointmentStatusId?: string;
+  AppointmentStatusId?: string;
   Colour?: string;
   Reason?: string;
   Duration?: number;
@@ -86,5 +89,15 @@ export interface AppointmentDialogInfo{
   ProviderId?: string;
   LocationId?: string;
   ClinicId?: string;
+  PatientAppointment?:NewAppointment
+  PracticeProviders?:PracticeProviders[]
+  AppointmentTypes?: AppointmentTypes[]
+  Locations: UserLocations[];
+  Rooms?: Room[];
+  AppointmentsOfPatient?: NewAppointment[];
+  status: Actions;
+}
 
+export enum Actions {
+  new,add, view, edit, upcomming,delete,create
 }
