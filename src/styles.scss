@@ -102,7 +102,24 @@
 @import "./assets/styles/utilities";
 @import "./assets/styles/demo";
 @import "~ngx-toastr/toastr.css";
+@import "./app/_components/drop-down-search/drop-down-search.theme.scss";
 /* You can add global styles to this file, and also import other style files */
+
+$angular-cdk-ehr-primary: mat-palette($mat-teal);
+$angular-cdk-ehr-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$angular-cdk-ehr-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$angular-cdk-ehr-theme: mat-light-theme(
+  $angular-cdk-ehr-primary,
+  $angular-cdk-ehr-accent,
+  $angular-cdk-ehr-warn
+);
+
+// include custome themes
+@include drop-down-search-theme($angular-cdk-ehr-theme);
 
 html,
 body {
@@ -416,6 +433,7 @@ li,
 }
 .page-body-wrapper {
   padding-top: 0px;
+  min-height: calc(100vh - 100px) !important;
 }
 // Related to sidebar
 .sidebar {
@@ -944,12 +962,12 @@ i {
   margin: 0;
 }
 .modal-body{
-  padding: 0px 10px !important;
+  //padding: 0px 10px !important;
   padding-top: 14px !important;
   background-color: #fff;
 }
 .modal-footer{
-  padding: 10px 10px !important;
+  padding: 10px 26px !important;
   border-top: 0px;
 }
 .modal .cross-mark {
