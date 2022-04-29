@@ -1,3 +1,5 @@
+import { NewmessageDialogComponent } from './../../dialogs/newmessage.dialog/newmessage.dialog.component';
+
 import { MessageComponent } from './../../patient/message.component';
 import { DocumentComponent } from './../../patient/document.component';
 import { AppointmentComponent } from './../../patient/appointment.component';
@@ -12,7 +14,8 @@ import { PatientComponent } from './patient.component';
 import { DayService, WeekService } from '@syncfusion/ej2-angular-schedule';
 import { MyhealthComponent } from 'src/app/patient/myhealth.component';
 import { MyprofileComponent } from 'src/app/patient/myprofile.component';
-
+import { PatientappointmentDialogComponent } from 'src/app/dialogs/patientappointment.dialog/patientappointment.dialog.component';
+import { OverlayService } from 'src/app/overlay.service';
 @NgModule({
   exports: [
     MatInputModule
@@ -26,7 +29,11 @@ import { MyprofileComponent } from 'src/app/patient/myprofile.component';
     DocumentComponent,
     MessageComponent,
     MyhealthComponent,
-    MyprofileComponent
+    MyprofileComponent,
+    PatientappointmentDialogComponent,
+    NewmessageDialogComponent
+
+
   ],
   imports: [
     PatientRoutingModule,
@@ -34,7 +41,7 @@ import { MyprofileComponent } from 'src/app/patient/myprofile.component';
     CommonModule,
 
   ],
-  providers: [DayService, WeekService
+  providers: [DayService, WeekService,OverlayService
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
