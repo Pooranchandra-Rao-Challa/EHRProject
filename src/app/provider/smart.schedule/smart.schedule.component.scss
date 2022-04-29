@@ -1,4 +1,5 @@
 
+@import"../../../assets/common.scss";
 // content
 .smart-schedule-logo {
   border: 3px solid #00d1b2;
@@ -151,6 +152,9 @@ div.smart-schedule-header {
   background-color: #41b6a6;
   border-radius: initial;
 }
+// .bg-color:hover{
+//   background-color: #41b6a6 !important;
+// }
 .schedule-accordion .btn-orange:hover {
   background-color: #fe8f00;
   color: #fff;

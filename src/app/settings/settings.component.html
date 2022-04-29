@@ -14,21 +14,24 @@
             <a class="ptitle2 m-0" (click)="onChangeViewState('schedule')" href="javascript:void(0)">Schedule</a>
           </li>
           <li [class]="view !== 'patient' ? 'panel-heading2': 'active panel-heading2'">
-            <a class="ptitle2 m-0" (click)="onChangeViewState('patient')" href="javascript:void(0)">Patient
+            <a class="ptitle2 disabled m-0" (click)="onChangeViewState('patient')" href="javascript:void(0)">Patients
             </a>
           </li>
           <li [class]="view !== 'message' ? 'panel-heading2': 'active panel-heading2'">
-            <a href="#" class="ptitle2" (click)="onChangeViewState('message')" href="javascript:void(0)">Messages</a>
+            <a href="#" class="ptitle2 disabled" (click)="onChangeViewState('message')" href="javascript:void(0)">Messages</a>
           </li>
           <li [class]="view !== 'erx' ? 'panel-heading2': 'active panel-heading2'">
             <a href="#" class="ptitle2 m-0" (click)="onChangeViewState('erx')" href="javascript:void(0)">eRx</a>
           </li>
           <li [class]="view !== 'labmapping' ? 'panel-heading2': 'active panel-heading2'">
-            <a href="#" class="ptitle2 m-0" (click)="onChangeViewState('labmapping')"
-              href="javascript:void(0)">Lab/Mapping</a>
+            <a href="#" class="ptitle2 disabled m-0" (click)="onChangeViewState('labmapping')"
+              href="javascript:void(0)">Lab/Imaging</a>
           </li>
           <li [class]="view !== 'reports' ? 'panel-heading2': 'active panel-heading2'">
-            <a href="#" class="ptitle2 m-0" (click)="onChangeViewState('reports')" href="javascript:void(0)">Reports</a>
+            <a href="#" class="ptitle2 disabled m-0" (click)="onChangeViewState('reports')" href="javascript:void(0)">Reports</a>
+          </li>
+          <li [class]="view !== 'billing' ? 'panel-heading2': 'active panel-heading2'">
+            <a href="#" class="ptitle2 disabled m-0" (click)="onChangeViewState('billing')" href="javascript:void(0)">Billing</a>
           </li>
           <li [class]="view !== 'clinicdecision' ? 'panel-heading2': 'active panel-heading2'">
             <a href="#" class="ptitle2 m-0" (click)="onChangeViewState('clinicdecision')"
