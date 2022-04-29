@@ -1,3 +1,4 @@
+import { FooterComponent } from './../footer.component';
 import { NewmessageDialogComponent } from './../../dialogs/newmessage.dialog/newmessage.dialog.component';
 
 import { MessageComponent } from './../../patient/message.component';
@@ -31,7 +32,8 @@ import { OverlayService } from 'src/app/overlay.service';
     MyhealthComponent,
     MyprofileComponent,
     PatientappointmentDialogComponent,
-    NewmessageDialogComponent
+    NewmessageDialogComponent,
+    FooterComponent
 
 
   ],
