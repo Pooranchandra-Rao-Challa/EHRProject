@@ -37,15 +37,15 @@ export class PatientsComponent implements OnInit {
   pageSize = 10;
   page = 0;
   inactivePatients: any[] = [];
-  patientsProviders: import("g:/EHR Project/EHRGitCode/EHRProject/src/app/_models/practiceProviders").PracticeProviders[];
+  // patientsProviders: import("g:/EHR Project/EHRGitCode/EHRProject/src/app/_models/practiceProviders").PracticeProviders[];
   constructor(public overlayService: OverlayService,
     private patientService: patientService,
     private authService: AuthenticationService,
     private router: Router,
     private smartschedule: SmartScheduleComponent) {
     this.user = authService.userValue;
-    this.patientsProviders = smartschedule.PracticeProviders;
-    console.log(this.patientsProviders);
+    // this.patientsProviders = smartschedule.PracticeProviders;
+    // console.log(this.patientsProviders);
 
   }
 
