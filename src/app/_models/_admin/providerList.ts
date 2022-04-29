@@ -1,5 +1,5 @@
-export interface providerList {
- 
+export interface ProviderList {
+
   UserId?: string,
   ProviderId?: string,
   ProviderName?: string,
@@ -9,5 +9,5 @@ export interface providerList {
   ActiveStatus?: string,
   Trial?:string,
   Address?:string,
-    
+
   }

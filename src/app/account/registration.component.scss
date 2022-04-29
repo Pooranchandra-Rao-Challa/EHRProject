@@ -144,9 +144,15 @@ h3{
   margin-bottom: 0;
   font-family: 'Times New Roman';
 }
-::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
-  color: #41b6a6 !important;
+::ng-deep div#registration-form .mat-form-field-appearance-outline .mat-form-field-outline {
+  color: #efefef !important;
   background-color: #fff;
+  border-radius: 5px;
+}
+::ng-deep div#registration-form .mat-form-field-appearance-outline:hover .mat-form-field-outline {
+  //border: .1em #41b6a6 !important;
+  color: #41b6a6 !important;
+  //background-color: #fff;
 }
 .mat-select {
   background-color: #fff;
@@ -331,7 +337,7 @@ form.pt-4 p.category-title{
   font-weight: 400;
   text-transform: uppercase;
   margin: 0;
-  
+
 }
 .white-light .select2-selection {
   background-color: #fff;
@@ -346,7 +352,7 @@ form.pt-4 p.category-title{
 mat-form-field{
   line-height: inherit;
   font-family: 'SF UI Text Regular';
-  
+
 }
 
 

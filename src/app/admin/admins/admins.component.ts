@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { admins } from 'src/app/_models/Admin.ts/Admins';
+import { Admins } from 'src/app/_models/_admin/Admins';
 import { AdminService } from 'src/app/_services/admin.service';
 
 @Component({
@@ -14,8 +14,8 @@ export class AdminsComponent implements OnInit {
   isAddAdmin: boolean = false;
   isSave: boolean = true;
   codeValue= new FormControl();
-  adminDataSource: admins[];
-  dataSource: admins[];
+  adminDataSource: Admins[];
+  dataSource: Admins[];
   myControl = new FormControl();
   filteredOptions:any;
   codeList :string[]  = ['501', '502', '401','402','601','603'];
