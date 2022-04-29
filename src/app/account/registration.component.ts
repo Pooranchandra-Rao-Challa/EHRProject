@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import { User } from '../_models';
 import { Accountservice } from '../_services/account.service';
 import { CustomKeyboardEvent } from 'ngx-mask';
-
+import { ViewModel, Registration } from '../_models/registration';
 
 
 declare var $: any;
@@ -18,58 +18,24 @@ export class RegistrationComponent implements OnInit {
   nameTitle: { titleId: number; titleName: string; }[];
   credentials: { credId: number; credName: string; }[];
   speciality: { specId: number; specName: string; }[];
-  showpersonalInfoReq: boolean = true;
-  showcontactInfoReq: boolean = false;
-  showaccountInfoReq: boolean = false;
-  Registration: FormGroup;
   PersonalInfo: FormGroup;
   ContactInfomation: FormGroup;
   AccountInfomation: FormGroup;
-  users: User;
   displayDialog: boolean;
   displayAddress = "none";
   ValidAddressForUse: any;
   displaymsg: any;
-  errorDisplay: boolean;
   PersonalDetials: any;
   ContactDetails: any;
   AccountDetails: any;
-  DisPersonInfoForm: boolean = false;
-  DisContactnfoForm: boolean;
-  DisAccountInfoForm: boolean = false;
-  getResponse: any = {};
-  DisableStepbtn: boolean = false;
-  DisableStep1Btn: boolean;
-  DisableStep2Btn: boolean;
-  DisableStep3Btn: boolean;
   UseThisValue: any;
   ValidAddressToUse: boolean;
   displayVerifybtn: boolean;
-  Checked1: boolean;
-  Checked2: boolean;
-  Checked3: boolean;
-  Checked4: boolean;
-  Checked5: boolean;
-  Checked6: boolean;
-  UnChecked6: boolean;
-  unChecked: boolean;
-  Checked7: boolean;
-  UnChecked7: boolean;
-  Checked8: boolean;
-  UnChecked8: boolean;
-  UnChecked9: boolean;
-  Checked9: boolean;
-  Checked10: boolean;
-  Checked11: boolean;
-  Checked12: boolean;
-  UnChecked12: boolean;
-  UserEmail: any;
-  PrimaryPhoneValue: string;
   PhonePattern: any;
+  viewModel: ViewModel = {} as ViewModel;
+  registration: Registration = {} as Registration;;
 
-  constructor(private fb: FormBuilder, private accountservice: Accountservice,) {
-    this.users = JSON.parse(localStorage.getItem("user"));
-    console.log(this.users);
+  constructor(private fb: FormBuilder, private accountservice: Accountservice) {
     this.PhonePattern = {
       0: {
         pattern: new RegExp('\\d'),
@@ -83,8 +49,6 @@ export class RegistrationComponent implements OnInit {
     this.buildContInfoForm();
     this.buildAcctInfoForm();
     this.dropdownMenusList();
-
-
 
     $(document).ready(function () {
       // Step1
@@ -155,7 +119,7 @@ export class RegistrationComponent implements OnInit {
   }
   buildAcctInfoForm() {
     this.AccountInfomation = this.fb.group({
-      Email: ['', [Validators.required, Validators.pattern('^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$')]],
+      Email: ['', [Validators.required, Validators.email, Validators.pattern('^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$')]],
       AltEmail: ['', Validators.pattern('^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$')],
       EncryptedPassword: ['', [Validators.required, Validators.minLength(5)]],
       ConfirmPassword: ['', Validators.required]
@@ -205,29 +169,6 @@ export class RegistrationComponent implements OnInit {
     ];
   }
 
-  personalInfoReq() {
-    this.showpersonalInfoReq = false;
-    this.showcontactInfoReq = true;
-  }
-
-  contactInfoReq(event) {
-    if (event == 'prev') {
-      this.showpersonalInfoReq = true;
-      this.showcontactInfoReq = false;
-    }
-    else {
-      this.showcontactInfoReq = false;
-      this.showaccountInfoReq = true;
-    }
-  }
-
-  accountInfoReq(event) {
-    if (event == 'prev') {
-      this.showcontactInfoReq = true;
-      this.showaccountInfoReq = false;
-    }
-  }
-
 
   AddressVerification() {
     this.ContactInfomation.value;
@@ -237,12 +178,11 @@ export class RegistrationComponent implements OnInit {
         if (resp.IsSuccess) {
           this.displayDialog = false;
           this.openPopupAddress();
-          this.ValidAddressForUse = resp.Result["delivery_line_1"]+", "+resp.Result["last_line"]
+          this.ValidAddressForUse = resp.Result["delivery_line_1"] + ", " + resp.Result["last_line"]
           this.displaymsg = resp.EndUserMessage;
         }
         else {
           this.displayDialog = true;
-          this.errorDisplay = false;
           this.openPopupAddress();
           this.displaymsg = resp.EndUserMessage;
         }
@@ -251,17 +191,10 @@ export class RegistrationComponent implements OnInit {
     }
 
   }
-  UseValidAddress() {
-    //this.ValidAddressToUse = false;
-    //this.displayVerifybtn = false;
-  }
+
   UseValidatedAddress() {
     this.closePopupAddress();
-    //this.ValidAddressToUse = false;
-    //this.displayVerifybtn = true;
     this.ContactInfomation.get('PracticeAddress').setValue(this.ValidAddressForUse);
-    //this.ContactInfomation.value.PracticeAddress = this.ValidAddressForUse;
-    //this.displayAddress = "none";
   }
   openPopupAddress() {
     this.displayAddress = "block";
@@ -304,223 +237,32 @@ export class RegistrationComponent implements OnInit {
       Password: this.AccountDetails.EncryptedPassword,
     }
 
-    this.accountservice.RegisterNewProvider(reqparams).subscribe(registrationlist => {
-      this.getResponse = registrationlist
-      console.log(this.getResponse);
-      if (this.getResponse.IsSuccess) {
-        this.UserEmail = this.AccountDetails.Email
+    this.accountservice.RegisterNewProvider(reqparams).subscribe(resp => {
+      if (resp.IsSuccess) {
         this.alertWithSuccess();
       }
       else {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: this.getResponse.EndUserMessage,
+          text: resp.EndUserMessage,
           width: '700',
         })
       }
     })
   }
 
-  checkfield1() {
-    let Firstname = this.PersonalInfo.value.FirstName;
-    if (Firstname != "") {
-      this.Checked1 = true;
-      this.unChecked = false;
-    }
-  }
-  checkfield2() {
-    let MiddleName = this.PersonalInfo.value.MiddleName;
-    if (MiddleName != "") {
-      this.Checked2 = true;
-      this.unChecked = false;
-    }
-  }
-  checkfield3() {
 
-    let LastName = this.PersonalInfo.value.LastName;
-    if (LastName != "") {
-      this.Checked3 = true;
-      this.unChecked = false;
-    }
-  }
-  checkfield4() {
-    let PracticeName = this.PersonalInfo.value.PracticeName;
-    if (PracticeName != "") {
-      this.Checked4 = true;
-      this.unChecked = false;
-    }
-  }
-  checkfield5() {
-    let NPI = this.PersonalInfo.value.NPI;
-    if (NPI != "") {
-      this.Checked5 = true;
-      this.unChecked = false;
-    }
-  }
-  unchekedfiled() {
-    this.Checked1 = false;
-    this.Checked2 = false;
-    this.Checked3 = false;
-    this.Checked4 = false;
-    this.Checked5 = false;
-    this.unChecked = false;
-    this.Checked10 = false;
-    this.Checked11 = false;
-    //this.Checked12=true;
-  }
-  checkfield6() {
-    let address = this.ContactInfomation.value.PracticeAddress;
-    if (address == "") {
-      this.Checked6 = false;
-      this.UnChecked6 = false;
-    }
-    else {
-      this.Checked6 = true;
-      this.UnChecked6 = true;
-    }
-  }
-  unchekedfiled6() {
-    let address = this.ContactInfomation.value.PracticeAddress;
-    if (address == "") {
-      this.Checked6 = false;
-      this.UnChecked6 = false;
-    }
-    if (address != "") {
-      this.Checked6 = false;
-      //this.Checked6=false;
-    }
-    // else {
-    //   this.Checked6 = false;
-    //   this.UnChecked6 = false;
-    // }
 
-  }
-  checkField7() {
-    if (this.AccountInfomation.value.Email == "") {
-      this.UnChecked7 = true;
-      this.Checked7 = false
-    }
-    if (this.AccountInfomation.controls['Email'].invalid) {
-      this.Checked7 = false;
-      this.UnChecked7 = true;
-    }
-    else {
-      this.Checked7 = true;
-    }
-  }
-  UncheckField7() {
-    this.UnChecked7 = false;
-    this.Checked7 = false;
-
-  }
-  checkField8() {
-    if (this.AccountInfomation.value.EncryptedPassword == "") {
-      this.UnChecked8 = true;
-      this.Checked8 = false
-    }
-    if (this.AccountInfomation.controls['EncryptedPassword'].invalid) {
-      this.UnChecked8 = true;
-      this.Checked8 = false
-    }
-    else {
-      this.Checked8 = true;
-      this.UnChecked8 = false;
-    }
-
-  }
-  UncheckField8() {
-    this.UnChecked8 = false;
-    this.Checked8 = false;
-  }
-  checkField9() {
-
-    if (this.AccountInfomation.value.ConfirmPassword == "") {
-      this.Checked9 = false;
-      this.UnChecked9 = true;
-
-    }
-    if (this.AccountInfomation.controls['ConfirmPassword'].invalid) {
-      this.Checked9 = false;
-      this.UnChecked9 = true;
-    }
-    else {
-      this.Checked9 = true;
-      this.UnChecked9 = false;
-    }
-  }
-  UncheckField9() {
-    this.UnChecked9 = false;
-    this.Checked9 = false;
-  }
-  checkfield10() {
-    let PrimaryPhone = this.ContactInfomation.value.PrimaryPhone;
-    if (PrimaryPhone == "") {
-      this.Checked10 = false;
-
-    }
-    if (PrimaryPhone != "") {
-      this.Checked10 = true;
-    }
-    $.event.propagate();
-  }
-  unchekedfiled10() {
-    this.Checked10 = false
-    $.event.propagate();
-  }
-
-  checkfield11() {
-    let MobilePhone = this.ContactInfomation.value.MobilePhone;
-    if (MobilePhone == "") {
-      this.Checked11 = false;
-    }
-    if (MobilePhone != "") {
-      this.Checked11 = true
-    }
-  }
-  checkfield12() {
-    if (this.AccountInfomation.value.AltEmail == "") {
-      this.Checked12 = true
-    }
-    if (this.AccountInfomation.controls['AltEmail'].invalid) {
-      this.Checked12 = false
-      this.UnChecked12 = true;
-    }
-    else {
-      this.Checked12 = true;
-      this.UnChecked12 = false;
-    }
-  }
-  unchekedfiled12() {
-    if (this.AccountInfomation.value.AltEmail == "") {
-
-      this.Checked12 = false
-    }
-    if (this.AccountInfomation.controls['AltEmail'].invalid) {
-      this.Checked12 = false;
-      this.UnChecked12 = false;
-    }
-  }
-
-  EnterAddress(event) {
-    debugger;
-    if (event != "") {
-      this.Checked6 = false
-      this.UnChecked6 = true;
-    }
-  }
-  EnterPassword(event) {
-    let ConfirmPassword = this.AccountInfomation.value.ConfirmPassword;
-    if (event == ConfirmPassword) {
-      this.Checked9 = true;
-      this.UnChecked9 = false;
-    }
+  validateConfirmPassword() {
+    return (this.AccountInfomation.value.EncryptedPassword ===
+      this.AccountInfomation.value.ConfirmPassword) && !this.AccountInfomation.controls['EncryptedPassword'].invalid;
   }
 
   alertWithSuccess() {
     Swal.fire({
       icon: 'success',
-      title: 'Thank you for registering for an EHR1 Account! An email with instructions for how to complete  setup of your account has been sent to ' + this.UserEmail,
+      title: 'Thank you for registering for an EHR1 Account! An email with instructions for how to complete  setup of your account has been sent to ' + this.AccountDetails.Email,
       showConfirmButton: true,
       confirmButtonText: 'Close',
       width: '700',

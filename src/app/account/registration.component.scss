@@ -154,6 +154,10 @@ h3{
   color: #41b6a6 !important;
   //background-color: #fff;
 }
+div#registration-form input{
+  font-family:Roboto;
+  font-size: 15px;
+}
 .mat-select {
   background-color: #fff;
 }
@@ -358,3 +362,16 @@ mat-form-field{
 
 
 
+::ng-deep div#registration-form .mat-checkbox-checked.mat-accent .mat-checkbox-ripple .mat-ripple-element {
+  opacity: 0.03 !important;
+  background-color: #41a6a6 !important;
+}
+
+::ng-deep div#registration-form .mat-checkbox-checked.mat-accent .mat-checkbox-background,
+::ng-deep div#registration-form .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: #41a6a6 !important;
+}
+::ng-deep div#registration-form .mat-checkbox-ripple .mat-ripple-element,
+::ng-deep div#registration-form .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+  background-color: #41a6a6 !important;
+}

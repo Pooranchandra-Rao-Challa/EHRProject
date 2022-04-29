@@ -48,21 +48,23 @@
 
                     <mat-form-field appearance="outline" class="col-lg-3 col-md-3 col-sm-3 col-12">
 
-                      <input matInput (mouseover)="checkfield1()" (mouseleave)="unchekedfiled()"
-                        formControlName="FirstName" placeholder="First Name">
-                      <mat-icon matSuffix *ngIf="Checked1" class="FieldValid">check</mat-icon>
+                      <input matInput
+                      (mouseover)="viewModel.FirstName=$event.target.value!= null&& $event.target.value!=''" (mouseleave)="viewModel.FirstName=false"
+                        formControlName="FirstName" placeholder="First Name"
+                        >
+                      <mat-icon matSuffix *ngIf="viewModel.FirstName" class="FieldValid">check</mat-icon>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline" class="col-lg-3 col-md-3 col-sm-3 col-12">
-                      <input matInput (mouseover)="checkfield2()" (mouseleave)="unchekedfiled()"
-                        formControlName="MiddleName" placeholder="Middle Name">
-                      <mat-icon matSuffix *ngIf="Checked2" class="FieldValid">check</mat-icon>
+                      <input matInput (mouseover)="viewModel.MiddleName=$event.target.value!= null&& $event.target.value!=''" (mouseleave)="viewModel.MiddleName=false"
+                        formControlName="MiddleName" placeholder="Middle Name" >
+                      <mat-icon matSuffix *ngIf="viewModel.MiddleName" class="FieldValid">check</mat-icon>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline" class="col-lg-4 col-md-4 col-sm-4 col-12">
-                      <input matInput (mouseover)="checkfield3()" (mouseleave)="unchekedfiled()"
+                      <input matInput (mouseover)="viewModel.LastName=$event.target.value!= null&& $event.target.value!=''" (mouseleave)="viewModel.LastName=false"
                         formControlName="LastName" placeholder="Last Name">
-                      <mat-icon matSuffix *ngIf="Checked3" class="FieldValid">check</mat-icon>
+                      <mat-icon matSuffix *ngIf="viewModel.LastName" class="FieldValid">check</mat-icon>
 
                     </mat-form-field>
                   </div>
@@ -73,9 +75,9 @@
                   <p  class="category-title">PRACTICE NAME</p>
                   <div class="row">
                     <mat-form-field appearance="outline" class="col-lg-12">
-                      <input matInput (mouseover)="checkfield4()" (mouseleave)="unchekedfiled()"
+                      <input matInput (mouseover)="viewModel.PracticeName=$event.target.value!= null&& $event.target.value!=''" (mouseleave)="viewModel.PracticeName=false"
                         formControlName="PracticeName" placeholder="Practice Name">
-                      <mat-icon matSuffix *ngIf="Checked4" class="FieldValid">check</mat-icon>
+                      <mat-icon matSuffix *ngIf="viewModel.PracticeName" class="FieldValid">check</mat-icon>
 
                     </mat-form-field>
                   </div>
@@ -102,9 +104,9 @@
                 <div class="col-lg-4 col-md-4 col-sm-4">
                   <p  class="category-title">NPI NUMBER</p>
                   <mat-form-field appearance="outline" class="col-12">
-                    <input matInput (mouseover)="checkfield5()" (mouseleave)="unchekedfiled()" formControlName="NPI"
+                    <input matInput (mouseover)="viewModel.NPI=$event.target.value!= null&& $event.target.value!=''" (mouseleave)="viewModel.NPI=false" formControlName="NPI"
                       placeholder="National Provider Identifier(NPI)" formControlName="NPI">
-                    <mat-icon matSuffix *ngIf="Checked5" class="FieldValid">check</mat-icon>
+                    <mat-icon matSuffix *ngIf="viewModel.NPI" class="FieldValid">check</mat-icon>
 
                   </mat-form-field>
                 </div>
@@ -140,11 +142,11 @@
                   <p>PRACTICE ADDRESS</p>
                   <div class="row">
                     <mat-form-field appearance="outline" class="col-md-6">
-                      <input matInput (mouseover)="checkfield6()" (mouseleave)="unchekedfiled6()"
-                        formControlName="PracticeAddress" (keyup)="EnterAddress($event.target.value)" [readonly]="displayVerifybtn"
+                      <input matInput (mouseover)="viewModel.PracticeAddress=$event.target.value!= null&& $event.target.value!=''" (mouseleave)="viewModel.PracticeAddress=false"
+                        formControlName="PracticeAddress" [readonly]="displayVerifybtn"
                         placeholder="Enter the full name here (including suite number)">
-                      <mat-icon matSuffix  *ngIf="Checked6" class="FieldValid">check</mat-icon>
-                      <mat-icon matSuffix *ngIf="!UnChecked6" class="FieldInvalid">clear</mat-icon>
+                      <mat-icon matSuffix  *ngIf="viewModel.PracticeAddress" class="FieldValid">check</mat-icon>
+                      <mat-icon matSuffix *ngIf="!viewModel.PracticeAddress" class="FieldInvalid">clear</mat-icon>
                     </mat-form-field>
 
                     <div class="col-md-2 pt-1">
@@ -171,18 +173,19 @@
                   <mat-form-field appearance="outline" class="col-12">
                     <input matInput formControlName="PrimaryPhone" class="cstm-tel" type="tel" prefix="+1"
                     mask=" (000) 000 0000"  [showMaskTyped]="true"  [patterns]="PhonePattern"
-                    (mouseover)="checkfield10()" (mouseleave)="unchekedfiled()" placeHolderCharacter=" "  />
-                    <mat-icon matSuffix *ngIf="Checked10" class="FieldValid">check</mat-icon>
+                    (mouseover)="viewModel.PrimaryPhone=$event.target.value!= null&& $event.target.value!='+1 (___) ___ ____'" (mouseleave)="viewModel.PrimaryPhone=false"
+                    placeHolderCharacter="_"  />
+                    <mat-icon matSuffix *ngIf="viewModel.PrimaryPhone" class="FieldValid">check</mat-icon>
                   </mat-form-field>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6">
                   <p>MOBILE PHONE NUMBER</p>
                   <mat-form-field appearance="outline" class="col-12">
-                    <input matInput (mouseover)="checkfield11()" (mouseleave)="unchekedfiled()" prefix="+1"
-                    mask=" (000) 000 0000"  [showMaskTyped]="true"  [patterns]="PhonePattern" placeHolderCharacter=" "
+                    <input matInput (mouseover)="viewModel.MobilePhone=$event.target.value!= null&& $event.target.value!='+1 (___) ___ ____'" (mouseleave)="viewModel.MobilePhone=false" prefix="+1"
+                    mask=" (000) 000 0000"  [showMaskTyped]="true"  [patterns]="PhonePattern" placeHolderCharacter="_"
                       formControlName="MobilePhone" placeholder="(123)-456-7890" type="tel"
                       class="cstm-tel">
-                    <mat-icon matSuffix *ngIf="Checked11" class="FieldValid">check</mat-icon>
+                    <mat-icon matSuffix *ngIf="viewModel.MobilePhone" class="FieldValid">check</mat-icon>
                   </mat-form-field>
                 </div>
               </div>
@@ -217,19 +220,20 @@
                 <div class="col-lg-4 col-md-4 col-sm-6">
                   <p>PRIMARY EMAIL ADDRESS</p>
                   <mat-form-field appearance="outline" class="col-12">
-                    <input matInput (mouseover)="checkField7()" (mouseleave)="UncheckField7()" formControlName="Email"
-                      placeholder="Email Adress">
-                    <mat-icon matSuffix *ngIf="Checked7" class="FieldValid">check</mat-icon>
-                    <mat-icon matSuffix *ngIf="UnChecked7" class="FieldInvalid">clear</mat-icon>
+                    <input matInput (mouseover)="viewModel.Email=true" (mouseleave)="viewModel.Email=false"
+                    formControlName="Email" placeholder="Email Adress">
+                    <mat-icon matSuffix *ngIf="viewModel.Email && !AccountInfomation.controls['Email'].invalid" class="FieldValid">check</mat-icon>
+                    <mat-icon matSuffix *ngIf="viewModel.Email && AccountInfomation.controls['Email'].invalid" class="FieldInvalid">clear</mat-icon>
+                   <!-- <mat-icon matSuffix *ngIf="viewModel.Email" *ngIf="AccountInfomation.controls['Email'].invalid" class="FieldInvalid">clear</mat-icon>-->
                   </mat-form-field>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6">
                   <p>ALT. EMAIL ADDRESS</p>
                   <mat-form-field appearance="outline" class="col-12">
                     <input matInput formControlName="AltEmail" placeholder="Alter Email Address"
-                      (mouseover)="checkfield12()" (mouseleave)="unchekedfiled12()">
-                    <mat-icon matSuffix *ngIf="Checked12" class="FieldValid">check</mat-icon>
-                    <mat-icon matSuffix *ngIf="UnChecked12" class="FieldInvalid">clear</mat-icon>
+                    (mouseover)="viewModel.AltEmail=$event.target.value!= null&& $event.target.value!=''" (mouseleave)="viewModel.AltEmail=false">
+                    <mat-icon matSuffix *ngIf="viewModel.AltEmail && !AccountInfomation.controls['AltEmail'].invalid" class="FieldValid">check</mat-icon>
+                    <mat-icon matSuffix *ngIf="viewModel.AltEmail && AccountInfomation.controls['AltEmail'].invalid" class="FieldInvalid">clear</mat-icon>
 
                   </mat-form-field>
                 </div>
@@ -238,20 +242,21 @@
                 <div class="col-lg-4 col-md-4 col-sm-6">
                   <p>PASSWORD</p>
                   <mat-form-field appearance="outline" class="col-12">
-                    <input matInput type="password" (keyup)="EnterPassword($event.target.value)" (mouseover)="checkField8()" (mouseleave)="UncheckField8()"
+                    <input matInput type="password"
+                    (mouseover)="viewModel.Password=true" (mouseleave)="viewModel.Password=false"
                       formControlName="EncryptedPassword" placeholder="Password">
-                    <mat-icon matSuffix *ngIf="Checked8" class="FieldValid">check</mat-icon>
-                    <mat-icon matSuffix *ngIf="UnChecked8" class="FieldInvalid">clear</mat-icon>
+                    <mat-icon matSuffix *ngIf="viewModel.Password && !AccountInfomation.controls['EncryptedPassword'].invalid" class="FieldValid">check</mat-icon>
+                    <mat-icon matSuffix *ngIf="viewModel.Password && AccountInfomation.controls['EncryptedPassword'].invalid " class="FieldInvalid">clear</mat-icon>
 
                   </mat-form-field>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6">
                   <p>CONFIRM PASSWORD</p>
                   <mat-form-field appearance="outline" class="col-12">
-                    <input matInput type="password" (mouseover)="checkField9()" (mouseleave)="UncheckField9()"
+                    <input matInput type="password"  (mouseover)="viewModel.ConfirmPassword=true" (mouseleave)="viewModel.ConfirmPassword=false"
                       formControlName="ConfirmPassword" placeholder="Confirm Password">
-                    <mat-icon matSuffix *ngIf="Checked9" class="FieldValid">check</mat-icon>
-                    <mat-icon matSuffix *ngIf="UnChecked9" class="FieldInvalid">clear</mat-icon>
+                    <mat-icon matSuffix *ngIf="viewModel.ConfirmPassword && validateConfirmPassword()" class="FieldValid">check</mat-icon>
+                    <mat-icon matSuffix *ngIf="viewModel.ConfirmPassword && !validateConfirmPassword()" class="FieldInvalid">clear</mat-icon>
 
                   </mat-form-field>
                 </div>
@@ -265,7 +270,7 @@
               <div class="row">
                 <div class="col-lg-12">
                   <div class="controls">
-                    <button mat-button class="reg-button col-md-2 prev-step3" (click)="accountInfoReq('prev')">PREV.
+                    <button mat-button class="reg-button col-md-2 prev-step3" >PREV.
                       STEP</button>
 
 
@@ -285,7 +290,7 @@
         <div class="tab-pane fade" id="signup-additionalinfo" role="tabpanel"
           aria-labelledby="signup-additionalinfo-tab">
           <div class="content">
-            <button mat-button class="reg-button col-md-2 prev-step4" (click)="accountInfoReq('prev')">PREV.
+            <button mat-button class="reg-button col-md-2 prev-step4" >PREV.
               STEP</button>
             <button mat-button class="reg-button col-md-2 mx-2" (click)="SaveRegitration()">
               COMPLETE REGISTRATION</button>
