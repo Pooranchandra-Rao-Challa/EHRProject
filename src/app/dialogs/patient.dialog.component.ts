@@ -39,11 +39,7 @@ export class PatientDialogComponent implements OnInit {
   }
   ngOnInit(): void {
   }
-  closeDialog() {
-    console.log("Closing Dialog");
 
-    this.onPatientClose.emit();
-  }
   cancel() {
     this.ref.close(null);
   }
@@ -93,6 +89,7 @@ export class PatientDialogComponent implements OnInit {
     });*/
 
   }
+
   ClearEmailWhenPatientHasNoEmail(event) {
     this.PatientData.Email = "";
   }

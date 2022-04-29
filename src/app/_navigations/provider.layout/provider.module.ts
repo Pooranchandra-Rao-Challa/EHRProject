@@ -64,12 +64,13 @@ import { Condition } from "../../reports/cqmreports/viewhelpers/condition.render
 import { ConditionpadderPipe } from "../../reports/cqmreports/viewhelpers/conditionpadder.pipe";
 import { ConditionformaterPipe } from "../../reports/cqmreports/viewhelpers/conditionformater.pipe";
 import { UserDialogComponent } from '../../dialogs/user.dialog/user.dialog.component';
-import { NewappointmentDialogComponent } from '../../dialogs/newappointment.dialog/newappointment.dialog.component';
+import { NewAppointmentDialogComponent } from '../../dialogs/newappointment.dialog/newappointment.dialog.component';
 import { UpcomingAppointmentsDialogComponent } from '../../dialogs/upcoming.appointments.dialog/upcoming.appointments.dialog.component';
 import { AddressVerificationDialogComponent } from '../../dialogs/address.verification.dialog/address.verification.dialog.component';
 import { EncounterDialogComponent } from '../../dialogs/encounter.dialog/encounter.dialog.component';
 import { SmokingStatusDialogComponent } from '../../dialogs/smoking.status.dialog/smoking.status.dialog.component';
 import { InterventionDialogComponent } from '../../dialogs/intervention.dialog/intervention.dialog.component';
+import { DropDownSearchComponent } from '../../_components/drop-down-search/drop-down-search.component';
 import { patientService } from 'src/app/_services/patient.service';
 
 @NgModule({
@@ -79,7 +80,8 @@ import { patientService } from 'src/app/_services/patient.service';
     AdvancedDirectivesDialogComponent,
     SmokingStatusDialogComponent,
     InterventionDialogComponent,
-    SmartScheduleComponent
+    SmartScheduleComponent,
+    NewAppointmentDialogComponent
   ],
   declarations: [
     ProviderNavbarComponent,
@@ -113,12 +115,13 @@ import { patientService } from 'src/app/_services/patient.service';
     OverlayComponent,
     MouseOverHintDirective,
     UserDialogComponent,
-    NewappointmentDialogComponent,
+    NewAppointmentDialogComponent,
     UpcomingAppointmentsDialogComponent,
     AddressVerificationDialogComponent,
     EncounterDialogComponent,
     SmokingStatusDialogComponent,
-    InterventionDialogComponent
+    InterventionDialogComponent,
+    DropDownSearchComponent
   ],
   imports: [
 
@@ -157,7 +160,10 @@ import { patientService } from 'src/app/_services/patient.service';
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  entryComponents: [OverlayComponent, PatientDialogComponent, AdvancedDirectivesDialogComponent, SmokingStatusDialogComponent, InterventionDialogComponent]
+  entryComponents: [OverlayComponent, PatientDialogComponent,
+    AdvancedDirectivesDialogComponent, SmokingStatusDialogComponent,
+    InterventionDialogComponent,
+    NewAppointmentDialogComponent]
 })
 export class ProviderModule {
 

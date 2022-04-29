@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { inactivepatient } from 'src/app/_models/Admin.ts/inactivepatient';
+import { Patient } from 'src/app/_models/_admin/patient';
 import { AdminService } from 'src/app/_services/admin.service';
 
 @Component({
@@ -9,14 +9,14 @@ import { AdminService } from 'src/app/_services/admin.service';
 })
 export class InActivePatientsComponent implements OnInit {
 
-  inactivepatientDataSource: inactivepatient[];
-  dataSource: inactivepatient[];
+  inactivepatientDataSource: Patient[];
+  dataSource: Patient[];
   pageSize:any=50
   page:any=1;
   searchKey = "";
   collectionSize:any=50000;
   premiumData : any[] = [];
-  
+
   constructor(private adminservice: AdminService) { }
 
   ngOnInit(): void {

@@ -22,6 +22,15 @@ export class MouseOverHintDirective {
     this.removeHint();
   }
 
+  @HostListener('mouseover')
+  onMouseOver() {
+    this.showHint();
+  }
+
+  @HostListener('mouseout')
+  onMouseOut() {
+    this.removeHint();
+  }
   ngOnInit() {
   }
 
@@ -33,6 +42,8 @@ export class MouseOverHintDirective {
   }
 
   showHint() {
+
+
     let elem: HTMLInputElement = (this.elementRef.nativeElement as HTMLInputElement);
     let req = elem.attributes.getNamedItem("required");
     if(req != null){

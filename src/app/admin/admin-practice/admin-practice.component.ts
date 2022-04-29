@@ -1,6 +1,6 @@
 import { Component, OnInit,TemplateRef } from '@angular/core';
 import { AnyTxtRecord } from 'dns';
-import { providerList } from 'src/app/_models/Admin.ts/providerList';
+import { ProviderList } from 'src/app/_models/_admin/providerList';
 import { AdminService } from 'src/app/_services/admin.service';
 import { ComponentType } from '@angular/cdk/portal';
 import { OverlayService } from './../../overlay.service';
@@ -25,7 +25,7 @@ export class AdminPracticeComponent implements OnInit {
   PaidChecked: boolean = false;
   ActiveStatus: string = '';
   TrailStatus: string = '';
-  ProviderColumnList: providerList[];
+  ProviderColumnList: ProviderList[];
   SearchKey = "";
   AlterStatus:any;
   UserDialogComponent = AddUserDialogComponent;

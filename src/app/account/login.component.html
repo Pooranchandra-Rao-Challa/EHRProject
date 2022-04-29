@@ -14,61 +14,63 @@
     </div>
   </div>
   <div class="content-top">
-  <div class="container cstm-container pt-3">
-    <h2 class="signup">PLEASE SIGN IN TO VIEW YOUR ACCOUNT</h2>
-    <h4 class="sign">
-      Don't have an account yet?
-      <!-- <span style="color: #287066" href="/account/registration">Sign up here</span> -->
-      <a style="color: #287066" href="/account/registration">Sign up here</a>
-    </h4>
+    <div class="container cstm-container pt-3">
+      <h2 class="signup">PLEASE SIGN IN TO VIEW YOUR ACCOUNT</h2>
+      <h4 class="sign">
+        Don't have an account yet?
+        <!-- <span style="color: #287066" href="/account/registration">Sign up here</span> -->
+        <a style="color: #287066" href="/account/registration">Sign up here</a>
+      </h4>
+    </div>
   </div>
-</div>
   <div class="content">
-  <div>
-    <div class="container cstm-container pt-2 pb-4" id="flexbox">
-      <!-- Top header -->
-      <div class="row top-header">
-        <div class="col-lg-4 col-md-6 col-sm-12">
-          <div class="Login-form">
-            <div id="authfailedmessage" class="message-error">
-              {{ this.authfailedmessage }}
-            </div>
-            <mat-card-content>
-              <form class="my-form" [formGroup]="loginForm">
-                <div>
-                  <mat-form-field class="w-100" appearance="outline">
-                    <input matInput placeholder="Email / UserName" name="Username" formControlName="UserName" />
-                  </mat-form-field>
-                  <mat-form-field class="w-100" appearance="outline">
-                    <input matInput placeholder="Password" type="password" name="Password" formControlName="Password" />
-                  </mat-form-field>
-                </div>
-                <div class="pull-right address " style="text-align: right">
-                  <div data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="text-align: right">Forgot your password?</div>
-                  <div data-bs-toggle="modal" data-bs-target="#staticBackdrop1" style="text-align: right">
-                    Resend Email Verification
-                  </div>
-                </div>
-              </form>
-            </mat-card-content>
-          </div>
-          <div class="check" style="text-align: left;">
-            <mat-checkbox class="example-margin"><span>Remember me</span></mat-checkbox>
-          </div>
-          <div style="text-align: left;">
-            <button mat-raised-button (click)="OnFormSubmit()">Sign in</button>
-          </div>
-        </div>
+    <div>
+      <div class="container cstm-container pt-2 pb-4" id="flexbox">
+        <!-- Top header -->
+        <div class="row top-header">
+          <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="Login-form">
+              <mat-card-content>
+                <form class="my-form" [formGroup]="loginForm">
+                  <div>
+                    <mat-form-field class="w-100" appearance="outline">
+                      <input matInput placeholder="Email / Username" name="Username" formControlName="UserName" />
+                    </mat-form-field>
+                    <mat-form-field class="w-100" appearance="outline">
+                      <input matInput placeholder="Password" [type]="showPassword ? 'text' : 'password'" name="Password"
+                        formControlName="Password" />
 
-        <div class="col-lg-6 col-md-6 col-sm-12 px-5" style="width:45%">
-          <div class="row">
-            <div class="col-lg-6 col-md-12 vediologo col-sm-12 ">
-              <img src="../assets/videologo.png" />
+                      <img
+                        [src]="showPassword ? '../../assets/images/eye-open.svg' : '../../assets/images/eye-close.svg'"
+                        class="img-svg-eye" (click)="togglePasswordVisibility()" />
+                    </mat-form-field>
+                  </div>
+                  <div class="pull-right address" >
+                    <div data-bs-toggle="modal" data-bs-target="#reset-password" class="message-hints">Forgot your
+                      password?</div>
+                    <div data-bs-toggle="modal" data-bs-target="#email-verification" class="message-hints">
+                      Resend Email Verification
+                    </div>
+                  </div>
+                </form>
+              </mat-card-content>
             </div>
-            <div class="col-lg-6 address mt-3">
-              <div>(Ask us how to join)</div>
+            <div class="check" style="text-align: left;">
+              <mat-checkbox class="example-margin"><span>Remember me</span></mat-checkbox>
             </div>
-            <!-- <video controls width="100%">
+            <div style="text-align: left;">
+              <button mat-raised-button (click)="OnFormSubmit()">Sign in</button>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12 px-5" style="width:45%">
+            <div class="row">
+              <div class="col-lg-6 col-md-12 vediologo col-sm-12 ">
+                <img src="../assets/videologo.png" />
+              </div>
+              <div class="col-lg-6 address mt-3">
+                <div>(Ask us how to join)</div>
+              </div>
+              <!-- <video controls width="100%">
               <source src="mov_bbb.mp4" type="video/mp4" />
               <source src="mov_bbb.ogg" type="video/ogg" />
             </video>
@@ -78,43 +80,43 @@
               <p>Your browser doesn't support HTML5 video. Here is a <a href="rabbit320.mp4">link to the video</a> instead.</p>
             </video> -->
 
-            <div class="video">
-              <video controls #videoPlayer controlsList="nodownload">
-                <source src="../assets/iPrescribe-short.mp4" type="video/mp4" />
-              </video>
+              <div class="video">
+                <video controls #videoPlayer controlsList="nodownload">
+                  <source src="../assets/iPrescribe-short.mp4" type="video/mp4" />
+                </video>
+              </div>
+            </div>
+            <div class="video-content">
+              <ul>
+                <li><i></i>Cut prescription errors down from<strong> 42.5% to 6%</strong></li>
+                <li>
+                  <i></i>Free up vital staff and resources with automated refill authorizations resulting in
+                  <strong> an annual savings of $15,769 per full-time physician.</strong>
+                </li>
+                <li>
+                  <i></i><strong>Send prescriptions and have them ready on arrival at the pharmacy</strong>
+                </li>
+              </ul>
             </div>
           </div>
-          <div class="video-content">
-            <ul>
-              <li><i></i>Cut prescription errors down from<strong> 42.5% to 6%</strong></li>
-              <li>
-                <i></i>Free up vital staff and resources with automated refill authorizations resulting in
-                <strong> an annual savings of $15,769 per full-time physician.</strong>
-              </li>
-              <li>
-                <i></i><strong>Send prescriptions and have them ready on arrival at the pharmacy</strong>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-lg-2 col-md-12 col-sm-12 mt-3 login_address">
-          <div style="text-align: left;">
-            <div >
-              <strong>Contact Us Anytime:</strong>
+          <div class="col-lg-2 col-md-12 col-sm-12 mt-3 login_address">
+            <div style="text-align: left;">
+              <div>
+                <strong>Contact Us Anytime:</strong>
+              </div>
+              <div class="address">
+                <div>Office : (888)-804-3471</div>
+                <div>Email : ehr1support@ehr1.com</div>
+                <div>Fax : (714)-729-8707</div>
+              </div>
             </div>
-            <div class="address">
-              <div>Office : (888)-804-3471</div>
-              <div>Email : ehr1support@ehr1.com</div>
-              <div>Fax : (714)-729-8707</div>
-            </div>
-
-          </div>
-          <div>
-            <div class="mt-3" style="text-align: left">
-              <strong>Hours of Operation:</strong>
-            </div>
-            <div class="address" style="white-space: nowrap;">
-              <div>Monday-Friday 7am-4pm (PST)</div>
+            <div>
+              <div class="mt-3" style="text-align: left">
+                <strong>Hours of Operation:</strong>
+              </div>
+              <div class="address" style="white-space: nowrap;">
+                <div>Monday-Friday 7am-4pm (PST)</div>
+              </div>
             </div>
           </div>
         </div>
@@ -122,12 +124,11 @@
     </div>
   </div>
 </div>
-</div>
 
 
 
 
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<div class="modal fade" id="reset-password" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -144,10 +145,10 @@
 
                     <P>Enter the email address associated with your account and an email with password reset
                       instructions will be sent.</P>
-                    <div class="form-group mt-5">
-                      <mat-form-field class=" field w-100" appearance="outline">
-                        <input matInput>
-                      </mat-form-field>
+                    <div class="form-group mt-5" >
+
+                        <input type="text">
+
                     </div>
                   </div>
                 </div>
@@ -157,8 +158,8 @@
 
 
             <div class="row">
-              <button type="button" class="reg-button col-md-4" data-bs-dismiss="modal">Go Back</button>
-              <button type="button" class="reg-button col-md-4">Okay-Send it ! </button>
+              <button type="button" class="resetpassword-button col-md-4" data-bs-dismiss="modal">Go Back</button>
+              <button type="button" class="resetpassword-button col-md-4">Okay-Send it ! </button>
 
             </div>
 
@@ -172,10 +173,10 @@
 </div>
 
 
-<div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="email-verification" data-bs-backdrop="static"  data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="email-verification" aria-hidden="false">
   <div class="modal-dialog">
-    <div class="modal-content body">
+    <div class="modal-content">
       <div class="modal-header">
         <h4 class="hederfont">Email Verification </h4>
         <span type="button" data-bs-dismiss="modal">
@@ -185,12 +186,6 @@
       <div class="modal-body">
         <div class="content">
           <form>
-            <!-- <div>
-              <mat-label>Email Address</mat-label>
-              <mat-form-field class="w-100" appearance="outline">
-                <input matInput placeholder="Enter an email">
-              </mat-form-field>
-            </div> -->
             <div class="row">
               <div class="col-lg-4">
                 <div class="form-group">
@@ -199,9 +194,9 @@
               </div>
               <div class="col-lg-8 ">
                 <div class="form-group ">
-                  <mat-form-field class=" w-100" appearance="outline">
-                    <input matInput placeholder="Enter an email">
-                  </mat-form-field>
+
+                    <input  placeholder="Enter an email">
+
                 </div>
               </div>
 
@@ -210,9 +205,6 @@
               <button type="button" style="margin-left: 33%;" class="col-md-4 verify">Resend
                 Verification</button>
             </div>
-            <div> <button type="button" style="margin-left:16%;" class="col-md-4 verify"
-                data-bs-dismiss="modal">Register
-                Now</button></div>
           </form>
 
           <!-- end personal info -->
@@ -221,3 +213,25 @@
     </div>
   </div>
 </div>
+
+
+  <div class="modal modal-notice" id="modal-message" tabindex="-1" role="dialog" data-bs-backdrop="static"
+    data-bs-keyboard="false" aria-labelledby="errorbackdropLabel" aria-hidden="true">
+    <div class="modal-dialog" >
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="scrollable-container" style="height: auto;">
+            <div class="content">
+              <div class="error-title">
+                <p>{{authfailedmessage}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a class="btn btn-default" data-bs-dismiss="modal" data-bs-target="#modal-message"
+            aria-label="Close">Close</a>
+        </div>
+      </div>
+    </div>
+  </div>

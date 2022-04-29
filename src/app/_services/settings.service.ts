@@ -92,11 +92,11 @@ export class SettingsService extends APIEndPoint {
   }
 
   Generalschedule(reqdata: any) {
-    return this._ProcessPostRequest<any>(this._GeneralScheduleUrl, reqdata);
+    return this._ProcessPostRequest<any>(this._generalScheduleUrl, reqdata);
   }
 
   UpdateReschedule(reqdata: any) {
-    return this._ProcessPostRequest<any>(this._UpdateRescheduleUrl, reqdata);
+    return this._ProcessPostRequest<any>(this._updateRescheduleUrl, reqdata);
   }
 
   ToggleUserFieldValues(reqData: any) {
@@ -104,9 +104,9 @@ export class SettingsService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._toggleUserFieldValuesUrl, reqData);
   }
   GetGeneralSchedule(reqparams: any) {
-    return this._ProcessPostRequest<any>(this._GeneralScheduleUrl, reqparams);
+    return this._ProcessPostRequest<any>(this._generalScheduleUrl, reqparams);
   }
   UpdateSchedulegeneral(reqparams: any) {
-    return this._ProcessPostRequest<any>(this._UpdateRescheduleUrl, reqparams);
+    return this._ProcessPostRequest<any>(this._updateRescheduleUrl, reqparams);
   }
 }

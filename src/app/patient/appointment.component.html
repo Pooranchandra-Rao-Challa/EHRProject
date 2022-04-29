@@ -1,11 +1,11 @@
 
-<div class="dashboard-patient wrapper">
+<div class="dashboard-patient wrapper mt-2">
   <div class="content container" id="appointments-wrapper">
     <div class="top-block">
       <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-12 mt-2">
           <h4>
-            March 07, 2022
+            April 28, 2022
           </h4>
         </div>
       </div>
@@ -25,7 +25,7 @@
           <div class="col-lg-12">
             <div class="button">
               <div class="btn-group">
-                <a class="btn btn-default btn-medium btn-orange" data-remote="true" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">Request an Appt</a>
+                <a class="btn btn-default btn-medium btn-orange" data-remote="true" data-bs-toggle="modal" (click)="openComponentDialog(PatientDialogComponent)">Request an Appt</a>
               </div>
             </div>
           </div>
@@ -75,7 +75,7 @@
 </div>
 </div>
 
-
+<!--
 <div class="modal fade " id="staticBackdrop1" [ngStyle]="{'display':displayReq}" tabindex="-1" role="dialog"
 aria-labelledby="staticBackdrop4" aria-hidden="true">
 <div class="modal-dialog">
@@ -148,5 +148,5 @@ aria-labelledby="staticBackdrop4" aria-hidden="true">
   </div>
 </div>
 
-</div>
+</div> -->
 

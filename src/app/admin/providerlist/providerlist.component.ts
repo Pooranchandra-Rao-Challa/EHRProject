@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { providerList } from '../../_models/Admin.ts/providerList';
+import { ProviderList } from '../../_models/_admin/providerList';
 import { AdminService } from '../../_services/admin.service';
 
 
@@ -12,8 +12,8 @@ export class ProviderlistComponent {
   pageSize: number = 50;
   page: number = 1;
   filterTerm!: string;
-  providersDataSource: providerList[] = [];
-  dataSource: providerList[] = [];
+  providersDataSource: ProviderList[] = [];
+  dataSource: ProviderList[] = [];
   Active: boolean = true;
   Suspended: boolean = false;
   Trial: boolean = false;

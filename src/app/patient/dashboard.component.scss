@@ -2,12 +2,16 @@
 
 .h4-title {
   margin-top: 36px !important;
-  font-size: x-large;
+}
+h4{
+  font-size: 22px;
+  font-family: inherit;
 }
 .authorization-welcome-username {
   color: #fe8f00;
   font-weight: bolder;
 }
+
 .container {
   padding-right: 15px;
   padding-left: 15px;
@@ -17,39 +21,7 @@
 .form-row-field {
   margin-top: 15px;
 }
-.border-input{
-  border-color: #dedede;
-  background-color: #f5f5f5;
-}
-.form-control {
-  line-height: 19px;
-}
 
-form .form-control:focus{
-  border-color: #41b6a6;
-  
-  
-}
-form .form-control:hover{
-  border-color: #41b6a6;
-  
-}
-form .form-select:hover{
-  border-color: #41b6a6;
-  box-shadow: none;
-  
-}
-form .form-select.option{
-  border-color: #41b6a6;
-  box-shadow: none;
-  background-color: red;
-  
-}
-form .form-select:focus{
-  border-color: #41b6a6;
-  box-shadow: none;
-  
-}
  .linkhealth{
 margin-left: 2%;
 margin-right: 2%;
@@ -101,35 +73,8 @@ li{
 ul {
   list-style-type: none;
   margin-left: 8%;
+  margin-bottom: 3%;
 }
-.modal .modal-dialog .modal-header .close {
-  font-size: 30px;
-  font-family: 'Times New Roman';
-  opacity: 0.53;
-  color: #000;
-  transition: opacity 0.1s;
-}
-.modal-header {
-  display: flex;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem 1rem;
-  border-bottom: 2px solid white;
-  border-top-left-radius: calc(0.3rem - 1px);
-  border-top-right-radius: calc(0.3rem - 1px);
-  background-color: #41b6a6;
-  color: white;
-}
-
-
-input::-webkit-input-placeholder {
-   color: #141414 !important;
-   font-size: 100%;
-   font-family: sans-serif;
-}
-
-
 
 body {
   margin: 0px;
@@ -190,26 +135,6 @@ body {
   display: table-cell;
   vertical-align: middle;
 }
-.reg-button {
-  background-color: #fff;
-  border: 1px solid #41b6a6;
-  height: 50px;
-  color: #41b6a6;
-  border-radius: 3px;
-  width: auto;
-  
-  // margin-left: 82.2%;
-}
-.reg-button:hover {
-  background-color: #41b6a6;
-  color: #fff;
-  border: 1px solid #fff;
-}
-.fa-paperclip:hover{
-  color: #fff;
-  background-color: #41b6a6;
-
-}
 .content span.input-group-text
 {
   font-family: 'Times New Roman';
@@ -227,11 +152,6 @@ body {
     line-height: 28px;
     margin-bottom: 0;
 }
-.ser:hover {
-  border: 1px solid #41b6a6;
-  border-radius: 5px;
-}
-
 
 .content-top {
   background: none;
@@ -251,39 +171,8 @@ body {
   font-family: "Times New Roman";
   font-weight: 100;
 }
-.modal-content {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  pointer-events: auto;
-  background-color: white;
-}
 
-.modal-dialog .modal-content {
-  box-shadow: none;
-  border: 1px solid #41b6a6;
-  border-radius: 3px;
-}
-.input-group-append, .input-group-prepend {
-  background: color(white);
-  color: #c9c8c8;
-  width: auto;
-  border: none;
-  background-color: #d0d2db;
-}
-.input-group > .form-control, .input-group > .form-select {
-  position: relative;
-  flex: 1 1 auto;
-  background-color: #f2f2f2;
-  width: 1%;
-  min-width: 0;
-}
-.form-select {
-  font-size: inherit;
-  font-weight: 300;
-  line-height: 1.7;
-}
+
 h4 {
   font-size: 22px;
   margin-top: 20px;
@@ -292,74 +181,6 @@ h4 {
 .Access{
   color: #fe8f00;
   font-weight: 500%;
-}
-.btn.btn-default {
-  color: #41b6a6;
-  border-color: #41b6a6;
-}
-.serch
-{
-  color: #fff;
-    margin-left: 22%;
-    margin-top: 11%;
-}
-
-
-::ng-deep .example-margin:hover {
-  & .mat-checkbox-background,
-  .mat-checkbox-frame {
-    border-color: red;
-
-  }
-}
-::ng-deep .mat-checkbox-checked.mat-accent {
-  .mat-checkbox-background,
-  .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
-    background-color: rgb(243, 242, 242);
-    border-radius: 20% !important ;
-    border-color: red;
-    height: 19px;
-    width: 19px;
-  }
-  .mat-checkbox-checkmark-path {
-    stroke: red !important;
-  }
-}
-::ng-deep .example-margin:hover {
-  & .mat-checkbox-background,
-  .mat-checkbox-frame {
-    border-color: red;
-    color: red;
-  }
-}
-::ng-deep .example-margin {
-  & .mat-checkbox-background,
-  .mat-checkbox-frame {
-    border-radius: 20% !important;
-    border-color: RED;
-    background-color: #eeeaea;
-    border-width: 1px;
-    border-style:solid;
-    width: 19px;
-    height: 19px;
-    margin-left: 0%;
-  }
-}
-::ng-deep .example-margin:hover {
-  & .mat-checkbox-background,
-  .mat-checkbox-frame {
-    border-color: red;
-  }
-}
-.mat-checkbox {
-  font-weight: bold;
-}
-
-
-.custom-control-label{
-  color: red;
-  margin-left: 2%;
-  font-weight: 400;
 }
 .select-input {
   color: black;
@@ -371,6 +192,6 @@ h4 {
 
 /*code to change background color*/
 .navbar-nav>.active>a {
- 
+
   color: #fe8f00;
 }

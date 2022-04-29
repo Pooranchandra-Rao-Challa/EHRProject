@@ -1,13 +1,12 @@
 <!-- Add New Appointment Form-->
 
-<div class="modal fade appointment-form" id="modal-appointment-form" data-bs-backdrop="static" data-bs-keyboard="false"
-  tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
+<!--<div class="modal fade appointment-form" id="modal-appointment-form" data-bs-backdrop="static" data-bs-keyboard="false"
+  tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">-->
+  <div class="modal-dialog appointment-form">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">{{appointmentTitle}}</h4>
-        <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close"
-          (onclick)="closeEditAppointment()">
+        <span type="button" class="cross-mark"  (click)="close()">
           X
         </span>
       </div>
@@ -75,7 +74,7 @@
               <mat-label class="col-12">Select Date:</mat-label>
               <mat-form-field appearance="outline" class="col-12">
                 <input matInput class="pointer" autocomplete="off" [matDatepicker]="appointmentDate"
-                  (click)="appointmentDate.open()" readonly placeholder="Request Date"
+                  (click)="appointmentDate.open()" readonly placeholder="Request Date" [min]="todayDate"
                   [(ngModel)]="PatientAppointment.Startat" [ngModelOptions]="{standalone: true}" />
                 <mat-datepicker-toggle matSuffix [for]="appointmentDate" dateChange="ClearTimeSlots()">
                 </mat-datepicker-toggle>
@@ -114,17 +113,16 @@
       </div>
       <div class="modal-footer">
         <!--data-bs-dismiss="modal" data-remote="true" -->
-        <button class="btn btn-default btn-danger pull-left btn-appointment-cancel-right"
-          data-bs-target='#modal-update-appointment-status' data-bs-toggle="modal"
+        <button class="btn btn-default  btn-appointment-cancel-right"
           [hidden]="PatientAppointment.AppointmentId == null"
           (click)="cancelAppointment(PatientAppointment.AppointmentId)">Cancel</button>
-        <button class="btn col-md-4 col-7" [disabled]="DiabledAppointmentSave()" (click)="onAppointmentSave()">Save
+        <button class="btn btn-create col-md-4 col-7" [disabled]="DiabledAppointmentSave()" (click)="onAppointmentSave()">Save
           Appointment</button>
-        <button id="appointmentClose" class="btn col-md-3 col-4 fa fa-close" data-bs-dismiss="modal" aria-label="Close"
-          (click)="ClearPatientAppointment()">
+        <button id="appointmentClose" class="btn col-md-3 col-4 fa fa-close"
+          (click)="close()">
           Cancel
         </button>
       </div>
     </div>
   </div>
-</div>
+<!--</div>-->

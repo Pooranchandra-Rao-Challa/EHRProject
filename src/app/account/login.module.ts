@@ -13,26 +13,8 @@ import { IConfig, NgxMaskModule } from 'ngx-mask'
 import { PatientLoginComponent } from './Patientlogin.component';
 import { PartnerSignupComponent } from '../patient/partner-signup.component';
 import { CreatePasswordComponent } from './createpassword.component';
-
-/*
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { ToastrModule } from 'ngx-toastr';
-import { SharedModule } from './_common/shared';
-import { MatCardModule } from '@angular/material/card';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
-import { MatSelectFilterModule } from 'mat-select-filter';
-import { MatTableExporterModule } from 'mat-table-exporter';
-import { Ng2OrderModule } from 'ng2-order-pipe';
-import { NgxPaginationModule } from 'ngx-pagination';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-*/
-
+import { ErrorMessageComponent } from '../_components/error.message.component';
+import { MouseOverHintDirective } from '../dialogs/mouseover.hint.directive'
 @NgModule({
   imports: [
     CommonModule,
@@ -51,7 +33,9 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     HomeComponent,
     PatientLoginComponent,
     PartnerSignupComponent,
-    CreatePasswordComponent
+    CreatePasswordComponent,
+    ErrorMessageComponent
+
   ]
 })
 export class LoginModule { }
