@@ -48,9 +48,9 @@ export class ProviderNavbarComponent implements OnInit {
     this.navbarOpen = !this.navbarOpen;
   }
 
-  onChangeBreadCrum(url: string,name: string, view?: string, ) {
+  onChangeBreadCrum(url: string, name: string, view?: string,) {
     console.log(view)
-    if(view != null){
+    if (view != null) {
       console.log(view)
       this.router.navigate(
         [url],

@@ -78,7 +78,8 @@ import { patientService } from 'src/app/_services/patient.service';
     PatientDialogComponent,
     AdvancedDirectivesDialogComponent,
     SmokingStatusDialogComponent,
-    InterventionDialogComponent
+    InterventionDialogComponent,
+    SmartScheduleComponent
   ],
   declarations: [
     ProviderNavbarComponent,
@@ -151,7 +152,7 @@ import { patientService } from 'src/app/_services/patient.service';
 
   ],
   providers: [DayService, WeekService, LocationSelectService,
-    UtilityService, SmartSchedulerService, OverlayService, patientService,
+    UtilityService, SmartSchedulerService, OverlayService, patientService, SmartScheduleComponent,
     { provide: NgbDateParserFormatter, useClass: NgbDateUSParserFormatter }
 
   ],

@@ -791,7 +791,7 @@ i {
   max-width:100%;
   max-height:100%;
   transform:none !important;
-  // background-color: rgba(0,0,0,.4);
+  background-color: rgba(0,0,0,.4);
 }
 
 .model{
@@ -937,20 +937,21 @@ i {
   opacity: 0.75;
 }
 // pagination
-.custompage .page-item.active .page-link {
-  color: white !important;
-  background-color: #9fdad2 !important;
+.page-green .page-item.active .page-link {
+  color: #fff !important;
+  background-color: #41b6a6 !important;
   border: 1px solid #41b6a6 !important;
 }
-.custompage :hover{
-  color: white !important;
-  background-color:#41b6a6!important;
-  // border: 1px solid #41b6a6 !important;
+.page-green :hover{
+  color: #fff !important;
+  background-color:#41b6a6 !important;
+  border-radius: 4px;
 }
-.custompage .pagination .page-item .page-link {
+.page-green .pagination .page-item .page-link {
   border-color: #41b6a6;
-  font-size: 0.875rem;
-  transition-duration: 0.3s;
+  font-size: 14px;
+  width: 40px;
+  height: 40px;
   color: #41b6a6;
 }
 .form-control{

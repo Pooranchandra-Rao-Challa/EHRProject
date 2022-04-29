@@ -11,7 +11,6 @@ import { InsuranceComponent } from './insurance/insurance.component';
 import { AmendmentsComponent } from './amendments/amendments.component';
 import { ResetPasswordComponent } from './resetpassword/resetpassword.component';
 import { CqmsNotPerformedComponent } from './cqms.not.performed/cqms.not.performed.component';
-
 @NgModule({
   imports: [SharedModule, CommonModule],
   exports: [PatientsComponent, PatientDetailsComponent, ChartComponent, DentalChartComponent, ProfileComponent, InsuranceComponent, AmendmentsComponent, ResetPasswordComponent, CqmsNotPerformedComponent],
