@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   creds: any;
   showspinner: boolean;
   ruby_session_id: any = '';
+  showPassword: boolean = false;
   constructor(private fb: FormBuilder,
     protected http: HttpClient,
     private authenticationService: AuthenticationService) { }
@@ -76,6 +77,8 @@ export class LoginComponent implements OnInit {
     });
 
   }
-
+  public togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
 
 }

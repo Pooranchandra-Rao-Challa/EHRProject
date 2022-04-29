@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { activepatient } from 'src/app/_models/Admin.ts/activepatietn';
+import { Patient } from 'src/app/_models/_admin/patient';
 import { AdminService } from 'src/app/_services/admin.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { AdminService } from 'src/app/_services/admin.service';
 })
 export class ActivePatientsComponent implements OnInit {
 
-  activepatientDataSource: activepatient[];
+  activepatientDataSource: Patient[];
   pageSize:number=10;
   // recordIndex:any=0;
   SearchKey = "";

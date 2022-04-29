@@ -1,3 +1,5 @@
+import { Time } from "@angular/common";
+
 export interface NewUser {
   PracticeRole?: string,
   Active?: boolean,
@@ -72,4 +74,16 @@ export interface AppointmentType {
   Colour?: string,
   Editable?: boolean,
   AppointmenttypeStatus?: boolean
+}
+
+export interface GeneralSchedule {
+  ClinicId?: string,
+  CalendarFrom?: Time,
+  CalendarTo?: Time,
+  ConcurrentApps?: boolean,
+  OutSidePracticeHour?: boolean,
+  PatientRescedule?: boolean,
+  RescheduleTime?: number,
+  ScheduleGeneral?: string,
+  SlotSize?: number
 }

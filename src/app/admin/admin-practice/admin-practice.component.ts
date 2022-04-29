@@ -1,6 +1,6 @@
 import { Component, OnInit,TemplateRef } from '@angular/core';
 import { AnyTxtRecord } from 'dns';
-import { providerList } from 'src/app/_models/Admin.ts/providerList';
+import { providerList } from 'src/app/_models/_admin/providerList';
 import { AdminService } from 'src/app/_services/admin.service';
 import { ComponentType } from '@angular/cdk/portal';
 import { OverlayService } from './../../overlay.service';

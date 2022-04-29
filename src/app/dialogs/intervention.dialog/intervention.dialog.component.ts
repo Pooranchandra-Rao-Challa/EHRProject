@@ -7,10 +7,15 @@ import { EHROverlayRef } from '../../ehr-overlay-ref';
   styleUrls: ['./intervention.dialog.component.scss']
 })
 export class InterventionDialogComponent implements OnInit {
-  interventionColumns: ['Empty', 'InterventionType', 'Code', 'Description', 'ReasonNotPerformed', 'Reason'];
+  interventionColumns: string[] = ['Empty', 'InterventionType', 'Code', 'Description', 'ReasonNotPerformed', 'Reason'];
+  interventionList: any[] = [];
   constructor(private ref: EHROverlayRef) { }
 
   ngOnInit(): void {
+    this.interventionList = [
+      { Empty: 1, InterventionType: 'Hydrogen', Code: 1.0079, Description: 'H', ReasonNotPerformed: 'gerg', Reason: 'eger' },
+      { Empty: 2, InterventionType: 'Helium', Code: 4.0026, Description: 'He', ReasonNotPerformed: 'trhrt', Reason: 'eger' }
+    ]
   }
 
   cancel() {

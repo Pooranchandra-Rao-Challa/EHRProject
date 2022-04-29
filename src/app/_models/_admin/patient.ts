@@ -1,5 +1,5 @@
-export interface activepatient {
-    id?:string,
+export interface Patient {
+    Id?:string,
     PatientId?:string,
     UserId?: string,
     UserName?: string,
@@ -10,6 +10,6 @@ export interface activepatient {
     PatientPortalAccount?:string,
     PrimaryPhone?:string,
     Address?:string,
-    active?: string,
-      
+    Active?: string,
+
     }

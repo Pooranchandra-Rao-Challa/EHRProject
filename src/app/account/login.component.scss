@@ -71,7 +71,7 @@ button:hover {
   color: #fff !important;
 }
 
-.reg-button {
+.resetpassword-button {
   width: 43% !important;
   height: 45px !important;
   border: 1px solid #41b6a6 !important;
@@ -81,9 +81,12 @@ button:hover {
   margin-top: 8%;
   font-size: 16px;
   margin-left: 5%;
+  color:#41b6a6;
+  width:165px;
+  opacity: .65;
 }
 
-.reg-button:hover {
+.resetpassword:hover {
   background-color: #41b6a6 !important;
   color: #fff !important;
 }
@@ -308,6 +311,13 @@ html {
   margin-bottom: 20%;
 }
 
+::ng-deep .mat-input-element{
+  width: 95% !important;
+}
+.img-svg-eye{
+  width: 5%;
+  position: absolute;
+}
 .verify {
   margin-top: 2%;
 }
@@ -450,8 +460,12 @@ html {
   margin-top: 2%;
   font-family: sans-serif;
   text-align: left;
+  align-items: flex-end;
 }
-
+.address .message-hints{
+  text-align: right;
+  cursor: pointer;
+}
 .content-top {
   border-bottom: 1px solid rgba(74, 74, 74, 0.5);
   //margin-top: 25px;
@@ -460,6 +474,10 @@ html {
 .video-content ul li{
   text-align: left;
   padding-left: 20px;
+  font-family: Roboto !important;
+  font-style: normal;
+  font-weight: 400;
+  outline: none !important;
 }
 
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-start,
@@ -467,4 +485,226 @@ html {
   border-radius: 0px;
   border: 0px solid #a4a4a4 !important;
   background-color: #f9f9f9;
+}
+
+
+
+// Success Message Styles.
+div#modal-message,
+div#modal-message {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  //z-index: 1052 !important;
+}
+
+div#modal-message .modal-dialog {
+  overflow-y: initial !important;
+  max-width: inherit !important;
+  margin: 0 !important;
+  position: absolute;
+  left: 400px;
+  width: 100%;
+  top: 100px;
+  border-radius: 6px !important;
+}
+
+
+div#reset-password div.modal-dialog {
+  overflow-y: initial !important;
+  max-width: inherit !important;
+  margin: 0 !important;
+  position: absolute;
+  left: 500px;
+  width: 100%;
+  top: 100px;
+  border-radius: 6px !important;
+  max-width: 500px;
+}
+div#email-verification{
+  z-index: 1060;
+}
+div#email-verification div.modal-dialog {
+  overflow-y: initial !important;
+  max-width: inherit !important;
+  margin: 0 !important;
+  position: absolute;
+  left: 500px;
+  width: 100%;
+  top: 200px;
+  border-radius: 6px !important;
+  max-width: 600px;
+  height: 300px;
+}
+
+div#modal-message .modal-dialog .modal-content{
+  background-color: #d8d8d8;
+  max-width: 500px;
+
+}
+div#reset-password .modal-dialog .modal-content
+{
+  background-color: #d8d8d8;
+  max-width: 400px;
+}
+div#email-verification .modal-dialog .modal-content  {
+  background-color: #d8d8d8;
+  max-width: 600px;
+  max-height: 300px;
+}
+div#email-verification label{
+  display: inline-block;
+  max-width: 100%;
+  margin-bottom: 5px;
+  font-weight: 700;
+}
+
+div#modal-message .modal-content,
+div#reset-password .modal-content,
+div#email-verification .modal-content {
+  position: relative;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  border: 1px solid #999;
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 6px;
+  outline: 0;
+  -webkit-box-shadow: 0 3px 9px rgb(0 0 0 / 50%);
+  box-shadow: 0 3px 9px rgb(0 0 0 / 50%);
+}
+div#reset-password .modal-dialog .modal-content .modal-body,
+div#email-verification .modal-dialog .modal-content .modal-body{
+  background-color: #f9f9f9;
+}
+::ng-deep div#reset-password .mat-form-field-infix,
+::ng-deep div#email-verification .mat-form-field-infix{
+  border: 1px solid #41b6a6 !important;
+  border-radius: 6px !important;
+  background: #f9f9f9;
+}
+
+
+@media (max-height: 768px){
+  div#modal-message .modal-dialog {
+    max-width: 500px;
+    background: #f9f9f9;
+  }
+}
+
+@media (max-height: 768px){
+  div#reset-password .modal-dialog .modal-content {
+    max-width: 400px;
+    background: #f9f9f9;
+  }
+}
+
+@media (max-height: 768px){
+  div#email-verification .modal-dialog .modal-content {
+    max-width: 600px;
+    background: #f9f9f9;
+  }
+}
+
+@media (min-width: 768px){
+  .modal-content {
+    -webkit-box-shadow: 0 5px 15px rgb(0 0 0 / 50%);
+    box-shadow: 0 5px 15px rgb(0 0 0 / 50%);
+  }
+}
+
+div#modal-message.modal-notice .modal-dialog .modal-content .modal-body .scrollable-container .message-title {
+  background-color: #41b6a6;
+}
+div#modal-message.modal-notice .modal-dialog .modal-content .modal-body .scrollable-container .error-title{
+  background-color:  #c43636;;
+}
+
+div#modal-message .modal-dialog .modal-content .modal-body .scrollable-container .message-title,
+div#modal-message .modal-dialog .modal-content .modal-body .scrollable-container .error-title {
+  width: 100%;
+  vertical-align: middle;
+  padding: 20px;
+  text-align: center;
+}
+div#reset-password input,
+div#email-verification input{
+    border: 1px solid #e9e9e9 !important;
+    border-radius: 6px;
+    padding: 10px 5px 10px 5px;
+    width: 100%;
+    line-height: 25px;
+    font-size: 20px;
+    text-align: center;
+    background: #f9f9f9;
+    font-family: Roboto !important;
+}
+div#reset-password input:hover,
+div#email-verification input:hover{
+  border: 1px solid #41a6b6 !important;
+}
+div#email-verification button{
+  border-radius: 6px;
+}
+div#reset-password p,
+div#email-verification label{
+  color: #74757e;
+  text-align: center;
+  font-size: 15px;
+  font-family: Roboto !important;
+}
+
+@media (max-height: 768px){
+  div#modal-message .modal-dialog .modal-content .modal-body {
+    padding: 110px 0 15px 0;
+}
+}
+div#modal-message .modal-dialog .modal-content .modal-body {
+    padding: 100px 0 45px 0;
+    /* border-radius: 8px 8px 0 0; */
+    text-align: center;
+}
+div#modal-message .modal-dialog .modal-content .modal-body .message-title p,
+div#modal-message .modal-dialog .modal-content .modal-body .message-error-title p  {
+  font-size: 24px;
+  color: #fff;
+  margin-bottom: 0;
+}
+div#modal-message .modal .modal-dialog {
+  margin-top: calc(63px + 120px);
+}
+// End of message model
+
+
+.modal-content{
+      /* width: 100%; */
+      background: white;
+      /* height: 350px; */
+      border-radius: 6px !important;
+}
+.modal-body {
+  max-height: calc(90vh - 180px);
+  overflow-y: auto;
+  padding-top: 10px !important;
+  border-radius: 6px;
+}
+
+
+.modal-header {
+  min-height: 30px !important;
+  background-color: #41b6a6;
+  color: #fff;
+  border: none;
+  padding: 10px !important;
+}
+.modal-body .form-group {
+  margin-bottom: 25px;
+}
+.modal-title {
+   line-height: 10px !important;
+}
+.modal-footer{
+  background: white;
 }

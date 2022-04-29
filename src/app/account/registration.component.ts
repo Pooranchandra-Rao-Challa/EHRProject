@@ -66,6 +66,7 @@ export class RegistrationComponent implements OnInit {
   UserEmail: any;
   PrimaryPhoneValue: string;
   PhonePattern: any;
+
   constructor(private fb: FormBuilder, private accountservice: Accountservice,) {
     this.users = JSON.parse(localStorage.getItem("user"));
     console.log(this.users);

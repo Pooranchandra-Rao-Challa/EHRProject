@@ -1,4 +1,4 @@
-export interface inactivepatient {
+export interface InactivePatientaa {
     id?:string,
     PatientId?:string,
     UserId?: string,
@@ -11,5 +11,5 @@ export interface inactivepatient {
     PrimaryPhone?:string,
     Address?:string,
     active?: false,
-      
+
     }

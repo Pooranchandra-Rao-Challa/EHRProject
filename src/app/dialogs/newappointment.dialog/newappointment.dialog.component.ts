@@ -1,8 +1,13 @@
+import { OverlayRef } from '@angular/cdk/overlay';
 import { Component, OnInit } from '@angular/core';
-import { AppointmentTypes, AvailableTimeSlot, NewAppointment, PatientSearchResults, Room, ScheduledAppointment, UserLocations } from 'src/app/_models/smar.scheduler.data';
+import { AppointmentTypes, AvailableTimeSlot,Actions,
+  NewAppointment, PatientSearchResults, Room, ScheduledAppointment, UserLocations,
+ AppointmentDialogInfo } from 'src/app/_models/smar.scheduler.data';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
 import { PracticeProviders } from '../../_models/practiceProviders';
+import { EHROverlayRef } from '../../ehr-overlay-ref';
+import { TimelineMonthService } from '@syncfusion/ej2-angular-schedule';
 declare const CloseAppointment: any;
 declare const OpenSaveSuccessAppointment: any;
 
@@ -11,7 +16,7 @@ declare const OpenSaveSuccessAppointment: any;
   templateUrl: './newappointment.dialog.component.html',
   styleUrls: ['./newappointment.dialog.component.scss']
 })
-export class NewappointmentDialogComponent implements OnInit {
+export class NewAppointmentDialogComponent implements OnInit {
   PatientAppointment: NewAppointment;
   SaveInputDisable: boolean;
   SelectedProviderId: string;
@@ -33,9 +38,32 @@ export class NewappointmentDialogComponent implements OnInit {
   PeriodsOfTimeSlots: {};
   onError: boolean;
   OperationMessage: string;
+  todayDate:Date = new Date();
+  myHolidayFilter: boolean;
 
-  constructor(private authService: AuthenticationService,
-    private smartSchedulerService: SmartSchedulerService) { }
+  constructor(
+    private ref: EHROverlayRef,
+    private authService: AuthenticationService,
+    private smartSchedulerService: SmartSchedulerService) {
+      let data: AppointmentDialogInfo = ref.RequestData;
+      this.PatientAppointment = {} as NewAppointment;
+      console.log(this.PatientAppointment);
+
+      this.PatientAppointment = data.PatientAppointment;
+      console.log(this.PatientAppointment);
+      this.appointmentTitle = data.Title;
+      this.AppointmentTypes = data.AppointmentTypes;
+      this.PracticeProviders = data.PracticeProviders;
+      this.Locations = data.Locations;
+      this.Rooms = data.Rooms;
+      console.log(data.status);
+
+      if(data.status == Actions.view && data.PatientAppointment.AppointmentId != null)
+      {
+        this.LoadAvailableTimeSlots();
+      }
+
+    }
 
   ngOnInit(): void {
     this.PeriodsOfTimeSlots = [
@@ -52,67 +80,6 @@ export class NewappointmentDialogComponent implements OnInit {
       { Text: "2 hours 45 min", Value: 165 },
       { Text: "3 hours", Value: 180 },
       { Text: "Full Day", Value: 1440 }];
-  }
-
-  loadDefaults() {
-    let req = { "ClinicId": this.authService.userValue.ClinicId };
-    this.smartSchedulerService.PracticeProviders(req).subscribe(resp => {
-      if (resp.IsSuccess) {
-        this.PracticeProviders = resp.ListResult as PracticeProviders[];
-      }
-    });
-    let preq = { "ProviderId": this.SelectedProviderId };
-    this.smartSchedulerService.AppointmentTypes(preq).subscribe(resp => {
-      if (resp.IsSuccess) {
-        this.AppointmentTypes = resp.ListResult as AppointmentTypes[];
-      }
-    });
-
-
-    this.filterAppointments();
-  }
-
-  filterAppointments() {
-    let req = {
-      "ClinicId": this.authService.userValue.ClinicId,
-      "ProviderId": this.SelectedProviderId,
-      "LocationId": this.authService.userValue.CurrentLocation,
-      "AppointmentDate": this.selectedAppointmentDate
-    };
-    console.log(JSON.stringify(req))
-    this.smartSchedulerService.ActiveAppointments(req).subscribe(resp => {
-      console.log(resp.IsSuccess)
-      if (resp.IsSuccess) {
-        console.log(resp.ListResult)
-        this.Appointments = resp.ListResult as ScheduledAppointment[];
-        this.NoofAppointment = this.Appointments.length;
-      } else {
-        this.NoofAppointment = 0;
-        this.Appointments = [];
-      }
-
-    });
-  }
-
-  LoadAppointmentDefalts() {
-    this.SaveInputDisable = false;
-    if (this.SelectedProviderId == this.authService.userValue.ProviderId)
-      this.Locations = JSON.parse(this.authService.userValue.LocationInfo);
-    else {
-      this.smartSchedulerService.PracticeLocations({ "provider_Id": this.SelectedProviderId })
-        .subscribe(resp => {
-          if (resp.IsSuccess) {
-            this.Locations = resp.ListResult as UserLocations[];
-          }
-        });
-    }
-    let lreq = { "LocationId": this.SelectedLocationId };
-    this.smartSchedulerService.RoomsForLocation(lreq).subscribe(resp => {
-      if (resp.IsSuccess) {
-        this.Rooms = resp.ListResult as Room[];
-        this.PatientAppointment.RoomId = this.Rooms[0].RoomId;
-      }
-    });
   }
 
   LoadAvailableTimeSlots() {
@@ -141,6 +108,23 @@ export class NewappointmentDialogComponent implements OnInit {
 
   }
 
+  confirmAppointment() {
+    if (this.appointmentId != null) {
+      this.smartSchedulerService.ConfirmAppointmentCancellation({ AppointmentId: this.appointmentId })
+        .subscribe(resp => {
+          if (resp.IsSuccess) {
+            this.appointmentId = null;
+            //this.OperationMessage = resp.EndUserMessage;
+
+            //OpenSaveSuccessAppointment();
+          }
+          else {
+            //this.SaveInputDisable = false;
+            //this.OperationMessage = "Appointment is not saved"
+          }
+        });
+    }
+  }
   onTimeSlotSelect(slot) {
     this.PatientAppointment.TimeSlot = slot
   }
@@ -148,11 +132,14 @@ export class NewappointmentDialogComponent implements OnInit {
   onProviderChangeFromAppointmentForm() {
     this.SelectedProviderId = this.PatientAppointment.ProviderId
     console.log(this.SelectedProviderId)
-    this.LoadAppointmentDefalts();
+
+  }
+
+  close() {
+    this.ref.close(null);
   }
 
   ClearTimeSlots() {
-    this.LoadAppointmentDefalts();
     this.AvaliableTimeSlots = [];
   }
 
@@ -168,23 +155,7 @@ export class NewappointmentDialogComponent implements OnInit {
     this.messageToShowTimeSlots = '';
   }
 
-  onSelectPatient(PatientObj) {
-    this.flag = false;
-    this.selectedPatient = PatientObj as PatientSearchResults;
-    if (this.selectedPatient.NumberOfAppointments == 0) {
-      this.appointmentTitle = "Add New Appointment";
-      this.confirmIsCancelledAppointment();
-      this.ClearPatientAppointment();
-      this.PatientAppointment.AppointmentId = this.selectedPatient.AppointmentId;
-      this.PatientAppointment.PatientId = this.selectedPatient.PatientId;
-      this.PatientAppointment.PatientName = this.selectedPatient.Name;
-      this.PatientAppointment.LocationId = this.SelectedLocationId;
-      this.PatientAppointment.ProviderId = this.SelectedProviderId;
-      this.PatientAppointment.ClinicId = this.authService.userValue.ClinicId;
-      this.PatientAppointment.Duration = 30;
-    }
-    else this.PatientAppointments(this.selectedPatient)
-  }
+
   PatientAppointments(PatientObj) {
     let req = {
       "PatientId": PatientObj.PatientId
@@ -198,20 +169,7 @@ export class NewappointmentDialogComponent implements OnInit {
       }
     });
   }
-  onSelectNewAppointmentofPatientFromEditAppointments() {
-    this.flag = false;
-    this.appointmentTitle = "Add New Appointment";
-    this.ClearPatientAppointment();
-    this.confirmIsCancelledAppointment();
-    this.PatientAppointment.AppointmentId = this.selectedPatient.AppointmentId;
-    this.PatientAppointment.PatientId = this.selectedPatient.PatientId;
-    this.PatientAppointment.PatientName = this.selectedPatient.Name;
-    this.PatientAppointment.LocationId = this.SelectedLocationId;
-    this.PatientAppointment.ProviderId = this.SelectedProviderId;
-    this.PatientAppointment.ClinicId = this.authService.userValue.ClinicId;
-    this.PatientAppointment.Duration = 30;
-    this.PatientAppointment.Startat = new Date();
-  }
+
 
   viewAppointment(patientapp) {
     this.appointmentTitle = "Edit Appointment";

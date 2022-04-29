@@ -102,7 +102,24 @@
 @import "./assets/styles/utilities";
 @import "./assets/styles/demo";
 @import "~ngx-toastr/toastr.css";
+@import "./app/_components/drop-down-search/drop-down-search.theme.scss";
 /* You can add global styles to this file, and also import other style files */
+
+$angular-cdk-ehr-primary: mat-palette($mat-teal);
+$angular-cdk-ehr-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$angular-cdk-ehr-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$angular-cdk-ehr-theme: mat-light-theme(
+  $angular-cdk-ehr-primary,
+  $angular-cdk-ehr-accent,
+  $angular-cdk-ehr-warn
+);
+
+// include custome themes
+@include drop-down-search-theme($angular-cdk-ehr-theme);
 
 html,
 body {
@@ -416,6 +433,7 @@ li,
 }
 .page-body-wrapper {
   padding-top: 0px;
+  min-height: calc(100vh - 100px) !important;
 }
 // Related to sidebar
 .sidebar {
@@ -713,35 +731,7 @@ i {
 .modal-backdrop.show:nth-of-type(even) {
   z-index: 1051 !important;
 }
-.swal2-container.swal2-top > .swal2-popup {
-  margin-top: 300px !important;
-}
-.swal2-icon.swal2-error {
-  border-color: #e5e1e1 !important;
-}
-.swal2-icon.swal2-success .swal2-success-ring {
-  border: 0.25em solid rgb(225 221 221) !important;
-}
-.swal2-container.swal2-top > .swal2-popup {
-  margin-top: 295px !important;
-}
-.swal2-popup {
-  padding: 52px 0 7.25em !important;
-}
-.swal2-title.title-error {
-  background-color: #c73333 !important;
-}
-.swal2-styled.swal2-confirm.close-error-button {
-  color: #af1010 !important;
-  border-color: #c73333 !important;
-  box-shadow: none !important;
-  outline: none !important;
-}
-.swal2-styled.swal2-confirm.close-error-button :hover {
-  color: white !important;
-  border-color: #c73333 !important;
-  background-color: #c73333 !important;
-}
+
 .EHR1Id.mat-form-field-appearance-outline .mat-form-field-outline {
   background: #e2e1e1 !important;
   //border: 0.4px solid black;
@@ -819,6 +809,7 @@ i {
   max-width:100%;
   max-height:100%;
   transform:none !important;
+  // background-color: rgba(0,0,0,.4);
 }
 
 .model{
@@ -944,12 +935,12 @@ i {
   margin: 0;
 }
 .modal-body{
-  padding: 0px 10px !important;
+  //padding: 0px 10px !important;
   padding-top: 14px !important;
   background-color: #fff;
 }
 .modal-footer{
-  padding: 10px 10px !important;
+  padding: 10px 26px !important;
   border-top: 0px;
 }
 .modal .cross-mark {
@@ -980,4 +971,6 @@ i {
   transition-duration: 0.3s;
   color: #41b6a6;
 }
-
+.form-control{
+  font-family: 'Roboto';
+}

@@ -75,7 +75,7 @@
               <p class="panel-title m-0 plabel">General</p>
               <div class="row schedule-section">
                 <div class="col-xl-3 col-lg-5 col-md-6 pt-2">
-                  <p class="plabel ">Calendar Time Display Range :</p>
+                  <p class="plabel">Calendar Time Display Range :</p>
                 </div>
                 <div class="col-xl-4 col-lg-5 col-md-6" style="display: flex;">
                   <p class="mx-2 my-2">From</p>
@@ -89,9 +89,9 @@
                   <p class="plabel">Allow Scheduling Outside Location Hours:</p>
                 </div>
                 <div class="col-xl-3 col-lg-5 col-md-6">
-                  <mat-radio-group>
-                    <mat-radio-button [value]="1"></mat-radio-button>Yes
-                    <mat-radio-button class="ms-4" [value]="2"></mat-radio-button>No
+                  <mat-radio-group [(ngModel)]="generalSchedule.OutSidePracticeHour">
+                    <mat-radio-button [value]="true"></mat-radio-button>Yes
+                    <mat-radio-button class="ms-4" [value]="false"></mat-radio-button>No
                   </mat-radio-group>
                 </div>
               </div>
@@ -100,9 +100,9 @@
                   <p class="plabel">Allow Scheduling Concurrent Appointments:</p>
                 </div>
                 <div class="col-xl-3 col-lg-5 col-md-6">
-                  <mat-radio-group>
-                    <mat-radio-button [value]="1"></mat-radio-button>Yes
-                    <mat-radio-button class="ms-4" [value]="2"></mat-radio-button>No
+                  <mat-radio-group [(ngModel)]="generalSchedule.ConcurrentApps">
+                    <mat-radio-button [value]="true"></mat-radio-button>Yes
+                    <mat-radio-button class="ms-4" [value]="false"></mat-radio-button>No
                   </mat-radio-group>
                 </div>
               </div>
@@ -111,22 +111,22 @@
                   <p class="plabel">Accept Appointment Change Requests and Cancellations from the Patient Portal:</p>
                 </div>
                 <div class="col-md-4">
-                  <mat-radio-group>
-                    <mat-radio-button [value]="1" #Yes (change)='appointmentTime(Yes.checked)'></mat-radio-button>Yes
-                    <mat-radio-button class="ms-4" [value]="2" #No (change)='appointmentTime(Yes.checked)'>
+                  <mat-radio-group [(ngModel)]="generalSchedule.PatientRescedule">
+                    <mat-radio-button [value]="true"></mat-radio-button>Yes
+                    <mat-radio-button class="ms-4" [value]="false">
                     </mat-radio-button>No
                   </mat-radio-group>
                 </div>
               </div>
-              <div class="row patients-reschedule-time" *ngIf="displayappointmentTime">
+              <div class="row patients-reschedule-time" *ngIf="generalSchedule.PatientRescedule == true">
                 <p>Patients can reschedule/cancel appointments online within</p>
-                <input class="numeric form-control" type="number">
+                <input class="numeric form-control" type="number" [(ngModel)]="generalSchedule.RescheduleTime">
                 <p>hours of the start time of their scheduled appointment.</p>
               </div>
               <div class="row schedule-section">
                 <div class="col-12">
-                  <button id="general" class="btn btn-success col-xl-2 col-lg-3 col-md-3 col-12 pull-right">Save
-                    Changes</button>
+                  <button id="general" class="btn btn-success col-xl-2 col-lg-3 col-md-3 col-12 pull-right"
+                    (click)="updateScheduleGeneral()">Save Changes</button>
                 </div>
               </div>
             </div>

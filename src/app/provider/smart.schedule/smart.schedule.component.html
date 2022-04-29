@@ -81,16 +81,18 @@
                     <div class="col-md-1 col-1">Encounter</div>
                   </div>
                   <div class="row text-center table-body" *ngFor="let appointment of Appointments">
-                    <div class="col-md-1 col-1 appointment-time">
+                    <div class="col-md-1 col-1 appointment-time appintment-link"
+                    (click)="openComponentDialog(appointmentDialogComponent,appointment,ActionsType.view)">
                       {{appointment.AppointmentTime | date:'MM/dd/yyyy'}}
                       &nbsp;
                       Time: {{appointment.AppointmentTime | date:'hh:mm a'}}
                     </div>
-                    <div class="col-md-2 col-2 patient">
-                      {{appointment.PatientName}}&nbsp;
-                      DOB: {{appointment.DateofBirth | date:'MMM d, y'}}
+                    <div class="col-md-2 col-2 appintment-link"
+                    (click)="openComponentDialog(appointmentDialogComponent,appointment,ActionsType.view)">
+                      <div>{{appointment.PatientName}}</div>
+                    <div>DOB: {{appointment.DateofBirth | date:'MMM d, y'}}</div>
                     </div>
-                    <div class="col-md-2 col-2 provider">{{appointment.ProviderName}},{{appointment.Status}}</div>
+                    <div class="col-md-2 col-2 provider">{{appointment.ProviderName}}</div>
                     <div class="col-md-2 col-2 visit-status">
 
                       <img [class]="appointment.Status == 'Scheduled' ? 'img-smart-status' : 'img-smart-status-path'"
@@ -151,6 +153,8 @@
             </div>
           </mat-expansion-panel>
         </mat-accordion>
+        <!--<app-drop-down-search [Values]="Locations" (searchTextChanged)="onSeachTextChanged($event)"
+  (selectedOptionChanged)="onSelectedOptionChanged($event)"></app-drop-down-search>-->
       </div>
 
       <div class="row">
@@ -167,15 +171,15 @@
               </div>
               <div class="smartview-patient-search-result" *ngIf="flag" appearance="outline" [ngStyle]="psw">
                 <ul class="ui-widget">
-                  <li *ngFor="let patient of patients" class="ui-menu-item" data-bs-toggle="modal"
-                    [attr.data-bs-target]="patient.NumberOfAppointments == 0 ? '#modal-appointment-form' : '#modal-existingappointment-form'"
-                    (click)="onSelectPatient(patient);">
+                  <li *ngFor="let patient of patients" class="ui-menu-item"
+
+                    (click)="openComponentDialog((patient.NumberOfAppointments == 0 ? appointmentDialogComponent : upcomingAppointmentsDialogComponent),patient,PatinetActions(patient))">
 
                     {{patient.Name}},
                     {{patient.DateofBirth | date: 'MM/dd/yyyy'}}-{{patient.Age}} :-
                     {{patient.NumberOfAppointments}}
 
-                  </li>
+                  </li><!--  data-bs-toggle="modal" [attr.data-bs-target]="patient.NumberOfAppointments == 0 ? '#modal-appointment-form' : '#modal-existingappointment-form'"-->
                 </ul>
               </div>
 
@@ -199,341 +203,6 @@
     </div>
   </div>
 </div>
-
-<!-- New patient popup -->
-<!-- <div class="modal fade" id="modal-add-patient" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-  aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Add a New Patient</h4>
-        <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close">
-          X
-        </span>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-lg-4 col-md-6 col-12">
-            <div class="form-group">
-              <div class="input-group">
-                <label class="control-label input-group-addon required">First Name</label>
-                <input class="form-control" placeholder="First Name" type="text" [(ngModel)]="PatientData.FirstName"
-                  id="firstName" name="firstName" #firstName="ngModel" required pattern="[a-zA-Z ]*" />
-              </div>
-              <div *ngIf="firstName.errors && (firstName.touched)">
-                <div class="error_message" *ngIf="firstName.errors?.required">
-                  <span class="e_arrow"></span>
-                  <i>Please enter First Name</i>
-                </div>
-                <div class="error_message" *ngIf="firstName.errors?.pattern">
-                  <span class="e_arrow"></span>
-                  <i>First name not valid, Use only Alphabets and space</i>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 col-12">
-            <div class="form-group">
-              <div class="input-group">
-                <label class="control-label input-group-addon">Middle Name</label>
-                <input class="form-control" placeholder="Middle Name" type="text" [(ngModel)]="PatientData.MiddleName"
-                  pattern="[a-zA-Z ]*" #middleName="ngModel" />
-              </div>
-            </div>
-            <div *ngIf="firstName.errors && (firstName.touched)">
-              <div class="error_message" *ngIf="middleName.errors?.pattern">
-                <span class="e_arrow"></span>
-                <i>Middle name not valid, Use only Alphabets and space</i>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 col-12">
-            <div class="form-group">
-              <div class="input-group">
-                <label class="control-label input-group-addon required">Last Name</label>
-                <input class="form-control" placeholder="Last Name" type="text" [(ngModel)]="PatientData.LastName"
-                  id="lastName" name="lastName" #lastName="ngModel" required pattern="[a-zA-Z ]*" />
-              </div>
-              <div *ngIf="lastName.errors && (lastName.touched)">
-                <div class="error_message" *ngIf="lastName.errors?.required">
-                  <span class="e_arrow"></span>
-                  <i>Please enter Last Name</i>
-                </div>
-                <div class="error_message" *ngIf="lastName.errors?.pattern">
-                  <span class="e_arrow"></span>
-                  <i>Lasst name not valid, Use only Alphabets and space</i>
-                </div>
-              </div>
-
-            </div>
-          </div>
-          <div class="col-lg-6 col-md-6 col-12">
-            <div class="form-group">
-              <div class="input-group">
-                <label class="control-label input-group-addon required">DOB</label>
-                <input class="form-control" placeholder="mm-dd-yyyy" name="dateofBirth"
-                  [(ngModel)]="PatientData.DateofBirth" ngbDatepicker #d="ngbDatepicker" name="dateofBirth"
-                  #dateofBirth="ngModel" required [autoClose]="true">
-                <button id="dob" class="btn btn-outline-secondary calendar" autoClose="true" (click)="d.toggle()"
-                  type="button"></button>
-              </div>
-              <div *ngIf="dateofBirth.errors && (dateofBirth.touched)">
-                <div class="error_message" *ngIf="dateofBirth.errors?.required">
-                  <span class="e_arrow"></span>
-                  <i>Please enter Date of Birth</i>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6 col-md-6 col-12 pb-2" style="margin-top: -9px">
-            <mat-radio-group class="col-12" [(ngModel)]="PatientData.Gender">
-              <p>Gender :</p>
-              <mat-radio-button value="male"></mat-radio-button>Male
-              <mat-radio-button value="female"></mat-radio-button>Female
-              <mat-radio-button value="other"></mat-radio-button>Other
-              <mat-radio-button value="unknown"></mat-radio-button>Unknow
-            </mat-radio-group>
-          </div>
-          <div class="col-lg-6 col-md-6 col-12">
-            <div class="form-group">
-              <div class="input-group">
-                <label class="control-label input-group-addon">Cell Phone</label>
-                <input class="form-control" placeholder="Cell Phone" type="tel" [(ngModel)]="PatientData.CellPhone"
-                  mask=" (000) 000-0000" [showMaskTyped]="true" [patterns]="PhonePattern" placeHolderCharacter=" " />
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6 col-md-6 col-12">
-            <div class="form-group">
-              <div class="input-group">
-                <label class="control-label input-group-addon">Home Phone</label>
-                <input class="form-control" placeholder="Home Phone" type="tel" [(ngModel)]="PatientData.Homephone"
-                  mask=" (000) 000-0000" [showMaskTyped]="true" [patterns]="PhonePattern" placeHolderCharacter=" " />
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6 col-md-6 col-12">
-            <div class="form-group">
-              <div class="input-group">
-                <label class="control-label input-group-addon">Email</label>
-                <input class="form-control" placeholder="Email Address" type="text"
-                  [disabled]="patinetHasNoEmail.checked" [(ngModel)]="PatientData.Email"
-                  #patientEmail="ngModel"
-                  pattern="^[A-Z0-9+_.-]+@[A-Z0-9.-]+$" />
-              </div>
-              <div *ngIf="patientEmail.errors">
-                <div class="error_message" *ngIf="patientEmail.errors?.pattern == fasle">
-                  <span class="e_arrow"></span>
-                  <i>Please enter valid Eamil</i>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6 col-md-6 col-12 pt-2 pb-3">
-            <mat-checkbox class="example-margin col-12 mx-2" style="margin-left: 0px"
-            #patinetHasNoEmail ngModel
-              id="patinetHasNoEmail" name="patinetHasNoEmail" (click)="ClearEmailWhenPatientHasNoEmail($event)">
-            </mat-checkbox><span>Patient does not have an email address</span>
-          </div>
-        </div>
-        <div class="row">
-          <fieldset>
-            <legend>Address</legend>
-            <mat-form-field appearance="outline" class="col-12">
-              <input matInput placeholder="Enter full address here (including suite number)"
-                [(ngModel)]="PatientData.Address" #patientAddress />
-            </mat-form-field>
-            <button class="btn verify-btn col-lg-2 col-md-2 col-5" (click)="VerifyPatientAddress()">
-              Verify
-            </button>
-          </fieldset>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn" (click)="UpdatePatient()">Save</button>
-        <button class="btn" data-bs-dismiss="modal" aria-label="Close">
-          Cancel
-        </button>
-      </div>
-
-    </div>
-  </div>
-</div> -->
-
-<!-- Add New Appointment Form-->
-
-<!-- <div class="modal fade appointment-form" id="modal-appointment-form" data-bs-backdrop="static" data-bs-keyboard="false"
-  tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">{{appointmentTitle}}</h4>
-        <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close"
-          (onclick)="closeEditAppointment()">
-          X
-        </span>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="row">
-            <mat-label>Patient :</mat-label>
-            <mat-form-field appearance="outline" class="col-12 hover">
-              <input matInput placeholder="Password" [(ngModel)]="PatientAppointment.PatientName"
-                [ngModelOptions]="{standalone:true}" [readonly]="true">
-            </mat-form-field>
-            <mat-label>Providers :</mat-label>
-            <mat-form-field appearance="outline" class="col-12 hover">
-              <mat-select id="practiveProviders2" placeholder="Select Provider" disableOptionCentering
-                placeholder="Select Provider" [(ngModel)]="PatientAppointment.ProviderId"
-                [ngModelOptions]="{standalone:true}" (selectionChange)="onProviderChangeFromAppointmentForm()">
-                <mat-option *ngFor="let provider of PracticeProviders" [value]="provider.ProviderId">
-                  {{provider.FullName}}</mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-label>Appointment Types :</mat-label>
-            <mat-form-field appearance="outline" class="col-12">
-              <mat-select id="selSmartAppointmentTypes" placeholder="Select Appointment Type" disableOptionCentering
-                placeholder="Select Appointment Type" [(ngModel)]="PatientAppointment.AppointmentTypeId"
-                [ngModelOptions]="{standalone:true}">
-                <mat-option *ngFor="let appointment of AppointmentTypes" [value]="appointment.Id">
-                  {{appointment.AppointmentType}}</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div class="row">
-            <div class="col-12">
-              <mat-label class="col-12">Notes</mat-label>
-              <textarea class="col-12 text-area" [(ngModel)]="PatientAppointment.Notes"
-                [ngModelOptions]="{standalone:true}"></textarea>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-9 col-12">
-              <mat-label class="col-12">Locations:</mat-label>
-              <mat-form-field appearance="outline" class="col-12">
-                <mat-select id="selSmartLocations" placeholder="Select Location" disableOptionCentering
-                  [(ngModel)]="PatientAppointment.LocationId" [ngModelOptions]="{standalone:true}"
-                  (selectionChange)="ClearTimeSlots()">
-
-                  <mat-option *ngFor="let location of Locations" [value]="location.locationId">{{location.locationName}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="col-md-3 col-12">
-              <mat-label class="col-12">Rooms:</mat-label>
-              <mat-form-field appearance="outline" class="col-12">
-                <mat-select id="selSmartRooms" placeholder="Select One" disableOptionCentering
-                  [(ngModel)]="PatientAppointment.RoomId" (selectionChange)="ClearTimeSlots()"
-                  [ngModelOptions]="{standalone:true}">
-
-                  <mat-option *ngFor="let room of Rooms" [value]="room.RoomId">{{room.RoomName}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-5">
-              <mat-label class="col-12">Select Date:</mat-label>
-              <mat-form-field appearance="outline" class="col-12">
-                <input matInput class="pointer" autocomplete="off" [matDatepicker]="appointmentDate"
-                  (click)="appointmentDate.open()" readonly placeholder="Request Date"
-                  [(ngModel)]="PatientAppointment.Startat" [ngModelOptions]="{standalone: true}" />
-                <mat-datepicker-toggle matSuffix [for]="appointmentDate" dateChange="ClearTimeSlots()">
-                </mat-datepicker-toggle>
-                <mat-datepicker #appointmentDate></mat-datepicker>
-              </mat-form-field>
-            </div>
-            <div class="col-md-4">
-              <mat-label>Duration:</mat-label>
-              <mat-form-field appearance="outline" class="col-12">
-                <mat-select id="selSmartDurations" placeholder="Select Duration" disableOptionCentering
-                  [(ngModel)]="PatientAppointment.Duration" (selectionChange)="ClearTimeSlots()"
-                  [ngModelOptions]="{standalone:true}">
-                  <mat-option *ngFor="let period of PeriodsOfTimeSlots" [value]="period.Value">{{period.Text}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="col-md-3 pb-3" style="padding-top: 23px">
-              <button class="btn col-12" (click)="LoadAvailableTimeSlots()">Find Open Time</button>
-            </div>
-          </div>
-          <div class="available-slots">
-            <div class="row">
-              <p>Available Time Slots (Select Only One):</p>
-              <span id="spantimeSlots"
-                (show)="messageToShowTimeSlots != null && messageToShowTimeSlots != ''">{{messageToShowTimeSlots}}</span>
-              <div class="col-lg-4 col-md-3 col-12 pb-3" *ngFor="let slot of AvaliableTimeSlots">
-                <button class="btn col-12" [class.timeslot-selected]="slot === this.PatientAppointment.TimeSlot"
-                  type="button" (click)="onTimeSlotSelect(slot)">
-                  <span class="name timeslots">{{slot.TimeSlot}}</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-default btn-danger pull-left btn-appointment-cancel-right"
-          data-bs-target='#modal-update-appointment-status' data-bs-toggle="modal"
-          [hidden]="PatientAppointment.AppointmentId == null"
-          (click)="cancelAppointment(PatientAppointment.AppointmentId)">Cancel</button>
-        <button class="btn col-md-4 col-7" [disabled]="DiabledAppointmentSave()" (click)="onAppointmentSave()">Save
-          Appointment</button>
-        <button id="appointmentClose" class="btn col-md-3 col-4 fa fa-close" data-bs-dismiss="modal" aria-label="Close"
-          (click)="ClearPatientAppointment()">
-          Cancel
-        </button>
-      </div>
-    </div>
-  </div>
-</div> -->
-
-<!-- Upcoming Appointment popup -->
-<!-- <div class="modal animated fadeIn existingappointment-form" tabindex="-1" role="dialog"
-  id="modal-existingappointment-form">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Upcoming Appointments</h4>
-        <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close"
-          (click)="closeExistingAppointment()">
-          X
-        </span>
-      </div>
-      <div class="modal-body">
-        <div class="content-data">
-          <div class="row appointment" *ngFor="let patientapp of AppointmentsOfPatient">
-            <div class="col-md-7">
-              <div class="upcomming-appointment">
-                {{patientapp.AppointmentTime | date:'MM/dd/yyyy'}}&nbsp;
-                <a class="main-list-link" data-remote="true" (click)="viewAppointment(patientapp)"
-                  data-bs-toggle="modal" data-bs-target="#modal-appointment-form">View/Edit</a>
-              </div>
-              <div><b>Time: &nbsp;</b>{{patientapp.AppointmentTime | date:'h:mm a'}}&nbsp;(~
-                {{patientapp.Duration}}Min.)</div>
-              <div>
-                <p>Provider: &nbsp; {{patientapp.ProviderName}}</p>
-              </div>
-            </div>
-            <div class="col-md-5">
-              <div><b>Type: &nbsp;</b>{{patientapp.AppointmentType}}</div>
-              <div><a data-remote="true" href="javascript:void(0)" (click)="cancelAppointment(patientapp.AppointmentId)"
-                  data-bs-target='#modal-update-appointment-status' data-bs-toggle="modal">Cancel</a></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn pull-left" data-bs-toggle="modal" data-bs-target="#modal-appointment-form"
-          (click)="onSelectNewAppointmentofPatientFromEditAppointments();">
-          New Appointment
-        </button>
-      </div>
-    </div>
-  </div>
-</div> -->
 
 <!-- Encounter Modal -->
 <div class="modal fade" id="modal-patient-add-encounter" data-bs-backdrop="static" data-bs-keyboard="false"
@@ -891,42 +560,6 @@
   </div>
 </div>
 
-<!-- Address Validation result display-->
-
-<!-- // address verification model -->
-<!-- <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayAddress}">
-  <div class="modal-dialog  modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header" [ngClass]="displayAddressDialog?'addressInvalid':'addressSuccess'">
-        <h4 *ngIf="!displayAddressDialog">Success</h4>
-        <h4 *ngIf="displayAddressDialog" class="text-white">Invalid Address</h4>
-        <button type="button" *ngIf="!displayAddressDialog" class="btn btn-sm btn-success adrsbtn"
-          (click)="closePopupAddress()">
-          X
-        </button>
-        <button type="button" *ngIf="displayAddressDialog" class="btn btn-sm btn-success erroclose"
-          (click)="closePopupAddress()">
-          X
-        </button>
-      </div>
-      <form>
-        <div class="modal-body">
-          <div class="row">
-            <h4 class="text-center" class="address-valid-invalid-message-header">
-              {{addressMessage}}</h4>
-            <div class="col-lg-12 col-md-4 col-sm-4" *ngIf="!displayAddressDialog">
-              <mat-form-field appearance="outline" [style.width.px]=700>
-                <input type="text" [style.width.px]=600 [value]="ValidAddressForUse" placeholder="address" matInput>
-                <md-icon class="link" (click)="UseValidatedAddress()">Use this</md-icon>
-              </mat-form-field>
-            </div>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-
-</div> -->
 
 <!-- data-bs-toggle="modal"
                     data-bs-target="#modal-appointment-form"-->

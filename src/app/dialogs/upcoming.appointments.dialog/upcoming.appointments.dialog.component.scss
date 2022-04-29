@@ -1,11 +1,37 @@
-.existingappointment-form .modal-dialog {
+.modal-dialog{
+  overflow-y: initial !important;
   max-width: 660px;
-  padding-top: 40px;
+  padding: 0 15px 0 70px !important;
 }
-.existingappointment-form.modal {
-  background-color: transparent;
+
+.modal-dialog .modal-content .modal-header {
+  padding: 20px 16px;
+  min-height: 30px !important;
+  background-color: #41b6a6;
+  color: #fff;
+  border: none;
+  color: white;
+  background-color: #41b6a6;
+  border-bottom: none;
+  min-height: 50px;
+  max-height: 50px;
+  margin-top: -1px;
+  margin-left: -1px;
 }
-.existingappointment-form.modal .modal-dialog .modal-content .modal-footer {
+.modal-content {
+  border: 1px solid rgb(65 182 166) !important;
+}
+
+.modal-body {
+  max-height: calc(90vh - 180px);
+  overflow-y: auto;
+}
+.modal-title {
+  line-height: 10px !important;
+  font-size: 15px;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+.existingappointment-form.modal-dialog .modal-content .modal-footer {
   padding: 0px 31px;
   border-top: 0;
 }
@@ -15,32 +41,12 @@
 }
 .existingappointment-form .btn {
   border-color: #41b6a6;
-  font-size: 13px;
+  font-size: 15px;
   height: 45px;
+  padding: 0 15px 0 15px;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
-.existingappointment-form.modal .modal-dialog .modal-content .modal-body {
-  padding: 0px 15px;
-}
-.existingappointment-form
-  .modal-dialog
-  .modal-content
-  .modal-body
-  .content-data
-  .appointment {
-  border-top: 1px solid #f2f2f2;
-  border-bottom: 1px solid #f2f2f2;
-  padding: 10px 0 0 0;
-  margin: 0 15px 0 15px;
-}
-.existingappointment-form .modal-body .content-data {
-  overflow-y: auto;
-  width: 100%;
-  height: 300px;
-}
-.existingappointment-form.modal .modal-body .tab-content {
-  padding: 0px;
-  border: none;
-}
+
 div.existingappointment-form div.modal-dialog
   div.modal-content div.modal-body div.content-data div.appointment
    div.upcomming-appointment a{
@@ -55,7 +61,7 @@ div.existingappointment-form div.modal-dialog
     background-color: #41b6a6;
     color: #fff;
 }
-.modal .cross-mark {
+.existingappointment-form.modal-dialog .cross-mark {
   border: 1px solid currentColor;
   width: 23px;
   height: 23px;
@@ -63,6 +69,6 @@ div.existingappointment-form div.modal-dialog
   border-radius: 3px;
   padding: 0px !important;
 }
-.modal .cross-mark:hover {
+.existingappointment-form.modal-dialog .cross-mark:hover {
   opacity: 0.75;
 }

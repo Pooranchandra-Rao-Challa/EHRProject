@@ -1,4 +1,4 @@
-export interface admins {
+export interface Admins {
     id?:string,
     C_title?:string,
     first_name?: string,
