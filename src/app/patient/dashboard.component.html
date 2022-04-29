@@ -2,7 +2,7 @@
   <div class="content container ignore_spinner">
     <h4 class="h4-title">
       Welcome
-      <span class="authorization-welcome-username"> dddddddd ddddddddd</span>
+      <span class="authorization-welcome-username">{{this.user.FirstName}}&nbsp;&nbsp;{{this.user.LastName}}</span>
     </h4>
     <div class="row">
       <div class="col-lg-9 left-block">
@@ -82,14 +82,15 @@
           <div class="panel-body">
             <ul class="navbar-nav active">
               <li class="nav-item ">
-                <a class="secondary-text-dark nav-link"  data-bs-toggle="modal" data-bs-target="#staticBackdrop4">
+                <a class="secondary-text-dark nav-link"  data-bs-toggle="modal" (click)="openComponentDialog(PatientDialogComponent)">
+
                   <i class="fa fa-angle-right">
                   </i>
                   <a>Request an Appt</a>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="secondary-text-dark nav-link"  data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
+                <a class="secondary-text-dark nav-link"  data-bs-toggle="modal" (click)="openComponentDialogmessage(MessageDialogComponent)">
                   <i class="fa fa-angle-right">
                   </i>
                   <a>Send a Message</a>
@@ -118,7 +119,7 @@
   </div>
 </div>
 
-<div class="modal fade" id="staticBackdrop4" [ngStyle]="{'display':displayReq}" tabindex="-1" role="dialog"
+<!-- <div class="modal fade" id="staticBackdrop4" [ngStyle]="{'display':displayReq}" tabindex="-1" role="dialog"
   aria-labelledby="staticBackdrop4" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -163,7 +164,7 @@
                 </select>
               </div>
             </div>
-            
+
 
             <div class="row">
               <div class="col-lg-12 mt-3">
@@ -191,9 +192,9 @@
     </div>
   </div>
 
-</div>
+</div> -->
 
-<div class="modal fade" id="staticBackdrop1" [ngStyle]="{'display':displayNew}" tabindex="-1" role="dialog"
+<!-- <div class="modal fade" id="staticBackdrop1" [ngStyle]="{'display':displayNew}" tabindex="-1" role="dialog"
   aria-labelledby="staticBackdrop1" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -248,7 +249,7 @@
               <div class="col-lg-1 file_upload_glyph">
                 <div class="form-group">
                   <div class="input-group mt-4">
-                    <span type="button" class="reg-button col-md-4 btn btn-default btn-padding-md">
+                    <span type="button" class="reg-button col-md-4 btn btn-default btn-padding-md ">
                       <i class="fa fa-paperclip" aria-hidden="true"></i>
                     </span>
                   </div>
@@ -263,7 +264,7 @@
                   </mat-checkbox>
                 </div>
               </div>
-              
+
             </div>
 
             <div class="row" style="float: right;">
@@ -276,4 +277,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->

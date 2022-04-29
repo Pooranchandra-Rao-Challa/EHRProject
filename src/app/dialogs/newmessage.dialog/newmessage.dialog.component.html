@@ -1,0 +1,79 @@
+<div class="modal-dialog modal-xl">
+  <div class="modal-content modal-cust-content">
+    <div class="modal-header model-cust-heading">
+      <p class="modal-title modal-cust-title">New Message</p>
+      <span type="button" class="cross-x" data-bs-dismiss="modal" aria-label="Close" (click)="cancel()">
+       x
+      </span>
+    </div>
+    <div class="modal-body model-cust-body">
+      <form class="pt-4">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="row">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span  class="input-group-text ">To</span>
+                </div>
+                <input type="text" class="form-control ser" aria-label="Amount" placeholder="Search">
+                <div class="input-group-append" style=" width: 12%;">
+                  <span class="input-group-addon input-group-addon-right input-group-addon-search"
+                    id="find-messages-button"><i class="fa fa-search serch"></i></span>
+                </div>
+              </div>
+
+              <div class="input-group mb-3">
+                <div class="input-group-prepend ">
+                  <span  class="input-group-text">From </span>
+                </div>
+                <input type="text" class="form-control ser" aria-label="Amount">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="row">
+              <div>
+                <label for="subject" class="form-label">Subject</label>
+                <input type="input" class="form-control border-input" id="Subject" placeholder="Subject :" aria-describedby="subjectlHelp">
+              </div>
+              <div class="mt-2">
+                <label for="message" class="form-label">Message</label>
+                <input type="input" class="form-control border-input" id="message" placeholder="Message :" aria-describedby="messageHelp">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-1 file_upload_glyph">
+            <div class="form-group">
+              <div class="input-group mt-4">
+                <span type="button" class="reg-button col-md-4 btn btn-default btn-padding-md ">
+                  <i class="fa fa-paperclip" aria-hidden="true"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-5">
+          <div class="col-lg-4 ">
+            <div class="col-lg-4 ">
+              <mat-checkbox class="col-lg-12 col-md-12 example-margin">
+                <mat-lable class="custom-control-label">URGENT</mat-lable>
+              </mat-checkbox>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row" style="float: right;">
+          <button type="button" style="margin-left: -18%;margin-right: 9%;" class="reg-button col-md-4"
+            data-bs-dismiss="modal" (click)="cancel()">Cancel</button>
+          <button type="button" class="reg-button col-md-4">Submit</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>

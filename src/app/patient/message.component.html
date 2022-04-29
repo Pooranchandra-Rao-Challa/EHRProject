@@ -1,5 +1,5 @@
 
-<div class="dashboard-wrapper messages-wrapper wrapper">
+<div class="dashboard-wrapper messages-wrapper wrapper mt-4">
   <div class="content">
     <div class="container bordered-container">
       <div class="tabs">
@@ -55,7 +55,7 @@
                  New Message
                 </button>
                 <ul class="dropdown-menu">
-                  <li><u class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#staticBackdrop4">New Mesage</u></li>
+                  <li><u class="dropdown-item"  data-bs-toggle="modal" (click)="openComponentDialogmessage(MessageDialogComponent)">New Mesage</u></li>
                 </ul>
             </div>
           </div>
@@ -77,7 +77,7 @@
                     <div class="row drop-input">
                       <div class="dropdown">
                         <button class=" drop-button" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        
+
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                           <li><a class="dropdown-item" href="#">25 Msg</a></li>
@@ -100,9 +100,9 @@
     </div>
     </div>
     </div>
-    
 
-    <div class="modal fade" id="staticBackdrop4" [ngStyle]="{'display':displayReq}" tabindex="-1" role="dialog"
+
+    <!-- <div class="modal fade" id="staticBackdrop4" [ngStyle]="{'display':displayReq}" tabindex="-1" role="dialog"
     aria-labelledby="staticBackdrop4" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -115,7 +115,7 @@
         <div class="modal-body">
           <div class="content">
             <form>
-    
+
               <div class="row ">
                 <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
                   <label for="Date" class="form-label">Date</label>
@@ -131,7 +131,7 @@
                   </select>
                 </div>
               </div>
-    
+
               <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-12 col-12 mt-3">
                   <label for="Time" class="form-label">Time</label>
@@ -147,7 +147,7 @@
                   </select>
                 </div>
               </div>
-    
+
               <div class="row">
                 <div class="col-lg-12 mt-3">
                   <label for="Note" class="form-label">Note</label>
@@ -172,7 +172,6 @@
         </div>
       </div>
     </div>
-    
+
     </div>
-    
-    
+ -->

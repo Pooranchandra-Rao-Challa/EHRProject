@@ -70,7 +70,7 @@ import { AddressVerificationDialogComponent } from '../../dialogs/address.verifi
 import { EncounterDialogComponent } from '../../dialogs/encounter.dialog/encounter.dialog.component';
 import { SmokingStatusDialogComponent } from '../../dialogs/smoking.status.dialog/smoking.status.dialog.component';
 import { InterventionDialogComponent } from '../../dialogs/intervention.dialog/intervention.dialog.component';
-import { DropDownSearchComponent} from '../../_components/drop-down-search/drop-down-search.component';
+import { DropDownSearchComponent } from '../../_components/drop-down-search/drop-down-search.component';
 import { patientService } from 'src/app/_services/patient.service';
 
 @NgModule({
@@ -80,6 +80,7 @@ import { patientService } from 'src/app/_services/patient.service';
     AdvancedDirectivesDialogComponent,
     SmokingStatusDialogComponent,
     InterventionDialogComponent,
+    SmartScheduleComponent,
     NewAppointmentDialogComponent
   ],
   declarations: [
@@ -154,7 +155,7 @@ import { patientService } from 'src/app/_services/patient.service';
 
   ],
   providers: [DayService, WeekService, LocationSelectService,
-    UtilityService, SmartSchedulerService, OverlayService, patientService,
+    UtilityService, SmartSchedulerService, OverlayService, patientService, SmartScheduleComponent,
     { provide: NgbDateParserFormatter, useClass: NgbDateUSParserFormatter }
 
   ],

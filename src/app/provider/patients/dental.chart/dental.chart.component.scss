@@ -3,45 +3,38 @@
   margin-left: 9px;
 }
 .nav-tabs.styled li {
-  border-radius: 3px 1px 0 0;
   border: 1px solid #41b6a6;
 }
-.nav-link{
-  font-size: 20px;
-}
-.nav-tabs>li {
-  float: left;
-}
-.nav>li {
-  position: relative;
-  display: block;
-}
 .nav-tabs.styled li a {
-  margin-bottom: 1px;
+  margin-bottom: 0px;
   border-radius: 0px 0px 0 0;
-  padding: 14px 18px 8px 29px;
-  font-size: 17px !important;
 }
 .nav-tabs.styled li.active a {
   background-color: #41b6a6;
   color: #fff;
   border-bottom: 0;
 }
-.nav-tabs.styled li a:focus, .nav-tabs.styled li a:hover, .nav-tabs.styled li a:active {
+.nav-tabs.styled li a:focus,
+.nav-tabs.styled li a:hover,
+.nav-tabs.styled li a:active {
   border: 0;
   background-color: #41b6a6;
   color: #fff;
 }
-.nav-tabs li a{
+.nav-tabs li a {
   border: 0;
   color: #41b6a6;
   background-color: #fff;
+  padding: 14px 58px 12px 28px;
+  font-family: 'Roboto' !important;
+  font-weight: 500;
+  font-size: 14px !important;
 }
-.styled .nav-link.active{
+.styled .nav-link.active {
   background-color: #41b6a6;
   color: #fff;
 }
-.styled .nav-link.active{
+.styled .nav-link.active {
   background-color: #41b6a6;
   color: #fff;
 }
@@ -49,28 +42,32 @@
   background-color: #41b6a6;
   color: #fff;
 }
-
 .btn.btn-orange {
   padding: 12px 26px !important;
   font-size: 17px;
   font-family: "Open Sans", sans-serif;
-  margin-left: -38px;
+  margin-left: -36px;
 }
-.adult-dentalchart
-{
+.adult-dentalchart {
   border-top: 3px solid #41b6a6;
 }
-.table td, .table th {
+.row-margin {
+  margin-left: 8px;
+  margin-right: 1px;
+}
+.table td,
+.table th {
   vertical-align: middle;
   font-size: 0px;
 }
-.table td img, .table th img {
+.table td img,
+.table th img {
   border-radius: 0px;
 }
-.patientDentalChartTab{
+.patientDentalChartTab {
   width: 50% !important;
 }
-tbody, td, tfoot, th, thead, tr {
+tbody,td,tfoot,th,thead,tr {
   border-color: white;
   border-style: solid;
   border-width: 0;
@@ -78,7 +75,7 @@ tbody, td, tfoot, th, thead, tr {
 .table-responsive {
   border-radius: 3px;
 }
-img, svg {
+img,svg {
   vertical-align: middle;
   width: 100%;
   height: auto;
@@ -99,46 +96,48 @@ img, svg {
   border: 1px solid #41b6a6 !important;
   border-radius: 3px;
 }
-.double-border{
+.double-border {
   border: 1px solid #41b6a6;
   padding: 16px;
   background-color: #e8fbf8;
   border-radius: 3px
 }
-.table td, .table th {
+.table td,.table th {
   vertical-align: inherit !important;
 }
 .colA {
-  height: 756px;
+  min-height: 686px;
+  overflow-y: scroll;
+  max-height: calc(90vh - 180px);
 }
-.colB{
-  height: 756px;
-  min-width: 104%;
+.colB {
+  margin-top: -32px !important;
+  min-height: 767px;
+  overflow-y: scroll;
+  max-height: calc(114vh - 207px);
 }
 .colC {
-  min-height: 613px;
+  min-height: 560px;
 }
 .colD {
-  height: 613px;
-  min-width: 104%;
+  height: 560px;
 }
-.input-group{
+.input-group {
   height: 80px;
   padding-top: 15px;
   padding-bottom: 15px;
 }
 .table>:not(:first-child) {
-   border-top: 0px solid #41b6a6 ;
+  border-top: 0px solid #41b6a6;
 }
 // search icon btn
-.fa-search{
+.fa-search {
   background-color: #41b6a6;
   color: white;
 }
 .fa {
   font-size: 28px;
 }
-
 .btn-info:hover {
   color: #f7f3f3;
   background-color: #41b6a6;
@@ -150,46 +149,46 @@ img, svg {
   border-color: #41b6a6;
   width: 65px;
 }
-.input-group > .form-control, .input-group > .form-select {
+.input-group>.form-control,
+.input-group>.form-select {
   border-color: #41b6a6 !important;
 }
 p {
   margin-top: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   color: #41b6a6;
-  font-size:18px;
+  font-size: 18px;
 }
-
 // checkbox design
-.cust-checkbox-label{
-  font-size: 16px;
-  font-weight: 400;
-  color: #4A4A4A !important;
-  font-family: 'Roboto';
-}
-.Procedures-Checkbox{
-  margin-top: -6px;
-}
-.find-procedure{
+// .cust-checkbox-label {
+//   font-size: 16px;
+//   font-weight: 400;
+//   color: #4A4A4A !important;
+//   font-family: 'Roboto';
+// }
+// .Procedures-Checkbox {
+//   margin-top: -6px;
+// }
+.find-procedure {
   background-color: #e8fbf8;
   height: 80px;
 }
-.checkbox  {
-  color: black;
-   height: 15px;
-   width: 15px;
-   border-radius: 4px;
- }
+// .checkbox {
+//   color: black;
+//   height: 15px;
+//   width: 15px;
+//   border-radius: 4px;
+// }
 .table-responsive table.table tbody tr td a {
   font-size: 16px;
   color: #4A4A4A;
   transition: color 0.2s;
 }
 table tr td.overlay-img a.checker.unchecked {
- // background-image:url(/assets/images/tooths/teeth_unselected.svg);
-  background-image:url(https://1.ehr.one/assets/tooths/teeth_unselected-71b5b4b9a6e389e6d6fcaa7f69291a74ac6b5e6c83158ea4f7c218175da31b7b.svg);
+  // background-image:url(/assets/images/tooths/teeth_unselected.svg);
+  background-image: url(https://1.ehr.one/assets/tooths/teeth_unselected-71b5b4b9a6e389e6d6fcaa7f69291a74ac6b5e6c83158ea4f7c218175da31b7b.svg);
 }
-.img-align{
+.img-align {
   margin-top: 10px;
 }
 .patientDentalChartTab .panel-teeth .tbody-teeth tr td.overlay-img a.checker {
@@ -222,7 +221,7 @@ table tr td.overlay-img a.checker.unchecked {
   color: #41b6a6;
   text-align: center;
 }
-.select2{
+.select2 {
   margin-left: 0px;
   width: 813px;
   color: #41b6a6;
@@ -230,26 +229,35 @@ table tr td.overlay-img a.checker.unchecked {
   height: 60px;
   margin-top: 15px;
   margin-bottom: 20px;
- font-size:20px
+  font-size: 20px
 }
-
-.childimg{
-  margin:15px;
+.adult-img-align {
+  margin-top: 62px;
+}
+.adult-bigimg-align {
+  margin-top: 23px;
+}
+.adult-lg-align {
+  margin-top: 40px;
+}
+.childimg {
+  // margin:4px;
   width: auto !important;
   height: auto;
 }
-
-.th-color tr th{
+.childimg-align {
+  margin-top: 35px !important;
+}
+.th-color tr th {
   color: #fff;
   font-size: 18px;
   background: #41b6a6;
   font-family: system-ui;
-  padding: 12px  25px;
+  padding: 12px 25px;
   font-weight: 600;
 }
-
 // dropdown Action
-.ActionDDL{
+.ActionDDL {
   background: #e0f5f2;
   padding: 10px 20px;
   width: 100%;
@@ -262,11 +270,11 @@ input::-webkit-input-placeholder {
 }
 .btn.Actions {
   color: #41b6a6;
-    border-color: #41b6a6;
-    background: #fff;
-    width: 164px !important;
-    font-size: 21px;
-    padding: 15px 3px;
+  border-color: #41b6a6;
+  background: #fff;
+  width: 164px !important;
+  font-size: 21px;
+  padding: 10px 3px;
 }
 .dropdown .dropdown-menu li {
   display: table;
@@ -274,11 +282,9 @@ input::-webkit-input-placeholder {
   cursor: pointer !important;
   width: 152px;
 }
-
 .dropdown-menu li a {
   font-size: 15px;
   width: 20px;
-
 }
 .dropdown-menu li a:hover {
   text-decoration: underline;
@@ -292,12 +298,17 @@ input::-webkit-input-placeholder {
   --bs-table-accent-bg: none;
   background-color: #e8fbf8;
 }
+.right-block {
+  width: 24.50%;
+}
 
-@media(min-width:300px)and (max-width:780px)
-{
+@media(min-width:300px)and (max-width:767px) {
+  .patientDentalChartTab {
+    width: 100% !important;
+  }
   .btn.btn-orange {
-  margin-left: 10px !important;
-  margin-bottom: 2px !important;
+    margin-left: 10px !important;
+    margin-bottom: 6px !important;
   }
   .colA {
     min-height: 500px;
@@ -305,48 +316,120 @@ input::-webkit-input-placeholder {
   .colB {
     min-height: 500px;
   }
-}
-@media(min-width:300px) and (max-width:1200px){
-  .patientDentalChartTab{
-    width: 100% !important;
-  }
-  .right-block{
-    width: 482px;
+  .right-block {
+    width: 100%;
     margin-top: 15px;
   }
-  // .colA {
-  //   min-height: 500px;
-  // }
-  // .colB {
-  //   min-height: 500px;
-  // }
+  .align-B-block {
+    margin-left: -9px;
+  }
+  .nav-tabs li a {
+    padding: 13px 26px;
+  }
 }
-@media(min-width:1025px) and (max-width:1440px)
-{
+@media(min-width:768px) and (max-width:1200px) {
+  .patientDentalChartTab {
+    width: 100% !important;
+    margin: 0px 15px 0px 0px;
+  }
+  .btn.btn-orange {
+    padding: 15px 22px !important;
+    margin-left: -123px;
+    position: fixed;
+  }
+  .right-block {
+    width: 50%;
+    margin-top: 15px;
+  }
+}
+@media(min-width:1201px) and (max-width:1440px) {
   .btn.btn-orange {
     padding: 13px 15px !important;
-    margin-left: -70px;
+    margin-left: -57px;
+  }
+  .colA {
+    height: 510px !important;
+  }
+  .colB {
+    height: 510px !important;
+  }
 }
-.colA {
-  height: 500px !important;
+@media (min-width:1200px) and (max-width:1350px) {
+  .patientDentalChartTab {
+    width: 49% !important;
+  }
+  .right-block {
+    width: 25%;
+  }
+  .colA {
+    height: 510px !important;
+  }
+  .colB {
+    height: 510px !important;
+  }
 }
-.colB {
-  height: 500px !important;
+// chcekbox
+li.Checklist{
+  display: block;
+  margin-top: 6px;
+  color: #4A4A4A !important;
+  line-height: 2px;
+  font-size: 14px !important;
+  cursor: pointer;
+  font-family: 'Roboto' !important;
+  margin-left: 5px;
 }
+li.Checklist:hover{
+  color: #41b6a6 !important;
+  text-decoration: underline !important;
 }
-@media(max-width:1024px){
-.btn.btn-orange {
-    padding: 14px 10px !important;
-    margin-left: -102px;
+.child-check{
+  margin-left: 10px;
+  display: none;
 }
-.colA {
-  height: 500px !important;
+.child-check.active{
+  display: block;
 }
-.colB {
-  height: 500px !important;
+.css-label {
+  cursor: pointer;
+  color: #4A4A4A !important;
+  font-family: 'Roboto';
+  font-size: 14px;
+  font-weight: 400;
+  margin-top: -3px;
 }
-.right-block{
-  width: 482px;
-  margin-top: 15px;
+.css-checkbox {
+  display: none;
 }
+.fa-cust-icon {
+  color: black;
+  line-height: 11px;
+  border-radius: 4px;
+  border: 1px solid #4A4A4A;
+  font-size: 10px;
 }
+.fa-plus {
+  padding-top: 2px;
+  padding-right: 2px;
+  padding-left: 2px;
+  background-color: white;
+  border: 1px solid #4A4A4A;
+}
+.fa-minus {
+  padding-top: 1px;
+  padding-right: 2px;
+  padding-left: 2px;
+  background-color: white;
+  display: none;
+  border: 1px solid #4A4A4A;
+}
+.css-checkbox:checked + .css-label .fa-minus {
+  display: inline;
+  color: black;
+}
+.css-checkbox:checked + .css-label .fa-plus {
+  display: none;
+  color: black;
+}
+
+

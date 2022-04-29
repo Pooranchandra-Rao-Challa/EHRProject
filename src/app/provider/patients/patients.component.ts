@@ -11,7 +11,7 @@ import { MatSort } from "@angular/material/sort";
 import { PatientsData } from 'src/app/_models/patients';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, NavigationExtras, Route, Router } from '@angular/router';
-
+import { SmartScheduleComponent } from '../smart.schedule/smart.schedule.component';
 @Component({
   selector: 'app-patients',
   templateUrl: './patients.component.html',
@@ -23,6 +23,7 @@ export class PatientsComponent implements OnInit {
   patientColumns: string[] = ['Image', 'First', 'Middle', 'Last', 'DOB', 'Age', 'ContactInfo', 'LastAccessed', 'Created', 'Select'];
   // patientsDataSource: PatientsData[];
   public patientsDataSource = new MatTableDataSource<PatientsData>();
+  public patientsList = new MatTableDataSource<PatientsData>();
   filteredPatients: any;
   searchName: any;
   patientDialogComponent = PatientDialogComponent;
@@ -33,52 +34,22 @@ export class PatientsComponent implements OnInit {
   // pageSizeOptions: number[] = [5, 10, 25, 100];
   // showTotalPages: number;
   // pageEvent: PageEvent;
-  patientsDataSource1: { Image: string; First: string; Middle: string; Last: string; DOB: string; Age: number; ContactInfo: string; LastAccessed: string; Created: string; Select: boolean; }[];
-  pageSize = 5;
+  pageSize = 10;
   page = 0;
+  inactivePatients: any[] = [];
+  patientsProviders: import("g:/EHR Project/EHRGitCode/EHRProject/src/app/_models/practiceProviders").PracticeProviders[];
   constructor(public overlayService: OverlayService,
     private patientService: patientService,
     private authService: AuthenticationService,
-    private router: Router) {
+    private router: Router,
+    private smartschedule: SmartScheduleComponent) {
     this.user = authService.userValue;
+    this.patientsProviders = smartschedule.PracticeProviders;
+    console.log(this.patientsProviders);
+
   }
 
   ngOnInit(): void {
-    // this.patientsDataSource1 = [
-    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
-    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
-    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
-    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
-    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
-    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
-    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
-    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
-    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
-    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
-    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
-    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
-    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
-    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
-    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
-    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
-    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
-    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
-    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
-    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
-    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
-    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
-    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
-    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
-    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
-    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
-    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
-    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
-    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
-    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
-    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
-    //   { Image: 'sdvdv', First: "fcvv", Middle: 'sdvd', Last: 'sggsdg', DOB: 'vsdv', Age: 10, ContactInfo: 'vdvsd', LastAccessed: 'dvsd', Created: 'vdsvd', Select: true },
-
-    // ]
     this.getPatientsByProvider();
   }
 
@@ -108,23 +79,28 @@ export class PatientsComponent implements OnInit {
       "ProviderId": this.user.ProviderId
     }
     this.patientService.PatientsByProvider(reqparams).subscribe((resp) => {
-      this.patientsDataSource.data = resp.ListResult;
-      this.patientsDataSource1 = resp.ListResult;
-      console.log(this.patientsDataSource.data);
-
+      this.patientsDataSource.data = resp.ListResult as PatientsData[];
+      this.patientsList.data = this.patientsDataSource.data;
     });
   }
 
-  showInactive(event) {
-    this.patientsDataSource.data = [];
+  filterByNamePhonenumber() {
+    debugger;
+    let PhoneNumber =
+      this.filteredPatients = this.patientsDataSource.data.filter(
+        x => x.FirstName === this.searchName ||
+          x.PrimaryPhone === this.searchName
+      );
+    this.patientsList.data = this.filteredPatients;
   }
 
-  toggleSelect(event) {
+  showInactivePatients(event) {
     if (event.checked == true) {
-      this.patientsDataSource.data = [];
+      this.inactivePatients = this.patientsDataSource.data.filter(a => a.active === false);
+      this.patientsList.data = this.inactivePatients;
     }
     else {
-      this.ngOnInit();
+      this.patientsList.data = this.patientsDataSource.data;
     }
   }
 
@@ -140,10 +116,5 @@ export class PatientsComponent implements OnInit {
         this.dialogResponse = res.data;
       }
     });
-  }
-
-  filtered() {
-    this.filteredPatients = this.patientsDataSource.data.filter(a => a.FirstName === this.searchName);
-    this.patientsDataSource = this.filteredPatients;
   }
 }

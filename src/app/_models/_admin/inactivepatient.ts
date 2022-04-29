@@ -1,5 +1,5 @@
 export interface InactivePatientaa {
-    id?:string,
+    Id?:string,
     PatientId?:string,
     UserId?: string,
     UserName?: string,
@@ -10,6 +10,6 @@ export interface InactivePatientaa {
     PatientPortalAccount?:string,
     PrimaryPhone?:string,
     Address?:string,
-    active?: false,
+    Active?: false,
 
     }
