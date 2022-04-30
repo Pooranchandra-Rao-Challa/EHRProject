@@ -1,3 +1,4 @@
+import { PracticeProviders } from './../../_models/practiceProviders';
 import { patientService } from './../../_services/patient.service';
 import { Component, OnInit, TemplateRef, QueryList, ViewChildren } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
@@ -37,14 +38,15 @@ export class PatientsComponent implements OnInit {
   pageSize = 10;
   page = 0;
   inactivePatients: any[] = [];
-  patientsProviders: import("g:/EHR Project/EHRGitCode/EHRProject/src/app/_models/practiceProviders").PracticeProviders[];
+  patientsProviders: PracticeProviders
+  //patientsProviders: import("g:/EHR Project/EHRGitCode/EHRProject/src/app/_models/practiceProviders").PracticeProviders[];
   constructor(public overlayService: OverlayService,
     private patientService: patientService,
     private authService: AuthenticationService,
     private router: Router,
     private smartschedule: SmartScheduleComponent) {
     this.user = authService.userValue;
-    this.patientsProviders = smartschedule.PracticeProviders;
+    //this.patientsProviders = smartschedule.PracticeProviders;
     console.log(this.patientsProviders);
 
   }

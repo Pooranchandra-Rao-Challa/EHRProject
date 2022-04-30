@@ -283,7 +283,7 @@ html {
 }
 
 
-.hederfont {
+.header-font {
   font-size: 20px;
   font-weight: 400;
   text-align: center;
@@ -707,4 +707,19 @@ div#modal-message .modal .modal-dialog {
 }
 .modal-footer{
   background: white;
+}
+.pop-contrainer{
+  background: #f9f9f9;
+  border-radius: 6px !important;
+  padding: 0px !important;
+}
+.swal-input{
+  border:1px solid #a9a9a9,
+}
+.swal-input:hover{
+  border:1px solid #41a6b6,
+}
+.cancel-button{
+  color: #41a6b6;
+  background: #f9f9f9
 }

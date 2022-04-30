@@ -46,9 +46,9 @@
                     </mat-form-field>
                   </div>
                   <div class="pull-right address" >
-                    <div data-bs-toggle="modal" data-bs-target="#reset-password" class="message-hints">Forgot your
+                    <div data-bs-toggle="modal" (click)="openResetPassword()" class="message-hints">Forgot your
                       password?</div>
-                    <div data-bs-toggle="modal" data-bs-target="#email-verification" class="message-hints">
+                    <div data-bs-toggle="modal" (click)="openResendVerification()" class="message-hints">
                       Resend Email Verification
                     </div>
                   </div>

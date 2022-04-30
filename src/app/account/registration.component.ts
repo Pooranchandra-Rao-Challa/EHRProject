@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
-import { User } from '../_models';
 import { Accountservice } from '../_services/account.service';
-import { CustomKeyboardEvent } from 'ngx-mask';
 import { ViewModel, Registration } from '../_models/registration';
 
 
@@ -267,6 +265,14 @@ export class RegistrationComponent implements OnInit {
       confirmButtonText: 'Close',
       width: '700',
     });
+  }
+
+  openForgotPassword(){
+    Swal.fire({
+
+
+    })
+
   }
 }
 

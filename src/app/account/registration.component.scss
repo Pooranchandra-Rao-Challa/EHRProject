@@ -116,13 +116,6 @@ h3{
   color: #fff;
 }
 
-// .authorization-signup-wrapper .secondary-title authorization-people-icon {
-//   background: url(../../assets/images/avatar-people.svg) no-repeat !important;
-//   background-size: 28px;
-// }
-// .category-buttons {
-//   margin-top: 6rem;
-// }
 
 .reg-button {
   background-color: #fff;
@@ -227,14 +220,7 @@ a:hover {
   color: black;
   text-shadow: black;
 }
-//@use ; .cdk-overlay-pane{
-  //width: calc(100% - 22px) !important;
-  //top : 200px;
-//}
 
-// .fa-ellipsis-h {
-//   color: #41b6a6;
-// }
 .swal-text {
   background-color: #fefae3;
   padding: 17px;
@@ -311,12 +297,7 @@ a:hover {
   border: 1px solid white;
   background: #ff0000 !important;
 }
-// .FieldValid{
-//   border-radius: 77%;
-//   height: 27px;
-//   background: rgb(75, 240, 54);
-//   color: white;
-//   border-color: rgb(81, 255, 0);
+
 
  .FieldValid{
    border-radius: 83%;
@@ -358,9 +339,6 @@ mat-form-field{
   font-family: 'SF UI Text Regular';
 
 }
-
-
-
 
 ::ng-deep div#registration-form .mat-checkbox-checked.mat-accent .mat-checkbox-ripple .mat-ripple-element {
   opacity: 0.03 !important;
