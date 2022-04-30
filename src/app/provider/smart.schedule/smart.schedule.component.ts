@@ -22,7 +22,7 @@ import {
   PatientSearchResults, Actions,
   ScheduledAppointment, AppointmentTypes, NewAppointment,
   UserLocations, Room, AvailableTimeSlot,AppointmentDialogInfo
-} from 'src/app/_models/smar.scheduler.data';
+} from 'src/app/_models/smart.scheduler.data';
 
 declare const CloseAppointment: any;
 declare const OpenSaveSuccessAppointment: any;

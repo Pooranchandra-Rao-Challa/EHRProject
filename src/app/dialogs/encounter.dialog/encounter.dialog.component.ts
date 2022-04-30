@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PracticeProviders } from 'src/app/_models/practiceProviders';
-import { AppointmentTypes } from 'src/app/_models/smar.scheduler.data';
+import { AppointmentTypes } from 'src/app/_models/smart.scheduler.data';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
 

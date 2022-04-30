@@ -1,8 +1,9 @@
-import { getLocaleDateTimeFormat } from '@angular/common';
+
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthenticationService } from '../_services/authentication.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -81,4 +82,71 @@ export class LoginComponent implements OnInit {
     this.showPassword = !this.showPassword;
   }
 
+  async openResetPassword(){
+
+    const { value: email  } = await Swal.fire({
+      title:'Reset Your Password',
+      text:'Enter the email address associated with your account and an email with password reset instructions will be sent.',
+      input: 'email',
+      inputAttributes: {
+        autocapitalize: 'off'
+      },
+      padding:'1px !important',
+      customClass: {
+        title:'modal-header header-font',
+        //container:'pop-contrainer',
+        input:'swal-input',
+        cancelButton:'cancel-button cancel-button1',
+        confirmButton:'confirm-button confirm-button1'
+      },
+      reverseButtons: true,
+      background:'#f9f9f9',
+      showCancelButton: true,
+      cancelButtonText:'Go Back',
+      confirmButtonText: 'Okay-Send it !',
+      backdrop:true,
+      inputPlaceholder: 'Enter your email address',
+
+
+    });
+
+    if (email) {
+      Swal.fire(`Entered email: ${email}`)
+    }
+  }
+
+  async openResendVerification(){
+
+    const { value: email  } = await Swal.fire({
+      title:'Email Verification',
+      input: 'email',
+      inputAttributes: {
+        autocapitalize: 'off'
+      },
+      showCloseButton: true,
+      padding:'1px !important',
+      customClass: {
+        title:'modal-header header-font',
+        //container:'pop-contrainer',
+        input:'swal-input',
+        //cancelButton:'cancel-button cancel-button1',
+        confirmButton:'confirm-button',
+        closeButton:'close-button'
+      },
+      reverseButtons: true,
+      background:'#f9f9f9',
+      inputLabel: 'Email Address :',
+      //showCancelButton: false,
+      //cancelButtonText:'Go Back',
+      confirmButtonText: 'Resend Verification',
+      backdrop:true,
+      inputPlaceholder: 'Enter your email address',
+
+
+    });
+
+    if (email) {
+      Swal.fire(`Entered email: ${email}`)
+    }
+  }
 }

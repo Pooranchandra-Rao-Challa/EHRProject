@@ -1,3 +1,4 @@
+import { PracticeProviders } from './../../_models/practiceProviders';
 import { patientService } from './../../_services/patient.service';
 import { Component, OnInit, TemplateRef, QueryList, ViewChildren } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
