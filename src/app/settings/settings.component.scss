@@ -1042,3 +1042,8 @@ margin-bottom: 0;
   background-color: #41b6a6 !important;
   color: #fff !important;
 }
+a.disabled{
+  pointer-events: none;
+  color:gray;
+  opacity: 0.5;
+}

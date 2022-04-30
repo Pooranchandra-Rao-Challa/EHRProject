@@ -14,6 +14,34 @@ export class DentalChartComponent implements OnInit {
 
   ngOnInit( ): void {
     this.GetList();
+    this.CheckboxExpand();
+
+  }
+
+  GetList()
+  {
+    this.checboxList=[
+      {listId:"1",listName:'D0120 periodic oral evaluation - established patient'},
+      {listId:"2",listName:'D0120 periodic oral evaluation - established patient'},
+      {listId:"3",listName:'D0120 periodic oral evaluation - established patient'}
+    ]
+  }
+  AdultPerm()
+  {
+    this.AdultPrem=true;
+    this.ChilPrim=false;
+    this.CheckboxExpand();
+  }
+
+  ChildPrim(){
+   this.AdultPrem=false;
+   this.ChilPrim=true;
+   this.CheckboxExpand();
+  }
+  OpenCheck(){
+
+  }
+  CheckboxExpand(){
     var checks = document.querySelectorAll("input[type=checkbox]");
     for(var i = 0; i < checks.length; i++){
       checks[i].addEventListener( 'change', function() {
@@ -45,27 +73,5 @@ export class DentalChartComponent implements OnInit {
     function hasClass(elem, className) {
         return new RegExp(' ' + className + ' ').test(' ' + elem.className + ' ');
     }
-  }
-
-  GetList()
-  {
-    this.checboxList=[
-      {listId:"1",listName:'D0120 periodic oral evaluation - established patient'},
-      {listId:"2",listName:'D0120 periodic oral evaluation - established patient'},
-      {listId:"3",listName:'D0120 periodic oral evaluation - established patient'}
-    ]
-  }
-  AdultPerm()
-  {
-    this.AdultPrem=true;
-    this.ChilPrim=false;
-  }
-
-  ChildPrim(){
-   this.AdultPrem=false;
-   this.ChilPrim=true;
-  }
-  OpenCheck(){
-
   }
 }

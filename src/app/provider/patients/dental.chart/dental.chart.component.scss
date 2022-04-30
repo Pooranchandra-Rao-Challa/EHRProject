@@ -106,21 +106,26 @@ img,svg {
   vertical-align: inherit !important;
 }
 .colA {
-  min-height: 686px;
   overflow-y: scroll;
-  max-height: calc(90vh - 180px);
+  max-height: calc(70vh - 158px);
+  min-height: 688px;
 }
 .colB {
-  margin-top: -32px !important;
+  max-height: 688px !important;
   min-height: 767px;
   overflow-y: scroll;
-  max-height: calc(114vh - 207px);
+  margin-top: -32px !important;
 }
 .colC {
-  min-height: 560px;
+  min-height: 420px;
+  overflow-y: scroll;
+  max-height: calc(30vh - 25px);
 }
 .colD {
-  height: 560px;
+  min-height: 500px;
+  overflow-y: scroll;
+  max-height: calc(70vh - 158px);
+  margin-top: -32px !important;
 }
 .input-group {
   height: 80px;
@@ -326,6 +331,9 @@ input::-webkit-input-placeholder {
   .nav-tabs li a {
     padding: 13px 26px;
   }
+  li.Checklist{
+    line-height: 16px !important;
+  }
 }
 @media(min-width:768px) and (max-width:1200px) {
   .patientDentalChartTab {
@@ -341,18 +349,35 @@ input::-webkit-input-placeholder {
     width: 50%;
     margin-top: 15px;
   }
+  .colA {
+    overflow-y: scroll;
+    max-height: calc(70vh - 158px);
+    min-height: 688px;
+  }
+  .colB {
+    max-height: 688px !important;
+    min-height: 767px;
+    overflow-y: scroll;
+    margin-top: -32px !important;
+  }
+  li.Checklist{
+    line-height: 2px !important;
+  }
 }
 @media(min-width:1201px) and (max-width:1440px) {
   .btn.btn-orange {
     padding: 13px 15px !important;
     margin-left: -57px;
   }
-  .colA {
-    height: 510px !important;
+  li.Checklist{
+    line-height: 2px !important;
   }
-  .colB {
-    height: 510px !important;
-  }
+  // .colA {
+  //   height: 510px !important;
+  // }
+  // .colB {
+  //   height: 510px !important;
+  // }
 }
 @media (min-width:1200px) and (max-width:1350px) {
   .patientDentalChartTab {

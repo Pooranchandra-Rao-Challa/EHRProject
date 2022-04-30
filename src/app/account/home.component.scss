@@ -1,3 +1,6 @@
+// @import"../../assets/styles/variables";
+// @import"../../assets/styles/typography";
+@import"../../assets/common.scss";
 
 .home-wrapper {
   height: auto;
@@ -7,16 +10,17 @@
   text-align: center;
   margin-bottom: 20px;
   color: #fff;
-  background: url(../../assets/images/home-top-bg.png) 100% 100% no-repeat;
+  background: url(../../assets/images/home-top-bg.png) no-repeat;
+  background-size: cover;
   height: auto;
 }
 .one-ehr-images {
   margin-top: -6rem;
 }
 .title{
-  font-size: 23px;
   color: #4a4a4a;
   font-weight: 400;
+  font-size: 20px;
 }
 .home-wrapper .ehr-img-top {
   position: relative;
@@ -154,17 +158,16 @@
 .home-wrapper .registration a {
   display: block;
   padding: 7px 0 6px 0;
-  font-size: 18px;
+  // font-size: 18px;
   text-transform: uppercase;
   color: #4a4a4a;
 }
 .sub-titles{
-  font-size: 17px;
   color: #4a4a4a;
   font-weight: 400;
 }
 .button-landing {
-  width: 167px;
+  width: 150px;
   border-radius: 5px;
   border: 1px solid #c9c7c7;
   margin: 20px 0 20px 0;
@@ -174,7 +177,7 @@
 }
 // footer
 .home-footer {
-  height: 40px;
+  min-height: 40px;
   color: #949ca7;
   background: #41b6a6;
 }
@@ -195,10 +198,15 @@ strong{
   color: #4a4a4a;
 }
 .img-size{
-  width: 110%;
+  width: 100%;
+}
+@media (min-width: 769px) and (max-width: 1024px){
+  .img-size{
+    width: 125%;
+  }
 }
 .newlogo{
-  width:90%
+  width: 18rem;
 }
 .login_page_address{
   margin-bottom: 10px;
