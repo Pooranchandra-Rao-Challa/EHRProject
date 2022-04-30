@@ -1,7 +1,7 @@
-/* Navbar */
+/* Provider Navbar */
 @import"../../../assets/common.scss";
 
-.navbar-dark .navbar-nav .nav-link {
+.navbar-nav .nav-link {
   font-size: 14px !important;
   color: white;
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -41,6 +41,7 @@ i {
 }
 .navbar-nav > .nav-item:hover {
   background-color: #2e877b;
+  border-bottom: 3px solid #fe8f00;
   height: 75px;
 }
 .navbar-nav > .nav-item.nav-top-right{
@@ -51,7 +52,7 @@ i {
   padding: 10px 5px;
   height: 75px;
 }
-.navbar-dark.navbar .navbar-collapse .navbar-nav li a {
+.navbar .navbar-collapse .navbar-nav li a {
   border: 4px solid transparent;
   font-family: 'Roboto';
 }
@@ -78,57 +79,76 @@ button.mat-menu-item:hover {
   padding-top: 0px !important;
   padding-bottom: 0px !important;
 }
+
 // nav-provider icons
 .collapse .navbar-nav li a.item-prov-dashboard {
   background: url(../../../assets/images/nav-provider/smart-schedule.svg) 100%
     100% no-repeat;
-  width: 100%;
 }
 .collapse .navbar-nav li a.item-schedule {
   background: url(../../../assets/images/nav-provider/calendar.svg) 100% 100%
     no-repeat;
-  width: 100%;
 }
 .collapse .navbar-nav li a.item-patients {
   background: url(../../../assets/images/nav-provider/patients.svg) 100% 100%
     no-repeat;
-  width: 100%;
 }
 .collapse .navbar-nav li a.item-messages {
   background: url(../../../assets/images/nav-provider/messages.svg) 100% 100%
     no-repeat;
-  width: 100%;
 }
 .collapse .navbar-nav li a.item-direct-messages {
   background: url(../../../assets/images/nav-provider/direct-messages.svg) 100%
     100% no-repeat;
-  width: 100%;
 }
 .collapse .navbar-nav li a.item-erx {
   background: url(../../../assets/images/nav-provider/erx.svg) 100% 100%
     no-repeat;
-  width: 100%;
 }
 .collapse .navbar-nav li a.item-labsimaging {
   background: url(../../../assets/images/nav-provider/labsimaging.svg) 100% 100%
     no-repeat;
-  width: 100%;
 }
 .collapse .navbar-nav li a.item-reports {
   background: url(../../../assets/images/nav-provider/reports.svg) 100% 100%
     no-repeat;
-  width: 100%;
 }
 .collapse .navbar-nav li a.item-billing {
   background: url(../../../assets/images/nav-provider/billing.svg) 100% 100%
     no-repeat;
-  width: 100%;
 }
 .collapse .navbar-nav li a.item-settings {
   background: url(../../../assets/images/nav-provider/settings.svg) 100% 100%
     no-repeat;
-  width: 100%;
 }
+
+// nav-patient icons
+.collapse .navbar-nav li a.item-dashboard {
+  background: url(../../../assets/images/nav-patient/dashboard.svg) 100% 100%
+    no-repeat;
+}
+.collapse .navbar-nav li a.item-appointments {
+  background: url(../../../assets/images/nav-patient/appointments.svg) 100% 100%
+    no-repeat;
+}
+.collapse .navbar-nav li a.item-messages {
+  background: url(../../../assets/images/nav-patient/messages.svg) 100% 100%
+    no-repeat;
+}
+.collapse .navbar-nav li a.item-myhealth {
+  background: url(../../../assets/images/nav-patient/myhealth.svg) 100% 100%
+    no-repeat;
+}
+.collapse .navbar-nav li a.item-myprofile {
+  background: url(../../../assets/images/nav-patient/myprofile.svg) 100% 100%
+    no-repeat;
+    background-size: 25px !important;
+}
+.collapse .navbar-nav li a.item-mydocuments {
+  background: url(../../../assets/images/nav-patient/mydocuments.svg) 100% 100%
+    no-repeat;
+}
+
 .collapse .navbar-nav li a {
   height: 75px;
   padding: 48px 6px 16px 6px;
@@ -168,4 +188,48 @@ a.disabled{
 }
 .navbar-toggler{
   border: 0px;
+}
+.nav-item.active {
+  background-color: #2e877b;
+}
+
+.nav-li{
+  color: rgba(255,255,255,0.8);
+  margin-top: -4px;
+}
+.profile-text{
+display: inline-block;
+vertical-align: middle;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+margin-right: 12px;
+max-width: 183px;
+}
+.li-menu{
+  padding: 13px 103px 0 20px !important;
+  display: block;
+  border-radius: 0;
+  height: 30px;
+  font-size: 14px;
+  font-family: 'Helvetica Neue';
+  border-left: 3px solid transparent;
+  color: rgba(255,255,255,0.8);
+  line-height: 0.2rem;
+  cursor: pointer;
+}
+.li-menu:hover{
+background-color: #22645b !important;
+border-left: 3px solid #fe8f00;
+padding: 13px 103px 0 20px !important;
+}
+.dropdown-divider{
+  list-style-type: none;
+}
+li.no-bullets{
+  list-style-type: none;
+  margin-top: 4px;
+}
+.li-menu.border-bottom{
+  border-bottom: 1px solid rgba(255,255,255,0.8) !important;
 }
