@@ -34,6 +34,7 @@
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
   background-color: #fff !important;
   color: #41b6a6 !important;
+  border-radius: 6px;
 }
 ::ng-deep
   .mat-form-field-appearance-outline:hover
@@ -176,4 +177,46 @@
   border: 1px solid #41b6a6;
   height: 3.2em;
   width: 3.5em;
+}
+
+// mat-table
+.mat-table{
+  width: 100%;
+  border-left: 1px solid #41b6a6;
+  border-right: 1px solid #41b6a6;
+}
+.mat-header-row{
+ background-color: #41b6a6;
+ color: #fff;
+ border-bottom-width: 0px;
+ height: 50px;
+}
+.mat-row{
+ border-bottom: 1px solid #41b6a6;
+ padding: 9px 0px;
+}
+mat-cell:first-of-type{
+ padding-left: 0px;
+}
+mat-cell:last-of-type{
+ padding-right: 0px;
+}
+.mat-row:hover{
+ background-color: #e5f8f5;
+}
+.mat-header-cell{
+ font-size: 15px;
+ font-weight: normal;
+ padding: 0px 10px;
+}
+.mat-cell{
+ font-size: 15px;
+ padding: 0px 10px;
+}
+.mat-row:hover {
+ a {
+   cursor: pointer;
+   text-decoration: underline;
+   color: #4A4A4A;
+ }
 }

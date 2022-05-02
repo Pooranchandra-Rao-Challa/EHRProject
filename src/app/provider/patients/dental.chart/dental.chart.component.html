@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-lg-11 col-md-11 col-12">
       <div class="Dental-chart">
-        <ul class="nav nav-tabs styled" id="myTab" role="tablist">
+        <ul class="nav nav-tabs nav-tab-styled" id="myTab" role="tablist">
           <li class="nav-item" role="presentation">
             <a class="nav-link text-center active" id="medical-tab" data-bs-toggle="tab" data-bs-target="#medical"
               type="button" role="tab" aria-controls="medical" aria-selected="true" (click)="AdultPerm()">Adult - Perm
@@ -25,7 +25,7 @@
 
 </div>
 <div class="adult-dentalchart">
-  <div class="row row-margin mt-4">
+  <div class="row row-margin mt-2">
     <div class="col-lg-6 col-md-6 col-12  patientDentalChartTab" *ngIf="AdultPrem">
       <div class="panel-teeth double-border">
         <div class="table-responsive border">
@@ -517,7 +517,7 @@
       <div class="border">
         <div class="panel-nomargin panel-procedures">
           <div class="panel-heading form-inline">
-            <p class="panel-title m-0">Procedures</p>
+            <p class="panel-title bg-color m-0">Procedures</p>
           </div>
           <div class="find-procedure">
             <div class="form-group mx-3" style="height: 50px;">
@@ -1553,7 +1553,7 @@
       <div class="border align-B-block" >
         <div class="panel-procedures-frequently">
           <div class="panel-heading form-inline">
-            <p class="panel-title">Frequently Used</p>
+            <p class="panel-title bg-color">Frequently Used</p>
           </div>
         </div>
           <div [ngClass]="AdultPrem?'colB':'colD'">
@@ -1565,7 +1565,7 @@
   </div>
 </div>
 
-<div class="panel-title  mt-3">
+<div class="panel-title bg-color  mt-3">
   <h3>Treatments</h3>
 </div>
 

@@ -1,26 +1,5 @@
-.nav-tabs {
-  border-bottom: none;
-  margin-left: 9px;
-}
-.nav-tabs.styled li {
-  border: 1px solid #41b6a6;
-}
-.nav-tabs.styled li a {
-  margin-bottom: 0px;
-  border-radius: 0px 0px 0 0;
-}
-.nav-tabs.styled li.active a {
-  background-color: #41b6a6;
-  color: #fff;
-  border-bottom: 0;
-}
-.nav-tabs.styled li a:focus,
-.nav-tabs.styled li a:hover,
-.nav-tabs.styled li a:active {
-  border: 0;
-  background-color: #41b6a6;
-  color: #fff;
-}
+@import"../../../../assets/common.scss";
+
 .nav-tabs li a {
   border: 0;
   color: #41b6a6;
@@ -30,18 +9,6 @@
   font-weight: 500;
   font-size: 14px !important;
 }
-.styled .nav-link.active {
-  background-color: #41b6a6;
-  color: #fff;
-}
-.styled .nav-link.active {
-  background-color: #41b6a6;
-  color: #fff;
-}
-.nav-tabs.styled li.active a {
-  background-color: #41b6a6;
-  color: #fff;
-}
 .btn.btn-orange {
   padding: 12px 26px !important;
   font-size: 17px;
@@ -50,6 +17,7 @@
 }
 .adult-dentalchart {
   border-top: 3px solid #41b6a6;
+  margin-top: -9px;
 }
 .row-margin {
   margin-left: 8px;
@@ -81,8 +49,6 @@ img,svg {
   height: auto;
 }
 .panel-title {
-  background-color: #41b6a6;
-  color: white;
   border: #41b6a6;
   height: 60px;
   text-align: 10px;

@@ -22,7 +22,7 @@
           <i class="category-arrow"></i>
         </li>
       </ul>
-      <div class="patients-navigation-info">2 of 2 PATIENTS</div>
+      <div class="patients-navigation-info bg-color">2 of 2 PATIENTS</div>
     </div>
     <div class="content">
       <div class="row controls">
@@ -137,7 +137,7 @@
             </mat-cell>
           </ng-container>
 
-          <mat-header-row *matHeaderRowDef="patientColumns"></mat-header-row>
+          <mat-header-row *matHeaderRowDef="patientColumns" class="mat-cust-header"></mat-header-row>
           <mat-row *matRowDef="let row; columns: patientColumns;">
           </mat-row>
         </mat-table>

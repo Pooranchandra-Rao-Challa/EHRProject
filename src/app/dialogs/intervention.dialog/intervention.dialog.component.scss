@@ -1,4 +1,5 @@
 @import"../../../assets/cstm.material.scss";
+@import"../../../assets/common.scss";
 
 .modal{
   font-family: 'Roboto';
@@ -72,14 +73,8 @@ textarea.form-control{
 }
 
 .mat-table{
-  border: 1px solid #41b6a6;
   border-radius: 3px;
   min-height: 100px;
-}
-.mat-header-row{
-  background-color: #41b6a6;
-  color: black;
-  border-bottom-width: 0px;
 }
 .mat-header-cell{
   font-weight: bold;
@@ -88,22 +83,14 @@ textarea.form-control{
   white-space: nowrap;
   font-size: 15px;
 }
-.mat-header-cell:first-child{
-  border-left: none;
-}
-
-mat-row{
-  border-bottom: 1px solid #41b6a6;
-}
-
-mat-row:last-child{
-  border-bottom: none;
-}
-
-mat-cell{
+.mat-cell{
   padding: 0 40px 0 40px;
 }
-
+.mat-cell:first-child,
+.mat-header-cell:first-child{
+  padding: 0 40px 0 40px;
+}
+.intervention-dialog{
   mat-cell:nth-child(1),
   mat-header-cell:nth-child(1) {
     flex: 0 0 10%;
@@ -128,3 +115,4 @@ mat-cell{
   mat-header-cell:nth-child(6) {
     flex: 0 0 13%;
   }
+}

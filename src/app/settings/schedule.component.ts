@@ -26,7 +26,7 @@ export class ScheduleComponent implements OnInit {
   roomsOnEdit: number[] = [];
   statusOnEdit: number[] = [];
   typeOnEdit: number[] = [];
-  generalSchedule: GeneralSchedule;
+  generalSchedule: GeneralSchedule={} as GeneralSchedule;
 
   constructor(private authService: AuthenticationService, private settingsService: SettingsService, private fb: FormBuilder, private idService: IdService) {
     this.user = authService.userValue;

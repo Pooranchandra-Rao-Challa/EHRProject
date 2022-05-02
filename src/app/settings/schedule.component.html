@@ -22,7 +22,7 @@
                 </div>
               </div>
               <div class="col-xl-4 col-lg-12 col-12 border cstm-room-section">
-                <div class="row room-card">
+                <div class="row bg-color room-card">
                   <div class="col-md-8 col-6">
                     <p class="plabel mt-3 mb-0">Rooms</p>
                   </div>
@@ -45,11 +45,11 @@
                           <div class="col-md-6 col-12 pt-2 pt-md-0">
                             <div class="col-md-12 col-6 pull-right">
                               <button type="button" id="Actbtn" *ngIf="isNewRoom(roomIndex)"
-                                class="btn btn-md btn-sm btn-success pull-right" (click)="saveRooms(roomIndex)">
+                                class="btn btn-green btn-edit pull-right" (click)="saveRooms(roomIndex)">
                                 Save
                               </button>
                               <button type="button" id="Actbtn" *ngIf="!isNewRoom(roomIndex)"
-                                (click)="onEditRooms(roomIndex)" class="btn btn-md btn-sm btn-success pull-right">
+                                (click)="onEditRooms(roomIndex)" class="btn btn-edit btn-green pull-right">
                                 Edit
                               </button>
                             </div>
@@ -58,8 +58,8 @@
                         <div class="row">
                           <div class="col-md-12 col-12 pt-1 pb-0 cstm-padding">
                             <div class="col-md-6 col-6 pull-right">
-                              <button type="button" id="Actbtn" class="btn btn-md btn-sm btn-success pull-right"
-                                (click)="removeRoom(roomIndex)" style="height: 30px;">
+                              <button type="button" id="Actbtn" class="btn  btn-green pull-right"
+                                (click)="removeRoom(roomIndex)" >
                                 Remove
                               </button>
                             </div>
@@ -72,7 +72,7 @@
               </div>
             </div>
             <div class="general-content">
-              <p class="panel-title m-0 plabel">General</p>
+              <p class="panel-title bg-color m-0 plabel">General</p>
               <div class="row schedule-section">
                 <div class="col-xl-3 col-lg-5 col-md-6 pt-2">
                   <p class="plabel">Calendar Time Display Range :</p>
@@ -125,18 +125,18 @@
               </div>
               <div class="row schedule-section">
                 <div class="col-12">
-                  <button id="general" class="btn btn-success col-xl-2 col-lg-3 col-md-3 col-12 pull-right"
+                  <button id="general" class="btn btn-green col-xl-2 col-lg-3 col-md-3 col-12 pull-right"
                     (click)="updateScheduleGeneral()">Save Changes</button>
                 </div>
               </div>
             </div>
             <div>
-              <p class="panel-title m-0 plabel">Providers & Rooms
+              <p class="panel-title bg-color m-0 plabel">Providers & Rooms
               </p>
             </div>
             <div class="scrollable-provider-rooms">
               <div class="provider-rooms">
-                <div class="row panel-title m-0">
+                <div class="row panel-title bg-color m-0">
                   <div class="plabel col-lg-9">Provider</div>
                   <div class="col-lg-3 pull-right"><span class="plabel pull-right">Edit Provider Schedule</span></div>
                 </div>
@@ -146,17 +146,17 @@
                   </div>
                   <div class="col-lg-3">
                     <button type="button" id="providerrooms"
-                      class="btn btn-md btn-success py-3 px-4 pull-right">Edit</button>
+                      class="btn btn-md btn-green py-3 px-4 pull-right">Edit</button>
                   </div>
                 </div>
               </div>
             </div>
-            <p class="panel-title plabel m-0">Appointment Statuses & Types
+            <p class="panel-title bg-color plabel m-0">Appointment Statuses & Types
             <div class="row my-3  mx-2">
               <div class="col-xl-6 col-lg-12 col-md-12 cstm-appointment-status">
                 <div class="appointment-form">
-                  <div class="room-card px-4">
-                    <div class="row">
+                  <div class="room-card bg-color px-4">
+                    <div class="row bg-color ">
                       <div class="col-md-5 col-5">
                         <p class="plabel m-0 mt-3">Status</p>
                       </div>
@@ -187,20 +187,20 @@
                             </div>
                             <div class="col-md-4 col-4 pt-2 pt-md-0"
                               *ngIf="status().controls[statusIndex].get('Editable').value">
-                              <button type="button" id="Actbtn" class="btn btn-md btn-sm btn-success pull-right"
+                              <button type="button" id="Actbtn" class="btn  btn-green btn-edit pull-right"
                                 *ngIf="isNewStatus(statusIndex)" (click)="saveAppointmentStatus(statusIndex)">
                                 Save
                               </button>
-                              <button type="button" id="Actbtn" class="btn btn-md btn-sm btn-success pull-right"
+                              <button type="button" id="Actbtn" class="btn  btn-green btn-edit pull-right"
                                 *ngIf="!isNewStatus(statusIndex)" (click)="onEditStatus(statusIndex)">
                                 Edit
                               </button>
                             </div>
                             <div class="col-md-12 col-12 pt-2 cstm-border-bottom-appointment">
                               <div class="col-4 pull-right">
-                                <button type="button" id="Actbtn" class="btn btn-md btn-sm btn-success pull-right"
+                                <button type="button" id="Actbtn" class="btn  btn-green pull-right"
                                   *ngIf="status().controls[statusIndex].get('Editable').value"
-                                  (click)="removeAppointmentStatus(statusIndex)" style="height: 30px;">
+                                  (click)="removeAppointmentStatus(statusIndex)" >
                                   Remove
                                 </button>
                               </div>
@@ -211,7 +211,7 @@
                     </div>
                   </form>
                   <div class="px-3">
-                    <button type="submit" class="btn-success btn btn-lg btn-md btnSave mb-2 w-100"
+                    <button type="submit" class="btn-green btn btn-lg btn-md btnSave mb-2 w-100"
                       (click)="addStatus()">
                       Add Status
                     </button>
@@ -220,7 +220,7 @@
               </div>
               <div class="col-xl-6 col-lg-12 col-md-12 cstm-appointment-type pt-3 pt-xl-0">
                 <div class="appointment-form">
-                  <div class="room-card px-4">
+                  <div class="room-card bg-color px-4">
                     <div class="row">
                       <div class="col-md-5 col-5">
                         <p class="plabel m-0 mt-3">Type</p>
@@ -253,20 +253,20 @@
                             </div>
                             <div class="col-md-4 col-4 pt-2 pt-md-0"
                               *ngIf="typeForm.controls.type.controls[typeIndex].get('Editable').value">
-                              <button type="button" id="Actbtn" class="btn btn-md btn-sm btn-success pull-right"
+                              <button type="button" id="Actbtn" class="btn btn-green btn-edit pull-right"
                                 *ngIf="isNewType(typeIndex)" (click)="saveAppointmentType(typeIndex)">
                                 Save
                               </button>
                               <button type="button" id="Actbtn" *ngIf="!isNewType(typeIndex)"
-                                (click)="onEditType(typeIndex)" class="btn btn-md btn-sm btn-success pull-right">
+                                (click)="onEditType(typeIndex)" class="btn btn-green btn-edit pull-right">
                                 Edit
                               </button>
                             </div>
                             <div class="col-md-12 col-12 pt-2 cstm-border-bottom-appointment">
                               <div class="col-4 pull-right">
-                                <button type="button" id="Actbtn" class="btn btn-md btn-sm btn-success pull-right"
+                                <button type="button" id="Actbtn" class="btn  btn-green pull-right"
                                   *ngIf="typeForm.controls.type.controls[typeIndex].get('Editable').value"
-                                  (click)="removeAppointmentType(typeIndex)" style="height: 30px;">
+                                  (click)="removeAppointmentType(typeIndex)">
                                   Remove
                                 </button>
                               </div>
@@ -277,7 +277,7 @@
                     </div>
                   </form>
                   <div class="px-3">
-                    <button type="submit" class="btn-success btn btn-lg btn-md btnSave mb-2 w-100" (click)="addType()">
+                    <button type="submit" class="btn-green btn btn-lg btn-md btnSave mb-2 w-100" (click)="addType()">
                       Add Custom Type
                     </button>
                   </div>

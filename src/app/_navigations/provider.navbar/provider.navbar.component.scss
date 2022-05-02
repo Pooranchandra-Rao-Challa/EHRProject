@@ -56,6 +56,9 @@ i {
   border: 4px solid transparent;
   font-family: 'Roboto';
 }
+.eRx-nav-item{
+  line-height: 1;
+}
 .img-fluid {
   height: 66px;
 }
@@ -190,7 +193,9 @@ a.disabled{
   border: 0px;
 }
 .nav-item.active {
+  height: 75px;
   background-color: #2e877b;
+  border-bottom: 3px solid #fe8f00;
 }
 
 .nav-li{

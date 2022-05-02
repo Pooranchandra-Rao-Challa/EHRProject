@@ -2,7 +2,7 @@
 @import"../../../assets/common.scss";
 // content
 .smart-schedule-logo {
-  border: 3px solid #00d1b2;
+  border: 2px solid #00d1b2;
   height: 70px;
   //margin-top: 2px;
   //margin-top: -24px;
@@ -57,9 +57,9 @@ p {
   //padding-top: calc(0.375em - 1px);
 }
 .button.is-primary {
-  background-color: #00d1b2;
+  //background-color: #00d1b2;
   border-color: transparent;
-  color: #fff;
+  //color: #fff;
 }
 ::ng-deep
   .smart-schedule-dropdown.mat-form-field-appearance-outline
@@ -87,7 +87,7 @@ p {
   transform: translateY(0%);
 }
 div.smart-schedule-header {
-  height: 4em;
+  min-height: 4em;
   padding: 0px !important;
   margin-bottom: 0px !important;
 }
@@ -144,12 +144,11 @@ div.smart-schedule-header {
   color: #fff;
   margin-bottom: 5px;
 }
-::ng-deep .mat-accordion .mat-expansion-panel:first-of-type {
-  margin-bottom: 5px !important;
-}
+// ::ng-deep .mat-accordion .mat-expansion-panel:first-of-type {
+//   margin-bottom: 5px !important;
+// }
 .schedule-accordion .mat-expansion-panel-header {
   height: 30px;
-  background-color: #41b6a6;
   border-radius: initial;
 }
 // .bg-color:hover{
@@ -188,6 +187,9 @@ div.smart-schedule-header {
 }
 .smartschedule-wrapper{
   padding: 0 1.0rem;
+}
+.table-container{
+  height: calc(80vh - 187px);
 }
 @media (max-width: 1440px) {
   .smartschedule-wrapper .table-container {

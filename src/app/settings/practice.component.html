@@ -4,40 +4,32 @@
       <!-- Display Practice -->
       <div class="col-lg-12 col-md-12">
         <div class="right-block mx-2">
-          <div class="colB border">
-            <div class="panel">
-              <p class="panel-title px-2">Practice Settings</p>
+          <div class="card">
+            <div class="card-header">
+              <p class="card-title Helvetica-sans-serif-medium">Practice Settings</p>
             </div>
             <div class="row top-header mt-5">
               <div class="col-xl-2 col-lg-3 col-md-4 col-12">
-                <p class="top-block my-3" style="text-align: center;">Time Zone:</p>
+                <p class="top-block text-center my-3">Time Zone:</p>
               </div>
               <div class="col-xl-6 col-lg-5 col-md-7 col-12 ">
-                <!-- <mat-form-field appearance="outline" class="col-12 px-2">
-                    <mat-select placeholder="Eastern Time (US & Canada)" formControlName="TimeZones"
-                      disableOptionCentering [(ngModel)]="user.TimeZone">
-                      <mat-option *ngFor="let timezone of TimeZoneList" [value]="timezone.DisplayName">
-                        {{timezone.DisplayName}}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field> -->
-                <select class="col-12 inputclass" [(ngModel)]="user.TimeZone">
+                <select class="col-12 inputtimezone" [(ngModel)]="user.TimeZone">
                   <option value="" disabled selected hidden>Eastern Time (US & Canada)</option>
                   <option *ngFor="let timezone of TimeZoneList" [value]="timezone.DisplayName">
                     {{timezone.DisplayName}}
                   </option>
                 </select>
                 <div class="mx-2">
-                  <p class="time my-0">Current Time : {{CurrentTime}}</p>
-                  <p class="time my-0">Current UTC Time : {{UTCTime}}</p>
+                  <p class="time my-0 Helvetica-sans-serif-small">Current Time : {{CurrentTime}}</p>
+                  <p class="time my-0 Helvetica-sans-serif-small">Current UTC Time : {{UTCTime}}</p>
                 </div>
               </div>
               <div class="col-xl-4 col-lg-3 col-md-6 col-12 savebtnsize">
-                <button type="submit" class="btn-success mx-2 px-2 py-2 btn btn-lg btn-md btnSave">Save</button>
+                <button type="submit" class="btn btn-green btnSave">Save</button>
               </div>
             </div>
             <div class="colC">
-              <div class="row panel-title m-0">
+              <div class="row panel-title bg-color m-0">
                 <div class="col-xl-11 col-lg-9 col-md-8 col-12">Practice Location</div>
                 <div class="col-xl-1 col-lg-3 col-md-4 col-12">
                   <button class="plusicon pull-right" data-bs-toggle="modal" data-bs-target="#practice-modal"
@@ -77,7 +69,7 @@
             </div>
             <div class="colC">
               <div class="">
-                <div class="row panel-title  m-0">
+                <div class="row panel-title bg-color m-0">
                   <div class="col-xl-2 col-lg-12 col-md-12 col-12 providerlabel">Users</div>
                   <div class="col-xl-4 col-lg-12 col-md-12 col-12 providerlabel">Practice ID#:
                     <u>{{user.UserId}}</u>
@@ -160,13 +152,10 @@
         <div class="modal-header">
           <h4 class="modal-title" *ngIf="!displayforEditLocation">Add location</h4>
           <h4 class="modal-title" *ngIf="displayforEditLocation">Edit location</h4>
-          <button type="button" class="btn btn-sm  closemodel" data-bs-dismiss="modal" aria-label="Close">X</button>
+          <button type="button" class="btn cross-mark" data-bs-dismiss="modal" aria-label="Close">x</button>
         </div>
-        <div class="bg-white">
-          <div class="scroolbar">
-            <div class="modal-body">
+            <div class="modal-body bg-white scroolbar addlocationbody">
               <div class="mb-0">
-                <div class="">
                   <div class="content">
                     <div class="row-container">
                       <div class="row" *ngIf="displayforEditLocation">
@@ -244,7 +233,7 @@
                                 <div class="form-group">
                                   <button type="submit" [disabled]="PracticeLocData.Street==''"
                                     (click)="AddressVerification()"
-                                    class="btn-success btn mb-2 btn-lg btn-md mt-2">VERIFY</button>
+                                    class="btn btn-green btn mb-2 btn-lg btn-md mt-2">VERIFY</button>
                                 </div>
                               </div>
                             </div>
@@ -264,7 +253,7 @@
                                   <a class="btn1  mt-3" *ngIf="enterbtn" (click)="EnterAddress()">x</a>
                                 </div>
                                 <div class="form-group">
-                                  <button class="btn-success btn manuallbtn  py-0 btn-lg btn-md mt-2"
+                                  <button class="btn-green btn manuallbtn  py-0 btn-lg btn-md mt-2"
                                     *ngIf="!manuallybtn" (click)="enterAddressManually()">Enter Address
                                     Manually</button>
                                 </div>
@@ -332,7 +321,7 @@
                       </div>
                     </div>
                     <hr>
-                    <div class="row-container my-2">
+                    <div class="row-container ">
                       <div class="row my-3">
                         <div class="col-lg-2 col-md-2 col-sm-2"></div>
                         <div class="col-lg-3 col-md-3 col-sm-3 col-lg-offset-left-10 text-center ">
@@ -514,7 +503,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="row my-3"><input value="saturday" class="hidden" type="hidden"
+                      <div class="row mt-3"><input value="saturday" class="hidden" type="hidden"
                           name="location[timeslots_attributes[6]][weekday]"
                           id="location_timeslots_attributes_6__weekday">
                         <div class="col-lg-2 col-md-2 col-sm-2 mt-3 week">
@@ -544,13 +533,10 @@
                       </div>
                     </div>
                   </div>
-                  <!-- </form> -->
-                </div>
-              </div>
+              </div>  <hr>
             </div>
-            <hr>
-          </div>
-          <div class="row my-3 mx-3">
+
+          <div class="row mb-3 mt-1 mx-3">
             <div class="col-md-12">
               <div class="d-flex justify-content-start">
                 <button type="button" class="btn btn-lg btn-danger mx-2" *ngIf="displayforEditLocation"
@@ -559,18 +545,17 @@
                 </button>
               </div>
               <div class="d-flex justify-content-end">
-                <button type="button" class="btn btn-lg btn-success col-xl-4 col-lg-4 col-md-3 col-8"
+                <button type="button" class="btn btn-lg btn-green col-xl-4 col-lg-4 col-md-3 col-8"
                   data-bs-dismiss="modal" (click)="updateLocation()">
                   Save Changes
                 </button>
-                <button type="button" class="btn btn-lg btn-success col-xl-3 col-lg-3 col-md-2 col-5 mx-1"
+                <button type="button" class="btn btn-lg btn-green col-xl-3 col-lg-3 col-md-2 col-5 mx-1"
                   data-bs-dismiss="modal">
                   Close
                 </button>
               </div>
             </div>
           </div>
-        </div>
       </div>
     </div>
   </div>
@@ -582,11 +567,11 @@
         <div class="modal-header" [ngClass]="sucessdisplay?'addressInvalid':'addressSuccess'">
           <h3 *ngIf="!sucessdisplay">Success</h3>
           <h3 *ngIf="sucessdisplay">Invalid Address</h3>
-          <button type="button" *ngIf="!sucessdisplay" class="btn btn-lg btn-success adrsbtn"
+          <button type="button" *ngIf="!sucessdisplay" class="btn btn-lg btn-green adrsbtn"
             (click)="closePopupAddress()">
             X
           </button>
-          <button type="button" *ngIf="sucessdisplay" class="btn btn-lg btn-success erroclose"
+          <button type="button" *ngIf="sucessdisplay" class="btn btn-lg btn-green erroclose"
             (click)="closePopupAddress()">
             X
           </button>
@@ -618,8 +603,8 @@
     <div class="modal-dialog  modal-md" role="document">
       <div class="modal-content">
         <div class="modal-header ">
-          <h4 class="modal-title">Add New User</h4>
-          <button type="button" class="btn btn-sm btn-success ClosebtnAddForm" data-bs-dismiss="modal"
+          <h4 class="modal-title Helvetica-sans-serif-medium">Add New User</h4>
+          <button type="button" class="btn btn-sm cross-mark" data-bs-dismiss="modal"
             aria-label="Close">x</button>
         </div>
         <div class="modal-body">
@@ -688,7 +673,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-lg btn-success" data-bs-dismiss="modal" (click)="updateUser('add')">
+          <button type="button" class="btn btn-lg btn-green" data-bs-dismiss="modal" (click)="updateUser('add')">
             Add
           </button>
         </div>
@@ -991,7 +976,7 @@
           </div>
         </div>
         <div class="mx-2 my-2">
-          <button type="button" class="btn w-25 pull-right btn-lg btn-success mx-3">Save
+          <button type="button" class="btn w-25 pull-right btn-lg btn-green mx-3">Save
           </button>
         </div>
 

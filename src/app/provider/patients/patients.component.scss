@@ -1,4 +1,5 @@
 @import"../../../assets/cstm.material.scss";
+@import"../../../assets/common.scss";
 
 #patient_navigation {
   display: inline-flex;
@@ -11,9 +12,6 @@ ul#patient_navigation li{
   padding: 0px 10px;
     list-style: none;
 }
-// a.patient_link{
-//   color: #2e877b;
-// }
 a.patient_link{
   color: #4A4A4A;
   font-weight: bold;
@@ -52,9 +50,7 @@ a.patient_link{
   min-height: 50px;
   padding: 0 20px;
   line-height: 50px;
-  background-color: #41b6a6;
   font-size: 28px;
-  color: #fff;
   margin-top: -5px;
 }
 .patients-wrapper .content .controls {
@@ -63,15 +59,6 @@ a.patient_link{
   margin-left: 0;
   margin-right: 0;
 }
-// .controls .btn.btn-orange {
-//   color: #fe8f00;
-//   background-color: #fff;
-//   border-color: #fe8f00;
-// }
-// .controls .btn.btn-orange:hover{
-//   background-color: #fe8f00;
-//   color: #fff;
-// }
 .btn-search {
   height: 44px;
   margin-top: -4px;
@@ -91,41 +78,9 @@ a.patient_link{
   cursor: pointer;
   border-radius: 3px;
   font-size: 16px;
-}
-.mat-header-row{
-  background-color: #41b6a6;
-  color: #fff;
-  border-bottom-width: 0px;
-  min-height: 30px;
-}
-.mat-row{
-  border-bottom: 1px solid #41b6a6;
-  padding: 9px 0px;
-}
-mat-cell:first-of-type{
-  padding-left: 0px;
-}
-mat-cell:last-of-type{
-  padding-right: 0px;
-}
-.mat-row:hover{
-  background-color: #e5f8f5;
-}
-.mat-header-cell{
-  font-size: 15px;
-  font-weight: normal;
-  padding: 0px 10px;
-}
-.mat-cell{
-  font-size: 15px;
-  padding: 0px 10px;
-}
-.mat-row:hover {
-  a {
-    cursor: pointer;
-    text-decoration: underline;
-    color: #4A4A4A;
-  }
+ }
+ .mat-header-row.mat-cust-header{
+min-height: 3px !important;
 }
 a {
   color: #4A4A4A;
