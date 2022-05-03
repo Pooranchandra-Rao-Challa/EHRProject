@@ -38,9 +38,7 @@ export class DentalChartComponent implements OnInit {
    this.ChilPrim=true;
    this.CheckboxExpand();
   }
-  OpenCheck(){
 
-  }
   CheckboxExpand(){
     var checks = document.querySelectorAll("input[type=checkbox]");
     for(var i = 0; i < checks.length; i++){

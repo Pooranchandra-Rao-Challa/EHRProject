@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../_services/authentication.service';
-import { SettingsService } from '../_services/settings.service';
-import { User } from '../_models';
+import { AuthenticationService } from '../../_services/authentication.service';
+import { SettingsService } from '../../_services/settings.service';
+import { User } from '../../_models';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { AppointmentStatus, AppointmentType, GeneralSchedule, RoomsSlot } from '../_models/settings';
-import { IdService } from '../_helpers/_id.service';
+import { AppointmentStatus, AppointmentType, GeneralSchedule, RoomsSlot } from '../../_models/settings';
+import { IdService } from '../../_helpers/_id.service';
 import Swal from 'sweetalert2';
 declare var $: any;
 

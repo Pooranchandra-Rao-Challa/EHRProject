@@ -1,5 +1,5 @@
-@import "../../assets/cstm.material.scss";
-@import"../../assets/common.scss";
+@import "../../../assets/cstm.material.scss";
+@import"../../../assets/common.scss";
 
 .panel-title {
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -748,7 +748,7 @@ ul.menuclass li.active a {
   height: 25px;
   border: 0;
   margin-top: 20px;
-  background: url(../../assets/images/color-picker.png) 100%
+  background: url(../../../assets/images/color-picker.png) 100%
     100% no-repeat;
   background-position: -80px 0;
 }
@@ -859,7 +859,7 @@ margin-bottom: 0;
 }
 ::ng-deep .swal2-container.swal2-center > .swal2-popup {
   width: 600px;
-  background: url(../../assets/images/pro-reg-bg.png);
+  background: url(../../../assets/images/pro-reg-bg.png);
 }
 ::ng-deep .swal2-actions:not(.swal2-loading) .swal2-styled:hover {
   background-color: #41b6a6 !important;
