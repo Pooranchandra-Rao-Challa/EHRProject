@@ -3,7 +3,7 @@
   <div class="content">
     <div class="container bordered-container">
       <div class="tabs">
-        <ul class="nav nav-tabs styled" id="myTab" role="tablist">
+        <ul class="nav nav-tabs styled nav-tab-styled" id="myTab" role="tablist">
           <li class="nav-item" role="presentation">
             <!-- <a data-message_type="inbox" data-bs-toggle="tab" href="" role="tab">Inbox -->
             <a class="nav-link active" id="medical-tab" data-bs-toggle="tab" data-bs-target="#medical" type="button"
@@ -41,42 +41,42 @@
                 <input aria-label="Search for messages" autocomplete="off" class="form-control" id="find-messages-input"
                   placeholder="Search Messages">
                 <span class="input-group-addon input-group-addon-right input-group-addon-search"
-                  id="find-messages-button"><i class="fa fa-search" style="margin-left: 21%;"></i></span>
+                  id="find-messages-button"><i class="fa fa-search"></i></span>
               </div>
             </div>
-            <div class="col-md-1">
-
+            <div class="col-md-2">
             </div>
             <div class="col-md-3">
             </div>
-            <div class="col-md-3">
-              <div class="input-group input-group-custom ">
+            <div class="col-md-2 ">
+              <div class="input-group input-drop">
                 <button type="text" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown">
                  New Message
                 </button>
-                <ul class="dropdown-menu">
-                  <li><u class="dropdown-item"  data-bs-toggle="modal" (click)="openComponentDialogmessage(MessageDialogComponent)">New Mesage</u></li>
+                <ul class="dropdown-menu drop-menu">
+                  <li><u class="dropdown-item drop-item"  data-bs-toggle="modal" (click)="openComponentDialogmessage(MessageDialogComponent)">New Message</u></li>
                 </ul>
             </div>
+
           </div>
           <div class="messages-content">
             <diV class="row">
               <div class=" col-md-4 left-block">
-                    <div class="row heding">
+                    <div class="row bg-color">
                       <div class="col-md-6">
                         <a class="panel-titles" href="" id="sort-from">From
-                          <i class="fa fa-angle-down arrows"></i>
+                          <i class="fa fa-angle-down "></i>
                         </a>
                       </div>
                       <div class="col-md-6 ">
                         <a class="panel-title " href="" id="sort-from">Date
-                          <i class="fa fa-angle-up arrow"></i>
+                          <i class="fa fa-angle-up "></i>
                         </a>
                       </div>
                     </div>
                     <div class="row drop-input">
                       <div class="dropdown">
-                        <button class=" drop-button" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="drop-button" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
 
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">

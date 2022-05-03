@@ -1,65 +1,21 @@
-.border-input{
-  border-color: #dedede;
-  background-color: #f5f5f5;
-}
+@import"../../../assets//common.scss";
+
+
 input::-webkit-input-placeholder {
   color: #141414 !important;
   font-size: 100%;
   font-family: sans-serif;
 }
-.reg-button
-{
-  width: 50%;
+.btn-green {
+  width: 78px;
+  height: 43px;
+  padding: 0;
+  line-height: 2.7;
+  margin-right: 12px;
 }
-form .form-select.option{
-  border-color: #41b6a6;
-  box-shadow: none;
-  background-color: red;
-}
-form .form-select:hover{
-  border-color: #41b6a6;
-  box-shadow: none;
 
-}
-.form-control {
-  line-height: 1.7;
-}
 
 form .form-select:focus{
   border-color: #41b6a6;
   box-shadow: none;
-}
-form .form-control:focus{
-  border-color: #41b6a6;
-}
-form .form-control:hover{
-  border-color: #41b6a6;
-}
-.reg-button {
-  background-color: #fff;
-  border: 1px solid #41b6a6;
-  height: 50px;
-  color: #41b6a6;
-  border-radius: 3px;
-  width: auto;
-  margin-bottom: 5%;
-
-  // margin-left: 82.2%;
-}
-.reg-button:hover {
-  background-color: #41b6a6;
-  color: #fff;
-  border: 1px solid #fff;
-}
-.input-group > .form-control, .input-group > .form-select {
-  position: relative;
-  flex: 1 1 auto;
-  background-color: #f2f2f2;
-  width: 1%;
-  min-width: 0;
-}
-.form-select {
-  font-size: inherit;
-  font-weight: 300;
-  line-height: 1.7;
 }

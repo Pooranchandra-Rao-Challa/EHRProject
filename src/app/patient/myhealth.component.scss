@@ -1,8 +1,7 @@
-#myprofile-wrapper .panel {
-    margin-bottom: 0;
-    box-shadow: none;
-  }
-  
+// #myprofile-wrapper .panel {
+//     margin-bottom: 0;
+//     box-shadow: none;
+//   }
   .panel-default {
     width: 80%;
     margin-left: 18%;
@@ -10,7 +9,7 @@
   .panel-collapse{
     border: 1px solid #41b6a6;
     line-height: 20%;
-    border-bottom: 2px solid #41b6a6;
+    border-bottom: 1px solid #41b6a6;
   }
   @media (max-width: 320px) {
     .title{
@@ -20,7 +19,7 @@
   @media (max-width: 376px) {
     .title{
       max-width: -webkit-fill-available;
-     
+
     }
   }
   @media (max-width: 332px) {
@@ -31,15 +30,12 @@
     font-size: small;
   }
   }
-  .img{
-        margin-right: 8%;
-  }
   .title{
     margin-top: 2%;
     margin-left: 2% ;
     color: #41b6a6;
-    font-size: large;
-  } 
+    font-size: 22px;
+  }
   @media (max-width: 320px) {
     .dashboard-patient-wrapper .photo-patient, .dashboard-patient-wrapper .avatar{
       width: 129px;
@@ -79,6 +75,8 @@
     border: 1px solid #2e877b;
     border-radius: 3px;
     transition: opacity 0.2s;
+    width: 90%;
+    margin-left: 5%;
 }
 #myhealth-wrapper .left-block .clinic-info {
   margin-top: 25px;
@@ -100,12 +98,11 @@
 .heding{
   color: #41b6a6;
   margin-top: 10%;
-  
+
 }
 .accordion-button:not(.collapsed) {
-    // color: #0c63e4; 
+    // color: #0c63e4;
    background-color: #fff;
-   color: red;
 }
 ul{
   list-style-type: none;

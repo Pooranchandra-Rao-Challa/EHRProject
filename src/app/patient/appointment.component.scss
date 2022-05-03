@@ -1,66 +1,37 @@
-
-.container {
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
-}
+@import"../../assets/common.scss";
 h4 {
   font-size: 22px;
   margin-top: 14px;
   margin-bottom: 16px;
   font-family: inherit;
 }
-
- li:after, :before {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-.btn.btn-orange {
-  color: #fe8f00;
-  background-color: #fff;
-  border-color: #fe8f00;
-}
-.btn.btn-orange:hover {
-  color: #fff;
-  background-color: #fe8f00;
-  border-color: #41b6a6;
-}
-.btn-group {
-  border: 2px solid #fe8f00;
-  border-radius: 0.1875rem;
-}
-.btn.btn-default, .btn.btn-info, .btn.btn-danger, .btn.btn-warning {
-  background: #fff;
-}
-#appointments-wrapper .top-block .buttons {
-  padding: 10px 0;
-  text-align: right;
-}
-.btn-group a:hover a.active {
-  background-color: #fe8f00;
-  color: #fff;
-  border: 1px solid #fff;
+.table thead th {
+  border-top: 1px solid #e0e0e0;
+  border-bottom-width: 0px;
+  font-family:'Roboto' !important;
+  --bs-table-accent-bg: none !important;
+  background-color: #f5f5f5;
+  //font-weight: 500;
 }
 .button{
   padding: 10px 0;
   text-align: right;
 }
+table{
+  border-collapse: inherit !important;
+  border-spacing: 0px !important;
+}
 .tab-content table,thead, th, td{
   // padding: 37px 18px 29px 24px;
-  font-family: 'SF UI Text Regular';
   font-size: 12px;
   line-height: 0.10;
-  border: 2px solid #f2f2f2;
+  border: 1px solid #e0e0e0;
   border-radius: 2px;
 }
   tr th  {
   font-weight: normal;
-  font-size:medium;
-
-}
-
+  font-size:16px;
+  }
 .fade.in {
   opacity: 1;
 }
@@ -70,38 +41,28 @@ h4 {
   margin: 0;
   padding: 13px !important;
   text-align: center;
-
 }
 .table {
   /* --bs-table-bg: transparent; */
   --bs-table-accent-bg: white;
 }
-
-
-// .content span {
-//   //font-size: 15px;
-//   //text-transform: uppercase;
-//     font-family: 'Times New Roman';
-//     font-size: 24px;
-//     font-weight: 400;
-//     line-height: 28px;
-//     margin-bottom: 0;
-// }
-
-
 .nav .nav-item, .navbar-nav .nav-item {
   line-height: 1;
   margin-left: 2%;
-
 }
-
+.nav-tabs {
+  border-bottom:1px solid #e0e0e0 ;
+}
 .tabsactive .nav-link{
   background-color: #e0e0e0;
   color: rgba(73,73,73,0.69);
+  border-radius: 4px;
 }
 .tabsactive .nav-link.active{
   background-color: #fff;
   color: #141414;
+  border-radius: 4px;
+
 }
 
 
