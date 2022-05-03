@@ -17,8 +17,8 @@ export class SettingsService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._roomsforLocationUrl, reqparams);
   }
 
-  AddUpdateUser(reqdata: any) {
-    return this._ProcessPostRequest<any>(this._addUpdateUserUrl, reqdata);
+  AddUpdateUser(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._addUpdateUserUrl, reqparams);
   }
 
   TimeZones() {
@@ -29,9 +29,9 @@ export class SettingsService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._addUpdateLocationUrl, reqparams);
   }
 
-  DisplayDateTimeOfZone(reqdata: any) {
-    let postdata = { timeZoneId: reqdata };
-    return this._ProcessGetRequest<any>(this._displayDateTimeOfZoneUrl + "?timeZoneId=" + encodeURIComponent(reqdata));
+  DisplayDateTimeOfZone(reqparams: any) {
+    let postdata = { timeZoneId: reqparams };
+    return this._ProcessGetRequest<any>(this._displayDateTimeOfZoneUrl + "?timeZoneId=" + encodeURIComponent(reqparams));
   }
 
   AddressVerification(reqparams: any) {
@@ -52,16 +52,16 @@ export class SettingsService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._providerDetailsUrl, reqparams);
   }
 
-  AddUpdateAppointmentStatus(reqdata: any) {
-    return this._ProcessPostRequest<any>(this._addUpdateAppointmentStatusUrl, reqdata);
+  AddUpdateAppointmentStatus(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._addUpdateAppointmentStatusUrl, reqparams);
   }
 
-  AddUpdateAppointmentType(reqdata: any) {
-    return this._ProcessPostRequest<any>(this._addUpdateAppointmentTypeUrl, reqdata);
+  AddUpdateAppointmentType(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._addUpdateAppointmentTypeUrl, reqparams);
   }
 
-  AddUpdateRoom(reqdata: any) {
-    return this._ProcessPostRequest<any>(this._addUpdateRoomUrl, reqdata);
+  AddUpdateRoom(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._addUpdateRoomUrl, reqparams);
   }
 
   DropAppointmentStatus(statusId: any) {
@@ -79,29 +79,29 @@ export class SettingsService extends APIEndPoint {
     return this._ProcessPostRequest<any>(apiEndPoint, roomId);
   }
 
-  PostProvdierAdminAccess(reqdata: any) {
-    return this._ProcessPostRequest<any>(this._updateProviderAdmineAccessUrl, reqdata);
+  PostProvdierAdminAccess(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._updateProviderAdmineAccessUrl, reqparams);
   }
 
-  UserInfoWithPraceticeLocations(reqdata: any) {
-    return this._ProcessPostRequest<any>(this._userInfoWithPraceticeLocations, reqdata);
+  UserInfoWithPraceticeLocations(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._userInfoWithPraceticeLocations, reqparams);
   }
 
-  AddUpdateUserDetails(reqdata: any) {
-    return this._ProcessPostRequest<any>(this._addUpdateUserUrl, reqdata);
+  AddUpdateUserDetails(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._addUpdateUserUrl, reqparams);
   }
 
-  Generalschedule(reqdata: any) {
-    return this._ProcessPostRequest<any>(this._generalScheduleUrl, reqdata);
+  Generalschedule(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._generalScheduleUrl, reqparams);
   }
 
-  UpdateReschedule(reqdata: any) {
-    return this._ProcessPostRequest<any>(this._updateRescheduleUrl, reqdata);
+  UpdateReschedule(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._updateRescheduleUrl, reqparams);
   }
 
-  ToggleUserFieldValues(reqData: any) {
-    console.log(reqData)
-    return this._ProcessPostRequest<any>(this._toggleUserFieldValuesUrl, reqData);
+  ToggleUserFieldValues(reqparams: any) {
+    console.log(reqparams)
+    return this._ProcessPostRequest<any>(this._toggleUserFieldValuesUrl, reqparams);
   }
   GetGeneralSchedule(reqparams: any) {
     return this._ProcessPostRequest<any>(this._generalScheduleUrl, reqparams);

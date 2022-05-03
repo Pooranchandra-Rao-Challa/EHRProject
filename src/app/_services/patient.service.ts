@@ -5,8 +5,8 @@ import { HttpClient } from "@angular/common/http";
 export class patientService extends APIEndPoint {
   constructor(http: HttpClient) { super(http); }
 
-  PatientsByProvider(reqdata: any) {
-    return this._ProcessPostRequest<any>(this._patientsByProviderUrl, reqdata);
+  PatientsByProvider(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._patientsByProviderUrl, reqparams);
   }
 }
 
