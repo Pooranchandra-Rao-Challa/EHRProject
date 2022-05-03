@@ -1,0 +1,174 @@
+.row{
+    margin-top: 10px;
+  }
+  .mat-table  {
+    width: 99%;
+      margin-left: 10px;
+      border: 1px solid #41b6a6;
+      font-size: 15px;
+  }
+  
+  .mat-header-cell{
+    background: #41b6a6;
+    color: white;
+    border-left: 1.1px solid white !important;
+  }
+  .mat-column-ProcDate {
+  
+    border-right: 1px solid  #41b6a6;
+    border-bottom: none !important;
+    padding-left: 16px;
+    padding-right: 18px;
+  }
+  .mat-column-PatientName {
+  
+    border-right: 1px solid #41b6a6;
+    border-bottom: none !important;
+    padding-left: 15px;
+  
+  }
+  .mat-column-BirthDate {
+  
+    border-right: 1px solid  #41b6a6;
+    padding-left: 22px;
+   padding-right: 19px;
+      border-bottom: none !important;
+  }
+  .mat-column-PrimSubscriberID {
+  
+    border-right: 1px solid  #41b6a6;
+      padding-left: 10px;
+      border-bottom: none !important;
+  
+  }
+  .mat-column-ProviderName {
+    border-right: 1px solid #41b6a6;
+    padding-left: 43px;
+    padding-right: 24px;
+    border-bottom: none !important;
+  
+  }
+  .mat-column-ProcCode {
+    border-right: 1px solid  #41b6a6;
+      border-bottom: none !important;
+      padding-left: 28px;
+  
+  }
+  .mat-column-Description {
+    border-right: 1px solid #41b6a6;
+    flex: 73 0 38% !important;
+    padding-left: -1%;
+    /* width: 20px; */
+    padding-right: 0px;
+    padding-left: 13px;
+    border-bottom: none !important;
+  
+  
+  }
+  .mat-column-Tooth {
+  
+    border-right: 1px solid  #41b6a6;
+  
+    flex: 0 0 4% !important;
+    border-bottom: none !important;
+    padding-left: 15px;
+    padding-right: 10px;
+  }
+  .mat-column-Surface {
+      border-right: 1px solid #41b6a6;
+      flex: 15 0 153px !important;
+      padding-left: 18px;
+      border-bottom: none !important;
+  
+  
+  }
+  .mat-column-Procfees {
+    border-right: 1px solid  #41b6a6;
+    padding-left: 10px;
+  
+    border-bottom: none !important;
+  
+  
+  }
+  .mat-column-PrimInsCompanyName {
+    border-right: 1px solid  #41b6a6;
+    padding-left: 1%;
+    flex: 0 0 6.5% !important;
+    border-bottom: none !important;
+  
+  }
+  .mat-column-SecInsCompanyName {
+    border-right: 1px solid  #41b6a6;
+    padding-left: 2%;
+    flex: 0 0 7.5% !important;
+    border-bottom: none !important;
+  
+  }
+  
+  
+  
+  .button:hover {
+    border-color: #41a6b6 !important;
+  
+  }
+  
+  .hover-class:hover {
+    background-color: #41b6a6;
+    color: white;
+  
+  
+  }
+  .hover-class{
+    color: #41b6a6;
+    border: 1px solid #41b6a6;
+    background-color:white;
+    width: 91%;
+      border-radius: 4px;
+      height: 50px;
+  }
+  .reset:hover {
+    background-color: #41b6a6;
+    color: white;
+  
+  
+  }
+  .reset{
+    color: #41b6a6;
+    border: 1px solid #41b6a6;
+    background-color: white;
+    width: 91%;
+    height: 50px;
+    border-radius: 4px;
+  
+  }
+  .class{
+    color: #41b6a6;
+    border: 1px solid #41b6a6;
+    background-color:white;
+    width: 91%;
+    height: 50px;
+    border-radius: 4px;
+  
+  }
+  .class:hover{
+    background-color: #41b6a6;
+    color: white;
+  
+  }
+  .mat-form-field {
+    font-size: 16px;
+    color:#41b6a6;
+  }
+  // mat-form-field outline color
+  ::ng-deep .statusFilter.mat-form-field-appearance-outline .mat-form-field-outline {
+    background-color: #fff !important;
+    color: #41b6a6 !important;
+    height: 30px;
+    width: 486px;
+  }
+  .mat-select {
+    display: inline-block;
+    width: 97%;
+    outline: none;
+  }
+  

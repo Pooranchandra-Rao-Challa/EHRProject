@@ -39,6 +39,7 @@
     "html-to-pdfmake": "^2.3.8",
     "html-webpack-plugin": "^4.5.2",
     "jquery": "^3.6.0",
+    "jspdf-autotable": "^3.5.23",
     "mat-select-filter": "^2.3.9",
     "mat-table-exporter": "^10.2.3",
     "ng-bootstrap": "^1.6.3",

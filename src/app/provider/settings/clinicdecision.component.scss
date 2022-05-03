@@ -1,0 +1,428 @@
+.card {
+
+  width: 1265px;
+  border-radius: 3px;
+  border: 1px solid #41b6a4;
+ // box-sizing: border-box;
+ height: auto;
+
+
+
+}
+
+.card-header {
+
+  background-color: #41b6a4;
+  width: 100%;
+  // height: 100%;
+  color: #fff;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: none;
+  justify-content: space-between;
+
+  box-sizing: border-box;
+  z-index: 2;
+
+}
+.card-body{
+  height:auto;
+}
+
+.btn-plus {
+  background-color: white;
+  color: #41b6a6;
+  width: 80px;
+  height: 30px;
+  display: inline-block;
+  position: relative;
+  right: 0;
+  top: 6px;
+  margin-bottom: 12px;
+  border: 1px solid #41b6a6
+}
+
+.btn-plus:hover {
+  background-color: #41b6a6;
+  border: 1px solid #fff;
+
+  .cust-plus-icon {
+    color: #fff;
+  }
+}
+
+.cust-plus-icon {
+  color: #41b6a6;
+  margin-top: -6px;
+  font-size: 24px;
+}
+
+.modal-title {
+  line-height: normal;
+}
+
+mat-form-field.mat-form-field {
+
+  color: #41b6a6;
+}
+
+.new-alert-form .modal-dialog {
+  max-width: 780px;
+  margin-top: 18px;
+
+}
+
+.new-alert-form .modal {
+  overflow: hidden;
+}
+
+.modal-header {
+  min-height: 30px !important;
+  background-color: #41b6a6;
+  color: #fff;
+  border: none;
+  padding: 15px !important;
+  margin: -5px !important;
+  margin-left: -5px !important;
+}
+
+.btn-alert {
+  color: #41b6a6;
+  border: 1px solid #41b6a6;
+  background-color: white;
+  width: 20%;
+  height: 49px;
+}
+
+.Active {
+  background-color: rgba(65, 182, 166, 0.5);
+  margin-left: -29px;
+  margin-right: -28px;
+  padding-left: 11px;
+  height: 53px;
+  padding-top: 15px;
+  margin-top: 2px;
+}
+
+.btn-on {
+  background-color: #41b6a6 !important;
+  color: white;
+  border: 1px solid white;
+  width: 80px;
+  height: 40px;
+}
+
+.btn-off {
+  border: 1px solid white;
+  width: 80px;
+  height: 40px;
+}
+
+.btn-off:hover {
+  background-color: #41b6a6;
+  color: #fff;
+}
+
+.btn-dentalon {
+  background-color: #41b6a6 !important;
+  color: white;
+  border: 1px solid white;
+  width: 80px;
+  height: 40px;
+}
+
+.btn-dentaloff {
+  border: 1px solid white;
+  width: 80px;
+  height: 40px;
+}
+
+.btn-dentaloff:hover {
+  background-color: #41b6a6;
+  color: #fff;
+}
+
+.btn-op {
+  background-color: #41b6a6;
+  color: white;
+  border: 1px solid #41b6a6;
+  width: 80px;
+  height: 40px;
+}
+
+.btn-of {
+  border: 1px solid #41b6a6;
+  width: 80px;
+  height: 40px;
+}
+
+.medicalpanel {
+  margin-left: 790px;
+}
+
+.cavitiespanel {
+  margin-left: 611px;
+}
+
+.diabetspannel {
+  margin-left: 280px;
+}
+
+.bloodpressurepannel {
+  margin-left: 705px;
+}
+
+.highriskpannel {
+  margin-left: 629px;
+}
+
+.btn-of:hover {
+  background-color: #41b6a6;
+  color: #fff
+}
+
+.number {
+  width: 32px;
+  height: 30px;
+  padding: 4px 0;
+  text-align: center;
+  font-size: 16px;
+  background-color: white;
+  color: #41b6a6;
+  border-radius: 50%;
+  border: 1px solid #41b6a6;
+  margin-top: 3px;
+}
+
+.customheader {
+  width: 1264px;
+  margin-right: 165px;
+  // margin-left: -29px;
+  border-top: 1px solid #41b6a6;
+  margin-top: 5px;
+  border-radius: 0;
+}
+
+.customexpansion-panel {
+  width: 1264px;
+  margin-right: 165px;
+  margin-left: 0px;
+  border-radius: 0;
+  margin-top: 2px;
+}
+
+.expansion-Highriskpanel {
+  width: 1264px;
+  margin-right: 165px;
+  margin-left: 0px;
+  border-radius: 0;
+  margin-top: 2px;
+
+}
+
+.titleText {
+  margin-top: 3px;
+}
+
+.panelheader {
+  min-height: 59px;
+  background-color: rgba(65, 182, 166, 0.5) !important;
+}
+
+.panel-header {
+  min-height: 59px;
+  background-color: rgba(65, 182, 166, 0.5) !important;
+}
+
+mat-accordion .mat-expansion-panel:first-of-type {
+  border-top-right-radius: initial;
+  border-top-left-radius: initial;
+}
+
+.play-icon {
+  background-color: 16px solid #FD8F25;
+  color: #FD8F25;
+  padding-top: 8px;
+  margin-left: 22px;
+  margin-right: -34px;
+
+}
+
+.panel-heading {
+  padding: 22px 20px 22px 63px;
+  text-align: left;
+  background-color: rgba(65, 182, 166, 0.2);
+  width: 1265px;
+  margin-left: -25px;
+  border-top: 1px solid #41b6a6;
+}
+
+.btn-default {
+  border: 1px solid #41b6a6;
+  color: #41b6a6;
+  height: 45px;
+  width: 165px;
+  background-color: white;
+  padding-top: 9px;
+}
+
+.btn-default:hover {
+  background-color: #41b6a6;
+  color: white;
+}
+
+.code {
+  background-color: #41b6a6;
+  width: 105%;
+  margin-left: -26px;
+  padding-top: 14px;
+  padding-bottom: 10px;
+  margin-top: 7px;
+}
+
+.table {
+  --bs-table-accent-bg: none;
+  width: 106%;
+  margin-left: -25px;
+  margin-top: 4px;
+}
+
+thead {
+  background-color: #41b6a6;
+  // font-size: 0.6em;
+  // padding: 1px !important;
+
+}
+
+.btn-save {
+  border: 1px solid #41b6a6;
+  color: #41b6a6;
+  height: 45px;
+  width: 100px;
+}
+
+.btn-save:hover {
+  background-color: #41b6a6;
+  color: white;
+}
+
+.TriggerModal .modal-dialog {
+  max-width: 780px;
+  margin-top: 18px;
+
+}
+
+
+
+.modal-header {
+  min-height: 30px !important;
+  background-color: #41b6a6;
+  color: #fff;
+  border: none;
+  padding: 14px !important;
+  margin: 0px;
+  margin-left: 0px;
+}
+
+.modal-content {
+  background-color: #fff;
+
+  // max-width: 760px;
+}
+
+.Trigger-content {
+  height: 454px;
+}
+
+.mat-select-panel {
+  transform-origin: 50% 20.875px 0px;
+  font-size: 14px;
+  opacity: 1;
+  min-width: calc(100% + 25px);
+  transform: scaleY(1);
+  margin-top: 49px;
+
+}
+
+.btn-search {
+  border: 1px solid #41b6a6;
+  color: #41b6a6;
+  height: 45px;
+  width: 140px;
+  margin-left: -37px;
+
+}
+
+.btn-search:hover {
+  background-color: #41b6a6;
+  color: white;
+}
+
+.addtrigger {
+  border: 1px solid #41b6a6;
+  color: #41b6a6;
+  height: 45px;
+  width: 140px;
+  margin-left: 83%;
+
+}
+
+.addtrigger:hover {
+  background-color: #41b6a6;
+  color: white;
+}
+
+.FieldValid {
+  border-radius: 83%;
+  height: 22px;
+  background: #64ab5b;
+  color: #f7f2f2;
+  //  border-color: #51ff00;
+  text-align: center;
+}
+
+.FieldValid {
+
+  height: 24px;
+  background: #64ab5b;
+  color: #f7f2f2;
+
+}
+
+.FieldInvalid {
+  border-radius: 77%;
+  height: 24px;
+  background: red;
+  color: white;
+  border-color: red;
+  text-align: center;
+  margin-right: 13px;
+}
+
+.FieldValiddatepicker {
+
+  height: 24px;
+  background: #64ab5b;
+  color: #f7f2f2;
+  margin-left: -26px;
+  margin-top: -28px;
+  border-radius: 55%
+}
+
+.FieldInvaliddatepicker {
+  border-radius: 77%;
+  height: 24px;
+  background: red;
+  color: white;
+  border-color: red;
+  text-align: center;
+  margin-left: -26px;
+  margin-top: -28px;
+}
+
+.table-borderless> :not(:first-child) {
+  border-top-width: 0;
+  border-bottom-width: 1px;
+  border-bottom-color: #41b6a6;
+}
+
