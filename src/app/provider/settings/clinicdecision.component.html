@@ -1,6 +1,544 @@
-<div class="scrollable-container mt-4 mx-4">
-  <div class="content ">
-    Clinic Decision will be dongin now;
-    <!-- Display Practice -->
+<div class="card">
+  <div class="card-header">
+
+    <h5>Clinical Decision Support</h5>
+    <button class="btn btn-plus" type="button" data-bs-toggle="modal" data-bs-target="#modal-new-alert-form"
+      aria-expanded="false">
+      <i class="fa fa-plus cust-plus-icon"></i>
+    </button>
+  </div>
+  <div class="card-body">
+    <div class="row ">
+      <div class="col-md-10">
+        <h6> Turn all Accountable Care Organization Alerts on or off for all your patients</h6>
+      </div>
+      <div class="col-md-2">
+        <button class="btn btn-op" type="button" (click)="open()">On</button>
+        <button class="btn btn-of" type="button" (click)="close()">Off</button>
+      </div>
+     </div>
+     </div>
+    <div class="prevent-click" *ngIf="show">
+      <mat-accordion class="prevent-click">
+        <mat-expansion-panel [disabled]="disabledmedication"
+        [ngStyle]="disabledmedication?{'opacity': '0.75'} : {'opacity': '1'}"
+         [expanded]="step === 1" (opened)="setStep(1)"
+          [ngClass]="isExpansionDisabled()" class="customheader" hideToggle="true" #example>
+          <mat-expansion-panel-header class="panelheader">
+            <mat-panel-title>
+              <h1 class="number">1</h1>&nbsp;&nbsp;
+              <h4 class="titleText"> Active Medication(s)</h4>
+            </mat-panel-title>
+            <mat-panel-description class="medicalpanel">
+              <button class="btn" [ngClass]="!medicationbtnhover? 'btn-on' : 'btn-off' " type="button"
+                (click)="disablemedication(false)">On</button>
+              <button class="btn" [ngClass]="medicationbtnhover? 'btn-on' : 'btn-off' " type="button"
+                (click)="disablemedication(true)">Off</button>
+              <mat-icon class="play-icon" *ngIf="!example.expanded" >play_arrow</mat-icon>
+              <mat-icon class="play-icon" *ngIf="example.expanded">arrow_drop_down</mat-icon>
+
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div *ngTemplateOutlet="myTemplateRef;">
+          </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel [hideToggle]="true" [expanded]="step === 2" (opened)="setStep(2)"
+        [ngClass]="isExpansionDisabled()" [ngStyle]="disabledcavity?{'opacity': '0.75'} : {'opacity': '1'}" [disabled]="disabledcavity" class="customexpansion-panel" hideToggle="true" #example1>
+          <mat-expansion-panel-header class="panel-header">
+            <mat-panel-title>
+              <h1 class="number">2</h1>&nbsp;&nbsp;
+              <h4 class="titleText"> Children who have dental decay or cavities(s)</h4>
+            </mat-panel-title>
+            <mat-panel-description class="cavitiespanel">
+              <button class="btn" class="btn" [ngClass]="!cavitybtnhover? 'btn-on' : 'btn-off' " type="button"
+                (click)="disablecavities(false)" type="button">On</button>
+              <button class="btn" [ngClass]="cavitybtnhover? 'btn-on' : 'btn-off' " type="button"
+                (click)="disablecavities(true)" type="button">
+                Off
+              </button>
+              <mat-icon class="play-icon" *ngIf="!example1.expanded">play_arrow</mat-icon>
+              <mat-icon class="play-icon" *ngIf="example1.expanded">arrow_drop_down</mat-icon>
+
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div *ngTemplateOutlet="myTemplateRef;">
+          </div>
+        </mat-expansion-panel>
+
+
+
+        <mat-expansion-panel hideToggle [expanded]="step === 3" (opened)="setStep(3)" [ngClass]="isExpansionDisabled()" [disabled]="disableddiabetes"
+          class="customexpansion-panel" [ngStyle]="disableddiabetes?{'opacity': '0.75'} : {'opacity': '1'}" hideToggle="true" #example2>
+          <mat-expansion-panel-header class="panel-header">
+            <mat-panel-title>
+              <h1 class="number">3</h1>&nbsp;&nbsp;
+              <h4 class="titleText"> Comprehensive diabetes care: percentage of members 18 to 75 years of age
+                with diabetes....</h4>
+            </mat-panel-title>
+            <mat-panel-description class="diabetspannel">
+              <button class="btn" type="button" [ngClass]="!diabetesbtnhover? 'btn-on' : 'btn-off' " type="button"
+                (click)="disablediabetes(false)">On</button>
+              <button class="btn" type="button" [ngClass]="diabetesbtnhover? 'btn-on' : 'btn-off' " type="button"
+                (click)="disablediabetes(true)">Off
+              </button>
+              <mat-icon class="play-icon" *ngIf="!example2.expanded">play_arrow</mat-icon>
+              <mat-icon class="play-icon" *ngIf="example2.expanded">arrow_drop_down</mat-icon>
+
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div *ngTemplateOutlet="myTemplateRef;">
+          </div>
+        </mat-expansion-panel>
+
+
+
+
+        <mat-expansion-panel hideToggle [ngClass]="isExpansionDisabled()"  [expanded]="step === 4" (opened)="setStep(4)" [disabled]="disabledBp"
+          class="customexpansion-panel" [ngStyle]="disabledBp?{'opacity': '0.75'} : {'opacity': '1'}" hideToggle="true" #example3>
+          <mat-expansion-panel-header class="panel-header">
+            <mat-panel-title>
+              <h1 class="number">4</h1>&nbsp;&nbsp;
+              <h4 class="titleText"> Controlling High Blood Pressure</h4>
+            </mat-panel-title>
+            <mat-panel-description class="bloodpressurepannel">
+
+              <button class="btn" type="button" [ngClass]="!BPbtnhover? 'btn-on' : 'btn-off' " type="button"
+                (click)="disableBloodPressure(false)">On</button>
+              <button class="btn" type="button" [ngClass]="BPbtnhover? 'btn-on' : 'btn-off' " type="button"
+                (click)="disableBloodPressure(true)">
+                Off
+              </button>
+              <mat-icon class="play-icon" *ngIf="!example3.expanded">play_arrow</mat-icon>
+              <mat-icon class="play-icon" *ngIf="example3.expanded">arrow_drop_down</mat-icon>
+
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div *ngTemplateOutlet="myTemplateRef;">
+          </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel hideToggle [ngClass]="isExpansionDisabled()"  [expanded]="step === 5" (opened)="setStep(5)" [disabled]="disabledHighRisk"
+          class="expansion-Highriskpanel" [ngStyle]="disabledHighRisk?{'opacity': '0.75'} : {'opacity': '1'}" hideToggle="true" #example4>
+          <mat-expansion-panel-header class="panel-header">
+            <mat-panel-title>
+              <h1 class="number">5</h1>&nbsp;&nbsp;
+              <h4 class="titleText"> Use of High Risk Medication in the Elderly</h4>
+            </mat-panel-title>
+            <mat-panel-description class="highriskpannel">
+              <button class="btn" type="button" [ngClass]="!highRiskbtnhover? 'btn-on' : 'btn-off' " type="button"
+                (click)="disableHighRisk(false)">On</button>
+              <button class="btn" type="button" [ngClass]="highRiskbtnhover? 'btn-on' : 'btn-off' " type="button"
+                (click)="disableHighRisk(true)">
+                Off
+              </button>
+              <mat-icon class="play-icon" *ngIf="!example4.expanded">play_arrow</mat-icon>
+              <mat-icon class="play-icon" *ngIf="example4.expanded">arrow_drop_down</mat-icon>
+
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div *ngTemplateOutlet="myTemplateRef;">
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+      </div>
+
+      <!-- Add New Altert Modal -->
+      <div class="modal fade new-alert-form" id="modal-new-alert-form" data-bs-keyboard="false" tabindex="-1"
+        aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content scrollable-modal">
+            <div class="modal-header">
+              <h4 class="modal-title">Add new alert</h4>
+              <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close">
+                X
+              </span>
+            </div>
+            <div class="modal-body">
+
+              <form [formGroup]="decisionSuppotForm">
+                <div class="row">
+                  <mat-label>Alert Name*</mat-label>
+                  <mat-form-field appearance="outline" class="col-md-12">
+                    <input matInput (mouseover)="nameCheck()" (mouseleave)="nameUnCheck()" formControlName="alertName"
+                      placeholder="">
+                    <mat-icon matSuffix *ngIf="checkedName" class="FieldValid">check</mat-icon>
+                    <mat-icon matSuffix *ngIf="uncheckedName" class="FieldInvalid">close</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="row">
+                  <mat-label>Description*</mat-label>
+                  <mat-form-field appearance="outline" class="col-md-12">
+                    <input matInput placeholder (mouseover)=" descriptionCheck()" (mouseleave)="descriptionUnCheck()"
+                    formControlName="description">
+                    <mat-icon matSuffix *ngIf="checkedDescription" class="FieldValid">check</mat-icon>
+
+                  <mat-icon matSuffix *ngIf="uncheckedDescription" class="FieldInvalid">close</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="row">
+                  <mat-label>Resolution*</mat-label>
+                  <mat-form-field appearance="outline" class="col-md-12">
+                    <input matInput placeholder (mouseover)="resolutionCheck()" (mouseleave)="resolutionUnCheck()"
+                     formControlName="resolution">
+                     <mat-icon matSuffix *ngIf="checkedResolution" class="FieldValid">check</mat-icon>
+                    <mat-icon class="close-icon" matSuffix *ngIf="unCheckedResolution" class="FieldInvalid">close
+                    </mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="row">
+                  <mat-label>Bibliography*</mat-label>
+                  <mat-form-field appearance="outline" class="col-md-12">
+                    <input matInput placeholder (mouseover)="bibliographyCheck()" (mouseleave)="bibliographyUnCheck()" formControlName="bibliography">
+                    <mat-icon matSuffix *ngIf="checkedbiBliography" class="FieldValid">check</mat-icon>
+                    <mat-icon class="close-icon" matSuffix *ngIf="unCheckedBibliography" class="FieldInvalid">close
+                    </mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="row">
+                  <mat-label>Developer*</mat-label>
+                  <mat-form-field appearance="outline" class="col-md-12">
+                    <input matInput placeholder (mouseover)="developerCheck()" (mouseleave)="developerUnCheck()" formControlName="developer">
+                    <mat-icon matSuffix *ngIf="checkedDeveloper" class="FieldValid">check</mat-icon>
+                    <mat-icon class="close-icon" matSuffix *ngIf="unCheckedDeveloper" class="FieldInvalid">close
+                    </mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="row">
+                  <div class="col-md-2">
+                    <mat-label>Funding Source:</mat-label>
+                  </div>
+                  <mat-form-field appearance="outline" class="col-md-4">
+                    <input matInput placeholder (mouseover)="fundingSourceCheck()" (mouseleave)="fundingSourceUnCheck()" formControlName="fundingSource">
+                    <mat-icon matSuffix *ngIf="checkedfundingSource" class="FieldValid">check</mat-icon>
+                    <mat-icon class="close-icon" matSuffix *ngIf="unCheckedfundingSource" class="FieldInvalid">close
+                    </mat-icon>
+                  </mat-form-field>
+                  <div class="col-md-2">
+                    <mat-label>Release Date(s)</mat-label>
+                  </div>
+                  <mat-form-field appearance="outline" class="col-md-4">
+                    <input matInput [matDatepicker]="dp1" placeholder="Stop Date" (mouseover)="releaseDateCheck()"
+                      (mouseleave)="releaseDateUnCheck()" formControlName="releaseDate">
+                    <mat-datepicker-toggle matSuffix [for]="dp1">
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #dp1 disabled="false"></mat-datepicker>
+                    <mat-icon matSuffix *ngIf="checkedReleaseDate" class="FieldValiddatepicker">check</mat-icon>
+                    <mat-icon class="close-icon" matSuffix *ngIf="unCheckedReleaseDate" class="FieldInvaliddatepicker">close
+                    </mat-icon>
+
+                  </mat-form-field>
+                </div>
+                <div class="row">
+                  <mat-label>Trigger Rule*
+
+                  </mat-label>
+                  <mat-form-field appearance="outline" class="col-md-12">
+                    <mat-select required formControlName="triggerRule">
+                      <mat-option *ngFor="let trigger of TriggerRuleDD" [value]="trigger.value">
+                        {{trigger.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button class="btn-alert" [disabled]="!AddNewAlert">Add New Alert</button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+        <!-- Add New Altert Modal -->
+
+      <div class="modal fade new-alert-form" id="modal-new-alert-form" data-bs-keyboard="false" tabindex="-1"
+      aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content scrollable-modal">
+          <div class="modal-header">
+            <h4 class="modal-title">Add new alert</h4>
+            <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close">
+              X
+            </span>
+          </div>
+          <div class="modal-body">
+
+            <form [formGroup]="decisionSuppotForm">
+              <div class="row">
+                <mat-label>Alert Name*</mat-label>
+                <mat-form-field appearance="outline" class="col-md-12">
+                  <input matInput (mouseover)="nameCheck()" (mouseleave)="nameUnCheck()" formControlName="alertName"
+                    placeholder="">
+                  <mat-icon matSuffix *ngIf="checkedName" class="FieldValid">check</mat-icon>
+                  <mat-icon matSuffix *ngIf="uncheckedName" class="FieldInvalid">close</mat-icon>
+                </mat-form-field>
+              </div>
+              <div class="row">
+                <mat-label>Description*</mat-label>
+                <mat-form-field appearance="outline" class="col-md-12">
+                  <input matInput placeholder (mouseover)=" descriptionCheck()" (mouseleave)="descriptionUnCheck()"
+                  formControlName="description">
+                  <mat-icon matSuffix *ngIf="checkedDescription" class="FieldValid">check</mat-icon>
+
+                <mat-icon matSuffix *ngIf="uncheckedDescription" class="FieldInvalid">close</mat-icon>
+                </mat-form-field>
+              </div>
+              <div class="row">
+                <mat-label>Resolution*</mat-label>
+                <mat-form-field appearance="outline" class="col-md-12">
+                  <input matInput placeholder (mouseover)="resolutionCheck()" (mouseleave)="resolutionUnCheck()"
+                   formControlName="resolution">
+                   <mat-icon matSuffix *ngIf="checkedResolution" class="FieldValid">check</mat-icon>
+                  <mat-icon class="close-icon" matSuffix *ngIf="unCheckedResolution" class="FieldInvalid">close
+                  </mat-icon>
+                </mat-form-field>
+              </div>
+              <div class="row">
+                <mat-label>Bibliography*</mat-label>
+                <mat-form-field appearance="outline" class="col-md-12">
+                  <input matInput placeholder (mouseover)="bibliographyCheck()" (mouseleave)="bibliographyUnCheck()" formControlName="bibliography">
+                  <mat-icon matSuffix *ngIf="checkedbiBliography" class="FieldValid">check</mat-icon>
+                  <mat-icon class="close-icon" matSuffix *ngIf="unCheckedBibliography" class="FieldInvalid">close
+                  </mat-icon>
+                </mat-form-field>
+              </div>
+              <div class="row">
+                <mat-label>Developer*</mat-label>
+                <mat-form-field appearance="outline" class="col-md-12">
+                  <input matInput placeholder (mouseover)="developerCheck()" (mouseleave)="developerUnCheck()" formControlName="developer">
+                  <mat-icon matSuffix *ngIf="checkedDeveloper" class="FieldValid">check</mat-icon>
+                  <mat-icon class="close-icon" matSuffix *ngIf="unCheckedDeveloper" class="FieldInvalid">close
+                  </mat-icon>
+                </mat-form-field>
+              </div>
+              <div class="row">
+                <div class="col-md-2">
+                  <mat-label>Funding Source:</mat-label>
+                </div>
+                <mat-form-field appearance="outline" class="col-md-4">
+                  <input matInput placeholder (mouseover)="fundingSourceCheck()" (mouseleave)="fundingSourceUnCheck()" formControlName="fundingSource">
+                  <mat-icon matSuffix *ngIf="checkedfundingSource" class="FieldValid">check</mat-icon>
+                  <mat-icon class="close-icon" matSuffix *ngIf="unCheckedfundingSource" class="FieldInvalid">close
+                  </mat-icon>
+                </mat-form-field>
+                <div class="col-md-2">
+                  <mat-label>Release Date(s)</mat-label>
+                </div>
+                <mat-form-field appearance="outline" class="col-md-4">
+                  <input matInput [matDatepicker]="dp1" placeholder="Stop Date" (mouseover)="releaseDateCheck()"
+                    (mouseleave)="releaseDateUnCheck()" formControlName="releaseDate">
+                  <mat-datepicker-toggle matSuffix [for]="dp1">
+                  </mat-datepicker-toggle>
+                  <mat-datepicker #dp1 disabled="false"></mat-datepicker>
+                  <mat-icon matSuffix *ngIf="checkedReleaseDate" class="FieldValiddatepicker">check</mat-icon>
+                  <mat-icon class="close-icon" matSuffix *ngIf="unCheckedReleaseDate" class="FieldInvaliddatepicker">close
+                  </mat-icon>
+
+                </mat-form-field>
+              </div>
+              <div class="row">
+                <mat-label>Trigger Rule*
+
+                </mat-label>
+                <mat-form-field appearance="outline" class="col-md-12">
+                  <mat-select required formControlName="triggerRule">
+                    <mat-option *ngFor="let trigger of TriggerRuleDD" [value]="trigger.value">
+                      {{trigger.viewValue}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="btn-alert" [disabled]="!AddNewAlert">Add New Alert</button>
+
+          </div>
+        </div>
+      </div>
+      </div>
+
+
+      <ng-template #myTemplateRef>
+        <div class="row">
+          <mat-label>Description1*</mat-label>
+          <mat-form-field appearance="outline">
+            <input matInput
+              placeholder="This Clinical Decision Support Rule is used to provide alerts to providers and staff regarding a patient�s active Medication Allergies as well as the severity of his/her allergy to each medication in their Medication Allergy List.">
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-label>Trigger Rule*
+
+          </mat-label>
+          <mat-form-field appearance="outline">
+            <mat-select required>
+              <mat-option *ngFor="let trigger of TriggerRuleDD" [value]="trigger.value">
+                {{trigger.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="panel-heading">
+          <div class="row">
+            <div class="col-lg-6">
+              <p class="title">Trigger Condition Builder</p>
+            </div>
+            <div class="col-lg-6">
+            <button type="button" class="btn btn-default pull-right" data-bs-toggle="modal" data-bs-target="#TriggerModal">
+              New Trigger
+            </button>
+            </div>
+          </div>
+        </div>
+        <table class="table table-borderless">
+          <thead>
+            <tr>
+              <td></td>
+              <td>
+                <p>Category</p>
+              </td>
+              <td>
+                <p>Code</p>
+              </td>
+              <td>
+                <p>Code System</p>
+              </td>
+              <td>
+                <p>Description</p>
+              </td>
+              <td></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td></td>
+              <td>
+                <p>Problem</p>
+              </td>
+              <td>
+                <p></p>
+              </td>
+              <td>
+                <p></p>
+              </td>
+              <td>
+                <p>Patient has active Medication Allergies in their Medication Allergy List. Active = Medication Allergy
+                  has a start date but no end date</p>
+              </td>
+              <td>  <mat-icon class="close-icon"class="FieldInvalid">close
+              </mat-icon>
+                </td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+        <div class="row">
+          <mat-label>Resolution:
+          </mat-label>
+          <mat-form-field appearance="outline">
+            <textarea matInput
+              placeholder="Patient has no active Medication Allergies in their Medication Allergy List. Inactive = Medication Allergy has a start date and an end date"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-label>Bibliography:
+          </mat-label>
+          <mat-form-field appearance="outline">
+            <textarea matInput
+              placeholder="Frew A. General principles of investigating and managing drug allergy. Br J Clin Pharmacol. 2011;71:642�6."></textarea>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-label>Developer:
+
+          </mat-label>
+          <mat-form-field appearance="outline">
+            <input matInput placeholder="EHR One, LLC">
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <mat-label>Funding Source:</mat-label>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field appearance="outline">
+              <input matInput placeholder="none">
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-2">
+            <mat-label> Release Date(s)</mat-label>
+          </div>
+
+          <mat-form-field appearance="outline" class="col-md-4">
+            <input matInput [matDatepicker]="dp" placeholder="Start Date">
+            <mat-datepicker-toggle matSuffix [for]="dp">
+              <button _ngcontent-mqh-c316="" aria-hidden="true" class="is-primary button fa fa-calendar"></button>
+            </mat-datepicker-toggle>
+            <mat-datepicker #dp disabled="false"></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <button class="btn btn-save pull-right" type="button">Save</button>
+      </ng-template>
+
+
+      <!-- TriggerModal -->
+<div class="modal fade TriggerModal" id="TriggerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content Trigger-content scrollable-modal ">
+      <div class="modal-header">
+        <h4 class="modal-title">Add new trigger</h4>
+        <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close">
+          X
+        </span>
+      </div>
+      <div class="modal-body">
+        <div>
+          <div>
+            <label>Category*</label>
+          </div>
+          <br>
+          <label>Code System*</label>
+          <mat-form-field appearance="outline" class="col-md-12">
+            <mat-select required placeholder="Select Code system to search">
+              <mat-option *ngFor="let trigger of codeSystemDD" [value]="trigger.value">
+                {{trigger.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-label>Code*</mat-label>
+          <div class="col-md-10">
+
+            <mat-form-field appearance="outline" class="col-md-10">
+              <mat-select>
+                <mat-option class="mat-select-panel">
+                  <input matInput placeholder="Search">
+                </mat-option>
+                <!-- <mat-option value="option1">Option 1</mat-option>
+    <mat-option value="option2">Option 2</mat-option> -->
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn-search" type="button">Search Now</button>
+          </div>
+        </div>
+        <div class="row">
+          <mat-label>Decription*:
+          </mat-label>
+          <mat-form-field appearance="outline">
+            <textarea matInput placeholder></textarea>
+          </mat-form-field>
+          <div class="row">
+            <button class="btn addtrigger pull-right" btype="button">Add trigger</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
   </div>
 </div>

@@ -12,8 +12,293 @@ declare var $: any;
 @Component({
   selector: 'clinicdecision-settings',
   templateUrl: './clinicdecision.component.html',
-  styleUrls: ['./settings.component.scss']
+  styleUrls: ['./clinicdecision.component.scss']
 })
 export class ClinicDecisionComponent implements OnInit {
-  ngOnInit(): void {}
+  multi: boolean = false;
+  disabled: boolean = false;
+  checkedName: boolean;
+  uncheckedName:boolean;
+  checkedDescription:boolean;
+  uncheckedDescription:boolean;
+  checkedResolution:boolean;
+  unCheckedResolution:boolean
+  checkedbiBliography:boolean;
+  unCheckedBibliography:boolean;
+  checkedDeveloper:boolean;
+  unCheckedDeveloper:boolean;
+  checkedfundingSource:boolean;
+  unCheckedfundingSource:boolean;
+  checkedReleaseDate:boolean;
+  unCheckedReleaseDate:boolean;
+  AddNewAlert: boolean = true;
+  show: boolean = true;
+  showon: boolean = true;
+  showoff: boolean = false;
+
+
+  //
+  disabledmedication: any;
+  medicationbtnhover: any;
+  //
+  disabledcavity: any;
+  cavitybtnhover: any;
+  //
+  diabetesbtnhover: any;
+  disableddiabetes: any;
+  BPbtnhover: any;
+  disabledBp: any;
+  highRiskbtnhover: any;
+  disabledHighRisk: any;
+  decisionSuppotForm: FormGroup;
+
+  TriggerRuleDD: any[] = [
+    { value: 'ONE', viewValue: 'ONE' },
+    { value: 'ONE of each category', viewValue: 'ONE of each category' },
+    { value: 'Two or More', viewValue: 'Two or More' },
+    { value: 'All', viewValue: 'All' },
+  ];
+  codeSystemDD=[{ value:'Snomed',viewValue: 'Snomed'},{value:'Local',viewValue:'Local'},{value:'ICD10',viewValue:'ICD10'}]
+  constructor(private fb: FormBuilder) {
+  }
+  ngOnInit(): void {
+    this.decisionsupport();
+
+  }
+
+  decisionsupport() {
+    this.decisionSuppotForm = this.fb.group({
+      alertName: [''],
+      description: [''],
+      resolution: [''],
+      bibliography: [''],
+      developer: [''],
+      fundingSource: [''],
+      releaseDate: [''],
+      triggerRule: ['']
+    })
+  }
+  nameCheck() {
+    let alertName=this.decisionSuppotForm.value.alertName;
+    if(alertName == "")
+    {
+      this.checkedName=false;
+      this.uncheckedName=true;
+    }
+    else{
+      this.checkedName=true;
+      this.uncheckedName=false;
+    }
+  }
+  nameUnCheck() {
+let alertName=this.decisionSuppotForm.value.alertName;
+if(alertName == "")
+{
+  this.checkedName=false;
+  this.uncheckedName=false;
+}
+else
+{
+  this.checkedName=true;
+  this.uncheckedName=false;
+}
+  }
+
+  descriptionCheck() {
+    let description=this.decisionSuppotForm.value.description;
+    if(description =="")
+    {
+      this.checkedDescription=false;
+      this.uncheckedDescription=true;
+    }
+    else{
+      this.checkedDescription=true;
+      this.uncheckedDescription=false;
+    }
+  }
+  descriptionUnCheck(){
+    let description=this.decisionSuppotForm.value.description;
+    if(description == "")
+    {
+      this.checkedDescription=false;
+      this.uncheckedDescription=false;
+    }
+    else{
+      this.checkedDescription=true;
+      this.uncheckedDescription=false;
+    }
+  }
+  resolutionCheck() {
+    let resolution=this.decisionSuppotForm.value.resolution;
+    if(resolution =="")
+    {
+      this.checkedResolution=false;
+      this.unCheckedResolution=true;
+    }
+    else{
+      this.checkedResolution=true;
+      this.unCheckedResolution=false;
+    }
+  }
+  resolutionUnCheck(){
+    let resolution=this.decisionSuppotForm.value.resolution;
+    if(resolution == "")
+    {
+      this.checkedResolution=false;
+      this.unCheckedResolution=false;
+    }
+    else{
+      this.checkedResolution=true;
+      this.unCheckedResolution=false;
+    }
+  }
+  bibliographyCheck() {
+    let bibliography=this.decisionSuppotForm.value.bibliography;
+    if(bibliography =="")
+    {
+      this.checkedbiBliography=false;
+      this.unCheckedBibliography=true;
+    }
+    else{
+      this.checkedbiBliography=true;
+      this.unCheckedBibliography=false;
+    }
+  }
+  bibliographyUnCheck(){
+    let bibliography=this.decisionSuppotForm.value.bibliography;
+    if(bibliography == "")
+    {
+      this.checkedbiBliography=false;
+      this.unCheckedBibliography=false;
+    }
+    else{
+      this.checkedbiBliography=true;
+      this.unCheckedBibliography=false;
+    }
+  }
+  developerCheck() {
+    let developer=this.decisionSuppotForm.value.developer;
+    if(developer =="")
+    {
+      this.checkedDeveloper=false;
+      this.unCheckedDeveloper=true;
+    }
+    else{
+      this.checkedDeveloper=true;
+      this.unCheckedDeveloper=false;
+    }
+  }
+  developerUnCheck(){
+    let developer=this.decisionSuppotForm.value.developer;
+    if(developer == "")
+    {
+      this.checkedDeveloper=false;
+      this.unCheckedDeveloper=false;
+    }
+    else{
+      this.checkedDeveloper=true;
+      this.unCheckedDeveloper=false;
+    }
+  }
+  fundingSourceCheck() {
+    let fundingSource=this.decisionSuppotForm.value.fundingSource;
+    if(fundingSource =="")
+    {
+      this.checkedfundingSource=false;
+      this.unCheckedfundingSource=true;
+    }
+    else{
+      this.checkedfundingSource=true;
+      this.unCheckedfundingSource=false;
+    }
+  }
+  fundingSourceUnCheck(){
+    let fundingSource=this.decisionSuppotForm.value.fundingSource;
+    if(fundingSource == "")
+    {
+      this.checkedfundingSource=false;
+      this.unCheckedfundingSource=false;
+    }
+    else{
+      this.checkedfundingSource=true;
+      this.unCheckedfundingSource=false;
+    }
+  }
+  releaseDateCheck() {
+    let releaseDate=this.decisionSuppotForm.value.releaseDate;
+    if(releaseDate =="")
+    {
+      this.checkedReleaseDate=false;
+      this.unCheckedReleaseDate=true;
+    }
+    else{
+      this.checkedReleaseDate=true;
+      this.unCheckedReleaseDate=false;
+    }
+  }
+  releaseDateUnCheck(){
+    let releaseDate=this.decisionSuppotForm.value.releaseDate;
+    if(releaseDate == "")
+    {
+      this.checkedReleaseDate=false;
+      this.unCheckedReleaseDate=false;
+    }
+    else{
+      this.checkedReleaseDate=true;
+      this.unCheckedReleaseDate=false;
+    }
+  }
+
+  open() {
+    this.show = true;
+
+  }
+  close() {
+    this.show = false;
+  }
+  blockExpansion = false;
+
+  isExpansionDisabled(): string {
+    if (this.blockExpansion) {
+      return 'disabled-pointer';
+    }
+
+    return '';
+  }
+  step = 0;
+  setStep(index: number) {
+    this.step = index;
+  }
+  disablemedication(event) {
+    debugger;
+    this.medicationbtnhover = event;
+    console.log(event)
+    this.disabledmedication = event;
+    this.setStep(0);
+  }
+  disablecavities(event) {
+    debugger;
+    this.cavitybtnhover = event;
+    console.log(event)
+    this.disabledcavity = event;
+    this.setStep(0);
+  }
+  disablediabetes(event) {
+    debugger;
+    this.diabetesbtnhover = event;
+    console.log(event)
+    this.disableddiabetes = event;
+    this.setStep(0);
+  }
+  disableBloodPressure(event) {
+    this.BPbtnhover = event
+    this.disabledBp = event;
+    this.setStep(0);
+  }
+  disableHighRisk(event) {
+    this.highRiskbtnhover = event;
+    this.disabledHighRisk = event;
+    this.setStep(0);
+  }
+
 }

@@ -12,8 +12,12 @@ declare var $: any;
 @Component({
   selector: 'erx-settings',
   templateUrl: './erx.component.html',
-  styleUrls: ['./settings.component.scss']
+  styleUrls: ['./erx.component.scss']
 })
 export class ErxComponent implements OnInit {
+  public showkey: boolean = false;
   ngOnInit(): void {}
+  public togglePasswordVisibility(): void {
+    this.showkey = !this.showkey;
+  }
 }
