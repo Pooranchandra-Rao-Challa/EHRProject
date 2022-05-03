@@ -6,7 +6,7 @@ import { HttpClient } from "@angular/common/http";
 export class LabsImagingService extends APIEndPoint {
     constructor(http: HttpClient) { super(http); }
 
-    LabsDetails(reqparams: any) {
+    LabDetails(reqparams: any) {
         return this._ProcessPostRequest<any>(this._labDetailsUrl,reqparams);
       }
     
