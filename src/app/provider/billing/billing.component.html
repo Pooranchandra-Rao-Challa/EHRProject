@@ -9,19 +9,18 @@
       </mat-form-field>
       <div class="col-md-1">Proc Date: <br>from</div>
 
-      <mat-form-field appearance="outline" class="col-md-2">
+      <mat-form-field appearance="outline" class="green-calendar col-md-2">
         <input matInput [matDatepicker]="dp"  placeholder="Start Date"    name="startDate"
         [(ngModel)]="startDate">
         <mat-datepicker-toggle matSuffix [for]="dp">
 
         </mat-datepicker-toggle>
         <mat-datepicker #dp disabled="false"></mat-datepicker>
-       </mat-form-field>   
-
+       </mat-form-field>
        <!-- <div class="date_to_text col-md-1">to</div> -->
-     
 
-      <mat-form-field appearance="outline" class="col-md-2 ">
+
+      <mat-form-field appearance="outline" class="green-calendar col-md-2 ">
         <input matInput [matDatepicker]="dp1" placeholder="Stop Date"  name="enddate"
         [(ngModel)]="enddate">
         <mat-datepicker-toggle matSuffix [for]="dp1">
@@ -29,10 +28,10 @@
         <mat-datepicker #dp1 disabled="false"></mat-datepicker>
       </mat-form-field>
       <div class="col-md-2">
-        <button mat-raised-button type="submit" (click)="getBillings()" class="hover-class">Run Report</button>
+        <button mat-raised-button type="submit" (click)="getBillings()" class="btn btn-green btn-reports">Run Report</button>
       </div>
       <div class="col-md-2">
-        <button mat-raised-button class="reset" (click)="resetpage()">Reset</button>
+        <button mat-raised-button class="btn btn-green btn-reports" (click)="resetpage()">Reset</button>
       </div>
 
     </div>
@@ -43,43 +42,26 @@
     <p class="col-md-3 pull-right">Filter by status:</p>
   </div>
   <mat-form-field appearance="outline" class="col-md-4 statusFilter">
-
-    <!-- <mat-label>Select all to include </mat-label> -->
     <mat-select id="statusFilter" #select multiple placeholder="Select all to include">
-      <!-- <div class="select-all"> -->
-      <!-- <mat-checkbox [(ngModel)]="allSelected"
-                        [ngModelOptions]="{standalone: true}"
-                        (change)="toggleAllSelection()">Select All</mat-checkbox> -->
-      <!-- </div> -->
       <mat-option (click)="optionClick()" *ngFor="let fs of filterstatus" [value]="fs.value">
         {{fs.viewValue}}
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <!-- <mat-expansion-panel class="col-md-4">
-  <mat-expansion-panel-header>
-    <mat-panel-title>
-      select all to include
-    </mat-panel-title>
-  </mat-expansion-panel-header>
 
-  <mat-checkbox  color='primary' > Treatment Plan</mat-checkbox><br>
-  <mat-checkbox  color='primary' > Check me!</mat-checkbox><br>
-  <mat-checkbox  color='primary' > Check me!</mat-checkbox>
-</mat-expansion-panel> -->
   <div class="col-md-1">
-    <button mat-raised-button class="class" (click)="exportToCsv()">Export CSV</button>
+    <button mat-raised-button class="btn btn-green btn-reports" (click)="exportToCsv()">Export CSV</button>
   </div>
   <div class="col-md-1">
-    <button mat-raised-button class="class" (click)="exportToPdf()">Export PDF</button>
+    <button mat-raised-button class="btn btn-green btn-reports" (click)="exportToPdf()">Export PDF</button>
   </div>
 </div>
 
 
 
-<div class="table-responsive" #TABLE>
+<div class="table-responsive billing mb-5" #TABLE>
 
-  <table mat-table [dataSource]="sampledata" class="mat-elevation-z8" #table id="my-table">
+  <table mat-table [dataSource]="sampledata" #table id="my-table">
     <ng-container matColumnDef="ProcDate">
       <th mat-header-cell *matHeaderCellDef>Proc Date </th>
       <td mat-cell *matCellDef="let element"> {{element.ProcDate | date:'MM/dd/yyyy'}} </td>

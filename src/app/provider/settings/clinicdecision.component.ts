@@ -270,21 +270,21 @@ else
     this.step = index;
   }
   disablemedication(event) {
-    debugger;
+
     this.medicationbtnhover = event;
     console.log(event)
     this.disabledmedication = event;
     this.setStep(0);
   }
   disablecavities(event) {
-    debugger;
+
     this.cavitybtnhover = event;
     console.log(event)
     this.disabledcavity = event;
     this.setStep(0);
   }
   disablediabetes(event) {
-    debugger;
+
     this.diabetesbtnhover = event;
     console.log(event)
     this.disableddiabetes = event;

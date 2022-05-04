@@ -233,7 +233,7 @@ export class APIEndPoint extends EndpointBase {
   }
 
   get _billingDetailsUrl() {
-    return this._baseUrl + "BillingList";
+    return this._baseUrl + "GetBillingList";
   }
 
   get _labDetailsUrl() {

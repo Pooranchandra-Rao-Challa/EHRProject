@@ -1,9 +1,14 @@
+<div class="container">
+  <div class=" ">
+    <div class="row">
+      <!-- Display Practice -->
+      <div class="col-lg-12 col-md-12">
 <div class="card">
   <div class="card-header">
     <p class="title text-white"> Patient Education Material</p>
-    <button class="btn btn-plus" type="button" data-bs-toggle="modal" data-bs-target="#modal-Patient-Education"
+    <button class="plusicon" type="button" data-bs-toggle="modal" data-bs-target="#modal-Patient-Education"
       aria-expanded="false">
-      <i class="fa fa-plus cust-plus-icon"></i>
+      <i class="fa fa-plus"></i>
     </button>
   </div>
 
@@ -39,12 +44,17 @@
     </div>
   </div>
 </div>
+</div>
+</div>
+</div>
+</div>
+
 <div class="modal Patient-Education " id="modal-Patient-Education" data-bs-keyboard="false" tabindex="-1"
   aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <p class="title"><b>Add Patient Education Material</b></p>
+        <p class="Helvetica-sans-serif-medium"><b>Add Patient Education Material</b></p>
         <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close"
           style="border: 1px solid #fff;" (click)="refershform()">
           X
@@ -96,8 +106,8 @@
             </div>
             <div class="col-md-9"></div>
             <div class="col-md-2 pt-2 pb-2 pull-right">
-              <button class="btn btn-plus" type="button" (click)="attachements()">
-                <i class="fa fa-plus cust-plus-icon"></i>
+              <button class="plusicon icon-border" type="button" (click)="attachements()">
+                <i class="fa fa-plus"></i>
               </button>
             </div>
 

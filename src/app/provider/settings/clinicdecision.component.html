@@ -1,18 +1,18 @@
-<div class="card">
-  <div class="card-header">
+<div class="card ">
+  <div class="card-header bg-color ">
 
-    <h5>Clinical Decision Support</h5>
-    <button class="btn btn-plus" type="button" data-bs-toggle="modal" data-bs-target="#modal-new-alert-form"
+    <h5 class="Helvetica-sans-serif-medium">Clinical Decision Support</h5>
+    <button class="plusicon" type="button" data-bs-toggle="modal" data-bs-target="#modal-new-alert-form"
       aria-expanded="false">
-      <i class="fa fa-plus cust-plus-icon"></i>
+      <i class="fa fa-plus"></i>
     </button>
   </div>
   <div class="card-body">
     <div class="row ">
       <div class="col-md-10">
-        <h6> Turn all Accountable Care Organization Alerts on or off for all your patients</h6>
+        <p  class="Helvetica-sans-serif-medium">  Turn all Accountable Care Organization Alerts on or off for all your patients</p>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-2 d-flex justify-content-end">
         <button class="btn btn-op" type="button" (click)="open()">On</button>
         <button class="btn btn-of" type="button" (click)="close()">Off</button>
       </div>
@@ -24,12 +24,12 @@
         [ngStyle]="disabledmedication?{'opacity': '0.75'} : {'opacity': '1'}"
          [expanded]="step === 1" (opened)="setStep(1)"
           [ngClass]="isExpansionDisabled()" class="customheader" hideToggle="true" #example>
-          <mat-expansion-panel-header class="panelheader">
+          <mat-expansion-panel-header class="panel-header">
             <mat-panel-title>
               <h1 class="number">1</h1>&nbsp;&nbsp;
               <h4 class="titleText"> Active Medication(s)</h4>
             </mat-panel-title>
-            <mat-panel-description class="medicalpanel">
+            <mat-panel-description class="d-flex justify-content-end">
               <button class="btn" [ngClass]="!medicationbtnhover? 'btn-on' : 'btn-off' " type="button"
                 (click)="disablemedication(false)">On</button>
               <button class="btn" [ngClass]="medicationbtnhover? 'btn-on' : 'btn-off' " type="button"
@@ -43,13 +43,14 @@
           </div>
         </mat-expansion-panel>
         <mat-expansion-panel [hideToggle]="true" [expanded]="step === 2" (opened)="setStep(2)"
-        [ngClass]="isExpansionDisabled()" [ngStyle]="disabledcavity?{'opacity': '0.75'} : {'opacity': '1'}" [disabled]="disabledcavity" class="customexpansion-panel" hideToggle="true" #example1>
+        [ngClass]="isExpansionDisabled()" [ngStyle]="disabledcavity?{'opacity': '0.75'} : {'opacity': '1'}" [disabled]="disabledcavity"
+         class="customheader" hideToggle="true" #example1>
           <mat-expansion-panel-header class="panel-header">
             <mat-panel-title>
               <h1 class="number">2</h1>&nbsp;&nbsp;
               <h4 class="titleText"> Children who have dental decay or cavities(s)</h4>
             </mat-panel-title>
-            <mat-panel-description class="cavitiespanel">
+            <mat-panel-description class="d-flex justify-content-end">
               <button class="btn" class="btn" [ngClass]="!cavitybtnhover? 'btn-on' : 'btn-off' " type="button"
                 (click)="disablecavities(false)" type="button">On</button>
               <button class="btn" [ngClass]="cavitybtnhover? 'btn-on' : 'btn-off' " type="button"
@@ -68,14 +69,14 @@
 
 
         <mat-expansion-panel hideToggle [expanded]="step === 3" (opened)="setStep(3)" [ngClass]="isExpansionDisabled()" [disabled]="disableddiabetes"
-          class="customexpansion-panel" [ngStyle]="disableddiabetes?{'opacity': '0.75'} : {'opacity': '1'}" hideToggle="true" #example2>
+          class="customheader" [ngStyle]="disableddiabetes?{'opacity': '0.75'} : {'opacity': '1'}" hideToggle="true" #example2>
           <mat-expansion-panel-header class="panel-header">
             <mat-panel-title>
               <h1 class="number">3</h1>&nbsp;&nbsp;
               <h4 class="titleText"> Comprehensive diabetes care: percentage of members 18 to 75 years of age
                 with diabetes....</h4>
             </mat-panel-title>
-            <mat-panel-description class="diabetspannel">
+            <mat-panel-description class="d-flex justify-content-end">
               <button class="btn" type="button" [ngClass]="!diabetesbtnhover? 'btn-on' : 'btn-off' " type="button"
                 (click)="disablediabetes(false)">On</button>
               <button class="btn" type="button" [ngClass]="diabetesbtnhover? 'btn-on' : 'btn-off' " type="button"
@@ -94,13 +95,13 @@
 
 
         <mat-expansion-panel hideToggle [ngClass]="isExpansionDisabled()"  [expanded]="step === 4" (opened)="setStep(4)" [disabled]="disabledBp"
-          class="customexpansion-panel" [ngStyle]="disabledBp?{'opacity': '0.75'} : {'opacity': '1'}" hideToggle="true" #example3>
+          class="customheader" [ngStyle]="disabledBp?{'opacity': '0.75'} : {'opacity': '1'}" hideToggle="true" #example3>
           <mat-expansion-panel-header class="panel-header">
             <mat-panel-title>
               <h1 class="number">4</h1>&nbsp;&nbsp;
               <h4 class="titleText"> Controlling High Blood Pressure</h4>
             </mat-panel-title>
-            <mat-panel-description class="bloodpressurepannel">
+            <mat-panel-description class="d-flex justify-content-end">
 
               <button class="btn" type="button" [ngClass]="!BPbtnhover? 'btn-on' : 'btn-off' " type="button"
                 (click)="disableBloodPressure(false)">On</button>
@@ -117,13 +118,13 @@
           </div>
         </mat-expansion-panel>
         <mat-expansion-panel hideToggle [ngClass]="isExpansionDisabled()"  [expanded]="step === 5" (opened)="setStep(5)" [disabled]="disabledHighRisk"
-          class="expansion-Highriskpanel" [ngStyle]="disabledHighRisk?{'opacity': '0.75'} : {'opacity': '1'}" hideToggle="true" #example4>
+          class="customheader" [ngStyle]="disabledHighRisk?{'opacity': '0.75'} : {'opacity': '1'}" hideToggle="true" #example4>
           <mat-expansion-panel-header class="panel-header">
             <mat-panel-title>
               <h1 class="number">5</h1>&nbsp;&nbsp;
               <h4 class="titleText"> Use of High Risk Medication in the Elderly</h4>
             </mat-panel-title>
-            <mat-panel-description class="highriskpannel">
+            <mat-panel-description class="d-flex justify-content-end">
               <button class="btn" type="button" [ngClass]="!highRiskbtnhover? 'btn-on' : 'btn-off' " type="button"
                 (click)="disableHighRisk(false)">On</button>
               <button class="btn" type="button" [ngClass]="highRiskbtnhover? 'btn-on' : 'btn-off' " type="button"
@@ -140,13 +141,14 @@
         </mat-expansion-panel>
       </mat-accordion>
       </div>
+      </div>
 
       <!-- Add New Altert Modal -->
       <div class="modal fade new-alert-form" id="modal-new-alert-form" data-bs-keyboard="false" tabindex="-1"
         aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content scrollable-modal">
-            <div class="modal-header">
+            <div class="modal-header Helvetica-sans-serif-medium">
               <h4 class="modal-title">Add new alert</h4>
               <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close">
                 X
@@ -242,119 +244,19 @@
               </form>
             </div>
             <div class="modal-footer">
-              <button class="btn-alert" [disabled]="!AddNewAlert">Add New Alert</button>
+              <button class="btn btn-green btn-clinic" [disabled]="!AddNewAlert">Add New Alert</button>
 
             </div>
           </div>
         </div>
       </div>
 
-        <!-- Add New Altert Modal -->
+        <!-- Add New Altert Modal (to remove error extra code is add is shoud not to use after get solution i will remove) -->
 
       <div class="modal fade new-alert-form" id="modal-new-alert-form" data-bs-keyboard="false" tabindex="-1"
       aria-hidden="true">
       <div class="modal-dialog">
-        <div class="modal-content scrollable-modal">
-          <div class="modal-header">
-            <h4 class="modal-title">Add new alert</h4>
-            <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close">
-              X
-            </span>
-          </div>
-          <div class="modal-body">
 
-            <form [formGroup]="decisionSuppotForm">
-              <div class="row">
-                <mat-label>Alert Name*</mat-label>
-                <mat-form-field appearance="outline" class="col-md-12">
-                  <input matInput (mouseover)="nameCheck()" (mouseleave)="nameUnCheck()" formControlName="alertName"
-                    placeholder="">
-                  <mat-icon matSuffix *ngIf="checkedName" class="FieldValid">check</mat-icon>
-                  <mat-icon matSuffix *ngIf="uncheckedName" class="FieldInvalid">close</mat-icon>
-                </mat-form-field>
-              </div>
-              <div class="row">
-                <mat-label>Description*</mat-label>
-                <mat-form-field appearance="outline" class="col-md-12">
-                  <input matInput placeholder (mouseover)=" descriptionCheck()" (mouseleave)="descriptionUnCheck()"
-                  formControlName="description">
-                  <mat-icon matSuffix *ngIf="checkedDescription" class="FieldValid">check</mat-icon>
-
-                <mat-icon matSuffix *ngIf="uncheckedDescription" class="FieldInvalid">close</mat-icon>
-                </mat-form-field>
-              </div>
-              <div class="row">
-                <mat-label>Resolution*</mat-label>
-                <mat-form-field appearance="outline" class="col-md-12">
-                  <input matInput placeholder (mouseover)="resolutionCheck()" (mouseleave)="resolutionUnCheck()"
-                   formControlName="resolution">
-                   <mat-icon matSuffix *ngIf="checkedResolution" class="FieldValid">check</mat-icon>
-                  <mat-icon class="close-icon" matSuffix *ngIf="unCheckedResolution" class="FieldInvalid">close
-                  </mat-icon>
-                </mat-form-field>
-              </div>
-              <div class="row">
-                <mat-label>Bibliography*</mat-label>
-                <mat-form-field appearance="outline" class="col-md-12">
-                  <input matInput placeholder (mouseover)="bibliographyCheck()" (mouseleave)="bibliographyUnCheck()" formControlName="bibliography">
-                  <mat-icon matSuffix *ngIf="checkedbiBliography" class="FieldValid">check</mat-icon>
-                  <mat-icon class="close-icon" matSuffix *ngIf="unCheckedBibliography" class="FieldInvalid">close
-                  </mat-icon>
-                </mat-form-field>
-              </div>
-              <div class="row">
-                <mat-label>Developer*</mat-label>
-                <mat-form-field appearance="outline" class="col-md-12">
-                  <input matInput placeholder (mouseover)="developerCheck()" (mouseleave)="developerUnCheck()" formControlName="developer">
-                  <mat-icon matSuffix *ngIf="checkedDeveloper" class="FieldValid">check</mat-icon>
-                  <mat-icon class="close-icon" matSuffix *ngIf="unCheckedDeveloper" class="FieldInvalid">close
-                  </mat-icon>
-                </mat-form-field>
-              </div>
-              <div class="row">
-                <div class="col-md-2">
-                  <mat-label>Funding Source:</mat-label>
-                </div>
-                <mat-form-field appearance="outline" class="col-md-4">
-                  <input matInput placeholder (mouseover)="fundingSourceCheck()" (mouseleave)="fundingSourceUnCheck()" formControlName="fundingSource">
-                  <mat-icon matSuffix *ngIf="checkedfundingSource" class="FieldValid">check</mat-icon>
-                  <mat-icon class="close-icon" matSuffix *ngIf="unCheckedfundingSource" class="FieldInvalid">close
-                  </mat-icon>
-                </mat-form-field>
-                <div class="col-md-2">
-                  <mat-label>Release Date(s)</mat-label>
-                </div>
-                <mat-form-field appearance="outline" class="col-md-4">
-                  <input matInput [matDatepicker]="dp1" placeholder="Stop Date" (mouseover)="releaseDateCheck()"
-                    (mouseleave)="releaseDateUnCheck()" formControlName="releaseDate">
-                  <mat-datepicker-toggle matSuffix [for]="dp1">
-                  </mat-datepicker-toggle>
-                  <mat-datepicker #dp1 disabled="false"></mat-datepicker>
-                  <mat-icon matSuffix *ngIf="checkedReleaseDate" class="FieldValiddatepicker">check</mat-icon>
-                  <mat-icon class="close-icon" matSuffix *ngIf="unCheckedReleaseDate" class="FieldInvaliddatepicker">close
-                  </mat-icon>
-
-                </mat-form-field>
-              </div>
-              <div class="row">
-                <mat-label>Trigger Rule*
-
-                </mat-label>
-                <mat-form-field appearance="outline" class="col-md-12">
-                  <mat-select required formControlName="triggerRule">
-                    <mat-option *ngFor="let trigger of TriggerRuleDD" [value]="trigger.value">
-                      {{trigger.viewValue}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button class="btn-alert" [disabled]="!AddNewAlert">Add New Alert</button>
-
-          </div>
-        </div>
       </div>
       </div>
 
@@ -385,7 +287,7 @@
               <p class="title">Trigger Condition Builder</p>
             </div>
             <div class="col-lg-6">
-            <button type="button" class="btn btn-default pull-right" data-bs-toggle="modal" data-bs-target="#TriggerModal">
+            <button type="button" class="btn btn-green btn-clinic pull-right" data-bs-toggle="modal" data-bs-target="#TriggerModal">
               New Trigger
             </button>
             </div>
@@ -471,7 +373,7 @@
             <mat-label> Release Date(s)</mat-label>
           </div>
 
-          <mat-form-field appearance="outline" class="col-md-4">
+          <mat-form-field appearance="outline" class=" green-calendar col-md-4">
             <input matInput [matDatepicker]="dp" placeholder="Start Date">
             <mat-datepicker-toggle matSuffix [for]="dp">
               <button _ngcontent-mqh-c316="" aria-hidden="true" class="is-primary button fa fa-calendar"></button>
@@ -479,7 +381,7 @@
             <mat-datepicker #dp disabled="false"></mat-datepicker>
           </mat-form-field>
         </div>
-        <button class="btn btn-save pull-right" type="button">Save</button>
+        <button class="btn btn-green btn-clinic pull-right" type="button">Save</button>
       </ng-template>
 
 
@@ -510,9 +412,9 @@
         </div>
         <div class="row">
           <mat-label>Code*</mat-label>
-          <div class="col-md-10">
+          <div class="col-md-9">
 
-            <mat-form-field appearance="outline" class="col-md-10">
+            <mat-form-field appearance="outline" class="col-md-12">
               <mat-select>
                 <mat-option class="mat-select-panel">
                   <input matInput placeholder="Search">
@@ -523,7 +425,7 @@
             </mat-form-field>
           </div>
           <div class="col-md-2">
-            <button class="btn btn-search" type="button">Search Now</button>
+            <button class="btn btn-green btn-clinic" type="button">Search Now</button>
           </div>
         </div>
         <div class="row">
@@ -532,9 +434,11 @@
           <mat-form-field appearance="outline">
             <textarea matInput placeholder></textarea>
           </mat-form-field>
-          <div class="row">
-            <button class="btn addtrigger pull-right" btype="button">Add trigger</button>
-          </div>
+        </div>
+        <div class="row">
+          <div class="d-flex justify-content-end mt-2">
+          <button class="btn btn-green btn-clinic " btype="button">Add trigger</button>
+        </div>
         </div>
       </div>
       <div class="modal-footer">
