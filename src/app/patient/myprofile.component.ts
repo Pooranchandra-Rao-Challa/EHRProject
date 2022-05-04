@@ -13,7 +13,7 @@ import { map, startWith } from 'rxjs/operators';
 export class MyprofileComponent implements OnInit {
   myControl = new FormControl();
 
-  
+
   options: string[] = ['501', '502', '401','402','601','603'];
   filteredOptions: Observable<string[]>;
   questions: string[] =  ['What is your favorite sports team?', 'Which historical figure would you most like to meet?', 'In what city were you born?','What was the make and model of your first car?',

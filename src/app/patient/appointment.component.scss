@@ -1,69 +1,82 @@
 @import"../../assets/common.scss";
+
 h4 {
   font-size: 22px;
   margin-top: 14px;
   margin-bottom: 16px;
   font-family: inherit;
 }
+
 .table thead th {
   border-top: 1px solid #e0e0e0;
   border-bottom-width: 0px;
-  font-family:'Roboto' !important;
+  font-family: 'Roboto' !important;
   --bs-table-accent-bg: none !important;
   background-color: #f5f5f5;
-  //font-weight: 500;
 }
-.button{
+
+.button {
   padding: 10px 0;
   text-align: right;
 }
-table{
+
+table {
   border-collapse: inherit !important;
   border-spacing: 0px !important;
 }
-.tab-content table,thead, th, td{
-  // padding: 37px 18px 29px 24px;
+
+.tab-content table,
+thead,
+th,
+td {
   font-size: 12px;
   line-height: 0.10;
   border: 1px solid #e0e0e0;
   border-radius: 2px;
 }
-  tr th  {
+
+tr th {
   font-weight: normal;
-  font-size:16px;
-  }
+  font-size: 16px;
+}
+
 .fade.in {
   opacity: 1;
 }
-.table-grayed-checkboxed tr th:first-child, .table-grayed-checkboxed tr td:first-child {
+
+.table-grayed-checkboxed tr th:first-child,
+.table-grayed-checkboxed tr td:first-child {
   width: 51px;
   height: 51px;
   margin: 0;
   padding: 13px !important;
   text-align: center;
 }
+
 .table {
   /* --bs-table-bg: transparent; */
   --bs-table-accent-bg: white;
 }
-.nav .nav-item, .navbar-nav .nav-item {
+
+.nav .nav-item,
+.navbar-nav .nav-item {
   line-height: 1;
   margin-left: 2%;
 }
+
 .nav-tabs {
-  border-bottom:1px solid #e0e0e0 ;
+  border-bottom: 1px solid #e0e0e0;
 }
-.tabsactive .nav-link{
+
+.tabsactive .nav-link {
   background-color: #e0e0e0;
-  color: rgba(73,73,73,0.69);
+  color: rgba(73, 73, 73, 0.69);
   border-radius: 4px;
 }
-.tabsactive .nav-link.active{
+
+.tabsactive .nav-link.active {
   background-color: #fff;
   color: #141414;
   border-radius: 4px;
 
 }
-
-
-

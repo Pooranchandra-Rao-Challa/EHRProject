@@ -97,8 +97,8 @@
     stroke: #41b6a6 !important;
   }
 }
-// Grey Calendar
-::ng-deep .grey-calendar.mat-form-field-appearance-outline .mat-form-field-outline {
+// Grey Calendar and mat input field
+::ng-deep .grey-matform.mat-form-field-appearance-outline .mat-form-field-outline {
   background-color: #f5f5f5 !important;
   color: #dedede !important;
   height: 45px;
@@ -111,7 +111,7 @@
 //   border: #41b6a6 !important;
 // }
 
-::ng-deep .grey-calendar
+::ng-deep .grey-matform
   mat-datepicker-toggle.mat-datepicker-toggle
   button.mat-icon-button
   span.mat-button-wrapper
@@ -122,7 +122,7 @@
   stroke-linejoin: round;
   transition: d 0.2s;
 }
-::ng-deep .grey-calendar
+::ng-deep .grey-matform
   mat-datepicker-toggle.mat-datepicker-toggle
   button.mat-focus-indicator.mat-icon-button {
   background-color: #d0d2db;
