@@ -76,6 +76,9 @@
                     </tr>
                 </tbody>
             </table>
+            <div class="table-NoRecord text-center py-2 col-12" *ngIf="providersDataSource.length == 0">
+              No Data Found
+            </div>
         </div>
 
         <div class="d-flex justify-content-end my-3">

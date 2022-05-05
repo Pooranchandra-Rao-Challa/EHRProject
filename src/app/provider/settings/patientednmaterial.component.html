@@ -1,52 +1,49 @@
-<div class="container">
-  <div class=" ">
+<div class="patient-material">
     <div class="row">
       <!-- Display Practice -->
       <div class="col-lg-12 col-md-12">
-<div class="card">
-  <div class="card-header">
-    <p class="title text-white"> Patient Education Material</p>
-    <button class="plusicon" type="button" data-bs-toggle="modal" data-bs-target="#modal-Patient-Education"
-      aria-expanded="false">
-      <i class="fa fa-plus"></i>
-    </button>
-  </div>
+        <div class="card">
+          <div class="card-header">
+            <span class="Helvetica-sans-serif-medium text-white mt-1">Patient Education Material</span>
+            <button class="plusicon" type="button" data-bs-toggle="modal" data-bs-target="#modal-Patient-Education"
+              aria-expanded="false">
+              <i class="fa fa-plus"></i>
+            </button>
+          </div>
+          <div class="card-body">
+            <div fxLayout="column">
+              <mat-accordion [displayMode]="'flat'">
+                <mat-expansion-panel class="expansion" *ngFor="let item of datasource; let i =index"
+                  [expanded]="indexExpanded == i " disabled="true" hideToggle="true" #example>
+                  <mat-expansion-panel-header [ngClass]="!expandedchangecolor?'open-exp':'close-exp'">
+                    <mat-icon class="play-left-arrow" (click)="togglePanels(i)" *ngIf="!example.expanded">play_arrow</mat-icon>
+                    <mat-icon class="play-down-arrow" (click)="togglePanels(i)" *ngIf="example.expanded">arrow_drop_down
+                    </mat-icon>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <section style="margin-top: 10px;">
+                      <p fxFlex="20" (click)="togglePanels(i)"><b>{{item.name}}</b></p>
+                    </section>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <mat-icon class="editicon" type="button" data-bs-toggle="modal"
+                      data-bs-target="#modal-Patient-Education">
+                      edit</mat-icon>
+                  </mat-expansion-panel-header>
+                  <div  class="expansion-title">
 
-  <div class="card-body">
-    <div fxLayout="column">
-
-
-      <mat-accordion [displayMode]="'flat'">
-
-        <mat-expansion-panel class="expansion" *ngFor="let item of datasource; let i =index"
-          [expanded]="indexExpanded == i " disabled="true" hideToggle="true" #example>
-          <mat-expansion-panel-header [ngClass]="!expandedchangecolor?'open-exp':'close-exp'">
-
-            <mat-icon class="playicon" (click)="togglePanels(i)" *ngIf="!example.expanded">play_arrow</mat-icon>
-            <mat-icon class="playicon" (click)="togglePanels(i)" *ngIf="example.expanded">arrow_drop_down</mat-icon>
-
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <section style="margin-top: 10px;">
-              <p fxFlex="20" (click)="togglePanels(i)"><b>{{item.name}}</b></p>
-            </section>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <mat-icon class="editicon" type="button" data-bs-toggle="modal" data-bs-target="#modal-Patient-Education">
-              edit</mat-icon>
-          </mat-expansion-panel-header>
-          <p><b>CODE:</b>&nbsp;&nbsp;{{item.codeSystem}}</p>
-          <p><b>Resouce Notes:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{item.resouceNote}}</p>
-          <p><b>Attachments:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{item.attachments}}</p>
-        </mat-expansion-panel>
-      </mat-accordion>
-      <div class="text-center  py-2 col-12" *ngIf="datasource.length==0">
-        <h6>No Education Materials Found.</h6>
+                  <p><b>CODE:</b>{{item.codeSystem}}</p>
+                  <p><b>Resouce Notes:</b>{{item.resouceNote}}</p>
+                  <p><b>Attachments:</b>{{item.attachments}}</p>
+                </div>
+                </mat-expansion-panel>
+              </mat-accordion>
+              <div class="text-center py-2 col-12" *ngIf="datasource.length == 0">
+                <h6 class="Helvetica-sans-serif-medium"> No Education Materials Found.</h6>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-</div>
-</div>
-</div>
 </div>
 
 <div class="modal Patient-Education " id="modal-Patient-Education" data-bs-keyboard="false" tabindex="-1"
@@ -54,44 +51,37 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <p class="Helvetica-sans-serif-medium"><b>Add Patient Education Material</b></p>
+        <span class="Helvetica-sans-serif-medium">Add Patient Education Material</span>
         <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close"
           style="border: 1px solid #fff;" (click)="refershform()">
           X
         </span>
       </div>
       <div class="modal-body scrollbar">
-
         <form [formGroup]="patientmaterialfrom">
 
           <div class="row">
             <mat-label> Name:</mat-label>
             <mat-form-field appearance="outline" class="col-md-12">
               <input matInput placeholder="" formControlName="name">
-
             </mat-form-field>
           </div>
           <div class="row">
-            <mat-label>Code System:
-
-            </mat-label>
+            <mat-label>Code System:</mat-label>
             <mat-form-field appearance="outline" class="col-md-3">
               <mat-select formControlName="codeSystem">
                 <mat-option *ngFor="let item of codeSystemDD" [value]="item.value">
                   {{item.viewValue}}
-
                 </mat-option>
               </mat-select>
             </mat-form-field>
             <mat-form-field appearance="outline" class="col-md-6">
               <mat-select placeholder="Enter Code ID">
-                <mat-option>
-
-                </mat-option>
+                <mat-option>  </mat-option>
               </mat-select>
             </mat-form-field>
             <div class="col-md-3">
-              <button mat-raised-button type="submit" [disabled]="!searchnow" class="searchnow">Search Now</button>
+              <button mat-raised-button type="submit" [disabled]="!searchnow" class="btn btn-green searchnow">Search Now</button>
             </div>
           </div>
           <div class="row">
@@ -110,9 +100,7 @@
                 <i class="fa fa-plus"></i>
               </button>
             </div>
-
           </div>
-
           <div formArrayName="attachments" class="row formarray">
             <div *ngFor="let atta of attachments.controls; let i=index ">
               <div [formGroupName]="i">
@@ -123,23 +111,15 @@
                   <div class="col-md-10"></div>
                   <div class="col-md-1 pt-2 pb-2">
                     <mat-icon class="closefile" (click)="removeattachemnt(i)">close</mat-icon>
-
                   </div>
                 </div>
               </div>
-
-
             </div>
           </div>
-
         </form>
       </div>
-
       <div class="modal-footer">
-
-        <button mat-raised-button type="submit" class="searchnow pull-right">Save</button>
-
-
+        <button mat-raised-button type="submit" class="btn btn-green searchnow  pull-right">Save</button>
       </div>
     </div>
   </div>

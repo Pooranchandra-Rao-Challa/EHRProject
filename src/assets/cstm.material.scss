@@ -64,7 +64,7 @@
   border-radius: 0 0px 0px 0 !important;
 }
 // check box
-::ng-deep .patient-check-box {
+::ng-deep .mat-checkbox {
   & .mat-checkbox-background,
   .mat-checkbox-frame {
     border-radius: 20% !important;
@@ -77,7 +77,7 @@
     border-radius: 5px;
   }
 }
-::ng-deep .patient-check-box:hover {
+::ng-deep .mat-checkbox:hover {
   & .mat-checkbox-background,
   .mat-checkbox-frame {
     border-color: #41b6a6;

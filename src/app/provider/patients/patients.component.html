@@ -36,7 +36,7 @@
           </button>
         </div>
         <div class="col-xl-1 col-lg-2 col-md-4 pb-3 pb-lg-0">
-          <mat-checkbox class="patient-check-box col-lg-12 col-md-9 col-12 pull-right"
+          <mat-checkbox class=" col-lg-12 col-md-9 col-12 pull-right"
             (change)="showInactivePatients($event)">
             Show Inactive
           </mat-checkbox>
@@ -132,7 +132,7 @@
             <mat-header-cell class="justify-content-center" *matHeaderCellDef>SELECT
             </mat-header-cell>
             <mat-cell class="justify-content-center" *matCellDef="let patient">
-              <mat-checkbox class="patient-check-box" [checked]="patient.active">
+              <mat-checkbox class="" [checked]="patient.active">
               </mat-checkbox>
             </mat-cell>
           </ng-container>

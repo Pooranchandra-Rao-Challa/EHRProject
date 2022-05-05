@@ -1,28 +1,10 @@
-.card {
+@import "../../../assets/common.scss";
+@import "../../../assets/cstm.material.scss";
 
-  width: 118%;
-
-  border-radius: 3px;
-  border: 1px solid #41b6a4;
-  box-sizing: border-box;
-
-
-}
 .card-header {
-  // width: calc(100% + 1px);
-    height: 54px;
-    display: table;
     border-radius: 0;
-    margin: 0;
-    padding: 4px 20px;
-  background-color: #41b6a4;
-  width: 100%;
-  color: #fff;
   display: flex;
    justify-content: space-between;
-
-
-
 }
 .exportdd{
    width: 120px;
@@ -32,71 +14,78 @@ color: #41b6a6;
 height: 45px;
 border-radius: 3%;
  }
-
-.hover-class:hover {
-  background-color: #41b6a6;
-  color: white;
-
-
-}
 .hover-class{
-  color: #41b6a6;
-  border: 1px solid #41b6a6;
-  background-color:white;
   width: 165px;
   height: 45px;
-    border-radius: 4px;
-
 }
 .mat-table  {
     border: 1px solid #41b6a6;
     font-size: 15px;
-    width: 1281px;
-   margin-left: -28px;
-}
 
+}
+.table-align{
+  margin-left: -20px;
+  margin-right: -20px;
+}
+.mat-header-row {
+  background-color:#fff;
+  color: #333;
+}
+.mat-header-cell:first-child{
+  border-left: 1px solid #41a6b6;
+}
+  .mat-header-cell{
+    border-left: 1px solid #41b6a6;
+    border-bottom: none;
+    font-size: 14px;
+  }
+  .mat-cell{
+    border-left: 1px solid #41a6b6;
+border-bottom: none;
+  }
+  .mat-row {
+    border-bottom: none;
+}
+.mat-row:hover {
+  background-color: #fff !important;
+}
 .mat-column-Date {
-  border-right: 1px solid  #41b6a6;
-  border-bottom: none !important;
   padding-left: 16px;
   padding-right: 18px;
 }
-
-
 .mat-column-Patient {
-  border-right: 1px solid  #41b6a6;
-  border-bottom: none !important;
+
   padding-left: 22px;
   padding-right: 18px;
 }
 .mat-column-LocationName {
-  border-right: 1px solid  #41b6a6;
-  border-bottom: none !important;
+
   padding-left: 16px;
   padding-right: 18px;
 }
 .mat-column-Provider {
-  border-right: 1px solid  #41b6a6;
-  border-bottom: none !important;
+
   padding-left: 16px;
   padding-right: 18px;
 }
 .mat-column-DataType {
-  border-right: 1px solid  #41b6a6;
-  border-bottom: none !important;
+
   padding-left: 16px;
   padding-right: 18px;
 }
 
 .mat-column-Action {
-  border-right: 1px solid  #41b6a6;
-  border-bottom: none !important;
+
   padding-left: 16px;
   padding-right: 18px;
 }
 .mat-column-Details {
-  border-right: 1px solid  #41b6a6;
-  border-bottom: none !important;
+
   padding-left: 131px;
     padding-right: 18px;
+}
+::ng-deep .green-calendar.mat-form-field-appearance-outline .mat-form-field-outline {
+  background-color: #fff !important;
+  color: #41a6b6 !important;
+  height: 45px;
 }

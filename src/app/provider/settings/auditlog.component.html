@@ -1,7 +1,7 @@
 
 <div class="card">
-  <div class="card-header">
-  <h5>Audit Log</h5>
+  <div class="card-header bg-color">
+  <h5 class="Helvetica-sans-serif-medium">Audit Log</h5>
   <mat-form-field  class="exportdd">
     <mat-select class="text-success export" placeholder="Export">
       <mat-option (click)="exportToCsv()">Csv</mat-option>
@@ -12,7 +12,7 @@
   <div class="card-body">
 
   <div class="row">
-    <mat-form-field appearance="outline" class="col-md-3">
+    <mat-form-field appearance="outline" class="col-md-3  green-calendar">
       <input matInput [matDatepicker]="dp"  placeholder="Start Date"   >
       <mat-datepicker-toggle matSuffix [for]="dp">
       </mat-datepicker-toggle>
@@ -22,7 +22,7 @@
 
           <!-- <h1>-</h1> -->
 
-    <mat-form-field appearance="outline" class="col-md-3">
+    <mat-form-field appearance="outline" class="col-md-3 green-calendar">
       <input matInput [matDatepicker]="dp1" placeholder="Stop Date"  >
       <mat-datepicker-toggle matSuffix [for]="dp1">
         <!-- <button  aria-hidden="true" class="is-primary button fa fa-calendar"
@@ -32,12 +32,12 @@
     </mat-form-field>
     <div class="col-md-2">
       <button mat-raised-button type="submit"
-      class="hover-class btn">Reset</button>
+      class="btn btn-green hover-class">Reset</button>
     </div>
   </div>
 
 
-<div #TABLE >
+<div #TABLE class="table-align">
   <table mat-table id="table" [dataSource]="datasource | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize" class="mat-elevation-z8" >
     <ng-container matColumnDef="Date">
       <th mat-header-cell *matHeaderCellDef> Date </th>
@@ -96,7 +96,7 @@
   </div> -->
   <div class="d-flex justify-content-end my-3">
     <nav aria-label="Page navigation ">
-      <ul class="pagination mt-4 custompage">
+      <ul class="pagination mt-4 page-green">
         <ngb-pagination  [pageSize]="pageSize" [collectionSize]="TotalItems"  [(page)]="page" aria-label="Default pagination">
         </ngb-pagination>
       </ul>

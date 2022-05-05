@@ -1,7 +1,7 @@
 <div class="card ">
   <div class="card-header bg-color ">
 
-    <h5 class="Helvetica-sans-serif-medium">Clinical Decision Support</h5>
+    <h5 class="Helvetica-sans-serif-medium mt-2">Clinical Decision Support</h5>
     <button class="plusicon" type="button" data-bs-toggle="modal" data-bs-target="#modal-new-alert-form"
       aria-expanded="false">
       <i class="fa fa-plus"></i>
@@ -10,7 +10,7 @@
   <div class="card-body">
     <div class="row ">
       <div class="col-md-10">
-        <p  class="Helvetica-sans-serif-medium">  Turn all Accountable Care Organization Alerts on or off for all your patients</p>
+        <p  class="Helvetica-sans-serif-medium title-heading ">Turn all Accountable Care Organization Alerts on or off for all your patients</p>
       </div>
       <div class="col-md-2 d-flex justify-content-end">
         <button class="btn btn-op" type="button" (click)="open()">On</button>
@@ -34,8 +34,8 @@
                 (click)="disablemedication(false)">On</button>
               <button class="btn" [ngClass]="medicationbtnhover? 'btn-on' : 'btn-off' " type="button"
                 (click)="disablemedication(true)">Off</button>
-              <mat-icon class="play-icon" *ngIf="!example.expanded" >play_arrow</mat-icon>
-              <mat-icon class="play-icon" *ngIf="example.expanded">arrow_drop_down</mat-icon>
+              <mat-icon class="play-up-arrow" *ngIf="!example.expanded" >play_arrow</mat-icon>
+              <mat-icon class="play-down-arrow" *ngIf="example.expanded">arrow_drop_down</mat-icon>
 
             </mat-panel-description>
           </mat-expansion-panel-header>
@@ -57,17 +57,14 @@
                 (click)="disablecavities(true)" type="button">
                 Off
               </button>
-              <mat-icon class="play-icon" *ngIf="!example1.expanded">play_arrow</mat-icon>
-              <mat-icon class="play-icon" *ngIf="example1.expanded">arrow_drop_down</mat-icon>
+              <mat-icon class="play-up-arrow" *ngIf="!example1.expanded">play_arrow</mat-icon>
+              <mat-icon class="play-down-arrow" *ngIf="example1.expanded">arrow_drop_down</mat-icon>
 
             </mat-panel-description>
           </mat-expansion-panel-header>
           <div *ngTemplateOutlet="myTemplateRef;">
           </div>
         </mat-expansion-panel>
-
-
-
         <mat-expansion-panel hideToggle [expanded]="step === 3" (opened)="setStep(3)" [ngClass]="isExpansionDisabled()" [disabled]="disableddiabetes"
           class="customheader" [ngStyle]="disableddiabetes?{'opacity': '0.75'} : {'opacity': '1'}" hideToggle="true" #example2>
           <mat-expansion-panel-header class="panel-header">
@@ -82,18 +79,14 @@
               <button class="btn" type="button" [ngClass]="diabetesbtnhover? 'btn-on' : 'btn-off' " type="button"
                 (click)="disablediabetes(true)">Off
               </button>
-              <mat-icon class="play-icon" *ngIf="!example2.expanded">play_arrow</mat-icon>
-              <mat-icon class="play-icon" *ngIf="example2.expanded">arrow_drop_down</mat-icon>
+              <mat-icon class="play-up-arrow" *ngIf="!example2.expanded">play_arrow</mat-icon>
+              <mat-icon class="play-down-arrow" *ngIf="example2.expanded">arrow_drop_down</mat-icon>
 
             </mat-panel-description>
           </mat-expansion-panel-header>
           <div *ngTemplateOutlet="myTemplateRef;">
           </div>
         </mat-expansion-panel>
-
-
-
-
         <mat-expansion-panel hideToggle [ngClass]="isExpansionDisabled()"  [expanded]="step === 4" (opened)="setStep(4)" [disabled]="disabledBp"
           class="customheader" [ngStyle]="disabledBp?{'opacity': '0.75'} : {'opacity': '1'}" hideToggle="true" #example3>
           <mat-expansion-panel-header class="panel-header">
@@ -109,8 +102,8 @@
                 (click)="disableBloodPressure(true)">
                 Off
               </button>
-              <mat-icon class="play-icon" *ngIf="!example3.expanded">play_arrow</mat-icon>
-              <mat-icon class="play-icon" *ngIf="example3.expanded">arrow_drop_down</mat-icon>
+              <mat-icon class="play-up-arrow" *ngIf="!example3.expanded">play_arrow</mat-icon>
+              <mat-icon class="play-down-arrow" *ngIf="example3.expanded">arrow_drop_down</mat-icon>
 
             </mat-panel-description>
           </mat-expansion-panel-header>
@@ -131,8 +124,8 @@
                 (click)="disableHighRisk(true)">
                 Off
               </button>
-              <mat-icon class="play-icon" *ngIf="!example4.expanded">play_arrow</mat-icon>
-              <mat-icon class="play-icon" *ngIf="example4.expanded">arrow_drop_down</mat-icon>
+              <mat-icon class="play-up-arrow" *ngIf="!example4.expanded">play_arrow</mat-icon>
+              <mat-icon class="play-down-arrow" *ngIf="example4.expanded">arrow_drop_down</mat-icon>
 
             </mat-panel-description>
           </mat-expansion-panel-header>
@@ -167,7 +160,7 @@
                   </mat-form-field>
                 </div>
                 <div class="row">
-                  <mat-label>Description*</mat-label>
+                  <mat-label >Description*</mat-label>
                   <mat-form-field appearance="outline" class="col-md-12">
                     <input matInput placeholder (mouseover)=" descriptionCheck()" (mouseleave)="descriptionUnCheck()"
                     formControlName="description">
@@ -253,26 +246,25 @@
 
         <!-- Add New Altert Modal (to remove error extra code is add is shoud not to use after get solution i will remove) -->
 
-      <div class="modal fade new-alert-form" id="modal-new-alert-form" data-bs-keyboard="false" tabindex="-1"
+      <!-- <div class="modal fade new-alert-form" id="modal-new-alert-form" data-bs-keyboard="false" tabindex="-1"
       aria-hidden="true">
       <div class="modal-dialog">
 
       </div>
-      </div>
+      </div> -->
 
 
       <ng-template #myTemplateRef>
-        <div class="row">
-          <mat-label>Description1*</mat-label>
+        <div class="row field-align">
+          <mat-label class="mt-1 Helvetica-sans-serif-small">Description*</mat-label>
           <mat-form-field appearance="outline">
             <input matInput
               placeholder="This Clinical Decision Support Rule is used to provide alerts to providers and staff regarding a patient�s active Medication Allergies as well as the severity of his/her allergy to each medication in their Medication Allergy List.">
           </mat-form-field>
         </div>
-        <div class="row">
-          <mat-label>Trigger Rule*
 
-          </mat-label>
+        <div class="row field-align">
+          <mat-label  class="Helvetica-sans-serif-small">Trigger Rule*   </mat-label>
           <mat-form-field appearance="outline">
             <mat-select required>
               <mat-option *ngFor="let trigger of TriggerRuleDD" [value]="trigger.value">
@@ -284,7 +276,7 @@
         <div class="panel-heading">
           <div class="row">
             <div class="col-lg-6">
-              <p class="title">Trigger Condition Builder</p>
+              <p class="title trigger-align">Trigger Condition Builder</p>
             </div>
             <div class="col-lg-6">
             <button type="button" class="btn btn-green btn-clinic pull-right" data-bs-toggle="modal" data-bs-target="#TriggerModal">
@@ -294,7 +286,7 @@
           </div>
         </div>
         <table class="table table-borderless">
-          <thead>
+          <thead class="bg-color">
             <tr>
               <td></td>
               <td>
@@ -328,40 +320,36 @@
                 <p>Patient has active Medication Allergies in their Medication Allergy List. Active = Medication Allergy
                   has a start date but no end date</p>
               </td>
-              <td>  <mat-icon class="close-icon"class="FieldInvalid">close
+              <td>  <mat-icon class="close-icon Cancelbtn">close
               </mat-icon>
                 </td>
             </tr>
           </tbody>
         </table>
         <br>
-        <div class="row">
-          <mat-label>Resolution:
-          </mat-label>
+        <div class="row field-align">
+          <mat-label class="Helvetica-sans-serif-small">Resolution: </mat-label>
           <mat-form-field appearance="outline">
             <textarea matInput
               placeholder="Patient has no active Medication Allergies in their Medication Allergy List. Inactive = Medication Allergy has a start date and an end date"></textarea>
           </mat-form-field>
         </div>
-        <div class="row">
-          <mat-label>Bibliography:
-          </mat-label>
+        <div class="row field-align">
+          <mat-label class="Helvetica-sans-serif-small">Bibliography:</mat-label>
           <mat-form-field appearance="outline">
             <textarea matInput
               placeholder="Frew A. General principles of investigating and managing drug allergy. Br J Clin Pharmacol. 2011;71:642�6."></textarea>
           </mat-form-field>
         </div>
-        <div class="row">
-          <mat-label>Developer:
-
-          </mat-label>
+        <div class="row field-align">
+          <mat-label class="Helvetica-sans-serif-small">Developer: </mat-label>
           <mat-form-field appearance="outline">
             <input matInput placeholder="EHR One, LLC">
           </mat-form-field>
         </div>
-        <div class="row">
+        <div class="row field-align">
           <div class="col-md-2">
-            <mat-label>Funding Source:</mat-label>
+            <mat-label class="Helvetica-sans-serif-small">Funding Source:</mat-label>
           </div>
           <div class="col-md-4">
             <mat-form-field appearance="outline">
@@ -370,7 +358,7 @@
           </div>
 
           <div class="col-md-2">
-            <mat-label> Release Date(s)</mat-label>
+            <mat-label class="Helvetica-sans-serif-small"> Release Date(s)</mat-label>
           </div>
 
           <mat-form-field appearance="outline" class=" green-calendar col-md-4">
@@ -382,6 +370,7 @@
           </mat-form-field>
         </div>
         <button class="btn btn-green btn-clinic pull-right" type="button">Save</button>
+
       </ng-template>
 
 

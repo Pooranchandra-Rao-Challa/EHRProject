@@ -29,8 +29,8 @@
               </div>
             </div>
             <div class="colC">
-              <div class="row panel-title bg-color m-0">
-                <div class="col-xl-11 col-lg-9 col-md-8 col-12">Practice Location</div>
+              <div class="row panel-title practice-align bg-color m-0">
+                <div class="col-xl-11 col-lg-9 col-md-8 col-12">Practice Locations</div>
                 <div class="col-xl-1 col-lg-3 col-md-4 col-12">
                   <button class="plusicon pull-right" data-bs-toggle="modal" data-bs-target="#practice-modal"
                     (click)="closePopup()">
@@ -40,7 +40,7 @@
               </div>
 
               <div class="scrollable-mat-table">
-                <mat-table class="table table-responsive" [dataSource]="locationdataSource">
+                <mat-table class="table table-responsive practice-table-align" [dataSource]="locationdataSource">
                   <ng-container matColumnDef="Location">
                     <mat-header-cell *matHeaderCellDef>Location name</mat-header-cell>
                     <mat-cell *matCellDef="let loc"><span class="text-decoration ">
@@ -50,15 +50,15 @@
                   </ng-container>
                   <ng-container matColumnDef="Address">
                     <mat-header-cell *matHeaderCellDef>Address</mat-header-cell>
-                    <mat-cell *matCellDef="let loc">{{loc.Location_Street_Address}}</mat-cell>
+                    <mat-cell class="address-oncursor" *matCellDef="let loc">{{loc.Location_Street_Address}}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="Phone">
                     <mat-header-cell *matHeaderCellDef>Phone</mat-header-cell>
-                    <mat-cell *matCellDef="let loc">{{loc.Location_Phone}}</mat-cell>
+                    <mat-cell class="address-oncursor" *matCellDef="let loc">{{loc.Location_Phone}}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="Providers">
                     <mat-header-cell *matHeaderCellDef># of Providers</mat-header-cell>
-                    <mat-cell *matCellDef="let loc">{{loc.providers}}</mat-cell>
+                    <mat-cell class="address-oncursor" *matCellDef="let loc">{{loc.providers}}</mat-cell>
                   </ng-container>
 
                   <mat-header-row *matHeaderRowDef="locationColumns"></mat-header-row>
@@ -69,12 +69,14 @@
             </div>
             <div class="colC">
               <div class="">
-                <div class="row panel-title bg-color m-0">
+                <div class="row panel-title practice-align bg-color m-0">
                   <div class="col-xl-2 col-lg-12 col-md-12 col-12 providerlabel">Users</div>
                   <div class="col-xl-4 col-lg-12 col-md-12 col-12 providerlabel">Practice ID#:
                     <u>{{user.UserId}}</u>
                   </div>
-                  <div class="col-xl-5 col-lg-9 col-md-9 col-12 providerlabel">{{user.BusinessName}}</div>
+                  <div class="col-xl-5 col-lg-9 col-md-9 col-12 providerlabel">Practice Name:
+                    {{user.BusinessName}}
+                  </div>
                   <div class="col-xl-1 col-lg-3 col-md-3 col-12">
                     <button class="plusicon pull-right" data-bs-toggle="modal" data-bs-target="#user-modal">
                       <i class="fa fa-plus addprovider mx-1"></i>
@@ -84,7 +86,7 @@
               </div>
 
               <div class="scrollable-mat-table">
-                <mat-table class="table table-responsive " [dataSource]="providersDataSource">
+                <!-- <mat-table class="table table-responsive user-row-align" [dataSource]="providersDataSource">
                   <ng-container matColumnDef="FullName">
                     <mat-header-cell *matHeaderCellDef>Full Name</mat-header-cell>
 
@@ -109,7 +111,7 @@
                   <ng-container matColumnDef="Space">
                     <mat-header-cell *matHeaderCellDef></mat-header-cell>
                     <mat-cell *matCellDef="let user">
-                      <mat-checkbox class="example-margin" [(ngModel)]="user.Admin"
+                      <mat-checkbox [(ngModel)]="user.Admin"
                         (ngModelChange)="toggleAdmin(user,$event)">
                         <span class="admineclass">Admin</span>
                       </mat-checkbox>
@@ -128,13 +130,70 @@
                   <ng-container matColumnDef="EmergencyAccess">
                     <mat-header-cell *matHeaderCellDef>Emergency Access</mat-header-cell>
                     <mat-cell *matCellDef="let user">
-                      <mat-checkbox class="example-margin" [(ngModel)]="user.EmergencyAccess"
+                      <mat-checkbox [(ngModel)]="user.EmergencyAccess"
+                        (ngModelChange)="toggleEmergencyAccess(user,$event)"></mat-checkbox>
+                    </mat-cell>
+                  </ng-container>
+                  <mat-header-row *matHeaderRowDef="providerColumns"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: providerColumns"></mat-row>
+                </mat-table> -->
+                <mat-table class="table table-responsive user-row-align" [dataSource]="providersDataSource">
+                  <ng-container matColumnDef="Image">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let user">
+                      <span>
+                        <img class="avatar avatar-empty mx-2"
+                          src="/assets/images/avatar-empty-0b15d6123f5339b0505eef6ad8a8fe0d22d1406692b5c16b3839c561e9c92e60.svg"
+                          alt="Avatar empty" width="32" height="32" style="border-radius: 36px ;background: #cfcaca;">
+                      </span>
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="FullName">
+                    <mat-header-cell *matHeaderCellDef>Full Name</mat-header-cell>
+                    <mat-cell *matCellDef="let user"><span class="text-decoration">
+                        <a data-remote="true" data-bs-toggle="modal" data-bs-target="#edit-user-modal"
+                          class="cursorpointer" (click)="getUserDataforEdit(user)">{{user.FirstName}}
+                          {{user.LastName}}</a></span></mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="Email">
+                    <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
+                    <mat-cell *matCellDef="let user">{{user.email}}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="Role">
+                    <mat-header-cell *matHeaderCellDef>Role</mat-header-cell>
+                    <mat-cell *matCellDef="let user">{{user.PracticeRole}}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="Space">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let user">
+                      <mat-checkbox [(ngModel)]="user.Admin"
+                        (ngModelChange)="toggleAdmin(user,$event)">
+                        <span class="admineclass">Admin</span>
+                      </mat-checkbox>
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="Status">
+                    <mat-header-cell class="justify-content-center" *matHeaderCellDef>Status</mat-header-cell>
+                    <mat-cell class="justify-content-center" *matCellDef="let user">
+                      <a role="button" (click)="toggleStatus(user,$event)"
+                        [ngClass]="user.Active?'StatusActive':'inactive'">
+                        <span *ngIf="user.Active">Active</span>
+                        <span *ngIf="!user.Active">Inactive</span>
+                      </a>
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="EmergencyAccess">
+                    <mat-header-cell class="justify-content-center" *matHeaderCellDef>Emergency Access</mat-header-cell>
+                    <mat-cell class="justify-content-center" *matCellDef="let user">
+                      <mat-checkbox [(ngModel)]="user.EmergencyAccess"
                         (ngModelChange)="toggleEmergencyAccess(user,$event)"></mat-checkbox>
                     </mat-cell>
                   </ng-container>
                   <mat-header-row *matHeaderRowDef="providerColumns"></mat-header-row>
                   <mat-row *matRowDef="let row; columns: providerColumns"></mat-row>
                 </mat-table>
+
               </div>
             </div>
           </div>
@@ -150,8 +209,8 @@
     <div class="modal-dialog modal-md" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title" *ngIf="!displayforEditLocation">Add location</h4>
-          <h4 class="modal-title" *ngIf="displayforEditLocation">Edit location</h4>
+          <h4 class="modal-title Helvetica-sans-serif-medium" *ngIf="!displayforEditLocation">Add location</h4>
+          <h4 class="modal-title Helvetica-sans-serif-medium" *ngIf="displayforEditLocation">Edit location</h4>
           <button type="button" class="btn cross-mark" data-bs-dismiss="modal" aria-label="Close">x</button>
         </div>
             <div class="modal-body bg-white scroolbar addlocationbody">
@@ -219,7 +278,7 @@
                           name="location[street_address]" id="location_street_address">
                         <div class="row profile-block-body">
                           <div class="col-lg-12">
-                            <div class="form-group"><label>ADDRESS</label></div>
+                            <div class="form-group my-3"><label>ADDRESS</label></div>
                             <div class="row">
                               <div class="col-lg-9 col-md-9 col-sm-9">
                                 <div class="form-group">
@@ -227,13 +286,13 @@
                                     class="form-control mx-0 my-2 inputclass" [(ngModel)]="PracticeLocData.Street"
                                     #Address />
                                 </div>
-                                <h6>Enter Address - Street Address, City, State, Zipcode</h6>
+                                <h6 class="Helvetica-sans-serif-small">Enter Address - Street Address, City, State, Zipcode</h6>
                               </div>
                               <div class="col-lg-3 col-md-3 col-sm-3">
                                 <div class="form-group">
                                   <button type="submit" [disabled]="PracticeLocData.Street==''"
                                     (click)="AddressVerification()"
-                                    class="btn btn-green btn mb-2 btn-lg btn-md mt-2">VERIFY</button>
+                                    class="btn btn-green btn-lg mt-2">VERIFY</button>
                                 </div>
                               </div>
                             </div>
@@ -321,13 +380,13 @@
                       </div>
                     </div>
                     <hr>
-                    <div class="row-container ">
+                    <div class="row-container location-select">
                       <div class="row my-3">
                         <div class="col-lg-2 col-md-2 col-sm-2"></div>
-                        <div class="col-lg-3 col-md-3 col-sm-3 col-lg-offset-left-10 text-center ">
+                        <div class="form-group col-lg-3 col-md-3 col-sm-3 col-lg-offset-left-10 text-center ">
                           <label>Open:</label>
                         </div>
-                        <div class="collabel-lg-3 col-md-3 col-sm-3 col-lg-offset-left-10 text-center">
+                        <div class="form-group collabel-lg-3 col-md-3 col-sm-3 col-lg-offset-left-10 text-center">
                           <label>Closed:</label>
                         </div>
                         <div class="col-lg-4"></div>
@@ -545,7 +604,7 @@
                 </button>
               </div>
               <div class="d-flex justify-content-end">
-                <button type="button" class="btn btn-lg btn-green col-xl-4 col-lg-4 col-md-3 col-8"
+                <button type="button" class="btn btn-lg btn-green col-xl-4 col-lg-4 col-md-3 col-8 mx-4"
                   data-bs-dismiss="modal" (click)="updateLocation()">
                   Save Changes
                 </button>

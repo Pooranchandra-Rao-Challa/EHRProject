@@ -30,7 +30,7 @@ export class PracticeComponent implements OnInit {
   LocationAddress: any;
   user: User;
   locationColumns: string[] = ['Location', 'Address', 'Phone', 'Providers'];
-  providerColumns: string[] = ['FullName', 'Email', 'Role', 'Space', 'Status', 'EmergencyAccess']
+  providerColumns: string[] = ['Image','FullName', 'Email', 'Role', 'Space', 'Status', 'EmergencyAccess']
   providerLocationColumn: string[] = ['LocationName', 'CityState', 'PracticeSchedule', 'ServicedLocation'];
   locationsInfo: UserLocations[];
   hover: any;

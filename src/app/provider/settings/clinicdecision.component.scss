@@ -1,8 +1,6 @@
 @import "../../../assets/common.scss";
 @import "../../../assets/cstm.material.scss";
-// .card {
-//   width: 1265px;
-// }
+
 .card-header {
   display: flex;
   flex-direction: row;
@@ -14,16 +12,14 @@
 .new-alert-form .modal-dialog {
   max-width: 780px;
 }
+
 .TriggerModal .modal-dialog {
   max-width: 780px;
 }
 
-::ng-deep
-  .mat-form-field-appearance-outline:hover
-  .mat-form-field-outline{
-    background-color: #fff !important;
-  }
-
+::ng-deep .mat-form-field-appearance-outline:hover .mat-form-field-outline {
+  background-color: #fff !important;
+}
 
 .Active {
   background-color: rgba(65, 182, 166, 0.5);
@@ -43,6 +39,8 @@
   height: 40px;
   border-radius: 0px;
   border-right: none;
+  font-size: 15px;
+  font-family: revert;
 }
 
 .btn-off {
@@ -50,6 +48,8 @@
   width: 80px;
   height: 40px;
   border-radius: 0px;
+  font-size: 15px;;
+  font-family: revert;
 }
 
 .btn-off:hover {
@@ -83,13 +83,18 @@
   width: 80px;
   height: 40px;
   border-radius: 0px;
+  font-size: 15px;
+  font-family: revert;
 }
 
 .btn-of {
   border: 1px solid #41b6a6;
   width: 80px;
   height: 40px;
+  font-size: 15px;
+  font-family: revert;
 }
+
 .btn-of:hover {
   background-color: #41b6a6;
   color: #fff
@@ -113,14 +118,15 @@
   margin-top: 1px;
   border-radius: 0;
 }
+
 .titleText {
   margin-top: 11px;
   font-size: 15px;
   font-weight: 700;
-  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   color: #4A4A4A;
-
 }
+
 .panel-header {
   min-height: 50px;
   background-color: rgba(65, 182, 166, 0.5) !important;
@@ -131,13 +137,21 @@ mat-accordion .mat-expansion-panel:first-of-type {
   border-top-left-radius: initial;
 }
 
-.play-icon {
+.play-up-arrow {
   background-color: 16px solid #FD8F25;
   color: #FD8F25;
   padding-top: 8px;
-    margin-left: 20px;
-    margin-right: -20px;
+  margin-left: 20px;
+  margin-right: -4px;
+}
 
+.play-down-arrow {
+  background-color: 16px solid #FD8F25;
+  color: #FD8F25;
+  font-size: 45px;
+  margin-right: -4px;
+  margin-left: 20px;
+  margin-top: -5px;
 }
 
 .panel-heading {
@@ -145,8 +159,9 @@ mat-accordion .mat-expansion-panel:first-of-type {
   text-align: left;
   background-color: rgba(65, 182, 166, 0.2);
   margin: 0px -24px;
-   border-top: 1px solid #41b6a6;
+  border-bottom: 1px solid #41b6a6;
 }
+
 .code {
   background-color: #41b6a6;
   width: 105%;
@@ -163,10 +178,6 @@ mat-accordion .mat-expansion-panel:first-of-type {
   margin-top: 4px;
 }
 
-thead {
-  background-color: #41b6a6;
-}
-
 .Trigger-content {
   height: 454px;
 }
@@ -174,7 +185,6 @@ thead {
 .btn-clinic {
   height: 45px;
   width: 150px;
-
 }
 
 .FieldValid {
@@ -186,21 +196,9 @@ thead {
 }
 
 .FieldValid {
-
   height: 24px;
   background: #64ab5b;
   color: #f7f2f2;
-
-}
-
-.FieldInvalid {
-  border-radius: 77%;
-  height: 24px;
-  background: red;
-  color: white;
-  border-color: red;
-  text-align: center;
-  margin-right: 13px;
 }
 
 .FieldValiddatepicker {
@@ -230,3 +228,48 @@ thead {
   border-bottom-color: #41b6a6;
 }
 
+.field-align {
+  margin-left: 25px;
+}
+
+::ng-deep .green-calendar.mat-form-field-appearance-outline .mat-form-field-outline {
+  background-color: #fff !important;
+  color: #41a6b6 !important;
+  height: 45px;
+}
+
+.Cancelbtn {
+  border-radius: 77%;
+  background: #fff !important;
+  color: #d64841 !important;
+  font-size: 16px !important;
+  margin-right: 20px !important;
+  padding: 3px !important;
+  border: 1px solid #d64841;
+}
+
+.Cancelbtn:hover {
+  background: #d64841 !important;
+  color: #fff !important;
+}
+
+.trigger-align {
+  margin-top: 13px;
+}
+
+input::-webkit-input-placeholder {
+  color: #74757E !important;
+  font-size: 100%;
+  font-family: "Open Sans", sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+
+}
+
+.title-heading {
+  margin-top: 9px;
+}
+
+.prevent-click {
+  margin-top: -12px;
+}

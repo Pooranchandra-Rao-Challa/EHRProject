@@ -276,6 +276,15 @@ input::-webkit-input-placeholder {
     width: 310px;
    }
 }
+.modal-dialog {
+  overflow-y: initial !important;
+  max-width: inherit !important;
+  margin: 0 !important;
+}
+.modal-body {
+  max-height: calc(90vh - 180px);
+  overflow-y: auto;
+}
 
 
 

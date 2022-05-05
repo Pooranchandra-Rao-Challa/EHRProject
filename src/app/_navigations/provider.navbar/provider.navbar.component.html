@@ -65,7 +65,7 @@
     <li [matMenuTriggerFor]="menu" class="nav-item nav-top-right">
       <a class="nav-link dropdown-toggle" id="UserDropdown">
         <span class="profile-text">{{ this.user.FirstName}}&nbsp;&nbsp;{{this.user.LastName}}</span>
-        <img class="img-xs rounded-circle mx-1" src="../../../assets/images/default.png">
+        <img class="img-xs rounded-circle header-avatar mx-1" src="../../../assets/images/header-dropdown-img.svg">
       </a>
       <mat-menu #menu="matMenu" [hasBackdrop]="true">
         <div class="list" style="border-top: 1px solid #86c1bb; width: 100%;" (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()">

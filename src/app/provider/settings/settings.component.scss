@@ -134,6 +134,7 @@
   background-color: #F7F7F7 !important;
   color: black !important;
   min-height: 50px;
+  padding: 12px;
 }
 .mat-row:hover{
   background-color: white !important;
@@ -163,17 +164,11 @@
   font-size: 20px;
 }
 
-// .labelclass {
-//   border-radius: 4px;
-//   max-width: 190px;
-//   padding: 16px;
-//   color: #525358;
-//   height: 45px;
-//   font-size: 15px;
-//   font-weight: 400;
-//   background: #d6d8df;
-//   font-family: Roboto, "Helvetica Neue", sans-serif;
-// }
+.labelclass {
+  color: #74757e;
+  font-size: 15px;
+  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+}
 .inputtimezone{
   height: 28px;
   background-color: #fff;
@@ -466,8 +461,9 @@ td.mat-footer-cell {
 }
 
 .weeks {
-  color: #808387;
-  font-size: 16px;
+  color: #74757e;
+  font-size: 15px;
+  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
 }
 
 input.mat-input-element {
@@ -559,43 +555,43 @@ ul.menuclass li.active a {
 .addfromdesign {
   background: #ececec;
 }
-::ng-deep .mat-checkbox-checked.mat-accent {
-  .mat-checkbox-background,
-  .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
-    background-color: rgb(243, 242, 242);
-    border-radius: 20% !important ;
-    border-color: rgb(151, 150, 150);
-    height: 19px;
-    width: 19px;
-  }
-  .mat-checkbox-checkmark-path {
-    stroke: grey !important;
-  }
-}
-::ng-deep .example-margin:hover {
-  & .mat-checkbox-background,
-  .mat-checkbox-frame {
-    border-color: #41b6a6;
-  }
-}
-::ng-deep .example-margin {
-  & .mat-checkbox-background,
-  .mat-checkbox-frame {
-    border-radius: 20% !important;
-    border-color: #cacaca;
-    background-color: #eeeaea;
-    border-width: 2px;
-    border-style: solid;
-    width: 19px;
-    height: 19px;
-  }
-}
-::ng-deep .example-margin:hover {
-  & .mat-checkbox-background,
-  .mat-checkbox-frame {
-    border-color: #41b6a6;
-  }
-}
+// ::ng-deep .mat-checkbox-checked.mat-accent {
+//   .mat-checkbox-background,
+//   .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+//     background-color: rgb(243, 242, 242);
+//     border-radius: 20% !important ;
+//     border-color: rgb(151, 150, 150);
+//     height: 19px;
+//     width: 19px;
+//   }
+//   .mat-checkbox-checkmark-path {
+//     stroke: grey !important;
+//   }
+// }
+// ::ng-deep .example-margin:hover {
+//   & .mat-checkbox-background,
+//   .mat-checkbox-frame {
+//     border-color: #41b6a6;
+//   }
+// }
+// ::ng-deep .example-margin {
+//   & .mat-checkbox-background,
+//   .mat-checkbox-frame {
+//     border-radius: 20% !important;
+//     border-color: #cacaca;
+//     background-color: #eeeaea;
+//     border-width: 2px;
+//     border-style: solid;
+//     width: 19px;
+//     height: 19px;
+//   }
+// }
+// ::ng-deep .example-margin:hover {
+//   & .mat-checkbox-background,
+//   .mat-checkbox-frame {
+//     border-color: #41b6a6;
+//   }
+// }
 .cell-breakWord {
   word-wrap: break-word;
   white-space: normal !important;
@@ -606,7 +602,11 @@ ul.menuclass li.active a {
 }
 .cursorpointer:hover {
   cursor: pointer !important;
-  color: #fdb009 !important;
+  color: #fe8f00 !important;
+}
+.address-oncursor:hover{
+  cursor: pointer;
+  color: #f58353;
 }
 .notallowCursor {
   cursor: not-allowed !important;
@@ -872,7 +872,46 @@ a.disabled{
 }
 .modal .modal-dialog .modal-content .modal-body.addlocationbody {
   padding: 25px 25px 0px 25px !important;
+  height: 650px;
 }
 .btn-edit{
   height: 45px;
+}
+::ng-deep .mat-checkbox-inner-container{
+  margin-right: 15px !important;
+    margin-top: 0px !important;
+}
+.modal-header h4{
+  font-weight: 600;
+}
+.card-header{
+  padding: 10px 29px;
+}
+.practice-align.panel-title{
+  padding: 10px;
+}
+.practice-table-align .mat-row{
+  padding: 0px 12px !important;
+}
+.user-row-align .mat-row{
+  padding: 5px;
+}
+.form-group label{
+  font-weight: 700;
+  font-size: 12px;
+  color: #333;
+  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+}
+.location-select select{
+  color: #41b6a6;
+}
+img.avatar:hover{
+  opacity: 0.75;
+  cursor: pointer;
+}
+.user-row-align{
+  mat-cell:nth-child(1),
+  mat-header-cell:nth-child(1) {
+    flex: 0 0 3.5%;
+  }
 }
