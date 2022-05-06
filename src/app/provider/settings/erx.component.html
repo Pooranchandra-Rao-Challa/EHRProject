@@ -1,34 +1,30 @@
-<div class="card">
+<div class="card erx-wrapper">
   <div class="card-header">
-  <h5>Global eRx Settings</h5>
+    <h5 class="Helvetica-sans-serif-medium mt-2">Global eRx Settings</h5>
   </div>
-  <div class="card-body">
-     <div class="input-group">
-      <span class="input-group-text" id="basic-addon3">Clinic ID:
-      </span>
-      <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+  <div class="card-body erx-controls">
+    <div class="cstm-height">
+      <div class="input-group">
+        <span class="input-group-text" id="basic-addon3">Clinic ID<b>:</b></span>
+        <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder="570">
+      </div>
+      <div class="input-group">
+        <span class="input-group-text" id="basic-addon3">Clinic Key<b>:</b> </span>
+        <input type="password" class="form-control clinickey" id="basic-url" aria-describedby="basic-addon3" [value]="ClinicKey"
+         [type]="showkey ? 'text' : 'password'">
+        <span class="keyhide mx-1" (click)="togglePasswordVisibility()">
+          <u>{{showkey?'hide key':'show key'}}</u>
+        </span>
+      </div>
+      <div class="input-group">
+        <span class="input-group-text" id="basic-addon3">API Location<b>:</b></span>
+        <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder="api/12/api.asmx">
+      </div>
+      <div class="input-group">
+        <span class="input-group-text" id="basic-addon3">SSO Location<b>:</b></span>
+        <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder="LoginSingleSignOn.aspx">
+      </div>
     </div>
-    <div class="input-group">
-      <span class="input-group-text" id="basic-addon3">Clinic Key:
-
-      </span>
-      <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3"[type]="showkey ? 'text' : 'password'">
-      <span class ="keyhide"(click)="togglePasswordVisibility()">
-      <u>{{showkey?'hide key':'show key'}}</u>
-      </span>
-    </div>
-    <div class="input-group">
-      <span class="input-group-text" id="basic-addon3">API Location:
-      </span>
-      <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder="api/12/api.asmx">
-    </div>
-    <div class="input-group">
-      <span class="input-group-text" id="basic-addon3">SSO Location:
-      </span>
-      <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder="LoginSingleSignOn.aspx">
-    </div>
-
-    <button type="submit" class="btn-lg">Save</button>
-
+    <button type="submit" class="btn btn-green btn-lg pull-right">Save</button>
   </div>
-  </div>
+</div>

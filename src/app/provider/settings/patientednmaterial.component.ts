@@ -22,9 +22,9 @@ export class PatientEdnMaterialComponent implements OnInit {
  // columnsToDisplay = [ 'name', 'codeSystem', 'resouceNote', 'attachments'];
  columnsToDisplay = ['action', 'name', 'weight', 'symbol', 'position'];
   data: patientedmaterial[] = [
-    {name:"sodium iodide",codeSystem:"LOINC",resouceNote:"lonic",attachments:"gghg"},
-  {name:"sodium",codeSystem:"LOINC",resouceNote:"lonic",attachments:"gghg"},
-  {name:"sodium",codeSystem:"LOINC",resouceNote:"lonic",attachments:"gghg"}
+    {name:"sodium iodide",codeSystem:"lonic",resouceNote:"lonic",attachments:"gghg"},
+  {name:"sodium",codeSystem:"lonic",resouceNote:"lonic",attachments:"gghg"},
+  {name:"sodium",codeSystem:"lonic",resouceNote:"lonic",attachments:"gghg"}
 
 ];
 

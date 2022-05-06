@@ -16,6 +16,7 @@ declare var $: any;
 })
 export class ErxComponent implements OnInit {
   public showkey: boolean = false;
+  ClinicKey:any= 'adffhfjghjfadfadfgd';
   ngOnInit(): void {}
   public togglePasswordVisibility(): void {
     this.showkey = !this.showkey;

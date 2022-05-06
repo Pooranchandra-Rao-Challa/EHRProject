@@ -36,13 +36,13 @@
   color: #41b6a6 !important;
   border-radius: 6px;
 }
-::ng-deep
-  .mat-form-field-appearance-outline:hover
-  .mat-form-field-outline,
-.mat-form-field-appearance-outline:active .mat-form-field-outline {
-  background: #ebf6f5 !important;
-  border: none !important;
-}
+// ::ng-deep
+//   .mat-form-field-appearance-outline:hover
+//   .mat-form-field-outline,
+// .mat-form-field-appearance-outline:active .mat-form-field-outline {
+//   background: #ebf6f5 !important;
+//   border: none !important;
+// }
 ::ng-deep .mat-select-arrow{
   color: #41b6a6 !important;
 }

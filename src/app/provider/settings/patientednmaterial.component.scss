@@ -33,9 +33,6 @@
   border: 1px solid #41b6a6;
 }
 
-// .appointment-form .text-area:hover {
-//   border: 1px solid #41b6a6;
-// }
 
 .pattach {
   border: 1px solid #41b6a6;
@@ -52,10 +49,6 @@
   background-color: rgba(65, 182, 166, 0.1);
 
 }
-
-// .formarray:not(:last-child) {
-//   border: none;
-// }
 
 .closefile {
   border-radius: 77%;
@@ -82,6 +75,7 @@
   padding-left: 0px;
   padding-top: 0px;
 }
+
 .play-left-arrow {
   border-radius: 50%;
   width: 20px;
@@ -131,13 +125,35 @@
   border: 1px solid #41b6a6;
   border-bottom: 1px solid #41b6a6;
   border-radius: none;
-
 }
 
 .expansion:not(:last-child) {
   border-bottom: none;
 }
-.expansion-title p{
-  margin-bottom: 0.2rem;
-  padding: 0px 34px;
+
+.expansion-title {
+  margin-left: 34px;
+}
+
+.expansion-title td {
+  padding: 2px 134px;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  color: #4A4A4A;
+  font-size: 15px;
+}
+
+.expansion-title a {
+  color: #41b6a6;
+  text-decoration: underline;
+}
+
+.expansion-title a:hover {
+  opacity: .75;
+
+}
+
+::ng-deep .mat-form-field-appearance-outline:hover .mat-form-field-outline,
+.mat-form-field-appearance-outline:active .mat-form-field-outline {
+  background: #fff !important;
+  border: none !important;
 }

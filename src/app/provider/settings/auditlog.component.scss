@@ -2,90 +2,79 @@
 @import "../../../assets/cstm.material.scss";
 
 .card-header {
-    border-radius: 0;
+  border-radius: 0;
   display: flex;
-   justify-content: space-between;
+  justify-content: space-between;
 }
-.exportdd{
-   width: 120px;
-border: 1px solid #fff;
-background-color: white;
-color: #41b6a6;
-height: 45px;
-border-radius: 3%;
- }
-.hover-class{
+
+.exportdd {
+  width: 120px;
+  border: 1px solid #fff;
+  background-color: white;
+  color: #41b6a6;
+  height: 45px;
+  border-radius: 3%;
+}
+
+.hover-class {
   width: 165px;
   height: 45px;
 }
-.mat-table  {
-    border: 1px solid #41b6a6;
-    font-size: 15px;
 
+.mat-header-cell {
+  font-weight: 450 !important;
 }
-.table-align{
+
+.mat-table {
+  border: 1px solid #41b6a6;
+  font-size: 15px;
+}
+
+table th.th-dropdown {
+  width: 25px;
+}
+
+.table-align {
   margin-left: -20px;
   margin-right: -20px;
 }
+
 .mat-header-row {
-  background-color:#fff;
+  background-color: #fff;
   color: #333;
 }
-.mat-header-cell:first-child{
+
+.mat-header-cell:first-child {
   border-left: 1px solid #41a6b6;
 }
-  .mat-header-cell{
-    border-left: 1px solid #41b6a6;
-    border-bottom: none;
-    font-size: 14px;
-  }
-  .mat-cell{
-    border-left: 1px solid #41a6b6;
-border-bottom: none;
-  }
-  .mat-row {
-    border-bottom: none;
+
+.mat-header-cell {
+  border-left: 1px solid #41b6a6;
+  border-bottom: none;
+  font-size: 14px;
 }
+
+.mat-cell {
+  border-left: 1px solid #41a6b6;
+  border-bottom: none;
+}
+
+.mat-row {
+  border-bottom: none;
+}
+
 .mat-row:hover {
   background-color: #fff !important;
 }
-.mat-column-Date {
-  padding-left: 16px;
-  padding-right: 18px;
-}
-.mat-column-Patient {
 
-  padding-left: 22px;
-  padding-right: 18px;
-}
-.mat-column-LocationName {
-
-  padding-left: 16px;
-  padding-right: 18px;
-}
-.mat-column-Provider {
-
-  padding-left: 16px;
-  padding-right: 18px;
-}
-.mat-column-DataType {
-
-  padding-left: 16px;
-  padding-right: 18px;
-}
-
-.mat-column-Action {
-
-  padding-left: 16px;
-  padding-right: 18px;
-}
-.mat-column-Details {
-
-  padding-left: 131px;
-    padding-right: 18px;
-}
 ::ng-deep .green-calendar.mat-form-field-appearance-outline .mat-form-field-outline {
   background-color: #fff !important;
   color: #41a6b6 !important;
   height: 45px;
+}
+
+.cust-hyphen {
+  padding: 0px 3px;
+  font-size: 39px;
+  margin-top: -8px;
 }
