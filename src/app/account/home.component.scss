@@ -19,8 +19,9 @@
 }
 .title{
   color: #4a4a4a;
-  font-weight: 400;
-  font-size: 20px;
+  font-weight: 500;
+  font-size: 24px;
+  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
 }
 .home-wrapper .ehr-img-top {
   position: relative;
@@ -55,6 +56,9 @@
   font-style: normal;
   max-width: 800px;
   margin: 0 auto;
+}
+.main-title{
+  margin-top: 8%;
 }
 .home-wrapper .select-type {
   margin-top: 32px;

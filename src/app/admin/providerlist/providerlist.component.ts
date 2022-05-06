@@ -28,9 +28,7 @@ export class ProviderlistComponent {
   }
 
   ngOnInit(): void {
-
-    // this.getProviderList();
-    this.getGriddata();
+    this.getProviderList();
 
   }
   getProviderList() {
@@ -83,20 +81,7 @@ export class ProviderlistComponent {
       this.getProviderList();
     }
   }
- //dummy record
 
- getGriddata(){
-
-  this.providersDataSource=[
-
-    {'ProviderName':'Marcela Arizmendi , DDS','Email':'smilelifedental@gmail.com','PrimaryPhone':'(714) 774-3000','Address':'Hydrabad','Status':'Activated'},
-    {'ProviderName':'Marcela Arizmendi , DDS','Email':'smilelifedental@gmail.com','PrimaryPhone':'(714) 774-3000','Address':'Hydrabad','Status':'Activated'},
-    {'ProviderName':'Marcela Arizmendi , DDS','Email':'smilelifedental@gmail.com','PrimaryPhone':'(714) 774-3000','Address':'Hydrabad','Status':'Activated'},
-    {'ProviderName':'Marcela Arizmendi , DDS','Email':'smilelifedental@gmail.com','PrimaryPhone':'(714) 774-3000','Address':'Hydrabad','Status':'Activated'},
-    {'ProviderName':'Marcela Arizmendi , DDS','Email':'smilelifedental@gmail.com','PrimaryPhone':'(714) 774-3000','Address':'Hydrabad','Status':'Activated'},
-  ]
-
-}
 }
 
 
