@@ -34,9 +34,23 @@ export class AdminPracticeComponent implements OnInit {
   constructor(private adminservice: AdminService,private overlayService :OverlayService) { }
 
   ngOnInit(): void {
-    this.GetProivderList();
+    this.getGriddata();
+    // this.GetProivderList();
   }
 
+
+  getGriddata(){
+
+    this.ProviderList=[
+
+      {'Name':'Marcela Arizmendi , DDS','Email':'smilelifedental@gmail.com','':'Verified','Phone':'(714) 774-3000','Trail/Paid':'Trial (0 d left','Status':'Activated'},
+
+      {'Name':'Marcela Arizmendi , DDS','Email':'smilelifedental@gmail.com','':'Verified','Phone':'(714) 774-3000','Trail/Paid':'Trial (0 d left','Status':'Activated'},
+      {'Name':'Marcela Arizmendi , DDS','Email':'smilelifedental@gmail.com','':'Verified','Phone':'(714) 774-3000','Trail/Paid':'Trial (0 d left','Status':'Activated'},
+      {'Name':'Marcela Arizmendi , DDS','Email':'smilelifedental@gmail.com','':'Verified','Phone':'(714) 774-3000','Trail/Paid':'Trial (0 d left','Status':'Activated'},
+    ]
+
+  }
   GetProivderList() {
     this.adminservice.GetProviderList().subscribe(resp => {
       if (resp.IsSuccess) {
@@ -128,9 +142,7 @@ export class AdminPracticeComponent implements OnInit {
 
     ref.afterClosed$.subscribe(res => {
       if (typeof content === 'string') {
-      //} else if (content === this.yesNoComponent) {
-        //this.yesNoComponentResponse = res.data;
-      }
+       }
       else if (content === this.UserDialogComponent) {
         this.DialogResponse = res.data;
       }

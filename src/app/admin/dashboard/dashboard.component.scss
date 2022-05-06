@@ -1,8 +1,9 @@
+@import "../../../assets/admin.common.scss";
+
 .card-design{
   height: 87px;
   border: 1px solid #e7ecf1  !important;
 }
-
 .card-border{
   border: 1px solid #e7ecf1  !important;
 }
@@ -21,48 +22,9 @@ hr:not([size]) {
 .fs-6 {
   font-size: 1.0rem !important;
 }
-.table>:not(caption)>*>* {
-  font-family: "Open Sans", sans-serif;
-  padding: 0.5rem 0.5rem;
-  background-color: var(--bs-table-bg);
-  border-bottom-width: 1px;
-  box-shadow: inset 0 0 0 0000px var(--bs-table-accent-bg);
-}
-// .Cancelbtn{
-//   border-radius: 70px;
-//   width: 32px;
-//   height: 33px;
-//   background: #e7505a;;
-//   color: #ffffff;
-//   font-size: 19px;
-//   border: 1px solid red;
-//   border-color: #e7505a;
-//   border: none;
-
-// }
-table thead tr th{
-  border-bottom: #858282;
-  border-bottom-color: red;
-}
-table thead tr th{
-  font-size: 14px;
-  font-weight: 600;
-}
-table tbody tr td{
-  font-size: 15px;
-}
-.th-border{
-  border-bottom: 2px solid #edeff3  !important;
-}
-
-thead, tbody, tfoot, tr, td, th {
-  border-bottom: 1px solid rgb(220, 219, 219)!important;
-}
 .th-col-width{
   min-width: 180px;
-
 }
-
 .td-col-width{
   width: 6%;
 }
@@ -72,35 +34,16 @@ thead, tbody, tfoot, tr, td, th {
 .td-button{
   width: 0%;
 }
-// .icon-close{
-//   color: white;
-//   font-size: 16px;
-// }
 .common-button-style{
-  color: #2f353b;
-  background: white;
-  border: 1.5px solid #2f353b;
   padding: 3px 7px;
-  text-align: center;
 }
 .common-button-style:hover{
-  color: white;
-  background: black;
-  border: 1.5px solid #2f353b;
   padding: 3px 7px;
-  text-align: center;
 }
 .table-col-button{
-   background: white ;
-    border: 1.5px solid #b1a7a7 ;
     padding: 3px 5px;
     font-size: 14px;
     width: 80p;
-}
-.table-col-button:hover{
-  color: black;
-  background: rgb(234, 233, 233);
-  border: 1.5px solid #b1a7a7 ;
 }
 .Actives{
   background: white ;
@@ -126,7 +69,7 @@ thead, tbody, tfoot, tr, td, th {
   background: rgb(229, 229, 229);
   border: 1.5px solid #b1a7a7 ;
 }
-.form-switch .form-check-input {
+.form-switch .form-check-input.toggle-btn {
   width: 2.8rem !important;
   border-radius: 2em;
   margin-top: 1px;
@@ -135,23 +78,15 @@ thead, tbody, tfoot, tr, td, th {
 .col-data{
   margin-top: 20px;
 }
-.form-check-input:checked {
+.form-check-input.toggle-btn:checked {
   background-color: #92c792;
   border-color: green;
   border: 0px;
-
-}
-
-tbody > tr:last-child > td {
-  border-bottom: 0;
 }
 .text-mute{
   color: #7d7b7b;
 }
-.table-NoRecord{
-  background-color: white !important;
-}
-.form-check-input {
+.form-check-input.toggle-btn {
   width: 1em;
   height: 1em;
   margin-top: 4.5em;

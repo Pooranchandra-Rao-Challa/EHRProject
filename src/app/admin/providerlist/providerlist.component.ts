@@ -12,7 +12,7 @@ export class ProviderlistComponent {
   pageSize: number = 50;
   page: number = 1;
   filterTerm!: string;
-  providersDataSource: ProviderList[] = [];
+  // providersDataSource: ProviderList[] = [];
   dataSource: ProviderList[] = [];
   Active: boolean = true;
   Suspended: boolean = false;
@@ -20,6 +20,7 @@ export class ProviderlistComponent {
   Paid: boolean = false;
   ActiveStatus: string = '';
   TrailStatus: string = '';
+  providersDataSource:any =[];
 
 
 
@@ -28,7 +29,8 @@ export class ProviderlistComponent {
 
   ngOnInit(): void {
 
-    this.getProviderList();
+    // this.getProviderList();
+    this.getGriddata();
 
   }
   getProviderList() {
@@ -81,6 +83,20 @@ export class ProviderlistComponent {
       this.getProviderList();
     }
   }
+ //dummy record
+
+ getGriddata(){
+
+  this.providersDataSource=[
+
+    {'ProviderName':'Marcela Arizmendi , DDS','Email':'smilelifedental@gmail.com','PrimaryPhone':'(714) 774-3000','Address':'Hydrabad','Status':'Activated'},
+    {'ProviderName':'Marcela Arizmendi , DDS','Email':'smilelifedental@gmail.com','PrimaryPhone':'(714) 774-3000','Address':'Hydrabad','Status':'Activated'},
+    {'ProviderName':'Marcela Arizmendi , DDS','Email':'smilelifedental@gmail.com','PrimaryPhone':'(714) 774-3000','Address':'Hydrabad','Status':'Activated'},
+    {'ProviderName':'Marcela Arizmendi , DDS','Email':'smilelifedental@gmail.com','PrimaryPhone':'(714) 774-3000','Address':'Hydrabad','Status':'Activated'},
+    {'ProviderName':'Marcela Arizmendi , DDS','Email':'smilelifedental@gmail.com','PrimaryPhone':'(714) 774-3000','Address':'Hydrabad','Status':'Activated'},
+  ]
 
 }
+}
+
 

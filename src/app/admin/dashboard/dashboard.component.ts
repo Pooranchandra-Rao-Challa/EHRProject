@@ -21,7 +21,8 @@ export class DashboardComponent implements OnInit {
   constructor(private adminservice:AdminService,private overlayService :OverlayService) { }
 
   ngOnInit(): void {
-    this.GetProivderList();
+    this.getGriddata();
+    //this.GetProivderList();
   }
 
   GetProivderList(){
@@ -76,5 +77,19 @@ export class DashboardComponent implements OnInit {
         this.DialogResponse = res.data;
       }
     });
+  }
+  //dummy record
+
+  getGriddata(){
+
+    this.ProviderList=[
+
+      {'Name':'Marcela Arizmendi , DDS','Email':'smilelifedental@gmail.com','':'Verified','Phone':'(714) 774-3000','Trail/Paid':'Trial (0 d left','Status':'Activated'},
+
+      {'Name':'Marcela Arizmendi , DDS','Email':'smilelifedental@gmail.com','':'Verified','Phone':'(714) 774-3000','Trail/Paid':'Trial (0 d left','Status':'Activated'},
+      {'Name':'Marcela Arizmendi , DDS','Email':'smilelifedental@gmail.com','':'Verified','Phone':'(714) 774-3000','Trail/Paid':'Trial (0 d left','Status':'Activated'},
+      {'Name':'Marcela Arizmendi , DDS','Email':'smilelifedental@gmail.com','':'Verified','Phone':'(714) 774-3000','Trail/Paid':'Trial (0 d left','Status':'Activated'},
+    ]
+
   }
 }

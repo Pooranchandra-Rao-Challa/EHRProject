@@ -54,7 +54,7 @@
                   </thead>
                   <tbody>
                     <tr *ngFor="let item of ProviderList| slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
-                      <td>{{item.ProviderName}} , {{item.Degree}}</td>
+                      <td>{{item.Name}} , {{item.Degree}}</td>
                       <td>{{item.Email}}</td>
                       <td class="td-width text-success">{{item.EmailVerifyStatus}}</td>
                       <td>{{item.NewPhoneNo}}</td>
@@ -62,7 +62,7 @@
                         <div class="d-flex justify-content-between">
                          <div [ngClass]="item.ToggleButton?'text-mute':'text-black'">Trail ({{item.TrailDays}} d left)</div>
                             <div class="form-check form-switch mx-3">
-                              <input class="form-check-input" type="checkbox" [checked]="item.ToggleButton" id="flexSwitchCheckDefault">
+                              <input class="form-check-input toggle-btn" type="checkbox" [checked]="item.ToggleButton" id="flexSwitchCheckDefault">
                             </div>
                           <div [ngClass]="item.ToggleButton?'text-black':'text-mute'" class="mr-3">{{item.Trial}}</div>
                         </div>
