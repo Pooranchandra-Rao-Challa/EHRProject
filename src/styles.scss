@@ -481,7 +481,7 @@ li,
 }
 
 .sidebar .logo-details {
-  height: 60px;
+  min-height: 50px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -532,7 +532,7 @@ li,
 }
 
 .sidebar .nav-links li:hover {
-  background: #1d1b31;
+  background: #2C3542;
 }
 
 .sidebar .nav-links li .iocn-link {
@@ -735,7 +735,7 @@ li,
 }
 
 .home-section .home-content {
-  height: 60px;
+  min-height: 50px;
   display: flex;
   align-items: center;
   background-color: #2b3643;
