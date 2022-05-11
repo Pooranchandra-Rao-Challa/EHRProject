@@ -37,7 +37,7 @@ export class AddUserDialogComponent implements OnInit {
   {
     this.DisplayPwdInput=false;
   }
-  cancel() {
+  close() {
     this.ref.close(null);
   }
 }

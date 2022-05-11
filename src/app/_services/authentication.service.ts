@@ -62,7 +62,7 @@ export class AuthenticationService {
               //this.router.navigate(['/admin/dashboard']);
               this.router.navigate(
                 ['/admin/dashboard'],
-                { queryParams: { name: 'Dashboard' } }
+                { queryParams: { name: 'Provider' } }
               );
           else if (this.isPatient)
             this.router.navigate(['/patinet/patientview']);
