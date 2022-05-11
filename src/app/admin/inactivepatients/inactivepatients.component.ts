@@ -24,7 +24,7 @@ export class InActivePatientsComponent implements OnInit {
     // this.collectionSize = this.inactivepatientDataSource.length;
   }
   getInactivepatientList() {
-    debugger
+    //debugger
     var data = {
       // Sort: '',
       // Direction: '',
@@ -43,7 +43,7 @@ export class InActivePatientsComponent implements OnInit {
   }
 
   onPageChange(index){
-    debugger;
+    //debugger;
     this.inactivepatientDataSource =  this.premiumData
       .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
     this.getInactivepatientList();

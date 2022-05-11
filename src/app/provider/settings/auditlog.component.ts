@@ -63,7 +63,7 @@ this.getdata();
   }
   exportToCsv()
   {
-    debugger;
+    //debugger;
     let element=document.getElementById('table')
     const ws: XLSX.WorkSheet=XLSX.utils.table_to_sheet(element);
     console.log(this.table.nativeElement);

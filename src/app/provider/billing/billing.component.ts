@@ -51,7 +51,7 @@ export class BillingComponent implements OnInit {
 //get the billing details
   getBillings()
   {
-debugger;
+//debugger;
     var reqparams = {
       //Provider_id: this.user.ProviderId,
         Provider_id: "5b686dd4c832dd0c444f271b",
@@ -59,10 +59,10 @@ debugger;
         enddate:this.enddate
     }
       this.bs.BillingDetails(reqparams).subscribe(response=>{
-        debugger;
+        //debugger;
         this.dataSource= response.ListResult;
         console.log(this.dataSource);
-        debugger;
+        //debugger;
         this.sampledata=this.dataSource;
 
       })
@@ -94,7 +94,7 @@ debugger;
 //exporting the csv file
   exportToCsv()
 {
-  debugger;
+  //debugger;
   const ws: XLSX.WorkSheet=XLSX.utils.table_to_sheet(this.table.nativeElement);
   const wb: XLSX.WorkBook = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');

@@ -30,7 +30,7 @@ export class AdminsComponent implements OnInit {
 
 
   getAdminList() {
-    debugger
+    //debugger
     this.adminservice.AdminList().subscribe(resp => {
       if (resp.IsSuccess) {
         this.adminDataSource = resp.ListResult;
@@ -43,7 +43,7 @@ export class AdminsComponent implements OnInit {
 
 
   private _filter(value: string): string[] {
-    debugger;
+    //debugger;
     if(value==""){
       return ['Please enter 1 or more characters']
     }
@@ -56,7 +56,7 @@ export class AdminsComponent implements OnInit {
   }
 
  isView() {
-  debugger;
+  //debugger;
     this.isSave = true;
     this.isAddAdmin = false;
 

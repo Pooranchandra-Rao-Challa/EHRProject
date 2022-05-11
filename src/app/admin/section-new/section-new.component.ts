@@ -24,7 +24,7 @@ export class SectionNewComponent implements OnInit {
   }
 
  getComponentName() {
-   debugger;
+   //debugger;
     this.route.queryParams.subscribe((params) => {
       console.log(params.edit)
       if (params.name != null) {

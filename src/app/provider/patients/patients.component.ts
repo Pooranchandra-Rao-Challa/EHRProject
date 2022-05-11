@@ -60,7 +60,7 @@ export class PatientsComponent implements OnInit {
   }
 
   onChangeViewState(view) {
-    debugger;
+    //debugger;
     // this.router.navigate(
     //   ['/provider/patientdetails'],
     //   { queryParams: { name: "patient", view: view } }
@@ -86,7 +86,7 @@ export class PatientsComponent implements OnInit {
   }
 
   filterByNamePhonenumber() {
-    debugger;
+    //debugger;
     let PhoneNumber =
       this.filteredPatients = this.patientsDataSource.data.filter(
         x => x.FirstName === this.searchName ||

@@ -7,7 +7,7 @@ import { DomSanitizer } from "@angular/platform-browser";
 export class ConditionformaterPipe implements PipeTransform {
   constructor(protected sanitizer: DomSanitizer) { }
   transform(value: any, crossmark, tickmark): any {
-    debugger;
+    //debugger;
     var cross: string = "<span class='" +
       crossmark +
       "' style='color: #a63b12;background-color: #edd8d0;'>✗</span>";
