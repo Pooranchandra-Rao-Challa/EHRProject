@@ -1,3 +1,5 @@
+@import "../../../assets/admin.common.scss";
+
 h1 {
   font-size: 36px;
   font-family: "Open Sans", sans-serif;
@@ -33,18 +35,12 @@ input::-webkit-input-placeholder {
 .form-select{
   border-radius: 1px;
 }
-.btn-primary.btn-style{
-  border: 1px solid grey;
-  border-radius: 1px;
-  font-family: "Open Sans", sans-serif;
-  background: #337ab7;
-  border-color: #2e6da4
-}
 .btn-style{
-  border: 1px solid grey !important;
-  border-radius: 1px;
   font-family: "Open Sans", sans-serif;
+  border-color: #2e6da4;
+  border-radius:0px;
 }
+
 .note {
   margin: 0 0 20px 0;
   padding: 15px 30px 15px 15px;

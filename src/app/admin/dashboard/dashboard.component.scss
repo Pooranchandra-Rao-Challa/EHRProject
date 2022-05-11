@@ -1,5 +1,10 @@
 @import "../../../assets/admin.common.scss";
 
+// .text-user{
+//   font-size: 16px;
+//   color: #2f353b;
+//   font-weight: 500;
+// }
 .card-design{
   height: 87px;
   border: 1px solid #e7ecf1  !important;
@@ -19,9 +24,9 @@ hr:not([size]) {
   height: 1px;
   color: #96989d;
 }
-.fs-6 {
-  font-size: 1.0rem !important;
-}
+// .fs-6 {
+//   font-size: 1.0rem !important;
+// }
 .th-col-width{
   min-width: 180px;
 }

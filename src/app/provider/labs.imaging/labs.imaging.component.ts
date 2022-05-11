@@ -11,7 +11,7 @@ declare var $:any;
 export class LabsImagingComponent implements OnInit {
 
   labImagingColumn: string[] = ['Order', 'Test', 'Type', 'Patient', 'Provider','Status', 'LabImagingStatus','Created'];
-  labImagingDataSource:any;
+  labImagingDataSource:any=[];
   user:User;
   constructor(private labimage:LabsImagingService,private authService:AuthenticationService) {
     this.user = authService.userValue;
@@ -27,6 +27,7 @@ export class LabsImagingComponent implements OnInit {
    var reqparam = {
      "clinic_Id": this.user.CurrentLocation
    }
+   console.log(reqparam);
     debugger;
     this.labimage.LabsDetails(reqparam).subscribe(resp => {
      if (resp.IsSuccess) {

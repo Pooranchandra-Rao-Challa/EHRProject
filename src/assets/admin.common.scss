@@ -58,7 +58,7 @@ tbody>tr:last-child>td {
 // table td button
 .td-btn-style {
   background: white;
-  border: 1.5px solid #b1a7a7;
+  border: 1px solid #b1a7a7;
   font-family: sans-serif;
 }
 
@@ -130,10 +130,10 @@ hr {
 
 .i-search {
   color: #fff;
-  font-size: 25px;
+  font-size: 23px;
 }
 div.search-box input[type=text] {
-  padding: 8px;
+  padding: 5px;
   border: 1px solid #b4bcc8;
   float: left;
   width: 90%;
@@ -143,7 +143,7 @@ div.search-box input[type=text] {
 div.search-box button {
   float: left;
   width: 10%;
-  padding: 1px 1px 4px 4px;;
+  padding: 0px 1px 0px 1px;
   background: #2b3643;
   color: white;
   font-size: 22px;
@@ -178,4 +178,24 @@ div.search-box button {
 
 div.search-box button:hover {
   background: #2b3643;
+}
+//
+.btn-style {
+  color: #fff;
+  background-color: #337ab7;
+  padding: 6px 12px;
+  border: 1px solid #337ab7;
+  border-radius: 0px;
+}
+.btn-style:hover {
+  background-color: #265f90;
+}
+.btn-back{
+  border-radius:0px;
+  border: 1px solid #adadad;
+}
+.btn-back:hover{
+  background-color: #e6e6e6;
+  border-color: #adadad;
+  border-radius:0px;
 }

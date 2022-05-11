@@ -30,7 +30,7 @@ export class BillingComponent implements OnInit {
   serachdata: any;
   data: any;
   filtered: Object[]
-  sampledata: any;
+  sampledata: any=[];
   startDate:string;
   enddate:string;
 

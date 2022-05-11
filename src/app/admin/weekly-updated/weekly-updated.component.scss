@@ -1,15 +1,10 @@
+@import "../../../assets/admin.common.scss";
+
+
 h1 {
   font-size: 36px;
   font-family: "Open Sans", sans-serif;
   font-weight: 300;
-}
-//table
-.table>:not(caption)>*>* {
-  font-family: "Open Sans", sans-serif;
-  padding: 0.5rem 0.5rem;
-  background-color: var(--bs-table-bg);
-  border-bottom-width: 1px;
-  box-shadow: inset 0 0 0 0000px var(--bs-table-accent-bg);
 }
 .table td,.table th {
   white-space: inherit !important;
@@ -18,9 +13,8 @@ h1 {
   font-size: 14px;
   font-family: "Open Sans", sans-serif;
 }
+
 .table thead tr th {
-  font-size: 14px;
-  font-weight: 600;
   border: 1px solid #e7ecf1;
   padding: 13px 8px;
 }
@@ -44,42 +38,25 @@ td {
 }
 .td-status {
   color: #337ab7;
-  ;
-}
+  }
 .td-status:hover {
   color: black;
   cursor: pointer;
 }
-// table first th  border
+
 .table>thead>tr>th {
   border-bottom-color: #e7ecf1 !important;
 }
 .table> :not(:first-child) {
   border-top: 1px;
 }
-// button design
-
-.btn-style {
-  color: #fff;
-  background-color: #337ab7;
-  padding: 6px 12px;
-  border: 1px solid #337ab7;
-}
-.btn-style:hover {
-  background-color: #265f90;
-}
-.btn-primary {
-  color: #fff;
-  background-color: #337ab7;
-  padding: 11px 14px;
-  border: 1px solid #2e6da4;
+.btn-edit{
+  padding: 11px 14px !important;
   font-size: 14px;
   border-radius: 1px;
 }
-.btn-primary:hover {
-  background-color: #2b6aa1;
-}
-.btn-danger {
+
+.btn-delete {
   color: #fff;
   background-color: #ed6b75;
   padding: 11px 14px;
@@ -87,7 +64,7 @@ td {
   font-size: 14px;
   border-radius: 1px;
 }
-.btn-danger:hover {
+.btn-delete:hover {
   background-color: #ed4040;
 }
 p {

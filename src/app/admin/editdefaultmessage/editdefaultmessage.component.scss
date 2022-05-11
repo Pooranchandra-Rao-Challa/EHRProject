@@ -1,3 +1,4 @@
+@import"../../../assets/admin.common.scss";
 .form-control{
     background-color: #eef1f5;
     opacity: 1;
@@ -16,31 +17,30 @@
   .bold {
     font-weight: 700 !important;
   }
-  .btn-primary {
-    color: #fff;
-    background-color: #337ab7;
-    border-color: #2e6da4;
+  .btn-style  {
+    font-family: inherit;
     border-radius: 0%;
+    line-height: 1.44;
   }
   .form-group label {
     font-size: 14px;
     padding-top: 10px;
   }
-  .btn-default {
-    cursor: pointer;
-    font-size: 100%;
-    line-height: 1.1;
-    height: -49%;
-    background-color: #fff;
-    border: 1px solid #b4bcc8;
-    border-radius: 0%;
-  }
-  .btn-default:hover{
-    cursor: pointer;
-    font-size: 100%;
-    line-height: 1.1;
-    height: -49%;
-    background-color: rgb(223, 221, 221);
-    border: 1px solid rgb(160, 159, 159);
-    border-radius: 0%;
-  }
+  // .btn-default {
+  //   cursor: pointer;
+  //   font-size: 100%;
+  //   line-height: 1.1;
+  //   height: -49%;
+  //   background-color: #fff;
+  //   border: 1px solid #b4bcc8;
+  //   border-radius: 0%;
+  // }
+  // .btn-default:hover{
+  //   cursor: pointer;
+  //   font-size: 100%;
+  //   line-height: 1.1;
+  //   height: -49%;
+  //   background-color: rgb(223, 221, 221);
+  //   border: 1px solid rgb(160, 159, 159);
+  //   border-radius: 0%;
+  // }
