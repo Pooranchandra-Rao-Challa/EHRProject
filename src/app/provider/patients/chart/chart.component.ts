@@ -22,7 +22,7 @@ export class ChartComponent implements OnInit {
   }
 
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string) {
-    debugger;
+    //debugger;
     const ref = this.overlayService.open(content, null);
 
     ref.afterClosed$.subscribe(res => {

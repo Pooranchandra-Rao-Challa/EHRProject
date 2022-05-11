@@ -324,7 +324,7 @@ export class MureportsComponent implements OnInit {
   specializedvalue = null;
 
   public downloadAsPDF() {
-    debugger;
+    //debugger;
     if (this.stage3NumeDenomicount != null) {
       const documenDefinition = {
         content:
@@ -2038,7 +2038,7 @@ export class MureportsComponent implements OnInit {
   }
 
   onSubmitMUReport() {
-    debugger;
+    //debugger;
     if (this.muReportForm.invalid) {
       return;
     }
@@ -2697,7 +2697,7 @@ export class MureportsComponent implements OnInit {
     //this.onSubmitMUReport();
   }
   checkboxevent81c(event) {
-    debugger;
+    //debugger;
     this.checkboxvalue81c = event;
     this.checkbox81c = event;
     var count: number = 0;
@@ -2798,7 +2798,7 @@ export class MureportsComponent implements OnInit {
     //this.onSubmitMUReport();
   }
   checkboxevent81(event) {
-    debugger;
+    //debugger;
     this.checkboxvalue81 = event;
 
     this.checkbox81 = event;
@@ -2905,7 +2905,7 @@ export class MureportsComponent implements OnInit {
   }
   //stage2 checkbox
   checkboxevent01(event) {
-    debugger;
+    //debugger;
     this.checkbox01 = event;
     this.checkboxValue01 = event;
     if (this.checkbox01 == true) {
@@ -3085,7 +3085,7 @@ export class MureportsComponent implements OnInit {
 
   }
   getStage3NumeDenomicount(data: any) {
-    debugger;
+    //debugger;
     this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
     this.stage2NumeDenomicount = null;
     this.stage3NumeDenomicount = null;

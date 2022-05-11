@@ -37,7 +37,7 @@ export class PatientEdnMaterialComponent implements OnInit {
   indexExpanded: number = 0;
 
 togglePanels(index: number) {
-  debugger;
+  //debugger;
 
     this.indexExpanded = index == this.indexExpanded ? -1 : index;
 

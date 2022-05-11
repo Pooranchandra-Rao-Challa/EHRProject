@@ -31,7 +31,7 @@ export class MyprofileComponent implements OnInit {
   }
 
   private _filter(value: string): string[] {
-    debugger
+    //debugger
     if(value==""){
       return ['Please enter 1 or more characters']
     }

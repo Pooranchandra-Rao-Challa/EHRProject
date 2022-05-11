@@ -190,7 +190,7 @@ export class ScheduleComponent implements OnInit {
     findIndex !== -1 && this.typeOnEdit.splice(findIndex, 1)
   }
   isNewType(typeIndex: number) {
-    debugger;
+    //debugger;
     let id = this.type().controls[typeIndex].get('Id').value;
     if (isNaN(Number(id))) {
       return false || this.typeOnEdit.findIndex(typeindex => typeindex === typeIndex) > -1;
