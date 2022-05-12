@@ -110,6 +110,10 @@
   border-radius: 0px 0px 0 0;
   border: 1px solid #41b6a6;
 }
+.nav-tabs.nav-tab-styled li a:hover {
+  background-color: #41b6a6;
+  color: #fff;
+}
 .nav-tabs.nav-tab-styled li.active a {
   background-color: #41b6a6;
   color: #fff;
@@ -200,4 +204,7 @@
 }
 .fa-search{
   margin-left: 21%;
+}
+.cdk-overlay-pane{
+  background-color: red !important;
 }
