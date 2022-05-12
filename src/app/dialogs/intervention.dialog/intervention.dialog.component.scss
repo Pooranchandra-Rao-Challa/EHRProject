@@ -40,13 +40,12 @@ mat-label{
   border-bottom-left-radius: 0px;
 }
 textarea.form-control{
-  height: 119px !important;
-    resize: none;
-    font-size: 15px;
-    padding-top: 10px !important;
-    padding-bottom: 10px !important;
-    line-height: 1.5;
-    resize: both;
+  font-size: 15px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  line-height: 1.5;
+  resize: both;
+  height: 120px;
 }
 .form-control {
   padding: 0 20px;

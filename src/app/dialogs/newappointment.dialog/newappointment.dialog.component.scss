@@ -1,48 +1,63 @@
-.modal-dialog{
+@import "../../../assets/common.scss";
+// .modal-dialog{
+//   overflow-y: initial !important;
+//   padding-left: 80px;
+//   margin: 0 !important;
+// }
+.modal-dialog {
   overflow-y: initial !important;
-  padding-left: 80px;
-  margin: 0 !important;
+  max-width: inherit !important;
+  // margin: 0 !important;
+  margin-top: -115px;
 }
-
-.modal-dialog .modal-content .modal-header {
-  padding: 20px 16px;
-  min-height: 30px !important;
-  background-color: #41b6a6;
-  color: #fff;
-  border: none;
-  //padding: 10px !important;
-
-  color: white;
-  background-color: #41b6a6;
-  border-bottom: none;
-  min-height: 50px;
-  max-height: 50px;
-  margin-top: -1px;
-  margin-left: -1px;
-}
-.modal-content {
-  border: 1px solid rgb(65 182 166) !important;
-}
-
 .modal-body {
   max-height: calc(90vh - 180px);
   overflow-y: auto;
 }
-
-.modal-body .form-group {
-  margin-bottom: 25px;
-}
-.modal-title {
-   line-height: 10px !important;
-   font-size: 15px;
-   font-family: Roboto, "Helvetica Neue", sans-serif;
-}
-
-
-.appointment-form.modal-dialog {
+.modal-content{
   max-width: 660px;
-  //margin-top: 20px;
+  margin: auto;
 }
+
+// .modal-dialog .modal-content .modal-header {
+//   padding: 20px 16px;
+//   min-height: 30px !important;
+//   background-color: #41b6a6;
+//   color: #fff;
+//   border: none;
+//   //padding: 10px !important;
+
+//   color: white;
+//   background-color: #41b6a6;
+//   border-bottom: none;
+//   min-height: 50px;
+//   max-height: 50px;
+//   margin-top: -1px;
+//   margin-left: -1px;
+// }
+// .modal-content {
+//   border: 1px solid rgb(65 182 166) !important;
+// }
+
+// .modal-body {
+//   max-height: calc(90vh - 180px);
+//   overflow-y: auto;
+// }
+
+// .modal-body .form-group {
+//   margin-bottom: 25px;
+// }
+// .modal-title {
+//    line-height: 10px !important;
+//    font-size: 15px;
+//    font-family: Roboto, "Helvetica Neue", sans-serif;
+// }
+
+
+// .appointment-form.modal-dialog {
+//   max-width: 660px;
+//   //margin-top: 20px;
+// }
 .appointment-form .text-area {
   height: 100px;
   border-radius: 4px;
@@ -62,18 +77,6 @@
   margin-bottom: 3px;
   font-weight: 700;
 }
-.appointment-form .btn:hover {
-  background-color: #41b6a6;
-  color: #fff;
-}
-.appointment-form .btn {
-  border-color: #41b6a6;
-  font-size: 15px;
-  height: 45px;
-  padding: 0px;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}
-
 .available-slots {
   border: 1px solid #41b6a6;
   padding: 30px 25px 15px 20px;
@@ -85,15 +88,9 @@
   color: #41b6a6 !important;
   background-color: #fff;
   height: 45px;
-} // common mat-form-field
-.appointment-form .btn:hover {
-  background-color: #41b6a6;
-  color: #fff;
 }
-.appointment-form .btn {
-  border-color: #41b6a6;
-  font-size: 13px;
-  height: 45px;
+.btn.btn-green{
+  min-height: 45px;
 }
 .timeslots{
   font-size: 12px;

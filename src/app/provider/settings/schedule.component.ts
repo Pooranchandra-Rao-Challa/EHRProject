@@ -389,7 +389,7 @@ export class ScheduleComponent implements OnInit {
     let reqparams = {
       clinicId: this.user.ClinicId
     };
-    this.settingsService.GetGeneralSchedule(reqparams).subscribe((resp) => {
+    this.settingsService.Generalschedule(reqparams).subscribe((resp) => {
       this.generalSchedule = resp.ListResult[0];
       console.log(this.generalSchedule);
       console.log(this.generalSchedule.OutSidePracticeHour);
@@ -412,7 +412,7 @@ export class ScheduleComponent implements OnInit {
     //   showConfirmButton: true,
     //   confirmButtonText: 'Close'
     // });
-    this.settingsService.UpdateSchedulegeneral(reqparams).subscribe(resp => {
+    this.settingsService.UpdateReschedule(reqparams).subscribe(resp => {
       if (resp.IsSuccess) {
         this.getGeneralSchedule();
         Swal.fire({

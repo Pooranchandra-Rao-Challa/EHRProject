@@ -266,6 +266,24 @@ export class APIEndPoint extends EndpointBase {
   get _updateRescheduleUrl() {
     return this._baseUrl + "UpdateSchedulegeneral";
   }
+
+  get _auditLogsUrl() {
+    return this._baseUrl + "AuditLogs";
+  }
+
+  get _educationMaterialsUrl() {
+    return this._baseUrl + "EducationMaterials";
+  }
+
+  get _clinicalDecisionSupportUrl() {
+    return this._baseUrl + "ClinicalDecisionSupport";
+  }
+
+  get _erxUrl() {
+    return this._baseUrl + "Erx";
+  }
+
+  
   constructor(public http: HttpClient) {
     super();
   }
