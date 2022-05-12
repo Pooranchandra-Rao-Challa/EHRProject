@@ -94,7 +94,10 @@ export class SettingsService extends APIEndPoint {
   Generalschedule(reqparams: any) {
     return this._ProcessPostRequest<any>(this._generalScheduleUrl, reqparams);
   }
-   
+
+  UpdateReschedule(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._updateRescheduleUrl, reqparams);
+  }
   AuditLogs(reqparams: any) {
     return this._ProcessPostRequest<any>(this._auditLogsUrl, reqparams);
   }
@@ -110,16 +113,12 @@ export class SettingsService extends APIEndPoint {
   Erx(reqparams: any) {
     return this._ProcessPostRequest<any>(this._erxUrl, reqparams);
   }
-
-
   ToggleUserFieldValues(reqparams: any) {
     console.log(reqparams)
     return this._ProcessPostRequest<any>(this._toggleUserFieldValuesUrl, reqparams);
   }
   
   
-
-
 
   
 }
