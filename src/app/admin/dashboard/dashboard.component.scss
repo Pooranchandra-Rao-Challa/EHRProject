@@ -1,5 +1,10 @@
 @import "../../../assets/admin.common.scss";
 
+// .text-user{
+//   font-size: 16px;
+//   color: #2f353b;
+//   font-weight: 500;
+// }
 .card-design{
   height: 87px;
   border: 1px solid #e7ecf1  !important;
@@ -19,9 +24,9 @@ hr:not([size]) {
   height: 1px;
   color: #96989d;
 }
-.fs-6 {
-  font-size: 1.0rem !important;
-}
+// .fs-6 {
+//   font-size: 1.0rem !important;
+// }
 .th-col-width{
   min-width: 180px;
 }
@@ -35,15 +40,15 @@ hr:not([size]) {
   width: 0%;
 }
 .common-button-style{
-  padding: 3px 7px;
+  padding: 7px 9px;
 }
 .common-button-style:hover{
-  padding: 3px 7px;
+  padding: 7px 9px;
 }
 .table-col-button{
     padding: 3px 5px;
     font-size: 14px;
-    width: 80p;
+    // width: 80px;
 }
 .Actives{
   background: white ;
@@ -93,3 +98,41 @@ hr:not([size]) {
   vertical-align: top;
   background-color: #eee;
 }
+.addbtn {
+  border-radius: 71px;
+  width: 32px;
+  height: 32px;
+  font-size: 9px;
+  color: #666;
+  background-color: #dbe1ee;
+  border-color: #e1e5ec;
+  border: 1px solid #5e6064;
+  border: none;
+}
+// .addbtn-margin {
+//   margin-top: -6px !important;
+// }
+.td-btn-style {
+  padding: 3px 4px;
+  font-size: 13px;
+}
+.icon-add {
+  font-size: 15px;
+  color: #666;
+}
+
+.toggle-btn input[type=checkbox]:checked:after {
+  content: "" !important;
+}
+input.toggle-btn [type=checkbox]:checked:after {
+  content: "" !important;
+}
+input[type=checkbox]:checked:after {
+  content: "\2714" !important;
+}
+// .text-black{
+//   border: 1px solid #666;
+// }
+// .text-mute{
+//   border: 1px solid #666;
+// }

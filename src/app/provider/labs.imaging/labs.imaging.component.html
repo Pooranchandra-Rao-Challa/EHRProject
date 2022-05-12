@@ -122,8 +122,8 @@
                         <tr mat-header-row *matHeaderRowDef="labImagingColumn"></tr>
                         <tr mat-row class="table-row" *matRowDef="let row; columns: labImagingColumn"></tr>
                     </table>
-                    <div class="table-NoRecord text-center py-2 col-12" *ngIf="labImagingDataSource==0">
-                        No labs
+                    <div class="table-NoRecord text-center py-2 col-12" *ngIf="labImagingDataSource.length == 0">
+                        No labs Found
                      </div>
                 </div>
             </div>

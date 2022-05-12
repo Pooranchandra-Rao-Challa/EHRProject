@@ -27,16 +27,59 @@
         </div>
       </div>
     </div>
+    </div>
+
+   <div class="row mt-5 mx-2">
+      <div class="col-md-3">
+          <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="Active" id="Active"(change)="FilterProvider('ActiveStatus','Active')" [(ngModel)]="Active" />
+              <label class="form-check-label" for="Active">Active Providers</label>
+          </div>
+      </div>
+      <div class="col-md-3">
+          <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="Suspended" id="Suspended"  [(ngModel)]="Suspended" (change)="FilterProvider('ActiveStatus','Suspended')" />
+              <label class="form-check-label" for="Suspended">Inactive Providers</label>
+          </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="Paid" id="Paid"  [(ngModel)]="NotPaidChecked" (change)="FilterProvider('TrailStatus','Not Paid')" />
+            <label class="form-check-label" for="Paid">Paid Providers</label>
+        </div>
+    </div>
+      <div class="col-md-3">
+          <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="Trial" id="Trial" [(ngModel)]="PaidChecked" (change)="FilterProvider('TrailStatus','Paid')"/>
+              <label class="form-check-label" for="Trial">Trial Providers</label>
+          </div>
+      </div>
+    </div>
+
+    <div class="row">
     <div class="col-lg-12 col-xl-12 col-md-12 col-12 mt-3 mb-3">
       <div class="card card-border">
         <div class="card-body">
+
           <div class="row">
-            <div class="d-flex bd-highlight mb-3">
-              <div class="me-auto p-2 text-uppercase"><b class="fw-bol fs-6">Users</b></div>
-              <div class="p-2"><button type="button" class="common-button-style">User Agent Export</button></div>
-              <div class="p-2"> <button type="button" class="common-button-style" (click)="openComponentDialog(UserDialogComponent)">Add New User</button></div>
+            <div class="col-xl-8 col-lg-5 col-md-5 col-5 col-sm-5">
+              <p class="text-uppercase text-user">Users</p>
             </div>
+            <div class="col-xl-4 col-lg-7 col-md-7 col-12 ">
+              <div class="row pt-0 ">
+                <div class="col-xl-1 col-lg-1 col-md-12 col-12  mb-3 col-btn ">
+                  <button type="button" class="common-button-style button-style text-nowrap btn pull-right ml-3"
+                  (click)="openComponentDialog(UserDialogComponent)" >Add New User</button>
+                </div>
+                <div class="search-box col-xl-11 col-lg-10 col-md-12 col-12">
+                  <input type="text" placeholder="Search Providers" [(ngModel)]="SearchKey">
+                  <button type="submit" (click)="SearchDetails()"><i class="fa fa-search i-search"></i></button>
+                </div>
+              </div>
+            </div>
+
             <div class="col-lg-12 col-md-12 col-12 col-sm-12 "> <hr></div>
+
             <div class="col-lg-12 col-md-12 col-12 col-sm-12 ">
               <div class="table-responsive">
                 <table class="table">
@@ -44,32 +87,51 @@
                     <tr >
                       <th>Name</th>
                       <th>Email</th>
-                      <th></th>
+                      <th class="th-col">Practice Name</th>
                       <th>Phone</th>
+                      <th scope="row" width="20%">Address</th>
                       <th colspan="3" class="text-center th-col-width">Trail/Paid</th>
-                      <th></th>
                       <th>Status</th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
                       <th></th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr *ngFor="let item of ProviderList| slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
-                      <td>{{item.Name}} , {{item.Degree}}</td>
+                      <td class="tbl-col">
+                        <button type="button" class="addbtn"><i class="fa fa-plus icon-add my-1"></i></button>
+                        <span class="mx-1"> {{item.ProviderName}} , {{item.Degree}}</span>
+                        <div class="d-flex justify-content-start mt-2">
+                          <button class="td-btn-style">Login</button>
+                          <button class="td-btn-style mx-2">Remove as Primary</button>
+                        </div>
+                      </td>
                       <td>{{item.Email}}</td>
-                      <td class="td-width text-success">{{item.EmailVerifyStatus}}</td>
-                      <td>{{item.NewPhoneNo}}</td>
+                      <td>{{item.ProviderName}}</td>
+                      <td>{{item.PrimaryPhone}}</td>
+                      <td>{{item.Address}}</td>
                       <td class="td-col-width" colspan="3">
                         <div class="d-flex justify-content-between">
                          <div [ngClass]="item.ToggleButton?'text-mute':'text-black'">Trail ({{item.TrailDays}} d left)</div>
                             <div class="form-check form-switch mx-3">
                               <input class="form-check-input toggle-btn" type="checkbox" [checked]="item.ToggleButton" id="flexSwitchCheckDefault">
                             </div>
-                          <div [ngClass]="item.ToggleButton?'text-black':'text-mute'" class="mr-3">{{item.Trial}}</div>
                         </div>
                       </td>
-                      <td class="td-col-width mx-3"><button type="button" class="table-col-button mx-3">View</button></td>
-                      <td class="td-col-width"><button type="button"  [ngClass]="item.ActiveStatus == 'Active'? 'Actives' : 'Suspended'">{{item.ActiveStatus}}</button></td>
-                      <td class="td-col-width"><button type="button" class="table-col-button mx-3">Reset MFA</button></td>
+                      <td class="column text-uppercase">{{item.ActiveStatus}}</td>
+                      <!-- <td class="td-col-width"><button type="button"  [ngClass]="item.ActiveStatus == 'Active'? 'Actives' : 'Suspended'">{{item.ActiveStatus}}</button></td> -->
+                      <!-- <td class="td-col-width"><button type="button" class="td-btn-style" >{{AlterStatus}}</button></td> -->
+                      <td class="td-width text-success">{{item.EmailVerifyStatus}}</td>
+                      <td class="td-col-width"><button type="button" class="table-col-button ">View</button></td>
+                      <!-- <td [ngClass]="item.ToggleButton?'text-black':'text-mute'" class="mr-3 ">{{item.Trial}}</td> -->
+                      <td  class="mr-3 "><button type="button" class="table-col-button">{{item.Trial}}</button></td>
+                      <td class="td-col-width"><button type="button" class="td-btn-style" >{{AlterStatus}}</button></td>
+                      <td class="td-col-width"><button type="button" class="table-col-button ">Reset MFA</button></td>
+                      <td><button class="btn-lock td-btn-style">Lock</button></td>
                       <td > <button type="button" class="Cancelbtn"><i class="fa fa-close icon-close"></i></button></td>
                     </tr>
                   </tbody>
@@ -81,16 +143,18 @@
               <div class="d-flex justify-content-end my-3"> <button type="button" class="common-button-style py-2 px-3 ml-3">View all</button></div>
 
             </div>
+
           </div>
         </div>
       </div>
     </div>
 
 
-   <div class="d-flex justify-content-end my-3">
+
+    <div class="d-flex justify-content-end my-3">
     <nav aria-label="Page navigation">
       <ul class="pagination mt-4">
-        <ngb-pagination [pageSize]="pageSize" [collectionSize]="TotalItems"  [maxSize]="9" [lastSize]="2"
+        <ngb-pagination [pageSize]="pageSize" [collectionSize]="ProviderList.length"  [maxSize]="9" [lastSize]="2"
          [(page)]="page" aria-label="Default pagination">
         </ngb-pagination>
       </ul>

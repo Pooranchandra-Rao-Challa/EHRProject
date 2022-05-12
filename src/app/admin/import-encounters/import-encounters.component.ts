@@ -7,6 +7,7 @@ import { FilteringEventArgs } from '@syncfusion/ej2-dropdowns';
   selector: 'app-import-encounters',
   templateUrl: './import-encounters.component.html',
   styleUrls: ['./import-encounters.component.scss']
+
 })
 export class ImportEncountersComponent {
 

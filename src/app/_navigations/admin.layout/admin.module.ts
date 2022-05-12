@@ -50,6 +50,8 @@ import { ImportEncountersComponent } from 'src/app/admin/import-encounters/impor
 import { CKEditorModule } from 'ckeditor4-angular';
 import { OverlayService } from 'src/app/overlay.service';
 import { AddUserDialogComponent } from 'src/app/dialogs/adduser.dialog/adduser.dialog.component';
+import { DefaultMessagesComponent } from 'src/app/admin/defaultmessages/defaultmessages.component';
+import { CommunicationsettingsComponent } from 'src/app/admin/communicationsettings/communicationsettings.component';
 
 
 @NgModule({
@@ -77,6 +79,8 @@ import { AddUserDialogComponent } from 'src/app/dialogs/adduser.dialog/adduser.d
     ListImportedDataComponent,
     ImportPatientsComponent,
     ImportEncountersComponent,
+    DefaultMessagesComponent,
+    CommunicationsettingsComponent
   ],
   imports: [
     AdminRoutingModule,

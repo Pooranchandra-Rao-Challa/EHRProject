@@ -1,176 +1,178 @@
-.contain {
-  margin-left: 1.5%;
-  margin-right: 1.5%;
-}
 
-.table>:not(caption)>*>* {
-  padding: 0.5rem 0.5rem;
-  background-color: var(--bs-table-bg);
-  border-bottom-width: 1px;
-  box-shadow: inset 0 0 0 0000px var(--bs-table-accent-bg);
-}
+@import"../../../app/admin/activepatients/activepatients.component.scss";
+// .contain {
+//   margin-left: 1.5%;
+//   margin-right: 1.5%;
+// }
 
-.table td {
-  vertical-align: middle;
-  font-size: 15px;
-  line-height: 2;
-  white-space: pre-wrap;
-}
+// .table>:not(caption)>*>* {
+//   padding: 0.5rem 0.5rem;
+//   background-color: var(--bs-table-bg);
+//   border-bottom-width: 1px;
+//   box-shadow: inset 0 0 0 0000px var(--bs-table-accent-bg);
+// }
 
-.table thead tr th {
-  font-size: 14px;
-  font-family: "Open Sans", sans-serif;
-  font-weight: 600;
+// .table td {
+//   vertical-align: middle;
+//   font-size: 15px;
+//   line-height: 2;
+//   white-space: pre-wrap;
+// }
 
-}
+// .table thead tr th {
+//   font-size: 14px;
+//   font-family: "Open Sans", sans-serif;
+//   font-weight: 600;
 
-
-.column {
-  width: 1%;
-}
-
-div.example input[type=text] {
-  padding: 7px;
-  font-size: 17px;
-  border: 1px solid #b4bcc8;
-  float: left;
-  width: 92%;
-  background: #fff;
-}
-
-div.example button {
-  float: left;
-  width: 6%;
-  padding: 5px;
-  background: #2b3643;
-  color: white;
-  font-size: 20.08px;
-  border: 1px solid #b4bcc8;
-  border-left: none;
-  cursor: pointer;
-}
-
-.search {
-  position: relative;
-  box-shadow: 0 0 40px rgba(51, 51, 51, .1)
-}
-
-.search .fa-search {
-  position: absolute;
-  top: 12px;
-  left: 17px;
-  color: white;
-  font-size: 24px;
-}
-
-.search button {
-  position: absolute;
-  top: -0.89px;
-  ;
-  right: -50px;
-  height: 49px;
-  width: 55px;
-  background: #41b6a6;
-  border-color: white;
-
-}
+// }
 
 
-.border,
-.loader-demo-box {
-  border: 1px solid #ddd !important;
-}
+// .column {
+//   width: 1%;
+// }
 
-input::-webkit-input-placeholder {
-  color: #8a8888 !important;
-  font-size: 100%;
-  font-family: sans-serif;
-}
+// div.example input[type=text] {
+//   padding: 7px;
+//   font-size: 17px;
+//   border: 1px solid #b4bcc8;
+//   float: left;
+//   width: 92%;
+//   background: #fff;
+// }
 
-thead {
-  border-bottom-width: 2px;
-}
+// div.example button {
+//   float: left;
+//   width: 6%;
+//   padding: 5px;
+//   background: #2b3643;
+//   color: white;
+//   font-size: 20.08px;
+//   border: 1px solid #b4bcc8;
+//   border-left: none;
+//   cursor: pointer;
+// }
 
-.portlet.light .portlet-body {
-  padding-top: px;
-}
+// .search {
+//   position: relative;
+//   box-shadow: 0 0 40px rgba(51, 51, 51, .1)
+// }
 
-.portlet.light.bordered {
-  border: 1px solid #e7ecf1 !important;
-}
+// .search .fa-search {
+//   position: absolute;
+//   top: 12px;
+//   left: 17px;
+//   color: white;
+//   font-size: 24px;
+// }
 
-.portlet-title {
-  border-bottom: 1px solid #eef1f5 !important;
-  margin-bottom: 2%;
+// .search button {
+//   position: absolute;
+//   top: -0.89px;
+//   ;
+//   right: -50px;
+//   height: 49px;
+//   width: 55px;
+//   background: #41b6a6;
+//   border-color: white;
 
-}
+// }
 
-.portlet>.portlet-title>.caption {
-  //float: left;
-  display: inline-block;
-  font-size: 16px;
-  line-height: 18px;
-  padding: 10px 0;
-}
 
-.portlet>.portlet-title>.actions {
-  //float: right;
-  display: inline-block;
-  padding: 6px 0;
+// .border,
+// .loader-demo-box {
+//   border: 1px solid #ddd !important;
+// }
 
-}
+// input::-webkit-input-placeholder {
+//   color: #8a8888 !important;
+//   font-size: 100%;
+//   font-family: sans-serif;
+// }
 
-.btn-log {
-  cursor: pointer;
-  font-size: 80%;
-  text-align: center;
-  width: auto;
-  line-height: 150%;
-  margin-left: 4%;
-  background-color: #fff;
-  border: 1px solid #b4bcc8;
-}
+// // thead {
+// //   border-bottom-width: 2px;
+// // }
 
-.btn-log:hover {
-  cursor: pointer;
-  color: black;
-  background: rgb(234, 233, 233);
-  border: 1px solid #b4bcc8;
-}
+// .portlet.light .portlet-body {
+//   padding-top: px;
+// }
 
-@media (max-width: 902px) {
-  .btn-log {
-    cursor: pointer;
-    font-size: 80%;
-    text-align: center;
-    width: auto;
-    line-height: 150%;
-    margin-left: 6%;
-    background-color: #fff;
-    border: 1px solid #b4bcc8;
-  }
-}
+// .portlet.light.bordered {
+//   border: 1px solid #e7ecf1 !important;
+// }
 
-@media (min-width:300px) and(max-width:768px) {
-  div.example input[type=text] {
-    padding: 7px;
-    font-size: 17px;
-    border: 1px solid #b4bcc8;
-    float: left;
-    width: 85%;
-    background: #fff;
-  }
+// .portlet-title {
+//   border-bottom: 1px solid #eef1f5 !important;
+//   margin-bottom: 2%;
 
-  div.example button {
-    float: left;
-    width: 15%;
-    padding: 5px;
-    background: #2b3643;
-    color: white;
-    font-size: 20.08px;
-    border: 1px solid #b4bcc8;
-    border-left: none;
-    cursor: pointer;
-  }
+// }
 
-}
+// .portlet>.portlet-title>.caption {
+//   //float: left;
+//   display: inline-block;
+//   font-size: 16px;
+//   line-height: 18px;
+//   padding: 10px 0;
+// }
+
+// .portlet>.portlet-title>.actions {
+//   //float: right;
+//   display: inline-block;
+//   padding: 6px 0;
+
+// }
+
+// .btn-log {
+//   cursor: pointer;
+//   font-size: 80%;
+//   text-align: center;
+//   width: auto;
+//   line-height: 150%;
+//   margin-left: 4%;
+//   background-color: #fff;
+//   border: 1px solid #b4bcc8;
+// }
+
+// .btn-log:hover {
+//   cursor: pointer;
+//   color: black;
+//   background: rgb(234, 233, 233);
+//   border: 1px solid #b4bcc8;
+// }
+
+// @media (max-width: 902px) {
+//   .btn-log {
+//     cursor: pointer;
+//     font-size: 80%;
+//     text-align: center;
+//     width: auto;
+//     line-height: 150%;
+//     margin-left: 6%;
+//     background-color: #fff;
+//     border: 1px solid #b4bcc8;
+//   }
+// }
+
+// @media (min-width:300px) and(max-width:768px) {
+//   div.example input[type=text] {
+//     padding: 7px;
+//     font-size: 17px;
+//     border: 1px solid #b4bcc8;
+//     float: left;
+//     width: 85%;
+//     background: #fff;
+//   }
+
+//   div.example button {
+//     float: left;
+//     width: 15%;
+//     padding: 5px;
+//     background: #2b3643;
+//     color: white;
+//     font-size: 20.08px;
+//     border: 1px solid #b4bcc8;
+//     border-left: none;
+//     cursor: pointer;
+//   }
+
+// }
