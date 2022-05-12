@@ -83,15 +83,6 @@ p {
   margin-top: 7px;
   margin-right: 0px !important;
 }
-::ng-deep .smart-schedule-dropdown .mat-select-panel{
-  border-radius: 4px;
-    border: 1px solid #41b6a6;
-    position: absolute !important;
-    top: 29px;
-    min-width: calc(100% + 18px) !important;
-    margin-left: -9px;
-}
-
 ::ng-deep
   .smart-schedule-dropdown
   .mat-form-field-appearance-outline
@@ -117,11 +108,14 @@ div.smart-schedule-header {
   padding: 0px;
 }
 .new-search {
-  // background-color: #f5f5f5;
+  background-color: #f5f5f5;
   border-color: #fe8f00 !important;
   height: 40px;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   font-size: 15px;
+}
+input::placeholder{
+    color: #74757e;
 }
 .schedule-bottom .patientbtn {
   background-color: #ffdd57;

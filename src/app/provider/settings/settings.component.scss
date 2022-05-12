@@ -611,11 +611,11 @@ ul.menuclass li.active a {
 .notallowCursor {
   cursor: not-allowed !important;
 }
-.top-block {
-  font-size: 16px !important;
-  color: black;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}
+// .top-block {
+//   font-size: 16px !important;
+//   color: black;
+//   font-family: Roboto, "Helvetica Neue", sans-serif;
+// }
 @media (max-width: 1350px) {
   .scrollable-mat-table {
     max-width: 1200px;
@@ -640,6 +640,10 @@ ul.menuclass li.active a {
   padding: 10px;
   border-top: none;
 }
+// .inputclass.providerrole{
+//   background-color: #d6d8df;
+//   color: #74757e;
+// }
 @media (max-width: 768px) {
   .addbtn {
     margin-right: 154px;
@@ -898,7 +902,7 @@ a.disabled{
 }
 .form-group label{
   font-weight: 700;
-  font-size: 12px;
+  font-size: 13px;
   color: #333;
   font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
 }
@@ -917,6 +921,6 @@ img.avatar:hover{
 }
 .timezone .time{
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-  font-size: 13px;
-  color: #333;
+  font-size: 14px;
+  color: black;
 }
