@@ -98,15 +98,27 @@ export class SettingsService extends APIEndPoint {
   UpdateReschedule(reqparams: any) {
     return this._ProcessPostRequest<any>(this._updateRescheduleUrl, reqparams);
   }
+  AuditLogs(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._auditLogsUrl, reqparams);
+  }
 
+  EducationMaterials(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._educationMaterialsUrl, reqparams);
+  }
+
+  ClinicalDecisionSupport(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._clinicalDecisionSupportUrl, reqparams);
+  }
+
+  Erx(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._erxUrl, reqparams);
+  }
   ToggleUserFieldValues(reqparams: any) {
     console.log(reqparams)
     return this._ProcessPostRequest<any>(this._toggleUserFieldValuesUrl, reqparams);
   }
-  GetGeneralSchedule(reqparams: any) {
-    return this._ProcessPostRequest<any>(this._generalScheduleUrl, reqparams);
-  }
-  UpdateSchedulegeneral(reqparams: any) {
-    return this._ProcessPostRequest<any>(this._updateRescheduleUrl, reqparams);
-  }
+  
+  
+
+  
 }
