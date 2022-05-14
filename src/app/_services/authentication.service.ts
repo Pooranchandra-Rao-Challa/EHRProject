@@ -41,33 +41,24 @@ export class AuthenticationService {
 
   loginWithFormCredentials(creds: any): Observable<ResponseData> {
     const endpointUrl = this.baseUrl + "Authenticate/";
-    console.log(endpointUrl)
-    console.log(creds)
     let observable = this.http.post<ResponseData>(endpointUrl, creds).pipe<ResponseData>(
       tap(resp => {
         if (resp.IsSuccess) {
-          //let sessionToken = this.idService.generate();
           this.userSubject = new BehaviorSubject<User>(resp.Result as User);
-          //this.userSubject.value.JwtToken = sessionToken;
           localStorage.setItem('user', JSON.stringify(resp.Result as User));
-
           this.startRefreshTokenTimer();
           if (this.isProvider)
-            // this.router.navigate(['/provider/smartschedule']);
             this.router.navigate(
               ['/provider/smartschedule'],
               { queryParams: { name: 'Smart Schedule' } }
             );
           else if (this.isAdmin)
-              //this.router.navigate(['/admin/dashboard']);
               this.router.navigate(
                 ['/admin/dashboard'],
                 { queryParams: { name: 'Dashboard' } }
               );
           else if (this.isPatient)
             this.router.navigate(['/patinet/patientview']);
-          //else
-          //this.router.navigate(['/reports/categoryreports']);
         }
       })
     );
@@ -75,24 +66,13 @@ export class AuthenticationService {
   }
   patientLoginWithFormCredentials(creds: any): Observable<ResponseData> {
     const endpointUrl = this.apiEndPoint._authenticatePatientUrl;
-
-    console.log(endpointUrl)
-    console.log(creds)
     let observable = this.http.post<ResponseData>(endpointUrl, creds);
-    console.log(observable);
     observable.subscribe(resp => {
-      console.log(resp.IsSuccess);
       if (resp.IsSuccess) {
-        //let sessionToken = this.idService.generate();
         this.userSubject = new BehaviorSubject<User>(resp.Result as User);
-        //this.userSubject.value.JwtToken = sessionToken;
         localStorage.setItem('user', JSON.stringify(resp.Result as User));
-
         this.startRefreshTokenTimer();
-        console.log(this.userValue);
-        console.log(this.userValue.LocationInfo);
         if (this.isProvider)
-          // this.router.navigate(['/provider/smartschedule']);
           this.router.navigate(
             ['/provider/smartschedule'],
             { queryParams: { name: 'Smart Schedule' } }
@@ -101,8 +81,6 @@ export class AuthenticationService {
           this.router.navigate(['/admin/providers']);
         else if (this.isPatient)
           this.router.navigate(['/patient/dashboard']);
-        //else
-        //this.router.navigate(['/reports/categoryreports']);
       }
     }),
       (error) => {
@@ -130,7 +108,6 @@ export class AuthenticationService {
   logout() {
     localStorage.removeItem('user');
     this.revokeToken();
-    // this.router.navigate(['/account/login']);
     this.stopRefreshTokenTimer();
     this.router.navigate(['/account/home']);
   }
@@ -158,9 +135,7 @@ export class AuthenticationService {
   }
 
   private startRefreshTokenTimer() {
-    // parse json object from base64 encoded jwt token
     const jwtToken = JSON.parse(atob(this.userValue.JwtToken.split('.')[1]));
-    // set a timeout to refresh the token a minute before it expires
     const expires = new Date(jwtToken.exp * 1000);
     const timeout = expires.getTime() - Date.now() - (60 * 1000);
     this.refreshTokenTimeout = setTimeout(() => this.refreshToken().subscribe(), timeout);
@@ -169,6 +144,6 @@ export class AuthenticationService {
 
   private stopRefreshTokenTimer() {
     clearTimeout(this.refreshTokenTimeout);
-
   }
+
 }

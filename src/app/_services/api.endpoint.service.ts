@@ -139,12 +139,12 @@ export class APIEndPoint extends EndpointBase {
   }
 
   get _dropAppointmentStatusUrl() {
-    debugger;
+    //debugger;
     return this._baseUrl + "DropAppointmentStatus";
   }
 
   get _dropRoomUrl() {
-    debugger;
+    //debugger;
     return this._baseUrl + "DropRoom";
   }
 
@@ -266,6 +266,12 @@ export class APIEndPoint extends EndpointBase {
   get _updateRescheduleUrl() {
     return this._baseUrl + "UpdateSchedulegeneral";
   }
+
+
+  get _providerConfirmationUrl() {
+    return this._baseUrl + "ProviderConfirmation";
+  }
+
   constructor(public http: HttpClient) {
     super();
   }

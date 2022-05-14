@@ -27,7 +27,7 @@ export class LabsImagingComponent implements OnInit {
    var reqparam = {
      "clinic_Id": this.user.CurrentLocation
    }
-    debugger;
+    //debugger;
     this.labimage.LabsDetails(reqparam).subscribe(resp => {
      if (resp.IsSuccess) {
        this.labImagingDataSource = resp.ListResult;
@@ -40,7 +40,7 @@ export class LabsImagingComponent implements OnInit {
     var reqparam = {
       "clinic_Id": this.user.CurrentLocation
     }
-     debugger;
+     //debugger;
      this.labimage.ImageDetails(reqparam).subscribe(resp => {
       if (resp.IsSuccess) {
         this.labImagingDataSource = resp.ListResult;

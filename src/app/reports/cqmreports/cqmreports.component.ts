@@ -191,7 +191,7 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
   userLocationInfo: UserLocations[];
 
   public downloadAsPDF() {
-    debugger;
+    //debugger;
     const documenDefinition = {
       content: [
         {
@@ -390,7 +390,7 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
       var req = {
         "LocationId": locationid,
       }
-      debugger;
+      //debugger;
       this.accountservice.getProviderList(req).subscribe((data) => {
         if (data.IsSuccess) {
           this.providerlist = data.ListResult;
@@ -404,7 +404,7 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
 
   getLocationsList(ProviderId) {
     this.providerid = ProviderId;
-    debugger;
+    //debugger;
     this.accountservice.getLocationsList(this.providerid).subscribe(data => {
       if (data.IsSuccess) {
         this.locationslist = data.ListResult;
@@ -1807,7 +1807,7 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
   }
 
   onSubmitCreateReport() {
-    debugger;
+    //debugger;
     if (this.createReportForm.invalid) {
       return;
     }
@@ -1845,7 +1845,7 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
   }
 
   createupdateEmployee(data: any) {
-    debugger;
+    //debugger;
     this.customizedspinner = true; //$('body').addClass('loadactive').scrollTop(0);
     this.accountservice.CreateQueuedReport(data).subscribe((data) => {
       if (data.IsSuccess) {
@@ -2212,7 +2212,7 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
   //   ];
   // }
   drilldownViewConditions(PatientId) {
-    debugger;
+    //debugger;
     var req = {
       // ReportId: this.MeasureReportId,
       // MeasureId: this.MeasureSetId,
@@ -2320,7 +2320,7 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
     this.downloadservice.getdownloadQRDA3(req);
   }
   getdownloadQRDA3MIPSReport() {
-    debugger;
+    //debugger;
     var req = {
       ReportId: this.patientlistmeasure.ReportId,
     };

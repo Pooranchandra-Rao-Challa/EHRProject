@@ -22,7 +22,7 @@ export class AddUserDialogComponent implements OnInit {
   }
 
   Filter(value: string): string[] {
-    debugger;
+    ////debugger;
     if(value==""){
       return ['Please enter 1 or more characters']
     }

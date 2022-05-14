@@ -23,7 +23,7 @@ export class ActivePatientsComponent implements OnInit {
   }
 
   getactivepatientList() {
-    debugger
+    //debugger
     var data = {
       // Sort: '',
       // Direction: '',
@@ -44,7 +44,7 @@ export class ActivePatientsComponent implements OnInit {
     });
   }
   onPageChange(index){
-    debugger;
+    //debugger;
     this.activepatientDataSource =  this.premiumData
       .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
     this.getactivepatientList();

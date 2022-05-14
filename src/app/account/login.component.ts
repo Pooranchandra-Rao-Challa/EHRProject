@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
       "EmailId": data.UserName,
       "Password": data.Password,
     };
-    console.log(creds);
+
     this.authenticationService.loginWithFormCredentials(creds).subscribe(resp => {
       if (!resp.IsSuccess) {
         this.showspinner = false;
@@ -148,5 +148,24 @@ export class LoginComponent implements OnInit {
     if (email) {
       Swal.fire(`Entered email: ${email}`)
     }
+  }
+
+  openErrorDialog(){
+
+   Swal.fire({
+
+      text:'Wrong Email Or Password',
+
+      padding:'1px !important',
+      customClass: {
+        cancelButton:'cancel-button cancel-button1'
+      },
+
+      background:'#f9f9f9',
+      showCancelButton: true,
+      cancelButtonText:'Close',
+      backdrop:true,
+      showConfirmButton: false,
+    });
   }
 }

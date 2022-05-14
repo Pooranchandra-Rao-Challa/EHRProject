@@ -68,7 +68,7 @@ export class AdminPracticeComponent implements OnInit {
 
 
   FilterProvider(eventType, event) {
-    debugger;
+    //debugger;
     if (eventType == 'ActiveStatus') {
       if (event == 'Active' && this.Active) {
         this.Suspended = false;
@@ -110,12 +110,12 @@ export class AdminPracticeComponent implements OnInit {
 
 
   SearchDetails() {
-    debugger;
+    //debugger;
     this.ProviderList=this.GetFilterList.filter((invoice) => this.isMatch(invoice));
   }
 
   isMatch(item) {
-    debugger;
+    //debugger;
     if (item instanceof Object) {
       return Object.keys(item).some((k) => this.isMatch(item[k]));
     } else {

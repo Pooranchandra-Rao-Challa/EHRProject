@@ -266,11 +266,12 @@ export class PracticeComponent implements OnInit {
         if (resp.IsSuccess) {
           this.addressVerifymsg = resp.EndUserMessage
         }
+
       });
     }
   }
   updateLocation() {
-    debugger;
+    //debugger;
     // var name = this.LocationForm.value.LocationName;
     var name = this.PracticeLocData.LocationName;
     this.splitAddress = null;
@@ -418,7 +419,7 @@ export class PracticeComponent implements OnInit {
     });
   }
   splitAddresses() {
-    debugger;
+    //debugger;
     var street = this.PracticeLocData.Street;
     if (street != null) {
       this.address = street.split(',');
