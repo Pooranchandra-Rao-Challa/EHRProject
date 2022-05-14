@@ -20,6 +20,7 @@ export class ProviderNavbarComponent implements OnInit {
   currentLocation: string;
   @Output() LocationChanged = new EventEmitter<String>();
   view: string;
+  name: string;
 
   constructor(private route: ActivatedRoute,
     config: NgbDropdownConfig, private router: Router,
@@ -32,7 +33,7 @@ export class ProviderNavbarComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.name = 'Smart Schedule';
   }
 
   changeLocation(locationId) {
@@ -49,6 +50,7 @@ export class ProviderNavbarComponent implements OnInit {
   }
 
   onChangeBreadCrum(url: string, name: string, view?: string,) {
+    //debugger;
     console.log(view)
     if (view != null) {
       console.log(view)
@@ -63,6 +65,7 @@ export class ProviderNavbarComponent implements OnInit {
         [url],
         { queryParams: { name: name } }
       );
+      this.name = name;
   }
 
 

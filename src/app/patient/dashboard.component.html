@@ -82,7 +82,8 @@
           <div class="panel-body">
             <ul class="navbar-nav active">
               <li class="nav-item ">
-                <a class="secondary-text-dark nav-link"  data-bs-toggle="modal" (click)="openComponentDialog(PatientDialogComponent)">
+                <a class="secondary-text-dark nav-link" data-bs-toggle="modal"
+                  (click)="openComponentDialog(PatientDialogComponent)">
 
                   <i class="fa fa-angle-right">
                   </i>
@@ -90,21 +91,22 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="secondary-text-dark nav-link"  data-bs-toggle="modal" (click)="openComponentDialogmessage(MessageDialogComponent)">
+                <a class="secondary-text-dark nav-link" data-bs-toggle="modal"
+                  (click)="openComponentDialogmessage(MessageDialogComponent)">
                   <i class="fa fa-angle-right">
                   </i>
                   <a>Send a Message</a>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="secondary-text-dark nav-link"  data-remote="true" (click)="onhealth()">
+                <a class="secondary-text-dark nav-link" data-remote="true" (click)="onhealth()">
                   <i class="fa fa-angle-right">
                   </i>
                   <a>Link health information</a>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="secondary-text-dark nav-link"  data-remote="true" (click)="onAcess()">
+                <a class="secondary-text-dark nav-link" data-remote="true" (click)="onAcess()">
                   <i class="fa fa-angle-right">
                   </i>
                   <a>Application Access</a>
@@ -119,162 +121,3 @@
   </div>
 </div>
 
-<!-- <div class="modal fade" id="staticBackdrop4" [ngStyle]="{'display':displayReq}" tabindex="-1" role="dialog"
-  aria-labelledby="staticBackdrop4" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4>Request an Appointment</h4>
-        <span type="button" data-bs-dismiss="modal">
-          X
-        </span>
-      </div>
-      <div class="modal-body">
-        <div class="content">
-          <form>
-
-            <div class="row ">
-              <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
-                <label for="Date" class="form-label">Date</label>
-                <input type="input" class="form-control border-input" id="Date" placeholder="Date">
-              </div>
-              <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
-                <label for="Date" class="form-label">Select Provider</label>
-                <select class="form-select border-input" id="sel1" name="sellist1">
-                  <option class="dropdown-menu"  disabled selected>Select Provider</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
-                <label for="Time" class="form-label">Time</label>
-                <input type="input" class="form-control border-input" id="Time" placeholder="Time">
-              </div>
-              <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
-                <label for="Date" class="form-label">Location </label>
-                <select class="form-select border-input" id="sel1" name="sellist1">
-                  <option class="dropdown-menu"  disabled selected>Select Location</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                </select>
-              </div>
-            </div>
-
-
-            <div class="row">
-              <div class="col-lg-12 mt-3">
-                <label for="Note" class="form-label">Note</label>
-                <textarea class="form-control border-input" id="Note" rows="3"></textarea>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-12 mt-3">
-                <div class="row">
-                  <p>*We will make every effort to accommodate exact times requested, but may need to suggest alternate
-                    dates/times.</p>
-                </div>
-              </div>
-            </div>
-            <div class="row" style="float: right;">
-              <button type="button" style="margin-left: -18%;margin-right: 9%;" class="reg-button col-md-4"
-                data-bs-dismiss="modal">Cancel</button>
-              <button type="button" class="reg-button col-md-4">Submit</button>
-            </div>
-          </form>
-
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div> -->
-
-<!-- <div class="modal fade" id="staticBackdrop1" [ngStyle]="{'display':displayNew}" tabindex="-1" role="dialog"
-  aria-labelledby="staticBackdrop1" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header modal-header-md">
-        <h4>New Message</h4>
-
-        <span type="button" data-bs-dismiss="modal">
-          X
-        </span>
-      </div>
-      <div class="modal-body">
-        <div class="content">
-          <form class="pt-4">
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="row">
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span  class="input-group-text ">To</span>
-                    </div>
-                    <input type="text" class="form-control ser" aria-label="Amount" placeholder="Search">
-                    <div class="input-group-append" style=" width: 12%;">
-                      <span class="input-group-addon input-group-addon-right input-group-addon-search"
-                        id="find-messages-button"><i class="fa fa-search serch"></i></span>
-                    </div>
-                  </div>
-
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend ">
-                      <span  class="input-group-text">From </span>
-                    </div>
-                    <input type="text" class="form-control ser" aria-label="Amount">
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="row">
-                  <div>
-                    <label for="subject" class="form-label">Subject</label>
-                    <input type="input" class="form-control border-input" id="Subject" placeholder="Subject :" aria-describedby="subjectlHelp">
-                  </div>
-                  <div class="mt-2">
-                    <label for="message" class="form-label">Message</label>
-                    <input type="input" class="form-control border-input" id="message" placeholder="Message :" aria-describedby="messageHelp">
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-1 file_upload_glyph">
-                <div class="form-group">
-                  <div class="input-group mt-4">
-                    <span type="button" class="reg-button col-md-4 btn btn-default btn-padding-md ">
-                      <i class="fa fa-paperclip" aria-hidden="true"></i>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row mt-5">
-              <div class="col-lg-4 ">
-                <div class="col-lg-4 ">
-                  <mat-checkbox class="col-lg-12 col-md-12 example-margin">
-                    <mat-lable class="custom-control-label">URGENT</mat-lable>
-                  </mat-checkbox>
-                </div>
-              </div>
-
-            </div>
-
-            <div class="row" style="float: right;">
-              <button type="button" style="margin-left: -18%;margin-right: 9%;" class="reg-button col-md-4"
-                data-bs-dismiss="modal">Cancel</button>
-              <button type="button" class="reg-button col-md-4">Submit</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> -->

@@ -11,7 +11,7 @@ import { PatientEdnMaterialComponent } from './patientednmaterial.component';
 import { MessageSettingsComponent } from './message.component';
 import { LabMappingComponent } from './labmapping.component';
 import { ClinicDecisionComponent } from './clinicdecision.component';
-import { SharedModule } from '../_common/shared';
+import { SharedModule } from '../../_common/shared';
 import { CommonModule } from '@angular/common';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { ColorPickerModule } from 'ngx-color-picker';

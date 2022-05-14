@@ -33,9 +33,9 @@ import { ScheduleModule, DayService, WeekService } from '@syncfusion/ej2-angular
 import { LocationSelectService } from './location.service';
 import { UtilityService } from '../../_services/utiltiy.service';
 import { SmartSchedulerService } from '../../_services/smart.scheduler.service';
-import { SettingsModule } from '../../settings/settings.module';
+import { SettingsModule } from '../../provider/settings/settings.module';
 import { PatientsModule } from '../../provider/patients/patients.module'
-import { SettingsComponent } from '../../settings/settings.component';
+import { SettingsComponent } from '../../provider/settings/settings.component';
 import { LabsImagingComponent } from '../../provider/labs.imaging/labs.imaging.component';
 import { DirectMsgComponent } from '../../provider/directmsg/directmsg.component';
 import { ErxComponent } from '../../provider/erx/erx.component';
@@ -72,6 +72,7 @@ import { SmokingStatusDialogComponent } from '../../dialogs/smoking.status.dialo
 import { InterventionDialogComponent } from '../../dialogs/intervention.dialog/intervention.dialog.component';
 import { DropDownSearchComponent } from '../../_components/drop-down-search/drop-down-search.component';
 import { patientService } from 'src/app/_services/patient.service';
+import { BillingService } from '../../_services/billing.service';
 
 @NgModule({
   exports: [
@@ -155,7 +156,7 @@ import { patientService } from 'src/app/_services/patient.service';
 
   ],
   providers: [DayService, WeekService, LocationSelectService,
-    UtilityService, SmartSchedulerService, OverlayService, patientService, SmartScheduleComponent,
+    UtilityService, SmartSchedulerService, OverlayService, patientService,BillingService, SmartScheduleComponent,
     { provide: NgbDateParserFormatter, useClass: NgbDateUSParserFormatter }
 
   ],

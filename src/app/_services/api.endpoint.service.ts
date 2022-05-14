@@ -224,7 +224,7 @@ export class APIEndPoint extends EndpointBase {
   }
 
   get _providerListUrl() {
-    return this._baseUrl + "GetProviderList";
+    return this._baseUrl + "ProviderList";
   }
 
 
@@ -233,15 +233,15 @@ export class APIEndPoint extends EndpointBase {
   }
 
   get _billingDetailsUrl() {
-    return this._baseUrl + "GetBillingList";
+    return this._baseUrl + "BillingList";
   }
 
   get _labDetailsUrl() {
-    return this._baseUrl + "GetLabs";
+    return this._baseUrl + "LabsList";
   }
 
   get _imagingDetailsUrl() {
-    return this._baseUrl + "GetImaging";
+    return this._baseUrl + "ImagingsList";
   }
 
   get _activePatientsUrl() {
@@ -256,11 +256,11 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "PatientsByProvider";
   }
   get _adminListUrl() {
-    return this._baseUrl + "api/Admin";
+    return this._baseUrl + "Admins";
   }
 
   get _generalScheduleUrl() {
-    return this._baseUrl + "GetGeneralSchedule";
+    return this._baseUrl + "GeneralSchedule";
   }
 
   get _updateRescheduleUrl() {
@@ -271,6 +271,23 @@ export class APIEndPoint extends EndpointBase {
   get _providerConfirmationUrl() {
     return this._baseUrl + "ProviderConfirmation";
   }
+
+  get _auditLogsUrl() {
+    return this._baseUrl + "AuditLogs";
+  }
+
+  get _educationMaterialsUrl() {
+    return this._baseUrl + "EducationMaterials";
+  }
+
+  get _clinicalDecisionSupportUrl() {
+    return this._baseUrl + "ClinicalDecisionSupport";
+  }
+
+  get _erxUrl() {
+    return this._baseUrl + "Erx";
+  }
+
 
   constructor(public http: HttpClient) {
     super();

@@ -1,8 +1,8 @@
-<div class="modal-dialog modal-xl">
+<div class="modal-dialog appointment-form">
   <div class="modal-content modal-cust-content">
-    <div class="modal-header model-cust-heading">
+    <div class="modal-header modal-cust-header">
       <p class="modal-title modal-cust-title">New User</p>
-      <span type="button" class="cross-x" data-bs-dismiss="modal" aria-label="Close">
+      <span type="button" class="cross-x" data-bs-dismiss="modal" aria-label="Close" (click)="close()">
        x
       </span>
     </div>
@@ -209,7 +209,7 @@
     </div>
     <div class="modal-footer model-cust-footer">
       <button type="button" class="save-button col-md-4">Add New User </button>
-      <button type="button" data-bs-dismiss="modal" class="cancel-button col-md-4" data-bs-dismiss="modal" aria-label="Close" (click)="cancel()"
+      <button type="button" data-bs-dismiss="modal" class="cancel-button col-md-4" data-bs-dismiss="modal" aria-label="Close" (click)="close()"
       >Cancel</button>
     </div>
   </div>

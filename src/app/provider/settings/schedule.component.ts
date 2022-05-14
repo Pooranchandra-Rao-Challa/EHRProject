@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../_services/authentication.service';
-import { SettingsService } from '../_services/settings.service';
-import { User } from '../_models';
+import { AuthenticationService } from '../../_services/authentication.service';
+import { SettingsService } from '../../_services/settings.service';
+import { User } from '../../_models';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { AppointmentStatus, AppointmentType, GeneralSchedule, RoomsSlot } from '../_models/settings';
-import { IdService } from '../_helpers/_id.service';
+import { AppointmentStatus, AppointmentType, GeneralSchedule, RoomsSlot } from '../../_models/settings';
+import { IdService } from '../../_helpers/_id.service';
 import Swal from 'sweetalert2';
 declare var $: any;
 
@@ -26,7 +26,7 @@ export class ScheduleComponent implements OnInit {
   roomsOnEdit: number[] = [];
   statusOnEdit: number[] = [];
   typeOnEdit: number[] = [];
-  generalSchedule: GeneralSchedule;
+  generalSchedule: GeneralSchedule={} as GeneralSchedule;
 
   constructor(private authService: AuthenticationService, private settingsService: SettingsService, private fb: FormBuilder, private idService: IdService) {
     this.user = authService.userValue;
@@ -389,7 +389,7 @@ export class ScheduleComponent implements OnInit {
     let reqparams = {
       clinicId: this.user.ClinicId
     };
-    this.settingsService.GetGeneralSchedule(reqparams).subscribe((resp) => {
+    this.settingsService.Generalschedule(reqparams).subscribe((resp) => {
       this.generalSchedule = resp.ListResult[0];
       console.log(this.generalSchedule);
       console.log(this.generalSchedule.OutSidePracticeHour);
@@ -412,7 +412,7 @@ export class ScheduleComponent implements OnInit {
     //   showConfirmButton: true,
     //   confirmButtonText: 'Close'
     // });
-    this.settingsService.UpdateSchedulegeneral(reqparams).subscribe(resp => {
+    this.settingsService.UpdateReschedule(reqparams).subscribe(resp => {
       if (resp.IsSuccess) {
         this.getGeneralSchedule();
         Swal.fire({

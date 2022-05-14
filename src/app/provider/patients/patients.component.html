@@ -22,7 +22,7 @@
           <i class="category-arrow"></i>
         </li>
       </ul>
-      <div class="patients-navigation-info">2 of 2 PATIENTS</div>
+      <div class="patients-navigation-info bg-color">2 of 2 PATIENTS</div>
     </div>
     <div class="content">
       <div class="row controls">
@@ -36,8 +36,7 @@
           </button>
         </div>
         <div class="col-xl-1 col-lg-2 col-md-4 pb-3 pb-lg-0">
-          <mat-checkbox class="patient-check-box col-lg-12 col-md-9 col-12 pull-right"
-            (change)="showInactivePatients($event)">
+          <mat-checkbox class=" col-lg-12 col-md-9 col-12 pull-right" (change)="showInactivePatients($event)">
             Show Inactive
           </mat-checkbox>
         </div>
@@ -51,7 +50,8 @@
         </div>
         <div class="col-xl-1 col-lg-1 col-md-1"></div>
         <div class="col-xl-4 col-lg-3 col-md-3 pb-3 pb-lg-0">
-          <button mat-button class="btn btn-orange pull-right" (click)="openComponentDialog(patientDialogComponent)">
+          <button mat-button class="btn btn-orange pull-right Helvetica-sans-serif-medium"
+            (click)="openComponentDialog(patientDialogComponent)">
             Add Patient
           </button>
         </div>
@@ -132,12 +132,12 @@
             <mat-header-cell class="justify-content-center" *matHeaderCellDef>SELECT
             </mat-header-cell>
             <mat-cell class="justify-content-center" *matCellDef="let patient">
-              <mat-checkbox class="patient-check-box" [checked]="patient.active">
+              <mat-checkbox class="" [checked]="patient.active">
               </mat-checkbox>
             </mat-cell>
           </ng-container>
 
-          <mat-header-row *matHeaderRowDef="patientColumns"></mat-header-row>
+          <mat-header-row *matHeaderRowDef="patientColumns" class="mat-cust-header"></mat-header-row>
           <mat-row *matRowDef="let row; columns: patientColumns;">
           </mat-row>
         </mat-table>

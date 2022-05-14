@@ -11,7 +11,6 @@ h4{
   color: #fe8f00;
   font-weight: bolder;
 }
-
 .container {
   padding-right: 15px;
   padding-left: 15px;
@@ -21,7 +20,6 @@ h4{
 .form-row-field {
   margin-top: 15px;
 }
-
  .linkhealth{
 margin-left: 2%;
 margin-right: 2%;
@@ -90,10 +88,6 @@ body {
 .one-ehr-images {
   margin-top: -6rem;
 }
-// .row {
-//   margin-right: -15px;
-//   margin-left: -15px;
-// }
 .authorization-signup-wrapper .ehr-img-top {
   position: relative;
   width: 100%;
@@ -135,17 +129,7 @@ body {
   display: table-cell;
   vertical-align: middle;
 }
-.content span.input-group-text
-{
-  font-family: 'Times New Roman';
-  font-size: 17px;
-  font-weight: 400;
-  line-height: 28px;
-  margin-bottom: 0;
-}
 .content span {
-  //font-size: 15px;
-  //text-transform: uppercase;
     font-family: 'Times New Roman';
     font-size: 25px;
     font-weight: 400;
@@ -189,8 +173,8 @@ h4 {
 .select-input.form-control[readonly]:not([disabled]) {
   background: white;
 }
-
 /*code to change background color*/
+
 .navbar-nav>.active>a {
 
   color: #fe8f00;

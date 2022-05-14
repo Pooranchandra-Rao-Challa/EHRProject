@@ -1,51 +1,57 @@
-.table td {
-	vertical-align: middle;
-	font-size: 14px;
-	line-height: 2;
-	white-space: pre-wrap;
-	// display: inline-block;
-}
-.table td,
-.table th {
-	font-family: "Open Sans", sans-serif;
-}
-.table>:not(caption)>*>* {
-	padding: 0.5rem 0.5rem;
-	background-color: var(--bs-table-bg);
-	//border-bottom-width: 1px;
-	box-shadow: inset 0 0 0 0000px var(--bs-table-accent-bg);
-}
-.btn-lock {
-	cursor: pointer;
-	font-size: 85%;
-	line-height: 1.5;
-	height: -49%;
-	background-color: #fff;
-	border: 1px solid #b4bcc8;
-}
-.btn-lock:hover {
-	cursor: pointer;
-	font-size: 85%;
-	line-height: 1.5;
-	height: -49%;
-	background-color: rgb(223, 221, 221);
-	border: 1px solid rgb(160, 159, 159);
-}
-.table thead th {
-	border-top: 1px solid #e7ecf1 !important;
+@import"../../../assets/admin.common.scss";
 
+.table td {
+  white-space: pre-wrap;
+  line-height: 2;
+}
+// .table td {
+// 	vertical-align: middle;
+// 	font-size: 14px;
+// 	line-height: 2;
+// 	white-space: pre-wrap;
+// 	// display: inline-block;
+// }
+// .table td,
+// .table th {
+// 	font-family: "Open Sans", sans-serif;
+// }
+// .table>:not(caption)>*>* {
+// 	padding: 0.5rem 0.5rem;
+// 	background-color: var(--bs-table-bg);
+// 	//border-bottom-width: 1px;
+// 	box-shadow: inset 0 0 0 0000px var(--bs-table-accent-bg);
+// }
+// .btn-lock {
+// 	cursor: pointer;
+// 	font-size: 85%;
+// 	line-height: 1.5;
+// 	height: -49%;
+// 	background-color: #fff;
+// 	border: 1px solid #b4bcc8;
+// }
+// .btn-lock:hover {
+// 	cursor: pointer;
+// 	font-size: 85%;
+// 	line-height: 1.5;
+// 	height: -49%;
+// 	background-color: rgb(223, 221, 221);
+// 	border: 1px solid rgb(160, 159, 159);
+// }
+.table-col-button{
+  line-height: 1.5 !important;
+  font-size: 12px;
+}
+ .table thead th {
+	border-top: 1px solid #e7ecf1 !important;
 	border-left: 1px solid #e7ecf1;
 	border-right: 1px solid #e7ecf1;
-	line-height: 2;
-	font-weight: 600;
+  line-height: 2;
+  font-weight: 600;
 	font-size: 14px;
-}
+ }
 h1 {
 	font-family: "Open Sans", sans-serif;
 	font-weight: 300;
 	font-size: 36px;
 }
-.th-border{
-	border-bottom: 2px solid #edeff3  !important;
-  }
-  
+

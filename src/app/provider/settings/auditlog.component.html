@@ -1,0 +1,104 @@
+
+<div class="card">
+  <div class="card-header bg-color">
+  <h5 class="Helvetica-sans-serif-medium mt-3">Audit Log</h5>
+  <mat-form-field  class="exportdd">
+    <mat-select class="text-success export" placeholder="Export">
+      <mat-option (click)="exportToCsv()">Csv</mat-option>
+      <mat-option (click)="print()">Print</mat-option>
+    </mat-select>
+  </mat-form-field>
+  </div>
+  <div class="card-body">
+
+  <div class="row">
+    <div class="d-flex justify-content-start">
+      <mat-form-field appearance="outline" class="col-md-3  green-calendar">
+        <input matInput [matDatepicker]="dp"  placeholder="From"   >
+        <mat-datepicker-toggle matSuffix [for]="dp">
+        </mat-datepicker-toggle>
+        <mat-datepicker #dp disabled="false"></mat-datepicker>
+      </mat-form-field>
+      <div class="mx-1 cust-hyphen">-</div>
+      <mat-form-field appearance="outline" class="col-md-3 green-calendar">
+        <input matInput [matDatepicker]="dp1" placeholder="To"  >
+        <mat-datepicker-toggle matSuffix [for]="dp1">
+        </mat-datepicker-toggle>
+        <mat-datepicker #dp1 disabled="false"></mat-datepicker>
+      </mat-form-field>
+      <div class="col-md-2 mx-4">
+        <button mat-raised-button type="submit"
+        class="btn btn-green hover-class">Reset</button>
+      </div>
+    </div>
+  </div>
+
+
+<div #TABLE class="table-align">
+  <table mat-table id="table" [dataSource]="datasource | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize" class="mat-elevation-z8" >
+    <ng-container matColumnDef="Date">
+      <th mat-header-cell *matHeaderCellDef class="text-center"> Date </th>
+      <td mat-cell *matCellDef="let element" class="text-center">{{element.Date}}</td>
+    </ng-container>
+    <ng-container matColumnDef="Patient">
+      <th mat-header-cell *matHeaderCellDef class="text-center"> Patient  </th>
+      <td mat-cell *matCellDef="let element" class="text-center">{{element.Patient}}</td>
+    </ng-container>
+    <ng-container matColumnDef="LocationName">
+      <th mat-header-cell *matHeaderCellDef class="text-center"> Location Name  </th>
+      <td mat-cell *matCellDef="let element" class="text-center">{{element.LocationName}}</td>
+    </ng-container>
+    <ng-container matColumnDef="Provider">
+      <th mat-header-cell *matHeaderCellDef class="text-center"> Provider  </th>
+      <td mat-cell *matCellDef="let element" class="text-center">{{element.Provider}}</td>
+    </ng-container>
+    <ng-container matColumnDef="DataType">
+      <th mat-header-cell *matHeaderCellDef class="th-dropdown">
+        <mat-form-field appearance="fill">
+        <mat-select placeholder="DataType">
+          <mat-option *ngFor="let topping of dataType" [value]="topping">
+            {{topping}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>  </th>
+      <td mat-cell *matCellDef="let element" class="text-center">{{element.DataType}}</td>
+    </ng-container>
+    <ng-container matColumnDef="Action">
+      <th mat-header-cell *matHeaderCellDef class="th-dropdown">
+        <mat-form-field appearance="fill">
+        <mat-select placeholder="Action">
+          <mat-option *ngFor="let topping of Action" [value]="topping">
+            {{topping}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field> </th>
+      <td mat-cell *matCellDef="let element" class="text-center">{{element.Action}}</td>
+    </ng-container>
+    <ng-container matColumnDef="Details">
+      <th mat-header-cell *matHeaderCellDef class="text-center"> Details  </th>
+      <td mat-cell *matCellDef="let element" class="text-center">{{element.Details}}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
+  <div class="text-center text-danger py-2 col-12" *ngIf="datasource==0">
+    No records found.
+ </div>
+ <!-- <div class="d-flex justify-content-between p-2 pull-right page">
+  <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize" (pageChange)="getPremiumData();">
+  </ngb-pagination>
+
+  </div> -->
+  <div class="d-flex justify-content-end my-3">
+    <nav aria-label="Page navigation ">
+      <ul class="pagination mt-4 page-green">
+        <ngb-pagination  [pageSize]="pageSize" [collectionSize]="TotalItems"  [(page)]="page" aria-label="Default pagination">
+        </ngb-pagination>
+      </ul>
+    </nav>
+    </div>
+  </div>
+
+

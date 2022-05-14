@@ -2,6 +2,14 @@
   color: orange;
   font-size: 13px;
 }
+.bx-menu,
+.icon-logout{
+  cursor: pointer;
+}
 .admin-mailid {
   font-size: 13px;
+  font-family: 'Roboto';
+}
+.home-content .not-allowed{
+  cursor: not-allowed;
 }

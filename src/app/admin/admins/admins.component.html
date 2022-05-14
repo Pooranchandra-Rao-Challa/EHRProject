@@ -11,14 +11,14 @@
                             <h4>ADMINS</h4>
                         </div>
                         <div class="example col-lg-1 col-md-12 col-12 ">
-                            <button class="btn-add" data-bs-toggle="modal" data-bs-target="#staticBackdrop1"
+                            <button class="btn-add common-button-style" data-bs-toggle="modal" data-bs-target="#staticBackdrop1"
                                 (click)="onAddAdmin()">Add New Admin </button>
                         </div>
                     </div>
                     <div class="portlet-body mt-4">
                         <div class="table-responsive table-scrollable-borderless admin-table-scroll">
                             <table class="table table-users">
-                                <thead>
+                                <thead class="th-border">
                                     <tr>
                                         <th>Full Name</th>
                                         <th>Email</th>
@@ -31,14 +31,17 @@
                                             {{item.C_title}} {{item.first_name}}  {{item.last_name}}
                                         </td>
                                         <td class="user-email">{{item.email}}</td>
-                                        <td class="column"><button class="btn-lock" data-bs-toggle="modal"
+                                        <td class="column"><button class="btn-view table-col-button" data-bs-toggle="modal"
                                                 data-bs-target="#staticBackdrop1" (click)="isView()">View</button></td>
                                         <td><button type="button" class="Cancelbtn"><i
                                                     class="fa fa-close icon-close"></i></button></td>
-                                        <td><button class="btn-lock">Disable Duo</button></td>
+                                        <td><button class="btn-view  table-col-button">Disable Duo</button></td>
                                     </tr>
                                 </tbody>
                             </table>
+                            <div class="table-NoRecord text-center py-2 col-12" *ngIf="adminDataSource.length == 0">
+                              No Data Found
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -48,7 +51,7 @@
 </div>
 
 <!-- <div class="row">
-   
+
 </div> -->
 
 

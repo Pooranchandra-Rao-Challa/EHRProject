@@ -1,0 +1,100 @@
+@import "../../../assets/cstm.material.scss";
+@import"../../../assets/common.scss";
+.row{
+    margin-top: 10px;
+  }
+  .mat-table  {
+border-bottom: 1px solid #41a6b6;
+  }
+.table-responsive{
+  padding: 0px 10px ;
+}
+.mat-header-row{
+  border-bottom: 1px solid #41a6b6 !important;
+}
+.mat-header-cell:first-child{
+  border-left: 1px solid #41a6b6;
+}
+  .mat-header-cell{
+    border-left: 1px solid #fff;
+    font-size: 14px;
+  }
+  .mat-cell{
+    border-left: 1px solid #41a6b6;
+border-bottom: none;
+  }
+  .mat-row {
+    border-bottom: none;
+}
+.mat-row:hover {
+  background-color: #fff !important;
+}
+.billing {
+  mat-cell:nth-child(1),
+  mat-header-cell:nth-child(1) {
+
+    padding-left: 16px;
+    padding-right: 18px;
+  }
+  mat-cell:nth-child(2),
+  mat-header-cell:nth-child(2) {
+    padding-left: 15px;
+  }
+  mat-cell:nth-child(3),
+  mat-header-cell:nth-child(3) {
+    padding-left: 22px;
+   padding-right: 19px;
+  }
+  mat-cell:nth-child(4),
+  mat-header-cell:nth-child(4) {
+    padding-left: 10px;
+  }
+  mat-cell:nth-child(5),
+  mat-header-cell:nth-child(5) {
+    padding-left: 43px;
+     padding-right: 24px;
+  }
+  mat-cell:nth-child(6),
+  mat-header-cell:nth-child(6) {
+    padding-left: 28px;
+  }
+  mat-cell:nth-child(7),
+  mat-header-cell:nth-child(7) {
+    padding-right: 0px;
+       padding-left: 13px;
+  }
+  mat-cell:nth-child(8),
+  mat-header-cell:nth-child(8) {
+    padding-left: 15px;
+   padding-right: 10px;
+  }
+  mat-cell:nth-child(9),
+  mat-header-cell:nth-child(9) {
+    padding-left: 18px;
+  }
+  mat-cell:nth-child(10),
+  mat-header-cell:nth-child(10) {
+    padding-left: 10px;
+  }
+  mat-cell:nth-child(11),
+  mat-header-cell:nth-child(11) {
+    padding-left: 1%;
+  }
+  mat-cell:nth-child(12),
+  mat-header-cell:nth-child(12) {
+    padding-left: 2%;
+  }
+}
+
+  .btn-reports{
+    width: 91%;
+    height: 45px;
+    border-radius: 4px;
+
+  }
+  ::ng-deep .green-calendar.mat-form-field-appearance-outline .mat-form-field-outline {
+    background-color: #fff !important;
+    color: #41a6b6 !important;
+    height: 45px;
+  }
+

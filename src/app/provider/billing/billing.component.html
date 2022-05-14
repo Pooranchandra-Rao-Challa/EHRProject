@@ -1,1 +1,121 @@
-Will be in developing
+
+<div class="container-fluid">
+    <div class="row">
+      <mat-form-field appearance="outline" class="col-md-3">
+        <mat-label>Search patient</mat-label>
+        <mat-select ngModel name="search" #search="ngModel">
+          <mat-option>-Select-</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="col-md-1">Proc Date: <br>from</div>
+
+      <mat-form-field appearance="outline" class="green-calendar col-md-2">
+        <input matInput [matDatepicker]="dp"  placeholder="Start Date"    name="startDate"
+        [(ngModel)]="startDate">
+        <mat-datepicker-toggle matSuffix [for]="dp">
+
+        </mat-datepicker-toggle>
+        <mat-datepicker #dp disabled="false"></mat-datepicker>
+       </mat-form-field>
+       <!-- <div class="date_to_text col-md-1">to</div> -->
+
+
+      <mat-form-field appearance="outline" class="green-calendar col-md-2 ">
+        <input matInput [matDatepicker]="dp1" placeholder="Stop Date"  name="enddate"
+        [(ngModel)]="enddate">
+        <mat-datepicker-toggle matSuffix [for]="dp1">
+        </mat-datepicker-toggle>
+        <mat-datepicker #dp1 disabled="false"></mat-datepicker>
+      </mat-form-field>
+      <div class="col-md-2">
+        <button mat-raised-button type="submit" (click)="getBillings()" class="btn btn-green btn-reports">Run Report</button>
+      </div>
+      <div class="col-md-2">
+        <button mat-raised-button class="btn btn-green btn-reports" (click)="resetpage()">Reset</button>
+      </div>
+
+    </div>
+
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <p class="col-md-3 pull-right">Filter by status:</p>
+  </div>
+  <mat-form-field appearance="outline" class="col-md-4 statusFilter">
+    <mat-select id="statusFilter" #select multiple placeholder="Select all to include">
+      <mat-option (click)="optionClick()" *ngFor="let fs of filterstatus" [value]="fs.value">
+        {{fs.viewValue}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="col-md-1">
+    <button mat-raised-button class="btn btn-green btn-reports" (click)="exportToCsv()">Export CSV</button>
+  </div>
+  <div class="col-md-1">
+    <button mat-raised-button class="btn btn-green btn-reports" (click)="exportToPdf()">Export PDF</button>
+  </div>
+</div>
+
+
+
+<div class="table-responsive billing mb-5" #TABLE>
+
+  <table mat-table [dataSource]="sampledata" #table id="my-table">
+    <ng-container matColumnDef="ProcDate">
+      <th mat-header-cell *matHeaderCellDef>Proc Date </th>
+      <td mat-cell *matCellDef="let element"> {{element.ProcDate | date:'MM/dd/yyyy'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="PatientName">
+      <th mat-header-cell *matHeaderCellDef> Patient Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.PatientName}} </td>
+    </ng-container>
+    <ng-container matColumnDef="BirthDate">
+      <th mat-header-cell *matHeaderCellDef> Birth Date </th>
+      <td mat-cell *matCellDef="let element"> {{element.Dob | date:'dd/MM/yyyy'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="PrimSubscriberID">
+      <th mat-header-cell *matHeaderCellDef> Prim Subscriber ID </th>
+      <td mat-cell *matCellDef="let element"> {{element.PrimSubID}} </td>
+    </ng-container>
+    <ng-container matColumnDef="ProviderName">
+      <th mat-header-cell *matHeaderCellDef> Provider Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.ProviderName}} </td>
+    </ng-container>
+    <ng-container matColumnDef="ProcCode">
+      <th mat-header-cell *matHeaderCellDef> Proc Code </th>
+      <td mat-cell *matCellDef="let element"> {{element.Code}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Description">
+      <th mat-header-cell *matHeaderCellDef> Description </th>
+      <td mat-cell *matCellDef="let element"> {{element.Description}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Tooth">
+      <th mat-header-cell *matHeaderCellDef>Tooth </th>
+      <td mat-cell *matCellDef="let element"> {{element.Tooth}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Surface">
+      <th mat-header-cell *matHeaderCellDef>Surface </th>
+      <td mat-cell *matCellDef="let element"> {{element.Surface}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Procfees">
+      <th mat-header-cell *matHeaderCellDef>Proc Fees </th>
+      <td mat-cell *matCellDef="let element"> {{element.ProcFees}} </td>
+    </ng-container>
+    <ng-container matColumnDef="PrimInsCompanyName">
+      <th mat-header-cell *matHeaderCellDef>Prim Ins Company Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.PrymaryCompanyName}} </td>
+    </ng-container>
+    <ng-container matColumnDef="SecInsCompanyName">
+      <th mat-header-cell *matHeaderCellDef>Sec Ins Company Name</th>
+      <td mat-cell *matCellDef="let element"> {{element.SecondaryCompanyName}} </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <div class="text-center text-danger py-2 col-12" *ngIf="sampledata.length == 0">
+    No records found.
+ </div>
+
+</div>
+

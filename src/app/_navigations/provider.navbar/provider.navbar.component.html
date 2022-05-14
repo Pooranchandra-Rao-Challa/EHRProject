@@ -1,61 +1,59 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-color">
+<nav class="navbar navbar-expand-lg bg-color">
   <button class="navbar-toggler" type="button" (click)="toggleNavbar()">
     <span class="navbar-toggler-icon"></span>
   </button>
-
   <div>
     <img src="../../../assets/images/logo.svg" alt="logo" class="img-fluid mx-3" />
   </div>
-
   <div class="collapse navbar-collapse" [ngClass]="{ 'show': navbarOpen }">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
+      <li [class]="name !== 'Smart Schedule' ? 'nav-item': 'active nav-item'">
         <a href="javascript:void(0)" (click)="onChangeBreadCrum('/provider/smartschedule','Smart Schedule')"
           routerLinkActive="router-link-active" class="nav-link active item-prov-dashboard">Smart Schedule
         </a>
       </li>
-      <li class="nav-item">
+      <li [class]="name !== 'Calender' ? 'nav-item': 'active nav-item'">
         <a href="javascript:void(0)" (click)="onChangeBreadCrum('/provider/calendar','Calender')"
           class="nav-link item-schedule">Calendar
         </a>
       </li>
-      <li class="nav-item">
+      <li [class]="name !== 'Patients' ? 'nav-item': 'active nav-item'">
         <a href="javascript:void(0)" class="nav-link item-patients"
-          (click)="onChangeBreadCrum('/provider/patients','Patient')">Patients
+          (click)="onChangeBreadCrum('/provider/patients','Patients')">Patients
         </a>
       </li>
-      <li class="nav-item">
-        <a href="javascript:void(0)" class="nav-link item-messages"
+      <li [class]="name !== 'Messages' ? 'nav-item': 'active nav-item'">
+        <a href="javascript:void(0)" class="nav-link item-provider-messages"
           (click)="onChangeBreadCrum('/provider/messages','Messages')">Messages
         </a>
         <span class="messages-count">0</span>
       </li>
-      <li class="nav-item">
+      <li [class]="name !== 'Direct Msg' ? 'nav-item': 'active nav-item'">
         <a href="javascript:void(0)" class="nav-link item-direct-messages"
           (click)="onChangeBreadCrum('/provider/directmsg','Direct Msg')">Direct Msg
         </a>
         <span class="messages-count">0</span>
       </li>
-      <li class="nav-item">
+      <li class="eRx-nav-item">
         <a href="javascript:void(0)" class="nav-link item-erx disabled" (click)="onChangeBreadCrum('/provider/erx','eRx')">eRx
         </a>
       </li>
-      <li class="nav-item">
+      <li [class]="name !== 'Labs&Imaging' ? 'nav-item': 'active nav-item'">
         <a href="javascript:void(0)" (click)="onChangeBreadCrum('/provider/labsimaging','Labs&Imaging')"
           class="nav-link item-labsimaging">Labs/Imaging
         </a>
       </li>
-      <li class="nav-item">
+      <li [class]="name !== 'Reports' ? 'nav-item': 'active nav-item'">
         <a href="javascript:void(0)" class="nav-link item-reports"
           (click)="onChangeBreadCrum('/provider/categoryreports','Reports')">Reports
         </a>
       </li>
-      <li class="nav-item">
+      <li [class]="name !== 'Billing' ? 'nav-item': 'active nav-item'">
         <a href="javascript:void(0)" class="nav-link item-billing"
           (click)="onChangeBreadCrum('/provider/billing','Billing')">Billing
         </a>
       </li>
-      <li class="nav-item">
+      <li [class]="name !== 'Settings' ? 'nav-item': 'active nav-item'">
         <a href="javascript:void(0)" (click)="onChangeBreadCrum('/provider/settings','Settings','practice')"
           class="nav-link item-settings">Settings
         </a>
@@ -67,10 +65,10 @@
     <li [matMenuTriggerFor]="menu" class="nav-item nav-top-right">
       <a class="nav-link dropdown-toggle" id="UserDropdown">
         <span class="profile-text">{{ this.user.FirstName}}&nbsp;&nbsp;{{this.user.LastName}}</span>
-        <img class="img-xs rounded-circle mx-1" src="../../../assets/images/default.png">
+        <img class="img-xs rounded-circle header-avatar mx-1" src="../../../assets/images/header-dropdown-img.svg">
       </a>
       <mat-menu #menu="matMenu" [hasBackdrop]="true">
-        <div (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()">
+        <div class="list" style="border-top: 1px solid #86c1bb; width: 100%;" (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()">
           <mat-form-field appearance="outline" class="col-lg-12 hover">
             <mat-select class="textcolor" [value]="user.CurrentLocation" name="location" disableOptionCentering>
               <mat-option *ngFor="let location of locationsInfo" [value]="location.locationId"
@@ -78,19 +76,12 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <button mat-menu-item class="nav-right-dropdown">
-            <span>My Account</span></button>
-          <button mat-menu-item class="nav-right-dropdown">
-            <span>About EHR1</span>
-          </button>
-          <button mat-menu-item class="nav-right-dropdown">
-            <span>Lock</span>
-          </button>
-          <button mat-menu-item class="nav-right-dropdown" (click)="logout()">
-            <span>Log Out</span>
-          </button>
+          <li class="li-menu"><a class="nav-li text-nowrap" href="#">My Account</a></li>
+          <li class="li-menu"><a class="nav-li text-nowrap" href="#">About EHR1</a></li>
+          <li class="li-menu border-bottom"><a class="nav-li" href="#">Lock</a></li>
+          <li class="li-menu" (click)="logout()"><a class="nav-li">Log out</a></li>
         </div>
-      </mat-menu>
+    </mat-menu>
     </li>
   </ul>
 </nav>

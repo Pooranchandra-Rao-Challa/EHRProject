@@ -22,23 +22,24 @@
         </div>
       </div>
       <div class="row">
-        <div class="smart-schedule-header">
+        <div class="smart-schedule-header mt-2 mt-lg-0">
           <div class="row" style="align-items: center">
             <div class="col-xl-2 col-lg-3 col-md-6 col-12 appointment-filter-datestring-bar">
               <!-- <b>Thursday, March 10th 2022</b> -->
               <b>{{ selectedWeekday }}</b>
             </div>
-            <div class="col-xl-1 col-lg-2 col-md-6 col-12 appointment-filter-date-bar">
+            <div class="col-xl-1 col-lg-2 col-md-6 col-12 appointment-filter-date-bar pt-2 pt-md-0">
               <div class="buttons ">
-                <button class="button is-primary lte" (click)="DateUpDown('movedown')">&lt;</button>
+                <button class="button is-primary bg-color lte" (click)="DateUpDown('movedown')">&lt;</button>
                 <mat-form-field class="cstm-width" appearance="fill">
                   <!-- <mat-label>Choose a date</mat-label> -->
                   <input hidden matInput [matDatepicker]="picker" (dateChange)="selectedCalendarDate($event)" />
                   <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
                 <!-- <button mat-raised-button class="is-primary button fa fa-calendar" (click)="picker.open()"></button> -->
-                <button aria-hidden="true" class="is-primary button fa fa-calendar" (click)="picker.open()"></button>
-                <button class="button is-primary gte" (click)="DateUpDown('moveup')">&gt;</button>
+                <button aria-hidden="true" class="is-primary bg-color button fa fa-calendar"
+                  (click)="picker.open()"></button>
+                <button class="button is-primary bg-color gte" (click)="DateUpDown('moveup')">&gt;</button>
               </div>
             </div>
             <div class="col-xl-1 col-lg-2 col-md-6 col-12 appointment-filter-count-bar">
@@ -60,7 +61,7 @@
       <div class="row">
         <mat-accordion class="schedule-accordion">
           <mat-expansion-panel #panel1 [expanded]="true" hideToggle>
-            <mat-expansion-panel-header>
+            <mat-expansion-panel-header class="bg-color">
               <mat-panel-title (click)="$event.stopPropagation()">
                 Upcoming Appointments
               </mat-panel-title>
@@ -69,7 +70,7 @@
                 }}"></i>
             </mat-expansion-panel-header>
             <div class="scrollable-table">
-              <div class="table-container" style="height:371px">
+              <div class="table-container">
                 <div class="table-appointments-for-today table table-dashboard finished_appointments">
                   <div class="row text-center table-header">
                     <div class="col-md-1 col-1 appointment-time">Time</div>
@@ -82,15 +83,15 @@
                   </div>
                   <div class="row text-center table-body" *ngFor="let appointment of Appointments">
                     <div class="col-md-1 col-1 appointment-time appintment-link"
-                    (click)="openComponentDialog(appointmentDialogComponent,appointment,ActionsType.view)">
+                      (click)="openComponentDialog(appointmentDialogComponent,appointment,ActionsType.view)">
                       {{appointment.AppointmentTime | date:'MM/dd/yyyy'}}
                       &nbsp;
                       Time: {{appointment.AppointmentTime | date:'hh:mm a'}}
                     </div>
                     <div class="col-md-2 col-2 appintment-link"
-                    (click)="openComponentDialog(appointmentDialogComponent,appointment,ActionsType.view)">
+                      (click)="openComponentDialog(appointmentDialogComponent,appointment,ActionsType.view)">
                       <div>{{appointment.PatientName}}</div>
-                    <div>DOB: {{appointment.DateofBirth | date:'MMM d, y'}}</div>
+                      <div>DOB: {{appointment.DateofBirth | date:'MMM d, y'}}</div>
                     </div>
                     <div class="col-md-2 col-2 provider">{{appointment.ProviderName}}</div>
                     <div class="col-md-2 col-2 visit-status">
@@ -124,15 +125,15 @@
               </div>
             </div>
           </mat-expansion-panel>
-          <mat-expansion-panel #panel2 [expanded]="false" hideToggle>
-            <mat-expansion-panel-header>
+          <mat-expansion-panel #panel2 [expanded]="false" hideToggle class="mt-1">
+            <mat-expansion-panel-header class="bg-color">
               <mat-panel-title> Finished Appointments </mat-panel-title>
               <i ngClass="{{
                   panel2.expanded ? 'fa fa-compress' : 'fa fa-expand'
                 }}"></i>
             </mat-expansion-panel-header>
             <div class="scrollable-table">
-              <div class="table-container" style="height: 540px">
+              <div class="table-container">
                 <div class="table-appointments-for-today table table-dashboard finished_appointments">
                   <div class="row text-center table-header">
                     <div class="col-md-1 appointment-time">Time</div>
@@ -172,19 +173,19 @@
               <div class="smartview-patient-search-result" *ngIf="flag" appearance="outline" [ngStyle]="psw">
                 <ul class="ui-widget">
                   <li *ngFor="let patient of patients" class="ui-menu-item"
-
                     (click)="openComponentDialog((patient.NumberOfAppointments == 0 ? appointmentDialogComponent : upcomingAppointmentsDialogComponent),patient,PatinetActions(patient))">
 
                     {{patient.Name}},
                     {{patient.DateofBirth | date: 'MM/dd/yyyy'}}-{{patient.Age}} :-
                     {{patient.NumberOfAppointments}}
 
-                  </li><!--  data-bs-toggle="modal" [attr.data-bs-target]="patient.NumberOfAppointments == 0 ? '#modal-appointment-form' : '#modal-existingappointment-form'"-->
+                  </li>
+                  <!--  data-bs-toggle="modal" [attr.data-bs-target]="patient.NumberOfAppointments == 0 ? '#modal-appointment-form' : '#modal-existingappointment-form'"-->
                 </ul>
               </div>
 
             </div>
-            <div class="col-lg-2 col-md-3 col-12">
+            <div class="col-lg-2 col-md-3 col-12 my-2 my-md-0">
               <button mat-button class="btn patientbtn col-12" type="button"
                 (click)="openComponentDialog(patientDialogComponent)">
                 Add New Patient

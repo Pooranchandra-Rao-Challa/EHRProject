@@ -22,13 +22,14 @@
   color: #fe8f00;
   margin-left: 13px;
   line-height: 66px;
+  font-family: 'Roboto';
 }
-@media (max-width: 425px) {
+@media (max-width: 500px) {
   .logotext {
     font-size: 30px;
   }
 }
-@media (max-width: 375px) {
+@media (max-width: 380px) {
   .logotext {
     font-size: 25px;
   }
@@ -38,7 +39,11 @@
     font-size: 20px;
   }
 }
-
+.appointment-filter-datestring-bar b{
+  color: #333;
+  font-size: 1.2em !important;
+  font-weight: 550;
+}
 p {
   margin: 0 0 10px;
 }
@@ -57,9 +62,9 @@ p {
   //padding-top: calc(0.375em - 1px);
 }
 .button.is-primary {
-  background-color: #00d1b2;
+  //background-color: #00d1b2;
   border-color: transparent;
-  color: #fff;
+  //color: #fff;
 }
 ::ng-deep
   .smart-schedule-dropdown.mat-form-field-appearance-outline
@@ -78,8 +83,6 @@ p {
   margin-top: 7px;
   margin-right: 0px !important;
 }
-
-
 ::ng-deep
   .smart-schedule-dropdown
   .mat-form-field-appearance-outline
@@ -87,7 +90,7 @@ p {
   transform: translateY(0%);
 }
 div.smart-schedule-header {
-  height: 4em;
+  min-height: 4em;
   padding: 0px !important;
   margin-bottom: 0px !important;
 }
@@ -105,11 +108,14 @@ div.smart-schedule-header {
   padding: 0px;
 }
 .new-search {
-  // background-color: #f5f5f5;
+  background-color: #f5f5f5;
   border-color: #fe8f00 !important;
   height: 40px;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   font-size: 15px;
+}
+input::placeholder{
+    color: #74757e;
 }
 .schedule-bottom .patientbtn {
   background-color: #ffdd57;
@@ -144,13 +150,15 @@ div.smart-schedule-header {
   color: #fff;
   margin-bottom: 5px;
 }
-::ng-deep .mat-accordion .mat-expansion-panel:first-of-type {
-  margin-bottom: 5px !important;
-}
+// ::ng-deep .mat-accordion .mat-expansion-panel:first-of-type {
+//   margin-bottom: 5px !important;
+// }
 .schedule-accordion .mat-expansion-panel-header {
   height: 30px;
-  background-color: #41b6a6;
   border-radius: initial;
+}
+.schedule-accordion .mat-expansion-panel{
+  border-radius: 0px;
 }
 // .bg-color:hover{
 //   background-color: #41b6a6 !important;
@@ -188,6 +196,9 @@ div.smart-schedule-header {
 }
 .smartschedule-wrapper{
   padding: 0 1.0rem;
+}
+.table-container{
+  height: calc(80vh - 187px);
 }
 @media (max-width: 1440px) {
   .smartschedule-wrapper .table-container {

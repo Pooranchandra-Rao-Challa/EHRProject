@@ -1,4 +1,3 @@
-
 <div class="dashboard-patient wrapper mt-2">
   <div class="content container" id="appointments-wrapper">
     <div class="top-block">
@@ -15,138 +14,64 @@
         <ul class="nav nav-tabs tabsactive" id="myTab" role="tablist">
 
           <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" (click)="onUpcoming()" type="button" role="tab" aria-controls="home" aria-selected="true">Upcoming Appts</button>
+            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
+              (click)="onUpcoming()" type="button" role="tab" aria-controls="home" aria-selected="true">Upcoming
+              Appts</button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" (click)="onPast()"  type="button" role="tab" aria-controls="home" aria-selected="true">Past Appts</button>
+            <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" (click)="onPast()"
+              type="button" role="tab" aria-controls="home" aria-selected="true">Past Appts</button>
           </li>
         </ul>
         <div class="row">
           <div class="col-lg-12">
             <div class="button">
-              <div class="btn-group">
-                <a class="btn btn-default btn-medium btn-orange" data-remote="true" data-bs-toggle="modal" (click)="openComponentDialog(PatientDialogComponent)">Request an Appt</a>
-              </div>
+              <a class="btn btn-orange Helvetica-sans-serif-medium" data-remote="true" data-bs-toggle="modal"
+                (click)="openComponentDialog(PatientDialogComponent)">Request an Appt</a>
             </div>
           </div>
         </div>
       </div>
 
-    <div *ngIf="isUpcoming" class="table-responsive">
-      <table class="table table-grayed table-grayed-checkboxed" id="appointments-upcoming">
-        <thead >
-          <tr>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Provider</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td colspan="5" style="font-size: 16px;">
-              You don't have any upcoming appointments.
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <div *ngIf="isUpcoming" class="table-responsive ">
+        <table class="table table-grayed table-grayed-checkboxed" id="appointments-upcoming">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Provider</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="5" style="font-size: 16px;">
+                You don't have any upcoming appointments.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-    <div  *ngIf="isPast" class="table-responsive">
-      <table class="table table-grayed table-grayed-checkboxed" id="appointments-upcoming">
-        <thead >
-          <tr>
-            <th> Date</th>
-            <th>Time</th>
-            <th>Provider</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td colspan="5" style="font-size: 16px;">
-              You don't have any past appointments.
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-</div>
-
-<!--
-<div class="modal fade " id="staticBackdrop1" [ngStyle]="{'display':displayReq}" tabindex="-1" role="dialog"
-aria-labelledby="staticBackdrop4" aria-hidden="true">
-<div class="modal-dialog">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h4>Request an Appointment</h4>
-      <span type="button" data-bs-dismiss="modal">
-        X
-      </span>
-    </div>
-    <div class="modal-body">
-      <div class="content">
-        <form>
-
-          <div class="row ">
-            <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
-              <label for="Date" class="form-label">Date</label>
-              <input type="input" class="form-control border-input" id="Date" placeholder="Date">
-            </div>
-            <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
-              <label for="Date" class="form-label">Select Provider</label>
-              <select class="form-select border-input" id="sel1" name="sellist1">
-                <option class="dropdown-menu"  disabled selected>Select Provider</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-12 col-12 mt-3">
-              <label for="Time" class="form-label">Time</label>
-              <input type="input" class="form-control border-input" id="Time" placeholder="Time">
-            </div>
-            <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
-              <label for="Date" class="form-label">Location </label>
-              <select class="form-select border-input" id="sel1" name="sellist1">
-                <option class="dropdown-menu"  disabled selected>Select Location</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-lg-12 mt-3">
-              <label for="Note" class="form-label">Note</label>
-              <textarea class="form-control border-input" id="Note" rows="3"></textarea>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-12 mt-3">
-              <div class="row">
-                <p>*We will make every effort to accommodate exact times requested, but may need to suggest alternate
-                  dates/times.</p>
-              </div>
-            </div>
-          </div>
-          <div class="row" style="float: right;">
-            <button type="button" style="margin-left: -18%;margin-right: 9%;" class="reg-button col-md-4"
-              data-bs-dismiss="modal">Cancel</button>
-            <button type="button" class="reg-button col-md-4">Submit</button>
-          </div>
-        </form>
-
+      <div *ngIf="isPast" class="table-responsive">
+        <table class="table table-grayed table-grayed-checkboxed" id="appointments-upcoming">
+          <thead>
+            <tr>
+              <th> Date</th>
+              <th>Time</th>
+              <th>Provider</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="5" style="font-size: 16px;">
+                You don't have any past appointments.
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
 </div>
-
-</div> -->
-

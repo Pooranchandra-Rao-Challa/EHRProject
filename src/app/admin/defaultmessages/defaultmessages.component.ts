@@ -12,7 +12,13 @@ export class DefaultMessagesComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  onSubmit() {
-    this.router.navigate(['admin/editdefaultmessage'])
+
+  onSubmit(name,url){
+    this.router.navigate(
+      [url],
+      { queryParams: { name: name,edit:'Edit default messages'} }
+    );
+
+   // this.router.navigate(['admin/editdefaultmessage'])
 }
 }

@@ -7,7 +7,7 @@ import { DomSanitizer } from "@angular/platform-browser";
 export class ConditionpadderPipe implements PipeTransform {
   constructor(protected sanitizer: DomSanitizer) { }
   transform(value: number, LineIndex: number): any {
-    debugger;
+    //debugger;
     let paddingmultiplier: number = 30;
     let linemultiplier: number = 20;
     if (LineIndex > 0) {

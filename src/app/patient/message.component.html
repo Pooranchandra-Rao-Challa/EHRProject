@@ -1,9 +1,8 @@
-
 <div class="dashboard-wrapper messages-wrapper wrapper mt-4">
   <div class="content">
     <div class="container bordered-container">
       <div class="tabs">
-        <ul class="nav nav-tabs styled" id="myTab" role="tablist">
+        <ul class="nav nav-tabs styled nav-tab-styled" id="myTab" role="tablist">
           <li class="nav-item" role="presentation">
             <!-- <a data-message_type="inbox" data-bs-toggle="tab" href="" role="tab">Inbox -->
             <a class="nav-link active" id="medical-tab" data-bs-toggle="tab" data-bs-target="#medical" type="button"
@@ -41,137 +40,64 @@
                 <input aria-label="Search for messages" autocomplete="off" class="form-control" id="find-messages-input"
                   placeholder="Search Messages">
                 <span class="input-group-addon input-group-addon-right input-group-addon-search"
-                  id="find-messages-button"><i class="fa fa-search" style="margin-left: 21%;"></i></span>
+                  id="find-messages-button"><i class="fa fa-search"></i></span>
               </div>
             </div>
-            <div class="col-md-1">
-
+            <div class="col-md-2">
             </div>
             <div class="col-md-3">
             </div>
-            <div class="col-md-3">
-              <div class="input-group input-group-custom ">
+            <div class="col-md-2 ">
+              <div class="input-group input-drop">
                 <button type="text" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown">
-                 New Message
+                  New Message
                 </button>
-                <ul class="dropdown-menu">
-                  <li><u class="dropdown-item"  data-bs-toggle="modal" (click)="openComponentDialogmessage(MessageDialogComponent)">New Mesage</u></li>
+                <ul class="dropdown-menu drop-menu">
+                  <li><u class="dropdown-item drop-item" data-bs-toggle="modal"
+                      (click)="openComponentDialogmessage(MessageDialogComponent)">New Message</u></li>
                 </ul>
+              </div>
+
             </div>
-          </div>
-          <div class="messages-content">
-            <diV class="row">
-              <div class=" col-md-4 left-block">
-                    <div class="row heding">
-                      <div class="col-md-6">
-                        <a class="panel-titles" href="" id="sort-from">From
-                          <i class="fa fa-angle-down arrows"></i>
-                        </a>
-                      </div>
-                      <div class="col-md-6 ">
-                        <a class="panel-title " href="" id="sort-from">Date
-                          <i class="fa fa-angle-up arrow"></i>
-                        </a>
-                      </div>
+            <div class="messages-content">
+              <diV class="row">
+                <div class=" col-md-4 left-block">
+                  <div class="row bg-color">
+                    <div class="col-md-6">
+                      <a class="panel-titles" href="" id="sort-from">From
+                        <i class="fa fa-angle-down "></i>
+                      </a>
                     </div>
-                    <div class="row drop-input">
-                      <div class="dropdown">
-                        <button class=" drop-button" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                          <li><a class="dropdown-item" href="#">25 Msg</a></li>
-                          <li><a class="dropdown-item" href="#">50 Msg</a></li>
-                          <li><a class="dropdown-item" href="#">75 Msg</a></li>
-                          <li><a class="dropdown-item" href="#">100 Msg</a></li>
-                        </ul>
-                      </div>
+                    <div class="col-md-6 ">
+                      <a class="panel-title " href="" id="sort-from">Date
+                        <i class="fa fa-angle-up "></i>
+                      </a>
                     </div>
-              </div>
-              <div class=" col-md-8 right-block">
+                  </div>
+                  <div class="row drop-input">
+                    <div class="dropdown">
+                      <button class="drop-button" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                        aria-expanded="false">
 
-              </div>
-            </diV>
-
-          </div>
-
-        </div>
-      </div>
-    </div>
-    </div>
-    </div>
-
-
-    <!-- <div class="modal fade" id="staticBackdrop4" [ngStyle]="{'display':displayReq}" tabindex="-1" role="dialog"
-    aria-labelledby="staticBackdrop4" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4>Request an Appointment</h4>
-          <span type="button" data-bs-dismiss="modal">
-            X
-          </span>
-        </div>
-        <div class="modal-body">
-          <div class="content">
-            <form>
-
-              <div class="row ">
-                <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
-                  <label for="Date" class="form-label">Date</label>
-                  <input type="input" class="form-control border-input" id="Date" placeholder="Date">
-                </div>
-                <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
-                  <label for="Date" class="form-label">Select Provider</label>
-                  <select class="form-select border-input" id="sel1" name="sellist1">
-                    <option class="dropdown-menu" value="" disabled selected>Select Provider</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-12 col-12 mt-3">
-                  <label for="Time" class="form-label">Time</label>
-                  <input type="input" class="form-control border-input" id="Time" placeholder="Time">
-                </div>
-                <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
-                  <label for="Date" class="form-label">Location </label>
-                  <select class="form-select border-input" id="sel1" name="sellist1">
-                    <option class="dropdown-menu" value="" disabled selected>Select Location</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-lg-12 mt-3">
-                  <label for="Note" class="form-label">Note</label>
-                  <textarea class="form-control border-input" id="Note" rows="3"></textarea>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-12 mt-3">
-                  <div class="row">
-                    <p>*We will make every effort to accommodate exact times requested, but may need to suggest alternate
-                      dates/times.</p>
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">25 Msg</a></li>
+                        <li><a class="dropdown-item" href="#">50 Msg</a></li>
+                        <li><a class="dropdown-item" href="#">75 Msg</a></li>
+                        <li><a class="dropdown-item" href="#">100 Msg</a></li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="row" style="float: right;">
-                <button type="button" style="margin-left: -18%;margin-right: 9%;" class="reg-button col-md-4"
-                  data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="reg-button col-md-4">Submit</button>
-              </div>
-            </form>
+                <div class=" col-md-8 right-block">
+
+                </div>
+              </diV>
+
+            </div>
+
           </div>
         </div>
       </div>
     </div>
-
-    </div>
- -->
+  </div>

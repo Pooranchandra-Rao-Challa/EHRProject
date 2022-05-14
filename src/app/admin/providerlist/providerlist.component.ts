@@ -12,7 +12,7 @@ export class ProviderlistComponent {
   pageSize: number = 50;
   page: number = 1;
   filterTerm!: string;
-  providersDataSource: ProviderList[] = [];
+  // providersDataSource: ProviderList[] = [];
   dataSource: ProviderList[] = [];
   Active: boolean = true;
   Suspended: boolean = false;
@@ -20,6 +20,7 @@ export class ProviderlistComponent {
   Paid: boolean = false;
   ActiveStatus: string = '';
   TrailStatus: string = '';
+  providersDataSource:any =[];
 
 
 
@@ -27,7 +28,6 @@ export class ProviderlistComponent {
   }
 
   ngOnInit(): void {
-
     this.getProviderList();
 
   }
@@ -83,4 +83,5 @@ export class ProviderlistComponent {
   }
 
 }
+
 

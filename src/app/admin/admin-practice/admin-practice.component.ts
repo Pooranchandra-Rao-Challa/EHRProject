@@ -34,7 +34,7 @@ export class AdminPracticeComponent implements OnInit {
   constructor(private adminservice: AdminService,private overlayService :OverlayService) { }
 
   ngOnInit(): void {
-    this.GetProivderList();
+   this.GetProivderList();
   }
 
   GetProivderList() {
@@ -128,9 +128,7 @@ export class AdminPracticeComponent implements OnInit {
 
     ref.afterClosed$.subscribe(res => {
       if (typeof content === 'string') {
-      //} else if (content === this.yesNoComponent) {
-        //this.yesNoComponentResponse = res.data;
-      }
+       }
       else if (content === this.UserDialogComponent) {
         this.DialogResponse = res.data;
       }

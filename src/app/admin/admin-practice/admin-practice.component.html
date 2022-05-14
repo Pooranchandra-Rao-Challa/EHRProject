@@ -6,7 +6,7 @@
     </div>
 
 
-  <div class="row check-provid mt-4 mx-2">
+  <div class="row mt-2 mx-2">
     <div class="col-md-3">
         <div class="form-check">
             <input class="form-check-input" type="checkbox" value="Active" id="Active"(change)="FilterProvider('ActiveStatus','Active')" [(ngModel)]="Active" />
@@ -37,7 +37,7 @@
     <div class="col-lg-12 col-xl-12 col-md-12 col-12  mb-3">
       <div class="card card-border">
         <div class="card-body">
-          <div class="row">
+          <div class="row card-align">
             <div class="col-xl-6 col-lg-5 col-md-5 col-5 col-sm-5">
               <b class="fw-bold fs-6">PRACTICES</b>
             </div>
@@ -48,7 +48,7 @@
                   <button type="submit" (click)="SearchDetails()"><i class="fa fa-search i-search"></i></button>
                 </div>
                 <div class="col-xl-1 col-lg-1 col-md-12 col-12  mb-3 col-btn ">
-                  <button type="button" class="button-style text-nowrap btn pull-right ml-3"
+                  <button type="button" class="common-button-style button-style text-nowrap btn pull-right ml-3"
                   (click)="openComponentDialog(UserDialogComponent)" >Add New User</button>
                 </div>
               </div>
@@ -57,7 +57,7 @@
             <div class="col-lg-12 col-md-12 col-12 col-sm-12 ">
               <div class="table-responsive">
                 <table class="table table-sm">
-                  <thead>
+                  <thead class="th-border">
                     <tr>
                       <th class="th-col">Name</th>
                       <th class="th-col">Email</th>
@@ -77,25 +77,25 @@
                         <button type="button" class="addbtn"><i class="fa fa-plus icon-add my-1"></i></button>
                         <span class="mx-1"> {{item.ProviderName}} , {{item.Degree}}</span>
                         <div class="d-flex justify-content-start mt-2">
-                          <button class="com-btn-style">Login</button>
-                          <button class="com-btn-style mx-2">Remove as Primary</button>
+                          <button class="td-btn-style">Login</button>
+                          <button class="td-btn-style mx-2">Remove as Primary</button>
                         </div>
                       </td>
                       <td>{{item.Email}}</td>
                       <td>{{item.ProviderName}}</td>
                       <td>{{item.PrimaryPhone}}</td>
                       <td class="column text-uppercase">{{item.ActiveStatus}}</td>
-                      <td class="td-col-width"><button type="button" class="com-btn-style">View</button></td>
-                      <td class="td-col-width"><button type="button" class="com-btn-style">{{item.Trial}}</button></td>
-                      <td class="td-col-width"><button type="button" class="com-btn-style" >{{AlterStatus}}</button></td>
-                      <td class="td-col-width"><button type="button" class="com-btn-style">Reset MFA</button></td>
-                      <td class="td-col-width"><button type="button" class="com-btn-style">Lock</button></td>
+                      <td class="td-col-width"><button type="button" class="td-btn-style">View</button></td>
+                      <td class="td-col-width"><button type="button" class="td-btn-style">{{item.Trial}}</button></td>
+                      <td class="td-col-width"><button type="button" class="td-btn-style" >{{AlterStatus}}</button></td>
+                      <td class="td-col-width"><button type="button" class="td-btn-style">Reset MFA</button></td>
+                      <td class="td-col-width"><button type="button" class="td-btn-style">Lock</button></td>
                       <td> <button type="button" class="Cancelbtn"><i class="fa fa-close icon-close"></i></button></td>
                     </tr>
                   </tbody>
                 </table>
-                <div class="table-NoRecord text-center py-2 col-12" *ngIf="ProviderList.length < 0">
-                  Practices Not Found
+                <div class="table-NoRecord text-center py-2 col-12" *ngIf="ProviderList.length == 0">
+                 No Data Found
                 </div>
               </div>
             </div>

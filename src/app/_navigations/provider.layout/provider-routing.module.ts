@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { SettingsComponent } from 'src/app/settings/settings.component';
+import { SettingsComponent } from 'src/app/provider/settings/settings.component';
 import { CalendarComponent } from '../../provider/calendar/calendar.component';
 import { SmartScheduleComponent } from '../../provider/smart.schedule/smart.schedule.component';
 import { ProviderComponent } from './provider.component';

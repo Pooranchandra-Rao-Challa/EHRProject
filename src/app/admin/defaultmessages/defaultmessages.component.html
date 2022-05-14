@@ -1,3 +1,9 @@
+<div class="row mt-4 mx-1">
+  <div class="col-lg-12 col-xl-12 col-md-12 col-12">
+    <app-admin-breadcrum></app-admin-breadcrum>
+  </div>
+</div>
+
 <div class="container-fluid">
     <div class="table-border mt-4">
         <div class="col-lg-12 col-md-12 col-12 fw-bolder">
@@ -22,7 +28,7 @@
                             If you would like to reschedule or cancel, please contact us via your patient portal or give
                             us
                             a phone call at (office#). Have a wonderful day.</td>
-                        <td><button class="btn-lock" (click)="onSubmit()">Edit</button></td>
+                        <td><button class="btn-lock table-col-button"  (click)="onSubmit('Edit default messages','admin/editdefaultmessage')" >Edit</button></td>
                     </tr>
                 </tbody>
             </table>

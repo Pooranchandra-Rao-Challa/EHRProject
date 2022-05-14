@@ -1,0 +1,80 @@
+@import "../../../assets/common.scss";
+@import "../../../assets/cstm.material.scss";
+
+.card-header {
+  border-radius: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.exportdd {
+  width: 120px;
+  border: 1px solid #fff;
+  background-color: white;
+  color: #41b6a6;
+  height: 45px;
+  border-radius: 3%;
+}
+
+.hover-class {
+  width: 165px;
+  height: 45px;
+}
+
+.mat-header-cell {
+  font-weight: 450 !important;
+}
+
+.mat-table {
+  border: 1px solid #41b6a6;
+  font-size: 15px;
+}
+
+table th.th-dropdown {
+  width: 25px;
+}
+
+.table-align {
+  margin-left: -20px;
+  margin-right: -20px;
+}
+
+.mat-header-row {
+  background-color: #fff;
+  color: #333;
+}
+
+.mat-header-cell:first-child {
+  border-left: 1px solid #41a6b6;
+}
+
+.mat-header-cell {
+  border-left: 1px solid #41b6a6;
+  border-bottom: none;
+  font-size: 14px;
+}
+
+.mat-cell {
+  border-left: 1px solid #41a6b6;
+  border-bottom: none;
+}
+
+.mat-row {
+  border-bottom: none;
+}
+
+.mat-row:hover {
+  background-color: #fff !important;
+}
+
+::ng-deep .green-calendar.mat-form-field-appearance-outline .mat-form-field-outline {
+  background-color: #fff !important;
+  color: #41a6b6 !important;
+  height: 45px;
+}
+
+.cust-hyphen {
+  padding: 0px 3px;
+  font-size: 39px;
+  margin-top: -8px;
+}
