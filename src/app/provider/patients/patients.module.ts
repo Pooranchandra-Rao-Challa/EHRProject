@@ -1,3 +1,4 @@
+import { ProviderFooterComponent } from './../../_navigations/provider.navbar/provider.footer.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../../_common/shared';
@@ -14,7 +15,8 @@ import { CqmsNotPerformedComponent } from './cqms.not.performed/cqms.not.perform
 @NgModule({
   imports: [SharedModule, CommonModule],
   exports: [PatientsComponent, PatientDetailsComponent, ChartComponent, DentalChartComponent, ProfileComponent, InsuranceComponent, AmendmentsComponent, ResetPasswordComponent, CqmsNotPerformedComponent],
-  declarations: [PatientsComponent, PatientDetailsComponent, ChartComponent, DentalChartComponent, ProfileComponent, InsuranceComponent, AmendmentsComponent, ResetPasswordComponent, CqmsNotPerformedComponent],
+  declarations: [PatientsComponent, PatientDetailsComponent, ChartComponent, DentalChartComponent, ProfileComponent, InsuranceComponent, AmendmentsComponent, ResetPasswordComponent, CqmsNotPerformedComponent,
+  ProviderFooterComponent],
   providers: [],
   // schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

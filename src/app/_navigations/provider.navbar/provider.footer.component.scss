@@ -1,0 +1,18 @@
+@import "../../../styles.scss";
+
+.footer {
+  height: 28px;
+  background-color: #41b6a6;
+  padding: 0px 130px;
+  z-index: 1;
+  position: relative;
+  background: #41b6a6;
+  left: 0;
+  bottom: 0;
+}
+.footer .app-version {
+  position: relative;
+  top: 4px;
+  margin: 0;
+  color: white;
+}
