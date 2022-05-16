@@ -15,7 +15,7 @@
             <input type="input" class="form-control inputclass" id="Date" placeholder="Date">
           </div>
           <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
-            <label for="Date" class="form-label">Select Provider</label>
+            <label for="Date" class="form-label"> Provider</label>
             <select class="form-select inputclass" id="sel1" name="sellist1">
               <option class="dropdown-menu"  disabled selected>Select Provider</option>
               <option>2</option>
@@ -45,7 +45,7 @@
         <div class="row">
           <div class="col-lg-12 mt-3">
             <label for="Note" class="form-label">Note</label>
-            <textarea class="form-control inputclass" id="Note" rows="3"></textarea>
+            <textarea type="input" class="form-control inputclass"  id="Note" rows="3" ></textarea>
           </div>
         </div>
         <div class="row">
@@ -59,7 +59,7 @@
         <div class="row" style="float: right;">
           <button type="button"  class="btn btn-green col-md-4 mx-2"
             data-bs-dismiss="modal" (click)="cancel()">Cancel</button>
-          <button type="button" class="btn btn-green col-md-4">Submit</button>
+          <button type="button" class="btn btn-green col-md-4"  [disabled]="true" >Submit</button>
         </div>
       </form>
 

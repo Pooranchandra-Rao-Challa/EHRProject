@@ -1,7 +1,7 @@
 @import"../../../assets/common.scss";
 
 input::-webkit-input-placeholder {
-  color: #141414 !important;
+  color: #74757e !important;
   font-size: 100%;
   font-family: sans-serif;
 }
@@ -17,6 +17,10 @@ input::-webkit-input-placeholder {
   // height: 20px !important;
 }
 
+.modal-header .modal-title {
+
+  font-size: 16px !important;
+}
 ::ng-deep .example-margin {
   & .mat-checkbox-background,
   .mat-checkbox-frame {
@@ -52,10 +56,13 @@ input::-webkit-input-placeholder {
     font-size: x-large;
     color: #fff;
     margin-left: 26%;
-    margin-top: -12%;
+    margin-top: -21%;
   }
   .custom-control-label{
     color: red;
     margin-left: 2%;
     font-weight: 400;
+  }
+  .not-allowed{
+    cursor: not-allowed;
   }

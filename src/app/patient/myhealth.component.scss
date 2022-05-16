@@ -1,7 +1,8 @@
-// #myprofile-wrapper .panel {
-//     margin-bottom: 0;
-//     box-shadow: none;
-//   }
+@import"../../assets/common.scss";
+
+#myhealth-wrapper {
+  padding-top: 70px;
+}
   .panel-default {
     width: 80%;
     margin-left: 18%;
@@ -9,8 +10,11 @@
   .panel-collapse{
     border: 1px solid #41b6a6;
     line-height: 20%;
-    border-bottom: 1px solid #41b6a6;
+    border-bottom: 2px solid #41b6a6;
   }
+  .accordion div:not(.collapsed) {
+    border-bottom:0px solid #41b6a6;
+ }
   @media (max-width: 320px) {
     .title{
       line-height: 120%;
@@ -31,10 +35,10 @@
   }
   }
   .title{
-    margin-top: 2%;
-    margin-left: 2% ;
-    color: #41b6a6;
     font-size: 22px;
+    margin-bottom: 0;
+    padding: 10px 0;
+    color: #41b6a6;
   }
   @media (max-width: 320px) {
     .dashboard-patient-wrapper .photo-patient, .dashboard-patient-wrapper .avatar{
@@ -45,21 +49,10 @@
   @media (max-width: 990px) {
     .dashboard-patient-wrapper .photo-patient, .dashboard-patient-wrapper .avatar{
       width: 50%;
-      //height: 100px;
     }
-  }
-  .title1{
-    margin-top: 2%;
-    margin-left: 2% ;
-    font-size: large;
   }
   .panel-expand{
     border: 1px solid #41b6a6;
-  }
-  .arrow{
-    margin-left: 80%;
-    color:#41b6a6;
-    font-size:x-large;
   }
   .panel {
     margin-bottom: 20px;
@@ -75,25 +68,24 @@
     border: 1px solid #2e877b;
     border-radius: 3px;
     transition: opacity 0.2s;
-    width: 90%;
-    margin-left: 5%;
-}
-#myhealth-wrapper .left-block .clinic-info {
-  margin-top: 25px;
+  }
+
+.profile-text{
+  font-size: 16px !important;
 }
 .green-color {
   color: #41b6a6;
-  font-size: large;
+  font-size: 18px;
 }
 .side-panel{
   margin-left: 8%;
   margin-top: 8%;
 }
 .size{
-  font-size: large;
+  font-size: 22px;
 }
 #myhealth-wrapper .panel .panel-body {
-  padding: 20px;
+  padding: 0px 6px 0px 8px;
 }
 .heding{
   color: #41b6a6;
@@ -101,9 +93,15 @@
 
 }
 .accordion-button:not(.collapsed) {
-    // color: #0c63e4;
    background-color: #fff;
 }
 ul{
   list-style-type: none;
+}
+.problem_dx{
+  margin: 11px 20px 10px;
+  text-decoration: underline;
+}
+.title-dx{
+padding: 12px 6px 12px 9px;
 }
