@@ -16,7 +16,8 @@ import { SearchPipe } from './search.pipe';
 @NgModule({
   imports: [SharedModule, CommonModule],
   exports: [PatientsComponent, PatientDetailsComponent, ChartComponent, DentalChartComponent, ProfileComponent, InsuranceComponent, AmendmentsComponent, ResetPasswordComponent, CqmsNotPerformedComponent],
-  declarations: [PatientsComponent, PatientDetailsComponent, ChartComponent, DentalChartComponent, ProfileComponent, InsuranceComponent, AmendmentsComponent, ResetPasswordComponent, CqmsNotPerformedComponent, SearchPipe],
+  declarations: [PatientsComponent, PatientDetailsComponent, ChartComponent, DentalChartComponent, ProfileComponent, InsuranceComponent, AmendmentsComponent, ResetPasswordComponent, CqmsNotPerformedComponent,
+     SearchPipe,ProviderFooterComponent],
   providers: [],
   // schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

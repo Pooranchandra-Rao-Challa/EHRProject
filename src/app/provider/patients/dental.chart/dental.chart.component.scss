@@ -92,12 +92,12 @@ img,svg {
   margin-top: -21px  !important;
 }
 .colC {
-  min-height: 420px;
+  min-height: 378px;
   overflow-y: scroll;
   max-height: calc(30vh - 25px);
 }
 .colD {
-  min-height: 500px;
+  min-height: 459px;
   overflow-y: scroll;
   max-height: calc(70vh - 158px);
   margin-top: -32px !important;
@@ -114,6 +114,7 @@ img,svg {
 .fa-search {
   background-color: #41b6a6;
   color: white;
+  margin-left: 0 !important;
 }
 .fa {
   font-size: 28px;
@@ -134,10 +135,10 @@ img,svg {
   border-color: #41b6a6 !important;
 }
 p {
-  margin-top: 0;
+  margin-top: 5px;
   margin-bottom: 2rem;
   color: #41b6a6;
-  font-size: 18px;
+  font-size: 14px;
 }
 .find-procedure {
   background-color: #e8fbf8;
@@ -198,19 +199,31 @@ table tr td.overlay-img a.checker.unchecked {
 .adult-img-align {
   margin-top: 62px;
 }
+
 .adult-bigimg-align {
   margin-top: 23px;
 }
 .adult-lg-align {
   margin-top: 40px;
 }
+.child-img-align{
+  margin-top: 26px;
+}
+.child-img-size{
+  width: 60px !important;
+  // margin-top: 12px !important;
+}
 .childimg {
    width: auto !important;
   height: auto;
 }
 .childimg-align {
-  margin-top: 35px !important;
+  margin-top: 12px !important;
 }
+.tr-data{
+  font-family: 'Roboto';
+}
+
 .th-color tr th {
   color: #fff;
   font-size: 18px;
