@@ -18,9 +18,11 @@
 }
 
 ::ng-deep .mat-select-placeholder {
-  color: black !important;
+  color: rgb(115, 114, 114) !important;
 }
-
+::ng-deep .mat-select-placeholder:hover {
+  color: white !important;
+}
 .row-dropdown {
   margin-bottom: -30px;
 }
@@ -36,6 +38,8 @@
   font-size: 20px;
   color: white;
   background: white;
+  cursor: pointer;
+
 }
 
 .lab-drodown:hover {
@@ -50,10 +54,15 @@
   background: #e4f6f3;
   color: black;
   font-size: 15px;
+  cursor: pointer;
 }
 
 .menu-option-dropdown {
   font-size: 15px;
+  cursor: pointer;
+}
+.menu-option-dropdown:hover {
+  background: #e4f6f3;
 }
 
 .scroll-menu {
@@ -77,12 +86,9 @@
   border: 0px solid #d6d4d4;
   margin-top: 8px;
 }
-
-.search input:focus {
-  box-shadow: none;
-  border: 2px solid blue
+.search-icon{
+  margin-left: 0px !important;
 }
-
 .search .fa-search {
   position: absolute;
   top: 9px;
@@ -90,16 +96,15 @@
   color: white;
   font-size: 24px;
 }
-
 .search button {
   position: absolute;
-  top: -0.89px;
-  ;
+  top: 0.15px;
   right: -50px;
-  height: 43px;
+  height: 42px;
   width: 55px;
   background: #41b6a6;
   border-color: white;
+  border-radius: 1px;
 }
 
 .plus-icon {
@@ -114,6 +119,7 @@
   padding: 8px;
   margin-left: 3px;
   margin-right: 3px;
+  cursor:auto;
 }
 
 .btn-lab {
@@ -145,6 +151,8 @@
 
 .table-NoRecord {
   background: White;
+  border: 1px solid #41b6a6;
+  margin-top: -1px;
 }
 
 .form-control:focus {
@@ -178,8 +186,8 @@
   color: #41b6a6;
   background-color: #fff;
 }
-.nav-tabs.nav-tab-styled li a
-{
+
+.nav-tabs.nav-tab-styled li a {
   padding: 7px 14px 5px 15px !important;
   font-family: 'Roboto' !important;
   border-bottom: none;
@@ -224,3 +232,25 @@
 .table-responsive {
   overflow-x: hidden !important;
 }
+.mat-table{
+  border-left: 2px solid #41b6a6;
+  border-right: 2px solid #41b6a6;
+}
+
+input::-webkit-input-placeholder {
+  color: rgb(115, 114, 114) !important;
+  font-size: 15px;
+  font-family: 'Roboto';
+}
+
+// .mat-select-panel {
+//   min-width: 112px;
+//   max-width: 280px;
+//   overflow: auto;
+//   -webkit-overflow-scrolling: touch;
+//   padding-top: 25px !important;
+//   padding-bottom: 0;
+//   max-height: 256px;
+//   min-width: 100%;
+//   border-radius: 4px;
+// }

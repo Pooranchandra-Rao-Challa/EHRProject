@@ -2,7 +2,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { HomeComponent } from './account/home.comonent';
 import { AuthGuard } from './_helpers/auth.guard';
 const loginModule = () => import('./account/login.module').then(x => x.LoginModule);
 const reportsModule = () => import('./layouts/reports.module').then(x => x.ReportsModule);
@@ -11,7 +10,7 @@ const adminModule = () => import('./_navigations/admin.layout/admin.module').the
 const patientModule = () => import('./_navigations/patient.layout/patient.module').then(x => x.PatientModule);
 
 const routes: Routes = [
-  { path: '', redirectTo: 'account/home', pathMatch: 'full', canActivate: [AuthGuard] },
+  { path: '', redirectTo: 'account/home', pathMatch: 'full' },
   { path: 'account', loadChildren: loginModule },
   { path: 'reports', loadChildren: reportsModule, canActivate: [AuthGuard]  },
   { path: 'provider', loadChildren: providerModule, canActivate: [AuthGuard]  },

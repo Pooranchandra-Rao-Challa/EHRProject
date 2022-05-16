@@ -1,11 +1,11 @@
+@import "../../assets/common.scss";
 
-
-:host {
-  display: block;
-  width: 60rem;
-  height: calc(45vh + 180px);
-  background-color: #fff;
-}
+// :host {
+//   display: block;
+//   width: 60rem;
+//   height: calc(45vh + 180px);
+//   background-color: #fff;
+// }
 
 
 .modal-dialog {
@@ -17,21 +17,27 @@
   max-height: calc(90vh - 180px);
   overflow-y: auto;
 }
-
-
-.modal-header {
-  min-height: 30px !important;
-  background-color: #41b6a6;
-  color: #fff;
-  border: none;
-  padding: 10px !important;
+.modal-content{
+  max-width: 920px;
+  margin: auto;
 }
+.modal .modal-dialog .modal-content .modal-body {
+  padding: 10px 26px;
+}
+
+// .modal-header {
+//   min-height: 30px !important;
+//   background-color: #41b6a6;
+//   color: #fff;
+//   border: none;
+//   padding: 10px !important;
+// }
 .modal-body .form-group {
   margin-bottom: 25px;
 }
-.modal-title {
-   line-height: 10px !important;
-}
+// .modal-title {
+//    line-height: 10px !important;
+// }
 
 .input-group .input-group-addon {
   height: 45px;
@@ -65,6 +71,9 @@
 }
 .form-group .input-group .form-control{
   width: 40px
+}
+.control-label.input-group-addon{
+  padding: 11px 10px !important;
 }
 
 button#dob.btn-outline-secondary {
@@ -134,12 +143,12 @@ button#dob.btn-outline-secondary.calendar {
 }
 ::ng-deep .mat-radio-button.mat-accent .mat-radio-outer-circle {
   box-sizing: border-box;
-  height: 15px;
+  height: 20px;
   left: 0;
   position: absolute;
   top: 0;
   transition: border-color ease 280ms;
-  width: 15px;
+  width: 20px;
   border-width: 1px;
   border-style: solid;
   border-radius: 50%;
@@ -252,4 +261,7 @@ button#dob.btn-outline-secondary.calendar {
   z-index: 2000000 !important;
   background-color: red;
   visibility: visible;
+}
+.btn.btn-green{
+  height: 45px;
 }

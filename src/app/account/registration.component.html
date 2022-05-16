@@ -173,7 +173,8 @@
                   <mat-form-field appearance="outline" class="col-12">
                     <input matInput formControlName="PrimaryPhone" class="cstm-tel" type="tel" prefix="+1"
                     mask=" (000) 000 0000"  [showMaskTyped]="true"  [patterns]="PhonePattern"
-                    (mouseover)="viewModel.PrimaryPhone=$event.target.value!= null&& $event.target.value!='+1 (___) ___ ____'" (mouseleave)="viewModel.PrimaryPhone=false"
+                    (mouseover)="viewModel.PrimaryPhone=$event.target.value!= null&& $event.target.value!='+1 (___) ___ ____'"
+                    (mouseleave)="viewModel.PrimaryPhone=false"
                     placeHolderCharacter="_"  />
                     <mat-icon matSuffix *ngIf="viewModel.PrimaryPhone" class="FieldValid">check</mat-icon>
                   </mat-form-field>
@@ -181,7 +182,8 @@
                 <div class="col-lg-4 col-md-4 col-sm-6">
                   <p>MOBILE PHONE NUMBER</p>
                   <mat-form-field appearance="outline" class="col-12">
-                    <input matInput (mouseover)="viewModel.MobilePhone=$event.target.value!= null&& $event.target.value!='+1 (___) ___ ____'" (mouseleave)="viewModel.MobilePhone=false" prefix="+1"
+                    <input matInput
+                    (mouseover)="viewModel.MobilePhone=$event.target.value!= null&& $event.target.value!='+1 (___) ___ ____'" (mouseleave)="viewModel.MobilePhone=false" prefix="+1"
                     mask=" (000) 000 0000"  [showMaskTyped]="true"  [patterns]="PhonePattern" placeHolderCharacter="_"
                       formControlName="MobilePhone" placeholder="(123)-456-7890" type="tel"
                       class="cstm-tel">
@@ -224,7 +226,7 @@
                     formControlName="Email" placeholder="Email Adress">
                     <mat-icon matSuffix *ngIf="viewModel.Email && !AccountInfomation.controls['Email'].invalid" class="FieldValid">check</mat-icon>
                     <mat-icon matSuffix *ngIf="viewModel.Email && AccountInfomation.controls['Email'].invalid" class="FieldInvalid">clear</mat-icon>
-                   <!-- <mat-icon matSuffix *ngIf="viewModel.Email" *ngIf="AccountInfomation.controls['Email'].invalid" class="FieldInvalid">clear</mat-icon>-->
+
                   </mat-form-field>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6">

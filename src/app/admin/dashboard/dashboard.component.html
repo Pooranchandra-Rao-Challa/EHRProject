@@ -63,7 +63,7 @@
 
           <div class="row">
             <div class="col-xl-8 col-lg-5 col-md-5 col-5 col-sm-5">
-              <p class="text-uppercase text-user">Users</p>
+              <h1 class="card-title text-uppercase"><b class="fw-bol fs-6">Users</b></h1>
             </div>
             <div class="col-xl-4 col-lg-7 col-md-7 col-12 ">
               <div class="row pt-0 ">
@@ -122,8 +122,8 @@
                             </div>
                         </div>
                       </td>
-                      <td class="column text-uppercase">{{item.ActiveStatus}}</td>
-                      <!-- <td class="td-col-width"><button type="button"  [ngClass]="item.ActiveStatus == 'Active'? 'Actives' : 'Suspended'">{{item.ActiveStatus}}</button></td> -->
+                      <!-- <td class="column text-uppercase">{{item.ActiveStatus}}</td> -->
+                      <td class="td-col-width"><button type="button"  [ngClass]="item.ActiveStatus == 'Active'? 'Actives' : 'Suspended'">{{item.ActiveStatus}}</button></td>
                       <!-- <td class="td-col-width"><button type="button" class="td-btn-style" >{{AlterStatus}}</button></td> -->
                       <td class="td-width text-success">{{item.EmailVerifyStatus}}</td>
                       <td class="td-col-width"><button type="button" class="table-col-button ">View</button></td>

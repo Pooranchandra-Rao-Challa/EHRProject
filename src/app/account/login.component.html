@@ -19,7 +19,7 @@
       <h4 class="sign">
         Don't have an account yet?
         <!-- <span style="color: #287066" href="/account/registration">Sign up here</span> -->
-        <a style="color: #287066" href="/account/registration">Sign up here</a>
+        <a class="sign-up-here" href="/account/registration">Sign up here</a>
       </h4>
     </div>
   </div>
@@ -45,7 +45,7 @@
                         class="img-svg-eye" (click)="togglePasswordVisibility()" />
                     </mat-form-field>
                   </div>
-                  <div class="pull-right address" >
+                  <div class="pull-right address">
                     <div data-bs-toggle="modal" (click)="openResetPassword()" class="message-hints">Forgot your
                       password?</div>
                     <div data-bs-toggle="modal" (click)="openResendVerification()" class="message-hints">
@@ -145,9 +145,9 @@
 
                     <P>Enter the email address associated with your account and an email with password reset
                       instructions will be sent.</P>
-                    <div class="form-group mt-5" >
+                    <div class="form-group mt-5">
 
-                        <input type="text">
+                      <input type="text">
 
                     </div>
                   </div>
@@ -173,7 +173,7 @@
 </div>
 
 
-<div class="modal fade" id="email-verification" data-bs-backdrop="static"  data-bs-keyboard="false" tabindex="-1"
+<div class="modal fade" id="email-verification" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="email-verification" aria-hidden="false">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -195,7 +195,7 @@
               <div class="col-lg-8 ">
                 <div class="form-group ">
 
-                    <input  placeholder="Enter an email">
+                  <input placeholder="Enter an email">
 
                 </div>
               </div>
@@ -215,23 +215,22 @@
 </div>
 
 
-  <div class="modal modal-notice" id="modal-message" tabindex="-1" role="dialog" data-bs-backdrop="static"
-    data-bs-keyboard="false" aria-labelledby="errorbackdropLabel" aria-hidden="true">
-    <div class="modal-dialog" >
-      <div class="modal-content">
-        <div class="modal-body">
-          <div class="scrollable-container" style="height: auto;">
-            <div class="content">
-              <div class="error-title">
-                <p>{{authfailedmessage}}</p>
-              </div>
+<div class="modal modal-notice" id="modal-message" tabindex="-1" role="dialog" data-bs-backdrop="static"
+  data-bs-keyboard="false" aria-labelledby="errorbackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="scrollable-container" style="height: auto;">
+          <div class="content">
+            <div class="error-title">
+              <p>{{authfailedmessage}}</p>
             </div>
           </div>
         </div>
-        <div class="modal-footer">
-          <a class="btn btn-default" data-bs-dismiss="modal" data-bs-target="#modal-message"
-            aria-label="Close">Close</a>
-        </div>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-default" data-bs-dismiss="modal" data-bs-target="#modal-message" aria-label="Close">Close</a>
       </div>
     </div>
   </div>
+</div>
