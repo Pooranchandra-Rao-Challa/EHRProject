@@ -167,8 +167,9 @@
                   <ng-container matColumnDef="Space">
                     <mat-header-cell *matHeaderCellDef></mat-header-cell>
                     <mat-cell *matCellDef="let user">
-                      <mat-checkbox [(ngModel)]="user.Admin" (ngModelChange)="toggleAdmin(user,$event)">
-                        <span class="admineclass">Admin</span>
+                      <mat-checkbox class="practice-users-checkbox" [(ngModel)]="user.Admin"
+                        (ngModelChange)="toggleAdmin(user,$event)">
+                        <span>Admin</span>
                       </mat-checkbox>
                     </mat-cell>
                   </ng-container>
