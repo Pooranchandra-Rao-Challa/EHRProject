@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { PlatformLocation} from '@angular/common';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { Accountservice } from '../_services/account.service';
 import { ViewModel, Registration } from '../_models/registration';
@@ -31,9 +32,14 @@ export class RegistrationComponent implements OnInit {
   displayVerifybtn: boolean;
   PhonePattern: any;
   viewModel: ViewModel = {} as ViewModel;
-  registration: Registration = {} as Registration;;
+  registration: Registration = {} as Registration;
+  url: string;
 
-  constructor(private fb: FormBuilder, private accountservice: Accountservice) {
+  constructor(private fb: FormBuilder, private accountservice: Accountservice,
+    private plaformLocation: PlatformLocation) {
+
+    this.url =plaformLocation.href.replace(plaformLocation.pathname,'/');
+    //console.log(plaformLocation.href.replace(plaformLocation.pathname,'/'));
     this.PhonePattern = {
       0: {
         pattern: new RegExp('\\d'),
@@ -45,7 +51,7 @@ export class RegistrationComponent implements OnInit {
   ngOnInit(): void {
     this.buildPersonalForm();
     this.buildContInfoForm();
-    this.buildAcctInfoForm();
+    this.buildAccountInfoForm();
     this.dropdownMenusList();
 
     $(document).ready(function () {
@@ -110,12 +116,11 @@ export class RegistrationComponent implements OnInit {
   buildContInfoForm() {
     this.ContactInfomation = this.fb.group({
       PracticeAddress: ['', Validators.required],
-      SuiteNumber: [''],
       PrimaryPhone: ['', Validators.required],
       MobilePhone: [''],
     })
   }
-  buildAcctInfoForm() {
+  buildAccountInfoForm() {
     this.AccountInfomation = this.fb.group({
       Email: ['', [Validators.required, Validators.email, Validators.pattern('^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$')]],
       AltEmail: ['', Validators.pattern('^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$')],
@@ -203,20 +208,15 @@ export class RegistrationComponent implements OnInit {
 
   GetPersonalInfo() {
     this.PersonalDetials = this.PersonalInfo.value;
-
   }
   GetContactInfo() {
     this.ContactDetails = this.ContactInfomation.value;
-    console.log(this.ContactDetails);
   }
   GetAccountInfo() {
-
     this.AccountDetails = this.AccountInfomation.value;
-
   }
 
   SaveRegitration() {
-
     let reqparams = {
       Title: this.PersonalDetials.Title,
       FirstName: this.PersonalDetials.FirstName,
@@ -233,6 +233,7 @@ export class RegistrationComponent implements OnInit {
       Email: this.AccountDetails.Email,
       AltEmail: this.AccountDetails.AltEmail,
       Password: this.AccountDetails.EncryptedPassword,
+      URL: this.url
     }
 
     this.accountservice.RegisterNewProvider(reqparams).subscribe(resp => {
@@ -250,8 +251,6 @@ export class RegistrationComponent implements OnInit {
     })
   }
 
-
-
   validateConfirmPassword() {
     return (this.AccountInfomation.value.EncryptedPassword ===
       this.AccountInfomation.value.ConfirmPassword) && !this.AccountInfomation.controls['EncryptedPassword'].invalid;
@@ -265,14 +264,6 @@ export class RegistrationComponent implements OnInit {
       confirmButtonText: 'Close',
       width: '700',
     });
-  }
-
-  openForgotPassword(){
-    Swal.fire({
-
-
-    })
-
   }
 }
 

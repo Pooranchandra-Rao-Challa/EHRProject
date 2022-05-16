@@ -1,13 +1,12 @@
 @import"../../../../assets/common.scss";
 
 .nav-tabs li a {
-  border: 0;
-  color: #41b6a6;
-  background-color: #fff;
-  padding: 14px 58px 12px 28px;
-  font-family: 'Roboto' !important;
-  font-weight: 500;
-  font-size: 14px !important;
+    color: #41b6a6;
+    background-color: #fff;
+    padding: 9px 38px 9px 28px;
+    font-family: "Roboto" !important;
+    /* font-weight: 400; */
+    font-size: 16px !important;
 }
 .btn.btn-orange {
   padding: 12px 26px !important;
@@ -57,6 +56,16 @@ img,svg {
   padding-bottom: 19px;
   font-size: 15px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
+.treatments-title{
+  font-family: system-ui !important;
+  border: #41b6a6;
+  height: 50px;
+  text-align: 10px;
+  margin-top: -1px;
+  padding: 12px;
+  padding-bottom: 19px;
+  font-size: 25px;
 }
 .border {
   border: 1px solid #41b6a6 !important;
@@ -233,6 +242,7 @@ table tr td.overlay-img a.checker.unchecked {
   padding: 10px 20px;
   width: 100%;
   border-top: 3px solid #41b6a6;
+  margin-top: -8px;
 }
 input::-webkit-input-placeholder {
   color: #6f6e6e !important;
@@ -244,8 +254,9 @@ input::-webkit-input-placeholder {
   border-color: #41b6a6;
   background: #fff;
   width: 164px !important;
-  font-size: 21px;
+  font-size: 19px;
   padding: 10px 3px;
+  font-family: 'Roboto';
 }
 .dropdown .dropdown-menu li {
   display: table;

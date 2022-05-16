@@ -47,9 +47,12 @@
   color: #41b6a6 !important;
 }
 ::ng-deep .mat-select-panel{
-  min-width: calc(100% + 22px) !important;
-  margin-left: 5px !important;
-  // margin-top: 28px !important;
+  // min-width: calc(100% + 22px) !important;
+  // margin-left: 5px !important;
+  // // margin-top: 28px !important;
+  min-width: calc(100% + 18px) !important;
+  margin-left: -9px !important;
+  margin-top: 25px !important;
 }
 // mat input search mat-form-field outline color
 ::ng-deep .input-search.mat-form-field-appearance-outline .mat-form-field-outline {

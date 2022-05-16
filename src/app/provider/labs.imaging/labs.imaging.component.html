@@ -55,7 +55,7 @@
                         <div class="col-lg-10 col-md-11 col-10  my-lg-2 my-md-1 my-2 mb-md-4 mb-2">
                             <div class="search">
                                 <input type="text" class="form-control" placeholder="Search Test"> <button
-                                    class="btn"><i class="fa fa-search"></i></button>
+                                    class="btn"><i class="fa fa-search search-icon"></i></button>
                             </div>
                         </div>
                     </div>
@@ -68,10 +68,8 @@
                         </button>
                         <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton1">
                             <input type="text" placeholder="" id="myInput" class="search-input-dropdown">
-                            <option class="active dropdown-item menu-option-dropdown mt-2"
-                               >Order
-                            <option>
-                            <option class="dropdown-item menu-option-dropdown">result
+                            <option class="active dropdown-item menu-option-dropdown mt-2">Order <option>
+                            <option class="dropdown-item menu-option-dropdown ">result
                             <option></option>
                         </ul>
                     </div>
@@ -123,7 +121,7 @@
                         <tr mat-row class="table-row" *matRowDef="let row; columns: labImagingColumn"></tr>
                     </table>
                     <div class="table-NoRecord text-center py-2 col-12" *ngIf="labImagingDataSource.length == 0">
-                        No labs Found
+                        No labs
                      </div>
                 </div>
             </div>

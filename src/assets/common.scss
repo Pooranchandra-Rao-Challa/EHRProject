@@ -114,6 +114,10 @@
   border-radius: 0px 0px 0 0;
   border: 1px solid #41b6a6;
 }
+.nav-tabs.nav-tab-styled li a:hover {
+  background-color: #41b6a6;
+  color: #fff;
+}
 .nav-tabs.nav-tab-styled li.active a {
   background-color: #41b6a6;
   color: #fff;
@@ -180,7 +184,7 @@
   border: 1px solid #ebebeb;
   padding: 0px 10px;
   height: 45px;
-  color: #333333;
+  color: #74757e;;
   font-size: 15px;
   background-color: #f5f5f5;
 }
@@ -204,4 +208,7 @@
 }
 .fa-search{
   margin-left: 21%;
+}
+.cdk-overlay-pane{
+  background-color: red !important;
 }
