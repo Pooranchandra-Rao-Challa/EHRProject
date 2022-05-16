@@ -1,6 +1,4 @@
-import { PracticeProviders } from './../../_models/practiceProviders';
-import { patientService } from './../../_services/patient.service';
-import { Component, OnInit, TemplateRef, QueryList, ViewChildren } from '@angular/core';
+import { Component, OnInit, TemplateRef, QueryList, ViewChildren, ViewChild, ElementRef } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
 import { OverlayService } from '../../overlay.service';
 import { PatientDialogComponent } from '../../dialogs/patient.dialog.component';
@@ -13,6 +11,10 @@ import { PatientsData } from 'src/app/_models/patients';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, NavigationExtras, Route, Router } from '@angular/router';
 import { SmartScheduleComponent } from '../smart.schedule/smart.schedule.component';
+import { SmartSchedulerService } from '../../_services/smart.scheduler.service';
+import { PracticeProviders } from '../../_models/practiceProviders';
+import { patientService } from './../../_services/patient.service';
+
 @Component({
   selector: 'app-patients',
   templateUrl: './patients.component.html',
@@ -30,33 +32,40 @@ export class PatientsComponent implements OnInit {
   patientDialogComponent = PatientDialogComponent;
   dialogResponse = null;
   user: User;
-  // pageSize = 10;
-  // pageIndex = 0;
-  // pageSizeOptions: number[] = [5, 10, 25, 100];
-  // showTotalPages: number;
-  // pageEvent: PageEvent;
   pageSize = 10;
   page = 0;
   inactivePatients: any[] = [];
-  // patientsProviders: import("g:/EHR Project/EHRGitCode/EHRProject/src/app/_models/practiceProviders").PracticeProviders[];
+  PracticeProviders: PracticeProviders[];
+  keys = 'FirstName,MobilePhone';
+  value: any;
+  @ViewChild('filter', { static: false }) filter: ElementRef;
   constructor(public overlayService: OverlayService,
     private patientService: patientService,
     private authService: AuthenticationService,
     private router: Router,
-    private smartschedule: SmartScheduleComponent) {
+    private smartschedule: SmartScheduleComponent,
+    private smartSchedulerService: SmartSchedulerService) {
     this.user = authService.userValue;
-    // this.patientsProviders = smartschedule.PracticeProviders;
-    // console.log(this.patientsProviders);
-
   }
 
   ngOnInit(): void {
+    this.loadPatientProviders();
     this.getPatientsByProvider();
   }
 
   ngAfterViewInit(): void {
     this.patientsDataSource.paginator = this.paginator.toArray()[0];
     this.patientsDataSource.sort = this.sort.toArray()[0];
+  }
+
+  loadPatientProviders() {
+    let req = { "ClinicId": this.authService.userValue.ClinicId };
+    this.smartSchedulerService.PracticeProviders(req).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.PracticeProviders = resp.ListResult as PracticeProviders[];
+        console.log(this.PracticeProviders);
+      }
+    });
   }
 
   onChangeViewState(view) {

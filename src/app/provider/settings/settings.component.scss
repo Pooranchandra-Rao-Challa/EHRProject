@@ -153,8 +153,8 @@
   border-bottom: none;
   min-height: 50px;
   max-height: 50px;
-  margin-top: -1px;
-  margin-left: -1px;
+  //margin-top: -1px;
+ // margin-left: -1px;
 }
 .row-heading {
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -881,7 +881,7 @@ a.disabled{
 .btn-edit{
   height: 45px;
 }
-::ng-deep .mat-checkbox-inner-container{
+::ng-deep .practice-users-checkbox .mat-checkbox-inner-container{
   margin-right: 15px !important;
     margin-top: 0px !important;
 }

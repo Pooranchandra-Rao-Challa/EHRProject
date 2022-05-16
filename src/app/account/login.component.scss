@@ -486,13 +486,14 @@ html {
   outline: none !important;
 }
 
+.Login-form{
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-start,
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-end{
   border-radius: 0px;
   border: 0px solid #a4a4a4 !important;
   background-color: #f9f9f9;
 }
-
+}
 
 
 // Success Message Styles.

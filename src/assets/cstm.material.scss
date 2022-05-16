@@ -137,8 +137,8 @@
   border-bottom-right-radius: 6px;
   margin-right: -11px;
   border: 1px solid #d0d2db;
-  height: 3em;
-  width: 3.5em;
+  height: 3em !important;
+  width: 3.5em !important;
 }
 // .mat-form-field:not(.mat-form-field-appearance-legacy)
 //   .mat-form-field-suffix
@@ -178,8 +178,8 @@
   border-bottom-right-radius: 6px;
   margin-right: -11px;
   border: 1px solid #41b6a6;
-  height: 3.2em;
-  width: 3.5em;
+  height: 3.2em !important;
+  width: 3.5em !important;
 }
 
 // mat-table

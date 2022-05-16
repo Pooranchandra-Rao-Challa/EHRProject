@@ -267,6 +267,11 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "UpdateSchedulegeneral";
   }
 
+
+  get _providerConfirmationUrl() {
+    return this._baseUrl + "ProviderConfirmation";
+  }
+
   get _auditLogsUrl() {
     return this._baseUrl + "AuditLogs";
   }
@@ -283,7 +288,7 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "Erx";
   }
 
-  
+
   constructor(public http: HttpClient) {
     super();
   }

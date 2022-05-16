@@ -1,0 +1,172 @@
+html, body {
+  margin: 0 auto;
+}
+
+html {
+  padding: 50px 0;
+}
+
+body {
+  width: 800px;
+  border: 1px solid #979797;
+  border-radius: 18px;
+}
+
+p {
+  font-family: 'Times New Roman';
+  color: #000;
+  font-size: 14px;
+  margin: 0;
+}
+
+.mailer-wrapper {
+  border-collapse: collapse;
+  margin: 0px auto;
+}
+
+.mailer-wrapper tbody {
+  width: 100%;
+}
+
+.mailer-wrapper tr td {
+  border: 0;
+  padding: 0;
+}
+
+.mailer-wrapper thead tr td.logo {
+  width: 800px;
+  height: 165px;
+  display: table-cell;
+}
+
+.mailer-wrapper thead tr td.logo a {
+  width: 100%;
+  display: block;
+}
+
+.mailer-wrapper tfoot tr td {
+  height: 25px;
+  background-color: #41b6a6;
+  border-radius: 0 0 16px 16px;
+  padding: 0 60px;
+}
+
+.mailer-wrapper tfoot tr td p {
+  color: #fff;
+}
+
+html, body {
+  margin: 0 auto;
+}
+
+html {
+  padding: 50px 0;
+}
+
+body {
+  width: 800px;
+  border: 1px solid #979797;
+  border-radius: 18px;
+}
+
+p {
+  font-family: 'Times New Roman';
+  color: #000;
+  font-size: 14px;
+  margin: 0;
+}
+
+.btn {
+  width: 165px;
+  height: 45px;
+  line-height: 45px;
+  text-align: center;
+  display: block;
+  border-radius: 3px;
+  font-family: 'Helvetica';
+  font-size: 16px;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.btn.btn-default {
+  background-color: #41b6a6;
+  color: #fff;
+}
+
+.btn.btn-default:hover, .btn.btn-default:focus, .btn.btn-default:active {
+  opacity: 0.75;
+}
+
+.mailer-wrapper {
+  border-collapse: collapse;
+}
+
+.mailer-wrapper tr td {
+  border: 0;
+  padding: 0;
+}
+
+.mailer-wrapper thead tr td.logo {
+  width: 800px;
+  height: 165px;
+  display: table-cell;
+}
+
+.mailer-wrapper thead tr td.logo a {
+  width: 160px;
+  display: block;
+}
+
+.mailer-wrapper tfoot tr td {
+  height: 25px;
+  background-color: #41b6a6;
+  border-radius: 0 0 16px 16px;
+  padding: 0 60px;
+}
+
+.mailer-wrapper tfoot tr td p {
+  color: #fff;
+}
+
+.mailer-confirmation-instructions tbody tr td {
+  padding: 15px 60px;
+}
+
+.mailer-confirmation-instructions tbody tr:nth-child(1) td {
+  padding-top: 95px;
+}
+
+.mailer-confirmation-instructions tbody tr:nth-child(1) td p, .mailer-confirmation-instructions tbody tr:nth-child(4) td p, .mailer-confirmation-instructions tbody tr:nth-child(5) td p {
+  font-weight: bold;
+}
+
+.mailer-confirmation-instructions tbody tr:nth-child(3) td {
+  padding-top: 130px;
+  padding-bottom: 60px;
+}
+
+.mailer-confirmation-instructions tbody tr:nth-child(3) td .btn {
+  margin: 0 auto;
+}
+
+.mailer-confirmation-instructions tbody tr:nth-child(5) td {
+  padding-bottom: 113px;
+}
+
+.mailer-confirmation-instructions tbody tr:nth-child(6) td {
+  padding-bottom: 0;
+}
+
+.mailer-confirmation-instructions tbody tr:nth-child(7) td {
+  padding-top: 0;
+  padding-bottom: 50px;
+  font-size: 14px;
+  color: #4a90e2;
+  text-decoration: underline;
+  transition: opacity 0.2s;
+}
+
+.mailer-confirmation-instructions tbody tr:nth-child(7) td:hover, .mailer-confirmation-instructions tbody tr:nth-child(7) td:focus, .mailer-confirmation-instructions tbody tr:nth-child(7) td:active {
+  opacity: 0.75;
+}

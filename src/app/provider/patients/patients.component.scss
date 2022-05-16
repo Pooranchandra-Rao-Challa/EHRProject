@@ -151,16 +151,17 @@ a {
     flex: 0 0 7%;
   }
 }
-::ng-deep .mat-checkbox-layout{
-  padding-top: 5px !important;
+::ng-deep .patients-wrapper .mat-checkbox-layout{
+  padding-top: 2px !important;
 }
-::ng-deep .mat-checkbox-label{
+::ng-deep .patients-wrapper .mat-checkbox-label{
   padding-top: 10px !important;
     padding-left: 10px !important;
 }
-::ng-deep .mat-checkbox-layout{
+::ng-deep .patients-wrapper .mat-checkbox-layout{
   white-space: normal !important;
 }
+.patients-wrapper{
 @media (width: 1440px){
   ::ng-deep .mat-checkbox-layout{
     padding-top: 0px !important;
@@ -169,6 +170,7 @@ a {
     padding-top: 0px !important;
       padding-left: 10px !important;
   }
+}
 }
 .patients .avatar{
   width: 45px;
