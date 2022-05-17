@@ -21,7 +21,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { MouseOverHintDirective } from '../../dialogs/mouseover.hint.directive'
 
 import { ProviderNavbarComponent } from '../provider.navbar/provider.navbar.component';
-import { ProviderFooterComponent } from '../provider.navbar/provider.footer.component';
+// import { ProviderFooterComponent } from '../provider.navbar/provider.footer.component';
 import { SharedModule } from '../../_common/shared';
 import { ProviderComponent } from './provider.component';
 import { ProviderRoutingModule } from './provider-routing.module';
@@ -87,7 +87,7 @@ import { AlertMessage } from 'src/app/_alerts/alertMessage';
   ],
   declarations: [
     ProviderNavbarComponent,
-    ProviderFooterComponent,
+    // ProviderFooterComponent,
     ProviderComponent,
     CalendarComponent,
     SmartScheduleComponent,

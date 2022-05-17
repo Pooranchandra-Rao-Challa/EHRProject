@@ -9,10 +9,10 @@
     font-size: 16px !important;
 }
 .btn.btn-orange {
-  padding: 12px 26px !important;
-  font-size: 17px;
+  font-size: 15px;
   font-family: "Open Sans", sans-serif;
-  margin-left: -36px;
+  margin-left: -117px !important;
+  height: 42px;
 }
 .adult-dentalchart {
   border-top: 3px solid #41b6a6;
@@ -89,15 +89,15 @@ img,svg {
   max-height: 700px !important;
   min-height: 680px;
   overflow-y: scroll;
-  margin-top: -32px !important;
+  margin-top: -21px  !important;
 }
 .colC {
-  min-height: 420px;
+  min-height: 378px;
   overflow-y: scroll;
   max-height: calc(30vh - 25px);
 }
 .colD {
-  min-height: 500px;
+  min-height: 459px;
   overflow-y: scroll;
   max-height: calc(70vh - 158px);
   margin-top: -32px !important;
@@ -114,6 +114,7 @@ img,svg {
 .fa-search {
   background-color: #41b6a6;
   color: white;
+  margin-left: 0 !important;
 }
 .fa {
   font-size: 28px;
@@ -134,31 +135,15 @@ img,svg {
   border-color: #41b6a6 !important;
 }
 p {
-  margin-top: 0;
+  margin-top: 5px;
   margin-bottom: 2rem;
   color: #41b6a6;
-  font-size: 18px;
+  font-size: 14px;
 }
-// checkbox design
-// .cust-checkbox-label {
-//   font-size: 16px;
-//   font-weight: 400;
-//   color: #4A4A4A !important;
-//   font-family: 'Roboto';
-// }
-// .Procedures-Checkbox {
-//   margin-top: -6px;
-// }
 .find-procedure {
   background-color: #e8fbf8;
   height: 80px;
 }
-// .checkbox {
-//   color: black;
-//   height: 15px;
-//   width: 15px;
-//   border-radius: 4px;
-// }
 .table-responsive table.table tbody tr td a {
   font-size: 16px;
   color: #4A4A4A;
@@ -214,20 +199,31 @@ table tr td.overlay-img a.checker.unchecked {
 .adult-img-align {
   margin-top: 62px;
 }
+
 .adult-bigimg-align {
   margin-top: 23px;
 }
 .adult-lg-align {
   margin-top: 40px;
 }
+.child-img-align{
+  margin-top: 26px;
+}
+.child-img-size{
+  width: 60px !important;
+  // margin-top: 12px !important;
+}
 .childimg {
-  // margin:4px;
-  width: auto !important;
+   width: auto !important;
   height: auto;
 }
 .childimg-align {
-  margin-top: 35px !important;
+  margin-top: 12px !important;
 }
+.tr-data{
+  font-family: 'Roboto';
+}
+
 .th-color tr th {
   color: #fff;
   font-size: 18px;
@@ -281,7 +277,7 @@ input::-webkit-input-placeholder {
   background-color: #e8fbf8;
 }
 .right-block {
-  width: 24.50%;
+  width: 25%;
 }
 
 @media(min-width:300px)and (max-width:767px) {
@@ -289,16 +285,10 @@ input::-webkit-input-placeholder {
     width: 100% !important;
   }
   .btn.btn-orange {
-    margin-left: 1px !important;
+    margin-left: 10px  !important;
     margin-bottom: 17px !important;
   }
-  .colA {
-    min-height: 500px;
-  }
-  .colB {
-    min-height: 500px;
-  }
-  .right-block {
+   .right-block {
     width: 100%;
     margin-top: 15px;
   }
@@ -310,6 +300,7 @@ input::-webkit-input-placeholder {
   }
   li.Checklist{
     line-height: 16px !important;
+    margin-bottom: -12px;
   }
 }
 @media(min-width:768px) and (max-width:1200px) {
@@ -318,58 +309,46 @@ input::-webkit-input-placeholder {
     margin: 0px 15px 0px 0px;
   }
   .btn.btn-orange {
-    padding: 15px 22px !important;
-    margin-left: -123px;
+    margin-left: -98px;
     position: fixed;
   }
   .right-block {
     width: 50%;
     margin-top: 15px;
   }
-  .colA {
-    overflow-y: scroll;
-    max-height: calc(70vh - 158px);
-    min-height: 688px;
-  }
-  .colB {
-    max-height: 688px !important;
-    min-height: 767px;
-    overflow-y: scroll;
-    margin-top: -32px !important;
-  }
+
   li.Checklist{
-    line-height: 2px !important;
+   line-height: 13px !important;
+   margin-bottom: -9px;
   }
 }
 @media(min-width:1201px) and (max-width:1440px) {
-  .btn.btn-orange {
-    padding: 13px 15px !important;
-    margin-left: -57px;
+ .btn.btn-orange {
+
+    margin-left: -71px;
   }
   li.Checklist{
-    line-height: 2px !important;
+    line-height: 15px !important;
+    margin-bottom: -10px;
   }
-  // .colA {
-  //   height: 510px !important;
-  // }
-  // .colB {
-  //   height: 510px !important;
-  // }
+
 }
-@media (min-width:1200px) and (max-width:1350px) {
-  .patientDentalChartTab {
-    width: 49% !important;
-  }
-  .right-block {
-    width: 25%;
+ @media (min-width:1441px) and (max-width:1878px) {
+
+  .btn.btn-orange[_ngcontent-owm-c333] {
+    //padding: 13px 15px !important;
+
   }
   .colA {
-    height: 510px !important;
+    overflow-y: scroll !important;
+    max-height: calc(70vh - 211px) !important;
+    min-height: 441px !important;
   }
-  .colB {
-    height: 510px !important;
-  }
+  .colB{
+    margin-top: -188px !important;
 }
+}
+
 // chcekbox
 li.Checklist{
   display: block;
@@ -433,5 +412,10 @@ li.Checklist:hover{
   display: none;
   color: black;
 }
-
+.treatment-content{
+  height: 800px;
+}
+.table.treatment-content{
+  background-color: #fff !important;
+}
 
