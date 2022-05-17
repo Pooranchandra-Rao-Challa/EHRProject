@@ -79,8 +79,9 @@ a.patient_link{
   border-radius: 3px;
   font-size: 16px;
  }
- .mat-header-row.mat-cust-header{
-min-height: 3px !important;
+.mat-header-row.mat-cust-header
+{
+  min-height: 30px;
 }
 a {
   color: #4A4A4A;

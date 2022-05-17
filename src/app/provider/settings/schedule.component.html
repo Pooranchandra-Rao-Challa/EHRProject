@@ -58,8 +58,8 @@
                         <div class="row">
                           <div class="col-md-12 col-12 pt-1 pb-0 cstm-padding">
                             <div class="col-md-6 col-6 pull-right">
-                              <button type="button" id="Actbtn" class="btn  btn-green pull-right"
-                                (click)="removeRoom(roomIndex)" >
+                              <button type="button" id="Actbtn" class="btn btn-green btn-remove pull-right"
+                                (click)="removeRoom(roomIndex)">
                                 Remove
                               </button>
                             </div>
@@ -198,9 +198,9 @@
                             </div>
                             <div class="col-md-12 col-12 pt-2 cstm-border-bottom-appointment">
                               <div class="col-4 pull-right">
-                                <button type="button" id="Actbtn" class="btn  btn-green pull-right"
+                                <button type="button" id="Actbtn" class="btn btn-green btn-remove pull-right"
                                   *ngIf="status().controls[statusIndex].get('Editable').value"
-                                  (click)="removeAppointmentStatus(statusIndex)" >
+                                  (click)="removeAppointmentStatus(statusIndex)">
                                   Remove
                                 </button>
                               </div>
@@ -211,8 +211,7 @@
                     </div>
                   </form>
                   <div class="px-3">
-                    <button type="submit" class="btn-green btn btn-lg btn-md btnSave mb-2 w-100"
-                      (click)="addStatus()">
+                    <button type="submit" class="btn btn-green mb-2 w-100" (click)="addStatus()">
                       Add Status
                     </button>
                   </div>
@@ -264,7 +263,7 @@
                             </div>
                             <div class="col-md-12 col-12 pt-2 cstm-border-bottom-appointment">
                               <div class="col-4 pull-right">
-                                <button type="button" id="Actbtn" class="btn  btn-green pull-right"
+                                <button type="button" id="Actbtn" class="btn btn-green btn-remove pull-right"
                                   *ngIf="typeForm.controls.type.controls[typeIndex].get('Editable').value"
                                   (click)="removeAppointmentType(typeIndex)">
                                   Remove
@@ -277,7 +276,7 @@
                     </div>
                   </form>
                   <div class="px-3">
-                    <button type="submit" class="btn-green btn btn-lg btn-md btnSave mb-2 w-100" (click)="addType()">
+                    <button type="submit" class="btn btn-green mb-2 w-100" (click)="addType()">
                       Add Custom Type
                     </button>
                   </div>
