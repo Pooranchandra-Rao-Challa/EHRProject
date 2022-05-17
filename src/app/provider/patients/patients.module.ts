@@ -17,7 +17,7 @@ import { SearchPipe } from '../../_pipes/search-filter.pipe';
   imports: [SharedModule, CommonModule],
   exports: [PatientsComponent, PatientDetailsComponent, ChartComponent, DentalChartComponent, ProfileComponent, InsuranceComponent, AmendmentsComponent, ResetPasswordComponent, CqmsNotPerformedComponent],
   declarations: [PatientsComponent, PatientDetailsComponent, ChartComponent, DentalChartComponent, ProfileComponent, InsuranceComponent, AmendmentsComponent, ResetPasswordComponent, CqmsNotPerformedComponent,
-     SearchPipe,ProviderFooterComponent],
+    SearchPipe, ProviderFooterComponent],
   providers: [],
   // schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

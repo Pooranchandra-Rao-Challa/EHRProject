@@ -58,6 +58,7 @@
 ::ng-deep .input-search.mat-form-field-appearance-outline .mat-form-field-outline {
   background-color: #fff !important;
   color: #41b6a6 !important;
+  height: 45px;
 }
 ::ng-deep .input-search .mat-form-field-outline-start {
   border-radius: 6px 0 0 6px !important;
@@ -65,6 +66,28 @@
 
 ::ng-deep .input-search .mat-form-field-outline-end {
   border-radius: 0 0px 0px 0 !important;
+}
+.btn-search {
+  height: 45px;
+  margin-top: -4px;
+  border: 1px solid #41b6a6;
+  vertical-align: middle;
+  padding: 0.56rem 0px;
+  background-color: #41b6a6;
+  color: #fff;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+.btn-search{
+  .material-icons{
+    font-size: 30px;
+  }
+  .mat-icon{
+    height: 30px;
+    width: 30px;
+  }
 }
 // check box
 ::ng-deep .mat-checkbox {
@@ -111,7 +134,7 @@
   color: #41b6a6 !important;
 }
 
-::ng-deep .grey-matform
+::ng-deep .grey-calendar
   mat-datepicker-toggle.mat-datepicker-toggle
   button.mat-icon-button
   span.mat-button-wrapper
@@ -122,7 +145,7 @@
   stroke-linejoin: round;
   transition: d 0.2s;
 }
-::ng-deep .grey-matform
+::ng-deep .grey-calendar
   mat-datepicker-toggle.mat-datepicker-toggle
   button.mat-focus-indicator.mat-icon-button {
   background-color: #d0d2db;
