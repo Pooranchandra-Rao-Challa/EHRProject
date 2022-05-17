@@ -53,16 +53,17 @@ export class BillingComponent implements OnInit {
   {
 //debugger;
     var reqparams = {
-      //Provider_id: this.user.ProviderId,
-        Provider_id: "5b686dd4c832dd0c444f271b",
+      
+        // provider_Id: "5b686dd4c832dd0c444f271b",
+        Provider_id: this.user.ProviderId,
         startDate:this.startDate,
         enddate:this.enddate
     }
       this.bs.BillingDetails(reqparams).subscribe(response=>{
-        //debugger;
+     
         this.dataSource= response.ListResult;
         console.log(this.dataSource);
-        //debugger;
+     
         this.sampledata=this.dataSource;
 
       })
