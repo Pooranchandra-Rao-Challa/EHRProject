@@ -5,7 +5,7 @@ import { User } from '../../_models';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { AppointmentStatus, AppointmentType, GeneralSchedule, RoomsSlot } from '../../_models/settings';
 import { IdService } from '../../_helpers/_id.service';
-import Swal from 'sweetalert2';
+import { AlertMessage } from './../../_alerts/alertMessage';
 declare var $: any;
 
 @Component({
@@ -26,9 +26,13 @@ export class ScheduleComponent implements OnInit {
   roomsOnEdit: number[] = [];
   statusOnEdit: number[] = [];
   typeOnEdit: number[] = [];
-  generalSchedule: GeneralSchedule={} as GeneralSchedule;
+  generalSchedule: GeneralSchedule = {} as GeneralSchedule;
 
-  constructor(private authService: AuthenticationService, private settingsService: SettingsService, private fb: FormBuilder, private idService: IdService) {
+  constructor(private authService: AuthenticationService,
+    private settingsService: SettingsService,
+    private fb: FormBuilder,
+    private idService: IdService,
+    private alertmsg: AlertMessage) {
     this.user = authService.userValue;
   }
   ngOnInit(): void {
@@ -339,37 +343,42 @@ export class ScheduleComponent implements OnInit {
 
   // Remove Room
   removeRoom(roomIndex: number) {
+    debugger;
     let roomId = this.roomForm.controls.rooms["controls"][roomIndex].get('RoomId').value;
-    if (roomId == "") {
+    if (roomId < 0) {
       this.rooms().removeAt(roomIndex);
     }
-    this.settingsService.DropRoom(roomId).subscribe(resp => {
-      if (resp.IsSuccess) {
-        this.getRoomsForLocation();
-      }
-    })
+    else {
+      this.settingsService.DropRoom(roomId).subscribe(resp => {
+        if (resp.IsSuccess) {
+          this.getRoomsForLocation();
+        }
+      });
+    }
   }
 
   // Remove Appointment Status
   removeAppointmentStatus(statusIndex: number) {
     let statusId = this.statusForm.controls.status["controls"][statusIndex].get('Id').value;
-    if (statusId == "") {
+    if (statusId < 0) {
       this.status().removeAt(statusIndex);
     }
-    this.settingsService.DropAppointmentStatus(statusId).subscribe(resp => {
-      if (resp.IsSuccess) {
-        this.getAppointmentStatus();
-      }
-      else {
-        this.getAppointmentStatus();
-      }
-    })
+    else {
+      this.settingsService.DropAppointmentStatus(statusId).subscribe(resp => {
+        if (resp.IsSuccess) {
+          this.getAppointmentStatus();
+        }
+        else {
+          this.getAppointmentStatus();
+        }
+      })
+    }
   }
 
   // Remove Appointment Type
   removeAppointmentType(typeIndex: number) {
     let typeId = this.typeForm.controls.type["controls"][typeIndex].get('Id').value;
-    if (typeId == "") {
+    if (typeId < 0) {
       this.type().removeAt(typeIndex);
     }
     else {
@@ -406,31 +415,14 @@ export class ScheduleComponent implements OnInit {
       concurrentapps: this.generalSchedule.ConcurrentApps,
       reschedulepatient: this.generalSchedule.PatientRescedule
     }
-    // this.settingsService.Swal();
-    // Swal.fire({
-    //   title: 'General schedule updated successfuly',
-    //   showConfirmButton: true,
-    //   confirmButtonText: 'Close'
-    // });
     this.settingsService.UpdateReschedule(reqparams).subscribe(resp => {
       if (resp.IsSuccess) {
+        this.alertmsg.displayMessageDailog(resp.EndUserMessage);
         this.getGeneralSchedule();
-        Swal.fire({
-          title: resp.EndUserMessage,
-          showConfirmButton: true,
-          confirmButtonText: 'Close',
-          width: '700'
-
-        });
       }
       else {
+        this.alertmsg.displayMessageDailog(resp.EndUserMessage);
         this.getGeneralSchedule();
-        Swal.fire({
-          title: resp.EndUserMessage,
-          showConfirmButton: true,
-          confirmButtonText: 'Close',
-          width: '700',
-        })
       }
     })
   }

@@ -1,10 +1,5 @@
 @import "../../../assets/admin.common.scss";
 
-// .text-user{
-//   font-size: 16px;
-//   color: #2f353b;
-//   font-weight: 500;
-// }
 .card-design{
   height: 87px;
   border: 1px solid #e7ecf1  !important;
@@ -24,9 +19,9 @@ hr:not([size]) {
   height: 1px;
   color: #96989d;
 }
-// .fs-6 {
-//   font-size: 1.0rem !important;
-// }
+.fs-6 {
+  font-size: 1.1rem !important;
+}
 .th-col-width{
   min-width: 180px;
 }
@@ -48,7 +43,6 @@ hr:not([size]) {
 .table-col-button{
     padding: 3px 5px;
     font-size: 14px;
-    // width: 80px;
 }
 .Actives{
   background: white ;
@@ -67,7 +61,7 @@ hr:not([size]) {
   border: 1.5px solid #b1a7a7;
   padding: 3px 5px;
   font-size: 14px;
-  width: 67px;
+  width: 83px;
 }
 .Suspended:hover{
   color: black;
@@ -109,9 +103,6 @@ hr:not([size]) {
   border: 1px solid #5e6064;
   border: none;
 }
-// .addbtn-margin {
-//   margin-top: -6px !important;
-// }
 .td-btn-style {
   padding: 3px 4px;
   font-size: 13px;
@@ -121,18 +112,12 @@ hr:not([size]) {
   color: #666;
 }
 
-.toggle-btn input[type=checkbox]:checked:after {
-  content: "" !important;
+.toggle-btn input[type=checkbox]:checked::before {
+  content: none !important;
 }
 input.toggle-btn [type=checkbox]:checked:after {
-  content: "" !important;
+  content: none !important;
 }
 input[type=checkbox]:checked:after {
   content: "\2714" !important;
 }
-// .text-black{
-//   border: 1px solid #666;
-// }
-// .text-mute{
-//   border: 1px solid #666;
-// }

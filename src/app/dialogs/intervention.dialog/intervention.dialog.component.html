@@ -1,7 +1,7 @@
 <div class="modal-dialog intervention-dialog">
   <div class="modal-content">
     <div class="modal-header">
-      <p class="modal-title">Add/Edit Intervention</p>
+      <p class="modal-title Roboto-medium">Add/Edit Intervention</p>
       <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close" (click)="cancel()">
         X
       </span>
@@ -36,7 +36,7 @@
           </mat-select>
         </mat-form-field>
         <div class="col-lg-6 col-md-6">
-          <mat-form-field appearance="outline" class="input-search col-xl-11 col-lg-10 col-md-11 col-10">
+          <mat-form-field appearance="outline" class="grey-matform input-search col-xl-11 col-lg-10 col-md-11 col-10">
             <input matInput autocomplete="off" placeholder="Search Interventions" />
           </mat-form-field>
           <button class="btn-search col-xl-1 col-lg-2 col-md-1 col-2">
@@ -67,7 +67,7 @@
           </ng-container>
 
           <ng-container matColumnDef="ReasonNotPerformed">
-            <mat-header-cell *matHeaderCellDef> Reason Not Performed </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef> Add Reason Not Performed </mat-header-cell>
             <mat-cell *matCellDef="let intervention"> {{intervention.ReasonNotPerformed}} </mat-cell>
           </ng-container>
 

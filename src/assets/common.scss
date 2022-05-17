@@ -10,6 +10,10 @@
   font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
   font-size: 18px;
 }
+.Roboto-medium{
+  font-family: 'Roboto';
+  font-size: 16px;
+}
 .bg-color{
   background-color: #41b6a6 !important;
   color: #fff !important;
@@ -110,6 +114,10 @@
   border-radius: 0px 0px 0 0;
   border: 1px solid #41b6a6;
 }
+.nav-tabs.nav-tab-styled li a:hover {
+  background-color: #41b6a6;
+  color: #fff;
+}
 .nav-tabs.nav-tab-styled li.active a {
   background-color: #41b6a6;
   color: #fff;
@@ -176,7 +184,7 @@
   border: 1px solid #ebebeb;
   padding: 0px 10px;
   height: 45px;
-  color: #333333;
+  color: #74757e;;
   font-size: 15px;
   background-color: #f5f5f5;
 }
@@ -200,4 +208,43 @@
 }
 .fa-search{
   margin-left: 21%;
+}
+.cdk-overlay-pane{
+  background-color: red !important;
+}
+// common sweetalert
+::ng-deep .swal2-styled.swal2-confirm {
+  background-color: #fff !important;
+  color: #41b6a6 !important;
+  border: 1px solid #41b6a6 !important;
+  width: 163px;
+  padding: 0px;
+  font-size: 18px;
+  font-family: 'Roboto';
+  font-weight: 400;
+  height: 45px;
+}
+::ng-deep .swal2-styled.swal2-confirm:focus{
+  box-shadow: none;
+}
+::ng-deep .swal2-title {
+  padding: 20px;
+  background-color: #41b6a6;
+  color: #fff;
+  font-size: 24px;
+  font-family: 'Roboto';
+  font-weight: 400;
+  margin-top: 200px;
+  margin-bottom: 40px;
+}
+::ng-deep .swal2-actions{
+  margin: 1.25em auto 60px;
+}
+::ng-deep .swal2-container.swal2-center > .swal2-popup {
+  width: 600px;
+  background: url(./images/pro-reg-bg.png);
+}
+::ng-deep .swal2-actions:not(.swal2-loading) .swal2-styled:hover {
+  background-color: #41b6a6 !important;
+  color: #fff !important;
 }

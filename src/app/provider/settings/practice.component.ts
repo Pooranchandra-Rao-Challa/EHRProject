@@ -266,6 +266,7 @@ export class PracticeComponent implements OnInit {
         if (resp.IsSuccess) {
           this.addressVerifymsg = resp.EndUserMessage
         }
+
       });
     }
   }

@@ -2,7 +2,7 @@
 @import"../../../assets/common.scss";
 // content
 .smart-schedule-logo {
-  border: 2px solid #00d1b2;
+  border: 3px solid #00d1b2;
   height: 70px;
   //margin-top: 2px;
   //margin-top: -24px;
@@ -22,13 +22,14 @@
   color: #fe8f00;
   margin-left: 13px;
   line-height: 66px;
+  font-family: 'Roboto';
 }
-@media (max-width: 425px) {
+@media (max-width: 500px) {
   .logotext {
     font-size: 30px;
   }
 }
-@media (max-width: 375px) {
+@media (max-width: 380px) {
   .logotext {
     font-size: 25px;
   }
@@ -38,7 +39,11 @@
     font-size: 20px;
   }
 }
-
+.appointment-filter-datestring-bar b{
+  color: #333;
+  font-size: 1.2em !important;
+  font-weight: 550;
+}
 p {
   margin: 0 0 10px;
 }
@@ -67,7 +72,8 @@ p {
   color: #41b6a6 !important;
   background-color: #fff;
   height: 2em;
-  margin-top: 15px;
+  // margin-top: 15px;
+  margin-top: 20px;
 }
 ::ng-deep .smart-schedule-dropdown .mat-select-arrow {
   margin-top: 4px;
@@ -75,11 +81,10 @@ p {
   color: #41b6a6;
 }
 ::ng-deep .smart-schedule-dropdown .mat-select-trigger{
-  margin-top: 7px;
+  // margin-top: 7px;
+  margin-top: 12px;
   margin-right: 0px !important;
 }
-
-
 ::ng-deep
   .smart-schedule-dropdown
   .mat-form-field-appearance-outline
@@ -105,11 +110,14 @@ div.smart-schedule-header {
   padding: 0px;
 }
 .new-search {
-  // background-color: #f5f5f5;
+  background-color: #f5f5f5;
   border-color: #fe8f00 !important;
   height: 40px;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   font-size: 15px;
+}
+input::placeholder{
+    color: #74757e;
 }
 .schedule-bottom .patientbtn {
   background-color: #ffdd57;
@@ -150,6 +158,9 @@ div.smart-schedule-header {
 .schedule-accordion .mat-expansion-panel-header {
   height: 30px;
   border-radius: initial;
+}
+.schedule-accordion .mat-expansion-panel{
+  border-radius: 0px;
 }
 // .bg-color:hover{
 //   background-color: #41b6a6 !important;

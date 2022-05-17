@@ -282,8 +282,8 @@ mat-paginator {
 ::ng-deep {
   mat-form-field {
     ::placeholder {
-      color: #141414 !important;
-      font-size: 120%;
+      color: #74757e;
+      font-size: 15px;
     }
   }
 }
@@ -894,7 +894,7 @@ i {
   max-width: 100%;
   max-height: 100%;
   transform: none !important;
-  background-color: rgba(0, 0, 0, .4);
+   background-color: rgba(0, 0, 0, .4);
 }
 
 .model {
@@ -935,13 +935,13 @@ i {
   padding: 0px !important;
 }
 
-.swal-input {
-  border: 1px solid #e9e9e9 !important;
-}
+// .swal-input {
+//   border: 1px solid #e9e9e9 !important;
+// }
 
-.swal-input:hover {
-  border: 1px solid #41a6b6 !important;
-}
+// .swal-input:hover {
+//   border: 1px solid #41a6b6 !important;
+// }
 
 .cancel-button,
 .confirm-button {

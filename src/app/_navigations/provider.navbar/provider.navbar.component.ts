@@ -50,7 +50,7 @@ export class ProviderNavbarComponent implements OnInit {
   }
 
   onChangeBreadCrum(url: string, name: string, view?: string,) {
-    //debugger;
+    debugger;
     console.log(view)
     if (view != null) {
       console.log(view)
@@ -65,7 +65,7 @@ export class ProviderNavbarComponent implements OnInit {
         [url],
         { queryParams: { name: name } }
       );
-      this.name = name;
+    this.name = name;
   }
 
 
