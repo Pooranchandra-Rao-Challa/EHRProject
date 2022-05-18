@@ -288,6 +288,13 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "Erx";
   }
 
+  get _defaultMessagesUrl() {
+    return this._baseUrl + "DefaultMessages";
+  }
+
+  get _adminImportedPatientEncounterUrl() {
+    return this._baseUrl + "AdminImportedPatientEncounter";
+  }
 
   constructor(public http: HttpClient) {
     super();
