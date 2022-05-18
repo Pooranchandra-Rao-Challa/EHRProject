@@ -73,6 +73,7 @@ import { InterventionDialogComponent } from '../../dialogs/intervention.dialog/i
 import { DropDownSearchComponent } from '../../_components/drop-down-search/drop-down-search.component';
 import { patientService } from 'src/app/_services/patient.service';
 import { BillingService } from '../../_services/billing.service';
+import { AlertMessage } from 'src/app/_alerts/alertMessage';
 
 @NgModule({
   exports: [
@@ -156,7 +157,7 @@ import { BillingService } from '../../_services/billing.service';
 
   ],
   providers: [DayService, WeekService, LocationSelectService,
-    UtilityService, SmartSchedulerService, OverlayService, patientService,BillingService, SmartScheduleComponent,
+    UtilityService, SmartSchedulerService, OverlayService, patientService, BillingService, SmartScheduleComponent, AlertMessage,
     { provide: NgbDateParserFormatter, useClass: NgbDateUSParserFormatter }
 
   ],

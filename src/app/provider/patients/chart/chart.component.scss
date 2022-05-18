@@ -16,7 +16,9 @@
   border-color: #41b6a6;
   background: #fff;
 }
-
+.btn-go-to span{
+  padding: 0px 70px 0px 0px;
+}
 .btn {
   width: 165px;
   height: 45px;
@@ -232,4 +234,17 @@ a.view-more{
 .patientChartTab{
   min-width: 1023px;
 }
-
+.plusicon.plusicon-orange {
+  border: 1px solid #fe8f00;
+  background-color: #fff;
+}
+.plusicon.plusicon-orange:hover {
+  background-color: #fe8f00;
+  border: 1px solid #fff;
+  .fa-plus {
+    color: #fff;
+  }
+}
+.plusicon.plusicon-orange .fa-plus {
+  color: #fe8f00;
+}

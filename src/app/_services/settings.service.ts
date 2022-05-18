@@ -117,8 +117,6 @@ export class SettingsService extends APIEndPoint {
     console.log(reqparams)
     return this._ProcessPostRequest<any>(this._toggleUserFieldValuesUrl, reqparams);
   }
-  
-  
 
-  
+
 }

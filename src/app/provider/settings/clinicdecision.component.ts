@@ -15,6 +15,8 @@ declare var $: any;
   styleUrls: ['./clinicdecision.component.scss']
 })
 export class ClinicDecisionComponent implements OnInit {
+  clinicalDecisionSupportList:any=[];
+  user: User;
   multi: boolean = false;
   disabled: boolean = false;
   checkedName: boolean;
@@ -59,11 +61,12 @@ export class ClinicDecisionComponent implements OnInit {
     { value: 'All', viewValue: 'All' },
   ];
   codeSystemDD=[{ value:'Snomed',viewValue: 'Snomed'},{value:'Local',viewValue:'Local'},{value:'ICD10',viewValue:'ICD10'}]
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,private authService: AuthenticationService,private settingservice:SettingsService) {
+    this.user = authService.userValue;
   }
   ngOnInit(): void {
     this.decisionsupport();
-
+this.getclinicaldesupportlist();
   }
 
   decisionsupport() {
@@ -300,5 +303,18 @@ else
     this.disabledHighRisk = event;
     this.setStep(0);
   }
-
+getclinicaldesupportlist()
+{
+  var reqparams={
+    // providerid: "5b686dd4c832dd0c444f271b",
+    providerid:this.user.ProviderId
+  }
+  console.log(reqparams);
+  this.settingservice.ClinicalDecisionSupport(reqparams).subscribe(response=>{
+    debugger;
+    this.clinicalDecisionSupportList=response.ListResult;
+    console.log(this.clinicalDecisionSupportList);
+    
+  })
+}
 }

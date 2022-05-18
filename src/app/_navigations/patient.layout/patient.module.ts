@@ -43,7 +43,7 @@ import { OverlayService } from 'src/app/overlay.service';
     CommonModule,
 
   ],
-  providers: [DayService, WeekService,OverlayService
+  providers: [DayService, WeekService, OverlayService
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

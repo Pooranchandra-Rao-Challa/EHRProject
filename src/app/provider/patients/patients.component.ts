@@ -94,16 +94,6 @@ export class PatientsComponent implements OnInit {
     });
   }
 
-  filterByNamePhonenumber() {
-    //debugger;
-    let PhoneNumber =
-      this.filteredPatients = this.patientsDataSource.data.filter(
-        x => x.FirstName === this.searchName ||
-          x.PrimaryPhone === this.searchName
-      );
-    this.patientsList.data = this.filteredPatients;
-  }
-
   showInactivePatients(event) {
     if (event.checked == true) {
       this.inactivePatients = this.patientsDataSource.data.filter(a => a.active === false);
