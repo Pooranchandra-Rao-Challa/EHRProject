@@ -185,6 +185,28 @@ input, .form-control:focus, input:focus, select:focus, textarea:focus, button:fo
   .btn-Preview{
     margin-left:38px !important;
    }
-
 }
 
+.ellipsis {
+  position: relative;
+  width: 35%;
+  cursor: pointer;
+}
+
+.ellipsis span {
+  position: absolute;
+  left: 0;
+  right: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tooltip-text {
+  overflow-y: scroll;
+  max-height: 40%;
+  display: block;
+}
+.display-body{
+  cursor: auto;
+}

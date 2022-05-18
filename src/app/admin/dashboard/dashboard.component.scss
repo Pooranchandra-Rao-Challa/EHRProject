@@ -78,7 +78,7 @@ hr:not([size]) {
   margin-top: 20px;
 }
 .form-check-input.toggle-btn:checked {
-  background-color: #92c792;
+  background-color: #67b08e;
   border-color: green;
   border: 0px;
 }
@@ -112,12 +112,8 @@ hr:not([size]) {
   color: #666;
 }
 
-.toggle-btn input[type=checkbox]:checked::before {
-  content: none !important;
-}
-input.toggle-btn [type=checkbox]:checked:after {
-  content: none !important;
-}
 input[type=checkbox]:checked:after {
   content: "\2714" !important;
 }
+
+

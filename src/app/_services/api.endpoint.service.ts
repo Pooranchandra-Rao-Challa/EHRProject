@@ -288,6 +288,9 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "Erx";
   }
 
+  get _weeklyUpdateUrl() {
+    return this._baseUrl + "WeeklyUpdate";
+  }
 
   constructor(public http: HttpClient) {
     super();
