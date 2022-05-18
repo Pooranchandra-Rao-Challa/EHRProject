@@ -1,0 +1,21 @@
+@import"../../../app/patient/message.component.scss";
+
+.drop-item{
+  color: black !important;
+}
+.drop-item:hover{
+  color: #41b6a6 !important;
+}
+.mailmessage:hover
+{
+  background-color: #41b6a6;
+  color: #fff;
+}
+.action{
+  padding: 0px 70px 0px 0px !important;
+}
+.btn-light
+{
+  font-size: 16px !important;
+  //padding: 2px 25px 2px 6px !important;
+}
