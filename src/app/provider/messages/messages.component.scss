@@ -1,0 +1,17 @@
+@import"../../../app/patient/message.component.scss";
+
+//@import"../../../assets/common.scss";
+.drop-menu{
+  color: black !important;
+}
+.drop-menu:hover{
+  color: #41b6a6 !important;
+  text-decoration: underline;
+}
+.action{
+  padding: 0px 70px 0px 0px !important;
+}
+.dropdown-menu{
+    border: 1px solid #fe8f00 !important;
+    border-top: #fff !important;
+}

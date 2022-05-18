@@ -1,1 +1,119 @@
-Will be in developing
+<div class="dashboard-wrapper messages-wrapper wrapper mt-4">
+  <div class="content">
+    <div class="container bordered-container">
+      <div class="tabs">
+        <ul class="nav nav-tabs styled nav-tab-styled" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <!-- <a data-message_type="inbox" data-bs-toggle="tab" href="" role="tab">Inbox -->
+            <a class="nav-link active" id="medical-tab" data-bs-toggle="tab" data-bs-target="#medical" type="button"
+              role="tab" aria-controls="medical" aria-selected="true">Indox
+              <span class="message-count">0</span>
+            </a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="send-tab" data-bs-toggle="tab" data-bs-target="#send" type="button" role="tab"
+              aria-controls="send" aria-selected="true">Sent
+            </a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="draft-tab" data-bs-toggle="tab" data-bs-target="#draft" type="button" role="tab"
+              aria-controls="draft" aria-selected="true">Draft
+            </a>
+          </li>
+          <li class="nav-item tab-danger" role="presentation">
+            <a class="nav-link" id="urgent-tab" data-bs-toggle="tab" data-bs-target="#urgent" type="button" role="tab"
+              aria-controls="urgent" aria-selected="true">Urgent
+              <span class="message-count" id="urgent-new-counting">0</span>
+            </a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="archive-tab" data-bs-toggle="tab" data-bs-target="#archive" type="button" role="tab"
+              aria-controls="archive" aria-selected="true">Archive
+            </a>
+          </li>
+        </ul>
+
+        <div class="tab-pane active" id="messagesInboxTab" role="tabpanel">
+          <div class="row controls">
+            <div class="col-md-5">
+              <div class="input-group input-group-custom ">
+                <input aria-label="Search for messages" autocomplete="off" class="form-control" id="find-messages-input"
+                  placeholder="Search Messages">
+                <span class="input-group-addon input-group-addon-right input-group-addon-search"
+                  id="find-messages-button"><i class="fa fa-search"></i></span>
+              </div>
+            </div>
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-2">
+              <div class="input-group input-drop">
+                <button type="text" class="btn btn-light dropdown-toggle action " data-bs-toggle="dropdown">
+                 Actions
+                </button>
+                <ul class="dropdown-menu ">
+                  <li><u class="dropdown-item drop-menu" data-bs-toggle="modal"
+                      (click)="openComponentDialogmessage(MessageDialogComponent)">New Contact</u>
+                  </li>
+                  <li><u class="dropdown-item drop-menu" data-bs-toggle="modal"
+                    (click)="openComponentDialogmessage(MessageDialogComponent)">Go To Contact</u>
+                </li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-2 ">
+              <div class="input-group input-drop">
+                <button type="text" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown">
+                  New Message
+                </button>
+                <ul class="dropdown-menu ">
+                  <li><u class="dropdown-item drop-menu" data-bs-toggle="modal"
+                      (click)="openComponentDialogmessage(MessageDialogComponent)">To Patient</u>
+                  </li>
+                  <li><u class="dropdown-item drop-menu" data-bs-toggle="modal"
+                    (click)="openComponentDialogmessage(MessageDialogComponent)">In Practice</u>
+                </li>
+                </ul>
+              </div>
+            </div>
+            <div class="messages-content">
+              <diV class="row">
+                <div class=" col-md-4 left-block">
+                  <div class="row bg-color">
+                    <div class="col-md-6">
+                      <a class="panel-titles" href="" id="sort-from">From
+                        <i class="fa fa-angle-down "></i>
+                      </a>
+                    </div>
+                    <div class="col-md-6 ">
+                      <a class="panel-title " href="" id="sort-from">Date
+                        <i class="fa fa-angle-up "></i>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="row drop-input">
+                    <div class="dropdown">
+                      <button class="drop-button" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">25 Msg</a></li>
+                        <li><a class="dropdown-item" href="#">50 Msg</a></li>
+                        <li><a class="dropdown-item" href="#">75 Msg</a></li>
+                        <li><a class="dropdown-item" href="#">100 Msg</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class=" col-md-8 right-block">
+
+                </div>
+              </diV>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
