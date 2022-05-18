@@ -25,7 +25,7 @@
                 </div>
               </div>
               <div class="col-xl-4 col-lg-3 col-md-6 col-12 savebtnsize">
-                <button type="submit" class="btn btn-green btnSave">Save</button>
+                <button type="submit" class="btn btn-green">Save</button>
               </div>
             </div>
             <div class="colC">
@@ -142,8 +142,7 @@
                     <mat-header-cell *matHeaderCellDef></mat-header-cell>
                     <mat-cell *matCellDef="let user">
                       <span>
-                        <img class="avatar avatar-empty mx-2"
-                          src="/assets/images/avatar-empty-0b15d6123f5339b0505eef6ad8a8fe0d22d1406692b5c16b3839c561e9c92e60.svg"
+                        <img class="avatar avatar-empty mx-2" src="../../../assets/images/avatar-empty.svg"
                           alt="Avatar empty" width="32" height="32" style="border-radius: 36px ;background: #cfcaca;">
                       </span>
                     </mat-cell>
@@ -167,8 +166,9 @@
                   <ng-container matColumnDef="Space">
                     <mat-header-cell *matHeaderCellDef></mat-header-cell>
                     <mat-cell *matCellDef="let user">
-                      <mat-checkbox [(ngModel)]="user.Admin" (ngModelChange)="toggleAdmin(user,$event)">
-                        <span class="admineclass">Admin</span>
+                      <mat-checkbox class="practice-users-checkbox" [(ngModel)]="user.Admin"
+                        (ngModelChange)="toggleAdmin(user,$event)">
+                        <span>Admin</span>
                       </mat-checkbox>
                     </mat-cell>
                   </ng-container>
