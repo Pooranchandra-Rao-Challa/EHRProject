@@ -1,18 +1,5 @@
 @import"../../assets/common.scss";
 
-.panel {
-  margin-bottom: 20px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  -webkit-box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
-  box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
-  background-color: white;
-}
-
-textarea {
-  resize: none;
-}
-
 .bordered-container {
   border-radius: 3px;
   border: 1px solid #41b6a6;
@@ -34,14 +21,6 @@ textarea {
   border-bottom: 1px solid #ddd;
 }
 
-.messages-wrapper .nav-tabs.styled li {
-  position: relative;
-}
-
-.nav-tabs.styled li {
-  border-radius: 3px 3px 0 0;
-}
-
 .nav-tabs>li {
   float: left;
   margin-bottom: -1px;
@@ -50,13 +29,6 @@ textarea {
 .nav>li {
   position: relative;
   display: block;
-}
-
-.messages-wrapper .nav-tabs.styled li a {
-  padding-left: 60px;
-  padding-right: 60px;
-  border: 1px solid #41b6a6;
-  border-bottom: 0;
 }
 
 .nav-tabs.styled li a {
@@ -91,6 +63,7 @@ textarea {
   padding-right: 60px;
   border: 1px solid #41b6a6;
   border-bottom: 0;
+  font-size: 16px !important;
 }
 
 .nav-tabs.styled li a:focus,
@@ -112,13 +85,11 @@ textarea {
   top: 11px;
   right: 15px;
   display: inline-block;
-  //color: #f5f8f8;
   font-size: 11px;
   border-radius: 15px;
   padding: 0 11px;
   border: 1px solid #41b6a6;
 }
-
 
 .nav-tabs.styled .nav-tabs.message-count.active {
   border: 1px solid #fff;
@@ -134,13 +105,10 @@ textarea {
   list-style: none;
   white-space: nowrap;
   border: 1px solid #41b6a6;
-  padding: 20px;
-  padding-left: 6%;
-  padding-bottom: 14%;
-  padding-top: 9%;
+  padding: 0px 27px 0px 0px;
   background-color: #ffffff;
   height: 45px;
-  width: 90%;
+  width: 100%;
 }
 
 .dropdown-menu {
@@ -148,27 +116,29 @@ textarea {
   list-style: none;
   white-space: nowrap;
   border: 1px solid #41b6a6;
-  padding: 5px;
   background-color: #ffffff;
   border-top: #fff;
-  // padding-left: 27%;
 }
-a .dropdown-item:hover {
-  background-color: #41b6a6;
+.drop-menu{
+  margin: 0px 0px 0px 0px;
+}
+
+a.dropdown-item:hover {
+  background-color: #41b6a6 !important;
   color: #fff;
 }
-.drop-menu {
-  padding-left: 23%;
-}
-.drop-item{
-  margin-left: -27%;
+
+.drop-item {
   color: #41b6a6;
   text-decoration: underline;
 }
-.dropdown-item:hover, .dropdown-item:focus {
+
+.dropdown-item:hover,
+.dropdown-item:focus {
   color: #41b6a6;
   background-color: #e9ecef00;
 }
+
 .nav-tabs.message-count.active {
   border: 1px solid red;
 }
@@ -179,31 +149,19 @@ a .dropdown-item:hover {
   background-color: #eee;
 }
 
-.reg-button {
-  background-color: #fff;
-  border: 1px solid #41b6a6;
-  height: 50px;
-  color: #41b6a6;
-  border-radius: 3px;
-  width: auto;
-  // margin-left: 82.2%;
-}
-
-.reg-button:hover {
-  background-color: #41b6a6;
-  color: #fff;
-  border: 1px solid #fff;
+.bg-color {
+  line-height: 43px !important;
 }
 
 .drop-button {
   background-color: #fff;
   border: 1px solid #41b6a6;
-  height: 50px;
+  height: 44px;
   color: #41b6a6;
   border-radius: 3px;
-  width: 40%;
-  // margin-left: 82.2%;
+  width: 46%;
 }
+
 @media (max-width: 1014px) {
   .drop-button {
     background-color: #fff;
@@ -214,7 +172,14 @@ a .dropdown-item:hover {
     width: 100%;
   }
 }
+
 .drop-button:hover {
+  background-color: #41b6a6;
+  color: #fff;
+  border: 1px solid #fff;
+}
+
+.drop-button:focus {
   background-color: #41b6a6;
   color: #fff;
   border: 1px solid #fff;
@@ -226,29 +191,35 @@ a .dropdown-item:hover {
   border-radius: 4px 4px 0 0;
 }
 .messages-wrapper .controls {
-  padding: 15px 1px;
+  padding: 15px 0px;
   margin-top: -15px;
   margin-bottom: -15px;
 }
 .messages-wrapper .controls .input-group,
 .messages-wrapper .controls .select2-container,
 .messages-wrapper .controls .btn {
-  margin-top: 15px;
-  margin-bottom: 15px;
+  //margin-top: 15px;
+  margin-bottom: 8px;
   color: #41b6a6;
+  box-shadow: none;
+}
+.container-xxl,
+.container-xl,
+.container-lg,
+.container-md,
+.container-sm,
+.container {
+  max-width: 1133px;
 }
 .messages-wrapper .input-group-custom #find-messages-input {
   border-color: #41b6a6;
   background-color: #fff;
 }
-.input-drop {
-  margin-left: 24px;
-}
 .input-group .form-control {
   display: table-cell;
   height: 45px;
 }
-.fa {
+.fa-search {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   color: #fff;
@@ -259,21 +230,27 @@ a .dropdown-item:hover {
   -moz-osx-font-smoothing: grayscale;
   font: normal normal normal 25px/1 FontAwesome;
 }
+.fa{
+  color: #fff;
+}
+
 .messages-wrapper .nav-tabs.styled li.tab-danger a {
   color: #D0021B;
   border-color: #D0021B;
 }
+
 .messages-wrapper .nav-tabs.styled li.tab-danger a.nav-link.active {
   color: #fff;
   border-color: #D0021B;
   background-color: #D0021B;
-  ;
 }
+
 .messages-wrapper .nav-tabs.styled li.tab-danger a.nav-link:hover {
   color: #fff;
   border-color: #D0021B;
   background-color: #D0021B;
 }
+
 .col-md-8 {
   border-top: 1px solid #41b6a6;
   border-left: 1px solid #41b6a6;
@@ -281,24 +258,20 @@ a .dropdown-item:hover {
 
 .col-md-4 {
   border-top: 1px solid #41b6a6;
-  //border-left: 1px solid #41b6a6;
 }
-.messages-wrapper #messagesInboxTab .messages-content .panel {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-content: stretch;
-}
+
 .panel-title {
   color: #fff;
-  font-size: 18px;
+  font-size: 16px;
   float: right;
 }
+
 .panel-titles {
   color: #fff;
-  font-size: 18px;
+  font-size: 16px;
   float: left;
 }
+
 .drop-input {
   margin-top: 2%;
   margin-bottom: 2%;

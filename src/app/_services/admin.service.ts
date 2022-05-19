@@ -16,7 +16,15 @@ export class AdminService extends APIEndPoint {
   ActivePatients(reqparams: any) {
     return this._ProcessPostRequest<any>(this._activePatientsUrl, reqparams);
   }
-  InActivePatients(reqparams: any) {
-    return this._ProcessPostRequest<any>(this._inActivePatientsUrl, reqparams);
+
+  DefaultMessages(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._defaultMessagesUrl, reqparams);
+  }
+
+  AdminImportedPatientEncounter(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._adminImportedPatientEncounterUrl, reqparams);
+  }
+  WeeklyUpdateList(){
+    return this._ProcessGetRequest<any>(this._weeklyUpdateUrl);
   }
 }
