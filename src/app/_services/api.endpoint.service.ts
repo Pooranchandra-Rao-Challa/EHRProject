@@ -288,6 +288,10 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "Erx";
   }
 
+  get _advancedDirectivesUrl() {
+    return this._baseUrl + "AdvancedDirectives";
+  }
+
 
   constructor(public http: HttpClient) {
     super();

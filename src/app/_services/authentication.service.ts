@@ -53,10 +53,10 @@ export class AuthenticationService {
               { queryParams: { name: 'Smart Schedule' } }
             );
           else if (this.isAdmin)
-              this.router.navigate(
-                ['/admin/dashboard'],
-                { queryParams: { name: 'Provider' } }
-              );
+            this.router.navigate(
+              ['/admin/dashboard'],
+              { queryParams: { name: 'Provider' } }
+            );
           else if (this.isPatient)
             this.router.navigate(['/patinet/patientview']);
         }
