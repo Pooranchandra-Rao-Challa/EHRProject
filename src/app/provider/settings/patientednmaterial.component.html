@@ -13,7 +13,7 @@
         <div class="card-body">
           <div fxLayout="column">
             <mat-accordion [displayMode]="'flat'">
-              <mat-expansion-panel class="expansion" *ngFor="let item of datasource; let i =index"
+              <mat-expansion-panel class="expansion" *ngFor="let item of Patientedmateriallist; let i =index"
                 [expanded]="indexExpanded == i " disabled="true" hideToggle="true" #example>
                 <mat-expansion-panel-header [ngClass]="!expandedchangecolor?'open-exp':'close-exp'">
                   <mat-icon class="play-left-arrow" (click)="togglePanels(i)" *ngIf="!example.expanded">play_arrow
@@ -33,25 +33,26 @@
                   <table>
                     <tr>
                       <th>CODE:</th>
-                      <td>{{item.codeSystem}}</td>
+                      <td>{{item.C_code_system}}</td>
                     </tr>
                     <tr>
                       <th>Resource Notes:</th>
-                      <td>{{item.resouceNote}}</td>
+                      <td>{{item.ResourceNotes}}</td>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                       <th>Attachments:</th>
                       <td><b>-</b><a href="#"
                           class="mx-2">aws4_request&X-Amz-SignedHeaders=host&X-Amz-Signature=9be1097aaa5b0933a727b46a05d798f008ff20a785c8081883482856f6396544</a>
                       </td>
-                    </tr>
+                    </tr> -->
                   </table>
                 </div>
               </mat-expansion-panel>
+              <div class="text-center py-2 col-12" *ngIf="Patientedmateriallist.length == 0">
+                <h6 class="Helvetica-sans-serif-medium"> No Education Materials Found.</h6>
+              </div>
             </mat-accordion>
-            <div class="text-center py-2 col-12" *ngIf="datasource.length == 0">
-              <h6 class="Helvetica-sans-serif-medium"> No Education Materials Found.</h6>
-            </div>
+         
           </div>
         </div>
       </div>

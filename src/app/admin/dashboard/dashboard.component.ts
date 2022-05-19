@@ -14,8 +14,8 @@ import { ProviderList } from 'src/app/_models/_admin/providerList';
 export class DashboardComponent implements OnInit {
   pageSize: number = 50;
   page: number = 1;
-  ProviderList:any =[];
-  TotalItems:number;
+  ProviderList: any = [];
+  TotalItems: number;
   UserDialogComponent = AddUserDialogComponent;
   DialogResponse = null;
   FitlerActiveStatus: any = [];
@@ -23,14 +23,15 @@ export class DashboardComponent implements OnInit {
   Suspended: boolean = false;
   NotPaidChecked: boolean = false;
   PaidChecked: boolean = false;
-  ActiveStatus: string = '';
+  ActiveStatus: string = 'Active';
   TrailStatus: string = '';
   ProviderColumnList: ProviderList[];
-  AlterStatus:any;
+  AlterStatus: any;
   GetFilterList: any;
-  SearchKey="";
+  SearchKey = "";
+  Status: boolean;
 
-  constructor(private adminservice:AdminService,private overlayService :OverlayService) { }
+  constructor(private adminservice: AdminService, private overlayService: OverlayService) { }
 
   ngOnInit(): void {
     this.GetProivderList();
@@ -41,13 +42,28 @@ export class DashboardComponent implements OnInit {
       if (resp.IsSuccess) {
         this.ProviderList = resp.ListResult;
         this.ProviderList.map((e) => {
-                  if(e.Trial == 'Trial'){
-                    e.ToggleButton=false;
-                   }
-                  else{
-                     e.ToggleButton=true;
-                   }
+          if (e.Trial == 'Trial') {
+            e.ToggleButton = false;
+          }
+          else {
+            e.ToggleButton = true;
+          }
+          if (e.ActiveStatus == 'Active') {
+            e.Status = true;
+
+          }
+          else {
+            e.Status = false;
+          }
+          if (e.Trial == 'Trial') {
+            e.Paid = true;
+
+          }
+          else {
+            e.Paid = false;
+          }
         });
+        console.log(this.ProviderList);
         this.ProviderColumnList = resp.ListResult;
         this.ProviderColumnList.map((e) => {
           if (e.Trial.toLowerCase() == 'trial') {
@@ -60,10 +76,10 @@ export class DashboardComponent implements OnInit {
             (x.ActiveStatus === 'Active')
           );
           this.ProviderList = this.FitlerActiveStatus;
-          if(e.ActiveStatus == 'Active'){
+          if (e.ActiveStatus == 'Active') {
             this.AlterStatus = 'Suspend'
           }
-          else if(e.ActiveStatus == 'Suspended'){
+          else if (e.ActiveStatus == 'Suspended') {
             this.AlterStatus = 'Activate'
           }
         });
@@ -73,46 +89,7 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  // GetProivderList(){
-  //   this.adminservice.GetProviderList().subscribe(resp => {
-  //     if(resp.IsSuccess){
-  //       this.ProviderList = resp.ListResult;
-  //       this.TotalItems = this.ProviderList.length;
-  //       this.ProviderList.map((e) => {
-  //         if(e.Trial == 'Trial'){
-  //           e.ToggleButton=false;
-  //          }
-  //         else{
-  //            e.ToggleButton=true;
-  //          }
-  //         if(e.PrimaryPhone != null)
-  //         {
-  //           var phoneno = e.PrimaryPhone
-  //           phoneno = phoneno.slice(0, 0) + phoneno.slice(1);
-  //           phoneno = phoneno.slice(1, 1) + phoneno.slice(1);
-  //           phoneno = Array.from(phoneno)
-  //           phoneno.splice(0, 0, '(')
-  //           phoneno.splice(4, 0, ')')
-  //           phoneno.splice(5, 0, ' ')
-  //           phoneno.splice(9, 0, '-')
-  //           e.NewPhoneNo = phoneno.join('');
-  //         }
-  //         else{
-  //           e.NewPhoneNo=null;
-  //         }
-  //         if(e.ActiveStatus == 'Active'){
-  //           e.ActiveStatus = 'Activate';
-  //         }
-  //         else{
-  //           e.ActiveStatus = 'Suspend';
-  //         }
-  //       });
-  //     }
-  //     else{
-  //           this.ProviderList=[];
-  //     }
-  //   });
-  // }
+
   FilterProvider(eventType, event) {
     debugger;
     if (eventType == 'ActiveStatus') {
@@ -156,7 +133,7 @@ export class DashboardComponent implements OnInit {
 
   SearchDetails() {
     debugger;
-    this.ProviderList=this.GetFilterList.filter((invoice) => this.isMatch(invoice));
+    this.ProviderList = this.GetFilterList.filter((invoice) => this.isMatch(invoice));
   }
 
   isMatch(item) {
@@ -164,7 +141,7 @@ export class DashboardComponent implements OnInit {
     if (item instanceof Object) {
       return Object.keys(item).some((k) => this.isMatch(item[k]));
     } else {
-      return item == null?'':item.toString().indexOf(this.SearchKey) > -1
+      return item == null ? '' : item.toString().indexOf(this.SearchKey) > -1
     }
   }
 
@@ -173,7 +150,7 @@ export class DashboardComponent implements OnInit {
 
     ref.afterClosed$.subscribe(res => {
       if (typeof content === 'string') {
-      //} else if (content === this.yesNoComponent) {
+        //} else if (content === this.yesNoComponent) {
         //this.yesNoComponentResponse = res.data;
       }
       else if (content === this.UserDialogComponent) {

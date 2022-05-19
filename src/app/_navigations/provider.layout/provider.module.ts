@@ -21,7 +21,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { MouseOverHintDirective } from '../../dialogs/mouseover.hint.directive'
 
 import { ProviderNavbarComponent } from '../provider.navbar/provider.navbar.component';
-import { ProviderFooterComponent } from '../provider.navbar/provider.footer.component';
+// import { ProviderFooterComponent } from '../provider.navbar/provider.footer.component';
 import { SharedModule } from '../../_common/shared';
 import { ProviderComponent } from './provider.component';
 import { ProviderRoutingModule } from './provider-routing.module';
@@ -73,6 +73,7 @@ import { InterventionDialogComponent } from '../../dialogs/intervention.dialog/i
 import { DropDownSearchComponent } from '../../_components/drop-down-search/drop-down-search.component';
 import { patientService } from 'src/app/_services/patient.service';
 import { BillingService } from '../../_services/billing.service';
+import { AlertMessage } from 'src/app/_alerts/alertMessage';
 
 @NgModule({
   exports: [
@@ -86,7 +87,7 @@ import { BillingService } from '../../_services/billing.service';
   ],
   declarations: [
     ProviderNavbarComponent,
-    ProviderFooterComponent,
+    // ProviderFooterComponent,
     ProviderComponent,
     CalendarComponent,
     SmartScheduleComponent,
@@ -156,7 +157,7 @@ import { BillingService } from '../../_services/billing.service';
 
   ],
   providers: [DayService, WeekService, LocationSelectService,
-    UtilityService, SmartSchedulerService, OverlayService, patientService,BillingService, SmartScheduleComponent,
+    UtilityService, SmartSchedulerService, OverlayService, patientService, BillingService, SmartScheduleComponent, AlertMessage,
     { provide: NgbDateParserFormatter, useClass: NgbDateUSParserFormatter }
 
   ],

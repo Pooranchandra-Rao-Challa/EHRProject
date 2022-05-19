@@ -50,10 +50,13 @@
 .colF {
   min-height: 1120px;
 }
-.btnSave {
+.btn-green {
   width: 165px;
-  height: 40px;
+  height: 45px;
   font-size: 15px;
+}
+.btn-remove.btn-green{
+  height: 30px;
 }
 #general.btn-success{
   width: 165px !important;
@@ -129,8 +132,7 @@
   font-size: 16px !important;
   background-color: #F7F7F7 !important;
   color: black !important;
-  min-height: 50px;
-  padding: 12px;
+  padding: 0px 12px;
 }
 .mat-row:hover{
   background-color: white !important;
@@ -755,42 +757,6 @@ margin-bottom: 0;
   height: 45px;
   min-height: 45px;
 }
-// common sweetalert
-::ng-deep .swal2-styled.swal2-confirm {
-  background-color: #fff !important;
-  color: #41b6a6 !important;
-  border: 1px solid #41b6a6 !important;
-  width: 163px;
-  padding: 0px;
-  font-size: 18px;
-  font-family: 'Roboto';
-  font-weight: 400;
-  height: 45px;
-}
-::ng-deep .swal2-styled.swal2-confirm:focus{
-  box-shadow: none;
-}
-::ng-deep .swal2-title {
-  padding: 20px;
-  background-color: #41b6a6;
-  color: #fff;
-  font-size: 24px;
-  font-family: 'Roboto';
-  font-weight: 400;
-  margin-top: 200px;
-  margin-bottom: 40px;
-}
-::ng-deep .swal2-actions{
-  margin: 1.25em auto 60px;
-}
-::ng-deep .swal2-container.swal2-center > .swal2-popup {
-  width: 600px;
-  background: url(../../../assets/images/pro-reg-bg.png);
-}
-::ng-deep .swal2-actions:not(.swal2-loading) .swal2-styled:hover {
-  background-color: #41b6a6 !important;
-  color: #fff !important;
-}
 a.disabled{
   pointer-events: none;
   color:gray;
@@ -803,7 +769,7 @@ a.disabled{
 .btn-edit{
   height: 45px;
 }
-::ng-deep .mat-checkbox-inner-container{
+::ng-deep .practice-users-checkbox .mat-checkbox-inner-container{
   margin-right: 15px !important;
     margin-top: 0px !important;
 }

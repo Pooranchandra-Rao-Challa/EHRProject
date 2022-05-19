@@ -1,10 +1,8 @@
-@import"../../../assets//common.scss";
+@import"../../../assets/common.scss";
 
 
 input::-webkit-input-placeholder {
-  color: #141414 !important;
-  font-size: 100%;
-  font-family: sans-serif;
+  color: #74757e !important;
 }
 .btn-green {
   width: 78px;
@@ -12,9 +10,8 @@ input::-webkit-input-placeholder {
   padding: 0;
   line-height: 2.7;
   margin-right: 12px;
+
 }
-
-
 form .form-select:focus{
   border-color: #41b6a6;
   box-shadow: none;

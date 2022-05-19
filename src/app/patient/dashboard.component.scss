@@ -1,45 +1,60 @@
-
-
 .h4-title {
   margin-top: 36px !important;
 }
-h4{
+
+h4 {
   font-size: 22px;
   font-family: inherit;
 }
+
+.as {
+  margin-left: 5px;
+  color: #337ab7 !important;
+  cursor: pointer;
+}
+
 .authorization-welcome-username {
   color: #fe8f00;
-  font-weight: bolder;
+  font-weight: bolder !important;
 }
+
 .container {
   padding-right: 15px;
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
 }
+
 .form-row-field {
   margin-top: 15px;
 }
- .linkhealth{
-margin-left: 2%;
-margin-right: 2%;
+
+.linkhealth {
+  margin-left: 2%;
+  margin-right: 2%;
 }
+
 a:hover {
- color: #fe8f00;
+  color: #fe8f00;
+  cursor: pointer;
+
 }
+
 .fa-angle-right:hover {
   color: #fe8f00;
- }
- .fa-angle-right:active {
+}
+
+.fa-angle-right:active {
   color: #fe8f00;
- }
- .fa{
+}
+
+.fa {
   font-size: larger;
   margin-right: 3%;
   color: inherit;
-  }
+}
 
- .i{
+.i {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   text-rendering: auto;
@@ -48,6 +63,7 @@ a:hover {
   color: #fff;
 
 }
+
 .panel {
   margin-bottom: 20px;
   border: 1px solid #ddd;
@@ -56,22 +72,27 @@ a:hover {
   box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
   background-color: white;
 }
-.img-fluid{
+
+.img-fluid {
   border: 1px solid #ddd;
 }
+
 .secondary-text-dark {
   color: #7D7D7D;
 }
-a{
-    font-size: 18px;
+
+a {
+  font-size: 18px;
 }
-li{
+
+li {
   margin-top: 5%;
 }
+
 ul {
   list-style-type: none;
-  margin-left: 8%;
-  margin-bottom: 3%;
+  margin-left: 1%;
+  margin-bottom: 6%;
 }
 
 body {
@@ -85,9 +106,11 @@ body {
   // background-color: #ebe9e9;
   background: url(../../assets/images/pro-reg-bg.png);
 }
+
 .one-ehr-images {
   margin-top: -6rem;
 }
+
 .authorization-signup-wrapper .ehr-img-top {
   position: relative;
   width: 100%;
@@ -96,22 +119,27 @@ body {
   top: 168px;
   background-color: #41b6a6;
 }
+
 .ehr-img-top {
   background-color: #41b6a6;
 }
+
 .ehr-img-top .text-center {
   background-color: #41b6a6;
 }
+
 .logo-rectangle {
   width: 277.2px;
   margin: 0 auto;
   background-image: url(../../assets/images/logo-rectangle.svg);
   background-repeat: no-repeat;
 }
+
 .main-title p {
   font-size: 18px;
   font-family: 'Times New Roman';
 }
+
 .main-title h3 {
   font-size: 25px;
   font-family: 'Times New Roman';
@@ -120,33 +148,36 @@ body {
 .controls {
   margin: 0 -10px 100px 0px;
 }
+
 .dots-container,
 .performed-container {
   display: none;
 }
+
 .performed-icon,
 .dots {
   display: table-cell;
   vertical-align: middle;
 }
+
 .content span {
-    font-family: 'Times New Roman';
-    font-size: 25px;
-    font-weight: 400;
-    line-height: 28px;
-    margin-bottom: 0;
+  // font-family: 'Times New Roman';
+  font-size: 22px;
+  font-weight: 400;
 }
 
 .content-top {
   background: none;
   border-bottom: 1px solid rgba(74, 74, 74, 0.5);
 }
+
 // sweetalert
 ::ng-deep .swal2-styled.swal2-confirm {
   background-color: #fff !important;
   color: #41b6a6 !important;
   border: 1px solid #41b6a6 !important;
 }
+
 ::ng-deep .swal2-title {
   padding: 0em 0em 0;
   background-color: #41b6a6;
@@ -159,13 +190,15 @@ body {
 
 h4 {
   font-size: 22px;
-  margin-top: 20px;
+  margin-top: 14px;
   margin-bottom: 16px;
 }
-.Access{
+
+.Access {
   color: #fe8f00;
   font-weight: 500%;
 }
+
 .select-input {
   color: black;
 }
@@ -173,9 +206,14 @@ h4 {
 .select-input.form-control[readonly]:not([disabled]) {
   background: white;
 }
+
 /*code to change background color*/
 
 .navbar-nav>.active>a {
 
   color: #fe8f00;
+}
+
+.nav-link {
+  padding: 0.2rem 1rem !important;
 }
