@@ -79,6 +79,11 @@
   color: #41b6a6;
   background-color: #fff;
 }
+.nav-tabs li a {
+  border: 0;
+  color: #41b6a6;
+  background-color: #fff;
+}
 
 .messages-wrapper .nav-tabs.styled li .message-count {
   position: absolute;
@@ -276,3 +281,9 @@ a.dropdown-item:hover {
   margin-top: 2%;
   margin-bottom: 2%;
 }
+
+::-webkit-input-placeholder {
+  color:    #74757e;
+  font-size: 15px;
+}
+

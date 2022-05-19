@@ -37,7 +37,6 @@ export class ActivePatientsComponent implements OnInit {
 
       if (resp.IsSuccess) {
         this.activepatientDataSource = resp.ListResult;
-        console.log(JSON.stringify(this.activepatientDataSource));
       } else{
         this.activepatientDataSource = [];
       }

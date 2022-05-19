@@ -56,7 +56,8 @@
             </div>
             <div class="col-md-2">
               <div class="input-group input-drop">
-              <button type="text" class="btn btn-light " data-bs-toggle="dropdown">
+              <button type="text" class="btn btn-light mailmessage "data-bs-toggle="modal"
+              data-bs-target="#staticBackdrop1">
                 New Direct Message
               </button>
               </div>
@@ -103,3 +104,68 @@
       </div>
     </div>
   </div>
+
+
+  <div class="modal fade" id="staticBackdrop1" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content body">
+      <div class="modal-header">
+        <h4 class="Helvetica-sans-serif-medium">Edit Password</h4>
+        <span type="button" class="cross-mark" data-bs-dismiss="modal">
+          X
+        </span>
+      </div>
+      <div class="modal-body">
+        <div class="content">
+          <form class="pt-4">
+
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="row">
+                  <div>
+                    <label for="subject" class="form-label ">Subject</label>
+                    <input type="input" class="form-control inputclass " id="Subject" placeholder="Subject :"
+                      aria-describedby="subjectlHelp">
+                  </div>
+                  <div class="mt-2">
+                    <label for="message" class="form-label">Message</label>
+                    <input type="input" class="form-control inputclass" id="message" placeholder="Message :"
+                      aria-describedby="messageHelp">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-1 file_upload_glyph">
+                <div class="form-group">
+                  <div class="input-group mt-4">
+                    <span type="button" class="btn btn-green col-md-4 ">
+                      <i class="fa fa-paperclip" aria-hidden="true"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-5">
+              <div class="col-lg-4 ">
+                <div class="col-lg-4 ">
+                  <mat-checkbox class="col-lg-12 col-md-12 example-margin">
+                    <mat-lable class="custom-control-label">URGENT</mat-lable>
+                  </mat-checkbox>
+                </div>
+              </div>
+            </div>
+
+            <div class="row" style="float: right;">
+              <!-- <button type="button" class="btn btn-green col-md-4 mx-2" data-bs-dismiss="modal"
+                (click)="cancel()">Save</button> -->
+              <button type="button" class="btn btn-green col-md-4">Cancel</button>
+            </div>
+          </form>
+          <!-- end personal info -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

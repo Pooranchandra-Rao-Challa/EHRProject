@@ -1,5 +1,7 @@
+import { DefaultMessage } from './../../_models/_admin/defaultmessage';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { AdminService } from 'src/app/_services/admin.service';
 
 @Component({
   selector: 'app-editdefaultmessage',
@@ -8,7 +10,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditDefaultMessageComponent implements OnInit {
 
-  constructor(private router:Router,private route: ActivatedRoute) { }
+ defaultmessage: DefaultMessage[];
+
+
+  constructor(private router:Router,private route: ActivatedRoute,private adminservice: AdminService) { }
 
   ngOnInit(): void {
   }
@@ -20,21 +25,15 @@ export class EditDefaultMessageComponent implements OnInit {
       { queryParams: { name: name} }
     );
  }
-// getComponentName() {
-//   //debugger;
-//    this.route.queryParams.subscribe((params) => {
-//      console.log(params.edit)
-//      if (params.name != null) {
-//        if(params.edit == 'EditSection')
-//        {
-//          this.displayHeading = 'Edit Section'
-//        }
-//        else{
-//          this.displayHeading = 'Add new Section'
-//        }
-//        this.menuName = params.name;
-//      }
-//    });
-//  }
+ getProviderList() {
+  this.adminservice.GetProviderList().subscribe(resp => {
+    if (resp.IsSuccess) {
+      this.defaultmessage = resp.ListResult;
+      //this.dataSource = resp.ListResult;
+    } else
+      this.defaultmessage = [];
+  });
+}
+
 }
 
