@@ -33,13 +33,13 @@ export class InActivePatientsComponent implements OnInit {
       PageSize: this.pageSize,
       RecordIndex: this.page
     }
-    this.adminservice.InActivePatients(data).subscribe(resp => {
-      if (resp.IsSuccess) {
-        this.inactivepatientDataSource = resp.ListResult;
-       // this.collectionSize = resp.count;
-      } else
-        this.inactivepatientDataSource = [];
-    });
+    // this.adminservice.InActivePatients(data).subscribe(resp => {
+    //   if (resp.IsSuccess) {
+    //     this.inactivepatientDataSource = resp.ListResult;
+    //    // this.collectionSize = resp.count;
+    //   } else
+    //     this.inactivepatientDataSource = [];
+    // });
   }
 
   onPageChange(index){

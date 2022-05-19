@@ -190,7 +190,7 @@ input, .form-control:focus, input:focus, select:focus, textarea:focus, button:fo
 .ellipsis {
   position: relative;
   width: 35%;
-  cursor: pointer;
+  cursor: pointer !important;
 }
 
 .ellipsis span {
@@ -200,13 +200,19 @@ input, .form-control:focus, input:focus, select:focus, textarea:focus, button:fo
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  cursor: pointer !important;
 }
 
 .tooltip-text {
   overflow-y: scroll;
   max-height: 40%;
   display: block;
+  cursor: pointer !important;
 }
-.display-body{
-  cursor: auto;
+// .display-body{
+//   cursor: auto;
+// }
+.table-NoRecord{
+  border:1px solid #e7ecf1;
+  border-top: none;
 }
