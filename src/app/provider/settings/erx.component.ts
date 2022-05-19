@@ -16,9 +16,27 @@ declare var $: any;
 })
 export class ErxComponent implements OnInit {
   public showkey: boolean = false;
-  ClinicKey:any= 'adffhfjghjfadfadfgd';
-  ngOnInit(): void {}
+  user:User
+  erxList: any;
+  constructor(private settingservice:SettingsService,private  authService: AuthenticationService){
+    this.user = authService.userValue;
+
+  }
+  ngOnInit(): void {
+    this.getErxList();
+  }
   public togglePasswordVisibility(): void {
     this.showkey = !this.showkey;
+  }
+  getErxList()
+  {
+    var reqparams={
+      providerId:this.user.ProviderId
+    }
+    
+   this.settingservice.Erx(reqparams).subscribe(reponse=>{
+    this.erxList=reponse.ListResult;
+    console.log(this.erxList)
+    })
   }
 }
