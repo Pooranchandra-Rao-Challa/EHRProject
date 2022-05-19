@@ -288,6 +288,10 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "Erx";
   }
 
+  get _advancedDirectivesUrl() {
+    return this._baseUrl + "AdvancedDirectives";
+  }
+
   get _weeklyUpdateUrl() {
     return this._baseUrl + "WeeklyUpdate";
   }

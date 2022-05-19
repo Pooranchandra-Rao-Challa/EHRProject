@@ -37,21 +37,6 @@ export class ClinicDecisionComponent implements OnInit {
   show: boolean = true;
   showon: boolean = true;
   showoff: boolean = false;
-
-
-  //
-  disabledmedication: any;
-  medicationbtnhover: any;
-  //
-  disabledcavity: any;
-  cavitybtnhover: any;
-  //
-  diabetesbtnhover: any;
-  disableddiabetes: any;
-  BPbtnhover: any;
-  disabledBp: any;
-  highRiskbtnhover: any;
-  disabledHighRisk: any;
   decisionSuppotForm: FormGroup;
 
   TriggerRuleDD: any[] = [
@@ -254,54 +239,19 @@ else
 
   open() {
     this.show = true;
+    this.step=-1
 
   }
   close() {
     this.show = false;
   }
-  blockExpansion = false;
-
-  isExpansionDisabled(): string {
-    if (this.blockExpansion) {
-      return 'disabled-pointer';
-    }
-
-    return '';
-  }
-  step = 0;
+  step:number;
   setStep(index: number) {
     this.step = index;
   }
-  disablemedication(event) {
-
-    this.medicationbtnhover = event;
-    console.log(event)
-    this.disabledmedication = event;
-    this.setStep(0);
-  }
-  disablecavities(event) {
-
-    this.cavitybtnhover = event;
-    console.log(event)
-    this.disabledcavity = event;
-    this.setStep(0);
-  }
-  disablediabetes(event) {
-
-    this.diabetesbtnhover = event;
-    console.log(event)
-    this.disableddiabetes = event;
-    this.setStep(0);
-  }
-  disableBloodPressure(event) {
-    this.BPbtnhover = event
-    this.disabledBp = event;
-    this.setStep(0);
-  }
-  disableHighRisk(event) {
-    this.highRiskbtnhover = event;
-    this.disabledHighRisk = event;
-    this.setStep(0);
+  disablemedication(item,bool) {
+    item.isdisabled=bool;
+    this.step=-1;
   }
 getclinicaldesupportlist()
 {
@@ -309,9 +259,7 @@ getclinicaldesupportlist()
     // providerid: "5b686dd4c832dd0c444f271b",
     providerid:this.user.ProviderId
   }
-  console.log(reqparams);
   this.settingservice.ClinicalDecisionSupport(reqparams).subscribe(response=>{
-    debugger;
     this.clinicalDecisionSupportList=response.ListResult;
     console.log(this.clinicalDecisionSupportList);
     

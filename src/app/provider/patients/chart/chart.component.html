@@ -157,9 +157,9 @@
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list">
+                <ul class="main-list" *ngFor="let directive of this.advancedDirectives">
                   <li>
-                    <span></span>
+                    <span>{{directive.AdvancedDirectiveId}}</span>
                   </li>
                 </ul>
               </div>
