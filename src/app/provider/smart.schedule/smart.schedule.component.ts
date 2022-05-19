@@ -124,23 +124,6 @@ export class SmartScheduleComponent implements OnInit {
             } else { this.flag = false; this.psw = {}; }
           })
       );
-
-      /*this.searchTerms
-      .pipe(debounceTime(300),  // wait for 300ms pause in events
-        distinctUntilChanged())   // ignore if next search term is same as previous
-      .subscribe((term) =>
-        this
-          .SearchPatients<ResponseData>({
-            ProviderId: '836d92ef2e48f33037e7fb1',
-            ClinicId: '5836d92ff2e48f33037e7fd5',
-            SearchTerm: term
-          })
-          .subscribe(resp => {
-           if (resp.IsSuccess) {
-              this.patients = resp.ListResult as Patient[];
-            }
-          })
-      );*/
     this.locationsubscription = this.locationSelectService.getData().subscribe(locationId => {
       this.SelectedLocationId = locationId;
       this.LoadAppointmentDefalts();

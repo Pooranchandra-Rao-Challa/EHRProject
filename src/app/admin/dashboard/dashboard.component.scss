@@ -115,5 +115,113 @@ hr:not([size]) {
 input[type=checkbox]:checked:after {
   content: "\2714" !important;
 }
+//modal
 
+.save-button {
+  font-size: 100%;
+  text-align: center;
+  width: auto;
+  line-height: 200%;
+  margin-left: 4%;
+  background-color: #fff;
+  border: 1px solid #3598dc;
+  color: #3598dc;
+  padding: 3px 13px;
+}
+.cancel-button {
+  font-size: 100% !important;
+  text-align: center !important;
+  width: auto !important;
+  margin-left: 1% !important;
+  background-color: #fff !important;
+  border: 1px solid #ccc !important;
+  padding: 7px 12px !important;
+  border-radius: 0px !important;
+  color: black !important;
+}
+.cancel-button:hover {
+  background-color: rgb(234, 232, 232) !important;
+  border: 1px solid rgb(160, 159, 159) !important;
 
+}
+.cust-modal-content{
+  background-color: white;
+  width: 583px;
+}
+.cust-header{
+  font-size: 20px;
+  font-family: 'Open Sans", sans-serif';
+}
+
+.modal-header {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1rem;
+  border-bottom: 2px solid white;
+  border-top-left-radius: calc(0.3rem - 1px);
+  border-top-right-radius: calc(0.3rem - 1px);
+}
+.modal-dialog .modal-content {
+  box-shadow: none;
+  border-radius: 0px;
+  margin-left: -22%;
+}
+.modal-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 150%;
+  pointer-events: auto;
+  background-color: white;
+
+}
+.modal-body {
+  padding: 2px 21px !important;
+  padding-top: 14px !important;
+  background-color: #fff;
+}
+
+.title{
+  font-size: 16px;
+  font-family: "Open Sans", sans-serif;
+  color: #333333;
+  margin-top: -7px;
+  margin-left: -11px;
+}
+.modal .modal-dialog .modal-content .modal-footer {
+  padding: 16px 7px !important;
+}
+.modal-hr{
+  margin-top: -17px;
+}
+.modal-content{
+  border: 0px solid #f2f2f2;
+}
+.modal-footer{
+  border-top: 2px solid #f2f2f2;
+}
+.modal-dialog{
+  margin-top: 300px;
+}
+
+@media(min-width:300px) and (max-width:560px){
+
+  .modal-content {
+    width: 122%;
+  }
+  .modal-dialog{
+    margin-left: 22% !important;
+    margin-top: 200px;
+  }
+}
+@media(min-width:565px) and (max-width:840px){
+
+  .modal-content {
+    width: 100%;
+  }
+  .modal-dialog{
+    margin-left: 34% !important;
+  }
+}

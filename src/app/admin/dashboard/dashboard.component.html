@@ -126,7 +126,7 @@
 
                       <td class="text-center"><input class="form-check-input Status" type="checkbox"   [checked]="item.Status" id="checkbox"></td>
                       <td class="td-width text-success">{{item.EmailVerifyStatus}}</td>
-                      <td class="td-col-width"><button type="button" class="table-col-button ">View</button></td>
+                      <td class="td-col-width"><button type="button" class="table-col-button" (click)="openComponentDialog(UserDialogComponent)">View</button></td>
                       <td class="text-center"> <input class="form-check-input" type="checkbox"   [checked]="item.Paid" id="checkbox"></td>
                       <td class="td-col-width"><button type="button" class="table-col-button"
                         data-bs-toggle="modal" data-bs-target="#exampleModal"> Reset MFA</button></td>
@@ -150,7 +150,7 @@
     <div class="d-flex justify-content-end my-3">
     <nav aria-label="Page navigation">
       <ul class="pagination mt-4">
-        <ngb-pagination [pageSize]="pageSize" [collectionSize]="ProviderList.length"  [maxSize]="9" [lastSize]="2"
+        <ngb-pagination [pageSize]="pageSize" [collectionSize]="ProviderList.length"  [maxSize]="9"
          [(page)]="page" aria-label="Default pagination">
         </ngb-pagination>
       </ul>
@@ -161,21 +161,31 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content cust-modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">User Disable</h5>
-      </div>
-      <div class="modal-body">
-       <p>Are you sure, you'd like to disable Multi Factor Authentication UsabilityTest Doctor ?</p>
-       <input type="checkbox" class="mt-3" > <span class="mt-4 mx-1">Yes, Please Disable.</span>
-      </div>
-      <div class="modal-footer model-cust-footer">
-        <button type="button" class="save-button col-md-4">Disable MFA</button>
-        <button type="button" data-bs-dismiss="modal" class="cancel-button col-md-4" data-bs-dismiss="modal" aria-label="Close"
-        >No, thank you!</button>
-      </div>
+
+<div class="modal fade " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                  <h5 class="title">User Disable</h5>
+            </div>
+            <hr class="modal-hr">
+            <div class="modal-body mb-2 mt-1">
+              <p>Are you sure, you'd like to disable Multi Factor Authentication UsabilityTest Doctor ?</p>
+
+              <input class="form-check-input mt" type="checkbox" />
+              <label class="form-check-label" for="Active">Yes, Please Disable.</label>
+
+            </div>
+            <div class="modal-footer model-cust-footer mt-3">
+              <button type="button" class="save-button col-md-4">Disable MFA</button>
+              <button type="button" data-bs-dismiss="modal" class="cancel-button col-md-4" data-bs-dismiss="modal" aria-label="Close"
+              >No, thank you!</button>
+            </div>
+        </div>
     </div>
-  </div>
+
 </div>
+
+
+

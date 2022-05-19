@@ -20,10 +20,10 @@
      </div>
     <div class="prevent-click" *ngIf="show">
       <mat-accordion class="prevent-click">
-      <mat-expansion-panel [disabled]="disabledmedication"
-        [ngStyle]="disabledmedication?{'opacity': '0.75'} : {'opacity': '1'}"
-         [expanded]="step === 1" (opened)="setStep(1)"
-          [ngClass]="isExpansionDisabled()" class="customheader" hideToggle="true" #example *ngFor="let item of clinicalDecisionSupportList | groupBy:'AlertId';let i = index">
+      <mat-expansion-panel [disabled]="item?.isdisabled"
+        [ngStyle]="item?.isdisabled?{'opacity': '0.75'} : {'opacity': '1'}"
+         [expanded]="step === i" (opened)="setStep(i)"
+         class="customheader" hideToggle="true" #example *ngFor="let item of clinicalDecisionSupportList | groupBy:'AlertId';let i = index">
           <mat-expansion-panel-header class="panel-header">
             <mat-panel-title>
               <h1 class="number">{{i+1}}</h1>&nbsp;&nbsp;
@@ -32,10 +32,10 @@
             </div>
             </mat-panel-title>
             <mat-panel-description class="d-flex justify-content-end">
-              <button class="btn" [ngClass]="!medicationbtnhover? 'btn-on' : 'btn-off' " type="button"
-                (click)="disablemedication(false)">On</button>
-              <button class="btn" [ngClass]="medicationbtnhover? 'btn-on' : 'btn-off' " type="button"
-                (click)="disablemedication(true)">Off</button>
+              <button class="btn" [ngClass]="!item?.isdisabled ?  'btn-on' : 'btn-off' " type="button"
+                (click)="disablemedication(item,false)">On</button>
+              <button class="btn" [ngClass]="item?.isdisabled ? 'btn-on' : 'btn-off' " type="button"
+                (click)="disablemedication(item,true)">Off</button>
               <mat-icon class="play-up-arrow" *ngIf="!example.expanded" >play_arrow</mat-icon>
               <mat-icon class="play-down-arrow" *ngIf="example.expanded">arrow_drop_down</mat-icon>
 

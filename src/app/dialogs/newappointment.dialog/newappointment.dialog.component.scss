@@ -14,7 +14,9 @@
   max-width: 660px;
   margin: auto;
 }
-
+.modal-header{
+  margin-right: -1px;
+}
 .appointment-form .text-area {
   height: 100px;
   border-radius: 4px;
@@ -49,11 +51,6 @@
 .btn.btn-green{
   min-height: 45px;
 }
-.timeslots{
-  font-size: 12px;
-  padding: auto;
-  font-weight: 500;
-}
 .btn-appointment-cancel-right{
   margin-right: 144px;
   display: flow-root;
@@ -66,6 +63,7 @@
   background-color: #d64841 !important;
   color: white !important;
 }
+/*
 ::ng-deep div#practiveProviders2-panel.mat-select-panel,
 ::ng-deep div#selSmartAppointmentTypes-panel.mat-select-panel,
 ::ng-deep div#selSmartLocations-panel.mat-select-panel,
@@ -75,7 +73,7 @@
   border-radius: 4px;
   border: 1px solid #41b6a6;
   position: absolute !important;
-  top: 29px;
+ // top: 28px !important;
   min-width: calc(100% + 18px) !important;
   margin-left: -9px;
 }
@@ -91,7 +89,7 @@
 
 ::ng-deep div.mat-calendar-content table.mat-calendar-table td.mat-calendar-body-disabled{
   color: #ccc;
-}
+}*/
 
 span#spantimeSlots{
   color: #F75857;
@@ -103,10 +101,11 @@ button.timeslot-selected{
   border: 1px solid #fe8f00;
 }
 .timeslots{
-  font-size: 13px;
+  font-size: 12px;
   padding: auto;
   font-weight: 500;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  border: 1px solid #41b6a6;
 
 }
 

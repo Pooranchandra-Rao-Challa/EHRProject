@@ -1,5 +1,5 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { SettingsService } from '../../_services/settings.service';
 import { UtilityService } from '../../_services/utiltiy.service';
@@ -11,8 +11,10 @@ import Swal from 'sweetalert2';
 import { Accountservice } from '../../_services/account.service';
 import { PracticeLocation } from '../../_models/practiceLocation';
 import { NewUser } from '../../_models/settings';
-
-
+import { Actions } from 'src/app/_models/smart.scheduler.data';
+import { ComponentType } from '@angular/cdk/portal';
+import { UserDialogComponent } from 'src/app/dialogs/user.dialog/user.dialog.component';
+import { OverlayService } from '../../overlay.service';
 
 @Component({
   selector: 'practice-settings',
@@ -67,12 +69,16 @@ export class PracticeComponent implements OnInit {
   changedLocationId: string;
   NewUserData: NewUser;
   private updateSubscription: Subscription;
+  userDialogComponent = UserDialogComponent;
+  userDialogResponse = null;
+  ActionsType = Actions;
 
   constructor(private fb: FormBuilder,
     private authService: AuthenticationService,
     private settingsService: SettingsService,
     private accountservice: Accountservice,
     private utilityService: UtilityService,
+    public overlayService: OverlayService,
     private locationSelectService: LocationSelectService) {
     this.user = authService.userValue;
     this.locationsInfo = JSON.parse(this.user.LocationInfo);
@@ -451,5 +457,30 @@ export class PracticeComponent implements OnInit {
         this.NewUserData.LocationInfo = JSON.parse(resp.Result.LocationInfo);
         console.log(this.NewUserData)
     });
+  }
+
+  userInfoForEdit(data, action: Actions){
+
+  }
+  openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
+    data?: any, action?: Actions) {
+
+    //this.flag = false;
+    //this.patientNameOrCellNumber = "";
+    let dialogData: any;
+    if (content === this.userDialogComponent && action == Actions.new){
+      dialogData = this.userInfoForEdit(data,action);
+    }
+
+    const ref = this.overlayService.open(content,dialogData );
+
+    ref.afterClosed$.subscribe(res => {
+      if (content === this.userDialogComponent) {
+        this.userDialogResponse = res.data;
+      }
+
+    });
+
+
   }
 }

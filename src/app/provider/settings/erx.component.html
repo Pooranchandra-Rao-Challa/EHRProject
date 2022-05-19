@@ -4,13 +4,14 @@
   </div>
   <div class="card-body erx-controls">
     <div class="cstm-height">
+      <div *ngFor="let item of erxList">
       <div class="input-group">
         <span class="input-group-text" id="basic-addon3">Clinic ID<b>:</b></span>
-        <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder="570">
+        <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder="" value="{{item.ClinicId}}">
       </div>
       <div class="input-group">
         <span class="input-group-text" id="basic-addon3">Clinic Key<b>:</b> </span>
-        <input type="password" class="form-control clinickey" id="basic-url" aria-describedby="basic-addon3" [value]="ClinicKey"
+        <input type="password" class="form-control clinickey" id="basic-url" aria-describedby="basic-addon3" value="{{item.ClinicKey}}"
          [type]="showkey ? 'text' : 'password'">
         <span class="keyhide mx-1" (click)="togglePasswordVisibility()">
           <u>{{showkey?'hide key':'show key'}}</u>
@@ -18,11 +19,12 @@
       </div>
       <div class="input-group">
         <span class="input-group-text" id="basic-addon3">API Location<b>:</b></span>
-        <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder="api/12/api.asmx">
+        <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder="" value="{{item.ApiLocation}}">
       </div>
       <div class="input-group">
         <span class="input-group-text" id="basic-addon3">SSO Location<b>:</b></span>
-        <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder="LoginSingleSignOn.aspx">
+        <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder="" value="{{item.SSOLocation}}">
+      </div>
       </div>
     </div>
     <button type="submit" class="btn btn-green btn-lg pull-right">Save</button>

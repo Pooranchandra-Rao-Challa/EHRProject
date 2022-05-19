@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
 import { LocationSelectService } from '../../_navigations/provider.layout/location.service';
 import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
+import { disableDebugTools } from '@angular/platform-browser';
 
 declare var $: any;
 
@@ -21,19 +22,58 @@ declare var $: any;
 
 export class AuditLogComponent implements OnInit {
   @ViewChild('TABLE') table: ElementRef;
-  pageSize: number = 4;
+  pageSize: number = 50;
   page: number = 1;
-  collectionSize = 0;
+  collectionSize:any = 5000;
 
   displayedColumns = ['Date','Patient','LocationName','Provider',
   'DataType','Action','Details'];
-  datasource: any;
+
   TotalItems: any;
-  constructor() {
+  user:User;
+  startDate: string;
+  enddate: string;
+  auditLogList: any=[];
+  ProviderId: string;
+  constructor(private authService: AuthenticationService,private settingservice:SettingsService) {
+    this.user = authService.userValue;
+  
   }
   ngOnInit(): void {
-this.getdata();
+// this.getdata();
+    this.getAuditLogList('');
   }
+  getAuditLogList(event)
+  {
+    if(event == 'reset')
+    {
+      this.startDate = '';
+      this.enddate = '';
+      debugger;
+      var reqparams={
+        ProviderId: this.user.ProviderId,
+        // ProviderId: "5b686dd4c832dd0c444f271b",
+        from:this.startDate,
+        to: this.enddate
+      }
+    }
+    else{
+      var reqparams={
+         ProviderId: this.user.ProviderId,
+        // ProviderId: "5b686dd4c832dd0c444f271b",
+        from:this.startDate,
+        to:this.enddate
+      }
+    }
+    this.settingservice.AuditLogs(reqparams).subscribe(reponse=>
+      {
+        this.auditLogList=reponse.ListResult;
+        // this.TotalItems = this.auditLogList.length;
+        console.log(this.auditLogList);
+        
+      })
+  }
+
   dataType: string[] = [
     "schedule",
     "chart",
@@ -78,36 +118,4 @@ this.getdata();
 
   }
 
-auid:auditlog[]=[
-  { Date:"2/4/2022",
-  Patient:"test",
-  LocationName:"hyd",
-  Provider:"john",
-  DataType:"labimaging",
-  Action:"add",
-  Details:"querylaborder for"},
-  { Date:"3/5/2021",
-  Patient:"demo",
-  LocationName:"gun",
-  Provider:"deer",
-  DataType:"clinical",
-  Action:"sub",
-  Details:"laborder"}]
-  getdata(){
-
-    this.datasource=this.auid;
-    this.TotalItems = this.datasource.length;
-    console.log(this.datasource)
-
-  }
-
-}
-export interface auditlog{
-  Date:string,
-  Patient:string,
-  LocationName:string,
-  Provider:string,
-  DataType:string,
-  Action:string,
-  Details:string
 }

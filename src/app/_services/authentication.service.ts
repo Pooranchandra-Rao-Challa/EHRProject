@@ -4,8 +4,6 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { map, observeOn, tap, retry, catchError } from 'rxjs/operators';
 import { APIEndPoint } from './api.endpoint.service';
-
-
 import { environment } from "src/environments/environment";
 import { User, ResponseData } from '../_models';
 import { getLogger } from "../logger.config";
@@ -53,10 +51,10 @@ export class AuthenticationService {
               { queryParams: { name: 'Smart Schedule' } }
             );
           else if (this.isAdmin)
-              this.router.navigate(
-                ['/admin/dashboard'],
-                { queryParams: { name: 'Provider' } }
-              );
+            this.router.navigate(
+              ['/admin/dashboard'],
+              { queryParams: { name: 'Providers' } }
+            );
           else if (this.isPatient)
             this.router.navigate(['/patinet/patientview']);
         }
@@ -88,6 +86,7 @@ export class AuthenticationService {
       };
     return observable;
   }
+
   refreshToken() {
     return this.http.post<any>('${this.baseUrl + /refreshtoken', {}, { withCredentials: true })
       .pipe(map((resp) => {
@@ -138,7 +137,7 @@ export class AuthenticationService {
     const jwtToken = JSON.parse(atob(this.userValue.JwtToken.split('.')[1]));
     const expires = new Date(jwtToken.exp * 1000);
     const timeout = expires.getTime() - Date.now() - (60 * 1000);
-    this.refreshTokenTimeout = setTimeout(() => this.refreshToken().subscribe(), timeout);
+    this.refreshTokenTimeout = setTimeout(() => this.refreshToken(), timeout);
 
   }
 

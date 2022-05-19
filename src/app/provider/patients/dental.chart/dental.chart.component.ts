@@ -10,6 +10,8 @@ export class DentalChartComponent implements OnInit {
   AdultPrem:boolean=true;
   ChilPrim:boolean=false;
   checboxList:any=[];
+  displayStyle = "none";
+
   constructor() { }
 
   ngOnInit( ): void {
@@ -71,5 +73,19 @@ export class DentalChartComponent implements OnInit {
     function hasClass(elem, className) {
         return new RegExp(' ' + className + ' ').test(' ' + elem.className + ' ');
     }
+  }
+  openPopup() {
+    this.displayStyle = "block";
+  }
+  closePopup()
+  {
+    this.displayStyle = "none";
+  }
+
+  openPopupChild() {
+    this.displayStyle = "block";
+  }
+  closePopupChild() {
+    this.displayStyle = "none";
   }
 }

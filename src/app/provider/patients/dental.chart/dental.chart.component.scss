@@ -1,52 +1,68 @@
 @import"../../../../assets/common.scss";
 
 .nav-tabs li a {
-    color: #41b6a6;
-    background-color: #fff;
-    padding: 9px 38px 9px 28px;
-    font-family: "Roboto" !important;
-    /* font-weight: 400; */
-    font-size: 16px !important;
+  color: #41b6a6;
+  background-color: #fff;
+  padding: 9px 38px 9px 28px;
+  font-family: "Roboto" !important;
+  /* font-weight: 400; */
+  font-size: 16px !important;
 }
+
 .btn.btn-orange {
   font-size: 15px;
   font-family: "Open Sans", sans-serif;
   margin-left: -117px !important;
   height: 42px;
 }
+
 .adult-dentalchart {
   border-top: 3px solid #41b6a6;
   margin-top: -9px;
 }
+
 .row-margin {
   margin-left: 8px;
   margin-right: 1px;
 }
+
 .table td,
 .table th {
   vertical-align: middle;
   font-size: 0px;
 }
+
 .table td img,
 .table th img {
   border-radius: 0px;
 }
+
 .patientDentalChartTab {
   width: 50% !important;
 }
-tbody,td,tfoot,th,thead,tr {
+
+tbody,
+td,
+tfoot,
+th,
+thead,
+tr {
   border-color: white;
   border-style: solid;
   border-width: 0;
 }
+
 .table-responsive {
   border-radius: 3px;
 }
-img,svg {
+
+img,
+svg {
   vertical-align: middle;
   width: 100%;
   height: auto;
 }
+
 .panel-title {
   border: #41b6a6;
   height: 60px;
@@ -57,7 +73,8 @@ img,svg {
   font-size: 15px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 }
-.treatments-title{
+
+.treatments-title {
   font-family: system-ui !important;
   border: #41b6a6;
   height: 50px;
@@ -67,95 +84,116 @@ img,svg {
   padding-bottom: 19px;
   font-size: 25px;
 }
+
 .border {
   border: 1px solid #41b6a6 !important;
   border-radius: 3px;
 }
+
 .double-border {
   border: 1px solid #41b6a6;
   padding: 16px;
   background-color: #e8fbf8;
   border-radius: 3px
 }
-.table td,.table th {
+
+.table td,
+.table th {
   vertical-align: inherit !important;
 }
+
 .colA {
   overflow-y: scroll;
   max-height: calc(70vh - 158px);
   min-height: 610px;
 }
+
 .colB {
   max-height: 700px !important;
   min-height: 680px;
   overflow-y: scroll;
-  margin-top: -21px  !important;
+  margin-top: -21px !important;
 }
+
 .colC {
   min-height: 378px;
   overflow-y: scroll;
   max-height: calc(30vh - 25px);
 }
+
 .colD {
   min-height: 459px;
   overflow-y: scroll;
   max-height: calc(70vh - 158px);
   margin-top: -32px !important;
 }
+
 .input-group {
-  height: 80px;
-  padding-top: 15px;
-  padding-bottom: 15px;
+  height: 50px;
+  // padding-top: 15px;
+  // padding-bottom: 15px;
 }
+
 .table>:not(:first-child) {
   border-top: 0px solid #41b6a6;
 }
+
 // search icon btn
 .fa-search {
   background-color: #41b6a6;
   color: white;
   margin-left: 0 !important;
 }
+
 .fa {
   font-size: 28px;
 }
+
 .btn-info:hover {
   color: #f7f3f3;
   background-color: #41b6a6;
   border-color: #41b6a6;
 }
+
 .btn-info {
   color: white;
   background-color: #41b6a6;
   border-color: #41b6a6;
   width: 65px;
 }
-.input-group>.form-control,
-.input-group>.form-select {
+
+.input-group>.form-control.search-control
+ {
   border-color: #41b6a6 !important;
 }
+
 p {
   margin-top: 5px;
   margin-bottom: 2rem;
   color: #41b6a6;
   font-size: 14px;
 }
+
 .find-procedure {
   background-color: #e8fbf8;
   height: 80px;
 }
+
 .table-responsive table.table tbody tr td a {
   font-size: 16px;
   color: #4A4A4A;
   transition: color 0.2s;
 }
+
 table tr td.overlay-img a.checker.unchecked {
   // background-image:url(/assets/images/tooths/teeth_unselected.svg);
   background-image: url(https://1.ehr.one/assets/tooths/teeth_unselected-71b5b4b9a6e389e6d6fcaa7f69291a74ac6b5e6c83158ea4f7c218175da31b7b.svg);
 }
+
 .img-align {
   margin-top: 10px;
 }
+
 .patientDentalChartTab .panel-teeth .tbody-teeth tr td.overlay-img a.checker {
   width: 40%;
   height: 40%;
@@ -168,34 +206,29 @@ table tr td.overlay-img a.checker.unchecked {
   background-size: contain;
   background-repeat: no-repeat;
 }
+
 .table-responsive table.table tbody tr td a {
   font-size: 16px;
   color: #4A4A4A;
   transition: color 0.2s;
 }
+
 .patientDentalChartTab .panel-teeth .tbody-teeth tr td img {
   width: 100%;
   height: auto;
 }
+
 .patientDentalChartTab .panel-teeth .tbody-teeth tr td.overlay-img {
   position: relative;
 }
+
 .patientDentalChartTab .panel-teeth .table>tbody>tr>td {
   padding: 3px 6px;
   border-top: none;
   color: #41b6a6;
   text-align: center;
 }
-.select2 {
-  margin-left: 0px;
-  width: 813px;
-  color: #41b6a6;
-  border: 1px solid #41b6a6;
-  height: 60px;
-  margin-top: 15px;
-  margin-bottom: 20px;
-  font-size: 20px
-}
+
 .adult-img-align {
   margin-top: 62px;
 }
@@ -203,24 +236,30 @@ table tr td.overlay-img a.checker.unchecked {
 .adult-bigimg-align {
   margin-top: 23px;
 }
+
 .adult-lg-align {
   margin-top: 40px;
 }
-.child-img-align{
+
+.child-img-align {
   margin-top: 26px;
 }
-.child-img-size{
+
+.child-img-size {
   width: 60px !important;
   // margin-top: 12px !important;
 }
+
 .childimg {
-   width: auto !important;
+  width: auto !important;
   height: auto;
 }
+
 .childimg-align {
   margin-top: 12px !important;
 }
-.tr-data{
+
+.tr-data {
   font-family: 'Roboto';
 }
 
@@ -232,6 +271,7 @@ table tr td.overlay-img a.checker.unchecked {
   padding: 12px 25px;
   font-weight: 600;
 }
+
 // dropdown Action
 .ActionDDL {
   background: #e0f5f2;
@@ -240,11 +280,13 @@ table tr td.overlay-img a.checker.unchecked {
   border-top: 3px solid #41b6a6;
   margin-top: -8px;
 }
+
 input::-webkit-input-placeholder {
   color: #6f6e6e !important;
   font-size: 120%;
   font-family: sans-serif;
 }
+
 .btn.Actions {
   color: #41b6a6;
   border-color: #41b6a6;
@@ -254,28 +296,34 @@ input::-webkit-input-placeholder {
   padding: 10px 3px;
   font-family: 'Roboto';
 }
+
 .dropdown .dropdown-menu li {
   display: table;
   margin: 3px;
   cursor: pointer !important;
   width: 152px;
 }
+
 .dropdown-menu li a {
   font-size: 15px;
   width: 20px;
 }
+
 .dropdown-menu li a:hover {
   text-decoration: underline;
   color: #41b6a6;
 }
+
 .Actionmenu li a {
   color: black;
   vertical-align: middle;
 }
+
 .table {
   --bs-table-accent-bg: none;
   background-color: #e8fbf8;
 }
+
 .right-block {
   width: 25%;
 }
@@ -284,73 +332,85 @@ input::-webkit-input-placeholder {
   .patientDentalChartTab {
     width: 100% !important;
   }
+
   .btn.btn-orange {
-    margin-left: 10px  !important;
+    margin-left: 10px !important;
     margin-bottom: 17px !important;
   }
-   .right-block {
+
+  .right-block {
     width: 100%;
     margin-top: 15px;
   }
+
   .align-B-block {
     margin-left: -9px;
   }
+
   .nav-tabs li a {
     padding: 13px 26px;
   }
-  li.Checklist{
+
+  li.Checklist {
     line-height: 16px !important;
     margin-bottom: -12px;
   }
 }
+
 @media(min-width:768px) and (max-width:1200px) {
   .patientDentalChartTab {
     width: 100% !important;
     margin: 0px 15px 0px 0px;
   }
+
   .btn.btn-orange {
     margin-left: -98px;
     position: fixed;
   }
+
   .right-block {
     width: 50%;
     margin-top: 15px;
   }
 
-  li.Checklist{
-   line-height: 13px !important;
-   margin-bottom: -9px;
+  li.Checklist {
+    line-height: 13px !important;
+    margin-bottom: -9px;
   }
 }
+
 @media(min-width:1201px) and (max-width:1440px) {
- .btn.btn-orange {
+  .btn.btn-orange {
 
     margin-left: -71px;
   }
-  li.Checklist{
+
+  li.Checklist {
     line-height: 15px !important;
     margin-bottom: -10px;
   }
 
 }
- @media (min-width:1441px) and (max-width:1878px) {
 
-  .btn.btn-orange[_ngcontent-owm-c333] {
-    //padding: 13px 15px !important;
+@media (min-width:1441px) and (max-width:1878px) {
 
-  }
+  // .btn.btn-orange[_ngcontent-owm-c333] {
+  //   //padding: 13px 15px !important;
+
+  // }
   .colA {
     overflow-y: scroll !important;
     max-height: calc(70vh - 211px) !important;
     min-height: 441px !important;
   }
-  .colB{
+
+  .colB {
     margin-top: -188px !important;
-}
+  }
 }
 
 // chcekbox
-li.Checklist{
+li.Checklist {
   display: block;
   margin-top: 6px;
   color: #4A4A4A !important;
@@ -360,17 +420,21 @@ li.Checklist{
   font-family: 'Roboto' !important;
   margin-left: 5px;
 }
-li.Checklist:hover{
+
+li.Checklist:hover {
   color: #41b6a6 !important;
   text-decoration: underline !important;
 }
-.child-check{
+
+.child-check {
   margin-left: 10px;
   display: none;
 }
-.child-check.active{
+
+.child-check.active {
   display: block;
 }
+
 .css-label {
   cursor: pointer;
   color: #4A4A4A !important;
@@ -379,9 +443,11 @@ li.Checklist:hover{
   font-weight: 400;
   margin-top: -3px;
 }
+
 .css-checkbox {
   display: none;
 }
+
 .fa-cust-icon {
   color: black;
   line-height: 11px;
@@ -389,6 +455,7 @@ li.Checklist:hover{
   border: 1px solid #4A4A4A;
   font-size: 10px;
 }
+
 .fa-plus {
   padding-top: 2px;
   padding-right: 2px;
@@ -396,6 +463,7 @@ li.Checklist:hover{
   background-color: white;
   border: 1px solid #4A4A4A;
 }
+
 .fa-minus {
   padding-top: 1px;
   padding-right: 2px;
@@ -404,18 +472,91 @@ li.Checklist:hover{
   display: none;
   border: 1px solid #4A4A4A;
 }
-.css-checkbox:checked + .css-label .fa-minus {
+
+.css-checkbox:checked+.css-label .fa-minus {
   display: inline;
   color: black;
 }
-.css-checkbox:checked + .css-label .fa-plus {
+
+.css-checkbox:checked+.css-label .fa-plus {
   display: none;
   color: black;
 }
-.treatment-content{
+
+.treatment-content {
   height: 800px;
 }
-.table.treatment-content{
+
+.table.treatment-content {
   background-color: #fff !important;
 }
 
+.row-heading {
+  background-color: #f5f6f6;
+  color: #41b6a6;
+  padding: 13px;
+    font-size: 17px;
+  font-family: 'Roboto';
+}
+
+.select2 {
+  margin-left: 0px;
+  width: 100%;
+  color: #41b6a6;
+  border: 1px solid #41b6a6;
+  height: 50px;
+  margin-top: 15px;
+  margin-bottom: 20px;
+  font-size: 20px
+}
+
+div.ex3 {
+  height: 800px;
+  top: 64%;
+  box-sizing: border-box;
+  padding: 24px;
+  white-space: nowrap;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.modal {
+  margin-right: 50px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.text-color {
+  color: #208772;
+  font-size: 18px;
+  background-color: #c1e1dd;
+}
+
+.label-heading {
+  color: #333;
+  font-size: 17px !important;
+  font-weight: 700;
+  font-family: 'Roboto';
+}
+
+.label-design {
+  font-family: 'Roboto';
+  color: #4A4A4A;
+  margin: 0;
+  font-size: 18px;
+}
+
+.input-bg {
+  background-color: #d3d5d738;
+}
+.btn-green{
+  font-size: 16px;
+  font-size: 'Roboto';
+}
+
+@media (min-width: 576px) {
+  .modal-dialog {
+    max-width: 700px;
+    margin: 1.75rem auto;
+  }
+}
