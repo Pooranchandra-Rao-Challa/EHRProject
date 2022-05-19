@@ -894,7 +894,7 @@ i {
   max-width: 100%;
   max-height: 100%;
   transform: none !important;
-   background-color: rgba(0, 0, 0, .4);
+  background-color: rgba(0, 0, 0, .2);
 }
 
 .model {
@@ -1005,7 +1005,7 @@ i {
 .page-green.pagination .page-item .page-link {
   border-color: #41b6a6;
   font-size: 14px;
-  width: 40px;
+  // width: 40px;
   height: 40px;
   color: #41b6a6;
 }

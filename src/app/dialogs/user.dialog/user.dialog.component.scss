@@ -1,11 +1,12 @@
-#edit-user-modal .modal-dialog {
+#edit-user-modal.modal-dialog {
   margin-top: 10px;
   max-width: 1005px;
+  max-height: 800px;
 }
-.modal .modal-dialog .modal-content .modal-header {
+.modal-dialog .modal-content .modal-header {
   padding: 20px 16px;
 }
-.modal-content {
+.modal-content.UserModal {
   border: 1px solid rgb(65 182 166) !important;
 }
 .modal-header {
@@ -15,16 +16,16 @@
   border-bottom: none;
   min-height: 50px;
   max-height: 50px;
-  margin-top: -1px;
-  margin-left: -1px;
+  //margin-top: -1px;
+  //margin-left: -1px;
 }
 .modal-body {
   background-attachment: fixed;
   background: white;
 }
 div.ex3 {
-  height: 900px;
-  top: 84%;
+  //height: 900px;
+  //top: 84%;
   box-sizing: border-box;
   padding: 24px;
   white-space: nowrap;

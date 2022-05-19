@@ -20,119 +20,145 @@
      </div>
     <div class="prevent-click" *ngIf="show">
       <mat-accordion class="prevent-click">
-        <mat-expansion-panel [disabled]="disabledmedication"
-        [ngStyle]="disabledmedication?{'opacity': '0.75'} : {'opacity': '1'}"
-         [expanded]="step === 1" (opened)="setStep(1)"
-          [ngClass]="isExpansionDisabled()" class="customheader" hideToggle="true" #example>
+      <mat-expansion-panel [disabled]="item?.isdisabled"
+        [ngStyle]="item?.isdisabled?{'opacity': '0.75'} : {'opacity': '1'}"
+         [expanded]="step === i" (opened)="setStep(i)"
+         class="customheader" hideToggle="true" #example *ngFor="let item of clinicalDecisionSupportList | groupBy:'AlertId';let i = index">
           <mat-expansion-panel-header class="panel-header">
             <mat-panel-title>
-              <h1 class="number">1</h1>&nbsp;&nbsp;
-              <h4 class="titleText"> Active Medication(s)</h4>
+              <h1 class="number">{{i+1}}</h1>&nbsp;&nbsp;
+               <div *ngFor="let itemkey of item.value | groupBy:'AlertName' ">
+              <h4 class="titleText"> {{itemkey.key}}</h4>
+            </div>
             </mat-panel-title>
             <mat-panel-description class="d-flex justify-content-end">
-              <button class="btn" [ngClass]="!medicationbtnhover? 'btn-on' : 'btn-off' " type="button"
-                (click)="disablemedication(false)">On</button>
-              <button class="btn" [ngClass]="medicationbtnhover? 'btn-on' : 'btn-off' " type="button"
-                (click)="disablemedication(true)">Off</button>
+              <button class="btn" [ngClass]="!item?.isdisabled ?  'btn-on' : 'btn-off' " type="button"
+                (click)="disablemedication(item,false)">On</button>
+              <button class="btn" [ngClass]="item?.isdisabled ? 'btn-on' : 'btn-off' " type="button"
+                (click)="disablemedication(item,true)">Off</button>
               <mat-icon class="play-up-arrow" *ngIf="!example.expanded" >play_arrow</mat-icon>
               <mat-icon class="play-down-arrow" *ngIf="example.expanded">arrow_drop_down</mat-icon>
 
             </mat-panel-description>
           </mat-expansion-panel-header>
-          <div *ngTemplateOutlet="myTemplateRef;">
+          <div>
+            <div class="row field-align" *ngFor="let item1 of item.value |groupBy:'description'">
+            <mat-label class="mt-1 Helvetica-sans-serif-small">Description*</mat-label>
+            <mat-form-field appearance="outline">
+              <input matInput
+                placeholder="" value="{{item1.key}}">
+            </mat-form-field>
           </div>
-        </mat-expansion-panel>
-        <mat-expansion-panel [hideToggle]="true" [expanded]="step === 2" (opened)="setStep(2)"
-        [ngClass]="isExpansionDisabled()" [ngStyle]="disabledcavity?{'opacity': '0.75'} : {'opacity': '1'}" [disabled]="disabledcavity"
-         class="customheader" hideToggle="true" #example1>
-          <mat-expansion-panel-header class="panel-header">
-            <mat-panel-title>
-              <h1 class="number">2</h1>&nbsp;&nbsp;
-              <h4 class="titleText"> Children who have dental decay or cavities(s)</h4>
-            </mat-panel-title>
-            <mat-panel-description class="d-flex justify-content-end">
-              <button class="btn" class="btn" [ngClass]="!cavitybtnhover? 'btn-on' : 'btn-off' " type="button"
-                (click)="disablecavities(false)" type="button">On</button>
-              <button class="btn" [ngClass]="cavitybtnhover? 'btn-on' : 'btn-off' " type="button"
-                (click)="disablecavities(true)" type="button">
-                Off
+  
+          <div class="row field-align">
+            <mat-label  class="Helvetica-sans-serif-small">Trigger Rule*   </mat-label>
+            <mat-form-field appearance="outline">
+              <mat-select required>
+                <mat-option *ngFor="let trigger of TriggerRuleDD" [value]="trigger.value">
+                  {{trigger.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="panel-heading">
+            <div class="row">
+              <div class="col-lg-6">
+                <p class="title trigger-align">Trigger Condition Builder</p>
+              </div>
+              <div class="col-lg-6">
+              <button type="button" class="btn btn-green btn-clinic pull-right" data-bs-toggle="modal" data-bs-target="#TriggerModal">
+                New Trigger
               </button>
-              <mat-icon class="play-up-arrow" *ngIf="!example1.expanded">play_arrow</mat-icon>
-              <mat-icon class="play-down-arrow" *ngIf="example1.expanded">arrow_drop_down</mat-icon>
-
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <div *ngTemplateOutlet="myTemplateRef;">
+              </div>
+            </div>
           </div>
-        </mat-expansion-panel>
-        <mat-expansion-panel hideToggle [expanded]="step === 3" (opened)="setStep(3)" [ngClass]="isExpansionDisabled()" [disabled]="disableddiabetes"
-          class="customheader" [ngStyle]="disableddiabetes?{'opacity': '0.75'} : {'opacity': '1'}" hideToggle="true" #example2>
-          <mat-expansion-panel-header class="panel-header">
-            <mat-panel-title>
-              <h1 class="number">3</h1>&nbsp;&nbsp;
-              <h4 class="titleText"> Comprehensive diabetes care: percentage of members 18 to 75 years of age
-                with diabetes....</h4>
-            </mat-panel-title>
-            <mat-panel-description class="d-flex justify-content-end">
-              <button class="btn" type="button" [ngClass]="!diabetesbtnhover? 'btn-on' : 'btn-off' " type="button"
-                (click)="disablediabetes(false)">On</button>
-              <button class="btn" type="button" [ngClass]="diabetesbtnhover? 'btn-on' : 'btn-off' " type="button"
-                (click)="disablediabetes(true)">Off
-              </button>
-              <mat-icon class="play-up-arrow" *ngIf="!example2.expanded">play_arrow</mat-icon>
-              <mat-icon class="play-down-arrow" *ngIf="example2.expanded">arrow_drop_down</mat-icon>
-
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <div *ngTemplateOutlet="myTemplateRef;">
+          <table class="table table-borderless" >
+            <thead class="bg-color">
+              <tr>
+                <td></td>
+                <td>
+                  <p>Category</p>
+                </td>
+                <td>
+                  <p>Code</p>
+                </td>
+                <td>
+                  <p>Code System</p>
+                </td>
+                <td>
+                  <p>Description</p>
+                </td>
+                <td></td>
+              </tr>
+            </thead>
+            <tbody>
+        
+              <ng-container *ngFor="let item1 of item.value | groupBy:'TriggerId'">
+              <tr  *ngFor="let data of item1.value">
+                <td></td>
+                <td>
+                  {{data.category}}
+                </td>
+                <td>{{data.code}}</td>
+                <td>{{data.system}}</td>
+                <td>{{data.TriggerDes}}</td>
+                <td>  <mat-icon class="close-icon Cancelbtn">close
+                </mat-icon>
+                  </td>
+              </tr>
+            </ng-container>
+            </tbody>
+          </table>
+          <br>
+          <div class="row field-align" *ngFor="let item1 of item.value | groupBy:'resolution'">
+            <mat-label class="Helvetica-sans-serif-small">Resolution: </mat-label>
+            <mat-form-field appearance="outline">
+              <textarea matInput
+                placeholder="" value="{{item1.key}}"></textarea>
+            </mat-form-field>
           </div>
-        </mat-expansion-panel>
-        <mat-expansion-panel hideToggle [ngClass]="isExpansionDisabled()"  [expanded]="step === 4" (opened)="setStep(4)" [disabled]="disabledBp"
-          class="customheader" [ngStyle]="disabledBp?{'opacity': '0.75'} : {'opacity': '1'}" hideToggle="true" #example3>
-          <mat-expansion-panel-header class="panel-header">
-            <mat-panel-title>
-              <h1 class="number">4</h1>&nbsp;&nbsp;
-              <h4 class="titleText"> Controlling High Blood Pressure</h4>
-            </mat-panel-title>
-            <mat-panel-description class="d-flex justify-content-end">
-
-              <button class="btn" type="button" [ngClass]="!BPbtnhover? 'btn-on' : 'btn-off' " type="button"
-                (click)="disableBloodPressure(false)">On</button>
-              <button class="btn" type="button" [ngClass]="BPbtnhover? 'btn-on' : 'btn-off' " type="button"
-                (click)="disableBloodPressure(true)">
-                Off
-              </button>
-              <mat-icon class="play-up-arrow" *ngIf="!example3.expanded">play_arrow</mat-icon>
-              <mat-icon class="play-down-arrow" *ngIf="example3.expanded">arrow_drop_down</mat-icon>
-
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <div *ngTemplateOutlet="myTemplateRef;">
+          <div class="row field-align" *ngFor="let item1 of item.value | groupBy:'bibliography'">
+            <mat-label class="Helvetica-sans-serif-small">Bibliography:</mat-label>
+            <mat-form-field appearance="outline">
+              <textarea matInput
+                placeholder=""value="{{item1.key}}"></textarea>
+            </mat-form-field>
           </div>
-        </mat-expansion-panel>
-        <mat-expansion-panel hideToggle [ngClass]="isExpansionDisabled()"  [expanded]="step === 5" (opened)="setStep(5)" [disabled]="disabledHighRisk"
-          class="customheader" [ngStyle]="disabledHighRisk?{'opacity': '0.75'} : {'opacity': '1'}" hideToggle="true" #example4>
-          <mat-expansion-panel-header class="panel-header">
-            <mat-panel-title>
-              <h1 class="number">5</h1>&nbsp;&nbsp;
-              <h4 class="titleText"> Use of High Risk Medication in the Elderly</h4>
-            </mat-panel-title>
-            <mat-panel-description class="d-flex justify-content-end">
-              <button class="btn" type="button" [ngClass]="!highRiskbtnhover? 'btn-on' : 'btn-off' " type="button"
-                (click)="disableHighRisk(false)">On</button>
-              <button class="btn" type="button" [ngClass]="highRiskbtnhover? 'btn-on' : 'btn-off' " type="button"
-                (click)="disableHighRisk(true)">
-                Off
-              </button>
-              <mat-icon class="play-up-arrow" *ngIf="!example4.expanded">play_arrow</mat-icon>
-              <mat-icon class="play-down-arrow" *ngIf="example4.expanded">arrow_drop_down</mat-icon>
-
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <div *ngTemplateOutlet="myTemplateRef;">
+          <div class="row field-align" *ngFor="let item1 of item.value | groupBy:'developer' ">
+            <mat-label class="Helvetica-sans-serif-small">Developer: </mat-label>
+            <mat-form-field appearance="outline">
+              <input matInput placeholder="" value="{{item1.key}}">
+            </mat-form-field>
           </div>
+          <div class="row field-align">
+            <div class="col-md-2">
+              <mat-label class="Helvetica-sans-serif-small">Funding Source:</mat-label>
+            </div>
+            <div class="col-md-4"  *ngFor="let item1 of item.value | groupBy:'funding_source' " >
+              <mat-form-field appearance="outline">
+                <input matInput placeholder="" value="{{item1.key}}">
+              </mat-form-field>
+            </div>
+  
+            <div class="col-md-2"  >
+              <mat-label class="Helvetica-sans-serif-small"> Release Date(s)</mat-label>
+            </div>
+  
+            <mat-form-field appearance="outline" class=" green-calendar col-md-4"  *ngFor="let item1 of item.value | groupBy:'release_at'">
+              <input matInput [matDatepicker]="dp" placeholder="" value="{{item1.key}}">
+              <mat-datepicker-toggle matSuffix [for]="dp">
+                <button _ngcontent-mqh-c316="" aria-hidden="true" class="is-primary button fa fa-calendar"></button>
+              </mat-datepicker-toggle>
+              <mat-datepicker #dp disabled="false"></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <button class="btn btn-green btn-clinic pull-right" type="button">Save</button>
+</div>
         </mat-expansion-panel>
       </mat-accordion>
+      <div class="text-center py-2 col-12" *ngIf="clinicalDecisionSupportList.length == 0">
+        <h6 class="Helvetica-sans-serif-medium">   No records found</h6>
+      </div>
       </div>
       </div>
 
@@ -255,7 +281,7 @@
 
 
       <ng-template #myTemplateRef>
-        <div class="row field-align">
+        <!-- <div class="row field-align">
           <mat-label class="mt-1 Helvetica-sans-serif-small">Description*</mat-label>
           <mat-form-field appearance="outline">
             <input matInput
@@ -369,7 +395,7 @@
             <mat-datepicker #dp disabled="false"></mat-datepicker>
           </mat-form-field>
         </div>
-        <button class="btn btn-green btn-clinic pull-right" type="button">Save</button>
+        <button class="btn btn-green btn-clinic pull-right" type="button">Save</button> -->
 
       </ng-template>
 

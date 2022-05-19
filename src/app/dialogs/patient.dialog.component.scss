@@ -1,12 +1,5 @@
+@import "../../assets/cstm.material.scss";
 @import "../../assets/common.scss";
-
-// :host {
-//   display: block;
-//   width: 60rem;
-//   height: calc(45vh + 180px);
-//   background-color: #fff;
-// }
-
 
 .modal-dialog {
   overflow-y: initial !important;
@@ -24,20 +17,12 @@
 .modal .modal-dialog .modal-content .modal-body {
   padding: 10px 26px;
 }
-
-// .modal-header {
-//   min-height: 30px !important;
-//   background-color: #41b6a6;
-//   color: #fff;
-//   border: none;
-//   padding: 10px !important;
-// }
+.modal-header{
+  margin-right: -1px;
+}
 .modal-body .form-group {
   margin-bottom: 25px;
 }
-// .modal-title {
-//    line-height: 10px !important;
-// }
 
 .input-group .input-group-addon {
   height: 45px;
@@ -75,9 +60,12 @@
 .control-label.input-group-addon{
   padding: 11px 10px !important;
 }
+.control-label.input-group-addon.gender-right-space.required{
+  margin-right: 10px !important;
+}
+
 
 button#dob.btn-outline-secondary {
-  //border-right-color: #dedede;
   border-right-color: #dedede;
   border-top-color: #dedede;
   border-bottom-color: #dedede;
@@ -106,21 +94,16 @@ button#dob.btn-outline-secondary.calendar {
 ::ng-deep .ngb-dp-day :hover{
   background-color: #f5f5f5;
 }
-
+/*
 ::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
   height: 20px;
   width: 20px;
   background-color: #41b6a6 !important;
 }
 
-::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
-  background-color: #fff !important; /*inner circle color change*/
-}
-
 ::ng-deep.mat-radio-button.mat-accent.mat-radio-checked
   .mat-radio-outer-circle {
-  //border-width: 5px;
-  border-color: #41b6a6 !important; /*outer ring color change*/
+  border-color: #41b6a6 !important; / *outer ring color change* /
 }
 
 ::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
@@ -133,11 +116,9 @@ button#dob.btn-outline-secondary.calendar {
   transition: transform ease 280ms,background-color ease 280ms;
   width: 10px;
   transform: scale(0.001);
+  background-color: #fff !important;
 }
 
-.gender-radio-button-group{
-  width: 100%;
-}
 ::ng-deep .mat-radio-button{
   margin: 5px !important;
 }
@@ -156,7 +137,7 @@ button#dob.btn-outline-secondary.calendar {
 .gender-radio-button-group{
   width: 50%;
 }
-
+*/
 ::ng-deep .patient-email-checkbox:hover {
   & .mat-checkbox-background,
   .mat-checkbox-frame {

@@ -1,13 +1,11 @@
-<!-- <div class="modal fade " id="edit-user-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-  aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog"> -->
-<div class="modal-content UserModal">
+<div id="edit-user-modal" class="modal-dialog UserModal">
+<div class="modal-content ">
   <div class="modal-header">
     <h4 class="modal-title">Edit User</h4>
     <button type="button" class="btn btn-sm closemodel" data-bs-dismiss="modal" aria-label="Close">x
     </button>
   </div>
-  <div class="modal-body ex3">
+  <div class="modal-body ex3 edit-user-modal">
     <div class="row-container main-info">
       <div class="row">
         <div class="col-lg-2 col-md-3 col-9 avatar">
@@ -240,20 +238,19 @@
       </div>
     </div>
     <hr>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="d-flex justify-content-end">
-          <button type="button" class="btn btn-lg btn-success mx-2" (click)="updateUser('update')"
-            data-bs-dismiss="modal">
-            Save Changes
-          </button>
-          <button type="button" class="btn btn-lg btn-success" data-bs-dismiss="modal">
-            Cancel
-          </button>
-        </div>
+  </div>
+  <div class="modal-footer">
+    <div class="col-md-12">
+      <div class="d-flex justify-content-end">
+        <button type="button" class="btn btn-lg btn-success mx-2" (click)="updateUser('update')"
+          data-bs-dismiss="modal">
+          Save Changes
+        </button>
+        <button type="button" class="btn btn-lg btn-success" data-bs-dismiss="modal">
+          Cancel
+        </button>
       </div>
     </div>
   </div>
 </div>
-<!-- </div>
-</div> -->
+</div>

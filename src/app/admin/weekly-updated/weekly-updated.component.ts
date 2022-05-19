@@ -9,9 +9,9 @@ var $
 })
 export class WeeklyUpdatedComponent implements OnInit {
 
-  WeeklyUpdateList:any;
+  WeeklyUpdatedList: any = [];
 
-  public data: any = [
+  data: any = [
     { name: "Marcela Arizmendi" },
     { name: "Muon Vy" },
     { name: "Usability Test Doctor" },
@@ -27,33 +27,41 @@ export class WeeklyUpdatedComponent implements OnInit {
 
   ];
 
-  public selectedValue: any='Marcela Arizmendi';
-  public searchValue: any;
-  public filteredList: any = [];
+  selectedValue: any = 'Marcela Arizmendi';
+  searchValue: any;
+  filteredList: any = [];
+  DisplayTdBody: any;
+  RowIndex: any;
 
 
- constructor(private router:Router) { }
+  constructor(private router: Router, private adminservice: AdminService) { }
 
   ngOnInit(): void {
     this.filteredList = this.data;
     this.GetWeeklyUpdate();
+  }
+
+  GetWeeklyUpdate() {
+    this.adminservice.WeeklyUpdateList().subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.WeeklyUpdatedList = resp.ListResult;
+        console.log(this.WeeklyUpdatedList);
+      }
+      else {
+        this.WeeklyUpdatedList = [];
+      }
+    });
 
   }
-  GetWeeklyUpdate(){
-    this.WeeklyUpdateList=[
-      { Sequence:'2', Body:'<table class="table ctable"> <tbody> <tr> <td> <h4>Returning Patients:</h4> <small>(from last week)</small></td> <td style=" vertical-align: top; padding: 0; "><span style="fon',
-      Header:'Your Weekly Snapshot', SlideType:'Count', LogoType:'1.0', Status:'Activate', NewsText:'', TagLine:'healthcare made easy',},
-      { Sequence:'3', Body:'<h3 class="MsoNoSpacing"><span style="font-size:11pt"><span style="font-family:Calibri,sans-serif"><b><span style="font-size:12.0pt">&nbsp;Fully Integrated and certified electronic prescribing</span><',
-      Header:'Introduces Rcopia and iPrescribe!', SlideType:'Info', LogoType:'1.0', Status:'Deactivate', NewsText:'Now live!', TagLine:'healthcare made easy',},
-      { Sequence:'4', Body:'<h3 class="MsoNoSpacing"><span style="font-size:11pt"><span style="font-family:Calibri,sans-serif"><b><span style="font-size:12.0pt">Smart Scheduling System</span></b></span></span></h3> <ul> <li',
-      Header:'Coming soon... to a practice near You!', SlideType:'Info', LogoType:'1.0', Status:'Activate', NewsText:'Major Update!', TagLine:'healthcare made easy',},
-      { Sequence:'5', Body:'<table class="table ctable"> <tbody> <tr> <td> <h4>Returning Patients:</h4> <small>(from last week)</small></td> <td style=" vertical-align: top; padding: 0; "><span style="fon',
-      Header:'Coming soon... to a practice near You!', SlideType:'Info', LogoType:'1.0', Status:'Deactivate', NewsText:'Major Update!', TagLine:'healthcare made easy',},
-      { Sequence:'6', Body:'<table class="table ctable"> <tbody> <tr> <td> <h4>Returning Patients:</h4> <small>(from last week)</small></td> <td style=" vertical-align: top; padding: 0; "><span style="fon',
-      Header:'Tell us how we are doing!', SlideType:'Info', LogoType:'1.0', Status:'Activate', NewsText:'', TagLine:'healthcare made easy',},
 
-    ]
+  GetBodyData(row) {
+   this.RowIndex = row;
+   let bodydata =this.WeeklyUpdatedList[row];
+   this.DisplayTdBody = bodydata.body;
+   console.log(this.DisplayTdBody);
+
   }
+
   filterDropdown(e) {
     console.log("e in filterDropdown -------> ", e);
     window.scrollTo(window.scrollX, window.scrollY + 1);
@@ -74,17 +82,17 @@ export class WeeklyUpdatedComponent implements OnInit {
     this.selectedValue = name;
   }
 
-  AddSectionNew(name,url){
+  AddSectionNew(name, url) {
     this.router.navigate(
       [url],
-      { queryParams: { name: name} }
+      { queryParams: { name: name } }
     );
   }
 
-  EditSectionNew(name,url){
+  EditSectionNew(name, url) {
     this.router.navigate(
       [url],
-      { queryParams: { name: name,edit:'EditSection'} }
+      { queryParams: { name: name, edit: 'EditSection' } }
     );
   }
 }

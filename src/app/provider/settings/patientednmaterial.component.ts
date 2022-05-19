@@ -15,25 +15,37 @@ declare var $: any;
   styleUrls: ['./patientednmaterial.component.scss']
 })
 export class PatientEdnMaterialComponent implements OnInit {
-
+  user: User;
   searchnow: boolean = true;
   patientmaterialfrom:FormGroup
   expandedchangecolor:boolean=false;
  // columnsToDisplay = [ 'name', 'codeSystem', 'resouceNote', 'attachments'];
  columnsToDisplay = ['action', 'name', 'weight', 'symbol', 'position'];
-  data: patientedmaterial[] = [
-    {name:"sodium iodide",codeSystem:"lonic",resouceNote:"lonic",attachments:"gghg"},
-  {name:"sodium",codeSystem:"lonic",resouceNote:"lonic",attachments:"gghg"},
-  {name:"sodium",codeSystem:"lonic",resouceNote:"lonic",attachments:"gghg"}
+  
+  Patientedmateriallist: any=[];
 
-];
-
-  constructor(private fb:FormBuilder){
+  constructor(private fb:FormBuilder,private settingservice:SettingsService,private  authService: AuthenticationService){
+    this.user = authService.userValue;
 
   }
   ngOnInit(): void {
     this.pageloadevent();
+    this.getPatientedmateriallist();
   }
+  getPatientedmateriallist()
+{
+  var reqparams={
+    //  ClinicId: "588ba23dc1a4c002ab2b37ae"
+    ClinicId:this.user.ClinicId
+  }
+  debugger;
+  this.settingservice.EducationMaterials(reqparams).subscribe(response=>{
+    debugger;
+    this.Patientedmateriallist=response.ListResult;
+    console.log(this.Patientedmateriallist);
+    
+  })
+}
   indexExpanded: number = 0;
 
 togglePanels(index: number) {
@@ -89,14 +101,10 @@ refershform()
 
 }
 
-datasource=this.data;
+
+
 
 }
 
-export interface patientedmaterial{
-  name:string,
-  codeSystem:string,
-  resouceNote:string,
-  attachments:string
-}
+
 
