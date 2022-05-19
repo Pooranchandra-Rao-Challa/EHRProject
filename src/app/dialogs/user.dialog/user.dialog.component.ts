@@ -62,18 +62,6 @@ export class UserDialogComponent implements OnInit {
     });
   }
 
-  // getProviderDetails() {
-  //   var reqparams = {
-  //     provider_Id: this.user.ProviderId,
-  //     location_Id: this.changedLocationId
-  //   }
-  //   this.settingsService.ProviderDetails(reqparams).subscribe(resp => {
-  //     if (resp.IsSuccess) {
-  //       this.providersDataSource = resp.ListResult as NewUser[];
-  //     }else this.providersDataSource = [];
-  //   });
-  // }
-
   getUserDataforEdit(u: NewUser) {
     var reqparams = {
       UserId: u.UserId,

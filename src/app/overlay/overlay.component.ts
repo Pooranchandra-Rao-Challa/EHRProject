@@ -19,7 +19,6 @@ export class OverlayComponent implements OnInit {
 
   ngOnInit() {
     this.content = this.ref.content;
-
     if (typeof this.content === 'string') {
       this.contentType = 'string';
     } else if (this.content instanceof TemplateRef) {

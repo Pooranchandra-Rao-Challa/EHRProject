@@ -1,9 +1,5 @@
 @import "../../../assets/common.scss";
-// .modal-dialog{
-//   overflow-y: initial !important;
-//   padding-left: 80px;
-//   margin: 0 !important;
-// }
+
 .modal-dialog {
   overflow-y: initial !important;
   max-width: inherit !important;
@@ -18,46 +14,9 @@
   max-width: 660px;
   margin: auto;
 }
-
-// .modal-dialog .modal-content .modal-header {
-//   padding: 20px 16px;
-//   min-height: 30px !important;
-//   background-color: #41b6a6;
-//   color: #fff;
-//   border: none;
-//   //padding: 10px !important;
-
-//   color: white;
-//   background-color: #41b6a6;
-//   border-bottom: none;
-//   min-height: 50px;
-//   max-height: 50px;
-//   margin-top: -1px;
-//   margin-left: -1px;
-// }
-// .modal-content {
-//   border: 1px solid rgb(65 182 166) !important;
-// }
-
-// .modal-body {
-//   max-height: calc(90vh - 180px);
-//   overflow-y: auto;
-// }
-
-// .modal-body .form-group {
-//   margin-bottom: 25px;
-// }
-// .modal-title {
-//    line-height: 10px !important;
-//    font-size: 15px;
-//    font-family: Roboto, "Helvetica Neue", sans-serif;
-// }
-
-
-// .appointment-form.modal-dialog {
-//   max-width: 660px;
-//   //margin-top: 20px;
-// }
+.modal-header{
+  margin-right: -1px;
+}
 .appointment-form .text-area {
   height: 100px;
   border-radius: 4px;
@@ -92,11 +51,6 @@
 .btn.btn-green{
   min-height: 45px;
 }
-.timeslots{
-  font-size: 12px;
-  padding: auto;
-  font-weight: 500;
-}
 .btn-appointment-cancel-right{
   margin-right: 144px;
   display: flow-root;
@@ -109,6 +63,7 @@
   background-color: #d64841 !important;
   color: white !important;
 }
+/*
 ::ng-deep div#practiveProviders2-panel.mat-select-panel,
 ::ng-deep div#selSmartAppointmentTypes-panel.mat-select-panel,
 ::ng-deep div#selSmartLocations-panel.mat-select-panel,
@@ -118,7 +73,7 @@
   border-radius: 4px;
   border: 1px solid #41b6a6;
   position: absolute !important;
-  top: 29px;
+ // top: 28px !important;
   min-width: calc(100% + 18px) !important;
   margin-left: -9px;
 }
@@ -134,7 +89,7 @@
 
 ::ng-deep div.mat-calendar-content table.mat-calendar-table td.mat-calendar-body-disabled{
   color: #ccc;
-}
+}*/
 
 span#spantimeSlots{
   color: #F75857;
@@ -146,10 +101,11 @@ button.timeslot-selected{
   border: 1px solid #fe8f00;
 }
 .timeslots{
-  font-size: 13px;
+  font-size: 12px;
   padding: auto;
   font-weight: 500;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  border: 1px solid #41b6a6;
 
 }
 

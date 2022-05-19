@@ -1,17 +1,4 @@
 <div class="smartschedule-wrapper">
-  <!-- <div class="header">
-    <div class="categories-header">
-      <div class="row">
-        <div class="categories-container col-lg-12">
-          <ul class="categories">
-            <li><a href="/provider/smartschedule">Home</a></li>
-            <li><i class="category-arrow fa fa-angle-right"></i></li>
-            <li><a class="active" href="#">Smart Schedule</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div> -->
   <div class="content">
     <div class="container-fluid">
       <div class="row">
@@ -47,9 +34,8 @@
             </div>
             <div class="col-xl-1 col-lg-2 col-md-6 col-12 appointment-filter-dropdown-bar">
               <mat-form-field appearance="outline" class="col-12 smart-schedule-dropdown">
-                <mat-select disableOptionCentering id="practiveProviders" placeholder="Select Provider"
+                <mat-select disableOptionCentering id="practiceProviders" placeholder="Select Provider"
                   [(ngModel)]="SelectedProviderId" (selectionChange)="onProviderChange()">
-                  <mat-option>None</mat-option>
                   <mat-option *ngFor="let provider of PracticeProviders" [value]="provider.ProviderId">
                     {{provider.FullName}}</mat-option>
                 </mat-select>
