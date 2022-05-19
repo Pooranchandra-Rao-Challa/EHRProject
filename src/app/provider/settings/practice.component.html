@@ -147,12 +147,12 @@
                       </span>
                     </mat-cell>
                   </ng-container>
-
+                    <!--data-bs-toggle="modal" data-bs-target="#edit-user-modal"-->
                   <ng-container matColumnDef="FullName">
                     <mat-header-cell *matHeaderCellDef>Full Name</mat-header-cell>
                     <mat-cell *matCellDef="let user"><span class="text-decoration">
-                        <a data-remote="true" data-bs-toggle="modal" data-bs-target="#edit-user-modal"
-                          class="cursorpointer" (click)="getUserDataforEdit(user)">{{user.FirstName}}
+                        <a data-remote="true"
+                          class="cursorpointer" (click)="openComponentDialog(userDialogComponent,user,ActionsType.view)">{{user.FirstName}}
                           {{user.LastName}}</a></span></mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="Email">
@@ -585,19 +585,19 @@
         </div>
 
         <div class="row mb-3 mt-1 mx-3">
-          <div class="col-md-12">
+          <div class="col-md-12 locationbtns">
             <div class="d-flex justify-content-start">
-              <button type="button" class="btn btn-lg btn-danger mx-2" *ngIf="displayforEditLocation"
+              <button type="button" class="btn btn-lg btn-danger col-xl-3 col-lg-4 col-md-4 col-10 mx-1" *ngIf="displayforEditLocation"
                 (click)="deleteLocation()">
                 Delete
               </button>
             </div>
             <div class="d-flex justify-content-end">
-              <button type="button" class="btn btn-lg btn-green col-xl-4 col-lg-4 col-md-3 col-8 mx-4"
+              <button type="button" class="btn btn-lg btn-green col-xl-4 col-lg-4 col-md-4 col-8 mx-4"
                 data-bs-dismiss="modal" (click)="updateLocation()">
                 Save Changes
               </button>
-              <button type="button" class="btn btn-lg btn-green col-xl-3 col-lg-3 col-md-2 col-5 mx-1"
+              <button type="button" class="btn btn-lg btn-green col-xl-3 col-lg-3 col-md-3 col-5 mx-1"
                 data-bs-dismiss="modal">
                 Close
               </button>
@@ -727,271 +727,6 @@
       </div>
     </div>
   </div>
-
-  <!-- User Edit Modal Popup -->
-  <!-- <div class="modal fade " id="edit-user-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content UserModal">
-        <div class="modal-header">
-          <h4 class="modal-title">Edit User</h4>
-          <button type="button" class="btn btn-sm closemodel" data-bs-dismiss="modal" aria-label="Close">x
-          </button>
-        </div>
-        <div class="modal-body ex3">
-          <div class="row-container main-info">
-            <div class="row">
-              <div class="col-lg-2 col-md-3 col-9 avatar">
-                <div class="border">
-                  <div class="attachment-container">
-                    <div class="avatar-hint">
-                      <h6 class="text-mute mx-3 my-0">File must be:</h6>
-                      <h6 class="text-mute my-0 mx-3 my-0"> JPG, PNG, GIF</h6>
-                      <h6 class="text-mute mx-3 my-0">Max Size: 1MB</h6>
-                      <h6 class="text-mute mx-3 my-0">Min. Res: </h6>
-                      <h6 class="text-mute mx-3 my-0">300x300 px.</h6>
-                      <label class="btn btn-default border mx-2 my-2" style="color: #41b6a6;">
-                        Upload File <input type="file" hidden>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-10 col-md-9 col-12">
-                <div class="row">
-                  <div class="col-lg-2 col-md-4 col-12"><label class="settings-label">Title</label>
-                    <div class="form-group">
-                      <select class="col-12 inputclass" [(ngModel)]="NewUserData.Title">
-                        <option value="" disabled selected hidden>Title</option>
-                        <option *ngFor="let title of titles" [value]="title.Name">{{title.Name}}
-                        </option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 col-md-8 col-12"><label class="settings-label">First Name</label>
-                    <div class="form-group">
-                      <input class="inputclass" type="text" placeholder="First Name"
-                        [(ngModel)]="NewUserData.FirstName">
-                    </div>
-                  </div>
-                  <div class="col-lg-3 col-md-6 col-12"><label class="settings-label">Middle Name</label>
-                    <div class="form-group">
-                      <input type="text" placeholder="Middle Name" class="inputclass"
-                        [(ngModel)]="NewUserData.MiddleName">
-                    </div>
-                  </div>
-                  <div class="col-lg-3 col-md-6 col-12"><label class="settings-label">Last Name</label>
-                    <div class="form-group ">
-                      <input type="text" placeholder="Last Name" class="inputclass" [(ngModel)]="NewUserData.LastName">
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-lg-2 col-md-4 col-12"><label class="settings-label">Degree</label>
-                    <div class="form-group">
-                      <select class="col-12 inputclass" [(ngModel)]="NewUserData.Degree">
-                        <option value="" disabled selected hidden>Credentials</option>
-                        <option *ngFor="let dg of degrees" [value]="dg.Name">{{dg.Name}}
-                        </option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="col-lg-5 col-md-8 col-12"><label class="settings-label">Speciality</label>
-                    <div class="form-group">
-                      <select class="col-12 inputclass" [(ngModel)]="NewUserData.Speciality">
-                        <option value="" disabled selected hidden>Speciality</option>
-                        <option *ngFor="let speciality of specialities" [value]="speciality.Name"> {{speciality.Name}}
-                        </option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="col-lg-5 col-md-12 col-12"><label class="settings-label">Secondary Speciality</label>
-                    <div class="form-group">
-                      <input type="text" placeholder="Secondary speciality" class="inputclass"
-                        [(ngModel)]="NewUserData.SecondarySpeciality">
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-            <div class="row">
-              <div class="col-lg-4"><label class="settings-label">Medical/ Dental License #</label>
-                <div class="form-group">
-                  <input type="text" placeholder="Medical/ Dental License #" class="inputclass"
-                    [(ngModel)]="NewUserData.DentalLicense">
-                </div>
-              </div>
-              <div class="col-lg-4"><label class="settings-label">State</label>
-                <div class="form-group">
-                  <select class="col-12 inputclass" [(ngModel)]="NewUserData.State">
-                    <option value="" disabled selected hidden>State</option>
-                    <option *ngFor="let state of states" [value]="state.Name">{{state.Name}}
-                    </option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-lg-4 "><label><span class="settings-label">Expiration Date</span>
-                </label>
-                <div class="form-group ">
-                  <input type="text" placeholder="Expiration Date" class="inputclass"
-                    [(ngModel)]="NewUserData.ExpirationDate">
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-3"><label class="settings-label">NPI</label>
-                <div class="form-group">
-                  <input type="text" placeholder="NPI" class="inputclass" [(ngModel)]="NewUserData.Npi">
-                </div>
-              </div>
-              <div class="col-lg-3"><label class="settings-label">DEA #</label>
-                <div class="form-group">
-                  <input type="text" placeholder="DEA #" class="inputclass" [(ngModel)]="NewUserData.Dea">
-                </div>
-              </div>
-              <div class="col-lg-3 "><label class="settings-label">UPIN</label>
-                <div class="form-group ">
-                  <input type="text" placeholder="UPIN" class="inputclass" [(ngModel)]="NewUserData.UPin">
-                </div>
-              </div>
-              <div class="col-lg-3 "><label class="settings-label">EHR1 User ID
-                </label>
-                <div class="form-group">
-                  <input type="text" placeholder="6345474dffsfdf" readonly class="inputclass notallowCursor"
-                    style="cursor: not-allowed;" [(ngModel)]="NewUserData.UserId">
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-3"><label class="settings-label">NADEAN</label>
-                <div class="form-group">
-                  <input type="text" placeholder="NADEAN" class="inputclass" [(ngModel)]="NewUserData.NADean">
-                </div>
-              </div>
-              <div class="col-lg-3"><label class="settings-label">SOCIAL SECURITY NUMBER</label>
-                <div class="form-group">
-                  <input type="text" placeholder="SSN" class="inputclass" [(ngModel)]="NewUserData.SSN">
-                </div>
-              </div>
-            </div>
-            <div class="row panel-title m-0">
-              <div class="col-xl-11 col-lg-9 col-md-8 col-12">
-                <h5>Practice Location and Provider Schedule </h5>
-              </div>
-              <div class="col-xl-1 col-lg-3 col-md-4 col-12">
-                <button class="plusicon pull-right" data-bs-toggle="modal" data-bs-target="#practice-modal"
-                  (click)="closePopup()">
-                  <i class="fa fa-plus addlocation mx-2"></i>
-                </button>
-              </div>
-            </div>
-            <div class="scrollable-mat-table">
-              <mat-table class="table table-responsive userfromPractable" [dataSource]="NewUserData.LocationInfo">
-                <ng-container matColumnDef="LocationName">
-                  <mat-header-cell *matHeaderCellDef>Location Name</mat-header-cell>
-                  <mat-cell *matCellDef="let loc">{{loc.Name}} </mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="CityState">
-                  <mat-header-cell *matHeaderCellDef>City, State</mat-header-cell>
-                  <mat-cell *matCellDef="let loc">{{loc.City}}, {{loc.State}}</mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="PracticeSchedule">
-                  <mat-header-cell *matHeaderCellDef>Practice Schedule</mat-header-cell>
-                  <mat-cell *matCellDef="let loc">
-                    <ul>
-                      <li *ngFor="let timeSlot of loc.TimeSlots"
-                        style="flex-wrap: wrap;line-break: auto;font-size: 11px !important; line-height: 15px;">
-                        {{timeSlot.WeekDay}},<br />
-                        {{timeSlot.From}} - {{timeSlot.To}},<br />
-                        {{timeSlot.SpecificHour}}
-                      </li>
-                    </ul>
-
-                  </mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="ServicedLocation">
-                  <mat-header-cell *matHeaderCellDef>Serviced Location(s)</mat-header-cell>
-                  <mat-cell *matCellDef="let loc">
-                    <mat-checkbox class="example-margin" [ngModelOptions]="{standalone: true}" [ngModel]="loc.Assigned">
-                    </mat-checkbox>
-                  </mat-cell>
-                </ng-container>
-
-                <mat-header-row class="rowtable" *matHeaderRowDef="providerLocationColumn"></mat-header-row>
-                <mat-row *matRowDef="let row; columns: providerLocationColumn"></mat-row>
-              </mat-table>
-            </div>
-            <div class="my-3">
-              <div class="row panel-title m-0">
-                <div class="col-md-4 py-3">
-                  <h4>User Login Info</h4>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-4"><label class="settings-label">Role</label>
-                <div class="form-group">
-                  <select class="col-12 inputclass" placeholder="Role" [(ngModel)]="NewUserData.PracticeRole">
-                    <option value="" disabled selected hidden>Role</option>
-                    <option *ngFor="let pRole of providerRoles" [value]="pRole.Value">{{pRole.Name}}
-                    </option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-lg-4 " style="margin-top: 27px">
-                <mat-checkbox class="example-margin" [(ngModel)]="NewUserData.Active">
-                  <label class="settings-label mt-2">Active</label>
-                </mat-checkbox>
-              </div>
-              <div class="col-lg-4">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                  data-bs-target="#changepassword-modal" style="margin-top: 27px" class="btn btn-lg btn-success">
-                  Change Password
-                </button>
-              </div>
-            </div>
-            <div class="row align-items-center">
-              <div class="col-lg-4"><label class="settings-label">Login Email Address</label>
-                <div class="form-group">
-                  <input type="text" placeholder="Login Email Address" class="inputclass"
-                    [(ngModel)]="NewUserData.Email">
-                </div>
-              </div>
-              <div class="col-lg-4"><label class="settings-label">Login Phone</label>
-                <div class="form-group">
-                  <input type="text" placeholder="Login Phone" class="inputclass"
-                    [(ngModel)]="NewUserData.PrimaryPhone">
-                </div>
-              </div>
-              <div class="col-lg-4">
-                <button type="submit" class="btn btn-lg btn-success">Resend Inviation Email</button>
-              </div>
-              <div class="col-lg-4"><label class="settings-label">Recovery Email</label>
-                <div class="form-group">
-                  <input type="text" placeholder="Recovery Email" class="inputclass" [(ngModel)]="NewUserData.AltEmail">
-                </div>
-              </div>
-            </div>
-          </div>
-          <hr>
-          <div class="row">
-            <div class="col-md-12">
-              <div class="d-flex justify-content-end">
-                <button type="button" class="btn btn-lg btn-success mx-2" (click)="updateUser('update')"
-                  data-bs-dismiss="modal">
-                  Save Changes
-                </button>
-                <button type="button" class="btn btn-lg btn-success" data-bs-dismiss="modal">
-                  Cancel
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> -->
 
   <!-- Change Password Modal -->
   <div class="modal fade" id="changepassword-modal" tabindex="-1" aria-labelledby="staticBackdropLabel"

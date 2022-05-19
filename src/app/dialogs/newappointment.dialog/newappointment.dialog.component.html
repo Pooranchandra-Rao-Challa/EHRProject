@@ -102,9 +102,9 @@
             <span id="spantimeSlots"
               (show)="messageToShowTimeSlots != null && messageToShowTimeSlots != ''">{{messageToShowTimeSlots}}</span>
             <div class="col-lg-4 col-md-3 col-12 pb-3" *ngFor="let slot of AvaliableTimeSlots">
-              <button class="btn col-12" [class.timeslot-selected]="slot === this.PatientAppointment.TimeSlot"
+              <button class="btn col-12 timeslots" [class.timeslot-selected]="slot === this.PatientAppointment.TimeSlot"
                 type="button" (click)="onTimeSlotSelect(slot)">
-                <span class="timeslots">{{slot.TimeSlot}}</span>
+                <span>{{slot.TimeSlot}}</span>
               </button>
             </div>
           </div>

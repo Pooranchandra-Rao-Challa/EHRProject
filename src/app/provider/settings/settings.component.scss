@@ -3,12 +3,9 @@
 
 .panel-title {
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  // background-color: #41b6a6;
-  // color: white;
   border: #41b6a6;
   min-height: 50px;
   text-align: 10px;
-  // padding: 14px 20px; // schedule panel
   padding: 10px 20px;
   font-size: 15px;
 }
@@ -107,11 +104,10 @@
   margin-bottom: 0;
 }
 .schedule-section {
-  //padding: 20px 50px;
   padding-left: 50px;
-    padding-right: 30px;
-    padding-top: 20px;
-    padding-bottom: 20px;
+  padding-right: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 @media (max-width: 1440px) {
   .schedule-section {
@@ -148,6 +144,10 @@
   background-attachment: fixed;
   background: white;
 }
+.modal-body {
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+}
 .modal-header {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   color: white;
@@ -155,8 +155,8 @@
   border-bottom: none;
   min-height: 50px;
   max-height: 50px;
-  //margin-top: -1px;
- // margin-left: -1px;
+   margin-top: -1px;
+   margin-left: -1px;
 }
 .row-heading {
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -177,18 +177,11 @@
     border: 1px solid #aaa;
     border-radius: 4px;
 }
-// .inputclass {
-//   border-radius: 4px;
-//   border: 1px solid #ebebeb;
-//   padding: 0px 10px;
-//   height: 45px;
-//   color: #333333;
-//   font-size: 15px;
-//   background-color: #f5f5f5;
-// }
-// .inputclass:hover {
-//   border: 1px solid #41b6a6;
-// }
+.locationbtns{
+  display: flex;
+  justify-content: space-around;
+}
+
 .schedule-inputclass {
   background-color: #fff;
   border: 1px solid #fff;
@@ -208,19 +201,6 @@
   font-size: 15px;
 }
 
-// .form-group .input-group .input-group-addon {
-//   padding: 15px 10px;
-// }
-// .form-group label {
-//   padding-top: 10px;
-//   font-size: 13px;
-//   font-weight: 500;
-//   font-family: 'Roboto';
-// }
-// .form-group {
-//   display: flex;
-//   flex-direction: column;
-// }
 .week {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
@@ -240,23 +220,8 @@ hr {
   border: 0;
   opacity: 2.25 !important;
 }
-// .crossbtn {
-//   background-color: #41b6a6;
-//   width: 25px;
-//   height: 28px;
-//   padding: 1px;
-//   border: 1px solid white;
-//   color: white;
-// }
 
-// .crossbtn:hover {
-//   background-color: #64cfc1;
-//   width: 25px;
-//   padding: 0px;
-//   border: 1px solid rgb(235, 231, 231);
-// }
 .plabel {
-  // color: #4A4A4A;
   font-size: 15px; // schedule screen location
 }
 .modal-content {
@@ -557,43 +522,7 @@ ul.menuclass li.active a {
 .addfromdesign {
   background: #ececec;
 }
-// ::ng-deep .mat-checkbox-checked.mat-accent {
-//   .mat-checkbox-background,
-//   .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
-//     background-color: rgb(243, 242, 242);
-//     border-radius: 20% !important ;
-//     border-color: rgb(151, 150, 150);
-//     height: 19px;
-//     width: 19px;
-//   }
-//   .mat-checkbox-checkmark-path {
-//     stroke: grey !important;
-//   }
-// }
-// ::ng-deep .example-margin:hover {
-//   & .mat-checkbox-background,
-//   .mat-checkbox-frame {
-//     border-color: #41b6a6;
-//   }
-// }
-// ::ng-deep .example-margin {
-//   & .mat-checkbox-background,
-//   .mat-checkbox-frame {
-//     border-radius: 20% !important;
-//     border-color: #cacaca;
-//     background-color: #eeeaea;
-//     border-width: 2px;
-//     border-style: solid;
-//     width: 19px;
-//     height: 19px;
-//   }
-// }
-// ::ng-deep .example-margin:hover {
-//   & .mat-checkbox-background,
-//   .mat-checkbox-frame {
-//     border-color: #41b6a6;
-//   }
-// }
+
 .cell-breakWord {
   word-wrap: break-word;
   white-space: normal !important;
@@ -613,11 +542,7 @@ ul.menuclass li.active a {
 .notallowCursor {
   cursor: not-allowed !important;
 }
-// .top-block {
-//   font-size: 16px !important;
-//   color: black;
-//   font-family: Roboto, "Helvetica Neue", sans-serif;
-// }
+
 @media (max-width: 1350px) {
   .scrollable-mat-table {
     max-width: 1200px;
@@ -642,10 +567,7 @@ ul.menuclass li.active a {
   padding: 10px;
   border-top: none;
 }
-// .inputclass.providerrole{
-//   background-color: #d6d8df;
-//   color: #74757e;
-// }
+
 @media (max-width: 768px) {
   .addbtn {
     margin-right: 154px;
