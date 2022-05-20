@@ -1,13 +1,13 @@
 <div class="container-scroller">
-
-   <provider-app-navbar  (LocationChanged)="locationChanged($event)"></provider-app-navbar>
-   <app-breadcrum></app-breadcrum>
+  <provider-app-navbar (LocationChanged)="locationChanged($event)"></provider-app-navbar>
+  <app-breadcrum></app-breadcrum>
   <div class="container-fluid page-body-wrapper">
     <div class="main-panel" style="width: 100%; min-height: calc(100vh - 130px);">
       <div class="content-wrapper">
         <router-outlet></router-outlet>
       </div>
-      <provider-app-footer></provider-app-footer>
+      <!-- <provider-app-footer></provider-app-footer> -->
     </div>
   </div>
+  <provider-app-footer></provider-app-footer>
 </div>
