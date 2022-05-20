@@ -622,1116 +622,1132 @@
               <input type="checkbox" name="CLINICALORALEVALUATIONS" id="CLINICALORALEVALUATIONS" class="css-checkbox">
               <label for="CLINICALORALEVALUATIONS" class="css-label">
                 <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>CLINICAL ORAL EVALUATIONS
+                <span class="fa fa-minus fa-cust-icon mx-2"></span>DIAGNOSTIC
               </label>
               <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
+                <input type="checkbox" name="CLINICALORALEVALUATIONS" id="CLINICALORALEVALUATIONS" class="css-checkbox">
+                <label for="CLINICALORALEVALUATIONS" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>CLINICAL ORAL EVALUATIONS
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="PRE-DIAGNOSTICSERVICES" id="PRE-DIAGNOSTICSERVICES" class="css-checkbox">
+                <label for="PRE-DIAGNOSTICSERVICES" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>PRE-DIAGNOSTIC SERVICES
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="DIAGNOSTICIMAGING" id="DIAGNOSTICIMAGING" class="css-checkbox">
+                <label for="DIAGNOSTICIMAGING" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>DIAGNOSTIC IMAGING
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="ORALPATHOLOGYLABORATORY" id="ORALPATHOLOGYLABORATORY" class="css-checkbox">
+                <label for="ORALPATHOLOGYLABORATORY" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>ORAL PATHOLOGY LABORATORY (USE CODES D0472 - D0502)
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="None1" id="None1" class="css-checkbox">
+                <label for="None1" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>None
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
               </div>
             </div>
-            <div class="child-check">
-              <input type="checkbox" name="PRE-DIAGNOSTICSERVICES" id="PRE-DIAGNOSTICSERVICES" class="css-checkbox">
-              <label for="PRE-DIAGNOSTICSERVICES" class="css-label">
+            <!-- PREVENTIVE -->
+            <div class="parent-check">
+              <input type="checkbox" name="PREVENTIVE" id="PREVENTIVE" class="css-checkbox">
+              <label for="PREVENTIVE" class="css-label">
                 <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>PRE-DIAGNOSTIC SERVICES
+                <span class="fa fa-minus fa-cust-icon mx-2"></span>PREVENTIVE
               </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="DIAGNOSTICIMAGING" id="DIAGNOSTICIMAGING" class="css-checkbox">
-              <label for="DIAGNOSTICIMAGING" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>DIAGNOSTIC IMAGING
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="ORALPATHOLOGYLABORATORY" id="ORALPATHOLOGYLABORATORY" class="css-checkbox">
-              <label for="ORALPATHOLOGYLABORATORY" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>ORAL PATHOLOGY LABORATORY (USE CODES D0472 - D0502)
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="None1" id="None1" class="css-checkbox">
-              <label for="None1" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>None
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <!-- PREVENTIVE -->
-          <div class="parent-check">
-            <input type="checkbox" name="PREVENTIVE" id="PREVENTIVE" class="css-checkbox">
-            <label for="PREVENTIVE" class="css-label">
-              <span class="fa fa-plus fa-cust-icon mx-2"></span>
-              <span class="fa fa-minus fa-cust-icon mx-2"></span>PREVENTIVE
-            </label>
 
-            <div class="child-check">
-              <input type="checkbox" name="DENTALPROPHYLAXIS" id="DENTALPROPHYLAXIS" class="css-checkbox">
-              <label for="DENTALPROPHYLAXIS" class="css-label">
+              <div class="child-check">
+                <input type="checkbox" name="DENTALPROPHYLAXIS" id="DENTALPROPHYLAXIS" class="css-checkbox">
+                <label for="DENTALPROPHYLAXIS" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>DENTAL PROPHYLAXIS
+                </label>
+
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="d" id="TOPICALFLUORIDETREATMENT" class="css-checkbox">
+                <label for="TOPICALFLUORIDETREATMENT" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>TOPICAL FLUORIDE TREATMENT (OFFICE PROCEDURE)
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="OTHERPREVENTIVESERVICES" id="OTHERPREVENTIVESERVICES" class="css-checkbox">
+                <label for="OTHERPREVENTIVESERVICES" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>OTHER PREVENTIVE SERVICES
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="SPACEMAINTENANCE" id="SPACEMAINTENANCE" class="css-checkbox">
+                <label for="SPACEMAINTENANCE" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>SPACE MAINTENANCE (PASSIVE APPLIANCES)
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="SPACEMAINTAINERS1" id="SPACEMAINTAINERS1" class="css-checkbox">
+                <label for="SPACEMAINTAINERS1" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>SPACE MAINTAINERS
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="None2" id="None2" class="css-checkbox">
+                <label for="None2" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>None
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!-- RESTORATIVE -->
+            <div class="parent-check">
+              <input type="checkbox" name="RESTORATIVE" id="RESTORATIVE" class="css-checkbox">
+              <label for="RESTORATIVE" class="css-label">
                 <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>DENTAL PROPHYLAXIS
+                <span class="fa fa-minus fa-cust-icon mx-2"></span>RESTORATIVE
+              </label>
+              <div class="child-check">
+                <input type="checkbox" name="AMALGAMRESTORATIONS" id="AMALGAMRESTORATIONS" class="css-checkbox">
+                <label for="AMALGAMRESTORATIONS" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>AMALGAM RESTORATIONS (INCLUDING POLISHING)
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="child-check">
+                <input type="checkbox" name="RESINBASEDCOMPOSITERESTORATIONS" id="RESINBASEDCOMPOSITERESTORATIONS"
+                  class="css-checkbox">
+                <label for="RESINBASEDCOMPOSITERESTORATIONS" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>RESIN-BASEDCOMPOSITE RESTORATIONS - DIRECT
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="GOLDFOILRESTORATIONS" id="GOLDFOILRESTORATIONS" class="css-checkbox">
+                <label for="GOLDFOILRESTORATIONS" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>GOLD FOIL RESTORATIONS
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="INLAY/ONLAYRESTORATIONS" id="INLAY/ONLAYRESTORATIONS" class="css-checkbox">
+                <label for="INLAY/ONLAYRESTORATIONS" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>INLAY/ONLAY RESTORATIONS
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="CROWNSSINGLERESTORATIONS" id="CROWNSSINGLERESTORATIONS"
+                  class="css-checkbox">
+                <label for="CROWNSSINGLERESTORATIONS" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>CROWNS - SINGLE RESTORATIONS ONLY
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="OTHERRESTORATIVESERVICES" id="OTHERRESTORATIVESERVICES"
+                  class="css-checkbox">
+                <label for="OTHERRESTORATIVESERVICES" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>OTHER RESTORATIVE SERVICES
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="None3" id="None3" class="css-checkbox">
+                <label for="None3" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>None
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!-- ENDODONTICS -->
+            <div class="parent-check ">
+              <input type="checkbox" name="ENDODONTICS" id="ENDODONTICS" class="css-checkbox">
+              <label for="ENDODONTICS" class="css-label">
+                <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                <span class="fa fa-minus fa-cust-icon mx-2"></span>ENDODONTICS
               </label>
 
               <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
+                <input type="checkbox" name="PULPCAPPING" id="PULPCAPPING" class="css-checkbox">
+                <label for="PULPCAPPING" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>PULP CAPPING
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
 
-                </ul>
+              <div class="child-check">
+                <input type="checkbox" name="PULPOTOMY" id="PULPOTOMY" class="css-checkbox">
+                <label for="PULPOTOMY" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>PULPOTOMY
+                </label>
+
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="ENDODONTICTHERAPYON" id="ENDODONTICTHERAPYON" class="css-checkbox">
+                <label for="ENDODONTICTHERAPYON" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>ENDODONTIC THERAPY ON PRIMARY TEETH
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="ENDODONTICTHERAPY" id="ENDODONTICTHERAPY" class="css-checkbox">
+                <label for="ENDODONTICTHERAPY" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>ENDODONTIC THERAPY (INCLUDING TREATMENT PLAN,
+                  CLINICAL
+                  PROCEDURES AND FOLLOW-UP CARE)
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="ENDODONTICRETREATMENT" id="ENDODONTICRETREATMENT" class="css-checkbox">
+                <label for="ENDODONTICRETREATMENT" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>ENDODONTIC RETREATMENT
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="APEXIFICATION/RECALCIFICATION" id="APEXIFICATION/RECALCIFICATION"
+                  class="css-checkbox">
+                <label for="APEXIFICATION/RECALCIFICATION" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>APEXIFICATION/RECALCIFICATION
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="PULPALREGENERATION" id="PULPALREGENERATION" class="css-checkbox">
+                <label for="PULPALREGENERATION" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>PULPAL REGENERATION
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="APICOECTOMY/PERIRADICULAR " id="APICOECTOMY/PERIRADICULAR "
+                  class="css-checkbox">
+                <label for="APICOECTOMY/PERIRADICULAR " class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>APICOECTOMY/PERIRADICULAR SERVICES
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="OTHERENDODONTICPROCEDURES" id="OTHERENDODONTICPROCEDURES"
+                  class="css-checkbox">
+                <label for="OTHERENDODONTICPROCEDURES" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>OTHER ENDODONTICP ROCEDURES
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="None4" id="None4" class="css-checkbox">
+                <label for="None4" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>None
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
               </div>
             </div>
-            <div class="child-check">
-              <input type="checkbox" name="d" id="TOPICALFLUORIDETREATMENT" class="css-checkbox">
-              <label for="TOPICALFLUORIDETREATMENT" class="css-label">
+            <!-- PERIODONTICS -->
+            <div class="parent-check ">
+              <input type="checkbox" name="PERIODONTICS" id="PERIODONTICS" class="css-checkbox">
+              <label for="PERIODONTICS" class="css-label">
                 <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>TOPICAL FLUORIDE TREATMENT (OFFICE PROCEDURE)
+                <span class="fa fa-minus fa-cust-icon mx-2"></span>PERIODONTICS
               </label>
+
               <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
+                <input type="checkbox" name="SURGICALSERVICES" id="SURGICALSERVICES" class="css-checkbox">
+                <label for="SURGICALSERVICES" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>SURGICAL SERVICES (INCLUDING USUAL POSTOPERATIVE
+                  CARE)
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="NON-SURGICALPERIODONTAL" id="NON-SURGICALPERIODONTAL" class="css-checkbox">
+                <label for="NON-SURGICALPERIODONTAL" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>NON-SURGICAL PERIODONTAL SERVICE
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="OTHERPERIODONTALSERVICES" id="OTHERPERIODONTALSERVICES"
+                  class="css-checkbox">
+                <label for="OTHERPERIODONTALSERVICES" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>OTHER PERIODONTAL SERVICES
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="None5" id="None5" class="css-checkbox">
+                <label for="None5" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>None
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
               </div>
             </div>
-            <div class="child-check">
-              <input type="checkbox" name="OTHERPREVENTIVESERVICES" id="OTHERPREVENTIVESERVICES" class="css-checkbox">
-              <label for="OTHERPREVENTIVESERVICES" class="css-label">
+            <!-- PROSTHODONTICS (removable) -->
+            <div class="parent-check ">
+              <input type="checkbox" name="PROSTHODONTICS" id="PROSTHODONTICS" class="css-checkbox">
+              <label for="PROSTHODONTICS" class="css-label">
                 <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>OTHER PREVENTIVE SERVICES
+                <span class="fa fa-minus fa-cust-icon mx-2"></span>PROSTHODONTICS (removable)
               </label>
+
               <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
+                <input type="checkbox" name="COMPLETEDENTURES" id="COMPLETEDENTURES" class="css-checkbox">
+                <label for="COMPLETEDENTURES" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>COMPLETE DENTURES (INCLUDING ROUTINE POST-DELIVERY
+                  CARE)
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="child-check">
+                <input type="checkbox" name="PARTIALDENTURES" id="PARTIALDENTURES" class="css-checkbox">
+                <label for="PARTIALDENTURES" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>PARTIAL DENTURES (INCLUDING ROUTINE POST-DELIVERY
+                  CARE)
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="ADJUSTMENTSTODENTURES" id="ADJUSTMENTSTODENTURES" class="css-checkbox">
+                <label for="ADJUSTMENTSTODENTURES" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>ADJUSTMENTS TO DENTURES
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="REPAIRSTOCOMPLETEDENTURES" id="REPAIRSTOCOMPLETEDENTURES"
+                  class="css-checkbox">
+                <label for="REPAIRSTOCOMPLETEDENTURES" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>REPAIRS TO COMPLETE DENTURES
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="REPAIRSTOPARTIALDENTURES" id="REPAIRSTOPARTIALDENTURES"
+                  class="css-checkbox">
+                <label for="REPAIRSTOPARTIALDENTURES" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>REPAIRS TO PARTIAL DENTURES
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="DENTUREREBASEPROCEDURES" id="DENTUREREBASEPROCEDURES" class="css-checkbox">
+                <label for="DENTUREREBASEPROCEDURES" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>DENTURE REBASE PROCEDURES
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="DENTURERELINEPROCEDURES" id="DENTURERELINEPROCEDURES" class="css-checkbox">
+                <label for="DENTURERELINEPROCEDURES" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>DENTURE RELINE PROCEDURES
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="INTERIMPROSTHESIS" id="INTERIMPROSTHESIS" class="css-checkbox">
+                <label for="INTERIMPROSTHESIS" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>INTERIM PROSTHESIS
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="OTHERREMOVABLEPROSTHETICSERVICES" id="OTHERREMOVABLEPROSTHETICSERVICES"
+                  class="css-checkbox">
+                <label for="OTHERREMOVABLEPROSTHETICSERVICES" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>OTHER REMOVABLE PROSTHETIC SERVICES
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="None6" id="None6" class="css-checkbox">
+                <label for="None6" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>None
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
               </div>
             </div>
-            <div class="child-check">
-              <input type="checkbox" name="SPACEMAINTENANCE" id="SPACEMAINTENANCE" class="css-checkbox">
-              <label for="SPACEMAINTENANCE" class="css-label">
+            <!-- MAXILLOFACIAL PROSTHETICS -->
+            <div class="parent-check ">
+              <input type="checkbox" name="MAXILLOFACIALPROSTHETICS" id="MAXILLOFACIALPROSTHETICS" class="css-checkbox">
+              <label for="MAXILLOFACIALPROSTHETICS" class="css-label">
                 <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>SPACE MAINTENANCE (PASSIVE APPLIANCES)
+                <span class="fa fa-minus fa-cust-icon mx-2"></span>MAXILLOFACIAL PROSTHETICS
               </label>
+
               <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
+                <input type="checkbox" name="CARRIERS" id="CARRIERS" class="css-checkbox">
+                <label for="CARRIERS" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>CARRIERS
+                </label>
+
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="child-check">
+                <input type="checkbox" name="None7" id="None7" class="css-checkbox">
+                <label for="None7" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>None
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
               </div>
             </div>
-            <div class="child-check">
-              <input type="checkbox" name="SPACEMAINTAINERS1" id="SPACEMAINTAINERS1" class="css-checkbox">
-              <label for="SPACEMAINTAINERS1" class="css-label">
+            <!-- IMPLANT SERVICES -->
+            <div class="parent-check ">
+              <input type="checkbox" name="IMPLANTSERVICES" id="IMPLANTSERVICES" class="css-checkbox">
+              <label for="IMPLANTSERVICES" class="css-label">
                 <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>SPACE MAINTAINERS
+                <span class="fa fa-minus fa-cust-icon mx-2"></span>IMPLANT SERVICES
               </label>
+
               <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
+                <input type="checkbox" name="SURGICALSERVICES1" id="SURGICALSERVICES1" class="css-checkbox">
+                <label for="SURGICALSERVICES1" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>SURGICAL SERVICES
+                </label>
+
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="IMPLANTSUPPORTEDPROSTHETICS" id="IMPLANTSUPPORTEDPROSTHETICS"
+                  class="css-checkbox">
+                <label for="IMPLANTSUPPORTEDPROSTHETICS" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>IMPLANT SUPPORTED PROSTHETICS
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="OTHERIMPLANTSERVICES" id="OTHERIMPLANTSERVICES" class="css-checkbox">
+                <label for="OTHERIMPLANTSERVICES" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>OTHER IMPLANT SERVICES
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="PRE-SURGICALSERVICES" id="PRE-SURGICALSERVICES" class="css-checkbox">
+                <label for="PRE-SURGICALSERVICES" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>PRE-SURGICAL SERVICES
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="None8" id="None8" class="css-checkbox">
+                <label for="None8" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>None
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
               </div>
             </div>
-            <div class="child-check">
-              <input type="checkbox" name="None2" id="None2" class="css-checkbox">
-              <label for="None2" class="css-label">
+            <!-- PROSTHODONTICS, fixed -->
+            <div class="parent-check ">
+              <input type="checkbox" name="PROSTHODONTICSfixed" id="PROSTHODONTICSfixed" class="css-checkbox">
+              <label for="PROSTHODONTICSfixed" class="css-label">
                 <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>None
+                <span class="fa fa-minus fa-cust-icon mx-2"></span>PROSTHODONTICS, fixed
               </label>
+
               <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
+                <input type="checkbox" name="FIXEDPARTIALDENTUREPONTICS" id="FIXEDPARTIALDENTUREPONTICS"
+                  class="css-checkbox">
+                <label for="FIXEDPARTIALDENTUREPONTICS" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>FIXED PARTIAL DENTURE PONTICS
+                </label>
+
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
               </div>
-            </div>
-          </div>
-          <!-- RESTORATIVE -->
-          <div class="parent-check">
-            <input type="checkbox" name="RESTORATIVE" id="RESTORATIVE" class="css-checkbox">
-            <label for="RESTORATIVE" class="css-label">
-              <span class="fa fa-plus fa-cust-icon mx-2"></span>
-              <span class="fa fa-minus fa-cust-icon mx-2"></span>RESTORATIVE
-            </label>
-            <div class="child-check">
-              <input type="checkbox" name="AMALGAMRESTORATIONS" id="AMALGAMRESTORATIONS" class="css-checkbox">
-              <label for="AMALGAMRESTORATIONS" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>AMALGAM RESTORATIONS (INCLUDING POLISHING)
-              </label>
               <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
+                <input type="checkbox" name="FIXEDPARTIALDENTURERETAINERS" id="FIXEDPARTIALDENTURERETAINERS"
+                  class="css-checkbox">
+                <label for="FIXEDPARTIALDENTURERETAINERS" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>FIXED PARTIAL DENTURE RETAINERS - INLAYS/ONLAYS
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="FIXEDPARTIALDENTURERETAINERSCROWNS" id="FIXEDPARTIALDENTURERETAINERSCROWNS"
+                  class="css-checkbox">
+                <label for="FIXEDPARTIALDENTURERETAINERSCROWNS" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>FIXED PARTIAL DENTURE RETAINERS - CROWNS
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="OTHERFIXEDPARTIALDENTURESERVICES" id="OTHERFIXEDPARTIALDENTURESERVICES"
+                  class="css-checkbox">
+                <label for="OTHERFIXEDPARTIALDENTURESERVICES" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>OTHER FIXED PARTIAL DENTURE SERVICES
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="None9" id="None9" class="css-checkbox">
+                <label for="None9" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>None
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
               </div>
             </div>
 
-            <div class="child-check">
-              <input type="checkbox" name="RESINBASEDCOMPOSITERESTORATIONS" id="RESINBASEDCOMPOSITERESTORATIONS"
+            <!-- //ORAL & MAXILLOFACIAL SURGERY -->
+            <div class="parent-check ">
+              <input type="checkbox" name="ORAL&MAXILLOFACIALSURGERY" id="ORAL&MAXILLOFACIALSURGERY"
                 class="css-checkbox">
-              <label for="RESINBASEDCOMPOSITERESTORATIONS" class="css-label">
+              <label for="ORAL&MAXILLOFACIALSURGERY" class="css-label">
                 <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>RESIN-BASEDCOMPOSITE RESTORATIONS - DIRECT
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="GOLDFOILRESTORATIONS" id="GOLDFOILRESTORATIONS" class="css-checkbox">
-              <label for="GOLDFOILRESTORATIONS" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>GOLD FOIL RESTORATIONS
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="INLAY/ONLAYRESTORATIONS" id="INLAY/ONLAYRESTORATIONS" class="css-checkbox">
-              <label for="INLAY/ONLAYRESTORATIONS" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>INLAY/ONLAY RESTORATIONS
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="CROWNSSINGLERESTORATIONS" id="CROWNSSINGLERESTORATIONS" class="css-checkbox">
-              <label for="CROWNSSINGLERESTORATIONS" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>CROWNS - SINGLE RESTORATIONS ONLY
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="OTHERRESTORATIVESERVICES" id="OTHERRESTORATIVESERVICES" class="css-checkbox">
-              <label for="OTHERRESTORATIVESERVICES" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>OTHER RESTORATIVE SERVICES
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="None3" id="None3" class="css-checkbox">
-              <label for="None3" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>None
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <!-- ENDODONTICS -->
-          <div class="parent-check ">
-            <input type="checkbox" name="ENDODONTICS" id="ENDODONTICS" class="css-checkbox">
-            <label for="ENDODONTICS" class="css-label">
-              <span class="fa fa-plus fa-cust-icon mx-2"></span>
-              <span class="fa fa-minus fa-cust-icon mx-2"></span>ENDODONTICS
-            </label>
-
-            <div class="child-check">
-              <input type="checkbox" name="PULPCAPPING" id="PULPCAPPING" class="css-checkbox">
-              <label for="PULPCAPPING" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>PULP CAPPING
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="child-check">
-              <input type="checkbox" name="PULPOTOMY" id="PULPOTOMY" class="css-checkbox">
-              <label for="PULPOTOMY" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>PULPOTOMY
+                <span class="fa fa-minus fa-cust-icon mx-2"></span>ORAL & MAXILLOFACIAL SURGERY
               </label>
 
               <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
+                <input type="checkbox" name="EXTRACTIONS" id="EXTRACTIONS" class="css-checkbox">
+                <label for="EXTRACTIONS" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>EXTRACTIONS (INCLUDES LOCAL ANESTHESIA, SUTURING,
+                  IF
+                  NEEDED,
+                  AND ROUTINE POSTOPERATIVE CARE)
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
               </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="ENDODONTICTHERAPYON" id="ENDODONTICTHERAPYON" class="css-checkbox">
-              <label for="ENDODONTICTHERAPYON" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>ENDODONTIC THERAPY ON PRIMARY TEETH
-              </label>
+
               <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
+                <input type="checkbox" name="OTHERSURGICALPROCEDURES" id="OTHERSURGICALPROCEDURES" class="css-checkbox">
+                <label for="OTHERSURGICALPROCEDURES" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>OTHER SURGICAL PROCEDURES
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
               </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="ENDODONTICTHERAPY" id="ENDODONTICTHERAPY" class="css-checkbox">
-              <label for="ENDODONTICTHERAPY" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>ENDODONTIC THERAPY (INCLUDING TREATMENT PLAN,
-                CLINICAL
-                PROCEDURES AND FOLLOW-UP CARE)
-              </label>
+
               <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
+                <input type="checkbox" name="ALVEOLOPLASTYPREPARATIONOFRIDGE" id="ALVEOLOPLASTYPREPARATIONOFRIDGE"
+                  class="css-checkbox">
+                <label for="ALVEOLOPLASTYPREPARATIONOFRIDGE" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>ALVEOLOPLASTY - PREPARATION OF RIDGE
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
               </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="ENDODONTICRETREATMENT" id="ENDODONTICRETREATMENT" class="css-checkbox">
-              <label for="ENDODONTICRETREATMENT" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>ENDODONTIC RETREATMENT
-              </label>
               <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
+                <input type="checkbox" name="VESTIBULOPLASTY" id="VESTIBULOPLASTY" class="css-checkbox">
+                <label for="VESTIBULOPLASTY" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>VESTIBULOPLASTY
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="EXCISIONOFSOFTTISSUELESIONS" id="EXCISIONOFSOFTTISSUELESIONS"
+                  class="css-checkbox">
+                <label for="EXCISIONOFSOFTTISSUELESIONS" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>EXCISIONOF SOFT TISSUE LESIONS
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="SURGICALINCISION" id="SURGICALINCISION" class="css-checkbox">
+                <label for="SURGICALINCISION" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>SURGICAL INCISION
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="TREATMENTOFCLOSEDFACTURES" id="TREATMENTOFCLOSEDFACTURES"
+                  class="css-checkbox">
+                <label for="TREATMENTOFCLOSEDFACTURES" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>TREATMENT OFCLOSED FACTURES
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="TREATMENTOFOPENFRACTURES" id="TREATMENTOFOPENFRACTURES"
+                  class="css-checkbox">
+                <label for="TREATMENTOFOPENFRACTURES" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>TREATMENT OFOPEN FRACTURES
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="REDUCTIONOFDISLOCATIONANDMANAGEMENT"
+                  id="REDUCTIONOFDISLOCATIONANDMANAGEMENT" class="css-checkbox">
+                <label for="REDUCTIONOFDISLOCATIONANDMANAGEMENT" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>REDUCTION OFDISLOCATION AND
+                  MANAGEMENT OF OTHER TEMPOROMANDIBULAR JOINT DYSFUNCTIONS
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="REPAIROFTRAUMATICWOUNDS" id="REPAIROFTRAUMATICWOUNDS" class="css-checkbox">
+                <label for="REPAIROFTRAUMATICWOUNDS" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>REPAIR OF TRAUMATIC WOUNDS
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="COMPLICATEDSUTURING" id="COMPLICATEDSUTURING" class="css-checkbox">
+                <label for="COMPLICATEDSUTURING" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>COMPLICATED SUTURING (RECONSTRUCTION REQUIRING
+                  DELICATE HANDLING OF TISSUES AND WIDE UNDERMINING FOR METICULOUS CLOSURE)
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="OTHERREPAIRPROCEDURES" id="OTHERREPAIRPROCEDURES" class="css-checkbox">
+                <label for="OTHERREPAIRPROCEDURES" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>OTHER REPAIR PROCEDURES
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="None10" id="None10" class="css-checkbox">
+                <label for="None10" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>None
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
               </div>
             </div>
-            <div class="child-check">
-              <input type="checkbox" name="APEXIFICATION/RECALCIFICATION" id="APEXIFICATION/RECALCIFICATION"
+
+            <!-- ORTHODONTICS -->
+            <div class="parent-check ">
+              <input type="checkbox" name="ORTHODONTICS" id="ORTHODONTICS" class="css-checkbox">
+              <label for="ORTHODONTICS" class="css-label">
+                <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                <span class="fa fa-minus fa-cust-icon mx-2"></span>ORTHODONTICS
+              </label>
+
+              <div class="child-check">
+                <input type="checkbox" name="LIMITEDORTHODONTICTREATMENT" id="LIMITEDORTHODONTICTREATMENT"
+                  class="css-checkbox">
+                <label for="LIMITEDORTHODONTICTREATMENT" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>LIMITED ORTHODONTIC TREATMENT
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="INTERCEPTIVEORTHODONTICTREATMENT" id="INTERCEPTIVEORTHODONTICTREATMENT"
+                  class="css-checkbox">
+                <label for="INTERCEPTIVEORTHODONTICTREATMENT" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>INTERCEPTIVE ORTHODONTIC TREATMENT
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="COMPREHENSIVEORTHODONTICTREATMENT" id="COMPREHENSIVEORTHODONTICTREATMENT"
+                  class="css-checkbox">
+                <label for="COMPREHENSIVEORTHODONTICTREATMENT" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>COMPREHENSIVE ORTHODONTIC TREATMENT
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="MINORTREATMENTTOCONTROLHARMFULHABITS"
+                  id="MINORTREATMENTTOCONTROLHARMFULHABITS" class="css-checkbox">
+                <label for="MINORTREATMENTTOCONTROLHARMFULHABITS" class="css-label">
+
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>MINOR TREATMENT TO CONTROL HARMFUL HABITS
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="OTHERORTHODONTICSERVICES" id="OTHERORTHODONTICSERVICES"
+                  class="css-checkbox">
+                <label for="OTHERORTHODONTICSERVICES" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>OTHER ORTHODONTIC SERVICES
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="child-check">
+                <input type="checkbox" name="None11" id="None11" class="css-checkbox">
+                <label for="None11" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>None
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!-- ADJUNCTIVE GENERAL SERVICES -->
+            <div class="parent-check ">
+              <input type="checkbox" name="ADJUNCTIVEGENERALSERVICES" id="ADJUNCTIVEGENERALSERVICES"
                 class="css-checkbox">
-              <label for="APEXIFICATION/RECALCIFICATION" class="css-label">
+              <label for="ADJUNCTIVEGENERALSERVICES" class="css-label">
                 <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>APEXIFICATION/RECALCIFICATION
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="PULPALREGENERATION" id="PULPALREGENERATION" class="css-checkbox">
-              <label for="PULPALREGENERATION" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>PULPAL REGENERATION
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="APICOECTOMY/PERIRADICULAR " id="APICOECTOMY/PERIRADICULAR "
-                class="css-checkbox">
-              <label for="APICOECTOMY/PERIRADICULAR " class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>APICOECTOMY/PERIRADICULAR SERVICES
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="OTHERENDODONTICPROCEDURES" id="OTHERENDODONTICPROCEDURES"
-                class="css-checkbox">
-              <label for="OTHERENDODONTICPROCEDURES" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>OTHER ENDODONTICP ROCEDURES
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="None4" id="None4" class="css-checkbox">
-              <label for="None4" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>None
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <!-- PERIODONTICS -->
-          <div class="parent-check ">
-            <input type="checkbox" name="PERIODONTICS" id="PERIODONTICS" class="css-checkbox">
-            <label for="PERIODONTICS" class="css-label">
-              <span class="fa fa-plus fa-cust-icon mx-2"></span>
-              <span class="fa fa-minus fa-cust-icon mx-2"></span>PERIODONTICS
-            </label>
-
-            <div class="child-check">
-              <input type="checkbox" name="SURGICALSERVICES" id="SURGICALSERVICES" class="css-checkbox">
-              <label for="SURGICALSERVICES" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>SURGICAL SERVICES (INCLUDING USUAL POSTOPERATIVE
-                CARE)
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="NON-SURGICALPERIODONTAL" id="NON-SURGICALPERIODONTAL" class="css-checkbox">
-              <label for="NON-SURGICALPERIODONTAL" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>NON-SURGICAL PERIODONTAL SERVICE
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="OTHERPERIODONTALSERVICES" id="OTHERPERIODONTALSERVICES" class="css-checkbox">
-              <label for="OTHERPERIODONTALSERVICES" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>OTHER PERIODONTAL SERVICES
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="None5" id="None5" class="css-checkbox">
-              <label for="None5" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>None
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <!-- PROSTHODONTICS (removable) -->
-          <div class="parent-check ">
-            <input type="checkbox" name="PROSTHODONTICS" id="PROSTHODONTICS" class="css-checkbox">
-            <label for="PROSTHODONTICS" class="css-label">
-              <span class="fa fa-plus fa-cust-icon mx-2"></span>
-              <span class="fa fa-minus fa-cust-icon mx-2"></span>PROSTHODONTICS (removable)
-            </label>
-
-            <div class="child-check">
-              <input type="checkbox" name="COMPLETEDENTURES" id="COMPLETEDENTURES" class="css-checkbox">
-              <label for="COMPLETEDENTURES" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>COMPLETE DENTURES (INCLUDING ROUTINE POST-DELIVERY
-                CARE)
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="child-check">
-              <input type="checkbox" name="PARTIALDENTURES" id="PARTIALDENTURES" class="css-checkbox">
-              <label for="PARTIALDENTURES" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>PARTIAL DENTURES (INCLUDING ROUTINE POST-DELIVERY
-                CARE)
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="ADJUSTMENTSTODENTURES" id="ADJUSTMENTSTODENTURES" class="css-checkbox">
-              <label for="ADJUSTMENTSTODENTURES" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>ADJUSTMENTS TO DENTURES
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="REPAIRSTOCOMPLETEDENTURES" id="REPAIRSTOCOMPLETEDENTURES"
-                class="css-checkbox">
-              <label for="REPAIRSTOCOMPLETEDENTURES" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>REPAIRS TO COMPLETE DENTURES
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="REPAIRSTOPARTIALDENTURES" id="REPAIRSTOPARTIALDENTURES" class="css-checkbox">
-              <label for="REPAIRSTOPARTIALDENTURES" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>REPAIRS TO PARTIAL DENTURES
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="DENTUREREBASEPROCEDURES" id="DENTUREREBASEPROCEDURES" class="css-checkbox">
-              <label for="DENTUREREBASEPROCEDURES" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>DENTURE REBASE PROCEDURES
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="DENTURERELINEPROCEDURES" id="DENTURERELINEPROCEDURES" class="css-checkbox">
-              <label for="DENTURERELINEPROCEDURES" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>DENTURE RELINE PROCEDURES
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="INTERIMPROSTHESIS" id="INTERIMPROSTHESIS" class="css-checkbox">
-              <label for="INTERIMPROSTHESIS" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>INTERIM PROSTHESIS
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="OTHERREMOVABLEPROSTHETICSERVICES" id="OTHERREMOVABLEPROSTHETICSERVICES"
-                class="css-checkbox">
-              <label for="OTHERREMOVABLEPROSTHETICSERVICES" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>OTHER REMOVABLE PROSTHETIC SERVICES
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="None6" id="None6" class="css-checkbox">
-              <label for="None6" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>None
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <!-- MAXILLOFACIAL PROSTHETICS -->
-          <div class="parent-check ">
-            <input type="checkbox" name="MAXILLOFACIALPROSTHETICS" id="MAXILLOFACIALPROSTHETICS" class="css-checkbox">
-            <label for="MAXILLOFACIALPROSTHETICS" class="css-label">
-              <span class="fa fa-plus fa-cust-icon mx-2"></span>
-              <span class="fa fa-minus fa-cust-icon mx-2"></span>MAXILLOFACIAL PROSTHETICS
-            </label>
-
-            <div class="child-check">
-              <input type="checkbox" name="CARRIERS" id="CARRIERS" class="css-checkbox">
-              <label for="CARRIERS" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>CARRIERS
+                <span class="fa fa-minus fa-cust-icon mx-2"></span>ADJUNCTIVE GENERAL SERVICES
               </label>
 
               <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
+                <input type="checkbox" name="UNCLASSIFIEDTREATMENT" id="UNCLASSIFIEDTREATMENT" class="css-checkbox">
+                <label for="UNCLASSIFIEDTREATMENT" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>UNCLASSIFIED TREATMENT
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
               </div>
-            </div>
-
-            <div class="child-check">
-              <input type="checkbox" name="None7" id="None7" class="css-checkbox">
-              <label for="None7" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>None
-              </label>
               <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
+                <input type="checkbox" name="ANESTHESIA" id="ANESTHESIA" class="css-checkbox">
+                <label for="ANESTHESIA" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>INTERCEPTIVE ORTHODONTIC TREATMENT
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
               </div>
-            </div>
-          </div>
-          <!-- IMPLANT SERVICES -->
-          <div class="parent-check ">
-            <input type="checkbox" name="IMPLANTSERVICES" id="IMPLANTSERVICES" class="css-checkbox">
-            <label for="IMPLANTSERVICES" class="css-label">
-              <span class="fa fa-plus fa-cust-icon mx-2"></span>
-              <span class="fa fa-minus fa-cust-icon mx-2"></span>IMPLANT SERVICES
-            </label>
-
-            <div class="child-check">
-              <input type="checkbox" name="SURGICALSERVICES1" id="SURGICALSERVICES1" class="css-checkbox">
-              <label for="SURGICALSERVICES1" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>SURGICAL SERVICES
-              </label>
-
               <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
+                <input type="checkbox" name="PROFESSIONALCONSULTATION" id="PROFESSIONALCONSULTATION"
+                  class="css-checkbox">
+                <label for="PROFESSIONALCONSULTATION" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>PROFESSIONAL CONSULTATION
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
               </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="IMPLANTSUPPORTEDPROSTHETICS" id="IMPLANTSUPPORTEDPROSTHETICS"
-                class="css-checkbox">
-              <label for="IMPLANTSUPPORTEDPROSTHETICS" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>IMPLANT SUPPORTED PROSTHETICS
-              </label>
               <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
+                <input type="checkbox" name="PROFESSIONALVISITS" id="PROFESSIONALVISITS" class="css-checkbox">
+                <label for="PROFESSIONALVISITS" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>PROFESSIONAL VISITS
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
               </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="OTHERIMPLANTSERVICES" id="OTHERIMPLANTSERVICES" class="css-checkbox">
-              <label for="OTHERIMPLANTSERVICES" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>OTHER IMPLANT SERVICES
-              </label>
               <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
+                <input type="checkbox" name="DRUGS" id="DRUGS" class="css-checkbox">
+                <label for="DRUGS" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>DRUGS
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
               </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="PRE-SURGICALSERVICES" id="PRE-SURGICALSERVICES" class="css-checkbox">
-              <label for="PRE-SURGICALSERVICES" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>PRE-SURGICAL SERVICES
-              </label>
               <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
+                <input type="checkbox" name="MISCELLANEOUSSERVICES" id="MISCELLANEOUSSERVICES" class="css-checkbox">
+                <label for="MISCELLANEOUSSERVICES" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>MISCELLANEOUS SERVICES
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
               </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="None8" id="None8" class="css-checkbox">
-              <label for="None8" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>None
-              </label>
               <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
+                <input type="checkbox" name="NON-CLINICALPROCEDURES" id="NON-CLINICALPROCEDURES" class="css-checkbox">
+                <label for="NON-CLINICALPROCEDURES" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>NON-CLINICAL PROCEDURES
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
               </div>
-            </div>
-          </div>
-          <!-- PROSTHODONTICS, fixed -->
-          <div class="parent-check ">
-            <input type="checkbox" name="PROSTHODONTICSfixed" id="PROSTHODONTICSfixed" class="css-checkbox">
-            <label for="PROSTHODONTICSfixed" class="css-label">
-              <span class="fa fa-plus fa-cust-icon mx-2"></span>
-              <span class="fa fa-minus fa-cust-icon mx-2"></span>PROSTHODONTICS, fixed
-            </label>
-
-            <div class="child-check">
-              <input type="checkbox" name="FIXEDPARTIALDENTUREPONTICS" id="FIXEDPARTIALDENTUREPONTICS"
-                class="css-checkbox">
-              <label for="FIXEDPARTIALDENTUREPONTICS" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>FIXED PARTIAL DENTURE PONTICS
-              </label>
-
               <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
+                <input type="checkbox" name="None12" id="None12" class="css-checkbox">
+                <label for="None12" class="css-label">
+                  <span class="fa fa-plus fa-cust-icon mx-2"></span>
+                  <span class="fa fa-minus fa-cust-icon mx-2"></span>None
+                </label>
+                <div class="child-check">
+                  <ul *ngFor="let item of checboxList">
+                    <li class="Checklist">{{item.listName}}</li>
+                  </ul>
+                </div>
               </div>
             </div>
-            <div class="child-check">
-              <input type="checkbox" name="FIXEDPARTIALDENTURERETAINERS" id="FIXEDPARTIALDENTURERETAINERS"
-                class="css-checkbox">
-              <label for="FIXEDPARTIALDENTURERETAINERS" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>FIXED PARTIAL DENTURE RETAINERS - INLAYS/ONLAYS
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="FIXEDPARTIALDENTURERETAINERSCROWNS" id="FIXEDPARTIALDENTURERETAINERSCROWNS"
-                class="css-checkbox">
-              <label for="FIXEDPARTIALDENTURERETAINERSCROWNS" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>FIXED PARTIAL DENTURE RETAINERS - CROWNS
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="OTHERFIXEDPARTIALDENTURESERVICES" id="OTHERFIXEDPARTIALDENTURESERVICES"
-                class="css-checkbox">
-              <label for="OTHERFIXEDPARTIALDENTURESERVICES" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>OTHER FIXED PARTIAL DENTURE SERVICES
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="None9" id="None9" class="css-checkbox">
-              <label for="None9" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>None
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <!-- //ORAL & MAXILLOFACIAL SURGERY -->
-          <div class="parent-check ">
-            <input type="checkbox" name="ORAL&MAXILLOFACIALSURGERY" id="ORAL&MAXILLOFACIALSURGERY" class="css-checkbox">
-            <label for="ORAL&MAXILLOFACIALSURGERY" class="css-label">
-              <span class="fa fa-plus fa-cust-icon mx-2"></span>
-              <span class="fa fa-minus fa-cust-icon mx-2"></span>ORAL & MAXILLOFACIAL SURGERY
-            </label>
-
-            <div class="child-check">
-              <input type="checkbox" name="EXTRACTIONS" id="EXTRACTIONS" class="css-checkbox">
-              <label for="EXTRACTIONS" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>EXTRACTIONS (INCLUDES LOCAL ANESTHESIA, SUTURING, IF
-                NEEDED,
-                AND ROUTINE POSTOPERATIVE CARE)
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="child-check">
-              <input type="checkbox" name="OTHERSURGICALPROCEDURES" id="OTHERSURGICALPROCEDURES" class="css-checkbox">
-              <label for="OTHERSURGICALPROCEDURES" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>OTHER SURGICAL PROCEDURES
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="child-check">
-              <input type="checkbox" name="ALVEOLOPLASTYPREPARATIONOFRIDGE" id="ALVEOLOPLASTYPREPARATIONOFRIDGE"
-                class="css-checkbox">
-              <label for="ALVEOLOPLASTYPREPARATIONOFRIDGE" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>ALVEOLOPLASTY - PREPARATION OF RIDGE
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="VESTIBULOPLASTY" id="VESTIBULOPLASTY" class="css-checkbox">
-              <label for="VESTIBULOPLASTY" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>VESTIBULOPLASTY
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="EXCISIONOFSOFTTISSUELESIONS" id="EXCISIONOFSOFTTISSUELESIONS"
-                class="css-checkbox">
-              <label for="EXCISIONOFSOFTTISSUELESIONS" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>EXCISIONOF SOFT TISSUE LESIONS
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="SURGICALINCISION" id="SURGICALINCISION" class="css-checkbox">
-              <label for="SURGICALINCISION" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>SURGICAL INCISION
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="TREATMENTOFCLOSEDFACTURES" id="TREATMENTOFCLOSEDFACTURES"
-                class="css-checkbox">
-              <label for="TREATMENTOFCLOSEDFACTURES" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>TREATMENT OFCLOSED FACTURES
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="TREATMENTOFOPENFRACTURES" id="TREATMENTOFOPENFRACTURES" class="css-checkbox">
-              <label for="TREATMENTOFOPENFRACTURES" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>TREATMENT OFOPEN FRACTURES
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="REDUCTIONOFDISLOCATIONANDMANAGEMENT" id="REDUCTIONOFDISLOCATIONANDMANAGEMENT"
-                class="css-checkbox">
-              <label for="REDUCTIONOFDISLOCATIONANDMANAGEMENT" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>REDUCTION OFDISLOCATION AND
-                MANAGEMENT OF OTHER TEMPOROMANDIBULAR JOINT DYSFUNCTIONS
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="REPAIROFTRAUMATICWOUNDS" id="REPAIROFTRAUMATICWOUNDS" class="css-checkbox">
-              <label for="REPAIROFTRAUMATICWOUNDS" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>REPAIR OF TRAUMATIC WOUNDS
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="COMPLICATEDSUTURING" id="COMPLICATEDSUTURING" class="css-checkbox">
-              <label for="COMPLICATEDSUTURING" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>COMPLICATED SUTURING (RECONSTRUCTION REQUIRING
-                DELICATE HANDLING OF TISSUES AND WIDE UNDERMINING FOR METICULOUS CLOSURE)
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="OTHERREPAIRPROCEDURES" id="OTHERREPAIRPROCEDURES" class="css-checkbox">
-              <label for="OTHERREPAIRPROCEDURES" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>OTHER REPAIR PROCEDURES
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="None10" id="None10" class="css-checkbox">
-              <label for="None10" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>None
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <!-- ORTHODONTICS -->
-          <div class="parent-check ">
-            <input type="checkbox" name="ORTHODONTICS" id="ORTHODONTICS" class="css-checkbox">
-            <label for="ORTHODONTICS" class="css-label">
-              <span class="fa fa-plus fa-cust-icon mx-2"></span>
-              <span class="fa fa-minus fa-cust-icon mx-2"></span>ORTHODONTICS
-            </label>
-
-            <div class="child-check">
-              <input type="checkbox" name="LIMITEDORTHODONTICTREATMENT" id="LIMITEDORTHODONTICTREATMENT"
-                class="css-checkbox">
-              <label for="LIMITEDORTHODONTICTREATMENT" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>LIMITED ORTHODONTIC TREATMENT
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="INTERCEPTIVEORTHODONTICTREATMENT" id="INTERCEPTIVEORTHODONTICTREATMENT"
-                class="css-checkbox">
-              <label for="INTERCEPTIVEORTHODONTICTREATMENT" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>INTERCEPTIVE ORTHODONTIC TREATMENT
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="COMPREHENSIVEORTHODONTICTREATMENT" id="COMPREHENSIVEORTHODONTICTREATMENT"
-                class="css-checkbox">
-              <label for="COMPREHENSIVEORTHODONTICTREATMENT" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>COMPREHENSIVE ORTHODONTIC TREATMENT
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="MINORTREATMENTTOCONTROLHARMFULHABITS"
-                id="MINORTREATMENTTOCONTROLHARMFULHABITS" class="css-checkbox">
-              <label for="MINORTREATMENTTOCONTROLHARMFULHABITS" class="css-label">
-
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>MINOR TREATMENT TO CONTROL HARMFUL HABITS
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="OTHERORTHODONTICSERVICES" id="OTHERORTHODONTICSERVICES" class="css-checkbox">
-              <label for="OTHERORTHODONTICSERVICES" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>OTHER ORTHODONTIC SERVICES
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="None11" id="None11" class="css-checkbox">
-              <label for="None11" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>None
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <!-- ADJUNCTIVE GENERAL SERVICES -->
-          <div class="parent-check ">
-            <input type="checkbox" name="ADJUNCTIVEGENERALSERVICES" id="ADJUNCTIVEGENERALSERVICES" class="css-checkbox">
-            <label for="ADJUNCTIVEGENERALSERVICES" class="css-label">
-              <span class="fa fa-plus fa-cust-icon mx-2"></span>
-              <span class="fa fa-minus fa-cust-icon mx-2"></span>ADJUNCTIVE GENERAL SERVICES
-            </label>
-
-            <div class="child-check">
-              <input type="checkbox" name="UNCLASSIFIEDTREATMENT" id="UNCLASSIFIEDTREATMENT" class="css-checkbox">
-              <label for="UNCLASSIFIEDTREATMENT" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>UNCLASSIFIED TREATMENT
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="ANESTHESIA" id="ANESTHESIA" class="css-checkbox">
-              <label for="ANESTHESIA" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>INTERCEPTIVE ORTHODONTIC TREATMENT
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="PROFESSIONALCONSULTATION" id="PROFESSIONALCONSULTATION" class="css-checkbox">
-              <label for="PROFESSIONALCONSULTATION" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>PROFESSIONAL CONSULTATION
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="PROFESSIONALVISITS" id="PROFESSIONALVISITS" class="css-checkbox">
-              <label for="PROFESSIONALVISITS" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>PROFESSIONAL VISITS
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="DRUGS" id="DRUGS" class="css-checkbox">
-              <label for="DRUGS" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>DRUGS
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="MISCELLANEOUSSERVICES" id="MISCELLANEOUSSERVICES" class="css-checkbox">
-              <label for="MISCELLANEOUSSERVICES" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>MISCELLANEOUS SERVICES
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="NON-CLINICALPROCEDURES" id="NON-CLINICALPROCEDURES" class="css-checkbox">
-              <label for="NON-CLINICALPROCEDURES" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>NON-CLINICAL PROCEDURES
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="child-check">
-              <input type="checkbox" name="None12" id="None12" class="css-checkbox">
-              <label for="None12" class="css-label">
-                <span class="fa fa-plus fa-cust-icon mx-2"></span>
-                <span class="fa fa-minus fa-cust-icon mx-2"></span>None
-              </label>
-              <div class="child-check">
-                <ul *ngFor="let item of checboxList">
-                  <li class="Checklist">{{item.listName}}</li>
-                </ul>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -1799,7 +1815,7 @@
   </div>
 </div>
 
-<provider-app-footer></provider-app-footer>
+<!-- <provider-app-footer></provider-app-footer> -->
 
 
 <!--Adult dental-chart Modal -->

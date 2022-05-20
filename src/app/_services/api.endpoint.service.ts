@@ -288,10 +288,6 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "Erx";
   }
 
-  get _advancedDirectivesUrl() {
-    return this._baseUrl + "AdvancedDirectives";
-  }
-
   get _weeklyUpdateUrl() {
     return this._baseUrl + "WeeklyUpdate";
   }
@@ -303,6 +299,18 @@ export class APIEndPoint extends EndpointBase {
   get _adminImportedPatientEncounterUrl() {
     return this._baseUrl + "AdminImportedPatientEncounter";
   }
+
+  // get _advancedDirectivesUrl() {
+  //   return this._baseUrl + "AdvancedDirectives";
+  // }
+
+  // get _allDiagnosesUrl() {
+  //   return this._baseUrl + "AllDiagnoses";
+  // }
+
+  // get _allAllergiesUrl() {
+  //   return this._baseUrl + "AllAllergies";
+  // }
 
   constructor(public http: HttpClient) {
     super();

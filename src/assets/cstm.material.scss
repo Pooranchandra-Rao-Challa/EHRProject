@@ -52,7 +52,8 @@
   // // margin-top: 28px !important;
   min-width: calc(100% + 18px) !important;
   margin-left: -9px !important;
-  margin-top: 25px !important;
+  margin-top: 27px !important;
+  position: absolute !important;
 }
 // mat input search mat-form-field outline color
 ::ng-deep .input-search.mat-form-field-appearance-outline .mat-form-field-outline {
@@ -148,17 +149,18 @@
 ::ng-deep .grey-calendar
   mat-datepicker-toggle.mat-datepicker-toggle
   button.mat-focus-indicator.mat-icon-button {
-  background-color: #d0d2db;
+  background-color: #d0d2db !important;
   color: #fff;
   border-radius: 0%;
   margin-top: 0px;
   margin-bottom: -14px;
   border-top-right-radius: 6px;
   border-bottom-right-radius: 6px;
-  margin-right: -11px;
-  border: 1px solid #d0d2db;
+  margin-right: -11px !important;
+  border: 1px solid #d0d2db !important;
   height: 3em !important;
   width: 3.5em !important;
+  top: 0px !important;
 }
 // .mat-form-field:not(.mat-form-field-appearance-legacy)
 //   .mat-form-field-suffix

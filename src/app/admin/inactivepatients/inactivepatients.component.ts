@@ -21,29 +21,27 @@ export class InActivePatientsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getInactivepatientList();
-    // this.collectionSize = this.inactivepatientDataSource.length;
   }
   getInactivepatientList() {
-    //debugger
     var data = {
       // Sort: '',
       // Direction: '',
-      Active: true,
+      Active: false,
       NameFilter: this.searchKey,
       PageSize: this.pageSize,
       RecordIndex: this.page
+
     }
-    // this.adminservice.InActivePatients(data).subscribe(resp => {
-    //   if (resp.IsSuccess) {
-    //     this.inactivepatientDataSource = resp.ListResult;
-    //    // this.collectionSize = resp.count;
-    //   } else
-    //     this.inactivepatientDataSource = [];
-    // });
+    console.log(data);
+    this.adminservice.ActivePatients(data).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.inactivepatientDataSource = resp.ListResult;
+      } else
+        this.inactivepatientDataSource = [];
+    });
   }
 
   onPageChange(index){
-    //debugger;
     this.inactivepatientDataSource =  this.premiumData
       .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
     this.getInactivepatientList();

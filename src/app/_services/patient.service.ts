@@ -9,7 +9,15 @@ export class patientService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._patientsByProviderUrl, reqparams);
   }
 
-  AdvancedDirectives(reqparams: any) {
-    return this._ProcessPostRequest<any>(this._advancedDirectivesUrl, reqparams);
-  }
+  // AdvancedDirectives(reqparams: any) {
+  //   return this._ProcessPostRequest<any>(this._advancedDirectivesUrl, reqparams);
+  // }
+
+  // AllDiagnoses(reqparams: any) {
+  //   return this._ProcessPostRequest<any>(this._allDiagnosesUrl, reqparams);
+  // }
+
+  // AllAllergies(reqparams: any) {
+  //   return this._ProcessPostRequest<any>(this._allAllergiesUrl, reqparams);
+  // }
 }

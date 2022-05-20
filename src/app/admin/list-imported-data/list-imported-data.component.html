@@ -11,128 +11,46 @@
         <a class="btn  btn-style mx-2" href="admin/importencounter">Import Encounters</a>
     </div>
     <div class="table-responsive">
-        <table class="table table-bordered">
-            <thead class="th-border">
-                <tr>
-                    <th>id</th>
-                    <th>Provider/Practice</th>
-                    <th>File Name</th>
-                    <th>Upload Date</th>
-                    <th>Data Type</th>
-                    <th>Status</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>62136ad0391cba080b976f67</td>
-                    <td>Testing team </td>
-                    <td>import-data-2022-02-21.csv</td>
-                    <td>02/21/2022</td>
-                    <td>encounter</td>
-                    <td>Completed</td>
-                    <td><a title="false" data-toggle="tooltip" data-placement="right" href="#" class="download-rep">Download Report</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>6135a9f4391cba75e336ad37</td>
-                    <td>Armando Anguiano </td>
-                    <td>Anguiano-Patient-Import-Format.xlsx</td>
-                    <td>09/06/2021</td>
-                    <td>patient</td>
-                    <td>Started</td>
-                    <td>Download Report </td>
-                </tr>
-                <tr>
-                    <td>611b3939391cba1f56417947</td>
-                    <td>anusha an </td>
-                    <td>TheChildrensDental-Patient-Import-Format.csv</td>
-                    <td>08/17/2021</td>
-                    <td>patient</td>
-                    <td>Completed</td>
-                  <td><a title="false" data-toggle="tooltip" data-placement="right" href="#" class="download-rep">Download Report</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>611b2d0b391cba1f56417946</td>
-                    <td>anusha an </td>
-                    <td>TheChildrensDental-Patient-Import-Format.csv</td>
-                    <td>08/16/2021</td>
-                    <td>patient</td>
-                    <td>Completed</td>
-                     <td><a title="false" data-toggle="tooltip" data-placement="right" href="#" class="download-rep">Download Report</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>61165937391cba1f56412e61</td>
-                    <td>test provider </td>
-                    <td>SAMPLECSV.csv</td>
-                    <td>08/13/2021</td>
-                    <td>patient</td>
-                    <td>Completed</td>
-                    <td><a title="false" data-toggle="tooltip" data-placement="right" href="#" class="download-rep">Download Report</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>61165836391cba1f56412e60</td>
-                    <td></td>
-                    <td>SAMPLECSV.csv</td>
-                    <td>08/13/2021</td>
-                    <td>patient</td>
-                    <td>Completed</td>
-                    <td><a title="false" data-toggle="tooltip" data-placement="right" href="#" class="download-rep">Download Report</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>61164352391cba1f56412e5d</td>
-                    <td>anusha an </td>
-                    <td>TheChildrensDental-Patient-Import-Format.csv</td>
-                    <td>08/13/2021</td>
-                    <td>patient</td>
-                    <td>Completed</td>
-                    <td><a title="false" data-toggle="tooltip" data-placement="right" href="#" class="download-rep">Download Report</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>6115b327391cba1f564129ee</td>
-                    <td>Ida Rose-Mize </td>
-                    <td>TheChildrensDental-Patient-Import-Format.csv</td>
-                    <td>08/12/2021</td>
-                    <td>patient</td>
-                    <td>Completed</td>
-                    <td><a title="false" data-toggle="tooltip" data-placement="right" href="#" class="download-rep">Download Report</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>5ebaeb18391cba136fee79d7</td>
-                    <td>Scott Tidwell </td>
-                    <td>Tidwell-Encounter-Import.csv</td>
-                    <td>05/12/2020</td>
-                    <td>encounter</td>
-                    <td>Completed</td>
-                    <td><a title="false" data-toggle="tooltip" data-placement="right" href="#" class="download-rep">Download Report</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>5eb9988f391cba0441e5ea3a</td>
-                    <td>Scott Tidwell </td>
-                    <td>Tidwell-Encounter-Import.csv</td>
-                    <td>05/11/2020</td>
-                    <td>patient</td>
-                    <td>Completed</td>
-                    <td><a title="false" data-toggle="tooltip" data-placement="right" href="#" class="download-rep">Download Report</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+      <table class="table table-bordered">
+        <thead class="th-border">
+            <tr>
+                <th>id</th>
+                <th>Provider/Practice</th>
+                <th>File Name</th>
+                <th>Upload Date</th>
+                <th>Data Type</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of importpatient ">
+            <td>{{item?.ImportId}}</td>
+            <td>{{item?.ProviderName}}</td>
+            <td>{{item?.FileName}}</td>
+            <td>{{item?.UploadDate}}</td>
+            <td>{{item?.DataType}}</td>
+            <td>{{item?.Status}}</td>
+            <td><a title="false" data-toggle="tooltip" data-placement="right" href="#" class="download-rep">Download Report</a></td>
+
+          </tr>
+        </tbody>
+        <div class="table-NoRecord text-center py-2 col-12" *ngIf="importpatient.length == 0">
+          Data Not Found
+        </div>
+    </table>
     </div>
     <div class="d-flex justify-content-end my-3">
-        <nav aria-label="Page navigation">
-            <ul class="pagination mt-4">
-                <ngb-pagination [pageSize]="2" [collectionSize]="10" [maxSize]="9" [(page)]="page"
-                    aria-label="Default pagination">
-                </ngb-pagination>
-            </ul>
-        </nav>
-    </div>
+      <nav aria-label="Page navigation">
+          <ul class="pagination mt-4">
+              <ngb-pagination [pageSize]="pageSize" [collectionSize]="collectionSize" (pageChange)="onPageChange($event)"
+                  [maxSize]="10" [(page)]="page" aria-label="Default pagination">
+              </ngb-pagination>
+          </ul>
+      </nav>
+  </div>
 </div>
+
+
+
+
