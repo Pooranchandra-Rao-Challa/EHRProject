@@ -5,33 +5,31 @@
 </div>
 
 <div class="container-fluid">
-    <div class="table-border mt-4">
-        <div class="col-lg-12 col-md-12 col-12 fw-bolder">
-            <h1>Default Messages</h1>
-        </div>
-
-        <div class="table-responsive">
-            <table class="table table-bordered">
-                <thead class="th-border">
-                    <tr>
-                        <th>Sr. No</th>
-                        <th>Communication Type</th>
-                        <th>Message</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td >request_confirm</td>
-                        <td>Your appointment with (practice_name) has been confirmed for the (date) at (time).
-                            If you would like to reschedule or cancel, please contact us via your patient portal or give
-                            us
-                            a phone call at (office#). Have a wonderful day.</td>
-                        <td><button class="btn-lock table-col-button"  (click)="onSubmit('Edit default messages','admin/editdefaultmessage')" >Edit</button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+  <div class="table-border mt-4">
+    <div class="col-lg-12 col-md-12 col-12 fw-bolder">
+      <h1>Default Messages</h1>
     </div>
+
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead class="th-border">
+          <tr>
+            <th>Sr. No</th>
+            <th>Communication Type</th>
+            <th>Message</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of defaultmessage ">
+            <td>{{item?.CommunicationId}}</td>
+            <td>{{item?.CommunicationType}}</td>
+            <td>{{item?.message}}</td>
+            <td><button class="btn-lock table-col-button"
+              (click)="onSubmit('Edit default messages','admin/editdefaultmessage')">Edit</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
