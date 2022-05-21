@@ -33,6 +33,7 @@ export class AuthenticationService {
     if (localStorage.getItem('user')) {
       this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user') || '{}'));
       this.user = this.userSubject.asObservable();
+      logger.info(() => "User: "+JSON.stringify(this.user));
     }
 
   }
