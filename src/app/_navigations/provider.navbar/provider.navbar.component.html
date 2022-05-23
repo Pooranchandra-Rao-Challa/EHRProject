@@ -3,34 +3,34 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div>
-    <img src="../../../assets/images/logo.svg" alt="logo" class="img-fluid mx-3" />
+    <img src="assets/images/logo.svg" alt="logo" class="img-fluid mx-3" />
   </div>
   <div class="collapse navbar-collapse" [ngClass]="{ 'show': navbarOpen }">
     <ul class="navbar-nav mr-auto">
       <li [class]="name !== 'Smart Schedule' ? 'nav-item': 'active nav-item'">
-        <a href="javascript:void(0)" (click)="onChangeBreadCrum('/provider/smartschedule','Smart Schedule')"
+        <a href="javascript:void(0)" (click)="onChangeBreadCrum('provider/smartschedule','Smart Schedule')"
           routerLinkActive="router-link-active" class="nav-link active item-prov-dashboard">Smart Schedule
         </a>
       </li>
       <li [class]="name !== 'Calender' ? 'nav-item': 'active nav-item'">
-        <a href="javascript:void(0)" (click)="onChangeBreadCrum('/provider/calendar','Calender')"
+        <a href="javascript:void(0)" (click)="onChangeBreadCrum('provider/calendar','Calender')"
           class="nav-link item-schedule">Calendar
         </a>
       </li>
       <li [class]="name !== 'Patients' ? 'nav-item': 'active nav-item'">
         <a href="javascript:void(0)" class="nav-link item-patients"
-          (click)="onChangeBreadCrum('/provider/patients','Patients')">Patients
+          (click)="onChangeBreadCrum('provider/patients','Patients')">Patients
         </a>
       </li>
       <li [class]="name !== 'Messages' ? 'nav-item': 'active nav-item'">
         <a href="javascript:void(0)" class="nav-link item-provider-messages"
-          (click)="onChangeBreadCrum('/provider/messages','Messages')">Messages
+          (click)="onChangeBreadCrum('provider/messages','Messages')">Messages
         </a>
         <span class="messages-count">0</span>
       </li>
       <li [class]="name !== 'Direct Msg' ? 'nav-item': 'active nav-item'">
         <a href="javascript:void(0)" class="nav-link item-direct-messages"
-          (click)="onChangeBreadCrum('/provider/directmsg','Direct Msg')">Direct Msg
+          (click)="onChangeBreadCrum('provider/directmsg','Direct Msg')">Direct Msg
         </a>
         <span class="messages-count">0</span>
       </li>
@@ -39,22 +39,22 @@
         </a>
       </li>
       <li [class]="name !== 'Labs&Imaging' ? 'nav-item': 'active nav-item'">
-        <a href="javascript:void(0)" (click)="onChangeBreadCrum('/provider/labsimaging','Labs&Imaging')"
+        <a href="javascript:void(0)" (click)="onChangeBreadCrum('provider/labsimaging','Labs&Imaging')"
           class="nav-link item-labsimaging">Labs/Imaging
         </a>
       </li>
       <li [class]="name !== 'Reports' ? 'nav-item': 'active nav-item'">
         <a href="javascript:void(0)" class="nav-link item-reports"
-          (click)="onChangeBreadCrum('/provider/categoryreports','Reports')">Reports
+          (click)="onChangeBreadCrum('provider/categoryreports','Reports')">Reports
         </a>
       </li>
       <li [class]="name !== 'Billing' ? 'nav-item': 'active nav-item'">
         <a href="javascript:void(0)" class="nav-link item-billing"
-          (click)="onChangeBreadCrum('/provider/billing','Billing')">Billing
+          (click)="onChangeBreadCrum('provider/billing','Billing')">Billing
         </a>
       </li>
       <li [class]="name !== 'Settings' ? 'nav-item': 'active nav-item'">
-        <a href="javascript:void(0)" (click)="onChangeBreadCrum('/provider/settings','Settings','practice')"
+        <a href="javascript:void(0)" (click)="onChangeBreadCrum('provider/settings','Settings','practice')"
           class="nav-link item-settings">Settings
         </a>
       </li>
@@ -65,7 +65,7 @@
     <li [matMenuTriggerFor]="menu" class="nav-item nav-top-right">
       <a class="nav-link dropdown-toggle" id="UserDropdown">
         <span class="profile-text">{{ this.user.FirstName}}&nbsp;&nbsp;{{this.user.LastName}}</span>
-        <img class="img-xs rounded-circle header-avatar mx-1" src="../../../assets/images/header-dropdown-img.svg">
+        <img class="img-xs rounded-circle header-avatar mx-1" src="assets/images/header-dropdown-img.svg">
       </a>
       <mat-menu #menu="matMenu" [hasBackdrop]="true">
         <div class="list" style="border-top: 1px solid #86c1bb; width: 100%;" (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()">

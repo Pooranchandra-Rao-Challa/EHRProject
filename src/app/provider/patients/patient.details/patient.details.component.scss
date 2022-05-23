@@ -83,6 +83,7 @@ ul {
   margin-bottom: 0 !important;
 }
 .patient-main-info li:first-child {
+  padding: 0px 10px !important;
   font-size: 30px !important;
 }
 .patient-main-info li {
@@ -92,8 +93,9 @@ ul {
 .patients-navigation-info>ul li {
   list-style: none;
   display: inline-block;
-  padding: 0 10px;
+  padding: 12px 10px;
   border-right: 1px solid #fff;
+  min-height: 50px;
 }
 b {
   font-weight: 700;

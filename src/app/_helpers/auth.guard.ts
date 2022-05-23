@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, CanActivateChild, CanDeactivate, CanLoad, Route, UrlSegment, UrlTree } from "@angular/router";
+import { Router, CanActivate, ActivatedRouteSnapshot,
+  RouterStateSnapshot, CanActivateChild, CanDeactivate, CanLoad, Route, UrlSegment, UrlTree } from "@angular/router";
 
 import { Observable } from 'rxjs';
 
@@ -23,12 +24,16 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<u
     const user = this.authenticationService.userValue;
     if (this.authenticationService.isLoggedIn()) {
       // authorised so return true
+      // console.log(route.url);
+      // console.log(state.url);
+      // console.log(state.root);
+      // console.log(this.router.routerState);
+      // console.log(route.url[0]['path'])
 
       return true;
     }
 
     // not logged in so redirect to login page with the return url
-    // this.router.navigate(['/account/login'], { queryParams: { returnUrl: state.url } });
     this.router.navigate(['/account/login'], { queryParams: { returnUrl: state.url } });
     return false;
   }

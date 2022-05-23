@@ -7,27 +7,27 @@
     <ul class="navbar-nav mr-auto menuactive">
 
       <li [class]="view !== 'dashboard' ? 'nav-item': 'active nav-item'">
-        <a href="patient/dashboard?view=dashboard" class="nav-link item-dashboard">Dashboard
+        <a routerLink="patient/dashboard?view=dashboard" class="nav-link item-dashboard">Dashboard
         </a>
       </li>
       <li [class]="view !== 'appointment' ? 'nav-item': 'active nav-item'">
-        <a href="patient/appointment?view=appointment" class="nav-link item-appointments">Appointments
+        <a routerLink="patient/appointment?view=appointment" class="nav-link item-appointments">Appointments
         </a>
       </li>
       <li [class]="view !== 'message' ? 'nav-item': 'active nav-item'">
-        <a href="patient/message?view=message" class="nav-link item-messages">Messages
+        <a routerLink="patient/message?view=message" class="nav-link item-messages">Messages
         </a>
       </li>
       <li [class]="view !== 'health' ? 'nav-item': 'active nav-item'">
-        <a href="patient/health?view=health" class="nav-link item-myhealth text-nowrap">My Health
+        <a routerLink="patient/health?view=health" class="nav-link item-myhealth text-nowrap">My Health
         </a>
       </li>
       <li [class]="view !== 'profile' ? 'nav-item': 'active nav-item'">
-        <a href="patient/profile?view=profile" class="nav-link item-myprofile text-nowrap">My Profile
+        <a routerLink="patient/profile?view=profile" class="nav-link item-myprofile text-nowrap">My Profile
         </a>
       </li>
       <li [class]="view !== 'document' ? 'nav-item': 'active nav-item'">
-        <a href="patient/document?view=document" class="nav-link item-mydocuments text-nowrap">My Documents
+        <a routerLink="patient/document?view=document" class="nav-link item-mydocuments text-nowrap">My Documents
         </a>
       </li>
     </ul>
@@ -36,7 +36,7 @@
     <li [matMenuTriggerFor]="menu" class="nav-item nav-top-right">
       <a class="nav-link dropdown-toggle" id="UserDropdown">
         <span class="profile-text">{{ this.user.FirstName}}&nbsp;&nbsp;{{this.user.LastName}}</span>
-        <img class="img-xs rounded-circle header-avatar mx-1" src="../../../assets/images/header-dropdown-img.svg">
+        <img class="img-xs rounded-circle header-avatar mx-1" src="assets/images/header-dropdown-img.svg">
       </a>
       <mat-menu #menu="matMenu" [hasBackdrop]="true">
         <div class="list">
