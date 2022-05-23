@@ -4,7 +4,7 @@
       <div class="row">
         <div class="smart-schedule-logo">
           <img alt="" class="img-responsive imgsmartlogo col-md-2 col-3"
-            src="../../../assets/images/SmartSchedule.png" />
+            src="assets/images/SmartSchedule.png" />
           <p class="logotext col-md-10 col-sm-9 col-8">Smart Schedule</p>
         </div>
       </div>
@@ -83,16 +83,16 @@
                     <div class="col-md-2 col-2 visit-status">
 
                       <img [class]="appointment.Status == 'Scheduled' ? 'img-smart-status' : 'img-smart-status-path'"
-                        src="../../../assets/images/smart-schedule/scheduled.svg" title="Scheduled" />
-                      <img class="img-smart-status" src="../../../assets/images/smart-schedule/waiting.svg"
+                        src="assets/images/smart-schedule/scheduled.svg" title="Scheduled" />
+                      <img class="img-smart-status" src="assets/images/smart-schedule/waiting.svg"
                         title="Wating" />
-                      <img class="img-smart-status" src="../../../assets/images/smart-schedule/in_progress.svg"
+                      <img class="img-smart-status" src="assets/images/smart-schedule/in_progress.svg"
                         title="In-Progress" />
-                      <img class="img-smart-status" src="../../../assets/images/smart-schedule/completed.svg"
+                      <img class="img-smart-status" src="assets/images/smart-schedule/completed.svg"
                         title="Completed" />
-                      <img class="img-smart-status" src="../../../assets/images/smart-schedule/cancel.svg"
+                      <img class="img-smart-status" src="assets/images/smart-schedule/cancel.svg"
                         title="Cancel" />
-                      <img class="img-smart-status" src="../../../assets/images/smart-schedule/no_show.svg"
+                      <img class="img-smart-status" src="assets/images/smart-schedule/no_show.svg"
                         title="No-Show" />
                     </div>
                     <div class="col-md-2 col-2 appt-type">{{appointment.AppointmentType}}</div>
@@ -178,7 +178,7 @@
               </button>
             </div>
             <div class="col-lg-2 col-md-3 col-12">
-              <a href="/provider/calendar">
+              <a routerLink="/provider/calendar">
                 <button mat-button class="btn switchbtn col-12">
                   Switch View
                 </button>

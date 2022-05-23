@@ -6,11 +6,11 @@
   <div class="one-ehr-images pt-4 pb-4">
     <div class="ehr-img-top">
       <div class="text-center logo-rectangle">
-        <img width="232" height="88" src="../../assets/images/EHR.svg">
+        <img width="232" height="88" src="assets/images/EHR.svg">
       </div>
     </div>
     <div class="text-center">
-      <img width="146" height="248" class="img-fluid" src="../../assets/images/one.svg">
+      <img width="146" height="248" class="img-fluid" src="assets/images/one.svg">
     </div>
   </div>
   <div class="content-top">
@@ -19,7 +19,7 @@
       <h4 class="sign">
         Don't have an account yet?
         <!-- <span style="color: #287066" href="/account/registration">Sign up here</span> -->
-        <a class="sign-up-here" href="/account/registration">Sign up here</a>
+        <a class="sign-up-here" routerLink="account/registration">Sign up here</a>
       </h4>
     </div>
   </div>
@@ -41,7 +41,7 @@
                         formControlName="Password" />
 
                       <img
-                        [src]="showPassword ? '../../assets/images/eye-open.svg' : '../../assets/images/eye-close.svg'"
+                        [src]="showPassword ? 'assets/images/eye-open.svg' : 'assets/images/eye-close.svg'"
                         class="img-svg-eye" (click)="togglePasswordVisibility()" />
                     </mat-form-field>
                   </div>
@@ -65,7 +65,7 @@
           <div class="col-lg-6 col-md-6 col-sm-12 px-5" style="width:45%">
             <div class="row">
               <div class="col-lg-6 col-md-12 vediologo col-sm-12 ">
-                <img src="../assets/videologo.png" />
+                <img src="assets/videologo.png" />
               </div>
               <div class="col-lg-6 address mt-3">
                 <div>(Ask us how to join)</div>
@@ -82,7 +82,7 @@
 
               <div class="video">
                 <video controls #videoPlayer controlsList="nodownload">
-                  <source src="../assets/iPrescribe-short.mp4" type="video/mp4" />
+                  <source src="assets/iPrescribe-short.mp4" type="video/mp4" />
                 </video>
               </div>
             </div>

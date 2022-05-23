@@ -33,6 +33,7 @@ export class AuthenticationService {
     if (localStorage.getItem('user')) {
       this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user') || '{}'));
       this.user = this.userSubject.asObservable();
+      logger.info(() => "User: "+JSON.stringify(this.user));
     }
 
   }
@@ -47,16 +48,16 @@ export class AuthenticationService {
           this.startRefreshTokenTimer();
           if (this.isProvider)
             this.router.navigate(
-              ['/provider/smartschedule'],
+              ['provider/smartschedule'],
               { queryParams: { name: 'Smart Schedule' } }
             );
           else if (this.isAdmin)
             this.router.navigate(
-              ['/admin/dashboard'],
+              ['admin/dashboard'],
               { queryParams: { name: 'Providers' } }
             );
           else if (this.isPatient)
-            this.router.navigate(['/patinet/patientview']);
+            this.router.navigate(['patinet/patientview']);
         }
       })
     );
@@ -72,13 +73,13 @@ export class AuthenticationService {
         this.startRefreshTokenTimer();
         if (this.isProvider)
           this.router.navigate(
-            ['/provider/smartschedule'],
+            ['provider/smartschedule'],
             { queryParams: { name: 'Smart Schedule' } }
           );
         else if (this.isAdmin)
-          this.router.navigate(['/admin/providers']);
+          this.router.navigate(['admin/providers']);
         else if (this.isPatient)
-          this.router.navigate(['/patient/dashboard']);
+          this.router.navigate(['patient/dashboard']);
       }
     }),
       (error) => {
