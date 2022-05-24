@@ -34,7 +34,7 @@
             <div class="col-md-2">
               <div class="input-group input-drop">
                 <button type="text" class="btn btn-light mailmessage" data-bs-toggle="dropdown">
-                 Check Mail
+                  Check Mail
                 </button>
 
               </div>
@@ -42,24 +42,22 @@
             <div class="col-md-2 ">
               <div class="input-group input-drop">
                 <button type="text" class="btn btn-light dropdown-toggle action" data-bs-toggle="dropdown">
-                 Actions
+                  Actions
                 </button>
                 <ul class="dropdown-menu drop-menu">
-                  <li><u class="dropdown-item drop-item" data-bs-toggle="modal"
-                      (click)="openComponentDialogmessage(MessageDialogComponent)">New Contact</u>
+                  <li><u class="dropdown-item drop-item" data-bs-toggle="modal">New Contact</u>
                   </li>
-                  <li><u class="dropdown-item drop-item" data-bs-toggle="modal"
-                    (click)="openComponentDialogmessage(MessageDialogComponent)">Go To Contact</u>
-                </li>
+                  <li><u class="dropdown-item drop-item" data-bs-toggle="modal">Go To Contact</u>
+                  </li>
                 </ul>
               </div>
             </div>
             <div class="col-md-2">
               <div class="input-group input-drop">
-              <button type="text" class="btn btn-light mailmessage "data-bs-toggle="modal"
-              data-bs-target="#staticBackdrop1">
-                New Direct Message
-              </button>
+                <button type="text" class="btn btn-light mailmessage " data-bs-toggle="modal"
+                  data-bs-target="#staticBackdrop1">
+                  New Direct Message
+                </button>
               </div>
             </div>
             <div class="messages-content">
@@ -107,31 +105,47 @@
 
 
   <div class="modal fade" id="staticBackdrop1" data-bs-keyboard="false" tabindex="-1"
-  aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content body">
-      <div class="modal-header">
-        <h4 class="Helvetica-sans-serif-medium">Edit Password</h4>
-        <span type="button" class="cross-mark" data-bs-dismiss="modal">
-          X
-        </span>
-      </div>
-      <div class="modal-body">
-        <div class="content">
-          <form class="pt-4">
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content body">
+        <div class="modal-header">
+          <h4 class="Helvetica-sans-serif-medium">New Message (Direct)</h4>
+          <span type="button" class="cross-mark" data-bs-dismiss="modal">
+            X
+          </span>
+        </div>
+        <form class="pt-4">
+          <div class="modal-body">
 
             <div class="row">
               <div class="col-lg-12">
                 <div class="row">
-                  <div>
-                    <label for="subject" class="form-label ">Subject</label>
-                    <input type="input" class="form-control inputclass " id="Subject" placeholder="Subject :"
-                      aria-describedby="subjectlHelp">
+                  <div class="col-lg-10">
+                    <div class="form-group"><span>To:</span>
+                      <div class="to_email"><input class="string email optional form-control" aria-label="message to"
+                          type="email" name="message" id="message"></div>
+                    </div>
                   </div>
-                  <div class="mt-2">
-                    <label for="message" class="form-label">Message</label>
-                    <input type="input" class="form-control inputclass" id="message" placeholder="Message :"
-                      aria-describedby="messageHelp">
+                  <div class="col-lg-2">
+                    <div class="form-group"><span>&nbsp;</span>
+                      <span type="button" class="btn btn-green btn-book" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop2">
+                        <i class="fa fa-book" aria-hidden="true"></i>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mt-2">
+                  <div class="form-group"><span>Subject:</span>
+                    <input class="string optional form-control" aria-label="Your subject" type="text"
+                      name="email_message[subject]" id="email_message_subject">
+                  </div>
+                </div>
+                <div class="mt-2">
+                  <div class="form-group"><span>Message:</span>
+                    <textarea class="text optional form-control" rows="4" aria-label="Message text"
+                      name="email_message[body]" id="email_message_body"></textarea>
                   </div>
                 </div>
               </div>
@@ -147,25 +161,273 @@
                 </div>
               </div>
             </div>
-            <div class="row mt-5">
-              <div class="col-lg-4 ">
-                <div class="col-lg-4 ">
-                  <mat-checkbox class="col-lg-12 col-md-12 example-margin">
-                    <mat-lable class="custom-control-label">URGENT</mat-lable>
-                  </mat-checkbox>
-                </div>
-              </div>
-            </div>
+          </div>
+          <div class="modal-footer mb-4">
+            <button type="button" class="btn btn-green">Send</button>
+            <button type="button" class="btn btn-danger ">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 
-            <div class="row" style="float: right;">
-              <!-- <button type="button" class="btn btn-green col-md-4 mx-2" data-bs-dismiss="modal"
-                (click)="cancel()">Save</button> -->
-              <button type="button" class="btn btn-green col-md-4">Cancel</button>
-            </div>
-          </form>
-          <!-- end personal info -->
+  <div class="modal fade" id="staticBackdrop4" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content body">
+        <div class="modal-header">
+          <h4 class="Helvetica-sans-serif-medium">New Message (Direct)</h4>
+          <span type="button" class="cross-mark" data-bs-dismiss="modal">
+            X
+          </span>
         </div>
       </div>
     </div>
   </div>
-</div>
+
+  <div class="modal fade" id="staticBackdrop2" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content body">
+        <div class="modal-header">
+          <h4 class="Helvetica-sans-serif-medium">Direct Providers</h4>
+          <span type="button" class="cross-mark" data-bs-dismiss="modal">
+            X
+          </span>
+        </div>
+        <form class="pt-4">
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group"><span>Last Name start with:</span>
+                      <div class="to_email"><input class="string email optional form-control" aria-label="message to"
+                          type="email" name="message" id="message"></div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group"><span>First Name start with:</span>
+                      <input class="string optional form-control" aria-label="Your subject" type="text"
+                        name="email_message[subject]" id="email_message_subject">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class=" col-md-6">
+                    <div class="form-group"><span>Organization Name Contains:</span>
+                      <input class="string optional form-control" aria-label="Your subject" type="text"
+                        name="email_message[subject]" id="email_message_subject">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group"><span>State:</span>
+                      <input class="string optional form-control" aria-label="Your subject" type="text"
+                        name="email_message[subject]" id="email_message_subject">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group"><span>&nbsp;</span>
+                      <button id="search-list-book" class="btn btn-default " data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop3">Search</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="staticBackdrop5" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content body">
+        <div class="modal-header">
+          <h4 class="Helvetica-sans-serif-medium">New Message (Direct)</h4>
+          <span type="button" class="cross-mark" data-bs-dismiss="modal">
+            X
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="staticBackdrop3" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content body">
+        <div class="modal-header">
+          <h4 class="Helvetica-sans-serif-medium">New Message (Direct)</h4>
+          <span type="button" class="cross-mark" data-bs-dismiss="modal">
+            X
+          </span>
+        </div>
+        <form class="directmodal pt-4">
+          <div class="modal-body ">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group"><span>Last Name :</span>
+                      <div class="to_email"><input class="string email optional form-control" aria-label="message to"
+                          type="email" name="message" id="message"></div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group"><span>First Name start with:</span>
+                      <input class="string optional form-control" aria-label="Your subject" type="text"
+                        name="email_message[subject]" id="email_message_subject">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class=" col-md-6">
+                    <div class="form-group"><span>Organization Name Contains:</span>
+                      <input class="string optional form-control" aria-label="Your subject" type="text"
+                        name="email_message[subject]" id="email_message_subject">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group"><span>State:</span>
+                      <input class="string optional form-control" aria-label="Your subject" type="text"
+                        name="email_message[subject]" id="email_message_subject">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group"><span>&nbsp;</span>
+                      <button id="search-list-book" class="btn btn-default " data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop3">Search</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="providers-list-book">
+              <div class="row">
+                <div class="col-lg-12 mt-3">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <h4 class="search-result">Search Returned 100 results:</h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-lg-9 single-provider-info">
+                  <div class="form-group">
+                    <div class="input-group"><span class="input-group">Alberto, Petersen</span></div>
+                    <div class="input-group"><span class="input-group">Johnson Pulmonary Care</span></div>
+                    <div class="input-group"><span class="input-group">17440 N Spruce Pkwy, Kaktovik AK 99747</span>
+                    </div>
+                    <div class="input-group"><span class="input-group">(259) 267-554</span></div>
+                    <div class="input-group"><span
+                        class="input-group">ehr@johnsonpulmonarycare.direct.example.com</span></div>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <div class="input-group"><a data-email="ehr@johnsonpulmonarycare.direct.example.com"
+                        class="to-provider btn btn-green " href="#">Use</a></div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-lg-9 single-provider-info">
+                  <div class="form-group">
+                    <div class="input-group"><span class="input-group">Oscar, Mejia</span></div>
+                    <div class="input-group"><span class="input-group">Wasilla Medical Clinic</span></div>
+                    <div class="input-group"><span class="input-group">148 S Cypress St, Wasilla AK 99654</span></div>
+                    <div class="input-group"><span class="input-group"></span></div>
+                    <div class="input-group"><span
+                        class="input-group">ehr@wasillamedicalclinic.direct.example.com</span></div>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <div class="input-group"><a data-email="ehr@wasillamedicalclinic.direct.example.com"
+                        class="to-provider btn btn-green " href="#">Use</a></div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-lg-9 single-provider-info">
+                  <div class="form-group">
+                    <div class="input-group"><span class="input-group">Sandy, Dominguez</span></div>
+                    <div class="input-group"><span class="input-group">Best Internal Medicine</span></div>
+                    <div class="input-group"><span class="input-group">20327 Roosevelt Rd, Nulato AK 99765</span></div>
+                    <div class="input-group"><span class="input-group">246-259-4060</span></div>
+                    <div class="input-group"><span
+                        class="input-group">referrals@bestinternalmedicine.direct.example.com</span></div>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <div class="input-group"><a data-email="referrals@bestinternalmedicine.direct.example.com"
+                        class="to-provider btn btn-green " href="#">Use</a></div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-lg-9 single-provider-info">
+                  <div class="form-group">
+                    <div class="input-group"><span class="input-group">Fay, Spence</span></div>
+                    <div class="input-group"><span class="input-group">Get Well Chiropractic Clinic</span></div>
+                    <div class="input-group"><span class="input-group">, Wrangell AK 99929</span></div>
+                    <div class="input-group"><span class="input-group">(257) 209-7695</span></div>
+                    <div class="input-group"><span
+                        class="input-group">toc@getwellchiropracticclinic.direct.example.com</span></div>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <div class="input-group"><a data-email="toc@getwellchiropracticclinic.direct.example.com"
+                        class="to-provider btn btn-green " href="#">Use</a></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mt-3">
+                <div class="col-lg-9 single-provider-info">
+                  <div class="form-group">
+                    <div class="input-group"><span class="input-group">Cristobal, Lindsey</span></div>
+                    <div class="input-group"><span class="input-group">Smith Pediatrics</span></div>
+                    <div class="input-group"><span class="input-group">4877 Cherry Pkwy, Jber AK 99506</span></div>
+                    <div class="input-group"><span class="input-group"></span></div>
+                    <div class="input-group"><span class="input-group">inbox@smithpediatrics.direct.example.com</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <div class="input-group"><a data-email="inbox@smithpediatrics.direct.example.com"
+                        class="to-provider btn btn-green " href="#">Use</a></div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-lg-9 single-provider-info">
+                  <div class="form-group">
+                    <div class="input-group"><span class="input-group">Sayuri, Joseph</span></div>
+                    <div class="input-group"><span class="input-group">Anybody Urology</span></div>
+                    <div class="input-group"><span class="input-group">6000 Cypress Pkwy, Hoonah AK 99829</span></div>
+                    <div class="input-group"><span class="input-group">290-282-2980</span></div>
+                    <div class="input-group"><span class="input-group">records@anybodyurology.direct.example.com</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <div class="input-group"><a data-email="records@anybodyurology.direct.example.com"
+                        class="to-provider btn btn-green " href="#">Use</a></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
