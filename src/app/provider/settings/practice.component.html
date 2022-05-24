@@ -64,7 +64,9 @@
                   <mat-header-row *matHeaderRowDef="locationColumns"></mat-header-row>
                   <mat-row *matRowDef="let row; columns: locationColumns"></mat-row>
                 </mat-table>
-
+                <div class="norecords-found" *ngIf="locationdataSource?.length == 0">
+                  No Practice Locations Found
+                </div>
               </div>
             </div>
             <div class="colC">
@@ -147,12 +149,12 @@
                       </span>
                     </mat-cell>
                   </ng-container>
-                    <!--data-bs-toggle="modal" data-bs-target="#edit-user-modal"-->
+                  <!--data-bs-toggle="modal" data-bs-target="#edit-user-modal"-->
                   <ng-container matColumnDef="FullName">
                     <mat-header-cell *matHeaderCellDef>Full Name</mat-header-cell>
                     <mat-cell *matCellDef="let user"><span class="text-decoration">
-                        <a data-remote="true"
-                          class="cursorpointer" (click)="openComponentDialog(userDialogComponent,user,ActionsType.view)">{{user.FirstName}}
+                        <a data-remote="true" class="cursorpointer"
+                          (click)="openComponentDialog(userDialogComponent,user,ActionsType.view)">{{user.FirstName}}
                           {{user.LastName}}</a></span></mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="Email">
@@ -192,7 +194,9 @@
                   <mat-header-row *matHeaderRowDef="providerColumns"></mat-header-row>
                   <mat-row *matRowDef="let row; columns: providerColumns"></mat-row>
                 </mat-table>
-
+                <div class="norecords-found" *ngIf="providersDataSource?.length == 0">
+                  No Users Found
+                </div>
               </div>
             </div>
           </div>
@@ -587,8 +591,8 @@
         <div class="row mb-3 mt-1 mx-3">
           <div class="col-md-12 locationbtns">
             <div class="d-flex justify-content-start">
-              <button type="button" class="btn btn-lg btn-danger col-xl-3 col-lg-4 col-md-4 col-10 mx-1" *ngIf="displayforEditLocation"
-                (click)="deleteLocation()">
+              <button type="button" class="btn btn-lg btn-danger col-xl-3 col-lg-4 col-md-4 col-10 mx-1"
+                *ngIf="displayforEditLocation" (click)="deleteLocation()">
                 Delete
               </button>
             </div>

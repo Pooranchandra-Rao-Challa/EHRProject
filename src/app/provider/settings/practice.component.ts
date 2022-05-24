@@ -32,7 +32,7 @@ export class PracticeComponent implements OnInit {
   LocationAddress: any;
   user: User;
   locationColumns: string[] = ['Location', 'Address', 'Phone', 'Providers'];
-  providerColumns: string[] = ['Image','FullName', 'Email', 'Role', 'Space', 'Status', 'EmergencyAccess']
+  providerColumns: string[] = ['Image', 'FullName', 'Email', 'Role', 'Space', 'Status', 'EmergencyAccess']
   providerLocationColumn: string[] = ['LocationName', 'CityState', 'PracticeSchedule', 'ServicedLocation'];
   locationsInfo: UserLocations[];
   hover: any;
@@ -85,7 +85,7 @@ export class PracticeComponent implements OnInit {
     this.changedLocationId = this.user.CurrentLocation;
     this.locationsubscription = this.locationSelectService.getData().subscribe(locationId => {
       this.changedLocationId = locationId;
-      console.log(this.changedLocationId );
+      console.log(this.changedLocationId);
       this.getProviderDetails();
     });
     this.PhonePattern = {
@@ -203,7 +203,7 @@ export class PracticeComponent implements OnInit {
       if (resp.IsSuccess) {
         this.locationdataSource = resp.ListResult;
         this.LocationAddress = resp.ListResult;
-        console.log(this.locationdataSource );
+        console.log(this.locationdataSource);
       }
     });
   }
@@ -216,32 +216,32 @@ export class PracticeComponent implements OnInit {
     this.settingsService.ProviderDetails(reqparams).subscribe(resp => {
       if (resp.IsSuccess) {
         this.providersDataSource = resp.ListResult as NewUser[];
-      }else this.providersDataSource = [];
+      } else this.providersDataSource = [];
     });
   }
 
-  toggleAdmin(user: NewUser){
+  toggleAdmin(user: NewUser) {
     console.log(JSON.stringify(user))
-    this.updateToggleUserFieldValues("Admin",user);
+    this.updateToggleUserFieldValues("Admin", user);
   }
-  toggleEmergencyAccess(user: NewUser){
+  toggleEmergencyAccess(user: NewUser) {
     console.log(JSON.stringify(user))
-    this.updateToggleUserFieldValues("EmergencyAccess",user);
+    this.updateToggleUserFieldValues("EmergencyAccess", user);
   }
-  toggleStatus(user: NewUser){
-    user.Active = user.Active == null ? true : user.Active.valueOf() == false ? true: false;
+  toggleStatus(user: NewUser) {
+    user.Active = user.Active == null ? true : user.Active.valueOf() == false ? true : false;
     console.log(JSON.stringify(user))
-    this.updateToggleUserFieldValues("Active",user);
+    this.updateToggleUserFieldValues("Active", user);
   }
 
-  updateToggleUserFieldValues(fieldToUpdate:string, user: NewUser){
+  updateToggleUserFieldValues(fieldToUpdate: string, user: NewUser) {
     var reqparams = {
       fieldToUpdate: fieldToUpdate,
       user: user
     }
     this.settingsService.ToggleUserFieldValues(reqparams).subscribe(resp => {
 
-      let message:string;
+      let message: string;
       if (resp.IsSuccess) {
         // show update message;
         message = resp.Message;
@@ -398,7 +398,7 @@ export class PracticeComponent implements OnInit {
     } else {
 
     }
-    if(this.NewUserData.PracticeName == null)
+    if (this.NewUserData.PracticeName == null)
       this.NewUserData.PracticeName = this.user.BusinessName;
 
     console.log(JSON.stringify(this.NewUserData))
@@ -453,13 +453,13 @@ export class PracticeComponent implements OnInit {
     }
 
     this.settingsService.UserInfoWithPraceticeLocations(reqparams).subscribe(resp => {
-        this.NewUserData = resp.Result as NewUser;
-        this.NewUserData.LocationInfo = JSON.parse(resp.Result.LocationInfo);
-        console.log(this.NewUserData)
+      this.NewUserData = resp.Result as NewUser;
+      this.NewUserData.LocationInfo = JSON.parse(resp.Result.LocationInfo);
+      console.log(this.NewUserData)
     });
   }
 
-  userInfoForEdit(data, action: Actions){
+  userInfoForEdit(data, action: Actions) {
 
   }
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
@@ -468,11 +468,11 @@ export class PracticeComponent implements OnInit {
     //this.flag = false;
     //this.patientNameOrCellNumber = "";
     let dialogData: any;
-    if (content === this.userDialogComponent && action == Actions.new){
-      dialogData = this.userInfoForEdit(data,action);
+    if (content === this.userDialogComponent && action == Actions.new) {
+      dialogData = this.userInfoForEdit(data, action);
     }
 
-    const ref = this.overlayService.open(content,dialogData );
+    const ref = this.overlayService.open(content, dialogData);
 
     ref.afterClosed$.subscribe(res => {
       if (content === this.userDialogComponent) {
