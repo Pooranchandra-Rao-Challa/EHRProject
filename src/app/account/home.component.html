@@ -3,13 +3,13 @@
     <div class="one-ehr-images">
       <div class="ehr-img-top">
         <div class="text-center logo-rectangle">
-          <img width="232" height="88" src="../../assets/images/EHR.svg">
+          <img width="232" height="88" src="assets/images/EHR.svg">
         </div>
       </div>
     </div>
     <div class="container">
       <div class="text-center">
-        <img width="146" height="248" class="img-fluid" src="../../assets/images/one.svg">
+        <img width="146" height="248" class="img-fluid" src="assets/images/one.svg">
       </div>
       <div class="main-title" id="main_title" [ngStyle]="{'display':providerType}">
         <h1>Your New EHR is just a few clicks away.</h1>
@@ -45,14 +45,14 @@
             <div class="content">
               <h4 class="title">Not an EHR1 Provider yet?</h4>
               <h5 class="sub-titles Helvetica-sans-serif-large">Register today!</h5>
-            </div><a class="button-landing Helvetica-sans-serif-medium" href="/account/registration">Register now</a>
+            </div><a class="button-landing Helvetica-sans-serif-medium" routerLink="/account/registration">Register now</a>
           </div>
 
           <div class="col-lg-8 col-md-8 col-sm-12 block" id="sign_in_container" [ngStyle]="{'display':providerType}">
             <div class="content offset-md-8">
               <h4 class="title">Already registered?</h4>
               <h5 class="sub-titles Helvetica-sans-serif-large">Sign in now</h5>
-              <a class="button-landing Helvetica-sans-serif-medium" id="sign-in-user" href="/account/login">Sign in</a>
+              <a class="button-landing Helvetica-sans-serif-medium" id="sign-in-user" routerLink="/account/login">Sign in</a>
             </div>
           </div>
         </div>
@@ -69,7 +69,7 @@
             [ngStyle]="{'display':patientType}">
             <div class="content">
               <h4 class="title Helvetica-sans-serif-large">Sign in to your Patient Portal!</h4>
-            </div><a class="button-landing Helvetica-sans-serif-medium" id="sign-in-user" href="/account/patientlogin">Sign in</a>
+            </div><a class="button-landing Helvetica-sans-serif-medium" id="sign-in-user" routerLink="/account/patientlogin">Sign in</a>
             <div class="content content-bottom">
               <h5 class="sub-titles Helvetica-sans-serif-medium">Don't have a Patient Portal account?</h5>
               <h5 class="sub-titles Helvetica-sans-serif-medium">Contact your doctor's office and request a Patient Portal invite email or setup
@@ -90,7 +90,7 @@
       <div class="row col-12">
         <div class="col-lg-4 col-md-12 col-12 col-md-offset-1">
           <a target="_blank" href="https://chpl.healthit.gov/#/listing/10277">
-            <img alt="" class="newlogo" src="../../assets/images/ONC-Cretified.png"></a>
+            <img alt="" class="newlogo" src="assets/images/ONC-Cretified.png"></a>
           <div class="login_page_address mt-3">
             <strong>Contact Us Anytime:</strong>
             <table style="margin-top:10px;">
@@ -116,14 +116,14 @@
         </div>
         <div class="col-lg-6 col-md-12 col-12 col-md-offset-2">
           <img alt="" class="img-responsive img-size"
-            src="../../assets/images/home-rightimg.png">
+            src="assets/images/home-rightimg.png">
         </div>
       </div>
     </div>
   </div>
   <div class="home-footer">
     <div class="container-fluid pt-2">
-      <span class="app-version">© 2022 EHR One, LLC version: v2.0 <a href="/account/partnersignup" class="as">Become a
+      <span class="app-version">© 2022 EHR One, LLC version: v2.0 <a href="account/partnersignup" class="as">Become a
           Development
           Partner</a>
       </span>

@@ -288,10 +288,6 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "Erx";
   }
 
-  get _advancedDirectivesUrl() {
-    return this._baseUrl + "AdvancedDirectives";
-  }
-
   get _weeklyUpdateUrl() {
     return this._baseUrl + "WeeklyUpdate";
   }
@@ -302,6 +298,38 @@ export class APIEndPoint extends EndpointBase {
 
   get _adminImportedPatientEncounterUrl() {
     return this._baseUrl + "AdminImportedPatientEncounter";
+  }
+
+  get _advancedDirectivesByPatientIdUrl() {
+    return this._baseUrl + "AdvancedDirectivesByPatientId";
+  }
+
+  get _diagnosesByPatientIdUrl() {
+    return this._baseUrl + "DiagnosesByPatientId";
+  }
+
+  get _allergiesByPatientIdUrl() {
+    return this._baseUrl + "AllergiesByPatientId";
+  }
+
+  get _pastMedicalHistoriesByPatientIdUrl() {
+    return this._baseUrl + "PastMedicalHistoriesByPatientId";
+  }
+
+  get _immunizationsByPatientIdUrl() {
+    return this._baseUrl + "ImmunizationsByPatientId";
+  }
+
+  get _medicationsByPatientIdUrl() {
+    return this._baseUrl + "EncountersByPatientId";
+  }
+
+  get _encountersByPatientIdUrl() {
+    return this._baseUrl + "EncountersByPatientId";
+  }
+
+  get _appointmentsByPatientIdUrl() {
+    return this._baseUrl + "AppointmentsByPatientId";
   }
 
   constructor(public http: HttpClient) {

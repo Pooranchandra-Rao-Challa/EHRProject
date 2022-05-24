@@ -12,8 +12,8 @@
           <div class="form-group">
             <div class="input-group">
               <label class="control-label input-group-addon required">First Name</label>
-              <input class="form-control" mouse-over-hint tickImagePath="../../assets/images/tick-mark.svg"
-                crossImagePath="../../assets/images/cross-mark.svg" placeholder="First Name" type="text" id="firstName"
+              <input class="form-control" mouse-over-hint tickImagePath="assets/images/tick-mark.svg"
+                crossImagePath="assets/images/cross-mark.svg" placeholder="First Name" type="text" id="firstName"
                 name="firstName" required pattern="[a-zA-Z ]*" #firstName="ngModel" [(ngModel)]="PatientData.FirstName"
                 [ngModelOptions]="{standalone: true}" />
             </div>
@@ -33,8 +33,8 @@
           <div class="form-group">
             <div class="input-group">
               <label class="control-label input-group-addon">Middle Name</label>
-              <input class="form-control" mouse-over-hint tickImagePath="../../assets/images/tick-mark.svg"
-                crossImagePath="../../assets/images/cross-mark.svg" placeholder="Middle Name" type="text"
+              <input class="form-control" mouse-over-hint tickImagePath="assets/images/tick-mark.svg"
+                crossImagePath="assets/images/cross-mark.svg" placeholder="Middle Name" type="text"
                 pattern="[a-zA-Z ]*" #middleName="ngModel" [ngModelOptions]="{standalone: true}"
                 [(ngModel)]="PatientData.MiddleName" />
             </div>
@@ -50,8 +50,8 @@
           <div class="form-group">
             <div class="input-group">
               <label class="control-label input-group-addon required">Last Name</label>
-              <input class="form-control" mouse-over-hint tickImagePath="../../assets/images/tick-mark.svg"
-                crossImagePath="../../assets/images/cross-mark.svg" placeholder="Last Name" type="text" id="lastName"
+              <input class="form-control" mouse-over-hint tickImagePath="assets/images/tick-mark.svg"
+                crossImagePath="assets/images/cross-mark.svg" placeholder="Last Name" type="text" id="lastName"
                 name="lastName" required pattern="[a-zA-Z ]*" #lastName="ngModel" [ngModelOptions]="{standalone: true}"
                 [(ngModel)]="PatientData.LastName" />
             </div>
@@ -72,8 +72,8 @@
             <div class="input-group">
               <label class="control-label input-group-addon required">DOB</label>
               <input ngbDatepicker class="form-control dateofbirth-txt" placeholder="mm-dd-yyyy" name="dateofBirth"
-                [(ngModel)]="PatientData.DateofBirth" mouse-over-hint tickImagePath="../../assets/images/tick-mark.svg"
-                crossImagePath="../../assets/images/cross-mark.svg" ngbDatepickername="dateofBirth" #d="ngbDatepicker"
+                [(ngModel)]="PatientData.DateofBirth" mouse-over-hint tickImagePath="assets/images/tick-mark.svg"
+                crossImagePath="assets/images/cross-mark.svg" ngbDatepickername="dateofBirth" #d="ngbDatepicker"
                 [autoClose]="true" #dateofBirth="ngModel" required [ngModelOptions]="{standalone: true}">
               <button id="dob" class="btn btn-outline-secondary calendar" autoClose="true" type="button"
                 (click)="d.toggle()"></button>
@@ -127,7 +127,7 @@
               <input class="form-control" placeholder="Email Address" type="text" #patientEmail="ngModel"
                 [disabled]="patinetHasNoEmail.checked" pattern="^[A-Z0-9+_.-]+@[A-Z0-9.-]+$"
                 [(ngModel)]="PatientData.Email" required mouse-over-hint
-                tickImagePath="../../assets/images/tick-mark.svg" crossImagePath="../../assets/images/cross-mark.svg" />
+                tickImagePath="assets/images/tick-mark.svg" crossImagePath="assets/images/cross-mark.svg" />
             </div>
             <div *ngIf="patientEmail.errors">
               <div class="error_message" *ngIf="patientEmail.errors?.pattern == fasle">

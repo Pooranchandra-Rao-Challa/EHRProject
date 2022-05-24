@@ -53,7 +53,7 @@ import { LabsImagingService } from './_services/labsimaging.service';
     IdService,
     AuthGuard,
     LabsImagingService
-    
+
   ],
   bootstrap: [AppComponent]
 })
