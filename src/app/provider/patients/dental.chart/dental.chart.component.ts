@@ -11,6 +11,7 @@ export class DentalChartComponent implements OnInit {
   ChilPrim:boolean=false;
   checboxList:any=[];
   displayStyle = "none";
+  DentalNumber:number;
 
   constructor() { }
 
@@ -74,18 +75,14 @@ export class DentalChartComponent implements OnInit {
         return new RegExp(' ' + className + ' ').test(' ' + elem.className + ' ');
     }
   }
-  openPopup() {
+
+  OpenDentalModal(number) {
+    this.DentalNumber=number;
     this.displayStyle = "block";
-  }
-  closePopup()
-  {
-    this.displayStyle = "none";
   }
 
-  openPopupChild() {
-    this.displayStyle = "block";
-  }
-  closePopupChild() {
+  CloseDentalModal()
+  {
     this.displayStyle = "none";
   }
 }

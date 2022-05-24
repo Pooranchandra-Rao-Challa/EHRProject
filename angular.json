@@ -31,7 +31,6 @@
             "tsConfig": "tsconfig.app.json",
             "aot": true,
             "assets": [
-              "src/assets/images/logo.svg",
               "src/assets"
             ],
             "styles": [
