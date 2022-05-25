@@ -19,7 +19,7 @@
       <h4 class="sign">
         Don't have an account yet?
         <!-- <span style="color: #287066" href="/account/registration">Sign up here</span> -->
-        <a class="sign-up-here" routerLink="account/registration">Sign up here</a>
+        <a class="sign-up-here" routerLink="/account/registration">Sign up here</a>
       </h4>
     </div>
   </div>
@@ -40,8 +40,7 @@
                       <input matInput placeholder="Password" [type]="showPassword ? 'text' : 'password'" name="Password"
                         formControlName="Password" />
 
-                      <img
-                        [src]="showPassword ? 'assets/images/eye-open.svg' : 'assets/images/eye-close.svg'"
+                      <img [src]="showPassword ? 'assets/images/eye-open.svg' : 'assets/images/eye-close.svg'"
                         class="img-svg-eye" (click)="togglePasswordVisibility()" />
                     </mat-form-field>
                   </div>

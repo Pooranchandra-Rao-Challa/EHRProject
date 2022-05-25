@@ -5,31 +5,60 @@
   <img src="assets/images/logo.svg" alt="logo" class="img-fluid mx-3" />
   <div class="collapse navbar-collapse" [ngClass]="{ 'show': navbarOpen }">
     <ul class="navbar-nav mr-auto menuactive">
-
-      <li [class]="view !== 'dashboard' ? 'nav-item': 'active nav-item'">
-        <a routerLink="patient/dashboard?view=dashboard" class="nav-link item-dashboard">Dashboard
+      <li [class]="name !== 'dashboard' ? 'nav-item': 'active nav-item'">
+        <a href="javascript:void(0)" (click)="onChangeBreadCrum('patient/dashboard','dashboard')"
+          routerLinkActive="router-link-active" class="nav-link active item-dashboard">Dashboard
+        </a>
+      </li>
+      <li [class]="name !== 'appointment' ? 'nav-item': 'active nav-item'">
+        <a href="javascript:void(0)" (click)="onChangeBreadCrum('patient/appointment','appointment')"
+          routerLinkActive="router-link-active" class="nav-link active item-appointments">Appointments
+        </a>
+      </li>
+      <li [class]="name !== 'message' ? 'nav-item': 'active nav-item'">
+        <a href="javascript:void(0)" (click)="onChangeBreadCrum('patient/message','message')"
+          routerLinkActive="router-link-active" class="nav-link active item-messages">Messages
+        </a>
+      </li>
+      <li [class]="name !== 'health' ? 'nav-item': 'active nav-item'">
+        <a href="javascript:void(0)" (click)="onChangeBreadCrum('patient/health','health')"
+          routerLinkActive="router-link-active" class="nav-link active item-myhealth text-nowrap">My Health
+        </a>
+      </li>
+      <li [class]="name !== 'profile' ? 'nav-item': 'active nav-item'">
+        <a href="javascript:void(0)" (click)="onChangeBreadCrum('patient/profile','profile')"
+          routerLinkActive="router-link-active" class="nav-link active item-myprofile text-nowrap">My Profile
+        </a>
+      </li>
+      <li [class]="name !== 'document' ? 'nav-item': 'active nav-item'">
+        <a href="javascript:void(0)" (click)="onChangeBreadCrum('patient/document','document')"
+          routerLinkActive="router-link-active" class="nav-link active item-mydocuments text-nowrap">My Documents
+        </a>
+      </li>
+      <!-- <li [class]="view !== 'dashboard' ? 'nav-item': 'active nav-item'">
+        <a routerLink="/patient/dashboard?view=dashboard" class="nav-link item-dashboard">Dashboard
         </a>
       </li>
       <li [class]="view !== 'appointment' ? 'nav-item': 'active nav-item'">
-        <a routerLink="patient/appointment?view=appointment" class="nav-link item-appointments">Appointments
+        <a routerLink="/patient/appointment?view=appointment" class="nav-link item-appointments">Appointments
         </a>
       </li>
       <li [class]="view !== 'message' ? 'nav-item': 'active nav-item'">
-        <a routerLink="patient/message?view=message" class="nav-link item-messages">Messages
+        <a routerLink="/patient/message?view=message" class="nav-link item-messages">Messages
         </a>
       </li>
       <li [class]="view !== 'health' ? 'nav-item': 'active nav-item'">
-        <a routerLink="patient/health?view=health" class="nav-link item-myhealth text-nowrap">My Health
+        <a routerLink="/patient/health?view=health" class="nav-link item-myhealth text-nowrap">My Health
         </a>
       </li>
       <li [class]="view !== 'profile' ? 'nav-item': 'active nav-item'">
-        <a routerLink="patient/profile?view=profile" class="nav-link item-myprofile text-nowrap">My Profile
+        <a routerLink="/patient/profile?view=profile" class="nav-link item-myprofile text-nowrap">My Profile
         </a>
       </li>
       <li [class]="view !== 'document' ? 'nav-item': 'active nav-item'">
-        <a routerLink="patient/document?view=document" class="nav-link item-mydocuments text-nowrap">My Documents
+        <a routerLink="/patient/document?view=document" class="nav-link item-mydocuments text-nowrap">My Documents
         </a>
-      </li>
+      </li> -->
     </ul>
   </div>
   <ul class="navbar-nav pull-right">
@@ -40,10 +69,18 @@
       </a>
       <mat-menu #menu="matMenu" [hasBackdrop]="true">
         <div class="list">
-    <li class="li-menu"><a class="nav-li" href="patient/profile?view=profile">My Profile</a></li>
-    <li class="li-menu"><a class="nav-li" href="patient/health?view=health">My Health</a></li>
-    <li class="li-menu border-bottom"><a class="nav-li" href="patient/document">Activity Log</a></li>
-    <li class="li-menu" (click)="logout()"><a class="nav-li py-2">Log out</a></li>
+    <li class="li-menu" routerLink="/patient/profile">
+      <a class="nav-li">My Profile</a>
+    </li>
+    <li class="li-menu" routerLink="/patient/health">
+      <a class="nav-li">My Health</a>
+    </li>
+    <li class="li-menu border-bottom" routerLink="/patient/document">
+      <a class="nav-li">Activity Log</a>
+    </li>
+    <li class="li-menu" (click)="logout()">
+      <a class="nav-li py-2">Log out</a>
+    </li>
     </div>
     </mat-menu>
     </li>
