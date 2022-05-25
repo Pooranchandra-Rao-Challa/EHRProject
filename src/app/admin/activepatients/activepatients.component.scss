@@ -18,6 +18,9 @@
   padding: 2px 5px;
 }
 
+tbody>tr:last-child>td {
+  border-bottom: 0;
+}
 .border,
 .loader-demo-box {
   border: 1px solid #ddd !important;

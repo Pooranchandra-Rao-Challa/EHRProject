@@ -87,12 +87,12 @@
               </div>
               <div class="card-body">
                 <ul class="main-list">
-                  <!-- <li *ngFor="let diagnose of allDiagnoses">
-                    <span>{{diagnose?.note}}</span>
+                  <li *ngFor="let diagnose of allDiagnoses">
+                    <span>- {{diagnose?.note}}</span>
                   </li>
-                  <li *ngIf="allDiagnoses?.length == 0">
+                  <li *ngIf="allDiagnoses?.length == (0 || null || undefined)">
                     <span>No active Dx recorded.</span>
-                  </li> -->
+                  </li>
                 </ul>
               </div>
             </div>
@@ -137,8 +137,11 @@
               </div>
               <div class="card-body">
                 <ul class="main-list">
-                  <li>
-                    <span>No past medical history recorded</span>
+                  <li *ngFor="let pastmedical of this.pastMedicalHistories">
+                    <span>- {{pastmedical.nutrition_history}}</span>
+                  </li>
+                  <li *ngIf="pastMedicalHistories?.length == (0 || null || undefined)">
+                    <span>No past medical history recorded.</span>
                   </li>
                 </ul>
               </div>
@@ -161,12 +164,12 @@
               </div>
               <div class="card-body">
                 <ul class="main-list">
-                  <!-- <li *ngFor="let directive of this.advancedDirectives">
-                    <span>{{directive?.notes}}</span>
+                  <li *ngFor="let directive of this.advancedDirectives">
+                    <span>- {{directive?.notes}}</span>
                   </li>
-                  <li *ngIf="advancedDirectives?.length == 0">
+                  <li *ngIf="advancedDirectives?.length == (0 || null || undefined)">
                     <span>No advanced directives recorded.</span>
-                  </li> -->
+                  </li>
                 </ul>
               </div>
             </div>
@@ -186,12 +189,12 @@
               </div>
               <div class="card-body">
                 <ul class="main-list">
-                  <!-- <li *ngFor="let allergie of allAllergies">
-                    <span>{{allergie?.note}}</span>
+                  <li *ngFor="let allergie of allAllergies">
+                    <span>- {{allergie?.note}}</span>
                   </li>
-                  <li *ngIf="allAllergies?.length == 0">
+                  <li *ngIf="allAllergies?.length == (0 || null || undefined)">
                     <span>No active allergies recorded</span>
-                  </li> -->
+                  </li>
                 </ul>
               </div>
             </div>
@@ -209,7 +212,10 @@
               </div>
               <div class="card-body">
                 <ul class="main-list">
-                  <li>
+                  <li *ngFor="let medication of medications">
+                    <span>- {{medication.notes}}</span>
+                  </li>
+                  <li *ngIf="medications?.length == (0 || null || undefined)">
                     <span>No medications</span>
                   </li>
                 </ul>
@@ -229,8 +235,11 @@
               </div>
               <div class="card-body">
                 <ul class="main-list">
-                  <li>
-                    <span>No immunizations</span>
+                  <li *ngFor="let immunization of immunizations">
+                    <span>- {{immunization.notes}}</span>
+                  </li>
+                  <li *ngIf="immunizations?.length == (0 || null || undefined)">
+                    <span>No immunizations recorded.</span>
                   </li>
                 </ul>
               </div>
@@ -273,8 +282,11 @@
               </div>
               <div class="card-body">
                 <ul class="main-list">
-                  <li>
-                    <span>No encounters</span>
+                  <li *ngFor="let encounter of encounters">
+                    <span>- {{encounter.notes}}</span>
+                  </li>
+                  <li *ngIf="encounters?.length == (0 || null || undefined)">
+                    <span>No encounters recorded.</span>
                   </li>
                 </ul>
               </div>
@@ -313,15 +325,18 @@
               </div>
               <div class="card-body">
                 <ul class="main-list">
-                  <li>
-                    <span>No appointments</span>
+                  <li *ngFor="let appointment of appointments">
+                    <span>- {{appointment.note}}</span>
+                  </li>
+                  <li *ngIf="appointments?.length == (0 || null || undefined)">
+                    <span>No appointments recorded.</span>
                   </li>
                 </ul>
               </div>
             </div>
-            <a class="patient-chart">Clinical Decision Support</a>
+            <a href="https://dentaltraumaguide.org/dental-guides/"class="patient-chart">Clinical Decision Support</a>
             <br>
-            <a class="patient-chart">Implantable Devices</a>
+            <a href="https://accessgudid.nlm.nih.gov/"  class="patient-chart">Implantable Devices</a>
           </div>
         </div>
       </div>
