@@ -19,7 +19,7 @@
       <h4 class="sign">
         Don't have an account yet?
         <!-- <span style="color: #287066" href="/account/registration">Sign up here</span> -->
-        <a class="sign-up-here" routerLink="account/registration">Sign up here</a>
+        <a class="sign-up-here" routerLink="/account/registration">Sign up here</a>
       </h4>
     </div>
   </div>
@@ -40,8 +40,7 @@
                       <input matInput placeholder="Password" [type]="showPassword ? 'text' : 'password'" name="Password"
                         formControlName="Password" />
 
-                      <img
-                        [src]="showPassword ? 'assets/images/eye-open.svg' : 'assets/images/eye-close.svg'"
+                      <img [src]="showPassword ? 'assets/images/eye-open.svg' : 'assets/images/eye-close.svg'"
                         class="img-svg-eye" (click)="togglePasswordVisibility()" />
                     </mat-form-field>
                   </div>
@@ -59,26 +58,17 @@
               <mat-checkbox class="example-margin"><span>Remember me</span></mat-checkbox>
             </div>
             <div style="text-align: left;">
-              <button mat-raised-button (click)="OnFormSubmit()">Sign in</button>
+              <button class="btn btn-green signin" mat-raised-button (click)="OnFormSubmit()">Sign in</button>
             </div>
           </div>
-          <div class="col-lg-6 col-md-6 col-sm-12 px-5" style="width:45%">
+          <div class="col-lg-6 col-md-6 col-sm-12 px-5">
             <div class="row">
               <div class="col-lg-6 col-md-12 vediologo col-sm-12 ">
                 <img src="assets/videologo.png" />
               </div>
-              <div class="col-lg-6 address mt-3">
+              <div class="col-lg-6 heding ">
                 <div>(Ask us how to join)</div>
               </div>
-              <!-- <video controls width="100%">
-              <source src="mov_bbb.mp4" type="video/mp4" />
-              <source src="mov_bbb.ogg" type="video/ogg" />
-            </video>
-            <video controls>
-              <source src="rabbit320.mp4" type="video/mp4">
-              <source src="rabbit320.webm" type="video/webm">
-              <p>Your browser doesn't support HTML5 video. Here is a <a href="rabbit320.mp4">link to the video</a> instead.</p>
-            </video> -->
 
               <div class="video">
                 <video controls #videoPlayer controlsList="nodownload">
@@ -125,112 +115,3 @@
   </div>
 </div>
 
-
-
-
-<div class="modal fade" id="reset-password" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-  aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="hederfont">Reset Your Password</h4>
-      </div>
-      <div class="modal-body">
-        <div class="content">
-          <form class="pt-4">
-            <div class="row ">
-              <div class="col-lg-12">
-                <div class="row">
-                  <div class="col-lg-12 col-md-12 col-sm-12 col-12 ">
-
-                    <P>Enter the email address associated with your account and an email with password reset
-                      instructions will be sent.</P>
-                    <div class="form-group mt-5">
-
-                      <input type="text">
-
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-
-
-            <div class="row">
-              <button type="button" class="resetpassword-button col-md-4" data-bs-dismiss="modal">Go Back</button>
-              <button type="button" class="resetpassword-button col-md-4">Okay-Send it ! </button>
-
-            </div>
-
-          </form>
-
-          <!-- end personal info -->
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<div class="modal fade" id="email-verification" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-  aria-labelledby="email-verification" aria-hidden="false">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="hederfont">Email Verification </h4>
-        <span type="button" data-bs-dismiss="modal">
-          X
-        </span>
-      </div>
-      <div class="modal-body">
-        <div class="content">
-          <form>
-            <div class="row">
-              <div class="col-lg-4">
-                <div class="form-group">
-                  <label>Email Address :</label>
-                </div>
-              </div>
-              <div class="col-lg-8 ">
-                <div class="form-group ">
-
-                  <input placeholder="Enter an email">
-
-                </div>
-              </div>
-
-            </div>
-            <div class="row">
-              <button type="button" style="margin-left: 33%;" class="col-md-4 verify">Resend
-                Verification</button>
-            </div>
-          </form>
-
-          <!-- end personal info -->
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<div class="modal modal-notice" id="modal-message" tabindex="-1" role="dialog" data-bs-backdrop="static"
-  data-bs-keyboard="false" aria-labelledby="errorbackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-body">
-        <div class="scrollable-container" style="height: auto;">
-          <div class="content">
-            <div class="error-title">
-              <p>{{authfailedmessage}}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <a class="btn btn-default" data-bs-dismiss="modal" data-bs-target="#modal-message" aria-label="Close">Close</a>
-      </div>
-    </div>
-  </div>
-</div>

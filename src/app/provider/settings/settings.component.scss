@@ -68,15 +68,17 @@
   box-shadow: none !important;
 }
 .btn-danger {
+  width: 150px;
+  height: 45px;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  color: red;
+  color: #d64841;
   background-color: white;
 }
 .btn-danger:hover {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   color: white;
-  background-color: red;
-  border-color: red;
+  background-color: #d64841;
+  border-color: #d64841;
 }
 .scroolbar {
   height: 800px;

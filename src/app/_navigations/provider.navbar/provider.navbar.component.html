@@ -35,7 +35,8 @@
         <span class="messages-count">0</span>
       </li>
       <li class="eRx-nav-item">
-        <a href="javascript:void(0)" class="nav-link item-erx disabled" (click)="onChangeBreadCrum('/provider/erx','eRx')">eRx
+        <a href="javascript:void(0)" class="nav-link item-erx disabled"
+          (click)="onChangeBreadCrum('/provider/erx','eRx')">eRx
         </a>
       </li>
       <li [class]="name !== 'Labs&Imaging' ? 'nav-item': 'active nav-item'">
@@ -68,7 +69,8 @@
         <img class="img-xs rounded-circle header-avatar mx-1" src="assets/images/header-dropdown-img.svg">
       </a>
       <mat-menu #menu="matMenu" [hasBackdrop]="true">
-        <div class="list" style="border-top: 1px solid #86c1bb; width: 100%;" (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()">
+        <div class="list" style="border-top: 1px solid #86c1bb; width: 100%;" (click)="$event.stopPropagation()"
+          (keydown)="$event.stopPropagation()">
           <mat-form-field appearance="outline" class="col-lg-12 hover">
             <mat-select class="textcolor" [value]="user.CurrentLocation" name="location" disableOptionCentering>
               <mat-option *ngFor="let location of locationsInfo" [value]="location.locationId"
@@ -76,11 +78,11 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <li class="li-menu"><a class="nav-li text-nowrap" href="#">My Account</a></li>
-          <li class="li-menu"><a class="nav-li text-nowrap" href="#">About EHR1</a></li>
-          <li class="li-menu border-bottom"><a class="nav-li" href="#">Lock</a></li>
-          <li class="li-menu" (click)="logout()"><a class="nav-li">Log out</a></li>
-        </div>
+    <li class="li-menu"><a class="nav-li text-nowrap">My Account</a></li>
+    <li class="li-menu"><a class="nav-li text-nowrap">About EHR1</a></li>
+    <li class="li-menu border-bottom"><a class="nav-li">Lock</a></li>
+    <li class="li-menu" (click)="logout()"><a class="nav-li">Log out</a></li>
+    </div>
     </mat-menu>
     </li>
   </ul>
