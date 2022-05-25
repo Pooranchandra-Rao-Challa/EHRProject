@@ -34,10 +34,10 @@
   }
   ::ng-deep .green-calendar.mat-form-field-appearance-outline .mat-form-field-outline {
     background-color: #fff !important;
-    color: #41a6b6 !important;
+    color: #41b6a6 !important;
     height: 45px;
   }
-  .btn-green{
+  .btn-verify{
   width: 165px;
   height: 41px;
   }
@@ -45,13 +45,13 @@
   {
     background-color: #41b6a6;
     color: #fff;
-    height: 40px;
-    // width: 40px;
+    height: 45px;
+   
   }
   .input-border{
     border: 1px solid #41b6a6;
     cursor: not-allowed;
-    height: 40px;
+    height: 45px;;
   }
   .prefix-alignments{
     width:57px;
@@ -60,7 +60,7 @@
     
   }
   .plusicon{
-  border: 1px solid  #41a6b6;
+  border: 1px solid  #41b6a6;
   width:57px;
   height: 45px;
   margin-left: -23px;
@@ -69,18 +69,76 @@
     width: 246px;
     margin: 0px;
     height: 41px;
+    margin-top: 26px;
   }
   .tabs-alignments{
     width: 180px;
   }
+  .find-procedure {
+  
+    height: 80px;
+  }
+  .btn-info:hover {
+    color: #f7f3f3;
+    background-color: #41b6a6;
+    border-color: #41b6a6;
+  }
+  
+  .btn-info {
+    color: white;
+    background-color: #41b6a6;
+    border-color: #41b6a6;
+    width: 65px;
+  }
+  
+  .input-group>.form-control.search-control
+   {
+    background-color: #f6f6f6;
+     font-size: 22px;
+  }
+  .input-group>.form-control.search-control:hover
+   {
+     border-color: #41b6a6 !important;
+     font-size: 22px;
+  }
+  .modal-dialog{
+    max-width: 920px;
+  }
+  .modal {
+    margin-right: 50px;
+    width: 100%;
+    margin-top: 5px;
+  
+    
+  }
+  .btn-insurancecompany{
+  width: 239px;
+    height: 47px;
+    font-size: 15px;
+    margin-left: 38px;
+  }
+ 
+.bg-color
+{
+  height: 45px;
+ }
 
-  // .modal
-  // {
-  //   display: none; 
-  //   position: unset;
-  // }
-  .table-borderless> :not(:first-child) {
-    border-top-width: 0;
-    border-bottom-width: 1px;
-    border-bottom-color: #41b6a6;
+  .table{
+    --bs-table-accent-bg: none;
+    border: 1px solid #41b6a6;
+    border-bottom-width:none;
+  }
+  .btn-selectcancel
+  {
+    width: auto;
+    margin: 5px 15px;
+    height: 48px;
+    // padding: 6px 6px;
+  }
+  .modal-scrollbar {
+    height: 550px;
+    margin-top: 0px;
+    margin-bottom: 16px;
+    overflow-y: scroll;
+    overflow-x: hidden;
   }
