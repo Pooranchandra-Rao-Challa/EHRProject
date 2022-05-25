@@ -94,12 +94,22 @@ input::-webkit-input-placeholder {
   border-left: 1px solid #41b6a6 !important;
   ;
 }
+/* crazy batman newspaper spinny thing */
+.rotate {
+  transform: rotate(180deg);
+  transition: all 0.5s;
+}
+
+.rotate.in {
+  transform: rotate(1800deg);
+  transition: all 1.5s;
+}
 
 .gender {
   color: #41b6a6;
   height: 40px;
   padding: 10px 13px;
-  font-size: 18px;
+  font-size: 15px;
   // margin-top: -5px;
 }
 
@@ -113,7 +123,7 @@ input::-webkit-input-placeholder {
 .input-group .input-group-addon {
   height: 50px;
   background-color: #41b6a6;
-  padding: 14px 15px !important;
+  padding: 14px 30px !important;
   border: 1px solid #41b6a6;
   color: white;
   font-family: 'Roboto';
@@ -404,3 +414,20 @@ tr td{
 .input-group .form-control.input-authorized:hover{
   border: 1px solid #41b6a6 !important;
 }
+@media (min-width:300px) and (max-width:400px){
+.checkbox-margin{
+  margin-left: 66px;
+}
+.gender{
+  padding: 13px 7px;
+  font-size: 17px;
+}
+.label-design.check-label-mrg{
+  margin-top: -31px;
+  margin-left: 35px !important;
+ }
+}
+
+// .modal{
+//   position:inherit;
+// }

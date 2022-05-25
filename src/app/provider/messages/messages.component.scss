@@ -15,3 +15,9 @@
     border: 1px solid #fe8f00 !important;
     border-top: #fff !important;
 }
+@media (max-width: 1024px) {
+  .btn-light {
+    white-space: break-spaces;
+    padding: 0px 0px 0px 0px !important;
+  }
+}

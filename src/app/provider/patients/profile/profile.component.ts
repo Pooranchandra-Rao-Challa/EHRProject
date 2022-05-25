@@ -9,9 +9,11 @@ export class ProfileComponent implements OnInit {
 
   AduthorizesModal = "none";
   AddAduthorizesModal="none";
+
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
   DisplayAduthorizes()

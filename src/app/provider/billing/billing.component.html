@@ -112,10 +112,11 @@
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+ 
+  
   </table>
-  <div class="text-center text-danger py-2 col-12" *ngIf="sampledata.length == 0">
+  <div class=" table-NoRecord text-center text-danger py-2 col-12" *ngIf="sampledata.length == 0">
     No records found.
  </div>
-
 </div>
 

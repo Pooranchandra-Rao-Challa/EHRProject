@@ -1,238 +1,247 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="d-flex justify-content-end">
+
+
+
+    <div class="d-flex justify-content-end flex-sm-row flex-column">
       <!-- Button trigger modal -->
       <div class="p-2"><button type="button" class="btn btn-lg btn-notes" data-bs-toggle="modal"
-        data-bs-target="#ResetPwdModal">Reset Password</button></div>
-        <div class="p-2"><button type="button" class="btn btn-lg btn-notes" data-bs-toggle="modal"
+          data-bs-target="#ResetPwdModal">Reset Password</button></div>
+      <div class="p-2"><button type="button" class="btn btn-lg btn-notes" data-bs-toggle="modal"
           data-bs-target="#noteModal">Notes</button></div>
       <div class="p-2"><button type="button" class="btn btn-lg btn-danger btn-authorized" data-bs-toggle="modal"
-          data-bs-target="#AuthorizedModal" >Authorized Rep.</button></div>
+          data-bs-target="#AuthorizedModal">Authorized Rep.</button></div>
       <div class="p-2"><button type="button" class="btn btn-lg btn-orange">Save</button></div>
     </div>
-   </div>
+  </div>
 
   <div class="profile-hr my-1">
     <div class="row">
       <div class="col-lg-6 col-md-6 col-12">
         <div class="row">
-           <!-- Patient -->
-             <div class="col-lg-12 col-md-12 col-12 mb-3">
-               <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
-                <label>Patient Information</label>
+          <!-- Patient -->
+          <div class="col-lg-12 col-md-12 col-12 mb-3">
+            <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
+              <label>Patient Information</label>
+            </div>
+
+            <div class="row  mx-2">
+              <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
+                <label for="Name" class="form-label label-design">Name *</label>
+                <input class="input-group form-control" placeholder="Reason Code" type="text" id="Name">
               </div>
+              <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
+                <label for="MiddleName" class="form-label label-design">Middle Name</label>
+                <input class="input-group form-control" placeholder="Middle (optional)" type="text" id="MiddleName">
+              </div>
+              <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
+                <label for="LastName" class="form-label label-design">Last Name</label>
+                <input class="input-group form-control" placeholder="Last Name" type="text" id="LastName">
+              </div>
+              <div class="col-lg-10 col-md-10 col-xl-4 col-12 my-2">
+                <label for="SEX" class="form-label label-design  mx-lg-1">SEX *</label>
 
-              <div class="row  mx-2">
-                <div class="col-lg-4 col-md-4 col-12">
-                  <label for="Name" class="form-label label-design">Name *</label>
-                  <input class="input-group form-control" placeholder="Reason Code" type="text" id="Name">
+                <div class="btn-group mx-lg-0" role="group" aria-label="Basic radio toggle button group">
+                  <input type="radio" class="btn-check" name="Male" id="Male" autocomplete="off" checked>
+                  <label class="btn gender" for="Male">Male</label>
+
+                  <input type="radio" class="btn-check" name="Female" id="Female" autocomplete="off">
+                  <label class="btn gender" for="Female">Female</label>
+
+                  <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+                  <label class="btn gender" for="btnradio3">Other</label>
+
+                  <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+                  <label class="btn gender" for="btnradio3">Unknow</label>
                 </div>
-                <div class="col-lg-3 col-md-3 col-12">
-                  <label for="MiddleName" class="form-label label-design">Middle Name</label>
-                  <input class="input-group form-control" placeholder="Middle (optional)" type="text" id="MiddleName">
-                </div>
-                <div class="col-lg-5 col-md-5 col-12">
-                  <label for="Smok" class="form-label label-design">Smok</label>
-                  <input class="input-group form-control" placeholder="Smok" type="text" id="Smok">
-                </div>
-                <div class="col-lg-4 col-md-4 col-12 mt-3">
-                  <label for="SEX" class="form-label label-design">SEX *</label>
-
-                  <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                    <input type="radio" class="btn-check" name="Male" id="Male" autocomplete="off" checked>
-                    <label class="btn gender" for="Male">Male</label>
-
-                    <input type="radio" class="btn-check" name="Female" id="Female" autocomplete="off">
-                    <label class="btn gender" for="Female">Female</label>
-
-                    <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-                    <label class="btn gender" for="btnradio3">Other</label>
-
-                    <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-                    <label class="btn gender" for="btnradio3">Unknow</label>
+              </div>
+              <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
+                <label for="DATEOFBIRTH*" class="form-label label-design">DATE OF BIRTH*</label>
+                <input class="input-group form-control" placeholder="MM/DD/YYYY" type="text" id="DATEOFBIRTH">
+              </div>
+              <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
+                <label for="DATEOFDEATH" class="form-label label-design">DATE OF DEATH</label>
+                <input class="input-group form-control" placeholder="MM/DD/YYYY" type="text" id="DATEOFDEATH">
+              </div>
+              <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
+                <label for="SOCIALSECURITYNUMBER" class="form-label label-design">SOCIAL SECURITY NUMBER</label>
+                <input class="input-group form-control" placeholder="###-##-###" type="text" id="Name">
+              </div>
+              <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
+                <label for="CHARTID" class="form-label label-design">CHART ID</label>
+                <input class="input-group form-control" placeholder="CHART ID" type="text" id="CHARTID">
+              </div>
+              <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
+                <label for="PATIENTID" class="form-label label-design">PATIENT ID</label>
+                <input class="input-group form-control" placeholder="PATIENT ID" type="text" id="PATIENT ID">
+              </div>
+              <div class="col-lg-12 col-md-12 col-xl-5 col-sm-12 my-2">
+                <div class="form-group">
+                  <div class="input-group">
+                    <input class="checkbox checbox-design" id="DECLINED" name="DECLINED" type="checkbox">
+                    <label class="label-design check-label check-label-mrg">AMERICAN INDIAN OR ALASKA NATIVE</label>
                   </div>
                 </div>
-                <div class="col-lg-4 col-md-4 col-12 mt-3">
-                  <label for="DATEOFBIRTH*" class="form-label label-design">DATE OF BIRTH*</label>
-                  <input class="input-group form-control" placeholder="MM/DD/YYYY" type="text" id="DATEOFBIRTH">
-                </div>
-                <div class="col-lg-4 col-md-4 col-12 mt-3">
-                  <label for="DATEOFDEATH" class="form-label label-design">DATE OF DEATH</label>
-                  <input class="input-group form-control" placeholder="MM/DD/YYYY" type="text" id="DATEOFDEATH">
-                </div>
-                <div class="col-lg-4 col-md-4 col-12 mt-3">
-                  <label for="SOCIALSECURITYNUMBER" class="form-label label-design">SOCIAL SECURITY NUMBER</label>
-                  <input class="input-group form-control" placeholder="###-##-###" type="text" id="Name">
-                </div>
-                <div class="col-lg-4 col-md-4 col-12 mt-3">
-                  <label for="CHARTID" class="form-label label-design">CHART ID</label>
-                  <input class="input-group form-control" placeholder="CHART ID" type="text" id="CHARTID">
-                </div>
-                <div class="col-lg-4 col-md-4 col-12 mt-3">
-                  <label for="PATIENTID" class="form-label label-design">PATIENT ID</label>
-                  <input class="input-group form-control" placeholder="PATIENT ID" type="text" id="PATIENT ID">
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 mt-3">
-                  <div class="form-group">
-                    <div class="input-group">
-                      <input class="checkbox checbox-design" id="DECLINED" name="DECLINED" type="checkbox">
-                      <label class="label-design check-label">AMERICAN INDIAN OR ALASKA NATIVE</label>
-                    </div>
+              </div>
+              <div class="col-lg-4 col-md-4 col-xl-2 col-sm-12 my-2">
+                <div class="form-group">
+                  <div class="input-group">
+                    <input class="checkbox checbox-design" id="ASIAN" name="ASIAN" type="checkbox">
+                    <label class="label-design check-label ">ASIAN</label>
                   </div>
                 </div>
-                <div class="col-lg-2 col-md-2 col-sm-4  mt-3">
-                  <div class="form-group">
-                    <div class="input-group">
-                      <input class="checkbox checbox-design" id="ASIAN" name="ASIAN" type="checkbox">
-                      <label class="label-design check-label">ASIAN</label>
-                    </div>
+              </div>
+              <div class="col-lg-12 col-md-12 col-xl-5 col-sm-12 my-2">
+                <div class="form-group">
+                  <div class="input-group">
+                    <input class="checkbox checbox-design" id="DECLINED" name="DECLINED" type="checkbox">
+                    <label class="label-design check-label check-label-mrg">BLACK OR AFRICAN AMERICAN</label>
                   </div>
                 </div>
-                <div class="col-lg-5 col-md-4 col-sm-4  mt-3">
-                  <div class="form-group">
-                    <div class="input-group">
-                      <input class="checkbox checbox-design" id="DECLINED" name="DECLINED" type="checkbox">
-                      <label class="label-design check-label">BLACK OR AFRICAN AMERICAN</label>
-                    </div>
+              </div>
+              <div class="col-lg-6 col-xl-5 col-md-6 col-12 my-2">
+                <label for="PATIENTID" class="form-label label-design">Preliminary Cause of Death</label>
+                <input class="input-group form-control" placeholder="Preliminary Cause of Death" type="text"
+                  id="PATIENT ID">
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-12 col-md-12 col-12">
+            <hr>
+          </div>
+          <!-- Emergency contact -->
+          <div class="col-lg-12 col-md-12 col-12 my-3">
+            <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
+              <label>Emergency contact</label>
+            </div>
+
+            <div class="row  mx-2">
+              <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
+                <label for="Name" class="form-label label-design">Name</label>
+                <input class="input-group form-control" placeholder="Name" type="text" id="Name">
+              </div>
+              <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
+                <label for="MiddleName" class="form-label label-design">Middle Name</label>
+                <input class="input-group form-control" placeholder="Middle (optional)" type="text" id="MiddleName">
+              </div>
+              <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
+                <label for="LAstName" class="form-label label-design">Last Name</label>
+                <input class="input-group form-control" placeholder="Last" type="text" id="LastName">
+              </div>
+              <div class="col-lg-6 col-md-6 col-xl-6 col-12 my-2">
+                <label for="RELATION" class="form-label label-design text-nowrap">RELATION TO PATIENT</label>
+                <input class="input-group form-control" placeholder="RELATION" type="text" id="RELATION">
+              </div>
+              <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
+                <label for="PHONE" class="form-label label-design">PHONE</label>
+                <input class="input-group form-control" placeholder="Cell PHONE" type="text" id="PHONE">
+              </div>
+              <div class="col-lg-8 col-md-8 col-xl-9 col-12 my-2">
+                <label for="HOMEADDRESS" class="form-label label-design">HOME ADDRESS</label>
+                <input class="input-group form-control" placeholder="HOME ADDRESS" type="text" id="HOME ADDRESS">
+              </div>
+              <div class="col-lg-2 col-md-2 col-xl-3 col-12 mt-3">
+                <div class="p-2"><button type="button" class="btn btn-lg btn-notes mt-2">Verify</button></div>
+              </div>
+              <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
+
+                <div class="form-group">
+                  <div class="input-group">
+                    <label class="control-label input-group-addon required">Street Address</label>
+                    <input class="form-control" placeholder="Street Address" type="text" id="StreetAddress"
+                      name="StreetAddress" />
                   </div>
                 </div>
-                <div class="col-lg-4 col-md-4 col-12 mt-3">
-                  <label for="PATIENTID" class="form-label label-design">Preliminary Cause of Death</label>
-                  <input class="input-group form-control" placeholder="Preliminary Cause of Death" type="text"
-                    id="PATIENT ID">
+
+              </div>
+              <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
+                <div class="form-group">
+                  <div class="input-group">
+                    <label class="control-label input-group-addon required">City</label>
+                    <input class="form-control" placeholder="City" type="text" id="City" name="City" />
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
+                <div class="form-group">
+                  <div class="input-group">
+                    <label class="control-label input-group-addon required">State</label>
+                    <input class="form-control" placeholder="State" type="text" id="State" name="State" />
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
+                <div class="form-group">
+                  <div class="input-group">
+                    <label class="control-label input-group-addon required">Zip</label>
+                    <input class="form-control" placeholder="Zip" type="text" id="Zip" name="Zip" />
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="col-lg-12 col-md-12 col-12"><hr></div>
-              <!-- Emergency contact -->
-              <div class="col-lg-12 col-md-12 col-12 my-3">
-                <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
-                  <label>Emergency contact</label>
-                </div>
+          </div>
+          <div class="col-lg-12 col-md-12 col-12">
+            <hr>
+          </div>
+          <!-- Next of kin -->
+          <div class="col-lg-12 col-md-12 col-12 my-3">
+            <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
+              <label>Next of kin</label>
+            </div>
 
-                <div class="row  mx-2">
-                  <div class="col-lg-4 col-md-4 col-12">
-                    <label for="Name" class="form-label label-design">Name</label>
-                    <input class="input-group form-control" placeholder="Name" type="text" id="Name">
-                  </div>
-                  <div class="col-lg-4 col-md-4 col-12">
-                    <label for="MiddleName" class="form-label label-design">Middle Name</label>
-                    <input class="input-group form-control" placeholder="Middle (optional)" type="text" id="MiddleName">
-                  </div>
-                  <div class="col-lg-4 col-md-4 col-12">
-                    <label for="LAstName" class="form-label label-design">Last Name</label>
-                    <input class="input-group form-control" placeholder="Last" type="text" id="LastName">
-                  </div>
-                  <div class="col-lg-5 col-md-5 col-12 mt-3">
-                    <label for="RELATION" class="form-label label-design">RELATION TO PATIENT</label>
-                    <input class="input-group form-control" placeholder="RELATION" type="text" id="RELATION">
-                  </div>
-                  <div class="col-lg-4 col-md-4 col-12 mt-3">
-                    <label for="PHONE" class="form-label label-design">PHONE</label>
-                    <input class="input-group form-control" placeholder="Cell PHONE" type="text" id="PHONE">
-                  </div>
-                  <div class="col-lg-10 col-md-10 col-12 mt-3">
-                    <label for="HOMEADDRESS" class="form-label label-design">HOME ADDRESS</label>
-                    <input class="input-group form-control" placeholder="HOME ADDRESS" type="text" id="HOME ADDRESS">
-                  </div>
-                  <div class="col-lg-2 col-md-2 col-12 mt-3">
-                    <div class="p-2"><button type="button" class="btn btn-lg btn-notes mt-3">Verify</button></div>
-                  </div>
-                  <div class="col-lg-12 col-md-4 col-12 mt-3">
-
-                    <div class="form-group">
-                      <div class="input-group">
-                        <label class="control-label input-group-addon required">Street Address</label>
-                        <input class="form-control" placeholder="Street Address" type="text" id="StreetAddress"
-                          name="StreetAddress" />
-                      </div>
-                    </div>
-
-                  </div>
-                  <div class="col-lg-6 col-md-6 col-12 mt-3">
-                    <div class="form-group">
-                      <div class="input-group">
-                        <label class="control-label input-group-addon required">City</label>
-                        <input class="form-control" placeholder="City" type="text" id="City" name="City" />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-3 col-md-3 col-12 mt-3">
-                    <div class="form-group">
-                      <div class="input-group">
-                        <label class="control-label input-group-addon required">State</label>
-                        <input class="form-control" placeholder="State" type="text" id="State" name="State" />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-3 col-md-3 col-12 mt-3">
-                    <div class="form-group">
-                      <div class="input-group">
-                        <label class="control-label input-group-addon required">Zip</label>
-                        <input class="form-control" placeholder="Zip" type="text" id="Zip" name="Zip" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
+            <div class="row  mx-2">
+              <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
+                <label for="Name" class="form-label label-design">Name</label>
+                <input class="input-group form-control" placeholder="Name" type="text" id="Name">
               </div>
-              <div class="col-lg-12 col-md-12 col-12"><hr></div>
-              <!-- Next of kin -->
-                <div class="col-lg-12 col-md-12 col-12 my-3">
-                  <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
-                    <label>Next of kin</label>
-                  </div>
+              <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
+                <label for="MiddleName" class="form-label label-design">Middle Name</label>
+                <input class="input-group form-control" placeholder="Middle (optional)" type="text" id="MiddleName">
+              </div>
+              <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
+                <label for="LAstName" class="form-label label-design">Last Name</label>
+                <input class="input-group form-control" placeholder="Last" type="text" id="LastName">
+              </div>
+              <div class="col-lg-5 col-md-5 col-xl-6 col-12 my-2">
+                <label for="RELATION" class="form-label label-design text-nowrap">RELATION TO PATIENT</label>
+                <input class="input-group form-control" placeholder="RELATION" type="text" id="RELATION">
+              </div>
+              <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
+                <label for="SEX" class="form-label label-design">PHONE</label>
+                <input class="input-group form-control" placeholder="Cell PHONE" type="text" id="DATEOFBIRTH">
 
-                  <div class="row  mx-2">
-                    <div class="col-lg-4 col-md-4 col-12">
-                      <label for="Name" class="form-label label-design">Name</label>
-                      <input class="input-group form-control" placeholder="Name" type="text" id="Name">
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-12">
-                      <label for="MiddleName" class="form-label label-design">Middle Name</label>
-                      <input class="input-group form-control" placeholder="Middle (optional)" type="text" id="MiddleName">
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-12">
-                      <label for="LAstName" class="form-label label-design">Last Name</label>
-                      <input class="input-group form-control" placeholder="Last" type="text" id="LastName">
-                    </div>
-                    <div class="col-lg-5 col-md-5 col-12">
-                      <label for="RELATION" class="form-label label-design mt-3">RELATION TO PATIENT</label>
-                      <input class="input-group form-control" placeholder="RELATION" type="text" id="RELATION">
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-12 mt-3">
-                      <label for="SEX" class="form-label label-design">PHONE</label>
-                      <input class="input-group form-control" placeholder="Cell PHONE" type="text" id="DATEOFBIRTH">
-
-                    </div>
-                    <div class="col-lg-12 col-md-12 col-12 mt-3">
-                      <label for="DATEOFBIRTH*" class="form-label label-design">ADDRESS</label>
-                      <input class="input-group form-control" placeholder="street address1" type="text" id="DATEOFBIRTH">
-                    </div>
-                    <div class="col-lg-12 col-md-12 col-12 mt-3">
-                      <input class="input-group form-control" placeholder="street address2" type="text" id="DATEOFDEATH">
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-12 mt-3">
-                      <input class="input-group form-control" placeholder="City" type="text" id="Name">
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-12 mt-3">
-                      <select class="form-select" aria-label="Default select example">
-                        <option selected>CA</option>
-                      </select>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-12 mt-3">
-                      <input class="input-group form-control" placeholder="Zip" type="text" id="Zip">
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-12 col-md-12 col-12"><hr></div>
-              <!-- Immunization registry-->
+              </div>
+              <div class="col-lg-12 col-md-12 col-12 my-2">
+                <label for="DATEOFBIRTH*" class="form-label label-design">ADDRESS</label>
+                <input class="input-group form-control" placeholder="street address1" type="text" id="DATEOFBIRTH">
+              </div>
               <div class="col-lg-12 col-md-12 col-12 my-3">
-                <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
-                  <label>Immunization registry</label>
-                </div>
+                <input class="input-group form-control" placeholder="street address2" type="text" id="DATEOFDEATH">
+              </div>
+              <div class="col-lg-6 col-md-6 col-12 my-2">
+                <input class="input-group form-control" placeholder="City" type="text" id="Name">
+              </div>
+              <div class="col-lg-3 col-md-3 col-12 my-2">
+                <select class="form-select" aria-label="Default select example">
+                  <option selected>CA</option>
+                </select>
+              </div>
+              <div class="col-lg-3 col-md-3 col-12 my-2">
+                <input class="input-group form-control" placeholder="Zip" type="text" id="Zip">
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-12 col-md-12 col-12">
+            <hr>
+          </div>
+          <!-- Immunization registry-->
+          <div class="col-lg-12 col-md-12 col-12 my-3">
+            <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
+              <label>Immunization registry</label>
+            </div>
 
-                <div class="row  mx-2">
-                  <!-- <div class="col-lg-12 col-md-12 col-12 radio-btn">
+            <div class="row  mx-2">
+              <!-- <div class="col-lg-12 col-md-12 col-12 radio-btn">
                     <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
                     <div class=" label-design" for="flexRadioDefault1">Don't send immunization data. Patient has requested to protect
                     </div>
@@ -244,321 +253,336 @@
                     <div class="label-design" for="flexRadioDefault3">Patient did not specify preference regarding sharing their data.
                     </div>
                   </div> -->
-                    <div class="col-lg-12 col-md-12 col-12 radio-btn">
-                     <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                    <div class="radio-btn-label label-design" for="flexRadioDefault2">send immunization data. Patient has requested to protect
-                      their data.
-                    </div>
-                    </div>
-
-                   <div class="col-lg-12 col-md-12 col-12 radio-btn">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                    <div class="radio-btn-label label-design">send immunization data. Patient has requested to protect
-                      their data.
-                    </div>
-                  </div>
-                  <div class="col-lg-12 col-md-12 col-12 radio-btn">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
-                    <div class="radio-btn-label label-design">Patient did not specify preference regarding sharing their data.
-                    </div>
-                  </div>
+              <div class="col-lg-12 col-md-12 col-12 radio-btn">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                <div class="radio-btn-label label-design" for="flexRadioDefault2">send immunization data. Patient has
+                  requested to protect
+                  their data.
                 </div>
               </div>
+
+              <div class="col-lg-12 col-md-12 col-12 radio-btn">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                <div class="radio-btn-label label-design">send immunization data. Patient has requested to protect
+                  their data.
+                </div>
+              </div>
+              <div class="col-lg-12 col-md-12 col-12 radio-btn">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
+                <div class="radio-btn-label label-design">Patient did not specify preference regarding sharing their
+                  data.
+                </div>
+              </div>
+            </div>
           </div>
+        </div>
       </div>
 
       <div class="col-lg-6 col-md-6 col-12">
         <div class="row">
-            <!-- Contact -->
-            <div class="col-lg-12 col-md-12 col-12">
-              <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
-                <label>Contact Information</label>
+          <!-- Contact -->
+          <div class="col-lg-12 col-md-12 col-12">
+            <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
+              <label>Contact Information</label>
+            </div>
+
+            <div class="row  mx-2">
+              <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
+                <label for="CELLPHONE" class="form-label label-design">CELL PHONE</label>
+                <input class="input-group form-control" placeholder="CELL PHONE" type="text" id="CELLPHONE">
+              </div>
+              <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
+                <label for="Email" class="form-label label-design">Email</label>
+                <input class="input-group form-control" placeholder="Email" type="text" id="Email">
+              </div>
+              <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
+                <label for="HOMEPHONE" class="form-label label-design">HOME PHONE</label>
+                <input class="input-group form-control" placeholder="HOME PHONE" type="text" id="HOME PHONE">
+              </div>
+              <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
+                <label for="WORKPHONE" class="form-label label-design">WORK PHONE</label>
+                <input class="input-group form-control" placeholder="WORK PHONE" type="text" id="WORK PHONE">
+              </div>
+              <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
+                <label for="Ext*" class="form-label label-design">Ext</label>
+                <input class="input-group form-control" placeholder="Ext" type="text" id="Ext">
               </div>
 
-              <div class="row  mx-2">
-                <div class="col-lg-4 col-md-4 col-12">
-                  <label for="CELLPHONE" class="form-label label-design">CELL PHONE</label>
-                  <input class="input-group form-control" placeholder="CELL PHONE" type="text" id="CELLPHONE">
-                </div>
-                <div class="col-lg-3 col-md-3 col-12">
-                  <label for="Email" class="form-label label-design">Email</label>
-                  <input class="input-group form-control" placeholder="Email" type="text" id="Email">
-                </div>
-                <div class="col-lg-5 col-md-5 col-12">
-                  <label for="HOMEPHONE" class="form-label label-design">HOME PHONE</label>
-                  <input class="input-group form-control" placeholder="HOME PHONE" type="text" id="HOME PHONE">
-                </div>
-                <div class="col-lg-4 col-md-4 col-12 mt-3">
-                  <label for="WORKPHONE" class="form-label label-design">WORK PHONE</label>
-                  <input class="input-group form-control" placeholder="WORK PHONE" type="text" id="WORK PHONE">
-                </div>
-                <div class="col-lg-4 col-md-4 col-12 mt-3">
-                  <label for="Ext*" class="form-label label-design">Ext</label>
-                  <input class="input-group form-control" placeholder="Ext" type="text" id="Ext">
+              <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
+                <label for="Preferred Contact" class="form-label label-design">Preferred Contact</label>
+                <input class="input-group form-control" placeholder="Preferred Contact" type="text"
+                  id="PreferredContact">
+              </div>
+
+              <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
+                <label class="form-label label-design">ENABLE EMAIL NOTIFICATIONS FOR THIS PATIENT</label>
+
+                <div>
+                  <label class="switch">
+                    <input type="checkbox" id="togBtn">
+                    <div class="slider round"></div>
+                  </label>
+                  <label class="form-label label-design">SEND APPOINTMENT REMINDERS FOR THIS PATIENT</label>
                 </div>
 
-                <div class="col-lg-4 col-md-4 col-12 mt-3">
-                  <label for="Preferred Contact" class="form-label label-design">Preferred Contact</label>
-                  <input class="input-group form-control" placeholder="Preferred Contact" type="text" id="PreferredContact">
+              </div>
+              <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
+                <label class="form-label label-design">ENABLE SMS NOTIFICATIONS FOR THIS PATIENT</label>
+                <div>
+                  <label class="switch">
+                    <input type="checkbox" id="togBtn">
+                    <div class="slider round"></div>
+                  </label> <label class="form-label label-design">SEND APPOINTMENT REMINDERS FOR THIS PATIENT</label>
                 </div>
-
-                <div class="col-lg-6 col-md-4 col-12 mt-3">
-                  <label class="form-label label-design">ENABLE EMAIL NOTIFICATIONS FOR THIS PATIENT</label>
-
-                  <div>
-                    <label class="switch">
-                      <input type="checkbox" id="togBtn">
-                      <div class="slider round"></div>
-                    </label>
-                    <label class="form-label label-design">SEND APPOINTMENT REMINDERS FOR THIS PATIENT</label>
-                  </div>
-
-                </div>
-                <div class="col-lg-6 col-md-4 col-12 mt-3">
-                  <label class="form-label label-design">ENABLE SMS NOTIFICATIONS FOR THIS PATIENT</label>
-                  <div>
-                    <label class="switch">
-                      <input type="checkbox" id="togBtn">
-                      <div class="slider round"></div>
-                    </label> <label class="form-label label-design">SEND APPOINTMENT REMINDERS FOR THIS PATIENT</label>
-                  </div>
-                </div>
-                <div class="col-lg-10 col-md-10 col-12 mt-3">
-                  <label for="HOMEADDRESS" class="form-label label-design">HOME ADDRESS</label>
-                  <input class="input-group form-control" placeholder="HOME ADDRESS" type="text" id="HOME ADDRESS">
-                </div>
-                <div class="col-lg-2 col-md-2 col-12 mt-3">
-                  <div class="p-2"><button type="button" class="btn btn-lg btn-notes mt-3">Verify</button></div>
-                </div>
-                <div class="col-lg-12 col-md-4 col-12 mt-3">
-                  <div class="form-group">
-                    <div class="input-group">
-                      <label class="control-label input-group-addon required">Street Address</label>
-                      <input class="form-control" placeholder="Street Address" type="text" id="StreetAddress"
-                        name="StreetAddress" />
-                    </div>
+              </div>
+              <div class="col-lg-8 col-md-8 col-xl-9 col-12 my-2">
+                <label for="HOMEADDRESS" class="form-label label-design">HOME ADDRESS</label>
+                <input class="input-group form-control" placeholder="HOME ADDRESS" type="text" id="HOME ADDRESS">
+              </div>
+              <div class="col-lg-2 col-md-2 col-xl-3 col-12 my-2 mt-3">
+                <div class="p-2"><button type="button" class="btn btn-lg btn-notes mt-2">Verify</button></div>
+              </div>
+              <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
+                <div class="form-group">
+                  <div class="input-group">
+                    <label class="control-label input-group-addon required">Street Address</label>
+                    <input class="form-control" placeholder="Street Address" type="text" id="StreetAddress"
+                      name="StreetAddress" />
                   </div>
                 </div>
-                <div class="col-lg-6 col-md-6 col-12 mt-3">
-                  <div class="form-group">
-                    <div class="input-group">
-                      <label class="control-label input-group-addon required">City</label>
-                      <input class="form-control" placeholder="City" type="text" id="City" name="City" />
-                    </div>
+              </div>
+              <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
+                <div class="form-group">
+                  <div class="input-group">
+                    <label class="control-label input-group-addon required">City</label>
+                    <input class="form-control" placeholder="City" type="text" id="City" name="City" />
                   </div>
                 </div>
-                <div class="col-lg-3 col-md-3 col-12 mt-3">
-                  <div class="form-group">
-                    <div class="input-group">
-                      <label class="control-label input-group-addon required">State</label>
-                      <input class="form-control" placeholder="State" type="text" id="State" name="State" />
-                    </div>
+              </div>
+              <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
+                <div class="form-group">
+                  <div class="input-group">
+                    <label class="control-label input-group-addon required">State</label>
+                    <input class="form-control" placeholder="State" type="text" id="State" name="State" />
                   </div>
                 </div>
-                <div class="col-lg-3 col-md-3 col-12 mt-3">
-                  <div class="form-group">
-                    <div class="input-group">
-                      <label class="control-label input-group-addon required">Zip</label>
-                      <input class="form-control" placeholder="Zip" type="text" id="Zip" name="Zip" />
-                    </div>
+              </div>
+              <div class="col-lg-12 col-md-12 col-xl-6  col-12 my-2">
+                <div class="form-group">
+                  <div class="input-group">
+                    <label class="control-label input-group-addon required">Zip</label>
+                    <input class="form-control" placeholder="Zip" type="text" id="Zip" name="Zip" />
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-lg-12 col-md-12 col-12 my-3"><hr></div>
-             <!-- Patient Relationship -->
-              <div class="col-lg-12 col-md-12 col-12 my-3">
-                <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
-                  <label>Patient Relationship</label>
-                </div>
+          </div>
+          <div class="col-lg-12 col-md-12 col-12 my-3">
+            <hr>
+          </div>
+          <!-- Patient Relationship -->
+          <div class="col-lg-12 col-md-12 col-12 my-3">
+            <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
+              <label>Patient Relationship</label>
+            </div>
 
-                <div class="row  mx-2">
-                  <div class="col-lg-6 col-md-6 col-12">
-                  </div>
-                  <div class="col-lg-6 col-md-6 col-12">
-                    <div class="input-group py-3"><input type="text" name="SearchPatient" id="search_procedure_code"
-                        class="form-control search-control" placeholder="Search Patient Users">
-                      <button class="btn btn-info btn-md" type="button">
-                        <i class="fa fa-search "></i>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="col-lg-12 col-md-12 col-12">
-                    <div class="table-responsive mt-1">
-                      <table class="table">
-                        <thead class="th-border">
-                          <tr>
-                            <th scope="col">Patient Name</th>
-                            <th scope="col">Username</th>
-                            <th scope="col">Relationship to Patient</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>mdo</td>
-                          </tr>
-                          <tr>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>fat</td>
-                          </tr>
-                          <tr>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>fat</td>
-                          </tr>
-                          <tr>
-                            <td>Larry the Bird</td>
-                            <td>twitter</td>
-                            <td>fat</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
+            <div class="row  mx-2">
+              <div class="col-lg-2 col-md-2 col-xl-6 col-12">
+              </div>
+              <div class="col-lg-10 col-md-10 col-xl-6 col-12">
+                <div class="input-group py-3"><input type="text" name="SearchPatient" id="search_procedure_code"
+                    class="form-control search-control" placeholder="Search Patient Users">
+                  <button class="btn btn-info btn-md" type="button">
+                    <i class="fa fa-search "></i>
+                  </button>
                 </div>
               </div>
-              <div class="col-lg-12 col-md-12 col-12 "><hr></div>
-               <!-- Demographics -->
-              <div class="col-lg-12 col-md-12 col-12 my-3">
-                <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
-                  <label>Demographics</label>
-                </div>
-
-                <div class="row  mx-2">
-                  <div class="col-lg-3 col-md-3 col-12">
-                    <label for="Name" class="form-label label-design">ETHNICITY</label>
-                    <select class="form-select" aria-label="Default select example">
-                      <option selected>Hispani or Latino</option>
-                      <option>Not Hispani or Latino</option>
-                      <option>Patinet Decline to specify</option>
-                    </select>
-                  </div>
-                  <div class="col-lg-3 col-md-3 col-12">
-                    <label for="MiddleName" class="form-label label-design">PREFERRED LANGUAGE</label>
-                    <select class="form-select" aria-label="Default select example">
-                      <option selected>Hispani or Latino</option>
-                      <option>Not Hispani or Latino</option>
-                      <option>Patinet Decline to specify</option>
-                    </select>
-                  </div>
-                  <div class="col-lg-3 col-md-3 col-12">
-                    <label for="GenderIdentity" class="form-label label-design">Gender Identity</label>
-                    <input class="input-group form-control" placeholder="Gender Identity" type="text" id="Smok">
-                  </div>
-                  <div class="col-lg-3 col-md-3 col-12">
-                    <label for="SexualOrientation" class="form-label label-design">Sexual Orientation</label>
-                    <input class="input-group form-control" placeholder="Sexual Orientation" type="text" id="Smok">
-                  </div>
-                  <div class="col-lg-12 col-md-12 col-12 mt-3">
-                    <label for="Race*" class="form-label label-design">Race (Select All That Apply)</label>
-                    <div class="row">
-                      <div class="col-lg-4 col-md-4 col-sm-12">
-                        <div class="form-group">
-                          <div class="input-group">
-                            <input class="checkbox checbox-design" id="AMERICAN" name="AMERICAN" type="checkbox">
-                            <label class="label-design check-label">AMERICAN INDIAN OR ALASKA NATIVE</label>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-lg-2 col-md-2 col-sm-12">
-                        <div class="form-group">
-                          <div class="input-group">
-                            <input class="checkbox checbox-design" id="INDIAN" name="INDIAN" type="checkbox">
-                            <label class="label-design check-label">ASIAN</label>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-lg-4 col-md-4 col-sm-12">
-                        <div class="form-group">
-                          <div class="input-group">
-                            <input class="checkbox checbox-design" id="BLACKAFRICAN" name="BLACKAFRICAN" type="checkbox">
-                            <label class="label-design check-label">BLACK OR AFRICAN AMERICAN</label>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-lg-2 col-md-2 col-sm-12">
-                        <div class="form-group">
-                          <div class="input-group">
-                            <input class="checkbox checbox-design" id="WHITE" name="WHITE" type="checkbox">
-                            <label class="label-design check-label">WHITE</label>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-lg-5 col-md-5 col-sm-12 mt-2">
-                        <div class="form-group">
-                          <div class="input-group">
-                            <input class="checkbox checbox-design" id="NATIVE" name="NATIVE" type="checkbox">
-                            <label class="label-design check-label">NATIVE HAWAIIAN OR OTHER PACIFIC ISLANDER</label>
-                          </div>
-                        </div>
-
-                      </div>
-                      <div class="col-lg-5 col-md-5 col-sm-12  mt-2">
-                        <div class="form-group">
-                          <div class="input-group">
-                            <input class="checkbox checbox-design" id="DECLINED" name="DECLINED" type="checkbox">
-                            <label class="label-design check-label">DECLINED TO SPECIFY/UNDETERMINED</label>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col-lg-2 col-md-2 col-sm-12 mt-2">
-                        <div class="form-group" style="margin-left: -65px;">
-                          <div class="text-nowrap">
-                            <input class="checkbox checbox-design" id="ETHNICITIES" name="ETHNICITIES" type="checkbox">
-                            <label class="label-design check-label">MULTIPLE ETHNICITIES</label>
-                          </div>
-                        </div>
-                      </div>
-
-                    </div>
-
-
-                  </div>
-                </div>
-
-              </div>
-              <div class="col-lg-12 col-md-12 col-12"><hr></div>
-               <!-- Care team -->
-              <div class="col-lg-12 col-md-12 col-12 my-3">
-                <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
-                  <label>Care team</label>
-                </div>
-
-                <div class="row  mx-2">
-                  <div class="col-lg-12 col-md-12 col-12">
-                    <div class="input-group py-3"><input type="text" name="search_procedure_code" id="search_procedure_code"
-                        class="form-control search-control" placeholder="Search Procedure(s)">
-                      <button class="btn btn-info btn-md" type="button">
-                        <i class="fa fa-search "></i>
-                      </button>
-                    </div>
-                    <div class="team-border">
-                      <div class="row  care-team-providers">
-                        <div class="col-lg-4 col-md-4 col-12">NAME/SPECIALITY</div>
-                        <div class="col-lg-4 col-md-4 col-12">RELATIONSHIP TO PATIENT</div>
-                        <div class="col-lg-4 col-md-4 col-12">CONTACT</div>
-                      </div>
-                    </div>
-
-                  </div>
-
+              <div class="col-lg-12 col-md-12 col-12">
+                <div class="table-responsive mt-1">
+                  <table class="table">
+                    <thead class="th-border">
+                      <tr>
+                        <th scope="col">Patient Name</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Relationship to Patient</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>mdo</td>
+                      </tr>
+                      <tr>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>fat</td>
+                      </tr>
+                      <tr>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>fat</td>
+                      </tr>
+                      <tr>
+                        <td>Larry the Bird</td>
+                        <td>twitter</td>
+                        <td>fat</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
+            </div>
+          </div>
+          <div class="col-lg-12 col-md-12 col-12 ">
+            <hr>
+          </div>
+          <!-- Demographics -->
+          <div class="col-lg-12 col-md-12 col-12 my-3">
+            <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
+              <label>Demographics</label>
+            </div>
+
+            <div class="row  mx-2">
+              <div class="col-lg-6 col-md-6 col-xl-6 col-12 my-2">
+                <label for="Name" class="form-label label-design">ETHNICITY</label>
+                <select class="form-select" aria-label="Default select example">
+                  <option selected>Hispani or Latino</option>
+                  <option>Not Hispani or Latino</option>
+                  <option>Patinet Decline to specify</option>
+                </select>
+              </div>
+              <div class="col-lg-6 col-md-6 col-xl-6 col-12 my-2">
+                <label for="MiddleName" class="form-label label-design">PREFERRED LANGUAGE</label>
+                <select class="form-select" aria-label="Default select example">
+                  <option selected>English (en)</option>
+                  <option>German  (de)</option>
+                  <option>Russian (ru)</option>
+                  <option>Spanish (es)</option>
+                </select>
+              </div>
+              <div class="col-lg-6 col-md-6 col-xl-6 col-12 my-2">
+                <label for="GenderIdentity" class="form-label label-design">Gender Identity</label>
+                <input class="input-group form-control" placeholder="Gender Identity" type="text" id="Gender">
+              </div>
+              <div class="col-lg-6 col-md-6 col-xl-6 col-12 my-2">
+                <label for="Sexual" class="form-label label-design">Sexual Orientation</label>
+                <input class="input-group form-control" placeholder="Sexual Orientation" type="text" id="Sexual">
+              </div>
+              <div class="col-lg-12 col-md-12 col-12 my-2">
+                <label for="Race*" class="form-label label-design">Race (Select All That Apply)</label>
+                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-xl-7 col-sm-12">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <input class="checkbox checbox-design" id="AMERICAN" name="AMERICAN" type="checkbox">
+                        <label class="label-design check-label check-label-mrg">AMERICAN INDIAN OR ALASKA NATIVE</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-xl-4 col-sm-12">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <input class="checkbox checbox-design" id="INDIAN" name="INDIAN" type="checkbox">
+                        <label class="label-design check-label">ASIAN</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-12 col-md-12 col-xl-7 col-sm-12 mt-2">
+                    <div class="form-group my-2 mt-lg-0">
+                      <div class="input-group">
+                        <input class="checkbox checbox-design" id="BLACKAFRICAN" name="BLACKAFRICAN" type="checkbox">
+                        <label class="label-design check-label check-label-mrg">BLACK OR AFRICAN AMERICAN</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-xl-4 col-sm-12 mt-2">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <input class="checkbox checbox-design" id="WHITE" name="WHITE" type="checkbox">
+                        <label class="label-design check-label">WHITE</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-12 col-md-12 col-xl-7 col-sm-12 mt-2">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <input class="checkbox checbox-design" id="NATIVE" name="NATIVE" type="checkbox">
+                        <label class="label-design check-label check-label-mrg">NATIVE HAWAIIAN OR OTHER PACIFIC
+                          ISLANDER</label>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="col-lg-12 col-md-12 col-xl-7 col-sm-12 mt-2">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <input class="checkbox checbox-design" id="DECLINED" name="DECLINED" type="checkbox">
+                        <label class="label-design check-label check-label-mrg">DECLINED TO SPECIFY/UNDETERMINED</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-10 col-md-10 col-xl-6 col-sm-12 mt-2">
+                    <div class="form-group">
+                      <div class="text-nowrap">
+                        <input class="checkbox checbox-design" id="ETHNICITIES" name="ETHNICITIES" type="checkbox">
+                        <label class="label-design check-label ">MULTIPLE ETHNICITIES</label>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+
+              </div>
+            </div>
 
           </div>
+          <div class="col-lg-12 col-md-12 col-12">
+            <hr>
+          </div>
+          <!-- Care team -->
+          <div class="col-lg-12 col-md-12 col-12 my-3">
+            <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
+              <label>Care team</label>
+            </div>
+
+            <div class="row  mx-2">
+              <div class="col-lg-2 col-md-2 col-xl-4 col-12"></div>
+              <div class="col-lg-10 col-md-10 col-xl-8 col-12">
+                <div class="input-group py-3"><input type="text" name="search_procedure_code" id="search_procedure_code"
+                    class="form-control search-control">
+                  <button class="btn btn-info btn-md" type="button">
+                    <i class="fa fa-search "></i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="col-lg-12 col-md-12 col-12">
+                <div class="team-border">
+                  <div class="row  care-team-providers">
+                    <div class="col-lg-12 col-md-12 col-xl-4 col-12">NAME/SPECIALITY</div>
+                    <div class="col-lg-12 col-md-12 col-xl-4 col-12">RELATIONSHIP TO PATIENT</div>
+                    <div class="col-lg-12 col-md-12 col-xl-4 col-12">CONTACT</div>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+
+        </div>
       </div>
-     </div>
+    </div>
   </div>
 
 </div>
 
 
-  <!-- Reset Password Modal -->
-<div class="modal fade" id="ResetPwdModal" tabindex="-1" aria-labelledby="ResetPwdModal" aria-hidden="true" >
+<!-- Reset Password Modal -->
+<div class="modal fade" id="ResetPwdModal" tabindex="-1" aria-labelledby="ResetPwdModal" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -573,12 +597,13 @@
           </div>
           <div class="col-lg-12 col-md-4 col-sm-4 my-3">
             <input class="input-group form-control pwd-cursor  my-3" placeholder="dsfsffd" type="text" id="Username">
-        </div>
+          </div>
         </div>
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-lg btn-green" data-bs-toggle="modal" data-bs-target="#ResetModal">Reset Password</button>
+        <button type="button" class="btn btn-lg btn-green" data-bs-toggle="modal" data-bs-target="#ResetModal">Reset
+          Password</button>
         <button type="button" class="btn btn-lg btn-green" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
       </div>
     </div>
@@ -586,7 +611,7 @@
 </div>
 
 <!-- Add Notes Modal -->
-<div class="modal fade" id="noteModal" tabindex="-1" aria-labelledby="noteModal" aria-hidden="true" >
+<div class="modal fade" id="noteModal" tabindex="-1" aria-labelledby="noteModal" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -614,7 +639,7 @@
 </div>
 
 <!-- Display Password Modal -->
-<div class="modal fade" id="ResetModal" tabindex="-1" aria-labelledby="ResetModal" aria-hidden="true" >
+<div class="modal fade" id="ResetModal" tabindex="-1" aria-labelledby="ResetModal" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -623,16 +648,17 @@
       </div>
       <div class="modal-body">
         <div class="row my-3">
-         <h3>Afdafvc</h3>
-      </div>
+          <h3>Afdafvc</h3>
+        </div>
 
-      <div class="modal-footer">
-        <button type="button" class="btn btn-lg btn-green" data-bs-toggle="modal" data-bs-target="#ResetModal">Print PDF</button>
-        <button type="button" class="btn btn-lg btn-green" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-lg btn-green" data-bs-toggle="modal" data-bs-target="#ResetModal">Print
+            PDF</button>
+          <button type="button" class="btn btn-lg btn-green" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </div>
 
 <!--Authorized Representative Modal -->
@@ -682,11 +708,11 @@
       </div>
 
     </div>
-</div>
+  </div>
 </div>
 
- <!--Add Authorized Representative Modal -->
- <div class="modal fade" id="AddAuthorizedModal" tabindex="-1" aria-labelledby="AddAuthorizedModal" aria-hidden="true">
+<!--Add Authorized Representative Modal -->
+<div class="modal fade" id="AddAuthorizedModal" tabindex="-1" aria-labelledby="AddAuthorizedModal" aria-hidden="true">
   <div class="modal-dialog add-authorized-dialog">
     <div class="modal-content authorized-content">
       <div class="modal-header authorized-header">
@@ -703,7 +729,7 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-12 col-md-12 col-12 mt-3">
+          <div class="col-lg-12 col-md-12 col-12 my-2">
             <div class="form-group">
               <div class="input-group">
                 <input class="form-control input-authorized" placeholder="Last Name" type="text" id="LastName"
@@ -711,15 +737,14 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-12 col-md-12 col-12 mt-3">
+          <div class="col-lg-12 col-md-12 col-12 my-2">
             <div class="form-group">
               <div class="input-group">
-                <input class="form-control input-authorized" placeholder="Email" type="text" id="Email"
-                  name="Email" />
+                <input class="form-control input-authorized" placeholder="Email" type="text" id="Email" name="Email" />
               </div>
             </div>
           </div>
-          <div class="col-lg-12 col-md-12 col-12 mt-3">
+          <div class="col-lg-12 col-md-12 col-12 my-2">
             <div class="form-group">
               <div class="input-group">
                 <input class="form-control input-authorized" placeholder="(" type="text" id="inputtext"
@@ -740,8 +765,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-addnew btn-green" data-bs-dismiss="modal"
-          aria-label="Close">Save</button>
+        <button type="button" class="btn btn-addnew btn-green" data-bs-dismiss="modal" aria-label="Close">Save</button>
       </div>
 
     </div>

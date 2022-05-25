@@ -32,7 +32,10 @@ export class ProviderlistComponent {
 
   }
   getProviderList() {
-    this.adminservice.GetProviderList().subscribe(resp => {
+    var reqparams = {
+      ClinicId: 'null'
+    }
+    this.adminservice.GetProviderList(reqparams).subscribe(resp => {
       if (resp.IsSuccess) {
         this.providersDataSource = resp.ListResult;
         this.dataSource = resp.ListResult;

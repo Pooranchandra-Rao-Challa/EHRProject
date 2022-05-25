@@ -872,8 +872,8 @@ i {
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  position: fixed;
-  z-index: 1000;
+  // position: fixed;
+  // z-index: 1000;
   // background: #aaa;
 }
 
@@ -904,6 +904,7 @@ i {
 //aligment for pagination
 .pagination {
   width: 100%;
+
   @extend .flex-wrap;
 }
 
