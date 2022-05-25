@@ -26,8 +26,8 @@
         <span class="link_name">Providers</span>
       </a>
       <ul class="sub-menu blank">
-        <li><a class="link_name"  href="javascript:void(0)" (click)="onChangeBreadCrum('Providers','admin/dashboard')"
-         >Providers</a></li>
+        <li><a class="link_name" href="javascript:void(0)"
+            (click)="onChangeBreadCrum('Providers','admin/dashboard')">Providers</a></li>
       </ul>
     </li>
     <!-- <li>
@@ -59,51 +59,57 @@
     <li data-toggle="collapse" data-target="#service" class="collapsed">
       <a class="dropdown-btn">
         <i class='icon-folder icon-align'></i>
-          <span class="link_name">Patients</span>
+        <span class="link_name">Patients</span>
         <i class='bx bxs-chevron-down'></i>
       </a>
       <div class="sub-menu">
-        <li class="link-boder"><a href="javascript:void(0)" (click)="onChangeBreadCrum('Active Patient','admin/activepatient')">Active Patients</a></li>
-        <li class="link-boder"><a href="javascript:void(0)" (click)="onChangeBreadCrum('Inactive Patient','admin/inactivepatient')">Inactive Patients</a></li>
-      </div>
+    <li class="link-boder"><a href="javascript:void(0)"
+        (click)="onChangeBreadCrum('Active Patient','admin/activepatient')">Active Patients</a></li>
+    <li class="link-boder"><a href="javascript:void(0)"
+        (click)="onChangeBreadCrum('Inactive Patient','admin/inactivepatient')">Inactive Patients</a></li>
+</div>
+</li>
+<li>
+  <a href="javascript:void(0)" (click)="onChangeBreadCrum('Admins','admin/admins')">
+    <i class='icon-people icon-align'></i>
+    <span class="link_name">Admins</span>
+  </a>
+  <ul class="sub-menu blank">
+    <li><a class="link_name" href="javascript:void(0)" (click)="onChangeBreadCrum('Admins','admin/admins')">Admins</a>
     </li>
-    <li>
-      <a href="javascript:void(0)" (click)="onChangeBreadCrum('Admins','admin/admins')">
-        <i class='icon-people icon-align'></i>
-        <span class="link_name">Admins</span>
-      </a>
-      <ul class="sub-menu blank">
-        <li><a class="link_name" href="javascript:void(0)" (click)="onChangeBreadCrum('Admins','admin/admins')">Admins</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="javascript:void(0)" (click)="onChangeBreadCrum('Billing','admin/billing')">
-        <i class='icon-wallet icon-align'></i>
-        <span class="link_name">Billing</span>
-      </a>
-      <ul class="sub-menu blank ">
-        <li><a class="link_name" href="javascript:void(0)" (click)="onChangeBreadCrum('Billing','admin/billing')">Billing</a></li>
-      </ul>
-    </li>
-    <li>
-      <a  href="javascript:void(0)" (click)="onChangeBreadCrum('Reports','admin/reports')">
-        <i class='icon-docs icon-align'></i>
-        <span class="link_name">Reports</span>
-      </a>
-      <ul class="sub-menu blank">
-        <li><a class="link_name" href="javascript:void(0)" (click)="onChangeBreadCrum('Reports','admin/reports')">Reports</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="javascript:void(0)" (click)="onChangeBreadCrum('Settings','admin/setting')">
-        <i class='icon-settings icon-align'></i>
-        <span class="link_name ">Settings</span>
-      </a>
-      <ul class="sub-menu blank">
-        <li><a class="link_name" href="javascript:void(0)" (click)="onChangeBreadCrum('Settings','admin/setting')">Settings</a></li>
-      </ul>
-    </li>
-    <!-- <li>
+  </ul>
+</li>
+<li>
+  <a href="javascript:void(0)" (click)="onChangeBreadCrum('Billing','admin/billing')">
+    <i class='icon-wallet icon-align'></i>
+    <span class="link_name">Billing</span>
+  </a>
+  <ul class="sub-menu blank ">
+    <li><a class="link_name" href="javascript:void(0)"
+        (click)="onChangeBreadCrum('Billing','admin/billing')">Billing</a></li>
+  </ul>
+</li>
+<li>
+  <a href="javascript:void(0)" (click)="onChangeBreadCrum('Reports','admin/reports')">
+    <i class='icon-docs icon-align'></i>
+    <span class="link_name">Reports</span>
+  </a>
+  <ul class="sub-menu blank">
+    <li><a class="link_name" href="javascript:void(0)"
+        (click)="onChangeBreadCrum('Reports','admin/reports')">Reports</a></li>
+  </ul>
+</li>
+<li>
+  <a href="javascript:void(0)" (click)="onChangeBreadCrum('Settings','admin/setting')">
+    <i class='icon-settings icon-align'></i>
+    <span class="link_name ">Settings</span>
+  </a>
+  <ul class="sub-menu blank">
+    <li><a class="link_name" href="javascript:void(0)"
+        (click)="onChangeBreadCrum('Settings','admin/setting')">Settings</a></li>
+  </ul>
+</li>
+<!-- <li>
       <div class="iocn-link">
         <a >
           <i class='icon-folder icon-align'></i>
@@ -120,55 +126,57 @@
       </ul>
     </li> -->
 
-    <li data-toggle="collapse" data-target="#service" class="collapsed">
-      <a class="dropdown-btn">
-        <i class='icon-folder icon-align'></i>
-          <span class="link_name">Upload Data</span>
-        <i class='bx bxs-chevron-down'></i>
-      </a>
-      <div class="sub-menu">
-        <li class="link-boder"><a href="javascript:void(0)" (click)="onChangeBreadCrum('Imported Data','admin/importeddata')">List Imported Data</a></li>
-        <li class="link-boder"><a href="javascript:void(0)" (click)="onChangeBreadCrum('Import Patient','admin/importpatient')">Import Patient</a></li>
-        <li class="link-boder"><a href="javascript:void(0)" (click)="onChangeBreadCrum('Import Encounter','admin/importencounter')">Import Encounter</a></li>
-      </div>
-    </li>
-    <li>
-      <a  href="javascript:void(0)" (click)="onChangeBreadCrum('Weekly Updates','admin/weeklyupdates')">
-        <i class='icon-notebook icon-align'></i>
-        <span class="link_name">Weekly Update</span>
-      </a>
-      <ul class="sub-menu blank">
-        <li><a class="link_name"  href="javascript:void(0)" (click)="onChangeBreadCrum('Weekly Updates','admin/weeklyupdates')">Weekly Update</a></li>
-      </ul>
-    </li>
-
-
-    <li>
-      <a  href="javascript:void(0)" (click)="onChangeBreadCrum('Default Message','admin/defaultmessage')">
-        <i class='icon-docs icon-align'></i>
-        <span class="link_name">Default Messages</span>
-      </a>
-      <ul class="sub-menu blank">
-        <li><a class="link_name" href="javascript:void(0)" (click)="onChangeBreadCrum('Default Message','admin/defaultmessage')">Default Messages</a></li>
-      </ul>
-    </li>
-    <li>
-      <a  href="javascript:void(0)" (click)="onChangeBreadCrum('Communication Settings','admin/communication')">
-        <i class='icon-settings icon-align'></i>
-        <span class="link_name">Communication Settings</span>
-      </a>
-      <ul class="sub-menu blank">
-        <li><a class="link_name" href="javascript:void(0)" (click)="onChangeBreadCrum('Communication Settings','admin/communication')">Communication Settings</a></li>
-      </ul>
-    </li>
-  </ul>
+<li data-toggle="collapse" data-target="#service" class="collapsed">
+  <a class="dropdown-btn">
+    <i class='icon-folder icon-align'></i>
+    <span class="link_name">Upload Data</span>
+    <i class='bx bxs-chevron-down'></i>
+  </a>
+  <div class="sub-menu">
+<li class="link-boder"><a href="javascript:void(0)"
+    (click)="onChangeBreadCrum('Imported Data','admin/importeddata')">List Imported Data</a></li>
+<li class="link-boder"><a href="javascript:void(0)"
+    (click)="onChangeBreadCrum('Import Patient','admin/importpatient')">Import Patient</a></li>
+<li class="link-boder"><a href="javascript:void(0)"
+    (click)="onChangeBreadCrum('Import Encounter','admin/importencounter')">Import Encounter</a></li>
 </div>
-<!-- <script src="../../../assets/js/script.js"></script> -->
+</li>
+<li>
+  <a href="javascript:void(0)" (click)="onChangeBreadCrum('Weekly Updates','admin/weeklyupdates')">
+    <i class='icon-notebook icon-align'></i>
+    <span class="link_name">Weekly Update</span>
+  </a>
+  <ul class="sub-menu blank">
+    <li><a class="link_name" href="javascript:void(0)"
+        (click)="onChangeBreadCrum('Weekly Updates','admin/weeklyupdates')">Weekly Update</a></li>
+  </ul>
+</li>
+
+
+<li>
+  <a href="javascript:void(0)" (click)="onChangeBreadCrum('Default Message','admin/defaultmessage')">
+    <i class='icon-docs icon-align'></i>
+    <span class="link_name">Default Messages</span>
+  </a>
+  <ul class="sub-menu blank">
+    <li><a class="link_name" href="javascript:void(0)"
+        (click)="onChangeBreadCrum('Default Message','admin/defaultmessage')">Default Messages</a></li>
+  </ul>
+</li>
+<li>
+  <a href="javascript:void(0)" (click)="onChangeBreadCrum('Communication Settings','admin/communication')">
+    <i class='icon-settings icon-align'></i>
+    <span class="link_name">Communication Settings</span>
+  </a>
+  <ul class="sub-menu blank">
+    <li><a class="link_name" href="javascript:void(0)"
+        (click)="onChangeBreadCrum('Communication Settings','admin/communication')">Communication Settings</a></li>
+  </ul>
+</li>
+</ul>
+</div>
+<!-- <script src="assets/js/script.js"></script> -->
 
 <!-- </body>
 
   </html> -->
-
-
-
-

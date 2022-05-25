@@ -2,11 +2,11 @@
   <div class="one-ehr-images">
     <div class="ehr-img-top">
       <div class="text-center logo-rectangle">
-        <img width="232" height="88" src="./assets/images/EHR.svg">
+        <img width="232" height="88" src="assets/images/EHR.svg">
       </div>
     </div>
     <div class="text-center">
-      <img width="146" height="240" src="./assets/images/one.svg">
+      <img width="146" height="240" src="assets/images/one.svg">
     </div>
   </div>
   <div class="content-top">
@@ -15,7 +15,7 @@
         <div class="col-lg-12">
           <div class="main-title">
             <h3>SIGN UP FOR A PRACTITIONER ACCOUNT</h3>
-            <p>Already have an account? <a href="/account/home">Sign in here</a></p>
+            <p>Already have an account? <a routerLink="/account/home">Sign in here</a></p>
           </div>
         </div>
       </div>
@@ -40,7 +40,8 @@
                   <p class="category-title">Your Name</p>
                   <div class="row">
                     <mat-form-field appearance="outline" class="col-lg-2 col-md-2 col-sm-2">
-                      <mat-select formControlName="Title" class=" white-light select2-selection" [disableOptionCentering]="true">
+                      <mat-select formControlName="Title" class=" white-light select2-selection"
+                        [disableOptionCentering]="true">
                         <mat-option *ngFor="let title of nameTitle" [value]="title.titleName">{{title.titleName}}
                         </mat-option>
                       </mat-select>
@@ -49,21 +50,23 @@
                     <mat-form-field appearance="outline" class="col-lg-3 col-md-3 col-sm-3 col-12">
 
                       <input matInput
-                      (mouseover)="viewModel.FirstName=$event.target.value!= null&& $event.target.value!=''" (mouseleave)="viewModel.FirstName=false"
-                        formControlName="FirstName" placeholder="First Name"
-                        >
+                        (mouseover)="viewModel.FirstName=$event.target.value!= null&& $event.target.value!=''"
+                        (mouseleave)="viewModel.FirstName=false" formControlName="FirstName" placeholder="First Name">
                       <mat-icon matSuffix *ngIf="viewModel.FirstName" class="FieldValid">check</mat-icon>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline" class="col-lg-3 col-md-3 col-sm-3 col-12">
-                      <input matInput (mouseover)="viewModel.MiddleName=$event.target.value!= null&& $event.target.value!=''" (mouseleave)="viewModel.MiddleName=false"
-                        formControlName="MiddleName" placeholder="Middle Name" >
+                      <input matInput
+                        (mouseover)="viewModel.MiddleName=$event.target.value!= null&& $event.target.value!=''"
+                        (mouseleave)="viewModel.MiddleName=false" formControlName="MiddleName"
+                        placeholder="Middle Name">
                       <mat-icon matSuffix *ngIf="viewModel.MiddleName" class="FieldValid">check</mat-icon>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline" class="col-lg-4 col-md-4 col-sm-4 col-12">
-                      <input matInput (mouseover)="viewModel.LastName=$event.target.value!= null&& $event.target.value!=''" (mouseleave)="viewModel.LastName=false"
-                        formControlName="LastName" placeholder="Last Name">
+                      <input matInput
+                        (mouseover)="viewModel.LastName=$event.target.value!= null&& $event.target.value!=''"
+                        (mouseleave)="viewModel.LastName=false" formControlName="LastName" placeholder="Last Name">
                       <mat-icon matSuffix *ngIf="viewModel.LastName" class="FieldValid">check</mat-icon>
 
                     </mat-form-field>
@@ -72,11 +75,13 @@
               </div>
               <div class="row">
                 <div class="col-lg-12">
-                  <p  class="category-title">PRACTICE NAME</p>
+                  <p class="category-title">PRACTICE NAME</p>
                   <div class="row">
                     <mat-form-field appearance="outline" class="col-lg-12">
-                      <input matInput (mouseover)="viewModel.PracticeName=$event.target.value!= null&& $event.target.value!=''" (mouseleave)="viewModel.PracticeName=false"
-                        formControlName="PracticeName" placeholder="Practice Name">
+                      <input matInput
+                        (mouseover)="viewModel.PracticeName=$event.target.value!= null&& $event.target.value!=''"
+                        (mouseleave)="viewModel.PracticeName=false" formControlName="PracticeName"
+                        placeholder="Practice Name">
                       <mat-icon matSuffix *ngIf="viewModel.PracticeName" class="FieldValid">check</mat-icon>
 
                     </mat-form-field>
@@ -85,16 +90,17 @@
               </div>
               <div class="row">
                 <div class="col-lg-4 col-md-4 col-sm-4">
-                  <p  class="category-title">CREDENTIALS</p>
+                  <p class="category-title">CREDENTIALS</p>
                   <mat-form-field appearance="outline" class="col-12">
-                    <mat-select id="selCredentials" formControlName="Degree" placeholder="Credentials" [disableOptionCentering]="true" >
+                    <mat-select id="selCredentials" formControlName="Degree" placeholder="Credentials"
+                      [disableOptionCentering]="true">
                       <mat-option *ngFor="let cred of credentials" [value]="cred.credName">{{cred.credName}}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4">
-                  <p  class="category-title">SPECIALITY</p>
+                  <p class="category-title">SPECIALITY</p>
                   <mat-form-field appearance="outline" class="col-12">
                     <mat-select placeholder="Speciality" formControlName="Speciality" [disableOptionCentering]="true">
                       <mat-option *ngFor="let spec of speciality" [value]="spec.specName">{{spec.specName}}</mat-option>
@@ -102,9 +108,10 @@
                   </mat-form-field>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4">
-                  <p  class="category-title">NPI NUMBER</p>
+                  <p class="category-title">NPI NUMBER</p>
                   <mat-form-field appearance="outline" class="col-12">
-                    <input matInput (mouseover)="viewModel.NPI=$event.target.value!= null&& $event.target.value!=''" (mouseleave)="viewModel.NPI=false" formControlName="NPI"
+                    <input matInput (mouseover)="viewModel.NPI=$event.target.value!= null&& $event.target.value!=''"
+                      (mouseleave)="viewModel.NPI=false" formControlName="NPI"
                       placeholder="National Provider Identifier(NPI)" formControlName="NPI">
                     <mat-icon matSuffix *ngIf="viewModel.NPI" class="FieldValid">check</mat-icon>
 
@@ -142,10 +149,11 @@
                   <p>PRACTICE ADDRESS</p>
                   <div class="row">
                     <mat-form-field appearance="outline" class="col-md-6">
-                      <input matInput (mouseover)="viewModel.PracticeAddress=$event.target.value!= null&& $event.target.value!=''" (mouseleave)="viewModel.PracticeAddress=false"
-                        formControlName="PracticeAddress" [readonly]="displayVerifybtn"
-                        placeholder="Enter the full name here (including suite number)">
-                      <mat-icon matSuffix  *ngIf="viewModel.PracticeAddress" class="FieldValid">check</mat-icon>
+                      <input matInput
+                        (mouseover)="viewModel.PracticeAddress=$event.target.value!= null&& $event.target.value!=''"
+                        (mouseleave)="viewModel.PracticeAddress=false" formControlName="PracticeAddress"
+                        [readonly]="displayVerifybtn" placeholder="Enter the full name here (including suite number)">
+                      <mat-icon matSuffix *ngIf="viewModel.PracticeAddress" class="FieldValid">check</mat-icon>
                       <mat-icon matSuffix *ngIf="!viewModel.PracticeAddress" class="FieldInvalid">clear</mat-icon>
                     </mat-form-field>
 
@@ -157,7 +165,8 @@
 
 
                   <div class="row">
-                    <mat-form-field class="field" appearance="outline" class="example-full-width" *ngIf="ValidAddressToUse">
+                    <mat-form-field class="field" appearance="outline" class="example-full-width"
+                      *ngIf="ValidAddressToUse">
                       <input type="text" class="w-100" readonly [value]="UseThisValue" placeholder="address" matInput>
                       <mat-icon matSuffix class="FieldInvalid" (click)="UseValidAddress()" *ngIf="!sucessdisplay">clear
                       </mat-icon>
@@ -172,10 +181,9 @@
                   <p>PRIMARY PHONE NUMBER</p>
                   <mat-form-field appearance="outline" class="col-12">
                     <input matInput formControlName="PrimaryPhone" class="cstm-tel" type="tel" prefix="+1"
-                    mask=" (000) 000 0000"  [showMaskTyped]="true"  [patterns]="PhonePattern"
-                    (mouseover)="viewModel.PrimaryPhone=$event.target.value!= null&& $event.target.value!='+1 (___) ___ ____'"
-                    (mouseleave)="viewModel.PrimaryPhone=false"
-                    placeHolderCharacter="_"  />
+                      mask=" (000) 000 0000" [showMaskTyped]="true" [patterns]="PhonePattern"
+                      (mouseover)="viewModel.PrimaryPhone=$event.target.value!= null&& $event.target.value!='+1 (___) ___ ____'"
+                      (mouseleave)="viewModel.PrimaryPhone=false" placeHolderCharacter="_" />
                     <mat-icon matSuffix *ngIf="viewModel.PrimaryPhone" class="FieldValid">check</mat-icon>
                   </mat-form-field>
                 </div>
@@ -183,10 +191,10 @@
                   <p>MOBILE PHONE NUMBER</p>
                   <mat-form-field appearance="outline" class="col-12">
                     <input matInput
-                    (mouseover)="viewModel.MobilePhone=$event.target.value!= null&& $event.target.value!='+1 (___) ___ ____'" (mouseleave)="viewModel.MobilePhone=false" prefix="+1"
-                    mask=" (000) 000 0000"  [showMaskTyped]="true"  [patterns]="PhonePattern" placeHolderCharacter="_"
-                      formControlName="MobilePhone" placeholder="(123)-456-7890" type="tel"
-                      class="cstm-tel">
+                      (mouseover)="viewModel.MobilePhone=$event.target.value!= null&& $event.target.value!='+1 (___) ___ ____'"
+                      (mouseleave)="viewModel.MobilePhone=false" prefix="+1" mask=" (000) 000 0000"
+                      [showMaskTyped]="true" [patterns]="PhonePattern" placeHolderCharacter="_"
+                      formControlName="MobilePhone" placeholder="(123)-456-7890" type="tel" class="cstm-tel">
                     <mat-icon matSuffix *ngIf="viewModel.MobilePhone" class="FieldValid">check</mat-icon>
                   </mat-form-field>
                 </div>
@@ -223,9 +231,11 @@
                   <p>PRIMARY EMAIL ADDRESS</p>
                   <mat-form-field appearance="outline" class="col-12">
                     <input matInput (mouseover)="viewModel.Email=true" (mouseleave)="viewModel.Email=false"
-                    formControlName="Email" placeholder="Email Adress">
-                    <mat-icon matSuffix *ngIf="viewModel.Email && !AccountInfomation.controls['Email'].invalid" class="FieldValid">check</mat-icon>
-                    <mat-icon matSuffix *ngIf="viewModel.Email && AccountInfomation.controls['Email'].invalid" class="FieldInvalid">clear</mat-icon>
+                      formControlName="Email" placeholder="Email Adress">
+                    <mat-icon matSuffix *ngIf="viewModel.Email && !AccountInfomation.controls['Email'].invalid"
+                      class="FieldValid">check</mat-icon>
+                    <mat-icon matSuffix *ngIf="viewModel.Email && AccountInfomation.controls['Email'].invalid"
+                      class="FieldInvalid">clear</mat-icon>
 
                   </mat-form-field>
                 </div>
@@ -233,9 +243,12 @@
                   <p>ALT. EMAIL ADDRESS</p>
                   <mat-form-field appearance="outline" class="col-12">
                     <input matInput formControlName="AltEmail" placeholder="Alter Email Address"
-                    (mouseover)="viewModel.AltEmail=$event.target.value!= null&& $event.target.value!=''" (mouseleave)="viewModel.AltEmail=false">
-                    <mat-icon matSuffix *ngIf="viewModel.AltEmail && !AccountInfomation.controls['AltEmail'].invalid" class="FieldValid">check</mat-icon>
-                    <mat-icon matSuffix *ngIf="viewModel.AltEmail && AccountInfomation.controls['AltEmail'].invalid" class="FieldInvalid">clear</mat-icon>
+                      (mouseover)="viewModel.AltEmail=$event.target.value!= null&& $event.target.value!=''"
+                      (mouseleave)="viewModel.AltEmail=false">
+                    <mat-icon matSuffix *ngIf="viewModel.AltEmail && !AccountInfomation.controls['AltEmail'].invalid"
+                      class="FieldValid">check</mat-icon>
+                    <mat-icon matSuffix *ngIf="viewModel.AltEmail && AccountInfomation.controls['AltEmail'].invalid"
+                      class="FieldInvalid">clear</mat-icon>
 
                   </mat-form-field>
                 </div>
@@ -244,21 +257,28 @@
                 <div class="col-lg-4 col-md-4 col-sm-6">
                   <p>PASSWORD</p>
                   <mat-form-field appearance="outline" class="col-12">
-                    <input matInput type="password"
-                    (mouseover)="viewModel.Password=true" (mouseleave)="viewModel.Password=false"
-                      formControlName="EncryptedPassword" placeholder="Password">
-                    <mat-icon matSuffix *ngIf="viewModel.Password && !AccountInfomation.controls['EncryptedPassword'].invalid" class="FieldValid">check</mat-icon>
-                    <mat-icon matSuffix *ngIf="viewModel.Password && AccountInfomation.controls['EncryptedPassword'].invalid " class="FieldInvalid">clear</mat-icon>
+                    <input matInput type="password" (mouseover)="viewModel.Password=true"
+                      (mouseleave)="viewModel.Password=false" formControlName="EncryptedPassword"
+                      placeholder="Password">
+                    <mat-icon matSuffix
+                      *ngIf="viewModel.Password && !AccountInfomation.controls['EncryptedPassword'].invalid"
+                      class="FieldValid">check</mat-icon>
+                    <mat-icon matSuffix
+                      *ngIf="viewModel.Password && AccountInfomation.controls['EncryptedPassword'].invalid "
+                      class="FieldInvalid">clear</mat-icon>
 
                   </mat-form-field>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6">
                   <p>CONFIRM PASSWORD</p>
                   <mat-form-field appearance="outline" class="col-12">
-                    <input matInput type="password"  (mouseover)="viewModel.ConfirmPassword=true" (mouseleave)="viewModel.ConfirmPassword=false"
-                      formControlName="ConfirmPassword" placeholder="Confirm Password">
-                    <mat-icon matSuffix *ngIf="viewModel.ConfirmPassword && validateConfirmPassword()" class="FieldValid">check</mat-icon>
-                    <mat-icon matSuffix *ngIf="viewModel.ConfirmPassword && !validateConfirmPassword()" class="FieldInvalid">clear</mat-icon>
+                    <input matInput type="password" (mouseover)="viewModel.ConfirmPassword=true"
+                      (mouseleave)="viewModel.ConfirmPassword=false" formControlName="ConfirmPassword"
+                      placeholder="Confirm Password">
+                    <mat-icon matSuffix *ngIf="viewModel.ConfirmPassword && validateConfirmPassword()"
+                      class="FieldValid">check</mat-icon>
+                    <mat-icon matSuffix *ngIf="viewModel.ConfirmPassword && !validateConfirmPassword()"
+                      class="FieldInvalid">clear</mat-icon>
 
                   </mat-form-field>
                 </div>
@@ -272,7 +292,7 @@
               <div class="row">
                 <div class="col-lg-12">
                   <div class="controls">
-                    <button mat-button class="reg-button col-md-2 prev-step3" >PREV.
+                    <button mat-button class="reg-button col-md-2 prev-step3">PREV.
                       STEP</button>
 
 
@@ -292,7 +312,7 @@
         <div class="tab-pane fade" id="signup-additionalinfo" role="tabpanel"
           aria-labelledby="signup-additionalinfo-tab">
           <div class="content">
-            <button mat-button class="reg-button col-md-2 prev-step4" >PREV.
+            <button mat-button class="reg-button col-md-2 prev-step4">PREV.
               STEP</button>
             <button mat-button class="reg-button col-md-2 mx-2" (click)="SaveRegitration()">
               COMPLETE REGISTRATION</button>

@@ -40,4 +40,10 @@ export class patientService extends APIEndPoint {
   AppointmentsByPatientId(reqparams: any) {
     return this._ProcessPostRequest<any>(this._appointmentsByPatientIdUrl, reqparams);
   }
+  
+  PatientProfileByPatientId(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._patientProfilreUrl, reqparams);
+  }
+
+  
 }
