@@ -101,9 +101,9 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let item of ProviderList| slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+                    <tr *ngFor="let item of ProviderList| slice: (page-1) * pageSize : (page-1) * pageSize + pageSize, let i = index">
                       <td class="tbl-col">
-                        <button type="button" class="addbtn"><i class="fa fa-plus icon-add my-1"></i></button>
+                        <button type="button" class="addbtn" (click)="ExpandProvider(item.clinic_id)"><i class="fa fa-plus icon-add my-1"></i></button>
                         <span class="mx-1"> {{item.ProviderName}} , {{item.Degree}}</span>
                         <div class="d-flex justify-content-start mt-2">
                           <button class="td-btn-style">Login</button>

@@ -26,7 +26,10 @@ export class EditDefaultMessageComponent implements OnInit {
     );
  }
  getProviderList() {
-  this.adminservice.GetProviderList().subscribe(resp => {
+  var reqparams = {
+    ClinicId: 'null'
+  }
+  this.adminservice.GetProviderList(reqparams).subscribe(resp => {
     if (resp.IsSuccess) {
       this.defaultmessage = resp.ListResult;
       //this.dataSource = resp.ListResult;

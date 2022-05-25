@@ -904,6 +904,7 @@ i {
 //aligment for pagination
 .pagination {
   width: 100%;
+
   @extend .flex-wrap;
 }
 

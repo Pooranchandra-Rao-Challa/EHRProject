@@ -3,6 +3,7 @@ import { OverlayService } from '../../overlay.service';
 import {  TemplateRef } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
 import { NewmessageDialogComponent } from '../../dialogs/newmessage.dialog/newmessage.dialog.component';
+declare var $: any;
 @Component({
   selector: 'app-labs.imaging',
   templateUrl: './directmsg.component.html',
@@ -18,6 +19,9 @@ export class DirectMsgComponent  {
   constructor(private overlayService :OverlayService) { }
 
   ngOnInit(): void {
+    $('#openBtn').click(function(){
+      $('#myModal').modal({show:true});
+    })
   }
   openComponentDialogmessage(content: TemplateRef<any> | ComponentType<any> | string) {
     const ref = this.overlayService.open(content, null);
