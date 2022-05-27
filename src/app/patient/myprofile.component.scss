@@ -10,6 +10,11 @@
 .panel-default {
   border-color: rgb(207, 56, 56);
 }
+.btn-save{
+  line-height: 23px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
 
 .panel {
   margin-bottom: 20px;
@@ -201,4 +206,9 @@ input::-webkit-input-placeholder {
   height: auto;
   width: 63%;
   overflow-wrap: anywhere;
+}
+
+input[readonly] {
+  opacity: 0.5;
+  cursor:not-allowed;
 }
