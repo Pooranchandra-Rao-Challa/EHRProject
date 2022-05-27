@@ -86,14 +86,39 @@
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list">
+                <ul class="main-list" *ngFor="let diagnose of allDiagnoses">
+                  <li>
+                    <a>
+                      <span *ngIf="diagnose?.code != null && diagnose?.code !=''">
+                        - {{diagnose?.code}}
+                      </span>
+                      <span *ngIf="diagnose?.note != null && diagnose?.note !=''">
+                        - {{diagnose?.note}}
+                      </span>
+                    </a>
+                  </li>
+                  <li style="margin-left: 20px;">
+                    <span *ngIf="diagnose?.start_at != null && diagnose?.start_at !=''">
+                      {{diagnose?.start_at | date: 'MM/dd/yyyy'}}
+                    </span>
+                    <span *ngIf="diagnose?.stop_at != null && diagnose?.stop_at !=''">
+                      - {{diagnose?.stop_at | date: 'MM/dd/yyyy'}}
+                    </span>
+                  </li>
+                </ul>
+                <ul class="main-list" *ngIf="allDiagnoses?.length == (0 || null || undefined)">
+                  <li>
+                    <span>No active Dx recorded.</span>
+                  </li>
+                </ul>
+                <!-- <ul class="main-list">
                   <li *ngFor="let diagnose of allDiagnoses">
                     <span>- {{diagnose?.note}}</span>
                   </li>
                   <li *ngIf="allDiagnoses?.length == (0 || null || undefined)">
                     <span>No active Dx recorded.</span>
                   </li>
-                </ul>
+                </ul> -->
               </div>
             </div>
             <div class="card">
@@ -135,11 +160,20 @@
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list">
-                  <li *ngFor="let pastmedical of this.pastMedicalHistories">
-                    <span>- {{pastmedical.nutrition_history}}</span>
+                <ul class="main-list" *ngFor="let pastmedical of this.pastMedicalHistories">
+                  <li>
+                    <a>
+                      <span *ngIf="pastmedical?.created_at != null && pastmedical?.created_at !=''">
+                        - {{pastmedical?.created_at | date: 'MM/dd/yyyy'}}
+                      </span>
+                      <span *ngIf="pastmedical?.major_events != null && pastmedical?.major_events !=''">
+                        - {{pastmedical?.major_events}}
+                      </span>
+                    </a>
                   </li>
-                  <li *ngIf="pastMedicalHistories?.length == (0 || null || undefined)">
+                </ul>
+                <ul class="main-list" *ngIf="pastMedicalHistories?.length == (0 || null || undefined)">
+                  <li>
                     <span>No past medical history recorded.</span>
                   </li>
                 </ul>
@@ -162,11 +196,20 @@
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list">
-                  <li *ngFor="let directive of this.advancedDirectives">
-                    <span>- {{directive?.notes}}</span>
+                <ul class="main-list" *ngFor="let directive of this.advancedDirectives">
+                  <li>
+                    <a (click)="openComponentDialog(advancedDirectivesDialogComponent)">
+                      <span *ngIf="directive?.created_at != null && directive?.created_at !=''">
+                        - {{directive?.created_at | date: 'MM/dd/yyyy'}}
+                      </span>
+                      <span *ngIf="directive?.notes != null && directive?.notes !=''">
+                        - {{directive?.notes}}
+                      </span>
+                    </a>
                   </li>
-                  <li *ngIf="advancedDirectives?.length == (0 || null || undefined)">
+                </ul>
+                <ul class="main-list" *ngIf="advancedDirectives?.length == (0 || null || undefined)">
+                  <li>
                     <span>No advanced directives recorded.</span>
                   </li>
                 </ul>
@@ -187,11 +230,15 @@
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list">
-                  <li *ngFor="let allergie of allAllergies">
-                    <span>- {{allergie?.note}}</span>
+                <ul class="main-list" *ngFor="let allergie of allAllergies">
+                  <li>
+                    <a>
+                      <span>- {{allergie?.note}}</span>
+                    </a>
                   </li>
-                  <li *ngIf="allAllergies?.length == (0 || null || undefined)">
+                </ul>
+                <ul class="main-list" *ngIf="allAllergies?.length == (0 || null || undefined)">
+                  <li>
                     <span>No active allergies recorded</span>
                   </li>
                 </ul>
@@ -210,11 +257,28 @@
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list">
-                  <li *ngFor="let medication of medications">
-                    <span>- {{medication.notes}}</span>
+                <ul class="main-list" *ngFor="let medication of medications">
+                  <li>
+                    <a>
+                      <span>
+                        - {{medication?.name}}
+                      </span>
+                    </a>
                   </li>
-                  <li *ngIf="medications?.length == (0 || null || undefined)">
+                  <li style="margin-left: 20px;">
+                    <span *ngIf="medication?.start_at != null && medication?.start_at !=''">
+                      - {{medication?.start_at | date: 'MM/dd/yyyy'}}
+                    </span>
+                    <span *ngIf="medication?.stop_at != null && medication?.stop_at !=''">
+                      - {{medication?.stop_at | date: 'MM/dd/yyyy'}}
+                    </span>
+                    <span *ngIf="medication?.cqm_status != null && medication?.cqm_status !=''">
+                      - {{medication?.cqm_status}}
+                    </span>
+                  </li>
+                </ul>
+                <ul class="main-list" *ngIf="medications?.length == (0 || null || undefined)">
+                  <li>
                     <span>No medications recorded.</span>
                   </li>
                 </ul>
@@ -233,11 +297,25 @@
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list">
-                  <li *ngFor="let immunization of immunizations">
-                    <span>- {{immunization.notes}}</span>
+                <ul class="main-list" *ngFor="let immunization of immunizations">
+                  <li>
+                    <a>
+                      <span>
+                        - {{immunization?.notes}}
+                      </span>
+                    </a>
                   </li>
-                  <li *ngIf="immunizations?.length == (0 || null || undefined)">
+                  <li style="margin-left: 20px;">
+                    <span *ngIf="immunization?.administered_at != null && immunization?.administered_at !=''">
+                      - {{immunization?.administered_at | date: 'MM/dd/yyyy'}}
+                    </span>
+                    <span *ngIf="immunization?.expiration_at != null && immunization?.expiration_at !=''">
+                      - {{immunization?.expiration_at | date: 'MM/dd/yyyy'}}
+                    </span>
+                  </li>
+                </ul>
+                <ul class="main-list" *ngIf="immunizations?.length == (0 || null || undefined)">
+                  <li>
                     <span>No immunizations recorded.</span>
                   </li>
                 </ul>
@@ -280,11 +358,23 @@
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list">
-                  <li *ngFor="let encounter of encounters">
-                    <span>- {{encounter.notes}}</span>
+                <ul class="main-list" *ngFor="let encounter of encounters">
+                  <li>
+                    <a>
+                      <span *ngIf="encounter?.service_at != null && encounter?.service_at !=''">
+                        - {{encounter?.service_at | date: 'MM/dd/yyyy'}}
+                      </span>
+                      <span *ngIf="encounter?.service_end_at != null && encounter?.service_end_at !=''">
+                        - {{encounter?.service_end_at | date: 'MM/dd/yyyy'}}
+                      </span>
+                      <span *ngIf="encounter?.reason_for_visit != null && encounter?.reason_for_visit !=''">
+                        - {{encounter?.reason_for_visit}}
+                      </span>
+                    </a>
                   </li>
-                  <li *ngIf="encounters?.length == (0 || null || undefined)">
+                </ul>
+                <ul class="main-list" *ngIf="encounters?.length == (0 || null || undefined)">
+                  <li>
                     <span>No encounters recorded.</span>
                   </li>
                 </ul>
@@ -323,19 +413,30 @@
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list">
-                  <li *ngFor="let appointment of appointments">
-                    <span>- {{appointment.note}}</span>
+                <ul class="main-list" *ngFor="let appointment of appointments">
+                  <li>
+                    <a>
+                      <span *ngIf="appointment?.start_at != null && appointment?.start_at !=''">
+                        - {{appointment?.start_at | date: 'MM/dd/yyyy'}}
+                      </span>
+                      <span *ngIf="appointment?.appt_status != null && appointment?.appt_status !=''">
+                        - {{appointment?.appt_status}}
+                      </span>
+                    </a>
                   </li>
+                </ul>
+                <ul class="main-list">
                   <li *ngIf="appointments?.length == (0 || null || undefined)">
                     <span>No appointments recorded.</span>
                   </li>
                 </ul>
               </div>
             </div>
-            <a href="https://dentaltraumaguide.org/dental-guides/" class="patient-chart">Clinical Decision Support</a>
+            <a class="patient-chart" href="https://dentaltraumaguide.org/dental-guides/" target="_blank">Clinical
+              Decision
+              Support</a>
             <br>
-            <a href="https://accessgudid.nlm.nih.gov/" class="patient-chart">Implantable Devices</a>
+            <a class="patient-chart" href="https://accessgudid.nlm.nih.gov/" target="_blank">Implantable Devices</a>
           </div>
         </div>
       </div>

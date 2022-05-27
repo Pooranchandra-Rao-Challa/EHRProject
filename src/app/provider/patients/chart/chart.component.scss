@@ -172,8 +172,12 @@ input.new-search::placeholder{
   margin-bottom: 10px !important;
   color: #4A4A4A;
 }
+.patientChartTab .main-list li a:hover{
+  text-decoration: underline;
+  color: #41b6a6;
+  cursor: pointer;
+}
 .patientChartTab ul li span{
-  color: #4A4A4A;
   font-size: 15px;
 }
 .patientChartTab ul {
