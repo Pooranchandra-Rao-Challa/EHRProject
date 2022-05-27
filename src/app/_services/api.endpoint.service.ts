@@ -321,7 +321,7 @@ export class APIEndPoint extends EndpointBase {
   }
 
   get _medicationsByPatientIdUrl() {
-    return this._baseUrl + "EncountersByPatientId";
+    return this._baseUrl + "MedicationsByPatientId";
   }
 
   get _encountersByPatientIdUrl() {
