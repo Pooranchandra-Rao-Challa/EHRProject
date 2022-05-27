@@ -321,7 +321,7 @@ export class APIEndPoint extends EndpointBase {
   }
 
   get _medicationsByPatientIdUrl() {
-    return this._baseUrl + "EncountersByPatientId";
+    return this._baseUrl + "MedicationsByPatientId";
   }
 
   get _encountersByPatientIdUrl() {
@@ -334,6 +334,10 @@ export class APIEndPoint extends EndpointBase {
 
   get _patientProfilreUrl() {
     return this._baseUrl + "PatientProfile";
+  }
+
+  get _procedureCodesUrl() {
+    return this._baseUrl + "DentalProcedureCodes";
   }
   constructor(public http: HttpClient) {
     super();

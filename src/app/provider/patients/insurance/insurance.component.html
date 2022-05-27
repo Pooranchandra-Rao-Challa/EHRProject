@@ -47,7 +47,7 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <button class="btn btn-green mt-4 py-2 px-4 Helvetica-sans-serif-medium">VERIFY</button>
+                            <button class="btn btn-green btn-verify mt-4 py-2 px-4 Helvetica-sans-serif-medium">VERIFY</button>
                         </div>
                     </div>
                     <div class="row">
@@ -108,7 +108,7 @@
                             </div>
                         </div>
                         <div class="col-4">
-                            <button class="btn btn-green btn-insurance pull-right mt-4 Helvetica-sans-serif-medium"
+                            <button class="btn btn-green btn-insurance pull-right  Helvetica-sans-serif-medium"
                                 type="button">
                                 View Primary Insurance details
                             </button>
@@ -215,7 +215,7 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <button class="btn btn-green mt-4 py-2 px-4 Helvetica-sans-serif-medium">VERIFY</button>
+                            <button class="btn btn-green btn-verify mt-4 py-2 px-4 Helvetica-sans-serif-medium">VERIFY</button>
                         </div>
                     </div>
                     <div class="row">
@@ -276,7 +276,7 @@
                             </div>
                         </div>
                         <div class="col-4">
-                            <button class="btn btn-green btn-insurance pull-right mt-4 Helvetica-sans-serif-medium"
+                            <button class="btn btn-green btn-insurance pull-right  Helvetica-sans-serif-medium"
                                 type="button">
                                 View Primary Insurance details
                             </button>
@@ -345,9 +345,9 @@
 <!-- <button class="" type="button" data-bs-toggle="modal" data-bs-target="#modal-Patient-Education"
 aria-expanded="false">
 </button> -->
-<div class="modal" id="modal-Patient-Education" data-bs-keyboard="false" tabindex="-1"
+<div class="modal " id="modal-Patient-Education" data-bs-keyboard="false" tabindex="-1"
   aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
         <span class="Helvetica-sans-serif-medium">{{displaytitle}}</span>
@@ -356,73 +356,231 @@ aria-expanded="false">
           X
         </span>
       </div>
-      <div class="modal-body scrollbar">
-        <button class="btn btn-op" type="button" (click)="open()">Add</button>
-        <table class="table table-borderless">    
-            <thead>
-              <tr>
-                <td></td>
-                <td>
-                  <p>Category</p>
-                </td>
-                <td>
-                  <p>Code</p>
-                </td>
-                <td>
-                  <p>Code System</p>
-                </td>
-                <td>
-                  <p>Description</p>
-                </td>
-                <td></td>
-              </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td></td>
-                    <td>
-                      <p>Category</p>
-                    </td>
-                    <td>
-                      <p>Code</p>
-                    </td>
-                    <td>
-                      <p>Code System</p>
-                    </td>
-                    <td>
-                      <p>Description</p>
-                    </td>
-                    <td></td>
-                  </tr>
-            </tbody>
-          </table>
-          <div class="prevent-click" *ngIf="show">
+      <div class="modal-body modal-scrollbar">
+     
+       
+             <div *ngIf="isValid;then content else other_content"></div>
+             
+             <ng-template #content>
+             
+           <div class="container">
             <div class="row">
-                <div class="col-5  mb-3">
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium" id="inputGroup-sizing-lg ">City</span>
-                        <input type="text" class="form-control input-border">
-                    </div>
-                </div>
-                <div class="col-3 mb-3">
-                    <div class="input-group input-group-lg ">
-                        <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium" id="inputGroup-sizing-lg ">State</span>
-                        <input type="text" class="form-control input-border">
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium" id="inputGroup-sizing-lg ">Zip</span>
-                        <input type="text" class="form-control input-border">
+                <div class="col-lg-12 col-md-12 col-12">
+                    <div class="labs-imaging-tabs">
+                        <ul class="nav nav-tabs nav-tab-styled" id="myTab" role="tablist">
+                            <div class="mt-2 Helvetica-sans-serif-medium">Type:</div>
+                            <li class="nav-item tabs-alignments" role="presentation">
+                                <a class="nav-link text-center active" id="medical-tab" data-bs-toggle="tab"
+                                    data-bs-target="#medical" type="button" role="tab" aria-controls="medical"
+                                    aria-selected="true">Medical
+                                </a>
+                            </li>
+                            <li class="nav-item  tabs-alignments" role="presentation">
+                                <a class="nav-link text-center" id="send-tab" data-bs-toggle="tab"
+                                    data-bs-target="#send" type="button" role="tab" aria-controls="send"
+                                    aria-selected="true">Dental
+                                </a>
+                            </li>
+
+                        </ul>
                     </div>
                 </div>
             </div>
+            <div class="row mb-4">
+                <label class="Helvetica-sans-serif-medium">Insurance Company Name</label>
+                <div class="input-group input-group-lg">
+                    <input type="text" class="form-control inputclass" placeholder="Insurance Company Name">
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <label class="Helvetica-sans-serif-medium">Group Plan</label>
+                    <div class="input-group input-group-lg">
+                        <input type="text" class="form-control inputclass" placeholder="Group Plan">
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <label class="Helvetica-sans-serif-medium">Employer</label>
+                    <div class="input-group input-group-lg">
+                        <input type="text" class="form-control inputclass" placeholder="Employer">
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-4">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-text Helvetica-sans-serif-medium" id="inputGroup-sizing-lg ">Street Address</span>
+                        <input type="text" class="form-control inputclass">
+                    </div>
+                </div>
+            <div class="row">
+            <div class="col-5  mb-3">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium" id="inputGroup-sizing-lg ">City</span>
+                    <input type="text" class="form-control inputclass">
+                </div>
+            </div>
+            <div class="col-3 mb-3">
+                <div class="input-group input-group-lg ">
+                    <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium" id="inputGroup-sizing-lg ">State</span>
+                    <input type="text" class="form-control inputclass">
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium" id="inputGroup-sizing-lg ">Zip</span>
+                    <input type="text" class="form-control inputclass">
+                </div>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <label class="Helvetica-sans-serif-medium ">Contact</label>
+                <div class="input-group input-group-lg">
+                    <input type="text" class="form-control inputclass" placeholder="Contact">
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <label class="Helvetica-sans-serif-medium">Phone</label>
+                    <div class="input-group input-group-lg">
+                        <input type="text" class="form-control inputclass" placeholder="Phone">
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <label class="Helvetica-sans-serif-medium">Benefit Renewal</label>
+                    <div class="input-group input-group-lg">
+                        <input type="text" class="form-control input-border1" placeholder="">
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <label class="Helvetica-sans-serif-medium">Group #</label>
+                    <div class="input-group input-group-lg">
+                        <input type="text" class="form-control inputclass" placeholder="Group #">
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <label class="Helvetica-sans-serif-medium">Local #</label>
+                    <div class="input-group input-group-lg">
+                        <input type="text" class="form-control inputclass " placeholder="Local #">
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-4 ">
+                <label class="Helvetica-sans-serif-medium">Payer ID</label>
+                <div class="input-group">
+                    <input type="text" class="form-control inputclass" placeholder="Payer ID">
+                </div>
+            </div>
 
-          
-              </div>
+         
+            <div class="row">
+                <div class="col-md-8">
+
+                </div>
+                <div class="col-md-2">
+                    <button mat-raised-button type="submit" class="btn btn-green btn-selectcancel ">Save</button>
+                </div>
+                <div class="col-md-2">
+                    <button mat-raised-button type="submit" class="btn btn-green btn-selectcancel  pull-right" (click)=close()>Cancel</button>
+                </div>
+            </div>
+          </div>.
+             </ng-template>
+             <ng-template #other_content>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="find-procedure">
+                            <div class="form-group ">
+                              <div class="input-group">
+                                  <input type="text" name="search_procedure_code" id="search_procedure_code"
+                                  class="form-control search-control  Helvetica-sans-serif-medium" placeholder="Search Insurance Company Plan">
+                                <button class="btn btn-info btn-md" type="button">
+                                  <i class="fa fa-search text-white"></i>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-4">
+                        <button (click)=add() class="btn btn-green btn-insurancecompany"
+                        type="button">Add Insurance Company Plan </button>
+                    </div>
+                </div>
+                <table class="table table-borderless" >
+                    <thead class="bg-color">
+                      <tr>
+                       
+                        <th>
+                            Insurance Company Name
+                        </th>
+                        <th>
+                            Group Plan	
+                        </th>
+                        <th>
+                            Group #
+                        </th>
+                        <th>
+                            Local #
+                        </th>
+                        <th>
+                            Employer Name
+                        </th>
+                        <th>
+                            Payer ID
+                        </th>
+                        <th>
+                            Address
+                        </th>
+                       
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr   *ngFor ="let item of values; let idx=index;" 
+                        [style.background-color]="rowClicked == idx ? 'rgb(254, 143, 0)' : ''"
+                        (click)="changeTableRowColor(idx)"(dblclick)=edit(idx)>
+                          
+                            <td>
+                              <p></p>
+                            </td>
+                            <td>
+                              <p></p>
+                            </td>
+                            <td>
+                              <p>{{item.age}}</p>
+                            </td>
+                            <td>
+                              <p>{{item.sex}}</p>
+                            </td>
+                            <td>
+                                <p>{{item.id}}</p>
+                              </td>
+                              <td>
+                                <p>{{item.name}}</p>
+                              </td>
+                              <td>
+                                <p></p>
+                              </td>
+                           
+                          </tr>
+                     </tbody>
+                  </table>
+                  <div class="row mt-4">
+                  <div class="col-md-8">
+                      </div>
+                      <div class="col-md-2">
+                    <button mat-raised-button type="submit" class="btn btn-green btn-selectcancel" disabled>Select</button>
+                </div>
+                <div class="col-md-2">
+                    <button mat-raised-button type="submit" class="btn btn-green btn-selectcancel  pull-right" (click)=close()>Cancel</button>
+                </div>
+            </div>
+           
+             </ng-template> 
       </div>
       <div class="modal-footer">
-        <button mat-raised-button type="submit" class="btn btn-green searchnow  pull-right">Save</button>
+    
       </div>
     </div>
   </div>
