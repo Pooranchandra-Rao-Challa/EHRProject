@@ -335,6 +335,10 @@ export class APIEndPoint extends EndpointBase {
   get _patientProfilreUrl() {
     return this._baseUrl + "PatientProfile";
   }
+
+  get _procedureCodesUrl() {
+    return this._baseUrl + "DentalProcedureCodes";
+  }
   constructor(public http: HttpClient) {
     super();
   }
