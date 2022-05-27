@@ -11,7 +11,7 @@ export class AdminService extends APIEndPoint {
     return this._ProcessGetRequest<any>(this._adminListUrl);
   }
   GetProviderList(reqparams:any) {
-    return this._ProcessPostRequest<any>(this._providerListUrl, reqparams);
+    return this._ProcessGetRequest<any>(this._providerListUrl);
   }
   ActivePatients(reqparams: any) {
     return this._ProcessPostRequest<any>(this._activePatientsUrl, reqparams);
