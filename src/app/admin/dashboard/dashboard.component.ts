@@ -29,7 +29,7 @@ export class DashboardComponent implements OnInit {
   GetFilterList: any;
   SearchKey = "";
   Status: boolean;
-  ClinicId:any=null;
+
 
   constructor(private adminservice: AdminService, private overlayService: OverlayService) { }
 
@@ -38,12 +38,8 @@ export class DashboardComponent implements OnInit {
   }
 
   GetProivderList() {
-    var reqparams = {
-      ClinicId: this.ClinicId
-    }
-    console.log(reqparams);
 
-    this.adminservice.GetProviderList(reqparams).subscribe(resp => {
+    this.adminservice.GetProviderList().subscribe(resp => {
       if (resp.IsSuccess) {
         this.ProviderList = resp.ListResult;
         this.ProviderList.map((e) => {
@@ -163,9 +159,5 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  ExpandProvider(clientid)
-  {
-     this.ClinicId = clientid;
-     this.GetProivderList();
-  }
+
 }

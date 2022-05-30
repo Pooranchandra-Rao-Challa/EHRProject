@@ -14,8 +14,8 @@
         <label>Import data for provider :</label>
         <div class="control-section mt-2">
             <div class="content" >
-                <ejs-dropdownlist class="ejs-dropdownlist" id='country' [dataSource]='data' [fields]='fields'
-                    (filtering)='onFiltering($event)'
+                <ejs-dropdownlist class="ejs-dropdownlist" id='country' [dataSource]='ProviderList' [fields]='ProviderName'
+                    (filtering)='FilteringProviderName($event)'
                     [allowFiltering]='true' placeholder="Select Provider "></ejs-dropdownlist>
             </div>
         </div>
