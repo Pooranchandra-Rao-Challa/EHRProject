@@ -22,7 +22,8 @@
               <div class="form-group"></div>
               <div class="input-group mb-3">
                   <span class="input-group-addon labelclass form-control">From:</span>
-                <input type="text" class="form-control inputclass not-allowed" readonly aria-label="Amount">
+                <input type="text" class="form-control inputclass" readonly aria-label="Amount" [(ngModel)]="PatientProfile.FirstName" id="FirstName" name="FirstName"
+                #FirstName="ngModel">
               </div>
             </div>
           </div>

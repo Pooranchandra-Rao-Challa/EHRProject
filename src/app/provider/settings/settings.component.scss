@@ -376,6 +376,12 @@ input[type="checkbox"] {
   font-size: 20px;
   text-decoration: underline;
 }
+.linkrow{
+  margin: 11px 22px 23px 29px;
+}
+.linkrow a:hover{
+  color: #41b6a6;
+}
 [hidden] {
   display: none !important;
 }

@@ -4,19 +4,18 @@
       <div class="panel-body">
         <div class="content">
           <form class="pt-4">
-
             <div class="row ">
               <div class="col-md-2 ">
                 <img src="assets/images/avatar-empty-white.svg" styclass="admin-side-logo mx-2" class="img">
               </div>
-
               <div class="col-md-10">
                 <div class="row">
                   <div class="col-lg-4 col-md-4 col-sm-12 col-12   ">
                     <label>First Name</label>
                     <div class="form-group">
                       <mat-form-field class="grey-matform w-100" appearance="outline">
-                        <input matInput placeholder="First Name">
+                        <input matInput placeholder="First Name"[(ngModel)]="PatientProfile.FirstName" id="FirstName" name="FirstName"
+                        #FirstName="ngModel">
                       </mat-form-field>
                     </div>
                   </div>
@@ -24,7 +23,8 @@
                     <label class="labelfontzise">Middle Name</label>
                     <div class="form-group">
                       <mat-form-field class="grey-matform w-100" appearance="outline">
-                        <input matInput placeholder="Middle Name">
+                        <input matInput placeholder="Middle Name" [(ngModel)]="PatientProfile.MiddleName"
+                          id="MiddleName" name="MiddleName" #MiddleName="ngModel">
                       </mat-form-field>
                     </div>
                   </div>
@@ -32,26 +32,27 @@
                     <label class="labelfontzise">Last Name</label>
                     <div class="form-group">
                       <mat-form-field class="grey-matform w-100" appearance="outline">
-                        <input matInput placeholder="Last Name">
+                        <input matInput placeholder="Last Name" [(ngModel)]="PatientProfile.LastName" id="LastName"
+                          name="LastName" #LastName="ngModel">
                       </mat-form-field>
                     </div>
                   </div>
                 </div>
-
                 <div class="row">
                   <div class="col-lg-4 col-md-6 col-sm-6 col-12 "><label class="labelfontzise">Date Of Birth
                     </label>
                     <div class="form-group">
                       <mat-form-field class="grey-matform w-100" appearance="outline">
-                        <input matInput placeholder="Date Of Birth">
+                        <input matInput placeholder="Date Of Birth" [(ngModel)]="PatientProfile.DateOfBirth"
+                          id="DateofBirth" name="DateofBirth" #DateofBirth="ngModel">
                       </mat-form-field>
                     </div>
                   </div>
-
                   <div class="col-lg-4 col-md-6 col-sm-6 col-12 "><label class="labelfontzise">Sex </label>
                     <div class="form-group">
                       <mat-form-field appearance="outline" class="grey-matform w-100">
-                        <mat-select class="w-100" placeholder="Sex">
+                        <mat-select class="w-100" placeholder="Sex" [(ngModel)]="PatientProfile.Sex" id="Sex" name="Sex"
+                          #Sex="ngModel">
                           <mat-option>Male
                           </mat-option>
                           <mat-option>Female
@@ -64,7 +65,6 @@
                     <button type="button" class="btn btn-green save-button">Save</button>
                   </div>
                 </div>
-
                 <div class="row ">
                   <div class="col-lg-12 col-md-12">
                     <p>Account Access</p>
@@ -73,24 +73,19 @@
                         <button type="button" class="btn btn-green btn-change" data-bs-toggle="modal"
                           data-bs-target="#staticBackdrop1">Change Password</button>
                       </div>
-
                       <div class="col-lg-4 col-md-4">
                         <button type="button" class="btn btn-green btn-change" data-bs-toggle="modal"
                           data-bs-target="#exampleModal">
                           Change your Security Question
                         </button>
                       </div>
-
                     </div>
                   </div>
-
                 </div>
-
               </div>
             </div>
           </form>
         </div>
-
       </div>
     </div>
     <div class="row">
@@ -123,7 +118,8 @@
                 <label class="labelfontzise">Email </label>
                 <div class="form-group">
                   <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-sm-12 col-12 grey-matform ">
-                    <input matInput placeholder="Email">
+                    <input matInput placeholder="Email" [(ngModel)]="PatientProfile.email" id="email" name="email"
+                      #email="ngModel">
                   </mat-form-field>
                 </div>
               </div>
@@ -178,27 +174,31 @@
 
               <div class="row mt-1">
                 <mat-form-field appearance="outline" class="filed-border col-lg-8 ">
-                  <input matInput placeholder="Street Address">
+                  <input matInput readonly placeholder="Street Address" [(ngModel)]="PatientProfile.StreetAddress"
+                    id="StreetAddress" name="StreetAddress" #StreetAddress="ngModel">
                 </mat-form-field>
               </div>
               <div class="row">
                 <mat-form-field appearance="outline" class="grey-matform col-lg-4 col-md-4 col-sm-12 col-12 mt-3 ">
-                  <input matInput placeholder="City">
+                  <input matInput readonly placeholder="City" [(ngModel)]="PatientProfile.city" id="city" name="city"
+                    #city="ngModel">
                 </mat-form-field>
 
 
                 <mat-form-field appearance="outline" class="grey-matform col-lg-4 col-md-4 col-sm-12 col-12 mt-3 ">
-                  <input matInput placeholder="State">
+                  <input matInput readonly placeholder="State" [(ngModel)]="PatientProfile.state" id="state"
+                    name="state" #state="ngModel">
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="grey-matform col-lg-4 col-md-4 col-sm-12 col-12 mt-3">
-                  <input matInput placeholder="Zip">
+                  <input matInput readonly placeholder="Zip" [(ngModel)]="PatientProfile.zip" id="zip" name="zip"
+                    #zip="ngModel">
                 </mat-form-field>
               </div>
 
               <div class="row mb-3">
                 <div class="d-flex justify-content-end">
-                  <button type="button" class="btn btn-green">Save</button>
+                  <button type="button" class="btn btn-green btn-save">Save</button>
                 </div>
               </div>
             </form>
@@ -217,7 +217,8 @@
                   <label class="labelfontzise">First Name</label>
                   <div class="form-group">
                     <mat-form-field class="grey-matform w-100" appearance="outline">
-                      <input matInput placeholder="First Name">
+                      <input matInput placeholder="First Name" [(ngModel)]="PatientProfile.EmergencyFirstName"
+                        id="EmergencyFirstName" name="EmergencyFirstName" #EmergencyFirstName="ngModel">
                     </mat-form-field>
                   </div>
                 </div>
@@ -225,7 +226,8 @@
                   <label class="labelfontzise">Middle Name</label>
                   <div class="form-group">
                     <mat-form-field class="grey-matform w-100" appearance="outline">
-                      <input matInput placeholder="Middle Name">
+                      <input matInput placeholder="Middle Name" [(ngModel)]="PatientProfile.EmergencyMiddleName"
+                        id="EmergencyMiddleName" name="EmergencyMiddleName" #EmergencyMiddleName="ngModel">
                     </mat-form-field>
                   </div>
                 </div>
@@ -233,7 +235,8 @@
                   <label class="labelfontzise">Last Name</label>
                   <div class="form-group">
                     <mat-form-field class="grey-matform w-100" appearance="outline">
-                      <input matInput placeholder="Last Name">
+                      <input matInput placeholder="Last Name" [(ngModel)]="PatientProfile.EmergencyLastName"
+                        id="EmergencyLastName" name="EmergencyLastName" #EmergencyLastName="ngModel">
                     </mat-form-field>
                   </div>
                 </div>
@@ -255,7 +258,7 @@
                 <div class="input-group mb-1">
                   <mat-form-field class="example-full-width grey-matform " appearance="outline">
                     <input type="input" placeholder="( :" aria-label="Number" matInput [formControl]="myControl"
-                      [matAutocomplete]="auto">
+                      [matAutocomplete]="auto" >
                     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
                       <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
                         <h1>{{option}}</h1>
@@ -273,7 +276,8 @@
               <div class="row">
                 <mat-label>Email</mat-label>
                 <mat-form-field appearance="outline" class="grey-matform col-lg-12 col-md-12 col-sm-12 col-12">
-                  <input matInput placeholder="Email">
+                  <input matInput placeholder="Email" [(ngModel)]="PatientProfile.EmergencyEmail" id="EmergencyEmail"
+                    name="EmergencyEmail" #EmergencyEmail="ngModel">
                 </mat-form-field>
               </div>
 
@@ -291,27 +295,32 @@
 
               <div class="row mt-1">
                 <mat-form-field appearance="outline" class="filed-border col-lg-8">
-                  <input matInput placeholder="Street Address">
+                  <input readonly matInput placeholder="Street Address"
+                    [(ngModel)]="PatientProfile.EmergencyStreetAddress" id="EmergencyStreetAddress"
+                    name="EmergencyStreetAddress" #EmergencyStreetAddress="ngModel">
                 </mat-form-field>
               </div>
               <div class="row ">
                 <mat-form-field appearance="outline" class="grey-matform col-lg-4 col-md-4 col-sm-12 col-12 mt-3">
-                  <input matInput placeholder="City">
+                  <input matInput readonly placeholder="City" [(ngModel)]="PatientProfile.EmergencyCity"
+                    id="EmergencyCity" name="EmergencyCity" #EmergencyCity="ngModel">
                 </mat-form-field>
 
 
                 <mat-form-field appearance="outline" class="grey-matform col-lg-4 col-md-4 col-sm-12 col-12 mt-3">
-                  <input matInput placeholder="State">
+                  <input matInput readonly placeholder="State" [(ngModel)]="PatientProfile.EmergencyState"
+                    id="EmergencyState" name="EmergencyState" #EmergencyState="ngModel">
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="grey-matform col-lg-4 col-md-4 col-sm-12 col-12 mt-3">
-                  <input matInput placeholder="Zip">
+                  <input matInput readonly placeholder="Zip" [(ngModel)]="PatientProfile.EmergencyZip" id="EmergencyZip"
+                    name="EmergencyZip" #EmergencyZip="ngModel">
                 </mat-form-field>
               </div>
 
               <div class="row mb-3">
                 <div class="d-flex justify-content-end">
-                  <button type="button" class="btn btn-green ">Save</button>
+                  <button type="button" class="btn btn-green btn-save">Save</button>
                 </div>
               </div>
             </form>
@@ -389,15 +398,6 @@
   </div>
 </div>
 
-<div class="modal fade" id="staticBackdrop2" data-bs-keyboard="false" tabindex="-1"
-  aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    hiii
-  </div>
-</div>
-
-
-
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -450,7 +450,6 @@
                 <hr>
               </div>
             </div>
-
             <div class="row ">
               <div class="col-lg-12">
                 <div class="form-group">

@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
+import { User } from 'src/app/_models';
+import { PatientProfile } from 'src/app/_models/_patient/patientprofile';
+import { AuthenticationService } from 'src/app/_services/authentication.service';
+import { patientService } from 'src/app/_services/patient.service';
 
 @Component({
   selector: 'app-newmessage.dialog',
@@ -8,11 +12,29 @@ import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
 })
 export class NewmessageDialogComponent implements OnInit {
 
-  constructor(private ref: EHROverlayRef) { }
+  PatientProfile: PatientProfile;
+  user: User;
+
+  constructor(private patientservise: patientService,private authenticationService: AuthenticationService,private ref: EHROverlayRef) {
+    this.user = authenticationService.userValue;
+   }
 
   ngOnInit(): void {
+    this.getPatientProfile();
+  }
+  getPatientProfile(reqparam?) {
+    var req={
+      "PatientId": this.user.PatientId,
+    }
+    this.patientservise.PatientProfileByPatientId(req).subscribe(resp => {
+      debugger;
+      if (resp.IsSuccess) {
+        this.PatientProfile=resp.ListResult[0];
+      }
+    });
   }
   cancel() {
     this.ref.close(null);
   }
+
 }
