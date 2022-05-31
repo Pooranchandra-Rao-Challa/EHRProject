@@ -130,10 +130,16 @@
   }
   .btn-selectcancel
   {
-    width: auto;
-    margin: 5px 15px;
-    height: 48px;
-    // padding: 6px 6px;
+    width: 165px;
+    height: 45px;
+    font-size: 16px;
+    margin-left: -84px;
+  }
+  .btn-danger{
+    width: 165px;
+    height: 45px;
+    font-size: 16px;
+    
   }
   .modal-scrollbar {
     height: 550px;
@@ -141,4 +147,7 @@
     margin-bottom: 16px;
     overflow-y: scroll;
     overflow-x: hidden;
+  }
+  .cross-mark{
+border: "1px solid #fff;"
   }

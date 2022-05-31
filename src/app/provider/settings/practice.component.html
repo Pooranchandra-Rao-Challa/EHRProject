@@ -298,7 +298,7 @@
                         <div class="col-lg-3 col-md-3 col-sm-3">
                           <div class="form-group">
                             <button type="submit" [disabled]="PracticeLocData.Street==''"
-                              (click)="AddressVerification()" class="btn btn-green mt-2">VERIFY</button>
+                              (click)="AddressVerification()" class="btn btn-green btn-verify mt-2">VERIFY</button>
                           </div>
                         </div>
                       </div>
@@ -331,7 +331,7 @@
                       <div class="form-group">
                         <div class="input-group">
                           <span class="input-group-addon labelclass form-control">City</span>
-                          <input [ngClass]="visiblebtn2?'cursorallow':'cursornotallow'" [readonly]="visiblebtn2"
+                          <input [ngClass]="visiblebtn2?'cursornotallow':'cursorallow'" [readonly]="visiblebtn2"
                             class="string required inputbg form-control mx-0" type="text" name="City" id="City"
                             [(ngModel)]="PracticeLocData.City">
                         </div>
@@ -341,7 +341,8 @@
                       <div class="form-group">
                         <div class="input-group">
                           <span class="input-group-addon labelclass form-control">State</span>
-                          <input [readonly]="visiblebtn2" class="string required inputbg form-control mx-0" type="text"
+                          <input [ngClass]="visiblebtn2?'cursornotallow':'cursorallow'" [readonly]="visiblebtn2"
+                            [readonly]="visiblebtn2" class="string required inputbg form-control mx-0" type="text"
                             name="State" id="State" [(ngModel)]="PracticeLocData.State">
                         </div>
                       </div>
@@ -350,7 +351,7 @@
                       <div class="form-group">
                         <div class="input-group">
                           <span class="input-group-addon labelclass form-control">Zip</span>
-                          <input class="form-conrtol" [readonly]="visiblebtn2"
+                          <input [ngClass]="visiblebtn2?'cursornotallow':'cursorallow'" [readonly]="visiblebtn2"
                             class="string required inputbg form-control mx-0" type="text" name="Zip" id="Zip"
                             [(ngModel)]="PracticeLocData.Zipcode">
                         </div>

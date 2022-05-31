@@ -55,6 +55,9 @@
   height: 45px;
   font-size: 15px;
 }
+.btn-verify.btn-green{
+  width: 105px;
+}
 .btn-remove.btn-green{
   height: 30px;
 }
@@ -808,6 +811,30 @@ img.avatar:hover{
   mat-cell:nth-child(1),
   mat-header-cell:nth-child(1) {
     flex: 0 0 4.5%;
+  }
+  mat-cell:nth-child(2),
+  mat-header-cell:nth-child(2) {
+    flex: 0 0 17%;
+  }
+  mat-cell:nth-child(3),
+  mat-header-cell:nth-child(3) {
+    flex: 0 0 28.5%;
+  }
+  mat-cell:nth-child(4),
+  mat-header-cell:nth-child(4) {
+    flex: 0 0 15%;
+  }
+  mat-cell:nth-child(5),
+  mat-header-cell:nth-child(5) {
+    flex: 0 0 12%;
+  }
+  mat-cell:nth-child(6),
+  mat-header-cell:nth-child(6) {
+    flex: 0 0 10%;
+  }
+  mat-cell:nth-child(7),
+  mat-header-cell:nth-child(7) {
+    flex: 0 0 13%;
   }
 }
 .timezone .time{

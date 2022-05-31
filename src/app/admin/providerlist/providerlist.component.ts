@@ -29,20 +29,16 @@ export class ProviderlistComponent {
 
   ngOnInit(): void {
     this.getProviderList();
-
   }
+
   getProviderList() {
-    var reqparams = {
-      ClinicId: 'null'
-    }
-    this.adminservice.GetProviderList(reqparams).subscribe(resp => {
+    this.adminservice.GetProviderList().subscribe(resp => {
       if (resp.IsSuccess) {
         this.providersDataSource = resp.ListResult;
         this.dataSource = resp.ListResult;
         this.filterChange('ActiveStatus', 'Active')
       } else
         this.providersDataSource = [];
-        // this.providersDataSource
     });
   }
 
