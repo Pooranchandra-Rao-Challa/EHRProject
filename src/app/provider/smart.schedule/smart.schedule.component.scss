@@ -680,6 +680,14 @@ fieldset {
   padding: 10px 20px;
   resize: both;
 }
+#vitals-modal .textarea {
+  height: 71px;
+  border: 1px solid #41b6a6;
+  border-radius: 3px;
+  font-size: 15px;
+  padding: 10px 20px;
+  resize: vertical;
+}
 .area-text {
   margin-bottom: 15px;
 }
@@ -1060,11 +1068,9 @@ div.visit-status img.img-smart-status-path {
   font-weight: 600;
   color: #4A4A4A;
 }
-@media (max-width: 767px) {
-  #vitals-modal .modal-content{
-    margin-top: -25px !important;
-    height: calc(90vh - 70px);
-  }
+#vitals-modal .modal-content{
+  margin-top: -40px !important;
+  height: calc(90vh - 20px);
 }
 #vitals-table .mat-header-row {
   border: 1px solid #41b6a6;
