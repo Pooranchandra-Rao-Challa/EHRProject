@@ -173,24 +173,24 @@
               </div>
 
               <div class="row mt-1">
-                <mat-form-field appearance="outline" class="filed-border col-lg-8 ">
-                  <input matInput readonly placeholder="Street Address" [(ngModel)]="PatientProfile.StreetAddress"
+                <mat-form-field appearance="outline" class="filed-border noHover col-lg-8 ">
+                  <input matInput readonly  placeholder="Street Address" [(ngModel)]="PatientProfile.StreetAddress"
                     id="StreetAddress" name="StreetAddress" #StreetAddress="ngModel">
                 </mat-form-field>
               </div>
               <div class="row">
-                <mat-form-field appearance="outline" class="grey-matform col-lg-4 col-md-4 col-sm-12 col-12 mt-3 ">
+                <mat-form-field appearance="outline" class="grey-matform noHover col-lg-4 col-md-4 col-sm-12 col-12 mt-3 ">
                   <input matInput readonly placeholder="City" [(ngModel)]="PatientProfile.city" id="city" name="city"
                     #city="ngModel">
                 </mat-form-field>
 
 
-                <mat-form-field appearance="outline" class="grey-matform col-lg-4 col-md-4 col-sm-12 col-12 mt-3 ">
+                <mat-form-field appearance="outline" class="grey-matform noHover  col-lg-4 col-md-4 col-sm-12 col-12 mt-3 ">
                   <input matInput readonly placeholder="State" [(ngModel)]="PatientProfile.state" id="state"
                     name="state" #state="ngModel">
                 </mat-form-field>
 
-                <mat-form-field appearance="outline" class="grey-matform col-lg-4 col-md-4 col-sm-12 col-12 mt-3">
+                <mat-form-field appearance="outline" class="grey-matform noHover col-lg-4 col-md-4 col-sm-12 col-12 mt-3">
                   <input matInput readonly placeholder="Zip" [(ngModel)]="PatientProfile.zip" id="zip" name="zip"
                     #zip="ngModel">
                 </mat-form-field>
@@ -294,25 +294,25 @@
               </div>
 
               <div class="row mt-1">
-                <mat-form-field appearance="outline" class="filed-border col-lg-8">
+                <mat-form-field appearance="outline" class="filed-border noHover col-lg-8">
                   <input readonly matInput placeholder="Street Address"
                     [(ngModel)]="PatientProfile.EmergencyStreetAddress" id="EmergencyStreetAddress"
                     name="EmergencyStreetAddress" #EmergencyStreetAddress="ngModel">
                 </mat-form-field>
               </div>
               <div class="row ">
-                <mat-form-field appearance="outline" class="grey-matform col-lg-4 col-md-4 col-sm-12 col-12 mt-3">
+                <mat-form-field appearance="outline" class="grey-matform noHover col-lg-4 col-md-4 col-sm-12 col-12 mt-3">
                   <input matInput readonly placeholder="City" [(ngModel)]="PatientProfile.EmergencyCity"
                     id="EmergencyCity" name="EmergencyCity" #EmergencyCity="ngModel">
                 </mat-form-field>
 
 
-                <mat-form-field appearance="outline" class="grey-matform col-lg-4 col-md-4 col-sm-12 col-12 mt-3">
+                <mat-form-field appearance="outline" class="grey-matform noHover col-lg-4 col-md-4 col-sm-12 col-12 mt-3">
                   <input matInput readonly placeholder="State" [(ngModel)]="PatientProfile.EmergencyState"
                     id="EmergencyState" name="EmergencyState" #EmergencyState="ngModel">
                 </mat-form-field>
 
-                <mat-form-field appearance="outline" class="grey-matform col-lg-4 col-md-4 col-sm-12 col-12 mt-3">
+                <mat-form-field appearance="outline" class="grey-matform noHover col-lg-4 col-md-4 col-sm-12 col-12 mt-3">
                   <input matInput readonly placeholder="Zip" [(ngModel)]="PatientProfile.EmergencyZip" id="EmergencyZip"
                     name="EmergencyZip" #EmergencyZip="ngModel">
                 </mat-form-field>
@@ -464,7 +464,7 @@
                 </div>
               </div>
             </div>
-            <div class="row ">
+            <div class="row">
               <label class="title ">IMPORTANT</label>
               <mat-checkbox class="grey-matform example-margin mt-2">
                 <mat-lable class="checkbox-label">I understand my access to patients portal will be locked if I am
@@ -474,7 +474,7 @@
 
             <div class="row mt-4">
               <div class="d-flex justify-content-end">
-                <button type="button" class="btn btn-green mx-2" data-bs-dismiss="modal">Change</button>
+                <button type="button" class="btn btn-green mx-2" data-bs-dismiss="modal"  [disabled]="true" >Change</button>
                 <button type="button" class="btn btn-green">Cancel</button>
               </div>
             </div>

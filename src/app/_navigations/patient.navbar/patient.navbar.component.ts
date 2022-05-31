@@ -28,16 +28,7 @@ export class PatientNavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.queryParams
-      .subscribe(params => {
-        if (params.view == undefined) {
-          this.view = "dashboard"
-        } else {
-          this.view = params.view;
-        }
-
-      }
-      );
+    this.name = 'dashboard';
   }
 
   toggleNavbar() {

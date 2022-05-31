@@ -10,6 +10,8 @@
           routerLinkActive="router-link-active" class="nav-link active item-dashboard">Dashboard
         </a>
       </li>
+
+     
       <li [class]="name !== 'appointment' ? 'nav-item': 'active nav-item'">
         <a href="javascript:void(0)" (click)="onChangeBreadCrum('patient/appointment','appointment')"
           routerLinkActive="router-link-active" class="nav-link active item-appointments">Appointments
@@ -35,30 +37,7 @@
           routerLinkActive="router-link-active" class="nav-link active item-mydocuments text-nowrap">My Documents
         </a>
       </li>
-      <!-- <li [class]="view !== 'dashboard' ? 'nav-item': 'active nav-item'">
-        <a routerLink="/patient/dashboard?view=dashboard" class="nav-link item-dashboard">Dashboard
-        </a>
-      </li>
-      <li [class]="view !== 'appointment' ? 'nav-item': 'active nav-item'">
-        <a routerLink="/patient/appointment?view=appointment" class="nav-link item-appointments">Appointments
-        </a>
-      </li>
-      <li [class]="view !== 'message' ? 'nav-item': 'active nav-item'">
-        <a routerLink="/patient/message?view=message" class="nav-link item-messages">Messages
-        </a>
-      </li>
-      <li [class]="view !== 'health' ? 'nav-item': 'active nav-item'">
-        <a routerLink="/patient/health?view=health" class="nav-link item-myhealth text-nowrap">My Health
-        </a>
-      </li>
-      <li [class]="view !== 'profile' ? 'nav-item': 'active nav-item'">
-        <a routerLink="/patient/profile?view=profile" class="nav-link item-myprofile text-nowrap">My Profile
-        </a>
-      </li>
-      <li [class]="view !== 'document' ? 'nav-item': 'active nav-item'">
-        <a routerLink="/patient/document?view=document" class="nav-link item-mydocuments text-nowrap">My Documents
-        </a>
-      </li> -->
+
     </ul>
   </div>
   <ul class="navbar-nav pull-right">
