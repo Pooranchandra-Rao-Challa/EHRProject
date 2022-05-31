@@ -18,7 +18,7 @@
                     </div>
                     <div class="row">
                         <label class="Helvetica-sans-serif-medium">Date of Birth</label>
-                        <mat-form-field appearance="outline" class="green-calendar col-md-6">
+                        <mat-form-field appearance="outline" class=" calendaricon green-calendar col-md-6">
                             <input matInput [matDatepicker]="dp" placeholder="Date of Birth">
                             <mat-datepicker-toggle matSuffix [for]="dp">
                             </mat-datepicker-toggle>
@@ -31,8 +31,8 @@
                             <div>
                                 <mat-radio-group>
                                     Male <mat-radio-button value="option 1"></mat-radio-button>
-                                    FeMale<mat-radio-button class="ms-4" value="option 2"></mat-radio-button>
-                                    Other<mat-radio-button class="ms-4" value="option 3"></mat-radio-button>
+                                    FeMale<mat-radio-button  value="option 2"></mat-radio-button>
+                                    Other<mat-radio-button  value="option 3"></mat-radio-button>
                                 </mat-radio-group>
                             </div>
                         </div>
@@ -84,7 +84,7 @@
                         <div class="col-11">
                             <label class="Helvetica-sans-serif-medium">Insurance Company Plan</label>
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control patientInsuranceTab"
+                                <input type="text" class="form-control patientInsuranceTab input-border "
                                     placeholder="Insurance Company Plan" [(ngModel)]="this.InsuranceCompanyPlan"   aria-label="Subscriber Name"
                                     aria-describedby="basic-addon1">
                             </div>
@@ -109,7 +109,7 @@
                         </div>
                         <div class="col-4">
                             <button class="btn btn-green btn-insurance pull-right  Helvetica-sans-serif-medium"
-                                type="button">
+                                type="button" data-bs-toggle="modal" data-bs-target="#Primary-Insurance-Details">
                                 View Primary Insurance details
                             </button>
                         </div>
@@ -153,7 +153,7 @@
                             </mat-option>
                           </mat-select>
                         </mat-form-field>
-                        <mat-form-field appearance="outline" class="green-calendar col-md-6">
+                        <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-6">
                             <input matInput [matDatepicker]="dp2"  placeholder="Start Date">
                             <mat-datepicker-toggle matSuffix [for]="dp2">
                     
@@ -163,7 +163,7 @@
                            <!-- <div class="date_to_text col-md-1">to</div> -->
                     
                     
-                          <mat-form-field appearance="outline" class="green-calendar col-md-6">
+                          <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-6">
                             <input matInput [matDatepicker]="dp1" placeholder="Stop Date">
                             <mat-datepicker-toggle matSuffix [for]="dp1">
                             </mat-datepicker-toggle>
@@ -187,7 +187,7 @@
                     </div>
                     <div class="row">
                         <label class="Helvetica-sans-serif-medium">Date of Birth</label>
-                        <mat-form-field appearance="outline" class="green-calendar col-md-6">
+                        <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-6">
                             <input matInput [matDatepicker]="dp4" placeholder="Date of Birth">
                             <mat-datepicker-toggle matSuffix [for]="dp4">
                             </mat-datepicker-toggle>
@@ -199,9 +199,9 @@
                             <label class="Helvetica-sans-serif-medium">Gender:</label>
                             <div>
                                 <mat-radio-group>
-                                    Male <mat-radio-button [value]="true"></mat-radio-button>
-                                    FeMale<mat-radio-button class="ms-4" [value]="false"></mat-radio-button>
-                                    Other<mat-radio-button class="ms-4" [value]="true"></mat-radio-button>
+                                    Male <mat-radio-button value="option 1"></mat-radio-button>
+                                    FeMale<mat-radio-button value="option 2"></mat-radio-button>
+                                    Other<mat-radio-button  value="option 3"></mat-radio-button>
                                 </mat-radio-group>
                             </div>
                         </div>
@@ -253,7 +253,7 @@
                         <div class="col-11">
                             <label class="Helvetica-sans-serif-medium">Insurance Company Plan</label>
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control patientInsuranceTab"
+                                <input type="text" class="form-control patientInsuranceTab input-border"
                                     placeholder="Insurance Company Plan" aria-label="Subscriber Name"
                                     aria-describedby="basic-addon1">
                             </div>
@@ -269,7 +269,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-8">
+                        <div class="col-8 col-md-8 col-lg-8">
                             <label class="Helvetica-sans-serif-medium">Subscriber Id</label>
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control patientInsuranceTab" placeholder="Subscriber Id"
@@ -329,7 +329,7 @@
                             </mat-option>
                           </mat-select>
                         </mat-form-field>
-                        <mat-form-field appearance="outline" class="green-calendar col-md-6">
+                        <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-6">
                             <input matInput [matDatepicker]="dp5"  placeholder="Start Date">
                             <mat-datepicker-toggle matSuffix [for]="dp5">
                     
@@ -339,7 +339,7 @@
                            <!-- <div class="date_to_text col-md-1">to</div> -->
                     
                     
-                          <mat-form-field appearance="outline" class="green-calendar col-md-6">
+                          <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-6">
                             <input matInput [matDatepicker]="dp6" placeholder="Stop Date">
                             <mat-datepicker-toggle matSuffix [for]="dp6">
                             </mat-datepicker-toggle>
@@ -362,7 +362,7 @@ aria-expanded="false">
           
         <span *ngIf="data" class="Helvetica-sans-serif-medium">Select Insurance Company Plan </span>
         <span *ngIf="!data" class="Helvetica-sans-serif-medium">Add/Edit Insurance Company Plan </span>
-        <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close"
+        <span type="button" (click)="cancel()" class="cross-mark" data-bs-dismiss="modal" aria-label="Close"
          >
           X
         </span>
@@ -499,14 +499,17 @@ Trigger Rule*
                 <div class="col-md-2">
                     <button *ngIf="delete" mat-raised-button type="submit" class="btn btn-danger btn-danger">Delete</button>
                 </div>
-                <div class="col-md-6">
+                <!-- <div class="col-md-4">
 
+                </div> -->
+                <div class="col-md-4">
+                    <button mat-raised-button type="submit" class="btn btn-green btn-selectcancel pull-right">Save</button>
                 </div>
-                <div class="col-md-2">
-                    <button mat-raised-button type="submit" class="btn btn-green btn-selectcancel ">Save</button>
+                <div class="col-md-3" *ngIf="cancel2">
+                    <button *ngIf="cancel2" mat-raised-button type="submit" class="btn btn-green btn-selectcancel  pull-right" (click)=cancel()>Cancel</button>
                 </div>
-                <div class="col-md-2">
-                    <button mat-raised-button type="submit" class="btn btn-green btn-selectcancel  pull-right" (click)=cancel()>Cancel</button>
+                <div class="col-md-3">
+                    <button *ngIf="cancel1"  mat-raised-button type="submit" class="btn btn-green btn-selectcancel  pull-right" (click)=cancel() data-bs-dismiss="modal" aria-label="Close">Cancel</button>
                 </div>
             </div>
           </div>.
@@ -533,7 +536,7 @@ Trigger Rule*
                         type="button">Add Insurance Company Plan </button>
                     </div>
                 </div>
-                <table class="table table-borderless" >
+                <table class="table table-borderless">
                     <thead class="bg-color">
                       <tr>
                        
@@ -592,13 +595,13 @@ Trigger Rule*
                      </tbody>
                   </table>
                   <div class="row mt-4">
-                  <div class="col-md-8">
+                  <div class="col-md-6">
                       </div>
-                      <div class="col-md-2">
-                    <button mat-raised-button type="submit" class="btn btn-green btn-selectcancel" (click)="Selected(idx)"   [disabled]="btnstate">Select</button>
+                      <div class="col-md-3">
+                    <button mat-raised-button type="submit" class="btn btn-green btn-selectcancel" (click)="Selected(idx)"  data-bs-dismiss="modal" aria-label="Close"  [disabled]="btnstate">Select</button>
                 </div>
-                <div class="col-md-2">
-                    <button mat-raised-button type="submit" class="btn btn-green btn-selectcancel   pull-right" data-bs-dismiss="modal" aria-label="Close" (click)=cancel()>Cancel</button>
+                <div class="col-md-3">
+                    <button mat-raised-button type="submit" class="btn btn-green btn-selectcancel   pull-right" data-bs-dismiss="modal" aria-label="Close" (click)=cancel()>Canceled</button>
                 </div>
             </div>
            
@@ -606,6 +609,78 @@ Trigger Rule*
       </div>
       <div class="modal-footer">
     
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal " id="Primary-Insurance-Details" data-bs-keyboard="false" tabindex="-1"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+          
+        <span  class="Helvetica-sans-serif-medium"> </span>
+        <span  class="Helvetica-sans-serif-medium">Primary Insurance Details </span>
+        <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close"
+         >
+          X
+        </span>
+      </div>
+      <div class="modal-body modal-scrollbar">
+     
+    <div class="row">
+        <div class="col-md-6">Type:</div>
+        <div class="col-md-6"></div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-6">Insurance Company Name:</div>
+        <div class="col-md-6">test</div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">Group Plan:</div>
+        <div class="col-md-6">test</div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">Employer:</div>
+        <div class="col-md-6">tes</div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">Address:</div>
+        <div class="col-md-6"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">Contact:</div>
+        <div class="col-md-6"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">Phone:</div>
+        <div class="col-md-6"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">Benifit Renewal:</div>
+        <div class="col-md-6"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">Group #:</div>
+        <div class="col-md-6"></div>
+    </div>
+   
+      </div>
+     
+      <div class="modal-footer">
+        <div class="row">
+                <div class="col-md-4">
+
+                </div>
+                    <div class="col-md-4">
+                        <button mat-raised-button type="submit" class="btn btn-green " (click)="primaryinsurancedetails()"  data-bs-toggle="modal" data-bs-target="#modal-Patient-Education">Edit</button>
+                    </div>
+         
+            <div class="col-md-4">
+                <button mat-raised-button type="submit" class="btn btn-green" data-bs-dismiss="modal" aria-label="Close" >Cancel</button>
+            </div>
+        </div>
       </div>
     </div>
   </div>

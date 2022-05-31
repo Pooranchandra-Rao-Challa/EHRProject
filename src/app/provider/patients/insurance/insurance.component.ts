@@ -15,6 +15,8 @@ export class InsuranceComponent implements OnInit {
   error: boolean = false;
   delete: boolean = false;
   data: boolean = true;
+  cancel1:boolean=false;
+  cancel2:boolean=false;
 
   constructor() {
 
@@ -36,18 +38,31 @@ export class InsuranceComponent implements OnInit {
     this.data = false;
     this.isValid = true;
     this.delete = false;
+    this.cancel2=true;
   }
   cancel() {
+    debugger;
     this.data = true;
     this.isValid = false;
+    this.cancel2=false;
+    this.cancel1=false;
 
   }
   edit(event) {
     this.isValid = true;
     this.delete = true;
     this.data = false;
+    this.cancel2=true
     this.rowClicked != event
   }
+  primaryinsurancedetails() {
+    this.isValid = true;
+    this.delete = true;
+    this.data = false;
+    this.cancel1=true;
+ 
+  }
+
   values = [
     { id: 1, InsuranceCompanyPlan: "Andrew", age: "26", sex: "M", name1: "Andrew", age1: "26", sex1: "M" },
     { id: 2, InsuranceCompanyPlan: "David", age: "28", sex: "M" },
