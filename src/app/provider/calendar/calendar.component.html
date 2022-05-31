@@ -1,12 +1,9 @@
-<div class="schedule-wrapper">
+<p class="text-center mt-3">This screen is under development</p>
+<!-- <div class="schedule-wrapper">
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-3">
         <mat-drawer-container class="left-container">
-          <!-- <button mat-button (click)="drawer.toggle()" class="btn btn-outline-secondary" type="button"
-            style="border: none">
-            <i class="fa fa-angle-double-left"></i>
-          </button> -->
           <div class="pull-right arrows-toggle" (click)="drawer.toggle()">
             <a>
               <i class="fa fa-angle-double-left"></i>
@@ -16,7 +13,6 @@
             <div class="pt-5 pb-4">
               <mat-calendar class="mat-calendar"></mat-calendar>
             </div>
-            <!-- <mat-accordion> -->
             <mat-expansion-panel class="panel">
               <mat-expansion-panel-header class="panel-header">
                 <mat-panel-title> Provider/Staff </mat-panel-title>
@@ -31,7 +27,6 @@
                 <mat-checkbox><span>Angie Keith</span></mat-checkbox>
               </div>
             </mat-expansion-panel>
-            <!-- </mat-accordion> -->
             <br>
             <mat-expansion-panel class="panel">
               <mat-expansion-panel-header class="panel-header">
@@ -43,10 +38,6 @@
                 </mat-checkbox>
               </div>
               <div class="row pt-2">
-                <!-- <mat-form-field>
-                  <input fornControlName="color" matInput [style.background]="color" autocomplete="off"
-                    [(colorPicker)]="color" [cpPosition]="'bottom'" placeholder="Colour" />
-                </mat-form-field> -->
                 <mat-checkbox><span>Confirmed</span></mat-checkbox>
                 <mat-checkbox><span>Not Confirmed</span></mat-checkbox>
                 <mat-checkbox><span>Cancelled</span></mat-checkbox>
@@ -93,7 +84,6 @@
       <div class="col-lg-9">
         <div class="right-container">
           <ejs-schedule [views]="setView" [selectedDate]='selectedDate' [eventSettings]='eventSettings'>
-            <!-- <h1>Calendar Screen</h1> -->
             <ng-template #editorTemplate>
               <form [formGroup]="appointmentForm" (ngSubmit)="onSubmitAppointmentForm()" class="appointment-form">
                 <div class="row">
@@ -182,82 +172,7 @@
                 </div>
               </form>
             </ng-template>
-            <!-- <ng-template #editorTemplate>
-              <div class="row">
-                <label>Search for Patient:</label>
-                <div>
-                  <ejs-dropdownlist id='PatientName' class="e-field e-input" data-name="PatientName"
-                    placeholder='Patient Name' [dataSource]='sportsData'>
-                  </ejs-dropdownlist>
-                </div>
-              </div>
-              <div class="row">
-                <label>Select Provider:</label>
-                <div>
-                  <ejs-dropdownlist id='SelectProvider' class="e-field e-input" data-name="SelectProvider"
-                    placeholder='Select Provide' [dataSource]='data'>
-                  </ejs-dropdownlist>
-                </div>
-              </div>
-              <div class="row">
-                <label>Select Appointment Type:</label>
-                <div>
-                  <ejs-dropdownlist id='AppointmentType' class="e-field e-input" data-name="AppointmentType"
-                    placeholder='Select Appointment Type' [dataSource]='data'>
-                  </ejs-dropdownlist>
-                </div>
-              </div>
-              <div class="row">
-                <label>Notes</label>
-                <div>
-                  <textarea id="Notes" class="schedule-textarea e-field e-input" data-name="Notes"></textarea>
-                </div>
-              </div>
-              <div class="row">
-                <label>Select Location</label>
-                <div class="col-8">
-                  <ejs-dropdownlist id='Location' class="e-field e-input" data-name="Location"
-                    placeholder='Select Location' [dataSource]='data'>
-                  </ejs-dropdownlist>
-                </div>
-                <div class="col-4">
-                  <ejs-dropdownlist id='Location' class="e-field e-input" data-name="Location"
-                    placeholder='Select Location' [dataSource]='data'>
-                  </ejs-dropdownlist>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-5">
-                  <label>Select Date</label>
-                  <div style="  margin-top: 0.6rem;margin-bottom: 1.5rem;">
-                    <ejs-datetimepicker id="StartTime" class="e-field" data-name="StartTime" format="M/dd/yy h:mm a"
-                      (change)="onDateChange($event)">
-                    </ejs-datetimepicker>
-                  </div>
-                </div>
-                <div class="col-4">
-                  <label>Duration</label>
-                  <div>
-                    <ejs-dropdownlist id='Duration' class="e-field e-input" data-name="Duration" placeholder='Duration'
-                      [dataSource]='data'>
-                    </ejs-dropdownlist>
-                  </div>
-                </div>
-                <div class="col-3">
-                  <div style="margin-top: 23px;">
-                    <button
-                      style="height: 40px; border: 1px solid #41b6a6; background-color: #fff; border-radius: 4px;">Find
-                      Open Time</button>
-                  </div>
-                </div>
-              </div>
-              <ejs-datetimepicker id="EndTime" class="e-field" data-name="EndTime" format="M/dd/yy h:mm a"
-                (change)="onDateChange($event)">
-              </ejs-datetimepicker>
-            </ng-template> -->
           </ejs-schedule>
-          <!-- <ejs-schedule [selectedDate]='selectedDate' [eventSettings]='eventSettings'>
-          </ejs-schedule> -->
         </div>
       </div>
     </div>
@@ -283,12 +198,10 @@
       </div>
     </div>
   </div>
-</div>
-
-
+</div> -->
 
 <!-- New patient popup -->
-<div class="modal animated fadeIn" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+<!-- <div class="modal animated fadeIn" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -330,19 +243,9 @@
               <div class="input-group">
                 <label class="control-label input-group-addon required">DOB</label>
                 <input class="form-control" placeholder="DOB (mm/dd/yyyy)" type="date">
-                <!-- <input matInput class="col-8" autocomplete="off" [matDatepicker]="picker1" (click)="picker1.open()"
-                  readonly placeholder="DOB (mm/dd/yyyy)">
-                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                <mat-datepicker #picker1></mat-datepicker> -->
               </div>
             </div>
           </div>
-          <!-- <mat-form-field appearance="outline" class="col-6">
-            <input matInput class="pointer" autocomplete="off" [matDatepicker]="picker1" (click)="picker1.open()"
-              readonly placeholder="DOB (mm/dd/yyyy)">
-            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-            <mat-datepicker #picker1></mat-datepicker>
-          </mat-form-field> -->
           <div class="col-6" style="margin-top: -9px;">
             <mat-radio-group class="col-12">
               <p>Gender :</p>
@@ -397,4 +300,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->

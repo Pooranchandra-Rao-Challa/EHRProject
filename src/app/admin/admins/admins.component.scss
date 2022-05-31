@@ -116,23 +116,19 @@ h1 {
   margin-left: 30%;
 }
 }
-.cancel-button  {
+.btn-cancel {
   cursor: pointer;
-  font-size: 100%;
   text-align: center;
   width: auto;
-  line-height: 200%;
-  margin-left: 4%;
   background-color: #fff;
   border: 1px solid #ccc;
+  border-radius: 0px !important;
+  margin-left: 8px;
 }
-.cancel-button:hover  {
+.btn-cancel:hover  {
   cursor: pointer;
-  font-size: 100%;
   text-align: center;
   width: auto;
-  line-height: 200%;
-  margin-left: 4%;
   background-color: rgb(223, 221, 221);
   border: 1px solid rgb(160, 159, 159);
 }
@@ -141,19 +137,13 @@ h1 {
   font-size: 100%;
   text-align: center;
   width: auto;
-  line-height: 200%;
-  margin-left: 4%;
+  height: 36px;
+  // margin-left: 4%;
   background-color: #fff;
   border: 1px solid #3598dc;
   color: #3598dc;
 }
 .save-button:hover  {
-  cursor: pointer;
-  font-size: 100%;
-  text-align: center;
-  width: auto;
-  line-height: 200%;
-  margin-left: 4%;
   background-color: #3598dc;
   border: 1px solid #3598dc;
   color: #fff;
@@ -262,4 +252,18 @@ input::-webkit-calendar-picker-indicator {
   height: 35px;
   border-radius: 0%;
   color: #c2cad8;
+}
+.modal{
+  .modal-dialog{
+    margin-top: calc(77px + 30px) !important;
+  }
+}
+.modal .modal-dialog .modal-content .modal-header {
+  padding: 8px 0px 2px 9px !important;
+}
+.form-control {
+  font-size: 14px !important;
+}
+input.mat-input-element {
+  font-size: 14px !important;
 }

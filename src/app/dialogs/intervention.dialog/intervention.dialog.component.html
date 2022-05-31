@@ -11,13 +11,13 @@
         <div class="col-lg-2">
           <mat-label>Date*:</mat-label>
         </div>
-        <mat-form-field appearance="outline" class="green-calendar col-lg-2 col-md-6">
+        <mat-form-field appearance="outline" class="grey-matform green-calendar col-lg-2 col-md-6">
           <input matInput class="pointer date-mat-class" autocomplete="off" [matDatepicker]="startDate"
             (click)="startDate.open()" readonly placeholder="Start Date">
           <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
           <mat-datepicker #startDate></mat-datepicker>
         </mat-form-field>
-        <mat-form-field appearance="outline" class="green-calendar col-lg-2 col-md-6">
+        <mat-form-field appearance="outline" class="grey-matform green-calendar col-lg-2 col-md-6">
           <input matInput class="pointer date-mat-class" autocomplete="off" [matDatepicker]="endDate"
             (click)="endDate.open()" readonly placeholder="End Date">
           <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
