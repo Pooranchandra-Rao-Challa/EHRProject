@@ -38,10 +38,8 @@ export class AdminPracticeComponent implements OnInit {
   }
 
   GetProivderList() {
-    var reqparams = {
-      ClinicId: 'null'
-    }
-    this.adminservice.GetProviderList(reqparams).subscribe(resp => {
+
+    this.adminservice.GetProviderList().subscribe(resp => {
       if (resp.IsSuccess) {
         this.ProviderList = resp.ListResult;
         this.ProviderColumnList = resp.ListResult;
