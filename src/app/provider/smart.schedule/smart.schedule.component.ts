@@ -453,6 +453,15 @@ export class SmartScheduleComponent implements OnInit {
 
     this.filterAppointments();
   }
-
+  showAssociateVitals: boolean = true;
+  displayVitalsDialog(event) {
+    debugger;
+    if (event == true) {
+      this.showAssociateVitals = true;
+    }
+    else {
+      this.showAssociateVitals = false;
+    }
+  }
 
 }
