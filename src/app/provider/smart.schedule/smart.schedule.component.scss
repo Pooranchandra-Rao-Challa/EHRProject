@@ -1070,7 +1070,11 @@ div.visit-status img.img-smart-status-path {
 }
 #vitals-modal .modal-content{
   margin-top: -40px !important;
-  height: calc(90vh - 20px);
+  // height: calc(90vh - 20px);
+}
+#vitals-modal .modal-body{
+  min-height: 40vh;
+  max-height: 72vh;
 }
 #vitals-table .mat-header-row {
   border: 1px solid #41b6a6;
@@ -1113,4 +1117,10 @@ div.visit-status img.img-smart-status-path {
 .add-icon{
   color: #41b6a6;
   padding-top: 2px;
+}
+.vitals-heading{
+  margin-left: -25px;
+  margin-right: -25px;
+  background-color: #F7F7F7;
+  margin-bottom: 10px;
 }

@@ -1,5 +1,8 @@
+import { dentalchartService } from '../../../_services/dentalchart.service';
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '../../../_services/authentication.service';
 
+declare var $: any;
 @Component({
   selector: 'app-dentalchart',
   templateUrl: './dental.chart.component.html',
@@ -7,82 +10,59 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DentalChartComponent implements OnInit {
 
-  AdultPrem:boolean=true;
-  ChilPrim:boolean=false;
-  checboxList:any=[];
+  AdultPrem: boolean = true;
+  ChilPrim: boolean = false;
   displayStyle = "none";
-  DentalNumber:number;
+  DentalNumber: number;
+  procedureCodeList: any = [];
 
-  constructor() { }
+  constructor(private dentalService: dentalchartService) { }
 
-  ngOnInit( ): void {
-    this.GetList();
-    this.CheckboxExpand();
-
+  ngOnInit(): void {
+    this.getProcedureList();
   }
 
-  GetList()
-  {
-    this.checboxList=[
-      {listId:"1",listName:'D0120 periodic oral evaluation - established patient'},
-      {listId:"2",listName:'D0120 periodic oral evaluation - established patient'},
-      {listId:"3",listName:'D0120 periodic oral evaluation - established patient'}
-    ]
-  }
-  AdultPerm()
-  {
-    this.AdultPrem=true;
-    this.ChilPrim=false;
-    this.CheckboxExpand();
-  }
+  getProcedureList() {
+    debugger;
+    this.dentalService.ProcedureCodes().subscribe(resp => {
+      if (resp.IsSuccess) {
 
-  ChildPrim(){
-   this.AdultPrem=false;
-   this.ChilPrim=true;
-   this.CheckboxExpand();
-  }
-
-  CheckboxExpand(){
-    var checks = document.querySelectorAll("input[type=checkbox]");
-    for(var i = 0; i < checks.length; i++){
-      checks[i].addEventListener( 'change', function() {
-        if(this.checked) {
-           showChildrenChecks(this);
-        } else {
-           hideChildrenChecks(this)
-        }
-      });
-    }
-    function showChildrenChecks(elm) {
-       var pN = elm.parentNode;
-       var childCheks = pN.children;
-      for(var i = 0; i < childCheks.length; i++){
-          if(hasClass(childCheks[i], 'child-check')){
-              childCheks[i].classList.add("active");
+        this.procedureCodeList = resp.ListResult;
+        this.procedureCodeList.map((e) => {
+          if (e.Category != '') {
+            e.isClosed = true;
           }
+        });
       }
+    });
+  }
+
+  expandCollapse(obj) {
+    debugger
+    obj.isClosed = !obj.isClosed;
+    // let procedureList:any = [];
+    // procedureList = obj.value;
+    for (let index = 0; index < obj.value.length; obj++) {
+      this.procedureCodeList[index].isClosed = !obj.isClosed;
     }
-    function hideChildrenChecks(elm) {
-       var pN = elm.parentNode;
-       var childCheks = pN.children;
-      for(var i = 0; i < childCheks.length; i++){
-          if(hasClass(childCheks[i], 'child-check')){
-              childCheks[i].classList.remove("active");
-          }
-      }
-    }
-    function hasClass(elem, className) {
-        return new RegExp(' ' + className + ' ').test(' ' + elem.className + ' ');
-    }
+  }
+
+  AdultPerm() {
+    this.AdultPrem = true;
+    this.ChilPrim = false;
+  }
+
+  ChildPrim() {
+    this.AdultPrem = false;
+    this.ChilPrim = true;
   }
 
   OpenDentalModal(number) {
-    this.DentalNumber=number;
+    this.DentalNumber = number;
     this.displayStyle = "block";
   }
 
-  CloseDentalModal()
-  {
+  CloseDentalModal() {
     this.displayStyle = "none";
   }
 }

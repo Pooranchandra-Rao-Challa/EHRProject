@@ -1,3 +1,4 @@
+
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../../_common/shared';
@@ -13,8 +14,10 @@ import { ResetPasswordComponent } from './resetpassword/resetpassword.component'
 import { CqmsNotPerformedComponent } from './cqms.not.performed/cqms.not.performed.component';
 import { SearchPipe } from '../../_pipes/search-filter.pipe';
 import { PatientsBreadCrumComponent } from './patients-bread-crum/patients-bread-crum.component';
+import { SettingsModule } from '../settings/settings.module';
+
 @NgModule({
-  imports: [SharedModule, CommonModule],
+  imports: [SharedModule, CommonModule,SettingsModule],
   exports: [
     PatientsComponent,
     PatientDetailsComponent,
@@ -24,7 +27,8 @@ import { PatientsBreadCrumComponent } from './patients-bread-crum/patients-bread
     InsuranceComponent,
     AmendmentsComponent,
     ResetPasswordComponent,
-    CqmsNotPerformedComponent
+    CqmsNotPerformedComponent,
+
   ],
   declarations: [
     PatientsComponent,
