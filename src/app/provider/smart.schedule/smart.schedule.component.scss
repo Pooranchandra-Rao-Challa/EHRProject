@@ -680,6 +680,14 @@ fieldset {
   padding: 10px 20px;
   resize: both;
 }
+#vitals-modal .textarea {
+  height: 71px;
+  border: 1px solid #41b6a6;
+  border-radius: 3px;
+  font-size: 15px;
+  padding: 10px 20px;
+  resize: vertical;
+}
 .area-text {
   margin-bottom: 15px;
 }
@@ -1041,4 +1049,68 @@ div.visit-status img.img-smart-status-path {
   border-width: 0;
   padding: 0 !important;
   box-shadow:none;
+}
+// vitals modal
+#vitals-modal .modal-body{
+  padding: 20px 25px;
+}
+#vitals-modal .modal-body .vital-input{
+  border: 1px solid #41b6a6;
+  height: 45px;
+  border-radius: 3px;
+  padding: 0px 10px;
+}
+#vitals-modal .modal-body .form-group{
+  display: block;
+}
+#vitals-modal .modal-body label{
+  font-size: 15px;
+  font-weight: 600;
+  color: #4A4A4A;
+}
+#vitals-modal .modal-content{
+  margin-top: -40px !important;
+  height: calc(90vh - 20px);
+}
+#vitals-table .mat-header-row {
+  border: 1px solid #41b6a6;
+  background-color: #41b6a6;
+  color: #fff;
+  min-height: 30px;
+}
+#vitals-table.mat-table {
+  margin-left: -20px !important;
+  margin-right: -20px !important;
+}
+#vitals-table .mat-row{
+  border-bottom: 1px solid #41b6a6;
+}
+#vitals-table .mat-header-cell {
+  font-size: 15px;
+}
+.actions button{
+  border: none;
+  background-color: transparent;
+}
+.actions .edit{
+  color: #41b6a6;
+}
+.actions .delete{
+  color: #d64841;
+}
+.btn-add{
+  min-width: 50px;
+  border: 1px solid #41b6a6;
+  border-radius: 3px;
+  background-color: #fff;
+}
+.btn-add:hover{
+  background-color: #41b6a6;
+  .add-icon{
+    color: #fff;
+  }
+}
+.add-icon{
+  color: #41b6a6;
+  padding-top: 2px;
 }

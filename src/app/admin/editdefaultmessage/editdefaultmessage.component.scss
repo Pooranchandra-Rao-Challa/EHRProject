@@ -26,21 +26,7 @@
     font-size: 14px;
     padding-top: 10px;
   }
-  // .btn-default {
-  //   cursor: pointer;
-  //   font-size: 100%;
-  //   line-height: 1.1;
-  //   height: -49%;
-  //   background-color: #fff;
-  //   border: 1px solid #b4bcc8;
-  //   border-radius: 0%;
-  // }
-  // .btn-default:hover{
-  //   cursor: pointer;
-  //   font-size: 100%;
-  //   line-height: 1.1;
-  //   height: -49%;
-  //   background-color: rgb(223, 221, 221);
-  //   border: 1px solid rgb(160, 159, 159);
-  //   border-radius: 0%;
-  // }
+  textarea:focus {
+    border-radius: 5px;
+    border: 2px solid black;
+  }
