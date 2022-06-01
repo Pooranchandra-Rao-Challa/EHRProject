@@ -14,10 +14,10 @@ import { ResetPasswordComponent } from './resetpassword/resetpassword.component'
 import { CqmsNotPerformedComponent } from './cqms.not.performed/cqms.not.performed.component';
 import { SearchPipe } from '../../_pipes/search-filter.pipe';
 import { PatientsBreadCrumComponent } from './patients-bread-crum/patients-bread-crum.component';
-import { SettingsModule } from '../settings/settings.module';
+// import { SettingsModule } from '../settings/settings.module';
 
 @NgModule({
-  imports: [SharedModule, CommonModule,SettingsModule],
+  imports: [SharedModule, CommonModule],
   exports: [
     PatientsComponent,
     PatientDetailsComponent,
