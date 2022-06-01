@@ -15,8 +15,9 @@ export class InsuranceComponent implements OnInit {
   error: boolean = false;
   delete: boolean = false;
   data: boolean = true;
-  cancel1:boolean=false;
-  cancel2:boolean=false;
+  cancel1: boolean = false;
+  cancel2: boolean = false;
+  viewpidetails: boolean=true;
 
   constructor() {
 
@@ -38,60 +39,72 @@ export class InsuranceComponent implements OnInit {
     this.data = false;
     this.isValid = true;
     this.delete = false;
-    this.cancel2=true;
+    this.cancel2 = true;
   }
   cancel() {
     debugger;
     this.data = true;
     this.isValid = false;
-    this.cancel2=false;
-    this.cancel1=false;
+    this.cancel2 = false;
+    this.cancel1 = false;
 
   }
   edit(event) {
     this.isValid = true;
     this.delete = true;
     this.data = false;
-    this.cancel2=true
+    this.cancel2 = true
     this.rowClicked != event
   }
   primaryinsurancedetails() {
     this.isValid = true;
     this.delete = true;
     this.data = false;
-    this.cancel1=true;
- 
+    this.cancel1 = true;
+
   }
 
   values = [
     { id: 1, InsuranceCompanyPlan: "Andrew", age: "26", sex: "M", name1: "Andrew", age1: "26", sex1: "M" },
     { id: 2, InsuranceCompanyPlan: "David", age: "28", sex: "M" },
     { id: 3, InsuranceCompanyPlan: "Steve", age: "30", sex: "M" },
-    { id: 4, InsuranceCompanyPlan: "Tony", age: "21", sex: "M" }, 
-   
+    { id: 4, InsuranceCompanyPlan: "Tony", age: "21", sex: "M" },
+
   ];
 
   btnstate: boolean = true;
   rowClicked
   changeTableRowColor(idx, event) {
     debugger;
-    this.arry=[];
+    this.arry = [];
     // if(this.rowClicked === idx) this.rowClicked = -1;
     this.rowClicked = idx;
     this.arry.push(this.values[idx]);
     console.log(this.arry);
     this.btnstate = event;
-   
+
   }
   Selected() {
-debugger;
+    debugger;
     this.InsuranceCompanyPlan = this.arry[0].InsuranceCompanyPlan;
+    this.viewpidetails=false;
   }
-  TriggerRuleDD: any[] = [
-    { value: 'ONE', viewValue: 'ONE' },
-    { value: 'ONE of each category', viewValue: 'ONE of each category' },
-    { value: 'Two or More', viewValue: 'Two or More' },
-    { value: 'All', viewValue: 'All' },
+  BenefitRenewalDD: any[] = [
+    { value: 'Jan', viewValue: 'Jan' },
+    { value: 'Feb', viewValue: 'Feb' },
+    { value: 'Mar', viewValue: 'Mar' },
+    { value: 'Apr', viewValue: 'Apr' },
+    { value: 'May', viewValue: 'May' },
+    { value: 'Jun', viewValue: 'Jun' },
+    { value: 'Jul', viewValue: 'Jul' },
+    { value: 'Aug', viewValue: 'Aug' },
+    { value: 'Sep', viewValue: 'Sep' },
+    { value: 'Oct', viewValue: 'Oct' },
+    { value: 'Nov', viewValue: 'Nov' },
+    { value: 'Dec', viewValue: 'Dec' },
+ 
+
+
   ];
 
 }

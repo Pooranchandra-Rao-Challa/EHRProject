@@ -163,10 +163,11 @@
 
 .modal-scrollbar {
   height: 414px;
-  margin-top: 0px;
+  // margin-top: 0px;
   margin-bottom: 16px;
   overflow-y: scroll;
   overflow-x: hidden;
+ 
 }
 
 .cross-mark {
@@ -179,4 +180,7 @@
     margin-right: 184px;
     height: 45px;
   
+}
+.PrimaryInsuranceDetails{
+  height: 450px;
 }
