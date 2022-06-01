@@ -1,8 +1,6 @@
-/* Modals */
-
 .modal{
   .modal-dialog{
-    margin-top: calc(-80px + 30px);
+    margin-top: calc(#{$navbar-height} + 30px);
     .modal-content{
       .modal-header{
         padding: $modal-header-padding-y $modal-header-padding-x;
