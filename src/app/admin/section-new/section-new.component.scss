@@ -13,9 +13,18 @@ input::-webkit-input-placeholder {
 
 }
 .btn-priview{
-  background: #e34747;
-  color: #ffffff;
+  background: #ed6b75;
   padding: 4px;
+  font-size: 14px;
+  font-weight: 300;
+  padding: 6px 8px 6px 8px;
+  color: #fff;
+  font-family: "Open Sans", sans-serif;
+  border-radius: 1px;
+}
+.btn-priview:hover{
+  background: #e73d4a;
+
 }
 .form-border{
   border: 1px solid rgb(179, 179, 179);
@@ -51,3 +60,11 @@ input::-webkit-input-placeholder {
   -o-border-radius: 0 4px 4px 0;
   border-radius: 0 4px 4px 0;
 }
+// select option{
+//   background: #4277c7;
+//   color: white;
+// }
+// select option:hover{
+//   background: #676d76;
+//   color: white;
+// }

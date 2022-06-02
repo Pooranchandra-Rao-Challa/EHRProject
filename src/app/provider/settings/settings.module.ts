@@ -15,7 +15,7 @@ import { SharedModule } from '../../_common/shared';
 import { CommonModule } from '@angular/common';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { ColorPickerModule } from 'ngx-color-picker';
-import { GroupByPipe } from 'src/app/_pipes/group-by.pipe';
+// import { GroupByPipe } from 'src/app/_pipes/group-by.pipe';
 // import { GroupByPipe } from 'src/app/pipes/group-by.pipe';
 
 
@@ -25,11 +25,11 @@ import { GroupByPipe } from 'src/app/_pipes/group-by.pipe';
   exports: [PracticeComponent, ScheduleComponent, ErxComponent, AuditLogComponent,
     AccessPermissionComponent, PatientSettinsComponent, ReportsSettingsComponent,
     PatientEdnMaterialComponent, MessageSettingsComponent, LabMappingComponent,
-    ClinicDecisionComponent,GroupByPipe],
+    ClinicDecisionComponent],
   declarations: [PracticeComponent, ScheduleComponent, ErxComponent, AuditLogComponent,
     AccessPermissionComponent, PatientSettinsComponent, ReportsSettingsComponent,
     PatientEdnMaterialComponent, MessageSettingsComponent, LabMappingComponent,
-    ClinicDecisionComponent,GroupByPipe],
+    ClinicDecisionComponent],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

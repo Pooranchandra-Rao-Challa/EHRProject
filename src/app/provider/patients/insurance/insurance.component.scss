@@ -163,12 +163,24 @@
 
 .modal-scrollbar {
   height: 414px;
-  margin-top: 0px;
+  // margin-top: 0px;
   margin-bottom: 16px;
   overflow-y: scroll;
   overflow-x: hidden;
+ 
 }
 
 .cross-mark {
   border: "1px solid #fff;"
+}
+.btn-primary
+{
+  width: 164px;
+    margin-left: -38px;
+    margin-right: 184px;
+    height: 45px;
+  
+}
+.PrimaryInsuranceDetails{
+  height: 450px;
 }
