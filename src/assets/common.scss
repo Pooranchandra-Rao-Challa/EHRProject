@@ -248,3 +248,10 @@
   background-color: #41b6a6 !important;
   color: #fff !important;
 }
+::ng-deep .swal2-title-custom{
+  background-color: red !important;
+}
+.btn{
+  font: 400 14px/20px Roboto, "Helvetica Neue", sans-serif;
+}
+

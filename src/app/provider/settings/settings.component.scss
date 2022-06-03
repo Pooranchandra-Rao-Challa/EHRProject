@@ -143,11 +143,10 @@
 .modal-body {
   background-attachment: fixed;
   background: white;
-}
-.modal-body {
   max-height: calc(100vh - 200px);
   overflow-y: auto;
 }
+
 .modal-header {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   color: white;
@@ -155,8 +154,8 @@
   border-bottom: none;
   min-height: 50px;
   max-height: 50px;
-   margin-top: -1px;
-   margin-left: -1px;
+  margin-top: -1px;
+  margin-left: -1px;
 }
 .row-heading {
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -323,10 +322,27 @@ input[type="checkbox"] {
   color: white;
 }
 .erroclose:hover {
-  background-color: rgb(253, 44, 44);
+  background-color: white;
   width: 25px;
-  padding: 0px;
-  border: 1px solid white;
+  padding: 1px;
+  border: 1px solid rgb(253, 44, 44);
+  color: rgb(253, 44, 44);
+}
+
+.error-close {
+  background-color: rgb(253, 65, 65) !important;
+  width: 25px;
+  height: 28px;
+  margin: 10px !important;
+  border: 1px solid white !important;
+  color: white !important;
+  border-radius: 50% !important;
+}
+.error-close:hover {
+  background-color: white !important;
+  border: 1px solid rgb(253, 44, 44) !important;
+  color: rgb(253, 44, 44) !important;
+
 }
 .appointment {
   font-size: 20px;
@@ -347,11 +363,7 @@ input[type="checkbox"] {
     overflow-x: auto;
   }
 }
-.manuallbtn {
-  white-space: normal !important;
-  word-wrap: normal;
-  width: 159px;
-}
+
 .circlecross {
   background-color: red;
   color: white;
@@ -403,9 +415,9 @@ td.mat-footer-cell {
 .modal .modal-dialog .modal-content .modal-header {
   padding: 20px 16px;
 }
-#practice-modal .modal-dialog {
+#practice-location-modal .modal-dialog {
   margin-top: 10px;
-  max-width: 550px;
+  max-width: 650px;
 }
 #edit-user-modal .modal-dialog {
   margin-top: 10px;
@@ -806,4 +818,29 @@ img.avatar:hover{
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 14px;
   color: black;
+}
+.btn-p-l-d-padding{
+  margin-right:40px !important;
+}
+.btn-p-l-c-padding{
+  margin-right:55px !important;
+}
+.closemodel {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  color: #41b6a6 !important;
+  background-color: white;
+  font-size: 14px !important;
+  white-space: nowrap;
+  border: 1px solid white;
+}
+.closemodel:hover {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  color: white !important;
+  background-color: #41b6a6;
+}
+.manualbtn{
+  white-space: normal !important;
+  word-wrap: normal;
+  width:90%;
+  padding:5px;
 }

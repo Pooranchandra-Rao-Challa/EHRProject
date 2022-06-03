@@ -1,0 +1,29 @@
+<ng-container [formGroup]="form">
+  <mat-select class="select" formControlName="scope" *ngIf="hideCodeSystem"
+  disableOptionCentering panelClass="optionPanelClass" [(ngModel)]="codeSystems[0]">
+    <mat-option *ngFor="let codeSystem  of codeSystems" [value]="codeSystem">{{codeSystem}}</mat-option>
+  </mat-select>
+  <mat-divider [vertical]="true" class="divider" *ngIf="hideCodeSystem"></mat-divider>
+  <input
+    formControlName="query"
+    [ngStyle]="{ opacity: disabled ? 0.5 : 1 }"
+    matInput
+    [placeholder]="placeholder"
+    type="text"
+    name="advanced-search"
+    class="input"
+    [matAutocomplete]="auto"
+    [(ngModel)]="selectedValue"
+  />
+  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
+  [displayWith]="displayWith" (optionSelected)="onSelected()">
+    <mat-option *ngIf="isLoading" class="is-loading">Loading...</mat-option>
+    <mat-optgroup *ngFor="let group of filteredOptions | async" [label]="group.name">
+      <mat-option *ngFor="let option of group.codes" [value]="option" matTooltip=" {{option.Code}} - {{option.Description}}">
+        {{option.Code}} - {{option.Description}}
+      </mat-option>
+
+  </mat-optgroup>
+  </mat-autocomplete>
+</ng-container>
+

@@ -16,20 +16,23 @@ import { CommonModule } from '@angular/common';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { GroupByPipe } from 'src/app/_pipes/group-by.pipe';
+import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
+import { WeekdayFormatPipe } from 'src/app/_pipes/weekday-format-pipe'
 // import { GroupByPipe } from 'src/app/pipes/group-by.pipe';
 
 
 
 @NgModule({
-  imports: [SharedModule, CommonModule, NgxMaskModule.forRoot(), ColorPickerModule],
+  imports: [SharedModule, CommonModule, NgxMaskModule.forRoot(), ColorPickerModule,
+    NgxMatTimepickerModule],
   exports: [PracticeComponent, ScheduleComponent, ErxComponent, AuditLogComponent,
     AccessPermissionComponent, PatientSettinsComponent, ReportsSettingsComponent,
     PatientEdnMaterialComponent, MessageSettingsComponent, LabMappingComponent,
-    ClinicDecisionComponent,GroupByPipe],
+    ClinicDecisionComponent,GroupByPipe,WeekdayFormatPipe],
   declarations: [PracticeComponent, ScheduleComponent, ErxComponent, AuditLogComponent,
     AccessPermissionComponent, PatientSettinsComponent, ReportsSettingsComponent,
     PatientEdnMaterialComponent, MessageSettingsComponent, LabMappingComponent,
-    ClinicDecisionComponent,GroupByPipe],
+    ClinicDecisionComponent,GroupByPipe,WeekdayFormatPipe],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

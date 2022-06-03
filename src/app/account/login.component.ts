@@ -93,11 +93,11 @@ export class LoginComponent implements OnInit {
       },
       padding:'1px !important',
       customClass: {
-        title:'modal-header header-font',
+        title:'login-modal-header login-header-font',
         //container:'pop-contrainer',
         input:'swal-input',
-        cancelButton:'cancel-button cancel-button1',
-        confirmButton:'confirm-button confirm-button1'
+        cancelButton:'login-cancel-button login-cancel-button1',
+        confirmButton:'login-confirm-button login-confirm-button1'
       },
       reverseButtons: true,
       background:'#f9f9f9',
@@ -126,23 +126,17 @@ export class LoginComponent implements OnInit {
       showCloseButton: true,
       padding:'1px !important',
       customClass: {
-        title:'modal-header header-font',
-        //container:'pop-contrainer',
+        title:'login-modal-header login-header-font',
         input:'swal-input',
-        //cancelButton:'cancel-button cancel-button1',
-        confirmButton:'confirm-button',
-        closeButton:'close-button'
+        confirmButton:'login-confirm-button',
+        closeButton:'login-close-button'
       },
       reverseButtons: true,
       background:'#f9f9f9',
       inputLabel: 'Email Address :',
-      //showCancelButton: false,
-      //cancelButtonText:'Go Back',
       confirmButtonText: 'Resend Verification',
       backdrop:true,
       inputPlaceholder: 'Enter your email address',
-
-
     });
 
     if (email) {
@@ -158,7 +152,7 @@ export class LoginComponent implements OnInit {
 
       padding:'1px !important',
       customClass: {
-        cancelButton:'cancel-button cancel-button1'
+        cancelButton:'login-cancel-button login-cancel-button1'
       },
 
       background:'#f9f9f9',

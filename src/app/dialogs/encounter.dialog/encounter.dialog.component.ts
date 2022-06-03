@@ -1,8 +1,22 @@
+
 import { Component, OnInit } from '@angular/core';
 import { PracticeProviders } from 'src/app/_models/practiceProviders';
-import { AppointmentTypes } from 'src/app/_models/smart.scheduler.data';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
+import { EHROverlayRef } from '../../ehr-overlay-ref';
+import {
+  PatientSearchResults, Actions,
+  ScheduledAppointment, AppointmentTypes, NewAppointment,
+  UserLocations, Room, AvailableTimeSlot,AppointmentDialogInfo
+} from 'src/app/_models/smart.scheduler.data';
+import {
+  MU2Info,EncounterInfo,EncounterDiagnosis
+} from 'src/app/_models/encounter';
+import {
+  MedicalCode
+} from 'src/app/_models/codes';
+import { MatRadioButton } from '@angular/material/radio';
+import { Observable ,of,BehaviorSubject} from 'rxjs'
 
 @Component({
   selector: 'app-encounter.dialog',
@@ -13,11 +27,38 @@ export class EncounterDialogComponent implements OnInit {
   PracticeProviders: PracticeProviders[];
   SelectedProviderId: string;
   AppointmentTypes: AppointmentTypes[];
-  encounterdiagnosesColumns = ["CODE", "CODE SYSTEM", "DESCRIPTION", "PATIENT EDUCATION", "Primary DX"];
+  encounterdiagnosesColumns1 = [
+    {header:"CODE",element:"Code"},
+    {header:"CODE SYSTEM",element:"CodeSystem"},
+    {header: "DESCRIPTION",element:"Description"},
+    {header: "PATIENT EDUCATION",element:"PatientEdn"},
+    {header: "Primary DX",element:"PrimaryDx"},
+    {header: "",element:"CanDelete"}];
+    encounterdiagnosesColumns = [
+      "CODE",
+     "CODE SYSTEM",
+      "DESCRIPTION",
+      "PATIENT EDUCATION",
+     "Primary DX",
+      "Delete"];
   EncounterData = "";
+  appointment: ScheduledAppointment
+  location: UserLocations;
+  encounterInfo: EncounterInfo = new EncounterInfo;
+  diagnosesInfo = new BehaviorSubject<EncounterDiagnosis[]>([]); //= of(this.encounterInfo.Diagnoses)
+  codeSystemsForDiagnosis: string[] = ['SNOMED/ICD10'];
+  codeSystemsForReconcillation: string[] = ['SNOMED'];
+  codeSystemsForDocumentation: string[] = ['CPT'];
+  codeSystemsForProcedures: string[] = ['CDT/CPT','HCPCS'];
 
-  constructor(private authService: AuthenticationService,
-    private smartSchedulerService: SmartSchedulerService) { }
+  constructor(private overlayref: EHROverlayRef,private authService: AuthenticationService,
+    private smartSchedulerService: SmartSchedulerService) {
+      this.diagnosesInfo.next(this.encounterInfo.Diagnoses);
+
+      this.appointment = overlayref.RequestData as ScheduledAppointment
+      this.location = (JSON.parse(this.authService.userValue.LocationInfo) as UserLocations[])
+        .filter((loc) => loc.locationId === this.authService.userValue.CurrentLocation )[0];
+     }
 
   ngOnInit(): void {
     this.loadDefaults();
@@ -36,7 +77,42 @@ export class EncounterDialogComponent implements OnInit {
         this.AppointmentTypes = resp.ListResult as AppointmentTypes[];
       }
     });
-    // this.filterAppointments();
+
+  }
+  documentationChanged(value){
+    this.encounterInfo.mu2.CurrentMedicationDocumented = (value as MatRadioButton).value
+    if(this.encounterInfo.mu2.CurrentMedicationDocumented == 2){
+      this.encounterInfo.mu2.DocumentedCode = "";
+      this.encounterInfo.mu2.DocumentedDescription ="";
+    }else{
+      this.encounterInfo.mu2.DocumentedCode = "99213";
+      this.encounterInfo.mu2.DocumentedDescription ="Office or Other Outpatient Visit";
+    }
   }
 
+
+  optionChangedForReconcillation(value){}
+
+  optionChangedForDiagnosis(value: MedicalCode )
+  {
+    let d: EncounterDiagnosis = new EncounterDiagnosis;
+    d.Code  = value.Code
+    d.CodeSystem = value.CodeSystem
+    d.Description = value.Description
+    d.CanDelete = true;
+    this.encounterInfo.Diagnoses.push(d);
+    this.diagnosesInfo.next(this.encounterInfo.Diagnoses);
+  }
+
+  onProceduresRecommended(){
+
+  }
+
+  onProceduresCompleted(){
+
+  }
+  onDocumentedReasonChange(value){
+    this.encounterInfo.mu2.DocumentedCode = value.Code;
+    this.encounterInfo.mu2.DocumentedDescription = value.Description;
+  }
 }

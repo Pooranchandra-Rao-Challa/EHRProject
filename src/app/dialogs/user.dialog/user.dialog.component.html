@@ -1,22 +1,23 @@
 <div id="edit-user-modal" class="modal-dialog UserModal">
-<div class="modal-content ">
-  <div class="modal-header">
-    <h4 class="modal-title">Edit User</h4>
-    <button type="button" class="btn btn-sm closemodel" data-bs-dismiss="modal" aria-label="Close">x
+<div class="modal-content" [ngStyle]="dynamicheight">
+  <div class="modal-header" style="margin: -1px;">
+    <h4 class="modal-title Helvetica-sans-serif-large">Edit User</h4>
+    <button type="button" class="btn btn-sm closemodel" aria-label="Close" (click)="cancel()">x
     </button>
   </div>
   <div class="modal-body ex3 edit-user-modal">
     <div class="row-container main-info">
-      <div class="row">
+      <div style="border: 1px solid #41a6b6; margin-bottom: 15px;">
+      <div class="row" >
         <div class="col-lg-2 col-md-3 col-9 avatar">
           <div class="border">
             <div class="attachment-container">
               <div class="avatar-hint">
-                <h6 class="text-mute mx-3 my-0">File must be:</h6>
-                <h6 class="text-mute my-0 mx-3 my-0"> JPG, PNG, GIF</h6>
-                <h6 class="text-mute mx-3 my-0">Max Size: 1MB</h6>
-                <h6 class="text-mute mx-3 my-0">Min. Res: </h6>
-                <h6 class="text-mute mx-3 my-0">300x300 px.</h6>
+                <h6 class="text-mute mx-3 my-0 Roboto-medium">File must be:</h6>
+                <h6 class="text-mute my-0 mx-3 my-0 Roboto-medium "> JPG, PNG, GIF</h6>
+                <h6 class="text-mute mx-3 my-0 Roboto-medium">Max Size: 1MB</h6>
+                <h6 class="text-mute mx-3 my-0 Roboto-medium">Min. Res: </h6>
+                <h6 class="text-mute mx-3 my-0 Roboto-medium">300x300 px.</h6>
                 <label class="btn btn-default border mx-2 my-2" style="color: #41b6a6;">
                   Upload File <input type="file" hidden>
                 </label>
@@ -28,7 +29,8 @@
           <div class="row">
             <div class="col-lg-2 col-md-4 col-12"><label class="settings-label">Title</label>
               <div class="form-group">
-                <select class="col-12 inputclass" [(ngModel)]="NewUserData.Title">
+                <!-- -->
+                <select class="col-12 inputclass" [(ngModel)]="EditProvider.Title" >
                   <option value="" disabled selected hidden>Title</option>
                   <option *ngFor="let title of titles" [value]="title.Name">{{title.Name}}.
                   </option>
@@ -37,24 +39,24 @@
             </div>
             <div class="col-lg-4 col-md-8 col-12"><label class="settings-label">First Name</label>
               <div class="form-group">
-                <input class="inputclass" type="text" placeholder="First Name" [(ngModel)]="NewUserData.FirstName">
+                <input class="inputclass" type="text" placeholder="First Name" [(ngModel)]="EditProvider.FirstName">
               </div>
             </div>
             <div class="col-lg-3 col-md-6 col-12"><label class="settings-label">Middle Name</label>
               <div class="form-group">
-                <input type="text" placeholder="Middle Name" class="inputclass" [(ngModel)]="NewUserData.MiddleName">
+                <input type="text" placeholder="Middle Name" class="inputclass" [(ngModel)]="EditProvider.MiddleName">
               </div>
             </div>
             <div class="col-lg-3 col-md-6 col-12"><label class="settings-label">Last Name</label>
               <div class="form-group ">
-                <input type="text" placeholder="Last Name" class="inputclass" [(ngModel)]="NewUserData.LastName">
+                <input type="text" placeholder="Last Name" class="inputclass" [(ngModel)]="EditProvider.LastName">
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-lg-2 col-md-4 col-12"><label class="settings-label">Degree</label>
               <div class="form-group">
-                <select class="col-12 inputclass" [(ngModel)]="NewUserData.Degree">
+                <select class="col-12 inputclass" [(ngModel)]="EditProvider.Degree">
                   <option value="" disabled selected hidden>Credentials</option>
                   <option *ngFor="let dg of degrees" [value]="dg.Name">{{dg.Name}}
                   </option>
@@ -63,7 +65,7 @@
             </div>
             <div class="col-lg-5 col-md-8 col-12"><label class="settings-label">Speciality</label>
               <div class="form-group">
-                <select class="col-12 inputclass" [(ngModel)]="NewUserData.Speciality">
+                <select class="col-12 inputclass" [(ngModel)]="EditProvider.Speciality">
                   <option value="" disabled selected hidden>Speciality</option>
                   <option *ngFor="let speciality of specialities" [value]="speciality.Name"> {{speciality.Name}}
                   </option>
@@ -73,23 +75,22 @@
             <div class="col-lg-5 col-md-12 col-12"><label class="settings-label">Secondary Speciality</label>
               <div class="form-group">
                 <input type="text" placeholder="Secondary speciality" class="inputclass"
-                  [(ngModel)]="NewUserData.SecondarySpeciality">
+                  [(ngModel)]="EditProvider.SecondarySpeciality">
               </div>
             </div>
           </div>
         </div>
-
       </div>
       <div class="row">
         <div class="col-lg-4"><label class="settings-label">Medical/ Dental License #</label>
           <div class="form-group">
             <input type="text" placeholder="Medical/ Dental License #" class="inputclass"
-              [(ngModel)]="NewUserData.DentalLicense">
+              [(ngModel)]="EditProvider.DentalLicense">
           </div>
         </div>
         <div class="col-lg-4"><label class="settings-label">State</label>
           <div class="form-group">
-            <select class="col-12 inputclass" [(ngModel)]="NewUserData.State">
+            <select class="col-12 inputclass" [(ngModel)]="EditProvider.State">
               <option value="" disabled selected hidden>State</option>
               <option *ngFor="let state of states" [value]="state.Name">{{state.Name}}
               </option>
@@ -100,49 +101,50 @@
           </label>
           <div class="form-group ">
             <input type="text" placeholder="Expiration Date" class="inputclass"
-              [(ngModel)]="NewUserData.ExpirationDate">
+              [(ngModel)]="EditProvider.ExpirationDate">
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col-lg-3"><label class="settings-label">NPI</label>
           <div class="form-group">
-            <input type="text" placeholder="NPI" class="inputclass" [(ngModel)]="NewUserData.Npi">
+            <input type="text" placeholder="NPI" class="inputclass" [(ngModel)]="EditProvider.Npi">
           </div>
         </div>
         <div class="col-lg-3"><label class="settings-label">DEA #</label>
           <div class="form-group">
-            <input type="text" placeholder="DEA #" class="inputclass" [(ngModel)]="NewUserData.Dea">
+            <input type="text" placeholder="DEA #" class="inputclass" [(ngModel)]="EditProvider.Dea">
           </div>
         </div>
         <div class="col-lg-3 "><label class="settings-label">UPIN</label>
           <div class="form-group ">
-            <input type="text" placeholder="UPIN" class="inputclass" [(ngModel)]="NewUserData.UPin">
+            <input type="text" placeholder="UPIN" class="inputclass" [(ngModel)]="EditProvider.UPin">
           </div>
         </div>
         <div class="col-lg-3 "><label class="settings-label">EHR1 User ID
           </label>
           <div class="form-group">
             <input type="text" placeholder="6345474dffsfdf" readonly class="inputclass notallowCursor"
-              style="cursor: not-allowed;" [(ngModel)]="NewUserData.UserId">
+              style="cursor: not-allowed;" [(ngModel)]="EditProvider.UserId">
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col-lg-3"><label class="settings-label">NADEAN</label>
           <div class="form-group">
-            <input type="text" placeholder="NADEAN" class="inputclass" [(ngModel)]="NewUserData.NADean">
+            <input type="text" placeholder="NADEAN" class="inputclass" [(ngModel)]="EditProvider.NADean">
           </div>
         </div>
         <div class="col-lg-3"><label class="settings-label">SOCIAL SECURITY NUMBER</label>
           <div class="form-group">
-            <input type="text" placeholder="SSN" class="inputclass" [(ngModel)]="NewUserData.SSN">
+            <input type="text" placeholder="SSN" class="inputclass" [(ngModel)]="EditProvider.SSN">
           </div>
         </div>
       </div>
-      <div class="row panel-title m-0">
-        <div class="col-xl-11 col-lg-9 col-md-8 col-12">
-          <h5>Practice Location and Provider Schedule </h5>
+    </div>
+      <div class="panel-title m-0">
+        <div class="col-xl-11 col-lg-9 col-md-8 col-12 " >
+          <span class="Helvetica-sans-serif-medium">Practice Location and Provider Schedule </span>
         </div>
         <div class="col-xl-1 col-lg-3 col-md-4 col-12">
           <button class="plusicon pull-right" data-bs-toggle="modal" data-bs-target="#practice-modal"
@@ -152,9 +154,9 @@
         </div>
       </div>
       <div class="scrollable-mat-table">
-        <mat-table class="table table-responsive userfromPractable" [dataSource]="NewUserData.LocationInfo">
+        <mat-table class="table table-responsive userfromPractable" [dataSource]="EditProvider.LocationInfo">
           <ng-container matColumnDef="LocationName">
-            <mat-header-cell *matHeaderCellDef>Location Name</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef >Location Name</mat-header-cell>
             <mat-cell *matCellDef="let loc">{{loc.Name}} </mat-cell>
           </ng-container>
           <ng-container matColumnDef="CityState">
@@ -163,21 +165,15 @@
           </ng-container>
           <ng-container matColumnDef="PracticeSchedule">
             <mat-header-cell *matHeaderCellDef>Practice Schedule</mat-header-cell>
-            <mat-cell *matCellDef="let loc">
-              <ul>
-                <li *ngFor="let timeSlot of loc.TimeSlots"
-                  style="flex-wrap: wrap;line-break: auto;font-size: 11px !important; line-height: 15px;">
-                  {{timeSlot.WeekDay}},<br />
-                  {{timeSlot.From}} - {{timeSlot.To}},<br />
-                  {{timeSlot.SpecificHour}}
-                </li>
-              </ul>
-
+            <mat-cell *matCellDef="let loc" ngClass="nopadding nopadding2">
+            <div *ngFor="let timeslot of loc.TimeSlots">
+              {{timeslot.WeekDay | weekdayFormat : timeslot.From : timeslot.To : timeslot.SpecificHour }}
+            </div>
             </mat-cell>
           </ng-container>
           <ng-container matColumnDef="ServicedLocation">
             <mat-header-cell *matHeaderCellDef>Serviced Location(s)</mat-header-cell>
-            <mat-cell *matCellDef="let loc">
+            <mat-cell *matCellDef="let loc" ngClass="nopadding">
               <mat-checkbox class="example-margin" [ngModelOptions]="{standalone: true}" [ngModel]="loc.Assigned">
               </mat-checkbox>
             </mat-cell>
@@ -187,66 +183,66 @@
           <mat-row *matRowDef="let row; columns: providerLocationColumn"></mat-row>
         </mat-table>
       </div>
-      <div class="my-3">
-        <div class="row panel-title m-0">
-          <div class="col-md-4 py-3">
-            <h4>User Login Info</h4>
+      <div class="my-3 user-login-info" >
+        <div class="panel-title m-0">
+          <div class="col-md-4">
+            <span class="Helvetica-sans-serif-medium">User Login Info</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4"><label class="settings-label">Role</label>
+            <div class="form-group">
+              <select class="col-12 inputclass" placeholder="Role" [(ngModel)]="EditProvider.PracticeRole">
+                <option value="" disabled selected hidden>Role</option>
+                <option *ngFor="let pRole of providerRoles" [value]="pRole.Value">{{pRole.Name}}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-4 " style="margin-top: 27px">
+            <mat-checkbox class="example-margin" [(ngModel)]="EditProvider.Active">
+              <label class="settings-label mt-2">Active</label>
+            </mat-checkbox>
+          </div>
+          <div class="col-lg-4">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#changepassword-modal"
+              style="margin-top: 27px" class="btn btn-lg btn-success">
+              Change Password
+            </button>
+          </div>
+        </div>
+        <div class="row align-items-center">
+          <div class="col-lg-4"><label class="settings-label">Login Email Address</label>
+            <div class="form-group">
+              <input type="text" placeholder="Login Email Address" class="inputclass" [(ngModel)]="EditProvider.Email">
+            </div>
+          </div>
+          <div class="col-lg-4"><label class="settings-label">Login Phone</label>
+            <div class="form-group">
+              <input type="text" placeholder="Login Phone" class="inputclass" [(ngModel)]="EditProvider.PrimaryPhone">
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <button type="submit" class="btn btn-lg btn-success">Resend Invitation Email</button>
+          </div>
+          <div class="col-lg-4"><label class="settings-label">Recovery Email</label>
+            <div class="form-group">
+              <input type="text" placeholder="Recovery Email" class="inputclass" [(ngModel)]="EditProvider.AltEmail">
+            </div>
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-lg-4"><label class="settings-label">Role</label>
-          <div class="form-group">
-            <select class="col-12 inputclass" placeholder="Role" [(ngModel)]="NewUserData.PracticeRole">
-              <option value="" disabled selected hidden>Role</option>
-              <option *ngFor="let pRole of providerRoles" [value]="pRole.Value">{{pRole.Name}}
-              </option>
-            </select>
-          </div>
-        </div>
-        <div class="col-lg-4 " style="margin-top: 27px">
-          <mat-checkbox class="example-margin" [(ngModel)]="NewUserData.Active">
-            <label class="settings-label mt-2">Active</label>
-          </mat-checkbox>
-        </div>
-        <div class="col-lg-4">
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#changepassword-modal"
-            style="margin-top: 27px" class="btn btn-lg btn-success">
-            Change Password
-          </button>
-        </div>
-      </div>
-      <div class="row align-items-center">
-        <div class="col-lg-4"><label class="settings-label">Login Email Address</label>
-          <div class="form-group">
-            <input type="text" placeholder="Login Email Address" class="inputclass" [(ngModel)]="NewUserData.Email">
-          </div>
-        </div>
-        <div class="col-lg-4"><label class="settings-label">Login Phone</label>
-          <div class="form-group">
-            <input type="text" placeholder="Login Phone" class="inputclass" [(ngModel)]="NewUserData.PrimaryPhone">
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <button type="submit" class="btn btn-lg btn-success">Resend Invitation Email</button>
-        </div>
-        <div class="col-lg-4"><label class="settings-label">Recovery Email</label>
-          <div class="form-group">
-            <input type="text" placeholder="Recovery Email" class="inputclass" [(ngModel)]="NewUserData.AltEmail">
-          </div>
-        </div>
-      </div>
+
     </div>
     <hr>
   </div>
   <div class="modal-footer">
     <div class="col-md-12">
       <div class="d-flex justify-content-end">
-        <button type="button" class="btn btn-lg btn-success mx-2" (click)="updateUser('update')"
-          data-bs-dismiss="modal">
+        <button type="button" class="btn btn-lg btn-success mx-2" (click)="updateUser('update')">
           Save Changes
         </button>
-        <button type="button" class="btn btn-lg btn-success" data-bs-dismiss="modal">
+        <button type="button" class="btn btn-lg btn-success" (click)="cancel()">
           Cancel
         </button>
       </div>

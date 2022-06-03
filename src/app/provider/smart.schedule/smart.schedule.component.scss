@@ -159,14 +159,17 @@ input::placeholder{
 // .bg-color:hover{
 //   background-color: #41b6a6 !important;
 // }
-.schedule-accordion .btn-orange:hover {
-  background-color: #fe8f00;
-  color: #fff;
-}
-.schedule-accordion .btn-orange {
-  border-color: #fe8f00;
-  font-size: 13px;
-  height: 45px;
+// .schedule-accordion .btn-orange:hover {
+//   background-color: #fe8f00;
+//   color: #fff;
+// }
+// .schedule-accordion .btn-orange {
+//   border-color: #fe8f00;
+//   font-size: 13px;
+//   height: 45px;
+// }
+.btn-encounter-padding{
+  padding: 0px !important;
 }
 .smartschedule-wrapper .table-appointments-for-today .table-header {
   height: 40px;
@@ -587,99 +590,7 @@ fieldset {
 .modal-title {
   line-height: normal;
 }
-// encounter modal
-#modal-patient-add-encounter.modal {
-  background-color: transparent;
-}
-#modal-patient-add-encounter .modal-dialog {
-  max-width: 82%;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-@media (max-width: 425px) {
-  #modal-patient-add-encounter .modal-dialog {
-    max-width: 100%;
-  }
-}
-#modal-patient-add-encounter .modal-body {
-  padding: 10px 15px;
-}
 
-#modal-patient-add-encounter .encounder-top p {
-  font-size: 20px;
-  color: #41b6a6;
-  margin-top: 30px;
-  margin-left: 20px;
-}
-#modal-patient-add-encounter .mat-form-field.cstm-mat-padding {
-  margin-top: 19px;
-}
-#modal-patient-add-encounter .btn:hover {
-  background-color: #41b6a6;
-  color: #fff;
-}
-#modal-patient-add-encounter .btn {
-  border-color: #41b6a6;
-  font-size: 13px;
-  height: 45px;
-}
-#modal-patient-add-encounter .btn-orange:hover {
-  background-color: #fe8f00;
-  color: #fff;
-}
-#modal-patient-add-encounter .btn-orange {
-  border-color: #fe8f00;
-  font-size: 13px;
-  height: 45px;
-}
-#modal-patient-add-encounter .btn-red:hover {
-  background-color: #d64841;
-  color: #fff;
-}
-#modal-patient-add-encounter .btn-red {
-  border-color: #d64841;
-  font-size: 13px;
-  height: 45px;
-}
-
-.encounter-navigation {
-  margin-left: -15px;
-  margin-right: -15px;
-}
-.encounter-navigation .encounter-nav-tabs {
-  background-color: #41b6a6;
-}
-.encounter-nav-tabs li {
-  display: inline-block;
-  margin: 7px 10px 0 0;
-}
-.encounter-nav-tabs li.active a#meaningful-use {
-  color: #fe8f00;
-  background-color: #fff;
-}
-.encounter-navigation .encounter-nav-tabs li a {
-  padding: 4px 15px;
-  font-size: 18px;
-  background-color: #28776c;
-  color: #fff;
-  line-height: 30px;
-  border: 1px solid transparent;
-  border-bottom: 1px solid #41b6a6;
-  cursor: pointer;
-}
-.encounter-tab-content {
-  padding: 10px 20px;
-  border-radius: 0 3px 3px 3px;
-  min-height: 600px;
-}
-.encounter-tab-content textarea.mat-input-element {
-  height: 71px;
-  border: 1px solid #41b6a6;
-  border-radius: 3px;
-  font-size: 15px;
-  padding: 10px 20px;
-  resize: both;
-}
 .area-text {
   margin-bottom: 15px;
 }
@@ -1006,15 +917,16 @@ div.visit-status img.img-smart-schedule-status-schedule
 }
 .visit-status img {
   background-color: transparent;
-  width: 20px;
-  padding: 0;
-  margin: 0px;
+  width: 22px;
+  padding: 1px;
+  margin: 4px;
 }
 div.visit-status img.img-smart-status
  {
     background-color: transparent;
     background-size: 6px 12px;
     margin: 8px;
+    padding: 10px !important;
 }
 
 
@@ -1023,13 +935,13 @@ div.visit-status img.img-smart-status-path {
     0deg,
     rgba(194, 197, 197, 0.5),
     rgba(121, 131, 130, 0.5)
-  ),
-  ;
-  fill: gray;
+  );
+  background-size: 6px 12px;
   background-color: #c77405;
   stroke: rgb(224, 220, 220);
   stroke-linejoin: round;
   transition: d 0.2s;
+  filter: opacity(0.3);
 }
 
 .appintment-link:hover{
@@ -1041,4 +953,8 @@ div.visit-status img.img-smart-status-path {
   border-width: 0;
   padding: 0 !important;
   box-shadow:none;
+}
+::ng-deep .smart-schedule-datepicker .mat-form-field-infix,
+::ng-deep .smart-schedule-datepicker .mat-form-field-flex  {
+  display: none;
 }

@@ -117,6 +117,7 @@ $angular-cdk-ehr-theme: mat-light-theme($angular-cdk-ehr-primary,
   $angular-cdk-ehr-accent,
   $angular-cdk-ehr-warn);
 
+@include angular-material-theme($angular-cdk-ehr-theme);
 // include custome themes
 @include drop-down-search-theme($angular-cdk-ehr-theme);
 
@@ -943,8 +944,8 @@ i {
 //   border: 1px solid #41a6b6 !important;
 // }
 
-.cancel-button,
-.confirm-button {
+.login-cancel-button,
+.login-confirm-button {
   color: #41a6b6 !important;
   background: #f9f9f9 !important;
   border: 1px solid #41a6b6 !important;
@@ -954,16 +955,16 @@ i {
   padding: 10px !important;
 }
 
-.cancel-button1 {
+.login-cancel-button1 {
   margin-right: 90px !important;
 }
 
-.confirm-button1 {
+.login-confirm-button1 {
   margin-left: 90px !important;
 }
 
-.cancel-button:hover,
-.confirm-button:hover {
+.login-cancel-button:hover,
+.login-confirm-button:hover {
   background-color: #41a6b6 !important;
   color: #f9f9f9 !important;
   border: 1px solid #41a6b6 !important;
@@ -973,7 +974,7 @@ i {
   border-radius: 6px !important;
 }
 
-.header-font {
+.login-header-font {
   font-size: 16px;
   font-weight: 400;
   text-align: center;
@@ -981,12 +982,17 @@ i {
   font-family: 'Roboto' !important;
 }
 
-.close-button {
-  color: white !important
+.login-close-button {
+  color: #41a6a6  !important;
+  background-color: white !important;
 }
 
-.close-button:hover {
-  color: #41a6a6 !important
+.login-close-button:hover {
+  color: white !important;
+  background-color: #41a6b6 !important;
+}
+.login-modal-header{
+  background-color: #41a6b6 !important;
 }
 
 // pagination
@@ -1013,3 +1019,4 @@ i {
 .page-item.disabled {
   cursor: not-allowed;
 }
+

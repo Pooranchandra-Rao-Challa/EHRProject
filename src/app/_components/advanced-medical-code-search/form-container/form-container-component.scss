@@ -1,0 +1,10 @@
+:host {
+  display: block;
+}
+.search-form-field {
+  width: 100%;
+}
+
+::ng-deep .search-form-field .mat-form-field-wrapper{
+  padding-bottom: 0px !important;
+}
