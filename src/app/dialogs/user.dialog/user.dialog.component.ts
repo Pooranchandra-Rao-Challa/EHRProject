@@ -1,9 +1,13 @@
+import { TimeSlot } from './../../_models/settings';
+import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { SettingsService } from 'src/app/_services/settings.service';
 import { User, UserLocations } from '../../_models';
 import { NewUser } from '../../_models/settings';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
+import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
+import { HostListener } from "@angular/core";
 
 @Component({
   selector: 'app-user.dialog',
@@ -11,7 +15,10 @@ import { UtilityService } from 'src/app/_services/utiltiy.service';
   styleUrls: ['./user.dialog.component.scss']
 })
 export class UserDialogComponent implements OnInit {
-  NewUserData: NewUser;
+  EditProvider: NewUser= {}
+
+
+
   user: User;
   providerLocationColumn: string[] = ['LocationName', 'CityState', 'PracticeSchedule', 'ServicedLocation'];
   titles: {}[];
@@ -25,15 +32,34 @@ export class UserDialogComponent implements OnInit {
   manuallybtn: boolean = true;
   enterbtn: boolean;
   visiblebtn: boolean = true;
+  scrHeight:any;
+  scrWidth:any;
+  dynamicheight: {};
 
-  constructor(private settingsService: SettingsService, private utilityService: UtilityService) {
-    this.NewUserData = {
-    }
+  @HostListener('window:resize', ['$event'])
+  getScreenSize(event?) {
+        this.scrHeight = window.innerHeight;
+        this.scrWidth = window.innerWidth;
+        console.log(this.scrHeight, this.scrWidth);
+  }
+
+  constructor(private ref: EHROverlayRef,
+    private settingsService: SettingsService,
+    private utilityService: UtilityService,
+    private authServer: AuthenticationService) {
+
+    this.user = authServer.userValue;
+    this.getUserDataforEdit(ref.RequestData as NewUser);
+    this.loadFormDefaults();
+    this.getScreenSize();
+      this.dynamicheight ={'height.px': this.scrHeight - 250,}
   }
 
   ngOnInit(): void {
   }
-
+  cancel() {
+    this.ref.close(null);
+  }
   loadFormDefaults() {
     this.utilityService.Titles().subscribe(resp => {
       if (resp.IsSuccess) {
@@ -68,26 +94,28 @@ export class UserDialogComponent implements OnInit {
       LoginProviderId: this.user.ProviderId,
       ClinicId: this.user.ClinicId
     }
+    console.log(reqparams);
 
     this.settingsService.UserInfoWithPraceticeLocations(reqparams).subscribe(resp => {
-      this.NewUserData = resp.Result as NewUser;
-      this.NewUserData.LocationInfo = JSON.parse(resp.Result.LocationInfo);
-      console.log(this.NewUserData)
+
+      this.EditProvider = resp.Result as NewUser;
+      this.EditProvider.LocationInfo = JSON.parse(resp.Result.LocationInfo);
+      console.log(this.EditProvider)
     });
   }
 
   updateUser(activity) {
     if (activity == 'add') {
-      this.NewUserData.ClinicId = this.user.ClinicId;
-      this.NewUserData.LocationId = this.user.CurrentLocation;
+      this.EditProvider.ClinicId = this.user.ClinicId;
+      this.EditProvider.LocationId = this.user.CurrentLocation;
     } else {
 
     }
-    if (this.NewUserData.PracticeName == null)
-      this.NewUserData.PracticeName = this.user.BusinessName;
+    if (this.EditProvider.PracticeName == null)
+      this.EditProvider.PracticeName = this.user.BusinessName;
 
-    console.log(JSON.stringify(this.NewUserData))
-    this.settingsService.AddUpdateUser(this.NewUserData).subscribe(resp => {
+    console.log(JSON.stringify(this.EditProvider))
+    this.settingsService.AddUpdateUser(this.EditProvider).subscribe(resp => {
       if (resp.IsSuccess) {
         // this.closePopup();
         // this.getProviderDetails();

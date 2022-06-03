@@ -1,3 +1,6 @@
+@import "../../../assets/cstm.material.scss";
+@import "../../../assets/common.scss";
+
 #edit-user-modal.modal-dialog {
   margin-top: 10px;
   max-width: 1005px;
@@ -9,6 +12,9 @@
 .modal-content.UserModal {
   border: 1px solid rgb(65 182 166) !important;
 }
+.modal-content {
+  height: 500px !important;
+}
 .modal-header {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   color: white;
@@ -16,23 +22,20 @@
   border-bottom: none;
   min-height: 50px;
   max-height: 50px;
-  //margin-top: -1px;
-  //margin-left: -1px;
 }
 .modal-body {
   background-attachment: fixed;
   background: white;
+  height:600px
 }
 div.ex3 {
-  //height: 900px;
-  //top: 84%;
   box-sizing: border-box;
   padding: 24px;
   white-space: nowrap;
   overflow-y: scroll;
 }
 .main-info .row {
-  padding-bottom: 20px;
+  padding: 15px;
 }
 @media screen and (min-device-width: 320px) and (max-device-width: 768px) {
   .avatar.border {
@@ -52,18 +55,16 @@ div.ex3 {
 }
 .closemodel {
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  color: white;
-  background-color: #41b6a6;
+  color: #41b6a6;
+  background-color: white;
   font-size: 14px !important;
   white-space: nowrap;
   border: 1px solid white;
 }
 .closemodel:hover {
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  color: rgb(233, 227, 227);
+  color: white;
   background-color: #41b6a6;
-  border-color: #41b6a6;
-  border: 1px solid rgb(248, 245, 245);
 }
 .settings-label {
   font-size: 14px;
@@ -108,20 +109,23 @@ div.ex3 {
   min-height: 50px;
   text-align: 10px;
   //margin-top: -1px;
-  padding: 14px 20px; // schedule panel
+  //padding: 14px 20px; // schedule panel
+  padding-top:10px;
   font-size: 15px;
+  display: flex;
+  padding: 10px;
 }
 .plusicon {
   border-radius: 5%;
   border: 1px solid white;
   background: white;
-  height: 100%;
+  width: 50px;
 }
 
 .plusicon .fa-plus {
   color: #41b6a6;
   text-align: center;
-  padding: 9px 20px;
+  //padding: 9px 20px;
 }
 
 .plusicon:hover {
@@ -163,7 +167,7 @@ div.ex3 {
   }
 }
 .userfromPractable {
-  border: 3px solid #2faa9a;
+  border: 1px solid #2faa9a;
 }
 ::ng-deep .example-margin:hover {
   & .mat-checkbox-background,
@@ -204,4 +208,35 @@ div.ex3 {
   color: white;
   background-color: #41b6a6;
   border-color: #41b6a6;
+}
+.mat-header-row {
+  font-size: 16px !important;
+  background-color: #F7F7F7 !important;
+  color: black !important;
+  padding: 0px 0px;
+}
+.user-login-info{
+  border: 1px solid #41a6b6;
+  border-radius: 5px;
+}
+
+ .table>:not(:first-child) {
+  border-top: 1px solid #41b6a6;
+}
+.mat-checkbox-frame{
+  border: 0px solid;
+}
+.nopadding>*{
+  padding:0px;
+  background-color: transparent;
+}
+
+.nopadding2{
+  display:grid
+}
+.nopadding2 div:not(:last-child){
+  margin-bottom: 5px;
+}
+.nopadding2 div{
+  font-size: 11px;
 }
