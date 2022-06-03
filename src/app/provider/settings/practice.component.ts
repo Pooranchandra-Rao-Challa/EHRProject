@@ -86,8 +86,6 @@ export class PracticeComponent implements OnInit {
     this.PracticeLocData = new PracticeLocation
     this.NewUserData = {
     }
-
-
   }
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
@@ -154,11 +152,9 @@ export class PracticeComponent implements OnInit {
     // some error handling
   }
   toggleAdmin(user: NewUser) {
-
     this.updateToggleUserFieldValues("Admin", user);
   }
   toggleEmergencyAccess(user: NewUser) {
-
     this.updateToggleUserFieldValues("EmergencyAccess", user);
   }
   toggleStatus(user: NewUser) {

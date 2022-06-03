@@ -41,14 +41,13 @@
                   <div class="row">
                     <mat-form-field appearance="outline" class="col-lg-2 col-md-2 col-sm-2">
                       <mat-select formControlName="Title" class=" white-light select2-selection"
-                        [disableOptionCentering]="true">
+                        disableOptionCentering panelClass="panel-class-alignment">
                         <mat-option *ngFor="let title of nameTitle" [value]="title.titleName">{{title.titleName}}
                         </mat-option>
                       </mat-select>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline" class="col-lg-3 col-md-3 col-sm-3 col-12">
-
                       <input matInput
                         (mouseover)="viewModel.FirstName=$event.target.value!= null&& $event.target.value!=''"
                         (mouseleave)="viewModel.FirstName=false" formControlName="FirstName" placeholder="First Name">
@@ -124,7 +123,7 @@
                   </div>
 
                   <div class="controls">
-                    <button type="button" class="reg-button col-md-2 next-step1" [disabled]="!PersonalInfo.valid"
+                    <button type="button" class="reg-button col-md-2 next-step1" [disabled]="!PersonalInfo.valid" [class.disable-button] = "!PersonalInfo.valid"
                       (click)="GetPersonalInfo()">NEXT STEP</button>
                   </div>
                 </div>
@@ -152,17 +151,16 @@
                       <input matInput
                         (mouseover)="viewModel.PracticeAddress=$event.target.value!= null&& $event.target.value!=''"
                         (mouseleave)="viewModel.PracticeAddress=false" formControlName="PracticeAddress"
-                        [readonly]="displayVerifybtn" placeholder="Enter the full name here (including suite number)">
+                        [readonly]="addressVerified" placeholder="Enter the address here (including suite number)">
                       <mat-icon matSuffix *ngIf="viewModel.PracticeAddress" class="FieldValid">check</mat-icon>
-                      <mat-icon matSuffix *ngIf="!viewModel.PracticeAddress" class="FieldInvalid">clear</mat-icon>
+                      <mat-icon matSuffix *ngIf="!viewModel.PracticeAddress" [class.disable-button]="!addressVerified" class="FieldInvalid" (click)="reVerifyAddress()">clear</mat-icon>
                     </mat-form-field>
 
                     <div class="col-md-2 pt-1">
                       <button mat-button class="reg-button col-md-12" (click)="AddressVerification()"
-                        [disabled]="displayVerifybtn">VERIFY</button>
+                        [disabled]="addressVerified" [class.disable-button]="addressVerified">VERIFY</button>
                     </div>
                   </div>
-
 
                   <div class="row">
                     <mat-form-field class="field" appearance="outline" class="example-full-width"
@@ -204,7 +202,7 @@
                   <div class="controls">
                     <button mat-button class="reg-button col-md-2 prev-step2" data-bs-target="#personalInfo">PREV.
                       STEP</button>
-                    <button mat-button class="reg-button col-md-2 mx-4 next-step2" [disabled]="!ContactInfomation.valid"
+                    <button mat-button class="reg-button col-md-2 mx-4 next-step2" [disabled]="!ContactInfomation.valid" [class.disable-button] ="!ContactInfomation.valid"
                       (click)="GetContactInfo()" data-bs-target="#additionalinfo">NEXT
                       STEP</button>
                   </div>
@@ -231,7 +229,7 @@
                   <p>PRIMARY EMAIL ADDRESS</p>
                   <mat-form-field appearance="outline" class="col-12">
                     <input matInput (mouseover)="viewModel.Email=true" (mouseleave)="viewModel.Email=false"
-                      formControlName="Email" placeholder="Email Adress">
+                      formControlName="Email" placeholder="Email Address">
                     <mat-icon matSuffix *ngIf="viewModel.Email && !AccountInfomation.controls['Email'].invalid"
                       class="FieldValid">check</mat-icon>
                     <mat-icon matSuffix *ngIf="viewModel.Email && AccountInfomation.controls['Email'].invalid"
@@ -286,7 +284,7 @@
               <div class="row">
                 <div class="col-lg-12 pb-4">
                   <mat-checkbox></mat-checkbox>
-                  <span class="mx-2">NOTIFY ME OF ALL UPCOMNG OUTAGES AND PLANNED SERVICE UPGRADES</span>
+                  <span class="mx-2">NOTIFY ME OF ALL UPCOMING SERVICE OUTAGES AND PLANNED SERVICE UPGRADES</span>
                 </div>
               </div>
               <div class="row">
@@ -296,7 +294,7 @@
                       STEP</button>
 
 
-                    <button mat-button class="reg-button col-md-2 mx-2 next-step3" [disabled]="!AccountInfomation.valid"
+                    <button mat-button class="reg-button col-md-2 mx-2 next-step3" [disabled]="!AccountInfomation.valid" [class.disable-button] ="!AccountInfomation.valid"
                       (click)="GetAccountInfo()">
 
                       NEXT STEP
@@ -314,7 +312,8 @@
           <div class="content">
             <button mat-button class="reg-button col-md-2 prev-step4">PREV.
               STEP</button>
-            <button mat-button class="reg-button col-md-2 mx-2" (click)="SaveRegitration()">
+            <button mat-button class="reg-button col-md-2 mx-2" (click)="SaveRegitration()"
+            >
               COMPLETE REGISTRATION</button>
           </div>
         </div>

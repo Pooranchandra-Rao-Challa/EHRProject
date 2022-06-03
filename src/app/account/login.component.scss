@@ -561,3 +561,7 @@ div#email-verification button {
 .swal-input {
   border: 1px solid #a9a9a9,
 }
+::ng-deep .mat-checkbox-label{
+  margin-top: 6px !important;
+  margin-left: 4px !important;
+}
