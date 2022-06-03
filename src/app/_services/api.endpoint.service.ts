@@ -357,6 +357,19 @@ export class APIEndPoint extends EndpointBase {
   get _procedureCodesUrl() {
     return this._baseUrl + "DentalProcedureCodes";
   }
+
+  get _smokingStatusByPatientIdUrl() {
+    return this._baseUrl + "SmokingStatusByPatientId";
+  }
+
+  get _tobaccoUseScreeningsUrl() {
+    return this._baseUrl + "TobaccoUse_Screenings";
+  }
+
+  get _tobaccoUseInterventionsUrl() {
+    return this._baseUrl + "TobaccoUse_Interventions";
+  }
+
   constructor(public http: HttpClient) {
     super();
   }
