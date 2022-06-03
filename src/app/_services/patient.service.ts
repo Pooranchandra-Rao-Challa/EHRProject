@@ -9,15 +9,41 @@ export class patientService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._patientsByProviderUrl, reqparams);
   }
 
-  // AdvancedDirectives(reqparams: any) {
-  //   return this._ProcessPostRequest<any>(this._advancedDirectivesUrl, reqparams);
-  // }
+  AdvancedDirectivesByPatientId(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._advancedDirectivesByPatientIdUrl, reqparams);
+  }
 
-  // AllDiagnoses(reqparams: any) {
-  //   return this._ProcessPostRequest<any>(this._allDiagnosesUrl, reqparams);
-  // }
+  DiagnosesByPatientId(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._diagnosesByPatientIdUrl, reqparams);
+  }
 
-  // AllAllergies(reqparams: any) {
-  //   return this._ProcessPostRequest<any>(this._allAllergiesUrl, reqparams);
-  // }
+  AllergiesByPatientId(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._allergiesByPatientIdUrl, reqparams);
+  }
+
+  PastMedicalHistoriesByPatientId(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._pastMedicalHistoriesByPatientIdUrl, reqparams);
+  }
+
+  ImmunizationsByPatientId(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._immunizationsByPatientIdUrl, reqparams);
+  }
+
+  MedicationsByPatientId(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._medicationsByPatientIdUrl, reqparams);
+  }
+
+  EncountersByPatientId(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._encountersByPatientIdUrl, reqparams);
+  }
+
+  AppointmentsByPatientId(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._appointmentsByPatientIdUrl, reqparams);
+  }
+  
+  PatientProfileByPatientId(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._patientProfilreUrl, reqparams);
+  }
+
+  
 }

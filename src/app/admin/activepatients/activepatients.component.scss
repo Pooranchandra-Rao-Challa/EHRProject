@@ -18,6 +18,9 @@
   padding: 2px 5px;
 }
 
+tbody>tr:last-child>td {
+  border-bottom: 0;
+}
 .border,
 .loader-demo-box {
   border: 1px solid #ddd !important;
@@ -113,5 +116,5 @@ input::-webkit-input-placeholder {
 
 }
 .fs-6 {
-  font-size: 1.1rem !important;
+  font-size: 16px !important;
 }

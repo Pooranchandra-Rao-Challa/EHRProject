@@ -163,7 +163,6 @@ export class PracticeComponent implements OnInit {
   }
   toggleStatus(user: NewUser) {
     user.Active = user.Active == null ? true : user.Active.valueOf() == false ? true : false;
-
     this.updateToggleUserFieldValues("Active", user);
   }
 
@@ -350,12 +349,11 @@ export class PracticeComponent implements OnInit {
     this.settingsService.UserInfoWithPraceticeLocations(reqparams).subscribe(resp => {
       this.NewUserData = resp.Result as NewUser;
       this.NewUserData.LocationInfo = JSON.parse(resp.Result.LocationInfo);
-
     });
   }
 
   userInfoForEdit(data, action: Actions) {
-    console.log(data);
+    //console.log(data);
     return data;
   }
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,

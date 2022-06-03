@@ -318,15 +318,45 @@ export class APIEndPoint extends EndpointBase {
   // get _advancedDirectivesUrl() {
   //   return this._baseUrl + "AdvancedDirectives";
   // }
+  get _advancedDirectivesByPatientIdUrl() {
+    return this._baseUrl + "AdvancedDirectivesByPatientId";
+  }
 
-  // get _allDiagnosesUrl() {
-  //   return this._baseUrl + "AllDiagnoses";
-  // }
+  get _diagnosesByPatientIdUrl() {
+    return this._baseUrl + "DiagnosesByPatientId";
+  }
 
-  // get _allAllergiesUrl() {
-  //   return this._baseUrl + "AllAllergies";
-  // }
+  get _allergiesByPatientIdUrl() {
+    return this._baseUrl + "AllergiesByPatientId";
+  }
 
+  get _pastMedicalHistoriesByPatientIdUrl() {
+    return this._baseUrl + "PastMedicalHistoriesByPatientId";
+  }
+
+  get _immunizationsByPatientIdUrl() {
+    return this._baseUrl + "ImmunizationsByPatientId";
+  }
+
+  get _medicationsByPatientIdUrl() {
+    return this._baseUrl + "MedicationsByPatientId";
+  }
+
+  get _encountersByPatientIdUrl() {
+    return this._baseUrl + "EncountersByPatientId";
+  }
+
+  get _appointmentsByPatientIdUrl() {
+    return this._baseUrl + "AppointmentsByPatientId";
+  }
+
+  get _patientProfilreUrl() {
+    return this._baseUrl + "PatientProfile";
+  }
+
+  get _procedureCodesUrl() {
+    return this._baseUrl + "DentalProcedureCodes";
+  }
   constructor(public http: HttpClient) {
     super();
   }

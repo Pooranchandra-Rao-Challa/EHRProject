@@ -80,11 +80,15 @@ p {
 .text-truncate {
   margin-left: -150px;
 }
+.statusDropdownContainer{
+  cursor: pointer !important;
+}
 .statusFilterDropdown{
     border: 1px solid #d3d3d3;
     border-radius: 1px;
-
+    cursor: pointer !important;
 }
+
 .searchmenu{
   position: absolute;
     inset: 0px auto auto 0px;
@@ -96,6 +100,7 @@ p {
     height: 215px;
     overflow-y: auto;
     border-block-start: inherit;
+    cursor: pointer !important;
 }
 .flex-middle{
   display: flex;

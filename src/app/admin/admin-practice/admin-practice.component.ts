@@ -38,6 +38,7 @@ export class AdminPracticeComponent implements OnInit {
   }
 
   GetProivderList() {
+
     this.adminservice.GetProviderList().subscribe(resp => {
       if (resp.IsSuccess) {
         this.ProviderList = resp.ListResult;

@@ -92,25 +92,25 @@ hr:not([size]) {
   vertical-align: top;
   background-color: #eee;
 }
-.addbtn {
-  border-radius: 71px;
-  width: 32px;
-  height: 32px;
-  font-size: 9px;
-  color: #666;
-  background-color: #dbe1ee;
-  border-color: #e1e5ec;
-  border: 1px solid #5e6064;
-  border: none;
-}
+// .addbtn {
+//   border-radius: 71px;
+//   width: 32px;
+//   height: 32px;
+//   font-size: 9px;
+//   color: #666;
+//   background-color: #dbe1ee;
+//   border-color: #e1e5ec;
+//   border: 1px solid #5e6064;
+//   border: none;
+// }
 .td-btn-style {
   padding: 3px 4px;
   font-size: 13px;
 }
-.icon-add {
-  font-size: 15px;
-  color: #666;
-}
+// .icon-add {
+//   font-size: 15px;
+//   color: #666;
+// }
 
 input[type=checkbox]:checked:after {
   content: "\2714" !important;

@@ -1,21 +1,35 @@
+@import"../../assets/common.scss";
+
 .cstm-container {
   padding-right: 15px;
-  padding-left: 130px;
+  padding-left: 52px;
   margin-right: auto;
   margin-left: auto;
   padding-bottom: 15px;
 }
 
-.sign-up-here{
+.sign-up-here {
   color: #287066;
 }
-.sign-up-here:hover{
+
+.sign-up-here:hover {
   opacity: 0.75;
 }
-// img {
-//   width: 100%;
-//   height: 100%;
-// }
+.signin{
+  width: 38% !important;
+  height: 45px !important;
+  margin-top: 8%;
+  margin-right: 250px;
+  font-size: 16px;
+  border-radius: 3px;
+  font-family: revert !important;
+
+}
+::ng-deep .swal2-title {
+  margin-top: 0px !important;
+
+}
+
 
 #authfailedmessage {
   color: rgba(240, 13, 13, 0.932);
@@ -42,40 +56,21 @@
     background-color: #f5f5f5;
     color: #dedede;
   }
+  ::ng-deep .mat-form-field-appearance-outline:hover .mat-form-field-outline {
+    color: #41b6a6 !important;
+    // opacity: 1!important;
+  }
+  ::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+    color: #41b6a6 !important;
+  }
 
   .login_logo span {
     position: relative;
     top: 10px;
   }
 
-  //input outline color
-  ::ng-deep .mat-form-field-appearance-outline:hover .mat-form-field-outline {
-    color: #41b6a6 !important;
-    // opacity: 1!important;
-  }
+ }
 
-  //mat-input focused color
-  ::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
-    color: #41b6a6 !important;
-  }
-}
-
-button {
-  width: 50% !important;
-  height: 45px !important;
-  border: 1px solid #41b6a6 !important;
-  background-color: white;
-  //padding: 0px 5px !important;
-  color: #41b6a6 !important;
-  margin-top: 8%;
-  font-size: 16px;
-  font-family: sans-serif;
-}
-
-button:hover {
-  background-color: #41b6a6 !important;
-  color: #fff !important;
-}
 
 .resetpassword-button {
   width: 43% !important;
@@ -87,8 +82,8 @@ button:hover {
   margin-top: 8%;
   font-size: 16px;
   margin-left: 5%;
-  color:#41b6a6;
-  width:165px;
+  color: #41b6a6;
+  width: 165px;
   opacity: .65;
 }
 
@@ -186,20 +181,6 @@ strong {
   font-weight: 700;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  font-family: "SF UI Text Regular";
-  font-style: normal;
-  font-weight: 400;
-  outline: none !important;
-}
-
-* {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
 
 user agent stylesheet div {
   display: block;
@@ -213,37 +194,6 @@ user agent stylesheet div {
   font-family: "Times New Roman";
   color: #4a4a4a;
 }
-
-body {
-  font-family: "Roboto", sans-serif;
-}
-
-body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  line-height: 1.42857143;
-  color: #333;
-  background-color: #fff;
-}
-
-html {
-  font-size: 10px;
-  -webkit-tap-highlight-color: transparent;
-}
-
-html {
-  font-family: sans-serif;
-  -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
-}
-
-:after,
-:before {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
 :after,
 :before {
   -webkit-box-sizing: border-box;
@@ -253,11 +203,23 @@ html {
 
 // my code
 .login {
-  height: auto;
+  background-repeat: no-repeat;
+  background-size: auto;
   font-family: "Times New Roman";
   color: #4a4a4a;
   background: url(../../assets/images/pro-reg-bg.png);
+  height: 1100px;
+}
+@media (max-width: 425px){
+.login {
+  height: 1674px;
+}
+}
 
+@media (max-width: 940px)and (min-width: 730px) {
+  .login {
+    height: 1452px;
+  }
 }
 
 .one-ehr-images {
@@ -303,10 +265,6 @@ html {
 
 }
 
-::ng-deep.mat-form-field-outline {
-  color: #41b6a6 !important;
-  // opacity: 1!important;
-}
 
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
   background-color: #f5f5f5 !important;
@@ -317,43 +275,19 @@ html {
   margin-bottom: 20%;
 }
 
-::ng-deep .mat-input-element{
+::ng-deep .mat-input-element {
   width: 95% !important;
 }
-.img-svg-eye{
+
+.img-svg-eye {
   width: 5%;
   position: absolute;
 }
+
 .verify {
   margin-top: 2%;
 }
 
-@media (max-width: 572px) {
-  .modal .modal-dialog {
-    margin-left: 0%;
-  }
-}
-
-
-@media (max-width: 620px)and (min-width: 572px) {
-  .modal .modal-dialog {
-    margin-left: 10%;
-  }
-}
-
-
-@media (max-width: 730px)and (min-width: 620px) {
-  .modal .modal-dialog {
-    margin-left: 15%;
-  }
-}
-
-@media (max-width: 940px)and (min-width: 730px) {
-  .modal .modal-dialog {
-    margin-left: 23%;
-
-  }
-}
 
 .form-group label {
   font-size: 17px;
@@ -373,14 +307,9 @@ html {
     height: 20px;
   }
 }
-
-::ng-deep .example-margin:hover {
-
-  & .mat-checkbox-background,
-  .mat-checkbox-frame {
-    border-color: red;
-
-  }
+.mat-input-element {
+  font: revert;
+  font-size: 15px;
 }
 
 ::ng-deep .mat-checkbox-checked.mat-accent {
@@ -413,23 +342,6 @@ html {
   }
 }
 
-::ng-deep .example-margin:hover {
-
-  & .mat-checkbox-background,
-  .mat-checkbox-frame {
-    border-color: #41b6a6;
-  }
-}
-
-::ng-deep {
-  mat-form-field {
-    ::placeholder {
-      //color: #141414 !important;
-      font-size: 100%;
-      font-family: sans-serif;
-    }
-  }
-}
 
 .pull-right {
   color: #287066;
@@ -437,7 +349,7 @@ html {
 }
 
 .check {
-  margin-top: 8%;
+  margin: 43px 283px 1px 1px;
 }
 
 .example-margin span {
@@ -463,36 +375,42 @@ html {
 .address div {
   font-style: normal;
   font-weight: 400;
-  margin-top: 2%;
+  font-size: 12px;
   font-family: sans-serif;
   text-align: left;
   align-items: flex-end;
 }
-.address .message-hints{
+.heding{
+  font-size: 14px;
   text-align: right;
   cursor: pointer;
+  font-size: 15px;
+  font-family: 'Roboto';
+  margin: 18px 1px 0px -148px !important;
 }
+@media (max-width: 1024px){
+.heding{
+margin: 18px 1px 0px -47px !important;
+}
+}
+.address .message-hints {
+  text-align: left;
+  cursor: pointer;
+}
+
 .content-top {
   border-bottom: 1px solid rgba(74, 74, 74, 0.5);
   //margin-top: 25px;
 }
+
 .video-content ul,
-.video-content ul li{
+.video-content ul li {
   text-align: left;
   padding-left: 20px;
   font-family: Roboto !important;
   font-style: normal;
   font-weight: 400;
   outline: none !important;
-}
-
-.Login-form{
-::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-start,
-::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-end{
-  border-radius: 0px;
-  border: 0px solid #a4a4a4 !important;
-  background-color: #f9f9f9;
-}
 }
 
 
@@ -531,9 +449,11 @@ div#reset-password div.modal-dialog {
   border-radius: 6px !important;
   max-width: 500px;
 }
-div#email-verification{
+
+div#email-verification {
   z-index: 1060;
 }
+
 div#email-verification div.modal-dialog {
   overflow-y: initial !important;
   max-width: inherit !important;
@@ -547,22 +467,24 @@ div#email-verification div.modal-dialog {
   height: 300px;
 }
 
-div#modal-message .modal-dialog .modal-content{
+div#modal-message .modal-dialog .modal-content {
   background-color: #d8d8d8;
   max-width: 500px;
 
 }
-div#reset-password .modal-dialog .modal-content
-{
+
+div#reset-password .modal-dialog .modal-content {
   background-color: #d8d8d8;
   max-width: 400px;
 }
-div#email-verification .modal-dialog .modal-content  {
+
+div#email-verification .modal-dialog .modal-content {
   background-color: #d8d8d8;
   max-width: 600px;
   max-height: 300px;
 }
-div#email-verification label{
+
+div#email-verification label {
   display: inline-block;
   max-width: 100%;
   margin-bottom: 5px;
@@ -576,125 +498,47 @@ div#email-verification .modal-content {
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
   border: 1px solid #999;
-  border: 1px solid rgba(0,0,0,0.2);
+  border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 6px;
   outline: 0;
   -webkit-box-shadow: 0 3px 9px rgb(0 0 0 / 50%);
   box-shadow: 0 3px 9px rgb(0 0 0 / 50%);
 }
+
 div#reset-password .modal-dialog .modal-content .modal-body,
-div#email-verification .modal-dialog .modal-content .modal-body{
+div#email-verification .modal-dialog .modal-content .modal-body {
   background-color: #f9f9f9;
 }
+
 ::ng-deep div#reset-password .mat-form-field-infix,
-::ng-deep div#email-verification .mat-form-field-infix{
+::ng-deep div#email-verification .mat-form-field-infix {
   border: 1px solid #41b6a6 !important;
   border-radius: 6px !important;
   background: #f9f9f9;
 }
 
 
-@media (max-height: 768px){
-  div#modal-message .modal-dialog {
-    max-width: 500px;
-    background: #f9f9f9;
-  }
-}
 
-@media (max-height: 768px){
-  div#reset-password .modal-dialog .modal-content {
-    max-width: 400px;
-    background: #f9f9f9;
-  }
-}
 
-@media (max-height: 768px){
-  div#email-verification .modal-dialog .modal-content {
-    max-width: 600px;
-    background: #f9f9f9;
-  }
-}
-
-@media (min-width: 768px){
-  .modal-content {
-    -webkit-box-shadow: 0 5px 15px rgb(0 0 0 / 50%);
-    box-shadow: 0 5px 15px rgb(0 0 0 / 50%);
-  }
-}
-
-div#modal-message.modal-notice .modal-dialog .modal-content .modal-body .scrollable-container .message-title {
-  background-color: #41b6a6;
-}
-div#modal-message.modal-notice .modal-dialog .modal-content .modal-body .scrollable-container .error-title{
-  background-color:  #c43636;;
-}
-
-div#modal-message .modal-dialog .modal-content .modal-body .scrollable-container .message-title,
-div#modal-message .modal-dialog .modal-content .modal-body .scrollable-container .error-title {
-  width: 100%;
-  vertical-align: middle;
-  padding: 20px;
-  text-align: center;
-}
 div#reset-password input,
-div#email-verification input{
-    border: 1px solid #e9e9e9 !important;
-    border-radius: 6px;
-    padding: 10px 5px 10px 5px;
-    width: 100%;
-    line-height: 25px;
-    font-size: 20px;
-    text-align: center;
-    background: #f9f9f9;
-    font-family: Roboto !important;
-}
-div#reset-password input:hover,
-div#email-verification input:hover{
-  border: 1px solid #41a6b6 !important;
-}
-div#email-verification button{
+div#email-verification input {
+  border: 1px solid #e9e9e9 !important;
   border-radius: 6px;
-}
-div#reset-password p,
-div#email-verification label{
-  color: #74757e;
+  padding: 10px 5px 10px 5px;
+  width: 100%;
+  line-height: 25px;
+  font-size: 20px;
   text-align: center;
-  font-size: 15px;
+  background: #f9f9f9;
   font-family: Roboto !important;
 }
 
-@media (max-height: 768px){
-  div#modal-message .modal-dialog .modal-content .modal-body {
-    padding: 110px 0 15px 0;
+div#reset-password input:hover,
+div#email-verification input:hover {
+  border: 1px solid #41a6b6 !important;
 }
-}
-div#modal-message .modal-dialog .modal-content .modal-body {
-    padding: 100px 0 45px 0;
-    /* border-radius: 8px 8px 0 0; */
-    text-align: center;
-}
-div#modal-message .modal-dialog .modal-content .modal-body .message-title p,
-div#modal-message .modal-dialog .modal-content .modal-body .message-error-title p  {
-  font-size: 24px;
-  color: #fff;
-  margin-bottom: 0;
-}
-div#modal-message .modal .modal-dialog {
-  margin-top: calc(63px + 120px);
-}
-// End of message model
 
-
-.modal-content{
-      /* width: 100%; */
-      background: white;
-      /* height: 350px; */
-      border-radius: 6px !important;
-}
-.modal-body {
-  max-height: calc(90vh - 180px);
-  overflow-y: auto;
-  padding-top: 10px !important;
+div#email-verification button {
   border-radius: 6px;
 }
 
@@ -707,4 +551,13 @@ div#modal-message .modal .modal-dialog {
 }
 .modal-footer{
   background: white;
+}
+.pop-contrainer {
+  background: #f9f9f9;
+  border-radius: 6px !important;
+  padding: 0px !important;
+}
+
+.swal-input {
+  border: 1px solid #a9a9a9,
 }

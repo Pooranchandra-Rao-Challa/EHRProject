@@ -591,6 +591,92 @@ fieldset {
   line-height: normal;
 }
 
+/// need to be checked for removing this code.
+#modal-patient-add-encounter .encounder-top p {
+  font-size: 20px;
+  color: #41b6a6;
+  margin-top: 30px;
+  margin-left: 20px;
+}
+#modal-patient-add-encounter .mat-form-field.cstm-mat-padding {
+  margin-top: 19px;
+}
+#modal-patient-add-encounter .btn:hover {
+  background-color: #41b6a6;
+  color: #fff;
+}
+#modal-patient-add-encounter .btn {
+  border-color: #41b6a6;
+  font-size: 13px;
+  height: 45px;
+}
+#modal-patient-add-encounter .btn-orange:hover {
+  background-color: #fe8f00;
+  color: #fff;
+}
+#modal-patient-add-encounter .btn-orange {
+  border-color: #fe8f00;
+  font-size: 13px;
+  height: 45px;
+}
+#modal-patient-add-encounter .btn-red:hover {
+  background-color: #d64841;
+  color: #fff;
+}
+#modal-patient-add-encounter .btn-red {
+  border-color: #d64841;
+  font-size: 13px;
+  height: 45px;
+}
+
+.encounter-navigation {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+.encounter-navigation .encounter-nav-tabs {
+  background-color: #41b6a6;
+}
+.encounter-nav-tabs li {
+  display: inline-block;
+  margin: 7px 10px 0 0;
+}
+.encounter-nav-tabs li.active a#meaningful-use {
+  color: #fe8f00;
+  background-color: #fff;
+}
+.encounter-navigation .encounter-nav-tabs li a {
+  padding: 4px 15px;
+  font-size: 18px;
+  background-color: #28776c;
+  color: #fff;
+  line-height: 30px;
+  border: 1px solid transparent;
+  border-bottom: 1px solid #41b6a6;
+  cursor: pointer;
+}
+.encounter-tab-content {
+  padding: 10px 20px;
+  border-radius: 0 3px 3px 3px;
+  min-height: 600px;
+}
+.encounter-tab-content textarea.mat-input-element {
+  height: 71px;
+  border: 1px solid #41b6a6;
+  border-radius: 3px;
+  font-size: 15px;
+  padding: 10px 20px;
+  resize: both;
+}
+#vitals-modal .textarea {
+  height: 71px;
+  border: 1px solid #41b6a6;
+  border-radius: 3px;
+  font-size: 15px;
+  padding: 10px 20px;
+  resize: vertical;
+}
+
+// ---------------------- end of code removal block
 .area-text {
   margin-bottom: 15px;
 }
@@ -954,7 +1040,77 @@ div.visit-status img.img-smart-status-path {
   padding: 0 !important;
   box-shadow:none;
 }
-::ng-deep .smart-schedule-datepicker .mat-form-field-infix,
-::ng-deep .smart-schedule-datepicker .mat-form-field-flex  {
-  display: none;
+// vitals modal
+#vitals-modal .modal-body{
+  padding: 20px 25px;
+}
+#vitals-modal .modal-body .vital-input{
+  border: 1px solid #41b6a6;
+  height: 45px;
+  border-radius: 3px;
+  padding: 0px 10px;
+}
+#vitals-modal .modal-body .form-group{
+  display: block;
+}
+#vitals-modal .modal-body label{
+  font-size: 15px;
+  font-weight: 600;
+  color: #4A4A4A;
+}
+#vitals-modal .modal-content{
+  margin-top: -40px !important;
+  // height: calc(90vh - 20px);
+}
+#vitals-modal .modal-body{
+  min-height: 40vh;
+  max-height: 72vh;
+}
+#vitals-table .mat-header-row {
+  border: 1px solid #41b6a6;
+  background-color: #41b6a6;
+  color: #fff;
+  min-height: 30px;
+}
+#vitals-table.mat-table {
+  margin-left: -20px !important;
+  margin-right: -20px !important;
+}
+#vitals-table .mat-row{
+  border-bottom: 1px solid #41b6a6;
+}
+#vitals-table .mat-header-cell {
+  font-size: 15px;
+}
+.actions button{
+  border: none;
+  background-color: transparent;
+}
+.actions .edit{
+  color: #41b6a6;
+}
+.actions .delete{
+  color: #d64841;
+}
+.btn-add{
+  min-width: 50px;
+  border: 1px solid #41b6a6;
+  border-radius: 3px;
+  background-color: #fff;
+}
+.btn-add:hover{
+  background-color: #41b6a6;
+  .add-icon{
+    color: #fff;
+  }
+}
+.add-icon{
+  color: #41b6a6;
+  padding-top: 2px;
+}
+.vitals-heading{
+  margin-left: -25px;
+  margin-right: -25px;
+  background-color: #F7F7F7;
+  margin-bottom: 10px;
 }

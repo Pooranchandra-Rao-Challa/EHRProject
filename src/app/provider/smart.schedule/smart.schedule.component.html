@@ -3,8 +3,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="smart-schedule-logo">
-          <img alt="" class="img-responsive imgsmartlogo col-md-2 col-3"
-            src="assets/images/SmartSchedule.png" />
+          <img alt="" class="img-responsive imgsmartlogo col-md-2 col-3" src="assets/images/SmartSchedule.png" />
           <p class="logotext col-md-10 col-sm-9 col-8">Smart Schedule</p>
         </div>
       </div>
@@ -221,6 +220,10 @@
     </div>
   </div>
 </div>
+
+<button class="btn btn-orange" type="button" data-bs-toggle="modal" data-bs-target="#modal-patient-add-encounter">
+  Record Encounter
+</button>
 
 <!-- Encounter Modal -->
 <div class="modal fade" id="modal-patient-add-encounter" data-bs-backdrop="static" data-bs-keyboard="false"
@@ -465,7 +468,100 @@
               </div>
             </mat-tab>
             <mat-tab label="Vitals">
-              <div class="encounter-tab-content"></div>
+              <div class="encounter-tab-content">
+                <div class="encounter-tab-pane" id="encounter_diagnoses_tab">
+                  <div class="row content">
+                    <div class="col-12">
+                      <button mat-icon-button class="btn-add pull-right" data-bs-toggle="modal"
+                        data-bs-target="#vitals-modal" (click)="displayVitalsDialog(true)">
+                        <mat-icon class="add-icon">add</mat-icon>
+                      </button>
+                    </div>
+                    <div class="scrollable-mat-table">
+                      <mat-table mat-table [dataSource]="VitalsData" id="vitals-table" class="ehr-cqm-container pt-2">
+                        <ng-container matColumnDef="Height">
+                          <mat-header-cell *matHeaderCellDef>Height</mat-header-cell>
+                          <mat-cell *matCellDef="let vital">
+                            Height
+                          </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Weight">
+                          <mat-header-cell *matHeaderCellDef> Weight</mat-header-cell>
+                          <mat-cell *matCellDef="let vital">
+                            Weight
+                          </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="BMI">
+                          <mat-header-cell *matHeaderCellDef>BMI</mat-header-cell>
+                          <mat-cell *matCellDef="let vital">
+                            BMI
+                          </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="BP">
+                          <mat-header-cell *matHeaderCellDef>BP</mat-header-cell>
+                          <mat-cell *matCellDef="let vital">
+                            BP
+                          </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Temperature">
+                          <mat-header-cell *matHeaderCellDef> Temperature</mat-header-cell>
+                          <mat-cell *matCellDef="let vital">
+                            Temperature
+                          </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Pulse">
+                          <mat-header-cell *matHeaderCellDef>Pulse</mat-header-cell>
+                          <mat-cell *matCellDef="let vital">
+                            Pulse
+                          </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Respiratory_rate">
+                          <mat-header-cell *matHeaderCellDef> Respiratory rate</mat-header-cell>
+                          <mat-cell *matCellDef="let vital">
+                            Respiratory
+                          </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="O2_Saturation">
+                          <mat-header-cell *matHeaderCellDef>O2 Saturation</mat-header-cell>
+                          <mat-cell *matCellDef="let vital">
+                            Saturation
+                          </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Blood_type">
+                          <mat-header-cell *matHeaderCellDef> Blood type</mat-header-cell>
+                          <mat-cell *matCellDef="let vital">
+                            Blood
+                          </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="actions">
+                          <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+                          <mat-cell *matCellDef="let vital" class="actions">
+                            <button mat-icon-button>
+                              <mat-icon class="edit" data-bs-toggle="modal" data-bs-target="#vitals-modal"
+                                (click)="displayVitalsDialog(false)">edit
+                              </mat-icon>
+                            </button>
+                            <button mat-icon-button class="mx-2">
+                              <mat-icon class="delete">delete</mat-icon>
+                            </button>
+                          </mat-cell>
+                        </ng-container>
+
+                        <mat-header-row *matHeaderRowDef="vitalsColumns"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: vitalsColumns"></mat-row>
+                      </mat-table>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </mat-tab>
             <mat-tab label="Encounter Diagnoses">
               <div class="encounter-tab-content">
@@ -615,6 +711,114 @@
             (click)="confirmAppointment()">Confirm</button><button class="btn btn-default seen-status-change"
             data-bs-dismiss="modal" (click)="confirmIsCancelledAppointment()">Cancel</button>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Vitals Modal -->
+<div class="modal fade" id="vitals-modal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title Helvetica-sans-serif-medium" id="staticBackdropLabel" *ngIf="showAssociateVitals">Add
+          Vital</h5>
+        <h5 class="modal-title Helvetica-sans-serif-medium" id="staticBackdropLabel" *ngIf="!showAssociateVitals">Edit
+          Vital</h5>
+
+        <span type="button" class="cross-mark col-1" data-bs-dismiss="modal" aria-label="Close">
+          X
+        </span>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="showAssociateVitals">
+          <div class="row vitals-heading">
+            <p class="text-center fw-bolder fs-5 Helvetica-sans-serif-medium mt-2">Associate vitals to an encounter:</p>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label class="col-lg-4 col-md-5 col-5" aria-required="true">Encounter:*</label>
+              <mat-form-field appearance="outline" class="col-lg-8 col-md-7 col-7">
+                <mat-select disableOptionCentering id="practiceProviders">
+                  <mat-option value="0">Current Encounter</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="form-group col-md-6">
+              <label class="col-lg-6 col-md-6 col-5">Collected date/time:*</label>
+              <input class="vital-input col-lg-6 col-md-6 col-7">
+              <input class="vital-input col-lg-6 col-md-6 col-7 mt-1 pull-right">
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group">
+              <label class="col-12">Comments:</label>
+              <textarea class="textarea col-12"></textarea>
+            </div>
+          </div>
+          <div class="row vitals-heading">
+            <p class="text-center fw-bolder fs-5 Helvetica-sans-serif-medium mt-2">Add a new record for vitals:</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label class="col-lg-4 col-md-5 col-5">Height:</label>
+            <input class="vital-input col-lg-4 col-md-5 col-5">
+            <span class="col-2 mx-2">in</span>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="col-lg-4 col-md-4 col-5">Weight:</label>
+            <input class="vital-input col-lg-4 col-md-5 col-5">
+            <span class="col-2 mx-2">lb</span>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="col-lg-4 col-md-5 col-5">BMI:</label>
+            <input class="vital-input col-lg-4 col-md-5 col-5">
+            <span class="col-2 mx-2"></span>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="col-lg-4 col-md-4 col-5">BP:</label>
+            <input class="vital-input col-lg-3 col-md-3 col-5">
+            <span class="col-1 mx-1" style="font-size: 18px;">/</span>
+            <div class="d-block d-sm-none col-5"></div>
+            <input class="vital-input col-lg-3 col-md-3 col-5">
+            <span class="col-1 mx-lg-1">mmHg</span>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="col-lg-4 col-md-5 col-5">Temperature:</label>
+            <input class="vital-input col-lg-4 col-md-5 col-5">
+            <span class="col-2 mx-2">F</span>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="col-lg-4 col-md-4 col-5">Pulse:</label>
+            <input class="vital-input col-lg-4 col-md-5 col-5">
+            <span class="col-2 mx-2">bpm</span>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="col-lg-4 col-md-5 col-5">Respiratory rate:</label>
+            <input class="vital-input col-lg-4 col-md-5 col-5">
+            <span class="col-2 mx-2">bpm</span>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="col-lg-4 col-md-4 col-5">O2 Saturation:</label>
+            <input class="vital-input col-lg-4 col-md-5 col-5">
+            <span class="col-2 mx-2">%</span>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="col-lg-4 col-md-5 col-5">Blood Type:</label>
+            <mat-form-field appearance="outline" class="col-lg-8 col-md-7 col-7">
+              <mat-select disableOptionCentering placeholder="Select Blood Type" id="practiceProviders">
+                <mat-option *ngFor="let type of bloodType" [value]="type.Id">
+                  {{type.BloodType}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-green">Save</button>
+        <button type="button" class="btn btn-green" data-bs-dismiss="modal">Cancel</button>
       </div>
     </div>
   </div>

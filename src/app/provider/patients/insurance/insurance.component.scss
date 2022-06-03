@@ -1,0 +1,186 @@
+@import"../../../../assets/common.scss";
+@import "../../../../assets/cstm.material.scss";
+
+.btn-orange {
+  width: 165px;
+  height: 45px;
+  display: block;
+  padding: 0;
+  line-height: 2.7;
+  border-radius: 3px;
+  margin-right: 19px;
+}
+
+.Insurance {
+  border-bottom: 3px solid #41b6a6;
+  height: 64px;
+}
+
+.card-header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: none;
+  justify-content: space-between;
+  box-sizing: border-box;
+  z-index: 2;
+  height: 50px;
+}
+
+.patientInsuranceTab {
+  padding: 0 10px;
+  background-color: #fff;
+  border-color: #41b6a6;
+  color: #4A4A4A;
+  height: 45px;
+  // border: 1px solid;
+  border-radius: 1px solid;
+}
+
+::ng-deep .calendaricon.green-calendar mat-datepicker-toggle.mat-datepicker-toggle button.mat-focus-indicator.mat-icon-button {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  height: 3.7em !important;
+}
+
+// ::ng-deep .green-calendar.mat-form-field-appearance-outline .mat-form-field-outline {
+//   background-color: #fff !important;
+//   color: #41b6a6 !important;
+//   height: 45px;
+// }
+.btn-verify {
+  width: 165px;
+  height: 45px;
+}
+
+.input-group-text {
+  background-color: #41b6a6;
+  color: #fff;
+  height: 45px;
+
+}
+
+.input-border {
+  border: 1px solid #41b6a6;
+  cursor: not-allowed;
+  height: 45px;
+}
+
+.prefix-alignments {
+  width: 57px;
+  color: #fff;
+  padding: 10px;
+
+}
+
+.plusicon {
+  border: 1px solid #41b6a6;
+  width: 57px;
+  height: 47px;
+  margin-left: -23px;
+}
+
+.btn-insurance {
+  width: 246px;
+  margin: 0px;
+  height: 45px;
+  margin-top: 26px;
+}
+
+.tabs-alignments {
+  width: 180px;
+}
+
+.find-procedure {
+
+  height: 80px;
+}
+
+.btn-info:hover {
+  color: #f7f3f3;
+  background-color: #41b6a6;
+  border-color: #41b6a6;
+}
+
+.btn-info {
+  color: white;
+  background-color: #41b6a6;
+  border-color: #41b6a6;
+  width: 65px;
+}
+
+.input-group>.form-control.search-control {
+  background-color: #f6f6f6;
+  font-size: 22px;
+}
+
+.input-group>.form-control.search-control:hover {
+  border-color: #41b6a6 !important;
+  font-size: 22px;
+}
+
+.modal-dialog {
+  max-width: 920px;
+}
+
+.modal {
+  margin-right: 50px;
+  width: 100%;
+  margin-top: 5px;
+
+
+}
+
+.btn-insurancecompany {
+  width: 239px;
+  height: 47px;
+  font-size: 15px;
+  margin-left: 38px;
+}
+
+.bg-color {
+  height: 45px;
+}
+
+.table {
+  --bs-table-accent-bg: none;
+  border: 1px solid #41b6a6;
+  border-bottom-width: none;
+}
+
+.btn-selectcancel {
+  width: 165px;
+  height: 45px;
+  font-size: 16px;
+  // margin-left: -84px;
+}
+
+.btn-danger {
+  width: 165px;
+  height: 45px;
+  font-size: 16px;
+
+}
+
+.modal-scrollbar {
+  height: 414px;
+  // margin-top: 0px;
+  margin-bottom: 16px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+ 
+}
+
+.cross-mark {
+  border: "1px solid #fff;"
+}
+.btn-primary
+{
+  width: 164px;
+    margin-left: -38px;
+    margin-right: 184px;
+    height: 45px;
+  
+}
+.PrimaryInsuranceDetails{
+  height: 450px;
+}

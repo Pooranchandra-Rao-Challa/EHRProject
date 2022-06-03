@@ -64,7 +64,9 @@
                   <mat-header-row *matHeaderRowDef="locationColumns"></mat-header-row>
                   <mat-row *matRowDef="let row; columns: locationColumns"></mat-row>
                 </mat-table>
-
+                <div class="norecords-found" *ngIf="locationdataSource?.length == 0">
+                  No Practice Locations Found
+                </div>
               </div>
             </div>
             <div class="colC">
@@ -92,8 +94,8 @@
                     <mat-header-cell *matHeaderCellDef></mat-header-cell>
                     <mat-cell *matCellDef="let user">
                       <span>
-                        <img class="avatar avatar-empty mx-2" src="../../../assets/images/avatar-empty.svg"
-                          alt="Avatar empty" width="32" height="32" style="border-radius: 36px ;background: #cfcaca;">
+                        <img class="avatar avatar-empty mx-2" src="assets/images/avatar-empty.svg" alt="Avatar empty"
+                          width="32" height="32" style="border-radius: 36px ;background: #cfcaca;">
                       </span>
                     </mat-cell>
                   </ng-container>
@@ -142,13 +144,20 @@
                   <mat-header-row *matHeaderRowDef="providerColumns"></mat-header-row>
                   <mat-row *matRowDef="let row; columns: providerColumns"></mat-row>
                 </mat-table>
-
+                <div class="norecords-found" *ngIf="providersDataSource?.length == 0">
+                  No Users Found
+                </div>
               </div>
+
+            </div>
+            <div class="row-contain linkrow">
+              <a href="https://ehr1.online" target="_blank">C-CDA Portal</a>
             </div>
           </div>
         </div>
       </div>
     </div>
+
   </div>
 
 

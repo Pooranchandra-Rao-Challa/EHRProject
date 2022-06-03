@@ -1,7 +1,7 @@
 
 
-import { Component, OnInit,TemplateRef} from '@angular/core';
-import { FormBuilder, FormGroup,  Validators } from '@angular/forms';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ComponentType } from '@angular/cdk/portal';
 import { MatSelectionListChange } from '@angular/material/list'
 import { Observable, Subject, Subscription } from 'rxjs';
@@ -22,13 +22,29 @@ import { EncounterDialogComponent } from '../../dialogs/encounter.dialog/encount
 import {
   PatientSearchResults, Actions,
   ScheduledAppointment, AppointmentTypes, NewAppointment,
-  UserLocations, Room, AvailableTimeSlot,AppointmentDialogInfo
+  UserLocations, Room, AvailableTimeSlot, AppointmentDialogInfo
 } from 'src/app/_models/smart.scheduler.data';
 
 declare const CloseAppointment: any;
 declare const OpenSaveSuccessAppointment: any;
 declare const CloseSaveSuccessAppointment: any;
 
+export interface PeriodicElement {
+  Height: string;
+  Weight: string;
+  BMI: string;
+  BP: string;
+  Temperature: string;
+  Pulse: string;
+  Respiratory_rate: string;
+  O2_Saturation: string;
+  Blood_type: string;
+}
+
+const ELEMENT_DATA: PeriodicElement[] = [
+  { Height: '1', Weight: 'Hydrogen', BMI: '1.0079', BP: 'H', Temperature: '1', Pulse: 'Hydrogen', Respiratory_rate: '1.0079', O2_Saturation: 'H', Blood_type: 'gsdb' },
+  { Height: '2', Weight: 'Helium', BMI: '4.0026', BP: 'He', Temperature: '2', Pulse: 'Helium', Respiratory_rate: '4.0026', O2_Saturation: 'He', Blood_type: 'shdb' },
+];
 @Component({
   selector: 'app-smart.schedule',
   templateUrl: './smart.schedule.component.html',
@@ -42,7 +58,15 @@ export class SmartScheduleComponent implements OnInit {
   availableTimeSlots: any[] = [];
   encounterdiagnosesColumns = ["CODE", "CODE SYSTEM", "DESCRIPTION", "PATIENT EDUCATION", "Primary DX"];
   procedureColumns = ["CODE", "CODE SYSTEM", "DESCRIPTION", "TOOTH", "SURFACE"];
+  vitalsColumns = ["Height", "Weight", "BMI", "BP", "Temperature", "Pulse", "Respiratory_rate", "O2_Saturation", "Blood_type", "actions"];
   EncounterData = "";
+  bloodType = [
+    { Id: 1, BloodType: 'Group A' },
+    { Id: 2, BloodType: 'Group B' },
+    { Id: 3, BloodType: 'Group AB' },
+    { Id: 4, BloodType: 'Group O' }
+  ]
+  VitalsData = ELEMENT_DATA;
   NewPatientForm: FormGroup;
   PracticeProviders: PracticeProviders[];
   Appointments: ScheduledAppointment[];
@@ -91,7 +115,7 @@ export class SmartScheduleComponent implements OnInit {
 
     public overlayService: OverlayService
 
-    ) {
+  ) {
 
     this.onError = false;
 
@@ -134,7 +158,7 @@ export class SmartScheduleComponent implements OnInit {
 
 
 
-  PatinetActions(patient: PatientSearchResults){
+  PatinetActions(patient: PatientSearchResults) {
     if (patient.NumberOfAppointments == 0) return Actions.new;
     else return Actions.upcomming;
   }
@@ -155,7 +179,7 @@ export class SmartScheduleComponent implements OnInit {
 
     }
 
-    const ref = this.overlayService.open(content,dialogData );
+    const ref = this.overlayService.open(content, dialogData);
 
     ref.afterClosed$.subscribe(res => {
       if (typeof content === 'string') {
@@ -166,12 +190,12 @@ export class SmartScheduleComponent implements OnInit {
       }
       else if (content === this.appointmentDialogComponent) {
         this.appointmentDialogResponse = res.data;
-        this.flag=false;
+        this.flag = false;
         this.patientNameOrCellNumber = "";
       }
       else if (content === this.upcomingAppointmentsDialogComponent) {
         this.appointmentDialogResponse = res.data;
-        this.flag=false;
+        this.flag = false;
         this.patientNameOrCellNumber = "";
       }else if(content == this.encounterDialogComponent){
         this.encounterDialogResponse = res.data;
@@ -181,8 +205,8 @@ export class SmartScheduleComponent implements OnInit {
 
 
   }
-  PatientAppointmentInfo(appointment: NewAppointment, action?: Actions){
-    let data =  {} as AppointmentDialogInfo;
+  PatientAppointmentInfo(appointment: NewAppointment, action?: Actions) {
+    let data = {} as AppointmentDialogInfo;
     this.PatientAppointment = {} as NewAppointment;
     this.PatientAppointment.PatientId = appointment.PatientId;
     this.PatientAppointment.PatientName = appointment.PatientName;
@@ -197,7 +221,7 @@ export class SmartScheduleComponent implements OnInit {
     data.LocationId = this.SelectedLocationId;
     data.PatientAppointment = this.PatientAppointment;
     data.AppointmentTypes = this.AppointmentTypes;
-    data.PracticeProviders  = this.PracticeProviders;
+    data.PracticeProviders = this.PracticeProviders;
     data.Locations = this.Locations;
     data.Rooms = this.Rooms;
     data.PatientAppointment.AppointmentId = appointment.AppointmentId
@@ -209,16 +233,15 @@ export class SmartScheduleComponent implements OnInit {
     data.status = action;
     return data;
   }
-  PatientAppointmentInfoFromSearch(PatientObj: PatientSearchResults, action?: Actions)
-  {
-    let data =  {} as AppointmentDialogInfo
+  PatientAppointmentInfoFromSearch(PatientObj: PatientSearchResults, action?: Actions) {
+    let data = {} as AppointmentDialogInfo
     this.PatientAppointment = {} as NewAppointment;
 
     this.selectedPatient = PatientObj as PatientSearchResults;
     if (this.selectedPatient.NumberOfAppointments == 0) {
       this.appointmentTitle = "Add New Appointment";
       data.status = action;
-    }else {
+    } else {
       this.PatientAppointments(PatientObj)
       this.appointmentTitle = "Edit Appointment";
       data.AppointmentsOfPatient = this.AppointmentsOfPatient;
@@ -238,7 +261,7 @@ export class SmartScheduleComponent implements OnInit {
     data.LocationId = this.SelectedLocationId;
     data.PatientAppointment = this.PatientAppointment;
     data.AppointmentTypes = this.AppointmentTypes;
-    data.PracticeProviders  = this.PracticeProviders;
+    data.PracticeProviders = this.PracticeProviders;
     data.Locations = this.Locations;
     data.Rooms = this.Rooms;
 
@@ -267,13 +290,13 @@ export class SmartScheduleComponent implements OnInit {
     this.SaveInputDisable = false;
     if (this.SelectedProviderId == this.authService.userValue.ProviderId)
       this.Locations = JSON.parse(this.authService.userValue.LocationInfo);
-    else{
-      this.smartSchedulerService.PracticeLocations({"provider_Id": this.SelectedProviderId})
+    else {
+      this.smartSchedulerService.PracticeLocations({ "provider_Id": this.SelectedProviderId })
         .subscribe(resp => {
-        if (resp.IsSuccess) {
-          this.Locations = resp.ListResult as UserLocations[];
-        }
-      });
+          if (resp.IsSuccess) {
+            this.Locations = resp.ListResult as UserLocations[];
+          }
+        });
     }
 
     let lreq = { "LocationId": this.SelectedLocationId };
@@ -440,7 +463,16 @@ export class SmartScheduleComponent implements OnInit {
   {
     console.log("appointmentId: "+appointmentId,", status: "+status);
 
-
+  }
+  showAssociateVitals: boolean = true;
+  displayVitalsDialog(event) {
+    debugger;
+    if (event == true) {
+      this.showAssociateVitals = true;
+    }
+    else {
+      this.showAssociateVitals = false;
+    }
   }
 
 }

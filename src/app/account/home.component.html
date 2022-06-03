@@ -24,7 +24,7 @@
         <h1>Welcome to your Patient Portal!</h1>
         <h1>Your Health Records, whenever and wherever you need them.</h1>
         <p>Setup or Sign In to your Patient Portal today to view your health records, send a secure message to your
-          doctor, schedule an appointment online, and more..</p>
+          doctor, schedule an appointment online, and more.</p>
       </div>
       <div class="select-type">
         <span class="select">Please select the account type</span>
@@ -45,14 +45,14 @@
             <div class="content">
               <h4 class="title">Not an EHR1 Provider yet?</h4>
               <h5 class="sub-titles Helvetica-sans-serif-large">Register today!</h5>
-            </div><a class="button-landing Helvetica-sans-serif-medium" href="/account/registration">Register now</a>
+            </div><a class="button-landing Helvetica-sans-serif-medium" routerLink="/account/registration">Register now</a>
           </div>
 
           <div class="col-lg-8 col-md-8 col-sm-12 block" id="sign_in_container" [ngStyle]="{'display':providerType}">
             <div class="content offset-md-8">
               <h4 class="title">Already registered?</h4>
               <h5 class="sub-titles Helvetica-sans-serif-large">Sign in now</h5>
-              <a class="button-landing Helvetica-sans-serif-medium" id="sign-in-user" href="/account/login">Sign in</a>
+              <a class="button-landing Helvetica-sans-serif-large" id="sign-in-user" routerLink="/account/login">Sign in</a>
             </div>
           </div>
         </div>
@@ -69,10 +69,10 @@
             [ngStyle]="{'display':patientType}">
             <div class="content">
               <h4 class="title Helvetica-sans-serif-large">Sign in to your Patient Portal!</h4>
-            </div><a class="button-landing Helvetica-sans-serif-medium" id="sign-in-user" href="/account/patientlogin">Sign in</a>
+            </div><a class="button-landing Helvetica-sans-serif-medium" id="sign-in-user" routerLink="/account/patientlogin">Sign in</a>
             <div class="content content-bottom">
-              <h5 class="sub-titles Helvetica-sans-serif-medium">Don't have a Patient Portal account?</h5>
-              <h5 class="sub-titles Helvetica-sans-serif-medium">Contact your doctor's office and request a Patient Portal invite email or setup
+              <h5 class="sub-titles Helvetica-sans-serif-large">Don't have a Patient Portal account?</h5>
+              <h5 class="sub-titles Helvetica-sans-serif-large">Contact your doctor's office and request a Patient Portal invite email or setup
                 your
                 Patient Portal account today!</h5>
             </div>

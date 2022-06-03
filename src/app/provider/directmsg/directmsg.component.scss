@@ -1,24 +1,159 @@
 @import"../../../app/patient/message.component.scss";
 
-.drop-item{
+
+.drop-item {
   color: black !important;
 }
-.drop-item:hover{
+
+.drop-item:hover {
   color: #41b6a6 !important;
 }
-.mailmessage:hover
-{
+
+.mailmessage:hover {
   background-color: #41b6a6;
   color: #fff !important;
 }
-.action{
+
+.action {
   padding: 0px 70px 0px 0px !important;
 }
-.btn-light
-{
-  font-size: 16px !important;
-  //padding: 2px 25px 2px 6px !important;
-}
+
+//
+
 .btn-light {
   padding: 0px 27px 2px 8px !important;
+  font-size: 16px !important;
+}
+
+@media (max-width: 1024px) {
+  .btn-light {
+    white-space: break-spaces;
+    padding: 0px 0px 0px 0px !important;
+  }
+}
+.btn-green {
+  width: 78px;
+  height: 43px;
+  padding: 0;
+  line-height: 2.7;
+  margin-right: 12px;
+  font-size: 16px;
+}
+
+.btn-danger {
+  width: 78px;
+  height: 43px;
+  padding: 0;
+  line-height: 2.7;
+  margin-right: 12px;
+  background-color: #fff !important;
+  color: #d64841;
+  font-family: inherit;
+  font-size: 16px;
+
+}
+
+.btn-danger:hover {
+  background-color: #d64841 !important;
+  color: #fff;
+  border-style: none;
+}
+.modal-content {
+  width: 1000px;
+  margin: 0px 0px -2px -283px !important;
+}
+
+@media (max-width: 1024px) {
+  .modal-content {
+    width: auto;
+    margin: 0px 0px 0px 0px !important;
+  }
+
+  .btn-book {
+    width: 54px !important;
+  }
+}
+
+input.form-control {
+  height: 45px;
+  padding: 0 20px;
+  border: 1px solid #41b6a6;
+  border-radius: 3px;
+  font-size: 15px;
+  line-height: 43px;
+  box-shadow: none !important;
+  transition: border-color .2s, background-image .2s ease-in-out;
+}
+
+textarea.form-control {
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+  line-height: 1.5 !important;
+  border: 1px solid #41b6a6;
+  border-radius: 3px;
+  font-size: 15px;
+
+}
+
+.fa-paperclip {
+  font-size: x-large;
+  margin-right: 3%;
+  color: inherit;
+  margin-top: 10%;
+}
+
+.fa-book {
+  font-size: 20px;
+  color: inherit;
+  margin-top: 10px;
+}
+
+.btn-book {
+  width: 138px;
+}
+
+.modal-footer {
+  border-top: 1px solid #41b6a6;
+}
+
+.btn.btn-default {
+  color: #41b6a6;
+  border-color: #41b6a6;
+  height: 45px;
+  font-family: inherit;
+  //padding: 2px 0px 0px 4px;
+  font-size: 16px;
+}
+
+.dropdown-menu {
+  border: 1px solid #fe8f00 !important;
+  border-top: #fff !important;
+}
+
+.drop-item {
+  color: black !important;
+}
+
+.drop-item:hover {
+  color: #41b6a6 !important;
+  text-decoration: underline;
+}
+
+.modal-footer {
+  padding: 11px 10px !important;
+
+}
+
+.search-result {
+  font-family: inherit;
+}
+
+.to-provider {
+  width: 159px;
+  margin: 0px 0px -1px 57px;
+}
+
+.directmodal {
+  overflow: scroll;
+  height: 700px;
 }

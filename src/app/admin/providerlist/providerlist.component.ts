@@ -29,8 +29,8 @@ export class ProviderlistComponent {
 
   ngOnInit(): void {
     this.getProviderList();
-
   }
+
   getProviderList() {
     this.adminservice.GetProviderList().subscribe(resp => {
       if (resp.IsSuccess) {
@@ -39,7 +39,6 @@ export class ProviderlistComponent {
         this.filterChange('ActiveStatus', 'Active')
       } else
         this.providersDataSource = [];
-        // this.providersDataSource
     });
   }
 

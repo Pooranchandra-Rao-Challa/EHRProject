@@ -7,9 +7,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
+  AduthorizesModal = "none";
+  AddAduthorizesModal="none";
+
   constructor() { }
 
   ngOnInit(): void {
+
+  }
+
+  DisplayAduthorizes()
+  {
+    this.AduthorizesModal = "block";
+  }
+
+  AddAuthorized()
+  {
+    this.AddAduthorizesModal="block";
   }
 
 }

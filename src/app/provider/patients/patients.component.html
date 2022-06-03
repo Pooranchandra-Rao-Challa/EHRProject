@@ -1,11 +1,11 @@
 <div class="patients-wrapper">
   <div class="container-fluid-full">
+    <!-- <app-patients-bread-crum></app-patients-bread-crum> -->
     <div class="patients-navigation">
       <ul id="patient_navigation">
         <li class="active">
           <a class="patient_link">
             <div class="patient_name">Patients</div>
-            <!-- <div class="patient_dob"></div> -->
           </a>
           <i class="category-arrow"></i>
         </li>
@@ -63,28 +63,28 @@
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
             <mat-cell *matCellDef>
               <a routerLink="/provider/patientdetails">
-                <img class="avatar mx-2" src="../../../assets/images/avatar-empty.svg" alt="Avatar empty">
+                <img class="avatar mx-2" src="assets/images/avatar-empty.svg" alt="Avatar empty">
               </a>
             </mat-cell>
           </ng-container>
           <ng-container matColumnDef="First">
             <mat-header-cell *matHeaderCellDef mat-sort-header="FirstName">FIRST</mat-header-cell>
             <mat-cell *matCellDef="let patient">
-              <a (click)="onChangeViewState(patient)">{{patient.FirstName}}</a>
+              <a (click)="onChangeViewState(patient)">{{patient?.FirstName}}</a>
             </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="Middle">
             <mat-header-cell *matHeaderCellDef> MIDDLE</mat-header-cell>
             <mat-cell *matCellDef="let patient">
-              <a routerLink="/provider/patientdetails">{{patient.MiddleName}}</a>
+              <a routerLink="/provider/patientdetails">{{patient?.MiddleName}}</a>
             </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="Last">
             <mat-header-cell *matHeaderCellDef mat-sort-header="LastName">LAST</mat-header-cell>
             <mat-cell *matCellDef="let patient">
-              <a routerLink="/provider/patientdetails">{{patient.LastName}}</a>
+              <a routerLink="/provider/patientdetails">{{patient?.LastName}}</a>
             </mat-cell>
           </ng-container>
 
@@ -92,9 +92,9 @@
             <mat-header-cell *matHeaderCellDef>DOB</mat-header-cell>
             <mat-cell *matCellDef="let patient">
               <span>
-                {{patient.Dob}}
+                {{patient?.Dob}}
                 <br>
-                {{patient.Gender}}
+                {{patient?.Gender}}
               </span>
             </mat-cell>
           </ng-container>
@@ -102,35 +102,35 @@
           <ng-container matColumnDef="Age">
             <mat-header-cell *matHeaderCellDef>AGE
             </mat-header-cell>
-            <mat-cell *matCellDef="let patient"> {{patient.Age}} </mat-cell>
+            <mat-cell *matCellDef="let patient"> {{patient?.Age}} </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="ContactInfo">
             <mat-header-cell *matHeaderCellDef>CONTACT INFO</mat-header-cell>
             <mat-cell *matCellDef="let patient">
               <span>
-                {{patient.MobilePhone}}
+                {{patient?.MobilePhone}}
                 <br>
-                {{patient.Email}}
+                {{patient?.Email}}
               </span>
             </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="LastAccessed">
             <mat-header-cell *matHeaderCellDef mat-sort-header="LastAccessed">LAST ACCESSED</mat-header-cell>
-            <mat-cell *matCellDef="let patient"> {{patient.LastAccessed}} </mat-cell>
+            <mat-cell *matCellDef="let patient"> {{patient?.LastAccessed}} </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="Created">
             <mat-header-cell *matHeaderCellDef mat-sort-header="Created">CREATED</mat-header-cell>
-            <mat-cell *matCellDef="let patient"> {{patient.Created}} </mat-cell>
+            <mat-cell *matCellDef="let patient"> {{patient?.Created}} </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="Select">
             <mat-header-cell class="justify-content-center" *matHeaderCellDef>SELECT
             </mat-header-cell>
             <mat-cell class="justify-content-center" *matCellDef="let patient">
-              <mat-checkbox class="" [checked]="patient.active">
+              <mat-checkbox class="" [checked]="patient?.active">
               </mat-checkbox>
             </mat-cell>
           </ng-container>
@@ -143,7 +143,7 @@
           No Patients Found
         </div>
       </div>
-      <div class="d-flex justify-content-end my-3" [hidden]="patientsList.data?.length != 0">
+      <div class="d-flex justify-content-end my-3">
         <nav aria-label="Page navigation">
           <ul class="pagination page-green mt-4">
             <ngb-pagination [pageSize]="pageSize" [collectionSize]="patientsList.data?.length" [maxSize]="9"

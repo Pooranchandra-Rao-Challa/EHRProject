@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { GroupByPipe } from "../_pipes/group-by.pipe";
 import { QuickAppProMaterialModule } from "./material";
 
 @NgModule({
@@ -9,10 +10,11 @@ import { QuickAppProMaterialModule } from "./material";
     FormsModule
   ],
   exports: [
-    QuickAppProMaterialModule
+    QuickAppProMaterialModule,
+    GroupByPipe
 
   ],
-  declarations: [],
+  declarations: [GroupByPipe],
   entryComponents: []
 })
 export class SharedModule { }

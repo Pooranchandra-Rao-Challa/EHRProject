@@ -14,7 +14,7 @@
                             <!-- <b class="fw-bold fs-6">INACTIVE PATIENTS</b> -->
                         </div>
                         <div class="search-box col-lg-5 col-md-5 col-12 ">
-                          <input type="text" placeholder="Search Patient" [(ngModel)]="searchKey">
+                          <input type="text" placeholder="Search Patients" [(ngModel)]="searchKey">
                           <button type="submit" (click)="getInactivepatientList()"><i class="fa fa-search i-search"></i></button>
                         </div>
                         <!-- <div class="example col-lg-5 col-md-5 col-12 ">
@@ -56,17 +56,18 @@
                           </div>
                         </div>
                     </div>
+                    <div class="d-flex justify-content-end my-3">
+                      <nav aria-label="Page navigation">
+                          <ul class="pagination mt-4">
+                              <ngb-pagination [pageSize]="pageSize" [collectionSize]="collectionSize" (pageChange)="onPageChange($event)"
+                                  [maxSize]="10" [(page)]="page" aria-label="Default pagination">
+                              </ngb-pagination>
+                          </ul>
+                      </nav>
+                  </div>
                 </div>
             </div>
         </div>
-        <div class="d-flex justify-content-end my-3">
-            <nav aria-label="Page navigation">
-                <ul class="pagination mt-4">
-                    <ngb-pagination [pageSize]="pageSize" [collectionSize]="collectionSize" (pageChange)="onPageChange($event)"
-                        [maxSize]="10" [(page)]="page" aria-label="Default pagination">
-                    </ngb-pagination>
-                </ul>
-            </nav>
-        </div>
+
     </div>
 </div>

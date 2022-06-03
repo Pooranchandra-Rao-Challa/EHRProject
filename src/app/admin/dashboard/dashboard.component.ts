@@ -5,7 +5,6 @@ import { ComponentType } from '@angular/cdk/portal';
 import { AddUserDialogComponent } from 'src/app/dialogs/adduser.dialog/adduser.dialog.component';
 import { ProviderList } from 'src/app/_models/_admin/providerList';
 
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -31,6 +30,7 @@ export class DashboardComponent implements OnInit {
   SearchKey = "";
   Status: boolean;
 
+
   constructor(private adminservice: AdminService, private overlayService: OverlayService) { }
 
   ngOnInit(): void {
@@ -38,6 +38,7 @@ export class DashboardComponent implements OnInit {
   }
 
   GetProivderList() {
+
     this.adminservice.GetProviderList().subscribe(resp => {
       if (resp.IsSuccess) {
         this.ProviderList = resp.ListResult;
@@ -50,7 +51,6 @@ export class DashboardComponent implements OnInit {
           }
           if (e.ActiveStatus == 'Active') {
             e.Status = true;
-
           }
           else {
             e.Status = false;
@@ -158,4 +158,6 @@ export class DashboardComponent implements OnInit {
       }
     });
   }
+
+
 }

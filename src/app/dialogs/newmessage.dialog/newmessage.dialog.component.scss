@@ -66,3 +66,11 @@ input::-webkit-input-placeholder {
   .not-allowed{
     cursor: not-allowed;
   }
+  input[readonly] {
+    opacity: 0.5;
+    cursor: not-allowed;
+
+  }
+  .modal-dialog {
+    margin-top: calc(-24px + -24px) !important;
+  }

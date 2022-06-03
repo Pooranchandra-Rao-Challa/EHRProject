@@ -105,6 +105,14 @@
   background-color: #fe8f00;
   color: #fff;
 }
+.btn.btn-danger {
+  color: #d64841;
+  background-color: #fff;
+}
+.btn.btn-danger:hover {
+  color: #fff;
+  background-color: #d64841;
+}
 // active tab
 .nav-tabs{
   border-bottom: none;

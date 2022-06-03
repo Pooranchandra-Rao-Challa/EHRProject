@@ -77,23 +77,49 @@
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
-                    <p class="card-title">Diagnoses (Dx)</p>
+                    <p class="card-title" data-bs-toggle="modal" data-bs-target="#exampleModal">Diagnoses (Dx)</p>
                   </div>
                   <div class="col-md-4 col-6">
-                    <div class="col-12 plusicon pull-right"><span><i class="fa fa-plus"></i></span>
+                    <div class="col-12 plusicon pull-right"><span><i class="fa fa-plus" data-bs-toggle="modal"
+                          data-bs-target="#exampleModal"></i></span>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list">
-                  <!-- <li *ngFor="let diagnose of allDiagnoses">
-                    <span>{{diagnose?.note}}</span>
+                <ul class="main-list" *ngFor="let diagnose of allDiagnoses">
+                  <li>
+                    <a>
+                      <span *ngIf="diagnose?.code != null && diagnose?.code !=''">
+                        - {{diagnose?.code}}
+                      </span>
+                      <span *ngIf="diagnose?.note != null && diagnose?.note !=''">
+                        - {{diagnose?.note}}
+                      </span>
+                    </a>
                   </li>
-                  <li *ngIf="allDiagnoses?.length == 0">
-                    <span>No active Dx recorded.</span>
-                  </li> -->
+                  <li style="margin-left: 20px;">
+                    <span *ngIf="diagnose?.start_at != null && diagnose?.start_at !=''">
+                      {{diagnose?.start_at | date: 'MM/dd/yyyy'}}
+                    </span>
+                    <span *ngIf="diagnose?.stop_at != null && diagnose?.stop_at !=''">
+                      - {{diagnose?.stop_at | date: 'MM/dd/yyyy'}}
+                    </span>
+                  </li>
                 </ul>
+                <ul class="main-list" *ngIf="allDiagnoses?.length == (0 || null || undefined)">
+                  <li>
+                    <span>No active Dx recorded.</span>
+                  </li>
+                </ul>
+                <!-- <ul class="main-list">
+                  <li *ngFor="let diagnose of allDiagnoses">
+                    <span>- {{diagnose?.note}}</span>
+                  </li>
+                  <li *ngIf="allDiagnoses?.length == (0 || null || undefined)">
+                    <span>No active Dx recorded.</span>
+                  </li>
+                </ul> -->
               </div>
             </div>
             <div class="card">
@@ -111,11 +137,10 @@
               <div class="card-body">
                 <ul class="main-list">
                   <li>
-                    <span>- No smoking status
-                      recorded</span>
+                    <span></span>
                   </li>
                   <li>
-                    <span>- No tobacco screening and use recorded</span>
+                    <span></span>
                   </li>
                 </ul>
               </div>
@@ -136,9 +161,21 @@
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list">
+                <ul class="main-list" *ngFor="let pastmedical of this.pastMedicalHistories">
                   <li>
-                    <span>No past medical history recorded</span>
+                    <a>
+                      <span *ngIf="pastmedical?.created_at != null && pastmedical?.created_at !=''">
+                        - {{pastmedical?.created_at | date: 'MM/dd/yyyy'}}
+                      </span>
+                      <span *ngIf="pastmedical?.major_events != null && pastmedical?.major_events !=''">
+                        - {{pastmedical?.major_events}}
+                      </span>
+                    </a>
+                  </li>
+                </ul>
+                <ul class="main-list" *ngIf="pastMedicalHistories?.length == (0 || null || undefined)">
+                  <li>
+                    <span>No past medical history recorded.</span>
                   </li>
                 </ul>
               </div>
@@ -160,13 +197,22 @@
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list">
-                  <!-- <li *ngFor="let directive of this.advancedDirectives">
-                    <span>{{directive?.notes}}</span>
+                <ul class="main-list" *ngFor="let directive of this.advancedDirectives">
+                  <li>
+                    <a (click)="openComponentDialog(advancedDirectivesDialogComponent)">
+                      <span *ngIf="directive?.created_at != null && directive?.created_at !=''">
+                        - {{directive?.created_at | date: 'MM/dd/yyyy'}}
+                      </span>
+                      <span *ngIf="directive?.notes != null && directive?.notes !=''">
+                        - {{directive?.notes}}
+                      </span>
+                    </a>
                   </li>
-                  <li *ngIf="advancedDirectives?.length == 0">
+                </ul>
+                <ul class="main-list" *ngIf="advancedDirectives?.length == (0 || null || undefined)">
+                  <li>
                     <span>No advanced directives recorded.</span>
-                  </li> -->
+                  </li>
                 </ul>
               </div>
             </div>
@@ -185,13 +231,17 @@
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list">
-                  <!-- <li *ngFor="let allergie of allAllergies">
-                    <span>{{allergie?.note}}</span>
+                <ul class="main-list" *ngFor="let allergie of allAllergies">
+                  <li>
+                    <a>
+                      <span>- {{allergie?.note}}</span>
+                    </a>
                   </li>
-                  <li *ngIf="allAllergies?.length == 0">
+                </ul>
+                <ul class="main-list" *ngIf="allAllergies?.length == (0 || null || undefined)">
+                  <li>
                     <span>No active allergies recorded</span>
-                  </li> -->
+                  </li>
                 </ul>
               </div>
             </div>
@@ -208,9 +258,29 @@
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list">
+                <ul class="main-list" *ngFor="let medication of medications">
                   <li>
-                    <span>No medications</span>
+                    <a>
+                      <span>
+                        - {{medication?.name}}
+                      </span>
+                    </a>
+                  </li>
+                  <li style="margin-left: 20px;">
+                    <span *ngIf="medication?.start_at != null && medication?.start_at !=''">
+                      - {{medication?.start_at | date: 'MM/dd/yyyy'}}
+                    </span>
+                    <span *ngIf="medication?.stop_at != null && medication?.stop_at !=''">
+                      - {{medication?.stop_at | date: 'MM/dd/yyyy'}}
+                    </span>
+                    <span *ngIf="medication?.cqm_status != null && medication?.cqm_status !=''">
+                      - {{medication?.cqm_status}}
+                    </span>
+                  </li>
+                </ul>
+                <ul class="main-list" *ngIf="medications?.length == (0 || null || undefined)">
+                  <li>
+                    <span>No medications recorded.</span>
                   </li>
                 </ul>
               </div>
@@ -228,9 +298,26 @@
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list">
+                <ul class="main-list" *ngFor="let immunization of immunizations">
                   <li>
-                    <span>No immunizations</span>
+                    <a>
+                      <span>
+                        - {{immunization?.notes}}
+                      </span>
+                    </a>
+                  </li>
+                  <li style="margin-left: 20px;">
+                    <span *ngIf="immunization?.administered_at != null && immunization?.administered_at !=''">
+                      - {{immunization?.administered_at | date: 'MM/dd/yyyy'}}
+                    </span>
+                    <span *ngIf="immunization?.expiration_at != null && immunization?.expiration_at !=''">
+                      - {{immunization?.expiration_at | date: 'MM/dd/yyyy'}}
+                    </span>
+                  </li>
+                </ul>
+                <ul class="main-list" *ngIf="immunizations?.length == (0 || null || undefined)">
+                  <li>
+                    <span>No immunizations recorded.</span>
                   </li>
                 </ul>
               </div>
@@ -272,9 +359,24 @@
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list">
+                <ul class="main-list" *ngFor="let encounter of encounters">
                   <li>
-                    <span>No encounters</span>
+                    <a>
+                      <span *ngIf="encounter?.service_at != null && encounter?.service_at !=''">
+                        - {{encounter?.service_at | date: 'MM/dd/yyyy'}}
+                      </span>
+                      <span *ngIf="encounter?.service_end_at != null && encounter?.service_end_at !=''">
+                        - {{encounter?.service_end_at | date: 'MM/dd/yyyy'}}
+                      </span>
+                      <span *ngIf="encounter?.reason_for_visit != null && encounter?.reason_for_visit !=''">
+                        - {{encounter?.reason_for_visit}}
+                      </span>
+                    </a>
+                  </li>
+                </ul>
+                <ul class="main-list" *ngIf="encounters?.length == (0 || null || undefined)">
+                  <li>
+                    <span>No encounters recorded.</span>
                   </li>
                 </ul>
               </div>
@@ -294,7 +396,7 @@
               <div class="card-body">
                 <ul class="main-list">
                   <li>
-                    <span>No messages</span>
+                    <span></span>
                   </li>
                 </ul>
               </div>
@@ -312,19 +414,158 @@
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list">
+                <ul class="main-list" *ngFor="let appointment of appointments">
                   <li>
-                    <span>No appointments</span>
+                    <a>
+                      <span *ngIf="appointment?.start_at != null && appointment?.start_at !=''">
+                        - {{appointment?.start_at | date: 'MM/dd/yyyy'}}
+                      </span>
+                      <span *ngIf="appointment?.appt_status != null && appointment?.appt_status !=''">
+                        - {{appointment?.appt_status}}
+                      </span>
+                    </a>
+                  </li>
+                </ul>
+                <ul class="main-list">
+                  <li *ngIf="appointments?.length == (0 || null || undefined)">
+                    <span>No appointments recorded.</span>
                   </li>
                 </ul>
               </div>
             </div>
-            <a class="patient-chart">Clinical Decision Support</a>
+            <a class="patient-chart" href="https://dentaltraumaguide.org/dental-guides/" target="_blank">Clinical
+              Decision
+              Support</a>
             <br>
-            <a class="patient-chart">Implantable Devices</a>
+            <a class="patient-chart" href="https://accessgudid.nlm.nih.gov/" target="_blank">Implantable Devices</a>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content body">
+      <div class="modal-header header">
+        <div class="col-sm-4 ">
+          <h4 class="Helvetica-sans-serif-medium ">Frequently Used Dx</h4>
+        </div>
+        <div class="col-sm-8 row-head">
+          <h4 class="Helvetica-sans-serif-medium mx-1">Record Diagnosis Dx</h4>
+        </div>
+      </div>
+      <div class="body">
+        <div class="row">
+          <div class="col-sm-4 col-md-4 col-lg-4 ">
+          </div>
+          <div class="col-sm-8 col-md-8 col-lg-8 side-boder">
+            <mat-form-field appearance="outline" class="input-field mt-3">
+              <mat-select required>
+                <mat-option *ngFor="let trigger of TriggerRuleDD" [value]="trigger.value">
+                  {{trigger.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div class="input-group input-group-custom ">
+              <input aria-label="Search for messages" autocomplete="off" class="form-control input-border"
+                id="find-messages-input" placeholder="Search Messages">
+              <span class="input-group-addon input-group-addon-right input-group-addon-search Search"
+                id="find-messages-button"><i class="fa fa-search"></i></span>
+            </div>
+            <div class="row mt-3 mx-1 mb-3">
+              <button class="btn btn-green" data-bs-toggle="modal" data-bs-target="#exampleModal1">Add
+                Custom Dx</button>
+              <button class="btn btn-green btn-custom"data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content body">
+      <div class="modal-header header">
+          <div class="col-sm-4">
+            <h4 class="Helvetica-sans-serif-medium ">Diagnosis (Dx)</h4>
+          </div>
+          <div class="col-sm-8 row-head">
+            <h4 class="Helvetica-sans-serif-medium mx-1">Record Diagnosis(Dx)</h4>
+          </div>
+         <div>
+            <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close">
+              x
+            </span>
+          </div>
+      </div>
+      <div class="body">
+        <div class="row">
+          <div class="col-sm-4">
+          </div>
+          <div class="col-sm-8 side-boder">
+            <mat-form-field appearance="outline" class="input-field mt-3">
+              <mat-select required>
+                <mat-option *ngFor="let trigger of TriggerRuleDD" [value]="trigger.value">
+                  {{trigger.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <label>Code</label>
+            <mat-form-field class="w-100" appearance="outline">
+              <input matInput placeholder="Code" name="Code" formControlName="code" />
+            </mat-form-field>
+            <label>Descrption</label>
+            <mat-form-field class="w-100" appearance="outline">
+              <input matInput placeholder="Descrption" name="Descrption" formControlName="Descrption" />
+            </mat-form-field>
+            <div class="row">
+              <label>Start Date</label>
+              <mat-form-field appearance="outline" class="green-calendar col-md-8">
+                <input matInput [matDatepicker]="dp" placeholder="Start Date" name="startDate">
+                <mat-datepicker-toggle matSuffix [for]="dp">
+                </mat-datepicker-toggle>
+                <mat-datepicker #dp disabled="false"></mat-datepicker>
+              </mat-form-field>
+              <div class="col-lg-4">
+                <button class="btn btn-green btn-today">Today</button>
+              </div>
+            </div>
+            <div class="row">
+              <label>End Date</label>
+              <mat-form-field appearance="outline" class="green-calendar col-md-8">
+                <input matInput [matDatepicker]="dp" placeholder="End Date" name="endDate">
+                <mat-datepicker-toggle matSuffix [for]="dp">
+                </mat-datepicker-toggle>
+                <mat-datepicker #dp disabled="false"></mat-datepicker>
+              </mat-form-field>
+              <div class="col-lg-4">
+                <button class="btn btn-green btn-today">Today</button>
+              </div>
+            </div>
+            <label>Diagnosis Notes:</label>
+            <textarea placeholder="Diagnosis Notes:" class="form-control col-12 mt-3 mt-md-0"></textarea>
+
+            <div class="row links">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p>Resources:</p>
+              </div>
+            </div>
+            <div class="row right-block">
+              <button class="btn btn-green btn-cancel mx-3 mb-3" data-bs-toggle="modal"
+                data-bs-target="#exampleModal1">Save</button>
+              <button class="btn btn-green btn-cancel" data-bs-dismiss="modal" aria-label="Close"> Cancel</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>

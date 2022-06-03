@@ -1,3 +1,4 @@
+import { dentalchartService } from './_services/dentalchart.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -52,8 +53,9 @@ import { LabsImagingService } from './_services/labsimaging.service';
     EndpointBase,
     IdService,
     AuthGuard,
-    LabsImagingService
-    
+    LabsImagingService,
+    dentalchartService
+
   ],
   bootstrap: [AppComponent]
 })
