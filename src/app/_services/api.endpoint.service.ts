@@ -332,8 +332,8 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "AppointmentsByPatientId";
   }
 
-  get _patientProfilreUrl() {
-    return this._baseUrl + "PatientProfile";
+  get _patientMyProfilreUrl() {
+    return this._baseUrl + "PatientMyProfile";
   }
 
   get _procedureCodesUrl() {
