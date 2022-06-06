@@ -159,14 +159,17 @@ input::placeholder{
 // .bg-color:hover{
 //   background-color: #41b6a6 !important;
 // }
-.schedule-accordion .btn-orange:hover {
-  background-color: #fe8f00;
-  color: #fff;
-}
-.schedule-accordion .btn-orange {
-  border-color: #fe8f00;
-  font-size: 13px;
-  height: 45px;
+// .schedule-accordion .btn-orange:hover {
+//   background-color: #fe8f00;
+//   color: #fff;
+// }
+// .schedule-accordion .btn-orange {
+//   border-color: #fe8f00;
+//   font-size: 13px;
+//   height: 45px;
+// }
+.btn-encounter-padding{
+  padding: 0px !important;
 }
 .smartschedule-wrapper .table-appointments-for-today .table-header {
   height: 40px;
@@ -587,24 +590,8 @@ fieldset {
 .modal-title {
   line-height: normal;
 }
-// encounter modal
-#modal-patient-add-encounter.modal {
-  background-color: transparent;
-}
-#modal-patient-add-encounter .modal-dialog {
-  max-width: 82%;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-@media (max-width: 425px) {
-  #modal-patient-add-encounter .modal-dialog {
-    max-width: 100%;
-  }
-}
-#modal-patient-add-encounter .modal-body {
-  padding: 10px 15px;
-}
 
+/// need to be checked for removing this code.
 #modal-patient-add-encounter .encounder-top p {
   font-size: 20px;
   color: #41b6a6;
@@ -688,6 +675,8 @@ fieldset {
   padding: 10px 20px;
   resize: vertical;
 }
+
+// ---------------------- end of code removal block
 .area-text {
   margin-bottom: 15px;
 }
@@ -1014,15 +1003,16 @@ div.visit-status img.img-smart-schedule-status-schedule
 }
 .visit-status img {
   background-color: transparent;
-  width: 20px;
-  padding: 0;
-  margin: 0px;
+  width: 22px;
+  padding: 1px;
+  margin: 4px;
 }
 div.visit-status img.img-smart-status
  {
     background-color: transparent;
     background-size: 6px 12px;
     margin: 8px;
+    padding: 10px !important;
 }
 
 
@@ -1031,13 +1021,13 @@ div.visit-status img.img-smart-status-path {
     0deg,
     rgba(194, 197, 197, 0.5),
     rgba(121, 131, 130, 0.5)
-  ),
-  ;
-  fill: gray;
+  );
+  background-size: 6px 12px;
   background-color: #c77405;
   stroke: rgb(224, 220, 220);
   stroke-linejoin: round;
   transition: d 0.2s;
+  filter: opacity(0.3);
 }
 
 .appintment-link:hover{
@@ -1070,7 +1060,11 @@ div.visit-status img.img-smart-status-path {
 }
 #vitals-modal .modal-content{
   margin-top: -40px !important;
-  height: calc(90vh - 20px);
+  // height: calc(90vh - 20px);
+}
+#vitals-modal .modal-body{
+  min-height: 40vh;
+  max-height: 72vh;
 }
 #vitals-table .mat-header-row {
   border: 1px solid #41b6a6;
@@ -1113,4 +1107,10 @@ div.visit-status img.img-smart-status-path {
 .add-icon{
   color: #41b6a6;
   padding-top: 2px;
+}
+.vitals-heading{
+  margin-left: -25px;
+  margin-right: -25px;
+  background-color: #F7F7F7;
+  margin-bottom: 10px;
 }

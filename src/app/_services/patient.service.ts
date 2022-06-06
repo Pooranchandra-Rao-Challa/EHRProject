@@ -45,5 +45,16 @@ export class patientService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._patientMyProfilreUrl, reqparams);
   }
 
+  SmokingStatusByPatientId(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._smokingStatusByPatientIdUrl, reqparams);
+  }
+
+  TobaccoUseScreenings(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._tobaccoUseScreeningsUrl, reqparams);
+  }
+
+  TobaccoUseInterventions(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._tobaccoUseInterventionsUrl, reqparams);
+  }
 
 }

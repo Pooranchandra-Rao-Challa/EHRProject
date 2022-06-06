@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class SearchPipe implements PipeTransform {
 
   transform(value: any, keys: any, term: string): string {
-    debugger;
+    //debugger;
     if (!term) {
       return value;
     }

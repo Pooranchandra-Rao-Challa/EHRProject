@@ -17,6 +17,7 @@ import { PatientDialogComponent } from '../../dialogs/patient.dialog.component';
 import { LocationSelectService } from '../../_navigations/provider.layout/location.service';
 import { NewAppointmentDialogComponent } from '../../dialogs/newappointment.dialog/newappointment.dialog.component';
 import { UpcomingAppointmentsDialogComponent } from '../../dialogs/upcoming.appointments.dialog/upcoming.appointments.dialog.component';
+import { EncounterDialogComponent } from '../../dialogs/encounter.dialog/encounter.dialog.component';
 
 import {
   PatientSearchResults, Actions,
@@ -53,7 +54,6 @@ export class SmartScheduleComponent implements OnInit {
   selectedAppointmentDate: Date;
   selectedWeekday: any;
   selectedAppointmentDateString: string;
-  appointment: string = "none";
   existingappointment: string = "none";
   availableTimeSlots: any[] = [];
   encounterdiagnosesColumns = ["CODE", "CODE SYSTEM", "DESCRIPTION", "PATIENT EDUCATION", "Primary DX"];
@@ -96,6 +96,8 @@ export class SmartScheduleComponent implements OnInit {
   appointmentDialogResponse = null;
   upcomingAppointmentsDialogComponent = UpcomingAppointmentsDialogComponent;
   upcomingAppointmentDialogResponse = null;
+  encounterDialogComponent = EncounterDialogComponent;
+  encounterDialogResponse = null;
   //Auto Search Paramters
   public patients: PatientSearchResults[];
   private patientSearchTerms = new Subject<string>();
@@ -153,13 +155,8 @@ export class SmartScheduleComponent implements OnInit {
       this.LoadAppointmentDefalts();
     });
   }
-  onSeachTextChanged(text) {
-    this.searchTerms.next(text);
-  }
-  onSelectedOptionChanged(value) {
-    console.log(value);
 
-  }
+
 
   PatinetActions(patient: PatientSearchResults) {
     if (patient.NumberOfAppointments == 0) return Actions.new;
@@ -171,12 +168,15 @@ export class SmartScheduleComponent implements OnInit {
     this.flag = false;
     this.patientNameOrCellNumber = "";
     let dialogData: any;
-    if (content === this.appointmentDialogComponent && action == Actions.new) {
-      dialogData = this.PatientAppointmentInfoFromSearch(data, action);
-    } else if (content === this.appointmentDialogComponent && action == Actions.view) {
-      dialogData = this.PatientAppointmentInfo(data, action);
-    } else if (content === this.upcomingAppointmentsDialogComponent) {
-      dialogData = this.PatientAppointmentInfoFromSearch(data, action);
+    if (content === this.appointmentDialogComponent && action == Actions.new){
+      dialogData = this.PatientAppointmentInfoFromSearch(data,action);
+    }else if(content === this.appointmentDialogComponent && action == Actions.view){
+      dialogData = this.PatientAppointmentInfo(data,action);
+    }    else  if (content === this.upcomingAppointmentsDialogComponent){
+      dialogData = this.PatientAppointmentInfoFromSearch(data,action);
+    } else if(content === this.encounterDialogComponent){
+      dialogData = data;
+
     }
 
     const ref = this.overlayService.open(content, dialogData);
@@ -197,6 +197,9 @@ export class SmartScheduleComponent implements OnInit {
         this.appointmentDialogResponse = res.data;
         this.flag = false;
         this.patientNameOrCellNumber = "";
+      }else if(content == this.encounterDialogComponent){
+        this.encounterDialogResponse = res.data;
+
       }
     });
 
@@ -318,6 +321,9 @@ export class SmartScheduleComponent implements OnInit {
         console.log(resp.ListResult)
         this.Appointments = resp.ListResult as ScheduledAppointment[];
         this.NoofAppointment = this.Appointments.length;
+        console.log(JSON.stringify(this.Appointments));
+        console.log(this.Appointments[0].IsCurrent);
+
       } else {
         this.NoofAppointment = 0;
         this.Appointments = [];
@@ -348,7 +354,7 @@ export class SmartScheduleComponent implements OnInit {
 
   onAppointmentSave() {
     this.PatientAppointment.AppointmentTime = this.PatientAppointment.TimeSlot.StartDateTime;
-    console.log(JSON.stringify(this.PatientAppointment));
+
     this.SaveInputDisable = true;
     this.smartSchedulerService.CreateAppointment(this.PatientAppointment).subscribe(resp => {
       if (resp.IsSuccess) {
@@ -416,7 +422,6 @@ export class SmartScheduleComponent implements OnInit {
       this.smartSchedulerService.ConfirmAppointmentCancellation({ AppointmentId: this.appointmentId })
         .subscribe(resp => {
           if (resp.IsSuccess) {
-            //CloseAppointment();
             this.appointmentId = null;
             this.OperationMessage = resp.EndUserMessage;
             //this.ClearPatientAppointment();
@@ -454,5 +459,20 @@ export class SmartScheduleComponent implements OnInit {
     this.filterAppointments();
   }
 
+  updateAppointmentStatus(appointmentId: string,status: string)
+  {
+    console.log("appointmentId: "+appointmentId,", status: "+status);
+
+  }
+  showAssociateVitals: boolean = true;
+  displayVitalsDialog(event) {
+    debugger;
+    if (event == true) {
+      this.showAssociateVitals = true;
+    }
+    else {
+      this.showAssociateVitals = false;
+    }
+  }
 
 }

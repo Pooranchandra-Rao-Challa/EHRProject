@@ -11,18 +11,15 @@
         <div class="smart-schedule-header mt-2 mt-lg-0">
           <div class="row" style="align-items: center">
             <div class="col-xl-2 col-lg-3 col-md-6 col-12 appointment-filter-datestring-bar">
-              <!-- <b>Thursday, March 10th 2022</b> -->
               <b>{{ selectedWeekday }}</b>
             </div>
             <div class="col-xl-1 col-lg-2 col-md-6 col-12 appointment-filter-date-bar pt-2 pt-md-0">
               <div class="buttons ">
                 <button class="button is-primary bg-color lte" (click)="DateUpDown('movedown')">&lt;</button>
-                <mat-form-field class="cstm-width" appearance="fill">
-                  <!-- <mat-label>Choose a date</mat-label> -->
+                <mat-form-field class="cstm-width smart-schedule-datepicker" appearance="fill">
                   <input hidden matInput [matDatepicker]="picker" (dateChange)="selectedCalendarDate($event)" />
                   <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
-                <!-- <button mat-raised-button class="is-primary button fa fa-calendar" (click)="picker.open()"></button> -->
                 <button aria-hidden="true" class="is-primary bg-color button fa fa-calendar"
                   (click)="picker.open()"></button>
                 <button class="button is-primary bg-color gte" (click)="DateUpDown('moveup')">&gt;</button>
@@ -66,38 +63,42 @@
                     <div class="col-md-2 col-2 appointment-note">Notes</div>
                     <div class="col-md-1 col-1">Encounter</div>
                   </div>
-                  <div class="row text-center table-body" *ngFor="let appointment of Appointments">
-                    <div class="col-md-1 col-1 appointment-time appintment-link"
+
+                  <div class="row text-center table-body"  *ngFor="let appointment of Appointments" >
+
+                    <div class="col-md-1 col-1 appointment-time appintment-link" *ngIf="appointment.IsCurrent"
                       (click)="openComponentDialog(appointmentDialogComponent,appointment,ActionsType.view)">
                       {{appointment.AppointmentTime | date:'MM/dd/yyyy'}}
                       &nbsp;
                       Time: {{appointment.AppointmentTime | date:'hh:mm a'}}
                     </div>
-                    <div class="col-md-2 col-2 appintment-link"
+                    <div class="col-md-2 col-2 appintment-link" *ngIf="appointment.IsCurrent"
                       (click)="openComponentDialog(appointmentDialogComponent,appointment,ActionsType.view)">
                       <div>{{appointment.PatientName}}</div>
                       <div>DOB: {{appointment.DateofBirth | date:'MMM d, y'}}</div>
                     </div>
-                    <div class="col-md-2 col-2 provider">{{appointment.ProviderName}}</div>
-                    <div class="col-md-2 col-2 visit-status">
+                    <div class="col-md-2 col-2 provider" *ngIf="appointment.IsCurrent" >{{appointment.ProviderName}}</div>
+                    <div class="col-md-2 col-2 visit-status" *ngIf="appointment.IsCurrent">
 
                       <img [class]="appointment.Status == 'Scheduled' ? 'img-smart-status' : 'img-smart-status-path'"
-                        src="assets/images/smart-schedule/scheduled.svg" title="Scheduled" />
-                      <img class="img-smart-status" src="assets/images/smart-schedule/waiting.svg" title="Wating" />
-                      <img class="img-smart-status" src="assets/images/smart-schedule/in_progress.svg"
-                        title="In-Progress" />
-                      <img class="img-smart-status" src="assets/images/smart-schedule/completed.svg"
-                        title="Completed" />
-                      <img class="img-smart-status" src="assets/images/smart-schedule/cancel.svg" title="Cancel" />
-                      <img class="img-smart-status" src="assets/images/smart-schedule/no_show.svg" title="No-Show" />
+                        src="assets/images/smart-schedule/scheduled.svg" title="Scheduled" (click)="updateAppointmentStatus(appointment.AppointmentId,'Scheduled')" />
+                      <img [class]="appointment.Status == 'Wating' ? 'img-smart-status' : 'img-smart-status-path'" src="assets/images/smart-schedule/waiting.svg"
+                        title="Wating" (click)="updateAppointmentStatus(appointment.AppointmentId,'Wating')" />
+                      <img [class]="appointment.Status == 'In-Progress' ? 'img-smart-status' : 'img-smart-status-path'" src="assets/images/smart-schedule/in_progress.svg"
+                        title="In-Progress" (click)="updateAppointmentStatus(appointment.AppointmentId,'In-Progress')" />
+                      <img [class]="appointment.Status == 'Completed' ? 'img-smart-status' : 'img-smart-status-path'" src="assets/images/smart-schedule/completed.svg"
+                        title="Completed" (click)="updateAppointmentStatus(appointment.AppointmentId,'Completed')"/>
+                      <img [class]="appointment.Status == 'Cancelled' ? 'img-smart-status' : 'img-smart-status-path'" src="assets/images/smart-schedule/cancel.svg"
+                        title="Cancelled" (click)="updateAppointmentStatus(appointment.AppointmentId,'Cancelled')"/>
+                      <img [class]="appointment.Status == 'No-Show' ? 'img-smart-status' : 'img-smart-status-path'" src="assets/images/smart-schedule/no_show.svg"
+                        title="No-Show" (click)="updateAppointmentStatus(appointment.AppointmentId,'No-Show')"/>
                     </div>
-                    <div class="col-md-2 col-2 appt-type">{{appointment.AppointmentType}}</div>
-                    <div class="col-md-2 col-2 appointment-note">
+                    <div class="col-md-2 col-2 appt-type" *ngIf="appointment.IsCurrent">{{appointment.AppointmentType}}</div>
+                    <div class="col-md-2 col-2 appointment-note" *ngIf="appointment.IsCurrent">
                       {{appointment.Notes}}
                     </div>
-                    <div class="col-md-1 col-1">
-                      <button class="btn btn-orange" type="button" data-bs-toggle="modal"
-                        data-bs-target="#modal-patient-add-encounter">
+                    <div class="col-md-1 col-1 " *ngIf="appointment.IsCurrent">
+                      <button class="btn btn-orange btn-encounter-padding" type="button" (click)="openComponentDialog(encounterDialogComponent,appointment,ActionsType.view)">
                         Record Encounter
                       </button>
                     </div>
@@ -126,25 +127,58 @@
                     <div class="col-md-2 appointment-note">Notes</div>
                     <div class="col-md-1">Encounter</div>
                   </div>
-                  <div class="text-center table-body">
-                    <div class="content message-empty">
-                      <p>You don't have any appointments for today</p>
-                    </div>
+                  <div class="text-center table-body" *ngFor="let appointment of Appointments">
+
+                      <div class="col-md-1 col-1 appointment-time appintment-link" *ngIf="appointment.IsPast"
+                        (click)="openComponentDialog(appointmentDialogComponent,appointment,ActionsType.view)">
+                        {{appointment.AppointmentTime | date:'MM/dd/yyyy'}}
+                        &nbsp;
+                        Time: {{appointment.AppointmentTime | date:'hh:mm a'}}
+                      </div>
+                      <div class="col-md-2 col-2 appintment-link" *ngIf="appointment.IsPast"
+                        (click)="openComponentDialog(appointmentDialogComponent,appointment,ActionsType.view)">
+                        <div>{{appointment.PatientName}}</div>
+                        <div>DOB: {{appointment.DateofBirth | date:'MMM d, y'}}</div>
+                      </div>
+                      <div class="col-md-2 col-2 provider" *ngIf="appointment.IsPast">{{appointment.ProviderName}}</div>
+                      <div class="col-md-2 col-2 visit-status" *ngIf="appointment.IsPast">
+
+                        <img [class]="appointment.Status == 'Scheduled' ? 'img-smart-status' : 'img-smart-status-path'"
+                          src="assets/images/smart-schedule/scheduled.svg" title="Scheduled" (click)="updateAppointmentStatus(appointment.AppointmentId,'Scheduled')" />
+                        <img [class]="appointment.Status == 'Wating' ? 'img-smart-status' : 'img-smart-status-path'" src="assets/images/smart-schedule/waiting.svg"
+                          title="Wating" (click)="updateAppointmentStatus(appointment.AppointmentId,'Wating')" />
+                        <img [class]="appointment.Status == 'In-Progress' ? 'img-smart-status' : 'img-smart-status-path'" src="assets/images/smart-schedule/in_progress.svg"
+                          title="In-Progress" (click)="updateAppointmentStatus(appointment.AppointmentId,'In-Progress')" />
+                        <img [class]="appointment.Status == 'Completed' ? 'img-smart-status' : 'img-smart-status-path'" src="assets/images/smart-schedule/completed.svg"
+                          title="Completed" (click)="updateAppointmentStatus(appointment.AppointmentId,'Completed')"/>
+                        <img [class]="appointment.Status == 'Cancelled' ? 'img-smart-status' : 'img-smart-status-path'" src="assets/images/smart-schedule/cancel.svg"
+                          title="Cancelled" (click)="updateAppointmentStatus(appointment.AppointmentId,'Cancelled')"/>
+                        <img [class]="appointment.Status == 'No-Show' ? 'img-smart-status' : 'img-smart-status-path'" src="assets/images/smart-schedule/no_show.svg"
+                          title="No-Show" (click)="updateAppointmentStatus(appointment.AppointmentId,'No-Show')"/>
+                      </div>
+                      <div class="col-md-2 col-2 appt-type" *ngIf="appointment.IsPast">{{appointment.AppointmentType}}</div>
+                      <div class="col-md-2 col-2 appointment-note" *ngIf="appointment.IsPast">
+                        {{appointment.Notes}}
+                      </div>
+                      <div class="col-md-1 col-1 " *ngIf="appointment.IsPast">
+                        <button class="btn btn-orange btn-encounter-padding" type="button" (click)="openComponentDialog(encounterDialogComponent,appointment,ActionsType.view)">
+                          Record Encounter
+                        </button>
+                      </div>
+
                   </div>
                 </div>
               </div>
             </div>
           </mat-expansion-panel>
         </mat-accordion>
-        <!--<app-drop-down-search [Values]="Locations" (searchTextChanged)="onSeachTextChanged($event)"
-  (selectedOptionChanged)="onSelectedOptionChanged($event)"></app-drop-down-search>-->
+
       </div>
 
       <div class="row">
         <div class="schedule-bottom">
           <div class="row">
             <div class="col-lg-8 col-md-6 col-12">
-
               <div class="form-group">
                 <div class="input-group" appearance="outline" class="new-search col-12">
                   <input class="form-control new-search"
@@ -286,10 +320,6 @@
                             mechanism (i.e word of mouth, email, digital copy,
                             pamphlet, etc).
                           </ng-template>
-                          <!-- <div class="popup-info-box" id="popup" style="display: none;">Check this box IF this patient
-                            was
-                            provided instruction or resources on self-care via any mechanism (i.e word of mouth, email,
-                            digital copy, pamphlet, etc).</div> -->
                         </span>
                       </div>
                     </div>
@@ -443,7 +473,7 @@
                   <div class="row content">
                     <div class="col-12">
                       <button mat-icon-button class="btn-add pull-right" data-bs-toggle="modal"
-                        data-bs-target="#vitals-modal">
+                        data-bs-target="#vitals-modal" (click)="displayVitalsDialog(true)">
                         <mat-icon class="add-icon">add</mat-icon>
                       </button>
                     </div>
@@ -515,7 +545,8 @@
                           <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
                           <mat-cell *matCellDef="let vital" class="actions">
                             <button mat-icon-button>
-                              <mat-icon class="edit" data-bs-toggle="modal" data-bs-target="#vitals-modal">edit
+                              <mat-icon class="edit" data-bs-toggle="modal" data-bs-target="#vitals-modal"
+                                (click)="displayVitalsDialog(false)">edit
                               </mat-icon>
                             </button>
                             <button mat-icon-button class="mx-2">
@@ -691,36 +722,46 @@
   <div class="modal-dialog modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title Helvetica-sans-serif-medium" id="staticBackdropLabel">Add / Edit Vital</h5>
+        <h5 class="modal-title Helvetica-sans-serif-medium" id="staticBackdropLabel" *ngIf="showAssociateVitals">Add
+          Vital</h5>
+        <h5 class="modal-title Helvetica-sans-serif-medium" id="staticBackdropLabel" *ngIf="!showAssociateVitals">Edit
+          Vital</h5>
+
         <span type="button" class="cross-mark col-1" data-bs-dismiss="modal" aria-label="Close">
           X
         </span>
       </div>
       <div class="modal-body">
-        <div class="row">
-          <p class="text-center fw-bolder fs-4 Helvetica-sans-serif-medium">Associate vitals to an encounter:</p>
-          <div class="form-group col-md-6">
-            <label class="col-lg-4 col-md-5 col-5" aria-required="true">Encounter:*</label>
-            <mat-form-field appearance="outline" class="col-lg-8 col-md-7 col-7">
-              <mat-select disableOptionCentering id="practiceProviders">
-                <mat-option value="0">Current Encounter</mat-option>
-              </mat-select>
-            </mat-form-field>
+        <div *ngIf="showAssociateVitals">
+          <div class="row vitals-heading">
+            <p class="text-center fw-bolder fs-5 Helvetica-sans-serif-medium mt-2">Associate vitals to an encounter:</p>
           </div>
-          <div class="form-group col-md-6">
-            <label class="col-lg-6 col-md-6 col-5">Collected date/time:*</label>
-            <input class="vital-input col-lg-6 col-md-6 col-7">
-            <input class="vital-input col-lg-6 col-md-6 col-7 mt-1 pull-right">
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label class="col-lg-4 col-md-5 col-5" aria-required="true">Encounter:*</label>
+              <mat-form-field appearance="outline" class="col-lg-8 col-md-7 col-7">
+                <mat-select disableOptionCentering id="practiceProviders">
+                  <mat-option value="0">Current Encounter</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="form-group col-md-6">
+              <label class="col-lg-6 col-md-6 col-5">Collected date/time:*</label>
+              <input class="vital-input col-lg-6 col-md-6 col-7">
+              <input class="vital-input col-lg-6 col-md-6 col-7 mt-1 pull-right">
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group">
+              <label class="col-12">Comments:</label>
+              <textarea class="textarea col-12"></textarea>
+            </div>
+          </div>
+          <div class="row vitals-heading">
+            <p class="text-center fw-bolder fs-5 Helvetica-sans-serif-medium mt-2">Add a new record for vitals:</p>
           </div>
         </div>
         <div class="row">
-          <div class="form-group">
-            <label class="col-lg-2 col-md-3 col-12">Comments:</label>
-            <textarea class="textarea col-lg-10 col-md-9 col-12"></textarea>
-          </div>
-        </div>
-        <div class="row">
-          <p class="text-center fw-bolder fs-4 Helvetica-sans-serif-medium">Add a new record for vitals:</p>
           <div class="form-group col-md-6">
             <label class="col-lg-4 col-md-5 col-5">Height:</label>
             <input class="vital-input col-lg-4 col-md-5 col-5">
@@ -776,7 +817,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-green">Save changes</button>
+        <button type="button" class="btn btn-green">Save</button>
         <button type="button" class="btn btn-green" data-bs-dismiss="modal">Cancel</button>
       </div>
     </div>

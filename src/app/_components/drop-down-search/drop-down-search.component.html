@@ -24,27 +24,10 @@
   [cdkConnectedOverlayPositions]="positions"
 >
   <section class="drop-down-search-panel mat-elevation-z1">
-     <!--<div class="drop-down-search-panel_controls">
-      <mat-slide-toggle
-        [checked]="isCaseSensitive"
-        (change)="setCaseSensitive($event)"
-        class="mat-caption"
-        >Case sensitive</mat-slide-toggle
-      >
-      <mat-slide-toggle
-        (change)="textCtrl.disabled ? textCtrl.enable() : textCtrl.disable()"
-        class="mat-caption"
-        style="margin-left: 1rem;"
-        >Disable search</mat-slide-toggle
-      >
-    </div>-->
-    <mat-divider></mat-divider>
-    <div class="panel-result-section">
-      <div class="result-item" *ngFor="let state of Values" (click)="onSelection(state.PatientId,state.Name)">
-        <!--<img class="example-option-img" [src]="state.flag" height="25" />-->
-        <span (click)="onSelection(state.PatientId,state.Name)">{{ state.Name }}</span>
-        <!-- <small class="mat-caption">Population: {{ state.population }}</small>-->
+    <mat-divider> </mat-divider>
+      <div class="result-item" *ngFor="let value of filteredValues$ | async" (click)="onSelection(value.Code,state.Description)">
+        <span *ngIf="DisplayWithCode" (click)="onSelection(value.Code,value.Description)">{{value.Code}}-{{ value.Description }}</span>
       </div>
-    </div>
+      <mat-divider [vertical]="true"> </mat-divider>
   </section>
 </ng-template>

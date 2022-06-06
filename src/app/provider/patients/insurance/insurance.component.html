@@ -31,8 +31,8 @@
                             <div>
                                 <mat-radio-group>
                                     Male <mat-radio-button value="option 1"></mat-radio-button>
-                                    FeMale<mat-radio-button  value="option 2"></mat-radio-button>
-                                    Other<mat-radio-button  value="option 3"></mat-radio-button>
+                                    FeMale<mat-radio-button value="option 2"></mat-radio-button>
+                                    Other<mat-radio-button value="option 3"></mat-radio-button>
                                 </mat-radio-group>
                             </div>
                         </div>
@@ -47,13 +47,15 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <button class="btn btn-green btn-verify mt-4 py-2 px-4 Helvetica-sans-serif-medium">VERIFY</button>
+                            <button
+                                class="btn btn-green btn-verify mt-4 py-2 px-4 Helvetica-sans-serif-medium">VERIFY</button>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-9  mb-3">
                             <div class="input-group input-group-lg">
-                                <span class="input-group-text Helvetica-sans-serif-medium" id="inputGroup-sizing-lg ">Street Address</span>
+                                <span class="input-group-text Helvetica-sans-serif-medium"
+                                    id="inputGroup-sizing-lg ">Street Address</span>
                                 <input type="text" class="form-control input-border">
                             </div>
                         </div>
@@ -62,19 +64,22 @@
                     <div class="row">
                         <div class="col-5  mb-3">
                             <div class="input-group input-group-lg">
-                                <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium" id="inputGroup-sizing-lg ">City</span>
+                                <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
+                                    id="inputGroup-sizing-lg ">City</span>
                                 <input type="text" class="form-control input-border">
                             </div>
                         </div>
                         <div class="col-3 mb-3">
                             <div class="input-group input-group-lg ">
-                                <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium" id="inputGroup-sizing-lg ">State</span>
+                                <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
+                                    id="inputGroup-sizing-lg ">State</span>
                                 <input type="text" class="form-control input-border">
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="input-group input-group-lg">
-                                <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium" id="inputGroup-sizing-lg ">Zip</span>
+                                <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
+                                    id="inputGroup-sizing-lg ">Zip</span>
                                 <input type="text" class="form-control input-border">
                             </div>
                         </div>
@@ -85,18 +90,18 @@
                             <label class="Helvetica-sans-serif-medium">Insurance Company Plan</label>
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control patientInsuranceTab input-border "
-                                    placeholder="Insurance Company Plan" [(ngModel)]="this.InsuranceCompanyPlan"   aria-label="Subscriber Name"
-                                    aria-describedby="basic-addon1">
+                                    placeholder="Insurance Company Plan" [(ngModel)]="this.InsuranceCompanyPlan"
+                                    aria-label="Subscriber Name" aria-describedby="basic-addon1">
                             </div>
                         </div>
                         <div class="col-1">
                             <!-- <button class="plusicon mt-4" type="button">
                                 <i class="fa fa-plus"></i>
                             </button> -->
-                            <button class="plusicon mt-4" type="button"  data-bs-toggle="modal" data-bs-target="#modal-Patient-Education"
-                            aria-expanded="false">
-                            <i class="fa fa-plus"></i>
-                          </button>
+                            <button class="plusicon mt-4" type="button" data-bs-toggle="modal"
+                                data-bs-target="#modal-Patient-Education" aria-expanded="false">
+                                <i class="fa fa-plus"></i>
+                            </button>
                         </div>
                     </div>
                     <div class="row">
@@ -108,8 +113,8 @@
                             </div>
                         </div>
                         <div class="col-4">
-                            <button class="btn btn-green btn-insurance pull-right  Helvetica-sans-serif-medium"
-                                type="button" data-bs-toggle="modal" data-bs-target="#Primary-Insurance-Details">
+                            <button   [disabled]="viewpidetails" class="btn btn-green btn-insurance pull-right  Helvetica-sans-serif-medium"
+                               type="button" data-bs-toggle="modal" data-bs-target="#Primary-Insurance-Details">
                                 View Primary Insurance details
                             </button>
                         </div>
@@ -145,30 +150,30 @@
                                 </ul>
                             </div>
                         </div>
-                        <mat-label  class="Helvetica-sans-serif-small">Source of Payment Typology   </mat-label>
+                        <mat-label class="Helvetica-sans-serif-small">Source of Payment Typology </mat-label>
                         <mat-form-field appearance="outline" col-md-12>
-                          <mat-select required>
-                            <mat-option *ngFor="let trigger of TriggerRuleDD" [value]="trigger.value">
-                              {{trigger.viewValue}}
-                            </mat-option>
-                          </mat-select>
+                            <mat-select required>
+                                <mat-option *ngFor="let BenefitRenewal of BenefitRenewalDD" [value]="BenefitRenewal.value">
+                                    {{BenefitRenewal.viewValue}}
+                                </mat-option>
+                            </mat-select>
                         </mat-form-field>
                         <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-6">
-                            <input matInput [matDatepicker]="dp2"  placeholder="Start Date">
+                            <input matInput [matDatepicker]="dp2" placeholder="Start Date">
                             <mat-datepicker-toggle matSuffix [for]="dp2">
-                    
+
                             </mat-datepicker-toggle>
                             <mat-datepicker #dp2 disabled="false"></mat-datepicker>
-                           </mat-form-field>
-                           <!-- <div class="date_to_text col-md-1">to</div> -->
-                    
-                    
-                          <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-6">
+                        </mat-form-field>
+                        <!-- <div class="date_to_text col-md-1">to</div> -->
+
+
+                        <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-6">
                             <input matInput [matDatepicker]="dp1" placeholder="Stop Date">
                             <mat-datepicker-toggle matSuffix [for]="dp1">
                             </mat-datepicker-toggle>
                             <mat-datepicker #dp1 disabled="false"></mat-datepicker>
-                          </mat-form-field>
+                        </mat-form-field>
                     </div>
                 </div>
             </div>
@@ -201,7 +206,7 @@
                                 <mat-radio-group>
                                     Male <mat-radio-button value="option 1"></mat-radio-button>
                                     FeMale<mat-radio-button value="option 2"></mat-radio-button>
-                                    Other<mat-radio-button  value="option 3"></mat-radio-button>
+                                    Other<mat-radio-button value="option 3"></mat-radio-button>
                                 </mat-radio-group>
                             </div>
                         </div>
@@ -216,13 +221,15 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <button class="btn btn-green btn-verify mt-4 py-2 px-4 Helvetica-sans-serif-medium">VERIFY</button>
+                            <button
+                                class="btn btn-green btn-verify mt-4 py-2 px-4 Helvetica-sans-serif-medium">VERIFY</button>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-9  mb-3">
                             <div class="input-group input-group-lg">
-                                <span class="input-group-text Helvetica-sans-serif-medium" id="inputGroup-sizing-lg ">Street Address</span>
+                                <span class="input-group-text Helvetica-sans-serif-medium"
+                                    id="inputGroup-sizing-lg ">Street Address</span>
                                 <input type="text" class="form-control input-border">
                             </div>
                         </div>
@@ -231,19 +238,22 @@
                     <div class="row">
                         <div class="col-5  mb-3">
                             <div class="input-group input-group-lg">
-                                <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium" id="inputGroup-sizing-lg ">City</span>
+                                <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
+                                    id="inputGroup-sizing-lg ">City</span>
                                 <input type="text" class="form-control input-border">
                             </div>
                         </div>
                         <div class="col-3 mb-3">
                             <div class="input-group input-group-lg ">
-                                <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium" id="inputGroup-sizing-lg ">State</span>
+                                <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
+                                    id="inputGroup-sizing-lg ">State</span>
                                 <input type="text" class="form-control input-border">
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="input-group input-group-lg">
-                                <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium" id="inputGroup-sizing-lg ">Zip</span>
+                                <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
+                                    id="inputGroup-sizing-lg ">Zip</span>
                                 <input type="text" class="form-control input-border">
                             </div>
                         </div>
@@ -254,7 +264,7 @@
                             <label class="Helvetica-sans-serif-medium">Insurance Company Plan</label>
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control patientInsuranceTab input-border"
-                                    placeholder="Insurance Company Plan" aria-label="Subscriber Name"
+                                    placeholder="Insurance Company Plan" [(ngModel)]="this.InsuranceCompanyPlan" aria-label="Subscriber Name"
                                     aria-describedby="basic-addon1">
                             </div>
                         </div>
@@ -262,10 +272,10 @@
                             <!-- <button class="plusicon mt-4" type="button">
                                 <i class="fa fa-plus"></i>
                             </button> -->
-                            <button class="plusicon mt-4" type="button"  data-bs-toggle="modal" data-bs-target="#modal-Patient-Education"
-                            aria-expanded="false" >
-                            <i class="fa fa-plus"></i>
-                          </button>
+                            <button class="plusicon mt-4" type="button" data-bs-toggle="modal"
+                                data-bs-target="#modal-Patient-Education" aria-expanded="false">
+                                <i class="fa fa-plus"></i>
+                            </button>
                         </div>
                     </div>
                     <div class="row">
@@ -277,8 +287,8 @@
                             </div>
                         </div>
                         <div class="col-4">
-                            <button class="btn btn-green btn-insurance pull-right  Helvetica-sans-serif-medium"
-                                type="button">
+                            <button   [disabled]="viewpidetails" class="btn btn-green btn-insurance pull-right  Helvetica-sans-serif-medium"
+                               type="button" data-bs-toggle="modal" data-bs-target="#Primary-Insurance-Details">
                                 View Primary Insurance details
                             </button>
                         </div>
@@ -321,30 +331,30 @@
                                 </mat-option>
                             </mat-select>
                         </mat-form-field> -->
-                        <mat-label  class="Helvetica-sans-serif-small">Source of Payment Typology   </mat-label>
+                        <mat-label class="Helvetica-sans-serif-small">Source of Payment Typology </mat-label>
                         <mat-form-field appearance="outline" col-md-12>
-                          <mat-select required>
-                            <mat-option *ngFor="let trigger of TriggerRuleDD" [value]="trigger.value">
-                              {{trigger.viewValue}}
-                            </mat-option>
-                          </mat-select>
+                            <mat-select required>
+                                <mat-option *ngFor="let BenefitRenewal of BenefitRenewalDD" [value]="BenefitRenewal.value">
+                                    {{BenefitRenewal.viewValue}}
+                                </mat-option>
+                            </mat-select>
                         </mat-form-field>
                         <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-6">
-                            <input matInput [matDatepicker]="dp5"  placeholder="Start Date">
+                            <input matInput [matDatepicker]="dp5" placeholder="Start Date">
                             <mat-datepicker-toggle matSuffix [for]="dp5">
-                    
+
                             </mat-datepicker-toggle>
                             <mat-datepicker #dp5 disabled="false"></mat-datepicker>
-                           </mat-form-field>
-                           <!-- <div class="date_to_text col-md-1">to</div> -->
-                    
-                    
-                          <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-6">
+                        </mat-form-field>
+                        <!-- <div class="date_to_text col-md-1">to</div> -->
+
+
+                        <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-6">
                             <input matInput [matDatepicker]="dp6" placeholder="Stop Date">
                             <mat-datepicker-toggle matSuffix [for]="dp6">
                             </mat-datepicker-toggle>
                             <mat-datepicker #dp6 disabled="false"></mat-datepicker>
-                          </mat-form-field>
+                        </mat-form-field>
                     </div>
                 </div>
             </div>
@@ -354,335 +364,367 @@
 <!-- <button class="" type="button" data-bs-toggle="modal" data-bs-target="#modal-Patient-Education"
 aria-expanded="false">
 </button> -->
-<div class="modal " id="modal-Patient-Education" data-bs-keyboard="false" tabindex="-1"
-  aria-hidden="true">
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div class="modal-header">
-          
-        <span *ngIf="data" class="Helvetica-sans-serif-medium">Select Insurance Company Plan </span>
-        <span *ngIf="!data" class="Helvetica-sans-serif-medium">Add/Edit Insurance Company Plan </span>
-        <span type="button" (click)="cancel()" class="cross-mark" data-bs-dismiss="modal" aria-label="Close"
-         >
-          X
-        </span>
-      </div>
-      <div class="modal-body modal-scrollbar">
-     
-       
-             <div *ngIf="isValid;then content else other_content"></div>
-             
-             <ng-template #content>
-             
-           <div class="container">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-12">
-                    <div class="labs-imaging-tabs">
-                        <ul class="nav nav-tabs nav-tab-styled" id="myTab" role="tablist">
-                            <div class="mt-2 Helvetica-sans-serif-medium">Type:</div>
-                            <li class="nav-item tabs-alignments" role="presentation">
-                                <a class="nav-link text-center active" id="medical-tab" data-bs-toggle="tab"
-                                    data-bs-target="#medical" type="button" role="tab" aria-controls="medical"
-                                    aria-selected="true">Medical
-                                </a>
-                            </li>
-                            <li class="nav-item  tabs-alignments" role="presentation">
-                                <a class="nav-link text-center" id="send-tab" data-bs-toggle="tab"
-                                    data-bs-target="#send" type="button" role="tab" aria-controls="send"
-                                    aria-selected="true">Dental
-                                </a>
-                            </li>
+<div class="modal " id="modal-Patient-Education" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
 
-                        </ul>
-                    </div>
-                </div>
+                <span *ngIf="data" class="Helvetica-sans-serif-medium">Select Insurance Company Plan </span>
+                <span *ngIf="!data" class="Helvetica-sans-serif-medium">Add/Edit Insurance Company Plan </span>
+                <span type="button" (click)="cancel()" class="cross-mark" data-bs-dismiss="modal" aria-label="Close">
+                    X
+                </span>
             </div>
-            <div class="row mb-4">
-                <label class="Helvetica-sans-serif-medium">Insurance Company Name</label>
-                <div class="input-group input-group-lg">
-                    <input type="text" class="form-control inputclass" placeholder="Insurance Company Name">
-                </div>
-            </div>
-            <div class="row mb-4">
-                <div class="col-md-6">
-                    <label class="Helvetica-sans-serif-medium">Group Plan</label>
-                    <div class="input-group input-group-lg">
-                        <input type="text" class="form-control inputclass" placeholder="Group Plan">
-                    </div>
-                </div>
-                <div class="col-md-6 mb-4">
-                    <label class="Helvetica-sans-serif-medium">Employer</label>
-                    <div class="input-group input-group-lg">
-                        <input type="text" class="form-control inputclass" placeholder="Employer">
-                    </div>
-                </div>
-            </div>
-            <div class="row mb-4">
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-text Helvetica-sans-serif-medium" id="inputGroup-sizing-lg ">Street Address</span>
-                        <input type="text" class="form-control inputclass">
-                    </div>
-                </div>
-            <div class="row">
-            <div class="col-5  mb-3">
-                <div class="input-group input-group-lg">
-                    <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium" id="inputGroup-sizing-lg ">City</span>
-                    <input type="text" class="form-control inputclass">
-                </div>
-            </div>
-            <div class="col-3 mb-3">
-                <div class="input-group input-group-lg ">
-                    <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium" id="inputGroup-sizing-lg ">State</span>
-                    <input type="text" class="form-control inputclass">
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="input-group input-group-lg">
-                    <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium" id="inputGroup-sizing-lg ">Zip</span>
-                    <input type="text" class="form-control inputclass">
-                </div>
-                </div>
-            </div>
-            <div class="row mb-4">
-                <label class="Helvetica-sans-serif-medium ">Contact</label>
-                <div class="input-group input-group-lg">
-                    <input type="text" class="form-control inputclass" placeholder="Contact">
-                </div>
-            </div>
-            <div class="row mb-4">
-                <div class="col-md-6">
-                    <label class="Helvetica-sans-serif-medium">Phone</label>
-                    <div class="input-group input-group-lg">
-                        <input type="text" class="form-control inputclass" placeholder="Phone">
-                    </div>
-                </div>
-                <!-- <div class="col-md-6 mb-4">
+            <div class="modal-body modal-scrollbar">
+
+
+                <div *ngIf="isValid;then content else other_content"></div>
+
+                <ng-template #content>
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-12">
+                                <div class="labs-imaging-tabs">
+                                    <ul class="nav nav-tabs nav-tab-styled" id="myTab" role="tablist">
+                                        <div class="mt-2 Helvetica-sans-serif-medium">Type:</div>
+                                        <li class="nav-item tabs-alignments" role="presentation">
+                                            <a class="nav-link text-center active" id="medical-tab" data-bs-toggle="tab"
+                                                data-bs-target="#medical" type="button" role="tab"
+                                                aria-controls="medical" aria-selected="true">Medical
+                                            </a>
+                                        </li>
+                                        <li class="nav-item  tabs-alignments" role="presentation">
+                                            <a class="nav-link text-center" id="send-tab" data-bs-toggle="tab"
+                                                data-bs-target="#send" type="button" role="tab" aria-controls="send"
+                                                aria-selected="true">Dental
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <label class="Helvetica-sans-serif-medium">Insurance Company Name</label>
+                            <div class="input-group input-group-lg">
+                                <input type="text" class="form-control inputclass" placeholder="Insurance Company Name">
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label class="Helvetica-sans-serif-medium">Group Plan</label>
+                                <div class="input-group input-group-lg">
+                                    <input type="text" class="form-control inputclass" placeholder="Group Plan">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <label class="Helvetica-sans-serif-medium">Employer</label>
+                                <div class="input-group input-group-lg">
+                                    <input type="text" class="form-control inputclass" placeholder="Employer">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-text Helvetica-sans-serif-medium"
+                                    id="inputGroup-sizing-lg ">Street Address</span>
+                                <input type="text" class="form-control inputclass">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-5  mb-3">
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
+                                        id="inputGroup-sizing-lg ">City</span>
+                                    <input type="text" class="form-control inputclass">
+                                </div>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <div class="input-group input-group-lg ">
+                                    <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
+                                        id="inputGroup-sizing-lg ">State</span>
+                                    <input type="text" class="form-control inputclass">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
+                                        id="inputGroup-sizing-lg ">Zip</span>
+                                    <input type="text" class="form-control inputclass">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <label class="Helvetica-sans-serif-medium ">Contact</label>
+                            <div class="input-group input-group-lg">
+                                <input type="text" class="form-control inputclass" placeholder="Contact">
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label class="Helvetica-sans-serif-medium">Phone</label>
+                                <div class="input-group input-group-lg">
+                                    <input type="text" class="form-control inputclass" placeholder="Phone">
+                                </div>
+                            </div>
+                            <!-- <div class="col-md-6 mb-4">
                     <label class="Helvetica-sans-serif-medium">Benefit Renewal</label>
                     <div class="input-group input-group-lg">
                         <input type="text" class="form-control input-border1" placeholder="">
                     </div>
                 </div> -->
-                <div class="col-md-6 mb-4">
-Trigger Rule*  
-                    <mat-form-field appearance="outline" col-md-6 mb-4>
-                      <mat-select required>
-                        <mat-option *ngFor="let trigger of TriggerRuleDD" [value]="trigger.value">
-                          {{trigger.viewValue}}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-            </div>
-            <div class="row mb-4">
-                <div class="col-md-6">
-                    <label class="Helvetica-sans-serif-medium">Group #</label>
-                    <div class="input-group input-group-lg">
-                        <input type="text" class="form-control inputclass" placeholder="Group #">
-                    </div>
-                </div>
-                <div class="col-md-6 mb-4">
-                    <label class="Helvetica-sans-serif-medium">Local #</label>
-                    <div class="input-group input-group-lg">
-                        <input type="text" class="form-control inputclass " placeholder="Local #">
-                    </div>
-                </div>
-            </div>
-            <div class="row mb-4 ">
-                <label class="Helvetica-sans-serif-medium">Payer ID</label>
-                <div class="input-group">
-                    <input type="text" class="form-control inputclass" placeholder="Payer ID">
-                </div>
-            </div>
+                <!-- <label class="Helvetica-sans-serif-medium">Benefit Renewal</label> -->
+              
+                         
+                                 <!-- <mat-label class="Helvetica-sans-serif-small">Source of Payment Typology </mat-label>
+                                <mat-form-field appearance="outline" class="col-md-6 mb-4">
+                                    <mat-select required>
+                                        <mat-option *ngFor="let BenefitRenewal of BenefitRenewalDD" [value]="BenefitRenewal.value">
+                                            {{BenefitRenewal.viewValue}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field> -->
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <label class="Helvetica-sans-serif-medium">Benefit Renewal</label>
+                                    <div class="form-group">
+                                      <select class="col-12 inputclass">
+                                        <option value="Jan" selected>Jan</option>
+                                        <option value="Feb">Feb</option>
+                                        <option value="Mar">Mar</option>
+                                        <option value="Apr">Apr</option>
+                                        <option value="May">May</option>
+                                        <option value="Jun">Jun</option>
+                                        <option value="Jul">Jul</option>
+                                        <option value="Sep">Sep</option>
+                                        <option value="Oct">Oct</option>
+                                        <option value="Nov">Nov</option>
+                                        <option value="Dec">Dec</option>
+                                      
+                                      </select>
+                                    </div>
+                                  </div>
+                          
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label class="Helvetica-sans-serif-medium">Group #</label>
+                                <div class="input-group input-group-lg">
+                                    <input type="text" class="form-control inputclass" placeholder="Group #">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <label class="Helvetica-sans-serif-medium">Local #</label>
+                                <div class="input-group input-group-lg">
+                                    <input type="text" class="form-control inputclass " placeholder="Local #">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-4 ">
+                            <label class="Helvetica-sans-serif-medium">Payer ID</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control inputclass" placeholder="Payer ID">
+                            </div>
+                        </div>
 
-         
-            <div class="row">
-                <div class="col-md-2">
-                    <button *ngIf="delete" mat-raised-button type="submit" class="btn btn-danger btn-danger">Delete</button>
-                </div>
-                <!-- <div class="col-md-4">
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <button *ngIf="delete" mat-raised-button type="submit"
+                                    class="btn btn-danger btn-danger">Delete</button>
+                            </div>
+                            <!-- <div class="col-md-4">
 
                 </div> -->
-                <div class="col-md-4">
-                    <button mat-raised-button type="submit" class="btn btn-green btn-selectcancel pull-right">Save</button>
-                </div>
-                <div class="col-md-3" *ngIf="cancel2">
-                    <button *ngIf="cancel2" mat-raised-button type="submit" class="btn btn-green btn-selectcancel  pull-right" (click)=cancel()>Cancel</button>
-                </div>
-                <div class="col-md-3">
-                    <button *ngIf="cancel1"  mat-raised-button type="submit" class="btn btn-green btn-selectcancel  pull-right" (click)=cancel() data-bs-dismiss="modal" aria-label="Close">Cancel</button>
-                </div>
-            </div>
-          </div>.
-             </ng-template>
-             <ng-template #other_content>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="find-procedure">
-                            <div class="form-group ">
-                              <div class="input-group">
-                                <!-- [(ngModel)]="this.arry.name" -->
-                                  <input type="text" name="search_procedure_code" id="search_procedure_code"
-                                  class="form-control search-control  Helvetica-sans-serif-medium" placeholder="Search Insurance Company Plan">
-                                <button class="btn btn-info btn-md" type="button">
-                                  <i class="fa fa-search text-white"></i>
-                                </button>
-                              </div>
+                            <div class="col-md-4">
+                                <button mat-raised-button type="submit"
+                                    class="btn btn-green btn-selectcancel pull-right">Save</button>
                             </div>
-                          </div>
+                            <div class="col-md-3" *ngIf="cancel2">
+                                <button *ngIf="cancel2" mat-raised-button type="submit"
+                                    class="btn btn-green btn-selectcancel  pull-right" (click)=cancel()>Cancel</button>
+                            </div>
+                            <div class="col-md-3">
+                                <button *ngIf="cancel1" mat-raised-button type="submit"
+                                    class="btn btn-green btn-selectcancel  pull-right" (click)=cancel()
+                                    data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                            </div>
+                        </div>
+                    </div>.
+                </ng-template>
+                <ng-template #other_content>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="find-procedure">
+                                <div class="form-group ">
+                                    <div class="input-group">
+                                        <!-- [(ngModel)]="this.arry.name" -->
+                                        <input type="text" name="search_procedure_code" id="search_procedure_code"
+                                            class="form-control search-control  Helvetica-sans-serif-medium"
+                                            placeholder="Search Insurance Company Plan">
+                                        <button class="btn btn-info btn-md" type="button">
+                                            <i class="fa fa-search text-white"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-4">
+                            <button (click)=AddInsuranceCompanyPlan() class="btn btn-green btn-insurancecompany"
+                                type="button">Add Insurance Company Plan </button>
+                        </div>
                     </div>
-                    <div class="col-md-2"></div>
-                    <div class="col-md-4">
-                        <button (click)=AddInsuranceCompanyPlan() class="btn btn-green btn-insurancecompany"
-                        type="button">Add Insurance Company Plan </button>
+                    <table class="table table-borderless">
+                        <thead class="bg-color">
+                            <tr>
+
+                                <th>
+                                    Insurance Company Name
+                                </th>
+                                <th>
+                                    Group Plan
+                                </th>
+                                <th>
+                                    Group #
+                                </th>
+                                <th>
+                                    Local #
+                                </th>
+                                <th>
+                                    Employer Name
+                                </th>
+                                <th>
+                                    Payer ID
+                                </th>
+                                <th>
+                                    Address
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of values; let idx=index;"
+                                [style.background-color]="rowClicked == idx ? 'rgb(254, 143, 0)' : ''"
+                                (click)="changeTableRowColor(idx,false)" (dblclick)=edit(idx)>
+
+                                <td>
+                                    <p></p>
+                                </td>
+                                <td>
+                                    <p></p>
+                                </td>
+                                <td>
+                                    <p>{{item.age}}</p>
+                                </td>
+                                <td>
+                                    <p>{{item.sex}}</p>
+                                </td>
+                                <td>
+                                    <p>{{item.id}}</p>
+                                </td>
+                                <td>
+                                    <p>{{item.InsuranceCompanyPlan}}</p>
+                                </td>
+                                <td>
+                                    <p></p>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                        </div>
+                        <div class="col-md-3">
+                            <button mat-raised-button type="submit" class="btn btn-green btn-selectcancel"
+                                (click)="Selected(idx)" data-bs-dismiss="modal" aria-label="Close"
+                                [disabled]="btnstate">Select</button>
+                        </div>
+                        <div class="col-md-3">
+                            <button mat-raised-button type="submit" class="btn btn-green btn-selectcancel   pull-right"
+                                data-bs-dismiss="modal" aria-label="Close" (click)=cancel()>Cancel</button>
+                        </div>
                     </div>
-                </div>
-                <table class="table table-borderless">
-                    <thead class="bg-color">
-                      <tr>
-                       
-                        <th>
-                            Insurance Company Name
-                        </th>
-                        <th>
-                            Group Plan	
-                        </th>
-                        <th>
-                            Group #
-                        </th>
-                        <th>
-                            Local #
-                        </th>
-                        <th>
-                            Employer Name
-                        </th>
-                        <th>
-                            Payer ID
-                        </th>
-                        <th>
-                            Address
-                        </th>
-                       
-                      </tr>
-                    </thead>
-                    <tbody>
-                        <tr   *ngFor ="let item of values; let idx=index;" 
-                        [style.background-color]="rowClicked == idx ? 'rgb(254, 143, 0)' : ''"
-                        (click)="changeTableRowColor(idx,false)"(dblclick)=edit(idx)>
-                          
-                            <td>
-                              <p></p>
-                            </td>
-                            <td>
-                              <p></p>
-                            </td>
-                            <td>
-                              <p>{{item.age}}</p>
-                            </td>
-                            <td>
-                              <p>{{item.sex}}</p>
-                            </td>
-                            <td>
-                                <p>{{item.id}}</p>
-                              </td>
-                              <td>
-                                <p>{{item.InsuranceCompanyPlan}}</p>
-                              </td>
-                              <td>
-                                <p></p>
-                              </td>
-                           
-                          </tr>
-                     </tbody>
-                  </table>
-                  <div class="row mt-4">
-                  <div class="col-md-6">
-                      </div>
-                      <div class="col-md-3">
-                    <button mat-raised-button type="submit" class="btn btn-green btn-selectcancel" (click)="Selected(idx)"  data-bs-dismiss="modal" aria-label="Close"  [disabled]="btnstate">Select</button>
-                </div>
-                <div class="col-md-3">
-                    <button mat-raised-button type="submit" class="btn btn-green btn-selectcancel   pull-right" data-bs-dismiss="modal" aria-label="Close" (click)=cancel()>Cancel</button>
-                </div>
+
+                </ng-template>
             </div>
-           
-             </ng-template> 
-      </div>
-      <div class="modal-footer">
-    
-      </div>
-    </div>
-  </div>
-</div>
-<div class="modal " id="Primary-Insurance-Details" data-bs-keyboard="false" tabindex="-1"
-  aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-          
-        <span  class="Helvetica-sans-serif-medium"> </span>
-        <span  class="Helvetica-sans-serif-medium">Primary Insurance Details </span>
-        <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close"
-         >
-          X
-        </span>
-      </div>
-      <div class="modal-body modal-scrollbar">
-     
-    <div class="row">
-        <div class="col-md-6 Helvetica-sans-serif-medium">Type:</div>
-        <div class="col-md-6 Helvetica-sans-serif-medium"></div>
+            <div class="modal-footer">
 
-    </div>
-    <div class="row">
-        <div class="col-md-6 Helvetica-sans-serif-medium">Insurance Company Name:</div>
-        <div class="col-md-6 Helvetica-sans-serif-medium">test</div>
-    </div>
-    <div class="row">
-        <div class="col-md-6 Helvetica-sans-serif-medium">Group Plan:</div>
-        <div class="col-md-6 Helvetica-sans-serif-medium">test</div>
-    </div>
-    <div class="row">
-        <div class="col-md-6 Helvetica-sans-serif-medium">Employer:</div>
-        <div class="col-md-6 Helvetica-sans-serif-medium">tes</div>
-    </div>
-    <div class="row">
-        <div class="col-md-6 Helvetica-sans-serif-medium">Address:</div>
-        <div class="col-md-6 Helvetica-sans-serif-medium"></div>
-    </div>
-    <div class="row">
-        <div class="col-md-6 Helvetica-sans-serif-medium">Contact:</div>
-        <div class="col-md-6 Helvetica-sans-serif-medium"></div>
-    </div>
-    <div class="row">
-        <div class="col-md-6 Helvetica-sans-serif-medium">Phone:</div>
-        <div class="col-md-6 Helvetica-sans-serif-medium"></div>
-    </div>
-    <div class="row">
-        <div class="col-md-6 Helvetica-sans-serif-medium">Benifit Renewal:</div>
-        <div class="col-md-6 Helvetica-sans-serif-medium"></div>
-    </div>
-    <div class="row">
-        <div class="col-md-6 Helvetica-sans-serif-medium">Group #:</div>
-        <div class="col-md-6 Helvetica-sans-serif-medium"></div>
-    </div>
-   
-      </div>
-     
-      <div class="modal-footer"
-      style="  border-top: 3px solid #41b6a6;">
-        <div class="row">
-                <div class="col-md-4">
-
-                </div>
-                    <div class="col-md-4">
-                        <button mat-raised-button type="submit" class="btn btn-green btn-primary" (click)="primaryinsurancedetails()"  data-bs-toggle="modal" data-bs-target="#modal-Patient-Education">Edit</button>
-                    </div>
-         
-            <div class="col-md-4">
-                <button mat-raised-button type="submit" class="btn btn-green btn-primary" data-bs-dismiss="modal" aria-label="Close" >Cancel</button>
             </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>
+<div class="modal " id="Primary-Insurance-Details" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content PrimaryInsuranceDetails">
+            <div class="modal-header">
+
+                <!-- <span  class="Helvetica-sans-serif-medium"> </span> -->
+                <span class="Helvetica-sans-serif-medium">Primary Insurance Details </span>
+                <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close">
+                    X
+                </span>
+            </div>
+            <div class="modal-body modal-scrollbar" style=" border-bottom: 3px solid #41b6a6;">
+
+                <div class="row">
+                    <div class="col-md-6 Helvetica-sans-serif-medium">Type:</div>
+                    <div class="col-md-6 Helvetica-sans-serif-medium"></div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-6 Helvetica-sans-serif-medium">Insurance Company Name:</div>
+                    <div class="col-md-6 Helvetica-sans-serif-medium">test</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 Helvetica-sans-serif-medium">Group Plan:</div>
+                    <div class="col-md-6 Helvetica-sans-serif-medium">test</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 Helvetica-sans-serif-medium">Employer:</div>
+                    <div class="col-md-6 Helvetica-sans-serif-medium">tes</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 Helvetica-sans-serif-medium">Address:</div>
+                    <div class="col-md-6 Helvetica-sans-serif-medium"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 Helvetica-sans-serif-medium">Contact:</div>
+                    <div class="col-md-6 Helvetica-sans-serif-medium"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 Helvetica-sans-serif-medium">Phone:</div>
+                    <div class="col-md-6 Helvetica-sans-serif-medium"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 Helvetica-sans-serif-medium">Benifit Renewal:</div>
+                    <div class="col-md-6 Helvetica-sans-serif-medium"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 Helvetica-sans-serif-medium">Group #:</div>
+                    <div class="col-md-6 Helvetica-sans-serif-medium"></div>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-4">
+
+                    </div>
+                    <div class="col-md-4">
+                        <button mat-raised-button type="submit" class="btn btn-green btn-primary"
+                            (click)="primaryinsurancedetails()" data-bs-toggle="modal"
+                            data-bs-target="#modal-Patient-Education">Edit</button>
+                    </div>
+
+                    <div class="col-md-4">
+                        <button mat-raised-button type="submit" class="btn btn-green btn-primary"
+                            data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

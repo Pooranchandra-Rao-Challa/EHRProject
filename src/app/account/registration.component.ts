@@ -29,7 +29,7 @@ export class RegistrationComponent implements OnInit {
   AccountDetails: any;
   UseThisValue: any;
   ValidAddressToUse: boolean;
-  displayVerifybtn: boolean;
+  addressVerified: boolean = false;
   PhonePattern: any;
   viewModel: ViewModel = {} as ViewModel;
   registration: Registration = {} as Registration;
@@ -103,7 +103,7 @@ export class RegistrationComponent implements OnInit {
       FirstName: ['', Validators.required],
       MiddleName: [''],
       LastName: ['', Validators.required],
-      PracticeId: ['new provider'],
+      PracticeId: [],
       PracticeName: ['', Validators.required],
       Degree: ['', Validators.required,],
       Speciality: ['', Validators.required],
@@ -115,9 +115,9 @@ export class RegistrationComponent implements OnInit {
 
   buildContInfoForm() {
     this.ContactInfomation = this.fb.group({
-      PracticeAddress: ['', Validators.required],
-      PrimaryPhone: ['', Validators.required],
-      MobilePhone: [''],
+      PracticeAddress: ['', [Validators.required]],
+      PrimaryPhone: ['', [Validators.required,ValidatePhone]],
+      MobilePhone: ['',[ValidatePhone]],
     })
   }
   buildAccountInfoForm() {
@@ -142,6 +142,8 @@ export class RegistrationComponent implements OnInit {
       }
     }
   }
+
+
 
   dropdownMenusList() {
     this.nameTitle = [
@@ -195,8 +197,13 @@ export class RegistrationComponent implements OnInit {
 
   }
 
+  reVerifyAddress(){
+    this.ContactInfomation.get('PracticeAddress').setValue("");
+    this.addressVerified = false;
+  }
   UseValidatedAddress() {
     this.closePopupAddress();
+    this.addressVerified = true;
     this.ContactInfomation.get('PracticeAddress').setValue(this.ValidAddressForUse);
   }
   openPopupAddress() {
@@ -268,3 +275,11 @@ export class RegistrationComponent implements OnInit {
 }
 
 
+function ValidatePhone(control: AbstractControl): {[key: string]: any} | null  {
+  console.log(control.value);
+
+  if (control.value && control.value.length != 10) {
+    return { 'phoneNumberInvalid': true };
+  }
+  return null;
+}

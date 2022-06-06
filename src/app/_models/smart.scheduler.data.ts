@@ -49,7 +49,8 @@ export interface ScheduleVisitStatus
 {
 
 }
-export interface ScheduledAppointment{
+export class ScheduledAppointment{
+  AppointmentId? : string;
   AppointmentTime? : Date;
   PatientName? : string;
   DateofBirth? : Date;
@@ -57,6 +58,8 @@ export interface ScheduledAppointment{
   Status?: string;
   AppointmentType? :string;
   Notes? :string;
+  IsCurrent?: boolean;
+  IsPast?: boolean;
 }
 
 

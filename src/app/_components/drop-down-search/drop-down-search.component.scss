@@ -1,4 +1,4 @@
-$input-width: 20rem;
+$input-width: 28rem;
 
 :host {
   display: block;
@@ -6,8 +6,10 @@ $input-width: 20rem;
 
 .drop-down-input {
   width: $input-width;
-  background-color: #eee;
+  background-color: white;
   height:45px;
+  border:solid 1px #41a6b6;
+  border-radius: 4px;
   //border: 1px solid #bbb;
 }
 .drop-down-input-active {
