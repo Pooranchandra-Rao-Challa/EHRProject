@@ -25,6 +25,9 @@ export class ChartComponent implements OnInit {
   medications: any[];
   encounters: any[];
   appointments: any[];
+  smokingstatus: any[];
+  tobaccoscreenings: any[];
+  tobaccointerventions: any[];
 
   constructor(public overlayService: OverlayService,
     private patientService: patientService) { }
@@ -38,7 +41,9 @@ export class ChartComponent implements OnInit {
     this.MedicationsByPatientId();
     this.EncountersByPatientId();
     this.AppointmentsByPatientId();
-
+    this.SmokingStatusByPatientId();
+    this.TobaccoUseScreenings();
+    this.TobaccoUseInterventions();
   }
 
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string) {
@@ -108,7 +113,6 @@ export class ChartComponent implements OnInit {
     }
     this.patientService.PastMedicalHistoriesByPatientId(reqparams).subscribe((resp) => {
       this.pastMedicalHistories = resp.ListResult;
-      console.log(this.pastMedicalHistories);
     });
   }
 
@@ -157,6 +161,39 @@ export class ChartComponent implements OnInit {
     }
     this.patientService.AppointmentsByPatientId(reqparams).subscribe((resp) => {
       this.appointments = resp.ListResult;
+    });
+  }
+
+  // Get smoking status info
+  SmokingStatusByPatientId() {
+    debugger;
+    let reqparams = {
+      PatientId: '5836daf4f2e48f36ba90a383'
+    }
+    this.patientService.SmokingStatusByPatientId(reqparams).subscribe((resp) => {
+      this.smokingstatus = resp.ListResult;
+    });
+  }
+
+  // Get tobacco screnning info
+  TobaccoUseScreenings() {
+    let reqparams = {
+      PatientId: '588ba54ec1a4c002ab2b38f3'
+    }
+    this.patientService.TobaccoUseScreenings(reqparams).subscribe((resp) => {
+      this.tobaccoscreenings = resp.ListResult;
+      console.log(this.tobaccoscreenings);
+    });
+  }
+
+  // Get tobacco interventions info
+  TobaccoUseInterventions() {
+    let reqparams = {
+      PatientId: '588ba54ec1a4c002ab2b38f3'
+    }
+    this.patientService.TobaccoUseInterventions(reqparams).subscribe((resp) => {
+      this.tobaccointerventions = resp.ListResult;
+      console.log(this.tobaccointerventions);
     });
   }
 

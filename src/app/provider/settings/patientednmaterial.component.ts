@@ -21,7 +21,7 @@ export class PatientEdnMaterialComponent implements OnInit {
   expandedchangecolor:boolean=false;
  // columnsToDisplay = [ 'name', 'codeSystem', 'resouceNote', 'attachments'];
  columnsToDisplay = ['action', 'name', 'weight', 'symbol', 'position'];
-  
+
   Patientedmateriallist: any=[];
 
   constructor(private fb:FormBuilder,private settingservice:SettingsService,private  authService: AuthenticationService){
@@ -38,12 +38,12 @@ export class PatientEdnMaterialComponent implements OnInit {
     //  ClinicId: "588ba23dc1a4c002ab2b37ae"
     ClinicId:this.user.ClinicId
   }
-  debugger;
+ // debugger;
   this.settingservice.EducationMaterials(reqparams).subscribe(response=>{
-    debugger;
+   // debugger;
     this.Patientedmateriallist=response.ListResult;
     console.log(this.Patientedmateriallist);
-    
+
   })
 }
   indexExpanded: number = 0;

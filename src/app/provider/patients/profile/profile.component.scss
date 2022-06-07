@@ -173,6 +173,7 @@ input::-webkit-input-placeholder {
   background-color: #41b6a6;
   border-color: #41b6a6;
   width: 70px;
+ // margin-left: 384px;
 }
 .label-design.check-label{
   margin-top: -8px;
@@ -181,6 +182,7 @@ input::-webkit-input-placeholder {
 .input-group>.form-control.search-control {
   border-color: #41b6a6 !important;
   background: white !important;
+  width: 550px !important;
 }
 
 // toggle on off checkbox
@@ -251,8 +253,8 @@ input:checked+.slider:before {
 
 input:checked+.slider:after {
   content: 'ON';
-  background-color: #ffffff;
-   color: #41b6a6;
+  // background-color: #ffffff;
+   color: #ffffff;
    left: 35%;
 }
 
@@ -281,7 +283,7 @@ input:checked+.slider:after {
 }
 .radio-btn-label {
   margin-top: -28px;
-  margin-left: 33px;
+  margin-left: 21px;
 }
 .radio-btn-label1 {
   margin-top: -80px;
@@ -428,6 +430,30 @@ tr td{
  }
 }
 
-// .modal{
-//   position:inherit;
-// }
+
+.form-control {
+  font-family: "Roboto";
+  font-size: 16px;
+}
+
+.a-tag:hover{
+text-decoration: underline;
+color: #41b6a6;
+}
+ .mat-form-field-appearance-outline .search-control .mat-form-field-outline {
+
+  height: 50px;
+  width: 582px;
+}
+.mat-form-field-appearance-outline .search-control.mat-form-field-outline-start {
+  border-radius: 0px 0 0 0px !important;
+}
+ .mat-form-field-appearance-outline .search-control .mat-form-field-outline-end {
+  border-radius: 0 0px 0px 0  !important;
+}
+.btn.btn-info{
+  height: 52px;
+}
+.search-field{
+  margin-left: 381px;
+}

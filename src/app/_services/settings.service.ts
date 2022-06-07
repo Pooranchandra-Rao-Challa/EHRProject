@@ -118,5 +118,11 @@ export class SettingsService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._toggleUserFieldValuesUrl, reqparams);
   }
 
+  UpdateTimeZone(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._updateTimeZoneUrl, reqparams);
+  }
 
+  DeleteLocation(reqparams:any){
+    return this._ProcessPostRequest<any>(this._deleteLocationUrl, reqparams);
+  }
 }

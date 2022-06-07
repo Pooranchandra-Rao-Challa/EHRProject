@@ -300,6 +300,24 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "AdminImportedPatientEncounter";
   }
 
+  get _medicalCodesUrl(){
+    return this._baseUrl + "MedicalCodes";
+
+  }
+
+  get _updateTimeZoneUrl(){
+    return this._baseUrl + "UpdateTimeZone";
+  }
+
+  get _deleteLocationUrl(){
+    return this._baseUrl + "DeleteLocation";
+  }
+
+
+
+  // get _advancedDirectivesUrl() {
+  //   return this._baseUrl + "AdvancedDirectives";
+  // }
   get _advancedDirectivesByPatientIdUrl() {
     return this._baseUrl + "AdvancedDirectivesByPatientId";
   }
@@ -332,13 +350,26 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "AppointmentsByPatientId";
   }
 
-  get _patientProfilreUrl() {
-    return this._baseUrl + "PatientProfile";
+  get _patientMyProfilreUrl() {
+    return this._baseUrl + "PatientMyProfile";
   }
 
   get _procedureCodesUrl() {
     return this._baseUrl + "DentalProcedureCodes";
   }
+
+  get _smokingStatusByPatientIdUrl() {
+    return this._baseUrl + "SmokingStatusByPatientId";
+  }
+
+  get _tobaccoUseScreeningsUrl() {
+    return this._baseUrl + "TobaccoUse_Screenings";
+  }
+
+  get _tobaccoUseInterventionsUrl() {
+    return this._baseUrl + "TobaccoUse_Interventions";
+  }
+
   constructor(public http: HttpClient) {
     super();
   }

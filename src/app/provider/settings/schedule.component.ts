@@ -343,7 +343,7 @@ export class ScheduleComponent implements OnInit {
 
   // Remove Room
   removeRoom(roomIndex: number) {
-    debugger;
+    //debugger;
     let roomId = this.roomForm.controls.rooms["controls"][roomIndex].get('RoomId').value;
     if (roomId < 0) {
       this.rooms().removeAt(roomIndex);

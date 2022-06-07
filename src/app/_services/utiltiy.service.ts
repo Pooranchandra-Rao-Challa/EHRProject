@@ -34,4 +34,7 @@ export class UtilityService extends APIEndPoint {
   CreateNewPatient(patient: Patient){
     return this._ProcessPostRequest<any>(this._createNewPatientUrl,patient);
   }
+  MedicalCodes(searchTerm: string,codeSystem: string){
+    return this._ProcessPostRequest<any>(this._medicalCodesUrl,{CodeSystem: codeSystem,SearchTerm: searchTerm});
+  }
 }

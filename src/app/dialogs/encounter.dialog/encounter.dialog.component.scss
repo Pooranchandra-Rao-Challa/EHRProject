@@ -1,0 +1,94 @@
+@import "../../../assets/cstm.material.scss";
+@import "../../../assets/common.scss";
+
+
+
+.modal-dialog {
+  overflow-y: initial !important;
+  max-width: inherit !important;
+  margin: 0 !important;
+  max-width: 95%;
+}
+.modal-body {
+  max-height: calc(90vh - 200px);
+  overflow-y: auto;
+}
+.modal-content{
+  max-width: 85%;
+  margin: auto;
+}
+.modal .modal-dialog .modal-content .modal-body {
+  padding: 10px 26px;
+}
+.modal-header{
+  margin-right: -1px;
+}
+.modal-body .form-group {
+  margin-bottom: 25px;
+}
+
+.encounter-tab-content {
+  padding: 10px 20px;
+  border-radius: 0 3px 3px 3px;
+  min-height: 450px;
+}
+.encounter-tab-content textarea.mat-input-element {
+  height: 71px;
+  border: 1px solid #41b6a6;
+  border-radius: 3px;
+  font-size: 15px;
+  padding: 10px 20px;
+  resize: both;
+}
+
+
+.encounter-navigation {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+.encounter-navigation .encounter-nav-tabs {
+  background-color: #41b6a6;
+}
+.encounter-nav-tabs li {
+  display: inline-block;
+  margin: 7px 10px 0 0;
+}
+.encounter-nav-tabs li.active a#meaningful-use {
+  color: #fe8f00;
+  background-color: #fff;
+}
+.encounter-navigation .encounter-nav-tabs li a {
+  padding: 4px 15px;
+  font-size: 18px;
+  background-color: #28776c;
+  color: #fff;
+  line-height: 30px;
+  border: 1px solid transparent;
+  border-bottom: 1px solid #41b6a6;
+  cursor: pointer;
+}
+
+.area-text {
+  margin-bottom: 15px;
+}
+.btn-performed-red{
+  border: solid 1px maroon;
+  color:red;
+  width:50%;
+}
+.btn-performed-sea-blue{
+  border: solid 1px #41a6b6;
+  color:#41a6b6;
+  width:50%;
+}
+::ng-deep .referral-margin span{
+  margin-top: 8px !important;
+  margin-left: 8px !important;
+}
+.encounter-diagnosis-remove-sides{
+  border-left: 0px solid #41b6a6 !important;
+  border-right: 0px solid #41b6a6 !important;
+}
+
+
+

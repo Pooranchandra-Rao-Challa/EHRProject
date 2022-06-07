@@ -38,7 +38,6 @@ body {
 h3{
   font-size: 24px;
   text-transform: uppercase;
-
 }
 .button-info {
   width: 50px;
@@ -120,7 +119,7 @@ h3{
 .reg-button {
   background-color: #fff;
   border: 1px solid #41b6a6;
-  height: 50px;
+  height: 48px;
   color: #41b6a6;
   border-radius: 3px;
 }
@@ -214,6 +213,7 @@ a:hover {
 }
 ::ng-deep .mat-select-panel {
   min-width: calc(100% + 22px) !important;
+  padding-top:25px;
   //margin-left: 5px !important;
 }
 .mat-option.mat-selected:not(.mat-option-disabled) {
@@ -253,6 +253,7 @@ a:hover {
 .addressSuccess{
   height: 55px;
   background: #5BB85C;
+  color:white;
   }
   .addressInvalid{
   height: 55px;
@@ -324,16 +325,18 @@ form.pt-4 p.category-title{
   margin: 0;
 
 }
-.white-light .select2-selection {
+.white-light.select2-selection {
   background-color: #fff;
-  border: 1px solid #dedede;
+  border: 0px solid #dedede;
   border-radius: 3px;
   outline: 0;
   transition: border-color .2s, background-color .2s;
-  height: 45px;
+  //height: 45px;
   box-shadow: none;
 }
-
+.panel-class-alignment{
+  padding-top:25px;
+}
 mat-form-field{
   line-height: inherit;
   font-family: 'SF UI Text Regular';
@@ -352,4 +355,12 @@ mat-form-field{
 ::ng-deep div#registration-form .mat-checkbox-ripple .mat-ripple-element,
 ::ng-deep div#registration-form .mat-checkbox-checked.mat-accent .mat-checkbox-background {
   background-color: #41a6a6 !important;
+}
+.disable-button{
+  color:grey;
+  background-color: lightgray;
+}
+.disable-button:hover{
+  color:grey;
+  background-color: lightgray;
 }

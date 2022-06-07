@@ -251,7 +251,7 @@ user agent stylesheet div {
 }
 
 
-.header-font {
+.login-header-font {
   font-size: 20px;
   font-weight: 400;
   text-align: center;
@@ -543,6 +543,15 @@ div#email-verification button {
 }
 
 
+.modal-body .form-group {
+  margin-bottom: 25px;
+}
+.modal-title {
+   line-height: 10px !important;
+}
+.modal-footer{
+  background: white;
+}
 .pop-contrainer {
   background: #f9f9f9;
   border-radius: 6px !important;
@@ -551,4 +560,8 @@ div#email-verification button {
 
 .swal-input {
   border: 1px solid #a9a9a9,
+}
+::ng-deep .mat-checkbox-label{
+  margin-top: 6px !important;
+  margin-left: 4px !important;
 }

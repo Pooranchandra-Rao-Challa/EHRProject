@@ -135,12 +135,58 @@
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list">
+                <ul class="main-list" *ngFor="let smoking of smokingstatus">
                   <li>
-                    <span></span>
+                    <a (click)="openComponentDialog(smokingStatusDialogComponent)">
+                      <span *ngIf="smoking?.effective_from != null && smoking?.effective_from !=''">
+                        - {{smoking.effective_from}}
+                      </span>
+                      <span *ngIf="smoking?.status != null && smoking?.status !=''">
+                        - {{smoking.status}}
+                      </span>
+                    </a>
                   </li>
+                </ul>
+                <ul class="main-list" *ngIf="smokingstatus?.length == (0 || null || undefined)">
                   <li>
-                    <span></span>
+                    <span>No smoking status recorded.</span>
+                  </li>
+                </ul>
+                <ul class="main-list" *ngFor="let screening of tobaccoscreenings">
+                  <li>
+                    <a>
+                      <span *ngIf="screening?.date_performed != null && screening?.date_performed !=''">
+                        - {{screening.date_performed | date: 'MM/dd/yyyy'}}
+                      </span>
+                      <span *ngIf="screening?.description != null && screening?.description !=''">
+                        - {{screening.description}}
+                      </span>
+                      <span *ngIf="screening?.code != null && screening?.code !=''">
+                        / {{screening.code}}
+                      </span>
+                    </a>
+                  </li>
+                </ul>
+                <ul class="main-list" *ngFor="let interventions of tobaccointerventions">
+                  <li>
+                    <a>
+                      <span
+                        *ngIf="interventions?.cessation_intervention_date != null && interventions?.cessation_intervention_date !=''">
+                        - {{interventions.cessation_intervention_date | date: 'MM/dd/yyyy'}}
+                      </span>
+                      <span *ngIf="interventions?.description != null && interventions?.description !=''">
+                        - {{interventions.description}}
+                      </span>
+                      <span *ngIf="interventions?.code != null && interventions?.code !=''">
+                        / {{interventions.code}}
+                      </span>
+                    </a>
+                  </li>
+                </ul>
+                <ul class="main-list"
+                  *ngIf="tobaccoscreenings?.length == (0 || null || undefined) && tobaccointerventions?.length == (0 || null || undefined)">
+                  <li>
+                    <span>No smoking status recorded.</span>
                   </li>
                 </ul>
               </div>
@@ -162,7 +208,7 @@
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list" *ngFor="let pastmedical of this.pastMedicalHistories">
+                <ul class="main-list" *ngFor="let pastmedical of pastMedicalHistories">
                   <li>
                     <a>
                       <span *ngIf="pastmedical?.created_at != null && pastmedical?.created_at !=''">
@@ -198,7 +244,7 @@
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list" *ngFor="let directive of this.advancedDirectives">
+                <ul class="main-list" *ngFor="let directive of advancedDirectives">
                   <li>
                     <a (click)="openComponentDialog(advancedDirectivesDialogComponent)">
                       <span *ngIf="directive?.created_at != null && directive?.created_at !=''">
@@ -523,11 +569,11 @@
             </mat-form-field>
             <label>Code</label>
             <mat-form-field class="w-100" appearance="outline">
-              <input matInput placeholder="Code" name="Code" formControlName="code" />
+              <input matInput placeholder="Code" name="Code" />
             </mat-form-field>
             <label>Descrption</label>
             <mat-form-field class="w-100" appearance="outline">
-              <input matInput placeholder="Descrption" name="Descrption" formControlName="Descrption" />
+              <input matInput placeholder="Descrption" name="Descrption" />
             </mat-form-field>
             <div class="row">
               <label>Start Date</label>
@@ -535,7 +581,7 @@
                 <input matInput [matDatepicker]="dp" placeholder="Start Date" name="startdate">
                 <mat-datepicker-toggle matSuffix [for]="dp">
                 </mat-datepicker-toggle>
-                <mat-datepicker #dp disabled="false"></mat-datepicker>
+                <mat-datepicker #dp1 disabled="false"></mat-datepicker>
               </mat-form-field>
               <div class="col-lg-4">
                 <button class="btn btn-green btn-today">Today</button>

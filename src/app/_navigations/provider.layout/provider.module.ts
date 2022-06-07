@@ -71,6 +71,8 @@ import { EncounterDialogComponent } from '../../dialogs/encounter.dialog/encount
 import { SmokingStatusDialogComponent } from '../../dialogs/smoking.status.dialog/smoking.status.dialog.component';
 import { InterventionDialogComponent } from '../../dialogs/intervention.dialog/intervention.dialog.component';
 import { DropDownSearchComponent } from '../../_components/drop-down-search/drop-down-search.component';
+import { AdvancedMedicalCodeModule } from '../../_components/advanced-medical-code-search/advanced-medical-code-module';
+
 import { patientService } from 'src/app/_services/patient.service';
 import { BillingService } from '../../_services/billing.service';
 import { AlertMessage } from 'src/app/_alerts/alertMessage';
@@ -83,7 +85,8 @@ import { AlertMessage } from 'src/app/_alerts/alertMessage';
     SmokingStatusDialogComponent,
     InterventionDialogComponent,
     SmartScheduleComponent,
-    NewAppointmentDialogComponent
+    NewAppointmentDialogComponent,
+    AdvancedMedicalCodeModule
   ],
   declarations: [
     ProviderNavbarComponent,
@@ -153,6 +156,7 @@ import { AlertMessage } from 'src/app/_alerts/alertMessage';
     DateTimePickerModule,
     SettingsModule,
     PatientsModule,
+    AdvancedMedicalCodeModule,
     NgxMaskModule.forRoot(),
 
   ],

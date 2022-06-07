@@ -37,7 +37,7 @@ export class AuditLogComponent implements OnInit {
   ProviderId: string;
   constructor(private authService: AuthenticationService,private settingservice:SettingsService) {
     this.user = authService.userValue;
-  
+
   }
   ngOnInit(): void {
 // this.getdata();
@@ -49,7 +49,7 @@ export class AuditLogComponent implements OnInit {
     {
       this.startDate = '';
       this.enddate = '';
-      debugger;
+      //debugger;
       var reqparams={
         ProviderId: this.user.ProviderId,
         // ProviderId: "5b686dd4c832dd0c444f271b",
@@ -69,8 +69,8 @@ export class AuditLogComponent implements OnInit {
       {
         this.auditLogList=reponse.ListResult;
         // this.TotalItems = this.auditLogList.length;
-        console.log(this.auditLogList);
-        
+        //console.log(this.auditLogList);
+
       })
   }
 
