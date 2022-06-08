@@ -57,4 +57,8 @@ export class patientService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._tobaccoUseInterventionsUrl, reqparams);
   }
 
+  CreateAdvancedDirectives(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._createAdvancedDirectivesUrl, reqparams);
+  }
+
 }
