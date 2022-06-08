@@ -38,7 +38,7 @@
             class="input-group new-search-group chart-patient-new-search-group col-xl-10 col-lg-9 col-md-9 col-12 mt-2 mt-md-0">
             <div class="new-search-input">
               <input type="text" name="chart_find_patient" id="chart_find_patient"
-                class="new-search form-control ignore_spinner" placeholder="Search Patients...">
+                class="new-search form-control ignore_spinner" placeholder="Search Patients..." />
               <span class="input-group-addon input-group-addon-search chart-find-patient-btn"></span>
             </div>
             <!-- <div class="wrapper-for-search" id="wrapper-for-search-chart_find_patient_list" style="display: none;">
@@ -574,15 +574,15 @@
             </mat-form-field>
             <label>Descrption</label>
             <mat-form-field class="w-100" appearance="outline">
-              <input matInput placeholder="Descrption" name="Descrption" />
+              <input matInput placeholder="Descrption" />
             </mat-form-field>
             <div class="row">
               <label>Start Date</label>
               <mat-form-field appearance="outline" class="green-calendar col-md-8">
-                <input matInput [matDatepicker]="dp" placeholder="Start Date" name="startdate">
-                <mat-datepicker-toggle matSuffix [for]="dp">
+                <input matInput [matDatepicker]="startdate" placeholder="Start Date" name="startdate" />
+                <mat-datepicker-toggle matSuffix [for]="startdate">
                 </mat-datepicker-toggle>
-                <mat-datepicker #dp1 disabled="false"></mat-datepicker>
+                <mat-datepicker #startdate disabled="false"></mat-datepicker>
               </mat-form-field>
               <div class="col-lg-4">
                 <button class="btn btn-green btn-today">Today</button>
@@ -591,10 +591,10 @@
             <div class="row">
               <label>End Date</label>
               <mat-form-field appearance="outline" class="green-calendar col-md-8">
-                <input matInput [matDatepicker]="dp" placeholder="End Date" name="enddate">
-                <mat-datepicker-toggle matSuffix [for]="dp">
+                <input matInput [matDatepicker]="enddate" placeholder="End Date" name="enddate" />
+                <mat-datepicker-toggle matSuffix [for]="enddate">
                 </mat-datepicker-toggle>
-                <mat-datepicker #dp disabled="false"></mat-datepicker>
+                <mat-datepicker #enddate disabled="false"></mat-datepicker>
               </mat-form-field>
               <div class="col-lg-4">
                 <button class="btn btn-green btn-today">Today</button>
@@ -709,13 +709,13 @@
                 <div class=" form-group col-lg-5 col-md-5">
                   <label>First Name</label>
                   <mat-form-field class="w-100" appearance="outline">
-                    <input matInput placeholder="First Name" name="Descrption" formControlName="Descrption" />
+                    <input matInput placeholder="First Name" />
                   </mat-form-field>
                 </div>
                 <div class="form-group col-lg-7 col-md-7">
                   <label>Last Name</label>
                   <mat-form-field class="w-100" appearance="outline">
-                    <input matInput placeholder="Last Name" name="Descrption" formControlName="Descrption" />
+                    <input matInput placeholder="Last Name" />
                   </mat-form-field>
                 </div>
               </div>
@@ -724,7 +724,7 @@
                   <label class="title-bold">Relationship</label>
                 </div>
                 <div class="col-md-8">
-                  <mat-form-field appearance="outline" >
+                  <mat-form-field appearance="outline">
                     <mat-select required>
                       <mat-option *ngFor="let trigger of TriggerRuleDD" [value]="trigger.value">
                         {{trigger.viewValue}}
@@ -917,8 +917,8 @@
           <div class=" form-group col-md-6 ">
             <label class="title-bold required">Reaction(s): </label>
             <div class="input-group input-group-custom search-input">
-              <input aria-label="Search for messages" autocomplete="off" class="input-search form-control ignore_spinner"
-                id="find-messages-input" placeholder="Search Messages">
+              <input aria-label="Search for messages" autocomplete="off"
+                class="input-search form-control ignore_spinner" id="find-messages-input" placeholder="Search Messages">
               <span class="input-group-addon input-group-addon-search chart-find-patient-btn inputclass"
                 id="find-messages-button"><i class="fa fa-search"></i></span>
             </div>
@@ -931,7 +931,7 @@
           </div>
           <div class="col-md-6">
             <mat-form-field appearance="outline" class="green-calendar input-field col-md-8">
-              <input matInput [matDatepicker]="dp1" placeholder="Start Date" name="startDate">
+              <input matInput [matDatepicker]="dp1" placeholder="Start Date" name="startDate" />
               <mat-datepicker-toggle matSuffix [for]="dp1">
               </mat-datepicker-toggle>
               <mat-datepicker #dp1 disabled="false"></mat-datepicker>
@@ -944,7 +944,7 @@
           </div>
           <div class="col-md-6">
             <mat-form-field appearance="outline" class="green-calendar input-field col-md-8">
-              <input matInput [matDatepicker]="dp2" placeholder="End Date" name="endDate">
+              <input matInput [matDatepicker]="dp2" placeholder="End Date" name="endDate" />
               <mat-datepicker-toggle matSuffix [for]="dp2">
               </mat-datepicker-toggle>
               <mat-datepicker #dp2 disabled="false"></mat-datepicker>
@@ -991,7 +991,7 @@
           <label class="title-field">Medication Name:</label>
           <div class="col-md-9">
             <mat-form-field class="input-bg w-100" appearance="outline">
-              <input matInput placeholder="Medication Name" name="medicationname:" formControlName="medicationname" />
+              <input matInput placeholder="Medication Name" name="medicationname:" />
             </mat-form-field>
           </div>
           <div class="col-md-3 mt-1 ">
@@ -1002,13 +1002,13 @@
           <div class="form-group col-md-6">
             <label class="title-field">Rx Norm ID:</label>
             <mat-form-field class="input-bg w-100" appearance="outline">
-              <input matInput placeholder="Rx Norm ID" name="rxnormid:" formControlName="rxnormid" />
+              <input matInput placeholder="Rx Norm ID" name="rxnormid:" />
             </mat-form-field>
           </div>
           <div class="form-group col-md-6 ">
             <label class="title-field">NDC ID:</label>
             <mat-form-field class="input-bg w-100" appearance="outline">
-              <input matInput placeholder="NDC ID" name="ndcid:" formControlName="ndcid" />
+              <input matInput placeholder="NDC ID" name="ndcid:" />
             </mat-form-field>
           </div>
         </div>
@@ -1016,13 +1016,13 @@
           <div class="form-group col-md-6">
             <label class="title-field">Dose and Form:</label>
             <mat-form-field class="input-bg w-100" appearance="outline">
-              <input matInput placeholder="Dose and Form" name="doseandform:" formControlName="doseandform" />
+              <input matInput placeholder="Dose and Form" name="doseandform:" />
             </mat-form-field>
           </div>
           <div class="form-group col-md-6 ">
             <label class="title-field">Dispense</label>
             <mat-form-field class="input-bg w-100" appearance="outline">
-              <input matInput placeholder="Dispense" name="dispense:" formControlName="dispense" />
+              <input matInput placeholder="Dispense" name="dispense:" />
             </mat-form-field>
           </div>
         </div>
@@ -1030,13 +1030,13 @@
           <div class="form-group col-md-6">
             <label class="title-field">Units:</label>
             <mat-form-field class="input-bg w-100" appearance="outline">
-              <input matInput placeholder="Units" name="units:" formControlName="units" />
+              <input matInput placeholder="Units" name="units:" />
             </mat-form-field>
           </div>
           <div class="form-group col-md-6">
             <label class="title-field">Quantity:</label>
             <mat-form-field class="input-bg w-100" appearance="outline">
-              <input matInput placeholder="Quantity" name="quantity" formControlName="quantity" />
+              <input matInput placeholder="Quantity" name="quantity" />
             </mat-form-field>
           </div>
         </div>
@@ -1044,13 +1044,13 @@
           <div class=" form-group col-md-6">
             <label class="title-field">Refills:</label>
             <mat-form-field class="input-bg w-100" appearance="outline">
-              <input matInput placeholder="Refills" name="refills:" formControlName="refills" />
+              <input matInput placeholder="Refills" name="refills:" />
             </mat-form-field>
           </div>
           <div class="form-group  col-md-6">
             <label class="title-field">Days Supply:</label>
             <mat-form-field class="input-bg w-100" appearance="outline">
-              <input matInput placeholder="Days Supply" name="dayssupply:" formControlName="dayssupply" />
+              <input matInput placeholder="Days Supply" name="dayssupply:" />
             </mat-form-field>
           </div>
         </div>
@@ -1080,7 +1080,7 @@
           <div class=" form-group col-md-6">
             <label class="title-field">Reasons</label>
             <mat-form-field class="input-bg w-100" appearance="outline">
-              <input matInput placeholder="Reasons" name="reasons" formControlName="reasons" />
+              <input matInput placeholder="Reasons" name="reasons" />
             </mat-form-field>
           </div>
           <div class="form-group mt-4 col-md-6">
@@ -1148,14 +1148,13 @@
         <div class=" form-group col-md-12">
           <label class="title-field"> Reason - Code</label>
           <mat-form-field class="input-bg input-field w-100" appearance="outline">
-            <input matInput placeholder="Reason - Code" name="reasonscode" formControlName="reasonscode" />
+            <input matInput placeholder="Reason - Code" name="reasonscode" />
           </mat-form-field>
         </div>
         <div class=" form-group col-md-12">
           <label class="title-field">Reason - Description</label>
           <mat-form-field class="input-bg input-field w-100" appearance="outline">
-            <input matInput placeholder="Reason Description" name="reasondescription"
-              formControlName="reasondescription" />
+            <input matInput placeholder="Reason Description" name="reasondescription" />
           </mat-form-field>
         </div>
       </div>
