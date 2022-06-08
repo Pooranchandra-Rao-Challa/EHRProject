@@ -370,6 +370,21 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "TobaccoUse_Interventions";
   }
 
+  get _careTeamUrl(){
+    return this._baseUrl + "CreateCareTeam";
+  }
+
+  get _careTeamByPatientIdUrl(){
+    return this._baseUrl + "CareTeamByPatientId";
+  }
+
+  get _languagesInfoUrl(){
+    return this._baseUrl + "LanguagesInfo";
+  }
+
+  get _patientsRelationByProviderIdUrl(){
+    return this._baseUrl + "PatientsRelationByProviderId";
+  }
   constructor(public http: HttpClient) {
     super();
   }

@@ -56,5 +56,21 @@ export class patientService extends APIEndPoint {
   TobaccoUseInterventions(reqparams: any) {
     return this._ProcessPostRequest<any>(this._tobaccoUseInterventionsUrl, reqparams);
   }
+  CreateCareTeam(reqparams:any)
+  {
+    return this._ProcessPostRequest<any>(this._careTeamUrl, reqparams);
+  }
 
+  CareTeamByPatientId(reqparam:any)
+  {
+    return this._ProcessPostRequest<any>(this._careTeamByPatientIdUrl, reqparam);
+  }
+  LanguagesInfo()
+  {
+    return this._ProcessGetRequest<any>(this._languagesInfoUrl);
+  }
+  PatientsRelationByProviderId(reqparam:any)
+  {
+    return this._ProcessPostRequest<any>(this._patientsRelationByProviderIdUrl, reqparam);
+  }
 }
