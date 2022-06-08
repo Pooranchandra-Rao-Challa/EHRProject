@@ -23,7 +23,6 @@ export class DentalChartComponent implements OnInit {
   }
 
   getProcedureList() {
-    debugger;
     this.dentalService.ProcedureCodes().subscribe(resp => {
       if (resp.IsSuccess) {
 

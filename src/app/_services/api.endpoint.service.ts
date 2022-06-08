@@ -369,6 +369,48 @@ export class APIEndPoint extends EndpointBase {
   get _tobaccoUseInterventionsUrl() {
     return this._baseUrl + "TobaccoUse_Interventions";
   }
+  get _patientClinicProviderUrl() {
+    return this._baseUrl + "PatientClinicProviders";
+  }
+  get _problemDxUrl()
+  {
+    return this._baseUrl + "ProblemsDx";
+  }
+  get _careTeamByPatientIdUrl()
+  {
+    return this._baseUrl + "CareTeamByPatientId";
+  }
+
+  get _careTeamUrl(){
+    return this._baseUrl + "CreateCareTeam";
+  }
+
+  get _languagesInfoUrl(){
+    return this._baseUrl + "LanguagesInfo";
+  }
+
+  get _patientsRelationByProviderIdUrl(){
+    return this._baseUrl + "PatientsRelationByProviderId";
+  }
+  get _labTestResultByPatientIdUrl()
+  {
+    return this._baseUrl + "LabTestResultByPatientId";
+  }
+
+  get _vitalStatsByPatientIdUrl()
+  {
+    return this._baseUrl + "VitalStatsByPatientId";
+  }
+
+  get _carePlanGoalInstructionsBypatientIdUrl()
+  {
+    return this._baseUrl + "CarePlanGoalInstructionsBypatientId";
+  }
+
+  get _ProcedureByPatientIdUrl()
+  {
+    return this._baseUrl + "ProcedureByPatientId";
+  }
 
   get _createAdvancedDirectivesUrl() {
     return this._baseUrl + "CreateAdvancedDirectives";
