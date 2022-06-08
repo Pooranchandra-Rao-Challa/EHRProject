@@ -429,6 +429,35 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "CreateAdvancedDirectives";
   }
 
+  get _updatePatientInformationUrl()
+  {
+    return this._baseUrl + "UpdatePatientInformation";
+  }
+
+  get _updateContactInformationUrl()
+  {
+    return this._baseUrl + "UpdateContactInformation";
+  }
+
+  get _updateEmergencyContactUrl()
+  {
+    return this._baseUrl + "UpdateEmergencyContact";
+  }
+
+  get _updateNextofkinUrl()
+  {
+    return this._baseUrl + "UpdateNextofkin";
+  }
+
+  get _updateDemographicsUrl()
+  {
+    return this._baseUrl + "UpdateDemographics";
+  }
+
+  get _updateImmunizationRegistryUrl()
+  {
+    return this._baseUrl + "UpdateImmunizationRegistry";
+  }
   constructor(public http: HttpClient) {
     super();
   }

@@ -98,6 +98,31 @@ export class patientService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._ProcedureByPatientIdUrl, reqparams);
   }
 
+  UpdatePatientInformation(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._updatePatientInformationUrl,reqparams);
+  }
+
+  UpdateContactInformation(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._updateContactInformationUrl,reqparams);
+  }
+
+  UpdateEmergencyContact(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._updateEmergencyContactUrl, reqparams);
+  }
+
+  UpdateNextofkin(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._updateNextofkinUrl, reqparams);
+  }
+
+  UpdateDemographics(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._updateDemographicsUrl, reqparams);
+  }
+
+  UpdateImmunizationRegistry(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._updateImmunizationRegistryUrl, reqparams);
+  }
+
+
   // Regarding Insurance Screen Related  services
 
   SourceOfPaymentTypologyCodes() {
