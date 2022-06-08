@@ -372,35 +372,47 @@ export class APIEndPoint extends EndpointBase {
   get _patientClinicProviderUrl() {
     return this._baseUrl + "PatientClinicProviders";
   }
-  get _problemDxUrl()
-  {
+  get _problemDxUrl() {
     return this._baseUrl + "ProblemsDx";
   }
-  get _careTeamByPatientIdUrl()
-  {
+  get _careTeamByPatientIdUrl() {
     return this._baseUrl + "CareTeamByPatientId";
   }
 
-  get _labTestResultByPatientIdUrl()
-  {
+  get _labTestResultByPatientIdUrl() {
     return this._baseUrl + "LabTestResultByPatientId";
   }
 
-  get _vitalStatsByPatientIdUrl()
-  {
+  get _vitalStatsByPatientIdUrl() {
     return this._baseUrl + "VitalStatsByPatientId";
   }
 
-  get _carePlanGoalInstructionsBypatientIdUrl()
-  {
+  get _carePlanGoalInstructionsBypatientIdUrl() {
     return this._baseUrl + "CarePlanGoalInstructionsBypatientId";
   }
 
-  get _ProcedureByPatientIdUrl()
-  {
+  get _ProcedureByPatientIdUrl() {
     return this._baseUrl + "ProcedureByPatientId";
   }
-  
+
+  // Regarding Insurance Screen Related apiendpoint services
+
+  get _sourceOfPaymentTypologyCodesUrl() {
+    return this._baseUrl + "SourceOfPaymentTypologyCodes";
+  }
+
+  get _insuranceCompanyPlansUrl() {
+    return this._baseUrl + "InsuranceCompanyPlans";
+  }
+
+  get _insurancDetailsUrl() {
+    return this._baseUrl + "InsurancDetails";
+  }
+
+  get _insuranceUrl() {
+    return this._baseUrl + "Insurance";
+  }
+
   constructor(public http: HttpClient) {
     super();
   }
