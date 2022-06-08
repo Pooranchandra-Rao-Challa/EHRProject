@@ -71,7 +71,7 @@ export class ProfileComponent implements OnInit {
     this.getPatientDetails();
     this.getPatientMyProfile();
     this.getProviderList();
-  //  this.getPatientsByProvider();
+    //  this.getPatientsByProvider();
     this.relationship;
     this.getlanguagesInfo();
     this.getPatientsRelationByProvider();
@@ -86,11 +86,8 @@ export class ProfileComponent implements OnInit {
          this.primaryLanguages= resp.ListResult[0];
          this.secondaryLanguage= resp.ListResult[1];
          this.languageList = this.languageList.concat(this.primaryLanguages,this.secondaryLanguage);
-         console.log(this.primaryLanguages);
-         console.log(this.secondaryLanguage);
-         console.log(this.languageList);
        }
-     })
+     });
   }
 
   // get patient id
@@ -110,6 +107,8 @@ export class ProfileComponent implements OnInit {
       debugger;
       if (resp.IsSuccess) {
         this.PatientMyProfile = resp.ListResult[0];
+        this.PatientMyProfile.Notes=this.PatientMyProfile.Notes;
+        console.log(this.PatientMyProfile.Notes);
       }
     });
   }
@@ -246,4 +245,7 @@ export class ProfileComponent implements OnInit {
     this.AddAduthorizesModal = "block";
   }
 
+  addNote(){
+
+  }
 }
