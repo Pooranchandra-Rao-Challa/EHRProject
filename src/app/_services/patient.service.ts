@@ -61,10 +61,6 @@ export class patientService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._careTeamUrl, reqparams);
   }
 
-  CareTeamByPatientId(reqparam:any)
-  {
-    return this._ProcessPostRequest<any>(this._careTeamByPatientIdUrl, reqparam);
-  }
   LanguagesInfo()
   {
     return this._ProcessGetRequest<any>(this._languagesInfoUrl);
@@ -73,4 +69,39 @@ export class patientService extends APIEndPoint {
   {
     return this._ProcessPostRequest<any>(this._patientsRelationByProviderIdUrl, reqparam);
   }
+  PatientClinicProviders(reqparams:any)
+  {
+    return this._ProcessPostRequest<any>(this._patientClinicProviderUrl,reqparams);
+  }
+
+  ProblemDx(reqparams:any)
+  {
+    return this._ProcessPostRequest<any>(this._problemDxUrl,reqparams);
+  }
+
+  CareTeamByPatientId(reqparams:any)
+  {
+    return this._ProcessPostRequest<any>(this._careTeamByPatientIdUrl,reqparams);
+  }
+
+  LabTestResultByPatientId(reqparams:any)
+  {
+    return this._ProcessPostRequest<any>(this._labTestResultByPatientIdUrl,reqparams);
+  }
+
+  VitalStatsByPatientId(reqparams:any)
+  {
+    return this._ProcessPostRequest<any>(this._vitalStatsByPatientIdUrl,reqparams);
+  }
+
+  CarePlanGoalInstructionsBypatientId(reqparams:any)
+  {
+    return this._ProcessPostRequest<any>(this._carePlanGoalInstructionsBypatientIdUrl,reqparams);
+  }
+
+  ProcedureByPatientId(reqparams:any)
+  {
+    return this._ProcessPostRequest<any>(this._ProcedureByPatientIdUrl,reqparams);
+  }
+
 }

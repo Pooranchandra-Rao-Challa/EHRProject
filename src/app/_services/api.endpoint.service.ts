@@ -300,16 +300,16 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "AdminImportedPatientEncounter";
   }
 
-  get _medicalCodesUrl(){
+  get _medicalCodesUrl() {
     return this._baseUrl + "MedicalCodes";
 
   }
 
-  get _updateTimeZoneUrl(){
+  get _updateTimeZoneUrl() {
     return this._baseUrl + "UpdateTimeZone";
   }
 
-  get _deleteLocationUrl(){
+  get _deleteLocationUrl() {
     return this._baseUrl + "DeleteLocation";
   }
 
@@ -369,13 +369,20 @@ export class APIEndPoint extends EndpointBase {
   get _tobaccoUseInterventionsUrl() {
     return this._baseUrl + "TobaccoUse_Interventions";
   }
+  get _patientClinicProviderUrl() {
+    return this._baseUrl + "PatientClinicProviders";
+  }
+  get _problemDxUrl()
+  {
+    return this._baseUrl + "ProblemsDx";
+  }
+  get _careTeamByPatientIdUrl()
+  {
+    return this._baseUrl + "CareTeamByPatientId";
+  }
 
   get _careTeamUrl(){
     return this._baseUrl + "CreateCareTeam";
-  }
-
-  get _careTeamByPatientIdUrl(){
-    return this._baseUrl + "CareTeamByPatientId";
   }
 
   get _languagesInfoUrl(){
@@ -385,6 +392,26 @@ export class APIEndPoint extends EndpointBase {
   get _patientsRelationByProviderIdUrl(){
     return this._baseUrl + "PatientsRelationByProviderId";
   }
+  get _labTestResultByPatientIdUrl()
+  {
+    return this._baseUrl + "LabTestResultByPatientId";
+  }
+
+  get _vitalStatsByPatientIdUrl()
+  {
+    return this._baseUrl + "VitalStatsByPatientId";
+  }
+
+  get _carePlanGoalInstructionsBypatientIdUrl()
+  {
+    return this._baseUrl + "CarePlanGoalInstructionsBypatientId";
+  }
+
+  get _ProcedureByPatientIdUrl()
+  {
+    return this._baseUrl + "ProcedureByPatientId";
+  }
+
   constructor(public http: HttpClient) {
     super();
   }
