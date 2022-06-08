@@ -127,7 +127,7 @@
                 <div class="row">
                   <div class="col-12">
                     <p class="card-title">
-                      <span (click)="openComponentDialog(smokingStatusDialogComponent)">Smoking Status</span>
+                      <span (click)="openComponentDialog(smokingStatusDialogComponent, null)">Smoking Status</span>
                       <span style="cursor:auto;"> and </span>
                       <span>Tobacco Use</span>
                     </p>
@@ -235,7 +235,7 @@
                   <div class="col-md-4 col-6">
                     <div class="col-12">
                       <div class="edit-icon pull-right"
-                        (click)="openComponentDialog(advancedDirectivesDialogComponent)">
+                        (click)="openComponentDialog(advancedDirectivesDialogComponent, advancedDirectives[0])">
                         <span class="cstm-icon-pencil"></span>
                       </div>
                     </div>
@@ -245,12 +245,12 @@
               <div class="card-body">
                 <ul class="main-list" *ngFor="let directive of advancedDirectives">
                   <li>
-                    <a (click)="openComponentDialog(advancedDirectivesDialogComponent)">
-                      <span *ngIf="directive?.created_at != null && directive?.created_at !=''">
-                        - {{directive?.created_at | date: 'MM/dd/yyyy'}}
+                    <a (click)="openComponentDialog(advancedDirectivesDialogComponent, directive)">
+                      <span *ngIf="directive?.RecordAt != null && directive?.RecordAt !=''">
+                        - {{directive?.RecordAt | date: 'MM/dd/yyyy'}}
                       </span>
-                      <span *ngIf="directive?.notes != null && directive?.notes !=''">
-                        - {{directive?.notes}}
+                      <span *ngIf="directive?.Notes != null && directive?.Notes !=''">
+                        - {{directive?.Notes}}
                       </span>
                     </a>
                   </li>
@@ -375,7 +375,8 @@
                     <p class="card-title">Screenings/Interventions/Assessments</p>
                   </div>
                   <div class="col-md-4 col-6">
-                    <div class="col-12 plusicon pull-right" (click)="openComponentDialog(interventionDialogComponent)">
+                    <div class="col-12 plusicon pull-right"
+                      (click)="openComponentDialog(interventionDialogComponent, null)">
                       <span><i class="fa fa-plus"></i></span>
                     </div>
                   </div>

@@ -28,6 +28,7 @@ export class ChartComponent implements OnInit {
   smokingstatus: any[];
   tobaccoscreenings: any[];
   tobaccointerventions: any[];
+  advanceddirectivesdialogResponse: any;
 
   constructor(public overlayService: OverlayService,
     private patientService: patientService) { }
@@ -46,16 +47,16 @@ export class ChartComponent implements OnInit {
     this.TobaccoUseInterventions();
   }
 
-  openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string) {
-    //debugger;
-    const ref = this.overlayService.open(content, null);
+  openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string, dialogData) {
+
+    const ref = this.overlayService.open(content, dialogData);
 
     ref.afterClosed$.subscribe(res => {
       if (typeof content === 'string') {
 
       }
       else if (content === this.advancedDirectivesDialogComponent) {
-        this.dialogResponse = res.data;
+        this.advanceddirectivesdialogResponse = res.data;
       }
       else if (content === this.smokingStatusDialogComponent) {
         this.dialogResponse = res.data;
@@ -166,7 +167,6 @@ export class ChartComponent implements OnInit {
 
   // Get smoking status info
   SmokingStatusByPatientId() {
-    debugger;
     let reqparams = {
       PatientId: '5836daf4f2e48f36ba90a383'
     }
@@ -182,7 +182,6 @@ export class ChartComponent implements OnInit {
     }
     this.patientService.TobaccoUseScreenings(reqparams).subscribe((resp) => {
       this.tobaccoscreenings = resp.ListResult;
-      console.log(this.tobaccoscreenings);
     });
   }
 
@@ -193,7 +192,6 @@ export class ChartComponent implements OnInit {
     }
     this.patientService.TobaccoUseInterventions(reqparams).subscribe((resp) => {
       this.tobaccointerventions = resp.ListResult;
-      console.log(this.tobaccointerventions);
     });
   }
 
