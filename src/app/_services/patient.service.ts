@@ -56,9 +56,22 @@ export class patientService extends APIEndPoint {
   TobaccoUseInterventions(reqparams: any) {
     return this._ProcessPostRequest<any>(this._tobaccoUseInterventionsUrl, reqparams);
   }
+  CreateCareTeam(reqparams:any)
+  {
+    return this._ProcessPostRequest<any>(this._careTeamUrl, reqparams);
+  }
 
-  PatientClinicProviders(reqparams: any) {
-    return this._ProcessPostRequest<any>(this._patientClinicProviderUrl, reqparams);
+  LanguagesInfo()
+  {
+    return this._ProcessGetRequest<any>(this._languagesInfoUrl);
+  }
+  PatientsRelationByProviderId(reqparam:any)
+  {
+    return this._ProcessPostRequest<any>(this._patientsRelationByProviderIdUrl, reqparam);
+  }
+  PatientClinicProviders(reqparams:any)
+  {
+    return this._ProcessPostRequest<any>(this._patientClinicProviderUrl,reqparams);
   }
 
   ProblemDx(reqparams: any) {
@@ -88,7 +101,6 @@ export class patientService extends APIEndPoint {
   // Regarding Insurance Screen Related  services
 
   SourceOfPaymentTypologyCodes() {
-debugger;
     return this._ProcessGetRequest<any>(this._sourceOfPaymentTypologyCodesUrl);
   }
 
@@ -102,6 +114,10 @@ debugger;
 
   Insurance(reqparams: any) {
     return this._ProcessPostRequest<any>(this._insuranceUrl, reqparams);
+
+  }
+  CreateAdvancedDirectives(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._createAdvancedDirectivesUrl, reqparams);
   }
 
 }

@@ -11,7 +11,7 @@
         </a>
       </li>
 
-     
+
       <li [class]="name !== 'appointment' ? 'nav-item': 'active nav-item'">
         <a href="javascript:void(0)" (click)="onChangeBreadCrum('patient/appointment','appointment')"
           routerLinkActive="router-link-active" class="nav-link active item-appointments">Appointments
@@ -54,7 +54,7 @@
     <li class="li-menu" routerLink="/patient/health">
       <a class="nav-li">My Health</a>
     </li>
-    <li class="li-menu border-bottom" routerLink="/patient/document">
+    <li class="li-menu border-bottom" routerLink="/patient/activitylog">
       <a class="nav-li">Activity Log</a>
     </li>
     <li class="li-menu" (click)="logout()">

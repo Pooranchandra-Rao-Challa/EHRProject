@@ -1,3 +1,4 @@
+import { ActivityLogComponent } from './../../patient/activitylog.component';
 import { MessageComponent } from './../../patient/message.component';
 import { AppointmentComponent } from './../../patient/appointment.component';
 import { NgModule } from '@angular/core';
@@ -20,6 +21,7 @@ const routes: Routes = [
       { path: 'message', component: MessageComponent },
       { path: 'health', component: MyhealthComponent },
       { path: 'profile', component: MyprofileComponent },
+      { path: 'activitylog', component: ActivityLogComponent },
     ]
   }
 ]

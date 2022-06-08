@@ -1,0 +1,82 @@
+@import"../../assets/common.scss";
+
+.bordered-container {
+  border-radius: 3px;
+  border: 1px solid #41b6a6;
+  padding: 0px 0px 0px 0px;
+}
+.bordered-container .category-header {
+  height: 30px;
+  background-color: #41b6a6;
+  padding: 4px 30px;
+  margin-bottom: 20px;
+}
+.hover-class {
+  width: 165px;
+  height: 45px;
+}
+
+.tab-content table, thead, th {
+  font-size: 12px;
+  line-height: 0.1;
+  //border: 1px solid #fff;
+
+}
+th:nth-child(2),th:nth-child(3) {
+  border: solid 1px #fff;
+
+ }
+ th.b8 {
+   border-right:1px solid #41b6a6;
+  }
+
+ td:last-child {
+  border :none;
+  background-color: #ffffff;
+}
+.tab-content table, tbody, td {
+  font-size: 12px;
+  line-height: 0.1;
+  border: 1px solid #41b6a6
+}
+.table thead th {
+  border-top: 1px solid #e0e0e0;
+  border-bottom-width: 0px;
+  font-family: 'Roboto' !important;
+  --bs-table-accent-bg: none !important;
+  background-color: #41b6a6;
+  color: #fff;
+  font-size: 16px;
+  padding: 22px 22px;
+  font-weight: 400;
+}
+.title{
+  font-size: 16px;
+  color: #fff;
+}
+.table tbody td {
+  background-color: #fff;
+  border-top: 1px solid #e0e0e0;
+  border-bottom-width: 0px;
+  font-family: 'Roboto' !important;
+  --bs-table-accent-bg: none !important;
+  font-size: 16px;
+  padding: 15px 22px;
+
+  }
+
+.cust-hyphen {
+  padding: 0px 3px;
+  font-size: 39px;
+  margin-top: -8px;
+}
+::ng-deep.mat-datepicker-toggle.mat-datepicker-toggle button.mat-focus-indicator.mat-icon-button {
+  height: 3.3em !important;
+}
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline
+{
+  color: #41b6a6;
+}
+.th-border {
+  border-bottom: 2px solid #41b6a6 !important
+}

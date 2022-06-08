@@ -379,7 +379,19 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "CareTeamByPatientId";
   }
 
-  get _labTestResultByPatientIdUrl() {
+  get _careTeamUrl(){
+    return this._baseUrl + "CreateCareTeam";
+  }
+
+  get _languagesInfoUrl(){
+    return this._baseUrl + "LanguagesInfo";
+  }
+
+  get _patientsRelationByProviderIdUrl(){
+    return this._baseUrl + "PatientsRelationByProviderId";
+  }
+  get _labTestResultByPatientIdUrl()
+  {
     return this._baseUrl + "LabTestResultByPatientId";
   }
 
@@ -411,6 +423,10 @@ export class APIEndPoint extends EndpointBase {
 
   get _insuranceUrl() {
     return this._baseUrl + "Insurance";
+
+  }
+  get _createAdvancedDirectivesUrl() {
+    return this._baseUrl + "CreateAdvancedDirectives";
   }
 
   constructor(public http: HttpClient) {
