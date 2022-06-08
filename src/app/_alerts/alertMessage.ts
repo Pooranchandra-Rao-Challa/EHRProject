@@ -1,5 +1,5 @@
 import Swal from 'sweetalert2';
-import {map} from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Map } from 'typescript';
 
 export class AlertMessage {
@@ -24,7 +24,7 @@ export class AlertMessage {
       showConfirmButton: true,
       confirmButtonText: 'Close',
       width: '600',
-      customClass: {title: 'swal2-title-custom'}
+      customClass: { title: 'swal2-title-custom' }
     });
   }
 }
@@ -41,7 +41,7 @@ export class AlertMessage {
  * Screens; Proverder login
  * SmartScheduler: A
  * Calender: B
- * Patinets: C
+ * Patients: C
  * Messages: D
  * DirectMsg: E
  * Erx: F
@@ -63,13 +63,26 @@ export class AlertMessage {
  * Erx.  : E
  * Patinet Educations: PE
  *
+ * PATIENTS
+ * Chart : C
+ * Dental Chart : DC
+ *
+ * ----------------------------------------
+ * These are some dialogs in Chart screen
+ *
+ * CHART
+ * Diagnoses : D
+ * Smoking Status : SS
+ * Tobacco Use : TU
+ * Past Medical Histories : PMH
+ * Advanced Directives : AD
  * ---------------------------------------------------
  * Errors Number shouw be three digits like 001
  *
  * Example if Messages for Setting screen of providers the Message like M2J001
  * On any change in the above counter should be initialized.
  */
-export const ERROR_CODES: {[key: string]:string} = {
+export const ERROR_CODES: { [key: string]: string } = {
   // Message form Setting screen
   'M2JP001': 'Location updated successfully',
   'M2JP002': 'Location added successfully',
@@ -87,6 +100,14 @@ export const ERROR_CODES: {[key: string]:string} = {
   'E2JP006': 'Location delation error.',
 
   //Message for provider setting schedule..
-  'M2JS001': 'Timezone updated successfully'
+  'M2JS001': 'Timezone updated successfully',
+
+  //Message for Advanced Directives in chart screen
+  'M2CAD001': 'Advanced Directives added successfully',
+  'M2CAD002': 'Advanced Directives updated successfully',
+  'M2CAD003': 'Advanced Directives deleted successfully',
+
+  // Error for Advanced directives
+  'E2CAD001': 'Advanced Directives Updation error',
 
 };

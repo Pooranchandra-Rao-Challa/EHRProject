@@ -74,34 +74,50 @@ export class patientService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._patientClinicProviderUrl,reqparams);
   }
 
-  ProblemDx(reqparams:any)
-  {
-    return this._ProcessPostRequest<any>(this._problemDxUrl,reqparams);
+  ProblemDx(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._problemDxUrl, reqparams);
   }
 
-  CareTeamByPatientId(reqparams:any)
-  {
-    return this._ProcessPostRequest<any>(this._careTeamByPatientIdUrl,reqparams);
+  CareTeamByPatientId(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._careTeamByPatientIdUrl, reqparams);
   }
 
-  LabTestResultByPatientId(reqparams:any)
-  {
-    return this._ProcessPostRequest<any>(this._labTestResultByPatientIdUrl,reqparams);
+  LabTestResultByPatientId(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._labTestResultByPatientIdUrl, reqparams);
   }
 
-  VitalStatsByPatientId(reqparams:any)
-  {
-    return this._ProcessPostRequest<any>(this._vitalStatsByPatientIdUrl,reqparams);
+  VitalStatsByPatientId(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._vitalStatsByPatientIdUrl, reqparams);
   }
 
-  CarePlanGoalInstructionsBypatientId(reqparams:any)
-  {
-    return this._ProcessPostRequest<any>(this._carePlanGoalInstructionsBypatientIdUrl,reqparams);
+  CarePlanGoalInstructionsBypatientId(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._carePlanGoalInstructionsBypatientIdUrl, reqparams);
   }
 
-  ProcedureByPatientId(reqparams:any)
-  {
-    return this._ProcessPostRequest<any>(this._ProcedureByPatientIdUrl,reqparams);
+  ProcedureByPatientId(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._ProcedureByPatientIdUrl, reqparams);
+  }
+
+  // Regarding Insurance Screen Related  services
+
+  SourceOfPaymentTypologyCodes() {
+    return this._ProcessGetRequest<any>(this._sourceOfPaymentTypologyCodesUrl);
+  }
+
+  InsuranceCompanyPlans() {
+    return this._ProcessGetRequest<any>(this._insuranceCompanyPlansUrl);
+  }
+
+  InsurancDetails(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._insurancDetailsUrl, reqparams);
+  }
+
+  Insurance(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._insuranceUrl, reqparams);
+
+  }
+  CreateAdvancedDirectives(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._createAdvancedDirectivesUrl, reqparams);
   }
 
 }

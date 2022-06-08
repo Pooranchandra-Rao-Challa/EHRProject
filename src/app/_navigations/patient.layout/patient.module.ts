@@ -1,3 +1,4 @@
+import { ActivityLogComponent } from './../../patient/activitylog.component';
 import { patientService } from 'src/app/_services/patient.service';
 import { FooterComponent } from './../footer.component';
 import { NewmessageDialogComponent } from './../../dialogs/newmessage.dialog/newmessage.dialog.component';
@@ -27,14 +28,14 @@ import { OverlayService } from 'src/app/overlay.service';
     PatientComponent,
     DashboardComponent,
     AppointmentComponent,
-
     DocumentComponent,
     MessageComponent,
     MyhealthComponent,
     MyprofileComponent,
     PatientappointmentDialogComponent,
     NewmessageDialogComponent,
-    FooterComponent
+    FooterComponent,
+    ActivityLogComponent
 
 
   ],
