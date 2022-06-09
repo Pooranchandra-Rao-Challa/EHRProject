@@ -1,23 +1,20 @@
 <div class="container-fluid">
   <div class="row">
-
-
-
     <div class="d-flex justify-content-end flex-sm-row flex-column">
       <!-- Button trigger modal -->
       <div class="p-2"><button type="button" class="btn btn-lg btn-notes" data-bs-toggle="modal"
           data-bs-target="#ResetPwdModal">Reset Password</button></div>
       <div class="p-2"><button type="button" class="btn btn-lg btn-notes" data-bs-toggle="modal"
-          data-bs-target="#noteModal">Notes</button></div>
+          data-bs-target="#noteModal" (click)="openNotes()">Notes</button></div>
       <div class="p-2"><button type="button" class="btn btn-lg btn-danger btn-authorized" data-bs-toggle="modal"
           data-bs-target="#AuthorizedModal">Authorized Rep.</button></div>
-      <div class="p-2"><button type="button" class="btn btn-lg btn-orange">Save</button></div>
+      <!-- <div class="p-2"><button type="button" class="btn btn-lg btn-orange">Save</button></div> -->
     </div>
   </div>
 
   <div class="profile-hr my-1">
     <div class="row">
-      <div class="col-lg-6 col-md-6 col-12">
+      <div class="col-lg-6 col-md-6 col-12 mycontent-left">
         <div class="row">
           <!-- Patient -->
           <div class="col-lg-12 col-md-12 col-12 mb-3">
@@ -28,8 +25,8 @@
             <div class="row  mx-2">
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="Name" class="form-label label-design">Name</label>
-                <input type="text"  class="input-group form-control" placeholder="First Name"
-                  [(ngModel)]="PatientMyProfile.FirstName" id="FirstName" name="FirstName"  #FirstName="ngModel">
+                <input type="text" class="input-group form-control" placeholder="First Name"
+                  [(ngModel)]="PatientMyProfile.FirstName" id="FirstName" name="FirstName" #FirstName="ngModel">
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="MiddleName" class="form-label label-design">Middle Name</label>
@@ -118,10 +115,14 @@
                   placeholder="Preliminary Cause of Death" type="text" id="PATIENT ID">
               </div>
             </div>
+            <div class="d-flex justify-content-end mt-3 ">
+              <button type="button" class="btn btn-lg btn-orange" (click)="updatePatientInformation()">Save</button>
+             </div>
           </div>
           <div class="col-lg-12 col-md-12 col-12">
             <hr>
           </div>
+
           <!-- Emergency contact -->
           <div class="col-lg-12 col-md-12 col-12 my-3">
             <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
@@ -200,11 +201,15 @@
                   </div>
                 </div>
               </div>
+              <div class="d-flex justify-content-end mt-3">
+                <button type="button" class="btn btn-lg btn-orange" (click)="updateEmergencyContact()">Save</button>
+               </div>
             </div>
           </div>
           <div class="col-lg-12 col-md-12 col-12">
             <hr>
           </div>
+
           <!-- Next of kin -->
           <div class="col-lg-12 col-md-12 col-12 my-3">
             <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
@@ -240,11 +245,9 @@
               <div class="col-lg-12 col-md-12 col-12 my-2">
                 <label for="DATEOFBIRTH*" class="form-label label-design">ADDRESS</label>
                 <input class="input-group form-control" [(ngModel)]="PatientMyProfile.NKStreetAddress"
-                  placeholder="street address1" type="text" id="DATEOFBIRTH">
+                  placeholder="Street Address" type="text" id="DATEOFBIRTH">
               </div>
-              <div class="col-lg-12 col-md-12 col-12 my-3">
-                <input class="input-group form-control" placeholder="street address2" type="text" id="DATEOFDEATH">
-              </div>
+
               <div class="col-lg-6 col-md-6 col-12 my-2">
                 <input class="input-group form-control" [(ngModel)]="PatientMyProfile.NKCity" placeholder="City"
                   type="text" id="Name">
@@ -258,6 +261,10 @@
                 <input class="input-group form-control" [(ngModel)]="PatientMyProfile.NKZip" placeholder="Zip"
                   type="text" id="Zip">
               </div>
+              <div class="d-flex justify-content-end mt-3">
+                <button type="button" class="btn btn-lg btn-orange" (click)="updateNextOfKin()">Save</button>
+               </div>
+
             </div>
           </div>
           <div class="col-lg-12 col-md-12 col-12">
@@ -266,6 +273,28 @@
 
           <!-- Immunization registry-->
           <div class="col-lg-12 col-md-12 col-12 my-3">
+            <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
+              <label>Immunization registry</label>
+            </div>
+            <div class="row">
+             <mat-radio-group [(ngModel)]="PatientMyProfile.ImmunizationrRegistry">
+              <div class="col-lg-12 col-md-12 col-12">
+               <mat-radio-button value="not_send"   class="radio-btn-label label-design my-1" >Don’t send immunization data. Patient has requested to protect their data.</mat-radio-button>
+              </div>
+              <div class="col-lg-12 col-md-12 col-12">
+                <mat-radio-button value="send"   class="radio-btn-label label-design my-1">send immunization data. Patient has requested to protect their data.</mat-radio-button>
+              </div>
+              <div class="col-lg-12 col-md-12 col-12">
+                <mat-radio-button value="not_specified"   class="radio-btn-label label-design my-1">Patient did not specify preference regarding sharing their data.</mat-radio-button>
+              </div>
+              </mat-radio-group>
+            </div>
+            <div class="d-flex justify-content-end mt-3 mx-3">
+              <button type="button" class="btn btn-lg btn-orange" (click)="updateImmunizationRegistry()">Save</button>
+             </div>
+          </div>
+
+          <!-- <div class="col-lg-12 col-md-12 col-12 my-3">
             <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
               <label>Immunization registry</label>
             </div>
@@ -285,7 +314,9 @@
                 </div>
               </mat-radio-group>
             </div>
-          </div>
+
+          </div> -->
+
         </div>
       </div>
 
@@ -296,7 +327,6 @@
             <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
               <label>Contact Information</label>
             </div>
-
             <div class="row  mx-2">
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="CELLPHONE" class="form-label label-design">CELL PHONE</label>
@@ -323,7 +353,6 @@
                 <input class="input-group form-control" [(ngModel)]="PatientMyProfile.EXT" placeholder="Ext" type="text"
                   id="Ext">
               </div>
-
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="Preferred Contact" class="form-label label-design">Preferred Contact</label>
                 <input class="input-group form-control" [(ngModel)]="PatientMyProfile.PreferredContact"
@@ -332,7 +361,6 @@
 
               <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
                 <label class="form-label label-design">ENABLE EMAIL NOTIFICATIONS FOR THIS PATIENT</label>
-
                 <div>
                   <label class="switch">
                     <input type="checkbox" id="togBtn" [(ngModel)]="PatientMyProfile.EmailReminder">
@@ -340,7 +368,6 @@
                   </label>
                   <label class="form-label label-design">SEND APPOINTMENT REMINDERS FOR THIS PATIENT</label>
                 </div>
-
               </div>
               <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
                 <label class="form-label label-design">ENABLE SMS NOTIFICATIONS FOR THIS PATIENT</label>
@@ -351,7 +378,6 @@
                   </label> <label class="form-label label-design">SEND APPOINTMENT REMINDERS FOR THIS PATIENT</label>
                 </div>
               </div>
-
               <div class="col-lg-8 col-md-8 col-xl-9 col-12 my-2">
                 <label for="HOMEADDRESS" class="form-label label-design">HOME ADDRESS</label>
                 <input class="input-group form-control" placeholder="HOME ADDRESS" type="text" id="HOME ADDRESS">
@@ -395,11 +421,15 @@
                   </div>
                 </div>
               </div>
+              <div class="d-flex justify-content-end mt-3">
+                <button type="button" class="btn btn-lg btn-orange" (click)="updateContactInform()">Save</button>
+               </div>
             </div>
           </div>
           <div class="col-lg-12 col-md-12 col-12 my-3">
             <hr>
           </div>
+
           <!-- Patient Relationship -->
           <div class="col-lg-12 col-md-12 col-12 my-3">
             <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
@@ -413,7 +443,7 @@
                 <div class="input-group py-3">
                   <input type="text" name="SearchPatient" id="search_procedure_code" [(ngModel)]="SearchKey"
                     class="form-control search-control" placeholder="Search Patient Users">
-                  <button class="btn btn-info btn-md" type="button"  (click)="SearchDetails()">
+                  <button class="btn btn-info btn-md" type="button" (click)="SearchDetails()">
                     <i class="fa fa-search "></i>
                   </button>
                 </div>
@@ -429,8 +459,6 @@
                         <th scope="col">Relationship to Patient</th>
                         <th></th>
                         <th *ngIf="deleteSearch" (click)="removeSearch()"><b class="btn-crosss">x</b></th>
-                        <!-- <th><button class="btn btn-th-cancel" type="button"  data-bs-toggle="modal"
-                          data-bs-target="#RelationtoPatientModal">x</button></th> -->
                       </tr>
                     </thead>
                     <tbody>
@@ -438,12 +466,15 @@
                         <td>{{item?.FirstName}}</td>
                         <td>{{item.UserName}}</td>
                         <td>{{item.relationships}}</td>
-                        <td *ngIf="item.relationships !='' "><button class="btn btn-access allow-access" type="button"  data-bs-toggle="modal"
-                          data-bs-target="#RelationtoPatientModal" (click)="allowAccess()">Allow Access</button></td>
+                        <td *ngIf="item.relationships !='' "><button class="btn btn-access allow-access" type="button"
+                            data-bs-toggle="modal" data-bs-target="#RelationtoPatientModal"
+                            (click)="allowAccess()">Allow Access</button></td>
                         <td *ngIf="item.relationships =='' ">
-                          <button class="btn btn-access remove-access" type="button"  (click)="removeAccessed(item.PatientId)">Remove Access</button></td>
+                          <button class="btn btn-access remove-access" type="button"
+                            (click)="removeAccessed(item.PatientId)">Remove Access</button>
+                        </td>
                         <td></td>
-                        </tr>
+                      </tr>
                     </tbody>
                   </table>
                   <div class="table-NoRecord text-center py-2 col-12" *ngIf="patientRelationList.length <= 0">
@@ -451,11 +482,15 @@
                   </div>
                 </div>
               </div>
+              <!-- <div class="d-flex justify-content-end mt-3">
+               <button type="button" class="btn btn-lg btn-orange">Save</button>
+              </div> -->
             </div>
           </div>
           <div class="col-lg-12 col-md-12 col-12 ">
             <hr>
           </div>
+
           <!-- Demographics -->
           <div class="col-lg-12 col-md-12 col-12 my-3">
             <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
@@ -557,12 +592,16 @@
                     </div>
                   </div>
                 </div>
+              </div>
+              <div class="d-flex justify-content-end mt-3">
+                <button type="button" class="btn btn-lg btn-orange" (click)="updateDemography()">Save</button>
                </div>
             </div>
           </div>
           <div class="col-lg-12 col-md-12 col-12">
             <hr>
           </div>
+
           <!-- Care team -->
           <div class="col-lg-12 col-md-12 col-12 my-3">
             <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
@@ -584,7 +623,7 @@
                       </mat-option>
                     </mat-autocomplete>
                   </mat-form-field>
-                  <button class="btn btn-info btn-md" type="button" >
+                  <button class="btn btn-info btn-md" type="button">
                     <i class="fa fa-search "></i>
                   </button>
                 </div>
@@ -608,10 +647,14 @@
                               <span class="mt-2">In practice</span>
                             </td>
                             <td>Primary Dentist<br>
-                             <span class="mt-2">Preferred provider in practice</span></td>
+                              <span class="mt-2">Preferred provider in practice</span>
+                            </td>
                             <td>P: (415)555-1212 <br>
-                              <span class="mt-2">james@ehr1.us</span> </td>
-                            <td><mat-icon class="close-icon Cancelbtn"  (click)="removeCareTeam(i)">close</mat-icon></td>
+                              <span class="mt-2">james@ehr1.us</span>
+                            </td>
+                            <td>
+                              <mat-icon class="close-icon Cancelbtn" (click)="removeCareTeam(i)">close</mat-icon>
+                            </td>
                           </tr>
                         </tbody>
                       </table>
@@ -619,15 +662,16 @@
                   </div>
                 </div>
               </div>
+              <!-- <div class="d-flex justify-content-end mt-4 ">
+                <button type="button" class="btn btn-lg btn-orange">Save</button>
+               </div> -->
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-
 </div>
-
 
 <!-- Reset Password Modal -->
 <div class="modal fade" id="ResetPwdModal" tabindex="-1" aria-labelledby="ResetPwdModal" aria-hidden="true">
@@ -659,7 +703,7 @@
 </div>
 
 <!-- Add Notes Modal -->
-<div class="modal fade" id="noteModal" tabindex="-1" aria-labelledby="noteModal" aria-hidden="true">
+<div class="modal fade" id="noteModal" tabindex="-1" aria-labelledby="noteModal" aria-hidden="true" [ngStyle]="{'display':displayNotes}">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -672,15 +716,15 @@
           </div>
           <div class="col-lg-12 col-md-4 col-sm-4">
             <div class="note-heigth">
-              <textarea class="form-control" rows="6"></textarea>
+              <textarea class="form-control" rows="6"  [(ngModel)]="PatientMyProfile.Notes"></textarea>
             </div>
           </div>
         </div>
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-lg btn-green">Save</button>
-        <button type="button" class="btn btn-lg btn-green" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+        <button type="button" class="btn btn-lg btn-green" (click)="updateNote()">Save</button>
+        <button type="button" class="btn btn-lg btn-green" data-bs-dismiss="modal" aria-label="Close" (click)="closeNotes()" >Cancel</button>
       </div>
     </div>
   </div>
@@ -821,7 +865,8 @@
 </div>
 
 <!-- Display Relation to Patient Modal -->
-<div class="modal fade" id="RelationtoPatientModal" tabindex="-1" aria-labelledby="RelationtoPatientModal" aria-hidden="true">
+<div class="modal fade" id="RelationtoPatientModal" tabindex="-1" aria-labelledby="RelationtoPatientModal"
+  aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -831,14 +876,13 @@
       <div class="modal-body">
         <div class="row my-3">
           <h6><b>Relationship:</b></h6>
-          <div class="col-md-12 mt-2 col-lg-12 col-12"  >
+          <div class="col-md-12 mt-2 col-lg-12 col-12">
             <mat-form-field appearance="outline" class="col-12 hover cstm-mat-padding">
-              <mat-select placeholder="Select One"  id="ePracticeProviders"
-                placeholder="Select relation">
+              <mat-select placeholder="Select One" id="ePracticeProviders" placeholder="Select relation">
                 <!-- <mat-option selected>parent</mat-option>
                 <mat-option>child</mat-option>
                 <mat-option>mother</mat-option> -->
-                 <mat-option *ngFor="let item of relationship" [value]="value">{{item.value}}
+                <mat-option *ngFor="let item of relationship" [value]="value">{{item.value}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -847,8 +891,8 @@
 
         <div class="modal-footer">
           <button type="button" class="btn btn-lg btn-green" data-bs-toggle="modal" aria-label="Close"
-          (click)="savePatientRelation()">Save
-            </button>
+            (click)="savePatientRelation()">Save
+          </button>
           <button type="button" class="btn btn-lg btn-green" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
         </div>
       </div>

@@ -152,12 +152,15 @@
                         </div>
                         <mat-label class="Helvetica-sans-serif-small">Source of Payment Typology </mat-label>
                         <mat-form-field appearance="outline" col-md-12>
-                            <mat-select required>
-                                <mat-option *ngFor="let BenefitRenewal of BenefitRenewalDD" [value]="BenefitRenewal.value">
-                                    {{BenefitRenewal.viewValue}}
+                            <mat-select>
+                                <mat-option *ngFor="let PaymentTypologyCodes of SourceOfPaymentTypologyCodes" [value]="PaymentTypologyCodes.ID">
+                                    {{PaymentTypologyCodes.Source}}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
+
+
+                  
                         <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-6">
                             <input matInput [matDatepicker]="dp2" placeholder="Start Date">
                             <mat-datepicker-toggle matSuffix [for]="dp2">
@@ -333,9 +336,9 @@
                         </mat-form-field> -->
                         <mat-label class="Helvetica-sans-serif-small">Source of Payment Typology </mat-label>
                         <mat-form-field appearance="outline" col-md-12>
-                            <mat-select required>
-                                <mat-option *ngFor="let BenefitRenewal of BenefitRenewalDD" [value]="BenefitRenewal.value">
-                                    {{BenefitRenewal.viewValue}}
+                            <mat-select>
+                                <mat-option *ngFor="let PaymentTypologyCodes of SourceOfPaymentTypologyCodes" [value]="PaymentTypologyCodes.ID">
+                                    {{PaymentTypologyCodes.Source}}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
@@ -728,3 +731,6 @@ aria-expanded="false">
         </div>
     </div>
 </div>
+
+
+ <!-- {{insurancePlanList| json}} -->

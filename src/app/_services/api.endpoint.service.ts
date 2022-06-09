@@ -406,6 +406,24 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "ProcedureByPatientId";
   }
 
+  // Regarding Insurance Screen Related apiendpoint services
+
+  get _sourceOfPaymentTypologyCodesUrl() {
+    return this._baseUrl + "SourceOfPaymentTypologyCodes";
+  }
+
+  get _insuranceCompanyPlansUrl() {
+    return this._baseUrl + "InsuranceCompanyPlans";
+  }
+
+  get _insurancDetailsUrl() {
+    return this._baseUrl + "InsurancDetails";
+  }
+
+  get _insuranceUrl() {
+    return this._baseUrl + "Insurance";
+
+  }
   get _createAdvancedDirectivesUrl() {
     return this._baseUrl + "CreateAdvancedDirectives";
   }
@@ -414,6 +432,36 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "CreateSmokingStatus";
   }
 
+  get _updatePatientInformationUrl() {
+    return this._baseUrl + "UpdatePatientInformation";
+  }
+
+  get _updateContactInformationUrl() {
+    return this._baseUrl + "UpdateContactInformation";
+  }
+
+  get _updateEmergencyContactUrl() {
+    return this._baseUrl + "UpdateEmergencyContact";
+  }
+
+  get _updateNextofkinUrl() {
+    return this._baseUrl + "UpdateNextofkin";
+  }
+
+  get _updateDemographicsUrl() {
+    return this._baseUrl + "UpdateDemographics";
+  }
+
+  get _updateImmunizationRegistryUrl() {
+    return this._baseUrl + "UpdateImmunizationRegistry";
+  }
+
+  get _activityLogsUrl() {
+    return this._baseUrl + "ActivityLogByPatient";
+  }
+  get _updateNotesUrl() {
+    return this._baseUrl + "UpdateNotes";
+  }
   constructor(public http: HttpClient) {
     super();
   }

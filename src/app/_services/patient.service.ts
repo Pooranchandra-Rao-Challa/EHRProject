@@ -94,12 +94,62 @@ export class patientService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._ProcedureByPatientIdUrl, reqparams);
   }
 
+  UpdatePatientInformation(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._updatePatientInformationUrl, reqparams);
+  }
+
+  UpdateContactInformation(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._updateContactInformationUrl, reqparams);
+  }
+
+  UpdateEmergencyContact(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._updateEmergencyContactUrl, reqparams);
+  }
+
+  UpdateNextofkin(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._updateNextofkinUrl, reqparams);
+  }
+
+  UpdateDemographics(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._updateDemographicsUrl, reqparams);
+  }
+
+  UpdateImmunizationRegistry(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._updateImmunizationRegistryUrl, reqparams);
+  }
+  UpdateNotes(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._updateNotesUrl, reqparams);
+  }
+
+
+  // Regarding Insurance Screen Related  services
+
+  SourceOfPaymentTypologyCodes() {
+    return this._ProcessGetRequest<any>(this._sourceOfPaymentTypologyCodesUrl);
+  }
+
+  InsuranceCompanyPlans() {
+    return this._ProcessGetRequest<any>(this._insuranceCompanyPlansUrl);
+  }
+
+  InsurancDetails(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._insurancDetailsUrl, reqparams);
+  }
+
+  Insurance(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._insuranceUrl, reqparams);
+
+  }
   CreateAdvancedDirectives(reqparams: any) {
     return this._ProcessPostRequest<any>(this._createAdvancedDirectivesUrl, reqparams);
   }
 
   CreateSmokingStatus(reqparams: any) {
     return this._ProcessPostRequest<any>(this._createSmokingStatusUrl, reqparams);
+  }
+
+  MyActivityLogs(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._activityLogsUrl, reqparams);
   }
 
 }
