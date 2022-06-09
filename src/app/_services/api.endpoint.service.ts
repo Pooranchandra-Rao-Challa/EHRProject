@@ -458,6 +458,10 @@ export class APIEndPoint extends EndpointBase {
   {
     return this._baseUrl + "UpdateImmunizationRegistry";
   }
+  get _updateNotesUrl()
+  {
+    return this._baseUrl + "UpdateNotes";
+  }
   constructor(public http: HttpClient) {
     super();
   }

@@ -1,5 +1,5 @@
 import { Patient } from 'src/app/_models/newPatient';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { patientService } from 'src/app/_services/patient.service';
 import { PatientProfile } from 'src/app/_models/_patient/patientprofile';
@@ -12,13 +12,14 @@ import { Observable, observable } from 'rxjs';
 import { User } from 'src/app/_models';
 import { PatientsData } from 'src/app/_models/patients';
 
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-
+  @ViewChild('fileInput') fileInput:ElementRef;
   AduthorizesModal = "none";
   AddAduthorizesModal = "none";
   PatientDetails: any = [];
@@ -56,15 +57,16 @@ export class ProfileComponent implements OnInit {
   ]
   CareTeamList: any = [];
   careTeamName: any;
-  primaryLanguages: any=[];
-  secondaryLanguage: any=[];
-  languageList:any=[];
-  patientRelationList:any=[];
-
+  primaryLanguages: any = [];
+  secondaryLanguage: any = [];
+  languageList: any = [];
+  patientRelationList: any = [];
+  displayNotes ="none";
+  jQuery:any;
   constructor(private route: ActivatedRoute, private patientService: patientService,
     private smartSchedulerService: SmartSchedulerService, private authService: AuthenticationService) {
     this.user = authService.userValue;
-    this.PatientMyProfile= {} as PatientProfile;
+    this.PatientMyProfile = {} as PatientProfile;
   }
 
   ngOnInit(): void {
@@ -79,15 +81,14 @@ export class ProfileComponent implements OnInit {
   }
 
   //get Language List
-  getlanguagesInfo()
-  {
-     this.patientService.LanguagesInfo().subscribe(resp =>{
-       if(resp.IsSuccess){
-         this.primaryLanguages= resp.ListResult[0];
-         this.secondaryLanguage= resp.ListResult[1];
-         this.languageList = this.languageList.concat(this.primaryLanguages,this.secondaryLanguage);
-       }
-     });
+  getlanguagesInfo() {
+    this.patientService.LanguagesInfo().subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.primaryLanguages = resp.ListResult[0];
+        this.secondaryLanguage = resp.ListResult[1];
+        this.languageList = this.languageList.concat(this.primaryLanguages, this.secondaryLanguage);
+      }
+    });
   }
 
   // get patient id
@@ -107,8 +108,8 @@ export class ProfileComponent implements OnInit {
       debugger;
       if (resp.IsSuccess) {
         this.PatientMyProfile = resp.ListResult[0];
-        this.PatientMyProfile.Notes=this.PatientMyProfile.Notes;
-        console.log(this.PatientMyProfile.Notes);
+        this.PatientMyProfile.ImmunizationrRegistry = this.PatientMyProfile.ImmunizationrRegistry;
+        console.log(this.PatientMyProfile.ImmunizationrRegistry);
       }
     });
   }
@@ -150,16 +151,16 @@ export class ProfileComponent implements OnInit {
     }
     this.patientService.CreateCareTeam(reqparams).subscribe(resp => {
       debugger;
-       if (resp.IsSuccess) {
+      if (resp.IsSuccess) {
         debugger;
-       this.getCareTeamByPatientId(patientId);
+        this.getCareTeamByPatientId(patientId);
       }
     });
   }
 
-  getCareTeamByPatientId(patientId)
-  {
-    let reqparam ={
+
+  getCareTeamByPatientId(patientId) {
+    let reqparam = {
       'PatientId': patientId
     }
     this.patientService.CareTeamByPatientId(reqparam).subscribe(resp => {
@@ -181,23 +182,22 @@ export class ProfileComponent implements OnInit {
     this.patientService.PatientsByProvider(reqparams).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.patientsList = resp.ListResult;
-       // this.GetFilterList = resp.ListResult;
+        // this.GetFilterList = resp.ListResult;
       }
     });
   }
 
-  getPatientsRelationByProvider(){
-     let reqparam={
-       "ProviderId":this.user.ProviderId
-     }
-     this.patientService.PatientsRelationByProviderId(reqparam).subscribe(resp => {
-       if(resp.IsSuccess)
-       {
-          this.patientRelationList= resp.ListResult[0];
-          this.GetFilterList = resp.ListResult;
-          console.log(this.patientRelationList);
-       }
-     })
+  getPatientsRelationByProvider() {
+    let reqparam = {
+      "ProviderId": this.user.ProviderId
+    }
+    this.patientService.PatientsRelationByProviderId(reqparam).subscribe(resp => {
+      if (resp.IsSuccess) {
+        // this.patientRelationList = resp.ListResult;
+        // this.GetFilterList = resp.ListResult;
+        console.log(this.patientRelationList);
+      }
+    })
   }
 
   // search patient details
@@ -216,7 +216,7 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  allowAccess() {}
+  allowAccess() { }
 
   savePatientRelation() {
     this.allowaccess = false;
@@ -233,8 +233,8 @@ export class ProfileComponent implements OnInit {
     this.deleteSearch = false;
   }
 
-  removeCareTeam(index){
-      this.CareTeamList.splice(index, 1);
+  removeCareTeam(index) {
+    this.CareTeamList.splice(index, 1);
   }
 
   DisplayAduthorizes() {
@@ -245,7 +245,81 @@ export class ProfileComponent implements OnInit {
     this.AddAduthorizesModal = "block";
   }
 
-  addNote(){
+  updatePatientInformation() {
+    debugger;
+    this.patientService.UpdatePatientInformation(this.PatientMyProfile).subscribe(resp => {
+      debugger;
+      if (resp.IsSuccess) {
+        let success = resp.EndUserMessage;
+        console.log(success);
+      }
+    });
+  }
+  updateContactInform() {
+    debugger;
+    this.patientService.UpdateContactInformation(this.PatientMyProfile).subscribe(resp => {
+      debugger;
+      if (resp.IsSuccess) {
+        let success = resp.EndUserMessage;
+        console.log(success);
+      }
+    });
+  }
+  updateEmergencyContact() {
+    this.patientService.UpdateEmergencyContact(this.PatientMyProfile).subscribe(resp => {
+      debugger;
+      if (resp.IsSuccess) {
+        let success = resp.EndUserMessage;
+        console.log(success);
+      }
+    });
+  }
+  updateNextOfKin() {
+    this.patientService.UpdateNextofkin(this.PatientMyProfile).subscribe(resp => {
+      debugger;
+      if (resp.IsSuccess) {
+        let success = resp.EndUserMessage;
+        console.log(success);
+      }
+    });
+  }
+  updateDemography() {
+    this.patientService.UpdateDemographics(this.PatientMyProfile).subscribe(resp => {
+      debugger;
+      if (resp.IsSuccess) {
+        let success = resp.EndUserMessage;
+        console.log(success);
+      }
+    });
+  }
+  updateImmunizationRegistry() {
+    this.patientService.UpdateImmunizationRegistry(this.PatientMyProfile).subscribe(resp => {
+      debugger;
+      if(resp.IsSuccess) {
+        let success = resp.EndUserMessage;
+        console.log(success);
+      }
+    });
+  }
 
+  updateNote() {
+    this.patientService.UpdateNotes(this.PatientMyProfile).subscribe(resp => {
+      debugger;
+      if(resp.IsSuccess) {
+        let success = resp.EndUserMessage;
+        console.log(success);
+        this.closeNotes();
+      }
+
+    });
+  }
+
+  openNotes()
+  {
+    this.displayNotes="block";
+  }
+  closeNotes()
+  {
+    this.displayNotes="none";
   }
 }

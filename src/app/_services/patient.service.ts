@@ -121,6 +121,9 @@ export class patientService extends APIEndPoint {
   UpdateImmunizationRegistry(reqparams: any) {
     return this._ProcessPostRequest<any>(this._updateImmunizationRegistryUrl, reqparams);
   }
+  UpdateNotes(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._updateNotesUrl, reqparams);
+  }
 
 
   // Regarding Insurance Screen Related  services
