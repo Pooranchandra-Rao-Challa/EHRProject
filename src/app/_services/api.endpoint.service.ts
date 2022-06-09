@@ -458,6 +458,11 @@ export class APIEndPoint extends EndpointBase {
   {
     return this._baseUrl + "UpdateImmunizationRegistry";
   }
+
+  get _activityLogsUrl()
+  {
+    return this._baseUrl + "ActivityLogByPatient";
+  }
   constructor(public http: HttpClient) {
     super();
   }

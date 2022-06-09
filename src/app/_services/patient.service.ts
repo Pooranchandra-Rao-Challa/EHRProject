@@ -145,4 +145,8 @@ export class patientService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._createAdvancedDirectivesUrl, reqparams);
   }
 
+  MyActivityLogs(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._activityLogsUrl, reqparams);
+  }
+
 }
