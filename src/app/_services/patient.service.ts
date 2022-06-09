@@ -56,22 +56,18 @@ export class patientService extends APIEndPoint {
   TobaccoUseInterventions(reqparams: any) {
     return this._ProcessPostRequest<any>(this._tobaccoUseInterventionsUrl, reqparams);
   }
-  CreateCareTeam(reqparams:any)
-  {
+  CreateCareTeam(reqparams: any) {
     return this._ProcessPostRequest<any>(this._careTeamUrl, reqparams);
   }
 
-  LanguagesInfo()
-  {
+  LanguagesInfo() {
     return this._ProcessGetRequest<any>(this._languagesInfoUrl);
   }
-  PatientsRelationByProviderId(reqparam:any)
-  {
+  PatientsRelationByProviderId(reqparam: any) {
     return this._ProcessPostRequest<any>(this._patientsRelationByProviderIdUrl, reqparam);
   }
-  PatientClinicProviders(reqparams:any)
-  {
-    return this._ProcessPostRequest<any>(this._patientClinicProviderUrl,reqparams);
+  PatientClinicProviders(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._patientClinicProviderUrl, reqparams);
   }
 
   ProblemDx(reqparams: any) {
@@ -99,11 +95,11 @@ export class patientService extends APIEndPoint {
   }
 
   UpdatePatientInformation(reqparams: any) {
-    return this._ProcessPostRequest<any>(this._updatePatientInformationUrl,reqparams);
+    return this._ProcessPostRequest<any>(this._updatePatientInformationUrl, reqparams);
   }
 
   UpdateContactInformation(reqparams: any) {
-    return this._ProcessPostRequest<any>(this._updateContactInformationUrl,reqparams);
+    return this._ProcessPostRequest<any>(this._updateContactInformationUrl, reqparams);
   }
 
   UpdateEmergencyContact(reqparams: any) {
@@ -146,6 +142,10 @@ export class patientService extends APIEndPoint {
   }
   CreateAdvancedDirectives(reqparams: any) {
     return this._ProcessPostRequest<any>(this._createAdvancedDirectivesUrl, reqparams);
+  }
+
+  CreateSmokingStatus(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._createSmokingStatusUrl, reqparams);
   }
 
   MyActivityLogs(reqparams: any) {

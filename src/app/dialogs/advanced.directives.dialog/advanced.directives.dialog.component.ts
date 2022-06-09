@@ -5,7 +5,7 @@ import { patientService } from '../../_services/patient.service';
 import { DatePipe } from "@angular/common";
 import { AlertMessage, ERROR_CODES } from './../../_alerts/alertMessage';
 import { Router } from '@angular/router';
-
+const moment = require('moment');
 @Component({
   selector: 'app-advanced.directives.dialog',
   templateUrl: './advanced.directives.dialog.component.html',
@@ -13,7 +13,6 @@ import { Router } from '@angular/router';
 })
 export class AdvancedDirectivesDialogComponent implements OnInit {
   advDirective: AdvancedDirectives = {} as AdvancedDirectives;
-
   constructor(private ref: EHROverlayRef,
     private patientService: patientService,
     public datepipe: DatePipe,
@@ -21,29 +20,39 @@ export class AdvancedDirectivesDialogComponent implements OnInit {
     private router: Router) {
     let data: AdvancedDirectives = ref.RequestData;
     this.advDirective = data;
-    // this.advDirective.RecordAt = new Date(data.RecordAt).toString();
+    if (data.RecordAt != (null || '' || undefined)) {
+      this.advDirective.RecordAt = moment(data.RecordAt).format('YYYY-MM-DD');
+    }
   }
 
   ngOnInit(): void {
+  }
+
+  todayDate() {
+    this.advDirective.RecordAt = moment(new Date()).format('YYYY-MM-DD');
   }
 
   cancel() {
     this.ref.close(null);
   }
 
+  resetDialog() {
+    this.advDirective = {};
+    this.cancel();
+  }
+
   CreateAdvancedDirectives(reqparams) {
-    let isAdd = this.advDirective.AdvancedDirectiveId == null;
+    let isAdd = this.advDirective.AdvancedDirectiveId == (null || '' || undefined);
     reqparams.RecordAt = this.datepipe.transform(this.advDirective.RecordAt, "MM/dd/yyyy hh:mm:ss");
     this.patientService.CreateAdvancedDirectives(reqparams).subscribe((resp) => {
       if (resp.IsSuccess) {
+        this.resetDialog();
         this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CAD001" : "M2CAD002"]);
-        this.cancel();
       }
       else {
+        this.resetDialog();
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2CAD001"]);
-        this.cancel();
       }
     });
   }
-
 }
