@@ -22,7 +22,8 @@
         [(ngModel)]="advDirective.Notes"></textarea>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-green" (click)="CreateAdvancedDirectives(advDirective)">Save</button>
+      <button class="btn btn-green" (click)="CreateAdvancedDirectives(advDirective)"
+        [disabled]="advDirective.RecordAt == (undefined || '' || null) && advDirective.Notes == (undefined || '' || null)">Save</button>
       <button class="btn btn-green" (click)="cancel()">Cancel</button>
     </div>
   </div>

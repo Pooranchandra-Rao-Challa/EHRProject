@@ -18,6 +18,7 @@ export class AdvancedDirectivesDialogComponent implements OnInit {
     public datepipe: DatePipe,
     private alertmsg: AlertMessage,
     private router: Router) {
+    debugger;
     let data: AdvancedDirectives = ref.RequestData;
     this.advDirective = data;
     if (data.RecordAt != (null || '' || undefined)) {
@@ -34,11 +35,11 @@ export class AdvancedDirectivesDialogComponent implements OnInit {
 
   cancel() {
     this.ref.close(null);
+    this.resetDialog();
   }
 
   resetDialog() {
     this.advDirective = {};
-    this.cancel();
   }
 
   CreateAdvancedDirectives(reqparams) {
@@ -46,11 +47,11 @@ export class AdvancedDirectivesDialogComponent implements OnInit {
     reqparams.RecordAt = this.datepipe.transform(this.advDirective.RecordAt, "MM/dd/yyyy hh:mm:ss");
     this.patientService.CreateAdvancedDirectives(reqparams).subscribe((resp) => {
       if (resp.IsSuccess) {
-        this.resetDialog();
+        this.cancel();
         this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CAD001" : "M2CAD002"]);
       }
       else {
-        this.resetDialog();
+        this.cancel();
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2CAD001"]);
       }
     });

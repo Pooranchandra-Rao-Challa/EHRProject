@@ -32,12 +32,12 @@ export class ChartComponent implements OnInit {
   PatientId: any = {};
   constructor(public overlayService: OverlayService,
     private patientService: patientService) {
-    this.PatientId = {
-      'PatientId': sessionStorage.getItem('PatientId')
-    }
   }
 
   ngOnInit(): void {
+    this.PatientId = {
+      'PatientId': sessionStorage.getItem('PatientId')
+    }
     this.AdvancedDirectivesByPatientId();
     this.DiagnosesByPatientId();
     this.AllergiesByPatientId();
