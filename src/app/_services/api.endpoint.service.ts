@@ -372,48 +372,46 @@ export class APIEndPoint extends EndpointBase {
   get _patientClinicProviderUrl() {
     return this._baseUrl + "PatientClinicProviders";
   }
-  get _problemDxUrl()
-  {
+  get _problemDxUrl() {
     return this._baseUrl + "ProblemsDx";
   }
-  get _careTeamByPatientIdUrl()
-  {
+  get _careTeamByPatientIdUrl() {
     return this._baseUrl + "CareTeamByPatientId";
   }
 
-  get _careTeamUrl(){
+  get _careTeamUrl() {
     return this._baseUrl + "CreateCareTeam";
   }
 
-  get _languagesInfoUrl(){
+  get _languagesInfoUrl() {
     return this._baseUrl + "LanguagesInfo";
   }
 
-  get _patientsRelationByProviderIdUrl(){
+  get _patientsRelationByProviderIdUrl() {
     return this._baseUrl + "PatientsRelationByProviderId";
   }
-  get _labTestResultByPatientIdUrl()
-  {
+  get _labTestResultByPatientIdUrl() {
     return this._baseUrl + "LabTestResultByPatientId";
   }
 
-  get _vitalStatsByPatientIdUrl()
-  {
+  get _vitalStatsByPatientIdUrl() {
     return this._baseUrl + "VitalStatsByPatientId";
   }
 
-  get _carePlanGoalInstructionsBypatientIdUrl()
-  {
+  get _carePlanGoalInstructionsBypatientIdUrl() {
     return this._baseUrl + "CarePlanGoalInstructionsBypatientId";
   }
 
-  get _ProcedureByPatientIdUrl()
-  {
+  get _ProcedureByPatientIdUrl() {
     return this._baseUrl + "ProcedureByPatientId";
   }
 
   get _createAdvancedDirectivesUrl() {
     return this._baseUrl + "CreateAdvancedDirectives";
+  }
+
+  get _createSmokingStatusUrl() {
+    return this._baseUrl + "CreateSmokingStatus";
   }
 
   constructor(public http: HttpClient) {
