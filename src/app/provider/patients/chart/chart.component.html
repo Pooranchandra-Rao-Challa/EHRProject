@@ -561,7 +561,7 @@
           <div class="col-sm-4">
           </div>
           <div class="col-sm-8 side-boder">
-            <mat-form-field appearance="outline" class="input-field mt-3">
+            <mat-form-field appearance="outline" class=" mt-3 w-100">
               <mat-select required>
                 <mat-option *ngFor="let trigger of TriggerRuleDD" [value]="trigger.value">
                   {{trigger.viewValue}}
@@ -578,7 +578,7 @@
             </mat-form-field>
             <div class="row">
               <label>Start Date</label>
-              <mat-form-field appearance="outline" class="green-calendar col-md-8">
+              <mat-form-field appearance="outline" class="green-calendar calender-item col-md-8">
                 <input matInput [matDatepicker]="startdate" placeholder="Start Date" name="startdate" />
                 <mat-datepicker-toggle matSuffix [for]="startdate">
                 </mat-datepicker-toggle>
@@ -590,7 +590,7 @@
             </div>
             <div class="row">
               <label>End Date</label>
-              <mat-form-field appearance="outline" class="green-calendar col-md-8">
+              <mat-form-field appearance="outline" class="green-calendar calender-item col-md-8">
                 <input matInput [matDatepicker]="enddate" placeholder="End Date" name="enddate" />
                 <mat-datepicker-toggle matSuffix [for]="enddate">
                 </mat-datepicker-toggle>
@@ -648,7 +648,7 @@
               <p class="card-title title">Family Health History:</p>
             </div>
             <div class="col-md-4 col-6">
-              <div class="col-12 plusicon pull-right"><span><i class="fa fa-plus" data-bs-toggle="modal"
+              <div class="col-12 plusicon plus-icons pull-right"><span><i class="fa fa-plus" data-bs-toggle="modal"
                     data-bs-target="#exampleModal3"></i></span>
               </div>
             </div>
@@ -866,7 +866,7 @@
             <label class="title-bold required">Allergy Type: </label>
           </div>
           <div class="col-md-4">
-            <mat-form-field appearance="outline" class="input-field">
+            <mat-form-field appearance="outline">
               <mat-select required>
                 <mat-option *ngFor="let trigger of TriggerRuleDD" [value]="trigger.value">
                   {{trigger.viewValue}}
@@ -878,7 +878,7 @@
             <label class="title-bold required">Allergen: </label>
           </div>
           <div class="col-md-4">
-            <mat-form-field appearance="outline" class="input-field input-bg">
+            <mat-form-field appearance="outline" class="input-bg">
               <mat-select required>
                 <mat-option *ngFor="let trigger of TriggerRuleDD" [value]="trigger.value">
                   {{trigger.viewValue}}
@@ -892,7 +892,7 @@
             <label class="title-bold required">Severity Level: </label>
           </div>
           <div class="col-md-4">
-            <mat-form-field appearance="outline" class="input-field">
+            <mat-form-field appearance="outline">
               <mat-select required>
                 <mat-option *ngFor="let trigger of TriggerRuleDD" [value]="trigger.value">
                   {{trigger.viewValue}}
@@ -906,7 +906,7 @@
             <label class="title-bold required">Onset At: </label>
           </div>
           <div class="col-md-4">
-            <mat-form-field appearance="outline" class="input-field">
+            <mat-form-field appearance="outline">
               <mat-select required>
                 <mat-option *ngFor="let trigger of TriggerRuleDD" [value]="trigger.value">
                   {{trigger.viewValue}}
@@ -930,7 +930,7 @@
             <label class="title-bold required">Start Date </label>
           </div>
           <div class="col-md-6">
-            <mat-form-field appearance="outline" class="green-calendar input-field col-md-8">
+            <mat-form-field appearance="outline" class="input-field calender-item  col-md-8">
               <input matInput [matDatepicker]="dp1" placeholder="Start Date" name="startDate" />
               <mat-datepicker-toggle matSuffix [for]="dp1">
               </mat-datepicker-toggle>
@@ -943,7 +943,7 @@
             <label class="title-bold">End Date: </label>
           </div>
           <div class="col-md-6">
-            <mat-form-field appearance="outline" class="green-calendar input-field col-md-8">
+            <mat-form-field appearance="outline" class="input-field calender-item  col-md-8">
               <input matInput [matDatepicker]="dp2" placeholder="End Date" name="endDate" />
               <mat-datepicker-toggle matSuffix [for]="dp2">
               </mat-datepicker-toggle>
@@ -980,7 +980,7 @@
   <div class="modal-dialog modal-md" role="document">
     <div class="modal-content modal-item ">
       <div class="modal-header">
-        <h4 class="modal-title Helvetica-sans-serif-medium">Record Past Medical History</h4>
+        <h4 class="modal-title Helvetica-sans-serif-medium">Record Medication (Local)</h4>
 
         <span type="button" class="cross-mark" data-bs-dismiss="modal">
           X
@@ -1100,9 +1100,11 @@
           <div class="col-md-2 col-sm-3">
             <p>Resources:</p>
           </div>
-          <div class="col-md-5 col-sm-5"><a class="underlined btn-modal medline-plus-link">Medline Plus</a></div>
+          <div class="col-md-5 col-sm-5"><a class="underlined btn-modal medline-plus-link"
+              href="/medline_plus/info?code_system=RxNorm">Medline Plus</a></div>
           <div class="col-md-5 col-sm-5"><a class="underlined btn-modal" id="education_materials_show"
-              data-target="#modal-education-materials" data-remote="true">Patient Education Materials</a></div>
+              data-target="#modal-education-materials" data-remote="true" data-bs-toggle="modal"
+              data-bs-target="#exampleModal7">Patient Education Materials</a></div>
         </div>
       </div>
 
@@ -1169,6 +1171,39 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade " id="exampleModal7" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header header-change">
+        <span type="button" class="cross-mark" data-bs-dismiss="modal">
+          X
+        </span>
+      </div>
+      <div class="modal-body">
+        <div class="scrollable-container" style="height: auto;">
+          <div class="content">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="icon icon-ic-material-not-found"></div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12 modal-text">
+                <p>No Patient Education Material Available for this Code</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
     </div>
   </div>
 </div>

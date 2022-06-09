@@ -428,7 +428,9 @@ export class APIEndPoint extends EndpointBase {
   get _createAdvancedDirectivesUrl() {
     return this._baseUrl + "CreateAdvancedDirectives";
   }
-
+  get _createPartnerSignupUrl() {
+    return this._baseUrl + "CreatePartnerSignup";
+  }
   constructor(public http: HttpClient) {
     super();
   }

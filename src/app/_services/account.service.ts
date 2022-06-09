@@ -111,4 +111,7 @@ export class Accountservice extends APIEndPoint {
     console.log(endpointurl);
     return this._ProcessGetRequest<any>(endpointurl);
   }
+  PostPartnerSignup(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._createPartnerSignupUrl, reqparams);
+  }
 }

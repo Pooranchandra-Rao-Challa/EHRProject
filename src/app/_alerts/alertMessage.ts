@@ -15,6 +15,7 @@ export class AlertMessage {
       confirmButtonText: 'Close',
       width: '600'
     });
+
   }
 
   displayErrorDailog(message) {
@@ -26,6 +27,16 @@ export class AlertMessage {
       width: '600',
       customClass: { title: 'swal2-title-custom' }
     });
+  }
+  displaysubmitted(message) {
+    Swal.fire({
+      title: message,
+      position: 'center',
+      text: 'Thank you for your interest in becoming a partner application. Our team will be reaching out to you in the next 3-5 business days',
+      confirmButtonText: 'Done',
+      confirmButtonColor: "#41b6a6",
+   
+    })
   }
 }
 /**
@@ -50,7 +61,7 @@ export class AlertMessage {
  * Billing: I
  * Settings: J
  * Screens: Adming Lofin
- *
+ * partnersignup :PS
  * -------------------------------------
  * If the screens has more funcitonal items then
  * Like in settings use frist letter as code, if same
@@ -110,4 +121,9 @@ export const ERROR_CODES: { [key: string]: string } = {
   // Error for Advanced directives
   'E2CAD001': 'Advanced Directives Updation error',
 
+  //Message for Partner signup
+  'M3PS001':'Application Submitted!',
+
+  //Error for Partner signup
+  'E3PS001':'Partner Error'
 };
