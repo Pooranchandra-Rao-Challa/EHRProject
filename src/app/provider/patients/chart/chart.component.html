@@ -127,7 +127,8 @@
                 <div class="row">
                   <div class="col-12">
                     <p class="card-title">
-                      <span (click)="openComponentDialog(smokingStatusDialogComponent, null)">Smoking Status</span>
+                      <span (click)="openComponentDialog(smokingStatusDialogComponent, this.PatientId)">Smoking
+                        Status</span>
                       <span style="cursor:auto;"> and </span>
                       <span>Tobacco Use</span>
                     </p>
@@ -137,12 +138,12 @@
               <div class="card-body">
                 <ul class="main-list" *ngFor="let smoking of smokingstatus">
                   <li>
-                    <a (click)="openComponentDialog(smokingStatusDialogComponent)">
-                      <span *ngIf="smoking?.effective_from != null && smoking?.effective_from !=''">
-                        - {{smoking.effective_from}}
+                    <a (click)="openComponentDialog(smokingStatusDialogComponent, smoking)">
+                      <span *ngIf="smoking?.EffectiveFrom != null && smoking?.EffectiveFrom !=''">
+                        - {{smoking.EffectiveFrom | date: 'MM/dd/yyyy'}}
                       </span>
-                      <span *ngIf="smoking?.status != null && smoking?.status !=''">
-                        - {{smoking.status}}
+                      <span *ngIf="smoking?.Status != null && smoking?.Status !=''">
+                        - {{smoking.Status}}
                       </span>
                     </a>
                   </li>
@@ -186,7 +187,7 @@
                 <ul class="main-list"
                   *ngIf="tobaccoscreenings?.length == (0 || null || undefined) && tobaccointerventions?.length == (0 || null || undefined)">
                   <li>
-                    <span>No smoking status recorded.</span>
+                    <span>No tobacco use recorded.</span>
                   </li>
                 </ul>
               </div>
@@ -234,11 +235,15 @@
                     <p class="card-title">Advanced Directives</p>
                   </div>
                   <div class="col-md-4 col-6">
-                    <div class="col-12">
+                    <!-- <div class="col-12">
                       <div class="edit-icon pull-right"
-                        (click)="openComponentDialog(advancedDirectivesDialogComponent, advancedDirectives[0])">
+                        (click)="openComponentDialog(advancedDirectivesDialogComponent, {'PatientId': PatientId})">
                         <span class="cstm-icon-pencil"></span>
                       </div>
+                    </div> -->
+                    <div class="col-12 plusicon pull-right"
+                      (click)="openComponentDialog(advancedDirectivesDialogComponent, this.PatientId)">
+                      <span><i class="fa fa-plus"></i></span>
                     </div>
                   </div>
                 </div>
