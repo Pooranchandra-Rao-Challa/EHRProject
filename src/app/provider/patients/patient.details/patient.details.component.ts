@@ -11,9 +11,9 @@ export class PatientDetailsComponent implements OnInit {
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    //debugger
     this.route.queryParams.subscribe(params => {
       this.patient = JSON.parse(params["patient"]);
+      sessionStorage.setItem('PatientId', this.patient.PatientId);
     });
   }
 }
