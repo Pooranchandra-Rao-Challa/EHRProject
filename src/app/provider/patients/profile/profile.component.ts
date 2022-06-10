@@ -3,7 +3,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { patientService } from 'src/app/_services/patient.service';
 import { PatientProfile } from 'src/app/_models/_patient/patientprofile';
-import { PracticeProviders } from 'src/app/_models/practiceProviders';
+import { PracticeProviders } from 'src/app/_models/_provider/practiceProviders';
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { FormControl } from '@angular/forms';

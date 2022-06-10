@@ -1,6 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
-import { PracticeProviders } from 'src/app/_models/practiceProviders';
+import { PracticeProviders } from 'src/app/_models/_provider/practiceProviders';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
 import { EHROverlayRef } from '../../ehr-overlay-ref';
