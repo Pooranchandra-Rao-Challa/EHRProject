@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EHROverlayRef } from '../../ehr-overlay-ref';
-import { AdvancedDirectives } from '../../_models/chart';
+import { AdvancedDirectives } from '../../_models/_provider/chart';
 import { patientService } from '../../_services/patient.service';
 import { DatePipe } from "@angular/common";
 import { AlertMessage, ERROR_CODES } from './../../_alerts/alertMessage';
