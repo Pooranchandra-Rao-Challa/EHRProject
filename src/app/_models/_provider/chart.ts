@@ -1,8 +1,8 @@
-export interface AdvancedDirectives {
-  AdvancedDirectiveId?: string;
+export class AdvancedDirectives {
+  AdvancedDirectiveId?: string = '';
   PatientId?: string;
-  RecordAt?: string;
-  Notes?: string;
+  RecordAt?: string = '';
+  Notes?: string = '';
 }
 
 export interface SmokingStatus {
@@ -10,4 +10,9 @@ export interface SmokingStatus {
   PatientId?: string;
   Status?: string;
   EffectiveFrom?: string;
+}
+
+export enum PatientChart {
+  AdvancedDirectives,
+  SmokingStatus
 }

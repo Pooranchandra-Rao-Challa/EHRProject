@@ -78,18 +78,12 @@ export class AlertMessage {
  *
  * PATIENTS
  * Chart : C
-<<<<<<< HEAD
- * Dental Chart : DC:
- * Profile: P
- *
-=======
  * Dental Chart : DC
  * Profile : P
  * Insurance : I
  * Amendments : A
  * Patients : PA
  * CQMsNotPerformed : CNP
->>>>>>> e3edaa0304a39da96fda92e009582ebaa8304d98
  * ----------------------------------------
  * These are some dialogs in Chart screen
  *
@@ -158,10 +152,10 @@ export const ERROR_CODES: { [key: string]: string } = {
   'E2CP006': 'Next of kin Updation error',
   'E2CP007': 'Immunization Updation error',
   //Message for Partner signup
-  'M3PS001':'Application Submitted!',
+  'M3PS001': 'Application Submitted!',
 
   //Error for Partner signup
-  'E3PS001':'Partner Error',
+  'E3PS001': 'Partner Error',
   //Message for Smoking Status in chart screen
   'M2CSS001': 'Smoking Status added successfully',
   'M2CSS002': 'Smoking Status updated successfully',
