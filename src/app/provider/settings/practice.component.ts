@@ -12,7 +12,7 @@ import { LocationSelectService } from '../../_navigations/provider.layout/locati
 import { Accountservice } from '../../_services/account.service';
 import { PracticeLocation } from '../../_models/_provider/practiceLocation';
 import { NewUser } from '../../_models/_provider/_settings/settings';
-import { Actions } from 'src/app/_models/smart.scheduler.data';
+import { Actions } from 'src/app/_models/_provider/smart.scheduler.data';
 import { UserDialogComponent } from 'src/app/dialogs/user.dialog/user.dialog.component';
 import { OverlayService } from '../../overlay.service';
 import { AlertMessage,ERROR_CODES } from './../../_alerts/alertMessage';

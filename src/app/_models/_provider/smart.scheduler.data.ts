@@ -1,5 +1,4 @@
-
-import{ PracticeProviders} from'./_provider/practiceProviders';
+import{ PracticeProviders} from'./practiceProviders';
 export interface NewAppointment {
   AppointmentId?: string;
   PatientId?: string;
