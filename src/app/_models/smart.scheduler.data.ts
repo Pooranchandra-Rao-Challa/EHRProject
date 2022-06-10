@@ -2,8 +2,6 @@
 
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { PracticeProviders } from './_provider/practiceProviders';
-
-
 export interface NewAppointment {
   AppointmentId?: string;
   PatientId?: string;
