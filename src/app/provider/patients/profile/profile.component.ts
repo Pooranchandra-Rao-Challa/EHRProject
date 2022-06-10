@@ -1,4 +1,3 @@
-import { Patient } from 'src/app/_models/newPatient';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { patientService } from 'src/app/_services/patient.service';
@@ -10,7 +9,7 @@ import { FormControl } from '@angular/forms';
 import { map, startWith, filter } from 'rxjs/operators';
 import { Observable, observable } from 'rxjs';
 import { User } from 'src/app/_models';
-import { PatientsData } from 'src/app/_models/patients';
+import { ProviderPatient } from 'src/app/_models/_provider/ProviderPatient';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 
@@ -33,7 +32,7 @@ export class ProfileComponent implements OnInit {
   filterPatientOptions: Observable<any[]>;
   isShow: boolean;
   user: User;
-  patientsList: PatientsData[];
+  patientsList: ProviderPatient[];
   Patientdata: any = [];
   GetFilterList: any;
   SearchKey = "";

@@ -8,7 +8,6 @@ import { Observable, Subject, Subscription } from 'rxjs';
 import { debounceTime, switchMap, distinctUntilChanged, map } from 'rxjs/operators';
 
 import { OverlayService } from '../../overlay.service';
-import { Patient } from '../../_models/newPatient';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { SmartSchedulerService } from '../../_services/smart.scheduler.service';
 import { UtilityService } from './../../_services/utiltiy.service';
