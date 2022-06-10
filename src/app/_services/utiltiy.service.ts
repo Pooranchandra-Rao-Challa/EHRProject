@@ -1,8 +1,8 @@
-import { PatientData } from './../_models/patient';
+import { PatientData } from '../_models/_provider/_reports/patient';
 import { Injectable } from "@angular/core";
 import { APIEndPoint } from "./api.endpoint.service";
 import { HttpClient } from "@angular/common/http";
-import { Patient } from './../_models/newPatient';
+import { Patient } from './../_models/_account/newPatient';
 @Injectable()
 export class UtilityService extends APIEndPoint {
   constructor(http: HttpClient) { super(http); }
