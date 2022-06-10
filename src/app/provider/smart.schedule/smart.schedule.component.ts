@@ -12,7 +12,7 @@ import { Patient } from '../../_models/newPatient';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { SmartSchedulerService } from '../../_services/smart.scheduler.service';
 import { UtilityService } from './../../_services/utiltiy.service';
-import { PracticeProviders } from '../../_models/practiceProviders';
+import { PracticeProviders } from '../../_models/_provider/practiceProviders';
 import { PatientDialogComponent } from '../../dialogs/patient.dialog.component';
 import { LocationSelectService } from '../../_navigations/provider.layout/location.service';
 import { NewAppointmentDialogComponent } from '../../dialogs/newappointment.dialog/newappointment.dialog.component';

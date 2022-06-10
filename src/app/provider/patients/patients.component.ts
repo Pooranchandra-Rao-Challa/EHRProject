@@ -12,7 +12,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, NavigationExtras, Route, Router } from '@angular/router';
 import { SmartScheduleComponent } from '../smart.schedule/smart.schedule.component';
 import { SmartSchedulerService } from '../../_services/smart.scheduler.service';
-import { PracticeProviders } from '../../_models/practiceProviders';
+import { PracticeProviders } from '../../_models/_provider/practiceProviders';
 import { patientService } from './../../_services/patient.service';
 
 @Component({

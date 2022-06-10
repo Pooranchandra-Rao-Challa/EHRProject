@@ -379,19 +379,18 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "CareTeamByPatientId";
   }
 
-  get _careTeamUrl(){
+  get _careTeamUrl() {
     return this._baseUrl + "CreateCareTeam";
   }
 
-  get _languagesInfoUrl(){
+  get _languagesInfoUrl() {
     return this._baseUrl + "LanguagesInfo";
   }
 
-  get _patientsRelationByProviderIdUrl(){
+  get _patientsRelationByProviderIdUrl() {
     return this._baseUrl + "PatientsRelationByProviderId";
   }
-  get _labTestResultByPatientIdUrl()
-  {
+  get _labTestResultByPatientIdUrl() {
     return this._baseUrl + "LabTestResultByPatientId";
   }
 
@@ -428,38 +427,42 @@ export class APIEndPoint extends EndpointBase {
   get _createAdvancedDirectivesUrl() {
     return this._baseUrl + "CreateAdvancedDirectives";
   }
+  get _createPartnerSignupUrl() {
+    return this._baseUrl + "CreatePartnerSignup";
+  }
 
-  get _updatePatientInformationUrl()
-  {
+  get _createSmokingStatusUrl() {
+    return this._baseUrl + "CreateSmokingStatus";
+  }
+
+  get _updatePatientInformationUrl() {
     return this._baseUrl + "UpdatePatientInformation";
   }
 
-  get _updateContactInformationUrl()
-  {
+  get _updateContactInformationUrl() {
     return this._baseUrl + "UpdateContactInformation";
   }
 
-  get _updateEmergencyContactUrl()
-  {
+  get _updateEmergencyContactUrl() {
     return this._baseUrl + "UpdateEmergencyContact";
   }
 
-  get _updateNextofkinUrl()
-  {
+  get _updateNextofkinUrl() {
     return this._baseUrl + "UpdateNextofkin";
   }
 
-  get _updateDemographicsUrl()
-  {
+  get _updateDemographicsUrl() {
     return this._baseUrl + "UpdateDemographics";
   }
 
-  get _updateImmunizationRegistryUrl()
-  {
+  get _updateImmunizationRegistryUrl() {
     return this._baseUrl + "UpdateImmunizationRegistry";
   }
-  get _updateNotesUrl()
-  {
+
+  get _activityLogsUrl() {
+    return this._baseUrl + "ActivityLogByPatient";
+  }
+  get _updateNotesUrl() {
     return this._baseUrl + "UpdateNotes";
   }
   constructor(public http: HttpClient) {

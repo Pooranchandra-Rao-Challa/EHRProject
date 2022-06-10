@@ -15,6 +15,7 @@ export class AlertMessage {
       confirmButtonText: 'Close',
       width: '600'
     });
+
   }
 
   displayErrorDailog(message) {
@@ -26,6 +27,16 @@ export class AlertMessage {
       width: '600',
       customClass: { title: 'swal2-title-custom' }
     });
+  }
+  displaysubmitted(message) {
+    Swal.fire({
+      title: message,
+      position: 'center',
+      text: 'Thank you for your interest in becoming a partner application. Our team will be reaching out to you in the next 3-5 business days',
+      confirmButtonText: 'Done',
+      confirmButtonColor: "#41b6a6",
+
+    })
   }
 }
 /**
@@ -50,7 +61,7 @@ export class AlertMessage {
  * Billing: I
  * Settings: J
  * Screens: Adming Lofin
- *
+ * partnersignup :PS
  * -------------------------------------
  * If the screens has more funcitonal items then
  * Like in settings use frist letter as code, if same
@@ -59,15 +70,26 @@ export class AlertMessage {
  *
  * SETTINGS
  * Practice : P
- * Schedules : S
+ * Schedule : S
  * Erx.  : E
  * Patinet Educations: PE
+ * Clinic Decision Support : CDS
+ * Audit Log : AL
  *
  * PATIENTS
  * Chart : C
+<<<<<<< HEAD
  * Dental Chart : DC:
  * Profile: P
  *
+=======
+ * Dental Chart : DC
+ * Profile : P
+ * Insurance : I
+ * Amendments : A
+ * Patients : PA
+ * CQMsNotPerformed : CNP
+>>>>>>> e3edaa0304a39da96fda92e009582ebaa8304d98
  * ----------------------------------------
  * These are some dialogs in Chart screen
  *
@@ -77,6 +99,13 @@ export class AlertMessage {
  * Tobacco Use : TU
  * Past Medical Histories : PMH
  * Advanced Directives : AD
+ * Allergies : A
+ * Medications And Prescription : MAP
+ * Immunizations : I
+ * Screenings/Interventions/Assessments : SIA
+ * Encounters : E
+ * Messages : M
+ * Appointments : AP
  * ---------------------------------------------------
  * Errors Number shouw be three digits like 001
  *
@@ -128,4 +157,17 @@ export const ERROR_CODES: { [key: string]: string } = {
   'E2CP005': 'Demographics Updation error',
   'E2CP006': 'Next of kin Updation error',
   'E2CP007': 'Immunization Updation error',
+  //Message for Partner signup
+  'M3PS001':'Application Submitted!',
+
+  //Error for Partner signup
+  'E3PS001':'Partner Error',
+  //Message for Smoking Status in chart screen
+  'M2CSS001': 'Smoking Status added successfully',
+  'M2CSS002': 'Smoking Status updated successfully',
+  'M2CSS003': 'Smoking Status deleted successfully',
+
+  // Error for Smoking Status
+  'E2CSS001': 'Smoking Status Updation error',
+
 };

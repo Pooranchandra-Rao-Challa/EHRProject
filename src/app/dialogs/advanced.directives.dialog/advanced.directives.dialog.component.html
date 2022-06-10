@@ -15,14 +15,15 @@
           <mat-datepicker #picker1></mat-datepicker>
         </mat-form-field>
         <div class="col-lg-4 col-md-6">
-          <button class="btn btn-green col-12">Today</button>
+          <button class="btn btn-green col-12" (click)="todayDate()">Today</button>
         </div>
       </div>
       <textarea placeholder="Advanced Directive Notes" class="form-control col-12 mt-3 mt-md-0"
         [(ngModel)]="advDirective.Notes"></textarea>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-green" (click)="CreateAdvancedDirectives(advDirective)">Save</button>
+      <button class="btn btn-green" (click)="CreateAdvancedDirectives(advDirective)"
+        [disabled]="advDirective.RecordAt == (undefined || '' || null) && advDirective.Notes == (undefined || '' || null)">Save</button>
       <button class="btn btn-green" (click)="cancel()">Cancel</button>
     </div>
   </div>

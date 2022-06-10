@@ -25,11 +25,11 @@
 <div class="patients-navigation-info">
   <img class="avatar avatar-empty" src="assets/images/avatar-empty.svg" alt="Avatar empty">
   <ul class="patient-main-info">
-    <li>{{patient.FirstName}} {{patient.LastName}}</li>
-    <li>{{patient.Age}} yrs {{patient.Gender}}</li>
+    <li>{{patient?.FirstName}} {{patient?.LastName}}</li>
+    <li>{{patient?.Age}} yrs {{patient?.Gender}}</li>
     <li>
       <b>DOB:</b>
-      <time>{{patient.Dob | date: 'MM/dd/yyyy'}}</time>
+      <time>{{patient?.Dob | date: 'MM/dd/yyyy'}}</time>
     </li>
     <li>
       <b>C:</b>4565654675
