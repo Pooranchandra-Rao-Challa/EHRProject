@@ -11,6 +11,8 @@ import { map, startWith, filter } from 'rxjs/operators';
 import { Observable, observable } from 'rxjs';
 import { User } from 'src/app/_models';
 import { PatientsData } from 'src/app/_models/patients';
+import { UtilityService } from 'src/app/_services/utiltiy.service';
+import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 
 
 @Component({
@@ -63,8 +65,8 @@ export class ProfileComponent implements OnInit {
   patientRelationList: any = [];
   displayNotes ="none";
   jQuery:any;
-  constructor(private route: ActivatedRoute, private patientService: patientService,
-    private smartSchedulerService: SmartSchedulerService, private authService: AuthenticationService) {
+  constructor(private route: ActivatedRoute, private patientService: patientService,private utilityService:UtilityService,
+    private smartSchedulerService: SmartSchedulerService, private authService: AuthenticationService,private alertmsg: AlertMessage) {
     this.user = authService.userValue;
     this.PatientMyProfile = {} as PatientProfile;
   }
@@ -77,12 +79,11 @@ export class ProfileComponent implements OnInit {
     this.relationship;
     this.getlanguagesInfo();
     this.getPatientsRelationByProvider();
-    this.getPatientsRelationByProvider()
   }
 
   //get Language List
   getlanguagesInfo() {
-    this.patientService.LanguagesInfo().subscribe(resp => {
+    this.utilityService.LanguagesInfo().subscribe(resp => {
       if (resp.IsSuccess) {
         this.primaryLanguages = resp.ListResult[0];
         this.secondaryLanguage = resp.ListResult[1];
@@ -95,6 +96,7 @@ export class ProfileComponent implements OnInit {
   getPatientDetails() {
     this.route.queryParams.subscribe((params) => {
       this.PatientDetails = JSON.parse(params.patient);
+      console.log(this.PatientDetails);
     });
   }
 
@@ -104,12 +106,13 @@ export class ProfileComponent implements OnInit {
     var reqparam = {
       "PatientId": this.PatientDetails.PatientId
     }
+    console.log(reqparam);
     this.patientService.PatientMyProfileByPatientId(reqparam).subscribe(resp => {
       debugger;
       if (resp.IsSuccess) {
         this.PatientMyProfile = resp.ListResult[0];
-        this.PatientMyProfile.ImmunizationrRegistry = this.PatientMyProfile.ImmunizationrRegistry;
-        console.log(this.PatientMyProfile.ImmunizationrRegistry);
+        this.PatientMyProfile.Gender = this.PatientMyProfile.Gender;
+        console.log(this.PatientMyProfile.Gender);
       }
     });
   }
@@ -166,7 +169,7 @@ export class ProfileComponent implements OnInit {
     this.patientService.CareTeamByPatientId(reqparam).subscribe(resp => {
       if (resp.IsSuccess) {
         debugger;
-        this.CareTeamList = resp.ListResult[0];
+        this.CareTeamList = resp.ListResult;
         this.careTeamName = this.CareTeamList.FirstName;
         console.log(this.CareTeamList)
       }
@@ -191,13 +194,13 @@ export class ProfileComponent implements OnInit {
     let reqparam = {
       "ProviderId": this.user.ProviderId
     }
-    this.patientService.PatientsRelationByProviderId(reqparam).subscribe(resp => {
-      if (resp.IsSuccess) {
-        // this.patientRelationList = resp.ListResult;
-        // this.GetFilterList = resp.ListResult;
-        console.log(this.patientRelationList);
-      }
-    })
+    // this.patientService.PatientsRelationByProviderId(reqparam).subscribe(resp => {
+    //   if (resp.IsSuccess) {
+    //     // this.patientRelationList = resp.ListResult;
+    //     // this.GetFilterList = resp.ListResult;
+    //     console.log(this.patientRelationList);
+    //   }
+    // })
   }
 
   // search patient details
@@ -250,54 +253,71 @@ export class ProfileComponent implements OnInit {
     this.patientService.UpdatePatientInformation(this.PatientMyProfile).subscribe(resp => {
       debugger;
       if (resp.IsSuccess) {
-        let success = resp.EndUserMessage;
-        console.log(success);
+        this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP001"])
+      }
+      else {
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP001"]);
       }
     });
   }
+
   updateContactInform() {
     debugger;
     this.patientService.UpdateContactInformation(this.PatientMyProfile).subscribe(resp => {
       debugger;
       if (resp.IsSuccess) {
-        let success = resp.EndUserMessage;
-        console.log(success);
+        this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP002"])
+      }
+      else {
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP002"]);
       }
     });
   }
+
   updateEmergencyContact() {
     this.patientService.UpdateEmergencyContact(this.PatientMyProfile).subscribe(resp => {
       debugger;
       if (resp.IsSuccess) {
-        let success = resp.EndUserMessage;
-        console.log(success);
+        this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP003"])
+      }
+      else {
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP003"]);
       }
     });
   }
+
   updateNextOfKin() {
     this.patientService.UpdateNextofkin(this.PatientMyProfile).subscribe(resp => {
       debugger;
       if (resp.IsSuccess) {
-        let success = resp.EndUserMessage;
-        console.log(success);
+        this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP006"])
+      }
+      else {
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP006"]);
       }
     });
   }
+
   updateDemography() {
     this.patientService.UpdateDemographics(this.PatientMyProfile).subscribe(resp => {
       debugger;
       if (resp.IsSuccess) {
-        let success = resp.EndUserMessage;
-        console.log(success);
+        this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP005"])
+      }
+      else {
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP005"]);
       }
     });
   }
+
   updateImmunizationRegistry() {
     this.patientService.UpdateImmunizationRegistry(this.PatientMyProfile).subscribe(resp => {
       debugger;
       if(resp.IsSuccess) {
-        let success = resp.EndUserMessage;
-        console.log(success);
+        this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP007"])
+      }
+      else {
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP007"]);
       }
     });
   }

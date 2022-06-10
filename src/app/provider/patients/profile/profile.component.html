@@ -26,7 +26,7 @@
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="Name" class="form-label label-design">Name</label>
                 <input type="text" class="input-group form-control" placeholder="First Name"
-                  [(ngModel)]="PatientMyProfile.FirstName" id="FirstName" name="FirstName" #FirstName="ngModel">
+                  [(ngModel)]="PatientMyProfile.FirstName" id="FirstName" >
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="MiddleName" class="form-label label-design">Middle Name</label>
@@ -38,34 +38,27 @@
                 <input class="input-group form-control" [(ngModel)]="PatientMyProfile.LastName" placeholder="Last Name"
                   type="text" id="LastName">
               </div>
-              <div class="col-lg-10 col-md-10 col-xl-4 col-12 my-2">
-
-                <label for="SEX" class="form-label label-design  mx-lg-1">SEX</label>
-                <div class="btn-group" [(ngModel)]="PatientMyProfile.GenderIdentity">
-
-                  <input type="radio" class="btn-check" name="gender" id="option1" autocomplete="off" checked />
-                  <label class="btn gender" for="option1">Male</label>
-
-                  <input type="radio" class="btn-check" name="gender" id="option2" autocomplete="off" />
-                  <label class="btn gender" for="option2">Female</label>
-
-                  <input type="radio" class="btn-check" name="gender" id="option3" autocomplete="off" />
-                  <label class="btn gender" for="option3">Other</label>
-
-                  <input type="radio" class="btn-check" name="gender" id="option4" autocomplete="off" />
-                  <label class="btn gender" for="option4">Unknow</label>
-                </div>
-              </div>
 
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
-                <label for="DATEOFBIRTH*" class="form-label label-design">DATE OF BIRTH*</label>
-                <input class="input-group form-control" [(ngModel)]="PatientMyProfile.DateOfBirth"
-                  placeholder="MM/DD/YYYY" type="text" id="DATEOFBIRTH">
+                <label for="DATEOFBIRTH*" class="form-label label-design">DATE OF BIRTH</label>
+                  <mat-form-field appearance="outline" class="bg-white form-group grey-matform green-calendar">
+                    <input matInput class="pointer date-mat-class" autocomplete="off"
+                    [(ngModel)]="PatientMyProfile.DateOfBirth"  [matDatepicker]="picker"
+                      (click)="picker.open()" readonly placeholder="DATE OF BIRTH">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
               </div>
+
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="DATEOFDEATH" class="form-label label-design">DATE OF DEATH</label>
-                <input class="input-group form-control" [(ngModel)]="PatientMyProfile.DateOfDeath"
-                  placeholder="MM/DD/YYYY" type="text" id="DATEOFDEATH">
+                  <mat-form-field appearance="outline" class="bg-claneder form-group grey-matform green-calendar">
+                    <input matInput class="pointer date-mat-class" autocomplete="off"
+                    [(ngModel)]="PatientMyProfile.DateOfDeath"  [matDatepicker]="picker1"
+                      (click)="picker1.open()" readonly placeholder="DATE OF DEATH">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                  </mat-form-field>
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="SOCIALSECURITYNUMBER" class="form-label label-design">SOCIAL SECURITY NUMBER</label>
@@ -79,10 +72,10 @@
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="PATIENTID" class="form-label label-design">PATIENT ID</label>
-                <input class="input-group form-control" [(ngModel)]="PatientMyProfile.PatientId"
-                  placeholder="PATIENT ID" type="text" id="PATIENT ID">
+                <input class="input-group form-control patient-id" [(ngModel)]="PatientMyProfile.PatientId"
+                  placeholder="PATIENT ID" type="text" id="PATIENT ID" >
               </div>
-              <div class="col-lg-12 col-md-12 col-xl-5 col-sm-12 my-2">
+              <!-- <div class="col-lg-12 col-md-12 col-xl-5 col-sm-12 my-2">
                 <div class="form-group">
                   <div class="input-group">
                     <input class="checkbox form-check-input" id="DECLINED" name="DECLINED" type="checkbox"
@@ -108,14 +101,25 @@
                     <label class="label-design check-label check-label-mrg">BLACK OR AFRICAN AMERICAN</label>
                   </div>
                 </div>
-              </div>
-              <div class="col-lg-6 col-xl-5 col-md-6 col-12 my-2">
+              </div> -->
+              <div class="col-lg-4 col-xl-4 col-md-6 col-12 my-2">
                 <label for="PATIENTID" class="form-label label-design">Preliminary Cause of Death</label>
                 <input class="input-group form-control" [(ngModel)]="PatientMyProfile.CauseofDeath"
                   placeholder="Preliminary Cause of Death" type="text" id="PATIENT ID">
               </div>
+              <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
+                <label for="SEX" class="form-label label-design  mx-lg-1">SEX</label>
+                <div>
+                  <mat-radio-group [(ngModel)]="PatientMyProfile.Gender">
+                    <mat-radio-button value="male"   class="radio-btn-label label-design my-1" >Male</mat-radio-button>
+                     <mat-radio-button value="female"   class="radio-btn-label label-design my-1">Female</mat-radio-button>
+                     <mat-radio-button value="other"   class="radio-btn-label label-design my-1">Other</mat-radio-button>
+                     <mat-radio-button value="Unknow"   class="radio-btn-label label-design my-1">Unknow</mat-radio-button>
+                 </mat-radio-group>
+                </div>
+              </div>
             </div>
-            <div class="d-flex justify-content-end mt-3 ">
+            <div class="d-flex justify-content-end mt-3 mx-4">
               <button type="button" class="btn btn-lg btn-orange" (click)="updatePatientInformation()">Save</button>
              </div>
           </div>
@@ -123,10 +127,10 @@
             <hr>
           </div>
 
-          <!-- Emergency contact -->
+          <!-- Emergency Contact -->
           <div class="col-lg-12 col-md-12 col-12 my-3">
             <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
-              <label>Emergency contact</label>
+              <label>Emergency Contact</label>
             </div>
 
             <div class="row  mx-2">
@@ -271,10 +275,10 @@
             <hr>
           </div>
 
-          <!-- Immunization registry-->
+          <!-- Immunization Registry-->
           <div class="col-lg-12 col-md-12 col-12 my-3">
             <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
-              <label>Immunization registry</label>
+              <label>Immunization Registry</label>
             </div>
             <div class="row">
              <mat-radio-group [(ngModel)]="PatientMyProfile.ImmunizationrRegistry">
@@ -340,7 +344,7 @@
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="HOMEPHONE" class="form-label label-design">HOME PHONE</label>
-                <input class="input-group form-control" [(ngModel)]="PatientMyProfile.HomePhone"
+                <input class="input-group form-control" [(ngModel)]="PatientMyProfile.PrimaryPhone"
                   placeholder="HOME PHONE" type="text" id="HOME PHONE">
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
@@ -562,7 +566,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-lg-12 col-md-12 col-xl-7 col-sm-12 mt-2">
+                  <div class="col-lg-12 col-md-12 col-xl-7 col-sm-12">
                     <div class="form-group">
                       <div class="input-group">
                         <input class="checkbox form-check-input" id="NATIVE" name="NATIVE" type="checkbox"
@@ -623,7 +627,7 @@
                       </mat-option>
                     </mat-autocomplete>
                   </mat-form-field>
-                  <button class="btn btn-info btn-md" type="button">
+                  <button class="btn btn-info btn-md btn-autosearch" type="button">
                     <i class="fa fa-search "></i>
                   </button>
                 </div>
@@ -658,6 +662,9 @@
                           </tr>
                         </tbody>
                       </table>
+                      <div class="NoRecord text-center py-2">
+                        No Care team Found
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -450,24 +450,18 @@ tr td {
   font-family: "Roboto";
   font-size: 16px;
 }
-
+.patient-id{
+  background-color: #f5f5f5;
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: auto;
+}
 .a-tag:hover {
   text-decoration: underline;
   color: #41b6a6;
 }
-
-.mat-form-field-appearance-outline .search-control .mat-form-field-outline {
-
-  height: 50px;
-  width: 582px;
-}
-
-.mat-form-field-appearance-outline .search-control.mat-form-field-outline-start {
-  border-radius: 0px 0 0 0px !important;
-}
-
-.mat-form-field-appearance-outline .search-control .mat-form-field-outline-end {
-  border-radius: 0 0px 0px 0 !important;
+.hover{
+  height: 50px !important;
 }
 
 .btn.btn-info {
@@ -587,3 +581,21 @@ input[type='checkbox']:checked:after {
   border-right: 1px solid #41b6a6;
 }
 
+.btn.btn-info.btn-autosearch {
+  height: 49px;
+  margin-top: -5px;
+}
+.grey-calendar .mat-datepicker-toggle.mat-datepicker-toggle button.mat-focus-indicator.mat-icon-button {
+  background-color: #41b6a6 !important;
+  color: #fff;
+  width: 4.5em !important;
+}
+.bg-claneder{
+  background-color: white;
+}
+.grey-matform.mat-form-field-appearance-outline .mat-form-field-outline {
+  background-color: #ffffff !important;
+}
+// .green-calendar{
+//   background-color: red !important;
+// }

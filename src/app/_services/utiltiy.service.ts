@@ -37,4 +37,8 @@ export class UtilityService extends APIEndPoint {
   MedicalCodes(searchTerm: string,codeSystem: string){
     return this._ProcessPostRequest<any>(this._medicalCodesUrl,{CodeSystem: codeSystem,SearchTerm: searchTerm});
   }
+  LanguagesInfo()
+  {
+    return this._ProcessGetRequest<any>(this._languagesInfoUrl);
+  }
 }
