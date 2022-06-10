@@ -211,3 +211,10 @@ input[type=checkbox]:checked:after {
     margin-left: 34% !important;
   }
 }
+.table td .form-check, .table td .form-radio, .table th .form-check, .table th .form-radio {
+  margin-top: -6px !important;
+}
+.delete-icon{
+  color: red;
+  // background-color: #333333;
+}

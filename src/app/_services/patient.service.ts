@@ -60,12 +60,11 @@ export class patientService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._careTeamUrl, reqparams);
   }
 
-  LanguagesInfo() {
-    return this._ProcessGetRequest<any>(this._languagesInfoUrl);
-  }
-  PatientsRelationByProviderId(reqparam: any) {
+  PatientsRelationByProviderId(reqparam:any)
+  {
     return this._ProcessPostRequest<any>(this._patientsRelationByProviderIdUrl, reqparam);
   }
+
   PatientClinicProviders(reqparams: any) {
     return this._ProcessPostRequest<any>(this._patientClinicProviderUrl, reqparams);
   }
