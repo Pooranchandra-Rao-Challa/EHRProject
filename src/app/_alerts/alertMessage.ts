@@ -78,12 +78,18 @@ export class AlertMessage {
  *
  * PATIENTS
  * Chart : C
+<<<<<<< HEAD
+ * Dental Chart : DC:
+ * Profile: P
+ *
+=======
  * Dental Chart : DC
  * Profile : P
  * Insurance : I
  * Amendments : A
  * Patients : PA
  * CQMsNotPerformed : CNP
+>>>>>>> e3edaa0304a39da96fda92e009582ebaa8304d98
  * ----------------------------------------
  * These are some dialogs in Chart screen
  *
@@ -134,6 +140,23 @@ export const ERROR_CODES: { [key: string]: string } = {
   // Error for Advanced directives
   'E2CAD001': 'Advanced Directives Updation error',
 
+  // Message form Patient profile screen
+  'M2CP001': 'Personal Information updated successfully',
+  'M2CP002': 'Contact Information updated successfully',
+  'M2CP003': 'Emergency Contact updated successfully',
+  'M2CP004': 'Relationship updated successfully',
+  'M2CP005': 'Demographics updated successfully',
+  'M2CP006': 'Next of kin updated successfully',
+  'M2CP007': 'Immunization registry updated successfully',
+
+  // Error for Patient profile directives
+  'E2CP001': 'Personal Information Updation error',
+  'E2CP002': 'Contact Information Updation error',
+  'E2CP003': 'Emergency Contact Updation error',
+  'E2CP004': 'Relationship Updation error',
+  'E2CP005': 'Demographics Updation error',
+  'E2CP006': 'Next of kin Updation error',
+  'E2CP007': 'Immunization Updation error',
   //Message for Partner signup
   'M3PS001':'Application Submitted!',
 

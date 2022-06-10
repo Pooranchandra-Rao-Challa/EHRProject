@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { UtilityService } from '../_services/utiltiy.service';
 import { EHROverlayRef } from '../ehr-overlay-ref';
-import { Patient } from '../_models/NewPatient';
+import { Patient } from '../_models/_account/NewPatient';
 declare const RequiredFormCountrolMouseEnter: any;
 
 

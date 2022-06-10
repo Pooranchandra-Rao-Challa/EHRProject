@@ -1,4 +1,4 @@
-export interface PatientsData {
+export interface ProviderPatient{
   Age: number;
   Created: string;
   Dob: string;

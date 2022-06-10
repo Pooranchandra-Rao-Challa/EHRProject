@@ -1,6 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
-import { PracticeProviders } from 'src/app/_models/practiceProviders';
+import { PracticeProviders } from 'src/app/_models/_provider/practiceProviders';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
 import { EHROverlayRef } from '../../ehr-overlay-ref';
@@ -8,10 +8,10 @@ import {
   PatientSearchResults, Actions,
   ScheduledAppointment, AppointmentTypes, NewAppointment,
   UserLocations, Room, AvailableTimeSlot,AppointmentDialogInfo
-} from 'src/app/_models/smart.scheduler.data';
+} from 'src/app/_models/_provider/smart.scheduler.data';
 import {
   MU2Info,EncounterInfo,EncounterDiagnosis
-} from 'src/app/_models/encounter';
+} from 'src/app/_models/_provider/encounter';
 import {
   MedicalCode
 } from 'src/app/_models/codes';

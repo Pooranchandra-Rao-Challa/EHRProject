@@ -1,10 +1,10 @@
-import { TimeSlot } from './../../_models/settings';
+import { TimeSlot } from './../../_models/_provider/_settings/settings';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { SettingsService } from 'src/app/_services/settings.service';
 import { User, UserLocations } from '../../_models';
-import { NewUser } from '../../_models/settings';
+import { NewUser } from '../../_models/_provider/_settings/settings';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
 import { HostListener } from "@angular/core";

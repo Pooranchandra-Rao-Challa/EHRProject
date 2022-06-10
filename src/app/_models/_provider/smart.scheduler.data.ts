@@ -1,6 +1,3 @@
-
-import { Location } from './settings';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import{ PracticeProviders} from'./practiceProviders';
 export interface NewAppointment {
   AppointmentId?: string;

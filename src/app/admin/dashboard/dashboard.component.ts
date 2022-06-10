@@ -38,10 +38,10 @@ export class DashboardComponent implements OnInit {
   }
 
   GetProivderList() {
-
     this.adminservice.GetProviderList().subscribe(resp => {
       if (resp.IsSuccess) {
         this.ProviderList = resp.ListResult;
+        console.log(this.ProviderList);
         this.ProviderList.map((e) => {
           if (e.Trial == 'Trial') {
             e.ToggleButton = false;
