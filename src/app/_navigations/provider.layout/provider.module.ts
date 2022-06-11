@@ -72,6 +72,13 @@ import { SmokingStatusDialogComponent } from '../../dialogs/smoking.status.dialo
 import { InterventionDialogComponent } from '../../dialogs/intervention.dialog/intervention.dialog.component';
 import { DropDownSearchComponent } from '../../_components/drop-down-search/drop-down-search.component';
 import { AdvancedMedicalCodeModule } from '../../_components/advanced-medical-code-search/advanced-medical-code-module';
+import { ChangePasswordDialogComponent } from 'src/app/dialogs/user.dialog/changepassword.dialog.component'
+import { LocationDialogComponent} from 'src/app/dialogs/location.dialog/location.dialog.component';
+import { VitalDialogComponent} from 'src/app/dialogs/vital.dalog/vital.dialog.component';
+import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
+// import { NgxNativeDateModule, NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
+import { TeethSurfaceModule } from 'src/app/_components/teeth-surface/teeth-surface.module';
+
 
 import { patientService } from 'src/app/_services/patient.service';
 import { BillingService } from '../../_services/billing.service';
@@ -86,7 +93,8 @@ import { AlertMessage } from 'src/app/_alerts/alertMessage';
     InterventionDialogComponent,
     SmartScheduleComponent,
     NewAppointmentDialogComponent,
-    AdvancedMedicalCodeModule
+    AdvancedMedicalCodeModule,
+    TeethSurfaceModule
   ],
   declarations: [
     ProviderNavbarComponent,
@@ -126,7 +134,10 @@ import { AlertMessage } from 'src/app/_alerts/alertMessage';
     EncounterDialogComponent,
     SmokingStatusDialogComponent,
     InterventionDialogComponent,
-    DropDownSearchComponent
+    DropDownSearchComponent,
+    ChangePasswordDialogComponent,
+    LocationDialogComponent,
+    VitalDialogComponent
   ],
   imports: [
 
@@ -157,6 +168,11 @@ import { AlertMessage } from 'src/app/_alerts/alertMessage';
     SettingsModule,
     PatientsModule,
     AdvancedMedicalCodeModule,
+    TeethSurfaceModule,
+    NgxMatTimepickerModule,
+    // NgxNativeDateModule,
+    // NgxMatDatetimePickerModule,
+    // NgxMatTimepickerModule,
     NgxMaskModule.forRoot(),
 
   ],

@@ -18,9 +18,9 @@ export class CreatePasswordComponent implements OnInit {
   }
   buildCreatePasswordForm() {
     this.createPasswordForm = this.fb.group({
-      SecurityCode: ['', Validators.required],
-      NewPassword: ['', Validators.required],
-      ConfirmNewPassword: ['', Validators.required],
+      SecurityCode: ['', [Validators.required]],
+      NewPassword: ['', [Validators.required]],
+      ConfirmNewPassword: ['', [Validators.required]],
     },
       {
         validator: ConfirmedValidator('NewPassword', 'ConfirmNewPassword')

@@ -20,6 +20,9 @@ export class FormContainerComponent implements OnInit {
   @Input()
   MinTermLength:number
 
+  @Input()
+  showSelectedValue: boolean = true;
+
   @Output() optionChanged: EventEmitter<MedicalCode> =new EventEmitter<MedicalCode>();
 
   constructor() {}
@@ -27,6 +30,8 @@ export class FormContainerComponent implements OnInit {
   ngOnInit(): void {}
 
   optionValueChanged(data: MedicalCode){
+    //console.log(this.showSelectedValue);
+
     this.optionChanged.emit(data);
   }
 }

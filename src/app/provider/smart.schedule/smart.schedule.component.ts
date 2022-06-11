@@ -321,8 +321,8 @@ export class SmartScheduleComponent implements OnInit {
         console.log(resp.ListResult)
         this.Appointments = resp.ListResult as ScheduledAppointment[];
         this.NoofAppointment = this.Appointments.length;
-        console.log(JSON.stringify(this.Appointments));
-        console.log(this.Appointments[0].IsCurrent);
+        //console.log(JSON.stringify(this.Appointments));
+        //console.log(this.Appointments[0].IsCurrent);
 
       } else {
         this.NoofAppointment = 0;

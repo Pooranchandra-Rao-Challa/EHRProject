@@ -106,6 +106,10 @@ export class Accountservice extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._providerRegistrationUrl, reqparams);
   }
 
+  EmailedUrls() {
+    return this._ProcessGetRequest<any>(this._emailedUrlsUrl);
+  }
+
   ProviderConfirmation(req: any){
     let endpointurl: string = this._providerConfirmationUrl+"/?token="+req.token;
     console.log(endpointurl);

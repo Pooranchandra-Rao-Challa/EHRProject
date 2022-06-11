@@ -77,14 +77,14 @@
           <ng-container matColumnDef="Middle">
             <mat-header-cell *matHeaderCellDef> MIDDLE</mat-header-cell>
             <mat-cell *matCellDef="let patient">
-              <a routerLink="/provider/patientdetails">{{patient?.MiddleName}}</a>
+              <a routerLink="provider/patientdetails">{{patient?.MiddleName}}</a>
             </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="Last">
             <mat-header-cell *matHeaderCellDef mat-sort-header="LastName">LAST</mat-header-cell>
             <mat-cell *matCellDef="let patient">
-              <a routerLink="/provider/patientdetails">{{patient?.LastName}}</a>
+              <a routerLink="provider/patientdetails">{{patient?.LastName}}</a>
             </mat-cell>
           </ng-container>
 

@@ -10,20 +10,6 @@
     [hideCodeSystem]="true"
     (optionValueChanged)="optionValueChanged($event)"
     [MinTermLength]="MinTermLength"
+    [ShowSelectedValue] = "true"
   ></form-field-control>
 </mat-form-field>
-<!-- <div *ngIf="data.length > 0" style="z-index:10000;display:block;">
-  <mat-divider class="divider-horizontal" ></mat-divider>
-  <div class="row" *ngFor="let d of data">
-      <div class="col6">{{d.code}}</div>
-      <div class="col6">{{d.description}}</div>
-  </div>
-</div> -->
-<!-- <div *ngIf="data.length > 0" style="z-index:10000;display:flex; width:100%;height: 100%;position: absoluete;left:10px;top:0px;">
-<mat-selection-list #list [ngStyle]="{'z-index':10000,'display':'block'}" multiple="false">
-  <mat-list-option *ngFor="let d of data"
-      [value]="d">
-      {{d.code}} - {{d.description}}
-  </mat-list-option>
-</mat-selection-list>
-</div> -->

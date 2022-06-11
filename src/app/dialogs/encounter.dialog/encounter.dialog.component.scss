@@ -91,4 +91,90 @@
 }
 
 
+::ng-deep .procedure-table .mat-cell:first-child,
+::ng-deep .procedure-table .mat-header-cell:first-child{
+  //width: 5%;
+  overflow: unset;
+}
 
+::ng-deep .procedure-table .mat-cell:last-child,
+::ng-deep .procedure-table .mat-header-cell:last-child{
+  //width: 5%;
+  overflow: unset;
+}
+::ng-deep .procedure-table .mat-cell:nth-child(2),
+::ng-deep .procedure-table .mat-header-cell:nth-child(2){
+  width: 5%;
+  align-items: center;
+}
+
+::ng-deep .procedure-table .mat-cell:nth-child(3),
+::ng-deep .procedure-table .mat-header-cell:nth-child(3){
+  min-width: 40%;
+  align-items: center;
+  overflow: unset;
+}
+
+::ng-deep .procedure-table .mat-cell:nth-child(4),
+::ng-deep .procedure-table .mat-header-cell:nth-child(4){
+  //width: 10%;
+  align-items: center;
+  overflow: unset;
+}
+
+::ng-deep .procedure-table .mat-cell:nth-child(5),
+::ng-deep .procedure-table .mat-header-cell:nth-child(5){
+  width: 35%;
+  align-items: center;
+  overflow: unset;
+}
+
+::ng-deep .teeth-surface-form-field .mat-form-field-flex .mat-form-field-infix{
+  width: 95px;
+  display: flex;
+  margin-top: -6px;
+}
+
+.error-close {
+  background-color: rgb(253, 65, 65) !important;
+  width: 25px;
+  height: 28px;
+  margin: 10px !important;
+  border: 1px solid white !important;
+  color: white !important;
+  border-radius: 50% !important;
+}
+.error-close:hover {
+  background-color: white !important;
+  border: 1px solid rgb(253, 44, 44) !important;
+  color: rgb(253, 44, 44) !important;
+
+}
+
+#vitals-table{
+  margin-top:10px;
+}
+.green-icon {
+  color: #41a6b6;
+}
+
+::ng-deep #vitals-table .mat-icon-no-color{
+  color: #41a6b6 !important;
+}
+::ng-deep #vitals-table .mat-icon-no-color:hover{
+  color: white !important;
+}
+
+.vital-buttons {
+  padding:0;
+  background: transparent;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  cursor: pointer;
+  margin-right: 20px;
+}
+.vital-buttons:hover {
+  background-color: #41b6a6;
+  color: white !important;
+}

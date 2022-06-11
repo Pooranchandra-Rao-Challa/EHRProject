@@ -370,6 +370,10 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "TobaccoUse_Interventions";
   }
 
+  get _emailedUrlsUrl() {
+    return this._baseUrl + "EmailedUrls";
+  }
+
   constructor(public http: HttpClient) {
     super();
   }

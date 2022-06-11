@@ -1,0 +1,135 @@
+<div class="modal-dialog" id="vital-form">
+  <div class="modal-content">
+    <div class="modal-header" style="margin:-1px;">
+      <h5 class="modal-title Helvetica-sans-serif-medium" id="staticBackdropLabel" >
+        {{Vital.VitalId != null ? "Edit" : "Add"}}
+        Vital</h5>
+      <span type="button" class="cross-mark col-1" aria-label="Close" (click)="closePopup()">
+        X
+      </span>
+    </div>
+    <div class="modal-body">
+      <!-- <form class="pt-4" [formGroup]="VitalInfoFG"> -->
+      <div>
+        <div class="row vitals-heading">
+          <p class="text-center fw-bolder fs-5 Helvetica-sans-serif-medium mt-2">Associate vitals to an encounter:</p>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label class="col-lg-4 col-md-5 col-5" aria-required="true">Encounter:*</label>
+            <mat-form-field appearance="outline" class="col-lg-8 col-md-7 col-7">
+              <mat-select disableOptionCentering id="practiceProviders" [(ngModel)]="Vital.EncounterId">
+                <mat-option value="0">Current Encounter</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="col-lg-6 col-md-6 col-5">Collected date/time:*</label>
+            <mat-form-field appearance="outline" class="col-12 cstm-datepicker-toggle">
+              <input class="vital-input col-lg-6 col-md-6 col-7" matInput class="pointer"
+              autocomplete="off" [matDatepicker]="collectedDate" [(ngModel)]="Vital.CollectedAt"
+              (click)="collectedDate.open()" readonly placeholder="Collected Date">
+              <mat-datepicker-toggle matSuffix [for]="collectedDate"></mat-datepicker-toggle>
+                      <mat-datepicker #collectedDate></mat-datepicker>
+            </mat-form-field>
+            <input [ngxMatTimepicker]="collectedTime" [(ngModel)]="CollectedTime"
+            format="12" class="vital-input col-lg-6 col-md-6 col-7 mt-1 pull-right">
+            <ngx-mat-timepicker #collectedTime></ngx-mat-timepicker>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <label class="col-12">Comments:</label>
+            <textarea class="textarea col-12" [(ngModel)]="Vital.Note"></textarea>
+          </div>
+        </div>
+        <div class="row vitals-heading">
+          <p class="text-center fw-bolder fs-5 Helvetica-sans-serif-medium mt-2">Add a new record for vitals:</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-6" style="display: flex;">
+          <mat-form-field  appearance="outline" class="vital-mat-form-field">
+            <mat-label>Height</mat-label>
+            <input matInput class="vital-input" maxlength="5" [(ngModel)]="Vital.Height" >
+            <!-- <mat-hint align="end">in</mat-hint> -->
+            <span class="vital-mat-form-field-unit-label">in</span>
+          </mat-form-field>
+        </div>
+        <div class="form-group col-md-6">
+          <mat-form-field  appearance="outline" class="vital-mat-form-field">
+            <mat-label>Weight</mat-label>
+            <input matInput class="vital-input" [(ngModel)]="Vital.Weight" >
+            <label class="vital-mat-form-field-unit-label">lb</label>
+          </mat-form-field>
+        </div>
+        <div class="form-group col-md-6">
+          <mat-form-field  appearance="outline"  class="vital-mat-form-field">
+            <mat-label>BMI</mat-label>
+            <input matInput class="vital-input" [(ngModel)]="Vital.BMI" >
+            <label class="vital-mat-form-field-unit-label"></label>
+          </mat-form-field>
+        </div>
+        <div class="form-group col-md-6">
+
+        </div>
+        <div class="form-group col-md-6">
+          <mat-form-field  appearance="outline" class="vital-mat-form-field">
+            <mat-label>BP:Systolic</mat-label>
+            <input matInput class="vital-input" [(ngModel)]="Vital.BPSystolic" >
+            <label class="vital-mat-form-field-unit-label">mmHg</label>
+          </mat-form-field>
+        </div>
+        <div class="form-group col-md-6">
+          <mat-form-field  appearance="outline" class="vital-mat-form-field">
+            <mat-label>BP:Diastolic</mat-label>
+            <input matInput class="vital-input" [(ngModel)]="Vital.BPDiastolic" >
+            <label class="vital-mat-form-field-unit-label">mmHg</label>
+          </mat-form-field>
+        </div>
+        <div class="form-group col-md-6">
+          <mat-form-field  appearance="outline" class="vital-mat-form-field">
+            <mat-label>Temperature:</mat-label>
+            <input matInput class="vital-input" [(ngModel)]="Vital.Temperature" >
+            <label class="vital-mat-form-field-unit-label">F</label>
+          </mat-form-field>
+        </div>
+        <div class="form-group col-md-6">
+          <mat-form-field  appearance="outline" class="vital-mat-form-field">
+            <mat-label>O2 Saturation:</mat-label>
+            <input matInput class="vital-input" [(ngModel)]="Vital.O2Saturation" >
+            <label class="vital-mat-form-field-unit-label">%</label>
+          </mat-form-field>
+        </div>
+        <div class="form-group col-md-6">
+          <mat-form-field  appearance="outline" class="vital-mat-form-field">
+            <mat-label>Pulse:</mat-label>
+            <input matInput class="vital-input" [(ngModel)]="Vital.Pulse" >
+            <label class="vital-mat-form-field-unit-label">bpm</label>
+          </mat-form-field>
+        </div>
+        <div class="form-group col-md-6">
+          <mat-form-field  appearance="outline" class="vital-mat-form-field">
+            <mat-label>Respiratory rate:</mat-label>
+            <input matInput class="vital-input" [(ngModel)]="Vital.RespiratoryRate" >
+            <label class="vital-mat-form-field-unit-label">bpm</label>
+          </mat-form-field>
+        </div>
+        <div class="form-group col-md-6">
+          <mat-form-field appearance="outline"  class="vital-mat-form-field">
+            <mat-label>Blood Type:</mat-label>
+            <mat-select placeholder="Select Blood Type" id="practiceProviders" [(ngModel)]="Vital.BloodType" >
+              <mat-option *ngFor="let type of BloodTypes" [value]="type.BloodType">
+                {{type.BloodType}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <!-- </form> -->
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-green">Save</button>
+      <button type="button" class="btn btn-green" (click)="closePopup()">Cancel</button>
+    </div>
+  </div>
+</div>

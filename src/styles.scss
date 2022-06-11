@@ -1021,3 +1021,6 @@ i {
   cursor: not-allowed;
 }
 
+.swal2-container-high-zindex {
+  z-index: 1000000 !important;
+}

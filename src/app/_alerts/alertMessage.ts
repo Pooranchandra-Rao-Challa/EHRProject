@@ -1,6 +1,5 @@
 import Swal from 'sweetalert2';
-import {map} from 'rxjs/operators';
-import { Map } from 'typescript';
+
 
 export class AlertMessage {
 
@@ -13,7 +12,8 @@ export class AlertMessage {
       background: '#e1dddd',
       showConfirmButton: true,
       confirmButtonText: 'Close',
-      width: '600'
+      width: '600',
+      customClass: {container:'swal2-container-high-zindex'}
     });
   }
 
@@ -24,7 +24,7 @@ export class AlertMessage {
       showConfirmButton: true,
       confirmButtonText: 'Close',
       width: '600',
-      customClass: {title: 'swal2-title-custom'}
+      customClass: {title: 'swal2-title-custom',container:'swal2-container-high-zindex'}
     });
   }
 }
