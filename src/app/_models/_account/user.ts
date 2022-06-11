@@ -1,3 +1,4 @@
+import{ProviderPatient} from './../_provider/Providerpatient';
 export interface User {
   CurrentLocation: string;
   UserId: string;
@@ -20,4 +21,12 @@ export interface User {
 export interface UserLocations {
   locationId: string;
   locationName: string;
+}
+
+export class ViewModel{
+  View? : string = "Smart Schedule";
+  SubView?: string = "";
+  PatinetId?: string = "";
+  Patient?: ProviderPatient;
+  PatientView?: string = ""
 }

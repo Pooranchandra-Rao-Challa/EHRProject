@@ -39,7 +39,7 @@ export class PatientNavbarComponent implements OnInit {
   }
 
   onChangeBreadCrum(url: string, name: string, view?: string,) {
-    debugger;
+    //debugger;
     console.log(view)
     if (view != null) {
       console.log(view)

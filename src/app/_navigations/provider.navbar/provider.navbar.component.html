@@ -7,28 +7,28 @@
   </div>
   <div class="collapse navbar-collapse" [ngClass]="{ 'show': navbarOpen }">
     <ul class="navbar-nav mr-auto">
-      <li [class]="name !== 'Smart Schedule' ? 'nav-item': 'active nav-item'">
+      <li [class]="viewModel.View !== 'Smart Schedule' ? 'nav-item': 'active nav-item'">
         <a href="javascript:void(0)" (click)="onChangeBreadCrum('provider/smartschedule','Smart Schedule')"
           routerLinkActive="router-link-active" class="nav-link active item-prov-dashboard">Smart Schedule
         </a>
       </li>
-      <li [class]="name !== 'Calender' ? 'nav-item': 'active nav-item'">
+      <li [class]="viewModel.View !== 'Calender' ? 'nav-item': 'active nav-item'">
         <a href="javascript:void(0)" (click)="onChangeBreadCrum('provider/calendar','Calender')"
           class="nav-link item-schedule">Calendar
         </a>
       </li>
-      <li [class]="name !== 'Patients' ? 'nav-item': 'active nav-item'">
+      <li [class]="viewModel.View !== 'Patients' ? 'nav-item': 'active nav-item'">
         <a href="javascript:void(0)" class="nav-link item-patients"
           (click)="onChangeBreadCrum('provider/patients','Patients')">Patients
         </a>
       </li>
-      <li [class]="name !== 'Messages' ? 'nav-item': 'active nav-item'">
+      <li [class]="viewModel.View !== 'Messages' ? 'nav-item': 'active nav-item'">
         <a href="javascript:void(0)" class="nav-link item-provider-messages"
           (click)="onChangeBreadCrum('provider/messages','Messages')">Messages
         </a>
         <span class="messages-count">0</span>
       </li>
-      <li [class]="name !== 'Direct Msg' ? 'nav-item': 'active nav-item'">
+      <li [class]="viewModel.View !== 'Direct Msg' ? 'nav-item': 'active nav-item'">
         <a href="javascript:void(0)" class="nav-link item-direct-messages"
           (click)="onChangeBreadCrum('provider/directmsg','Direct Msg')">Direct Msg
         </a>
@@ -39,22 +39,22 @@
           (click)="onChangeBreadCrum('/provider/erx','eRx')">eRx
         </a>
       </li>
-      <li [class]="name !== 'Labs&Imaging' ? 'nav-item': 'active nav-item'">
+      <li [class]="viewModel.View !== 'Labs&Imaging' ? 'nav-item': 'active nav-item'">
         <a href="javascript:void(0)" (click)="onChangeBreadCrum('provider/labsimaging','Labs&Imaging')"
           class="nav-link item-labsimaging">Labs/Imaging
         </a>
       </li>
-      <li [class]="name !== 'Reports' ? 'nav-item': 'active nav-item'">
+      <li [class]="viewModel.View !== 'Reports' ? 'nav-item': 'active nav-item'">
         <a href="javascript:void(0)" class="nav-link item-reports"
           (click)="onChangeBreadCrum('provider/categoryreports','Reports')">Reports
         </a>
       </li>
-      <li [class]="name !== 'Billing' ? 'nav-item': 'active nav-item'">
+      <li [class]="viewModel.View !== 'Billing' ? 'nav-item': 'active nav-item'">
         <a href="javascript:void(0)" class="nav-link item-billing"
           (click)="onChangeBreadCrum('provider/billing','Billing')">Billing
         </a>
       </li>
-      <li [class]="name !== 'Settings' ? 'nav-item': 'active nav-item'">
+      <li [class]="viewModel.View !== 'Settings' ? 'nav-item': 'active nav-item'">
         <a href="javascript:void(0)" (click)="onChangeBreadCrum('provider/settings','Settings','practice')"
           class="nav-link item-settings">Settings
         </a>

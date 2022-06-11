@@ -21,7 +21,7 @@ export class MyhealthComponent implements OnInit {
    Providerdata:any;
 
   constructor(private authenticationService: AuthenticationService,private patientservise: patientService,) {
-    debugger
+    //debugger
 
     this.user = authenticationService.userValue
     this.locationsInfo = JSON.parse(this.user.LocationInfo)
@@ -39,7 +39,7 @@ export class MyhealthComponent implements OnInit {
       "PatientId": this.user.PatientId,
     }
     this.patientservise.SmokingStatusByPatientId(req).subscribe(req => {
-      debugger
+      //debugger
       if (req.IsSuccess) {
         this.StatusList = req.ListResult[0]
         this.smokingStatus = this.StatusList.Status
@@ -52,7 +52,7 @@ export class MyhealthComponent implements OnInit {
       "PatientId": this.user.PatientId,
     }
     this.patientservise.PatientMyProfileByPatientId(req).subscribe(resp => {
-      debugger
+      //debugger
       if (resp.IsSuccess) {
         this.PatientProfile=resp.ListResult[0]
       }

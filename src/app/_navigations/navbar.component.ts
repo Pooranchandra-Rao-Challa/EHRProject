@@ -1,10 +1,8 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
-import { DomSanitizer } from '@angular/platform-browser';
 import { AuthenticationService } from '../_services/authentication.service';
 import { User } from '../_models';
-import { Accountservice } from '../_services/account.service';
 
 
 @Component({
@@ -34,7 +32,7 @@ export class NavbarComponent implements OnInit {
     config: NgbDropdownConfig, private router: Router,
     private authenticationService: AuthenticationService) {
     config.placement = 'bottom-right';
-    this.user = JSON.parse(localStorage.getItem("user"));
+    this.user = authenticationService.userValue;
   }
   ngOnInit() {
 

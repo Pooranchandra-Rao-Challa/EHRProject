@@ -47,7 +47,7 @@ export class InsuranceComponent implements OnInit {
     this.cancel2 = true;
   }
   cancel() {
-    debugger;
+    //debugger;
     this.data = true;
     this.isValid = false;
     this.cancel2 = false;
@@ -80,7 +80,7 @@ export class InsuranceComponent implements OnInit {
   btnstate: boolean = true;
   rowClicked
   changeTableRowColor(idx, event) {
-    debugger;
+    //debugger;
     this.arry = [];
     // if(this.rowClicked === idx) this.rowClicked = -1;
     this.rowClicked = idx;
@@ -90,7 +90,7 @@ export class InsuranceComponent implements OnInit {
 
   }
   Selected() {
-    debugger;
+    //debugger;
     this.InsuranceCompanyPlan = this.arry[0].InsuranceCompanyPlan;
     this.viewpidetails = false;
   }
@@ -113,11 +113,11 @@ export class InsuranceComponent implements OnInit {
   ];
 
   getSourceOfPaymentTypologyCodesDD() {
-    debugger;
+    //debugger;
     this.patientservice.SourceOfPaymentTypologyCodes().subscribe(resp=>{
      this.SourceOfPaymentTypologyCodes =resp.ListResult;
     })
-   
+
     console.log(this.SourceOfPaymentTypologyCodes)
   }
 
@@ -129,5 +129,5 @@ insuranceCompanyPlanList()
       console.log(this.insurancePlanList)
   })
 }
-  
+
 }

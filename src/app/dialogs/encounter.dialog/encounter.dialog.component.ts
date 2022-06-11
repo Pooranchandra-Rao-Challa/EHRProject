@@ -169,7 +169,7 @@ export class EncounterDialogComponent implements OnInit {
 
   showAssociateVitals: boolean = true;
   displayVitalsDialog(event) {
-    debugger;
+    //debugger;
     if (event == true) {
       this.showAssociateVitals = true;
     }

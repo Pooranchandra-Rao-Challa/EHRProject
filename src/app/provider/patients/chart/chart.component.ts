@@ -7,6 +7,7 @@ import { InterventionDialogComponent } from 'src/app/dialogs/intervention.dialog
 import { patientService } from '../../../_services/patient.service';
 import { AdvancedDirectives, PatientChart } from 'src/app/_models/_provider/chart';
 import { Actions } from 'src/app/_models/_provider/smart.scheduler.data';
+import { AuthenticationService } from 'src/app/_services/authentication.service';
 
 @Component({
   selector: 'app-chart',
@@ -34,11 +35,12 @@ export class ChartComponent implements OnInit {
   emptyAdvDiretive: AdvancedDirectives = new AdvancedDirectives;
   ActionTypes = Actions;
   constructor(public overlayService: OverlayService,
-    private patientService: patientService) {
+    private patientService: patientService,
+    private authService: AuthenticationService) {
   }
 
   ngOnInit(): void {
-    this.emptyAdvDiretive.PatientId = sessionStorage.getItem('PatientId');
+    this.emptyAdvDiretive.PatientId = this.authService.viewModel.Patient.PatientId;
     this.AdvancedDirectivesByPatientId();
     this.DiagnosesByPatientId();
     this.AllergiesByPatientId();
@@ -73,13 +75,12 @@ export class ChartComponent implements OnInit {
       else if (content === this.interventionDialogComponent) {
         this.dialogResponse = res.data;
       }
-      debugger;
+      //debugger;
       this.UpdateView(ref.data);
     });
   }
 
   UpdateView(data) {
-    console.log(data);
     if (data.UpdatedModal == PatientChart.AdvancedDirectives) {
       this.AdvancedDirectivesByPatientId();
     }

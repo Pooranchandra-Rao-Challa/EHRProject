@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+//import { ActivatedRoute, Route, Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/_services/authentication.service';
+import { ViewModel } from "src/app/_models"
 @Component({
   selector: 'app-patient.details',
   templateUrl: './patient.details.component.html',
@@ -7,13 +9,18 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
 })
 export class PatientDetailsComponent implements OnInit {
   patient: any;
-
-  constructor(private route: ActivatedRoute) { }
+  viewModel: ViewModel;
+  constructor(private authService: AuthenticationService) {
+    this.viewModel = authService.viewModel;
+    this.patient = this.authService.viewModel.Patient;
+  }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.patient = JSON.parse(params["patient"]);
-      sessionStorage.setItem('PatientId', this.patient.PatientId);
-    });
+
+  }
+
+  UpdatePatientView(patientView: string){
+    this.authService.SetViewParam("PatientView",patientView);
+    this.viewModel = this.authService.viewModel;
   }
 }

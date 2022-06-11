@@ -43,7 +43,6 @@ export class PatientsComponent implements OnInit {
     private patientService: patientService,
     private authService: AuthenticationService,
     private router: Router,
-    private smartschedule: SmartScheduleComponent,
     private smartSchedulerService: SmartSchedulerService) {
     this.user = authService.userValue;
   }
@@ -68,19 +67,12 @@ export class PatientsComponent implements OnInit {
     });
   }
 
-  onChangeViewState(view) {
-    //debugger;
-    // this.router.navigate(
-    //   ['/provider/patientdetails'],
-    //   { queryParams: { name: "patient", view: view } }
-    // );
-    let navigationExtras: NavigationExtras = {
-      queryParams: {
-        "name": "patient",
-        "patient": JSON.stringify(view)
-      }
-    };
-    this.router.navigate(["/provider/patientdetails"], navigationExtras);
+  onChangeViewState(patientview) {
+
+    this.authService.SetViewParam("Patient",patientview);
+    this.authService.SetViewParam("PatientView","Chart");
+
+    this.router.navigate(["/provider/patientdetails"]);
   }
 
   getPatientsByProvider() {
