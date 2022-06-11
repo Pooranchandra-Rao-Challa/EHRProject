@@ -9,6 +9,10 @@ export class patientService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._patientsByProviderUrl, reqparams);
   }
 
+  FilteredPatientsOfProvider(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._filteredPatientsOfProviderUrl, reqparams);
+  }
+
   AdvancedDirectivesByPatientId(reqparams: any) {
     return this._ProcessPostRequest<any>(this._advancedDirectivesByPatientIdUrl, reqparams);
   }

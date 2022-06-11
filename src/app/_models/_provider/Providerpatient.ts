@@ -1,4 +1,6 @@
-export interface ProviderPatient{
+import { NumericLiteral } from 'typescript';
+import { AdvancedDirective } from './chart';
+export class ProviderPatient{
   Age: number;
   Created: string;
   Dob: string;
@@ -13,4 +15,8 @@ export interface ProviderPatient{
   PrimaryPhone: string;
   ProviderId: string;
   active: boolean;
+  AdvancedDirectives: AdvancedDirective[] = [];
+  TotalPatients: number;
 }
+
+

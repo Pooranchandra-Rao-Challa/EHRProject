@@ -78,6 +78,8 @@ import { VitalDialogComponent} from 'src/app/dialogs/vital.dalog/vital.dialog.co
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 // import { NgxNativeDateModule, NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 import { TeethSurfaceModule } from 'src/app/_components/teeth-surface/teeth-surface.module';
+import { StylePaginatorDirective } from 'src/app/_directives/style-paginator.directive';
+import { APPStylePaginatorDirective } from 'src/app/_directives/app-style-paginator.directive';
 
 
 import { patientService } from 'src/app/_services/patient.service';
@@ -137,7 +139,9 @@ import { AlertMessage } from 'src/app/_alerts/alertMessage';
     DropDownSearchComponent,
     ChangePasswordDialogComponent,
     LocationDialogComponent,
-    VitalDialogComponent
+    VitalDialogComponent,
+    StylePaginatorDirective,
+    APPStylePaginatorDirective
   ],
   imports: [
 
@@ -177,7 +181,8 @@ import { AlertMessage } from 'src/app/_alerts/alertMessage';
 
   ],
   providers: [DayService, WeekService, LocationSelectService,
-    UtilityService, SmartSchedulerService, OverlayService, patientService, BillingService, SmartScheduleComponent, AlertMessage,
+    UtilityService, SmartSchedulerService, OverlayService, patientService, BillingService,
+    SmartScheduleComponent, AlertMessage,
     { provide: NgbDateParserFormatter, useClass: NgbDateUSParserFormatter }
 
   ],

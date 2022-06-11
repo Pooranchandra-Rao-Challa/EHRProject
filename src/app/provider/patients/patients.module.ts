@@ -14,6 +14,7 @@ import { ResetPasswordComponent } from './resetpassword/resetpassword.component'
 import { CqmsNotPerformedComponent } from './cqms.not.performed/cqms.not.performed.component';
 import { SearchPipe } from '../../_pipes/search-filter.pipe';
 import { PatientsBreadCrumComponent } from './patients-bread-crum/patients-bread-crum.component';
+
 // import { SettingsModule } from '../settings/settings.module';
 
 @NgModule({
@@ -41,7 +42,8 @@ import { PatientsBreadCrumComponent } from './patients-bread-crum/patients-bread
     ResetPasswordComponent,
     CqmsNotPerformedComponent,
     SearchPipe,
-    PatientsBreadCrumComponent
+    PatientsBreadCrumComponent,
+
   ],
   providers: [],
   // schemas: [CUSTOM_ELEMENTS_SCHEMA]

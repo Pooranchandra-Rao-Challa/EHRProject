@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EHROverlayRef } from '../../ehr-overlay-ref';
-import { AdvancedDirectives } from '../../_models/_provider/chart';
+import { AdvancedDirective } from '../../_models/_provider/chart';
 import { patientService } from '../../_services/patient.service';
 import { DatePipe } from "@angular/common";
 import { AlertMessage, ERROR_CODES } from './../../_alerts/alertMessage';
@@ -13,15 +13,14 @@ const moment = require('moment');
   styleUrls: ['./advanced.directives.dialog.component.scss']
 })
 export class AdvancedDirectivesDialogComponent implements OnInit {
-  advDirective: AdvancedDirectives = {} as AdvancedDirectives;
+  advDirective: AdvancedDirective;
   constructor(private ref: EHROverlayRef,
     private patientService: patientService,
     public datepipe: DatePipe,
     private alertmsg: AlertMessage,
     private router: Router) {
-    console.log(ref.RequestData);
-    console.log(this.advDirective);
-    this.advDirective = ref.RequestData as AdvancedDirectives;
+
+    this.updateLocalModel(ref.RequestData);
     if (this.advDirective.RecordAt != (null || '' || undefined)) {
       this.advDirective.RecordAt = moment(this.advDirective.RecordAt).format('YYYY-MM-DD');
     }
@@ -35,13 +34,19 @@ export class AdvancedDirectivesDialogComponent implements OnInit {
   }
 
   cancel() {
-    this.resetDialog();
+    //this.resetDialog();
     this.ref.close(null);
+  }
+
+  updateLocalModel(data: AdvancedDirective){
+    this.advDirective = new AdvancedDirective;
+    if(data == null)return;
+    this.advDirective = data;
   }
 
   resetDialog() {
     console.log(this.advDirective);
-    this.advDirective = new AdvancedDirectives;
+    this.advDirective = new AdvancedDirective;
     this.ref.close({
       "UpdatedModal": PatientChart
     });

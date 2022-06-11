@@ -14,6 +14,10 @@ import { SmartScheduleComponent } from '../smart.schedule/smart.schedule.compone
 import { SmartSchedulerService } from '../../_services/smart.scheduler.service';
 import { PracticeProviders } from '../../_models/_provider/practiceProviders';
 import { patientService } from './../../_services/patient.service';
+import { CollectionViewer, DataSource } from '@angular/cdk/collections';
+import { BehaviorSubject, fromEvent, merge, Observable, of } from 'rxjs';
+import { catchError, finalize, tap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+//import { StylePaginatorDirective} from 'src/app/_directives/style-paginator.directive';
 
 @Component({
   selector: 'app-patients',
@@ -21,12 +25,14 @@ import { patientService } from './../../_services/patient.service';
   styleUrls: ['./patients.component.scss']
 })
 export class PatientsComponent implements OnInit {
-  @ViewChildren(MatPaginator) paginator = new QueryList<MatPaginator>();
-  @ViewChildren(MatSort) sort = new QueryList<MatSort>();
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  //@ViewChild('style-paginator', { static: true }) paginatorDirective: StylePaginatorDirective;
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild('SearchPatient') searchPatient: ElementRef;
+
   patientColumns: string[] = ['Image', 'First', 'Middle', 'Last', 'DOB', 'Age', 'ContactInfo', 'LastAccessed', 'Created'];
-  // patientsDataSource: PatientsData[];
-  public patientsDataSource = new MatTableDataSource<ProviderPatient>();
-  public patientsList = new MatTableDataSource<ProviderPatient>();
+  public patientsDataSource: PatientDatasource;
+
   filteredPatients: any;
   searchName: any;
   patientDialogComponent = PatientDialogComponent;
@@ -48,13 +54,42 @@ export class PatientsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    //console.log(this.paginator);
+
+    //this.paginator = this.paginatorDirective.matPag;
     this.loadPatientProviders();
     this.getPatientsByProvider();
   }
 
   ngAfterViewInit(): void {
-    this.patientsDataSource.paginator = this.paginator.toArray()[0];
-    this.patientsDataSource.sort = this.sort.toArray()[0];
+    // server-side search
+    fromEvent(this.searchPatient.nativeElement,'keyup')
+    .pipe(
+        debounceTime(150),
+        distinctUntilChanged(),
+        tap(() => {
+            this.page = 0;
+
+            //this.paginator.pageIndex = 0;
+            this.loadPatients();
+        })
+    )
+    .subscribe();
+    // reset the paginator after sorting
+    this.sort.sortChange.subscribe(() => {this.page = 0;
+      //this.paginator.pageIndex = 0
+    });
+
+    this.sort.sortChange
+    .pipe(
+      tap(() => this.loadPatients())
+    ).subscribe();
+
+    // merge(this.sort.sortChange, this.paginator.page)
+    //     .pipe(
+    //         tap(() => this.loadPatients())
+    //     )
+    //     .subscribe();
   }
 
   loadPatientProviders() {
@@ -71,7 +106,6 @@ export class PatientsComponent implements OnInit {
 
     this.authService.SetViewParam("Patient",patientview);
     this.authService.SetViewParam("PatientView","Chart");
-
     this.router.navigate(["/provider/patientdetails"]);
   }
 
@@ -80,19 +114,34 @@ export class PatientsComponent implements OnInit {
       "ClinicId": this.user.ClinicId,
       "ProviderId": this.user.ProviderId
     }
-    this.patientService.PatientsByProvider(reqparams).subscribe((resp) => {
-      this.patientsDataSource.data = resp.ListResult as ProviderPatient[];
-      this.patientsList.data = this.patientsDataSource.data;
-    });
+    this.patientsDataSource = new PatientDatasource(this.patientService,reqparams);
+    this.patientsDataSource.loadPatients();
+  }
+
+  pageChange(currentPage){
+    this.page = currentPage;
+    this.loadPatients();
+  }
+
+  loadPatients(){
+    this.patientsDataSource.loadPatients(
+      this.searchPatient.nativeElement.value,
+      this.sort.active,
+      this.sort.direction,
+      //this.paginator.pageIndex,
+      //this.paginator.pageSize
+      this.page,
+      this.pageSize
+      );
   }
 
   showInactivePatients(event) {
     if (event.checked == true) {
-      this.inactivePatients = this.patientsDataSource.data.filter(a => a.active === false);
-      this.patientsList.data = this.inactivePatients;
+      //this.inactivePatients = this.patientsDataSource.data.filter(a => a.active === false);
+      //this.patientsList.data = this.inactivePatients;
     }
     else {
-      this.patientsList.data = this.patientsDataSource.data;
+      //this.patientsList.data = this.patientsDataSource.data;
     }
   }
 
@@ -100,13 +149,58 @@ export class PatientsComponent implements OnInit {
     const ref = this.overlayService.open(content, null);
 
     ref.afterClosed$.subscribe(res => {
-      if (typeof content === 'string') {
-        //} else if (content === this.yesNoComponent) {
-        //this.yesNoComponentResponse = res.data;
-      }
-      else if (content === this.patientDialogComponent) {
+    if (content === this.patientDialogComponent) {
         this.dialogResponse = res.data;
       }
     });
   }
+}
+
+export class PatientDatasource implements DataSource<ProviderPatient>{
+
+  private patientsSubject = new BehaviorSubject<ProviderPatient[]>([]);
+  private loadingSubject = new BehaviorSubject<boolean>(false);
+  public loading$ = this.loadingSubject.asObservable();
+
+
+  constructor(private patientService: patientService,private queryParams: {}){
+
+
+  }
+  connect(collectionViewer: CollectionViewer): Observable<ProviderPatient[] | readonly ProviderPatient[]> {
+    return this.patientsSubject.asObservable();
+  }
+  disconnect(collectionViewer: CollectionViewer): void {
+    //collectionViewer.viewChange.
+    this.patientsSubject.complete();
+    this.loadingSubject.complete();
+  }
+
+  loadPatients( filter = '', sortField = 'LastAccessed',
+                sortDirection = 'asc', pageIndex = 0, pageSize = 10) {
+        this.queryParams["SortField"] = sortField;
+        this.queryParams["SortDirection"] = sortDirection;
+        this.queryParams["PageIndex"] = pageIndex;
+        this.queryParams["PageSize"] = pageSize;
+        this.queryParams["Filter"] = filter;
+
+
+        this.loadingSubject.next(true);
+
+        this.patientService.FilteredPatientsOfProvider(this.queryParams).pipe(
+            catchError(() => of([])),
+            finalize(() => this.loadingSubject.next(false))
+        )
+        .subscribe(resp => {
+          this.patientsSubject.next(resp.ListResult as ProviderPatient[])
+        });
+    }
+
+
+    get TotalRecordSize():number{
+      if(this.patientsSubject.getValue().length>0)
+        return this.patientsSubject.getValue()[0].TotalPatients;
+      return 0;
+    }
+
 }

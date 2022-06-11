@@ -255,6 +255,10 @@ export class APIEndPoint extends EndpointBase {
   get _patientsByProviderUrl() {
     return this._baseUrl + "PatientsByProvider";
   }
+
+  get _filteredPatientsOfProviderUrl() {
+    return this._baseUrl + "FilteredPatientsOfProvider";
+  }
   get _adminListUrl() {
     return this._baseUrl + "Admins";
   }

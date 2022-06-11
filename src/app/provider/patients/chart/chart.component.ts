@@ -1,3 +1,4 @@
+import { ProviderPatient } from './../../../_models/_provider/Providerpatient';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
 import { OverlayService } from '../../../overlay.service';
@@ -5,7 +6,7 @@ import { AdvancedDirectivesDialogComponent } from '../../../dialogs/advanced.dir
 import { SmokingStatusDialogComponent } from 'src/app/dialogs/smoking.status.dialog/smoking.status.dialog.component';
 import { InterventionDialogComponent } from 'src/app/dialogs/intervention.dialog/intervention.dialog.component';
 import { patientService } from '../../../_services/patient.service';
-import { AdvancedDirectives, PatientChart } from 'src/app/_models/_provider/chart';
+import { AdvancedDirective, PatientChart } from 'src/app/_models/_provider/chart';
 import { Actions } from 'src/app/_models/_provider/smart.scheduler.data';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 
@@ -32,7 +33,7 @@ export class ChartComponent implements OnInit {
   tobaccointerventions: any[];
   advanceddirectivesdialogResponse: any;
   smokingstatusdialogResponse: any;
-  emptyAdvDiretive: AdvancedDirectives = new AdvancedDirectives;
+  currentPatient: ProviderPatient;
   ActionTypes = Actions;
   constructor(public overlayService: OverlayService,
     private patientService: patientService,
@@ -40,7 +41,7 @@ export class ChartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.emptyAdvDiretive.PatientId = this.authService.viewModel.Patient.PatientId;
+    this.currentPatient = this.authService.viewModel.Patient;
     this.AdvancedDirectivesByPatientId();
     this.DiagnosesByPatientId();
     this.AllergiesByPatientId();
@@ -54,18 +55,14 @@ export class ChartComponent implements OnInit {
     this.TobaccoUseInterventions();
   }
 
-  openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string, dialogData, actions: Actions = this.ActionTypes.add) {
+  openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
+    dialogData, actions: Actions = this.ActionTypes.add) {
     let reqdata: any;
-    if (actions == Actions.add && content === this.advancedDirectivesDialogComponent) {
-      reqdata = this.emptyAdvDiretive;
-      // dialogData = this.emptyAdvDiretive;
-      console.log(reqdata);
-
+    if (actions == Actions.view && content === this.advancedDirectivesDialogComponent) {
+      reqdata = dialogData;
     }
-    console.log(reqdata);
     const ref = this.overlayService.open(content, reqdata);
     ref.afterClosed$.subscribe(res => {
-
       if (content === this.advancedDirectivesDialogComponent) {
         this.advanceddirectivesdialogResponse = res.data;
       }
@@ -75,7 +72,6 @@ export class ChartComponent implements OnInit {
       else if (content === this.interventionDialogComponent) {
         this.dialogResponse = res.data;
       }
-      //debugger;
       this.UpdateView(ref.data);
     });
   }
@@ -89,77 +85,77 @@ export class ChartComponent implements OnInit {
 
   // Get advanced directives info
   AdvancedDirectivesByPatientId() {
-    this.patientService.AdvancedDirectivesByPatientId(this.emptyAdvDiretive).subscribe((resp) => {
+    this.patientService.AdvancedDirectivesByPatientId({PatinetId: this.currentPatient.PatientId}).subscribe((resp) => {
       this.advancedDirectives = resp.ListResult;
     });
   }
 
   // Get diagnoses info
   DiagnosesByPatientId() {
-    this.patientService.DiagnosesByPatientId(this.emptyAdvDiretive).subscribe((resp) => {
+    this.patientService.DiagnosesByPatientId({PatinetId: this.currentPatient.PatientId}).subscribe((resp) => {
       this.allDiagnoses = resp.ListResult;
     });
   }
 
   // Get allergies info
   AllergiesByPatientId() {
-    this.patientService.AllergiesByPatientId(this.emptyAdvDiretive).subscribe((resp) => {
+    this.patientService.AllergiesByPatientId({PatinetId: this.currentPatient.PatientId}).subscribe((resp) => {
       this.allAllergies = resp.ListResult;
     });
   }
 
   // Get Past Medical Histories info
   PastMedicalHistoriesByPatientId() {
-    this.patientService.PastMedicalHistoriesByPatientId(this.emptyAdvDiretive).subscribe((resp) => {
+    this.patientService.PastMedicalHistoriesByPatientId({PatinetId: this.currentPatient.PatientId}).subscribe((resp) => {
       this.pastMedicalHistories = resp.ListResult;
     });
   }
 
   // Get Immunizations info
   ImmunizationsByPatientId() {
-    this.patientService.ImmunizationsByPatientId(this.emptyAdvDiretive).subscribe((resp) => {
+    this.patientService.ImmunizationsByPatientId({PatinetId: this.currentPatient.PatientId}).subscribe((resp) => {
       this.immunizations = resp.ListResult;
     });
   }
 
   // Get medications info
   MedicationsByPatientId() {
-    this.patientService.MedicationsByPatientId(this.emptyAdvDiretive).subscribe((resp) => {
+    this.patientService.MedicationsByPatientId({PatinetId: this.currentPatient.PatientId}).subscribe((resp) => {
       this.medications = resp.ListResult;
     });
   }
 
   // Get encounters info
   EncountersByPatientId() {
-    this.patientService.EncountersByPatientId(this.emptyAdvDiretive).subscribe((resp) => {
+    this.patientService.EncountersByPatientId({PatinetId: this.currentPatient.PatientId}).subscribe((resp) => {
       this.encounters = resp.ListResult;
     });
   }
 
   // Get appointments info
   AppointmentsByPatientId() {
-    this.patientService.AppointmentsByPatientId(this.emptyAdvDiretive).subscribe((resp) => {
+    this.patientService.AppointmentsByPatientId({PatinetId: this.currentPatient.PatientId}).subscribe((resp) => {
       this.appointments = resp.ListResult;
     });
   }
 
   // Get smoking status info
   SmokingStatusByPatientId() {
-    this.patientService.SmokingStatusByPatientId(this.emptyAdvDiretive).subscribe((resp) => {
+    this.patientService.SmokingStatusByPatientId({PatinetId: this.currentPatient.PatientId}).subscribe((resp) => {
       this.smokingstatus = resp.ListResult;
     });
   }
 
   // Get tobacco screnning info
   TobaccoUseScreenings() {
-    this.patientService.TobaccoUseScreenings(this.emptyAdvDiretive).subscribe((resp) => {
+    this.patientService.TobaccoUseScreenings({PatinetId: this.currentPatient.PatientId}).subscribe((resp) => {
       this.tobaccoscreenings = resp.ListResult;
     });
   }
 
   // Get tobacco interventions info
   TobaccoUseInterventions() {
-    this.patientService.TobaccoUseInterventions(this.emptyAdvDiretive).subscribe((resp) => {
+    this.patientService.TobaccoUseInterventions({PatinetId: this.currentPatient.PatientId}).subscribe((resp) => {
       this.tobaccointerventions = resp.ListResult;
     });
   }

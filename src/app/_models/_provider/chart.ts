@@ -1,4 +1,4 @@
-export class AdvancedDirectives {
+export class AdvancedDirective {
   AdvancedDirectiveId?: string = '';
   PatientId?: string;
   RecordAt?: string = '';

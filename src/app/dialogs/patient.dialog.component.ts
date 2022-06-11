@@ -16,7 +16,6 @@ declare const RequiredFormCountrolMouseEnter: any;
   selector: 'patient-dialog',
   templateUrl: './patient.dialog.component.html',
   styleUrls: ['./patient.dialog.component.scss'],
- // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PatientDialogComponent implements OnInit {
   PatientData: Patient = { PatinetHasNoEmail: false };
