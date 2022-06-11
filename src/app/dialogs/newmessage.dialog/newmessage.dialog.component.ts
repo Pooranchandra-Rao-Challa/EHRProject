@@ -17,22 +17,24 @@ export class NewmessageDialogComponent implements OnInit {
 
   constructor(private patientservise: patientService,private authenticationService: AuthenticationService,private ref: EHROverlayRef) {
     this.user = authenticationService.userValue;
+    console.log(this.user);
    }
 
   ngOnInit(): void {
-    this.getPatientProfile();
+    //this.getPatientProfile();
   }
-  getPatientProfile(reqparam?) {
-    var req={
-      "PatientId": this.user.PatientId,
-    }
-    this.patientservise.PatientProfileByPatientId(req).subscribe(resp => {
-      debugger;
-      if (resp.IsSuccess) {
-        this.PatientProfile=resp.ListResult[0];
-      }
-    });
-  }
+
+  // getPatientProfile(reqparam?) {
+  //   var req={
+  //     "PatientId": this.user.PatientId,
+  //   }
+  //   this.patientservise.PatientProfileByPatientId(req).subscribe(resp => {
+  //     debugger;
+  //     if (resp.IsSuccess) {
+  //       this.PatientProfile=resp.ListResult[0];
+  //     }
+  //   });
+  // }
   cancel() {
     this.ref.close(null);
   }

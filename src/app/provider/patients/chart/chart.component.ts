@@ -5,7 +5,8 @@ import { AdvancedDirectivesDialogComponent } from '../../../dialogs/advanced.dir
 import { SmokingStatusDialogComponent } from 'src/app/dialogs/smoking.status.dialog/smoking.status.dialog.component';
 import { InterventionDialogComponent } from 'src/app/dialogs/intervention.dialog/intervention.dialog.component';
 import { patientService } from '../../../_services/patient.service';
-
+import { AdvancedDirectives, PatientChart } from 'src/app/_models/_provider/chart';
+import { Actions } from 'src/app/_models/_provider/smart.scheduler.data';
 
 @Component({
   selector: 'app-chart',
@@ -28,11 +29,16 @@ export class ChartComponent implements OnInit {
   smokingstatus: any[];
   tobaccoscreenings: any[];
   tobaccointerventions: any[];
-
+  advanceddirectivesdialogResponse: any;
+  smokingstatusdialogResponse: any;
+  emptyAdvDiretive: AdvancedDirectives = new AdvancedDirectives;
+  ActionTypes = Actions;
   constructor(public overlayService: OverlayService,
-    private patientService: patientService) { }
+    private patientService: patientService) {
+  }
 
   ngOnInit(): void {
+    this.emptyAdvDiretive.PatientId = sessionStorage.getItem('PatientId');
     this.AdvancedDirectivesByPatientId();
     this.DiagnosesByPatientId();
     this.AllergiesByPatientId();
@@ -46,154 +52,114 @@ export class ChartComponent implements OnInit {
     this.TobaccoUseInterventions();
   }
 
-  openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string) {
-    //debugger;
-    const ref = this.overlayService.open(content, null);
+  openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string, dialogData, actions: Actions = this.ActionTypes.add) {
+    let reqdata: any;
+    if (actions == Actions.add && content === this.advancedDirectivesDialogComponent) {
+      reqdata = this.emptyAdvDiretive;
+      // dialogData = this.emptyAdvDiretive;
+      console.log(reqdata);
 
+    }
+    console.log(reqdata);
+    const ref = this.overlayService.open(content, reqdata);
     ref.afterClosed$.subscribe(res => {
-      if (typeof content === 'string') {
 
-      }
-      else if (content === this.advancedDirectivesDialogComponent) {
-        this.dialogResponse = res.data;
+      if (content === this.advancedDirectivesDialogComponent) {
+        this.advanceddirectivesdialogResponse = res.data;
       }
       else if (content === this.smokingStatusDialogComponent) {
-        this.dialogResponse = res.data;
+        this.smokingstatusdialogResponse = res.data;
       }
       else if (content === this.interventionDialogComponent) {
         this.dialogResponse = res.data;
       }
+      debugger;
+      this.UpdateView(ref.data);
     });
   }
 
-  // Common Reqparams for chart screen
-  reqparams = {
-    // ClinicId: '5836d8f2f2e48f33037e5e39',
-    // ProviderId: '5836d7d1f2e48f310385069c',
-    PatientId: '5836dafef2e48f36ba90a996'
+  UpdateView(data) {
+    console.log(data);
+    if (data.UpdatedModal == PatientChart.AdvancedDirectives) {
+      this.AdvancedDirectivesByPatientId();
+    }
+    data = {};
   }
 
   // Get advanced directives info
   AdvancedDirectivesByPatientId() {
-    this.patientService.AdvancedDirectivesByPatientId(this.reqparams).subscribe((resp) => {
+    this.patientService.AdvancedDirectivesByPatientId(this.emptyAdvDiretive).subscribe((resp) => {
       this.advancedDirectives = resp.ListResult;
     });
   }
 
   // Get diagnoses info
   DiagnosesByPatientId() {
-    let reqparams = {
-      // ClinicId: '59307584bc61173526a63361',
-      // ProviderId: '59307582bc61173526a63336',
-      PatientId: '59841816bc61176759627700'
-    }
-    this.patientService.DiagnosesByPatientId(reqparams).subscribe((resp) => {
+    this.patientService.DiagnosesByPatientId(this.emptyAdvDiretive).subscribe((resp) => {
       this.allDiagnoses = resp.ListResult;
     });
   }
 
   // Get allergies info
   AllergiesByPatientId() {
-    let reqparams = {
-      // ClinicId: '5953c325bc611739aaf8c0e7',
-      // ProviderId: '5953c323bc611739aaf8c0bc',
-      PatientId: '59dd3796bc6117730c9ca3d3'
-    }
-    this.patientService.AllergiesByPatientId(reqparams).subscribe((resp) => {
+    this.patientService.AllergiesByPatientId(this.emptyAdvDiretive).subscribe((resp) => {
       this.allAllergies = resp.ListResult;
     });
   }
 
   // Get Past Medical Histories info
   PastMedicalHistoriesByPatientId() {
-    let reqparams = {
-      // ClinicId: '5953c325bc611739aaf8c0e7',
-      // ProviderId: '5953c323bc611739aaf8c0bc',
-      PatientId: '59dd3796bc6117730c9ca3d3'
-    }
-    this.patientService.PastMedicalHistoriesByPatientId(reqparams).subscribe((resp) => {
+    this.patientService.PastMedicalHistoriesByPatientId(this.emptyAdvDiretive).subscribe((resp) => {
       this.pastMedicalHistories = resp.ListResult;
     });
   }
 
   // Get Immunizations info
   ImmunizationsByPatientId() {
-    let reqparams = {
-      // ClinicId: '59307584bc61173526a63361',
-      // ProviderId: '59307582bc61173526a63336',
-      PatientId: '5ab94defbc61173a61c5cf1c'
-    }
-    this.patientService.ImmunizationsByPatientId(reqparams).subscribe((resp) => {
+    this.patientService.ImmunizationsByPatientId(this.emptyAdvDiretive).subscribe((resp) => {
       this.immunizations = resp.ListResult;
     });
   }
 
   // Get medications info
   MedicationsByPatientId() {
-    let reqparams = {
-      // ClinicId: '5953c325bc611739aaf8c0e7',
-      // ProviderId: '5953c323bc611739aaf8c0bc',
-      PatientId: '59e8c25bbc61170be57c869f'
-    }
-    this.patientService.MedicationsByPatientId(reqparams).subscribe((resp) => {
+    this.patientService.MedicationsByPatientId(this.emptyAdvDiretive).subscribe((resp) => {
       this.medications = resp.ListResult;
     });
   }
 
   // Get encounters info
   EncountersByPatientId() {
-    let reqparams = {
-      // ClinicId: '5836d8f2f2e48f33037e5e39',
-      // ProviderId: '5836d7d1f2e48f310385069c',
-      PatientId: '5836dafef2e48f36ba90a996'
-    }
-    this.patientService.EncountersByPatientId(reqparams).subscribe((resp) => {
+    this.patientService.EncountersByPatientId(this.emptyAdvDiretive).subscribe((resp) => {
       this.encounters = resp.ListResult;
     });
   }
 
   // Get appointments info
   AppointmentsByPatientId() {
-    let reqparams = {
-      // ClinicId: '5836d8eff2e48f33037e5cd5',
-      // ProviderId: '5836d7cff2e48f3103850699',
-      PatientId: '5836db02f2e48f36ba90ac4a'
-    }
-    this.patientService.AppointmentsByPatientId(reqparams).subscribe((resp) => {
+    this.patientService.AppointmentsByPatientId(this.emptyAdvDiretive).subscribe((resp) => {
       this.appointments = resp.ListResult;
     });
   }
 
   // Get smoking status info
   SmokingStatusByPatientId() {
-    debugger;
-    let reqparams = {
-      PatientId: '5836daf4f2e48f36ba90a383'
-    }
-    this.patientService.SmokingStatusByPatientId(reqparams).subscribe((resp) => {
+    this.patientService.SmokingStatusByPatientId(this.emptyAdvDiretive).subscribe((resp) => {
       this.smokingstatus = resp.ListResult;
     });
   }
 
   // Get tobacco screnning info
   TobaccoUseScreenings() {
-    let reqparams = {
-      PatientId: '588ba54ec1a4c002ab2b38f3'
-    }
-    this.patientService.TobaccoUseScreenings(reqparams).subscribe((resp) => {
+    this.patientService.TobaccoUseScreenings(this.emptyAdvDiretive).subscribe((resp) => {
       this.tobaccoscreenings = resp.ListResult;
-      console.log(this.tobaccoscreenings);
     });
   }
 
   // Get tobacco interventions info
   TobaccoUseInterventions() {
-    let reqparams = {
-      PatientId: '588ba54ec1a4c002ab2b38f3'
-    }
-    this.patientService.TobaccoUseInterventions(reqparams).subscribe((resp) => {
+    this.patientService.TobaccoUseInterventions(this.emptyAdvDiretive).subscribe((resp) => {
       this.tobaccointerventions = resp.ListResult;
-      console.log(this.tobaccointerventions);
     });
   }
 

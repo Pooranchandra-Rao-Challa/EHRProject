@@ -10,18 +10,20 @@
       <div class="row">
         <mat-form-field appearance="outline" class="grey-matform grey-calendar col-lg-8 col-md-6">
           <input matInput class="pointer date-mat-class" autocomplete="off" [matDatepicker]="picker1"
-            (click)="picker1.open()" readonly placeholder="Date Recorded">
+            (click)="picker1.open()" readonly placeholder="Date Recorded" [(ngModel)]="advDirective.RecordAt">
           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
           <mat-datepicker #picker1></mat-datepicker>
         </mat-form-field>
         <div class="col-lg-4 col-md-6">
-          <button class="btn btn-green col-12">Today</button>
+          <button class="btn btn-green col-12" (click)="todayDate()">Today</button>
         </div>
       </div>
-      <textarea placeholder="Advanced Directive Notes" class="form-control col-12 mt-3 mt-md-0"></textarea>
+      <textarea placeholder="Advanced Directive Notes" class="form-control col-12 mt-3 mt-md-0"
+        [(ngModel)]="advDirective.Notes"></textarea>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-green">Save</button>
+      <button class="btn btn-green" (click)="CreateAdvancedDirectives(advDirective)"
+        [disabled]="advDirective.RecordAt == (undefined || '' || null) && advDirective.Notes == (undefined || '' || null)">Save</button>
       <button class="btn btn-green" (click)="cancel()">Cancel</button>
     </div>
   </div>

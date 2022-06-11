@@ -6,6 +6,7 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { User } from '../_models';
+import { ActivatedRoute } from '@angular/router';
 
 
 
@@ -26,7 +27,7 @@ export class MyprofileComponent implements OnInit {
 'What is the name of your favorite book?','What was the last name of your first grade teacher?','Where were you when you had your first kiss?','Where were you when you had your first kiss?',
 'What is the last name of the teacher who gave you your first falling grade?'];
 
-  constructor(private patientservise: patientService,private authenticationService: AuthenticationService,) {
+  constructor(private patientservise: patientService,private authenticationService: AuthenticationService) {
     this.user = authenticationService.userValue;
     console.log(this.user);
   }
@@ -44,7 +45,7 @@ export class MyprofileComponent implements OnInit {
     var req={
       "PatientId": this.user.PatientId,
     }
-    this.patientservise.PatientProfileByPatientId(req).subscribe(resp => {
+    this.patientservise.PatientMyProfileByPatientId(req).subscribe(resp => {
       debugger;
       if (resp.IsSuccess) {
         this.PatientProfile=resp.ListResult[0];

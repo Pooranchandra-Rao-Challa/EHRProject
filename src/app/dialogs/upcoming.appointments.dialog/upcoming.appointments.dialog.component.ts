@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { AvailableTimeSlot, NewAppointment,Actions,
         AppointmentDialogInfo, PatientSearchResults,
-        ScheduledAppointment, UserLocations } from 'src/app/_models/smart.scheduler.data';
+        ScheduledAppointment, UserLocations } from 'src/app/_models';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
 import { EHROverlayRef } from '../../ehr-overlay-ref';

@@ -8,11 +8,10 @@ import { Observable, Subject, Subscription } from 'rxjs';
 import { debounceTime, switchMap, distinctUntilChanged, map } from 'rxjs/operators';
 
 import { OverlayService } from '../../overlay.service';
-import { Patient } from '../../_models/newPatient';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { SmartSchedulerService } from '../../_services/smart.scheduler.service';
 import { UtilityService } from './../../_services/utiltiy.service';
-import { PracticeProviders } from '../../_models/practiceProviders';
+import { PracticeProviders } from '../../_models/_provider/practiceProviders';
 import { PatientDialogComponent } from '../../dialogs/patient.dialog.component';
 import { LocationSelectService } from '../../_navigations/provider.layout/location.service';
 import { NewAppointmentDialogComponent } from '../../dialogs/newappointment.dialog/newappointment.dialog.component';
@@ -23,7 +22,7 @@ import {
   PatientSearchResults, Actions,
   ScheduledAppointment, AppointmentTypes, NewAppointment,
   UserLocations, Room, AvailableTimeSlot, AppointmentDialogInfo
-} from 'src/app/_models/smart.scheduler.data';
+} from 'src/app/_models/';
 
 declare const CloseAppointment: any;
 declare const OpenSaveSuccessAppointment: any;

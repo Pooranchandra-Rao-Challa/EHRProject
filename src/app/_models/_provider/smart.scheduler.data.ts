@@ -1,7 +1,5 @@
-
-import { Location } from './settings';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import{ PracticeProviders} from'./practiceProviders';
+import { UserLocations } from '../';
 export interface NewAppointment {
   AppointmentId?: string;
   PatientId?: string;
@@ -69,10 +67,10 @@ export interface AppointmentTypes{
   AppointmentType?: string;
 
 }
-export interface UserLocations {
-  locationId: string;
-  locationName: string;
-}
+// export interface UserLocations {
+//   locationId: string;
+//   locationName: string;
+// }
 
 export interface Room{
   RoomId? :string;

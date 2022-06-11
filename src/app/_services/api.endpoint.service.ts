@@ -300,16 +300,16 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "AdminImportedPatientEncounter";
   }
 
-  get _medicalCodesUrl(){
+  get _medicalCodesUrl() {
     return this._baseUrl + "MedicalCodes";
 
   }
 
-  get _updateTimeZoneUrl(){
+  get _updateTimeZoneUrl() {
     return this._baseUrl + "UpdateTimeZone";
   }
 
-  get _deleteLocationUrl(){
+  get _deleteLocationUrl() {
     return this._baseUrl + "DeleteLocation";
   }
 
@@ -350,8 +350,8 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "AppointmentsByPatientId";
   }
 
-  get _patientProfilreUrl() {
-    return this._baseUrl + "PatientProfile";
+  get _patientMyProfilreUrl() {
+    return this._baseUrl + "PatientMyProfile";
   }
 
   get _procedureCodesUrl() {
@@ -369,11 +369,106 @@ export class APIEndPoint extends EndpointBase {
   get _tobaccoUseInterventionsUrl() {
     return this._baseUrl + "TobaccoUse_Interventions";
   }
+  get _patientClinicProviderUrl() {
+    return this._baseUrl + "PatientClinicProviders";
+  }
+  get _problemDxUrl() {
+    return this._baseUrl + "ProblemsDx";
+  }
+  get _careTeamByPatientIdUrl() {
+    return this._baseUrl + "CareTeamByPatientId";
+  }
+
+  get _careTeamUrl() {
+    return this._baseUrl + "CreateCareTeam";
+  }
+
+  get _languagesInfoUrl() {
+    return this._baseUrl + "LanguagesInfo";
+  }
+
+  get _patientsRelationByProviderIdUrl() {
+    return this._baseUrl + "PatientsRelationByProviderId";
+  }
+  get _labTestResultByPatientIdUrl() {
+    return this._baseUrl + "LabTestResultByPatientId";
+  }
+
+  get _vitalStatsByPatientIdUrl() {
+    return this._baseUrl + "VitalStatsByPatientId";
+  }
+
+  get _carePlanGoalInstructionsBypatientIdUrl() {
+    return this._baseUrl + "CarePlanGoalInstructionsBypatientId";
+  }
+
+  get _ProcedureByPatientIdUrl() {
+    return this._baseUrl + "ProcedureByPatientId";
+  }
+
+  // Regarding Insurance Screen Related apiendpoint services
+
+  get _sourceOfPaymentTypologyCodesUrl() {
+    return this._baseUrl + "SourceOfPaymentTypologyCodes";
+  }
+
+  get _insuranceCompanyPlansUrl() {
+    return this._baseUrl + "InsuranceCompanyPlans";
+  }
+
+  get _insurancDetailsUrl() {
+    return this._baseUrl + "InsurancDetails";
+  }
+
+  get _insuranceUrl() {
+    return this._baseUrl + "Insurance";
+
+  }
+  get _createAdvancedDirectivesUrl() {
+    return this._baseUrl + "CreateAdvancedDirectives";
+  }
+  get _createPartnerSignupUrl() {
+    return this._baseUrl + "CreatePartnerSignup";
+  }
+
+  get _createSmokingStatusUrl() {
+    return this._baseUrl + "CreateSmokingStatus";
+  }
+
+  get _updatePatientInformationUrl() {
+    return this._baseUrl + "UpdatePatientInformation";
+  }
+
+  get _updateContactInformationUrl() {
+    return this._baseUrl + "UpdateContactInformation";
+  }
+
+  get _updateEmergencyContactUrl() {
+    return this._baseUrl + "UpdateEmergencyContact";
+  }
 
   get _emailedUrlsUrl() {
     return this._baseUrl + "EmailedUrls";
   }
 
+  get _updateNextofkinUrl() {
+    return this._baseUrl + "UpdateNextofkin";
+  }
+
+  get _updateDemographicsUrl() {
+    return this._baseUrl + "UpdateDemographics";
+  }
+
+  get _updateImmunizationRegistryUrl() {
+    return this._baseUrl + "UpdateImmunizationRegistry";
+  }
+
+  get _activityLogsUrl() {
+    return this._baseUrl + "ActivityLogByPatient";
+  }
+  get _updateNotesUrl() {
+    return this._baseUrl + "UpdateNotes";
+  }
   constructor(public http: HttpClient) {
     super();
   }

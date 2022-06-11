@@ -13,19 +13,28 @@
     </div>
     <div class="modal-body">
       <div class="row radio-group">
-        <mat-radio-group class="col-12">
+        <mat-radio-group class="col-12" [(ngModel)]="smokingStatus.Status">
           <div class="row">
             <div class="col-md-6 col-12">
-              <mat-radio-button class="mt-0 mb-4" [value]="1">Never Smoked Ever</mat-radio-button>
-              <mat-radio-button class="my-4" [value]="2">Current Every Day Smoker</mat-radio-button>
-              <mat-radio-button class="my-4" [value]="3">Unknown if Ever Smoked</mat-radio-button>
-              <mat-radio-button class="my-4" [value]="4">Current Some Day Smoker</mat-radio-button>
+              <mat-radio-button class="mt-0 mb-4" value="Never Smoked Ever">
+                Never Smoked Ever
+              </mat-radio-button>
+              <mat-radio-button class="my-4" value="Current Every Day Smoker">
+                Current Every Day Smoker
+              </mat-radio-button>
+              <mat-radio-button class="my-4" value="Unknown if Ever Smoked">
+                Unknown if Ever Smoked
+              </mat-radio-button>
+              <mat-radio-button class="my-4" value="Current Some Day Smoker">
+                Current Some Day Smoker
+              </mat-radio-button>
             </div>
             <div class="col-md-6 col-12">
-              <mat-radio-button class="mt-0 mb-4" [value]="5">Former Smoker</mat-radio-button>
-              <mat-radio-button class="my-4" [value]="6">Heavy Tobacco Smoker</mat-radio-button>
-              <mat-radio-button class="my-4" [value]="7">Smoker, Current Status Unknown</mat-radio-button>
-              <mat-radio-button class="my-4" [value]="8">Light Tobacco Smoker</mat-radio-button>
+              <mat-radio-button class="mt-0 mb-4" value="Former Smoker">Former Smoker</mat-radio-button>
+              <mat-radio-button class="my-4" value="Heavy Tobacco Smoker">Heavy Tobacco Smoker</mat-radio-button>
+              <mat-radio-button class="my-4" value="Smoker, Current Status Unknown">Smoker, Current Status Unknown
+              </mat-radio-button>
+              <mat-radio-button class="my-4" value="Light Tobacco Smoker">Light Tobacco Smoker</mat-radio-button>
             </div>
           </div>
         </mat-radio-group>
@@ -33,17 +42,17 @@
       <div class="row pt-2">
         <mat-form-field appearance="outline" class="grey-matform grey-calendar col-md-6">
           <input matInput class="pointer date-mat-class" autocomplete="off" [matDatepicker]="picker1"
-            (click)="picker1.open()" readonly placeholder="Effective Date">
+            (click)="picker1.open()" readonly placeholder="Effective Date" [(ngModel)]="smokingStatus.EffectiveFrom">
           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
           <mat-datepicker #picker1></mat-datepicker>
         </mat-form-field>
         <div class="col-md-6">
-          <button class="btn ehr-btn btn-green col-12">Today</button>
+          <button class="btn ehr-btn btn-green col-12" (click)="todayDate()">Today</button>
         </div>
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-green">Save</button>
+      <button class="btn btn-green" (click)="CreateSmokingStatus()">Save</button>
       <button class="btn btn-green" (click)="cancel()">Cancel</button>
     </div>
   </div>

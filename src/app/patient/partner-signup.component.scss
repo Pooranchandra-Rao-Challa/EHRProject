@@ -62,11 +62,22 @@ body {
   border-radius: 3px;
   margin-left: 82.2%;
   font-size: medium;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 }
 .reg-button:hover {
   background-color: #41b6a6;
   color: #fff;
   border: 1px solid #fff;
+}
+.disable-button {
+  // background-color: red;
+  border: 1px solid #41b6a6;
+  height: 50px;
+  color: #41b6a6;
+  border-radius: 3px;
+  margin-left: 82.2%;
+  font-size: medium;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 }
 .content span {
   //font-size: 15px;
@@ -185,4 +196,15 @@ body {
       font-size: 120%;
     }
   }
+}
+::ng-deep .swal2-title {
+  line-height: 2.5;
+
+}
+::ng-deep .swal2-styled.swal2-confirm:hover {
+  background-color: #41b6a6 !important;
+  color: #fff !important;
+}
+::ng-deep .swal2-styled.swal2-confirm {
+  box-shadow: none !important
 }

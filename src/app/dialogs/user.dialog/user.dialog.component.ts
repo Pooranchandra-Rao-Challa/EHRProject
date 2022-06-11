@@ -1,17 +1,16 @@
-
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { Component, OnInit, HostListener, TemplateRef } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 import { SettingsService } from 'src/app/_services/settings.service';
-import { User } from '../../_models';
-import { NewUser } from '../../_models/settings';
+import { User, UserLocations } from '../../_models';
+import { NewUser } from '../../_models/_provider/_settings/settings';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
 import { ChangePasswordDialogComponent } from 'src/app/dialogs/user.dialog/changepassword.dialog.component';
 import { OverlayService } from '../../overlay.service';
-import { Actions } from 'src/app/_models/smart.scheduler.data';
+import { Actions } from 'src/app/_models/';
 import { LocationDialogComponent } from 'src/app/dialogs/location.dialog/location.dialog.component';
 
 @Component({

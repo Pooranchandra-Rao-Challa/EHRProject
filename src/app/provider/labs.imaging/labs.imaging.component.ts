@@ -1,5 +1,5 @@
 import { AuthenticationService } from './../../_services/authentication.service';
-import { User } from './../../_models/user';
+import { User } from './../../_models/_account/user';
 import { LabsImagingService } from './../../_services/labsimaging.service';
 import { Component, OnInit } from '@angular/core';
 declare var $: any;

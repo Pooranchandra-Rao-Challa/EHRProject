@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { patientService } from 'src/app/_services/patient.service';
 
 @Component({
   selector: 'app-insurance',
@@ -17,13 +18,17 @@ export class InsuranceComponent implements OnInit {
   data: boolean = true;
   cancel1: boolean = false;
   cancel2: boolean = false;
-  viewpidetails: boolean=true;
+  viewpidetails: boolean = true;
+  SourceOfPaymentTypologyCodes: any = [];
+  insurancePlanList: any=[];
 
-  constructor() {
+  constructor(private patientservice:patientService) {
 
   }
 
   ngOnInit(): void {
+    this.getSourceOfPaymentTypologyCodesDD();
+    this.insuranceCompanyPlanList();
   }
   Action: string[] = [
     "1-MEDICARE",
@@ -87,7 +92,7 @@ export class InsuranceComponent implements OnInit {
   Selected() {
     debugger;
     this.InsuranceCompanyPlan = this.arry[0].InsuranceCompanyPlan;
-    this.viewpidetails=false;
+    this.viewpidetails = false;
   }
   BenefitRenewalDD: any[] = [
     { value: 'Jan', viewValue: 'Jan' },
@@ -102,9 +107,27 @@ export class InsuranceComponent implements OnInit {
     { value: 'Oct', viewValue: 'Oct' },
     { value: 'Nov', viewValue: 'Nov' },
     { value: 'Dec', viewValue: 'Dec' },
- 
+
 
 
   ];
 
+  getSourceOfPaymentTypologyCodesDD() {
+    debugger;
+    this.patientservice.SourceOfPaymentTypologyCodes().subscribe(resp=>{
+     this.SourceOfPaymentTypologyCodes =resp.ListResult;
+    })
+   
+    console.log(this.SourceOfPaymentTypologyCodes)
+  }
+
+insuranceCompanyPlanList()
+{
+  this.patientservice.InsuranceCompanyPlans().subscribe(
+    resp=>{
+      this.insurancePlanList=resp.ListResult;
+      console.log(this.insurancePlanList)
+  })
+}
+  
 }

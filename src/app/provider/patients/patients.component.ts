@@ -7,12 +7,12 @@ import { User } from 'src/app/_models';
 import { PageEvent } from "@angular/material/paginator";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
-import { PatientsData } from 'src/app/_models/patients';
+import { ProviderPatient } from 'src/app/_models/_provider/ProviderPatient';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, NavigationExtras, Route, Router } from '@angular/router';
 import { SmartScheduleComponent } from '../smart.schedule/smart.schedule.component';
 import { SmartSchedulerService } from '../../_services/smart.scheduler.service';
-import { PracticeProviders } from '../../_models/practiceProviders';
+import { PracticeProviders } from '../../_models/_provider/practiceProviders';
 import { patientService } from './../../_services/patient.service';
 
 @Component({
@@ -23,10 +23,10 @@ import { patientService } from './../../_services/patient.service';
 export class PatientsComponent implements OnInit {
   @ViewChildren(MatPaginator) paginator = new QueryList<MatPaginator>();
   @ViewChildren(MatSort) sort = new QueryList<MatSort>();
-  patientColumns: string[] = ['Image', 'First', 'Middle', 'Last', 'DOB', 'Age', 'ContactInfo', 'LastAccessed', 'Created', 'Select'];
+  patientColumns: string[] = ['Image', 'First', 'Middle', 'Last', 'DOB', 'Age', 'ContactInfo', 'LastAccessed', 'Created'];
   // patientsDataSource: PatientsData[];
-  public patientsDataSource = new MatTableDataSource<PatientsData>();
-  public patientsList = new MatTableDataSource<PatientsData>();
+  public patientsDataSource = new MatTableDataSource<ProviderPatient>();
+  public patientsList = new MatTableDataSource<ProviderPatient>();
   filteredPatients: any;
   searchName: any;
   patientDialogComponent = PatientDialogComponent;
@@ -89,7 +89,7 @@ export class PatientsComponent implements OnInit {
       "ProviderId": this.user.ProviderId
     }
     this.patientService.PatientsByProvider(reqparams).subscribe((resp) => {
-      this.patientsDataSource.data = resp.ListResult as PatientsData[];
+      this.patientsDataSource.data = resp.ListResult as ProviderPatient[];
       this.patientsList.data = this.patientsDataSource.data;
     });
   }

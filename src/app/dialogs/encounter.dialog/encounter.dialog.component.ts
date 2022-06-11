@@ -1,7 +1,7 @@
 
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
-import { PracticeProviders } from 'src/app/_models/practiceProviders';
+import { PracticeProviders } from 'src/app/_models/';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
 import { EHROverlayRef } from '../../ehr-overlay-ref';
@@ -9,7 +9,7 @@ import {
   Actions,
   ScheduledAppointment, AppointmentTypes,
   UserLocations
-} from 'src/app/_models/smart.scheduler.data';
+} from 'src/app/_models';
 import {
   EncounterInfo,EncounterDiagnosis,ProceduresInfo, VitalInfo
 } from 'src/app/_models';

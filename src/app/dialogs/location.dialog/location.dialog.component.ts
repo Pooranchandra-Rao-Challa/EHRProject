@@ -5,7 +5,7 @@ import { SettingsService } from 'src/app/_services/settings.service';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { User } from 'src/app/_models';
 import { Accountservice } from 'src/app/_services/account.service';
-import { PracticeLocation } from 'src/app/_models/practiceLocation';
+import { PracticeLocation } from 'src/app/_models/';
 import { AlertMessage, ERROR_CODES } from './../../_alerts/alertMessage';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
 

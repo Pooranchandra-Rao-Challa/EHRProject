@@ -90,11 +90,11 @@
                       <th class="th-col">Practice Name</th>
                       <th>Phone</th>
                       <th scope="row" width="20%">Address</th>
-                      <th colspan="3" class="text-center th-col-width">Trail/Paid</th>
+                      <th colspan="3" class="text-center th-col-width">Trail/Paid Days</th>
                       <th>Active/Inactive</th>
                       <th></th>
                       <th></th>
-                      <th>Trail/Paid</th>
+                      <!-- <th>Trail/Paid</th> -->
                       <th></th>
                       <th></th>
                       <th></th>
@@ -113,24 +113,27 @@
                       <td>{{item.ProviderName}}</td>
                       <td>{{item.PrimaryPhone}}</td>
                       <td>{{item.Address}}</td>
-                      <td class="td-col-width" colspan="3">
+                       <td class="td-col-width" colspan="3">
                         <div class="d-flex justify-content-between">
                          <div [ngClass]="item.ToggleButton?'text-mute':'text-black'">Trail ({{item.TrailDays}} d left)</div>
                             <div class="form-check form-switch mx-3 ">
                               <input class="form-check-input toggle-btn" type="checkbox" [checked]="item.ToggleButton" id="flexSwitchCheckDefault">
                               <span class="toggle-mark"></span>
                             </div>
+                             <div [ngClass]="item.ToggleButton?'text-black':'text-mute'" class="mr-3">{{item.Trial}}</div>
                         </div>
                       </td>
 
                       <td class="text-center"><input class="form-check-input Status" type="checkbox"   [checked]="item.Status" id="checkbox"></td>
                       <td class="td-width text-success">{{item.EmailVerifyStatus}}</td>
                       <td class="td-col-width"><button type="button" class="table-col-button" (click)="openComponentDialog(UserDialogComponent)">View</button></td>
-                      <td class="text-center"> <input class="form-check-input" type="checkbox"   [checked]="item.Paid" id="checkbox"></td>
+                      <!-- <td class="text-center"> <input class="form-check-input" type="checkbox"   [checked]="item.Paid" id="checkbox"></td> -->
                       <td class="td-col-width"><button type="button" class="table-col-button"
                         data-bs-toggle="modal" data-bs-target="#exampleModal"> Reset MFA</button></td>
                       <td><button class="btn-lock td-btn-style">Lock</button></td>
-                      <td > <button type="button" class="Cancelbtn"><i class="fa fa-close icon-close"></i></button></td>
+                      <td >   <i class="material-icons delete-icon">delete</i>
+                        <!-- <span class="material-icons Cancelbtn"></span> -->
+                      </td>
                     </tr>
                   </tbody>
                 </table>

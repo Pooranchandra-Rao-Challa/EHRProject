@@ -16,6 +16,7 @@ import { CreatePasswordComponent } from './createpassword.component';
 import { ErrorMessageComponent } from '../_components/error.message.component';
 import { ProviderConfirmationComponent } from './provider.confirmation.component'
 import { EmailedUrlsComponent } from 'src/app/account/emailedurls/emailed.url.component'
+import { AlertMessage } from '../_alerts/alertMessage';
 @NgModule({
   imports: [
     CommonModule,
@@ -38,6 +39,9 @@ import { EmailedUrlsComponent } from 'src/app/account/emailedurls/emailed.url.co
     ErrorMessageComponent,
     ProviderConfirmationComponent,
     EmailedUrlsComponent
-  ]
+  ],
+  providers:[
+    AlertMessage
+  ],
 })
-export class LoginModule { }
+export class LoginModule {  }
