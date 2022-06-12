@@ -78,9 +78,7 @@ import { VitalDialogComponent} from 'src/app/dialogs/vital.dalog/vital.dialog.co
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 // import { NgxNativeDateModule, NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 import { TeethSurfaceModule } from 'src/app/_components/teeth-surface/teeth-surface.module';
-import { StylePaginatorDirective } from 'src/app/_directives/style-paginator.directive';
-import { APPStylePaginatorDirective } from 'src/app/_directives/app-style-paginator.directive';
-
+import { PaginatorDirective } from 'src/app/_directives/pagination.directive'
 
 import { patientService } from 'src/app/_services/patient.service';
 import { BillingService } from '../../_services/billing.service';
@@ -96,7 +94,8 @@ import { AlertMessage } from 'src/app/_alerts/alertMessage';
     SmartScheduleComponent,
     NewAppointmentDialogComponent,
     AdvancedMedicalCodeModule,
-    TeethSurfaceModule
+    TeethSurfaceModule,
+    PaginatorDirective
   ],
   declarations: [
     ProviderNavbarComponent,
@@ -140,8 +139,7 @@ import { AlertMessage } from 'src/app/_alerts/alertMessage';
     ChangePasswordDialogComponent,
     LocationDialogComponent,
     VitalDialogComponent,
-    StylePaginatorDirective,
-    APPStylePaginatorDirective
+    PaginatorDirective
   ],
   imports: [
 
@@ -174,9 +172,6 @@ import { AlertMessage } from 'src/app/_alerts/alertMessage';
     AdvancedMedicalCodeModule,
     TeethSurfaceModule,
     NgxMatTimepickerModule,
-    // NgxNativeDateModule,
-    // NgxMatDatetimePickerModule,
-    // NgxMatTimepickerModule,
     NgxMaskModule.forRoot(),
 
   ],

@@ -71,13 +71,13 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getPatientDetails();
-    this.getPatientMyProfile();
-    this.getProviderList();
-    //  this.getPatientsByProvider();
-    this.relationship;
-    this.getlanguagesInfo();
-    this.getPatientsRelationByProvider();
+    // this.getPatientDetails();
+    // this.getPatientMyProfile();
+    // this.getProviderList();
+    // //  this.getPatientsByProvider();
+    // this.relationship;
+    // this.getlanguagesInfo();
+    // this.getPatientsRelationByProvider();
   }
 
   //get Language List

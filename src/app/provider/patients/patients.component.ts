@@ -25,7 +25,7 @@ import { catchError, finalize, tap, debounceTime, distinctUntilChanged } from 'r
   styleUrls: ['./patients.component.scss']
 })
 export class PatientsComponent implements OnInit {
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  //@ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   //@ViewChild('style-paginator', { static: true }) paginatorDirective: StylePaginatorDirective;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('SearchPatient') searchPatient: ElementRef;
@@ -70,13 +70,14 @@ export class PatientsComponent implements OnInit {
         tap(() => {
             this.page = 0;
 
-            //this.paginator.pageIndex = 0;
+           // this.paginator.pageIndex = 0;
             this.loadPatients();
         })
     )
     .subscribe();
     // reset the paginator after sorting
-    this.sort.sortChange.subscribe(() => {this.page = 0;
+    this.sort.sortChange.subscribe(() => {
+      this.page = 0;
       //this.paginator.pageIndex = 0
     });
 
@@ -123,13 +124,18 @@ export class PatientsComponent implements OnInit {
     this.loadPatients();
   }
 
+  onPageEvent = ($event) => {
+    this.page = $event.pageIndex;
+    this.pageSize = $event.pageSize;
+  }
+
   loadPatients(){
     this.patientsDataSource.loadPatients(
       this.searchPatient.nativeElement.value,
       this.sort.active,
       this.sort.direction,
-      //this.paginator.pageIndex,
-      //this.paginator.pageSize
+      // this.paginator.pageIndex,
+      // this.paginator.pageSize
       this.page,
       this.pageSize
       );
@@ -198,7 +204,7 @@ export class PatientDatasource implements DataSource<ProviderPatient>{
 
 
     get TotalRecordSize():number{
-      if(this.patientsSubject.getValue().length>0)
+      if(this.patientsSubject.getValue() && this.patientsSubject.getValue().length>0)
         return this.patientsSubject.getValue()[0].TotalPatients;
       return 0;
     }

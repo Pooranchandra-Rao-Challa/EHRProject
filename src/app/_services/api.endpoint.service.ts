@@ -367,11 +367,11 @@ export class APIEndPoint extends EndpointBase {
   }
 
   get _tobaccoUseScreeningsUrl() {
-    return this._baseUrl + "TobaccoUse_Screenings";
+    return this._baseUrl + "TobaccoUseScreenings";
   }
 
   get _tobaccoUseInterventionsUrl() {
-    return this._baseUrl + "TobaccoUse_Interventions";
+    return this._baseUrl + "TobaccoUseInterventions";
   }
   get _patientClinicProviderUrl() {
     return this._baseUrl + "PatientClinicProviders";
@@ -473,6 +473,10 @@ export class APIEndPoint extends EndpointBase {
   get _updateNotesUrl() {
     return this._baseUrl + "UpdateNotes";
   }
+  get _chartInfoUrl() {
+    return this._baseUrl + "ChartInfo";
+  }
+
   constructor(public http: HttpClient) {
     super();
   }

@@ -249,7 +249,7 @@
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list" *ngFor="let directive of advancedDirectives">
+                <ul class="main-list" *ngFor="let directive of chartInfo.AdvancedDirectives">
                   <li>
                     <a (click)="openComponentDialog(advancedDirectivesDialogComponent, directive, ActionTypes.view)">
                       <span *ngIf="directive?.RecordAt != null && directive?.RecordAt !=''">

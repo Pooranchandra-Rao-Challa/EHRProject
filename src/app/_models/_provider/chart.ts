@@ -1,3 +1,5 @@
+import { EncounterDiagnosis } from './encounter';
+
 export class AdvancedDirective {
   AdvancedDirectiveId?: string = '';
   PatientId?: string;
@@ -15,4 +17,18 @@ export interface SmokingStatus {
 export enum PatientChart {
   AdvancedDirectives,
   SmokingStatus
+}
+
+export class ChartInfo{
+  AdvancedDirectives?: AdvancedDirective[] = []
+  Diagnoses?: EncounterDiagnosis[] = []
+  Alergies?: []
+  PastMedicalHistories?: []
+  Immunizations?: []
+  Encounters?: []
+  Appointments?: []
+  Medications?: []
+  SmokingStatuses?: []
+  TobaccoUseInterventions?: []
+  TobaccoUseScreenings?: []
 }
