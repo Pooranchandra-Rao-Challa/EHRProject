@@ -27,8 +27,8 @@ export class InsuranceComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.getSourceOfPaymentTypologyCodesDD();
-    // this.insuranceCompanyPlanList();
+     this.getSourceOfPaymentTypologyCodesDD();
+     this.insuranceCompanyPlanList();
   }
   Action: string[] = [
     "1-MEDICARE",

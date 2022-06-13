@@ -93,7 +93,6 @@ export class PatientsComponent implements OnInit {
     this.smartSchedulerService.PracticeProviders(req).subscribe(resp => {
       if (resp.IsSuccess) {
         this.PracticeProviders = resp.ListResult as PracticeProviders[];
-        console.log(this.PracticeProviders);
       }
     });
   }

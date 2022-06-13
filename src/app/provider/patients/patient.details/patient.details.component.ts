@@ -13,6 +13,8 @@ export class PatientDetailsComponent implements OnInit {
   constructor(private authService: AuthenticationService) {
     this.viewModel = authService.viewModel;
     this.patient = this.authService.viewModel.Patient;
+    console.log(this.viewModel);
+
   }
 
   ngOnInit(): void {
@@ -22,5 +24,6 @@ export class PatientDetailsComponent implements OnInit {
   UpdatePatientView(patientView: string){
     this.authService.SetViewParam("PatientView",patientView);
     this.viewModel = this.authService.viewModel;
+    console.log(this.viewModel);
   }
 }
