@@ -104,8 +104,8 @@
                             <!-- <button class="plusicon mt-4" type="button">
                                 <i class="fa fa-plus"></i>
                             </button> -->
-                            <button class="plusicon mt-4" type="button" (click)="primaryplus('primary')"  data-bs-toggle="modal"
-                                data-bs-target="#modal-primary-Insurance" aria-expanded="false" >
+                            <button class="plusicon mt-4" type="button" (click)="primaryplus('primary')"
+                                data-bs-toggle="modal" data-bs-target="#modal-primary-Insurance" aria-expanded="false">
                                 <i class="fa fa-plus"></i>
                             </button>
                         </div>
@@ -115,13 +115,14 @@
                             <label class="Helvetica-sans-serif-medium">Subscriber Id</label>
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control patientInsuranceTab" placeholder="Subscriber Id"
-                                    aria-label="Subscriber Name" aria-describedby="basic-addon"  [(ngModel)]="primlist.SubscriberId">
+                                    aria-label="Subscriber Name" aria-describedby="basic-addon"
+                                    [(ngModel)]="primlist.SubscriberId">
                             </div>
                         </div>
                         <div class="col-4">
                             <button [disabled]="viewpidetailsforprimary"
                                 class="btn btn-green btn-insurance pull-right  Helvetica-sans-serif-medium"
-                                type="button" (click)="viewdetails()" data-bs-toggle="modal"
+                                type="button" (click)="getInsuranceDetails()" data-bs-toggle="modal"
                                 data-bs-target="#Primary-Insurance-Details">
                                 View Primary Insurance details
                             </button>
@@ -202,7 +203,8 @@
                         Name</label>
                     <div class="input-group mb-3">
                         <input type="text" class="form-control patientInsuranceTab" placeholder="Subscriber Name"
-                            aria-label="Subscriber Name" aria-describedby="basic-addon1" [(ngModel)]="secList.SubscriberNane">
+                            aria-label="Subscriber Name" aria-describedby="basic-addon1"
+                            [(ngModel)]="secList.SubscriberNane">
                     </div>
                     <div class="row">
                         <label class="Helvetica-sans-serif-medium">Date of Birth</label>
@@ -244,7 +246,8 @@
                             <div class="input-group input-group-lg">
                                 <span class="input-group-text Helvetica-sans-serif-medium"
                                     id="inputGroup-sizing-lg ">Street Address</span>
-                                <input type="text" class="form-control input-border" [(ngModel)]="secList.StreetAddress">
+                                <input type="text" class="form-control input-border"
+                                    [(ngModel)]="secList.StreetAddress">
                             </div>
                         </div>
                     </div>
@@ -286,8 +289,9 @@
                             <!-- <button class="plusicon mt-4" type="button">
                                 <i class="fa fa-plus"></i>
                             </button> -->
-                            <button class="plusicon mt-4" type="button" data-bs-toggle="modal" (click)="secondaryplus('secondary')"
-                                data-bs-target="#modal-primary-Insurance" aria-expanded="false">
+                            <button class="plusicon mt-4" type="button" data-bs-toggle="modal"
+                                (click)="secondaryplus('secondary')" data-bs-target="#modal-primary-Insurance"
+                                aria-expanded="false">
                                 <i class="fa fa-plus"></i>
                             </button>
                         </div>
@@ -297,13 +301,15 @@
                             <label class="Helvetica-sans-serif-medium">Subscriber Id</label>
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control patientInsuranceTab" placeholder="Subscriber Id"
-                                    aria-label="Subscriber Name" aria-describedby="basic-addon1" [(ngModel)]="secList.SubscriberId">
+                                    aria-label="Subscriber Name" aria-describedby="basic-addon1"
+                                    [(ngModel)]="secList.SubscriberId">
                             </div>
                         </div>
                         <div class="col-4">
                             <button [disabled]="viewpidetailsforsecondary"
                                 class="btn btn-green btn-insurance pull-right  Helvetica-sans-serif-medium"
-                                (click)="viewdetails()" type="button" data-bs-toggle="modal" data-bs-target="#Primary-Insurance-Details">
+                                (click)="getInsuranceDetails()" type="button" data-bs-toggle="modal"
+                                data-bs-target="#Primary-Insurance-Details">
                                 View Primary Insurance details
                             </button>
                         </div>
@@ -356,7 +362,8 @@
                             </mat-select>
                         </mat-form-field>
                         <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-6">
-                            <input matInput [matDatepicker]="dp5" placeholder="Start Date" [(ngModel)]="secList.StartDate">
+                            <input matInput [matDatepicker]="dp5" placeholder="Start Date"
+                                [(ngModel)]="secList.StartDate">
                             <mat-datepicker-toggle matSuffix [for]="dp5">
 
                             </mat-datepicker-toggle>
@@ -729,8 +736,3 @@
 
 
 <!-- {{insurancePlanList| json}} -->
-
-
-
-
-
