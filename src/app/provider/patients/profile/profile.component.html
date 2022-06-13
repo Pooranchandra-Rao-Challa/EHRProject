@@ -5,7 +5,7 @@
       <div class="p-2"><button type="button" class="btn btn-lg btn-notes" data-bs-toggle="modal"
           data-bs-target="#ResetPwdModal">Reset Password</button></div>
       <div class="p-2"><button type="button" class="btn btn-lg btn-notes" data-bs-toggle="modal"
-          data-bs-target="#noteModal" (click)="openNotes()">Notes</button></div>
+          data-bs-target="#noteModal" >Notes</button></div>
       <div class="p-2"><button type="button" class="btn btn-lg btn-danger btn-authorized" data-bs-toggle="modal"
           data-bs-target="#AuthorizedModal">Authorized Rep.</button></div>
       <!-- <div class="p-2"><button type="button" class="btn btn-lg btn-orange">Save</button></div> -->
@@ -657,7 +657,7 @@
                               <span class="mt-2">james@ehr1.us</span>
                             </td>
                             <td>
-                              <mat-icon class="close-icon Cancelbtn" (click)="removeCareTeam(i)">close</mat-icon>
+                              <mat-icon class="close-icon Cancelbtn">close</mat-icon>
                             </td>
                           </tr>
                         </tbody>
@@ -710,7 +710,7 @@
 </div>
 
 <!-- Add Notes Modal -->
-<div class="modal fade" id="noteModal" tabindex="-1" aria-labelledby="noteModal" aria-hidden="true" [ngStyle]="{'display':displayNotes}">
+<div class="modal fade" id="noteModal" tabindex="-1" aria-labelledby="noteModal" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -730,8 +730,8 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-lg btn-green" (click)="updateNote()">Save</button>
-        <button type="button" class="btn btn-lg btn-green" data-bs-dismiss="modal" aria-label="Close" (click)="closeNotes()" >Cancel</button>
+        <button type="button" class="btn btn-lg btn-green" data-bs-dismiss="modal" aria-label="Close" (click)="updateNote()">Save</button>
+        <button type="button" class="btn btn-lg btn-green" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
       </div>
     </div>
   </div>

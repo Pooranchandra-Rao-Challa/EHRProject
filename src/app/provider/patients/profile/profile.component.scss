@@ -587,7 +587,8 @@ input[type='checkbox']:checked:after {
 }
 .grey-calendar .mat-datepicker-toggle.mat-datepicker-toggle button.mat-focus-indicator.mat-icon-button {
   background-color: #41b6a6 !important;
-  color: #fff;
+  color: #fff !important;
+  height: 3.7em !important;
   width: 4.5em !important;
 }
 .bg-claneder{
