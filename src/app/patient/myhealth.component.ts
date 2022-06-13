@@ -1,9 +1,10 @@
-import { SmokingStatus } from './../_models/chart';
+
 import { patientService } from './../_services/patient.service'
 import { Component, OnInit } from '@angular/core'
 import { User, UserLocations } from '../_models'
 import { AuthenticationService } from '../_services/authentication.service'
 import { PatientProfile } from '../_models/_patient/patientprofile'
+import { Allergies, CareTeam, PatientClinicalProvider, ProblemDX, VitalStats } from '../_models/_patient/patientclinicalprovider'
 
 
 @Component({
@@ -18,7 +19,11 @@ export class MyhealthComponent implements OnInit {
    StatusList :any ;
    ProvidersList:any;
    smokingStatus: any;
-   Providerdata:any;
+   CareTeamList:CareTeam[];
+   ProblemDxData:ProblemDX[];
+   Providerdata:PatientClinicalProvider[];
+   AllergiesData:Allergies[];
+   VitalStatus:VitalStats[];
 
   constructor(private authenticationService: AuthenticationService,private patientservise: patientService,) {
     debugger
@@ -28,9 +33,12 @@ export class MyhealthComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.getclinicalProvider();
     this.getPatientProfile();
      this.getSmokingStatus();
-    //  this.getclinicalProvider();
+     this.getCareTeamByPatientId();
+     this.getProblemDx();
+    //  this.getVitalStatus();
   }
 
   getSmokingStatus() {
@@ -39,11 +47,8 @@ export class MyhealthComponent implements OnInit {
       "PatientId": this.user.PatientId,
     }
     this.patientservise.SmokingStatusByPatientId(req).subscribe(req => {
-      debugger
-      if (req.IsSuccess) {
         this.StatusList = req.ListResult[0]
         this.smokingStatus = this.StatusList.Status
-      }
     })
   }
   getPatientProfile() {
@@ -52,23 +57,49 @@ export class MyhealthComponent implements OnInit {
       "PatientId": this.user.PatientId,
     }
     this.patientservise.PatientMyProfileByPatientId(req).subscribe(resp => {
-      debugger
-      if (resp.IsSuccess) {
         this.PatientProfile=resp.ListResult[0]
-      }
     })
   }
-  // getclinicalProvider() {
+  getclinicalProvider() {
 
-  //   var req={
-  //     "PatientId": this.user.PatientId,
+    var req={
+      "PatientId": this.user.PatientId,
+    }
+    this.patientservise.PatientClinicProviders(req).subscribe(req => {
+        this.Providerdata = req.ListResult;
+    })
+  }
+  getCareTeamByPatientId() {
+    let reqparam = {
+      'PatientId':this.user.PatientId,
+    }
+    this.patientservise.CareTeamByPatientId(reqparam).subscribe(resp => {
+        this.CareTeamList = resp.ListResult;
+    });
+  }
+  getProblemDx() {
+    let reqparam = {
+      'PatientId':this.user.PatientId,
+    }
+    this.patientservise.ProblemDx(reqparam).subscribe(resp => {
+        this.ProblemDxData = resp.ListResult;
+    });
+  }
+  // getAllergiesByPatientId() {
+  //   let reqparam = {
+  //     'PatientId':this.user.PatientId,
   //   }
-  //   this.patientservise.PatientClinicProviders(req).subscribe(req => {
-  //     debugger
-  //     if (req.IsSuccess) {
-  //       this.ProvidersList = req.ListResult[0]
+  //   this.patientservise.AllergiesByPatientId(reqparam).subscribe(resp => {
+  //       this.AllergiesData = resp.ListResult;
+  //   });
+  // }
 
-  //     }
-  //   })
+  // getVitalStatus() {
+  //   let reqparam = {
+  //     'PatientId':this.user.PatientId,
+  //   }
+  //   this.patientservise.VitalStatsByPatientId(reqparam).subscribe(resp => {
+  //       this.VitalStatus = resp.ListResult;
+  //   });
   // }
 }

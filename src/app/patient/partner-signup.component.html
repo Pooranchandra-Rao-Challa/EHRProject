@@ -116,7 +116,7 @@
                         <div class="col-lg-12 col-md-12 col-sm-12  mt-3">
                           <div class="controls">
                             <button type="button" [ngClass]="(partnerSignup.email==''||partnerSignup.email==null)? 'disable-button col-md-2': 'reg-button col-md-2'"
-                             (click)="CreatePartnerSignup(partnerSignup)" >Submit</button>
+                             (click)="CreatePartnerSignup(partnerSignup)" [disabled]="partnerSignup.email==''||partnerSignup.email==null" >Submit</button>
                           </div>
                         </div>
                       </div>
