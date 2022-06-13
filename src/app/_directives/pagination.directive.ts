@@ -31,7 +31,7 @@ export class PaginatorDirective implements DoCheck, AfterViewInit {
   ) {
     this.currentPage = 1;
     this.pageGapTxt = ['•••', '---'];
-    this.showTotalPages = 3;
+    this.showTotalPages = 5;
     this.checkPage = [0, 0, 0];
     // Display custom range label text
     this.matPag._intl.getRangeLabel = (page: number, pageSize: number, length: number): string => {

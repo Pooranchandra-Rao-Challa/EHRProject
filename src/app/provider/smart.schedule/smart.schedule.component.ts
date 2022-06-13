@@ -17,6 +17,8 @@ import { LocationSelectService } from '../../_navigations/provider.layout/locati
 import { NewAppointmentDialogComponent } from '../../dialogs/newappointment.dialog/newappointment.dialog.component';
 import { UpcomingAppointmentsDialogComponent } from '../../dialogs/upcoming.appointments.dialog/upcoming.appointments.dialog.component';
 import { EncounterDialogComponent } from '../../dialogs/encounter.dialog/encounter.dialog.component';
+import { PageEvent } from "@angular/material/paginator";
+import { MatPaginator } from "@angular/material/paginator";
 
 import {
   PatientSearchResults, Actions,

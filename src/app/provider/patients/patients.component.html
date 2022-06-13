@@ -147,23 +147,12 @@
         </div>
       </div>
       <div class="d-flex justify-content-end my-3">
-        <nav aria-label="Page navigation">
-          <ul class="pagination page-green mt-4">
-            <ngb-pagination [pageSize]="pageSize" [collectionSize]="patientsDataSource.TotalRecordSize" [maxSize]="9"
-              [(page)]="page" aria-label="Default pagination" (pageChange)="pageChange($event)">
-            </ngb-pagination>
-           </ul>
-        </nav>
-        <!-- style-paginator  appPagination showFirstLastButtons-->
-        <!-- <div class="pg-container">
-
-        <mat-paginator appPagination
-             [length]='patientsDataSource.TotalRecordSize' [pageSize]="pageSize" [pageIndex] = "page-1"
-             [pageSizeOptions]="[10,20,30,40,50]" [hidePageSize]='true' (page)="onPageEvent($event)">
+        <div class="pg-container">
+          <mat-paginator appPagination
+             [length]="patientsDataSource.TotalRecordSize" [pageSize]="pageSize" [pageIndex] = "page"
+             [pageSizeOptions]="[10,20,30,40,50]"  >
             </mat-paginator>
-
-
-          </div> -->
+          </div>
       </div>
     </div>
   </div>

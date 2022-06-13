@@ -17,7 +17,6 @@ import { patientService } from './../../_services/patient.service';
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, fromEvent, merge, Observable, of } from 'rxjs';
 import { catchError, finalize, tap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
-//import { StylePaginatorDirective} from 'src/app/_directives/style-paginator.directive';
 
 @Component({
   selector: 'app-patients',
@@ -25,8 +24,7 @@ import { catchError, finalize, tap, debounceTime, distinctUntilChanged } from 'r
   styleUrls: ['./patients.component.scss']
 })
 export class PatientsComponent implements OnInit {
-  //@ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  //@ViewChild('style-paginator', { static: true }) paginatorDirective: StylePaginatorDirective;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('SearchPatient') searchPatient: ElementRef;
 
@@ -54,9 +52,7 @@ export class PatientsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //console.log(this.paginator);
 
-    //this.paginator = this.paginatorDirective.matPag;
     this.loadPatientProviders();
     this.getPatientsByProvider();
   }
@@ -81,16 +77,16 @@ export class PatientsComponent implements OnInit {
       //this.paginator.pageIndex = 0
     });
 
-    this.sort.sortChange
-    .pipe(
-      tap(() => this.loadPatients())
-    ).subscribe();
+    // this.sort.sortChange
+    // .pipe(
+    //   tap(() => this.loadPatients())
+    // ).subscribe();
 
-    // merge(this.sort.sortChange, this.paginator.page)
-    //     .pipe(
-    //         tap(() => this.loadPatients())
-    //     )
-    //     .subscribe();
+    merge(this.sort.sortChange, this.paginator.page)
+        .pipe(
+            tap(() => this.loadPatients())
+        )
+        .subscribe();
   }
 
   loadPatientProviders() {
@@ -119,25 +115,13 @@ export class PatientsComponent implements OnInit {
     this.patientsDataSource.loadPatients();
   }
 
-  pageChange(currentPage){
-    this.page = currentPage;
-    this.loadPatients();
-  }
-
-  onPageEvent = ($event) => {
-    this.page = $event.pageIndex;
-    this.pageSize = $event.pageSize;
-  }
-
   loadPatients(){
     this.patientsDataSource.loadPatients(
       this.searchPatient.nativeElement.value,
       this.sort.active,
       this.sort.direction,
-      // this.paginator.pageIndex,
-      // this.paginator.pageSize
-      this.page,
-      this.pageSize
+      this.paginator.pageIndex,
+      this.paginator.pageSize
       );
   }
 
