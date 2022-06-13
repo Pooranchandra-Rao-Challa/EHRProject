@@ -109,7 +109,8 @@ export class PatientsComponent implements OnInit {
   getPatientsByProvider() {
     let reqparams = {
       "ClinicId": this.user.ClinicId,
-      "ProviderId": this.user.ProviderId
+      "ProviderId": this.user.ProviderId,
+      "Status" : "All"
     }
     this.patientsDataSource = new PatientDatasource(this.patientService,reqparams);
     this.patientsDataSource.loadPatients();
@@ -127,12 +128,12 @@ export class PatientsComponent implements OnInit {
 
   showInactivePatients(event) {
     if (event.checked == true) {
-      //this.inactivePatients = this.patientsDataSource.data.filter(a => a.active === false);
-      //this.patientsList.data = this.inactivePatients;
+      this.patientsDataSource.Status = "InActive"
     }
     else {
-      //this.patientsList.data = this.patientsDataSource.data;
+      this.patientsDataSource.Status = "All"
     }
+    this.loadPatients();
   }
 
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string) {
@@ -164,6 +165,10 @@ export class PatientDatasource implements DataSource<ProviderPatient>{
     //collectionViewer.viewChange.
     this.patientsSubject.complete();
     this.loadingSubject.complete();
+  }
+
+  set Status(status: string){
+    this.queryParams["Status"] = status;
   }
 
   loadPatients( filter = '', sortField = 'LastAccessed',
