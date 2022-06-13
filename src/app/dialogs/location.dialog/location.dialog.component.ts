@@ -50,7 +50,7 @@ export class LocationDialogComponent implements OnInit {
   AddressVerification() {
     this.accountservice.VerifyAddress(this.PracticeLocData.Street).subscribe(resp => {
       if (resp.IsSuccess) {
-        console.log(resp.Result);
+        // console.log(resp.Result);
         this.PracticeLocData.City = resp.Result.components.city_name
         this.PracticeLocData.State = resp.Result.components.state_abbreviation
         this.PracticeLocData.StreetAddress = resp.Result.delivery_line_1
@@ -107,12 +107,12 @@ export class LocationDialogComponent implements OnInit {
     this.displayforEditLocation = false;
     this.locationDisplayModel = "none";
   }
-  close(){this.ref.close()}
+  close() { this.ref.close() }
 
   editPracticeLocation(reqparam) {
     this.displayforEditLocation = true;
     //Location_Name,Location_Street_Address,Location_Phone,providers,Location_Id
-    if(reqparam == null)return;
+    if (reqparam == null) return;
     this.settingsService.EditProviderLocation(reqparam.Location_Id).subscribe(resp => {
       if (resp.IsSuccess) {
         this.isDeletable = true;
@@ -180,7 +180,7 @@ export class LocationDialogComponent implements OnInit {
     this.PracticeLocData.Street = "";
     this.PracticeLocData.City = ""
     this.PracticeLocData.State = ""
-    this.PracticeLocData.StreetAddress =""
+    this.PracticeLocData.StreetAddress = ""
     this.PracticeLocData.Zipcode = ""
   }
 
@@ -188,8 +188,8 @@ export class LocationDialogComponent implements OnInit {
     this.PracticeLocData = new PracticeLocation
   }
 
-  deleteLocation(){
-    this.settingsService.DeleteLocation({LocationId: this.PracticeLocData.LocationId}).subscribe(resp => {
+  deleteLocation() {
+    this.settingsService.DeleteLocation({ LocationId: this.PracticeLocData.LocationId }).subscribe(resp => {
       if (resp.IsSuccess) {
         //this.practiceLocations();
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2JP003"])

@@ -487,6 +487,9 @@ export class APIEndPoint extends EndpointBase {
   get _chartInfoUrl() {
     return this._baseUrl + "ChartInfo";
   }
+  get _createEncounterUrl() {
+    return this._baseUrl + "CreateEncounter";
+  }
 
   constructor(public http: HttpClient) {
     super();

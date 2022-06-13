@@ -169,13 +169,13 @@ export class SmartScheduleComponent implements OnInit {
     this.flag = false;
     this.patientNameOrCellNumber = "";
     let dialogData: any;
-    if (content === this.appointmentDialogComponent && action == Actions.new){
-      dialogData = this.PatientAppointmentInfoFromSearch(data,action);
-    }else if(content === this.appointmentDialogComponent && action == Actions.view){
-      dialogData = this.PatientAppointmentInfo(data,action);
-    }    else  if (content === this.upcomingAppointmentsDialogComponent){
-      dialogData = this.PatientAppointmentInfoFromSearch(data,action);
-    } else if(content === this.encounterDialogComponent){
+    if (content === this.appointmentDialogComponent && action == Actions.new) {
+      dialogData = this.PatientAppointmentInfoFromSearch(data, action);
+    } else if (content === this.appointmentDialogComponent && action == Actions.view) {
+      dialogData = this.PatientAppointmentInfo(data, action);
+    } else if (content === this.upcomingAppointmentsDialogComponent) {
+      dialogData = this.PatientAppointmentInfoFromSearch(data, action);
+    } else if (content === this.encounterDialogComponent) {
       dialogData = data;
 
     }
@@ -198,7 +198,7 @@ export class SmartScheduleComponent implements OnInit {
         this.appointmentDialogResponse = res.data;
         this.flag = false;
         this.patientNameOrCellNumber = "";
-      }else if(content == this.encounterDialogComponent){
+      } else if (content == this.encounterDialogComponent) {
         this.encounterDialogResponse = res.data;
 
       }
@@ -319,7 +319,7 @@ export class SmartScheduleComponent implements OnInit {
     this.smartSchedulerService.ActiveAppointments(req).subscribe(resp => {
 
       if (resp.IsSuccess) {
-        console.log(resp.ListResult)
+        // console.log(resp.ListResult)
         this.Appointments = resp.ListResult as ScheduledAppointment[];
         this.NoofAppointment = this.Appointments.length;
         //console.log(JSON.stringify(this.Appointments));
@@ -460,9 +460,8 @@ export class SmartScheduleComponent implements OnInit {
     this.filterAppointments();
   }
 
-  updateAppointmentStatus(appointmentId: string,status: string)
-  {
-    console.log("appointmentId: "+appointmentId,", status: "+status);
+  updateAppointmentStatus(appointmentId: string, status: string) {
+    // console.log("appointmentId: "+appointmentId,", status: "+status);
 
   }
   showAssociateVitals: boolean = true;

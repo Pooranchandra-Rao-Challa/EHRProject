@@ -8,8 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BreadcrumComponent implements OnInit {
 
-  menuName:any ='Practices';
-  constructor(private router:Router, private route: ActivatedRoute) { }
+  menuName: any = 'Practices';
+  constructor(private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.getComponentName();
@@ -27,7 +27,7 @@ export class BreadcrumComponent implements OnInit {
       [url],
       { queryParams: { name: name } }
     );
-    console.log(url)
+    // console.log(url)
   }
 
 

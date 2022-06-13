@@ -13,7 +13,7 @@ import { ActivatedRoute, NavigationExtras, Route, Router } from '@angular/router
 import { SmartScheduleComponent } from '../smart.schedule/smart.schedule.component';
 import { SmartSchedulerService } from '../../_services/smart.scheduler.service';
 import { PracticeProviders } from '../../_models/_provider/practiceProviders';
-import { patientService } from './../../_services/patient.service';
+import { PatientService } from './../../_services/patient.service';
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, fromEvent, merge, Observable, of } from 'rxjs';
 import { catchError, finalize, tap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
@@ -44,7 +44,7 @@ export class PatientsComponent implements OnInit {
   value: any;
   @ViewChild('filter', { static: false }) filter: ElementRef;
   constructor(public overlayService: OverlayService,
-    private patientService: patientService,
+    private patientService: PatientService,
     private authService: AuthenticationService,
     private router: Router,
     private smartSchedulerService: SmartSchedulerService) {
@@ -64,17 +64,16 @@ export class PatientsComponent implements OnInit {
         debounceTime(150),
         distinctUntilChanged(),
         tap(() => {
-            this.page = 0;
-
-           // this.paginator.pageIndex = 0;
+            //this.page = 0;
+            this.paginator.pageIndex = 0;
             this.loadPatients();
         })
     )
     .subscribe();
     // reset the paginator after sorting
     this.sort.sortChange.subscribe(() => {
-      this.page = 0;
-      //this.paginator.pageIndex = 0
+      //this.page = 0;
+      this.paginator.pageIndex = 0
     });
 
     // this.sort.sortChange
@@ -94,7 +93,6 @@ export class PatientsComponent implements OnInit {
     this.smartSchedulerService.PracticeProviders(req).subscribe(resp => {
       if (resp.IsSuccess) {
         this.PracticeProviders = resp.ListResult as PracticeProviders[];
-        console.log(this.PracticeProviders);
       }
     });
   }
@@ -109,7 +107,8 @@ export class PatientsComponent implements OnInit {
   getPatientsByProvider() {
     let reqparams = {
       "ClinicId": this.user.ClinicId,
-      "ProviderId": this.user.ProviderId
+      "ProviderId": this.user.ProviderId,
+      "Status" : "All"
     }
     this.patientsDataSource = new PatientDatasource(this.patientService,reqparams);
     this.patientsDataSource.loadPatients();
@@ -127,12 +126,12 @@ export class PatientsComponent implements OnInit {
 
   showInactivePatients(event) {
     if (event.checked == true) {
-      //this.inactivePatients = this.patientsDataSource.data.filter(a => a.active === false);
-      //this.patientsList.data = this.inactivePatients;
+      this.patientsDataSource.Status = "InActive"
     }
     else {
-      //this.patientsList.data = this.patientsDataSource.data;
+      this.patientsDataSource.Status = "All"
     }
+    this.loadPatients();
   }
 
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string) {
@@ -153,7 +152,7 @@ export class PatientDatasource implements DataSource<ProviderPatient>{
   public loading$ = this.loadingSubject.asObservable();
 
 
-  constructor(private patientService: patientService,private queryParams: {}){
+  constructor(private patientService: PatientService,private queryParams: {}){
 
 
   }
@@ -166,6 +165,10 @@ export class PatientDatasource implements DataSource<ProviderPatient>{
     this.loadingSubject.complete();
   }
 
+  set Status(status: string){
+    this.queryParams["Status"] = status;
+  }
+
   loadPatients( filter = '', sortField = 'LastAccessed',
                 sortDirection = 'asc', pageIndex = 0, pageSize = 10) {
         this.queryParams["SortField"] = sortField;
@@ -173,8 +176,6 @@ export class PatientDatasource implements DataSource<ProviderPatient>{
         this.queryParams["PageIndex"] = pageIndex;
         this.queryParams["PageSize"] = pageSize;
         this.queryParams["Filter"] = filter;
-
-
         this.loadingSubject.next(true);
 
         this.patientService.FilteredPatientsOfProvider(this.queryParams).pipe(

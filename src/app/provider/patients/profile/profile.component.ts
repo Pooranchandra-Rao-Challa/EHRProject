@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { patientService } from 'src/app/_services/patient.service';
+import { PatientService } from 'src/app/_services/patient.service';
 import { PatientProfile } from 'src/app/_models/_patient/patientprofile';
 import { PracticeProviders } from 'src/app/_models/_provider/practiceProviders';
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
@@ -20,6 +20,9 @@ import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
+  @ViewChild('fileInput') fileInput: ElementRef;
+  AduthorizesModal = "none";
+  AddAduthorizesModal = "none";
   PatientDetails: any = [];
   PatientList: any = [];
   PatientMyProfile: PatientProfile;
@@ -59,20 +62,22 @@ export class ProfileComponent implements OnInit {
   secondaryLanguage: any = [];
   languageList: any = [];
   patientRelationList: any = [];
-  currentPatient: ProviderPatient;
-
-  constructor(private route: ActivatedRoute, private patientService: patientService, private utilityService: UtilityService,
+  displayNotes = "none";
+  jQuery: any;
+  constructor(private route: ActivatedRoute, private patientService: PatientService, private utilityService: UtilityService,
     private smartSchedulerService: SmartSchedulerService, private authService: AuthenticationService, private alertmsg: AlertMessage) {
     this.user = authService.userValue;
     this.PatientMyProfile = {} as PatientProfile;
   }
 
   ngOnInit(): void {
-    this.relationship;
-    this.currentPatient = this.authService.viewModel.Patient;
+    this.getPatientDetails();
     this.getPatientMyProfile();
     this.getProviderList();
-    this.getlanguagesInfo();
+    // //  this.getPatientsByProvider();
+    // this.relationship;
+    // this.getlanguagesInfo();
+    this.getPatientsRelationByProvider();
   }
 
   //get Language List
@@ -86,14 +91,28 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  // get patient id
+  getPatientDetails() {
+    // this.route.queryParams.subscribe((params) => {
+    //   this.PatientDetails = JSON.parse(params.patient);
+    //   console.log(this.PatientDetails);
+    // });
+    this.PatientDetails = this.authService.viewModel.Patient;
+  }
+
   // get patient details by id
   getPatientMyProfile() {
+    //debugger;
     var reqparam = {
-      "PatientId": this.currentPatient.PatientId
+      "PatientId": this.PatientDetails.PatientId
     }
+    // console.log(reqparam);
     this.patientService.PatientMyProfileByPatientId(reqparam).subscribe(resp => {
+      //debugger;
       if (resp.IsSuccess) {
         this.PatientMyProfile = resp.ListResult[0];
+        this.PatientMyProfile.Gender = this.PatientMyProfile.Gender;
+        // console.log(this.PatientMyProfile.Gender);
       }
     });
   }
@@ -122,120 +141,8 @@ export class ProfileComponent implements OnInit {
     return searchData
   }
 
-  // search patient details
-  SearchDetails() {
-    this.patientRelationList = this.GetFilterList.filter((invoice) => this.isMatch(invoice));
-    this.allowaccess = true;
-    this.deleteSearch = true;
-  }
-
-  isMatch(item) {
-    if (item instanceof Object) {
-      return Object.keys(item).some((k) => this.isMatch(item[k]));
-    } else {
-      return item == null ? '' : item.toString().indexOf(this.SearchKey) > -1
-    }
-  }
-
-  // update patient info
-  updatePatientInformation() {
-    this.patientService.UpdatePatientInformation(this.PatientMyProfile).subscribe(resp => {
-      if (resp.IsSuccess) {
-        this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP001"])
-      }
-      else {
-        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP001"]);
-      }
-    });
-  }
-
- // update Contact info
-  updateContactInform() {
-    this.patientService.UpdateContactInformation(this.PatientMyProfile).subscribe(resp => {
-      if (resp.IsSuccess) {
-        this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP002"])
-      }
-      else {
-        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP002"]);
-      }
-    });
-  }
-
-  // update Emergency infno
-  updateEmergencyContact() {
-    this.patientService.UpdateEmergencyContact(this.PatientMyProfile).subscribe(resp => {
-      if (resp.IsSuccess) {
-        this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP003"])
-      }
-      else {
-        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP003"]);
-      }
-    });
-  }
-
-  //update NextOfKin
-  updateNextOfKin() {
-    this.patientService.UpdateNextofkin(this.PatientMyProfile).subscribe(resp => {
-      if (resp.IsSuccess) {
-        this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP006"])
-      }
-      else {
-        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP006"]);
-      }
-    });
-  }
-
-  // update Demography
-  updateDemography() {
-    this.patientService.UpdateDemographics(this.PatientMyProfile).subscribe(resp => {
-      if (resp.IsSuccess) {
-        this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP005"])
-      }
-      else {
-        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP005"]);
-      }
-    });
-  }
-
-  // update Immunization Registry
-  updateImmunizationRegistry() {
-    this.patientService.UpdateImmunizationRegistry(this.PatientMyProfile).subscribe(resp => {
-      if (resp.IsSuccess) {
-        this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP007"])
-      }
-      else {
-        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP007"]);
-      }
-    });
-  }
-
-  // update Notes
-  updateNote() {
-    this.patientService.UpdateNotes(this.PatientMyProfile).subscribe(resp => {
-      if (resp.IsSuccess) {
-        let success = resp.EndUserMessage;
-      }
-    });
-  }
-
-  savePatientRelation() {
-    this.allowaccess = false;
-    this.removeAccess = false;
-  }
-
-  getPatientsByProvider() {
-    let reqparams = {
-      "ClinicId": this.user.ClinicId,
-      "ProviderId": this.user.ProviderId
-    }
-    this.patientService.PatientsByProvider(reqparams).subscribe((resp) => {
-      if (resp.IsSuccess) {
-        this.patientsList = resp.ListResult;
-      }
-    });
-  }
-
   getCareTeamDetails(id) {
+    //debugger;
     let Providers: any = []
     Providers = id;
     var patientId = this.PatientDetails.PatientId;
@@ -246,11 +153,14 @@ export class ProfileComponent implements OnInit {
       "PatientId": patientId
     }
     this.patientService.CreateCareTeam(reqparams).subscribe(resp => {
+      //debugger;
       if (resp.IsSuccess) {
+        // debugger;
         this.getCareTeamByPatientId(patientId);
       }
     });
   }
+
 
   getCareTeamByPatientId(patientId) {
     let reqparam = {
@@ -258,10 +168,62 @@ export class ProfileComponent implements OnInit {
     }
     this.patientService.CareTeamByPatientId(reqparam).subscribe(resp => {
       if (resp.IsSuccess) {
+        //debugger;
         this.CareTeamList = resp.ListResult;
         this.careTeamName = this.CareTeamList.FirstName;
+        // console.log(this.CareTeamList)
       }
     });
+  }
+
+  getPatientsByProvider() {
+    //debugger;
+    let reqparams = {
+      "ClinicId": this.user.ClinicId,
+      "ProviderId": this.user.ProviderId
+    }
+    this.patientService.PatientsByProvider(reqparams).subscribe((resp) => {
+      if (resp.IsSuccess) {
+        this.patientsList = resp.ListResult;
+        // this.GetFilterList = resp.ListResult;
+      }
+    });
+  }
+
+  getPatientsRelationByProvider() {
+    let reqparam = {
+      "ProviderId": this.user.ProviderId
+    }
+    // this.patientService.PatientsRelationByProviderId(reqparam).subscribe(resp => {
+    //   if (resp.IsSuccess) {
+    //     // this.patientRelationList = resp.ListResult;
+    //     // this.GetFilterList = resp.ListResult;
+    //     console.log(this.patientRelationList);
+    //   }
+    // })
+  }
+
+  // search patient details
+  SearchDetails() {
+    this.patientRelationList = this.GetFilterList.filter((invoice) => this.isMatch(invoice));
+    this.allowaccess = true;
+    this.deleteSearch = true;
+  }
+
+  isMatch(item) {
+    // debugger;
+    if (item instanceof Object) {
+      return Object.keys(item).some((k) => this.isMatch(item[k]));
+    } else {
+      return item == null ? '' : item.toString().indexOf(this.SearchKey) > -1
+    }
+  }
+
+  allowAccess() { }
+
+  savePatientRelation() {
+    this.allowaccess = false;
+    this.removeAccess = false;
   }
 
   removeAccessed(item) {
@@ -274,6 +236,108 @@ export class ProfileComponent implements OnInit {
     this.deleteSearch = false;
   }
 
-  allowAccess() {}
+  removeCareTeam(index) {
+    this.CareTeamList.splice(index, 1);
+  }
 
+  DisplayAduthorizes() {
+    this.AduthorizesModal = "block";
+  }
+
+  AddAuthorized() {
+    this.AddAduthorizesModal = "block";
+  }
+
+  updatePatientInformation() {
+    //debugger;
+    this.patientService.UpdatePatientInformation(this.PatientMyProfile).subscribe(resp => {
+      //debugger;
+      if (resp.IsSuccess) {
+        this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP001"])
+      }
+      else {
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP001"]);
+      }
+    });
+  }
+
+  updateContactInform() {
+    //debugger;
+    this.patientService.UpdateContactInformation(this.PatientMyProfile).subscribe(resp => {
+      // debugger;
+      if (resp.IsSuccess) {
+        this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP002"])
+      }
+      else {
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP002"]);
+      }
+    });
+  }
+
+  updateEmergencyContact() {
+    this.patientService.UpdateEmergencyContact(this.PatientMyProfile).subscribe(resp => {
+      //debugger;
+      if (resp.IsSuccess) {
+        this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP003"])
+      }
+      else {
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP003"]);
+      }
+    });
+  }
+
+  updateNextOfKin() {
+    this.patientService.UpdateNextofkin(this.PatientMyProfile).subscribe(resp => {
+      //debugger;
+      if (resp.IsSuccess) {
+        this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP006"])
+      }
+      else {
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP006"]);
+      }
+    });
+  }
+
+  updateDemography() {
+    this.patientService.UpdateDemographics(this.PatientMyProfile).subscribe(resp => {
+      //debugger;
+      if (resp.IsSuccess) {
+        this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP005"])
+      }
+      else {
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP005"]);
+      }
+    });
+  }
+
+  updateImmunizationRegistry() {
+    this.patientService.UpdateImmunizationRegistry(this.PatientMyProfile).subscribe(resp => {
+      // debugger;
+      if (resp.IsSuccess) {
+        this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP007"])
+      }
+      else {
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP007"]);
+      }
+    });
+  }
+
+  updateNote() {
+    this.patientService.UpdateNotes(this.PatientMyProfile).subscribe(resp => {
+      // debugger;
+      if (resp.IsSuccess) {
+        let success = resp.EndUserMessage;
+        // console.log(success);
+        this.closeNotes();
+      }
+
+    });
+  }
+
+  openNotes() {
+    this.displayNotes = "block";
+  }
+  closeNotes() {
+    this.displayNotes = "none";
+  }
 }

@@ -114,7 +114,7 @@ export class SettingsService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._erxUrl, reqparams);
   }
   ToggleUserFieldValues(reqparams: any) {
-    console.log(reqparams)
+    // console.log(reqparams)
     return this._ProcessPostRequest<any>(this._toggleUserFieldValuesUrl, reqparams);
   }
 
@@ -122,7 +122,7 @@ export class SettingsService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._updateTimeZoneUrl, reqparams);
   }
 
-  DeleteLocation(reqparams:any){
+  DeleteLocation(reqparams: any) {
     return this._ProcessPostRequest<any>(this._deleteLocationUrl, reqparams);
   }
 }

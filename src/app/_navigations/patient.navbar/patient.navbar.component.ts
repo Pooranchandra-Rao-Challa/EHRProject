@@ -40,9 +40,9 @@ export class PatientNavbarComponent implements OnInit {
 
   onChangeBreadCrum(url: string, name: string, view?: string,) {
     //debugger;
-    console.log(view)
+    // console.log(view)
     if (view != null) {
-      console.log(view)
+      // console.log(view)
       this.router.navigate(
         [url],
         { queryParams: { name: name, view: view } }
