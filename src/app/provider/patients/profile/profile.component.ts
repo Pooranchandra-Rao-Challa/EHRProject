@@ -20,7 +20,7 @@ import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  @ViewChild('fileInput') fileInput:ElementRef;
+  @ViewChild('fileInput') fileInput: ElementRef;
   AduthorizesModal = "none";
   AddAduthorizesModal = "none";
   PatientDetails: any = [];
@@ -62,22 +62,22 @@ export class ProfileComponent implements OnInit {
   secondaryLanguage: any = [];
   languageList: any = [];
   patientRelationList: any = [];
-  displayNotes ="none";
-  jQuery:any;
-  constructor(private route: ActivatedRoute, private patientService: PatientService,private utilityService:UtilityService,
-    private smartSchedulerService: SmartSchedulerService, private authService: AuthenticationService,private alertmsg: AlertMessage) {
+  displayNotes = "none";
+  jQuery: any;
+  constructor(private route: ActivatedRoute, private patientService: PatientService, private utilityService: UtilityService,
+    private smartSchedulerService: SmartSchedulerService, private authService: AuthenticationService, private alertmsg: AlertMessage) {
     this.user = authService.userValue;
     this.PatientMyProfile = {} as PatientProfile;
   }
 
   ngOnInit(): void {
-     this.getPatientDetails();
-     this.getPatientMyProfile();
-      this.getProviderList();
+    this.getPatientDetails();
+    this.getPatientMyProfile();
+    this.getProviderList();
     // //  this.getPatientsByProvider();
     // this.relationship;
     // this.getlanguagesInfo();
-     this.getPatientsRelationByProvider();
+    this.getPatientsRelationByProvider();
   }
 
   //get Language List
@@ -106,13 +106,13 @@ export class ProfileComponent implements OnInit {
     var reqparam = {
       "PatientId": this.PatientDetails.PatientId
     }
-    console.log(reqparam);
+    // console.log(reqparam);
     this.patientService.PatientMyProfileByPatientId(reqparam).subscribe(resp => {
       //debugger;
       if (resp.IsSuccess) {
         this.PatientMyProfile = resp.ListResult[0];
         this.PatientMyProfile.Gender = this.PatientMyProfile.Gender;
-        console.log(this.PatientMyProfile.Gender);
+        // console.log(this.PatientMyProfile.Gender);
       }
     });
   }
@@ -155,7 +155,7 @@ export class ProfileComponent implements OnInit {
     this.patientService.CreateCareTeam(reqparams).subscribe(resp => {
       //debugger;
       if (resp.IsSuccess) {
-       // debugger;
+        // debugger;
         this.getCareTeamByPatientId(patientId);
       }
     });
@@ -171,7 +171,7 @@ export class ProfileComponent implements OnInit {
         //debugger;
         this.CareTeamList = resp.ListResult;
         this.careTeamName = this.CareTeamList.FirstName;
-        console.log(this.CareTeamList)
+        // console.log(this.CareTeamList)
       }
     });
   }
@@ -211,7 +211,7 @@ export class ProfileComponent implements OnInit {
   }
 
   isMatch(item) {
-   // debugger;
+    // debugger;
     if (item instanceof Object) {
       return Object.keys(item).some((k) => this.isMatch(item[k]));
     } else {
@@ -264,7 +264,7 @@ export class ProfileComponent implements OnInit {
   updateContactInform() {
     //debugger;
     this.patientService.UpdateContactInformation(this.PatientMyProfile).subscribe(resp => {
-     // debugger;
+      // debugger;
       if (resp.IsSuccess) {
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP002"])
       }
@@ -312,8 +312,8 @@ export class ProfileComponent implements OnInit {
 
   updateImmunizationRegistry() {
     this.patientService.UpdateImmunizationRegistry(this.PatientMyProfile).subscribe(resp => {
-     // debugger;
-      if(resp.IsSuccess) {
+      // debugger;
+      if (resp.IsSuccess) {
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP007"])
       }
       else {
@@ -324,22 +324,20 @@ export class ProfileComponent implements OnInit {
 
   updateNote() {
     this.patientService.UpdateNotes(this.PatientMyProfile).subscribe(resp => {
-     // debugger;
-      if(resp.IsSuccess) {
+      // debugger;
+      if (resp.IsSuccess) {
         let success = resp.EndUserMessage;
-        console.log(success);
+        // console.log(success);
         this.closeNotes();
       }
 
     });
   }
 
-  openNotes()
-  {
-    this.displayNotes="block";
+  openNotes() {
+    this.displayNotes = "block";
   }
-  closeNotes()
-  {
-    this.displayNotes="none";
+  closeNotes() {
+    this.displayNotes = "none";
   }
 }

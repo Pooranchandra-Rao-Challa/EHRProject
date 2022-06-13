@@ -8,31 +8,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SectionNewComponent implements OnInit {
   menuName: any;
-  displayHeading:string=''
-  constructor(private router:Router,private route: ActivatedRoute,) { }
+  displayHeading: string = ''
+  constructor(private router: Router, private route: ActivatedRoute,) { }
 
   ngOnInit(): void {
-  this.getComponentName()
+    this.getComponentName()
   }
 
-  BackWeeklyUpdate(name,url)
-  {
+  BackWeeklyUpdate(name, url) {
     this.router.navigate(
       [url],
-      { queryParams: { name: name} }
+      { queryParams: { name: name } }
     );
   }
 
- getComponentName() {
-   //debugger;
+  getComponentName() {
+    //debugger;
     this.route.queryParams.subscribe((params) => {
-      console.log(params.edit)
+      // console.log(params.edit)
       if (params.name != null) {
-        if(params.edit == 'EditSection')
-        {
+        if (params.edit == 'EditSection') {
           this.displayHeading = 'Edit Section'
         }
-        else{
+        else {
           this.displayHeading = 'Add new Section'
         }
         this.menuName = params.name;

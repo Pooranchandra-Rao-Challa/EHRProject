@@ -33,7 +33,7 @@ export class ImportPatientsComponent {
     this.adminservice.GetProviderList().subscribe(resp => {
       if (resp.IsSuccess) {
         this.ProviderList = resp.ListResult;
-        console.log(this.ProviderList);
+        // console.log(this.ProviderList);
       }
     });
   }

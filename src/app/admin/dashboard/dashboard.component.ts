@@ -41,7 +41,7 @@ export class DashboardComponent implements OnInit {
     this.adminservice.GetProviderList().subscribe(resp => {
       if (resp.IsSuccess) {
         this.ProviderList = resp.ListResult;
-        console.log(this.ProviderList);
+        // console.log(this.ProviderList);
         this.ProviderList.map((e) => {
           if (e.Trial == 'Trial') {
             e.ToggleButton = false;
@@ -63,7 +63,7 @@ export class DashboardComponent implements OnInit {
             e.Paid = false;
           }
         });
-        console.log(this.ProviderList);
+        // console.log(this.ProviderList);
         this.ProviderColumnList = resp.ListResult;
         this.ProviderColumnList.map((e) => {
           if (e.Trial.toLowerCase() == 'trial') {
@@ -132,7 +132,7 @@ export class DashboardComponent implements OnInit {
 
 
   SearchDetails() {
-   // debugger;
+    // debugger;
     this.ProviderList = this.GetFilterList.filter((invoice) => this.isMatch(invoice));
   }
 
