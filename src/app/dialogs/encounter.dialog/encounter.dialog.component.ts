@@ -1,9 +1,11 @@
 
+
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
 import { PracticeProviders } from 'src/app/_models/';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
+import { PatientService } from 'src/app/_services/patient.service';
 import { EHROverlayRef } from '../../ehr-overlay-ref';
 import {
   Actions,
@@ -57,6 +59,7 @@ export class EncounterDialogComponent implements OnInit {
 
   constructor(private overlayref: EHROverlayRef,private authService: AuthenticationService,
     private smartSchedulerService: SmartSchedulerService,
+    private patientService: PatientService,
     public overlayService: OverlayService) {
       let i = 1;  //normally would use var here
       while(this.teethNumbers.push(i++)<32){}
@@ -68,6 +71,7 @@ export class EncounterDialogComponent implements OnInit {
       this.location = (JSON.parse(this.authService.userValue.LocationInfo) as UserLocations[])
         .filter((loc) => loc.locationId === this.authService.userValue.CurrentLocation )[0];
       this.encounterInfo.LocationId = this.location.locationId;
+      this.encounterInfo.AppointmentId = this.appointment.AppointmentId;
       this.encounterInfo.Vitals = ELEMENT_DATA
       this.vitalsInfo.next(this.encounterInfo.Vitals);
      }
@@ -104,7 +108,12 @@ export class EncounterDialogComponent implements OnInit {
   }
 
 
-  optionChangedForReconcillation(value){}
+  optionChangedForReconcillation(value: MedicalCode){
+    this.encounterInfo.mu2.ReconcillationCode = value.Code;
+    this.encounterInfo.mu2.ReconcillationDescription   = value.Description
+
+
+  }
 
   removeRecommendedProcedure(value: ProceduresInfo,index: number){
     value.CanDelete = true;
@@ -203,9 +212,21 @@ export class EncounterDialogComponent implements OnInit {
     this.encounterInfo.Signed = false;
     console.log(this.encounterInfo);
 
-
+    this.updateEncounter();
   }
   signEncounter(){
     this.encounterInfo.Signed = true;
+  }
+
+  updateEncounter(){
+
+    this.patientService.CreateEncounter(this.encounterInfo).subscribe(resp => {
+      console.log(resp);
+
+      if (resp.IsSuccess) {
+
+      }
+    });
+
   }
 }

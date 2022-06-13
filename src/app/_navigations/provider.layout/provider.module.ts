@@ -80,7 +80,7 @@ import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 import { TeethSurfaceModule } from 'src/app/_components/teeth-surface/teeth-surface.module';
 // import { PaginatorDirective } from 'src/app/_directives/pagination.directive'
 
-import { patientService } from 'src/app/_services/patient.service';
+import { PatientService } from 'src/app/_services/patient.service';
 import { BillingService } from '../../_services/billing.service';
 import { AlertMessage } from 'src/app/_alerts/alertMessage';
 
@@ -176,7 +176,7 @@ import { AlertMessage } from 'src/app/_alerts/alertMessage';
 
   ],
   providers: [DayService, WeekService, LocationSelectService,
-    UtilityService, SmartSchedulerService, OverlayService, patientService, BillingService,
+    UtilityService, SmartSchedulerService, OverlayService, PatientService, BillingService,
     SmartScheduleComponent, AlertMessage,
     { provide: NgbDateParserFormatter, useClass: NgbDateUSParserFormatter }
 

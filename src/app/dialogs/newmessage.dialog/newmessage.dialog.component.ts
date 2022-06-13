@@ -3,7 +3,7 @@ import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
 import { User } from 'src/app/_models';
 import { PatientProfile } from 'src/app/_models/_patient/patientprofile';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
-import { patientService } from 'src/app/_services/patient.service';
+import { PatientService } from 'src/app/_services/patient.service';
 
 @Component({
   selector: 'app-newmessage.dialog',
@@ -15,7 +15,7 @@ export class NewmessageDialogComponent implements OnInit {
   PatientProfile: PatientProfile;
   user: User;
 
-  constructor(private patientservise: patientService,private authenticationService: AuthenticationService,private ref: EHROverlayRef) {
+  constructor(private patientservise: PatientService,private authenticationService: AuthenticationService,private ref: EHROverlayRef) {
     this.user = authenticationService.userValue;
     console.log(this.user);
    }

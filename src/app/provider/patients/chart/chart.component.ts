@@ -5,7 +5,7 @@ import { OverlayService } from '../../../overlay.service';
 import { AdvancedDirectivesDialogComponent } from '../../../dialogs/advanced.directives.dialog/advanced.directives.dialog.component';
 import { SmokingStatusDialogComponent } from 'src/app/dialogs/smoking.status.dialog/smoking.status.dialog.component';
 import { InterventionDialogComponent } from 'src/app/dialogs/intervention.dialog/intervention.dialog.component';
-import { patientService } from '../../../_services/patient.service';
+import { PatientService } from '../../../_services/patient.service';
 import { AdvancedDirective, ChartInfo, PatientChart } from 'src/app/_models/_provider/chart';
 import { Actions } from 'src/app/_models/_provider/smart.scheduler.data';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
@@ -40,7 +40,7 @@ export class ChartComponent implements OnInit {
   ActionTypes = Actions;
   chartInfo: ChartInfo = new ChartInfo;
   constructor(public overlayService: OverlayService,
-    private patientService: patientService,
+    private patientService: PatientService,
     private authService: AuthenticationService) {
   }
 

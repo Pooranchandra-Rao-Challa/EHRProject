@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EHROverlayRef } from '../../ehr-overlay-ref';
 import { SmokingStatus } from 'src/app/_models/_provider/chart';
-import { patientService } from '../../_services/patient.service';
+import { PatientService } from '../../_services/patient.service';
 import { DatePipe } from "@angular/common";
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 
@@ -13,33 +13,33 @@ const moment = require('moment');
   styleUrls: ['./smoking.status.dialog.component.scss']
 })
 export class SmokingStatusDialogComponent implements OnInit {
-  smokingStatus: SmokingStatus = {} as SmokingStatus;
+  smokingStatus: SmokingStatus;
 
   constructor(private ref: EHROverlayRef,
-    private patientService: patientService,
+    private patientService: PatientService,
     public datepipe: DatePipe,
     private alertmsg: AlertMessage) {
-    let data: SmokingStatus = ref.RequestData;
-    this.smokingStatus = data;
-    if (data.EffectiveFrom != (null || '' || undefined)) {
-      this.smokingStatus.EffectiveFrom = moment(data.EffectiveFrom).format('YYYY-MM-DD');
-    }
+     this.updateLocalModel( ref.RequestData);
   }
 
   ngOnInit(): void {
   }
 
   todayDate() {
-    this.smokingStatus.EffectiveFrom = moment(new Date()).format('YYYY-MM-DD');
+    this.smokingStatus.EffectiveFrom = new Date;
   }
 
   cancel() {
     this.ref.close(null);
   }
-
+  updateLocalModel(data: SmokingStatus){
+    this.smokingStatus = new SmokingStatus;
+    if(data == null) return;
+    this.smokingStatus = data;
+  }
   CreateSmokingStatus() {
     let isAdd = this.smokingStatus.SmokingStatusId == (null || '' || undefined);
-    this.smokingStatus.EffectiveFrom = this.datepipe.transform(this.smokingStatus.EffectiveFrom, "MM/dd/yyyy hh:mm:ss");
+    //this.smokingStatus.EffectiveFrom = this.datepipe.transform(this.smokingStatus.EffectiveFrom, "MM/dd/yyyy hh:mm:ss");
     this.patientService.CreateSmokingStatus(this.smokingStatus).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.cancel();

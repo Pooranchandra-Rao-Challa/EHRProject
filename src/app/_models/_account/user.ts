@@ -29,4 +29,5 @@ export class ViewModel{
   PatinetId?: string = "";
   Patient?: ProviderPatient;
   PatientView?: string = ""
+
 }

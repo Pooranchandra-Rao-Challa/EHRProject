@@ -1,6 +1,6 @@
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { PatientProfile } from './../_models/_patient/patientprofile';
-import { patientService } from 'src/app/_services/patient.service';
+import { PatientService } from 'src/app/_services/patient.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -27,7 +27,7 @@ export class MyprofileComponent implements OnInit {
 'What is the name of your favorite book?','What was the last name of your first grade teacher?','Where were you when you had your first kiss?','Where were you when you had your first kiss?',
 'What is the last name of the teacher who gave you your first falling grade?'];
 
-  constructor(private patientservise: patientService,private authenticationService: AuthenticationService) {
+  constructor(private patientservise: PatientService,private authenticationService: AuthenticationService) {
     this.user = authenticationService.userValue;
     console.log(this.user);
   }

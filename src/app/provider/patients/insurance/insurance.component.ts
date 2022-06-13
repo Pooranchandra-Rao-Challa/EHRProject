@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { patientService } from 'src/app/_services/patient.service';
+import { PatientService } from 'src/app/_services/patient.service';
 
 @Component({
   selector: 'app-insurance',
@@ -22,7 +22,7 @@ export class InsuranceComponent implements OnInit {
   SourceOfPaymentTypologyCodes: any = [];
   insurancePlanList: any=[];
 
-  constructor(private patientservice:patientService) {
+  constructor(private patientservice:PatientService) {
 
   }
 

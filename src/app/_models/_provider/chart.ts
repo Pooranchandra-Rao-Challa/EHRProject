@@ -7,11 +7,11 @@ export class AdvancedDirective {
   Notes?: string = '';
 }
 
-export interface SmokingStatus {
+export class SmokingStatus {
   SmokingStatusId?: string;
   PatientId?: string;
   Status?: string;
-  EffectiveFrom?: string;
+  EffectiveFrom?: Date;
 }
 
 export enum PatientChart {

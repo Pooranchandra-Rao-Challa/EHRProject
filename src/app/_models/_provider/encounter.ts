@@ -35,6 +35,7 @@ export class EncounterInfo{
   PatientId?: string;
   ProviderId?: string;
   LocationId?: string;
+  AppointmentId?: string;
   ServicedAt?: Date = new Date;
   ServiceEndAt?: Date = new Date;
   ReasonForVisit?: string;
