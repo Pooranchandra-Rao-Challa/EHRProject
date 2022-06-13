@@ -38,19 +38,19 @@ export class AdvancedDirectivesDialogComponent implements OnInit {
     this.ref.close(null);
   }
 
-  updateLocalModel(data: AdvancedDirective){
+  updateLocalModel(data: AdvancedDirective) {
     this.advDirective = new AdvancedDirective;
-    if(data == null)return;
+    if (data == null) return;
     this.advDirective = data;
   }
 
   resetDialog() {
-    console.log(this.advDirective);
+    // console.log(this.advDirective);
     this.advDirective = new AdvancedDirective;
     this.ref.close({
       "UpdatedModal": PatientChart
     });
-    console.log(this.advDirective);
+    // console.log(this.advDirective);
   }
 
   CreateAdvancedDirectives(reqparams) {

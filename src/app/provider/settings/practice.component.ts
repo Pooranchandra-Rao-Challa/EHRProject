@@ -1,5 +1,5 @@
 
-import { Component, OnInit, TemplateRef,HostListener } from '@angular/core';
+import { Component, OnInit, TemplateRef, HostListener } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ComponentType } from '@angular/cdk/portal';
@@ -10,10 +10,10 @@ import { UtilityService } from '../../_services/utiltiy.service';
 import { User } from '../../_models';
 import { LocationSelectService } from '../../_navigations/provider.layout/location.service';
 import { Accountservice } from '../../_services/account.service';
-import { Actions ,NewUser} from 'src/app/_models/';
+import { Actions, NewUser } from 'src/app/_models/';
 import { UserDialogComponent } from 'src/app/dialogs/user.dialog/user.dialog.component';
 import { OverlayService } from '../../overlay.service';
-import { AlertMessage,ERROR_CODES } from './../../_alerts/alertMessage';
+import { AlertMessage, ERROR_CODES } from './../../_alerts/alertMessage';
 import { LocationDialogComponent } from 'src/app/dialogs/location.dialog/location.dialog.component';
 
 @Component({
@@ -33,7 +33,7 @@ export class PracticeComponent implements OnInit {
   locationColumns: string[] = ['Location', 'Address', 'Phone', 'Providers'];
   providerColumns: string[] = ['Image', 'FullName', 'Email', 'Role', 'Space', 'Status', 'EmergencyAccess']
   providerLocationColumn: string[] = ['LocationName', 'CityState', 'PracticeSchedule', 'ServicedLocation'];
-  displayuser:"none" ;
+  displayuser: "none";
   providerRoles: {}[];
   locationsubscription: Subscription;
 
@@ -122,7 +122,7 @@ export class PracticeComponent implements OnInit {
     });
   }
   timeChangeHandler(event: Event) {
-    console.log(event);
+    // console.log(event);
   }
 
   invalidInputHandler() {
@@ -196,11 +196,11 @@ export class PracticeComponent implements OnInit {
     let dialogData: any;
     if (content === this.userDialogComponent && action == Actions.view) {
       dialogData = this.userInfoForEdit(data, action);
-    }else if(content === this.locationDialogComponent && action == Actions.view){
+    } else if (content === this.locationDialogComponent && action == Actions.view) {
       //dialogData = this.editPracticeLocation(data);
 
       dialogData = data;
-      console.log(dialogData);
+      // console.log(dialogData);
     }
     const ref = this.overlayService.open(content, dialogData);
     ref.afterClosed$.subscribe(res => {

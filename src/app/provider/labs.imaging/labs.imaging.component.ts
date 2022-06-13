@@ -15,7 +15,7 @@ export class LabsImagingComponent implements OnInit {
   user: User;
   constructor(private labimage: LabsImagingService, private authService: AuthenticationService) {
     this.user = authService.userValue;
-    console.log(this.user);
+    // console.log(this.user);
   }
 
   ngOnInit(): void {

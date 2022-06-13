@@ -66,45 +66,45 @@ export class LoginComponent implements OnInit {
           this.authfailedmessage = resp.EndUserMessage;
         else
           this.authfailedmessage = "Enter valid Email Id and Password";
-        console.log(resp.EndUserMessage);
+        // console.log(resp.EndUserMessage);
       }
     },
-    (error) =>{
-      this.showspinner = false;
-      this.message = 'Check with admistartor.';
-    },
-    () => {
-      this.showspinner = false;
-    });
+      (error) => {
+        this.showspinner = false;
+        this.message = 'Check with admistartor.';
+      },
+      () => {
+        this.showspinner = false;
+      });
 
   }
   public togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
   }
 
-  async openResetPassword(){
+  async openResetPassword() {
 
-    const { value: email  } = await Swal.fire({
-      title:'Reset Your Password',
-      text:'Enter the email address associated with your account and an email with password reset instructions will be sent.',
+    const { value: email } = await Swal.fire({
+      title: 'Reset Your Password',
+      text: 'Enter the email address associated with your account and an email with password reset instructions will be sent.',
       input: 'email',
       inputAttributes: {
         autocapitalize: 'off'
       },
-      padding:'1px !important',
+      padding: '1px !important',
       customClass: {
-        title:'login-modal-header login-header-font',
+        title: 'login-modal-header login-header-font',
         //container:'pop-contrainer',
-        input:'swal-input',
-        cancelButton:'login-cancel-button login-cancel-button1',
-        confirmButton:'login-confirm-button login-confirm-button1'
+        input: 'swal-input',
+        cancelButton: 'login-cancel-button login-cancel-button1',
+        confirmButton: 'login-confirm-button login-confirm-button1'
       },
       reverseButtons: true,
-      background:'#f9f9f9',
+      background: '#f9f9f9',
       showCancelButton: true,
-      cancelButtonText:'Go Back',
+      cancelButtonText: 'Go Back',
       confirmButtonText: 'Okay-Send it !',
-      backdrop:true,
+      backdrop: true,
       inputPlaceholder: 'Enter your email address',
 
 
@@ -115,27 +115,27 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  async openResendVerification(){
+  async openResendVerification() {
 
-    const { value: email  } = await Swal.fire({
-      title:'Email Verification',
+    const { value: email } = await Swal.fire({
+      title: 'Email Verification',
       input: 'email',
       inputAttributes: {
         autocapitalize: 'off'
       },
       showCloseButton: true,
-      padding:'1px !important',
+      padding: '1px !important',
       customClass: {
-        title:'login-modal-header login-header-font',
-        input:'swal-input',
-        confirmButton:'login-confirm-button',
-        closeButton:'login-close-button'
+        title: 'login-modal-header login-header-font',
+        input: 'swal-input',
+        confirmButton: 'login-confirm-button',
+        closeButton: 'login-close-button'
       },
       reverseButtons: true,
-      background:'#f9f9f9',
+      background: '#f9f9f9',
       inputLabel: 'Email Address :',
       confirmButtonText: 'Resend Verification',
-      backdrop:true,
+      backdrop: true,
       inputPlaceholder: 'Enter your email address',
     });
 
@@ -144,21 +144,21 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  openErrorDialog(){
+  openErrorDialog() {
 
-   Swal.fire({
+    Swal.fire({
 
-      text:'Wrong Email Or Password',
+      text: 'Wrong Email Or Password',
 
-      padding:'1px !important',
+      padding: '1px !important',
       customClass: {
-        cancelButton:'login-cancel-button login-cancel-button1'
+        cancelButton: 'login-cancel-button login-cancel-button1'
       },
 
-      background:'#f9f9f9',
+      background: '#f9f9f9',
       showCancelButton: true,
-      cancelButtonText:'Close',
-      backdrop:true,
+      cancelButtonText: 'Close',
+      backdrop: true,
       showConfirmButton: false,
     });
   }

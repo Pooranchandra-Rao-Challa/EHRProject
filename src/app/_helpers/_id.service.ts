@@ -46,7 +46,7 @@ export class IdService {
   }
 
   public decrementIds(decrementFor: string): number {
-    console.log(this.IdsFor[decrementFor])
+    // console.log(this.IdsFor[decrementFor])
     if (this.IdsFor[decrementFor] === undefined)
       this.IdsFor[decrementFor] = 0;
     return --this.IdsFor[decrementFor]

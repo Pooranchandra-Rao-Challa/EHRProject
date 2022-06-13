@@ -15,10 +15,10 @@ export class NewmessageDialogComponent implements OnInit {
   PatientProfile: PatientProfile;
   user: User;
 
-  constructor(private patientservise: patientService,private authenticationService: AuthenticationService,private ref: EHROverlayRef) {
+  constructor(private patientservise: patientService, private authenticationService: AuthenticationService, private ref: EHROverlayRef) {
     this.user = authenticationService.userValue;
-    console.log(this.user);
-   }
+    // console.log(this.user);
+  }
 
   ngOnInit(): void {
     //this.getPatientProfile();
