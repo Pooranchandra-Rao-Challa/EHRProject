@@ -1,0 +1,20 @@
+@import "~@angular/material/theming";
+
+@mixin teeth-surface-theme($theme) {
+  $background: map-get($theme, background);
+
+  .teeth-surface-panel {
+    background-color: mat-color($background, background);
+  }
+  .teeth-surface-input-active {
+    &.mat-form-field-appearance-fill .mat-form-field-flex {
+      background-color: mat-color($background, card);
+    }
+  }
+
+  .result-item {
+    &:hover {
+      background-color: mat-color($background, hover);
+    }
+  }
+}

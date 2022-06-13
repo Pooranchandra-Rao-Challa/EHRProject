@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, Observer, observable, throwError, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { map, observeOn, tap, retry, catchError } from 'rxjs/operators';
+import { map,  tap } from 'rxjs/operators';
 import { APIEndPoint } from './api.endpoint.service';
 import { environment } from "src/environments/environment";
-import { User, ResponseData } from '../_models';
+import { User, ResponseData,ViewModel } from '../_models';
 import { getLogger } from "../logger.config";
 const logModel = getLogger("ehr");
 const logger = logModel.getChildCategory("AuthenticationService");
@@ -23,6 +23,16 @@ export class AuthenticationService {
     if (this.userSubject != undefined)
       return this.userSubject.getValue();
     else return undefined;
+  }
+
+  public get viewModel() : ViewModel{
+    return JSON.parse(localStorage.getItem("viewModel")) as ViewModel;
+  }
+
+  public SetViewParam(key: string,value: any) {
+    let v = JSON.parse(localStorage.getItem("viewModel")) as ViewModel;
+    v[key] = value;
+   localStorage.setItem('viewModel', JSON.stringify(v));
   }
 
   constructor(
@@ -45,6 +55,7 @@ export class AuthenticationService {
         if (resp.IsSuccess) {
           this.userSubject = new BehaviorSubject<User>(resp.Result as User);
           localStorage.setItem('user', JSON.stringify(resp.Result as User));
+          this.updateViewModel();
           this.startRefreshTokenTimer();
           if (this.isProvider)
             this.router.navigate(
@@ -145,5 +156,12 @@ export class AuthenticationService {
   private stopRefreshTokenTimer() {
     clearTimeout(this.refreshTokenTimeout);
   }
+
+  private updateViewModel(){
+    let viewModel: ViewModel = new ViewModel;
+    localStorage.setItem('viewModel', JSON.stringify(viewModel));
+  }
+
+
 
 }

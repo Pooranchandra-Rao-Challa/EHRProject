@@ -157,6 +157,9 @@ export class FieldControlComponent extends _SearchInputMixiBase
 
   selectedValue: MedicalCode;
 
+  @Input()
+  ShowSelectedValue: boolean = true;
+
   constructor(
     private focusMonitor: FocusMonitor,
     @Optional() @Self() public ngControl: NgControl,
@@ -286,21 +289,3 @@ function groupBy<_string, _MedicalCode>(array: MedicalCode[], grouper: (item: Me
   });
   return codeSystemObject;
 }
-
-// function groupBy<_string, _SelectionData>(array: SelectionData[], grouper: (item: SelectionData) => string) {
-//   let rtnValue = array.reduce((store, item) => {
-//     var key = grouper(item)
-//     if (!store.has(key)) {
-//       store.set(key, [item])
-//     } else {
-//       store.get(key).push(item)
-//     }
-//     return store
-//   }, new Map<string, SelectionData[]>());
-
-//   let codeSystemObject = [];
-//   rtnValue.forEach((values: SelectionData[], mykey: string) => {
-//     codeSystemObject.push({ codesystem: mykey, codes: values })
-//   });
-//   return codeSystemObject;
-// }

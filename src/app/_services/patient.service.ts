@@ -9,6 +9,10 @@ export class patientService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._patientsByProviderUrl, reqparams);
   }
 
+  FilteredPatientsOfProvider(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._filteredPatientsOfProviderUrl, reqparams);
+  }
+
   AdvancedDirectivesByPatientId(reqparams: any) {
     return this._ProcessPostRequest<any>(this._advancedDirectivesByPatientIdUrl, reqparams);
   }
@@ -119,7 +123,9 @@ export class patientService extends APIEndPoint {
   UpdateNotes(reqparams: any) {
     return this._ProcessPostRequest<any>(this._updateNotesUrl, reqparams);
   }
-
+  ChartInfo(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._chartInfoUrl, reqparams);
+  }
 
   // Regarding Insurance Screen Related  services
 

@@ -1,0 +1,26 @@
+@import "../../../assets/cstm.material.scss";
+@import"../../../assets/common.scss";
+
+.vital-mat-form-field{
+  display: flex;
+  flex-direction: row;
+  width: 200px;
+}
+.vital-mat-form-field-unit-label{
+  margin-left: 200px;
+  font-size: 12px;
+}
+#vital-form.modal-dialog {
+  margin-top: 10px;
+  min-height: 700px;
+}
+
+#vital-form .modal-content {
+  min-width: 600px;
+}
+#vital-form modal-body {
+  max-height: calc(90vh - 180px);
+  overflow-y: auto;
+}
+
+

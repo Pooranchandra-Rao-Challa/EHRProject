@@ -3,7 +3,7 @@ import { PlatformLocation} from '@angular/common';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { Accountservice } from '../_services/account.service';
-import { ViewModel, Registration } from '../_models/registration';
+import { ViewModel, Registration } from '../_models/_account/registration';
 
 
 declare var $: any;

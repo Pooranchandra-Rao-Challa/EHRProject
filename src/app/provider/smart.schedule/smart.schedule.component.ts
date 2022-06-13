@@ -8,7 +8,6 @@ import { Observable, Subject, Subscription } from 'rxjs';
 import { debounceTime, switchMap, distinctUntilChanged, map } from 'rxjs/operators';
 
 import { OverlayService } from '../../overlay.service';
-import { Patient } from '../../_models/newPatient';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { SmartSchedulerService } from '../../_services/smart.scheduler.service';
 import { UtilityService } from './../../_services/utiltiy.service';
@@ -18,12 +17,14 @@ import { LocationSelectService } from '../../_navigations/provider.layout/locati
 import { NewAppointmentDialogComponent } from '../../dialogs/newappointment.dialog/newappointment.dialog.component';
 import { UpcomingAppointmentsDialogComponent } from '../../dialogs/upcoming.appointments.dialog/upcoming.appointments.dialog.component';
 import { EncounterDialogComponent } from '../../dialogs/encounter.dialog/encounter.dialog.component';
+import { PageEvent } from "@angular/material/paginator";
+import { MatPaginator } from "@angular/material/paginator";
 
 import {
   PatientSearchResults, Actions,
   ScheduledAppointment, AppointmentTypes, NewAppointment,
   UserLocations, Room, AvailableTimeSlot, AppointmentDialogInfo
-} from 'src/app/_models/_provider/smart.scheduler.data';
+} from 'src/app/_models/';
 
 declare const CloseAppointment: any;
 declare const OpenSaveSuccessAppointment: any;
@@ -321,8 +322,8 @@ export class SmartScheduleComponent implements OnInit {
         console.log(resp.ListResult)
         this.Appointments = resp.ListResult as ScheduledAppointment[];
         this.NoofAppointment = this.Appointments.length;
-        console.log(JSON.stringify(this.Appointments));
-        console.log(this.Appointments[0].IsCurrent);
+        //console.log(JSON.stringify(this.Appointments));
+        //console.log(this.Appointments[0].IsCurrent);
 
       } else {
         this.NoofAppointment = 0;

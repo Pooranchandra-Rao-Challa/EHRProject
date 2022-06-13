@@ -1,3 +1,4 @@
+import { JsonPipe } from "@angular/common";
 
 export interface EncounterData {
   Encounter_Id: number;
@@ -30,11 +31,44 @@ export class MU2Info{
 }
 
 export class EncounterInfo{
+  EncounterId?: string;
+  PatientId?: string;
+  ProviderId?: string;
+  LocationId?: string;
+  ServicedAt?: Date = new Date;
+  ServiceEndAt?: Date = new Date;
+  ReasonForVisit?: string;
+  ReasonForReferral?: string = "";
+  Medication?: string = "yes" ;
+  EncounterType?: string = "Office Visit (1853490003)";
+  ToProviderName?: string = "";
+  FromProviderName?: string = "";
+  DischargeStatus?: string = "";
+  HealthInfoExchange: boolean = false;
+  ClinicalSummary: boolean = false;
+  FromProvider: boolean = false;
+  ToProvider: boolean = false;
+  PatientEducation: boolean = false;
+  medCompleted: boolean = false;
+  Signed: boolean = false;
+  cqmData: boolean = false;
+  cqmExcelData: boolean = false;
+  DirectImport: boolean = false;
+  NewPatientEncounter: boolean = false;
+  MedicationAllergyReconciliationCompleted: boolean = false;
+  DiagnosisReconciliationCompleted: boolean = false;
+  SummaryCareRecordRefIn: boolean = false;
+  SummaryCareRecordRefOut: boolean = false;
+  DeclinetoReceiveSummary: boolean = false;
+  CareRecordCreated: boolean = false;
+  CareRecordExchanged: boolean = false;
+
   mu2: MU2Info = new MU2Info;
-  referralInfo: ReferralInfo = new ReferralInfo;
+  Referral: ReferralInfo = new ReferralInfo;
   Diagnoses: EncounterDiagnosis[] = [];
-  RecommendedProcedures: ProceduresInfo = new ProceduresInfo;
-  CompletedProcedures: ProceduresInfo = new ProceduresInfo;
+  RecommendedProcedures: ProceduresInfo[] = [];
+  CompletedProcedures: ProceduresInfo[] = [];
+  Vitals: VitalInfo[] = [];
 }
 
 export class ReferralInfo{
@@ -43,11 +77,31 @@ export class ReferralInfo{
   ReferralTo?: string;
   ReferredFrom: boolean = false;
   ReferredTo: boolean = false;
-  CongnitiveStatu?: string;
-  FunctionalStatu?: string;
+  CongnitiveStatus?: string;
+  FunctionalStatus?: string;
 }
 
 export class EncounterDiagnosis{
+  DiagnosisId?: string;
+  RCopiaId?: string;
+  LocationId?: string;
+  StartAt?: Date;
+  StopAt?: Date;
+  Terminal?: string;
+  Note?: string;
+  Referral?: boolean;
+  Primary?: boolean;
+  FamilyHealthHistoryId?: string;
+  cqmData: boolean = false;
+  cqmExcelData: boolean = false;
+  cqmCodeSystem?: string;
+  AllergenType?: string;
+  SeverityLevel?: string;
+  NDC?: string;
+  AllergenName?:string;
+  Rxcui?: string;
+  EndAt?: string;
+  onSetAt?: string;
   Code?: string;
   CodeSystem?: string;
   Description?: string;
@@ -58,9 +112,50 @@ export class EncounterDiagnosis{
 }
 
 export class ProceduresInfo{
+  ProcedureId?: string;
+  EncounterId?: string;
+  PatientId?: string;
+  LocationId?: string;
+  ProviderId?: string;
+  DiagnosisId?: string;
+  ServicedAt?: Date;
+  ToothSystem?: string = "JP";
+  Quantity?: number = 0;
+  Fee?: number = 0;
+  cqmData: boolean = false;
+  cqmExcelData: boolean = false;
+  date?: Date;
+  OralCavityArea?: string;
+  Notes?: string;
+  ReasonCode?: string;
+  ReasonDescription?: string;
+  EndDate?: Date;
+  cqmStatus?: boolean;
+  DataSubType?: string;
+  Status?: Date; // if Updating from Procedures from Completed tab its 'Completed' else from recommended tab ' Treetment Plannned'
   Code?: string;
   CodeSystem?: string;
   Description?: string;
-  Tooth?: number;
+  ToothNo?: number;
   Surface?: string;
+  CanDelete?: boolean = false;
+}
+
+export class VitalInfo{
+  VitalId?: string;
+  EncounterId?:string;
+  CollectedAt?:Date;
+  Height: number;
+  Weight: number;
+  BMI: number;
+  BPSystolic: number; //bp_left
+  BPDiastolic: number; //bp_right;
+  Temperature: number;
+  Pulse: number;
+  RespiratoryRate: number;
+  O2Saturation: number;
+  BloodType: string;
+  UnitSystem: string = "us";
+  TempType: string = "unspecified";
+  Note?:string;
 }

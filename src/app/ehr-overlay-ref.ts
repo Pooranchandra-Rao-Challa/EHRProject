@@ -29,11 +29,11 @@ export class EHROverlayRef<R = any, T = any> {
     this._close('close', resdata);
   }
 
-  private _close(type: 'backdropClick' | 'close', data: R) {
+  private _close(type: 'backdropClick' | 'close', resdata: R) {
     this.overlay.dispose();
     this.afterClosed$.next({
-      type,
-      data
+      type: type,
+      data: resdata
     });
 
     this.afterClosed$.complete();

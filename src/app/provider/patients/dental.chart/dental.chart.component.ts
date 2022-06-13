@@ -25,7 +25,6 @@ export class DentalChartComponent implements OnInit {
   getProcedureList() {
     this.dentalService.ProcedureCodes().subscribe(resp => {
       if (resp.IsSuccess) {
-
         this.procedureCodeList = resp.ListResult;
         this.procedureCodeList.map((e) => {
           if (e.Category != '') {
@@ -37,7 +36,7 @@ export class DentalChartComponent implements OnInit {
   }
 
   expandCollapse(obj) {
-    debugger
+    //debugger
     obj.isClosed = !obj.isClosed;
     // let procedureList:any = [];
     // procedureList = obj.value;

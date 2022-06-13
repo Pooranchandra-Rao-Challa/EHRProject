@@ -1,0 +1,62 @@
+<mat-form-field class="teeth-surface-form-field" appearance="outline"
+  class="teeth-surface-input"
+  [class.teeth-surface-input-active]="showPanel$ | async"
+  cdkOverlayOrigin
+  #originOverlay="cdkOverlayOrigin"
+>
+<!-- <mat-label>Teeth Surface</mat-label> -->
+<div style="display:flex;vertical-align: middle;">
+<input
+    matInput
+    style="width:10rem"
+    [formControl]="teethCtrl"
+    name="teeth-surface"
+    placeholder="Select Surface..."
+  />
+  <mat-icon matSuffix>arrow_drop_down</mat-icon>
+</div>
+</mat-form-field>
+<ng-template
+  cdkConnectedOverlay
+  cdkConnectedOverlayHasBackdrop
+  [cdkConnectedOverlayScrollStrategy]="scrollStrategy"
+  [cdkConnectedOverlayOrigin]="originOverlay"
+  [cdkConnectedOverlayOpen]="showPanel$ | async"
+  [cdkConnectedOverlayPositions]="positions"
+>
+<section class="teeth-surface-panel mat-elevation-z1">
+  <div class="dropdown-menu" style="display: flex;border: solid 1px #41a6b6; border-radius: 6px;">
+    <div style="display: grid;">
+    <ul>
+      <li><div class="place-option" data-indicator="surface_buccal_v" data-drop_label="Buccal V" (click)="onOptionSelected('Buccal V')" >Surface: Buccal V</div></li>
+      <li><div class="place-option" data-indicator="surface_facial_v" data-drop_label="Facial V" (click)="onOptionSelected('Facial V')" >Surface: Facial V</div></li>
+      <li><div class="place-option" data-indicator="surface_mesial" data-drop_label="Mesial" (click)="onOptionSelected('Mesial')" >Surface: Mesial</div></li>
+      <li><div class="place-option" data-indicator="surface_incisal" data-drop_label="Incisal" (click)="onOptionSelected('Incisal')" >Surface: Incisal</div></li>
+      <li><div class="place-option" data-indicator="surface_distal" data-drop_label="Distal" (click)="onOptionSelected('Distal')" >Surface: Distal</div></li>
+      <li><div class="place-option" data-indicator="surface_lingual" data-drop_label="Lingual" (click)="onOptionSelected('Lingual')" >Surface: Lingual</div></li>
+      <li><div class="place-option" data-indicator="surface_facial" data-drop_label="Facial" (click)="onOptionSelected('Facial')" >Surface: Facial</div></li>
+      <li><div class="place-option" data-indicator="surface_buccal" data-drop_label="Buccal" (click)="onOptionSelected('Buccal')" >Surface: Buccal</div></li>
+      <li><div class="place-option" data-indicator="surface_occlusal" data-drop_label="Occlusal" (click)="onOptionSelected('Occlusal')" >Surface: Occlusal</div></li>
+      <li><div class="place-option" data-indicator="surface_lingual_v" data-drop_label="Lingual V" (click)="onOptionSelected('Lingual V')" >Surface: Lingual V</div></li>
+    </ul></div>
+    <div>
+    <ul>
+      <li><div class="place-option" data-indicator="pit_mesiobuccal" data-drop_label="Mesiobuccal" (click)="onOptionSelected('Pit:Mesiobuccal')">Pit: Mesiobuccal</div></li>
+      <li><div class="place-option" data-indicator="pit_mesiolingual" data-drop_label="Mesiolingual" (click)="onOptionSelected('Pit:Mesiolingual')">Pit: Mesiolingual</div></li>
+      <li><div class="place-option" data-indicator="pit_distobuccal" data-drop_label="Distobuccal" (click)="onOptionSelected('Pit:Distobuccal')">Pit: Distobuccal</div></li>
+      <li><div class="place-option" data-indicator="pit_distolingual" data-drop_label="Distolingual" (click)="onOptionSelected('Pit:Distolingual')">Pit: Distolingual</div></li>
+    </ul>
+  </div>
+  <div>
+    <ul style="padding-right:20px">
+      <li><div class="place-option" data-indicator="cusp_mesial" data-drop_label="Mesial" (click)="onOptionSelected('Cusp:Mesial')">Cusp: Mesial</div></li>
+      <li><div class="place-option" data-indicator="cusp_mesiobuccal" data-drop_label="Mesiobuccal" (click)="onOptionSelected('Cusp:Mesiobuccal')">Cusp: Mesiobuccal</div></li>
+      <li><div class="place-option" data-indicator="cusp_mesiolingual" data-drop_label="Mesiolingual" (click)="onOptionSelected('Cusp:Mesiolingual')">Cusp: Mesiolingual</div></li>
+      <li><div class="place-option" data-indicator="cusp_distal" data-drop_label="Distal" (click)="onOptionSelected('Cusp:Distal')">Cusp: Distal</div></li>
+      <li><div class="place-option" data-indicator="cusp_distobuccal" data-drop_label="Distobuccal" (click)="onOptionSelected('Cusp:Distobuccal')">Cusp: Distobuccal</div></li>
+      <li><div class="place-option" data-indicator="cusp_distolingual" data-drop_label="Distolingual" (click)="onOptionSelected('Cusp:Distolingual')">Cusp: Distolingual</div></li>
+    </ul>
+  </div>
+</div>
+</section>
+</ng-template>
