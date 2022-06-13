@@ -14,12 +14,15 @@ export class OverlayService {
     data: T
   ): EHROverlayRef<R> {
     const configs = new OverlayConfig({
+
       hasBackdrop: true,
-      panelClass: ['modal', 'is-active'],
+      //height:"1200px",
+      panelClass: ['modal', 'is-active','ehr-custome-model'],
       backdropClass: 'modal-background',
       positionStrategy: this.positionBuilder
         .global()
         .centerHorizontally()
+
         .centerVertically(),
     });
 

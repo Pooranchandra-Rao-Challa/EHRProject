@@ -91,31 +91,31 @@
   <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
     <li class="nav-item" role="presentation">
       <button class="nav-link active" id="pills-chart-tab" data-bs-toggle="pill" data-bs-target="#pills-chart"
-        type="button" role="tab" aria-controls="pills-chart" aria-selected="true">Chart</button>
+        type="button" role="tab" aria-controls="pills-chart" aria-selected="viewModel.PatientView == 'Chart'" click="UpdatePatientView('Chart')">Chart</button>
     </li>
     <li class="nav-item" role="presentation">
       <button class="nav-link" id="pills-dentalchart-tab" data-bs-toggle="pill" data-bs-target="#pills-dentalchart"
-        type="button" role="tab" aria-controls="pills-dentalchart" aria-selected="false">Dental Chart</button>
+        type="button" role="tab" aria-controls="pills-dentalchart" aria-selected="viewModel.PatientView == 'Dental Chart'" click="UpdatePatientView('Dental Chart')">Dental Chart</button>
     </li>
     <li class="nav-item" role="presentation">
       <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile"
-        type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Profile</button>
+        type="button" role="tab" aria-controls="pills-profile" aria-selected="viewModel.PatientView == 'Profile'" click="UpdatePatientView('Profile')">Profile</button>
     </li>
     <li class="nav-item" role="presentation">
       <button class="nav-link" id="pills-insurance-tab" data-bs-toggle="pill" data-bs-target="#pills-insurance"
-        type="button" role="tab" aria-controls="pills-insurance" aria-selected="false">Insurance</button>
+        type="button" role="tab" aria-controls="pills-insurance" aria-selected="viewModel.PatientView == 'Insurance'" click="UpdatePatientView('Insurance')">Insurance</button>
     </li>
     <li class="nav-item" role="presentation">
       <button class="nav-link" id="pills-amendments-tab" data-bs-toggle="pill" data-bs-target="#pills-amendments"
-        type="button" role="tab" aria-controls="pills-amendments" aria-selected="false">Amendments</button>
+        type="button" role="tab" aria-controls="pills-amendments" aria-selected="viewModel.PatientView == 'Amendments'" click="UpdatePatientView('Amendments')">Amendments</button>
     </li>
     <li class="nav-item" role="presentation">
       <button class="nav-link" id="pills-patients-tab" data-bs-toggle="pill" data-bs-target="#pills-patients"
-        type="button" role="tab" aria-controls="pills-patients" aria-selected="false">Patients</button>
+        type="button" role="tab" aria-controls="pills-patients" aria-selected="viewModel.PatientView == 'Patients'" click="UpdatePatientView('Patients')">Patients</button>
     </li>
     <li class="nav-item" role="presentation">
       <button class="nav-link" id="pills-cqmNperformed-tab" data-bs-toggle="pill" data-bs-target="#pills-cqmNperformed"
-        type="button" role="tab" aria-controls="pills-cqmNperformed" aria-selected="false">CQMs Not Performed</button>
+        type="button" role="tab" aria-controls="pills-cqmNperformed" aria-selected="viewModel.PatientView == 'CQMs Not Performed'" click="UpdatePatientView('CQMs Not Performed')">CQMs Not Performed</button>
     </li>
   </ul>
   <div class="tab-content" id="pills-tabContent">

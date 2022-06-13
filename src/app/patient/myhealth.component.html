@@ -44,24 +44,22 @@
 
       <div class="col-lg-9  right-block float-left; ">
         <div class="row">
-          <div class="col-md-3"> <span class="size">ddddddddddddd</span></div>
+          <div class="col-md-3"> <span class="size">{{ this.user.FirstName}}</span></div>
           <div class="col-md-3"><span class="green-color">DOB: </span><span
-              class="Helvetica-sans-serif-large">10/31/2021</span></div>
+              class="Helvetica-sans-serif-large">{{PatientProfile.DateOfBirth}}</span></div>
           <div class="col-md-3"><span class="green-color">Age: </span><span class="Helvetica-sans-serif-large">0
               Years</span></div>
-          <div class="col-md-3"><span class="green-color">Sex: </span><span
-              class="Helvetica-sans-serif-large">Male</span></div>
-        </div>
+          <!-- <div class="col-md-3"><span class="green-color">Sex: </span><span
+              class="Helvetica-sans-serif-large">{{PatientProfile.Sex}}</span></div>
+        </div> -->
         <div class="row mt-4">
           <div class="col-md-3"><span class="green-color">Race: </span> </div>
-          <div class="col-md-3"><span class="green-color">Ethnicity: </span></div>
-          <div class="col-md-3"><span class="green-color">Preferred Language: </span></div>
+          <div class="col-md-3"><span class="green-color">Ethnicity: </span><span class="Helvetica-sans-serif-large">{{PatientProfile.ethnicity}}</span></div>
+          <div class="col-md-3"><span class="green-color">Preferred Language: </span><span class="Helvetica-sans-serif-large">{{PatientProfile.PreferredLanguage}}</span></div>
         </div>
         <div class="row mt-4">
           <div class="col-md-12"><span class="green-color">Smoking Status:- </span><span
-              class="Helvetica-sans-serif-large">Never
-              Smoked Ever ,
-              06/20/2018</span></div>
+              class="Helvetica-sans-serif-large">{{StatusList.Status}}</span></div>
         </div>
 
         <div class="row mt-4">

@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { UtilityService } from '../_services/utiltiy.service';
 import { EHROverlayRef } from '../ehr-overlay-ref';
-import { Patient } from '../_models/NewPatient';
+import { Patient } from '../_models/_account/NewPatient';
 declare const RequiredFormCountrolMouseEnter: any;
 
 
@@ -16,7 +16,6 @@ declare const RequiredFormCountrolMouseEnter: any;
   selector: 'patient-dialog',
   templateUrl: './patient.dialog.component.html',
   styleUrls: ['./patient.dialog.component.scss'],
- // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PatientDialogComponent implements OnInit {
   PatientData: Patient = { PatinetHasNoEmail: false };

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { ConfirmedValidator } from '../_models/confirm-password';
+import { ConfirmedValidator } from '../_models/_account/confirm-password';
 import Swal from 'sweetalert2';
 import { auto } from '@popperjs/core';
 
@@ -18,9 +18,9 @@ export class CreatePasswordComponent implements OnInit {
   }
   buildCreatePasswordForm() {
     this.createPasswordForm = this.fb.group({
-      SecurityCode: ['', Validators.required],
-      NewPassword: ['', Validators.required],
-      ConfirmNewPassword: ['', Validators.required],
+      SecurityCode: ['', [Validators.required]],
+      NewPassword: ['', [Validators.required]],
+      ConfirmNewPassword: ['', [Validators.required]],
     },
       {
         validator: ConfirmedValidator('NewPassword', 'ConfirmNewPassword')

@@ -1114,3 +1114,8 @@ div.visit-status img.img-smart-status-path {
   background-color: #F7F7F7;
   margin-bottom: 10px;
 }
+
+
+::ng-deep .buttons .mat-form-field-appearance-fill .mat-form-field-flex{
+  padding:0;
+}

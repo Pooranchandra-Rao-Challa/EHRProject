@@ -1,4 +1,4 @@
-import { ProblemData } from "../../_models/problem";
+import { ProblemData } from "../../_models/_provider/_reports/problem";
 import { DatePipe } from "@angular/common";
 import {
   Component,

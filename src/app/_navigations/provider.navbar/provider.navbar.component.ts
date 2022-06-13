@@ -2,7 +2,7 @@ import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 import { AuthenticationService } from '../../_services/authentication.service';
-import { User, UserLocations } from '../../_models';
+import { User, UserLocations,ViewModel } from '../../_models';
 //import { NGXLogger   } from 'ngx-logger';
 
 
@@ -21,6 +21,7 @@ export class ProviderNavbarComponent implements OnInit {
   @Output() LocationChanged = new EventEmitter<String>();
   view: string;
   name: string;
+  viewModel: ViewModel;
 
   constructor(private route: ActivatedRoute,
     config: NgbDropdownConfig, private router: Router,
@@ -29,7 +30,7 @@ export class ProviderNavbarComponent implements OnInit {
     this.user = authenticationService.userValue;
     this.locationsInfo = JSON.parse(this.user.LocationInfo);
     this.user.CurrentLocation = this.locationsInfo[0].locationId;
-
+    this.viewModel = authenticationService.viewModel;
   }
 
   ngOnInit() {
@@ -51,8 +52,16 @@ export class ProviderNavbarComponent implements OnInit {
 
   onChangeBreadCrum(url: string, name: string, view?: string,) {
     //debugger;
-    console.log(view)
-    if (view != null) {
+    //console.log(view)
+    this.authenticationService.SetViewParam("View",name)
+    if(view != null){
+      this.authenticationService.SetViewParam("SubView",view)
+    }
+    this.viewModel = this.authenticationService.viewModel;
+    this.router.navigate(
+      [url],
+    );
+    /*if (view != null) {
       console.log(view)
       this.router.navigate(
         [url],
@@ -65,7 +74,7 @@ export class ProviderNavbarComponent implements OnInit {
         [url],
         { queryParams: { name: name } }
       );
-    this.name = name;
+    this.name = name;*/
   }
 
 

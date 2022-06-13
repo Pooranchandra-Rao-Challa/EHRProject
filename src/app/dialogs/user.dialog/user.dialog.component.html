@@ -2,7 +2,7 @@
 <div class="modal-content" [ngStyle]="dynamicheight">
   <div class="modal-header" style="margin: -1px;">
     <h4 class="modal-title Helvetica-sans-serif-large">Edit User</h4>
-    <button type="button" class="btn btn-sm closemodel" aria-label="Close" (click)="cancel()">x
+    <button type="button" class="btn btn-sm closemodel" (click)="closePopup()">x
     </button>
   </div>
   <div class="modal-body ex3 edit-user-modal">
@@ -147,8 +147,7 @@
           <span class="Helvetica-sans-serif-medium">Practice Location and Provider Schedule </span>
         </div>
         <div class="col-xl-1 col-lg-3 col-md-4 col-12">
-          <button class="plusicon pull-right" data-bs-toggle="modal" data-bs-target="#practice-modal"
-            (click)="closePopup()">
+          <button class="plusicon pull-right" (click)="openComponentDialog(locationDialogComponent,null,ActionsType.add)">
             <i class="fa fa-plus addlocation mx-2"></i>
           </button>
         </div>
@@ -205,8 +204,8 @@
             </mat-checkbox>
           </div>
           <div class="col-lg-4">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#changepassword-modal"
-              style="margin-top: 27px" class="btn btn-lg btn-success">
+            <button type="button" class="btn btn-primary btn btn-lg btn-success" (click)="openDialog()"
+              style="margin-top: 27px">
               Change Password
             </button>
           </div>
@@ -242,7 +241,7 @@
         <button type="button" class="btn btn-lg btn-success mx-2" (click)="updateUser('update')">
           Save Changes
         </button>
-        <button type="button" class="btn btn-lg btn-success" (click)="cancel()">
+        <button type="button" class="btn btn-lg btn-success" (click)="closePopup()">
           Cancel
         </button>
       </div>

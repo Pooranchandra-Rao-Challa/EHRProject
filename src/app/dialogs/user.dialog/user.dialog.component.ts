@@ -1,13 +1,17 @@
-import { TimeSlot } from './../../_models/_provider/_settings/settings';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener, TemplateRef } from '@angular/core';
+import { ComponentType } from '@angular/cdk/portal';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 import { SettingsService } from 'src/app/_services/settings.service';
 import { User, UserLocations } from '../../_models';
 import { NewUser } from '../../_models/_provider/_settings/settings';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
-import { HostListener } from "@angular/core";
+import { ChangePasswordDialogComponent } from 'src/app/dialogs/user.dialog/changepassword.dialog.component';
+import { OverlayService } from '../../overlay.service';
+import { Actions } from 'src/app/_models/';
+import { LocationDialogComponent } from 'src/app/dialogs/location.dialog/location.dialog.component';
 
 @Component({
   selector: 'app-user.dialog',
@@ -15,10 +19,7 @@ import { HostListener } from "@angular/core";
   styleUrls: ['./user.dialog.component.scss']
 })
 export class UserDialogComponent implements OnInit {
-  EditProvider: NewUser= {}
-
-
-
+  EditProvider: NewUser = {}
   user: User;
   providerLocationColumn: string[] = ['LocationName', 'CityState', 'PracticeSchedule', 'ServicedLocation'];
   titles: {}[];
@@ -26,33 +27,55 @@ export class UserDialogComponent implements OnInit {
   specialities: {}[];
   states: {}[];
   providerRoles: {}[];
-  displayforEditLocation: boolean;
-  dispalyOptionStreet: boolean;
-  locationDisplayModel = "none";
-  manuallybtn: boolean = true;
-  enterbtn: boolean;
-  visiblebtn: boolean = true;
-  scrHeight:any;
-  scrWidth:any;
+  scrHeight: any;
+  scrWidth: any;
   dynamicheight: {};
+  locationDialogComponent = LocationDialogComponent;
+  locationDialogResponse: any;
+  ActionsType = Actions;
 
   @HostListener('window:resize', ['$event'])
   getScreenSize(event?) {
-        this.scrHeight = window.innerHeight;
-        this.scrWidth = window.innerWidth;
-        console.log(this.scrHeight, this.scrWidth);
+    this.scrHeight = window.innerHeight;
+    this.scrWidth = window.innerWidth;
+    // console.log(window.scrollX,window.scrollY);
+    // console.log(window.screen.width,window.screen.height);
+    // console.log(window.screen.availWidth,window.screen.availHeight);
+    //         console.log(window.screenLeft,window.screenTop);
+    //         console.log(window.screenX,window.screenY);
+    // console.log(window.pageXOffset,window.pageYOffset);
+
+
+    console.log(this.scrHeight, this.scrWidth);
   }
+
+  //   @HostListener('window:scroll', ['$event'])
+  //   getScrollSize(event?) {
+  //         this.scrHeight = window.innerHeight;
+  //         this.scrWidth = window.innerWidth;
+  //         console.log(window.scrollX,window.scrollY);
+  //         console.log(window.screen.width,window.screen.height);
+  //         console.log(window.screen.availWidth,window.screen.availHeight);
+  //         console.log(window.screenLeft,window.screenTop);
+  //         console.log(window.screenX,window.screenY);
+  // console.log();
+
+
+  //         console.log(this.scrHeight, this.scrWidth);
+  //   }
 
   constructor(private ref: EHROverlayRef,
     private settingsService: SettingsService,
     private utilityService: UtilityService,
+    private dialog: MatDialog,
+    public overlayService: OverlayService,
     private authServer: AuthenticationService) {
 
     this.user = authServer.userValue;
     this.getUserDataforEdit(ref.RequestData as NewUser);
     this.loadFormDefaults();
     this.getScreenSize();
-      this.dynamicheight ={'height.px': this.scrHeight - 250,}
+    this.dynamicheight = { 'height.px': this.scrHeight - 250, }
   }
 
   ngOnInit(): void {
@@ -139,12 +162,35 @@ export class UserDialogComponent implements OnInit {
   }
 
   closePopup() {
-    this.displayforEditLocation = false;
-    this.locationDisplayModel = "none";
-    this.manuallybtn = true;
-    this.enterbtn = false;
-    this.dispalyOptionStreet = false;
-    this.visiblebtn = true
+    this.ref.close();
   }
 
+  openDialog() {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.panelClass = 'app-change-password-dialog';
+
+    dialogConfig.data = {
+      id: 2,
+      title: 'Change Password'
+    };
+
+    this.dialog.open(ChangePasswordDialogComponent, dialogConfig);
+  }
+
+  openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
+    data?: any, action?: Actions) {
+    let dialogData: any;
+    if(content === this.locationDialogComponent && action == Actions.view){
+      dialogData = data;
+    }
+    const ref = this.overlayService.open(content, dialogData);
+    ref.afterClosed$.subscribe(res => {
+      if (content === this.locationDialogComponent) {
+        this.locationDialogResponse = res.data;
+      }
+    });
+  }
 }

@@ -2,7 +2,7 @@ import { OverlayRef } from '@angular/cdk/overlay';
 import { Component, OnInit } from '@angular/core';
 import { AppointmentTypes, AvailableTimeSlot,Actions,
   NewAppointment, PatientSearchResults, Room, ScheduledAppointment, UserLocations,
- AppointmentDialogInfo } from 'src/app/_models/smart.scheduler.data';
+ AppointmentDialogInfo } from 'src/app/_models/';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
 import { PracticeProviders } from '../../_models/_provider/practiceProviders';
