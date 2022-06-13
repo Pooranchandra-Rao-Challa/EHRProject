@@ -311,7 +311,9 @@ export class APIEndPoint extends EndpointBase {
   get _updateAccessProviderUrl() {
     return this._baseUrl + "UpdateAccessProvider";
   }
-
+  get _updatedTrailStatusUrl(){
+    return this._baseUrl + "UpdatedTrailStatus";
+  }
 
   get _medicalCodesUrl() {
     return this._baseUrl + "MedicalCodes";

@@ -1,3 +1,4 @@
+import { Subscription } from 'rxjs';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { OverlayService } from 'src/app/overlay.service';
 import { AdminService } from 'src/app/_services/admin.service';
@@ -185,6 +186,7 @@ export class DashboardComponent implements OnInit {
  }
 
   getlock(id,item){
+    debugger;
     this.Id = id;
     this.Locked = !item;
     debugger;
@@ -196,13 +198,33 @@ export class DashboardComponent implements OnInit {
     this.adminservice.UpdateLockedUser(reqparam).subscribe(resp => {
       if (resp.IsSuccess) {
         this.displayModal=false;
-        this.displayHeading='Successfully locked the user'
+        this.displayHeading='';
+        this.GetProivderList();
       }
     });
   }
 
   lockedUser(){
 
+  }
+
+  changeTraiPaidStatus(item){
+    let trailvalue;
+    if(item == true){
+      trailvalue = null;
+    }
+    else{
+      trailvalue = 0;
+    }
+    let reqparam = {
+      Trial:trailvalue
+    }
+    this.adminservice.UpdatedTrailStatus(reqparam).subscribe(resp =>{
+      if(resp.IsSuccess)
+      {
+        this.GetProivderList();
+      }
+    })
   }
 
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string) {

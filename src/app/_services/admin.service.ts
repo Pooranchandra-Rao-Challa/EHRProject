@@ -36,4 +36,8 @@ export class AdminService extends APIEndPoint {
   UpdateAccessProvider(reqparams: any){
   return this._ProcessPostRequest<any>(this._updateAccessProviderUrl, reqparams);
   }
+
+  UpdatedTrailStatus(reqparam:any){
+ return this._ProcessPostRequest<any>(this._updatedTrailStatusUrl, reqparam);
+  }
 }

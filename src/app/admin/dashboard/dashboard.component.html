@@ -118,7 +118,8 @@
                         <div class="d-flex justify-content-between">
                          <div [ngClass]="item.ToggleButton?'text-mute':'text-black'">Trail ({{item.TrailDays}} d left)</div>
                             <div class="form-check form-switch mx-3 ">
-                              <input class="form-check-input toggle-btn" type="checkbox" [checked]="item.ToggleButton" id="flexSwitchCheckDefault">
+                              <input class="form-check-input toggle-btn" type="checkbox" [checked]="item.ToggleButton"
+                               (click)="changeTraiPaidStatus(item.ToggleButton)" id="flexSwitchCheckDefault">
                               <span class="toggle-mark"></span>
                             </div>
                              <div [ngClass]="item.ToggleButton?'text-black':'text-mute'" class="mr-3">{{item.Trial}}</div>
@@ -218,7 +219,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                  <h4 class="title">{{displayHeading}}</h4>
+                  <h4 class="title">Successfully {{displayHeading}} the user </h4>
             </div>
             <hr class="modal-hr">
             <div class="modal-footer model-cust-footer mt-3">
