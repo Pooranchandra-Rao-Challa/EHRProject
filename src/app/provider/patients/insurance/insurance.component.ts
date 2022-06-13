@@ -53,6 +53,7 @@ export class InsuranceComponent implements OnInit {
     this.getPatientDetails();
     this.getInsuranceList();   
     this.getInsuranceDetails1();
+     this.getSourceOfPaymentTypologyCodesDD();
   }
 
   arry: any[] = [];

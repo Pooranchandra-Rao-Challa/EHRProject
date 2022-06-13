@@ -20,6 +20,7 @@ export class ChartComponent implements OnInit {
   advancedDirectivesDialogComponent = AdvancedDirectivesDialogComponent;
   smokingStatusDialogComponent = SmokingStatusDialogComponent;
   interventionDialogComponent = InterventionDialogComponent;
+
   dialogResponse = null;
   advancedDirectives: any[];
   allDiagnoses: any[];
@@ -34,9 +35,10 @@ export class ChartComponent implements OnInit {
   tobaccointerventions: any[];
   advanceddirectivesdialogResponse: any;
   smokingstatusdialogResponse: any;
+
   currentPatient: ProviderPatient;
   ActionTypes = Actions;
-  chartInfo: ChartInfo
+  chartInfo: ChartInfo = new ChartInfo;
   constructor(public overlayService: OverlayService,
     private patientService: patientService,
     private authService: AuthenticationService) {

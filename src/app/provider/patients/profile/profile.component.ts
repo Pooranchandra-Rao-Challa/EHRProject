@@ -71,13 +71,13 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.getPatientDetails();
-    // this.getPatientMyProfile();
-    // this.getProviderList();
+     this.getPatientDetails();
+     this.getPatientMyProfile();
+      this.getProviderList();
     // //  this.getPatientsByProvider();
     // this.relationship;
     // this.getlanguagesInfo();
-    // this.getPatientsRelationByProvider();
+     this.getPatientsRelationByProvider();
   }
 
   //get Language List
@@ -93,10 +93,11 @@ export class ProfileComponent implements OnInit {
 
   // get patient id
   getPatientDetails() {
-    this.route.queryParams.subscribe((params) => {
-      this.PatientDetails = JSON.parse(params.patient);
-      console.log(this.PatientDetails);
-    });
+    // this.route.queryParams.subscribe((params) => {
+    //   this.PatientDetails = JSON.parse(params.patient);
+    //   console.log(this.PatientDetails);
+    // });
+    this.PatientDetails = this.authService.viewModel.Patient;
   }
 
   // get patient details by id
