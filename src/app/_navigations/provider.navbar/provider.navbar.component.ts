@@ -19,6 +19,7 @@ export class ProviderNavbarComponent implements OnInit {
   locationsInfo: UserLocations[];
   currentLocation: string;
   @Output() LocationChanged = new EventEmitter<String>();
+  @Output() Bredcrumchanged = new EventEmitter<String>();
   view: string;
   name: string;
   viewModel: ViewModel;
@@ -58,6 +59,9 @@ export class ProviderNavbarComponent implements OnInit {
       this.authenticationService.SetViewParam("SubView",view)
     }
     this.viewModel = this.authenticationService.viewModel;
+    console.log(name);
+
+    this.Bredcrumchanged.emit(name);
     this.router.navigate(
       [url],
     );
