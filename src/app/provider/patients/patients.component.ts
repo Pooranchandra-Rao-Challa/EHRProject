@@ -64,17 +64,16 @@ export class PatientsComponent implements OnInit {
         debounceTime(150),
         distinctUntilChanged(),
         tap(() => {
-            this.page = 0;
-
-           // this.paginator.pageIndex = 0;
+            //this.page = 0;
+            this.paginator.pageIndex = 0;
             this.loadPatients();
         })
     )
     .subscribe();
     // reset the paginator after sorting
     this.sort.sortChange.subscribe(() => {
-      this.page = 0;
-      //this.paginator.pageIndex = 0
+      //this.page = 0;
+      this.paginator.pageIndex = 0
     });
 
     // this.sort.sortChange
@@ -178,8 +177,6 @@ export class PatientDatasource implements DataSource<ProviderPatient>{
         this.queryParams["PageIndex"] = pageIndex;
         this.queryParams["PageSize"] = pageSize;
         this.queryParams["Filter"] = filter;
-
-
         this.loadingSubject.next(true);
 
         this.patientService.FilteredPatientsOfProvider(this.queryParams).pipe(
