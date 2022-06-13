@@ -35,7 +35,7 @@ export class AdvancedDirectivesDialogComponent implements OnInit {
 
   cancel() {
     this.ref.close(null);
-    this.resetDialog();
+    //this.resetDialog();
   }
 
   resetDialog() {

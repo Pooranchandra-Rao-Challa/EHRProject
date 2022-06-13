@@ -29,7 +29,12 @@ export class DashboardComponent implements OnInit {
   GetFilterList: any;
   SearchKey = "";
   Status: boolean;
-
+  displayAccess: string;
+  Id: any;
+  displayModal:boolean
+  provideraccess: any;
+  Locked: boolean;
+  displayHeading: string;
 
   constructor(private adminservice: AdminService, private overlayService: OverlayService) { }
 
@@ -57,10 +62,23 @@ export class DashboardComponent implements OnInit {
           }
           if (e.Trial == 'Trial') {
             e.Paid = true;
-
           }
           else {
             e.Paid = false;
+          }
+          if (e.primary_provider == true) {
+            e.primaryprovider = 'Remove as Primary';
+            this.displayAccess ='Remove as Primary';
+          }
+          else {
+            e.primaryprovider = 'Assign as Primary';
+            this.displayAccess ='Assign as Primary';
+          }
+          if(e.Locked == true){
+            e.lock = 'Unlock';
+          }
+          else{
+            e.lock = 'Lock';
           }
         });
         console.log(this.ProviderList);
@@ -143,6 +161,48 @@ export class DashboardComponent implements OnInit {
     } else {
       return item == null ? '' : item.toString().indexOf(this.SearchKey) > -1
     }
+  }
+
+  primaryProviderId(id,item)
+  {
+     this.Id = id;
+     this.provideraccess = !item;
+  }
+
+  providerAccess(){
+    debugger;
+    let reqparam =
+    {
+      ProviderId : this.Id,
+      Accesss : this.provideraccess
+    }
+    this.adminservice.UpdateAccessProvider(reqparam).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.displayAccess='Remove As primary'
+        this.displayModal = false;
+      }
+  });
+ }
+
+  getlock(id,item){
+    this.Id = id;
+    this.Locked = !item;
+    debugger;
+    let reqparam =
+    {
+      UserId : this.Id,
+      Locked : this.Locked
+    }
+    this.adminservice.UpdateLockedUser(reqparam).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.displayModal=false;
+        this.displayHeading='Successfully locked the user'
+      }
+    });
+  }
+
+  lockedUser(){
+
   }
 
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string) {

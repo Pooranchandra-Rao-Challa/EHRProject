@@ -300,6 +300,15 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "AdminImportedPatientEncounter";
   }
 
+  get _updateLockedUserUrl() {
+    return this._baseUrl + "UpdateLockedUser";
+  }
+
+  get _updateAccessProviderUrl() {
+    return this._baseUrl + "UpdateAccessProvider";
+  }
+
+
   get _medicalCodesUrl() {
     return this._baseUrl + "MedicalCodes";
 

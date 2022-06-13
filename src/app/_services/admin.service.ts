@@ -24,7 +24,16 @@ export class AdminService extends APIEndPoint {
   AdminImportedPatientEncounter() {
     return this._ProcessGetRequest<any>(this._adminImportedPatientEncounterUrl);
   }
+
   WeeklyUpdateList(){
     return this._ProcessGetRequest<any>(this._weeklyUpdateUrl);
+  }
+
+  UpdateLockedUser(reqparams: any){
+  return this._ProcessPostRequest<any>(this._updateLockedUserUrl, reqparams);
+  }
+
+  UpdateAccessProvider(reqparams: any){
+  return this._ProcessPostRequest<any>(this._updateAccessProviderUrl, reqparams);
   }
 }
