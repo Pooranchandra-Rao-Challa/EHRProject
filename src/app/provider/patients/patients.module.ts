@@ -14,6 +14,9 @@ import { ResetPasswordComponent } from './resetpassword/resetpassword.component'
 import { CqmsNotPerformedComponent } from './cqms.not.performed/cqms.not.performed.component';
 import { SearchPipe } from '../../_pipes/search-filter.pipe';
 import { PatientsBreadCrumComponent } from './patients-bread-crum/patients-bread-crum.component';
+import { PaginatorDirective } from 'src/app/_directives/pagination.directive'
+
+
 // import { SettingsModule } from '../settings/settings.module';
 
 @NgModule({
@@ -28,7 +31,7 @@ import { PatientsBreadCrumComponent } from './patients-bread-crum/patients-bread
     AmendmentsComponent,
     ResetPasswordComponent,
     CqmsNotPerformedComponent,
-
+    PaginatorDirective
   ],
   declarations: [
     PatientsComponent,
@@ -41,7 +44,8 @@ import { PatientsBreadCrumComponent } from './patients-bread-crum/patients-bread
     ResetPasswordComponent,
     CqmsNotPerformedComponent,
     SearchPipe,
-    PatientsBreadCrumComponent
+    PatientsBreadCrumComponent,
+    PaginatorDirective
   ],
   providers: [],
   // schemas: [CUSTOM_ELEMENTS_SCHEMA]

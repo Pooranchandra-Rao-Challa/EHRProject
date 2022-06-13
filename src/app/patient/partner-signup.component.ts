@@ -32,7 +32,7 @@ export class PartnerSignupComponent implements OnInit {
 
 
   CreatePartnerSignup(partnerSignup) {
-    debugger;
+    //debugger;
     let isAdd = this.partnerSignup.C_id == null;
     this.accountservice.PostPartnerSignup(partnerSignup).subscribe((resp) => {
       debugger;

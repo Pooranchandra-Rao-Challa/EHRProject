@@ -83,14 +83,6 @@
   background-color: #d64841;
   border-color: #d64841;
 }
-.scroolbar {
-  height: 800px;
-  top: 84%;
-  box-sizing: border-box;
-  white-space: nowrap;
-  overflow-y: scroll;
-  background: white;
-}
 .colC {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   margin: 30px;
@@ -170,20 +162,11 @@
   font-size: 20px;
 }
 
-.labelclass {
-  color: #74757e;
-  font-size: 15px;
-  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
-}
 .inputtimezone{
   height: 28px;
   background-color: #fff;
     border: 1px solid #aaa;
     border-radius: 4px;
-}
-.locationbtns{
-  display: flex;
-  justify-content: space-around;
 }
 
 .schedule-inputclass {
@@ -334,21 +317,6 @@ input[type="checkbox"] {
   color: rgb(253, 44, 44);
 }
 
-.error-close {
-  background-color: rgb(253, 65, 65) !important;
-  width: 25px;
-  height: 28px;
-  margin: 10px !important;
-  border: 1px solid white !important;
-  color: white !important;
-  border-radius: 50% !important;
-}
-.error-close:hover {
-  background-color: white !important;
-  border: 1px solid rgb(253, 44, 44) !important;
-  color: rgb(253, 44, 44) !important;
-
-}
 .appointment {
   font-size: 20px;
 }
@@ -425,10 +393,6 @@ td.mat-footer-cell {
 
 .modal .modal-dialog .modal-content .modal-header {
   padding: 20px 16px;
-}
-#practice-location-modal .modal-dialog {
-  margin-top: 10px;
-  max-width: 650px;
 }
 #edit-user-modal .modal-dialog {
   margin-top: 10px;
@@ -780,10 +744,7 @@ a.disabled{
   color:gray;
   opacity: 0.5;
 }
-.modal .modal-dialog .modal-content .modal-body.addlocationbody {
-  padding: 25px 25px 0px 25px !important;
-  height: 650px;
-}
+
 .btn-edit{
   height: 45px;
 }
@@ -854,12 +815,8 @@ img.avatar:hover{
   font-size: 14px;
   color: black;
 }
-.btn-p-l-d-padding{
-  margin-right:40px !important;
-}
-.btn-p-l-c-padding{
-  margin-right:55px !important;
-}
+
+
 .closemodel {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   color: #41b6a6 !important;
@@ -873,18 +830,29 @@ img.avatar:hover{
   color: white !important;
   background-color: #41b6a6;
 }
-.manualbtn{
-  white-space: normal !important;
-  word-wrap: normal;
-  width:90%;
-  padding:5px;
+
+.modal .modal-dialog .modal-content .modal-body.addlocationbody {
+  padding: 25px 25px 0px 25px !important;
+  height: 650px;
 }
-.norecords-found{
-  text-align: center;
+
+.scroolbar {
+  height: 800px;
+  top: 84%;
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow-y: scroll;
+  background: white;
+}
+
+
+.labelclass {
+  color: #74757e;
   font-size: 15px;
-  min-height: 40px;
-  padding-top: 10px;
-  color: red;
-  border: 1px solid #41b6a6;
-  border-radius: 0px 0px 4px 4px;
+  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+}
+
+.locationbtns{
+  display: flex;
+  justify-content: space-around;
 }

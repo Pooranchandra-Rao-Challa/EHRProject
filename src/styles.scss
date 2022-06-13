@@ -147,8 +147,8 @@ body {
 /* Mat Paginator */
 
 mat-paginator {
-  color: #fff !important;
-  background-color: #41b6a6 !important;
+  color: black !important;
+  //background-color: #41b6a6 !important;
   font-size: 16px !important;
 }
 
@@ -1019,5 +1019,61 @@ i {
 
 .page-item.disabled {
   cursor: not-allowed;
+}
+
+.swal2-container-high-zindex {
+  z-index: 1000000 !important;
+}
+
+.pg-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.custom-paginator-container {
+  justify-content: flex-end;
+}
+
+.custom-paginator-counter {
+  white-space: nowrap;
+  margin: 0px 4px 0px 10px !important;
+}
+
+.custom-paginator-page {
+  border-radius: 4px;
+  outline: none;
+  border: none;
+  margin: 0.4em;
+  font-size: 14px;
+  min-width: 24px;
+  width: auto;
+  min-height: 24px;
+  max-height: 24px;
+  padding: 1px 6px;
+}
+
+.custom-paginator-page-enabled {
+  color: #41a6b6;
+  background: transparent;
+  cursor: pointer;
+  &:hover {
+    background-color: #dfe3e6;
+  }
+}
+
+.custom-paginator-page-disabled {
+  background-color: #41a6b6;
+  color: #fff;
+}
+
+.custom-paginator-arrow-disabled {
+  color: #dfe3e6;
+}
+
+.custom-paginator-arrow-enabled {
+  color: #999999;
 }
 

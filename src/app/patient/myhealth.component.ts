@@ -1,4 +1,3 @@
-
 import { patientService } from './../_services/patient.service'
 import { Component, OnInit } from '@angular/core'
 import { User, UserLocations } from '../_models'
@@ -26,7 +25,7 @@ export class MyhealthComponent implements OnInit {
    VitalStatus:VitalStats[];
 
   constructor(private authenticationService: AuthenticationService,private patientservise: patientService,) {
-    debugger
+    //debugger
 
     this.user = authenticationService.userValue
     this.locationsInfo = JSON.parse(this.user.LocationInfo)

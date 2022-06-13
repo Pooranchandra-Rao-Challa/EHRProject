@@ -7,3 +7,8 @@ export * from './_provider/_reports/cqmreportsdata';
 export * from './_provider/_reports/drillencounters'
 export * from './_provider/_reports/drillpatient';
 export * from './_provider/_reports/drillauthor';
+export * from './_provider/smart.scheduler.data';
+export * from './_provider/practiceProviders';
+export * from './_provider/practiceLocation';
+export * from './_provider/chart';
+export * from './_provider/_settings/settings';

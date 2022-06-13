@@ -18,10 +18,16 @@
                 <button class="button is-primary bg-color lte" (click)="DateUpDown('movedown')">&lt;</button>
                 <mat-form-field class="cstm-width smart-schedule-datepicker" appearance="fill">
                   <input hidden matInput [matDatepicker]="picker" (dateChange)="selectedCalendarDate($event)" />
+                  <!-- <mat-datepicker-toggle [for]="picker">
+                    <mat-icon matDatepickerToggleIcon >
+                        mouse
+                    </mat-icon>
+                  </mat-datepicker-toggle> -->
                   <mat-datepicker #picker></mat-datepicker>
+
                 </mat-form-field>
                 <button aria-hidden="true" class="is-primary bg-color button fa fa-calendar"
-                  (click)="picker.open()"></button>
+                (click)="picker.open()"></button>
                 <button class="button is-primary bg-color gte" (click)="DateUpDown('moveup')">&gt;</button>
               </div>
             </div>
@@ -221,9 +227,9 @@
   </div>
 </div>
 
-<button class="btn btn-orange" type="button" data-bs-toggle="modal" data-bs-target="#modal-patient-add-encounter">
+<!-- <button class="btn btn-orange" type="button" data-bs-toggle="modal" data-bs-target="#modal-patient-add-encounter">
   Record Encounter
-</button>
+</button> -->
 
 <!-- Encounter Modal -->
 <div class="modal fade" id="modal-patient-add-encounter" data-bs-backdrop="static" data-bs-keyboard="false"
@@ -669,6 +675,11 @@
 
   </div>
 </div>
+<!--
+<mat-paginator appPagination
+             [length]='3337' [pageSize]="20" [pageIndex] = "4"
+             [pageSizeOptions]="[10,20,30,40,50]"  >
+            </mat-paginator> -->
 
 
 <!-- data-bs-toggle="modal"

@@ -18,6 +18,7 @@ import { DownloadService } from "./_services/download.service";
 import { IdService } from "./_helpers/_id.service";
 import { AuthGuard } from "./_helpers/auth.guard";
 import { LabsImagingService } from './_services/labsimaging.service';
+//import { PaginatorDirective } from 'src/app/_directives/pagination.directive'
 
 
 
@@ -26,11 +27,11 @@ import { LabsImagingService } from './_services/labsimaging.service';
 
 @NgModule({
   exports: [
-
+ //   PaginatorDirective
   ],
   declarations: [
     AppComponent,
-
+  //  PaginatorDirective,
 
   ],
   imports: [

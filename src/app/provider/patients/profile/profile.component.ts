@@ -71,13 +71,13 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getPatientDetails();
-    this.getPatientMyProfile();
-    this.getProviderList();
-    //  this.getPatientsByProvider();
-    this.relationship;
-    this.getlanguagesInfo();
-    this.getPatientsRelationByProvider();
+    // this.getPatientDetails();
+    // this.getPatientMyProfile();
+    // this.getProviderList();
+    // //  this.getPatientsByProvider();
+    // this.relationship;
+    // this.getlanguagesInfo();
+    // this.getPatientsRelationByProvider();
   }
 
   //get Language List
@@ -101,13 +101,13 @@ export class ProfileComponent implements OnInit {
 
   // get patient details by id
   getPatientMyProfile() {
-    debugger;
+    //debugger;
     var reqparam = {
       "PatientId": this.PatientDetails.PatientId
     }
     console.log(reqparam);
     this.patientService.PatientMyProfileByPatientId(reqparam).subscribe(resp => {
-      debugger;
+      //debugger;
       if (resp.IsSuccess) {
         this.PatientMyProfile = resp.ListResult[0];
         this.PatientMyProfile.Gender = this.PatientMyProfile.Gender;
@@ -141,7 +141,7 @@ export class ProfileComponent implements OnInit {
   }
 
   getCareTeamDetails(id) {
-    debugger;
+    //debugger;
     let Providers: any = []
     Providers = id;
     var patientId = this.PatientDetails.PatientId;
@@ -152,9 +152,9 @@ export class ProfileComponent implements OnInit {
       "PatientId": patientId
     }
     this.patientService.CreateCareTeam(reqparams).subscribe(resp => {
-      debugger;
+      //debugger;
       if (resp.IsSuccess) {
-        debugger;
+       // debugger;
         this.getCareTeamByPatientId(patientId);
       }
     });
@@ -167,7 +167,7 @@ export class ProfileComponent implements OnInit {
     }
     this.patientService.CareTeamByPatientId(reqparam).subscribe(resp => {
       if (resp.IsSuccess) {
-        debugger;
+        //debugger;
         this.CareTeamList = resp.ListResult;
         this.careTeamName = this.CareTeamList.FirstName;
         console.log(this.CareTeamList)
@@ -176,7 +176,7 @@ export class ProfileComponent implements OnInit {
   }
 
   getPatientsByProvider() {
-    debugger;
+    //debugger;
     let reqparams = {
       "ClinicId": this.user.ClinicId,
       "ProviderId": this.user.ProviderId
@@ -210,7 +210,7 @@ export class ProfileComponent implements OnInit {
   }
 
   isMatch(item) {
-    debugger;
+   // debugger;
     if (item instanceof Object) {
       return Object.keys(item).some((k) => this.isMatch(item[k]));
     } else {
@@ -248,9 +248,9 @@ export class ProfileComponent implements OnInit {
   }
 
   updatePatientInformation() {
-    debugger;
+    //debugger;
     this.patientService.UpdatePatientInformation(this.PatientMyProfile).subscribe(resp => {
-      debugger;
+      //debugger;
       if (resp.IsSuccess) {
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP001"])
       }
@@ -261,9 +261,9 @@ export class ProfileComponent implements OnInit {
   }
 
   updateContactInform() {
-    debugger;
+    //debugger;
     this.patientService.UpdateContactInformation(this.PatientMyProfile).subscribe(resp => {
-      debugger;
+     // debugger;
       if (resp.IsSuccess) {
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP002"])
       }
@@ -275,7 +275,7 @@ export class ProfileComponent implements OnInit {
 
   updateEmergencyContact() {
     this.patientService.UpdateEmergencyContact(this.PatientMyProfile).subscribe(resp => {
-      debugger;
+      //debugger;
       if (resp.IsSuccess) {
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP003"])
       }
@@ -287,7 +287,7 @@ export class ProfileComponent implements OnInit {
 
   updateNextOfKin() {
     this.patientService.UpdateNextofkin(this.PatientMyProfile).subscribe(resp => {
-      debugger;
+      //debugger;
       if (resp.IsSuccess) {
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP006"])
       }
@@ -299,7 +299,7 @@ export class ProfileComponent implements OnInit {
 
   updateDemography() {
     this.patientService.UpdateDemographics(this.PatientMyProfile).subscribe(resp => {
-      debugger;
+      //debugger;
       if (resp.IsSuccess) {
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP005"])
       }
@@ -311,7 +311,7 @@ export class ProfileComponent implements OnInit {
 
   updateImmunizationRegistry() {
     this.patientService.UpdateImmunizationRegistry(this.PatientMyProfile).subscribe(resp => {
-      debugger;
+     // debugger;
       if(resp.IsSuccess) {
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP007"])
       }
@@ -323,7 +323,7 @@ export class ProfileComponent implements OnInit {
 
   updateNote() {
     this.patientService.UpdateNotes(this.PatientMyProfile).subscribe(resp => {
-      debugger;
+     // debugger;
       if(resp.IsSuccess) {
         let success = resp.EndUserMessage;
         console.log(success);

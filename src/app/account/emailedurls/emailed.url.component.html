@@ -1,0 +1,25 @@
+<mat-table class="table table-responsive userfromPractable" [dataSource]="emaildUrls">
+  <ng-container matColumnDef="FunctionalName">
+    <mat-header-cell *matHeaderCellDef >Functional Name</mat-header-cell>
+    <mat-cell *matCellDef="let url">
+      <a href="{{url.PostedUrl}}">{{url.FunctionalName}} </a>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="Errors">
+    <mat-header-cell *matHeaderCellDef>Errors</mat-header-cell>
+    <mat-cell *matCellDef="let url">{{url.Errors}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="Created">
+    <mat-header-cell *matHeaderCellDef>Created</mat-header-cell>
+    <mat-cell *matCellDef="let url">{{url.CreateAt | date: 'dd/MM/yyyy hh:mm a'}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="Active">
+    <mat-header-cell *matHeaderCellDef>Active</mat-header-cell>
+    <mat-cell *matCellDef="let url">
+      <mat-checkbox [ngModelOptions]="{standalone: true}" [ngModel]="url.Active">
+      </mat-checkbox>
+    </mat-cell>
+  </ng-container>
+  <mat-header-row class="rowtable" *matHeaderRowDef="emailedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: emailedColumns"></mat-row>
+</mat-table>
