@@ -34,18 +34,21 @@ export class PartnerSignupComponent implements OnInit {
   CreatePartnerSignup(partnerSignup) {
     //debugger;
     let isAdd = this.partnerSignup.C_id == null;
-
     this.accountservice.PostPartnerSignup(partnerSignup).subscribe((resp) => {
       debugger;
       if (resp.IsSuccess) {
         debugger;
         this.alertmsg.displaysubmitted(ERROR_CODES[isAdd ? "M3PS001" : "E3PS001"]);
+        this.resetForm();
         // this.clear();
       }
       else {
          this.alertmsg.displayErrorDailog(ERROR_CODES["E3PS001"]);
       }
     })
+  }
+  resetForm(){
+    this.partnerSignup={} as PartnerSignup;
   }
 
   // getRequiredErrorMessage(field) {
