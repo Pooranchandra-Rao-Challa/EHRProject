@@ -52,6 +52,7 @@ import { OverlayService } from 'src/app/overlay.service';
 import { AddUserDialogComponent } from 'src/app/dialogs/adduser.dialog/adduser.dialog.component';
 import { DefaultMessagesComponent } from 'src/app/admin/defaultmessages/defaultmessages.component';
 import { CommunicationsettingsComponent } from 'src/app/admin/communicationsettings/communicationsettings.component';
+import { AlertMessage } from 'src/app/_alerts/alertMessage';
 
 
 @NgModule({
@@ -109,7 +110,7 @@ import { CommunicationsettingsComponent } from 'src/app/admin/communicationsetti
     CKEditorModule,
     // Ng2SearchPipeModule
   ],
-  providers: [DayService, WeekService, AdminService, OverlayService
+  providers: [DayService, WeekService, AdminService, OverlayService,AlertMessage
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

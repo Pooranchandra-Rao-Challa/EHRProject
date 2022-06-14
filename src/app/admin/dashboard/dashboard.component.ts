@@ -5,6 +5,9 @@ import { AdminService } from 'src/app/_services/admin.service';
 import { ComponentType } from '@angular/cdk/portal';
 import { AddUserDialogComponent } from 'src/app/dialogs/adduser.dialog/adduser.dialog.component';
 import { ProviderList } from 'src/app/_models/_admin/providerList';
+import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -32,12 +35,16 @@ export class DashboardComponent implements OnInit {
   Status: boolean;
   displayAccess: string;
   Id: any;
-  displayModal:boolean
+
   provideraccess: any;
   Locked: boolean;
   displayHeading: string;
+  primaryProviderModal='none';
+  lockedModal ='none';
+  AccessProvider='none';
+  message: string;
 
-  constructor(private adminservice: AdminService, private overlayService: OverlayService) { }
+  constructor(private adminservice: AdminService, private overlayService: OverlayService, private router: Router, private alertmsg: AlertMessage) { }
 
   ngOnInit(): void {
     this.GetProivderList();
@@ -47,7 +54,7 @@ export class DashboardComponent implements OnInit {
     this.adminservice.GetProviderList().subscribe(resp => {
       if (resp.IsSuccess) {
         this.ProviderList = resp.ListResult;
-        // console.log(this.ProviderList);
+        console.log(this.ProviderList);
         this.ProviderList.map((e) => {
           if (e.Trial == 'Trial') {
             e.ToggleButton = false;
@@ -69,24 +76,23 @@ export class DashboardComponent implements OnInit {
           }
           if (e.primary_provider == true) {
             e.primaryprovider = 'Remove as Primary';
-            this.displayAccess ='Remove as Primary';
+            this.displayAccess = 'Remove as Primary';
           }
           else {
             e.primaryprovider = 'Assign as Primary';
-            this.displayAccess ='Assign as Primary';
+            this.displayAccess = 'Assign as Primary';
           }
-          if(e.Locked == true){
+          if (e.Locked == true) {
             e.lock = 'Unlock';
           }
-          else{
+          else {
             e.lock = 'Lock';
           }
         });
-        // console.log(this.ProviderList);
         this.ProviderColumnList = resp.ListResult;
         this.ProviderColumnList.map((e) => {
           if (e.Trial.toLowerCase() == 'trial') {
-            e.Trial = 'Not Paid';
+            e.Trial = 'Trail';
           }
           else {
             e.Trial = 'Paid';
@@ -107,7 +113,6 @@ export class DashboardComponent implements OnInit {
         this.ProviderList = [];
     });
   }
-
 
   FilterProvider(eventType, event) {
     //debugger;
@@ -149,14 +154,11 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-
   SearchDetails() {
-    // debugger;
     this.ProviderList = this.GetFilterList.filter((invoice) => this.isMatch(invoice));
   }
 
   isMatch(item) {
-    //debugger;
     if (item instanceof Object) {
       return Object.keys(item).some((k) => this.isMatch(item[k]));
     } else {
@@ -164,72 +166,95 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  primaryProviderId(id,item)
-  {
-     this.Id = id;
-     this.provideraccess = !item;
-  }
-
-  providerAccess(){
+  // get providerId
+  primaryProviderId(item) {
+    this.primaryProviderModal='block';
+    this.Id = item.ProviderId;
+    this.provideraccess = !item.primary_provider;
+    if(item.primary_provider == true){
+      this.displayAccess = 'Remove as Primary';
+      this.message = 'remove';
+    }
+    else{ this.displayAccess = 'Assign as Primary'
+    this.message = 'assign';
+   }
+}
+  // updte provider access
+  providerPrimaryAccess() {
     debugger;
     let reqparam =
     {
-      ProviderId : this.Id,
-      Accesss : this.provideraccess
+      ProviderId: this.Id,
+      Accesss: this.provideraccess
     }
     this.adminservice.UpdateAccessProvider(reqparam).subscribe(resp => {
       if (resp.IsSuccess) {
-        this.displayAccess='Remove As primary'
-        this.displayModal = false;
-      }
-  });
- }
-
-  getlock(id,item){
-    debugger;
-    this.Id = id;
-    this.Locked = !item;
-    debugger;
-    let reqparam =
-    {
-      UserId : this.Id,
-      Locked : this.Locked
-    }
-    this.adminservice.UpdateLockedUser(reqparam).subscribe(resp => {
-      if (resp.IsSuccess) {
-        this.displayModal=false;
-        this.displayHeading='';
+        this.primaryProviderModal='none';
         this.GetProivderList();
+        this.AccessProvider='block';
       }
     });
   }
 
-  lockedUser(){
-
-  }
-
-  changeTraiPaidStatus(item){
+  // update trail/paid provider
+  changeTraiPaidStatus(item) {
+    debugger;
     let trailvalue;
-    if(item == true){
+    if (item.Trial == 'Trail') {
       trailvalue = null;
     }
     else{
       trailvalue = 0;
     }
     let reqparam = {
-      Trial:trailvalue
+      "ProviderId": item.ProviderId,
+      "Trail": trailvalue
     }
-    this.adminservice.UpdatedTrailStatus(reqparam).subscribe(resp =>{
-      if(resp.IsSuccess)
-      {
+    console.log(reqparam);
+    this.adminservice.UpdatedTrailStatus(reqparam).subscribe(resp => {
+      if (resp.IsSuccess) {
         this.GetProivderList();
       }
     })
   }
 
+  // update user locked/unlocked
+  updateUserlock(item) {
+    let msg= item.lock
+    this.Locked = !item.Locked;
+    let reqparam =
+    {
+      UserId: item.UserId,
+      Locked: this.Locked
+    }
+    this.adminservice.UpdateLockedUser(reqparam).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.displayHeading = msg;
+        this.GetProivderList();
+         this.lockedModal='block';
+      }
+    });
+  }
+
+  closelockedModal(){ this.lockedModal='none';}
+
+  closeAccessProvider(){this.AccessProvider='none';}
+
+  providerLogin(item) {
+    if (item.Trial == 'Paid' || item.lock == 'Unlock') {
+      // this.router.navigate(['/account/login']);
+      // this.alertmsg.displayMessageDailog(ERROR_CODES["M1P001"])
+    }
+    if (item.Trail == 'Not Paid' || item.lock == 'lock') {
+      //this.router.navigate(['/provider/smartschedule']);
+    }
+    if (item.Trail == 'Not Paid' || item.lock == 'Unlock') {
+      //this.router.navigate(['/provider/smartschedule']);
+    }
+  }
+
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string) {
     const ref = this.overlayService.open(content, null);
-
     ref.afterClosed$.subscribe(res => {
       if (typeof content === 'string') {
         //} else if (content === this.yesNoComponent) {
@@ -240,6 +265,5 @@ export class DashboardComponent implements OnInit {
       }
     });
   }
-
 
 }

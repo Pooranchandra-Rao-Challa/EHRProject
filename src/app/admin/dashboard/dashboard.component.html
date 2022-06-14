@@ -3,6 +3,7 @@
     <div class="col-lg-12 col-xl-12 col-md-12 col-12 mt-4 mb-3">
       <app-admin-breadcrum></app-admin-breadcrum>
     </div>
+
     <div class="col-lg-6 col-md-6 col-12">
       <div class="card card-design">
         <div class="card-body">
@@ -54,13 +55,12 @@
               <label class="form-check-label" for="Trial">Trial Providers</label>
           </div>
       </div>
-    </div>
+   </div>
 
     <div class="row">
     <div class="col-lg-12 col-xl-12 col-md-12 col-12 mt-3 mb-3">
       <div class="card card-border">
         <div class="card-body">
-
           <div class="row">
             <div class="col-xl-8 col-lg-5 col-md-5 col-5 col-sm-5">
               <h1 class="card-title text-uppercase"><b class="fw-bol fs-6">Users</b></h1>
@@ -79,7 +79,6 @@
             </div>
 
             <div class="col-lg-12 col-md-12 col-12 col-sm-12 "> <hr></div>
-
             <div class="col-lg-12 col-md-12 col-12 col-sm-12 ">
               <div class="table-responsive">
                 <table class="table">
@@ -94,7 +93,6 @@
                       <th>Active/Inactive</th>
                       <th></th>
                       <th></th>
-                      <!-- <th>Trail/Paid</th> -->
                       <th></th>
                       <th></th>
                       <th></th>
@@ -105,9 +103,8 @@
                       <td class="tbl-col">
                         <span class="my-2"> {{item.ProviderName}}, {{item.Degree}}</span>
                         <div class="d-flex justify-content-start my-2">
-                          <button class="td-btn-style">Login</button>
-                          <button class="td-btn-style mx-2" (click)="primaryProviderId(item.ProviderId,item.primary_provider)"
-                           data-bs-toggle="modal" data-bs-target="#AccessModal">{{item.primaryprovider}}</button>
+                          <button class="td-btn-style" (click)="providerLogin(item)">Login</button>
+                          <button class="td-btn-style mx-2" (click)="primaryProviderId(item)">{{item.primaryprovider}}</button>
                         </div>
                       </td>
                       <td>{{item.Email}}</td>
@@ -119,21 +116,19 @@
                          <div [ngClass]="item.ToggleButton?'text-mute':'text-black'">Trail ({{item.TrailDays}} d left)</div>
                             <div class="form-check form-switch mx-3 ">
                               <input class="form-check-input toggle-btn" type="checkbox" [checked]="item.ToggleButton"
-                               (click)="changeTraiPaidStatus(item.ToggleButton)" id="flexSwitchCheckDefault">
+                               (click)="changeTraiPaidStatus(item)" id="flexSwitchCheckDefault">
                               <span class="toggle-mark"></span>
                             </div>
                              <div [ngClass]="item.ToggleButton?'text-black':'text-mute'" class="mr-3">{{item.Trial}}</div>
                         </div>
                       </td>
-
                       <td class="text-center"><input class="form-check-input Status" type="checkbox"   [checked]="item.Status" id="checkbox"></td>
                       <td class="td-width text-success">{{item.EmailVerifyStatus}}</td>
                       <td class="td-col-width"><button type="button" class="table-col-button" (click)="openComponentDialog(UserDialogComponent)">View</button></td>
-                      <!-- <td class="text-center"> <input class="form-check-input" type="checkbox"   [checked]="item.Paid" id="checkbox"></td> -->
                       <td class="td-col-width"><button type="button" class="table-col-button"
                         data-bs-toggle="modal" data-bs-target="#exampleModal">Reset MFA</button></td>
-                      <td><button class="btn-lock td-btn-style" (click)="getlock(item.UserId,item.Locked)">{{item.lock}}</button></td>
-                      <td (click)="lockedUser()"><i class="material-icons delete-icon">delete</i>
+                      <td><button class="btn-lock td-btn-style" (click)="updateUserlock(item)">{{item.lock}}</button></td>
+                      <td><i class="material-icons delete-icon">delete</i>
                       </td>
                     </tr>
                   </tbody>
@@ -164,7 +159,6 @@
 
 
 <!-- User Disable Modal -->
-
 <div class="modal fade " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog">
@@ -187,24 +181,22 @@
             </div>
         </div>
     </div>
-
 </div>
 
-<!-- Provider Access Modal -->
-
-<div class="modal fade " id="AccessModal" tabindex="-1" role="dialog" aria-labelledby="AccessModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                  <h4 class="title">{{this.displayAccess}}</h4>
-            </div>
+<!-- Provider Primary/Removed Access Modal -->
+<div class="modal"  tabindex="-1" role="dialog" [ngStyle]="{'display':primaryProviderModal}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content lockedModal">
+            <div class="modal-header"><h4 class="title">{{this.displayAccess}}</h4></div>
             <hr class="modal-hr">
             <div class="modal-body mb-2 mt-1">
-              <p>You sure you want to remove this user as primary?</p>
+              <p>You sure you want to {{message}} this user as primary?</p>
             </div>
             <div class="modal-footer model-cust-footer mt-3">
-              <button type="button" class="save-button col-md-4" (click)="providerAccess()">{{this.displayAccess}}</button>
+              <button type="button" class="save-button col-md-4" (click)="providerPrimaryAccess()" *ngIf="message =='assign'"
+              >{{this.displayAccess}}</button>
+              <button type="button" class="save-button remove-btn col-md-4" (click)="providerPrimaryAccess()" *ngIf="message =='remove'">
+                {{this.displayAccess}}</button>
               <button type="button" data-bs-dismiss="modal" class="cancel-button col-md-4" data-bs-dismiss="modal"
               aria-label="Close"
               >No, thank you!</button>
@@ -214,20 +206,32 @@
 </div>
 
 
-<div class="modal fade "  tabindex="-1" role="dialog" aria-labelledby="AccessModalLabel" *ngIf="displayModal"
-    aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
+ <!-- assign/remove primary provider  success modal -->
+<div class="modal"  tabindex="-1" role="dialog" [ngStyle]="{'display':AccessProvider}">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content lockedModal">
+          <div class="modal-header">
+                <h5 class="title letter-capital">{{message}}user as primary provider</h5>
+          </div><hr>
+          <div class="d-flex justify-content-end my-2 mx-2">
+            <button type="button" data-bs-dismiss="modal" class="cancel-button col-md-4"
+            (click)="closeAccessProvider()">Close</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+ <!-- locked/ unlocked success modal -->
+<div class="modal"  tabindex="-1" role="dialog" [ngStyle]="{'display':lockedModal}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content lockedModal">
             <div class="modal-header">
-                  <h4 class="title">Successfully {{displayHeading}} the user </h4>
-            </div>
-            <hr class="modal-hr">
-            <div class="modal-footer model-cust-footer mt-3">
-              <button type="button" class="btn">close </button>
+                  <h5 class="title">Successfully {{displayHeading}} the user</h5>
+            </div><hr>
+            <div class="d-flex justify-content-end my-2 mx-2">
+              <button type="button" data-bs-dismiss="modal" class="cancel-button col-md-4"
+              (click)="closelockedModal()">Close</button>
             </div>
         </div>
     </div>
 </div>
-
-
-
