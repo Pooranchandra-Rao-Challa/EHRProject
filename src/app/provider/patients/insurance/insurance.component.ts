@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { disableDebugTools } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { table } from 'console';
 import { Observable } from 'rxjs';
@@ -45,6 +46,11 @@ export class InsuranceComponent implements OnInit {
   InsuranceCompanyPlan: string;
   show: boolean;
   InsurancDetailslist: any = [];
+  secInsuranceID: any;
+  splitted: any;
+  InsurancDetailslist1: any;
+  inslist1: any;
+  newsavelist: any = [];
 
   constructor(private patientservice: patientService, private route: ActivatedRoute, private authService: AuthenticationService) {
     this.primlist = {} as PrimaryInsurance;
@@ -59,7 +65,13 @@ export class InsuranceComponent implements OnInit {
     this.getInsuranceList();
     this.getSourceOfPaymentTypologyCodesDD();
   }
-
+  Saveinsurance() {
+    this.newsavelist = this.newsavelist.concat(this.primlist, this.secList);
+    let one = this.newsavelist[0];
+    let two = this.newsavelist[1];
+    let newsavelists = this.newsavelist.concat(one, two);
+    console.log(newsavelists);
+  }
 
   open() {
     this.show = true;
@@ -80,9 +92,7 @@ export class InsuranceComponent implements OnInit {
     this.cancel1 = false;
     this.rowClicked = -1;
   }
-  insurancereset() {
-    this.inslist = new ParticularInsuranceDetails;
-  }
+
 
   edit(event, idx) {
     this.arry.push(this.insurancePlanList[idx]);
@@ -111,9 +121,11 @@ export class InsuranceComponent implements OnInit {
   primaryplus(item) {
 
     this.plusvalue = item;
+    this.rowClicked = -1;
   }
   secondaryplus(item) {
     this.plusvalue = item;
+    this.rowClicked = -1;
   }
   Selected() {
 
@@ -124,7 +136,7 @@ export class InsuranceComponent implements OnInit {
     }
     else {
       this.secList.InsuranceCompanyPlan = this.arry[0].InsuranceCompanyName
-      this.InsuranceID = this.arry[0].InsuranceID;
+      this.secInsuranceID = this.arry[0].InsuranceID;
       this.viewpidetailsforsecondary = false;
     }
   }
@@ -182,27 +194,43 @@ export class InsuranceComponent implements OnInit {
         );
         this.primlist = primarydata[0];
         this.primlist.StartDate = moment(primarydata[0].StartDate).format('YYYY-MM-DD');
+        this.primlist.DateOfBirth = moment(primarydata[0].DateOfBirth).format('YYYY-MM-DD');
+        this.primlist.EndDate = moment(primarydata[0].EndDate).format('YYYY-MM-DD');
 
         let secondaryData = this.insuranceList.filter(x =>
           (x.InsuranceType === 'Secondary')
         )
         this.secList = secondaryData[0];
+        this.secList.DateOfBirth = moment(secondaryData[0].DateOfBirth).format('YYYY-MM-DD');
+        this.secList.StartDate = moment(secondaryData[0].StartDate).format('YYYY-MM-DD');
+        this.secList.EndDate = moment(secondaryData[0].EndDate).format('YYYY-MM-DD');
       }
     });
   }
 
 
-  getInsuranceDetails() {
-    var reqparam = {
-      "InsuranceId": this.InsuranceID
+  getInsuranceDetails(item) {
+    if (item == 'primary') {
+      var reqparam = {
+        "InsuranceId": this.InsuranceID
+      }
+      this.patientservice.InsurancDetails(reqparam).subscribe(
+        resp => {
+          this.InsurancDetailslist = resp.ListResult;
+          this.inslist = resp.ListResult[0];
+        });
+    }
+    else {
+      var reqparam = {
+        "InsuranceId": this.secInsuranceID
+      }
+      this.patientservice.InsurancDetails(reqparam).subscribe(
+        resp => {
+          this.InsurancDetailslist = resp.ListResult;
+          this.inslist = resp.ListResult[0];
+        });
     }
 
-    this.patientservice.InsurancDetails(reqparam).subscribe(
-      resp => {
-        this.InsurancDetailslist = resp.ListResult;
-        this.inslist = resp.ListResult[0];
-      }
-    )
   }
   getInsuranceDetail(id) {
     var reqparam = {
@@ -215,5 +243,4 @@ export class InsuranceComponent implements OnInit {
       }
     )
   }
-
 }
