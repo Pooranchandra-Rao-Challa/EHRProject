@@ -136,7 +136,7 @@
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list" *ngFor="let smoking of this.chartInfo.SmokingStatuses">
+                <ul class="main-list" *ngFor="let smoking of chartInfo.SmokingStatuses">
                   <li>
                     <a (click)="openComponentDialog(smokingStatusDialogComponent, smoking, ActionTypes.view)">
                       <span *ngIf="smoking?.EffectiveFrom != null && smoking?.EffectiveFrom !=''">
@@ -148,7 +148,7 @@
                     </a>
                   </li>
                 </ul>
-                <ul class="main-list" *ngIf="this.chartInfo.SmokingStatuses?.length == (0 || null || undefined)">
+                <ul class="main-list" *ngIf="chartInfo.SmokingStatuses?.length == 0">
                   <li>
                     <span>No smoking status recorded.</span>
                   </li>
@@ -249,7 +249,7 @@
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list" *ngFor="let directive of this.chartInfo.AdvancedDirectives">
+                <ul class="main-list" *ngFor="let directive of chartInfo.AdvancedDirectives">
                   <li>
                     <a (click)="openComponentDialog(advancedDirectivesDialogComponent, directive, ActionTypes.view)">
                       <span *ngIf="directive?.RecordAt != null && directive?.RecordAt !=''">
@@ -261,7 +261,7 @@
                     </a>
                   </li>
                 </ul>
-                <ul class="main-list" *ngIf="this.chartInfo.AdvancedDirectives?.length == (0 || null || undefined)">
+                <ul class="main-list" *ngIf="chartInfo.AdvancedDirectives?.length == 0">
                   <li>
                     <span>No advanced directives recorded.</span>
                   </li>
