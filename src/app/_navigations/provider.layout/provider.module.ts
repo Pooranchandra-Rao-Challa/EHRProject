@@ -30,7 +30,7 @@ import { CalendarComponent } from '../../provider/calendar/calendar.component';
 import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { DateTimePickerModule } from "@syncfusion/ej2-angular-calendars";
 import { ScheduleModule, DayService, WeekService } from '@syncfusion/ej2-angular-schedule';
-import { LocationSelectService } from './location.service';
+import { LocationSelectService, ViewChangeService } from './location.service';
 import { UtilityService } from '../../_services/utiltiy.service';
 import { SmartSchedulerService } from '../../_services/smart.scheduler.service';
 import { SettingsModule } from '../../provider/settings/settings.module';
@@ -80,7 +80,7 @@ import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 import { TeethSurfaceModule } from 'src/app/_components/teeth-surface/teeth-surface.module';
 // import { PaginatorDirective } from 'src/app/_directives/pagination.directive'
 
-import { patientService } from 'src/app/_services/patient.service';
+import { PatientService } from 'src/app/_services/patient.service';
 import { BillingService } from '../../_services/billing.service';
 import { AlertMessage } from 'src/app/_alerts/alertMessage';
 
@@ -175,8 +175,8 @@ import { AlertMessage } from 'src/app/_alerts/alertMessage';
     NgxMaskModule.forRoot(),
 
   ],
-  providers: [DayService, WeekService, LocationSelectService,
-    UtilityService, SmartSchedulerService, OverlayService, patientService, BillingService,
+  providers: [DayService, WeekService, LocationSelectService, ViewChangeService,
+    UtilityService, SmartSchedulerService, OverlayService, PatientService, BillingService,
     SmartScheduleComponent, AlertMessage,
     { provide: NgbDateParserFormatter, useClass: NgbDateUSParserFormatter }
 

@@ -46,9 +46,9 @@ export class PatientDialogComponent implements OnInit {
     ///this.ref.close(this.frmSubscribe.value);
   }
   VerifyPatientAddress() {
-    console.log(this.PatientData.Address);
+    // console.log(this.PatientData.Address);
     this.utilityService.VerifyAddress(this.PatientData.Address).subscribe(resp => {
-      console.log(resp.Result)
+      // console.log(resp.Result)
       if (resp.IsSuccess) {
         this.PatientData.ValidatedAddress = resp.Result["delivery_line_1"] + ", " + resp.Result["last_line"];
         this.ValidAddressForUse = this.PatientData.ValidatedAddress;
@@ -77,7 +77,7 @@ export class PatientDialogComponent implements OnInit {
   }
   UpdatePatient() {
 
-    console.log(JSON.stringify(this.PatientData));
+    // console.log(JSON.stringify(this.PatientData));
     /*this.utilityService.CreateNewPatient(this.PatientData).subscribe(resp => {
       if (resp.IsSuccess) {
 
@@ -93,10 +93,10 @@ export class PatientDialogComponent implements OnInit {
     this.PatientData.Email = "";
   }
 
-  mouseenter(){
+  mouseenter() {
 
   }
-  mouseleve(){
+  mouseleve() {
 
   }
 }

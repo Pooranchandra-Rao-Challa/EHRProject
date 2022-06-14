@@ -1,4 +1,4 @@
-import { patientService } from './../_services/patient.service'
+import { PatientService } from './../_services/patient.service'
 import { Component, OnInit } from '@angular/core'
 import { User, UserLocations } from '../_models'
 import { AuthenticationService } from '../_services/authentication.service'
@@ -24,7 +24,7 @@ export class MyhealthComponent implements OnInit {
    AllergiesData:Allergies[];
    VitalStatus:VitalStats[];
 
-  constructor(private authenticationService: AuthenticationService,private patientservise: patientService,) {
+  constructor(private authenticationService: AuthenticationService,private patientservise: PatientService,) {
     //debugger
 
     this.user = authenticationService.userValue

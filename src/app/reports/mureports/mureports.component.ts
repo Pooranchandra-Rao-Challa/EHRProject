@@ -1939,7 +1939,7 @@ export class MureportsComponent implements OnInit {
       pdfMake.createPdf(documenDefinition).download('Stage2.Pdf');
     }
     else {
-      console.log('No file');
+      // console.log('No file');
     }
   }
 
@@ -2001,7 +2001,7 @@ export class MureportsComponent implements OnInit {
       "provider_Id": this.muReportForm.value.provider_Id,
       "TypeName": req,
     }
-    console.log(this.muReportForm.value);
+    // console.log(this.muReportForm.value);
     this.getStage2PatientList(Patientreport);
   }
 
@@ -3317,7 +3317,7 @@ export class MureportsComponent implements OnInit {
       "provider_Id": this.muReportForm.value.provider_Id,
       "TypeName": req,
     }
-    console.log(this.muReportForm.value);
+    // console.log(this.muReportForm.value);
     this.getPatientList(Patientreport);
   }
 

@@ -68,7 +68,7 @@
                         <span>Reason for visit:</span>
                       </div>
                       <div class="col-xl-10 col-lg-9 col-md-8 col-12">
-                        <textarea matInput></textarea>
+                        <textarea matInput [(ngModel)]="encounterInfo.mu2.VisitReason"></textarea>
                       </div>
                     </div>
                     <div class="row area-text">
@@ -76,12 +76,12 @@
                         <span>Clinical Instructions:</span>
                       </div>
                       <div class="col-xl-10 col-lg-9 col-md-8 col-12">
-                        <textarea matInput></textarea>
+                        <textarea matInput [(ngModel)]="encounterInfo.mu2.ClinicalInstructions"></textarea>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-lg-12 displayFlex" style="padding: 10px">
-                        <mat-checkbox class="encounter-checkbox">Patient Education Resources Provided</mat-checkbox>
+                        <mat-checkbox class="encounter-checkbox" [(ngModel)]="encounterInfo.mu2.EducationProvided">Patient Education Resources Provided</mat-checkbox>
                         <span class="popupInfoBox">
                           <div class="popup-info-button icon icon-xs icon-circle icon-ic-help" placement="auto"
                             [ngbTooltip]="tipContent" tooltipClass="my-custom-class" [autoClose]="false"></div>
@@ -116,7 +116,7 @@
                     </div>
                     <div class="row">
                       <div class="col-lg-12" style="padding: 7px 10px">
-                        <mat-checkbox class="encounter-checkbox">Health Information Exchange</mat-checkbox>
+                        <mat-checkbox class="encounter-checkbox" [(ngModel)]="encounterInfo.mu2.HealthInfoExchange">Health Information Exchange</mat-checkbox>
                         <span class="popupInfoBox">
                           <div class="popup-info-button icon icon-xs icon-circle icon-ic-help" placement="top"
                             [ngbTooltip]="tipContent3" tooltipClass="my-custom-class"></div>
@@ -198,7 +198,7 @@
                       <div class="col-lg-2">
                         <span>Reason for Referral:</span>
                       </div>
-                      <div class="col-lg-10">
+                      <div class="col-lg-10"> <!--  [(ngModal)]="encounterInfo.Referral.Reason"-->
                         <textarea matInput></textarea>
                       </div>
                     </div>

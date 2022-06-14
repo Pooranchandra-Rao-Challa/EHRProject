@@ -18,3 +18,21 @@ export class LocationSelectService {
     return this.subject.asObservable();
   }
 }
+
+@Injectable()
+export class ViewChangeService {
+  private subject = new Subject<any>();
+
+  sendData(view: string) {
+    this.subject.next(view);
+  }
+
+  clearData() {
+    this.subject.next();
+  }
+
+  getData(): Observable<any> {
+    return this.subject.asObservable();
+  }
+}
+

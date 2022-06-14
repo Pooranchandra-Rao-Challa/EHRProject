@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { ParticularInsuranceDetails, PrimaryInsurance, SecondaryInsurance } from 'src/app/_models/insurance';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
-import { patientService } from 'src/app/_services/patient.service';
+import { PatientService } from 'src/app/_services/patient.service';
 const moment = require('moment');
 
 
@@ -52,7 +52,7 @@ export class InsuranceComponent implements OnInit {
   inslist1: any;
   newsavelist: any = [];
 
-  constructor(private patientservice: patientService, private route: ActivatedRoute, private authService: AuthenticationService) {
+  constructor(private patientservice: PatientService, private route: ActivatedRoute, private authService: AuthenticationService) {
     this.primlist = {} as PrimaryInsurance;
     this.secList = {} as SecondaryInsurance;
     this.inslist = {} as ParticularInsuranceDetails;

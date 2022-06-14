@@ -13,7 +13,7 @@ import { ActivatedRoute, NavigationExtras, Route, Router } from '@angular/router
 import { SmartScheduleComponent } from '../smart.schedule/smart.schedule.component';
 import { SmartSchedulerService } from '../../_services/smart.scheduler.service';
 import { PracticeProviders } from '../../_models/_provider/practiceProviders';
-import { patientService } from './../../_services/patient.service';
+import { PatientService } from './../../_services/patient.service';
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, fromEvent, merge, Observable, of } from 'rxjs';
 import { catchError, finalize, tap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
@@ -44,7 +44,7 @@ export class PatientsComponent implements OnInit {
   value: any;
   @ViewChild('filter', { static: false }) filter: ElementRef;
   constructor(public overlayService: OverlayService,
-    private patientService: patientService,
+    private patientService: PatientService,
     private authService: AuthenticationService,
     private router: Router,
     private smartSchedulerService: SmartSchedulerService) {
@@ -152,7 +152,7 @@ export class PatientDatasource implements DataSource<ProviderPatient>{
   public loading$ = this.loadingSubject.asObservable();
 
 
-  constructor(private patientService: patientService,private queryParams: {}){
+  constructor(private patientService: PatientService,private queryParams: {}){
 
 
   }

@@ -24,54 +24,51 @@ export class AuditLogComponent implements OnInit {
   @ViewChild('TABLE') table: ElementRef;
   pageSize: number = 50;
   page: number = 1;
-  collectionSize:any = 5000;
+  collectionSize: any = 5000;
 
-  displayedColumns = ['Date','Patient','LocationName','Provider',
-  'DataType','Action','Details'];
+  displayedColumns = ['Date', 'Patient', 'LocationName', 'Provider',
+    'DataType', 'Action', 'Details'];
 
   TotalItems: any;
-  user:User;
+  user: User;
   startDate: string;
   enddate: string;
-  auditLogList: any=[];
+  auditLogList: any = [];
   ProviderId: string;
-  constructor(private authService: AuthenticationService,private settingservice:SettingsService) {
+  constructor(private authService: AuthenticationService, private settingservice: SettingsService) {
     this.user = authService.userValue;
 
   }
   ngOnInit(): void {
-// this.getdata();
+    // this.getdata();
     this.getAuditLogList('');
   }
-  getAuditLogList(event)
-  {
-    if(event == 'reset')
-    {
+  getAuditLogList(event) {
+    if (event == 'reset') {
       this.startDate = '';
       this.enddate = '';
       //debugger;
-      var reqparams={
+      var reqparams = {
         ProviderId: this.user.ProviderId,
         // ProviderId: "5b686dd4c832dd0c444f271b",
-        from:this.startDate,
+        from: this.startDate,
         to: this.enddate
       }
     }
-    else{
-      var reqparams={
-         ProviderId: this.user.ProviderId,
+    else {
+      var reqparams = {
+        ProviderId: this.user.ProviderId,
         // ProviderId: "5b686dd4c832dd0c444f271b",
-        from:this.startDate,
-        to:this.enddate
+        from: this.startDate,
+        to: this.enddate
       }
     }
-    this.settingservice.AuditLogs(reqparams).subscribe(reponse=>
-      {
-        this.auditLogList=reponse.ListResult;
-        // this.TotalItems = this.auditLogList.length;
-        //console.log(this.auditLogList);
+    this.settingservice.AuditLogs(reqparams).subscribe(reponse => {
+      this.auditLogList = reponse.ListResult;
+      // this.TotalItems = this.auditLogList.length;
+      //console.log(this.auditLogList);
 
-      })
+    })
   }
 
   dataType: string[] = [
@@ -101,12 +98,11 @@ export class AuditLogComponent implements OnInit {
   public print() {
     window.print();
   }
-  exportToCsv()
-  {
+  exportToCsv() {
     //debugger;
-    let element=document.getElementById('table')
-    const ws: XLSX.WorkSheet=XLSX.utils.table_to_sheet(element);
-    console.log(this.table.nativeElement);
+    let element = document.getElementById('table')
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+    // console.log(this.table.nativeElement);
 
 
 

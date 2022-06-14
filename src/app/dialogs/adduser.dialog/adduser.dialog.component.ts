@@ -11,31 +11,30 @@ import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
 export class AddUserDialogComponent implements OnInit {
 
   myControl = new FormControl();
-  filteredOptions:any;
-  codeList :string[]  = ['501', '502', '401','402','601','603'];
-  DisplayPwdInput:boolean=true;
+  filteredOptions: any;
+  codeList: string[] = ['501', '502', '401', '402', '601', '603'];
+  DisplayPwdInput: boolean = true;
   constructor(private ref: EHROverlayRef,) { }
 
   ngOnInit(): void {
-    this.filteredOptions = this.myControl.valueChanges.pipe(startWith(''),map(value => this.Filter(value)),);
-    console.log("Data",JSON.stringify(this.filteredOptions));
+    this.filteredOptions = this.myControl.valueChanges.pipe(startWith(''), map(value => this.Filter(value)),);
+    // console.log("Data",JSON.stringify(this.filteredOptions));
   }
 
   Filter(value: string): string[] {
     //debugger;
-    if(value==""){
+    if (value == "") {
       return ['Please enter 1 or more characters']
     }
     const filterValue = value.toLowerCase();
-    var searchData=this.codeList.filter(option => option.toLowerCase().includes(filterValue));
-    if(searchData.length===0){
+    var searchData = this.codeList.filter(option => option.toLowerCase().includes(filterValue));
+    if (searchData.length === 0) {
       return ['No Data Found']
     }
     return searchData;
   }
-  GeneratePassword()
-  {
-    this.DisplayPwdInput=false;
+  GeneratePassword() {
+    this.DisplayPwdInput = false;
   }
   close() {
     this.ref.close(null);

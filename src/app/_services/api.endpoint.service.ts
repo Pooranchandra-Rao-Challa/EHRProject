@@ -304,6 +304,17 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "AdminImportedPatientEncounter";
   }
 
+  get _updateLockedUserUrl() {
+    return this._baseUrl + "UpdateLockedUser";
+  }
+
+  get _updateAccessProviderUrl() {
+    return this._baseUrl + "UpdateAccessProvider";
+  }
+  get _updatedTrailStatusUrl(){
+    return this._baseUrl + "UpdatedTrailStatus";
+  }
+
   get _medicalCodesUrl() {
     return this._baseUrl + "MedicalCodes";
 
@@ -475,6 +486,9 @@ export class APIEndPoint extends EndpointBase {
   }
   get _chartInfoUrl() {
     return this._baseUrl + "ChartInfo";
+  }
+  get _createEncounterUrl() {
+    return this._baseUrl + "CreateEncounter";
   }
 
   constructor(public http: HttpClient) {

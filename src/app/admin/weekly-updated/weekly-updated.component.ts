@@ -32,9 +32,9 @@ export class WeeklyUpdatedComponent implements OnInit {
   filteredList: any = [];
   DisplayTdBody: any;
   RowIndex: any;
-  ProviderList:any=[];
-  ProviderName:any=[];
-  FistProviderName:any;
+  ProviderList: any = [];
+  ProviderName: any = [];
+  FistProviderName: any;
 
 
   constructor(private router: Router, private adminservice: AdminService) { }
@@ -49,7 +49,7 @@ export class WeeklyUpdatedComponent implements OnInit {
     this.adminservice.WeeklyUpdateList().subscribe(resp => {
       if (resp.IsSuccess) {
         this.WeeklyUpdatedList = resp.ListResult;
-        console.log(this.WeeklyUpdatedList);
+        // console.log(this.WeeklyUpdatedList);
       }
       else {
         this.WeeklyUpdatedList = [];
@@ -59,29 +59,29 @@ export class WeeklyUpdatedComponent implements OnInit {
   }
 
   GetBodyData(row) {
-   this.RowIndex = row;
-   let bodydata =this.WeeklyUpdatedList[row];
-   this.DisplayTdBody = bodydata.body;
-   console.log(this.DisplayTdBody);
+    this.RowIndex = row;
+    let bodydata = this.WeeklyUpdatedList[row];
+    this.DisplayTdBody = bodydata.body;
+    //  console.log(this.DisplayTdBody);
 
   }
 
   filterDropdown(e) {
-    console.log("e in filterDropdown -------> ", e);
+    // console.log("e in filterDropdown -------> ", e);
     window.scrollTo(window.scrollX, window.scrollY + 1);
     let searchString = e.toLowerCase();
     if (!searchString) {
       this.filteredList = this.ProviderList.slice();
-      console.log(this.filteredList)
+      // console.log(this.filteredList)
       return;
     } else {
       this.filteredList = this.ProviderList.filter(
         user => user.ProviderName.toLowerCase().indexOf(searchString) > -1
       );
-      console.log(this.filteredList)
+      // console.log(this.filteredList)
     }
     window.scrollTo(window.scrollX, window.scrollY - 1);
-    console.log("this.filteredList indropdown -------> ", this.filteredList);
+    // console.log("this.filteredList indropdown -------> ", this.filteredList);
   }
 
   selectValue(name) {
@@ -108,9 +108,9 @@ export class WeeklyUpdatedComponent implements OnInit {
         this.ProviderList = resp.ListResult;
         // this.ProviderName = this.ProviderList.map(t=>t.ProviderName);
         this.filteredList = this.ProviderList;
-        this.FistProviderName=  this.filteredList[0].ProviderName
+        this.FistProviderName = this.filteredList[0].ProviderName
         this.selectedValue = this.FistProviderName;
-        console.log(this.filteredList);
+        // console.log(this.filteredList);
       }
     });
   }

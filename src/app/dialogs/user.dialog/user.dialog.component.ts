@@ -46,7 +46,7 @@ export class UserDialogComponent implements OnInit {
     // console.log(window.pageXOffset,window.pageYOffset);
 
 
-    console.log(this.scrHeight, this.scrWidth);
+    // console.log(this.scrHeight, this.scrWidth);
   }
 
   //   @HostListener('window:scroll', ['$event'])
@@ -117,13 +117,13 @@ export class UserDialogComponent implements OnInit {
       LoginProviderId: this.user.ProviderId,
       ClinicId: this.user.ClinicId
     }
-    console.log(reqparams);
+    // console.log(reqparams);
 
     this.settingsService.UserInfoWithPraceticeLocations(reqparams).subscribe(resp => {
 
       this.EditProvider = resp.Result as NewUser;
       this.EditProvider.LocationInfo = JSON.parse(resp.Result.LocationInfo);
-      console.log(this.EditProvider)
+      // console.log(this.EditProvider)
     });
   }
 
@@ -137,7 +137,7 @@ export class UserDialogComponent implements OnInit {
     if (this.EditProvider.PracticeName == null)
       this.EditProvider.PracticeName = this.user.BusinessName;
 
-    console.log(JSON.stringify(this.EditProvider))
+    // console.log(JSON.stringify(this.EditProvider))
     this.settingsService.AddUpdateUser(this.EditProvider).subscribe(resp => {
       if (resp.IsSuccess) {
         // this.closePopup();
@@ -183,7 +183,7 @@ export class UserDialogComponent implements OnInit {
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
     data?: any, action?: Actions) {
     let dialogData: any;
-    if(content === this.locationDialogComponent && action == Actions.view){
+    if (content === this.locationDialogComponent && action == Actions.view) {
       dialogData = data;
     }
     const ref = this.overlayService.open(content, dialogData);

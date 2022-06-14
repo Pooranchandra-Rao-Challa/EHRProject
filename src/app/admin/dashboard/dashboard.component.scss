@@ -114,6 +114,24 @@ input[type=checkbox]:checked:after {
   color: #3598dc;
   padding: 3px 13px;
 }
+.save-button:hover{
+  border-color: #32c5d2;
+  color: #FFFFFF;
+  background-color: #32c5d2;
+}
+
+.save-button.remove-btn {
+  border-color: #e7505a;
+  color: #e7505a;
+  background: none;
+}
+
+.save-button.remove-btn:hover{
+  border-color: #e7505a;
+  color: #ffffff;
+  background-color: #e7505a;
+}
+
 .cancel-button {
   font-size: 100% !important;
   text-align: center !important;
@@ -193,7 +211,6 @@ input[type=checkbox]:checked:after {
 }
 
 @media(min-width:300px) and (max-width:560px){
-
   .modal-content {
     width: 122%;
   }
@@ -203,7 +220,6 @@ input[type=checkbox]:checked:after {
   }
 }
 @media(min-width:565px) and (max-width:840px){
-
   .modal-content {
     width: 100%;
   }
@@ -216,5 +232,11 @@ input[type=checkbox]:checked:after {
 }
 .delete-icon{
   color: red;
-  // background-color: #333333;
+}
+
+.modal-content.lockedModal{
+border: 1px solid #c1bcbc;
+}
+.letter-capital:first-letter {
+  text-transform: capitalize;
 }
