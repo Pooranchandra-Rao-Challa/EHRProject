@@ -127,7 +127,7 @@
                 <div class="row">
                   <div class="col-12">
                     <p class="card-title">
-                      <span (click)="openComponentDialog(smokingStatusDialogComponent, this.currentPatient.PatientId)">Smoking
+                      <span (click)="openComponentDialog(smokingStatusDialogComponent, null, ActionTypes.add)">Smoking
                         Status</span>
                       <span style="cursor:auto;"> and </span>
                       <span>Tobacco Use</span>
@@ -136,9 +136,9 @@
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list" *ngFor="let smoking of smokingstatus">
+                <ul class="main-list" *ngFor="let smoking of this.chartInfo.SmokingStatuses">
                   <li>
-                    <a (click)="openComponentDialog(smokingStatusDialogComponent, smoking)">
+                    <a (click)="openComponentDialog(smokingStatusDialogComponent, smoking, ActionTypes.view)">
                       <span *ngIf="smoking?.EffectiveFrom != null && smoking?.EffectiveFrom !=''">
                         - {{smoking.EffectiveFrom | date: 'MM/dd/yyyy'}}
                       </span>
@@ -148,7 +148,7 @@
                     </a>
                   </li>
                 </ul>
-                <ul class="main-list" *ngIf="smokingstatus?.length == (0 || null || undefined)">
+                <ul class="main-list" *ngIf="this.chartInfo.SmokingStatuses?.length == (0 || null || undefined)">
                   <li>
                     <span>No smoking status recorded.</span>
                   </li>
@@ -249,7 +249,7 @@
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list" *ngFor="let directive of chartInfo.AdvancedDirectives">
+                <ul class="main-list" *ngFor="let directive of this.chartInfo.AdvancedDirectives">
                   <li>
                     <a (click)="openComponentDialog(advancedDirectivesDialogComponent, directive, ActionTypes.view)">
                       <span *ngIf="directive?.RecordAt != null && directive?.RecordAt !=''">
@@ -261,7 +261,7 @@
                     </a>
                   </li>
                 </ul>
-                <ul class="main-list" *ngIf="advancedDirectives?.length == (0 || null || undefined)">
+                <ul class="main-list" *ngIf="this.chartInfo.AdvancedDirectives?.length == (0 || null || undefined)">
                   <li>
                     <span>No advanced directives recorded.</span>
                   </li>
