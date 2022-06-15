@@ -3,7 +3,8 @@ import { Component, OnInit } from '@angular/core'
 import { User, UserLocations } from '../_models'
 import { AuthenticationService } from '../_services/authentication.service'
 import { PatientProfile } from '../_models/_patient/patientprofile'
-import { Allergies, CareTeam, PatientClinicalProvider, ProblemDX, VitalStats } from '../_models/_patient/patientclinicalprovider'
+import { Allergies, CareTeam, LabtestResult, Medications, MedicationsAllergies, PatientClinicalProvider,
+   ProblemDX, VitalStats } from '../_models/_patient/patientclinicalprovider'
 
 
 @Component({
@@ -13,8 +14,8 @@ import { Allergies, CareTeam, PatientClinicalProvider, ProblemDX, VitalStats } f
 })
 export class MyhealthComponent implements OnInit {
   user: User
-  locationsInfo: UserLocations[]
-   PatientProfile: PatientProfile
+  locationsInfo: UserLocations[];
+   PatientProfile: PatientProfile;
    StatusList :any ;
    ProvidersList:any;
    smokingStatus: any;
@@ -23,6 +24,11 @@ export class MyhealthComponent implements OnInit {
    Providerdata:PatientClinicalProvider[];
    AllergiesData:Allergies[];
    VitalStatus:VitalStats[];
+   Medications:Medications[];
+   AllAlergies:MedicationsAllergies[];
+   LabTest:LabtestResult[];
+   ProcedurePatietn:ProblemDX[];
+   CarePlan:ProblemDX[];
 
   constructor(private authenticationService: AuthenticationService,private patientservise: patientService,) {
     //debugger
@@ -32,13 +38,18 @@ export class MyhealthComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.getclinicalProvider();
-    this.getPatientProfile();
+     this.getclinicalProvider();
+     this.getPatientProfile();
      this.getSmokingStatus();
      this.getCareTeamByPatientId();
      this.getProblemDx();
-    //  this.getVitalStatus();
-  }
+     this.getVitalStatus();
+     this.getMedicationsByPatientId();
+     this.getAllMedicationAlleries();
+     this.getLabTest();
+     this.getCarePlanInstruction();
+     this.getProcedurePatient()
+;  }
 
   getSmokingStatus() {
 
@@ -84,21 +95,54 @@ export class MyhealthComponent implements OnInit {
         this.ProblemDxData = resp.ListResult;
     });
   }
-  // getAllergiesByPatientId() {
-  //   let reqparam = {
-  //     'PatientId':this.user.PatientId,
-  //   }
-  //   this.patientservise.AllergiesByPatientId(reqparam).subscribe(resp => {
-  //       this.AllergiesData = resp.ListResult;
-  //   });
-  // }
+  getMedicationsByPatientId() {
+    let reqparam = {
+      'PatientId':this.user.PatientId,
+    }
+    
+      this.patientservise.MedicationsByPatientId(reqparam).subscribe(resp => {
+      this.Medications = resp.ListResult;
+    });
+  }
+  getAllMedicationAlleries() {
+    let reqparam = {
+      'PatientId':this.user.PatientId,
+    }
+    this.patientservise.ProblemDx(reqparam).subscribe(resp => {
+        this.AllAlergies = resp.ListResult;
+    });
+  }
+    getLabTest() {
+    let reqparam = {
+      'PatientId':this.user.PatientId,
+    }
+    this.patientservise.LabTestResultByPatientId(reqparam).subscribe(resp => {
+        this.LabTest = resp.ListResult;
+    });
+  }
 
-  // getVitalStatus() {
-  //   let reqparam = {
-  //     'PatientId':this.user.PatientId,
-  //   }
-  //   this.patientservise.VitalStatsByPatientId(reqparam).subscribe(resp => {
-  //       this.VitalStatus = resp.ListResult;
-  //   });
-  // }
+  getVitalStatus() {
+    let reqparam = {
+      'PatientId':this.user.PatientId,
+    }
+    this.patientservise.VitalStatsByPatientId(reqparam).subscribe(resp => {
+        this.VitalStatus = resp.ListResult;
+    });
+  }
+  getCarePlanInstruction() {
+    let reqparam = {
+      'PatientId':this.user.PatientId,
+    }
+    this.patientservise.CarePlanGoalInstructionsBypatientId(reqparam).subscribe(resp => {
+        this.CarePlan = resp.ListResult;
+    });
+  }
+  getProcedurePatient() {
+    let reqparam = {
+      'PatientId':this.user.PatientId,
+    }
+    this.patientservise.ProcedureByPatientId(reqparam).subscribe(resp => {
+        this.ProcedurePatietn = resp.ListResult;
+    });
+  }
 }
