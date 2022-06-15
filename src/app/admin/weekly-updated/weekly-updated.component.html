@@ -63,7 +63,6 @@
                   <p>{{DisplayTdBody}}</p>
                 </div>
               </td>
-
               <td>{{item.header}}</td>
               <td>{{item.slide_type}}</td>
               <td>{{item.logo_type}}</td>
@@ -72,7 +71,7 @@
               <td>{{item.tag_line}}</td>
               <td>
                 <button type="button" class="btn btn-style btn-edit btn-sm mx-1"
-                  (click)="EditSectionNew('SectionsNew','admin/sectionnew')">Edit</button>
+                  (click)="EditSectionNew('SectionsNew','admin/sectionnew',item)">Edit</button>
                 <button type="button" class="btn btn-delete btn-sm mx-1 my-md-1 my-xs-1 my-sm-1">Delete</button>
               </td>
             </tr>

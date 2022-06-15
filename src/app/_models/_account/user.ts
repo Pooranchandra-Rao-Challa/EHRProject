@@ -1,3 +1,4 @@
+import { WeeklyUpdated } from '../_admin/weeklyupdated';
 import{ProviderPatient} from './../_provider/Providerpatient';
 export interface User {
   CurrentLocation: string;
@@ -30,4 +31,9 @@ export class ViewModel{
   Patient?: ProviderPatient;
   PatientView?: string = ""
 
+}
+
+export class AdminViewModal{
+  WeeklyUpdate?: WeeklyUpdated;
+  WeeklyUpdatedView?:string = ""
 }
