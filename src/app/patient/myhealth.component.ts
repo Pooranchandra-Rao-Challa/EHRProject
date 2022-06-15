@@ -30,7 +30,7 @@ export class MyhealthComponent implements OnInit {
    ProcedurePatietn:ProblemDX[];
    CarePlan:ProblemDX[];
 
-  constructor(private authenticationService: AuthenticationService,private patientservise: patientService,) {
+  constructor(private authenticationService: AuthenticationService,private patientService: patientService,) {
     //debugger
 
     this.user = authenticationService.userValue
@@ -56,7 +56,7 @@ export class MyhealthComponent implements OnInit {
     var req={
       "PatientId": this.user.PatientId,
     }
-    this.patientservise.SmokingStatusByPatientId(req).subscribe(req => {
+    this.patientService.SmokingStatusByPatientId(req).subscribe(req => {
         this.StatusList = req.ListResult[0]
         this.smokingStatus = this.StatusList.Status
     })
@@ -66,7 +66,7 @@ export class MyhealthComponent implements OnInit {
     var req={
       "PatientId": this.user.PatientId,
     }
-    this.patientservise.PatientMyProfileByPatientId(req).subscribe(resp => {
+    this.patientService.PatientMyProfileByPatientId(req).subscribe(resp => {
         this.PatientProfile=resp.ListResult[0]
     })
   }
@@ -75,7 +75,7 @@ export class MyhealthComponent implements OnInit {
     var req={
       "PatientId": this.user.PatientId,
     }
-    this.patientservise.PatientClinicProviders(req).subscribe(req => {
+    this.patientService.PatientClinicProviders(req).subscribe(req => {
         this.Providerdata = req.ListResult;
     })
   }
@@ -83,7 +83,7 @@ export class MyhealthComponent implements OnInit {
     let reqparam = {
       'PatientId':this.user.PatientId,
     }
-    this.patientservise.CareTeamByPatientId(reqparam).subscribe(resp => {
+    this.patientService.CareTeamByPatientId(reqparam).subscribe(resp => {
         this.CareTeamList = resp.ListResult;
     });
   }
@@ -91,7 +91,7 @@ export class MyhealthComponent implements OnInit {
     let reqparam = {
       'PatientId':this.user.PatientId,
     }
-    this.patientservise.ProblemDx(reqparam).subscribe(resp => {
+    this.patientService.ProblemDx(reqparam).subscribe(resp => {
         this.ProblemDxData = resp.ListResult;
     });
   }
@@ -99,8 +99,8 @@ export class MyhealthComponent implements OnInit {
     let reqparam = {
       'PatientId':this.user.PatientId,
     }
-    
-      this.patientservise.MedicationsByPatientId(reqparam).subscribe(resp => {
+
+      this.patientService.MedicationsByPatientId(reqparam).subscribe(resp => {
       this.Medications = resp.ListResult;
     });
   }
@@ -108,7 +108,7 @@ export class MyhealthComponent implements OnInit {
     let reqparam = {
       'PatientId':this.user.PatientId,
     }
-    this.patientservise.ProblemDx(reqparam).subscribe(resp => {
+    this.patientService.ProblemDx(reqparam).subscribe(resp => {
         this.AllAlergies = resp.ListResult;
     });
   }
@@ -116,7 +116,7 @@ export class MyhealthComponent implements OnInit {
     let reqparam = {
       'PatientId':this.user.PatientId,
     }
-    this.patientservise.LabTestResultByPatientId(reqparam).subscribe(resp => {
+    this.patientService.LabTestResultByPatientId(reqparam).subscribe(resp => {
         this.LabTest = resp.ListResult;
     });
   }
@@ -125,7 +125,7 @@ export class MyhealthComponent implements OnInit {
     let reqparam = {
       'PatientId':this.user.PatientId,
     }
-    this.patientservise.VitalStatsByPatientId(reqparam).subscribe(resp => {
+    this.patientService.VitalStatsByPatientId(reqparam).subscribe(resp => {
         this.VitalStatus = resp.ListResult;
     });
   }
@@ -133,7 +133,7 @@ export class MyhealthComponent implements OnInit {
     let reqparam = {
       'PatientId':this.user.PatientId,
     }
-    this.patientservise.CarePlanGoalInstructionsBypatientId(reqparam).subscribe(resp => {
+    this.patientService.CarePlanGoalInstructionsBypatientId(reqparam).subscribe(resp => {
         this.CarePlan = resp.ListResult;
     });
   }
@@ -141,7 +141,7 @@ export class MyhealthComponent implements OnInit {
     let reqparam = {
       'PatientId':this.user.PatientId,
     }
-    this.patientservise.ProcedureByPatientId(reqparam).subscribe(resp => {
+    this.patientService.ProcedureByPatientId(reqparam).subscribe(resp => {
         this.ProcedurePatietn = resp.ListResult;
     });
   }

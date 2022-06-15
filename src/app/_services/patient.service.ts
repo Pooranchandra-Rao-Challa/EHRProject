@@ -157,4 +157,7 @@ export class patientService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._activityLogsUrl, reqparams);
   }
 
+  UpdatePatientMyprofile(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._updatePatientProfileUrl, reqparams);
+  }
 }

@@ -115,8 +115,10 @@
                       <div class="row pl-4">
                         <div class="col-lg-12 col-md-12 col-sm-12  mt-3">
                           <div class="controls">
-                            <button type="button" [ngClass]="(partnerSignup.email==''||partnerSignup.email==null)? 'disable-button col-md-2': 'reg-button col-md-2'"
-                             (click)="CreatePartnerSignup(partnerSignup)" [disabled]="partnerSignup.email==''||partnerSignup.email==null" >Submit</button>
+                            <button type="button" [ngClass]="(partnerSignup.email==''||partnerSignup.email==null||partnerSignup.phone_number==''||partnerSignup.phone_number==null)?
+                            'disable-button col-md-2': 'reg-button col-md-2'"
+                             (click)="CreatePartnerSignup(partnerSignup)" [disabled]="partnerSignup.email==''||partnerSignup.email==null
+                             ||partnerSignup.phone_number==''||partnerSignup.phone_number==null" >Submit</button>
                           </div>
                         </div>
                       </div>
@@ -125,8 +127,6 @@
                 </div>
               </div>
             </div>
-
-            <!-- end personal info -->
           </div>
         </div>
       </div>

@@ -477,6 +477,10 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "ChartInfo";
   }
 
+  // Update for patient My Profile
+  get _updatePatientProfileUrl() {
+    return this._baseUrl + "UpdatePatientProfile";
+  }
   constructor(public http: HttpClient) {
     super();
   }
