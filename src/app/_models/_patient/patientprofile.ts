@@ -7,7 +7,8 @@ export interface PatientProfile {
   Sex?: string;
   DateOfBirth?: string;
   DateOfDeath?: string;
-  Gender:string;
+  Gender?:string;
+  Age?:string;
   HomePhone?: string;
   CellPhone?: string;
   WorkPhone?: string;

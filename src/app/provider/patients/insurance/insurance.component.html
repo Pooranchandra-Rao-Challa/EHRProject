@@ -1,5 +1,5 @@
 <div class="Insurance">
-    <button class="btn btn-orange pull-right mt-2 Helvetica-sans-serif-medium">Save</button>
+    <button class="btn btn-orange pull-right mt-2 Helvetica-sans-serif-medium" (click)="Saveinsurance()">Save</button>
 </div>
 
 <div class="container-fluid">
@@ -122,7 +122,7 @@
                         <div class="col-4">
                             <button [disabled]="viewpidetailsforprimary"
                                 class="btn btn-green btn-insurance pull-right  Helvetica-sans-serif-medium"
-                                type="button" (click)="getInsuranceDetails()" data-bs-toggle="modal"
+                                type="button" (click)="getInsuranceDetails('primary')" data-bs-toggle="modal"
                                 data-bs-target="#Primary-Insurance-Details">
                                 View Primary Insurance details
                             </button>
@@ -209,7 +209,8 @@
                     <div class="row">
                         <label class="Helvetica-sans-serif-medium">Date of Birth</label>
                         <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-6">
-                            <input matInput [matDatepicker]="dp4" placeholder="Date of Birth">
+                            <input matInput [matDatepicker]="dp4" placeholder="Date of Birth"
+                                [(ngModel)]="secList.DateOfBirth">
                             <mat-datepicker-toggle matSuffix [for]="dp4">
                             </mat-datepicker-toggle>
                             <mat-datepicker #dp4 disabled="false"></mat-datepicker>
@@ -308,9 +309,9 @@
                         <div class="col-4">
                             <button [disabled]="viewpidetailsforsecondary"
                                 class="btn btn-green btn-insurance pull-right  Helvetica-sans-serif-medium"
-                                (click)="getInsuranceDetails()" type="button" data-bs-toggle="modal"
+                                (click)="getInsuranceDetails('secondary')" type="button" data-bs-toggle="modal"
                                 data-bs-target="#Primary-Insurance-Details">
-                                View Primary Insurance details
+                                View Secondary Insurance details
                             </button>
                         </div>
                     </div>
@@ -726,7 +727,7 @@
 
                     <div class="col-md-4">
                         <button mat-raised-button type="submit" class="btn btn-green btn-primary"
-                            data-bs-dismiss="modal" aria-label="Close" (click)="insurancereset()">Cancel</button>
+                            data-bs-dismiss="modal" aria-label="Close">Cancel</button>
                     </div>
                 </div>
             </div>

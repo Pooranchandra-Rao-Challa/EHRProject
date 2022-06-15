@@ -52,7 +52,7 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-green" (click)="CreateSmokingStatus()">Save</button>
+      <button class="btn btn-green" (click)="CreateSmokingStatus()" [disabled]="disablesmokingStatus()">Save</button>
       <button class="btn btn-green" (click)="cancel()">Cancel</button>
     </div>
   </div>
