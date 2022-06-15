@@ -24,9 +24,9 @@ export class AddressVerificationDialogComponent implements OnInit {
   }
 
   VerifyPatientAddress() {
-    console.log(this.PatientData.Address);
+    // console.log(this.PatientData.Address);
     this.utilityService.VerifyAddress(this.PatientData.Address).subscribe(resp => {
-      console.log(resp.Result)
+      // console.log(resp.Result)
       if (resp.IsSuccess) {
         this.PatientData.ValidatedAddress = resp.Result["delivery_line_1"] + ", " + resp.Result["last_line"];
         this.ValidAddressForUse = this.PatientData.ValidatedAddress;

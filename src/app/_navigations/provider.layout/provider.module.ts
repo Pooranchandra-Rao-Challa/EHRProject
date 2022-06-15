@@ -28,9 +28,9 @@ import { ProviderRoutingModule } from './provider-routing.module';
 import { SmartScheduleComponent } from '../../provider/smart.schedule/smart.schedule.component';
 import { CalendarComponent } from '../../provider/calendar/calendar.component';
 import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
-import { DateTimePickerModule } from "@syncfusion/ej2-angular-calendars";
-import { ScheduleModule, DayService, WeekService } from '@syncfusion/ej2-angular-schedule';
-import { LocationSelectService } from './location.service';
+// import { DateTimePickerModule } from "@syncfusion/ej2-angular-calendars";
+// import { ScheduleModule, DayService, WeekService } from '@syncfusion/ej2-angular-schedule';
+import { LocationSelectService, ViewChangeService } from './location.service';
 import { UtilityService } from '../../_services/utiltiy.service';
 import { SmartSchedulerService } from '../../_services/smart.scheduler.service';
 import { SettingsModule } from '../../provider/settings/settings.module';
@@ -73,14 +73,14 @@ import { InterventionDialogComponent } from '../../dialogs/intervention.dialog/i
 import { DropDownSearchComponent } from '../../_components/drop-down-search/drop-down-search.component';
 import { AdvancedMedicalCodeModule } from '../../_components/advanced-medical-code-search/advanced-medical-code-module';
 import { ChangePasswordDialogComponent } from 'src/app/dialogs/user.dialog/changepassword.dialog.component'
-import { LocationDialogComponent} from 'src/app/dialogs/location.dialog/location.dialog.component';
-import { VitalDialogComponent} from 'src/app/dialogs/vital.dalog/vital.dialog.component';
+import { LocationDialogComponent } from 'src/app/dialogs/location.dialog/location.dialog.component';
+import { VitalDialogComponent } from 'src/app/dialogs/vital.dalog/vital.dialog.component';
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 // import { NgxNativeDateModule, NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 import { TeethSurfaceModule } from 'src/app/_components/teeth-surface/teeth-surface.module';
 // import { PaginatorDirective } from 'src/app/_directives/pagination.directive'
 
-import { patientService } from 'src/app/_services/patient.service';
+import { PatientService } from 'src/app/_services/patient.service';
 import { BillingService } from '../../_services/billing.service';
 import { AlertMessage } from 'src/app/_alerts/alertMessage';
 
@@ -164,9 +164,9 @@ import { AlertMessage } from 'src/app/_alerts/alertMessage';
     MatTableExporterModule,
     Ng2OrderModule,
     MatAutocompleteModule,
-    ScheduleModule,
+    // ScheduleModule,
     DropDownListModule,
-    DateTimePickerModule,
+    // DateTimePickerModule,
     SettingsModule,
     PatientsModule,
     AdvancedMedicalCodeModule,
@@ -175,8 +175,8 @@ import { AlertMessage } from 'src/app/_alerts/alertMessage';
     NgxMaskModule.forRoot(),
 
   ],
-  providers: [DayService, WeekService, LocationSelectService,
-    UtilityService, SmartSchedulerService, OverlayService, patientService, BillingService,
+  providers: [LocationSelectService, ViewChangeService,
+    UtilityService, SmartSchedulerService, OverlayService, PatientService, BillingService,
     SmartScheduleComponent, AlertMessage,
     { provide: NgbDateParserFormatter, useClass: NgbDateUSParserFormatter }
 

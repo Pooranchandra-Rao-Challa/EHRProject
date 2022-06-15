@@ -1,21 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { LocationSelectService } from './location.service';
-import{ OverlayService} from '../../overlay.service'
+import { LocationSelectService,ViewChangeService } from './location.service';
 
 @Component({ templateUrl: 'provider.component.html' })
 export class ProviderComponent implements OnInit {
   constructor(
-    private router: Router,
     private locationSelectService: LocationSelectService,
-    //private overlayservice: OverlayService
+    private viewChagneService: ViewChangeService,
   ) {
-
-
   }
 
   ngOnInit() {
-
   }
   locationChanged(locationId) {
     this.locationSelectService.sendData(locationId);
@@ -23,10 +17,9 @@ export class ProviderComponent implements OnInit {
   ngOnDestroy() {
     // clear message
     this.locationSelectService.clearData();
+    this.viewChagneService.clearData();
   }
-
-  clearData() {
-    // clear message
-    this.locationSelectService.clearData();
+  UpdateBredcrum(view){
+    this.viewChagneService.sendData(view);
   }
 }

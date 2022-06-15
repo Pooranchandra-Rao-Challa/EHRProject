@@ -400,8 +400,8 @@ export class ScheduleComponent implements OnInit {
     };
     this.settingsService.Generalschedule(reqparams).subscribe((resp) => {
       this.generalSchedule = resp.ListResult[0];
-      console.log(this.generalSchedule);
-      console.log(this.generalSchedule.OutSidePracticeHour);
+      // console.log(this.generalSchedule);
+      // console.log(this.generalSchedule.OutSidePracticeHour);
 
     })
   }

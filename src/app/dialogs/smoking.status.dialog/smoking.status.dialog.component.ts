@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { EHROverlayRef } from '../../ehr-overlay-ref';
 import { SmokingStatus } from 'src/app/_models/_provider/chart';
-import { patientService } from '../../_services/patient.service';
+import { PatientService } from '../../_services/patient.service';
 import { DatePipe } from "@angular/common";
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
-
+import { AuthenticationService } from 'src/app/_services/authentication.service';
+import { ProviderPatient } from '../../_models/_provider/Providerpatient';
+import { PatientChart } from '../../_models/_provider/chart';
 const moment = require('moment');
 
 @Component({
@@ -13,36 +15,51 @@ const moment = require('moment');
   styleUrls: ['./smoking.status.dialog.component.scss']
 })
 export class SmokingStatusDialogComponent implements OnInit {
-  smokingStatus: SmokingStatus = {} as SmokingStatus;
+  smokingStatus: SmokingStatus;
+  currentPatient: ProviderPatient;
 
   constructor(private ref: EHROverlayRef,
-    private patientService: patientService,
+    private patientService: PatientService,
     public datepipe: DatePipe,
-    private alertmsg: AlertMessage) {
-    let data: SmokingStatus = ref.RequestData;
-    this.smokingStatus = data;
-    if (data.EffectiveFrom != (null || '' || undefined)) {
-      this.smokingStatus.EffectiveFrom = moment(data.EffectiveFrom).format('YYYY-MM-DD');
+    private alertmsg: AlertMessage,
+    private authService: AuthenticationService) {
+    this.updateLocalModel(ref.RequestData);
+    if (this.smokingStatus.EffectiveFrom != (null || '' || undefined)) {
+      this.smokingStatus.EffectiveFrom = moment(this.smokingStatus.EffectiveFrom).format('YYYY-MM-DD');
     }
   }
 
   ngOnInit(): void {
+    this.currentPatient = this.authService.viewModel.Patient;
   }
 
   todayDate() {
-    this.smokingStatus.EffectiveFrom = moment(new Date()).format('YYYY-MM-DD');
+    this.smokingStatus.EffectiveFrom = new Date;
+  }
+
+  disablesmokingStatus() {
+    return !(this.smokingStatus.Status != undefined
+      && this.smokingStatus.EffectiveFrom != undefined)
   }
 
   cancel() {
     this.ref.close(null);
   }
 
+  updateLocalModel(data: SmokingStatus) {
+    this.smokingStatus = new SmokingStatus;
+    if (data == null) return;
+    this.smokingStatus = data;
+  }
+
   CreateSmokingStatus() {
-    let isAdd = this.smokingStatus.SmokingStatusId == (null || '' || undefined);
-    this.smokingStatus.EffectiveFrom = this.datepipe.transform(this.smokingStatus.EffectiveFrom, "MM/dd/yyyy hh:mm:ss");
+    let isAdd = this.smokingStatus.SmokingStatusId == "";
+    this.smokingStatus.PatientId = this.currentPatient.PatientId;
     this.patientService.CreateSmokingStatus(this.smokingStatus).subscribe((resp) => {
       if (resp.IsSuccess) {
-        this.cancel();
+        this.ref.close({
+          "UpdatedModal": PatientChart.SmokingStatus
+        });
         this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CSS001" : "M2CSS002"]);
       }
       else {

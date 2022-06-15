@@ -13,19 +13,19 @@ import { AdminService } from 'src/app/_services/admin.service';
 export class AdminsComponent implements OnInit {
   isAddAdmin: boolean = false;
   isSave: boolean = true;
-  codeValue= new FormControl();
+  codeValue = new FormControl();
   adminDataSource: Admins[];
   dataSource: Admins[];
   myControl = new FormControl();
-  filteredOptions:any;
-  codeList :string[]  = ['501', '502', '401','402','601','603'];
+  filteredOptions: any;
+  codeList: string[] = ['501', '502', '401', '402', '601', '603'];
 
   constructor(private adminservice: AdminService) { }
 
   ngOnInit(): void {
-    this.filteredOptions = this.myControl.valueChanges.pipe(startWith(''),map(value => this._filter(value)),);
-    console.log("Data",JSON.stringify(this.filteredOptions));
-    this. getAdminList();
+    this.filteredOptions = this.myControl.valueChanges.pipe(startWith(''), map(value => this._filter(value)),);
+    // console.log("Data",JSON.stringify(this.filteredOptions));
+    this.getAdminList();
   }
 
 
@@ -37,26 +37,26 @@ export class AdminsComponent implements OnInit {
         this.dataSource = resp.ListResult;
       } else
         this.adminDataSource = [];
-        this.adminDataSource
+      this.adminDataSource
     });
   }
 
 
   private _filter(value: string): string[] {
     //debugger;
-    if(value==""){
+    if (value == "") {
       return ['Please enter 1 or more characters']
     }
     const filterValue = value.toLowerCase();
-    var searchData=this.codeList.filter(option => option.toLowerCase().includes(filterValue));
-    if(searchData.length===0){
+    var searchData = this.codeList.filter(option => option.toLowerCase().includes(filterValue));
+    if (searchData.length === 0) {
       return ['No Data Found']
     }
     return searchData;
   }
 
- isView() {
-  //debugger;
+  isView() {
+    //debugger;
     this.isSave = true;
     this.isAddAdmin = false;
 

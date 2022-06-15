@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PlatformLocation} from '@angular/common';
+import { PlatformLocation } from '@angular/common';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { Accountservice } from '../_services/account.service';
@@ -38,7 +38,7 @@ export class RegistrationComponent implements OnInit {
   constructor(private fb: FormBuilder, private accountservice: Accountservice,
     private plaformLocation: PlatformLocation) {
 
-    this.url =plaformLocation.href.replace(plaformLocation.pathname,'/');
+    this.url = plaformLocation.href.replace(plaformLocation.pathname, '/');
     //console.log(plaformLocation.href.replace(plaformLocation.pathname,'/'));
     this.PhonePattern = {
       0: {
@@ -116,8 +116,8 @@ export class RegistrationComponent implements OnInit {
   buildContInfoForm() {
     this.ContactInfomation = this.fb.group({
       PracticeAddress: ['', [Validators.required]],
-      PrimaryPhone: ['', [Validators.required,ValidatePhone]],
-      MobilePhone: ['',[ValidatePhone]],
+      PrimaryPhone: ['', [Validators.required, ValidatePhone]],
+      MobilePhone: ['', [ValidatePhone]],
     })
   }
   buildAccountInfoForm() {
@@ -197,7 +197,7 @@ export class RegistrationComponent implements OnInit {
 
   }
 
-  reVerifyAddress(){
+  reVerifyAddress() {
     this.ContactInfomation.get('PracticeAddress').setValue("");
     this.addressVerified = false;
   }
@@ -275,8 +275,8 @@ export class RegistrationComponent implements OnInit {
 }
 
 
-function ValidatePhone(control: AbstractControl): {[key: string]: any} | null  {
-  console.log(control.value);
+function ValidatePhone(control: AbstractControl): { [key: string]: any } | null {
+  // console.log(control.value);
 
   if (control.value && control.value.length != 10) {
     return { 'phoneNumberInvalid': true };

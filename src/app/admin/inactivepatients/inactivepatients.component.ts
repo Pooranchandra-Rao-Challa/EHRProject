@@ -11,11 +11,11 @@ export class InActivePatientsComponent implements OnInit {
 
   inactivepatientDataSource: Patient[];
   dataSource: Patient[];
-  pageSize:any=50
-  page:any=1;
+  pageSize: any = 50
+  page: any = 1;
   searchKey = "";
-  collectionSize:any=50000;
-  premiumData : any[] = [];
+  collectionSize: any = 50000;
+  premiumData: any[] = [];
 
   constructor(private adminservice: AdminService) { }
 
@@ -32,7 +32,7 @@ export class InActivePatientsComponent implements OnInit {
       RecordIndex: this.page
 
     }
-    console.log(data);
+    // console.log(data);
     this.adminservice.ActivePatients(data).subscribe(resp => {
       if (resp.IsSuccess) {
         this.inactivepatientDataSource = resp.ListResult;
@@ -41,11 +41,11 @@ export class InActivePatientsComponent implements OnInit {
     });
   }
 
-  onPageChange(index){
-    this.inactivepatientDataSource =  this.premiumData
+  onPageChange(index) {
+    this.inactivepatientDataSource = this.premiumData
       .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
     this.getInactivepatientList();
   }
-  }
+}
 
 

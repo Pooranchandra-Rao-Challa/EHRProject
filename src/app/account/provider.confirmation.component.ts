@@ -20,7 +20,7 @@ export class ProviderConfirmationComponent implements OnInit {
     //debugger;
     this.route.queryParams.subscribe(params => {
       this.token = params.token;
-      console.log(this.token);
+      // console.log(this.token);
 
     });
     this.accountService.ProviderConfirmation({ token: this.token }).subscribe(resp => {

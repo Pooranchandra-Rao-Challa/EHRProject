@@ -24,8 +24,8 @@ import { AdminRoutingModule } from "./admin-routing.module";
 import { AdminSidebarComponent } from "../admin.sidebar/admin.sidebar.component";
 import { AdminComponent } from './admin.component';
 import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
-import { DateTimePickerModule } from "@syncfusion/ej2-angular-calendars";
-import { ScheduleModule, DayService, WeekService } from '@syncfusion/ej2-angular-schedule';
+// import { DateTimePickerModule } from "@syncfusion/ej2-angular-calendars";
+// import { ScheduleModule, DayService, WeekService } from '@syncfusion/ej2-angular-schedule';
 
 import { DashboardComponent } from 'src/app/admin/dashboard/dashboard.component';
 import { AdminPracticeComponent } from 'src/app/admin/admin-practice/admin-practice.component';
@@ -52,6 +52,7 @@ import { OverlayService } from 'src/app/overlay.service';
 import { AddUserDialogComponent } from 'src/app/dialogs/adduser.dialog/adduser.dialog.component';
 import { DefaultMessagesComponent } from 'src/app/admin/defaultmessages/defaultmessages.component';
 import { CommunicationsettingsComponent } from 'src/app/admin/communicationsettings/communicationsettings.component';
+import { AlertMessage } from 'src/app/_alerts/alertMessage';
 
 
 @NgModule({
@@ -103,13 +104,13 @@ import { CommunicationsettingsComponent } from 'src/app/admin/communicationsetti
     MatTableExporterModule,
     Ng2OrderModule,
     MatAutocompleteModule,
-    ScheduleModule,
+    // ScheduleModule,
     DropDownListModule,
-    DateTimePickerModule,
+    // DateTimePickerModule,
     CKEditorModule,
     // Ng2SearchPipeModule
   ],
-  providers: [DayService, WeekService, AdminService, OverlayService
+  providers: [AdminService, OverlayService, AlertMessage
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

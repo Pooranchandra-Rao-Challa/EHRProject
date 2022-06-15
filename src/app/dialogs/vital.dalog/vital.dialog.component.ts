@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, TemplateRef } from '@angular/core';
-import {  AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms'
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { SettingsService } from 'src/app/_services/settings.service';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
@@ -15,23 +15,23 @@ import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
   templateUrl: './vital.dialog.component.html',
   styleUrls: ['./vital.dialog.component.scss']
 })
-export class VitalDialogComponent{
+export class VitalDialogComponent {
   VitalInfoFG: FormGroup;
   Vital: VitalInfo = new VitalInfo;
   CollectedTime: string;
   constructor(private ref: EHROverlayRef,
-    private authService: AuthenticationService){
-      this.UpdateVital(ref.RequestData)
+    private authService: AuthenticationService) {
+    this.UpdateVital(ref.RequestData)
   }
 
-  UpdateVital(data: any){
+  UpdateVital(data: any) {
     this.Vital = new VitalInfo;
-    if( data == null) return;
+    if (data == null) return;
     this.Vital = data;
-    console.log(this.Vital.CollectedAt.toTimeString().split(' ')[0]);
+    // console.log(this.Vital.CollectedAt.toTimeString().split(' ')[0]);
 
-    this.CollectedTime = this.Vital.CollectedAt.toTimeString().substring(0,5);
-    console.log(this.Vital);
+    this.CollectedTime = this.Vital.CollectedAt.toTimeString().substring(0, 5);
+    // console.log(this.Vital);
 
   }
   BloodTypes = [

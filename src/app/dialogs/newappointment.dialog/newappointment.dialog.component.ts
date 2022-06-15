@@ -1,13 +1,15 @@
 import { OverlayRef } from '@angular/cdk/overlay';
 import { Component, OnInit } from '@angular/core';
-import { AppointmentTypes, AvailableTimeSlot,Actions,
+import {
+  AppointmentTypes, AvailableTimeSlot, Actions,
   NewAppointment, PatientSearchResults, Room, ScheduledAppointment, UserLocations,
- AppointmentDialogInfo } from 'src/app/_models/';
+  AppointmentDialogInfo
+} from 'src/app/_models/';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
 import { PracticeProviders } from '../../_models/_provider/practiceProviders';
 import { EHROverlayRef } from '../../ehr-overlay-ref';
-import { TimelineMonthService } from '@syncfusion/ej2-angular-schedule';
+// import { TimelineMonthService } from '@syncfusion/ej2-angular-schedule';
 declare const CloseAppointment: any;
 declare const OpenSaveSuccessAppointment: any;
 
@@ -38,33 +40,32 @@ export class NewAppointmentDialogComponent implements OnInit {
   PeriodsOfTimeSlots: {};
   onError: boolean;
   OperationMessage: string;
-  todayDate:Date = new Date();
+  todayDate: Date = new Date();
   myHolidayFilter: boolean;
 
   constructor(
     private ref: EHROverlayRef,
     private authService: AuthenticationService,
     private smartSchedulerService: SmartSchedulerService) {
-      let data: AppointmentDialogInfo = ref.RequestData;
-      this.PatientAppointment = {} as NewAppointment;
-      console.log(this.PatientAppointment);
+    let data: AppointmentDialogInfo = ref.RequestData;
+    this.PatientAppointment = {} as NewAppointment;
+    // console.log(this.PatientAppointment);
 
-      this.PatientAppointment = data.PatientAppointment;
-      console.log(this.PatientAppointment);
-      this.appointmentTitle = data.Title;
-      this.AppointmentTypes = data.AppointmentTypes;
-      this.PracticeProviders = data.PracticeProviders;
-      this.Locations = data.Locations;
-      this.Rooms = data.Rooms;
-      if(this.Rooms.length == 1)
+    this.PatientAppointment = data.PatientAppointment;
+    // console.log(this.PatientAppointment);
+    this.appointmentTitle = data.Title;
+    this.AppointmentTypes = data.AppointmentTypes;
+    this.PracticeProviders = data.PracticeProviders;
+    this.Locations = data.Locations;
+    this.Rooms = data.Rooms;
+    if (this.Rooms.length == 1)
       this.PatientAppointment.RoomId = this.Rooms[0].RoomId;
 
-      if(data.status == Actions.view && data.PatientAppointment.AppointmentId != null)
-      {
-        this.LoadAvailableTimeSlots();
-      }
-
+    if (data.status == Actions.view && data.PatientAppointment.AppointmentId != null) {
+      this.LoadAvailableTimeSlots();
     }
+
+  }
 
   ngOnInit(): void {
     this.PeriodsOfTimeSlots = [
@@ -99,7 +100,7 @@ export class NewAppointmentDialogComponent implements OnInit {
           if (obj.Selected)
             this.PatientAppointment.TimeSlot = obj;
         });
-        console.log(this.PatientAppointment.TimeSlot);
+        // console.log(this.PatientAppointment.TimeSlot);
         this.messageToShowTimeSlots = null;
       }
       else {
@@ -132,7 +133,7 @@ export class NewAppointmentDialogComponent implements OnInit {
 
   onProviderChangeFromAppointmentForm() {
     this.SelectedProviderId = this.PatientAppointment.ProviderId
-    console.log(this.SelectedProviderId)
+    // console.log(this.SelectedProviderId)
 
   }
 
@@ -177,7 +178,7 @@ export class NewAppointmentDialogComponent implements OnInit {
     this.appointmentTitle = "Edit Appointment";
     this.ClearPatientAppointment();
     this.PatientAppointment = patientapp;
-    console.log(JSON.stringify(this.PatientAppointment))
+    // console.log(JSON.stringify(this.PatientAppointment))
     this.LoadAvailableTimeSlots();
   }
 
@@ -201,7 +202,7 @@ export class NewAppointmentDialogComponent implements OnInit {
 
   onAppointmentSave() {
     this.PatientAppointment.AppointmentTime = this.PatientAppointment.TimeSlot.StartDateTime;
-    console.log(JSON.stringify(this.PatientAppointment));
+    // console.log(JSON.stringify(this.PatientAppointment));
     this.SaveInputDisable = true;
     this.smartSchedulerService.CreateAppointment(this.PatientAppointment).subscribe(resp => {
       if (resp.IsSuccess) {

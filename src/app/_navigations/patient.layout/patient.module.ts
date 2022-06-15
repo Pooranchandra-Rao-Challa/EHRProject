@@ -1,5 +1,5 @@
 import { ActivityLogComponent } from './../../patient/activitylog.component';
-import { patientService } from 'src/app/_services/patient.service';
+import { PatientService } from 'src/app/_services/patient.service';
 import { FooterComponent } from './../footer.component';
 import { NewmessageDialogComponent } from './../../dialogs/newmessage.dialog/newmessage.dialog.component';
 
@@ -14,7 +14,7 @@ import { SharedModule } from '../../_common/shared';
 import { PatientNavbarComponent } from "../patient.navbar/patient.navbar.component";
 import { PatientRoutingModule } from "./patient-routing.module";
 import { PatientComponent } from './patient.component';
-import { DayService, WeekService } from '@syncfusion/ej2-angular-schedule';
+// import { DayService, WeekService } from '@syncfusion/ej2-angular-schedule';
 import { MyhealthComponent } from 'src/app/patient/myhealth.component';
 import { MyprofileComponent } from 'src/app/patient/myprofile.component';
 import { PatientappointmentDialogComponent } from 'src/app/dialogs/patientappointment.dialog/patientappointment.dialog.component';
@@ -46,7 +46,7 @@ import { AlertMessage } from 'src/app/_alerts/alertMessage';
     CommonModule,
 
   ],
-  providers: [DayService, WeekService,patientService, OverlayService,AlertMessage
+  providers: [PatientService, OverlayService,AlertMessage
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

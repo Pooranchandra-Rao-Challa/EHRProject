@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { APIEndPoint } from "./api.endpoint.service";
 import { HttpClient } from "@angular/common/http";
 @Injectable()
-export class patientService extends APIEndPoint {
+export class PatientService extends APIEndPoint {
   constructor(http: HttpClient) { super(http); }
 
   PatientsByProvider(reqparams: any) {
@@ -160,4 +160,8 @@ export class patientService extends APIEndPoint {
   UpdatePatientMyprofile(reqparams: any) {
     return this._ProcessPostRequest<any>(this._updatePatientProfileUrl, reqparams);
   }
+  CreateEncounter(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._createEncounterUrl, reqparams);
+  }
+
 }
