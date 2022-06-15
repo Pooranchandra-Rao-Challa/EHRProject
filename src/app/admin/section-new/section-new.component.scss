@@ -68,3 +68,209 @@ input::-webkit-input-placeholder {
 //   background: #676d76;
 //   color: white;
 // }
+.modal-dialog {
+  max-width: 45% !important;
+}
+
+// .modal-body {
+//   max-height: calc(90vh - 180px);
+//   overflow-y: auto;
+// }
+
+// .model-cust-heading {
+//   background: white !important;
+//   border: 0px solid #f2f2f2 !important;
+//   width: 1500px !important;
+//   border: 1px solid #f2f2f2 !important;
+// }
+// .modal-cust-header{
+//   border-bottom: 1px solid #f2f2f2;
+// }
+
+// .modal-body .form-group {
+//   margin-bottom: 25px;
+// }
+// .modal-cust-title {
+//   color: black;
+//   font-size: 16px;
+//   line-height: 10px !important;
+// }
+.ehr-img{
+  position: relative;
+  top: 50px;
+  left: -85px;
+}
+.one-img{
+  position: absolute;
+  top: 98%;
+  left: -13%;
+  transform: translate(-50%, -50%);
+}
+@media (min-width:300px) and (max-width:500px)
+{
+  .modal-cust-content {
+    width: 210%;
+}
+  .ehr-img{
+      top: 50px;
+      left: 87px;
+  }
+  .one-img{
+    left: 100%;
+  }
+}
+@media (min-width:501px) and (max-width:850px)
+{
+  .modal-cust-content {
+    width: 174%;
+    margin-left: -105px;
+}
+  .ehr-img{
+      top: 50px;
+      left: 87px;
+  }
+  .one-img{
+    left: 100%;
+  }
+}
+
+@media (min-width:851px) and (max-width:1800px)
+{
+  .modal-cust-content {
+    width: 142%;
+    margin-left: -99px;
+}
+  .ehr-img{
+      top: 50px;
+      left: 87px;
+  }
+  .one-img{
+    left: 100%;
+  }
+}
+//   .npi-width{
+//     width: 100%;
+//    }
+//    .ddl-width{
+//     width: 100%;
+//    }
+//    .radio-btn{
+//      margin-left: -1px;
+//    }
+//    .radio-btn-label{
+//     margin-left: -10px;
+//    }
+//    .model-cust-footer {
+//     width: 100%;
+//   }
+// }
+// @media (min-width:1440px) and (max-width:1600px){
+//   .modal-cust-content {
+//     width: 1160px;
+//     border: 1px solid #ebebeb;
+//     background-color: #fff;
+//     margin-left: 260px;
+//    // margin-top: -80px 3px;
+//   }
+//   .npi-width {
+//         width: 105%;
+//      }
+//    .model-cust-footer {
+//       width: 1160px;
+//     }
+// }
+// @media (min-width:1601px) and (max-width:4500px){
+//   .modal-cust-content {
+//     width: 1382px;
+//     margin-left: 259px;
+//   //  margin-top: -100px;
+//     border: 1px solid #ebebeb;
+//     background-color: #fff;
+//   }
+//   .npi-width {
+//     width: 105%;
+//  }
+//  .model-cust-footer {
+//   width: 1382px;
+//   background: white;
+//   border: 1px solid #f2f2f2;
+// }
+// }
+.modal-header{
+  border-bottom: 0px !important;
+}
+.modal-footer{
+  border-top: 0px !important;
+}
+.modal-content {
+  position: relative;
+  background-color: #fff;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  border: 1px solid #999;
+  border: 10px solid #ff9900;
+  border-radius: 0px;
+  outline: 0;
+  -webkit-box-shadow: 0 3px 9px rgb(0 0 0 / 50%);
+  box-shadow: 0 3px 9px rgb(0 0 0 / 50%);
+}
+.modal-body {
+  padding: 0px !important;
+  color: #000;
+}
+
+
+.cheader {
+  background-color: #41b6a6;
+  height: 60px;
+ // width: 119%;
+  text-align: center;
+}
+.cheader.cheader2{
+  margin-right: -60px;
+}
+.header-text{
+  display: table-cell;
+  vertical-align: middle;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 22px;
+}
+.modal .modal-dialog .modal-content .modal-header {
+  padding: 30px 26px !important;
+  margin-left: -90px !important;
+  /* width: 570px !important; */
+}
+.toptxt {
+  color: #ff9800;
+    margin-left: 175px;
+    width: 150px;
+    float: left;
+    margin-left: 201px;
+    margin-top: 5px;
+}
+.headtxt{
+  color: #fff;
+  text-align: left;
+  margin-left: 20px;
+  padding-top: 5px;
+  margin: 0;
+  font-weight: bold;
+  font-size: 18px;
+
+}
+
+.logo-img{
+  margin-left: -495px;
+  height: 159px;
+}
+.ehr-logo{
+  width: 142px;
+}
+.flapImage{
+  margin:0 auto;
+  text-align:center;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%)
+}

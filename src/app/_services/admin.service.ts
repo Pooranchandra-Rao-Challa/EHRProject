@@ -38,6 +38,10 @@ export class AdminService extends APIEndPoint {
   }
 
   UpdatedTrailStatus(reqparam:any){
- return this._ProcessPostRequest<any>(this._updatedTrailStatusUrl, reqparam);
+  return this._ProcessPostRequest<any>(this._updatedTrailStatusUrl, reqparam);
+  }
+
+  AddUpdateWeeklyUpdated(reqparams:any){
+    return this._ProcessPostRequest<any>(this._addUpdatedWeeklyUpdated, reqparams);
   }
 }

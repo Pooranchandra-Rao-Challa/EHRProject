@@ -68,5 +68,4 @@ export interface PatientProfile {
   NKZip?: string;
   PatientRelationId?:string;
   relationships?:String;
-
 }

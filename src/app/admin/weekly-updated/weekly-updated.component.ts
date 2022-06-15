@@ -1,7 +1,8 @@
+import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { Route, ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../../_services/admin.service';
-var $
+import { AdminViewModal } from 'src/app/_models';
 @Component({
   selector: 'app-weekly-updated',
   templateUrl: './weekly-updated.component.html',
@@ -10,7 +11,6 @@ var $
 export class WeeklyUpdatedComponent implements OnInit {
 
   WeeklyUpdatedList: any = [];
-
   data: any = [
     { name: "Marcela Arizmendi" },
     { name: "Muon Vy" },
@@ -24,9 +24,7 @@ export class WeeklyUpdatedComponent implements OnInit {
     { name: "Muon Vy" },
     { name: "Usability Test Doctor" },
     { name: "Karina Giron" },
-
   ];
-
   selectedValue: any;
   searchValue: any;
   filteredList: any = [];
@@ -35,53 +33,46 @@ export class WeeklyUpdatedComponent implements OnInit {
   ProviderList: any = [];
   ProviderName: any = [];
   FistProviderName: any;
+  viewModel: AdminViewModal;
+  WeeklyUpdated:any;
 
-
-  constructor(private router: Router, private adminservice: AdminService) { }
+  constructor(private router: Router, private adminservice: AdminService,private authService:AuthenticationService) {}
 
   ngOnInit(): void {
     this.GetWeeklyUpdate();
     this.GetProviderNameList();
-
   }
 
   GetWeeklyUpdate() {
     this.adminservice.WeeklyUpdateList().subscribe(resp => {
       if (resp.IsSuccess) {
         this.WeeklyUpdatedList = resp.ListResult;
-        // console.log(this.WeeklyUpdatedList);
+        console.log(this.WeeklyUpdatedList);
       }
       else {
         this.WeeklyUpdatedList = [];
       }
     });
-
   }
 
   GetBodyData(row) {
     this.RowIndex = row;
     let bodydata = this.WeeklyUpdatedList[row];
     this.DisplayTdBody = bodydata.body;
-    //  console.log(this.DisplayTdBody);
-
   }
 
   filterDropdown(e) {
-    // console.log("e in filterDropdown -------> ", e);
     window.scrollTo(window.scrollX, window.scrollY + 1);
     let searchString = e.toLowerCase();
     if (!searchString) {
       this.filteredList = this.ProviderList.slice();
-      // console.log(this.filteredList)
       return;
-    } else {
+    }
+    else {
       this.filteredList = this.ProviderList.filter(
         user => user.ProviderName.toLowerCase().indexOf(searchString) > -1
-      );
-      // console.log(this.filteredList)
-    }
+      );}
     window.scrollTo(window.scrollX, window.scrollY - 1);
-    // console.log("this.filteredList indropdown -------> ", this.filteredList);
   }
 
   selectValue(name) {
@@ -93,13 +84,22 @@ export class WeeklyUpdatedComponent implements OnInit {
       [url],
       { queryParams: { name: name } }
     );
+    this.UpdateWeeklyUpdatedView(null);
   }
 
-  EditSectionNew(name, url) {
+  EditSectionNew(name, url,item) {
     this.router.navigate(
       [url],
       { queryParams: { name: name, edit: 'EditSection' } }
     );
+    this.UpdateWeeklyUpdatedView(item);
+  }
+
+  UpdateWeeklyUpdatedView(item) {
+    this.authService.SetViewParamAdmin(item);
+    this.viewModel = this.authService.viewModelAdmin;
+    console.log(this.viewModel);
+
   }
 
   GetProviderNameList() {

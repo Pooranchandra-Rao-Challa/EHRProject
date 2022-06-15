@@ -328,6 +328,9 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "DeleteLocation";
   }
 
+  get _addUpdatedWeeklyUpdated(){
+    return this._baseUrl + "AddUpdatedWeeklyUpdated";
+  }
 
 
   // get _advancedDirectivesUrl() {
