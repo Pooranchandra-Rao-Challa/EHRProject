@@ -1,6 +1,4 @@
-<div class="Insurance">
-    <button class="btn btn-orange pull-right mt-2 Helvetica-sans-serif-medium">Save</button>
-</div>
+
 
 <div class="container-fluid">
     <div class="row">
@@ -32,9 +30,9 @@
                             <label class="Helvetica-sans-serif-medium">Gender:</label>
                             <div>
                                 <mat-radio-group [(ngModel)]="primlist.Gender">
-                                    Male <mat-radio-button value="male"></mat-radio-button>
-                                    FeMale<mat-radio-button value="female"></mat-radio-button>
-                                    Other<mat-radio-button value="other"></mat-radio-button>
+                                    Male <mat-radio-button class="radio-btn-label label-design my-1" value="male"></mat-radio-button>
+                                    FeMale<mat-radio-button class="radio-btn-label label-design my-1" value="female"></mat-radio-button>
+                                    Other<mat-radio-button class="radio-btn-label label-design my-1" value="other"></mat-radio-button>
                                 </mat-radio-group>
                             </div>
                         </div>
@@ -122,54 +120,36 @@
                         <div class="col-4">
                             <button [disabled]="viewpidetailsforprimary"
                                 class="btn btn-green btn-insurance pull-right  Helvetica-sans-serif-medium"
-                                type="button" (click)="getInsuranceDetails()" data-bs-toggle="modal"
+                                type="button" (click)="getInsuranceDetails('primary')" data-bs-toggle="modal"
                                 data-bs-target="#Primary-Insurance-Details">
                                 View Primary Insurance details
                             </button>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-12">
-                            <div class="labs-imaging-tabs">
-                                <ul class="nav nav-tabs nav-tab-styled" id="myTab" role="tablist">
-                                    <li class="nav-item tabs-alignments" role="presentation">
-                                        <a class="nav-link text-center active" id="medical-tab" data-bs-toggle="tab"
-                                            data-bs-target="#medical" type="button" role="tab" aria-controls="medical"
-                                            aria-selected="true">Self
-                                        </a>
-                                    </li>
-                                    <li class="nav-item  tabs-alignments" role="presentation">
-                                        <a class="nav-link text-center" id="send-tab" data-bs-toggle="tab"
-                                            data-bs-target="#send" type="button" role="tab" aria-controls="send"
-                                            aria-selected="true">Spouse
-                                        </a>
-                                    </li>
-                                    <li class="nav-item  tabs-alignments" role="presentation">
-                                        <a class="nav-link text-center" id="send-tab" data-bs-toggle="tab"
-                                            data-bs-target="#send" type="button" role="tab" aria-controls="send"
-                                            aria-selected="true">Child
-                                        </a>
-                                    </li>
-                                    <li class="nav-item tabs-alignments" role="presentation" style="width: 180px;">
-                                        <a class="nav-link text-center" id="send-tab" data-bs-toggle="tab"
-                                            data-bs-target="#send" type="button" role="tab" aria-controls="send"
-                                            aria-selected="true">Other
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+                    <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
+                        <label for="" class="form-label label-design  mx-lg-1"></label>
+                        <div>
+                          <mat-radio-group [(ngModel)]="primlist.RelationshipToSubscriber">
+                            <mat-radio-button value="Self"   class="radio-btn-label label-design my-1" >Self</mat-radio-button>
+                             <mat-radio-button value="Spouse"   class="radio-btn-label label-design my-1">Spouse</mat-radio-button>
+                             <mat-radio-button value="Child"   class="radio-btn-label label-design my-1">Child</mat-radio-button>
+                             <mat-radio-button value="Other"   class="radio-btn-label label-design my-1">Other</mat-radio-button>
+                         </mat-radio-group>
                         </div>
+                      </div>
+                      <div class="row">
                         <mat-label class="Helvetica-sans-serif-small">Source of Payment Typology </mat-label>
                         <mat-form-field appearance="outline" col-md-12>
-                            <mat-select>
+                            <mat-select aria-placeholder="Search Source Code Typology" [(ngModel)]="primlist.SourceOfPaymentTypology" >
+
                                 <mat-option *ngFor="let PaymentTypologyCodes of SourceOfPaymentTypologyCodes"
-                                    [value]="PaymentTypologyCodes.ID">
-                                    {{PaymentTypologyCodes.Source}}
+                                    [value]="PaymentTypologyCodes.Code - PaymentTypologyCodes.Description">
+                                   {{PaymentTypologyCodes.Code}}- {{PaymentTypologyCodes.Description}}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
-
-
+                    </div>
+                        <div class="row">
 
                         <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-6">
                             <input matInput [matDatepicker]="dp2" placeholder="Start Date"
@@ -190,6 +170,9 @@
                             <mat-datepicker #dp1 disabled="false"></mat-datepicker>
                         </mat-form-field>
                     </div>
+                    <div class="Insurance">
+                        <button class="btn btn-orange pull-right mt-2 Helvetica-sans-serif-medium" (click)="CreateUpdateInsuranceDetails('primary')">Save Primary Insurance</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -205,24 +188,26 @@
                         <input type="text" class="form-control patientInsuranceTab" placeholder="Subscriber Name"
                             aria-label="Subscriber Name" aria-describedby="basic-addon1"
                             [(ngModel)]="secList.SubscriberNane">
+                            <!-- [(ngModel)]="item.kg_blanca !== null ? item.kg_blanca : '0" -->
                     </div>
-                    <div class="row">
+                     <div class="row"> 
                         <label class="Helvetica-sans-serif-medium">Date of Birth</label>
                         <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-6">
-                            <input matInput [matDatepicker]="dp4" placeholder="Date of Birth">
+                            <input matInput [matDatepicker]="dp4" placeholder="Date of Birth"
+                                [(ngModel)]="secList.DateOfBirth">
                             <mat-datepicker-toggle matSuffix [for]="dp4">
                             </mat-datepicker-toggle>
                             <mat-datepicker #dp4 disabled="false"></mat-datepicker>
                         </mat-form-field>
 
 
-                        <div class="col-md-6">
+                        <div class="col-md-6"> 
                             <label class="Helvetica-sans-serif-medium">Gender:</label>
                             <div>
                                 <mat-radio-group [(ngModel)]="secList.Gender">
-                                    Male <mat-radio-button value="male"></mat-radio-button>
-                                    FeMale<mat-radio-button value="female"></mat-radio-button>
-                                    Other<mat-radio-button value="other"></mat-radio-button>
+                                    Male <mat-radio-button value="male"  class="radio-btn-label label-design my-1"></mat-radio-button>
+                                    FeMale<mat-radio-button value="female"  class="radio-btn-label label-design my-1"></mat-radio-button>
+                                    Other<mat-radio-button value="other"  class="radio-btn-label label-design my-1"></mat-radio-button>
                                 </mat-radio-group>
                             </div>
                         </div>
@@ -286,9 +271,7 @@
                             </div>
                         </div>
                         <div class="col-1">
-                            <!-- <button class="plusicon mt-4" type="button">
-                                <i class="fa fa-plus"></i>
-                            </button> -->
+                           
                             <button class="plusicon mt-4" type="button" data-bs-toggle="modal"
                                 (click)="secondaryplus('secondary')" data-bs-target="#modal-primary-Insurance"
                                 aria-expanded="false">
@@ -308,59 +291,37 @@
                         <div class="col-4">
                             <button [disabled]="viewpidetailsforsecondary"
                                 class="btn btn-green btn-insurance pull-right  Helvetica-sans-serif-medium"
-                                (click)="getInsuranceDetails()" type="button" data-bs-toggle="modal"
+                                (click)="getInsuranceDetails('secondary')" type="button" data-bs-toggle="modal"
                                 data-bs-target="#Primary-Insurance-Details">
-                                View Primary Insurance details
+                                View Secondary Insurance details
                             </button>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-12">
-                            <div class="labs-imaging-tabs">
-                                <ul class="nav nav-tabs nav-tab-styled" id="myTab" role="tablist">
-                                    <li class="nav-item tabs-alignments" role="presentation">
-                                        <a class="nav-link text-center active" id="medical-tab" data-bs-toggle="tab"
-                                            data-bs-target="#medical" type="button" role="tab" aria-controls="medical"
-                                            aria-selected="true">Self
-                                        </a>
-                                    </li>
-                                    <li class="nav-item  tabs-alignments" role="presentation">
-                                        <a class="nav-link text-center" id="send-tab" data-bs-toggle="tab"
-                                            data-bs-target="#send" type="button" role="tab" aria-controls="send"
-                                            aria-selected="true">Spouse
-                                        </a>
-                                    </li>
-                                    <li class="nav-item  tabs-alignments" role="presentation">
-                                        <a class="nav-link text-center" id="send-tab" data-bs-toggle="tab"
-                                            data-bs-target="#send" type="button" role="tab" aria-controls="send"
-                                            aria-selected="true">Child
-                                        </a>
-                                    </li>
-                                    <li class="nav-item tabs-alignments" role="presentation" style="width: 180px;">
-                                        <a class="nav-link text-center" id="send-tab" data-bs-toggle="tab"
-                                            data-bs-target="#send" type="button" role="tab" aria-controls="send"
-                                            aria-selected="true">Other
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+                  
+                    <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
+                        <label for="" class="form-label label-design  mx-lg-1"></label>
+                        <div>
+                          <mat-radio-group [(ngModel)]="secList.RelationshipToSubscriber">
+                            <mat-radio-button value="Self"   class="radio-btn-label label-design my-1" >Self</mat-radio-button>
+                             <mat-radio-button value="Spouse"   class="radio-btn-label label-design my-1">Spouse</mat-radio-button>
+                             <mat-radio-button value="Child"   class="radio-btn-label label-design my-1">Child</mat-radio-button>
+                             <mat-radio-button value="Other"   class="radio-btn-label label-design my-1">Other</mat-radio-button>
+                         </mat-radio-group>
                         </div>
-                        <!-- <mat-form-field appearance="outline" col-md-12>
-                            <mat-select placeholder="Action">
-                                <mat-option *ngFor="let topping of Action" [value]="topping">
-                                    {{topping}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field> -->
+                      </div>
+                        <div class="row">
                         <mat-label class="Helvetica-sans-serif-small">Source of Payment Typology </mat-label>
                         <mat-form-field appearance="outline" col-md-12>
                             <mat-select>
                                 <mat-option *ngFor="let PaymentTypologyCodes of SourceOfPaymentTypologyCodes"
                                     [value]="PaymentTypologyCodes.ID">
-                                    {{PaymentTypologyCodes.Source}}
+                                   {{PaymentTypologyCodes.Code}}- {{PaymentTypologyCodes.Description}}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
+                    </div>
+                    <div class="row">
+                  
                         <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-6">
                             <input matInput [matDatepicker]="dp5" placeholder="Start Date"
                                 [(ngModel)]="secList.StartDate">
@@ -369,8 +330,8 @@
                             </mat-datepicker-toggle>
                             <mat-datepicker #dp5 disabled="false"></mat-datepicker>
                         </mat-form-field>
-                        <!-- <div class="date_to_text col-md-1">to</div> -->
-
+                   
+                  
 
                         <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-6">
                             <input matInput [matDatepicker]="dp6" placeholder="Stop Date" [(ngModel)]="secList.EndDate">
@@ -378,7 +339,11 @@
                             </mat-datepicker-toggle>
                             <mat-datepicker #dp6 disabled="false"></mat-datepicker>
                         </mat-form-field>
-                    </div>
+                    
+                </div> 
+                <div class="Insurance">
+                    <button class="btn btn-orange pull-right Helvetica-sans-serif-medium" (click)="CreateUpdateInsuranceDetails('secondary')">Save Secondary Insurance</button>
+                </div>
                 </div>
             </div>
         </div>
@@ -403,31 +368,22 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-12">
-                                <div class="labs-imaging-tabs">
-                                    <ul class="nav nav-tabs nav-tab-styled" id="myTab" role="tablist">
-                                        <div class="mt-2 Helvetica-sans-serif-medium">Type:</div>
-                                        <li class="nav-item tabs-alignments" role="presentation">
-                                            <a class="nav-link text-center active" id="medical-tab" data-bs-toggle="tab"
-                                                data-bs-target="#medical" type="button" role="tab"
-                                                aria-controls="medical" aria-selected="true">Medical
-                                            </a>
-                                        </li>
-                                        <li class="nav-item  tabs-alignments" role="presentation">
-                                            <a class="nav-link text-center" id="send-tab" data-bs-toggle="tab"
-                                                data-bs-target="#send" type="button" role="tab" aria-controls="send"
-                                                aria-selected="true">Dental
-                                            </a>
-                                        </li>
-
-                                    </ul>
-                                </div>
+                             <div class="col-md-6">
+                            <label class="Helvetica-sans-serif-medium">Type:</label>
+                            <div>
+                                <mat-radio-group [(ngModel)]="insuraceComplanyPlan.PlanType">
+                                    Medical <mat-radio-button value="medical"></mat-radio-button>
+                                    Dental<mat-radio-button value="dental"></mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                        </div>
                             </div>
                         </div>
                         <div class="row mb-4">
                             <label class="Helvetica-sans-serif-medium">Insurance Company Name</label>
                             <div class="input-group input-group-lg">
                                 <input type="text" class="form-control inputclass" placeholder="Insurance Company Name"
-                                    [(ngModel)]="inslist.InsuranceCompanyName">
+                                    [(ngModel)]="insuraceComplanyPlan.InsuranceCompanyName">
                             </div>
                         </div>
                         <div class="row mb-4">
@@ -435,23 +391,30 @@
                                 <label class="Helvetica-sans-serif-medium">Group Plan</label>
                                 <div class="input-group input-group-lg">
                                     <input type="text" class="form-control inputclass" placeholder="Group Plan"
-                                        [(ngModel)]="inslist.GroupPlan">
+                                        [(ngModel)]="insuraceComplanyPlan.GroupPlan">
                                 </div>
                             </div>
                             <div class="col-md-6 mb-4">
                                 <label class="Helvetica-sans-serif-medium">Employer</label>
                                 <div class="input-group input-group-lg">
                                     <input type="text" class="form-control inputclass" placeholder="Employer"
-                                        [(ngModel)]="inslist.Employer">
+                                        [(ngModel)]="insuraceComplanyPlan.Employer">
                                 </div>
                             </div>
                         </div>
                         <div class="row mb-4">
                             <div class="input-group input-group-lg">
-                                <span class="input-group-text Helvetica-sans-serif-medium"
+                                <span class="input-group-text Helvetica-sans-serif-small"
                                     id="inputGroup-sizing-lg">Street
                                     Address</span>
-                                <input type="text" class="form-control inputclass">
+                                <input type="text" class="form-control inputclass" [(ngModel)]="insuraceComplanyPlan.StreetAddress">
+                            </div>
+                            <div class="col-5  mb-3">
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
+                                        id="inputGroup-sizing-lg ">City</span>
+                                    <input type="text" class="form-control inputclass" [(ngModel)]="insuraceComplanyPlan.City">
+                                </div>
                             </div>
                         </div>
                         <div class="row">
@@ -459,21 +422,21 @@
                                 <div class="input-group input-group-lg">
                                     <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
                                         id="inputGroup-sizing-lg ">City</span>
-                                    <input type="text" class="form-control inputclass">
+                                    <input type="text" class="form-control inputclass" [(ngModel)]="insuraceComplanyPlan.City">
                                 </div>
                             </div>
                             <div class="col-3 mb-3">
                                 <div class="input-group input-group-lg ">
                                     <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
                                         id="inputGroup-sizing-lg ">State</span>
-                                    <input type="text" class="form-control inputclass">
+                                    <input type="text" class="form-control inputclass" [(ngModel)]="insuraceComplanyPlan.State">
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="input-group input-group-lg">
                                     <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
                                         id="inputGroup-sizing-lg ">Zip</span>
-                                    <input type="text" class="form-control inputclass">
+                                    <input type="text" class="form-control inputclass" [(ngModel)]="insuraceComplanyPlan.Zip">
                                 </div>
                             </div>
                         </div>
@@ -481,7 +444,7 @@
                             <label class="Helvetica-sans-serif-medium ">Contact</label>
                             <div class="input-group input-group-lg">
                                 <input type="text" class="form-control inputclass" placeholder="Contact"
-                                    [(ngModel)]="inslist.Contact">
+                                    [(ngModel)]="insuraceComplanyPlan.Contact">
                             </div>
                         </div>
                         <div class="row mb-4">
@@ -489,14 +452,14 @@
                                 <label class="Helvetica-sans-serif-medium">Phone</label>
                                 <div class="input-group input-group-lg">
                                     <input type="text" class="form-control inputclass" placeholder="Phone"
-                                        [(ngModel)]="inslist.Phone">
+                                        [(ngModel)]="insuraceComplanyPlan.Phone">
                                 </div>
                             </div>
 
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <label class="Helvetica-sans-serif-medium">Benefit Renewal</label>
                                 <div class="form-group">
-                                    <select class="col-12 inputclass" [(ngModel)]="inslist.BenifitRenewal">
+                                    <select class="col-12 inputclass" [(ngModel)]="insuraceComplanyPlan.BenfitRenewal">
                                         <option value="Jan" selected>Jan</option>
                                         <option value="Feb">Feb</option>
                                         <option value="Mar">Mar</option>
@@ -519,14 +482,14 @@
                                 <label class="Helvetica-sans-serif-medium">Group #</label>
                                 <div class="input-group input-group-lg">
                                     <input type="text" class="form-control inputclass" placeholder="Group #"
-                                        [(ngModel)]="inslist.Group">
+                                        [(ngModel)]="insuraceComplanyPlan.GroupNo">
                                 </div>
                             </div>
                             <div class="col-md-6 mb-4">
                                 <label class="Helvetica-sans-serif-medium">Local #</label>
                                 <div class="input-group input-group-lg">
                                     <input type="text" class="form-control inputclass " placeholder="Local #"
-                                        [(ngModel)]="inslist.Local">
+                                        [(ngModel)]="insuraceComplanyPlan.LocalNo">
                                 </div>
                             </div>
                         </div>
@@ -534,7 +497,7 @@
                             <label class="Helvetica-sans-serif-medium">Payer ID</label>
                             <div class="input-group">
                                 <input type="text" class="form-control inputclass" placeholder="Payer ID"
-                                    [(ngModel)]="inslist.PayerID">
+                                    [(ngModel)]="insuraceComplanyPlan.PayerID">
                             </div>
                         </div>
 
@@ -542,14 +505,14 @@
                         <div class="row">
                             <div class="col-md-2">
                                 <button *ngIf="delete" mat-raised-button type="submit"
-                                    class="btn btn-danger btn-danger">Delete</button>
+                                    class="btn btn-danger btn-danger"data-bs-dismiss="modal" (click)="deleteInsurancePlan()">Delete</button>
                             </div>
                             <!-- <div class="col-md-4">
     
                     </div> -->
                             <div class="col-md-4">
                                 <button mat-raised-button type="submit"
-                                    class="btn btn-green btn-selectcancel pull-right">Save</button>
+                                    class="btn btn-green btn-selectcancel pull-right"data-bs-dismiss="modal" (click)="CreateUpdateInsuraceCompanyPlan()">Save</button>
                             </div>
                             <div class="col-md-3" *ngIf="cancel2">
                                 <button mat-raised-button type="submit"
@@ -621,13 +584,13 @@
                             <tr *ngFor="let item of insurancePlanList; let idx=index;"
                                 [style.background-color]="rowClicked == idx ? 'rgb(254, 143, 0)' : ''"
                                 (click)="changeTableRowColor(idx,false)" (dblclick)=edit(idx)>
-                                <td (dblclick)="getInsuranceDetail(item.InsuranceID)">{{item.InsuranceCompanyName}}</td>
-                                <td>{{item.GroupPlan}}</td>
-                                <td>{{item.Group}}</td>
-                                <td> {{item.Local}}</td>
-                                <td>{{item.EmployerName}}</td>
-                                <td>{{item.PayerID}}</td>
-                                <td>{{item.Address}}</td>
+                                <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)">{{item.InsuranceCompanyName}}</td>
+                                <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)">{{item.GroupPlan}}</td>
+                                <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)">{{item.GroupNo}}</td>
+                                <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)"> {{item.LocalNo}}</td>
+                                <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)">{{item.Employer}}</td>
+                                <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)">{{item.PayerID}}</td>
+                                <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)">{{item.StreetAddress}},{{item.City}},{{item.State}}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -726,7 +689,7 @@
 
                     <div class="col-md-4">
                         <button mat-raised-button type="submit" class="btn btn-green btn-primary"
-                            data-bs-dismiss="modal" aria-label="Close" (click)="insurancereset()">Cancel</button>
+                            data-bs-dismiss="modal" aria-label="Close">Cancel</button>
                     </div>
                 </div>
             </div>

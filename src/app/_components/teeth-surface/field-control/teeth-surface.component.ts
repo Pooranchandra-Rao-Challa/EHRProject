@@ -25,7 +25,7 @@ import {
 } from '@angular/cdk/overlay';
 import { FormControl } from '@angular/forms';
 import { OverlayReference } from '@angular/cdk/overlay/overlay-reference';
-import { outputs } from '@syncfusion/ej2-angular-calendars/src/calendar/calendar.component';
+// import { outputs } from '@syncfusion/ej2-angular-calendars/src/calendar/calendar.component';
 
 
 
@@ -39,7 +39,7 @@ export class TeethSurfaceComponent implements OnInit {
   showPanel$: Observable<boolean>;
 
   teethCtrl = new FormControl();
- // filteredStates$: Observable<State[]>;
+  // filteredStates$: Observable<State[]>;
   isCaseSensitive: boolean = false;
   positions: ConnectedPosition[] = [
     {
@@ -72,13 +72,13 @@ export class TeethSurfaceComponent implements OnInit {
   private isPanelHidden$: Observable<boolean>;
   private isOverlayDetached$: Observable<void>;
 
-  @Output() optionValueChanged: EventEmitter<string> =new EventEmitter<string>();
+  @Output() optionValueChanged: EventEmitter<string> = new EventEmitter<string>();
   @Input() selectedOption: string;
 
   constructor(
     private focusMonitor: FocusMonitor,
     private scrollStrategies: ScrollStrategyOptions
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.scrollStrategy = new ConfirmScrollStrategy(this.inputEl);
@@ -104,7 +104,7 @@ export class TeethSurfaceComponent implements OnInit {
     this.showPanel$ = merge(this.isPanelHidden$, this.isPanelVisible$);
   }
 
-  onOptionSelected(value){
+  onOptionSelected(value) {
     this.teethCtrl.setValue(value);
     this.optionValueChanged.emit(value);
     this.connectedOverlay.overlayRef.detach();
@@ -115,7 +115,7 @@ export class TeethSurfaceComponent implements OnInit {
 class ConfirmScrollStrategy implements ScrollStrategy {
   _overlay: OverlayReference;
 
-  constructor(private inputRef: ElementRef) {}
+  constructor(private inputRef: ElementRef) { }
 
   attach(overlayRef: OverlayReference) {
     this._overlay = overlayRef;

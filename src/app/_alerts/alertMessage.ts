@@ -60,6 +60,7 @@ export class AlertMessage {
  * Billing: I
  * Settings: J
  * Screens: Adming Lofin
+ * Provider:P
  * partnersignup :PS
  * -------------------------------------
  * If the screens has more funcitonal items then
@@ -144,7 +145,7 @@ export const ERROR_CODES: { [key: string]: string } = {
 
   // Error for Patient profile directives
   'E2CP001': 'Personal Information Updation error',
-  'E2CP002': 'Contact Information Updation error',
+  '2CP002': 'Contact Information Updation error',
   'E2CP003': 'Emergency Contact Updation error',
   'E2CP004': 'Relationship Updation error',
   'E2CP005': 'Demographics Updation error',
@@ -163,4 +164,20 @@ export const ERROR_CODES: { [key: string]: string } = {
   // Error for Smoking Status
   'E2CSS001': 'Smoking Status Updation error',
 
+  // Message for Admin Provider  Status
+  'M1P001': 'Your 30-Day Trial version is finished',
+// Message for Insurance 
+'M2CI001': 'Insurance Company Plan created successfully',
+'M2CI002': 'Insurance Company Plan Updated successfully',
+'M2CI003': 'Insurance Company Plan  deleted successfully',
+'M2CI004': 'Primary Insurance Added successfully',
+'M2CI005': 'Primary Insurance Updated successsfully',
+'M2CI006': 'Secondary Insurance Added successfully',
+'M2CI007': 'Secondary Insurance Updated successsfully',
+
+
+//Error for Insurance
+'E2CI001':'Insurance Company Plan  Updation error',
+'E2CI002': 'Primary Insurance Updation error',
+'E2CI003': 'Secondary Insurance Updation error'
 };

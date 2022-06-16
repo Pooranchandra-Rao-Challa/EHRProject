@@ -14,8 +14,8 @@
                     <label>First Name</label>
                     <div class="form-group">
                       <mat-form-field class="grey-matform w-100" appearance="outline">
-                        <input matInput placeholder="First Name"[(ngModel)]="PatientProfile.FirstName" id="FirstName" name="FirstName"
-                        #FirstName="ngModel">
+                        <input matInput placeholder="First Name" [(ngModel)]="PatientProfile.FirstName" id="FirstName"
+                          name="FirstName" #FirstName="ngModel">
                       </mat-form-field>
                     </div>
                   </div>
@@ -43,26 +43,30 @@
                     </label>
                     <div class="form-group">
                       <mat-form-field class="grey-matform w-100" appearance="outline">
-                        <input matInput placeholder="Date Of Birth" [(ngModel)]="PatientProfile.DateOfBirth"
+                        <input matInput placeholder="Date Of Birth" [ngModel]="PatientProfile.DateOfBirth | date:'MM/dd/yyyy'"
                           id="DateofBirth" name="DateofBirth" #DateofBirth="ngModel">
                       </mat-form-field>
                     </div>
                   </div>
+
                   <div class="col-lg-4 col-md-6 col-sm-6 col-12 "><label class="labelfontzise">Sex </label>
                     <div class="form-group">
                       <mat-form-field appearance="outline" class="grey-matform w-100">
-                        <mat-select class="w-100" placeholder="Sex" [(ngModel)]="PatientProfile.Sex" id="Sex" name="Sex"
-                          #Sex="ngModel">
-                          <mat-option>Male
-                          </mat-option>
-                          <mat-option>Female
+                        <mat-select placeholder="Select Gender" id="Gender" placeholder="Select Sex"
+                        [(ngModel)]="PatientProfile.Gender" disableOptionCentering
+                         id="Gender" name="Gender" #Gender="ngModel">
+                          <mat-option *ngFor="let items of GenderData" [value]="items.value">{{items.value}}
                           </mat-option>
                         </mat-select>
                       </mat-form-field>
                     </div>
                   </div>
+
                   <div class="col-lg-4 col-md-4 col-sm-4 col-12">
-                    <button type="button" class="btn btn-green save-button">Save</button>
+                    <button type="button" class="btn btn-green save-button" [ngClass]="(PatientProfile.FirstName==''||PatientProfile.FirstName==null
+                    ||PatientProfile.LastName==''||PatientProfile.LastName==null)? 'disable-button col-md-2': 'reg-button col-md-2'"
+                    [disabled]="PatientProfile.FirstName==''||PatientProfile.FirstName==null||PatientProfile.LastName==''||PatientProfile.LastName==null"
+                     (click)="updatePatientMyProfile()">Save</button>
                   </div>
                 </div>
                 <div class="row ">
@@ -109,7 +113,8 @@
                     </mat-autocomplete>
                   </mat-form-field>
                   <mat-form-field appearance="outline" class="example-width grey-matform ">
-                    <input matInput placeholder="Cell Phone">
+                    <input matInput placeholder="Cell Phone" [(ngModel)]="PatientProfile.MobilePhone" id="MobilePhone"
+                      name="MobilePhone" #MobilePhone="ngModel">
                   </mat-form-field>
                 </div>
               </div>
@@ -137,7 +142,8 @@
                     </mat-autocomplete>
                   </mat-form-field>
                   <mat-form-field appearance="outline" class="example-width grey-matform">
-                    <input matInput placeholder=" Home Phone">
+                    <input matInput placeholder=" Home Phone" [(ngModel)]="PatientProfile.PrimaryPhone"
+                      id="PrimaryPhone" name="PrimaryPhone" #PrimaryPhone="ngModel">
                   </mat-form-field>
                 </div>
               </div>
@@ -155,7 +161,8 @@
                     </mat-autocomplete>
                   </mat-form-field>
                   <mat-form-field appearance="outline" class="example-width grey-matform ">
-                    <input matInput placeholder="Work Phone">
+                    <input matInput placeholder="Work Phone" [(ngModel)]="PatientProfile.WorkPhone" id="WorkPhone"
+                      name="WorkPhone" #WorkPhone="ngModel">
                   </mat-form-field>
                 </div>
               </div>
@@ -174,23 +181,26 @@
 
               <div class="row mt-1">
                 <mat-form-field appearance="outline" class="filed-border noHover col-lg-8 ">
-                  <input matInput readonly  placeholder="Street Address" [(ngModel)]="PatientProfile.StreetAddress"
+                  <input matInput readonly placeholder="Street Address" [(ngModel)]="PatientProfile.StreetAddress"
                     id="StreetAddress" name="StreetAddress" #StreetAddress="ngModel">
                 </mat-form-field>
               </div>
               <div class="row">
-                <mat-form-field appearance="outline" class="grey-matform noHover col-lg-4 col-md-4 col-sm-12 col-12 mt-3 ">
+                <mat-form-field appearance="outline"
+                  class="grey-matform noHover col-lg-4 col-md-4 col-sm-12 col-12 mt-3 ">
                   <input matInput readonly placeholder="City" [(ngModel)]="PatientProfile.city" id="city" name="city"
                     #city="ngModel">
                 </mat-form-field>
 
 
-                <mat-form-field appearance="outline" class="grey-matform noHover  col-lg-4 col-md-4 col-sm-12 col-12 mt-3 ">
+                <mat-form-field appearance="outline"
+                  class="grey-matform noHover  col-lg-4 col-md-4 col-sm-12 col-12 mt-3 ">
                   <input matInput readonly placeholder="State" [(ngModel)]="PatientProfile.state" id="state"
                     name="state" #state="ngModel">
                 </mat-form-field>
 
-                <mat-form-field appearance="outline" class="grey-matform noHover col-lg-4 col-md-4 col-sm-12 col-12 mt-3">
+                <mat-form-field appearance="outline"
+                  class="grey-matform noHover col-lg-4 col-md-4 col-sm-12 col-12 mt-3">
                   <input matInput readonly placeholder="Zip" [(ngModel)]="PatientProfile.zip" id="zip" name="zip"
                     #zip="ngModel">
                 </mat-form-field>
@@ -198,7 +208,7 @@
 
               <div class="row mb-3">
                 <div class="d-flex justify-content-end">
-                  <button type="button" class="btn btn-green btn-save">Save</button>
+                  <button type="button" class="btn btn-green btn-save" (click)="updateContactInform()">Save</button>
                 </div>
               </div>
             </form>
@@ -246,19 +256,21 @@
                 <mat-label>Relationship to Patient</mat-label>
                 <mat-form-field appearance="outline"
                   class="dropdown grey-matform col-lg-12 col-md-12 col-sm-12 col-12 ">
-                  <mat-select placeholder="Relationship to Patient">
-                    <mat-option>Patient
-                    </mat-option>
-                  </mat-select>
+                    <mat-select placeholder="All Providers"  [(ngModel)]="PatientProfile.RelationshipToPatient" disableOptionCentering
+                    id="RelationshipToPatient" name="RelationshipToPatient" #RelationshipToPatient="ngModel">
+                      <mat-option *ngFor="let item of relationship" [value]="item.value">{{item.value}}
+                      </mat-option>
+                    </mat-select>
                 </mat-form-field>
               </div>
+
 
               <div class="row">
                 <label class="labelfontzise mt-2">Phone </label>
                 <div class="input-group mb-1">
                   <mat-form-field class="example-full-width grey-matform " appearance="outline">
                     <input type="input" placeholder="( :" aria-label="Number" matInput [formControl]="myControl"
-                      [matAutocomplete]="auto" >
+                      [matAutocomplete]="auto">
                     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
                       <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
                         <h1>{{option}}</h1>
@@ -268,7 +280,8 @@
                     </mat-autocomplete>
                   </mat-form-field>
                   <mat-form-field appearance="outline" class="example-width grey-matform">
-                    <input matInput placeholder="Phone">
+                    <input matInput placeholder="Phone" [(ngModel)]="PatientProfile.Phone" id="Phone" name="Phone"
+                      #Phone="ngModel">
                   </mat-form-field>
                 </div>
               </div>
@@ -301,18 +314,21 @@
                 </mat-form-field>
               </div>
               <div class="row ">
-                <mat-form-field appearance="outline" class="grey-matform noHover col-lg-4 col-md-4 col-sm-12 col-12 mt-3">
+                <mat-form-field appearance="outline"
+                  class="grey-matform noHover col-lg-4 col-md-4 col-sm-12 col-12 mt-3">
                   <input matInput readonly placeholder="City" [(ngModel)]="PatientProfile.EmergencyCity"
                     id="EmergencyCity" name="EmergencyCity" #EmergencyCity="ngModel">
                 </mat-form-field>
 
 
-                <mat-form-field appearance="outline" class="grey-matform noHover col-lg-4 col-md-4 col-sm-12 col-12 mt-3">
+                <mat-form-field appearance="outline"
+                  class="grey-matform noHover col-lg-4 col-md-4 col-sm-12 col-12 mt-3">
                   <input matInput readonly placeholder="State" [(ngModel)]="PatientProfile.EmergencyState"
                     id="EmergencyState" name="EmergencyState" #EmergencyState="ngModel">
                 </mat-form-field>
 
-                <mat-form-field appearance="outline" class="grey-matform noHover col-lg-4 col-md-4 col-sm-12 col-12 mt-3">
+                <mat-form-field appearance="outline"
+                  class="grey-matform noHover col-lg-4 col-md-4 col-sm-12 col-12 mt-3">
                   <input matInput readonly placeholder="Zip" [(ngModel)]="PatientProfile.EmergencyZip" id="EmergencyZip"
                     name="EmergencyZip" #EmergencyZip="ngModel">
                 </mat-form-field>
@@ -320,7 +336,7 @@
 
               <div class="row mb-3">
                 <div class="d-flex justify-content-end">
-                  <button type="button" class="btn btn-green btn-save">Save</button>
+                  <button type="button" class="btn btn-green btn-save" (click)="updateEmergencyContact()">Save</button>
                 </div>
               </div>
             </form>
@@ -474,7 +490,8 @@
 
             <div class="row mt-4">
               <div class="d-flex justify-content-end">
-                <button type="button" class="btn btn-green mx-2" data-bs-dismiss="modal"  [disabled]="true" >Change</button>
+                <button type="button" class="btn btn-green mx-2" data-bs-dismiss="modal"
+                  [disabled]="true">Change</button>
                 <button type="button" class="btn btn-green">Cancel</button>
               </div>
             </div>

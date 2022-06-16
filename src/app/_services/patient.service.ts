@@ -69,10 +69,15 @@ export class PatientService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._patientsRelationByProviderIdUrl, reqparam);
   }
 
-  PatientClinicProviders(reqparams: any) {
-    return this._ProcessPostRequest<any>(this._patientClinicProviderUrl, reqparams);
+  PatientProviders(reqparams: any) {
+    debugger;
+    return this._ProcessPostRequest<any>(this._patientProviderUrl, reqparams);
   }
 
+  PatientLocations(reqparams: any) {
+    debugger;
+    return this._ProcessPostRequest<any>(this._patientLocationUrl, reqparams);
+  }
   ProblemDx(reqparams: any) {
     return this._ProcessPostRequest<any>(this._problemDxUrl, reqparams);
   }
@@ -157,6 +162,9 @@ export class PatientService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._activityLogsUrl, reqparams);
   }
 
+  UpdatePatientMyprofile(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._updatePatientProfileUrl, reqparams);
+  }
   CreateEncounter(reqparams: any) {
     return this._ProcessPostRequest<any>(this._createEncounterUrl, reqparams);
   }
@@ -165,4 +173,18 @@ export class PatientService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._encounterViewUrl,reqparams);
   }
 
+  CreateUpdateInsuranceCompanyPlan(reqparams:any)
+  {
+    return this._ProcessPostRequest<any>(this. _createUpdateInsuranceCompanyPlanUrl,reqparams);
+  }
+
+  DeleteInsuranceCampanyplan(reqparams:any)
+  {
+    return this._ProcessPostRequest<any>(this._deleteInsuranceCampanyplanUrl,reqparams);
+  }
+
+  CreateUpdateInsuranceDetails(reqparams:any)
+  {
+    return this._ProcessPostRequest<any>(this._createUpdateInsuranceDetailsUrl,reqparams);
+  }
 }
