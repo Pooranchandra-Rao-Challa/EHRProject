@@ -157,13 +157,13 @@
                   <li>
                     <a>
                       <span *ngIf="screening?.date_performed != null && screening?.date_performed !=''">
-                        - {{screening.date_performed | date: 'MM/dd/yyyy'}}
+                        - {{screening?.date_performed | date: 'MM/dd/yyyy'}}
                       </span>
                       <span *ngIf="screening?.description != null && screening?.description !=''">
-                        - {{screening.description}}
+                        - {{screening?.description}}
                       </span>
                       <span *ngIf="screening?.code != null && screening?.code !=''">
-                        / {{screening.code}}
+                        / {{screening?.code}}
                       </span>
                     </a>
                   </li>

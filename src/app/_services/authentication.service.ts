@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { map,  tap } from 'rxjs/operators';
 import { APIEndPoint } from './api.endpoint.service';
 import { environment } from "src/environments/environment";
-import { User, ResponseData,ViewModel } from '../_models';
+import { User, ResponseData,ViewModel, AdminViewModal } from '../_models';
 import { getLogger } from "../logger.config";
 const logModel = getLogger("ehr");
 const logger = logModel.getChildCategory("AuthenticationService");
@@ -28,11 +28,20 @@ export class AuthenticationService {
   public get viewModel() : ViewModel{
     return JSON.parse(localStorage.getItem("viewModel")) as ViewModel;
   }
-
   public SetViewParam(key: string,value: any) {
     let v = JSON.parse(localStorage.getItem("viewModel")) as ViewModel;
     v[key] = value;
    localStorage.setItem('viewModel', JSON.stringify(v));
+  }
+
+  public get viewModelAdmin() : AdminViewModal{
+    return JSON.parse(localStorage.getItem("viewModelAdmin")) as AdminViewModal;
+  }
+
+  public SetViewParamAdmin(value: any) {
+    let v = JSON.parse(localStorage.getItem("viewModelAdmin")) as AdminViewModal;
+    v = value;
+   localStorage.setItem('viewModelAdmin', JSON.stringify(v));
   }
 
   constructor(
