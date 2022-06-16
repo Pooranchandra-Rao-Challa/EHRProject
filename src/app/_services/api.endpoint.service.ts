@@ -503,6 +503,10 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "CreateEncounter";
   }
 
+  get _encounterViewUrl(){
+    return this._baseUrl + "EncounterView";
+  }
+
 	get _createUpdateInsuranceCompanyPlanUrl()
  {
    return this._baseUrl + "CreateInsurancePlan";
