@@ -19,6 +19,7 @@ import { MyhealthComponent } from 'src/app/patient/myhealth.component';
 import { MyprofileComponent } from 'src/app/patient/myprofile.component';
 import { PatientappointmentDialogComponent } from 'src/app/dialogs/patientappointment.dialog/patientappointment.dialog.component';
 import { OverlayService } from 'src/app/overlay.service';
+import { AlertMessage } from 'src/app/_alerts/alertMessage';
 @NgModule({
   exports: [
     MatInputModule
@@ -45,7 +46,7 @@ import { OverlayService } from 'src/app/overlay.service';
     CommonModule,
 
   ],
-  providers: [PatientService, OverlayService
+  providers: [PatientService, OverlayService,AlertMessage
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

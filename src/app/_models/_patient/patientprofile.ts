@@ -7,7 +7,8 @@ export interface PatientProfile {
   Sex?: string;
   DateOfBirth?: string;
   DateOfDeath?: string;
-  Gender:string;
+  Gender?:string;
+  Age?:string;
   HomePhone?: string;
   CellPhone?: string;
   WorkPhone?: string;
@@ -68,5 +69,4 @@ export interface PatientProfile {
   NKZip?: string;
   PatientRelationId?:string;
   relationships?:String;
-
 }

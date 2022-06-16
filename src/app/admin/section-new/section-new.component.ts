@@ -1,5 +1,9 @@
+import { AuthenticationService } from 'src/app/_services/authentication.service';
+import { WeeklyUpdated } from './../../_models/_admin/weeklyupdated';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { AdminViewModal } from 'src/app/_models';
+import { AdminService } from 'src/app/_services/admin.service';
 
 @Component({
   selector: 'app-section-new',
@@ -9,12 +13,52 @@ import { Component, OnInit } from '@angular/core';
 export class SectionNewComponent implements OnInit {
   menuName: any;
   displayHeading: string = ''
-  constructor(private router: Router, private route: ActivatedRoute,) { }
+  SectionNew: any;
+  WeeklyUpdate:any=[];
+  viewModel: AdminViewModal;
+  body:any;
+  heading:any;
 
-  ngOnInit(): void {
-    this.getComponentName()
+  constructor(private router: Router, private route: ActivatedRoute,private authService:AuthenticationService,private adminservice: AdminService) {
+    this.WeeklyUpdate = {} as WeeklyUpdated;
   }
 
+  ngOnInit(): void {
+    this.getComponentName();
+    //this.getEditData();
+  }
+
+  getComponentName() {
+    this.route.queryParams.subscribe((params) => {
+      if (params.name != null) {
+        if (params.edit == 'EditSection') {
+          this.displayHeading = 'Edit Section';
+          this.getEditData()
+        }
+        else { this.displayHeading = 'Add new Section'}
+        this.menuName = params.name;
+      }
+    });
+  }
+
+  getEditData(){
+    debugger;
+     this.WeeklyUpdate = this.authService.viewModelAdmin;
+     this.body= this.WeeklyUpdate.body;
+     this.heading= this.WeeklyUpdate.header;
+     console.log(this.WeeklyUpdate);
+  }
+
+  updateWeeklyRecord()
+  {
+    this.adminservice.AddUpdateWeeklyUpdated(this.WeeklyUpdate).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.WeeklyUpdate = resp.ListResult;
+        console.log(this.WeeklyUpdate);
+        this.BackWeeklyUpdate('Weekly Update','admin/weeklyupdates');
+    }
+  });
+ }
   BackWeeklyUpdate(name, url) {
     this.router.navigate(
       [url],
@@ -22,20 +66,9 @@ export class SectionNewComponent implements OnInit {
     );
   }
 
-  getComponentName() {
-    //debugger;
-    this.route.queryParams.subscribe((params) => {
-      // console.log(params.edit)
-      if (params.name != null) {
-        if (params.edit == 'EditSection') {
-          this.displayHeading = 'Edit Section'
-        }
-        else {
-          this.displayHeading = 'Add new Section'
-        }
-        this.menuName = params.name;
-      }
-    });
-  }
 
 }
+
+
+
+
