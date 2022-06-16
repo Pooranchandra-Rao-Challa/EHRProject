@@ -136,19 +136,19 @@
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list" *ngFor="let smoking of chartInfo.SmokingStatuses">
+                <ul class="main-list" *ngFor="let smoking of chartInfo?.SmokingStatuses">
                   <li>
                     <a (click)="openComponentDialog(smokingStatusDialogComponent, smoking, ActionTypes.view)">
                       <span *ngIf="smoking?.EffectiveFrom != null && smoking?.EffectiveFrom !=''">
-                        - {{smoking.EffectiveFrom | date: 'MM/dd/yyyy'}}
+                        - {{smoking?.EffectiveFrom | date: 'MM/dd/yyyy'}}
                       </span>
                       <span *ngIf="smoking?.Status != null && smoking?.Status !=''">
-                        - {{smoking.Status}}
+                        - {{smoking?.Status}}
                       </span>
                     </a>
                   </li>
                 </ul>
-                <ul class="main-list" *ngIf="chartInfo.SmokingStatuses?.length == 0">
+                <ul class="main-list" *ngIf="chartInfo?.SmokingStatuses?.length == 0">
                   <li>
                     <span>No smoking status recorded.</span>
                   </li>
@@ -157,13 +157,13 @@
                   <li>
                     <a>
                       <span *ngIf="screening?.date_performed != null && screening?.date_performed !=''">
-                        - {{screening.date_performed | date: 'MM/dd/yyyy'}}
+                        - {{screening?.date_performed | date: 'MM/dd/yyyy'}}
                       </span>
                       <span *ngIf="screening?.description != null && screening?.description !=''">
-                        - {{screening.description}}
+                        - {{screening?.description}}
                       </span>
                       <span *ngIf="screening?.code != null && screening?.code !=''">
-                        / {{screening.code}}
+                        / {{screening?.code}}
                       </span>
                     </a>
                   </li>
@@ -249,7 +249,7 @@
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list" *ngFor="let directive of chartInfo.AdvancedDirectives">
+                <ul class="main-list" *ngFor="let directive of chartInfo?.AdvancedDirectives">
                   <li>
                     <a (click)="openComponentDialog(advancedDirectivesDialogComponent, directive, ActionTypes.view)">
                       <span *ngIf="directive?.RecordAt != null && directive?.RecordAt !=''">
@@ -261,7 +261,7 @@
                     </a>
                   </li>
                 </ul>
-                <ul class="main-list" *ngIf="chartInfo.AdvancedDirectives?.length == 0">
+                <ul class="main-list" *ngIf="chartInfo?.AdvancedDirectives?.length == 0">
                   <li>
                     <span>No advanced directives recorded.</span>
                   </li>

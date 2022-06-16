@@ -2,7 +2,7 @@ import { TableUtil } from './../../reports/tableUtil';
 import { isNull } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { ChangeEventArgs, PopupEventArgs } from '@syncfusion/ej2-angular-dropdowns';
-import { EventSettingsModel, View } from '@syncfusion/ej2-angular-schedule';
+// import { EventSettingsModel, View } from '@syncfusion/ej2-angular-schedule';
 import { L10n } from '@syncfusion/ej2-base';
 import { DropDownList } from '@syncfusion/ej2-dropdowns';
 import { extend, isNullOrUndefined } from '@syncfusion/ej2-base';
@@ -70,7 +70,7 @@ export class CalendarComponent implements OnInit {
   closePopup() {
     this.displayStyle = "none";
   }
-  public setView: View[] = ["Day", "Week"];
+  // public setView: View[] = ["Day", "Week"];
   public dateParser(data: string) {
     return new Date(data);
   }
@@ -99,29 +99,29 @@ export class CalendarComponent implements OnInit {
 
 
   public selectedDate: Date = new Date(2018, 1, 15);
-  public eventSettings: EventSettingsModel = {
-    dataSource: [
-      {
-        Id: 1,
-        Notes: 'Explosion of Betelgeuse Star',
-        StartTime: new Date(2018, 1, 15, 9, 30),
-        EndTime: new Date(2018, 1, 15, 11, 0)
-      }, {
-        Id: 2,
-        Notes: 'Thule Air Crash Report',
-        StartTime: new Date(2018, 1, 12, 12, 0),
-        EndTime: new Date(2018, 1, 12, 14, 0)
-      }, {
-        Id: 3,
-        Notes: 'Blue Moon Eclipse',
-        StartTime: new Date(2018, 1, 13, 9, 30),
-        EndTime: new Date(2018, 1, 13, 11, 0)
-      }, {
-        Id: 4,
-        Notes: 'Meteor Showers in 2018',
-        StartTime: new Date(2018, 1, 14, 13, 0),
-        EndTime: new Date(2018, 1, 14, 14, 30)
-      }]
-  };
+  // public eventSettings: EventSettingsModel = {
+  //   dataSource: [
+  //     {
+  //       Id: 1,
+  //       Notes: 'Explosion of Betelgeuse Star',
+  //       StartTime: new Date(2018, 1, 15, 9, 30),
+  //       EndTime: new Date(2018, 1, 15, 11, 0)
+  //     }, {
+  //       Id: 2,
+  //       Notes: 'Thule Air Crash Report',
+  //       StartTime: new Date(2018, 1, 12, 12, 0),
+  //       EndTime: new Date(2018, 1, 12, 14, 0)
+  //     }, {
+  //       Id: 3,
+  //       Notes: 'Blue Moon Eclipse',
+  //       StartTime: new Date(2018, 1, 13, 9, 30),
+  //       EndTime: new Date(2018, 1, 13, 11, 0)
+  //     }, {
+  //       Id: 4,
+  //       Notes: 'Meteor Showers in 2018',
+  //       StartTime: new Date(2018, 1, 14, 13, 0),
+  //       EndTime: new Date(2018, 1, 14, 14, 30)
+  //     }]
+  // };
 }
 

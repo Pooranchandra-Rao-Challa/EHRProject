@@ -14,11 +14,12 @@ import { SharedModule } from '../../_common/shared';
 import { PatientNavbarComponent } from "../patient.navbar/patient.navbar.component";
 import { PatientRoutingModule } from "./patient-routing.module";
 import { PatientComponent } from './patient.component';
-import { DayService, WeekService } from '@syncfusion/ej2-angular-schedule';
+// import { DayService, WeekService } from '@syncfusion/ej2-angular-schedule';
 import { MyhealthComponent } from 'src/app/patient/myhealth.component';
 import { MyprofileComponent } from 'src/app/patient/myprofile.component';
 import { PatientappointmentDialogComponent } from 'src/app/dialogs/patientappointment.dialog/patientappointment.dialog.component';
 import { OverlayService } from 'src/app/overlay.service';
+import { AlertMessage } from 'src/app/_alerts/alertMessage';
 @NgModule({
   exports: [
     MatInputModule
@@ -45,7 +46,7 @@ import { OverlayService } from 'src/app/overlay.service';
     CommonModule,
 
   ],
-  providers: [DayService, WeekService,PatientService, OverlayService
+  providers: [PatientService, OverlayService,AlertMessage
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

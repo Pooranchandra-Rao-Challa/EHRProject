@@ -328,6 +328,9 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "DeleteLocation";
   }
 
+  get _addUpdatedWeeklyUpdated(){
+    return this._baseUrl + "AddUpdatedWeeklyUpdated";
+  }
 
 
   // get _advancedDirectivesUrl() {
@@ -495,6 +498,10 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "CreateEncounter";
   }
 
+  // Update for patient My Profile
+  get _updatePatientProfileUrl() {
+    return this._baseUrl + "UpdatePatientProfile";
+  }
   constructor(public http: HttpClient) {
     super();
   }

@@ -14,10 +14,7 @@
             </div>
             <div>
               <ul>
-                <li *ngFor="let item of Providerdata">{{item.Title+' '+item.FullName}}</li>
-                <!-- <li>{{item.Title}}</li> -->
-                <!-- <li>Dr. EHR1 StagiDr. Trevor EHRng</li>
-                <li>Dr. Armin Vans Buuren</li> -->
+                <li *ngFor="let item of Providerdata">{{(item.Title|titlecase) +' '+ item.FullName}}</li>
               </ul>
             </div>
             <div class="row clinic-info heding">
@@ -54,22 +51,21 @@
         <div class="row">
           <div class="col-md-3"> <span class="size">{{ this.user.FirstName}}</span></div>
           <div class="col-md-3"><span class="green-color">DOB: </span><span
-              class="Helvetica-sans-serif-large">{{this.PatientProfile.DateOfBirth | date:'yyyy-MM-dd'}}</span></div>
-          <div class="col-md-3"><span class="green-color">Age: </span><span class="Helvetica-sans-serif-large">0
-              Years</span></div>
+              class="Helvetica-sans-serif-large">{{PatientProfile?.DateOfBirth| date:'dd/MM/yyyy'}}</span></div>
+          <div class="col-md-3"><span class="green-color">Age: </span><span class="Helvetica-sans-serif-large">{{PatientProfile?.Age}}</span></div>
           <!-- <div class="col-md-3"><span class="green-color">Sex: </span><span
               class="Helvetica-sans-serif-large">{{PatientProfile.Sex}}</span></div>
         </div> -->
           <div class="row mt-4">
             <div class="col-md-3"><span class="green-color">Race: </span> </div>
             <div class="col-md-3"><span class="green-color">Ethnicity: </span><span
-                class="Helvetica-sans-serif-large">{{PatientProfile.ethnicity}}</span></div>
+                class="Helvetica-sans-serif-large">{{PatientProfile?.ethnicity}}</span></div>
             <div class="col-md-3"><span class="green-color">Preferred Language: </span><span
-                class="Helvetica-sans-serif-large">{{PatientProfile.PreferredLanguage}}</span></div>
+                class="Helvetica-sans-serif-large">{{PatientProfile?.PreferredLanguage}}</span></div>
           </div>
           <div class="row mt-4">
             <div class="col-md-12"><span class="green-color">Smoking Status:- </span><span
-                class="Helvetica-sans-serif-large">{{StatusList.Status}}</span></div>
+                class="Helvetica-sans-serif-large">{{StatusList?.Status}}</span></div>
           </div>
 
           <div class="row mt-4">
@@ -89,7 +85,7 @@
                     <p class="problem_dx">Chronic:</p>
                     <p class="problem_dx">Acute:</p>
                     <div *ngFor="let i of ProblemDxData">
-                      <div class="acute-item">{{i.Description +' '+ i.Code +' '+ i.StartDate }}</div>
+                      <div class="acute-item">{{i.Description +' ,'+ i.Code +', '+ (i.StartDate| date:'dd/MM/yyyy') }}</div>
                     </div>
                   </div>
                 </div>
@@ -102,16 +98,19 @@
                 data-bs-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample1">
                 <!-- <div class="panel-body"> -->
                 <p class="title">Medications (Rx)</p>
-
-                <!-- </div> -->
               </div>
             </div>
             <div class="collapse" id="collapseExample1">
               <div class="panel-expand">
                 <div class="panel-body">
                   <div class="title-dx">
-                    <p class="problem_dx">Chronic:</p>
-                    <p class="problem_dx">Acute:</p>
+                    <div *ngFor="let i of Medications">
+                      <div class="acute-item" >
+                        <p >{{i.start_at}}<br>
+                        </p>
+                      </div>
+
+                    </div>
                   </div>
                 </div>
               </div>
@@ -130,8 +129,14 @@
               <div class="panel-expand">
                 <div class="panel-body">
                   <div class="title-dx">
-                    <p class="problem_dx">Chronic:</p>
-                    <p class="problem_dx">Acute:</p>
+                    <div *ngFor="let i of AllAlergies">
+                      <div class="acute-item" >
+                        <p >Severity :{{i.SeverityLevel}}<br>
+                            Onset :{{i.OnSetAt}}<br>
+                            Start Date:{{i.StartAt}}</p>
+                      </div>
+
+                    </div>
                   </div>
                 </div>
               </div>
@@ -151,8 +156,16 @@
               <div class="panel-expand">
                 <div class="panel-body">
                   <div class="title-dx">
-                    <p class="problem_dx">Chronic:</p>
-                    <p class="problem_dx">Acute:</p>
+                    <div *ngFor="let i of LabTest">
+                      <div class="acute-item" >
+                        <p >Lab Order : {{i.Num}}<br>
+                          Test Name : {{i.Test}}<br>
+                          LOINC code : {{i.Code}}<br>
+                          Test Report Date : {{i.TestReportedAt}}
+                        </p>
+                      </div>
+
+                    </div>
                   </div>
                 </div>
               </div>
@@ -161,26 +174,22 @@
           <div class="row mt-3">
             <div class="col-md-12 accordion">
               <div class="accordion-button collapsed panel-collapse" data-bs-toggle="collapse"
-                data-bs-target="#collapseExample5" aria-expanded="false" aria-controls="collapseExample5">
+                data-bs-target="#collapseExample4" aria-expanded="false" aria-controls="collapseExample4">
                 <!-- <div class="panel-body"> -->
                 <p class="title">Vital Stats</p>
-                </div>
-                <!-- </div> -->
               </div>
             </div>
-            <div class="collapse" id="collapseExample5">
+            <div class="collapse" id="collapseExample4">
               <div class="panel-expand">
                 <div class="panel-body">
                   <div class="title-dx">
-                    <p class="problem_dx">Chronic:</p>
-                    <p class="problem_dx">Acute:
-
-                    </p>
-                    <!-- <div class="acute-item" *ngFor="let i of VitalStatus">
-                      Height:  {{i.Height;}}
-                    </div> -->
+                    <div *ngFor="let i of VitalStatus ">
+                      <!-- <div class="acute-item">{{i.Height +' '+ i.Weight +' '+ i.BloodPressure }}</div> -->
+                      <p class="acute-item">
+                        Height : {{i.Height}}; Weight:{{i.Weight}};BloodPressure :{{i.BloodPressure}};BMI;{{i.Bmi}};Temperature:{{i.Temperature}};Heart Rate:{{i.HeartRate}};Blood Type: {{i.BloodType}}
+                      </p>
+                    </div>
                   </div>
-
                 </div>
               </div>
             </div>
@@ -199,15 +208,19 @@
               <div class="panel-expand">
                 <div class="panel-body">
                   <div class="title-dx">
-                    <p class="problem_dx">Chronic:</p>
-                    <p class="problem_dx">Acute:</p>
+                    <div *ngFor="let i of CarePlan">
+                      <div class="acute-item" >
+                        <p >Code : {{i.Code}}<br>
+                           Description : {{i.Description}}<br>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
           </div>
-          <div class="row mt-3">
+          <div class="row mt-3 ">
             <div class="col-md-12 accordion">
               <div class="accordion-button collapsed panel-collapse" data-bs-toggle="collapse"
                 data-bs-target="#collapseExample7" aria-expanded="false" aria-controls="collapseExample7">
@@ -221,8 +234,12 @@
               <div class="panel-expand">
                 <div class="panel-body">
                   <div class="title-dx">
-                    <p class="problem_dx">Chronic:</p>
-                    <p class="problem_dx">Acute:</p>
+                    <div *ngFor="let i of ProcedurePatietn">
+                      <div class="acute-item" >
+                        <p >Code : {{i.Code}}<br>
+                           Description : {{i.Description}}<br>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -230,6 +247,5 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>

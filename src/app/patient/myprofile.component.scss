@@ -185,11 +185,11 @@ input::-webkit-input-placeholder {
   text-overflow: ellipsis;
 }
 
-.mat-option {
-  height: auto;
-  width: 63%;
-  overflow-wrap: anywhere;
-}
+// .mat-option {
+//   height: auto;
+//   width: 63%;
+//   overflow-wrap: anywhere;
+// }
 
 input[readonly] {
   opacity: 0.5;
@@ -205,4 +205,10 @@ input[readonly] {
   .modal-dialog{
     margin-top: calc(77px + 30px) !important;
   }
+}
+.disable-button {
+  // background-color: red;
+  border: 1px solid #41b6a6;
+  color: #41b6a6;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 }

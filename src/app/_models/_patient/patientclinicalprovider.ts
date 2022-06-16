@@ -20,7 +20,7 @@ export interface CareTeam {
   LastName?: string
 }
 
-// ProblemDxData
+// ProblemDxData and Care Plane
 export interface ProblemDX {
   Description?: string
   Code?: string
@@ -56,4 +56,42 @@ export interface VitalStats {
   BloodType?:string
 }
 
+export interface Medications {
+  patient_id?: string
+  drug_name?: string
+  rxcui?: string
+  ndc?: string
+  dosespot_medication_id?: string
+  manual_dose_form?: string
+  units?: string
+  quantity?: string
+  refills?: string
+  days_supply?:string
+  start_at?: string
+  stop_at?: string
+  reason_code?:string
+  reason_description?: string
+  notes?: string
+  cqm_status?:string
+  display_name?: string
 
+}
+export interface MedicationsAllergies {
+  AlergieId?: string
+  PatientId?: string
+  AllergenType?: string
+  AlergieName?: string
+  SeverityLevel?: string
+  OnSetAt?: string
+  StartAt?: string
+  EndAt?: string
+  Note?: string
+  Reaction?:string
+}
+export interface LabtestResult {
+  Num?: string
+  Code?: string
+  Test?: string
+  TestReportedAt?:string
+
+}
