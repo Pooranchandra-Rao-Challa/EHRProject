@@ -47,4 +47,12 @@ export class AdminService extends APIEndPoint {
   AddUpdateWeeklyUpdated(reqparams:any){
     return this._ProcessPostRequest<any>(this._addUpdatedWeeklyUpdated, reqparams);
   }
+
+  UpdateWeeklyStaus(reqparams:any){
+    return this._ProcessPostRequest<any>(this._updateWeeklyStaus, reqparams);
+  }
+
+  DeleteWeeklyStatus(reqparam:any){
+    return this._ProcessPostRequest<any>(this._deleteWeeklyStatus, reqparam);
+  }
 }

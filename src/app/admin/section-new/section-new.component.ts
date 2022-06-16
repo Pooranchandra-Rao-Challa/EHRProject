@@ -1,3 +1,4 @@
+import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { WeeklyUpdated } from './../../_models/_admin/weeklyupdated';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -20,7 +21,8 @@ export class SectionNewComponent implements OnInit {
   heading:any;
   successMsg:string;
 
-  constructor(private router: Router, private route: ActivatedRoute,private authService:AuthenticationService,private adminservice: AdminService) {
+  constructor(private router: Router, private route: ActivatedRoute,private authService:AuthenticationService,private alertmsg:AlertMessage,
+    private adminservice: AdminService) {
     this.WeeklyUpdate = {} as WeeklyUpdated;
   }
 
@@ -53,18 +55,34 @@ export class SectionNewComponent implements OnInit {
 
   updateWeeklyRecord()
   {
-    this.adminservice.AddUpdateWeeklyUpdated(this.WeeklyUpdate).subscribe(resp => {
-      if (resp.IsSuccess) {
-        this.WeeklyUpdate = resp.ListResult;
-        if(resp.EndUserMessage='Weekly update successfully'){
-          this.successMsg = 'update';
+    debugger;
+    if(this.WeeklyUpdate.Id == undefined || this.WeeklyUpdate.Id == null)
+    {
+       this.checkvalidation();
+    }
+    else{
+      this.adminservice.AddUpdateWeeklyUpdated(this.WeeklyUpdate).subscribe(resp => {
+        if (resp.IsSuccess) {
+          this.WeeklyUpdate = resp.ListResult;
+          if(resp.EndUserMessage='Weekly update successfully'){
+            this.successMsg = 'update';
+          }
+          else{
+            this.successMsg = 'created';
+          }
+          this.BackWeeklyUpdate('Weekly Update','admin/weeklyupdates');
         }
-        else{
-          this.successMsg = 'created';
-        }
-        this.BackWeeklyUpdate('Weekly Update','admin/weeklyupdates');
-      }
-  });
+    });
+  }
+
+ }
+
+ checkvalidation()
+ {
+   if(this.WeeklyUpdate.sequence == undefined && this.WeeklyUpdate.header == undefined && this.WeeklyUpdate.logo_type == undefined &&
+    this.WeeklyUpdate.slide_type== undefined && this.WeeklyUpdate.body == ''){
+    this.alertmsg.displayErrorDailog(ERROR_CODES["E1WU001"]);
+   }
  }
 
   BackWeeklyUpdate(name, url,msg?:string) {

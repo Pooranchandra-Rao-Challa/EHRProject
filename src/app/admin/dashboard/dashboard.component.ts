@@ -115,7 +115,7 @@ export class DashboardComponent implements OnInit {
   }
 
   FilterProvider(eventType, event) {
-    //debugger;
+    debugger;
     if (eventType == 'ActiveStatus') {
       if (event == 'Active' && this.Active) {
         this.Suspended = false;
@@ -129,9 +129,9 @@ export class DashboardComponent implements OnInit {
         this.ActiveStatus = '';
       }
     } else {
-      if (event == 'Not Paid' && this.NotPaidChecked) {
+      if (event == 'Trial' && this.NotPaidChecked) {
         this.PaidChecked = false;
-        this.TrailStatus = 'Not Paid';
+        this.TrailStatus = 'Trial';
       }
       else if (event == 'Paid' && this.PaidChecked) {
         this.NotPaidChecked = false;
@@ -146,7 +146,8 @@ export class DashboardComponent implements OnInit {
       } else if (this.TrailStatus != '' && this.ActiveStatus == '') {
         this.ProviderList = this.ProviderColumnList.filter(x => x.Trial.toLocaleLowerCase() == this.TrailStatus.toLocaleLowerCase());
       } else {
-        this.ProviderList = this.ProviderColumnList.filter(x => x.ActiveStatus.toLocaleLowerCase() == this.ActiveStatus.toLocaleLowerCase() && x.Trial.toLocaleLowerCase() == this.TrailStatus.toLocaleLowerCase());
+        this.ProviderList = this.ProviderColumnList.filter(x => x.ActiveStatus.toLocaleLowerCase() == this.ActiveStatus.toLocaleLowerCase()
+        && x.Trial.toLocaleLowerCase() == this.TrailStatus.toLocaleLowerCase());
       }
     }
     else {

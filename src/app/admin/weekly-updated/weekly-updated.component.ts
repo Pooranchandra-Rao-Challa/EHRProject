@@ -3,6 +3,8 @@ import { Route, ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../../_services/admin.service';
 import { AdminViewModal } from 'src/app/_models';
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-weekly-updated',
   templateUrl: './weekly-updated.component.html',
@@ -52,9 +54,7 @@ export class WeeklyUpdatedComponent implements OnInit {
       if (resp.IsSuccess) {
         this.WeeklyUpdatedList = resp.ListResult;
         console.log(this.WeeklyUpdatedList);
-
           this.getMessage();
-
       }
       else {
         this.WeeklyUpdatedList = [];
@@ -102,6 +102,7 @@ export class WeeklyUpdatedComponent implements OnInit {
     this.UpdateWeeklyUpdatedView(item);
   }
 
+
   UpdateWeeklyUpdatedView(item) {
     this.authService.SetViewParamAdmin(item);
     this.viewModel = this.authService.viewModelAdmin;
@@ -109,6 +110,7 @@ export class WeeklyUpdatedComponent implements OnInit {
 
   }
 
+  // drodpown provider list
   GetProviderNameList() {
     this.adminservice.GetProviderList().subscribe(resp => {
       if (resp.IsSuccess) {
@@ -117,6 +119,79 @@ export class WeeklyUpdatedComponent implements OnInit {
         this.FistProviderName = this.filteredList[0].ProviderName
         this.selectedValue = this.FistProviderName;
       }
+    });
+  }
+
+  // update status as active/deactive
+  updateStatus(item){
+    let Stauts;
+    if(item.Status == 'DeActivate'){Stauts = 0;}
+    else{Stauts = 1;}
+
+    let reqparams={
+      'Id':item.Id,
+      'Status':Stauts}
+
+    this.adminservice.UpdateWeeklyStaus(reqparams).subscribe( resp =>{
+      if (resp.IsSuccess) {this.GetWeeklyUpdate();}
+    })
+  }
+
+  // delete weeklyupdated records.
+  deleteWeeklyUpdated(id){
+    let reqparam={
+      'Id':id
+    }
+    this.adminservice.DeleteWeeklyStatus(reqparam).subscribe( resp =>{
+      if (resp.IsSuccess) {
+        this.GetWeeklyUpdate();
+      }
+    })
+  }
+
+  // confirm for the status
+  confirmStatus(item) {
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-warning'
+      },
+      buttonsStyling: true,
+    });
+    swalWithBootstrapButtons.fire(
+    {
+      title: 'Are you sure you want to change the status',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+     // cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.value) {
+        this.updateStatus(item);
+      }
+      this.GetWeeklyUpdate();
+    });
+  }
+
+  // confirmation for delete
+  confirmdelete(id) {
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-warning'
+      },
+      buttonsStyling: true,
+    });
+    swalWithBootstrapButtons.fire(
+    {
+      title: 'Are you sure you want to delete the record',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+     //cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.value) {
+        this.deleteWeeklyUpdated(id);
+      }
+      this.GetWeeklyUpdate();
     });
   }
 
@@ -130,7 +205,9 @@ export class WeeklyUpdatedComponent implements OnInit {
       else { this.displayHeading = 'created';}
     });
   }
- }
+  }
 
   closeModal(){this.SuccessModal='none';}
+
 }
+

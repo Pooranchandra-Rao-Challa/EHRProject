@@ -331,7 +331,12 @@ export class APIEndPoint extends EndpointBase {
   get _addUpdatedWeeklyUpdated(){
     return this._baseUrl + "AddUpdatedWeeklyUpdated";
   }
-
+  get _updateWeeklyStaus(){
+    return this._baseUrl + "UpdatedWeeklyStatus";
+  }
+  get _deleteWeeklyStatus(){
+    return this._baseUrl + "DeleteWeeklyStatus";
+  }
 
   // get _advancedDirectivesUrl() {
   //   return this._baseUrl + "AdvancedDirectives";
