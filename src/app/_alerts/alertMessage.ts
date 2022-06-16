@@ -14,7 +14,6 @@ export class AlertMessage {
       width: '600',
       customClass: {container:'swal2-container-high-zindex'}
     });
-
   }
 
   displayErrorDailog(message) {
@@ -61,7 +60,8 @@ export class AlertMessage {
  * Settings: J
  * Screens: Adming Lofin
  * Provider:P
- * partnersignup :PS
+ * partnersignup :PS,
+ * WeeklyUpated:WP
  * -------------------------------------
  * If the screens has more funcitonal items then
  * Like in settings use frist letter as code, if same
@@ -166,7 +166,7 @@ export const ERROR_CODES: { [key: string]: string } = {
 
   // Message for Admin Provider  Status
   'M1P001': 'Your 30-Day Trial version is finished',
-// Message for Insurance 
+// Message for Insurance
 'M2CI001': 'Insurance Company Plan created successfully',
 'M2CI002': 'Insurance Company Plan Updated successfully',
 'M2CI003': 'Insurance Company Plan  deleted successfully',
@@ -179,5 +179,11 @@ export const ERROR_CODES: { [key: string]: string } = {
 //Error for Insurance
 'E2CI001':'Insurance Company Plan  Updation error',
 'E2CI002': 'Primary Insurance Updation error',
-'E2CI003': 'Secondary Insurance Updation error'
+'E2CI003': 'Secondary Insurance Updation error',
+
+//Error for WeeklyUpated
+'E1WU001':'Please insert the data into the fields'
+
 };
+
+

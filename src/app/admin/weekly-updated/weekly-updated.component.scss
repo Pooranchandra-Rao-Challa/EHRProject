@@ -41,7 +41,7 @@ td {
   }
 .td-status:hover {
   color: black;
-  cursor: pointer;
+  cursor: pointer !important;
 }
 
 .table>thead>tr>th {
@@ -311,3 +311,7 @@ input, .form-control:focus, input:focus, select:focus, textarea:focus, button:fo
     border: 1px solid rgb(160, 159, 159) !important;
 
   }
+  .swal2-styled.swal2-cancel {
+    background:blue !important
+  }
+
