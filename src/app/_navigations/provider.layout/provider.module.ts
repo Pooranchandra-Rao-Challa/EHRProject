@@ -75,6 +75,7 @@ import { AdvancedMedicalCodeModule } from '../../_components/advanced-medical-co
 import { ChangePasswordDialogComponent } from 'src/app/dialogs/user.dialog/changepassword.dialog.component'
 import { LocationDialogComponent} from 'src/app/dialogs/location.dialog/location.dialog.component';
 import { VitalDialogComponent} from 'src/app/dialogs/vital.dalog/vital.dialog.component';
+import {DataSourceFilterPipe} from 'src/app/_pipes/group-by.pipe';
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 // import { NgxNativeDateModule, NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 import { TeethSurfaceModule } from 'src/app/_components/teeth-surface/teeth-surface.module';
@@ -122,6 +123,7 @@ import { AlertMessage } from 'src/app/_alerts/alertMessage';
     Condition,
     ConditionpadderPipe,
     ConditionformaterPipe,
+    DataSourceFilterPipe,
     //PatientsComponent,
     //PatientDetailsComponent,
     PatientDialogComponent,

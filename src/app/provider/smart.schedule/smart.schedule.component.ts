@@ -19,6 +19,7 @@ import { UpcomingAppointmentsDialogComponent } from '../../dialogs/upcoming.appo
 import { EncounterDialogComponent } from '../../dialogs/encounter.dialog/encounter.dialog.component';
 import { PageEvent } from "@angular/material/paginator";
 import { MatPaginator } from "@angular/material/paginator";
+import * as moment from "moment";
 
 import {
   PatientSearchResults, Actions,
@@ -313,8 +314,9 @@ export class SmartScheduleComponent implements OnInit {
       "ClinicId": this.authService.userValue.ClinicId,
       "ProviderId": this.SelectedProviderId,
       "LocationId": this.authService.userValue.CurrentLocation,
-      "AppointmentDate": this.selectedAppointmentDate
+      "AppointmentDate": moment.utc(this.selectedAppointmentDate).toDate()
     };
+    console.log(req);
 
     this.smartSchedulerService.ActiveAppointments(req).subscribe(resp => {
 
@@ -407,6 +409,8 @@ export class SmartScheduleComponent implements OnInit {
     this.LoadAppointmentDefalts();
   }
   selectedCalendarDate(event) {
+    console.log(event.value);
+
     this.selectedAppointmentDate = event.value;
     this.selectedWeekday = this.selectedAppointmentDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
     this.filterAppointments();

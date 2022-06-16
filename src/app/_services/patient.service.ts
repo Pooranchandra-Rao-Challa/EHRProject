@@ -161,4 +161,8 @@ export class PatientService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._createEncounterUrl, reqparams);
   }
 
+  EncounterView(reqparams: any){
+    return this._ProcessPostRequest<any>(this._encounterViewUrl,reqparams);
+  }
+
 }

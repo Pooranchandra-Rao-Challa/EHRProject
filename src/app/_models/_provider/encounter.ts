@@ -1,5 +1,10 @@
 import { JsonPipe } from "@angular/common";
 
+
+export interface IDeleteFlag{
+  CanDelete?: boolean;
+}
+
 export interface EncounterData {
   Encounter_Id: number;
   Patient_Name: string;
@@ -28,6 +33,7 @@ export class MU2Info{
   CurrentMedicationDocumented: number = 1
   DocumentedCode: string = "99213";
   DocumentedDescription: string ="Office or Other Outpatient Visit"
+  CodeSystem?: string;
 }
 
 export class EncounterInfo{
@@ -36,36 +42,55 @@ export class EncounterInfo{
   ProviderId?: string;
   LocationId?: string;
   AppointmentId?: string;
+
+
+
   ServicedAt?: Date = new Date;
-  ServiceEndAt?: Date = new Date;
-  ReasonForVisit?: string;
-  ReasonForReferral?: string = "";
+  ServiceEndAt?: Date;
   Medication?: string = "yes" ;
-  EncounterType?: string = "Office Visit (1853490003)";
-  ToProviderName?: string = "";
-  FromProviderName?: string = "";
-  DischargeStatus?: string = "";
-  HealthInfoExchange: boolean = false;
   ClinicalSummary: boolean = false;
-  FromProvider: boolean = false;
-  ToProvider: boolean = false;
-  PatientEducation: boolean = false;
-  medCompleted: boolean = false;
   Signed: boolean = false;
   cqmData: boolean = false;
   cqmExcelData: boolean = false;
   DirectImport: boolean = false;
-  NewPatientEncounter: boolean = false;
-  MedicationAllergyReconciliationCompleted: boolean = false;
-  DiagnosisReconciliationCompleted: boolean = false;
-  SummaryCareRecordRefIn: boolean = false;
-  SummaryCareRecordRefOut: boolean = false;
-  DeclinetoReceiveSummary: boolean = false;
-  CareRecordCreated: boolean = false;
-  CareRecordExchanged: boolean = false;
+  EnableNewEncounterData: boolean = false;
 
-  mu2: MU2Info = new MU2Info;
-  Referral: ReferralInfo = new ReferralInfo;
+  //MU2
+  VisitReason?: string;
+  ClinicalInstructions? :string;
+  EncounterType?: string = "Office Visit (1853490003)";
+  NewPatientEncounter: boolean = false;
+  PatientHealthData:string = "";
+  PatientEducation: boolean = false;
+  DischargeStatus: string = "";
+  DischargeStatusCode: string ="";
+  DischargeStatusCodeSystem: string ="";
+  // Need to Know DataBase Columns
+  EncounterCode: string="99213";
+  EncounterCodeSystem: string="SNOMED";
+  EncounterDescription: string ="Office or Other Outpatient Visit";
+  // End of Need to Know
+  SummaryCareRecordRefIn?: boolean;
+  SummaryCareRecordRefOut?: boolean;
+  DeclinedToReceiveSummary?: boolean;
+  MedicationAllergyReconciliationCompleted?: boolean;
+  DiagnosisReconciliationCompleted?: boolean;
+  medCompleted?: boolean;
+  HealthInfoExchange?: boolean;
+  CurrentMedicationDocumented: number = 1
+
+
+  // Referral
+  ReferralReason?: string
+  ReferralFrom?: string;
+  ReferralTo?: string;
+  ReferredFrom: boolean = false;
+  ReferredTo: boolean = false;
+  CongnitiveStatus?: string;
+  FunctionalStatus?: string;
+
+  //mu2: MU2Info = new MU2Info;
+  //Referral: ReferralInfo = new ReferralInfo;
   Diagnoses: EncounterDiagnosis[] = [];
   RecommendedProcedures: ProceduresInfo[] = [];
   CompletedProcedures: ProceduresInfo[] = [];
@@ -82,16 +107,16 @@ export class ReferralInfo{
   FunctionalStatus?: string;
 }
 
-export class EncounterDiagnosis{
+export class EncounterDiagnosis implements IDeleteFlag{
   DiagnosisId?: string;
   RCopiaId?: string;
   LocationId?: string;
+  PatinetId?: string;
   StartAt?: Date;
   StopAt?: Date;
-  Terminal?: string;
+  Terminal?: boolean;
   Note?: string;
   Referral?: boolean;
-  Primary?: boolean;
   FamilyHealthHistoryId?: string;
   cqmData: boolean = false;
   cqmExcelData: boolean = false;
@@ -102,7 +127,7 @@ export class EncounterDiagnosis{
   AllergenName?:string;
   Rxcui?: string;
   EndAt?: string;
-  onSetAt?: string;
+  OnSetAt?: string;
   Code?: string;
   CodeSystem?: string;
   Description?: string;
@@ -112,20 +137,18 @@ export class EncounterDiagnosis{
   /**<a href="http://apps.nlm.nih.gov/medlineplus/services/mpconnect.cfm?mainSearchCriteria.v.cs=2.16.840.1.113883.6.96&amp;mainSearchCriteria.v.c=223788007" target="_blank">Medline Plus</a> */
 }
 
-export class ProceduresInfo{
+export class ProceduresInfo implements IDeleteFlag {
   ProcedureId?: string;
   EncounterId?: string;
   PatientId?: string;
   LocationId?: string;
   ProviderId?: string;
-  DiagnosisId?: string;
-  ServicedAt?: Date;
+  StartDate?: Date;
   ToothSystem?: string = "JP";
   Quantity?: number = 0;
   Fee?: number = 0;
   cqmData: boolean = false;
   cqmExcelData: boolean = false;
-  date?: Date;
   OralCavityArea?: string;
   Notes?: string;
   ReasonCode?: string;
@@ -133,12 +156,13 @@ export class ProceduresInfo{
   EndDate?: Date;
   cqmStatus?: boolean;
   DataSubType?: string;
-  Status?: Date; // if Updating from Procedures from Completed tab its 'Completed' else from recommended tab ' Treetment Plannned'
+  Status?: string; // if Updating from Procedures from Completed tab its 'Completed' else from recommended tab ' Treetment Plannned'
   Code?: string;
   CodeSystem?: string;
   Description?: string;
   ToothNo?: number;
   Surface?: string;
+  ToothProblemId?: string;
   CanDelete?: boolean = false;
 }
 
