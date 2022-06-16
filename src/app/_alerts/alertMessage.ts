@@ -166,6 +166,18 @@ export const ERROR_CODES: { [key: string]: string } = {
 
   // Message for Admin Provider  Status
   'M1P001': 'Your 30-Day Trial version is finished',
+// Message for Insurance 
+'M2CI001': 'Insurance Company Plan created successfully',
+'M2CI002': 'Insurance Company Plan Updated successfully',
+'M2CI003': 'Insurance Company Plan  deleted successfully',
+'M2CI004': 'Primary Insurance Added successfully',
+'M2CI005': 'Primary Insurance Updated successsfully',
+'M2CI006': 'Secondary Insurance Added successfully',
+'M2CI007': 'Secondary Insurance Updated successsfully',
 
 
+//Error for Insurance
+'E2CI001':'Insurance Company Plan  Updation error',
+'E2CI002': 'Primary Insurance Updation error',
+'E2CI003': 'Secondary Insurance Updation error'
 };

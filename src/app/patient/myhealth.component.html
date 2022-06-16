@@ -14,10 +14,7 @@
             </div>
             <div>
               <ul>
-                <li *ngFor="let item of Providerdata">{{(item.Title|titlecase) +' '+item.FirstName+' '+item.LastName}}</li>
-                <!-- <li>{{item.Title}}</li> -->
-                <!-- <li>Dr. EHR1 StagiDr. Trevor EHRng</li>
-                <li>Dr. Armin Vans Buuren</li> -->
+                <li *ngFor="let item of Providerdata">{{(item.Title|titlecase) +' '+ item.FullName}}</li>
               </ul>
             </div>
             <div class="row clinic-info heding">
@@ -27,7 +24,7 @@
             </div>
             <div>
               <ul>
-                <li *ngFor="let item of Providerdata">
+                <li *ngFor="let item of clinicaldata">
                   {{item.StreetAddress}}
                 </li>
 

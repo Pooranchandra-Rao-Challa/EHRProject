@@ -387,9 +387,13 @@ export class APIEndPoint extends EndpointBase {
   get _tobaccoUseInterventionsUrl() {
     return this._baseUrl + "TobaccoUseInterventions";
   }
-  get _patientClinicProviderUrl() {
-    return this._baseUrl + "PatientClinicProviders";
+  get _patientProviderUrl() {
+    return this._baseUrl + "PracticeProviders";
   }
+  get _patientLocationUrl() {
+    return this._baseUrl + "PatientClinic";
+  }
+
   get _problemDxUrl() {
     return this._baseUrl + "ProblemsDx";
   }
@@ -493,6 +497,23 @@ export class APIEndPoint extends EndpointBase {
   get _createEncounterUrl() {
     return this._baseUrl + "CreateEncounter";
   }
+
+	get _createUpdateInsuranceCompanyPlanUrl()
+ {
+   return this._baseUrl + "CreateInsurancePlan";
+ }			
+		
+		
+	get _deleteInsuranceCampanyplanUrl()
+  {
+    return this._baseUrl + "DeleteInsuranceCampanyplan";
+  }
+
+  get _createUpdateInsuranceDetailsUrl()
+  {
+    return this._baseUrl + "CreateUpdateInsuranceDetails";
+  }
+
 
   // Update for patient My Profile
   get _updatePatientProfileUrl() {
