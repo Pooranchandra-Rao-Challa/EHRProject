@@ -45,13 +45,13 @@
       </div>
       <div class="col-md-3">
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="Paid" id="Paid"  [(ngModel)]="NotPaidChecked" (change)="FilterProvider('TrailStatus','Not Paid')" />
+            <input class="form-check-input" type="checkbox" value="Paid" id="Paid"  [(ngModel)]="PaidChecked" (change)="FilterProvider('TrailStatus','Paid')" />
             <label class="form-check-label" for="Paid">Paid Providers</label>
         </div>
     </div>
       <div class="col-md-3">
           <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="Trial" id="Trial" [(ngModel)]="PaidChecked" (change)="FilterProvider('TrailStatus','Paid')"/>
+              <input class="form-check-input" type="checkbox" value="Trial" id="Trial" [(ngModel)]="NotPaidChecked" (change)="FilterProvider('TrailStatus','Trail')"/>
               <label class="form-check-label" for="Trial">Trial Providers</label>
           </div>
       </div>
