@@ -161,4 +161,18 @@ export class PatientService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._createEncounterUrl, reqparams);
   }
 
+  CreateUpdateInsuranceCompanyPlan(reqparams:any)
+  {
+    return this._ProcessPostRequest<any>(this. _createUpdateInsuranceCompanyPlanUrl,reqparams);
+  }
+
+  DeleteInsuranceCampanyplan(reqparams:any)
+  {
+    return this._ProcessPostRequest<any>(this._deleteInsuranceCampanyplanUrl,reqparams);
+  }
+
+  CreateUpdateInsuranceDetails(reqparams:any)
+  {
+    return this._ProcessPostRequest<any>(this._createUpdateInsuranceDetailsUrl,reqparams);
+  }
 }

@@ -2,17 +2,17 @@
 @import "../../../../assets/cstm.material.scss";
 
 .btn-orange {
-  width: 165px;
+  width: 180px;
   height: 45px;
   display: block;
   padding: 0;
   line-height: 2.7;
   border-radius: 3px;
-  margin-right: 19px;
+  // margin-right: 19px;
 }
 
 .Insurance {
-  border-bottom: 3px solid #41b6a6;
+ 
   height: 64px;
 }
 
@@ -63,6 +63,8 @@
   border: 1px solid #41b6a6;
   cursor: not-allowed;
   height: 45px;
+  color: #74757e;
+  font-size: 13px;
 }
 
 .prefix-alignments {
@@ -182,4 +184,12 @@
 }
 .PrimaryInsuranceDetails{
   height: 450px;
+}
+.radio-btn-label {
+  margin-top: -28px;
+  margin-left: 21px;
+}
+.label-design {
+  font-size: 16px;
+  font-family: 'Roboto';
 }

@@ -491,6 +491,23 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "CreateEncounter";
   }
 
+	get _createUpdateInsuranceCompanyPlanUrl()
+ {
+   return this._baseUrl + "CreateInsurancePlan";
+ }			
+		
+		
+	get _deleteInsuranceCampanyplanUrl()
+  {
+    return this._baseUrl + "DeleteInsuranceCampanyplan";
+  }
+
+  get _createUpdateInsuranceDetailsUrl()
+  {
+    return this._baseUrl + "CreateUpdateInsuranceDetails";
+  }
+
+
   constructor(public http: HttpClient) {
     super();
   }
