@@ -22,6 +22,8 @@ import { MatRadioButton } from '@angular/material/radio';
 import { BehaviorSubject } from 'rxjs'
 import { OverlayService } from 'src/app/overlay.service';
 import { VitalDialogComponent } from 'src/app/dialogs/vital.dalog/vital.dialog.component';
+import { stringify } from 'querystring';
+import { flatten } from '@angular/compiler';
 const ELEMENT_DATA: VitalInfo[] = [
   { VitalId: '65756lsdfoirkrtoikfwe747', EncounterId: 'ewer423234090293220933', CollectedAt: new Date('2022/06/10 10:10 AM'), Height: 6.6, Weight: 172, BMI: 1.0079, BPSystolic: 120, BPDiastolic: 80, Temperature: 98.4, Pulse: 88, RespiratoryRate: 1.0079, O2Saturation: 98, BloodType: 'Group A', UnitSystem: 'us', TempType: 'unspcified', Note: 'Testing' },
   { VitalId: '65756lkdfi62irkrtoikf747', EncounterId: '7868ewer42323402932209', CollectedAt: new Date('2022/06/09 02:10 PM'), Height: 5.6, Weight: 132, BMI: 4.0026, BPSystolic: 110, BPDiastolic: 90, Temperature: 98.7, Pulse: 77, RespiratoryRate: 4.0026, O2Saturation: 99, BloodType: 'Group B', UnitSystem: 'us', TempType: 'unspcified', Note: 'Testing' },
@@ -39,10 +41,10 @@ export class EncounterDialogComponent implements OnInit {
   procedureColumns = ["CODE", "CODE SYSTEM", "DESCRIPTION", "TOOTH", "TOOTH SURFACE", "Delete"];
   vitalsColumns = ["CollectedAt", "Height", "Weight", "BMI", "BP", "Temperature", "Pulse", "Respiratory_rate", "O2_Saturation", "Blood_type", "Actions"];
 
-  EncounterData = "";
+  EnableNewEncounterData: boolean = false;
   recommendedProcedures = new BehaviorSubject<ProceduresInfo[]>([]);
-  completedProcedures = new BehaviorSubject<ProceduresInfo[]>([]);
-  diagnosesInfo = new BehaviorSubject<EncounterDiagnosis[]>([]);
+  // completedProcedures = new BehaviorSubject<ProceduresInfo[]>([]);
+   diagnosesInfo = new BehaviorSubject<EncounterDiagnosis[]>([]);
   vitalsInfo = new BehaviorSubject<VitalInfo[]>([]);
   teethNumbers = [] // [0,1,2,3,4]
 
@@ -51,11 +53,14 @@ export class EncounterDialogComponent implements OnInit {
   encounterInfo: EncounterInfo = new EncounterInfo;
   codeSystemsForDiagnosis: string[] = ['SNOMED/ICD10'];
   codeSystemsForReconcillation: string[] = ['SNOMED'];
+  codeSystemsForDischarge: string[] = ['SNOMED'];
   codeSystemsForDocumentation: string[] = ['CPT'];
   codeSystemsForProcedures: string[] = ['CDT/CPT', 'HCPCS'];
   vitalDialogComponent = VitalDialogComponent
   vitalDialogResponse: any;
   ActionsType = Actions;
+  message: string = "";
+  messageflag: boolean = true;
 
   constructor(private overlayref: EHROverlayRef, private authService: AuthenticationService,
     private smartSchedulerService: SmartSchedulerService,
@@ -63,21 +68,52 @@ export class EncounterDialogComponent implements OnInit {
     public overlayService: OverlayService) {
       let i = 1;  //normally would use var here
       while(this.teethNumbers.push(i++)<32){}
-      this.diagnosesInfo.next(this.encounterInfo.Diagnoses);
-      this.recommendedProcedures.next(this.encounterInfo.RecommendedProcedures);
-      this.completedProcedures.next(this.encounterInfo.CompletedProcedures);
-      this.appointment = overlayref.RequestData as ScheduledAppointment
-      this.encounterInfo.ProviderId = authService.userValue.ProviderId;
-      this.location = (JSON.parse(this.authService.userValue.LocationInfo) as UserLocations[])
-        .filter((loc) => loc.locationId === this.authService.userValue.CurrentLocation )[0];
-      this.encounterInfo.LocationId = this.location.locationId;
-      this.encounterInfo.AppointmentId = this.appointment.AppointmentId;
-      this.encounterInfo.Vitals = ELEMENT_DATA
-      this.vitalsInfo.next(this.encounterInfo.Vitals);
      }
 
   ngOnInit(): void {
+    this.location = (JSON.parse(this.authService.userValue.LocationInfo) as UserLocations[])
+    .filter((loc) => loc.locationId === this.authService.userValue.CurrentLocation )[0];
     this.loadDefaults();
+    this.appointment = this.overlayref.RequestData as ScheduledAppointment
+    this.initEncoutnerView();
+    this.loadEncouterView();
+    this.encounterInfo.EnableNewEncounterData = this.EnableNewEncounterData;
+
+    this.diagnosesInfo.next(this.encounterInfo.Diagnoses);
+    this.recommendedProcedures.next(this.encounterInfo.RecommendedProcedures);
+    // this.completedProcedures.next(this.encounterInfo.CompletedProcedures);
+    this.encounterInfo.Vitals = ELEMENT_DATA
+    this.vitalsInfo.next(this.encounterInfo.Vitals);
+  }
+  initEncoutnerView(){
+    if(this.EnableNewEncounterData){
+      this.encounterInfo.EncounterType = "Office Visit (1853490003)";
+      this.encounterInfo.EncounterCode = ""
+      this.encounterInfo.EncounterCodeSystem ="";
+      this.encounterInfo.EncounterDescription ="";
+      this.encounterInfo.SummaryCareRecordRefIn = false;
+      this.encounterInfo.SummaryCareRecordRefOut = false;
+      this.encounterInfo.DeclinedToReceiveSummary = false;
+      this.encounterInfo.MedicationAllergyReconciliationCompleted = false;
+      this.encounterInfo.DiagnosisReconciliationCompleted = false;
+      this.encounterInfo.NewPatientEncounter = false;
+      this.encounterInfo.medCompleted = null;
+      this.encounterInfo.HealthInfoExchange = null;
+
+    }else{
+      this.encounterInfo.EncounterType = "";
+      this.encounterInfo.EncounterCode = "99213"
+      this.encounterInfo.EncounterCodeSystem ="SNOMED";
+      this.encounterInfo.EncounterDescription ="Office or Other Outpatient Visit";
+      this.encounterInfo.SummaryCareRecordRefIn = null;
+      this.encounterInfo.SummaryCareRecordRefOut = null;
+      this.encounterInfo.DeclinedToReceiveSummary = null;
+      this.encounterInfo.MedicationAllergyReconciliationCompleted = null;
+      this.encounterInfo.DiagnosisReconciliationCompleted = null;
+      this.encounterInfo.NewPatientEncounter = null;
+      this.encounterInfo.medCompleted = false;
+      this.encounterInfo.HealthInfoExchange = false;
+    }
   }
 
   loadDefaults() {
@@ -95,24 +131,52 @@ export class EncounterDialogComponent implements OnInit {
     });
 
   }
+  loadEncouterView(){
+  // {"EncounterId": this.appointment.EncounterId}
+    this.patientService.EncounterView({"EncounterId":this.appointment.EncounterId}).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.encounterInfo = resp.Result as EncounterInfo;
+        console.log(this.encounterInfo);
+
+      }else{
+        this.encounterInfo.ProviderId = this.authService.userValue.ProviderId;
+        this.encounterInfo.LocationId = this.location.locationId;
+        this.encounterInfo.AppointmentId = this.appointment.AppointmentId;
+      }
+    });
+  }
   documentationChanged(value) {
-    this.encounterInfo.mu2.CurrentMedicationDocumented = (value as MatRadioButton).value
-    if (this.encounterInfo.mu2.CurrentMedicationDocumented == 2) {
-      this.encounterInfo.mu2.DocumentedCode = "";
-      this.encounterInfo.mu2.DocumentedDescription = "";
+    this.encounterInfo.CurrentMedicationDocumented = (value as MatRadioButton).value
+    if (this.encounterInfo.CurrentMedicationDocumented == 2) {
+      this.encounterInfo.EncounterCode ="";
+      this.encounterInfo.EncounterDescription = "";
+      this.encounterInfo.EncounterCodeSystem = "";
     } else {
       /// default code.
-      this.encounterInfo.mu2.DocumentedCode = "99213";
-      this.encounterInfo.mu2.DocumentedDescription = "Office or Other Outpatient Visit";
+      this.encounterInfo.EncounterCode = "99213";
+      this.encounterInfo.EncounterDescription = "Office or Other Outpatient Visit";
+      this.encounterInfo.EncounterCodeSystem = "SNOMED";
     }
   }
 
 
-  optionChangedForReconcillation(value: MedicalCode){
-    this.encounterInfo.mu2.ReconcillationCode = value.Code;
-    this.encounterInfo.mu2.ReconcillationDescription   = value.Description
+  // optionChangedForReconcillation(value: MedicalCode){
+  //   this.encounterInfo.ReconcillationCode = value.Code;
+  //   this.encounterInfo.ReconcillationDescription   = value.Description
+  //   this.encounterInfo.CodeSystem = value.CodeSystem;
 
+  // }
 
+  onDischargeCodeChange(value: MedicalCode){
+    this.encounterInfo.DischargeStatus = value.Description;
+    this.encounterInfo.DischargeStatusCode   = value.Code
+    this.encounterInfo.DischargeStatusCodeSystem = value.CodeSystem;
+  }
+
+  onEncounterCodeChange(value: MedicalCode){
+    this.encounterInfo.EncounterDescription = value.Description;
+    this.encounterInfo.EncounterCode   = value.Code
+    this.encounterInfo.EncounterCodeSystem = value.CodeSystem;
   }
 
   removeRecommendedProcedure(value: ProceduresInfo, index: number) {
@@ -122,7 +186,7 @@ export class EncounterDialogComponent implements OnInit {
 
   removeCompletedProcedure(value: ProceduresInfo, index: number) {
     value.CanDelete = true;
-    this.completedProcedures.next(this.encounterInfo.CompletedProcedures.filter(fn => fn.CanDelete === false));
+   // this.completedProcedures.next(this.encounterInfo.CompletedProcedures.filter(fn => fn.CanDelete === false));
   }
 
   removeEncounterDiagnosis(value: EncounterDiagnosis, index: number) {
@@ -158,13 +222,14 @@ export class EncounterDialogComponent implements OnInit {
     p.Description = value.Description
     p.CanDelete = false;
     this.encounterInfo.CompletedProcedures.push(p);
-    this.completedProcedures.next(this.encounterInfo.CompletedProcedures.filter(fn => fn.CanDelete === false));
+   // this.completedProcedures.next(this.encounterInfo.CompletedProcedures.filter(fn => fn.CanDelete === false));
   }
 
 
-  onDocumentedReasonChange(value) {
-    this.encounterInfo.mu2.DocumentedCode = value.Code;
-    this.encounterInfo.mu2.DocumentedDescription = value.Description;
+  onDocumentedReasonChange(value: MedicalCode) {
+    this.encounterInfo.EncounterCode = value.Code;
+    this.encounterInfo.EncounterDescription = value.Description;
+    this.encounterInfo.EncounterCodeSystem = value.CodeSystem;
   }
 
   onToothSurfaceSelectedForCP(value, item: ProceduresInfo, index) {
@@ -215,10 +280,11 @@ export class EncounterDialogComponent implements OnInit {
   }
   signEncounter() {
     this.encounterInfo.Signed = true;
+    this.updateEncounter();
   }
 
   updateEncounter(){
-
+    console.log(this.encounterInfo);
     this.patientService.CreateEncounter(this.encounterInfo).subscribe(resp => {
       console.log(resp);
 
@@ -227,5 +293,27 @@ export class EncounterDialogComponent implements OnInit {
       }
     });
 
+  }
+
+  enableSaveButtons(): boolean{
+
+
+    this.messageflag = this.encounterInfo.ServicedAt != null
+    if(this.encounterInfo.HealthInfoExchange == true &&
+      this.encounterInfo.ReferredTo == false
+      || this.encounterInfo.ReferralTo == ""
+      || this.encounterInfo.ReferralTo == null){
+        this.messageflag = false;
+        this.message = "Update the provider to whom you referring this patient."
+      }
+    if(this.encounterInfo.HealthInfoExchange == true &&
+      this.encounterInfo.ReferredFrom == false
+      || this.encounterInfo.ReferralFrom == ""
+      || this.encounterInfo.ReferralFrom == null  ){
+        this.messageflag = false;
+        this.message = "Update the provider from whom you redirected this patient."
+      }
+
+      return this.messageflag;
   }
 }
