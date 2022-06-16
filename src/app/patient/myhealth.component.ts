@@ -21,6 +21,7 @@ export class MyhealthComponent implements OnInit {
    CareTeamList:CareTeam[];
    ProblemDxData:ProblemDX[];
    Providerdata:PatientClinicalProvider[];
+   clinicaldata:PatientClinicalProvider[]
    AllergiesData:Allergies[];
    VitalStatus:VitalStats[];
 
@@ -32,7 +33,8 @@ export class MyhealthComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.getclinicalProvider();
+    this.getLocations();
+    this.getProviders();
     this.getPatientProfile();
      this.getSmokingStatus();
      this.getCareTeamByPatientId();
@@ -59,15 +61,23 @@ export class MyhealthComponent implements OnInit {
         this.PatientProfile=resp.ListResult[0]
     })
   }
-  getclinicalProvider() {
-
+  getLocations() {
     var req={
-      "PatientId": this.user.PatientId,
+      "ClinicId": this.user.ClinicId,
     }
-    this.patientservise.PatientClinicProviders(req).subscribe(req => {
+    this.patientservise.PatientLocations(req).subscribe(req => {
+        this.clinicaldata = req.ListResult;
+    })
+  }
+  getProviders() {
+    var req={
+      "ClinicId": this.user.ClinicId,
+    }
+    this.patientservise.PatientProviders(req).subscribe(req => {
         this.Providerdata = req.ListResult;
     })
   }
+
   getCareTeamByPatientId() {
     let reqparam = {
       'PatientId':this.user.PatientId,

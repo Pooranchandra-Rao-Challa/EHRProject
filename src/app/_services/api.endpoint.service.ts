@@ -384,9 +384,13 @@ export class APIEndPoint extends EndpointBase {
   get _tobaccoUseInterventionsUrl() {
     return this._baseUrl + "TobaccoUseInterventions";
   }
-  get _patientClinicProviderUrl() {
-    return this._baseUrl + "PatientClinicProviders";
+  get _patientProviderUrl() {
+    return this._baseUrl + "PracticeProviders";
   }
+  get _patientLocationUrl() {
+    return this._baseUrl + "PatientClinic";
+  }
+
   get _problemDxUrl() {
     return this._baseUrl + "ProblemsDx";
   }
