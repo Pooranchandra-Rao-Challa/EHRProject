@@ -18,6 +18,7 @@ export class SectionNewComponent implements OnInit {
   viewModel: AdminViewModal;
   body:any;
   heading:any;
+  successMsg:string;
 
   constructor(private router: Router, private route: ActivatedRoute,private authService:AuthenticationService,private adminservice: AdminService) {
     this.WeeklyUpdate = {} as WeeklyUpdated;
@@ -25,6 +26,7 @@ export class SectionNewComponent implements OnInit {
 
   ngOnInit(): void {
     this.getComponentName();
+    this.successMsg='';
     //this.getEditData();
   }
 
@@ -54,15 +56,21 @@ export class SectionNewComponent implements OnInit {
     this.adminservice.AddUpdateWeeklyUpdated(this.WeeklyUpdate).subscribe(resp => {
       if (resp.IsSuccess) {
         this.WeeklyUpdate = resp.ListResult;
-        console.log(this.WeeklyUpdate);
+        if(resp.EndUserMessage='Weekly update successfully'){
+          this.successMsg = 'update';
+        }
+        else{
+          this.successMsg = 'created';
+        }
         this.BackWeeklyUpdate('Weekly Update','admin/weeklyupdates');
-    }
+      }
   });
  }
-  BackWeeklyUpdate(name, url) {
+
+  BackWeeklyUpdate(name, url,msg?:string) {
     this.router.navigate(
       [url],
-      { queryParams: { name: name } }
+      { queryParams: { name: name,msg:this.successMsg} }
     );
   }
 

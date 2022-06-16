@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { AuthenticationService } from '../_services/authentication.service';
-import { patientService } from '../_services/patient.service';
 import { User, UserLocations } from '../_models'
 import { ActiveLog } from '../_models/_patient/activelog';
+import { PatientService } from '../_services/patient.service';
 @Component({
   selector: 'app-activitylog',
   templateUrl: './activitylog.component.html',
@@ -16,7 +16,7 @@ export class ActivityLogComponent {
   startDate: string;
   enddate: string;
 
-  constructor( private authenticationService: AuthenticationService,private patientservise: patientService,) {
+  constructor( private authenticationService: AuthenticationService,private patientservise:PatientService) {
     this.user = authenticationService.userValue
     this.locationsInfo = JSON.parse(this.user.LocationInfo)
    }

@@ -35,19 +35,26 @@ export class WeeklyUpdatedComponent implements OnInit {
   FistProviderName: any;
   viewModel: AdminViewModal;
   WeeklyUpdated:any;
+  SuccessModal='none';
+  displayHeading:any;
 
-  constructor(private router: Router, private adminservice: AdminService,private authService:AuthenticationService) {}
+  constructor(private router: Router, private adminservice: AdminService,private authService:AuthenticationService,private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.GetWeeklyUpdate();
     this.GetProviderNameList();
+    //this.displayHeading = '';
   }
 
   GetWeeklyUpdate() {
+    debugger;
     this.adminservice.WeeklyUpdateList().subscribe(resp => {
       if (resp.IsSuccess) {
         this.WeeklyUpdatedList = resp.ListResult;
         console.log(this.WeeklyUpdatedList);
+
+          this.getMessage();
+
       }
       else {
         this.WeeklyUpdatedList = [];
@@ -106,12 +113,24 @@ export class WeeklyUpdatedComponent implements OnInit {
     this.adminservice.GetProviderList().subscribe(resp => {
       if (resp.IsSuccess) {
         this.ProviderList = resp.ListResult;
-        // this.ProviderName = this.ProviderList.map(t=>t.ProviderName);
         this.filteredList = this.ProviderList;
         this.FistProviderName = this.filteredList[0].ProviderName
         this.selectedValue = this.FistProviderName;
-        // console.log(this.filteredList);
       }
     });
   }
+
+  getMessage(){
+    if(this.displayHeading != null){
+    this.route.queryParams.subscribe((params) => {
+      if (params.msg == 'update')
+           {console.log(params.msg);
+            this.SuccessModal='block';
+             this.displayHeading = 'updated';}
+      else { this.displayHeading = 'created';}
+    });
+  }
+ }
+
+  closeModal(){this.SuccessModal='none';}
 }

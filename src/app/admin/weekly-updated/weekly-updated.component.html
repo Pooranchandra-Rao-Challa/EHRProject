@@ -84,3 +84,19 @@
     </div>
   </div>
 </div>
+
+
+ <!-- locked/ unlocked success modal -->
+ <div class="modal"  tabindex="-1" role="dialog" [ngStyle]="{'display':SuccessModal}">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content lockedModal">
+          <div class="modal-header">
+                <h5 class="title">Admin/Section {{displayHeading}} successfully</h5>
+          </div><hr>
+          <div class="d-flex justify-content-end my-2 mx-2">
+            <button type="button" data-bs-dismiss="modal" class="cancel-button col-md-4"
+            (click)="closeModal()">Close</button>
+          </div>
+      </div>
+  </div>
+</div>

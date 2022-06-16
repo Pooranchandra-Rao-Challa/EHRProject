@@ -5,6 +5,7 @@ h1 {
   font-family: "Open Sans", sans-serif;
   font-weight: 300;
 }
+
 input::-webkit-input-placeholder {
   color: rgb(162, 158, 158) !important;
   font-size: 100%;
@@ -12,7 +13,8 @@ input::-webkit-input-placeholder {
   font-size: 14px;
 
 }
-.btn-priview{
+
+.btn-priview {
   background: #ed6b75;
   padding: 4px;
   font-size: 14px;
@@ -22,32 +24,38 @@ input::-webkit-input-placeholder {
   font-family: "Open Sans", sans-serif;
   border-radius: 1px;
 }
-.btn-priview:hover{
+
+.btn-priview:hover {
   background: #e73d4a;
 
 }
-.form-border{
+
+.form-border {
   border: 1px solid rgb(179, 179, 179);
   margin-left: 1px;
   margin-right: 0px;
 }
-.form-label{
+
+.form-label {
   color: #333333;
   font-family: "Open Sans", sans-serif;
   font-weight: normal;
 }
+
 .form-control.text-design {
   border: 1px solid #dadcdf;
   font-family: "Open Sans", sans-serif;
   height: 40px;
 }
-.form-select{
+
+.form-select {
   border-radius: 1px;
 }
-.btn-style{
+
+.btn-style {
   font-family: "Open Sans", sans-serif;
   border-color: #2e6da4;
-  border-radius:0px;
+  border-radius: 0px;
 }
 
 .note {
@@ -60,6 +68,7 @@ input::-webkit-input-placeholder {
   -o-border-radius: 0 4px 4px 0;
   border-radius: 0 4px 4px 0;
 }
+
 // select option{
 //   background: #4277c7;
 //   color: white;
@@ -95,113 +104,108 @@ input::-webkit-input-placeholder {
 //   font-size: 16px;
 //   line-height: 10px !important;
 // }
-.ehr-img{
+.ehr-img {
   position: relative;
   top: 50px;
-  left: -85px;
+  left: -21px;
+  width: 155px;
+  height: 100px;
 }
-.one-img{
+
+.one-img {
   position: absolute;
   top: 98%;
-  left: -13%;
+  left: 30%;
   transform: translate(-50%, -50%);
+  width: 100px;
 }
-@media (min-width:300px) and (max-width:500px)
-{
+
+@media(min-width:321px) and (max-width:450px) {
+  .toptxt {
+    margin-left: 195px !important;
+    font-size: 10px !important;
+  }
+}
+
+@media (min-width:300px) and (max-width:500px) {
   .modal-cust-content {
     width: 210%;
-}
-  .ehr-img{
-      top: 50px;
-      left: 87px;
   }
-  .one-img{
+
+  .ehr-img {
+    top: 50px;
+    left: 84px;
+  }
+
+  .one-img {
     left: 100%;
   }
+
+  .headtxt {
+    font-size: 14px;
+  }
+
+  // .toptxt{
+  //    margin-left: 145px !important;
+  //    font-size: 10px !important;
+  // }
+  .headtxt {
+    font-size: 0px !important;
+
+  }
 }
-@media (min-width:501px) and (max-width:850px)
-{
+
+@media (min-width:501px) and (max-width:850px) {
   .modal-cust-content {
     width: 174%;
     margin-left: -105px;
-}
-  .ehr-img{
-      top: 50px;
-      left: 87px;
   }
-  .one-img{
+
+  .ehr-img {
+    top: 50px;
+    left: 87px;
+  }
+
+  .one-img {
     left: 100%;
   }
 }
 
-@media (min-width:851px) and (max-width:1800px)
-{
+@media(min-width:1000px) and (max-width:1200px) {
+  .toptxt {
+    margin-left: 170px !important;
+
+  }
+}
+
+@media (min-width:851px) and (max-width:1800px) {
   .modal-cust-content {
     width: 142%;
     margin-left: -99px;
-}
-  .ehr-img{
-      top: 50px;
-      left: 87px;
   }
-  .one-img{
+
+  .ehr-img {
+    top: 50px;
+    left: 87px;
+  }
+
+  .one-img {
     left: 100%;
   }
+
+  .toptxt {
+    margin-left: 158px;
+  }
 }
-//   .npi-width{
-//     width: 100%;
-//    }
-//    .ddl-width{
-//     width: 100%;
-//    }
-//    .radio-btn{
-//      margin-left: -1px;
-//    }
-//    .radio-btn-label{
-//     margin-left: -10px;
-//    }
-//    .model-cust-footer {
-//     width: 100%;
-//   }
-// }
-// @media (min-width:1440px) and (max-width:1600px){
-//   .modal-cust-content {
-//     width: 1160px;
-//     border: 1px solid #ebebeb;
-//     background-color: #fff;
-//     margin-left: 260px;
-//    // margin-top: -80px 3px;
-//   }
-//   .npi-width {
-//         width: 105%;
-//      }
-//    .model-cust-footer {
-//       width: 1160px;
-//     }
-// }
-// @media (min-width:1601px) and (max-width:4500px){
-//   .modal-cust-content {
-//     width: 1382px;
-//     margin-left: 259px;
-//   //  margin-top: -100px;
-//     border: 1px solid #ebebeb;
-//     background-color: #fff;
-//   }
-//   .npi-width {
-//     width: 105%;
-//  }
-//  .model-cust-footer {
-//   width: 1382px;
-//   background: white;
-//   border: 1px solid #f2f2f2;
-// }
-// }
-.modal-header{
+
+.modal-header {
   border-bottom: 0px !important;
 }
-.modal-footer{
+
+.modal-footer {
   border-top: 0px !important;
 }
+
 .modal-content {
   position: relative;
   background-color: #fff;
@@ -214,42 +218,45 @@ input::-webkit-input-placeholder {
   -webkit-box-shadow: 0 3px 9px rgb(0 0 0 / 50%);
   box-shadow: 0 3px 9px rgb(0 0 0 / 50%);
 }
+
 .modal-body {
   padding: 0px !important;
   color: #000;
 }
 
-
 .cheader {
   background-color: #41b6a6;
   height: 60px;
- // width: 119%;
   text-align: center;
 }
-.cheader.cheader2{
+
+.cheader.cheader2 {
   margin-right: -60px;
 }
-.header-text{
+
+.header-text {
   display: table-cell;
   vertical-align: middle;
   font-weight: bold;
   font-size: 18px;
   line-height: 22px;
 }
+
 .modal .modal-dialog .modal-content .modal-header {
   padding: 30px 26px !important;
   margin-left: -90px !important;
-  /* width: 570px !important; */
 }
+
 .toptxt {
   color: #ff9800;
-    margin-left: 175px;
-    width: 150px;
-    float: left;
-    margin-left: 201px;
-    margin-top: 5px;
+  margin-left: 195px;
+  width: 150px;
+  float: left;
+  // margin-left: 201px;
+  margin-top: 5px;
 }
-.headtxt{
+
+.headtxt {
   color: #fff;
   text-align: left;
   margin-left: 20px;
@@ -257,19 +264,20 @@ input::-webkit-input-placeholder {
   margin: 0;
   font-weight: bold;
   font-size: 18px;
-
 }
 
-.logo-img{
+.logo-img {
   margin-left: -495px;
   height: 159px;
 }
-.ehr-logo{
+
+.ehr-logo {
   width: 142px;
 }
-.flapImage{
-  margin:0 auto;
-  text-align:center;
+
+.flapImage {
+  margin: 0 auto;
+  text-align: center;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%)
