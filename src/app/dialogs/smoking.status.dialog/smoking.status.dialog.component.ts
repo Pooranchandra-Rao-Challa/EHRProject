@@ -34,7 +34,7 @@ export class SmokingStatusDialogComponent implements OnInit {
   }
 
   todayDate() {
-    this.smokingStatus.EffectiveFrom = new Date;
+    this.smokingStatus.EffectiveFrom = moment(new Date()).format('YYYY-MM-DD');
   }
 
   disablesmokingStatus() {
@@ -55,6 +55,7 @@ export class SmokingStatusDialogComponent implements OnInit {
   CreateSmokingStatus() {
     let isAdd = this.smokingStatus.SmokingStatusId == "";
     this.smokingStatus.PatientId = this.currentPatient.PatientId;
+    this.smokingStatus.EffectiveFrom = this.datepipe.transform(this.smokingStatus.EffectiveFrom, "MM/dd/yyyy hh:mm:ss");
     this.patientService.CreateSmokingStatus(this.smokingStatus).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.ref.close({
