@@ -12,7 +12,7 @@
 }
 
 .Insurance {
- 
+
   height: 64px;
 }
 
@@ -112,16 +112,17 @@
 
 .input-group>.form-control.search-control {
   background-color: #f6f6f6;
-  font-size: 22px;
+  // font-size: 22px;
+  height: 45px;
 }
 
 .input-group>.form-control.search-control:hover {
   border-color: #41b6a6 !important;
-  font-size: 22px;
+  // font-size: 22px;
 }
 
 .modal-dialog {
-   max-width: 920px;
+  max-width: 1320px;
 }
 
 .modal {
@@ -145,7 +146,7 @@
   --bs-table-accent-bg: none;
   border: 1px solid #41b6a6;
   border-bottom-width: none;
-  
+
 }
 
 .btn-selectcancel {
@@ -167,29 +168,50 @@
   // margin-top: 0px;
   margin-bottom: 16px;
   overflow-y: scroll;
-  overflow-x: scroll;
- 
+  overflow-x: none;
+
 }
 
 .cross-mark {
   border: "1px solid #fff;"
 }
-.btn-primary
-{
+
+.btn-primary {
   width: 164px;
-    margin-left: -38px;
-    margin-right: 184px;
-    height: 45px;
-  
+  margin-left: -38px;
+  margin-right: 184px;
+  height: 45px;
+
 }
-.PrimaryInsuranceDetails{
+
+.PrimaryInsuranceDetails {
   height: 450px;
 }
+
 .radio-btn-label {
   margin-top: -28px;
   margin-left: 21px;
 }
+
 .label-design {
   font-size: 16px;
   font-family: 'Roboto';
+}
+
+.manualbtn {
+  height: 45px;
+}
+
+.form-control:disabled,
+.form-control[readonly] {
+  background-color: #fff !important;
+}
+
+.inputclassdropdown {
+  border-radius: 4px;
+  border: 1px solid #41b6a6;
+  padding: 0px 10px;
+  height: 45px;
+  font-size: 15px;
+  margin-bottom: 15px;
 }
