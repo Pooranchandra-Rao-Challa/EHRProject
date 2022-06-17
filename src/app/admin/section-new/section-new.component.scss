@@ -70,41 +70,10 @@ input::-webkit-input-placeholder {
   border-radius: 0 4px 4px 0;
 }
 
-// select option{
-//   background: #4277c7;
-//   color: white;
-// }
-// select option:hover{
-//   background: #676d76;
-//   color: white;
-// }
 .modal-dialog {
   max-width: 45% !important;
 }
 
-// .modal-body {
-//   max-height: calc(90vh - 180px);
-//   overflow-y: auto;
-// }
-
-// .model-cust-heading {
-//   background: white !important;
-//   border: 0px solid #f2f2f2 !important;
-//   width: 1500px !important;
-//   border: 1px solid #f2f2f2 !important;
-// }
-// .modal-cust-header{
-//   border-bottom: 1px solid #f2f2f2;
-// }
-
-// .modal-body .form-group {
-//   margin-bottom: 25px;
-// }
-// .modal-cust-title {
-//   color: black;
-//   font-size: 16px;
-//   line-height: 10px !important;
-// }
 .ehr-img {
   position: relative;
   top: 50px;
@@ -146,13 +115,8 @@ input::-webkit-input-placeholder {
     font-size: 14px;
   }
 
-  // .toptxt{
-  //    margin-left: 145px !important;
-  //    font-size: 10px !important;
-  // }
   .headtxt {
     font-size: 0px !important;
-
   }
 }
 
@@ -175,7 +139,6 @@ input::-webkit-input-placeholder {
 @media(min-width:1000px) and (max-width:1200px) {
   .toptxt {
     margin-left: 170px !important;
-
   }
 }
 
