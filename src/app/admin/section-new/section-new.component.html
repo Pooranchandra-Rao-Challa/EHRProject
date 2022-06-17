@@ -10,7 +10,8 @@
       <form class="row  form-border my-3">
         <div class="col-md-4 mt-3">
           <label for="Sequence" class="form-label">Sequence</label>
-          <input type="text" class="form-control text-design"  [(ngModel)]="WeeklyUpdate.sequence" [ngModelOptions]="{standalone: true}"
+          <input type="text" class="form-control text-design"  [(ngModel)]="WeeklyUpdate.sequence"
+          #sequence="ngModel" required  [ngModelOptions]="{standalone: true}"
             id="Sequence" placeholder="Sequence">
         </div>
         <div class="col-md-4 mt-3">
@@ -48,16 +49,21 @@
           <ckeditor [(ngModel)]="WeeklyUpdate.body" [ngModelOptions]="{standalone: true}" ></ckeditor>
         </div>
         <div class="col-12 mb-3 mt-4">
-          <button type="submit" class="btn btn-danger btn-priview"  data-bs-toggle="modal" data-bs-target="#previewModal">Preview </button>
+          <button type="submit" class="btn btn-danger btn-priview"  data-bs-toggle="modal" data-bs-target="#previewModal" [disabled]="!disPreview">Preview </button>
           <div class="note mt-4">Note: Use below tags to show counts for patients, encounters and returning patients<br>
             &lt;patients&gt;, &lt;encounters&gt;, &lt;returning_patients&gt;, &lt;old_patients&gt;,
             &lt;old_encounters&gt;, &lt;old_returning_patients&gt;</div>
         </div>
       </form>
+
       <div class="d-flex flex-row bd-highlight mb-3">
-        <div class="p-2 bd-highlight btn btn-style" (click)="updateWeeklyRecord()">Save</div>
+        <div class="">
+          <button type="submit" [disabled]="!WeeklyUpdate.sequence || !WeeklyUpdate.header || !WeeklyUpdate.body" class="btn btn-style"
+           (click)="updateWeeklyRecord()">Save</button>
+          </div>
         <div class="p-2 bd-highlight" class="btn btn-sm btn-back mx-2"  (click)="BackWeeklyUpdate('Weekly Update','admin/weeklyupdates')">Back</div>
       </div>
+
     </div>
   </div>
 </div>

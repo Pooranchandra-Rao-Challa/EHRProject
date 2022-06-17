@@ -331,7 +331,12 @@ export class APIEndPoint extends EndpointBase {
   get _addUpdatedWeeklyUpdated(){
     return this._baseUrl + "AddUpdatedWeeklyUpdated";
   }
-
+  get _updateWeeklyStaus(){
+    return this._baseUrl + "UpdatedWeeklyStatus";
+  }
+  get _deleteWeeklyStatus(){
+    return this._baseUrl + "DeleteWeeklyStatus";
+  }
 
   // get _advancedDirectivesUrl() {
   //   return this._baseUrl + "AdvancedDirectives";
@@ -498,12 +503,16 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "CreateEncounter";
   }
 
+  get _encounterViewUrl(){
+    return this._baseUrl + "EncounterView";
+  }
+
 	get _createUpdateInsuranceCompanyPlanUrl()
  {
    return this._baseUrl + "CreateInsurancePlan";
- }			
-		
-		
+ }
+
+
 	get _deleteInsuranceCampanyplanUrl()
   {
     return this._baseUrl + "DeleteInsuranceCampanyplan";

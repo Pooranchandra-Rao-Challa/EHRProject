@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AdminViewModal } from 'src/app/_models';
 import { AdminService } from 'src/app/_services/admin.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-section-new',
@@ -14,20 +15,21 @@ export class SectionNewComponent implements OnInit {
   menuName: any;
   displayHeading: string = ''
   SectionNew: any;
-  WeeklyUpdate:any=[];
+  WeeklyUpdate: any = [];
   viewModel: AdminViewModal;
-  body:any;
-  heading:any;
-  successMsg:string;
+  body: any;
+  heading: any;
+  successMsg: string;
+  disPreview:boolean;
 
-  constructor(private router: Router, private route: ActivatedRoute,private authService:AuthenticationService,private adminservice: AdminService) {
+  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthenticationService,
+    private adminservice: AdminService) {
     this.WeeklyUpdate = {} as WeeklyUpdated;
   }
 
   ngOnInit(): void {
     this.getComponentName();
-    this.successMsg='';
-    //this.getEditData();
+    this.successMsg = '';
   }
 
   getComponentName() {
@@ -35,42 +37,49 @@ export class SectionNewComponent implements OnInit {
       if (params.name != null) {
         if (params.edit == 'EditSection') {
           this.displayHeading = 'Edit Section';
+          this.disPreview= true;
           this.getEditData()
         }
-        else { this.displayHeading = 'Add new Section'}
+        else { this.displayHeading = 'Add new Section' }
         this.menuName = params.name;
       }
     });
   }
 
-  getEditData(){
+  getEditData() {
     debugger;
-     this.WeeklyUpdate = this.authService.viewModelAdmin;
-     this.body= this.WeeklyUpdate.body;
-     this.heading= this.WeeklyUpdate.header;
-     console.log(this.WeeklyUpdate);
+    this.WeeklyUpdate = this.authService.viewModelAdmin;
+    this.body = this.WeeklyUpdate.body;
+    this.heading = this.WeeklyUpdate.header;
+    console.log(this.WeeklyUpdate);
   }
 
-  updateWeeklyRecord()
-  {
+  updateWeeklyRecord() {
     this.adminservice.AddUpdateWeeklyUpdated(this.WeeklyUpdate).subscribe(resp => {
       if (resp.IsSuccess) {
         this.WeeklyUpdate = resp.ListResult;
-        if(resp.EndUserMessage='Weekly update successfully'){
-          this.successMsg = 'update';
-        }
-        else{
-          this.successMsg = 'created';
-        }
-        this.BackWeeklyUpdate('Weekly Update','admin/weeklyupdates');
+         if (resp.EndUserMessage = 'WeeklyUpdated created successfully') {
+            this.show('Admin/Section created successfully')
+         }
+        else {
+           this.show('Admin/Section Updated successfully')
+         }
+        this.BackWeeklyUpdate('Weekly Update', 'admin/weeklyupdates');
       }
-  });
- }
+    });
+  }
 
-  BackWeeklyUpdate(name, url,msg?:string) {
+  show(msg) {
+    Swal.fire({
+      text: msg,
+      confirmButtonText: 'close'
+    });
+  }
+
+  BackWeeklyUpdate(name, url) {
     this.router.navigate(
       [url],
-      { queryParams: { name: name,msg:this.successMsg} }
+      { queryParams: { name: name} }
     );
   }
 

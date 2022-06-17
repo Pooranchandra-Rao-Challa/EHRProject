@@ -16,9 +16,11 @@ export class FormContainerComponent implements OnInit {
   @Input()
   codeSystems: string[] = [];
 
+  @Input()
+  PlaceHolderText: string = "Start to type..."
 
   @Input()
-  MinTermLength:number
+  MinTermLength:number = 3
 
   @Input()
   showSelectedValue: boolean = true;

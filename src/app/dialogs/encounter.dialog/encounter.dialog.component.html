@@ -58,6 +58,7 @@
         </div>
 
         <div class="encounter-navigation">
+          <div *ngIf="messageflag">{{message}}</div>
           <mat-tab-group animationDuration="0ms">
             <mat-tab label="Meaningful Use" class="mat-ink-bar">
               <div class="encounter-tab-content">
@@ -68,7 +69,7 @@
                         <span>Reason for visit:</span>
                       </div>
                       <div class="col-xl-10 col-lg-9 col-md-8 col-12">
-                        <textarea matInput [(ngModel)]="encounterInfo.mu2.VisitReason"></textarea>
+                        <textarea matInput [(ngModel)]="encounterInfo.VisitReason"></textarea>
                       </div>
                     </div>
                     <div class="row area-text">
@@ -76,115 +77,356 @@
                         <span>Clinical Instructions:</span>
                       </div>
                       <div class="col-xl-10 col-lg-9 col-md-8 col-12">
-                        <textarea matInput [(ngModel)]="encounterInfo.mu2.ClinicalInstructions"></textarea>
+                        <textarea matInput [(ngModel)]="encounterInfo.ClinicalInstructions"></textarea>
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-lg-12 displayFlex" style="padding: 10px">
-                        <mat-checkbox class="encounter-checkbox" [(ngModel)]="encounterInfo.mu2.EducationProvided">Patient Education Resources Provided</mat-checkbox>
-                        <span class="popupInfoBox">
-                          <div class="popup-info-button icon icon-xs icon-circle icon-ic-help" placement="auto"
-                            [ngbTooltip]="tipContent" tooltipClass="my-custom-class" [autoClose]="false"></div>
-                          <ng-template #tipContent>
-                            Check this box IF this patient was provided
-                            instruction or resources on self-care via any
-                            mechanism (i.e word of mouth, email, digital copy,
-                            pamphlet, etc).
-                          </ng-template>
-                        </span>
-                      </div>
                     </div>
-                    <div class="row">
-                      <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px">
-                        <mat-checkbox class="encounter-checkbox">Medication Reconciliation Completed</mat-checkbox>
-                        <span class="popupInfoBox">
-                          <div class="popup-info-button icon icon-xs icon-circle icon-ic-help" placement="top"
-                            [ngbTooltip]="tipContent2" tooltipClass="my-custom-class"></div>
-                          <ng-template #tipContent2>
-                            Check this box IF this patient was referred to you
-                            from an outside source. IF you check this box,
-                            please go to the referral tab, check referred
-                            from, and input the source of the referral (i.e
-                            Dr. Smith DDS).
-                          </ng-template>
-                        </span>
-                      </div>
-                      <div class="col-lg-6 col-md-6 col-12">
-                        <medical-code-container [codeSystems]="codeSystemsForReconcillation"
-                        (optionChanged)="optionChangedForReconcillation($event)" MinTermLength="5" [showSelectedValue]="true"></medical-code-container>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-lg-12" style="padding: 7px 10px">
-                        <mat-checkbox class="encounter-checkbox" [(ngModel)]="encounterInfo.mu2.HealthInfoExchange">Health Information Exchange</mat-checkbox>
-                        <span class="popupInfoBox">
-                          <div class="popup-info-button icon icon-xs icon-circle icon-ic-help" placement="top"
-                            [ngbTooltip]="tipContent3" tooltipClass="my-custom-class"></div>
-                          <ng-template #tipContent3>
-                            Check this box IF this patient was referred to an
-                            outside source. IF you check this box, please go
-                            to the referral tab, check referred to, and input
-                            where/who you are referring them to (i.e Dr. Smith
-                            DDS).
-                          </ng-template>
-                        </span>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-lg-6 col-md-6 col-12" style="padding: 10px 15px">
-                        <div class="col-12" style="padding-bottom: 10px">
-                          <b class="col-12" style="font-weight: normal">Current Medications Documented</b>
-                        </div>
-                        <mat-radio-group class="col-12" (change)="documentationChanged($event)">
-                          <mat-radio-button [value]="1" [checked]="1"></mat-radio-button>Yes
-                          <mat-radio-button [value]="2"></mat-radio-button>No
-                        </mat-radio-group>
-                      </div>
-                      <div class="col-lg-6 col-md-6 col-12">
-                        <medical-code-container [codeSystems]="codeSystemsForDocumentation"
-                        (optionChanged)="onDocumentedReasonChange($event)" MinTermLength="2" [showSelectedValue]="true"></medical-code-container>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-lg-12 col-md-12" style="padding: 7px 10px">
+                    <div class="row" *ngIf="EnableNewEncounterData">
+                      <div class="col-lg-12 col-md12 col-12">
                         <div class="row">
-                          <div class="col-lg-6 col-md-6 col-12" >
-                            <button class="btn col-12" [class.btn-performed-red]="encounterInfo.mu2.CurrentMedicationDocumented==2"
-                            [class.btn-performed-sea-blue]="encounterInfo.mu2.CurrentMedicationDocumented==1">
-                              <span *ngIf="encounterInfo.mu2.CurrentMedicationDocumented==2">Reason Not Performed </span>
-                              <span *ngIf="encounterInfo.mu2.CurrentMedicationDocumented==1">Reason Performed </span>
-                            </button>
+                          <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px; display: flex;">
+                            Patient Care:
                           </div>
-                          <div class="col-lg-6 col-md-6 col-12">
-                            <div class="row">
-                              <div class="col-lg-12 col-md-6 col-12" >
-                                <div class="row">
-                                <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px">
-                                  <span>Encounter Code:</span>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-12">
-                                  <mat-form-field appearance="outline" class="col-lg-12 col-12">
-                                    <input matInput autocomplete="off" [(ngModel)]="encounterInfo.mu2.DocumentedCode" readonly="true" />
-                                  </mat-form-field>
-                                </div>
-                                </div>
-                                <div class="row">
-                                <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px">
-                                  <span>Encounter Code Description:</span>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-12 area-text">
-                                  <textarea matInput  [(ngModel)]="encounterInfo.mu2.DocumentedDescription" readonly="true"></textarea>
-                                </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px; display: flex;">
+                            Select Encounter Type
+                          </div>
+                          <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px; display: flex;">
+                            <mat-form-field appearance="outline" class="col-10 hover cstm-mat-padding">
+                              <mat-select disableOptionCentering
+                                placeholder="Select Encounter Type"
+                                [(ngModel)] = "encounterInfo.EncounterType">
+                                <mat-option value="Office Visit (1853490003)">Office Visit (1853490003)</mat-option>
+                                <mat-option value="Telemed (448337001)">Telemed (448337001)</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px; display: flex;">
+                            New Patient Encounter?
+                          </div>
+                          <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px; display: flex;">
+                            <mat-form-field appearance="outline" class="col-10 hover cstm-mat-padding">
+                              <mat-select disableOptionCentering
+                                placeholder="Select New Patient Encounter"
+                                [(ngModel)] = "encounterInfo.NewPatientEncounter">
+                                <mat-option value="1">Yes</mat-option>
+                                <mat-option value="0">No</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px; display: flex;">
+                            Paitent Health Data
+                          </div>
+                          <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px; display: flex;">
+                            <mat-form-field appearance="outline" class="col-10 hover cstm-mat-padding">
+                              <mat-select disableOptionCentering
+                                placeholder="Select Patient Health Data"
+                                [(ngModel)] = "encounterInfo.PatientHealthData">
+                                <mat-option value="Patient Generated Data">Patient Generated Data</mat-option>
+                                <mat-option value="Non-Clinical Data">Non-Clinical Data</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                        <div class="row">
+
+                          <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px; display: flex;">
+                           Paitent Resources Provided?
+                           <div>
+                            <a mat-stroked-button routerLink="https://vsearch.nlm.nih.gov/vivisimo/cgi-bin/query-meta?v%3Aproject=medlineplus&v%3Asources=medlineplus-bundle&query=office+visit+dentist&_ga=2.141251383.487187770.1603911039-1165832921.1603911039" target="_blank">Search Recommended Resources</a>
+                           </div>
+                          </div>
+                          <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px; display: flex;">
+                            <mat-form-field appearance="outline" class="col-10 hover cstm-mat-padding">
+                              <mat-select disableOptionCentering
+                                placeholder="Select Resources Provided Status"
+                                [(ngModel)] = "encounterInfo.PatientEducation">
+                                <mat-option value="1">Yes</mat-option>
+                                <mat-option value="0">No</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px; display: flex;">
+                            Additional Encounter Information:
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px; display: flex;">
+                            Discharge Status
+                          </div>
+                          <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px;">
+                            <medical-code-container [codeSystems]="codeSystemsForDischarge"
+                        (optionChanged)="onDischargeCodeChange($event)" MinTermLength="2"
+                        PlaceHolderText="Discharge Status (SNOMED)"
+                        [showSelectedValue]="true" ></medical-code-container>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px; display: flex;">
+                            Encounter Code
+                          </div>
+                          <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px;">
+                            <medical-code-container [codeSystems]="codeSystemsForDischarge"
+                            (optionChanged)="onEncounterCodeChange($event)" MinTermLength="2"
+                            [showSelectedValue]="true"></medical-code-container>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px; display: flex;">
+                            Health Information Exchange:
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px; display: flex;">
+                            Summary of Care Record (ref in)
+                          </div>
+                          <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px;">
+                            <mat-form-field appearance="outline" class="col-10 hover cstm-mat-padding">
+                              <mat-select placeholder="Select One" disableOptionCentering
+                                placeholder="Select Provider"
+                                [(ngModel)] = "encounterInfo.SummaryCareRecordRefIn">
+                                <mat-option value="1">SoC Received</mat-option>
+                                <mat-option value="0">SoC Not Received</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px; display: flex;">
+                            Summary of Care Record (ref out)
+                          </div>
+                          <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px;">
+                            <mat-form-field appearance="outline" class="col-10 hover cstm-mat-padding">
+                              <mat-select placeholder="Select One" disableOptionCentering
+                                placeholder="Select Provider"
+                                [(ngModel)] = "encounterInfo.SummaryCareRecordRefOut">
+                                <mat-option value="1">SoC Sent</mat-option>
+                                <mat-option value="0">SoC Not Sent</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px; display: flex;">
+                            Summary of Care Record (patient)
+                          </div>
+                          <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px;">
+                            <mat-form-field appearance="outline" class="col-10 hover cstm-mat-padding">
+                              <mat-select placeholder="Select One" disableOptionCentering
+                                placeholder="Select Provider" [(ngModel)] = "encounterInfo.PatientHealthData">
+                                <mat-option value="Requested but unavailable">Requested but unavailable</mat-option>
+                                <mat-option value="Received and incorporated">Received and incorporated</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px; display: flex;">
+                            Patient Declined to Receive  Summary ?
+                          </div>
+                          <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px;">
+                            <mat-form-field appearance="outline" class="col-10 hover cstm-mat-padding">
+                              <mat-select disableOptionCentering
+                                placeholder="Select Provider"
+                                [(ngModel)] = "encounterInfo.DeclinedToReceiveSummary">
+                                <mat-option value="1">Yes</mat-option>
+                                <mat-option value="0">No</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px; display: flex;">
+                            Clinical Information Reconciliation:
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px; display: flex;">
+                            Medication Reconciliation Completed?
+                          </div>
+                          <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px;">
+                            <mat-form-field appearance="outline" class="col-10 hover cstm-mat-padding">
+                              <mat-select disableOptionCentering
+                                placeholder="Medication Reconciliation Status"
+                                [(ngModel)] = "encounterInfo.PatientHealthData">
+                                <mat-option value="1">Completed</mat-option>
+                                <mat-option value="0">Not Completed</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px; display: flex;">
+                            Medication Allergy Reconciliation Completed?
+                          </div>
+                          <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px;">
+                            <mat-form-field appearance="outline" class="col-10 hover cstm-mat-padding">
+                              <mat-select disableOptionCentering
+                                placeholder="Medication Allergy Reconciliation Status"
+                                [(ngModel)] = "encounterInfo.MedicationAllergyReconciliationCompleted">
+                                <mat-option value="1">Completed</mat-option>
+                                <mat-option value="0">Not Completed</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px; display: flex;">
+                            Diagnosis Reconciliation Completed?
+                          </div>
+                          <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px;">
+                            <mat-form-field appearance="outline" class="col-10 hover cstm-mat-padding">
+                              <mat-select disableOptionCentering
+                                placeholder="Select Diagnosis Reconciliation Status"
+                                [(ngModel)] = "encounterInfo.DiagnosisReconciliationCompleted">
+                                <mat-option value="1">Completed</mat-option>
+                                <mat-option value="0">Not Completed</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row" *ngIf="!EnableNewEncounterData">
+                    <div class="col-lg-12 col-md12 col-12">
+                      <div class="row">
+                        <div class="col-lg-12" style="padding: 10px; display:flex">
+                          <mat-checkbox class="encounter-checkbox"
+                          [(ngModel)]="encounterInfo.PatientEducation">Patient Education Resources Provided</mat-checkbox>
+                          <!-- <span class="popupInfoBox">
+                            <div class="popup-info-button icon icon-xs icon-circle icon-ic-help" placement="auto"
+                              [ngbTooltip]="tipContent" tooltipClass="my-custom-class" [autoClose]="false"></div>
+                            <ng-template #tipContent>
+                              Check this box IF this patient was provided instruction or resources on self-care via any mechanism (i.e word of mouth, email, digital copy, pamphlet, etc).
+                            </ng-template>
+                          </span> -->
+                          <mat-icon aria-hidden="false" style="color:#41a6b6;margin-left:8px; border:1px"
+                          matTooltipPosition="right"
+                          matTooltipShowDelay="200"
+                          matTooltip="Check this box IF this patient was provided instruction
+                          or resources on self-care via any mechanism
+                          (i.e word of mouth, email, digital copy, pamphlet, etc)."
+                           aria-label="Example home icon">help_outline</mat-icon>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px; display: flex;">
+                          <mat-checkbox class="encounter-checkbox"
+                          [(ngModel)]="encounterInfo.medCompleted">Medication Reconciliation Completed</mat-checkbox>
+                          <!-- <span class="popupInfoBox" style="display: flex;margin:8px"> -->
+
+                            <!-- <div class="popup-info-button icon icon-xs icon-circle icon-ic-help" placement="top"
+                              [matTooltip]="tipContent2" tooltipClass="my-custom-class"></div> -->
+
+                            <!-- <ng-template #tipContent2>
+                              Check this box IF this patient was referred to you from an outside source. IF you check this box, please go to the referral tab, check referred from, and input the source of the referral (i.e Dr. Smith DDS).
+                            </ng-template> -->
+                          <!-- </span> -->
+
+                          <mat-icon aria-hidden="false" style="color:#41a6b6;margin-left:8px; border:1px"
+                          matTooltipPosition="right"
+                          matTooltipShowDelay="200"
+                          matTooltip="Check this box IF this patient was referred to you from an
+                          outside source. IF you check this box, please go to the referral tab,
+                          check referred from, and input the source of the referral (i.e Dr. Smith DDS)."
+                           aria-label="Example home icon">help_outline</mat-icon>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-12">
+                          <medical-code-container [codeSystems]="codeSystemsForDischarge"
+                          PlaceHolderText="Discharge Status (SNOMED)"
+                          (optionChanged)="onDischargeCodeChange($event)"
+                          MinTermLength="5" [showSelectedValue]="true"></medical-code-container>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-lg-12" style="padding: 7px 10px; display:flex;">
+                          <mat-checkbox class="encounter-checkbox"
+                          [(ngModel)]="encounterInfo.HealthInfoExchange">Health Information Exchange</mat-checkbox>
+                          <!-- <span class="popupInfoBox">
+                            <div class="popup-info-button icon icon-xs icon-circle icon-ic-help" placement="top"
+                              [ngbTooltip]="tipContent3" tooltipClass="my-custom-class"></div>
+                            <ng-template #tipContent3>
+                              Check this box IF this patient was referred to an outside source. IF you check this box, please go to the referral tab, check referred to, and input where/who you are referring them to (i.e Dr. Smith
+                              DDS).
+                            </ng-template>
+                          </span> -->
+
+                          <mat-icon aria-hidden="false" style="color:#41a6b6;margin-left:8px; border:1px"
+                          matTooltipPosition="right"
+                          matTooltipShowDelay="200"
+                          matTooltip="Check this box IF this patient was referred to an outside source.
+                          IF you check this box, please go to the referral tab, check referred to,
+                          and input where/who you are referring them to (i.e Dr. Smith"
+                           aria-label="Example home icon">help_outline</mat-icon>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-lg-6 col-md-6 col-12" style="padding: 10px 15px">
+                          <div class="col-12" style="padding-bottom: 10px">
+                            <b class="col-12" style="font-weight: normal">Current Medications Documented</b>
+                          </div>
+                          <mat-radio-group class="col-12" (change)="documentationChanged($event)">
+                            <mat-radio-button [value]="1" [checked]="1"></mat-radio-button>Yes
+                            <mat-radio-button [value]="2"></mat-radio-button>No
+                          </mat-radio-group>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-12">
+                          <medical-code-container [codeSystems]="codeSystemsForDocumentation"
+                          (optionChanged)="onDocumentedReasonChange($event)" MinTermLength="2"
+                          PlaceHolderText="Documented Reason"
+                          [showSelectedValue]="true"></medical-code-container>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-lg-12 col-md-12" style="padding: 7px 10px">
+                          <div class="row">
+                            <div class="col-lg-6 col-md-6 col-12" >
+                              <button class="btn col-12" [class.btn-performed-red]="encounterInfo.CurrentMedicationDocumented==2"
+                              [class.btn-performed-sea-blue]="encounterInfo.CurrentMedicationDocumented==1">
+                                <span *ngIf="encounterInfo.CurrentMedicationDocumented==2">Reason Not Performed </span>
+                                <span *ngIf="encounterInfo.CurrentMedicationDocumented==1">Reason Performed </span>
+                              </button>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-12">
+                              <div class="row">
+                                <div class="col-lg-12 col-md-6 col-12" >
+                                  <div class="row">
+                                  <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px">
+                                    <span>Encounter Code:</span>
+                                  </div>
+                                  <div class="col-lg-6 col-md-6 col-12">
+                                    <mat-form-field appearance="outline" class="col-lg-12 col-12">
+                                      <input matInput autocomplete="off"
+                                      [(ngModel)]="encounterInfo.EncounterCode" readonly="true" />
+                                    </mat-form-field>
+                                  </div>
+                                  </div>
+                                  <div class="row">
+                                  <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px">
+                                    <span>Encounter Code Description:</span>
+                                  </div>
+                                  <div class="col-lg-6 col-md-6 col-12 area-text">
+                                    <textarea matInput  [(ngModel)]="encounterInfo.EncounterDescription" readonly="true"></textarea>
+                                  </div>
+                                  </div>
                                 </div>
                               </div>
-
-
                             </div>
                           </div>
                         </div>
                       </div>
-
                     </div>
+                  </div>
                   </div>
                 </div>
               </div>
@@ -199,26 +441,26 @@
                         <span>Reason for Referral:</span>
                       </div>
                       <div class="col-lg-10"> <!--  [(ngModal)]="encounterInfo.Referral.Reason"-->
-                        <textarea matInput></textarea>
+                        <textarea matInput [(ngModel)]="encounterInfo.ReferralReason"></textarea>
                       </div>
                     </div>
                     <div class="row area-text">
                       <div class="col-lg-2">
-                        <mat-checkbox class="referral-margin col-12" [(ngModal)]="encounterInfo.Referral.ReferredFrom" style="font-weight: normal">Referred from:
+                        <mat-checkbox class="referral-margin col-12" [(ngModal)]="encounterInfo.ReferredFrom" style="font-weight: normal">Referred from:
                         </mat-checkbox>
                       </div>
                       <div class="col-lg-4">
                         <mat-form-field appearance="outline" class="col-12">
-                          <input matInput autocomplete="off" placeholder="Referred from" [(ngModel)]="encounterInfo.Referral.ReferralFrom" [disabled]="encounterInfo.Referral.ReferredFrom"/>
+                          <input matInput autocomplete="off" placeholder="Referred from" [(ngModel)]="encounterInfo.ReferralFrom" [disabled]="encounterInfo.ReferredFrom"/>
                         </mat-form-field>
                       </div>
                       <div class="col-lg-2">
-                        <mat-checkbox class="referral-margin col-12" [(ngModal)]="encounterInfo.Referral.ReferredTo" style="font-weight: normal">Referred to:
+                        <mat-checkbox class="referral-margin col-12" [(ngModal)]="encounterInfo.ReferredTo" style="font-weight: normal">Referred to:
                         </mat-checkbox>
                       </div>
                       <div class="col-lg-4">
                         <mat-form-field appearance="outline" class="col-12">
-                          <input matInput autocomplete="off" placeholder="Referred to" [(ngModel)]="encounterInfo.Referral.ReferralTo"  [disabled]="encounterInfo.Referral.ReferredTo" />
+                          <input matInput autocomplete="off" placeholder="Referred to" [(ngModel)]="encounterInfo.ReferralTo"  [disabled]="encounterInfo.ReferredTo" />
                         </mat-form-field>
                       </div>
                     </div>
@@ -227,7 +469,7 @@
                         <span>Cognitive Status:</span>
                       </div>
                       <div class="col-lg-10">
-                        <textarea matInput [(ngModel)]="encounterInfo.Referral.CongnitiveStatus" ></textarea>
+                        <textarea matInput [(ngModel)]="encounterInfo.CongnitiveStatus" ></textarea>
                       </div>
                     </div>
                     <div class="row area-text">
@@ -235,7 +477,7 @@
                         <span>Functional Status:</span>
                       </div>
                       <div class="col-lg-10">
-                        <textarea matInput [(ngModel)]="encounterInfo.Referral.FunctionalStatus"></textarea>
+                        <textarea matInput [(ngModel)]="encounterInfo.FunctionalStatus"></textarea>
                       </div>
                     </div>
                   </div>
@@ -544,12 +786,12 @@
 
                     </div>
                     <div class="col-lg-8 col-md-8 col-12">
-                      <medical-code-container [codeSystems]="codeSystemsForProcedures"
-                        (optionChanged)="onProcedureCompleted($event)" [MinTermLength]="2" [showSelectedValue]="false"></medical-code-container>
+                      <!-- <medical-code-container [codeSystems]="codeSystemsForProcedures"
+                        (optionChanged)="onProcedureCompleted($event)" [MinTermLength]="2" [showSelectedValue]="false"></medical-code-container> -->
                     </div>
                   </div>
                   <div class="scrollable-mat-table">
-                    <mat-table mat-table [dataSource]="completedProcedures"
+                    <mat-table mat-table [dataSource]="encounterInfo.CompletedProcedures"
                       class="ehr-cqm-container pt-2 procedure-table">
 
 
@@ -586,11 +828,7 @@
                           <p class="text-capitalize-first">TOOTH</p>
                         </mat-header-cell>
                         <mat-cell *matCellDef="let item">
-                          <mat-form-field class="teeth-form-field" appearance="outline" [ngStyle]="{'padding-bottom':'0px','width': '120px'}">
-                            <mat-select class="select"  [(ngModel)]="item.ToothNo" style="width: 100px;">
-                              <mat-option *ngFor="let teethno  of teethNumbers" [value]="teethno" >{{teethno}}</mat-option>
-                            </mat-select>
-                          </mat-form-field>
+                          <span>{{item.ToothNo}}</span>
                         </mat-cell>
                       </ng-container>
 
@@ -604,8 +842,9 @@
                             <input matInput teethSurface style="width: 80px;">
                             <mat-icon pull-right>arrow_drop_down</mat-icon>
                           </mat-form-field> -->
-                          <app-teeth-surface (optionValueChanged)="onToothSurfaceSelectedForCP($event,item,i)"
-                          [selectedOption]="item.Surface"></app-teeth-surface>
+                          <!-- <app-teeth-surface (optionValueChanged)="onToothSurfaceSelectedForCP($event,item,i)"
+                          [selectedOption]="item.Surface"></app-teeth-surface> -->
+                          <span>{{item.Surface}}</span>
                         </mat-cell>
                       </ng-container>
 
@@ -614,9 +853,9 @@
                           <p class="text-capitalize-first">Delete</p>
                         </mat-header-cell>
                         <mat-cell *matCellDef="let item; let i = index; ">
-                          <button type="button" class="btn cross-mark error-close"
+                          <!-- <button type="button" class="btn cross-mark error-close"
                           (click)="removeCompletedProcedure(item,i)"
-                          title="Delete completed Procedure">x</button>
+                          title="Delete completed Procedure">x</button> -->
                         </mat-cell>
                       </ng-container>
                       <mat-header-row *matHeaderRowDef="procedureColumns"></mat-header-row>
@@ -664,10 +903,10 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-green" (click)="saveAsDraft()">
+        <button type="button" class="btn btn-green" (click)="saveAsDraft()" [disabled]="enableSaveButtons()">
           Save as Draft
         </button>
-        <button type="button" class="btn btn-orange" (click)="signEncounter()">
+        <button type="button" class="btn btn-orange" (click)="signEncounter()" [disabled]="enableSaveButtons()">
           Sign
         </button>
         <button type="button" class="btn btn-danger " (click)="closePopup()">

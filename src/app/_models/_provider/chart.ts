@@ -12,7 +12,7 @@ export class SmokingStatus {
   SmokingStatusId?: string;
   PatientId?: string;
   Status?: string;
-  EffectiveFrom?: Date;
+  EffectiveFrom?: string;
 }
 
 export enum PatientChart {

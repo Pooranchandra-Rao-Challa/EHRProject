@@ -5,7 +5,7 @@ export interface WeeklyUpdated {
   header?: string,
   slide_type?: string,
   logo_type?:string,
-  Status?:string,
+  Status?:boolean,
   news_text?: string,
   tag_line?:string,
   display?:string,

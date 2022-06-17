@@ -856,3 +856,9 @@ img.avatar:hover{
   display: flex;
   justify-content: space-around;
 }
+
+.practice-table-align .mat-header-cell,
+.user-row-align .mat-header-cell{
+  color: black !important;
+  font-weight: 500;
+}
