@@ -1,5 +1,6 @@
+import { WeeklyUpdated } from './../../_models/_admin/weeklyupdated';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
-import { Route, ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../../_services/admin.service';
 import { AdminViewModal } from 'src/app/_models';
@@ -13,20 +14,6 @@ import Swal from 'sweetalert2';
 export class WeeklyUpdatedComponent implements OnInit {
 
   WeeklyUpdatedList: any = [];
-  data: any = [
-    { name: "Marcela Arizmendi" },
-    { name: "Muon Vy" },
-    { name: "Usability Test Doctor" },
-    { name: "Karina Giron" },
-    { name: "Marcela Arizmendi" },
-    { name: "Muon Vy" },
-    { name: "Usability Test Doctor" },
-    { name: "Karina Giron" },
-    { name: "Marcela Arizmendi" },
-    { name: "Muon Vy" },
-    { name: "Usability Test Doctor" },
-    { name: "Karina Giron" },
-  ];
   selectedValue: any;
   searchValue: any;
   filteredList: any = [];
@@ -37,24 +24,21 @@ export class WeeklyUpdatedComponent implements OnInit {
   FistProviderName: any;
   viewModel: AdminViewModal;
   WeeklyUpdated:any;
-  SuccessModal='none';
   displayHeading:any;
-
-  constructor(private router: Router, private adminservice: AdminService,private authService:AuthenticationService,private route: ActivatedRoute) {}
+  weeklyUpdate:WeeklyUpdated
+  constructor(private router: Router, private adminservice: AdminService,private authService:AuthenticationService) {
+    this.weeklyUpdate = {} as WeeklyUpdated;
+  }
 
   ngOnInit(): void {
     this.GetWeeklyUpdate();
     this.GetProviderNameList();
-    //this.displayHeading = '';
   }
 
   GetWeeklyUpdate() {
-    debugger;
     this.adminservice.WeeklyUpdateList().subscribe(resp => {
       if (resp.IsSuccess) {
         this.WeeklyUpdatedList = resp.ListResult;
-        console.log(this.WeeklyUpdatedList);
-          this.getMessage();
       }
       else {
         this.WeeklyUpdatedList = [];
@@ -101,7 +85,6 @@ export class WeeklyUpdatedComponent implements OnInit {
     );
     this.UpdateWeeklyUpdatedView(item);
   }
-
 
   UpdateWeeklyUpdatedView(item) {
     this.authService.SetViewParamAdmin(item);
@@ -186,7 +169,6 @@ export class WeeklyUpdatedComponent implements OnInit {
       title: 'Are you sure you want to delete the record',
       showCancelButton: true,
       confirmButtonText: 'Yes',
-     //cancelButtonText: 'No'
     }).then((result) => {
       if (result.value) {
         this.deleteWeeklyUpdated(id);
@@ -195,19 +177,6 @@ export class WeeklyUpdatedComponent implements OnInit {
     });
   }
 
-  getMessage(){
-    if(this.displayHeading != null){
-    this.route.queryParams.subscribe((params) => {
-      if (params.msg == 'update')
-           {console.log(params.msg);
-            this.SuccessModal='block';
-             this.displayHeading = 'updated';}
-      else { this.displayHeading = 'created';}
-    });
-  }
-  }
-
-  closeModal(){this.SuccessModal='none';}
 
 }
 

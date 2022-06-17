@@ -56,12 +56,8 @@
             <tr *ngFor="let item of WeeklyUpdatedList, let i = index">
               <td>{{item.sequence}}</td>
               <td (click)="GetBodyData(i)" class="ellipsis">
-                <span data-toggle="tooltip" data-bs-placement="top" title={{item.body}} *ngIf="i != RowIndex"
-                  class="tooltip-text">
-                  {{item.body}}</span>
-                <div class="display-body" *ngIf="i == RowIndex">
-                  <p>{{DisplayTdBody}}</p>
-                </div>
+                <span *ngIf="i != RowIndex">{{item.body}}</span>
+                <div class="display-body" *ngIf="i == RowIndex"> <p>{{DisplayTdBody}}</p></div>
               </td>
               <td>{{item.header}}</td>
               <td>{{item.slide_type}}</td>
@@ -86,17 +82,3 @@
 </div>
 
 
- <!-- locked/ unlocked success modal -->
- <div class="modal"  tabindex="-1" role="dialog" [ngStyle]="{'display':SuccessModal}">
-  <div class="modal-dialog" role="document">
-      <div class="modal-content lockedModal">
-          <div class="modal-header">
-                <h5 class="title">Admin/Section {{displayHeading}} successfully</h5>
-          </div><hr>
-          <div class="d-flex justify-content-end my-2 mx-2">
-            <button type="button" data-bs-dismiss="modal" class="cancel-button col-md-4"
-            (click)="closeModal()">Close</button>
-          </div>
-      </div>
-  </div>
-</div>

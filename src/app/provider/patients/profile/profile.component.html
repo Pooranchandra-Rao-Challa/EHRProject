@@ -75,33 +75,6 @@
                 <input class="input-group form-control patient-id" [(ngModel)]="PatientMyProfile.PatientId"
                   placeholder="PATIENT ID" type="text" id="PATIENT ID" >
               </div>
-              <!-- <div class="col-lg-12 col-md-12 col-xl-5 col-sm-12 my-2">
-                <div class="form-group">
-                  <div class="input-group">
-                    <input class="checkbox form-check-input" id="DECLINED" name="DECLINED" type="checkbox"
-                      [(ngModel)]="PatientMyProfile.AmericanRace">
-                    <label class="label-design check-label check-label-mrg">AMERICAN INDIAN OR ALASKA NATIVE</label>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-4 col-xl-2 col-sm-12 my-2">
-                <div class="form-group">
-                  <div class="input-group">
-                    <input class="checkbox form-check-input" id="ASIAN" name="ASIAN" type="checkbox"
-                      [(ngModel)]="PatientMyProfile.AsianRace">
-                    <label class="label-design check-label">ASIAN</label>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-12 col-md-12 col-xl-5 col-sm-12 my-2">
-                <div class="form-group">
-                  <div class="input-group">
-                    <input class="checkbox form-check-input" id="DECLINED" name="DECLINED" type="checkbox"
-                      [(ngModel)]="PatientMyProfile.AfricanRace">
-                    <label class="label-design check-label check-label-mrg">BLACK OR AFRICAN AMERICAN</label>
-                  </div>
-                </div>
-              </div> -->
               <div class="col-lg-4 col-xl-4 col-md-6 col-12 my-2">
                 <label for="PATIENTID" class="form-label label-design">Preliminary Cause of Death</label>
                 <input class="input-group form-control" [(ngModel)]="PatientMyProfile.CauseofDeath"
@@ -238,8 +211,12 @@
               </div>
               <div class="col-lg-5 col-md-5 col-xl-6 col-12 my-2">
                 <label for="RELATION" class="form-label label-design text-nowrap">RELATION TO PATIENT</label>
-                <input class="input-group form-control" [(ngModel)]="PatientMyProfile.NkRel" placeholder="RELATION"
-                  type="text" id="RELATION">
+                <!-- <input class="input-group form-control" [(ngModel)]="PatientMyProfile.NkRel" placeholder="RELATION"
+                  type="text" id="RELATION"> -->
+                  <select class="form-select" aria-label="Default select example"
+                  [(ngModel)]="PatientMyProfile.NkRel">
+                  <option [value]="item.value" *ngFor="let item of relationship">{{item.value}}</option>
+                </select>
               </div>
               <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
                 <label for="SEX" class="form-label label-design">PHONE</label>
@@ -486,9 +463,6 @@
                   </div>
                 </div>
               </div>
-              <!-- <div class="d-flex justify-content-end mt-3">
-               <button type="button" class="btn btn-lg btn-orange">Save</button>
-              </div> -->
             </div>
           </div>
           <div class="col-lg-12 col-md-12 col-12 ">

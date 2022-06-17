@@ -77,7 +77,7 @@ input::-webkit-input-placeholder {
 .ehr-img {
   position: relative;
   top: 50px;
-  left: -15px;
+  left: -155px;
   width: 155px;
   height: 100px;
 }
@@ -85,7 +85,7 @@ input::-webkit-input-placeholder {
 .one-img {
   position: absolute;
   top: 98%;
-  left: 48px;
+  left: -95px;
   transform: translate(-50%, -50%);
   width: 100px;
 }
@@ -148,14 +148,14 @@ input::-webkit-input-placeholder {
     margin-left: -99px;
   }
 
-  .ehr-img {
-    top: 50px;
-    left: 87px;
-  }
+  // .ehr-img {
+  //   top: 50px;
+  //   left: 87px;
+  // }
 
-  .one-img {
-    left: 100%;
-  }
+  // .one-img {
+  //   left: 100%;
+  // }
 
   .toptxt {
     margin-left: 158px;

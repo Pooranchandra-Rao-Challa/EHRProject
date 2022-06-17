@@ -1,10 +1,10 @@
-import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { WeeklyUpdated } from './../../_models/_admin/weeklyupdated';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AdminViewModal } from 'src/app/_models';
 import { AdminService } from 'src/app/_services/admin.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-section-new',
@@ -22,7 +22,7 @@ export class SectionNewComponent implements OnInit {
   successMsg: string;
   disPreview:boolean;
 
-  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthenticationService, private alertmsg: AlertMessage,
+  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthenticationService,
     private adminservice: AdminService) {
     this.WeeklyUpdate = {} as WeeklyUpdated;
   }
@@ -58,21 +58,28 @@ export class SectionNewComponent implements OnInit {
     this.adminservice.AddUpdateWeeklyUpdated(this.WeeklyUpdate).subscribe(resp => {
       if (resp.IsSuccess) {
         this.WeeklyUpdate = resp.ListResult;
-        if (resp.EndUserMessage = 'Weekly update successfully') {
-          this.successMsg = 'update';
-        }
+         if (resp.EndUserMessage = 'WeeklyUpdated created successfully') {
+            this.show('Admin/Section created successfully')
+         }
         else {
-          this.successMsg = 'created';
-        }
+           this.show('Admin/Section Updated successfully')
+         }
         this.BackWeeklyUpdate('Weekly Update', 'admin/weeklyupdates');
       }
     });
   }
 
-  BackWeeklyUpdate(name, url, msg?: string) {
+  show(msg) {
+    Swal.fire({
+      text: msg,
+      confirmButtonText: 'close'
+    });
+  }
+
+  BackWeeklyUpdate(name, url) {
     this.router.navigate(
       [url],
-      { queryParams: { name: name, msg: this.successMsg } }
+      { queryParams: { name: name} }
     );
   }
 
