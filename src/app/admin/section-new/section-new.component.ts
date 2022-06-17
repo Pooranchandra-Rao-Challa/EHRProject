@@ -15,21 +15,21 @@ export class SectionNewComponent implements OnInit {
   menuName: any;
   displayHeading: string = ''
   SectionNew: any;
-  WeeklyUpdate:any=[];
+  WeeklyUpdate: any = [];
   viewModel: AdminViewModal;
-  body:any;
-  heading:any;
-  successMsg:string;
+  body: any;
+  heading: any;
+  successMsg: string;
+  disPreview:boolean;
 
-  constructor(private router: Router, private route: ActivatedRoute,private authService:AuthenticationService,private alertmsg:AlertMessage,
+  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthenticationService, private alertmsg: AlertMessage,
     private adminservice: AdminService) {
     this.WeeklyUpdate = {} as WeeklyUpdated;
   }
 
   ngOnInit(): void {
     this.getComponentName();
-    this.successMsg='';
-    //this.getEditData();
+    this.successMsg = '';
   }
 
   getComponentName() {
@@ -37,58 +37,42 @@ export class SectionNewComponent implements OnInit {
       if (params.name != null) {
         if (params.edit == 'EditSection') {
           this.displayHeading = 'Edit Section';
+          this.disPreview= true;
           this.getEditData()
         }
-        else { this.displayHeading = 'Add new Section'}
+        else { this.displayHeading = 'Add new Section' }
         this.menuName = params.name;
       }
     });
   }
 
-  getEditData(){
+  getEditData() {
     debugger;
-     this.WeeklyUpdate = this.authService.viewModelAdmin;
-     this.body= this.WeeklyUpdate.body;
-     this.heading= this.WeeklyUpdate.header;
-     console.log(this.WeeklyUpdate);
+    this.WeeklyUpdate = this.authService.viewModelAdmin;
+    this.body = this.WeeklyUpdate.body;
+    this.heading = this.WeeklyUpdate.header;
+    console.log(this.WeeklyUpdate);
   }
 
-  updateWeeklyRecord()
-  {
-    debugger;
-    if(this.WeeklyUpdate.Id == undefined || this.WeeklyUpdate.Id == null)
-    {
-       this.checkvalidation();
-    }
-    else{
-      this.adminservice.AddUpdateWeeklyUpdated(this.WeeklyUpdate).subscribe(resp => {
-        if (resp.IsSuccess) {
-          this.WeeklyUpdate = resp.ListResult;
-          if(resp.EndUserMessage='Weekly update successfully'){
-            this.successMsg = 'update';
-          }
-          else{
-            this.successMsg = 'created';
-          }
-          this.BackWeeklyUpdate('Weekly Update','admin/weeklyupdates');
+  updateWeeklyRecord() {
+    this.adminservice.AddUpdateWeeklyUpdated(this.WeeklyUpdate).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.WeeklyUpdate = resp.ListResult;
+        if (resp.EndUserMessage = 'Weekly update successfully') {
+          this.successMsg = 'update';
         }
+        else {
+          this.successMsg = 'created';
+        }
+        this.BackWeeklyUpdate('Weekly Update', 'admin/weeklyupdates');
+      }
     });
   }
 
- }
-
- checkvalidation()
- {
-   if(this.WeeklyUpdate.sequence == undefined && this.WeeklyUpdate.header == undefined && this.WeeklyUpdate.logo_type == undefined &&
-    this.WeeklyUpdate.slide_type== undefined && this.WeeklyUpdate.body == ''){
-    this.alertmsg.displayErrorDailog(ERROR_CODES["E1WU001"]);
-   }
- }
-
-  BackWeeklyUpdate(name, url,msg?:string) {
+  BackWeeklyUpdate(name, url, msg?: string) {
     this.router.navigate(
       [url],
-      { queryParams: { name: name,msg:this.successMsg} }
+      { queryParams: { name: name, msg: this.successMsg } }
     );
   }
 
