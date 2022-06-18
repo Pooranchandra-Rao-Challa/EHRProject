@@ -1,8 +1,11 @@
+import { WeeklyUpdated } from './../../_models/_admin/weeklyupdated';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
-import { Route, ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../../_services/admin.service';
 import { AdminViewModal } from 'src/app/_models';
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-weekly-updated',
   templateUrl: './weekly-updated.component.html',
@@ -11,20 +14,6 @@ import { AdminViewModal } from 'src/app/_models';
 export class WeeklyUpdatedComponent implements OnInit {
 
   WeeklyUpdatedList: any = [];
-  data: any = [
-    { name: "Marcela Arizmendi" },
-    { name: "Muon Vy" },
-    { name: "Usability Test Doctor" },
-    { name: "Karina Giron" },
-    { name: "Marcela Arizmendi" },
-    { name: "Muon Vy" },
-    { name: "Usability Test Doctor" },
-    { name: "Karina Giron" },
-    { name: "Marcela Arizmendi" },
-    { name: "Muon Vy" },
-    { name: "Usability Test Doctor" },
-    { name: "Karina Giron" },
-  ];
   selectedValue: any;
   searchValue: any;
   filteredList: any = [];
@@ -35,26 +24,21 @@ export class WeeklyUpdatedComponent implements OnInit {
   FistProviderName: any;
   viewModel: AdminViewModal;
   WeeklyUpdated:any;
-  SuccessModal='none';
   displayHeading:any;
-
-  constructor(private router: Router, private adminservice: AdminService,private authService:AuthenticationService,private route: ActivatedRoute) {}
+  weeklyUpdate:WeeklyUpdated
+  constructor(private router: Router, private adminservice: AdminService,private authService:AuthenticationService) {
+    this.weeklyUpdate = {} as WeeklyUpdated;
+  }
 
   ngOnInit(): void {
     this.GetWeeklyUpdate();
     this.GetProviderNameList();
-    //this.displayHeading = '';
   }
 
   GetWeeklyUpdate() {
-    debugger;
     this.adminservice.WeeklyUpdateList().subscribe(resp => {
       if (resp.IsSuccess) {
         this.WeeklyUpdatedList = resp.ListResult;
-        console.log(this.WeeklyUpdatedList);
-
-          this.getMessage();
-
       }
       else {
         this.WeeklyUpdatedList = [];
@@ -109,6 +93,7 @@ export class WeeklyUpdatedComponent implements OnInit {
 
   }
 
+  // drodpown provider list
   GetProviderNameList() {
     this.adminservice.GetProviderList().subscribe(resp => {
       if (resp.IsSuccess) {
@@ -120,17 +105,78 @@ export class WeeklyUpdatedComponent implements OnInit {
     });
   }
 
-  getMessage(){
-    if(this.displayHeading != null){
-    this.route.queryParams.subscribe((params) => {
-      if (params.msg == 'update')
-           {console.log(params.msg);
-            this.SuccessModal='block';
-             this.displayHeading = 'updated';}
-      else { this.displayHeading = 'created';}
+  // update status as active/deactive
+  updateStatus(item){
+    let Stauts;
+    if(item.Status == 'DeActivate'){Stauts = 0;}
+    else{Stauts = 1;}
+
+    let reqparams={
+      'Id':item.Id,
+      'Status':Stauts}
+
+    this.adminservice.UpdateWeeklyStaus(reqparams).subscribe( resp =>{
+      if (resp.IsSuccess) {this.GetWeeklyUpdate();}
+    })
+  }
+
+  // delete weeklyupdated records.
+  deleteWeeklyUpdated(id){
+    let reqparam={
+      'Id':id
+    }
+    this.adminservice.DeleteWeeklyStatus(reqparam).subscribe( resp =>{
+      if (resp.IsSuccess) {
+        this.GetWeeklyUpdate();
+      }
+    })
+  }
+
+  // confirm for the status
+  confirmStatus(item) {
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-warning'
+      },
+      buttonsStyling: true,
+    });
+    swalWithBootstrapButtons.fire(
+    {
+      title: 'Are you sure you want to change the status',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+     // cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.value) {
+        this.updateStatus(item);
+      }
+      this.GetWeeklyUpdate();
     });
   }
- }
 
-  closeModal(){this.SuccessModal='none';}
+  // confirmation for delete
+  confirmdelete(id) {
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-warning'
+      },
+      buttonsStyling: true,
+    });
+    swalWithBootstrapButtons.fire(
+    {
+      title: 'Are you sure you want to delete the record',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+    }).then((result) => {
+      if (result.value) {
+        this.deleteWeeklyUpdated(id);
+      }
+      this.GetWeeklyUpdate();
+    });
+  }
+
+
 }
+

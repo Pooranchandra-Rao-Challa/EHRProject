@@ -33,7 +33,7 @@ export class InActivePatientsComponent implements OnInit {
 
     }
     // console.log(data);
-    this.adminservice.ActivePatients(data).subscribe(resp => {
+    this.adminservice.InActivePatients(data).subscribe(resp => {
       if (resp.IsSuccess) {
         this.inactivepatientDataSource = resp.ListResult;
       } else

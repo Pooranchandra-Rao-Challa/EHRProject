@@ -95,6 +95,7 @@ export class ProfileComponent implements OnInit {
       if (resp.IsSuccess) {
         this.PatientMyProfile = resp.ListResult[0];
         this.PatientMyProfile.Gender = this.PatientMyProfile.Gender;
+        console.log(this.PatientMyProfile.Gender);
       }
     });
   }

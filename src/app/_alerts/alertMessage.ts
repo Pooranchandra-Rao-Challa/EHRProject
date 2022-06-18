@@ -14,7 +14,6 @@ export class AlertMessage {
       width: '600',
       customClass: { container: 'swal2-container-high-zindex' }
     });
-
   }
 
   displayErrorDailog(message) {
@@ -61,7 +60,8 @@ export class AlertMessage {
  * Settings: J
  * Screens: Adming Lofin
  * Provider:P
- * partnersignup :PS
+ * partnersignup :PS,
+ * WeeklyUpated:WP
  * -------------------------------------
  * If the screens has more funcitonal items then
  * Like in settings use frist letter as code, if same
@@ -196,7 +196,12 @@ export const ERROR_CODES: { [key: string]: string } = {
 
 
   // Smart Schedulerl Encounters;
-   'M2AE001':'Encounter Added successsfully',
+  'M2AE001': 'Encounter Added successsfully',
 
-   'E2AE001': 'Encounter Adding error',
+  'E2AE001': 'Encounter Adding error',
+  //Error for WeeklyUpated
+  'E1WU001': 'Please insert the data into the fields'
+
 };
+
+

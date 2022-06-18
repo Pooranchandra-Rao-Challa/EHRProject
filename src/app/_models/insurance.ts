@@ -3,6 +3,7 @@ export class PrimaryInsurance {
     SubscriberNane?: string;
     DateOfBirth?: Date;
     Gender?: string;
+    Street?:string;
     StreetAddress?: string;
     City?: string;
     State?: string;
@@ -13,6 +14,7 @@ export class PrimaryInsurance {
     RelationshipToSubscriber?: string;
     SourceOfPaymentTypology?: string;
     PaymentTypologyCode?:string;
+    PaymentTypologyDescription?:string;
     InsuranceType?: string;
     StartDate?: string;
     EndDate?: string;
@@ -25,6 +27,7 @@ export class SecondaryInsurance {
     SubscriberNane?: string;
     DateOfBirth?: Date;
     Gender?: string;
+    Street?:string;
     StreetAddress?: string;
     City?: string;
     State?: string;
@@ -34,6 +37,8 @@ export class SecondaryInsurance {
     SubscriberId?: string;
     RelationshipToSubscriber?: string;
     SourceOfPaymentTypology?: string;
+    PaymentTypologyCode?:string;
+    PaymentTypologyDescription?:string;
     InsuranceType?: string;
     StartDate?: string;
     EndDate?: string;
