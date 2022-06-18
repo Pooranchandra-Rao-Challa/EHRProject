@@ -1,6 +1,5 @@
 
-
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
 import { PracticeProviders } from 'src/app/_models/';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
@@ -19,15 +18,12 @@ import {
   MedicalCode
 } from 'src/app/_models/codes';
 import { MatRadioButton } from '@angular/material/radio';
-import { BehaviorSubject } from 'rxjs'
+import { BehaviorSubject, combineLatest, fromEvent, merge, Observable } from 'rxjs'
 import { OverlayService } from 'src/app/overlay.service';
 import { VitalDialogComponent } from 'src/app/dialogs/vital.dalog/vital.dialog.component';
-import { stringify } from 'querystring';
-import { flatten } from '@angular/compiler';
-const ELEMENT_DATA: VitalInfo[] = [
-  { VitalId: '65756lsdfoirkrtoikfwe747', EncounterId: 'ewer423234090293220933', CollectedAt: new Date('2022/06/10 10:10 AM'), Height: 6.6, Weight: 172, BMI: 1.0079, BPSystolic: 120, BPDiastolic: 80, Temperature: 98.4, Pulse: 88, RespiratoryRate: 1.0079, O2Saturation: 98, BloodType: 'Group A', UnitSystem: 'us', TempType: 'unspcified', Note: 'Testing' },
-  { VitalId: '65756lkdfi62irkrtoikf747', EncounterId: '7868ewer42323402932209', CollectedAt: new Date('2022/06/09 02:10 PM'), Height: 5.6, Weight: 132, BMI: 4.0026, BPSystolic: 110, BPDiastolic: 90, Temperature: 98.7, Pulse: 77, RespiratoryRate: 4.0026, O2Saturation: 99, BloodType: 'Group B', UnitSystem: 'us', TempType: 'unspcified', Note: 'Testing' },
-];
+import { map, share, tap } from 'rxjs/operators';
+import { AlertMessage, ERROR_CODES } from './../../_alerts/alertMessage';
+
 @Component({
   selector: 'app-encounter.dialog',
   templateUrl: './encounter.dialog.component.html',
@@ -41,12 +37,17 @@ export class EncounterDialogComponent implements OnInit {
   procedureColumns = ["CODE", "CODE SYSTEM", "DESCRIPTION", "TOOTH", "TOOTH SURFACE", "Delete"];
   vitalsColumns = ["CollectedAt", "Height", "Weight", "BMI", "BP", "Temperature", "Pulse", "Respiratory_rate", "O2_Saturation", "Blood_type", "Actions"];
 
-  EnableNewEncounterData: boolean = false;
+  EnableNewEncounterData: boolean = true;
   recommendedProcedures = new BehaviorSubject<ProceduresInfo[]>([]);
   // completedProcedures = new BehaviorSubject<ProceduresInfo[]>([]);
-   diagnosesInfo = new BehaviorSubject<EncounterDiagnosis[]>([]);
+  diagnosesInfo = new BehaviorSubject<EncounterDiagnosis[]>([]);
   vitalsInfo = new BehaviorSubject<VitalInfo[]>([]);
   teethNumbers = [] // [0,1,2,3,4]
+  @ViewChild('heightField',  { static: true }) heightField: ElementRef;
+  @ViewChild('weightField',  { static: true }) weightField: ElementRef;
+  heightValue$: Observable<number>;
+  weightValue$: Observable<number>;
+  bmi$: Observable<number>;
 
   appointment: ScheduledAppointment
   location: UserLocations;
@@ -56,25 +57,49 @@ export class EncounterDialogComponent implements OnInit {
   codeSystemsForDischarge: string[] = ['SNOMED'];
   codeSystemsForDocumentation: string[] = ['CPT'];
   codeSystemsForProcedures: string[] = ['CDT/CPT', 'HCPCS'];
-  vitalDialogComponent = VitalDialogComponent
+  //vitalDialogComponent = VitalDialogComponent
   vitalDialogResponse: any;
   ActionsType = Actions;
   message: string = "";
-  messageflag: boolean = true;
-
+  BloodTypes = [
+    { Id: 1, BloodType: 'Group A' },
+    { Id: 2, BloodType: 'Group B' },
+    { Id: 3, BloodType: 'Group AB' },
+    { Id: 4, BloodType: 'Group O' }
+  ]
+  dischargeCode = new MedicalCode();
+  //CollectedTime: string;
+  //messageflag: boolean = true;
+  //messageflag$: Observable<boolean>;
+  private messageflagSubject = new BehaviorSubject<boolean>(false);
+  public messageflag$ = this.messageflagSubject.asObservable();
   constructor(private overlayref: EHROverlayRef, private authService: AuthenticationService,
     private smartSchedulerService: SmartSchedulerService,
     private patientService: PatientService,
-    public overlayService: OverlayService) {
+    public overlayService: OverlayService,
+    private alertmsg: AlertMessage) {
       let i = 1;  //normally would use var here
       while(this.teethNumbers.push(i++)<32){}
      }
 
   ngOnInit(): void {
+    //this.heightValue$ =
+
+    this.heightValue$ = fromEvent<Event>(this.heightField.nativeElement, 'input')
+    .pipe(map(e => +(<HTMLInputElement>e.target).value));
+    this.weightValue$ = fromEvent<Event>(this.weightField.nativeElement, 'input')
+    .pipe(map(e => +(<HTMLInputElement>e.target).value));
+    this.bmi$ = combineLatest([this.heightValue$, this.weightValue$]).pipe(
+      map(([h, w]) => this.computeBmi(h, w)),
+    )
+    //this.bmiField.nativeElement as <HTMLInputElement>
+
     this.location = (JSON.parse(this.authService.userValue.LocationInfo) as UserLocations[])
     .filter((loc) => loc.locationId === this.authService.userValue.CurrentLocation )[0];
     this.loadDefaults();
     this.appointment = this.overlayref.RequestData as ScheduledAppointment
+    console.log(this.appointment);
+
     this.initEncoutnerView();
     this.loadEncouterView();
     this.encounterInfo.EnableNewEncounterData = this.EnableNewEncounterData;
@@ -82,8 +107,14 @@ export class EncounterDialogComponent implements OnInit {
     this.diagnosesInfo.next(this.encounterInfo.Diagnoses);
     this.recommendedProcedures.next(this.encounterInfo.RecommendedProcedures);
     // this.completedProcedures.next(this.encounterInfo.CompletedProcedures);
-    this.encounterInfo.Vitals = ELEMENT_DATA
-    this.vitalsInfo.next(this.encounterInfo.Vitals);
+
+    if(this.encounterInfo.Vital.CollectedAt != null)
+    this.encounterInfo.Vital.CollectedTime = this.encounterInfo.Vital.CollectedAt.toTimeString().substring(0, 5);
+  }
+  private computeBmi(height: number, weight: number): number {
+    const bmi = (weight / ((height) * (height))) * 703;
+    this.encounterInfo.Vital.BMI = Number(bmi.toFixed(2));
+    return Number(bmi.toFixed(2));
   }
   initEncoutnerView(){
     if(this.EnableNewEncounterData){
@@ -137,11 +168,20 @@ export class EncounterDialogComponent implements OnInit {
       if (resp.IsSuccess) {
         this.encounterInfo = resp.Result as EncounterInfo;
         console.log(this.encounterInfo);
+        this.diagnosesInfo.next(this.encounterInfo.Diagnoses);
+        this.recommendedProcedures.next(this.encounterInfo.RecommendedProcedures);
+        if(this.encounterInfo.Vital.CollectedAt != null)
+          this.encounterInfo.Vital.CollectedTime = this.encounterInfo.Vital.CollectedAt.toTimeString().substring(0, 5);
+        this.dischargeCode.Code = this.encounterInfo.DischargeStatusCode
+        this.dischargeCode.Description = this.encounterInfo.DischargeStatus
+        this.dischargeCode.CodeSystem = this.encounterInfo.DischargeStatusCodeSystem;
+        console.log(this.dischargeCode);
 
       }else{
         this.encounterInfo.ProviderId = this.authService.userValue.ProviderId;
         this.encounterInfo.LocationId = this.location.locationId;
         this.encounterInfo.AppointmentId = this.appointment.AppointmentId;
+        this.encounterInfo.PatientId = this.appointment.PatientId;
       }
     });
   }
@@ -158,14 +198,6 @@ export class EncounterDialogComponent implements OnInit {
       this.encounterInfo.EncounterCodeSystem = "SNOMED";
     }
   }
-
-
-  // optionChangedForReconcillation(value: MedicalCode){
-  //   this.encounterInfo.ReconcillationCode = value.Code;
-  //   this.encounterInfo.ReconcillationDescription   = value.Description
-  //   this.encounterInfo.CodeSystem = value.CodeSystem;
-
-  // }
 
   onDischargeCodeChange(value: MedicalCode){
     this.encounterInfo.DischargeStatus = value.Description;
@@ -211,6 +243,7 @@ export class EncounterDialogComponent implements OnInit {
     p.CodeSystem = value.CodeSystem
     p.Description = value.Description
     p.CanDelete = false;
+    p.Status = "Treatment planned";
     this.encounterInfo.RecommendedProcedures.push(p);
     this.recommendedProcedures.next(this.encounterInfo.RecommendedProcedures.filter(fn => fn.CanDelete === false));
   }
@@ -251,21 +284,19 @@ export class EncounterDialogComponent implements OnInit {
     }
   }
 
-  openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
-    data?: any, action?: Actions) {
-    let dialogData: any;
-    if (content === this.vitalDialogComponent && action == Actions.view) {
-      dialogData = data;
-    }
-    // console.log(dialogData);
-
-    const ref = this.overlayService.open(content, dialogData);
-    ref.afterClosed$.subscribe(res => {
-      if (content === this.vitalDialogComponent) {
-        this.vitalDialogResponse = res.data;
-      }
-    });
-  }
+  // openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
+  //   data?: any, action?: Actions) {
+  //   let dialogData: any;
+  //   if (content === this.vitalDialogComponent && action == Actions.view) {
+  //     dialogData = data;
+  //   }
+  //   const ref = this.overlayService.open(content, dialogData);
+  //   ref.afterClosed$.subscribe(res => {
+  //     if (content === this.vitalDialogComponent) {
+  //       this.vitalDialogResponse = res.data;
+  //     }
+  //   });
+  // }
 
 
   closePopup() {
@@ -274,8 +305,9 @@ export class EncounterDialogComponent implements OnInit {
 
   saveAsDraft() {
     this.encounterInfo.Signed = false;
-    // console.log(this.encounterInfo);
-
+    if(this.encounterInfo.ServiceEndAt == new Date())
+      this.encounterInfo.ServiceEndAt = null;
+   // this.updateVitalCollectedTime()
     this.updateEncounter();
   }
   signEncounter() {
@@ -283,37 +315,52 @@ export class EncounterDialogComponent implements OnInit {
     this.updateEncounter();
   }
 
+
   updateEncounter(){
-    console.log(this.encounterInfo);
     this.patientService.CreateEncounter(this.encounterInfo).subscribe(resp => {
-      console.log(resp);
-
       if (resp.IsSuccess) {
-
+        this.overlayref.close({"saved":true});
+        this.alertmsg.displayMessageDailog(ERROR_CODES["M2AE001"])
+      }else{
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2AE001"])
       }
     });
-
   }
 
-  enableSaveButtons(): boolean{
+  enableSaveButtons(){
 
 
-    this.messageflag = this.encounterInfo.ServicedAt != null
+    //this.messageflag = this.encounterInfo.ServicedAt != null
     if(this.encounterInfo.HealthInfoExchange == true &&
       this.encounterInfo.ReferredTo == false
       || this.encounterInfo.ReferralTo == ""
       || this.encounterInfo.ReferralTo == null){
-        this.messageflag = false;
+        this.messageflagSubject.next(true);
         this.message = "Update the provider to whom you referring this patient."
-      }
+      }else
     if(this.encounterInfo.HealthInfoExchange == true &&
       this.encounterInfo.ReferredFrom == false
       || this.encounterInfo.ReferralFrom == ""
       || this.encounterInfo.ReferralFrom == null  ){
-        this.messageflag = false;
+        this.messageflagSubject.next(true);
         this.message = "Update the provider from whom you redirected this patient."
-      }
+      }else this.messageflagSubject.next(false);;
 
-      return this.messageflag;
+
+
+  }
+
+  recordSuperBill(){
+
+
+  }
+
+  addAddenda(){
+
+
+  }
+
+  attachDocuments(){
+
   }
 }

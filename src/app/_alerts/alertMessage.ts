@@ -12,7 +12,7 @@ export class AlertMessage {
       showConfirmButton: true,
       confirmButtonText: 'Close',
       width: '600',
-      customClass: {container:'swal2-container-high-zindex'}
+      customClass: { container: 'swal2-container-high-zindex' }
     });
 
   }
@@ -24,7 +24,7 @@ export class AlertMessage {
       showConfirmButton: true,
       confirmButtonText: 'Close',
       width: '600',
-      customClass: {title: 'swal2-title-custom',container:'swal2-container-high-zindex'}
+      customClass: { title: 'swal2-title-custom', container: 'swal2-container-high-zindex' }
     });
   }
   displaysubmitted(message) {
@@ -84,6 +84,10 @@ export class AlertMessage {
  * Amendments : A
  * Patients : PA
  * CQMsNotPerformed : CNP
+ *
+ * SMART SCHEDULER
+ * Appointments: A
+ * Encoutners: E
  * ----------------------------------------
  * These are some dialogs in Chart screen
  *
@@ -166,18 +170,33 @@ export const ERROR_CODES: { [key: string]: string } = {
 
   // Message for Admin Provider  Status
   'M1P001': 'Your 30-Day Trial version is finished',
-// Message for Insurance 
-'M2CI001': 'Insurance Company Plan created successfully',
-'M2CI002': 'Insurance Company Plan Updated successfully',
-'M2CI003': 'Insurance Company Plan  deleted successfully',
-'M2CI004': 'Primary Insurance Added successfully',
-'M2CI005': 'Primary Insurance Updated successsfully',
-'M2CI006': 'Secondary Insurance Added successfully',
-'M2CI007': 'Secondary Insurance Updated successsfully',
+  // Message for Insurance
+  'M2CI001': 'Insurance Company Plan created successfully',
+  'M2CI002': 'Insurance Company Plan Updated successfully',
+  'M2CI003': 'Insurance Company Plan  deleted successfully',
+  'M2CI004': 'Primary Insurance Added successfully',
+  'M2CI005': 'Primary Insurance Updated successsfully',
+  'M2CI006': 'Secondary Insurance Added successfully',
+  'M2CI007': 'Secondary Insurance Updated successsfully',
 
 
-//Error for Insurance
-'E2CI001':'Insurance Company Plan  Updation error',
-'E2CI002': 'Primary Insurance Updation error',
-'E2CI003': 'Secondary Insurance Updation error'
+  //Error for Insurance
+  'E2CI001': 'Insurance Company Plan  Updation error',
+  'E2CI002': 'Primary Insurance Updation error',
+  'E2CI003': 'Secondary Insurance Updation error',
+
+  // Smart Scheduler Apoointments;
+  'M2AA001': 'Appointment Added successsfully',
+  'M2AA002': 'Appointment Updated successsfully',
+  'M2AA003': 'Appointment Deleted successsfully',
+
+  'E2AA001': 'Appointment Add error',
+  'E2AA002': 'Appointment Update error',
+  'E2AA003': 'Appointment Deleted error',
+
+
+  // Smart Schedulerl Encounters;
+   'M2AE001':'Encounter Added successsfully',
+
+   'E2AE001': 'Encounter Adding error',
 };

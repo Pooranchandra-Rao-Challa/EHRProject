@@ -50,6 +50,9 @@ export interface ScheduleVisitStatus
 export class ScheduledAppointment{
   AppointmentId? : string;
   EncounterId?: string;
+  PatientId?: string;
+  ClinicId?: string;
+  ProviderId?: string;
   AppointmentTime? : Date;
   PatientName? : string;
   DateofBirth? : Date;

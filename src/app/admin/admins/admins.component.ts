@@ -37,7 +37,7 @@ export class AdminsComponent implements OnInit {
         this.dataSource = resp.ListResult;
       } else
         this.adminDataSource = [];
-      this.adminDataSource
+        this.adminDataSource
     });
   }
 
