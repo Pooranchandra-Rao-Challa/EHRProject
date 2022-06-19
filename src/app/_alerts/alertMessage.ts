@@ -197,8 +197,11 @@ export const ERROR_CODES: { [key: string]: string } = {
 
   // Smart Schedulerl Encounters;
   'M2AE001': 'Encounter Added successsfully',
+  'M2AE002': 'Encounter Updated successsfully',
 
   'E2AE001': 'Encounter Adding error',
+  'E2AE002': 'Encounter Update error',
+  'E2AE003': 'Encounter Data Read  error',
   //Error for WeeklyUpated
   'E1WU001': 'Please insert the data into the fields'
 

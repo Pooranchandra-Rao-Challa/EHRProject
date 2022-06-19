@@ -182,3 +182,7 @@
 .vital-input{
   width:80%;
 }
+
+::ng-deep .mat-progress-bar{
+  margin-bottom: 10px;
+}

@@ -56,7 +56,7 @@
             </div>
           </div>
         </div>
-
+        <mat-progress-bar mode="indeterminate" bufferValue="50" value=100 *ngIf="dialogIsLoading" ></mat-progress-bar>
         <div class="encounter-navigation">
           <!-- <div *ngIf="messageflag$ | async">{{message}}</div> -->
           <mat-tab-group animationDuration="0ms">
@@ -546,7 +546,7 @@
                         <mat-form-field  appearance="outline"  class="vital-mat-form-field">
                           <mat-label>BMI</mat-label>
                           <input matInput class="vital-input" #bmiField
-                            [value]="bmi$ | async"
+                            [value]="bmi$ | async" disabled="true"
                           [(ngModel)]="encounterInfo.Vital.BMI" >
                           <label class="vital-mat-form-field-unit-label"></label>
                         </mat-form-field>
@@ -1045,6 +1045,5 @@
         </button>
       </div>
     </div>
-
   </div>
 

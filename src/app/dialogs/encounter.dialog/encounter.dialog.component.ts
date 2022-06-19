@@ -68,6 +68,7 @@ export class EncounterDialogComponent implements OnInit {
     { Id: 4, BloodType: 'Group O' }
   ]
   dischargeCode = new MedicalCode();
+  dialogIsLoading: boolean = false;
   //CollectedTime: string;
   //messageflag: boolean = true;
   //messageflag$: Observable<boolean>;
@@ -83,7 +84,7 @@ export class EncounterDialogComponent implements OnInit {
      }
 
   ngOnInit(): void {
-    //this.heightValue$ =
+
 
     this.heightValue$ = fromEvent<Event>(this.heightField.nativeElement, 'input')
     .pipe(map(e => +(<HTMLInputElement>e.target).value));
@@ -92,7 +93,7 @@ export class EncounterDialogComponent implements OnInit {
     this.bmi$ = combineLatest([this.heightValue$, this.weightValue$]).pipe(
       map(([h, w]) => this.computeBmi(h, w)),
     )
-    //this.bmiField.nativeElement as <HTMLInputElement>
+
 
     this.location = (JSON.parse(this.authService.userValue.LocationInfo) as UserLocations[])
     .filter((loc) => loc.locationId === this.authService.userValue.CurrentLocation )[0];
@@ -164,24 +165,33 @@ export class EncounterDialogComponent implements OnInit {
   }
   loadEncouterView(){
   // {"EncounterId": this.appointment.EncounterId}
+    this.dialogIsLoading = true;
     this.patientService.EncounterView({"EncounterId":this.appointment.EncounterId}).subscribe(resp => {
       if (resp.IsSuccess) {
-        this.encounterInfo = resp.Result as EncounterInfo;
-        console.log(this.encounterInfo);
-        this.diagnosesInfo.next(this.encounterInfo.Diagnoses);
-        this.recommendedProcedures.next(this.encounterInfo.RecommendedProcedures);
-        if(this.encounterInfo.Vital.CollectedAt != null)
-          this.encounterInfo.Vital.CollectedTime = this.encounterInfo.Vital.CollectedAt.toTimeString().substring(0, 5);
-        this.dischargeCode.Code = this.encounterInfo.DischargeStatusCode
-        this.dischargeCode.Description = this.encounterInfo.DischargeStatus
-        this.dischargeCode.CodeSystem = this.encounterInfo.DischargeStatusCodeSystem;
-        console.log(this.dischargeCode);
+        this.dialogIsLoading = false;
+        if(resp.AffectedRecords == 1){
+          this.encounterInfo = resp.Result as EncounterInfo;
+          console.log(this.encounterInfo);
+          this.diagnosesInfo.next(this.encounterInfo.Diagnoses);
+          this.recommendedProcedures.next(this.encounterInfo.RecommendedProcedures);
+          //console.log(this.encounterInfo.Vital.CollectedAt.toString().substring(11,16));
+
+          if(this.encounterInfo.Vital.CollectedAt != null)
+            this.encounterInfo.Vital.CollectedTime = this.encounterInfo.Vital.CollectedAt.toString().substring(11, 16);
+          this.dischargeCode.Code = this.encounterInfo.DischargeStatusCode
+          this.dischargeCode.Description = this.encounterInfo.DischargeStatus
+          this.dischargeCode.CodeSystem = this.encounterInfo.DischargeStatusCodeSystem;
+          console.log(this.dischargeCode);
+        }else{
+          this.encounterInfo.ProviderId = this.authService.userValue.ProviderId;
+          this.encounterInfo.LocationId = this.location.locationId;
+          this.encounterInfo.AppointmentId = this.appointment.AppointmentId;
+          this.encounterInfo.PatientId = this.appointment.PatientId;
+        }
 
       }else{
-        this.encounterInfo.ProviderId = this.authService.userValue.ProviderId;
-        this.encounterInfo.LocationId = this.location.locationId;
-        this.encounterInfo.AppointmentId = this.appointment.AppointmentId;
-        this.encounterInfo.PatientId = this.appointment.PatientId;
+        this.overlayref.close();
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2AE003"])
       }
     });
   }
@@ -322,6 +332,7 @@ export class EncounterDialogComponent implements OnInit {
         this.overlayref.close({"saved":true});
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2AE001"])
       }else{
+        this.overlayref.close();
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2AE001"])
       }
     });
