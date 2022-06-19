@@ -3,6 +3,7 @@ import { Component, OnInit, TemplateRef, HostListener } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ComponentType } from '@angular/cdk/portal';
+import { PlatformLocation } from '@angular/common';
 
 import { AuthenticationService } from '../../_services/authentication.service';
 import { SettingsService } from '../../_services/settings.service';
@@ -15,6 +16,7 @@ import { UserDialogComponent } from 'src/app/dialogs/user.dialog/user.dialog.com
 import { OverlayService } from '../../overlay.service';
 import { AlertMessage, ERROR_CODES } from './../../_alerts/alertMessage';
 import { LocationDialogComponent } from 'src/app/dialogs/location.dialog/location.dialog.component';
+import { timeStamp } from 'console';
 
 @Component({
   selector: 'practice-settings',
@@ -45,6 +47,7 @@ export class PracticeComponent implements OnInit {
   userDialogResponse = null;
   ActionsType = Actions;
   user: User;
+  url: string;
 
   constructor(private fb: FormBuilder,
     private authService: AuthenticationService,
@@ -53,8 +56,10 @@ export class PracticeComponent implements OnInit {
     private utilityService: UtilityService,
     public overlayService: OverlayService,
     private locationSelectService: LocationSelectService,
+    private plaformLocation: PlatformLocation,
     private alertmsg: AlertMessage) {
     this.user = authService.userValue;
+    this.url = plaformLocation.href.replace(plaformLocation.pathname, '/');
 
     this.changedLocationId = this.user.CurrentLocation;
     this.locationsubscription = this.locationSelectService.getData().subscribe(locationId => {
@@ -154,19 +159,21 @@ export class PracticeComponent implements OnInit {
     });
 
   }
-  updateUser(activity) {
+  updateUser() {
     this.NewUserData.ClinicId = this.user.ClinicId;
     this.NewUserData.LocationId = this.user.CurrentLocation;
     if (this.NewUserData.PracticeName == null)
       this.NewUserData.PracticeName = this.user.BusinessName;
+      this.NewUserData.URL = this.url;
 
     this.settingsService.AddUpdateUser(this.NewUserData).subscribe(resp => {
       if (resp.IsSuccess) {
         this.getProviderDetails();
-        this.alertmsg.displayMessageDailog(ERROR_CODES["M2JP007"])
+        this.NewUserData = new NewUser;
+        this.alertmsg.userCreateConfirm(resp.Result["Code"],resp.Result["ProviderName"])
       }
       else {
-        this.alertmsg.displayErrorDailog(ERROR_CODES["E2JP002"])
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2JP007"])
       }
     });
   }
@@ -197,15 +204,16 @@ export class PracticeComponent implements OnInit {
     if (content === this.userDialogComponent && action == Actions.view) {
       dialogData = this.userInfoForEdit(data, action);
     } else if (content === this.locationDialogComponent && action == Actions.view) {
-      //dialogData = this.editPracticeLocation(data);
-
       dialogData = data;
-      // console.log(dialogData);
     }
     const ref = this.overlayService.open(content, dialogData);
     ref.afterClosed$.subscribe(res => {
       if (content === this.userDialogComponent) {
         this.userDialogResponse = res.data;
+      }else if(content === this.locationDialogComponent){
+        if(res.data.saved){
+          this. practiceLocations();
+        }
       }
     });
   }
@@ -225,5 +233,16 @@ export class PracticeComponent implements OnInit {
   timeZoneChanged(value) {
     //this.DisplayDateTimeZone();
   }
-
+  OpenMessageDiloag(){
+    this.alertmsg.userCreateConfirm('Code',"Provider Name")
+  }
+  /*  ^[A-Za-z0-9._%-]+@[A-Za-z0-9._-]+\\.[a-z]{2,3}$*/
+  emailPattern = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$";
+  EnableSave(){
+    var emailReg =  /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
+    return !(this.NewUserData.FirstName != null && this.NewUserData.FirstName != ""
+          && this.NewUserData.Email != null && this.NewUserData.Email != ""
+          && emailReg.test(this.NewUserData.Email)
+          && this.NewUserData.PracticeRole != null && this.NewUserData.PracticeRole != "");
+  }
 }

@@ -30,11 +30,31 @@ export class AlertMessage {
     Swal.fire({
       title: message,
       position: 'center',
-      text: 'Thank you for your interest in becoming a partner application. Our team will be reaching out to you in the next 3-5 business days',
+      text: ERROR_CODES['I3PS001'],
       confirmButtonText: 'Done',
       confirmButtonColor: "#41b6a6",
 
     })
+  }
+  userCreateConfirm(code: string,provider: string){
+    Swal.fire({
+      title: ERROR_CODES['T2JP001'],
+      position: 'top',
+      background: '#e1dddd',
+      showConfirmButton: true,
+      html:
+    'An email has been set to, ' +
+    '<p>' +provider+
+    '<p> He/She wil need to enter the Practice record ID# to activate their account.'+
+    '<p>  Practice Record ID# <b>'+code+'</b>',
+      confirmButtonText: 'Done',
+      confirmButtonColor: "#41b6a6",
+      customClass: { container: 'swal2-container-high-zindex',
+      actions:'user-swal2-actions',
+      title:'user-swal2-actions' }
+
+    })
+
   }
 }
 /**
@@ -43,7 +63,7 @@ export class AlertMessage {
  */
 
 /**
- * MessageTYps: Message: M Error: E Waring: W
+ * MessageTYps: Message: M Error: E Waring: W,I: Info,Titles: T
  * ---------------------------------------------
  * Modlues; Admin : 1 , Provider: 2 , Patient : 3
  * ----------------------------------------------
@@ -126,6 +146,7 @@ export const ERROR_CODES: { [key: string]: string } = {
   'E2JP004': 'Timezone updation error',
   'E2JP005': 'Location delation error.',
   'E2JP006': 'Location delation error.',
+  'E2JP007': 'User add error.',
 
   //Message for provider setting schedule..
   'M2JS001': 'Timezone updated successfully',
@@ -149,7 +170,7 @@ export const ERROR_CODES: { [key: string]: string } = {
 
   // Error for Patient profile directives
   'E2CP001': 'Personal Information Updation error',
-  '2CP002': 'Contact Information Updation error',
+  '2CP002' : 'Contact Information Updation error',
   'E2CP003': 'Emergency Contact Updation error',
   'E2CP004': 'Relationship Updation error',
   'E2CP005': 'Demographics Updation error',
@@ -160,6 +181,7 @@ export const ERROR_CODES: { [key: string]: string } = {
 
   //Error for Partner signup
   'E3PS001': 'Partner Error',
+  'I3PS001': 'Thank you for your interest in becoming a partner application. Our team will be reaching out to you in the next 3-5 business days',
   //Message for Smoking Status in chart screen
   'M2CSS001': 'Smoking Status added successfully',
   'M2CSS002': 'Smoking Status updated successfully',
@@ -203,8 +225,9 @@ export const ERROR_CODES: { [key: string]: string } = {
   'E2AE002': 'Encounter Update error',
   'E2AE003': 'Encounter Data Read  error',
   //Error for WeeklyUpated
-  'E1WU001': 'Please insert the data into the fields'
+  'E1WU001': 'Please insert the data into the fields',
 
+  'T2JP001' : 'User has been added!',
 };
 
 
