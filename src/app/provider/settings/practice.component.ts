@@ -219,6 +219,7 @@ export class PracticeComponent implements OnInit {
     });
   }
 
+
   updateTimeZone() {
     this.settingsService.UpdateTimeZone(this.user).subscribe(resp => {
       if (resp.IsSuccess) {

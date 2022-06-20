@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { APIEndPoint } from "./api.endpoint.service";
 import { HttpClient } from "@angular/common/http";
+import { ChangePassword } from "../_models";
 @Injectable()
 export class SettingsService extends APIEndPoint {
   constructor(http: HttpClient) { super(http); }
@@ -124,5 +125,10 @@ export class SettingsService extends APIEndPoint {
 
   DeleteLocation(reqparams: any) {
     return this._ProcessPostRequest<any>(this._deleteLocationUrl, reqparams);
+  }
+
+
+  ChangePassword(changePassword: ChangePassword){
+    return this._ProcessPostRequest<any>(this._changePasswordsUrl, changePassword);
   }
 }

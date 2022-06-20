@@ -138,6 +138,7 @@ export const ERROR_CODES: { [key: string]: string } = {
   'M2JP005': 'User Updated successfully',
   'M2JP007': 'User Added successfully',
   'M2JP008': 'Timezone updated successfully',
+  'M2JP009': 'Password updated successfully',
 
   // Error block setting
   'E2JP001': 'Location Updation error',
@@ -147,6 +148,7 @@ export const ERROR_CODES: { [key: string]: string } = {
   'E2JP005': 'Location delation error.',
   'E2JP006': 'Location delation error.',
   'E2JP007': 'User add error.',
+  'E2JP008': 'Password updation error.',
 
   //Message for provider setting schedule..
   'M2JS001': 'Timezone updated successfully',

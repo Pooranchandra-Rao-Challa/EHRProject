@@ -523,6 +523,11 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "CreateUpdateInsuranceDetails";
   }
 
+  get _changePasswordsUrl()
+  {
+    return this._baseUrl + "ChangePassword";
+  }
+
 
   // Update for patient My Profile
   get _updatePatientProfileUrl() {

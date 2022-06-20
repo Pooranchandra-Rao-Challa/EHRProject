@@ -1,7 +1,7 @@
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { Component, OnInit, HostListener, TemplateRef } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { SettingsService } from 'src/app/_services/settings.service';
 import { User, UserLocations } from '../../_models';
 import { NewUser } from '../../_models/_provider/_settings/settings';
@@ -146,11 +146,28 @@ export class UserDialogComponent implements OnInit {
     dialogConfig.data = {
       id: 2,
       title: 'Change Password',
-      email: this.EditProvider.Email,
-      userid: this.EditProvider.UserId
+      Email: this.EditProvider.Email,
+      Userid: this.EditProvider.UserId
     };
 
-    this.dialog.open(ChangePasswordDialogComponent, dialogConfig);
+    let dialogRef = this.dialog.open(ChangePasswordDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result =>
+    {
+      this.settingsService.ChangePassword(result).subscribe(resp => {
+        if (resp.IsSuccess) {
+          //this.ref.close({'saved':'true'});
+          this.alertmsg.displayMessageDailog(ERROR_CODES["M2JP009"]);
+        }
+        else {
+          this.cancel();
+          this.alertmsg.displayErrorDailog(ERROR_CODES["E2JP008"]);
+        }
+      });
+
+
+    });
+
   }
 
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
