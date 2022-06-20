@@ -1,6 +1,5 @@
 
 import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { ComponentType } from '@angular/cdk/portal';
 import { PracticeProviders } from 'src/app/_models/';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
@@ -20,8 +19,7 @@ import {
 import { MatRadioButton } from '@angular/material/radio';
 import { BehaviorSubject, combineLatest, fromEvent, merge, Observable } from 'rxjs'
 import { OverlayService } from 'src/app/overlay.service';
-import { VitalDialogComponent } from 'src/app/dialogs/vital.dalog/vital.dialog.component';
-import { map, share, tap } from 'rxjs/operators';
+import { map, } from 'rxjs/operators';
 import { AlertMessage, ERROR_CODES } from './../../_alerts/alertMessage';
 
 @Component({
@@ -297,19 +295,6 @@ export class EncounterDialogComponent implements OnInit {
     }
   }
 
-  // openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
-  //   data?: any, action?: Actions) {
-  //   let dialogData: any;
-  //   if (content === this.vitalDialogComponent && action == Actions.view) {
-  //     dialogData = data;
-  //   }
-  //   const ref = this.overlayService.open(content, dialogData);
-  //   ref.afterClosed$.subscribe(res => {
-  //     if (content === this.vitalDialogComponent) {
-  //       this.vitalDialogResponse = res.data;
-  //     }
-  //   });
-  // }
 
 
   closePopup() {
@@ -321,7 +306,6 @@ export class EncounterDialogComponent implements OnInit {
     this.encounterInfo.Signed = false;
     if(this.encounterInfo.ServiceEndAt == new Date())
       this.encounterInfo.ServiceEndAt = null;
-   // this.updateVitalCollectedTime()
     this.updateEncounter();
   }
   signEncounter() {

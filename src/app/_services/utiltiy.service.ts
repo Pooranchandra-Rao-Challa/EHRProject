@@ -31,8 +31,8 @@ export class UtilityService extends APIEndPoint {
   VerifyAddress(addressLine: any) {
     return this._ProcessGetRequest<any>(this._addressVerificationUrl + "?addressLine=" + encodeURIComponent(addressLine));
   }
-  CreateNewPatient(patient: Patient){
-    return this._ProcessPostRequest<any>(this._createNewPatientUrl,patient);
+  CreatePatient(patient: Patient){
+    return this._ProcessPostRequest<any>(this._createPatinetUrl,patient);
   }
   MedicalCodes(searchTerm: string,codeSystem: string){
     return this._ProcessPostRequest<any>(this._medicalCodesUrl,{CodeSystem: codeSystem,SearchTerm: searchTerm});

@@ -108,6 +108,7 @@ export class AlertMessage {
  * SMART SCHEDULER
  * Appointments: A
  * Encoutners: E
+ * Patinet: P
  * ----------------------------------------
  * These are some dialogs in Chart screen
  *
@@ -230,6 +231,8 @@ export const ERROR_CODES: { [key: string]: string } = {
   'E1WU001': 'Please insert the data into the fields',
 
   'T2JP001' : 'User has been added!',
+  'M2AP001' : 'Patient Added successsfully',
+  'E2AP001' : 'Patient Adding error',
 };
 
 
