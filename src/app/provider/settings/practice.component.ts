@@ -16,7 +16,7 @@ import { UserDialogComponent } from 'src/app/dialogs/user.dialog/user.dialog.com
 import { OverlayService } from '../../overlay.service';
 import { AlertMessage, ERROR_CODES } from './../../_alerts/alertMessage';
 import { LocationDialogComponent } from 'src/app/dialogs/location.dialog/location.dialog.component';
-import { timeStamp } from 'console';
+
 
 @Component({
   selector: 'practice-settings',
@@ -153,7 +153,6 @@ export class PracticeComponent implements OnInit {
 
       let message: string;
       if (resp.IsSuccess) {
-        // show update message;
         message = resp.Message;
       }
     });
@@ -209,7 +208,9 @@ export class PracticeComponent implements OnInit {
     const ref = this.overlayService.open(content, dialogData);
     ref.afterClosed$.subscribe(res => {
       if (content === this.userDialogComponent) {
-        this.userDialogResponse = res.data;
+        if(res.data.saved){
+          this. getProviderDetails();
+        }
       }else if(content === this.locationDialogComponent){
         if(res.data.saved){
           this. practiceLocations();

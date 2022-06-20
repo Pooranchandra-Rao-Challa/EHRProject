@@ -2,7 +2,6 @@ import { AuthenticationService } from 'src/app/_services/authentication.service'
 import { Component, OnInit, HostListener, TemplateRef } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import Swal from 'sweetalert2';
 import { SettingsService } from 'src/app/_services/settings.service';
 import { User, UserLocations } from '../../_models';
 import { NewUser } from '../../_models/_provider/_settings/settings';
@@ -12,7 +11,7 @@ import { ChangePasswordDialogComponent } from 'src/app/dialogs/user.dialog/chang
 import { OverlayService } from '../../overlay.service';
 import { Actions } from 'src/app/_models/';
 import { LocationDialogComponent } from 'src/app/dialogs/location.dialog/location.dialog.component';
-
+import { AlertMessage, ERROR_CODES } from './../../_alerts/alertMessage';
 @Component({
   selector: 'app-user.dialog',
   templateUrl: './user.dialog.component.html',
@@ -33,43 +32,24 @@ export class UserDialogComponent implements OnInit {
   locationDialogComponent = LocationDialogComponent;
   locationDialogResponse: any;
   ActionsType = Actions;
+  dialogIsLoading: boolean = false;
 
   @HostListener('window:resize', ['$event'])
   getScreenSize(event?) {
     this.scrHeight = window.innerHeight;
     this.scrWidth = window.innerWidth;
-    // console.log(window.scrollX,window.scrollY);
-    // console.log(window.screen.width,window.screen.height);
-    // console.log(window.screen.availWidth,window.screen.availHeight);
-    //         console.log(window.screenLeft,window.screenTop);
-    //         console.log(window.screenX,window.screenY);
-    // console.log(window.pageXOffset,window.pageYOffset);
 
-
-    // console.log(this.scrHeight, this.scrWidth);
   }
 
-  //   @HostListener('window:scroll', ['$event'])
-  //   getScrollSize(event?) {
-  //         this.scrHeight = window.innerHeight;
-  //         this.scrWidth = window.innerWidth;
-  //         console.log(window.scrollX,window.scrollY);
-  //         console.log(window.screen.width,window.screen.height);
-  //         console.log(window.screen.availWidth,window.screen.availHeight);
-  //         console.log(window.screenLeft,window.screenTop);
-  //         console.log(window.screenX,window.screenY);
-  // console.log();
 
-
-  //         console.log(this.scrHeight, this.scrWidth);
-  //   }
 
   constructor(private ref: EHROverlayRef,
     private settingsService: SettingsService,
     private utilityService: UtilityService,
     private dialog: MatDialog,
     public overlayService: OverlayService,
-    private authServer: AuthenticationService) {
+    private authServer: AuthenticationService,
+    private alertmsg: AlertMessage) {
 
     this.user = authServer.userValue;
     this.getUserDataforEdit(ref.RequestData as NewUser);
@@ -84,6 +64,7 @@ export class UserDialogComponent implements OnInit {
     this.ref.close(null);
   }
   loadFormDefaults() {
+    this.dialogIsLoading = true;
     this.utilityService.Titles().subscribe(resp => {
       if (resp.IsSuccess) {
         this.titles = JSON.parse(resp.Result);
@@ -117,13 +98,14 @@ export class UserDialogComponent implements OnInit {
       LoginProviderId: this.user.ProviderId,
       ClinicId: this.user.ClinicId
     }
-    // console.log(reqparams);
+
 
     this.settingsService.UserInfoWithPraceticeLocations(reqparams).subscribe(resp => {
-
-      this.EditProvider = resp.Result as NewUser;
-      this.EditProvider.LocationInfo = JSON.parse(resp.Result.LocationInfo);
-      // console.log(this.EditProvider)
+      this.dialogIsLoading = false;
+      if(resp.IsSuccess){
+        this.EditProvider = resp.Result as NewUser;
+        this.EditProvider.LocationInfo = JSON.parse(resp.Result.LocationInfo);
+      }
     });
   }
 
@@ -140,23 +122,24 @@ export class UserDialogComponent implements OnInit {
     // console.log(JSON.stringify(this.EditProvider))
     this.settingsService.AddUpdateUser(this.EditProvider).subscribe(resp => {
       if (resp.IsSuccess) {
-        // this.closePopup();
-        // this.getProviderDetails();
+        this.ref.close({'saved':'true'});
+        this.alertmsg.displayMessageDailog(ERROR_CODES["M2JP005"])
       }
       else {
-        Swal.fire({
-          customClass: {
-            container: 'container-class',
-            title: 'title-error',
-            confirmButton: 'close-error-button',
-          },
-          position: 'top',
-          //title: msg,
-          width: '700',
-          confirmButtonText: 'Close',
-          background: '#e5e1e1',
-          showConfirmButton: true,
-        });
+        this.cancel();
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2JP003"])
+        // Swal.fire({
+        //   customClass: {
+        //     container: 'container-class',
+        //     title: 'title-error',
+        //     confirmButton: 'close-error-button',
+        //   },
+        //   position: 'top',
+        //   width: '700',
+        //   confirmButtonText: 'Close',
+        //   background: '#e5e1e1',
+        //   showConfirmButton: true,
+        // });
       }
     });
   }
