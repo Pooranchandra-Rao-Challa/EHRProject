@@ -1034,10 +1034,10 @@
         <button type="button" class="btn btn-green" (click)="attachDocuments()" *ngIf="encounterInfo.EncounterId != null">
           Attach Documents
         </button>
-        <button type="button" class="btn btn-green" (click)="saveAsDraft()"  *ngIf="!encounterInfo.Signed">
+        <button type="button" class="btn btn-green" (click)="saveAsDraft()"  *ngIf="!encounterInfo.Signed  && !dialogIsLoading">
           Save as Draft
         </button>
-        <button type="button" class="btn btn-orange" (click)="signEncounter()" *ngIf="!encounterInfo.Signed">
+        <button type="button" class="btn btn-orange" (click)="signEncounter()" *ngIf="!encounterInfo.Signed && !dialogIsLoading">
           Sign
         </button>
         <button type="button" class="btn btn-danger " (click)="closePopup()">

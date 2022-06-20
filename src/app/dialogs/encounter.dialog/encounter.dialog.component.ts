@@ -165,8 +165,11 @@ export class EncounterDialogComponent implements OnInit {
   }
   loadEncouterView(){
   // {"EncounterId": this.appointment.EncounterId}
+  let requestdata = {"EncounterId":this.appointment.EncounterId,
+                    "AppointmentId": this.appointment.EncounterId == null ?
+                            this.appointment.AppointmentId : null};
     this.dialogIsLoading = true;
-    this.patientService.EncounterView({"EncounterId":this.appointment.EncounterId}).subscribe(resp => {
+    this.patientService.EncounterView(requestdata).subscribe(resp => {
       if (resp.IsSuccess) {
         this.dialogIsLoading = false;
         if(resp.AffectedRecords == 1){
@@ -314,6 +317,7 @@ export class EncounterDialogComponent implements OnInit {
   }
 
   saveAsDraft() {
+    this.encounterInfo.EnableNewEncounterData = this.EnableNewEncounterData;
     this.encounterInfo.Signed = false;
     if(this.encounterInfo.ServiceEndAt == new Date())
       this.encounterInfo.ServiceEndAt = null;
@@ -321,16 +325,18 @@ export class EncounterDialogComponent implements OnInit {
     this.updateEncounter();
   }
   signEncounter() {
+    this.encounterInfo.EnableNewEncounterData = this.EnableNewEncounterData;
     this.encounterInfo.Signed = true;
     this.updateEncounter();
   }
 
 
   updateEncounter(){
+    let isAdd = this.encounterInfo.EncounterId == null;
     this.patientService.CreateEncounter(this.encounterInfo).subscribe(resp => {
       if (resp.IsSuccess) {
         this.overlayref.close({"saved":true});
-        this.alertmsg.displayMessageDailog(ERROR_CODES["M2AE001"])
+        this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2AE001" : "M2AE002"])
       }else{
         this.overlayref.close();
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2AE001"])
