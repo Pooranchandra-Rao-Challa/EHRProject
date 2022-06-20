@@ -123,23 +123,11 @@ export class UserDialogComponent implements OnInit {
     this.settingsService.AddUpdateUser(this.EditProvider).subscribe(resp => {
       if (resp.IsSuccess) {
         this.ref.close({'saved':'true'});
-        this.alertmsg.displayMessageDailog(ERROR_CODES["M2JP005"])
+        this.alertmsg.displayMessageDailog(ERROR_CODES["M2JP005"]);
       }
       else {
         this.cancel();
-        this.alertmsg.displayErrorDailog(ERROR_CODES["E2JP003"])
-        // Swal.fire({
-        //   customClass: {
-        //     container: 'container-class',
-        //     title: 'title-error',
-        //     confirmButton: 'close-error-button',
-        //   },
-        //   position: 'top',
-        //   width: '700',
-        //   confirmButtonText: 'Close',
-        //   background: '#e5e1e1',
-        //   showConfirmButton: true,
-        // });
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2JP003"]);
       }
     });
   }
@@ -157,7 +145,9 @@ export class UserDialogComponent implements OnInit {
 
     dialogConfig.data = {
       id: 2,
-      title: 'Change Password'
+      title: 'Change Password',
+      email: this.EditProvider.Email,
+      userid: this.EditProvider.UserId
     };
 
     this.dialog.open(ChangePasswordDialogComponent, dialogConfig);
