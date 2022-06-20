@@ -5,6 +5,7 @@ import { AuthenticationService } from '../_services/authentication.service'
 import { PatientProfile } from '../_models/_patient/patientprofile'
 import { Allergies, CareTeam, LabtestResult, Medications, MedicationsAllergies, PatientClinicalProvider,
    ProblemDX, VitalStats } from '../_models/_patient/patientclinicalprovider'
+import { disableDebugTools } from '@angular/platform-browser'
 
 
 @Component({
@@ -55,12 +56,12 @@ export class MyhealthComponent implements OnInit {
 ;  }
 
   getSmokingStatus() {
-
+    debugger;
     var req={
       "PatientId": this.user.PatientId,
     }
     this.patientservise.SmokingStatusByPatientId(req).subscribe(req => {
-        this.StatusList = req.ListResult[0]
+        this.StatusList = req.ListResult
         this.smokingStatus = this.StatusList.Status
     })
   }
@@ -82,6 +83,7 @@ export class MyhealthComponent implements OnInit {
     })
   }
   getProviders() {
+
     var req={
       "ClinicId": this.user.ClinicId,
     }
