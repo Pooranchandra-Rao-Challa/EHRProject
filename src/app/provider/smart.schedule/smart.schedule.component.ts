@@ -202,7 +202,7 @@ export class SmartScheduleComponent implements OnInit {
         this.patientNameOrCellNumber = "";
       } else if (content == this.encounterDialogComponent) {
         this.encounterDialogResponse = res.data;
-        if(res.data.saved){
+        if(res.data != null && res.data.saved){
           this.filterAppointments();        }
       }
     });

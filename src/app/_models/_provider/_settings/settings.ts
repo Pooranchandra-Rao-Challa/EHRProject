@@ -88,3 +88,11 @@ export interface GeneralSchedule {
   ScheduleGeneral?: string,
   SlotSize?: number
 }
+
+
+export class ChangePassword{
+  Email?: string;
+  Password?: string;
+  ConfirmPassword?: string;
+  Userid?:string;
+}
