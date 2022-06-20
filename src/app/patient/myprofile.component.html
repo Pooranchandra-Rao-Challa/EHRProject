@@ -11,12 +11,22 @@
               <div class="col-md-10">
                 <div class="row">
                   <div class="col-lg-4 col-md-4 col-sm-12 col-12   ">
-                    <label>First Name</label>
+                    <label>First Name<sub class="text-danger Helvetica-sans-serif-medium">*</sub></label>
                     <div class="form-group">
                       <mat-form-field class="grey-matform w-100" appearance="outline">
                         <input matInput placeholder="First Name" [(ngModel)]="PatientProfile.FirstName" id="FirstName"
-                          name="FirstName" #FirstName="ngModel">
+                          name="FirstName" #FirstName="ngModel" required  pattern="[a-zA-Z ]*">
                       </mat-form-field>
+                      <div *ngIf="FirstName.errors && (FirstName.touched)">
+                        <div class="error_message" *ngIf="FirstName.errors?.required">
+                          <span class="e_arrow"></span>
+                          <p class="text-danger">Please enter First Name</p>
+                        </div>
+                        <div class="error_message" *ngIf="FirstName.errors?.pattern">
+                          <span class="e_arrow"></span>
+                          <i class="text-danger">First name not valid, Use only Alphabets and space</i>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div class="col-lg-4 col-md-4 col-sm-12 col-12">
@@ -29,26 +39,39 @@
                     </div>
                   </div>
                   <div class="col-lg-4 col-md-4 col-sm-12 col-12">
-                    <label class="labelfontzise">Last Name</label>
+                    <label class="labelfontzise">Last Name<sub class="text-danger Helvetica-sans-serif-medium">*</sub></label>
                     <div class="form-group">
                       <mat-form-field class="grey-matform w-100" appearance="outline">
                         <input matInput placeholder="Last Name" [(ngModel)]="PatientProfile.LastName" id="LastName"
-                          name="LastName" #LastName="ngModel">
+                          name="LastName" #LastName="ngModel" required  pattern="[a-zA-Z ]*">
                       </mat-form-field>
+                      <div *ngIf="LastName.errors && (LastName.touched)">
+                        <div class="error_message" *ngIf="LastName.errors?.required">
+                          <span class="e_arrow"></span>
+                          <p class="text-danger">Please enter Last Name</p>
+                        </div>
+                        <div class="error_message" *ngIf="LastName.errors?.pattern">
+                          <span class="e_arrow"></span>
+                          <p class="text-danger">Last name not valid, Use only Alphabets and space</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-lg-4 col-md-6 col-sm-6 col-12 "><label class="labelfontzise">Date Of Birth
+                  <div class="col-lg-4 col-md-6 col-sm-6 col-12 "><label class="labelfontzise">Date Of Birth<sub class="text-danger Helvetica-sans-serif-medium">*</sub>
                     </label>
                     <div class="form-group">
-                      <mat-form-field class="grey-matform w-100" appearance="outline">
-                        <input matInput placeholder="Date Of Birth" [ngModel]="PatientProfile.DateOfBirth | date:'MM/dd/yyyy'"
-                          id="DateofBirth" name="DateofBirth" #DateofBirth="ngModel">
-                      </mat-form-field>
+                      <mat-form-field appearance="outline" class="grey-matform ">
+                        <input matInput [matDatepicker]="dp"  placeholder="Start Date"   
+                        [(ngModel)]="PatientProfile.DateOfBirth" #DateofBirth="ngModel" name="DateofBirth" required pattern="^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$">
+                        <mat-datepicker-toggle matSuffix [for]="dp">
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #dp disabled="false"></mat-datepicker>
+                       </mat-form-field>
+                      
                     </div>
-                  </div>
-
+                  </div> 
                   <div class="col-lg-4 col-md-6 col-sm-6 col-12 "><label class="labelfontzise">Sex </label>
                     <div class="form-group">
                       <mat-form-field appearance="outline" class="grey-matform w-100">
