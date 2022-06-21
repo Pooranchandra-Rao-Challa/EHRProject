@@ -2,7 +2,6 @@ import { Component, OnInit, Inject } from '@angular/core';
 
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { SettingsService } from 'src/app/_services/settings.service';
-import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { User } from 'src/app/_models';
 import { Accountservice } from 'src/app/_services/account.service';
 import { PracticeLocation } from 'src/app/_models/';
@@ -50,7 +49,6 @@ export class LocationDialogComponent implements OnInit {
   AddressVerification() {
     this.accountservice.VerifyAddress(this.PracticeLocData.Street).subscribe(resp => {
       if (resp.IsSuccess) {
-        // console.log(resp.Result);
         this.PracticeLocData.City = resp.Result.components.city_name
         this.PracticeLocData.State = resp.Result.components.state_abbreviation
         this.PracticeLocData.StreetAddress = resp.Result.delivery_line_1
@@ -191,7 +189,7 @@ export class LocationDialogComponent implements OnInit {
   deleteLocation() {
     this.settingsService.DeleteLocation({ LocationId: this.PracticeLocData.LocationId }).subscribe(resp => {
       if (resp.IsSuccess) {
-        //this.practiceLocations();
+        this.ref.close({'saved':true})
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2JP003"])
       }
       else {

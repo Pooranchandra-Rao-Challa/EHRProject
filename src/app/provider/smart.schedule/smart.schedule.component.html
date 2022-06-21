@@ -69,7 +69,9 @@
                     <div class="col-md-2 col-2 appointment-note">Notes</div>
                     <div class="col-md-1 col-1">Encounter</div>
                   </div>
-
+                  <div class="noappintment" *ngIf="Appointments!= null && Appointments.length == 0">
+                    You don't have any appointments for today
+                  </div>
                   <div class="row text-center table-body"  *ngFor="let appointment of Appointments" >
 
                     <div class="col-md-1 col-1 appointment-time appintment-link" *ngIf="appointment.IsCurrent"

@@ -10,6 +10,7 @@ import { ParticularInsuranceCompanyDetails, PrimaryInsurance, SecondaryInsurance
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { PatientService } from 'src/app/_services/patient.service';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
+import { Accountservice } from 'src/app/_services/account.service';
 const moment = require('moment');
 
 
@@ -19,7 +20,7 @@ const moment = require('moment');
   styleUrls: ['./insurance.component.scss']
 })
 export class InsuranceComponent implements OnInit {
-  user:User;
+  user: User;
   displaytitle: any;
   errorBlock: boolean;
   error: boolean = false;
@@ -34,10 +35,10 @@ export class InsuranceComponent implements OnInit {
   PatientDetails: any = [];
   insuranceList: any = [];
   InsuranceID: any;
-  primlist: PrimaryInsurance ={} as PrimaryInsurance;
-  secList: SecondaryInsurance={} as SecondaryInsurance;
+  primlist: PrimaryInsurance = {} as PrimaryInsurance;
+  secList: SecondaryInsurance = {} as SecondaryInsurance;
   insuraceComplanyPlan: ParticularInsuranceCompanyDetails;
-  practiceLocation:PracticeLocation;
+  practiceLocation: PracticeLocation;
   secondaryInsurancelist: any;
   secondaryarry: any[];
   plusvalue: any;
@@ -49,24 +50,32 @@ export class InsuranceComponent implements OnInit {
   InsuranceCompanyPlan: string;
   show: boolean;
   InsurancDetailslist: any = [];
-  secInsuranceID: any;
-  splitted: any;
-  InsurancDetailslist1: any;
-  // insuraceComplanyPlan1: any;
-  newsavelist: any = [];
-  InsuranceCP: any;
-  changedLocationId:string;
+  changedLocationId: string;
   isValid: boolean;
-  primaryInsuranceType="Primary";
-  secondaryInsuranceType="Secondary"
+  primaryInsuranceType = "Primary";
+  secondaryInsuranceType = "Secondary";
+  addressVerfied: boolean = false;
+  secondaryAdressVerfied = false;
+  manuallybtn: boolean = false;
+  disableaddressverification: boolean = false;
+  disableaddressverification1: boolean = false;
+  secondarymanuallybtn: boolean;
+  secondarydisableaddressverification: boolean;
+  primaryselected: any;
+  secondaryselected: any;
 
-  constructor(private patientservice: PatientService, private route: ActivatedRoute, private authService: AuthenticationService,private alertmsg: AlertMessage,) {
+
+  constructor(private patientservice: PatientService,
+    private route: ActivatedRoute,
+    private authService: AuthenticationService,
+    private alertmsg: AlertMessage,
+    private accountservice: Accountservice,) {
     this.primlist = {} as PrimaryInsurance;
     this.secList = {} as SecondaryInsurance;
     this.insuraceComplanyPlan = {} as ParticularInsuranceCompanyDetails;
     this.user = authService.userValue;
     this.changedLocationId = this.user.CurrentLocation;
-    console.log(this.changedLocationId);
+
     this.InsuranceCompanyPlanList();
   }
 
@@ -159,33 +168,28 @@ export class InsuranceComponent implements OnInit {
 
   // SourceOfPaymentTypologyCodes dropdown
   getSourceOfPaymentTypologyCodesDD() {
-
     this.patientservice.SourceOfPaymentTypologyCodes().subscribe(resp => {
       this.SourceOfPaymentTypologyCodes = resp.ListResult;
-      console.log(this.SourceOfPaymentTypologyCodes);
     })
   }
-  // insuranceCompanyPlanList display in table
+
   InsuranceCompanyPlanList() {
     this.patientservice.InsuranceCompanyPlans().subscribe(
       resp => {
         this.insurancePlanList = resp.ListResult;
         this.secondaryInsurancelist = resp.ListResult;
-        console.log(this.insurancePlanList);
+
       })
   }
 
   // get patient id
   getPatientDetails() {
-    // this.route.queryParams.subscribe((params) => {
-    //   this.PatientDetails = JSON.parse(params.patient);
-    // });
     this.PatientDetails = this.authService.viewModel.Patient;
   }
 
   // get patient details by id
   getInsuranceList() {
-  
+
     var reqparam = {
       "PatientId": this.PatientDetails.PatientId
     }
@@ -199,32 +203,31 @@ export class InsuranceComponent implements OnInit {
         this.primlist.StartDate = moment(primarydata[0].StartDate).format('YYYY-MM-DD');
         this.primlist.DateOfBirth = moment(primarydata[0].DateOfBirth).format('YYYY-MM-DD');
         this.primlist.EndDate = moment(primarydata[0].EndDate).format('YYYY-MM-DD');
-        debugger;
         let secondaryData = this.insuranceList.filter(x =>
           (x.InsuranceType === 'Secondary')
         )
         this.secList = secondaryData[0];
-        this.secList=this.secList == undefined ? {} : this.secList;
-        if(this.secList != undefined){
+        this.secList = this.secList == undefined ? {} : this.secList;
+        if (this.secList != undefined) {
           this.secList.DateOfBirth = moment(secondaryData[0].DateOfBirth).format('YYYY-MM-DD');
           this.secList.StartDate = moment(secondaryData[0].StartDate).format('YYYY-MM-DD');
           this.secList.EndDate = moment(secondaryData[0].EndDate).format('YYYY-MM-DD');
         }
-       
+
       }
     });
   }
 
-
   getInsuranceDetails(item) {
     if (item == 'primary') {
       var reqparam = {
-        "InsuranceId":  this.primlist.InsuranceCompanyPlanID
+        "InsuranceId": this.primlist.InsuranceCompanyPlanID
       }
       this.patientservice.InsurancDetails(reqparam).subscribe(
         resp => {
           this.InsurancDetailslist = resp.ListResult;
           this.insuraceComplanyPlan = resp.ListResult[0];
+          console.log()
         });
     }
     else {
@@ -240,7 +243,7 @@ export class InsuranceComponent implements OnInit {
 
   }
   getInsuranceDetail(id) {
-    debugger;
+
     var reqparam = {
       "InsuranceId": id
     }
@@ -252,74 +255,149 @@ export class InsuranceComponent implements OnInit {
     )
   }
 
-  CreateUpdateInsuraceCompanyPlan()
-  {
+  CreateUpdateInsuraceCompanyPlan() {
     let isAdd = this.insuraceComplanyPlan.InsuranceCompanyId == "";
-      this.insuraceComplanyPlan.LocationId= this.changedLocationId
-    this.patientservice.CreateUpdateInsuranceCompanyPlan(this.insuraceComplanyPlan).subscribe((resp)=>
-    {
+    this.insuraceComplanyPlan.LocationId = this.changedLocationId
+    this.patientservice.CreateUpdateInsuranceCompanyPlan(this.insuraceComplanyPlan).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CI001" : "M2CI002"]);
       }
       else {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2CI001"]);
       }
-    this.insurancePlanList();
-  });
+      this.insurancePlanList();
+    });
   }
 
 
-  deleteInsurancePlan()
-  {
-      this.patientservice.DeleteInsuranceCampanyplan(this.insuraceComplanyPlan).subscribe((resp)=>
-    {
+  deleteInsurancePlan() {
+    this.patientservice.DeleteInsuranceCampanyplan(this.insuraceComplanyPlan).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2CI003"]);
       }
     });
-   
+
     this.data = true;
     this.isValid = false;
     this.cancel2 = false;
     this.cancel1 = false;
   }
 
-  CreateUpdateInsuranceDetails(item)
-  {
-    debugger;
-    if(item=="primary")
-    {
-      this.primlist.ProviderId=this.user.ProviderId;
-      this.primlist.PatientId=this.PatientDetails.PatientId;
-      this.primlist.LocationId= this.changedLocationId;
-      this.primlist.InsuranceType=this.primaryInsuranceType;
+  CreateUpdateInsuranceDetails(item) {
+    if (item == "primary") {
+      this.primlist.ProviderId = this.user.ProviderId;
+      this.primlist.PatientId = this.PatientDetails.PatientId;
+      this.primlist.LocationId = this.changedLocationId;
+      this.primlist.InsuranceType = this.primaryInsuranceType;
       let isAdd = this.primlist.InsuranceId == "";
-    this.patientservice.CreateUpdateInsuranceDetails(this.primlist).subscribe((resp)=>
-    {
+      this.patientservice.CreateUpdateInsuranceDetails(this.primlist).subscribe((resp) => {
+        if (resp.IsSuccess) {
+          this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CI004" : "M2CI005"]);
+        }
+        else {
+          this.alertmsg.displayErrorDailog(ERROR_CODES["E2CI002"]);
+        }
+      })
+      this.getInsuranceList();
+      this.manuallybtn = false;
+      this.disableaddressverification = false;
+      this.addressVerfied = false;
+    }
+    else {
+      this.secList.ProviderId = this.user.ProviderId;
+      this.secList.PatientId = this.PatientDetails.PatientId;
+      this.secList.LocationId = this.changedLocationId;
+      this.secList.InsuranceType = this.secondaryInsuranceType;
+      let isAdd = this.secList.InsuranceId == "";
+      this.patientservice.CreateUpdateInsuranceDetails(this.secList).subscribe((resp) => {
+        if (resp.IsSuccess) {
+          this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CI006" : "M2CI007"]);
+        }
+        else {
+          this.alertmsg.displayErrorDailog(ERROR_CODES["E2CI003"]);
+        }
+      })
+      this.secondarydisableaddressverification = false;
+      this.secondaryAdressVerfied = false;
+    }
+  }
+
+  AddressVerification() {
+    this.accountservice.VerifyAddress(this.primlist.Street).subscribe(resp => {
       if (resp.IsSuccess) {
-        this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CI004" : "M2CI005"]);
+        // console.log(resp.Result);
+        this.primlist.City = resp.Result.components.city_name
+        this.primlist.State = resp.Result.components.state_abbreviation
+        this.primlist.StreetAddress = resp.Result.delivery_line_1
+        this.primlist.Zip = resp.Result.components.zipcode
+        this.primlist.Street = "";
+        this.addressVerfied = true;
       }
       else {
-        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CI002"]);
+        this.manuallybtn = true;
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CI002"])
       }
-    })
+    });
   }
-  else
-  {
-    this.secList.ProviderId=this.user.ProviderId;
-    this.secList.PatientId=this.PatientDetails.PatientId;
-    this.secList.LocationId= this.changedLocationId;
-    this.secList.InsuranceType=this.secondaryInsuranceType;
-    let isAdd = this.secList.InsuranceId == "";
-    this.patientservice.CreateUpdateInsuranceDetails(this.secList).subscribe((resp)=>
-    {
+  enableManualEntry() {
+    this.manuallybtn = true;
+    this.clearAddress();
+  }
+  clearAddress() {
+    this.primlist.Street = "";
+    this.primlist.City = ""
+    this.primlist.State = ""
+    this.primlist.StreetAddress = ""
+    this.primlist.Zip = ""
+  }
+
+  enterAddressManually(item) {
+
+    this.disableaddressverification = true;
+  }
+
+  secondaryAddressverfied() {
+    this.accountservice.VerifyAddress(this.secList.Street).subscribe(resp => {
       if (resp.IsSuccess) {
-        this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CI006" : "M2CI007"]);
+        // console.log(resp.Result);
+        this.secList.City = resp.Result.components.city_name
+        this.secList.State = resp.Result.components.state_abbreviation
+        this.secList.StreetAddress = resp.Result.delivery_line_1
+        this.secList.Zip = resp.Result.components.zipcode
+        this.secList.Street = "";
+        this.secondaryAdressVerfied = true;
       }
       else {
-        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CI003"]);
+        this.manuallybtn = true;
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CI003"])
       }
-    })
+    });
   }
+  secondaryenableManualEntry() {
+
+    this.secondarymanuallybtn = true;
+    this.clearAddress();
+
+  }
+  secondaryenterAddressManually(item) {
+
+    this.secondarydisableaddressverification = true;
+
+  }
+  onChange(type, value) {
+
+    if (type === 'primary') {
+      this.primaryselected = this.SourceOfPaymentTypologyCodes.filter(x => x.Code == value)[0];
+      this.primlist.PaymentTypologyCode = this.primaryselected.Code;
+      this.primlist.PaymentTypologyDescription = this.primaryselected.Description;
+    }
+  }
+  secondaryonChange(type, value) {
+
+    if (type === 'secondary') {
+      this.secondaryselected = this.SourceOfPaymentTypologyCodes.filter(x => x.Code == value)[0];
+      this.secList.PaymentTypologyCode = this.secondaryselected.Code;
+      this.secList.PaymentTypologyDescription = this.secondaryselected.Description;
+    }
   }
 }

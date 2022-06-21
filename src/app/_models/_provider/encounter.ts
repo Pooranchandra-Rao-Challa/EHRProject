@@ -22,19 +22,6 @@ export interface EncounterData {
 
 }
 
-export class MU2Info{
-  VisitReason?: string;
-  ClinicalInstructions? :string;
-  EducationProvided: boolean = false;
-  MedicalReconcillation: boolean = false;
-  ReconcillationCode? :string;
-  ReconcillationDescription? :string;
-  HealthInfoExchange: boolean = false;
-  CurrentMedicationDocumented: number = 1
-  DocumentedCode: string = "99213";
-  DocumentedDescription: string ="Office or Other Outpatient Visit"
-  CodeSystem?: string;
-}
 
 export class EncounterInfo{
   EncounterId?: string;
@@ -73,12 +60,14 @@ export class EncounterInfo{
   SummaryCareRecordRefIn?: boolean;
   SummaryCareRecordRefOut?: boolean;
   DeclinedToReceiveSummary?: boolean;
+  SummaryOfCareRecord?:string;
   MedicationAllergyReconciliationCompleted?: boolean;
   DiagnosisReconciliationCompleted?: boolean;
   medCompleted?: boolean;
   HealthInfoExchange?: boolean;
   CurrentMedicationDocumented: number = 1
-
+  MedicationReconciliation?: boolean;
+  MedicalReconcillation?: boolean ;
 
   // Referral
   ReferralReason?: string
@@ -94,7 +83,7 @@ export class EncounterInfo{
   Diagnoses: EncounterDiagnosis[] = [];
   RecommendedProcedures: ProceduresInfo[] = [];
   CompletedProcedures: ProceduresInfo[] = [];
-  Vitals: VitalInfo[] = [];
+  Vital:VitalInfo = new VitalInfo;
 }
 
 export class ReferralInfo{
@@ -143,7 +132,7 @@ export class ProceduresInfo implements IDeleteFlag {
   PatientId?: string;
   LocationId?: string;
   ProviderId?: string;
-  StartDate?: Date;
+  ServicedAt?: Date;
   ToothSystem?: string = "JP";
   Quantity?: number = 0;
   Fee?: number = 0;
@@ -163,6 +152,8 @@ export class ProceduresInfo implements IDeleteFlag {
   ToothNo?: number;
   Surface?: string;
   ToothProblemId?: string;
+  ReasonStartDate?: Date;
+
   CanDelete?: boolean = false;
 }
 
@@ -170,16 +161,17 @@ export class VitalInfo{
   VitalId?: string;
   EncounterId?:string;
   CollectedAt?:Date;
-  Height: number;
-  Weight: number;
-  BMI: number;
-  BPSystolic: number; //bp_left
-  BPDiastolic: number; //bp_right;
-  Temperature: number;
-  Pulse: number;
-  RespiratoryRate: number;
-  O2Saturation: number;
-  BloodType: string;
+  CollectedTime?:string;
+  Height?: number;
+  Weight?: number;
+  BMI?: number;
+  BPSystolic?: number; //bp_left
+  BPDiastolic?: number; //bp_right;
+  Temperature?: number;
+  Pulse?: number;
+  RespiratoryRate?: number;
+  O2Saturation?: number;
+  BloodType?: string;
   UnitSystem: string = "us";
   TempType: string = "unspecified";
   Note?:string;

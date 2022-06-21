@@ -28,6 +28,7 @@ export class NewUser {
   Email?: string;
   AltEmail?: string;
   PracticeName?: string;
+  URL?: string;
 
   Admin?: boolean;
   EmergencyAccess?: boolean;
@@ -86,4 +87,12 @@ export interface GeneralSchedule {
   RescheduleTime?: number,
   ScheduleGeneral?: string,
   SlotSize?: number
+}
+
+
+export class ChangePassword{
+  Email?: string;
+  Password?: string;
+  ConfirmPassword?: string;
+  Userid?:string;
 }

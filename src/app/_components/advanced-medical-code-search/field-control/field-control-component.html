@@ -15,14 +15,16 @@
     [matAutocomplete]="auto"
     [(ngModel)]="selectedValue"
   />
-  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
-  [displayWith]="displayWith" (optionSelected)="onSelected()">
+  <mat-autocomplete #auto="matAutocomplete"
+  [displayWith]="displayWith" (optionSelected)="onSelected()" >
     <mat-option *ngIf="isLoading" class="is-loading">Loading...</mat-option>
     <mat-optgroup *ngFor="let group of filteredOptions | async" [label]="group.name">
-      <mat-option *ngFor="let option of group.codes" [value]="option" matTooltip=" {{option.Code}} - {{option.Description}}">
+      <mat-option *ngFor="let option of group.codes" [value]="option"
+      [matTooltip]="option.Code - option.Description" class="medical-code-option"
+      matToolTipPosition="after" matTooltipShowDelay="100"
+      matTooltipHideDelay="100">
         {{option.Code}} - {{option.Description}}
       </mat-option>
-
   </mat-optgroup>
   </mat-autocomplete>
 </ng-container>

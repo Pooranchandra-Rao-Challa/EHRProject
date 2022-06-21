@@ -64,8 +64,18 @@
                 class="Helvetica-sans-serif-large">{{PatientProfile?.PreferredLanguage}}</span></div>
           </div>
           <div class="row mt-4">
-            <div class="col-md-12"><span class="green-color">Smoking Status:- </span><span
-                class="Helvetica-sans-serif-large">{{StatusList?.Status}}</span></div>
+          
+            <div class="col-md-6F" >    <span  class="green-color">Smoking Status:-</span>
+         <span *ngFor="let i of StatusList">{{i.Status}}{{i.EffectiveFrom}},</span>
+              <div >
+                <!-- <span  class="Helvetica-sans-serif-large"> </span> -->
+              </div>
+              
+            
+               
+               
+                <!-- <span innerHTML="{{i.Status}}{{i.EffectiveFrom}}"></span> </b></p> -->
+              </div>
           </div>
 
           <div class="row mt-4">
@@ -106,8 +116,9 @@
                   <div class="title-dx">
                     <div *ngFor="let i of Medications">
                       <div class="acute-item" >
-                        <p >{{i.start_at}}<br>
-                        </p>
+                        <p>Display Name:{{i.DisplayName}}</p>
+                        <p >Start At:{{i.StartAt}}<br> </p>
+                        <p>End Date:{{i.StopAt}}</p>
                       </div>
 
                     </div>

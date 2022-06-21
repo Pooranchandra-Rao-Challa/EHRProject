@@ -1,3 +1,4 @@
+
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, Observer, observable, throwError, of } from 'rxjs';
 import { Router } from '@angular/router';
@@ -170,7 +171,5 @@ export class AuthenticationService {
     let viewModel: ViewModel = new ViewModel;
     localStorage.setItem('viewModel', JSON.stringify(viewModel));
   }
-
-
 
 }

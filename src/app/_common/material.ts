@@ -9,7 +9,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
+import { MatProgressSpinnerModule, } from '@angular/material/progress-spinner'
+import { MatProgressBarModule, } from '@angular/material/progress-bar'
 import { MatRadioModule } from '@angular/material/radio';
 import { MatRippleModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
@@ -33,6 +34,8 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTabsModule } from '@angular/material/tabs';
 
+
+
 @NgModule({
   imports: [
     NgxPaginationModule,
@@ -53,7 +56,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatTableExporterModule,
     Ng2OrderModule,
     MatAutocompleteModule,
-
+    MatProgressBarModule,
     MatTableModule,
     MatNativeDateModule,
     MatRippleModule,
@@ -86,7 +89,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatTableExporterModule,
     Ng2OrderModule,
     MatAutocompleteModule,
-
+    MatProgressBarModule,
     MatTableModule,
     MatNativeDateModule,
     MatRippleModule,

@@ -1,4 +1,4 @@
-export interface MedicalCode {
+export class MedicalCode {
   Id?: string;
   Code?: string;
   Description? :string;

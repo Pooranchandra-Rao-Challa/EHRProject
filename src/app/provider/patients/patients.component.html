@@ -65,6 +65,7 @@
         <div class="spinner-container" *ngIf="patientsDataSource.loading$ | async">
           <mat-spinner></mat-spinner>
         </div><!-- [dataSource]="patientsList.data | search: keys: searchName: filter | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize"-->
+
         <mat-table [dataSource]=patientsDataSource
           matSort matSortActive="LastAccessed" matSortDirection="asc" matSortDisableClear>
           <ng-container matColumnDef="Image">

@@ -164,6 +164,7 @@ export class SmartScheduleComponent implements OnInit {
     if (patient.NumberOfAppointments == 0) return Actions.new;
     else return Actions.upcomming;
   }
+
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
     data?: any, action?: Actions) {
 
@@ -201,7 +202,8 @@ export class SmartScheduleComponent implements OnInit {
         this.patientNameOrCellNumber = "";
       } else if (content == this.encounterDialogComponent) {
         this.encounterDialogResponse = res.data;
-
+        if(res.data != null && res.data.saved){
+          this.filterAppointments();        }
       }
     });
 
@@ -316,16 +318,13 @@ export class SmartScheduleComponent implements OnInit {
       "LocationId": this.authService.userValue.CurrentLocation,
       "AppointmentDate": moment.utc(this.selectedAppointmentDate).toDate()
     };
-    console.log(req);
+
 
     this.smartSchedulerService.ActiveAppointments(req).subscribe(resp => {
 
       if (resp.IsSuccess) {
-        // console.log(resp.ListResult)
         this.Appointments = resp.ListResult as ScheduledAppointment[];
         this.NoofAppointment = this.Appointments.length;
-        //console.log(JSON.stringify(this.Appointments));
-        //console.log(this.Appointments[0].IsCurrent);
 
       } else {
         this.NoofAppointment = 0;
@@ -409,7 +408,7 @@ export class SmartScheduleComponent implements OnInit {
     this.LoadAppointmentDefalts();
   }
   selectedCalendarDate(event) {
-    console.log(event.value);
+
 
     this.selectedAppointmentDate = event.value;
     this.selectedWeekday = this.selectedAppointmentDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })

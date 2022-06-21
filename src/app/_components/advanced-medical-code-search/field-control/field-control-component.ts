@@ -155,10 +155,23 @@ export class FieldControlComponent extends _SearchInputMixiBase
 
   isLoading: boolean = false;
 
-  selectedValue: MedicalCode;
+  @Input()
+  set selectedValue(value: MedicalCode){
+    console.log(value);
+
+    this._selectedValue = value;
+  }
+  get selectedValue() {
+    return this._selectedValue;
+  }
+  private _selectedValue
 
   @Input()
   ShowSelectedValue: boolean = true;
+
+
+
+
 
   constructor(
     private focusMonitor: FocusMonitor,
@@ -252,6 +265,7 @@ export class FieldControlComponent extends _SearchInputMixiBase
   onSelected() {
    this.optionValueChanged.emit(this.selectedValue)
   }
+
   displayWith(value: MedicalCode){
     if(!value) return "";
     return value.Code+"-"+value.Description;
@@ -268,10 +282,10 @@ export class FieldControlComponent extends _SearchInputMixiBase
     this.stateChanges.complete();
   }
 }
-export class MedicalCodeGroup{
-  key: string;
-  codes: MedicalCode[];
-}
+// export class MedicalCodeGroup{
+//   key: string;
+//   codes: MedicalCode[];
+// }
 function groupBy<_string, _MedicalCode>(array: MedicalCode[], grouper: (item: MedicalCode) => string) {
   let rtnValue =  array.reduce((store, item) => {
     var key = grouper(item)

@@ -178,3 +178,11 @@
   background-color: #41b6a6;
   color: white !important;
 }
+
+.vital-input{
+  width:80%;
+}
+
+::ng-deep .mat-progress-bar{
+  margin-bottom: 10px;
+}

@@ -14,7 +14,8 @@
               <label class="control-label input-group-addon required">First Name</label>
               <input class="form-control" mouse-over-hint tickImagePath="assets/images/tick-mark.svg"
                 crossImagePath="assets/images/cross-mark.svg" placeholder="First Name" type="text" id="firstName"
-                name="firstName" required pattern="[a-zA-Z ]*" #firstName="ngModel" [(ngModel)]="PatientData.FirstName"
+                name="firstName" required pattern="[a-zA-Z ]*" #firstName="ngModel"
+                [(ngModel)]="PatientData.FirstName"
                 [ngModelOptions]="{standalone: true}" />
             </div>
             <div *ngIf="firstName.errors && (firstName.touched)">
@@ -71,7 +72,7 @@
           <div class="form-group">
             <div class="input-group">
               <label class="control-label input-group-addon required">DOB</label>
-              <input ngbDatepicker class="form-control dateofbirth-txt" placeholder="mm-dd-yyyy" name="dateofBirth"
+              <input ngbDatepicker class="form-control dateofbirth-txt" placeholder="mm/dd/yyyy" name="dateofBirth"
                 [(ngModel)]="PatientData.DateofBirth" mouse-over-hint tickImagePath="assets/images/tick-mark.svg"
                 crossImagePath="assets/images/cross-mark.svg" ngbDatepickername="dateofBirth" #d="ngbDatepicker"
                 [autoClose]="true" #dateofBirth="ngModel" required [ngModelOptions]="{standalone: true}">
@@ -104,7 +105,7 @@
           <div class="form-group">
             <div class="input-group">
               <label class="control-label input-group-addon">Cell Phone</label>
-              <input class="form-control" placeholder="Cell Phone" type="tel" mask=" (000) 000-0000"
+              <input class="form-control" placeholder="Cell Phone" type="tel" mask=" (000) 000-0000" prefix="+1"
                 placeHolderCharacter="0" naem="cellPhone" [showMaskTyped]="true" [patterns]="PhonePattern"
                 [(ngModel)]="PatientData.CellPhone" [ngModelOptions]="{standalone: true}" />
             </div>
@@ -115,7 +116,7 @@
             <div class="input-group">
               <label class="control-label input-group-addon">Home Phone</label>
               <input class="form-control" placeholder="Home Phone" type="tel" mask=" (000) 000-0000" name="homephone"
-                [ngModelOptions]="{standalone: true}" [showMaskTyped]="true" [patterns]="PhonePattern"
+                [ngModelOptions]="{standalone: true}" [showMaskTyped]="true" [patterns]="PhonePattern" prefix="+1"
                 [(ngModel)]="PatientData.Homephone" placeHolderCharacter="0" />
             </div>
           </div>
@@ -151,9 +152,11 @@
           <legend>Address</legend>
           <mat-form-field appearance="outline" class="col-12">
             <input matInput placeholder="Enter full address here (including suite number)"
-              [(ngModel)]="PatientData.Address" />
+              [(ngModel)]="PatientData.Address" [disabled]="useThisAddress"/>
+
           </mat-form-field>
-          <button class="btn btn-green col-lg-2 col-md-2 col-5" (click)="VerifyPatientAddress()">
+          <button class="btn btn-green col-lg-2 col-md-2 col-5" (click)="VerifyPatientAddress()"
+          [disabled]="useThisAddress">
             Verify
           </button>
         </fieldset>
@@ -161,7 +164,7 @@
 
     </div>
     <div class="modal-footer">
-      <button class="btn btn-green" (click)="UpdatePatient()">Save</button>
+      <button class="btn btn-green" (click)="UpdatePatient()" [disabled]="enableSave()">Save</button>
       <button class="btn btn-green" data-bs-dismiss="modal" aria-label="Close" (click)="cancel()">
         Cancel
       </button>

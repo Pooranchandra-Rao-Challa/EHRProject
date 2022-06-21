@@ -862,3 +862,7 @@ img.avatar:hover{
   color: black !important;
   font-weight: 500;
 }
+.required::after {
+  content: "*";
+  color: red;
+}
