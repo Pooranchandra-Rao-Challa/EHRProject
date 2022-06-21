@@ -83,6 +83,7 @@ import { TeethSurfaceModule } from 'src/app/_components/teeth-surface/teeth-surf
 import { PatientService } from 'src/app/_services/patient.service';
 import { BillingService } from '../../_services/billing.service';
 import { AlertMessage } from 'src/app/_alerts/alertMessage';
+import { AddeditinterventionComponent } from 'src/app/dialogs/addeditintervention/addeditintervention.component';
 
 @NgModule({
   exports: [
@@ -95,6 +96,7 @@ import { AlertMessage } from 'src/app/_alerts/alertMessage';
     NewAppointmentDialogComponent,
     AdvancedMedicalCodeModule,
     TeethSurfaceModule,
+    AddeditinterventionComponent,
     // PaginatorDirective
   ],
   declarations: [
@@ -139,6 +141,7 @@ import { AlertMessage } from 'src/app/_alerts/alertMessage';
     ChangePasswordDialogComponent,
     LocationDialogComponent,
     VitalDialogComponent,
+    AddeditinterventionComponent
     // PaginatorDirective
   ],
   imports: [
