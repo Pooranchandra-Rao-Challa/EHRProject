@@ -1,3 +1,4 @@
+import { CQMNotPerformed } from './../_provider/cqmnotperformed';
 import { WeeklyUpdated } from '../_admin/weeklyupdated';
 import{ProviderPatient} from './../_provider/Providerpatient';
 export interface User {
@@ -29,7 +30,9 @@ export class ViewModel{
   SubView?: string = "";
   PatinetId?: string = "";
   Patient?: ProviderPatient;
-  PatientView?: string = ""
+  PatientView?: string = "";
+  CQMNotPerformed?:CQMNotPerformed;
+  CQMView?: string ="";
 
 }
 
@@ -37,3 +40,4 @@ export class AdminViewModal{
   WeeklyUpdate?: WeeklyUpdated;
   WeeklyUpdatedView?:string = ""
 }
+

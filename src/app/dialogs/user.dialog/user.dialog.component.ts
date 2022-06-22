@@ -60,9 +60,11 @@ export class UserDialogComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
   cancel() {
     this.ref.close(null);
   }
+
   loadFormDefaults() {
     this.dialogIsLoading = true;
     this.utilityService.Titles().subscribe(resp => {
