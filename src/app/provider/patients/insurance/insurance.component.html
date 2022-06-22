@@ -465,7 +465,7 @@
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <span *ngIf="data" class="Helvetica-sans-serif-medium">Select Insurance Company Plan </span>
+                <span *ngIf="data" class="Helvetica-sans-serif-medium text-white">Select Insurance Company Plan </span>
                 <span *ngIf="!data" class="Helvetica-sans-serif-medium">Add/Edit Insurance Company Plan </span>
                 <span type="button" (click)="cancel()" class="cross-mark" data-bs-dismiss="modal" aria-label="Close">
                     X
@@ -474,8 +474,9 @@
             <div class="modal-body modal-scrollbar">
                 <div *ngIf="isValid;then content else other_content"></div>
                 <ng-template #content>
-
+                  
                     <div class="container">
+                        <div class="divScroll1">
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-12">
                                 <div class="col-md-6">
@@ -610,37 +611,39 @@
                                     [(ngModel)]="insuraceComplanyPlan.PayerID">
                             </div>
                         </div>
+</div>
 
-
-                        <div class="row">
-                            <div class="col-md-2">
+                        <div class="row mb-2">
+                            <div class="col-md-3">
                                 <button *ngIf="delete" mat-raised-button type="submit" class="btn btn-danger btn-danger"
-                                    data-bs-dismiss="modal" (click)="deleteInsurancePlan()">Delete</button>
+                                data-bs-dismiss="modal" (click)="deleteInsurancePlan()">Delete</button>
                             </div>
                             <!-- <div class="col-md-4">
     
                     </div> -->
-                            <div class="col-md-4">
+                            <div class="col-md-3">
+                               
+                            </div>
+                            <div class="col-md-3" >
                                 <button mat-raised-button type="submit"
-                                    class="btn btn-green btn-selectcancel pull-right" data-bs-dismiss="modal"
+                                    class="btn btn-green btn-selectcancel" data-bs-dismiss="modal"
                                     (click)="CreateUpdateInsuraceCompanyPlan()">Save</button>
                             </div>
-                            <div class="col-md-3" *ngIf="cancel2">
-                                <button mat-raised-button type="submit"
-                                    class="btn btn-green btn-selectcancel  pull-right" (click)=cancel()>Cancel</button>
-                            </div>
                             <div class="col-md-3">
-                                <button *ngIf="cancel1" mat-raised-button type="submit"
+                                <button *ngIf="cancel2" mat-raised-button type="submit"
+                                    class="btn btn-green btn-selectcancel  pull-right" (click)=cancel()>Cancel</button>
+                                    <button *ngIf="cancel1" mat-raised-button type="submit"
                                     class="btn btn-green btn-selectcancel  pull-right" (click)=cancel()
                                     data-bs-dismiss="modal" aria-label="Close">Cancel</button>
                             </div>
                         </div>
                     </div>.
 
-
+                  
 
                 </ng-template>
                 <ng-template #other_content>
+                    <div class="divScroll">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="find-procedure">
@@ -665,6 +668,7 @@
                                 type="button">Add Insurance Company Plan </button>
                         </div>
                     </div>
+                   
                     <table class="table table-borderless">
                         <thead class="bg-color">
                             <tr>
@@ -694,7 +698,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let item of insurancePlanList; let idx=index;"
+                           <tr *ngFor="let item of insurancePlanList; let idx=index;" 
                                 [style.background-color]="rowClicked == idx ? 'rgb(254, 143, 0)' : ''"
                                 (click)="changeTableRowColor(idx,false)" (dblclick)=edit(idx)>
                                 <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)"
@@ -712,9 +716,10 @@
                                 <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)"
                                     class="Helvetica-sans-serif-medium">
                                     {{item.StreetAddress}},{{item.City}},{{item.State}}</td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
+                    </div>
                     <div class="row mt-4">
                         <div class="col-md-6">
                         </div>
@@ -744,7 +749,8 @@
             <div class="modal-header">
 
                 <!-- <span  class="Helvetica-sans-serif-medium"> </span> -->
-                <span class="Helvetica-sans-serif-medium">Primary Insurance Details </span>
+                <span *ngIf="primaryInsDetail" class="Helvetica-sans-serif-medium">Primary Insurance Details </span>
+                <span *ngIf="secondaryInsDetail" class="Helvetica-sans-serif-medium">Secondary Insurance Details </span>
                 <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close">
                     X
                 </span>

@@ -66,7 +66,6 @@ export class MyhealthComponent implements OnInit {
     })
   }
   getPatientProfile() {
-
     var req={
       "PatientId": this.user.PatientId,
     }
@@ -118,11 +117,13 @@ export class MyhealthComponent implements OnInit {
     });
   }
   getAllMedicationAlleries() {
+    debugger;
     let reqparam = {
       'PatientId':this.user.PatientId,
     }
-    this.patientservise.ProblemDx(reqparam).subscribe(resp => {
+    this.patientservise.AllergiesByPatientId(reqparam).subscribe(resp => {
         this.AllAlergies = resp.ListResult;
+        console.log(this.AllAlergies);
     });
   }
     getLabTest() {
