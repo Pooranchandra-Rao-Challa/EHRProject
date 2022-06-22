@@ -126,11 +126,10 @@
                 <label for="RELATION" class="form-label label-design text-nowrap">RELATION TO PATIENT</label>
                 <!-- <input class="input-group form-control" [(ngModel)]="PatientMyProfile.RelationshipToPatient"
                   placeholder="RELATION" type="text" id="RELATION"> -->
-                  <mat-form-field appearance="outline" class="col-12 hover cstm-mat-padding"
-                 >
+                  <mat-form-field appearance="outline" class="col-12 hover cstm-mat-padding">
                     <mat-select placeholder="Select One"  [(ngModel)]="PatientMyProfile.RelationshipToPatient"
                     placeholder="Select relation">
-                      <mat-option *ngFor="let item of relationship" [value]="value">{{item.value}}
+                      <mat-option *ngFor="let item of relationship" [value]="item.value">{{item.value}}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
@@ -149,7 +148,6 @@
                 <div class="p-2"><button type="button" class="btn btn-lg btn-notes mt-2">Verify</button></div>
               </div>
               <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
-
                 <div class="form-group">
                   <div class="input-group">
                     <label class="control-label input-group-addon required">Street Address</label>
@@ -157,7 +155,6 @@
                       placeholder="Street Address" type="text" id="StreetAddress" name="StreetAddress" />
                   </div>
                 </div>
-
               </div>
               <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
                 <div class="form-group">
