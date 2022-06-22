@@ -65,6 +65,8 @@ export class InsuranceComponent implements OnInit {
   secondaryselected: any;
   SearchKey = "";
   getinsurancePlanList: any;
+  primaryInsDetail: boolean;
+  secondaryInsDetail: boolean;
 
 
   constructor(private patientservice: PatientService,
@@ -143,6 +145,10 @@ export class InsuranceComponent implements OnInit {
   secondaryplus(item) {
     this.plusvalue = item;
     this.rowClicked = -1;
+    this.data = true;
+    this.isValid = false;
+    this.cancel2 = false;
+    this.cancel1 = false;
   }
   Selected() {
 
@@ -237,6 +243,7 @@ export class InsuranceComponent implements OnInit {
           this.InsurancDetailslist = resp.ListResult;
           this.insuraceComplanyPlan = resp.ListResult[0];
         });
+        this.primaryInsDetail=true;
     }
     else {
       var reqparam = {
@@ -247,6 +254,7 @@ export class InsuranceComponent implements OnInit {
           this.InsurancDetailslist = resp.ListResult;
           this.insuraceComplanyPlan = resp.ListResult[0];
         });
+        this.secondaryInsDetail=true;
     }
 
   }
