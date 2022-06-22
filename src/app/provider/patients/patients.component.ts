@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef, QueryList, ViewChildren, ViewChild, ElementRef } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
 import { OverlayService } from '../../overlay.service';
-import { PatientDialogComponent } from '../../dialogs/patient.dialog.component';
+import { PatientDialogComponent } from '../../dialogs/patient.dialog/patient.dialog.component';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { User } from 'src/app/_models';
 import { PageEvent } from "@angular/material/paginator";

@@ -136,13 +136,11 @@ export class UserDialogComponent implements OnInit {
     this.ref.close();
   }
 
-  openDialog() {
+  openChangePasswordDialog() {
     const dialogConfig = new MatDialogConfig();
-
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.panelClass = 'app-change-password-dialog';
-
     dialogConfig.data = {
       id: 2,
       title: 'Change Password',

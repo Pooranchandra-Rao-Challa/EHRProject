@@ -1,0 +1,55 @@
+<div class="modal-dialog" id="patient-user-account-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title Helvetica-sans-serif-medium">Invite to Patient Health Portal (PHP)</h4>
+      <span type="button" class="cross-mark" aria-label="Close" (click)="cancel()">
+        X
+      </span>
+    </div>
+    <div class="modal-body">
+      <div class="row ">
+        <div class="col-lg-12 col-md-12 col-12">
+          <div class="form-group">
+
+            <label class="control-label input-group-addon required">Patient Name</label>
+            <input class="form-control" placeholder="User Name" disabled type="text"
+            id="userName" name="userName" [(ngModel)] ="patientUser.PatientName"/>
+
+        </div>
+        </div>
+      </div>
+      <div class="row ">
+        <div class="col-lg-12 col-md-12 col-12">
+          <label class="control-label input-group-addon required">Date of Birth</label>
+          <input class="form-control" placeholder="User Name" disabled type="text"
+          id="userName" name="userName" [(ngModel)] ="patientUser.DateofBirth"/>
+        </div>
+      </div>
+      <div class="row ">
+        <div class="col-lg-12 col-md-12 col-12">
+          <label class="control-label input-group-addon required">Username</label>
+          <input class="form-control" placeholder="User Name" disabled type="text"
+          id="userName" name="userName" [(ngModel)] ="patientUser.Username"/>
+        </div>
+      </div>
+      <div class="row ">
+        <div class="col-lg-12 col-md-12 col-12">
+          <label class="control-label input-group-addon required">Password</label>
+          <input class="form-control" placeholder="User Name" disabled type="password"
+          id="userName" name="userName" [(ngModel)] ="patientUser.Password"/>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-green" (click)="downloadInviteasPDF()">Download Invite as PDF</button>
+      <button class="btn btn-green" aria-label="Close" (click)="sendInviteToEmailAddress()"
+      *ngif="patientUser.Email != null">
+        Send Invite to Email Address
+      </button>
+      <button class="btn btn-green" aria-label="Close" (click)="cancel()">
+        Cancel
+      </button>
+    </div>
+  </div>
+
+</div>

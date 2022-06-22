@@ -7,12 +7,12 @@ import { MatSelectionListChange } from '@angular/material/list'
 import { Observable, Subject, Subscription } from 'rxjs';
 import { debounceTime, switchMap, distinctUntilChanged, map } from 'rxjs/operators';
 
-import { OverlayService } from '../../overlay.service';
-import { AuthenticationService } from '../../_services/authentication.service';
-import { SmartSchedulerService } from '../../_services/smart.scheduler.service';
-import { UtilityService } from './../../_services/utiltiy.service';
-import { PracticeProviders } from '../../_models/_provider/practiceProviders';
-import { PatientDialogComponent } from '../../dialogs/patient.dialog.component';
+import { OverlayService } from 'src/app/overlay.service';
+import { AuthenticationService } from 'src/app/_services/authentication.service';
+import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
+import { UtilityService } from 'src/app/_services/utiltiy.service';
+import { PracticeProviders } from 'src/app/_models/_provider/practiceProviders';
+import { PatientDialogComponent } from 'src/app/dialogs/patient.dialog/patient.dialog.component';
 import { LocationSelectService } from '../../_navigations/provider.layout/location.service';
 import { NewAppointmentDialogComponent } from '../../dialogs/newappointment.dialog/newappointment.dialog.component';
 import { UpcomingAppointmentsDialogComponent } from '../../dialogs/upcoming.appointments.dialog/upcoming.appointments.dialog.component';

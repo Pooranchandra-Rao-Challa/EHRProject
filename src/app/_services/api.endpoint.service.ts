@@ -528,14 +528,20 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "ChangePassword";
   }
 
-
   // Update for patient My Profile
   get _updatePatientProfileUrl() {
     return this._baseUrl + "UpdatePatientProfile";
   }
+
+  get _createPatientAccountUrl(){
+    return this._baseUrl + "CreatePatientAccount";
+  }
+
   constructor(public http: HttpClient) {
     super();
   }
+
+
 
   _ProcessPostRequestWithHeaders<T>(apiurl: string, reqdata: any): Observable<T> {
     return this.http.post<T>(apiurl, reqdata, this.requestHeaders).pipe(

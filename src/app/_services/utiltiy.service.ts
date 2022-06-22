@@ -2,7 +2,7 @@ import { PatientData } from '../_models/_provider/_reports/patient';
 import { Injectable } from "@angular/core";
 import { APIEndPoint } from "./api.endpoint.service";
 import { HttpClient } from "@angular/common/http";
-import { Patient } from './../_models/_account/newPatient';
+import { Patient, PatientPortalUser} from 'src/app/_models';
 @Injectable()
 export class UtilityService extends APIEndPoint {
   constructor(http: HttpClient) { super(http); }
@@ -33,6 +33,9 @@ export class UtilityService extends APIEndPoint {
   }
   CreatePatient(patient: Patient){
     return this._ProcessPostRequest<any>(this._createPatinetUrl,patient);
+  }
+  CreatePatientAccount(patientAccount: PatientPortalUser ){
+    return this._ProcessPostRequest<any>(this._createPatientAccountUrl,patientAccount);
   }
   MedicalCodes(searchTerm: string,codeSystem: string){
     return this._ProcessPostRequest<any>(this._medicalCodesUrl,{CodeSystem: codeSystem,SearchTerm: searchTerm});
