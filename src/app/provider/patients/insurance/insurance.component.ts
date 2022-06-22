@@ -63,6 +63,8 @@ export class InsuranceComponent implements OnInit {
   secondarydisableaddressverification: boolean;
   primaryselected: any;
   secondaryselected: any;
+  SearchKey = "";
+  getinsurancePlanList: any;
 
 
   constructor(private patientservice: PatientService,
@@ -101,6 +103,9 @@ export class InsuranceComponent implements OnInit {
     this.cancel2 = false;
     this.cancel1 = false;
     this.rowClicked = -1;
+    this.InsuranceCompanyPlanList();
+    this.SearchKey = "";
+    
   }
 
 
@@ -131,6 +136,10 @@ export class InsuranceComponent implements OnInit {
 
     this.plusvalue = item;
     this.rowClicked = -1;
+    this.data = true;
+    this.isValid = false;
+    this.cancel2 = false;
+    this.cancel1 = false;
   }
   secondaryplus(item) {
     this.plusvalue = item;
@@ -177,6 +186,7 @@ export class InsuranceComponent implements OnInit {
     this.patientservice.InsuranceCompanyPlans().subscribe(
       resp => {
         this.insurancePlanList = resp.ListResult;
+        this.getinsurancePlanList=this.insurancePlanList
         this.secondaryInsurancelist = resp.ListResult;
 
       })
@@ -265,7 +275,7 @@ export class InsuranceComponent implements OnInit {
       else {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2CI001"]);
       }
-      this.insurancePlanList();
+      this.InsuranceCompanyPlanList();
     });
   }
 
@@ -317,6 +327,8 @@ export class InsuranceComponent implements OnInit {
           this.alertmsg.displayErrorDailog(ERROR_CODES["E2CI003"]);
         }
       })
+      this.getInsuranceList();
+      this.secondarymanuallybtn = false;
       this.secondarydisableaddressverification = false;
       this.secondaryAdressVerfied = false;
     }
@@ -350,7 +362,14 @@ export class InsuranceComponent implements OnInit {
     this.primlist.StreetAddress = ""
     this.primlist.Zip = ""
   }
-
+secondaryclearAddress()
+{
+  this.secList.Street = "";
+  this.secList.City = ""
+  this.secList.State = ""
+  this.secList.StreetAddress = ""
+  this.secList.Zip = ""
+}
   enterAddressManually(item) {
 
     this.disableaddressverification = true;
@@ -374,9 +393,8 @@ export class InsuranceComponent implements OnInit {
     });
   }
   secondaryenableManualEntry() {
-
     this.secondarymanuallybtn = true;
-    this.clearAddress();
+    this.secondaryclearAddress();
 
   }
   secondaryenterAddressManually(item) {
@@ -400,4 +418,23 @@ export class InsuranceComponent implements OnInit {
       this.secList.PaymentTypologyDescription = this.secondaryselected.Description;
     }
   }
+  // applyFilter(filterValue: string) {
+  //   debugger;
+  //   this.insurancePlanList.filter = filterValue.trim().toLowerCase();
+  // }
+  onFilterChange() {
+  debugger;
+    this.insurancePlanList = this.insurancePlanList.filter((invoice) => this.isMatch(invoice));
+  }
+
+  isMatch(item) {
+    debugger;
+    if (item instanceof Object) {
+      return Object.keys(item).some((k) => this.isMatch(item[k]));
+    } else {
+      return item == null ? '' : item.toString().indexOf(this.SearchKey) > -1
+     // return item.toString().indexOf(this.SearchKey) > -1
+    }
+  }
 }
+
