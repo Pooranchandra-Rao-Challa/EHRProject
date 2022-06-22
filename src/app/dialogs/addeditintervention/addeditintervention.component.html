@@ -9,107 +9,109 @@
     </div>
     <div class="modal-body">
       <div class="row">
-
-        <div class="col-lg-6 col-md-6  col-sm-12">
-          <label><b class="label-heading">Select Item Not Performed:</b></label>
-          <div class="col-lg-6 col-md-6  col-sm-12">
-             <!-- <mat-form-field appearance="outline" class="col-lg-4 col-md-6 hover cstm-mat-padding">
-          <mat-select placeholder="Select One" disableOptionCentering id="ePracticeProviders">
-            <mat-option>BMI
-            </mat-option>
-          </mat-select>
-        </mat-form-field> -->
-        </div>
-
-        <div class="col-lg-6 col-md-6 col-sm-12">
-          <div class=" form-group col-md-6">
-            <label class="title-field">Start Date</label>
-            <mat-form-field appearance="outline" class="grey-matform grey-calendar">
-              <input matInput class="pointer date-mat-class" autocomplete="off" [matDatepicker]="picker5"
-                (click)="picker5.open()" readonly placeholder="Start Date">
-              <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
-              <mat-datepicker #picker5></mat-datepicker>
+        <div class="col-lg-6 col-md-6 col-xl-6 col-12">
+          <label for="DATEOFBIRTH*" class="form-label label-design">
+            <b>Select Item Not Performed:</b></label>
+            <mat-form-field appearance="outline" class="col-lg-12 col-md-12">
+              <mat-select placeholder="Select One"[(ngModel)]="AddEditCQM.Item" >
+                <mat-option [value]="item.value"  *ngFor="let item of itemNotPerformed">{{item.value}}</mat-option>
+              </mat-select>
             </mat-form-field>
-          </div>
         </div>
 
-      </div>
+        <div class="col-lg-6 col-md-6 col-xl-6 col-12">
+          <label for="DATEOFBIRTH*" class="form-label label-design">Date Not Performed:</label>
+          <mat-form-field appearance="outline" class="bg-white form-group grey-matform green-calendar">
+            <input matInput class="pointer date-mat-class" autocomplete="off"
+            [(ngModel)]="AddEditCQM.Date" [matDatepicker]="picker"
+              (click)="picker.open()" readonly placeholder="Start Date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
 
-      <div class="row">
-        <div class="col-lg-2">
-          <mat-label>Intervention Type*:</mat-label>
-        </div>
-        <mat-form-field appearance="outline" class="col-lg-4 col-md-6 hover cstm-mat-padding">
-          <mat-select placeholder="Select One" disableOptionCentering id="ePracticeProviders" >
-            <mat-option>BMI
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <div class="col-lg-6 col-md-6">
-          <mat-form-field appearance="outline" class="grey-matform input-search col-xl-11 col-lg-10 col-md-11 col-10">
-            <input matInput autocomplete="off" placeholder="Search Interventions" />
-          </mat-form-field>
-          <button class="btn-search col-xl-1 col-lg-2 col-md-1 col-2">
-            <mat-icon>search</mat-icon>
-          </button>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-2">
-          <mat-label>Reason:</mat-label>
-        </div>
-        <mat-form-field appearance="outline" class="col-lg-4 col-md-6 hover cstm-mat-padding">
-          <mat-select placeholder="Select One" disableOptionCentering id="ePracticeProviders">
-            <mat-option>BMI
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <div class="col-lg-6 col-md-6">
-          <mat-form-field appearance="outline" class="grey-matform input-search col-xl-11 col-lg-10 col-md-11 col-10">
-            <input matInput autocomplete="off" placeholder="Search Interventions" />
-          </mat-form-field>
-          <button class="btn-search col-xl-1 col-lg-2 col-md-1 col-2">
-            <mat-icon>search</mat-icon>
-          </button>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-2">
-          <mat-label> Reason Code:</mat-label>
-        </div>
-        <mat-form-field appearance="outline" class="col-lg-4 col-md-6 hover cstm-mat-padding">
-          <mat-select placeholder="Select One" disableOptionCentering id="ePracticeProviders">
-            <mat-option>BMI
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <div class="col-lg-6 col-md-6">
+        <div class="row">
           <div class="col-lg-2">
-            <mat-label>Reason Description:</mat-label>
+            <mat-label><b>Intervention Type:</b></mat-label>
           </div>
-          <mat-form-field appearance="outline" class="col-lg-3 col-md-4 hover cstm-mat-padding">
-            <mat-select placeholder="Select One" disableOptionCentering id="ePracticeProviders"
-              placeholder="Select Intervention Type">
-              <mat-option>BMI
-              </mat-option>
+          <mat-form-field appearance="outline" class="col-lg-4 col-md-4">
+            <mat-select placeholder="Select One" [(ngModel)]="AddEditCQM.InterventionType">
+              <mat-option [value]="item.value" *ngFor="let item of interventaionType">{{item.value}}</mat-option>
             </mat-select>
           </mat-form-field>
+          <div class="col-lg-6 col-md-6">
+            <mat-form-field appearance="outline" class="col-lg-12 col-md-12">
+              <mat-select placeholder="Search Interventaions" [(ngModel)]="AddEditCQM.InterventionDescription">
+                <mat-select-filter [displayMember]="'Code'"
+                [array]="interventaionFilter" (filteredReturn)="interventaionList = $event"></mat-select-filter>
+                <mat-option *ngFor="let item of interventaionList" [value]="item">
+                  {{item.Code}} - {{item.Description}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <!-- <button class="btn-search col-xl-1 col-lg-2 col-md-1 col-2">
+              <mat-icon>search</mat-icon>
+            </button> -->
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-2">
+            <mat-label><b>Reason:</b></mat-label>
+          </div>
+          <mat-form-field appearance="outline" class="col-lg-4 col-md-6 hover">
+            <mat-select placeholder="Select One" [(ngModel)]="AddEditCQM.Reason"
+             disableOptionCentering id="ePracticeProviders">
+              <mat-option [value]="'Medical Reason'">Medical Reason</mat-option>
+              <mat-option [value]="'Patient Refused'">Patient Refused</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div class="col-lg-6 col-md-6">
+            <mat-form-field appearance="outline" class="col-lg-12 col-md-12 ">
+              <mat-select placeholder="Search Reason" [(ngModel)]="AddEditCQM.ReasonCodeDescription">
+                <mat-select-filter [displayMember]="'value'"
+                [array]="searchReason" (filteredReturn)="reasonFiltered =$event"></mat-select-filter>
+                <mat-option *ngFor="let item of reasonFiltered" [value]="item"  (click)="getreasondescription(item)">
+                  {{item.value}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <!-- <button class="btn-search col-xl-1 col-lg-2 col-md-1 col-2">
+              <mat-icon>search</mat-icon>
+            </button> -->
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-2">
+            <mat-label><b>Reason Code:</b></mat-label>
+          </div>
+          <mat-form-field appearance="outline" class="col-lg-4 col-md-6 ">
+            <input matInput style="width:10rem"  placeholder="Reason Code"
+            [(ngModel)]="AddEditCQM.ReasonCode" />
+          </mat-form-field>
+            <div class="col-lg-2">
+              <mat-label>Reason Description:</mat-label>
+            </div>
+            <mat-form-field appearance="outline" class="col-lg-4 col-md-4" >
+              <input matInput style="width:10rem"  placeholder="Reason Code"
+              [(ngModel)]="AddEditCQM.ReasonDescription" />
+            </mat-form-field>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-2">
+            <mat-label><b>Notes:</b></mat-label>
+          </div>
+          <div class="col-lg-10">
+            <textarea class="form-control" rows="6" [(ngModel)]="AddEditCQM.Note"></textarea>
+          </div>
         </div>
       </div>
 
-      <div class="row">
-        <div class="col-lg-2">
-          <mat-label>Notes:</mat-label>
-        </div>
-        <div class="col-lg-10">
-          <textarea class="form-control" rows="6"></textarea>
-        </div>
-        </div>
-    </div>
-
-    <div class="modal-footer">
-      <button class="btn btn-green">Save</button>
-      <button class="btn btn-green" (click)="cancel()">Cancel</button>
+      <div class="modal-footer">
+        <button class="btn btn-green" (click)="addUpdateCQMNotPerformed()">Save</button>
+        <button class="btn btn-green" (click)="cancel()">Cancel</button>
+      </div>
     </div>
   </div>
-</div>

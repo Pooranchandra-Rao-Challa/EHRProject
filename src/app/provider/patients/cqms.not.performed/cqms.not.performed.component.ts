@@ -5,6 +5,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ComponentType } from 'ngx-toastr';
 import { OverlayService } from 'src/app/overlay.service';
 import { CQMNotPerformed } from 'src/app/_models/_provider/cqmnotperformed';
+import { Actions, User, ViewModel } from 'src/app/_models';
 
 @Component({
   selector: 'app-cqmsnotperformed',
@@ -20,9 +21,14 @@ export class CqmsNotPerformedComponent implements OnInit {
   PatientDetails: any = [];
   DialogResponse = null;
   CQMNotPerformed: CQMNotPerformed;
+  user:User;
 
   constructor(private overlayService: OverlayService,private authService:AuthenticationService,
-    private cqmNotperformedService: CQMNotPerformedService) { }
+    private cqmNotperformedService: CQMNotPerformedService) {
+      this.user = authService.userValue;
+      console.log(this.user);
+      this.CQMNotPerformed= {} as CQMNotPerformed;
+  }
 
   ngOnInit(): void {
     this.PatientDetails = this.authService.viewModel.Patient;
@@ -32,17 +38,17 @@ export class CqmsNotPerformedComponent implements OnInit {
   getCQMNotPerformed(){
     debugger;
     var reqparam = {
-      "PatientId": '588ba54ec1a4c002ab2b38f3'
+      "PatientId": this.PatientDetails.PatientId,
+      "ProviderId": this.PatientDetails.ProviderId
     }
     this.cqmNotperformedService.CQMNotPerformed(reqparam).subscribe(resp => {
       if (resp.IsSuccess) {
         this.CQMNotPreformedDataSource = resp.ListResult;
-        console.log(this.CQMNotPreformedDataSource);
       }
     });
   }
 
-  AddeditinterventionDialog(content: TemplateRef<any> | ComponentType<any> | string) {
+  openCQMComponentDialog(content: TemplateRef<any> | ComponentType<any> | string) {
     const ref = this.overlayService.open(content, null);
     ref.afterClosed$.subscribe(res => {
       if (typeof content === 'string') {

@@ -15,11 +15,11 @@
 //   overflow-y: auto;
 // }
 .intervention-dialog .modal-content{
-  width: 900px;
+  width: 720px;
 }
 .intervention-dialog .row{
-  margin-top: 15px;
-  margin-bottom: 25px;
+  margin-top: 3px;
+  margin-bottom: 13px;
 }
 .mat-label{
   font-size: 14px;
@@ -45,6 +45,9 @@ textarea.form-control{
   line-height: 43px;
   box-shadow: none !important;
   cursor: auto !important;
+}
+.mat-cust-field:hover{
+  border: 1px solid #41b6a6;
 }
 .form-control:hover{
   border: 1px solid #41b6a6;
