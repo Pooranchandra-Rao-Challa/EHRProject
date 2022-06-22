@@ -1,0 +1,69 @@
+<div class="modal-dialog" id="patient-account-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title Helvetica-sans-serif-medium">Setup Patient User account</h4>
+      <span type="button" class="cross-mark" aria-label="Close" (click)="cancel()">
+        X
+      </span>
+    </div>
+    <div class="modal-body">
+      <div class="row ">
+        <div class="col-lg-12 col-md-12 col-12">
+          <div class="form-group">
+              <label class="control-label input-group-addon required">User Name</label>
+              <input class="form-control" placeholder="User Name" disabled type="text"
+              id="userName" name="userName" [(ngModel)] ="patientUser.Username"/>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-6">
+          <div class="form-group">
+                <label class="control-label input-group-addon required">Password</label>
+              <input class="form-control" placeholder="Password" disabled type="password" id="password"
+                name="password" [(ngModel)] ="patientUser.Password"/>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-6">
+          <div class="form-group">
+              <label class="control-label input-group-addon required">Confirma Password</label>
+              <input class="form-control" placeholder="Confirma Password" disabled type="password" id="confirmPassword"
+                name="confirmPassword" [(ngModel)] ="patientUser.ConfirmPassword"/>
+          </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-12">
+          (Note: Password must be at least 6 characters long and contain letters and numbers)
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-12">
+          Other patient user who can access this account:
+        </div>
+        <div class="col-lg-6 col-md-6 col-6"></div>
+        <div class="col-lg-6 col-md-6 col-6">
+          <div class="form-group">
+            <div class="input-group">
+              <input class="form-control" placeholder="Search patient users" type="text" id="searchUsser"
+              name="searchUsser" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+      </div>
+      <div class="row">
+        <div class="col-lg-3 col-md-3 col-3">PatientName</div>
+        <div class="col-lg-3 col-md-3 col-3">UserName</div>
+        <div class="col-lg-3 col-md-3 col-3">Relationship with patient</div>
+        <div class="col-lg-3 col-md-3 col-3">Select</div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-green" (click)="createPatientAccount()">Create Patient User</button>
+      <button class="btn btn-green" aria-label="Close" (click)="cancel()">
+        Cancel
+      </button>
+    </div>
+  </div>
+
+</div>

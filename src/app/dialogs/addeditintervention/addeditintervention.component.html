@@ -13,7 +13,7 @@
           <label for="DATEOFBIRTH*" class="form-label label-design">
             <b>Select Item Not Performed:</b></label>
             <mat-form-field appearance="outline" class="col-lg-12 col-md-12">
-              <mat-select placeholder="Select One"[(ngModel)]="AddEditCQM.Item" >
+              <mat-select placeholder="Select One" [(ngModel)]="AddEditCQM.Item" >
                 <mat-option [value]="item.value"  *ngFor="let item of itemNotPerformed">{{item.value}}</mat-option>
               </mat-select>
             </mat-form-field>

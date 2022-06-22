@@ -18,7 +18,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { OverlayModule } from '@angular/cdk/overlay';
-import { MouseOverHintDirective } from '../../dialogs/mouseover.hint.directive'
+import { MouseOverHintDirective } from 'src/app/_directives/mouseover.hint.directive'
 
 import { ProviderNavbarComponent } from '../provider.navbar/provider.navbar.component';
 import { ProviderFooterComponent } from '../provider.navbar/provider.footer.component';
@@ -46,7 +46,7 @@ import { IConfig, NgxMaskModule } from 'ngx-mask'
 import { NgbDateUSParserFormatter } from '../../_helpers/ngb-date-us-parser-formatter';
 import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { BreadcrumComponent } from '../breadcrum/breadcrum.component';
-import { PatientDialogComponent } from '../../dialogs/patient.dialog.component'
+import { PatientDialogComponent } from 'src/app/dialogs/patient.dialog/patient.dialog.component'
 import { AdvancedDirectivesDialogComponent } from '../../dialogs/advanced.directives.dialog/advanced.directives.dialog.component';
 
 
@@ -78,7 +78,8 @@ import { VitalDialogComponent } from 'src/app/dialogs/vital.dalog/vital.dialog.c
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 // import { NgxNativeDateModule, NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 import { TeethSurfaceModule } from 'src/app/_components/teeth-surface/teeth-surface.module';
-// import { PaginatorDirective } from 'src/app/_directives/pagination.directive'
+import { PatientPortalAccountComponent } from 'src/app/dialogs/patient.dialog/patient.portal.account.dialog.component'
+import { PatientHealthPortalComponent } from 'src/app/dialogs/patient.dialog/patient.health.portal.component'
 
 import { PatientService } from 'src/app/_services/patient.service';
 import { BillingService } from '../../_services/billing.service';
@@ -94,6 +95,7 @@ import { AddeditinterventionComponent } from 'src/app/dialogs/addeditinterventio
     InterventionDialogComponent,
     SmartScheduleComponent,
     NewAppointmentDialogComponent,
+    PatientPortalAccountComponent,
     AdvancedMedicalCodeModule,
     TeethSurfaceModule,
     AddeditinterventionComponent,
@@ -141,6 +143,8 @@ import { AddeditinterventionComponent } from 'src/app/dialogs/addeditinterventio
     ChangePasswordDialogComponent,
     LocationDialogComponent,
     VitalDialogComponent,
+    PatientPortalAccountComponent,
+    PatientHealthPortalComponent,
     AddeditinterventionComponent
     // PaginatorDirective
   ],
@@ -188,7 +192,9 @@ import { AddeditinterventionComponent } from 'src/app/dialogs/addeditinterventio
   entryComponents: [OverlayComponent, PatientDialogComponent,
     AdvancedDirectivesDialogComponent, SmokingStatusDialogComponent,
     InterventionDialogComponent,
-    NewAppointmentDialogComponent]
+    NewAppointmentDialogComponent,
+    PatientPortalAccountComponent,
+    PatientHealthPortalComponent]
 })
 export class ProviderModule {
 

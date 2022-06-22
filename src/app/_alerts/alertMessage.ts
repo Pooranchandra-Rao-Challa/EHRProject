@@ -233,6 +233,7 @@ export const ERROR_CODES: { [key: string]: string } = {
   'T2JP001' : 'User has been added!',
   'M2AP001' : 'Patient Added successsfully',
   'E2AP001' : 'Patient Adding error',
+  'E2AP002' : 'Patient User account create error',
 };
 
 

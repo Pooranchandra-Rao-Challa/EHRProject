@@ -164,10 +164,11 @@
 
     </div>
     <div class="modal-footer">
-      <button class="btn btn-green" (click)="UpdatePatient()" [disabled]="enableSave()">Save</button>
+      <button class="btn btn-green" (click)="UpdatePatient()" [disabled]="enableSave()" *ngIf="!hideSaveButton">Save</button>
       <button class="btn btn-green" data-bs-dismiss="modal" aria-label="Close" (click)="cancel()">
         Cancel
       </button>
+      <!-- <button class="btn btn-green" (click)="downloadPDF()">Download</button> -->
     </div>
 
   </div>
