@@ -54,7 +54,7 @@ export class PatientDialogComponent {
 
   }
   cancel() {
-    this.dialogRef.close(null);
+    this.dialogRef.close({'refresh':true});
   }
   enableSave() {
     return !(this.PatientData.FirstName != null && this.PatientData.FirstName != ""
@@ -124,8 +124,8 @@ export class PatientDialogComponent {
             patientPortalUser, Actions.view)
         }
         else{
-         this.cancel();
-        this.alertmsg.displayMessageDailog(ERROR_CODES["M2AP001"])
+          this.cancel();
+          this.alertmsg.displayMessageDailog(ERROR_CODES["M2AP001"])
         }
 
       }

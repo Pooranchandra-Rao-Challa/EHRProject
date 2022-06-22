@@ -139,7 +139,10 @@ export class PatientsComponent implements OnInit {
 
     ref.afterClosed$.subscribe(res => {
     if (content === this.patientDialogComponent) {
-        this.dialogResponse = res.data;
+        if(res.data != null && res.data.refresh){
+          this.paginator.pageIndex = 0;
+          this.loadPatients();
+        }
       }
     });
   }
