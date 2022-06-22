@@ -3,9 +3,6 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { User, UserLocations,ViewModel } from '../../_models';
-//import { NGXLogger   } from 'ngx-logger';
-
-
 @Component({
   selector: 'provider-app-navbar',
   templateUrl: './provider.navbar.component.html',
@@ -52,33 +49,18 @@ export class ProviderNavbarComponent implements OnInit {
   }
 
   onChangeBreadCrum(url: string, name: string, view?: string,) {
-    //debugger;
-    //console.log(view)
     this.authenticationService.SetViewParam("View",name)
     if(view != null){
       this.authenticationService.SetViewParam("SubView",view)
     }
     this.viewModel = this.authenticationService.viewModel;
-    console.log(name);
+
 
     this.Bredcrumchanged.emit(name);
     this.router.navigate(
       [url],
     );
-    /*if (view != null) {
-      console.log(view)
-      this.router.navigate(
-        [url],
-        { queryParams: { name: name, view: view } }
-      );
-    }
 
-    else
-      this.router.navigate(
-        [url],
-        { queryParams: { name: name } }
-      );
-    this.name = name;*/
   }
 
 

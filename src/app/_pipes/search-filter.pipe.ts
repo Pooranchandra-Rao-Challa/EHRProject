@@ -4,7 +4,6 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'search'
 })
 export class SearchPipe implements PipeTransform {
-
   transform(value: any, keys: any, term: string): string {
     //debugger;
     if (!term) {
@@ -18,5 +17,23 @@ export class SearchPipe implements PipeTransform {
             item.hasOwnProperty(key) && new RegExp(term, 'gi').test(item[key])
         )
     );
+  }
+}
+
+
+@Pipe({
+  name: 'active'
+})
+export class ActivePipe implements PipeTransform {
+  transform(value: any): string {
+    //debugger;
+    if (value) {
+      return "Active";
+    }else if(value ==null){
+      return ""
+    }else{
+      return "InActive"
+    }
+
   }
 }
