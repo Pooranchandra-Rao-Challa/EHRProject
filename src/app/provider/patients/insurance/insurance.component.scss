@@ -48,7 +48,7 @@
 //   height: 45px;
 // }
 .btn-verify {
-  width: 165px;
+  width: 187px;
   height: 45px;
 }
 
@@ -61,7 +61,7 @@
 
 .input-border {
   border: 1px solid #41b6a6;
-  cursor: not-allowed;
+  // cursor: not-allowed;
   height: 45px;
   color: #74757e;
   font-size: 13px;
@@ -76,18 +76,21 @@
 
 .plusicon {
   border: 1px solid #41b6a6;
-  width: 57px;
+  width: 71px;
   height: 47px;
   margin-left: -23px;
 }
 
 .btn-insurance {
-  width: 246px;
-  margin: 0px;
-  height: 45px;
-  margin-top: 26px;
+  width: 277px;
+    margin: 8px;
+    height: 45px;
+    margin-top: 27px;
+    margin-right: 5px;
 }
 
+  
+    
 .tabs-alignments {
   width: 180px;
 }
@@ -153,6 +156,7 @@
   width: 165px;
   height: 45px;
   font-size: 16px;
+  margin-left: 258px;
   // margin-left: -84px;
 }
 
@@ -200,6 +204,9 @@
 
 .manualbtn {
   height: 45px;
+  margin-left: -59px;
+    margin-right: -1px;
+    padding: 2px;
 }
 
 .form-control:disabled,
@@ -214,4 +221,25 @@
   height: 45px;
   font-size: 15px;
   margin-bottom: 15px;
+}
+.error-close {
+  background-color: rgb(253, 65, 65) !important;
+  width: 25px;
+  height: 28px;
+  margin: 10px !important;
+  border: 1px solid white !important;
+  color: white !important;
+  border-radius: 50% !important;
+  padding-bottom: 28px;
+    padding-left: 18px
+}
+.error-close:hover {
+  background-color: white !important;
+  border: 1px solid rgb(253, 44, 44) !important;
+  color: rgb(253, 44, 44) !important;
+
+}
+.fa{
+  font: normal normal normal 23px/1 FontAwesome;
+     font-size: none;
 }

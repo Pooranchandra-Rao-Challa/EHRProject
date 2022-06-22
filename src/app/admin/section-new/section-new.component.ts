@@ -83,7 +83,6 @@ export class SectionNewComponent implements OnInit {
     );
   }
 
-
 }
 
 

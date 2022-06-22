@@ -84,6 +84,7 @@ import { PatientHealthPortalComponent } from 'src/app/dialogs/patient.dialog/pat
 import { PatientService } from 'src/app/_services/patient.service';
 import { BillingService } from '../../_services/billing.service';
 import { AlertMessage } from 'src/app/_alerts/alertMessage';
+import { AddeditinterventionComponent } from 'src/app/dialogs/addeditintervention/addeditintervention.component';
 
 @NgModule({
   exports: [
@@ -97,6 +98,7 @@ import { AlertMessage } from 'src/app/_alerts/alertMessage';
     PatientPortalAccountComponent,
     AdvancedMedicalCodeModule,
     TeethSurfaceModule,
+    AddeditinterventionComponent,
     // PaginatorDirective
   ],
   declarations: [
@@ -142,7 +144,9 @@ import { AlertMessage } from 'src/app/_alerts/alertMessage';
     LocationDialogComponent,
     VitalDialogComponent,
     PatientPortalAccountComponent,
-    PatientHealthPortalComponent
+    PatientHealthPortalComponent,
+    AddeditinterventionComponent
+    // PaginatorDirective
   ],
   imports: [
 

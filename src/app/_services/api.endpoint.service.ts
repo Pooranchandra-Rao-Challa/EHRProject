@@ -537,6 +537,16 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "CreatePatientAccount";
   }
 
+  get _cqmNotPerformedUrl(){
+    return this._baseUrl + "CQMNotPerformed";
+  }
+  get _interventaionDetailsUrl(){
+    return this._baseUrl + "InterventaionDetails";
+  }
+
+  get _addUpdateCQMNotPerformedUrl(){
+    return this._baseUrl + "AddUpdatedCQMNotPerformed";
+  }
   constructor(public http: HttpClient) {
     super();
   }

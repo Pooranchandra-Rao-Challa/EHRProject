@@ -18,6 +18,8 @@ import { DownloadService } from "./_services/download.service";
 import { IdService } from "./_helpers/_id.service";
 import { AuthGuard } from "./_helpers/auth.guard";
 import { LabsImagingService } from './_services/labsimaging.service';
+import { CqmsNotPerformedComponent } from './provider/patients/cqms.not.performed/cqms.not.performed.component';
+import { CQMNotPerformedService } from './_services/cqmnotperforemed.service';
 //import { PaginatorDirective } from 'src/app/_directives/pagination.directive'
 
 
@@ -31,6 +33,7 @@ import { LabsImagingService } from './_services/labsimaging.service';
   ],
   declarations: [
     AppComponent,
+
   //  PaginatorDirective,
 
   ],
@@ -55,7 +58,8 @@ import { LabsImagingService } from './_services/labsimaging.service';
     IdService,
     AuthGuard,
     LabsImagingService,
-    dentalchartService
+    dentalchartService,
+    CQMNotPerformedService
 
   ],
   bootstrap: [AppComponent]

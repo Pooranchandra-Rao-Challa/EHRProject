@@ -8,10 +8,10 @@ export class LabsImagingService extends APIEndPoint {
 
     LabsDetails(reqparams: any) {
         return this._ProcessPostRequest<any>(this._labDetailsUrl,reqparams);
-      }
-    
+    }
+
       ImageDetails(reqparams: any) {
         return this._ProcessPostRequest<any>(this._imagingDetailsUrl,reqparams);
       }
-  
+
 }

@@ -1,0 +1,56 @@
+
+@import"../../../assets/cstm.material.scss";
+@import"../../../assets/common.scss";
+
+.modal{
+  font-family: 'Roboto';
+}
+// .modal-dialog {
+//   overflow-y: initial !important;
+//   max-width: inherit !important;
+//   margin: 0 !important;
+// }
+// .modal-body {
+//   max-height: calc(90vh - 180px);
+//   overflow-y: auto;
+// }
+.intervention-dialog .modal-content{
+  width: 720px;
+}
+.intervention-dialog .row{
+  margin-top: 3px;
+  margin-bottom: 13px;
+}
+.mat-label{
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  opacity: 0.9;
+}
+textarea.form-control{
+  font-size: 15px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  line-height: 1.5;
+  resize: both;
+  height: 120px;
+}
+.form-control {
+  padding: 0 20px;
+  color: #74757e;
+  border: 1px solid #dedede;
+  background-color: #f5f5f5;
+  border-radius: 3px;
+  font-size: 15px;
+  line-height: 43px;
+  box-shadow: none !important;
+  cursor: auto !important;
+}
+.mat-cust-field:hover{
+  border: 1px solid #41b6a6;
+}
+.form-control:hover{
+  border: 1px solid #41b6a6;
+}
+
+

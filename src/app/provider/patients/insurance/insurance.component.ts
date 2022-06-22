@@ -63,6 +63,8 @@ export class InsuranceComponent implements OnInit {
   secondarydisableaddressverification: boolean;
   primaryselected: any;
   secondaryselected: any;
+  SearchKey = "";
+  getinsurancePlanList: any;
 
 
   constructor(private patientservice: PatientService,
@@ -88,7 +90,6 @@ export class InsuranceComponent implements OnInit {
   }
 
   AddInsuranceCompanyPlan() {
-    // this.primlist={};
     this.insuraceComplanyPlan = new ParticularInsuranceCompanyDetails;
     this.data = false;
     this.isValid = true;
@@ -101,6 +102,9 @@ export class InsuranceComponent implements OnInit {
     this.cancel2 = false;
     this.cancel1 = false;
     this.rowClicked = -1;
+    this.InsuranceCompanyPlanList();
+    this.SearchKey = "";
+
   }
 
 
@@ -131,6 +135,10 @@ export class InsuranceComponent implements OnInit {
 
     this.plusvalue = item;
     this.rowClicked = -1;
+    this.data = true;
+    this.isValid = false;
+    this.cancel2 = false;
+    this.cancel1 = false;
   }
   secondaryplus(item) {
     this.plusvalue = item;
@@ -177,6 +185,7 @@ export class InsuranceComponent implements OnInit {
     this.patientservice.InsuranceCompanyPlans().subscribe(
       resp => {
         this.insurancePlanList = resp.ListResult;
+        this.getinsurancePlanList = this.insurancePlanList
         this.secondaryInsurancelist = resp.ListResult;
 
       })
@@ -227,7 +236,6 @@ export class InsuranceComponent implements OnInit {
         resp => {
           this.InsurancDetailslist = resp.ListResult;
           this.insuraceComplanyPlan = resp.ListResult[0];
-          console.log()
         });
     }
     else {
@@ -265,10 +273,9 @@ export class InsuranceComponent implements OnInit {
       else {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2CI001"]);
       }
-      this.insurancePlanList();
+      this.InsuranceCompanyPlanList();
     });
   }
-
 
   deleteInsurancePlan() {
     this.patientservice.DeleteInsuranceCampanyplan(this.insuraceComplanyPlan).subscribe((resp) => {
@@ -317,6 +324,8 @@ export class InsuranceComponent implements OnInit {
           this.alertmsg.displayErrorDailog(ERROR_CODES["E2CI003"]);
         }
       })
+      this.getInsuranceList();
+      this.secondarymanuallybtn = false;
       this.secondarydisableaddressverification = false;
       this.secondaryAdressVerfied = false;
     }
@@ -325,7 +334,6 @@ export class InsuranceComponent implements OnInit {
   AddressVerification() {
     this.accountservice.VerifyAddress(this.primlist.Street).subscribe(resp => {
       if (resp.IsSuccess) {
-        // console.log(resp.Result);
         this.primlist.City = resp.Result.components.city_name
         this.primlist.State = resp.Result.components.state_abbreviation
         this.primlist.StreetAddress = resp.Result.delivery_line_1
@@ -350,16 +358,20 @@ export class InsuranceComponent implements OnInit {
     this.primlist.StreetAddress = ""
     this.primlist.Zip = ""
   }
-
+  secondaryclearAddress() {
+    this.secList.Street = "";
+    this.secList.City = ""
+    this.secList.State = ""
+    this.secList.StreetAddress = ""
+    this.secList.Zip = ""
+  }
   enterAddressManually(item) {
-
     this.disableaddressverification = true;
   }
 
   secondaryAddressverfied() {
     this.accountservice.VerifyAddress(this.secList.Street).subscribe(resp => {
       if (resp.IsSuccess) {
-        // console.log(resp.Result);
         this.secList.City = resp.Result.components.city_name
         this.secList.State = resp.Result.components.state_abbreviation
         this.secList.StreetAddress = resp.Result.delivery_line_1
@@ -374,18 +386,13 @@ export class InsuranceComponent implements OnInit {
     });
   }
   secondaryenableManualEntry() {
-
     this.secondarymanuallybtn = true;
-    this.clearAddress();
-
+    this.secondaryclearAddress();
   }
   secondaryenterAddressManually(item) {
-
     this.secondarydisableaddressverification = true;
-
   }
   onChange(type, value) {
-
     if (type === 'primary') {
       this.primaryselected = this.SourceOfPaymentTypologyCodes.filter(x => x.Code == value)[0];
       this.primlist.PaymentTypologyCode = this.primaryselected.Code;
@@ -393,11 +400,23 @@ export class InsuranceComponent implements OnInit {
     }
   }
   secondaryonChange(type, value) {
-
     if (type === 'secondary') {
       this.secondaryselected = this.SourceOfPaymentTypologyCodes.filter(x => x.Code == value)[0];
       this.secList.PaymentTypologyCode = this.secondaryselected.Code;
       this.secList.PaymentTypologyDescription = this.secondaryselected.Description;
     }
   }
+  onFilterChange() {
+    this.insurancePlanList = this.insurancePlanList.filter((invoice) => this.isMatch(invoice));
+  }
+
+  isMatch(item) {
+    if (item instanceof Object) {
+      return Object.keys(item).some((k) => this.isMatch(item[k]));
+    } else {
+      return item == null ? '' : item.toString().indexOf(this.SearchKey) > -1
+
+    }
+  }
 }
+
