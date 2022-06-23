@@ -11,5 +11,5 @@ export interface Patient {
     PrimaryPhone?:string,
     Address?:string,
     Active?: string,
-
+    TotalPatients?: number
     }

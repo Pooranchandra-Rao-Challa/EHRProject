@@ -5,29 +5,30 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ComponentType } from 'ngx-toastr';
 import { OverlayService } from 'src/app/overlay.service';
 import { CQMNotPerformed } from 'src/app/_models/_provider/cqmnotperformed';
-import { Actions, User, ViewModel } from 'src/app/_models';
+import { Actions, User } from 'src/app/_models';
 
 @Component({
   selector: 'app-cqmsnotperformed',
   templateUrl: './cqms.not.performed.component.html',
   styleUrls: ['./cqms.not.performed.component.scss']
 })
+
 export class CqmsNotPerformedComponent implements OnInit {
 
+  user: User;
   CQMNotPreformedDataSource: any = [];
-  CQMNotPreformedColumn: string[] = ['Date', 'Provider', 'NotPerformed', 'Code', 'CodeDescription', 'Reason',
-  'ReasonCode', 'ReasonDescription','Notes'];
+  CQMNotPreformedColumn: string[] = ['Date', 'Provider', 'NotPerformed', 'Code', 'CodeDescription', 'Reason','ReasonCode', 'ReasonDescription', 'Notes'];
   CQMNotPerformedDialogComponent = AddeditinterventionComponent;
   PatientDetails: any = [];
   DialogResponse = null;
   CQMNotPerformed: CQMNotPerformed;
-  user:User;
+  ActionTypes = Actions;
+  CQMNotPerformedResponse: any;
 
-  constructor(private overlayService: OverlayService,private authService:AuthenticationService,
+  constructor(private overlayService: OverlayService, private authService: AuthenticationService,
     private cqmNotperformedService: CQMNotPerformedService) {
-      this.user = authService.userValue;
-      console.log(this.user);
-      this.CQMNotPerformed= {} as CQMNotPerformed;
+    this.user = authService.userValue;
+    this.CQMNotPerformed = {} as CQMNotPerformed;
   }
 
   ngOnInit(): void {
@@ -35,8 +36,7 @@ export class CqmsNotPerformedComponent implements OnInit {
     this.getCQMNotPerformed();
   }
 
-  getCQMNotPerformed(){
-    debugger;
+  getCQMNotPerformed() {
     var reqparam = {
       "PatientId": this.PatientDetails.PatientId,
       "ProviderId": this.PatientDetails.ProviderId
@@ -48,20 +48,32 @@ export class CqmsNotPerformedComponent implements OnInit {
     });
   }
 
-  openCQMComponentDialog(content: TemplateRef<any> | ComponentType<any> | string) {
-    const ref = this.overlayService.open(content, null);
+  openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
+    dialogData, actions: Actions = this.ActionTypes.add) {
+    this.CQMNotPerformed.Reasondetails = this.CQMNotPerformed.ReasonCodeDescription;
+    let reqdata: any;
+    if (actions == Actions.view && content === this.CQMNotPerformedDialogComponent) {
+      reqdata = dialogData;
+    }
+    const ref = this.overlayService.open(content, reqdata);
     ref.afterClosed$.subscribe(res => {
-      if (typeof content === 'string') {
-        //} else if (content === this.yesNoComponent) {
-        //this.yesNoComponentResponse = res.data;
+      if (content === this.CQMNotPerformedDialogComponent) {
+        this.CQMNotPerformedResponse = res.data;
       }
-      else if (content === this.CQMNotPerformedDialogComponent) {
-        this.DialogResponse = res.data;
+      else if (res.data == null) {
+        reqdata = dialogData;
       }
+     // this.UpdateView(res.data);
+      this.getCQMNotPerformed();
     });
   }
-}
 
+  // UpdateView(data) {
+  //   if (data.UpdatedModal == PatientChart.CQMNotPerforemd) {
+  //     this.getCQMNotPerformed();
+  //   }
+  // }
+}
 
 
 

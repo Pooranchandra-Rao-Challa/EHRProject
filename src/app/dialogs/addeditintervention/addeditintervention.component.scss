@@ -1,33 +1,27 @@
-
 @import"../../../assets/cstm.material.scss";
 @import"../../../assets/common.scss";
 
-.modal{
+.modal {
   font-family: 'Roboto';
 }
-// .modal-dialog {
-//   overflow-y: initial !important;
-//   max-width: inherit !important;
-//   margin: 0 !important;
-// }
-// .modal-body {
-//   max-height: calc(90vh - 180px);
-//   overflow-y: auto;
-// }
-.intervention-dialog .modal-content{
+
+.intervention-dialog .modal-content {
   width: 720px;
 }
-.intervention-dialog .row{
+
+.intervention-dialog .row {
   margin-top: 3px;
   margin-bottom: 13px;
 }
-.mat-label{
+
+.mat-label {
   font-size: 14px;
   font-weight: 600;
   color: #333;
   opacity: 0.9;
 }
-textarea.form-control{
+
+textarea.form-control {
   font-size: 15px;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -35,6 +29,7 @@ textarea.form-control{
   resize: both;
   height: 120px;
 }
+
 .form-control {
   padding: 0 20px;
   color: #74757e;
@@ -46,11 +41,26 @@ textarea.form-control{
   box-shadow: none !important;
   cursor: auto !important;
 }
-.mat-cust-field:hover{
-  border: 1px solid #41b6a6;
-}
-.form-control:hover{
+
+.mat-cust-field:hover {
   border: 1px solid #41b6a6;
 }
 
+.form-control:hover {
+  border: 1px solid #41b6a6;
+}
 
+.ddl-width {
+  width: 332px;
+}
+
+@media (max-width:1000px) {
+  .intervention-dialog .modal-content {
+    max-width: 100%;
+    background-color: blue;
+  }
+
+  .ddl-width {
+    width: 200px;
+  }
+}

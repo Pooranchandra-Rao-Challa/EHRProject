@@ -140,11 +140,11 @@ input::placeholder{
 }
 // expansion
 .schedule-accordion {
-  border: 1px solid #41b6a6;
+  //border: 1px solid #41b6a6;
   padding: 0px 0px;
   border-radius: 5px;
   color: #fff;
-  margin-bottom: 5px;
+  //margin-bottom: 5px;
 }
 // ::ng-deep .mat-accordion .mat-expansion-panel:first-of-type {
 //   margin-bottom: 5px !important;
@@ -197,7 +197,7 @@ input::placeholder{
   padding: 0 1.0rem;
 }
 .table-container{
-  height: calc(80vh - 187px);
+  height: calc(80vh - 250px);
 }
 @media (max-width: 1440px) {
   .smartschedule-wrapper .table-container {

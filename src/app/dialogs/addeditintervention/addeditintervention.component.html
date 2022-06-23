@@ -2,7 +2,8 @@
   <div class="modal-content">
     <div class="modal-header">
       <p class="modal-title Roboto-medium">
-        Add/Edit Reason Not Performed</p>
+        {{this.CQMNotPerformed.NPRId == null?'Add Reason Not Performed':'Edit Reason Not Performed'}}
+      </p>
       <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close" (click)="cancel()">
         X
       </span>
@@ -12,19 +13,18 @@
         <div class="col-lg-6 col-md-6 col-xl-6 col-12">
           <label for="DATEOFBIRTH*" class="form-label label-design">
             <b>Select Item Not Performed:</b></label>
-            <mat-form-field appearance="outline" class="col-lg-12 col-md-12">
-              <mat-select placeholder="Select One" [(ngModel)]="AddEditCQM.Item" >
-                <mat-option [value]="item.value"  *ngFor="let item of itemNotPerformed">{{item.value}}</mat-option>
-              </mat-select>
-            </mat-form-field>
+          <mat-form-field appearance="outline" class="input-fields col-lg-12 col-md-12 col-12">
+            <mat-select placeholder="Select One" [(ngModel)]="CQMNotPerformed.ItemNotPerformed">
+              <mat-option [value]="item.value" *ngFor="let item of itemNotPerformed">{{item.value}}</mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
 
         <div class="col-lg-6 col-md-6 col-xl-6 col-12">
           <label for="DATEOFBIRTH*" class="form-label label-design">Date Not Performed:</label>
           <mat-form-field appearance="outline" class="bg-white form-group grey-matform green-calendar">
-            <input matInput class="pointer date-mat-class" autocomplete="off"
-            [(ngModel)]="AddEditCQM.Date" [matDatepicker]="picker"
-              (click)="picker.open()" readonly placeholder="Start Date">
+            <input matInput class="date-mat-class" autocomplete="off" [(ngModel)]="CQMNotPerformed.Date"
+              [matDatepicker]="picker" (click)="picker.open()" readonly placeholder="Start Date">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
@@ -34,24 +34,21 @@
           <div class="col-lg-2">
             <mat-label><b>Intervention Type:</b></mat-label>
           </div>
-          <mat-form-field appearance="outline" class="col-lg-4 col-md-4">
-            <mat-select placeholder="Select One" [(ngModel)]="AddEditCQM.InterventionType">
+          <mat-form-field appearance="outline" class="col-lg-4 col-md-4 col-12">
+            <mat-select placeholder="Select One" [(ngModel)]="CQMNotPerformed.InterventionType">
               <mat-option [value]="item.value" *ngFor="let item of interventaionType">{{item.value}}</mat-option>
             </mat-select>
           </mat-form-field>
           <div class="col-lg-6 col-md-6">
-            <mat-form-field appearance="outline" class="col-lg-12 col-md-12">
-              <mat-select placeholder="Search Interventaions" [(ngModel)]="AddEditCQM.InterventionDescription">
-                <mat-select-filter [displayMember]="'Code'"
-                [array]="interventaionFilter" (filteredReturn)="interventaionList = $event"></mat-select-filter>
-                <mat-option *ngFor="let item of interventaionList" [value]="item">
+            <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-12 ddl-width">
+              <mat-select placeholder="Search Interventaions" [(ngModel)]="CQMNotPerformed.InterventionCode">
+                <mat-select-filter [displayMember]="'Code'" [array]="interventaionFilter"
+                  (filteredReturn)="interventaionList = $event"></mat-select-filter>
+                <mat-option *ngFor="let item of interventaionList" [value]="item.Code" (click)="interventaion(item)">
                   {{item.Code}} - {{item.Description}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
-            <!-- <button class="btn-search col-xl-1 col-lg-2 col-md-1 col-2">
-              <mat-icon>search</mat-icon>
-            </button> -->
           </div>
         </div>
 
@@ -59,26 +56,23 @@
           <div class="col-lg-2">
             <mat-label><b>Reason:</b></mat-label>
           </div>
-          <mat-form-field appearance="outline" class="col-lg-4 col-md-6 hover">
-            <mat-select placeholder="Select One" [(ngModel)]="AddEditCQM.Reason"
-             disableOptionCentering id="ePracticeProviders">
+          <mat-form-field appearance="outline" class="col-lg-4 col-md-6 col-12 hover">
+            <mat-select placeholder="Select One" [(ngModel)]="CQMNotPerformed.Reason">
               <mat-option [value]="'Medical Reason'">Medical Reason</mat-option>
               <mat-option [value]="'Patient Refused'">Patient Refused</mat-option>
             </mat-select>
           </mat-form-field>
           <div class="col-lg-6 col-md-6">
-            <mat-form-field appearance="outline" class="col-lg-12 col-md-12 ">
-              <mat-select placeholder="Search Reason" [(ngModel)]="AddEditCQM.ReasonCodeDescription">
-                <mat-select-filter [displayMember]="'value'"
-                [array]="searchReason" (filteredReturn)="reasonFiltered =$event"></mat-select-filter>
-                <mat-option *ngFor="let item of reasonFiltered" [value]="item"  (click)="getreasondescription(item)">
+            <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-12 ddl-width">
+              <mat-select placeholder="Search Reason" [(ngModel)]="CQMNotPerformed.Reasondetails">
+                <mat-select-filter [displayMember]="'value'" [array]="searchReason"
+                  (filteredReturn)="reasonFiltered =$event"></mat-select-filter>
+                <mat-option *ngFor="let item of reasonFiltered" [value]="item.value"
+                  (click)="getreasondescription(item)">
                   {{item.value}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
-            <!-- <button class="btn-search col-xl-1 col-lg-2 col-md-1 col-2">
-              <mat-icon>search</mat-icon>
-            </button> -->
           </div>
         </div>
 
@@ -86,17 +80,15 @@
           <div class="col-lg-2">
             <mat-label><b>Reason Code:</b></mat-label>
           </div>
-          <mat-form-field appearance="outline" class="col-lg-4 col-md-6 ">
-            <input matInput style="width:10rem"  placeholder="Reason Code"
-            [(ngModel)]="AddEditCQM.ReasonCode" />
+          <mat-form-field appearance="outline" class="input-field input-bg col-lg-4 col-md-6 col-12 pointer">
+            <input matInput placeholder="Reason Code" [(ngModel)]="CQMNotPerformed.ReasonCode" />
           </mat-form-field>
-            <div class="col-lg-2">
-              <mat-label>Reason Description:</mat-label>
-            </div>
-            <mat-form-field appearance="outline" class="col-lg-4 col-md-4" >
-              <input matInput style="width:10rem"  placeholder="Reason Code"
-              [(ngModel)]="AddEditCQM.ReasonDescription" />
-            </mat-form-field>
+          <div class="col-lg-2">
+            <mat-label><b>Reason Description:</b></mat-label>
+          </div>
+          <mat-form-field appearance="outline" class="input-field input-bg col-lg-4 col-md-6 col-12">
+            <input matInput placeholder="Reason Description" [(ngModel)]="CQMNotPerformed.ReasonDescription" />
+          </mat-form-field>
         </div>
 
         <div class="row">
@@ -104,7 +96,7 @@
             <mat-label><b>Notes:</b></mat-label>
           </div>
           <div class="col-lg-10">
-            <textarea class="form-control" rows="6" [(ngModel)]="AddEditCQM.Note"></textarea>
+            <textarea class="form-control" rows="6" [(ngModel)]="CQMNotPerformed.Note"></textarea>
           </div>
         </div>
       </div>

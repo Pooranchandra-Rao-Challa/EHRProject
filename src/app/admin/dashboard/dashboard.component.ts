@@ -43,7 +43,6 @@ export class DashboardComponent implements OnInit {
   lockedModal ='none';
   AccessProvider='none';
   message: string;
-
   constructor(private adminservice: AdminService, private overlayService: OverlayService, private router: Router, private alertmsg: AlertMessage) { }
 
   ngOnInit(): void {

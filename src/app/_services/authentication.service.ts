@@ -35,16 +35,6 @@ export class AuthenticationService {
    localStorage.setItem('viewModel', JSON.stringify(v));
   }
 
-  public get viewModelAdmin() : AdminViewModal{
-    return JSON.parse(localStorage.getItem("viewModelAdmin")) as AdminViewModal;
-  }
-
-  public SetViewParamAdmin(value: any) {
-    let v = JSON.parse(localStorage.getItem("viewModelAdmin")) as AdminViewModal;
-    v = value;
-   localStorage.setItem('viewModelAdmin', JSON.stringify(v));
-  }
-
   constructor(
     private router: Router,
     private http: HttpClient,

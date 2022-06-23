@@ -1,3 +1,4 @@
+import { User } from './../../_models/_account/user';
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../_services/authentication.service';
 
@@ -7,13 +8,14 @@ import { AuthenticationService } from '../../_services/authentication.service';
   styleUrls: ['./admin.navbar.component.scss']
 })
 export class AdminNavbarComponent implements OnInit {
+  user:User
 
-
-  constructor(private authenticationService: AuthenticationService) { }
-
-  ngOnInit(): void {
-
+  constructor(private authenticationService: AuthenticationService) {
+    this.user = this.authenticationService.userValue;
   }
+
+  ngOnInit(): void {}
+
   logout() {
     this.authenticationService.logout();
   }
