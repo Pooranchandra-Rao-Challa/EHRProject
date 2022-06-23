@@ -749,13 +749,16 @@
             <div class="modal-header">
 
                 <!-- <span  class="Helvetica-sans-serif-medium"> </span> -->
+                <!-- {{ thi ? 'Text_For_True' : 'Text_For_False' }} -->
                 <span *ngIf="primaryInsDetail" class="Helvetica-sans-serif-medium">Primary Insurance Details </span>
+                <!-- {{ this.insuraceComplanyPlan.InsuranceCompanyId == '' ? 'add' : 'edit' }} -->
+
                 <span *ngIf="secondaryInsDetail" class="Helvetica-sans-serif-medium">Secondary Insurance Details </span>
                 <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close">
                     X
                 </span>
             </div>
-            <div class="modal-body modal-scrollbar" style=" border-bottom: 3px solid #41b6a6;">
+            <div class="modal-body modal-scrollbar modalbodycolor" style=" border-bottom: 3px solid #41b6a6;">
 
                 <div *ngFor="let item of InsurancDetailslist">
                     <div class="row">
@@ -808,13 +811,15 @@
                     <div class="col-md-4">
 
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <button mat-raised-button type="submit" class="btn btn-green btn-primary"
                             (click)="primaryinsurancedetails()" data-bs-toggle="modal"
                             data-bs-target="#modal-primary-Insurance">Edit</button>
                     </div>
-
-                    <div class="col-md-4">
+                    <div class="col-md-2">
+                        
+                    </div>
+                    <div class="col-md-3">
                         <button mat-raised-button type="submit" class="btn btn-green btn-primary"
                             data-bs-dismiss="modal" aria-label="Close">Cancel</button>
                     </div>
