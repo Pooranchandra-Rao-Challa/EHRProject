@@ -1,28 +1,7 @@
-<div class="patients-navigation">
-  <ul id="patient_navigation">
-    <li class="active">
-      <a class="patient_link">
-        <div class="patient_name">Patients</div>
-      </a>
-      <i class="category-arrow"></i>
-    </li>
-    <li id="patient">
-      <a class="patient_link">
-        <div class="patient_name">Karthik test</div>
-        <div class="patient_dob">03/24/22</div>
-      </a>
-      <a class="remove-chart-patient patient-remove-link" data-id="6243ec4a391cba0a3bf13cc8">
-        <i class="fa fa-times"></i>
-      </a>
-    </li>
-    <li class="arrow-navigation">
-      <i class="category-arrow"></i>
-    </li>
-  </ul>
+<div class="patients-navigation" style="margin-top: -18px;">
+  <patient-breadcrumb></patient-breadcrumb>
 </div>
-
-
-<div class="patients-navigation-info">
+<div class="patients-navigation-info" style="clear: both;">
   <img class="avatar avatar-empty" src="assets/images/avatar-empty.svg" alt="Avatar empty">
   <ul class="patient-main-info">
     <li>{{patient?.FirstName}} {{patient?.LastName}}</li>

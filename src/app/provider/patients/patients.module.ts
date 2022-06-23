@@ -1,3 +1,4 @@
+import { BreadcrumComponent } from './../../_navigations/breadcrum/breadcrum.component';
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { NgModule } from '@angular/core';
@@ -15,7 +16,7 @@ import { CqmsNotPerformedComponent } from './cqms.not.performed/cqms.not.perform
 import { SearchPipe } from '../../_pipes/search-filter.pipe';
 import { PatientsBreadCrumComponent } from './patients-bread-crum/patients-bread-crum.component';
 import { PaginatorDirective } from 'src/app/_directives/pagination.directive'
-
+import { BreadcrumbComponent} from 'src/app/provider/patients/patient.breadcrumb/breadcrumb.component'
 
 // import { SettingsModule } from '../settings/settings.module';
 
@@ -31,7 +32,8 @@ import { PaginatorDirective } from 'src/app/_directives/pagination.directive'
     AmendmentsComponent,
     ResetPasswordComponent,
     CqmsNotPerformedComponent,
-    PaginatorDirective
+    PaginatorDirective,
+    BreadcrumbComponent
   ],
   declarations: [
     PatientsComponent,
@@ -45,7 +47,8 @@ import { PaginatorDirective } from 'src/app/_directives/pagination.directive'
     CqmsNotPerformedComponent,
     SearchPipe,
     PatientsBreadCrumComponent,
-    PaginatorDirective
+    PaginatorDirective,
+    BreadcrumbComponent
   ],
   providers: [],
   // schemas: [CUSTOM_ELEMENTS_SCHEMA]

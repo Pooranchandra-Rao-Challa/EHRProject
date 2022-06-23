@@ -1,0 +1,35 @@
+
+
+ul.patient-navigation{
+  padding-left: 0px;
+  text-align: center;
+}
+ul.patient-navigation > li {
+  display: inline-flex;
+  padding: 10px 20px;
+  list-style: none;
+  float: left;
+}
+ul.patient-navigation > li:hover {
+  cursor: pointer;
+}
+ul.patient-navigation > li > a {
+  color: #4A4A4A;
+  text-decoration: none;
+  text-align: center;
+}
+
+ul.patient-navigation > li > a div{
+  color: #4A4A4A;
+  font-weight: bold;
+  vertical-align: middle;
+  text-align: left;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+
+ul.patient-navigation li a.remove-chart-patient {
+  margin-top: 10px;
+  margin-left: 10px;
+}

@@ -11,20 +11,20 @@ export class OverlayService {
 
   open<R = any, T = any>(
     content: string | TemplateRef<any> | Type<any>,
-    data: T
+    data: T,
+    height?: number
   ): EHROverlayRef<R> {
     const configs = new OverlayConfig({
-
       hasBackdrop: true,
-      //height:"1200px",
       panelClass: ['modal', 'is-active','ehr-custome-model'],
       backdropClass: 'modal-background',
       positionStrategy: this.positionBuilder
         .global()
         .centerHorizontally()
-
         .centerVertically(),
     });
+    if(height)
+    configs.height = height;
 
     const overlayRef = this.overlay.create(configs);
 

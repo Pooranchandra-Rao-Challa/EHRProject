@@ -1,3 +1,4 @@
+import { Patient } from 'src/app/_models/_account/newPatient';
 import { Injectable } from "@angular/core";
 import { APIEndPoint } from "./api.endpoint.service";
 import { HttpClient } from "@angular/common/http";
@@ -186,5 +187,9 @@ export class PatientService extends APIEndPoint {
   CreateUpdateInsuranceDetails(reqparams:any)
   {
     return this._ProcessPostRequest<any>(this._createUpdateInsuranceDetailsUrl,reqparams);
+  }
+
+  LatestUpdatedPatientsUrl(reqparams: any){
+    return this._ProcessPostRequest<any>(this._latestUpdatedPatientsUrl,reqparams);
   }
 }

@@ -1,0 +1,12 @@
+
+  <ul class="patient-navigation" >
+    <li class="active" *ngFor="let breadcrumb of breadcrumbs">
+      <a [class.patients-link]="!breadcrumb.ShowRemoveIcon" [class.patient-link]="breadcrumb.ShowRemoveIcon">
+        <div class="patient-name">{{breadcrumb.Name}}</div>
+        <div class="patient-dob" *ngIf="breadcrumb.ShowRemoveIcon">{{breadcrumb.DOB | date: 'MM/dd/yyyy'}}</div>
+      </a>
+      <a class="remove-chart-patient patient-remove-link" *ngIf="breadcrumb.ShowRemoveIcon">
+        <i class="fa fa-times"></i>
+      </a>
+    </li>
+  </ul>

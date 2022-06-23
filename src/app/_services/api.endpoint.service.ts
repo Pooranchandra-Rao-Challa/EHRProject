@@ -547,6 +547,11 @@ export class APIEndPoint extends EndpointBase {
   get _addUpdateCQMNotPerformedUrl(){
     return this._baseUrl + "AddUpdatedCQMNotPerformed";
   }
+
+  get _latestUpdatedPatientsUrl(){
+    return this._baseUrl + "LatestUpdatedPatients";
+  }
+
   constructor(public http: HttpClient) {
     super();
   }

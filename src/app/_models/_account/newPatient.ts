@@ -22,7 +22,6 @@ export interface Patient {
   Zipcode?: string;
   ManualAddress?: string;
   AddressResult?: any;
-
 }
 
 export class PatientPortalUser{
