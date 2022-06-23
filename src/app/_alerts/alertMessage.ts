@@ -240,8 +240,9 @@ export const ERROR_CODES: { [key: string]: string } = {
   'M2CCNP002': 'Not Performed Reason updated successfully',
 
   // Error for CQM Not performed
-  'E2CCNP001': 'Advanced Directives Updation error',
+  'E2CCNP001': 'Not Performed Reason created error',
 
+  'E2AP002' : 'Patient User account create error',
 };
 
 

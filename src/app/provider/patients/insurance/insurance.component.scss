@@ -15,6 +15,10 @@
 
   height: 64px;
 }
+.inputclass:focus
+{
+  border: 1px solid #41b6a6;
+}
 
 .card-header {
   display: flex;
@@ -125,7 +129,7 @@
 }
 
 .modal-dialog {
-  max-width: 1320px;
+  max-width: 1080px;
 }
 
 .modal {
@@ -156,8 +160,7 @@
   width: 165px;
   height: 45px;
   font-size: 16px;
-  margin-left: 258px;
-  // margin-left: -84px;
+  margin-left: 152px
 }
 
 .btn-danger {
@@ -168,11 +171,11 @@
 }
 
 .modal-scrollbar {
-  height: 414px;
-  // margin-top: 0px;
+  height: 555px;
+ margin-top: 0px;
   margin-bottom: 16px;
-  overflow-y: scroll;
-  overflow-x: none;
+  // overflow-y: scroll;
+  // overflow-x: none;
 
 }
 
@@ -242,4 +245,23 @@
 .fa{
   font: normal normal normal 23px/1 FontAwesome;
      font-size: none;
+}
+.divScroll {
+  // overflow:scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 500px;
+  width: 1045px;
+  }
+  .divScroll1{
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 525px;
+     width: 1025px;
+  }
+  .table td, .table th {
+    vertical-align: middle;
+    font-size: 12px;
+    line-height: 1;
+    white-space: normal;
 }

@@ -24,3 +24,17 @@ export interface Patient {
   AddressResult?: any;
 
 }
+
+export class PatientPortalUser{
+  PatientName?: string;
+  PatientId?: string;
+  DateofBirth?: Date;
+  Username?: string;
+  Password?: string;
+  Email?: string;
+  ConfirmPassword?: string;
+  PatientRelationshipUserId?: string;
+  PatientRelationName?: string;
+  Relationship?: string;
+  PatientRelationUsername?: string;
+}

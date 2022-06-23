@@ -67,7 +67,7 @@
         </div><!-- [dataSource]="patientsList.data | search: keys: searchName: filter | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize"-->
 
         <mat-table [dataSource]=patientsDataSource
-          matSort matSortActive="LastAccessed" matSortDirection="asc" matSortDisableClear>
+          matSort matSortActive="LastAccessed" matSortDirection="desc" matSortDisableClear>
           <ng-container matColumnDef="Image">
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
             <mat-cell *matCellDef>

@@ -3,7 +3,7 @@ import { Component,  Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { ChangePassword } from 'src/app/_models';
-
+import { ConfirmedValidator } from 'src/app/_common/confirm-password';
 
 
 @Component({
@@ -43,18 +43,3 @@ export class ChangePasswordDialogComponent {
   }
 }
 
-export function ConfirmedValidator(controlName: string, matchingControlName: string){
-  return (formGroup: FormGroup) => {
-      const control = formGroup.controls[controlName];
-      const matchingControl = formGroup.controls[matchingControlName];
-
-      if (matchingControl.errors && !matchingControl.errors.confirmedValidator) {
-          return;
-      }
-      if (control.value !== matchingControl.value) {
-          matchingControl.setErrors({ confirmedValidator: true });
-      } else {
-          matchingControl.setErrors(null);
-      }
-  }
-}

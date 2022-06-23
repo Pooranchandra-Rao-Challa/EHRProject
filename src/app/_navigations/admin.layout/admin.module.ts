@@ -31,7 +31,7 @@ import { DashboardComponent } from 'src/app/admin/dashboard/dashboard.component'
 import { AdminPracticeComponent } from 'src/app/admin/admin-practice/admin-practice.component';
 
 import { AdminService } from '../../_services/admin.service';
-// import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { ActivePipe } from 'src/app/_pipes/search-filter.pipe';
 import { ProviderlistComponent } from '../../admin/providerlist/providerlist.component';
 import { AdminsettingComponent } from 'src/app/admin/adminsetting/adminsetting.component';
 import { AdminsComponent } from 'src/app/admin/admins/admins.component';
@@ -53,11 +53,13 @@ import { AddUserDialogComponent } from 'src/app/dialogs/adduser.dialog/adduser.d
 import { DefaultMessagesComponent } from 'src/app/admin/defaultmessages/defaultmessages.component';
 import { CommunicationsettingsComponent } from 'src/app/admin/communicationsettings/communicationsettings.component';
 import { AlertMessage } from 'src/app/_alerts/alertMessage';
+import { AdminPaginatorDirective } from 'src/app/_directives/admin.patinator.directive'
 
 
 @NgModule({
   exports: [
     MatInputModule,
+    AdminPaginatorDirective
   ],
   declarations: [
     AdminSidebarComponent,
@@ -81,7 +83,9 @@ import { AlertMessage } from 'src/app/_alerts/alertMessage';
     ImportPatientsComponent,
     ImportEncountersComponent,
     DefaultMessagesComponent,
-    CommunicationsettingsComponent
+    CommunicationsettingsComponent,
+    AdminPaginatorDirective,
+    ActivePipe
   ],
   imports: [
     AdminRoutingModule,

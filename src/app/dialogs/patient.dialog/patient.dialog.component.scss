@@ -1,5 +1,5 @@
-@import "../../assets/cstm.material.scss";
-@import "../../assets/common.scss";
+@import "../../../assets/cstm.material.scss";
+@import "../../../assets/common.scss";
 
 .modal-dialog {
   overflow-y: initial !important;
@@ -77,7 +77,7 @@ button#dob.btn-outline-secondary.calendar {
       rgba(194, 197, 197, 0.5),
       rgba(121, 131, 130, 0.5)
     ),
-    url(../../assets/images/calendar.svg);
+    url(../../../assets/images/calendar.svg);
   background-repeat: no-repeat;
   background-position: center;
   background-blend-mode: multiply;
