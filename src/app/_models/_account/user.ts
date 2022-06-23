@@ -9,7 +9,7 @@ export interface User {
   AdminId: string;
   PatientId: string;
   RepresentativeId: string;
-  UserName: string;
+  Username: string;
   Role: string;
   FirstName: string;
   LastName: string;
@@ -33,6 +33,8 @@ export class ViewModel{
   PatientView?: string = "";
   CQMNotPerformed?:CQMNotPerformed;
   CQMView?: string ="";
+  WeeklyUpdate?:WeeklyUpdated;
+  AdminViewName?:string;
 
 }
 

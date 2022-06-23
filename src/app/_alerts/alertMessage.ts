@@ -227,12 +227,21 @@ export const ERROR_CODES: { [key: string]: string } = {
   'E2AE001': 'Encounter Adding error',
   'E2AE002': 'Encounter Update error',
   'E2AE003': 'Encounter Data Read  error',
+
   //Error for WeeklyUpated
   'E1WU001': 'Please insert the data into the fields',
 
   'T2JP001' : 'User has been added!',
   'M2AP001' : 'Patient Added successsfully',
   'E2AP001' : 'Patient Adding error',
+
+   // CQM Not performed
+  'M2CCNP001': 'Not Performed Reason created successfully',
+  'M2CCNP002': 'Not Performed Reason updated successfully',
+
+  // Error for CQM Not performed
+  'E2CCNP001': 'Advanced Directives Updation error',
+
 };
 
 

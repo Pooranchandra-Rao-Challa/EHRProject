@@ -17,16 +17,14 @@ export class WeeklyUpdatedComponent implements OnInit {
   selectedValue: any;
   searchValue: any;
   filteredList: any = [];
-  DisplayTdBody: any;
+  DisplayTdBody: string;
   RowIndex: any;
   ProviderList: any = [];
-  ProviderName: any = [];
-  FistProviderName: any;
+  FistProviderName: string;
   viewModel: AdminViewModal;
-  WeeklyUpdated:any;
-  displayHeading:any;
-  weeklyUpdate:WeeklyUpdated
-  constructor(private router: Router, private adminservice: AdminService,private authService:AuthenticationService) {
+  weeklyUpdate: WeeklyUpdated
+
+  constructor(private router: Router, private adminservice: AdminService, private authService: AuthenticationService) {
     this.weeklyUpdate = {} as WeeklyUpdated;
   }
 
@@ -62,7 +60,8 @@ export class WeeklyUpdatedComponent implements OnInit {
     else {
       this.filteredList = this.ProviderList.filter(
         user => user.ProviderName.toLowerCase().indexOf(searchString) > -1
-      );}
+      );
+    }
     window.scrollTo(window.scrollX, window.scrollY - 1);
   }
 
@@ -70,27 +69,12 @@ export class WeeklyUpdatedComponent implements OnInit {
     this.selectedValue = name;
   }
 
-  AddSectionNew(name, url) {
+  NavigateSection(name, url, item: WeeklyUpdated = null) {
+    this.authService.SetViewParam('WeeklyUpdate', item);
+    this.authService.SetViewParam('AdminViewName', name);
     this.router.navigate(
       [url],
-      { queryParams: { name: name } }
     );
-    this.UpdateWeeklyUpdatedView(null);
-  }
-
-  EditSectionNew(name, url,item) {
-    this.router.navigate(
-      [url],
-      { queryParams: { name: name, edit: 'EditSection' } }
-    );
-    this.UpdateWeeklyUpdatedView(item);
-  }
-
-  UpdateWeeklyUpdatedView(item) {
-    this.authService.SetViewParamAdmin(item);
-    this.viewModel = this.authService.viewModelAdmin;
-    console.log(this.viewModel);
-
   }
 
   // drodpown provider list
@@ -106,26 +90,25 @@ export class WeeklyUpdatedComponent implements OnInit {
   }
 
   // update status as active/deactive
-  updateStatus(item){
+  updateStatus(item) {
     let Stauts;
-    if(item.Status == 'DeActivate'){Stauts = 0;}
-    else{Stauts = 1;}
-
-    let reqparams={
-      'Id':item.Id,
-      'Status':Stauts}
-
-    this.adminservice.UpdateWeeklyStaus(reqparams).subscribe( resp =>{
-      if (resp.IsSuccess) {this.GetWeeklyUpdate();}
+    if (item.Status == 'DeActivate') { Stauts = 0; }
+    else { Stauts = 1; }
+    let reqparams = {
+      'WeeklyUpdateId': item.WeeklyUpdateId,
+      'Status': Stauts
+    }
+    this.adminservice.UpdateWeeklyStaus(reqparams).subscribe(resp => {
+      if (resp.IsSuccess) { this.GetWeeklyUpdate(); }
     })
   }
 
   // delete weeklyupdated records.
-  deleteWeeklyUpdated(id){
-    let reqparam={
-      'Id':id
+  deleteWeeklyUpdated(id) {
+    let reqparam = {
+      'WeeklyUpdateId': id
     }
-    this.adminservice.DeleteWeeklyStatus(reqparam).subscribe( resp =>{
+    this.adminservice.DeleteWeeklyStatus(reqparam).subscribe(resp => {
       if (resp.IsSuccess) {
         this.GetWeeklyUpdate();
       }
@@ -142,17 +125,17 @@ export class WeeklyUpdatedComponent implements OnInit {
       buttonsStyling: true,
     });
     swalWithBootstrapButtons.fire(
-    {
-      title: 'Are you sure you want to change the status',
-      showCancelButton: true,
-      confirmButtonText: 'Yes',
-     // cancelButtonText: 'No'
-    }).then((result) => {
-      if (result.value) {
-        this.updateStatus(item);
-      }
-      this.GetWeeklyUpdate();
-    });
+      {
+        title: 'Are you sure you want to change the status',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        // cancelButtonText: 'No'
+      }).then((result) => {
+        if (result.value) {
+          this.updateStatus(item);
+        }
+        this.GetWeeklyUpdate();
+      });
   }
 
   // confirmation for delete
@@ -165,18 +148,17 @@ export class WeeklyUpdatedComponent implements OnInit {
       buttonsStyling: true,
     });
     swalWithBootstrapButtons.fire(
-    {
-      title: 'Are you sure you want to delete the record',
-      showCancelButton: true,
-      confirmButtonText: 'Yes',
-    }).then((result) => {
-      if (result.value) {
-        this.deleteWeeklyUpdated(id);
-      }
-      this.GetWeeklyUpdate();
-    });
+      {
+        title: 'Are you sure you want to delete the record',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+      }).then((result) => {
+        if (result.value) {
+          this.deleteWeeklyUpdated(id);
+        }
+        this.GetWeeklyUpdate();
+      });
   }
-
 
 }
 

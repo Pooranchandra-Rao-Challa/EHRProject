@@ -17,7 +17,8 @@ export class SmokingStatus {
 
 export enum PatientChart {
   AdvancedDirectives,
-  SmokingStatus
+  SmokingStatus,
+  CQMNotPerforemd
 }
 
 export class ChartInfo {
