@@ -1,15 +1,15 @@
-export interface WeeklyUpdated {
-  Id?:string,
-  sequence?:number,
-  body?: string,
-  header?: string,
-  slide_type?: string,
-  logo_type?:string,
-  Status?:boolean,
-  news_text?: string,
-  tag_line?:string,
-  display?:string,
-  dynamic_content?:string;
+export class WeeklyUpdated {
+  WeeklyUpdateId?:string;
+  Sequence?:number;
+  Body?: string;
+  Header?: string;
+  SlideType?: string;
+  LogoType?:string;
+  Status?:boolean;
+  NewsText?: string;
+  TagLine?:string;
+  Display?:string;
+  DynamicContent?:string;
 
 }
 

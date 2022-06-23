@@ -176,17 +176,17 @@
   margin-bottom: 16px;
   // overflow-y: scroll;
   // overflow-x: none;
+  
 
 }
-
 .cross-mark {
   border: "1px solid #fff;"
 }
 
 .btn-primary {
   width: 164px;
-  margin-left: -38px;
-  margin-right: 184px;
+  margin-left: -53px;
+  margin-right: 59px;
   height: 45px;
 
 }
@@ -264,4 +264,12 @@
     font-size: 12px;
     line-height: 1;
     white-space: normal;
+}
+.modal-sm{
+  max-width: 555px;
+  margin-top: 109px;
+  margin-bottom: 109px;
+}
+.modal-footer{
+  border-top: 3px #41b6b6;
 }
