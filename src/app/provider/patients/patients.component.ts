@@ -27,33 +27,28 @@ export class PatientsComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('SearchPatient') searchPatient: ElementRef;
+  //@ViewChild('filter', { static: false }) filter: ElementRef;
 
   patientColumns: string[] = ['Image', 'First', 'Middle', 'Last', 'DOB', 'Age', 'ContactInfo', 'LastAccessed', 'Created'];
   public patientsDataSource: PatientDatasource;
-
-  filteredPatients: any;
-  searchName: any;
   patientDialogComponent = PatientDialogComponent;
-  dialogResponse = null;
   user: User;
-  pageSize = 10;
-  page = 0;
-  inactivePatients: any[] = [];
   PracticeProviders: PracticeProviders[];
-  keys = 'FirstName,MobilePhone';
   value: any;
-  @ViewChild('filter', { static: false }) filter: ElementRef;
   constructor(public overlayService: OverlayService,
     private patientService: PatientService,
     private authService: AuthenticationService,
     private router: Router,
     private smartSchedulerService: SmartSchedulerService) {
     this.user = authService.userValue;
+    // this.paginator.pageIndex = 0;
+    // this.paginator.pageSize = 10
   }
 
   ngOnInit(): void {
 
     this.loadPatientProviders();
+
     this.getPatientsByProvider();
   }
 
@@ -72,14 +67,8 @@ export class PatientsComponent implements OnInit {
     .subscribe();
     // reset the paginator after sorting
     this.sort.sortChange.subscribe(() => {
-      //this.page = 0;
       this.paginator.pageIndex = 0
     });
-
-    // this.sort.sortChange
-    // .pipe(
-    //   tap(() => this.loadPatients())
-    // ).subscribe();
 
     merge(this.sort.sortChange, this.paginator.page)
         .pipe(

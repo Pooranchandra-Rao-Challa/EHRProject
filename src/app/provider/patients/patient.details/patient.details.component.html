@@ -97,7 +97,13 @@
         type="button" role="tab" aria-controls="pills-cqmNperformed" aria-selected="viewModel.PatientView == 'CQMs Not Performed'" (click)="UpdatePatientView('CQMs Not Performed')">CQMs Not Performed</button>
     </li>
   </ul>
+
+  <mat-progress-bar mode="indeterminate" bufferValue="50" value=100 *ngIf="loading$ | async" ></mat-progress-bar>
+
   <div class="tab-content" id="pills-tabContent">
+    <ng-template #chartview></ng-template>
+  </div>
+  <!-- <div class="tab-content" id="pills-tabContent">
     <div class="tab-pane fade show active" id="pills-chart" role="tabpanel" aria-labelledby="pills-chart-tab">
       <app-chart></app-chart>
     </div>
@@ -119,5 +125,5 @@
     <div class="tab-pane fade" id="pills-cqmNperformed" role="tabpanel" aria-labelledby="pills-cqmNperformed-tab">
       <app-cqmsnotperformed></app-cqmsnotperformed>
     </div>
-  </div>
+  </div> -->
 </div>
