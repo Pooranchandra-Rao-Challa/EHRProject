@@ -20,3 +20,17 @@ export class ProviderPatient{
 }
 
 
+export class PatientBreadcurm{
+  Name?: string;
+  DOB?: string;
+  ViewType?: number
+  PatientId?: string;
+  ProviderId?: string;
+  ShowRemoveIcon?: boolean = false;
+  Details?: ProviderPatient;
+}
+
+
+export enum ENavigationView{
+  list, view
+}

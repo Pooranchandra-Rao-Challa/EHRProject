@@ -3,9 +3,10 @@
     <!-- <app-patients-bread-crum></app-patients-bread-crum> -->
 
     <div class="patients-navigation">
-      <patient-breadcrumb></patient-breadcrumb>
+      <!-- <patient-breadcrumb></patient-breadcrumb> -->
+      <ng-template #patientbreadcrumb></ng-template>
     </div>
-    <div class="patients-navigation-info bg-color" style=" clear: both;">{{paginator.pageIndex * paginator.pageSize+1}} - {{paginator.pageIndex * paginator.pageSize+paginator.pageSize}} of {{paginator.length}}  PATIENTS</div>
+    <div class="patients-navigation-info bg-color" style=" clear: both;">{{paginator.pageIndex * paginator.pageSize+1}} - {{paginator.pageIndex * paginator.pageSize+paginator.pageSize}} of  {{patientsDataSource.TotalRecordSize}} PATIENTS</div>
     <div class="content" style=" clear: both;">
       <div class="row controls">
         <div class="col-xl-7 col-lg-7 col-md-7" style="display: inherit;">

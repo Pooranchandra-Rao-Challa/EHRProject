@@ -4,6 +4,9 @@ import { Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRe
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { ViewModel } from "src/app/_models"
 import { catchError, finalize } from 'rxjs/operators';
+import { PatientBreadcurm, ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
+import { PatientService } from 'src/app/_services/patient.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-patient.details',
   templateUrl: './patient.details.component.html',
@@ -27,11 +30,18 @@ export class PatientDetailsComponent implements OnInit {
     'Patients': 'this.loadPatientsComponent',
     'CQMs Not Performed': 'this.loadCQMsNotPerformedComponent'
   }
+  @ViewChild('patientbreadcrumb', { read: ViewContainerRef, static: true })
+  private patientbreadcrumb: ViewContainerRef;
+  breadcrumbs: PatientBreadcurm[] = [];
+  removedPatientIdsInBreadcurmb: string[]
 
   constructor(private authService: AuthenticationService,
-    private cfr: ComponentFactoryResolver) {
+    private cfr: ComponentFactoryResolver,
+    private patientService: PatientService,
+    private router: Router,) {
     this.viewModel = authService.viewModel;
     this.patient = this.authService.viewModel.Patient;
+    this.removedPatientIdsInBreadcurmb = authService.viewModel.PatientBreadCrumb
   }
 
   ngOnInit(): void {
@@ -56,6 +66,7 @@ export class PatientDetailsComponent implements OnInit {
         this.loadCQMsNotPerformedComponent();
         this.loadingSubject.next(false)
     })
+    this.loadBreadcurmData();
   }
 
   UpdatePatientView(patientView: string) {
@@ -119,5 +130,82 @@ export class PatientDetailsComponent implements OnInit {
     let viewcomp = this.chartviewcontainerref.createComponent(
       this.cfr.resolveComponentFactory(CqmsNotPerformedComponent)
     );
+  }
+
+
+  async loadPatientBreadcrumbView() {
+    this.patientbreadcrumb.clear();
+    const { BreadcrumbComponent } = await import('../patient.breadcrumb/breadcrumb.component');
+    let viewcomp = this.patientbreadcrumb.createComponent(
+      this.cfr.resolveComponentFactory(BreadcrumbComponent)
+    );
+    viewcomp.instance.breadcrumbs = this.breadcrumbs;
+    viewcomp.instance.navigateTo.subscribe((pbc: PatientBreadcurm) => {
+      if(pbc.ViewType==1) this._detailsView(pbc.Details);
+      else if(pbc.ViewType==0) this._listView();
+    });
+    viewcomp.instance.removePatientInBreadcrumb.subscribe(($event) => {
+      this.removePatientBreadcrumbInView($event);
+    });
+  }
+
+  loadBreadcurmData() {
+    this.patientService.LatestUpdatedPatientsUrl({
+      ProviderId: this.authService.userValue.ProviderId,
+      RemovedPatientIds: this.removedPatientIdsInBreadcurmb
+    })
+      .subscribe(resp => {
+        console.log(resp);
+
+        if (resp.IsSuccess) {
+          let patients = resp.ListResult as ProviderPatient[];
+          console.log(patients);
+          this.breadcrumbs = [];
+          let pb: PatientBreadcurm = {
+            Name: "Patients",
+            ViewType: 0,
+            ProviderId: this.authService.userValue.ProviderId
+          }
+          this.breadcrumbs.push(pb);
+          patients.forEach((p) =>{
+              let  pb: PatientBreadcurm = {
+                Name:  p.FirstName+' '+p.LastName,
+                DOB:  p.Dob,
+                ViewType: 1,
+                PatientId: p.PatientId,
+                ShowRemoveIcon: true,
+                Details: p
+              }
+              this.breadcrumbs.push(pb);
+          });
+          this.loadPatientBreadcrumbView()
+        }
+      })
+  }
+
+  updateBreadcurmbModel() {
+
+  }
+
+  removePatientBreadcrumbInView(patientId: string) {
+    if (this.removedPatientIdsInBreadcurmb == null)
+      this.removedPatientIdsInBreadcurmb = [];
+    this.removedPatientIdsInBreadcurmb.push(patientId);
+    this.authService.SetViewParam('PatientBreadCrumb', this.removedPatientIdsInBreadcurmb);
+    this.loadBreadcurmData();
+  }
+
+
+  _detailsView(patientview) {
+    this.authService.SetViewParam("Patient", patientview);
+    this.authService.SetViewParam("PatientView", "Chart");
+    const currentUrl = this.router.url;
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+        this.router.navigate([currentUrl]);
+    });
+  }
+
+  _listView() {
+    this.router.navigate(["provider/patients"]);
   }
 }

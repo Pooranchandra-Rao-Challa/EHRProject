@@ -192,7 +192,7 @@ input::-webkit-input-placeholder {
 
 ::ng-deep .custom-paginator-arrow-disabled {
   color: #dfe3e6;
-  background-color: #e8e8e8;
+ // background-color: #e8e8e8;
   transition: background-color 0.2s, color 0.2s;
   border: 1px solid #41b6a6 !important;
   border-radius: 0px !important;
@@ -200,7 +200,7 @@ input::-webkit-input-placeholder {
 
 ::ng-deep .custom-paginator-arrow-enabled {
   color: #35414f;
-  background-color: #e8e8e8;
+ // background-color: #e8e8e8;
   transition: background-color 0.2s, color 0.2s;
   border: 1px solid #35414f !important;
   border-radius: 0px !important;
