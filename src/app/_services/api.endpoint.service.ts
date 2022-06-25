@@ -551,6 +551,13 @@ export class APIEndPoint extends EndpointBase {
   get _latestUpdatedPatientsUrl(){
     return this._baseUrl + "LatestUpdatedPatients";
   }
+  get _patientAccountInfoUrl(){
+    return this._baseUrl + "PatientAccountInfo";
+  }
+  get _getUserInfoForPatientUrl(){
+    return this._baseUrl + "GetUserInfoForPatient";
+  }
+
 
   constructor(public http: HttpClient) {
     super();

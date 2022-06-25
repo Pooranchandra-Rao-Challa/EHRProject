@@ -7,29 +7,36 @@
   <ul class="patient-main-info">
     <li>{{patient?.FirstName}} {{patient?.LastName}}</li>
     <li>{{patient?.Age}} yrs {{patient?.Gender}}</li>
-    <li>
+    <li *ngIf="patient?.Dob != null">
       <b>DOB:</b>
       <time>{{patient?.Dob | date: 'MM/dd/yyyy'}}</time>
     </li>
-    <li>
-      <b>C:</b>4565654675
+    <li *ngIf="patient.MobilePhone != null">
+      <b>C:</b>{{patient.MobilePhone}}
     </li>
-    <li>
-      <b>H:</b>5346456547
+    <li *ngIf="patient.PrimaryPhone != null">
+      <b>H:</b>{{patient.PrimaryPhone}}
     </li>
-    <li>
-      <a class="btn-modal inivte-to-portal-button">
+    <li *ngIf="patientAccountInfo.HasAccount">
+        <span class="fa fa-plus-circle"></span> Patient Portal: Enrolled
+    </li>
+    <li *ngIf="!patientAccountInfo.HasAccount && patientAccountInfo.InvitationSentAt != null">
+        <span class="fa fa-plus-circle"></span> Patient Portal: Pending
+    </li>
+    <li *ngIf="!patientAccountInfo.HasAccount && patientAccountInfo.InvitationSentAt == null">
+      <a class="btn-modal inivte-to-portal-button"
+      (click)="openComponentDialog(patientPortalAccountComponent,patientUser,ActionTypes.view)">
         <span class="fa fa-plus-circle"></span> Invite to Patient Portal</a>
     </li>
   </ul>
-  <div class="dropdown" style="display: inline-block;">
+  <div class="dropdown" style="float:right;margin-top:10px;">
     <button class="btn btn-orange font-family dropdown-toggle" type="button" id="dropdownMenuButton2"
       data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
       Patient Actions
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
       <li><a>Add Procedure</a></li>
-      <li><a>Add Encounter Note</a></li>
+      <li><a (click)="openComponentDialog(encounterDialogComponent,null,ActionTypes.new)">Add Encounter Note</a></li>
       <li>
         <hr class="dropdown-divider">
       </li>
@@ -104,27 +111,4 @@
   <div class="tab-content" id="pills-tabContent">
     <ng-template #chartview></ng-template>
   </div>
-  <!-- <div class="tab-content" id="pills-tabContent">
-    <div class="tab-pane fade show active" id="pills-chart" role="tabpanel" aria-labelledby="pills-chart-tab">
-      <app-chart></app-chart>
-    </div>
-    <div class="tab-pane fade" id="pills-dentalchart" role="tabpanel" aria-labelledby="pills-dentalchart-tab">
-      <app-dentalchart></app-dentalchart>
-    </div>
-    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-      <app-profile></app-profile>
-    </div>
-    <div class="tab-pane fade" id="pills-insurance" role="tabpanel" aria-labelledby="pills-insurance-tab">
-      <app-insurance></app-insurance>
-    </div>
-    <div class="tab-pane fade" id="pills-amendments" role="tabpanel" aria-labelledby="pills-amendments-tab">
-      <app-amendments></app-amendments>
-    </div>
-    <div class="tab-pane fade" id="pills-patients" role="tabpanel" aria-labelledby="pills-patients-tab">
-      <app-resetpassword></app-resetpassword>
-    </div>
-    <div class="tab-pane fade" id="pills-cqmNperformed" role="tabpanel" aria-labelledby="pills-cqmNperformed-tab">
-      <app-cqmsnotperformed></app-cqmsnotperformed>
-    </div>
-  </div> -->
 </div>

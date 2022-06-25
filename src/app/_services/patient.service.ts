@@ -192,4 +192,9 @@ export class PatientService extends APIEndPoint {
   LatestUpdatedPatientsUrl(reqparams: any){
     return this._ProcessPostRequest<any>(this._latestUpdatedPatientsUrl,reqparams);
   }
+
+  PatientAccountInfo(reqparams: any){
+    return this._ProcessPostRequest<any>(this._patientAccountInfoUrl,reqparams);
+  }
+
 }

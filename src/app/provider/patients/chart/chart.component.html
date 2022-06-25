@@ -61,7 +61,8 @@
         <div class="row pull-right">
           <a class="btn btn-green col-lg-4 col-md-4 col-12 mt-2 mt-lg-0" id="check-alerts">Check CDS Alerts</a>
           <a class="btn btn-green col-lg-4 col-md-4 col-12 mt-2 mt-lg-0">Refresh Chart</a>
-          <a class="btn btn-orange col-md-4 col-12 mt-2 mt-lg-0" data-remote="true">New
+          <a class="btn btn-orange col-md-4 col-12 mt-2 mt-lg-0" data-remote="true"
+          (click)="openComponentDialog(encounterDialogComponent,null,ActionTypes.new)">New
             encounter note
           </a>
         </div>

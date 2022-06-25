@@ -223,7 +223,7 @@ export class PatientDatasource implements DataSource<ProviderPatient>{
   }
 
   loadPatients(filter = '', sortField = 'LastAccessed',
-    sortDirection = 'asc', pageIndex = 0, pageSize = 10) {
+    sortDirection = 'desc', pageIndex = 0, pageSize = 10) {
     this.queryParams["SortField"] = sortField;
     this.queryParams["SortDirection"] = sortDirection;
     this.queryParams["PageIndex"] = pageIndex;

@@ -1,19 +1,28 @@
+import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { BehaviorSubject, of } from 'rxjs';
-import { Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-//import { ActivatedRoute, Route, Router } from '@angular/router';
+import { Component, ComponentFactoryResolver, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
-import { ViewModel } from "src/app/_models"
+import { Actions, PatientPortalUser, ViewModel } from "src/app/_models"
 import { catchError, finalize } from 'rxjs/operators';
-import { PatientBreadcurm, ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
+import { PatientAccountInfo, PatientBreadcurm, ProviderPatient }
+        from 'src/app/_models/_provider/Providerpatient';
 import { PatientService } from 'src/app/_services/patient.service';
 import { Router } from '@angular/router';
+import { OverlayService } from 'src/app/overlay.service';
+import { PatientPortalAccountComponent } from '../../../dialogs/patient.dialog/patient.portal.account.dialog.component';
+import { PatientHealthPortalComponent } from 'src/app/dialogs/patient.dialog/patient.health.portal.component';
+import { ComponentType } from '@angular/cdk/portal';
+import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
+import { EncounterDialogComponent } from '../../../dialogs/encounter.dialog/encounter.dialog.component';
+
 @Component({
   selector: 'app-patient.details',
   templateUrl: './patient.details.component.html',
   styleUrls: ['./patient.details.component.scss']
 })
 export class PatientDetailsComponent implements OnInit {
-  patient: any;
+  patient: ProviderPatient;
+  patientUser: PatientPortalUser;
   viewModel: ViewModel;
   chartSubject: BehaviorSubject<string> = new BehaviorSubject<string>('Chart')
   loadingSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
@@ -34,11 +43,20 @@ export class PatientDetailsComponent implements OnInit {
   private patientbreadcrumb: ViewContainerRef;
   breadcrumbs: PatientBreadcurm[] = [];
   removedPatientIdsInBreadcurmb: string[]
+  patientAccountInfo: PatientAccountInfo = new PatientAccountInfo();
+  patientPortalAccountComponent = PatientPortalAccountComponent;
+  patientHealthPortalComponent = PatientHealthPortalComponent;
+  encounterDialogComponent = EncounterDialogComponent;
+  ActionTypes = Actions;
+
 
   constructor(private authService: AuthenticationService,
     private cfr: ComponentFactoryResolver,
     private patientService: PatientService,
-    private router: Router,) {
+    private router: Router,
+    private overlayService: OverlayService,
+    private utilityService: UtilityService,
+    private alertmsg: AlertMessage,) {
     this.viewModel = authService.viewModel;
     this.patient = this.authService.viewModel.Patient;
     this.removedPatientIdsInBreadcurmb = authService.viewModel.PatientBreadCrumb
@@ -67,8 +85,21 @@ export class PatientDetailsComponent implements OnInit {
         this.loadingSubject.next(false)
     })
     this.loadBreadcurmData();
+    this.loadPatientAccountInfo();
+    this.getUserInfoForPatient();
   }
 
+  loadPatientAccountInfo(){
+    //
+    this.patientService.PatientAccountInfo({
+      PatientId: this.patient.PatientId
+    }).subscribe(resp => {
+      if(resp.IsSuccess)
+      this.patientAccountInfo = resp.Result;
+      else
+      this.patientAccountInfo = new PatientAccountInfo();
+    });
+  }
   UpdatePatientView(patientView: string) {
     this.loadingSubject.next(true);
     this.authService.SetViewParam("PatientView", patientView);
@@ -195,7 +226,6 @@ export class PatientDetailsComponent implements OnInit {
     this.loadBreadcurmData();
   }
 
-
   _detailsView(patientview) {
     this.authService.SetViewParam("Patient", patientview);
     this.authService.SetViewParam("PatientView", "Chart");
@@ -207,5 +237,58 @@ export class PatientDetailsComponent implements OnInit {
 
   _listView() {
     this.router.navigate(["provider/patients"]);
+  }
+
+  getUserInfoForPatient(){
+    this.patientUser = new PatientPortalUser();
+    this.patientUser.Email = this.patient.Email;
+    this.patientUser.DateofBirth = new Date(this.patient.Dob);
+    this.patientUser.PatientId = this.patient.PatientId;
+
+
+    this.utilityService.GetUserInfoForPatient(this.patientUser).subscribe(resp =>{
+      if(resp.IsSuccess){
+        this.patientUser = resp.Result as PatientPortalUser;
+      }
+    })
+  }
+
+  openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
+    data?: any, action?: Actions) {
+    let dialogData: any;
+    if (content === this.patientPortalAccountComponent && action == Actions.view) {
+      dialogData = data;
+    }else if(content === this.patientHealthPortalComponent && action == Actions.view) {
+      dialogData = data;
+    }else if (action == Actions.new && content === this.encounterDialogComponent) {
+      dialogData = this.patient;
+    }
+    const ref = this.overlayService.open(content, dialogData);
+
+    ref.afterClosed$.subscribe(res => {
+      if (content === this.patientPortalAccountComponent) {
+        if(res.data != null){
+          this.utilityService.CreatePatientAccount(res.data).subscribe(resp => {
+            if(resp.IsSuccess){
+              this.openComponentDialog(this.patientHealthPortalComponent,
+                res.data,Actions.view);
+            }else{
+              this.alertmsg.displayErrorDailog(ERROR_CODES["E2AP002"])
+            }
+          });
+        }
+      }else if (content === this.patientHealthPortalComponent) {
+        if(ref.data !== null){
+          if(ref.data.download){
+            //'straight' update to database which recied from ref.data
+            // Update Patient with invivation_sent_at, straight_invitation to database
+
+          }else if(ref.data.sendemail){
+            //'straight' update to database which recied from ref.data
+            // Update Patient with invivation_sent_at, straight_invitation to database
+          }
+        }
+      }
+    });
   }
 }

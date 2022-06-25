@@ -15,6 +15,7 @@ export class ProviderPatient{
   PrimaryPhone: string;
   ProviderId: string;
   active: boolean;
+
   AdvancedDirectives: AdvancedDirective[] = [];
   TotalPatients: number;
 }
@@ -30,7 +31,10 @@ export class PatientBreadcurm{
   Details?: ProviderPatient;
 }
 
-
+export class PatientAccountInfo{
+  InvitationSentAt?: Date;
+  HasAccount?: boolean;
+}
 export enum ENavigationView{
   list, view
 }
