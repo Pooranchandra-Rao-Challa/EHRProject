@@ -1,0 +1,75 @@
+@import "../../../assets/cstm.material.scss";
+@import "../../../assets/common.scss";
+
+#new-procedure-dialog .modal-content {
+  width: 800px;
+}
+
+#new-procedure-dialog .row {
+  padding-bottom: 10px;
+}
+
+.modal-body {
+  max-height: calc(90vh - 300px);
+  overflow-y: auto;
+}
+
+.required::after {
+  content: "*";
+  color: red;
+}
+
+#new-procedure-dialog div.row.title {
+  background-color: #F7F7F7;
+  display: inline-block;
+  margin: 0;
+  font-size: 16px;
+  color: #41b6a6;
+  padding: 15px 0 15px 20px;
+  width: 100%;
+  border-radius: 5px;
+}
+
+#new-procedure-dialog div.row.title>title {
+  padding-left: 0;
+}
+
+#new-procedure-dialog div.row.group {
+  margin: 10px;
+}
+
+#new-procedure-dialog div.items {
+  display: grid;
+  line-height: 40px;
+}
+
+#new-procedure-dialog div.item-border{
+  border: 1px solid #41a6b6;
+  border-radius: 5px;
+}
+
+::ng-deep #new-procedure-dialog span.mat-checkbox-label {
+  margin-left: 10px !important;
+  padding-top: 10px !important;
+}
+
+// ::ng-deep .mat-form-field-disabled .mat-form-field-underline {
+//   background-image: linear-gradient(to right, rgba(0, 0, 0, 1) 0, rgba(0, 0, 0, 0.42) 33%, #c2c7cc 0) !important;
+//   background-size: 1px 100% !important;
+//   background-repeat: repeat-x !important;
+// }
+
+
+::ng-deep .medical-code-option .mat-option-text{
+  white-space: normal !important;
+  line-height: 20px !important;
+  padding:5px 0;
+  border: 0;
+  //margin: 5px 0 5px 0;
+}
+
+::ng-deep .medical-code-option {
+  height: fit-content !important;
+  border: 0;
+  //margin: 5px 0 5px 0;
+}

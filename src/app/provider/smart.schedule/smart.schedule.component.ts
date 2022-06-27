@@ -3,7 +3,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ComponentType } from '@angular/cdk/portal';
-import { MatSelectionListChange } from '@angular/material/list'
 import { Observable, Subject, Subscription } from 'rxjs';
 import { debounceTime, switchMap, distinctUntilChanged, map } from 'rxjs/operators';
 
@@ -17,8 +16,6 @@ import { LocationSelectService } from '../../_navigations/provider.layout/locati
 import { NewAppointmentDialogComponent } from '../../dialogs/newappointment.dialog/newappointment.dialog.component';
 import { UpcomingAppointmentsDialogComponent } from '../../dialogs/upcoming.appointments.dialog/upcoming.appointments.dialog.component';
 import { EncounterDialogComponent } from '../../dialogs/encounter.dialog/encounter.dialog.component';
-import { PageEvent } from "@angular/material/paginator";
-import { MatPaginator } from "@angular/material/paginator";
 import * as moment from "moment";
 
 import {
@@ -469,7 +466,6 @@ export class SmartScheduleComponent implements OnInit {
   }
   showAssociateVitals: boolean = true;
   displayVitalsDialog(event) {
-    debugger;
     if (event == true) {
       this.showAssociateVitals = true;
     }

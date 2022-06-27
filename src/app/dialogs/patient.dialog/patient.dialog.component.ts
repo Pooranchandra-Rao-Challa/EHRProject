@@ -1,4 +1,3 @@
-import { LabtestResult } from './../../_models/_patient/patientclinicalprovider';
 
 import {
   Component,
@@ -173,9 +172,12 @@ export class PatientDialogComponent {
       }else if (content === this.patientHealthPortalComponent) {
         if(ref.data !== null){
           if(ref.data.download){
+            //'straight' update to database which recied from ref.data
+            // Update Patient with invivation_sent_at, straight_invitation to database
 
           }else if(ref.data.sendemail){
-
+            //'straight' update to database which recied from ref.data
+            // Update Patient with invivation_sent_at, straight_invitation to database
           }
         }
       }

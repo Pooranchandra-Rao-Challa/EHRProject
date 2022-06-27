@@ -35,7 +35,7 @@ export class ViewModel{
   CQMView?: string ="";
   WeeklyUpdate?:WeeklyUpdated;
   AdminViewName?:string;
-
+  PatientBreadCrumb?: string[];
 }
 
 export class AdminViewModal{

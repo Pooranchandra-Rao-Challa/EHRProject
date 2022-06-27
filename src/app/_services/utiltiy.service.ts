@@ -44,4 +44,9 @@ export class UtilityService extends APIEndPoint {
   {
     return this._ProcessGetRequest<any>(this._languagesInfoUrl);
   }
+  GetUserInfoForPatient(ppu: PatientPortalUser)
+  {
+    return this._ProcessPostRequest<any>(this._getUserInfoForPatientUrl,ppu);
+  }
+
 }

@@ -1,3 +1,4 @@
+
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 export interface Patient {
   PatientId?: string;
@@ -37,3 +38,4 @@ export class PatientPortalUser{
   Relationship?: string;
   PatientRelationUsername?: string;
 }
+

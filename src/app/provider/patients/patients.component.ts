@@ -1,16 +1,13 @@
-import { Component, OnInit, TemplateRef, QueryList, ViewChildren, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, QueryList, ViewChildren, ViewChild, ElementRef, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
 import { OverlayService } from '../../overlay.service';
 import { PatientDialogComponent } from '../../dialogs/patient.dialog/patient.dialog.component';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { User } from 'src/app/_models';
-import { PageEvent } from "@angular/material/paginator";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
-import { ProviderPatient } from 'src/app/_models/_provider/ProviderPatient';
-import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute, NavigationExtras, Route, Router } from '@angular/router';
-import { SmartScheduleComponent } from '../smart.schedule/smart.schedule.component';
+import { PatientBreadcurm, ProviderPatient } from 'src/app/_models/_provider/ProviderPatient';
+import { Router } from '@angular/router';
 import { SmartSchedulerService } from '../../_services/smart.scheduler.service';
 import { PracticeProviders } from '../../_models/_provider/practiceProviders';
 import { PatientService } from './../../_services/patient.service';
@@ -27,65 +24,119 @@ export class PatientsComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('SearchPatient') searchPatient: ElementRef;
-
+  @ViewChild('patientbreadcrumb', { read: ViewContainerRef, static: true })
+  private patientbreadcrumb: ViewContainerRef;
+  breadcrumbs: PatientBreadcurm[] = [];
   patientColumns: string[] = ['Image', 'First', 'Middle', 'Last', 'DOB', 'Age', 'ContactInfo', 'LastAccessed', 'Created'];
   public patientsDataSource: PatientDatasource;
-
-  filteredPatients: any;
-  searchName: any;
   patientDialogComponent = PatientDialogComponent;
-  dialogResponse = null;
   user: User;
-  pageSize = 10;
-  page = 0;
-  inactivePatients: any[] = [];
   PracticeProviders: PracticeProviders[];
-  keys = 'FirstName,MobilePhone';
   value: any;
-  @ViewChild('filter', { static: false }) filter: ElementRef;
+  removedPatientIdsInBreadcurmb: string[]
   constructor(public overlayService: OverlayService,
     private patientService: PatientService,
     private authService: AuthenticationService,
     private router: Router,
-    private smartSchedulerService: SmartSchedulerService) {
+    private smartSchedulerService: SmartSchedulerService,
+    private cfr: ComponentFactoryResolver) {
     this.user = authService.userValue;
+    this.removedPatientIdsInBreadcurmb = authService.viewModel.PatientBreadCrumb
   }
 
   ngOnInit(): void {
 
     this.loadPatientProviders();
+
     this.getPatientsByProvider();
+
+    this.loadBreadcurmData();
+  }
+
+  async loadPatientBreadcrumbView() {
+    this.patientbreadcrumb.clear();
+    const { BreadcrumbComponent } = await import('./patient.breadcrumb/breadcrumb.component');
+    let viewcomp = this.patientbreadcrumb.createComponent(
+      this.cfr.resolveComponentFactory(BreadcrumbComponent)
+    );
+    viewcomp.instance.breadcrumbs = this.breadcrumbs;
+    viewcomp.instance.navigateTo.subscribe((pbc: PatientBreadcurm) => {
+      if(pbc.ViewType==1) this.onChangeViewState(pbc.Details);
+    });
+    viewcomp.instance.removePatientInBreadcrumb.subscribe(($event) => {
+      this.removePatientBreadcrumbInView($event);
+    });
+  }
+
+  loadBreadcurmData() {
+    this.patientService.LatestUpdatedPatientsUrl({
+      ProviderId: this.authService.userValue.ProviderId,
+      RemovedPatientIds: this.removedPatientIdsInBreadcurmb
+    })
+      .subscribe(resp => {
+        console.log(resp);
+
+        if (resp.IsSuccess) {
+          let patients = resp.ListResult as ProviderPatient[];
+          console.log(patients);
+          this.breadcrumbs = [];
+          let pb: PatientBreadcurm = {
+            Name: "Patients",
+            ViewType: 0,
+            ProviderId: this.authService.userValue.ProviderId
+          }
+          this.breadcrumbs.push(pb);
+          patients.forEach((p) =>{
+              let  pb: PatientBreadcurm = {
+                Name:  p.FirstName+' '+p.LastName,
+                DOB:  p.Dob,
+                ViewType: 1,
+                PatientId: p.PatientId,
+                ShowRemoveIcon: true,
+                Details: p
+              }
+              this.breadcrumbs.push(pb);
+          });
+          this.loadPatientBreadcrumbView()
+        }
+      })
+  }
+
+  updateBreadcurmbModel() {
+
+  }
+
+  removePatientBreadcrumbInView(patientId: string) {
+    if (this.removedPatientIdsInBreadcurmb == null)
+      this.removedPatientIdsInBreadcurmb = [];
+    this.removedPatientIdsInBreadcurmb.push(patientId);
+    this.authService.SetViewParam('PatientBreadCrumb', this.removedPatientIdsInBreadcurmb);
+    this.loadBreadcurmData();
   }
 
   ngAfterViewInit(): void {
     // server-side search
-    fromEvent(this.searchPatient.nativeElement,'keyup')
-    .pipe(
+    fromEvent(this.searchPatient.nativeElement, 'keyup')
+      .pipe(
         debounceTime(150),
         distinctUntilChanged(),
         tap(() => {
-            //this.page = 0;
-            this.paginator.pageIndex = 0;
-            this.loadPatients();
+          //this.page = 0;
+          this.paginator.pageIndex = 0;
+          this.loadPatients();
         })
-    )
-    .subscribe();
+      )
+      .subscribe();
     // reset the paginator after sorting
     this.sort.sortChange.subscribe(() => {
-      //this.page = 0;
       this.paginator.pageIndex = 0
     });
 
-    // this.sort.sortChange
-    // .pipe(
-    //   tap(() => this.loadPatients())
-    // ).subscribe();
-
     merge(this.sort.sortChange, this.paginator.page)
-        .pipe(
-            tap(() => this.loadPatients())
-        )
-        .subscribe();
+      .pipe(
+        tap(() => this.loadPatients())
+      )
+      .subscribe();
   }
 
   loadPatientProviders() {
@@ -98,9 +149,8 @@ export class PatientsComponent implements OnInit {
   }
 
   onChangeViewState(patientview) {
-
-    this.authService.SetViewParam("Patient",patientview);
-    this.authService.SetViewParam("PatientView","Chart");
+    this.authService.SetViewParam("Patient", patientview);
+    this.authService.SetViewParam("PatientView", "Chart");
     this.router.navigate(["/provider/patientdetails"]);
   }
 
@@ -108,20 +158,20 @@ export class PatientsComponent implements OnInit {
     let reqparams = {
       "ClinicId": this.user.ClinicId,
       "ProviderId": this.user.ProviderId,
-      "Status" : "All"
+      "Status": "All"
     }
-    this.patientsDataSource = new PatientDatasource(this.patientService,reqparams);
+    this.patientsDataSource = new PatientDatasource(this.patientService, reqparams);
     this.patientsDataSource.loadPatients();
   }
 
-  loadPatients(){
+  loadPatients() {
     this.patientsDataSource.loadPatients(
       this.searchPatient.nativeElement.value,
       this.sort.active,
       this.sort.direction,
       this.paginator.pageIndex,
       this.paginator.pageSize
-      );
+    );
   }
 
   showInactivePatients(event) {
@@ -138,8 +188,8 @@ export class PatientsComponent implements OnInit {
     const ref = this.overlayService.open(content, null);
 
     ref.afterClosed$.subscribe(res => {
-    if (content === this.patientDialogComponent) {
-        if(res.data != null && res.data.refresh){
+      if (content === this.patientDialogComponent) {
+        if (res.data != null && res.data.refresh) {
           this.paginator.pageIndex = 0;
           this.loadPatients();
         }
@@ -155,7 +205,7 @@ export class PatientDatasource implements DataSource<ProviderPatient>{
   public loading$ = this.loadingSubject.asObservable();
 
 
-  constructor(private patientService: PatientService,private queryParams: {}){
+  constructor(private patientService: PatientService, private queryParams: {}) {
 
 
   }
@@ -168,33 +218,33 @@ export class PatientDatasource implements DataSource<ProviderPatient>{
     this.loadingSubject.complete();
   }
 
-  set Status(status: string){
+  set Status(status: string) {
     this.queryParams["Status"] = status;
   }
 
-  loadPatients( filter = '', sortField = 'LastAccessed',
-                sortDirection = 'asc', pageIndex = 0, pageSize = 10) {
-        this.queryParams["SortField"] = sortField;
-        this.queryParams["SortDirection"] = sortDirection;
-        this.queryParams["PageIndex"] = pageIndex;
-        this.queryParams["PageSize"] = pageSize;
-        this.queryParams["Filter"] = filter;
-        this.loadingSubject.next(true);
+  loadPatients(filter = '', sortField = 'LastAccessed',
+    sortDirection = 'desc', pageIndex = 0, pageSize = 10) {
+    this.queryParams["SortField"] = sortField;
+    this.queryParams["SortDirection"] = sortDirection;
+    this.queryParams["PageIndex"] = pageIndex;
+    this.queryParams["PageSize"] = pageSize;
+    this.queryParams["Filter"] = filter;
+    this.loadingSubject.next(true);
 
-        this.patientService.FilteredPatientsOfProvider(this.queryParams).pipe(
-            catchError(() => of([])),
-            finalize(() => this.loadingSubject.next(false))
-        )
-        .subscribe(resp => {
-          this.patientsSubject.next(resp.ListResult as ProviderPatient[])
-        });
-    }
+    this.patientService.FilteredPatientsOfProvider(this.queryParams).pipe(
+      catchError(() => of([])),
+      finalize(() => this.loadingSubject.next(false))
+    )
+      .subscribe(resp => {
+        this.patientsSubject.next(resp.ListResult as ProviderPatient[])
+      });
+  }
 
 
-    get TotalRecordSize():number{
-      if(this.patientsSubject.getValue() && this.patientsSubject.getValue().length>0)
-        return this.patientsSubject.getValue()[0].TotalPatients;
-      return 0;
-    }
+  get TotalRecordSize(): number {
+    if (this.patientsSubject.getValue() && this.patientsSubject.getValue().length > 0)
+      return this.patientsSubject.getValue()[0].TotalPatients;
+    return 0;
+  }
 
 }

@@ -1,32 +1,25 @@
 <div class="patients-wrapper">
   <div class="container-fluid-full" style="margin-top: -18px;">
-    <!-- <app-patients-bread-crum></app-patients-bread-crum> -->
-
     <div class="patients-navigation">
-      <patient-breadcrumb></patient-breadcrumb>
+      <ng-template #patientbreadcrumb></ng-template>
     </div>
-    <div class="patients-navigation-info bg-color" style=" clear: both;">{{paginator.pageIndex * paginator.pageSize+1}} - {{paginator.pageIndex * paginator.pageSize+paginator.pageSize}} of {{paginator.length}}  PATIENTS</div>
+    <div class="patients-navigation-info bg-color" style=" clear: both;">{{paginator.pageIndex * paginator.pageSize+1}} - {{paginator.pageIndex * paginator.pageSize+paginator.pageSize}} of  {{patientsDataSource.TotalRecordSize}} PATIENTS</div>
     <div class="content" style=" clear: both;">
       <div class="row controls">
-        <div class="col-xl-7 col-lg-7 col-md-7" style="display: inherit;">
-
-
-          <div class="col-xl-6 col-lg-6 col-md-6 patients-search">
-            <mat-form-field appearance="outline" class="input-search col-xl-8 col-lg-8 col-md-8 col-8">
+        <div class="col-xl-9 col-lg-9 col-md-9 col-9" style="float: left; display:flex">
+          <div class="patients-search" style="float: left;">
+            <mat-form-field appearance="outline" class="input-search" style="width:300px">
               <mat-label>Search Patient With Name or Phone Number</mat-label>
               <input matInput #SearchPatient autocomplete="off" placeholder="Search by name or phone number"
-              [(ngModel)]="searchName" />
+               />
             </mat-form-field>
-            <!-- <button class="btn-search col-xl-1 col-lg-2 col-md-1 col-2">
-              <mat-icon>search</mat-icon>
-            </button> -->
           </div>
-          <div class="col-xl-2 col-lg-2 col-md-2 pb-3 pb-lg-0" style="margin-right: 10px;">
+          <div class="pb-3 pb-lg-0" style="margin-right: 10px;margin-left:10px">
             <mat-checkbox class=" col-lg-12 col-md-9 col-12 pull-right" (change)="showInactivePatients($event)">
               Show Inactive
             </mat-checkbox>
           </div>
-          <div class="col-xl-4 col-lg-4 col-md-4">
+          <div class="">
             <mat-form-field appearance="outline" class="col-12 hover">
               <mat-select placeholder="All Providers" disableOptionCentering>
                 <mat-option *ngFor="let providers of PracticeProviders" [value]="providers.ProviderId">
@@ -35,15 +28,14 @@
             </mat-form-field>
           </div>
         </div>
-        <div class="col-xl-3 col-lg-3 col-md-3"></div>
-        <div class="col-xl-2 col-lg-2 col-md-2 pb-3 pb-lg-0">
+        <div class="col-xl-3 col-lg-3 col-md-3 col-3" style="float: right;">
           <button mat-button class="btn btn-orange pull-right Helvetica-sans-serif-medium"
             (click)="openComponentDialog(patientDialogComponent)">
             Add Patient
           </button>
         </div>
       </div>
-      <div class="patients scrollable-mat-table">
+      <div class="patients scrollable-mat-table" tyle=" clear: both;">
         <div class="spinner-container" *ngIf="patientsDataSource.loading$ | async">
           <mat-spinner></mat-spinner>
         </div><!-- [dataSource]="patientsList.data | search: keys: searchName: filter | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize"-->
@@ -137,7 +129,7 @@
       <div class="d-flex justify-content-end my-3">
         <div class="pg-container">
           <mat-paginator appPagination
-             [length]="patientsDataSource.TotalRecordSize" [pageSize]="pageSize" [pageIndex] = "page"
+             [length]="patientsDataSource.TotalRecordSize" pageSize="10" [pageIndex] = "0"
              [pageSizeOptions]="[10,20,30,40,50]"  >
             </mat-paginator>
           </div>
