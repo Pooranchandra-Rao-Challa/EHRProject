@@ -466,7 +466,6 @@ export class SmartScheduleComponent implements OnInit {
   }
   showAssociateVitals: boolean = true;
   displayVitalsDialog(event) {
-    debugger;
     if (event == true) {
       this.showAssociateVitals = true;
     }

@@ -35,7 +35,7 @@
       Patient Actions
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-      <li><a>Add Procedure</a></li>
+      <li><a (click)="openComponentDialog(procedureDialogComponent,procedureInfo,ActionTypes.new)">Add Procedure</a></li>
       <li><a (click)="openComponentDialog(encounterDialogComponent,null,ActionTypes.new)">Add Encounter Note</a></li>
       <li>
         <hr class="dropdown-divider">

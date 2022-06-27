@@ -153,6 +153,7 @@ export class ProceduresInfo implements IDeleteFlag {
   Surface?: string;
   ToothProblemId?: string;
   ReasonStartDate?: Date;
+  Surfaces: string[] = [];
 
   CanDelete?: boolean = false;
 }

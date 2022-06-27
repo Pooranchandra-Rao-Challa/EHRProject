@@ -2,7 +2,7 @@ import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { BehaviorSubject, of } from 'rxjs';
 import { Component, ComponentFactoryResolver, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
-import { Actions, PatientPortalUser, ViewModel } from "src/app/_models"
+import { Actions, PatientPortalUser, ProceduresInfo, ViewModel } from "src/app/_models"
 import { catchError, finalize } from 'rxjs/operators';
 import { PatientAccountInfo, PatientBreadcurm, ProviderPatient }
         from 'src/app/_models/_provider/Providerpatient';
@@ -13,7 +13,8 @@ import { PatientPortalAccountComponent } from '../../../dialogs/patient.dialog/p
 import { PatientHealthPortalComponent } from 'src/app/dialogs/patient.dialog/patient.health.portal.component';
 import { ComponentType } from '@angular/cdk/portal';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
-import { EncounterDialogComponent } from '../../../dialogs/encounter.dialog/encounter.dialog.component';
+import { EncounterDialogComponent } from 'src/app/dialogs/encounter.dialog/encounter.dialog.component';
+import { ProcedureDialogComponent} from 'src/app/dialogs/procedure.dialog/procedure.dialog.component';
 
 @Component({
   selector: 'app-patient.details',
@@ -47,6 +48,8 @@ export class PatientDetailsComponent implements OnInit {
   patientPortalAccountComponent = PatientPortalAccountComponent;
   patientHealthPortalComponent = PatientHealthPortalComponent;
   encounterDialogComponent = EncounterDialogComponent;
+  procedureDialogComponent = ProcedureDialogComponent;
+  procedureInfo: ProceduresInfo = new ProceduresInfo();
   ActionTypes = Actions;
 
 
@@ -87,6 +90,11 @@ export class PatientDetailsComponent implements OnInit {
     this.loadBreadcurmData();
     this.loadPatientAccountInfo();
     this.getUserInfoForPatient();
+    this.updateProcedureInfo();
+  }
+
+  updateProcedureInfo(){
+    this.procedureInfo.PatientId = this.patient.PatientId;
   }
 
   loadPatientAccountInfo(){
