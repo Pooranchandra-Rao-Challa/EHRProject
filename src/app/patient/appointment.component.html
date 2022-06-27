@@ -44,13 +44,20 @@
             </tr>
           </thead>
           <tbody>
+            <tr *ngFor="let item of PatientUpcomingAppointmentsList">
+              <td class="Helvetica-sans-serif-medium">{{item.StartAt | date:'M/d/yyyy'}}</td>
+              <td class="Helvetica-sans-serif-medium">{{item.StartAt | date:'shortTime'}}</td>
+              <td class="Helvetica-sans-serif-medium">{{item.ProviderName}}</td>
+              <td class="Helvetica-sans-serif-medium">{{item.ApptStatus}}</td>
+            </tr>
             <tr>
-              <td colspan="5" style="font-size: 16px;">
-                You don't have any upcoming appointments.
+              <td *ngIf="PatientUpcomingAppointmentsList?.length==null || PatientUpcomingAppointmentsList?.length==0" colspan="7" >
+                You don't have any past appointments.
               </td>
             </tr>
           </tbody>
         </table>
+       
       </div>
 
       <div *ngIf="isPast" class="table-responsive">
@@ -64,13 +71,22 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td colspan="5" style="font-size: 16px;">
-                You don't have any past appointments.
-              </td>
+            <tr *ngFor="let item of PatientPastAppointmentsList">
+               <td class="Helvetica-sans-serif-medium">{{item.StartAt | date:'M/d/yyyy'}}</td> 
+               <td class="Helvetica-sans-serif-medium">{{item.StartAt | date:'shortTime'}}</td>
+               <td  class="Helvetica-sans-serif-medium">{{item.ProviderName}}</td>
+               <td  class="Helvetica-sans-serif-medium">{{item.ApptStatus}}</td>
             </tr>
+            <tr>
+            <td *ngIf="PatientPastAppointmentsList?.length==null || PatientPastAppointmentsList?.length==0" colspan="7" >
+              You don't have any past appointments.
+            </td>
+          </tr>
+           
           </tbody>
+         
         </table>
+      
       </div>
     </div>
   </div>
