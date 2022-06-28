@@ -29,10 +29,12 @@ export class ChartComponent implements OnInit {
   encounterDialogComponent = EncounterDialogComponent;
 
   dialogResponse = null;
+  advanceddirectivesdialogResponse: AdvancedDirectivesDialogComponent;
+  smokingstatusdialogResponse: SmokingStatusDialogComponent;
   // advancedDirectives: AdvancedDirective[];
   allDiagnoses: EncounterDiagnosis[];
-  allAllergies = [] as Allergies;
-  pastMedicalHistories = [] as PastMedicalHistories;
+  patientAllergy: Allergies = new Allergies();
+  patientpastMedicalHistories: PastMedicalHistories = new PastMedicalHistories();
   immunizations: Immunizations[];
   medications: Medications[];
   encounters: EncounterInfo[];
@@ -40,13 +42,11 @@ export class ChartComponent implements OnInit {
   // smokingstatus: SmokingStatus[];
   tobaccoscreenings: TobaccoUseScreenings[];
   tobaccointerventions: TobaccoUseInterventions[];
-  advanceddirectivesdialogResponse: any;
-  smokingstatusdialogResponse: any;
-  allergyType: any;
-  severityLevel: any;
-  onsetAt: any;
-  allergens: any;
-  allergyReaction: any;
+  allergyType: string[];
+  severityLevel: string[];
+  onsetAt: string[];
+  allergens: string[];
+  allergyReaction: string[];
   currentPatient: ProviderPatient;
   ActionTypes = Actions;
   chartInfo: ChartInfo = new ChartInfo;
@@ -110,17 +110,16 @@ export class ChartComponent implements OnInit {
   ChartInfo() {
     this.patientService.ChartInfo({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       this.chartInfo = resp.Result;
-      this.pastMedicalHistories = this.chartInfo.PastMedicalHistories[0];
     });
   }
 
   resetDialog() {
-    this.allAllergies = new Allergies;
+    this.patientAllergy = new Allergies;
   }
 
   editDialog(dialogData, name) {
     if (name == 'past medical history') {
-      this.pastMedicalHistories = dialogData;
+      this.patientpastMedicalHistories = dialogData;
     }
     else if (name == 'allergie') {
       if (dialogData.StartAt != undefined) {
@@ -129,13 +128,13 @@ export class ChartComponent implements OnInit {
       if (dialogData.EndAt != undefined) {
         dialogData.EndAt = moment(dialogData.EndAt).format('YYYY-MM-DD');
       }
-      this.allAllergies = dialogData;
-      this.allAllergies.AllergenId = dialogData.AllergenId;
+      this.patientAllergy = dialogData;
+      this.patientAllergy.AllergenId = dialogData.AllergenId;
     }
   }
 
   CreatePastMedicalHistories() {
-    this.patientService.CreatePastMedicalHistories(this.pastMedicalHistories).subscribe((resp) => {
+    this.patientService.CreatePastMedicalHistories(this.patientpastMedicalHistories).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.PastMedicalHistoriesByPatientId();
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2CPMH002"]);
@@ -147,14 +146,15 @@ export class ChartComponent implements OnInit {
   }
 
   CreateAllergies() {
-    let isAdd = this.allAllergies.AlergieId == "";
-    this.allAllergies.PatientId = this.currentPatient.PatientId;
-    this.allAllergies.StartAt = this.datepipe.transform(this.allAllergies.StartAt, "MM/dd/yyyy hh:mm:ss");
-    this.allAllergies.EndAt = this.datepipe.transform(this.allAllergies.EndAt, "MM/dd/yyyy hh:mm:ss");
-    this.allAllergies.EncounterId = '60d72688391cba0e236c28c8';
-    this.patientService.CreateAllergies(this.allAllergies).subscribe((resp) => {
+    let isAdd = this.patientAllergy.AlergieId == "";
+    this.patientAllergy.PatientId = this.currentPatient.PatientId;
+    this.patientAllergy.StartAt = this.datepipe.transform(this.patientAllergy.StartAt, "MM/dd/yyyy hh:mm:ss");
+    this.patientAllergy.EndAt = this.datepipe.transform(this.patientAllergy.EndAt, "MM/dd/yyyy hh:mm:ss");
+    this.patientAllergy.EncounterId = '60d72688391cba0e236c28c8';
+    this.patientService.CreateAllergies(this.patientAllergy).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.AllergiesByPatientId();
+        this.resetDialog();
         this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CA001" : "M2CA002"]);
       }
       else {
@@ -164,19 +164,19 @@ export class ChartComponent implements OnInit {
   }
 
   disablePastMedicalHistory() {
-    return !(this.pastMedicalHistories.MajorEvents != ''
-      && this.pastMedicalHistories.OngoingProblems != ''
-      && this.pastMedicalHistories.PerventiveCare != ''
-      && this.pastMedicalHistories.NutritionHistory != '')
+    return !(this.patientpastMedicalHistories.MajorEvents != ''
+      && this.patientpastMedicalHistories.OngoingProblems != ''
+      && this.patientpastMedicalHistories.PerventiveCare != ''
+      && this.patientpastMedicalHistories.NutritionHistory != '')
   }
 
   disableAllergies() {
-    return !(this.allAllergies.AllergenType != undefined
-      && this.allAllergies.AllergenName != undefined
-      && this.allAllergies.SeverityLevel != undefined
-      && this.allAllergies.OnSetAt != undefined
-      && this.allAllergies.Reaction != undefined
-      && this.allAllergies.StartAt != undefined)
+    return !(this.patientAllergy.AllergenType != undefined
+      && this.patientAllergy.AllergenName != undefined
+      && this.patientAllergy.SeverityLevel != undefined
+      && this.patientAllergy.OnSetAt != undefined
+      && this.patientAllergy.Reaction != undefined
+      && this.patientAllergy.StartAt != undefined)
   }
 
   // Get advanced directives info

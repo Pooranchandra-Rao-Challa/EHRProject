@@ -19,10 +19,10 @@ export class PastMedicalHistories {
   PastMedicalHistoryId?: string;
   PatinetId?: string;
   CreatedAt?: Date;
-  OngoingProblems?: string = '';
-  NutritionHistory?: string = '';
-  MajorEvents?: string = '';
-  PerventiveCare?: string = '';
+  OngoingProblems?: string = "";
+  NutritionHistory?: string = "";
+  MajorEvents?: string = "Sample modal";
+  PerventiveCare?: string = "";
   FamilyHealthyHistoryId?: string;
   fFirstName?: string;
   fLastName?: string;

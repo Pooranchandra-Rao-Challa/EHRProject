@@ -198,13 +198,13 @@ export const ERROR_CODES: { [key: string]: string } = {
   //Error for Partner signup
   'E3PS001': 'Partner Error',
   'I3PS001': 'Thank you for your interest in becoming a partner application. Our team will be reaching out to you in the next 3-5 business days',
-  //Message for Smoking Status in chart screen
-  'M2CSS001': 'Smoking Status added successfully',
-  'M2CSS002': 'Smoking Status updated successfully',
-  'M2CSS003': 'Smoking Status deleted successfully',
+  //Message for Smoking status in chart screen
+  'M2CSS001': 'Smoking status added successfully',
+  'M2CSS002': 'Smoking status updated successfully',
+  'M2CSS003': 'Smoking status deleted successfully',
 
   // Error for Smoking Status
-  'E2CSS001': 'Smoking Status Updation error',
+  'E2CSS001': 'Smoking status Updation error',
 
   // Message for Admin Provider  Status
   'M1P001': 'Your 30-Day Trial version is finished',

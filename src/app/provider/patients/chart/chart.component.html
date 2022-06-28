@@ -644,12 +644,13 @@
       <div class="modal-body bg-white scroolbar addlocationbody">
         <div class="col-md-12">
           <label class="required">Major Events:</label>
-          <textarea class="form-control col-12 mt-3 mt-md-0" [(ngModel)]="pastMedicalHistories.MajorEvents"></textarea>
+          <textarea class="form-control col-12 mt-3 mt-md-0"
+            [(ngModel)]="patientpastMedicalHistories.MajorEvents"></textarea>
         </div>
         <div class="col-md-12">
           <label class="required">Ongoing Medical Problems:</label>
           <textarea class="form-control col-12 mt-3 mt-md-0"
-            [(ngModel)]="pastMedicalHistories.OngoingProblems"></textarea>
+            [(ngModel)]="patientpastMedicalHistories.OngoingProblems"></textarea>
         </div>
         <div class="col-md-12">
           <div class="row card-bg mt-2">
@@ -666,12 +667,12 @@
         <div class="col-md-12 mt-1">
           <label class="required">Preventative Care:</label>
           <textarea class="form-control col-12 mt-3 mt-md-0"
-            [(ngModel)]="pastMedicalHistories.PerventiveCare"></textarea>
+            [(ngModel)]="patientpastMedicalHistories.PerventiveCare"></textarea>
         </div>
         <div class="col-md-12">
           <label class="required">Nutrition History:</label>
           <textarea class="form-control col-12 mt-3 mt-md-0"
-            [(ngModel)]="pastMedicalHistories.NutritionHistory"></textarea>
+            [(ngModel)]="patientpastMedicalHistories.NutritionHistory"></textarea>
         </div>
       </div>
       <div class="row mb-3 mt-1 mx-3">
@@ -877,7 +878,7 @@
           </div>
           <div class="col-md-4">
             <mat-form-field appearance="outline">
-              <mat-select required [(ngModel)]="allAllergies.AllergenType">
+              <mat-select required [(ngModel)]="patientAllergy.AllergenType">
                 <mat-option *ngFor="let allergy of allergyType" [value]="allergy">
                   {{allergy}}
                 </mat-option>
@@ -889,7 +890,7 @@
           </div>
           <div class="col-md-4">
             <mat-form-field appearance="outline" class="input-bg">
-              <mat-select required [(ngModel)]="allAllergies.AllergenName">
+              <mat-select required [(ngModel)]="patientAllergy.AllergenName">
                 <mat-option *ngFor="let allergie of allergens" [value]="allergie">
                   {{allergie}}
                 </mat-option>
@@ -903,7 +904,7 @@
           </div>
           <div class="col-md-4">
             <mat-form-field appearance="outline">
-              <mat-select required [(ngModel)]="allAllergies.SeverityLevel">
+              <mat-select required [(ngModel)]="patientAllergy.SeverityLevel">
                 <mat-option *ngFor="let severity of severityLevel" [value]="severity">
                   {{severity}}
                 </mat-option>
@@ -917,7 +918,7 @@
           </div>
           <div class="col-md-4">
             <mat-form-field appearance="outline">
-              <mat-select required [(ngModel)]="allAllergies.OnSetAt">
+              <mat-select required [(ngModel)]="patientAllergy.OnSetAt">
                 <mat-option *ngFor="let onset of onsetAt" [value]="onset">
                   {{onset}}
                 </mat-option>
@@ -933,7 +934,7 @@
                 id="find-messages-button"><i class="fa fa-search"></i></span>
             </div> -->
             <mat-form-field appearance="outline">
-              <mat-select required [(ngModel)]="allAllergies.Reaction">
+              <mat-select required [(ngModel)]="patientAllergy.Reaction">
                 <mat-option *ngFor="let allergy of allergyReaction" [value]="allergy">
                   {{allergy}}
                 </mat-option>
@@ -949,7 +950,7 @@
           <div class="col-md-6">
             <mat-form-field appearance="outline" class="input-field calender-item  col-md-8">
               <input matInput [matDatepicker]="StartAt" placeholder="Start Date" name="startDate"
-                [(ngModel)]="allAllergies.StartAt" />
+                [(ngModel)]="patientAllergy.StartAt" />
               <mat-datepicker-toggle matSuffix [for]="StartAt">
               </mat-datepicker-toggle>
               <mat-datepicker #StartAt disabled="false"></mat-datepicker>
@@ -963,7 +964,7 @@
           <div class="col-md-6">
             <mat-form-field appearance="outline" class="input-field calender-item  col-md-8">
               <input matInput [matDatepicker]="EndAt" placeholder="End Date" name="endDate"
-                [(ngModel)]="allAllergies.EndAt" />
+                [(ngModel)]="patientAllergy.EndAt" />
               <mat-datepicker-toggle matSuffix [for]="EndAt">
               </mat-datepicker-toggle>
               <mat-datepicker #EndAt disabled="false"></mat-datepicker>
@@ -972,7 +973,7 @@
         </div>
         <div class="col-md-12 mt-3">
           <label class="title-bold">Notes:</label>
-          <textarea class="form-control inputclass col-12 mt-3 mt-md-0" [(ngModel)]="allAllergies.Note"></textarea>
+          <textarea class="form-control inputclass col-12 mt-3 mt-md-0" [(ngModel)]="patientAllergy.Note"></textarea>
         </div>
       </div>
 
