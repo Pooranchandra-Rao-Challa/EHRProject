@@ -15,6 +15,41 @@ export class SmokingStatus {
   EffectiveFrom?: string;
 }
 
+export class PastMedicalHistories {
+  PastMedicalHistoryId?: string;
+  PatinetId?: string;
+  CreatedAt?: Date;
+  OngoingProblems?: string = '';
+  NutritionHistory?: string = '';
+  MajorEvents?: string = '';
+  PerventiveCare?: string = '';
+  FamilyHealthyHistoryId?: string;
+  fFirstName?: string;
+  fLastName?: string;
+  Relationship?: string;
+  fBirthAt?: string;
+  fDeceased?: boolean;
+  fNote?: string;
+  fCreatedAt?: Date;
+  fUpdatedAt?: Date;
+}
+
+export class Allergies {
+  AlergieId?: string;
+  PatientId?: string;
+  AllergenType?: string;
+  AlergieName?: string;
+  SeverityLevel?: string;
+  OnSetAt?: string;
+  StartAt?: string;
+  EndAt?: string;
+  Note?: string;
+  Reaction?: string;
+  AllergenName?: string;
+  EncounterId?: string;
+  AllergenId?: string;
+}
+
 export enum PatientChart {
   AdvancedDirectives,
   SmokingStatus
@@ -33,39 +68,8 @@ export class ChartInfo {
   TobaccoUseInterventions?: TobaccoUseScreenings[] = []
   TobaccoUseScreenings?: TobaccoUseInterventions[] = []
 }
-export interface Allergies {
-  AlergieId?: string;
-  PatientId?: string;
-  AllergenType?: string;
-  AlergieName?: string;
-  SeverityLevel?: string;
-  OnSetAt?: string;
-  StartAt?: string;
-  EndAt?: string;
-  Note?: string;
-  Reaction?: string;
-}
 
-export interface PastMedicalHistories {
-  PastMedicalHistoryId?: string;
-  PatinetId?: string;
-  CreatedAt?: Date;
-  OngoingProblems?: string;
-  NutritionHistory?: string;
-  MajorEvents?: string;
-  PerventiveCare?: string;
-  FamilyHealthyHistoryId: string;
-  fFirstName?: string;
-  fLastName?: string;
-  Relationship?: string;
-  fBirthAt?: string;
-  fDeceased?: boolean;
-  fNote?: string;
-  fCreatedAt?: Date;
-  fUpdatedAt?: Date;
-}
-
-export interface Immunizations {
+export class Immunizations {
   ImmunizationId?: string;
   PatientId?: string;
   AdministeredAt?: string;
@@ -73,7 +77,7 @@ export interface Immunizations {
   Notes?: string;
 }
 
-export interface Medications {
+export class Medications {
   MedicationId?: string;
   PatientId?: string;
   DrugName?: string;
@@ -94,7 +98,7 @@ export interface Medications {
   CQMStatus?: string;
 }
 
-export interface TobaccoUseScreenings {
+export class TobaccoUseScreenings {
   TobaccoUseId?: string;
   PatientId?: string;
   ScreeningId?: string;
@@ -105,7 +109,7 @@ export interface TobaccoUseScreenings {
   ScreeningPerformed?: string;
 }
 
-export interface TobaccoUseInterventions {
+export class TobaccoUseInterventions {
   tobacco_use_id?: string;
   patient_id?: string;
   cessation_intervention_id?: string

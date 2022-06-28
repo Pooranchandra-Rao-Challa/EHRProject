@@ -196,32 +196,34 @@
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
-                    <p class="card-title" data-bs-toggle="modal" data-bs-target="#exampleModal2">Past Medical History
+                    <p class="card-title" data-bs-toggle="modal" data-bs-target="#pastmedical-modal">Past Medical
+                      History
                     </p>
                   </div>
                   <div class="col-md-4 col-6">
                     <div class="col-12">
-                      <div class="edit-icon pull-right">
-                        <span class="cstm-icon-pencil" data-bs-toggle="modal" data-bs-target="#exampleModal2"></span>
+                      <div class="edit-icon pull-right" data-bs-toggle="modal" data-bs-target="#pastmedical-modal">
+                        <span class="cstm-icon-pencil"></span>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list" *ngFor="let pastmedical of pastMedicalHistories">
+                <ul class="main-list" *ngFor="let pastmedical of chartInfo?.PastMedicalHistories">
                   <li>
-                    <a>
-                      <span *ngIf="pastmedical?.created_at != null && pastmedical?.created_at !=''">
-                        - {{pastmedical?.created_at | date: 'MM/dd/yyyy'}}
+                    <a data-bs-toggle="modal" data-bs-target="#pastmedical-modal"
+                      (click)="editDialog(pastmedical, 'past medical history')">
+                      <span *ngIf="pastmedical?.CreatedAt != null && pastmedical?.CreatedAt !=''">
+                        - {{pastmedical?.CreatedAt | date: 'MM/dd/yyyy'}}
                       </span>
-                      <span *ngIf="pastmedical?.major_events != null && pastmedical?.major_events !=''">
-                        - {{pastmedical?.major_events}}
+                      <span *ngIf="pastmedical?.MajorEvents != null && pastmedical?.MajorEvents !=''">
+                        - {{pastmedical?.MajorEvents}}
                       </span>
                     </a>
                   </li>
                 </ul>
-                <ul class="main-list" *ngIf="pastMedicalHistories?.length == (0 || null || undefined)">
+                <ul class="main-list" *ngIf="chartInfo?.PastMedicalHistories?.length == 0">
                   <li>
                     <span>No past medical history recorded.</span>
                   </li>
@@ -274,24 +276,26 @@
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
-                    <p class="card-title" data-bs-toggle="modal" data-bs-target="#exampleModal4">Allergies</p>
+                    <p class="card-title" data-bs-toggle="modal" data-bs-target="#allergies-modal">Allergies</p>
                   </div>
                   <div class="col-md-4 col-6">
-                    <div class="col-12 plusicon pull-right"><span><i class="fa fa-plus" data-bs-toggle="modal"
-                          data-bs-target="#exampleModal4"></i></span>
+                    <div class="col-12 plusicon pull-right" (click)="resetDialog()" data-bs-toggle="modal"
+                      data-bs-target="#allergies-modal">
+                      <span><i class="fa fa-plus"></i></span>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list" *ngFor="let allergie of allAllergies">
+                <ul class="main-list" *ngFor="let allergie of chartInfo?.Alergies">
                   <li>
-                    <a>
-                      <span>- {{allergie?.note}}</span>
+                    <a data-bs-toggle="modal" data-bs-target="#allergies-modal"
+                      (click)="editDialog(allergie, 'allergie')">
+                      <span>- {{allergie?.Note}}</span>
                     </a>
                   </li>
                 </ul>
-                <ul class="main-list" *ngIf="allAllergies?.length == (0 || null || undefined)">
+                <ul class="main-list" *ngIf="chartInfo?.Alergies?.length == 0">
                   <li>
                     <span>No active allergies recorded</span>
                   </li>
@@ -302,12 +306,12 @@
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
-                    <p class="card-title" data-bs-toggle="modal" data-bs-target="#exampleModal5">Medications and
+                    <p class="card-title" data-bs-toggle="modal" data-bs-target="#medication-modal">Medications and
                       Prescription</p>
                   </div>
                   <div class="col-md-4 col-6">
                     <div class="col-12 plusicon pull-right"><span><i class="fa fa-plus" data-bs-toggle="modal"
-                          data-bs-target="#exampleModal5"></i></span>
+                          data-bs-target="#medication-modal"></i></span>
                     </div>
                   </div>
                 </div>
@@ -502,7 +506,7 @@
 </div>
 
 
-
+<!-- Diagnosis -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content body">
@@ -543,7 +547,6 @@
     </div>
   </div>
 </div>
-
 
 <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -626,26 +629,26 @@
   </div>
 </div>
 
-
-<div class="modal fade " id="exampleModal2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<!-- Past medical history -->
+<div class="modal fade " id="pastmedical-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-md" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title Helvetica-sans-serif-medium">Record Past Medical History</h4>
-
         <span type="button" class="cross-mark" data-bs-dismiss="modal">
           X
         </span>
       </div>
       <div class="modal-body bg-white scroolbar addlocationbody">
         <div class="col-md-12">
-          <label>Major Events:</label>
-          <textarea class="form-control col-12 mt-3 mt-md-0"></textarea>
+          <label class="required">Major Events:</label>
+          <textarea class="form-control col-12 mt-3 mt-md-0" [(ngModel)]="pastMedicalHistories.MajorEvents"></textarea>
         </div>
         <div class="col-md-12">
-          <label>Ongoing Medical Problems:</label>
-          <textarea class="form-control col-12 mt-3 mt-md-0"></textarea>
+          <label class="required">Ongoing Medical Problems:</label>
+          <textarea class="form-control col-12 mt-3 mt-md-0"
+            [(ngModel)]="pastMedicalHistories.OngoingProblems"></textarea>
         </div>
         <div class="col-md-12">
           <div class="row card-bg mt-2">
@@ -654,27 +657,27 @@
             </div>
             <div class="col-md-4 col-6">
               <div class="col-12 plusicon plus-icons pull-right"><span><i class="fa fa-plus" data-bs-toggle="modal"
-                    data-bs-target="#exampleModal3"></i></span>
+                    data-bs-target="#familyhealth-modal"></i></span>
               </div>
             </div>
           </div>
         </div>
-
         <div class="col-md-12 mt-1">
-          <label>Preventative Care:</label>
-          <textarea class="form-control col-12 mt-3 mt-md-0"></textarea>
+          <label class="required">Preventative Care:</label>
+          <textarea class="form-control col-12 mt-3 mt-md-0"
+            [(ngModel)]="pastMedicalHistories.PerventiveCare"></textarea>
         </div>
         <div class="col-md-12">
-          <label>Nutrition History:</label>
-          <textarea class="form-control col-12 mt-3 mt-md-0"></textarea>
+          <label class="required">Nutrition History:</label>
+          <textarea class="form-control col-12 mt-3 mt-md-0"
+            [(ngModel)]="pastMedicalHistories.NutritionHistory"></textarea>
         </div>
       </div>
-
       <div class="row mb-3 mt-1 mx-3">
         <div class="col-md-12 locationbtns">
           <div class="d-flex justify-content-end">
             <button type="button" class="btn btn-lg btn-green col-xl-4 col-lg-4 col-md-4 col-8 mx-2"
-              data-bs-dismiss="modal">
+              data-bs-dismiss="modal" [disabled]="disablePastMedicalHistory()" (click)="CreatePastMedicalHistories()">
               Save Changes
             </button>
             <button type="button" class="btn btn-lg btn-green col-xl-3 col-lg-3 col-md-3 col-5 mx-3"
@@ -688,8 +691,8 @@
   </div>
 </div>
 
-
-<div class="modal fade " id="exampleModal3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<!-- Family healthy history -->
+<div class="modal fade " id="familyhealth-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-md" role="document">
     <div class="modal-content">
@@ -840,7 +843,7 @@
         <div class="col-md-12 locationbtns">
           <div class="d-flex justify-content-end">
             <button type="button" class="btn btn-lg btn-green col-xl-4 col-lg-4 col-md-4 col-8 mx-2"
-              data-bs-toggle="modal" data-bs-target="#exampleModal2">
+              data-bs-toggle="modal" data-bs-target="#pastmedical-modal">
               Add
             </button>
             <button type="button" class="btn btn-lg btn-green col-xl-3 col-lg-3 col-md-3 col-5 mx-3"
@@ -854,10 +857,11 @@
   </div>
 </div>
 
-<div class="modal fade " id="exampleModal4" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<!-- Allergies modal -->
+<div class="modal fade " id="allergies-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-md" role="document">
-    <div class="modal-content modal-box">
+  <div class="modal-dialog modal-md modal-allergie" role="document">
+    <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title Helvetica-sans-serif-medium">Record Allergy</h4>
 
@@ -872,9 +876,9 @@
           </div>
           <div class="col-md-4">
             <mat-form-field appearance="outline">
-              <mat-select required>
-                <mat-option *ngFor="let trigger of TriggerRuleDD" [value]="trigger.value">
-                  {{trigger.viewValue}}
+              <mat-select required [(ngModel)]="allAllergies.AllergenType">
+                <mat-option *ngFor="let allergy of allergyType" [value]="allergy">
+                  {{allergy}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -884,9 +888,9 @@
           </div>
           <div class="col-md-4">
             <mat-form-field appearance="outline" class="input-bg">
-              <mat-select required>
-                <mat-option *ngFor="let trigger of TriggerRuleDD" [value]="trigger.value">
-                  {{trigger.viewValue}}
+              <mat-select required [(ngModel)]="allAllergies.AllergenName">
+                <mat-option *ngFor="let allergie of allergens" [value]="allergie">
+                  {{allergie}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -898,9 +902,9 @@
           </div>
           <div class="col-md-4">
             <mat-form-field appearance="outline">
-              <mat-select required>
-                <mat-option *ngFor="let trigger of TriggerRuleDD" [value]="trigger.value">
-                  {{trigger.viewValue}}
+              <mat-select required [(ngModel)]="allAllergies.SeverityLevel">
+                <mat-option *ngFor="let severity of severityLevel" [value]="severity">
+                  {{severity}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -912,21 +916,28 @@
           </div>
           <div class="col-md-4">
             <mat-form-field appearance="outline">
-              <mat-select required>
-                <mat-option *ngFor="let trigger of TriggerRuleDD" [value]="trigger.value">
-                  {{trigger.viewValue}}
+              <mat-select required [(ngModel)]="allAllergies.OnSetAt">
+                <mat-option *ngFor="let onset of onsetAt" [value]="onset">
+                  {{onset}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
           </div>
           <div class=" form-group col-md-6 ">
             <label class="title-bold required">Reaction(s): </label>
-            <div class="input-group input-group-custom search-input">
+            <!-- <div class="input-group input-group-custom search-input">
               <input aria-label="Search for messages" autocomplete="off"
                 class="input-search form-control ignore_spinner" id="find-messages-input" placeholder="Search Messages">
               <span class="input-group-addon input-group-addon-search chart-find-patient-btn inputclass"
                 id="find-messages-button"><i class="fa fa-search"></i></span>
-            </div>
+            </div> -->
+            <mat-form-field appearance="outline">
+              <mat-select required [(ngModel)]="allAllergies.Reaction">
+                <mat-option *ngFor="let allergy of allergyReaction" [value]="allergy">
+                  {{allergy}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
         </div>
         <div class="row mt-2">
@@ -936,10 +947,11 @@
           </div>
           <div class="col-md-6">
             <mat-form-field appearance="outline" class="input-field calender-item  col-md-8">
-              <input matInput [matDatepicker]="dp1" placeholder="Start Date" name="startDate" />
-              <mat-datepicker-toggle matSuffix [for]="dp1">
+              <input matInput [matDatepicker]="StartAt" placeholder="Start Date" name="startDate"
+                [(ngModel)]="allAllergies.StartAt" />
+              <mat-datepicker-toggle matSuffix [for]="StartAt">
               </mat-datepicker-toggle>
-              <mat-datepicker #dp1 disabled="false"></mat-datepicker>
+              <mat-datepicker #StartAt disabled="false"></mat-datepicker>
             </mat-form-field>
           </div>
         </div>
@@ -949,16 +961,17 @@
           </div>
           <div class="col-md-6">
             <mat-form-field appearance="outline" class="input-field calender-item  col-md-8">
-              <input matInput [matDatepicker]="dp2" placeholder="End Date" name="endDate" />
-              <mat-datepicker-toggle matSuffix [for]="dp2">
+              <input matInput [matDatepicker]="EndAt" placeholder="End Date" name="endDate"
+                [(ngModel)]="allAllergies.EndAt" />
+              <mat-datepicker-toggle matSuffix [for]="EndAt">
               </mat-datepicker-toggle>
-              <mat-datepicker #dp2 disabled="false"></mat-datepicker>
+              <mat-datepicker #EndAt disabled="false"></mat-datepicker>
             </mat-form-field>
           </div>
         </div>
         <div class="col-md-12 mt-3">
           <label class="title-bold">Notes:</label>
-          <textarea class="form-control inputclass col-12 mt-3 mt-md-0"></textarea>
+          <textarea class="form-control inputclass col-12 mt-3 mt-md-0" [(ngModel)]="allAllergies.Note"></textarea>
         </div>
       </div>
 
@@ -966,7 +979,7 @@
         <div class="col-md-12 locationbtns">
           <div class="d-flex justify-content-end">
             <button type="button" class="btn btn-lg btn-green col-xl-4 col-lg-4 col-md-4 col-8 mx-2"
-              data-bs-dismiss="modal">
+              data-bs-dismiss="modal" [disabled]="disableAllergies()" (click)="CreateAllergies()">
               Save Changes
             </button>
             <button type="button" class="btn btn-lg btn-green col-xl-3 col-lg-3 col-md-3 col-5 mx-3"
@@ -980,7 +993,8 @@
   </div>
 </div>
 
-<div class="modal fade " id="exampleModal5" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<!-- Medication -->
+<div class="modal fade " id="medication-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-md" role="document">
     <div class="modal-content modal-item ">
@@ -1179,8 +1193,6 @@
     </div>
   </div>
 </div>
-
-
 
 <div class="modal fade " id="exampleModal7" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
