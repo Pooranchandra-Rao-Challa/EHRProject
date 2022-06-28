@@ -9,9 +9,26 @@
         <div class="form-row-field">
           <h4>
             Upcoming Appointments
-            <span>(0)</span>
+            <span>({{PatientUpcomingAppointmentsCount.ApptCount}})</span>
+            <!-- [(ngModel)]="secList.StartDate" -->
+          <!-- <input type="text"  [(ngModel)]="PatientUpcomingAppointmentsCount.ApptCount"> -->
           </h4>
         </div>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="container ">
+          <div *ngFor="let item of PatientUpcomingAppointmentsList">
+            <div class="Helvetica-sans-serif-medium mt-2">
+              Provider:{{item.ProviderName}}
+            </div>
+            <div class="Helvetica-sans-serif-large mt-2 upcomingAppoinment">
+            {{item.StartAt | date:'M/d/yyyy'}},{{item.StartAt | date:'shortTime'}}
+          </div>
+          </div>
+          </div>
+        
+   </div>
+   </div>
         <div class="form-row-field">
           <h4>
             New Messages

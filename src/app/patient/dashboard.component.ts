@@ -5,6 +5,8 @@ import { OverlayService } from '../overlay.service';
 import { User, UserLocations } from '../_models';
 import { AuthenticationService } from '../_services/authentication.service';
 import { ComponentType } from '@angular/cdk/portal';
+import { PatientService } from '../_services/patient.service';
+import { Appointments } from '../_models/_patient/appointments';
 declare var $: any;
 @Component({
   selector: 'app-dashboard',
@@ -21,14 +23,17 @@ export class DashboardComponent {
   PatientDialogComponent = PatientappointmentDialogComponent;
   MessageDialogComponent = NewmessageDialogComponent;
   DialogResponse = null;
+  PatientUpcomingAppointmentsList: Appointments={};
+  PatientUpcomingAppointmentsCount:Appointments={};
   
-  constructor(private authenticationService: AuthenticationService,private overlayService :OverlayService) {
+  constructor(private authenticationService: AuthenticationService,private overlayService :OverlayService,private patientservice: PatientService,) {
 
     this.user = authenticationService.userValue;
     this.locationsInfo = JSON.parse(this.user.LocationInfo)
    }
 
   ngOnInit(): void {
+    this.getPatientUpcomingAppointments();
     $(document).ready(function () {
 
       $('ul.navbar-nav > li')
@@ -75,4 +80,17 @@ export class DashboardComponent {
       }
     });
   }
+  getPatientUpcomingAppointments()
+{
+  var req={
+    //  "PatientId": this.user.PatientId,
+    "PatientId":"62385146391cba10c7c20539"
+  }
+  this.patientservice.PatientUpcomingAppointments(req).subscribe(res=>{
+    this.PatientUpcomingAppointmentsCount=res.ListResult[0];
+    console.log(this.PatientUpcomingAppointmentsCount.ApptCount)
+    this.PatientUpcomingAppointmentsList=res.ListResult;
+    console.log(this.PatientUpcomingAppointmentsList);
+  })
+}
 }

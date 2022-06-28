@@ -3,6 +3,10 @@ import { OverlayService } from '../overlay.service';
 import { PatientappointmentDialogComponent } from 'src/app/dialogs/patientappointment.dialog/patientappointment.dialog.component';
 import {  TemplateRef } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
+import { PatientService } from '../_services/patient.service';
+import { AuthenticationService } from '../_services/authentication.service';
+import { User } from '../_models';
+import { Appointments } from '../_models/_patient/appointments';
 
 @Component({
   selector: 'app-appointment',
@@ -10,15 +14,25 @@ import { ComponentType } from '@angular/cdk/portal';
   styleUrls: ['./appointment.component.scss']
 })
 export class AppointmentComponent {
+  user: User
+
   isPast:boolean=false;
   isUpcoming:boolean=true;
   displayReq = "none";
   PatientDialogComponent = PatientappointmentDialogComponent;
   DialogResponse = null;
+  PatientPastAppointmentsList: Appointments
+  PatientUpcomingAppointmentsList: Appointments
   
-  constructor(private overlayService :OverlayService) { }
+  constructor(private overlayService :OverlayService,private patientservice: PatientService,private authenticationService: AuthenticationService,) { 
+    this.user = authenticationService.userValue
+    // this.locationsInfo = JSON.parse(this.user.LocationInfo)
+  }
 
   ngOnInit(): void {
+    this.getPatientUpcomingAppointments();
+    this.getPatientPastAppointments();
+
   }
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string) {
     const ref = this.overlayService.open(content, null);
@@ -41,6 +55,29 @@ export class AppointmentComponent {
     this.isUpcoming=false;
     this.isPast=true;
   }
+getPatientPastAppointments()
+{
+  var req={
+     "PatientId": this.user.PatientId,
+    //  "PatientId":"62385146391cba10c7c20539"
+  }
+  debugger;
+  this.patientservice.PatientPastAppointments(req).subscribe(res=>{
+    this.PatientPastAppointmentsList=res.ListResult;
+    console.log(this.PatientPastAppointmentsList);
+  })
+}
 
+getPatientUpcomingAppointments()
+{
+  var req={
+    //  "PatientId": this.user.PatientId,
+    "PatientId":"62385146391cba10c7c20539"
+  }
+  this.patientservice.PatientUpcomingAppointments(req).subscribe(res=>{
+    this.PatientUpcomingAppointmentsList=res.ListResult;
+    console.log(this.PatientUpcomingAppointmentsList);
+  })
+}
 }
 
