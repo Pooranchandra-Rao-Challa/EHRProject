@@ -162,4 +162,6 @@ export class AuthenticationService {
     localStorage.setItem('viewModel', JSON.stringify(viewModel));
   }
 
+
+
 }

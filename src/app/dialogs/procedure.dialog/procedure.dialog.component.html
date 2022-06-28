@@ -75,7 +75,7 @@
             <label class="control-label input-group-addon required">Tooth</label>
             <mat-form-field class="procedure-form-field" appearance="outline" [ngStyle]="{'padding-bottom':'0px'}">
               <mat-select class="select" [(ngModel)]="procedureInfo.ToothNo">
-                <mat-option *ngFor="let toothNo  of teethNumbers">{{toothNo}}</mat-option>
+                <mat-option *ngFor="let toothNo  of teethNumbers" [value]="toothNo">{{toothNo}}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
@@ -261,7 +261,7 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-green">
+      <button type="button" class="btn btn-green"  (click)="save()" [disabled]="enableSave()">
         Save
       </button>
       <button type="button" class="btn btn-danger " (click)="cancel()">

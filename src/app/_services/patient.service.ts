@@ -197,4 +197,8 @@ export class PatientService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._patientAccountInfoUrl,reqparams);
   }
 
+  CreateProcedure(reqparams: any){
+    return this._ProcessPostRequest<any>(this._createProcedureUrl,reqparams);
+  }
+
 }

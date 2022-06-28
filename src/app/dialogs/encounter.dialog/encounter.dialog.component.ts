@@ -333,8 +333,6 @@ export class EncounterDialogComponent implements OnInit {
 
   enableSaveButtons(){
 
-
-    //this.messageflag = this.encounterInfo.ServicedAt != null
     if(this.encounterInfo.HealthInfoExchange == true &&
       this.encounterInfo.ReferredTo == false
       || this.encounterInfo.ReferralTo == ""
@@ -349,9 +347,6 @@ export class EncounterDialogComponent implements OnInit {
         this.messageflagSubject.next(true);
         this.message = "Update the provider from whom you redirected this patient."
       }else this.messageflagSubject.next(false);;
-
-
-
   }
 
   recordSuperBill(){

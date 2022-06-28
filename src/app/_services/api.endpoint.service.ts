@@ -557,6 +557,13 @@ export class APIEndPoint extends EndpointBase {
   get _getUserInfoForPatientUrl(){
     return this._baseUrl + "GetUserInfoForPatient";
   }
+  get _createProcedureUrl(){
+    return this._baseUrl + "CreateProcedure";
+  }
+  get _completePatientAccountProcessUrl(){
+    return this._baseUrl + "CompletePatientAccountProcess";
+  }
+
 
 
   constructor(public http: HttpClient) {
