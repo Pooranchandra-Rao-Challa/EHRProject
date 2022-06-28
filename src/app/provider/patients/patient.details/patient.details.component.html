@@ -18,10 +18,10 @@
       <b>H:</b>{{patient.PrimaryPhone}}
     </li>
     <li *ngIf="patientAccountInfo.HasAccount">
-        <span class="fa fa-plus-circle"></span> Patient Portal: Enrolled
+        <span class="fa fa-check-circle"></span> Patient Portal: Enrolled
     </li>
     <li *ngIf="!patientAccountInfo.HasAccount && patientAccountInfo.InvitationSentAt != null">
-        <span class="fa fa-plus-circle"></span> Patient Portal: Pending
+        <span class="fa fa-minus-circle"></span> Patient Portal: Pending
     </li>
     <li *ngIf="!patientAccountInfo.HasAccount && patientAccountInfo.InvitationSentAt == null">
       <a class="btn-modal inivte-to-portal-button"
