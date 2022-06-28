@@ -1,3 +1,4 @@
+import { Patient } from 'src/app/_models/_account/newPatient';
 import { Injectable } from "@angular/core";
 import { APIEndPoint } from "./api.endpoint.service";
 import { HttpClient } from "@angular/common/http";
@@ -190,6 +191,25 @@ export class PatientService extends APIEndPoint {
 
   CreateAllergies(reqparams: any) {
     return this._ProcessPostRequest<any>(this._createAllergiesUrl, reqparams);
+  }
+
+  LatestUpdatedPatientsUrl(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._latestUpdatedPatientsUrl, reqparams);
+  }
+
+  PatientPastAppointments(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._patientPastAppointmentsUrl, reqparams);
+  }
+
+  PatientUpcomingAppointments(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._patientUpcomingAppointmentsUrl, reqparams)
+  }
+  PatientAccountInfo(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._patientAccountInfoUrl, reqparams);
+  }
+
+  CreateProcedure(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._createProcedureUrl, reqparams);
   }
 
 }

@@ -244,6 +244,7 @@ export class InsuranceComponent implements OnInit {
           this.insuraceComplanyPlan = resp.ListResult[0];
         });
         this.primaryInsDetail=true;
+        this.secondaryInsDetail=false;
     }
     else {
       var reqparam = {
@@ -254,6 +255,7 @@ export class InsuranceComponent implements OnInit {
           this.InsurancDetailslist = resp.ListResult;
           this.insuraceComplanyPlan = resp.ListResult[0];
         });
+        this.primaryInsDetail=false;
         this.secondaryInsDetail=true;
     }
 
@@ -291,7 +293,7 @@ export class InsuranceComponent implements OnInit {
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2CI003"]);
       }
     });
-
+this.getInsuranceList();
     this.data = true;
     this.isValid = false;
     this.cancel2 = false;

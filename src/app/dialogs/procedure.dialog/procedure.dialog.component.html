@@ -1,0 +1,272 @@
+<div class="modal-dialog" id="new-procedure-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 class="modal-title col-11 Helvetica-sans-serif-large" id="staticBackdropLabel">
+        Add Procedure
+      </h3>
+      <span type="button" class="cross-mark col-1" aria-label="Close" (click)="cancel()">
+        X
+      </span>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-12">
+          <div class="input-group">
+            <mat-form-field class="procedure-form-field" appearance="outline" [ngStyle]="{'width':'100%'}">
+              <input matInput #searchProcedureCode class="form-control" placeholder="Select Procedure Code" type="text"
+                id="searchProcedureCode" name="searchProcedureCode" [matAutocomplete]="procedureCode" />
+              <mat-autocomplete [displayWith]="displayWith" #procedureCode="matAutocomplete"
+                (optionSelected)="onProcedureSelected($event)">
+                <mat-option *ngFor="let option of filteredProcedures | async" [value]="option"
+                  class="medical-code-option">
+                  {{option.Code}} - {{option.Description}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 col-md-4 col-4">
+          <div class="input-group">
+            <label class="control-label input-group-addon required">Code</label>
+            <mat-form-field class="procedure-form-field" appearance="outline" disabled=true>
+              <input matInput class="form-control" placeholder="Code" disabled type="text" id="pCode" name="pCode"
+                [(ngModel)]="procedureInfo.Code" />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-4">
+          <div class="input-group">
+            <label class="control-label input-group-addon required">Description</label>
+            <mat-form-field class="procedure-form-field" appearance="outline">
+              <input matInput class="form-control" placeholder="Description" disabled type="text" id="pDescription"
+                name="pDescription" [(ngModel)]="procedureInfo.Description" [matTooltip]="procedureInfo.Description"
+                matToolTipPosition="after" matTooltipShowDelay="100"
+                matTooltipHideDelay="100" />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-4">
+          <div class="input-group">
+            <label class="control-label input-group-addon">Base Price</label>
+            <mat-form-field class="procedure-form-field" appearance="outline">
+              <input matInput class="form-control" placeholder="Base Price" type="text" id="pBasePrice"
+                name="pBasePrice" [(ngModel)]="procedureInfo.Fee" />
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 col-md-4 col-4">
+          <div class="input-group">
+            <label class="control-label input-group-addon required">Start Date</label>
+            <mat-form-field class="procedure-form-field" appearance="outline">
+              <input matInput class="form-control" placeholder="Start Date" type="text" id="pStartDate"
+                name="pStartDate" [(ngModel)]="procedureInfo.ServicedAt" [matDatepicker]="startDate" />
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+                <mat-datepicker #startDate></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-4">
+          <div class="input-group">
+            <label class="control-label input-group-addon required">Tooth</label>
+            <mat-form-field class="procedure-form-field" appearance="outline" [ngStyle]="{'padding-bottom':'0px'}">
+              <mat-select class="select" [(ngModel)]="procedureInfo.ToothNo">
+                <mat-option *ngFor="let toothNo  of teethNumbers" [value]="toothNo">{{toothNo}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-4">
+          <div class="input-group">
+            <label class="control-label input-group-addon required">Status</label>
+            <mat-form-field class="procedure-form-field" appearance="outline" [ngStyle]="{'padding-bottom':'0px'}">
+              <mat-select class="select" [(ngModel)]="procedureInfo.Status">
+                <mat-option value="Completed">Completed</mat-option>
+                <mat-option value="Existing Curr. Provider">Existing Curr. Provider</mat-option>
+                <mat-option value="Existing Other">Existing Other</mat-option>
+                <mat-option value="Referred">Referred</mat-option>
+                <mat-option value="Treatment planned">Treatment planned</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 col-md-4 col-4">
+          <div class="input-group">
+            <label class="control-label input-group-addon">End Date</label>
+            <mat-form-field class="teeth-form-field" appearance="outline">
+              <input matInput class="form-control" placeholder="End Date" type="text" id="pBasePrice" name="pBasePrice"
+                [(ngModel)]="procedureInfo.EndDate"  [matDatepicker]="endDate"/>
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+                <mat-datepicker #endDate></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="item-border">
+
+        <div class="row title">
+          <div class="col-lg-12 col-md-12 col-12 title">
+            Surface (select all that apply):
+          </div>
+        </div>
+
+        <div class="row group">
+          <div class="col-lg-4 col-md-4 col-4 items">
+            <mat-checkbox [(ngModel)]="BuccalV">
+              Buccal v
+            </mat-checkbox>
+            <mat-checkbox [(ngModel)]="Incisal">
+              Incisal
+            </mat-checkbox>
+            <mat-checkbox [(ngModel)]="Facial">
+              Facial
+            </mat-checkbox>
+            <mat-checkbox [(ngModel)]="LingualV">
+              Lingual v
+            </mat-checkbox>
+          </div>
+          <div class="col-lg-4 col-md-4 col-4 items">
+            <mat-checkbox [(ngModel)]="FacialV">
+              Facial v
+            </mat-checkbox>
+            <mat-checkbox [(ngModel)]="Distal">
+              Distal
+            </mat-checkbox>
+            <mat-checkbox [(ngModel)]="Buccal">
+              Buccal
+            </mat-checkbox>
+          </div>
+          <div class="col-lg-4 col-md-4 col-4 items">
+            <mat-checkbox [(ngModel)]="Mesial">
+              Mesial
+            </mat-checkbox>
+            <mat-checkbox [(ngModel)]="Lingual">
+              Lingual
+            </mat-checkbox>
+            <mat-checkbox [(ngModel)]="Occlusal">
+              Occlusal
+            </mat-checkbox>
+          </div>
+        </div>
+        <div class="row title">
+          <div class="col-lg-12 col-md-12 col-12 title">
+            Select Pit(s):
+          </div>
+        </div>
+        <div class="row group">
+          <div class="col-lg-4 col-md-4 col-4 items">
+            <mat-checkbox [(ngModel)]="PitMesiobuccal">
+              Mesiobuccal
+            </mat-checkbox>
+            <mat-checkbox [(ngModel)]="PitDistobuccal">
+              Distolingual
+            </mat-checkbox>
+          </div>
+          <div class="col-lg-4 col-md-4 col-4 items">
+            <mat-checkbox [(ngModel)]="PitMesiolingual">
+              Mesiolingual
+            </mat-checkbox>
+          </div>
+          <div class="col-lg-4 col-md-4 col-4 items">
+            <mat-checkbox [(ngModel)]="PitDistolingual">
+              Distobuccal
+            </mat-checkbox>
+          </div>
+        </div>
+        <div class="row title">
+          <div class="col-lg-12 col-md-12 col-12 title">
+            Select Cusp(s):
+          </div>
+        </div>
+        <div class="row group">
+          <div class="col-lg-4 col-md-4 col-4 items">
+            <mat-checkbox [(ngModel)]="CuspMesial">
+              Mesial
+            </mat-checkbox>
+            <mat-checkbox [(ngModel)]="CuspDistal">
+              Distal
+            </mat-checkbox>
+          </div>
+          <div class="col-lg-4 col-md-4 col-4 items">
+            <mat-checkbox [(ngModel)]="CuspMesiobuccal">
+              Mesiobuccal
+            </mat-checkbox>
+            <mat-checkbox [(ngModel)]="CuspDistobuccal">
+              Distobuccal
+            </mat-checkbox>
+          </div>
+          <div class="col-lg-4 col-md-4 col-4 items">
+            <mat-checkbox [(ngModel)]="CuspMesiolingual">
+              Mesiolingual
+            </mat-checkbox>
+            <mat-checkbox [(ngModel)]="CuspDistolingual">
+              Distolingual
+            </mat-checkbox>
+          </div>
+        </div>
+        <div class="row title">
+          Reasons:
+        </div>
+        <div class="row group">
+          <div class="col-lg-12 col-md-12 col-12 items">
+            <div class="input-group items">
+              <label class="control-label input-group-addon">Search Reason:</label>
+              <mat-form-field class="procedure-form-field" appearance="outline">
+                <input matInput #searchReasonCode class="form-control" placeholder="Select Reason Code" type="text"
+                  id="searchReasonCode" name="searchReasonCode" [matAutocomplete]="reasonCode" />
+                <mat-autocomplete [displayWith]="displayReason" #reasonCode="matAutocomplete"
+                  (optionSelected)="onReasonSelected($event)">
+                  <mat-option *ngFor="let option of reasonCodes" [value]="option" class="medical-code-option">
+                    {{option.Code}} - {{option.Description}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="row group">
+          <div class="col-lg-6 col-md-6 col-6">
+            <div class="input-group items">
+              <label class="control-label input-group-addon">Reason Code:</label>
+              <mat-form-field class="procedure-form-field" appearance="outline">
+                <input matInput class="form-control" style="width: 100%;" placeholder="Reason Code" disabled type="text"
+                  id="pResonCode" name="pResonCode" [(ngModel)]="procedureInfo.ReasonCode" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-6">
+            <div class="input-group items">
+              <label class="control-label input-group-addon">Reason Description:</label>
+              <mat-form-field class="procedure-form-field" appearance="outline">
+                <input matInput class="form-control" style="width: 100%;" placeholder="Reason Description" disabled
+                  type="text" id="pResonDescription" name="pResonDescription"
+                  [(ngModel)]="procedureInfo.ReasonDescription" />
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="row group">
+          <div class="col-lg-12 col-md-12 col-12">
+            <label>Note:</label>
+            <textarea class="textarea col-12" [(ngModel)]="procedureInfo.Notes"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-green"  (click)="save()" [disabled]="enableSave()">
+        Save
+      </button>
+      <button type="button" class="btn btn-danger " (click)="cancel()">
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>

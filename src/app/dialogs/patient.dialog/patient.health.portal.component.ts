@@ -22,10 +22,10 @@ export class PatientHealthPortalComponent{
   }
 
   downloadInviteasPDF(){
-    this.dialogRef.close({'download':true});
+    this.dialogRef.close({'download':true,patientUser: this.patientUser });
   }
 
   sendInviteToEmailAddress(){
-    this.dialogRef.close({'sendemail':true});
+    this.dialogRef.close({'sendemail':true,patientUser: this.patientUser });
   }
 }

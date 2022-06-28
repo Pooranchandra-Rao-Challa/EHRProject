@@ -1,47 +1,8 @@
-.patients-navigation{
-  background-color: rgba(65,182,166,0.1);
-}
-#patient_navigation {
-  display: inline-flex;
-  width: 100%;
-  height: auto;
-  margin-bottom: 0rem;
-}
-ul#patient_navigation li{
-  padding: 0px 10px;
-    list-style: none;
-}
-// a.patient_link{
-//   color: #2e877b;
-// }
-a.patient_link{
-  color: #4A4A4A;
-  font-weight: bold;
-}
-.patient_link .patient_name{
-  font-size: 15px;
-}
-#patient_navigation li a {
-  height: 70px;
-  display: table-cell;
-  vertical-align: middle;
-  top: 0px;
-  width: calc(100% - 30px);
-}
-.patients-navigation>ul li.active a {
-  color: #2e877b !important;
-}
-.patient_link div {
-  line-height: 18px;
-}
-.patient_name {
-  word-wrap: break-word;
-}
-.patients-wrapper .patients-navigation>ul li .remove-chart-patient {
-  padding-left: 5px;
-}
-.patient-remove-link {
-  width: 25px !important;
+
+div.patients-navigation{
+  background:#ecf8f6;
+  width: inherit;
+  height: 60px;
 }
 .fa {
   display: inline-block;
@@ -224,4 +185,8 @@ a.disabled{
 }
 .dropdown-menu .dropdown-menu {
   top: -.5rem !important;
+}
+.details-selected{
+  color:#41a6b6 !important;
+  background: white !important;
 }

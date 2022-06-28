@@ -7,14 +7,15 @@ import { SmokingStatusDialogComponent } from 'src/app/dialogs/smoking.status.dia
 import { InterventionDialogComponent } from 'src/app/dialogs/intervention.dialog/intervention.dialog.component';
 import { PatientService } from '../../../_services/patient.service';
 import {
-  AdvancedDirective, ChartInfo, PatientChart, EncounterDiagnosis, PastMedicalHistories, Allergies,
+  AdvancedDirective, ChartInfo, PatientChart, Allergies, EncounterDiagnosis, PastMedicalHistories, Actions,
   Immunizations, Medications, EncounterInfo, NewAppointment, SmokingStatus, TobaccoUseScreenings, TobaccoUseInterventions
 } from 'src/app/_models';
-import { Actions } from 'src/app/_models/_provider/smart.scheduler.data';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { DatePipe } from "@angular/common";
 const moment = require('moment');
+import { EncounterDialogComponent } from '../../../dialogs/encounter.dialog/encounter.dialog.component';
+
 
 @Component({
   selector: 'app-chart',
@@ -25,6 +26,7 @@ export class ChartComponent implements OnInit {
   advancedDirectivesDialogComponent = AdvancedDirectivesDialogComponent;
   smokingStatusDialogComponent = SmokingStatusDialogComponent;
   interventionDialogComponent = InterventionDialogComponent;
+  encounterDialogComponent = EncounterDialogComponent;
 
   dialogResponse = null;
   // advancedDirectives: AdvancedDirective[];
@@ -73,6 +75,9 @@ export class ChartComponent implements OnInit {
     }
     else if (actions == Actions.view && content === this.smokingStatusDialogComponent) {
       reqdata = dialogData;
+    }
+    else if (actions == Actions.new && content === this.encounterDialogComponent) {
+      reqdata = this.authService.viewModel.PatientView;
     }
     const ref = this.overlayService.open(content, reqdata);
     ref.afterClosed$.subscribe(res => {

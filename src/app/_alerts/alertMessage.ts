@@ -107,6 +107,9 @@ export class AlertMessage {
  * Patients : PA
  * CQMsNotPerformed : CNP
  *
+ * Details of Patients
+ * AddProcedure: P1
+ *
  * SMART SCHEDULER
  * Appointments: A
  * Encoutners: E
@@ -210,9 +213,9 @@ export const ERROR_CODES: { [key: string]: string } = {
   'M2CI002': 'Insurance Company Plan Updated successfully',
   'M2CI003': 'Insurance Company Plan  deleted successfully',
   'M2CI004': 'Primary Insurance Added successfully',
-  'M2CI005': 'Primary Insurance Updated successsfully',
+  'M2CI005': 'Primary Insurance Updated successfully',
   'M2CI006': 'Secondary Insurance Added successfully',
-  'M2CI007': 'Secondary Insurance Updated successsfully',
+  'M2CI007': 'Secondary Insurance Updated successfully',
 
 
   //Error for Insurance
@@ -220,10 +223,17 @@ export const ERROR_CODES: { [key: string]: string } = {
   'E2CI002': 'Primary Insurance Updation error',
   'E2CI003': 'Secondary Insurance Updation error',
 
+  //Messages for Patients Procedure Crete
+  'M2CP1001': 'Procedure Added sucessfully',
+  'M2CP1002': 'Procedure Updated sucessfully',
+
+  //ERRORs for Patients Procedure Crete
+  'E2CP1001': 'Procedure Updated sucessfully',
+
   // Smart Scheduler Apoointments;
-  'M2AA001': 'Appointment Added successsfully',
-  'M2AA002': 'Appointment Updated successsfully',
-  'M2AA003': 'Appointment Deleted successsfully',
+  'M2AA001': 'Appointment Added successfully',
+  'M2AA002': 'Appointment Updated successfully',
+  'M2AA003': 'Appointment Deleted successfully',
 
   'E2AA001': 'Appointment Add error',
   'E2AA002': 'Appointment Update error',
@@ -231,12 +241,13 @@ export const ERROR_CODES: { [key: string]: string } = {
 
 
   // Smart Schedulerl Encounters;
-  'M2AE001': 'Encounter Added successsfully',
-  'M2AE002': 'Encounter Updated successsfully',
+  'M2AE001': 'Encounter Added successfully',
+  'M2AE002': 'Encounter Updated successfully',
 
   'E2AE001': 'Encounter Adding error',
   'E2AE002': 'Encounter Update error',
   'E2AE003': 'Encounter Data Read  error',
+
   //Error for WeeklyUpated
   'E1WU001': 'Please insert the data into the fields',
 
@@ -244,6 +255,8 @@ export const ERROR_CODES: { [key: string]: string } = {
   'M2AP001': 'Patient Added successsfully',
   'E2AP001': 'Patient Adding error',
   'E2AP002': 'Patient User account create error',
+  'M2AP002': 'Patient Invitaion pdf downloaded',
+  'M2AP003': 'Patient Invitaion mail sent',
 
   //Message for allergies in chart screen
   'M2CA001': 'Allergies added successfully',
@@ -252,6 +265,14 @@ export const ERROR_CODES: { [key: string]: string } = {
 
   // Error for allergies
   'E2CA001': 'Allergies Updation error',
+
+  // CQM Not performed
+  'M2CCNP001': 'Not Performed Reason created successfully',
+  'M2CCNP002': 'Not Performed Reason updated successfully',
+
+  // Error for CQM Not performed
+  'E2CCNP001': 'Not Performed Reason created error',
+
 };
 
 

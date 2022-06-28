@@ -6,64 +6,39 @@ import { AdminViewModal } from 'src/app/_models';
 import { AdminService } from 'src/app/_services/admin.service';
 import Swal from 'sweetalert2';
 
+
 @Component({
   selector: 'app-section-new',
   templateUrl: './section-new.component.html',
   styleUrls: ['./section-new.component.scss']
 })
 export class SectionNewComponent implements OnInit {
-  menuName: any;
-  displayHeading: string = ''
-  SectionNew: any;
-  WeeklyUpdate: any = [];
+  SectionView: string;
+  WeeklyUpdate: WeeklyUpdated;
   viewModel: AdminViewModal;
-  body: any;
-  heading: any;
+  body: string;
+  previewheading: string;
   successMsg: string;
-  disPreview:boolean;
+  disPreview: boolean;
 
   constructor(private router: Router, private route: ActivatedRoute, private authService: AuthenticationService,
     private adminservice: AdminService) {
-    this.WeeklyUpdate = {} as WeeklyUpdated;
+    this.WeeklyUpdate = this.authService.viewModel.WeeklyUpdate == null ? new WeeklyUpdated() : this.authService.viewModel.WeeklyUpdate;
+    this.SectionView = this.authService.viewModel.AdminViewName;
   }
 
-  ngOnInit(): void {
-    this.getComponentName();
-    this.successMsg = '';
-  }
-
-  getComponentName() {
-    this.route.queryParams.subscribe((params) => {
-      if (params.name != null) {
-        if (params.edit == 'EditSection') {
-          this.displayHeading = 'Edit Section';
-          this.disPreview= true;
-          this.getEditData()
-        }
-        else { this.displayHeading = 'Add new Section' }
-        this.menuName = params.name;
-      }
-    });
-  }
-
-  getEditData() {
-    debugger;
-    this.WeeklyUpdate = this.authService.viewModelAdmin;
-    this.body = this.WeeklyUpdate.body;
-    this.heading = this.WeeklyUpdate.header;
-    console.log(this.WeeklyUpdate);
-  }
+  ngOnInit(): void { }
 
   updateWeeklyRecord() {
     this.adminservice.AddUpdateWeeklyUpdated(this.WeeklyUpdate).subscribe(resp => {
       if (resp.IsSuccess) {
         this.WeeklyUpdate = resp.ListResult;
-         if (resp.EndUserMessage = 'WeeklyUpdated created successfully') {
-            this.show('Admin/Section created successfully')
-         }
+        if (resp.EndUserMessage = 'WeeklyUpdated created successfully') {
+          this.show('Admin/Section created successfully');
+        }
         else {
-           this.show('Admin/Section Updated successfully')
-         }
+          this.show('Admin/Section Updated successfully');
+        }
         this.BackWeeklyUpdate('Weekly Update', 'admin/weeklyupdates');
       }
     });
@@ -79,7 +54,7 @@ export class SectionNewComponent implements OnInit {
   BackWeeklyUpdate(name, url) {
     this.router.navigate(
       [url],
-      { queryParams: { name: name} }
+      { queryParams: { name: name } }
     );
   }
 

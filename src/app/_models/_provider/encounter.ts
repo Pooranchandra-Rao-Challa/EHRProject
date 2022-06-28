@@ -1,7 +1,7 @@
 import { JsonPipe } from "@angular/common";
 
 
-export interface IDeleteFlag{
+export interface IDeleteFlag {
   CanDelete?: boolean;
 }
 
@@ -23,7 +23,7 @@ export interface EncounterData {
 }
 
 
-export class EncounterInfo{
+export class EncounterInfo {
   EncounterId?: string;
   PatientId?: string;
   ProviderId?: string;
@@ -34,7 +34,7 @@ export class EncounterInfo{
 
   ServicedAt?: Date = new Date;
   ServiceEndAt?: Date;
-  Medication?: string = "yes" ;
+  Medication?: string = "yes";
   ClinicalSummary: boolean = false;
   Signed: boolean = false;
   cqmData: boolean = false;
@@ -44,30 +44,30 @@ export class EncounterInfo{
 
   //MU2
   VisitReason?: string;
-  ClinicalInstructions? :string;
+  ClinicalInstructions?: string;
   EncounterType?: string = "Office Visit (1853490003)";
   NewPatientEncounter: boolean = false;
-  PatientHealthData:string = "";
+  PatientHealthData: string = "";
   PatientEducation: boolean = false;
   DischargeStatus: string = "";
-  DischargeStatusCode: string ="";
-  DischargeStatusCodeSystem: string ="";
+  DischargeStatusCode: string = "";
+  DischargeStatusCodeSystem: string = "";
   // Need to Know DataBase Columns
-  EncounterCode: string="99213";
-  EncounterCodeSystem: string="SNOMED";
-  EncounterDescription: string ="Office or Other Outpatient Visit";
+  EncounterCode: string = "99213";
+  EncounterCodeSystem: string = "SNOMED";
+  EncounterDescription: string = "Office or Other Outpatient Visit";
   // End of Need to Know
   SummaryCareRecordRefIn?: boolean;
   SummaryCareRecordRefOut?: boolean;
   DeclinedToReceiveSummary?: boolean;
-  SummaryOfCareRecord?:string;
+  SummaryOfCareRecord?: string;
   MedicationAllergyReconciliationCompleted?: boolean;
   DiagnosisReconciliationCompleted?: boolean;
   medCompleted?: boolean;
   HealthInfoExchange?: boolean;
   CurrentMedicationDocumented: number = 1
   MedicationReconciliation?: boolean;
-  MedicalReconcillation?: boolean ;
+  MedicalReconcillation?: boolean;
 
   // Referral
   ReferralReason?: string
@@ -83,10 +83,10 @@ export class EncounterInfo{
   Diagnoses: EncounterDiagnosis[] = [];
   RecommendedProcedures: ProceduresInfo[] = [];
   CompletedProcedures: ProceduresInfo[] = [];
-  Vital:VitalInfo = new VitalInfo;
+  Vital: VitalInfo = new VitalInfo;
 }
 
-export class ReferralInfo{
+export class ReferralInfo {
   Reason?: string
   ReferralFrom?: string;
   ReferralTo?: string;
@@ -96,7 +96,7 @@ export class ReferralInfo{
   FunctionalStatus?: string;
 }
 
-export class EncounterDiagnosis implements IDeleteFlag{
+export class EncounterDiagnosis implements IDeleteFlag {
   DiagnosisId?: string;
   RCopiaId?: string;
   LocationId?: string;
@@ -113,7 +113,7 @@ export class EncounterDiagnosis implements IDeleteFlag{
   AllergenType?: string;
   SeverityLevel?: string;
   NDC?: string;
-  AllergenName?:string;
+  AllergenName?: string;
   Rxcui?: string;
   EndAt?: string;
   OnSetAt?: string;
@@ -153,15 +153,16 @@ export class ProceduresInfo implements IDeleteFlag {
   Surface?: string;
   ToothProblemId?: string;
   ReasonStartDate?: Date;
+  Surfaces: string[] = [];
 
   CanDelete?: boolean = false;
 }
 
-export class VitalInfo{
+export class VitalInfo {
   VitalId?: string;
-  EncounterId?:string;
-  CollectedAt?:Date;
-  CollectedTime?:string;
+  EncounterId?: string;
+  CollectedAt?: Date;
+  CollectedTime?: string;
   Height?: number;
   Weight?: number;
   BMI?: number;
@@ -174,5 +175,62 @@ export class VitalInfo{
   BloodType?: string;
   UnitSystem: string = "us";
   TempType: string = "unspecified";
-  Note?:string;
+  Note?: string;
 }
+
+
+export const REASON_CODES = [
+  { 'Code': '105480006', 'Description': 'Refusal of treatment by patient (situation)' },
+  { 'Code': '183944003', 'Description': 'Procedure refused (situation)' },
+  { 'Code': '183945002', 'Description': 'Procedure refused for religious reason (situation)' },
+  { 'Code': '413310006', 'Description': 'Patient non-compliant - refused access to services (situation)' },
+  { 'Code': '413311005', 'Description': 'Patient non-compliant - refused intervention / support (situation)' },
+  { 'Code': '413312003', 'Description': 'Patient non-compliant - refused service (situation)' },
+  { 'Code': '183932001', 'Description': 'Procedure contraindicated (situation)' },
+  { 'Code': '397745006', 'Description': 'Medical contraindication (finding)' },
+  { 'Code': '407563006', 'Description': 'Treatment not tolerated (situation)' },
+  { 'Code': '428119001', 'Description': 'Procedure not indicated (situation)' },
+  { 'Code': '59037007', 'Description': 'Drug intolerance' },
+  { 'Code': '62014003', 'Description': 'Adverse reaction to drug' }
+];
+
+export const INTERVENSION_TYPES = ["BMI-Above Normal Follow-up",
+ "BMI-Above Normal Medication",
+ "BMI-Referrals where weight assessement may occur",
+ "BMI-Below Normal Follow-up",
+ "BMI-Below Normal Medication",
+ "Weight-Counseling for Nutrition",
+  "Weight-Counseling for Physical Activity"
+];
+
+export const MEDICAL_REASONS_NOT_PERFORMED =["Medical Reason", "Patient Refused"];
+
+export const OTHER_REASON_NOT_PERFORMED =  ["Current Meds Documented", "BMI Screening/Follow-up", "Tobacco Use Screening/Cessation Counseling"];
+
+
+export const TOOTH_PROBLEM_PLACES = {
+"surface_buccal_v": "Surface Buccal V",
+"surface_facial_v": "Surface Facial V",
+"surface_mesial": "Surface Mesial",
+"surface_incisal": "Surface Incisal",
+"surface_distal": "Surface Distal",
+"surface_lingual": "Surface Lingual",
+"surface_facial": "Surface Facial",
+"surface_buccal": "Surface Buccal",
+"surface_occlusal": "Surface Occlusal V",
+"surface_lingual_v": "Surface Lingual V",
+
+"pit_mesiobuccal": "Pit Mesiobuccal",
+"pit_mesiolingual": "Pit Mesiolingual",
+"pit_distobuccal": "Pit Distobuccal",
+"pit_distolingual": "Pit Distolingual",
+"cusp_mesial": "Cusp Mesial",
+"cusp_mesiobuccal": "Cusp Mesiobuccal",
+"cusp_mesiolingual": "Cusp Mesiolingual",
+"cusp_distal": "Cusp Distal",
+"cusp_distobuccal": "Cusp Distobuccal",
+"cusp_distolingual": "Cusp Distolingual" };
+
+/**def update_intervention_cqm_status
+    self.intervention.update(:cqm_status => reason_code == '407563006' ? 'INT' : 'PRFND') if self.intervention.present?
+  end */

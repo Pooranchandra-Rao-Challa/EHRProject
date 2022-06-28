@@ -1,9 +1,9 @@
 
-import { Component, OnInit, TemplateRef, HostListener } from '@angular/core';
+import { Component, OnInit, TemplateRef, HostListener, ElementRef, ViewChild, Inject, AfterViewInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ComponentType } from '@angular/cdk/portal';
-import { PlatformLocation } from '@angular/common';
+import { DOCUMENT, PlatformLocation } from '@angular/common';
 
 import { AuthenticationService } from '../../_services/authentication.service';
 import { SettingsService } from '../../_services/settings.service';
@@ -23,7 +23,7 @@ import { LocationDialogComponent } from 'src/app/dialogs/location.dialog/locatio
   templateUrl: './practice.component.html',
   styleUrls: ['./settings.component.scss']
 })
-export class PracticeComponent implements OnInit {
+export class PracticeComponent implements OnInit, AfterViewInit {
   TimeZoneForm: FormGroup;
   TimeZoneList: any;
   UTCTime: any;
@@ -48,6 +48,8 @@ export class PracticeComponent implements OnInit {
   ActionsType = Actions;
   user: User;
   url: string;
+  //height: number =1530;
+  //let divEl = this.el.nativeElement.querySelector('#myDiv');
 
   constructor(private fb: FormBuilder,
     private authService: AuthenticationService,
@@ -57,9 +59,22 @@ export class PracticeComponent implements OnInit {
     public overlayService: OverlayService,
     private locationSelectService: LocationSelectService,
     private plaformLocation: PlatformLocation,
-    private alertmsg: AlertMessage) {
+    private alertmsg: AlertMessage,
+    @Inject(DOCUMENT) private _document: Document) {
     this.user = authService.userValue;
     this.url = plaformLocation.href.replace(plaformLocation.pathname, '/');
+
+    console.log(plaformLocation);
+
+
+
+    // console.log(this._document.documentElement.scrollHeight);
+
+
+    // console.log('window width ', this._document.body.clientWidth);
+    // console.log('window height ', this._document.body.clientHeight);
+    // console.log('window width ', this._document.body.clientLeft);
+    // console.log('window height ', this._document.body.clientTop);
 
     this.changedLocationId = this.user.CurrentLocation;
     this.locationsubscription = this.locationSelectService.getData().subscribe(locationId => {
@@ -68,6 +83,15 @@ export class PracticeComponent implements OnInit {
     });
     this.NewUserData = {
     }
+  }
+  ngAfterViewInit(): void {
+    // let scrollHeight = Math.max(
+    //   document.body.scrollHeight, document.documentElement.scrollHeight,
+    //   document.body.offsetHeight, document.documentElement.offsetHeight,
+    //   document.body.clientHeight, document.documentElement.clientHeight
+    // );
+
+    // alert('Full document height, with scrolled out part: ' + scrollHeight);
   }
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
@@ -199,12 +223,22 @@ export class PracticeComponent implements OnInit {
   }
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
     data?: any, action?: Actions) {
+
+    //    let scrollHeight = Math.max(
+    //   document.body.scrollHeight, document.documentElement.scrollHeight,
+    //   document.body.offsetHeight, document.documentElement.offsetHeight,
+    //   document.body.clientHeight, document.documentElement.clientHeight
+    // );
+
+
+
     let dialogData: any;
     if (content === this.userDialogComponent && action == Actions.view) {
       dialogData = this.userInfoForEdit(data, action);
     } else if (content === this.locationDialogComponent && action == Actions.view) {
       dialogData = data;
     }
+    //sdocument.documentElement.getElementsByClassName("scrollable-container").
     const ref = this.overlayService.open(content, dialogData);
     ref.afterClosed$.subscribe(res => {
       if (content === this.userDialogComponent) {

@@ -25,8 +25,8 @@ import {
 } from '@angular/cdk/overlay';
 import { FormControl } from '@angular/forms';
 import { OverlayReference } from '@angular/cdk/overlay/overlay-reference';
+import { TOOTH_PROBLEM_PLACES } from 'src/app/_models';
 // import { outputs } from '@syncfusion/ej2-angular-calendars/src/calendar/calendar.component';
-
 
 
 @Component({
@@ -71,9 +71,12 @@ export class TeethSurfaceComponent implements OnInit {
   private isPanelVisible$: Observable<boolean>;
   private isPanelHidden$: Observable<boolean>;
   private isOverlayDetached$: Observable<void>;
-
-  @Output() optionValueChanged: EventEmitter<string> = new EventEmitter<string>();
-  @Input() selectedOption: string;
+  private _selectedOption: string;
+  @Output() optionValueChanged: EventEmitter<string[]> = new EventEmitter<string[]>();
+  @Input()
+  get selectedOption(): string{ return TOOTH_PROBLEM_PLACES[this._selectedOption];}
+  set selectedOption(v: string){ this._selectedOption = v;}
+  @Input() selectedOptions: string[] = [];
 
   constructor(
     private focusMonitor: FocusMonitor,
@@ -105,8 +108,20 @@ export class TeethSurfaceComponent implements OnInit {
   }
 
   onOptionSelected(value) {
-    this.teethCtrl.setValue(value);
+    // let i = this.selectedOptions.indexOf(value);
+    // i < 0 ? this.selectedOptions.push(value)
+    //   : this.selectedOptions.splice(i, 1);
+
+    // this.teethCtrl.setValue(this.selectedOptions.join(","));
+    // this.optionValueChanged.emit(this.selectedOptions);
+
+    //this.teethCtrl.setValue(TOOTH_PROBLEM_PLACES[value]);
     this.optionValueChanged.emit(value);
+
+    this.connectedOverlay.overlayRef.detach();
+    this.inputEl.nativeElement.blur();
+  }
+  closePopup() {
     this.connectedOverlay.overlayRef.detach();
     this.inputEl.nativeElement.blur();
   }

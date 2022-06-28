@@ -19,7 +19,7 @@ import { ColorPickerModule } from 'ngx-color-picker';
 //import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 import { WeekdayFormatPipe } from 'src/app/_pipes/weekday-format-pipe'
 // import { GroupByPipe } from 'src/app/pipes/group-by.pipe';
-
+import { ToggleFullscreenDirective } from 'src/app/_directives/fullscreen.directive';
 
 
 @NgModule({
@@ -27,11 +27,11 @@ import { WeekdayFormatPipe } from 'src/app/_pipes/weekday-format-pipe'
   exports: [PracticeComponent, ScheduleComponent, ErxComponent, AuditLogComponent,
     AccessPermissionComponent, PatientSettinsComponent, ReportsSettingsComponent,
     PatientEdnMaterialComponent, MessageSettingsComponent, LabMappingComponent,
-    ClinicDecisionComponent,WeekdayFormatPipe],
+    ClinicDecisionComponent,WeekdayFormatPipe,ToggleFullscreenDirective],
   declarations: [PracticeComponent, ScheduleComponent, ErxComponent, AuditLogComponent,
     AccessPermissionComponent, PatientSettinsComponent, ReportsSettingsComponent,
     PatientEdnMaterialComponent, MessageSettingsComponent, LabMappingComponent,
-    ClinicDecisionComponent,WeekdayFormatPipe],
+    ClinicDecisionComponent,WeekdayFormatPipe,ToggleFullscreenDirective],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

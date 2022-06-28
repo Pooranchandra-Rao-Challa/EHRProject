@@ -1,17 +1,14 @@
 
 import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { PracticeProviders } from 'src/app/_models/';
+
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
 import { PatientService } from 'src/app/_services/patient.service';
 import { EHROverlayRef } from '../../ehr-overlay-ref';
 import {
-  Actions,
+  EncounterInfo, EncounterDiagnosis, ProceduresInfo, VitalInfo,PracticeProviders,Actions,
   ScheduledAppointment, AppointmentTypes,
   UserLocations
-} from 'src/app/_models';
-import {
-  EncounterInfo, EncounterDiagnosis, ProceduresInfo, VitalInfo
 } from 'src/app/_models';
 import {
   MedicalCode
@@ -21,6 +18,7 @@ import { BehaviorSubject, combineLatest, fromEvent, merge, Observable } from 'rx
 import { OverlayService } from 'src/app/overlay.service';
 import { map, } from 'rxjs/operators';
 import { AlertMessage, ERROR_CODES } from './../../_alerts/alertMessage';
+import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 
 @Component({
   selector: 'app-encounter.dialog',
@@ -55,7 +53,6 @@ export class EncounterDialogComponent implements OnInit {
   codeSystemsForDischarge: string[] = ['SNOMED'];
   codeSystemsForDocumentation: string[] = ['CPT'];
   codeSystemsForProcedures: string[] = ['CDT/CPT', 'HCPCS'];
-  //vitalDialogComponent = VitalDialogComponent
   vitalDialogResponse: any;
   ActionsType = Actions;
   message: string = "";
@@ -67,9 +64,8 @@ export class EncounterDialogComponent implements OnInit {
   ]
   dischargeCode = new MedicalCode();
   dialogIsLoading: boolean = false;
-  //CollectedTime: string;
-  //messageflag: boolean = true;
-  //messageflag$: Observable<boolean>;
+  patient: ProviderPatient;
+
   private messageflagSubject = new BehaviorSubject<boolean>(false);
   public messageflag$ = this.messageflagSubject.asObservable();
   constructor(private overlayref: EHROverlayRef, private authService: AuthenticationService,
@@ -98,6 +94,8 @@ export class EncounterDialogComponent implements OnInit {
     this.loadDefaults();
     this.appointment = this.overlayref.RequestData as ScheduledAppointment
     console.log(this.appointment);
+    this.patient = this.overlayref.RequestData as ProviderPatient;
+    console.log(this.patient);
 
     this.initEncoutnerView();
     this.loadEncouterView();
@@ -162,10 +160,12 @@ export class EncounterDialogComponent implements OnInit {
 
   }
   loadEncouterView(){
-  // {"EncounterId": this.appointment.EncounterId}
-  let requestdata = {"EncounterId":this.appointment.EncounterId,
+    let requestdata = {"AppointmentId":null,"EncounterId":null}
+    if(this.appointment != null)
+      requestdata = {"EncounterId":this.appointment.EncounterId,
                     "AppointmentId": this.appointment.EncounterId == null ?
                             this.appointment.AppointmentId : null};
+
     this.dialogIsLoading = true;
     this.patientService.EncounterView(requestdata).subscribe(resp => {
       if (resp.IsSuccess) {
@@ -186,8 +186,11 @@ export class EncounterDialogComponent implements OnInit {
         }else{
           this.encounterInfo.ProviderId = this.authService.userValue.ProviderId;
           this.encounterInfo.LocationId = this.location.locationId;
-          this.encounterInfo.AppointmentId = this.appointment.AppointmentId;
-          this.encounterInfo.PatientId = this.appointment.PatientId;
+          if(this.appointment != null){
+            this.encounterInfo.AppointmentId = this.appointment.AppointmentId;
+            this.encounterInfo.PatientId = this.appointment.PatientId;
+          }
+
         }
 
       }else{
@@ -330,8 +333,6 @@ export class EncounterDialogComponent implements OnInit {
 
   enableSaveButtons(){
 
-
-    //this.messageflag = this.encounterInfo.ServicedAt != null
     if(this.encounterInfo.HealthInfoExchange == true &&
       this.encounterInfo.ReferredTo == false
       || this.encounterInfo.ReferralTo == ""
@@ -346,9 +347,6 @@ export class EncounterDialogComponent implements OnInit {
         this.messageflagSubject.next(true);
         this.message = "Update the provider from whom you redirected this patient."
       }else this.messageflagSubject.next(false);;
-
-
-
   }
 
   recordSuperBill(){

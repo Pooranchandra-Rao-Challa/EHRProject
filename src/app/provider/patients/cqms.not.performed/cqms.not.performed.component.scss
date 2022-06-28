@@ -1,2 +1,15 @@
 @import"../../../../assets/common.scss";
-@import"../../../../assets/cstm.material.scss"
+@import"../../../../assets/cstm.material.scss";
+
+
+.cursorpointer {
+  color: black !important;
+}
+.cursorpointer:hover {
+  cursor: pointer !important;
+  color: #fe8f00 !important;
+}
+table, th, td {
+  border: 1px solid #ddd;
+}
+
