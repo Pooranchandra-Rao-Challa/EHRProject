@@ -67,3 +67,12 @@
 ::ng-deep .radio-group .mat-radio-button{
   display: flex;
 }
+.dialog-footer.modal-footer{
+  display: block;
+  padding: 10px 15px !important;
+}
+@media (max-width: 425px){
+  .modal-dialog.smoking-status{
+    margin-top: -45px !important;
+  }
+}

@@ -65,8 +65,7 @@ export class PatientService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._careTeamUrl, reqparams);
   }
 
-  PatientsRelationByProviderId(reqparam:any)
-  {
+  PatientsRelationByProviderId(reqparam: any) {
     return this._ProcessPostRequest<any>(this._patientsRelationByProviderIdUrl, reqparam);
   }
 
@@ -170,44 +169,47 @@ export class PatientService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._createEncounterUrl, reqparams);
   }
 
-  EncounterView(reqparams: any){
-    return this._ProcessPostRequest<any>(this._encounterViewUrl,reqparams);
+  EncounterView(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._encounterViewUrl, reqparams);
   }
 
-  CreateUpdateInsuranceCompanyPlan(reqparams:any)
-  {
-    return this._ProcessPostRequest<any>(this. _createUpdateInsuranceCompanyPlanUrl,reqparams);
+  CreateUpdateInsuranceCompanyPlan(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._createUpdateInsuranceCompanyPlanUrl, reqparams);
   }
 
-  DeleteInsuranceCampanyplan(reqparams:any)
-  {
-    return this._ProcessPostRequest<any>(this._deleteInsuranceCampanyplanUrl,reqparams);
+  DeleteInsuranceCampanyplan(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._deleteInsuranceCampanyplanUrl, reqparams);
   }
 
-  CreateUpdateInsuranceDetails(reqparams:any)
-  {
-    return this._ProcessPostRequest<any>(this._createUpdateInsuranceDetailsUrl,reqparams);
+  CreateUpdateInsuranceDetails(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._createUpdateInsuranceDetailsUrl, reqparams);
   }
 
-  LatestUpdatedPatientsUrl(reqparams: any){
-    return this._ProcessPostRequest<any>(this._latestUpdatedPatientsUrl,reqparams);
+  CreatePastMedicalHistories(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._createPastMedicalHistoriesUrl, reqparams);
   }
 
-  PatientPastAppointments(reqparams: any)
-  {
-    return this._ProcessPostRequest<any>(this._patientPastAppointmentsUrl,reqparams);
+  CreateAllergies(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._createAllergiesUrl, reqparams);
   }
 
-  PatientUpcomingAppointments(reqparams: any)
-  {
-    return this._ProcessPostRequest<any>(this._patientUpcomingAppointmentsUrl,reqparams)
-  }
-  PatientAccountInfo(reqparams: any){
-    return this._ProcessPostRequest<any>(this._patientAccountInfoUrl,reqparams);
+  LatestUpdatedPatientsUrl(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._latestUpdatedPatientsUrl, reqparams);
   }
 
-  CreateProcedure(reqparams: any){
-    return this._ProcessPostRequest<any>(this._createProcedureUrl,reqparams);
+  PatientPastAppointments(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._patientPastAppointmentsUrl, reqparams);
+  }
+
+  PatientUpcomingAppointments(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._patientUpcomingAppointmentsUrl, reqparams)
+  }
+  PatientAccountInfo(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._patientAccountInfoUrl, reqparams);
+  }
+
+  CreateProcedure(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._createProcedureUrl, reqparams);
   }
 
 }

@@ -36,22 +36,24 @@ export class AlertMessage {
 
     })
   }
-  userCreateConfirm(code: string,provider: string){
+  userCreateConfirm(code: string, provider: string) {
     Swal.fire({
       title: ERROR_CODES['T2JP001'],
       position: 'top',
       background: '#e1dddd',
       showConfirmButton: true,
       html:
-    'An email has been set to, ' +
-    '<p>' +provider+
-    '<p> He/She wil need to enter the Practice record ID# to activate their account.'+
-    '<p>  Practice Record ID# <b>'+code+'</b>',
+        'An email has been set to, ' +
+        '<p>' + provider +
+        '<p> He/She wil need to enter the Practice record ID# to activate their account.' +
+        '<p>  Practice Record ID# <b>' + code + '</b>',
       confirmButtonText: 'Done',
       confirmButtonColor: "#41b6a6",
-      customClass: { container: 'swal2-container-high-zindex',
-      actions:'user-swal2-actions',
-      title:'user-swal2-actions' }
+      customClass: {
+        container: 'swal2-container-high-zindex',
+        actions: 'user-swal2-actions',
+        title: 'user-swal2-actions'
+      }
 
     })
 
@@ -165,6 +167,14 @@ export const ERROR_CODES: { [key: string]: string } = {
   // Error for Advanced directives
   'E2CAD001': 'Advanced Directives Updation error',
 
+  //Message for past medical histories in chart screen
+  'M2CPMH001': 'Past medical histories added successfully',
+  'M2CPMH002': 'Past medical histories updated successfully',
+  'M2CPMH003': 'Past medical histories deleted successfully',
+
+  // Error for past medical histories
+  'E2CPMH001': 'Past medical histories Updation error',
+
   // Message form Patient profile screen
   'M2CP001': 'Personal Information updated successfully',
   'M2CP002': 'Contact Information updated successfully',
@@ -176,7 +186,7 @@ export const ERROR_CODES: { [key: string]: string } = {
 
   // Error for Patient profile directives
   'E2CP001': 'Personal Information Updation error',
-  '2CP002' : 'Contact Information Updation error',
+  '2CP002': 'Contact Information Updation error',
   'E2CP003': 'Emergency Contact Updation error',
   'E2CP004': 'Relationship Updation error',
   'E2CP005': 'Demographics Updation error',
@@ -241,20 +251,28 @@ export const ERROR_CODES: { [key: string]: string } = {
   //Error for WeeklyUpated
   'E1WU001': 'Please insert the data into the fields',
 
-  'T2JP001' : 'User has been added!',
-  'M2AP001' : 'Patient Added successfully',
-  'M2AP002' : 'Patient Invitaion pdf downloaded',
-  'M2AP003' : 'Patient Invitaion mail sent',
-  'E2AP001' : 'Patient Adding error',
+  'T2JP001': 'User has been added!',
+  'M2AP001': 'Patient Added successsfully',
+  'E2AP001': 'Patient Adding error',
+  'E2AP002': 'Patient User account create error',
+  'M2AP002': 'Patient Invitaion pdf downloaded',
+  'M2AP003': 'Patient Invitaion mail sent',
 
-   // CQM Not performed
+  //Message for allergies in chart screen
+  'M2CA001': 'Allergies added successfully',
+  'M2CA002': 'Allergies updated successfully',
+  'M2CA003': 'Allergies deleted successfully',
+
+  // Error for allergies
+  'E2CA001': 'Allergies Updation error',
+
+  // CQM Not performed
   'M2CCNP001': 'Not Performed Reason created successfully',
   'M2CCNP002': 'Not Performed Reason updated successfully',
 
   // Error for CQM Not performed
   'E2CCNP001': 'Not Performed Reason created error',
 
-  'E2AP002' : 'Patient User account create error',
 };
 
 
