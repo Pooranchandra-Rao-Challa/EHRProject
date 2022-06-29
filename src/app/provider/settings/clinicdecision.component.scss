@@ -8,7 +8,9 @@
   justify-content: space-between;
   box-sizing: border-box;
 }
-
+.Clinicalalignments{
+  margin-left: 10px;
+}
 .new-alert-form .modal-dialog {
   max-width: 780px;
 }
@@ -30,7 +32,36 @@
   padding-top: 15px;
   margin-top: 2px;
 }
+.btn-op {
+  background-color: #41b6a6;
+  color: white;
+  border: 1px solid #41b6a6;
+  width: 80px;
+  height: 40px;
+  border-radius: 1px;
+  font-size: 15px;
+  font-family: revert;
+}
 
+
+.btn-of {
+  border: 1px solid #41b6a6;
+  width: 80px;
+  height: 40px;
+  font-size: 15px;
+  font-family: revert;
+  border-radius: 1px;
+
+}
+.plusicon{
+  margin-right: 5px;
+}
+.btn-of:hover {
+  background-color: #41b6a6;
+  color: #fff;
+  margin-left: 1px;
+  
+}
 .btn-on {
   background-color: #41b6a6 !important;
   color: white;
@@ -76,29 +107,7 @@
   color: #fff;
 }
 
-.btn-op {
-  background-color: #41b6a6;
-  color: white;
-  border: 1px solid #41b6a6;
-  width: 80px;
-  height: 40px;
-  border-radius: 0px;
-  font-size: 15px;
-  font-family: revert;
-}
 
-.btn-of {
-  border: 1px solid #41b6a6;
-  width: 80px;
-  height: 40px;
-  font-size: 15px;
-  font-family: revert;
-}
-
-.btn-of:hover {
-  background-color: #41b6a6;
-  color: #fff
-}
 
 .number {
   width: 32px;
@@ -121,7 +130,7 @@
 
 .titleText {
   margin-top: 11px;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 700;
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   color: #4A4A4A;
@@ -186,7 +195,10 @@ mat-accordion .mat-expansion-panel:first-of-type {
   height: 45px;
   width: 150px;
 }
-
+.searchbtn
+{
+  padding-left: 26px;
+}
 .FieldValid {
   border-radius: 83%;
   height: 22px;
@@ -200,7 +212,14 @@ mat-accordion .mat-expansion-panel:first-of-type {
   background: #64ab5b;
   color: #f7f2f2;
 }
-
+.FieldInvalid{
+  border-radius: 77%;
+  height: 24px;
+  background: red;
+  color: white;
+  border-color: red;
+  text-align: center;
+}
 .FieldValiddatepicker {
 
   height: 24px;
@@ -222,6 +241,7 @@ mat-accordion .mat-expansion-panel:first-of-type {
   margin-top: -28px;
 }
 
+
 .table-borderless> :not(:first-child) {
   border-top-width: 0;
   border-bottom-width: 1px;
@@ -234,14 +254,14 @@ mat-accordion .mat-expansion-panel:first-of-type {
 
 ::ng-deep .green-calendar.mat-form-field-appearance-outline .mat-form-field-outline {
   background-color: #fff !important;
-  color: #41a6b6 !important;
+  color: #41b6a6 !important;
   height: 45px;
 }
 
 .Cancelbtn {
   border-radius: 77%;
-  background: #fff !important;
-  color: #d64841 !important;
+  background: #d64841  !important;
+  color:#fff !important;
   font-size: 16px !important;
   margin-right: 20px !important;
   padding: 3px !important;
@@ -249,8 +269,8 @@ mat-accordion .mat-expansion-panel:first-of-type {
 }
 
 .Cancelbtn:hover {
-  background: #d64841 !important;
-  color: #fff !important;
+  background: #fff !important;
+  color:#d64841 !important;
 }
 
 .trigger-align {
@@ -268,6 +288,7 @@ input::-webkit-input-placeholder {
 
 .title-heading {
   margin-top: 9px;
+  margin-left: 10px;
 }
 
 .prevent-click {

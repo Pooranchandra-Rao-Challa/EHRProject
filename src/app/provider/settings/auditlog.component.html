@@ -15,7 +15,7 @@
     <div class="d-flex justify-content-start">
       <mat-form-field appearance="outline" class="col-md-3  green-calendar">
         <input matInput [matDatepicker]="dp"  placeholder="From" name="startDate"
-        [(ngModel)]="startDate"  >
+        [(ngModel)]="startDate" (focus)="dp?.open()" >
         <mat-datepicker-toggle matSuffix [for]="dp">
         </mat-datepicker-toggle>
         <mat-datepicker #dp disabled="false"></mat-datepicker>
@@ -23,7 +23,7 @@
       <div class="mx-1 cust-hyphen">-</div>
       <mat-form-field appearance="outline" class="col-md-3 green-calendar">
         <input matInput [matDatepicker]="dp1" placeholder="To" name="enddate"
-        [(ngModel)]="enddate" (dateChange)="getAuditLogList('')" >
+        [(ngModel)]="enddate" (dateChange)="getAuditLogList('')" (focus)="dp1?.open()">
         <mat-datepicker-toggle matSuffix [for]="dp1">
         </mat-datepicker-toggle>
         <mat-datepicker #dp1 disabled="false"></mat-datepicker>
@@ -67,14 +67,14 @@
     </ng-container>
     <ng-container matColumnDef="Action">
       <th mat-header-cell *matHeaderCellDef class="th-dropdown">
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="outline">
         <mat-select placeholder="Action">
           <mat-option *ngFor="let topping of Action" [value]="topping">
             {{topping}}
           </mat-option>
         </mat-select>
       </mat-form-field> </th>
-      <td mat-cell *matCellDef="let element" class="text-center">{{element.Action}}</td>
+      <td mat-cell *matCellDef="let element" class="text-center"><u>{{element.Action}}</u></td>
     </ng-container>
     <ng-container matColumnDef="Details">
       <th mat-header-cell *matHeaderCellDef class="text-center"> Details  </th>

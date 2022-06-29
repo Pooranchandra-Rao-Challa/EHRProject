@@ -105,16 +105,20 @@
               <textarea class="col-12 text-area" formControlName="resouceNote"></textarea>
             </div>
           </div>
-          <div class="row pattach">
-            <div class="col-md-1 pt-2 pb-2">
+          <div class="pattach">
+            <div class="container-fluid">
+            <div class="row">
+              <!-- <div class="col-md-1"></div> -->
+            <div class="col-md-10 pt-2 pb-2">
               <p class="title"><b>Attachments:</b></p>
             </div>
-            <div class="col-md-9"></div>
-            <div class="col-md-2 pt-2 pb-2 pull-right">
-              <button class="plusicon icon-border" type="button" (click)="attachements()">
+            <div class="col-md-2 pt-2 pb-2">
+              <button class="plusicon icon-border pull-right" type="button" (click)="attachements()">
                 <i class="fa fa-plus"></i>
               </button>
             </div>
+          </div>
+          </div>
           </div>
           <div formArrayName="attachments" class="row formarray">
             <div *ngFor="let atta of attachments.controls; let i=index ">

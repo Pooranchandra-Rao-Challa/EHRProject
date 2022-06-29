@@ -7,23 +7,23 @@
       <div *ngFor="let item of erxList">
       <div class="input-group">
         <span class="input-group-text" id="basic-addon1">Clinic ID<b>:</b></span>
-        <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder="" value="{{item.ClinicId}}">
+        <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder="" value="{{item.ClinicId}}" readonly>
       </div>
       <div class="input-group">
         <span class="input-group-text" id="basic-addon2">Clinic Key<b>:</b> </span>
         <input type="password" class="form-control clinickey" id="basic-url1" aria-describedby="basic-addon3" value="{{item.ClinicKey}}"
-         [type]="showkey ? 'text' : 'password'">
+         [type]="showkey ? 'text' : 'password'" readonly>
         <span class="keyhide mx-1" (click)="togglePasswordVisibility()">
           <u>{{showkey?'hide key':'show key'}}</u>
         </span>
       </div>
       <div class="input-group">
         <span class="input-group-text" id="basic-addon3">API Location<b>:</b></span>
-        <input type="text" class="form-control" id="basic-url2" aria-describedby="basic-addon3" placeholder="" value="{{item.ApiLocation}}">
+        <input type="text" class="form-control" id="basic-url2" aria-describedby="basic-addon3" placeholder="" value="{{item.ApiLocation}}" readonly>
       </div>
       <div class="input-group">
-        <span class="input-group-text" id="basic-addon3">SSO Location<b>:</b></span>
-        <input type="text" class="form-control" id="basic-url3" aria-describedby="basic-addon3" placeholder="" value="{{item.SSOLocation}}">
+        <span class="input-group-text Helvetica-sans-serif-medium" id="basic-addon3">SSO Location<b>:</b></span>
+        <input type="text" class="form-control" id="basic-url3" aria-describedby="basic-addon3" placeholder="" value="{{item.SSOLocation}}"readonly>
       </div>
       </div>
     </div>

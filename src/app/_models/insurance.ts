@@ -1,4 +1,4 @@
-export class PrimaryInsurance {
+export class    PrimaryInsurance {
     InsuranceId?: string;
     SubscriberNane?: string;
     DateOfBirth?: Date;
@@ -13,7 +13,7 @@ export class PrimaryInsurance {
     SubscriberId?: string;
     RelationshipToSubscriber?: string;
     SourceOfPaymentTypology?: string;
-    PaymentTypologyCode?:string;
+    //  PaymentTypologyCode?:string;
     PaymentTypologyDescription?:string;
     InsuranceType?: string;
     StartDate?: string;

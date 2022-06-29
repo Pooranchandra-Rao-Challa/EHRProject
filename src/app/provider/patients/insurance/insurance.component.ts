@@ -31,7 +31,7 @@ export class InsuranceComponent implements OnInit {
   viewpidetailsforprimary: boolean = true;
   viewpidetailsforsecondary: boolean = true;
   SourceOfPaymentTypologyCodes: any = [];
-  insurancePlanList: any = [];
+  InsurancePlanList: any = [];
   PatientDetails: any = [];
   insuranceList: any = [];
   InsuranceID: any;
@@ -61,12 +61,11 @@ export class InsuranceComponent implements OnInit {
   disableaddressverification1: boolean = false;
   secondarymanuallybtn: boolean;
   secondarydisableaddressverification: boolean;
-  primaryselected: any;
-  secondaryselected: any;
   SearchKey = "";
-  getinsurancePlanList: any;
+  getInsurancePlanList: any;
   primaryInsDetail: boolean;
   secondaryInsDetail: boolean;
+  SourceOfPaymentTypologyCodesFilter: any;
 
 
   constructor(private patientservice: PatientService,
@@ -84,11 +83,11 @@ export class InsuranceComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getPatientDetails();
     this.getSourceOfPaymentTypologyCodesDD();
     this.InsuranceCompanyPlanList();
-    this.getPatientDetails();
     this.getInsuranceList();
-    this.getSourceOfPaymentTypologyCodesDD();
+   
   }
 
   AddInsuranceCompanyPlan() {
@@ -111,7 +110,7 @@ export class InsuranceComponent implements OnInit {
 
 
   edit(event, idx) {
-    this.arry.push(this.insurancePlanList[idx]);
+    this.arry.push(this.InsurancePlanList[idx]);
     this.isValid = true;
     this.delete = true;
     this.data = false;
@@ -129,18 +128,18 @@ export class InsuranceComponent implements OnInit {
   changeTableRowColor(idx, event) {
     this.arry = [];
     this.rowClicked = idx;
-    this.arry.push(this.insurancePlanList[idx]);
+    this.arry.push(this.InsurancePlanList[idx]);
     this.btnstate = event;
 
   }
   primaryplus(item) {
-
     this.plusvalue = item;
     this.rowClicked = -1;
     this.data = true;
     this.isValid = false;
     this.cancel2 = false;
     this.cancel1 = false;
+    this.InsuranceCompanyPlanList();
   }
   secondaryplus(item) {
     this.plusvalue = item;
@@ -183,15 +182,25 @@ export class InsuranceComponent implements OnInit {
   // SourceOfPaymentTypologyCodes dropdown
   getSourceOfPaymentTypologyCodesDD() {
     this.patientservice.SourceOfPaymentTypologyCodes().subscribe(resp => {
+      if (resp.IsSuccess) {
       this.SourceOfPaymentTypologyCodes = resp.ListResult;
+      this.SourceOfPaymentTypologyCodesFilter=this.SourceOfPaymentTypologyCodes.slice();
+      if(this.primlist.SourceOfPaymentTypology ! ="")
+      {
+          let data =this.primlist.SourceOfPaymentTypology;
+          let SourceOfPaymentTypologyCodes=this.SourceOfPaymentTypologyCodes.find(x=>x.Code == data);
+          this.primlist.SourceOfPaymentTypology=SourceOfPaymentTypologyCodes.Code;
+          this.primlist.PaymentTypologyDescription=SourceOfPaymentTypologyCodes.Description;
+      }
+      }
     })
   }
-
+ 
   InsuranceCompanyPlanList() {
     this.patientservice.InsuranceCompanyPlans().subscribe(
       resp => {
-        this.insurancePlanList = resp.ListResult;
-        this.getinsurancePlanList = this.insurancePlanList
+        this.InsurancePlanList = resp.ListResult;
+        this.getInsurancePlanList = this.InsurancePlanList
         this.secondaryInsurancelist = resp.ListResult;
 
       })
@@ -204,7 +213,6 @@ export class InsuranceComponent implements OnInit {
 
   // get patient details by id
   getInsuranceList() {
-
     var reqparam = {
       "PatientId": this.PatientDetails.PatientId
     }
@@ -228,7 +236,6 @@ export class InsuranceComponent implements OnInit {
           this.secList.StartDate = moment(secondaryData[0].StartDate).format('YYYY-MM-DD');
           this.secList.EndDate = moment(secondaryData[0].EndDate).format('YYYY-MM-DD');
         }
-
       }
     });
   }
@@ -258,10 +265,9 @@ export class InsuranceComponent implements OnInit {
         this.primaryInsDetail=false;
         this.secondaryInsDetail=true;
     }
-
   }
-  getInsuranceDetail(id) {
 
+  getInsuranceDetail(id) {
     var reqparam = {
       "InsuranceId": id
     }
@@ -283,8 +289,8 @@ export class InsuranceComponent implements OnInit {
       else {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2CI001"]);
       }
-      this.InsuranceCompanyPlanList();
     });
+  
   }
 
   deleteInsurancePlan() {
@@ -293,7 +299,7 @@ export class InsuranceComponent implements OnInit {
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2CI003"]);
       }
     });
-this.getInsuranceList();
+    this.InsuranceCompanyPlanList();
     this.data = true;
     this.isValid = false;
     this.cancel2 = false;
@@ -307,6 +313,7 @@ this.getInsuranceList();
       this.primlist.LocationId = this.changedLocationId;
       this.primlist.InsuranceType = this.primaryInsuranceType;
       let isAdd = this.primlist.InsuranceId == "";
+      
       this.patientservice.CreateUpdateInsuranceDetails(this.primlist).subscribe((resp) => {
         if (resp.IsSuccess) {
           this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CI004" : "M2CI005"]);
@@ -315,7 +322,6 @@ this.getInsuranceList();
           this.alertmsg.displayErrorDailog(ERROR_CODES["E2CI002"]);
         }
       })
-      this.getInsuranceList();
       this.manuallybtn = false;
       this.disableaddressverification = false;
       this.addressVerfied = false;
@@ -334,7 +340,6 @@ this.getInsuranceList();
           this.alertmsg.displayErrorDailog(ERROR_CODES["E2CI003"]);
         }
       })
-      this.getInsuranceList();
       this.secondarymanuallybtn = false;
       this.secondarydisableaddressverification = false;
       this.secondaryAdressVerfied = false;
@@ -357,10 +362,12 @@ this.getInsuranceList();
       }
     });
   }
+
   enableManualEntry() {
     this.manuallybtn = true;
     this.clearAddress();
   }
+
   clearAddress() {
     this.primlist.Street = "";
     this.primlist.City = ""
@@ -368,6 +375,7 @@ this.getInsuranceList();
     this.primlist.StreetAddress = ""
     this.primlist.Zip = ""
   }
+
   secondaryclearAddress() {
     this.secList.Street = "";
     this.secList.City = ""
@@ -375,6 +383,7 @@ this.getInsuranceList();
     this.secList.StreetAddress = ""
     this.secList.Zip = ""
   }
+
   enterAddressManually(item) {
     this.disableaddressverification = true;
   }
@@ -395,6 +404,7 @@ this.getInsuranceList();
       }
     });
   }
+  
   secondaryenableManualEntry() {
     this.secondarymanuallybtn = true;
     this.secondaryclearAddress();
@@ -402,22 +412,8 @@ this.getInsuranceList();
   secondaryenterAddressManually(item) {
     this.secondarydisableaddressverification = true;
   }
-  onChange(type, value) {
-    if (type === 'primary') {
-      this.primaryselected = this.SourceOfPaymentTypologyCodes.filter(x => x.Code == value)[0];
-      this.primlist.PaymentTypologyCode = this.primaryselected.Code;
-      this.primlist.PaymentTypologyDescription = this.primaryselected.Description;
-    }
-  }
-  secondaryonChange(type, value) {
-    if (type === 'secondary') {
-      this.secondaryselected = this.SourceOfPaymentTypologyCodes.filter(x => x.Code == value)[0];
-      this.secList.PaymentTypologyCode = this.secondaryselected.Code;
-      this.secList.PaymentTypologyDescription = this.secondaryselected.Description;
-    }
-  }
   onFilterChange() {
-    this.insurancePlanList = this.insurancePlanList.filter((invoice) => this.isMatch(invoice));
+    this.InsurancePlanList = this.InsurancePlanList.filter((invoice) => this.isMatch(invoice));
   }
 
   isMatch(item) {
@@ -427,6 +423,16 @@ this.getInsuranceList();
       return item == null ? '' : item.toString().indexOf(this.SearchKey) > -1
 
     }
+  }
+  primaryspt(item) {
+    
+    this.primlist.SourceOfPaymentTypology = item.Code;
+    this.primlist.PaymentTypologyDescription = item.Description;
+  }
+  secondaryspt(item)
+  {
+    this.secList.SourceOfPaymentTypology=item.Code;
+    this.secList.PaymentTypologyDescription=item.Description;
   }
 }
 
