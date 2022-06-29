@@ -218,7 +218,7 @@
   margin-left: 21%;
 }
 .cdk-overlay-pane{
-  background-color: red !important;
+  background-color: #d64841 !important;
 }
 // common sweetalert
 ::ng-deep .swal2-styled.swal2-confirm {
@@ -257,7 +257,7 @@
   color: #fff !important;
 }
 ::ng-deep .swal2-title-custom{
-  background-color: red !important;
+  background-color: #d64841 !important;
 }
 .btn{
   font: 400 14px/20px Roboto, "Helvetica Neue", sans-serif;
@@ -266,4 +266,8 @@
 
 ::ng-deep .user-swal2-actions{
   margin: 0px;
+}
+.required:before {
+  content: "*" !important;
+  color: red !important;
 }

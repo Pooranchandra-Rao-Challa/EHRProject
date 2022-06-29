@@ -7,10 +7,13 @@ import { SmokingStatusDialogComponent } from 'src/app/dialogs/smoking.status.dia
 import { InterventionDialogComponent } from 'src/app/dialogs/intervention.dialog/intervention.dialog.component';
 import { PatientService } from '../../../_services/patient.service';
 import {
-  AdvancedDirective, ChartInfo, PatientChart, Allergies, EncounterDiagnosis, PastMedicalHistories,Actions,
+  AdvancedDirective, ChartInfo, PatientChart, Allergies, EncounterDiagnosis, PastMedicalHistories, Actions,
   Immunizations, Medications, EncounterInfo, NewAppointment, SmokingStatus, TobaccoUseScreenings, TobaccoUseInterventions
 } from 'src/app/_models';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
+import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
+import { DatePipe } from "@angular/common";
+const moment = require('moment');
 import { EncounterDialogComponent } from '../../../dialogs/encounter.dialog/encounter.dialog.component';
 
 
@@ -26,29 +29,40 @@ export class ChartComponent implements OnInit {
   encounterDialogComponent = EncounterDialogComponent;
 
   dialogResponse = null;
-  advancedDirectives: AdvancedDirective[];
+  advanceddirectivesdialogResponse: AdvancedDirectivesDialogComponent;
+  smokingstatusdialogResponse: SmokingStatusDialogComponent;
+  // advancedDirectives: AdvancedDirective[];
   allDiagnoses: EncounterDiagnosis[];
-  allAllergies: Allergies[];
-  pastMedicalHistories: PastMedicalHistories[];
+  patientAllergy: Allergies = new Allergies();
+  patientpastMedicalHistories: PastMedicalHistories = new PastMedicalHistories();
   immunizations: Immunizations[];
   medications: Medications[];
   encounters: EncounterInfo[];
   appointments: NewAppointment[];
-  smokingstatus: SmokingStatus[];
+  // smokingstatus: SmokingStatus[];
   tobaccoscreenings: TobaccoUseScreenings[];
   tobaccointerventions: TobaccoUseInterventions[];
-  advanceddirectivesdialogResponse: any;
-  smokingstatusdialogResponse: any;
-
+  allergyType: string[];
+  severityLevel: string[];
+  onsetAt: string[];
+  allergens: string[];
+  allergyReaction: string[];
   currentPatient: ProviderPatient;
   ActionTypes = Actions;
   chartInfo: ChartInfo = new ChartInfo;
   constructor(public overlayService: OverlayService,
     private patientService: PatientService,
-    private authService: AuthenticationService) {
+    private authService: AuthenticationService,
+    private alertmsg: AlertMessage,
+    public datepipe: DatePipe) {
   }
 
   ngOnInit(): void {
+    this.allergyType = ['Medication', 'Food', 'Environment'];
+    this.severityLevel = ['Very Mild', 'Mild', 'Moderate', 'Severe'];
+    this.onsetAt = ['Childhood', 'Adulthood', 'Unknown'];
+    this.allergens = ['1,1-diphenylethylene', '1,2-dioleoyl-sn-glycero-3-phosphocholine', '2-methoxynaphthoquinone'];
+    this.allergyReaction = ['Anaphylaxis', 'Bloating/gas', 'Chest Pain', 'Cough'];
     this.currentPatient = this.authService.viewModel.Patient;
     this.ChartInfo();
   }
@@ -99,6 +113,72 @@ export class ChartComponent implements OnInit {
     });
   }
 
+  resetDialog() {
+    this.patientAllergy = new Allergies;
+  }
+
+  editDialog(dialogData, name) {
+    if (name == 'past medical history') {
+      this.patientpastMedicalHistories = dialogData;
+    }
+    else if (name == 'allergie') {
+      if (dialogData.StartAt != undefined) {
+        dialogData.StartAt = moment(dialogData.StartAt).format('YYYY-MM-DD');
+      }
+      if (dialogData.EndAt != undefined) {
+        dialogData.EndAt = moment(dialogData.EndAt).format('YYYY-MM-DD');
+      }
+      this.patientAllergy = dialogData;
+      this.patientAllergy.AllergenId = dialogData.AllergenId;
+    }
+  }
+
+  CreatePastMedicalHistories() {
+    this.patientService.CreatePastMedicalHistories(this.patientpastMedicalHistories).subscribe((resp) => {
+      if (resp.IsSuccess) {
+        this.PastMedicalHistoriesByPatientId();
+        this.alertmsg.displayMessageDailog(ERROR_CODES["M2CPMH002"]);
+      }
+      else {
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CPMH001"]);
+      }
+    });
+  }
+
+  CreateAllergies() {
+    let isAdd = this.patientAllergy.AlergieId == "";
+    this.patientAllergy.PatientId = this.currentPatient.PatientId;
+    this.patientAllergy.StartAt = this.datepipe.transform(this.patientAllergy.StartAt, "MM/dd/yyyy hh:mm:ss");
+    this.patientAllergy.EndAt = this.datepipe.transform(this.patientAllergy.EndAt, "MM/dd/yyyy hh:mm:ss");
+    this.patientAllergy.EncounterId = '60d72688391cba0e236c28c8';
+    this.patientService.CreateAllergies(this.patientAllergy).subscribe((resp) => {
+      if (resp.IsSuccess) {
+        this.AllergiesByPatientId();
+        this.resetDialog();
+        this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CA001" : "M2CA002"]);
+      }
+      else {
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CA001"]);
+      }
+    });
+  }
+
+  disablePastMedicalHistory() {
+    return !(this.patientpastMedicalHistories.MajorEvents != ''
+      && this.patientpastMedicalHistories.OngoingProblems != ''
+      && this.patientpastMedicalHistories.PerventiveCare != ''
+      && this.patientpastMedicalHistories.NutritionHistory != '')
+  }
+
+  disableAllergies() {
+    return !(this.patientAllergy.AllergenType != undefined
+      && this.patientAllergy.AllergenName != undefined
+      && this.patientAllergy.SeverityLevel != undefined
+      && this.patientAllergy.OnSetAt != undefined
+      && this.patientAllergy.Reaction != undefined
+      && this.patientAllergy.StartAt != undefined)
+  }
+
   // Get advanced directives info
   AdvancedDirectivesByPatientId() {
     this.patientService.AdvancedDirectivesByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
@@ -116,14 +196,15 @@ export class ChartComponent implements OnInit {
   // Get allergies info
   AllergiesByPatientId() {
     this.patientService.AllergiesByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
-      this.allAllergies = resp.ListResult;
+      this.chartInfo.Alergies = resp.ListResult;
     });
   }
 
   // Get Past Medical Histories info
   PastMedicalHistoriesByPatientId() {
     this.patientService.PastMedicalHistoriesByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
-      this.pastMedicalHistories = resp.ListResult;
+      // this.pastMedicalHistories = resp.ListResult;
+      this.chartInfo.PastMedicalHistories = resp.ListResult;
     });
   }
 

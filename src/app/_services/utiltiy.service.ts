@@ -49,4 +49,8 @@ export class UtilityService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._getUserInfoForPatientUrl,ppu);
   }
 
+  CompletePatientAccountProcess(reqparams: any){
+    return this._ProcessPostRequest<any>(this._completePatientAccountProcessUrl,reqparams);
+  }
+
 }
