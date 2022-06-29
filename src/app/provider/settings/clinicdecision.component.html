@@ -1,3 +1,4 @@
+
 <div class="card ">
   <div class="card-header bg-color ">
 
@@ -16,16 +17,15 @@
         <button class="btn" type="button"  [ngClass]=" flag ? 'btn-op' : 'btn-of'"  (click)="open()">On</button>
         <button class="btn" type="button"  [ngClass]=" !flag ? 'btn-op' : 'btn-of'"  (click)="close()" >Off</button>
       </div>
-     
-     
      </div>
      </div>
     <div class="prevent-click" *ngIf="show">
-      <mat-accordion class="prevent-click">
+      <div class="expansion-boder"></div>
+      <mat-accordion class="prevent-click" style="border-top: 1px solid #41b6a6;">
       <mat-expansion-panel [disabled]="item?.isdisabled"
         [ngStyle]="item?.isdisabled?{'opacity': '0.75'} : {'opacity': '1'}"
          [expanded]="step === i" (opened)="setStep(i)"
-         class="customheader" hideToggle="true" #example *ngFor="let item of clinicalDecisionSupportList | groupBy:'AlertId';let i = index">
+         class="customheader"  hideToggle="true" #example *ngFor="let item of clinicalDecisionSupportList | groupBy:'AlertId';let i = index">
           <mat-expansion-panel-header class="panel-header">
             <mat-panel-title>
               <h1 class="number">{{i+1}}</h1>&nbsp;&nbsp;
@@ -115,17 +115,19 @@
           <div class="row field-align" *ngFor="let item1 of item.value | groupBy:'resolution'">
             <mat-label class="Helvetica-sans-serif-small">Resolution: </mat-label>
            
-              <textarea matInput
+            <div class="col-md-12 mt-1">
+              <textarea matInput class="text-border"
                 placeholder="" value="{{item1.key}}"></textarea>
+              </div>
           
           </div>
           <div class="row field-align" *ngFor="let item1 of item.value | groupBy:'bibliography'">
-            <mat-label >Bibliography:</mat-label>
-            <mat-form-field appearance="outline">
+            <mat-label class="Helvetica-sans-serif-small mt-2">Bibliography:</mat-label>
+           <div class="col-md-12 mt-1">
               <!-- <textarea matInput
                 placeholder=""value="{{item1.key}}"></textarea> -->
-                <textarea matInput value="{{item1.key}}"></textarea>
-            </mat-form-field>
+                <textarea class="text-border" matInput  value="{{item1.key}}"></textarea>
+              </div>
           </div>
           <div class="row field-align" *ngFor="let item1 of item.value | groupBy:'developer' ">
             <mat-label class="Helvetica-sans-serif-small">Developer: </mat-label>
@@ -166,7 +168,7 @@
       </div>
 
       <!-- Add New Altert Modal -->
-      <div class="modal fade new-alert-form" id="modal-new-alert-form" data-bs-keyboard="false" tabindex="-1"
+      <div class="modal new-alert-form" id="modal-new-alert-form"  tabindex="-1"
         aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content scrollable-modal">
@@ -177,7 +179,6 @@
               </span>
             </div>
             <div class="modal-body">
-
               <form [formGroup]="decisionSuppotForm">
                 <div class="row">
                   <mat-label>Alert Name*</mat-label>
@@ -241,7 +242,7 @@
                   </div>
                   <mat-form-field appearance="outline" class="col-md-4">
                     <input matInput [matDatepicker]="dp1" placeholder="Stop Date" (mouseover)="releaseDateCheck()"
-                      (mouseleave)="releaseDateUnCheck()" formControlName="releaseDate">
+                      (mouseleave)="releaseDateUnCheck()" formControlName="releaseDate" (focus)="dp1.open()">
                     <mat-datepicker-toggle matSuffix [for]="dp1">
                     </mat-datepicker-toggle>
                     <mat-datepicker #dp1 disabled="false"></mat-datepicker>
@@ -272,13 +273,13 @@
           </div>
         </div>
       </div>
-      <ng-template #myTemplateRef>
+      <!-- <ng-template #myTemplateRef>
    
       </ng-template>
-
+ -->
 
       <!-- TriggerModal -->
-<div class="modal fade TriggerModal" id="TriggerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal  TriggerModal" id="TriggerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content Trigger-content scrollable-modal ">
       <div class="modal-header">
@@ -317,13 +318,12 @@
             <button class="btn btn-green btn-clinic" type="button" disabled>Search Now</button>
           </div>
         </div>
-        <div class="row">
-          <mat-label>Decription*:
-          </mat-label>
-          <mat-form-field appearance="outline">
-            <textarea matInput placeholder="" disabled readonly></textarea>
-          </mat-form-field>
-        </div>
+        <div class="col-md-12">
+          <mat-label>Description*:</mat-label>
+        
+            <textarea matInput class="text-border"
+              placeholder="" readonly disabled></textarea>
+         
         <div class="row">
           <div class="d-flex justify-content-end mt-2">
           <button class="btn btn-green btn-clinic " type="button" disabled>Add trigger</button>
@@ -335,3 +335,8 @@
     </div>
   </div>
 </div>
+
+
+
+
+
