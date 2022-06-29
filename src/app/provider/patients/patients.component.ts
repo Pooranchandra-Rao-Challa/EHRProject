@@ -188,6 +188,8 @@ export class PatientsComponent implements OnInit {
     const ref = this.overlayService.open(content, null);
 
     ref.afterClosed$.subscribe(res => {
+      console.log(res.data);
+
       if (content === this.patientDialogComponent) {
         if (res.data != null && res.data.refresh) {
           this.paginator.pageIndex = 0;

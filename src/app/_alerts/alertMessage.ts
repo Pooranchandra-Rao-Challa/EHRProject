@@ -36,22 +36,24 @@ export class AlertMessage {
 
     })
   }
-  userCreateConfirm(code: string,provider: string){
+  userCreateConfirm(code: string, provider: string) {
     Swal.fire({
       title: ERROR_CODES['T2JP001'],
       position: 'top',
       background: '#e1dddd',
       showConfirmButton: true,
       html:
-    'An email has been set to, ' +
-    '<p>' +provider+
-    '<p> He/She wil need to enter the Practice record ID# to activate their account.'+
-    '<p>  Practice Record ID# <b>'+code+'</b>',
+        'An email has been set to, ' +
+        '<p>' + provider +
+        '<p> He/She wil need to enter the Practice record ID# to activate their account.' +
+        '<p>  Practice Record ID# <b>' + code + '</b>',
       confirmButtonText: 'Done',
       confirmButtonColor: "#41b6a6",
-      customClass: { container: 'swal2-container-high-zindex',
-      actions:'user-swal2-actions',
-      title:'user-swal2-actions' }
+      customClass: {
+        container: 'swal2-container-high-zindex',
+        actions: 'user-swal2-actions',
+        title: 'user-swal2-actions'
+      }
 
     })
 
@@ -104,6 +106,9 @@ export class AlertMessage {
  * Amendments : A
  * Patients : PA
  * CQMsNotPerformed : CNP
+ *
+ * Details of Patients
+ * AddProcedure: P1
  *
  * SMART SCHEDULER
  * Appointments: A
@@ -162,6 +167,14 @@ export const ERROR_CODES: { [key: string]: string } = {
   // Error for Advanced directives
   'E2CAD001': 'Advanced Directives Updation error',
 
+  //Message for past medical histories in chart screen
+  'M2CPMH001': 'Past medical histories added successfully',
+  'M2CPMH002': 'Past medical histories updated successfully',
+  'M2CPMH003': 'Past medical histories deleted successfully',
+
+  // Error for past medical histories
+  'E2CPMH001': 'Past medical histories Updation error',
+
   // Message form Patient profile screen
   'M2CP001': 'Personal Information updated successfully',
   'M2CP002': 'Contact Information updated successfully',
@@ -173,7 +186,7 @@ export const ERROR_CODES: { [key: string]: string } = {
 
   // Error for Patient profile directives
   'E2CP001': 'Personal Information Updation error',
-  '2CP002' : 'Contact Information Updation error',
+  '2CP002': 'Contact Information Updation error',
   'E2CP003': 'Emergency Contact Updation error',
   'E2CP004': 'Relationship Updation error',
   'E2CP005': 'Demographics Updation error',
@@ -185,13 +198,13 @@ export const ERROR_CODES: { [key: string]: string } = {
   //Error for Partner signup
   'E3PS001': 'Partner Error',
   'I3PS001': 'Thank you for your interest in becoming a partner application. Our team will be reaching out to you in the next 3-5 business days',
-  //Message for Smoking Status in chart screen
-  'M2CSS001': 'Smoking Status added successfully',
-  'M2CSS002': 'Smoking Status updated successfully',
-  'M2CSS003': 'Smoking Status deleted successfully',
+  //Message for Smoking status in chart screen
+  'M2CSS001': 'Smoking status added successfully',
+  'M2CSS002': 'Smoking status updated successfully',
+  'M2CSS003': 'Smoking status deleted successfully',
 
   // Error for Smoking Status
-  'E2CSS001': 'Smoking Status Updation error',
+  'E2CSS001': 'Smoking status Updation error',
 
   // Message for Admin Provider  Status
   'M1P001': 'Your 30-Day Trial version is finished',
@@ -200,9 +213,9 @@ export const ERROR_CODES: { [key: string]: string } = {
   'M2CI002': 'Insurance Company Plan Updated successfully',
   'M2CI003': 'Insurance Company Plan  deleted successfully',
   'M2CI004': 'Primary Insurance Added successfully',
-  'M2CI005': 'Primary Insurance Updated successsfully',
+  'M2CI005': 'Primary Insurance Updated successfully',
   'M2CI006': 'Secondary Insurance Added successfully',
-  'M2CI007': 'Secondary Insurance Updated successsfully',
+  'M2CI007': 'Secondary Insurance Updated successfully',
 
 
   //Error for Insurance
@@ -210,10 +223,17 @@ export const ERROR_CODES: { [key: string]: string } = {
   'E2CI002': 'Primary Insurance Updation error',
   'E2CI003': 'Secondary Insurance Updation error',
 
+  //Messages for Patients Procedure Crete
+  'M2CP1001': 'Procedure Added sucessfully',
+  'M2CP1002': 'Procedure Updated sucessfully',
+
+  //ERRORs for Patients Procedure Crete
+  'E2CP1001': 'Procedure Updated sucessfully',
+
   // Smart Scheduler Apoointments;
-  'M2AA001': 'Appointment Added successsfully',
-  'M2AA002': 'Appointment Updated successsfully',
-  'M2AA003': 'Appointment Deleted successsfully',
+  'M2AA001': 'Appointment Added successfully',
+  'M2AA002': 'Appointment Updated successfully',
+  'M2AA003': 'Appointment Deleted successfully',
 
   'E2AA001': 'Appointment Add error',
   'E2AA002': 'Appointment Update error',
@@ -221,8 +241,8 @@ export const ERROR_CODES: { [key: string]: string } = {
 
 
   // Smart Schedulerl Encounters;
-  'M2AE001': 'Encounter Added successsfully',
-  'M2AE002': 'Encounter Updated successsfully',
+  'M2AE001': 'Encounter Added successfully',
+  'M2AE002': 'Encounter Updated successfully',
 
   'E2AE001': 'Encounter Adding error',
   'E2AE002': 'Encounter Update error',
@@ -231,18 +251,28 @@ export const ERROR_CODES: { [key: string]: string } = {
   //Error for WeeklyUpated
   'E1WU001': 'Please insert the data into the fields',
 
-  'T2JP001' : 'User has been added!',
-  'M2AP001' : 'Patient Added successsfully',
-  'E2AP001' : 'Patient Adding error',
+  'T2JP001': 'User has been added!',
+  'M2AP001': 'Patient Added successsfully',
+  'E2AP001': 'Patient Adding error',
+  'E2AP002': 'Patient User account create error',
+  'M2AP002': 'Patient Invitaion pdf downloaded',
+  'M2AP003': 'Patient Invitaion mail sent',
 
-   // CQM Not performed
+  //Message for allergies in chart screen
+  'M2CA001': 'Allergies added successfully',
+  'M2CA002': 'Allergies updated successfully',
+  'M2CA003': 'Allergies deleted successfully',
+
+  // Error for allergies
+  'E2CA001': 'Allergies Updation error',
+
+  // CQM Not performed
   'M2CCNP001': 'Not Performed Reason created successfully',
   'M2CCNP002': 'Not Performed Reason updated successfully',
 
   // Error for CQM Not performed
   'E2CCNP001': 'Not Performed Reason created error',
 
-  'E2AP002' : 'Patient User account create error',
 };
 
 

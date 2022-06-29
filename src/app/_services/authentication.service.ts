@@ -127,6 +127,7 @@ export class AuthenticationService {
     const jwtToken = JSON.parse(atob(this.userValue.JwtToken.split('.')[1]));
     const expires = new Date(jwtToken.exp * 1000);
     const timediff = expires.getTime() - Date.now();
+    this.startRefreshTokenTimer();
     return timediff > 0;
   }
 
@@ -161,5 +162,7 @@ export class AuthenticationService {
     let viewModel: ViewModel = new ViewModel;
     localStorage.setItem('viewModel', JSON.stringify(viewModel));
   }
+
+
 
 }
