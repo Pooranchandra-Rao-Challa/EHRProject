@@ -14,11 +14,11 @@ import Swal from 'sweetalert2';
 export class WeeklyUpdatedComponent implements OnInit {
 
   WeeklyUpdatedList: any = [];
-  selectedValue: any;
-  searchValue: any;
+  selectedValue: string;
+  searchValue: string;
   filteredList: any = [];
   DisplayTdBody: string;
-  RowIndex: any;
+  RowIndex: number;
   ProviderList: any = [];
   FistProviderName: string;
   viewModel: AdminViewModal;
@@ -45,9 +45,10 @@ export class WeeklyUpdatedComponent implements OnInit {
   }
 
   GetBodyData(row) {
+    debugger;
     this.RowIndex = row;
     let bodydata = this.WeeklyUpdatedList[row];
-    this.DisplayTdBody = bodydata.body;
+    this.DisplayTdBody = bodydata.Body;
   }
 
   filterDropdown(e) {

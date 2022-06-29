@@ -12,4 +12,9 @@
 table, th, td {
   border: 1px solid #ddd;
 }
-
+.table-NoRecord{
+  border: 1px solid #41b6a6;
+  font-size: 14px;
+  font-family: 'Roboto';
+  color: red;
+}
