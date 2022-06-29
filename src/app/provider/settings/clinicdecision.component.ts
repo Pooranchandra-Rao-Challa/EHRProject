@@ -7,6 +7,7 @@ import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '
 import { Subscription } from 'rxjs';
 import { LocationSelectService } from '../../_navigations/provider.layout/location.service';
 import Swal from 'sweetalert2';
+import { isTemplateHead } from 'typescript';
 declare var $: any;
 
 @Component({
@@ -38,6 +39,7 @@ export class ClinicDecisionComponent implements OnInit {
   showon: boolean = true;
   showoff: boolean = false;
   decisionSuppotForm: FormGroup;
+  buttonopen:boolean;
 
   TriggerRuleDD: any[] = [
     { value: 'ONE', viewValue: 'ONE' },
@@ -222,13 +224,19 @@ export class ClinicDecisionComponent implements OnInit {
     }
   }
 
-  open() {
+ 
+  flag: boolean = true;
+
+  open()
+  {
     this.show = true;
     this.step = -1
-
+    this.flag=true;
   }
-  close() {
+  close()
+  {
     this.show = false;
+    this.flag=false;
   }
   step: number;
   setStep(index: number) {

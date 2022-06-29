@@ -214,9 +214,7 @@ input, .form-control:focus, input:focus, select:focus, textarea:focus, button:fo
   display: block;
   cursor: pointer !important;
 }
-// .display-body{
-//   cursor: auto;
-// }
+
 .table-NoRecord{
   border:1px solid #e7ecf1;
   border-top: none;
@@ -314,4 +312,7 @@ input, .form-control:focus, input:focus, select:focus, textarea:focus, button:fo
   .swal2-styled.swal2-cancel {
     background:blue !important
   }
-
+ .display-body{
+  font-family: "Open Sans", sans-serif !important;
+  font-size: 14px !important;
+ }
