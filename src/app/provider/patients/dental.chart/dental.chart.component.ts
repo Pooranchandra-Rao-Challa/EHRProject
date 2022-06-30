@@ -9,14 +9,16 @@ declare var $: any;
   styleUrls: ['./dental.chart.component.scss']
 })
 export class DentalChartComponent implements OnInit {
-
+  hoverStartDate:string='Start Date';
+  hoverEndDate:string='End Date';
   AdultPrem: boolean = true;
   ChilPrim: boolean = false;
   displayStyle = "none";
   DentalNumber: number;
   procedureCodeList: any = [];
+  changeText: boolean;
 
-  constructor(private dentalService: dentalchartService) { }
+  constructor(private dentalService: dentalchartService) {  this.changeText = false;}
 
   ngOnInit(): void {
     this.getProcedureList();

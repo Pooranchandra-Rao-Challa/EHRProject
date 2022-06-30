@@ -54,6 +54,8 @@ export class ProfileComponent implements OnInit {
   secondaryLanguage: any = [];
   languageList: any = [];
   patientRelationList: any = [];
+  hoverDATEOFBIRTH:string='MM/DD/YYYY';
+  hoverDATEOFDEATH:string='MM/DD/YYYY'
 
   constructor(private patientService: PatientService, private utilityService: UtilityService,
     private smartSchedulerService: SmartSchedulerService, private authService: AuthenticationService, private alertmsg: AlertMessage) {
