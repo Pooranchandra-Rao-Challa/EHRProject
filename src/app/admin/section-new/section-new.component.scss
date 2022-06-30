@@ -246,3 +246,20 @@ input::-webkit-input-placeholder {
   top: 50%;
   transform: translate(-50%, -50%)
 }
+.form-select:focus {
+  border-color: #fafafa !important;
+}
+#select {
+  width: 100px;
+}
+option.first-option {
+  background-color:#265f90 !important;
+  color: white;
+}
+// option:hover {
+//   background-color: #80b733;
+//   color: white;
+// }
+option:hover {
+  background-color: yellow;
+}

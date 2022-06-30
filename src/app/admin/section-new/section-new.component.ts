@@ -19,6 +19,8 @@ export class SectionNewComponent implements OnInit {
   body: string;
   previewheading: string;
   successMsg: string;
+  SequenceNumber: number;
+  WeeklyUpdatedList: any = [];
 
   constructor(private router: Router, private route: ActivatedRoute, private authService: AuthenticationService,
     private adminservice: AdminService) {
@@ -28,7 +30,20 @@ export class SectionNewComponent implements OnInit {
 
   ngOnInit(): void {
     this.body = this.WeeklyUpdate.Body;
+    this.getSequenceNo();
   }
+
+  getSequenceNo(){
+    this.adminservice.WeeklyUpdateList().subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.WeeklyUpdatedList = resp.ListResult;
+        this.SequenceNumber = this.WeeklyUpdatedList.length + 1;
+        if(this.WeeklyUpdate.WeeklyUpdateId == null){
+          this.WeeklyUpdate.Sequence = this.SequenceNumber;
+        }
+      }
+  });
+ }
 
   updateWeeklyRecord() {
     this.adminservice.AddUpdateWeeklyUpdated(this.WeeklyUpdate).subscribe(resp => {

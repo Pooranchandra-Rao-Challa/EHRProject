@@ -528,6 +528,10 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "CreateAllergies";
   }
 
+  get _createDiagnosesUrl() {
+    return this._baseUrl + "CreateDiagnoses";
+  }
+
   get _changePasswordsUrl() {
     return this._baseUrl + "ChangePassword";
   }
@@ -552,33 +556,36 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "AddUpdatedCQMNotPerformed";
   }
 
-  get _latestUpdatedPatientsUrl(){
+  get _latestUpdatedPatientsUrl() {
     return this._baseUrl + "LatestUpdatedPatients";
   }
-  get _patientAccountInfoUrl(){
+  get _patientAccountInfoUrl() {
     return this._baseUrl + "PatientAccountInfo";
   }
-  get _getUserInfoForPatientUrl(){
+  get _getUserInfoForPatientUrl() {
     return this._baseUrl + "GetUserInfoForPatient";
   }
-  get _createProcedureUrl(){
+  get _createProcedureUrl() {
     return this._baseUrl + "CreateProcedure";
   }
-  get _completePatientAccountProcessUrl(){
+  get _completePatientAccountProcessUrl() {
     return this._baseUrl + "CompletePatientAccountProcess";
   }
 
 
 
-  get _patientPastAppointmentsUrl()
-  {
+  get _patientPastAppointmentsUrl() {
     return this._baseUrl + "PatientPastAppointments";
   }
 
-  get _patientUpcomingAppointmentsUrl()
-  {
+  get _patientUpcomingAppointmentsUrl() {
     return this._baseUrl + "PatientUpcomingAppointments";
   }
+
+  get _procedureCodesForDentalUrl() {
+    return this._baseUrl + "ProcedureCodesForDental";
+  }
+
   constructor(public http: HttpClient) {
     super();
   }

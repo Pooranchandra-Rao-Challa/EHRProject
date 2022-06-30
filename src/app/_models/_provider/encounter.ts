@@ -155,6 +155,7 @@ export class ProceduresInfo implements IDeleteFlag {
   ReasonStartDate?: Date;
   Surfaces: string[] = [];
 
+  ViewFrom?: string;
   CanDelete?: boolean = false;
 }
 

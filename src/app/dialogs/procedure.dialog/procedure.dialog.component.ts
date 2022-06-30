@@ -7,7 +7,7 @@ import { Observable, of, BehaviorSubject, fromEvent } from 'rxjs';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { PatientService } from 'src/app/_services/patient.service';
-import { AlertMessage,ERROR_CODES } from 'src/app/_alerts/alertMessage';
+import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { MedicalCode } from 'src/app/_models/codes';
 
@@ -39,7 +39,8 @@ export class ProcedureDialogComponent implements OnInit {
       this.patient = authService.viewModel.Patient;
 
     }
-
+    if (overlayref.RequestData != null)
+      this.procedureInfo = overlayref.RequestData;
 
   }
   ngOnInit(): void {
@@ -71,12 +72,12 @@ export class ProcedureDialogComponent implements OnInit {
     return value.Code + "-" + value.Description;
   }
 
-  onReasonSelected(selected){
+  onReasonSelected(selected) {
     this.procedureInfo.ReasonCode = selected.option.value.Code;
     this.procedureInfo.ReasonDescription = selected.option.value.Description
   }
 
-  onProcedureSelected(selected){
+  onProcedureSelected(selected) {
     this.procedureInfo.Code = selected.option.value.Code;
     this.procedureInfo.Description = selected.option.value.Description;
   }
@@ -375,7 +376,7 @@ cusp_distolingual */
     this.CuspDistolingual$.next(v);
   }
 
-  clearAll(){
+  clearAll() {
     this.BuccalV$.next(false);
     this.Facial$.next(false);
     this.Incisal$.next(false);
@@ -402,27 +403,27 @@ cusp_distolingual */
   }
 
 
-  save(){
+  save() {
     console.log(this.procedureInfo);
     let isAdd = this.procedureInfo.ProcedureId == null;
     this.patientService.CreateProcedure(this.procedureInfo)
-      .subscribe(resp =>{
-        if(resp.IsSuccess){
-          this.overlayref.close({"saved":true});
+      .subscribe(resp => {
+        if (resp.IsSuccess) {
+          this.overlayref.close({ "saved": true });
           this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CP1001" : "M2CP1002"])
-        }else{
+        } else {
           this.overlayref.close();
           this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP1001"])
         }
       });
   }
 
-  enableSave(): boolean{
+  enableSave(): boolean {
     return !(this.procedureInfo.Code != null && this.procedureInfo.Code != ""
-          && this.procedureInfo.Description  != null && this.procedureInfo.Description != ""
-          && this.procedureInfo.ServicedAt  != null && this.procedureInfo.ToothNo != null
-          && this.procedureInfo.Status  != null && this.procedureInfo.Status != ""
-          && this.procedureInfo.Surface  != null && this.procedureInfo.Surface != "");
+      && this.procedureInfo.Description != null && this.procedureInfo.Description != ""
+      && this.procedureInfo.ServicedAt != null && this.procedureInfo.ToothNo != null
+      && this.procedureInfo.Status != null && this.procedureInfo.Status != ""
+      && this.procedureInfo.Surface != null && this.procedureInfo.Surface != "");
   }
 
   _filterProcedure(term) {

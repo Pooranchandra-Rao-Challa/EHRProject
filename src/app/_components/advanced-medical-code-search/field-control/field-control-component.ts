@@ -157,7 +157,7 @@ export class FieldControlComponent extends _SearchInputMixiBase
 
   @Input()
   set selectedValue(value: MedicalCode){
-    console.log(value);
+    //console.log(value);
 
     this._selectedValue = value;
   }
