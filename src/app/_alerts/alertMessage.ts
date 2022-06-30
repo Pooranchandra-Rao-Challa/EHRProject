@@ -266,6 +266,14 @@ export const ERROR_CODES: { [key: string]: string } = {
   // Error for allergies
   'E2CA001': 'Allergies Updation error',
 
+  //Message for diagnoses in chart screen
+  'M2CD001': 'Diagnoses added successfully',
+  'M2CD002': 'Diagnoses updated successfully',
+  'M2CD003': 'Diagnoses deleted successfully',
+
+  // Error for diagnoses
+  'E2CD001': 'Diagnoses Updation error',
+
   // CQM Not performed
   'M2CCNP001': 'Not Performed Reason created successfully',
   'M2CCNP002': 'Not Performed Reason updated successfully',
