@@ -1,4 +1,3 @@
-import { OverlayRef } from '@angular/cdk/overlay';
 import { Component, OnInit } from '@angular/core';
 import {
   AppointmentTypes, AvailableTimeSlot, Actions,
@@ -9,9 +8,9 @@ import { AuthenticationService } from 'src/app/_services/authentication.service'
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
 import { PracticeProviders } from '../../_models/_provider/practiceProviders';
 import { EHROverlayRef } from '../../ehr-overlay-ref';
+import { AlertMessage,ERROR_CODES } from 'src/app/_alerts/alertMessage';
 
-declare const CloseAppointment: any;
-declare const OpenSaveSuccessAppointment: any;
+
 
 @Component({
   selector: 'app-newappointment.dialog',
@@ -46,13 +45,12 @@ export class NewAppointmentDialogComponent implements OnInit {
   constructor(
     private ref: EHROverlayRef,
     private authService: AuthenticationService,
-    private smartSchedulerService: SmartSchedulerService) {
+    private smartSchedulerService: SmartSchedulerService,
+    private alert: AlertMessage) {
     let data: AppointmentDialogInfo = ref.RequestData;
     this.PatientAppointment = {} as NewAppointment;
-    // console.log(this.PatientAppointment);
 
     this.PatientAppointment = data.PatientAppointment;
-    // console.log(this.PatientAppointment);
     this.appointmentTitle = data.Title;
     this.AppointmentTypes = data.AppointmentTypes;
     this.PracticeProviders = data.PracticeProviders;
@@ -116,13 +114,10 @@ export class NewAppointmentDialogComponent implements OnInit {
         .subscribe(resp => {
           if (resp.IsSuccess) {
             this.appointmentId = null;
-            //this.OperationMessage = resp.EndUserMessage;
-
-            //OpenSaveSuccessAppointment();
+            this.alert.displayMessageDailog(ERROR_CODES["M2AA003"]);
           }
           else {
-            //this.SaveInputDisable = false;
-            //this.OperationMessage = "Appointment is not saved"
+            this.alert.displayErrorDailog(ERROR_CODES["E2AA003"]);
           }
         });
     }
@@ -133,8 +128,6 @@ export class NewAppointmentDialogComponent implements OnInit {
 
   onProviderChangeFromAppointmentForm() {
     this.SelectedProviderId = this.PatientAppointment.ProviderId
-    // console.log(this.SelectedProviderId)
-
   }
 
   close() {
@@ -168,7 +161,6 @@ export class NewAppointmentDialogComponent implements OnInit {
       if (resp.IsSuccess) {
         this.confirmIsCancelledAppointment();
         this.AppointmentsOfPatient = resp.ListResult as ScheduledAppointment[];
-        //console.log(this.AppointmentsOfPatient);
       }
     });
   }
@@ -178,7 +170,6 @@ export class NewAppointmentDialogComponent implements OnInit {
     this.appointmentTitle = "Edit Appointment";
     this.ClearPatientAppointment();
     this.PatientAppointment = patientapp;
-    // console.log(JSON.stringify(this.PatientAppointment))
     this.LoadAvailableTimeSlots();
   }
 
@@ -197,25 +188,23 @@ export class NewAppointmentDialogComponent implements OnInit {
       && this.PatientAppointment.AppointmentTypeId != null
       && this.PatientAppointment.RoomId != null
       && this.PatientAppointment.Startat != null) || this.SaveInputDisable
-    //console.log(retfalg);
   }
 
   onAppointmentSave() {
     this.PatientAppointment.AppointmentTime = this.PatientAppointment.TimeSlot.StartDateTime;
-    // console.log(JSON.stringify(this.PatientAppointment));
+    let isAdd = this.PatientAppointment.AppointmentId == null;
     this.SaveInputDisable = true;
     this.smartSchedulerService.CreateAppointment(this.PatientAppointment).subscribe(resp => {
       if (resp.IsSuccess) {
         this.onError = false;
-        CloseAppointment();
+        this.close();
         this.OperationMessage = resp.EndUserMessage;
-        this.ClearPatientAppointment();
-        OpenSaveSuccessAppointment();
+        this.alert.displayMessageDailog(ERROR_CODES[isAdd ? "M2AA001" :"M2AA002"]);
       }
       else {
         this.onError = true;
         this.OperationMessage = "Appointment is not saved"
-        OpenSaveSuccessAppointment();
+        this.alert.displayMessageDailog(ERROR_CODES[isAdd ? "E2AA001" :"E2AA002"]);
       }
     });
   }

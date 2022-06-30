@@ -30,7 +30,7 @@ export class FormContainerComponent implements OnInit {
 
   @Output() optionChanged: EventEmitter<MedicalCode> =new EventEmitter<MedicalCode>();
 
-  constructor() { console.log(this.SelectedValue);
+  constructor() { //console.log(this.SelectedValue);
   }
 
   ngOnInit(): void {}
