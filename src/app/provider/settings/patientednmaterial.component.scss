@@ -8,7 +8,9 @@
   box-sizing: border-box;
   z-index: 2;
 }
-
+.plusicon{
+  padding: 0px 15px;
+}
 .icon-border {
   border: 1px solid #41b6a6;
 }
@@ -22,6 +24,7 @@
 .searchnow {
   width: 157px;
   height: 44px;
+  margin-left: 5px;
 }
 
 .text-area {
@@ -36,19 +39,24 @@
 
 .pattach {
   border: 1px solid #41b6a6;
-  margin-left: -25px;
-  margin-right: -25px;
+  margin-left: -26px;
+  margin-right: -26px;
   margin-top: 20px;
   background-color: rgba(65, 182, 166, 0.1);
 }
 
 .formarray {
-  border: 1px solid #41b6a6;
+  border-top: 1px solid #41b6a6;
   margin-left: -25px;
   margin-right: -25px;
   background-color: rgba(65, 182, 166, 0.1);
+  border-bottom: 1px solid #41b6a6;
+  cursor: pointer;
 
 }
+.formarray:not(first-child) { border-top: none; }
+// .formarray:not(last-child) { border-bottom: none; }
+
 
 .closefile {
   border-radius: 77%;
@@ -156,4 +164,8 @@
 .mat-form-field-appearance-outline:active .mat-form-field-outline {
   background: #fff !important;
   border: none !important;
+}
+
+.modal.Patient-Education {
+  pointer-events: auto !important;
 }

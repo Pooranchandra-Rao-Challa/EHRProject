@@ -1,7 +1,8 @@
+
 <div class="card ">
   <div class="card-header bg-color ">
 
-    <h5 class="Helvetica-sans-serif-medium mt-2">Clinical Decision Support</h5>
+    <h5 class="Helvetica-sans-serif-medium mt-2 Clinicalalignments">Clinical Decision Support</h5>
     <button class="plusicon" type="button" data-bs-toggle="modal" data-bs-target="#modal-new-alert-form"
       aria-expanded="false">
       <i class="fa fa-plus"></i>
@@ -13,17 +14,18 @@
         <p  class="Helvetica-sans-serif-medium title-heading ">Turn all Accountable Care Organization Alerts on or off for all your patients</p>
       </div>
       <div class="col-md-2 d-flex justify-content-end">
-        <button class="btn btn-op" type="button" (click)="open()">On</button>
-        <button class="btn btn-of" type="button" (click)="close()">Off</button>
+        <button class="btn" type="button"  [ngClass]=" flag ? 'btn-op' : 'btn-of'"  (click)="open()">On</button>
+        <button class="btn" type="button"  [ngClass]=" !flag ? 'btn-op' : 'btn-of'"  (click)="close()" >Off</button>
       </div>
      </div>
      </div>
     <div class="prevent-click" *ngIf="show">
-      <mat-accordion class="prevent-click">
+      <div class="expansion-boder"></div>
+      <mat-accordion class="prevent-click" style="border-top: 1px solid #41b6a6;">
       <mat-expansion-panel [disabled]="item?.isdisabled"
         [ngStyle]="item?.isdisabled?{'opacity': '0.75'} : {'opacity': '1'}"
          [expanded]="step === i" (opened)="setStep(i)"
-         class="customheader" hideToggle="true" #example *ngFor="let item of clinicalDecisionSupportList | groupBy:'AlertId';let i = index">
+         class="customheader"  hideToggle="true" #example *ngFor="let item of clinicalDecisionSupportList | groupBy:'AlertId';let i = index">
           <mat-expansion-panel-header class="panel-header">
             <mat-panel-title>
               <h1 class="number">{{i+1}}</h1>&nbsp;&nbsp;
@@ -112,17 +114,20 @@
           <br>
           <div class="row field-align" *ngFor="let item1 of item.value | groupBy:'resolution'">
             <mat-label class="Helvetica-sans-serif-small">Resolution: </mat-label>
-            <mat-form-field appearance="outline">
-              <textarea matInput
+           
+            <div class="col-md-12 mt-1">
+              <textarea matInput class="text-border"
                 placeholder="" value="{{item1.key}}"></textarea>
-            </mat-form-field>
+              </div>
+          
           </div>
           <div class="row field-align" *ngFor="let item1 of item.value | groupBy:'bibliography'">
-            <mat-label class="Helvetica-sans-serif-small">Bibliography:</mat-label>
-            <mat-form-field appearance="outline">
-              <textarea matInput
-                placeholder=""value="{{item1.key}}"></textarea>
-            </mat-form-field>
+            <mat-label class="Helvetica-sans-serif-small mt-2">Bibliography:</mat-label>
+           <div class="col-md-12 mt-1">
+              <!-- <textarea matInput
+                placeholder=""value="{{item1.key}}"></textarea> -->
+                <textarea class="text-border" matInput  value="{{item1.key}}"></textarea>
+              </div>
           </div>
           <div class="row field-align" *ngFor="let item1 of item.value | groupBy:'developer' ">
             <mat-label class="Helvetica-sans-serif-small">Developer: </mat-label>
@@ -131,8 +136,8 @@
             </mat-form-field>
           </div>
           <div class="row field-align">
-            <div class="col-md-2">
-              <mat-label class="Helvetica-sans-serif-small">Funding Source:</mat-label>
+            <div class="col-md-2 mt-3">
+              <mat-label class="Helvetica-sans-serif-small ">Funding Source:</mat-label>
             </div>
             <div class="col-md-4"  *ngFor="let item1 of item.value | groupBy:'funding_source' " >
               <mat-form-field appearance="outline">
@@ -140,11 +145,11 @@
               </mat-form-field>
             </div>
   
-            <div class="col-md-2"  >
+            <div class="col-md-2 mt-3"  >
               <mat-label class="Helvetica-sans-serif-small"> Release Date(s)</mat-label>
             </div>
   
-            <mat-form-field appearance="outline" class=" green-calendar col-md-4"  *ngFor="let item1 of item.value | groupBy:'release_at'">
+            <mat-form-field appearance="outline" class="green-calendar col-md-4"  *ngFor="let item1 of item.value | groupBy:'release_at'">
               <input matInput [matDatepicker]="dp" placeholder="" value="{{item1.key}}">
               <mat-datepicker-toggle matSuffix [for]="dp">
                 <button _ngcontent-mqh-c316="" aria-hidden="true" class="is-primary button fa fa-calendar"></button>
@@ -163,18 +168,17 @@
       </div>
 
       <!-- Add New Altert Modal -->
-      <div class="modal fade new-alert-form" id="modal-new-alert-form" data-bs-keyboard="false" tabindex="-1"
+      <div class="modal new-alert-form" id="modal-new-alert-form"  tabindex="-1"
         aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content scrollable-modal">
             <div class="modal-header Helvetica-sans-serif-medium">
-              <h4 class="modal-title">Add new alert</h4>
+              <h4 class="modal-title Helvetica-sans-serif-medium">Add new alert</h4>
               <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close">
                 X
               </span>
             </div>
             <div class="modal-body">
-
               <form [formGroup]="decisionSuppotForm">
                 <div class="row">
                   <mat-label>Alert Name*</mat-label>
@@ -238,7 +242,7 @@
                   </div>
                   <mat-form-field appearance="outline" class="col-md-4">
                     <input matInput [matDatepicker]="dp1" placeholder="Stop Date" (mouseover)="releaseDateCheck()"
-                      (mouseleave)="releaseDateUnCheck()" formControlName="releaseDate">
+                      (mouseleave)="releaseDateUnCheck()" formControlName="releaseDate" (focus)="dp1.open()">
                     <mat-datepicker-toggle matSuffix [for]="dp1">
                     </mat-datepicker-toggle>
                     <mat-datepicker #dp1 disabled="false"></mat-datepicker>
@@ -263,149 +267,23 @@
               </form>
             </div>
             <div class="modal-footer">
-              <button class="btn btn-green btn-clinic" [disabled]="!AddNewAlert">Add New Alert</button>
+              <button class="btn btn-green btn-clinic" disabled>Add New Alert</button>
 
             </div>
           </div>
         </div>
       </div>
-
-        <!-- Add New Altert Modal (to remove error extra code is add is shoud not to use after get solution i will remove) -->
-
-      <!-- <div class="modal fade new-alert-form" id="modal-new-alert-form" data-bs-keyboard="false" tabindex="-1"
-      aria-hidden="true">
-      <div class="modal-dialog">
-
-      </div>
-      </div> -->
-
-
-      <ng-template #myTemplateRef>
-        <!-- <div class="row field-align">
-          <mat-label class="mt-1 Helvetica-sans-serif-small">Description*</mat-label>
-          <mat-form-field appearance="outline">
-            <input matInput
-              placeholder="This Clinical Decision Support Rule is used to provide alerts to providers and staff regarding a patient�s active Medication Allergies as well as the severity of his/her allergy to each medication in their Medication Allergy List.">
-          </mat-form-field>
-        </div>
-
-        <div class="row field-align">
-          <mat-label  class="Helvetica-sans-serif-small">Trigger Rule*   </mat-label>
-          <mat-form-field appearance="outline">
-            <mat-select required>
-              <mat-option *ngFor="let trigger of TriggerRuleDD" [value]="trigger.value">
-                {{trigger.viewValue}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div class="panel-heading">
-          <div class="row">
-            <div class="col-lg-6">
-              <p class="title trigger-align">Trigger Condition Builder</p>
-            </div>
-            <div class="col-lg-6">
-            <button type="button" class="btn btn-green btn-clinic pull-right" data-bs-toggle="modal" data-bs-target="#TriggerModal">
-              New Trigger
-            </button>
-            </div>
-          </div>
-        </div>
-        <table class="table table-borderless">
-          <thead class="bg-color">
-            <tr>
-              <td></td>
-              <td>
-                <p>Category</p>
-              </td>
-              <td>
-                <p>Code</p>
-              </td>
-              <td>
-                <p>Code System</p>
-              </td>
-              <td>
-                <p>Description</p>
-              </td>
-              <td></td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td></td>
-              <td>
-                <p>Problem</p>
-              </td>
-              <td>
-                <p></p>
-              </td>
-              <td>
-                <p></p>
-              </td>
-              <td>
-                <p>Patient has active Medication Allergies in their Medication Allergy List. Active = Medication Allergy
-                  has a start date but no end date</p>
-              </td>
-              <td>  <mat-icon class="close-icon Cancelbtn">close
-              </mat-icon>
-                </td>
-            </tr>
-          </tbody>
-        </table>
-        <br>
-        <div class="row field-align">
-          <mat-label class="Helvetica-sans-serif-small">Resolution: </mat-label>
-          <mat-form-field appearance="outline">
-            <textarea matInput
-              placeholder="Patient has no active Medication Allergies in their Medication Allergy List. Inactive = Medication Allergy has a start date and an end date"></textarea>
-          </mat-form-field>
-        </div>
-        <div class="row field-align">
-          <mat-label class="Helvetica-sans-serif-small">Bibliography:</mat-label>
-          <mat-form-field appearance="outline">
-            <textarea matInput
-              placeholder="Frew A. General principles of investigating and managing drug allergy. Br J Clin Pharmacol. 2011;71:642�6."></textarea>
-          </mat-form-field>
-        </div>
-        <div class="row field-align">
-          <mat-label class="Helvetica-sans-serif-small">Developer: </mat-label>
-          <mat-form-field appearance="outline">
-            <input matInput placeholder="EHR One, LLC">
-          </mat-form-field>
-        </div>
-        <div class="row field-align">
-          <div class="col-md-2">
-            <mat-label class="Helvetica-sans-serif-small">Funding Source:</mat-label>
-          </div>
-          <div class="col-md-4">
-            <mat-form-field appearance="outline">
-              <input matInput placeholder="none">
-            </mat-form-field>
-          </div>
-
-          <div class="col-md-2">
-            <mat-label class="Helvetica-sans-serif-small"> Release Date(s)</mat-label>
-          </div>
-
-          <mat-form-field appearance="outline" class=" green-calendar col-md-4">
-            <input matInput [matDatepicker]="dp" placeholder="Start Date">
-            <mat-datepicker-toggle matSuffix [for]="dp">
-              <button _ngcontent-mqh-c316="" aria-hidden="true" class="is-primary button fa fa-calendar"></button>
-            </mat-datepicker-toggle>
-            <mat-datepicker #dp disabled="false"></mat-datepicker>
-          </mat-form-field>
-        </div>
-        <button class="btn btn-green btn-clinic pull-right" type="button">Save</button> -->
-
+      <!-- <ng-template #myTemplateRef>
+   
       </ng-template>
-
+ -->
 
       <!-- TriggerModal -->
-<div class="modal fade TriggerModal" id="TriggerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal  TriggerModal" id="TriggerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content Trigger-content scrollable-modal ">
       <div class="modal-header">
-        <h4 class="modal-title">Add new trigger</h4>
+        <h4 class="modal-title Helvetica-sans-serif-medium">Add new trigger</h4>
         <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close">
           X
         </span>
@@ -428,31 +306,27 @@
         <div class="row">
           <mat-label>Code*</mat-label>
           <div class="col-md-9">
-
             <mat-form-field appearance="outline" class="col-md-12">
               <mat-select>
                 <mat-option class="mat-select-panel">
                   <input matInput placeholder="Search">
                 </mat-option>
-                <!-- <mat-option value="option1">Option 1</mat-option>
-    <mat-option value="option2">Option 2</mat-option> -->
               </mat-select>
             </mat-form-field>
           </div>
-          <div class="col-md-2">
-            <button class="btn btn-green btn-clinic" type="button">Search Now</button>
+          <div class="col-md-3 searchbtn ">
+            <button class="btn btn-green btn-clinic" type="button" disabled>Search Now</button>
           </div>
         </div>
-        <div class="row">
-          <mat-label>Decription*:
-          </mat-label>
-          <mat-form-field appearance="outline">
-            <textarea matInput placeholder></textarea>
-          </mat-form-field>
-        </div>
+        <div class="col-md-12">
+          <mat-label>Description*:</mat-label>
+        
+            <textarea matInput class="text-border"
+              placeholder="" readonly disabled></textarea>
+         
         <div class="row">
           <div class="d-flex justify-content-end mt-2">
-          <button class="btn btn-green btn-clinic " btype="button">Add trigger</button>
+          <button class="btn btn-green btn-clinic " type="button" disabled>Add trigger</button>
         </div>
         </div>
       </div>
@@ -461,3 +335,8 @@
     </div>
   </div>
 </div>
+
+
+
+
+

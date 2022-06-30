@@ -7,7 +7,7 @@ import { SmokingStatusDialogComponent } from 'src/app/dialogs/smoking.status.dia
 import { InterventionDialogComponent } from 'src/app/dialogs/intervention.dialog/intervention.dialog.component';
 import { PatientService } from '../../../_services/patient.service';
 import {
-  AdvancedDirective, ChartInfo, PatientChart, Allergies, EncounterDiagnosis, PastMedicalHistories, Actions,
+  AdvancedDirective, ChartInfo, PatientChart, Allergy, EncounterDiagnosis, PastMedicalHistory, Actions,
   Immunizations, Medications, EncounterInfo, NewAppointment, SmokingStatus, TobaccoUseScreenings, TobaccoUseInterventions
 } from 'src/app/_models';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
@@ -32,9 +32,9 @@ export class ChartComponent implements OnInit {
   advanceddirectivesdialogResponse: AdvancedDirectivesDialogComponent;
   smokingstatusdialogResponse: SmokingStatusDialogComponent;
   // advancedDirectives: AdvancedDirective[];
-  allDiagnoses: EncounterDiagnosis[];
-  patientAllergy: Allergies = new Allergies();
-  patientpastMedicalHistories: PastMedicalHistories = new PastMedicalHistories();
+  patientDiagnoses: EncounterDiagnosis[];
+  patientAllergy: Allergy = new Allergy();
+  patientPastMedicalHistory: PastMedicalHistory = new PastMedicalHistory();
   immunizations: Immunizations[];
   medications: Medications[];
   encounters: EncounterInfo[];
@@ -114,12 +114,12 @@ export class ChartComponent implements OnInit {
   }
 
   resetDialog() {
-    this.patientAllergy = new Allergies;
+    this.patientAllergy = new Allergy;
   }
 
   editDialog(dialogData, name) {
     if (name == 'past medical history') {
-      this.patientpastMedicalHistories = dialogData;
+      this.patientPastMedicalHistory = dialogData;
     }
     else if (name == 'allergie') {
       if (dialogData.StartAt != undefined) {
@@ -134,7 +134,7 @@ export class ChartComponent implements OnInit {
   }
 
   CreatePastMedicalHistories() {
-    this.patientService.CreatePastMedicalHistories(this.patientpastMedicalHistories).subscribe((resp) => {
+    this.patientService.CreatePastMedicalHistories(this.patientPastMedicalHistory).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.PastMedicalHistoriesByPatientId();
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2CPMH002"]);
@@ -164,10 +164,10 @@ export class ChartComponent implements OnInit {
   }
 
   disablePastMedicalHistory() {
-    return !(this.patientpastMedicalHistories.MajorEvents != ''
-      && this.patientpastMedicalHistories.OngoingProblems != ''
-      && this.patientpastMedicalHistories.PerventiveCare != ''
-      && this.patientpastMedicalHistories.NutritionHistory != '')
+    return !(this.patientPastMedicalHistory.MajorEvents != ''
+      && this.patientPastMedicalHistory.OngoingProblems != ''
+      && this.patientPastMedicalHistory.PerventiveCare != ''
+      && this.patientPastMedicalHistory.NutritionHistory != '')
   }
 
   disableAllergies() {
@@ -189,7 +189,7 @@ export class ChartComponent implements OnInit {
   // Get diagnoses info
   DiagnosesByPatientId() {
     this.patientService.DiagnosesByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
-      this.allDiagnoses = resp.ListResult;
+      this.patientDiagnoses = resp.ListResult;
     });
   }
 

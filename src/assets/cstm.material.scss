@@ -242,3 +242,20 @@ mat-cell:last-of-type{
    color: #4A4A4A;
  }
 }
+ ::ng-deep .profile-green-calendar
+  mat-datepicker-toggle.mat-datepicker-toggle
+  button.mat-focus-indicator.mat-icon-button {
+  background-color: #41b6a6;
+  color: #fff;
+  border-radius: 0%;
+  margin-top: 0px;
+  margin-bottom: -14px;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  margin-right: -11px;
+  border: 1px solid #41b6a6;
+  height: 3.8em !important;
+  width: 3.5em !important;
+
+}
+

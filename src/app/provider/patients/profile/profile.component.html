@@ -2,9 +2,9 @@
   <div class="row">
     <div class="d-flex justify-content-end flex-sm-row flex-column">
       <!-- Button trigger modal -->
-      <div class="p-2"><button type="button" class="btn btn-lg btn-notes" data-bs-toggle="modal"
+      <div class="p-2"><button type="button" class="btn btn-lg btn-styles" data-bs-toggle="modal"
           data-bs-target="#ResetPwdModal">Reset Password</button></div>
-      <div class="p-2"><button type="button" class="btn btn-lg btn-notes" data-bs-toggle="modal"
+      <div class="p-2"><button type="button" class="btn btn-lg btn-styles" data-bs-toggle="modal"
           data-bs-target="#noteModal" >Notes</button></div>
       <div class="p-2"><button type="button" class="btn btn-lg btn-danger btn-authorized" data-bs-toggle="modal"
           data-bs-target="#AuthorizedModal">Authorized Rep.</button></div>
@@ -41,10 +41,10 @@
 
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="DATEOFBIRTH*" class="form-label label-design">DATE OF BIRTH</label>
-                  <mat-form-field appearance="outline" class="bg-white form-group grey-matform green-calendar">
-                    <input matInput class="pointer date-mat-class" autocomplete="off"
+                  <mat-form-field appearance="outline" class="form-group profile-green-calendar">
+                    <input matInput class="pointer date-mat-class"
                     [(ngModel)]="PatientMyProfile.DateOfBirth"  [matDatepicker]="picker"
-                      (click)="picker.open()" readonly placeholder="DATE OF BIRTH">
+                        placeholder="_/_/__">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                   </mat-form-field>
@@ -52,13 +52,21 @@
 
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="DATEOFDEATH" class="form-label label-design">DATE OF DEATH</label>
-                  <mat-form-field appearance="outline" class="bg-claneder form-group grey-matform green-calendar">
+                <mat-form-field appearance="outline" class="form-group profile-green-calendar ">
+                  <input matInput [matDatepicker]="picker1" placeholder="_/_/__"  name="dateofdeath"
+                  [(ngModel)]="PatientMyProfile.DateOfDeath">
+                  <mat-datepicker-toggle matSuffix [for]="picker1">
+                  </mat-datepicker-toggle>
+                  <mat-datepicker #picker1 disabled="false"></mat-datepicker>
+                </mat-form-field>
+
+                <!-- <mat-form-field appearance="outline" class="bg-claneder form-group grey-matform profile-green-calendar">
                     <input matInput class="pointer date-mat-class" autocomplete="off"
                     [(ngModel)]="PatientMyProfile.DateOfDeath"  [matDatepicker]="picker1"
                       (click)="picker1.open()" readonly placeholder="DATE OF DEATH">
                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                     <mat-datepicker #picker1></mat-datepicker>
-                  </mat-form-field>
+                  </mat-form-field> -->
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="SOCIALSECURITYNUMBER" class="form-label label-design">SOCIAL SECURITY NUMBER</label>
@@ -118,39 +126,38 @@
                   placeholder="Middle (optional)" type="text" id="MiddleName">
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
-                <label for="LAstName" class="form-label label-design">Last Name</label>
+                <label for="LastName" class="form-label label-design">Last Name</label>
                 <input class="input-group form-control" [(ngModel)]="PatientMyProfile.EmergencyLastName"
                   placeholder="Last" type="text" id="LastName">
               </div>
+
               <div class="col-lg-6 col-md-6 col-xl-6 col-12 my-2">
                 <label for="RELATION" class="form-label label-design text-nowrap">RELATION TO PATIENT</label>
-                <!-- <input class="input-group form-control" [(ngModel)]="PatientMyProfile.RelationshipToPatient"
-                  placeholder="RELATION" type="text" id="RELATION"> -->
-                  <mat-form-field appearance="outline" class="col-12 hover cstm-mat-padding">
-                    <mat-select placeholder="Select One"  [(ngModel)]="PatientMyProfile.RelationshipToPatient"
-                    placeholder="Select relation">
-                      <mat-option *ngFor="let item of relationship" [value]="item.value">{{item.value}}
-                      </mat-option>
+                  <mat-form-field appearance="outline" class="col-12">
+                    <mat-select placeholder="Select Relation" [(ngModel)]="PatientMyProfile.RelationshipToPatient">
+                      <mat-option [value]="item.value" *ngFor="let item of relationship">{{item.value}}</mat-option>
                     </mat-select>
                   </mat-form-field>
               </div>
+
               <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
                 <label for="PHONE" class="form-label label-design">PHONE</label>
                 <input class="input-group form-control" [(ngModel)]="PatientMyProfile.Phone" placeholder="Cell PHONE"
                   type="text" id="PHONE">
               </div>
+
               <div class="col-lg-8 col-md-8 col-xl-9 col-12 my-2">
                 <label for="HOMEADDRESS" class="form-label label-design">HOME ADDRESS</label>
                 <input class="input-group form-control" [(ngModel)]="PatientMyProfile.EmergencyStreetAddress"
                   placeholder="HOME ADDRESS" type="text" id="HOME ADDRESS">
               </div>
               <div class="col-lg-2 col-md-2 col-xl-3 col-12 mt-3">
-                <div class="p-2"><button type="button" class="btn btn-lg btn-notes mt-2">Verify</button></div>
+                <div class="p-2"><button type="button" class="btn btn-lg btn-styles btn-verify mt-2 py-1">Verify</button></div>
               </div>
               <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
                 <div class="form-group">
                   <div class="input-group">
-                    <label class="control-label input-group-addon required">Street Address</label>
+                    <label class="control-label input-group-addon">Street Address</label>
                     <input class="form-control" [(ngModel)]="PatientMyProfile.EmergencyStreetAddress"
                       placeholder="Street Address" type="text" id="StreetAddress" name="StreetAddress" />
                   </div>
@@ -159,7 +166,7 @@
               <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
                 <div class="form-group">
                   <div class="input-group">
-                    <label class="control-label input-group-addon required">City</label>
+                    <label class="control-label input-group-addon">City</label>
                     <input class="form-control" [(ngModel)]="PatientMyProfile.EmergencyCity" placeholder="City"
                       type="text" id="City" name="City" />
                   </div>
@@ -168,7 +175,7 @@
               <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
                 <div class="form-group">
                   <div class="input-group">
-                    <label class="control-label input-group-addon required">State</label>
+                    <label class="control-label input-group-addon">State</label>
                     <input class="form-control" [(ngModel)]="PatientMyProfile.EmergencyState" placeholder="State"
                       type="text" id="State" name="State" />
                   </div>
@@ -177,7 +184,7 @@
               <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
                 <div class="form-group">
                   <div class="input-group">
-                    <label class="control-label input-group-addon required">Zip</label>
+                    <label class="control-label input-group-addon">Zip</label>
                     <input class="form-control" [(ngModel)]="PatientMyProfile.EmergencyZip" placeholder="Zip"
                       type="text" id="Zip" name="Zip" />
                   </div>
@@ -216,12 +223,15 @@
               </div>
               <div class="col-lg-5 col-md-5 col-xl-6 col-12 my-2">
                 <label for="RELATION" class="form-label label-design text-nowrap">RELATION TO PATIENT</label>
-                <!-- <input class="input-group form-control" [(ngModel)]="PatientMyProfile.NkRel" placeholder="RELATION"
-                  type="text" id="RELATION"> -->
-                  <select class="form-select" aria-label="Default select example"
+                <mat-form-field appearance="outline" class="input-fields col-lg-12 col-md-12 col-12">
+                  <mat-select placeholder="Select One" [(ngModel)]="PatientMyProfile.NkRel">
+                    <mat-option [value]="item.value" *ngFor="let item of relationship">{{item.value}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <!-- <select class="form-select" aria-label="Default select example"
                   [(ngModel)]="PatientMyProfile.NkRel">
                   <option [value]="item.value" *ngFor="let item of relationship">{{item.value}}</option>
-                </select>
+                </select> -->
               </div>
               <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
                 <label for="SEX" class="form-label label-design">PHONE</label>
@@ -369,12 +379,12 @@
                 <input class="input-group form-control" placeholder="HOME ADDRESS" type="text" id="HOME ADDRESS">
               </div>
               <div class="col-lg-2 col-md-2 col-xl-3 col-12 my-2 mt-3">
-                <div class="p-2"><button type="button" class="btn btn-lg btn-notes mt-2">Verify</button></div>
+                <div class="p-2"><button type="button" class="btn btn-lg btn-styles btn-verify mt-2">Verify</button></div>
               </div>
               <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
                 <div class="form-group">
                   <div class="input-group">
-                    <label class="control-label input-group-addon required">Street Address</label>
+                    <label class="control-label input-group-addon">Street Address</label>
                     <input class="form-control" [(ngModel)]="PatientMyProfile.StreetAddress"
                       placeholder="Street Address" type="text" id="StreetAddress" name="StreetAddress" />
                   </div>
@@ -383,7 +393,7 @@
               <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
                 <div class="form-group">
                   <div class="input-group">
-                    <label class="control-label input-group-addon required">City</label>
+                    <label class="control-label input-group-addon">City</label>
                     <input class="form-control" [(ngModel)]="PatientMyProfile.city" placeholder="City" type="text"
                       id="City" name="City" />
                   </div>
@@ -392,7 +402,7 @@
               <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
                 <div class="form-group">
                   <div class="input-group">
-                    <label class="control-label input-group-addon required">State</label>
+                    <label class="control-label input-group-addon">State</label>
                     <input class="form-control" [(ngModel)]="PatientMyProfile.state" placeholder="State" type="text"
                       id="State" name="State" />
                   </div>
@@ -401,7 +411,7 @@
               <div class="col-lg-12 col-md-12 col-xl-6  col-12 my-2">
                 <div class="form-group">
                   <div class="input-group">
-                    <label class="control-label input-group-addon required">Zip</label>
+                    <label class="control-label input-group-addon">Zip</label>
                     <input class="form-control" [(ngModel)]="PatientMyProfile.zip" placeholder="Zip" type="text"
                       id="Zip" name="Zip" />
                   </div>
@@ -641,7 +651,7 @@
                           </tr>
                         </tbody>
                       </table>
-                      <div class="NoRecord text-center py-2">
+                      <div class="NoRecord text-center py-2" *ngIf="CareTeamList.length <= 0">
                         No Care team Found
                       </div>
                     </div>

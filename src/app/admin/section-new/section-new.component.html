@@ -9,47 +9,48 @@
     <div class="col-lg-12 col-xl-12 col-md-12 col-12 mt-2">
       <form class="row  form-border my-3">
         <div class="col-md-4 mt-3">
-          <label for="Sequence" class="form-label">Sequence</label>
-          <input type="text" class="form-control text-design"  [(ngModel)]="WeeklyUpdate.Sequence"
-          #sequence="ngModel" required  [ngModelOptions]="{standalone: true}"
-            id="Sequence" placeholder="Sequence">
+          <label for="Sequence" class="form-label">Sequence*</label>
+          <input type="text" class="form-control text-design" [(ngModel)]="WeeklyUpdate.Sequence" #sequence="ngModel"
+             [ngModelOptions]="{standalone: true}" id="Sequence" placeholder="Sequence">
         </div>
         <div class="col-md-4 mt-3">
-          <label for="Heading" class="form-label">Heading</label>
-          <input type="text" class="form-control text-design" [(ngModel)]="WeeklyUpdate.Header" [ngModelOptions]="{standalone: true}"
-          id="Heading" placeholder="Heading Text">
+          <label for="Heading" class="form-label">Heading*</label>
+          <input type="text" class="form-control text-design" [(ngModel)]="WeeklyUpdate.Header"
+            [ngModelOptions]="{standalone: true}" id="Heading" placeholder="Heading Text">
         </div>
         <div class="col-4 mt-3">
           <label for="LogoType" class="form-label">Logo Type</label>
-          <select id="LogoType" class="form-select" [(ngModel)]="WeeklyUpdate.LogoType" [ngModelOptions]="{standalone: true}">
-            <option selected>1.0</option>
+          <select id="LogoType" class="form-select" [(ngModel)]="WeeklyUpdate.LogoType"
+            [ngModelOptions]="{standalone: true}">
+            <option selected class="first-option">1.0</option>
             <option>2.0</option>
           </select>
         </div>
         <div class="col-md-4 mt-3">
           <label for="NewsText" class="form-label">News Text</label>
-          <input type="text" class="form-control text-design" [(ngModel)]="WeeklyUpdate.NewsText" [ngModelOptions]="{standalone: true}"
-          id="NewsText" placeholder="Enter News Text">
+          <input type="text" class="form-control text-design" [(ngModel)]="WeeklyUpdate.NewsText"
+            [ngModelOptions]="{standalone: true}" id="NewsText" placeholder="Enter News Text">
         </div>
         <div class="col-md-4 mt-3">
           <label for="TagLine" class="form-label">Tag Line</label>
-          <input type="text" class="form-control text-design"  [(ngModel)]="WeeklyUpdate.TagLine" [ngModelOptions]="{standalone: true}"
-          id="TagLine" placeholder="Enter Tag Line">
+          <input type="text" class="form-control text-design" [(ngModel)]="WeeklyUpdate.TagLine"
+            [ngModelOptions]="{standalone: true}" id="TagLine" placeholder="Enter Tag Line">
         </div>
         <div class="col-4 mt-3">
           <label for="LogoType" class="form-label">Slide Type</label>
-          <select id="inputState" class="form-select text-design" [(ngModel)]="WeeklyUpdate.SlideType" [ngModelOptions]="{standalone: true}" >
-            <option>Info</option>
+          <select  id="inputState" class="form-select text-design" [(ngModel)]="WeeklyUpdate.SlideType">
+            <option class="first-option">Info</option>
             <option>Count</option>
             <option>Trending</option>
           </select>
         </div>
         <div class="col-md-12 mt-3">
-          <label for="Body" class="form-label">Body</label>
-          <ckeditor [(ngModel)]="WeeklyUpdate.Body" [ngModelOptions]="{standalone: true}" ></ckeditor>
+          <label for="Body" class="form-label">Body*</label>
+          <ckeditor [(ngModel)]="WeeklyUpdate.Body" [ngModelOptions]="{standalone: true}"></ckeditor>
         </div>
         <div class="col-12 mb-3 mt-4">
-          <button type="submit" class="btn btn-danger btn-priview"  data-bs-toggle="modal" data-bs-target="#previewModal" [disabled]="!disPreview">Preview </button>
+          <button type="submit" class="btn btn-priview" data-bs-toggle="modal" data-bs-target="#previewModal"
+            [disabled]="this.WeeklyUpdate.WeeklyUpdateId == null"> Preview </button>
           <div class="note mt-4">Note: Use below tags to show counts for patients, encounters and returning patients<br>
             &lt;patients&gt;, &lt;encounters&gt;, &lt;returning_patients&gt;, &lt;old_patients&gt;,
             &lt;old_encounters&gt;, &lt;old_returning_patients&gt;</div>
@@ -58,39 +59,37 @@
 
       <div class="d-flex flex-row bd-highlight mb-3">
         <div class="">
-          <button type="submit" [disabled]="!WeeklyUpdate.Sequence || !WeeklyUpdate.Header || !WeeklyUpdate.Body" class="btn btn-style"
-           (click)="updateWeeklyRecord()">Save</button>
-          </div>
-        <div class="p-2 bd-highlight" class="btn btn-sm btn-back mx-2"  (click)="BackWeeklyUpdate('Weekly Update','admin/weeklyupdates')">Back</div>
+          <button type="submit" [disabled]="!WeeklyUpdate.Sequence || !WeeklyUpdate.Header || !WeeklyUpdate.Body"
+            class="btn btn-style" (click)="updateWeeklyRecord()">Save</button>
+        </div>
+        <div class="p-2 bd-highlight" class="btn btn-sm btn-back mx-2"
+          (click)="BackWeeklyUpdate('Weekly Update','admin/weeklyupdates')">Back</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"></div> -->
-<div class="modal fade " id="previewModal" tabindex="-1"  aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content modal-cust-content">
-            <div class="modal-header cheader">
-
-              <div class="flapImage" id="idHot">
-                <img class="ehr-img" src="assets/images/EHR.svg"
-                >
-                <!-- <p class="headtxt">
+<!-- Preview Modal Dailogbox -->
+<div class="modal fade " id="previewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content modal-cust-content">
+      <div class="modal-header cheader">
+        <div class="flapImage" id="idHot">
+          <img class="ehr-img" src="assets/images/EHR.svg">
+          <!-- <p class="headtxt">
                   Tell us how we're doing!</p> -->
-                <img class="one-img" src="assets/images/one.svg"></div>
-
-              <p class="headtxt">
-               {{previewheading}}</p>
-            </div>
-            <div class="toptxt">Easy, Helpful, Ready</div>
-           <div class="modal-body my-5 mx-4">
-               <span innerHtml="{{body}}"></span>
-            </div>
-            <div class="modal-footer cheader cheader2">
-            </div>
+          <img class="one-img" src="assets/images/one.svg">
         </div>
+        <p class="headtxt">
+          {{previewheading}}</p>
+      </div>
+
+      <div class="toptxt">Easy, Helpful, Ready</div>
+      <div class="modal-body my-5 mx-4">
+        <span innerHtml="{{body}}"></span>
+      </div>
+      <div class="modal-footer cheader cheader2">
+      </div>
     </div>
+  </div>
 </div>
-
-

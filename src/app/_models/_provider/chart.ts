@@ -15,14 +15,14 @@ export class SmokingStatus {
   EffectiveFrom?: string;
 }
 
-export class PastMedicalHistories {
+export class PastMedicalHistory {
   PastMedicalHistoryId?: string;
   PatinetId?: string;
   CreatedAt?: Date;
-  OngoingProblems?: string = "";
-  NutritionHistory?: string = "";
-  MajorEvents?: string = "Sample modal";
-  PerventiveCare?: string = "";
+  OngoingProblems?: string;
+  NutritionHistory?: string;
+  MajorEvents?: string;
+  PerventiveCare?: string;
   FamilyHealthyHistoryId?: string;
   fFirstName?: string;
   fLastName?: string;
@@ -34,7 +34,7 @@ export class PastMedicalHistories {
   fUpdatedAt?: Date;
 }
 
-export class Allergies {
+export class Allergy {
   AlergieId?: string;
   PatientId?: string;
   AllergenType?: string;
@@ -59,8 +59,8 @@ export enum PatientChart {
 export class ChartInfo {
   AdvancedDirectives?: AdvancedDirective[] = []
   Diagnoses?: EncounterDiagnosis[] = []
-  Alergies?: Allergies[] = []
-  PastMedicalHistories?: PastMedicalHistories[] = []
+  Alergies?: Allergy[] = []
+  PastMedicalHistories?: PastMedicalHistory[] = []
   Immunizations?: Immunizations[] = []
   Encounters?: EncounterInfo[] = []
   Appointments?: NewAppointment[] = []
