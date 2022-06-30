@@ -88,7 +88,7 @@
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list" *ngFor="let diagnose of allDiagnoses">
+                <ul class="main-list" *ngFor="let diagnose of patientDiagnoses">
                   <li>
                     <a>
                       <span *ngIf="diagnose?.code != null && diagnose?.code !=''">
@@ -108,7 +108,7 @@
                     </span>
                   </li>
                 </ul>
-                <ul class="main-list" *ngIf="allDiagnoses?.length == (0 || null || undefined)">
+                <ul class="main-list" *ngIf="patientDiagnoses?.length == (0 || null || undefined)">
                   <li>
                     <span>No active Dx recorded.</span>
                   </li>
@@ -645,12 +645,12 @@
         <div class="col-md-12">
           <label class="required">Major Events:</label>
           <textarea class="form-control col-12 mt-3 mt-md-0"
-            [(ngModel)]="patientpastMedicalHistories.MajorEvents"></textarea>
+            [(ngModel)]="patientPastMedicalHistory.MajorEvents"></textarea>
         </div>
         <div class="col-md-12">
           <label class="required">Ongoing Medical Problems:</label>
           <textarea class="form-control col-12 mt-3 mt-md-0"
-            [(ngModel)]="patientpastMedicalHistories.OngoingProblems"></textarea>
+            [(ngModel)]="patientPastMedicalHistory.OngoingProblems"></textarea>
         </div>
         <div class="col-md-12">
           <div class="row card-bg mt-2">
@@ -667,12 +667,12 @@
         <div class="col-md-12 mt-1">
           <label class="required">Preventative Care:</label>
           <textarea class="form-control col-12 mt-3 mt-md-0"
-            [(ngModel)]="patientpastMedicalHistories.PerventiveCare"></textarea>
+            [(ngModel)]="patientPastMedicalHistory.PerventiveCare"></textarea>
         </div>
         <div class="col-md-12">
           <label class="required">Nutrition History:</label>
           <textarea class="form-control col-12 mt-3 mt-md-0"
-            [(ngModel)]="patientpastMedicalHistories.NutritionHistory"></textarea>
+            [(ngModel)]="patientPastMedicalHistory.NutritionHistory"></textarea>
         </div>
       </div>
       <div class="row mb-3 mt-1 mx-3">
