@@ -193,6 +193,10 @@ export class PatientService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._createAllergiesUrl, reqparams);
   }
 
+  CreateDiagnoses(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._createDiagnosesUrl, reqparams);
+  }
+
   LatestUpdatedPatientsUrl(reqparams: any) {
     return this._ProcessPostRequest<any>(this._latestUpdatedPatientsUrl, reqparams);
   }
