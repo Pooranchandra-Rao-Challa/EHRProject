@@ -43,7 +43,6 @@
 
 .btn-custom {
   width: 85px;
-  margin-left: 81px;
 }
 
 .dropdown-menu {
@@ -364,11 +363,10 @@ textarea.form-control {
 
 .links {
   background-color: #41b6a6;
-  margin: 16px -22px -2px -14px;
+  margin: 10px -13px;
   font-size: 16px !important;
   color: #fff;
   padding: 9px 0px 0px 0px;
-  margin-bottom: -32px;
 }
 
 .grey-matform.mat-form-field-appearance-outline .mat-form-field-outline {
@@ -381,7 +379,7 @@ textarea.form-control {
 
 .row-head {
   border-left: 1px solid #fff;
-  height: 39px;
+  // height: 39px;
 }
 
 // ::ng-deep .grey-calendar .mat-datepicker-toggle.mat-datepicker-toggle button.mat-focus-indicator.mat-icon-button {
@@ -415,8 +413,8 @@ textarea.form-control {
   margin-right: 20px;
 }
 
-.header {
-  padding: 12px 37px 0px 2px !important;
+.modal-header.header {
+  padding: 0px 10px !important;
 }
 
 .modal-provider:not(.modal-flash) .modal-dialog .modal-content .modal-header.modal-header-md .title {
@@ -699,6 +697,20 @@ background-color: #D9534E;;
     color: #D9534E;
 }
 }
-.modal-allergie.modal-dialog{
+.modal-maxHeight.modal-dialog{
   max-width: 750px;
+}
+.modal-dialog {
+  overflow-y: initial !important;
+  // max-width: inherit !important;
+  // margin: 0 !important;
+}
+.modal-body {
+  max-height: calc(90vh - 180px);
+  overflow-y: auto;
+}
+.body {
+  max-height: calc(90vh - 130px);
+  overflow-y: auto;
+  overflow-x: hidden;
 }
