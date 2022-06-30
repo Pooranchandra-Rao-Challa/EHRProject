@@ -1,0 +1,42 @@
+// .mat-icon-rtl-mirror {
+//  // margin-left: 30px;
+// }
+// .mat-form-field {
+//   margin-right: 4px;
+// }
+
+.icons-design{
+  border: 1px solid #41a6b6;
+  width: 16px;
+  height: 16px;
+  padding: 2px;
+  border-radius: 5px;
+  color: #41a6b6;
+  font-size: 12px;
+  text-align: center;
+}
+
+.icons-design-circle{
+  border: 1px solid #41a6b6;
+  background: #41a6bc;
+  width: 12px;
+  height: 12px;
+  padding: 2px;
+  border-radius: 50%;
+  color: #41a6b6;
+  font-size: 12px;
+  text-align: center;
+}
+
+.folder-node{
+  border: 0;
+  background: white;
+}
+.mat-tree-node {
+  min-height: 30px;
+}
+.tree-leaf-item{
+  padding: 5px 0;
+  color: #41a6b6;
+  cursor: pointer;
+}

@@ -1,0 +1,16 @@
+<mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+  <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
+    <button mat-icon-button class="folder-node">
+      <i class="fa fa-dot-circle icons-design-circle"></i>
+    </button>
+    <div class="tree-leaf-item"  (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,node)">{{node.item}}</div>
+  </mat-tree-node>
+  <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+    <button mat-icon-button matTreeNodeToggle
+            [attr.aria-label]="'Toggle ' + node.item" class="folder-node">
+            <i class="fa fa-plus icons-design" *ngIf="!treeControl.isExpanded(node)"></i>
+            <i class="fa fa-minus icons-design" *ngIf="treeControl.isExpanded(node)"></i>
+    </button>
+    <div>{{node.item}}</div>
+  </mat-tree-node>
+</mat-tree>

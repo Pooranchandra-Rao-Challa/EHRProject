@@ -17,6 +17,7 @@ import { SearchPipe } from '../../_pipes/search-filter.pipe';
 import { PatientsBreadCrumComponent } from './patients-bread-crum/patients-bread-crum.component';
 import { PaginatorDirective } from 'src/app/_directives/pagination.directive'
 import { BreadcrumbComponent} from 'src/app/provider/patients/patient.breadcrumb/breadcrumb.component'
+import { TreeProcedureComponent } from 'src/app/provider/patients/dental.chart/tree.procedure.component'
 
 // import { SettingsModule } from '../settings/settings.module';
 
@@ -33,7 +34,8 @@ import { BreadcrumbComponent} from 'src/app/provider/patients/patient.breadcrumb
     ResetPasswordComponent,
     CqmsNotPerformedComponent,
     PaginatorDirective,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    TreeProcedureComponent,
   ],
   declarations: [
     PatientsComponent,
@@ -48,7 +50,8 @@ import { BreadcrumbComponent} from 'src/app/provider/patients/patient.breadcrumb
     SearchPipe,
     PatientsBreadCrumComponent,
     PaginatorDirective,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    TreeProcedureComponent,
   ],
   providers: [],
   // schemas: [CUSTOM_ELEMENTS_SCHEMA]

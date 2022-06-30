@@ -86,6 +86,7 @@ import { PatientService } from 'src/app/_services/patient.service';
 import { BillingService } from '../../_services/billing.service';
 import { AlertMessage } from 'src/app/_alerts/alertMessage';
 import { AddeditinterventionComponent } from 'src/app/dialogs/addeditintervention/addeditintervention.component';
+import { ProviderCodeDatabase } from 'src/app/provider/patients/dental.chart/tree.procedure.component'
 
 @NgModule({
   exports: [
@@ -147,7 +148,7 @@ import { AddeditinterventionComponent } from 'src/app/dialogs/addeditinterventio
     PatientPortalAccountComponent,
     PatientHealthPortalComponent,
     AddeditinterventionComponent,
-    ProcedureDialogComponent
+    ProcedureDialogComponent,
     // PaginatorDirective
   ],
   imports: [
@@ -187,6 +188,7 @@ import { AddeditinterventionComponent } from 'src/app/dialogs/addeditinterventio
   providers: [LocationSelectService, ViewChangeService,
     UtilityService, SmartSchedulerService, OverlayService, PatientService, BillingService,
     SmartScheduleComponent, AlertMessage,
+    ProviderCodeDatabase,
     { provide: NgbDateParserFormatter, useClass: NgbDateUSParserFormatter }
 
   ],

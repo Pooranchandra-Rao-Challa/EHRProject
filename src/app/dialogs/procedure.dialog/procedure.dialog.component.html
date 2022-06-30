@@ -71,13 +71,16 @@
           </div>
         </div>
         <div class="col-lg-4 col-md-4 col-4">
-          <div class="input-group">
+          <div class="input-group" [class.tooth-number-center]="procedureInfo.ViewFrom =='ToothNo'">
             <label class="control-label input-group-addon required">Tooth</label>
-            <mat-form-field class="procedure-form-field" appearance="outline" [ngStyle]="{'padding-bottom':'0px'}">
+            <mat-form-field class="procedure-form-field" appearance="outline"
+            [ngStyle]="{'padding-bottom':'0px'}"
+            *ngIf="procedureInfo.ViewFrom == null || procedureInfo.ViewFrom =='Tree'">
               <mat-select class="select" [(ngModel)]="procedureInfo.ToothNo">
                 <mat-option *ngFor="let toothNo  of teethNumbers" [value]="toothNo">{{toothNo}}</mat-option>
               </mat-select>
             </mat-form-field>
+            <label *ngIf="procedureInfo.ViewFrom =='ToothNo'">{{procedureInfo.ToothNo}}</label>
           </div>
         </div>
         <div class="col-lg-4 col-md-4 col-4">
