@@ -1,4 +1,4 @@
-import { dentalchartService } from './_services/dentalchart.service';
+import { DentalChartService } from './_services/dentalchart.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -58,7 +58,7 @@ import { CQMNotPerformedService } from './_services/cqmnotperforemed.service';
     IdService,
     AuthGuard,
     LabsImagingService,
-    dentalchartService,
+    DentalChartService,
     CQMNotPerformedService
 
   ],
