@@ -120,3 +120,58 @@ export class TobaccoUseInterventions {
   code?: string;
   description?: string;
 }
+
+export class Diagnosis {
+  DiagnosisId?: string;
+  PatinetId?: string;
+  CodeSystem?: string;
+  Code?: string;
+  Description?: string;
+  StartAt?: Date;
+  StopAt?: string;
+  CreatedAt?: Date;
+  UpdatedAt?: Date;
+  Note?: string;
+  Acute?: boolean;
+  Terminal?: boolean;
+  Referral?: boolean;
+}
+
+// Enums
+
+export enum AllergyType {
+  Medication = 'Medication',
+  Food = 'Food',
+  Environment = 'Environment',
+}
+
+export enum SeverityLevel {
+  VeryMild = 'Very Mild',
+  Mild = 'Mild',
+  Moderate = 'Moderate',
+  Severe = 'Severe'
+}
+
+export enum OnSetAt {
+  Childhood = 'Childhood',
+  Adulthood = 'Adulthood',
+  Unknown = 'Unknown'
+}
+
+export enum Allergens {
+  diphenylethylene = '1,1-diphenylethylene',
+  dioleoyl = '1,2-dioleoyl-sn-glycero-3-phosphocholine',
+  methoxynaphthoquinone = '2-methoxynaphthoquinone'
+}
+
+export enum AllergyReaction {
+  Anaphylaxis = 'Anaphylaxis',
+  Bloating = 'Bloating/gas',
+  ChestPain = 'Chest Pain',
+  Cough = 'Cough'
+}
+
+export enum DiagnosisDpCodes {   // Dp - dropdown
+  SNOMED = 'SNOMED',
+  ICD10 = 'ICD10'
+}

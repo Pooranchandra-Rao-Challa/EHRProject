@@ -8,7 +8,8 @@ import { InterventionDialogComponent } from 'src/app/dialogs/intervention.dialog
 import { PatientService } from '../../../_services/patient.service';
 import { ScheduledAppointment,
   AdvancedDirective, ChartInfo, PatientChart, Allergy, EncounterDiagnosis, PastMedicalHistory, Actions,
-  Immunizations, Medications, EncounterInfo, NewAppointment, SmokingStatus, TobaccoUseScreenings, TobaccoUseInterventions
+  Immunizations, Medications, EncounterInfo, NewAppointment, SmokingStatus, TobaccoUseScreenings, TobaccoUseInterventions,
+  Diagnosis, AllergyType, SeverityLevel, OnSetAt, Allergens, AllergyReaction, DiagnosisDpCodes
 } from 'src/app/_models';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
@@ -29,7 +30,7 @@ export class ChartComponent implements OnInit {
   encounterDialogComponent = EncounterDialogComponent;
 
   // advancedDirectives: AdvancedDirective[];
-  patientDiagnoses: EncounterDiagnosis[];
+  patientDiagnoses: Diagnosis = new Diagnosis();
   patientAllergy: Allergy = new Allergy();
   patientPastMedicalHistory: PastMedicalHistory = new PastMedicalHistory();
   immunizations: Immunizations[];
@@ -39,11 +40,12 @@ export class ChartComponent implements OnInit {
   // smokingstatus: SmokingStatus[];
   tobaccoscreenings: TobaccoUseScreenings[];
   tobaccointerventions: TobaccoUseInterventions[];
-  allergyType: string[];
-  severityLevel: string[];
-  onsetAt: string[];
-  allergens: string[];
-  allergyReaction: string[];
+  allergyType: AllergyType[];
+  severityLevel: SeverityLevel[];
+  onsetAt: OnSetAt[];
+  allergens: Allergens[];
+  allergyReaction: AllergyReaction[];
+  dpDxCodes: DiagnosisDpCodes[];
   currentPatient: ProviderPatient;
   ActionTypes = Actions;
   chartInfo: ChartInfo = new ChartInfo;
@@ -55,11 +57,12 @@ export class ChartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.allergyType = ['Medication', 'Food', 'Environment'];
-    this.severityLevel = ['Very Mild', 'Mild', 'Moderate', 'Severe'];
-    this.onsetAt = ['Childhood', 'Adulthood', 'Unknown'];
-    this.allergens = ['1,1-diphenylethylene', '1,2-dioleoyl-sn-glycero-3-phosphocholine', '2-methoxynaphthoquinone'];
-    this.allergyReaction = ['Anaphylaxis', 'Bloating/gas', 'Chest Pain', 'Cough'];
+    this.allergyType = Object.values(AllergyType);
+    this.severityLevel = Object.values(SeverityLevel);
+    this.onsetAt = Object.values(OnSetAt);
+    this.allergens = Object.values(Allergens);
+    this.allergyReaction = Object.values(AllergyReaction);
+    this.dpDxCodes = Object.values(DiagnosisDpCodes);
     this.currentPatient = this.authService.viewModel.Patient;
     this.ChartInfo();
   }
@@ -112,6 +115,8 @@ export class ChartComponent implements OnInit {
 
   resetDialog() {
     this.patientAllergy = new Allergy;
+    this.patientPastMedicalHistory = new PastMedicalHistory;
+    this.patientDiagnoses = new Diagnosis;
   }
 
   editDialog(dialogData, name) {
@@ -128,22 +133,30 @@ export class ChartComponent implements OnInit {
       this.patientAllergy = dialogData;
       this.patientAllergy.AllergenId = dialogData.AllergenId;
     }
+    else if (name == 'diagnosis') {
+      if (dialogData.StopAt != undefined) {
+        dialogData.StopAt = moment(dialogData.StopAt).format('YYYY-MM-DD');
+      }
+      this.patientDiagnoses = dialogData;
+    }
   }
 
   CreatePastMedicalHistories() {
     this.patientService.CreatePastMedicalHistories(this.patientPastMedicalHistory).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.PastMedicalHistoriesByPatientId();
+        this.resetDialog();
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2CPMH002"]);
       }
       else {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2CPMH001"]);
+        this.resetDialog();
       }
     });
   }
 
   CreateAllergies() {
-    let isAdd = this.patientAllergy.AlergieId == "";
+    let isAdd = this.patientAllergy.AlergieId == undefined;
     this.patientAllergy.PatientId = this.currentPatient.PatientId;
     this.patientAllergy.StartAt = this.datepipe.transform(this.patientAllergy.StartAt, "MM/dd/yyyy hh:mm:ss");
     this.patientAllergy.EndAt = this.datepipe.transform(this.patientAllergy.EndAt, "MM/dd/yyyy hh:mm:ss");
@@ -156,6 +169,31 @@ export class ChartComponent implements OnInit {
       }
       else {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2CA001"]);
+        this.resetDialog();
+      }
+    });
+  }
+
+  todayStartAt() {
+    this.patientDiagnoses.StartAt = new Date();
+  }
+  todayStopAt() {
+    this.patientDiagnoses.StopAt = moment(new Date()).format('YYYY-MM-DD');
+  }
+
+  CreateDiagnoses() {
+    let isAdd = this.patientDiagnoses.DiagnosisId == undefined;
+    this.patientDiagnoses.PatinetId = this.currentPatient.PatientId;
+    this.patientDiagnoses.StopAt = this.datepipe.transform(this.patientDiagnoses.StopAt, "MM/dd/yyyy hh:mm:ss");
+    this.patientService.CreateDiagnoses(this.patientDiagnoses).subscribe((resp) => {
+      if (resp.IsSuccess) {
+        this.DiagnosesByPatientId();
+        this.resetDialog();
+        this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CD001" : "M2CD002"]);
+      }
+      else {
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CD001"]);
+        this.resetDialog();
       }
     });
   }

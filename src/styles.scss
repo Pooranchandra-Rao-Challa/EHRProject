@@ -343,15 +343,15 @@ mat-paginator {
   color: #fff;
 }
 
-.mat-datepicker-content .mat-calendar-body-today:not(.mat-calendar-body-selected) {
-  border-color: #ffb733;
-  background-color: #ffdb99;
-  color: #000000;
-}
+// .mat-datepicker-content .mat-calendar-body-today:not(.mat-calendar-body-selected) {
+//   border-color: #ffb733;
+//   background-color: #ffdb99;
+//   color: #000000;
+// }
 
 .mat-calendar-body-today {
-  border-color: #ffb733;
-  background-color: #ffdb99;
+  border-color: #ffb733 !important;
+  background-color: #ffdb99 !important;
   color: #000000;
 }
 

@@ -78,37 +78,40 @@
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
-                    <p class="card-title" data-bs-toggle="modal" data-bs-target="#exampleModal">Diagnoses (Dx)</p>
+                    <p class="card-title" data-bs-toggle="modal" data-bs-target="#used-diagnoses-modal">Diagnoses (Dx)
+                    </p>
                   </div>
                   <div class="col-md-4 col-6">
-                    <div class="col-12 plusicon pull-right"><span><i class="fa fa-plus" data-bs-toggle="modal"
-                          data-bs-target="#exampleModal"></i></span>
+                    <div class="col-12 plusicon pull-right" data-bs-toggle="modal"
+                      data-bs-target="#used-diagnoses-modal" (click)="resetDialog()">
+                      <span><i class="fa fa-plus"></i></span>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list" *ngFor="let diagnose of patientDiagnoses">
+                <ul class="main-list" *ngFor="let diagnose of chartInfo?.Diagnoses">
                   <li>
-                    <a>
-                      <span *ngIf="diagnose?.code != null && diagnose?.code !=''">
-                        - {{diagnose?.code}}
+                    <a data-bs-toggle="modal" data-bs-target="#create-diagnoses-modal"
+                      (click)="editDialog(diagnose, 'diagnosis')">
+                      <span *ngIf="diagnose?.Code != null && diagnose?.Code !=''">
+                        - {{diagnose?.Code}}
                       </span>
-                      <span *ngIf="diagnose?.note != null && diagnose?.note !=''">
-                        - {{diagnose?.note}}
+                      <span *ngIf="diagnose?.Note != null && diagnose?.Note !=''">
+                        - {{diagnose?.Note}}
                       </span>
                     </a>
                   </li>
                   <li style="margin-left: 20px;">
-                    <span *ngIf="diagnose?.start_at != null && diagnose?.start_at !=''">
-                      {{diagnose?.start_at | date: 'MM/dd/yyyy'}}
+                    <span *ngIf="diagnose?.StartAt != null && diagnose?.StartAt !=''">
+                      {{diagnose?.StartAt | date: 'MM/dd/yyyy'}}
                     </span>
-                    <span *ngIf="diagnose?.stop_at != null && diagnose?.stop_at !=''">
-                      - {{diagnose?.stop_at | date: 'MM/dd/yyyy'}}
+                    <span *ngIf="diagnose?.StopAt != null && diagnose?.StopAt !=''">
+                      - {{diagnose?.StopAt | date: 'MM/dd/yyyy'}}
                     </span>
                   </li>
                 </ul>
-                <ul class="main-list" *ngIf="patientDiagnoses?.length == (0 || null || undefined)">
+                <ul class="main-list" *ngIf="chartInfo?.Diagnoses?.length == 0">
                   <li>
                     <span>No active Dx recorded.</span>
                   </li>
@@ -521,27 +524,27 @@
 </div>
 
 
-<!-- Diagnosis -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+<!-- Frequently Used Diagnosis -->
+<div class="modal fade" id="used-diagnoses-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-maxHeight">
     <div class="modal-content body">
       <div class="modal-header header">
-        <div class="col-sm-4 ">
+        <div class="col-md-4 col-6">
           <h4 class="Helvetica-sans-serif-medium ">Frequently Used Dx</h4>
         </div>
-        <div class="col-sm-8 row-head">
+        <div class="col-md-8 col-6 row-head">
           <h4 class="Helvetica-sans-serif-medium mx-1">Record Diagnosis Dx</h4>
         </div>
       </div>
       <div class="body">
-        <div class="row">
+        <div class="row" style="padding: 0px 12px;">
           <div class="col-sm-4 col-md-4 col-lg-4 ">
           </div>
           <div class="col-sm-8 col-md-8 col-lg-8 side-boder">
             <mat-form-field appearance="outline" class="input-field input-bg w-100 mt-3 ">
-              <mat-select required>
-                <mat-option *ngFor="let trigger of TriggerRuleDD" [value]="trigger.value">
-                  {{trigger.viewValue}}
+              <mat-select required [(value)]="dpDxCodes[0]">
+                <mat-option *ngFor="let code of dpDxCodes" [value]="code">
+                  {{code}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -551,10 +554,15 @@
               <span class="input-group-addon input-group-addon-right input-group-addon-search Search"
                 id="find-messages-button-1"><i class="fa fa-search"></i></span>
             </div>
-            <div class="row mt-3 mx-1 mb-3">
-              <button class="btn btn-green" data-bs-toggle="modal" data-bs-target="#exampleModal1">Add
-                Custom Dx</button>
-              <button class="btn btn-green btn-custom" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+            <div class="row mt-3 mb-3">
+              <div class="col-md-8 col-8">
+                <button class="btn btn-green" data-bs-toggle="modal" data-bs-target="#create-diagnoses-modal">Add
+                  Custom Dx</button>
+              </div>
+              <div class="col-md-4 col-4">
+                <button class="btn btn-green btn-custom pull-right" data-bs-dismiss="modal"
+                  aria-label="Close">Cancel</button>
+              </div>
             </div>
           </div>
         </div>
@@ -563,14 +571,16 @@
   </div>
 </div>
 
-<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+<!-- Create diagnoses -->
+<div class="modal fade" id="create-diagnoses-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-maxHeight">
     <div class="modal-content body">
       <div class="modal-header header">
-        <div class="col-sm-4">
+        <div class="col-sm-3 mx-2">
           <h4 class="Helvetica-sans-serif-medium ">Diagnosis (Dx)</h4>
         </div>
-        <div class="col-sm-8 row-head">
+        <div class="col-sm-7 row-head">
           <h4 class="Helvetica-sans-serif-medium mx-1">Record Diagnosis(Dx)</h4>
         </div>
         <div>
@@ -580,64 +590,67 @@
         </div>
       </div>
       <div class="body">
-        <div class="row">
+        <div class="row" style="padding: 0px 12px;">
           <div class="col-sm-4">
           </div>
           <div class="col-sm-8 side-boder">
             <mat-form-field appearance="outline" class=" mt-3 w-100">
-              <mat-select required>
-                <mat-option *ngFor="let trigger of TriggerRuleDD" [value]="trigger.value">
-                  {{trigger.viewValue}}
+              <mat-select required [(value)]="dpDxCodes[0]" [(ngModel)]="patientDiagnoses.CodeSystem">
+                <mat-option *ngFor="let code of dpDxCodes" [value]="code">
+                  {{code}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
             <label>Code</label>
             <mat-form-field class="w-100" appearance="outline">
-              <input matInput placeholder="Code" name="Code" />
+              <input matInput placeholder="Code" name="Code" [(ngModel)]="patientDiagnoses.Code" />
             </mat-form-field>
             <label>Descrption</label>
             <mat-form-field class="w-100" appearance="outline">
-              <input matInput placeholder="Descrption" />
+              <input matInput placeholder="Descrption" [(ngModel)]="patientDiagnoses.Description" />
             </mat-form-field>
             <div class="row">
               <label>Start Date</label>
               <mat-form-field appearance="outline" class="green-calendar calender-item col-md-8">
-                <input matInput [matDatepicker]="startdate" placeholder="Start Date" name="startdate" />
+                <input matInput [matDatepicker]="startdate" placeholder="Start Date" name="startdate"
+                  [(ngModel)]="patientDiagnoses.StartAt" />
                 <mat-datepicker-toggle matSuffix [for]="startdate">
                 </mat-datepicker-toggle>
                 <mat-datepicker #startdate disabled="false"></mat-datepicker>
               </mat-form-field>
               <div class="col-lg-4">
-                <button class="btn btn-green btn-today">Today</button>
+                <button class="btn btn-green btn-today pull-right" (click)="todayStartAt()">Today</button>
               </div>
             </div>
             <div class="row">
               <label>End Date</label>
               <mat-form-field appearance="outline" class="green-calendar calender-item col-md-8">
-                <input matInput [matDatepicker]="enddate" placeholder="End Date" name="enddate" />
+                <input matInput [matDatepicker]="enddate" placeholder="End Date" name="enddate"
+                  [(ngModel)]="patientDiagnoses.StopAt" />
                 <mat-datepicker-toggle matSuffix [for]="enddate">
                 </mat-datepicker-toggle>
                 <mat-datepicker #enddate disabled="false"></mat-datepicker>
               </mat-form-field>
               <div class="col-lg-4">
-                <button class="btn btn-green btn-today">Today</button>
+                <button class="btn btn-green btn-today pull-right" (click)="todayStopAt()">Today</button>
               </div>
             </div>
             <label>Diagnosis Notes:</label>
-            <textarea placeholder="Diagnosis Notes:" class="form-control col-12 mt-3 mt-md-0"></textarea>
-
+            <textarea placeholder="Diagnosis Notes:" class="form-control col-12 mt-3 mt-md-0"
+              [(ngModel)]="patientDiagnoses.Note"></textarea>
             <div class="row links">
               <div class="col-lg-3 col-md-3 col-sm-3">
                 <p>Resources:</p>
               </div>
             </div>
-            <div class="row  right-block">
-              <button class="btn btn-green btn-cancel mx-3 mb-3" data-bs-toggle="modal"
-                data-bs-target="#exampleModal1">Save</button>
-              <button class="btn btn-green btn-cancel" data-bs-dismiss="modal" aria-label="Close"> Cancel</button>
+            <div class="right-block">
+              <button class="btn btn-green btn-cancel pull-right" data-bs-dismiss="modal" aria-label="Close"
+                (click)="resetDialog()">
+                Cancel</button>
+              <button class="btn btn-green btn-cancel mx-3 mb-3 pull-right" data-bs-toggle="modal"
+                data-bs-target="#create-diagnoses-modal" (click)="CreateDiagnoses()">Save</button>
             </div>
           </div>
-
         </div>
       </div>
     </div>
@@ -876,7 +889,7 @@
 <!-- Allergies modal -->
 <div class="modal fade " id="allergies-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-md modal-allergie" role="document">
+  <div class="modal-dialog modal-md modal-maxHeight" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title Helvetica-sans-serif-medium">Record Allergy</h4>
@@ -999,8 +1012,8 @@
               Save Changes
             </button>
             <button type="button" class="btn btn-lg btn-green col-xl-3 col-lg-3 col-md-3 col-5 mx-3"
-              data-bs-dismiss="modal">
-              Close
+              data-bs-dismiss="modal" (click)="resetDialog()">
+              Cancel
             </button>
           </div>
         </div>
