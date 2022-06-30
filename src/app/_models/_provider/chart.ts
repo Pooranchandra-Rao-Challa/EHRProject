@@ -53,6 +53,7 @@ export class Allergy {
 export enum PatientChart {
   AdvancedDirectives,
   SmokingStatus,
+  Encounters,
   CQMNotPerforemd
 }
 

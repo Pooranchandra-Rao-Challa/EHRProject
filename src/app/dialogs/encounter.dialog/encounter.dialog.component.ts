@@ -8,7 +8,8 @@ import { EHROverlayRef } from '../../ehr-overlay-ref';
 import {
   EncounterInfo, EncounterDiagnosis, ProceduresInfo, VitalInfo,PracticeProviders,Actions,
   ScheduledAppointment, AppointmentTypes,
-  UserLocations
+  UserLocations,
+  PatientChart
 } from 'src/app/_models';
 import {
   MedicalCode
@@ -93,9 +94,8 @@ export class EncounterDialogComponent implements OnInit {
     .filter((loc) => loc.locationId === this.authService.userValue.CurrentLocation )[0];
     this.loadDefaults();
     this.appointment = this.overlayref.RequestData as ScheduledAppointment
-    console.log(this.appointment);
     this.patient = this.overlayref.RequestData as ProviderPatient;
-    console.log(this.patient);
+
 
     this.initEncoutnerView();
     this.loadEncouterView();
@@ -103,7 +103,7 @@ export class EncounterDialogComponent implements OnInit {
 
     this.diagnosesInfo.next(this.encounterInfo.Diagnoses);
     this.recommendedProcedures.next(this.encounterInfo.RecommendedProcedures);
-    // this.completedProcedures.next(this.encounterInfo.CompletedProcedures);
+
 
     if(this.encounterInfo.Vital.CollectedAt != null)
     this.encounterInfo.Vital.CollectedTime = this.encounterInfo.Vital.CollectedAt.toTimeString().substring(0, 5);
@@ -320,9 +320,10 @@ export class EncounterDialogComponent implements OnInit {
 
   updateEncounter(){
     let isAdd = this.encounterInfo.EncounterId == null;
+
     this.patientService.CreateEncounter(this.encounterInfo).subscribe(resp => {
       if (resp.IsSuccess) {
-        this.overlayref.close({"saved":true});
+        this.overlayref.close({"UpdatedModal": PatientChart.Encounters});
         this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2AE001" : "M2AE002"])
       }else{
         this.overlayref.close();
