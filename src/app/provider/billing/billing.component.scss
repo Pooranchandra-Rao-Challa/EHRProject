@@ -93,9 +93,10 @@ border-bottom: none;
     width: 91%;
     height: 45px;
     border-radius: 4px;
+    padding: 10px;
 
   }
-  ::ng-deep .green-calendar.mat-form-field-appearance-outline .mat-form-field-outline {
+  ::ng-deep.green-calendar.mat-form-field-appearance-outline .mat-form-field-outline {
     background-color: #fff !important;
     color: #41b6a6 !important;
     height: 45px;
@@ -109,4 +110,38 @@ border-bottom: none;
   .stopdate{
     margin: 0px -63px;
   }
-  
+  .toalignment{
+  padding-left: 44px;
+    padding-top: 10px;
+    font-size: 16px;
+  }
+.runreport{
+  margin-left: 31px;
+    padding-right: 10px;
+}
+
+.reset{
+  margin-left: 10px;
+  width: 282px;
+}
+@media (min-width: 1600px) {
+  ::ng-deep .reset{
+    // margin-left: 10px;
+     width: 235px;;
+  }
+}
+
+
+
+.search_patient_div {
+  border: 1px solid #41b6a6;
+}
+.input-group {
+  width: 100%;
+  display: table;
+  border-radius: 3px;
+  transition: border-color 0.2s;
+}
+.form-group .select2.select2-container {
+  width: 100% !important;
+}
