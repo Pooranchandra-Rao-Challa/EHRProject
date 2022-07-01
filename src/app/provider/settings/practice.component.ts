@@ -281,4 +281,8 @@ export class PracticeComponent implements OnInit, AfterViewInit {
           && emailReg.test(this.NewUserData.Email)
           && this.NewUserData.PracticeRole != null && this.NewUserData.PracticeRole != "");
   }
+
+  Close(){
+    this.NewUserData = new NewUser()
+  }
 }

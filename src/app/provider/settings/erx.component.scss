@@ -13,6 +13,8 @@
   justify-content: space-between;
   box-sizing: border-box;
   z-index: 2;
+  font-size: 15px;
+  font-family: Roboto;
 }
 
 .erx-controls .input-group-text {
@@ -21,8 +23,9 @@
   width: 145px;
   background-color: #41b6a6;
   color: #fff;
-  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-  font-size: 15px;
+  // font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-family: Roboto;
 }
 
 .erx-controls .input-group {
@@ -50,11 +53,12 @@
 .btn-lg {
   width: 150px;
   height: 45px;
+  padding-top: 12px;
 }
 
 .keyhide {
   padding-top: 15px;
-  font-size: 12px;
+  font-size: 14px;
   color: #4A4A4A;
 }
 

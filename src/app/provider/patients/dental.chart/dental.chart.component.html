@@ -1,6 +1,6 @@
 <div class="container-fluid mt-3">
   <div class="row">
-    <div class="col-lg-11 col-md-11 col-12">
+    <div class="col-lg-10 col-md-10 col-10">
       <div class="Dental-chart">
         <ul class="nav nav-tabs nav-tab-styled mx-2" id="myTab" role="tablist">
           <li class="nav-item" role="presentation">
@@ -16,13 +16,13 @@
         </ul>
       </div>
     </div>
-    <div class="col-lg-1 col-md-1 col-12 ">
+    <div class="col-lg-2 col-md-2 col-2 ">
 
-      <button type="button" class="btn btn-orange py-2 px-4">New Treatment</button>
+      <button type="button" class="btn btn-orange py-2 px-4" style="float:right;">New Treatment</button>
     </div>
   </div>
 </div>
-<div class="adult-dentalchart">
+<div class="adult-dentalchart" style="clear: both;">
   <div class="row row-margin mt-2">
     <div class="col-lg-6 col-md-6 col-12  patientDentalChartTab" *ngIf="AdultPrem">
       <div class="panel-teeth double-border">
@@ -67,28 +67,28 @@
               <tr class="tr-tooth tr-middle tr-top-teeth-md">
                 <td class="overlay-img">
                   <img src="assets/images/dental-chart/tooths/tooth_adult_2_md.svg" alt="Tooth adult 1 md"><a
-                    class="checker unchecked" (click)="OpenDentalModal(1)" data-bs-toggle="modal"
-                    data-bs-target="#AdultDentalModal"></a>
+                    class="checker unchecked" (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,1)"
+                    ></a>
                 </td>
                 <td class="overlay-img">
                   <img src="assets/images/dental-chart/tooths/tooth_adult_2_md.svg" alt="Tooth adult 2 md"> <a
-                    class="checker unchecked" (click)="OpenDentalModal(2)" data-bs-toggle="modal"
-                    data-bs-target="#AdultDentalModal"></a>
+                    class="checker unchecked" (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,2)"
+                    ></a>
                 </td>
                 <td class="overlay-img">
                   <img src="assets/images/dental-chart/tooths/tooth_adult_3_md.svg" alt="Tooth adult 2 md"><a
-                    class="checker unchecked" (click)="OpenDentalModal(3)" data-bs-toggle="modal"
-                    data-bs-target="#AdultDentalModal"></a>
+                    class="checker unchecked" (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,3)"
+                    ></a>
                 </td>
                 <td class="overlay-img">
                   <img src="assets/images/dental-chart/tooths/tooth_adult_4_md.svg" alt="Tooth adult 4 md"><a
-                    class="checker unchecked" (click)="OpenDentalModal(4)" data-bs-toggle="modal"
-                    data-bs-target="#AdultDentalModal"></a>
+                    class="checker unchecked" (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,4)"
+                    ></a>
                 </td>
                 <td class="overlay-img">
                   <img src="assets/images/dental-chart/tooths/tooth_adult_5_md.svg" alt="Tooth adult 5 md"> <a
-                    class="checker unchecked" (click)="OpenDentalModal(5)" data-bs-toggle="modal"
-                    data-bs-target="#AdultDentalModal"></a>
+                    class="checker unchecked" (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,5)"
+                    ></a>
                 </td>
                 <td></td>
                 <td></td>
@@ -104,18 +104,18 @@
                 </td>
                 <td class="overlay-img">
                   <img src="assets/images/dental-chart/tooths/tooth_adult_14_md.svg" alt="Tooth adult 14 md">
-                  <a class="checker unchecked" (click)="OpenDentalModal(14)" data-bs-toggle="modal"
-                    data-bs-target="#AdultDentalModal"></a>
+                  <a class="checker unchecked" (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,14)"
+                    ></a>
                 </td>
                 <td class="overlay-img">
                   <img src="assets/images/dental-chart/tooths/tooth_adult_15_md.svg" alt="Tooth adult 15 md">
-                  <a class="checker unchecked" (click)="OpenDentalModal(15)" data-bs-toggle="modal"
-                    data-bs-target="#AdultDentalModal"></a>
+                  <a class="checker unchecked" (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,15)"
+                    ></a>
                 </td>
                 <td class="overlay-img">
                   <img src="assets/images/dental-chart/tooths/tooth_adult_16_md.svg" alt="Tooth adult 16 md">
-                  <a class="checker unchecked" (click)="OpenDentalModal(16)" data-bs-toggle="modal"
-                    data-bs-target="#AdultDentalModal"></a>
+                  <a class="checker unchecked" (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,16)"
+                    ></a>
                 </td>
               </tr>
               <tr class="tr-tooth tr-middle tr-top-teeth-xs">
@@ -131,31 +131,33 @@
                 </td>
                 <td class="overlay-img">
                   <img src="assets/images/dental-chart/tooths/tooth_adult_6_xs.svg" alt="Tooth adult 6 xs">
+                  <a class="checker unchecked" (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,6)"
+                  ></a>
                 </td>
                 <td class="overlay-img">
                   <img src="assets/images/dental-chart/tooths/tooth_adult_7_xs.svg" alt="Tooth adult 7 xs">
-                  <a class="checker unchecked" (click)="OpenDentalModal(7)" data-bs-toggle="modal"
-                    data-bs-target="#AdultDentalModal"></a>
+                  <a class="checker unchecked" (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,7)"
+                    ></a>
                 </td>
                 <td class="overlay-img">
                   <img src="assets/images/dental-chart/tooths/tooth_adult_8_xs.svg" alt="Tooth adult 8 xs">
-                  <a class="checker unchecked" (click)="OpenDentalModal(8)" data-bs-toggle="modal"
-                    data-bs-target="#AdultDentalModal"></a>
+                  <a class="checker unchecked" (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,8)"
+                    ></a>
                 </td>
                 <td class="overlay-img">
                   <img src="assets/images/dental-chart/tooths/tooth_adult_9_xs.svg" alt="Tooth adult 9 xs">
-                  <a class="checker unchecked" (click)="OpenDentalModal(9)" data-bs-toggle="modal"
-                    data-bs-target="#AdultDentalModal"></a>
+                  <a class="checker unchecked" (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,9)"
+                    ></a>
                 </td>
                 <td class="overlay-img">
                   <img src="assets/images/dental-chart/tooths/tooth_adult_10_xs.svg" alt="Tooth adult 10 xs">
-                  <a class="checker unchecked" (click)="OpenDentalModal(10)" data-bs-toggle="modal"
-                    data-bs-target="#AdultDentalModal"></a>
+                  <a class="checker unchecked" (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,10)"
+                    ></a>
                 </td>
                 <td class="overlay-img">
                   <img src="assets/images/dental-chart/tooths/tooth_adult_11_xs.svg" alt="Tooth adult 11 xs">
-                  <a class="checker unchecked" (click)="OpenDentalModal(11)" data-bs-toggle="modal"
-                    data-bs-target="#AdultDentalModal"></a>
+                  <a class="checker unchecked" (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,11)"
+                    ></a>
                 </td>
                 <td><img src="assets/images/dental-chart/tooths/tooth_adult_12_xs.svg" alt="Tooth adult 12 xs">
                 </td>
@@ -231,29 +233,33 @@
                 </td>
                 <td class="overlay-img">
                   <img src="assets/images/dental-chart/tooths/tooth_adult_27_xs.svg" alt="Tooth adult 27 xs">
+                  <a class="checker unchecked " (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,27)"
+                    ></a>
                 </td>
                 <td class="overlay-img">
                   <img src="assets/images/dental-chart/tooths/tooth_adult_26_xs.svg" alt="Tooth adult 26 xs">
+                  <a class="checker unchecked " (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,26)"
+                    ></a>
                 </td>
                 <td class="overlay-img"><img src="assets/images/dental-chart/tooths/tooth_adult_25_xs.svg"
                     alt="Tooth adult 25 xs">
-                  <a class="checker unchecked " (click)="OpenDentalModal(25)" data-bs-toggle="modal"
-                    data-bs-target="#AdultDentalModal"></a>
+                  <a class="checker unchecked " (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,25)"
+                    ></a>
                 </td>
                 <td class="overlay-img">
                   <img src="assets/images/dental-chart/tooths/tooth_adult_24_xs.svg" alt="Tooth adult 24 xs">
-                  <a class="checker unchecked" (click)="OpenDentalModal(26)" data-bs-toggle="modal"
-                    data-bs-target="#AdultDentalModal"></a>
+                  <a class="checker unchecked" (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,26)"
+                    ></a>
                 </td>
                 <td class="overlay-img">
                   <img src="assets/images/dental-chart/tooths/tooth_adult_23_xs.svg" alt="Tooth adult 23 xs">
-                  <a class="checker unchecked" (click)="OpenDentalModal(27)" data-bs-toggle="modal"
-                    data-bs-target="#AdultDentalModal"></a>
+                  <a class="checker unchecked" (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,27)"
+                    ></a>
                 </td>
                 <td class="overlay-img">
                   <img src="assets/images/dental-chart/tooths/tooth_adult_22_xs.svg" alt="Tooth adult 22 xs">
-                  <a class="checker unchecked " (click)="OpenDentalModal(28)" data-bs-toggle="modal"
-                    data-bs-target="#AdultDentalModal"></a>
+                  <a class="checker unchecked " (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,28)"
+                    ></a>
                 </td>
                 <td><img src="assets/images/dental-chart/tooths/tooth_adult_21_xs.svg" alt="Tooth adult 21 xs">
                 </td>
@@ -269,25 +275,25 @@
               <tr>
                 <td class="overlay-img">
                   <img src="assets/images/dental-chart/tooths/tooth_adult_32_md.svg" alt="Tooth adult 32 md">
-                  <a class="checker unchecked" (click)="OpenDentalModal(32)" data-bs-toggle="modal"
-                    data-bs-target="#AdultDentalModal"></a>
+                  <a class="checker unchecked" (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,32)"
+                    ></a>
                 </td>
                 <td class="overlay-img">
                   <img src="assets/images/dental-chart/tooths/tooth_adult_31_md.svg" alt="Tooth adult 31 md">
-                  <a class="checker unchecked " (click)="OpenDentalModal(31)" data-bs-toggle="modal"
-                    data-bs-target="#AdultDentalModal"></a>
+                  <a class="checker unchecked " (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,31)"
+                    ></a>
                 </td>
                 <td class="overlay-img">
                   <img src="assets/images/dental-chart/tooths/tooth_adult_30_md.svg" alt="Tooth adult 30 md">
-                  <a class="checker unchecked " (click)="OpenDentalModal(30)" data-bs-toggle="modal"
-                    data-bs-target="#AdultDentalModal"></a>
+                  <a class="checker unchecked " (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,30)"
+                    ></a>
                 </td>
                 <td class="overlay-img"><img src="assets/images/dental-chart/tooths/tooth_adult_29_md.svg"
-                    alt="Tooth adult 29 md"> <a class="checker unchecked " (click)="OpenDentalModal(29)"
-                    data-bs-toggle="modal" data-bs-target="#AdultDentalModal"></a> </td>
+                    alt="Tooth adult 29 md"> <a class="checker unchecked " (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,29)"
+                     ></a> </td>
                 <td class="overlay-img"> <img src="assets/images/dental-chart/tooths/tooth_adult_28_md.svg"
-                    alt="Tooth adult 28 md"> <a class="checker unchecked " (click)="OpenDentalModal(28)"
-                    data-bs-toggle="modal" data-bs-target="#AdultDentalModal"></a> </td>
+                    alt="Tooth adult 28 md"> <a class="checker unchecked " (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,28)"
+                     ></a> </td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -296,27 +302,27 @@
                 <td></td>
                 <td class="overlay-img">
                   <img src="assets/images/dental-chart/tooths/tooth_adult_21_xs.svg" alt="Tooth adult 21 xs">
-                  <a class="checker unchecked" (click)="OpenDentalModal(21)" data-bs-toggle="modal"
-                    data-bs-target="#AdultDentalModal"></a>
+                  <a class="checker unchecked" (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,21)"
+                    ></a>
                 </td>
                 <td class="overlay-img">
                   <img src="assets/images/dental-chart/tooths/tooth_adult_20_xs.svg" alt="Tooth adult 20 xs">
-                  <a class="checker unchecked" (click)="OpenDentalModal(20)" data-bs-toggle="modal"
-                    data-bs-target="#AdultDentalModal"></a>
+                  <a class="checker unchecked" (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,20)"
+                    ></a>
                 </td>
                 <td class="overlay-img">
                   <img src="assets/images/dental-chart/tooths/tooth_adult_19_xs.svg" alt="Tooth adult 19 xs"
                     class="img-align">
-                  <a class="checker unchecked" (click)="OpenDentalModal(19)" data-bs-toggle="modal"
-                    data-bs-target="#AdultDentalModal"></a>
+                  <a class="checker unchecked" (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,19)"
+                    ></a>
                 </td>
                 <td class="overlay-img"> <img src="assets/images/dental-chart/tooths/tooth_adult_18_xs.svg"
                     class="img-align" alt="Tooth adult 18 xs"> <a class="checker unchecked "
-                    (click)="OpenDentalModal(18)" data-bs-toggle="modal" data-bs-target="#AdultDentalModal"></a>
+                    (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,18)"  ></a>
                 </td>
                 <td class="overlay-img"> <img src="assets/images/dental-chart/tooths/tooth_adult_17_xs.svg"
                     class="img-align" alt="Tooth adult 17 xs"> <a class="checker unchecked "
-                    (click)="OpenDentalModal(17)" data-bs-toggle="modal" data-bs-target="#AdultDentalModal"></a>
+                    (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,17)"  ></a>
                 </td>
               </tr>
               <tr class="tr-tooth tr-large tr-bottom-teeth-lg">
@@ -438,29 +444,29 @@
               </tr>
               <tr>
                 <td><img src="assets/images/dental-chart/teeth-img/1-top.png" alt="Tooth adult 1 lg"
-                    class=" child-img-size" (click)="OpenDentalModal(1)" data-bs-toggle="modal"
-                    data-bs-target="#AdultDentalModal"></td>
+                    class=" child-img-size" (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,1)"
+                    ></td>
                 <td><img src="assets/images/dental-chart/teeth-img/2-top.png" alt="Tooth adult 2 lg"
-                    class=" child-img-size" (click)="OpenDentalModal(2)" data-bs-toggle="modal"
-                    data-bs-target="#AdultDentalModal"></td>
+                    class=" child-img-size" (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,2)"
+                    ></td>
                 <td><img src="assets/images/dental-chart/teeth-img/3-top.png" alt="Tooth adult 3 lg" class="childimg"
-                    (click)="OpenDentalModal(3)" data-bs-toggle="modal" data-bs-target="#AdultDentalModal"></td>
+                    (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,3)"  ></td>
                 <td><img src="assets/images/dental-chart/teeth-img/4-top.png" alt="Tooth adult 4 lg" class="childimg"
-                    (click)="OpenDentalModal(4)" data-bs-toggle="modal" data-bs-target="#AdultDentalModal"></td>
+                    (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,4)"  ></td>
                 <td><img src="assets/images/dental-chart/teeth-img/5-top.png" alt="Tooth adult 5 lg" class="childimg"
-                    (click)="OpenDentalModal(5)" data-bs-toggle="modal" data-bs-target="#AdultDentalModal"></td>
+                    (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,5)"  ></td>
                 <td><img src="assets/images/dental-chart/teeth-img/6-top.png" alt="Tooth adult 6 lg" class="childimg"
-                    (click)="OpenDentalModal(6)" data-bs-toggle="modal" data-bs-target="#AdultDentalModal"></td>
+                    (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,6)"  ></td>
                 <td><img src="assets/images/dental-chart/teeth-img/7-top.png" alt="Tooth adult 7 lg" class="childimg"
-                    (click)="OpenDentalModal(7)" data-bs-toggle="modal" data-bs-target="#AdultDentalModal"></td>
+                    (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,7)"  ></td>
                 <td><img src="assets/images/dental-chart/teeth-img/8-top.png" alt="Tooth adult 8 lg" class="childimg"
-                    (click)="OpenDentalModal(8)" data-bs-toggle="modal" data-bs-target="#AdultDentalModal"></td>
+                    (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,8)"  ></td>
                 <td><img src="assets/images/dental-chart/teeth-img/9-top.png" alt="Tooth adult 9 lg"
-                    class="child-img-size" (click)="OpenDentalModal(9)" data-bs-toggle="modal"
-                    data-bs-target="#AdultDentalModal"></td>
+                    class="child-img-size" (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,9)"
+                    ></td>
                 <td><img src="assets/images/dental-chart/teeth-img/10-top.png" alt="Tooth adult 10 lg"
-                    class="child-img-size" (click)="OpenDentalModal(10)" data-bs-toggle="modal"
-                    data-bs-target="#AdultDentalModal"></td>
+                    class="child-img-size" (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,10)"
+                    ></td>
               </tr>
               <tr class="tr-data">
                 <td>
@@ -496,29 +502,29 @@
               </tr>
               <tr class="tr-tooth tr-large tr-top-teeth-lg">
                 <td><img src="assets/images/dental-chart/teeth-img/20-top.png" alt="Tooth adult 10 lg"
-                    class="child-img-size" (click)="OpenDentalModal(20)" data-bs-toggle="modal"
-                    data-bs-target="#AdultDentalModal"></td>
+                    class="child-img-size" (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,20)"
+                    ></td>
                 <td><img src="assets/images/dental-chart/teeth-img/19-top.png" alt="Tooth adult 9 lg"
-                    class="child-img-size" (click)="OpenDentalModal(19)" data-bs-toggle="modal"
-                    data-bs-target="#AdultDentalModal"></td>
+                    class="child-img-size" (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,19)"
+                    ></td>
                 <td><img src="assets/images/dental-chart/teeth-img/18-top.png" alt="Tooth adult 8 lg" class="childimg"
-                    (click)="OpenDentalModal(18)" data-bs-toggle="modal" data-bs-target="#AdultDentalModal"></td>
+                    (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,18)"  ></td>
                 <td><img src="assets/images/dental-chart/teeth-img/17-top.png" alt="Tooth adult 7 lg" class="childimg"
-                    (click)="OpenDentalModal(17)" data-bs-toggle="modal" data-bs-target="#AdultDentalModal"></td>
+                    (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,17)"  ></td>
                 <td><img src="assets/images/dental-chart/teeth-img/15-top.png" alt="Tooth adult 5 lg" class="childimg"
-                    (click)="OpenDentalModal(16)" data-bs-toggle="modal" data-bs-target="#AdultDentalModal"></td>
+                    (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,16)"  ></td>
                 <td><img src="assets/images/dental-chart/teeth-img/16-top.png" alt="Tooth adult 6 lg" class="childimg"
-                    (click)="OpenDentalModal(15)" data-bs-toggle="modal" data-bs-target="#AdultDentalModal"></td>
+                    (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,15)"  ></td>
                 <td><img src="assets/images/dental-chart/teeth-img/14-top.png" alt="Tooth adult 4 lg" class="childimg"
-                    (click)="OpenDentalModal(14)" data-bs-toggle="modal" data-bs-target="#AdultDentalModal"></td>
+                    (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,14)"  ></td>
                 <td><img src="assets/images/dental-chart/teeth-img/13-top.png" alt="Tooth adult 3 lg" class="childimg"
-                    (click)="OpenDentalModal(13)" data-bs-toggle="modal" data-bs-target="#AdultDentalModal"></td>
+                    (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,13)"  ></td>
                 <td><img src="assets/images/dental-chart/teeth-img/12-top.png" alt="Tooth adult 2 lg"
-                    class="child-img-size" (click)="OpenDentalModal(12)" data-bs-toggle="modal"
-                    data-bs-target="#AdultDentalModal"></td>
+                    class="child-img-size" (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,12)"
+                    ></td>
                 <td><img src="assets/images/dental-chart/teeth-img/11-top.png" alt="Tooth adult 1 lg"
-                    class="child-img-size" (click)="OpenDentalModal(11)" data-bs-toggle="modal"
-                    data-bs-target="#AdultDentalModal"></td>
+                    class="child-img-size" (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,11)"
+                    ></td>
               </tr>
 
               <tr class="tr-tooth tr-large tr-top-teeth-lg mt-2">
@@ -589,49 +595,9 @@
           </div>
         </div>
         <div [ngClass]="AdultPrem?'Adult-procedure':'child-procedure'">
-
-          <!-- Procedure Code -->
-          <div class="parent-check mt-2">
-
-            <!-- Parent Item -->
-            <ul class="list-group">
-
-              <!-- Parent Item -->
-              <li class="list-group-item" *ngFor="let item of procedureCodeList | groupBy:'Category'">
-
-                <!-- Parent Arrow -->
-                <span (click)="expandCollapse(item)">
-                  <i class="fa fa-plus icons-design mx-1" *ngIf="!item.isClosed;else isCollapsed"></i>
-                  <ng-template #isCollapsed>
-                    <i class="fa fa-minus icons-design mx-1"></i>
-                  </ng-template>
-                </span> <span class="procedure-label">{{item.key}}</span>
-
-                <ul class="list-group child-list level-two" [hidden]="!item.isClosed">
-
-                  <li class="list-group-item level-two" *ngFor="let itemChild of item.value |groupBy:'SubCategory'">
-                    <!-- <tr  *ngFor="let data of item1.value"> -->
-                    <span (click)="expandCollapse(itemChild)">
-                      <i class="fa fa-plus icons-design mx-1" *ngIf="!itemChild.isClosed;else isCollapsed"></i>
-                      <ng-template #isCollapsed>
-                        <i class="fa fa-minus icons-design mx-1"></i>
-                      </ng-template>
-                    </span>   <span class="procedure-label">{{itemChild.key}}</span>
-
-                    <ul class="list-group level-two child-listd" [hidden]="!itemChild.isClosed">
-                      <li class="list-group-item level-two" *ngFor="let itemsubChild of procedureCodeList">
-                        <span class="procedure-subchild">
-                          {{itemsubChild.ProcedureCode}} {{itemsubChild.ProcedureDescription}}
-                        </span>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-
-          </div>
+          <tree-procedure></tree-procedure>
         </div>
+
       </div>
     </div>
     <div class="col-lg-3 col-md-6 col-12 col-12 right-block">
@@ -744,36 +710,48 @@
         </div>
 
         <div class="row my-3 ">
-          <div class="col-lg-4 col-md-4 col-sm-4"><label><b class="label-heading">Start Date</b></label>
-            <div class="input-group"><input class="form-control date-picker input-bg" placeholder="Start Date"
-                type="text" name="procedure[date]" id="procedure_date"></div>
+          <div class="col-lg-2 col-md-2 col-sm-3">
+            <label><b class="label-heading">Start Date</b></label>
+            <div class="input-group">
+                 <mat-form-field appearance="outline" class="form-group profile-green-calendar">
+                  <input matInput class="date-mat-class" autocomplete="off"
+                  (mouseover)="hoverStartDate='_/__/_'" readonly  (mouseleave)="hoverStartDate='Start Date'"
+                    [matDatepicker]="picker" (click)="picker.open()"  placeholder="{{ hoverStartDate }}">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
           </div>
-
+          </div>
           <div class="col-lg-4 col-md-4 col-sm-4">
-            <label class="label-design">Tooth: {{DentalNumber}}</label>
+            <label class="label-design label-Tooth">Tooth: {{DentalNumber}}</label>
           </div>
-          <div class="col-lg-4 col-md-4 col-sm-4"><label><b class="label-heading">Status</b></label>
+          <div class="col-lg-4 col-md-4 col-sm-4" style="margin-left: 106px;"
+          ><label><b class="label-heading">Status</b></label>
             <div class="input-group ">
-              <select id="cars" name="Status" class="text-color form-control">
-                <option value="Treatment planned">Treatment planned</option>
-                <option value="Completed">Completed</option>
-                <option value="Existing Curr. Provider">Existing Curr. Provider</option>
-                <option value="Existing Other">Existing Other</option>
-                <option value="Condition">Condition</option>
-                <option value="Referred">Referred</option>
-              </select>
-
+              <mat-form-field appearance="outline">
+                <mat-select placeholder="Select One">
+                  <mat-option>Treatment planned</mat-option>
+                  <mat-option>Completed</mat-option>
+                  <mat-option>Existing Curr. Provider</mat-option>
+                  <mat-option>Existing Other</mat-option>
+                  <mat-option>Condition</mat-option>
+                  <mat-option>Referred</mat-option>
+                </mat-select>
+              </mat-form-field>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-4 col-md-4 col-sm-4"><label><b class="label-heading">End Date</b></label>
-            <div class="input-group"><input class="form-control date-picker input-bg" placeholder="End Date" type="text"
-                name="procedure[date]" id="procedure_date "></div>
+
+          <div class="col-lg-3 col-md-3 col-sm-4 mt-2"><label><b class="label-heading">End Date</b></label>
+            <div class="input-group">
+              <mat-form-field appearance="outline" class="form-group profile-green-calendar">
+               <input matInput class="date-mat-class" autocomplete="off"
+               (mouseover)="hoverEndDate='_/__/_'" readonly  (mouseleave)="hoverEndDate='End Date'"
+                 [matDatepicker]="picker" (click)="picker.open()"  placeholder="{{ hoverEndDate }}">
+               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+               <mat-datepicker #picker></mat-datepicker>
+             </mat-form-field>
           </div>
-
         </div>
-
 
         <div class="row  row-heading my-3 ">
           <div class="col-lg-12  col-md-4 col-sm-4">
@@ -909,9 +887,10 @@
 
         <div class="row  my-3 ">
           <div class="col-lg-12 col-md-4 col-sm-4 mb-2">
-            <div class="input-group"><input type="text" name="search_procedure_code" id="search_procedure_code"
+            <div class="input-group searchbox">
+              <input type="text" name="search_procedure_code" id="search_procedure_code"
                 class="form-control input-bg" placeholder="Search Reasons">
-              <button class="btn btn-search btn-md" type="button">
+              <button class="btn btn-searchs btn-md" type="button">
                 <i class="fa fa-search fa-search-icon"></i>
               </button>
             </div>
@@ -949,7 +928,7 @@
             </div>
           </div>
         </div>
-      </div>
+
 
 
       <div class="modal-footer">

@@ -14,7 +14,6 @@ import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
 import { OverlayService } from 'src/app/overlay.service'
 import { Patient, PatientPortalUser} from 'src/app/_models';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
-import { MatDialogConfig } from '@angular/material/dialog';
 import { Actions } from 'src/app/_models/';
 import { PatientPortalAccountComponent } from 'src/app/dialogs/patient.dialog/patient.portal.account.dialog.component';
 import { PatientHealthPortalComponent } from 'src/app/dialogs/patient.dialog/patient.health.portal.component';
@@ -146,6 +145,15 @@ export class PatientDialogComponent {
     // patientDefService.generatePdf(docDef.patientInviationDefinition())
   }
 
+  _completePatientAccountProcess(req: PatientPortalUser){
+    this.utilityService.CompletePatientAccountProcess(req).subscribe(resp => {
+      if (resp.IsSuccess) {
+        //this.alertmsg.displayErrorDailog(ERROR_CODES["E2AP002"])
+      } else {
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2AP002"])
+      }
+    });
+  }
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
     data?: any, action?: Actions) {
     let dialogData: any;
@@ -158,8 +166,12 @@ export class PatientDialogComponent {
 
     ref.afterClosed$.subscribe(res => {
       if (content === this.patientPortalAccountComponent) {
+        console.log(res.data);
+
         if(res.data != null){
           this.utilityService.CreatePatientAccount(res.data).subscribe(resp => {
+            console.log(resp.IsSuccess);
+
             if(resp.IsSuccess){
               this.openComponentDialog(this.patientHealthPortalComponent,
                 res.data,Actions.view);
@@ -171,11 +183,14 @@ export class PatientDialogComponent {
         }
       }else if (content === this.patientHealthPortalComponent) {
         if(ref.data !== null){
+          this._completePatientAccountProcess(res.data.patientUser);
           if(ref.data.download){
             //'straight' update to database which recied from ref.data
             // Update Patient with invivation_sent_at, straight_invitation to database
+            this.alertmsg.displayMessageDailog(ERROR_CODES["M2AP002"])
 
           }else if(ref.data.sendemail){
+            this.alertmsg.displayMessageDailog(ERROR_CODES["M2AP003"])
             //'straight' update to database which recied from ref.data
             // Update Patient with invivation_sent_at, straight_invitation to database
           }

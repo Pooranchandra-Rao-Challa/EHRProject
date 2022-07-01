@@ -15,39 +15,7 @@ export class SmokingStatus {
   EffectiveFrom?: string;
 }
 
-export enum PatientChart {
-  AdvancedDirectives,
-  SmokingStatus,
-  CQMNotPerforemd
-}
-
-export class ChartInfo {
-  AdvancedDirectives?: AdvancedDirective[] = []
-  Diagnoses?: EncounterDiagnosis[] = []
-  Alergies?: Allergies[] = []
-  PastMedicalHistories?: PastMedicalHistories[] = []
-  Immunizations?: Immunizations[] = []
-  Encounters?: EncounterInfo[] = []
-  Appointments?: NewAppointment[] = []
-  Medications?: Medications[] = []
-  SmokingStatuses?: SmokingStatus[] = []
-  TobaccoUseInterventions?: TobaccoUseScreenings[] = []
-  TobaccoUseScreenings?: TobaccoUseInterventions[] = []
-}
-export interface Allergies {
-  AlergieId?: string;
-  PatientId?: string;
-  AllergenType?: string;
-  AlergieName?: string;
-  SeverityLevel?: string;
-  OnSetAt?: string;
-  StartAt?: string;
-  EndAt?: string;
-  Note?: string;
-  Reaction?: string;
-}
-
-export interface PastMedicalHistories {
+export class PastMedicalHistory {
   PastMedicalHistoryId?: string;
   PatinetId?: string;
   CreatedAt?: Date;
@@ -55,7 +23,7 @@ export interface PastMedicalHistories {
   NutritionHistory?: string;
   MajorEvents?: string;
   PerventiveCare?: string;
-  FamilyHealthyHistoryId: string;
+  FamilyHealthyHistoryId?: string;
   fFirstName?: string;
   fLastName?: string;
   Relationship?: string;
@@ -66,7 +34,44 @@ export interface PastMedicalHistories {
   fUpdatedAt?: Date;
 }
 
-export interface Immunizations {
+export class Allergy {
+  AlergieId?: string;
+  PatientId?: string;
+  AllergenType?: string;
+  AlergieName?: string;
+  SeverityLevel?: string;
+  OnSetAt?: string;
+  StartAt?: string;
+  EndAt?: string;
+  Note?: string;
+  Reaction?: string;
+  AllergenName?: string;
+  EncounterId?: string;
+  AllergenId?: string;
+}
+
+export enum PatientChart {
+  AdvancedDirectives,
+  SmokingStatus,
+  Encounters,
+  CQMNotPerforemd
+}
+
+export class ChartInfo {
+  AdvancedDirectives?: AdvancedDirective[] = []
+  Diagnoses?: EncounterDiagnosis[] = []
+  Alergies?: Allergy[] = []
+  PastMedicalHistories?: PastMedicalHistory[] = []
+  Immunizations?: Immunizations[] = []
+  Encounters?: EncounterInfo[] = []
+  Appointments?: NewAppointment[] = []
+  Medications?: Medications[] = []
+  SmokingStatuses?: SmokingStatus[] = []
+  TobaccoUseInterventions?: TobaccoUseScreenings[] = []
+  TobaccoUseScreenings?: TobaccoUseInterventions[] = []
+}
+
+export class Immunizations {
   ImmunizationId?: string;
   PatientId?: string;
   AdministeredAt?: string;
@@ -74,7 +79,7 @@ export interface Immunizations {
   Notes?: string;
 }
 
-export interface Medications {
+export class Medications {
   MedicationId?: string;
   PatientId?: string;
   DrugName?: string;
@@ -95,7 +100,7 @@ export interface Medications {
   CQMStatus?: string;
 }
 
-export interface TobaccoUseScreenings {
+export class TobaccoUseScreenings {
   TobaccoUseId?: string;
   PatientId?: string;
   ScreeningId?: string;
@@ -106,7 +111,7 @@ export interface TobaccoUseScreenings {
   ScreeningPerformed?: string;
 }
 
-export interface TobaccoUseInterventions {
+export class TobaccoUseInterventions {
   tobacco_use_id?: string;
   patient_id?: string;
   cessation_intervention_id?: string
@@ -114,4 +119,59 @@ export interface TobaccoUseInterventions {
   cessation_intervention_performed?: string;
   code?: string;
   description?: string;
+}
+
+export class Diagnosis {
+  DiagnosisId?: string;
+  PatinetId?: string;
+  CodeSystem?: string;
+  Code?: string;
+  Description?: string;
+  StartAt?: Date;
+  StopAt?: string;
+  CreatedAt?: Date;
+  UpdatedAt?: Date;
+  Note?: string;
+  Acute?: boolean;
+  Terminal?: boolean;
+  Referral?: boolean;
+}
+
+// Enums
+
+export enum AllergyType {
+  Medication = 'Medication',
+  Food = 'Food',
+  Environment = 'Environment',
+}
+
+export enum SeverityLevel {
+  VeryMild = 'Very Mild',
+  Mild = 'Mild',
+  Moderate = 'Moderate',
+  Severe = 'Severe'
+}
+
+export enum OnSetAt {
+  Childhood = 'Childhood',
+  Adulthood = 'Adulthood',
+  Unknown = 'Unknown'
+}
+
+export enum Allergens {
+  diphenylethylene = '1,1-diphenylethylene',
+  dioleoyl = '1,2-dioleoyl-sn-glycero-3-phosphocholine',
+  methoxynaphthoquinone = '2-methoxynaphthoquinone'
+}
+
+export enum AllergyReaction {
+  Anaphylaxis = 'Anaphylaxis',
+  Bloating = 'Bloating/gas',
+  ChestPain = 'Chest Pain',
+  Cough = 'Cough'
+}
+
+export enum DiagnosisDpCodes {   // Dp - dropdown
+  SNOMED = 'SNOMED',
+  ICD10 = 'ICD10'
 }

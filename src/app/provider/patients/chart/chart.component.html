@@ -58,11 +58,11 @@
         </div>
       </div>
       <div class="pull-right col-xl-6 col-lg-7 col-md-12 col-12">
-        <div class="row pull-right">
+        <div class="row pull-right" style="padding-right: 13px;">
           <a class="btn btn-green col-lg-4 col-md-4 col-12 mt-2 mt-lg-0" id="check-alerts">Check CDS Alerts</a>
           <a class="btn btn-green col-lg-4 col-md-4 col-12 mt-2 mt-lg-0">Refresh Chart</a>
           <a class="btn btn-orange col-md-4 col-12 mt-2 mt-lg-0" data-remote="true"
-          (click)="openComponentDialog(encounterDialogComponent,null,ActionTypes.new)">New
+            (click)="openComponentDialog(encounterDialogComponent,null,ActionTypes.new)">New
             encounter note
           </a>
         </div>
@@ -78,37 +78,40 @@
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
-                    <p class="card-title" data-bs-toggle="modal" data-bs-target="#exampleModal">Diagnoses (Dx)</p>
+                    <p class="card-title" data-bs-toggle="modal" data-bs-target="#used-diagnoses-modal">Diagnoses (Dx)
+                    </p>
                   </div>
                   <div class="col-md-4 col-6">
-                    <div class="col-12 plusicon pull-right"><span><i class="fa fa-plus" data-bs-toggle="modal"
-                          data-bs-target="#exampleModal"></i></span>
+                    <div class="col-12 plusicon pull-right" data-bs-toggle="modal"
+                      data-bs-target="#used-diagnoses-modal" (click)="resetDialog()">
+                      <span><i class="fa fa-plus"></i></span>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list" *ngFor="let diagnose of allDiagnoses">
+                <ul class="main-list" *ngFor="let diagnose of chartInfo?.Diagnoses">
                   <li>
-                    <a>
-                      <span *ngIf="diagnose?.code != null && diagnose?.code !=''">
-                        - {{diagnose?.code}}
+                    <a data-bs-toggle="modal" data-bs-target="#create-diagnoses-modal"
+                      (click)="editDialog(diagnose, 'diagnosis')">
+                      <span *ngIf="diagnose?.Code != null && diagnose?.Code !=''">
+                        - {{diagnose?.Code}}
                       </span>
-                      <span *ngIf="diagnose?.note != null && diagnose?.note !=''">
-                        - {{diagnose?.note}}
+                      <span *ngIf="diagnose?.Note != null && diagnose?.Note !=''">
+                        - {{diagnose?.Note}}
                       </span>
                     </a>
                   </li>
                   <li style="margin-left: 20px;">
-                    <span *ngIf="diagnose?.start_at != null && diagnose?.start_at !=''">
-                      {{diagnose?.start_at | date: 'MM/dd/yyyy'}}
+                    <span *ngIf="diagnose?.StartAt != null && diagnose?.StartAt !=''">
+                      {{diagnose?.StartAt | date: 'MM/dd/yyyy'}}
                     </span>
-                    <span *ngIf="diagnose?.stop_at != null && diagnose?.stop_at !=''">
-                      - {{diagnose?.stop_at | date: 'MM/dd/yyyy'}}
+                    <span *ngIf="diagnose?.StopAt != null && diagnose?.StopAt !=''">
+                      - {{diagnose?.StopAt | date: 'MM/dd/yyyy'}}
                     </span>
                   </li>
                 </ul>
-                <ul class="main-list" *ngIf="allDiagnoses?.length == (0 || null || undefined)">
+                <ul class="main-list" *ngIf="chartInfo?.Diagnoses?.length == 0">
                   <li>
                     <span>No active Dx recorded.</span>
                   </li>
@@ -197,32 +200,34 @@
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
-                    <p class="card-title" data-bs-toggle="modal" data-bs-target="#exampleModal2">Past Medical History
+                    <p class="card-title" data-bs-toggle="modal" data-bs-target="#pastmedical-modal">Past Medical
+                      History
                     </p>
                   </div>
                   <div class="col-md-4 col-6">
                     <div class="col-12">
-                      <div class="edit-icon pull-right">
-                        <span class="cstm-icon-pencil" data-bs-toggle="modal" data-bs-target="#exampleModal2"></span>
+                      <div class="edit-icon pull-right" data-bs-toggle="modal" data-bs-target="#pastmedical-modal">
+                        <span class="cstm-icon-pencil"></span>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list" *ngFor="let pastmedical of pastMedicalHistories">
+                <ul class="main-list" *ngFor="let pastmedical of chartInfo?.PastMedicalHistories">
                   <li>
-                    <a>
-                      <span *ngIf="pastmedical?.created_at != null && pastmedical?.created_at !=''">
-                        - {{pastmedical?.created_at | date: 'MM/dd/yyyy'}}
+                    <a data-bs-toggle="modal" data-bs-target="#pastmedical-modal"
+                      (click)="editDialog(pastmedical, 'past medical history')">
+                      <span *ngIf="pastmedical?.CreatedAt != null && pastmedical?.CreatedAt !=''">
+                        - {{pastmedical?.CreatedAt | date: 'MM/dd/yyyy'}}
                       </span>
-                      <span *ngIf="pastmedical?.major_events != null && pastmedical?.major_events !=''">
-                        - {{pastmedical?.major_events}}
+                      <span *ngIf="pastmedical?.MajorEvents != null && pastmedical?.MajorEvents !=''">
+                        - {{pastmedical?.MajorEvents}}
                       </span>
                     </a>
                   </li>
                 </ul>
-                <ul class="main-list" *ngIf="pastMedicalHistories?.length == (0 || null || undefined)">
+                <ul class="main-list" *ngIf="chartInfo?.PastMedicalHistories?.length == 0">
                   <li>
                     <span>No past medical history recorded.</span>
                   </li>
@@ -275,24 +280,26 @@
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
-                    <p class="card-title" data-bs-toggle="modal" data-bs-target="#exampleModal4">Allergies</p>
+                    <p class="card-title" data-bs-toggle="modal" data-bs-target="#allergies-modal">Allergies</p>
                   </div>
                   <div class="col-md-4 col-6">
-                    <div class="col-12 plusicon pull-right"><span><i class="fa fa-plus" data-bs-toggle="modal"
-                          data-bs-target="#exampleModal4"></i></span>
+                    <div class="col-12 plusicon pull-right" (click)="resetDialog()" data-bs-toggle="modal"
+                      data-bs-target="#allergies-modal">
+                      <span><i class="fa fa-plus"></i></span>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list" *ngFor="let allergie of allAllergies">
+                <ul class="main-list" *ngFor="let allergie of chartInfo?.Alergies">
                   <li>
-                    <a>
-                      <span>- {{allergie?.note}}</span>
+                    <a data-bs-toggle="modal" data-bs-target="#allergies-modal"
+                      (click)="editDialog(allergie, 'allergie')">
+                      <span>- {{allergie?.Note}}</span>
                     </a>
                   </li>
                 </ul>
-                <ul class="main-list" *ngIf="allAllergies?.length == (0 || null || undefined)">
+                <ul class="main-list" *ngIf="chartInfo?.Alergies?.length == 0">
                   <li>
                     <span>No active allergies recorded</span>
                   </li>
@@ -303,12 +310,12 @@
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
-                    <p class="card-title" data-bs-toggle="modal" data-bs-target="#exampleModal5">Medications and
+                    <p class="card-title" data-bs-toggle="modal" data-bs-target="#medication-modal">Medications and
                       Prescription</p>
                   </div>
                   <div class="col-md-4 col-6">
                     <div class="col-12 plusicon pull-right"><span><i class="fa fa-plus" data-bs-toggle="modal"
-                          data-bs-target="#exampleModal5"></i></span>
+                          data-bs-target="#medication-modal"></i></span>
                     </div>
                   </div>
                 </div>
@@ -410,28 +417,42 @@
                     <p class="card-title">Encounters</p>
                   </div>
                   <div class="col-md-4 col-6">
-                    <div class="col-12 plusicon plusicon-orange pull-right"><span><i class="fa fa-plus"></i></span>
+                    <div class="col-12 plusicon plusicon-orange pull-right"
+                    (click)="openComponentDialog(encounterDialogComponent,null,ActionTypes.new)"><span><i class="fa fa-plus"></i></span>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list" *ngFor="let encounter of encounters">
-                  <li>
+                <ul class="main-list" *ngFor="let encounter of chartInfo.Encounters">
+                  <li *ngIf="!encounter.Signed">
+                    <a (click)="openComponentDialog(encounterDialogComponent,encounter,ActionTypes.new)">
+                      <span *ngIf="encounter?.ServicedAt != null && encounter?.ServicedAt !=''">
+                        - {{encounter?.ServicedAt | date: 'MM/dd/yyyy'}}
+                      </span>
+                      <span *ngIf="encounter?.ServiceEndAt != null && encounter?.ServiceEndAt !=''">
+                        - {{encounter?.ServiceEndAt | date: 'MM/dd/yyyy'}}
+                      </span>
+                      <span *ngIf="encounter?.VisitingReason != null && encounter?.VisitingReason !=''">
+                        - {{encounter?.VisitingReason}}
+                      </span>
+                    </a>
+                  </li>
+                  <li *ngIf="encounter.Signed">
                     <a>
-                      <span *ngIf="encounter?.service_at != null && encounter?.service_at !=''">
-                        - {{encounter?.service_at | date: 'MM/dd/yyyy'}}
+                      <span *ngIf="encounter?.ServicedAt != null && encounter?.ServicedAt !=''">
+                        - {{encounter?.ServicedAt | date: 'MM/dd/yyyy'}}
                       </span>
-                      <span *ngIf="encounter?.service_end_at != null && encounter?.service_end_at !=''">
-                        - {{encounter?.service_end_at | date: 'MM/dd/yyyy'}}
+                      <span *ngIf="encounter?.ServiceEndAt != null && encounter?.ServiceEndAt !=''">
+                        - {{encounter?.ServiceEndAt | date: 'MM/dd/yyyy'}}
                       </span>
-                      <span *ngIf="encounter?.reason_for_visit != null && encounter?.reason_for_visit !=''">
-                        - {{encounter?.reason_for_visit}}
+                      <span *ngIf="encounter?.VisitingReason != null && encounter?.VisitingReason !=''">
+                        - {{encounter?.VisitingReason}}
                       </span>
                     </a>
                   </li>
                 </ul>
-                <ul class="main-list" *ngIf="encounters?.length == (0 || null || undefined)">
+                <ul class="main-list" *ngIf="chartInfo.Encounters?.length == (0 || null || undefined)">
                   <li>
                     <span>No encounters recorded.</span>
                   </li>
@@ -503,40 +524,45 @@
 </div>
 
 
-
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+<!-- Frequently Used Diagnosis -->
+<div class="modal fade" id="used-diagnoses-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-maxHeight">
     <div class="modal-content body">
       <div class="modal-header header">
-        <div class="col-sm-4 ">
+        <div class="col-md-4 col-6">
           <h4 class="Helvetica-sans-serif-medium ">Frequently Used Dx</h4>
         </div>
-        <div class="col-sm-8 row-head">
+        <div class="col-md-8 col-6 row-head">
           <h4 class="Helvetica-sans-serif-medium mx-1">Record Diagnosis Dx</h4>
         </div>
       </div>
       <div class="body">
-        <div class="row">
+        <div class="row" style="padding: 0px 12px;">
           <div class="col-sm-4 col-md-4 col-lg-4 ">
           </div>
           <div class="col-sm-8 col-md-8 col-lg-8 side-boder">
             <mat-form-field appearance="outline" class="input-field input-bg w-100 mt-3 ">
-              <mat-select required>
-                <mat-option *ngFor="let trigger of TriggerRuleDD" [value]="trigger.value">
-                  {{trigger.viewValue}}
+              <mat-select required [(value)]="dpDxCodes[0]">
+                <mat-option *ngFor="let code of dpDxCodes" [value]="code">
+                  {{code}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
             <div class="input-group input-group-custom ">
               <input aria-label="Search for messages" autocomplete="off" class="form-control input-border"
-                id="find-messages-input" placeholder="Search Messages">
+                id="find-messages-input-1" placeholder="Search Messages">
               <span class="input-group-addon input-group-addon-right input-group-addon-search Search"
-                id="find-messages-button"><i class="fa fa-search"></i></span>
+                id="find-messages-button-1"><i class="fa fa-search"></i></span>
             </div>
-            <div class="row mt-3 mx-1 mb-3">
-              <button class="btn btn-green" data-bs-toggle="modal" data-bs-target="#exampleModal1">Add
-                Custom Dx</button>
-              <button class="btn btn-green btn-custom" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+            <div class="row mt-3 mb-3">
+              <div class="col-md-8 col-8">
+                <button class="btn btn-green" data-bs-toggle="modal" data-bs-target="#create-diagnoses-modal">Add
+                  Custom Dx</button>
+              </div>
+              <div class="col-md-4 col-4">
+                <button class="btn btn-green btn-custom pull-right" data-bs-dismiss="modal"
+                  aria-label="Close">Cancel</button>
+              </div>
             </div>
           </div>
         </div>
@@ -545,15 +571,16 @@
   </div>
 </div>
 
-
-<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+<!-- Create diagnoses -->
+<div class="modal fade" id="create-diagnoses-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-maxHeight">
     <div class="modal-content body">
       <div class="modal-header header">
-        <div class="col-sm-4">
+        <div class="col-sm-3 mx-2">
           <h4 class="Helvetica-sans-serif-medium ">Diagnosis (Dx)</h4>
         </div>
-        <div class="col-sm-8 row-head">
+        <div class="col-sm-7 row-head">
           <h4 class="Helvetica-sans-serif-medium mx-1">Record Diagnosis(Dx)</h4>
         </div>
         <div>
@@ -563,90 +590,94 @@
         </div>
       </div>
       <div class="body">
-        <div class="row">
+        <div class="row" style="padding: 0px 12px;">
           <div class="col-sm-4">
           </div>
           <div class="col-sm-8 side-boder">
             <mat-form-field appearance="outline" class=" mt-3 w-100">
-              <mat-select required>
-                <mat-option *ngFor="let trigger of TriggerRuleDD" [value]="trigger.value">
-                  {{trigger.viewValue}}
+              <mat-select required [(value)]="dpDxCodes[0]" [(ngModel)]="patientDiagnoses.CodeSystem">
+                <mat-option *ngFor="let code of dpDxCodes" [value]="code">
+                  {{code}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
             <label>Code</label>
             <mat-form-field class="w-100" appearance="outline">
-              <input matInput placeholder="Code" name="Code" />
+              <input matInput placeholder="Code" name="Code" [(ngModel)]="patientDiagnoses.Code" />
             </mat-form-field>
             <label>Descrption</label>
             <mat-form-field class="w-100" appearance="outline">
-              <input matInput placeholder="Descrption" />
+              <input matInput placeholder="Descrption" [(ngModel)]="patientDiagnoses.Description" />
             </mat-form-field>
             <div class="row">
               <label>Start Date</label>
               <mat-form-field appearance="outline" class="green-calendar calender-item col-md-8">
-                <input matInput [matDatepicker]="startdate" placeholder="Start Date" name="startdate" />
+                <input matInput [matDatepicker]="startdate" placeholder="Start Date" name="startdate"
+                  [(ngModel)]="patientDiagnoses.StartAt" />
                 <mat-datepicker-toggle matSuffix [for]="startdate">
                 </mat-datepicker-toggle>
                 <mat-datepicker #startdate disabled="false"></mat-datepicker>
               </mat-form-field>
               <div class="col-lg-4">
-                <button class="btn btn-green btn-today">Today</button>
+                <button class="btn btn-green btn-today pull-right" (click)="todayStartAt()">Today</button>
               </div>
             </div>
             <div class="row">
               <label>End Date</label>
               <mat-form-field appearance="outline" class="green-calendar calender-item col-md-8">
-                <input matInput [matDatepicker]="enddate" placeholder="End Date" name="enddate" />
+                <input matInput [matDatepicker]="enddate" placeholder="End Date" name="enddate"
+                  [(ngModel)]="patientDiagnoses.StopAt" />
                 <mat-datepicker-toggle matSuffix [for]="enddate">
                 </mat-datepicker-toggle>
                 <mat-datepicker #enddate disabled="false"></mat-datepicker>
               </mat-form-field>
               <div class="col-lg-4">
-                <button class="btn btn-green btn-today">Today</button>
+                <button class="btn btn-green btn-today pull-right" (click)="todayStopAt()">Today</button>
               </div>
             </div>
             <label>Diagnosis Notes:</label>
-            <textarea placeholder="Diagnosis Notes:" class="form-control col-12 mt-3 mt-md-0"></textarea>
-
+            <textarea placeholder="Diagnosis Notes:" class="form-control col-12 mt-3 mt-md-0"
+              [(ngModel)]="patientDiagnoses.Note"></textarea>
             <div class="row links">
               <div class="col-lg-3 col-md-3 col-sm-3">
                 <p>Resources:</p>
               </div>
             </div>
-            <div class="row  right-block">
-              <button class="btn btn-green btn-cancel mx-3 mb-3" data-bs-toggle="modal"
-                data-bs-target="#exampleModal1">Save</button>
-              <button class="btn btn-green btn-cancel" data-bs-dismiss="modal" aria-label="Close"> Cancel</button>
+            <div class="right-block">
+              <button class="btn btn-green btn-cancel pull-right" data-bs-dismiss="modal" aria-label="Close"
+                (click)="resetDialog()">
+                Cancel</button>
+              <button class="btn btn-green btn-cancel mx-3 mb-3 pull-right" data-bs-toggle="modal"
+                data-bs-target="#create-diagnoses-modal" (click)="CreateDiagnoses()">Save</button>
             </div>
           </div>
-
         </div>
       </div>
     </div>
   </div>
 </div>
 
-
-<div class="modal fade " id="exampleModal2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<!-- Past medical history -->
+<div class="modal fade " id="pastmedical-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-md" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title Helvetica-sans-serif-medium">Record Past Medical History</h4>
-
         <span type="button" class="cross-mark" data-bs-dismiss="modal">
           X
         </span>
       </div>
       <div class="modal-body bg-white scroolbar addlocationbody">
         <div class="col-md-12">
-          <label>Major Events:</label>
-          <textarea class="form-control col-12 mt-3 mt-md-0"></textarea>
+          <label class="required">Major Events:</label>
+          <textarea class="form-control col-12 mt-3 mt-md-0"
+            [(ngModel)]="patientPastMedicalHistory.MajorEvents"></textarea>
         </div>
         <div class="col-md-12">
-          <label>Ongoing Medical Problems:</label>
-          <textarea class="form-control col-12 mt-3 mt-md-0"></textarea>
+          <label class="required">Ongoing Medical Problems:</label>
+          <textarea class="form-control col-12 mt-3 mt-md-0"
+            [(ngModel)]="patientPastMedicalHistory.OngoingProblems"></textarea>
         </div>
         <div class="col-md-12">
           <div class="row card-bg mt-2">
@@ -655,27 +686,27 @@
             </div>
             <div class="col-md-4 col-6">
               <div class="col-12 plusicon plus-icons pull-right"><span><i class="fa fa-plus" data-bs-toggle="modal"
-                    data-bs-target="#exampleModal3"></i></span>
+                    data-bs-target="#familyhealth-modal"></i></span>
               </div>
             </div>
           </div>
         </div>
-
         <div class="col-md-12 mt-1">
-          <label>Preventative Care:</label>
-          <textarea class="form-control col-12 mt-3 mt-md-0"></textarea>
+          <label class="required">Preventative Care:</label>
+          <textarea class="form-control col-12 mt-3 mt-md-0"
+            [(ngModel)]="patientPastMedicalHistory.PerventiveCare"></textarea>
         </div>
         <div class="col-md-12">
-          <label>Nutrition History:</label>
-          <textarea class="form-control col-12 mt-3 mt-md-0"></textarea>
+          <label class="required">Nutrition History:</label>
+          <textarea class="form-control col-12 mt-3 mt-md-0"
+            [(ngModel)]="patientPastMedicalHistory.NutritionHistory"></textarea>
         </div>
       </div>
-
       <div class="row mb-3 mt-1 mx-3">
         <div class="col-md-12 locationbtns">
           <div class="d-flex justify-content-end">
             <button type="button" class="btn btn-lg btn-green col-xl-4 col-lg-4 col-md-4 col-8 mx-2"
-              data-bs-dismiss="modal">
+              data-bs-dismiss="modal" [disabled]="disablePastMedicalHistory()" (click)="CreatePastMedicalHistories()">
               Save Changes
             </button>
             <button type="button" class="btn btn-lg btn-green col-xl-3 col-lg-3 col-md-3 col-5 mx-3"
@@ -689,8 +720,8 @@
   </div>
 </div>
 
-
-<div class="modal fade " id="exampleModal3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<!-- Family healthy history -->
+<div class="modal fade " id="familyhealth-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-md" role="document">
     <div class="modal-content">
@@ -787,10 +818,10 @@
                   <div class="row">
                     <div class="input-group input-group-custom search-input">
                       <input aria-label="Search for messages" autocomplete="off"
-                        class="new-search form-control ignore_spinner" id="find-messages-input"
+                        class="new-search form-control ignore_spinner" id="find-messages-input-2"
                         placeholder="Search Messages">
                       <span class="input-group-addon input-group-addon-search chart-find-patient-btn"
-                        id="find-messages-button"><i class="fa fa-search"></i></span>
+                        id="find-messages-button-2"><i class="fa fa-search"></i></span>
                     </div>
                     <div class="row mt-3">
                       <div class="col-md-4 ">
@@ -841,7 +872,7 @@
         <div class="col-md-12 locationbtns">
           <div class="d-flex justify-content-end">
             <button type="button" class="btn btn-lg btn-green col-xl-4 col-lg-4 col-md-4 col-8 mx-2"
-              data-bs-toggle="modal" data-bs-target="#exampleModal2">
+              data-bs-toggle="modal" data-bs-target="#pastmedical-modal">
               Add
             </button>
             <button type="button" class="btn btn-lg btn-green col-xl-3 col-lg-3 col-md-3 col-5 mx-3"
@@ -855,10 +886,11 @@
   </div>
 </div>
 
-<div class="modal fade " id="exampleModal4" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<!-- Allergies modal -->
+<div class="modal fade " id="allergies-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-md" role="document">
-    <div class="modal-content modal-box">
+  <div class="modal-dialog modal-md modal-maxHeight" role="document">
+    <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title Helvetica-sans-serif-medium">Record Allergy</h4>
 
@@ -873,9 +905,9 @@
           </div>
           <div class="col-md-4">
             <mat-form-field appearance="outline">
-              <mat-select required>
-                <mat-option *ngFor="let trigger of TriggerRuleDD" [value]="trigger.value">
-                  {{trigger.viewValue}}
+              <mat-select required [(ngModel)]="patientAllergy.AllergenType">
+                <mat-option *ngFor="let allergy of allergyType" [value]="allergy">
+                  {{allergy}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -885,9 +917,9 @@
           </div>
           <div class="col-md-4">
             <mat-form-field appearance="outline" class="input-bg">
-              <mat-select required>
-                <mat-option *ngFor="let trigger of TriggerRuleDD" [value]="trigger.value">
-                  {{trigger.viewValue}}
+              <mat-select required [(ngModel)]="patientAllergy.AllergenName">
+                <mat-option *ngFor="let allergie of allergens" [value]="allergie">
+                  {{allergie}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -899,9 +931,9 @@
           </div>
           <div class="col-md-4">
             <mat-form-field appearance="outline">
-              <mat-select required>
-                <mat-option *ngFor="let trigger of TriggerRuleDD" [value]="trigger.value">
-                  {{trigger.viewValue}}
+              <mat-select required [(ngModel)]="patientAllergy.SeverityLevel">
+                <mat-option *ngFor="let severity of severityLevel" [value]="severity">
+                  {{severity}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -913,21 +945,28 @@
           </div>
           <div class="col-md-4">
             <mat-form-field appearance="outline">
-              <mat-select required>
-                <mat-option *ngFor="let trigger of TriggerRuleDD" [value]="trigger.value">
-                  {{trigger.viewValue}}
+              <mat-select required [(ngModel)]="patientAllergy.OnSetAt">
+                <mat-option *ngFor="let onset of onsetAt" [value]="onset">
+                  {{onset}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
           </div>
           <div class=" form-group col-md-6 ">
             <label class="title-bold required">Reaction(s): </label>
-            <div class="input-group input-group-custom search-input">
+            <!-- <div class="input-group input-group-custom search-input">
               <input aria-label="Search for messages" autocomplete="off"
-                class="input-search form-control ignore_spinner" id="find-messages-input" placeholder="Search Messages">
+                class="input-search form-control ignore_spinner" id="find-messages-input-3" placeholder="Search Messages">
               <span class="input-group-addon input-group-addon-search chart-find-patient-btn inputclass"
                 id="find-messages-button"><i class="fa fa-search"></i></span>
-            </div>
+            </div> -->
+            <mat-form-field appearance="outline">
+              <mat-select required [(ngModel)]="patientAllergy.Reaction">
+                <mat-option *ngFor="let allergy of allergyReaction" [value]="allergy">
+                  {{allergy}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
         </div>
         <div class="row mt-2">
@@ -937,10 +976,11 @@
           </div>
           <div class="col-md-6">
             <mat-form-field appearance="outline" class="input-field calender-item  col-md-8">
-              <input matInput [matDatepicker]="dp1" placeholder="Start Date" name="startDate" />
-              <mat-datepicker-toggle matSuffix [for]="dp1">
+              <input matInput [matDatepicker]="StartAt" placeholder="Start Date" name="startDate"
+                [(ngModel)]="patientAllergy.StartAt" />
+              <mat-datepicker-toggle matSuffix [for]="StartAt">
               </mat-datepicker-toggle>
-              <mat-datepicker #dp1 disabled="false"></mat-datepicker>
+              <mat-datepicker #StartAt disabled="false"></mat-datepicker>
             </mat-form-field>
           </div>
         </div>
@@ -950,16 +990,17 @@
           </div>
           <div class="col-md-6">
             <mat-form-field appearance="outline" class="input-field calender-item  col-md-8">
-              <input matInput [matDatepicker]="dp2" placeholder="End Date" name="endDate" />
-              <mat-datepicker-toggle matSuffix [for]="dp2">
+              <input matInput [matDatepicker]="EndAt" placeholder="End Date" name="endDate"
+                [(ngModel)]="patientAllergy.EndAt" />
+              <mat-datepicker-toggle matSuffix [for]="EndAt">
               </mat-datepicker-toggle>
-              <mat-datepicker #dp2 disabled="false"></mat-datepicker>
+              <mat-datepicker #EndAt disabled="false"></mat-datepicker>
             </mat-form-field>
           </div>
         </div>
         <div class="col-md-12 mt-3">
           <label class="title-bold">Notes:</label>
-          <textarea class="form-control inputclass col-12 mt-3 mt-md-0"></textarea>
+          <textarea class="form-control inputclass col-12 mt-3 mt-md-0" [(ngModel)]="patientAllergy.Note"></textarea>
         </div>
       </div>
 
@@ -967,12 +1008,12 @@
         <div class="col-md-12 locationbtns">
           <div class="d-flex justify-content-end">
             <button type="button" class="btn btn-lg btn-green col-xl-4 col-lg-4 col-md-4 col-8 mx-2"
-              data-bs-dismiss="modal">
+              data-bs-dismiss="modal" [disabled]="disableAllergies()" (click)="CreateAllergies()">
               Save Changes
             </button>
             <button type="button" class="btn btn-lg btn-green col-xl-3 col-lg-3 col-md-3 col-5 mx-3"
-              data-bs-dismiss="modal">
-              Close
+              data-bs-dismiss="modal" (click)="resetDialog()">
+              Cancel
             </button>
           </div>
         </div>
@@ -981,7 +1022,8 @@
   </div>
 </div>
 
-<div class="modal fade " id="exampleModal5" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<!-- Medication -->
+<div class="modal fade " id="medication-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-md" role="document">
     <div class="modal-content modal-item ">
@@ -1148,9 +1190,9 @@
           <label class="title-field">Search Reaction(s): </label>
           <div class="input-group input-group-custom search-input">
             <input aria-label="Search for messages" autocomplete="off" class="input-search form-control ignore_spinner"
-              id="find-messages-input" placeholder="Search Messages">
-            <span class="input-group-addon input-group-addon-search chart-find-patient-btn" id="find-messages-button"><i
-                class="fa fa-search"></i></span>
+              id="find-messages-input-4" placeholder="Search Messages">
+            <span class="input-group-addon input-group-addon-search chart-find-patient-btn"
+              id="find-messages-button-4"><i class="fa fa-search"></i></span>
           </div>
         </div>
         <div class=" form-group col-md-12">
@@ -1180,8 +1222,6 @@
     </div>
   </div>
 </div>
-
-
 
 <div class="modal fade " id="exampleModal7" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="staticBackdropLabel" aria-hidden="true">

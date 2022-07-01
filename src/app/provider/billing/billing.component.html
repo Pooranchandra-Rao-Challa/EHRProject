@@ -1,43 +1,48 @@
 
+
 <div class="container-fluid">
-    <div class="row">
-      <mat-form-field appearance="outline" class="col-md-3">
-        <mat-label>Search patient</mat-label>
-        <mat-select ngModel name="search" #search="ngModel">
-          <mat-option>-Select-</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <div class="col-md-1">Proc Date: <br>from</div>
+  <div class="row">
+    <div class="col-md-8 col-lg-8 col-8">
+      <div class="row">
+        <mat-form-field appearance="outline" class="col-md-4">
+          <mat-label>Search patient</mat-label>
+          <mat-select ngModel name="search" #search="ngModel">
+            <mat-option>-Select-</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div class="col-md-1 col-1 col-lg-1 py-3 px-1 pull-right">Proc Date:from</div>
+     
+        <mat-form-field appearance="outline" class="green-calendar   col-md-3">
+          <input matInput [matDatepicker]="dp"  placeholder="Start Date"    name="startDate"
+          [(ngModel)]="startDate"(click)="dp.open()">
+          <mat-datepicker-toggle matSuffix [for]="dp">
 
-      <mat-form-field appearance="outline" class="green-calendar col-md-2">
-        <input matInput [matDatepicker]="dp"  placeholder="Start Date"    name="startDate"
-        [(ngModel)]="startDate">
-        <mat-datepicker-toggle matSuffix [for]="dp">
+          </mat-datepicker-toggle>
+          <mat-datepicker #dp disabled="false"></mat-datepicker>
+         </mat-form-field>
+         <p class="col-md-1 toalignment">to</p>
 
-        </mat-datepicker-toggle>
-        <mat-datepicker #dp disabled="false"></mat-datepicker>
-       </mat-form-field>
-       <!-- <div class="date_to_text col-md-1">to</div> -->
-
-
-      <mat-form-field appearance="outline" class="green-calendar col-md-2 ">
-        <input matInput [matDatepicker]="dp1" placeholder="Stop Date"  name="enddate"
-        [(ngModel)]="enddate">
-        <mat-datepicker-toggle matSuffix [for]="dp1">
-        </mat-datepicker-toggle>
-        <mat-datepicker #dp1 disabled="false"></mat-datepicker>
-      </mat-form-field>
-      <div class="col-md-2">
-        <button mat-raised-button type="submit" (click)="getBillings()" class="btn btn-green btn-reports">Run Report</button>
+        <mat-form-field appearance="outline" class="green-calendar   col-md-3">
+          <input matInput [matDatepicker]="dp1" placeholder="Stop Date"  name="enddate"
+          [(ngModel)]="enddate">
+          <mat-datepicker-toggle matSuffix [for]="dp1">
+          </mat-datepicker-toggle>
+          <mat-datepicker #dp1 disabled="false"></mat-datepicker>
+        </mat-form-field>
+  </div>
+</div>
+      <div class="col-md-2 mt-2">
+        <button mat-raised-button type="submit" (click)="getBillings()" class="btn btn-green btn-reports runreport">Run Report</button>
       </div>
-      <div class="col-md-2">
-        <button mat-raised-button class="btn btn-green btn-reports" (click)="resetpage()">Reset</button>
+      <div class="col-md-2 mt-2">
+        <button mat-raised-button class="btn btn-green btn-reports pull-right" (click)="resetpage()" style="margin: 2px 15px 2px 3px;">Reset</button>
       </div>
 
-    </div>
+  </div>
+
 
 </div>
-<div class="row">
+<!-- <div class="row">
   <div class="col-md-6">
     <p class="col-md-3 pull-right">Filter by status:</p>
   </div>
@@ -54,6 +59,25 @@
   </div>
   <div class="col-md-1">
     <button mat-raised-button class="btn btn-green btn-reports" (click)="exportToPdf()">Export PDF</button>
+  </div>
+</div> -->
+<div class="row">
+  <div class="col-md-5 mt-3">
+    <p class="col-md-3 pull-right mt-3">Filter by status:</p>
+  </div>
+  <mat-form-field appearance="outline" class="col-md-5 mt-3  pull-right statusFilter" style="padding-left: 170px;">
+    <mat-select id="statusFilter" #select multiple placeholder="Select all to include">
+      <mat-option (click)="optionClick()" *ngFor="let fs of filterstatus" [value]="fs.value">
+        {{fs.viewValue}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="col-md-1">
+    <button mat-raised-button class="btn btn-green btn-reports mt-3" (click)="exportToCsv()">Export CSV</button>
+  </div>
+  <div class="col-md-1 ">
+    <button mat-raised-button class="btn btn-green btn-reports mt-3" (click)="exportToPdf()" style="margin-left: -16px;">Export PDF</button>
   </div>
 </div>
 
@@ -119,4 +143,3 @@
     No records found.
  </div>
 </div>
-

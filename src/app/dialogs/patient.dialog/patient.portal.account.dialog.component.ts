@@ -22,6 +22,8 @@ export class PatientPortalAccountComponent{
     this.dialogRef.close();
   }
   createPatientAccount(){
+    console.log(this.patientUser);
+
     this.dialogRef.close(this.patientUser);
   }
 }

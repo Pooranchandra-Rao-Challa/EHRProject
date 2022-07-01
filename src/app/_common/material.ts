@@ -33,6 +33,7 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { ReactiveFormsModule } from "@angular/forms";
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatTreeModule } from '@angular/material/tree'
 
 
 
@@ -70,7 +71,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatRadioModule,
     MatDatepickerModule,
     MatListModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatTreeModule
   ],
   exports: [
     NgxPaginationModule,
@@ -104,7 +106,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatDatepickerModule,
     MatListModule,
     MatSidenavModule,
-    MatTabsModule
+    MatTabsModule,
+    MatTreeModule
 
   ],
 })

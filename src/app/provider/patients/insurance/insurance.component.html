@@ -157,8 +157,8 @@
                             </mat-radio-group>
                         </div>
                     </div>
-                    <div class="col-lg-12 col-md-12 col-sm-12">
-                        <label class="Helvetica-sans-serif-medium"></label>
+                    <!-- <div class="col-lg-12 col-md-12 col-sm-12">
+                   
                         <div class="form-group">
                             <select class="col-12 inputclassdropdown Helvetica-sans-serif-medium"
                                 [(ngModel)]="primlist.SourceOfPaymentTypology"
@@ -168,7 +168,21 @@
 
                             </select>
                         </div>
-                    </div>
+                    </div> -->
+
+                    		
+					 <div class="col-lg-12 col-md-12">
+                        <mat-label  class="Helvetica-sans-serif-small">Source of Payment Typology </mat-label>                      
+                        <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-12 ddl-width">
+                          <mat-select   [(ngModel)]="primlist.SourceOfPaymentTypology" placeholder="Source of Payment Typology">
+                            <mat-select-filter  [displayMember]="'Code'" [array]="SourceOfPaymentTypologyCodesFilter" 
+                              (filteredReturn)="SourceOfPaymentTypologyCodes = $event"></mat-select-filter>
+                            <mat-option  *ngFor="let item of SourceOfPaymentTypologyCodes" [value]="item.Code" (click)="primaryspt(item)" >
+                              {{item.Code}} - {{item.Description}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
                     <div class="row">
                         <div class="col-md-6">
                             <label class="Helvetica-sans-serif-medium">Start Date</label>
@@ -180,14 +194,14 @@
                     <div class="row">
                         <mat-form-field appearance="outline"
                             class="calendaricon green-calendar col-md-6 Helvetica-sans-serif-small">
-                            <input matInput [matDatepicker]="dp2" placeholder="Start Date" (click)="dp2.open()"
+                            <input matInput [matDatepicker]="dp2" placeholder="Start Date" (focus)="dp2?.open()"
                                 [(ngModel)]="primlist.StartDate">
                             <mat-datepicker-toggle matSuffix [for]="dp2">
                             </mat-datepicker-toggle>
                             <mat-datepicker #dp2 disabled="false"></mat-datepicker>
                         </mat-form-field>
                         <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-6">
-                            <input matInput [matDatepicker]="dp1" placeholder="Stop Date" [(ngModel)]="primlist.EndDate"
+                            <input matInput [matDatepicker]="dp1" placeholder="Stop Date" [(ngModel)]="primlist.EndDate"(focus)="dp1?.open()"
                                 class="Helvetica-sans-serif-small">
                             <mat-datepicker-toggle matSuffix [for]="dp1">
                             </mat-datepicker-toggle>
@@ -219,7 +233,7 @@
                         <label class="Helvetica-sans-serif-medium">Date of Birth</label>
                         <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-6">
                             <input matInput [matDatepicker]="dp4" placeholder="Date of Birth"
-                                [(ngModel)]="secList.DateOfBirth">
+                                [(ngModel)]="secList.DateOfBirth"(focus)="dp4?.open()">
                             <mat-datepicker-toggle matSuffix [for]="dp4">
                             </mat-datepicker-toggle>
                             <mat-datepicker #dp4 disabled="false"></mat-datepicker>
@@ -259,37 +273,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="row">
-                        <div class="col-md-9  mb-3">
-                            <div class="form-group">
-                                <div class="input-group input-group-lg">
-                                    <span class="input-group-text Helvetica-sans-serif-medium "
-                                        id="inputGroup-sizing-lg ">Street Address</span>
-                                    <input [readonly]="!secondarydisableaddressverification"
-                                        class="form-control input-border Helvetica-sans-serif-medium" [(ngModel)]="secList.StreetAddress"
-                                        placeholder="Street Address" type="text" id="StreetAddress"
-                                        name="StreetAddress">
-                                </div>
-                          </div>
-                                <div class="col-lg-1 col-md-1 col-sm-1">
-                                    <button type="button" class="btn cross-mark error-close"
-                                        *ngIf="secondaryAdressVerfied && !secondarymanuallybtn"
-                                        (click)="secondaryenableManualEntry()"
-                                        title="Can enter manully when the verification results are in correct by clicking this icon">x</button>
-                                </div>
-                            
-                        </div>
-
-                        <div class="col-lg-2 col-md-2 col-sm-2 patient-street-address">
-                            <div class="form-group">
-                                <button class="btn-green btn manualbtn  py-0 btn-lg btn-md"
-                                    *ngIf="secondarymanuallybtn || secondarydisableaddressverification"
-                                    (click)="secondaryenterAddressManually()">Enter
-                                    Address
-                                    Manually</button>
-                            </div>
-                        </div>
-                    </div> -->
+                   
                     <div class="row">
                         <div class="col-md-9">
                             <div class="form-group">
@@ -400,28 +384,18 @@
                             </mat-radio-group>
                         </div>
                     </div>
-                    <!-- <div class="row">
-                        <mat-label class="Helvetica-sans-serif-small">Source of Payment Typology </mat-label>
-                        <mat-form-field appearance="outline" col-md-12>
-                            <mat-select (change)="onChange('PaymentTypologyCodes',$event.target.value)">
-                                <mat-option *ngFor="let PaymentTypologyCodes of SourceOfPaymentTypologyCodes"
-                                    [value]="PaymentTypologyCodes.Code">
-                                   {{PaymentTypologyCodes.Code}}- {{PaymentTypologyCodes.Description}}
-                                </mat-option>
-                            </mat-select>
+					 <div class="col-lg-12 col-md-12">
+                        <mat-label  class="Helvetica-sans-serif-small">Source of Payment Typology </mat-label>                      
+                        <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-12 ddl-width">
+                          <mat-select   [(ngModel)]="secList.SourceOfPaymentTypology" placeholder="Source of Payment Typology">
+                            <mat-select-filter [displayMember]="'Code'" [array]="SourceOfPaymentTypologyCodesFilter" 
+                              (filteredReturn)="SourceOfPaymentTypologyCodes = $event"></mat-select-filter>
+                            <mat-option  *ngFor="let item of SourceOfPaymentTypologyCodes" [value]="item.Code" (click)="secondaryspt(item)" >
+                              {{item.Code}} - {{item.Description}}
+                            </mat-option>
+                          </mat-select>
                         </mat-form-field>
-                    </div> -->
-                    <div class="col-lg-12 col-md-12 col-sm-12">
-                        <label class="Helvetica-sans-serif-medium"></label>
-                        <div class="form-group">
-                            <select class="col-12 inputclassdropdown" [(ngModel)]="secList.SourceOfPaymentTypology"
-                                (change)="secondaryonChange('secondary',$event.target.value)">
-                                <option *ngFor="let sptc of SourceOfPaymentTypologyCodes" [value]="sptc.Code">
-                                    {{sptc.Code}}-{{sptc.Description}}</option>
-
-                            </select>
-                        </div>
-                    </div>
+                      </div>
                     <div class="row">
                         <div class="col-md-6">
                             <label class="Helvetica-sans-serif-medium">Start Date</label>
@@ -433,7 +407,7 @@
                     <div class="row">
                         <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-6">
                             <input matInput [matDatepicker]="dp5" placeholder="Start Date"
-                                [(ngModel)]="secList.StartDate">
+                                [(ngModel)]="secList.StartDate" (focus)="dp5?.open()">
                             <mat-datepicker-toggle matSuffix [for]="dp5">
 
                             </mat-datepicker-toggle>
@@ -443,7 +417,7 @@
 
 
                         <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-6">
-                            <input matInput [matDatepicker]="dp6" placeholder="Stop Date" [(ngModel)]="secList.EndDate">
+                            <input matInput [matDatepicker]="dp6" placeholder="Stop Date" [(ngModel)]="secList.EndDate"(focus)="dp6?.open()">
                             <mat-datepicker-toggle matSuffix [for]="dp6">
                             </mat-datepicker-toggle>
                             <mat-datepicker #dp6 disabled="false"></mat-datepicker>
@@ -467,7 +441,10 @@
             <div class="modal-header">
                 <span *ngIf="data" class="Helvetica-sans-serif-medium text-white">Select Insurance Company Plan </span>
                 <span *ngIf="!data" class="Helvetica-sans-serif-medium">Add/Edit Insurance Company Plan </span>
-                <span type="button" (click)="cancel()" class="cross-mark" data-bs-dismiss="modal" aria-label="Close">
+                <span *ngIf="data" type="button" (click)="cancel()" class="cross-mark" data-bs-dismiss="modal" aria-label="Close">
+                    X
+                </span>
+                <span *ngIf="!data" type="button" (click)="cancel()" class="cross-mark">
                     X
                 </span>
             </div>
@@ -698,7 +675,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                           <tr *ngFor="let item of insurancePlanList; let idx=index;" 
+                           <tr *ngFor="let item of InsurancePlanList; let idx=index;" 
                                 [style.background-color]="rowClicked == idx ? 'rgb(254, 143, 0)' : ''"
                                 (click)="changeTableRowColor(idx,false)" (dblclick)=edit(idx)>
                                 <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)"
@@ -828,11 +805,3 @@
         </div>
     </div>
 </div>
-
-
-<!-- {{insurancePlanList| json}} -->
-<!-- <select name="" class="rounded-inputs20 select-select col-md-3" (change)="onChange('city',$event.target.value)">
-    <option *ngFor="let country of SourceOfPaymentTypologyCodes"  [value]="country.Code">{{country.Code}}-{{country.Description}}</option>
-    </select>
-  
-    <select name="scale" class="rounded-inputs20 select-select col-md-3" (change)="onChange('scale',$event.target.value)"> -->

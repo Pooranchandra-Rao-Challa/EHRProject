@@ -311,7 +311,7 @@ export class APIEndPoint extends EndpointBase {
   get _updateAccessProviderUrl() {
     return this._baseUrl + "UpdateAccessProvider";
   }
-  get _updatedTrailStatusUrl(){
+  get _updatedTrailStatusUrl() {
     return this._baseUrl + "UpdatedTrailStatus";
   }
 
@@ -328,13 +328,13 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "DeleteLocation";
   }
 
-  get _addUpdatedWeeklyUpdated(){
+  get _addUpdatedWeeklyUpdated() {
     return this._baseUrl + "AddUpdatedWeeklyUpdated";
   }
-  get _updateWeeklyStaus(){
+  get _updateWeeklyStaus() {
     return this._baseUrl + "UpdatedWeeklyStatus";
   }
-  get _deleteWeeklyStatus(){
+  get _deleteWeeklyStatus() {
     return this._baseUrl + "DeleteWeeklyStatus";
   }
 
@@ -503,28 +503,36 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "CreateEncounter";
   }
 
-  get _encounterViewUrl(){
+  get _encounterViewUrl() {
     return this._baseUrl + "EncounterView";
   }
 
-	get _createUpdateInsuranceCompanyPlanUrl()
- {
-   return this._baseUrl + "CreateInsurancePlan";
- }
+  get _createUpdateInsuranceCompanyPlanUrl() {
+    return this._baseUrl + "CreateInsurancePlan";
+  }
 
 
-	get _deleteInsuranceCampanyplanUrl()
-  {
+  get _deleteInsuranceCampanyplanUrl() {
     return this._baseUrl + "DeleteInsuranceCampanyplan";
   }
 
-  get _createUpdateInsuranceDetailsUrl()
-  {
+  get _createUpdateInsuranceDetailsUrl() {
     return this._baseUrl + "CreateUpdateInsuranceDetails";
   }
 
-  get _changePasswordsUrl()
-  {
+  get _createPastMedicalHistoriesUrl() {
+    return this._baseUrl + "CreatePastMedicalHistories";
+  }
+
+  get _createAllergiesUrl() {
+    return this._baseUrl + "CreateAllergies";
+  }
+
+  get _createDiagnosesUrl() {
+    return this._baseUrl + "CreateDiagnoses";
+  }
+
+  get _changePasswordsUrl() {
     return this._baseUrl + "ChangePassword";
   }
 
@@ -533,41 +541,51 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "UpdatePatientProfile";
   }
 
-  get _createPatientAccountUrl(){
+  get _createPatientAccountUrl() {
     return this._baseUrl + "CreatePatientAccount";
   }
 
-  get _cqmNotPerformedUrl(){
+  get _cqmNotPerformedUrl() {
     return this._baseUrl + "CQMNotPerformed";
   }
-  get _interventaionDetailsUrl(){
+  get _interventaionDetailsUrl() {
     return this._baseUrl + "InterventaionDetails";
   }
 
-  get _addUpdateCQMNotPerformedUrl(){
+  get _addUpdateCQMNotPerformedUrl() {
     return this._baseUrl + "AddUpdatedCQMNotPerformed";
   }
 
-  get _latestUpdatedPatientsUrl(){
+  get _latestUpdatedPatientsUrl() {
     return this._baseUrl + "LatestUpdatedPatients";
   }
-  get _patientAccountInfoUrl(){
+  get _patientAccountInfoUrl() {
     return this._baseUrl + "PatientAccountInfo";
   }
-  get _getUserInfoForPatientUrl(){
+  get _getUserInfoForPatientUrl() {
     return this._baseUrl + "GetUserInfoForPatient";
+  }
+  get _createProcedureUrl() {
+    return this._baseUrl + "CreateProcedure";
+  }
+  get _completePatientAccountProcessUrl() {
+    return this._baseUrl + "CompletePatientAccountProcess";
   }
 
 
-  get _patientPastAppointmentsUrl()
-  {
+
+  get _patientPastAppointmentsUrl() {
     return this._baseUrl + "PatientPastAppointments";
   }
 
-  get _patientUpcomingAppointmentsUrl()
-  {
+  get _patientUpcomingAppointmentsUrl() {
     return this._baseUrl + "PatientUpcomingAppointments";
   }
+
+  get _procedureCodesForDentalUrl() {
+    return this._baseUrl + "ProcedureCodesForDental";
+  }
+
   constructor(public http: HttpClient) {
     super();
   }
