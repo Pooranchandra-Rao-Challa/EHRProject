@@ -156,15 +156,15 @@
       <div class="scrollable-mat-table">
         <mat-table class="table table-responsive userfromPractable" [dataSource]="EditProvider.LocationInfo">
           <ng-container matColumnDef="LocationName">
-            <mat-header-cell *matHeaderCellDef >Location Name</mat-header-cell>
+            <mat-header-cell style="color: rgba(0, 0, 0, 0.54);" *matHeaderCellDef >Location Name</mat-header-cell>
             <mat-cell *matCellDef="let loc">{{loc.Name}} </mat-cell>
           </ng-container>
           <ng-container matColumnDef="CityState">
-            <mat-header-cell *matHeaderCellDef>City, State</mat-header-cell>
+            <mat-header-cell style="color: rgba(0, 0, 0, 0.54);" *matHeaderCellDef>City, State</mat-header-cell>
             <mat-cell *matCellDef="let loc">{{loc.City}}, {{loc.State}}</mat-cell>
           </ng-container>
           <ng-container matColumnDef="PracticeSchedule">
-            <mat-header-cell *matHeaderCellDef>Practice Schedule</mat-header-cell>
+            <mat-header-cell style="color: rgba(0, 0, 0, 0.54);" *matHeaderCellDef>Practice Schedule</mat-header-cell>
             <mat-cell *matCellDef="let loc" ngClass="nopadding nopadding2">
             <div *ngFor="let timeslot of loc.TimeSlots">
               {{timeslot.WeekDay | weekdayFormat : timeslot.From : timeslot.To : timeslot.SpecificHour }}
@@ -172,7 +172,7 @@
             </mat-cell>
           </ng-container>
           <ng-container matColumnDef="ServicedLocation">
-            <mat-header-cell *matHeaderCellDef>Serviced Location(s)</mat-header-cell>
+            <mat-header-cell style="color: rgba(0, 0, 0, 0.54);" *matHeaderCellDef>Serviced Location(s)</mat-header-cell>
             <mat-cell *matCellDef="let loc" ngClass="nopadding">
               <mat-checkbox class="example-margin" [ngModelOptions]="{standalone: true}" [ngModel]="loc.Assigned">
               </mat-checkbox>
