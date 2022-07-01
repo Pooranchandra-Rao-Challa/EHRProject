@@ -114,6 +114,7 @@
   background-color: #ffffff;
   height: 45px;
   width: 100%;
+  cursor: pointer !important;
 }
 
 .dropdown-menu {
@@ -142,6 +143,7 @@ a.dropdown-item:hover {
 .dropdown-item:focus {
   color: #41b6a6;
   background-color: #e9ecef00;
+  cursor: pointer;
 }
 
 .nav-tabs.message-count.active {

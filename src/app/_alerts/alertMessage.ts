@@ -170,10 +170,11 @@ export const ERROR_CODES: { [key: string]: string } = {
   'M2CP005': 'Demographics updated successfully',
   'M2CP006': 'Next of kin updated successfully',
   'M2CP007': 'Immunization registry updated successfully',
+  'M2CP008': 'Patient updated successfully',
 
   // Error for Patient profile directives
   'E2CP001': 'Personal Information Updation error',
-  '2CP002' : 'Contact Information Updation error',
+  'E2CP002' : 'Contact Information Updation error',
   'E2CP003': 'Emergency Contact Updation error',
   'E2CP004': 'Relationship Updation error',
   'E2CP005': 'Demographics Updation error',

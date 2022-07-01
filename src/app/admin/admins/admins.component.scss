@@ -251,7 +251,7 @@ input::-webkit-calendar-picker-indicator {
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
   height: 35px;
   border-radius: 0%;
-  color: #c2cad8;
+  color: #c2cad8 !important;
 }
 .modal{
   .modal-dialog{
@@ -267,3 +267,4 @@ input::-webkit-calendar-picker-indicator {
 input.mat-input-element {
   font-size: 14px !important;
 }
+

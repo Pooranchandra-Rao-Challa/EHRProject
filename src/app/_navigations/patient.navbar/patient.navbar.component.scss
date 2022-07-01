@@ -6,5 +6,8 @@
   background-size: 26px !important;
 }
 
+::ng-deep .mat-menu-content:not(:empty) {
 
+  padding-right: 80px !important;
+}
 
