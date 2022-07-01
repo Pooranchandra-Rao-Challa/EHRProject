@@ -10,6 +10,7 @@ import { LocationSelectService } from '../../_navigations/provider.layout/locati
 import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
 import { disableDebugTools } from '@angular/platform-browser';
+import { MatTableDataSource } from '@angular/material/table';
 
 declare var $: any;
 
@@ -22,7 +23,7 @@ declare var $: any;
 
 export class AuditLogComponent implements OnInit {
   @ViewChild('TABLE') table: ElementRef;
-  pageSize: number = 50;
+  pageSize: number = 10;
   page: number = 1;
   collectionSize: any = 5000;
 
@@ -35,8 +36,14 @@ export class AuditLogComponent implements OnInit {
   enddate: string;
   auditLogList: any = [];
   ProviderId: string;
+  
+
+
+  search: any;
+selection : any;
   constructor(private authService: AuthenticationService, private settingservice: SettingsService) {
     this.user = authService.userValue;
+
 
   }
   ngOnInit(): void {
@@ -66,11 +73,27 @@ export class AuditLogComponent implements OnInit {
     this.settingservice.AuditLogs(reqparams).subscribe(reponse => {
       this.auditLogList = reponse.ListResult;
       // this.TotalItems = this.auditLogList.length;
-      //console.log(this.auditLogList);
+    console.log(this.auditLogList);
 
     })
   }
 
+  applyFilter(filterValue: string) {
+    debugger;
+    console.log(this.search)
+    console.log(this.selection)
+    console.log(filterValue)
+    if(this.selection){
+      this.auditLogList.filter = this.selection.trim().toLowerCase() || this.search.trim().toLowerCase();
+      console.log(this.auditLogList.filter);
+     
+    }
+    else
+    {
+       this.auditLogList.filter = this.search.trim().toLowerCase();
+       console.log(this.auditLogList)
+    }
+  }
   dataType: string[] = [
     "schedule",
     "chart",
@@ -112,6 +135,13 @@ export class AuditLogComponent implements OnInit {
     /* save to file */
     XLSX.writeFile(wb, 'Audit.csv');
 
+  }
+
+  applyFilter1(filterValue: string) {
+    debugger;
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+    this.auditLogList.filter = filterValue;
   }
 
 }

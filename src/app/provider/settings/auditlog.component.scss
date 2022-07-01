@@ -41,7 +41,7 @@ table th.th-dropdown {
 }
 
 .mat-header-row {
-  color: #333;
+  color: #4a4a4a;
   background-color:#fff;
   
 }
@@ -53,7 +53,7 @@ table th.th-dropdown {
   border-left: 1px solid #41b6a6;
   border-bottom: none;
   font-size: 15px;
-  color: #525358;
+  color: #4a4a4a;
 }
 
 .mat-cell {
@@ -92,46 +92,40 @@ mat-header-cell:nth-child(5) {
   padding-left: 43px;
    padding-right: 24px;
 }
-::ng-deep .exportpdf .mat-form-field-appearance-outline .mat-form-field-outline
+::ng-deep .exportpdf .mat-form-field
 {
   width: 150px!important;
 }
-.exportpdf .mat-select{
-  width: 130px !important;
+::ng-deep .exportpdf .mat-select-placeholder {
+  color: #41b6a6 !important;
 }
-
-
-
   ::ng-deep  .placehold.mat-form-field-hide-placeholder .mat-select-placeholder {
-    color: #525358;
-    -webkit-text-fill-color: #525358;
-    
-    /* transition: none; */
+    color: #4a4a4a;
+    -webkit-text-fill-color: #4a4a4a;
     display: block;
 }
-
-
-// ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
-//   background-color: #fff !important;
-//   color: #41b6a6 !important;
-//   border-radius: 6px;
-//   height: 45px;
-// }
-// ::ng-deep .placehold.mat-form-field-appearance-outline .mat-form-field-outline {
-//   background-color: #fff !important;
-//   color: #fff !important;
-//   border-radius: 6px;
-//   height: 45px;
-// }
 ::ng-deep .placehold.mat-form-field-appearance-outline .mat-form-field-outline {
   background-color: #fff !important;
   color: #fff !important;
   border-radius: 6px;
   height: 45px;
+
 }
-::ng-deep .placehold.mat-form-field-appearance-outline .mat-form-field-outline :hover{
-  background-color: #41b6a6 !important;
+::ng-deep .placehold.mat-form-field-appearance-outline:hover .mat-form-field-outline{
   color: #41b6a6 !important;
-  border-radius: 6px;
-  height: 45px;
+  width: 222px;
+  border-radius:0px !important;
+    margin-left: -10px;
+    text-decoration: underline !important;
+}
+::ng-deep .placehold .mat-select-placeholder {
+  color: black !important;
+}
+::ng-deep .placehold .mat-select-placeholder:hover{
+  text-decoration: underline !important;
+}
+
+::ng-deep .placehold .mat-select{
+  width: 204px !important;
+    margin-left: -11px;
 }

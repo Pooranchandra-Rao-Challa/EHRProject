@@ -317,3 +317,10 @@ input::-webkit-input-placeholder {
 .modal.TriggerModal {
   pointer-events: auto !important;
 }
+::ng-deep .triggeralignment.mat-select-panel {
+  margin-top: 31px !important;
+  max-height: 111px !important;
+}
+::ng-deep .trplaceholder .mat-select-placeholder {
+  color: #41b6a6 !important;
+}
