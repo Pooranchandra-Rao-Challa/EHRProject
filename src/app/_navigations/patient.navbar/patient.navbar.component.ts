@@ -3,6 +3,8 @@ import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { User, UserLocations } from '../../_models';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PatientProfile } from 'src/app/_models/_patient/patientprofile';
+import { PatientService } from 'src/app/_services/patient.service';
 declare var $: any;
 
 @Component({
@@ -18,8 +20,8 @@ export class PatientNavbarComponent implements OnInit {
   locationsInfo: UserLocations[];
   currentLocation: string;
   name: string;
-
-  constructor(private authenticationService: AuthenticationService,
+  PatientProfile: PatientProfile;
+  constructor(private authenticationService: AuthenticationService,private patientService: PatientService,
     private route: ActivatedRoute,
     private router: Router) {
     this.user = authenticationService.userValue;
@@ -29,6 +31,7 @@ export class PatientNavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.name = 'dashboard';
+    this.getPatientProfile();
   }
 
   toggleNavbar() {
@@ -37,7 +40,18 @@ export class PatientNavbarComponent implements OnInit {
   logout() {
     this.authenticationService.logout();
   }
+  getPatientProfile(reqparam?) {
 
+    var req = {
+      "PatientId": this.user.PatientId,
+    }
+    this.patientService.PatientMyProfileByPatientId(req).subscribe(resp => {
+      debugger;
+      if (resp.IsSuccess) {
+        this.PatientProfile = resp.ListResult[0];
+      }
+    });
+  }
   onChangeBreadCrum(url: string, name: string, view?: string,) {
     //debugger;
     // console.log(view)

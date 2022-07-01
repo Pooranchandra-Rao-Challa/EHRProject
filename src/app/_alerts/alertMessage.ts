@@ -130,6 +130,11 @@ export class AlertMessage {
  * Encounters : E
  * Messages : M
  * Appointments : AP
+ *
+ * Schedule
+ * Rooms : R
+ * Appointment Type : AT
+ * Appointment Status : AS
  * ---------------------------------------------------
  * Errors Number shouw be three digits like 001
  *
@@ -183,10 +188,11 @@ export const ERROR_CODES: { [key: string]: string } = {
   'M2CP005': 'Demographics updated successfully',
   'M2CP006': 'Next of kin updated successfully',
   'M2CP007': 'Immunization registry updated successfully',
+  'M2CP008': 'Patient updated successfully',
 
   // Error for Patient profile directives
   'E2CP001': 'Personal Information Updation error',
-  '2CP002': 'Contact Information Updation error',
+  'E2CP002': 'Contact Information Updation error',
   'E2CP003': 'Emergency Contact Updation error',
   'E2CP004': 'Relationship Updation error',
   'E2CP005': 'Demographics Updation error',
@@ -280,6 +286,30 @@ export const ERROR_CODES: { [key: string]: string } = {
 
   // Error for CQM Not performed
   'E2CCNP001': 'Not Performed Reason created error',
+
+  // Schedule - Rooms
+  'M2JSR001': 'Room added successfully',
+  'M2JSR002': 'Room updated successfully',
+  'M2JSR003': 'Room deleted successfully',
+
+  // Error for CQM Not performed
+  'E2JSR001': 'Rooms created error',
+
+  // Schedule - Appointment Types
+  'M2JSAT001': 'Appointment type added successfully',
+  'M2JSAT002': 'Appointment type updated successfully',
+  'M2JSAT003': 'Appointment type deleted successfully',
+
+  // Error for Rooms
+  'E2JSAT001': 'Appointment type created error',
+
+  // Schedule - Appointment Status
+  'M2JSAS001': 'Appointment status added successfully',
+  'M2JSAS002': 'Appointment status updated successfully',
+  'M2JSAS003': 'Appointment status deleted successfully',
+
+  // Error for Rooms
+  'E2JSAS001': 'Appointment status created error',
 
 
 };

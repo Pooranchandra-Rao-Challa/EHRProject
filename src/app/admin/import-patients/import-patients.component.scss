@@ -6,7 +6,11 @@
     font-weight: 300;
     // line-height: 1.44;
     padding: 6px 12px !important;
+    cursor: not-allowed;
+
+    opacity:0.5;
 }
+
 .btn-back{
   padding: 6px 12px;
   font-family: "Open Sans", sans-serif;

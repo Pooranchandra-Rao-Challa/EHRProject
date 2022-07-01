@@ -174,7 +174,6 @@ input::-webkit-input-placeholder {
   white-space: break-spaces;
 }
 
-
 .mat-option-text {
   width: auto;
   height: auto;
@@ -185,20 +184,15 @@ input::-webkit-input-placeholder {
   text-overflow: ellipsis;
 }
 
-// .mat-option {
-//   height: auto;
-//   width: 63%;
-//   overflow-wrap: anywhere;
-// }
 
 input[readonly] {
   opacity: 0.5;
-  cursor:not-allowed;
+  cursor:not-allowed !important;
 
 }
-
 .noHover{
-  pointer-events: none;
+  // pointer-events: none;
+  cursor: not-allowed;
 }
 
 .modal{
@@ -211,4 +205,12 @@ input[readonly] {
   border: 1px solid #41b6a6;
   color: #41b6a6;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
+.btn-green[disabled] {
+  cursor: not-allowed;
+  pointer-events: all !important;
+
+}
+::ng-deep.swal2-container.swal2-top>.swal2-popup {
+  margin-top: 180px !important;
 }

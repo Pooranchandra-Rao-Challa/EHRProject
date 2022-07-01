@@ -59,19 +59,19 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-lg-4 col-md-6 col-sm-6 col-12 "><label class="labelfontzise">Date Of Birth<sub class="text-danger Helvetica-sans-serif-medium">*</sub>
+                  <div class="col-lg-4 col-md-6 col-sm-6 col-12 "><label class="labelfontzise">Date of Birth
                     </label>
                     <div class="form-group">
                       <mat-form-field appearance="outline" class="grey-matform ">
-                        <input matInput [matDatepicker]="dp"  placeholder="Start Date"   
+                        <input matInput [matDatepicker]="dp"  placeholder="Start Date"
                         [(ngModel)]="PatientProfile.DateOfBirth" #DateofBirth="ngModel" name="DateofBirth" required pattern="^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$">
                         <mat-datepicker-toggle matSuffix [for]="dp">
                         </mat-datepicker-toggle>
                         <mat-datepicker #dp disabled="false"></mat-datepicker>
                        </mat-form-field>
-                      
+
                     </div>
-                  </div> 
+                  </div>
                   <div class="col-lg-4 col-md-6 col-sm-6 col-12 "><label class="labelfontzise">Sex </label>
                     <div class="form-group">
                       <mat-form-field appearance="outline" class="grey-matform w-100">
@@ -198,7 +198,7 @@
                   </mat-form-field>
                 </div>
                 <div class="col-md-3 mt-1">
-                  <button type="button" class="btn btn-green verify-button">Verify</button>
+                  <button type="button" class="btn btn-green verify-button"[disabled]="true">VERIFY</button>
                 </div>
               </div>
 
@@ -325,7 +325,7 @@
                   </mat-form-field>
                 </div>
                 <div class="col-md-3 mt-1">
-                  <button type="button" class="btn btn-green verify-button ">Verify</button>
+                  <button type="button" class="btn btn-green verify-button" [disabled]="true">VERIFY</button>
                 </div>
               </div>
 
@@ -505,7 +505,7 @@
             </div>
             <div class="row">
               <label class="title ">IMPORTANT</label>
-              <mat-checkbox class="grey-matform example-margin mt-2">
+              <mat-checkbox class="grey-matform example-margin mt-2 mr-2">
                 <mat-lable class="checkbox-label">I understand my access to patients portal will be locked if I am
                   unable to answer this question</mat-lable>
               </mat-checkbox>
@@ -513,9 +513,9 @@
 
             <div class="row mt-4">
               <div class="d-flex justify-content-end">
-                <button type="button" class="btn btn-green mx-2" data-bs-dismiss="modal"
+                <button type="button" class="btn btn-green mx-2 " data-bs-dismiss="modal"
                   [disabled]="true">Change</button>
-                <button type="button" class="btn btn-green">Cancel</button>
+                <button type="button" class="btn btn-green"  data-bs-dismiss="modal">Cancel</button>
               </div>
             </div>
 

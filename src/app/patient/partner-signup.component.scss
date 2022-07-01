@@ -63,6 +63,7 @@ body {
   margin-left: 82.2%;
   font-size: medium;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+   
 }
 .reg-button:hover {
   background-color: #41b6a6;
@@ -71,6 +72,7 @@ body {
 }
 .disable-button {
   // background-color: red;
+  cursor: not-allowed;
   border: 1px solid #41b6a6;
   height: 50px;
   color: #41b6a6;
@@ -207,4 +209,8 @@ body {
 }
 ::ng-deep .swal2-styled.swal2-confirm {
   box-shadow: none !important
+}
+input[type=text]::-webkit-input-placeholder:after {
+  content: '*';
+  color: red;
 }
