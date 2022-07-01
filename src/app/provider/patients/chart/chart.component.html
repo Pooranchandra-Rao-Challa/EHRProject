@@ -418,7 +418,8 @@
                   </div>
                   <div class="col-md-4 col-6">
                     <div class="col-12 plusicon plusicon-orange pull-right"
-                    (click)="openComponentDialog(encounterDialogComponent,null,ActionTypes.new)"><span><i class="fa fa-plus"></i></span>
+                      (click)="openComponentDialog(encounterDialogComponent,null,ActionTypes.new)"><span><i
+                          class="fa fa-plus"></i></span>
                     </div>
                   </div>
                 </div>
@@ -538,12 +539,22 @@
       </div>
       <div class="body">
         <div class="row" style="padding: 0px 12px;">
-          <div class="col-sm-4 col-md-4 col-lg-4 ">
+          <div class="freq-used-list col-sm-4 col-md-4 col-lg-4 my-2">
+            <ul *ngFor="let diagnose of chartInfo?.Diagnoses" data-bs-toggle="modal"
+              data-bs-target="#create-diagnoses-modal" (click)="editDialog(diagnose, 'diagnosis')">
+              <li>
+                <a>
+                  <span class="px-3" *ngIf="diagnose?.Note != null && diagnose?.Note !=''">
+                    {{diagnose?.Note}}
+                  </span>
+                </a>
+              </li>
+            </ul>
           </div>
           <div class="col-sm-8 col-md-8 col-lg-8 side-boder">
             <mat-form-field appearance="outline" class="input-field input-bg w-100 mt-3 ">
-              <mat-select required [(value)]="dpDxCodes[0]">
-                <mat-option *ngFor="let code of dpDxCodes" [value]="code">
+              <mat-select required [(value)]="DxCodes[0]">
+                <mat-option *ngFor="let code of DxCodes" [value]="code">
                   {{code}}
                 </mat-option>
               </mat-select>
@@ -595,8 +606,9 @@
           </div>
           <div class="col-sm-8 side-boder">
             <mat-form-field appearance="outline" class=" mt-3 w-100">
-              <mat-select required [(value)]="dpDxCodes[0]" [(ngModel)]="patientDiagnoses.CodeSystem">
-                <mat-option *ngFor="let code of dpDxCodes" [value]="code">
+              <mat-select required
+                [(ngModel)]="patientDiagnoses.CodeSystem == undefined ? DxCodes[0] : patientDiagnoses.CodeSystem">
+                <mat-option *ngFor="let code of DxCodes" [value]="code">
                   {{code}}
                 </mat-option>
               </mat-select>
@@ -612,11 +624,11 @@
             <div class="row">
               <label>Start Date</label>
               <mat-form-field appearance="outline" class="green-calendar calender-item col-md-8">
-                <input matInput [matDatepicker]="startdate" placeholder="Start Date" name="startdate"
-                  [(ngModel)]="patientDiagnoses.StartAt" />
+                <input matInput class="pointer" [matDatepicker]="startdate" (click)="startdate.open()" readonly
+                  placeholder="Start Date" name="startdate" [(ngModel)]="patientDiagnoses.StartAt" />
                 <mat-datepicker-toggle matSuffix [for]="startdate">
                 </mat-datepicker-toggle>
-                <mat-datepicker #startdate disabled="false"></mat-datepicker>
+                <mat-datepicker #startdate></mat-datepicker>
               </mat-form-field>
               <div class="col-lg-4">
                 <button class="btn btn-green btn-today pull-right" (click)="todayStartAt()">Today</button>
@@ -625,11 +637,11 @@
             <div class="row">
               <label>End Date</label>
               <mat-form-field appearance="outline" class="green-calendar calender-item col-md-8">
-                <input matInput [matDatepicker]="enddate" placeholder="End Date" name="enddate"
-                  [(ngModel)]="patientDiagnoses.StopAt" />
+                <input matInput class="pointer" [matDatepicker]="enddate" placeholder="End Date" name="enddate"
+                  (click)="enddate.open()" readonly [(ngModel)]="patientDiagnoses.StopAt" />
                 <mat-datepicker-toggle matSuffix [for]="enddate">
                 </mat-datepicker-toggle>
-                <mat-datepicker #enddate disabled="false"></mat-datepicker>
+                <mat-datepicker #enddate></mat-datepicker>
               </mat-form-field>
               <div class="col-lg-4">
                 <button class="btn btn-green btn-today pull-right" (click)="todayStopAt()">Today</button>
@@ -648,7 +660,8 @@
                 (click)="resetDialog()">
                 Cancel</button>
               <button class="btn btn-green btn-cancel mx-3 mb-3 pull-right" data-bs-toggle="modal"
-                data-bs-target="#create-diagnoses-modal" (click)="CreateDiagnoses()">Save</button>
+                data-bs-target="#create-diagnoses-modal" [disabled]="disableDiagnosis()"
+                (click)="CreateDiagnoses()">Save</button>
             </div>
           </div>
         </div>
@@ -977,7 +990,7 @@
           <div class="col-md-6">
             <mat-form-field appearance="outline" class="input-field calender-item  col-md-8">
               <input matInput [matDatepicker]="StartAt" placeholder="Start Date" name="startDate"
-                [(ngModel)]="patientAllergy.StartAt" />
+                (click)="StartAt.open()" readonly [(ngModel)]="patientAllergy.StartAt" />
               <mat-datepicker-toggle matSuffix [for]="StartAt">
               </mat-datepicker-toggle>
               <mat-datepicker #StartAt disabled="false"></mat-datepicker>
@@ -990,8 +1003,8 @@
           </div>
           <div class="col-md-6">
             <mat-form-field appearance="outline" class="input-field calender-item  col-md-8">
-              <input matInput [matDatepicker]="EndAt" placeholder="End Date" name="endDate"
-                [(ngModel)]="patientAllergy.EndAt" />
+              <input matInput [matDatepicker]="EndAt" placeholder="End Date" name="endDate" (click)="EndAt.open()"
+                readonly [(ngModel)]="patientAllergy.EndAt" />
               <mat-datepicker-toggle matSuffix [for]="EndAt">
               </mat-datepicker-toggle>
               <mat-datepicker #EndAt disabled="false"></mat-datepicker>
