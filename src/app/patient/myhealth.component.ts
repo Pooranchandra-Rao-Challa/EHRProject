@@ -56,7 +56,6 @@ export class MyhealthComponent implements OnInit {
 ;  }
 
   getSmokingStatus() {
-    debugger;
     var req={
       "PatientId": this.user.PatientId,
     }
@@ -117,7 +116,6 @@ export class MyhealthComponent implements OnInit {
     });
   }
   getAllMedicationAlleries() {
-    debugger;
     let reqparam = {
       'PatientId':this.user.PatientId,
     }

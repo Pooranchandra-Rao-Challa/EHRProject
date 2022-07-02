@@ -8,6 +8,7 @@ import { OverlayService } from 'src/app/overlay.service';
 import { ComponentType } from '@angular/cdk/portal';
 import { Actions } from 'src/app/_models';
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
+import { BehaviorSubject } from 'rxjs';
 
 declare var $: any;
 @Component({
@@ -27,7 +28,9 @@ export class DentalChartComponent implements OnInit {
   procedureDialogComponent = ProcedureDialogComponent;
   ActionTypes = Actions
   usedProcedures: MedicalCode;
-  patientProceduresView: ProceduresInfo[] = [];
+  procedureColumns: string[] = ['SELECT', 'START DATE', 'END DATE', 'TOOTH', 'SURFACE', 'CODE', 'DESCRIPTION', 'PROVIDER', 'STATUS', 'CQM STATUS','Encounter'];
+
+  patientProceduresView = new BehaviorSubject<ProceduresInfo[]> ([]);
 
   constructor(private overlayService: OverlayService,
     private dentalService: DentalChartService,
@@ -38,6 +41,10 @@ export class DentalChartComponent implements OnInit {
   ngOnInit(): void {
     this.patientUsedProcedures();
     this.patientProcedureView();
+    console.log(this.patientProceduresView);
+    console.log(this.currentPatient);
+
+
   }
 
   patientUsedProcedures(){
@@ -54,7 +61,9 @@ export class DentalChartComponent implements OnInit {
       .subscribe(resp =>
         {
           if(resp.IsSuccess){
-            this.patientProceduresView = resp.ListResult;
+            this.patientProceduresView.next(resp.ListResult as ProceduresInfo[]);
+            //console.log(this.patientProceduresView);
+
           }
         })
   }

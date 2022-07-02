@@ -36,7 +36,7 @@ export class AuditLogComponent implements OnInit {
   enddate: string;
   auditLogList: any = [];
   ProviderId: string;
-  
+
 
 
   search: any;
@@ -79,14 +79,14 @@ selection : any;
   }
 
   applyFilter(filterValue: string) {
-    debugger;
+
     console.log(this.search)
     console.log(this.selection)
     console.log(filterValue)
     if(this.selection){
       this.auditLogList.filter = this.selection.trim().toLowerCase() || this.search.trim().toLowerCase();
       console.log(this.auditLogList.filter);
-     
+
     }
     else
     {
@@ -138,7 +138,6 @@ selection : any;
   }
 
   applyFilter1(filterValue: string) {
-    debugger;
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.auditLogList.filter = filterValue;

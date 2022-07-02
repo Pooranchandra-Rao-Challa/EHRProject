@@ -23,8 +23,8 @@ export class AppointmentComponent {
   DialogResponse = null;
   PatientPastAppointmentsList: Appointments
   PatientUpcomingAppointmentsList: Appointments
-  
-  constructor(private overlayService :OverlayService,private patientservice: PatientService,private authenticationService: AuthenticationService,) { 
+
+  constructor(private overlayService :OverlayService,private patientservice: PatientService,private authenticationService: AuthenticationService,) {
     this.user = authenticationService.userValue
     // this.locationsInfo = JSON.parse(this.user.LocationInfo)
   }
@@ -59,9 +59,7 @@ getPatientPastAppointments()
 {
   var req={
      "PatientId": this.user.PatientId,
-    //  "PatientId":"62385146391cba10c7c20539"
   }
-  debugger;
   this.patientservice.PatientPastAppointments(req).subscribe(res=>{
     this.PatientPastAppointmentsList=res.ListResult;
     console.log(this.PatientPastAppointmentsList);
@@ -71,8 +69,8 @@ getPatientPastAppointments()
 getPatientUpcomingAppointments()
 {
   var req={
-    //  "PatientId": this.user.PatientId,
-    "PatientId":"62385146391cba10c7c20539"
+    "PatientId": this.user.PatientId,
+
   }
   this.patientservice.PatientUpcomingAppointments(req).subscribe(res=>{
     this.PatientUpcomingAppointmentsList=res.ListResult;

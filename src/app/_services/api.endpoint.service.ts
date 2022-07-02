@@ -139,12 +139,10 @@ export class APIEndPoint extends EndpointBase {
   }
 
   get _dropAppointmentStatusUrl() {
-    //debugger;
     return this._baseUrl + "DropAppointmentStatus";
   }
 
   get _dropRoomUrl() {
-    //debugger;
     return this._baseUrl + "DropRoom";
   }
 

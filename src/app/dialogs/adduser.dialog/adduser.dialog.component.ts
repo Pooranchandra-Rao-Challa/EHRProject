@@ -18,11 +18,9 @@ export class AddUserDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.filteredOptions = this.myControl.valueChanges.pipe(startWith(''), map(value => this.Filter(value)),);
-    // console.log("Data",JSON.stringify(this.filteredOptions));
   }
 
   Filter(value: string): string[] {
-    //debugger;
     if (value == "") {
       return ['Please enter 1 or more characters']
     }

@@ -71,12 +71,10 @@ export class PatientService extends APIEndPoint {
   }
 
   PatientProviders(reqparams: any) {
-    debugger;
     return this._ProcessPostRequest<any>(this._patientProviderUrl, reqparams);
   }
 
   PatientLocations(reqparams: any) {
-    debugger;
     return this._ProcessPostRequest<any>(this._patientLocationUrl, reqparams);
   }
   ProblemDx(reqparams: any) {

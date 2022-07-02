@@ -47,9 +47,7 @@ export class DownloadService {
   }
 
   getdownloadQRDA3MIPSReport<T>(reqObj: any) {
-    //debugger;
     const endpointUrl = this.DownloadQRDA3MIPSReport;
-    // console.log(endpointUrl);
 
     this.http
       .post(endpointUrl, reqObj, { observe: "response", responseType: "text" })

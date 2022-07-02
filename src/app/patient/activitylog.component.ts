@@ -32,10 +32,8 @@ export class ActivityLogComponent {
     {
       this.startDate = '';
       this.enddate = '';
-      //debugger;
       var reqparams={
         "PatientId": this.user.PatientId,
-        // ProviderId: "5b686dd4c832dd0c444f271b",
         from:this.startDate,
         to: this.enddate
       }
@@ -43,7 +41,6 @@ export class ActivityLogComponent {
     else{
       var reqparams={
         "PatientId": this.user.PatientId,
-        // ProviderId: "5b686dd4c832dd0c444f271b",
         from:this.startDate,
         to:this.enddate
       }

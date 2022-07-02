@@ -37,7 +37,6 @@ export class ListImportedDataComponent implements OnInit {
       });
     }
     onPageChange(index){
-      //debugger;
       this.importpatient =  this.premiumData
         .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
       this.getImportPatient();

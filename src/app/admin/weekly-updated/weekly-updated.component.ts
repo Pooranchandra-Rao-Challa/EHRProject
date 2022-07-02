@@ -45,7 +45,6 @@ export class WeeklyUpdatedComponent implements OnInit {
   }
 
   GetBodyData(row) {
-    debugger;
     this.RowIndex = row;
     let bodydata = this.WeeklyUpdatedList[row];
     this.DisplayTdBody = bodydata.Body;

@@ -17,11 +17,8 @@ export class ProviderConfirmationComponent implements OnInit {
   token: string;
 
   ngOnInit() {
-    //debugger;
     this.route.queryParams.subscribe(params => {
       this.token = params.token;
-      // console.log(this.token);
-
     });
     this.accountService.ProviderConfirmation({ token: this.token }).subscribe(resp => {
       this.message = resp.EndUserMessage

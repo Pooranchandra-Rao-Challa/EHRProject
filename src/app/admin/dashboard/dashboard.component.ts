@@ -114,7 +114,6 @@ export class DashboardComponent implements OnInit {
   }
 
   FilterProvider(eventType, event) {
-    debugger;
     if (eventType == 'ActiveStatus') {
       if (event == 'Active' && this.Active) {
         this.Suspended = false;
@@ -181,7 +180,6 @@ export class DashboardComponent implements OnInit {
 }
   // updte provider access
   providerPrimaryAccess() {
-    debugger;
     let reqparam =
     {
       ProviderId: this.Id,
@@ -198,7 +196,6 @@ export class DashboardComponent implements OnInit {
 
   // update trail/paid provider
   changeTraiPaidStatus(item) {
-    debugger;
     let trailvalue;
     if (item.Trial == 'Trail') {
       trailvalue = null;

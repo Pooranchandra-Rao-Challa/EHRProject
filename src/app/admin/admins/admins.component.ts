@@ -24,13 +24,11 @@ export class AdminsComponent implements OnInit {
 
   ngOnInit(): void {
     this.filteredOptions = this.myControl.valueChanges.pipe(startWith(''), map(value => this._filter(value)),);
-    // console.log("Data",JSON.stringify(this.filteredOptions));
     this.getAdminList();
   }
 
 
   getAdminList() {
-    //debugger
     this.adminservice.AdminList().subscribe(resp => {
       if (resp.IsSuccess) {
         this.adminDataSource = resp.ListResult;
@@ -43,7 +41,6 @@ export class AdminsComponent implements OnInit {
 
 
   private _filter(value: string): string[] {
-    //debugger;
     if (value == "") {
       return ['Please enter 1 or more characters']
     }
@@ -56,7 +53,6 @@ export class AdminsComponent implements OnInit {
   }
 
   isView() {
-    //debugger;
     this.isSave = true;
     this.isAddAdmin = false;
 
