@@ -256,8 +256,8 @@
                   <mat-label>Trigger Rule*
 
                   </mat-label>
-                  <mat-form-field appearance="outline" class="col-md-12">
-                    <mat-select required formControlName="triggerRule">
+                  <mat-form-field appearance="outline" class="col-md-12 trplaceholder">
+                    <mat-select panelClass="triggeralignment" required formControlName="triggerRule" placeholder="Trigger Rule">
                       <mat-option *ngFor="let trigger of TriggerRuleDD" [value]="trigger.value">
                         {{trigger.viewValue}}
                       </mat-option>

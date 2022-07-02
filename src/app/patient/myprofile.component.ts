@@ -1,3 +1,4 @@
+import { PatientNavbarComponent } from './../_navigations/patient.navbar/patient.navbar.component';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { PatientProfile } from './../_models/_patient/patientprofile';
 import { PatientService } from 'src/app/_services/patient.service';
@@ -50,7 +51,7 @@ GenderData:any=[
   { Id: '2', value: 'Female' },
   { Id: '3', value: 'other' },
 ]
-  constructor(private patientService: PatientService,private authenticationService: AuthenticationService,private alertmsg: AlertMessage) {
+  constructor(private patientService: PatientService,private authenticationService: AuthenticationService,private alertmsg: AlertMessage,private PatientNavbar:PatientNavbarComponent) {
     this.user = authenticationService.userValue;
     // console.log(this.user);
   }
@@ -81,7 +82,8 @@ GenderData:any=[
     this.patientService.UpdatePatientMyprofile(this.PatientProfile).subscribe(resp => {
       //debugger;
       if (resp.IsSuccess) {
-        this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP001"])
+        this.PatientNavbar.getPatientProfile();
+        this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP008"])
       }
       else {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP001"]);

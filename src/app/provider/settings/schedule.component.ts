@@ -5,7 +5,7 @@ import { User } from '../../_models';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { AppointmentStatus, AppointmentType, GeneralSchedule, RoomsSlot } from '../../_models/_provider/_settings/settings';
 import { IdService } from '../../_helpers/_id.service';
-import { AlertMessage } from './../../_alerts/alertMessage';
+import { AlertMessage, ERROR_CODES } from './../../_alerts/alertMessage';
 declare var $: any;
 
 @Component({
@@ -194,7 +194,6 @@ export class ScheduleComponent implements OnInit {
     findIndex !== -1 && this.typeOnEdit.splice(findIndex, 1)
   }
   isNewType(typeIndex: number) {
-    //debugger;
     let id = this.type().controls[typeIndex].get('Id').value;
     if (isNaN(Number(id))) {
       return false || this.typeOnEdit.findIndex(typeindex => typeindex === typeIndex) > -1;
@@ -292,9 +291,11 @@ export class ScheduleComponent implements OnInit {
       if (resp.IsSuccess) {
         this.clearSaveIndex(roomIndex);
         this.getRoomsForLocation();
+        this.alertmsg.displayMessageDailog(ERROR_CODES[!reqparams.RoomId ? "M2JSR001" : "M2JSR002"]);
       }
       else {
         this.getRoomsForLocation();
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2JSR001"]);
       }
     })
   }
@@ -313,9 +314,11 @@ export class ScheduleComponent implements OnInit {
       if (resp.IsSuccess) {
         this.clearSaveStatusIndex(statusIndex);
         this.getAppointmentStatus();
+        this.alertmsg.displayMessageDailog(ERROR_CODES[!reqparams.StatusId ? "M2JSAS001" : "M2JSAS002"]);
       }
       else {
         this.getAppointmentStatus();
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2JSAS001"]);
       }
     })
   }
@@ -334,16 +337,17 @@ export class ScheduleComponent implements OnInit {
       if (resp.IsSuccess) {
         this.clearSaveTypeIndex(typeIndex);
         this.getAppointmentType();
+        this.alertmsg.displayMessageDailog(ERROR_CODES[!reqparams.TypeId ? "M2JSAT001" : "M2JSAT002"]);
       }
       else {
         this.getAppointmentType();
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2JSAT001"]);
       }
     })
   }
 
   // Remove Room
   removeRoom(roomIndex: number) {
-    //debugger;
     let roomId = this.roomForm.controls.rooms["controls"][roomIndex].get('RoomId').value;
     if (roomId < 0) {
       this.rooms().removeAt(roomIndex);
@@ -351,6 +355,10 @@ export class ScheduleComponent implements OnInit {
     else {
       this.settingsService.DropRoom(roomId).subscribe(resp => {
         if (resp.IsSuccess) {
+          this.alertmsg.displayErrorDailog(ERROR_CODES["M2JSR003"]);
+          this.getRoomsForLocation();
+        }
+        else {
           this.getRoomsForLocation();
         }
       });
@@ -367,6 +375,7 @@ export class ScheduleComponent implements OnInit {
       this.settingsService.DropAppointmentStatus(statusId).subscribe(resp => {
         if (resp.IsSuccess) {
           this.getAppointmentStatus();
+          this.alertmsg.displayMessageDailog(ERROR_CODES["M2JSAS003"]);
         }
         else {
           this.getAppointmentStatus();
@@ -385,6 +394,7 @@ export class ScheduleComponent implements OnInit {
       this.settingsService.DropAppointmentType(typeId).subscribe(resp => {
         if (resp.IsSuccess) {
           this.getAppointmentType();
+          this.alertmsg.displayMessageDailog(ERROR_CODES["M2JSAT003"]);
         }
         else {
           this.getAppointmentType();
@@ -400,9 +410,6 @@ export class ScheduleComponent implements OnInit {
     };
     this.settingsService.Generalschedule(reqparams).subscribe((resp) => {
       this.generalSchedule = resp.ListResult[0];
-      // console.log(this.generalSchedule);
-      // console.log(this.generalSchedule.OutSidePracticeHour);
-
     })
   }
 

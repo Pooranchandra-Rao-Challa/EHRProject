@@ -172,9 +172,9 @@
 
                     		
 					 <div class="col-lg-12 col-md-12">
-                        <mat-label  class="Helvetica-sans-serif-small">Source of Payment Typology </mat-label>                      
-                        <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-12 ddl-width">
-                          <mat-select   [(ngModel)]="primlist.SourceOfPaymentTypology" placeholder="Source of Payment Typology">
+                        <mat-label  class="Helvetica-sans-serif-medium placehold">Source of Payment Typology </mat-label>                      
+                        <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-12 ddl-width ddhover">
+                          <mat-select panelClass="optionalignment"  [(ngModel)]="primlist.SourceOfPaymentTypology" placeholder="Source of Payment Typology">
                             <mat-select-filter  [displayMember]="'Code'" [array]="SourceOfPaymentTypologyCodesFilter" 
                               (filteredReturn)="SourceOfPaymentTypologyCodes = $event"></mat-select-filter>
                             <mat-option  *ngFor="let item of SourceOfPaymentTypologyCodes" [value]="item.Code" (click)="primaryspt(item)" >
@@ -385,12 +385,12 @@
                         </div>
                     </div>
 					 <div class="col-lg-12 col-md-12">
-                        <mat-label  class="Helvetica-sans-serif-small">Source of Payment Typology </mat-label>                      
-                        <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-12 ddl-width">
-                          <mat-select   [(ngModel)]="secList.SourceOfPaymentTypology" placeholder="Source of Payment Typology">
-                            <mat-select-filter [displayMember]="'Code'" [array]="SourceOfPaymentTypologyCodesFilter" 
+                        <mat-label  class="Helvetica-sans-serif-medium">Source of Payment Typology </mat-label>                      
+                        <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-12 ddl-width ddhover">
+                          <mat-select panelClass="optionalignment"  [(ngModel)]="secList.SourceOfPaymentTypology" placeholder="Source of Payment Typology">
+                            <mat-select-filter [displayMember]="'Code'" [array]="secondarySptcFilter" 
                               (filteredReturn)="SourceOfPaymentTypologyCodes = $event"></mat-select-filter>
-                            <mat-option  *ngFor="let item of SourceOfPaymentTypologyCodes" [value]="item.Code" (click)="secondaryspt(item)" >
+                            <mat-option  class="matpanelalignment" *ngFor="let item of SourceOfPaymentTypologyCodes" [value]="item.Code" (click)="secondaryspt(item)" >
                               {{item.Code}} - {{item.Description}}
                             </mat-option>
                           </mat-select>

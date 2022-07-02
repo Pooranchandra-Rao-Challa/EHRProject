@@ -1,5 +1,5 @@
 <div class="container-scroller">
-  <app-patient-navbar></app-patient-navbar>
+  <app-patient-navbar (LocationChanged)="locationChanged($event)" (Bredcrumchanged)="UpdateBredcrum($event)"></app-patient-navbar>
   <section class="home-section left-space">
     <div class="container-fluid page-body-wrapper">
       <div class="main-panel" style="width: 100%">

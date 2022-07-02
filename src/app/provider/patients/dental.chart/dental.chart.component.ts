@@ -16,7 +16,8 @@ declare var $: any;
   styleUrls: ['./dental.chart.component.scss']
 })
 export class DentalChartComponent implements OnInit {
-
+  hoverStartDate:string='Start Date';
+  hoverEndDate:string='End Date';
   AdultPrem: boolean = true;
   ChilPrim: boolean = false;
   displayStyle = "none";

@@ -42,9 +42,9 @@
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="DATEOFBIRTH*" class="form-label label-design">DATE OF BIRTH</label>
                   <mat-form-field appearance="outline" class="form-group profile-green-calendar">
-                    <input matInput class="pointer date-mat-class"
-                    [(ngModel)]="PatientMyProfile.DateOfBirth"  [matDatepicker]="picker"
-                        placeholder="_/_/__">
+                    <input matInput class="date-mat-class" autocomplete="off"  [(ngModel)]="PatientMyProfile.DateOfBirth"
+                    (mouseover)="hoverDATEOFBIRTH='_/__/_'"   (mouseleave)="hoverDATEOFBIRTH='MM/DD/YYYY'"
+                      [matDatepicker]="picker" (click)="picker.open()"  placeholder="{{ hoverDATEOFBIRTH }}">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                   </mat-form-field>
@@ -52,21 +52,13 @@
 
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="DATEOFDEATH" class="form-label label-design">DATE OF DEATH</label>
-                <mat-form-field appearance="outline" class="form-group profile-green-calendar ">
-                  <input matInput [matDatepicker]="picker1" placeholder="_/_/__"  name="dateofdeath"
-                  [(ngModel)]="PatientMyProfile.DateOfDeath">
-                  <mat-datepicker-toggle matSuffix [for]="picker1">
-                  </mat-datepicker-toggle>
-                  <mat-datepicker #picker1 disabled="false"></mat-datepicker>
-                </mat-form-field>
-
-                <!-- <mat-form-field appearance="outline" class="bg-claneder form-group grey-matform profile-green-calendar">
-                    <input matInput class="pointer date-mat-class" autocomplete="off"
-                    [(ngModel)]="PatientMyProfile.DateOfDeath"  [matDatepicker]="picker1"
-                      (click)="picker1.open()" readonly placeholder="DATE OF DEATH">
-                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                    <mat-datepicker #picker1></mat-datepicker>
-                  </mat-form-field> -->
+                  <mat-form-field appearance="outline" class="form-group profile-green-calendar">
+                    <input matInput class="date-mat-class"   [(ngModel)]="PatientMyProfile.DateOfDeath" autocomplete="off"
+                    (mouseover)="hoverDATEOFDEATH='_/__/_'"   (mouseleave)="hoverDATEOFDEATH='MM/DD/YYYY'"
+                      [matDatepicker]="picker" (click)="picker.open()"  placeholder="{{ hoverDATEOFDEATH }}">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                 </mat-form-field>
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="SOCIALSECURITYNUMBER" class="form-label label-design">SOCIAL SECURITY NUMBER</label>
@@ -432,16 +424,16 @@
               <label>Patient Relationship</label>
             </div>
             <div class="row  mx-2">
-
-              <div class="col-lg-2 col-md-2 col-xl-4 col-12"> </div>
-              <div class="col-lg-10 col-md-10 col-xl-8 col-12">
-
-                <div class="input-group py-3">
-                  <input type="text" name="SearchPatient" id="search_procedure_code" [(ngModel)]="SearchKey"
-                    class="form-control search-control" placeholder="Search Patient Users">
-                  <button class="btn btn-info btn-md" type="button" (click)="SearchDetails()">
-                    <i class="fa fa-search "></i>
-                  </button>
+              <div class="d-flex justify-content-end col-12">
+                <div class="find-procedure">
+                  <div class="form-group mx-3">
+                    <div class="input-group py-3"><input type="text" name="search_procedure_code"
+                       id="search_procedure_code" class="form-control search-control" placeholder="Search Procedure(s)">
+                      <button class="btn btn-info btn-md" type="button">
+                        <i class="fa fa-search "></i>
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
 

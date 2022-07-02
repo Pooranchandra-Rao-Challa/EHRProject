@@ -719,36 +719,48 @@
         </div>
 
         <div class="row my-3 ">
-          <div class="col-lg-4 col-md-4 col-sm-4"><label><b class="label-heading">Start Date</b></label>
-            <div class="input-group"><input class="form-control date-picker input-bg" placeholder="Start Date"
-                type="text" name="procedure[date]" id="procedure_date"></div>
+          <div class="col-lg-2 col-md-2 col-sm-3">
+            <label><b class="label-heading">Start Date</b></label>
+            <div class="input-group">
+                 <mat-form-field appearance="outline" class="form-group profile-green-calendar">
+                  <input matInput class="date-mat-class" autocomplete="off"
+                  (mouseover)="hoverStartDate='_/__/_'" readonly  (mouseleave)="hoverStartDate='Start Date'"
+                    [matDatepicker]="picker" (click)="picker.open()"  placeholder="{{ hoverStartDate }}">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
           </div>
-
+          </div>
           <div class="col-lg-4 col-md-4 col-sm-4">
-            <label class="label-design">Tooth: {{DentalNumber}}</label>
+            <label class="label-design label-Tooth">Tooth: {{DentalNumber}}</label>
           </div>
-          <div class="col-lg-4 col-md-4 col-sm-4"><label><b class="label-heading">Status</b></label>
+          <div class="col-lg-4 col-md-4 col-sm-4" style="margin-left: 106px;"
+          ><label><b class="label-heading">Status</b></label>
             <div class="input-group ">
-              <select id="cars" name="Status" class="text-color form-control">
-                <option value="Treatment planned">Treatment planned</option>
-                <option value="Completed">Completed</option>
-                <option value="Existing Curr. Provider">Existing Curr. Provider</option>
-                <option value="Existing Other">Existing Other</option>
-                <option value="Condition">Condition</option>
-                <option value="Referred">Referred</option>
-              </select>
-
+              <mat-form-field appearance="outline">
+                <mat-select placeholder="Select One">
+                  <mat-option>Treatment planned</mat-option>
+                  <mat-option>Completed</mat-option>
+                  <mat-option>Existing Curr. Provider</mat-option>
+                  <mat-option>Existing Other</mat-option>
+                  <mat-option>Condition</mat-option>
+                  <mat-option>Referred</mat-option>
+                </mat-select>
+              </mat-form-field>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-4 col-md-4 col-sm-4"><label><b class="label-heading">End Date</b></label>
-            <div class="input-group"><input class="form-control date-picker input-bg" placeholder="End Date" type="text"
-                name="procedure[date]" id="procedure_date "></div>
+
+          <div class="col-lg-3 col-md-3 col-sm-4 mt-2"><label><b class="label-heading">End Date</b></label>
+            <div class="input-group">
+              <mat-form-field appearance="outline" class="form-group profile-green-calendar">
+               <input matInput class="date-mat-class" autocomplete="off"
+               (mouseover)="hoverEndDate='_/__/_'" readonly  (mouseleave)="hoverEndDate='End Date'"
+                 [matDatepicker]="picker" (click)="picker.open()"  placeholder="{{ hoverEndDate }}">
+               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+               <mat-datepicker #picker></mat-datepicker>
+             </mat-form-field>
           </div>
-
         </div>
-
 
         <div class="row  row-heading my-3 ">
           <div class="col-lg-12  col-md-4 col-sm-4">
@@ -884,9 +896,10 @@
 
         <div class="row  my-3 ">
           <div class="col-lg-12 col-md-4 col-sm-4 mb-2">
-            <div class="input-group"><input type="text" name="search_procedure_code" id="search_procedure_code"
+            <div class="input-group searchbox">
+              <input type="text" name="search_procedure_code" id="search_procedure_code"
                 class="form-control input-bg" placeholder="Search Reasons">
-              <button class="btn btn-search btn-md" type="button">
+              <button class="btn btn-searchs btn-md" type="button">
                 <i class="fa fa-search fa-search-icon"></i>
               </button>
             </div>
@@ -924,7 +937,7 @@
             </div>
           </div>
         </div>
-      </div>
+
 
 
       <div class="modal-footer">

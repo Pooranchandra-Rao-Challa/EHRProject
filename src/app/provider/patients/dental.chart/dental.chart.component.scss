@@ -1,4 +1,5 @@
 @import"../../../../assets/common.scss";
+@import"../../../../assets/cstm.material.scss";
 
 .nav-tabs li a {
   color: #41b6a6;
@@ -423,7 +424,7 @@ div.modal-scrollbar {
   font-size: 16px;
   font-family: 'Roboto' !important;
 }
-.btn-search {
+.btn-searchs {
   color: white;
   background-color: #d0d2db;
   width: 65px;
@@ -541,4 +542,18 @@ ul li, ol li, dl li {
   color: #41a6b6;
   cursor: pointer;
   text-decoration: underline;
+}
+.input-group.searchbox .input-bg{
+  background-color: white;
+  border: 1px solid #41b6a6;
+  color: #41b6a6;
+}
+.input-group.searchbox .input-bg:hover{
+  background-color: #f3faf9;
+}
+.profile-green-calendar{
+  width: 220% !important;
+}
+.label-design.label-Tooth{
+  margin-left: 112px;
 }

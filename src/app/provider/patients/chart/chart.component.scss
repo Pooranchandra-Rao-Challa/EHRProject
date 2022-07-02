@@ -234,6 +234,18 @@ input.new-search::placeholder {
   list-style-type: none;
   padding-left: 0;
 }
+.freq-used-list,
+.freq-used-list ul {
+  list-style-type: none;
+  padding: 0px;
+}
+
+.freq-used-list li:hover {
+  background-color: #41b6a6;
+  color: #fff;
+  text-decoration: underline;
+  cursor: pointer !important;
+}
 
 .cstm-icon-pencil {
   width: 25px;
