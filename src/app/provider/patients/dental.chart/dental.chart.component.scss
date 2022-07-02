@@ -530,3 +530,15 @@ ul li, ol li, dl li {
 .list-group.child-list{
   padding-left: 12px !important;
 }
+
+.tree-leaf-item{
+  padding: 5px 0;
+  color: black;
+  cursor: pointer;
+}
+
+.tree-leaf-item:hover{
+  color: #41a6b6;
+  cursor: pointer;
+  text-decoration: underline;
+}

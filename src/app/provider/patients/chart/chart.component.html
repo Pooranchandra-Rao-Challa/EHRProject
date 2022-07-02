@@ -61,7 +61,7 @@
         <div class="row pull-right" style="padding-right: 13px;">
           <a class="btn btn-green col-lg-4 col-md-4 col-12 mt-2 mt-lg-0" id="check-alerts">Check CDS Alerts</a>
           <a class="btn btn-green col-lg-4 col-md-4 col-12 mt-2 mt-lg-0">Refresh Chart</a>
-          <a class="btn btn-orange col-md-4 col-12 mt-2 mt-lg-0" data-remote="true"
+          <a class="btn btn-orange col-md-4 col-12 mt-2 mt-lg-0"
             (click)="openComponentDialog(encounterDialogComponent,null,ActionTypes.new)">New
             encounter note
           </a>
@@ -425,7 +425,7 @@
               </div>
               <div class="card-body">
                 <ul class="main-list" *ngFor="let encounter of chartInfo.Encounters">
-                  <li *ngIf="!encounter.Signed">
+                  <li>
                     <a (click)="openComponentDialog(encounterDialogComponent,encounter,ActionTypes.new)">
                       <span *ngIf="encounter?.ServicedAt != null && encounter?.ServicedAt !=''">
                         - {{encounter?.ServicedAt | date: 'MM/dd/yyyy'}}
@@ -437,19 +437,11 @@
                         - {{encounter?.VisitingReason}}
                       </span>
                     </a>
-                  </li>
-                  <li *ngIf="encounter.Signed">
-                    <a>
-                      <span *ngIf="encounter?.ServicedAt != null && encounter?.ServicedAt !=''">
-                        - {{encounter?.ServicedAt | date: 'MM/dd/yyyy'}}
-                      </span>
-                      <span *ngIf="encounter?.ServiceEndAt != null && encounter?.ServiceEndAt !=''">
-                        - {{encounter?.ServiceEndAt | date: 'MM/dd/yyyy'}}
-                      </span>
-                      <span *ngIf="encounter?.VisitingReason != null && encounter?.VisitingReason !=''">
-                        - {{encounter?.VisitingReason}}
-                      </span>
-                    </a>
+                    <div style="float: right;" *ngIf="encounter.Signed">
+                      <div mat-icon-button class="folder-node">
+                      <i class="fa fa-plus icons-design" ></i>
+                      </div>
+                    </div>
                   </li>
                 </ul>
                 <ul class="main-list" *ngIf="chartInfo.Encounters?.length == (0 || null || undefined)">

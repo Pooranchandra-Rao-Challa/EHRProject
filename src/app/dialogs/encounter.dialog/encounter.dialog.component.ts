@@ -242,7 +242,7 @@ export class EncounterDialogComponent implements OnInit {
   }
 
   optionChangedForDiagnosis(value: MedicalCode) {
-    let d: EncounterDiagnosis = new EncounterDiagnosis;
+    let d: EncounterDiagnosis = new EncounterDiagnosis();
     d.Code = value.Code
     d.CodeSystem = value.CodeSystem
     d.Description = value.Description
@@ -252,14 +252,15 @@ export class EncounterDialogComponent implements OnInit {
   }
 
   onProceduresRecommended(value: MedicalCode) {
-    let p: ProceduresInfo = new ProceduresInfo;
+    let p: ProceduresInfo = new ProceduresInfo();
     p.Code = value.Code
     p.CodeSystem = value.CodeSystem
     p.Description = value.Description
     p.CanDelete = false;
     p.Status = "Treatment planned";
-    this.encounterInfo.RecommendedProcedures.push(p);
-    this.recommendedProcedures.next(this.encounterInfo.RecommendedProcedures.filter(fn => fn.CanDelete === false));
+    //this.encounterInfo.RecommendedProcedures.push(p);
+    this.recommendedProcedures.next(
+      this.encounterInfo.RecommendedProcedures.filter(fn => fn.CanDelete === false));
   }
 
   onProcedureCompleted(value: MedicalCode) {
@@ -319,6 +320,8 @@ export class EncounterDialogComponent implements OnInit {
 
 
   updateEncounter(){
+
+    console.log(this.encounterInfo);
     let isAdd = this.encounterInfo.EncounterId == null;
 
     this.patientService.CreateEncounter(this.encounterInfo).subscribe(resp => {
@@ -327,7 +330,7 @@ export class EncounterDialogComponent implements OnInit {
         this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2AE001" : "M2AE002"])
       }else{
         this.overlayref.close();
-        this.alertmsg.displayErrorDailog(ERROR_CODES["E2AE001"])
+        this.alertmsg.displayErrorDailog(ERROR_CODES[isAdd ? "E2AE001" : "E2AE002"])
       }
     });
   }

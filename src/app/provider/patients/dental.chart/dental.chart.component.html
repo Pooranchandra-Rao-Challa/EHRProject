@@ -18,7 +18,8 @@
     </div>
     <div class="col-lg-2 col-md-2 col-2 ">
 
-      <button type="button" class="btn btn-orange py-2 px-4" style="float:right;">New Treatment</button>
+      <button type="button" class="btn btn-orange py-2 px-4" style="float:right;"
+      (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,null,null)" >New Treatment</button>
     </div>
   </div>
 </div>
@@ -608,7 +609,13 @@
           </div>
         </div>
         <div [ngClass]="AdultPrem?'adult-frequnecy':'child-frequnecy'">
-          <ul class="main-list used_procedures"></ul>
+          <ul class="main-list used_procedures" >
+              <li *ngFor="let usedProcedure of usedProcedures">
+                <div class="tree-leaf-item" (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,null,usedProcedure)">
+                  {{usedProcedure.Code + "-" + usedProcedure.Description }}
+                </div>
+              </li>
+          </ul>
         </div>
 
       </div>
@@ -658,7 +665,9 @@
             <th class="text-center">Encounter</th>
           </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+
+        </tbody>
       </table>
     </div>
   </div>
@@ -668,7 +677,7 @@
 
 
 <!--Adult dental-chart Modal -->
-
+<!--
 <div class="modal fade" id="AdultDentalModal" tabindex="-1" aria-labelledby="AdultDentalModal" aria-hidden="true"
   [ngStyle]="{'display':displayStyle}">
   <div class="modal-dialog" role="document">
@@ -924,4 +933,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->

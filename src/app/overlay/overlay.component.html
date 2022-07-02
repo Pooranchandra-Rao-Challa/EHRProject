@@ -1,4 +1,4 @@
-<div style="height: 100% ;">
+
   <ng-container [ngSwitch]="contentType">
 
     <ng-container *ngSwitchCase="'string'">
@@ -16,8 +16,9 @@
     </ng-container>
 
   </ng-container>
-</div>
+
 
 <!-- You can also add a global close button -->
 <button (click)="close()" class="modal-close is-large" aria-label="close">
+  <mat-icon>close</mat-icon>
 </button>
