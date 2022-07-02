@@ -258,7 +258,7 @@ export class EncounterDialogComponent implements OnInit {
     p.Description = value.Description
     p.CanDelete = false;
     p.Status = "Treatment planned";
-    //this.encounterInfo.RecommendedProcedures.push(p);
+    this.encounterInfo.RecommendedProcedures.push(p);
     this.recommendedProcedures.next(
       this.encounterInfo.RecommendedProcedures.filter(fn => fn.CanDelete === false));
   }
@@ -320,8 +320,6 @@ export class EncounterDialogComponent implements OnInit {
 
 
   updateEncounter(){
-
-    console.log(this.encounterInfo);
     let isAdd = this.encounterInfo.EncounterId == null;
 
     this.patientService.CreateEncounter(this.encounterInfo).subscribe(resp => {
