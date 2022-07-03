@@ -53,7 +53,7 @@
                   panel1.expanded ? 'fa fa-compress' : 'fa fa-expand'
                 }}"></i>
             </mat-expansion-panel-header>
-            <div class="scrollable-table">
+            <div class="scrollable-table" style="overflow-y:auto;overflow-x:hidden">
               <div class="table-container">
                 <div class="table-appointments-for-today table table-dashboard finished_appointments">
                   <div class="row text-center table-header">
@@ -68,6 +68,7 @@
                   <div class="noappintment" *ngIf="Appointments!= null && Appointments.length == 0">
                     You don't have any appointments for today
                   </div>
+
                   <div class="row text-center table-body"  *ngFor="let appointment of Appointments" >
 
                     <div class="col-md-1 col-1 appointment-time appintment-link" *ngIf="appointment.IsCurrent"
@@ -80,6 +81,8 @@
                       (click)="openComponentDialog(appointmentDialogComponent,appointment,ActionsType.view)">
                       <div>{{appointment.PatientName}}</div>
                       <div>DOB: {{appointment.DateofBirth | date:'MMM d, y'}}</div>
+                      <div *ngIf="appointment.PrimaryPhone">H: {{appointment.PrimaryPhone}}</div>
+                      <div *ngIf="appointment.MobilePhone">M: {{appointment.MobilePhone}}</div>
                     </div>
                     <div class="col-md-2 col-2 provider" *ngIf="appointment.IsCurrent" >{{appointment.ProviderName}}</div>
                     <div class="col-md-2 col-2 visit-status" *ngIf="appointment.IsCurrent">
@@ -106,8 +109,8 @@
                         Record Encounter
                       </button>
                     </div>
-
                   </div>
+
                 </div>
               </div>
             </div>

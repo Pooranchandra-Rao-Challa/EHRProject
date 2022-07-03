@@ -119,28 +119,11 @@ export class EncounterDialogComponent implements OnInit {
       this.encounterInfo.EncounterCode = ""
       this.encounterInfo.EncounterCodeSystem ="";
       this.encounterInfo.EncounterDescription ="";
-      this.encounterInfo.SummaryCareRecordRefIn = false;
-      this.encounterInfo.SummaryCareRecordRefOut = false;
-      this.encounterInfo.DeclinedToReceiveSummary = false;
-      this.encounterInfo.MedicationAllergyReconciliationCompleted = false;
-      this.encounterInfo.DiagnosisReconciliationCompleted = false;
-      this.encounterInfo.NewPatientEncounter = false;
-      this.encounterInfo.medCompleted = null;
-      this.encounterInfo.HealthInfoExchange = null;
-
     }else{
       this.encounterInfo.EncounterType = "";
       this.encounterInfo.EncounterCode = "99213"
       this.encounterInfo.EncounterCodeSystem ="SNOMED";
       this.encounterInfo.EncounterDescription ="Office or Other Outpatient Visit";
-      this.encounterInfo.SummaryCareRecordRefIn = null;
-      this.encounterInfo.SummaryCareRecordRefOut = null;
-      this.encounterInfo.DeclinedToReceiveSummary = null;
-      this.encounterInfo.MedicationAllergyReconciliationCompleted = null;
-      this.encounterInfo.DiagnosisReconciliationCompleted = null;
-      this.encounterInfo.NewPatientEncounter = null;
-      this.encounterInfo.medCompleted = false;
-      this.encounterInfo.HealthInfoExchange = false;
     }
   }
 
@@ -232,11 +215,9 @@ export class EncounterDialogComponent implements OnInit {
 
   removeCompletedProcedure(value: ProceduresInfo, index: number) {
     value.CanDelete = true;
-   // this.completedProcedures.next(this.encounterInfo.CompletedProcedures.filter(fn => fn.CanDelete === false));
   }
 
   removeEncounterDiagnosis(value: EncounterDiagnosis, index: number) {
-    //let n = this.encounterInfo.Diagnoses.indexOf(value)
     value.CanDelete = true;
     this.diagnosesInfo.next(this.encounterInfo.Diagnoses.filter(fn => fn.CanDelete === false));
   }
@@ -270,7 +251,6 @@ export class EncounterDialogComponent implements OnInit {
     p.Description = value.Description
     p.CanDelete = false;
     this.encounterInfo.CompletedProcedures.push(p);
-   // this.completedProcedures.next(this.encounterInfo.CompletedProcedures.filter(fn => fn.CanDelete === false));
   }
 
 
@@ -290,7 +270,6 @@ export class EncounterDialogComponent implements OnInit {
 
   showAssociateVitals: boolean = true;
   displayVitalsDialog(event) {
-    //debugger;
     if (event == true) {
       this.showAssociateVitals = true;
     }
@@ -321,7 +300,6 @@ export class EncounterDialogComponent implements OnInit {
 
   updateEncounter(){
     let isAdd = this.encounterInfo.EncounterId == null;
-
     this.patientService.CreateEncounter(this.encounterInfo).subscribe(resp => {
       if (resp.IsSuccess) {
         this.overlayref.close({"UpdatedModal": PatientChart.Encounters});
