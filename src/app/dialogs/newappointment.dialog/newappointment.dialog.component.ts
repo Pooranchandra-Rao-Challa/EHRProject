@@ -9,13 +9,17 @@ import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service
 import { PracticeProviders } from '../../_models/_provider/practiceProviders';
 import { EHROverlayRef } from '../../ehr-overlay-ref';
 import { AlertMessage,ERROR_CODES } from 'src/app/_alerts/alertMessage';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 
 
 @Component({
   selector: 'app-newappointment.dialog',
   templateUrl: './newappointment.dialog.component.html',
-  styleUrls: ['./newappointment.dialog.component.scss']
+  styleUrls: ['./newappointment.dialog.component.scss'],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'en-US' },
+  ]
 })
 export class NewAppointmentDialogComponent implements OnInit {
   PatientAppointment: NewAppointment;
@@ -62,6 +66,13 @@ export class NewAppointmentDialogComponent implements OnInit {
     if (data.status == Actions.view && data.PatientAppointment.AppointmentId != null) {
       this.LoadAvailableTimeSlots();
     }
+    if(this.PatientAppointment && this.PatientAppointment.Startat != null)
+      this.todayDate = this.PatientAppointment.Startat;
+    else
+      this.PatientAppointment.Startat = this.todayDate;
+
+      console.log(this.PatientAppointment);
+
 
   }
 
@@ -131,7 +142,7 @@ export class NewAppointmentDialogComponent implements OnInit {
   }
 
   close() {
-    this.ref.close(null);
+    this.ref.close({'closed':true});
   }
 
   ClearTimeSlots() {
@@ -192,12 +203,15 @@ export class NewAppointmentDialogComponent implements OnInit {
 
   onAppointmentSave() {
     this.PatientAppointment.AppointmentTime = this.PatientAppointment.TimeSlot.StartDateTime;
+    console.log(this.PatientAppointment.AppointmentTime);
+    console.log(this.PatientAppointment);
+
     let isAdd = this.PatientAppointment.AppointmentId == null;
     this.SaveInputDisable = true;
     this.smartSchedulerService.CreateAppointment(this.PatientAppointment).subscribe(resp => {
       if (resp.IsSuccess) {
         this.onError = false;
-        this.close();
+        this.ref.close({'saved':true});
         this.OperationMessage = resp.EndUserMessage;
         this.alert.displayMessageDailog(ERROR_CODES[isAdd ? "M2AA001" :"M2AA002"]);
       }

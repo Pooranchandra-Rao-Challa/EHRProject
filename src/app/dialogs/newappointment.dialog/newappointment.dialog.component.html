@@ -63,7 +63,6 @@
               <mat-select id="selSmartRooms" placeholder="Select One" disableOptionCentering
                 [(ngModel)]="PatientAppointment.RoomId" (selectionChange)="ClearTimeSlots()"
                 [ngModelOptions]="{standalone:true}">
-
                 <mat-option *ngFor="let room of Rooms" [value]="room.RoomId">{{room.RoomName}}</mat-option>
               </mat-select>
             </mat-form-field>
@@ -112,9 +111,8 @@
       </form>
     </div>
     <div class="modal-footer">
-      <!--data-bs-dismiss="modal" data-remote="true" -->
       <button class="btn btn-default  btn-appointment-cancel-right" [hidden]="PatientAppointment.AppointmentId == null"
-        (click)="cancelAppointment(PatientAppointment.AppointmentId)">Cancel</button>
+        (click)="cancelAppointment(PatientAppointment.AppointmentId)">Delete</button>
       <button class="btn btn-green col-md-4 col-7" [disabled]="DiabledAppointmentSave()"
         (click)="onAppointmentSave()">Save
         Appointment</button>
@@ -124,4 +122,4 @@
     </div>
   </div>
 </div>
-<!--</div>-->
+

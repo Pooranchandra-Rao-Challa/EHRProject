@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { AvailableTimeSlot, NewAppointment,Actions,
         AppointmentDialogInfo, PatientSearchResults,
@@ -16,22 +17,11 @@ import { A } from '@angular/cdk/keycodes';
 })
 export class UpcomingAppointmentsDialogComponent implements OnInit {
   AppointmentsOfPatient: NewAppointment[];
-  messageToShowTimeSlots: string;
-  PatientAppointment: NewAppointment;
-  SaveInputDisable: boolean;
-  AvaliableTimeSlots: AvailableTimeSlot[]
-  SelectedProviderId: string;
-  Locations: UserLocations[];
-  public flag: boolean = true;
-  appointmentTitle: string;
   appointmentId: string;
-  Appointments: ScheduledAppointment[];
-  public selectedPatient: PatientSearchResults;
-  SelectedLocationId: string;
   data: AppointmentDialogInfo
   newAppointmentDialogComponent = NewAppointmentDialogComponent;
   appointmentDialogResponse: any;
-
+  dialogIsLoading: boolean = false;
   constructor(
     private ref: EHROverlayRef,
     private smartSchedulerService: SmartSchedulerService,
@@ -49,37 +39,20 @@ export class UpcomingAppointmentsDialogComponent implements OnInit {
   }
 
 
-
   PatientAppointments(PatientId) {
     let req = {
       "PatientId": PatientId
     };
 
     this.smartSchedulerService.ActiveAppointments(req).subscribe(resp => {
+      this.dialogIsLoading = true;
       if (resp.IsSuccess) {
         this.AppointmentsOfPatient = resp.ListResult as ScheduledAppointment[];
+        this.dialogIsLoading = false;
       }
     });
   }
 
-
-  confirmAppointment() {
-    if (this.appointmentId != null) {
-      this.smartSchedulerService.ConfirmAppointmentCancellation({ AppointmentId: this.appointmentId })
-        .subscribe(resp => {
-          if (resp.IsSuccess) {
-            this.appointmentId = null;
-            //this.OperationMessage = resp.EndUserMessage;
-
-            //OpenSaveSuccessAppointment();
-          }
-          else {
-            //this.SaveInputDisable = false;
-            //this.OperationMessage = "Appointment is not saved"
-          }
-        });
-    }
-  }
 
   ViewAppointment(content,status,patientapp?:NewAppointment) {
     if(status == 'view') {
@@ -90,13 +63,12 @@ export class UpcomingAppointmentsDialogComponent implements OnInit {
       this.data.PatientAppointment.AppointmentStatusId = patientapp.AppointmentStatusId;
       this.data.PatientAppointment.AppointmentTypeId = patientapp.AppointmentTypeId;
       this.data.PatientAppointment.Notes = patientapp.Notes;
+      this.data.PatientAppointment.RoomId = patientapp.RoomId;
     }
     else {
       this.data.status = Actions.new;
       this.data.Title = "Add New Appointment";
     }
-
-    this.ref.close("upcomming dialog closed");
     this.openComponentDialog(content);
   }
 
@@ -104,9 +76,12 @@ export class UpcomingAppointmentsDialogComponent implements OnInit {
     const ref = this.overlayService.open(content,this.data );
     ref.afterClosed$.subscribe(res => {
        if (content === this.newAppointmentDialogComponent) {
-        this.appointmentDialogResponse = res.data;
+        if(res.data && res.data.saved){
+          this.ref.close({'saved':true});
+        } else if(res.data && res.data.closed){
+          this.ref.close({'closed':true});
+        }
       }
-
     });
 
 

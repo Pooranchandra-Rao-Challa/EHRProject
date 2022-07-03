@@ -204,3 +204,19 @@ button#dob.btn-outline-secondary.calendar {
 .btn.btn-green{
   height: 45px;
 }
+
+::ng-deep .mat-focus-indicator.mat-icon-button{
+  background: #cfd2db;
+  border: 0px;
+}
+
+::ng-deep  .mat-datepicker-toggle.mat-datepicker-toggle button.mat-focus-indicator.mat-icon-button{
+  background: #cfd2db;
+  border: 0px;
+}
+
+::ng-deep mat-datepicker-toggle.mat-datepicker-toggle button.mat-icon-button span.mat-button-wrapper svg.mat-datepicker-toggle-default-icon > path{
+  fill: gray;
+  stroke: #a9a9a9;
+  stroke-linejoin: round;
+}

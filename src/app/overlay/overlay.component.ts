@@ -14,9 +14,9 @@ export class OverlayComponent implements OnInit {
 
   constructor(private ref: EHROverlayRef) {}
 
-  close() {
-    this.ref.close(null);
-  }
+  // close() {
+  //   this.ref.close(null);
+  // }
 
   ngOnInit() {
     this.content = this.ref.content;
