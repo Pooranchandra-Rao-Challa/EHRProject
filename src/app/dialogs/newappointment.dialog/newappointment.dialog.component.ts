@@ -60,7 +60,7 @@ export class NewAppointmentDialogComponent implements OnInit {
     this.PracticeProviders = data.PracticeProviders;
     this.Locations = data.Locations;
     this.Rooms = data.Rooms;
-    if (this.Rooms.length == 1)
+    if (this.Rooms && this.Rooms.length == 1)
       this.PatientAppointment.RoomId = this.Rooms[0].RoomId;
 
     if (data.status == Actions.view && data.PatientAppointment.AppointmentId != null) {
