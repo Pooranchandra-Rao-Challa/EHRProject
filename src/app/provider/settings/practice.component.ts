@@ -242,11 +242,11 @@ export class PracticeComponent implements OnInit, AfterViewInit {
     const ref = this.overlayService.open(content, dialogData);
     ref.afterClosed$.subscribe(res => {
       if (content === this.userDialogComponent) {
-        if(res.data.saved){
+        if(res.data != null && res.data.saved){
           this. getProviderDetails();
         }
       }else if(content === this.locationDialogComponent){
-        if(res.data.saved){
+        if(res.data != null && res.data.saved){
           this. practiceLocations();
         }
       }

@@ -6,16 +6,19 @@ import { AdvancedDirectivesDialogComponent } from '../../../dialogs/advanced.dir
 import { SmokingStatusDialogComponent } from 'src/app/dialogs/smoking.status.dialog/smoking.status.dialog.component';
 import { InterventionDialogComponent } from 'src/app/dialogs/intervention.dialog/intervention.dialog.component';
 import { PatientService } from '../../../_services/patient.service';
-import { ScheduledAppointment,
+import {
+  ScheduledAppointment,
   AdvancedDirective, ChartInfo, PatientChart, Allergy, EncounterDiagnosis, PastMedicalHistory, Actions,
   Immunizations, Medications, EncounterInfo, NewAppointment, SmokingStatus, TobaccoUseScreenings, TobaccoUseInterventions,
-  Diagnosis, AllergyType, SeverityLevel, OnSetAt, Allergens, AllergyReaction, DiagnosisDpCodes
+  Diagnosis, AllergyType, SeverityLevel, OnSetAt, Allergens, AllergyReaction, DiagnosisDpCodes, PracticeProviders, AppointmentTypes, UserLocations, Room, AppointmentDialogInfo
 } from 'src/app/_models';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { DatePipe } from "@angular/common";
 const moment = require('moment');
 import { EncounterDialogComponent } from '../../../dialogs/encounter.dialog/encounter.dialog.component';
+import { NewAppointmentDialogComponent } from 'src/app/dialogs/newappointment.dialog/newappointment.dialog.component';
+import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
 
 
 @Component({
@@ -28,7 +31,7 @@ export class ChartComponent implements OnInit {
   smokingStatusDialogComponent = SmokingStatusDialogComponent;
   interventionDialogComponent = InterventionDialogComponent;
   encounterDialogComponent = EncounterDialogComponent;
-
+  appointmentDialogComponent = NewAppointmentDialogComponent;
   // advancedDirectives: AdvancedDirective[];
   patientDiagnoses: Diagnosis = new Diagnosis();
   patientAllergy: Allergy = new Allergy();
@@ -45,45 +48,62 @@ export class ChartComponent implements OnInit {
   onsetAt: OnSetAt[];
   allergens: Allergens[];
   allergyReaction: AllergyReaction[];
-  dpDxCodes: DiagnosisDpCodes[];
+  DxCodes: DiagnosisDpCodes[];
   currentPatient: ProviderPatient;
   ActionTypes = Actions;
   chartInfo: ChartInfo = new ChartInfo;
+  PatientAppointment: NewAppointment
+  PracticeProviders: PracticeProviders[]
+  AppointmentTypes: AppointmentTypes[]
+  Locations: UserLocations[]
+  Rooms: Room[]
+
   constructor(public overlayService: OverlayService,
     private patientService: PatientService,
     private authService: AuthenticationService,
     private alertmsg: AlertMessage,
-    public datepipe: DatePipe) {
+    public datepipe: DatePipe,
+    private smartSchedulerService: SmartSchedulerService) {
   }
 
   ngOnInit(): void {
+    this.enums();
+    this.currentPatient = this.authService.viewModel.Patient;
+    this.ChartInfo();
+    this.loadDefaults();
+  }
+
+  enums() {
     this.allergyType = Object.values(AllergyType);
     this.severityLevel = Object.values(SeverityLevel);
     this.onsetAt = Object.values(OnSetAt);
     this.allergens = Object.values(Allergens);
     this.allergyReaction = Object.values(AllergyReaction);
-    this.dpDxCodes = Object.values(DiagnosisDpCodes);
-    this.currentPatient = this.authService.viewModel.Patient;
-    this.ChartInfo();
+    this.DxCodes = Object.values(DiagnosisDpCodes);
   }
 
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
-    dialogData, actions: Actions = this.ActionTypes.add) {
+    dialogData, action: Actions = this.ActionTypes.add) {
     let reqdata: any;
-    if (actions == Actions.view && content === this.advancedDirectivesDialogComponent) {
+    if (action == Actions.view && content === this.advancedDirectivesDialogComponent) {
       reqdata = dialogData;
     }
-    else if (actions == Actions.view && content === this.smokingStatusDialogComponent) {
+    else if (action == Actions.view && content === this.smokingStatusDialogComponent) {
       reqdata = dialogData;
     }
-    else if (actions == Actions.new && content === this.encounterDialogComponent) {
-      if(dialogData != null) reqdata = dialogData as ScheduledAppointment;
+    else if (action == Actions.new && content === this.encounterDialogComponent) {
+      if (dialogData != null) reqdata = dialogData as ScheduledAppointment;
       else reqdata = this.authService.viewModel.Patient;
-      if(reqdata.PatientId == null)
+      if (reqdata.PatientId == null)
         reqdata.PatientId = this.currentPatient.PatientId;
       console.log(reqdata);
 
+    } else if(action == Actions.new && content === this.appointmentDialogComponent){
+      reqdata = this.PatientAppointmentInfo(action);
     }
+
+    console.log(reqdata);
+
     const ref = this.overlayService.open(content, reqdata);
     ref.afterClosed$.subscribe(res => {
 
@@ -92,13 +112,13 @@ export class ChartComponent implements OnInit {
   }
 
   UpdateView(data) {
-    if(data == null) return;
+    if (data == null) return;
     if (data.UpdatedModal == PatientChart.AdvancedDirectives) {
       this.AdvancedDirectivesByPatientId();
     }
     else if (data.UpdatedModal == PatientChart.SmokingStatus) {
       this.SmokingStatusByPatientId();
-    }else if (data.UpdatedModal == PatientChart.Encounters) {
+    } else if (data.UpdatedModal == PatientChart.Encounters) {
       this.EncountersByPatientId();
     }
 
@@ -106,7 +126,7 @@ export class ChartComponent implements OnInit {
 
   ChartInfo() {
     this.patientService.ChartInfo({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
-      if(resp.IsSuccess){
+      if (resp.IsSuccess) {
         this.chartInfo = resp.Result;
         console.log(this.chartInfo);
       }
@@ -182,6 +202,7 @@ export class ChartComponent implements OnInit {
   }
 
   CreateDiagnoses() {
+
     let isAdd = this.patientDiagnoses.DiagnosisId == undefined;
     this.patientDiagnoses.PatinetId = this.currentPatient.PatientId;
     this.patientDiagnoses.StopAt = this.datepipe.transform(this.patientDiagnoses.StopAt, "MM/dd/yyyy hh:mm:ss");
@@ -214,24 +235,34 @@ export class ChartComponent implements OnInit {
       && this.patientAllergy.StartAt != undefined)
   }
 
+  disableDiagnosis() {
+
+    return !(this.patientDiagnoses.CodeSystem == undefined ? '' : this.patientDiagnoses.CodeSystem != ''
+      && this.patientDiagnoses.Code == undefined ? '' : this.patientDiagnoses.Code != ''
+        && this.patientDiagnoses.Description == undefined ? '' : this.patientDiagnoses.Description != ''
+          && this.patientDiagnoses.StartAt == undefined ? '' : this.patientDiagnoses.StartAt.toString() != ''
+            && this.patientDiagnoses.StopAt == undefined ? '' : this.patientDiagnoses.StopAt != ''
+              && this.patientDiagnoses.Note == undefined ? '' : this.patientDiagnoses.Note != '')
+  }
+
   // Get advanced directives info
   AdvancedDirectivesByPatientId() {
     this.patientService.AdvancedDirectivesByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
-      if(resp.IsSuccess) this.chartInfo.AdvancedDirectives = resp.ListResult;
+      if (resp.IsSuccess) this.chartInfo.AdvancedDirectives = resp.ListResult;
     });
   }
 
   // Get diagnoses info
   DiagnosesByPatientId() {
     this.patientService.DiagnosesByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
-      if(resp.IsSuccess) this.patientDiagnoses = resp.ListResult;
+      if (resp.IsSuccess) this.patientDiagnoses = resp.ListResult;
     });
   }
 
   // Get allergies info
   AllergiesByPatientId() {
     this.patientService.AllergiesByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
-      if(resp.IsSuccess) this.chartInfo.Alergies = resp.ListResult;
+      if (resp.IsSuccess) this.chartInfo.Alergies = resp.ListResult;
     });
   }
 
@@ -239,49 +270,49 @@ export class ChartComponent implements OnInit {
   PastMedicalHistoriesByPatientId() {
     this.patientService.PastMedicalHistoriesByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       // this.pastMedicalHistories = resp.ListResult;
-      if(resp.IsSuccess) this.chartInfo.PastMedicalHistories = resp.ListResult;
+      if (resp.IsSuccess) this.chartInfo.PastMedicalHistories = resp.ListResult;
     });
   }
 
   // Get Immunizations info
   ImmunizationsByPatientId() {
     this.patientService.ImmunizationsByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
-      if(resp.IsSuccess) this.immunizations = resp.ListResult;
+      if (resp.IsSuccess) this.immunizations = resp.ListResult;
     });
   }
 
   // Get medications info
   MedicationsByPatientId() {
     this.patientService.MedicationsByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
-      if(resp.IsSuccess) this.medications = resp.ListResult;
+      if (resp.IsSuccess) this.medications = resp.ListResult;
     });
   }
 
   // Get encounters info
   EncountersByPatientId() {
     this.patientService.EncountersByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
-      if(resp.IsSuccess) this.chartInfo.Encounters = resp.ListResult;
+      if (resp.IsSuccess) this.chartInfo.Encounters = resp.ListResult;
     });
   }
 
   // Get appointments info
   AppointmentsByPatientId() {
     this.patientService.AppointmentsByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
-      if(resp.IsSuccess) this.appointments = resp.ListResult;
+      if (resp.IsSuccess) this.appointments = resp.ListResult;
     });
   }
 
   // Get smoking status info
   SmokingStatusByPatientId() {
     this.patientService.SmokingStatusByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
-      if(resp.IsSuccess) this.chartInfo.SmokingStatuses = resp.ListResult;
+      if (resp.IsSuccess) this.chartInfo.SmokingStatuses = resp.ListResult;
     });
   }
 
   // Get tobacco screnning info
   TobaccoUseScreenings() {
     this.patientService.TobaccoUseScreenings({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
-      if(resp.IsSuccess) this.tobaccoscreenings = resp.ListResult;
+      if (resp.IsSuccess) this.tobaccoscreenings = resp.ListResult;
     });
   }
 
@@ -298,4 +329,51 @@ export class ChartComponent implements OnInit {
     { value: 'Three', viewValue: 'Three' },
     { value: 'All', viewValue: 'All' },
   ];
+
+
+  PatientAppointmentInfo(action: Actions) {
+
+    let data = {} as AppointmentDialogInfo;
+    this.PatientAppointment = {} as NewAppointment;
+    this.PatientAppointment.PatientId = this.currentPatient.PatientId;
+    this.PatientAppointment.PatientName = this.currentPatient.FirstName+' '+this.currentPatient.LastName;
+    this.PatientAppointment.LocationId = this.authService.userValue.CurrentLocation;
+    this.PatientAppointment.ProviderId = this.currentPatient.ProviderId;
+    this.PatientAppointment.ClinicId = this.authService.userValue.ClinicId;
+    this.PatientAppointment.Duration = 30;
+    data.Title =  "New Appointment";
+    data.ClinicId = this.authService.userValue.ClinicId;
+    data.ProviderId = this.currentPatient.ProviderId;
+    data.LocationId = this.authService.userValue.CurrentLocation;
+    data.PatientAppointment = this.PatientAppointment;
+    data.AppointmentTypes = this.AppointmentTypes;
+    data.PracticeProviders = this.PracticeProviders;
+    data.Locations = this.Locations;
+    data.Rooms = this.Rooms;
+    data.status = action;
+    return data;
+  }
+
+  loadDefaults() {
+    let req = { "ClinicId": this.authService.userValue.ClinicId };
+    this.smartSchedulerService.PracticeProviders(req).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.PracticeProviders = resp.ListResult as PracticeProviders[];
+      }
+    });
+    let preq = { "ProviderId": this.authService.userValue.ProviderId };
+    this.smartSchedulerService.AppointmentTypes(preq).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.AppointmentTypes = resp.ListResult as AppointmentTypes[];
+      }
+    });
+    this.Locations = JSON.parse(this.authService.userValue.LocationInfo);
+    let lreq = { "LocationId": this.authService.userValue.CurrentLocation };
+    this.smartSchedulerService.RoomsForLocation(lreq).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.Rooms = resp.ListResult as Room[];
+        this.PatientAppointment.RoomId = this.Rooms[0].RoomId;
+      }
+    });
+  }
 }

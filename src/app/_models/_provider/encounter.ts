@@ -46,9 +46,9 @@ export class EncounterInfo {
   VisitReason?: string;
   ClinicalInstructions?: string;
   EncounterType?: string = "Office Visit (1853490003)";
-  NewPatientEncounter: boolean = false;
+  NewPatientEncounter: boolean;
   PatientHealthData: string = "";
-  PatientEducation: boolean = false;
+  PatientEducation: boolean ;
   DischargeStatus: string = "";
   DischargeStatusCode: string = "";
   DischargeStatusCodeSystem: string = "";
@@ -78,8 +78,7 @@ export class EncounterInfo {
   CongnitiveStatus?: string;
   FunctionalStatus?: string;
 
-  //mu2: MU2Info = new MU2Info;
-  //Referral: ReferralInfo = new ReferralInfo;
+
   Diagnoses: EncounterDiagnosis[] = [];
   RecommendedProcedures: ProceduresInfo[] = [];
   CompletedProcedures: ProceduresInfo[] = [];
@@ -153,7 +152,6 @@ export class ProceduresInfo implements IDeleteFlag {
   Surface?: string;
   ToothProblemId?: string;
   ReasonStartDate?: Date;
-  Surfaces: string[] = [];
 
   ViewFrom?: string;
   CanDelete?: boolean = false;

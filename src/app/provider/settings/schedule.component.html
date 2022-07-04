@@ -48,7 +48,7 @@
                                 class="btn btn-green btn-edit pull-right" (click)="saveRooms(roomIndex)">
                                 Save
                               </button>
-                              <button type="button" id="Actbtn2" *ngIf="!isNewRoom(roomIndex)"
+                              <button type="button" *ngIf="!isNewRoom(roomIndex)"
                                 (click)="onEditRooms(roomIndex)" class="btn btn-edit btn-green pull-right">
                                 Edit
                               </button>
@@ -58,7 +58,7 @@
                         <div class="row">
                           <div class="col-md-12 col-12 pt-1 pb-0 cstm-padding">
                             <div class="col-md-6 col-6 pull-right">
-                              <button type="button" id="Actbtn3" class="btn btn-green btn-remove pull-right"
+                              <button type="button" class="btn btn-green btn-remove pull-right"
                                 (click)="removeRoom(roomIndex)">
                                 Remove
                               </button>
@@ -187,18 +187,18 @@
                             </div>
                             <div class="col-md-4 col-4 pt-2 pt-md-0"
                               *ngIf="status().controls[statusIndex].get('Editable').value">
-                              <button type="button" id="Actbtn4" class="btn  btn-green btn-edit pull-right"
+                              <button type="button" class="btn  btn-green btn-edit pull-right"
                                 *ngIf="isNewStatus(statusIndex)" (click)="saveAppointmentStatus(statusIndex)">
                                 Save
                               </button>
-                              <button type="button" id="Actbtn5" class="btn  btn-green btn-edit pull-right"
+                              <button type="button" class="btn  btn-green btn-edit pull-right"
                                 *ngIf="!isNewStatus(statusIndex)" (click)="onEditStatus(statusIndex)">
                                 Edit
                               </button>
                             </div>
                             <div class="col-md-12 col-12 pt-2 cstm-border-bottom-appointment">
                               <div class="col-4 pull-right">
-                                <button type="button" id="Actbtn6" class="btn btn-green btn-remove pull-right"
+                                <button type="button" class="btn btn-green btn-remove pull-right"
                                   *ngIf="status().controls[statusIndex].get('Editable').value"
                                   (click)="removeAppointmentStatus(statusIndex)">
                                   Remove

@@ -14,4 +14,13 @@ export class DentalChartService extends APIEndPoint {
   ProcedureCodesJSON(){
     return this._ProcessGetRequest<any>(this._procedureCodesForDentalUrl);
   }
+
+  PatientUsedProcedures(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._patientUsedProceduresUrl, reqparams);
+  }
+
+
+  PatientProcedureView(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._patientProceduresViewUrl, reqparams);
+  }
 }

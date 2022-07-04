@@ -139,12 +139,10 @@ export class APIEndPoint extends EndpointBase {
   }
 
   get _dropAppointmentStatusUrl() {
-    //debugger;
     return this._baseUrl + "DropAppointmentStatus";
   }
 
   get _dropRoomUrl() {
-    //debugger;
     return this._baseUrl + "DropRoom";
   }
 
@@ -586,6 +584,17 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "ProcedureCodesForDental";
   }
 
+  get _patientUsedProceduresUrl(){
+    return this._baseUrl +"PatientUsedProcedures";
+  }
+
+  get _patientProceduresViewUrl(){
+    return this._baseUrl +"PatientProceduresView";
+  }
+
+  get _areaCodesUrl(){
+    return this._baseUrl +"AreaCodes";
+  }
   constructor(public http: HttpClient) {
     super();
   }

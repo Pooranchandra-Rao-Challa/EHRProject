@@ -15,7 +15,6 @@ export class CQMNotPerformedService extends APIEndPoint {
     }
 
     AddUpdateCQMNotPerformed(reqparams:any){
-      debugger;
       return this._ProcessPostRequest<any>(this._addUpdateCQMNotPerformedUrl,reqparams);
     }
 }

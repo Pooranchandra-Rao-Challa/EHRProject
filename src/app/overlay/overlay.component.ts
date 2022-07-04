@@ -1,10 +1,11 @@
-import { Component, OnInit, TemplateRef, Type } from '@angular/core';
+import { Component, OnInit, TemplateRef, Type, NgModule } from '@angular/core';
 import { EHROverlayRef } from '../ehr-overlay-ref';
-
+//import { FullscreenOverlayContainer, OverlayContainer, } from '@angular/cdk/overlay';
 @Component({
   selector: 'app-overlay',
   templateUrl: './overlay.component.html',
-  styleUrls: ['./overlay.component.scss']
+  styleUrls: ['./overlay.component.scss'],
+
 })
 export class OverlayComponent implements OnInit {
   contentType: 'template' | 'string' | 'component';
@@ -13,9 +14,9 @@ export class OverlayComponent implements OnInit {
 
   constructor(private ref: EHROverlayRef) {}
 
-  close() {
-    this.ref.close(null);
-  }
+  // close() {
+  //   this.ref.close(null);
+  // }
 
   ngOnInit() {
     this.content = this.ref.content;

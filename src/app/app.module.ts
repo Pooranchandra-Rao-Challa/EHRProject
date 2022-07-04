@@ -22,7 +22,10 @@ import { CqmsNotPerformedComponent } from './provider/patients/cqms.not.performe
 import { CQMNotPerformedService } from './_services/cqmnotperforemed.service';
 //import { ToggleFullscreenDirective } from 'src/app/_directives/fullscreen.directive';
 
-
+import { MAT_DATE_FORMATS } from '@angular/material/core';
+import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter, MAT_MOMENT_DATE_FORMATS }
+from '@angular/material-moment-adapter';
+import { CustomMomentDateAdapter } from 'src/app/_common/custom.date.adapter';
 
 
 // HttpClientModule is only needed if you want to log on server or if you want to inspect sourcemaps
@@ -59,7 +62,10 @@ import { CQMNotPerformedService } from './_services/cqmnotperforemed.service';
     AuthGuard,
     LabsImagingService,
     DentalChartService,
-    CQMNotPerformedService
+    CQMNotPerformedService,
+    { provide: MomentDateAdapter, useClass: CustomMomentDateAdapter },
+    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
+    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }
 
   ],
   bootstrap: [AppComponent]

@@ -230,9 +230,14 @@ mat-paginator {
   border-top-right-radius: 4px;
 }
 
-.mat-option:hover {
+ .mat-option:hover {
   background-color: #e5f8f5;
+  color: #41b6a6 !important;
 }
+.mat-option:focus {
+  color: #41b6a6 !important;
+}
+
 
 .mat-option.mat-selected:not(.mat-option-disabled) {
   color: black;
@@ -431,8 +436,12 @@ mat-paginator {
 }
 
 .cdk-overlay-container {
-  // height: 100vh !important;
   z-index: 9999 !important;
+}
+.modal-background{
+  background: white;
+  width: 100%;
+  height: 100%;
 }
 
 a {

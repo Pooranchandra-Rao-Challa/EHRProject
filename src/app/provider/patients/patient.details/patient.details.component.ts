@@ -1,3 +1,4 @@
+import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { BehaviorSubject, of } from 'rxjs';
 import { AfterViewInit, Component, ComponentFactoryResolver, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
@@ -51,7 +52,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
     private router: Router,
     private overlayService: OverlayService,
     private utilityService: UtilityService,
-    private alertmsg: AlertMessage,) {
+    private alertmsg: AlertMessage) {
     this.viewModel = authService.viewModel;
     if (this.viewModel.PatientView == null
       || this.viewModel.PatientView == '') {
@@ -301,6 +302,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
       }
     });
   }
+
 
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
     data?: any, action?: Actions) {

@@ -62,6 +62,8 @@ export class ScheduledAppointment{
   Notes? :string;
   IsCurrent?: boolean;
   IsPast?: boolean;
+  PrimaryPhone?: string;
+  MobilePhone?: string;
 }
 
 

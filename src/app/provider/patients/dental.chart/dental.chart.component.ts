@@ -1,3 +1,4 @@
+import { MedicalCode } from 'src/app/_models/codes';
 import { ProceduresInfo } from 'src/app/_models';
 import { DentalChartService } from 'src/app/_services/dentalchart.service';
 import { Component, OnInit, TemplateRef } from '@angular/core';
@@ -7,6 +8,7 @@ import { OverlayService } from 'src/app/overlay.service';
 import { ComponentType } from '@angular/cdk/portal';
 import { Actions } from 'src/app/_models';
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
+import { BehaviorSubject } from 'rxjs';
 
 declare var $: any;
 @Component({
@@ -25,38 +27,46 @@ export class DentalChartComponent implements OnInit {
   currentPatient: ProviderPatient
   procedureDialogComponent = ProcedureDialogComponent;
   ActionTypes = Actions
+  usedProcedures: MedicalCode;
+  procedureColumns: string[] = ['SELECT', 'START DATE', 'END DATE', 'TOOTH', 'SURFACE', 'CODE', 'DESCRIPTION', 'PROVIDER', 'STATUS', 'CQM STATUS','Encounter'];
+
+  patientProceduresView = new BehaviorSubject<ProceduresInfo[]> ([]);
 
   constructor(private overlayService: OverlayService,
     private dentalService: DentalChartService,
-    private authService: AuthenticationService) { }
+    private authService: AuthenticationService) {
+      this.currentPatient = authService.viewModel.Patient;
+    }
 
   ngOnInit(): void {
-    this.getProcedureList();
+    this.patientUsedProcedures();
+    this.patientProcedureView();
+    console.log(this.patientProceduresView);
+    console.log(this.currentPatient);
+
+
   }
 
-  getProcedureList() {
-    this.dentalService.ProcedureCodes().subscribe(resp => {
-      if (resp.IsSuccess) {
-        this.procedureCodeList = resp.ListResult;
-        this.procedureCodeList.map((e) => {
-          if (e.Category != '') {
-            e.isClosed = true;
+  patientUsedProcedures(){
+    this.dentalService.PatientUsedProcedures({"PatientId" : this.currentPatient.PatientId })
+      .subscribe(resp =>
+        {
+          if(resp.IsSuccess){
+            this.usedProcedures = resp.ListResult;
           }
-        });
-      }
-    });
+        })
   }
+  patientProcedureView(){
+    this.dentalService.PatientProcedureView({"PatientId" : this.currentPatient.PatientId })
+      .subscribe(resp =>
+        {
+          if(resp.IsSuccess){
+            this.patientProceduresView.next(resp.ListResult as ProceduresInfo[]);
+            //console.log(this.patientProceduresView);
 
-  expandCollapse(obj) {
-    //debugger
-    obj.isClosed = !obj.isClosed;
-    // let procedureList:any = [];
-    // procedureList = obj.value;
-    for (let index = 0; index < obj.value.length; obj++) {
-      this.procedureCodeList[index].isClosed = !obj.isClosed;
-    }
+          }
+        })
   }
-
   AdultPerm() {
     this.AdultPrem = true;
     this.ChilPrim = false;
@@ -67,24 +77,23 @@ export class DentalChartComponent implements OnInit {
     this.ChilPrim = true;
   }
 
-  OpenDentalModal(number) {
-    this.DentalNumber = number;
-    this.displayStyle = "block";
-  }
-
-  CloseDentalModal() {
-    this.displayStyle = "none";
-  }
-
 
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
-    dialogData, actions: Actions = this.ActionTypes.new,ToothNo: number=0) {
+    dialogData, actions: Actions = this.ActionTypes.new,ToothNo: number=0,medicalCode: MedicalCode) {
       let reqData: ProceduresInfo;
       if(dialogData == null){
         reqData = new ProceduresInfo();
-        if(ToothNo>0)
-        reqData.ToothNo = ToothNo ;
-        reqData.ViewFrom = "ToothNo";
+        if(ToothNo>0){
+          reqData.ToothNo = ToothNo ;
+          reqData.ViewFrom = "ToothNo";
+        }
+
+        if(medicalCode){
+          reqData.Code = medicalCode.Code
+          reqData.CodeSystem = medicalCode.CodeSystem
+          reqData.Description = medicalCode.Description;
+          reqData.ViewFrom = "Tree";
+        }
       }
 
 

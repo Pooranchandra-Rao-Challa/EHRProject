@@ -18,7 +18,8 @@
     </div>
     <div class="col-lg-2 col-md-2 col-2 ">
 
-      <button type="button" class="btn btn-orange py-2 px-4" style="float:right;">New Treatment</button>
+      <button type="button" class="btn btn-orange py-2 px-4" style="float:right;"
+      (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,null,null)" >New Treatment</button>
     </div>
   </div>
 </div>
@@ -98,9 +99,13 @@
                 <td></td>
                 <td class="overlay-img">
                   <img src="assets/images/dental-chart/tooths/tooth_adult_12_md.svg" alt="Tooth adult 12 md">
+                  <a class="checker unchecked" (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,14)"
+                    ></a>
                 </td>
                 <td class="overlay-img">
                   <img src="assets/images/dental-chart/tooths/tooth_adult_13_md.svg" alt="Tooth adult 13 md">
+                  <a class="checker unchecked" (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,14)"
+                    ></a>
                 </td>
                 <td class="overlay-img">
                   <img src="assets/images/dental-chart/tooths/tooth_adult_14_md.svg" alt="Tooth adult 14 md">
@@ -608,7 +613,13 @@
           </div>
         </div>
         <div [ngClass]="AdultPrem?'adult-frequnecy':'child-frequnecy'">
-          <ul class="main-list used_procedures"></ul>
+          <ul class="main-list used_procedures" >
+              <li *ngFor="let usedProcedure of usedProcedures">
+                <div class="tree-leaf-item" (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,null,usedProcedure)">
+                  {{usedProcedure.Code + "-" + usedProcedure.Description }}
+                </div>
+              </li>
+          </ul>
         </div>
 
       </div>
@@ -642,6 +653,101 @@
 <div class="container-fluid">
   <div class="mb-3">
     <div class="table-responsive">
+      <mat-table [dataSource]=patientProceduresView
+      matSort matSortActive="LastAccessed" matSortDirection="desc" matSortDisableClear>
+      <ng-container matColumnDef="Image">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef>
+          <a routerLink="/provider/patientdetails">
+            <img class="avatar mx-2" src="assets/images/avatar-empty.svg" alt="Avatar empty">
+          </a>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="SELECT">
+        <mat-header-cell *matHeaderCellDef>SELECT</mat-header-cell>
+        <mat-cell *matCellDef="let procedure">
+
+        </mat-cell><!--(click)="onChangeViewState(procedure)"-->
+      </ng-container>
+
+      <ng-container matColumnDef="START DATE">
+        <mat-header-cell *matHeaderCellDef>START DATE</mat-header-cell>
+        <mat-cell *matCellDef="let procedure">
+          <a >{{procedure?.ServicedAt}}</a>
+        </mat-cell><!--routerLink="provider/patientdetails"-->
+      </ng-container>
+
+      <ng-container matColumnDef="END DATE">
+        <mat-header-cell *matHeaderCellDef>END DATE</mat-header-cell>
+        <mat-cell *matCellDef="let procedure">
+          {{procedure?.EndDate}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="TOOTH">
+        <mat-header-cell *matHeaderCellDef>TOOTH</mat-header-cell>
+        <mat-cell *matCellDef="let procedure">
+          <span>
+            {{procedure?.ToothNo}}
+          </span>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="SURFACE">
+        <mat-header-cell *matHeaderCellDef>SURFACE
+        </mat-header-cell>
+        <mat-cell *matCellDef="let procedure"> {{procedure?.Surface}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="CODE">
+        <mat-header-cell *matHeaderCellDef>CODE</mat-header-cell>
+        <mat-cell *matCellDef="let procedure">
+          <span>
+            {{procedure?.Code}}
+          </span>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="DESCRIPTION">
+        <mat-header-cell *matHeaderCellDef>DESCRIPTION</mat-header-cell>
+        <mat-cell *matCellDef="let procedure"> {{procedure?.Description}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="PROVIDER">
+        <mat-header-cell *matHeaderCellDef>PROVIDER</mat-header-cell>
+        <mat-cell *matCellDef="let procedure"></mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="STATUS">
+        <mat-header-cell  *matHeaderCellDef>STATUS
+        </mat-header-cell>
+        <mat-cell  *matCellDef="let procedure">
+          {{procedure?.Status}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="CQM STATUS">
+        <mat-header-cell  *matHeaderCellDef>CQM STATUS
+        </mat-header-cell>
+        <mat-cell  *matCellDef="let procedure">
+
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Encounter">
+        <mat-header-cell  *matHeaderCellDef>Encounter
+        </mat-header-cell>
+        <mat-cell  *matCellDef="let procedure">
+
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="procedureColumns" class="mat-cust-header"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: procedureColumns;">
+      </mat-row>
+    </mat-table>
+
+<!--
       <table class="table treatment-content">
         <thead class="th-color">
           <tr>
@@ -658,283 +764,22 @@
             <th class="text-center">Encounter</th>
           </tr>
         </thead>
-        <tbody></tbody>
-      </table>
-    </div>
-  </div>
-</div>
-
-<!-- <provider-app-footer></provider-app-footer> -->
-
-
-<!--Adult dental-chart Modal -->
-
-<div class="modal fade" id="AdultDentalModal" tabindex="-1" aria-labelledby="AdultDentalModal" aria-hidden="true"
-  [ngStyle]="{'display':displayStyle}">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title label-design ">Add Procedure</h4>
-        <button type="button" class="btn cross-mark" data-bs-dismiss="modal" aria-label="Close"
-          (click)="CloseDentalModal()">x</button>
-      </div>
-      <div class="modal-body modal-scrollbar">
-        <div class="row">
-          <div class="col-lg-12 col-md-12 col-sm-12 ">
-            <div class="">
-              <select class="select2" name="state">
-                <option class="p-3 label-heading">Search Procedure Code</option>
-                <option>
-                  <input type="text" placeholder="Search.." id="myInput">
-                </option>
-                <option class="p-3">Please enter one or more charaters</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <div class="row my-1">
-          <div class="col-lg-4 col-md-4 col-sm-4"><label><b class="label-heading">Code</b></label>
-            <div class="input-group">
-              <input class="form-control input-bg" type="text" name="procedure[code]" id="procedure_code">
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-4"><label><b class="label-heading">Description</b></label>
-            <div class="input-group"><input class=" form-control input-bg" type="text" name="procedure[description]"
-                id="procedure_description"></div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-4"><label><b class="label-heading">Base Price</b></label>
-            <div class="input-group"><input value="0.0" class="form-control input-bg" type="text" name="procedure[fee]"
-                id="procedure_fee"></div>
-          </div>
-        </div>
-
-        <div class="row my-3 ">
-          <div class="col-lg-2 col-md-2 col-sm-3">
-            <label><b class="label-heading">Start Date</b></label>
-            <div class="input-group">
-                 <mat-form-field appearance="outline" class="form-group profile-green-calendar">
-                  <input matInput class="date-mat-class" autocomplete="off"
-                  (mouseover)="hoverStartDate='_/__/_'" readonly  (mouseleave)="hoverStartDate='Start Date'"
-                    [matDatepicker]="picker" (click)="picker.open()"  placeholder="{{ hoverStartDate }}">
-                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                  <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-          </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-4">
-            <label class="label-design label-Tooth">Tooth: {{DentalNumber}}</label>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-4" style="margin-left: 106px;"
-          ><label><b class="label-heading">Status</b></label>
-            <div class="input-group ">
-              <mat-form-field appearance="outline">
-                <mat-select placeholder="Select One">
-                  <mat-option>Treatment planned</mat-option>
-                  <mat-option>Completed</mat-option>
-                  <mat-option>Existing Curr. Provider</mat-option>
-                  <mat-option>Existing Other</mat-option>
-                  <mat-option>Condition</mat-option>
-                  <mat-option>Referred</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-3 col-sm-4 mt-2"><label><b class="label-heading">End Date</b></label>
-            <div class="input-group">
-              <mat-form-field appearance="outline" class="form-group profile-green-calendar">
-               <input matInput class="date-mat-class" autocomplete="off"
-               (mouseover)="hoverEndDate='_/__/_'" readonly  (mouseleave)="hoverEndDate='End Date'"
-                 [matDatepicker]="picker" (click)="picker.open()"  placeholder="{{ hoverEndDate }}">
-               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-               <mat-datepicker #picker></mat-datepicker>
-             </mat-form-field>
-          </div>
-        </div>
-
-        <div class="row  row-heading my-3 ">
-          <div class="col-lg-12  col-md-4 col-sm-4">
-            <label>Surface (select all that apply):</label>
-          </div>
-        </div>
-        <div class="row  my-3 ">
-          <div class="col-lg-4 col-md-4 col-sm-4">
-            <div>
-              <input class="checkbox input-bg mx-2" id="Buccal" name="Buccal" type="checkbox">
-              <label class="label-design">Buccal v</label>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-4">
-            <div><input class="checkbox input-bg mx-2" id="Facial" name="Facial" type="checkbox">
-              <label class="label-design">Facial v</label>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-4">
-            <div><input class="checkbox input-bg mx-2" id="Mesial" name="Mesial" type="checkbox"><label
-                class="label-design">Mesial</label></div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-4">
-            <div><input class="checkbox input-bg mx-2" id="Incisal" name="Incisal" type="checkbox">
-              <label class="label-design">Incisal</label>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-4">
-            <div><input class="checkbox input-bg mx-2" id="Distal" name="Distal" type="checkbox">
-              <label class="label-design">Distal</label>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-4">
-            <div><input class="checkbox mx-2" id="Lingual" name="Lingual" type="checkbox">
-              <label class="label-design">Lingual</label>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-4">
-            <div><input class="checkbox mx-2" id="Facial" name="Facial" type="checkbox">
-              <label class="label-design">Facial</label>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-4">
-            <div><input class="checkbox mx-2" id="Buccal" name="Buccal" type="checkbox">
-              <label class="label-design">Buccal</label>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-4">
-            <div><input class="checkbox mx-2" id="Occlusal" name="Occlusal" type="checkbox">
-              <label class="label-design">Occlusal</label>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-4">
-            <div><input class="checkbox mx-2" id="Lingual" name="Lingual" type="checkbox">
-              <label class="label-design">Lingual v</label>
-            </div>
-          </div>
-        </div>
-
-        <div class="row row-heading my-3 ">
-          <div class="col-lg-12 col-md-4 col-sm-4"><label class="">Select Pit(s):</label>
-          </div>
-        </div>
-        <div class="row  my-3 ">
-          <div class="col-lg-4 col-md-4 col-sm-4">
-            <div><input class="checkbox  mx-2" id="Mesiobuccal" name="Mesiobuccal" type="checkbox">
-              <label class="label-design">Mesiobuccal</label>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-4">
-            <div><input class="checkbox mx-2" id="Mesiolingual" name="Mesiolingual" type="checkbox">
-              <label class="label-design">Mesiolingual</label>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-4">
-            <div><input class="checkbox mx-2 input-bg" id="Distobuccal" name="Distobuccal" type="checkbox">
-              <label class="label-design">Distobuccal</label>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-4">
-            <div><input class="checkbox mx-2 input-bg" id="Distolingual" name="Distolingual" type="checkbox">
-              <label class="label-design">Distolingual</label>
-            </div>
-          </div>
-        </div>
-        <div class="row row-heading my-3">
-          <div class="col-lg-12 col-md-4 col-sm-4"><label>Select Cusp(s):</label>
-          </div>
-        </div>
-        <div class="row  my-3 ">
-          <div class="col-lg-4 col-md-4 col-sm-4">
-            <div class="checkbox-custom checkbox-custom-toggle "><input class="checkbox mx-2" id="" name=""
-                type="checkbox">
-              <label class="label-design">Mesial</label>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-4">
-            <div><input class="checkbox mx-2" id="Mesiobuccal" name="Mesiobuccal" type="checkbox">
-              <label class="label-design">Mesiobuccal</label>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-4">
-            <div><input class="checkbox mx-2" id="" name="Mesiolingual" type="checkbox">
-              <label class="label-design">Mesiolingual</label>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-4">
-            <div><input class="checkbox mx-2" id="Distal" name="Distal" type="checkbox">
-              <label class="label-design">Distal</label>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-4">
-            <div><input class="checkbox mx-2" id="Distobuccal" name="Distobuccal" type="checkbox">
-              <label class="label-design">Distobuccal</label>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-4">
-            <div><input class="checkbox mx-2" id="Distolingual" name="Distolingual" type="checkbox">
-              <label class="label-design">Distolingual</label>
-            </div>
-          </div>
-        </div>
-
-
-        <div class="row row-heading my-3 ">
-          <div class="col-lg-12 col-md-4 col-sm-4"><label>Reasons:</label>
-          </div>
-        </div>
-        <div class="row  my-3 ">
-          <div class="col-lg-12 col-md-4 col-sm-4 "><label class="label-design">Search Reasons</label>
-          </div>
-        </div>
-
-        <div class="row  my-3 ">
-          <div class="col-lg-12 col-md-4 col-sm-4 mb-2">
-            <div class="input-group searchbox">
-              <input type="text" name="search_procedure_code" id="search_procedure_code"
-                class="form-control input-bg" placeholder="Search Reasons">
-              <button class="btn btn-searchs btn-md" type="button">
-                <i class="fa fa-search fa-search-icon"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div class="row mb-3">
-          <div class="col-lg-2 col-md-4 col-sm-4 text-break ">
-            <label class="label-heading">Reason</label><br><label class="label-heading" style="margin-top: -5px;">
-              Code:</label>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-4 text-box mb-3 ">
-            <div class="input-group">
-              <input class="form-control input-bg" placeholder="Reason Code" type="text" name="procedure[date]"
-                id="procedure_date">
-            </div>
-          </div>
-          <div class="col-lg-2 col-md-4 mb-3  col-sm-4">
-            <label class="label-heading">Reason</label><br><label class="label-heading" style="margin-top: -5px;">
-              Description:</label>
-          </div>
-
-          <div class="col-lg-4 col-md-4 col-sm-4 text-box ">
-            <div class="input-group"><input class="form-control input-bg" placeholder="Reason Description" type="text"
-                name="procedure[date]" id="procedure_date"></div>
-          </div>
-        </div>
-
-        <div class="row my-3">
-          <div class="col-lg-12 col-md-4 col-sm-4"><label class="label-heading">Notes:</label>
-          </div>
-          <div class="col-lg-12 col-md-4 col-sm-4">
-            <div class="input-group">
-              <textarea class="form-control input-bg" rows="6"></textarea>
-            </div>
-          </div>
-        </div>
-
-
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-lg btn-green">Save</button>
-        <button type="button" class="btn btn-lg btn-green" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
-      </div>
+        <tbody >
+          <tr *ngFor="let p of patientProceduresView | async">
+            <td>SELECT</td>
+            <td>{{p.ServicedAt}}</td>
+            <td>END DATE</td>
+            <td>{{p.ToothNo}}</td>
+            <td>SURFACES</td>
+            <td>CODE</td>
+            <td>DESCRIPTION</td>
+            <td>PROVIDER</td>
+            <td>STATUS</td>
+            <td>CQM STATUS</td>
+            <td class="text-center">Encounter</td>
+          </tr>
+        </tbody>
+      </table> -->
     </div>
   </div>
 </div>

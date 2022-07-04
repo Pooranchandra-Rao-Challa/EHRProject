@@ -1,8 +1,9 @@
 :host {
   display: block;
   width: calc(100% - 20px);
-  height: calc(45vh + 180px);
+  //height: calc(45vh + 180px);
   background-color: transparent;
+  overflow: hidden;
 }
 .cdk-overlay-backdrop.modal-background.cdk-overlay-backdrop-showing {
   background-color: rgba(10, 10, 10, 0.86) !important;
@@ -51,4 +52,8 @@
 .cdk-overlay-pane.model.is-active  {
   transform:none !important;
   margin-top:0px !important;
+}
+
+.cdk-overlay-container{
+  background: white !important;
 }

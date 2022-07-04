@@ -78,3 +78,10 @@
   padding-top: 30px;
   padding-left: 60px;
 }
+
+@media (min-width: 576px){
+.modal-dialog {
+    max-width: 800px;
+    margin: 30px auto;
+}
+}

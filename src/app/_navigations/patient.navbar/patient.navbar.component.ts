@@ -46,7 +46,7 @@ export class PatientNavbarComponent implements OnInit {
       "PatientId": this.user.PatientId,
     }
     this.patientService.PatientMyProfileByPatientId(req).subscribe(resp => {
-      debugger;
+      //debugger;
       if (resp.IsSuccess) {
         this.PatientProfile = resp.ListResult[0];
       }

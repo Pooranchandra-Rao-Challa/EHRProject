@@ -16,6 +16,7 @@ import { LocationSelectService } from '../../_navigations/provider.layout/locati
 import { NewAppointmentDialogComponent } from '../../dialogs/newappointment.dialog/newappointment.dialog.component';
 import { UpcomingAppointmentsDialogComponent } from '../../dialogs/upcoming.appointments.dialog/upcoming.appointments.dialog.component';
 import { EncounterDialogComponent } from '../../dialogs/encounter.dialog/encounter.dialog.component';
+import { AlertMessage, ERROR_CODES} from 'src/app/_alerts/alertMessage'
 import * as moment from "moment";
 
 import {
@@ -92,7 +93,6 @@ export class SmartScheduleComponent implements OnInit {
   patientDialogComponent = PatientDialogComponent;
   patientDialogResponse = null;
   appointmentDialogComponent = NewAppointmentDialogComponent;
-  appointmentDialogResponse = null;
   upcomingAppointmentsDialogComponent = UpcomingAppointmentsDialogComponent;
   upcomingAppointmentDialogResponse = null;
   encounterDialogComponent = EncounterDialogComponent;
@@ -111,7 +111,7 @@ export class SmartScheduleComponent implements OnInit {
     private utilityService: UtilityService,
     private smartSchedulerService: SmartSchedulerService,
     private locationSelectService: LocationSelectService,
-
+    private alertMessage: AlertMessage,
     public overlayService: OverlayService
 
   ) {
@@ -189,15 +189,21 @@ export class SmartScheduleComponent implements OnInit {
         this.patientDialogResponse = res.data;
       }
       else if (content === this.appointmentDialogComponent) {
-        this.appointmentDialogResponse = res.data;
+
         this.flag = false;
         this.patientNameOrCellNumber = "";
+        if(res.data && res.data.saved){
+          this.filterAppointments();
+        }
       }
       else if (content === this.upcomingAppointmentsDialogComponent) {
-        this.appointmentDialogResponse = res.data;
         this.flag = false;
         this.patientNameOrCellNumber = "";
-      } else if (content == this.encounterDialogComponent) {
+        if(res.data && res.data.saved){
+          this.filterAppointments();
+        }
+      }
+      else if (content == this.encounterDialogComponent) {
         this.encounterDialogResponse = res.data;
         if(res.data != null && res.data.saved){
           this.filterAppointments();        }
@@ -206,6 +212,7 @@ export class SmartScheduleComponent implements OnInit {
 
 
   }
+
   PatientAppointmentInfo(appointment: NewAppointment, action?: Actions) {
     let data = {} as AppointmentDialogInfo;
     this.PatientAppointment = {} as NewAppointment;
@@ -234,6 +241,7 @@ export class SmartScheduleComponent implements OnInit {
     data.status = action;
     return data;
   }
+
   PatientAppointmentInfoFromSearch(PatientObj: PatientSearchResults, action?: Actions) {
     let data = {} as AppointmentDialogInfo
     this.PatientAppointment = {} as NewAppointment;
@@ -308,6 +316,7 @@ export class SmartScheduleComponent implements OnInit {
       }
     });
   }
+
   filterAppointments() {
     let req = {
       "ClinicId": this.authService.userValue.ClinicId,
@@ -351,46 +360,9 @@ export class SmartScheduleComponent implements OnInit {
     });
   }
 
-  onAppointmentSave() {
-    this.PatientAppointment.AppointmentTime = this.PatientAppointment.TimeSlot.StartDateTime;
-
-    this.SaveInputDisable = true;
-    this.smartSchedulerService.CreateAppointment(this.PatientAppointment).subscribe(resp => {
-      if (resp.IsSuccess) {
-        this.onError = false;
-        CloseAppointment();
-        this.OperationMessage = resp.EndUserMessage;
-        OpenSaveSuccessAppointment();
-      }
-      else {
-        this.onError = true;
-        this.OperationMessage = "Appointment is not saved"
-        OpenSaveSuccessAppointment();
-      }
-    });
-  }
-
-  onSuccessCloseMessageBox() {
-    CloseSaveSuccessAppointment();
-  }
-  buildPatientForm() {
-    this.NewPatientForm = this.fb.group({
-      FirstName: ['', Validators.required],
-      MiddleName: [''],
-      LastName: ['', Validators.required],
-      ProviderId: ['new provider'],
-      DateofBirth: ['', Validators.required],
-      Gender: ['', Validators.required,],
-      CellPhone: ['', Validators.required],
-      Homephone: [''],
-      Email: ['', Validators.required],
-      Address: ['']
-    });
-
-  }
 
   ngOnInit(): void {
-    this.buildPatientForm();
+
     this.PatientAppointment = {};
     this.SelectedLocationId = this.authService.userValue.CurrentLocation;
     this.SelectedProviderId = this.authService.userValue.ProviderId;
@@ -405,36 +377,16 @@ export class SmartScheduleComponent implements OnInit {
     this.LoadAppointmentDefalts();
   }
   selectedCalendarDate(event) {
-
-
     this.selectedAppointmentDate = event.value;
     this.selectedWeekday = this.selectedAppointmentDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
     this.filterAppointments();
   }
 
-  cancelAppointment(appointmentId: string) {
-    this.appointmentId = appointmentId;
-  }
+
   confirmIsCancelledAppointment() {
     this.appointmentId = null;
   }
-  confirmAppointment() {
-    if (this.appointmentId != null) {
-      this.smartSchedulerService.ConfirmAppointmentCancellation({ AppointmentId: this.appointmentId })
-        .subscribe(resp => {
-          if (resp.IsSuccess) {
-            this.appointmentId = null;
-            this.OperationMessage = resp.EndUserMessage;
-            //this.ClearPatientAppointment();
-            OpenSaveSuccessAppointment();
-          }
-          else {
-            //this.SaveInputDisable = false;
-            this.OperationMessage = "Appointment is not saved"
-          }
-        });
-    }
-  }
+
 
   onProviderChange() {
     this.LoadAppointmentDefalts();

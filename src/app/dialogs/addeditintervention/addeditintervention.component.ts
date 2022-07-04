@@ -82,7 +82,6 @@ export class AddeditinterventionComponent implements OnInit {
   }
 
   getreasondescription(item) {
-    debugger;
     this.reasonFiltered = this.searchReason.slice();
     if (this.CQMNotPerformed.ReasonCodeDescription != undefined) {
       this.CQMNotPerformed.Reasondetails = this.CQMNotPerformed.ReasonCodeDescription;

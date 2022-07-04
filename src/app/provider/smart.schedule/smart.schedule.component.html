@@ -18,11 +18,7 @@
                 <button class="button is-primary bg-color lte" (click)="DateUpDown('movedown')">&lt;</button>
                 <mat-form-field class="cstm-width smart-schedule-datepicker" appearance="fill">
                   <input hidden matInput [matDatepicker]="picker" (dateChange)="selectedCalendarDate($event)" />
-                  <!-- <mat-datepicker-toggle [for]="picker">
-                    <mat-icon matDatepickerToggleIcon >
-                        mouse
-                    </mat-icon>
-                  </mat-datepicker-toggle> -->
+
                   <mat-datepicker #picker></mat-datepicker>
 
                 </mat-form-field>
@@ -57,7 +53,7 @@
                   panel1.expanded ? 'fa fa-compress' : 'fa fa-expand'
                 }}"></i>
             </mat-expansion-panel-header>
-            <div class="scrollable-table">
+            <div class="scrollable-table" style="overflow-y:auto;overflow-x:hidden">
               <div class="table-container">
                 <div class="table-appointments-for-today table table-dashboard finished_appointments">
                   <div class="row text-center table-header">
@@ -72,8 +68,8 @@
                   <div class="noappintment" *ngIf="Appointments!= null && Appointments.length == 0">
                     You don't have any appointments for today
                   </div>
-                  <div class="row text-center table-body"  *ngFor="let appointment of Appointments" >
 
+                  <div class="row text-center table-body"  *ngFor="let appointment of Appointments" >
                     <div class="col-md-1 col-1 appointment-time appintment-link" *ngIf="appointment.IsCurrent"
                       (click)="openComponentDialog(appointmentDialogComponent,appointment,ActionsType.view)">
                       {{appointment.AppointmentTime | date:'MM/dd/yyyy'}}
@@ -84,6 +80,8 @@
                       (click)="openComponentDialog(appointmentDialogComponent,appointment,ActionsType.view)">
                       <div>{{appointment.PatientName}}</div>
                       <div>DOB: {{appointment.DateofBirth | date:'MMM d, y'}}</div>
+                      <div *ngIf="appointment.PrimaryPhone">H: {{appointment.PrimaryPhone}}</div>
+                      <div *ngIf="appointment.MobilePhone">M: {{appointment.MobilePhone}}</div>
                     </div>
                     <div class="col-md-2 col-2 provider" *ngIf="appointment.IsCurrent" >{{appointment.ProviderName}}</div>
                     <div class="col-md-2 col-2 visit-status" *ngIf="appointment.IsCurrent">
@@ -110,8 +108,8 @@
                         Record Encounter
                       </button>
                     </div>
-
                   </div>
+
                 </div>
               </div>
             </div>
@@ -204,7 +202,6 @@
                     {{patient.NumberOfAppointments}}
 
                   </li>
-                  <!--  data-bs-toggle="modal" [attr.data-bs-target]="patient.NumberOfAppointments == 0 ? '#modal-appointment-form' : '#modal-existingappointment-form'"-->
                 </ul>
               </div>
 
@@ -223,50 +220,6 @@
               </a>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<div class="modal modal-notice" id="modal-message-success" tabindex="-1" role="dialog" data-bs-backdrop="static"
-  data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog  modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-body">
-        <div class="scrollable-container" style="height: auto;">
-          <div class="content">
-            <div [class]="onError ? 'message-error-title': 'message-title'">
-              <p>{{OperationMessage}}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <a class="btn btn-default" data-bs-dismiss="modal" data-bs-target="#modal-message-success" aria-label="Close"
-          (click)="onSuccessCloseMessageBox()">Close</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- appointment cancel-->
-<div class="modal animated fadeIn in" id="modal-update-appointment-status">
-  <div class="modal-dialog" style="margin-top: 243px; margin-bottom: 243px;">
-    <div class="modal-content">
-      <div class="modal-header">
-        <p class="title">Change Status to "Cancelled"?</p><button aria-label="Close" class="close"
-          data-bs-dismiss="modal" type="button"><span aria-hidden="true">×</span></button>
-      </div>
-      <div class="modal-body">
-        <div class="alert alert-warning"><strong>Warning:</strong>&nbsp; Appointment will be locked.</div>
-      </div>
-      <div class="modal-footer">
-        <div class="controls">
-          <button class="btn btn-default modal-add-patient-save seen-status-change"
-            (click)="confirmAppointment()">Confirm</button><button class="btn btn-default seen-status-change"
-            data-bs-dismiss="modal" (click)="confirmIsCancelledAppointment()">Cancel</button>
         </div>
       </div>
     </div>

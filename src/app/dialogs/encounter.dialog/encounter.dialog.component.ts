@@ -119,28 +119,11 @@ export class EncounterDialogComponent implements OnInit {
       this.encounterInfo.EncounterCode = ""
       this.encounterInfo.EncounterCodeSystem ="";
       this.encounterInfo.EncounterDescription ="";
-      this.encounterInfo.SummaryCareRecordRefIn = false;
-      this.encounterInfo.SummaryCareRecordRefOut = false;
-      this.encounterInfo.DeclinedToReceiveSummary = false;
-      this.encounterInfo.MedicationAllergyReconciliationCompleted = false;
-      this.encounterInfo.DiagnosisReconciliationCompleted = false;
-      this.encounterInfo.NewPatientEncounter = false;
-      this.encounterInfo.medCompleted = null;
-      this.encounterInfo.HealthInfoExchange = null;
-
     }else{
       this.encounterInfo.EncounterType = "";
       this.encounterInfo.EncounterCode = "99213"
       this.encounterInfo.EncounterCodeSystem ="SNOMED";
       this.encounterInfo.EncounterDescription ="Office or Other Outpatient Visit";
-      this.encounterInfo.SummaryCareRecordRefIn = null;
-      this.encounterInfo.SummaryCareRecordRefOut = null;
-      this.encounterInfo.DeclinedToReceiveSummary = null;
-      this.encounterInfo.MedicationAllergyReconciliationCompleted = null;
-      this.encounterInfo.DiagnosisReconciliationCompleted = null;
-      this.encounterInfo.NewPatientEncounter = null;
-      this.encounterInfo.medCompleted = false;
-      this.encounterInfo.HealthInfoExchange = false;
     }
   }
 
@@ -232,17 +215,15 @@ export class EncounterDialogComponent implements OnInit {
 
   removeCompletedProcedure(value: ProceduresInfo, index: number) {
     value.CanDelete = true;
-   // this.completedProcedures.next(this.encounterInfo.CompletedProcedures.filter(fn => fn.CanDelete === false));
   }
 
   removeEncounterDiagnosis(value: EncounterDiagnosis, index: number) {
-    //let n = this.encounterInfo.Diagnoses.indexOf(value)
     value.CanDelete = true;
     this.diagnosesInfo.next(this.encounterInfo.Diagnoses.filter(fn => fn.CanDelete === false));
   }
 
   optionChangedForDiagnosis(value: MedicalCode) {
-    let d: EncounterDiagnosis = new EncounterDiagnosis;
+    let d: EncounterDiagnosis = new EncounterDiagnosis();
     d.Code = value.Code
     d.CodeSystem = value.CodeSystem
     d.Description = value.Description
@@ -252,14 +233,15 @@ export class EncounterDialogComponent implements OnInit {
   }
 
   onProceduresRecommended(value: MedicalCode) {
-    let p: ProceduresInfo = new ProceduresInfo;
+    let p: ProceduresInfo = new ProceduresInfo();
     p.Code = value.Code
     p.CodeSystem = value.CodeSystem
     p.Description = value.Description
     p.CanDelete = false;
     p.Status = "Treatment planned";
     this.encounterInfo.RecommendedProcedures.push(p);
-    this.recommendedProcedures.next(this.encounterInfo.RecommendedProcedures.filter(fn => fn.CanDelete === false));
+    this.recommendedProcedures.next(
+      this.encounterInfo.RecommendedProcedures.filter(fn => fn.CanDelete === false));
   }
 
   onProcedureCompleted(value: MedicalCode) {
@@ -269,7 +251,6 @@ export class EncounterDialogComponent implements OnInit {
     p.Description = value.Description
     p.CanDelete = false;
     this.encounterInfo.CompletedProcedures.push(p);
-   // this.completedProcedures.next(this.encounterInfo.CompletedProcedures.filter(fn => fn.CanDelete === false));
   }
 
 
@@ -289,7 +270,6 @@ export class EncounterDialogComponent implements OnInit {
 
   showAssociateVitals: boolean = true;
   displayVitalsDialog(event) {
-    //debugger;
     if (event == true) {
       this.showAssociateVitals = true;
     }
@@ -320,14 +300,13 @@ export class EncounterDialogComponent implements OnInit {
 
   updateEncounter(){
     let isAdd = this.encounterInfo.EncounterId == null;
-
     this.patientService.CreateEncounter(this.encounterInfo).subscribe(resp => {
       if (resp.IsSuccess) {
         this.overlayref.close({"UpdatedModal": PatientChart.Encounters});
         this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2AE001" : "M2AE002"])
       }else{
         this.overlayref.close();
-        this.alertmsg.displayErrorDailog(ERROR_CODES["E2AE001"])
+        this.alertmsg.displayErrorDailog(ERROR_CODES[isAdd ? "E2AE001" : "E2AE002"])
       }
     });
   }

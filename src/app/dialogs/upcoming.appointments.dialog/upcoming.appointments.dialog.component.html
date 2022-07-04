@@ -12,9 +12,10 @@
         <div class="content-data">
           <div class="row appointment" *ngFor="let patientapp of AppointmentsOfPatient">
             <div class="col-md-7">
+              <mat-progress-bar mode="indeterminate" bufferValue="50" value=100 *ngIf="dialogIsLoading" ></mat-progress-bar>
               <div class="upcomming-appointment">
                 {{patientapp.AppointmentTime | date:'MM/dd/yyyy'}}&nbsp;
-                <a class="main-list-link" data-remote="true"
+                <a class="main-list-link"
                   (click)="ViewAppointment(newAppointmentDialogComponent,'view',patientapp)" >View/Edit</a>
               </div>
               <div><b>Time: &nbsp;</b>{{patientapp.AppointmentTime | date:'h:mm a'}}&nbsp;(~
@@ -25,7 +26,7 @@
             </div>
             <div class="col-md-5">
               <div><b>Type: &nbsp;</b>{{patientapp.AppointmentType}}</div>
-              <div><a data-remote="true" href="javascript:void(0)"
+              <div><a href="javascript:void(0)"
                 (click)="close()" >Cancel</a></div>
             </div>
           </div>

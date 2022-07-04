@@ -66,6 +66,7 @@ export class InsuranceComponent implements OnInit {
   primaryInsDetail: boolean;
   secondaryInsDetail: boolean;
   SourceOfPaymentTypologyCodesFilter: any;
+  secondarySptcFilter:any;
 
 
   constructor(private patientservice: PatientService,
@@ -185,6 +186,7 @@ export class InsuranceComponent implements OnInit {
       if (resp.IsSuccess) {
       this.SourceOfPaymentTypologyCodes = resp.ListResult;
       this.SourceOfPaymentTypologyCodesFilter=this.SourceOfPaymentTypologyCodes.slice();
+      this.secondarySptcFilter=this.SourceOfPaymentTypologyCodes.slice();
       if(this.primlist.SourceOfPaymentTypology ! ="")
       {
           let data =this.primlist.SourceOfPaymentTypology;

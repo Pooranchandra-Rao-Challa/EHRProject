@@ -18,7 +18,12 @@ export class EHROverlayRef<R = any, T = any> {
     public content: string | TemplateRef<any> | Type<any>,
     public data: T // pass data to modal i.e. FormData
   ) {
-    overlay.backdropClick().subscribe(() => this._close('backdropClick', null));
+
+    overlay.backdropClick().subscribe(() => {
+      //this._close('backdropClick', null)
+    }
+
+    );
   }
 
   get RequestData(): T {
@@ -26,6 +31,7 @@ export class EHROverlayRef<R = any, T = any> {
   }
 
   close(resdata?: R) {
+    document.body.style.overflow = "auto"
     this._close('close', resdata);
   }
 

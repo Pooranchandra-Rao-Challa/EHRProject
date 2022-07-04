@@ -52,7 +52,7 @@
 //   height: 45px;
 // }
 .btn-verify {
-  width: 187px;
+  width: 140px;
   height: 45px;
 }
 
@@ -93,8 +93,8 @@
     margin-right: 5px;
 }
 
-  
-    
+
+
 .tabs-alignments {
   width: 180px;
 }
@@ -174,10 +174,6 @@
   height: 555px;
  margin-top: 0px;
   margin-bottom: 16px;
-  // overflow-y: scroll;
-  // overflow-x: none;
-  
-
 }
 .cross-mark {
   border: "1px solid #fff;"
@@ -188,23 +184,19 @@
   margin-left: -53px;
   margin-right: 59px;
   height: 45px;
-
 }
 
 .PrimaryInsuranceDetails {
   height: 450px;
 }
-
 .radio-btn-label {
   margin-top: -28px;
   margin-left: 21px;
 }
-
 .label-design {
   font-size: 16px;
   font-family: 'Roboto';
 }
-
 .manualbtn {
   height: 45px;
   margin-left: -59px;
@@ -247,7 +239,6 @@
      font-size: none;
 }
 .divScroll {
-  // overflow:scroll;
   overflow-y: scroll;
   overflow-x: hidden;
   height: 500px;
@@ -273,6 +264,12 @@
 .modal-footer{
   border-top: 3px #41b6b6;
 }
-.form-select:hover {
-  background: #d2f5f059;
+
+::ng-deep .ddhover.mat-form-field-appearance-outline:hover .mat-form-field-outline {
+  background-color: #ebf6f5 !important;
+}
+
+::ng-deep .optionalignment.mat-select-panel {
+  margin-top: 31px !important;
+  max-height: 169px !important;
 }

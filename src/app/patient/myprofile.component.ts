@@ -71,7 +71,6 @@ GenderData:any=[
       "PatientId": this.user.PatientId,
     }
     this.patientService.PatientMyProfileByPatientId(req).subscribe(resp => {
-      debugger;
       if (resp.IsSuccess) {
         this.PatientProfile = resp.ListResult[0];
       }
