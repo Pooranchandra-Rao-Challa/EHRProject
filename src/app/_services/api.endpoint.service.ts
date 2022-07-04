@@ -591,6 +591,10 @@ export class APIEndPoint extends EndpointBase {
   get _patientProceduresViewUrl(){
     return this._baseUrl +"PatientProceduresView";
   }
+
+  get _areaCodesUrl(){
+    return this._baseUrl +"AreaCodes";
+  }
   constructor(public http: HttpClient) {
     super();
   }

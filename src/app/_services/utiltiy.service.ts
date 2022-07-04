@@ -52,5 +52,9 @@ export class UtilityService extends APIEndPoint {
   CompletePatientAccountProcess(reqparams: any){
     return this._ProcessPostRequest<any>(this._completePatientAccountProcessUrl,reqparams);
   }
-
+  
+  AreaCodes()
+  {
+    return this._ProcessGetRequest<any>(this._areaCodesUrl);
+  }
 }
