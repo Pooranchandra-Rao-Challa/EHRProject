@@ -12,7 +12,7 @@
         <div class="row ">
           <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
             <label for="Date" class="form-label">Date</label>
-            <input type="input" class="form-control inputclass" id="Date" placeholder="Date">
+            <input type="input" class="form-control inputclass" id="Date" placeholder="{{ hoverDATE }}" (mouseover)="hoverDATE='_/__/_'"  (mouseleave)="hoverDATE='Date'">
           </div>
           <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
             <label for="Date" class="form-label"> Provider</label>
@@ -28,7 +28,7 @@
         <div class="row">
           <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
             <label for="Time" class="form-label">Time</label>
-            <input type="input" class="form-control inputclass" id="Time" placeholder="Time">
+            <input type="input" class="form-control inputclass" id="Time" placeholder="Time" placeholder="{{ hoverTime }}" (mouseover)="hoverTime='hh:mm XM'"  (mouseleave)="hoverTime='Time'">
           </div>
           <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
             <label for="Date" class="form-label">Location </label>

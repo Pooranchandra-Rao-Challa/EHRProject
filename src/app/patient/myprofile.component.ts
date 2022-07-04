@@ -1,14 +1,16 @@
 import { PatientNavbarComponent } from './../_navigations/patient.navbar/patient.navbar.component';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
-import { PatientProfile } from './../_models/_patient/patientprofile';
+import { areaCodes, PatientProfile } from './../_models/_patient/patientprofile';
 import { PatientService } from 'src/app/_services/patient.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { fromEvent, Observable, of } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, map, startWith } from 'rxjs/operators';
 import { User } from '../_models';
 import { ActivatedRoute } from '@angular/router';
 import { AlertMessage, ERROR_CODES } from '../_alerts/alertMessage';
+import { MedicalCode } from '../_models/codes';
+import { UtilityService } from '../_services/utiltiy.service';
 
 
 
@@ -24,6 +26,14 @@ export class MyprofileComponent implements OnInit {
   patietnprofile: any
   options: string[] = ['501', '502', '401', '402', '601', '603'];
   filteredOptions: Observable<string[]>;
+  filteredProcedures: Observable<MedicalCode[]>;
+  filterProcedures: any;
+  proceduresData: any;
+  @ViewChild('searchCellPhone', { static: true }) searchCellPhone: ElementRef;
+  @ViewChild('searchHomePhone', { static: true }) searchHomePhone: ElementRef;
+  @ViewChild('searchWorkPhone', { static: true }) searchWorkPhone: ElementRef;
+  @ViewChild('searchPhone', { static: true }) searchPhone: ElementRef;
+
   questions: string[] = ['What is your favorite sports team?', 'Which historical figure would you most like to meet?', 'In what city were you born?', 'What was the make and model of your first car?',
     'What is your favorite movie?', 'What is the name of your favorite person in history?', 'Who is your favorite actor, musician, or artist?', 'What was your favorite sport in high school?',
     'What is the name of your favorite book?', 'What was the last name of your first grade teacher?', 'Where were you when you had your first kiss?', 'Where were you when you had your first kiss?',
@@ -51,17 +61,22 @@ GenderData:any=[
   { Id: '2', value: 'Female' },
   { Id: '3', value: 'other' },
 ]
-  constructor(private patientService: PatientService,private authenticationService: AuthenticationService,private alertmsg: AlertMessage,private PatientNavbar:PatientNavbarComponent) {
+  constructor(private patientService: PatientService,private authenticationService: AuthenticationService,private alertmsg: AlertMessage,
+    private PatientNavbar:PatientNavbarComponent,
+    private utilityService: UtilityService,) {
     this.user = authenticationService.userValue;
     // console.log(this.user);
   }
 
   ngOnInit(): void {
     this.getPatientProfile();
-    this.filteredOptions = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value)),
-    );
+    // this.filteredOptions = this.myControl.valueChanges.pipe(
+    //   startWith(''),
+    //   map(value => this._filter(value)),
+    // );
+    this._filterProcedure();
+    this.events();
+    //this.getPatientProfile();
 
   }
 
@@ -116,18 +131,88 @@ GenderData:any=[
   }
 
 
-  private _filter(value: string): string[] {
-    //debugger
-    if (value == "") {
-      return ['Please enter 1 or more characters']
-    }
-    const filterValue = value.toLowerCase();
-    var searchData = this.options.filter(option => option.toLowerCase().includes(filterValue));
-    if (searchData.length === 0) {
-      return ['No Data Found']
-    }
-    return searchData;
+  // private _filter(value: string): string[] {
+  //   //debugger
+  //   if (value == "") {
+  //     return ['Please enter 1 or more characters']
+  //   }
+  //   const filterValue = value.toLowerCase();
+  //   var searchData = this.options.filter(option => option.toLowerCase().includes(filterValue));
+  //   if (searchData.length === 0) {
+  //     return ['No Data Found']
+  //   }
+  //   return searchData;
+  // }
+
+events(){
+  fromEvent(this.searchCellPhone.nativeElement, 'keyup').pipe(
+    map((event: any) => {
+      return event.target.value;
+    })
+    , filter(res => res.length > 1 && res.length < 8)
+    , debounceTime(500)
+    , distinctUntilChanged()
+  ).subscribe(value =>
+    this.filterProcedures=this.filterData(value));
+
+
+    fromEvent(this.searchHomePhone.nativeElement, 'keyup').pipe(
+      map((event: any) => {
+        return event.target.value;
+      })
+      , filter(res => res.length > 1 && res.length < 8)
+      , debounceTime(500)
+      , distinctUntilChanged()
+    ).subscribe(value =>
+      this.filterProcedures=this.filterData(value));
+
+
+      fromEvent(this.searchWorkPhone.nativeElement, 'keyup').pipe(
+        map((event: any) => {
+          return event.target.value;
+        })
+        , filter(res => res.length > 1 && res.length < 8)
+        , debounceTime(500)
+        , distinctUntilChanged()
+      ).subscribe(value =>
+        this.filterProcedures=this.filterData(value));
+
+        fromEvent(this.searchPhone.nativeElement, 'keyup').pipe(
+          map((event: any) => {
+            return event.target.value;
+          })
+          , filter(res => res.length > 1 && res.length < 8)
+          , debounceTime(500)
+          , distinctUntilChanged()
+        ).subscribe(value =>
+          this.filterProcedures=this.filterData(value));
+}
+  displayWith(value: areaCodes): string {
+    if (!value) return "";
+    return value.areaCode;
   }
 
+  _filterProcedure() {
+    this.utilityService.AreaCodes()
+      .subscribe(resp => {
+        //this.isLoading = false;
+        if (resp.IsSuccess) {
+          this.proceduresData=resp.ListResult;
+          // this.filteredProcedures = of(
+          //   resp.ListResult as PatientClinicalProvider[]);
+        } else {
+          this.filterProcedures=of([]);
+          this.proceduresData = of([]);
+        }
+      })
+  }
+  //filter city on search text
+  filterData(searchText: string) {
+    debugger;
+    var searchData = this.proceduresData.filter(x => (((x.areaCode).toLowerCase().indexOf(searchText.toLowerCase().trim()) !== -1)));
+    return searchData
+  }
 }
+
+
 
