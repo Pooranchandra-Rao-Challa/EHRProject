@@ -1,14 +1,13 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
-import { ProceduresInfo, User } from 'src/app/_models';
+import { User } from 'src/app/_models';
 import { PatientProfile } from 'src/app/_models/_patient/patientprofile';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { PatientService } from 'src/app/_services/patient.service';
-import { Observable,fromEvent, of  } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
-import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { PatientClinicalProvider } from 'src/app/_models/_patient/patientclinicalprovider';
-import { CloseScrollStrategy } from '@angular/cdk/overlay';
+import { fromEvent, of } from 'rxjs';
+
 @Component({
   selector: 'app-newmessage.dialog',
   templateUrl: './newmessage.dialog.component.html',
@@ -18,8 +17,8 @@ export class NewmessageDialogComponent implements OnInit {
 
   PatientProfile: PatientProfile;
   user: User;
-  filteredProcedures: any;
-  searchProcedures: any;
+  proceduresData: any;
+  filterProcedures: any;
 
   // procedureInfo: ProceduresInfo = new ProceduresInfo();
   @ViewChild('searchProcedureCode', { static: true }) searchProcedureCode: ElementRef;
@@ -31,20 +30,17 @@ export class NewmessageDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this._filterProcedure();
     //this.getPatientProfile();
     fromEvent(this.searchProcedureCode.nativeElement, 'keyup').pipe(
-      // get value
       map((event: any) => {
         return event.target.value;
       })
-      // if character length greater then 2
-      , filter(res => res.length > 2 && res.length < 6)
-      // Time in milliseconds between key events
-      , debounceTime(1000)
-      // If previous query is diffent from current
+      , filter(res => res.length > 2 && res.length < 8)
+      , debounceTime(500)
       , distinctUntilChanged()
-      // subscription for response
-    ).subscribe(value => this._filterProcedure(value));
+    ).subscribe(value =>
+      this.filterProcedures=this.filterData(value));
   }
 
   cancel() {
@@ -58,7 +54,7 @@ export class NewmessageDialogComponent implements OnInit {
   //   this.PatientClinicalProvider.Title = selected.option.value.Code;
   //   this.PatientClinicalProvider.FirstName = selected.option.value.Description;
   // }
-  _filterProcedure(term) {
+  _filterProcedure() {
     var req={
       "ClinicId": this.user.ClinicId,
     }
@@ -67,14 +63,19 @@ export class NewmessageDialogComponent implements OnInit {
       .subscribe(resp => {
         //this.isLoading = false;
         if (resp.IsSuccess) {
-          this.filteredProcedures=resp.ListResult;
+          this.proceduresData=resp.ListResult;
           // this.filteredProcedures = of(
           //   resp.ListResult as PatientClinicalProvider[]);
-          this.searchProcedures=this.filteredProcedures.filter(x=>(x.Title+' -')==term.trim())
         } else {
-          this.searchProcedures=of([]);
-          this.filteredProcedures = of([]);
+          this.filterProcedures=of([]);
+          this.proceduresData = of([]);
         }
       })
+  }
+  //filter city on search text
+  filterData(searchText: string) {
+    debugger;
+    var searchData = this.proceduresData.filter(x => (((x.Title+' - '+x.FullName).toLowerCase().indexOf(searchText.toLowerCase().trim()) !== -1)));
+    return searchData
   }
 }

@@ -18,7 +18,7 @@
                     <input matInput #searchProcedureCode class="form-control" placeholder="Search" type="text"
                       id="searchProcedureCode" name="searchProcedureCode" [matAutocomplete]="procedureCode" />
                     <mat-autocomplete [displayWith]="displayWith" #procedureCode="matAutocomplete">
-                      <mat-option *ngFor="let option of searchProcedures" [value]="option"
+                      <mat-option *ngFor="let option of filterProcedures" [value]="option"
                         class="medical-code-option">
                         {{option.Title}} - {{option.FullName}}
                       </mat-option>
@@ -76,8 +76,8 @@
 
         <div class="row" style="float: right;">
           <button type="button" class="btn btn-green col-md-4 mx-2" data-bs-dismiss="modal"
-            (click)="cancel()">Save</button>
-          <button type="button" class="btn btn-green col-md-4">Cancel</button>
+           >Save</button>
+          <button type="button"  (click)="cancel()" class="btn btn-green col-md-4">Cancel</button>
         </div>
       </form>
 

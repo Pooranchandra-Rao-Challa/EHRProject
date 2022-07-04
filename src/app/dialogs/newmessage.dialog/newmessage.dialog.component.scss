@@ -21,6 +21,10 @@ input::-webkit-input-placeholder {
 
   font-size: 16px !important;
 }
+.modal-header {
+
+  padding: 57px 16px 16px 5px !important;
+}
 ::ng-deep .example-margin {
   & .mat-checkbox-background,
   .mat-checkbox-frame {
