@@ -185,7 +185,10 @@ export class InsuranceComponent implements OnInit {
     this.patientservice.SourceOfPaymentTypologyCodes().subscribe(resp => {
       if (resp.IsSuccess) {
       this.SourceOfPaymentTypologyCodes = resp.ListResult;
+      debugger;
       this.SourceOfPaymentTypologyCodesFilter=this.SourceOfPaymentTypologyCodes.slice();
+      console.log( this.SourceOfPaymentTypologyCodesFilter);
+      
       this.secondarySptcFilter=this.SourceOfPaymentTypologyCodes.slice();
       if(this.primlist.SourceOfPaymentTypology ! ="")
       {

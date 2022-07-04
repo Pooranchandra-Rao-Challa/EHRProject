@@ -232,7 +232,7 @@ export class PatientDatasource implements DataSource<ProviderPatient>{
     this.queryParams["PageSize"] = pageSize;
     this.queryParams["Filter"] = filter;
     this.loadingSubject.next(true);
-
+    
     this.patientService.FilteredPatientsOfProvider(this.queryParams).pipe(
       catchError(() => of([])),
       finalize(() => this.loadingSubject.next(false))
