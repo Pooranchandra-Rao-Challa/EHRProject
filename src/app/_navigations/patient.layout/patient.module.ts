@@ -21,6 +21,7 @@ import { PatientappointmentDialogComponent } from 'src/app/dialogs/patientappoin
 import { OverlayService } from 'src/app/overlay.service';
 import { AlertMessage } from 'src/app/_alerts/alertMessage';
 import { LocationSelectService, ViewChangeService } from '../provider.layout/location.service';
+import { UtilityService } from 'src/app/_services/utiltiy.service';
 @NgModule({
   exports: [
     MatInputModule
@@ -47,7 +48,7 @@ import { LocationSelectService, ViewChangeService } from '../provider.layout/loc
     CommonModule,
 
   ],
-  providers: [LocationSelectService,ViewChangeService,PatientService, OverlayService,AlertMessage,PatientNavbarComponent
+  providers: [LocationSelectService,ViewChangeService,PatientService, OverlayService,AlertMessage,PatientNavbarComponent,UtilityService
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
