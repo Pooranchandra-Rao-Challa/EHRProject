@@ -310,6 +310,7 @@ input::-webkit-input-placeholder {
     font-size: 15px;
     padding: 10px 20px;
     resize: both;
+    width: 100% !important;
 }
 .modal.new-alert-form  {
   pointer-events: auto !important;

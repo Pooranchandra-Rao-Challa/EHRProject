@@ -314,18 +314,19 @@
                       Prescription</p>
                   </div>
                   <div class="col-md-4 col-6">
-                    <div class="col-12 plusicon pull-right"><span><i class="fa fa-plus" data-bs-toggle="modal"
-                          data-bs-target="#medication-modal"></i></span>
+                    <div class="col-12 plusicon pull-right" data-bs-toggle="modal" data-bs-target="#medication-modal">
+                      <span><i class="fa fa-plus"></i></span>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list" *ngFor="let medication of medications">
+                <ul class="main-list" *ngFor="let medication of chartInfo?.Medications">
                   <li>
-                    <a>
+                    <a data-bs-toggle="modal" data-bs-target="#medication-modal"
+                      (click)="editDialog(medication, 'medication')">
                       <span>
-                        - {{medication?.name}}
+                        - {{medication?.DrugName}}
                       </span>
                     </a>
                   </li>
@@ -341,7 +342,7 @@
                     </span>
                   </li>
                 </ul>
-                <ul class="main-list" *ngIf="medications?.length == (0 || null || undefined)">
+                <ul class="main-list" *ngIf="chartInfo?.Medications?.length == 0">
                   <li>
                     <span>No medications recorded.</span>
                   </li>
@@ -440,7 +441,7 @@
                     </a>
                     <div style="float: right;" *ngIf="encounter.Signed">
                       <div mat-icon-button class="folder-node">
-                      <i class="fa fa-plus icons-design" ></i>
+                        <i class="fa fa-plus icons-design"></i>
                       </div>
                     </div>
                   </li>
@@ -480,8 +481,8 @@
                   </div>
                   <div class="col-md-4 col-6">
                     <div class="col-12 plusicon pull-right"
-                    (click)="openComponentDialog(appointmentDialogComponent ,null,ActionTypes.new)"
-                    ><span><i class="fa fa-plus"></i></span>
+                      (click)="openComponentDialog(appointmentDialogComponent ,null,ActionTypes.new)"><span><i
+                          class="fa fa-plus"></i></span>
                     </div>
                   </div>
                 </div>
@@ -617,7 +618,7 @@
             </mat-form-field>
             <div class="row">
               <label>Start Date</label>
-              <mat-form-field appearance="outline" class="green-calendar calender-item col-md-8">
+              <mat-form-field appearance="outline" class="green-calendar cstm-calendar col-md-8">
                 <input matInput class="pointer" [matDatepicker]="startdate" (click)="startdate.open()" readonly
                   placeholder="Start Date" name="startdate" [(ngModel)]="patientDiagnoses.StartAt" />
                 <mat-datepicker-toggle matSuffix [for]="startdate">
@@ -630,7 +631,7 @@
             </div>
             <div class="row">
               <label>End Date</label>
-              <mat-form-field appearance="outline" class="green-calendar calender-item col-md-8">
+              <mat-form-field appearance="outline" class="green-calendar cstm-calendar col-md-8">
                 <input matInput class="pointer" [matDatepicker]="enddate" placeholder="End Date" name="enddate"
                   (click)="enddate.open()" readonly [(ngModel)]="patientDiagnoses.StopAt" />
                 <mat-datepicker-toggle matSuffix [for]="enddate">
@@ -982,7 +983,7 @@
             <label class="title-bold required">Start Date </label>
           </div>
           <div class="col-md-6">
-            <mat-form-field appearance="outline" class="input-field calender-item  col-md-8">
+            <mat-form-field appearance="outline" class="grey-matform green-calendar cstm-calendar col-md-8">
               <input matInput [matDatepicker]="StartAt" placeholder="Start Date" name="startDate"
                 (click)="StartAt.open()" readonly [(ngModel)]="patientAllergy.StartAt" />
               <mat-datepicker-toggle matSuffix [for]="StartAt">
@@ -996,7 +997,7 @@
             <label class="title-bold">End Date: </label>
           </div>
           <div class="col-md-6">
-            <mat-form-field appearance="outline" class="input-field calender-item  col-md-8">
+            <mat-form-field appearance="outline" class="grey-matform green-calendar cstm-calendar col-md-8">
               <input matInput [matDatepicker]="EndAt" placeholder="End Date" name="endDate" (click)="EndAt.open()"
                 readonly [(ngModel)]="patientAllergy.EndAt" />
               <mat-datepicker-toggle matSuffix [for]="EndAt">
@@ -1032,11 +1033,10 @@
 <!-- Medication -->
 <div class="modal fade " id="medication-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-md" role="document">
-    <div class="modal-content modal-item ">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title Helvetica-sans-serif-medium">Record Medication (Local)</h4>
-
         <span type="button" class="cross-mark" data-bs-dismiss="modal">
           X
         </span>
@@ -1046,7 +1046,8 @@
           <label class="title-field">Medication Name:</label>
           <div class="col-md-9">
             <mat-form-field class="input-bg w-100" appearance="outline">
-              <input matInput placeholder="Medication Name" name="medicationname:" />
+              <input matInput placeholder="Medication Name" name="medicationname:"
+                [(ngModel)]="patientMedication.DrugName" />
             </mat-form-field>
           </div>
           <div class="col-md-3 mt-1 ">
@@ -1057,13 +1058,13 @@
           <div class="form-group col-md-6">
             <label class="title-field">Rx Norm ID:</label>
             <mat-form-field class="input-bg w-100" appearance="outline">
-              <input matInput placeholder="Rx Norm ID" name="rxnormid:" />
+              <input matInput placeholder="Rx Norm ID" name="rxnormid:" [(ngModel)]="patientMedication.Rxcui" />
             </mat-form-field>
           </div>
           <div class="form-group col-md-6 ">
             <label class="title-field">NDC ID:</label>
             <mat-form-field class="input-bg w-100" appearance="outline">
-              <input matInput placeholder="NDC ID" name="ndcid:" />
+              <input matInput placeholder="NDC ID" name="ndcid:" [(ngModel)]="patientMedication.NDC" />
             </mat-form-field>
           </div>
         </div>
@@ -1071,13 +1072,14 @@
           <div class="form-group col-md-6">
             <label class="title-field">Dose and Form:</label>
             <mat-form-field class="input-bg w-100" appearance="outline">
-              <input matInput placeholder="Dose and Form" name="doseandform:" />
+              <input matInput placeholder="Dose and Form" name="doseandform:"
+                [(ngModel)]="patientMedication.DoesspotMedicationId" />
             </mat-form-field>
           </div>
           <div class="form-group col-md-6 ">
             <label class="title-field">Dispense</label>
             <mat-form-field class="input-bg w-100" appearance="outline">
-              <input matInput placeholder="Dispense" name="dispense:" />
+              <input matInput placeholder="Dispense" name="dispense:" [(ngModel)]="patientMedication.ManualDose" />
             </mat-form-field>
           </div>
         </div>
@@ -1085,13 +1087,13 @@
           <div class="form-group col-md-6">
             <label class="title-field">Units:</label>
             <mat-form-field class="input-bg w-100" appearance="outline">
-              <input matInput placeholder="Units" name="units:" />
+              <input matInput placeholder="Units" name="units:" [(ngModel)]="patientMedication.Units" />
             </mat-form-field>
           </div>
           <div class="form-group col-md-6">
             <label class="title-field">Quantity:</label>
             <mat-form-field class="input-bg w-100" appearance="outline">
-              <input matInput placeholder="Quantity" name="quantity" />
+              <input matInput placeholder="Quantity" name="quantity" [(ngModel)]="patientMedication.Quantity" />
             </mat-form-field>
           </div>
         </div>
@@ -1099,32 +1101,31 @@
           <div class=" form-group col-md-6">
             <label class="title-field">Refills:</label>
             <mat-form-field class="input-bg w-100" appearance="outline">
-              <input matInput placeholder="Refills" name="refills:" />
+              <input matInput placeholder="Refills" name="refills:" [(ngModel)]="patientMedication.Refills" />
             </mat-form-field>
           </div>
           <div class="form-group  col-md-6">
             <label class="title-field">Days Supply:</label>
             <mat-form-field class="input-bg w-100" appearance="outline">
-              <input matInput placeholder="Days Supply" name="dayssupply:" />
+              <input matInput placeholder="Days Supply" name="dayssupply:" [(ngModel)]="patientMedication.DaysSupply" />
             </mat-form-field>
           </div>
         </div>
         <div class="row mt-2">
           <div class=" form-group col-md-6">
             <label class="title-field">Start Date</label>
-            <mat-form-field appearance="outline" class="grey-matform grey-calendar">
+            <mat-form-field appearance="outline" class="grey-matform grey-calendar medication-datepicker">
               <input matInput class="pointer date-mat-class" autocomplete="off" [matDatepicker]="picker5"
-                (click)="picker5.open()" readonly placeholder="Start Date">
+                (click)="picker5.open()" readonly placeholder="Start Date" [(ngModel)]="patientMedication.StartAt">
               <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
               <mat-datepicker #picker5></mat-datepicker>
             </mat-form-field>
-
           </div>
           <div class="form-group  col-md-6">
             <label class="title-field">End Date</label>
-            <mat-form-field appearance="outline" class="grey-matform grey-calendar ">
+            <mat-form-field appearance="outline" class="grey-matform grey-calendar medication-datepicker">
               <input matInput class="pointer date-mat-class" autocomplete="off" [matDatepicker]="picker4"
-                (click)="picker4.open()" readonly placeholder="End Date">
+                (click)="picker4.open()" readonly placeholder="End Date" [(ngModel)]="patientMedication.StopAt">
               <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
               <mat-datepicker #picker4></mat-datepicker>
             </mat-form-field>
@@ -1135,7 +1136,7 @@
           <div class=" form-group col-md-6">
             <label class="title-field">Reasons</label>
             <mat-form-field class="input-bg w-100" appearance="outline">
-              <input matInput placeholder="Reasons" name="reasons" />
+              <input matInput placeholder="Reasons" name="reasons" [(ngModel)]="patientMedication.ReasonDescription" />
             </mat-form-field>
           </div>
           <div class="form-group mt-4 col-md-6">
@@ -1148,7 +1149,8 @@
         <div class="row mt-2">
           <div class="form-group ">
             <label class="title-bold">Patient Direction:</label>
-            <textarea class="form-control inputclass col-12 mt-3 mt-md-0" placeholder="Notes"></textarea>
+            <textarea class="form-control inputclass col-12 mt-3 mt-md-0" placeholder="Notes"
+              [(ngModel)]="patientMedication.Notes"></textarea>
           </div>
         </div>
         <div class="row links-item mt-4">
@@ -1167,12 +1169,12 @@
         <div class="col-md-12 locationbtns">
           <div class="d-flex justify-content-end">
             <button type="button" class="btn btn-lg btn-green col-xl-4 col-lg-4 col-md-4 col-8 mx-2"
-              data-bs-dismiss="modal">
+              data-bs-dismiss="modal" (click)="CreateMedication()">
               Save Changes
             </button>
             <button type="button" class="btn btn-lg btn-green col-xl-3 col-lg-3 col-md-3 col-5 mx-3"
               data-bs-dismiss="modal">
-              Close
+              Cancel
             </button>
           </div>
         </div>

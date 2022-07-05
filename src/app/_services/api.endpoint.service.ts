@@ -530,6 +530,10 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "CreateDiagnoses";
   }
 
+  get _createMedicationUrl() {
+    return this._baseUrl + "CreateMedications";
+  }
+
   get _changePasswordsUrl() {
     return this._baseUrl + "ChangePassword";
   }
@@ -584,12 +588,12 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "ProcedureCodesForDental";
   }
 
-  get _patientUsedProceduresUrl(){
-    return this._baseUrl +"PatientUsedProcedures";
+  get _patientUsedProceduresUrl() {
+    return this._baseUrl + "PatientUsedProcedures";
   }
 
-  get _patientProceduresViewUrl(){
-    return this._baseUrl +"PatientProceduresView";
+  get _patientProceduresViewUrl() {
+    return this._baseUrl + "PatientProceduresView";
   }
 
   get _areaCodesUrl(){

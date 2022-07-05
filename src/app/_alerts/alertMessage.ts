@@ -124,7 +124,7 @@ export class AlertMessage {
  * Past Medical Histories : PMH
  * Advanced Directives : AD
  * Allergies : A
- * Medications And Prescription : MAP
+ * Medications And Prescription : M
  * Immunizations : I
  * Screenings/Interventions/Assessments : SIA
  * Encounters : E
@@ -228,6 +228,8 @@ export const ERROR_CODES: { [key: string]: string } = {
   'E2CI001': 'Insurance Company Plan  Updation error',
   'E2CI002': 'Primary Insurance Updation error',
   'E2CI003': 'Secondary Insurance Updation error',
+  'E2CI004': 'Primary Insurance Address Updation error',
+  'E2CI005': 'Secondary Insurance Address Updation error',
 
   //Messages for Patients Procedure Crete
   'M2CP1001': 'Procedure Added sucessfully',
@@ -279,6 +281,14 @@ export const ERROR_CODES: { [key: string]: string } = {
 
   // Error for diagnoses
   'E2CD001': 'Diagnoses Updation error',
+
+  //Message for medication in chart screen
+  'M2CM001': 'Medication added successfully',
+  'M2CM002': 'Medication updated successfully',
+  'M2CM003': 'Medication deleted successfully',
+
+  // Error for medication
+  'E2CM001': 'Medication Updation error',
 
   // CQM Not performed
   'M2CCNP001': 'Not Performed Reason created successfully',

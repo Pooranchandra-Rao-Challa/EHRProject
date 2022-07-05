@@ -211,7 +211,6 @@ input.new-search::placeholder {
 .patientChartTab {
   padding: 10px 20px;
  // max-height: 700px;
- // overflow-y: scroll;
   border-top: 3px solid #41b6a6;
 }
 
@@ -381,32 +380,25 @@ textarea.form-control {
   padding: 9px 0px 0px 0px;
 }
 
-.grey-matform.mat-form-field-appearance-outline .mat-form-field-outline {
-  color: #41b6a6 !important;
-}
 .side-boder {
   border-left: 1px solid #41b6a6;
-  // height: 39px;
 }
 
 .row-head {
   border-left: 1px solid #fff;
-  // height: 39px;
 }
 
-// ::ng-deep .grey-calendar .mat-datepicker-toggle.mat-datepicker-toggle button.mat-focus-indicator.mat-icon-button {
-
-//   height: 3.8em !important;
-// }
-
-::ng-deep .calender-item .mat-datepicker-toggle.mat-datepicker-toggle button.mat-focus-indicator.mat-icon-button {
+::ng-deep .cstm-calendar.green-calendar .mat-datepicker-toggle.mat-datepicker-toggle button.mat-focus-indicator.mat-icon-button {
   height: 3.7em !important;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  margin-right: -8px;
+}
 
-// }
-
-// ::ng-deep .calender-item.mat-form-field-appearance-outline .mat-form-field-outline {
-//   background-color: #f5f5f5 !important;
-// }
+::ng-deep .medication-datepicker.grey-calendar .mat-datepicker-toggle.mat-datepicker-toggle button.mat-focus-indicator.mat-icon-button {
+  height: 3.7em !important;
+  margin-right: -9px;
+}
 
 .col-sm-4 {
   height: 39px;
@@ -419,10 +411,6 @@ textarea.form-control {
 
 .modal-dialog {
   margin-top: calc(100px + 100px) !important;
-}
-
-.body {
-  margin-right: 20px;
 }
 
 .modal-header.header {
@@ -441,7 +429,6 @@ textarea.form-control {
 
 .card-bg {
   min-height: 50px;
-  //padding: 0 15px;
   background-color: rgba(65, 182, 166, 0.1);
 }
 
@@ -466,9 +453,11 @@ textarea.form-control {
   border: 1px solid #41b6a6 !important;
   margin-top: 12px !important;
 }
+
 .underlined{
   text-decoration: underline;
 }
+
 .title-bold {
   margin: 12px 0;
   color: #4A4A4A;
@@ -493,7 +482,6 @@ textarea.form-control {
 }
 
 .accordion {
-  // border:1px solid #41b6a6;
   background-color: rgba(65, 182, 166, 0.1);
 }
 
@@ -528,11 +516,9 @@ textarea.form-control {
   font-size: 14px;
   padding: 0px 0px 0px 0px;
   color: #41b6a6;
-
 }
 
 .accordion-button:not(.collapsed) {
-  //color: #0c63e4;
   background-color: rgba(65, 182, 166, 0.1);
   box-shadow: inset 0 0px 0 rgb(0 0 0 / 13%);
   border-bottom: none;
@@ -542,30 +528,8 @@ textarea.form-control {
   width: 100px;
 }
 
-.modal-content {
-  width: 545px !important;
-}
-
 .modal .modal-dialog .modal-content .modal-body {
   padding: 15px 13px !important;
-}
-
-@media (max-width: 425px) {
-  .modal-content {
-    width: 400px !important;
-  }
-}
-
-@media (max-width: 375px) {
-  .modal-content {
-    width: 350px !important;
-  }
-}
-
-@media (max-width: 320px) {
-  .modal-content {
-    width: 300px !important;
-  }
 }
 
 .relative-icon {
@@ -576,32 +540,6 @@ textarea.form-control {
   border-radius: 50%;
   background-color: rgba(65, 182, 166, 0.49);
 }
-
-// .modal-box {
-//   width: 658px !important;
-//   margin-left: -88px;
-// }
-
-// @media (max-width: 425px) {
-//   .modal-box {
-//     width: 411px !important;
-//     margin-left: -5px;
-//   }
-// }
-
-// @media (max-width: 375px) {
-//   .modal-box {
-//     width: 361px !important;
-//     // margin-left: -5px;
-//   }
-// }
-
-// @media (max-width: 320px) {
-//   .modal-box {
-//     width: 305px !important;
-//     // margin-left: -5px;
-//   }
-// }
 
 ::ng-deep .input-bg.mat-form-field-appearance-outline .mat-form-field-outline {
   background-color: #f5f5f5 !important;
@@ -632,7 +570,6 @@ textarea.form-control {
   color: #fff;
   font-size: 16px;
   padding: 9px 0 12px 9px;
-
 }
 
 ::-webkit-input-placeholder {
@@ -640,51 +577,6 @@ textarea.form-control {
   font-size: 14px;
 }
 
-.modal-item {
-  width: 786px !important;
-  margin-left: -156px;
-}
-
-@media (max-width: 768px) {
-  .modal-item {
-    width: 753px !important;
-    margin-left: -128px;
-  }
-  .btn-save {
-    margin-top: 7px;
-    width: 352px;
-}
-}
-
-@media (max-width: 425px) {
-  .modal-item {
-    width: 401px !important;
-    margin-left: 0px;
-  }
-  .btn-save {
-    width: 371px !important;
-  }
-}
-
-@media (max-width:375px) {
-  .modal-item {
-    width: 353px !important;
-    margin-left: 0px;
-  }
-  .btn-save{
-    width: 321px !important;
-}
-}
-
-@media (max-width:325px) {
-  .modal-item {
-    width: 300px !important;
-    margin-left: 0px;
-  }
-  .btn-save{
-    width: 273px !important;
-}
-}
 .locationbtns{
   margin-left: 8px;
 }
@@ -692,23 +584,23 @@ textarea.form-control {
 textarea.form-control.inputclass{
     border: 1px solid #dedede  !important;
 }
+
 textarea.form-control.inputclass:focus,
 textarea.form-control.inputclass:hover{
-
   border: 1px solid #41b6a6  !important;
+}
 
-}
 //waring message modal
-.header-change
-{
-background-color: #D9534E;;
+.header-change {
+  background-color: #D9534E;;
 }
-.modal-text{
+
+.modal-text {
   font-size: 15px;
-    text-align: center;
-    color: #D9534E;
+  text-align: center;
+  color: #D9534E;
 }
-}
+
 .modal-maxHeight.modal-dialog{
   max-width: 750px;
 }
@@ -730,9 +622,11 @@ background-color: #D9534E;;
   border: 1px solid #41a6b6;
   width: 24px;
   height: 24px;
-  //padding: 2px;
-  //background-color: #fe8f00;
-  //color: #41a6b6;
   font-size: 16px;
   text-align: center;
+}
+
+// medication popup
+#medication-modal .modal-dialog {
+  max-width: 900px;
 }

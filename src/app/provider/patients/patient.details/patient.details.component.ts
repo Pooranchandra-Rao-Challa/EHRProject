@@ -191,7 +191,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
     }
   }
   async loadCQMsNotPerformedComponent() {
-    if (this.viewModel.PatientView != 'Profile') this.chartviewcontainerref.clear();
+    if (this.viewModel.PatientView != 'CQMs Not Performed') this.chartviewcontainerref.clear();
     else {
       this.chartviewcontainerref.clear();
       const { CqmsNotPerformedComponent } = await import('../cqms.not.performed/cqms.not.performed.component');
