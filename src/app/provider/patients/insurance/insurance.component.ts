@@ -311,18 +311,17 @@ export class InsuranceComponent implements OnInit {
   }
 
   CreateUpdateInsuranceDetails(item) {
-    debugger;
     if (item == "primary") {
-      if(this.primlist==undefined)
-      {
-        var isAdd = this.primlist.InsuranceId == undefined;
-      }
+
+        let isAdd = this.primlist.InsuranceId == undefined;
+
       this.primlist.ProviderId = this.user.ProviderId;
       this.primlist.PatientId = this.PatientDetails.PatientId;
       this.primlist.LocationId = this.changedLocationId;
       this.primlist.InsuranceType = this.primaryInsuranceType;
       this.patientservice.CreateUpdateInsuranceDetails(this.primlist).subscribe((resp) => {
         if (resp.IsSuccess) {
+          this.getInsuranceList();
           this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CI004" : "M2CI005"]);
         }
         else {
@@ -334,10 +333,9 @@ export class InsuranceComponent implements OnInit {
       this.addressVerfied = false;
     }
     else {
-      if(this.secList==undefined)
-      {
-        var isAdd = this.secList.InsuranceId == undefined;
-      }
+     
+        let isAdd = this.secList.InsuranceId == undefined;
+      
       this.secList.ProviderId = this.user.ProviderId;
       this.secList.PatientId = this.PatientDetails.PatientId;
       this.secList.LocationId = this.changedLocationId;
@@ -345,6 +343,7 @@ export class InsuranceComponent implements OnInit {
     
       this.patientservice.CreateUpdateInsuranceDetails(this.secList).subscribe((resp) => {
         if (resp.IsSuccess) {
+          this.getInsuranceList();
           this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CI006" : "M2CI007"]);
         }
         else {
@@ -369,7 +368,7 @@ export class InsuranceComponent implements OnInit {
       }
       else {
         this.manuallybtn = true;
-        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CI002"])
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CI004"])
       }
     });
   }
@@ -412,7 +411,7 @@ export class InsuranceComponent implements OnInit {
       }
       else {
         this.secondarymanuallybtn = true;
-        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CI003"])
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CI005"])
       }
     });
   }
