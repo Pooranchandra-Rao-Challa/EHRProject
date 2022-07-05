@@ -165,20 +165,20 @@ export const ERROR_CODES: { [key: string]: string } = {
   'M2JS001': 'Timezone updated successfully',
 
   //Message for Advanced Directives in chart screen
-  'M2CAD001': 'Advanced Directives added successfully',
-  'M2CAD002': 'Advanced Directives updated successfully',
-  'M2CAD003': 'Advanced Directives deleted successfully',
+  'M2CAD001': 'Advanced Directive added successfully',
+  'M2CAD002': 'Advanced Directive updated successfully',
+  'M2CAD003': 'Advanced Directive deleted successfully',
 
   // Error for Advanced directives
-  'E2CAD001': 'Advanced Directives Updation error',
+  'E2CAD001': 'Advanced Directive Updation error',
 
   //Message for past medical histories in chart screen
-  'M2CPMH001': 'Past medical histories added successfully',
-  'M2CPMH002': 'Past medical histories updated successfully',
-  'M2CPMH003': 'Past medical histories deleted successfully',
+  'M2CPMH001': 'Past medical history added successfully',
+  'M2CPMH002': 'Past medical history updated successfully',
+  'M2CPMH003': 'Past medical history deleted successfully',
 
   // Error for past medical histories
-  'E2CPMH001': 'Past medical histories Updation error',
+  'E2CPMH001': 'Past medical history Updation error',
 
   // Message form Patient profile screen
   'M2CP001': 'Personal Information updated successfully',
@@ -265,12 +265,12 @@ export const ERROR_CODES: { [key: string]: string } = {
   'M2AP003': 'Patient Invitaion mail sent',
 
   //Message for allergies in chart screen
-  'M2CA001': 'Allergies added successfully',
-  'M2CA002': 'Allergies updated successfully',
-  'M2CA003': 'Allergies deleted successfully',
+  'M2CA001': 'Allergy added successfully',
+  'M2CA002': 'Allergy updated successfully',
+  'M2CA003': 'Allergy deleted successfully',
 
   // Error for allergies
-  'E2CA001': 'Allergies Updation error',
+  'E2CA001': 'Allergy Updation error',
 
   //Message for diagnoses in chart screen
   'M2CD001': 'Diagnoses added successfully',

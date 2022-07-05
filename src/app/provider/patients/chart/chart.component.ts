@@ -162,11 +162,13 @@ export class ChartComponent implements OnInit {
   }
 
   CreatePastMedicalHistories() {
+    let isAdd = this.patientPastMedicalHistory.PastMedicalHistoryId == undefined;
+    this.patientPastMedicalHistory.PatientId = this.currentPatient.PatientId;
     this.patientService.CreatePastMedicalHistories(this.patientPastMedicalHistory).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.PastMedicalHistoriesByPatientId();
         this.resetDialog();
-        this.alertmsg.displayMessageDailog(ERROR_CODES["M2CPMH002"]);
+        this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CPMH001" : "M2CPMH002"]);
       }
       else {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2CPMH001"]);
@@ -202,7 +204,6 @@ export class ChartComponent implements OnInit {
   }
 
   CreateDiagnoses() {
-
     let isAdd = this.patientDiagnoses.DiagnosisId == undefined;
     this.patientDiagnoses.PatinetId = this.currentPatient.PatientId;
     this.patientDiagnoses.StopAt = this.datepipe.transform(this.patientDiagnoses.StopAt, "MM/dd/yyyy hh:mm:ss");
@@ -236,29 +237,33 @@ export class ChartComponent implements OnInit {
   }
 
   disablePastMedicalHistory() {
-    return !(this.patientPastMedicalHistory.MajorEvents != ''
-      && this.patientPastMedicalHistory.OngoingProblems != ''
-      && this.patientPastMedicalHistory.PerventiveCare != ''
-      && this.patientPastMedicalHistory.NutritionHistory != '')
+    return !(this.patientPastMedicalHistory.MajorEvents == undefined ? '' : this.patientPastMedicalHistory.MajorEvents != ''
+      && this.patientPastMedicalHistory.OngoingProblems == undefined ? '' : this.patientPastMedicalHistory.OngoingProblems != ''
+        && this.patientPastMedicalHistory.PerventiveCare == undefined ? '' : this.patientPastMedicalHistory.PerventiveCare != ''
+          && this.patientPastMedicalHistory.NutritionHistory == undefined ? '' : this.patientPastMedicalHistory.NutritionHistory != '')
   }
 
   disableAllergies() {
-    return !(this.patientAllergy.AllergenType != undefined
-      && this.patientAllergy.AllergenName != undefined
-      && this.patientAllergy.SeverityLevel != undefined
-      && this.patientAllergy.OnSetAt != undefined
-      && this.patientAllergy.Reaction != undefined
-      && this.patientAllergy.StartAt != undefined)
+    return !(this.patientAllergy.AllergenType == undefined ? '' : this.patientAllergy.AllergenType != ''
+      && this.patientAllergy.AllergenName == undefined ? '' : this.patientAllergy.AllergenName != ''
+        && this.patientAllergy.SeverityLevel == undefined ? '' : this.patientAllergy.SeverityLevel != ''
+          && this.patientAllergy.OnSetAt == undefined ? '' : this.patientAllergy.OnSetAt != ''
+            && this.patientAllergy.Reaction == undefined ? '' : this.patientAllergy.Reaction != ''
+              && this.patientAllergy.StartAt == undefined ? '' : this.patientAllergy.StartAt != '')
   }
 
   disableDiagnosis() {
-
     return !(this.patientDiagnoses.CodeSystem == undefined ? '' : this.patientDiagnoses.CodeSystem != ''
       && this.patientDiagnoses.Code == undefined ? '' : this.patientDiagnoses.Code != ''
         && this.patientDiagnoses.Description == undefined ? '' : this.patientDiagnoses.Description != ''
           && this.patientDiagnoses.StartAt == undefined ? '' : this.patientDiagnoses.StartAt.toString() != ''
             && this.patientDiagnoses.StopAt == undefined ? '' : this.patientDiagnoses.StopAt != ''
               && this.patientDiagnoses.Note == undefined ? '' : this.patientDiagnoses.Note != '')
+  }
+
+  disableMedication() {
+    return !(this.patientMedication.DrugName == undefined ? '' : this.patientMedication.DrugName != ''
+      && this.patientMedication.StartAt == undefined ? '' : this.patientMedication.StartAt.toString() != '')
   }
 
   // Get advanced directives info
@@ -271,7 +276,7 @@ export class ChartComponent implements OnInit {
   // Get diagnoses info
   DiagnosesByPatientId() {
     this.patientService.DiagnosesByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
-      if (resp.IsSuccess) this.patientDiagnoses = resp.ListResult;
+      if (resp.IsSuccess) this.chartInfo.Diagnoses = resp.ListResult;
     });
   }
 
