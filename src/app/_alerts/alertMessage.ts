@@ -124,7 +124,7 @@ export class AlertMessage {
  * Past Medical Histories : PMH
  * Advanced Directives : AD
  * Allergies : A
- * Medications And Prescription : MAP
+ * Medications And Prescription : M
  * Immunizations : I
  * Screenings/Interventions/Assessments : SIA
  * Encounters : E
@@ -279,6 +279,14 @@ export const ERROR_CODES: { [key: string]: string } = {
 
   // Error for diagnoses
   'E2CD001': 'Diagnoses Updation error',
+
+  //Message for medication in chart screen
+  'M2CM001': 'Medication added successfully',
+  'M2CM002': 'Medication updated successfully',
+  'M2CM003': 'Medication deleted successfully',
+
+  // Error for medication
+  'E2CM001': 'Medication Updation error',
 
   // CQM Not performed
   'M2CCNP001': 'Not Performed Reason created successfully',
