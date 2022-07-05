@@ -24,11 +24,16 @@ export class MyprofileComponent implements OnInit {
   myControl = new FormControl();
   PatientProfile: PatientProfile;
   patietnprofile: any
-  options: string[] = ['501', '502', '401', '402', '601', '603'];
+  // options: string[] = ['501', '502', '401', '402', '601', '603'];
   filteredOptions: Observable<string[]>;
-  filteredProcedures: Observable<MedicalCode[]>;
-  filterProcedures: any;
-  proceduresData: any;
+  // filteredProcedures: Observable<MedicalCode[]>;
+
+  filterNumbers: any;
+  SourceData: any[];
+  searchCellPhoneData:any[];
+  searchHomePhoneData:any[];
+  searchWorkPhoneData:any[];
+  searchPhoneData:any[];
   @ViewChild('searchCellPhone', { static: true }) searchCellPhone: ElementRef;
   @ViewChild('searchHomePhone', { static: true }) searchHomePhone: ElementRef;
   @ViewChild('searchWorkPhone', { static: true }) searchWorkPhone: ElementRef;
@@ -149,22 +154,24 @@ events(){
     map((event: any) => {
       return event.target.value;
     })
-    , filter(res => res.length > 1 && res.length < 8)
-    , debounceTime(500)
+    , filter(res => res.length < 4)
+    , debounceTime(50)
     , distinctUntilChanged()
   ).subscribe(value =>
-    this.filterProcedures=this.filterData(value));
+    this.searchCellPhoneData=this.filterData(value));
 
 
     fromEvent(this.searchHomePhone.nativeElement, 'keyup').pipe(
       map((event: any) => {
         return event.target.value;
       })
-      , filter(res => res.length > 1 && res.length < 8)
-      , debounceTime(500)
+      , filter(res =>res.length < 4)
+      , debounceTime(50)
       , distinctUntilChanged()
-    ).subscribe(value =>
-      this.filterProcedures=this.filterData(value));
+    ).subscribe(value =>{
+      this.searchHomePhoneData=this.filterData(value);
+    }
+      );
 
 
       fromEvent(this.searchWorkPhone.nativeElement, 'keyup').pipe(
@@ -175,7 +182,7 @@ events(){
         , debounceTime(500)
         , distinctUntilChanged()
       ).subscribe(value =>
-        this.filterProcedures=this.filterData(value));
+        this.searchWorkPhoneData=this.filterData(value));
 
         fromEvent(this.searchPhone.nativeElement, 'keyup').pipe(
           map((event: any) => {
@@ -185,7 +192,7 @@ events(){
           , debounceTime(500)
           , distinctUntilChanged()
         ).subscribe(value =>
-          this.filterProcedures=this.filterData(value));
+          this.searchPhoneData=this.filterData(value));
 }
   displayWith(value: areaCodes): string {
     if (!value) return "";
@@ -195,24 +202,28 @@ events(){
   _filterProcedure() {
     this.utilityService.AreaCodes()
       .subscribe(resp => {
+        debugger;
         //this.isLoading = false;
         if (resp.IsSuccess) {
-          this.proceduresData=resp.ListResult;
-          // this.filteredProcedures = of(
-          //   resp.ListResult as PatientClinicalProvider[]);
+          this.SourceData=resp.ListResult;
         } else {
-          this.filterProcedures=of([]);
-          this.proceduresData = of([]);
+          this.filterNumbers=of([]);
+          this.SourceData = [];
         }
+      },
+      error=>{
+        debugger;
       })
   }
   //filter city on search text
   filterData(searchText: string) {
     debugger;
-    var searchData = this.proceduresData.filter(x => (((x.areaCode).toLowerCase().indexOf(searchText.toLowerCase().trim()) !== -1)));
+    if(searchText==''){
+      return [];
+    }
+    var searchData = this.SourceData.filter(x => (((x.areaCode).toLowerCase().indexOf(searchText.toLowerCase().trim()) !== -1)));
     return searchData
   }
+
 }
-
-
 

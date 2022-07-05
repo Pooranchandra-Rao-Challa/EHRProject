@@ -283,6 +283,7 @@ export class InsuranceComponent implements OnInit {
   }
 
   CreateUpdateInsuraceCompanyPlan() {
+ 
     let isAdd = this.insuraceComplanyPlan.InsuranceCompanyId == "";
     this.insuraceComplanyPlan.LocationId = this.changedLocationId
     this.patientservice.CreateUpdateInsuranceCompanyPlan(this.insuraceComplanyPlan).subscribe((resp) => {
@@ -311,14 +312,16 @@ export class InsuranceComponent implements OnInit {
 
   CreateUpdateInsuranceDetails(item) {
     if (item == "primary") {
+
+        let isAdd = this.primlist.InsuranceId == undefined;
+
       this.primlist.ProviderId = this.user.ProviderId;
       this.primlist.PatientId = this.PatientDetails.PatientId;
       this.primlist.LocationId = this.changedLocationId;
       this.primlist.InsuranceType = this.primaryInsuranceType;
-      let isAdd = this.primlist.InsuranceId == "";
-      
       this.patientservice.CreateUpdateInsuranceDetails(this.primlist).subscribe((resp) => {
         if (resp.IsSuccess) {
+          this.getInsuranceList();
           this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CI004" : "M2CI005"]);
         }
         else {
@@ -330,13 +333,17 @@ export class InsuranceComponent implements OnInit {
       this.addressVerfied = false;
     }
     else {
+     
+        let isAdd = this.secList.InsuranceId == undefined;
+      
       this.secList.ProviderId = this.user.ProviderId;
       this.secList.PatientId = this.PatientDetails.PatientId;
       this.secList.LocationId = this.changedLocationId;
       this.secList.InsuranceType = this.secondaryInsuranceType;
-      let isAdd = this.secList.InsuranceId == "";
+    
       this.patientservice.CreateUpdateInsuranceDetails(this.secList).subscribe((resp) => {
         if (resp.IsSuccess) {
+          this.getInsuranceList();
           this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CI006" : "M2CI007"]);
         }
         else {
@@ -361,7 +368,7 @@ export class InsuranceComponent implements OnInit {
       }
       else {
         this.manuallybtn = true;
-        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CI002"])
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CI004"])
       }
     });
   }
@@ -392,6 +399,7 @@ export class InsuranceComponent implements OnInit {
   }
 
   secondaryAddressverfied() {
+    debugger;
     this.accountservice.VerifyAddress(this.secList.Street).subscribe(resp => {
       if (resp.IsSuccess) {
         this.secList.City = resp.Result.components.city_name
@@ -402,8 +410,8 @@ export class InsuranceComponent implements OnInit {
         this.secondaryAdressVerfied = true;
       }
       else {
-        this.manuallybtn = true;
-        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CI003"])
+        this.secondarymanuallybtn = true;
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CI005"])
       }
     });
   }
