@@ -17,7 +17,7 @@ export class SmokingStatus {
 
 export class PastMedicalHistory {
   PastMedicalHistoryId?: string;
-  PatinetId?: string;
+  PatientId?: string;
   CreatedAt?: Date;
   OngoingProblems?: string;
   NutritionHistory?: string;

@@ -53,7 +53,7 @@ export class SmokingStatusDialogComponent implements OnInit {
   }
 
   CreateSmokingStatus() {
-    let isAdd = this.smokingStatus.SmokingStatusId == "";
+    let isAdd = this.smokingStatus.SmokingStatusId == undefined;
     this.smokingStatus.PatientId = this.currentPatient.PatientId;
     this.smokingStatus.EffectiveFrom = this.datepipe.transform(this.smokingStatus.EffectiveFrom, "MM/dd/yyyy hh:mm:ss");
     this.patientService.CreateSmokingStatus(this.smokingStatus).subscribe((resp) => {

@@ -200,13 +200,16 @@
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
-                    <p class="card-title" data-bs-toggle="modal" data-bs-target="#pastmedical-modal">Past Medical
+                    <p class="card-title" data-bs-toggle="modal" data-bs-target="#pastmedical-modal"
+                      (click)="editDialog(chartInfo?.PastMedicalHistories?.length == 0 ? {} : chartInfo?.PastMedicalHistories[0], 'past medical history')">
+                      Past Medical
                       History
                     </p>
                   </div>
                   <div class="col-md-4 col-6">
                     <div class="col-12">
-                      <div class="edit-icon pull-right" data-bs-toggle="modal" data-bs-target="#pastmedical-modal">
+                      <div class="edit-icon pull-right" data-bs-toggle="modal" data-bs-target="#pastmedical-modal"
+                        (click)="editDialog(chartInfo?.PastMedicalHistories?.length == 0 ? {} : chartInfo?.PastMedicalHistories[0], 'past medical history')">
                         <span class="cstm-icon-pencil"></span>
                       </div>
                     </div>
@@ -314,7 +317,8 @@
                       Prescription</p>
                   </div>
                   <div class="col-md-4 col-6">
-                    <div class="col-12 plusicon pull-right" data-bs-toggle="modal" data-bs-target="#medication-modal">
+                    <div class="col-12 plusicon pull-right" data-bs-toggle="modal" data-bs-target="#medication-modal"
+                      (click)="resetDialog()">
                       <span><i class="fa fa-plus"></i></span>
                     </div>
                   </div>
@@ -548,7 +552,7 @@
           </div>
           <div class="col-sm-8 col-md-8 col-lg-8 side-boder">
             <mat-form-field appearance="outline" class="input-field input-bg w-100 mt-3 ">
-              <mat-select required [(value)]="DxCodes[0]">
+              <mat-select required placeholder="Please select one">
                 <mat-option *ngFor="let code of DxCodes" [value]="code">
                   {{code}}
                 </mat-option>
@@ -601,8 +605,7 @@
           </div>
           <div class="col-sm-8 side-boder">
             <mat-form-field appearance="outline" class=" mt-3 w-100">
-              <mat-select required
-                [(ngModel)]="patientDiagnoses.CodeSystem == undefined ? DxCodes[0] : patientDiagnoses.CodeSystem">
+              <mat-select required placeholder="Please select one" [(ngModel)]="patientDiagnoses.CodeSystem">
                 <mat-option *ngFor="let code of DxCodes" [value]="code">
                   {{code}}
                 </mat-option>
@@ -719,7 +722,7 @@
             </button>
             <button type="button" class="btn btn-lg btn-green col-xl-3 col-lg-3 col-md-3 col-5 mx-3"
               data-bs-dismiss="modal">
-              Close
+              Cancel
             </button>
           </div>
         </div>
@@ -1169,11 +1172,11 @@
         <div class="col-md-12 locationbtns">
           <div class="d-flex justify-content-end">
             <button type="button" class="btn btn-lg btn-green col-xl-4 col-lg-4 col-md-4 col-8 mx-2"
-              data-bs-dismiss="modal" (click)="CreateMedication()">
+              data-bs-dismiss="modal" [disabled]="disableMedication()" (click)="CreateMedication()">
               Save Changes
             </button>
             <button type="button" class="btn btn-lg btn-green col-xl-3 col-lg-3 col-md-3 col-5 mx-3"
-              data-bs-dismiss="modal">
+              data-bs-dismiss="modal" (click)="resetDialog()">
               Cancel
             </button>
           </div>
