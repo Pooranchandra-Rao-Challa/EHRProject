@@ -158,7 +158,6 @@ export class ChartComponent implements OnInit {
     }
     else if (name == 'medication') {
       this.patientMedication = dialogData;
-      console.log(dialogData);
     }
   }
 
@@ -221,7 +220,6 @@ export class ChartComponent implements OnInit {
   }
 
   CreateMedication() {
-    debugger;
     let isAdd = this.patientMedication.MedicationId == undefined;
     this.patientMedication.PatientId = this.currentPatient.PatientId;
     this.patientService.CreateMedication(this.patientMedication).subscribe((resp) => {

@@ -215,6 +215,7 @@ export class InsuranceComponent implements OnInit {
 
   // get patient details by id
   getInsuranceList() {
+
     var reqparam = {
       "PatientId": this.PatientDetails.PatientId
     }

@@ -43,7 +43,7 @@
   <ul class="navbar-nav pull-right">
     <li [matMenuTriggerFor]="menu" class="nav-item nav-top-right">
       <a class="nav-link dropdown-toggle" id="UserDropdown">
-        <span class="profile-text">{{ PatientProfile.FirstName}}&nbsp;&nbsp;{{PatientProfile.LastName}}</span>
+        <span class="profile-text">{{ this.user.FirstName}}&nbsp;&nbsp;{{this.user.LastName}}</span>
         <img class="img-xs rounded-circle header-avatar mx-1" src="assets/images/header-dropdown-img.svg">
       </a>
       <mat-menu #menu="matMenu" [hasBackdrop]="true">

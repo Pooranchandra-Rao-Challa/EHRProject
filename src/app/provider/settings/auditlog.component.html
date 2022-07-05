@@ -5,7 +5,7 @@
   <div class="exportpdf pull-right">
       <mat-form-field appearance="outline">
     <mat-select class="export" style="color: #41b6a6;" placeholder="Export">
-      <mat-option class="matcolor" (click)="exportToCsv()">Csv</mat-option>
+      <mat-option class="matcolor" (click)="download()">Csv</mat-option>
       <mat-option (click)="print()">Print</mat-option>
     </mat-select>
   </mat-form-field>
@@ -36,7 +36,6 @@
       </div>
     </div>
   </div>
-
   <div class="example-container">
 <div #TABLE class="table-align">
   <table mat-table id="table" [dataSource]="auditLogList | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
@@ -59,8 +58,8 @@
     <ng-container matColumnDef="DataType">
       <th mat-header-cell *matHeaderCellDef class="th-dropdown">
         <mat-form-field class="placehold" appearance="outline">
-        <mat-select [(value)]="selection"  placeholder="DataType">
-          <mat-option *ngFor="let topping of dataType" [value]="topping" (click)="applyFilter(topping)">
+        <mat-select [(ngModel)]="SearchKey"  placeholder="DataType">
+          <mat-option *ngFor="let topping of dataType" [value]="topping" (click)="SearchDetails(topping)">
             {{topping}}
           </mat-option>
         </mat-select>
@@ -71,9 +70,9 @@
     <ng-container matColumnDef="Action">
       <th mat-header-cell *matHeaderCellDef class="th-dropdown">
         <mat-form-field class="placehold" appearance="outline">
-        <mat-select placeholder="Action">
-          <mat-option *ngFor="let topping of Action" [value]="topping">
-            {{topping}}
+        <mat-select placeholder="Action" [(ngModel)]="SearchKey">
+          <mat-option *ngFor="let action of Action" [value]="action" (click)="SearchDetails(action)">
+            {{action}}
           </mat-option>
         </mat-select>
       </mat-form-field> </th>
