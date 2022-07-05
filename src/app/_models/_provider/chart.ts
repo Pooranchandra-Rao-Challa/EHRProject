@@ -65,7 +65,7 @@ export class ChartInfo {
   Immunizations?: Immunizations[] = []
   Encounters?: EncounterInfo[] = []
   Appointments?: NewAppointment[] = []
-  Medications?: Medications[] = []
+  Medications?: Medication[] = []
   SmokingStatuses?: SmokingStatus[] = []
   TobaccoUseInterventions?: TobaccoUseScreenings[] = []
   TobaccoUseScreenings?: TobaccoUseInterventions[] = []
@@ -79,7 +79,7 @@ export class Immunizations {
   Notes?: string;
 }
 
-export class Medications {
+export class Medication {
   MedicationId?: string;
   PatientId?: string;
   DrugName?: string;
