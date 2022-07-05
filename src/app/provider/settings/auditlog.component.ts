@@ -77,7 +77,6 @@ export class AuditLogComponent implements OnInit {
       this.auditLogList = reponse.ListResult;
       this.loglist = this.auditLogList
       // this.TotalItems = this.auditLogList.length;
-      console.log(this.auditLogList);
 
     })
   }

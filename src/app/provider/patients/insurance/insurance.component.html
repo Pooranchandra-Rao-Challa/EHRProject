@@ -16,9 +16,9 @@
                     <div class="row">
                         <label class="Helvetica-sans-serif-medium">Date of Birth</label>
                         <mat-form-field appearance="outline"
-                            class=" calendaricon green-calendar col-md-6 Helvetica-sans-serif-small">
+                            class=" calendaricon green-calendar col-md-6">
                             <input matInput [matDatepicker]="DateOfBirth" placeholder="Date of Birth"
-                                (click)="DateOfBirth.open()" [(ngModel)]="primlist.DateOfBirth">
+                                (click)="DateOfBirth.open()" [(ngModel)]="primlist.DateOfBirth" class="Helvetica-sans-serif-medium">
                             <mat-datepicker-toggle matSuffix [for]="DateOfBirth">
                             </mat-datepicker-toggle>
                             <mat-datepicker #DateOfBirth disabled="false"></mat-datepicker>
@@ -114,7 +114,7 @@
                             <label class="Helvetica-sans-serif-medium">Insurance Company Plan</label>
                             <div class="input-group mb-3">
                                 <input type="text"
-                                    class="form-control patientInsuranceTab input-border Helvetica-sans-serif-medium"
+                                    class="form-control  Helvetica-sans-serif-medium patientInsuranceTab input-border"
                                     placeholder="Insurance Company Plan" [(ngModel)]="primlist.InsuranceCompanyPlan"
                                     aria-label="Subscriber Name" aria-describedby="basic-addon1">
                             </div>
@@ -130,7 +130,7 @@
                         <div class="col-8">
                             <label class="Helvetica-sans-serif-medium">Subscriber Id</label>
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control patientInsuranceTab Helvetica-sans-serif-medium"
+                                <input type="text" class="form-control Helvetica-sans-serif-medium patientInsuranceTab"
                                     placeholder="Subscriber Id" aria-label="Subscriber Name"
                                     aria-describedby="basic-addon" [(ngModel)]="primlist.SubscriberId">
                             </div>
@@ -193,16 +193,16 @@
                     </div>
                     <div class="row">
                         <mat-form-field appearance="outline"
-                            class="calendaricon green-calendar col-md-6 Helvetica-sans-serif-small">
+                            class="calendaricon green-calendar col-md-6">
                             <input matInput [matDatepicker]="dp2" placeholder="Start Date" (focus)="dp2?.open()"
-                                [(ngModel)]="primlist.StartDate">
+                                [(ngModel)]="primlist.StartDate"  class="Helvetica-sans-serif-medium">
                             <mat-datepicker-toggle matSuffix [for]="dp2">
                             </mat-datepicker-toggle>
                             <mat-datepicker #dp2 disabled="false"></mat-datepicker>
                         </mat-form-field>
                         <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-6">
                             <input matInput [matDatepicker]="dp1" placeholder="Stop Date" [(ngModel)]="primlist.EndDate"(focus)="dp1?.open()"
-                                class="Helvetica-sans-serif-small">
+                                class="Helvetica-sans-serif-medium">
                             <mat-datepicker-toggle matSuffix [for]="dp1">
                             </mat-datepicker-toggle>
                             <mat-datepicker #dp1 disabled="false"></mat-datepicker>
@@ -233,7 +233,7 @@
                         <label class="Helvetica-sans-serif-medium">Date of Birth</label>
                         <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-6">
                             <input matInput [matDatepicker]="dp4" placeholder="Date of Birth"
-                                [(ngModel)]="secList.DateOfBirth"(focus)="dp4?.open()">
+                                [(ngModel)]="secList.DateOfBirth"(focus)="dp4?.open()"class="Helvetica-sans-serif-medium">
                             <mat-datepicker-toggle matSuffix [for]="dp4">
                             </mat-datepicker-toggle>
                             <mat-datepicker #dp4 disabled="false"></mat-datepicker>
@@ -336,7 +336,7 @@
                         <div class="col-11">
                             <label class="Helvetica-sans-serif-medium">Insurance Company Plan</label>
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control patientInsuranceTab input-border"
+                                <input type="text" class="Helvetica-sans-serif-medium form-control patientInsuranceTab input-border"
                                     placeholder="Insurance Company Plan" [(ngModel)]="secList.InsuranceCompanyPlan"
                                     aria-label="Subscriber Name" aria-describedby="basic-addon1">
                             </div>
@@ -354,7 +354,7 @@
                         <div class="col-8 col-md-8 col-lg-8">
                             <label class="Helvetica-sans-serif-medium">Subscriber Id</label>
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control patientInsuranceTab" placeholder="Subscriber Id"
+                                <input type="text" class="form-control Helvetica-sans-serif-medium patientInsuranceTab" placeholder="Subscriber Id"
                                     aria-label="Subscriber Name" aria-describedby="basic-addon1"
                                     [(ngModel)]="secList.SubscriberId">
                             </div>
@@ -407,7 +407,7 @@
                     <div class="row">
                         <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-6">
                             <input matInput [matDatepicker]="dp5" placeholder="Start Date"
-                                [(ngModel)]="secList.StartDate" (focus)="dp5?.open()">
+                                [(ngModel)]="secList.StartDate" (focus)="dp5?.open()" class="Helvetica-sans-serif-medium">
                             <mat-datepicker-toggle matSuffix [for]="dp5">
 
                             </mat-datepicker-toggle>
@@ -417,7 +417,7 @@
 
 
                         <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-6">
-                            <input matInput [matDatepicker]="dp6" placeholder="Stop Date" [(ngModel)]="secList.EndDate"(focus)="dp6?.open()">
+                            <input matInput [matDatepicker]="dp6" placeholder="Stop Date" [(ngModel)]="secList.EndDate"(focus)="dp6?.open()"class="Helvetica-sans-serif-medium">
                             <mat-datepicker-toggle matSuffix [for]="dp6">
                             </mat-datepicker-toggle>
                             <mat-datepicker #dp6 disabled="false"></mat-datepicker>

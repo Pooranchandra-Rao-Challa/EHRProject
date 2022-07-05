@@ -96,14 +96,10 @@ export class ChartComponent implements OnInit {
       else reqdata = this.authService.viewModel.Patient;
       if (reqdata.PatientId == null)
         reqdata.PatientId = this.currentPatient.PatientId;
-      console.log(reqdata);
 
     } else if(action == Actions.new && content === this.appointmentDialogComponent){
       reqdata = this.PatientAppointmentInfo(action);
     }
-
-    console.log(reqdata);
-
     const ref = this.overlayService.open(content, reqdata);
     ref.afterClosed$.subscribe(res => {
 
@@ -128,7 +124,6 @@ export class ChartComponent implements OnInit {
     this.patientService.ChartInfo({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.chartInfo = resp.Result;
-        console.log(this.chartInfo);
       }
     });
   }

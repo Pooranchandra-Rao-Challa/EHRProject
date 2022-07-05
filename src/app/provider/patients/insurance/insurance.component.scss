@@ -141,7 +141,7 @@
 .btn-insurancecompany {
   width: 239px;
   height: 47px;
-  font-size: 15px;
+  font-size: 14px;
   margin-left: 38px;
 }
 
@@ -272,4 +272,9 @@
 ::ng-deep .optionalignment.mat-select-panel {
   margin-top: 31px !important;
   max-height: 169px !important;
+}
+::ng-deep .mat-select-placeholder {
+  /* transition: color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1); */
+  color: #41b6a6 !important;
+  font-size: 15px;
 }

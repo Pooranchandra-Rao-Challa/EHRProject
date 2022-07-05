@@ -64,9 +64,6 @@ export class PracticeComponent implements OnInit, AfterViewInit {
     this.user = authService.userValue;
     this.url = plaformLocation.href.replace(plaformLocation.pathname, '/');
 
-    console.log(plaformLocation);
-
-
 
     // console.log(this._document.documentElement.scrollHeight);
 
