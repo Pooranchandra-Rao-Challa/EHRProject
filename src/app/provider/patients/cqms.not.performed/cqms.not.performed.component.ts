@@ -6,6 +6,7 @@ import { ComponentType } from 'ngx-toastr';
 import { OverlayService } from 'src/app/overlay.service';
 import { CQMNotPerformed } from 'src/app/_models/_provider/cqmnotperformed';
 import { Actions, User } from 'src/app/_models';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-cqmsnotperformed',
@@ -26,7 +27,7 @@ export class CqmsNotPerformedComponent implements OnInit {
   CQMNotPerformedResponse: any;
 
   constructor(private overlayService: OverlayService, private authService: AuthenticationService,
-    private cqmNotperformedService: CQMNotPerformedService) {
+    private cqmNotperformedService: CQMNotPerformedService,private route: ActivatedRoute,) {
     this.user = authService.userValue;
     this.CQMNotPerformed = {} as CQMNotPerformed;
   }
