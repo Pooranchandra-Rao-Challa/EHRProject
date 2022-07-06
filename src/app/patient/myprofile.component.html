@@ -1,3 +1,4 @@
+
 <div class="dashboard-patient wrapper mt-4">
   <div class="content container" id="appointments-wrapper">
     <div class="panel panel-default">
@@ -125,13 +126,13 @@
               <div class="row">
                 <label class="labelfontzise">Cell Phone </label>
                 <div class="input-group ">
-                  <mat-form-field class="example-full-width grey-matform " appearance="outline"
-                    [formControl]="myControl">
-                    <input type="input" placeholder="( :" aria-label="Number" matInput [formControl]="myControl"
-                      [matAutocomplete]="auto">
-                    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                        {{option}}
+                  <mat-form-field class="example-full-width grey-matform " appearance="outline" >
+                    <input matInput #searchCellPhone class="form-control" placeholder="( :" type="text"
+                      id="searchCellPhone" name="searchCellPhone" [matAutocomplete]="procedureCode" />
+                    <mat-autocomplete [displayWith]="displayWith" #procedureCode="matAutocomplete">
+                      <mat-option *ngFor="let option of searchCellPhoneData" [value]="option"
+                        class="medical-code-option">
+                        {{option.areaCode}}
                       </mat-option>
                     </mat-autocomplete>
                   </mat-form-field>
@@ -155,12 +156,13 @@
               <div class="row">
                 <label class="labelfontzise mt-2">Home Phone </label>
                 <div class="input-group mb-1">
-                  <mat-form-field class="example-full-width grey-matform" appearance="outline">
-                    <input type="input" placeholder="( :" aria-label="Number" matInput [formControl]="myControl"
-                      [matAutocomplete]="auto">
-                    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                        {{option}}
+                  <mat-form-field class="example-full-width grey-matform " appearance="outline" >
+                    <input matInput #searchHomePhone class="form-control" placeholder="( :" type="text"
+                      id="searchHomePhone" name="searchHomePhone" [matAutocomplete]="procedureCode1" />
+                    <mat-autocomplete [displayWith]="displayWith" #procedureCode1="matAutocomplete">
+                      <mat-option *ngFor="let option of searchHomePhoneData" [value]="option"
+                        class="medical-code-option">
+                        {{option.areaCode}}
                       </mat-option>
                     </mat-autocomplete>
                   </mat-form-field>
@@ -174,12 +176,13 @@
               <div class="row">
                 <label class="labelfontzise ">Work Phone </label>
                 <div class="input-group mb-1">
-                  <mat-form-field class="example-full-width grey-matform " appearance="outline">
-                    <input type="input" placeholder="( :" aria-label="Number" matInput [formControl]="myControl"
-                      [matAutocomplete]="auto">
-                    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                        {{option}}
+                  <mat-form-field class="example-full-width grey-matform " appearance="outline" >
+                    <input matInput #searchWorkPhone class="form-control" placeholder="( :" type="text"
+                      id="searchWorkPhone" name="searchWorkPhone" [matAutocomplete]="procedureCode2" />
+                    <mat-autocomplete [displayWith]="displayWith" #procedureCode2="matAutocomplete">
+                      <mat-option *ngFor="let option of searchWorkPhoneData" [value]="option"
+                        class="medical-code-option">
+                        {{option.areaCode}}
                       </mat-option>
                     </mat-autocomplete>
                   </mat-form-field>
@@ -291,15 +294,14 @@
               <div class="row">
                 <label class="labelfontzise mt-2">Phone </label>
                 <div class="input-group mb-1">
-                  <mat-form-field class="example-full-width grey-matform " appearance="outline">
-                    <input type="input" placeholder="( :" aria-label="Number" matInput [formControl]="myControl"
-                      [matAutocomplete]="auto">
-                    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                        <h1>{{option}}</h1>
+                  <mat-form-field class="example-full-width grey-matform procedure-form-field " appearance="outline" >
+                    <input matInput #searchPhone class="form-control" placeholder="( :" type="text"
+                      id="searchPhone" name="searchPhone" [matAutocomplete]="procedureCode3" />
+                    <mat-autocomplete [displayWith]="displayWith" #procedureCode3="matAutocomplete">
+                      <mat-option *ngFor="let option of searchPhoneData" [value]="option"
+                        class="medical-code-option">
+                        {{option.areaCode}}
                       </mat-option>
-                      <!-- <mat-option *ngIf="!myControl.value">Please enter 1 or more characters</mat-option> -->
-                      <!-- <mat-option>No Data Found</mat-option> -->
                     </mat-autocomplete>
                   </mat-form-field>
                   <mat-form-field appearance="outline" class="example-width grey-matform">
@@ -375,7 +377,7 @@
 
 
 
-<div class="modal fade" id="staticBackdrop1" data-bs-keyboard="false" tabindex="-1"
+<div class="modal fade" id="staticBackdrop1" data-bs-keyboard="false" tabindex="-1" data-backdrop="true"
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content body">

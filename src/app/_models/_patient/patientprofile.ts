@@ -70,3 +70,8 @@ export interface PatientProfile {
   PatientRelationId?:string;
   relationships?:String;
 }
+export interface areaCodes {
+  areaId?: string;
+  areaCode?: string;
+
+}

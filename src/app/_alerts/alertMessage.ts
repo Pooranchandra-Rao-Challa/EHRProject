@@ -124,7 +124,7 @@ export class AlertMessage {
  * Past Medical Histories : PMH
  * Advanced Directives : AD
  * Allergies : A
- * Medications And Prescription : MAP
+ * Medications And Prescription : M
  * Immunizations : I
  * Screenings/Interventions/Assessments : SIA
  * Encounters : E
@@ -165,20 +165,20 @@ export const ERROR_CODES: { [key: string]: string } = {
   'M2JS001': 'Timezone updated successfully',
 
   //Message for Advanced Directives in chart screen
-  'M2CAD001': 'Advanced Directives added successfully',
-  'M2CAD002': 'Advanced Directives updated successfully',
-  'M2CAD003': 'Advanced Directives deleted successfully',
+  'M2CAD001': 'Advanced Directive added successfully',
+  'M2CAD002': 'Advanced Directive updated successfully',
+  'M2CAD003': 'Advanced Directive deleted successfully',
 
   // Error for Advanced directives
-  'E2CAD001': 'Advanced Directives Updation error',
+  'E2CAD001': 'Advanced Directive Updation error',
 
   //Message for past medical histories in chart screen
-  'M2CPMH001': 'Past medical histories added successfully',
-  'M2CPMH002': 'Past medical histories updated successfully',
-  'M2CPMH003': 'Past medical histories deleted successfully',
+  'M2CPMH001': 'Past medical history added successfully',
+  'M2CPMH002': 'Past medical history updated successfully',
+  'M2CPMH003': 'Past medical history deleted successfully',
 
   // Error for past medical histories
-  'E2CPMH001': 'Past medical histories Updation error',
+  'E2CPMH001': 'Past medical history Updation error',
 
   // Message form Patient profile screen
   'M2CP001': 'Personal Information updated successfully',
@@ -228,6 +228,8 @@ export const ERROR_CODES: { [key: string]: string } = {
   'E2CI001': 'Insurance Company Plan  Updation error',
   'E2CI002': 'Primary Insurance Updation error',
   'E2CI003': 'Secondary Insurance Updation error',
+  'E2CI004': 'Primary Insurance Address Updation error',
+  'E2CI005': 'Secondary Insurance Address Updation error',
 
   //Messages for Patients Procedure Crete
   'M2CP1001': 'Procedure Added sucessfully',
@@ -265,12 +267,12 @@ export const ERROR_CODES: { [key: string]: string } = {
   'M2AP003': 'Patient Invitaion mail sent',
 
   //Message for allergies in chart screen
-  'M2CA001': 'Allergies added successfully',
-  'M2CA002': 'Allergies updated successfully',
-  'M2CA003': 'Allergies deleted successfully',
+  'M2CA001': 'Allergy added successfully',
+  'M2CA002': 'Allergy updated successfully',
+  'M2CA003': 'Allergy deleted successfully',
 
   // Error for allergies
-  'E2CA001': 'Allergies Updation error',
+  'E2CA001': 'Allergy Updation error',
 
   //Message for diagnoses in chart screen
   'M2CD001': 'Diagnoses added successfully',
@@ -279,6 +281,14 @@ export const ERROR_CODES: { [key: string]: string } = {
 
   // Error for diagnoses
   'E2CD001': 'Diagnoses Updation error',
+
+  //Message for medication in chart screen
+  'M2CM001': 'Medication added successfully',
+  'M2CM002': 'Medication updated successfully',
+  'M2CM003': 'Medication deleted successfully',
+
+  // Error for medication
+  'E2CM001': 'Medication Updation error',
 
   // CQM Not performed
   'M2CCNP001': 'Not Performed Reason created successfully',

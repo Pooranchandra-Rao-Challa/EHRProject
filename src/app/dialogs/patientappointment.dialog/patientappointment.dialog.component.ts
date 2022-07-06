@@ -8,7 +8,8 @@ import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
 })
 export class PatientappointmentDialogComponent implements OnInit {
   displayReq = "none";
-  
+  hoverDATE:string='Date';
+  hoverTime:string='Date';
   constructor(private ref: EHROverlayRef) { }
 
   ngOnInit(): void {

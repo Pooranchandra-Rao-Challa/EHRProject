@@ -9,7 +9,7 @@ import { PatientService } from '../../../_services/patient.service';
 import {
   ScheduledAppointment,
   AdvancedDirective, ChartInfo, PatientChart, Allergy, EncounterDiagnosis, PastMedicalHistory, Actions,
-  Immunizations, Medications, EncounterInfo, NewAppointment, SmokingStatus, TobaccoUseScreenings, TobaccoUseInterventions,
+  Immunizations, Medication, EncounterInfo, NewAppointment, SmokingStatus, TobaccoUseScreenings, TobaccoUseInterventions,
   Diagnosis, AllergyType, SeverityLevel, OnSetAt, Allergens, AllergyReaction, DiagnosisDpCodes, PracticeProviders, AppointmentTypes, UserLocations, Room, AppointmentDialogInfo
 } from 'src/app/_models';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
@@ -37,7 +37,7 @@ export class ChartComponent implements OnInit {
   patientAllergy: Allergy = new Allergy();
   patientPastMedicalHistory: PastMedicalHistory = new PastMedicalHistory();
   immunizations: Immunizations[];
-  medications: Medications[];
+  patientMedication: Medication = new Medication();
   // encounters: EncounterInfo[];
   appointments: NewAppointment[];
   // smokingstatus: SmokingStatus[];
@@ -96,13 +96,10 @@ export class ChartComponent implements OnInit {
       else reqdata = this.authService.viewModel.Patient;
       if (reqdata.PatientId == null)
         reqdata.PatientId = this.currentPatient.PatientId;
-      console.log(reqdata);
 
-    } else if(action == Actions.new && content === this.appointmentDialogComponent){
+    } else if (action == Actions.new && content === this.appointmentDialogComponent) {
       reqdata = this.PatientAppointmentInfo(action);
     }
-
-    console.log(reqdata);
 
     const ref = this.overlayService.open(content, reqdata);
     ref.afterClosed$.subscribe(res => {
@@ -128,12 +125,12 @@ export class ChartComponent implements OnInit {
     this.patientService.ChartInfo({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.chartInfo = resp.Result;
-        console.log(this.chartInfo);
       }
     });
   }
 
   resetDialog() {
+    this.patientMedication = new Medication;
     this.patientAllergy = new Allergy;
     this.patientPastMedicalHistory = new PastMedicalHistory;
     this.patientDiagnoses = new Diagnosis;
@@ -159,14 +156,19 @@ export class ChartComponent implements OnInit {
       }
       this.patientDiagnoses = dialogData;
     }
+    else if (name == 'medication') {
+      this.patientMedication = dialogData;
+    }
   }
 
   CreatePastMedicalHistories() {
+    let isAdd = this.patientPastMedicalHistory.PastMedicalHistoryId == undefined;
+    this.patientPastMedicalHistory.PatientId = this.currentPatient.PatientId;
     this.patientService.CreatePastMedicalHistories(this.patientPastMedicalHistory).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.PastMedicalHistoriesByPatientId();
         this.resetDialog();
-        this.alertmsg.displayMessageDailog(ERROR_CODES["M2CPMH002"]);
+        this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CPMH001" : "M2CPMH002"]);
       }
       else {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2CPMH001"]);
@@ -202,7 +204,6 @@ export class ChartComponent implements OnInit {
   }
 
   CreateDiagnoses() {
-
     let isAdd = this.patientDiagnoses.DiagnosisId == undefined;
     this.patientDiagnoses.PatinetId = this.currentPatient.PatientId;
     this.patientDiagnoses.StopAt = this.datepipe.transform(this.patientDiagnoses.StopAt, "MM/dd/yyyy hh:mm:ss");
@@ -219,30 +220,50 @@ export class ChartComponent implements OnInit {
     });
   }
 
+  CreateMedication() {
+    let isAdd = this.patientMedication.MedicationId == undefined;
+    this.patientMedication.PatientId = this.currentPatient.PatientId;
+    this.patientService.CreateMedication(this.patientMedication).subscribe((resp) => {
+      if (resp.IsSuccess) {
+        this.MedicationsByPatientId();
+        this.resetDialog();
+        this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CM001" : "M2CM002"]);
+      }
+      else {
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CM001"]);
+        this.resetDialog();
+      }
+    });
+  }
+
   disablePastMedicalHistory() {
-    return !(this.patientPastMedicalHistory.MajorEvents != ''
-      && this.patientPastMedicalHistory.OngoingProblems != ''
-      && this.patientPastMedicalHistory.PerventiveCare != ''
-      && this.patientPastMedicalHistory.NutritionHistory != '')
+    return !(this.patientPastMedicalHistory.MajorEvents == undefined ? '' : this.patientPastMedicalHistory.MajorEvents != ''
+      && this.patientPastMedicalHistory.OngoingProblems == undefined ? '' : this.patientPastMedicalHistory.OngoingProblems != ''
+        && this.patientPastMedicalHistory.PerventiveCare == undefined ? '' : this.patientPastMedicalHistory.PerventiveCare != ''
+          && this.patientPastMedicalHistory.NutritionHistory == undefined ? '' : this.patientPastMedicalHistory.NutritionHistory != '')
   }
 
   disableAllergies() {
-    return !(this.patientAllergy.AllergenType != undefined
-      && this.patientAllergy.AllergenName != undefined
-      && this.patientAllergy.SeverityLevel != undefined
-      && this.patientAllergy.OnSetAt != undefined
-      && this.patientAllergy.Reaction != undefined
-      && this.patientAllergy.StartAt != undefined)
+    return !(this.patientAllergy.AllergenType == undefined ? '' : this.patientAllergy.AllergenType != ''
+      && this.patientAllergy.AllergenName == undefined ? '' : this.patientAllergy.AllergenName != ''
+        && this.patientAllergy.SeverityLevel == undefined ? '' : this.patientAllergy.SeverityLevel != ''
+          && this.patientAllergy.OnSetAt == undefined ? '' : this.patientAllergy.OnSetAt != ''
+            && this.patientAllergy.Reaction == undefined ? '' : this.patientAllergy.Reaction != ''
+              && this.patientAllergy.StartAt == undefined ? '' : this.patientAllergy.StartAt != '')
   }
 
   disableDiagnosis() {
-
     return !(this.patientDiagnoses.CodeSystem == undefined ? '' : this.patientDiagnoses.CodeSystem != ''
       && this.patientDiagnoses.Code == undefined ? '' : this.patientDiagnoses.Code != ''
         && this.patientDiagnoses.Description == undefined ? '' : this.patientDiagnoses.Description != ''
           && this.patientDiagnoses.StartAt == undefined ? '' : this.patientDiagnoses.StartAt.toString() != ''
             && this.patientDiagnoses.StopAt == undefined ? '' : this.patientDiagnoses.StopAt != ''
               && this.patientDiagnoses.Note == undefined ? '' : this.patientDiagnoses.Note != '')
+  }
+
+  disableMedication() {
+    return !(this.patientMedication.DrugName == undefined ? '' : this.patientMedication.DrugName != ''
+      && this.patientMedication.StartAt == undefined ? '' : this.patientMedication.StartAt.toString() != '')
   }
 
   // Get advanced directives info
@@ -255,7 +276,7 @@ export class ChartComponent implements OnInit {
   // Get diagnoses info
   DiagnosesByPatientId() {
     this.patientService.DiagnosesByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
-      if (resp.IsSuccess) this.patientDiagnoses = resp.ListResult;
+      if (resp.IsSuccess) this.chartInfo.Diagnoses = resp.ListResult;
     });
   }
 
@@ -284,7 +305,7 @@ export class ChartComponent implements OnInit {
   // Get medications info
   MedicationsByPatientId() {
     this.patientService.MedicationsByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
-      if (resp.IsSuccess) this.medications = resp.ListResult;
+      if (resp.IsSuccess) this.chartInfo.Medications = resp.ListResult;
     });
   }
 
@@ -336,12 +357,12 @@ export class ChartComponent implements OnInit {
     let data = {} as AppointmentDialogInfo;
     this.PatientAppointment = {} as NewAppointment;
     this.PatientAppointment.PatientId = this.currentPatient.PatientId;
-    this.PatientAppointment.PatientName = this.currentPatient.FirstName+' '+this.currentPatient.LastName;
+    this.PatientAppointment.PatientName = this.currentPatient.FirstName + ' ' + this.currentPatient.LastName;
     this.PatientAppointment.LocationId = this.authService.userValue.CurrentLocation;
     this.PatientAppointment.ProviderId = this.currentPatient.ProviderId;
     this.PatientAppointment.ClinicId = this.authService.userValue.ClinicId;
     this.PatientAppointment.Duration = 30;
-    data.Title =  "New Appointment";
+    data.Title = "New Appointment";
     data.ClinicId = this.authService.userValue.ClinicId;
     data.ProviderId = this.currentPatient.ProviderId;
     data.LocationId = this.authService.userValue.CurrentLocation;

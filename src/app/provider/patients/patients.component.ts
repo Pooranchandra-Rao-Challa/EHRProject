@@ -61,7 +61,7 @@ export class PatientsComponent implements OnInit {
     );
     viewcomp.instance.breadcrumbs = this.breadcrumbs;
     viewcomp.instance.navigateTo.subscribe((pbc: PatientBreadcurm) => {
-      if(pbc.ViewType==1) this.onChangeViewState(pbc.Details);
+      if (pbc.ViewType == 1) this.onChangeViewState(pbc.Details);
     });
     viewcomp.instance.removePatientInBreadcrumb.subscribe(($event) => {
       this.removePatientBreadcrumbInView($event);
@@ -74,11 +74,8 @@ export class PatientsComponent implements OnInit {
       RemovedPatientIds: this.removedPatientIdsInBreadcurmb
     })
       .subscribe(resp => {
-        console.log(resp);
-
         if (resp.IsSuccess) {
           let patients = resp.ListResult as ProviderPatient[];
-          console.log(patients);
           this.breadcrumbs = [];
           let pb: PatientBreadcurm = {
             Name: "Patients",
@@ -86,16 +83,16 @@ export class PatientsComponent implements OnInit {
             ProviderId: this.authService.userValue.ProviderId
           }
           this.breadcrumbs.push(pb);
-          patients.forEach((p) =>{
-              let  pb: PatientBreadcurm = {
-                Name:  p.FirstName+' '+p.LastName,
-                DOB:  p.Dob,
-                ViewType: 1,
-                PatientId: p.PatientId,
-                ShowRemoveIcon: true,
-                Details: p
-              }
-              this.breadcrumbs.push(pb);
+          patients.forEach((p) => {
+            let pb: PatientBreadcurm = {
+              Name: p.FirstName + ' ' + p.LastName,
+              DOB: p.Dob,
+              ViewType: 1,
+              PatientId: p.PatientId,
+              ShowRemoveIcon: true,
+              Details: p
+            }
+            this.breadcrumbs.push(pb);
           });
           this.loadPatientBreadcrumbView()
         }

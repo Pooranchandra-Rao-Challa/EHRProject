@@ -14,7 +14,16 @@
               <div class="form-group"></div>
               <div class="input-group mb-3">
                   <span class="input-group-addon labelclass form-control">To:</span>
-                <input type="text" class="form-control inputclass" aria-label="Amount">
+                  <mat-form-field class="procedure-form-field" appearance="outline" [ngStyle]="{'width':'90%'}">
+                    <input matInput #searchProcedureCode class="form-control" placeholder="Search" type="text"
+                      id="searchProcedureCode" name="searchProcedureCode" [matAutocomplete]="procedureCode" />
+                    <mat-autocomplete [displayWith]="displayWith" #procedureCode="matAutocomplete">
+                      <mat-option *ngFor="let option of filterProcedures" [value]="option"
+                        class="medical-code-option">
+                        {{option.Title}} - {{option.FullName}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
                   <span class="input-group-addon labelclass form-control"
                     id="find-messages-button"><i class="fa fa-search"></i></span>
               </div>
@@ -67,8 +76,8 @@
 
         <div class="row" style="float: right;">
           <button type="button" class="btn btn-green col-md-4 mx-2" data-bs-dismiss="modal"
-            (click)="cancel()">Save</button>
-          <button type="button" class="btn btn-green col-md-4">Cancel</button>
+           >Save</button>
+          <button type="button"  (click)="cancel()" class="btn btn-green col-md-4">Cancel</button>
         </div>
       </form>
 

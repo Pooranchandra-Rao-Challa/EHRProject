@@ -4,13 +4,8 @@ import { AuthenticationService } from '../../_services/authentication.service';
 import { SettingsService } from '../../_services/settings.service';
 import { UtilityService } from '../../_services/utiltiy.service';
 import { User, UserLocations } from '../../_models';
-import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { LocationSelectService } from '../../_navigations/provider.layout/location.service';
-import Swal from 'sweetalert2';
-import * as XLSX from 'xlsx';
-import { disableDebugTools } from '@angular/platform-browser';
-import { MatTableDataSource } from '@angular/material/table';
+
+
 
 declare var $: any;
 
@@ -29,18 +24,24 @@ export class AuditLogComponent implements OnInit {
 
   displayedColumns = ['Date', 'Patient', 'LocationName', 'Provider',
     'DataType', 'Action', 'Details'];
+  mockHeaders = `Date,Patient,User,DataType,Action,Details`
 
+  mockHeaders1 = `Name,Type,Value
+    `
   TotalItems: any;
   user: User;
   startDate: string;
   enddate: string;
   auditLogList: any = [];
   ProviderId: string;
+  loglist: any;
+  SearchKey: '';
+  mockCsvData: any = [];
+  // mockHeaders = "";
+  // mockHeaders = `'Date', 'Patient','User',
+  // 'DataType', 'Action', 'Details'
+  // `
 
-
-
-  search: any;
-selection : any;
   constructor(private authService: AuthenticationService, private settingservice: SettingsService) {
     this.user = authService.userValue;
 
@@ -63,7 +64,9 @@ selection : any;
       }
     }
     else {
+      debugger;
       var reqparams = {
+
         ProviderId: this.user.ProviderId,
         // ProviderId: "5b686dd4c832dd0c444f271b",
         from: this.startDate,
@@ -72,45 +75,29 @@ selection : any;
     }
     this.settingservice.AuditLogs(reqparams).subscribe(reponse => {
       this.auditLogList = reponse.ListResult;
+      this.loglist = this.auditLogList
       // this.TotalItems = this.auditLogList.length;
-    console.log(this.auditLogList);
 
     })
   }
 
-  applyFilter(filterValue: string) {
-
-    console.log(this.search)
-    console.log(this.selection)
-    console.log(filterValue)
-    if(this.selection){
-      this.auditLogList.filter = this.selection.trim().toLowerCase() || this.search.trim().toLowerCase();
-      console.log(this.auditLogList.filter);
-
-    }
-    else
-    {
-       this.auditLogList.filter = this.search.trim().toLowerCase();
-       console.log(this.auditLogList)
-    }
-  }
   dataType: string[] = [
-    "schedule",
-    "chart",
-    "profile",
+    "Schedule",
+    "Chart",
+    "Profile",
     "Insurance",
     "Erx",
     "Labs & Imaging",
     "Dosespot",
-    "setting",
-    "patient Portal",
+    "Setting",
+    "Patient Portal",
     "Rcopia"
   ];
   Action: string[] = [
     "Add",
+    "Query",
     "Change",
     "Delete",
-    "Query",
     "Print",
     "Copy",
     "View",
@@ -121,26 +108,70 @@ selection : any;
   public print() {
     window.print();
   }
-  exportToCsv() {
+
+  SearchDetails() {
     //debugger;
-    let element = document.getElementById('table')
-    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
-    // console.log(this.table.nativeElement);
-
-
-
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-
-    /* save to file */
-    XLSX.writeFile(wb, 'Audit.csv');
-
+    this.auditLogList = this.loglist.filter((invoice) => this.isMatch(invoice));
+  }
+  isMatch(item) {
+    //debugger;
+    if (item instanceof Object) {
+      return Object.keys(item).some((k) => this.isMatch(item[k]));
+    } else {
+      return item == null ? '' : item.toString().indexOf(this.SearchKey) > -1
+    }
+  }
+  convertToCSV(objArray) {
+    var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+    var str = '';
+    for (var i = 0; i < array.length; i++) {
+      var line = '';
+      for (var index in array[i]) {
+        if (line != '') line += ','
+        line += array[i][index];
+      }
+      str += line + '\r\n';
+    }
+    return str;
   }
 
-  applyFilter1(filterValue: string) {
-    filterValue = filterValue.trim(); // Remove whitespace
-    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
-    this.auditLogList.filter = filterValue;
+  fileTitle = 'Audit';
+  download() {
+    this.formatToCsvData()
+    const exportedFilenmae = this.fileTitle + '.csv';
+
+    const blob = new Blob([this.mockCsvData],
+      { type: 'text/csv;charset=utf-8;' });
+    {
+      const link = document.createElement('a');
+      if (link.download !== undefined) {
+        const url = URL.createObjectURL(blob);
+        link.setAttribute('href', url);
+        link.setAttribute('download', exportedFilenmae);
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+    }
+  }
+  formatToCsvData() {
+    let itemsFormatted = [];
+    this.auditLogList.forEach((item) => {
+      itemsFormatted.push({
+        DATE: item.DATE,
+        PatientName: item.PatientName,
+        ProviderName: item.ProviderName,
+        DataType: item.DataType,
+        Action: item.Action,
+        Detail: item.Detail,
+      });
+
+    });
+    const jsonObject = JSON.stringify(itemsFormatted);
+    const csv = this.convertToCSV(jsonObject);
+    this.mockCsvData = this.mockHeaders + csv;
+ 
   }
 
 }
