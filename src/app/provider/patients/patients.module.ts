@@ -1,6 +1,4 @@
-import { BreadcrumComponent } from './../../_navigations/breadcrum/breadcrum.component';
-
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { LOCALE_ID } from '@angular/core';
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../../_common/shared';
 import { CommonModule } from '@angular/common';
@@ -19,10 +17,13 @@ import { PaginatorDirective } from 'src/app/_directives/pagination.directive'
 import { BreadcrumbComponent} from 'src/app/provider/patients/patient.breadcrumb/breadcrumb.component'
 import { TreeProcedureComponent } from 'src/app/provider/patients/dental.chart/tree.procedure.component'
 
-// import { SettingsModule } from '../settings/settings.module';
+
 
 @NgModule({
-  imports: [SharedModule, CommonModule],
+  imports: [
+    SharedModule,
+    CommonModule,
+  ],
   exports: [
     PatientsComponent,
     PatientDetailsComponent,
@@ -53,8 +54,8 @@ import { TreeProcedureComponent } from 'src/app/provider/patients/dental.chart/t
     BreadcrumbComponent,
     TreeProcedureComponent,
   ],
-  providers: [],
-  // schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  providers: [
+    { provide: LOCALE_ID, useValue: 'en-US' }],
 })
 
 export class PatientsModule {
