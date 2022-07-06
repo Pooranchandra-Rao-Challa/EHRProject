@@ -1,4 +1,5 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule,LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -87,7 +88,9 @@ import { BillingService } from '../../_services/billing.service';
 import { AlertMessage } from 'src/app/_alerts/alertMessage';
 import { AddeditinterventionComponent } from 'src/app/dialogs/addeditintervention/addeditintervention.component';
 import { ProviderCodeDatabase } from 'src/app/provider/patients/dental.chart/tree.procedure.component'
-
+import { registerLocaleData } from '@angular/common';
+import localeIt from '@angular/common/locales/en';
+registerLocaleData(localeIt);
 @NgModule({
   exports: [
     MatInputModule,
@@ -149,7 +152,6 @@ import { ProviderCodeDatabase } from 'src/app/provider/patients/dental.chart/tre
     PatientHealthPortalComponent,
     AddeditinterventionComponent,
     ProcedureDialogComponent,
-    // PaginatorDirective
   ],
   imports: [
 
@@ -188,6 +190,7 @@ import { ProviderCodeDatabase } from 'src/app/provider/patients/dental.chart/tre
   providers: [LocationSelectService, ViewChangeService,
     UtilityService, SmartSchedulerService, OverlayService, PatientService, BillingService,
     SmartScheduleComponent, AlertMessage,
+    { provide: LOCALE_ID, useValue: 'en-US' },
     ProviderCodeDatabase,
     { provide: NgbDateParserFormatter, useClass: NgbDateUSParserFormatter }
 
