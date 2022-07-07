@@ -49,7 +49,7 @@ import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstra
 import { BreadcrumComponent } from '../breadcrum/breadcrum.component';
 import { PatientDialogComponent } from 'src/app/dialogs/patient.dialog/patient.dialog.component'
 import { AdvancedDirectivesDialogComponent } from '../../dialogs/advanced.directives.dialog/advanced.directives.dialog.component';
-
+import { SignEncounterNoteComponent } from 'src/app/dialogs/encounter.dialog/sign.encounter.note.component'
 
 import { OverlayComponent } from '../../overlay/overlay.component';
 import { OverlayService } from '../../overlay.service'
@@ -153,6 +153,7 @@ registerLocaleData(localeIt);
     PatientHealthPortalComponent,
     AddeditinterventionComponent,
     ProcedureDialogComponent,
+    SignEncounterNoteComponent,
   ],
   imports: [
 
@@ -207,6 +208,7 @@ registerLocaleData(localeIt);
     PatientPortalAccountComponent,
     ProcedureDialogComponent,
     AddressVerificationDialogComponent,
+    SignEncounterNoteComponent,
     PatientHealthPortalComponent]
 })
 export class ProviderModule {
