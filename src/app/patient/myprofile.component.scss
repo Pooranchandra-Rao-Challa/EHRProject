@@ -214,3 +214,43 @@ input[readonly] {
 ::ng-deep.swal2-container.swal2-top>.swal2-popup {
   margin-top: 180px !important;
 }
+::ng-deep .mat-checkbox:hover {
+  & .mat-checkbox-background,
+  .mat-checkbox-frame {
+    border-color: #41b6a6 !important;
+    border-radius: 5px;
+
+  }
+}
+::ng-deep .mat-checkbox {
+  & .mat-checkbox-background,
+  .mat-checkbox-frame {
+    border-color: rgb(151, 150, 150) !important;
+    width:25px;
+    height:25px;
+    border-radius: 5px;
+    border-color: 1px solid #41b6a6 !important;
+
+  }
+}
+::ng-deep .mat-checkbox-checked.mat-accent {
+  .mat-checkbox-background,
+  .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+    border-radius: 20% !important ;
+    height: 25px;
+    width: 25px;
+    border-radius: 5px;
+    border-color: 1px solid #41b6a6 !important;
+  }
+  .mat-checkbox-checkmark-path {
+    stroke: rgb(151, 150, 150) !important;
+    border-color: 1px solid #41b6a6 !important;
+
+  }
+}
+::ng-deep.mat-checkbox-inner-container {
+
+  margin-right: 12px !important;
+  width: 25px !important;
+
+}
