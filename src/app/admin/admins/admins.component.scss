@@ -34,7 +34,7 @@
   padding: 3px 5px;
 }
 h1 {
-  font-size: 69%;
+  font-size: 72%;
   white-space: pre-wrap;
 }
 
@@ -71,7 +71,14 @@ h1 {
 .modal-dialog .modal-content {
   box-shadow: none;
   border-radius: 0px;
-  margin-left: -42%;
+  margin-left: -89%;
+}
+@media (max-width:1440px){
+  .modal-dialog .modal-content {
+    box-shadow: none;
+    border-radius: 0px;
+    margin-left: -40%;
+  }
 }
 .modal-content {
   position: relative;
@@ -80,7 +87,6 @@ h1 {
   width: 250%;
   pointer-events: auto;
   background-color: white;
-
 }
 @media (max-width:1596px )and (min-width: 930px) {
   .modal-content {
@@ -213,9 +219,15 @@ input::-webkit-calendar-picker-indicator {
 .mat-option {
   border-left: 1px solid #0a0a0a;
   border-right: 1px solid #050505;
+  color: black !important;
+  background-color: #fff;
+  height: auto;
+  width: 63%;
+  overflow-wrap: anywhere;
 }
 .mat-option:last-child {
   border-right: 1px solid #0c0c0c;
+  border-top: 1px solid #050505;
 }
 .mat-option:last-child {
   border-bottom: 1px solid #050505;
@@ -223,6 +235,7 @@ input::-webkit-calendar-picker-indicator {
 .mat-option.mat-selected:not(.mat-option-disabled) {
   color: black;
   text-shadow: black;
+  font-size: 16px;
 }
 ::ng-deep .mat-form-field {
   font-size: 12px; // example
@@ -230,10 +243,11 @@ input::-webkit-calendar-picker-indicator {
 .mat-option.mat-active {
   background: #fdfdfd !important;
   height: auto;
-  width: 63%;
+  width: 100%;
   overflow-wrap: anywhere;
 
 }
+
 .mat-option.mat-selected:not(.mat-option-disabled) {
   color: black !important;
   text-shadow: black;
@@ -241,13 +255,7 @@ input::-webkit-calendar-picker-indicator {
 .mat-option:hover {
   background-color: #f7f8f8 !important;
 }
-.mat-option {
-  color: black !important;
-  background-color: #fff;
-  height: auto;
-  width: 63%;
-  overflow-wrap: anywhere;
-}
+
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
   height: 35px;
   border-radius: 0%;
@@ -255,7 +263,8 @@ input::-webkit-calendar-picker-indicator {
 }
 .modal{
   .modal-dialog{
-    margin-top: calc(77px + 30px) !important;
+    margin-top: calc(106px + 79px) !important;
+
   }
 }
 .modal .modal-dialog .modal-content .modal-header {
@@ -267,4 +276,7 @@ input::-webkit-calendar-picker-indicator {
 input.mat-input-element {
   font-size: 14px !important;
 }
-
+::ng-deep.mat-autocomplete-panel {
+  min-width: 70px !important;
+  margin-top: -5px;
+}

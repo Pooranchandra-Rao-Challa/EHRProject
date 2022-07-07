@@ -1,0 +1,75 @@
+@import"../../../../assets/common.scss";
+@import "../../../../assets/cstm.material.scss";
+.btn-authorized{
+    width: 165px;
+    height: 45px;
+    display: block;
+    padding: 0;
+    line-height: 2.7;
+    cursor: pointer;
+    border-radius: 3px;
+    font-size: 16px;
+    text-align: center;
+  
+}
+.plusicon {
+    border-radius: 3px;
+    background-color:#fff;
+    border: 1px solid #41b6a6;
+   
+    width: 80px;
+    height: 30px;
+    text-align: center;
+    cursor: pointer;
+   
+  }
+  .mat-header-row.mat-cust-header
+  {
+    min-height: 30px;
+  }
+
+
+  .amendments .mat-table {
+    border: 1px solid #41b6a6;
+    border-bottom: none;
+    border-radius: 4px;
+}
+
+.btn-today
+{
+    width: 184px;
+    height: 45px;
+    display: block;
+    padding: 0;
+    line-height: 2.7;
+    cursor: pointer;
+    border-radius: 3px;
+    font-size: 16px;
+    text-align: center;
+    margin-left: -9px;
+}
+.modal-content{
+    width:105% !important;
+}
+.text-border{
+    height: 145px;
+      border: 1px solid #41b6a6;
+      border-radius: 3px;
+      font-size: 15px;
+      padding: 10px 20px;
+      resize: both;
+      width: 100% !important;
+  }
+  .searchnow{
+      width: 150px !important;
+      height: 45px !important;
+  }
+  ::ng-deep .calendaralignment.green-calendar mat-datepicker-toggle.mat-datepicker-toggle button.mat-focus-indicator.mat-icon-button {
+    height: 3.7em !important;
+  }
+  .divScroll {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 500px;
+    // width: 1045px;
+    }

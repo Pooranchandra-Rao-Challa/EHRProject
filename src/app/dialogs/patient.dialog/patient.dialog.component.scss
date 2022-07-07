@@ -50,10 +50,10 @@
 .input-group .form-control:hover {
   border: 1px solid #41b6a6;
 }
-.required::after {
-  content: "*";
-  color: red;
-}
+// .required::after {
+//   content: "*";
+//   color: red;
+// }
 .form-group .input-group .form-control{
   width: 40px
 }
