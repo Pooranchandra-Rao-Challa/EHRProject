@@ -198,8 +198,8 @@
                     (click)="openComponentDialog((patient.NumberOfAppointments == 0 ? appointmentDialogComponent : upcomingAppointmentsDialogComponent),patient,PatinetActions(patient))">
 
                     {{patient.Name}},
-                    {{patient.DateofBirth | date: 'MM/dd/yyyy'}}-{{patient.Age}} :-
-                    {{patient.NumberOfAppointments}}
+                    {{patient.DateofBirth | date: 'MM/dd/yyyy'}} - {{patient.Age}} Years :-
+                    {{patient.NumberOfAppointments}} Appointments
 
                   </li>
                 </ul>

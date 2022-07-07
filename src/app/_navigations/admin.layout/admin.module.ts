@@ -1,3 +1,4 @@
+import { PatientService } from 'src/app/_services/patient.service';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -114,7 +115,7 @@ import { AdminPaginatorDirective } from 'src/app/_directives/admin.patinator.dir
     CKEditorModule,
     // Ng2SearchPipeModule
   ],
-  providers: [AdminService, OverlayService, AlertMessage
+  providers: [AdminService, OverlayService, AlertMessage, PatientService
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
