@@ -58,7 +58,7 @@ export class NewmessageDialogComponent implements OnInit {
     var req={
       "ClinicId": this.user.ClinicId,
     }
-    debugger
+    //debugger
     this.patientservise.PatientProviders(req)
       .subscribe(resp => {
         //this.isLoading = false;
@@ -74,7 +74,7 @@ export class NewmessageDialogComponent implements OnInit {
   }
   //filter city on search text
   filterData(searchText: string) {
-    debugger;
+
     var searchData = this.proceduresData.filter(x => (((x.Title+' - '+x.FullName).toLowerCase().indexOf(searchText.toLowerCase().trim()) !== -1)));
     return searchData
   }

@@ -1,15 +1,12 @@
-import { Observable } from 'rxjs';
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { AvailableTimeSlot, NewAppointment,Actions,
-        AppointmentDialogInfo, PatientSearchResults,
-        ScheduledAppointment, UserLocations } from 'src/app/_models';
-import { AuthenticationService } from 'src/app/_services/authentication.service';
+import { NewAppointment,Actions,
+        AppointmentDialogInfo,
+        ScheduledAppointment, } from 'src/app/_models';
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
 import { EHROverlayRef } from '../../ehr-overlay-ref';
 import { NewAppointmentDialogComponent } from '../../dialogs/newappointment.dialog/newappointment.dialog.component';
 import { ComponentType } from '@angular/cdk/portal';
 import { OverlayService } from '../../overlay.service';
-import { A } from '@angular/cdk/keycodes';
 @Component({
   selector: 'app-upcoming.appointments.dialog',
   templateUrl: './upcoming.appointments.dialog.component.html',
@@ -21,7 +18,7 @@ export class UpcomingAppointmentsDialogComponent implements OnInit {
   data: AppointmentDialogInfo
   newAppointmentDialogComponent = NewAppointmentDialogComponent;
   appointmentDialogResponse: any;
-  dialogIsLoading: boolean = false;
+  dialogIsLoading: boolean = true;
   constructor(
     private ref: EHROverlayRef,
     private smartSchedulerService: SmartSchedulerService,

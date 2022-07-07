@@ -131,7 +131,7 @@ export class ProceduresInfo implements IDeleteFlag {
   PatientId?: string;
   LocationId?: string;
   ProviderId?: string;
-  ServicedAt?: Date;
+  Date?: Date;
   ToothSystem?: string = "JP";
   Quantity?: number = 0;
   Fee?: number = 0;
@@ -152,6 +152,9 @@ export class ProceduresInfo implements IDeleteFlag {
   Surface?: string;
   ToothProblemId?: string;
   ReasonStartDate?: Date;
+  strReasonStartDate?: string;
+  strEndDate?: string;
+  strDate?: string;
 
   ViewFrom?: string;
   CanDelete?: boolean = false;

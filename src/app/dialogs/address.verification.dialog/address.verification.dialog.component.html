@@ -1,33 +1,30 @@
-<!-- // address verification model -->
-<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayAddress}">
-  <div class="modal-dialog  modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header" [ngClass]="displayAddressDialog?'addressInvalid':'addressSuccess'">
-        <h4 *ngIf="!displayAddressDialog">Success</h4>
-        <h4 *ngIf="displayAddressDialog" class="text-white">Invalid Address</h4>
-        <button type="button" *ngIf="!displayAddressDialog" class="btn btn-sm btn-success adrsbtn"
-          (click)="closePopupAddress()">
-          X
-        </button>
-        <button type="button" *ngIf="displayAddressDialog" class="btn btn-sm btn-success erroclose"
-          (click)="closePopupAddress()">
-          X
-        </button>
-      </div>
-      <form>
-        <div class="modal-body">
-          <div class="row">
-            <h4 class="text-center" class="address-valid-invalid-message-header">
-              {{addressMessage}}</h4>
-            <div class="col-lg-12 col-md-4 col-sm-4" *ngIf="!displayAddressDialog">
-              <mat-form-field appearance="outline" [style.width.px]=700>
-                <input type="text" [style.width.px]=600 [value]="ValidAddressForUse" placeholder="address" matInput>
-                <md-icon class="link" (click)="UseValidatedAddress()">Use this</md-icon>
-              </mat-form-field>
-            </div>
-          </div>
-        </div>
-      </form>
+<div class="modal-dialog" role="document" [class.invalid-panel-border]="!addressValidation.IsValid"
+[class.valid-panel-border]="addressValidation.IsValid">
+  <div class="modal-content" [class.invalid-address]="!addressValidation.IsValid"
+  [class.valid-address]="addressValidation.IsValid">
+    <div class="modal-header" [class.invalid-address-header]='!addressValidation.IsValid'
+      [class.valid-address-header]='addressValidation.IsValid'>
+      <div>{{ addressValidation.IsValid ? 'Success' : 'Verification Failed'}}</div>
+      <button type="button" class="btn btn-sm btn-success"
+        [class.valid-close-button]='addressValidation.IsValid' [class.invalid-close-button]='!addressValidation.IsValid'
+        (click)="close()">
+        X
+      </button>
     </div>
+    <form>
+      <div class="modal-body">
+        <div class="row">
+          <div class="text-center" [class.invalid-message]="!addressValidation.IsValid"
+          [class.valid-message]="addressValidation.IsValid">
+            {{addressValidation.IsValid ? "We've found closest match(s):" :"Address not verified, please try again!"}}
+          </div>
+          <mat-form-field appearance="outline" *ngIf="addressValidation.IsValid" [style.cursor]="not-allowed" >
+            <input type="text" [style.width.px]=600 class="input-address" [(ngModel)]="addressValidation.Address"
+            placeholder="address" matInput  [ngModelOptions]="{standalone: true}" disabled>
+            <div class="usethis" (click)="useThis()" >Use this</div>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
   </div>
 </div>

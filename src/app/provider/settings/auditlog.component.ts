@@ -64,7 +64,7 @@ export class AuditLogComponent implements OnInit {
       }
     }
     else {
-      debugger;
+      //debugger;
       var reqparams = {
 
         ProviderId: this.user.ProviderId,
@@ -171,7 +171,7 @@ export class AuditLogComponent implements OnInit {
     const jsonObject = JSON.stringify(itemsFormatted);
     const csv = this.convertToCSV(jsonObject);
     this.mockCsvData = this.mockHeaders + csv;
- 
+
   }
 
 }

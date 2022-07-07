@@ -90,6 +90,7 @@ import { AddeditinterventionComponent } from 'src/app/dialogs/addeditinterventio
 import { ProviderCodeDatabase } from 'src/app/provider/patients/dental.chart/tree.procedure.component'
 import { registerLocaleData } from '@angular/common';
 import localeIt from '@angular/common/locales/en';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 registerLocaleData(localeIt);
 @NgModule({
   exports: [
@@ -190,7 +191,8 @@ registerLocaleData(localeIt);
   providers: [LocationSelectService, ViewChangeService,
     UtilityService, SmartSchedulerService, OverlayService, PatientService, BillingService,
     SmartScheduleComponent, AlertMessage,
-    { provide: LOCALE_ID, useValue: 'en-US' },
+    { provide: LOCALE_ID, useValue: 'en-GB' },
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
     ProviderCodeDatabase,
     { provide: NgbDateParserFormatter, useClass: NgbDateUSParserFormatter }
 
@@ -204,6 +206,7 @@ registerLocaleData(localeIt);
     UserDialogComponent,
     PatientPortalAccountComponent,
     ProcedureDialogComponent,
+    AddressVerificationDialogComponent,
     PatientHealthPortalComponent]
 })
 export class ProviderModule {

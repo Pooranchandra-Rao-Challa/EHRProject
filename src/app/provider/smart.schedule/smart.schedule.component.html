@@ -34,6 +34,7 @@
               <mat-form-field appearance="outline" class="col-12 smart-schedule-dropdown">
                 <mat-select disableOptionCentering id="practiceProviders" placeholder="Select Provider"
                   [(ngModel)]="SelectedProviderId" (selectionChange)="onProviderChange()">
+                  <mat-option value='' selected>View All Providers</mat-option>
                   <mat-option *ngFor="let provider of PracticeProviders" [value]="provider.ProviderId">
                     {{provider.FullName}}</mat-option>
                 </mat-select>
@@ -77,7 +78,7 @@
                       Time: {{appointment.AppointmentTime | date:'hh:mm a'}}
                     </div>
                     <div class="col-md-2 col-2 appintment-link" *ngIf="appointment.IsCurrent"
-                      (click)="openComponentDialog(appointmentDialogComponent,appointment,ActionsType.view)">
+                      (click)="onPatientSelection(appointment)">
                       <div>{{appointment.PatientName}}</div>
                       <div>DOB: {{appointment.DateofBirth | date:'MMM d, y'}}</div>
                       <div *ngIf="appointment.PrimaryPhone">H: {{appointment.PrimaryPhone}}</div>
@@ -186,25 +187,22 @@
           <div class="row">
             <div class="col-lg-8 col-md-6 col-12">
               <div class="form-group">
-                <div class="input-group" appearance="outline" class="new-search col-12">
-                  <input class="form-control new-search"
+                <div class="input-group smartview-patient-search-result" appearance="outline" class="new-search col-12">
+                  <input class="form-control new-search" [matAutocomplete]="patientSerarch"
                     placeholder="Schedule Appointment ( Enter a patient's name or phone number )" type="text"
                     [(ngModel)]="patientNameOrCellNumber" (keyup)="searchPatient(patientNameOrCellNumber)" />
+                    <mat-autocomplete  #patientSerarch="matAutocomplete"  [displayWith]="displayPatient"
+                    (optionSelected)="onPatientSelected($event)" ><!-- -->
+                  <mat-option *ngFor="let patient of patients" [value]="patient" class="patient-search-option patient-search-option-menu-item">
+                    {{patient.Name}},
+                    {{patient.DateofBirth | date: 'MM/dd/yyyy'}}-{{patient.Age}},
+                    {{patient.PrimaryPhone ? 'P:'+patient.PrimaryPhone : ''}},
+                    {{patient.MobilePhone ? 'H:'+patient.MobilePhone : ''}},
+                    {{patient.NumberOfAppointments+' Appointment(s)'}}
+                  </mat-option>
+                </mat-autocomplete>
                 </div>
               </div>
-              <div class="smartview-patient-search-result" *ngIf="flag" appearance="outline" [ngStyle]="psw">
-                <ul class="ui-widget">
-                  <li *ngFor="let patient of patients" class="ui-menu-item"
-                    (click)="openComponentDialog((patient.NumberOfAppointments == 0 ? appointmentDialogComponent : upcomingAppointmentsDialogComponent),patient,PatinetActions(patient))">
-
-                    {{patient.Name}},
-                    {{patient.DateofBirth | date: 'MM/dd/yyyy'}}-{{patient.Age}} :-
-                    {{patient.NumberOfAppointments}}
-
-                  </li>
-                </ul>
-              </div>
-
             </div>
             <div class="col-lg-2 col-md-3 col-12 my-2 my-md-0">
               <button mat-button class="btn patientbtn col-12" type="button"
