@@ -47,9 +47,9 @@
                                     aria-describedby="basic-addon1" [(ngModel)]="primlist.Street" #Address>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 d-flex justify-content-end flex-sm-row flex-column">
                             <button
-                                class="btn btn-green btn-verify Helvetica-sans-serif-medium mt-4 py-2 px-4 my-4 mx-3"
+                                class="btn btn-green btn-verify Helvetica-sans-serif-medium mt-4"
                                 [disabled]="primlist.Street=='' || disableaddressverification"
                                 (click)="AddressVerification()">VERIFY</button>
                         </div>
@@ -116,10 +116,10 @@
                                 <input type="text"
                                     class="form-control  Helvetica-sans-serif-medium patientInsuranceTab input-border"
                                     placeholder="Insurance Company Plan" [(ngModel)]="primlist.InsuranceCompanyPlan"
-                                    aria-label="Subscriber Name" aria-describedby="basic-addon1">
+                                    aria-label="Subscriber Name" aria-describedby="basic-addon1" readonly>
                             </div>
                         </div>
-                        <div class="col-1">
+                        <div class="col-1  d-flex justify-content-end flex-sm-row flex-column">
                             <button class="plusicon mt-4" type="button" (click)="primaryplus('primary')"
                                 data-bs-toggle="modal" data-bs-target="#modal-primary-Insurance" aria-expanded="false">
                                 <i class="fa fa-plus"></i>
@@ -135,7 +135,7 @@
                                     aria-describedby="basic-addon" [(ngModel)]="primlist.SubscriberId">
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-4 d-flex justify-content-end flex-sm-row flex-column">
                             <button [disabled]="viewpidetailsforprimary"
                                 class="btn btn-green btn-insurance pull-right  Helvetica-sans-serif-medium"
                                 type="button" (click)="getInsuranceDetails('primary')" data-bs-toggle="modal"
@@ -170,19 +170,21 @@
                         </div>
                     </div> -->
 
-                    		
-					 <div class="col-lg-12 col-md-12">
-                        <mat-label  class="Helvetica-sans-serif-medium placehold">Source of Payment Typology </mat-label>                      
-                        <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-12 ddl-width ddhover">
-                          <mat-select panelClass="optionalignment"  [(ngModel)]="primlist.SourceOfPaymentTypology" placeholder="Source of Payment Typology">
-                            <mat-select-filter  [displayMember]="'Code'" [array]="SourceOfPaymentTypologyCodesFilter" 
-                              (filteredReturn)="SourceOfPaymentTypologyCodes = $event"></mat-select-filter>
-                            <mat-option  *ngFor="let item of SourceOfPaymentTypologyCodes" [value]="item.Code" (click)="primaryspt(item)" >
-                              {{item.Code}} - {{item.Description}}
-                            </mat-option>
-                          </mat-select>
-                        </mat-form-field>
-                      </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <mat-label  class="Helvetica-sans-serif-medium placehold">Source of Payment Typology </mat-label>                      
+                            <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-12 ddl-width ddhover">
+                              <mat-select panelClass="optionalignment"  [(ngModel)]="primlist.SourceOfPaymentTypology" placeholder="Source of Payment Typology">
+                                <mat-select-filter  [displayMember]="'Code'" [array]="SourceOfPaymentTypologyCodesFilter" 
+                                  (filteredReturn)="SourceOfPaymentTypologyCodes = $event"></mat-select-filter>
+                                <mat-option  *ngFor="let item of SourceOfPaymentTypologyCodes" [value]="item.Code" (click)="primaryspt(item)" >
+                                  {{item.Code}} - {{item.Description}}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                    </div>		
+					
                     <div class="row">
                         <div class="col-md-6">
                             <label class="Helvetica-sans-serif-medium">Start Date</label>
@@ -264,13 +266,13 @@
                                     aria-describedby="basic-addon1" [(ngModel)]="secList.Street" #Address>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
+                        <div class="col-md-3  d-flex justify-content-end flex-sm-row flex-column">
+                            
                                 <button
-                                    class="btn btn-green btn-verify Helvetica-sans-serif-medium mt-4 py-2 px-4 my-4 mx-3"
+                                    class="btn btn-green btn-verify Helvetica-sans-serif-medium mt-4"
                                     [disabled]="secList.Street=='' || secondarydisableaddressverification"
                                     (click)="secondaryAddressverfied()">VERIFY</button>
-                            </div>
+                            
                         </div>
                     </div>
                    
@@ -341,7 +343,7 @@
                                     aria-label="Subscriber Name" aria-describedby="basic-addon1">
                             </div>
                         </div>
-                        <div class="col-1">
+                        <div class="col-1  d-flex justify-content-end flex-sm-row flex-column">
 
                             <button class="plusicon mt-4" type="button" data-bs-toggle="modal"
                                 (click)="secondaryplus('secondary')" data-bs-target="#modal-primary-Insurance"
@@ -359,7 +361,7 @@
                                     [(ngModel)]="secList.SubscriberId">
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-4  d-flex justify-content-end flex-sm-row flex-column">
                             <button [disabled]="viewpidetailsforsecondary"
                                 class="btn btn-green btn-insurance pull-right  Helvetica-sans-serif-medium"
                                 (click)="getInsuranceDetails('secondary')" type="button" data-bs-toggle="modal"
@@ -455,7 +457,7 @@
                     <div class="container">
                         <div class="divScroll1">
                         <div class="row">
-                            <div class="col-lg-12 col-md-12 col-12">
+                            <div class="col-lg-12 col-md-12 col-12 mb-4">
                                 <div class="col-md-6">
 
                                     <div>
@@ -485,7 +487,7 @@
                                         [(ngModel)]="insuraceComplanyPlan.GroupPlan">
                                 </div>
                             </div>
-                            <div class="col-md-6 mb-4">
+                            <div class="col-md-6">
                                 <label class="Helvetica-sans-serif-medium">Employer</label>
                                 <div class="input-group input-group-lg">
                                     <input type="text" class="form-control inputclass" placeholder="Employer"
@@ -573,7 +575,7 @@
                                         [(ngModel)]="insuraceComplanyPlan.GroupNo">
                                 </div>
                             </div>
-                            <div class="col-md-6 mb-4">
+                            <div class="col-md-6">
                                 <label class="Helvetica-sans-serif-medium">Local #</label>
                                 <div class="input-group input-group-lg">
                                     <input type="text" class="form-control inputclass " placeholder="Local #"
@@ -693,7 +695,7 @@
                                 <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)"
                                     class="Helvetica-sans-serif-medium">
                                     {{item.StreetAddress}},{{item.City}},{{item.State}}</td>
-                            </tr> -->
+                            </tr> 
                         </tbody>
                     </table>
                     </div>
