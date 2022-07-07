@@ -3,6 +3,9 @@ import { Query } from '@syncfusion/ej2-data';
 import { EmitType } from '@syncfusion/ej2-base';
 import { FilteringEventArgs } from '@syncfusion/ej2-dropdowns';
 import { AdminService } from 'src/app/_services/admin.service';
+import { PrimaryInsurance } from 'src/app/_models/insurance';
+import { PatientService } from 'src/app/_services/patient.service';
+import { ProviderList } from 'src/app/_models/_admin/providerList';
 
 @Component({
   selector: 'app-import-encounters',
@@ -13,11 +16,19 @@ import { AdminService } from 'src/app/_services/admin.service';
 export class ImportEncountersComponent {
 
   ProviderList: any = [];
+  SourceOfPaymentTypologyCodes: any = [];
+  SourceOfPaymentTypologyCodesFilter: any;
+  primlist: ProviderList = {} as ProviderList;
+  secondarySptcFilter:any;
 
-  constructor(private adminservice: AdminService) { }
+  constructor(private adminservice: AdminService,
+    private patientservice: PatientService,) {
+      this.primlist = {} as ProviderList;
+    }
 
   ngOnInit(): void {
     this.GetProviderNameList();
+    // this.getSourceOfPaymentTypologyCodesDD();
   }
 
   ProviderName: Object = { text: 'ProviderName', value: 'ProviderId' };
@@ -35,8 +46,9 @@ export class ImportEncountersComponent {
       if (resp.IsSuccess) {
         this.ProviderList = resp.ListResult;
         // console.log(this.ProviderList);
+        this.SourceOfPaymentTypologyCodesFilter=this.ProviderList.slice();
+        this.secondarySptcFilter=this.ProviderList.slice();
       }
     });
   }
-
 }
