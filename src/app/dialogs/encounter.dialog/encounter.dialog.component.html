@@ -705,15 +705,15 @@
               <div class="encounter-tab-pane" id="encounter_diagnoses_tab">
                 <div class="content">
                   <div class="row">
-                    <div class="col-lg-3 col-md-4 col-12">
-                    </div>
-                    <div class="col-lg-8 col-md-8 col-12 mat-field-no-round-right">
+
+                    <div class="col-lg-12 col-md-12 col-12 mat-field-no-round-right">
                       <medical-code-container [codeSystems]="codeSystemsForDiagnosis"
                     (optionChanged)="optionChangedForDiagnosis($event)" [MinTermLength]="3" [showSelectedValue]="false"></medical-code-container>
                     </div>
                   </div>
                   <div class="scrollable-mat-table">
-                    <mat-table mat-table [dataSource]="diagnosesInfo" id="procedure-table" class="pt-2 encounter-diagnosis-remove-sides">
+                    <mat-table mat-table [dataSource]="diagnosesInfo" id="procedure-table"
+                    class="pt-2 encounter-diagnosis-remove-sides">
                       <ng-container  matColumnDef="CODE">
                         <mat-header-cell *matHeaderCellDef>
                           <p class="text-capitalize-first">CODE</p>
@@ -746,7 +746,8 @@
                           <p class="text-capitalize-first">PATIENT EDUCATION</p>
                         </mat-header-cell>
                         <mat-cell *matCellDef="let item">
-                          <span>{{ item.PatientEdn }}</span>
+                          <div class="col-xs-2"><a href="{{ item.MedLineUrl }}" target="_blank">{{ item.PatientEdn }}</a></div>
+
                         </mat-cell>
                       </ng-container>
 
@@ -785,17 +786,15 @@
               <div class="encounter-tab-pane" id="encounter_diagnoses_tab">
                 <div class="content">
                   <div class="row">
-                    <div class="col-lg-3 col-md-4 col-12">
 
-                    </div>
-                    <div class="col-lg-8 col-md-8 col-12">
+                    <div class="col-lg-12 col-md-12 col-12">
                       <medical-code-container [codeSystems]="codeSystemsForProcedures"
                         (optionChanged)="onProceduresRecommended($event)" [MinTermLength]="2" [showSelectedValue]="f"> </medical-code-container>
                     </div>
                   </div>
                   <div class="scrollable-mat-table">
                     <mat-table mat-table [dataSource]="recommendedProcedures"
-                      class="ehr-cqm-container pt-2 procedure-table">
+                      class="pt-2  encounter-diagnosis-remove-sides">
 
 
 
@@ -1001,13 +1000,13 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-green" (click)="recordSuperBill()" *ngIf="encounterInfo.Signed">
+        <button type="button" class="btn btn-green"  (click)="recordSuperBill()" *ngIf="encounterInfo.Signed">
           Record Superbill
         </button>
-        <button type="button" class="btn btn-green" (click)="addAddenda()" *ngIf="encounterInfo.Signed">
+        <button type="button" class="btn btn-green"  (click)="addAddenda()" *ngIf="encounterInfo.Signed">
           Add Addenda
         </button>
-        <button type="button" class="btn btn-green" (click)="attachDocuments()" *ngIf="encounterInfo.EncounterId != null">
+        <button type="button" class="btn btn-green"   (click)="attachDocuments()" *ngIf="encounterInfo.EncounterId != null">
           Attach Documents
         </button>
         <button type="button" class="btn btn-green" (click)="saveAsDraft()"  *ngIf="!encounterInfo.Signed  && !dialogIsLoading">
