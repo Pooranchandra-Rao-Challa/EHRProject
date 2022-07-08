@@ -3,6 +3,7 @@ import { Query } from '@syncfusion/ej2-data';
 import { EmitType } from '@syncfusion/ej2-base';
 import { FilteringEventArgs } from '@syncfusion/ej2-dropdowns';
 import { AdminService } from 'src/app/_services/admin.service';
+import { ProviderList } from 'src/app/_models/_admin/providerList';
 
 @Component({
   selector: 'app-import-patients',
@@ -12,7 +13,9 @@ import { AdminService } from 'src/app/_services/admin.service';
 export class ImportPatientsComponent {
 
   ProviderList: any = [];
-
+  SourceOfPaymentTypologyCodesFilter: any;
+  primlist: ProviderList = {} as ProviderList;
+  secondarySptcFilter:any;
   constructor(private adminservice: AdminService) { }
 
   ngOnInit(): void {
@@ -28,12 +31,13 @@ export class ImportPatientsComponent {
     //pass the filter data source, filter query to updateData method.
     e.updateData(this.ProviderList, query);
   }
-
   GetProviderNameList() {
     this.adminservice.GetProviderList().subscribe(resp => {
       if (resp.IsSuccess) {
         this.ProviderList = resp.ListResult;
         // console.log(this.ProviderList);
+        this.SourceOfPaymentTypologyCodesFilter=this.ProviderList.slice();
+        this.secondarySptcFilter=this.ProviderList.slice();
       }
     });
   }

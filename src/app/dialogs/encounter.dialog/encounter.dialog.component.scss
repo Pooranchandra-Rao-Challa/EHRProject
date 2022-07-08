@@ -186,3 +186,16 @@
 ::ng-deep .mat-progress-bar{
   margin-bottom: 10px;
 }
+
+.encounter-label{
+  padding: 7px 10px;
+  margin-top:13px
+}
+::ng-deep .encounter-provider .mat-select-value-text{
+  color:  #41b6a6 !important;
+}
+
+.encounter-title{
+  font-size:30px;
+  color:#41a6b6
+}

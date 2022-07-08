@@ -5,6 +5,7 @@ import { AuthenticationService } from 'src/app/_services/authentication.service'
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
 import { PatientService } from 'src/app/_services/patient.service';
 import { EHROverlayRef } from '../../ehr-overlay-ref';
+import { ComponentType } from '@angular/cdk/portal';
 import {
   EncounterInfo, EncounterDiagnosis, ProceduresInfo, VitalInfo,PracticeProviders,Actions,
   ScheduledAppointment, AppointmentTypes,
@@ -20,6 +21,7 @@ import { OverlayService } from 'src/app/overlay.service';
 import { map, } from 'rxjs/operators';
 import { AlertMessage, ERROR_CODES } from './../../_alerts/alertMessage';
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
+import { SignEncounterNoteComponent } from 'src/app/dialogs/encounter.dialog/sign.encounter.note.component'
 
 @Component({
   selector: 'app-encounter.dialog',
@@ -66,13 +68,14 @@ export class EncounterDialogComponent implements OnInit {
   dischargeCode = new MedicalCode();
   dialogIsLoading: boolean = false;
   patient: ProviderPatient;
+  signEncounterNoteComponent = SignEncounterNoteComponent;
 
   private messageflagSubject = new BehaviorSubject<boolean>(false);
   public messageflag$ = this.messageflagSubject.asObservable();
   constructor(private overlayref: EHROverlayRef, private authService: AuthenticationService,
     private smartSchedulerService: SmartSchedulerService,
     private patientService: PatientService,
-    public overlayService: OverlayService,
+    private overlayService: OverlayService,
     private alertmsg: AlertMessage) {
       let i = 1;  //normally would use var here
       while(this.teethNumbers.push(i++)<32){}
@@ -291,6 +294,10 @@ export class EncounterDialogComponent implements OnInit {
       this.encounterInfo.ServiceEndAt = null;
     this.updateEncounter();
   }
+
+  signConfirmation(){
+    this.openComponentDialog(this.signEncounterNoteComponent,null);
+  }
   signEncounter() {
     this.encounterInfo.EnableNewEncounterData = this.EnableNewEncounterData;
     this.encounterInfo.Signed = true;
@@ -341,5 +348,18 @@ export class EncounterDialogComponent implements OnInit {
 
   attachDocuments(){
 
+  }
+
+  openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
+    data?: any, action?: Actions) {
+
+    const ref = this.overlayService.open(content, data);
+    ref.afterClosed$.subscribe(res => {
+      if (content === this.signEncounterNoteComponent) {
+        if(res.data && res.data.signed){
+          this.signEncounter();
+        }
+      }
+    });
   }
 }

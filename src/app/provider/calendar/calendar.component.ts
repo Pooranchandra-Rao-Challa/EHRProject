@@ -1,45 +1,62 @@
-import { TableUtil } from './../../reports/tableUtil';
-import { isNull } from '@angular/compiler/src/output/output_ast';
-import { Component, OnInit } from '@angular/core';
-import { ChangeEventArgs, PopupEventArgs } from '@syncfusion/ej2-angular-dropdowns';
-// import { EventSettingsModel, View } from '@syncfusion/ej2-angular-schedule';
-import { L10n } from '@syncfusion/ej2-base';
-import { DropDownList } from '@syncfusion/ej2-dropdowns';
-import { extend, isNullOrUndefined } from '@syncfusion/ej2-base';
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { DatePipe } from '@angular/common';
 
-L10n.load({
-  'en-US': {
-    'schedule': {
-      'saveButton': 'Save Appointment',
-      'cancelButton': 'Cancel',
-      'deleteButton': 'Delete',
-      'newEvent': 'Add New Appointment',
-    },
-  }
-});
+import { Component, OnInit, ElementRef, Inject, LOCALE_ID, HostListener, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup } from "@angular/forms";
+import { Subject } from 'rxjs';
+
+// import {
+//     endOfDay,
+//     addMonths
+// } from 'date-fns';
+// import {
+//     DAYS_IN_WEEK,
+//     SchedulerViewDay,
+//     SchedulerViewHour,
+//     SchedulerViewHourSegment,
+//     CalendarSchedulerEvent,
+//     CalendarSchedulerEventAction,
+//     startOfPeriod,
+//     endOfPeriod,
+//     addPeriod,
+//     subPeriod,
+//     SchedulerDateFormatter,
+//     SchedulerEventTimesChangedEvent,
+//     CalendarSchedulerViewComponent
+// } from 'angular-calendar-scheduler';
+// import {
+//     CalendarView,
+//     CalendarDateFormatter,
+//     DateAdapter
+// } from 'angular-calendar';
+
 
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
-  styleUrls: ['./calendar.component.scss']
+  styleUrls: ['./calendar.component.scss'],
+
 })
 export class CalendarComponent implements OnInit {
   displayStyle: string = "none"
   nameTitle: { titleId: number; titleName: string; }[];
   appointmentForm: FormGroup;
   availableTimeSlots: string[];
-  // public currentDate: Date = new Date(2022, 1, 22);
-  // public newViewMode: View = 'Week';
-  color = '#ff00ff';
-  message = 'Empty';
-  constructor(private fb: FormBuilder) {
+
+
+  toggleButtonVisibility: boolean = false;
+
+  constructor(private fb: FormBuilder,
+    public datepipe: DatePipe) {
+
+    console.log(datepipe.transform(new Date().getDate() , 'EEEE'));
   }
 
   ngOnInit(): void {
     this.availableTimeSlots = ["08:00 am - 08:30 am", "08:30 am - 09:00 am", "09:00 am - 09:30 am", "09:30 am - 10:00 am", "10:00 am - 10:30 am"];
   }
-
+  handleButtons(){
+    this.toggleButtonVisibility = !this.toggleButtonVisibility;
+  }
   AppointmentForm() {
     this.appointmentForm = this.fb.group({
       patient: [''],
@@ -92,10 +109,10 @@ export class CalendarComponent implements OnInit {
     { EventTypeText: 'Consulting', EventTypeValue: 'consulting' },
     { EventTypeText: 'Operation', EventTypeValue: 'operation' }
   ];
-  public onChange(args: ChangeEventArgs) {
-    if (!isNullOrUndefined(args.value))
-      alert("Event type: " + args.value);
-  }
+  // public onChange(args: ChangeEventArgs) {
+  //   if (!isNullOrUndefined(args.value))
+  //     alert("Event type: " + args.value);
+  // }
 
 
   public selectedDate: Date = new Date(2018, 1, 15);

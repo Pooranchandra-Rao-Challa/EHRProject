@@ -226,9 +226,7 @@ export class APIEndPoint extends EndpointBase {
   }
 
 
-  get _confirmAppointmentCancellationUrl() {
-    return this._baseUrl + "ConfirmAppointmentCancellation";
-  }
+
 
   get _billingDetailsUrl() {
     return this._baseUrl + "BillingList";
@@ -599,6 +597,10 @@ export class APIEndPoint extends EndpointBase {
   get _areaCodesUrl(){
     return this._baseUrl +"AreaCodes";
   }
+  get _cancelAppointmentUrl(){
+    return this._baseUrl +"CancelAppointment";
+  }
+
   constructor(public http: HttpClient) {
     super();
   }

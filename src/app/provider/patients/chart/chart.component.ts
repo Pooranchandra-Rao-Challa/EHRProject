@@ -52,7 +52,7 @@ export class ChartComponent implements OnInit {
   currentPatient: ProviderPatient;
   ActionTypes = Actions;
   chartInfo: ChartInfo = new ChartInfo;
-  PatientAppointment: NewAppointment
+  PatientAppointment: NewAppointment = {};
   PracticeProviders: PracticeProviders[]
   AppointmentTypes: AppointmentTypes[]
   Locations: UserLocations[]
@@ -377,7 +377,7 @@ export class ChartComponent implements OnInit {
   PatientAppointmentInfo(action: Actions) {
 
     let data = {} as AppointmentDialogInfo;
-    this.PatientAppointment = {} as NewAppointment;
+    //this.PatientAppointment = {} as NewAppointment;
     this.PatientAppointment.PatientId = this.currentPatient.PatientId;
     this.PatientAppointment.PatientName = this.currentPatient.FirstName + ' ' + this.currentPatient.LastName;
     this.PatientAppointment.LocationId = this.authService.userValue.CurrentLocation;

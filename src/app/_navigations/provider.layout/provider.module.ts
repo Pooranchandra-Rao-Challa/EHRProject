@@ -1,4 +1,5 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule,LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -48,7 +49,7 @@ import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstra
 import { BreadcrumComponent } from '../breadcrum/breadcrum.component';
 import { PatientDialogComponent } from 'src/app/dialogs/patient.dialog/patient.dialog.component'
 import { AdvancedDirectivesDialogComponent } from '../../dialogs/advanced.directives.dialog/advanced.directives.dialog.component';
-
+import { SignEncounterNoteComponent } from 'src/app/dialogs/encounter.dialog/sign.encounter.note.component'
 
 import { OverlayComponent } from '../../overlay/overlay.component';
 import { OverlayService } from '../../overlay.service'
@@ -87,7 +88,10 @@ import { BillingService } from '../../_services/billing.service';
 import { AlertMessage } from 'src/app/_alerts/alertMessage';
 import { AddeditinterventionComponent } from 'src/app/dialogs/addeditintervention/addeditintervention.component';
 import { ProviderCodeDatabase } from 'src/app/provider/patients/dental.chart/tree.procedure.component'
-
+import { registerLocaleData } from '@angular/common';
+import localeIt from '@angular/common/locales/en';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+registerLocaleData(localeIt);
 @NgModule({
   exports: [
     MatInputModule,
@@ -149,7 +153,7 @@ import { ProviderCodeDatabase } from 'src/app/provider/patients/dental.chart/tre
     PatientHealthPortalComponent,
     AddeditinterventionComponent,
     ProcedureDialogComponent,
-    // PaginatorDirective
+    SignEncounterNoteComponent,
   ],
   imports: [
 
@@ -188,6 +192,8 @@ import { ProviderCodeDatabase } from 'src/app/provider/patients/dental.chart/tre
   providers: [LocationSelectService, ViewChangeService,
     UtilityService, SmartSchedulerService, OverlayService, PatientService, BillingService,
     SmartScheduleComponent, AlertMessage,
+    { provide: LOCALE_ID, useValue: 'en-GB' },
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
     ProviderCodeDatabase,
     { provide: NgbDateParserFormatter, useClass: NgbDateUSParserFormatter }
 
@@ -201,6 +207,8 @@ import { ProviderCodeDatabase } from 'src/app/provider/patients/dental.chart/tre
     UserDialogComponent,
     PatientPortalAccountComponent,
     ProcedureDialogComponent,
+    AddressVerificationDialogComponent,
+    SignEncounterNoteComponent,
     PatientHealthPortalComponent]
 })
 export class ProviderModule {

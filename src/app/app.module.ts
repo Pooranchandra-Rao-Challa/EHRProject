@@ -1,6 +1,6 @@
 import { DentalChartService } from './_services/dentalchart.service';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule ,LOCALE_ID } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -18,27 +18,21 @@ import { DownloadService } from "./_services/download.service";
 import { IdService } from "./_helpers/_id.service";
 import { AuthGuard } from "./_helpers/auth.guard";
 import { LabsImagingService } from './_services/labsimaging.service';
-import { CqmsNotPerformedComponent } from './provider/patients/cqms.not.performed/cqms.not.performed.component';
 import { CQMNotPerformedService } from './_services/cqmnotperforemed.service';
-//import { ToggleFullscreenDirective } from 'src/app/_directives/fullscreen.directive';
 
-import { MAT_DATE_FORMATS } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter, MAT_MOMENT_DATE_FORMATS }
 from '@angular/material-moment-adapter';
 import { CustomMomentDateAdapter } from 'src/app/_common/custom.date.adapter';
+import { AppMomentDateAdapter,MOMENT_DATE_FORMATS }from 'src/app/_common/app.moment.date.adapter';
 
 
 // HttpClientModule is only needed if you want to log on server or if you want to inspect sourcemaps
-
 @NgModule({
   exports: [
-  // ToggleFullscreenDirective
   ],
   declarations: [
     AppComponent,
-
-  // ToggleFullscreenDirective,
-
   ],
   imports: [
     NgbModule,
@@ -51,6 +45,8 @@ import { CustomMomentDateAdapter } from 'src/app/_common/custom.date.adapter';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: EhrInterceptor, multi: true },
+    { provide: LOCALE_ID, useValue: 'en-US' },
+    { provide: MAT_DATE_LOCALE, useValue: 'en-US' },
     Accountservice,
     SettingsService,
     DownloadService,
@@ -63,9 +59,9 @@ import { CustomMomentDateAdapter } from 'src/app/_common/custom.date.adapter';
     LabsImagingService,
     DentalChartService,
     CQMNotPerformedService,
-    { provide: MomentDateAdapter, useClass: CustomMomentDateAdapter },
-    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
-    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }
+    { provide: DateAdapter, useClass: AppMomentDateAdapter },
+   // { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
+    { provide: MAT_DATE_FORMATS, useValue: MOMENT_DATE_FORMATS }
 
   ],
   bootstrap: [AppComponent]

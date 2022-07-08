@@ -103,6 +103,7 @@ export class InsuranceComponent implements OnInit {
     this.isValid = false;
     this.cancel2 = false;
     this.cancel1 = false;
+    this.btnstate = true;
     this.rowClicked = -1;
     this.InsuranceCompanyPlanList();
     this.SearchKey = "";
@@ -202,7 +203,7 @@ export class InsuranceComponent implements OnInit {
     this.patientservice.InsuranceCompanyPlans().subscribe(
       resp => {
         this.InsurancePlanList = resp.ListResult;
-        this.getInsurancePlanList = this.InsurancePlanList
+        this.getInsurancePlanList = this.InsurancePlanList;
         this.secondaryInsurancelist = resp.ListResult;
 
       })
@@ -424,7 +425,11 @@ export class InsuranceComponent implements OnInit {
     this.secondarydisableaddressverification = true;
   }
   onFilterChange() {
-    this.InsurancePlanList = this.InsurancePlanList.filter((invoice) => this.isMatch(invoice));
+    // this.InsurancePlanList = this.getInsurancePlanList.filter((invoice) => this.isMatch(invoice));
+    this.InsurancePlanList = this.getInsurancePlanList.filter((invoice) => this.isMatch(invoice));
+    // this.InsurancePlanList = this.getInsurancePlanList.filter(i => i.name.toLowerCase().indexOf(initial.toLocaleLowerCase()) !== -1);
+ 
+
   }
 
   isMatch(item) {
@@ -435,6 +440,9 @@ export class InsuranceComponent implements OnInit {
 
     }
   }
+
+
+  
   primaryspt(item) {
     
     this.primlist.SourceOfPaymentTypology = item.Code;
@@ -445,5 +453,6 @@ export class InsuranceComponent implements OnInit {
     this.secList.SourceOfPaymentTypology=item.Code;
     this.secList.PaymentTypologyDescription=item.Description;
   }
+ 
 }
 
