@@ -45,34 +45,35 @@
         </div>
       </div>
       <div class="table-responsive">
-        <mat-table [dataSource]="interventionList">
+        <mat-table [dataSource]="interventionList" matSort>
           <ng-container matColumnDef="Empty">
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
             <mat-cell *matCellDef="let intervention"> {{intervention.Empty}} </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="InterventionType">
-            <mat-header-cell *matHeaderCellDef> Intervention Type </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="InterventionType"> Intervention Type </mat-header-cell>
             <mat-cell *matCellDef="let intervention"> {{intervention.InterventionType}} </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="Code">
-            <mat-header-cell *matHeaderCellDef> Code </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="Code"> Code </mat-header-cell>
             <mat-cell *matCellDef="let intervention"> {{intervention.Code}} </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="Description">
-            <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="Description"> Description </mat-header-cell>
             <mat-cell *matCellDef="let intervention"> {{intervention.Description}} </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="ReasonNotPerformed">
-            <mat-header-cell *matHeaderCellDef> Add Reason Not Performed </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="ReasonNotPerformed"> Add Reason Not Performed
+            </mat-header-cell>
             <mat-cell *matCellDef="let intervention"> {{intervention.ReasonNotPerformed}} </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="Reason">
-            <mat-header-cell *matHeaderCellDef> Reason </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="Reason"> Reason </mat-header-cell>
             <mat-cell *matCellDef="let intervention"> {{intervention.Reason}} </mat-cell>
           </ng-container>
 

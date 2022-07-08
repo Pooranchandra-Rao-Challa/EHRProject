@@ -457,7 +457,7 @@ fieldset {
   margin-left:-10px !important;
   position: absolute !important;
   top: 20px;
-
+  min-width: calc(100% + 22px) !important;
 }
 ::ng-deep div#practiceProviders-panel mat-option.mat-option{
   //border-color: #41b6a6;
