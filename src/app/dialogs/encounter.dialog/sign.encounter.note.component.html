@@ -1,0 +1,27 @@
+<div class="modal-dialog encounter-panel" role="document">
+  <div class="modal-content encounter-panel-title">
+    <div class="modal-header encounter-panel-title-header">
+      <div>Sign This Encounter Note?</div>
+      <button type="button" class="btn btn-sm btn-success encounter-panel-close-button" (click)="close()">
+        X
+      </button>
+    </div>
+    <div class="modal-body" style="padding:10px">
+      <div class="row">
+        <div class="note-message">
+          <b>NOTE:</b>
+          Once an Encounter Note has been signed, it cannot be edited. If you need to add additional notes to a signed
+          Encounter Note, you can add Addenda. To add an addendum, click on the Addenda tab on the patient chart.
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer" style="padding: 0;">
+      <button type="button" class="btn btn-orange" (click)="sign()">
+        Sign
+      </button>
+      <button type="button" class="btn btn-danger" (click)="close()">
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>

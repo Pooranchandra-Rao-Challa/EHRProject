@@ -14,9 +14,11 @@
           <div class="input-group">
             <mat-form-field class="procedure-form-field" appearance="outline" [ngStyle]="{'width':'100%'}">
               <input matInput #searchProcedureCode class="form-control" placeholder="Select Procedure Code" type="text"
-                id="searchProcedureCode" name="searchProcedureCode" [matAutocomplete]="procedureCode" />
+                id="searchProcedureCode" name="searchProcedureCode" [matAutocomplete]="procedureCode"
+                />
               <mat-autocomplete [displayWith]="displayWith" #procedureCode="matAutocomplete"
                 (optionSelected)="onProcedureSelected($event)">
+                <mat-option *ngIf="isLoading">Loading ...</mat-option>
                 <mat-option *ngFor="let option of filteredProcedures | async" [value]="option"
                   class="medical-code-option">
                   {{option.Code}} - {{option.Description}}
@@ -63,7 +65,8 @@
             <label class="control-label input-group-addon required">Start Date</label>
             <mat-form-field class="procedure-form-field" appearance="outline">
               <input matInput class="form-control" placeholder="Start Date" type="text" id="pStartDate"
-                name="pStartDate" [(ngModel)]="procedureInfo.ServicedAt" [matDatepicker]="startDate" />
+                name="pStartDate" [(ngModel)]="procedureInfo.Date" [matDatepicker]="startDate"
+                (dateChange)="dateModified($event)"/>
                 <mat-hint>MM/DD/YYYY</mat-hint>
                 <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
                 <mat-datepicker #startDate></mat-datepicker>

@@ -35,7 +35,8 @@ export interface PatientSearchResults {
   Age: number;
   ContactNumber: string;
   DateofBirth: string;
-  ContactEmail: string;
+  PrimaryPhone: string;
+  MobilePhone: string;
   NumberOfAppointments: number;
   AppointmentId: string;
   Gender: string;

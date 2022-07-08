@@ -10,13 +10,24 @@ import { PatientService } from 'src/app/_services/patient.service';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { MedicalCode } from 'src/app/_models/codes';
-
+import * as moment from 'moment';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter, MAT_MOMENT_DATE_FORMATS }
+from '@angular/material-moment-adapter';
+import { CustomMomentDateAdapter } from 'src/app/_common/custom.date.adapter';
+import { AppMomentDateAdapter,MOMENT_DATE_FORMATS }from 'src/app/_common/app.moment.date.adapter';
 
 
 @Component({
   selector: 'app-procedure.dialog',
   templateUrl: './procedure.dialog.component.html',
-  styleUrls: ['./procedure.dialog.component.scss']
+  styleUrls: ['./procedure.dialog.component.scss'],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'en-US' },
+    //{ provide: DateAdapter, useClass: AppMomentDateAdapter },
+   // { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
+    //{ provide: MAT_DATE_FORMATS, useValue: MOMENT_DATE_FORMATS }
+  ]
 })
 export class ProcedureDialogComponent implements OnInit {
   teethNumbers: number[] = [];
@@ -28,7 +39,7 @@ export class ProcedureDialogComponent implements OnInit {
   patient: ProviderPatient;
   reasonCodes: MedicalCode[] = REASON_CODES;
   selectedCode: string;
-
+  isLoading = false;
   constructor(private overlayref: EHROverlayRef,
     private authService: AuthenticationService,
     private patientService: PatientService,
@@ -41,6 +52,7 @@ export class ProcedureDialogComponent implements OnInit {
     }
     if (overlayref.RequestData != null)
       this.procedureInfo = overlayref.RequestData;
+    console.log(this.procedureInfo);
 
   }
   ngOnInit(): void {
@@ -80,6 +92,7 @@ export class ProcedureDialogComponent implements OnInit {
   onProcedureSelected(selected) {
     this.procedureInfo.Code = selected.option.value.Code;
     this.procedureInfo.Description = selected.option.value.Description;
+    this.procedureInfo.CodeSystem = selected.option.value.CodeSystem;
   }
   /**
    *
@@ -404,8 +417,19 @@ cusp_distolingual */
 
 
   save() {
-    console.log(this.procedureInfo);
+
     let isAdd = this.procedureInfo.ProcedureId == null;
+
+
+    this.procedureInfo.strDate = this.procedureInfo.Date ? this.procedureInfo.Date.toUTCString() : null;
+    this.procedureInfo.strEndDate = this.procedureInfo.EndDate ? this.procedureInfo.EndDate.toLocaleDateString() : null;
+    this.procedureInfo.strReasonStartDate = this.procedureInfo.ReasonStartDate ? this.procedureInfo.ReasonStartDate.toLocaleDateString() : null;
+    this.procedureInfo.strEndDate = this.procedureInfo.Date ? this.procedureInfo.Date.toLocaleDateString() : null;
+    this.procedureInfo.strReasonStartDate = this.procedureInfo.Date ? this.procedureInfo.Date.toUTCString() : null;
+
+    console.log(this.procedureInfo);
+
+
     this.patientService.CreateProcedure(this.procedureInfo)
       .subscribe(resp => {
         if (resp.IsSuccess) {
@@ -421,17 +445,21 @@ cusp_distolingual */
   enableSave(): boolean {
     return !(this.procedureInfo.Code != null && this.procedureInfo.Code != ""
       && this.procedureInfo.Description != null && this.procedureInfo.Description != ""
-      && this.procedureInfo.ServicedAt != null && this.procedureInfo.ToothNo != null
+      && this.procedureInfo.Date != null && this.procedureInfo.ToothNo != null
       && this.procedureInfo.Status != null && this.procedureInfo.Status != ""
       && this.procedureInfo.Surface != null && this.procedureInfo.Surface != "");
   }
 
+  dateModified($event){
+    console.log($event);
+  }
+
   _filterProcedure(term) {
     console.log(term);
-
+    this.isLoading = true;
     this.utilityService.MedicalCodes(term, "CDT/CPT")
       .subscribe(resp => {
-        //this.isLoading = false;
+        this.isLoading = false;
         if (resp.IsSuccess) {
           this.filteredProcedures = of(
             resp.ListResult as MedicalCode[]);

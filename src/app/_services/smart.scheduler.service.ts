@@ -35,11 +35,16 @@ export class SmartSchedulerService extends APIEndPoint {
   CreateAppointment(reqparams: any) {
     return this._ProcessPostRequest<any>(this._createAppointmentUrl, reqparams);
   }
-  ConfirmAppointmentCancellation(reqparams: any) {
-    return this._ProcessPostRequest<any>(this._confirmAppointmentCancellationUrl, reqparams);
-  }
+
   PracticeLocations(reqparams: any) {
     const apiEndPoint = this._locationsListUrl + reqparams.providerId;
     return this._ProcessPostRequest<any>(apiEndPoint, reqparams);
   }
+  CancelAppointment(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._cancelAppointmentUrl, reqparams);
+  }
+  FilteredPatientsOfProvider(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._filteredPatientsOfProviderUrl, reqparams);
+  }
+
 }

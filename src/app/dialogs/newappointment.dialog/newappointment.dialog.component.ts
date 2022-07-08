@@ -60,7 +60,7 @@ export class NewAppointmentDialogComponent implements OnInit {
     this.PracticeProviders = data.PracticeProviders;
     this.Locations = data.Locations;
     this.Rooms = data.Rooms;
-    if (this.Rooms && this.Rooms.length == 1)
+    if (this.Rooms && this.Rooms.length > 0)
       this.PatientAppointment.RoomId = this.Rooms[0].RoomId;
 
     if (data.status == Actions.view && data.PatientAppointment.AppointmentId != null) {
@@ -71,7 +71,7 @@ export class NewAppointmentDialogComponent implements OnInit {
     else
       this.PatientAppointment.Startat = this.todayDate;
 
-      console.log(this.PatientAppointment);
+
 
 
   }
@@ -109,7 +109,7 @@ export class NewAppointmentDialogComponent implements OnInit {
           if (obj.Selected)
             this.PatientAppointment.TimeSlot = obj;
         });
-        // console.log(this.PatientAppointment.TimeSlot);
+
         this.messageToShowTimeSlots = null;
       }
       else {
@@ -119,20 +119,7 @@ export class NewAppointmentDialogComponent implements OnInit {
 
   }
 
-  confirmAppointment() {
-    if (this.appointmentId != null) {
-      this.smartSchedulerService.ConfirmAppointmentCancellation({ AppointmentId: this.appointmentId })
-        .subscribe(resp => {
-          if (resp.IsSuccess) {
-            this.appointmentId = null;
-            this.alert.displayMessageDailog(ERROR_CODES["M2AA003"]);
-          }
-          else {
-            this.alert.displayErrorDailog(ERROR_CODES["E2AA003"]);
-          }
-        });
-    }
-  }
+
   onTimeSlotSelect(slot) {
     this.PatientAppointment.TimeSlot = slot
   }
@@ -145,6 +132,24 @@ export class NewAppointmentDialogComponent implements OnInit {
     this.ref.close({'closed':true});
   }
 
+  OnLocationChange(event){
+    this.PatientAppointment.LocationId = event.value;
+    this.SelectedLocationId = this.PatientAppointment.LocationId;
+    this.UpdateRooms();
+    this.ClearTimeSlots();
+  }
+  UpdateRooms(){
+    let lreq = { "LocationId": this.SelectedLocationId };
+    this.smartSchedulerService.RoomsForLocation(lreq).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.Rooms = resp.ListResult as Room[];
+        this.PatientAppointment.RoomId = this.Rooms[0].RoomId;
+      }else {
+        this.Rooms = [];
+        this.PatientAppointment.RoomId = null;
+      }
+    });
+  }
   ClearTimeSlots() {
     this.AvaliableTimeSlots = [];
     this.PatientAppointment.TimeSlot = null;
@@ -170,7 +175,6 @@ export class NewAppointmentDialogComponent implements OnInit {
 
     this.smartSchedulerService.ActiveAppointments(req).subscribe(resp => {
       if (resp.IsSuccess) {
-        this.confirmIsCancelledAppointment();
         this.AppointmentsOfPatient = resp.ListResult as ScheduledAppointment[];
       }
     });
@@ -184,12 +188,18 @@ export class NewAppointmentDialogComponent implements OnInit {
     this.LoadAvailableTimeSlots();
   }
 
-  confirmIsCancelledAppointment() {
-    this.appointmentId = null;
-  }
 
-  cancelAppointment(appointmentId: string) {
-    this.appointmentId = appointmentId;
+  cancelAppointment() {
+    this.smartSchedulerService.CancelAppointment({ "AppointmentId": this.PatientAppointment.AppointmentId})
+      .subscribe(resp => {
+        if (resp.IsSuccess) {
+          this.ref.close({'refresh':true});
+          this.alert.displayMessageDailog(ERROR_CODES["M2AA003"]);
+        }
+        else {
+          this.alert.displayErrorDailog(ERROR_CODES["E2AA003"]);
+        }
+      });
   }
 
   DiabledAppointmentSave() {
@@ -211,7 +221,7 @@ export class NewAppointmentDialogComponent implements OnInit {
     this.smartSchedulerService.CreateAppointment(this.PatientAppointment).subscribe(resp => {
       if (resp.IsSuccess) {
         this.onError = false;
-        this.ref.close({'saved':true});
+        this.ref.close({'refresh':true});
         this.OperationMessage = resp.EndUserMessage;
         this.alert.displayMessageDailog(ERROR_CODES[isAdd ? "M2AA001" :"M2AA002"]);
       }

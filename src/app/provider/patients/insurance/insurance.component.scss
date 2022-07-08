@@ -52,7 +52,7 @@
 //   height: 45px;
 // }
 .btn-verify {
-  width: 180px;
+  width: 195px;
   height: 45px;
 }
 
@@ -60,12 +60,13 @@
   background-color: #41b6a6;
   color: #fff;
   height: 45px;
+  padding-left: 11px;
 
 }
 
 .input-border {
   border: 1px solid #41b6a6;
-  // cursor: not-allowed;
+   cursor: not-allowed;
   height: 45px;
   color: #74757e;
   font-size: 13px;
@@ -87,10 +88,11 @@
 
 .btn-insurance {
   width: 277px;
-    margin: 8px;
+    margin: 0px;
     height: 45px;
-    margin-top: 27px;
+    margin-top: 26px;
     margin-right: 5px;
+    padding: 0px;
 }
 
 
@@ -252,9 +254,9 @@
   }
   .table td, .table th {
     vertical-align: middle;
-    font-size: 12px;
+    // font-size: 14px;
     line-height: 1;
-    white-space: normal;
+    white-space: pre-wrap;
 }
 .modal-sm{
   max-width: 555px;
@@ -278,5 +280,3 @@
   color: #41b6a6 !important;
   font-size: 15px;
 }
-
-

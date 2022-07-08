@@ -5,6 +5,7 @@ import { AuthenticationService } from 'src/app/_services/authentication.service'
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
 import { PatientService } from 'src/app/_services/patient.service';
 import { EHROverlayRef } from '../../ehr-overlay-ref';
+import { ComponentType } from '@angular/cdk/portal';
 import {
   EncounterInfo, EncounterDiagnosis, ProceduresInfo, VitalInfo,PracticeProviders,Actions,
   ScheduledAppointment, AppointmentTypes,
@@ -20,6 +21,8 @@ import { OverlayService } from 'src/app/overlay.service';
 import { map, } from 'rxjs/operators';
 import { AlertMessage, ERROR_CODES } from './../../_alerts/alertMessage';
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
+import { SignEncounterNoteComponent } from 'src/app/dialogs/encounter.dialog/sign.encounter.note.component'
+import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-encounter.dialog',
@@ -66,13 +69,14 @@ export class EncounterDialogComponent implements OnInit {
   dischargeCode = new MedicalCode();
   dialogIsLoading: boolean = false;
   patient: ProviderPatient;
+  signEncounterNoteComponent = SignEncounterNoteComponent;
 
   private messageflagSubject = new BehaviorSubject<boolean>(false);
   public messageflag$ = this.messageflagSubject.asObservable();
   constructor(private overlayref: EHROverlayRef, private authService: AuthenticationService,
     private smartSchedulerService: SmartSchedulerService,
     private patientService: PatientService,
-    public overlayService: OverlayService,
+    private overlayService: OverlayService,
     private alertmsg: AlertMessage) {
       let i = 1;  //normally would use var here
       while(this.teethNumbers.push(i++)<32){}
@@ -100,7 +104,12 @@ export class EncounterDialogComponent implements OnInit {
     this.initEncoutnerView();
     this.loadEncouterView();
     this.encounterInfo.EnableNewEncounterData = this.EnableNewEncounterData;
-
+    this.encounterInfo.Diagnoses.forEach(fn => {
+      fn.MedLineUrl = this.medLinePlusUrl({
+        Code: fn.Code,
+        CodeSystem: fn.CodeSystem
+      })
+    })
     this.diagnosesInfo.next(this.encounterInfo.Diagnoses);
     this.recommendedProcedures.next(this.encounterInfo.RecommendedProcedures);
 
@@ -227,6 +236,7 @@ export class EncounterDialogComponent implements OnInit {
     d.Code = value.Code
     d.CodeSystem = value.CodeSystem
     d.Description = value.Description
+    d.MedLineUrl = this.medLinePlusUrl(value);
     d.CanDelete = false;
     this.encounterInfo.Diagnoses.push(d);
     this.diagnosesInfo.next(this.encounterInfo.Diagnoses.filter(fn => fn.CanDelete === false));
@@ -291,6 +301,10 @@ export class EncounterDialogComponent implements OnInit {
       this.encounterInfo.ServiceEndAt = null;
     this.updateEncounter();
   }
+
+  signConfirmation(){
+    this.openComponentDialog(this.signEncounterNoteComponent,null);
+  }
   signEncounter() {
     this.encounterInfo.EnableNewEncounterData = this.EnableNewEncounterData;
     this.encounterInfo.Signed = true;
@@ -329,6 +343,14 @@ export class EncounterDialogComponent implements OnInit {
       }else this.messageflagSubject.next(false);;
   }
 
+  medLinePlusUrl(code: MedicalCode):string{
+    if(code.CodeSystem= "SNOMED"){
+      return "http://apps.nlm.nih.gov/medlineplus/services/mpconnect.cfm?mainSearchCriteria.v.cs=2.16.840.1.113883.6.96&amp;mainSearchCriteria.v.c="+code.Code
+    }else{
+      return "http://apps.nlm.nih.gov/medlineplus/services/mpconnect.cfm?mainSearchCriteria.v.cs=2.16.840.1.113883.6.90&mainSearchCriteria.v.c="+code.Code
+    }
+  }
+
   recordSuperBill(){
 
 
@@ -341,5 +363,18 @@ export class EncounterDialogComponent implements OnInit {
 
   attachDocuments(){
 
+  }
+
+  openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
+    data?: any, action?: Actions) {
+
+    const ref = this.overlayService.open(content, data);
+    ref.afterClosed$.subscribe(res => {
+      if (content === this.signEncounterNoteComponent) {
+        if(res.data && res.data.signed){
+          this.signEncounter();
+        }
+      }
+    });
   }
 }

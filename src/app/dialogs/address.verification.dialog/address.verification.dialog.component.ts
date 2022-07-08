@@ -1,51 +1,33 @@
 import { Component, OnInit } from '@angular/core';
-import { Patient } from 'src/app/_models/_account/newPatient';
+import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 
+export class AddressValidation{
+  Address?: string;
+  IsValid?: boolean
+  ValidatedAddress?: any;
+  UseAddress?: boolean = false;
+}
 @Component({
-  selector: 'app-address.verification.dialog',
+  selector: 'app-address-verification-dialog',
   templateUrl: './address.verification.dialog.component.html',
   styleUrls: ['./address.verification.dialog.component.scss']
 })
 export class AddressVerificationDialogComponent implements OnInit {
-  displayAddress: string;
-  displayAddressDialog: boolean;
-  addressMessage: string;
-  ValidAddressForUse: string;
-  PatientData: Patient;
-
-  constructor(private utilityService: UtilityService) {
-    this.PatientData = {
-      PatinetHasNoEmail: false
-    }
+  addressValidation: AddressValidation = {};
+  constructor(private dialogRef: EHROverlayRef) {
+    this.addressValidation = this.dialogRef.RequestData;
   }
 
   ngOnInit(): void {
   }
 
-  VerifyPatientAddress() {
-    // console.log(this.PatientData.Address);
-    this.utilityService.VerifyAddress(this.PatientData.Address).subscribe(resp => {
-      // console.log(resp.Result)
-      if (resp.IsSuccess) {
-        this.PatientData.ValidatedAddress = resp.Result["delivery_line_1"] + ", " + resp.Result["last_line"];
-        this.ValidAddressForUse = this.PatientData.ValidatedAddress;
-        this.addressMessage = resp.EndUserMessage;
-        this.openPopupAddress();
-        this.displayAddressDialog = false;
-      }
-      else {
-        this.displayAddressDialog = true;
-        this.openPopupAddress();
-        this.addressMessage = resp.EndUserMessage;
-      }
-    });
+  close(){
+    this.addressValidation.UseAddress =false;
+    this.dialogRef.close({'useThis':this.addressValidation});
   }
-
-  openPopupAddress() {
-    this.displayAddress = "block";
-  }
-  closePopupAddress() {
-    this.displayAddress = "none";
+  useThis(){
+    this.addressValidation.UseAddress =true;
+    this.dialogRef.close({'useThis':this.addressValidation})
   }
 }

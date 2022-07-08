@@ -471,7 +471,7 @@ li,
 
 .page-body-wrapper {
   padding-top: 0px;
-  min-height: calc(100vh - 100px) !important;
+  min-height: calc(100vh - 120px)  !important;
 }
 
 // Related to sidebar
@@ -878,6 +878,26 @@ i {
   color: #c4c0c1 !important;
 }
 
+.page-green.pagination .page-item.active .page-link {
+  color: #fff !important;
+  background-color: #41b6a6 !important;
+  border: 1px solid #41b6a6 !important;
+}
+
+.page-green.pagination :hover {
+  color: #fff !important;
+  background-color: #41b6a6 !important;
+  border-radius: 4px;
+}
+
+.page-green.pagination .page-item .page-link {
+  border-color: #41b6a6;
+  font-size: 14px;
+  // width: 40px;
+  height: 40px;
+  color: #41b6a6;
+}
+
 .modal {
   align-items: center;
   flex-direction: column;
@@ -956,9 +976,9 @@ i {
 
 .login-cancel-button,
 .login-confirm-button {
-  color: #41a6b6 !important;
+  color: #41b6b6 !important;
   background: #f9f9f9 !important;
-  border: 1px solid #41a6b6 !important;
+  border: 1px solid #41b6b6 !important;
   border-radius: 6px !important;
   margin-top: 5px !important;
   margin-bottom: 5px !important;
@@ -975,9 +995,9 @@ i {
 
 .login-cancel-button:hover,
 .login-confirm-button:hover {
-  background-color: #41a6b6 !important;
+  background-color: #41b6b6 !important;
   color: #f9f9f9 !important;
-  border: 1px solid #41a6b6 !important;
+  border: 1px solid #41b6b6 !important;
   margin-top: 5px !important;
   margin-bottom: 5px !important;
   padding: 10px !important;
@@ -1078,17 +1098,17 @@ i {
 }
 
 .pg-container .custom-paginator-page-enabled {
-  color: #41a6b6;
+  color: #41b6a6;
   background: transparent;
   cursor: pointer;
   &:hover {
-    background-color: #41a6b6;
+    background-color: #41b6a6;
     color:white;
   }
 }
 
 .pg-container .custom-paginator-page-disabled {
-  background-color: #41a6b6;
+  background-color: #41b6a6;
   color: #fff;
 }
 
@@ -1101,13 +1121,13 @@ i {
 }
 
 .pg-container .custom-paginator-arrow-enabled {
-  color: #41a6b6;
+  color: #41b6a6;
   background-color: #fff;
   transition: background-color 0.2s, color 0.2s;
   //border: 1px solid #41b6a6 !important;
   border-radius: 0px !important;
   &:hover {
-    background-color: #41a6b6;
+    background-color: #41b6a6;
     color:white;
   }
 }
@@ -1172,28 +1192,28 @@ i {
   height: 40px;
   text-align: center;
   font-size: 14px;
-  color: #35414f;
+  color: #337ab7;
   padding: 10px 0;
   background-color: #e8e8e8;
   transition: background-color 0.2s, color 0.2s;
-  border-left: 1px solid #35414f;
-  border-top: 1px solid #35414f;
-  border-bottom: 1px solid #35414f;
-  border-right: 0px solid #35414f;
+  border-left: 1px solid #337ab7;
+  border-top: 1px solid #337ab7;
+  border-bottom: 1px solid #337ab7;
+  border-right: 0px solid #337ab7;
 }
 
 .admin-pg-container .custom-paginator-page-enabled {
-  color: #35414f;
+  color: #337ab7;
   background: transparent;
   cursor: pointer;
   &:hover {
-    background-color: #35414f;
-    color:e8e8e8;
+    background-color: #337ab7;
+    color:white;
   }
 }
 
 .admin-pg-container .custom-paginator-page-disabled {
-  background-color: #35414f;
+  background-color: #337ab7;
   color: #e8e8e8;
 }
 
@@ -1206,19 +1226,19 @@ i {
 }
 
 .admin-pg-container .custom-paginator-arrow-enabled {
-  color: #35414f;
+  color: #337ab7;
  // background-color: #e8e8e8;
   transition: background-color 0.2s, color 0.2s;
-  //border: 1px solid #35414f !important;
+  //border: 1px solid #337ab7 !important;
   border-radius: 0px !important;
   &:hover {
-    background-color: #35414f;
+    background-color: #337ab7;
     color:e8e8e8;
   }
 }
 
 .portlet-body .mat-progress-bar-fill::after {
-  background-color: #1E457C;
+  background-color: #337ab7;
 }
 
 .portlet-body .mat-progress-bar-buffer {
@@ -1233,11 +1253,15 @@ i {
 
 
 .admin-pg-container .mat-paginator-navigation-next{
-  border: 1px solid #35414f !important;
+  border: 1px solid #337ab7 !important;
 }
 .admin-pg-container .mat-paginator-navigation-previous{
-  border-left: 1px solid #35414f !important;
-  border-top: 1px solid #35414f !important;
-  border-bottom: 1px solid #35414f !important;
-  border-right: 0px solid #35414f !important;
+  border-left: 1px solid #337ab7 !important;
+  border-top: 1px solid #337ab7 !important;
+  border-bottom: 1px solid #337ab7 !important;
+  border-right: 0px solid #337ab7 !important;
+}
+
+.notallowCursor {
+  cursor: not-allowed !important;
 }

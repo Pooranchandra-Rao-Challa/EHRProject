@@ -630,3 +630,15 @@ textarea.form-control.inputclass:hover{
 #medication-modal .modal-dialog {
   max-width: 900px;
 }
+#medication-prescription-modal .modal-dialog {
+  max-width: 754px;
+}
+#medication-prescription-modal .modal-body {
+  padding: 0px !important;
+}
+#medication-prescription-modal .mat-header-row {
+  background-color: #e5f8f5 !important;
+}
+#medication-prescription-modal .mat-header-cell {
+  color: black !important;
+}

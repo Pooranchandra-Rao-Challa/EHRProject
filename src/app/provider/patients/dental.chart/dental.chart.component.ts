@@ -9,6 +9,7 @@ import { ComponentType } from '@angular/cdk/portal';
 import { Actions } from 'src/app/_models';
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 import { BehaviorSubject } from 'rxjs';
+import { reflectNameOfDeclaration } from '@angular/compiler-cli/src/ngtsc/reflection';
 
 declare var $: any;
 @Component({
@@ -62,8 +63,6 @@ export class DentalChartComponent implements OnInit {
         {
           if(resp.IsSuccess){
             this.patientProceduresView.next(resp.ListResult as ProceduresInfo[]);
-            //console.log(this.patientProceduresView);
-
           }
         })
   }
@@ -80,14 +79,18 @@ export class DentalChartComponent implements OnInit {
 
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
     dialogData, actions: Actions = this.ActionTypes.new,ToothNo: number=0,medicalCode: MedicalCode) {
-      let reqData: ProceduresInfo;
-      if(dialogData == null){
+      let reqData: ProceduresInfo
+      if(content == this.procedureDialogComponent){
         reqData = new ProceduresInfo();
+        reqData.PatientId = this.currentPatient.PatientId;
+        reqData.ProviderId = this.currentPatient.ProviderId;
+        reqData.LocationId = this.authService.userValue.CurrentLocation;
+
         if(ToothNo>0){
           reqData.ToothNo = ToothNo ;
           reqData.ViewFrom = "ToothNo";
-        }
 
+        }
         if(medicalCode){
           reqData.Code = medicalCode.Code
           reqData.CodeSystem = medicalCode.CodeSystem
@@ -96,15 +99,12 @@ export class DentalChartComponent implements OnInit {
         }
       }
 
-
     const ref = this.overlayService.open(content, reqData);
 
     ref.afterClosed$.subscribe(res => {
-      console.log(res.data);
-
       if (content === this.procedureDialogComponent) {
-        if (res.data != null) {
-
+        if (res.data != null && res.data.saved) {
+          this.patientProcedureView();
         }
       }
     });

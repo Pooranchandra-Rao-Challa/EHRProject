@@ -15,8 +15,8 @@
         <div class="row">
           <mat-label>Patient :</mat-label>
           <mat-form-field appearance="outline" class="col-12 hover">
-            <input matInput placeholder="Password" [(ngModel)]="PatientAppointment.PatientName"
-              [ngModelOptions]="{standalone:true}" [readonly]="true">
+            <input matInput placeholder="Patient Name" [(ngModel)]="PatientAppointment.PatientName"
+              [ngModelOptions]="{standalone:true}" disabled class="notallowCursor">
           </mat-form-field>
           <mat-label>Providers :</mat-label>
           <mat-form-field appearance="outline" class="col-12 hover">
@@ -50,7 +50,7 @@
             <mat-form-field appearance="outline" class="col-12">
               <mat-select id="selSmartLocations" placeholder="Select Location" disableOptionCentering
                 [(ngModel)]="PatientAppointment.LocationId" [ngModelOptions]="{standalone:true}"
-                (selectionChange)="ClearTimeSlots()">
+                (selectionChange)="OnLocationChange($event)">
 
                 <mat-option *ngFor="let location of Locations" [value]="location.locationId">{{location.locationName}}
                 </mat-option>
@@ -112,12 +112,12 @@
     </div>
     <div class="modal-footer">
       <button class="btn btn-default  btn-appointment-cancel-right" [hidden]="PatientAppointment.AppointmentId == null"
-        (click)="cancelAppointment(PatientAppointment.AppointmentId)">Delete</button>
+        (click)="cancelAppointment()">Cancel</button>
       <button class="btn btn-green col-md-4 col-7" [disabled]="DiabledAppointmentSave()"
         (click)="onAppointmentSave()">Save
         Appointment</button>
       <button id="appointmentClose" class="btn btn-green col-md-3 col-4" (click)="close()">
-        Cancel
+        Close
       </button>
     </div>
   </div>

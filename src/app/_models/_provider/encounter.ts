@@ -122,6 +122,7 @@ export class EncounterDiagnosis implements IDeleteFlag {
   PatientEdn?: string = "MedLine Plus";
   PrimaryDx?: boolean = false;
   CanDelete?: boolean = false;
+  MedLineUrl?: string
   /**<a href="http://apps.nlm.nih.gov/medlineplus/services/mpconnect.cfm?mainSearchCriteria.v.cs=2.16.840.1.113883.6.96&amp;mainSearchCriteria.v.c=223788007" target="_blank">Medline Plus</a> */
 }
 
@@ -131,7 +132,7 @@ export class ProceduresInfo implements IDeleteFlag {
   PatientId?: string;
   LocationId?: string;
   ProviderId?: string;
-  ServicedAt?: Date;
+  Date?: Date;
   ToothSystem?: string = "JP";
   Quantity?: number = 0;
   Fee?: number = 0;
@@ -152,6 +153,9 @@ export class ProceduresInfo implements IDeleteFlag {
   Surface?: string;
   ToothProblemId?: string;
   ReasonStartDate?: Date;
+  strReasonStartDate?: string;
+  strEndDate?: string;
+  strDate?: string;
 
   ViewFrom?: string;
   CanDelete?: boolean = false;

@@ -1,10 +1,8 @@
 
 import {
   Component,
-  OnInit,
   Output,
   EventEmitter,
-  AfterViewInit,
   TemplateRef,
 } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
@@ -12,11 +10,12 @@ import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
 import { OverlayService } from 'src/app/overlay.service'
-import { Patient, PatientPortalUser} from 'src/app/_models';
+import { Patient, PatientPortalUser, Actions } from 'src/app/_models';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
-import { Actions } from 'src/app/_models/';
 import { PatientPortalAccountComponent } from 'src/app/dialogs/patient.dialog/patient.portal.account.dialog.component';
 import { PatientHealthPortalComponent } from 'src/app/dialogs/patient.dialog/patient.health.portal.component';
+import { AddressVerificationDialogComponent,AddressValidation } from 'src/app/dialogs/address.verification.dialog/address.verification.dialog.component';
+
 
 @Component({
   selector: 'patient-dialog',
@@ -27,16 +26,11 @@ export class PatientDialogComponent {
   PatientData: Patient = { PatinetHasNoEmail: true, Gender: 'male' };
   PhonePattern: {};
   @Output() onPatientClose = new EventEmitter();
-  ValidAddressForUse: string;
-  addressMessage: string;
-  displayAddressDialog: boolean;
-  displayAddress: string = 'none';
-  useThisAddress: boolean = false;
-  AddressVerficationResult: any;
   hideSaveButton: boolean = false;
+  addressIsVarified: boolean = false;
   patientPortalAccountComponent = PatientPortalAccountComponent;
   patientHealthPortalComponent = PatientHealthPortalComponent;
-
+  addressVerificationDialogComponent = AddressVerificationDialogComponent;
 
   constructor(private dialogRef: EHROverlayRef,
     private authService: AuthenticationService,
@@ -63,35 +57,22 @@ export class PatientDialogComponent {
         this.PatientData.Email != null && this.PatientData.Email != "") || this.PatientData.PatinetHasNoEmail))
   }
   VerifyPatientAddress() {
-    // console.log(this.PatientData.Address);
     this.utilityService.VerifyAddress(this.PatientData.Address).subscribe(resp => {
-      if (resp.IsSuccess) {
-        this.PatientData.AddressResult = resp.Result;
-        this.PatientData.ValidatedAddress = resp.Result["delivery_line_1"] + ", " + resp.Result["last_line"];
-        this.ValidAddressForUse = this.PatientData.ValidatedAddress;
-        this.addressMessage = resp.EndUserMessage;
-        this.openPopupAddress();
-        this.displayAddressDialog = false;
+      let av = new AddressValidation();
+      if(resp.IsSuccess){
+        av.IsValid = true;
+        av.Address = resp.Result["delivery_line_1"] + ", " + resp.Result["last_line"]
+        av.ValidatedAddress = resp.Result;
       }
-      else {
-        this.displayAddressDialog = true;
-        this.openPopupAddress();
-        this.addressMessage = resp.EndUserMessage;
+      else{
+        av.IsValid = false;
       }
+      this.openComponentDialog(this.addressVerificationDialogComponent,av,Actions.view);
     });
   }
 
-  openPopupAddress() {
-    this.displayAddress = "block";
-  }
-  closePopupAddress() {
-    this.displayAddress = "none";
-  }
 
   UseValidatedAddress() {
-    this.closePopupAddress();
-    this.useThisAddress = true;
-    console.log(this.PatientData.AddressResult);
     this.PatientData.City = this.PatientData.AddressResult.components.city_name;
     this.PatientData.State = this.PatientData.AddressResult.components.state_abbreviation;
     this.PatientData.StreetAddress = this.PatientData.AddressResult.delivery_line_1;
@@ -99,7 +80,6 @@ export class PatientDialogComponent {
     this.PatientData.Address = this.PatientData.ValidatedAddress;
   }
   UpdatePatient() {
-
     if(this.PatientData.StreetAddress == null || this.PatientData.StreetAddress == ""){
       if(this.PatientData.ValidatedAddress != null && this.PatientData.ValidatedAddress != "")
         this.PatientData.StreetAddress = this.PatientData.ValidatedAddress;
@@ -125,7 +105,6 @@ export class PatientDialogComponent {
           this.cancel();
           this.alertmsg.displayMessageDailog(ERROR_CODES["M2AP001"])
         }
-
       }
       else {
         this.cancel();
@@ -161,9 +140,10 @@ export class PatientDialogComponent {
       dialogData = data;
     }else if(content === this.patientHealthPortalComponent && action == Actions.view) {
       dialogData = data;
+    }else if(content === this.addressVerificationDialogComponent && action == Actions.view){
+      dialogData = data;
     }
     const ref = this.overlayService.open(content, dialogData);
-
     ref.afterClosed$.subscribe(res => {
       if (content === this.patientPortalAccountComponent) {
         console.log(res.data);
@@ -194,6 +174,20 @@ export class PatientDialogComponent {
             //'straight' update to database which recied from ref.data
             // Update Patient with invivation_sent_at, straight_invitation to database
           }
+        }
+      }else if (content === this.addressVerificationDialogComponent) {
+        console.log(res.data);
+
+        if(res.data && res.data.useThis.UseAddress){
+          this.PatientData.AddressResult = res.data.useThis.ValidatedAddress;
+          this.PatientData.ValidatedAddress = res.data.useThis.Address;
+          this.addressIsVarified = true;
+          this.UseValidatedAddress();
+          console.log(this.PatientData);
+
+
+        }else if(res.data && !res.data.UseAddress){
+
         }
       }
     });

@@ -533,7 +533,6 @@ ul.menuclass li.active a {
   }
   .mat-table {
     width: 1200px;
-    height: 500px;
   }
   .cstm-scroll-header {
     width: 100%;
@@ -867,3 +866,8 @@ img.avatar:hover{
   content: "*";
   color: red;
 }
+.mat-row:hover a.StatusActive,
+.mat-row:hover a.inactive {
+  color: #fff;
+}
+

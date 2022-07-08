@@ -1,10 +1,10 @@
 
 
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder,  } from '@angular/forms';
 import { ComponentType } from '@angular/cdk/portal';
-import { Observable, Subject, Subscription } from 'rxjs';
-import { debounceTime, switchMap, distinctUntilChanged, map } from 'rxjs/operators';
+import {  of, Subject, Subscription } from 'rxjs';
+import { catchError, debounceTime,  distinctUntilChanged, finalize, map } from 'rxjs/operators';
 
 import { OverlayService } from 'src/app/overlay.service';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
@@ -24,27 +24,13 @@ import {
   ScheduledAppointment, AppointmentTypes, NewAppointment,
   UserLocations, Room, AvailableTimeSlot, AppointmentDialogInfo
 } from 'src/app/_models/';
+import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
+import { Router } from '@angular/router';
 
 declare const CloseAppointment: any;
 declare const OpenSaveSuccessAppointment: any;
 declare const CloseSaveSuccessAppointment: any;
 
-export interface PeriodicElement {
-  Height: string;
-  Weight: string;
-  BMI: string;
-  BP: string;
-  Temperature: string;
-  Pulse: string;
-  Respiratory_rate: string;
-  O2_Saturation: string;
-  Blood_type: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { Height: '1', Weight: 'Hydrogen', BMI: '1.0079', BP: 'H', Temperature: '1', Pulse: 'Hydrogen', Respiratory_rate: '1.0079', O2_Saturation: 'H', Blood_type: 'gsdb' },
-  { Height: '2', Weight: 'Helium', BMI: '4.0026', BP: 'He', Temperature: '2', Pulse: 'Helium', Respiratory_rate: '4.0026', O2_Saturation: 'He', Blood_type: 'shdb' },
-];
 @Component({
   selector: 'app-smart.schedule',
   templateUrl: './smart.schedule.component.html',
@@ -54,24 +40,10 @@ export class SmartScheduleComponent implements OnInit {
   selectedAppointmentDate: Date;
   selectedWeekday: any;
   selectedAppointmentDateString: string;
-  existingappointment: string = "none";
-  availableTimeSlots: any[] = [];
-  encounterdiagnosesColumns = ["CODE", "CODE SYSTEM", "DESCRIPTION", "PATIENT EDUCATION", "Primary DX"];
-  procedureColumns = ["CODE", "CODE SYSTEM", "DESCRIPTION", "TOOTH", "SURFACE"];
-  vitalsColumns = ["Height", "Weight", "BMI", "BP", "Temperature", "Pulse", "Respiratory_rate", "O2_Saturation", "Blood_type", "actions"];
-  EncounterData = "";
-  bloodType = [
-    { Id: 1, BloodType: 'Group A' },
-    { Id: 2, BloodType: 'Group B' },
-    { Id: 3, BloodType: 'Group AB' },
-    { Id: 4, BloodType: 'Group O' }
-  ]
-  VitalsData = ELEMENT_DATA;
-  NewPatientForm: FormGroup;
   PracticeProviders: PracticeProviders[];
   Appointments: ScheduledAppointment[];
   NoofAppointment: Number;
-  SelectedProviderId: string;
+  SelectedProviderId: string ="";
   SelectedLocationId: string;
   psw: {};
   AppointmentTypes: AppointmentTypes[]
@@ -79,15 +51,10 @@ export class SmartScheduleComponent implements OnInit {
   AppointmentsOfPatient: NewAppointment[];
   Locations: UserLocations[];
   Rooms: Room[];
-  AvaliableTimeSlots: AvailableTimeSlot[]
-  messageToShowTimeSlots: string;
   SaveInputDisable: boolean;
   OperationMessage: string;
   appointmentTitle: string;
-  appointmentId: string;
-  locationsubscription: Subscription
-  onError: boolean;
-  private searchTerms = new Subject<string>();
+  locationsubscription: Subscription;
   ActionsType = Actions
 
   patientDialogComponent = PatientDialogComponent;
@@ -112,11 +79,10 @@ export class SmartScheduleComponent implements OnInit {
     private smartSchedulerService: SmartSchedulerService,
     private locationSelectService: LocationSelectService,
     private alertMessage: AlertMessage,
-    public overlayService: OverlayService
-
+    private overlayService: OverlayService,
+    private router: Router
   ) {
 
-    this.onError = false;
 
     this.patientSearchTerms
       .pipe(debounceTime(300),  // wait for 300ms pause in events
@@ -129,24 +95,10 @@ export class SmartScheduleComponent implements OnInit {
             SearchTerm: term
           })
           .subscribe(resp => {
-            //console.log(this.authService.userValue.ClinicId)
             if (resp.IsSuccess) {
-              this.patients = resp.ListResult; this.flag = true;
-              let currentHeight = 550;
-              if (this.patients.length * 31.5 < 550)
-                currentHeight = this.patients.length * 31.5;
-              this.psw = {
-                'border-radius.px': '4',
-                'top.px': (currentHeight + 4) * -1,
-                'position': 'absolute',
-                'height.px': currentHeight + 4,
-                'overflow-y': 'auto',
-                'background': 'white',
-                'width': 'inherit',
-                'diplay': 'block',
-                'border': '1px #41b6a6 solid'
-              };
-            } else { this.flag = false; this.psw = {}; }
+              this.patients = resp.ListResult;
+            }
+
           })
       );
     this.locationsubscription = this.locationSelectService.getData().subscribe(locationId => {
@@ -155,13 +107,32 @@ export class SmartScheduleComponent implements OnInit {
     });
   }
 
-
-
   PatinetActions(patient: PatientSearchResults) {
     if (patient.NumberOfAppointments == 0) return Actions.new;
     else return Actions.upcomming;
   }
 
+  onPatientSelection(appoinment: ScheduledAppointment) {
+    console.log(appoinment);
+
+    this.smartSchedulerService.FilteredPatientsOfProvider({
+      "PatientId":appoinment.PatientId,
+      "PageIndex":0,
+      "PageSize":10,
+      "SortField": "",
+      "SortDirection": "Asc"}).pipe(
+      catchError(() => of([])),
+    )
+    .subscribe(resp => {
+      if(resp.IsSuccess){
+        let p = (resp.ListResult as ProviderPatient[])[0];
+        this.authService.SetViewParam("Patient", p);
+        this.authService.SetViewParam("PatientView", "Chart");
+        this.authService.SetViewParam("View", "Patients");
+        this.router.navigate(["/provider/patientdetails"]);
+      }
+    });
+  }
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
     data?: any, action?: Actions) {
 
@@ -192,7 +163,7 @@ export class SmartScheduleComponent implements OnInit {
 
         this.flag = false;
         this.patientNameOrCellNumber = "";
-        if(res.data && res.data.saved){
+        if(res.data && res.data.refresh){
           this.filterAppointments();
         }
       }
@@ -215,18 +186,20 @@ export class SmartScheduleComponent implements OnInit {
 
   PatientAppointmentInfo(appointment: NewAppointment, action?: Actions) {
     let data = {} as AppointmentDialogInfo;
+    console.log(appointment);
+
     this.PatientAppointment = {} as NewAppointment;
     this.PatientAppointment.PatientId = appointment.PatientId;
     this.PatientAppointment.PatientName = appointment.PatientName;
-    this.PatientAppointment.LocationId = this.SelectedLocationId;
-    this.PatientAppointment.ProviderId = this.SelectedProviderId;
+    this.PatientAppointment.LocationId = appointment.LocationId;
+    this.PatientAppointment.ProviderId = appointment.ProviderId;
     this.PatientAppointment.ClinicId = this.authService.userValue.ClinicId;
     this.PatientAppointment.Duration = 30;
     this.appointmentTitle = "Edit Appointment";
     data.Title = this.appointmentTitle;
     data.ClinicId = this.authService.userValue.ClinicId;
-    data.ProviderId = this.SelectedProviderId;
-    data.LocationId = this.SelectedLocationId;
+    data.ProviderId = appointment.ProviderId;
+    data.LocationId = appointment.LocationId;
     data.PatientAppointment = this.PatientAppointment;
     data.AppointmentTypes = this.AppointmentTypes;
     data.PracticeProviders = this.PracticeProviders;
@@ -285,7 +258,7 @@ export class SmartScheduleComponent implements OnInit {
         this.PracticeProviders = resp.ListResult as PracticeProviders[];
       }
     });
-    let preq = { "ProviderId": this.SelectedProviderId };
+    let preq = { "ProviderId": this.authService.userValue.ProviderId };
     this.smartSchedulerService.AppointmentTypes(preq).subscribe(resp => {
       if (resp.IsSuccess) {
         this.AppointmentTypes = resp.ListResult as AppointmentTypes[];
@@ -297,7 +270,8 @@ export class SmartScheduleComponent implements OnInit {
 
   LoadAppointmentDefalts() {
     this.SaveInputDisable = false;
-    if (this.SelectedProviderId == this.authService.userValue.ProviderId)
+    if (this.SelectedProviderId == this.authService.userValue.ProviderId ||
+      this.SelectedProviderId == "")
       this.Locations = JSON.parse(this.authService.userValue.LocationInfo);
     else {
       this.smartSchedulerService.PracticeLocations({ "provider_Id": this.SelectedProviderId })
@@ -331,6 +305,8 @@ export class SmartScheduleComponent implements OnInit {
       if (resp.IsSuccess) {
         this.Appointments = resp.ListResult as ScheduledAppointment[];
         this.NoofAppointment = this.Appointments.length;
+        console.log(this.Appointments);
+
 
       } else {
         this.NoofAppointment = 0;
@@ -353,7 +329,6 @@ export class SmartScheduleComponent implements OnInit {
 
     this.smartSchedulerService.ActiveAppointments(req).subscribe(resp => {
       if (resp.IsSuccess) {
-        this.confirmIsCancelledAppointment();
         this.AppointmentsOfPatient = resp.ListResult as ScheduledAppointment[];
         return this.AppointmentsOfPatient;
       }
@@ -361,12 +336,30 @@ export class SmartScheduleComponent implements OnInit {
   }
 
 
+
+  displayPatient(value: PatientSearchResults): string {
+    if (!value) return "";
+    return ""
+    return value.Name + "-" + value.MobilePhone;
+  }
+  onPatientSelected(value: any): string {
+    if (!value) return "";
+    let patient = value.option.value;
+    console.log(patient);
+    this.patients =[];
+    if(patient.NumberOfAppointments == 0){
+      this.openComponentDialog( this.appointmentDialogComponent ,patient,this.PatinetActions(patient));
+    }else{
+      this.openComponentDialog( this.upcomingAppointmentsDialogComponent ,patient,this.PatinetActions(patient));
+    }
+    //openComponentDialog((patient.NumberOfAppointments == 0 ? appointmentDialogComponent : upcomingAppointmentsDialogComponent),patient,PatinetActions(patient))"
+    return patient.Name + "-" + patient.MobilePhone;
+  }
   ngOnInit(): void {
 
     this.PatientAppointment = {};
     this.SelectedLocationId = this.authService.userValue.CurrentLocation;
-    this.SelectedProviderId = this.authService.userValue.ProviderId;
-    this.PatientAppointment.ProviderId = this.SelectedProviderId;
+    this.PatientAppointment.ProviderId = this.authService.userValue.ProviderId;
     this.PatientAppointment.LocationId = this.SelectedLocationId;
     this.PatientAppointment.Duration = 30;
     this.selectedAppointmentDate = new Date();
@@ -381,12 +374,6 @@ export class SmartScheduleComponent implements OnInit {
     this.selectedWeekday = this.selectedAppointmentDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
     this.filterAppointments();
   }
-
-
-  confirmIsCancelledAppointment() {
-    this.appointmentId = null;
-  }
-
 
   onProviderChange() {
     this.LoadAppointmentDefalts();
@@ -412,18 +399,5 @@ export class SmartScheduleComponent implements OnInit {
     this.filterAppointments();
   }
 
-  updateAppointmentStatus(appointmentId: string, status: string) {
-    // console.log("appointmentId: "+appointmentId,", status: "+status);
-
-  }
-  showAssociateVitals: boolean = true;
-  displayVitalsDialog(event) {
-    if (event == true) {
-      this.showAssociateVitals = true;
-    }
-    else {
-      this.showAssociateVitals = false;
-    }
-  }
 
 }
