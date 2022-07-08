@@ -57,6 +57,8 @@ export class ChartComponent implements OnInit {
   AppointmentTypes: AppointmentTypes[]
   Locations: UserLocations[]
   Rooms: Room[]
+  medication_prescription: any;
+  locationColumns: string[] = ['Location', 'Address', 'Phone', 'Providers'];
 
   constructor(public overlayService: OverlayService,
     private patientService: PatientService,
@@ -67,10 +69,29 @@ export class ChartComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.reasons();
     this.enums();
     this.currentPatient = this.authService.viewModel.Patient;
     this.ChartInfo();
     this.loadDefaults();
+  }
+
+  reason: { ReasonCode: string; ReasonDescription: string; }[];
+  filteredreason: { ReasonCode: string; ReasonDescription: string; }[];
+
+  reasons() {
+    this.reason = [
+      { ReasonCode: '183945002', ReasonDescription: 'Procedure refused for religious reason (situation)' },
+      { ReasonCode: '397745006', ReasonDescription: 'Medical contraindication (finding)' },
+      { ReasonCode: '413310006', ReasonDescription: 'Patient non-compliant' }
+    ];
+    this.filteredreason = this.reason.slice();
+  }
+
+  selectedReason(searchItem) {
+    var filterReason = this.reason.filter(x => x.ReasonCode === searchItem);
+    this.patientMedication.ReasonCode = filterReason[0].ReasonCode;
+    this.patientMedication.ReasonDescription = filterReason[0].ReasonDescription;
   }
 
   enums() {
@@ -204,6 +225,7 @@ export class ChartComponent implements OnInit {
   }
 
   CreateDiagnoses() {
+    debugger;
     let isAdd = this.patientDiagnoses.DiagnosisId == undefined;
     this.patientDiagnoses.PatinetId = this.currentPatient.PatientId;
     this.patientDiagnoses.StopAt = this.datepipe.transform(this.patientDiagnoses.StopAt, "MM/dd/yyyy hh:mm:ss");
@@ -393,7 +415,7 @@ export class ChartComponent implements OnInit {
     this.smartSchedulerService.RoomsForLocation(lreq).subscribe(resp => {
       if (resp.IsSuccess) {
         this.Rooms = resp.ListResult as Room[];
-        this.PatientAppointment.RoomId = this.Rooms[0].RoomId;
+        // this.PatientAppointment.RoomId = this.Rooms[0].RoomId;
       }
     });
   }
