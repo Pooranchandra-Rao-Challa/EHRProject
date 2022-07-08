@@ -899,11 +899,19 @@ div.mat-field-no-round-right div.mat-form-field-wrapper {
     height: 29px;
   }
 }
-::ng-deep .mat-tab-label:first-child {
+::ng-deep .mat-tab-label:first-child  {
   .mat-tab-label-content {
     background-color: #fe8f00;
     color: #fff;
     border-bottom-color: #fe8f00;
+  }
+}
+
+::ng-deep .mat-tab-label:first-child.mat-tab-label-active{
+  .mat-tab-label-content {
+    background-color: #fff;
+    color: #fe8f00;
+    border-bottom-color: #fff;
   }
 }
 

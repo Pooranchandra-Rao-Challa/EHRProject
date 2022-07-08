@@ -22,6 +22,7 @@ import { map, } from 'rxjs/operators';
 import { AlertMessage, ERROR_CODES } from './../../_alerts/alertMessage';
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 import { SignEncounterNoteComponent } from 'src/app/dialogs/encounter.dialog/sign.encounter.note.component'
+import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-encounter.dialog',
@@ -103,7 +104,12 @@ export class EncounterDialogComponent implements OnInit {
     this.initEncoutnerView();
     this.loadEncouterView();
     this.encounterInfo.EnableNewEncounterData = this.EnableNewEncounterData;
-
+    this.encounterInfo.Diagnoses.forEach(fn => {
+      fn.MedLineUrl = this.medLinePlusUrl({
+        Code: fn.Code,
+        CodeSystem: fn.CodeSystem
+      })
+    })
     this.diagnosesInfo.next(this.encounterInfo.Diagnoses);
     this.recommendedProcedures.next(this.encounterInfo.RecommendedProcedures);
 
@@ -230,6 +236,7 @@ export class EncounterDialogComponent implements OnInit {
     d.Code = value.Code
     d.CodeSystem = value.CodeSystem
     d.Description = value.Description
+    d.MedLineUrl = this.medLinePlusUrl(value);
     d.CanDelete = false;
     this.encounterInfo.Diagnoses.push(d);
     this.diagnosesInfo.next(this.encounterInfo.Diagnoses.filter(fn => fn.CanDelete === false));
@@ -334,6 +341,14 @@ export class EncounterDialogComponent implements OnInit {
         this.messageflagSubject.next(true);
         this.message = "Update the provider from whom you redirected this patient."
       }else this.messageflagSubject.next(false);;
+  }
+
+  medLinePlusUrl(code: MedicalCode):string{
+    if(code.CodeSystem= "SNOMED"){
+      return "http://apps.nlm.nih.gov/medlineplus/services/mpconnect.cfm?mainSearchCriteria.v.cs=2.16.840.1.113883.6.96&amp;mainSearchCriteria.v.c="+code.Code
+    }else{
+      return "http://apps.nlm.nih.gov/medlineplus/services/mpconnect.cfm?mainSearchCriteria.v.cs=2.16.840.1.113883.6.90&mainSearchCriteria.v.c="+code.Code
+    }
   }
 
   recordSuperBill(){

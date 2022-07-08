@@ -122,6 +122,7 @@ export class EncounterDiagnosis implements IDeleteFlag {
   PatientEdn?: string = "MedLine Plus";
   PrimaryDx?: boolean = false;
   CanDelete?: boolean = false;
+  MedLineUrl?: string
   /**<a href="http://apps.nlm.nih.gov/medlineplus/services/mpconnect.cfm?mainSearchCriteria.v.cs=2.16.840.1.113883.6.96&amp;mainSearchCriteria.v.c=223788007" target="_blank">Medline Plus</a> */
 }
 
