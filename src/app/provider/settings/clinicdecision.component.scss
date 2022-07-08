@@ -34,7 +34,7 @@
   padding-top: 15px;
   margin-top: 2px;
 }
-.btn-op {
+.btn-open {
   background-color: #41b6a6;
   color: white;
   border: 1px solid #41b6a6;
@@ -43,8 +43,16 @@
   border-radius: 1px;
   font-size: 15px;
   font-family: revert;
+  // margin-right: 1px;
 }
-
+// .btn-open:hover{
+//   background-color: #41b6a6;
+//   color: white;
+//   margin-right: 3px;
+// }
+.btn-open:hover{
+  border-right: 1px solid #fff;
+}
 
 .btn-of {
   border: 1px solid #41b6a6;
@@ -62,7 +70,7 @@
   background-color: #41b6a6;
   color: #fff;
   margin-left: 1px;
-  
+  border-left: 1px solid #fff;
 }
 .btn-on {
   background-color: #41b6a6 !important;

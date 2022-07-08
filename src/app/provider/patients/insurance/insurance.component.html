@@ -1,4 +1,5 @@
-<div class="container-fluid">
+
+<div class="container-fluid customoverlay">
     <div class="row">
         <div class="col-md-6">
             <div class="card mt-2">
@@ -44,14 +45,15 @@
                                 <input type="text" [disabled]="disableaddressverification"
                                     class="form-control patientInsuranceTab Helvetica-sans-serif-medium"
                                     placeholder="Enter full address here" aria-label="Subscriber Name"
-                                    aria-describedby="basic-addon1" [(ngModel)]="primlist.Street" #Address>
+                                    aria-describedby="basic-addon1" [(ngModel)]="primlist.Street" #Address required>
                             </div>
                         </div>
                         <div class="col-md-3 d-flex justify-content-end flex-sm-row flex-column">
                             <button
                                 class="btn btn-green btn-verify Helvetica-sans-serif-medium mt-4"
-                                [disabled]="primlist.Street=='' || disableaddressverification"
+                                [disabled]="!primlist.Street || disableaddressverification"
                                 (click)="AddressVerification()">VERIFY</button>
+                                
                         </div>
                     </div>
                     <div class="row">
@@ -270,7 +272,7 @@
                             
                                 <button
                                     class="btn btn-green btn-verify Helvetica-sans-serif-medium mt-4"
-                                    [disabled]="secList.Street=='' || secondarydisableaddressverification"
+                                    [disabled]="!secList.Street || secondarydisableaddressverification"
                                     (click)="secondaryAddressverfied()">VERIFY</button>
                             
                         </div>
@@ -631,9 +633,8 @@
 
                                         <input type="text" name="search_procedure_code" id="search_procedure_code"
                                             class="form-control search-control  Helvetica-sans-serif-medium"
-                                            placeholder="Search Insurance Company Plan" [(ngModel)]="SearchKey"
-                                            (click)="onFilterChange()">
-                                        <button class="btn btn-info btn-md" type="button" (click)="onFilterChange()">
+                                            placeholder="Search Insurance Company Plan" [(ngModel)]="searchText">
+                                        <button class="btn btn-info btn-md" type="button">
                                             <i class="fa fa-search text-white"></i>
                                         </button>
                                     </div>
@@ -647,7 +648,6 @@
                                 type="button">Add Insurance Company Plan </button>
                         </div>
                     </div>
-                   
                     <table class="table table-borderless">
                         <thead class="bg-color">
                             <tr>
@@ -677,7 +677,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                           <tr *ngFor="let item of InsurancePlanList; let idx=index;" 
+                           <tr *ngFor="let item of InsurancePlanList | globalsearch: searchText; let idx = index;" 
                                 [style.background-color]="rowClicked == idx ? 'rgb(254, 143, 0)' : ''"
                                 (click)="changeTableRowColor(idx,false)" (dblclick)=edit(idx)>
                                 <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)"
@@ -698,6 +698,10 @@
                             </tr> 
                         </tbody>
                     </table>
+                    <div *ngIf="(InsurancePlanList | globalsearch: searchText).length === 0">
+                        <div class="text-center Helvetica-sans-serif-medium norecordfound">No records found.</div>
+                     
+                    </div>
                     </div>
                     <div class="row mt-4">
                         <div class="col-md-6">

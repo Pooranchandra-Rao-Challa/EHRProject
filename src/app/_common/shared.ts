@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { GroupByPipe } from "../_pipes/group-by.pipe";
+import { FilterPipe } from "../_pipes/search-filter.pipe";
 import { QuickAppProMaterialModule } from "./material";
 
 @NgModule({
@@ -11,10 +12,11 @@ import { QuickAppProMaterialModule } from "./material";
   ],
   exports: [
     QuickAppProMaterialModule,
-    GroupByPipe
+    GroupByPipe,
+    FilterPipe,
 
   ],
-  declarations: [GroupByPipe],
+  declarations: [GroupByPipe,FilterPipe],
   entryComponents: []
 })
 export class SharedModule { }

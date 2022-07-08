@@ -58,7 +58,6 @@ export class InsuranceComponent implements OnInit {
   secondaryAdressVerfied = false;
   manuallybtn: boolean = false;
   disableaddressverification: boolean = false;
-  disableaddressverification1: boolean = false;
   secondarymanuallybtn: boolean;
   secondarydisableaddressverification: boolean;
   SearchKey = "";
@@ -67,7 +66,7 @@ export class InsuranceComponent implements OnInit {
   secondaryInsDetail: boolean;
   SourceOfPaymentTypologyCodesFilter: any;
   secondarySptcFilter:any;
-
+  searchText: string;
 
   constructor(private patientservice: PatientService,
     private route: ActivatedRoute,
@@ -245,6 +244,7 @@ export class InsuranceComponent implements OnInit {
   }
 
   getInsuranceDetails(item) {
+    debugger;
     if (item == 'primary') {
       var reqparam = {
         "InsuranceId": this.primlist.InsuranceCompanyPlanID
@@ -259,7 +259,7 @@ export class InsuranceComponent implements OnInit {
     }
     else {
       var reqparam = {
-        "InsuranceId": this.primlist.InsuranceCompanyPlanID
+        "InsuranceId": this.secList.InsuranceCompanyPlanID
       }
       this.patientservice.InsurancDetails(reqparam).subscribe(
         resp => {

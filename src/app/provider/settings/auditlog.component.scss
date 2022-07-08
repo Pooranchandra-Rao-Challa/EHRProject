@@ -95,6 +95,10 @@ mat-header-cell:nth-child(5) {
 ::ng-deep .exportpdf .mat-form-field
 {
   width: 150px!important;
+  // padding-top: 10px !important;
+}
+::ng-deep .exportpdf .mat-form-field-wrapper {
+  padding-bottom: 0rem !important;
 }
 ::ng-deep .exportpdf .mat-select-placeholder {
   color: #41b6a6 !important;
