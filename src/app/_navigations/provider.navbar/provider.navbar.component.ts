@@ -56,15 +56,11 @@ export class ProviderNavbarComponent implements OnInit {
     this.viewModel = this.authenticationService.viewModel;
 
     if(url=='provider/patients') this.viewModel.PatientBreadCrumb = [];
-
-
     this.Bredcrumchanged.emit(name);
     this.router.navigate(
       [url],
     );
 
   }
-
-
 
 }

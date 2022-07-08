@@ -2,11 +2,12 @@ import { NewmessageDialogComponent } from './../dialogs/newmessage.dialog/newmes
 import { PatientappointmentDialogComponent } from 'src/app/dialogs/patientappointment.dialog/patientappointment.dialog.component';
 import { Component, TemplateRef } from '@angular/core';
 import { OverlayService } from '../overlay.service';
-import { User, UserLocations } from '../_models';
+import { User, UserLocations, ViewModel } from '../_models';
 import { AuthenticationService } from '../_services/authentication.service';
 import { ComponentType } from '@angular/cdk/portal';
 import { PatientService } from '../_services/patient.service';
 import { Appointments } from '../_models/_patient/appointments';
+import { Router } from '@angular/router';
 declare var $: any;
 @Component({
   selector: 'app-dashboard',
@@ -25,11 +26,14 @@ export class DashboardComponent {
   DialogResponse = null;
   PatientUpcomingAppointmentsList: Appointments={};
   PatientUpcomingAppointmentsCount:Appointments={};
-  
-  constructor(private authenticationService: AuthenticationService,private overlayService :OverlayService,private patientservice: PatientService,) {
+  viewModel: ViewModel;
+
+  constructor(private authenticationService: AuthenticationService,private overlayService :OverlayService,private patientservice: PatientService,private router:Router) {
 
     this.user = authenticationService.userValue;
     this.locationsInfo = JSON.parse(this.user.LocationInfo)
+    this.viewModel = authenticationService.viewModel;
+
    }
 
   ngOnInit(): void {
@@ -44,7 +48,14 @@ export class DashboardComponent {
       });
   });
   }
+  onChangeViewState(view){
 
+    this.authenticationService.SetViewParam("SubView",view);
+    this.viewModel = this.authenticationService.viewModel;
+    this.router.navigate(
+      ['/patient/dashboard'],
+    );
+  }
   onhealth(){
     this.isAccees=false;
     this.isHealth=true;
