@@ -313,8 +313,9 @@
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
-                    <p class="card-title" data-bs-toggle="modal" data-bs-target="#medication-modal">Medications and
-                      Prescription</p>
+                    <p class="card-title" data-bs-toggle="modal" data-bs-target="#medication-prescription-modal">
+                      Medications and Prescription
+                    </p>
                   </div>
                   <div class="col-md-4 col-6">
                     <div class="col-12 plusicon pull-right" data-bs-toggle="modal" data-bs-target="#medication-modal"
@@ -675,7 +676,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title Helvetica-sans-serif-medium">Record Past Medical History</h4>
-        <span type="button" class="cross-mark" data-bs-dismiss="modal">
+        <span type="button" class="cross-mark" data-bs-dismiss="modal" (click)="resetDialog()">
           X
         </span>
       </div>
@@ -721,7 +722,7 @@
               Save Changes
             </button>
             <button type="button" class="btn btn-lg btn-green col-xl-3 col-lg-3 col-md-3 col-5 mx-3"
-              data-bs-dismiss="modal">
+              data-bs-dismiss="modal" (click)="resetDialog()">
               Cancel
             </button>
           </div>
@@ -898,7 +899,7 @@
 </div>
 
 <!-- Allergies modal -->
-<div class="modal fade " id="allergies-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<div class="modal fade " id="allergies-modal" data-bs-backdrop="backdrop" tabindex="-1"
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-md modal-maxHeight" role="document">
     <div class="modal-content">
@@ -1034,7 +1035,7 @@
 </div>
 
 <!-- Medication -->
-<div class="modal fade " id="medication-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<div class="modal animated fadeIn in" id="medication-modal" data-bs-backdrop="backdrop" tabindex="-1"
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -1144,7 +1145,7 @@
           </div>
           <div class="form-group mt-4 col-md-6">
             <button type="button" class="btn btn-orange btn-save" data-bs-toggle="modal"
-              data-bs-target="#exampleModal6">
+              data-bs-target="#discontinue-modal">
               Discontinue
             </button>
           </div>
@@ -1186,13 +1187,13 @@
   </div>
 </div>
 
-<div class="modal fade " id="exampleModal6" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<!-- Discontinue modal in medications -->
+<div class="modal animated fadeIn in" id="discontinue-modal" data-bs-backdrop="backdrop" tabindex="-1"
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-md" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title Helvetica-sans-serif-medium">Record Past Medical History</h4>
-
+        <h4 class="modal-title Helvetica-sans-serif-medium">Select Reason</h4>
         <span type="button" class="cross-mark" data-bs-dismiss="modal">
           X
         </span>
@@ -1200,27 +1201,37 @@
       <div class="modal-body bg-white  addlocationbody">
         <div class=" form-group col-md-12 ">
           <label class="title-field">Search Reaction(s): </label>
-          <div class="input-group input-group-custom search-input">
+          <!-- <div class="input-group input-group-custom search-input">
             <input aria-label="Search for messages" autocomplete="off" class="input-search form-control ignore_spinner"
               id="find-messages-input-4" placeholder="Search Messages">
             <span class="input-group-addon input-group-addon-search chart-find-patient-btn"
               id="find-messages-button-4"><i class="fa fa-search"></i></span>
-          </div>
+          </div> -->
+          <mat-form-field appearance="outline" class="col-lg-12">
+            <mat-select placeholder="Select One" disableOptionCentering>
+              <mat-select-filter [placeholder]="'Search...'" [displayMember]="'ReasonCode'" [array]="filteredreason"
+                (filteredReturn)="reason =$event"></mat-select-filter>
+              <mat-option *ngFor="let item of reason" [value]="item.ReasonCode"
+                (click)="selectedReason(item.ReasonCode)">
+                {{item.ReasonCode}} - {{item.ReasonDescription}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
         <div class=" form-group col-md-12">
           <label class="title-field"> Reason - Code</label>
           <mat-form-field class="input-bg input-field w-100" appearance="outline">
-            <input matInput placeholder="Reason - Code" name="reasonscode" />
+            <input matInput placeholder="Reason - Code" name="reasonscode" [(ngModel)]="patientMedication.ReasonCode" />
           </mat-form-field>
         </div>
         <div class=" form-group col-md-12">
           <label class="title-field">Reason - Description</label>
           <mat-form-field class="input-bg input-field w-100" appearance="outline">
-            <input matInput placeholder="Reason Description" name="reasondescription" />
+            <input matInput placeholder="Reason Description" name="reasondescription"
+              [(ngModel)]="patientMedication.ReasonDescription" />
           </mat-form-field>
         </div>
       </div>
-
       <div class="row mb-3 mt-1 mx-2">
         <div class="col-md-12 locationbtns">
           <div class="d-flex justify-content-end">
@@ -1262,6 +1273,49 @@
       </div>
 
 
+    </div>
+  </div>
+</div>
+
+<!-- Medication and precription modal -->
+<div class="modal fade " id="medication-prescription-modal" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title Helvetica-sans-serif-medium">
+          <span>All | </span>
+          <span>Medications | </span>
+          <span>Prescription</span>
+        </h4>
+        <span type="button" class="cross-mark" data-bs-dismiss="modal">
+          X
+        </span>
+      </div>
+      <div class="modal-body">
+        <mat-table class="table table-responsive" [dataSource]="medication_prescription" matSort>
+          <ng-container matColumnDef="Location">
+            <mat-header-cell *matHeaderCellDef>Location name</mat-header-cell>
+            <mat-cell *matCellDef="let loc">
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Address">
+            <mat-header-cell *matHeaderCellDef>Address</mat-header-cell>
+            <mat-cell class="address-oncursor" *matCellDef="let loc"></mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Phone">
+            <mat-header-cell *matHeaderCellDef>Phone</mat-header-cell>
+            <mat-cell class="address-oncursor" *matCellDef="let loc"></mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Providers">
+            <mat-header-cell *matHeaderCellDef># of Providers</mat-header-cell>
+            <mat-cell class="address-oncursor" *matCellDef="let loc"></mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="locationColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: locationColumns"></mat-row>
+        </mat-table>
+      </div>
     </div>
   </div>
 </div>

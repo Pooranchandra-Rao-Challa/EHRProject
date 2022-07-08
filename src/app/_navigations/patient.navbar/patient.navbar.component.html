@@ -5,39 +5,37 @@
   <img src="assets/images/logo.svg" alt="logo" class="img-fluid mx-3" />
   <div class="collapse navbar-collapse" [ngClass]="{ 'show': navbarOpen }">
     <ul class="navbar-nav mr-auto menuactive">
-      <li [class]="name !== 'dashboard' ? 'nav-item': 'active nav-item'">
+
+      <li [class]="viewModel.View !== 'dashboard' ? 'nav-item': 'active nav-item'">
         <a href="javascript:void(0)" (click)="onChangeBreadCrum('patient/dashboard','dashboard')"
           routerLinkActive="router-link-active" class="nav-link active item-dashboard">Dashboard
         </a>
       </li>
-
-
-      <li [class]="name !== 'appointment' ? 'nav-item': 'active nav-item'">
+      <li [class]="viewModel.View !== 'appointment' ? 'nav-item': 'active nav-item'">
         <a href="javascript:void(0)" (click)="onChangeBreadCrum('patient/appointment','appointment')"
           routerLinkActive="router-link-active" class="nav-link active item-appointments">Appointments
         </a>
       </li>
-      <li [class]="name !== 'message' ? 'nav-item': 'active nav-item'">
+      <li [class]="viewModel.View !== 'message' ? 'nav-item': 'active nav-item'">
         <a href="javascript:void(0)" (click)="onChangeBreadCrum('patient/message','message')"
           routerLinkActive="router-link-active" class="nav-link active item-messages">Messages
         </a>
       </li>
-      <li [class]="name !== 'health' ? 'nav-item': 'active nav-item'">
+      <li [class]="viewModel.View !== 'health' ? 'nav-item': 'active nav-item'">
         <a href="javascript:void(0)" (click)="onChangeBreadCrum('patient/health','health')"
           routerLinkActive="router-link-active" class="nav-link active item-myhealth text-nowrap">My Health
         </a>
       </li>
-      <li [class]="name !== 'profile' ? 'nav-item': 'active nav-item'">
+      <li [class]="viewModel.View !== 'profile' ? 'nav-item': 'active nav-item'">
         <a href="javascript:void(0)" (click)="onChangeBreadCrum('patient/profile','profile')"
           routerLinkActive="router-link-active" class="nav-link active item-myprofile text-nowrap">My Profile
         </a>
       </li>
-      <li [class]="name !== 'document' ? 'nav-item': 'active nav-item'">
+      <li [class]="viewModel.View !== 'document' ? 'nav-item': 'active nav-item'">
         <a href="javascript:void(0)" (click)="onChangeBreadCrum('patient/document','document')"
           routerLinkActive="router-link-active" class="nav-link active item-mydocuments text-nowrap">My Documents
         </a>
       </li>
-
     </ul>
   </div>
   <ul class="navbar-nav pull-right">
@@ -47,7 +45,8 @@
         <img class="img-xs rounded-circle header-avatar mx-1" src="assets/images/header-dropdown-img.svg">
       </a>
       <mat-menu #menu="matMenu" [hasBackdrop]="true">
-        <div class="list">
+        <div class="list"  style="border-top: 1px solid #86c1bb; width: 100%;" (click)="$event.stopPropagation()"
+        (keydown)="$event.stopPropagation()">
     <li class="li-menu" routerLink="/patient/profile">
       <a class="nav-li">My Profile</a>
     </li>
@@ -64,4 +63,37 @@
     </mat-menu>
     </li>
   </ul>
+
+  <!-- <ul class="navbar-nav pull-right">
+    <li [matMenuTriggerFor]="menu" class="nav-item nav-top-right">
+      <a class="nav-link dropdown-toggle" id="UserDropdown">
+        <span class="profile-text">{{ this.user.FirstName}}&nbsp;&nbsp;{{this.user.LastName}}</span>
+        <img class="img-xs rounded-circle header-avatar mx-1" src="assets/images/header-dropdown-img.svg">
+      </a>
+      <mat-menu #menu="matMenu" [hasBackdrop]="true">
+        <div class="list" style="border-top: 1px solid #86c1bb; width: 100%;" (click)="$event.stopPropagation()"
+          (keydown)="$event.stopPropagation()">
+          <mat-form-field appearance="outline" class="col-lg-12 hover">
+            <mat-select class="textcolor" [value]="user.CurrentLocation" name="location" disableOptionCentering>
+              <mat-option *ngFor="let location of locationsInfo" [value]="location.locationId"
+                (click)="changeLocation(location.locationId)"> {{ location.locationName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+    <li class="li-menu"><a class="nav-li text-nowrap">My Account</a></li>
+    <li class="li-menu"><a class="nav-li text-nowrap">About EHR1</a></li>
+    <li class="li-menu border-bottom"><a class="nav-li">Lock</a></li>
+    <li class="li-menu" (click)="logout()"><a class="nav-li">Log out</a></li>
+    </div>
+    </mat-menu>
+    </li>
+  </ul> -->
 </nav>
+
+
+
+
+
+
+
+

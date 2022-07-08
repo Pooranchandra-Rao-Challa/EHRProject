@@ -12,6 +12,7 @@
   color: #fff;
   background: url(../../assets/images/home-top-bg.png) no-repeat;
   background-size: cover;
+  background-position: center center;
   height: auto;
 }
 .one-ehr-images {
@@ -215,4 +216,11 @@ strong{
 }
 .login_page_address{
   margin-bottom: 10px;
+}
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+  /* left: 12px; */
+  margin: 0px 24px 0px 0px !important;
+
 }
