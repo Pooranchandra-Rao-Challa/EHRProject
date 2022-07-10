@@ -635,6 +635,7 @@ ul.menuclass li.active a {
   height: 45px;
   border-radius: 3px;
   padding: 8px 20px;
+  font-size:16px
 }
 .form-control.time:hover{
   border: 1px solid #41b6a6;
@@ -768,7 +769,7 @@ a.disabled{
   padding: 5px;
 }
 .form-group label{
-  font-weight: 700;
+  font-weight: 500;
   font-size: 13px;
   color: #333;
   font-family: Helvetica Neue,Helvetica,Arial,sans-serif;

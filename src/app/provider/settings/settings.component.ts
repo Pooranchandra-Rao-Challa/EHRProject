@@ -1,8 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { User,ViewModel } from '../../_models';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject, of, Subscription } from 'rxjs';
 import { ActivatedRoute, Route, Router } from '@angular/router';
+
+// import { PracticeComponent } from './practice.component';
+// import { ScheduleComponent } from './schedule.component';
+// import { ErxComponent } from './erx.component';
+// import { AuditLogComponent } from './auditlog.component';
+// import { AccessPermissionComponent } from './access.permission.component';
+// import { PatientEdnMaterialComponent } from './patientednmaterial.component';
+// import { ClinicDecisionComponent } from './clinicdecision.component';
+import { catchError, finalize } from 'rxjs/operators';
 
 
 @Component({
@@ -10,42 +19,154 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss']
 })
-export class SettingsComponent implements OnInit {
+export class SettingsComponent implements OnInit,AfterViewInit {
   user: User;
   locationsubscription: Subscription;
   view: string;
   viewModel: ViewModel;
+  @ViewChild('settingsview', { read: ViewContainerRef, static: true })
+  private settingsviewcontainerref: ViewContainerRef;
+  settingsSubject: BehaviorSubject<string> = new BehaviorSubject<string>('')
+  loadingSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
+  changedSettingView$ = this.settingsSubject.asObservable();
+
   constructor(
+    private cfr: ComponentFactoryResolver,
     private authService: AuthenticationService,
     private route: ActivatedRoute,
     private router:Router) {
     this.user = this.authService.userValue;
     this.viewModel = authService.viewModel;
-    /*this.locationsubscription = this.locationSelectService.getData().subscribe(locationId => {
-        console.log("From Header:"+locationId);
-        ,
-    private locationSelectService: LocationSelectService
-    });*/
+    if(!this.viewModel.SubView)
+      this.viewModel.SubView = 'practice';
   }
-  /*ngOnDestroy() {
-    // unsubscribe to ensure no memory leaks
-    this.locationsubscription.unsubscribe();
-  }*/
+  ngAfterViewInit(): void {
+    this.settingsSubject.next(this.viewModel.SubView);
+  }
+
   ngOnInit(): void {
-    // this.route.queryParams
-    //   .subscribe(params => {
-    //     this.view = params.view;
-    //   }
-    //   );
+    this.changedSettingView$
+      .pipe(
+        catchError(() => of([])),
+         finalize(() => this.loadingSubject.next(false))
+      ).subscribe((viewname) => {
+        this.loadingSubject.next(true);
+        if (viewname == 'practice')
+          this.loadPracticeComponent();
+        else if (viewname == 'schedule')
+          this.loadScheduleComponent();
+        else if (viewname == 'erx')
+          this.loadErxComponent();
+        else if (viewname == 'accesspermission')
+          this.loadAccessPermissionComponent();
+        else if (viewname == 'clinicdecision')
+          this.loadClinicDecisionComponent();
+        else if (viewname == 'patientednmaterial')
+          this.loadPatientEdnMaterialComponent();
+        else if (viewname == 'auditlog')
+          this.loadAuditLogComponent();
+        this.loadingSubject.next(false)
+      });
   }
 
   onChangeViewState(view){
-
     this.authService.SetViewParam("SubView",view);
     this.viewModel = this.authService.viewModel;
-    this.router.navigate(
-      ['/provider/settings'],
-    );
+    this.settingsSubject.next(view);
+    // this.router.navigate(
+    //   ['/provider/settings'],
+    // );
+  }
+
+
+
+  async loadPracticeComponent() {
+    if (this.viewModel.SubView != 'practice')
+      this.settingsviewcontainerref.clear();
+    else {
+      this.settingsviewcontainerref.clear();
+      const { PracticeComponent } = await import('./practice.component');
+      let viewcomp = this.settingsviewcontainerref.createComponent(
+        this.cfr.resolveComponentFactory(PracticeComponent)
+      );
+    }
+  }
+
+  async loadScheduleComponent() {
+    if (this.viewModel.SubView != 'schedule')
+      this.settingsviewcontainerref.clear();
+    else {
+      this.settingsviewcontainerref.clear();
+      const { ScheduleComponent } = await import('./schedule.component');
+      let viewcomp = this.settingsviewcontainerref.createComponent(
+        this.cfr.resolveComponentFactory(ScheduleComponent)
+      );
+    }
+  }
+
+
+  async loadErxComponent() {
+    if (this.viewModel.SubView != 'erx')
+      this.settingsviewcontainerref.clear();
+    else {
+      this.settingsviewcontainerref.clear();
+      const { ErxComponent } = await import('./erx.component');
+      let viewcomp = this.settingsviewcontainerref.createComponent(
+        this.cfr.resolveComponentFactory(ErxComponent)
+      );
+    }
+  }
+
+
+
+  async loadAccessPermissionComponent() {
+    if (this.viewModel.SubView != 'accesspermission')
+      this.settingsviewcontainerref.clear();
+    else {
+      this.settingsviewcontainerref.clear();
+      const { AccessPermissionComponent } = await import('./access.permission.component');
+      let viewcomp = this.settingsviewcontainerref.createComponent(
+        this.cfr.resolveComponentFactory(AccessPermissionComponent)
+      );
+    }
+  }
+
+
+  async loadClinicDecisionComponent() {
+    if (this.viewModel.SubView != 'clinicdecision')
+      this.settingsviewcontainerref.clear();
+    else {
+      this.settingsviewcontainerref.clear();
+      const { ClinicDecisionComponent } = await import('./clinicdecision.component');
+      let viewcomp = this.settingsviewcontainerref.createComponent(
+        this.cfr.resolveComponentFactory(ClinicDecisionComponent)
+      );
+    }
+  }
+
+  async loadPatientEdnMaterialComponent() {
+    if (this.viewModel.SubView != 'patientednmaterial')
+      this.settingsviewcontainerref.clear();
+    else {
+      this.settingsviewcontainerref.clear();
+      const { PatientEdnMaterialComponent } = await import('./patientednmaterial.component');
+      let viewcomp = this.settingsviewcontainerref.createComponent(
+        this.cfr.resolveComponentFactory(PatientEdnMaterialComponent)
+      );
+    }
+  }
+
+
+  async loadAuditLogComponent() {
+    if (this.viewModel.SubView != 'auditlog')
+      this.settingsviewcontainerref.clear();
+    else {
+      this.settingsviewcontainerref.clear();
+      const { AuditLogComponent } = await import('./auditlog.component');
+      let viewcomp = this.settingsviewcontainerref.createComponent(
+        this.cfr.resolveComponentFactory(AuditLogComponent)
+      );
+    }
   }
 
 }

@@ -70,7 +70,7 @@
           <div><label class="labelfontzise">Date Of Birth<sub class="text-danger Helvetica-sans-serif-medium">*</sub>
             </label>
           <div class="form-group">
-            <mat-form-field appearance="outline" class="grey-matform ">
+            <mat-form-field appearance="outline" class="grey-matform new-patient">
               <input matInput [matDatepicker]="dp" placeholder="Date of Birth" [(ngModel)]="PatientData.DateofBirth"
                 #dateofBirth="ngModel" name="DateofBirth" required
                 pattern="^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$">
@@ -107,7 +107,7 @@
           <div class="input-group">
             <label class="control-label input-group-addon">Cell Phone</label>
             <input class="form-control" placeholder="Cell Phone" type="tel" mask=" (000) 000-0000" prefix="+1"
-              placeHolderCharacter="0" naem="cellPhone" [showMaskTyped]="true" [patterns]="PhonePattern"
+              placeHolderCharacter="0" name="cellPhone" [showMaskTyped]="true" [patterns]="PhonePattern"
               [(ngModel)]="PatientData.CellPhone" [ngModelOptions]="{standalone: true}" />
           </div>
         </div>

@@ -38,7 +38,7 @@
                         <div class="row pt-2 pb-1">
                           <div class="col-md-6">
                             <div class="form-group">
-                              <input type="text" [class]="(!isNewRoom(roomIndex)) ? 'schedule-inputclass': 'inputclass'"
+                              <input type="text" autofocus [class]="(!isNewRoom(roomIndex)) ? 'schedule-inputclass': 'inputclass'"
                                 class="form-control" formControlName="RoomName" [readonly]="!isNewRoom(roomIndex)">
                             </div>
                           </div>
@@ -79,9 +79,12 @@
                 </div>
                 <div class="col-xl-4 col-lg-5 col-md-6" style="display: flex;">
                   <p class="mx-2 my-2">From</p>
-                  <input class="form-Group form-control time" type="time" name="calTimeDisFrom" id="calTimeDisFrom">
+                  <input class="form-Group form-control time" type="text"
+                  [(ngModel)]="generalSchedule.CalendarFrom"  appTimeMask>
                   <p class="mx-2 my-2">To</p>
-                  <input class="form-Group form-control time" type="time" name="calTimeDisTo" id="calTimeDisTo">
+                  <input class="form-Group form-control time" type="text"
+                  appTimeMask
+                  [(ngModel)]="generalSchedule.CalendarTo">
                 </div>
               </div>
               <div class="row schedule-section">

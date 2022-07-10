@@ -135,7 +135,10 @@ export class PatientsComponent implements OnInit {
       )
       .subscribe();
   }
-
+  onProviderChange(providerId: string){
+    this.patientsDataSource.ProviderId = providerId == "All" ? null : providerId;
+    this.loadPatients();
+  }
   loadPatientProviders() {
     let req = { "ClinicId": this.authService.userValue.ClinicId };
     this.smartSchedulerService.PracticeProviders(req).subscribe(resp => {
@@ -172,12 +175,7 @@ export class PatientsComponent implements OnInit {
   }
 
   showInactivePatients(event) {
-    if (event.checked == true) {
-      this.patientsDataSource.Status = "InActive"
-    }
-    else {
-      this.patientsDataSource.Status = "All"
-    }
+    this.patientsDataSource.Status = event.checked ? "InActive" :  "All"
     this.loadPatients();
   }
 
@@ -220,6 +218,9 @@ export class PatientDatasource implements DataSource<ProviderPatient>{
   set Status(status: string) {
     this.queryParams["Status"] = status;
   }
+  set ProviderId(id:string){
+    this.queryParams["ProviderId"] = id;
+  }
 
   loadPatients(filter = '', sortField = 'LastAccessed',
     sortDirection = 'desc', pageIndex = 0, pageSize = 10) {
@@ -235,6 +236,7 @@ export class PatientDatasource implements DataSource<ProviderPatient>{
       finalize(() => this.loadingSubject.next(false))
     )
       .subscribe(resp => {
+
         this.patientsSubject.next(resp.ListResult as ProviderPatient[])
       });
   }

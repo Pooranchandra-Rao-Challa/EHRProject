@@ -28,12 +28,14 @@ export class ScheduleComponent implements OnInit {
   typeOnEdit: number[] = [];
   generalSchedule: GeneralSchedule = {} as GeneralSchedule;
 
+
   constructor(private authService: AuthenticationService,
     private settingsService: SettingsService,
     private fb: FormBuilder,
     private idService: IdService,
     private alertmsg: AlertMessage) {
     this.user = authService.userValue;
+
   }
   ngOnInit(): void {
     this.getGeneralSchedule();
@@ -409,7 +411,10 @@ export class ScheduleComponent implements OnInit {
       clinicId: this.user.ClinicId
     };
     this.settingsService.Generalschedule(reqparams).subscribe((resp) => {
-      this.generalSchedule = resp.ListResult[0];
+      if(resp.IsSuccess)
+        this.generalSchedule = resp.ListResult[0];
+
+      console.log(this.generalSchedule);
     })
   }
 
@@ -422,6 +427,8 @@ export class ScheduleComponent implements OnInit {
       concurrentapps: this.generalSchedule.ConcurrentApps,
       reschedulepatient: this.generalSchedule.PatientRescedule
     }
+    console.log(this.generalSchedule);
+
     this.settingsService.UpdateReschedule(reqparams).subscribe(resp => {
       if (resp.IsSuccess) {
         this.alertmsg.displayMessageDailog(resp.EndUserMessage);

@@ -46,6 +46,7 @@ export class Location {
   SpecifiHour: string;
   Assigned: boolean = false
   TimeSlots: TimeSlot[] = new TimeSlot()[0]
+  FormatedTimeSlot: string = "";
 }
 
 export class TimeSlot {
@@ -79,8 +80,8 @@ export interface AppointmentType {
 
 export interface GeneralSchedule {
   ClinicId?: string,
-  CalendarFrom?: Time,
-  CalendarTo?: Time,
+  CalendarFrom?: Date,
+  CalendarTo?: Date,
   ConcurrentApps?: boolean,
   OutSidePracticeHour?: boolean,
   PatientRescedule?: boolean,

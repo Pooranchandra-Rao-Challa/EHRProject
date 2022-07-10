@@ -20,8 +20,9 @@
             </mat-checkbox>
           </div>
           <div class="">
-            <mat-form-field appearance="outline" class="col-12 hover">
-              <mat-select placeholder="All Providers" disableOptionCentering>
+            <mat-form-field appearance="outline" class="col-12 hover" >
+              <mat-select placeholder="All Providers" disableOptionCentering (selectionChange)="onProviderChange($event.value)">
+                <mat-option value="All">All Providers</mat-option>
                 <mat-option *ngFor="let providers of PracticeProviders" [value]="providers.ProviderId">
                   {{providers.FullName}}</mat-option>
               </mat-select>
@@ -38,7 +39,7 @@
       <div class="patients scrollable-mat-table" tyle=" clear: both;">
         <div class="spinner-container" *ngIf="patientsDataSource.loading$ | async">
           <mat-spinner></mat-spinner>
-        </div><!-- [dataSource]="patientsList.data | search: keys: searchName: filter | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize"-->
+        </div>
 
         <mat-table [dataSource]=patientsDataSource
           matSort matSortActive="LastAccessed" matSortDirection="desc" matSortDisableClear>

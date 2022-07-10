@@ -117,73 +117,26 @@ button#dob.btn-outline-secondary.calendar {
   font-weight: bold;
 }
 
-/* width */
-::-webkit-scrollbar {
-  width: 5px;
-}
+// /* width */
+// ::-webkit-scrollbar {
+//   width: 15px;
+// }
 
-/* Track */
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
+// /* Track */
+// ::-webkit-scrollbar-track {
+//   background: #f1f1f1;
+// }
 
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #41b6a6;
-}
+// /* Handle */
+// ::-webkit-scrollbar-thumb {
+//   background: #41b6a6;
+// }
 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #bbb;
-}
+// /* Handle on hover */
+// ::-webkit-scrollbar-thumb:hover {
+//   background: #bbb;
+// }
 
-
-.addressSuccess {
-  height: 45;
-  background: #41b6a6;
-}
-.addressInvalid {
-  background: red;
-}
-.address-valid-invalid-message-header {
-  margin-top: 1rem;
-  margin-bottom: 2rem;
-}
-.address-pop{
-  z-index: 100000;
-  position: relative;
-  top: -600px;
-  height: 600px;
-  background-color: #f9f9f9;
-  background-position: 0;
-
-}
-.address-pop-content{
-  top:250px;
-}
-.error-address {
-  color: #fff;
-  background-color: transparent !important;
-  border-color: transparent;
-}
-
-.error-address:hover {
-  color: red;
-  background-color: white !important;
-  border-color: white;
-}
-
-.success-address {
-  color: #fff;
-  background-color: #41b6a6 !important;
-  border-color: #41b6a6;
-}
-
-.success-address:hover {
-  color: #41b6a6;
-  background-color: white !important;
-  border-color: white;
-}
 .link{
   cursor: pointer;
 }
@@ -210,12 +163,12 @@ button#dob.btn-outline-secondary.calendar {
   border: 0px;
 }
 
-::ng-deep  .mat-datepicker-toggle.mat-datepicker-toggle button.mat-focus-indicator.mat-icon-button{
+::ng-deep .new-patient .mat-datepicker-toggle.mat-datepicker-toggle button.mat-focus-indicator.mat-icon-button{
   background: #cfd2db;
   border: 0px;
 }
 
-::ng-deep mat-datepicker-toggle.mat-datepicker-toggle button.mat-icon-button span.mat-button-wrapper svg.mat-datepicker-toggle-default-icon > path{
+::ng-deep .new-patient mat-datepicker-toggle.mat-datepicker-toggle button.mat-icon-button span.mat-button-wrapper svg.mat-datepicker-toggle-default-icon > path{
   fill: gray;
   stroke: #a9a9a9;
   stroke-linejoin: round;

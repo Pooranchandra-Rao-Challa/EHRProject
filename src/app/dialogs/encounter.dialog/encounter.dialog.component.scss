@@ -180,9 +180,20 @@
 }
 
 .vital-input{
-  width:80%;
+  width:80% !important;
 }
 
+.vital-label{
+  font-size: 16px;
+}
+.vital-mat-form-field-unit-label{
+  font-size:14px;
+  margin-left:210px
+}
+
+.disable-referral:disabled{
+  cursor: not-allowed;
+}
 ::ng-deep .mat-progress-bar{
   margin-bottom: 10px;
 }

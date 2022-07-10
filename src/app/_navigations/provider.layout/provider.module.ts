@@ -91,6 +91,9 @@ import { ProviderCodeDatabase } from 'src/app/provider/patients/dental.chart/tre
 import { registerLocaleData } from '@angular/common';
 import localeIt from '@angular/common/locales/en';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+
+
+import { TimeMaskDirective } from 'src/app/_directives/input.time.mask.directive'
 registerLocaleData(localeIt);
 @NgModule({
   exports: [
@@ -154,6 +157,7 @@ registerLocaleData(localeIt);
     AddeditinterventionComponent,
     ProcedureDialogComponent,
     SignEncounterNoteComponent,
+    TimeMaskDirective,
   ],
   imports: [
 

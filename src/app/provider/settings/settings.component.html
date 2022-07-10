@@ -34,8 +34,12 @@
     </div>
   </div>
   <div class="right-block col-xl-10 col-lg-9 col-md-12 pt-3 pt-lg-0">
-    <div class="col-12" [hidden]="viewModel.SubView !== 'practice'">
+    <div class="col-12">
+      <ng-template #settingsview></ng-template>
+    </div>
+    <!--<div class="col-12" [hidden]="viewModel.SubView !== 'practice'">
       <practice-settings></practice-settings>
+
     </div>
     <div class="col-12" [hidden]="viewModel.SubView !== 'accesspermission'">
       <access-permission-settings></access-permission-settings>
@@ -54,6 +58,6 @@
     </div>
     <div class="col-12" [hidden]="viewModel.SubView !== 'auditlog'">
       <auditlog-settings></auditlog-settings>
-    </div>
+    </div> -->
   </div>
 </div>

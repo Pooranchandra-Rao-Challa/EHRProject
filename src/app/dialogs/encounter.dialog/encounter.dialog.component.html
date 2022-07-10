@@ -45,7 +45,7 @@
                 <div class="col-xl-8 encounter-provider" style="margin-top:18px">
                   <mat-label class="col-12"></mat-label>
                   <mat-form-field appearance="outline" class="col-10 hover cstm-mat-padding">
-                    <mat-select placeholder="Select One" disableOptionCentering id="ePracticeProviders"
+                    <mat-select placeholder="Select One" disableOptionCentering id="encounterPracticeProviders"
                       placeholder="Select Provider" [(ngModel)] = "encounterInfo.ProviderId">
                       <mat-option>None</mat-option>
                       <mat-option *ngFor="let provider of PracticeProviders" [value]="provider.ProviderId">{{provider.FullName}}
@@ -70,7 +70,7 @@
                         <span>Reason for visit:</span>
                       </div>
                       <div class="col-xl-10 col-lg-9 col-md-8 col-12">
-                        <textarea matInput [(ngModel)]="encounterInfo.VisitReason"></textarea>
+                        <textarea matInput class="col-12" [(ngModel)]="encounterInfo.VisitReason"></textarea>
                       </div>
                     </div>
                     <div class="row area-text">
@@ -78,7 +78,7 @@
                         <span>Clinical Instructions:</span>
                       </div>
                       <div class="col-xl-10 col-lg-9 col-md-8 col-12">
-                        <textarea matInput [(ngModel)]="encounterInfo.ClinicalInstructions"></textarea>
+                        <textarea matInput class="col-12" [(ngModel)]="encounterInfo.ClinicalInstructions"></textarea>
                       </div>
                     </div>
                     <div class="row">
@@ -166,7 +166,7 @@
                           </div>
                           <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px">
                             <medical-code-container [codeSystems]="codeSystemsForDischarge"
-                        (optionChanged)="onDischargeCodeChange($event)" MinTermLength="2"
+                        (optionChanged)="onDischargeCodeChange($event)" MinTermLength="3"
                         PlaceHolderText="Discharge Status (SNOMED)" [SelectedValue]="dischargeCode"
                         [showSelectedValue]="true" ></medical-code-container>
                           </div>
@@ -177,7 +177,7 @@
                           </div>
                           <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px">
                             <medical-code-container [codeSystems]="codeSystemsForDischarge"
-                            (optionChanged)="onEncounterCodeChange($event)" MinTermLength="2"
+                            (optionChanged)="onEncounterCodeChange($event)" MinTermLength="3"
                             PlaceHolderText="Encounter Code"
                             [showSelectedValue]="true"></medical-code-container>
                           </div>
@@ -306,7 +306,7 @@
                         <div class="col-lg-12" style="padding: 10px; display:flex">
                           <mat-checkbox class="encounter-checkbox"
                           [(ngModel)]="encounterInfo.PatientEducation">Patient Education Resources Provided</mat-checkbox>
-                          <mat-icon aria-hidden="false" style="color:#41a6b6;margin-left:8px; border:1px"
+                          <mat-icon aria-hidden="false" style="color:#41b6a6;margin-left:8px; border:1px"
                           matTooltipPosition="right"
                           matTooltipShowDelay="200"
                           matTooltip="Check this box IF this patient was provided instruction
@@ -321,7 +321,7 @@
                           [(ngModel)]="encounterInfo.medCompleted">Medication Reconciliation Completed</mat-checkbox>
 
 
-                          <mat-icon aria-hidden="false" style="color:#41a6b6;margin-left:8px; border:1px"
+                          <mat-icon aria-hidden="false" style="color:#41b6a6;margin-left:8px; border:1px"
                           matTooltipPosition="right"
                           matTooltipShowDelay="200"
                           matTooltip="Check this box IF this patient was referred to you from an
@@ -425,22 +425,23 @@
                     </div>
                     <div class="row area-text">
                       <div class="col-lg-2">
-                        <mat-checkbox class="referral-margin col-12"   [(ngModel)]="encounterInfo.ReferredFrom" style="font-weight: normal">Referred from:
+                        <mat-checkbox class="referral-margin col-12" #referralfrom (change)='onReferralFromStateChange(referralfrom.checked)'  [(ngModel)]="encounterInfo.ReferredFrom" style="font-weight: normal">Referred from:
                         </mat-checkbox>
                       </div>
                       <div class="col-lg-4">
                         <mat-form-field appearance="outline" class="col-12">
-                          <input matInput autocomplete="off" placeholder="Referred from"   [(ngModel)]="encounterInfo.ReferralFrom"
+                          <input matInput autocomplete="off" placeholder="Referred from" class="disable-referral"  [(ngModel)]="encounterInfo.ReferralFrom"
                           [disabled]="!encounterInfo.ReferredFrom"/>
                         </mat-form-field>
                       </div>
                       <div class="col-lg-2">
-                        <mat-checkbox class="referral-margin col-12"    [(ngModel)]="encounterInfo.ReferredTo" style="font-weight: normal">Referred to:
+                        <mat-checkbox class="referral-margin col-12" #referralto  (change)='onReferralToStateChange(referralto.checked)'
+                        [(ngModel)]="encounterInfo.ReferredTo" style="font-weight: normal">Referred to:
                         </mat-checkbox>
                       </div>
                       <div class="col-lg-4">
                         <mat-form-field appearance="outline" class="col-12">
-                          <input matInput autocomplete="off" placeholder="Referred to"   [(ngModel)]="encounterInfo.ReferralTo"
+                          <input matInput autocomplete="off" placeholder="Referred to"  class="disable-referral" [(ngModel)]="encounterInfo.ReferralTo"
                           [disabled]="!encounterInfo.ReferredTo" />
                         </mat-form-field>
                       </div>
@@ -469,113 +470,128 @@
               <div class="encounter-tab-content">
                 <div class="encounter-tab-pane" id="encounter_diagnoses_tab" style="width:80%;margin-left:10%">
 
-
+                  <div class="row vitals-heading">
+                    <p class="text-center fw-bolder fs-5 Helvetica-sans-serif-medium mt-2">Associate vitals to an encounter:</p>
+                  </div>
                     <div class="row">
-                      <div class="row vitals-heading">
-                        <p class="text-center fw-bolder fs-5 Helvetica-sans-serif-medium mt-2">Associate vitals to an encounter:</p>
-                      </div>
+
                       <div class="row">
-                        <div class="form-group col-md-6">
-                          <label class="col-lg-6 col-md-6 col-5">Collected date/time:*</label>
-                          <mat-form-field appearance="outline" class="col-12 cstm-datepicker-toggle">
-                            <input class="vital-input col-lg-6 col-md-6 col-7" matInput class="pointer"
+                        <div class="form-group col-lg-6 col-md-6 col-6" style="display: inline;">
+                          <label class="col-12 vital-label required">Collected date:</label>
+                          <mat-form-field appearance="outline" class="col-lg-10 col-md-10 col-10">
+                            <input class="vital-input " matInput class="pointer"
                             autocomplete="off" [matDatepicker]="collectedDate"
                             [(ngModel)]="encounterInfo.Vital.CollectedAt"
                             (click)="collectedDate.open()" readonly placeholder="Collected Date">
                             <mat-datepicker-toggle matSuffix [for]="collectedDate"></mat-datepicker-toggle>
                                     <mat-datepicker #collectedDate></mat-datepicker>
                           </mat-form-field>
-                          <input [ngxMatTimepicker]="collectedTime" [(ngModel)]="encounterInfo.Vital.CollectedTime"
-                          format="12" class="vital-input col-lg-6 col-md-6 col-7 mt-1 pull-right">
-                          <ngx-mat-timepicker #collectedTime></ngx-mat-timepicker>
+                          <label class="col-12 required">Time:</label>
+                          <mat-form-field appearance="outline" class="col-lg-10 col-md-10 col-10">
+                          <input matInput class="vital-input" type="text" hint="24 hours format"
+                          [(ngModel)]="encounterInfo.Vital.CollectedTime"  appTimeMask>
+                          <mat-hint>24 hours format</mat-hint>
+                          </mat-form-field>
+                        </div>
+                        <div class="form-group col-lg-6 col-md-6 col-6" style="float: right">
+                          <label class="col-12 vital-label">Comments:</label>
+                          <textarea class="textarea col-12" style="height:80%" [(ngModel)]="encounterInfo.Vital.Note"></textarea>
                         </div>
                       </div>
+
+
+                    </div>
+                    <div class="row vitals-heading">
+                      <p class="text-center fw-bolder fs-5 Helvetica-sans-serif-medium mt-2">Add a new record for vitals:</p>
+                    </div>
+                    <div class="row">
+                      <div class="form-group col-md-4" style="display: flex;">
+                        <mat-label class="col-4 vital-label">Height:</mat-label>
+                        <mat-form-field  appearance="outline" class="col-12 vital-mat-form-field">
+
+                          <input matInput class="col-6" #heightField
+                          maxlength="5" [(ngModel)]="encounterInfo.Vital.Height" >
+                          <!-- <mat-hint align="end">in</mat-hint> -->
+                          <mat-hint class="vital-mat-form-field-unit-label">in</mat-hint>
+                        </mat-form-field>
+                      </div>
+                      <div class="form-group col-md-4">
+                        <mat-label class="col-4 vital-label">Weight:</mat-label>
+                        <mat-form-field  appearance="outline" class="col-12 vital-mat-form-field">
+
+                          <input matInput class="vital-input col-4"  #weightField
+                          [(ngModel)]="encounterInfo.Vital.Weight" >
+                          <mat-hint class="vital-mat-form-field-unit-label">lb</mat-hint>
+                        </mat-form-field>
+                      </div>
+                      <div class="form-group col-md-4">
+                        <mat-label class="col-4 vital-label">BMI</mat-label>
+                        <mat-form-field  appearance="outline"  class="col-12 vital-mat-form-field">
+
+                          <input matInput class="vital-input col-4"  #bmiField
+                            [value]="bmi$ | async" disabled="true"
+                          [(ngModel)]="encounterInfo.Vital.BMI" >
+                          <mat-hint class="vital-mat-form-field-unit-label"></mat-hint>
+                        </mat-form-field>
+                      </div>
+                    </div>
                       <div class="row">
-                        <div class="form-group">
-                          <label class="col-12">Comments:</label>
-                          <textarea class="textarea col-12" [(ngModel)]="encounterInfo.Vital.Note"></textarea>
-                        </div>
+                      <div class="form-group col-md-4">
+                        <mat-label class="col-4 vital-label">BP:Systolic</mat-label>
+                        <mat-form-field  appearance="outline" class="col-12 vital-mat-form-field">
+                          <input matInput class="col-4 vital-input" [(ngModel)]="encounterInfo.Vital.BPSystolic" >
+                          <mat-hint class="vital-mat-form-field-unit-label">mmHg</mat-hint>
+                        </mat-form-field>
                       </div>
-                      <div class="row vitals-heading">
-                        <p class="text-center fw-bolder fs-5 Helvetica-sans-serif-medium mt-2">Add a new record for vitals:</p>
+                      <div class="form-group col-md-4">
+                        <mat-label class="col-4 vital-label">BP:Diastolic</mat-label>
+                        <mat-form-field  appearance="outline" class=" col-12 vital-mat-form-field">
+                          <input matInput class="col-4 vital-input" [(ngModel)]="encounterInfo.Vital.BPDiastolic" >
+                          <mat-hint class="vital-mat-form-field-unit-label">mmHg</mat-hint>
+                        </mat-form-field>
+                      </div>
+                      <div class="form-group col-md-4"></div>
+                    </div>
+                    <div class="row">
+                      <div class="form-group col-md-4">
+                        <mat-label class="col-4 vital-label">Temperature:</mat-label>
+                        <mat-form-field  appearance="outline" class=" col-12 vital-mat-form-field">
+
+                          <input matInput class="col-4 vital-input" [(ngModel)]="encounterInfo.Vital.Temperature" >
+                          <mat-hint class="vital-mat-form-field-unit-label">F</mat-hint>
+                        </mat-form-field>
+                      </div>
+                      <div class="form-group col-md-4">
+                        <mat-label class="col-4 vital-label" style="white-space: nowrap;">O2 Saturation:</mat-label>
+                        <mat-form-field  appearance="outline" class="col-12 vital-mat-form-field">
+
+                          <input matInput class="col-4 vital-input" [(ngModel)]="encounterInfo.Vital.O2Saturation" >
+                          <mat-hint class="vital-mat-form-field-unit-label">%</mat-hint>
+                        </mat-form-field>
+                      </div>
+                      <div class="form-group col-md-4">
+                        <mat-label class="col-4 vital-label">Pulse:</mat-label>
+                        <mat-form-field  appearance="outline" class="col-12 vital-mat-form-field">
+
+                          <input matInput class="col-4 vital-input" [(ngModel)]="encounterInfo.Vital.Pulse" >
+                          <mat-hint class="vital-mat-form-field-unit-label">bpm</mat-hint>
+                        </mat-form-field>
                       </div>
                     </div>
                     <div class="row">
-                      <div class="form-group col-md-6" style="display: flex;">
-                        <mat-form-field  appearance="outline" class="vital-mat-form-field">
-                          <mat-label>Height</mat-label>
-                          <input matInput class="vital-input" #heightField
-                          maxlength="5" [(ngModel)]="encounterInfo.Vital.Height" >
-                          <!-- <mat-hint align="end">in</mat-hint> -->
-                          <span class="vital-mat-form-field-unit-label">in</span>
-                        </mat-form-field>
-                      </div>
-                      <div class="form-group col-md-6">
-                        <mat-form-field  appearance="outline" class="vital-mat-form-field">
-                          <mat-label>Weight</mat-label>
-                          <input matInput class="vital-input"  #weightField
-                          [(ngModel)]="encounterInfo.Vital.Weight" >
-                          <label class="vital-mat-form-field-unit-label">lb</label>
-                        </mat-form-field>
-                      </div>
-                      <div class="form-group col-md-6">
-                        <mat-form-field  appearance="outline"  class="vital-mat-form-field">
-                          <mat-label>BMI</mat-label>
-                          <input matInput class="vital-input" #bmiField
-                            [value]="bmi$ | async" disabled="true"
-                          [(ngModel)]="encounterInfo.Vital.BMI" >
-                          <label class="vital-mat-form-field-unit-label"></label>
-                        </mat-form-field>
-                      </div>
-                      <div class="form-group col-md-6">
+                      <div class="form-group col-md-4">
+                        <mat-label class="col-4 vital-label" style="white-space: nowrap;">Respiratory rate:</mat-label>
+                        <mat-form-field  appearance="outline" class="col-12 vital-mat-form-field">
 
-                      </div>
-                      <div class="form-group col-md-6">
-                        <mat-form-field  appearance="outline" class="vital-mat-form-field">
-                          <mat-label>BP:Systolic</mat-label>
-                          <input matInput class="vital-input" [(ngModel)]="encounterInfo.Vital.BPSystolic" >
-                          <label class="vital-mat-form-field-unit-label">mmHg</label>
+                          <input matInput  class="col-4 vital-input" [(ngModel)]="encounterInfo.Vital.RespiratoryRate" >
+                          <mat-hint class="vital-mat-form-field-unit-label">bpm</mat-hint>
                         </mat-form-field>
                       </div>
-                      <div class="form-group col-md-6">
-                        <mat-form-field  appearance="outline" class="vital-mat-form-field">
-                          <mat-label>BP:Diastolic</mat-label>
-                          <input matInput class="vital-input" [(ngModel)]="encounterInfo.Vital.BPDiastolic" >
-                          <label class="vital-mat-form-field-unit-label">mmHg</label>
-                        </mat-form-field>
-                      </div>
-                      <div class="form-group col-md-6">
-                        <mat-form-field  appearance="outline" class="vital-mat-form-field">
-                          <mat-label>Temperature:</mat-label>
-                          <input matInput class="vital-input" [(ngModel)]="encounterInfo.Vital.Temperature" >
-                          <label class="vital-mat-form-field-unit-label">F</label>
-                        </mat-form-field>
-                      </div>
-                      <div class="form-group col-md-6">
-                        <mat-form-field  appearance="outline" class="vital-mat-form-field">
-                          <mat-label>O2 Saturation:</mat-label>
-                          <input matInput class="vital-input" [(ngModel)]="encounterInfo.Vital.O2Saturation" >
-                          <label class="vital-mat-form-field-unit-label">%</label>
-                        </mat-form-field>
-                      </div>
-                      <div class="form-group col-md-6">
-                        <mat-form-field  appearance="outline" class="vital-mat-form-field">
-                          <mat-label>Pulse:</mat-label>
-                          <input matInput class="vital-input" [(ngModel)]="encounterInfo.Vital.Pulse" >
-                          <label class="vital-mat-form-field-unit-label">bpm</label>
-                        </mat-form-field>
-                      </div>
-                      <div class="form-group col-md-6">
-                        <mat-form-field  appearance="outline" class="vital-mat-form-field">
-                          <mat-label>Respiratory rate:</mat-label>
-                          <input matInput class="vital-input" [(ngModel)]="encounterInfo.Vital.RespiratoryRate" >
-                          <label class="vital-mat-form-field-unit-label">bpm</label>
-                        </mat-form-field>
-                      </div>
-                      <div class="form-group col-md-6">
-                        <mat-form-field appearance="outline"  class="vital-mat-form-field">
-                          <mat-label>Blood Type:</mat-label>
-                          <mat-select placeholder="Select Blood Type" id="practiceProviders" [(ngModel)]="encounterInfo.Vital.BloodType" >
+                      <div class="form-group col-md-4">
+                        <mat-label class="col-4 vital-label" style="white-space: nowrap;">Blood Type:</mat-label>
+                        <mat-form-field appearance="outline"  class="col-12 vital-mat-form-field">
+
+                          <mat-select class="col-4" placeholder="Select Blood Type" id="practiceProviders" [(ngModel)]="encounterInfo.Vital.BloodType" >
                             <mat-option *ngFor="let type of BloodTypes" [value]="type.BloodType">
                               {{type.BloodType}}</mat-option>
                           </mat-select>

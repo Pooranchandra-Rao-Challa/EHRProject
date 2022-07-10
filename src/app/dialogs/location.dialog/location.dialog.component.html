@@ -86,7 +86,8 @@
                     <div class="col-lg-4 col-md-4 col-sm-4">
                       <div class="form-group">
                         <button type="button" [disabled]="PracticeLocData.Street=='' || disableaddressverification"
-                          (click)="AddressVerification()" class="btn btn-green btn-lg mt-2">VERIFY</button>
+                          (click)="AddressVerification()" class="btn btn-green btn-lg mt-2"
+                          style="padding: 0;height: 44px;">VERIFY</button>
                       </div>
                     </div>
                   </div>
@@ -194,9 +195,12 @@
                     [(ngModel)]="PracticeLocData.SunOpenTime"> -->
                   <mat-form-field appearance="outline">
                     <mat-label>Sunday-Opening</mat-label>
-                    <input matInput [(ngModel)]="PracticeLocData.SunOpenTime" [ngxMatTimepicker]="sunopenpicker"
+                    <!-- <input matInput [(ngModel)]="PracticeLocData.SunOpenTime"
+                      [ngxMatTimepicker]="sunopenpicker"
                       format="12">
-                    <ngx-mat-timepicker #sunopenpicker></ngx-mat-timepicker>
+                    <ngx-mat-timepicker #sunopenpicker></ngx-mat-timepicker> -->
+                    <input matInput type="text"
+                    [(ngModel)]="PracticeLocData.SunOpenTime"  appTimeMask>
                   </mat-form-field>
                 </div>
               </div>
@@ -206,9 +210,11 @@
                     [(ngModel)]="PracticeLocData.SunCloseTime"> -->
                   <mat-form-field appearance="outline">
                     <mat-label>Sunday-Closing</mat-label>
-                    <input matInput [(ngModel)]="PracticeLocData.SunCloseTime" [ngxMatTimepicker]="sunclosepicker"
+                    <!-- <input matInput [(ngModel)]="PracticeLocData.SunCloseTime" [ngxMatTimepicker]="sunclosepicker"
                       format="12">
-                    <ngx-mat-timepicker #sunclosepicker></ngx-mat-timepicker>
+                    <ngx-mat-timepicker #sunclosepicker></ngx-mat-timepicker> appTimeMask -->
+                    <input matInput type="text"
+                    [(ngModel)]="PracticeLocData.SunCloseTime"  appTimeMask>
                   </mat-form-field>
                 </div>
               </div>
@@ -233,10 +239,13 @@
                   <!-- <input type="text" class="col-12 inputclass" placeholder="03:00 PM"
                     [(ngModel)]="PracticeLocData.MonOpenTime"> -->
                   <mat-form-field appearance="outline">
-                    <mat-label>Monday-Opening</mat-label>
+                    <!-- <mat-label>Monday-Opening</mat-label>
                     <input matInput [(ngModel)]="PracticeLocData.MonOpenTime" [ngxMatTimepicker]="monopenpicker"
                       format="12">
-                    <ngx-mat-timepicker #monopenpicker></ngx-mat-timepicker>
+                    <ngx-mat-timepicker #monopenpicker></ngx-mat-timepicker> -->
+
+                    <input matInput type="text"
+                    [(ngModel)]="PracticeLocData.MonOpenTime"  appTimeMask>
                   </mat-form-field>
                 </div>
               </div>
@@ -246,9 +255,12 @@
                     [(ngModel)]="PracticeLocData.MonCloseTime"> -->
                   <mat-form-field appearance="outline">
                     <mat-label>Monday-Closing</mat-label>
-                    <input matInput [(ngModel)]="PracticeLocData.MonCloseTime" [ngxMatTimepicker]="monclosepicker"
+                    <!-- <input matInput [(ngModel)]="PracticeLocData.MonCloseTime" [ngxMatTimepicker]="monclosepicker"
                       format="12">
-                    <ngx-mat-timepicker #monclosepicker></ngx-mat-timepicker>
+                    <ngx-mat-timepicker #monclosepicker></ngx-mat-timepicker> -->
+
+                    <input matInput type="text"
+                    [(ngModel)]="PracticeLocData.MonCloseTime"  appTimeMask>
                   </mat-form-field>
                 </div>
               </div>
@@ -273,9 +285,11 @@
                     [(ngModel)]="PracticeLocData.TueOpenTime"> -->
                   <mat-form-field appearance="outline">
                     <mat-label>Tuesday-Opening</mat-label>
-                    <input matInput [(ngModel)]="PracticeLocData.TueOpenTime" [ngxMatTimepicker]="tueopenpicker"
+                    <!-- <input matInput [(ngModel)]="PracticeLocData.TueOpenTime" [ngxMatTimepicker]="tueopenpicker"
                       format="12">
-                    <ngx-mat-timepicker #tueopenpicker></ngx-mat-timepicker>
+                    <ngx-mat-timepicker #tueopenpicker></ngx-mat-timepicker> -->
+                    <input matInput type="text"
+                    [(ngModel)]="PracticeLocData.TueOpenTime"  appTimeMask>
                   </mat-form-field>
                 </div>
               </div>
@@ -285,9 +299,11 @@
                     [(ngModel)]="PracticeLocData.TueCloseTime"> -->
                   <mat-form-field appearance="outline">
                     <mat-label>Tuesday-Closing</mat-label>
-                    <input matInput [(ngModel)]="PracticeLocData.TueCloseTime" [ngxMatTimepicker]="tueclosepicker"
+                    <!-- <input matInput [(ngModel)]="PracticeLocData.TueCloseTime" [ngxMatTimepicker]="tueclosepicker"
                       format="12">
-                    <ngx-mat-timepicker #tueclosepicker></ngx-mat-timepicker>
+                    <ngx-mat-timepicker #tueclosepicker></ngx-mat-timepicker> -->
+                    <input matInput type="text"
+                    [(ngModel)]="PracticeLocData.TueCloseTime"  appTimeMask>
                   </mat-form-field>
                 </div>
               </div>
@@ -312,9 +328,11 @@
                     [(ngModel)]="PracticeLocData.WedOpenTime"> -->
                   <mat-form-field appearance="outline">
                     <mat-label>Wednesday-Opening</mat-label>
-                    <input matInput [(ngModel)]="PracticeLocData.WedOpenTime" [ngxMatTimepicker]="wedopenpicker"
+                    <!-- <input matInput [(ngModel)]="PracticeLocData.WedOpenTime" [ngxMatTimepicker]="wedopenpicker"
                       format="12">
-                    <ngx-mat-timepicker #wedopenpicker></ngx-mat-timepicker>
+                    <ngx-mat-timepicker #wedopenpicker></ngx-mat-timepicker> -->
+                    <input matInput type="text"
+                    [(ngModel)]="PracticeLocData.WedOpenTime"  appTimeMask>
                   </mat-form-field>
                 </div>
               </div>
@@ -324,9 +342,11 @@
                     [(ngModel)]="PracticeLocData.WedCloseTime"> -->
                   <mat-form-field appearance="outline">
                     <mat-label>Wednesday-Closing</mat-label>
-                    <input matInput [(ngModel)]="PracticeLocData.WedCloseTime" [ngxMatTimepicker]="wedclosepicker"
+                    <!-- <input matInput [(ngModel)]="PracticeLocData.WedCloseTime" [ngxMatTimepicker]="wedclosepicker"
                       format="12">
-                    <ngx-mat-timepicker #wedclosepicker></ngx-mat-timepicker>
+                    <ngx-mat-timepicker #wedclosepicker></ngx-mat-timepicker> -->
+                    <input matInput type="text"
+                    [(ngModel)]="PracticeLocData.WedCloseTime"  appTimeMask>
                   </mat-form-field>
                 </div>
               </div>
@@ -351,9 +371,11 @@
                     [(ngModel)]="PracticeLocData.ThursOpenTime"> -->
                   <mat-form-field appearance="outline">
                     <mat-label>Thursday-Opening</mat-label>
-                    <input matInput [(ngModel)]="PracticeLocData.ThursOpenTime" [ngxMatTimepicker]="thuropenpicker"
+                    <!-- <input matInput [(ngModel)]="PracticeLocData.ThursOpenTime" [ngxMatTimepicker]="thuropenpicker"
                       format="12">
-                    <ngx-mat-timepicker #thuropenpicker></ngx-mat-timepicker>
+                    <ngx-mat-timepicker #thuropenpicker></ngx-mat-timepicker> -->
+                    <input matInput type="text"
+                    [(ngModel)]="PracticeLocData.ThursOpenTime"  appTimeMask>
                   </mat-form-field>
                 </div>
               </div>
@@ -363,9 +385,11 @@
                     [(ngModel)]="PracticeLocData.ThursCloseTime"> -->
                   <mat-form-field appearance="outline">
                     <mat-label>Thursday-Closing</mat-label>
-                    <input matInput [(ngModel)]="PracticeLocData.ThursCloseTime" [ngxMatTimepicker]="thurclosepicker"
+                    <!-- <input matInput [(ngModel)]="PracticeLocData.ThursCloseTime" [ngxMatTimepicker]="thurclosepicker"
                       format="12">
-                    <ngx-mat-timepicker #thurclosepicker></ngx-mat-timepicker>
+                    <ngx-mat-timepicker #thurclosepicker></ngx-mat-timepicker> -->
+                    <input matInput type="text"
+                    [(ngModel)]="PracticeLocData.ThursCloseTime"  appTimeMask>
                   </mat-form-field>
                 </div>
               </div>
@@ -391,9 +415,11 @@
                     [(ngModel)]="PracticeLocData.FriOpenTime"> -->
                   <mat-form-field appearance="outline">
                     <mat-label>Friday-Opening</mat-label>
-                    <input matInput [(ngModel)]="PracticeLocData.FriOpenTime" [ngxMatTimepicker]="friopenpicker"
+                    <!-- <input matInput [(ngModel)]="PracticeLocData.FriOpenTime" [ngxMatTimepicker]="friopenpicker"
                       format="12">
-                    <ngx-mat-timepicker #friopenpicker></ngx-mat-timepicker>
+                    <ngx-mat-timepicker #friopenpicker></ngx-mat-timepicker> -->
+                    <input matInput type="text"
+                    [(ngModel)]="PracticeLocData.FriOpenTime"  appTimeMask>
                   </mat-form-field>
                 </div>
               </div>
@@ -403,9 +429,11 @@
                     [(ngModel)]="PracticeLocData.FriCloseTime"> -->
                   <mat-form-field appearance="outline">
                     <mat-label>Friday-Closing</mat-label>
-                    <input matInput [(ngModel)]="PracticeLocData.FriCloseTime" [ngxMatTimepicker]="friclosepicker"
+                    <!-- <input matInput [(ngModel)]="PracticeLocData.FriCloseTime" [ngxMatTimepicker]="friclosepicker"
                       format="12">
-                    <ngx-mat-timepicker #friclosepicker></ngx-mat-timepicker>
+                    <ngx-mat-timepicker #friclosepicker></ngx-mat-timepicker> -->
+                    <input matInput type="text"
+                    [(ngModel)]="PracticeLocData.FriCloseTime"  appTimeMask>
                   </mat-form-field>
                 </div>
               </div>
@@ -430,9 +458,11 @@
                     [(ngModel)]="PracticeLocData.SatOpenTime"> -->
                   <mat-form-field appearance="outline">
                     <mat-label>Saturday-Opening</mat-label>
-                    <input matInput [(ngModel)]="PracticeLocData.SatOpenTime" [ngxMatTimepicker]="satopenpicker"
+                    <!-- <input matInput [(ngModel)]="PracticeLocData.SatOpenTime" [ngxMatTimepicker]="satopenpicker"
                       format="12">
-                    <ngx-mat-timepicker #satopenpicker></ngx-mat-timepicker>
+                    <ngx-mat-timepicker #satopenpicker></ngx-mat-timepicker> -->
+                    <input matInput type="text"
+                    [(ngModel)]="PracticeLocData.SatOpenTime"  appTimeMask>
                   </mat-form-field>
                 </div>
               </div>
@@ -442,9 +472,11 @@
                     [(ngModel)]="PracticeLocData.SatCloseTime"> -->
                   <mat-form-field appearance="outline">
                     <mat-label>Saturday-Closing</mat-label>
-                    <input matInput [(ngModel)]="PracticeLocData.SatCloseTime" [ngxMatTimepicker]="satclosepicker"
+                    <!-- <input matInput [(ngModel)]="PracticeLocData.SatCloseTime" [ngxMatTimepicker]="satclosepicker"
                       format="12">
-                    <ngx-mat-timepicker #satclosepicker></ngx-mat-timepicker>
+                    <ngx-mat-timepicker #satclosepicker></ngx-mat-timepicker> -->
+                    <input matInput type="text"
+                    [(ngModel)]="PracticeLocData.SatCloseTime"  appTimeMask>
                   </mat-form-field>
                 </div>
               </div>

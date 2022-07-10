@@ -107,7 +107,22 @@ export class UserDialogComponent implements OnInit {
       if(resp.IsSuccess){
         this.EditProvider = resp.Result as NewUser;
         this.EditProvider.LocationInfo = JSON.parse(resp.Result.LocationInfo);
+        this.updateTimeSlotString();
       }
+    });
+  }
+
+  updateTimeSlotString(){
+    this.EditProvider.LocationInfo.forEach(loc =>{
+      let rtnString = '';
+      loc.TimeSlots.forEach(timeslot => {
+        if(rtnString != '') rtnString += '<br>'
+        if(timeslot.SpecificHour == 'Specific Hours')
+          rtnString += timeslot.WeekDay+', '+timeslot.From+'-'+timeslot.To
+        else
+          rtnString += timeslot.WeekDay+', '+timeslot.SpecificHour;
+      })
+      loc.FormatedTimeSlot = rtnString;
     });
   }
 

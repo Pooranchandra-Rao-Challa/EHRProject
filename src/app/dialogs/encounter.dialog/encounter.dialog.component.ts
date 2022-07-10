@@ -230,7 +230,16 @@ export class EncounterDialogComponent implements OnInit {
     value.CanDelete = true;
     this.diagnosesInfo.next(this.encounterInfo.Diagnoses.filter(fn => fn.CanDelete === false));
   }
-
+  onReferralFromStateChange(value){
+    if(value){
+      this.encounterInfo.ReferredTo = false;
+    }
+  }
+  onReferralToStateChange(value){
+    if(value){
+      this.encounterInfo.ReferredFrom = false;
+    }
+  }
   optionChangedForDiagnosis(value: MedicalCode) {
     let d: EncounterDiagnosis = new EncounterDiagnosis();
     d.Code = value.Code

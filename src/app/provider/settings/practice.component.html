@@ -48,11 +48,20 @@
                   </ng-container>
                   <ng-container matColumnDef="Address">
                     <mat-header-cell *matHeaderCellDef>Address</mat-header-cell>
-                    <mat-cell class="address-oncursor" *matCellDef="let loc">{{loc.Location_Street_Address}}</mat-cell>
+                    <mat-cell class="address-oncursor" *matCellDef="let loc">
+                      <span class="text-decoration ">
+                        <a data-remote="true" class="cursorpointer"
+                          (click)="openComponentDialog(locationDialogComponent,loc,ActionsType.view)">
+                          {{loc.Location_Street_Address}}</a></span>
+                    </mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="Phone">
                     <mat-header-cell *matHeaderCellDef>Phone</mat-header-cell>
-                    <mat-cell class="address-oncursor" *matCellDef="let loc">{{loc.Location_Phone}}</mat-cell>
+                    <mat-cell class="address-oncursor" *matCellDef="let loc">
+                      <span class="text-decoration ">
+                        <a data-remote="true" class="cursorpointer"
+                          (click)="openComponentDialog(locationDialogComponent,loc,ActionsType.view)">
+                          {{loc.Location_Phone}}</a></span></mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="Providers">
                     <mat-header-cell *matHeaderCellDef># of Providers</mat-header-cell>
@@ -177,7 +186,7 @@
               <div class="input-group">
                 <label class="labelclass form-control required" required>First Name</label>
                 <input class="addfromdesign inputclass form-control mx-0" type="text"
-                  [(ngModel)]="NewUserData.FirstName" id="firstName" name="firstName" #firstName="ngModel" required
+                  [(ngModel)]="NewUserData.FirstName" autocomplete="off" id="firstName" name="firstName" #firstName="ngModel" required
                   pattern="[a-zA-Z ]*" />
               </div>
               <div *ngIf="firstName.errors && (firstName.touched)">
@@ -197,7 +206,7 @@
               <div class="input-group">
                 <label class="labelclass form-control">Last Name</label>
                 <input class="addfromdesign inputclass form-control mx-0" type="text" [(ngModel)]="NewUserData.LastName"
-                  id="lastName" name="lastName" #lastName="ngModel" required pattern="/[a-zA-Z ]*/" />
+                  id="lastName" name="lastName" autocomplete="off" #lastName="ngModel" required pattern="/[a-zA-Z ]*/" />
               </div>
             </div>
           </div>
@@ -206,7 +215,7 @@
               <div class="input-group input-group-phone">
                 <label class="labelclass form-control required">Email</label>
                 <input class="addfromdesign inputclass form-control mx-0" type="text" [(ngModel)]="NewUserData.Email"
-                  id="email" name="email" #email="ngModel" required [pattern]="emailPattern" />
+                  id="email" name="email" autocomplete="off" #email="ngModel" required [pattern]="emailPattern" />
                 <!-- ^[A-Za-z0-9._%-]+@[A-Za-z0-9._-]+\\.[a-z]{2,3}$ -->
               </div>
               <div *ngIf="email.errors && (email.touched)">
@@ -225,21 +234,24 @@
           <div class="col-lg-6 col-md-6 col-12 my-2">
             <div class="form-group">
               <label class="required" required>Provider Role:</label>
-              <select class="col-12 inputclass" [(ngModel)]="NewUserData.PracticeRole">
-                <option value="" disabled selected hidden>User Role</option>
-                <option *ngFor="let pRole of providerRoles" [value]="pRole.Value">{{pRole.Name}}
-                </option>
-              </select>
+              <mat-form-field appearance="outline">
+              <mat-select [(ngModel)]="NewUserData.PracticeRole" autocomplete="off"
+              placeholder="User Role">
+                <mat-option *ngFor="let pRole of providerRoles" [value]="pRole.Value">{{pRole.Name}}
+                </mat-option>
+              </mat-select>
+              </mat-form-field>
             </div>
           </div>
           <div class="col-lg-6 col-md-6 col-12 my-2">
             <div class="form-group">
               <label>Status:</label>
-              <select aria-placeholder="Status" class="col-12 inputclass" [(ngModel)]="NewUserData.Active">
-                <option value="" disabled selected hidden>Status</option>
-                <option value="True">Enable</option>
-                <option value="False">Disable</option>
-              </select>
+              <mat-form-field appearance="outline">
+              <mat-select placeholder="Status" autocomplete="off" [(ngModel)]="NewUserData.Active">
+                <mat-option value="True">Enable</mat-option>
+                <mat-option value="False">Disable</mat-option>
+              </mat-select>
+              </mat-form-field>
             </div>
           </div>
 
