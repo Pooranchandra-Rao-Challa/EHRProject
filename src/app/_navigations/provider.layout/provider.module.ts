@@ -93,7 +93,7 @@ import localeIt from '@angular/common/locales/en';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 
-import { TimeMaskDirective } from 'src/app/_directives/input.time.mask.directive'
+//import { TimeMaskDirective } from 'src/app/_directives/input.time.mask.directive'
 registerLocaleData(localeIt);
 @NgModule({
   exports: [
@@ -109,7 +109,7 @@ registerLocaleData(localeIt);
     TeethSurfaceModule,
     AddeditinterventionComponent,
     // PaginatorDirective
-    TimeMaskDirective
+    //TimeMaskDirective
   ],
   declarations: [
     ProviderNavbarComponent,
@@ -158,7 +158,7 @@ registerLocaleData(localeIt);
     AddeditinterventionComponent,
     ProcedureDialogComponent,
     SignEncounterNoteComponent,
-    TimeMaskDirective,
+    //TimeMaskDirective,
   ],
   imports: [
 

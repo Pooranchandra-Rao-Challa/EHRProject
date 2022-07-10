@@ -323,6 +323,9 @@ export class EncounterDialogComponent implements OnInit {
 
   updateEncounter(){
     let isAdd = this.encounterInfo.EncounterId == null;
+    console.log(this.encounterInfo);
+
+    return;
     this.patientService.CreateEncounter(this.encounterInfo).subscribe(resp => {
       if (resp.IsSuccess) {
         this.overlayref.close({"UpdatedModal": PatientChart.Encounters});

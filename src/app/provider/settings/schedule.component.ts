@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgModule } from '@angular/core';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { SettingsService } from '../../_services/settings.service';
 import { User } from '../../_models';
@@ -11,7 +11,7 @@ declare var $: any;
 @Component({
   selector: 'schedule-settings',
   templateUrl: './schedule.component.html',
-  styleUrls: ['./settings.component.scss']
+  styleUrls: ['./settings.component.scss'],
 })
 export class ScheduleComponent implements OnInit {
   user: User;
