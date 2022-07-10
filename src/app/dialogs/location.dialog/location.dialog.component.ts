@@ -89,6 +89,9 @@ export class LocationDialogComponent implements OnInit {
   }
   SaveupateLocation() {
     let isAdd = this.PracticeLocData.LocationId == null;
+    console.log(this.PracticeLocData);
+
+    return
     this.settingsService.AddUpdateLocation(this.PracticeLocData).subscribe(resp => {
       if (resp.IsSuccess) {
         this.addressVerfied = false;

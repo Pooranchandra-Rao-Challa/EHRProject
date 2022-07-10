@@ -32,21 +32,21 @@ import {
 } from '@angular/forms';
 import { isNumeric } from 'rxjs/util/isNumeric';
 @Directive({
-  selector: '[appTimeMask]',
+  selector: '[timemask]',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => TimeMaskDirective),
+      useExisting: forwardRef(() => TimeMaskSettingsDirective),
       multi: true,
     },
     {
       provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => TimeMaskDirective),
+      useExisting: forwardRef(() => TimeMaskSettingsDirective),
       multi: true,
     },
   ],
 })
-export class TimeMaskDirective implements OnInit, ControlValueAccessor, Validator {
+export class TimeMaskSettingsDirective implements OnInit, ControlValueAccessor, Validator {
   /** implements ControlValueAccessorInterface */
   _onChange: (_: string) => void;
 

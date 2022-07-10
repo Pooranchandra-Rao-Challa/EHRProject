@@ -109,6 +109,7 @@ registerLocaleData(localeIt);
     TeethSurfaceModule,
     AddeditinterventionComponent,
     // PaginatorDirective
+    TimeMaskDirective
   ],
   declarations: [
     ProviderNavbarComponent,

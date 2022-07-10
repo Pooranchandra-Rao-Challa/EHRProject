@@ -229,7 +229,6 @@ export class FieldControlComponent extends _SearchInputMixiBase
         this.onToutch();
       });
     this.form.valueChanges.pipe(
-
       filter(res => {
         if(res.query != null && res.query.length < this.MinTermLength) {
           this.isLoading = false;

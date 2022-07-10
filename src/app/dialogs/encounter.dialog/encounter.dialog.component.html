@@ -486,11 +486,11 @@
                             <mat-datepicker-toggle matSuffix [for]="collectedDate"></mat-datepicker-toggle>
                                     <mat-datepicker #collectedDate></mat-datepicker>
                           </mat-form-field>
-                          <label class="col-12 required">Time:</label>
+                          <label class="col-12 vital-label required">Time:</label>
                           <mat-form-field appearance="outline" class="col-lg-10 col-md-10 col-10">
                           <input matInput class="vital-input" type="text" hint="24 hours format"
                           [(ngModel)]="encounterInfo.Vital.CollectedTime"  appTimeMask>
-                          <mat-hint>24 hours format</mat-hint>
+
                           </mat-form-field>
                         </div>
                         <div class="form-group col-lg-6 col-md-6 col-6" style="float: right">

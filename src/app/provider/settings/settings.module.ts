@@ -13,6 +13,7 @@ import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { WeekdayFormatPipe } from 'src/app/_pipes/weekday-format-pipe'
 import { ToggleFullscreenDirective } from 'src/app/_directives/fullscreen.directive';
+import { TimeMaskSettingsDirective} from 'src/app/_directives/input.time.mask.directive.settings'
 
 @NgModule({
   imports: [SharedModule, CommonModule, NgxMaskModule.forRoot(), ColorPickerModule,],
@@ -23,7 +24,7 @@ import { ToggleFullscreenDirective } from 'src/app/_directives/fullscreen.direct
   declarations: [PracticeComponent, ScheduleComponent, ErxComponent, AuditLogComponent,
     AccessPermissionComponent,
     PatientEdnMaterialComponent,
-    ClinicDecisionComponent,WeekdayFormatPipe,ToggleFullscreenDirective,],
+    ClinicDecisionComponent,WeekdayFormatPipe,ToggleFullscreenDirective,TimeMaskSettingsDirective],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
