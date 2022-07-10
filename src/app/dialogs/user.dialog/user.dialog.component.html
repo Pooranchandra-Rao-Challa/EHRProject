@@ -38,20 +38,45 @@
                     </select>
                   </div>
                 </div>
-                <div class="col-lg-4 col-md-8 col-12"><label class="settings-label">First Name</label>
+                <div class="col-lg-4 col-md-8 col-12"><label class="settings-label required">First Name</label>
                   <div class="form-group">
-                    <input class="inputclass" type="text" autocomplete="off" placeholder="First Name" [(ngModel)]="EditProvider.FirstName">
+                    <input class="inputclass" type="text" autocomplete="off" placeholder="First Name"
+                    pattern="^[A-Za-z.\s]+$" required #patientFirstName="ngModel"
+                     [(ngModel)]="EditProvider.FirstName">
+                  </div>
+                  <div class="error_message" *ngIf="patientFirstName.errors?.pattern">
+                    <i class="fa fa-minus"></i>
+                    <i>Please enter alphabets, space</i>
+                  </div>
+                  <div class="error_message" *ngIf="patientFirstName.errors?.required">
+                    <i class="fa fa-minus"></i>
+                    <i>First Name is required</i>
                   </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-12"><label class="settings-label">Middle Name</label>
                   <div class="form-group">
                     <input type="text" placeholder="Middle Name" autocomplete="off" class="inputclass"
+                    pattern="^[A-Za-z_-\s]+$"  #patientMiddleName="ngModel"
                       [(ngModel)]="EditProvider.MiddleName">
                   </div>
+                  <div class="error_message" *ngIf="patientMiddleName.errors?.pattern">
+                    <i class="fa fa-minus"></i>
+                    <i>Please enter alphabets, space</i>
+                  </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-12"><label class="settings-label">Last Name</label>
+                <div class="col-lg-3 col-md-6 col-12"><label class="settings-label required">Last Name</label>
                   <div class="form-group ">
-                    <input type="text" placeholder="Last Name" autocomplete="off" class="inputclass" [(ngModel)]="EditProvider.LastName">
+                    <input type="text" placeholder="Last Name" autocomplete="off" class="inputclass"
+                    pattern="^[A-Za-z_-\s]+$" required #patientLastName="ngModel"
+                    [(ngModel)]="EditProvider.LastName">
+                  </div>
+                  <div class="error_message" *ngIf="patientLastName.errors?.pattern">
+                    <i class="fa fa-minus"></i>
+                    <i>Please enter alphabets, space</i>
+                  </div>
+                  <div class="error_message" *ngIf="patientLastName.errors?.required">
+                    <i class="fa fa-minus"></i>
+                    <i>Last Name is required</i>
                   </div>
                 </div>
               </div>
@@ -76,8 +101,13 @@
                 </div>
                 <div class="col-lg-5 col-md-12 col-12"><label class="settings-label">Secondary Speciality</label>
                   <div class="form-group">
-                    <input type="text" autocomplete="off" placeholder="Secondary speciality" class="inputclass"
+                    <input type="text" autocomplete="off" placeholder="Secondary speciality"
+                    class="inputclass" pattern="^[A-Za-z_-\s]+$"  #patientSecondarySpeciality="ngModel"
                       [(ngModel)]="EditProvider.SecondarySpeciality">
+                  </div>
+                  <div class="error_message" *ngIf="patientSecondarySpeciality.errors?.pattern">
+                    <i class="fa fa-minus"></i>
+                    <i>Please enter alphabets, space</i>
                   </div>
                 </div>
               </div>

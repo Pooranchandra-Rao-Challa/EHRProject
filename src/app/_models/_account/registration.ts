@@ -21,6 +21,8 @@ export class ViewModel{
   MiddleName: boolean = false;
   LastName: boolean = false;
   PracticeName: boolean = false;
+  Degree: boolean = false;
+  Speciality: boolean = false;
   NPI: boolean = false;
   PracticeAddress: boolean = false;
   PrimaryPhone: boolean = false;

@@ -270,7 +270,7 @@ export class PracticeComponent implements OnInit, AfterViewInit {
     this.alertmsg.userCreateConfirm('Code',"Provider Name")
   }
   /*  ^[A-Za-z0-9._%-]+@[A-Za-z0-9._-]+\\.[a-z]{2,3}$*/
-  emailPattern = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$";
+  emailPattern = "^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$";
   EnableSave(){
     var emailReg =  /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
     return !(this.NewUserData.FirstName != null && this.NewUserData.FirstName != ""

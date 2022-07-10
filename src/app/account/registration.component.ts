@@ -100,17 +100,39 @@ export class RegistrationComponent implements OnInit {
   buildPersonalForm() {
     this.PersonalInfo = this.fb.group({
       Title: [],
-      FirstName: ['', Validators.required],
-      MiddleName: [''],
-      LastName: ['', Validators.required],
+      FirstName: ['', [Validators.required, Validators.pattern(/^[A-Za-z_-\s]+$/)]],
+      MiddleName: ['', [Validators.pattern(/^[A-Za-z_-\s]+$/)]],
+      LastName: ['', [Validators.required,Validators.pattern(/^[A-Za-z_-\s]+$/)]],
       PracticeId: [],
-      PracticeName: ['', Validators.required],
-      Degree: ['', Validators.required,],
-      Speciality: ['', Validators.required],
-      NPI: ['', Validators.required],
+      PracticeName: ['', [Validators.required,Validators.pattern(/^[A-Za-z_-\s]+$/)]],
+      Degree: ['', [Validators.required],],
+      Speciality: ['', [Validators.required]],
+      NPI: ['', [Validators.required,Validators.pattern(/^[A-Za-z0-9_-\s]+$/)]],
 
     })
     this.PersonalInfo.get('Title').setValue('Dr')
+  }
+
+  get firstName(){
+    return this.PersonalInfo.get('FirstName');
+  }
+  get middleName(){
+    return this.PersonalInfo.get('MiddleName');
+  }
+  get lastName(){
+    return this.PersonalInfo.get('LastName');
+  }
+  get practiceName(){
+    return this.PersonalInfo.get('PracticeName');
+  }
+  get degree(){
+    return this.PersonalInfo.get('Degree');
+  }
+  get specialityvalue(){
+    return this.PersonalInfo.get('Speciality');
+  }
+  get NPI(){
+    return this.PersonalInfo.get('NPI');
   }
 
   buildContInfoForm() {
@@ -120,16 +142,33 @@ export class RegistrationComponent implements OnInit {
       MobilePhone: ['', [ValidatePhone]],
     })
   }
+  get practiceAddress(){
+    return this.ContactInfomation.get('PracticeAddress');
+  }
+  get primaryPhone(){
+    return this.ContactInfomation.get('PrimaryPhone');
+  }
   buildAccountInfoForm() {
     this.AccountInfomation = this.fb.group({
-      Email: ['', [Validators.required, Validators.email, Validators.pattern('^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$')]],
-      AltEmail: ['', Validators.pattern('^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$')],
-      EncryptedPassword: ['', [Validators.required, Validators.minLength(5)]],
+      Email: ['', [Validators.required, Validators.email, Validators.pattern(/^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$/)]],
+      AltEmail: ['', [Validators.pattern(/[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$/)]],
+      EncryptedPassword: ['', [Validators.required, Validators.pattern(/^[A-Za-z0-9!#*@$_-\s]{6,15}$/)]],
       ConfirmPassword: ['', Validators.required]
     }, { validators: this.MatchPassword })
 
   }
-
+  get email(){
+    return this.AccountInfomation.get('Email');
+  }
+  get altEmail(){
+    return this.AccountInfomation.get('AltEmail');
+  }
+  get password(){
+    return this.AccountInfomation.get('EncryptedPassword');
+  }
+  get confirmPassword(){
+    return this.AccountInfomation.get('ConfirmPassword');
+  }
   MatchPassword(AC: AbstractControl) {
     let password = AC.get('EncryptedPassword').value;
     if (AC.get('ConfirmPassword').touched || AC.get('ConfirmPassword').dirty) {
@@ -214,6 +253,12 @@ export class RegistrationComponent implements OnInit {
   }
 
   GetPersonalInfo() {
+     console.log(this.PersonalInfo);
+console.log(this.PersonalInfo.valid);
+console.log(this.PersonalInfo.dirty);
+
+
+    return;
     this.PersonalDetials = this.PersonalInfo.value;
   }
   GetContactInfo() {
@@ -276,7 +321,6 @@ export class RegistrationComponent implements OnInit {
 
 
 function ValidatePhone(control: AbstractControl): { [key: string]: any } | null {
-  // console.log(control.value);
 
   if (control.value && control.value.length != 10) {
     return { 'phoneNumberInvalid': true };
