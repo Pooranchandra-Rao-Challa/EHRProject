@@ -73,7 +73,7 @@
                                 *ngIf="addressVerfied && !manuallybtn" (click)="enableManualEntry()"
                                 title="Can enter manully when the verification results are in correct by clicking this icon">x</button>
                         </div>
-                        <div class="col-md-2  patient-street-address">
+                        <div class="col-md-2  patient-street-address d-flex justify-content-end flex-sm-row flex-column">
                             <div class="form-group">
                                 <button class="btn-green btn manualbtn  py-0 btn-lg btn-md"
                                     *ngIf="manuallybtn || disableaddressverification"
@@ -279,7 +279,7 @@
                     </div>
                    
                     <div class="row">
-                        <div class="col-md-9">
+                        <div class="col-md-9 col-lg-9 ">
                             <div class="form-group">
                                 <div class="input-group input-group-lg">
                                     <span class="input-group-text Helvetica-sans-serif-medium "
@@ -297,9 +297,9 @@
                                 (click)="secondaryenableManualEntry()"
                                 title="Can enter manully when the verification results are in correct by clicking this icon">x</button>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-2 col-lg-2 d-flex justify-content-end flex-sm-row flex-column">
                             <div class="form-group">
-                                <button class="btn-green btn manualbtn  py-0 btn-lg btn-md"
+                                <button class="btn-green btn manualbtn"
                                     *ngIf="secondarymanuallybtn || secondarydisableaddressverification"
                                     (click)="secondaryenterAddressManually()">Enter
                                     Address
@@ -547,7 +547,7 @@
                                         [(ngModel)]="insuraceComplanyPlan.Phone">
                                 </div>
                             </div>
-
+                      
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <label class="Helvetica-sans-serif-medium">Benefit Renewal</label>
                                 <div class="form-group">

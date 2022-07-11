@@ -45,13 +45,8 @@
   font-family: revert;
   // margin-right: 1px;
 }
-// .btn-open:hover{
-//   background-color: #41b6a6;
-//   color: white;
-//   margin-right: 3px;
-// }
 .btn-open:hover{
-  border-right: 1px solid #fff;
+  border-left:1px solid #fff;
 }
 
 .btn-of {
@@ -60,7 +55,8 @@
   height: 40px;
   font-size: 15px;
   font-family: revert;
-  border-radius: 1px;
+  border-radius: 1px; 
+  border-right:1px solid #41b6a6;
 
 }
 .plusicon{
@@ -69,8 +65,8 @@
 .btn-of:hover {
   background-color: #41b6a6;
   color: #fff;
-  margin-left: 1px;
-  border-left: 1px solid #fff;
+   margin-left: 1px;
+  border-right:1px solid #fff;
 }
 .btn-on {
   background-color: #41b6a6 !important;
