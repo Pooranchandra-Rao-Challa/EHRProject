@@ -12,7 +12,7 @@
                     <div class="input-group mb-3">
                         <input type="text" class="form-control patientInsuranceTab Helvetica-sans-serif-medium"
                             placeholder="Subscriber Name" [(ngModel)]="primlist.SubscriberNane"
-                            aria-label="Subscriber Name" aria-describedby="basic-addon1">
+                            aria-label="Subscriber Name" aria-describedby="basic-addon">
                     </div>
                     <div class="row">
                         <label class="Helvetica-sans-serif-medium">Date of Birth</label>
@@ -62,7 +62,7 @@
                                 <div class="input-group input-group-lg">
                                     <span class="input-group-text Helvetica-sans-serif-medium"
                                         id="inputGroup-sizing-lg">Street Address</span>
-                                    <input [readonly]="!disableaddressverification"
+                                    <input [readonly]="!disableaddressverification" [class.address-verfied]="!manuallybtn"
                                         class="form-control input-border Helvetica-sans-serif-medium"
                                         [(ngModel)]="primlist.StreetAddress" placeholder="Street Address" type="text"
                                         id="StreetAddress" name="StreetAddress">
@@ -202,7 +202,7 @@
                                 [(ngModel)]="primlist.StartDate"  class="Helvetica-sans-serif-medium">
                             <mat-datepicker-toggle matSuffix [for]="dp2">
                             </mat-datepicker-toggle>
-                            <mat-datepicker #dp2 disabled="false"></mat-datepicker>
+                            <mat-datepicker #dp2 ></mat-datepicker>
                         </mat-form-field>
                         <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-6">
                             <input matInput [matDatepicker]="dp1" placeholder="Stop Date" [(ngModel)]="primlist.EndDate"(focus)="dp1?.open()"

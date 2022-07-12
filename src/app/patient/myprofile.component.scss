@@ -93,13 +93,6 @@ img:hover {
   background-color: #fff !important;
 }
 
-// ::ng-deep .example-margin:hover {
-//   & .mat-checkbox-background,
-//   .mat-checkbox-frame {
-//     border-color: #41b6a6 !important;
-//   }
-// }
-
 .down-button {
   height: 50px;
   border-radius: 3px;
@@ -191,7 +184,6 @@ input[readonly] {
 
 }
 .noHover{
-  // pointer-events: none;
   cursor: not-allowed;
 }
 
@@ -201,7 +193,6 @@ input[readonly] {
   }
 }
 .disable-button {
-  // background-color: red;
   border: 1px solid #41b6a6;
   color: #41b6a6;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
