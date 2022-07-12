@@ -195,7 +195,7 @@
                     (optionSelected)="onPatientSelected($event)" ><!-- -->
                   <mat-option *ngFor="let patient of patients" [value]="patient" class="patient-search-option patient-search-option-menu-item">
                     {{patient.Name}},
-                    {{patient.DateofBirth | date: 'MM/dd/yyyy'}}-{{patient.Age}},
+                    {{patient.DateofBirth | date: 'MM/dd/yyyy'}} , {{patient.Age +' Year(s)'}} ,
                     {{patient.PrimaryPhone ? 'P:'+patient.PrimaryPhone : ''}},
                     {{patient.MobilePhone ? 'H:'+patient.MobilePhone : ''}},
                     {{patient.NumberOfAppointments+' Appointment(s)'}}

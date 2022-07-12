@@ -220,6 +220,11 @@
               </div>
               <div class="col-lg-4 col-md-4 col-sm-4">
                 <div class="form-group">
+                  <!-- <mat-form-field appearance="outline">
+                    <mat-select  placeholder="Specific Hours" [(ngModel)]="PracticeLocData.SunDDL">
+                      <mat-option *ngFor="let Status of timeStatus" [value]="Status.name">{{Status.name}}
+                    </mat-select>
+                  </mat-form-field> -->
                   <select class="col-12 inputclass" [(ngModel)]="PracticeLocData.SunDDL">
                     <option value="Specific Hours" selected>Specific Hours</option>
                     <option value="Closed/NA">Closed/NA</option>
