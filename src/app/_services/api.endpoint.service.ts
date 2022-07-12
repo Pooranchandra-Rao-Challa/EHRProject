@@ -600,7 +600,10 @@ export class APIEndPoint extends EndpointBase {
   get _cancelAppointmentUrl(){
     return this._baseUrl +"CancelAppointment";
   }
-
+get _patientMessagesUrl()
+{
+  return this._baseUrl +"PatientMessages";
+}
   constructor(public http: HttpClient) {
     super();
   }

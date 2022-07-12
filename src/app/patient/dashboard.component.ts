@@ -8,6 +8,7 @@ import { ComponentType } from '@angular/cdk/portal';
 import { PatientService } from '../_services/patient.service';
 import { Appointments } from '../_models/_patient/appointments';
 import { Router } from '@angular/router';
+import { Messages } from '../_models/_patient/messages';
 declare var $: any;
 @Component({
   selector: 'app-dashboard',
@@ -24,9 +25,11 @@ export class DashboardComponent {
   PatientDialogComponent = PatientappointmentDialogComponent;
   MessageDialogComponent = NewmessageDialogComponent;
   DialogResponse = null;
-  PatientUpcomingAppointmentsList: Appointments={};
-  PatientUpcomingAppointmentsCount:Appointments={};
+  PatientUpcomingAppointmentsList: Appointments;
+  PatientUpcomingAppointmentsCount:number=0;
   viewModel: ViewModel;
+  messages:Messages;
+  messagescount:number=0;
 
   constructor(private authenticationService: AuthenticationService,private overlayService :OverlayService,private patientservice: PatientService,private router:Router) {
 
@@ -38,6 +41,7 @@ export class DashboardComponent {
 
   ngOnInit(): void {
     this.getPatientUpcomingAppointments();
+    this.getmessages();
     $(document).ready(function () {
 
       $('ul.navbar-nav > li')
@@ -94,14 +98,29 @@ export class DashboardComponent {
   getPatientUpcomingAppointments()
 {
   var req={
-    //  "PatientId": this.user.PatientId,
-    "PatientId":"62385146391cba10c7c20539"
+     "PatientId": this.user.PatientId,
+    // "PatientId":"62385146391cba10c7c20539"
   }
   this.patientservice.PatientUpcomingAppointments(req).subscribe(res=>{
-    this.PatientUpcomingAppointmentsCount=res.ListResult[0];
-    console.log(this.PatientUpcomingAppointmentsCount.ApptCount)
-    this.PatientUpcomingAppointmentsList=res.ListResult;
+
+
+    this.PatientUpcomingAppointmentsList=res.ListResult == null ? [] : res.ListResult;
+    this.PatientUpcomingAppointmentsCount=res.ListResult == null ? 0 : res.ListResult[0].ApptCount;
     console.log(this.PatientUpcomingAppointmentsList);
   })
+}
+getmessages()
+{
+      var req={
+        // "PatientId": "5836dafef2e48f36ba90a996",
+        "PatientId": this.user.PatientId,
+      }
+      this.patientservice.GetPatientMessages(req).subscribe(res=>{
+      
+        this.messages=res.ListResult == null ? [] : res.ListResult;
+        this.messagescount=res.ListResult == null ? 0:res.ListResult[0].MessagesCount;
+        console.log(this.messages);
+        console.log(this.messagescount);
+      })
 }
 }
