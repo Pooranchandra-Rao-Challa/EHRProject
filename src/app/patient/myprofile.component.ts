@@ -70,18 +70,17 @@ GenderData:any=[
     private PatientNavbar:PatientNavbarComponent,
     private utilityService: UtilityService,) {
     this.user = authenticationService.userValue;
+    this.searchCellPhoneData=[];
+    this.searchHomePhoneData=[];
+    this.searchWorkPhoneData=[];
+    this.searchPhoneData=[];
     // console.log(this.user);
   }
 
   ngOnInit(): void {
     this.getPatientProfile();
-    // this.filteredOptions = this.myControl.valueChanges.pipe(
-    //   startWith(''),
-    //   map(value => this._filter(value)),
-    // );
     this._filterProcedure();
     this.events();
-    //this.getPatientProfile();
 
   }
 
