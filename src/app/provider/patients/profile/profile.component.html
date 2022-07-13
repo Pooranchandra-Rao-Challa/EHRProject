@@ -125,11 +125,13 @@
 
               <div class="col-lg-6 col-md-6 col-xl-6 col-12 my-2">
                 <label for="RELATION" class="form-label label-design text-nowrap">RELATION TO PATIENT</label>
+                <div class="form-group">
                   <mat-form-field appearance="outline" class="col-12">
-                    <mat-select placeholder="Select Relation" [(ngModel)]="PatientMyProfile.RelationshipToPatient">
-                      <mat-option [value]="item.value" *ngFor="let item of relationship">{{item.value}}</mat-option>
+                    <mat-select placeholder="Select Patient Relation" [(ngModel)]="PatientMyProfile.RelationshipToPatient">
+                      <mat-option  *ngFor="let item of relationship" [value]="item.value">{{item.value}}</mat-option>
                     </mat-select>
                   </mat-form-field>
+                </div>
               </div>
 
               <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
@@ -428,7 +430,7 @@
                 <div class="find-procedure">
                   <div class="form-group mx-3">
                     <div class="input-group py-3"><input type="text" name="search_procedure_code"
-                       id="search_procedure_code" class="form-control search-control" placeholder="Search Procedure(s)">
+                       id="search_procedure_code" class="form-control search-control" placeholder="Search Patient's Relationship">
                       <button class="btn btn-info btn-md" type="button">
                         <i class="fa fa-search "></i>
                       </button>
@@ -484,19 +486,23 @@
             <div class="row  mx-2">
               <div class="col-lg-6 col-md-6 col-xl-6 col-12 my-2">
                 <label for="Name" class="form-label label-design">ETHNICITY</label>
-                <select class="form-select" aria-label="Default select example"
-                  [(ngModel)]="PatientMyProfile.ethnicity">
-                  <option selected value="Hispani or Latino">Hispani or Latino</option>
-                  <option value="Not Hispani or Latino">Not Hispani or Latino</option>
-                  <option value="Patinet Decline to specify">Patinet Decline to specify</option>
-                </select>
+                <div class="form-group">
+                  <mat-form-field appearance="outline">
+                    <mat-select  placeholder="Select Ethnicity" [(ngModel)]="PatientMyProfile.ethnicity">
+                      <mat-option  *ngFor="let ethnicity of ethnicities" [value]="ethnicity.name">{{ethnicity.name}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
               </div>
               <div class="col-lg-6 col-md-6 col-xl-6 col-12 my-2">
                 <label for="MiddleName" class="form-label label-design">PREFERRED LANGUAGE</label>
-                <select class="form-select" aria-label="Default select example"
-                  [(ngModel)]="PatientMyProfile.PreferredLanguage">
-                  <option [value]="item.Name" *ngFor="let item of languageList">{{item.Name}} {{(item.Alpha2)}}</option>
-                </select>
+                <div class="form-group">
+                  <mat-form-field appearance="outline">
+                    <mat-select  placeholder="Select Language" [(ngModel)]="PatientMyProfile.PreferredLanguage">
+                      <mat-option  *ngFor="let item of languageList" [value]="item.Name">{{item.Name}} {{(item.Alpha2)}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
               </div>
               <div class="col-lg-6 col-md-6 col-xl-6 col-12 my-2">
                 <label for="GenderIdentity" class="form-label label-design">Gender Identity</label>
