@@ -220,5 +220,8 @@ export class PatientService extends APIEndPoint {
   CreateProcedure(reqparams: any) {
     return this._ProcessPostRequest<any>(this._createProcedureUrl, reqparams);
   }
-
+ GetPatientMessages(reqparams : any)
+ {
+  return this._ProcessPostRequest<any>(this._patientMessagesUrl, reqparams);
+ }
 }

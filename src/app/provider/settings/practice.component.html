@@ -12,12 +12,19 @@
               <div class="col-xl-2 col-lg-3 col-md-4 col-12">
                 <p class="text-center Helvetica-sans-serif-medium my-1">Time Zone:</p>
               </div>
-              <div class="col-xl-6 col-lg-5 col-md-7 col-12 ">
-                <select class="col-12 inputtimezone" [(ngModel)]="user.TimeZone" (change)="timeZoneChanged($event)">
+              <div class="col-xl-6 col-lg-5 col-md-7 col-12">
+                <div class="form-group">
+                  <mat-form-field appearance="outline">
+                    <mat-select [(ngModel)]="user.TimeZone" (change)="timeZoneChanged($event)">
+                      <mat-option *ngFor="let timezone of TimeZoneList" [value]="timezone.DisplayName">{{timezone.DisplayName}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <!-- <select class="col-12 inputtimezone" [(ngModel)]="user.TimeZone" (change)="timeZoneChanged($event)">
                   <option *ngFor="let timezone of TimeZoneList" [value]="timezone.DisplayName">
                     {{timezone.DisplayName}}
                   </option>
-                </select>
+                </select> -->
                 <div class="mx-0 timezone">
                   <p class="time my-0 Helvetica-sans-serif-medium">Current Time : {{CurrentTime}}</p>
                   <p class="time my-0 Helvetica-sans-serif-small">Current UTC Time : {{UTCTime}}</p>
