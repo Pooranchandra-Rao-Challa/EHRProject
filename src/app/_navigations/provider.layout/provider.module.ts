@@ -171,16 +171,12 @@ registerLocaleData(localeIt);
     AddeditinterventionComponent,
     ProcedureDialogComponent,
     SignEncounterNoteComponent,
-<<<<<<< HEAD
     OrderdialogueComponent,
     OrderresultdialogueComponent,
     EditlabimageorderComponent,
     OdermanualentrydialogComponent,
     AddimagingresultdialogComponent
     
-=======
-    CompleteAppointmentDialogComponent,
->>>>>>> 448c37d21ac3500b2b38b6749322a908d7e7d5ac
     //TimeMaskDirective,
   ],
   imports: [
