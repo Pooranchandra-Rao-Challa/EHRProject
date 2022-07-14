@@ -603,6 +603,7 @@ export class APIEndPoint extends EndpointBase {
   get _patientMessagesUrl() {
     return this._baseUrl + "PatientMessages";
   }
+<<<<<<< HEAD
  
   get _labImageStatusesUrl()
   {
@@ -612,6 +613,10 @@ export class APIEndPoint extends EndpointBase {
   get _labImageOrderStatusesUrl()
   {
     return this._baseUrl + "LabImageOrderStatuses";
+=======
+  get _updateAppointmentStatusUrl(){
+    return this._baseUrl + "UpdateAppointmentStatus";
+>>>>>>> 448c37d21ac3500b2b38b6749322a908d7e7d5ac
   }
   constructor(public http: HttpClient) {
     super();

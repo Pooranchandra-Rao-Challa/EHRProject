@@ -58,6 +58,7 @@ export class AlertMessage {
     })
 
   }
+
 }
 /**
  * Please add here more screens info when developer finds new.
@@ -309,9 +310,12 @@ export const ERROR_CODES: { [key: string]: string } = {
   'M2JSAT001': 'Appointment type added successfully',
   'M2JSAT002': 'Appointment type updated successfully',
   'M2JSAT003': 'Appointment type deleted successfully',
+  'M2JSAT004': 'Appointment status is updated successfully',
 
   // Error for Rooms
   'E2JSAT001': 'Appointment type created error',
+  'E2JSAT002': 'Appointment status is not updated.',
+  'E2JSAT003': 'Appointment status update error.',
 
   // Schedule - Appointment Status
   'M2JSAS001': 'Appointment status added successfully',

@@ -15,6 +15,7 @@ import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
 })
 export class LocationDialogComponent implements OnInit {
   locationColumns: string[] = ['Location', 'Address', 'Phone', 'Providers'];
+  timeStatus = [{name: 'Specific Hours'},{name: 'Closed/NA'},{name: 'Open 24 Hrs'}];
   PracticeLocData: PracticeLocation;
   PhonePattern: any;
   user: User;
@@ -44,7 +45,7 @@ export class LocationDialogComponent implements OnInit {
   ngOnInit(): void {
 
   }
-
+  
   // address verification
   AddressVerification() {
     this.accountservice.VerifyAddress(this.PracticeLocData.Street).subscribe(resp => {
@@ -90,8 +91,6 @@ export class LocationDialogComponent implements OnInit {
   SaveupateLocation() {
     let isAdd = this.PracticeLocData.LocationId == null;
     console.log(this.PracticeLocData);
-
-    return
     this.settingsService.AddUpdateLocation(this.PracticeLocData).subscribe(resp => {
       if (resp.IsSuccess) {
         this.addressVerfied = false;

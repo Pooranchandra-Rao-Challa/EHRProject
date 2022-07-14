@@ -16,12 +16,19 @@
           </div>
           <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
             <label for="Date" class="form-label"> Provider</label>
-            <select class="form-select inputclass" id="sel1" name="sellist1">
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-select  placeholder="Select Provider">
+                  <mat-option  *ngFor="let item of Providerdata" [value]="item.FullName">{{item.FullName}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <!-- <select class="form-select inputclass" id="sel1" name="sellist1">
               <option class="dropdown-menu"  disabled selected>Select Provider</option>
               <option>2</option>
               <option>3</option>
               <option>4</option>
-            </select>
+            </select> -->
           </div>
         </div>
 
@@ -32,12 +39,19 @@
           </div>
           <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
             <label for="Date" class="form-label">Location </label>
-            <select class="form-select inputclass" id="sel1" name="sellist1">
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-select  placeholder="Select Location">
+                  <mat-option  *ngFor="let item of clinicaldata" [value]="item.LocationId">{{item.LocationName}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <!-- <select class="form-select inputclass" id="sel1" name="sellist1">
               <option class="dropdown-menu"  disabled selected>Select Location</option>
               <option>2</option>
               <option>3</option>
               <option>4</option>
-            </select>
+            </select> -->
           </div>
         </div>
 

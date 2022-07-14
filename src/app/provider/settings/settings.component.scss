@@ -338,11 +338,22 @@ input[type="checkbox"] {
   }
 }
 
-.circlecross {
-  background-color: red;
-  color: white;
-  border-radius: 67px;
+mat-checkbox {
+  .mat-checkbox-focused{
+    .mat-ink-ripple{
+        background-color: rgba(0, 178, 0, .26);
+    }
+  }
 }
+
+ 
+
+
+// .circlecross {
+//   background-color: red;
+//   color: white;
+//   border-radius: 67px;
+// }
 .btn1 {
   display: block;
   height: 28px;
@@ -862,10 +873,6 @@ img.avatar:hover{
 .user-row-align .mat-header-cell{
   color: black !important;
   font-weight: 500;
-}
-.required::after {
-  content: "*";
-  color: red;
 }
 .mat-row:hover a.StatusActive,
 .mat-row:hover a.inactive {
