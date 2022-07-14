@@ -27,12 +27,19 @@ import { CustomMomentDateAdapter } from 'src/app/_common/custom.date.adapter';
 import { AppMomentDateAdapter,MOMENT_DATE_FORMATS }from 'src/app/_common/app.moment.date.adapter';
 
 
+
+
+
+
 // HttpClientModule is only needed if you want to log on server or if you want to inspect sourcemaps
 @NgModule({
   exports: [
   ],
   declarations: [
     AppComponent,
+    
+ 
+   
   ],
   imports: [
     NgbModule,
