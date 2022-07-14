@@ -47,4 +47,8 @@ export class SmartSchedulerService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._filteredPatientsOfProviderUrl, reqparams);
   }
 
+  UpdateAppointmentStatus(reqParams: any){
+    return this._ProcessPostRequest<any>(this._updateAppointmentStatusUrl, reqParams);
+  }
+
 }

@@ -1,0 +1,21 @@
+<div class="modal-dialog" id="complete-appointment-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title Helvetica-sans-serif-medium">Change Status to "{{appointment.StatusToUpdate}}"?</h4>
+      <span type="button" class="cross-mark" aria-label="Close" (click)="cancel()">
+        X
+      </span>
+    </div>
+    <div class="modal-body">
+      <div class="alert alert-warning">
+        <strong>Warning: </strong>Appointment Will be locked.
+      </div>
+    </div>
+    <div class="modal-footer" style="align-self: center; border-top: 1px solid #eeeeee;">
+      <button class="btn btn-green" (click)="confirm()" style="width:150px">Confirm</button>
+      <button class="btn btn-green" aria-label="Close" (click)="cancel()" style="width:150px">
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>

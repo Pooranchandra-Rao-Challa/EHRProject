@@ -88,6 +88,7 @@ import { BillingService } from '../../_services/billing.service';
 import { AlertMessage } from 'src/app/_alerts/alertMessage';
 import { AddeditinterventionComponent } from 'src/app/dialogs/addeditintervention/addeditintervention.component';
 import { ProviderCodeDatabase } from 'src/app/provider/patients/dental.chart/tree.procedure.component'
+import { CompleteAppointmentDialogComponent} from 'src/app/dialogs/newappointment.dialog/complete.appointment.component'
 import { registerLocaleData } from '@angular/common';
 import localeIt from '@angular/common/locales/en';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
@@ -158,6 +159,7 @@ registerLocaleData(localeIt);
     AddeditinterventionComponent,
     ProcedureDialogComponent,
     SignEncounterNoteComponent,
+    CompleteAppointmentDialogComponent,
     //TimeMaskDirective,
   ],
   imports: [
@@ -214,7 +216,8 @@ registerLocaleData(localeIt);
     ProcedureDialogComponent,
     AddressVerificationDialogComponent,
     SignEncounterNoteComponent,
-    PatientHealthPortalComponent]
+    PatientHealthPortalComponent,
+    CompleteAppointmentDialogComponent]
 })
 export class ProviderModule {
 

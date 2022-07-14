@@ -65,6 +65,7 @@ export class ScheduledAppointment{
   IsPast?: boolean;
   PrimaryPhone?: string;
   MobilePhone?: string;
+  StatusToUpdate?: string;
 }
 
 
