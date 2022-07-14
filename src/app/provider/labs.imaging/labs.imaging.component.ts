@@ -1,7 +1,14 @@
 import { AuthenticationService } from './../../_services/authentication.service';
 import { User } from './../../_models/_account/user';
 import { LabsImagingService } from './../../_services/labsimaging.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { ComponentType } from '@angular/cdk/portal';
+import { Actions } from 'src/app/_models';
+import { OrderdialogueComponent } from 'src/app/dialogs/orderdialogue/orderdialogue.component';
+import { OverlayService } from 'src/app/overlay.service';
+import { OrderresultdialogueComponent } from 'src/app/dialogs/orderresultdialogue/orderresultdialogue.component';
+import { EditlabimageorderComponent } from 'src/app/dialogs/editlabimageorder/editlabimageorder.component';
+import { OdermanualentrydialogComponent } from 'src/app/dialogs/odermanualentrydialog/odermanualentrydialog.component';
 declare var $: any;
 @Component({
   selector: 'app-labs.imaging',
@@ -13,7 +20,13 @@ export class LabsImagingComponent implements OnInit {
   labImagingColumn: string[] = ['Order', 'Test', 'Type', 'Patient', 'Provider', 'Status', 'LabImagingStatus', 'Created'];
   labImagingDataSource: any = [];
   user: User;
-  constructor(private labimage: LabsImagingService, private authService: AuthenticationService) {
+  ActionTypes = Actions;
+  orderdialoguecomponent=OrderdialogueComponent;
+  orderresultdialoguecomponent=OrderresultdialogueComponent;
+  editlabimageordercomponent=EditlabimageorderComponent;
+  ordermanualentrydialogcomponent=OdermanualentrydialogComponent;
+  labing:boolean=false;
+  constructor(private labimage: LabsImagingService, private authService: AuthenticationService,public overlayService: OverlayService,) {
     this.user = authService.userValue;
     // console.log(this.user);
   }
@@ -33,6 +46,7 @@ export class LabsImagingComponent implements OnInit {
         this.labImagingDataSource = resp.ListResult;
       }
     });
+    this.labing=true;
   }
 
   GetImagingDetails() {
@@ -44,6 +58,30 @@ export class LabsImagingComponent implements OnInit {
       if (resp.IsSuccess) {
         this.labImagingDataSource = resp.ListResult;
       }
+    });
+    this.labing=true;
+    
+  }
+  openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
+    dialogData, action: Actions = this.ActionTypes.add) {
+      debugger;
+    let reqdata: any;
+    if (action == Actions.view && content === this.orderdialoguecomponent) {
+      reqdata = dialogData;
+    }
+    else if (action == Actions.view && content === this.orderresultdialoguecomponent) {
+      reqdata = dialogData;
+    }
+    else if (action == Actions.view && content === this.editlabimageordercomponent) {
+      reqdata = dialogData;
+    }
+    else if (action == Actions.view && content === this.ordermanualentrydialogcomponent) {
+      reqdata = dialogData;
+    }
+    const ref = this.overlayService.open(content, reqdata);
+    ref.afterClosed$.subscribe(res => {
+
+  
     });
   }
 }

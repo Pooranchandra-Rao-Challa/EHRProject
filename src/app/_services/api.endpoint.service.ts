@@ -594,16 +594,25 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "PatientProceduresView";
   }
 
-  get _areaCodesUrl(){
-    return this._baseUrl +"AreaCodes";
+  get _areaCodesUrl() {
+    return this._baseUrl + "AreaCodes";
   }
-  get _cancelAppointmentUrl(){
-    return this._baseUrl +"CancelAppointment";
+  get _cancelAppointmentUrl() {
+    return this._baseUrl + "CancelAppointment";
   }
-get _patientMessagesUrl()
-{
-  return this._baseUrl +"PatientMessages";
-}
+  get _patientMessagesUrl() {
+    return this._baseUrl + "PatientMessages";
+  }
+ 
+  get _labImageStatusesUrl()
+  {
+    return this._baseUrl + "LabImageStatuses";
+  }
+
+  get _labImageOrderStatusesUrl()
+  {
+    return this._baseUrl + "LabImageOrderStatuses";
+  }
   constructor(public http: HttpClient) {
     super();
   }
