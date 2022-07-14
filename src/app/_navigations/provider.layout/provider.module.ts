@@ -91,6 +91,12 @@ import { ProviderCodeDatabase } from 'src/app/provider/patients/dental.chart/tre
 import { registerLocaleData } from '@angular/common';
 import localeIt from '@angular/common/locales/en';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { OrderdialogueComponent } from 'src/app/dialogs/orderdialogue/orderdialogue.component';
+import { OrderresultdialogueComponent } from 'src/app/dialogs/orderresultdialogue/orderresultdialogue.component';
+import { EditlabimageorderComponent } from 'src/app/dialogs/editlabimageorder/editlabimageorder.component';
+import { OdermanualentrydialogComponent } from 'src/app/dialogs/odermanualentrydialog/odermanualentrydialog.component';
+import { AddimagingresultdialogComponent } from 'src/app/dialogs/addimagingresultdialog/addimagingresultdialog.component';
+
 
 
 //import { TimeMaskDirective } from 'src/app/_directives/input.time.mask.directive'
@@ -109,7 +115,13 @@ registerLocaleData(localeIt);
     TeethSurfaceModule,
     AddeditinterventionComponent,
     // PaginatorDirective
-    //TimeMaskDirective
+    //TimeMaskDirective,
+    OrderdialogueComponent,
+    OrderresultdialogueComponent,
+    EditlabimageorderComponent,
+    OdermanualentrydialogComponent,
+    AddimagingresultdialogComponent
+    
   ],
   declarations: [
     ProviderNavbarComponent,
@@ -158,6 +170,12 @@ registerLocaleData(localeIt);
     AddeditinterventionComponent,
     ProcedureDialogComponent,
     SignEncounterNoteComponent,
+    OrderdialogueComponent,
+    OrderresultdialogueComponent,
+    EditlabimageorderComponent,
+    OdermanualentrydialogComponent,
+    AddimagingresultdialogComponent
+    
     //TimeMaskDirective,
   ],
   imports: [
