@@ -3,6 +3,9 @@ export class Labandimaging{
     CurrentPatient?:PracticeProviders;
     LabProcedureId?:string;
     PatientId?:string;
+    Sex?:string;
+    DateofBirth?:string;
+    Age?:string;
     ClinicId?:string;
     ProviderId?:string;
     Signed?:string;

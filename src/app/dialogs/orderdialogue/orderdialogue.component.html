@@ -9,33 +9,47 @@
         <div class="modal-body">
             <div class="row">
                 <div class="col-md-3">
-                    <mat-label>Patient Name:*</mat-label>
+                    <!-- <mat-label>Patient Name:*</mat-label>
                     <mat-form-field appearance="outline" class="col-md-12">
                         <input matInput placeholder="">
-                    </mat-form-field>
+                    </mat-form-field> -->
+                    <mat-label>Patient Name:*</mat-label>
+                    <mat-form-field class="" appearance="outline" [ngStyle]="{'width':'100%'}">
+                        <input matInput #searchpatient class="form-control" placeholder="Search Patient" type="text"
+                          id="searchpatient" name="searchpatient" [matAutocomplete]="serachpatient"
+                          />
+                        <mat-autocomplete [displayWith]="displayWithPatientSearch" #serachpatient="matAutocomplete"
+                          (optionSelected)="onPatientSelected($event)">
+                          <mat-option *ngIf="isLoading">Loading ...</mat-option>
+                          <mat-option *ngFor="let option of filteredPatients | async" [value]="option"
+                            class="patient-serach-option">
+                            {{option.Name}}
+                          </mat-option>
+                        </mat-autocomplete>
+                      </mat-form-field>
                 </div>
                 <div class="col-md-2">
                     <mat-label>Patient ID:</mat-label>
                     <mat-form-field appearance="outline" class="col-md-12 ">
-                        <input matInput placeholder="" disabled class="labandimagingcursor">
+                        <input matInput placeholder="" disabled class="labandimagingcursor" [(ngModel)]="labandimaging.PatientId">
                     </mat-form-field>
                 </div>
                 <div class="col-md-2">
                     <mat-label>Sex:*</mat-label>
                     <mat-form-field appearance="outline" class="col-md-12">
-                        <input matInput placeholder="" disabled class="labandimagingcursor">
+                        <input matInput placeholder="" disabled class="labandimagingcursor" [(ngModel)]="labandimaging.Sex">
                     </mat-form-field>
                 </div>
                 <div class="col-md-2">
                     <mat-label>Age:*</mat-label>
                     <mat-form-field appearance="outline" class="col-md-12">
-                        <input matInput placeholder="" disabled class="labandimagingcursor">
+                        <input matInput placeholder="" disabled class="labandimagingcursor" [(ngModel)]="labandimaging.Age">
                     </mat-form-field>
                 </div>
                 <div class="col-md-3">
                     <mat-label>Date of birth:*</mat-label>
                     <mat-form-field appearance="outline" class="col-md-12">
-                        <input matInput placeholder="" disabled class="labandimagingcursor">
+                        <input matInput placeholder="" disabled class="labandimagingcursor"  [(ngModel)]="labandimaging.DateofBirth">
                     </mat-form-field>
                 </div>
             </div>
@@ -44,18 +58,21 @@
                     <div class="row">
                         <div class="col-md-4">
                             <mat-label>Order Type:*</mat-label>
-                            <mat-form-field appearance="outline" class="col-md-12 orderddhover">
+                            <!-- <mat-form-field appearance="outline" class="col-md-12 orderddhover">
                                 <mat-select required placeholder="Lab">
                                     <mat-option *ngFor="let item of orderTypeDD" [value]="item.value">
                                         {{item.viewValue}}
                                     </mat-option>
                                 </mat-select>
+                            </mat-form-field> -->
+                            <mat-form-field appearance="outline" class="col-md-12">
+                                <input matInput placeholder="" disabled class="labandimagingcursor"  [(ngModel)]="labandimaging.View">
                             </mat-form-field>
                         </div>
                         <div class="col-md-4">
                             <mat-label>Lab Name:*</mat-label>
                             <mat-form-field appearance="outline" class="col-md-12 orderddhover">
-                                <mat-select required placeholder="Other labs">
+                                <mat-select required placeholder="Other labs" [(ngModel)]="labandimaging.LabName">
                                     <mat-option>
                                        Other labs
                                     </mat-option>
@@ -65,7 +82,7 @@
                         <div class="col-md-4">
                             <mat-label>Status:*</mat-label>
                             <mat-form-field appearance="outline" class="col-md-12 orderddhover">
-                                <mat-select required placeholder="Status">
+                                <mat-select required placeholder="Status" [(ngModel)]="labandimaging.Status">
                                     <mat-option *ngFor="let item of labLabImageStatusesDD" [value]="item.Value">
                                         {{item.Name}}
                                     </mat-option>
@@ -78,7 +95,7 @@
                     <mat-label>Schedule Date:*</mat-label>
                     <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-12">
                         <input matInput [matDatepicker]="dp1" placeholder="Start Date" (focus)="dp1?.open()"
-                            class="Helvetica-sans-serif-medium">
+                            class="Helvetica-sans-serif-medium" [(ngModel)]="labandimaging.ScheduleDate">
                         <mat-datepicker-toggle matSuffix [for]="dp1">
                         </mat-datepicker-toggle>
                         <mat-datepicker #dp1></mat-datepicker>
@@ -92,7 +109,7 @@
                         <div class="col-md-4">
                             <mat-label>Ordering Physician:*</mat-label>
                             <mat-form-field appearance="outline" class="col-md-12 orderddhover">
-                                <mat-select required placeholder="">
+                                <mat-select required placeholder="" [(ngModel)]="labandimaging.OrderingPhyscian">
                                     <mat-option value='' selected>View All Providers</mat-option>
                                     <mat-option *ngFor="let provider of PracticeProviders" [value]="provider.ProviderId">
                                         {{provider.FullName}}</mat-option>
@@ -102,7 +119,7 @@
                         <div class="col-md-4">
                             <mat-label>Ordering Facility:*</mat-label>
                             <mat-form-field appearance="outline" class="col-md-12 orderddhover">
-                                <mat-select required placeholder="">
+                                <mat-select required placeholder="" [(ngModel)]="labandimaging.OrderingFacility">
                                     <mat-option *ngFor="let item of orderTypeDD" [value]="item.value">
                                         {{item.viewValue}}
                                     </mat-option>
@@ -112,7 +129,7 @@
                         <div class="col-md-4">
                             <mat-label>Lab/Imaging Status:*</mat-label>
                             <mat-form-field appearance="outline" class="col-md-12 orderddhover">
-                                <mat-select required placeholder="Status">
+                                <mat-select required placeholder="Status" [(ngModel)]="labandimaging.OrderingFacility">
                                     <mat-option *ngFor="let item of LabImageOrderStatusesDD" [value]="item.Value">
                                         {{item.Name}}
                                     </mat-option>
@@ -125,7 +142,7 @@
                     <mat-label>Received Date:</mat-label>
                     <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-12">
                         <input matInput [matDatepicker]="dp2" placeholder="Received Date" (focus)="dp2?.open()"
-                            class="Helvetica-sans-serif-medium">
+                            class="Helvetica-sans-serif-medium" [(ngModel)]="labandimaging.ReceivedDate">
                         <mat-datepicker-toggle matSuffix [for]="dp2">
                         </mat-datepicker-toggle>
                         <mat-datepicker #dp2></mat-datepicker>
@@ -193,7 +210,7 @@
                 <div class="col-md-12">
                     <mat-label>Notes:</mat-label>
                 <textarea matInput class="text-border"
-              placeholder="" readonly disabled></textarea>
+              placeholder="" readonly disabled  [(ngModel)]="labandimaging.Notes"></textarea>
             </div>
             </div>
            

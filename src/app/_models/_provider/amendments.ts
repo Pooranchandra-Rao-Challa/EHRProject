@@ -6,4 +6,5 @@ export class Amendments {
     Status?: string;
     Source?: string;
     Notes?: string;
+    PatientId?:string;
   }
