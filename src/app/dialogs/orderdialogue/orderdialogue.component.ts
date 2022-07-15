@@ -2,6 +2,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
+import { Labandimaging } from 'src/app/_models/_provider/LabandImage';
 import { PracticeProviders } from 'src/app/_models/_provider/practiceProviders';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
@@ -15,11 +16,16 @@ import { UtilityService } from 'src/app/_services/utiltiy.service';
 export class OrderdialogueComponent implements OnInit {
   orderTypeDD = [{ value: 'Lab', viewValue: 'Lab' }, { value: 'Imaging', viewValue: 'Imaging' }]
   labingimagingattchements: FormGroup;
-  labLabImageStatusesDD:any=[];
-  LabImageOrderStatusesDD:any[];
+  labLabImageStatusesDD: any = [];
+  LabImageOrderStatusesDD: any[];
   PracticeProviders: PracticeProviders[];
-  constructor(private ref: EHROverlayRef, private fb: FormBuilder,private utilityservice:UtilityService,private smartSchedulerService: SmartSchedulerService,
-    private authService: AuthenticationService,) { }
+  labandimaging?: Labandimaging = new Labandimaging();
+  constructor(private ref: EHROverlayRef, private fb: FormBuilder, private utilityservice: UtilityService, private smartSchedulerService: SmartSchedulerService,
+    private authService: AuthenticationService,) {
+      console.log( ref.RequestData);
+      
+    this.labandimaging = ref.RequestData as Labandimaging;
+  }
 
   ngOnInit(): void {
     this.getLabImageStatuses();
@@ -72,23 +78,21 @@ export class OrderdialogueComponent implements OnInit {
 
     this.attachments.removeAt(i);
   }
-  getLabImageStatuses()
-  {
-    this.utilityservice.LabImageStatuses().subscribe(resp=>{
+  getLabImageStatuses() {
+    this.utilityservice.LabImageStatuses().subscribe(resp => {
       this.labLabImageStatusesDD = resp.ListResult;
       console.log(this.labLabImageStatusesDD);
-      
+
     })
-    
+
   }
-  getLabImageOrderStatuses()
-  {
-    this.utilityservice.LabImageOrderStatuses().subscribe(resp=>{
+  getLabImageOrderStatuses() {
+    this.utilityservice.LabImageOrderStatuses().subscribe(resp => {
       this.LabImageOrderStatusesDD = resp.ListResult;
       console.log(this.LabImageOrderStatusesDD);
-      
+
     })
-    
+
   }
   loadDefaults() {
     debugger;
