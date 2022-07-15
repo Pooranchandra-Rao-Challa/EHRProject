@@ -83,12 +83,7 @@ export class LabsImagingComponent implements OnInit {
     else if (action == Actions.view && content === this.orderresultdialoguecomponent) {
       reqdata = dialogData;
     }
-    else if (action == Actions.view && content === this.editlabimageordercomponent) {
-      reqdata = dialogData;
-    }
-    else if (action == Actions.view && content === this.ordermanualentrydialogcomponent) {
-      reqdata = dialogData;
-    }
+   
     console.log(reqdata);
     
     const ref = this.overlayService.open(content, reqdata);
