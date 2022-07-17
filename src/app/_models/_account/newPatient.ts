@@ -39,3 +39,13 @@ export class PatientPortalUser{
   PatientRelationUsername?: string;
 }
 
+export class PatientSearch{
+  PatientId?: string;
+  Name?: string;
+  Gender?: string;
+  PrimaryPhone?: string;
+	MobilePhone?: string;
+	DateofBirth?: Date;
+	Age?: Number;
+}
+

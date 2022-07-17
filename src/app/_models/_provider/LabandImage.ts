@@ -1,31 +1,36 @@
-import {PracticeProviders} from 'src/app/_models/_provider/practiceProviders';
-export class Labandimaging{
-    CurrentPatient?:PracticeProviders;
-    LabProcedureId?:string;
-    PatientId?:string;
-    Sex?:string;
-    DateofBirth?:string;
-    Age?:string;
-    ClinicId?:string;
-    ProviderId?:string;
-    Signed?:string;
-    LocationId?:string;
-    OrderId?:string;
-    OrderType?:string;
-    LabName?:string;
-    Status?:string;
-    ScheduleDate?:string;
-    OrderingPhyscian?:string;
-    OrderingFacility?:string;
-    LabandImageStatus?:string;
-    ReceivedDate?:string;
-    Notes?:string;
-    Tests:Test[]=[];
-    View?:string;
+import { PatientSearch } from 'src/app/_models';
+export class LabProcedureWithOrder {
+  CurrentPatient?: PatientSearch = new PatientSearch();
+  LabProcedureId?: string;
+  ClinicId?: string;
+  Signed?: string;
+  LocationId?: string;
+  OrderId?: string;
+  ProcedureType?:string;
+  LabName?: string;
+  Status?: string; // Status.
+  ScheduledAt?: string;
+  StrScheduledAt?: string // use 'MM/dd/yyyy'
+  OrderingPhyscianId?: string;
+  OrderingFacility?: string;
+  OrderStatus?: string; // Lab and Imaging Status
+  ReceivedAt?: string;
+  strReceivedAt?: string; // use 'MM/dd/yyyy'
+  Notes?: string;
+  Tests: TestOrder[] = [];
+  View?: string;
+  PatientName?: string;
+  ProviderName?: string;
+  TotalRecords?: number;
 }
 
-export class Test{
-Code?:string;
-Test?:string;
+export class TestOrder {
+  TestOrderId?: string;
+  LabProcedureId?: string;
+  Code?: string;
+  Test?: string;
+  Result?: string;
+  Units?: string;
+  Flag?: string;
+  Range?: string;
 }
-

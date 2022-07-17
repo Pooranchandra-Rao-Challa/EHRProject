@@ -225,7 +225,7 @@ export class ChartComponent implements OnInit {
   }
 
   CreateDiagnoses() {
-    debugger;
+    //debugger;
     let isAdd = this.patientDiagnoses.DiagnosisId == undefined;
     this.patientDiagnoses.PatinetId = this.currentPatient.PatientId;
     this.patientDiagnoses.StopAt = this.datepipe.transform(this.patientDiagnoses.StopAt, "MM/dd/yyyy hh:mm:ss");

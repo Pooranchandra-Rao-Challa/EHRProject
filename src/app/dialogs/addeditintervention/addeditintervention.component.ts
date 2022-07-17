@@ -5,7 +5,6 @@ import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
 import { PatientChart, User } from 'src/app/_models';
 import { CQMNotPerformedService } from 'src/app/_services/cqmnotperforemed.service';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 
 @Component({

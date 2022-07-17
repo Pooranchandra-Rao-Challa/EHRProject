@@ -131,14 +131,26 @@
   margin-bottom: -23px;
 }
 
-.mat-header-cell {
+.LabsimagingTable .mat-header-cell:not(:first-child, :last-child) {
   border: 1px solid #fff;
+  border-bottom: unset;
+}
+.LabsimagingTable .mat-header-cell:first-child,
+.LabsimagingTable .mat-header-cell:last-child {
+  border-top: 1px solid #fff;
+  border-bottom: unset;
 }
 
-.mat-header-row {
+.LabsimagingTable .mat-header-row {
   height: 40px;
 }
 
+.LabsimagingTable .mat-cell{
+  border: unset;
+}
+.LabsimagingTable .mat-cell:not( :last-child){
+  border-right: 1px solid #41b6a6;
+}
 .nav-tabs {
   border-bottom: 1px solid #ffffff !important;
 }
@@ -235,10 +247,7 @@
 .table-responsive {
   overflow-x: hidden !important;
 }
-.mat-table{
-  border-left: 2px solid #41b6a6;
-  border-right: 2px solid #41b6a6;
-}
+
 
 input::-webkit-input-placeholder {
   color: rgb(115, 114, 114) !important;
@@ -246,17 +255,14 @@ input::-webkit-input-placeholder {
   font-family: 'Roboto';
 }
 
-// .mat-select-panel {
-//   min-width: 112px;
-//   max-width: 280px;
-//   overflow: auto;
-//   -webkit-overflow-scrolling: touch;
-//   padding-top: 25px !important;
-//   padding-bottom: 0;
-//   max-height: 256px;
-//   min-width: 100%;
-//   border-radius: 4px;
-// }
 .orderresultsmodal .modal-dialog {
   max-width: 500px;
+}
+
+#dropdownMenuButton1{
+  padding: 0.45rem 1.375rem ;
+}
+
+.lab-drodown .dropdown-menu{
+  border: 1px solid #41b6a6
 }

@@ -252,13 +252,32 @@
   width: 600px;
   background: url(./images/pro-reg-bg.png);
 }
-::ng-deep .swal2-actions:not(.swal2-loading) .swal2-styled:hover {
-  background-color: #41b6a6 !important;
-  color: #fff !important;
+// ::ng-deep .swal2-actions:not(.swal2-loading) .swal2-styled:hover {
+//   background-color: #41b6a6 !important;
+//   color: #fff !important;
+// }
+::ng-deep .swal2-title-error{
+  background-color: #d74842 !important;
 }
-::ng-deep .swal2-title-custom{
-  background-color: #d64841 !important;
+::ng-deep .swal2-cancel.swal2-error{
+  background-color: #fff !important;
+  border: 1px solid #d74842  !important;
+  color:#d74842  !important;
 }
+::ng-deep .swal2-cancel.swal2-error:hover{
+  background-color: #d74842 !important;
+  color:#fff  !important;
+}
+::ng-deep .swal2-confirm.swal2-messaage{
+  background-color: #fff !important;
+  border: 1px solid #41b6a6 !important;;
+  color:#41b6a6 !important;
+}
+::ng-deep .swal2-confirm.swal2-messaage:hover{
+  background-color:#41b6a6 !important;;
+  color:#fff  !important;
+}
+
 .btn{
   font: 400 14px/20px Roboto, "Helvetica Neue", sans-serif;
 }

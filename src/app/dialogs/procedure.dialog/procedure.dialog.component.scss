@@ -14,10 +14,10 @@
   overflow-y: auto;
 }
 
-.required::after {
-  content: "*";
-  color: red;
-}
+// .required::after {
+//   content: "*";
+//   color: red;
+// }
 
 #new-procedure-dialog div.row.title {
   background-color: #F7F7F7;

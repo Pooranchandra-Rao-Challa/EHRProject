@@ -7,6 +7,7 @@ import { map,  tap } from 'rxjs/operators';
 import { APIEndPoint } from './api.endpoint.service';
 import { environment } from "src/environments/environment";
 import { User, ResponseData,ViewModel, AdminViewModal } from '../_models';
+import { ERROR_CODES} from 'src/app/_alerts/alertMessage'
 import { getLogger } from "../logger.config";
 const logModel = getLogger("ehr");
 const logger = logModel.getChildCategory("AuthenticationService");
@@ -43,7 +44,6 @@ export class AuthenticationService {
     if (localStorage.getItem('user')) {
       this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user') || '{}'));
       this.user = this.userSubject.asObservable();
-      logger.info(() => "User: "+JSON.stringify(this.user));
     }
 
   }
@@ -69,8 +69,13 @@ export class AuthenticationService {
             );
           else if (this.isPatient)
             this.router.navigate(['patinet/patientview']);
+        }else{
+          this.logout(ERROR_CODES["EL001"])
         }
-      })
+      }, err => {
+        this.logout();
+      }),
+
     );
     return observable;
   }
@@ -116,11 +121,19 @@ export class AuthenticationService {
         return resp.Result;
       }));
   }
-  logout() {
+  logout(error: any = '') {
     localStorage.removeItem('user');
     this.revokeToken();
     this.stopRefreshTokenTimer();
+    console.log(error);
+    if(error == '')
     this.router.navigate(['/account/home']);
+    else{
+      this.router.navigate(
+        ['/account/home'],
+        { queryParams: { message: error } }
+      );
+    }
   }
 
   isLoggedIn() {

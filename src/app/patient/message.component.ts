@@ -51,11 +51,11 @@ export class MessageComponent {
           this.messages=res.ListResult == null ? [] : res.ListResult;
           console.log(this.messages);
         })
-       
+
   }
   getmessage(item)
   {
-    debugger;
+    //debugger;
         var req={
           // "PatientId": "5836dafef2e48f36ba90a996",
           "PatientId": this.user.PatientId,
