@@ -1,167 +1,175 @@
 <div class="container-fluid">
-    <div class="row " style="border-bottom:3px solid #41b6a6;">
-        <div class="d-flex justify-content-end flex-sm-row flex-column">
-            <div class="p-2"><button type="button" class="btn btn-md btn-danger btn-authorized">Authorized Rep.</button>
+  <div class="row " style="border-bottom:3px solid #41b6a6;">
+    <div class="d-flex justify-content-end flex-sm-row flex-column">
+      <div class="p-2"><button type="button" class="btn btn-md btn-danger btn-authorized">Authorized Rep.</button>
+      </div>
+      <div class="p-2">
+        <button type="button" class="btn btn-md btn-green btn-authorized" disabled>Print</button>
+      </div>
+    </div>
+  </div>
+  <div class="pull-right mt-2">
+    <button class="plusicon pull-right" type="button" aria-expanded="false" data-bs-toggle="modal"
+      data-bs-target="#modal-Patient-Education" (click)="resetDialog()">
+      <i class="fa fa-plus"></i>
+    </button>
+  </div>
+  <div class=" mt-5">
+    <mat-table [dataSource]="amendmentlist">
+      <ng-container matColumnDef="DateRequested">
+        <mat-header-cell *matHeaderCellDef>Date Requested</mat-header-cell>
+        <a>
+          <mat-cell *matCellDef="let patient" (click)="basedonid(patient)" data-bs-toggle="modal"
+            data-bs-target="#modal-Patient-Education">{{patient.DateofRequest | date:'MM/dd/yyyy'}}
+          </mat-cell>
+        </a>
+      </ng-container>
+
+      <ng-container matColumnDef="Status">
+        <mat-header-cell *matHeaderCellDef> Status</mat-header-cell>
+        <mat-cell *matCellDef="let patient">
+          {{patient.Status}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Description/Location">
+        <mat-header-cell *matHeaderCellDef>Description/Location</mat-header-cell>
+        <mat-cell *matCellDef="let patient">
+          {{patient.Description}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Scanned">
+        <mat-header-cell *matHeaderCellDef>Scanned</mat-header-cell>
+        <mat-cell *matCellDef="let patient">
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="AmendmentsColumns" class="mat-cust-header"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: AmendmentsColumns;">
+      </mat-row>
+    </mat-table>
+  </div>
+
+
+
+
+
+
+
+  <div class="modal Patient-Education " id="modal-Patient-Education" data-bs-keyboard="false" tabindex="-1"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="Helvetica-sans-serif-medium">
+            {{amendment?.AmendmentId == null ? 'New Amendment' : 'Edit Amendment'}}
+          </span>
+          <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close"
+            style="border: 1px solid #fff;" (click)="resetDialog()">
+            X
+          </span>
+        </div>
+        <div class="modal-body divScroll">
+          <div class="row">
+            <mat-label class="Helvetica-sans-serif-medium">Date Requested:</mat-label>
+            <mat-form-field appearance="outline" class="calendaralignment green-calendar col-lg-7 col-md-5">
+              <input matInput class="pointer date-mat-class" autocomplete="off" [matDatepicker]="DateRequest"
+                (click)="DateRequest.open()" placeholder="mm/dd/yyyy" [(ngModel)]="amendment.DateofRequest">
+              <mat-datepicker-toggle matSuffix [for]="DateRequest"></mat-datepicker-toggle>
+              <mat-datepicker #DateRequest></mat-datepicker>
+            </mat-form-field>
+            <div class="col-lg-4 col-md-6">
+              <button class="btn btn-green btn-today col-12" (click)="todayDateforDateRequested()">Today</button>
             </div>
-            <div class="p-2">
-                <button type="button" class="btn btn-md btn-green btn-authorized" disabled>Print</button>
+          </div>
+          <div class="row">
+            <mat-label class="Helvetica-sans-serif-medium">Date Accepted/Denied:</mat-label>
+            <mat-form-field appearance="outline" class="calendaralignment green-calendar col-lg-7 col-md-5">
+              <input matInput class="pointer date-mat-class" autocomplete="off" [matDatepicker]="DateAccepted"
+                (click)="DateAccepted.open()" readonly placeholder="mm/dd/yyyy" [(ngModel)]="amendment.DateofAccept">
+              <mat-datepicker-toggle matSuffix [for]="DateAccepted"></mat-datepicker-toggle>
+              <mat-datepicker #DateAccepted></mat-datepicker>
+            </mat-form-field>
+            <div class="col-lg-4 col-md-6">
+              <button class="btn btn-green btn-today col-12" (click)="todayDateforDateAcceptedorDenied()">Today</button>
             </div>
+          </div>
+          <div class="row">
+            <mat-label class="Helvetica-sans-serif-medium">Date Appended:</mat-label>
+            <mat-form-field appearance="outline" class="calendaralignment green-calendar col-lg-7 col-md-5">
+              <input matInput class="pointer date-mat-class" autocomplete="off" [matDatepicker]="DateAppended"
+                (click)="DateAppended.open()" readonly placeholder="mm/dd/yyyy" [(ngModel)]="amendment.DateofAppended">
+              <mat-datepicker-toggle matSuffix [for]="DateAppended"></mat-datepicker-toggle>
+              <mat-datepicker #DateAppended></mat-datepicker>
+            </mat-form-field>
+            <div class="col-lg-4 col-md-6">
+              <button class="btn btn-green btn-today col-12" (click)="todayforDateAppended()">Today</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <mat-label class="Helvetica-sans-serif-medium">Status:</mat-label>
+            </div>
+            <div class="col-md-6">
+              <mat-label class="Helvetica-sans-serif-medium">Source:</mat-label>
+            </div>
+          </div>
+          <div class="row">
+
+            <mat-form-field appearance="outline" class="col-md-6">
+              <mat-select placeholder="Requested" [(ngModel)]="amendment.Status">
+                <mat-option *ngFor="let item of AmendmentStatusesDD" [value]="item.Value">
+                  {{item.Name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="col-md-6">
+              <mat-select placeholder="Practice" [(ngModel)]="amendment.Source">
+                <mat-option *ngFor="let item of AmendmentSourcesDD" [value]="item.Value">
+                  {{item.Name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <mat-label class="Helvetica-sans-serif-medium">Description/Location:</mat-label>
+            <mat-form-field appearance="outline" class="col-md-12">
+              <input matInput [(ngModel)]="amendment.Description">
+            </mat-form-field>
+          </div>
+          <div class="col-md-12">
+            <mat-label class="Helvetica-sans-serif-medium">Notes:</mat-label>
+
+            <textarea matInput class="text-border Helvetica-sans-serif-medium" placeholder=""
+              [(ngModel)]="amendment.Note"></textarea>
+          </div>
+          <div class="pattach" *ngIf="amendment?.AmendmentId != null && amendment?.AmendmentId !=''">
+            <div class="row">
+              <!-- <div class="col-md-1"></div> -->
+              <div class="col-md-10">
+                <p class="title mt-3 "><b>Attachments:</b></p>
+              </div>
+
+              <div class="col-md-2 mt-2 ">
+                <button class="plusicon  pull-right" style="margin-right: 10px;" type="button">
+                  <i class="fa fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-    </div>
-    <div class="pull-right mt-2">
-        <button class="plusicon pull-right" type="button" aria-expanded="false" data-bs-toggle="modal"
-        data-bs-target="#modal-Patient-Education" (click)="resetDialog()">
-            <i class="fa fa-plus"></i>
-        </button>
-    </div>
-    <div class=" mt-5">
-    <mat-table  [dataSource]="amendmentlist" >
-    <ng-container matColumnDef="DateRequested">
-      <mat-header-cell *matHeaderCellDef>DateRequested</mat-header-cell>
-    <a>  <mat-cell *matCellDef="let patient" (click)="basedonid(patient)" data-bs-toggle="modal"
-      data-bs-target="#modal-Patient-Education">{{patient.DateofRequest | date:'MM/dd/yyyy'}}
-      </mat-cell></a>
-    </ng-container>
 
-    <ng-container matColumnDef="Status">
-      <mat-header-cell *matHeaderCellDef> Status</mat-header-cell>
-      <mat-cell *matCellDef="let patient">
-        {{patient.Status}}
-      </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="Description/Location">
-      <mat-header-cell *matHeaderCellDef>Description/Location</mat-header-cell>
-      <mat-cell *matCellDef="let patient">
-        {{patient.Description}}
-      </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="Scanned">
-      <mat-header-cell *matHeaderCellDef>Scanned</mat-header-cell>
-      <mat-cell *matCellDef="let patient">
-      </mat-cell>
-    </ng-container>
-    <mat-header-row *matHeaderRowDef="AmendmentsColumns" class="mat-cust-header"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: AmendmentsColumns;">
-    </mat-row>
-  </mat-table>
-  </div>
-
-
-
-
-
-
-
-<div class="modal Patient-Education " id="modal-Patient-Education" data-bs-keyboard="false" tabindex="-1"
-  aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <span class="Helvetica-sans-serif-medium">New Amendment</span>
-        <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close"
-          style="border: 1px solid #fff;"  (click)="resetDialog()">
-          X
-        </span>
-      </div>
-      <div class="modal-body divScroll">
-    <div class="row">
-        <mat-label class="Helvetica-sans-serif-medium">Date Requested:</mat-label>
-        <mat-form-field appearance="outline" class="calendaralignment green-calendar col-lg-7 col-md-5">
-          <input matInput  class="pointer date-mat-class" autocomplete="off" [matDatepicker]="DateRequest"
-            (click)="DateRequest.open()"  placeholder="mm/dd/yyyy" [(ngModel)]="amendment.DateofRequest">
-          <mat-datepicker-toggle matSuffix [for]="DateRequest"></mat-datepicker-toggle>
-          <mat-datepicker #DateRequest></mat-datepicker>
-        </mat-form-field>
-        <div class="col-lg-4 col-md-6">
-          <button class="btn btn-green btn-today col-12" (click)="todayDateforDateRequested()">Today</button>
+        <div class="modal-footer">
+          <button mat-raised-button type="submit" class="btn btn-danger btn-md btn-delete Helvetica-sans-serif-medium"
+            data-bs-dismiss="modal" *ngIf="amendment?.AmendmentId != null && amendment?.AmendmentId !=''"
+            (click)=deleteAmendment()>Delete</button>
+          <button mat-raised-button type="submit" class="btn btn-green searchnow Helvetica-sans-serif-medium pull-right"
+            (click)="createUpadateAmendment()" data-bs-dismiss="modal">Save</button>
+          <button mat-raised-button type="submit"
+            class="btn btn-green searchnow Helvetica-sans-serif-medium  pull-right" data-bs-dismiss="modal"
+            (click)="resetDialog()">Cancel</button>
         </div>
-      </div>
-      <div class="row">
-        <mat-label class="Helvetica-sans-serif-medium">Date Accepted/Denied:</mat-label>
-        <mat-form-field appearance="outline" class="calendaralignment green-calendar col-lg-7 col-md-5">
-          <input matInput class="pointer date-mat-class" autocomplete="off" [matDatepicker]="DateAccepted"
-            (click)="DateAccepted.open()" readonly placeholder="mm/dd/yyyy" [(ngModel)]="amendment.DateofAccept">
-          <mat-datepicker-toggle matSuffix [for]="DateAccepted"></mat-datepicker-toggle>
-          <mat-datepicker #DateAccepted></mat-datepicker>
-        </mat-form-field>
-        <div class="col-lg-4 col-md-6">
-          <button class="btn btn-green btn-today col-12"(click)="todayDateforDateAcceptedorDenied()" >Today</button>
-        </div>
-      </div>
-      <div class="row">
-        <mat-label class="Helvetica-sans-serif-medium">Date Appended:</mat-label>
-        <mat-form-field appearance="outline" class="calendaralignment green-calendar col-lg-7 col-md-5">
-          <input matInput class="pointer date-mat-class" autocomplete="off" [matDatepicker]="DateAppended"
-            (click)="DateAppended.open()" readonly placeholder="mm/dd/yyyy" [(ngModel)]="amendment.DateofAppended">
-          <mat-datepicker-toggle matSuffix [for]="DateAppended"></mat-datepicker-toggle>
-          <mat-datepicker #DateAppended></mat-datepicker>
-        </mat-form-field>
-        <div class="col-lg-4 col-md-6">
-          <button class="btn btn-green btn-today col-12" (click)="todayforDateAppended()">Today</button>
-        </div>
-      </div>
-<div class="row">
-  <div class="col-md-6">
-    <mat-label class="Helvetica-sans-serif-medium" >Status:</mat-label>
-  </div>
-  <div class="col-md-6">
-    <mat-label class="Helvetica-sans-serif-medium">Source:</mat-label>
-  </div>
-</div>
-      <div class="row">
-      
-        <mat-form-field appearance="outline" class="col-md-6">
-          <mat-select  placeholder="Requested"  [(ngModel)]="amendment.Status">
-            <mat-option *ngFor="let item of Status" [value]="item.value">
-              {{item.viewValue}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
- 
-        <mat-form-field appearance="outline" class="col-md-6">
-          <mat-select  placeholder="Practice" [(ngModel)]="amendment.Source">
-            <mat-option *ngFor="let item of Source" [value]="item.value">
-              {{item.viewValue}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="row">
-        <mat-label  class="Helvetica-sans-serif-medium">Description/Location:</mat-label>
-        <mat-form-field  appearance="outline" class="col-md-12">
-          <input matInput [(ngModel)]="amendment.Description">
-        </mat-form-field>     
-       </div>
-       <div class="col-md-12">
-        <mat-label class="Helvetica-sans-serif-medium">Notes:</mat-label>
-      
-          <textarea matInput class="text-border Helvetica-sans-serif-medium"
-            placeholder=""  [(ngModel)]="amendment.Note"></textarea>
-      </div>
-     <div class="pattach" *ngIf="amendment?.AmendmentId != null && amendment?.AmendmentId !=''">
-        <div class="row">
-          <!-- <div class="col-md-1"></div> -->
-        <div class="col-md-10">
-          <p class="title mt-3 "><b>Attachments:</b></p>
-        </div>
-      
-        <div class="col-md-2 mt-2 ">
-          <button class="attchmentplusicon icon-border pull-right" type="button">
-            <i class="fa fa-plus"></i>
-          </button>
-        </div>
-      </div>
-      </div>
-    </div>
-    
-      <div class="modal-footer">
-        <button mat-raised-button type="submit" class="btn btn-danger Helvetica-sans-serif-medium" data-bs-dismiss="modal" *ngIf="amendment?.AmendmentId != null && amendment?.AmendmentId !=''" (click)=deleteAmendment()>Delete</button>
-        <button mat-raised-button type="submit" class="btn btn-green searchnow Helvetica-sans-serif-medium pull-right" (click)="CreateUpadateAmendment()" data-bs-dismiss="modal"
-       >Save</button>
-        <button mat-raised-button type="submit" class="btn btn-green searchnow Helvetica-sans-serif-medium  pull-right" data-bs-dismiss="modal" (click)="resetDialog()">Cancel</button>
       </div>
     </div>
   </div>
-</div>

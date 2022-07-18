@@ -340,7 +340,7 @@ export const ERROR_CODES: { [key: string]: string } = {
 //Amendements 
 'M2A001' : 'Amendments added successfully',
 'M2A002' : 'Amendments updated successfully',
-'M2A003' : 'Amendments delete successfully',
+'M2A003' : 'Amendments deleted successfully',
 
 //Error for Amendements
 

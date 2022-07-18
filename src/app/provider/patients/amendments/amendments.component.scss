@@ -1,129 +1,130 @@
 @import"../../../../assets/common.scss";
 @import "../../../../assets/cstm.material.scss";
-.btn-authorized{
-    width: 165px;
-    height: 45px;
-    display: block;
-    padding: 0;
-    line-height: 2.7;
-    cursor: pointer;
-    border-radius: 3px;
-    font-size: 16px;
-    text-align: center;
-  
+
+.btn-authorized {
+  width: 165px;
+  height: 45px;
+  display: block;
+  padding: 0;
+  line-height: 2.7;
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 16px;
+  text-align: center;
+
 }
+
 .plusicon {
-    border-radius: 3px;
-    background-color:#fff;
-    border: 1px solid #41b6a6;
-   
-    width: 80px;
-    height: 30px;
-    text-align: center;
-    cursor: pointer;
-   
-  }
-  .mat-header-row.mat-cust-header
-  {
-    min-height: 30px;
-  }
+  border-radius: 3px;
+  background-color: #fff;
+  border: 1px solid #41b6a6;
+  width: 80px;
+  height: 30px;
+  text-align: center;
+  cursor: pointer;
 
-
-  .amendments .mat-table {
-    border: 1px solid #41b6a6;
-    border-bottom: none;
-    border-radius: 4px;
 }
 
-.btn-today
-{
-    width: 184px;
-    height: 45px;
-    display: block;
-    padding: 0;
-    line-height: 2.7;
-    cursor: pointer;
-    border-radius: 3px;
-    font-size: 16px;
-    text-align: center;
-    margin-left: -9px;
-}
-.modal-content{
-    width:105% !important;
-}
-.text-border{
-    height: 145px;
-      border: 1px solid #41b6a6;
-      border-radius: 3px;
-      font-size: 15px;
-      padding: 10px 20px;
-      resize: both;
-      width: 100% !important;
-  }
-  .searchnow{
-      width: 150px !important;
-      height: 45px !important;
-  }
-  ::ng-deep .calendaralignment.green-calendar mat-datepicker-toggle.mat-datepicker-toggle button.mat-focus-indicator.mat-icon-button {
-    height: 3.7em !important;
-  }
-  .divScroll {
-    overflow-y: scroll;
-    overflow-x: hidden;
-    height: 500px;
-    // width: 1045px;
-    }
-
-
-    .attchmentplusicon {
-      border-radius: 4px;
-      border: 1px solid #41b6a6;
-      background: #fff;
-      width: 70px;
-      height: 29px;
-      text-align: center;
-      cursor: pointer;
-      margin: 0px 10px 1px 1px;
-  }
-  .attchmentplusicon .fa-plus {
-   
-    padding: 5px 0px 0px 0px;
-    color: #41b6a6;
-    font-size: 16px;
-    font-family: "FontAwesome"
-  }
-  .pattach {
-    border: 1px solid #41b6a6;
-    margin-top: 20px;
-    background-color: rgba(65, 182, 166, 0.1);
-  }
-  .title{
-    margin-left: 23px;
-  }
-  .mat-header-cell {
-    font-size: 15px;
-    font-weight: normal;
-    padding: 0px 34px;
-    color: white;
+.mat-header-row.mat-cust-header {
+  min-height: 30px;
 }
 
-.mat-cell{
-border-bottom: none;
-padding-left: 35px !important;
 
-  }
-
-  .mat-row {
-    border-bottom: none;
+.amendments .mat-table {
+  border: 1px solid #41b6a6;
+  border-bottom: none;
+  border-radius: 4px;
 }
-.mat-table  {
+
+.btn-today {
+  width: 184px;
+  height: 45px;
+  display: block;
+  padding: 0;
+  line-height: 2.7;
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 16px;
+  text-align: center;
+  margin-left: -9px;
+}
+
+.modal-content {
+  width: 105% !important;
+}
+
+.text-border {
+  height: 145px;
+  border: 1px solid #41b6a6;
+  border-radius: 3px;
+  font-size: 15px;
+  padding: 10px 20px;
+  resize: both;
+  width: 100% !important;
+}
+
+.searchnow {
+  width: 150px !important;
+  height: 45px !important;
+}
+
+::ng-deep .calendaralignment.green-calendar mat-datepicker-toggle.mat-datepicker-toggle button.mat-focus-indicator.mat-icon-button {
+  height: 3.7em !important;
+}
+
+.divScroll {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 500px;
+  // width: 1045px;
+}
+
+
+
+
+.pattach {
+  border: 1px solid #41b6a6;
+  margin-top: 20px;
+  background-color: rgba(65, 182, 166, 0.1);
+}
+
+.title {
+  margin-left: 23px;
+}
+
+.mat-header-cell {
+  font-size: 15px;
+  font-weight: normal;
+  padding: 0px 34px;
+  color: white;
+}
+
+.mat-cell {
+  border-bottom: none;
+  padding-left: 35px !important;
+
+}
+
+.mat-row {
+  border-bottom: none;
+}
+
+.mat-table {
   border-bottom: 1px solid #41b6a6;
-    }
-    .mat-row:hover {
-      background-color: #fff !important;
-    
-    }
-    mat-cell:nth-child(1):hover{
-    color: #41b6a6;
-      text-decoration: underline;
-    }
+}
+
+.mat-row:hover {
+  background-color: #fff !important;
+
+}
+
+mat-cell:nth-child(1):hover {
+  color: #41b6a6;
+  text-decoration: underline;
+}
+.btn-delete
+{
+  width: 150px !important;
+  height: 45px;
+  margin-left: -1px;
+}
