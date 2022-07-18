@@ -220,9 +220,26 @@ export class PatientService extends APIEndPoint {
   CreateProcedure(reqparams: any) {
     return this._ProcessPostRequest<any>(this._createProcedureUrl, reqparams);
   }
-  GetPatientMessages(reqparams: any) {
-    return this._ProcessPostRequest<any>(this._patientMessagesUrl, reqparams);
-  }
+ GetPatientMessages(reqparams : any)
+ {
+  return this._ProcessPostRequest<any>(this._patientMessagesUrl, reqparams);
+ }
+
+ AmendmentDetails(reqparams : any)
+ {
+   return this._ProcessPostRequest<any>(this._amendmentDetailsUrl,reqparams);
+
+ }
+ CreateupdateAmendment(reqparams : any)
+ {
+   return this._ProcessPostRequest<any>(this._createupdateAmendmentUrl,reqparams);
+   
+ }
+ DeleteAmendment(reqparams : any)
+ {
+    return this._ProcessPostRequest<any>(this._deleteAmendmentUrl,reqparams);
+ }
+
 
   PatientSearch(reqparams: any) {
     return this._ProcessPostRequest<any>(this._patientSearchUrl, reqparams);

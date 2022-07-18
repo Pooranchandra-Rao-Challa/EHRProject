@@ -337,6 +337,14 @@ export const ERROR_CODES: { [key: string]: string } = {
   // Error for Rooms
   'E2JSAS001': 'Appointment status created error',
 
+//Amendements 
+'M2A001' : 'Amendments added successfully',
+'M2A002' : 'Amendments updated successfully',
+'M2A003' : 'Amendments deleted successfully',
+
+//Error for Amendements
+
+'E2A001' : 'Amendments created error',
   // Labs and Imageing Messags
   'M2G1001':'Lab Order added successfully',
   'M2G1002':'Lab Order updated successfully',

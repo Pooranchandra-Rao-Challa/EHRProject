@@ -618,6 +618,20 @@ export class APIEndPoint extends EndpointBase {
 
   }
 
+  get _amendmentDetailsUrl()
+  {
+    return this._baseUrl + "AmendmentDetails";
+  }
+
+  get _createupdateAmendmentUrl()
+  {
+    return this._baseUrl + "CreateupdateAmendment";
+  }
+
+  get _deleteAmendmentUrl()
+  {
+    return this._baseUrl + "DeleteAmendment";
+  }
   get _patientSearchUrl(){
     return this._baseUrl + "PatientSearch";
   }
