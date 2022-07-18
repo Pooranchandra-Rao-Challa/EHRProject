@@ -617,6 +617,22 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "UpdateAppointmentStatus";
 
   }
+
+  get _amendmentDetailsUrl()
+  {
+    return this._baseUrl + "AmendmentDetails";
+  }
+
+  get _createupdateAmendmentUrl()
+  {
+    return this._baseUrl + "CreateupdateAmendment";
+  }
+
+  get _deleteAmendmentUrl()
+  {
+    return this._baseUrl + "DeleteAmendment";
+  }
+
   constructor(public http: HttpClient) {
     super();
   }
