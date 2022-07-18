@@ -12,7 +12,8 @@ export class AlertMessage {
       showConfirmButton: true,
       confirmButtonText: 'Close',
       width: '600',
-      customClass: { container: 'swal2-container-high-zindex' }
+      customClass: { container: 'swal2-container-high-zindex' ,
+      confirmButton:'swal2-messaage'}
     });
   }
 
@@ -20,10 +21,13 @@ export class AlertMessage {
     Swal.fire({
       title: message,
       position: 'top',
-      showConfirmButton: true,
-      confirmButtonText: 'Close',
-      width: '600',
-      customClass: { title: 'swal2-title-custom', container: 'swal2-container-high-zindex' }
+      showCancelButton: true,
+      showConfirmButton: false,
+      cancelButtonText: 'Close',
+      //cancelButtonColor: '#d74842',
+      width: '500',
+      customClass: { title: 'swal2-title-error', container: 'swal2-container-high-zindex',
+      cancelButton: 'swal2-error' }
     });
   }
   displaysubmitted(message) {
@@ -67,6 +71,10 @@ export class AlertMessage {
 
 /**
  * MessageTYps: Message: M Error: E Waring: W,I: Info,Titles: T
+ * ----------------------------------------------
+ *
+ * ----------------------------------------------
+ * Login forms; L
  * ---------------------------------------------
  * Modlues; Admin : 1 , Provider: 2 , Patient : 3
  * ----------------------------------------------
@@ -136,6 +144,10 @@ export class AlertMessage {
  * Rooms : R
  * Appointment Type : AT
  * Appointment Status : AS
+ *
+ * LabsAndImaging
+ * Order: 1
+ * Results: 2
  * ---------------------------------------------------
  * Errors Number shouw be three digits like 001
  *
@@ -332,7 +344,19 @@ export const ERROR_CODES: { [key: string]: string } = {
 
 //Error for Amendements
 
-'E2A001' : 'Amendments created error'
+'E2A001' : 'Amendments created error',
+  // Labs and Imageing Messags
+  'M2G1001':'Lab Order added successfully',
+  'M2G1002':'Lab Order updated successfully',
+  'M2G1003':'Lab Order deleted successfully',
+
+  //Errors
+  'E2G1001':'Lab Order added successfully',
+  'E2G1002':'Lab Order updated successfully',
+  'E2G1003':'Lab Order deleted successfully',
+
+  //Login Errors
+  'EL001':'Wrong email or password',
 };
 
 

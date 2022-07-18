@@ -1,5 +1,5 @@
+import { SearchPatient } from './../_models/_provider/smart.scheduler.data';
 import { EncounterInfo } from './../_models/_provider/encounter';
-import { Patient } from 'src/app/_models/_account/newPatient';
 import { Injectable } from "@angular/core";
 import { APIEndPoint } from "./api.endpoint.service";
 import { HttpClient } from "@angular/common/http";
@@ -239,5 +239,10 @@ export class PatientService extends APIEndPoint {
  {
     return this._ProcessPostRequest<any>(this._deleteAmendmentUrl,reqparams);
  }
+
+
+  PatientSearch(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._patientSearchUrl, reqparams);
+  }
 
 }

@@ -1,137 +1,144 @@
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-12">
-          <div class="labs-imaging-tabs">
-            <ul class="nav nav-tabs nav-tab-styled" id="myTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                  <a class="nav-link text-center active" id="medical-tab" data-bs-toggle="tab" data-bs-target="#medical" type="button"
-                    role="tab" aria-controls="medical" aria-selected="true" (click)="GetLabDetails()" >Labs
-                 </a>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <a class="nav-link text-center" id="send-tab" data-bs-toggle="tab" data-bs-target="#send" type="button" role="tab"
-                    aria-controls="send"  aria-selected="true" (click)="GetImagingDetails()" >Imaging
-                  </a>
-                </li>
-           </ul>
-        </div>
-        </div>
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-12">
+      <div class="labs-imaging-tabs">
+        <ul class="nav nav-tabs nav-tab-styled" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <a class="nav-link text-center active" id="medical-tab" data-bs-toggle="tab" data-bs-target="#medical"
+              type="button" role="tab" aria-controls="medical" aria-selected="true" (click)="InitGridView('Labs')">Labs
+            </a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link text-center" id="send-tab" data-bs-toggle="tab" data-bs-target="#send" type="button"
+              role="tab" aria-controls="send" aria-selected="true" (click)="InitGridView('Image')">Imaging
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
-  
-    <div class="row top-header bg-color mx-0">
-      <div class="col-lg-7 col-md-12 col-sm-12">
-                <div class="row mt-2 row-dropdown">
-                  <mat-form-field appearance="outline"
-                    class="col-lg-4 col-md-12 col-sm-12 mat-form-field-wrapper hover my-lg-2 ">
-                    <mat-select placeholder="Filter By Provider" disableOptionCentering>
-                        <mat-option>EHRApplication ehr</mat-option>
-                    </mat-select>
-                  </mat-form-field>
+  </div>
 
-                  <mat-form-field appearance="outline"
-                    class="col-lg-4 col-md-12 col-sm-12 mat-form-field-wrapper hover my-lg-2 ">
-                    <mat-select placeholder="Filter By Type" disableOptionCentering>
-                        <mat-option>Lab Order</mat-option>
-                        <mat-option>Lab Results</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                  <mat-form-field appearance="outline"
-                    class="col-lg-4 col-md-12 col-sm-12 mat-form-field-wrapper  hover my-lg-2 ">
-                    <mat-select placeholder="Filter By Status" disableOptionCentering>
-                        <mat-option>Open</mat-option>
-                        <mat-option>Pending</mat-option>
-                        <mat-option>Closed</mat-option>
-                        <mat-option>Canceled</mat-option>
-                        <mat-option>Discontinued</mat-option>
-                        <mat-option>Hold</mat-option>
-                        <mat-option>Archive</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-        </div>
-        <div class="col-lg-5 col-md-12 col-sm-12">
-        <div class="row" >
-                  <div class="col-lg-9 col-md-12 col-11">
-                    <div class="row">
-                        <div class="col-lg-10 col-md-11 col-10  my-lg-2 mt-4">
-                            <div class="search">
-                                <input type="text" class="form-control" placeholder="Search Test"> <button
-                                    class="btn"><i class="fa fa-search search-icon"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-3 col-md-12 col-sm-12 mt-3  pb-3 pb-lg-0"  >
-                    <div class="dropdown lab-drodown">
-                        <button class="btn dropdown-toggle " type="button" id="dropdownMenuButton1"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa fa-plus plus-icon"></i>
-                        </button>
-                        <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton1">
-                            <input type="text" placeholder="" id="myInput" class="search-input-dropdown">
-                            <option class="active dropdown-item menu-option-dropdown mt-2" (click)="openComponentDialog(orderdialoguecomponent, null, ActionTypes.add)">Order <option>
-                            <option class="dropdown-item menu-option-dropdown" (click)="openComponentDialog(orderresultdialoguecomponent, null, ActionTypes.add)">result
-                            <option></option>
-                        </ul>
-                    </div>
-                  </div>
-        </div>
+  <div class="row top-header bg-color mx-0">
+    <div class="col-lg-7 col-md-12 col-sm-12">
+      <div class="row mt-2 row-dropdown">
+        <mat-form-field appearance="outline" class="col-lg-4 col-md-12 col-sm-12 mat-form-field-wrapper hover my-lg-2 ">
+          <mat-select placeholder="Filter By Provider" disableOptionCentering>
+            <mat-option>EHRApplication ehr</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-lg-4 col-md-12 col-sm-12 mat-form-field-wrapper hover my-lg-2 ">
+          <mat-select placeholder="Filter By Type" disableOptionCentering>
+            <mat-option>Lab Order</mat-option>
+            <mat-option>Lab Results</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline"
+          class="col-lg-4 col-md-12 col-sm-12 mat-form-field-wrapper  hover my-lg-2 ">
+          <mat-select placeholder="Filter By Status" disableOptionCentering>
+            <mat-option>Open</mat-option>
+            <mat-option>Pending</mat-option>
+            <mat-option>Closed</mat-option>
+            <mat-option>Canceled</mat-option>
+            <mat-option>Discontinued</mat-option>
+            <mat-option>Hold</mat-option>
+            <mat-option>Archive</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
     </div>
-
-    </div>
-    <div class="row" id="myTabContent">
-
-        <div class="col-lg-12 col-md-12  col-12 ">
-            <div class="scrollable-mat-table">
-                <div class="LabsimagingTable table-responsive">
-                    <table mat-table [dataSource]="labImagingDataSource">
-                        <ng-container matColumnDef="Order">
-                            <th  mat-header-cell *matHeaderCellDef class="table-th-FirstCell text-center">Order #</th>
-                        <td mat-cell *matCellDef="let lab" class="text-center">{{lab.OrderResultNumber}}</td>
-                        </ng-container>
-                        <ng-container matColumnDef="Test">
-                            <th mat-header-cell *matHeaderCellDef class="text-center">Test</th>
-                            <td mat-cell *matCellDef="let lab" class="text-center">{{lab.Test}}</td>
-                        </ng-container>
-                        <ng-container matColumnDef="Type">
-                            <th mat-header-cell *matHeaderCellDef class="text-center">Type</th>
-                            <td mat-cell *matCellDef="let lab" class="text-center">{{lab.ProcedureType}}</td>
-                        </ng-container>
-                        <ng-container matColumnDef="Patient">
-                            <th mat-header-cell *matHeaderCellDef class="text-center">Patient</th>
-                            <td mat-cell *matCellDef="let lab" class="text-center">{{lab.PatientName}}</td>
-                        </ng-container>
-                        <ng-container matColumnDef="Provider">
-                            <th mat-header-cell *matHeaderCellDef class="text-center">Provider</th>
-                            <td mat-cell *matCellDef="let lab" class="text-center">{{lab.ProviderName}}</td>
-                        </ng-container>
-                        <ng-container matColumnDef="Status">
-                            <th mat-header-cell *matHeaderCellDef class="text-center">Status</th>
-                            <td mat-cell *matCellDef="let lab" class="text-center">{{lab.Status}}</td>
-                        </ng-container>
-                        <ng-container matColumnDef="LabImagingStatus">
-                            <th mat-header-cell *matHeaderCellDef class="text-center">Lab/Imaging Status</th>
-                            <td mat-cell *matCellDef="let lab" class="text-center">{{lab.LabsImagingStatus}}</td>
-                        </ng-container>
-                        <ng-container matColumnDef="Created">
-                            <th mat-header-cell *matHeaderCellDef class="table-th-LastCell text-center">Created</th>
-                            <td mat-cell *matCellDef="let lab" class="text-center">{{lab.CreatedDate | date: 'yyyy-MM-dd'}}</td>
-                        </ng-container>
-
-                        <tr mat-header-row *matHeaderRowDef="labImagingColumn"></tr>
-                        <tr mat-row class="table-row" *matRowDef="let row; columns: labImagingColumn"></tr>
-                    </table>
-                    <div class="table-NoRecord text-center py-2 col-12" *ngIf="labImagingDataSource.length == 0">
-                        No labs
-                     </div>
-                </div>
+    <div class="col-lg-5 col-md-12 col-sm-12">
+      <div class="row">
+        <div class="col-lg-9 col-md-12 col-11">
+          <div class="row">
+            <div class="col-lg-10 col-md-11 col-10  my-lg-2 mt-4">
+              <div class="search">
+                <input type="text" class="form-control" placeholder="Search Test"> <button class="btn"><i
+                    class="fa fa-search search-icon"></i></button>
+              </div>
             </div>
-
+          </div>
         </div>
+        <div class="col-lg-3 col-md-12 col-sm-12 mt-3  pb-3 pb-lg-0">
+          <div class="dropdown lab-drodown">
+            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <i class="fa fa-plus plus-icon"></i>
+            </button>
+            <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton1" style="inset: -1px -74px auto auto;">
+              <input type="text" placeholder="" id="myInput" class="search-input-dropdown">
+              <option class="active dropdown-item menu-option-dropdown mt-2"
+                (click)="openComponentDialog(orderDialogComponent, null, ActionTypes.add)">Order
+              <option>
+              <option class="dropdown-item menu-option-dropdown"
+                (click)="openComponentDialog(orderResultDialogComponent, null, ActionTypes.add)">Result
+
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="row" id="myTabContent">
+
+    <div class="col-lg-12 col-md-12  col-12 ">
+      <div class="scrollable-mat-table">
+        <div class="LabsimagingTable table-responsive">
+          <table mat-table [dataSource]="labImagingDataSource" matSortDirection="desc" matSortDisableClear>
+            <ng-container matColumnDef="Order">
+              <th mat-header-cell *matHeaderCellDef class="table-th-FirstCell text-center">Order #</th>
+              <td mat-cell *matCellDef="let lab" class="text-center">{{lab.OrderNumber}}</td>
+            </ng-container>
+            <ng-container matColumnDef="Test">
+              <th mat-header-cell *matHeaderCellDef class="text-center">Test</th>
+              <td mat-cell *matCellDef="let lab" class="text-center">{{lab.Test}}</td>
+            </ng-container>
+            <ng-container matColumnDef="Type">
+              <th mat-header-cell *matHeaderCellDef class="text-center">Type</th>
+              <td mat-cell *matCellDef="let lab" class="text-center">{{lab.ProcedureType}}</td>
+            </ng-container>
+            <ng-container matColumnDef="Patient">
+              <th mat-header-cell *matHeaderCellDef class="text-center">Patient</th>
+              <td mat-cell *matCellDef="let lab" class="text-center">{{lab.PatientName}}</td>
+            </ng-container>
+            <ng-container matColumnDef="Provider">
+              <th mat-header-cell *matHeaderCellDef class="text-center">Provider</th>
+              <td mat-cell *matCellDef="let lab" class="text-center">{{lab.ProviderName}}</td>
+            </ng-container>
+            <ng-container matColumnDef="Status">
+              <th mat-header-cell *matHeaderCellDef class="text-center">Status</th>
+              <td mat-cell *matCellDef="let lab" class="text-center">{{lab.Status}}</td>
+            </ng-container>
+            <ng-container matColumnDef="LabImagingStatus">
+              <th mat-header-cell *matHeaderCellDef class="text-center">Lab/Imaging Status</th>
+              <td mat-cell *matCellDef="let lab" class="text-center">{{lab.OrderStatus}}</td>
+            </ng-container>
+            <ng-container matColumnDef="Created">
+              <th mat-header-cell *matHeaderCellDef class="table-th-LastCell text-center">Created</th>
+              <td mat-cell *matCellDef="let lab" class="text-center">{{lab.CreatedDate | date: 'yyyy-MM-dd'}}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="labImagingColumn"></tr>
+            <tr mat-row class="table-row" *matRowDef="let row; columns: labImagingColumn"></tr>
+          </table>
+          <div class="table-NoRecord text-center py-2 col-12" *ngIf="labImagingDataSource.length == 0">
+            No labs
+          </div>
+        </div>
+      </div>
 
     </div>
-    
-    <!-- <div *ngIf="!labing">
+    <!-- <div class="d-flex justify-content-end my-3">
+      <div class="pg-container">
+        <mat-paginator appPagination
+           [length]="labImageDatasource.TotalRecordSize" pageSize="10" [pageIndex] = "0"
+           [pageSizeOptions]="[10,20,30,40,50]"  >
+          </mat-paginator>
+        </div>
+    </div> -->
+  </div>
+
+  <!-- <div *ngIf="!labing">
     <div class="row top-header bg-color mx-0">
       <div class="col-lg-7 col-md-12 col-sm-12">
                 <div class="row mt-2 row-dropdown">
@@ -246,4 +253,3 @@
     </div>
   </div> -->
 </div>
-

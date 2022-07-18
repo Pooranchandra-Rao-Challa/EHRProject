@@ -4,14 +4,14 @@ import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
 
 @Component({
   selector: 'app-editlabimageorder',
-  templateUrl: './editlabimageorder.component.html',
-  styleUrls: ['./editlabimageorder.component.scss']
+  templateUrl: './order.edit.lab.imaging.component.html',
+  styleUrls: ['./order.edit.lab.imaging.component.scss']
 })
-export class EditlabimageorderComponent implements OnInit {
+export class EditLabImagingOrderComponent implements OnInit {
   editorderlab: FormGroup;
   labingimagingattchements: FormGroup;
- 
-  
+
+
   constructor(private ref: EHROverlayRef, private fb: FormBuilder) { }
 
   ngOnInit(): void {
@@ -20,13 +20,13 @@ export class EditlabimageorderComponent implements OnInit {
   cancel() {
     this.ref.close(null);
   }
-  
+
 
 
 pageloadevent() {
   this.labingimagingattchements = this.fb.group({
     testorder: this.fb.array([]),
-  
+
   })
 }
 get testorder() {

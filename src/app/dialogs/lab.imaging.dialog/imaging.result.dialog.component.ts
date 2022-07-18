@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
 
 @Component({
-  selector: 'app-odermanualentrydialog',
-  templateUrl: './odermanualentrydialog.component.html',
-  styleUrls: ['./odermanualentrydialog.component.scss']
+  selector: 'app-addimagingresultdialog',
+  templateUrl: './imaging.result.dialog.component.html',
+  styleUrls: ['./imaging.result.dialog.component.scss']
 })
-export class OdermanualentrydialogComponent implements OnInit {
+export class ImagingResultDialogComponent implements OnInit {
 
   constructor(private ref: EHROverlayRef,) { }
 
@@ -15,4 +15,5 @@ export class OdermanualentrydialogComponent implements OnInit {
   cancel() {
     this.ref.close(null);
   }
+
 }

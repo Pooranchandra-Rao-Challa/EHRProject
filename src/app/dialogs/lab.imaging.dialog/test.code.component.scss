@@ -1,0 +1,55 @@
+@import"../../../assets/cstm.material.scss";
+@import"../../../assets/common.scss";
+
+#testcodes.modal-dialog{
+  max-width: unset;
+  left: calc(100% - 80%) !important;
+  margin: unset;
+}
+#testcodes .modal-content{
+    width: 900px !important;
+}
+
+#testcodes .modal-body {
+  max-height: calc(90vh - 80px);
+  overflow-y: auto;
+  overflow-x:hidden;
+}
+.not-allowed{
+  cursor: not-allowed;
+}
+::ng-deep #testcodes .mat-radio-label{
+  white-space: pre-line;
+}
+
+.select-new-code{
+  background: #41b6a6 !important;
+  color: #fff !important;
+}
+
+#testcodes .test-code-box{
+  border: 1px solid #41b6a6;
+  margin: 5px 0;
+  border-radius: 5px;
+}
+
+#testcodes .test-code-box-item-left{
+  float: left;
+  margin: 5px;
+}
+
+#testcodes .test-code-box-item-right{
+  float: right;
+  margin: 5px;
+}
+
+#testcodes .test-code-search-result{
+  height: 270px;
+  overflow: auto;
+}
+
+#testcodes .text-green-position{
+  color: #41b6a6;
+  white-space: nowrap;
+  margin-left: -164px;
+}

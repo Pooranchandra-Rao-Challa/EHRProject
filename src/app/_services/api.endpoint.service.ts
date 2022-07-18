@@ -603,7 +603,7 @@ export class APIEndPoint extends EndpointBase {
   get _patientMessagesUrl() {
     return this._baseUrl + "PatientMessages";
   }
- 
+
   get _labImageStatusesUrl()
   {
     return this._baseUrl + "LabImageStatuses";
@@ -631,6 +631,25 @@ export class APIEndPoint extends EndpointBase {
   get _deleteAmendmentUrl()
   {
     return this._baseUrl + "DeleteAmendment";
+  }
+  get _patientSearchUrl(){
+    return this._baseUrl + "PatientSearch";
+
+  }
+
+  get _createLabOrImagingOrderUrl(){
+    return this._baseUrl + "CreateLabOrImagingOrder";
+  }
+
+  get _labandImageListUrl(){
+    return this._baseUrl + "LabandImageList";
+  }
+
+  get _amendmentStatusesUrl(){
+    return this._baseUrl + "AmendmentStatuses";
+  }
+  get _amendmentSourcesUrl(){
+    return this._baseUrl + "AmendmentSources";
   }
 
   constructor(public http: HttpClient) {

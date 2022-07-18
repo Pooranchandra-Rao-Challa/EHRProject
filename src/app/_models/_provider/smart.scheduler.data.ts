@@ -30,7 +30,7 @@ export interface SearchPatient {
   SearchTerm: string;
 };
 
-export interface PatientSearchResults {
+export class PatientSearchResults {
   Name: string;
   Age: number;
   ContactNumber: string;

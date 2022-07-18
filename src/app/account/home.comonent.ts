@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
+import { AlertMessage} from 'src/app/_alerts/alertMessage'
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -9,10 +10,23 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
   providerType = "block";
   patientType = "none";
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+    private activatedRoute:ActivatedRoute,
+    private alertMessage: AlertMessage) {
+
+
+    }
 
   ngOnInit() {
+    this.activatedRoute.queryParams.subscribe(params => {
+      const message = params['message'];
+      console.log(params);
 
+      console.log(message);
+      if(message != null && message !=''){
+        this.alertMessage.displayErrorDailog(message);
+      }
+    });
   }
   providerBtn() {
     this.providerType = "block";

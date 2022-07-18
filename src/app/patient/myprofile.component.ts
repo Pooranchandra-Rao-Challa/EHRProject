@@ -201,7 +201,7 @@ events(){
   _filterProcedure() {
     this.utilityService.AreaCodes()
       .subscribe(resp => {
-        debugger;
+        //debugger;
         //this.isLoading = false;
         if (resp.IsSuccess) {
           this.SourceData=resp.ListResult;
@@ -211,12 +211,12 @@ events(){
         }
       },
       error=>{
-        debugger;
+        //debugger;
       })
   }
   //filter city on search text
   filterData(searchText: string) {
-    debugger;
+    //debugger;
     if(searchText==''){
       return [];
     }

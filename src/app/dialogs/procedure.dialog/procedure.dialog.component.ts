@@ -11,11 +11,10 @@ import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { MedicalCode } from 'src/app/_models/codes';
 import * as moment from 'moment';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter, MAT_MOMENT_DATE_FORMATS }
-from '@angular/material-moment-adapter';
-import { CustomMomentDateAdapter } from 'src/app/_common/custom.date.adapter';
-import { AppMomentDateAdapter,MOMENT_DATE_FORMATS }from 'src/app/_common/app.moment.date.adapter';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+//import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
+//import { CustomMomentDateAdapter } from 'src/app/_common/custom.date.adapter';
+//import { AppMomentDateAdapter,MOMENT_DATE_FORMATS }from 'src/app/_common/app.moment.date.adapter';
 
 
 @Component({
@@ -34,7 +33,6 @@ export class ProcedureDialogComponent implements OnInit {
   @ViewChild('searchProcedureCode', { static: true }) searchProcedureCode: ElementRef;
   @ViewChild('searchReasonCode', { static: true }) searchReasonCode: ElementRef;
   filteredProcedures: Observable<MedicalCode[]>;
-  // filteredReasons: Observable<MedicalCode[]>;
   procedureInfo: ProceduresInfo = new ProceduresInfo();
   patient: ProviderPatient;
   reasonCodes: MedicalCode[] = REASON_CODES;
@@ -421,14 +419,17 @@ cusp_distolingual */
     let isAdd = this.procedureInfo.ProcedureId == null;
 
 
-    this.procedureInfo.strDate = this.procedureInfo.Date ? this.procedureInfo.Date.toUTCString() : null;
-    this.procedureInfo.strEndDate = this.procedureInfo.EndDate ? this.procedureInfo.EndDate.toLocaleDateString() : null;
-    this.procedureInfo.strReasonStartDate = this.procedureInfo.ReasonStartDate ? this.procedureInfo.ReasonStartDate.toLocaleDateString() : null;
-    this.procedureInfo.strEndDate = this.procedureInfo.Date ? this.procedureInfo.Date.toLocaleDateString() : null;
-    this.procedureInfo.strReasonStartDate = this.procedureInfo.Date ? this.procedureInfo.Date.toUTCString() : null;
+    // this.procedureInfo.strDate = this.procedureInfo.Date ? this.procedureInfo.Date.toUTCString() : null;
+    // this.procedureInfo.strEndDate = this.procedureInfo.EndDate ? this.procedureInfo.EndDate.toLocaleDateString() : null;
+    // this.procedureInfo.strReasonStartDate = this.procedureInfo.ReasonStartDate ? this.procedureInfo.ReasonStartDate.toLocaleDateString() : null;
+    // this.procedureInfo.strEndDate = this.procedureInfo.Date ? this.procedureInfo.Date.toLocaleDateString() : null;
+    // this.procedureInfo.strReasonStartDate = this.procedureInfo.Date ? this.procedureInfo.Date.toUTCString() : null;
 
     console.log(this.procedureInfo);
 
+    this.procedureInfo.strDate = moment.utc(this.procedureInfo.Date).toISOString()
+    this.procedureInfo.strEndDate = moment.utc(this.procedureInfo.EndDate).toISOString()
+    this.procedureInfo.strReasonStartDate =  moment.utc(this.procedureInfo.ReasonStartDate).toISOString()
 
     this.patientService.CreateProcedure(this.procedureInfo)
       .subscribe(resp => {

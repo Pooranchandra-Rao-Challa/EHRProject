@@ -92,12 +92,12 @@ import { CompleteAppointmentDialogComponent} from 'src/app/dialogs/newappointmen
 import { registerLocaleData } from '@angular/common';
 import localeIt from '@angular/common/locales/en';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
-import { OrderdialogueComponent } from 'src/app/dialogs/orderdialogue/orderdialogue.component';
-import { OrderresultdialogueComponent } from 'src/app/dialogs/orderresultdialogue/orderresultdialogue.component';
-import { EditlabimageorderComponent } from 'src/app/dialogs/editlabimageorder/editlabimageorder.component';
-import { OdermanualentrydialogComponent } from 'src/app/dialogs/odermanualentrydialog/odermanualentrydialog.component';
-import { AddimagingresultdialogComponent } from 'src/app/dialogs/addimagingresultdialog/addimagingresultdialog.component';
-
+import { OrderDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/order.dialog.component';
+import { OrderResultDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/order.result.dialog.component';
+import { EditLabImagingOrderComponent } from 'src/app/dialogs/lab.imaging.dialog/order.edit.lab.imaging.component';
+import { OrderManualEntryDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/order.manual.entry.dialog.component';
+import { ImagingResultDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/imaging.result.dialog.component';
+import { TestCodeComponent } from 'src/app/dialogs/lab.imaging.dialog/test.code.component';
 
 
 //import { TimeMaskDirective } from 'src/app/_directives/input.time.mask.directive'
@@ -115,14 +115,7 @@ registerLocaleData(localeIt);
     AdvancedMedicalCodeModule,
     TeethSurfaceModule,
     AddeditinterventionComponent,
-    // PaginatorDirective
-    //TimeMaskDirective,
-    OrderdialogueComponent,
-    OrderresultdialogueComponent,
-    EditlabimageorderComponent,
-    OdermanualentrydialogComponent,
-    AddimagingresultdialogComponent
-    
+
   ],
   declarations: [
     ProviderNavbarComponent,
@@ -171,12 +164,12 @@ registerLocaleData(localeIt);
     AddeditinterventionComponent,
     ProcedureDialogComponent,
     SignEncounterNoteComponent,
-    OrderdialogueComponent,
-    OrderresultdialogueComponent,
-    EditlabimageorderComponent,
-    OdermanualentrydialogComponent,
-    AddimagingresultdialogComponent
-    
+    OrderDialogComponent,
+    OrderResultDialogComponent,
+    EditLabImagingOrderComponent,
+    OrderManualEntryDialogComponent,
+    ImagingResultDialogComponent,
+    TestCodeComponent,
     //TimeMaskDirective,
   ],
   imports: [
@@ -234,7 +227,13 @@ registerLocaleData(localeIt);
     AddressVerificationDialogComponent,
     SignEncounterNoteComponent,
     PatientHealthPortalComponent,
-    CompleteAppointmentDialogComponent]
+    CompleteAppointmentDialogComponent,
+    OrderManualEntryDialogComponent,
+    OrderResultDialogComponent,
+    OrderDialogComponent,
+    EditLabImagingOrderComponent,
+    ImagingResultDialogComponent,
+    TestCodeComponent]
 })
 export class ProviderModule {
 

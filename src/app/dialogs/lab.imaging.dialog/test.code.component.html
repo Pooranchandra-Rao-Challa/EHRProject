@@ -1,0 +1,82 @@
+<div class="modal-dialog" id="testcodes">
+  <div class="modal-content">
+    <div class="modal-header">
+      <p class="modal-title Roboto-medium">Test Codes for <b>{{testCodeData.Query +' in '+ testCodeData.Scope}}</b></p>
+      <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close" (click)="cancel()">
+        X
+      </span>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-12">
+          Note: If the test code is not in below list or the test code is new
+          add Code and Description then click 'Use This New Code'
+          button
+        </div>
+      </div>
+      <div class="row test-code-box" >
+        <form [formGroup]="textCodeForm">
+          <div class="col-md-3 test-code-box-item-left">
+            <mat-label class="required">Code:</mat-label>
+            <mat-form-field appearance="outline" class="col-md-12">
+              <input matInput placeholder="" formControlName="Code">
+            </mat-form-field>
+            <span class="text-danger"
+                *ngIf="(code.touched) && code.errors?.required">
+                Code is required
+            </span>
+            <span class="text-danger"
+                *ngIf="code.errors?.pattern">
+                Code accepts only 0 to 9 and - (hypen) or _ (underscrore)
+            </span>
+          </div>
+          <div class="col-md-6 test-code-box-item-left">
+            <mat-label class="required">Description:</mat-label>
+            <mat-form-field appearance="outline" class="col-md-12">
+              <input matInput placeholder="" formControlName="Test">
+            </mat-form-field>
+            <span class="text-danger"
+                *ngIf="(test.touched) && test.errors?.required">
+                Description is required
+            </span>
+            <span class="text-danger"
+                *ngIf="test.errors?.pattern">
+                Description accepts only a to z and A to Z 0 to 9 and - (hypen) or _ (underscrore) ()@#$%&*/[]
+            </span>
+          </div>
+          <div class="col-md-1 test-code-box-item-right" >
+            <mat-label></mat-label>
+            <button  mat-raised-button type="submit" class="btn btn-green   pull-right"
+            (click)="UseTheNewCode()" [class.select-new-code]="this.useNewCode" style="white-space:nowrap;
+            margin-top: 20px; height: 45px;">
+              Use This New Code
+            </button>
+            <span class="text-green-position"
+                *ngIf="this.useNewCode">
+                To Deselect the new code click again.
+            </span>
+          </div>
+        </form>
+      </div>
+      <div class="row test-code-box">
+        <div class="col-md-12 test-code-search-result">
+          <mat-progress-bar mode="indeterminate" bufferValue="50" value=100 *ngIf="dialogIsLoading"></mat-progress-bar>
+          <mat-list role="list">
+            <mat-list-item role="listitem" *ngFor="let opt of filteredOptions | async ">
+              <mat-radio-button [value]="opt" (change)="selection = $event.value">
+                {{opt.Code +' - '+ opt.Description}}
+              </mat-radio-button>
+            </mat-list-item>
+          </mat-list>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <!--[disabled] = "selection == null"-->
+      <button mat-raised-button type="submit" class="btn btn-green   pull-right" (click)="SelectTestCode()"
+        *ngIf="selection != null">Select</button>
+      <button mat-raised-button type="submit" class="btn btn-green   pull-right" (click)="cancel()">Close</button>
+    </div>
+  </div>
+</div>
