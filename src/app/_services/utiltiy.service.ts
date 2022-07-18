@@ -52,7 +52,7 @@ export class UtilityService extends APIEndPoint {
   CompletePatientAccountProcess(reqparams: any){
     return this._ProcessPostRequest<any>(this._completePatientAccountProcessUrl,reqparams);
   }
-  
+
   AreaCodes()
   {
     return this._ProcessGetRequest<any>(this._areaCodesUrl);
@@ -64,5 +64,14 @@ export class UtilityService extends APIEndPoint {
   LabImageOrderStatuses()
   {
     return this._ProcessGetRequest<any>(this._labImageOrderStatusesUrl);
+  }
+
+  AmendmentStatuses()
+  {
+    return this._ProcessGetRequest<any>(this._amendmentStatusesUrl);
+  }
+  AmendmentSources()
+  {
+    return this._ProcessGetRequest<any>(this._amendmentSourcesUrl);
   }
 }

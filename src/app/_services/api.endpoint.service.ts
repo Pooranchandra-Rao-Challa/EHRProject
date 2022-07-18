@@ -631,6 +631,12 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "LabandImageList";
   }
 
+  get _amendmentStatusesUrl(){
+    return this._baseUrl + "AmendmentStatuses";
+  }
+  get _amendmentSourcesUrl(){
+    return this._baseUrl + "AmendmentSources";
+  }
 
   constructor(public http: HttpClient) {
     super();
