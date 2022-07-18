@@ -1,6 +1,7 @@
-import { AuthenticationService } from './../../_services/authentication.service';
-import { User } from './../../_models/_account/user';
-import { LabsImagingService } from './../../_services/labsimaging.service';
+import { tap } from 'rxjs/operators';
+import { AuthenticationService } from 'src/app/_services/authentication.service';
+import { User,  } from 'src/app/_models/_account/user';
+import { LabsImagingService } from 'src/app/_services/labsimaging.service';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
 import { Actions } from 'src/app/_models';
@@ -12,7 +13,7 @@ import { OrderManualEntryDialogComponent } from 'src/app/dialogs/lab.imaging.dia
 import { ViewModel } from 'src/app/_models/';
 import { LabProcedureWithOrder } from 'src/app/_models/_provider/LabandImage';
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, merge, Observable, of } from 'rxjs';
 import { catchError, finalize } from 'rxjs/operators';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -43,7 +44,6 @@ export class LabsImagingComponent implements OnInit {
     public overlayService: OverlayService,) {
     this.user = authService.userValue;
     this.viewmodel = authService.viewModel;
-    console.log(this.user);
 
   }
 
@@ -51,59 +51,80 @@ export class LabsImagingComponent implements OnInit {
     this.viewmodel.LabandImageView = "Lab";
     this.InitGridView(this.viewmodel.LabandImageView);
   }
-
-  InitGridView(procedureType: string)
-  {
-    this.viewmodel.LabandImageView = procedureType;
-    var reqparam = {
-      "ClinicId": this.user.ClinicId,
-      "ProcedureType":procedureType
-    }
-    console.log(reqparam);
-
-    this.labImageService.LabandImageList(reqparam).subscribe(resp => {
-      console.log(resp);
-
-      if (resp.IsSuccess) {
-        this.labImagingDataSource = resp.ListResult;
-      }
+  ngAfterViewInit(): void {
+    // server-side search
+    // fromEvent(this.searchPatient.nativeElement, 'keyup')
+    //   .pipe(
+    //     debounceTime(150),
+    //     distinctUntilChanged(),
+    //     tap(() => {
+    //       //this.page = 0;
+    //       this.paginator.pageIndex = 0;
+    //       this.loadPatients();
+    //     })
+    //   )
+    //   .subscribe();
+    // reset the paginator after sorting
+    this.sort.sortChange.subscribe(() => {
+      this.paginator.pageIndex = 0
     });
 
-    // let reqparams = {
-    //   "ClinicId": this.user.ClinicId,
-    //   "ProviderId": this.user.ProviderId,
-    //   "Status": "All"
-    // }
-    // this.labImageDatasource = new LabImageDatasource(this.labImageService, reqparams);
-    // this.labImageDatasource.loadLabImage();
-
+    merge(this.sort.sortChange, this.paginator.page)
+      .pipe(
+        tap(() => this.loadLabandImageList())
+      )
+      .subscribe();
+  }
+  onChangeView(procedureType: string){
+    this.viewmodel.LabandImageView = procedureType;
+    this.labImageDatasource.ProcedureType = procedureType;
+    this.loadLabandImageList();
+  }
+  InitGridView(procedureType: string)
+  {
+    let reqparams = {
+      "ClinicId": this.user.ClinicId,
+      "ProcedureType": procedureType,
+    }
+    this.labImageDatasource = new LabImageDatasource(this.labImageService, reqparams);
+    this.labImageDatasource.loadLabImage();
   }
 
-
+  loadLabandImageList() {
+    //debugger;
+    this.labImageDatasource.loadLabImage(
+      //this.searchPatient.nativeElement.value,
+      '',
+      this.sort.active,
+      this.sort.direction,
+      this.paginator.pageIndex,
+      this.paginator.pageSize
+    );
+  }
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
     dialogData, action: Actions = this.ActionTypes.add) {
     let reqdata: any;
-    if (action == Actions.add && content === this.orderDialogComponent) {
+    if (action == Actions.add && content === this.orderDialogComponent && this.viewmodel.LabandImageView == "Lab") {
       this.labandimaging = new LabProcedureWithOrder();
       this.labandimaging.View = this.viewmodel.LabandImageView;
       reqdata = this.labandimaging;
     }
-    else if (action == Actions.view && content === this.orderDialogComponent) {
-      this.labandimaging = dialogData;
-      this.labandimaging.View = this.viewmodel.LabandImageView;
-      reqdata = this.labandimaging;
-    }
-    else if (action == Actions.add && content === this.orderResultDialogComponent) {
+    else if (action == Actions.add && content === this.orderDialogComponent && this.viewmodel.LabandImageView == "Image") {
       this.labandimaging = new LabProcedureWithOrder();
       this.labandimaging.View = this.viewmodel.LabandImageView;
       reqdata = this.labandimaging;
-    } else if (action == Actions.view && content === this.orderResultDialogComponent) {
+    }
+    else if (action == Actions.add && content === this.orderResultDialogComponent  && this.viewmodel.LabandImageView == "Lab") {
+      this.labandimaging = new LabProcedureWithOrder();
+      this.labandimaging.View = this.viewmodel.LabandImageView;
+      reqdata = this.labandimaging;
+    } else if (action == Actions.add && content === this.orderResultDialogComponent && this.viewmodel.LabandImageView == "Image") {
       this.labandimaging = new LabProcedureWithOrder();
       this.labandimaging.View = this.viewmodel.LabandImageView;
       reqdata = this.labandimaging;
     }
 
-    console.log(reqdata);
+
 
     const ref = this.overlayService.open(content, reqdata);
     ref.afterClosed$.subscribe(res => {
@@ -140,14 +161,12 @@ export class LabImageDatasource implements DataSource<LabProcedureWithOrder>{
     this.loadingSubject.complete();
   }
 
-  set Status(status: string) {
-    this.queryParams["Status"] = status;
-  }
-  set ProviderId(id:string){
-    this.queryParams["ProviderId"] = id;
+
+  set ProcedureType(procedureType: string){
+    this.queryParams["ProcedureType"] = procedureType;
   }
 
-  loadLabImage(filter = '', sortField = 'LastAccessed',
+  loadLabImage(filter = '', sortField = 'OrderNumber',
     sortDirection = 'desc', pageIndex = 0, pageSize = 10) {
     this.queryParams["SortField"] = sortField;
     this.queryParams["SortDirection"] = sortDirection;
@@ -159,9 +178,7 @@ export class LabImageDatasource implements DataSource<LabProcedureWithOrder>{
     this.labImageService.LabandImageList(this.queryParams).pipe(
       catchError(() => of([])),
       finalize(() => this.loadingSubject.next(false))
-    )
-      .subscribe(resp => {
-
+    ).subscribe(resp => {
         this.labImageSubject.next(resp.ListResult as LabProcedureWithOrder[])
       });
   }

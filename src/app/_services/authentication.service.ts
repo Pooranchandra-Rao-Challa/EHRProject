@@ -73,7 +73,7 @@ export class AuthenticationService {
           this.logout(ERROR_CODES["EL001"])
         }
       }, err => {
-        this.logout();
+        this.logout(ERROR_CODES["EL002"]);
       }),
 
     );

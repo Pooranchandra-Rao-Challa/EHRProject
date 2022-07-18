@@ -5,12 +5,12 @@
         <ul class="nav nav-tabs nav-tab-styled" id="myTab" role="tablist">
           <li class="nav-item" role="presentation">
             <a class="nav-link text-center active" id="medical-tab" data-bs-toggle="tab" data-bs-target="#medical"
-              type="button" role="tab" aria-controls="medical" aria-selected="true" (click)="InitGridView('Labs')">Labs
+              type="button" role="tab" aria-controls="medical" aria-selected="true" (click)="onChangeView('Lab')">Labs
             </a>
           </li>
           <li class="nav-item" role="presentation">
             <a class="nav-link text-center" id="send-tab" data-bs-toggle="tab" data-bs-target="#send" type="button"
-              role="tab" aria-controls="send" aria-selected="true" (click)="InitGridView('Image')">Imaging
+              role="tab" aria-controls="send" aria-selected="true" (click)="onChangeView('Image')">Imaging
             </a>
           </li>
         </ul>
@@ -82,60 +82,61 @@
   <div class="row" id="myTabContent">
 
     <div class="col-lg-12 col-md-12  col-12 ">
+      <mat-progress-bar mode="indeterminate" bufferValue="50" value=100 *ngIf="labImageDatasource.loading$ | async" ></mat-progress-bar>
       <div class="scrollable-mat-table">
         <div class="LabsimagingTable table-responsive">
-          <table mat-table [dataSource]="labImagingDataSource" matSortDirection="desc" matSortDisableClear>
+          <table mat-table [dataSource]="labImageDatasource" matSort matSortDirection="desc" matSortDisableClear>
             <ng-container matColumnDef="Order">
-              <th mat-header-cell *matHeaderCellDef class="table-th-FirstCell text-center">Order #</th>
-              <td mat-cell *matCellDef="let lab" class="text-center">{{lab.OrderNumber}}</td>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header="OrderNumber">Order #</th>
+              <td mat-cell *matCellDef="let lab" >{{lab.OrderNumber}}</td>
             </ng-container>
             <ng-container matColumnDef="Test">
-              <th mat-header-cell *matHeaderCellDef class="text-center">Test</th>
-              <td mat-cell *matCellDef="let lab" class="text-center">{{lab.Test}}</td>
+              <th mat-header-cell *matHeaderCellDef>Test</th>
+              <td mat-cell *matCellDef="let lab">{{lab.Test}}</td>
             </ng-container>
             <ng-container matColumnDef="Type">
-              <th mat-header-cell *matHeaderCellDef class="text-center">Type</th>
-              <td mat-cell *matCellDef="let lab" class="text-center">{{lab.ProcedureType}}</td>
+              <th mat-header-cell *matHeaderCellDef>Type</th>
+              <td mat-cell *matCellDef="let lab">{{lab.ProcedureType}}</td>
             </ng-container>
             <ng-container matColumnDef="Patient">
-              <th mat-header-cell *matHeaderCellDef class="text-center">Patient</th>
-              <td mat-cell *matCellDef="let lab" class="text-center">{{lab.PatientName}}</td>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header="PatientName">Patient</th>
+              <td mat-cell *matCellDef="let lab">{{lab.PatientName}}</td>
             </ng-container>
             <ng-container matColumnDef="Provider">
-              <th mat-header-cell *matHeaderCellDef class="text-center">Provider</th>
-              <td mat-cell *matCellDef="let lab" class="text-center">{{lab.ProviderName}}</td>
+              <th mat-header-cell *matHeaderCellDef>Provider</th>
+              <td mat-cell *matCellDef="let lab">{{lab.ProviderName}}</td>
             </ng-container>
             <ng-container matColumnDef="Status">
-              <th mat-header-cell *matHeaderCellDef class="text-center">Status</th>
-              <td mat-cell *matCellDef="let lab" class="text-center">{{lab.Status}}</td>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header="Status">Status</th>
+              <td mat-cell *matCellDef="let lab" >{{lab.Status}}</td>
             </ng-container>
             <ng-container matColumnDef="LabImagingStatus">
-              <th mat-header-cell *matHeaderCellDef class="text-center">Lab/Imaging Status</th>
-              <td mat-cell *matCellDef="let lab" class="text-center">{{lab.OrderStatus}}</td>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header="OrderStatus">Lab/Imaging Status</th>
+              <td mat-cell *matCellDef="let lab" >{{lab.OrderStatus}}</td>
             </ng-container>
             <ng-container matColumnDef="Created">
-              <th mat-header-cell *matHeaderCellDef class="table-th-LastCell text-center">Created</th>
-              <td mat-cell *matCellDef="let lab" class="text-center">{{lab.CreatedDate | date: 'yyyy-MM-dd'}}</td>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header="CreatedDate">Created</th>
+              <td mat-cell *matCellDef="let lab" >{{lab.CreatedDate | date: 'yyyy-MM-dd'}}</td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="labImagingColumn"></tr>
             <tr mat-row class="table-row" *matRowDef="let row; columns: labImagingColumn"></tr>
           </table>
-          <div class="table-NoRecord text-center py-2 col-12" *ngIf="labImagingDataSource.length == 0">
+          <div class="table-NoRecord text-center py-2 col-12" *ngIf="labImageDatasource.TotalRecordSize == 0">
             No labs
           </div>
         </div>
       </div>
 
     </div>
-    <!-- <div class="d-flex justify-content-end my-3">
+    <div class="d-flex justify-content-end my-3">
       <div class="pg-container">
         <mat-paginator appPagination
            [length]="labImageDatasource.TotalRecordSize" pageSize="10" [pageIndex] = "0"
            [pageSizeOptions]="[10,20,30,40,50]"  >
           </mat-paginator>
         </div>
-    </div> -->
+    </div>
   </div>
 
   <!-- <div *ngIf="!labing">

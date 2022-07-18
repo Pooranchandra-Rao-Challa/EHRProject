@@ -6,7 +6,7 @@ import { fromEvent, Observable, of } from 'rxjs';
 import { ComponentType } from '@angular/cdk/portal';
 import { filter, map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
-import { Actions, PatientSearch, } from 'src/app/_models';
+import { Actions, PatientSearch, UserLocations, } from 'src/app/_models';
 import { LabProcedureWithOrder, TestOrder } from 'src/app/_models/_provider/LabandImage';
 import { PracticeProviders } from 'src/app/_models/_provider/practiceProviders';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
@@ -35,6 +35,8 @@ export class OrderDialogComponent implements OnInit {
   isLoading: boolean = false;
   filteredOptions: Observable<MedicalCode[]>;
   testCodeComponent = TestCodeComponent;
+  orderingFacilities: UserLocations[];
+
   constructor(private ref: EHROverlayRef,
     private fb: FormBuilder,
     private utilityService: UtilityService,
@@ -48,6 +50,7 @@ export class OrderDialogComponent implements OnInit {
     this.labandImaging = ref.RequestData as LabProcedureWithOrder;
     this.labandImaging.ProcedureType = this.labandImaging.View;
     this.labandImaging.OrderingFacility = this.labandImaging.View;
+    this.orderingFacilities = JSON.parse(this.authService.userValue.LocationInfo) as UserLocations[];
   }
 
   ngOnInit(): void {
@@ -222,6 +225,7 @@ export class OrderDialogComponent implements OnInit {
     testCode.Query = element.target.value;
     testCode.Scope = 'Lonics';
     testCode.Index = index;
-    this.openComponentDialog(this.testCodeComponent,testCode);
+    if(testCode.Query.length >= 3 )
+      this.openComponentDialog(this.testCodeComponent,testCode);
   }
 }

@@ -135,6 +135,21 @@
   border: 1px solid #fff;
   border-bottom: unset;
 }
+.LabsimagingTable .mat-header-cell:nth-child(2){
+  width:400px
+}
+
+.LabsimagingTable .mat-header-cell:nth-child(7),
+.LabsimagingTable .mat-header-cell:nth-child(6),
+.LabsimagingTable .mat-header-cell:nth-child(5),
+.LabsimagingTable .mat-header-cell:nth-child(4),
+.LabsimagingTable .mat-header-cell:nth-child(3){
+  width:150px
+}
+.LabsimagingTable .mat-header-cell:first-child,
+.LabsimagingTable .mat-header-cell:last-child{
+  width:140px
+}
 .LabsimagingTable .mat-header-cell:first-child,
 .LabsimagingTable .mat-header-cell:last-child {
   border-top: 1px solid #fff;

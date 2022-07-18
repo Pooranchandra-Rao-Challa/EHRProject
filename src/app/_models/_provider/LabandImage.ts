@@ -19,6 +19,7 @@ export class LabProcedureWithOrder {
   Notes?: string;
   Tests: TestOrder[] = [];
   View?: string;
+  CreatedDate?: Date;
   PatientName?: string;
   ProviderName?: string;
   TotalRecords?: number;

@@ -620,7 +620,6 @@ export class APIEndPoint extends EndpointBase {
 
   get _patientSearchUrl(){
     return this._baseUrl + "PatientSearch";
-
   }
 
   get _createLabOrImagingOrderUrl(){

@@ -19,6 +19,7 @@ import { UpcomingAppointmentsDialogComponent } from '../../dialogs/upcoming.appo
 import { EncounterDialogComponent } from '../../dialogs/encounter.dialog/encounter.dialog.component';
 import { CompleteAppointmentDialogComponent } from 'src/app/dialogs/newappointment.dialog/complete.appointment.component';
 import { AlertMessage, ERROR_CODES} from 'src/app/_alerts/alertMessage'
+import { CORSAPIService } from 'src/app/_services/cors.api.service';
 import * as moment from "moment";
 
 import {
@@ -85,10 +86,17 @@ export class SmartScheduleComponent implements OnInit {
     private locationSelectService: LocationSelectService,
     private alertMessage: AlertMessage,
     private overlayService: OverlayService,
-    private router: Router
+    private router: Router,
+    private _CORSAPIService:CORSAPIService
   ) {
 
+    // _CORSAPIService.Drugs("alanine").subscribe((result)=>console.log(result));
+    // let values = [];
+    // _CORSAPIService.ndcs("213269").subscribe(value => { console.log(value);
+    //  values.push(value);} )
+    // console.log(values);
 
+    console.log(_CORSAPIService.ndcs("213269"));
     this.patientSearchTerms
       .pipe(debounceTime(300),  // wait for 300ms pause in events
         distinctUntilChanged())   // ignore if next search term is same as previous

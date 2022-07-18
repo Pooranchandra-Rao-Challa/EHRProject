@@ -349,6 +349,7 @@ export const ERROR_CODES: { [key: string]: string } = {
 
   //Login Errors
   'EL001':'Wrong email or password',
+  'EL002':'Session is timeout',
 };
 
 

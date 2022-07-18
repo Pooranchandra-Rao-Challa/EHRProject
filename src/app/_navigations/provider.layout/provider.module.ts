@@ -98,7 +98,7 @@ import { EditLabImagingOrderComponent } from 'src/app/dialogs/lab.imaging.dialog
 import { OrderManualEntryDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/order.manual.entry.dialog.component';
 import { ImagingResultDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/imaging.result.dialog.component';
 import { TestCodeComponent } from 'src/app/dialogs/lab.imaging.dialog/test.code.component';
-
+import { CORSAPIService } from 'src/app/_services/cors.api.service'
 
 //import { TimeMaskDirective } from 'src/app/_directives/input.time.mask.directive'
 registerLocaleData(localeIt);
@@ -208,9 +208,9 @@ registerLocaleData(localeIt);
   ],
   providers: [LocationSelectService, ViewChangeService,
     UtilityService, SmartSchedulerService, OverlayService, PatientService, BillingService,
-    SmartScheduleComponent, AlertMessage,
-    { provide: LOCALE_ID, useValue: 'en-GB' },
-    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+     AlertMessage, CORSAPIService,
+    { provide: LOCALE_ID, useValue: 'en-US' },
+    { provide: MAT_DATE_LOCALE, useValue: 'en-US' },
     ProviderCodeDatabase,
     { provide: NgbDateParserFormatter, useClass: NgbDateUSParserFormatter }
 
