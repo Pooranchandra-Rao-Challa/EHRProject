@@ -1,5 +1,5 @@
 
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule,LOCALE_ID } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -88,10 +88,12 @@ import { BillingService } from '../../_services/billing.service';
 import { AlertMessage } from 'src/app/_alerts/alertMessage';
 import { AddeditinterventionComponent } from 'src/app/dialogs/addeditintervention/addeditintervention.component';
 import { ProviderCodeDatabase } from 'src/app/provider/patients/dental.chart/tree.procedure.component'
-import { CompleteAppointmentDialogComponent} from 'src/app/dialogs/newappointment.dialog/complete.appointment.component'
+import { CompleteAppointmentDialogComponent } from 'src/app/dialogs/newappointment.dialog/complete.appointment.component'
 import { registerLocaleData } from '@angular/common';
 import localeIt from '@angular/common/locales/en';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { DiscontinueDialogComponent } from '../../dialogs/discontinue.dialog/discontinue.dialog.component';
+
 import { OrderDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/order.dialog.component';
 import { OrderResultDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/order.result.dialog.component';
 import { EditLabImagingOrderComponent } from 'src/app/dialogs/lab.imaging.dialog/order.edit.lab.imaging.component';
@@ -115,7 +117,7 @@ registerLocaleData(localeIt);
     AdvancedMedicalCodeModule,
     TeethSurfaceModule,
     AddeditinterventionComponent,
-
+    DiscontinueDialogComponent,
   ],
   declarations: [
     ProviderNavbarComponent,
@@ -146,6 +148,7 @@ registerLocaleData(localeIt);
     //PatientDetailsComponent,
     PatientDialogComponent,
     AdvancedDirectivesDialogComponent,
+    DiscontinueDialogComponent,
     OverlayComponent,
     MouseOverHintDirective,
     UserDialogComponent,
@@ -227,6 +230,7 @@ registerLocaleData(localeIt);
     AddressVerificationDialogComponent,
     SignEncounterNoteComponent,
     PatientHealthPortalComponent,
+    DiscontinueDialogComponent,
     CompleteAppointmentDialogComponent,
     OrderManualEntryDialogComponent,
     OrderResultDialogComponent,
