@@ -41,19 +41,6 @@
                 class="new-search form-control ignore_spinner" placeholder="Search Patients..." />
               <span class="input-group-addon input-group-addon-search chart-find-patient-btn"></span>
             </div>
-            <!-- <div class="wrapper-for-search" id="wrapper-for-search-chart_find_patient_list" style="display: none;">
-          <div class="slimScrollDiv slimScrollDiv--green-lighter"
-            style="position: relative; overflow: hidden; width: 100%;">
-            <ul class="new-search-results" id="chart_find_patient_list" style="overflow: hidden; width: 100%;"></ul>
-            <div class="slimScrollBar"
-              style="width: 20px; position: absolute; top: 0px; opacity: 1; display: block; z-index: 99; right: 5px; height: 20px;">
-            </div>
-            <div class="slimScrollRail"
-              style="height: 100%; position: absolute; top: 0px; display: block; opacity: 1; z-index: 90; right: 10px;">
-              <div class="slimRailTop" style="height: 19px; z-index: 99;"></div>
-            </div>
-          </div>
-        </div> -->
           </div>
         </div>
       </div>
@@ -116,14 +103,6 @@
                     <span>No active Dx recorded.</span>
                   </li>
                 </ul>
-                <!-- <ul class="main-list">
-                  <li *ngFor="let diagnose of allDiagnoses">
-                    <span>- {{diagnose?.note}}</span>
-                  </li>
-                  <li *ngIf="allDiagnoses?.length == (0 || null || undefined)">
-                    <span>No active Dx recorded.</span>
-                  </li>
-                </ul> -->
               </div>
             </div>
             <div class="card">
@@ -134,7 +113,7 @@
                       <span (click)="openComponentDialog(smokingStatusDialogComponent, null, ActionTypes.add)">Smoking
                         Status</span>
                       <span style="cursor:auto;"> and </span>
-                      <span>Tobacco Use</span>
+                      <span data-bs-toggle="modal" data-bs-target="#tobacco-use-modal">Tobacco Use</span>
                     </p>
                   </div>
                 </div>
@@ -157,7 +136,7 @@
                     <span>No smoking status recorded.</span>
                   </li>
                 </ul>
-                <ul class="main-list" *ngFor="let screening of tobaccoscreenings">
+                <ul class="main-list" *ngFor="let screening of chartInfo?.TobaccoUseScreenings">
                   <li>
                     <a>
                       <span *ngIf="screening?.date_performed != null && screening?.date_performed !=''">
@@ -172,7 +151,7 @@
                     </a>
                   </li>
                 </ul>
-                <ul class="main-list" *ngFor="let interventions of tobaccointerventions">
+                <ul class="main-list" *ngFor="let interventions of chartInfo?.TobaccoUseInterventions">
                   <li>
                     <a>
                       <span
@@ -189,7 +168,7 @@
                   </li>
                 </ul>
                 <ul class="main-list"
-                  *ngIf="tobaccoscreenings?.length == (0 || null || undefined) && tobaccointerventions?.length == (0 || null || undefined)">
+                  *ngIf="chartInfo?.TobaccoUseScreenings?.length == 0 && chartInfo?.TobaccoUseInterventions?.length == 0">
                   <li>
                     <span>No tobacco use recorded.</span>
                   </li>
@@ -244,12 +223,6 @@
                     <p class="card-title">Advanced Directives</p>
                   </div>
                   <div class="col-md-4 col-6">
-                    <!-- <div class="col-12">
-                      <div class="edit-icon pull-right"
-                        (click)="openComponentDialog(advancedDirectivesDialogComponent, {'PatientId': PatientId})">
-                        <span class="cstm-icon-pencil"></span>
-                      </div>
-                    </div> -->
                     <div class="col-12 plusicon pull-right"
                       (click)="openComponentDialog(advancedDirectivesDialogComponent, null, ActionTypes.add)">
                       <span><i class="fa fa-plus"></i></span>
@@ -358,33 +331,39 @@
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
-                    <p class="card-title">Immunizations</p>
+                    <p class="card-title" data-bs-toggle="modal" data-bs-target="#immunization-table-modal">
+                      Immunizations</p>
                   </div>
                   <div class="col-md-4 col-6">
-                    <div class="col-12 plusicon pull-right"><span><i class="fa fa-plus"></i></span>
+                    <div class="col-12 plusicon pull-right" data-bs-toggle="modal" data-bs-target="#immunization-modal">
+                      <span><i class="fa fa-plus"></i></span>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list" *ngFor="let immunization of immunizations">
+                <ul class="main-list" *ngFor="let immunization of chartInfo?.Immunizations">
                   <li>
-                    <a>
-                      <span>
-                        - {{immunization?.notes}}
+                    <a data-bs-toggle="modal" data-bs-target="#immunization-modal"
+                      (click)="editDialog(immunization, 'immunization')">
+                      <span *ngIf="immunization?.Code != null && immunization?.Code !=''">
+                        - {{immunization?.Code}}
+                      </span>
+                      <span *ngIf="immunization?.Description != null && immunization?.Description !=''">
+                        - {{immunization?.Description}}
                       </span>
                     </a>
                   </li>
                   <li style="margin-left: 20px;">
-                    <span *ngIf="immunization?.administered_at != null && immunization?.administered_at !=''">
-                      - {{immunization?.administered_at | date: 'MM/dd/yyyy'}}
+                    <span *ngIf="immunization?.AdministeredAt != null && immunization?.AdministeredAt !=''">
+                      {{immunization?.AdministeredAt | date: 'MM/dd/yyyy'}}
                     </span>
-                    <span *ngIf="immunization?.expiration_at != null && immunization?.expiration_at !=''">
-                      - {{immunization?.expiration_at | date: 'MM/dd/yyyy'}}
+                    <span *ngIf="immunization?.ExpirationAt != null && immunization?.ExpirationAt !=''">
+                      - {{immunization?.ExpirationAt | date: 'MM/dd/yyyy'}}
                     </span>
                   </li>
                 </ul>
-                <ul class="main-list" *ngIf="immunizations?.length == (0 || null || undefined)">
+                <ul class="main-list" *ngIf="chartInfo?.Immunizations?.length == 0">
                   <li>
                     <span>No immunizations recorded.</span>
                   </li>
@@ -524,7 +503,6 @@
   </div>
 </div>
 
-
 <!-- Frequently Used Diagnosis -->
 <div class="modal fade" id="used-diagnoses-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-maxHeight">
@@ -561,7 +539,7 @@
             </mat-form-field>
             <div class="input-group input-group-custom ">
               <input aria-label="Search for messages" autocomplete="off" class="form-control input-border"
-                id="find-messages-input-1" placeholder="Search Messages">
+                id="find-messages-input-1" placeholder="Search Messages" />
               <span class="input-group-addon input-group-addon-right input-group-addon-search Search"
                 id="find-messages-button-1"><i class="fa fa-search"></i></span>
             </div>
@@ -789,8 +767,7 @@
                 </div>
                 <div class="col-md-6">
                   <mat-form-field class="form-group" appearance="outline">
-                    <input matInput [matDatepicker]="picker2" (click)="picker2.open()">
-                    <!-- <button mat-raised-button (click)="picker.open()"></button> -->
+                    <input matInput [matDatepicker]="picker2" (click)="picker2.open()" />
                     <mat-datepicker #picker2></mat-datepicker>
                   </mat-form-field>
                 </div>
@@ -818,10 +795,7 @@
             <div class="col-md-12 mt-3 accordion">
               <div class="accordion-button collapsed panel-collapse" data-bs-toggle="collapse"
                 data-bs-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample1">
-                <!-- <div class="panel-body"> -->
                 <p class="collaps-title">Add (Dx)</p>
-
-                <!-- </div> -->
               </div>
             </div>
             <div class="collapse" id="collapseExample1">
@@ -831,7 +805,7 @@
                     <div class="input-group input-group-custom search-input">
                       <input aria-label="Search for messages" autocomplete="off"
                         class="new-search form-control ignore_spinner" id="find-messages-input-2"
-                        placeholder="Search Messages">
+                        placeholder="Search Messages" />
                       <span class="input-group-addon input-group-addon-search chart-find-patient-btn"
                         id="find-messages-button-2"><i class="fa fa-search"></i></span>
                     </div>
@@ -843,8 +817,7 @@
                       </div>
                       <div class="col-md-5">
                         <mat-form-field class="form-group" appearance="outline">
-                          <input matInput [matDatepicker]="picker" (click)="picker.open()">
-                          <!-- <button mat-raised-button (click)="picker.open()"></button> -->
+                          <input matInput [matDatepicker]="picker" (click)="picker.open()" />
                           <mat-datepicker #picker></mat-datepicker>
                         </mat-form-field>
                       </div>
@@ -860,13 +833,11 @@
                       </div>
                       <div class="col-md-5">
                         <mat-form-field class="form-group" appearance="outline">
-                          <input matInput [matDatepicker]="picker1" (click)="picker1.open()">
-                          <!-- <button mat-raised-button (click)="picker.open()"></button> -->
+                          <input matInput [matDatepicker]="picker1" (click)="picker1.open()" />
                           <mat-datepicker #picker1></mat-datepicker>
                         </mat-form-field>
                       </div>
                       <div class="col-md-2">
-
                       </div>
                     </div>
                   </div>
@@ -931,7 +902,7 @@
             <mat-form-field appearance="outline" class="input-bg">
               <mat-select required [(ngModel)]="patientAllergy.AllergenName">
                 <mat-option *ngFor="let allergie of allergens" [value]="allergie">
-                  {{allergie}}
+                  {{allergie.AllergyName}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -966,12 +937,6 @@
           </div>
           <div class=" form-group col-md-6 ">
             <label class="title-bold required">Reaction(s): </label>
-            <!-- <div class="input-group input-group-custom search-input">
-              <input aria-label="Search for messages" autocomplete="off"
-                class="input-search form-control ignore_spinner" id="find-messages-input-3" placeholder="Search Messages">
-              <span class="input-group-addon input-group-addon-search chart-find-patient-btn inputclass"
-                id="find-messages-button"><i class="fa fa-search"></i></span>
-            </div> -->
             <mat-form-field appearance="outline">
               <mat-select required [(ngModel)]="patientAllergy.Reaction">
                 <mat-option *ngFor="let allergy of allergyReaction" [value]="allergy">
@@ -1035,8 +1000,8 @@
 </div>
 
 <!-- Medication -->
-<div class="modal animated fadeIn in" id="medication-modal" data-bs-backdrop="backdrop" tabindex="-1"
-  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal" id="medication-modal" data-bs-backdrop="backdrop" tabindex="-1" aria-labelledby="staticBackdropLabel"
+  aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -1048,10 +1013,17 @@
       <div class="modal-body bg-white scroolbar addlocationbody">
         <div class="row mt-2">
           <label class="title-field">Medication Name:</label>
+          <button type="button" class="btn btn-orange btn-save"
+            (click)="openComponentDialog(discontinueDialogComponent,null,ActionTypes.add)">
+            Discontinue
+          </button>
           <div class="col-md-9">
             <mat-form-field class="input-bg w-100" appearance="outline">
-              <input matInput placeholder="Medication Name" name="medicationname:"
-                [(ngModel)]="patientMedication.DrugName" />
+              <mat-select [(ngModel)]="patientMedication.DrugName">
+                <mat-option *ngFor="let medication of medications" [value]="medication">
+                  {{medication}}
+                </mat-option>
+              </mat-select>
             </mat-form-field>
           </div>
           <div class="col-md-3 mt-1 ">
@@ -1077,13 +1049,13 @@
             <label class="title-field">Dose and Form:</label>
             <mat-form-field class="input-bg w-100" appearance="outline">
               <input matInput placeholder="Dose and Form" name="doseandform:"
-                [(ngModel)]="patientMedication.DoesspotMedicationId" />
+                [(ngModel)]="patientMedication.DoseandForm" />
             </mat-form-field>
           </div>
           <div class="form-group col-md-6 ">
             <label class="title-field">Dispense</label>
             <mat-form-field class="input-bg w-100" appearance="outline">
-              <input matInput placeholder="Dispense" name="dispense:" [(ngModel)]="patientMedication.ManualDose" />
+              <input matInput placeholder="Dispense" name="dispense:" [(ngModel)]="patientMedication.Dispense" />
             </mat-form-field>
           </div>
         </div>
@@ -1120,7 +1092,7 @@
             <label class="title-field">Start Date</label>
             <mat-form-field appearance="outline" class="grey-matform grey-calendar medication-datepicker">
               <input matInput class="pointer date-mat-class" autocomplete="off" [matDatepicker]="picker5"
-                (click)="picker5.open()" readonly placeholder="Start Date" [(ngModel)]="patientMedication.StartAt">
+                (click)="picker5.open()" readonly placeholder="Start Date" [(ngModel)]="patientMedication.StartAt" />
               <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
               <mat-datepicker #picker5></mat-datepicker>
             </mat-form-field>
@@ -1129,7 +1101,7 @@
             <label class="title-field">End Date</label>
             <mat-form-field appearance="outline" class="grey-matform grey-calendar medication-datepicker">
               <input matInput class="pointer date-mat-class" autocomplete="off" [matDatepicker]="picker4"
-                (click)="picker4.open()" readonly placeholder="End Date" [(ngModel)]="patientMedication.StopAt">
+                (click)="picker4.open()" readonly placeholder="End Date" [(ngModel)]="patientMedication.StopAt" />
               <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
               <mat-datepicker #picker4></mat-datepicker>
             </mat-form-field>
@@ -1168,7 +1140,6 @@
               data-bs-target="#exampleModal7">Patient Education Materials</a></div>
         </div>
       </div>
-
       <div class="row mb-3 mt-1 mx-3">
         <div class="col-md-12 locationbtns">
           <div class="d-flex justify-content-end">
@@ -1188,7 +1159,7 @@
 </div>
 
 <!-- Discontinue modal in medications -->
-<div class="modal animated fadeIn in" id="discontinue-modal" data-bs-backdrop="backdrop" tabindex="-1"
+<div class="modal" id="discontinue-modal" data-bs-backdrop="backdrop" tabindex="-1"
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-md" role="document">
     <div class="modal-content">
@@ -1201,22 +1172,6 @@
       <div class="modal-body bg-white  addlocationbody">
         <div class=" form-group col-md-12 ">
           <label class="title-field">Search Reaction(s): </label>
-          <!-- <div class="input-group input-group-custom search-input">
-            <input aria-label="Search for messages" autocomplete="off" class="input-search form-control ignore_spinner"
-              id="find-messages-input-4" placeholder="Search Messages">
-            <span class="input-group-addon input-group-addon-search chart-find-patient-btn"
-              id="find-messages-button-4"><i class="fa fa-search"></i></span>
-          </div> -->
-          <mat-form-field appearance="outline" class="col-lg-12">
-            <mat-select placeholder="Select One" disableOptionCentering>
-              <mat-select-filter [placeholder]="'Search...'" [displayMember]="'ReasonCode'" [array]="filteredreason"
-                (filteredReturn)="reason =$event"></mat-select-filter>
-              <mat-option *ngFor="let item of reason" [value]="item.ReasonCode"
-                (click)="selectedReason(item.ReasonCode)">
-                {{item.ReasonCode}} - {{item.ReasonDescription}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
         </div>
         <div class=" form-group col-md-12">
           <label class="title-field"> Reason - Code</label>
@@ -1246,6 +1201,7 @@
   </div>
 </div>
 
+<!-- Patient Education Material in medication popup -->
 <div class="modal fade " id="exampleModal7" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-md" role="document">
@@ -1271,8 +1227,6 @@
           </div>
         </div>
       </div>
-
-
     </div>
   </div>
 </div>
@@ -1301,20 +1255,621 @@
           </ng-container>
           <ng-container matColumnDef="Address">
             <mat-header-cell *matHeaderCellDef>Address</mat-header-cell>
-            <mat-cell class="address-oncursor" *matCellDef="let loc"></mat-cell>
+            <mat-cell *matCellDef="let loc"></mat-cell>
           </ng-container>
           <ng-container matColumnDef="Phone">
             <mat-header-cell *matHeaderCellDef>Phone</mat-header-cell>
-            <mat-cell class="address-oncursor" *matCellDef="let loc"></mat-cell>
+            <mat-cell *matCellDef="let loc"></mat-cell>
           </ng-container>
           <ng-container matColumnDef="Providers">
             <mat-header-cell *matHeaderCellDef># of Providers</mat-header-cell>
-            <mat-cell class="address-oncursor" *matCellDef="let loc"></mat-cell>
+            <mat-cell *matCellDef="let loc"></mat-cell>
           </ng-container>
 
           <mat-header-row *matHeaderRowDef="locationColumns"></mat-header-row>
           <mat-row *matRowDef="let row; columns: locationColumns"></mat-row>
         </mat-table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Tobacoo use modal -->
+<div class="modal fade " id="tobacco-use-modal" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog tobacco-use" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title Helvetica-sans-serif-medium w-100 text-center">Tobacco Use</h4>
+        <span type="button" class="cross-mark" data-bs-dismiss="modal">
+          X
+        </span>
+      </div>
+      <div class="modal-body">
+        <div class="content">
+          <div class="panel">
+            <div class="panel-header">
+              <p class="panel-title Helvetica-sans-serif-medium">Screening and Use:</p>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-lg-2 col-md-6 col-12 tobacoo-padding">
+                  <mat-label>Screening Performed:*</mat-label>
+                </div>
+                <mat-form-field appearance="outline" class="col-lg-4 col-md-6 col-12 hover">
+                  <mat-select placeholder="Select Screening Performed" disableOptionCentering
+                    [(ngModel)]="patientTobaccoUse.ScreeningType">
+                    <mat-option>BMI
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <div class="col-lg-2 col-md-6 col-12 tobacoo-padding">
+                  <mat-label>Date Performed:*</mat-label>
+                </div>
+                <mat-form-field appearance="outline"
+                  class="grey-matform grey-calendar medication-datepicker col-lg-4 col-md-6 col-12">
+                  <input matInput class="pointer" autocomplete="off" [matDatepicker]="dateperformed"
+                    (click)="dateperformed.open()" readonly placeholder="Date Performed"
+                    [(ngModel)]="patientTobaccoUse.ScreeningDate" />
+                  <mat-datepicker-toggle matSuffix [for]="dateperformed"></mat-datepicker-toggle>
+                  <mat-datepicker #dateperformed></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div class="row">
+                <div class="col-lg-2 col-md-2 col-12 tobacoo-padding">
+                  <mat-label>Status:*</mat-label>
+                </div>
+                <div class="col-lg-4 col-md-4 col-12 tobacoo-padding">
+                  <mat-radio-group [(ngModel)]="patientTobaccoUse.Status">
+                    <mat-radio-button [value]="true"></mat-radio-button>
+                    <mat-label class="Helvetica-sans-serif-medium">User</mat-label>
+                    <mat-radio-button class="ms-5" [value]="false"></mat-radio-button>
+                    <mat-label class="Helvetica-sans-serif-medium">Non user</mat-label>
+                  </mat-radio-group>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6 col-md-6 col-12">
+                  <button class="btn btn-green w-100"
+                    (click)="openComponentDialog(cqmNotPerformedDialogComponent,null,ActionTypes.add)">Add Not
+                    Performed</button>
+                </div>
+                <div class="col-lg-2 d-none d-lg-block d-xl-block"></div>
+                <div class="col-lg-4 col-md-6 col-12 mt-3 mt-md-0">
+                  <button class="btn btn-green w-100">Recorded Screening and Use</button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="screening-list mb-5">
+                  <div class="bg-color col-12">
+                    <p class="Helvetica-sans-serif-medium">Recorded Screening and Use</p>
+                  </div>
+                  <mat-table class="table table-responsive" [dataSource]="chartInfo?.TobaccoUseScreenings" matSort>
+                    <ng-container matColumnDef="DatePerf">
+                      <mat-header-cell *matHeaderCellDef>Date Perf</mat-header-cell>
+                      <mat-cell *matCellDef="let loc">
+                      </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="Screeningperf">
+                      <mat-header-cell *matHeaderCellDef>Screening perf</mat-header-cell>
+                      <mat-cell *matCellDef="let loc"></mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="Status">
+                      <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+                      <mat-cell *matCellDef="let loc"></mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="TobaccoUsecode_desc">
+                      <mat-header-cell *matHeaderCellDef>Tobacco use code & Desc</mat-header-cell>
+                      <mat-cell *matCellDef="let loc"></mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="screeningColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: screeningColumns"></mat-row>
+                  </mat-table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-header">
+              <p class="panel-title">Cessation Intervention:</p>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-lg-2 col-md-6 col-12 tobacoo-padding">
+                  <mat-label>Intervention Performed:*</mat-label>
+                </div>
+                <mat-form-field appearance="outline" class="col-lg-4 col-md-6 col-12 hover">
+                  <mat-select placeholder="Select Intervention Performed" disableOptionCentering
+                    [(ngModel)]="patientTobaccoUse.CI_Type">
+                    <mat-option>BMI
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <div class="col-lg-2 col-md-6 col-12 tobacoo-padding">
+                  <mat-label>Date Performed:*</mat-label>
+                </div>
+                <mat-form-field appearance="outline"
+                  class="grey-matform grey-calendar medication-datepicker col-lg-4 col-md-6 col-12">
+                  <input matInput class="pointer" autocomplete="off" [matDatepicker]="screeningDate"
+                    (click)="screeningDate.open()" readonly placeholder="Screening Date"
+                    [(ngModel)]="patientTobaccoUse.CI_Date" />
+                  <mat-datepicker-toggle matSuffix [for]="screeningDate"></mat-datepicker-toggle>
+                  <mat-datepicker #screeningDate></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div class="row">
+                <div class="col-lg-2 d-none d-lg-block d-xl-block"></div>
+                <div class="col-lg-4 col-md-6 col-12">
+                  <button class="btn btn-green w-100">Recorded Intervention</button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="screening-list mb-5">
+                  <div class="bg-color col-12">
+                    <p class="Helvetica-sans-serif-medium">Recorded Cessation Interventions</p>
+                  </div>
+                  <mat-table class="table table-responsive" [dataSource]="chartInfo?.TobaccoUseInterventions" matSort>
+                    <ng-container matColumnDef="DatePerf">
+                      <mat-header-cell *matHeaderCellDef>Date Perf</mat-header-cell>
+                      <mat-cell *matCellDef="let loc">
+                      </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="Interventionperf">
+                      <mat-header-cell *matHeaderCellDef>Intervention perf</mat-header-cell>
+                      <mat-cell *matCellDef="let loc"></mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="InterventionDesc">
+                      <mat-header-cell *matHeaderCellDef>Intervention Desc</mat-header-cell>
+                      <mat-cell *matCellDef="let loc"></mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="AddReasonNotPerformed">
+                      <mat-header-cell *matHeaderCellDef>Add Reason Not Performed</mat-header-cell>
+                      <mat-cell *matCellDef="let loc"></mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="Reason">
+                      <mat-header-cell *matHeaderCellDef>Reason</mat-header-cell>
+                      <mat-cell *matCellDef="let loc"></mat-cell>
+                    </ng-container>
+                    <mat-header-row *matHeaderRowDef="interventionColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: interventionColumns"></mat-row>
+                  </mat-table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-green">Save</button>
+        <button class="btn btn-green" data-bs-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add/Edit Immunization -->
+<div class="modal fade " id="immunization-modal" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title Helvetica-sans-serif-medium">Add/Edit Vaccination</h4>
+        <span type="button" class="cross-mark" data-bs-dismiss="modal" (click)="resetDialog()">
+          X
+        </span>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <mat-radio-group [(ngModel)]="patientImmunization.ImmType" (click)="resetImmunization()">
+            <mat-radio-button value="administered">
+              <mat-label class="Helvetica-sans-serif-medium">Administered</mat-label>
+            </mat-radio-button>
+            <mat-radio-button class="ms-5" value="historical">
+              <mat-label class="Helvetica-sans-serif-medium">Historical</mat-label>
+            </mat-radio-button>
+            <mat-radio-button class="ms-5" value="refused">
+              <mat-label class="Helvetica-sans-serif-medium">Refused</mat-label>
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div
+          [ngStyle]="{'display': patientImmunization.ImmType == 'historical' || patientImmunization.ImmType == 'refused' ? 'none' : 'block' }"
+          class="mt-3">
+          <div class="row">
+            <mat-label class="required">Vaccine:</mat-label>
+            <mat-form-field class="procedure-form-field" appearance="outline" [ngStyle]="{'width':'100%'}">
+              <input matInput #searchVaccineCode class="form-control" placeholder="Select Procedure Code" type="text"
+                id="searchVaccineCode" name=" searchVaccineCode" [matAutocomplete]="procedureCode" />
+              <mat-autocomplete [displayWith]="displayWithVaccine" #procedureCode="matAutocomplete"
+                (optionSelected)="onSelectedImmunization($event)">
+                <mat-option *ngIf="isLoading">Loading ...</mat-option>
+                <mat-option *ngFor="let option of vaccines | async" [value]="option" class="medical-code-option">
+                  {{option.Code}} - {{option.Description}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-12">
+              <div class="row">
+                <mat-label class="required">Date Administered:</mat-label>
+                <mat-form-field appearance="outline" class="green-calendar col-12">
+                  <input matInput class="pointer" autocomplete="off" [matDatepicker]="dateAdministered"
+                    (click)="dateAdministered.open()" readonly placeholder="Date Performed"
+                    [(ngModel)]="patientImmunization.AdministeredAt" />
+                  <mat-datepicker-toggle matSuffix [for]="dateAdministered"></mat-datepicker-toggle>
+                  <mat-datepicker #dateAdministered></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-md-6 col-12">
+              <div class="row">
+                <mat-label class="required">Time administered:</mat-label>
+                <mat-form-field appearance="outline" class="col-12">
+                  <input matInput placeholder="hh:mm xm" [(ngModel)]="patientImmunization.AdministeredTime" />
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-12">
+              <div class="row">
+                <mat-label class="required">Administered by:</mat-label>
+                <mat-form-field appearance="outline" class="col-12">
+                  <mat-select placeholder="Select administered by" [(ngModel)]="patientImmunization.AdministeredById">
+                    <mat-option *ngFor="let providers of PracticeProviders" [value]="providers.ProviderId">
+                      {{providers.FullName}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-md-6 col-12">
+              <div class="row">
+                <mat-label class="required">Ordered by:</mat-label>
+                <mat-form-field appearance="outline" class="col-12">
+                  <mat-select placeholder="Select ordered by" [(ngModel)]="patientImmunization.OrderedById">
+                    <mat-option *ngFor="let providers of PracticeProviders" [value]="providers.ProviderId">
+                      {{providers.FullName}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <mat-label class="required">Administered:</mat-label>
+            <mat-form-field appearance="outline" class="col-12">
+              <mat-select placeholder="Select administered" [(ngModel)]="patientImmunization.AdministeredFacilityId">
+                <mat-option *ngFor="let item of LocationAddress" [value]="item.Location_Id">
+                  {{item.Location_Name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-12">
+              <div class="row">
+                <mat-label class="required">Manufacturer:</mat-label>
+                <mat-form-field appearance="outline" class="col-12">
+                  <mat-select placeholder="Enter Manufacturer" [(ngModel)]="patientImmunization.Manufacturer">
+                    <mat-option *ngFor="let manufacturer of immManufacturers" [value]="manufacturer">
+                      {{manufacturer}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-md-6 col-12">
+              <div class="row">
+                <mat-label class="required">Lot:</mat-label>
+                <mat-form-field appearance="outline" class="col-12">
+                  <input matInput placeholder="Enter Lot" [(ngModel)]="patientImmunization.Lot" />
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-12">
+              <div class="row">
+                <mat-label class="required">Quantity:</mat-label>
+                <mat-form-field appearance="outline" class="col-12">
+                  <input matInput placeholder="Enter Quantity" [(ngModel)]="patientImmunization.Quantity" />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-md-6 col-12">
+              <div class="row">
+                <mat-label class="required">Dose:</mat-label>
+                <mat-form-field appearance="outline" class="col-12">
+                  <input matInput placeholder="Enter Dose" [(ngModel)]="patientImmunization.Dose" />
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-12">
+              <div class="row">
+                <mat-label class="required">Units:</mat-label>
+                <mat-form-field appearance="outline" class="col-12">
+                  <mat-select placeholder="Select Unit" [(ngModel)]="patientImmunization.Unit">
+                    <mat-option *ngFor="let unit of immUnits" [value]="unit">
+                      {{unit}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-md-6 col-12">
+              <div class="row">
+                <mat-label class="required">Expiration Date:</mat-label>
+                <mat-form-field appearance="outline" class="green-calendar col-12">
+                  <input matInput class="pointer" autocomplete="off" [matDatepicker]="expirationDate"
+                    (click)="expirationDate.open()" readonly placeholder="Date Performed"
+                    [(ngModel)]="patientImmunization.ExpirationAt" />
+                  <mat-datepicker-toggle matSuffix [for]="expirationDate"></mat-datepicker-toggle>
+                  <mat-datepicker #expirationDate></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <mat-label>Route:</mat-label>
+            <mat-form-field appearance="outline" class="col-12">
+              <mat-select placeholder="Search a route" [(ngModel)]="patientImmunization.Route">
+                <mat-option *ngFor="let route of immRoutes" [value]="route">
+                  {{route}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <mat-label>Body Site:</mat-label>
+            <mat-form-field appearance="outline" class="col-12">
+              <mat-select placeholder="Search a body site" [(ngModel)]="patientImmunization.BodySite">
+                <mat-option *ngFor="let bodysite of immBodySites" [value]="bodysite">
+                  {{bodysite}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <mat-label>Funding Source:</mat-label>
+            <mat-form-field appearance="outline" class="col-12">
+              <mat-select placeholder="Search a founding source" [(ngModel)]="patientImmunization.FundingSource">
+                <mat-option *ngFor="let source of immFundingSources" [value]="source">
+                  {{source}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <mat-label>Registry Notifications:</mat-label>
+            <mat-form-field appearance="outline" class="col-12">
+              <mat-select placeholder="Notify me" [(ngModel)]="patientImmunization.RegistryNotification">
+                <mat-option *ngFor="let notify of immRegistryNotifications" [value]="notify">
+                  {{notify}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <mat-label>VFC Financial Class:</mat-label>
+            <mat-form-field appearance="outline" class="col-12">
+              <mat-select placeholder="Class selection" [(ngModel)]="patientImmunization.VFCClass">
+                <mat-option *ngFor="let vfcclass of immVfcClasses" [value]="vfcclass">
+                  {{vfcclass}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="row textarea-margin">
+            <mat-label>Comments:</mat-label>
+            <textarea class="col-12" placeholder="Comments" [(ngModel)]="patientImmunization.Comments"></textarea>
+          </div>
+          <div class="row textarea-margin">
+            <mat-label>Notes:</mat-label>
+            <textarea class="col-12" placeholder="Notes" [(ngModel)]="patientImmunization.Notes"></textarea>
+          </div>
+        </div>
+        <div
+          [ngStyle]="{'display': patientImmunization.ImmType == 'administered' || patientImmunization.ImmType == 'refused' ? 'none' : 'block' }"
+          class="mt-3">
+          <div class="row">
+            <mat-label class="required">Vaccine:</mat-label>
+            <mat-form-field class="procedure-form-field" appearance="outline" [ngStyle]="{'width':'100%'}">
+              <input matInput #searchVaccineCode class="form-control" placeholder="Select Procedure Code" type="text"
+                id="searchVaccineCode" name=" searchVaccineCode" [matAutocomplete]="procedureCode" />
+              <mat-autocomplete [displayWith]="displayWithVaccine" #procedureCode="matAutocomplete"
+                (optionSelected)="onSelectedImmunization($event)">
+                <mat-option *ngIf="isLoading">Loading ...</mat-option>
+                <mat-option *ngFor="let option of vaccines | async" [value]="option" class="medical-code-option">
+                  {{option.Code}} - {{option.Description}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-12">
+              <div class="row">
+                <mat-label class="required">Date Administered:</mat-label>
+                <mat-form-field appearance="outline" class="green-calendar col-12">
+                  <input matInput class="pointer" autocomplete="off" [matDatepicker]="dateAdministeredHistorical"
+                    (click)="dateAdministeredHistorical.open()" readonly placeholder="Date Performed"
+                    [(ngModel)]="patientImmunization.AdministeredAt" />
+                  <mat-datepicker-toggle matSuffix [for]="dateAdministeredHistorical"></mat-datepicker-toggle>
+                  <mat-datepicker #dateAdministeredHistorical></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-md-6 col-12">
+              <div class="row">
+                <mat-label class="required">Source of Information:</mat-label>
+                <mat-form-field appearance="outline" class="col-12">
+                  <mat-select placeholder="Select a source" [(ngModel)]="patientImmunization.SourceOfInformation">
+                    <mat-option *ngFor="let info of immSourceOfInfo" [value]="info">
+                      {{info}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <mat-label class="required">Administered:</mat-label>
+            <mat-form-field appearance="outline" class="col-12">
+              <mat-select placeholder="Select administered" [(ngModel)]="patientImmunization.AdministeredFacilityId">
+                <mat-option *ngFor="let item of LocationAddress" [value]="item.Location_Id">
+                  {{item.Location_Name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="row textarea-margin">
+            <mat-label>Comments:</mat-label>
+            <textarea class="col-12" placeholder="Comments" [(ngModel)]="patientImmunization.Comments"></textarea>
+          </div>
+          <div class="row textarea-margin">
+            <mat-label>Notes:</mat-label>
+            <textarea class="col-12" placeholder="Notes" [(ngModel)]="patientImmunization.Notes"></textarea>
+          </div>
+        </div>
+        <div
+          [ngStyle]="{'display': patientImmunization.ImmType == 'administered' || patientImmunization.ImmType == 'historical' ? 'none' : 'block' }"
+          class="mt-3">
+          <div class="row">
+            <mat-label class="required">Vaccine:</mat-label>
+            <mat-form-field class="procedure-form-field" appearance="outline" [ngStyle]="{'width':'100%'}">
+              <input matInput #searchVaccineCode class="form-control" placeholder="Select Procedure Code" type="text"
+                id="searchVaccineCode" name=" searchVaccineCode" [matAutocomplete]="procedureCode" />
+              <mat-autocomplete [displayWith]="displayWithVaccine" #procedureCode="matAutocomplete"
+                (optionSelected)="onSelectedImmunization($event)">
+                <mat-option *ngIf="isLoading">Loading ...</mat-option>
+                <mat-option *ngFor="let option of vaccines | async" [value]="option" class="medical-code-option">
+                  {{option.Code}} - {{option.Description}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-12">
+              <div class="row">
+                <mat-label class="required">Reason Refused:</mat-label>
+                <mat-form-field appearance="outline" class="col-12">
+                  <mat-select placeholder="Select refusal reason" [(ngModel)]="patientImmunization.ReasonRefused">
+                    <mat-option *ngFor="let refused of immReasonRefuseds" [value]="refused">
+                      {{refused}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-md-6 col-12">
+              <div class="row">
+                <mat-label>Reason Refused Code:</mat-label>
+                <mat-form-field appearance="outline" class="col-12">
+                  <mat-select placeholder="Select refusal code" [(ngModel)]="patientImmunization.ReasonCode">
+                    <mat-option *ngFor="let refusedcode of immReasonRefusedsCode" [value]="refusedcode">
+                      {{refusedcode}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-12">
+              <div class="row">
+                <mat-label class="required">Date Refused:</mat-label>
+                <mat-form-field appearance="outline" class="green-calendar col-12">
+                  <input matInput class="pointer" autocomplete="off" [matDatepicker]="dateRefused"
+                    (click)="dateRefused.open()" readonly placeholder="Date Performed"
+                    [(ngModel)]="patientImmunization.RefusedAt" />
+                  <mat-datepicker-toggle matSuffix [for]="dateRefused"></mat-datepicker-toggle>
+                  <mat-datepicker #dateRefused></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-md-6 col-12">
+              <div class="row">
+                <mat-label>Status:</mat-label>
+                <h4 class="mt-3">Refused</h4>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <mat-label class="required">Practice:</mat-label>
+            <mat-form-field appearance="outline" class="col-12">
+              <mat-select placeholder="Select Practice" [(ngModel)]="patientImmunization.AdministeredFacilityId">
+                <mat-option *ngFor="let item of LocationAddress" [value]="item.Location_Id">
+                  {{item.Location_Name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="row textarea-margin">
+            <mat-label>Comments:</mat-label>
+            <textarea class="col-12" placeholder="Comments" [(ngModel)]="patientImmunization.Comments"></textarea>
+          </div>
+          <div class="row textarea-margin">
+            <mat-label>Notes:</mat-label>
+            <textarea class="col-12" placeholder="Notes" [(ngModel)]="patientImmunization.Notes"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-green" data-bs-dismiss="modal"
+          [ngStyle]="{'display': patientImmunization.ImmType == 'historical' || patientImmunization.ImmType == 'refused' ? 'none' : 'block' }"
+          [disabled]="disableImmAdministered()" (click)="CreateImmunizationsAdministered()">Save</button>
+        <button class="btn btn-green" data-bs-dismiss="modal"
+          [ngStyle]="{'display': patientImmunization.ImmType == 'administered' || patientImmunization.ImmType == 'refused' ? 'none' : 'block' }"
+          [disabled]="disableImmHistorical()" (click)="CreateImmunizationsHistorical()">Save</button>
+        <button class="btn btn-green" data-bs-dismiss="modal"
+          [ngStyle]="{'display': patientImmunization.ImmType == 'administered' || patientImmunization.ImmType == 'historical' ? 'none' : 'block' }"
+          [disabled]="disableImmRefused()" (click)="CreateImmunizationsRefused()">
+          Save</button>
+        <button class="btn btn-green" data-bs-dismiss="modal" (click)="resetDialog()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Immunization table -->
+<div class="modal fade " id="immunization-table-modal" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title Helvetica-sans-serif-medium w-100 text-center">Immunizations</h4>
+        <span type="button" class="cross-mark" data-bs-dismiss="modal">
+          X
+        </span>
+      </div>
+      <div class="modal-body">
+        <mat-table [dataSource]="chartInfo?.Immunizations" matSort>
+          <ng-container matColumnDef="VaccineDescription">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="VaccineDescription">Vaccine Description
+            </mat-header-cell>
+            <mat-cell *matCellDef="let loc">{{loc.Description}}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="CVXCode">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="CVXCode">CVX Code</mat-header-cell>
+            <mat-cell *matCellDef="let loc">{{loc.Code}}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Date">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="Date">Date</mat-header-cell>
+            <mat-cell *matCellDef="let loc">{{loc.AdministeredAt}}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Status">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="Status">Status</mat-header-cell>
+            <mat-cell *matCellDef="let loc">{{loc.ImmType}}</mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="immuniztionColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: immuniztionColumns"></mat-row>
+        </mat-table>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-green" data-bs-toggle="modal" data-bs-target="#immunization-modal">Add Vaccine</button>
+        <button class="btn btn-green" data-bs-dismiss="modal">Cancel</button>
       </div>
     </div>
   </div>

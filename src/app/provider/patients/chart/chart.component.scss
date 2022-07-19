@@ -389,15 +389,19 @@ textarea.form-control {
 }
 
 ::ng-deep .cstm-calendar.green-calendar .mat-datepicker-toggle.mat-datepicker-toggle button.mat-focus-indicator.mat-icon-button {
-  height: 3.7em !important;
+  height: 45px !important;
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
   margin-right: -8px;
 }
 
 ::ng-deep .medication-datepicker.grey-calendar .mat-datepicker-toggle.mat-datepicker-toggle button.mat-focus-indicator.mat-icon-button {
-  height: 3.7em !important;
+  height: 45px !important;
   margin-right: -9px;
+}
+
+::ng-deep .mat-select, .mat-input-element {
+  vertical-align: -webkit-baseline-middle;
 }
 
 .col-sm-4 {
@@ -550,8 +554,8 @@ textarea.form-control {
   color: #41b6a6 !important;
 }
 .btn-save {
-  margin-top: 7px;
-  width: 360px;
+  margin-top: 6px;
+  width: 100%;
 }
 
 .title-field {
@@ -642,3 +646,83 @@ textarea.form-control.inputclass:hover{
 #medication-prescription-modal .mat-header-cell {
   color: black !important;
 }
+// tobacco use
+#tobacco-use-modal .modal-dialog {
+  max-width: 1140px;
+}
+#tobacco-use-modal .modal-body {
+  padding: 0px !important;
+  height: 735px;
+}
+#tobacco-use-modal .modal-body .panel-header {
+  height: 50px;
+  padding: 16px 18px;
+  background-color: rgb(247, 247, 247);
+}
+.tobacco-use .content .row {
+  margin-bottom: 10px;
+}
+.tobacco-use .screening-list .bg-color {
+  min-height: 50px;
+  border-radius: 3px 3px 0px 0px;
+}
+.tobacco-use .screening-list p {
+  padding: 15px;
+  margin-bottom: 0rem;
+}
+.tobacoo-padding {
+  padding: 8px 10px 8px 10px;
+}
+.tobacoo-padding mat-label {
+  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+  font-size: 14px;
+}
+.tobacco-use .screening-list .mat-table {
+  border-width: 0px 2px 2px 2px;
+  border-style: solid;
+  border-color: rgb(221, 221, 221);
+}
+.tobacco-use .screening-list .mat-header-row {
+ background-color: #fff;
+ min-height: 35px;
+}
+.tobacco-use .screening-list .mat-header-cell {
+  color: black !important;
+}
+.modal-footer .btn {
+  width: 100px;
+}
+// add/edit immunization
+#immunization-modal .modal-dialog {
+  max-width: 750px;
+}
+#immunization-modal textarea {
+  height: 131px !important;
+  resize: none;
+  background-color: #fff;
+  border-color: #41b6a6;
+  border-radius: 6px;
+}
+#immunization-modal mat-label {
+  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+  font-size: 15px;
+  color: #74757e;
+  margin: 0 0 10px 5px;
+}
+#immunization-modal .textarea-margin {
+  margin: 0px;
+}
+#immunization-modal.modal .modal-dialog .modal-content .modal-body {
+  padding: 0px;
+  overflow-x: hidden !important;
+}
+.textarea-margin mat-label {
+  padding: 0px;
+  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+  font-size: 15px;
+}
+// immunization table
+#immunization-table-modal .modal-dialog {
+  max-width: 1179px;
+}
+
