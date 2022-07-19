@@ -532,6 +532,26 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "CreateMedications";
   }
 
+  get _createImmunizationsAdministeredUrl() {
+    return this._baseUrl + "CreateImmunizationsAdministered";
+  }
+
+  get _createImmunizationsHistoricalUrl() {
+    return this._baseUrl + "CreateImmunizationsHistorical";
+  }
+
+  get _createImmunizationsRefusedUrl() {
+    return this._baseUrl + "CreateImmunizationsRefused";
+  }
+
+  get _vaccinesUrl() {
+    return this._baseUrl + "Vaccines";
+  }
+
+  get _allergyNamesUrl() {
+    return this._baseUrl + "AllergyNames";
+  }
+
   get _changePasswordsUrl() {
     return this._baseUrl + "ChangePassword";
   }
@@ -594,11 +614,11 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "PatientProceduresView";
   }
 
-  get _areaCodesUrl(){
-    return this._baseUrl +"AreaCodes";
+  get _areaCodesUrl() {
+    return this._baseUrl + "AreaCodes";
   }
-  get _cancelAppointmentUrl(){
-    return this._baseUrl +"CancelAppointment";
+  get _cancelAppointmentUrl() {
+    return this._baseUrl + "CancelAppointment";
   }
 
   constructor(public http: HttpClient) {

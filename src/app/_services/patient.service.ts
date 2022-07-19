@@ -202,6 +202,26 @@ export class PatientService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._createMedicationUrl, reqparams);
   }
 
+  CreateImmunizationsAdministered(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._createImmunizationsAdministeredUrl, reqparams);
+  }
+
+  CreateImmunizationsHistorical(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._createImmunizationsHistoricalUrl, reqparams);
+  }
+
+  CreateImmunizationsRefused(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._createImmunizationsRefusedUrl, reqparams);
+  }
+
+  Vaccines(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._vaccinesUrl, reqparams);
+  }
+
+  AllergyNames() {
+    return this._ProcessGetRequest<any>(this._allergyNamesUrl);
+  }
+
   LatestUpdatedPatientsUrl(reqparams: any) {
     return this._ProcessPostRequest<any>(this._latestUpdatedPatientsUrl, reqparams);
   }
