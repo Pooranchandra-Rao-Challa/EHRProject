@@ -337,7 +337,7 @@ export const ERROR_CODES: { [key: string]: string } = {
   // Error for Rooms
   'E2JSAS001': 'Appointment status created error',
 
-//Amendements 
+//Amendements
 'M2A001' : 'Amendments added successfully',
 'M2A002' : 'Amendments updated successfully',
 'M2A003' : 'Amendments deleted successfully',
@@ -358,6 +358,7 @@ export const ERROR_CODES: { [key: string]: string } = {
   //Login Errors
   'EL001':'Wrong email or password',
   'EL002':'Session is timeout',
+  'EL003':'You need to sign in or sign up before continuing.'
 };
 
 

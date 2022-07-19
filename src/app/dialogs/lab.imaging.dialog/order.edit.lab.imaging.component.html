@@ -1,405 +1,424 @@
-<div class="modal-dialog">
-    <div class="modal-content editordermodel modal-scrollbar">
-        <div class="modal-header">
-            <p class="modal-title Roboto-medium">Edit Lab Order </p>
-            <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close" (click)="cancel()">
-                X
-            </span>
+<div class="modal-dialog" id="editlaborder">
+  <div class="modal-content editordermodel">
+    <div class="modal-header">
+      <p class="modal-title Roboto-medium">Edit Lab Order </p>
+      <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close" (click)="cancel()">
+        X
+      </span>
+    </div>
+    <div class="modal-body">
+      <div class="patient-block">
+        <div class="row">
+          <div class="col-md-4">
+            <mat-label>Patient Name:</mat-label>
+            <mat-form-field appearance="outline" class="col-md-12">
+              <input matInput placeholder="" disabled class="notallowed-cursor"
+              [(ngModel)]="labandImaging.PatientName">
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-label>Patient ID:</mat-label>
+            <mat-form-field appearance="outline" class="col-md-12 ">
+              <input matInput placeholder="" disabled class="notallowed-cursor"
+              [ngModel]="labandImaging.PatientId">
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-label>Phone:</mat-label>
+            <mat-form-field appearance="outline" class="col-md-12">
+              <input matInput placeholder="" disabled class="notallowed-cursor"
+              [ngModel]="labandImaging.CurrentPatient.PrimaryPhone">
+            </mat-form-field>
+          </div>
+
         </div>
-        <div class="modal-body modal-scrollbar">
-            <div class="patient-block">
-                <div class="row">
-                    <div class="col-md-4">
-                        <mat-label>Patient Name:</mat-label>
-                        <mat-form-field appearance="outline" class="col-md-12">
-                            <input matInput placeholder="">
-                        </mat-form-field>
-                    </div>
-                    <div class="col-md-4">
-                        <mat-label>Patient ID:</mat-label>
-                        <mat-form-field appearance="outline" class="col-md-12 ">
-                            <input matInput placeholder="" disabled class="labandimagingcursor">
-                        </mat-form-field>
-                    </div>
-                    <div class="col-md-4">
-                        <mat-label>Phone:</mat-label>
-                        <mat-form-field appearance="outline" class="col-md-12">
-                            <input matInput placeholder="" disabled class="labandimagingcursor">
-                        </mat-form-field>
-                    </div>
-
-                </div>
-                <div class="row">
-                    <div class="col-md-6 col-lg-6">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <mat-label>Date of birth:</mat-label>
-                                <mat-form-field appearance="outline" class="col-md-12">
-                                    <input matInput placeholder="" disabled class="labandimagingcursor">
-                                </mat-form-field>
-                            </div>
-                            <div class="col-md-3">
-                                <mat-label>Sex:</mat-label>
-                                <mat-form-field appearance="outline" class="col-md-12">
-                                    <input matInput placeholder="" disabled class="labandimagingcursor">
-                                </mat-form-field>
-                            </div>
-                            <div class="col-md-3">
-                                <mat-label>Age:</mat-label>
-                                <mat-form-field appearance="outline" class="col-md-12">
-                                    <input matInput placeholder="" disabled class="labandimagingcursor">
-                                </mat-form-field>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <mat-label>Fasting:</mat-label>
-                        <mat-form-field appearance="outline" class="col-md-12">
-                            <input matInput placeholder="">
-                        </mat-form-field>
-
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-5">
-                        <mat-label>Created:</mat-label>
-                        <mat-form-field appearance="outline" class="col-md-12">
-                            <input matInput placeholder="">
-                        </mat-form-field>
-
-                    </div>
-                </div>
-            </div>
+        <div class="row">
+          <div class="col-md-6 col-lg-6">
             <div class="row">
-                <mat-label>Select Order:</mat-label>
+              <div class="col-md-6">
+                <mat-label>Date of birth:</mat-label>
+                <mat-form-field appearance="outline" class="col-md-12">
+                  <input matInput placeholder="" disabled class="notallowed-cursor"
+                  [ngModel]="labandImaging.CurrentPatient.DateofBirth | date:'MM-dd-yyyy'">
+                </mat-form-field>
+              </div>
+              <div class="col-md-3">
+                <mat-label>Sex:</mat-label>
+                <mat-form-field appearance="outline" class="col-md-12">
+                  <input matInput placeholder="" disabled class="notallowed-cursor"
+                  [ngModel]="labandImaging.CurrentPatient.Gender">
+                </mat-form-field>
+              </div>
+              <div class="col-md-3">
+                <mat-label>Age:</mat-label>
+                <mat-form-field appearance="outline" class="col-md-12">
+                  <input matInput placeholder="" disabled class="notallowed-cursor"
+                  [ngModel]="labandImaging.CurrentPatient.Age">
+                </mat-form-field>
+              </div>
             </div>
-            <table class="table table-borderless">
-                <thead>
-                    <tr>
-                        <th class="Helvetica-sans-serif-medium">
-                            #
-                        </th>
-                        <th class="Helvetica-sans-serif-medium">
-                            Name
-                        </th>
-                        <th class="Helvetica-sans-serif-medium">
-                            Order Status
-                        </th>
-                        <th class="Helvetica-sans-serif-medium">
-                            Ordering Facility
-                        </th>
-                        <th class="Helvetica-sans-serif-medium">
-                            Scheduled At
-                        </th>
-                        <th class="Helvetica-sans-serif-medium">
-                            Created At
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
+          </div>
+          <div class="col-md-6">
+            <mat-label>Fasting:</mat-label>
+            <mat-form-field appearance="outline" class="col-md-12">
+              <input matInput placeholder="" >
+            </mat-form-field>
 
-                </tbody>
-            </table>
-            <div class="row mt-1">
-                <div class="col-md-9">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <mat-label>Specimen #:</mat-label>
-                            <mat-form-field appearance="outline" class="col-md-12">
-                                <input matInput placeholder="">
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-6">
-                            <mat-label>Specimen Type:</mat-label>
-                            <mat-form-field appearance="outline" class="col-md-12">
-                                <input matInput placeholder="">
-                            </mat-form-field>
-                        </div>
-                    </div>
-                </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-5">
+            <mat-label>Created:</mat-label>
+            <mat-form-field appearance="outline" class="col-md-12">
+              <input matInput placeholder="" disabled class="notallowed-cursor"
+              [ngModel]="labandImaging.CreatedDate | date:'MM-dd-yyyy'">
+            </mat-form-field>
 
-                <div class="col-md-3">
-                    <mat-label>Test Report Date:</mat-label>
-                    <mat-form-field appearance="outline" class="col-md-12">
-                        <input matInput placeholder="">
-                    </mat-form-field>
-                </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <mat-label>Select Order:</mat-label>
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="Helvetica-sans-serif-medium">
+
+              </th>
+              <th class="Helvetica-sans-serif-medium">
+                #
+              </th>
+              <th class="Helvetica-sans-serif-medium">
+                Name
+              </th>
+              <th class="Helvetica-sans-serif-medium">
+                Order Status
+              </th>
+              <th class="Helvetica-sans-serif-medium">
+                Ordering Facility
+              </th>
+              <th class="Helvetica-sans-serif-medium">
+                Scheduled At
+              </th>
+              <th class="Helvetica-sans-serif-medium">
+                Created At
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of labOrders">
+              <td>
+
+              </td>
+              <td>
+                {{item.OrderNumber}}
+              </td>
+              <td>
+                {{item.LabName}}
+              </td>
+              <td>
+                {{item.Status}}
+              </td>
+              <td>
+                {{item.OrderingFacility}}
+              </td>
+              <td>
+                {{item.ScheduledAt | date:"MM-dd-yyyy"}}
+              </td>
+              <td>
+                {{item.CreatedDate | date:"MM-dd-yyyy"}}
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+      <div class="row mt-1">
+        <div class="col-md-9">
+          <div class="row">
+            <div class="col-md-6">
+              <mat-label>Specimen #:</mat-label>
+              <mat-form-field appearance="outline" class="col-md-12">
+                <input matInput placeholder="">
+              </mat-form-field>
             </div>
-            <div class="row">
-                <div class="col-md-9">
-                    <div class="row">
-                        <div class="col-md-7">
-                            <mat-label>Ordering Physician:*</mat-label>
-                            <mat-form-field appearance="outline" class="col-md-12">
-                                <mat-select placeholder="">
-                                    <mat-option value='' selected>View All Providers</mat-option>
-                                    <mat-option>
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-5">
-                            <mat-label>NPI:</mat-label>
-                            <mat-form-field appearance="outline" class="col-md-12">
-                                <input matInput placeholder="" disabled class="labandimagingcursor">
-                            </mat-form-field>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-3">
-                    <mat-label>Lab Order #:</mat-label>
-                    <mat-form-field appearance="outline" class="col-md-12">
-                        <input matInput placeholder="" disabled class="labandimagingcursor">
-                    </mat-form-field>
-                </div>
+            <div class="col-md-6">
+              <mat-label>Specimen Type:</mat-label>
+              <mat-form-field appearance="outline" class="col-md-12">
+                <input matInput placeholder="">
+              </mat-form-field>
             </div>
-            <div class="row highlight-blocks">
-                <div class="col-lg-6 col-md-6 left-block">
+          </div>
+        </div>
 
-                    <div class="row highlight-block">
-                        <div class="col-lg-12">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <p class="title">Ordering Facility Name:</p>
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <mat-form-field appearance="outline" class="col-md-12">
-                                                <input matInput placeholder="">
-                                            </mat-form-field>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class=" row">
-                                <div class="col-lg-12 row-content">
-                                    <p class="title">Ordering Facility Address:</p>
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <mat-form-field appearance="outline" class="col-md-12">
-                                                <input matInput placeholder="">
-                                            </mat-form-field>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row highlight-block">
-                        <div class="col-lg-12">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <p class="title">Performing Facility Name:</p>
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <mat-form-field appearance="outline" class="col-md-12">
-                                                <input matInput placeholder="">
-                                            </mat-form-field>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12 row-content">
-                                    <p class="title">Performing Facility Address:</p>
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <mat-form-field appearance="outline" class="col-md-12">
-                                                <input matInput placeholder="">
-                                            </mat-form-field>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 right-block">
-                    <div class="row highlight-block">
-                        <p class="title">Specimen Collected:</p>
-                        <div class="col-md-5">
-                            <mat-form-field appearance="outline" class="col-md-12">
-                                <input matInput placeholder="">
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-7">
-                            <input class="hidden" type="hidden">
-                            <div class="input-group input-group-green input-group-time">
-                                <input type="text" name="lab_result_collected_at_time_12_hour"
-                                    id="lab_result_collected_at_time_12_hour" class="form-control input-border">
-
-                                <button class="btn btn-green" data-time="am"
-                                    id="lab_result_collected_at_am_btn">AM</button>
-                                <button class="btn btn-green" data-time="pm"
-                                    id="lab_result_collected_at_pm_btn">PM</button>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-                    <div class="row highlight-block">
-                        <p class="title">Specimen Received:</p>
-                        <div class="col-md-5">
-                            <mat-form-field appearance="outline" class="col-md-12">
-                                <input matInput placeholder="">
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-7">
-                            <input class="hidden validate" type="hidden">
-                            <div class="input-group input-group-green input-group-time">
-                                <input type="text" name="lab_result_collected_at_time_12_hour"
-                                    id="lab_result_collected_at_time_12_hour" class="form-control input-border">
-
-                                <button class="btn btn-green" data-time="am"
-                                    id="lab_result_collected_at_am_btn">AM</button>
-                                <button class="btn btn-green" data-time="pm"
-                                    id="lab_result_collected_at_pm_btn">PM</button>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-                    <div class="row highlight-block">
-                        <p class="title">Test Performed:</p>
-                        <div class="col-md-5">
-                            <mat-form-field appearance="outline" class="col-md-12">
-                                <input matInput placeholder="">
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-7">
-                            <input class="hidden validate" type="hidden">
-                            <div class="input-group input-group-green input-group-time">
-                                <input type="text" name="lab_result_collected_at_time_12_hour"
-                                    id="lab_result_collected_at_time_12_hour" class="form-control input-border">
-
-                                <button class="btn btn-green" data-time="am"
-                                    id="lab_result_collected_at_am_btn">AM</button>
-                                <button class="btn btn-green" data-time="pm"
-                                    id="lab_result_collected_at_pm_btn">PM</button>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
+        <div class="col-md-3">
+          <mat-label>Test Report Date:</mat-label>
+          <mat-form-field appearance="outline" class="col-md-12">
+            <input matInput placeholder="">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-9">
+          <div class="row">
+            <div class="col-md-7">
+              <mat-label>Ordering Physician:*</mat-label>
+              <mat-form-field appearance="outline" class="col-md-12">
+                <mat-select placeholder="">
+                  <mat-option value='' selected>View All Providers</mat-option>
+                  <mat-option>
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
             </div>
-            <div class="row">
+            <div class="col-md-5">
+              <mat-label>NPI:</mat-label>
+              <mat-form-field appearance="outline" class="col-md-12">
+                <input matInput placeholder="" disabled class="notallowed-cursor">
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <mat-label>Lab Order #:</mat-label>
+          <mat-form-field appearance="outline" class="col-md-12">
+            <input matInput placeholder="" disabled class="notallowed-cursor">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row highlight-blocks">
+        <div class="col-lg-6 col-md-6 left-block">
+
+          <div class="row highlight-block">
+            <div class="col-lg-12">
+              <div class="row">
                 <div class="col-lg-12">
-                    <div class="form-group">
-                        <div class="panel panel-tests">
-                            <div class="panel-heading">
-                                <p class="title">Tests Ordered (mimimum one test order is required)</p>
-                                <div class="col-md-4 mb-2">
-
-                                    <button class="plusicon" type="button" aria-expanded="false" (click)="testorders()">
-                                        <i class="fa fa-plus"></i>
-                                    </button>
-
-                                </div>
-                            </div>
-                            <form [formGroup]="testorder">
-                                <div class="row">
-
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-12">
-                                        <table class="table">
-                                            <thead class="text-nowrap tblheaderclass">
-                                                <tr class="bg-color">
-                                                <th class="Helvetica-sans-serif-medium">
-                                                    Code
-                                                </th>
-                                                <th  class="Helvetica-sans-serif-medium">
-                                                    Test
-                                                </th>
-                                                <th  class="Helvetica-sans-serif-medium">
-                                                    Result
-                                                </th>
-                                                <th  class="Helvetica-sans-serif-medium">
-                                                    Units
-                                                </th>
-                                                <th  class="Helvetica-sans-serif-medium">
-                                                    Flag
-                                                </th>
-                                                <th  class="Helvetica-sans-serif-medium">
-                                                    Range
-                                                </th>
-                                                <th  class="Helvetica-sans-serif-medium">
-                                                    Delete
-                                                </th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                                <ng-container formArrayName="testorder"
-                                                    *ngFor="let group of testorder.controls; let i = index">
-                                                    <tr [formGroupName]="i">
-
-                                                        <td>
-                                                            <input type="text" class="form-control input-border"
-                                                                [formControlName]="'code'" />
-
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control input-border"
-                                                                [formControlName]="'test'" />
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control input-border"
-                                                                [formControlName]="'result'" />
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control input-border"
-                                                                [formControlName]="'units'" />
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control input-border"
-                                                                [formControlName]="'flag'" />
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control input-border"
-                                                                [formControlName]="'range'" />
-                                                        </td>
-                                                        <td>
-                                                           
-                                                        </td>
-                                                    </tr>
-                                                </ng-container>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-
-
-                            </form>
-
-                        </div>
+                  <p class="title">Ordering Facility Name:</p>
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <mat-form-field appearance="outline" class="col-md-12">
+                        <input matInput placeholder="">
+                      </mat-form-field>
                     </div>
+                  </div>
                 </div>
-            </div>
-            <div class="row">
-
-            </div>
-            <div class="row mt-1">
-                <div class="col-md-12">
-                    <mat-label>Notes:</mat-label>
-                    <textarea matInput class="text-border" placeholder="" readonly disabled></textarea>
+              </div>
+              <div class=" row">
+                <div class="col-lg-12 row-content">
+                  <p class="title">Ordering Facility Address:</p>
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <mat-form-field appearance="outline" class="col-md-12">
+                        <input matInput placeholder="">
+                      </mat-form-field>
+                    </div>
+                  </div>
                 </div>
+              </div>
+            </div>
+          </div>
+          <div class="row highlight-block">
+            <div class="col-lg-12">
+              <div class="row">
+                <div class="col-lg-12">
+                  <p class="title">Performing Facility Name:</p>
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <mat-form-field appearance="outline" class="col-md-12">
+                        <input matInput placeholder="">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12 row-content">
+                  <p class="title">Performing Facility Address:</p>
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <mat-form-field appearance="outline" class="col-md-12">
+                        <input matInput placeholder="">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 right-block">
+          <div class="row highlight-block">
+            <p class="title">Specimen Collected:</p>
+            <div class="col-md-5">
+              <mat-form-field appearance="outline" class="col-md-12">
+                <input matInput placeholder="">
+              </mat-form-field>
+            </div>
+            <div class="col-md-7">
+              <input class="hidden" type="hidden">
+              <div class="input-group input-group-green input-group-time">
+                <input type="text" name="lab_result_collected_at_time_12_hour" id="lab_result_collected_at_time_12_hour"
+                  class="form-control input-border">
+
+                <button class="btn btn-green" data-time="am" id="lab_result_collected_at_am_btn">AM</button>
+                <button class="btn btn-green" data-time="pm" id="lab_result_collected_at_pm_btn">PM</button>
+
+              </div>
+
             </div>
 
+          </div>
+          <div class="row highlight-block">
+            <p class="title">Specimen Received:</p>
+            <div class="col-md-5">
+              <mat-form-field appearance="outline" class="col-md-12">
+                <input matInput placeholder="">
+              </mat-form-field>
+            </div>
+            <div class="col-md-7">
+              <input class="hidden validate" type="hidden">
+              <div class="input-group input-group-green input-group-time">
+                <input type="text" name="lab_result_collected_at_time_12_hour" id="lab_result_collected_at_time_12_hour"
+                  class="form-control input-border">
+
+                <button class="btn btn-green" data-time="am" id="lab_result_collected_at_am_btn">AM</button>
+                <button class="btn btn-green" data-time="pm" id="lab_result_collected_at_pm_btn">PM</button>
+
+              </div>
+
+            </div>
+
+          </div>
+          <div class="row highlight-block">
+            <p class="title">Test Performed:</p>
+            <div class="col-md-5">
+              <mat-form-field appearance="outline" class="col-md-12">
+                <input matInput placeholder="">
+              </mat-form-field>
+            </div>
+            <div class="col-md-7">
+              <input class="hidden validate" type="hidden">
+              <div class="input-group input-group-green input-group-time">
+                <input type="text" name="lab_result_collected_at_time_12_hour" id="lab_result_collected_at_time_12_hour"
+                  class="form-control input-border">
+
+                <button class="btn btn-green" data-time="am" id="lab_result_collected_at_am_btn">AM</button>
+                <button class="btn btn-green" data-time="pm" id="lab_result_collected_at_pm_btn">PM</button>
+              </div>
+            </div>
+
+          </div>
         </div>
-        <div class="modal-footer">
-            <mat-checkbox class="float-left">
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="form-group">
+            <div class="panel panel-tests">
+              <div class="panel-heading">
+                <p class="title">Tests Ordered (mimimum one test order is required)</p>
+                <div class="col-md-4 mb-2">
 
-            </mat-checkbox>
-            <span class="mt-3">Reviewed</span>
-            <button mat-raised-button type="submit" class="btn btn-green   pull-right disabled">Save</button>
-            <button mat-raised-button type="submit" class="btn btn-green   pull-right disabled">Sign</button>
-            <button mat-raised-button type="submit" class="btn btn-green   pull-right disabled">Print</button>
+                  <button class="plusicon" type="button" aria-expanded="false" (click)="testorders()">
+                    <i class="fa fa-plus"></i>
+                  </button>
+
+                </div>
+              </div>
+              <form [formGroup]="testorder">
+                <div class="row">
+
+                </div>
+
+                <div class="row">
+                  <div class="col-12">
+                    <table class="table">
+                      <thead class="text-nowrap tblheaderclass">
+                        <tr class="bg-color">
+                          <th class="Helvetica-sans-serif-medium">
+                            Code
+                          </th>
+                          <th class="Helvetica-sans-serif-medium">
+                            Test
+                          </th>
+                          <th class="Helvetica-sans-serif-medium">
+                            Result
+                          </th>
+                          <th class="Helvetica-sans-serif-medium">
+                            Units
+                          </th>
+                          <th class="Helvetica-sans-serif-medium">
+                            Flag
+                          </th>
+                          <th class="Helvetica-sans-serif-medium">
+                            Range
+                          </th>
+                          <th class="Helvetica-sans-serif-medium">
+                            Delete
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <ng-container formArrayName="testorder" *ngFor="let group of testorder.controls; let i = index">
+                          <tr [formGroupName]="i">
+
+                            <td>
+                              <input type="text" class="form-control input-border" [formControlName]="'code'" />
+
+                            </td>
+                            <td>
+                              <input type="text" class="form-control input-border" [formControlName]="'test'" />
+                            </td>
+                            <td>
+                              <input type="text" class="form-control input-border" [formControlName]="'result'" />
+                            </td>
+                            <td>
+                              <input type="text" class="form-control input-border" [formControlName]="'units'" />
+                            </td>
+                            <td>
+                              <input type="text" class="form-control input-border" [formControlName]="'flag'" />
+                            </td>
+                            <td>
+                              <input type="text" class="form-control input-border" [formControlName]="'range'" />
+                            </td>
+                            <td>
+
+                            </td>
+                          </tr>
+                        </ng-container>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
 
 
+              </form>
 
+            </div>
+          </div>
         </div>
+      </div>
+      <div class="row">
+      </div>
+      <div class="row mt-1">
+        <div class="col-md-12">
+          <mat-label>Notes:</mat-label>
+          <textarea matInput class="text-border" placeholder="" readonly disabled></textarea>
+        </div>
+      </div>
+
     </div>
+    <div class="modal-footer">
+      <mat-checkbox class="float-left">
+
+      </mat-checkbox>
+      <span class="mt-3">Reviewed</span>
+      <button mat-raised-button type="submit" class="btn btn-green   pull-right disabled">Save</button>
+      <button mat-raised-button type="submit" class="btn btn-green   pull-right disabled">Sign</button>
+      <button mat-raised-button type="submit" class="btn btn-green   pull-right disabled">Print</button>
+
+
+
     </div>
+  </div>
+</div>
