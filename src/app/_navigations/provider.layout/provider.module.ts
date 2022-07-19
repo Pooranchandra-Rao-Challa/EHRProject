@@ -1,5 +1,5 @@
 
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule,LOCALE_ID } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -91,6 +91,7 @@ import { ProviderCodeDatabase } from 'src/app/provider/patients/dental.chart/tre
 import { registerLocaleData } from '@angular/common';
 import localeIt from '@angular/common/locales/en';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { DiscontinueDialogComponent } from '../../dialogs/discontinue.dialog/discontinue.dialog.component';
 
 
 //import { TimeMaskDirective } from 'src/app/_directives/input.time.mask.directive'
@@ -108,6 +109,7 @@ registerLocaleData(localeIt);
     AdvancedMedicalCodeModule,
     TeethSurfaceModule,
     AddeditinterventionComponent,
+    DiscontinueDialogComponent,
     // PaginatorDirective
     //TimeMaskDirective
   ],
@@ -140,6 +142,7 @@ registerLocaleData(localeIt);
     //PatientDetailsComponent,
     PatientDialogComponent,
     AdvancedDirectivesDialogComponent,
+    DiscontinueDialogComponent,
     OverlayComponent,
     MouseOverHintDirective,
     UserDialogComponent,
@@ -214,7 +217,8 @@ registerLocaleData(localeIt);
     ProcedureDialogComponent,
     AddressVerificationDialogComponent,
     SignEncounterNoteComponent,
-    PatientHealthPortalComponent]
+    PatientHealthPortalComponent,
+    DiscontinueDialogComponent]
 })
 export class ProviderModule {
 
