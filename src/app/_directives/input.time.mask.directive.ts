@@ -303,19 +303,25 @@ export class TimeMaskDirective implements OnInit, ControlValueAccessor, Validato
   /** Handle backspace or delete key event */
   _clearHoursOrMinutes() {
     const caretPosition = this._doGetCaretPosition();
-    const input: string[] = this._el.nativeElement.value.split(':');
+    const inputvalue = this._el.nativeElement.value;
+    const meridian = inputvalue.split(' ')[1];
+    const input: string[] = inputvalue.split(' ')[0].split(':');
 
     const hours: string = input[0];
     const minutes: string = input[1];
 
     let newTime = '';
     let sendCaretToMinutes = false;
+    console.log(caretPosition);
 
-    if (caretPosition > 2) {
-      newTime = `${hours}:--`;
+    if(caretPosition > 5){
+      newTime = `${hours}:${minutes} XM`;
+    }
+    else if (caretPosition > 2) {
+      newTime = `${hours}:mm ${meridian}`;
       sendCaretToMinutes = true;
     } else {
-      newTime = `--:${minutes}`;
+      newTime = `hh:${minutes} ${meridian}`;
       sendCaretToMinutes = false;
     }
 
@@ -323,7 +329,10 @@ export class TimeMaskDirective implements OnInit, ControlValueAccessor, Validato
 
     this._renderer.setProperty(this._el.nativeElement, 'value', newTime);
     this._controlValueChanged();
-    if (!sendCaretToMinutes) {
+    if(caretPosition > 5){
+      this._el.nativeElement.setSelectionRange(6, 7);
+    }
+    else if (!sendCaretToMinutes) {
       this._el.nativeElement.setSelectionRange(0, 2);
     } else {
       this._el.nativeElement.setSelectionRange(3, 5);
@@ -411,31 +420,40 @@ export class TimeMaskDirective implements OnInit, ControlValueAccessor, Validato
     return (value > 9 ? '' : '0') + value;
   }
 
-  /** build a time in 00:00 format */
+  /** build a time in 00:00 AMformat */
   private _dateToStringTime(value: Date) {
     let timewithMeridian: string[] = value.toLocaleTimeString().split(' ')
-    let meridian = timewithMeridian[1];
+    let meridian = timewithMeridian[1].replace('X','A');
     let timeParts = timewithMeridian[0].split(':');
-    let h = Number(timeParts[0]);
-    let m = Number(timeParts[1]);
+    let h = Number(this._stringToNumber(timeParts[0],'h'));
+    let m = Number(this._stringToNumber(timeParts[1],'m'));
+
 
     return this._zeroFill(h) + ':' + this._zeroFill(m)+' '+meridian;
   }
 
   /** Turns a string in format --, -X, X-, XY into a number, considering '-' => 0 */
-  private _stringToNumber(str: string) {
-    if (str.indexOf('-') === -1) {
+  private _stringToNumber(str: string,chr: string) {
+    if (str.indexOf(chr) === -1) {
       return Number(str);
     }
 
-    const finalStr = str.replace('-', '0').replace('-', '0');
+    const finalStr = str.replace(chr, '0').replace(chr, '0');
 
     return Number(finalStr);
   }
 
   /** Set the NgControl and local value  */
   private _controlValueChanged() {
-    this._onChange(this._el.nativeElement.value);
+    const value = this._el.nativeElement.value
+
+    let timewithMeridian: string[] = value.split(' ')
+    let meridian = timewithMeridian[1].replace('X','A');
+    let timeParts = timewithMeridian[0].split(':');
+    let h = Number(this._stringToNumber(timeParts[0],'h'));
+    let m = Number(this._stringToNumber(timeParts[1],'m'));
+
+    this._onChange(this._zeroFill(h) + ':' + this._zeroFill(m)+' '+meridian);
   }
 
 }

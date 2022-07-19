@@ -88,11 +88,19 @@ import { BillingService } from '../../_services/billing.service';
 import { AlertMessage } from 'src/app/_alerts/alertMessage';
 import { AddeditinterventionComponent } from 'src/app/dialogs/addeditintervention/addeditintervention.component';
 import { ProviderCodeDatabase } from 'src/app/provider/patients/dental.chart/tree.procedure.component'
+import { CompleteAppointmentDialogComponent } from 'src/app/dialogs/newappointment.dialog/complete.appointment.component'
 import { registerLocaleData } from '@angular/common';
 import localeIt from '@angular/common/locales/en';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { DiscontinueDialogComponent } from '../../dialogs/discontinue.dialog/discontinue.dialog.component';
 
+import { OrderDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/order.dialog.component';
+import { OrderResultDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/order.result.dialog.component';
+import { EditLabImagingOrderComponent } from 'src/app/dialogs/lab.imaging.dialog/order.edit.lab.imaging.component';
+import { OrderManualEntryDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/order.manual.entry.dialog.component';
+import { ImagingResultDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/imaging.result.dialog.component';
+import { TestCodeComponent } from 'src/app/dialogs/lab.imaging.dialog/test.code.component';
+import { CORSAPIService } from 'src/app/_services/cors.api.service'
 
 //import { TimeMaskDirective } from 'src/app/_directives/input.time.mask.directive'
 registerLocaleData(localeIt);
@@ -110,8 +118,6 @@ registerLocaleData(localeIt);
     TeethSurfaceModule,
     AddeditinterventionComponent,
     DiscontinueDialogComponent,
-    // PaginatorDirective
-    //TimeMaskDirective
   ],
   declarations: [
     ProviderNavbarComponent,
@@ -161,6 +167,12 @@ registerLocaleData(localeIt);
     AddeditinterventionComponent,
     ProcedureDialogComponent,
     SignEncounterNoteComponent,
+    OrderDialogComponent,
+    OrderResultDialogComponent,
+    EditLabImagingOrderComponent,
+    OrderManualEntryDialogComponent,
+    ImagingResultDialogComponent,
+    TestCodeComponent,
     //TimeMaskDirective,
   ],
   imports: [
@@ -199,9 +211,9 @@ registerLocaleData(localeIt);
   ],
   providers: [LocationSelectService, ViewChangeService,
     UtilityService, SmartSchedulerService, OverlayService, PatientService, BillingService,
-    SmartScheduleComponent, AlertMessage,
-    { provide: LOCALE_ID, useValue: 'en-GB' },
-    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+    AlertMessage, CORSAPIService,
+    { provide: LOCALE_ID, useValue: 'en-US' },
+    { provide: MAT_DATE_LOCALE, useValue: 'en-US' },
     ProviderCodeDatabase,
     { provide: NgbDateParserFormatter, useClass: NgbDateUSParserFormatter }
 
@@ -218,7 +230,14 @@ registerLocaleData(localeIt);
     AddressVerificationDialogComponent,
     SignEncounterNoteComponent,
     PatientHealthPortalComponent,
-    DiscontinueDialogComponent]
+    DiscontinueDialogComponent,
+    CompleteAppointmentDialogComponent,
+    OrderManualEntryDialogComponent,
+    OrderResultDialogComponent,
+    OrderDialogComponent,
+    EditLabImagingOrderComponent,
+    ImagingResultDialogComponent,
+    TestCodeComponent]
 })
 export class ProviderModule {
 

@@ -1,0 +1,39 @@
+@import"../../../assets/cstm.material.scss";
+@import"../../../assets/common.scss";
+
+.editordermodel.modal-content {
+    width: 164%;
+    max-height: 1000px;
+
+}
+
+.btn-today
+{
+width: 111px;
+    /* height: 45px; */
+    /* display: block; */
+    padding: 0;
+    line-height: 2.7;
+    cursor: pointer;
+    border-radius: 3px;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 20px;
+}
+.text-border{
+    height: 71px;
+      border: 1px solid #41b6a6;
+      border-radius: 3px;
+      font-size: 15px;
+      padding: 10px 20px;
+      resize: both;
+      width: 100% !important;
+  }
+
+.modal-dialog .modal-body .highlight-blocks .right-block {
+    border-left: 1px solid #41b6a6;
+}
+.right-block {
+    padding: 15px 0;
+    background-color: rgba(65,182,166,0.1);
+}

@@ -1,3 +1,4 @@
+import { AppComponent } from './../../app.component';
 
 
 import { Component, OnInit, TemplateRef } from '@angular/core';
@@ -16,7 +17,9 @@ import { LocationSelectService } from '../../_navigations/provider.layout/locati
 import { NewAppointmentDialogComponent } from '../../dialogs/newappointment.dialog/newappointment.dialog.component';
 import { UpcomingAppointmentsDialogComponent } from '../../dialogs/upcoming.appointments.dialog/upcoming.appointments.dialog.component';
 import { EncounterDialogComponent } from '../../dialogs/encounter.dialog/encounter.dialog.component';
+import { CompleteAppointmentDialogComponent } from 'src/app/dialogs/newappointment.dialog/complete.appointment.component';
 import { AlertMessage, ERROR_CODES} from 'src/app/_alerts/alertMessage'
+import { CORSAPIService } from 'src/app/_services/cors.api.service';
 import * as moment from "moment";
 
 import {
@@ -26,6 +29,7 @@ import {
 } from 'src/app/_models/';
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 import { Router } from '@angular/router';
+import { T } from '@angular/cdk/keycodes';
 
 declare const CloseAppointment: any;
 declare const OpenSaveSuccessAppointment: any;
@@ -64,6 +68,8 @@ export class SmartScheduleComponent implements OnInit {
   upcomingAppointmentDialogResponse = null;
   encounterDialogComponent = EncounterDialogComponent;
   encounterDialogResponse = null;
+  completeAppointmentDialogComponent = CompleteAppointmentDialogComponent;
+
   //Auto Search Paramters
   public patients: PatientSearchResults[];
   private patientSearchTerms = new Subject<string>();
@@ -80,10 +86,17 @@ export class SmartScheduleComponent implements OnInit {
     private locationSelectService: LocationSelectService,
     private alertMessage: AlertMessage,
     private overlayService: OverlayService,
-    private router: Router
+    private router: Router,
+    private _CORSAPIService:CORSAPIService
   ) {
 
+    // _CORSAPIService.Drugs("alanine").subscribe((result)=>console.log(result));
+    // let values = [];
+    // _CORSAPIService.ndcs("213269").subscribe(value => { console.log(value);
+    //  values.push(value);} )
+    // console.log(values);
 
+    console.log(_CORSAPIService.ndcs("213269"));
     this.patientSearchTerms
       .pipe(debounceTime(300),  // wait for 300ms pause in events
         distinctUntilChanged())   // ignore if next search term is same as previous
@@ -134,7 +147,7 @@ export class SmartScheduleComponent implements OnInit {
     });
   }
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
-    data?: any, action?: Actions) {
+    data?: any, action?: Actions,status: string="") {
 
     this.flag = false;
     this.patientNameOrCellNumber = "";
@@ -147,7 +160,10 @@ export class SmartScheduleComponent implements OnInit {
       dialogData = this.PatientAppointmentInfoFromSearch(data, action);
     } else if (content === this.encounterDialogComponent) {
       dialogData = data;
-
+    }else if (content === this.completeAppointmentDialogComponent) {
+      let d  = data as ScheduledAppointment;
+      d.StatusToUpdate = status;
+      dialogData = d;
     }
 
     const ref = this.overlayService.open(content, dialogData);
@@ -179,6 +195,11 @@ export class SmartScheduleComponent implements OnInit {
         if(res.data != null && res.data.saved){
           this.filterAppointments();        }
       }
+      else if( content == this.completeAppointmentDialogComponent){
+        if(res.data != null && res.data.confirmed){
+          this.updateAppointmentStatus(res.data.appointment,res.data.AppComponent.StatusToUpdate);
+        }
+      }
     });
 
 
@@ -186,7 +207,6 @@ export class SmartScheduleComponent implements OnInit {
 
   PatientAppointmentInfo(appointment: NewAppointment, action?: Actions) {
     let data = {} as AppointmentDialogInfo;
-    console.log(appointment);
 
     this.PatientAppointment = {} as NewAppointment;
     this.PatientAppointment.PatientId = appointment.PatientId;
@@ -296,9 +316,8 @@ export class SmartScheduleComponent implements OnInit {
       "ClinicId": this.authService.userValue.ClinicId,
       "ProviderId": this.SelectedProviderId,
       "LocationId": this.authService.userValue.CurrentLocation,
-      "AppointmentDate": moment.utc(this.selectedAppointmentDate).toDate()
+      "AppointmentDate": moment.utc(this.selectedAppointmentDate).toISOString()
     };
-
 
     this.smartSchedulerService.ActiveAppointments(req).subscribe(resp => {
 
@@ -362,8 +381,9 @@ export class SmartScheduleComponent implements OnInit {
     this.PatientAppointment.ProviderId = this.authService.userValue.ProviderId;
     this.PatientAppointment.LocationId = this.SelectedLocationId;
     this.PatientAppointment.Duration = 30;
-    this.selectedAppointmentDate = new Date();
-    //this.selectedAppointmentDateString = this.selectedAppointmentDate.toLocaleDateString('en-us', 'MMMM dd yyyy');
+    this.selectedAppointmentDate = new Date(new Date().toLocaleDateString());
+
+
     this.selectedWeekday = this.selectedAppointmentDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
 
     this.loadDefaults();
@@ -399,5 +419,23 @@ export class SmartScheduleComponent implements OnInit {
     this.filterAppointments();
   }
 
+  updateAppointmentStatus(appointment: ScheduledAppointment,status: string){
+    if(appointment.Status != status){
+      appointment.StatusToUpdate = status;
+      this.smartSchedulerService.UpdateAppointmentStatus(appointment).subscribe(resp => {
+        if (resp.IsSuccess) {
+          this.filterAppointments();
+          if(resp.IsSuccess && resp.Result!='Error01'){
+            this.alertMessage.displayMessageDailog(ERROR_CODES["M2JSAT004"]);
+          }else{
+            this.alertMessage.displayErrorDailog(ERROR_CODES["E2JSAT002"]);
+          }
+        }
+        else{
+          this.alertMessage.displayErrorDailog(ERROR_CODES["E2JSAT003"]);
+        }
+      });
+    }
 
+  }
 }

@@ -70,18 +70,17 @@ GenderData:any=[
     private PatientNavbar:PatientNavbarComponent,
     private utilityService: UtilityService,) {
     this.user = authenticationService.userValue;
+    this.searchCellPhoneData=[];
+    this.searchHomePhoneData=[];
+    this.searchWorkPhoneData=[];
+    this.searchPhoneData=[];
     // console.log(this.user);
   }
 
   ngOnInit(): void {
     this.getPatientProfile();
-    // this.filteredOptions = this.myControl.valueChanges.pipe(
-    //   startWith(''),
-    //   map(value => this._filter(value)),
-    // );
     this._filterProcedure();
     this.events();
-    //this.getPatientProfile();
 
   }
 
@@ -202,7 +201,7 @@ events(){
   _filterProcedure() {
     this.utilityService.AreaCodes()
       .subscribe(resp => {
-        debugger;
+        //debugger;
         //this.isLoading = false;
         if (resp.IsSuccess) {
           this.SourceData=resp.ListResult;
@@ -212,12 +211,12 @@ events(){
         }
       },
       error=>{
-        debugger;
+        //debugger;
       })
   }
   //filter city on search text
   filterData(searchText: string) {
-    debugger;
+    //debugger;
     if(searchText==''){
       return [];
     }

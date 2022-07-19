@@ -20,11 +20,11 @@
             <div *ngIf="firstName.errors && (firstName.touched)">
               <div class="error_message" *ngIf="firstName.errors?.required">
                 <span class="e_arrow"></span>
-                <i>Please enter First Name</i>
+                <i class="errormessage">Please enter First Name</i>
               </div>
               <div class="error_message" *ngIf="firstName.errors?.pattern">
                 <span class="e_arrow"></span>
-                <i>First name not valid, Use only Alphabets and space</i>
+                <i class="errormessage">First name not valid, Use only Alphabets and space</i>
               </div>
             </div>
           </div>
@@ -41,7 +41,7 @@
           <div *ngIf="middleName.errors && (middleName.touched)">
             <div class="error_message" *ngIf="middleName.errors?.pattern">
               <span class="e_arrow"></span>
-              <i>Middle name not valid, Use only Alphabets and space</i>
+              <i class="errormessage">Middle name not valid, Use only Alphabets and space</i>
             </div>
           </div>
         </div>
@@ -57,11 +57,11 @@
             <div *ngIf="lastName.errors && (lastName.touched)">
               <div class="error_message" *ngIf="lastName.errors?.required">
                 <span class="e_arrow"></span>
-                <i>Please enter Last Name</i>
+                <i class="errormessage">Please enter Last Name</i>
               </div>
               <div class="error_message" *ngIf="lastName.errors?.pattern">
                 <span class="e_arrow"></span>
-                <i>Lasst name not valid, Use only Alphabets and space</i>
+                <i class="errormessage">Lasst name not valid, Use only Alphabets and space</i>
               </div>
             </div>
           </div>
@@ -83,7 +83,7 @@
           <div *ngIf="dateofBirth.errors && (dateofBirth.touched)">
             <div class="error_message" *ngIf="dateofBirth.errors?.required">
               <span class="e_arrow"></span>
-              <i>Please enter Date of Birth</i>
+              <i class="errormessage">Please enter Date of Birth</i>
             </div>
           </div>
         </div>
@@ -134,11 +134,11 @@
           <div *ngIf="patientEmail.errors">
             <div class="error_message" *ngIf="patientEmail.errors?.pattern">
               <i class="fa fa-minus"></i>
-              <i>Please enter valid Email</i>
+              <i class="errormessage">Please enter valid Email</i>
             </div>
             <div class="error_message" *ngIf="patientEmail.errors?.required">
               <i class="fa fa-minus"></i>
-              <i>Please enter Email</i>
+              <i class="errormessage">Please enter Email</i>
             </div>
           </div>
         </div>

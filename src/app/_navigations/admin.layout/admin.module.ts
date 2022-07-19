@@ -55,6 +55,7 @@ import { DefaultMessagesComponent } from 'src/app/admin/defaultmessages/defaultm
 import { CommunicationsettingsComponent } from 'src/app/admin/communicationsettings/communicationsettings.component';
 import { AlertMessage } from 'src/app/_alerts/alertMessage';
 import { AdminPaginatorDirective } from 'src/app/_directives/admin.patinator.directive'
+import { UtilityService } from 'src/app/_services/utiltiy.service';
 
 
 @NgModule({
@@ -115,7 +116,7 @@ import { AdminPaginatorDirective } from 'src/app/_directives/admin.patinator.dir
     CKEditorModule,
     // Ng2SearchPipeModule
   ],
-  providers: [AdminService, OverlayService, AlertMessage, PatientService
+  providers: [AdminService, OverlayService, AlertMessage, PatientService,UtilityService
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

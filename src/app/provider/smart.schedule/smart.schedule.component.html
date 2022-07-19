@@ -46,13 +46,12 @@
       <div class="row">
         <mat-accordion class="schedule-accordion">
           <mat-expansion-panel #panel1 [expanded]="true" hideToggle>
-            <mat-expansion-panel-header class="bg-color">
-              <mat-panel-title (click)="$event.stopPropagation()">
+            <mat-expansion-panel-header class="bg-color" >
+              <mat-panel-title (click)="$event.stopPropagation()" style="cursor:default">
                 Upcoming Appointments
               </mat-panel-title>
-              <i ngClass="{{
-                  panel1.expanded ? 'fa fa-compress' : 'fa fa-expand'
-                }}"></i>
+              <i class="fa" [class.fa-compress] = "panel1.expanded"
+              [class.fa-expand] = "!panel1.expanded" style="padding-top:6px"></i>
             </mat-expansion-panel-header>
             <div class="scrollable-table" style="overflow-y:auto;overflow-x:hidden">
               <div class="table-container">
@@ -87,18 +86,18 @@
                     <div class="col-md-2 col-2 provider" *ngIf="appointment.IsCurrent" >{{appointment.ProviderName}}</div>
                     <div class="col-md-2 col-2 visit-status" *ngIf="appointment.IsCurrent">
 
-                      <img [class]="appointment.Status == 'Scheduled' ? 'img-smart-status' : 'img-smart-status-path'"
-                        src="assets/images/smart-schedule/scheduled.svg" title="Scheduled" (click)="updateAppointmentStatus(appointment.AppointmentId,'Scheduled')" />
-                      <img [class]="appointment.Status == 'Wating' ? 'img-smart-status' : 'img-smart-status-path'" src="assets/images/smart-schedule/waiting.svg"
-                        title="Wating" (click)="updateAppointmentStatus(appointment.AppointmentId,'Wating')" />
-                      <img [class]="appointment.Status == 'In-Progress' ? 'img-smart-status' : 'img-smart-status-path'" src="assets/images/smart-schedule/in_progress.svg"
-                        title="In-Progress" (click)="updateAppointmentStatus(appointment.AppointmentId,'In-Progress')" />
-                      <img [class]="appointment.Status == 'Completed' ? 'img-smart-status' : 'img-smart-status-path'" src="assets/images/smart-schedule/completed.svg"
-                        title="Completed" (click)="updateAppointmentStatus(appointment.AppointmentId,'Completed')"/>
-                      <img [class]="appointment.Status == 'Cancelled' ? 'img-smart-status' : 'img-smart-status-path'" src="assets/images/smart-schedule/cancel.svg"
-                        title="Cancelled" (click)="updateAppointmentStatus(appointment.AppointmentId,'Cancelled')"/>
-                      <img [class]="appointment.Status == 'No-Show' ? 'img-smart-status' : 'img-smart-status-path'" src="assets/images/smart-schedule/no_show.svg"
-                        title="No-Show" (click)="updateAppointmentStatus(appointment.AppointmentId,'No-Show')"/>
+                      <img [class]="appointment.Status == 'Scheduled' ? 'img-smart-status-highlight' : 'img-smart-status-dim'" [class.show-hover] = "appointment.IsCurrent"
+                        src="assets/images/smart-schedule/scheduled.svg" title="Scheduled" (click)="updateAppointmentStatus(appointment,'Scheduled')" />
+                      <img [class]="appointment.Status == 'Confirmed' ? 'img-smart-status-highlight' : 'img-smart-status-dim'" src="assets/images/smart-schedule/waiting.svg"
+                        title="Waiting" (click)="updateAppointmentStatus(appointment,'Confirmed')" [class.show-hover] = "appointment.IsCurrent"/>
+                      <img [class]="appointment.Status == 'In-Progress' ? 'img-smart-status-highlight' : 'img-smart-status-dim'" src="assets/images/smart-schedule/in_progress.svg"
+                        title="In-Progress" (click)="updateAppointmentStatus(appointment,'In-Progress')"  [class.show-hover] = "appointment.IsCurrent"/>
+                      <img [class]="appointment.Status == 'Completed' ? 'img-smart-status-highlight' : 'img-smart-status-dim'" src="assets/images/smart-schedule/completed.svg"
+                        title="Completed" (click)="openComponentDialog(completeAppointmentDialogComponent,appointment,ActionsType.view,'Completed')" [class.show-hover] = "appointment.IsCurrent"/>
+                      <img [class]="appointment.Status == 'Cancelled' ? 'img-smart-status-highlight' : 'img-smart-status-dim'" src="assets/images/smart-schedule/cancel.svg"
+                        title="Cancelled" (click)="openComponentDialog(completeAppointmentDialogComponent,appointment,ActionsType.view,'Cancelled')" [class.show-hover] = "appointment.IsCurrent"/>
+                      <img [class]="appointment.Status == 'No-Show' ? 'img-smart-status-highlight' : 'img-smart-status-dim'" src="assets/images/smart-schedule/no_show.svg"
+                        title="No-Show" (click)="openComponentDialog(completeAppointmentDialogComponent,appointment,ActionsType.view,'No-Show')" [class.show-hover] = "appointment.IsCurrent"/>
                     </div>
                     <div class="col-md-2 col-2 appt-type" *ngIf="appointment.IsCurrent">{{appointment.AppointmentType}}</div>
                     <div class="col-md-2 col-2 appointment-note" *ngIf="appointment.IsCurrent">
@@ -117,12 +116,12 @@
           </mat-expansion-panel>
           <mat-expansion-panel #panel2 [expanded]="false" hideToggle class="mt-1">
             <mat-expansion-panel-header class="bg-color">
-              <mat-panel-title> Finished Appointments </mat-panel-title>
-              <i ngClass="{{
-                  panel2.expanded ? 'fa fa-compress' : 'fa fa-expand'
-                }}"></i>
+              <mat-panel-title (click)="$event.stopPropagation()" style="cursor:default"> Finished Appointments </mat-panel-title>
+              <i class="fa" [class.fa-compress] = "panel2.expanded"
+              [class.fa-expand] = "!panel2.expanded" style="padding-top:6px"></i>
             </mat-expansion-panel-header>
-            <div class="scrollable-table">
+
+            <div class="scrollable-table" style="overflow-y:auto;overflow-x:hidden">
               <div class="table-container">
                 <div class="table-appointments-for-today table table-dashboard finished_appointments">
                   <div class="row text-center table-header">
@@ -134,10 +133,11 @@
                     <div class="col-md-2 appointment-note">Notes</div>
                     <div class="col-md-1">Encounter</div>
                   </div>
-                  <div class="text-center table-body" *ngFor="let appointment of Appointments">
 
-                      <div class="col-md-1 col-1 appointment-time appintment-link" *ngIf="appointment.IsPast"
-                        (click)="openComponentDialog(appointmentDialogComponent,appointment,ActionsType.view)">
+
+                  <div class="row text-center table-body" *ngFor="let appointment of Appointments">
+
+                      <div class="col-md-1 col-1 appointment-time" *ngIf="appointment.IsPast">
                         {{appointment.AppointmentTime | date:'MM/dd/yyyy'}}
                         &nbsp;
                         Time: {{appointment.AppointmentTime | date:'hh:mm a'}}
@@ -150,18 +150,18 @@
                       <div class="col-md-2 col-2 provider" *ngIf="appointment.IsPast">{{appointment.ProviderName}}</div>
                       <div class="col-md-2 col-2 visit-status" *ngIf="appointment.IsPast">
 
-                        <img [class]="appointment.Status == 'Scheduled' ? 'img-smart-status' : 'img-smart-status-path'"
-                          src="assets/images/smart-schedule/scheduled.svg" title="Scheduled" (click)="updateAppointmentStatus(appointment.AppointmentId,'Scheduled')" />
-                        <img [class]="appointment.Status == 'Wating' ? 'img-smart-status' : 'img-smart-status-path'" src="assets/images/smart-schedule/waiting.svg"
-                          title="Wating" (click)="updateAppointmentStatus(appointment.AppointmentId,'Wating')" />
-                        <img [class]="appointment.Status == 'In-Progress' ? 'img-smart-status' : 'img-smart-status-path'" src="assets/images/smart-schedule/in_progress.svg"
-                          title="In-Progress" (click)="updateAppointmentStatus(appointment.AppointmentId,'In-Progress')" />
-                        <img [class]="appointment.Status == 'Completed' ? 'img-smart-status' : 'img-smart-status-path'" src="assets/images/smart-schedule/completed.svg"
-                          title="Completed" (click)="updateAppointmentStatus(appointment.AppointmentId,'Completed')"/>
-                        <img [class]="appointment.Status == 'Cancelled' ? 'img-smart-status' : 'img-smart-status-path'" src="assets/images/smart-schedule/cancel.svg"
-                          title="Cancelled" (click)="updateAppointmentStatus(appointment.AppointmentId,'Cancelled')"/>
-                        <img [class]="appointment.Status == 'No-Show' ? 'img-smart-status' : 'img-smart-status-path'" src="assets/images/smart-schedule/no_show.svg"
-                          title="No-Show" (click)="updateAppointmentStatus(appointment.AppointmentId,'No-Show')"/>
+                        <img class="img-smart-status-dim"
+                          src="assets/images/smart-schedule/scheduled.svg" title="Scheduled" />
+                        <img class="img-smart-status-dim" src="assets/images/smart-schedule/waiting.svg"
+                          title="Wating"  />
+                        <img class="img-smart-status-dim" src="assets/images/smart-schedule/in_progress.svg"
+                          title="In-Progress" />
+                        <img [class]="appointment.Status == 'Completed' ? 'img-smart-status-highlight' : 'img-smart-status-dim'" src="assets/images/smart-schedule/completed.svg"
+                          title="Completed" />
+                        <img [class]="appointment.Status == 'Cancelled' ? 'img-smart-status-highlight' : 'img-smart-status-dim'" src="assets/images/smart-schedule/cancel.svg"
+                          title="Cancelled"/>
+                        <img [class]="appointment.Status == 'No-Show' ? 'img-smart-status-highlight' : 'img-smart-status-dim'" src="assets/images/smart-schedule/no_show.svg"
+                          title="No-Show"/>
                       </div>
                       <div class="col-md-2 col-2 appt-type" *ngIf="appointment.IsPast">{{appointment.AppointmentType}}</div>
                       <div class="col-md-2 col-2 appointment-note" *ngIf="appointment.IsPast">
@@ -195,7 +195,7 @@
                     (optionSelected)="onPatientSelected($event)" ><!-- -->
                   <mat-option *ngFor="let patient of patients" [value]="patient" class="patient-search-option patient-search-option-menu-item">
                     {{patient.Name}},
-                    {{patient.DateofBirth | date: 'MM/dd/yyyy'}}-{{patient.Age}},
+                    {{patient.DateofBirth | date: 'MM/dd/yyyy'}} , {{patient.Age +' Year(s)'}} ,
                     {{patient.PrimaryPhone ? 'P:'+patient.PrimaryPhone : ''}},
                     {{patient.MobilePhone ? 'H:'+patient.MobilePhone : ''}},
                     {{patient.NumberOfAppointments+' Appointment(s)'}}

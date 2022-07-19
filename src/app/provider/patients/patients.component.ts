@@ -165,6 +165,7 @@ export class PatientsComponent implements OnInit {
   }
 
   loadPatients() {
+    //debugger;
     this.patientsDataSource.loadPatients(
       this.searchPatient.nativeElement.value,
       this.sort.active,

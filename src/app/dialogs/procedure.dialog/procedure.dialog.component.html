@@ -14,8 +14,7 @@
           <div class="input-group">
             <mat-form-field class="procedure-form-field" appearance="outline" [ngStyle]="{'width':'100%'}">
               <input matInput #searchProcedureCode class="form-control" placeholder="Select Procedure Code" type="text"
-                id="searchProcedureCode" name="searchProcedureCode" [matAutocomplete]="procedureCode"
-                />
+                id="searchProcedureCode" name="searchProcedureCode" [matAutocomplete]="procedureCode"/>
               <mat-autocomplete [displayWith]="displayWith" #procedureCode="matAutocomplete"
                 (optionSelected)="onProcedureSelected($event)">
                 <mat-option *ngIf="isLoading">Loading ...</mat-option>

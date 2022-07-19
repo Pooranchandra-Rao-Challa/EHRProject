@@ -205,9 +205,23 @@
 }
 .manualbtn {
   height: 45px;
-  margin-left: -59px;
-    margin-right: -1px;
-    padding: 2px;
+  width: 195px;
+  padding: 2px;
+}
+// @media (max-width: 1440px) {
+//   .manualbtn {
+//     width: 145px;
+//   }
+// }
+// @media (max-width: 1024px) {
+//   .manualbtn {
+//     width: 160px;
+//   }
+// }
+@media (max-width: 1600px) {
+  .manualbtn {
+    width: 165px;
+  }
 }
 
 .form-control:disabled,
@@ -293,4 +307,7 @@
 
   .norecordfound{
     color: red;
+  }
+  .address-verfied{
+    cursor:not-allowed;
   }

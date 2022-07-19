@@ -8,7 +8,7 @@ import { DefaultMessagesComponent } from 'src/app/admin/defaultmessages/defaultm
 import { DashboardComponent } from '../../admin/dashboard/dashboard.component';
 import { ProviderlistComponent } from '../../admin/providerlist/providerlist.component';
 //import { CalendarComponent } from '../../calendar/calendar.component';
-import { AdminProviderListComponent } from '../../provider/admin/provider.list.component';
+//import { AdminProviderListComponent } from '../../provider/admin/provider.list.component';
 import { AdminComponent} from './admin.component';
 import { AdminPracticeComponent } from 'src/app/admin/admin-practice/admin-practice.component';
 import { ActivePatientsComponent } from 'src/app/admin/activepatients/activepatients.component';
@@ -26,7 +26,7 @@ const routes: Routes = [
     path: '', component: AdminComponent,
     children: [
       //{ path: "calendar", component: CalendarComponent },
-      { path: 'providers', component: AdminProviderListComponent },
+      //{ path: 'providers', component: AdminProviderListComponent },
       { path: 'providerslist', component: ProviderlistComponent },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'admins', component: AdminsComponent },

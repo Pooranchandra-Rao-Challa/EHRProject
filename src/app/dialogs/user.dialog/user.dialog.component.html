@@ -31,11 +31,13 @@
                 <div class="col-lg-2 col-md-4 col-12"><label class="settings-label">Title</label>
                   <div class="form-group">
                     <!-- -->
-                    <select class="col-12 inputclass" autocomplete="off" [(ngModel)]="EditProvider.Title">
-                      <option value="" disabled selected hidden>Title</option>
-                      <option *ngFor="let title of titles" [value]="title.Name">{{title.Name}}.
-                      </option>
-                    </select>
+                      <mat-form-field appearance="outline" class="col-12">
+                        <mat-select class="col-12" placeholder="Title"
+                          [(ngModel)]="EditProvider.Title">
+                          <mat-option *ngFor="let title of titles" [value]="title.Name">
+                            {{title.Name}}.</mat-option>
+                        </mat-select>
+                      </mat-form-field>
                   </div>
                 </div>
                 <div class="col-lg-4 col-md-8 col-12"><label class="settings-label required">First Name</label>
@@ -46,11 +48,12 @@
                   </div>
                   <div class="error_message" *ngIf="patientFirstName.errors?.pattern">
                     <i class="fa fa-minus"></i>
-                    <i>Please enter alphabets, space</i>
+                    <i class="errormessage">Please enter alphabets, space</i>
                   </div>
+                  
                   <div class="error_message" *ngIf="patientFirstName.errors?.required">
                     <i class="fa fa-minus"></i>
-                    <i>First Name is required</i>
+                    <i class="errormessage">First Name is required</i>
                   </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-12"><label class="settings-label">Middle Name</label>
@@ -61,7 +64,7 @@
                   </div>
                   <div class="error_message" *ngIf="patientMiddleName.errors?.pattern">
                     <i class="fa fa-minus"></i>
-                    <i>Please enter alphabets, space</i>
+                    <i class="errormessage">Please enter alphabets, space</i>
                   </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-12"><label class="settings-label required">Last Name</label>
@@ -72,31 +75,35 @@
                   </div>
                   <div class="error_message" *ngIf="patientLastName.errors?.pattern">
                     <i class="fa fa-minus"></i>
-                    <i>Please enter alphabets, space</i>
+                    <i class="errormessage">Please enter alphabets, space</i>
                   </div>
                   <div class="error_message" *ngIf="patientLastName.errors?.required">
                     <i class="fa fa-minus"></i>
-                    <i>Last Name is required</i>
+                    <i class="errormessage">Last Name is required</i>
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-lg-2 col-md-4 col-12"><label class="settings-label">Degree</label>
                   <div class="form-group">
-                    <select class="col-12 inputclass" [(ngModel)]="EditProvider.Degree">
-                      <option value="" disabled selected hidden>Credentials</option>
-                      <option *ngFor="let dg of degrees" [value]="dg.Name">{{dg.Name}}
-                      </option>
-                    </select>
+                    <mat-form-field appearance="outline" class="col-12">
+                      <mat-select class="col-12" placeholder="Degree"
+                        [(ngModel)]="EditProvider.Degree">
+                        <mat-option *ngFor="let dg of degrees" [value]="dg.Name">{{dg.Name}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
                   </div>
                 </div>
                 <div class="col-lg-5 col-md-8 col-12"><label class="settings-label">Speciality</label>
                   <div class="form-group">
-                    <select class="col-12 inputclass" autocomplete="off" [(ngModel)]="EditProvider.Speciality">
-                      <option value="" disabled selected hidden>Speciality</option>
-                      <option *ngFor="let speciality of specialities" [value]="speciality.Name"> {{speciality.Name}}
-                      </option>
-                    </select>
+                    <mat-form-field appearance="outline" class="col-12">
+                      <mat-select class="col-12" placeholder="Speciality"
+                        [(ngModel)]="EditProvider.Speciality">
+                        <mat-option *ngFor="let speciality of specialities" [value]="speciality.Name"> {{speciality.Name}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
                   </div>
                 </div>
                 <div class="col-lg-5 col-md-12 col-12"><label class="settings-label">Secondary Speciality</label>
@@ -107,7 +114,7 @@
                   </div>
                   <div class="error_message" *ngIf="patientSecondarySpeciality.errors?.pattern">
                     <i class="fa fa-minus"></i>
-                    <i>Please enter alphabets, space</i>
+                    <i class="errormessage">Please enter alphabets, space</i>
                   </div>
                 </div>
               </div>
@@ -122,11 +129,13 @@
             </div>
             <div class="col-lg-4"><label class="settings-label">State</label>
               <div class="form-group">
-                <select class="col-12 inputclass" autocomplete="off" [(ngModel)]="EditProvider.State">
-                  <option value="" disabled selected hidden>State</option>
-                  <option *ngFor="let state of states" [value]="state.Name">{{state.Name}}
-                  </option>
-                </select>
+                <mat-form-field appearance="outline" class="col-12">
+                  <mat-select class="col-12" placeholder="State"
+                    [(ngModel)]="EditProvider.State">
+                    <mat-option *ngFor="let state of states" [value]="state.Name">{{state.Name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
               </div>
             </div>
             <div class="col-lg-4 "><label><span class="settings-label">Expiration Date</span>
@@ -223,13 +232,16 @@
           <div class="row">
             <div class="col-lg-4"><label class="settings-label">Role</label>
               <div class="form-group">
-                <select class="col-12 inputclass" placeholder="Role" [(ngModel)]="EditProvider.PracticeRole">
-                  <option value="" disabled selected hidden>Role</option>
-                  <option *ngFor="let pRole of providerRoles" [value]="pRole.Value">{{pRole.Name}}
-                  </option>
-                </select>
+                <mat-form-field appearance="outline" class="col-lg-8 col-md-4 col-12">
+                  <mat-select class="col-lg-8 col-md-4 col-12" placeholder="Role"
+                    [(ngModel)]="EditProvider.PracticeRole">
+                    <mat-option *ngFor="let pRole of providerRoles" [value]="pRole.Value">
+                      {{pRole.Name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
               </div>
             </div>
+            
             <div class="col-lg-4 mt-lg-4 mt-2">
               <mat-checkbox class="example-margin" [(ngModel)]="EditProvider.Active">
                 <label class="settings-label mt-2">Active</label>

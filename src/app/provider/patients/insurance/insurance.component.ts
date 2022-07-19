@@ -1,16 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { disableDebugTools } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { table } from 'console';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { fromEvent, Observable, of } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, map, startWith } from 'rxjs/operators';
 import { PracticeLocation, User } from 'src/app/_models';
 import { ParticularInsuranceCompanyDetails, PrimaryInsurance, SecondaryInsurance } from 'src/app/_models/insurance';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { PatientService } from 'src/app/_services/patient.service';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { Accountservice } from 'src/app/_services/account.service';
+import { UtilityService } from 'src/app/_services/utiltiy.service';
+import { areaCodes } from 'src/app/_models/_patient/patientprofile';
+
+
 const moment = require('moment');
 
 
@@ -67,12 +71,16 @@ export class InsuranceComponent implements OnInit {
   SourceOfPaymentTypologyCodesFilter: any;
   secondarySptcFilter:any;
   searchText: string;
+  searchCellPhoneData:any[];
+  SourceData: any[];
+  filterNumbers: any;
+
 
   constructor(private patientservice: PatientService,
     private route: ActivatedRoute,
     private authService: AuthenticationService,
     private alertmsg: AlertMessage,
-    private accountservice: Accountservice,) {
+    private accountservice: Accountservice, private utilityService: UtilityService,) {
     this.primlist = {} as PrimaryInsurance;
     this.secList = {} as SecondaryInsurance;
     this.insuraceComplanyPlan = {} as ParticularInsuranceCompanyDetails;
@@ -83,11 +91,14 @@ export class InsuranceComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // this._filterProcedure();
+    // this.events();
     this.getPatientDetails();
     this.getSourceOfPaymentTypologyCodesDD();
     this.InsuranceCompanyPlanList();
     this.getInsuranceList();
-   
+
+
   }
 
   AddInsuranceCompanyPlan() {
@@ -96,6 +107,7 @@ export class InsuranceComponent implements OnInit {
     this.isValid = true;
     this.delete = false;
     this.cancel2 = true;
+
   }
   cancel() {
     this.data = true;
@@ -143,12 +155,14 @@ export class InsuranceComponent implements OnInit {
     this.InsuranceCompanyPlanList();
   }
   secondaryplus(item) {
+    //debugger;
     this.plusvalue = item;
     this.rowClicked = -1;
     this.data = true;
     this.isValid = false;
     this.cancel2 = false;
     this.cancel1 = false;
+
   }
   Selected() {
 
@@ -197,7 +211,7 @@ export class InsuranceComponent implements OnInit {
       }
     })
   }
- 
+
   InsuranceCompanyPlanList() {
     this.patientservice.InsuranceCompanyPlans().subscribe(
       resp => {
@@ -244,7 +258,7 @@ export class InsuranceComponent implements OnInit {
   }
 
   getInsuranceDetails(item) {
-    debugger;
+    //debugger;
     if (item == 'primary') {
       var reqparam = {
         "InsuranceId": this.primlist.InsuranceCompanyPlanID
@@ -284,7 +298,7 @@ export class InsuranceComponent implements OnInit {
   }
 
   CreateUpdateInsuraceCompanyPlan() {
- 
+
     let isAdd = this.insuraceComplanyPlan.InsuranceCompanyId == "";
     this.insuraceComplanyPlan.LocationId = this.changedLocationId
     this.patientservice.CreateUpdateInsuranceCompanyPlan(this.insuraceComplanyPlan).subscribe((resp) => {
@@ -295,7 +309,7 @@ export class InsuranceComponent implements OnInit {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2CI001"]);
       }
     });
-  
+
   }
 
   deleteInsurancePlan() {
@@ -334,14 +348,14 @@ export class InsuranceComponent implements OnInit {
       this.addressVerfied = false;
     }
     else {
-     
+
         let isAdd = this.secList.InsuranceId == undefined;
-      
+
       this.secList.ProviderId = this.user.ProviderId;
       this.secList.PatientId = this.PatientDetails.PatientId;
       this.secList.LocationId = this.changedLocationId;
       this.secList.InsuranceType = this.secondaryInsuranceType;
-    
+
       this.patientservice.CreateUpdateInsuranceDetails(this.secList).subscribe((resp) => {
         if (resp.IsSuccess) {
           this.getInsuranceList();
@@ -400,7 +414,7 @@ export class InsuranceComponent implements OnInit {
   }
 
   secondaryAddressverfied() {
-    debugger;
+    //debugger;
     this.accountservice.VerifyAddress(this.secList.Street).subscribe(resp => {
       if (resp.IsSuccess) {
         this.secList.City = resp.Result.components.city_name
@@ -416,7 +430,7 @@ export class InsuranceComponent implements OnInit {
       }
     });
   }
-  
+
   secondaryenableManualEntry() {
     this.secondarymanuallybtn = true;
     this.secondaryclearAddress();
@@ -428,8 +442,6 @@ export class InsuranceComponent implements OnInit {
     // this.InsurancePlanList = this.getInsurancePlanList.filter((invoice) => this.isMatch(invoice));
     this.InsurancePlanList = this.getInsurancePlanList.filter((invoice) => this.isMatch(invoice));
     // this.InsurancePlanList = this.getInsurancePlanList.filter(i => i.name.toLowerCase().indexOf(initial.toLocaleLowerCase()) !== -1);
- 
-
   }
 
   isMatch(item) {
@@ -440,11 +452,8 @@ export class InsuranceComponent implements OnInit {
 
     }
   }
-
-
-  
   primaryspt(item) {
-    
+
     this.primlist.SourceOfPaymentTypology = item.Code;
     this.primlist.PaymentTypologyDescription = item.Description;
   }
@@ -453,6 +462,6 @@ export class InsuranceComponent implements OnInit {
     this.secList.SourceOfPaymentTypology=item.Code;
     this.secList.PaymentTypologyDescription=item.Description;
   }
- 
+
 }
 

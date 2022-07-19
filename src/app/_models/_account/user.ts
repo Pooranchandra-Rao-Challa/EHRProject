@@ -36,6 +36,7 @@ export class ViewModel{
   WeeklyUpdate?:WeeklyUpdated;
   AdminViewName?:string;
   PatientBreadCrumb?: string[];
+  LabandImageView?:string = "Lab"
 }
 
 export class AdminViewModal{

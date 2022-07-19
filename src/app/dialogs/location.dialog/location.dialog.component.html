@@ -23,7 +23,7 @@
               <div class="col-lg-12">
                 <div class="form-group">
                   <div class="input-group">
-                    <span class="input-group-addon labelclass form-control">Location Name*</span>
+                    <span class="input-group-addon labelclass form-control required">Location Name</span>
                     <input class="form-control mx-0 inputclass" type="text" [(ngModel)]="PracticeLocData.LocationName"
                       id="locationName" name="locationName" placeholder="Location Name" #locationName="ngModel" required
                       pattern="[a-zA-Z ]*" />
@@ -31,7 +31,7 @@
                   <div *ngIf="locationName.errors && (locationName.touched)">
                     <div class="error_message" *ngIf="locationName.errors?.required">
                       <span class="e_arrow"></span>
-                      <i>Please enter Location Name</i>
+                      <i class="errormessage">Please enter Location Name</i>
                     </div>
                     <div class="error_message" *ngIf="locationName.errors?.pattern">
                       <span class="e_arrow"></span>
@@ -220,11 +220,11 @@
               </div>
               <div class="col-lg-4 col-md-4 col-sm-4">
                 <div class="form-group">
-                  <select class="col-12 inputclass" [(ngModel)]="PracticeLocData.SunDDL">
-                    <option value="Specific Hours" selected>Specific Hours</option>
-                    <option value="Closed/NA">Closed/NA</option>
-                    <option value="Open 24 Hrs">Open 24 Hrs</option>
-                  </select>
+                  <mat-form-field appearance="outline">
+                    <mat-select   [(ngModel)]="PracticeLocData.SunDDL">
+                      <mat-option *ngFor="let Status of timeStatus" [value]="Status.name">{{Status.name}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
                 </div>
               </div>
             </div>
@@ -266,11 +266,11 @@
               </div>
               <div class="col-lg-4 col-md-4 col-sm-4">
                 <div class="form-group">
-                  <select class="col-12 inputclass" [(ngModel)]="PracticeLocData.MonDDL">
-                    <option value="Specific Hours" selected>Specific Hours</option>
-                    <option value="Closed/NA">Closed/NA</option>
-                    <option value="Open 24 Hrs">Open 24 Hrs</option>
-                  </select>
+                  <mat-form-field appearance="outline">
+                    <mat-select   [(ngModel)]="PracticeLocData.MonDDL">
+                      <mat-option *ngFor="let Status of timeStatus" [value]="Status.name">{{Status.name}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
                 </div>
               </div>
             </div>
@@ -309,11 +309,11 @@
               </div>
               <div class="col-lg-4 col-md-4 col-sm-4">
                 <div class="form-group">
-                  <select class="col-12 inputclass" [(ngModel)]="PracticeLocData.TueDDL">
-                    <option value="Specific Hours" selected>Specific Hours</option>
-                    <option value="Closed/NA">Closed/NA</option>
-                    <option value="Open 24 Hrs">Open 24 Hrs</option>
-                  </select>
+                  <mat-form-field appearance="outline">
+                    <mat-select   [(ngModel)]="PracticeLocData.TueDDL">
+                      <mat-option *ngFor="let Status of timeStatus" [value]="Status.name">{{Status.name}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
                 </div>
               </div>
             </div>
@@ -352,11 +352,12 @@
               </div>
               <div class="col-lg-4 col-md-4 col-sm-4">
                 <div class="form-group">
-                  <select class="col-12 inputclass" [(ngModel)]="PracticeLocData.WedDDL">
-                    <option value="Specific Hours" selected>Specific Hours</option>
-                    <option value="Closed/NA">Closed/NA</option>
-                    <option value="Open 24 Hrs">Open 24 Hrs</option>
-                  </select>
+                  <mat-form-field appearance="outline">
+                    <mat-select   [(ngModel)]="PracticeLocData.WedDDL">
+                      <mat-option *ngFor="let Status of timeStatus" [value]="Status.name">{{Status.name}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  
                 </div>
               </div>
             </div>
@@ -395,11 +396,12 @@
               </div>
               <div class="col-lg-4 col-md-4 col-sm-4">
                 <div class="form-group">
-                  <select class="col-12 inputclass" [(ngModel)]="PracticeLocData.ThursDDL">
-                    <option value="Specific Hours" selected>Specific Hours</option>
-                    <option value="Closed/NA">Closed/NA</option>
-                    <option value="Open 24 Hrs">Open 24 Hrs</option>
-                  </select>
+                  <mat-form-field appearance="outline">
+                    <mat-select   [(ngModel)]="PracticeLocData.ThursDDL">
+                      <mat-option *ngFor="let Status of timeStatus" [value]="Status.name">{{Status.name}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  
                 </div>
               </div>
             </div>
@@ -439,11 +441,11 @@
               </div>
               <div class="col-lg-4 col-md-4 col-sm-4">
                 <div class="form-group">
-                  <select class="col-12 inputclass" [(ngModel)]="PracticeLocData.FriDDL">
-                    <option value="Specific Hours" selected>Specific Hours</option>
-                    <option value="Closed/NA">Closed/NA</option>
-                    <option value="Open 24 Hrs">Open 24 Hrs</option>
-                  </select>
+                  <mat-form-field appearance="outline">
+                    <mat-select   [(ngModel)]="PracticeLocData.FriDDL">
+                      <mat-option *ngFor="let Status of timeStatus" [value]="Status.name">{{Status.name}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
                 </div>
               </div>
             </div>
@@ -482,11 +484,11 @@
               </div>
               <div class="col-lg-4 col-md-4 col-sm-4">
                 <div class="form-group">
-                  <select class="col-12 inputclass" [(ngModel)]="PracticeLocData.SatDDL">
-                    <option value="Specific Hours" selected>Specific Hours</option>
-                    <option value="Closed/NA">Closed/NA</option>
-                    <option value="Open 24 Hrs">Open 24 Hrs</option>
-                  </select>
+                  <mat-form-field appearance="outline">
+                    <mat-select   [(ngModel)]="PracticeLocData.SatDDL">
+                      <mat-option *ngFor="let Status of timeStatus" [value]="Status.name">{{Status.name}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
                 </div>
               </div>
             </div>

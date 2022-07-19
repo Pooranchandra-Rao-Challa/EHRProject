@@ -205,7 +205,6 @@ a.dropdown-item:hover {
 .messages-wrapper .controls .input-group,
 .messages-wrapper .controls .select2-container,
 .messages-wrapper .controls .btn {
-  //margin-top: 15px;
   margin-bottom: 8px;
   color: #41b6a6;
   box-shadow: none;
@@ -230,7 +229,6 @@ a.dropdown-item:hover {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   color: #fff;
-  // margin-left: 21%;
   margin-top: 15%;
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
@@ -258,12 +256,12 @@ a.dropdown-item:hover {
   background-color: #D0021B;
 }
 
-.col-md-8 {
+.rightblockalignments {
   border-top: 1px solid #41b6a6;
   border-left: 1px solid #41b6a6;
 }
 
-.col-md-4 {
+.leftblockalignments {
   border-top: 1px solid #41b6a6;
 }
 
@@ -288,4 +286,34 @@ a.dropdown-item:hover {
   color:    #74757e;
   font-size: 15px;
 }
+.header-avatar{
+  background: #D8D8D8;
+}
 
+.dropdownborder{
+border-bottom: 1px solid #41b6a6;
+margin-left: -12px;
+margin-right: -12px;
+}
+.btn-messagesgreen
+{
+  color:#41b6a6;
+  // width: 165px;
+  // height: 45px;
+}
+.btn-messagesgreen:hover
+{
+  background-color: #41b6a6;
+  color:#fff !important;
+
+}
+.btn-msgdanger{
+  color: #D0021B !important;
+}
+.btn-msgdanger:hover{
+  color:  #fff !important;
+  background-color: #D0021B;
+}
+.nomessageselect{
+  color: #4A4A4A !important;
+}

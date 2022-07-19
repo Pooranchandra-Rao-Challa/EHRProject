@@ -58,24 +58,6 @@ export class PatientNavbarComponent implements OnInit {
       }
     });
   }
-//   onChangeBreadCrum(url: string, name: string, view?: string,) {
-//     //debugger;
-//     // console.log(view)
-//     if (view != null) {
-//       // console.log(view)
-//       this.router.navigate(
-//         [url],
-//         { queryParams: { name: name, view: view } }
-//       );
-//     }
-//     else
-//       this.router.navigate(
-//         [url],
-//         { queryParams: { name: name } }
-//       );
-//     this.name = name;
-//   }
-// }
 onChangeBreadCrum(url: string, name: string, view?: string,) {
   this.authenticationService.SetViewParam("View",name)
   if(view != null){

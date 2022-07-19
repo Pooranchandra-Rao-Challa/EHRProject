@@ -12,7 +12,7 @@
                     <div class="input-group mb-3">
                         <input type="text" class="form-control patientInsuranceTab Helvetica-sans-serif-medium"
                             placeholder="Subscriber Name" [(ngModel)]="primlist.SubscriberNane"
-                            aria-label="Subscriber Name" aria-describedby="basic-addon1">
+                            aria-label="Subscriber Name" aria-describedby="basic-addon">
                     </div>
                     <div class="row">
                         <label class="Helvetica-sans-serif-medium">Date of Birth</label>
@@ -62,7 +62,7 @@
                                 <div class="input-group input-group-lg">
                                     <span class="input-group-text Helvetica-sans-serif-medium"
                                         id="inputGroup-sizing-lg">Street Address</span>
-                                    <input [readonly]="!disableaddressverification"
+                                    <input [readonly]="!disableaddressverification" [class.address-verfied]="!manuallybtn"
                                         class="form-control input-border Helvetica-sans-serif-medium"
                                         [(ngModel)]="primlist.StreetAddress" placeholder="Street Address" type="text"
                                         id="StreetAddress" name="StreetAddress">
@@ -73,7 +73,7 @@
                                 *ngIf="addressVerfied && !manuallybtn" (click)="enableManualEntry()"
                                 title="Can enter manully when the verification results are in correct by clicking this icon">x</button>
                         </div>
-                        <div class="col-md-2  patient-street-address">
+                        <div class="col-md-2  patient-street-address d-flex justify-content-end flex-sm-row flex-column">
                             <div class="form-group">
                                 <button class="btn-green btn manualbtn  py-0 btn-lg btn-md"
                                     *ngIf="manuallybtn || disableaddressverification"
@@ -202,7 +202,7 @@
                                 [(ngModel)]="primlist.StartDate"  class="Helvetica-sans-serif-medium">
                             <mat-datepicker-toggle matSuffix [for]="dp2">
                             </mat-datepicker-toggle>
-                            <mat-datepicker #dp2 disabled="false"></mat-datepicker>
+                            <mat-datepicker #dp2 ></mat-datepicker>
                         </mat-form-field>
                         <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-6">
                             <input matInput [matDatepicker]="dp1" placeholder="Stop Date" [(ngModel)]="primlist.EndDate"(focus)="dp1?.open()"
@@ -279,7 +279,7 @@
                     </div>
                    
                     <div class="row">
-                        <div class="col-md-9">
+                        <div class="col-md-9 col-lg-9 ">
                             <div class="form-group">
                                 <div class="input-group input-group-lg">
                                     <span class="input-group-text Helvetica-sans-serif-medium "
@@ -297,9 +297,9 @@
                                 (click)="secondaryenableManualEntry()"
                                 title="Can enter manully when the verification results are in correct by clicking this icon">x</button>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-2 col-lg-2 d-flex justify-content-end flex-sm-row flex-column">
                             <div class="form-group">
-                                <button class="btn-green btn manualbtn  py-0 btn-lg btn-md"
+                                <button class="btn-green btn manualbtn"
                                     *ngIf="secondarymanuallybtn || secondarydisableaddressverification"
                                     (click)="secondaryenterAddressManually()">Enter
                                     Address
@@ -547,7 +547,7 @@
                                         [(ngModel)]="insuraceComplanyPlan.Phone">
                                 </div>
                             </div>
-
+                      
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <label class="Helvetica-sans-serif-medium">Benefit Renewal</label>
                                 <div class="form-group">

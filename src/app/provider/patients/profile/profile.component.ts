@@ -24,6 +24,7 @@ export class ProfileComponent implements OnInit {
   myControl: FormControl = new FormControl();
   filteredProviderOptions: Observable<any[]>;
   filterPatientOptions: Observable<any[]>;
+  ethnicities = [{name: 'Hispani or Latino'},{name: 'Not Hispani or Latino'},{name: 'Patinet Decline to specify'}];
   isShow: boolean;
   user: User;
   patientsList: ProviderPatient[];
