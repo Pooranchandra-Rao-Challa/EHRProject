@@ -15,7 +15,7 @@ import {
   ScheduledAppointment,
   AdvancedDirective, ChartInfo, PatientChart, Allergy, EncounterDiagnosis, PastMedicalHistory, Actions,
   Immunization, Medication, EncounterInfo, NewAppointment, SmokingStatus, TobaccoUseScreenings, TobaccoUseInterventions,
-  Diagnosis, AllergyType, SeverityLevel, OnSetAt, AllergyReaction, DiagnosisDpCodes, PracticeProviders,
+  Diagnosis, AllergyType, SeverityLevel, OnSetAt, DiagnosisDpCodes, PracticeProviders,
   AppointmentTypes, UserLocations, Room, AppointmentDialogInfo, Vaccine, User, TobaccoUse,
   GlobalConstants, PatientSearchResults, Labandimaging, MEDICATION_NAMES
 } from 'src/app/_models';
@@ -32,6 +32,8 @@ import { AddeditinterventionComponent } from 'src/app/dialogs/addeditinterventio
 import { SettingsService } from '../../../_services/settings.service';
 import { T } from '@angular/cdk/keycodes';
 import { debug } from 'console';
+import { MedicationDialogComponent } from 'src/app/dialogs/medication.dialog/medication.dialog.component';
+import { AllergyDialogComponent } from 'src/app/dialogs/allergy.dialog/allergy.dialog.component';
 
 @Component({
   selector: 'app-chart',
@@ -55,6 +57,8 @@ export class ChartComponent implements OnInit {
   appointmentDialogComponent = NewAppointmentDialogComponent;
   cqmNotPerformedDialogComponent = AddeditinterventionComponent;
   discontinueDialogComponent = DiscontinueDialogComponent;
+  medicationDialogComponent = MedicationDialogComponent;
+  allergyDialogComponent = AllergyDialogComponent;
   // advancedDirectives: AdvancedDirective[];
   patientDiagnoses: Diagnosis = new Diagnosis();
   patientAllergy: Allergy = new Allergy();
@@ -71,7 +75,7 @@ export class ChartComponent implements OnInit {
   severityLevel: SeverityLevel[];
   onsetAt: OnSetAt[];
   allergens: any[];
-  allergyReaction: AllergyReaction[];
+  allergyReaction: GlobalConstants;
   DxCodes: DiagnosisDpCodes[];
   medications: GlobalConstants;
   immUnits: GlobalConstants;
@@ -103,6 +107,7 @@ export class ChartComponent implements OnInit {
   LocationAddress: any;
   user: User;
   vaccinesFilter: any;
+  medicationsFilter: GlobalConstants;
 
   constructor(public overlayService: OverlayService,
     private patientService: PatientService,
@@ -119,7 +124,7 @@ export class ChartComponent implements OnInit {
     this.currentPatient = this.authService.viewModel.Patient;
     this.ChartInfo();
     this.loadDefaults();
-    this.loadAllergyNames();
+    this.loadAllergyNames('');
     // this.loadVaccines();
     this.loadLocationsList();
     fromEvent(this.searchVaccineCode.nativeElement, 'keyup').pipe(
@@ -127,14 +132,16 @@ export class ChartComponent implements OnInit {
       map((event: any) => {
         return event.target.value;
       })
-      // if character length greater then 2
-      , filter(res => res.length > 2 && res.length < 16)
+      // if character length greater then 1
+      , filter(res => res.length > 1)
       // Time in milliseconds between key events
       , debounceTime(1000)
       // If previous query is diffent from current
       , distinctUntilChanged()
       // subscription for response
     ).subscribe(value => this._filterVaccine(value));
+    console.log(this.patientImmunization.Code);
+
   }
 
   _filterVaccine(term) {
@@ -154,10 +161,16 @@ export class ChartComponent implements OnInit {
 
   displayWithVaccine(value: any): string {
     if (!value) return "";
-    return value.Code + " - " + value.Description;
+    return "";
+  }
+
+  deleteVaccineCode() {
+    this.patientImmunization.Code = '';
+    this.patientImmunization.Description = '';
   }
 
   onSelectedImmunization(selected) {
+    debugger;
     this.patientImmunization.Code = selected.option.value.Code;
     this.patientImmunization.Description = selected.option.value.Description;
   }
@@ -188,9 +201,10 @@ export class ChartComponent implements OnInit {
     this.allergyType = Object.values(AllergyType);
     this.severityLevel = Object.values(SeverityLevel);
     this.onsetAt = Object.values(OnSetAt);
-    this.allergyReaction = Object.values(AllergyReaction);
+    this.allergyReaction = GlobalConstants.AllergyReactions;
     this.DxCodes = Object.values(DiagnosisDpCodes);
-    this.medications = GlobalConstants.MedicationName;
+    this.medications = GlobalConstants.Medication_Names;
+    this.medicationsFilter = this.medications.slice();
     this.immUnits = GlobalConstants.Units;
     this.immRoutes = GlobalConstants.Routes;
     this.immBodySites = GlobalConstants.BodySites;
@@ -213,6 +227,12 @@ export class ChartComponent implements OnInit {
       reqdata = dialogData;
     }
     else if (action == Actions.view && content === this.cqmNotPerformedDialogComponent) {
+      reqdata = dialogData;
+    }
+    else if (action == Actions.view && content === this.medicationDialogComponent) {
+      reqdata = dialogData;
+    }
+    else if (action == Actions.view && content === this.allergyDialogComponent) {
       reqdata = dialogData;
     }
     else if (action == Actions.view && content === this.discontinueDialogComponent) {
@@ -242,10 +262,16 @@ export class ChartComponent implements OnInit {
     }
     else if (data.UpdatedModal == PatientChart.SmokingStatus) {
       this.SmokingStatusByPatientId();
-    } else if (data.UpdatedModal == PatientChart.Encounters) {
+    }
+    else if (data.UpdatedModal == PatientChart.Allergies) {
+      this.AllergiesByPatientId();
+    }
+    else if (data.UpdatedModal == PatientChart.Medications) {
+      this.MedicationsByPatientId();
+    }
+    else if (data.UpdatedModal == PatientChart.Encounters) {
       this.EncountersByPatientId();
     }
-
   }
 
   ChartInfo() {
@@ -293,7 +319,6 @@ export class ChartComponent implements OnInit {
       var timeFull = dateString.split('T');
       var time = timeFull[1].split('.');
       this.patientImmunization.AdministeredTime = time[0];
-      console.log(this.patientImmunization.AdministeredTime);
       // this.displayWithVaccine(dialogData);
     }
   }
@@ -314,8 +339,8 @@ export class ChartComponent implements OnInit {
     });
   }
 
-  loadAllergyNames() {
-    this.patientService.AllergyNames().subscribe((resp) => {
+  loadAllergyNames(req) {
+    this.patientService.AllergyNames(req).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.allergens = resp.ListResult;
       }
@@ -419,9 +444,9 @@ export class ChartComponent implements OnInit {
   }
 
   CreateImmunizationsAdministered() {
+    debugger;
     let isAdd = this.patientImmunization.ImmunizationId == undefined;
     this.patientImmunization.PatientId = this.currentPatient.PatientId;
-    console.log(this.patientImmunization);
     this.patientService.CreateImmunizationsAdministered(this.patientImmunization).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.ImmunizationsByPatientId();
@@ -438,7 +463,6 @@ export class ChartComponent implements OnInit {
   CreateImmunizationsHistorical() {
     let isAdd = this.patientImmunization.ImmunizationId == undefined;
     this.patientImmunization.PatientId = this.currentPatient.PatientId;
-    console.log(this.patientImmunization);
     this.patientService.CreateImmunizationsHistorical(this.patientImmunization).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.ImmunizationsByPatientId();
@@ -455,7 +479,6 @@ export class ChartComponent implements OnInit {
   CreateImmunizationsRefused() {
     let isAdd = this.patientImmunization.ImmunizationId == undefined;
     this.patientImmunization.PatientId = this.currentPatient.PatientId;
-    console.log(this.patientImmunization);
     this.patientService.CreateImmunizationsRefused(this.patientImmunization).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.ImmunizationsByPatientId();
