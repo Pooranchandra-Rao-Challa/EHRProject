@@ -100,7 +100,7 @@ import { EditLabImagingOrderComponent } from 'src/app/dialogs/lab.imaging.dialog
 import { OrderManualEntryDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/order.manual.entry.dialog.component';
 import { ImagingResultDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/imaging.result.dialog.component';
 import { TestCodeComponent } from 'src/app/dialogs/lab.imaging.dialog/test.code.component';
-import { CORSAPIService } from 'src/app/_services/cors.api.service'
+// import { CORSAPIService } from 'src/app/_services/cors.api.service';
 import { MedicationDialogComponent } from '../../dialogs/medication.dialog/medication.dialog.component';
 import { AllergyDialogComponent } from '../../dialogs/allergy.dialog/allergy.dialog.component';
 import { RxNormAPIService } from 'src/app/_services/rxnorm.api.service'
