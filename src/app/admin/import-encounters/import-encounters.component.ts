@@ -3,7 +3,6 @@ import { Query } from '@syncfusion/ej2-data';
 import { EmitType } from '@syncfusion/ej2-base';
 import { FilteringEventArgs } from '@syncfusion/ej2-dropdowns';
 import { AdminService } from 'src/app/_services/admin.service';
-import { PrimaryInsurance } from 'src/app/_models/insurance';
 import { PatientService } from 'src/app/_services/patient.service';
 import { ProviderList } from 'src/app/_models/_admin/providerList';
 

@@ -6,13 +6,14 @@ import { table } from 'console';
 import { fromEvent, Observable, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map, startWith } from 'rxjs/operators';
 import { PracticeLocation, User } from 'src/app/_models';
-import { ParticularInsuranceCompanyDetails, PrimaryInsurance, SecondaryInsurance } from 'src/app/_models/insurance';
+
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { PatientService } from 'src/app/_services/patient.service';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { Accountservice } from 'src/app/_services/account.service';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { areaCodes } from 'src/app/_models/_patient/patientprofile';
+import { ParticularInsuranceCompanyDetails, PrimaryInsurance, SecondaryInsurance } from 'src/app/_models/_provider/insurance';
 
 
 const moment = require('moment');

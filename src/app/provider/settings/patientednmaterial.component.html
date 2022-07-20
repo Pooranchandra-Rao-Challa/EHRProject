@@ -11,6 +11,9 @@
           </button>
         </div>
         <div class="card-body">
+         
+         
+          
           <div fxLayout="column">
             <mat-accordion [displayMode]="'flat'">
               <mat-expansion-panel class="expansion" *ngFor="let item of Patientedmateriallist; let i =index"
@@ -67,38 +70,98 @@
       <div class="modal-header">
         <span class="Helvetica-sans-serif-medium">Add Patient Education Material</span>
         <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close"
-          style="border: 1px solid #fff;" (click)="refershform()">
+          style="border: 1px solid #fff;" (click)="resetDialog()" >
           X
         </span>
       </div>
       <div class="modal-body scrollbar">
-        <form [formGroup]="patientmaterialfrom">
+        <div class="encounter-tab-content">
+          <div class="encounter-tab-pane" id="encounter_diagnoses_tab">
+            <div class="content">
+              <div class="row">
 
-          <div class="row">
-            <mat-label> Name:</mat-label>
-            <mat-form-field appearance="outline" class="col-md-12">
-              <input matInput placeholder="" formControlName="name">
-            </mat-form-field>
-          </div>
-          <div class="row">
-            <mat-label>Code System:</mat-label>
-            <mat-form-field appearance="outline" class="col-md-3">
-              <mat-select formControlName="codeSystem">
-                <mat-option *ngFor="let item of codeSystemDD" [value]="item.value">
-                  {{item.viewValue}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field appearance="outline" class="col-md-6">
-              <mat-select placeholder="Enter Code ID">
-                <mat-option> </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <div class="col-md-3">
-              <button mat-raised-button type="submit" [disabled]="!searchnow" class="btn btn-green searchnow">Search
-                Now</button>
+                <div class="col-lg-12 col-md-12 col-12 mat-field-no-round-right">
+                  <medical-code-container [codeSystems]="codeSystemsForPatientEducation"
+                (optionChanged)="optionChangedForDiagnosis($event)" [MinTermLength]="3" [showSelectedValue]="false"></medical-code-container>
+                </div>
+              </div>
+              <div class="scrollable-mat-table">
+                <mat-table mat-table [dataSource]="patientEducationSearchList" id="procedure-table"
+                class="pt-2 encounter-diagnosis-remove-sides">
+                  <ng-container  matColumnDef="CODE">
+                    <mat-header-cell *matHeaderCellDef>
+                      <p class="text-capitalize-first"></p>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let item">
+                      <span>{{ item.Code }}</span>
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container  matColumnDef="CODE SYSTEM">
+                    <mat-header-cell *matHeaderCellDef>
+                      <p class="text-capitalize-first"></p>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let item">
+                      <span>{{ item.CodeSystem }}</span>
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container  matColumnDef="DESCRIPTION">
+                    <mat-header-cell *matHeaderCellDef>
+                      <p class="text-capitalize-first"></p>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let item">
+                      <span>{{ item.Description }}</span>
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container  matColumnDef="Delete">
+                    <mat-header-cell *matHeaderCellDef>
+                      <p class="text-capitalize-first"></p>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let item; let i = index; ">
+                      <button type="button" class="btn cross-mark error-close"
+                        (click)="removeEncounterDiagnosis(item,i)"
+                        title="Delete recommended Procedure">x</button>
+                    </mat-cell>
+                  </ng-container>
+                  <mat-header-row *matHeaderRowDef="patientEdMaterialSearchColumns"></mat-header-row>
+                  <mat-row *matRowDef=" let row; let i = index; columns: patientEdMaterialSearchColumns
+                  "></mat-row>
+                </mat-table>
+              </div>
             </div>
           </div>
+        </div>
+        <div class="row">
+          <mat-label> Name:</mat-label>
+          <mat-form-field appearance="outline" class="col-md-12">
+            <input matInput placeholder="" [(ngModel)]="educationMaterialCode.Description">
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <mat-label class="col-12">Resource Notes:</mat-label>
+            <textarea class="col-12 text-area"></textarea>
+          </div>
+        </div>
+        <div class="pattach">
+          <div class="container-fluid">
+          <div class="row">
+            <!-- <div class="col-md-1"></div> -->
+          <div class="col-md-10">
+            <p class="title mt-3"><b>Attachments:</b></p>
+          </div>
+          <div class="col-md-2 mt-2 ">
+            <button class="plusicon icon-border pull-right" type="button">
+              <i class="fa fa-plus"></i>
+            </button>
+          </div>
+        </div>
+        </div>
+        </div>
+         <!-- <form [formGroup]="patientmaterialfrom">
+
+          
           <div class="row">
             <div class="col-12">
               <mat-label class="col-12">Resource Notes:</mat-label>
@@ -109,7 +172,7 @@
             <div class="container-fluid">
             <div class="row">
               <!-- <div class="col-md-1"></div> -->
-            <div class="col-md-10">
+            <!-- <div class="col-md-10">
               <p class="title mt-3"><b>Attachments:</b></p>
             </div>
             <div class="col-md-2 mt-2 ">
@@ -135,7 +198,8 @@
               </div>
             </div>
           </div>
-        </form>
+        </form>  -->
+    
       </div>
       <div class="modal-footer">
         <button mat-raised-button type="submit" class="btn btn-green searchnow  pull-right disabled">Save</button>
@@ -143,3 +207,5 @@
     </div>
   </div>
 </div>
+
+

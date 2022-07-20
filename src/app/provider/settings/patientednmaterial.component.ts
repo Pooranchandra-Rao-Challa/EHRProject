@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { SettingsService } from '../../_services/settings.service';
 import { UtilityService } from '../../_services/utiltiy.service';
-import { User, UserLocations } from '../../_models';
-import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { EducationMaterialCode, EncounterDiagnosis, EncounterInfo, PatientEducationInfomation, User, UserLocations } from '../../_models';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { LocationSelectService } from '../../_navigations/provider.layout/location.service';
 import Swal from 'sweetalert2';
+import { MedicalCode } from 'src/app/_models/codes';
 declare var $: any;
 
 @Component({
@@ -19,10 +20,17 @@ export class PatientEdnMaterialComponent implements OnInit {
   searchnow: boolean = true;
   patientmaterialfrom: FormGroup
   expandedchangecolor: boolean = false;
+  codeSystemsForPatientEducation: string[] = ['SNOMED','ICD10'];
+  patientEducationInfo: PatientEducationInfomation = new PatientEducationInfomation;
+   patientEducationSearchList= new BehaviorSubject<EducationMaterialCode[]>([]);
   // columnsToDisplay = [ 'name', 'codeSystem', 'resouceNote', 'attachments'];
   columnsToDisplay = ['action', 'name', 'weight', 'symbol', 'position'];
-
+  patientEdMaterialSearchColumns = ["CODE", "CODE SYSTEM", "DESCRIPTION","Delete"];
   Patientedmateriallist: any = [];
+  educationMaterialCode:EducationMaterialCode=new EducationMaterialCode();
+ 
+
+ 
 
   constructor(private fb: FormBuilder, private settingservice: SettingsService, private authService: AuthenticationService) {
     this.user = authService.userValue;
@@ -31,6 +39,9 @@ export class PatientEdnMaterialComponent implements OnInit {
   ngOnInit(): void {
     this.pageloadevent();
     this.getPatientedmateriallist();
+
+   
+
   }
   getPatientedmateriallist() {
     var reqparams = {
@@ -58,10 +69,10 @@ export class PatientEdnMaterialComponent implements OnInit {
   }
   pageloadevent() {
     this.patientmaterialfrom = this.fb.group({
-      name: [''],
-      codeSystem: [''],
-      resouceNote: [''],
-      attachments: this.fb.array([])
+  
+      // codeSystem: [''],
+      // resouceNote: [''],
+      // attachments: this.fb.array([])
     })
   }
   get attachments() {
@@ -96,10 +107,25 @@ export class PatientEdnMaterialComponent implements OnInit {
 
   }
 
+  optionChangedForDiagnosis(value: MedicalCode) {
+    debugger;
+  //  this.educationMaterialCode= new EducationMaterialCode();
+   this.educationMaterialCode.Code = value.Code
+   this.educationMaterialCode.CodeSystem = value.CodeSystem
+   this.educationMaterialCode.Description = value.Description
+   this.educationMaterialCode.CanDelete = false;
+    this.patientEducationInfo.EducationMat.push(this.educationMaterialCode);
+    this.patientEducationSearchList.next(this.patientEducationInfo.EducationMat.filter(fn => fn.CanDelete === false));
+  }
 
 
-
+  removeEncounterDiagnosis(value: EducationMaterialCode, index: number) {
+    value.CanDelete = true;
+    this.patientEducationSearchList.next(this.patientEducationInfo.EducationMat.filter(fn => fn.CanDelete === false));
+  }
+  resetDialog() {
+    this.educationMaterialCode = new EducationMaterialCode();
+    this.educationMaterialCode.CanDelete=false;
+  }
 }
-
-
 

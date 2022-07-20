@@ -13,9 +13,10 @@ import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { WeekdayFormatPipe } from 'src/app/_pipes/weekday-format-pipe'
 import { ToggleFullscreenDirective } from 'src/app/_directives/fullscreen.directive';
+import { AdvancedMedicalCodeModule } from 'src/app/_components/advanced-medical-code-search/advanced-medical-code-module';
 
 @NgModule({
-  imports: [SharedModule, CommonModule, NgxMaskModule.forRoot(), ColorPickerModule,],
+  imports: [SharedModule, CommonModule, NgxMaskModule.forRoot(), ColorPickerModule,AdvancedMedicalCodeModule],
   exports: [PracticeComponent, ScheduleComponent, ErxComponent, AuditLogComponent,
     AccessPermissionComponent,
     PatientEdnMaterialComponent,
