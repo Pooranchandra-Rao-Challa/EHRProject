@@ -8,6 +8,7 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 import { LocationSelectService } from '../../_navigations/provider.layout/location.service';
 import Swal from 'sweetalert2';
 import { MedicalCode } from 'src/app/_models/codes';
+import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 declare var $: any;
 
 @Component({
@@ -20,8 +21,8 @@ export class PatientEdnMaterialComponent implements OnInit {
   searchnow: boolean = true;
   patientmaterialfrom: FormGroup
   expandedchangecolor: boolean = false;
-  codeSystemsForPatientEducation: string[] = ['SNOMED','ICD10'];
-  patientEducationInfo: PatientEducationInfomation = new PatientEducationInfomation;
+  codeSystemsForPatientEducation: string[] = [];
+  patientEducationInfo: PatientEducationInfomation = new PatientEducationInfomation();
    patientEducationSearchList= new BehaviorSubject<EducationMaterialCode[]>([]);
   // columnsToDisplay = [ 'name', 'codeSystem', 'resouceNote', 'attachments'];
   columnsToDisplay = ['action', 'name', 'weight', 'symbol', 'position'];
@@ -32,7 +33,7 @@ export class PatientEdnMaterialComponent implements OnInit {
 
  
 
-  constructor(private fb: FormBuilder, private settingservice: SettingsService, private authService: AuthenticationService) {
+  constructor(private fb: FormBuilder, private settingservice: SettingsService, private authService: AuthenticationService,private alertmsg: AlertMessage) {
     this.user = authService.userValue;
 
   }
@@ -112,7 +113,7 @@ export class PatientEdnMaterialComponent implements OnInit {
   //  this.educationMaterialCode= new EducationMaterialCode();
    this.educationMaterialCode.Code = value.Code
    this.educationMaterialCode.CodeSystem = value.CodeSystem
-   this.educationMaterialCode.Description = value.Description
+   this.educationMaterialCode.Name = value.Description
    this.educationMaterialCode.CanDelete = false;
     this.patientEducationInfo.EducationMat.push(this.educationMaterialCode);
     this.patientEducationSearchList.next(this.patientEducationInfo.EducationMat.filter(fn => fn.CanDelete === false));
@@ -122,10 +123,35 @@ export class PatientEdnMaterialComponent implements OnInit {
   removeEncounterDiagnosis(value: EducationMaterialCode, index: number) {
     value.CanDelete = true;
     this.patientEducationSearchList.next(this.patientEducationInfo.EducationMat.filter(fn => fn.CanDelete === false));
+    this.educationMaterialCode = new EducationMaterialCode();
   }
   resetDialog() {
     this.educationMaterialCode = new EducationMaterialCode();
-    this.educationMaterialCode.CanDelete=false;
+    this.patientEducationSearchList = new BehaviorSubject<EducationMaterialCode[]>([]);
+    this.patientEducationInfo= new PatientEducationInfomation();
+    this.patientEducationSearchList.next(this.patientEducationInfo.EducationMat);
   }
+
+  createUpadateEducationMaterial() {
+    let isAdd = this.educationMaterialCode.EducationalId == undefined;
+    this.educationMaterialCode.ClinicId = this.user.ClinicId;
+    this.settingservice.CreatePatientEducationMaterial(this.educationMaterialCode).subscribe((resp) => {
+      this.resetDialog();
+      if (resp.IsSuccess) {
+        this.getPatientedmateriallist();
+        this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2JPE001" : "M2JPE002"]);
+      }
+      else {
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2JPE001"]);
+      }
+    });
+  }
+  editEducationMaterial(item)
+  {
+    
+    this.educationMaterialCode=item;
+   
+  }
+ 
 }
 

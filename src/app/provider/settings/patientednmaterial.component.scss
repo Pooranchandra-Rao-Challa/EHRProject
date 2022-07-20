@@ -149,7 +149,9 @@
   color: #4A4A4A;
   font-size: 15px;
 }
-
+.title{
+  color: #4A4A4A !important;
+}
 .expansion-title a {
   color: #41b6a6;
   text-decoration: underline;
@@ -183,4 +185,18 @@
   border: 1px solid rgb(253, 44, 44) !important;
   color: rgb(253, 44, 44) !important;
 
+}
+.inputfeildisable{
+  cursor: not-allowed !important;
+}
+
+.headerowalig{
+ border: 1px solid #41b6a6;
+ background-color: rgba(65,182,166,0.2);
+ font-weight: 900;
+}
+
+mat-cell:last-of-type, mat-header-cell:last-of-type, mat-footer-cell:last-of-type {
+  padding-right: 1px;
+  margin: 10px 0px 10px 80px;
 }

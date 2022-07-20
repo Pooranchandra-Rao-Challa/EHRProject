@@ -107,10 +107,13 @@ export class PatientEducationInfomation {
  
 }
 export class EducationMaterialCode implements IDeleteFlag {
-  ClinicId:string;
+  EducationalId?:string
+  ClinicId?:string;
   Code?: string;
   CodeSystem?: string;
-  Description?: string;
-  Note?:string;
+  Name?: string;
+  ResourceNotes?:string;
   CanDelete?: boolean = false;
 }
+
+

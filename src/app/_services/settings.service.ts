@@ -131,4 +131,10 @@ export class SettingsService extends APIEndPoint {
   ChangePassword(changePassword: ChangePassword){
     return this._ProcessPostRequest<any>(this._changePasswordsUrl, changePassword);
   }
+
+
+  CreatePatientEducationMaterial(reqparams: any)
+  {
+    return this._ProcessPostRequest<any>(this._createUpdateEducationMaterialUrl,reqparams)
+  }
 }

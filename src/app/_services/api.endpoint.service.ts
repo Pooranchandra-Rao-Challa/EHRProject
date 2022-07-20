@@ -670,7 +670,10 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "LabImageOrderNumberList";
   }
 
-
+ get _createUpdateEducationMaterialUrl()
+ {
+   return this._baseUrl + "CreateUpdateEducationMaterial";
+ }
 
   constructor(public http: HttpClient) {
     super();

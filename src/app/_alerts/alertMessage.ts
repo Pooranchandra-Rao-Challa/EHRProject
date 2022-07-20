@@ -366,7 +366,14 @@ export const ERROR_CODES: { [key: string]: string } = {
   //Login Errors
   'EL001':'Wrong email or password',
   'EL002':'Session is timeout',
-  'EL003':'You need to sign in or sign up before continuing.'
+  'EL003':'You need to sign in or sign up before continuing.',
+
+  //Education Material Message
+  'M2JPE001':'Education Material added successfully',
+  'M2JPE002':'Education Material updated successfully',
+  //Education Material Error
+  'E2JPE001' :'Education Material updation Erroe '
+
 };
 
 
