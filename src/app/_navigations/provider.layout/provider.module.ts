@@ -103,6 +103,7 @@ import { TestCodeComponent } from 'src/app/dialogs/lab.imaging.dialog/test.code.
 import { CORSAPIService } from 'src/app/_services/cors.api.service'
 import { MedicationDialogComponent } from '../../dialogs/medication.dialog/medication.dialog.component';
 import { AllergyDialogComponent } from '../../dialogs/allergy.dialog/allergy.dialog.component';
+import { RxNormAPIService } from 'src/app/_services/rxnorm.api.service'
 
 //import { TimeMaskDirective } from 'src/app/_directives/input.time.mask.directive'
 registerLocaleData(localeIt);
@@ -217,7 +218,7 @@ registerLocaleData(localeIt);
   ],
   providers: [LocationSelectService, ViewChangeService,
     UtilityService, SmartSchedulerService, OverlayService, PatientService, BillingService,
-    AlertMessage, CORSAPIService,
+    AlertMessage, RxNormAPIService,
     { provide: LOCALE_ID, useValue: 'en-US' },
     { provide: MAT_DATE_LOCALE, useValue: 'en-US' },
     ProviderCodeDatabase,

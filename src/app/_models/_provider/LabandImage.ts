@@ -3,6 +3,7 @@ export class LabProcedureWithOrder {
   CurrentPatient?: PatientSearch = new PatientSearch();
   LabProcedureId?: string;
   ClinicId?: string;
+  PatientId?: string;
   Signed?: string;
   LocationId?: string;
   OrderId?: string;

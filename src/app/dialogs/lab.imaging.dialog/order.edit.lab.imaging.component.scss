@@ -1,28 +1,55 @@
 @import"../../../assets/cstm.material.scss";
 @import"../../../assets/common.scss";
 
-.editordermodel.modal-content {
-    width: 164%;
-    max-height: 1000px;
 
+
+#editlaborder.modal-dialog{
+  max-width: unset;
+  width: 1000px;
+  left: calc(100% - 85%) !important;
+  margin: unset;
 }
 
-.labandimagingcursor {
-    cursor: not-allowed;
+
+#editlaborder .modal-body {
+  max-height: calc(90vh - 200px);
+  padding: 0 !important;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
-.table {
-    border: 1px solid #41b6a6;
+#editlaborder .modal-body > .row,
+#editlaborder .modal-body > .patient-block{
+  padding: 15px 25px 0 25px;
+}
+#editlaborder .modal-body > .row .table thead tbody{
+  margin: 10px 20px;
 }
 
-.editlabordercursor {
-    cursor: not-allowed;
-}
-.modal-body {
-    max-height: calc(90vh - 200px);
-    overflow-y: auto;
+#editlaborder .modal-body > .row .table {
+  border: 1px solid #41b6a6;
+  --bs-table-accent-bg: none;
+  thead tr{
+
+    border-bottom: 1px solid #41b6a6 !important;
   }
+  tbody tr{
 
+    border-bottom: 1px solid #41b6a6 !important;
+  }
+}
+
+// #editlaborder .modal-body > .row .table thead{
+//   border-bottom: 1px solid #41b6a6;
+// }
+
+.notallowed-cursor {
+    cursor: not-allowed;
+}
+
+// .table {
+//     border: 1px solid #41b6a6;
+// }
 
 .form-control.input-border
 {
@@ -47,8 +74,7 @@ height: 45px;
 
 .patient-block {
     background-color: rgba(65,182,166,0.1);
-    margin: 0 -15px 15px -15px;
-    padding: 15px 15px 0 15px;
+
 }
 .plusicon {
     border-radius: 66px;
@@ -58,10 +84,10 @@ height: 45px;
     height: 29px;
     text-align: center;
     cursor: pointer;
-   
+
 }
 .plusicon .fa-plus {
- 
+
   padding: 5px 0px 0px 0px;
   color: #41b6a6;
   font-size: 16px;
@@ -77,14 +103,14 @@ height: 45px;
 
 }
 
-.table {
-    --bs-table-accent-bg: none;
-    border: 1px solid #41b6a6;
-  }
-  .table thead th {
-    border: 1px solid #fff;
-}
+// .table {
+//     --bs-table-accent-bg: none;
+//     border: 1px solid #41b6a6;
+//   }
+//   .table thead th {
+//     border: 1px solid #fff;
+// }
 
-.table tr td {
-    border: 1px solid #41b6a6;
-}
+// .table tr td {
+//     border: 1px solid #41b6a6;
+// }

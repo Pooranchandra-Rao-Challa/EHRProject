@@ -1,4 +1,5 @@
 import { Time } from "@angular/common";
+import { IDeleteFlag } from "../encounter";
 
 export class NewUser {
   PracticeRole?: string;
@@ -97,3 +98,22 @@ export class ChangePassword{
   ConfirmPassword?: string;
   Userid?:string;
 }
+
+
+
+
+export class PatientEducationInfomation {
+  EducationMat?: EducationMaterialCode[] = [];
+ 
+}
+export class EducationMaterialCode implements IDeleteFlag {
+  EducationalId?:string
+  ClinicId?:string;
+  Code?: string;
+  CodeSystem?: string;
+  Name?: string;
+  ResourceNotes?:string;
+  CanDelete?: boolean = false;
+}
+
+

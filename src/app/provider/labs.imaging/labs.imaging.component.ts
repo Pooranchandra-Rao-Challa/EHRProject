@@ -117,6 +117,7 @@ export class LabsImagingComponent implements OnInit {
     else if (action == Actions.add && content === this.orderResultDialogComponent  && this.viewmodel.LabandImageView == "Lab") {
       this.labandimaging = new LabProcedureWithOrder();
       this.labandimaging.View = this.viewmodel.LabandImageView;
+      this.labandimaging.ClinicId = this.user.ClinicId;
       reqdata = this.labandimaging;
     } else if (action == Actions.add && content === this.orderResultDialogComponent && this.viewmodel.LabandImageView == "Image") {
       this.labandimaging = new LabProcedureWithOrder();

@@ -19,7 +19,7 @@ import { UpcomingAppointmentsDialogComponent } from '../../dialogs/upcoming.appo
 import { EncounterDialogComponent } from '../../dialogs/encounter.dialog/encounter.dialog.component';
 import { CompleteAppointmentDialogComponent } from 'src/app/dialogs/newappointment.dialog/complete.appointment.component';
 import { AlertMessage, ERROR_CODES} from 'src/app/_alerts/alertMessage'
-import { CORSAPIService } from 'src/app/_services/cors.api.service';
+import { RxNormAPIService } from 'src/app/_services/rxnorm.api.service';
 import * as moment from "moment";
 
 import {
@@ -87,7 +87,7 @@ export class SmartScheduleComponent implements OnInit {
     private alertMessage: AlertMessage,
     private overlayService: OverlayService,
     private router: Router,
-    private _CORSAPIService:CORSAPIService
+    private _rxnormAPIService:RxNormAPIService
   ) {
 
     // _CORSAPIService.Drugs("alanine").subscribe((result)=>console.log(result));
@@ -96,7 +96,8 @@ export class SmartScheduleComponent implements OnInit {
     //  values.push(value);} )
     // console.log(values);
 
-    console.log(_CORSAPIService.ndcs("213269"));
+    //console.log(_rxnormAPIService.ndcs("213269"));
+
     this.patientSearchTerms
       .pipe(debounceTime(300),  // wait for 300ms pause in events
         distinctUntilChanged())   // ignore if next search term is same as previous

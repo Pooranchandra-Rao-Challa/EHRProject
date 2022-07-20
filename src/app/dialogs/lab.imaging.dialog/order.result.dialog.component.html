@@ -12,8 +12,11 @@
           <mat-label>Lab Order #:</mat-label>
           <mat-form-field appearance="outline" class="col-md-12">
             <mat-select required placeholder="Other labs">
-              <mat-option (click)="openComponentDialog(editLabImagingOrderComponent, null, ActionTypes.add)"
-                (click)="cancel()">otherlab</mat-option>
+              <mat-option *ngFor="let opt of labImageOrders" value="opt" (click)="OpenDialog(opt)">
+                {{opt.OrderNumber}}
+              </mat-option>
+              <!-- <mat-option (click)="openComponentDialog(editLabImagingOrderComponent, null, ActionTypes.add)"
+                (click)="cancel()">otherlab</mat-option> -->
             </mat-select>
           </mat-form-field>
         </div>

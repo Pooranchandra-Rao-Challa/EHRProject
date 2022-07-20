@@ -13,7 +13,7 @@ import {
 
 
 @Injectable()
-export class CORSAPIService {
+export class RxNormAPIService {
 
 
   constructor(public http: HttpClient) {
@@ -66,12 +66,12 @@ export class CORSAPIService {
     );
   }
 
-  ndcs(rxcui: string): BehaviorSubject<ndcStatusObj> {
+  private allNDCStatuses(rxcui: string): BehaviorSubject<ndcStatusObj> {
     let valueSubject: BehaviorSubject<ndcStatusObj> = new BehaviorSubject<ndcStatusObj>(null)
     this.ndclist(rxcui).pipe(
       map((ndcs) => {
         return ndcs.map((ndc) => {
-          return this.ndcStatuses(ndc).pipe(
+          return this.ndcStatus(ndc).pipe(
             map(result => {
               return result;
             })
@@ -87,7 +87,7 @@ export class CORSAPIService {
     return valueSubject;
   }
 
-  private ndclist(rxcui: string): Observable<string[]> {
+  ndclist(rxcui: string): Observable<string[]> {
     return this.http.get<string[]>(this._ndcsUrl(rxcui)).pipe(
       map((result) => {
         let returnNDCS: string[] = [];
@@ -105,7 +105,7 @@ export class CORSAPIService {
       catchError(this._handleError)
     );
   }
-  private ndcStatuses(ndc: string): Observable<ndcStatusObj> {
+  ndcStatus(ndc: string): Observable<ndcStatusObj> {
     return this.http.get<ndcStatusObj>(this._ndcStatusUrl(ndc)).pipe(
       map((result) => {
         let returnNDCStatuses: ndcStatusObj;
