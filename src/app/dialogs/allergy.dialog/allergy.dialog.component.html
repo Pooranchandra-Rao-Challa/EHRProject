@@ -1,0 +1,136 @@
+<div class="modal-dialog modal-maxHeight">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title Helvetica-sans-serif-medium">Record Allergy</h4>
+      <span type="button" class="cross-mark" (click)="cancel()">
+        X
+      </span>
+    </div>
+    <div class="modal-body">
+      <div class="row mt-2">
+        <div class="col-md-2  ">
+          <label class="title-bold required">Allergy Type: </label>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field appearance="outline">
+            <mat-select placeholder="Select allergy type" [(ngModel)]="patientAllergy.AllergenType">
+              <mat-option *ngFor="let allergy of allergyType" [value]="allergy">
+                {{allergy}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-2 ">
+          <label class="title-bold required">Allergen: </label>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field class="allergy-form-field" appearance="outline" [ngStyle]="{'width':'100%'}">
+            <input matInput #searchAllergyName class="form-control" placeholder="Select Allergy Name" type="text"
+              id="searchAllergyName" name=" searchAllergyName" [matAutocomplete]="allergyName" />
+            <mat-autocomplete [displayWith]="displayWithAllergy" #allergyName="matAutocomplete"
+              (optionSelected)="onSelectedAllergy($event)">
+              <mat-option [hidden]="displayMessage == false" [disabled]="true">
+                <span class="fs-6">Enter atleast 3 characters</span>
+              </mat-option>
+              <mat-option *ngIf="isLoading">Loading ...</mat-option>
+              <mat-option *ngFor="let option of allergens | async" [value]="option" class="medical-code-option">
+                {{option.AllergyName}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          <span class="selected-allergen" id="allergenName" *ngIf="patientAllergy.AllergenName != null">
+            <p>{{patientAllergy.AllergenName}}</p>
+            <a class="icon icon-sm icon-circle icon-ic-delete pull-right" id="allergy-delete"
+              (click)="deleteAllergyName()"></a>
+          </span>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-md-2 ">
+          <label class="title-bold required">Severity Level: </label>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field appearance="outline">
+            <mat-select placeholder="Select severity level" [(ngModel)]="patientAllergy.SeverityLevel">
+              <mat-option *ngFor="let severity of severityLevel" [value]="severity">
+                {{severity}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-md-2 ">
+          <label class="title-bold required">Onset At: </label>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field appearance="outline">
+            <mat-select placeholder="Select onsetAt" [(ngModel)]="patientAllergy.OnSetAt">
+              <mat-option *ngFor="let onset of onsetAt" [value]="onset">
+                {{onset}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class=" form-group col-md-6 ">
+          <label class="title-bold required">Reaction(s): </label>
+          <mat-form-field appearance="outline">
+            <mat-select placeholder="Select allergy reaction" [(ngModel)]="patientAllergy.Reaction">
+              <mat-select-filter [displayMember]="'ReactionName'" [array]="allergyReactionFilter"
+                (filteredReturn)="allergyReaction = $event"></mat-select-filter>
+              <mat-option *ngFor="let allergy of allergyReaction" [value]="allergy.ReactionName">
+                {{allergy.ReactionName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <span class="selected-allergen" id="allergenName" *ngIf="patientAllergy.Reaction != null">
+            <p>{{patientAllergy.Reaction}}</p>
+            <a class="icon icon-sm icon-circle icon-ic-delete pull-right" id="allergy-delete"
+              (click)="deleteAllergyReaction()"></a>
+          </span>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-md-2 ">
+
+          <label class="title-bold required">Start Date </label>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="grey-matform green-calendar cstm-calendar col-md-8">
+            <input matInput [matDatepicker]="StartAt" placeholder="Start Date" name="startDate" (click)="StartAt.open()"
+              readonly [(ngModel)]="patientAllergy.StartAt" />
+            <mat-datepicker-toggle matSuffix [for]="StartAt">
+            </mat-datepicker-toggle>
+            <mat-datepicker #StartAt disabled="false"></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-md-2 ">
+          <label class="title-bold">End Date: </label>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="grey-matform green-calendar cstm-calendar col-md-8">
+            <input matInput [matDatepicker]="EndAt" placeholder="End Date" name="endDate" (click)="EndAt.open()"
+              readonly [(ngModel)]="patientAllergy.EndAt" />
+            <mat-datepicker-toggle matSuffix [for]="EndAt">
+            </mat-datepicker-toggle>
+            <mat-datepicker #EndAt disabled="false"></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-md-12 mt-3">
+        <label class="title-bold">Notes:</label>
+        <textarea class="form-control col-12 mt-3 mt-md-0" [(ngModel)]="patientAllergy.Note"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-green mx-2" [disabled]="disableAllergies()" (click)="CreateAllergies()">
+        Save Changes
+      </button>
+      <button type="button" class="btn btn-green" (click)="cancel()">
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>

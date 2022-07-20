@@ -101,6 +101,8 @@ import { OrderManualEntryDialogComponent } from 'src/app/dialogs/lab.imaging.dia
 import { ImagingResultDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/imaging.result.dialog.component';
 import { TestCodeComponent } from 'src/app/dialogs/lab.imaging.dialog/test.code.component';
 import { CORSAPIService } from 'src/app/_services/cors.api.service'
+import { MedicationDialogComponent } from '../../dialogs/medication.dialog/medication.dialog.component';
+import { AllergyDialogComponent } from '../../dialogs/allergy.dialog/allergy.dialog.component';
 
 //import { TimeMaskDirective } from 'src/app/_directives/input.time.mask.directive'
 registerLocaleData(localeIt);
@@ -118,6 +120,8 @@ registerLocaleData(localeIt);
     TeethSurfaceModule,
     AddeditinterventionComponent,
     DiscontinueDialogComponent,
+    MedicationDialogComponent,
+    AllergyDialogComponent
   ],
   declarations: [
     ProviderNavbarComponent,
@@ -149,6 +153,8 @@ registerLocaleData(localeIt);
     PatientDialogComponent,
     AdvancedDirectivesDialogComponent,
     DiscontinueDialogComponent,
+    MedicationDialogComponent,
+    AllergyDialogComponent,
     OverlayComponent,
     MouseOverHintDirective,
     UserDialogComponent,
@@ -231,6 +237,8 @@ registerLocaleData(localeIt);
     SignEncounterNoteComponent,
     PatientHealthPortalComponent,
     DiscontinueDialogComponent,
+    MedicationDialogComponent,
+    AllergyDialogComponent,
     CompleteAppointmentDialogComponent,
     OrderManualEntryDialogComponent,
     OrderResultDialogComponent,
