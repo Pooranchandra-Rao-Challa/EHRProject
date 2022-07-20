@@ -44,8 +44,8 @@ export class Allergy {
   StartAt?: string;
   EndAt?: string;
   Note?: string;
-  Reaction?: string;
-  AllergenName?: string;
+  Reaction?: string = null;
+  AllergenName?: string = null;
   EncounterId?: string;
   AllergenId?: string;
 }
@@ -53,6 +53,9 @@ export class Allergy {
 export enum PatientChart {
   AdvancedDirectives,
   SmokingStatus,
+  Allergies,
+  Medications,
+  Discontinue,
   Encounters,
   CQMNotPerforemd
 }
@@ -78,8 +81,8 @@ export class Immunization {
   ExpirationAt?: Date;
   Notes?: string;
   ImmType?: string = 'administered';
-  Code?: string;
-  Description?: string;
+  Code?: string = '';
+  Description?: string = '';
   RefusedAt?: Date;
   ReasonRefused?: string;
   Comments?: string;
@@ -193,6 +196,11 @@ export interface Vaccine {
   Description?: string;
 }
 
+export interface AllergyNames {
+  AllergyId?: string;
+  AllergyName?: string;
+}
+
 import { PracticeProviders } from 'src/app/_models/_provider/practiceProviders';
 export class Labandimaging {
   CurrentPatient?: PracticeProviders;
@@ -248,34 +256,34 @@ export enum OnSetAt {
 //   methoxynaphthoquinone = '2-methoxynaphthoquinone'
 // }
 
-export enum AllergyReaction {
-  Anaphylaxis = 'Anaphylaxis',
-  Bloating = 'Bloating/gas',
-  ChestPain = 'Chest Pain',
-  Conjunctivitis = 'Conjunctivitis',
-  Cough = 'Cough',
-  Diarrhea = 'Diarrhea',
-  DifficultySpeaking = 'Difficulty speaking or swallowing',
-  DizzinessLightheadedness = 'Dizziness/Lightheadedness',
-  Facialswelling = 'Facial swelling',
-  Hives = 'Hives',
-  IrregularHeartbeat = 'Irregular Heartbeat',
-  Itchiness = 'Itchiness',
-  Lossofconsciousness = 'Loss of consciousness',
-  Nausea = 'Nausea Other',
-  PainCramping = 'Pain/cramping',
-  Patchyswellingskin = 'Patchy swelling-skin',
-  Rashgeneralized = 'Rash-generalized',
-  Rashlocalized = 'Rash-localized',
-  RespiratoryDistress = 'Respiratory Distress',
-  Runnynose = 'Runny nose',
-  Shortnessofbreath = 'Shortness of breath',
-  Tachycardia = 'Tachycardia',
-  Tongueswelling = 'Tongue swelling',
-  Unknown = 'Unknown',
-  Vomiting = 'Vomiting',
-  Wheezing = 'Wheezing'
-}
+// export enum AllergyReaction {
+//   Anaphylaxis = 'Anaphylaxis',
+//   Bloating = 'Bloating/gas',
+//   ChestPain = 'Chest Pain',
+//   Conjunctivitis = 'Conjunctivitis',
+//   Cough = 'Cough',
+//   Diarrhea = 'Diarrhea',
+//   DifficultySpeaking = 'Difficulty speaking or swallowing',
+//   DizzinessLightheadedness = 'Dizziness/Lightheadedness',
+//   Facialswelling = 'Facial swelling',
+//   Hives = 'Hives',
+//   IrregularHeartbeat = 'Irregular Heartbeat',
+//   Itchiness = 'Itchiness',
+//   Lossofconsciousness = 'Loss of consciousness',
+//   Nausea = 'Nausea Other',
+//   PainCramping = 'Pain/cramping',
+//   Patchyswellingskin = 'Patchy swelling-skin',
+//   Rashgeneralized = 'Rash-generalized',
+//   Rashlocalized = 'Rash-localized',
+//   RespiratoryDistress = 'Respiratory Distress',
+//   Runnynose = 'Runny nose',
+//   Shortnessofbreath = 'Shortness of breath',
+//   Tachycardia = 'Tachycardia',
+//   Tongueswelling = 'Tongue swelling',
+//   Unknown = 'Unknown',
+//   Vomiting = 'Vomiting',
+//   Wheezing = 'Wheezing'
+// }
 
 export enum DiagnosisDpCodes {   // Dp - dropdown
   SNOMED = 'SNOMED',
@@ -284,7 +292,51 @@ export enum DiagnosisDpCodes {   // Dp - dropdown
 
 // Immunizations
 export class GlobalConstants {
-  public static MedicationName: string[] = ['medication 1', 'medication 2', 'medication 3'];
+  public slice;
+
+  // public static AllergyReaction: string[] = ["Anaphylaxis", "Bloating/gas", "Bradycardia", "Chest Pain", "Conjunctivitis",
+  //   "Cough", "Diarrhea", "Difficulty speaking or swallowing", "Dizziness/Lightheadedness", "Facial swelling", "Hives",
+  //   "Irregular Heartbeat", "Itchiness", "Loss of consciousness", "Nausea Other", "Pain/cramping", "Patchy swelling-skin",
+  //   "Rash-generalized", "Rash-localized", "Respiratory Distress", "Runny nose", "Shortness of breath", "Tachycardia",
+  //   "Tongue swelling", "Unknown", "Vomiting", "Wheezing"];
+
+  public static AllergyReactions = [
+    { ReactionName: 'Anaphylaxis' },
+    { ReactionName: 'Bloating/gas' },
+    { ReactionName: 'Bradycardia' },
+    { ReactionName: 'Chest Pain' },
+    { ReactionName: 'Conjunctivitis' },
+    { ReactionName: 'Cough' },
+    { ReactionName: 'Diarrhea' },
+    { ReactionName: 'Difficulty speaking or swallowing' },
+    { ReactionName: 'Dizziness/Lightheadedness' },
+    { ReactionName: 'Facial swelling' },
+    { ReactionName: 'Hives' },
+    { ReactionName: 'Irregular Heartbeat' },
+    { ReactionName: 'Itchiness' },
+    { ReactionName: 'Loss of consciousness' },
+    { ReactionName: 'Nausea Other' },
+    { ReactionName: 'Pain/cramping' },
+    { ReactionName: 'Patchy swelling-skin' },
+    { ReactionName: 'Rash-generalized' },
+    { ReactionName: 'Rash-localized' },
+    { ReactionName: 'Respiratory Distress' },
+    { ReactionName: 'Runny nose' },
+    { ReactionName: 'Shortness of breath' },
+    { ReactionName: 'Tachycardia' },
+    { ReactionName: 'Tongue swelling' },
+    { ReactionName: 'Unknown' },
+    { ReactionName: 'Vomiting' },
+    { ReactionName: 'Wheezing' },
+  ]
+
+  public static Medication_Names = [
+    { DrugName: 'Medication 1' },
+    { DrugName: 'Medication 2' },
+    { DrugName: 'Medication 3' },
+  ];
+
+  // public static Medication_Names: string[] = [ 'Medication 1', 'Medication 2', 'Medication 3' ];
 
   public static Units: string[] = ['EL U/0.5 ML', 'EL U/ML', 'GM', 'GM/100 ML', 'GM/10 ML', 'GM/200 ML', 'GM/20 ML',
     'GM/400 ML', 'GM/500 ML', 'GM/50 ML', 'LF-MCG/0.5', 'LF/O.5 ML', 'LFU', 'LFU/0.5 ML', 'MCG', 'MCG/0.5 ML', 'MCG/ML',
@@ -375,22 +427,37 @@ export class GlobalConstants {
     "428119001 - Procedure not indicated (situation)", "445528004 - Treatment changed (situation)",
     "59037007 - Drug intolerance (disorder)", "62014003 - Adverse reaction caused by drug (disorder)",
     "79899007 - Drug interaction (finding)"];
+
+  public static PROCEDURE_REASON_CODES = [
+    { 'Code': '105480006', 'Description': 'Refusal of treatment by patient (situation)', 'CodeDescription': '105480006 - Refusal of treatment by patient (situation)' },
+    { 'Code': '183944003', 'Description': 'Procedure refused (situation)', 'CodeDescription': '183944003 - Procedure refused (situation)' },
+    { 'Code': '183945002', 'Description': 'Procedure refused for religious reason (situation)', 'CodeDescription': '183945002 - Procedure refused for religious reason (situation)' },
+    { 'Code': '413310006', 'Description': 'Patient non-compliant - refused access to services (situation)', 'CodeDescription': '413310006 - Patient non-compliant - refused access to services (situation)' },
+    { 'Code': '413311005', 'Description': 'Patient non-compliant - refused intervention / support (situation)', 'CodeDescription': '413311005 - Patient non-compliant - refused intervention / support (situation)' },
+    { 'Code': '413312003', 'Description': 'Patient non-compliant - refused service (situation)', 'CodeDescription': '413312003 - Patient non-compliant - refused service (situation)' },
+    { 'Code': '183932001', 'Description': 'Procedure contraindicated (situation)', 'CodeDescription': '183932001 - Procedure contraindicated (situation)' },
+    { 'Code': '397745006', 'Description': 'Medical contraindication (finding)', 'CodeDescription': '397745006 - Medical contraindication (finding)' },
+    { 'Code': '407563006', 'Description': 'Treatment not tolerated (situation)', 'CodeDescription': '407563006 - Treatment not tolerated (situation)' },
+    { 'Code': '428119001', 'Description': 'Procedure not indicated (situation)', 'CodeDescription': '428119001 - Procedure not indicated (situation)' },
+    { 'Code': '59037007', 'Description': 'Drug intolerance', 'CodeDescription': '59037007 - Drug intolerance' },
+    { 'Code': '62014003', 'Description': 'Adverse reaction to drug', 'CodeDescription': '62014003 - Adverse reaction to drug' }
+  ];
 }
 
-export const PROCEDURE_REASON_CODES = [
-  { 'Code': '105480006', 'Description': 'Refusal of treatment by patient (situation)' },
-  { 'Code': '183944003', 'Description': 'Procedure refused (situation)' },
-  { 'Code': '183945002', 'Description': 'Procedure refused for religious reason (situation)' },
-  { 'Code': '413310006', 'Description': 'Patient non-compliant - refused access to services (situation)' },
-  { 'Code': '413311005', 'Description': 'Patient non-compliant - refused intervention / support (situation)' },
-  { 'Code': '413312003', 'Description': 'Patient non-compliant - refused service (situation)' },
-  { 'Code': '183932001', 'Description': 'Procedure contraindicated (situation)' },
-  { 'Code': '397745006', 'Description': 'Medical contraindication (finding)' },
-  { 'Code': '407563006', 'Description': 'Treatment not tolerated (situation)' },
-  { 'Code': '428119001', 'Description': 'Procedure not indicated (situation)' },
-  { 'Code': '59037007', 'Description': 'Drug intolerance' },
-  { 'Code': '62014003', 'Description': 'Adverse reaction to drug' }
-];
+// export const PROCEDURE_REASON_CODES = [
+//   { 'Code': '105480006', 'Description': 'Refusal of treatment by patient (situation)' },
+//   { 'Code': '183944003', 'Description': 'Procedure refused (situation)' },
+//   { 'Code': '183945002', 'Description': 'Procedure refused for religious reason (situation)' },
+//   { 'Code': '413310006', 'Description': 'Patient non-compliant - refused access to services (situation)' },
+//   { 'Code': '413311005', 'Description': 'Patient non-compliant - refused intervention / support (situation)' },
+//   { 'Code': '413312003', 'Description': 'Patient non-compliant - refused service (situation)' },
+//   { 'Code': '183932001', 'Description': 'Procedure contraindicated (situation)' },
+//   { 'Code': '397745006', 'Description': 'Medical contraindication (finding)' },
+//   { 'Code': '407563006', 'Description': 'Treatment not tolerated (situation)' },
+//   { 'Code': '428119001', 'Description': 'Procedure not indicated (situation)' },
+//   { 'Code': '59037007', 'Description': 'Drug intolerance' },
+//   { 'Code': '62014003', 'Description': 'Adverse reaction to drug' }
+// ];
 
 export const MEDICATION_NAMES = [
   { 'Name': 'Medication 1' },
