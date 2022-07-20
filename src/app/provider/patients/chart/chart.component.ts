@@ -19,7 +19,7 @@ import {
   AppointmentTypes, UserLocations, Room, AppointmentDialogInfo, Vaccine, User, TobaccoUse,
   GlobalConstants, PatientSearchResults, Labandimaging, MEDICATION_NAMES
 } from 'src/app/_models';
-import { ParticularInsuranceCompanyDetails, PrimaryInsurance, SecondaryInsurance } from 'src/app/_models/insurance';
+
 
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
