@@ -21,4 +21,7 @@ export class LabsImagingService extends APIEndPoint {
   LabandImageList(reqparams: any) {
     return this._ProcessPostRequest<any>(this._labandImageListUrl, reqparams);
   }
+  LabImageOrderNumberList(reqparams: any){
+    return this._ProcessPostRequest<any>(this._labImageOrderNumberListUrl, reqparams);
+  }
 }

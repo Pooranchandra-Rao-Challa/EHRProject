@@ -532,6 +532,26 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "CreateMedications";
   }
 
+  get _createImmunizationsAdministeredUrl() {
+    return this._baseUrl + "CreateImmunizationsAdministered";
+  }
+
+  get _createImmunizationsHistoricalUrl() {
+    return this._baseUrl + "CreateImmunizationsHistorical";
+  }
+
+  get _createImmunizationsRefusedUrl() {
+    return this._baseUrl + "CreateImmunizationsRefused";
+  }
+
+  get _vaccinesUrl() {
+    return this._baseUrl + "Vaccines";
+  }
+
+  get _allergyNamesUrl() {
+    return this._baseUrl + "AllergyNames";
+  }
+
   get _changePasswordsUrl() {
     return this._baseUrl + "ChangePassword";
   }
@@ -604,52 +624,53 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "PatientMessages";
   }
 
-  get _labImageStatusesUrl()
-  {
+  get _labImageStatusesUrl() {
     return this._baseUrl + "LabImageStatuses";
   }
 
-  get _labImageOrderStatusesUrl()
-  {
+  get _labImageOrderStatusesUrl() {
     return this._baseUrl + "LabImageOrderStatuses";
   }
-  get _updateAppointmentStatusUrl(){
+  get _updateAppointmentStatusUrl() {
     return this._baseUrl + "UpdateAppointmentStatus";
 
   }
 
-  get _amendmentDetailsUrl()
-  {
+  get _amendmentDetailsUrl() {
     return this._baseUrl + "AmendmentDetails";
   }
 
-  get _createupdateAmendmentUrl()
-  {
+  get _createupdateAmendmentUrl() {
     return this._baseUrl + "CreateupdateAmendment";
   }
 
-  get _deleteAmendmentUrl()
-  {
+  get _deleteAmendmentUrl() {
     return this._baseUrl + "DeleteAmendment";
   }
-  get _patientSearchUrl(){
+  get _patientSearchUrl() {
     return this._baseUrl + "PatientSearch";
   }
 
-  get _createLabOrImagingOrderUrl(){
+  get _createLabOrImagingOrderUrl() {
     return this._baseUrl + "CreateLabOrImagingOrder";
   }
 
-  get _labandImageListUrl(){
+  get _labandImageListUrl() {
     return this._baseUrl + "LabandImageList";
   }
 
-  get _amendmentStatusesUrl(){
+  get _amendmentStatusesUrl() {
     return this._baseUrl + "AmendmentStatuses";
   }
-  get _amendmentSourcesUrl(){
+  get _amendmentSourcesUrl() {
     return this._baseUrl + "AmendmentSources";
   }
+
+  get _labImageOrderNumberListUrl(){
+    return this._baseUrl + "LabImageOrderNumberList";
+  }
+
+
 
   constructor(public http: HttpClient) {
     super();

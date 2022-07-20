@@ -303,6 +303,14 @@ export const ERROR_CODES: { [key: string]: string } = {
   // Error for medication
   'E2CM001': 'Medication Updation error',
 
+  //Message for immunization in chart screen
+  'M2CCI001': 'Immunization added successfully',
+  'M2CCI002': 'Immunization updated successfully',
+  'M2CCI003': 'Immunization deleted successfully',
+
+  // Error for immunization
+  'E2CCI001': 'Immunization Updation error',
+
   // CQM Not performed
   'M2CCNP001': 'Not Performed Reason created successfully',
   'M2CCNP002': 'Not Performed Reason updated successfully',
@@ -337,7 +345,7 @@ export const ERROR_CODES: { [key: string]: string } = {
   // Error for Rooms
   'E2JSAS001': 'Appointment status created error',
 
-//Amendements 
+//Amendements
 'M2A001' : 'Amendments added successfully',
 'M2A002' : 'Amendments updated successfully',
 'M2A003' : 'Amendments deleted successfully',
@@ -358,6 +366,7 @@ export const ERROR_CODES: { [key: string]: string } = {
   //Login Errors
   'EL001':'Wrong email or password',
   'EL002':'Session is timeout',
+  'EL003':'You need to sign in or sign up before continuing.'
 };
 
 

@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 
 import { AuthenticationService } from '../_services/authentication.service';
 import { IdService } from './_id.service';
+import {ERROR_CODES} from 'src/app/_alerts/alertMessage'
 
 
 
@@ -34,7 +35,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<u
     }
 
     // not logged in so redirect to login page with the return url
-    this.router.navigate(['/account/login'], { queryParams: { returnUrl: state.url } });
+    this.router.navigate(['/account/home'], { queryParams: { message: ERROR_CODES["EL003"] } });
     return false;
   }
 
