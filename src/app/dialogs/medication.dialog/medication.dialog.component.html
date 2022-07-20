@@ -1,0 +1,146 @@
+<div class="modal-dialog medication-modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title Helvetica-sans-serif-medium">Record Medication (Local)</h4>
+      <span type="button" class="cross-mark" (click)="cancel()">
+        X
+      </span>
+    </div>
+    <div class="modal-body">
+      <div class="row mt-2">
+        <label class="title-field">Medication Name:</label>
+        <div class="col-md-10">
+          <mat-form-field class="grey-matform col-12" appearance="outline">
+            <mat-select [(ngModel)]="patientMedication.DrugName">
+              <mat-select-filter [displayMember]="'DrugName'" #searchItem [array]="medicationsFilter"
+                (filteredReturn)="medications = $event"></mat-select-filter>
+              <mat-option *ngFor="let medication of medications" [value]="medication.DrugName">
+                {{medication.DrugName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-2">
+          <button class="btn btn-green pull-right">Search</button>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="form-group col-md-6">
+          <label class="title-field">Rx Norm ID:</label>
+          <mat-form-field class="grey-matform" appearance="outline">
+            <input matInput placeholder="Rx Norm ID" name="rxnormid:" [(ngModel)]="patientMedication.Rxcui" />
+          </mat-form-field>
+        </div>
+        <div class="form-group col-md-6 ">
+          <label class="title-field">NDC ID:</label>
+          <mat-form-field class="grey-matform" appearance="outline">
+            <input matInput placeholder="NDC ID" name="ndcid:" [(ngModel)]="patientMedication.NDC" />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="form-group col-md-6">
+          <label class="title-field">Dose and Form:</label>
+          <mat-form-field class="grey-matform" appearance="outline">
+            <input matInput placeholder="Dose and Form" name="doseandform:"
+              [(ngModel)]="patientMedication.DoseandForm" />
+          </mat-form-field>
+        </div>
+        <div class="form-group col-md-6 ">
+          <label class="title-field">Dispense</label>
+          <mat-form-field class="grey-matform" appearance="outline">
+            <input matInput placeholder="Dispense" name="dispense:" [(ngModel)]="patientMedication.Dispense" />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="form-group col-md-6">
+          <label class="title-field">Units:</label>
+          <mat-form-field class="grey-matform" appearance="outline">
+            <input matInput placeholder="Units" name="units:" [(ngModel)]="patientMedication.Units" />
+          </mat-form-field>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="title-field">Quantity:</label>
+          <mat-form-field class="grey-matform" appearance="outline">
+            <input matInput placeholder="Quantity" name="quantity" [(ngModel)]="patientMedication.Quantity" />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class=" form-group col-md-6">
+          <label class="title-field">Refills:</label>
+          <mat-form-field class="grey-matform" appearance="outline">
+            <input matInput placeholder="Refills" name="refills:" [(ngModel)]="patientMedication.Refills" />
+          </mat-form-field>
+        </div>
+        <div class="form-group  col-md-6">
+          <label class="title-field">Days Supply:</label>
+          <mat-form-field class="grey-matform" appearance="outline">
+            <input matInput placeholder="Days Supply" name="dayssupply:" [(ngModel)]="patientMedication.DaysSupply" />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class=" form-group col-md-6">
+          <label class="title-field">Start Date</label>
+          <mat-form-field appearance="outline" class="grey-matform grey-calendar medication-datepicker">
+            <input matInput class="pointer date-mat-class" autocomplete="off" [matDatepicker]="picker5"
+              (click)="picker5.open()" readonly placeholder="Start Date" [(ngModel)]="patientMedication.StartAt" />
+            <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
+            <mat-datepicker #picker5></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="form-group  col-md-6">
+          <label class="title-field">End Date</label>
+          <mat-form-field appearance="outline" class="grey-matform grey-calendar medication-datepicker">
+            <input matInput class="pointer date-mat-class" autocomplete="off" [matDatepicker]="picker4"
+              (click)="picker4.open()" readonly placeholder="End Date" [(ngModel)]="patientMedication.StopAt" />
+            <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+            <mat-datepicker #picker4></mat-datepicker>
+          </mat-form-field>
+
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class=" form-group col-md-6">
+          <label class="title-field">Reasons</label>
+          <mat-form-field class="grey-matform" appearance="outline">
+            <input matInput placeholder="Reasons" name="reasons" [(ngModel)]="patientMedication.ReasonDescription" />
+          </mat-form-field>
+        </div>
+        <div class="form-group mt-4 col-md-6">
+          <button type="button" class="btn btn-orange"
+            (click)="openComponentDialog(discontinueDialogComponent,null,ActionTypes.add)">
+            Discontinue
+          </button>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="form-group">
+          <label class="text-bold title-field">Patient Direction:</label>
+          <textarea class="form-control col-12 mt-3 mt-md-0" placeholder="Notes"
+            [(ngModel)]="patientMedication.Notes"></textarea>
+        </div>
+      </div>
+      <div class="row links-item mt-4">
+        <div class="col-md-2 col-sm-3">
+          <p>Resources:</p>
+        </div>
+        <div class="col-md-5 col-sm-5"><a class="underlined" href="/medline_plus/info?code_system=RxNorm">Medline
+            Plus</a></div>
+        <div class="col-md-5 col-sm-5"><a class="underlined" id="education_materials_show"
+            data-target="#modal-education-materials" data-remote="true" data-bs-toggle="modal"
+            data-bs-target="#exampleModal7">Patient Education Materials</a></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-green" [disabled]="disableMedication()" (click)="CreateMedication()">
+        Save Changes
+      </button>
+      <button type="button" class="btn btn-green" (click)="cancel()">
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>
