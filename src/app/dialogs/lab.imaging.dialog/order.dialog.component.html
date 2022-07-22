@@ -62,7 +62,7 @@ margin: unset;">
             <div class="col-md-4">
               <mat-label class="required">Lab Name:</mat-label>
               <mat-form-field appearance="outline" class="col-md-12 orderddhover">
-                <mat-select required placeholder="Other labs" [(ngModel)]="labandImaging.LabName">
+                <mat-select required placeholder="Select Other lab" [(ngModel)]="labandImaging.LabName">
                   <mat-option value="Other labs">
                     Other labs
                   </mat-option>
@@ -72,7 +72,7 @@ margin: unset;">
             <div class="col-md-4">
               <mat-label class="required">Status:</mat-label>
               <mat-form-field appearance="outline" class="col-md-12 orderddhover">
-                <mat-select required placeholder="Status" [(ngModel)]="labandImaging.Status">
+                <mat-select required placeholder="Status" [(ngModel)]="labandImaging.OrderStatus">
                   <mat-option *ngFor="let item of OrderStatuses" [value]="item.Value">
                     {{item.Name}}
                   </mat-option>
@@ -119,7 +119,7 @@ margin: unset;">
             <div class="col-md-4">
               <mat-label class="required">Lab/Imaging Status:</mat-label>
               <mat-form-field appearance="outline" class="col-md-12 orderddhover">
-                <mat-select required placeholder="Status" [(ngModel)]="labandImaging.OrderStatus">
+                <mat-select required placeholder="Status" [(ngModel)]="labandImaging.ResultStatus">
                   <mat-option *ngFor="let item of ResultStatuses" [value]="item.Value">
                     {{item.Name}}
                   </mat-option>
@@ -182,6 +182,7 @@ margin: unset;">
                         <input matInput placeholder="" formControlName="Test" readonly class="not-allowed"
                         [matTooltip]="atta.controls.Test.value" >
                       </mat-form-field>
+                      <input type="hidden" formControlName="TestOrderId">
                     </div>
                     <div class="col-md-1" style="padding-left: 30px ;">
                       <button class="minuicon" type="button" aria-expanded="false" (click)="removeLabOrder(i)">

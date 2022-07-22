@@ -54,7 +54,6 @@ export class OrderDialogComponent implements OnInit {
       this.labandImaging.CurrentPatient = new PatientSearch();
 
     this.labandImaging.ProcedureType = this.labandImaging.View;
-    this.labandImaging.OrderingFacility = this.labandImaging.View;
     this.orderingFacilities = JSON.parse(this.authService.userValue.LocationInfo) as UserLocations[];
   }
 
@@ -123,7 +122,8 @@ export class OrderDialogComponent implements OnInit {
   newOrder(order: TestOrder = {}) {
     return this.fb.group({
       Code: order.Code,
-      Test: order.Test
+      Test: order.Test,
+      TestOrderId: order.TestOrderId
     })
   }
 
@@ -193,11 +193,11 @@ export class OrderDialogComponent implements OnInit {
     return !(this.labandImaging.CurrentPatient != null
       && this.labandImaging.ProcedureType != null && this.labandImaging.ProcedureType != ""
       && this.labandImaging.LabName != null && this.labandImaging.LabName != ""
-      && this.labandImaging.Status != null && this.labandImaging.Status != ""
+      && this.labandImaging.OrderStatus != null && this.labandImaging.OrderStatus != ""
       && this.labandImaging.ScheduledAt != null && this.labandImaging.ScheduledAt != ""
       && this.labandImaging.OrderingPhyscianId != null && this.labandImaging.OrderingPhyscianId != ""
       && this.labandImaging.OrderingFacility != null && this.labandImaging.OrderingFacility != ""
-      && this.labandImaging.OrderStatus != null && this.labandImaging.OrderStatus != ""
+      && this.labandImaging.ResultStatus != null && this.labandImaging.ResultStatus != ""
       && this.hasOrders)
 
 

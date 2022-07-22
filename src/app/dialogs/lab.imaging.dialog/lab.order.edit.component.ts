@@ -9,6 +9,7 @@ import { PatientService } from 'src/app/_services/patient.service';
 import { TestCode, TestCodeComponent } from './test.code.component';
 import { ComponentType } from '@angular/cdk/portal';
 import { OverlayService } from 'src/app/overlay.service';
+import { UtilityService } from 'src/app/_services/utiltiy.service';
 @Component({
   selector: 'app-editlabimageorder',
   templateUrl: './lab.order.edit.component.html',
@@ -20,6 +21,7 @@ export class LabOrderEditComponent implements OnInit {
   labandImaging?: LabProcedureWithOrder = new LabProcedureWithOrder();
   labOrders?: LabProcedureWithOrder[] = [];
   practiceProviders?: PracticeProviders[] = []
+  ResultStatuses: any[];
   testCodeComponent = TestCodeComponent;
   orderIsManual?: boolean = false;
   constructor(private ref: EHROverlayRef,
@@ -27,7 +29,8 @@ export class LabOrderEditComponent implements OnInit {
     private patientService: PatientService,
     private authService: AuthenticationService,
     private smartSchedulerService: SmartSchedulerService,
-    private overlayService: OverlayService,) {
+    private overlayService: OverlayService,
+    private utilityService: UtilityService) {
     if(ref.RequestData == null){
       this.orderIsManual = true;
       this.labandImaging = new LabProcedureWithOrder();
@@ -42,7 +45,6 @@ export class LabOrderEditComponent implements OnInit {
       if (this.labandImaging.Result == null)
         this.labandImaging.Result = new LabResult()
     }
-
   }
 
   ngOnInit(): void {
@@ -50,11 +52,17 @@ export class LabOrderEditComponent implements OnInit {
     this.updatePatientInfo();
     this.loadDefaults();
     this.initTestOrderGrid();
+    this.initResultStatuses();
   }
   cancel() {
     this.ref.close(null);
   }
+  initResultStatuses() {
+    this.utilityService.ResultStatuses().subscribe(resp => {
+      this.ResultStatuses = resp.ListResult;
+    })
 
+  }
   loadOrder(){
 
     // this.labImageService.LabImageOrderNumberList(reqparams)

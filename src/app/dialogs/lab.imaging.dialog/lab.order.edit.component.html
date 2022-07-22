@@ -1,7 +1,7 @@
 <div class="modal-dialog" id="editlaborder">
   <div class="modal-content editordermodel">
     <div class="modal-header">
-      <p class="modal-title Roboto-medium">Edit Lab Order </p>
+      <p class="modal-title Roboto-medium">Lab Results</p>
       <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close" (click)="cancel()">
         X
       </span>
@@ -75,7 +75,7 @@
           </div>
         </div>
       </div>
-      <div class="row" *ngIf="!orderIsManual">
+      <div class="row" >
         <mat-label>Select Order:</mat-label>
         <div class="thead">
           <div class="Helvetica-sans-serif-medium col-1 th"></div>
@@ -88,18 +88,18 @@
         </div>
         <div class="tbody" *ngFor="let item of labOrders">
           <div class="Helvetica-sans-serif-medium col-1 td">
-            <mat-radio-button></mat-radio-button>
+            <mat-radio-button [checked]="item.LabProcedureId == labandImaging.LabProcedureId" ></mat-radio-button>
           </div>
           <div class="Helvetica-sans-serif-medium col-1 td">{{item.OrderNumber}}</div>
           <div class="Helvetica-sans-serif-medium col-2 td">{{item.LabName}}</div>
-          <div class="Helvetica-sans-serif-medium col-2 td">{{item.Status}}</div>
+          <div class="Helvetica-sans-serif-medium col-2 td">{{item.OrderStatus}}</div>
           <div class="Helvetica-sans-serif-medium col-2 td">{{item.OrderingFacility}}</div>
           <div class="Helvetica-sans-serif-medium col-2 td">{{item.ScheduledAt | date:"MM-dd-yyyy"}}</div>
           <div class="Helvetica-sans-serif-medium col-2 td">{{item.CreatedDate | date:"MM-dd-yyyy"}}</div>
         </div>
 
       </div>
-      <div class="row mt-1" *ngIf="!orderIsManual">
+      <div class="row mt-1" >
         <div class="col-md-9">
           <div class="row">
             <div class="col-md-6">
@@ -120,7 +120,7 @@
         <div class="col-md-3">
           <mat-label>Test Report Date:</mat-label>
           <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-12">
-            <input matInput [matDatepicker]="testReportedDate" placeholder="Specimen Collected Date"
+            <input matInput [matDatepicker]="testReportedDate" placeholder="Test Report Date"
               (focus)="testReportedDate?.open()" class="Helvetica-sans-serif-medium"
               [(ngModel)]="labandImaging.Result.TestReportedDate">
             <mat-datepicker-toggle matSuffix [for]="testReportedDate">
@@ -129,8 +129,8 @@
           </mat-form-field>
         </div>
       </div>
-      <div class="row" *ngIf="!orderIsManual">
-        <div class="col-md-9">
+      <div class="row" >
+        <div class="col-md-8">
           <div class="row">
             <div class="col-md-7">
               <mat-label>Ordering Physician:*</mat-label>
@@ -152,14 +152,18 @@
           </div>
         </div>
 
-        <div class="col-md-3">
-          <mat-label>Lab Order #:</mat-label>
-          <mat-form-field appearance="outline" class="col-md-12">
-            <input matInput placeholder="" disabled class="notallowed-cursor" [(ngModel)]="labandImaging.OrderNumber">
-          </mat-form-field>
+        <div class="col-md-4">
+          <mat-label class="required">Lab/Imaging Status:</mat-label>
+              <mat-form-field appearance="outline" class="col-md-12 orderddhover">
+                <mat-select required placeholder="Status" [(ngModel)]="labandImaging.ResultStatus">
+                  <mat-option *ngFor="let item of ResultStatuses" [value]="item.Value">
+                    {{item.Name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
         </div>
       </div>
-      <div class="row highlight-blocks" *ngIf="!orderIsManual">
+      <div class="row highlight-blocks" >
         <div class="col-lg-7 col-md-7 left-block">
 
           <div class="row highlight-block">
@@ -285,7 +289,7 @@
           </div>
         </div>
       </div>
-      <div class="row" *ngIf="!orderIsManual">
+      <div class="row" >
         <div class="col-lg-12">
           <div class="form-group">
             <div class="panel panel-tests">
@@ -327,23 +331,17 @@
                       <div [formGroupName]="i">
                         <div class="row  data-row">
                           <div class="col-md-2 Helvetica-sans-serif-medium">
-                            <!-- <mat-form-field appearance="outline" class="col-md-12" > -->
                             <input matInput placeholder="" [data-index]="i" matTooltip="Enter minimum three digist"
                               formControlName="Code" (blur)="getCodeInfo($event,i)" />
-                            <!-- </mat-form-field> -->
                           </div>
                           <div class="col Helvetica-sans-serif-medium">
-                            <!-- <mat-form-field appearance="outline" class="col-md-12"> -->
                             <input matInput placeholder="" formControlName="Test"
                               [matTooltip]="atta.controls.Test.value " readonly class="not-allowed col-md-12"
                               style="width:100%" />
-                            <!-- </mat-form-field> -->
                           </div>
                           <div class="col-md-2 Helvetica-sans-serif-medium">
-                            <!-- <mat-form-field appearance="outline" class="col-md-12"> -->
                             <input matInput placeholder="" formControlName="Result"
                               [matTooltip]="atta.controls.Result.value " class="not-allowed" />
-                            <!-- </mat-form-field> -->
                           </div>
                           <div class="col-md-1 Helvetica-sans-serif-medium">
                             <!-- <mat-form-field appearance="outline" class="col-md-12"> -->
@@ -374,76 +372,19 @@
                   </div>
                 </form>
               </div>
-              <div class="row">
-                <div class="col-12 table">
-                  <table class="table">
-                    <!-- <thead class="text-nowrap tblheaderclass">
-                        <tr class="bg-color">
-                          <th class="Helvetica-sans-serif-medium">
-                            Code
-                          </th>
-                          <th class="Helvetica-sans-serif-medium">
-                            Test
-                          </th>
-                          <th class="Helvetica-sans-serif-medium">
-                            Result
-                          </th>
-                          <th class="Helvetica-sans-serif-medium">
-                            Units
-                          </th>
-                          <th class="Helvetica-sans-serif-medium">
-                            Flag
-                          </th>
-                          <th class="Helvetica-sans-serif-medium">
-                            Range
-                          </th>
-                          <th class="Helvetica-sans-serif-medium">
-                            Delete
-                          </th>
-                        </tr>
-                      </thead> -->
-                    <tbody>
-                      <!-- <ng-container formArrayName="testorder" *ngFor="let group of testorder.controls; let i = index">
-                          <tr [formGroupName]="i">
-                            <td>
-                              <input type="text" class="form-control input-border" [formControlName]="'code'" />
-                            </td>
-                            <td>
-                              <input type="text" class="form-control input-border" [formControlName]="'test'" />
-                            </td>
-                            <td>
-                              <input type="text" class="form-control input-border" [formControlName]="'result'" />
-                            </td>
-                            <td>
-                              <input type="text" class="form-control input-border" [formControlName]="'units'" />
-                            </td>
-                            <td>
-                              <input type="text" class="form-control input-border" [formControlName]="'flag'" />
-                            </td>
-                            <td>
-                              <input type="text" class="form-control input-border" [formControlName]="'range'" />
-                            </td>
-                            <td>
 
-                            </td>
-                          </tr>
-                        </ng-container> -->
-                    </tbody>
-                  </table>
-                </div>
-              </div>
 
 
             </div>
           </div>
         </div>
       </div>
-      <div class="row" *ngIf="!orderIsManual">
+      <div class="row" >
       </div>
-      <div class="row mt-1" *ngIf="!orderIsManual">
+      <div class="row mt-1" >
         <div class="col-md-12">
           <mat-label>Notes:</mat-label>
-          <textarea matInput class="text-border" placeholder="" readonly disabled></textarea>
+          <textarea matInput class="text-border" placeholder=""></textarea>
         </div>
       </div>
 
