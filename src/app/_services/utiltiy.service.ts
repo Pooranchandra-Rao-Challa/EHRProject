@@ -57,11 +57,11 @@ export class UtilityService extends APIEndPoint {
   {
     return this._ProcessGetRequest<any>(this._areaCodesUrl);
   }
-  LabImageStatuses()
+  OrderStatuses()
   {
     return this._ProcessGetRequest<any>(this._labImageStatusesUrl);
   }
-  LabImageOrderStatuses()
+  ResultStatuses()
   {
     return this._ProcessGetRequest<any>(this._labImageOrderStatusesUrl);
   }

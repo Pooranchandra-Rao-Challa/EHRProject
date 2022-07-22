@@ -96,7 +96,7 @@ import { DiscontinueDialogComponent } from '../../dialogs/discontinue.dialog/dis
 
 import { OrderDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/order.dialog.component';
 import { OrderResultDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/order.result.dialog.component';
-import { EditLabImagingOrderComponent } from 'src/app/dialogs/lab.imaging.dialog/order.edit.lab.imaging.component';
+import { LabOrderEditComponent } from 'src/app/dialogs/lab.imaging.dialog/lab.order.edit.component';
 import { OrderManualEntryDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/order.manual.entry.dialog.component';
 import { ImagingResultDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/imaging.result.dialog.component';
 import { TestCodeComponent } from 'src/app/dialogs/lab.imaging.dialog/test.code.component';
@@ -104,8 +104,8 @@ import { TestCodeComponent } from 'src/app/dialogs/lab.imaging.dialog/test.code.
 import { MedicationDialogComponent } from '../../dialogs/medication.dialog/medication.dialog.component';
 import { AllergyDialogComponent } from '../../dialogs/allergy.dialog/allergy.dialog.component';
 import { RxNormAPIService } from 'src/app/_services/rxnorm.api.service'
-
 //import { TimeMaskDirective } from 'src/app/_directives/input.time.mask.directive'
+import { LabOrderTestFormatPipe } from 'src/app/_pipes/lab.order.test.pipe'
 registerLocaleData(localeIt);
 @NgModule({
   exports: [
@@ -122,7 +122,8 @@ registerLocaleData(localeIt);
     AddeditinterventionComponent,
     DiscontinueDialogComponent,
     MedicationDialogComponent,
-    AllergyDialogComponent
+    AllergyDialogComponent,
+    LabOrderTestFormatPipe
   ],
   declarations: [
     ProviderNavbarComponent,
@@ -176,11 +177,11 @@ registerLocaleData(localeIt);
     SignEncounterNoteComponent,
     OrderDialogComponent,
     OrderResultDialogComponent,
-    EditLabImagingOrderComponent,
+    LabOrderEditComponent,
     OrderManualEntryDialogComponent,
     ImagingResultDialogComponent,
     TestCodeComponent,
-    //TimeMaskDirective,
+    LabOrderTestFormatPipe,
   ],
   imports: [
 
@@ -244,7 +245,7 @@ registerLocaleData(localeIt);
     OrderManualEntryDialogComponent,
     OrderResultDialogComponent,
     OrderDialogComponent,
-    EditLabImagingOrderComponent,
+    LabOrderEditComponent,
     ImagingResultDialogComponent,
     TestCodeComponent]
 })

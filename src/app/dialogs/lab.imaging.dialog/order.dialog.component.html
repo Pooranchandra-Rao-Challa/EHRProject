@@ -73,7 +73,7 @@ margin: unset;">
               <mat-label class="required">Status:</mat-label>
               <mat-form-field appearance="outline" class="col-md-12 orderddhover">
                 <mat-select required placeholder="Status" [(ngModel)]="labandImaging.Status">
-                  <mat-option *ngFor="let item of labLabImageStatusesDD" [value]="item.Value">
+                  <mat-option *ngFor="let item of OrderStatuses" [value]="item.Value">
                     {{item.Name}}
                   </mat-option>
                 </mat-select>
@@ -120,7 +120,7 @@ margin: unset;">
               <mat-label class="required">Lab/Imaging Status:</mat-label>
               <mat-form-field appearance="outline" class="col-md-12 orderddhover">
                 <mat-select required placeholder="Status" [(ngModel)]="labandImaging.OrderStatus">
-                  <mat-option *ngFor="let item of LabImageOrderStatusesDD" [value]="item.Value">
+                  <mat-option *ngFor="let item of ResultStatuses" [value]="item.Value">
                     {{item.Name}}
                   </mat-option>
                 </mat-select>
@@ -150,7 +150,7 @@ margin: unset;">
             </div>
             <div class="col-md-4 d-flex justify-content-end flex-sm-row flex-column">
               <div class="pull-right">
-                <button class="plusicon" type="button" aria-expanded="false" (click)="addLabOrders()">
+                <button class="plusicon" type="button" aria-expanded="false" (click)="addLabOrder()">
                   <i class="fa fa-plus"></i>
                 </button>
 
@@ -176,11 +176,11 @@ margin: unset;">
                       <mat-form-field appearance="outline" class="col-md-12" matTooltip="Enter minimum three digist">
                         <input matInput placeholder="" [data-index]="i" formControlName="Code" (blur)="getCodeInfo($event,i)" >
                       </mat-form-field>
-
                     </div>
                     <div class="col-md-7">
                       <mat-form-field appearance="outline" class="col-md-12">
-                        <input matInput placeholder="" formControlName="Test" readonly class="not-allowed" >
+                        <input matInput placeholder="" formControlName="Test" readonly class="not-allowed"
+                        [matTooltip]="atta.controls.Test.value" >
                       </mat-form-field>
                     </div>
                     <div class="col-md-1" style="padding-left: 30px ;">
@@ -188,7 +188,6 @@ margin: unset;">
                         <i class="fa fa-minus"></i>
                       </button>
                     </div>
-
                   </div>
                 </div>
               </div>

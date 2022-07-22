@@ -1,3 +1,4 @@
+import { TestScheduler } from 'rxjs-compat';
 import { PatientSearch } from 'src/app/_models';
 export class LabProcedureWithOrder {
   CurrentPatient?: PatientSearch = new PatientSearch();
@@ -7,6 +8,7 @@ export class LabProcedureWithOrder {
   Signed?: string;
   LocationId?: string;
   OrderId?: string;
+  OrderNumber?:string;
   ProcedureType?:string;
   LabName?: string;
   Status?: string; // Status.
@@ -24,6 +26,8 @@ export class LabProcedureWithOrder {
   PatientName?: string;
   ProviderName?: string;
   TotalRecords?: number;
+  Result?: LabResult;
+  StrTests?: string;
 }
 
 export class TestOrder {
@@ -35,4 +39,31 @@ export class TestOrder {
   Units?: string;
   Flag?: string;
   Range?: string;
+}
+
+export class LabResult{
+  LabResultId?: string;
+  Fasting?: string;
+  Specimen?: string;
+  SpecimenType?: string;
+  TestReportedAt?: string;
+  ProviderId?: string;
+  NPI?: string;
+  OrderName?: string;
+  OrderAddress?: string;
+  PerformingName?: string;
+  PerformingAddress?: string;
+  Notes?: string;
+  LabProcedureId?: string;
+  CollectedAt?: string;
+  ReceivedAt?: string;
+  TestedAt?: string;
+  OrderId?: string;
+  CollectedDate?: Date;
+  ReceivedDate?: Date;
+  TestedDate?: Date;
+  TestReportedDate?: Date;
+  CollectedTime?: string;
+  ReceivedTime?: string;
+  TestedTime?: string;
 }

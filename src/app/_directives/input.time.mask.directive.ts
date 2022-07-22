@@ -30,6 +30,7 @@ import {
   NG_VALUE_ACCESSOR,
   Validator,
 } from '@angular/forms';
+import { first } from 'rxjs/operators';
 import { isNumeric } from 'rxjs/util/isNumeric';
 @Directive({
   selector: '[appTimeMask]',
@@ -61,7 +62,7 @@ export class TimeMaskDirective implements OnInit, ControlValueAccessor, Validato
    */
   private _fieldJustGotFocus = false;
 
-  constructor(@Self() private _el: ElementRef, private _renderer: Renderer2) { }
+  constructor(@Self() private _el: ElementRef, private _renderer: Renderer2) {}
 
   ngOnInit() {
     this._el.nativeElement.style.fontFamily = 'monospace';
@@ -312,7 +313,6 @@ export class TimeMaskDirective implements OnInit, ControlValueAccessor, Validato
 
     let newTime = '';
     let sendCaretToMinutes = false;
-    console.log(caretPosition);
 
     if(caretPosition > 5){
       newTime = `${hours}:${minutes} XM`;
