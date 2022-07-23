@@ -666,14 +666,21 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "AmendmentSources";
   }
 
-  get _labImageOrderNumberListUrl(){
+  get _labImageOrderNumberListUrl() {
     return this._baseUrl + "LabImageOrderNumberList";
   }
 
- get _createUpdateEducationMaterialUrl()
- {
-   return this._baseUrl + "CreateUpdateEducationMaterial";
- }
+  get _createUpdateEducationMaterialUrl() {
+    return this._baseUrl + "CreateUpdateEducationMaterial";
+  }
+
+  get _updateLabResultUrl() {
+    return this._baseUrl + "UpdateLabResult";
+  }
+
+  get _labResultUrl() {
+    return this._baseUrl + "LabResult";
+  }
 
   constructor(public http: HttpClient) {
     super();

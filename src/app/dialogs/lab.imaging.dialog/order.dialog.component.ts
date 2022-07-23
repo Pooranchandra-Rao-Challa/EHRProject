@@ -36,7 +36,7 @@ export class OrderDialogComponent implements OnInit {
   filteredOptions: Observable<MedicalCode[]>;
   testCodeComponent = TestCodeComponent;
   orderingFacilities: UserLocations[];
-
+  saveClicked: boolean = false;
   constructor(private ref: EHROverlayRef,
     private fb: FormBuilder,
     private utilityService: UtilityService,
@@ -117,7 +117,12 @@ export class OrderDialogComponent implements OnInit {
     this.orders.push(this.newOrder(order));
   }
   removeLabOrder(index: number) {
-    this.orders.controls.splice(index, 1);
+    this.orders.controls.splice(index, 1).forEach(ctrl => {
+      if (isNaN(ctrl.get("TestOrderId").value)) {
+        if (this.labandImaging.RemovedTestOrderIds == null) this.labandImaging.RemovedTestOrderIds = [];
+        this.labandImaging.RemovedTestOrderIds.push(ctrl.get("TestOrderId").value)
+      }
+    });
   }
   newOrder(order: TestOrder = {}) {
     return this.fb.group({
@@ -214,7 +219,7 @@ export class OrderDialogComponent implements OnInit {
   }
 
   save() {
-    console.log(this.labandImaging);
+    this.saveClicked = true;
     let isAdd = this.labandImaging.LabProcedureId == null;
     this.labandImaging.ClinicId = this.authService.userValue.ClinicId;
     this.labandImaging.LocationId = this.authService.userValue.CurrentLocation;
@@ -246,7 +251,7 @@ export class OrderDialogComponent implements OnInit {
       if (content === this.testCodeComponent) {
         if (res != null && res.data != null && res.data.TestCode) {
           let value = res.data.TestCode;
-          this.orders.controls[value.Index].setValue({ Code: value.Code, Test: value.Description });
+          this.orders.controls[value.Index].setValue({ Code: value.Code, Test: value.Description, TestOrderId: -1 * value.Index });
         }
       }
 

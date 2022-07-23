@@ -208,12 +208,12 @@ export class LabsImagingComponent implements OnInit {
 
     const ref = this.overlayService.open(content, reqdata);
     ref.afterClosed$.subscribe(res => {
-      if (content === this.orderDialogComponent) {
+      if (content === this.orderDialogComponent
+        || content === this.labOrderEditComponent) {
         if (res != null && res.data != null && res.data.saved) {
           this.InitGridView(this.viewmodel.LabandImageView);
         }
       }
-
     });
   }
 }

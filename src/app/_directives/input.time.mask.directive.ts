@@ -255,7 +255,7 @@ export class TimeMaskDirective implements OnInit, ControlValueAccessor, Validato
 
     let sendCaretToMeridian = false;
 
-    if (firstDigit === '-' || this._fieldJustGotFocus) {
+    if (firstDigit === 'm' || this._fieldJustGotFocus) {
       newMinutes = `0${key}`;
     } else {
       if (Number(minutes) === 59) {
@@ -341,6 +341,8 @@ export class TimeMaskDirective implements OnInit, ControlValueAccessor, Validato
 
   /** Implementation for ControlValueAccessor interface */
   writeValue(value: Date): void {
+    console.log(value);
+
     let inputvalue = value;
     if (value && !(value instanceof Date)) {
       let regexp = new RegExp('^(0?[1-9]|1[0-2]):[0-5][0-9]?(\s*[AaPp][Mm])?')

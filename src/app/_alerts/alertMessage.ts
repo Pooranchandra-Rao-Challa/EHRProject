@@ -357,11 +357,15 @@ export const ERROR_CODES: { [key: string]: string } = {
   'M2G1001':'Lab Order added successfully',
   'M2G1002':'Lab Order updated successfully',
   'M2G1003':'Lab Order deleted successfully',
+  'M2G1004':'Lab Result added successfully',
+  'M2G1005':'Lab Result updated successfully',
 
   //Errors
-  'E2G1001':'Lab Order added successfully',
-  'E2G1002':'Lab Order updated successfully',
-  'E2G1003':'Lab Order deleted successfully',
+  'E2G1001':'Lab Order is not added',
+  'E2G1002':'Lab Order is not updated',
+  'E2G1003':'Lab Order is not deleted',
+  'E2G1004':'Lab Result is not added',
+  'E2G1005':'Lab Result is not updated',
 
   //Login Errors
   'EL001':'Wrong email or password',

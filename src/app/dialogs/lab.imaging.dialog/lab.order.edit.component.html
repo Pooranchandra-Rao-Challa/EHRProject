@@ -1,7 +1,7 @@
 <div class="modal-dialog" id="editlaborder">
   <div class="modal-content editordermodel">
     <div class="modal-header">
-      <p class="modal-title Roboto-medium">Lab Results</p>
+      <p class="modal-title Roboto-medium">Edit Lab Results</p>
       <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close" (click)="cancel()">
         X
       </span>
@@ -344,22 +344,17 @@
                               [matTooltip]="atta.controls.Result.value " class="not-allowed" />
                           </div>
                           <div class="col-md-1 Helvetica-sans-serif-medium">
-                            <!-- <mat-form-field appearance="outline" class="col-md-12"> -->
                             <input matInput placeholder="" formControlName="Units"
                               [matTooltip]="atta.controls.Units.value " class="not-allowed" />
-                            <!-- </mat-form-field> -->
                           </div>
                           <div class="col-md-1 Helvetica-sans-serif-medium">
-                            <!-- <mat-form-field appearance="outline" class="col-md-12"> -->
                             <input matInput placeholder="" formControlName="Flag"
                               [matTooltip]="atta.controls.Flag.value " class="not-allowed" />
-                            <!-- </mat-form-field> -->
                           </div>
                           <div class="col-md-2 Helvetica-sans-serif-medium">
-                            <!-- <mat-form-field appearance="outline" class="col-md-12"> -->
                             <input matInput placeholder="" formControlName="Range"
                               [matTooltip]="atta.controls.Range.value " class="not-allowed" />
-                            <!-- </mat-form-field> -->
+                            <input type="hidden" formControlName="TestOrderId">
                           </div>
                           <div class="col-md-1 Helvetica-sans-serif-medium" style="display:inherit">
                             <button class="minuicon" type="button" aria-expanded="false" (click)="removeLabOrder(i)">
@@ -384,7 +379,7 @@
       <div class="row mt-1" >
         <div class="col-md-12">
           <mat-label>Notes:</mat-label>
-          <textarea matInput class="text-border" placeholder=""></textarea>
+          <textarea matInput class="text-border" placeholder="" [(ngModel)]="labandImaging.Result.Notes"></textarea>
         </div>
       </div>
 
@@ -396,9 +391,9 @@
         <span class="mt-3">Reviewed</span>
       </div>
       <div class="buttons" style="float:right">
-        <button mat-raised-button type="submit" class="btn btn-green   pull-right">Print</button>
-        <button mat-raised-button type="submit" class="btn btn-green   pull-right">Sign</button>
-        <button mat-raised-button type="submit" class="btn btn-green   pull-right">Save</button>
+        <button mat-raised-button type="submit" class="btn btn-green   pull-right" *ngIf="!saveClicked">Print</button>
+        <button mat-raised-button type="submit" class="btn btn-green   pull-right" >Sign</button>
+        <button mat-raised-button type="submit" class="btn btn-green   pull-right" (click)="save()">Save</button>
       </div>
     </div>
   </div>

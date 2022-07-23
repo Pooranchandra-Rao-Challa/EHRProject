@@ -209,7 +209,6 @@ margin: unset;">
         <div class="pattach">
           <div class="container-fluid">
             <div class="row">
-              <!-- <div class="col-md-1"></div> -->
               <div class="col-md-10">
                 <p class="title mt-3"><b>Attachments:</b></p>
               </div>
@@ -236,14 +235,10 @@ margin: unset;">
             </div>
           </div>
         </div>
-
       </form>
-
-
-
     </div>
     <div class="modal-footer">
-      <button mat-raised-button type="submit" class="btn btn-green   pull-right" (click)="save()" [disabled]="enableSave()">Save</button>
+      <button mat-raised-button type="submit" class="btn btn-green   pull-right" (click)="save()" [disabled]="enableSave()" *ngIf="!saveClicked">Save</button>
       <button mat-raised-button type="submit" class="btn btn-green   pull-right" [disabled]="enableSave()">Sign</button>
       <button mat-raised-button class="btn btn-green pull-right" (click)="close()">Close</button>
     </div>

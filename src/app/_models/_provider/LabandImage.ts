@@ -28,6 +28,8 @@ export class LabProcedureWithOrder {
   TotalRecords?: number;
   Result?: LabResult;
   StrTests?: string;
+  strResult?: string;
+  RemovedTestOrderIds: string[] = []
 }
 
 export class TestOrder {
