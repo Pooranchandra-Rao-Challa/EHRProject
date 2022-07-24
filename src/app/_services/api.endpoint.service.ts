@@ -666,8 +666,8 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "AmendmentSources";
   }
 
-  get _labImageOrderNumberListUrl() {
-    return this._baseUrl + "LabImageOrderNumberList";
+  get _labImageOrderWithResultsListUrl() {
+    return this._baseUrl + "LabImageOrderWithResultsList";
   }
 
   get _createUpdateEducationMaterialUrl() {

@@ -40,10 +40,10 @@
       <li>
         <hr class="dropdown-divider">
       </li>
-      <li><a>Add Lab Order</a></li>
-      <li><a>Add Lab Results</a></li>
-      <li><a>Add Imaging Order</a></li>
-      <li><a>Add Imaging Results</a></li>
+      <li><a (click)="openLabDialogs('Lab','Order')">Add Lab Order</a></li>
+      <li><a (click)="openLabDialogs('Lab','Result')">Add Lab Results</a></li>
+      <li><a (click)="openLabDialogs('Image','Order')">Add Imaging Order</a></li>
+      <li><a (click)="openLabDialogs('Image','Result')">Add Imaging Results</a></li>
       <li>
         <hr class="dropdown-divider">
       </li>

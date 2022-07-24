@@ -12,9 +12,11 @@ margin: unset;">
       <div class="row">
         <div class="col-md-3">
           <mat-label class="required">Patient Name:</mat-label>
-          <mat-form-field class="" appearance="outline" [ngStyle]="{'width':'100%'}">
+          <mat-form-field class="" appearance="outline" [ngStyle]="{'width':'100%'}"
+          [class.not-allowed]="diabledPatientSearch" [class.disabled-color]="diabledPatientSearch">
             <input matInput #searchpatient class="form-control" placeholder="Search Patient" type="text"
-              id="searchpatient" name="searchpatient" [matAutocomplete]="serachpatient" />
+              id="searchpatient" name="searchpatient" [matAutocomplete]="serachpatient" [disabled]="diabledPatientSearch"  [readonly]="diabledPatientSearch"
+              [class.disabled-color]="diabledPatientSearch" />
             <mat-autocomplete [displayWith]="displayWithPatientSearch" #serachpatient="matAutocomplete"
               (optionSelected)="onPatientSelected($event)">
               <mat-option *ngIf="isLoading">Loading ...</mat-option>

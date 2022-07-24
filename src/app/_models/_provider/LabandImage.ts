@@ -20,16 +20,20 @@ export class LabProcedureWithOrder {
   ReceivedAt?: string;
   strReceivedAt?: string; // use 'MM/dd/yyyy'
   Notes?: string;
-  Tests: TestOrder[] = [];
+  Tests?: TestOrder[] = [];
   View?: string;
   CreatedDate?: Date;
   PatientName?: string;
   ProviderName?: string;
   TotalRecords?: number;
-  Result?: LabResult;
+  LabResult?: LabResultInfo;
+  ImageResult?: ImageResultInfo;
   StrTests?: string;
   strResult?: string;
-  RemovedTestOrderIds: string[] = []
+  RemovedTestOrderIds?: string[] = [];
+  LabResultId?: string;
+  ImageResultId?: string;
+  ViewFor?: string;
 }
 
 export class TestOrder {
@@ -43,7 +47,7 @@ export class TestOrder {
   Range?: string;
 }
 
-export class LabResult{
+export class LabResultInfo{
   LabResultId?: string;
   Fasting?: string;
   Specimen?: string;
@@ -68,4 +72,11 @@ export class LabResult{
   CollectedTime?: string;
   ReceivedTime?: string;
   TestedTime?: string;
+}
+
+export class ImageResultInfo{
+  ImageResultId?: string;
+  ProviderId?: string;
+  OrderId?: string;
+  LabProcedureId?: string;
 }

@@ -6,9 +6,8 @@ import { OverlayService } from 'src/app/overlay.service';
 import { Actions, PatientSearch } from 'src/app/_models';
 import { LabProcedureWithOrder } from 'src/app/_models/_provider/LabandImage';
 import { ImagingResultDialogComponent } from './imaging.result.dialog.component';
-import { LabOrderEditComponent } from './lab.order.edit.component';
-import { OrderManualEntryDialogComponent } from './order.manual.entry.dialog.component';
-import { PatientService } from 'src/app/_services/patient.service';
+import { LabResultComponent } from './lab.result.component';
+import { OrderDialogComponent } from './order.dialog.component'
 
 @Component({
   selector: 'app-orderresultdialogue',
@@ -17,16 +16,18 @@ import { PatientService } from 'src/app/_services/patient.service';
 })
 export class OrderResultDialogComponent implements OnInit {
   ActionTypes = Actions;
-  labOrderEditComponent = LabOrderEditComponent;
-  orderManualEntryDialogComponent = OrderManualEntryDialogComponent;
+  labResultComponent = LabResultComponent;
   imagingResultDialogComponent = ImagingResultDialogComponent;
+  orderDialogComponent = OrderDialogComponent;
   labandImaging?: LabProcedureWithOrder = new LabProcedureWithOrder();
   labImageOrders?: LabProcedureWithOrder[];
+
+
   constructor(private ref: EHROverlayRef,
     private overlayService: OverlayService,
     private labImageService: LabsImagingService) {
     this.labandImaging = ref.RequestData as LabProcedureWithOrder;
-    this.labandImaging.ProcedureType = this.labandImaging.View;
+
 
   }
 
@@ -34,12 +35,13 @@ export class OrderResultDialogComponent implements OnInit {
     let reqparams = {
       "ClinicId": this.labandImaging.ClinicId,
       "ProcedureType": this.labandImaging.ProcedureType,
+      "PatientId": this.labandImaging.CurrentPatient.PatientId,
     }
-    this.labImageService.LabImageOrderNumberList(reqparams)
+    this.labImageService.LabImageOrderWithResultsList(reqparams)
       .subscribe(resp => {
         if (resp.IsSuccess) {
           let lis = resp.ListResult as LabProcedureWithOrder[];
-          lis.forEach(value =>{
+          lis.forEach(value => {
             value.Tests = JSON.parse(value.StrTests)
           })
           this.labImageOrders = lis;
@@ -51,32 +53,28 @@ export class OrderResultDialogComponent implements OnInit {
   cancel() {
     this.ref.close(null);
   }
+
+
   OpenDialog(opt: LabProcedureWithOrder) {
-    opt.View = opt.ProcedureType;
-    this.labandImaging.PatientId = opt.PatientId;
-    opt.CurrentPatient = new PatientSearch();
-    if (opt.ProcedureType == "Lab") {
-      this.openComponentDialog(this.labOrderEditComponent, opt, Actions.view)
-    } else if (opt.ProcedureType == "Image") {
+    opt.View = this.labandImaging.ProcedureType;
+    opt.ProcedureType = this.labandImaging.ProcedureType;
+    opt.CurrentPatient = this.labandImaging.CurrentPatient;
+    opt.ViewFor = this.labandImaging.ViewFor;
+    if (this.labandImaging.ViewFor == "Order") {
+      this.openComponentDialog(this.orderDialogComponent, opt, Actions.view)
+    } else if (this.labandImaging.ProcedureType == "Lab" &&
+      this.labandImaging.ViewFor == "Result") {
+      this.openComponentDialog(this.labResultComponent, opt, Actions.view)
+    } else if (this.labandImaging.ProcedureType == "Image" &&
+      this.labandImaging.ViewFor == "Result") {
       this.openComponentDialog(this.imagingResultDialogComponent, opt, Actions.view)
     }
   }
+
+
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
     dialogData, action: Actions = this.ActionTypes.add) {
-    let reqdata: any;
-    if (action == Actions.view && content === this.labOrderEditComponent) {
-      reqdata = dialogData;
-    }
-    else  if (action == Actions.add && content === this.labOrderEditComponent) {
-
-    }
-    else if (action == Actions.view && content === this.orderManualEntryDialogComponent) {
-      reqdata = dialogData;
-    }
-    else if (action == Actions.view && content === this.imagingResultDialogComponent) {
-      reqdata = dialogData;
-    }
-    const ref = this.overlayService.open(content, reqdata);
+    const ref = this.overlayService.open(content, dialogData);
     ref.afterClosed$.subscribe(res => {
 
 
@@ -84,17 +82,13 @@ export class OrderResultDialogComponent implements OnInit {
   }
 
   onNoOrderEnterManually() {
-    if (this.labandImaging.View == "Lab"){
-      this.openComponentDialog(this.labOrderEditComponent, null, this.ActionTypes.add)
+    if ((this.labandImaging.ProcedureType == "Lab" &&
+      this.labandImaging.ViewFor == "Order") || (
+        this.labandImaging.ProcedureType == "Image" &&
+        this.labandImaging.ViewFor == "Order"
+      )) {
+      this.openComponentDialog(this.orderDialogComponent, this.labandImaging, this.ActionTypes.add);
     }
-
-    // if (this.labandImaging.View == "Lab") {
-    //   this.openComponentDialog(this.orderManualEntryDialogComponent, null, this.ActionTypes.add)
-
-    // } else if (this.labandImaging.View == "Imaging") {
-    //   this.openComponentDialog(this.imagingResultDialogComponent, null, this.ActionTypes.add)
-    // }
-
   }
 
 

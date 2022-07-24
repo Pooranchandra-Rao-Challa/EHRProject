@@ -96,7 +96,7 @@ import { DiscontinueDialogComponent } from '../../dialogs/discontinue.dialog/dis
 
 import { OrderDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/order.dialog.component';
 import { OrderResultDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/order.result.dialog.component';
-import { LabOrderEditComponent } from 'src/app/dialogs/lab.imaging.dialog/lab.order.edit.component';
+import { LabResultComponent } from 'src/app/dialogs/lab.imaging.dialog/lab.result.component';
 import { OrderManualEntryDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/order.manual.entry.dialog.component';
 import { ImagingResultDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/imaging.result.dialog.component';
 import { TestCodeComponent } from 'src/app/dialogs/lab.imaging.dialog/test.code.component';
@@ -177,7 +177,7 @@ registerLocaleData(localeIt);
     SignEncounterNoteComponent,
     OrderDialogComponent,
     OrderResultDialogComponent,
-    LabOrderEditComponent,
+    LabResultComponent,
     OrderManualEntryDialogComponent,
     ImagingResultDialogComponent,
     TestCodeComponent,
@@ -245,7 +245,7 @@ registerLocaleData(localeIt);
     OrderManualEntryDialogComponent,
     OrderResultDialogComponent,
     OrderDialogComponent,
-    LabOrderEditComponent,
+    LabResultComponent,
     ImagingResultDialogComponent,
     TestCodeComponent]
 })

@@ -1,6 +1,6 @@
 import { PatientService } from 'src/app/_services/patient.service';
 import { MedicalCode } from 'src/app/_models/codes';
-import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { fromEvent, Observable, of } from 'rxjs';
 import { ComponentType } from '@angular/cdk/portal';
@@ -23,7 +23,7 @@ import { DatePipe } from '@angular/common'
   templateUrl: './order.dialog.component.html',
   styleUrls: ['./order.dialog.component.scss']
 })
-export class OrderDialogComponent implements OnInit {
+export class OrderDialogComponent implements OnInit,AfterViewInit {
   @ViewChild('searchpatient', { static: true }) searchpatient: ElementRef;
   filteredPatients: Observable<PatientSearch[]>;
   orderTypeDD = [{ value: 'Lab', viewValue: 'Lab' }, { value: 'Imaging', viewValue: 'Imaging' }]
@@ -37,6 +37,7 @@ export class OrderDialogComponent implements OnInit {
   testCodeComponent = TestCodeComponent;
   orderingFacilities: UserLocations[];
   saveClicked: boolean = false;
+  diabledPatientSearch: boolean = false;
   constructor(private ref: EHROverlayRef,
     private fb: FormBuilder,
     private utilityService: UtilityService,
@@ -49,9 +50,10 @@ export class OrderDialogComponent implements OnInit {
     private patientService: PatientService,
     private datePipe: DatePipe) {
     this.labandImaging = ref.RequestData as LabProcedureWithOrder;
-    console.log(this.labandImaging);
+
     if (this.labandImaging.CurrentPatient == null)
       this.labandImaging.CurrentPatient = new PatientSearch();
+
 
     this.labandImaging.ProcedureType = this.labandImaging.View;
     this.orderingFacilities = JSON.parse(this.authService.userValue.LocationInfo) as UserLocations[];
@@ -93,6 +95,14 @@ export class OrderDialogComponent implements OnInit {
             resp.ListResult as PatientSearch[]);
         } else this.filteredPatients = of([]);
       })
+  }
+
+  ngAfterViewInit(){
+    if(this.labandImaging.CurrentPatient != null && this.labandImaging.CurrentPatient.Name != null){
+      this.searchpatient.nativeElement.value = this.labandImaging.CurrentPatient.Name;
+      this.diabledPatientSearch = true;
+    }
+
   }
   onPatientSelected(selected) {
     this.labandImaging.CurrentPatient = selected.option.value;

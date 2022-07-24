@@ -1,7 +1,7 @@
 <div class="modal-dialog" id="order-manullay">
   <div class="modal-content ordermodel">
     <div class="modal-header" style="margin-top: -1px;margin-right: -1px;">
-      <p class="modal-title Roboto-medium">Search by Lab Order Number </p>
+      <p class="modal-title Roboto-medium">Select {{labandImaging.View}} {{labandImaging.ViewFor}} Number </p>
       <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close" (click)="cancel()">
         X
       </span>
@@ -13,10 +13,8 @@
           <mat-form-field appearance="outline" class="col-md-12">
             <mat-select required placeholder="Other labs">
               <mat-option *ngFor="let opt of labImageOrders" value="opt" (click)="OpenDialog(opt)">
-                {{opt.OrderNumber}}
+                {{opt.OrderNumber}} - {{opt.ScheduledAt | date:'yyyy-dd-MM'}}
               </mat-option>
-              <!-- <mat-option (click)="openComponentDialog(editLabImagingOrderComponent, null, ActionTypes.add)"
-                (click)="cancel()">otherlab</mat-option> -->
             </mat-select>
           </mat-form-field>
         </div>
@@ -24,7 +22,7 @@
       <div class="row">
         <div class="col-md-12" style="padding-top: 20px;">
           <button mat-raised-button type="submit" class="btn btn-danger Helvetica-sans-serif-medium col-md-12"
-            (click)="onNoOrderEnterManually()">Don't have Order#,manual entry</button>
+            (click)="onNoOrderEnterManually()" *ngIf="this.labandImaging.ViewFor == 'Order'">Don't have Order#,manual entry</button>
 
         </div>
       </div>

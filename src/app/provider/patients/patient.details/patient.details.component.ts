@@ -1,4 +1,4 @@
-import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
+
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { BehaviorSubject, of } from 'rxjs';
 import { AfterViewInit, Component, ComponentFactoryResolver, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
@@ -16,6 +16,10 @@ import { ComponentType } from '@angular/cdk/portal';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { EncounterDialogComponent } from 'src/app/dialogs/encounter.dialog/encounter.dialog.component';
 import { ProcedureDialogComponent } from 'src/app/dialogs/procedure.dialog/procedure.dialog.component';
+import { LabProcedureWithOrder } from 'src/app/_models/_provider/LabandImage';
+// import { OrderDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/order.dialog.component'
+// import { LabResultComponent } from 'src/app/dialogs/lab.imaging.dialog/lab.result.component'
+import { OrderResultDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/order.result.dialog.component'
 
 @Component({
   selector: 'app-patient.details',
@@ -38,12 +42,13 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
   breadcrumbs: PatientBreadcurm[] = [];
   removedPatientIdsInBreadcurmb: string[]
   patientAccountInfo: PatientAccountInfo = new PatientAccountInfo();
+  procedureInfo: ProceduresInfo = new ProceduresInfo();
+  ActionTypes = Actions;
   patientPortalAccountComponent = PatientPortalAccountComponent;
   patientHealthPortalComponent = PatientHealthPortalComponent;
   encounterDialogComponent = EncounterDialogComponent;
   procedureDialogComponent = ProcedureDialogComponent;
-  procedureInfo: ProceduresInfo = new ProceduresInfo();
-  ActionTypes = Actions;
+  orderResultDialogComponent = OrderResultDialogComponent;
 
 
   constructor(private authService: AuthenticationService,
@@ -133,7 +138,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
 
   async loadDentalChartComponent() {
     if (this.viewModel.PatientView != 'Dental Chart')
-    this.chartviewcontainerref.clear();
+      this.chartviewcontainerref.clear();
     else {
       this.chartviewcontainerref.clear();
       const { DentalChartComponent } = await import('../dental.chart/dental.chart.component');
@@ -145,7 +150,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
 
   async loadProfileComponent() {
     if (this.viewModel.PatientView != 'Profile')
-    this.chartviewcontainerref.clear();
+      this.chartviewcontainerref.clear();
     else {
       this.chartviewcontainerref.clear();
       const { ProfileComponent } = await import('../profile/profile.component');
@@ -157,7 +162,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
 
   async loadInsuranceComponent() {
     if (this.viewModel.PatientView != 'Insurance')
-    this.chartviewcontainerref.clear();
+      this.chartviewcontainerref.clear();
     else {
       this.chartviewcontainerref.clear();
       const { InsuranceComponent } = await import('../insurance/insurance.component');
@@ -169,7 +174,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
 
   async loadAmendmentsComponent() {
     if (this.viewModel.PatientView != 'Amendments')
-    this.chartviewcontainerref.clear();
+      this.chartviewcontainerref.clear();
     else {
       this.chartviewcontainerref.clear();
       const { AmendmentsComponent } = await import('../amendments/amendments.component');
@@ -181,7 +186,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
 
   async loadPatientsComponent() {
     if (this.viewModel.PatientView != 'Patients')
-    this.chartviewcontainerref.clear();
+      this.chartviewcontainerref.clear();
     else {
       this.chartviewcontainerref.clear();
       const { ResetPasswordComponent } = await import('../resetpassword/resetpassword.component');
@@ -224,11 +229,11 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
       RemovedPatientIds: this.removedPatientIdsInBreadcurmb
     })
       .subscribe(resp => {
-       // console.log(resp);
+        // console.log(resp);
 
         if (resp.IsSuccess) {
           let patients = resp.ListResult as ProviderPatient[];
-        //  console.log(patients);
+          //  console.log(patients);
           this.breadcrumbs = [];
           let pb: PatientBreadcurm = {
             Name: "Patients",
@@ -291,7 +296,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
     })
   }
 
-  _completePatientAccountProcess(req: PatientPortalUser){
+  _completePatientAccountProcess(req: PatientPortalUser) {
     console.log(req);
     this.utilityService.CompletePatientAccountProcess(req).subscribe(resp => {
       if (resp.IsSuccess) {
@@ -301,6 +306,27 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2AP002"])
       }
     });
+  }
+
+  openLabDialogs(procedureType: string, viewfor: string) {
+    let labOrImage: LabProcedureWithOrder = {};
+    labOrImage.ProcedureType = procedureType;
+    labOrImage.View = procedureType;
+    labOrImage.ViewFor = viewfor;
+    labOrImage.PatientId = this.patient.PatientId;
+    labOrImage.CurrentPatient = {};
+    labOrImage.CurrentPatient.PatientId = this.patient.PatientId;
+    labOrImage.CurrentPatient.DateofBirth = new Date(this.patient.Dob);
+    labOrImage.CurrentPatient.Name = this.patient?.FirstName + ' ' + this.patient?.LastName
+    labOrImage.CurrentPatient.PrimaryPhone = this.patient?.PrimaryPhone
+    labOrImage.CurrentPatient.Age = this.patient?.Age;
+    labOrImage.CurrentPatient.Gender = this.patient?.Gender;
+    labOrImage.CurrentPatient.MobilePhone = this.patient?.MobilePhone;
+    labOrImage.ClinicId = this.authService.userValue.ClinicId;
+    console.log(labOrImage);
+
+    this.openComponentDialog(this.orderResultDialogComponent, labOrImage, Actions.view)
+
   }
 
 
@@ -313,6 +339,8 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
       dialogData = data;
     } else if (action == Actions.new && content === this.encounterDialogComponent) {
       dialogData = this.patient;
+    } else if (action == Actions.view && content === this.orderResultDialogComponent) {
+      dialogData = data;
     }
     const ref = this.overlayService.open(content, dialogData);
 

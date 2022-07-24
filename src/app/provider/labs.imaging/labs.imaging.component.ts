@@ -17,7 +17,7 @@ import { BehaviorSubject, fromEvent, merge, Observable, of } from 'rxjs';
 import { catchError, finalize } from 'rxjs/operators';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { LabOrderEditComponent } from 'src/app/dialogs/lab.imaging.dialog/lab.order.edit.component';
+import { LabResultComponent } from 'src/app/dialogs/lab.imaging.dialog/lab.result.component';
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
 import { ImagingResultDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/imaging.result.dialog.component';
 declare var $: any;
@@ -35,7 +35,7 @@ export class LabsImagingComponent implements OnInit {
   viewmodel?: ViewModel;
   orderDialogComponent = OrderDialogComponent;
   orderResultDialogComponent = OrderResultDialogComponent;
-  labOrderEditComponent = LabOrderEditComponent;
+  labResultComponent = LabResultComponent;
   orderManualEntryDialogComponent = OrderManualEntryDialogComponent;
   imagingResultDialogComponent = ImagingResultDialogComponent;
   labandimaging?: LabProcedureWithOrder = new LabProcedureWithOrder();
@@ -114,17 +114,17 @@ export class LabsImagingComponent implements OnInit {
     })
   }
 
-  onChangeProvider(evtSource){
+  onChangeProvider(evtSource) {
     this.labImageDatasource.ProviderId = evtSource.value;
     this.loadLabandImageList();
   }
 
-  onChangeOrderStatus(evtSource){
+  onChangeOrderStatus(evtSource) {
     this.labImageDatasource.OrderStatus = evtSource.value;
     this.loadLabandImageList();
   }
 
-  onChangeResultStatus(evtSource){
+  onChangeResultStatus(evtSource) {
     this.labImageDatasource.ResultStatus = evtSource.value;
     this.loadLabandImageList();
   }
@@ -151,17 +151,15 @@ export class LabsImagingComponent implements OnInit {
       this.paginator.pageSize
     );
   }
-  openEditDialog(data: LabProcedureWithOrder)
-  {
-    if(this.viewmodel.LabandImageView == "Lab"){
+  openEditDialog(data: LabProcedureWithOrder) {
+    if (this.viewmodel.LabandImageView == "Lab") {
       this.openComponentDialog(this.orderDialogComponent, data, this.ActionTypes.view)
     }
   }
-  openResultDialog(data: LabProcedureWithOrder)
-  {
-    if(this.viewmodel.LabandImageView == "Lab"){
-      this.openComponentDialog(this.labOrderEditComponent, data, this.ActionTypes.view)
-    }else if(this.viewmodel.LabandImageView == "Image"){
+  openResultDialog(data: LabProcedureWithOrder) {
+    if (this.viewmodel.LabandImageView == "Lab") {
+      this.openComponentDialog(this.labResultComponent, data, this.ActionTypes.view)
+    } else if (this.viewmodel.LabandImageView == "Image") {
       this.openComponentDialog(this.imagingResultDialogComponent, data, Actions.view)
     }
   }
@@ -178,7 +176,7 @@ export class LabsImagingComponent implements OnInit {
       this.labandimaging.View = this.viewmodel.LabandImageView;
       reqdata = this.labandimaging;
     }
-    else if (action == Actions.view && content === this.labOrderEditComponent && this.viewmodel.LabandImageView == "Lab") {
+    else if (action == Actions.view && content === this.labResultComponent && this.viewmodel.LabandImageView == "Lab") {
       this.labandimaging = dialogData;
       this.labandimaging.View = this.viewmodel.LabandImageView;
       reqdata = this.labandimaging;
@@ -209,7 +207,7 @@ export class LabsImagingComponent implements OnInit {
     const ref = this.overlayService.open(content, reqdata);
     ref.afterClosed$.subscribe(res => {
       if (content === this.orderDialogComponent
-        || content === this.labOrderEditComponent) {
+        || content === this.labResultComponent) {
         if (res != null && res.data != null && res.data.saved) {
           this.InitGridView(this.viewmodel.LabandImageView);
         }
@@ -246,18 +244,18 @@ export class LabImageDatasource implements DataSource<LabProcedureWithOrder>{
     this.queryParams["ProcedureType"] = procedureType;
   }
 
-  set ProviderId(providerId: string){
+  set ProviderId(providerId: string) {
     this.queryParams["ProviderId"] = providerId;
   }
 
-  set OrderStatus(orderStatus: string){
+  set OrderStatus(orderStatus: string) {
     this.queryParams["OrderStatus"] = orderStatus;
   }
 
-  set ResultStatus(resultStatus: string){
+  set ResultStatus(resultStatus: string) {
     this.queryParams["ResultStatus"] = resultStatus;
   }
-  set Filter(filter: string){
+  set Filter(filter: string) {
     this.queryParams["Filter"] = filter;
   }
 
