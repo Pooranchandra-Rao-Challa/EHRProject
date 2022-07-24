@@ -23,6 +23,7 @@ import { AlertMessage, ERROR_CODES } from './../../_alerts/alertMessage';
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 import { SignEncounterNoteComponent } from 'src/app/dialogs/encounter.dialog/sign.encounter.note.component'
 import { stringify } from 'querystring';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-encounter.dialog',
@@ -77,7 +78,8 @@ export class EncounterDialogComponent implements OnInit {
     private smartSchedulerService: SmartSchedulerService,
     private patientService: PatientService,
     private overlayService: OverlayService,
-    private alertmsg: AlertMessage) {
+    private alertmsg: AlertMessage,
+    private datePipe: DatePipe) {
       let i = 1;  //normally would use var here
       while(this.teethNumbers.push(i++)<32){}
      }
@@ -157,6 +159,8 @@ export class EncounterDialogComponent implements OnInit {
       requestdata = {"EncounterId":this.appointment.EncounterId,
                     "AppointmentId": this.appointment.EncounterId == null ?
                             this.appointment.AppointmentId : null};
+    console.log(this.overlayref.RequestData as {"AppointmentId":null,"EncounterId":null} );
+
 
     this.dialogIsLoading = true;
     this.patientService.EncounterView(requestdata).subscribe(resp => {
@@ -323,9 +327,12 @@ export class EncounterDialogComponent implements OnInit {
 
   updateEncounter(){
     let isAdd = this.encounterInfo.EncounterId == null;
+
+    this.encounterInfo.strServicedAt = this.datePipe.transform(this.encounterInfo.ServicedAt, "MM/dd/yyyy")
+    if(this.encounterInfo.ServiceEndAt != null)
+    this.encounterInfo.strServiceEndAt = this.datePipe.transform(this.encounterInfo.ServiceEndAt, "MM/dd/yyyy")
     console.log(this.encounterInfo);
 
-    return;
     this.patientService.CreateEncounter(this.encounterInfo).subscribe(resp => {
       if (resp.IsSuccess) {
         this.overlayref.close({"UpdatedModal": PatientChart.Encounters});

@@ -10,11 +10,8 @@ import { PatientService } from 'src/app/_services/patient.service';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { MedicalCode } from 'src/app/_models/codes';
-import * as moment from 'moment';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
-//import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
-//import { CustomMomentDateAdapter } from 'src/app/_common/custom.date.adapter';
-//import { AppMomentDateAdapter,MOMENT_DATE_FORMATS }from 'src/app/_common/app.moment.date.adapter';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -23,9 +20,6 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
   styleUrls: ['./procedure.dialog.component.scss'],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-US' },
-    //{ provide: DateAdapter, useClass: AppMomentDateAdapter },
-   // { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
-    //{ provide: MAT_DATE_FORMATS, useValue: MOMENT_DATE_FORMATS }
   ]
 })
 export class ProcedureDialogComponent implements OnInit {
@@ -42,7 +36,8 @@ export class ProcedureDialogComponent implements OnInit {
     private authService: AuthenticationService,
     private patientService: PatientService,
     private utilityService: UtilityService,
-    private alertmsg: AlertMessage) {
+    private alertmsg: AlertMessage,
+    private datePipe: DatePipe) {
     let i = 1;
     while (this.teethNumbers.push(i++) < 32) {
       this.patient = authService.viewModel.Patient;
@@ -417,20 +412,14 @@ cusp_distolingual */
   save() {
 
     let isAdd = this.procedureInfo.ProcedureId == null;
-
-
-    // this.procedureInfo.strDate = this.procedureInfo.Date ? this.procedureInfo.Date.toUTCString() : null;
-    // this.procedureInfo.strEndDate = this.procedureInfo.EndDate ? this.procedureInfo.EndDate.toLocaleDateString() : null;
-    // this.procedureInfo.strReasonStartDate = this.procedureInfo.ReasonStartDate ? this.procedureInfo.ReasonStartDate.toLocaleDateString() : null;
-    // this.procedureInfo.strEndDate = this.procedureInfo.Date ? this.procedureInfo.Date.toLocaleDateString() : null;
-    // this.procedureInfo.strReasonStartDate = this.procedureInfo.Date ? this.procedureInfo.Date.toUTCString() : null;
-
+    this.procedureInfo.PatientId = this.patient.PatientId;
+    this.procedureInfo.ProcedureId = this.patient.ProviderId;
+    this.procedureInfo.LocationId = this.authService.userValue.CurrentLocation;
+    this.procedureInfo.strDate = this.datePipe.transform(this.procedureInfo.Date, "MM/dd/yyyy")
+    this.procedureInfo.strEndDate = this.datePipe.transform(this.procedureInfo.EndDate, "MM/dd/yyyy")
+    this.procedureInfo.strReasonStartDate = this.datePipe.transform(this.procedureInfo.ReasonStartDate, "MM/dd/yyyy")
     console.log(this.procedureInfo);
-
-    this.procedureInfo.strDate = moment.utc(this.procedureInfo.Date).toISOString()
-    this.procedureInfo.strEndDate = moment.utc(this.procedureInfo.EndDate).toISOString()
-    this.procedureInfo.strReasonStartDate =  moment.utc(this.procedureInfo.ReasonStartDate).toISOString()
-
+    return;
     this.patientService.CreateProcedure(this.procedureInfo)
       .subscribe(resp => {
         if (resp.IsSuccess) {

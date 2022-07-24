@@ -410,7 +410,7 @@
               <div class="card-body">
                 <ul class="main-list" *ngFor="let encounter of chartInfo.Encounters">
                   <li>
-                    <a (click)="openComponentDialog(encounterDialogComponent,encounter,ActionTypes.new)">
+                    <a (click)="openComponentDialog(encounterDialogComponent,encounter,ActionTypes.view)">
                       <span *ngIf="encounter?.ServicedAt != null && encounter?.ServicedAt !=''">
                         - {{encounter?.ServicedAt | date: 'MM/dd/yyyy'}}
                       </span>
@@ -470,20 +470,20 @@
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list" *ngFor="let appointment of appointments">
+                <ul class="main-list" *ngFor="let appointment of chartInfo.Appointments">
                   <li>
-                    <a>
-                      <span *ngIf="appointment?.start_at != null && appointment?.start_at !=''">
-                        - {{appointment?.start_at | date: 'MM/dd/yyyy'}}
+                    <a (click)="openComponentDialog(appointmentDialogComponent,appointment,ActionTypes.view)">
+                      <span *ngIf="appointment?.StartAt != null && appointment?.StartAt !=''">
+                        - {{appointment?.StartAt | date: 'MM/dd/yyyy'}}
                       </span>
-                      <span *ngIf="appointment?.appt_status != null && appointment?.appt_status !=''">
-                        - {{appointment?.appt_status}}
+                      <span *ngIf="appointment?.ApptStatus != null && appointment?.ApptStatus !=''">
+                        - {{appointment?.ApptStatus}}
                       </span>
                     </a>
                   </li>
                 </ul>
                 <ul class="main-list">
-                  <li *ngIf="appointments?.length == (0 || null || undefined)">
+                  <li *ngIf="chartInfo.Appointments?.length == (0 || null || undefined)">
                     <span>No appointments recorded.</span>
                   </li>
                 </ul>

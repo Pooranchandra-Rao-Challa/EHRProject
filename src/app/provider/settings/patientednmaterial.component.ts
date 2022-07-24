@@ -5,7 +5,7 @@ import { UtilityService } from '../../_services/utiltiy.service';
 import { EducationMaterialCode, EncounterDiagnosis, EncounterInfo, PatientEducationInfomation, User, UserLocations } from '../../_models';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { LocationSelectService } from '../../_navigations/provider.layout/location.service';
+import { LocationSelectService } from '../../_navigations/provider.layout/view.notification.service';
 import Swal from 'sweetalert2';
 import { MedicalCode } from 'src/app/_models/codes';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
@@ -29,9 +29,9 @@ export class PatientEdnMaterialComponent implements OnInit {
   patientEdMaterialSearchColumns = ["CODE", "CODE SYSTEM", "DESCRIPTION","Delete"];
   Patientedmateriallist: any = [];
   educationMaterialCode:EducationMaterialCode=new EducationMaterialCode();
- 
 
- 
+
+
 
   constructor(private fb: FormBuilder, private settingservice: SettingsService, private authService: AuthenticationService,private alertmsg: AlertMessage) {
     this.user = authService.userValue;
@@ -41,7 +41,7 @@ export class PatientEdnMaterialComponent implements OnInit {
     this.pageloadevent();
     this.getPatientedmateriallist();
 
-   
+
 
   }
   getPatientedmateriallist() {
@@ -70,7 +70,7 @@ export class PatientEdnMaterialComponent implements OnInit {
   }
   pageloadevent() {
     this.patientmaterialfrom = this.fb.group({
-  
+
       // codeSystem: [''],
       // resouceNote: [''],
       // attachments: this.fb.array([])
@@ -148,10 +148,10 @@ export class PatientEdnMaterialComponent implements OnInit {
   }
   editEducationMaterial(item)
   {
-    
+
     this.educationMaterialCode=item;
-   
+
   }
- 
+
 }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LocationSelectService,ViewChangeService } from './location.service';
+import { LocationSelectService,ViewChangeService } from './view.notification.service';
 
 @Component({ templateUrl: 'provider.component.html' })
 export class ProviderComponent implements OnInit {

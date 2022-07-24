@@ -93,7 +93,7 @@ export interface AvailableTimeSlot{
   Selected? : boolean;
 }
 
-export interface AppointmentDialogInfo{
+export class AppointmentDialogInfo{
   Title?: string;
   ProviderId?: string;
   LocationId?: string;
@@ -101,10 +101,10 @@ export interface AppointmentDialogInfo{
   PatientAppointment?:NewAppointment
   PracticeProviders?:PracticeProviders[]
   AppointmentTypes?: AppointmentTypes[]
-  Locations: UserLocations[];
+  Locations?: UserLocations[];
   Rooms?: Room[];
   AppointmentsOfPatient?: NewAppointment[];
-  status: Actions;
+  status?: Actions;
 }
 
 export enum Actions {

@@ -31,7 +31,7 @@ import { CalendarComponent } from '../../provider/calendar/calendar.component';
 import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 // import { DateTimePickerModule } from "@syncfusion/ej2-angular-calendars";
 // import { ScheduleModule, DayService, WeekService } from '@syncfusion/ej2-angular-schedule';
-import { LocationSelectService, ViewChangeService } from './location.service';
+import { LocationSelectService, ViewChangeService } from './view.notification.service';
 import { UtilityService } from '../../_services/utiltiy.service';
 import { SmartSchedulerService } from '../../_services/smart.scheduler.service';
 import { SettingsModule } from '../../provider/settings/settings.module';

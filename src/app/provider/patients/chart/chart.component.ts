@@ -30,8 +30,6 @@ import { NewAppointmentDialogComponent } from 'src/app/dialogs/newappointment.di
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
 import { AddeditinterventionComponent } from 'src/app/dialogs/addeditintervention/addeditintervention.component';
 import { SettingsService } from '../../../_services/settings.service';
-import { T } from '@angular/cdk/keycodes';
-import { debug } from 'console';
 import { MedicationDialogComponent } from 'src/app/dialogs/medication.dialog/medication.dialog.component';
 import { AllergyDialogComponent } from 'src/app/dialogs/allergy.dialog/allergy.dialog.component';
 
@@ -91,7 +89,7 @@ export class ChartComponent implements OnInit {
   currentPatient: ProviderPatient;
   ActionTypes = Actions;
   chartInfo: ChartInfo = new ChartInfo;
-  PatientAppointment: NewAppointment = {};
+  //PatientAppointment: NewAppointment = {};
   PracticeProviders: PracticeProviders[];
   AppointmentTypes: AppointmentTypes[];
   Locations: UserLocations[];
@@ -140,7 +138,6 @@ export class ChartComponent implements OnInit {
       , distinctUntilChanged()
       // subscription for response
     ).subscribe(value => this._filterVaccine(value));
-    console.log(this.patientImmunization.Code);
 
   }
 
@@ -239,13 +236,20 @@ export class ChartComponent implements OnInit {
       reqdata = dialogData;
     }
     else if (action == Actions.new && content === this.encounterDialogComponent) {
-      if (dialogData != null) reqdata = dialogData as ScheduledAppointment;
-      else reqdata = this.authService.viewModel.Patient;
-      if (reqdata.PatientId == null)
-        reqdata.PatientId = this.currentPatient.PatientId;
-
+      let ef = new EncounterInfo();
+      if (dialogData == null){
+        ef.PatientId = this.authService.viewModel.Patient.PatientId;
+      }
+      reqdata = ef;
+    }else if (action == Actions.view && content === this.encounterDialogComponent) {
+      let ef = new EncounterInfo();
+      ef.EncounterId = dialogData.EncounterId
+      ef.PatientId = dialogData.PatientId
+      reqdata = ef;
     } else if (action == Actions.new && content === this.appointmentDialogComponent) {
-      reqdata = this.PatientAppointmentInfo(action);
+      reqdata = this.PatientAppointmentInfoForNew(action);
+    }else if (action == Actions.view && content === this.appointmentDialogComponent) {
+      reqdata = this.PatientAppointmentInfoForView(dialogData,action);
     }
 
     const ref = this.overlayService.open(content, reqdata);
@@ -322,6 +326,13 @@ export class ChartComponent implements OnInit {
       // this.displayWithVaccine(dialogData);
     }
   }
+
+  GetAppointmentInfo(){
+    let data: AppointmentDialogInfo = {}
+
+  }
+
+
 
   CreatePastMedicalHistories() {
     let isAdd = this.patientPastMedicalHistory.PastMedicalHistoryId == undefined;
@@ -636,22 +647,55 @@ export class ChartComponent implements OnInit {
     { value: 'All', viewValue: 'All' },
   ];
 
+  PatientAppointmentInfoForView(appointment: any, action?: Actions) {
+    let data = {} as AppointmentDialogInfo;
+    let PatientAppointment: NewAppointment = {};
 
-  PatientAppointmentInfo(action: Actions) {
+    PatientAppointment = {} as NewAppointment;
+    PatientAppointment.PatientId = appointment.PatientId;
+    PatientAppointment.PatientName = appointment.PatientName;
+    PatientAppointment.LocationId = appointment.LocationId;
+    PatientAppointment.ProviderId = appointment.ProviderId;
+    PatientAppointment.ClinicId = this.authService.userValue.ClinicId;
+    PatientAppointment.AppointmentId = appointment.AppointmentId;
+    PatientAppointment.AppointmentStatusId = appointment.ApptStatusId;
+    PatientAppointment.AppointmentTypeId = appointment.ApptTypeId;
+    PatientAppointment.LocationId = appointment.LocationId;
+    PatientAppointment.RoomId = appointment.RoomId;
+    PatientAppointment.Notes = appointment.Note;
+    PatientAppointment.Duration = 30;
+    PatientAppointment.Notes = appointment.Note;
+    PatientAppointment.Startat = appointment.StartAt
+    data.Title = "Edit Appointment";
+    data.ClinicId = this.authService.userValue.ClinicId;
+    data.ProviderId = appointment.ProviderId;
+    data.LocationId = appointment.LocationId;
+    data.PatientAppointment = PatientAppointment;
+    data.AppointmentTypes = this.AppointmentTypes;
+    data.PracticeProviders = this.PracticeProviders;
+    data.Locations = this.Locations;
+    data.Rooms = this.Rooms;
+    data.status = action;
+    console.log(data);
+
+    return data;
+  }
+
+  PatientAppointmentInfoForNew(action: Actions) {
 
     let data = {} as AppointmentDialogInfo;
-    //this.PatientAppointment = {} as NewAppointment;
-    this.PatientAppointment.PatientId = this.currentPatient.PatientId;
-    this.PatientAppointment.PatientName = this.currentPatient.FirstName + ' ' + this.currentPatient.LastName;
-    this.PatientAppointment.LocationId = this.authService.userValue.CurrentLocation;
-    this.PatientAppointment.ProviderId = this.currentPatient.ProviderId;
-    this.PatientAppointment.ClinicId = this.authService.userValue.ClinicId;
-    this.PatientAppointment.Duration = 30;
+    let PatientAppointment: NewAppointment = {};
+    PatientAppointment.PatientId = this.currentPatient.PatientId;
+    PatientAppointment.PatientName = this.currentPatient.FirstName + ' ' + this.currentPatient.LastName;
+    PatientAppointment.LocationId = this.authService.userValue.CurrentLocation;
+    PatientAppointment.ProviderId = this.currentPatient.ProviderId;
+    PatientAppointment.ClinicId = this.authService.userValue.ClinicId;
+    PatientAppointment.Duration = 30;
     data.Title = "New Appointment";
     data.ClinicId = this.authService.userValue.ClinicId;
     data.ProviderId = this.currentPatient.ProviderId;
     data.LocationId = this.authService.userValue.CurrentLocation;
-    data.PatientAppointment = this.PatientAppointment;
+    data.PatientAppointment = PatientAppointment;
     data.AppointmentTypes = this.AppointmentTypes;
     data.PracticeProviders = this.PracticeProviders;
     data.Locations = this.Locations;

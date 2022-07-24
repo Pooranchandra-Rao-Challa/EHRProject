@@ -34,6 +34,8 @@ export class EncounterInfo {
 
   ServicedAt?: Date = new Date;
   ServiceEndAt?: Date;
+  strServicedAt?: string;
+  strServiceEndAt?: string;
   Medication?: string = "yes";
   ClinicalSummary: boolean = false;
   Signed: boolean = false;
