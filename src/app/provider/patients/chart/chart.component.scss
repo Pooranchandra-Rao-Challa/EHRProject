@@ -133,6 +133,7 @@ ul.go-to-nav {
 .new-search-input {
   display: inline-flex;
   width: 100%;
+  border: 1px solid #41b6a6;
 }
 
 input.new-search::placeholder {
@@ -152,7 +153,7 @@ input.new-search::placeholder {
 }
 
 .new-search {
-  background-color: #fff;
+ // background-color: #fff;
   color: #4A4A4A;
   border-color: #41b6a6;
 }

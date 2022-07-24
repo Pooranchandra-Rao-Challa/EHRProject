@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, QueryList, ViewChildren, ViewChild, ElementRef, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
+import { Component, OnInit, TemplateRef, QueryList, ViewChildren, ViewChild, ElementRef, ViewContainerRef, ComponentFactoryResolver, AfterViewInit } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
 import { OverlayService } from '../../overlay.service';
 import { PatientDialogComponent } from '../../dialogs/patient.dialog/patient.dialog.component';
@@ -20,10 +20,11 @@ import { catchError, finalize, tap, debounceTime, distinctUntilChanged } from 'r
   templateUrl: './patients.component.html',
   styleUrls: ['./patients.component.scss']
 })
-export class PatientsComponent implements OnInit {
+export class PatientsComponent implements OnInit,AfterViewInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  @ViewChild('SearchPatient') searchPatient: ElementRef;
+  @ViewChild('SearchPatient', { static: true })
+  searchPatient: ElementRef;
   @ViewChild('patientbreadcrumb', { read: ViewContainerRef, static: true })
   private patientbreadcrumb: ViewContainerRef;
   breadcrumbs: PatientBreadcurm[] = [];
@@ -42,6 +43,7 @@ export class PatientsComponent implements OnInit {
     private cfr: ComponentFactoryResolver) {
     this.user = authService.userValue;
     this.removedPatientIdsInBreadcurmb = authService.viewModel.PatientBreadCrumb
+
   }
 
   ngOnInit(): void {

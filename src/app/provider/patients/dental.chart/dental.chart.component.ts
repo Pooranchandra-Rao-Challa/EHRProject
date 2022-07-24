@@ -8,8 +8,10 @@ import { OverlayService } from 'src/app/overlay.service';
 import { ComponentType } from '@angular/cdk/portal';
 import { Actions } from 'src/app/_models';
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { reflectNameOfDeclaration } from '@angular/compiler-cli/src/ngtsc/reflection';
+import { CollectionViewer, DataSource } from '@angular/cdk/collections';
+import { catchError, finalize } from 'rxjs/operators';
 
 declare var $: any;
 @Component({
@@ -31,7 +33,8 @@ export class DentalChartComponent implements OnInit {
   usedProcedures: MedicalCode;
   procedureColumns: string[] = ['SELECT', 'START DATE', 'END DATE', 'TOOTH', 'SURFACE', 'CODE', 'DESCRIPTION', 'PROVIDER', 'STATUS', 'CQM STATUS','Encounter'];
 
-  patientProceduresView = new BehaviorSubject<ProceduresInfo[]> ([]);
+  //patientProceduresView = new BehaviorSubject<ProceduresInfo[]> ([]);
+  procedureDataSource: ProcedureDatasource;
 
   constructor(private overlayService: OverlayService,
     private dentalService: DentalChartService,
@@ -42,10 +45,6 @@ export class DentalChartComponent implements OnInit {
   ngOnInit(): void {
     this.patientUsedProcedures();
     this.patientProcedureView();
-    console.log(this.patientProceduresView);
-    console.log(this.currentPatient);
-
-
   }
 
   patientUsedProcedures(){
@@ -58,14 +57,24 @@ export class DentalChartComponent implements OnInit {
         })
   }
   patientProcedureView(){
-    this.dentalService.PatientProcedureView({"PatientId" : this.currentPatient.PatientId })
-      .subscribe(resp =>
-        {
-          if(resp.IsSuccess){
-            this.patientProceduresView.next(resp.ListResult as ProceduresInfo[]);
-          }
-        })
+    // this.dentalService.PatientProcedureView({"PatientId" : this.currentPatient.PatientId })
+    //   .subscribe(resp =>
+    //     {
+    //       if(resp.IsSuccess){
+    //         this.patientProceduresView.next(resp.ListResult as ProceduresInfo[]);
+    //       }
+    //     })
+    let reqparams = {
+      "PatientId": this.currentPatient.PatientId,
+    }
+    this.procedureDataSource = new ProcedureDatasource(this.dentalService, reqparams);
+    this.procedureDataSource.loadPatients();
   }
+
+  getPatientsByProvider() {
+
+  }
+
   AdultPerm() {
     this.AdultPrem = true;
     this.ChilPrim = false;
@@ -109,4 +118,60 @@ export class DentalChartComponent implements OnInit {
       }
     });
   }
+}
+
+
+
+export class ProcedureDatasource implements DataSource<ProceduresInfo>{
+
+  private proceduresSubject = new BehaviorSubject<ProceduresInfo[]>([]);
+  private loadingSubject = new BehaviorSubject<boolean>(false);
+  public loading$ = this.loadingSubject.asObservable();
+
+
+  constructor(private dentalService: DentalChartService, private queryParams: {}) {
+
+
+  }
+  connect(collectionViewer: CollectionViewer): Observable<ProceduresInfo[] | readonly ProceduresInfo[]> {
+    return this.proceduresSubject.asObservable();
+  }
+  disconnect(collectionViewer: CollectionViewer): void {
+    this.proceduresSubject.complete();
+    this.loadingSubject.complete();
+  }
+
+  set Status(status: string) {
+    this.queryParams["Status"] = status;
+  }
+  set ProviderId(id:string){
+    this.queryParams["ProviderId"] = id;
+  }
+
+  loadPatients(filter = '', sortField = 'LastAccessed',
+    sortDirection = 'desc', pageIndex = 0, pageSize = 10) {
+    this.queryParams["SortField"] = sortField;
+    this.queryParams["SortDirection"] = sortDirection;
+    this.queryParams["PageIndex"] = pageIndex;
+    this.queryParams["PageSize"] = pageSize;
+    this.loadingSubject.next(true);
+
+
+    this.dentalService.PatientProcedureView(this.queryParams).pipe(
+      catchError(() => of([])),
+      finalize(() => this.loadingSubject.next(false))
+    )
+      .subscribe(resp => {
+
+        this.proceduresSubject.next(resp.ListResult as ProceduresInfo[])
+      });
+  }
+
+
+  get TotalRecordSize(): number {
+    if (this.proceduresSubject.getValue() && this.proceduresSubject.getValue().length > 0)
+      return this.proceduresSubject.getValue()[0].TotalProcedures;
+    return 0;
+  }
+
 }

@@ -419,7 +419,7 @@ cusp_distolingual */
     this.procedureInfo.strEndDate = this.datePipe.transform(this.procedureInfo.EndDate, "MM/dd/yyyy")
     this.procedureInfo.strReasonStartDate = this.datePipe.transform(this.procedureInfo.ReasonStartDate, "MM/dd/yyyy")
     console.log(this.procedureInfo);
-    return;
+
     this.patientService.CreateProcedure(this.procedureInfo)
       .subscribe(resp => {
         if (resp.IsSuccess) {

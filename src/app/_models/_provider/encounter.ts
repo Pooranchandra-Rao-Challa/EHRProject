@@ -161,6 +161,7 @@ export class ProceduresInfo implements IDeleteFlag {
 
   ViewFrom?: string;
   CanDelete?: boolean = false;
+  TotalProcedures?: number;
 }
 
 export class VitalInfo {

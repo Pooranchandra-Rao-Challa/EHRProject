@@ -4,7 +4,7 @@ import { Observable, of, BehaviorSubject, fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 import { ProviderPatient } from './../../../_models/_provider/Providerpatient';
-import { Component, OnInit, ElementRef, ViewChild, ViewChildren } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, ViewChildren, AfterViewInit } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
 import { OverlayService } from '../../../overlay.service';
 import { AdvancedDirectivesDialogComponent } from '../../../dialogs/advanced.directives.dialog/advanced.directives.dialog.component';
@@ -17,7 +17,7 @@ import {
   Immunization, Medication, EncounterInfo, NewAppointment, SmokingStatus, TobaccoUseScreenings, TobaccoUseInterventions,
   Diagnosis, AllergyType, SeverityLevel, OnSetAt, DiagnosisDpCodes, PracticeProviders,
   AppointmentTypes, UserLocations, Room, AppointmentDialogInfo, Vaccine, User, TobaccoUse,
-  GlobalConstants, PatientSearchResults, Labandimaging, MEDICATION_NAMES
+  GlobalConstants, PatientSearchResults, Labandimaging, MEDICATION_NAMES, PatientSearch
 } from 'src/app/_models';
 
 
@@ -38,15 +38,19 @@ import { AllergyDialogComponent } from 'src/app/dialogs/allergy.dialog/allergy.d
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.scss']
 })
-export class ChartComponent implements OnInit {
+export class ChartComponent implements OnInit, AfterViewInit {
   public selectedPatient: PatientSearchResults[];
   @ViewChild('searchVaccineCode', { static: true }) searchVaccineCode: ElementRef;
+
+  @ViewChild('searchPatient', { static: true })
+  searchPatient: ElementRef;
   labandimaging: Labandimaging;
-  // @ViewChild('searchMedicineCode', { static: true }) searchMedicineCode: ElementRef;
-  // filteredMedicines: Observable<PatientSearchResults[]>;
+
   vaccines: Observable<Vaccine[]>;
   filteredMedicines: any = [];
   isLoading = false;
+
+  filteredPatients: Observable<PatientSearch[]>;
 
   advancedDirectivesDialogComponent = AdvancedDirectivesDialogComponent;
   smokingStatusDialogComponent = SmokingStatusDialogComponent;
@@ -113,18 +117,13 @@ export class ChartComponent implements OnInit {
     private alertmsg: AlertMessage,
     public datepipe: DatePipe,
     private smartSchedulerService: SmartSchedulerService,
-    private settingsService: SettingsService) {
+    private settingsService: SettingsService,) {
     this.user = authService.userValue;
-  }
 
-  ngOnInit(): void {
-    this.loadGlobalConstants();
-    this.currentPatient = this.authService.viewModel.Patient;
-    this.ChartInfo();
-    this.loadDefaults();
-    this.loadAllergyNames('');
-    // this.loadVaccines();
-    this.loadLocationsList();
+
+  }
+  ngAfterViewInit(): void {
+
     fromEvent(this.searchVaccineCode.nativeElement, 'keyup').pipe(
       // get value
       map((event: any) => {
@@ -139,6 +138,52 @@ export class ChartComponent implements OnInit {
       // subscription for response
     ).subscribe(value => this._filterVaccine(value));
 
+    fromEvent(this.searchPatient.nativeElement, 'keyup').pipe(
+      // get value
+      map((event: any) => {
+        return event.target.value;
+      })
+      // if character length greater then 2
+      , filter(res => res.length > 2 && res.length < 6)
+      // Time in milliseconds between key events
+      , debounceTime(1000)
+      // If previous query is diffent from current
+      , distinctUntilChanged()
+      // subscription for response
+    ).subscribe(value => this._filterPatients(value));
+  }
+
+  _filterPatients(term: string){
+    console.log(term);
+    this.patientService
+      .PatientSearch({
+        ProviderId: this.authService.userValue.ProviderId,
+        ClinicId: this.authService.userValue.ClinicId,
+        SearchTerm: term
+      })
+      .subscribe(resp => {
+        if (resp.IsSuccess) {
+          this.filteredPatients = of(
+            resp.ListResult as PatientSearch[]);
+        } else this.filteredPatients = of([]);
+      })
+  }
+  onPatientSelected(selected) {
+    console.log(selected);
+
+    //this.labandImaging.CurrentPatient = selected.option.value;
+  }
+  displayWithPatientSearch(value: PatientSearch): string {
+    if (!value) return "";
+    return value.Name;
+  }
+  ngOnInit(): void {
+    this.loadGlobalConstants();
+    this.currentPatient = this.authService.viewModel.Patient;
+    this.ChartInfo();
+    this.loadDefaults();
+    this.loadAllergyNames('');
+    this.loadLocationsList();
   }
 
   _filterVaccine(term) {

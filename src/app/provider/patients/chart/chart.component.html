@@ -37,9 +37,18 @@
           <div
             class="input-group new-search-group chart-patient-new-search-group col-xl-10 col-lg-9 col-md-9 col-12 mt-2 mt-md-0">
             <div class="new-search-input">
-              <input type="text" name="chart_find_patient" id="chart_find_patient"
+
+              <input matInput type="text" name="chart_find_patient" id="chart_find_patient" #searchPatient
                 class="new-search form-control ignore_spinner" placeholder="Search Patients..." />
-              <span class="input-group-addon input-group-addon-search chart-find-patient-btn"></span>
+                <mat-autocomplete [displayWith]="displayWithPatientSearch" #searchPatient="matAutocomplete"
+                (optionSelected)="onPatientSelected($event)">
+                <mat-option *ngIf="isLoading">Loading ...</mat-option>
+                <mat-option *ngFor="let option of filteredPatients | async" [value]="option"
+                  class="patient-serach-option"> <!-- [matAutocomplete]="searchPatient" -->
+                  {{option.Name}}
+                </mat-option>
+              </mat-autocomplete>
+
             </div>
           </div>
         </div>

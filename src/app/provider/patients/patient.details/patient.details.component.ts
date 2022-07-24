@@ -133,6 +133,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
       let viewcomp = this.chartviewcontainerref.createComponent(
         this.cfr.resolveComponentFactory(ChartComponent)
       );
+      viewcomp.changeDetectorRef.detectChanges();
     }
   }
 
