@@ -642,7 +642,7 @@
         <ng-container matColumnDef="SELECT">
           <mat-header-cell *matHeaderCellDef>SELECT</mat-header-cell>
           <mat-cell *matCellDef="let procedure">
-            <button matIcon>
+            <button matIcon (click)="canelProcedure(procedure)">
               <mat-icon class="mat-18">delete_forever</mat-icon>
             </button>
           </mat-cell>

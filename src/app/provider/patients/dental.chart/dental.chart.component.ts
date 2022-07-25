@@ -12,6 +12,7 @@ import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { catchError, finalize } from 'rxjs/operators';
+import { AlertMessage, ERROR_CODES} from 'src/app/_alerts/alertMessage';
 
 declare var $: any;
 @Component({
@@ -39,7 +40,8 @@ export class DentalChartComponent implements OnInit {
 
   constructor(private overlayService: OverlayService,
     private dentalService: DentalChartService,
-    private authService: AuthenticationService) {
+    private authService: AuthenticationService,
+    private alertmsg: AlertMessage,) {
     this.currentPatient = authService.viewModel.Patient;
   }
 
@@ -122,6 +124,17 @@ dialogData: any, actions: Actions = this.ActionTypes.new, ToothNo: number = 0, m
       }
     });
   }
+
+  canelProcedure(procedure: ProceduresInfo){
+    this.dentalService.CancelProcedure(procedure).subscribe(resp =>{
+      if(resp.IsSuccess){
+        this.procedureDataSource.loadProcedures();
+        this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP1003"])
+      }else{
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP1002"])
+      }
+    })
+  }
 }
 
 
@@ -178,5 +191,7 @@ export class ProcedureDatasource implements DataSource<ProceduresInfo>{
       return this.proceduresSubject.getValue()[0].TotalProcedures;
     return 0;
   }
+
+
 
 }

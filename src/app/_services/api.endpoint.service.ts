@@ -685,11 +685,13 @@ export class APIEndPoint extends EndpointBase {
   get _procedureStatuesUrl(){
     return this._baseUrl + "ProcedureStatues";
   }
+  get _cancelProcedureUrl(){
+    return this._baseUrl + "CancelProcedure";
+  }
+
   constructor(public http: HttpClient) {
     super();
   }
-
-
 
   _ProcessPostRequestWithHeaders<T>(apiurl: string, reqdata: any): Observable<T> {
     return this.http.post<T>(apiurl, reqdata, this.requestHeaders).pipe(

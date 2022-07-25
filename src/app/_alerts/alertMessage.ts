@@ -247,9 +247,11 @@ export const ERROR_CODES: { [key: string]: string } = {
   //Messages for Patients Procedure Crete
   'M2CP1001': 'Procedure Added sucessfully',
   'M2CP1002': 'Procedure Updated sucessfully',
+  'M2CP1003': 'Procedure Deleted sucessfully',
 
   //ERRORs for Patients Procedure Crete
   'E2CP1001': 'Procedure Updated error',
+  'E2CP1002': 'Procedure Deletion error',
 
   // Smart Scheduler Apoointments;
   'M2AA001': 'Appointment Added successfully',

@@ -469,7 +469,8 @@ this.procedureInfo.Place == "cusp_distolingual"
 
     let isAdd = this.procedureInfo.ProcedureId == null;
     this.procedureInfo.PatientId = this.patient.PatientId;
-    this.procedureInfo.ProcedureId = this.patient.ProviderId;
+    if(this.procedureInfo.ProviderId)
+    this.procedureInfo.ProviderId = this.patient.ProviderId;
     this.procedureInfo.LocationId = this.authService.userValue.CurrentLocation;
     this.procedureInfo.strDate = this.datePipe.transform(this.procedureInfo.Date, "MM/dd/yyyy")
     this.procedureInfo.strEndDate = this.datePipe.transform(this.procedureInfo.EndDate, "MM/dd/yyyy")
