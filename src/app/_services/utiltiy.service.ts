@@ -74,4 +74,10 @@ export class UtilityService extends APIEndPoint {
   {
     return this._ProcessGetRequest<any>(this._amendmentSourcesUrl);
   }
+
+  ProcedureStatues()
+  {
+    return this._ProcessGetRequest<any>(this._procedureStatuesUrl);
+  }
+
 }

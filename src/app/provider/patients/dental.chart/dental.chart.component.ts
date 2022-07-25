@@ -4,12 +4,12 @@ import { DentalChartService } from 'src/app/_services/dentalchart.service';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { ProcedureDialogComponent } from 'src/app/dialogs/procedure.dialog/procedure.dialog.component';
+import { EncounterDialogComponent } from 'src/app/dialogs/encounter.dialog/encounter.dialog.component';
 import { OverlayService } from 'src/app/overlay.service';
 import { ComponentType } from '@angular/cdk/portal';
 import { Actions } from 'src/app/_models';
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { reflectNameOfDeclaration } from '@angular/compiler-cli/src/ngtsc/reflection';
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { catchError, finalize } from 'rxjs/operators';
 
@@ -20,8 +20,8 @@ declare var $: any;
   styleUrls: ['./dental.chart.component.scss']
 })
 export class DentalChartComponent implements OnInit {
-  hoverStartDate:string='Start Date';
-  hoverEndDate:string='End Date';
+  hoverStartDate: string = 'Start Date';
+  hoverEndDate: string = 'End Date';
   AdultPrem: boolean = true;
   ChilPrim: boolean = false;
   displayStyle = "none";
@@ -29,9 +29,10 @@ export class DentalChartComponent implements OnInit {
   procedureCodeList: any = [];
   currentPatient: ProviderPatient
   procedureDialogComponent = ProcedureDialogComponent;
+  encounterDialogComponent = EncounterDialogComponent;
   ActionTypes = Actions
   usedProcedures: MedicalCode;
-  procedureColumns: string[] = ['SELECT', 'START DATE', 'END DATE', 'TOOTH', 'SURFACE', 'CODE', 'DESCRIPTION', 'PROVIDER', 'STATUS', 'CQM STATUS','Encounter'];
+  procedureColumns: string[] = ['SELECT', 'START DATE', 'END DATE', 'TOOTH', 'SURFACE', 'CODE', 'DESCRIPTION', 'PROVIDER', 'STATUS', 'CQM STATUS', 'Encounter'];
 
   //patientProceduresView = new BehaviorSubject<ProceduresInfo[]> ([]);
   procedureDataSource: ProcedureDatasource;
@@ -39,36 +40,28 @@ export class DentalChartComponent implements OnInit {
   constructor(private overlayService: OverlayService,
     private dentalService: DentalChartService,
     private authService: AuthenticationService) {
-      this.currentPatient = authService.viewModel.Patient;
-    }
+    this.currentPatient = authService.viewModel.Patient;
+  }
 
   ngOnInit(): void {
     this.patientUsedProcedures();
     this.patientProcedureView();
   }
 
-  patientUsedProcedures(){
-    this.dentalService.PatientUsedProcedures({"PatientId" : this.currentPatient.PatientId })
-      .subscribe(resp =>
-        {
-          if(resp.IsSuccess){
-            this.usedProcedures = resp.ListResult;
-          }
-        })
+  patientUsedProcedures() {
+    this.dentalService.PatientUsedProcedures({ "PatientId": this.currentPatient.PatientId })
+      .subscribe(resp => {
+        if (resp.IsSuccess) {
+          this.usedProcedures = resp.ListResult;
+        }
+      })
   }
-  patientProcedureView(){
-    // this.dentalService.PatientProcedureView({"PatientId" : this.currentPatient.PatientId })
-    //   .subscribe(resp =>
-    //     {
-    //       if(resp.IsSuccess){
-    //         this.patientProceduresView.next(resp.ListResult as ProceduresInfo[]);
-    //       }
-    //     })
+  patientProcedureView() {
     let reqparams = {
       "PatientId": this.currentPatient.PatientId,
     }
     this.procedureDataSource = new ProcedureDatasource(this.dentalService, reqparams);
-    this.procedureDataSource.loadPatients();
+    this.procedureDataSource.loadProcedures();
   }
 
   getPatientsByProvider() {
@@ -87,20 +80,25 @@ export class DentalChartComponent implements OnInit {
 
 
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
-    dialogData, actions: Actions = this.ActionTypes.new,ToothNo: number=0,medicalCode: MedicalCode) {
-      let reqData: ProceduresInfo
-      if(content == this.procedureDialogComponent){
-        reqData = new ProceduresInfo();
-        reqData.PatientId = this.currentPatient.PatientId;
-        reqData.ProviderId = this.currentPatient.ProviderId;
-        reqData.LocationId = this.authService.userValue.CurrentLocation;
+dialogData: any, actions: Actions = this.ActionTypes.new, ToothNo: number = 0, medicalCode: MedicalCode) {
+    let reqData: any;
+    if (content === this.procedureDialogComponent) {
+      reqData = new ProceduresInfo();
+      if (content == this.procedureDialogComponent) {
+        reqData = dialogData != null ? dialogData : new ProceduresInfo();
+        if (dialogData != null) {
+          reqData.PatientId = this.currentPatient.PatientId;
+          reqData.ProviderId = this.currentPatient.ProviderId;
+          reqData.LocationId = this.authService.userValue.CurrentLocation;
 
-        if(ToothNo>0){
-          reqData.ToothNo = ToothNo ;
+        }
+
+        if (ToothNo > 0) {
+          reqData.ToothNo = ToothNo;
           reqData.ViewFrom = "ToothNo";
 
         }
-        if(medicalCode){
+        if (medicalCode) {
           reqData.Code = medicalCode.Code
           reqData.CodeSystem = medicalCode.CodeSystem
           reqData.Description = medicalCode.Description;
@@ -108,12 +106,18 @@ export class DentalChartComponent implements OnInit {
         }
       }
 
+    }else if(content === this.encounterDialogComponent){
+      reqData = dialogData;
+    }
+
+
     const ref = this.overlayService.open(content, reqData);
 
     ref.afterClosed$.subscribe(res => {
       if (content === this.procedureDialogComponent) {
         if (res.data != null && res.data.saved) {
-          this.patientProcedureView();
+          this.procedureDataSource.loadProcedures();
+          this.patientUsedProcedures();
         }
       }
     });
@@ -144,11 +148,11 @@ export class ProcedureDatasource implements DataSource<ProceduresInfo>{
   set Status(status: string) {
     this.queryParams["Status"] = status;
   }
-  set ProviderId(id:string){
+  set ProviderId(id: string) {
     this.queryParams["ProviderId"] = id;
   }
 
-  loadPatients(filter = '', sortField = 'LastAccessed',
+  loadProcedures(filter = '', sortField = 'LastAccessed',
     sortDirection = 'desc', pageIndex = 0, pageSize = 10) {
     this.queryParams["SortField"] = sortField;
     this.queryParams["SortDirection"] = sortDirection;
@@ -162,6 +166,7 @@ export class ProcedureDatasource implements DataSource<ProceduresInfo>{
       finalize(() => this.loadingSubject.next(false))
     )
       .subscribe(resp => {
+        console.log(resp.ListResult);
 
         this.proceduresSubject.next(resp.ListResult as ProceduresInfo[])
       });

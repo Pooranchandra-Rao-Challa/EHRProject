@@ -32,6 +32,7 @@ export class ProcedureDialogComponent implements OnInit {
   reasonCodes: MedicalCode[] = REASON_CODES;
   selectedCode: string;
   isLoading = false;
+  procedureStatuses: any;
   constructor(private overlayref: EHROverlayRef,
     private authService: AuthenticationService,
     private patientService: PatientService,
@@ -45,7 +46,8 @@ export class ProcedureDialogComponent implements OnInit {
     }
     if (overlayref.RequestData != null)
       this.procedureInfo = overlayref.RequestData;
-    console.log(this.procedureInfo);
+
+    console.log( this.procedureInfo);
 
   }
   ngOnInit(): void {
@@ -62,7 +64,8 @@ export class ProcedureDialogComponent implements OnInit {
       , distinctUntilChanged()
       // subscription for response
     ).subscribe(value => this._filterProcedure(value));
-
+    this._procedureStatuses();
+    this.setSelectedValue();
   }
 
   cancel() {
@@ -121,7 +124,7 @@ cusp_distolingual */
     // let i = this.procedureInfo.Surfaces.indexOf('Buccal V');
     // v ? this.procedureInfo.Surfaces.push('Buccal V')
     //   : this.procedureInfo.Surfaces.splice(i, 1);
-    this.procedureInfo.Surface = 'surface_buccal_v';
+    this.procedureInfo.Place = 'surface_buccal_v';
     this.clearAll();
     this.BuccalV$.next(v);
   }
@@ -133,7 +136,7 @@ cusp_distolingual */
     // let i = this.procedureInfo.Surfaces.indexOf('Incisal');
     // v ? this.procedureInfo.Surfaces.push('Incisal')
     //   : this.procedureInfo.Surfaces.splice(i, 1);
-    this.procedureInfo.Surface = 'surface_incisal';
+    this.procedureInfo.Place = 'surface_incisal';
     this.clearAll();
     this.Incisal$.next(v);
   }
@@ -146,7 +149,7 @@ cusp_distolingual */
     // let i = this.procedureInfo.Surfaces.indexOf('Facial');
     // v ? this.procedureInfo.Surfaces.push('Facial')
     //   : this.procedureInfo.Surfaces.splice(i, 1);
-    this.procedureInfo.Surface = 'surface_facial';
+    this.procedureInfo.Place = 'surface_facial';
     this.clearAll();
     this.Facial$.next(v);
   }
@@ -160,7 +163,7 @@ cusp_distolingual */
     // v ? this.procedureInfo.Surfaces.push('Lingual V')
     //   : this.procedureInfo.Surfaces.splice(i, 1);
 
-    this.procedureInfo.Surface = 'surface_lingual_v';
+    this.procedureInfo.Place = 'surface_lingual_v';
     this.clearAll();
     this.LingualV$.next(v);
   }
@@ -173,7 +176,7 @@ cusp_distolingual */
     // let i = this.procedureInfo.Surfaces.indexOf('Facial V');
     // v ? this.procedureInfo.Surfaces.push('Facial V')
     //   : this.procedureInfo.Surfaces.splice(i, 1);
-    this.procedureInfo.Surface = 'surface_facial_v';
+    this.procedureInfo.Place = 'surface_facial_v';
     this.clearAll();
     this.FacialV$.next(v);
   }
@@ -186,7 +189,7 @@ cusp_distolingual */
     // let i = this.procedureInfo.Surfaces.indexOf('Distal');
     // v ? this.procedureInfo.Surfaces.push('Distal')
     //   : this.procedureInfo.Surfaces.splice(i, 1);
-    this.procedureInfo.Surface = 'surface_distal';
+    this.procedureInfo.Place = 'surface_distal';
     this.clearAll();
     this.Distal$.next(v);
   }
@@ -199,7 +202,7 @@ cusp_distolingual */
     // let i = this.procedureInfo.Surfaces.indexOf('Buccal');
     // v ? this.procedureInfo.Surfaces.push('Buccal')
     //   : this.procedureInfo.Surfaces.splice(i, 1);
-    this.procedureInfo.Surface = 'surface_buccal';
+    this.procedureInfo.Place = 'surface_buccal';
     this.clearAll();
     this.Buccal$.next(v);
   }
@@ -212,7 +215,7 @@ cusp_distolingual */
     // let i = this.procedureInfo.Surfaces.indexOf('Mesial');
     // v ? this.procedureInfo.Surfaces.push('Mesial')
     //   : this.procedureInfo.Surfaces.splice(i, 1);
-    this.procedureInfo.Surface = 'surface_mesial';
+    this.procedureInfo.Place = 'surface_mesial';
     this.clearAll();
     this.Mesial$.next(v);
   }
@@ -226,7 +229,7 @@ cusp_distolingual */
     // let i = this.procedureInfo.Surfaces.indexOf('Lingual');
     // v ? this.procedureInfo.Surfaces.push('Lingual')
     //   : this.procedureInfo.Surfaces.splice(i, 1);
-    this.procedureInfo.Surface = 'surface_lingual';
+    this.procedureInfo.Place = 'surface_lingual';
     this.clearAll();
     this.Lingual$.next(v);
   }
@@ -239,7 +242,7 @@ cusp_distolingual */
     // let i = this.procedureInfo.Surfaces.indexOf('Occlusal');
     // v ? this.procedureInfo.Surfaces.push('Occlusal')
     //   : this.procedureInfo.Surfaces.splice(i, 1);
-    this.procedureInfo.Surface = 'surface_occlusal';
+    this.procedureInfo.Place = 'surface_occlusal';
     this.clearAll();
     this.Occlusal$.next(v);
   }
@@ -252,7 +255,7 @@ cusp_distolingual */
     // let i = this.procedureInfo.Surfaces.indexOf('Pit:Mesiobuccal');
     // v ? this.procedureInfo.Surfaces.push('Pit:Mesiobuccal')
     //   : this.procedureInfo.Surfaces.splice(i, 1);
-    this.procedureInfo.Surface = 'pit_mesiobuccal';
+    this.procedureInfo.Place = 'pit_mesiobuccal';
     this.clearAll();
     this.PitMesiobuccal$.next(v);
   }
@@ -265,7 +268,7 @@ cusp_distolingual */
     // let i = this.procedureInfo.Surfaces.indexOf('Pit:Distobuccal');
     // v ? this.procedureInfo.Surfaces.push('Pit:Distobuccal')
     //   : this.procedureInfo.Surfaces.splice(i, 1);
-    this.procedureInfo.Surface = 'pit_distobuccal';
+    this.procedureInfo.Place = 'pit_distobuccal';
     this.clearAll();
     this.PitDistobuccal$.next(v);
   }
@@ -279,7 +282,7 @@ cusp_distolingual */
     // let i = this.procedureInfo.Surfaces.indexOf('Pit:Mesiolingual');
     // v ? this.procedureInfo.Surfaces.push('Pit:Mesiolingual')
     //   : this.procedureInfo.Surfaces.splice(i, 1);
-    this.procedureInfo.Surface = 'pit_mesiolingual';
+    this.procedureInfo.Place = 'pit_mesiolingual';
     this.clearAll();
     this.PitMesiolingual$.next(v);
   }
@@ -293,7 +296,7 @@ cusp_distolingual */
     // let i = this.procedureInfo.Surfaces.indexOf('Pit:Distolingual');
     // v ? this.procedureInfo.Surfaces.push('Pit:Distolingual')
     //   : this.procedureInfo.Surfaces.splice(i, 1);
-    this.procedureInfo.Surface = 'pit_distolingual';
+    this.procedureInfo.Place = 'pit_distolingual';
     this.clearAll();
     this.PitDistolingual$.next(v);
   }
@@ -307,7 +310,7 @@ cusp_distolingual */
     // let i = this.procedureInfo.Surfaces.indexOf('Cusp:Mesial');
     // v ? this.procedureInfo.Surfaces.push('Cusp:Mesial')
     //   : this.procedureInfo.Surfaces.splice(i, 1);
-    this.procedureInfo.Surface = 'cusp_mesial';
+    this.procedureInfo.Place = 'cusp_mesial';
     this.clearAll();
     this.CuspMesial$.next(v);
   }
@@ -321,7 +324,7 @@ cusp_distolingual */
     // let i = this.procedureInfo.Surfaces.indexOf('Cusp:Distal');
     // v ? this.procedureInfo.Surfaces.push('Cusp:Distal')
     //   : this.procedureInfo.Surfaces.splice(i, 1);
-    this.procedureInfo.Surface = 'cusp_distal';
+    this.procedureInfo.Place = 'cusp_distal';
     this.clearAll();
     this.CuspDistal$.next(v);
   }
@@ -335,7 +338,7 @@ cusp_distolingual */
     // let i = this.procedureInfo.Surfaces.indexOf('Cusp:Mesiobuccal');
     // v ? this.procedureInfo.Surfaces.push('Cusp:Mesiobuccal')
     //   : this.procedureInfo.Surfaces.splice(i, 1);
-    this.procedureInfo.Surface = 'cusp_mesiobuccal';
+    this.procedureInfo.Place = 'cusp_mesiobuccal';
     this.clearAll();
     this.CuspMesiobuccal$.next(v);
   }
@@ -349,7 +352,7 @@ cusp_distolingual */
     // let i = this.procedureInfo.Surfaces.indexOf('Cusp:Distobuccal');
     // v ? this.procedureInfo.Surfaces.push('Cusp:Distobuccal')
     //   : this.procedureInfo.Surfaces.splice(i, 1);
-    this.procedureInfo.Surface = 'cusp_distobuccal';
+    this.procedureInfo.Place = 'cusp_distobuccal';
     this.clearAll();
     this.CuspDistobuccal$.next(v);
   }
@@ -363,7 +366,7 @@ cusp_distolingual */
     // let i = this.procedureInfo.Surfaces.indexOf('Cusp:Mesiolingual');
     // v ? this.procedureInfo.Surfaces.push('Cusp:Mesiolingual')
     //   : this.procedureInfo.Surfaces.splice(i, 1);
-    this.procedureInfo.Surface = 'cusp_mesiolingual';
+    this.procedureInfo.Place = 'cusp_mesiolingual';
     this.clearAll();
     this.CuspMesiolingual$.next(v);
   }
@@ -377,7 +380,7 @@ cusp_distolingual */
     // let i = this.procedureInfo.Surfaces.indexOf('Cusp:Distolingual');
     // v ? this.procedureInfo.Surfaces.push('Cusp:Distolingual')
     //   : this.procedureInfo.Surfaces.splice(i, 1);
-    this.procedureInfo.Surface = 'cusp_distolingual';
+    this.procedureInfo.Place = 'cusp_distolingual';
     this.clearAll();
     this.CuspDistolingual$.next(v);
   }
@@ -405,6 +408,59 @@ cusp_distolingual */
     this.CuspDistobuccal$.next(false);
     this.CuspMesiolingual$.next(false);
     this.CuspDistolingual$.next(false);
+
+  }
+/**
+ *
+ *
+this.procedureInfo.Place == "surface_buccal_v"
+this.procedureInfo.Place == "surface_facial_v"
+this.procedureInfo.Place == "surface_mesial"
+this.procedureInfo.Place == "surface_incisal"
+this.procedureInfo.Place == "surface_distal"
+this.procedureInfo.Place == "surface_lingual"
+this.procedureInfo.Place == "surface_facial"
+this.procedureInfo.Place == "surface_buccal"
+this.procedureInfo.Place == "surface_occlusal"
+this.procedureInfo.Place == "surface_lingual_v"
+
+
+this.procedureInfo.Place == "pit_mesiobuccal"
+this.procedureInfo.Place == "pit_mesiolingual"
+this.procedureInfo.Place == "pit_distobuccal"
+this.procedureInfo.Place == "pit_distolingual"
+
+
+this.procedureInfo.Place == "cusp_mesial"
+this.procedureInfo.Place == "cusp_mesiobuccal"
+this.procedureInfo.Place == "cusp_mesiolingual"
+this.procedureInfo.Place == "cusp_distal"
+this.procedureInfo.Place == "cusp_distobuccal"
+this.procedureInfo.Place == "cusp_distolingual"
+*/
+  setSelectedValue() {
+    this.BuccalV$.next(this.procedureInfo.Place == "surface_buccal_v");
+    this.Facial$.next(this.procedureInfo.Place == "surface_facial");
+    this.Incisal$.next(this.procedureInfo.Place == "surface_incisal");
+    this.LingualV$.next(this.procedureInfo.Place == "surface_lingual_v");
+    this.FacialV$.next(this.procedureInfo.Place == "surface_facial_v");
+    this.Distal$.next(this.procedureInfo.Place == "surface_distal");
+    this.Buccal$.next(this.procedureInfo.Place == "surface_buccal");
+    this.Mesial$.next(this.procedureInfo.Place == "surface_mesial");
+    this.Lingual$.next(this.procedureInfo.Place == "surface_lingual");
+    this.Occlusal$.next(this.procedureInfo.Place == "surface_occlusal");
+
+    this.PitMesiobuccal$.next(this.procedureInfo.Place == "pit_mesiobuccal");
+    this.PitDistobuccal$.next(this.procedureInfo.Place == "pit_distobuccal");
+    this.PitMesiolingual$.next(this.procedureInfo.Place == "pit_mesiolingual");
+    this.PitDistolingual$.next(this.procedureInfo.Place == "pit_distolingual");
+
+    this.CuspMesial$.next(this.procedureInfo.Place == "cusp_mesial");
+    this.CuspDistal$.next(this.procedureInfo.Place == "cusp_distal");
+    this.CuspMesiobuccal$.next(this.procedureInfo.Place == "cusp_mesiobuccal");
+    this.CuspDistobuccal$.next(this.procedureInfo.Place == "cusp_distobuccal");
+    this.CuspMesiolingual$.next(this.procedureInfo.Place == "cusp_mesiolingual");
+    this.CuspDistolingual$.next(this.procedureInfo.Place == "cusp_distolingual" );
 
   }
 
@@ -437,15 +493,15 @@ cusp_distolingual */
       && this.procedureInfo.Description != null && this.procedureInfo.Description != ""
       && this.procedureInfo.Date != null && this.procedureInfo.ToothNo != null
       && this.procedureInfo.Status != null && this.procedureInfo.Status != ""
-      && this.procedureInfo.Surface != null && this.procedureInfo.Surface != "");
+      && this.procedureInfo.Place != null && this.procedureInfo.Place != "");
   }
 
-  dateModified($event){
+  dateModified($event) {
     console.log($event);
   }
 
   _filterProcedure(term) {
-    console.log(term);
+
     this.isLoading = true;
     this.utilityService.MedicalCodes(term, "CDT/CPT")
       .subscribe(resp => {
@@ -454,6 +510,18 @@ cusp_distolingual */
           this.filteredProcedures = of(
             resp.ListResult as MedicalCode[]);
         } else this.filteredProcedures = of([]);
+      })
+  }
+
+
+  _procedureStatuses() {
+    this.utilityService.ProcedureStatues()
+      .subscribe(resp => {
+        console.log(resp);
+
+        if (resp.IsSuccess) {
+          this.procedureStatuses = resp.ListResult;
+        }
       })
   }
 }

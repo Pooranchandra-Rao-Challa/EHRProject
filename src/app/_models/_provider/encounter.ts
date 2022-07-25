@@ -162,6 +162,12 @@ export class ProceduresInfo implements IDeleteFlag {
   ViewFrom?: string;
   CanDelete?: boolean = false;
   TotalProcedures?: number;
+  ShortStatus?: string;
+  CQMStatus?: string;
+  ProviderName?: string;
+  Place?: string;
+  ToothPlace?: string;
+  Signed?: boolean;
 }
 
 export class VitalInfo {

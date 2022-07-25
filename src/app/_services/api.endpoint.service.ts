@@ -682,6 +682,9 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "LabResult";
   }
 
+  get _procedureStatuesUrl(){
+    return this._baseUrl + "ProcedureStatues";
+  }
   constructor(public http: HttpClient) {
     super();
   }

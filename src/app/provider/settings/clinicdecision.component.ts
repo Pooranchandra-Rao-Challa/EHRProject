@@ -48,6 +48,7 @@ export class ClinicDecisionComponent implements OnInit {
     { value: 'All', viewValue: 'All' },
   ];
   codeSystemDD = [{ value: 'Snomed', viewValue: 'Snomed' }, { value: 'Local', viewValue: 'Local' }, { value: 'ICD10', viewValue: 'ICD10' }]
+
   constructor(private fb: FormBuilder, private authService: AuthenticationService, private settingservice: SettingsService) {
     this.user = authService.userValue;
   }
@@ -252,9 +253,9 @@ export class ClinicDecisionComponent implements OnInit {
       providerid: this.user.ProviderId
     }
     this.settingservice.ClinicalDecisionSupport(reqparams).subscribe(response => {
-      this.clinicalDecisionSupportList = response.ListResult;
-      // console.log(this.clinicalDecisionSupportList);
-
+      if(response.IsSuccess){
+        this.clinicalDecisionSupportList = response.ListResult;
+      }
     })
   }
 }
