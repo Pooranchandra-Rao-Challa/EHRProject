@@ -100,15 +100,10 @@ export class EncounterDialogComponent implements OnInit {
     this.appointment = this.overlayref.RequestData as ScheduledAppointment
     this.patient = this.overlayref.RequestData as ProviderPatient;
 
-
     this.initEncoutnerView();
     this.loadEncouterView();
-    console.log(this.overlayref.RequestData);
-
-
     if(this.overlayref.RequestData["From"] == "ProcedureView"
       && this.overlayref.RequestData.EncounterId == null){
-        console.log(this.overlayref.RequestData);
       this.encounterInfo.RecommendedProcedures.push(this.overlayref.RequestData as ProceduresInfo);
     }
     this.encounterInfo.EnableNewEncounterData = this.EnableNewEncounterData;

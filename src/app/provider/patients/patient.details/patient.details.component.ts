@@ -230,11 +230,9 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
       RemovedPatientIds: this.removedPatientIdsInBreadcurmb
     })
       .subscribe(resp => {
-        // console.log(resp);
 
         if (resp.IsSuccess) {
           let patients = resp.ListResult as ProviderPatient[];
-          //  console.log(patients);
           this.breadcrumbs = [];
           let pb: PatientBreadcurm = {
             Name: "Patients",
@@ -298,7 +296,6 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
   }
 
   _completePatientAccountProcess(req: PatientPortalUser) {
-    console.log(req);
     this.utilityService.CompletePatientAccountProcess(req).subscribe(resp => {
       if (resp.IsSuccess) {
         //this.alertmsg.displayErrorDailog(ERROR_CODES["E2AP002"])
@@ -324,7 +321,6 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
     labOrImage.CurrentPatient.Gender = this.patient?.Gender;
     labOrImage.CurrentPatient.MobilePhone = this.patient?.MobilePhone;
     labOrImage.ClinicId = this.authService.userValue.ClinicId;
-    console.log(labOrImage);
 
     this.openComponentDialog(this.orderResultDialogComponent, labOrImage, Actions.view)
 

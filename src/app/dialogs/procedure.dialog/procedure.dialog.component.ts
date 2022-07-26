@@ -47,7 +47,7 @@ export class ProcedureDialogComponent implements OnInit {
     if (overlayref.RequestData != null)
       this.procedureInfo = overlayref.RequestData;
 
-    console.log( this.procedureInfo);
+
 
   }
   ngOnInit(): void {
@@ -475,7 +475,7 @@ this.procedureInfo.Place == "cusp_distolingual"
     this.procedureInfo.strDate = this.datePipe.transform(this.procedureInfo.Date, "MM/dd/yyyy")
     this.procedureInfo.strEndDate = this.datePipe.transform(this.procedureInfo.EndDate, "MM/dd/yyyy")
     this.procedureInfo.strReasonStartDate = this.datePipe.transform(this.procedureInfo.ReasonStartDate, "MM/dd/yyyy")
-    console.log(this.procedureInfo);
+
 
     this.patientService.CreateProcedure(this.procedureInfo)
       .subscribe(resp => {
@@ -518,8 +518,6 @@ this.procedureInfo.Place == "cusp_distolingual"
   _procedureStatuses() {
     this.utilityService.ProcedureStatues()
       .subscribe(resp => {
-        console.log(resp);
-
         if (resp.IsSuccess) {
           this.procedureStatuses = resp.ListResult;
         }

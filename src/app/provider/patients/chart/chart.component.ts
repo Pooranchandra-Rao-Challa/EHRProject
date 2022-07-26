@@ -154,7 +154,6 @@ export class ChartComponent implements OnInit, AfterViewInit {
   }
 
   _filterPatients(term: string){
-    console.log(term);
     this.patientService
       .PatientSearch({
         ProviderId: this.authService.userValue.ProviderId,
@@ -219,7 +218,6 @@ export class ChartComponent implements OnInit, AfterViewInit {
 
   // search medications
   // _filterMedicine(term) {
-  //   console.log(term);
   //   this.isLoading = true;
   //   this.filteredMedicines = this.reason;
   //   // this.filteredMedicines = this.reason.filter(
@@ -472,8 +470,6 @@ export class ChartComponent implements OnInit, AfterViewInit {
   //       }));
   //       this.vaccines = sample;
   //       // this.vaccinesFilter = this.vaccines.slice();
-  //       console.log(this.vaccines);
-  //       console.log(this.vaccinesFilter);
   //       // if (this.patientImmunization.Code != "") {
   //       //   let data = this.patientImmunization.Code;
   //       //   let interventionlist = this.patientImmunization.find(x => x.Code == data);
@@ -721,7 +717,6 @@ export class ChartComponent implements OnInit, AfterViewInit {
     data.Locations = this.Locations;
     data.Rooms = this.Rooms;
     data.status = action;
-    console.log(data);
 
     return data;
   }
