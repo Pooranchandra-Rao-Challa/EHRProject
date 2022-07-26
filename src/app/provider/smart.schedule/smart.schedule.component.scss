@@ -212,87 +212,8 @@ input::placeholder{
 ::ng-deep .smartschedule-wrapper .schedule-accordion .mat-expansion-panel-body {
   padding: 0px !important;
 }
-// related to patient popup
-.modal {
-  background: rgba(24, 24, 24, 0.82);
-  // z-index: 1060;
-  overflow: hidden;
-}
-.modal-dialog {
-  max-width: 920px;
-}
-.modal-content {
-  background-color: #fff;
-  border: 1px solid #41b6a6;
-}
-fieldset {
-  border: 1px solid #41b6a6;
-}
 
-legend {
-  padding: 5px 10px;
-}
 
-fieldset {
-  display: block;
-  margin-left: 2px;
-  margin-right: 2px;
-  padding-top: 0.35em;
-  padding-bottom: 0.625em;
-  padding-left: 0.75em;
-  padding-right: 0.75em;
-  border: 2px groove (internal value);
-}
-.verify-btn {
-  border: 1px solid #41b6a6;
-}
-.modal-header {
-  min-height: 30px !important;
-  background-color: #41b6a6;
-  color: #fff;
-  border: none;
-  padding: 10px !important;
-}
-.modal-body .form-group {
-  margin-bottom: 25px;
-}
-.input-group .input-group-addon {
-  height: 45px;
-  background-color: #d0d2db;
-  padding: 14px 15px;
-}
-.input-group-addon {
-  padding: 0 20px;
-  font-size: 14px;
-  line-height: 1;
-  color: #555;
-  background-color: #eee;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-.input-group .form-control {
-  padding: 0 20px;
-  font-size: 14px;
-  color: #74757e;
-  border: 1px solid #dedede;
-  background-color: #f5f5f5;
-  border-radius: 3px;
-  height: 45px;
-  margin: 0px;
-}
-.input-group .form-control:hover {
-  border: 1px solid #41b6a6;
-}
-.required::after {
-  content: "*";
-  color: red;
-}
-::ng-deep .example-margin:hover {
-  & .mat-checkbox-background,
-  .mat-checkbox-frame {
-    border-color: #41b6a6;
-  }
-}
 ::ng-deep .mat-checkbox-checked.mat-accent {
   .mat-checkbox-background,
   .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
@@ -306,27 +227,8 @@ fieldset {
     stroke: grey !important;
   }
 }
-::ng-deep .example-margin:hover {
-  & .mat-checkbox-background,
-  .mat-checkbox-frame {
-    border-color: #41b6a6;
-  }
-}
-::ng-deep .example-margin {
-  & .mat-checkbox-background,
-  .mat-checkbox-frame {
-    border-radius: 20% !important;
-    border-color: #cacaca;
-    background-color: #eeeaea;
-    border-width: 2px;
-    border-style: solid;
-    width: 19px;
-    height: 19px;
-  }
-}
-.mat-checkbox {
-  font-weight: bold;
-}
+
+
 ::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
   height: 23px;
   width: 23px;
@@ -342,58 +244,7 @@ fieldset {
   border-width: 5px;
   border-color: #41b6a6 !important; /*outer ring color change*/
 }
-fieldset {
-  border: 1px solid #ccc;
-  padding: 12px 25px;
-  margin-bottom: 32px;
-  border-radius: 2px;
-}
-// appointment popup
-.appointment-form .modal-dialog {
-  max-width: 660px;
-  margin-top: 20px;
-}
-.available-slots {
-  border: 1px solid #41b6a6;
-  border-radius: 4px;
-  padding: 10px 12px;
-}
-.appointment-form .text-area {
-  height: 100px;
-  border-radius: 4px;
-  padding-top: 10px !important;
-  padding-bottom: 10px !important;
-  padding: 0 20px;
-  color: #74757e;
-  border: 1px solid #dedede;
-  background-color: #f5f5f5;
-}
-.appointment-form .text-area:hover {
-  border: 1px solid #41b6a6;
-}
-.appointment-form mat-label {
-  display: inline-block;
-  max-width: 100%;
-  margin-bottom: 3px;
-  font-weight: 700;
-}
-::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
-  color: #41b6a6 !important;
-  background-color: #fff;
-  height: 45px;
-} // common mat-form-field
-.appointment-form .btn:hover {
-  background-color: #41b6a6;
-  color: #fff;
-}
-.appointment-form .btn {
-  border-color: #41b6a6;
-  font-size: 13px;
-  height: 45px;
-}
-.appointment-form .modal {
-  overflow: hidden;
-}
+
 .smart-schedule-header .appointment-filter-count-bar{
   font-size: 14px;
 }
@@ -466,46 +317,6 @@ fieldset {
 
 }
 
-/*
-
-.cdk-overlay-pane
-
-::ng-deep div#practiceProviders2-panel.mat-select-panel,
-::ng-deep div#selSmartAppointmentTypes-panel.mat-select-panel,
-::ng-deep div#selSmartLocations-panel.mat-select-panel,
-::ng-deep div#selSmartRooms-panel.mat-select-panel,
-::ng-deep div#selSmartDurations-panel.mat-select-panel{
-
-  border-radius: 4px;
-  border: 1px solid #41b6a6;
-  position: fixed;
-  top: 29px;
-}
-
-::ng-deep div#practiceProviders2-panel mat-option.mat-option,
-::ng-deep div#selSmartAppointmentTypes-panel mat-option.mat-option,
-::ng-deep div#selSmartLocations-panel mat-option.mat-option,
-::ng-deep div#selSmartRooms-panel.mat-select-panel,
-::ng-deep div#selSmartDurations-panel.mat-select-panel{
-  border: 1px solid white !important;
-
-}
-
-::ng-deep div#ePracticeProviders-panel.mat-select-panel{
-  //border-color: #41b6a6;
-  border-radius: 4px;
-  border: 1px solid #41b6a6;
-  position: fixed;
-  top: 29px;
-}
-::ng-deep div#ePracticeProviders-panel mat-option.mat-option{
-  //border-color: #41b6a6;
-
-  border: 1px solid white !important;
-
-}
-*/
-//style="display: inline-block; white-space: nowrap;"
 .modal .modal-dialog .modal-content .modal-footer {
   padding: 0px 31px;
   height: 70px;
@@ -521,78 +332,7 @@ fieldset {
   border-top: none;
   padding: 12px 14px;
 }
-// existing appointment form
-.existingappointment-form .modal-dialog {
-  max-width: 660px;
-  padding-top: 40px;
-}
-.existingappointment-form.modal {
-  background-color: transparent;
-}
-.existingappointment-form.modal .modal-dialog .modal-content .modal-footer {
-  padding: 0px 31px;
-  border-top: 0;
-}
-.existingappointment-form .btn:hover {
-  background-color: #41b6a6;
-  color: #fff;
-}
-.existingappointment-form .btn {
-  border-color: #41b6a6;
-  font-size: 13px;
-  height: 45px;
-}
-.existingappointment-form.modal .modal-dialog .modal-content .modal-body {
-  padding: 0px 15px;
-}
-.existingappointment-form
-  .modal-dialog
-  .modal-content
-  .modal-body
-  .content-data
-  .appointment {
-  border-top: 1px solid #f2f2f2;
-  border-bottom: 1px solid #f2f2f2;
-  padding: 10px 0 0 0;
-  margin: 0 15px 0 15px;
-}
-.existingappointment-form .modal-body .content-data {
-  overflow-y: auto;
-  width: 100%;
-  height: 300px;
-}
-// slimscroll bar
-.slimScrollDiv--green-lighter .slimScrollBar {
-  width: 20px;
-  border: 1px solid #33998a;
-  border-radius: 50%;
-  background: #fff;
-  box-shadow: 0px 0px 3px rgb(0 0 0 / 15%);
-  border-color: rgba(0, 0, 0, 0.15);
-}
-.slimScrollBar {
-  background-color: #f0ad4e !important;
-}
-.slimScrollDiv--green-lighter .slimScrollRail {
-  width: 10px;
-  border-radius: 5px;
-  box-shadow: none;
-  background-color: #41b6a6;
-  border: none;
-}
-.slimScrollDiv--green-lighter .slimScrollRail .slimRailTop {
-  width: 10px;
-  border: none;
-  border-radius: 5px;
-  background-color: #d9d9d9;
-}
-.existingappointment-form.modal .modal-body .tab-content {
-  padding: 0px;
-  border: none;
-}
-.modal-title {
-  line-height: normal;
-}
+
 
 /// need to be checked for removing this code.
 #modal-patient-add-encounter .encounder-top p {
@@ -630,53 +370,6 @@ fieldset {
   border-color: #d64841;
   font-size: 13px;
   height: 45px;
-}
-
-.encounter-navigation {
-  margin-left: -15px;
-  margin-right: -15px;
-}
-.encounter-navigation .encounter-nav-tabs {
-  background-color: #41b6a6;
-}
-.encounter-nav-tabs li {
-  display: inline-block;
-  margin: 7px 10px 0 0;
-}
-.encounter-nav-tabs li.active a#meaningful-use {
-  color: #fe8f00;
-  background-color: #fff;
-}
-.encounter-navigation .encounter-nav-tabs li a {
-  padding: 4px 15px;
-  font-size: 18px;
-  background-color: #28776c;
-  color: #fff;
-  line-height: 30px;
-  border: 1px solid transparent;
-  border-bottom: 1px solid #41b6a6;
-  cursor: pointer;
-}
-.encounter-tab-content {
-  padding: 10px 20px;
-  border-radius: 0 3px 3px 3px;
-  min-height: 600px;
-}
-.encounter-tab-content textarea.mat-input-element {
-  height: 71px;
-  border: 1px solid #41b6a6;
-  border-radius: 3px;
-  font-size: 15px;
-  padding: 10px 20px;
-  resize: both;
-}
-#vitals-modal .textarea {
-  height: 71px;
-  border: 1px solid #41b6a6;
-  border-radius: 3px;
-  font-size: 15px;
-  padding: 10px 20px;
-  resize: vertical;
 }
 
 // ---------------------- end of code removal block
@@ -726,42 +419,6 @@ div.mat-field-no-round-right div.mat-form-field-wrapper {
   background-position: center;
   transition: background-color 0.2s, background-image 0.2s;
 }
-#procedure-table .mat-header-row {
-  border: 1px solid #41b6a6;
-  background-color: #41b6a6;
-  color: #fff;
-  min-height: 30px;
-}
-#procedure-table.mat-table {
-  margin-left: -20px !important;
-  margin-right: -20px !important;
-}
-#procedure-table .mat-header-row p {
-  padding: 0px;
-  margin: 0px;
-}
-#procedure-table {
-  mat-cell:nth-child(1),
-  mat-header-cell:nth-child(1) {
-    flex: 0 0 17%;
-  }
-  mat-cell:nth-child(2),
-  mat-header-cell:nth-child(2) {
-    flex: 0 0 17%;
-  }
-  mat-cell:nth-child(3),
-  mat-header-cell:nth-child(3) {
-    flex: 0 0 32%;
-  }
-  mat-cell:nth-child(4),
-  mat-header-cell:nth-child(4) {
-    flex: 0 0 17%;
-  }
-  mat-cell:nth-child(5),
-  mat-header-cell:nth-child(5) {
-    flex: 0 0 17%;
-  }
-}
 ::ng-deep .mat-tab-header {
   background-color: #41b6a6 !important;
   height: 38px !important;
@@ -782,22 +439,6 @@ div.mat-field-no-round-right div.mat-form-field-wrapper {
   opacity: 1 !important;
 }
 
-::ng-deep .my-custom-class .tooltip {
-  top: -18px !important;
-  line-height: 1px !important;
-}
-::ng-deep .my-custom-class .tooltip-inner {
-  height: 110px !important;
-  max-width: 320px !important;
-  font-size: 14px !important;
-  color: black !important;
-  border-radius: 0.375rem !important;
-  border: 1px solid #41b6a6 !important;
-  padding-top: 10px !important;
-  line-height: 21px !important;
-  padding: 0.25rem 0.5rem !important;
-  background-color: #fff !important;
-}
 .modal .cross-mark {
   border: 1px solid currentColor;
   width: 23px;
@@ -809,40 +450,6 @@ div.mat-field-no-round-right div.mat-form-field-wrapper {
 .modal .cross-mark:hover {
   opacity: 0.75;
 }
-/* check box */
-::ng-deep .encounter-checkbox {
-  & .mat-checkbox-background,
-  .mat-checkbox-frame {
-    border-radius: 20% !important;
-    border-color: #fe8f00 !important;
-    background-color: #fff !important;
-    border-width: 1px;
-    border-style: solid;
-    width: 25px;
-    height: 25px;
-  }
-}
-::ng-deep .encounter-checkbox:hover {
-  & .mat-checkbox-background,
-  .mat-checkbox-frame {
-    border-color: #fe8f00;
-  }
-}
-::ng-deep .encounter-checkbox {
-  .mat-checkbox-inner-container,
-  .mat-checkbox-checked.mat-accent,
-  .mat-checkbox-background {
-    border-radius: 20% !important;
-    border-color: #fe8f00 !important;
-    background-color: #fff !important;
-    height: 25px !important;
-    width: 25px !important;
-  }
-}
-
-::ng-deep .encounter-checkbox.mat-checkbox {
-  font-weight: normal !important;
-}
 .modal-footer {
   border: none !important;
 }
@@ -850,11 +457,7 @@ div.mat-field-no-round-right div.mat-form-field-wrapper {
 .fa.fa-expand {
   color: #fff;
 }
-.scrollable-mat-tabs {
-  height: 785px;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
+
 @media (max-width: 1350px) {
   .scrollable-mat-table {
     max-width: 1200px;

@@ -22,6 +22,7 @@
 }
 .modal-header{
   margin-right: -1px;
+  margin-left: -1px;
 }
 .modal-body .form-group {
   margin-bottom: 25px;
@@ -41,11 +42,6 @@
   resize: both;
 }
 
-
-.encounter-navigation {
-  margin-left: -15px;
-  margin-right: -15px;
-}
 .encounter-navigation .encounter-nav-tabs {
   background-color: #41b6a6;
 }
@@ -216,4 +212,194 @@
 
 .mat-cell:last-of-type{
   padding-left: 10px;
+}
+
+
+// .encounter-navigation {
+//   margin-left: -15px;
+//   margin-right: -15px;
+// }
+.encounter-navigation .encounter-nav-tabs {
+  background-color: #41b6a6;
+}
+.encounter-nav-tabs li {
+  display: inline-block;
+  margin: 7px 10px 0 0;
+}
+.encounter-nav-tabs li.active a#meaningful-use {
+  color: #fe8f00;
+  background-color: #fff;
+}
+.encounter-navigation .encounter-nav-tabs li a {
+  padding: 4px 15px;
+  font-size: 18px;
+  background-color: #28776c;
+  color: #fff;
+  line-height: 30px;
+  border: 1px solid transparent;
+  border-bottom: 1px solid #41b6a6;
+  cursor: pointer;
+}
+.encounter-tab-content {
+  padding: 10px 50px;;
+  border-radius: 0 3px 3px 3px;
+  min-height: 600px;
+}
+.encounter-tab-content textarea.mat-input-element {
+  height: 71px;
+  border: 1px solid #41b6a6;
+  border-radius: 3px;
+  font-size: 15px;
+  padding: 10px 20px;
+  resize: both;
+}
+#vitals-modal .textarea {
+  height: 71px;
+  border: 1px solid #41b6a6;
+  border-radius: 3px;
+  font-size: 15px;
+  padding: 10px 20px;
+  resize: vertical;
+}
+
+#procedure-table .mat-header-row {
+  border: 1px solid #41b6a6;
+  background-color: #41b6a6;
+  color: #fff;
+  min-height: 30px;
+}
+
+#procedure-table .mat-header-row p {
+  padding: 0px;
+  margin: 0px;
+}
+#procedure-table .mat-row {
+  border-left: 1px solid #41b6a6;
+  border-right: 1px solid #41b6a6;
+}
+#procedure-table {
+  mat-cell:nth-child(1),
+  mat-header-cell:nth-child(1) {
+    flex: 0 0 15%;
+
+  }
+  mat-cell:nth-child(2),
+  mat-header-cell:nth-child(2) {
+    flex: 0 0 15%;
+  }
+  mat-cell:nth-child(3),
+  mat-header-cell:nth-child(3) {
+    flex: 0 0 32%;
+  }
+  mat-cell:nth-child(4),
+  mat-header-cell:nth-child(4) {
+    flex: 0 0 15%;
+  }
+  mat-cell:nth-child(5),
+  mat-header-cell:nth-child(5) {
+    flex: 0 0 15%;
+  }
+  mat-cell:nth-child(6),
+  mat-header-cell:nth-child(6) {
+    flex: 0 0 8%;
+  }
+}
+
+
+#encounter_diagnoses_tab .mat-header-row {
+  border: 1px solid #41b6a6;
+  background-color: #41b6a6;
+  color: #fff;
+  min-height: 30px;
+}
+
+#encounter_diagnoses_tab .mat-header-row p {
+  padding: 0px;
+  margin: 0px;
+}
+#encounter_diagnoses_tab .mat-row {
+  border-left: 1px solid #41b6a6;
+  border-right: 1px solid #41b6a6;
+}
+#encounter_diagnoses_tab {
+  mat-cell:nth-child(1),
+  mat-header-cell:nth-child(1) {
+    flex: 0 0 15%;
+
+  }
+  mat-cell:nth-child(2),
+  mat-header-cell:nth-child(2) {
+    flex: 0 0 15%;
+  }
+  mat-cell:nth-child(3),
+  mat-header-cell:nth-child(3) {
+    flex: 0 0 32%;
+  }
+  mat-cell:nth-child(4),
+  mat-header-cell:nth-child(4) {
+    flex: 0 0 15%;
+  }
+  mat-cell:nth-child(5),
+  mat-header-cell:nth-child(5) {
+    flex: 0 0 15%;
+  }
+  mat-cell:nth-child(6),
+  mat-header-cell:nth-child(6) {
+    flex: 0 0 8%;
+  }
+}
+
+.encounter-content-header{
+  display: inline-flex;
+  padding: 10px 50px;
+}
+
+::ng-deep .encounter-navigation .mat-tab-labels{
+  padding: 0 32px;
+}
+
+#encounter-dialog .padding-unset{
+  padding: unset;
+}
+/* check box */
+::ng-deep .encounter-checkbox {
+  & .mat-checkbox-background,
+  .mat-checkbox-frame {
+    border-radius: 20% !important;
+    border-color: #fe8f00 !important;
+    background-color: #fff !important;
+    border-width: 1px;
+    border-style: solid;
+    width: 25px;
+    height: 25px;
+  }
+}
+::ng-deep .encounter-checkbox:hover {
+  & .mat-checkbox-background,
+  .mat-checkbox-frame {
+    border-color: #fe8f00;
+  }
+}
+::ng-deep .encounter-checkbox {
+  .mat-checkbox-inner-container,
+  .mat-checkbox-checked.mat-accent,
+  .mat-checkbox-background {
+    border-radius: 20% !important;
+    border-color: #fe8f00 !important;
+    background-color: #fff !important;
+    height: 25px !important;
+    width: 25px !important;
+  }
+}
+
+::ng-deep .encounter-checkbox.mat-checkbox {
+  font-weight: normal !important;
+}
+
+::ng-deep .teeth-form-field .mat-select-value-text span{
+  margin-left: 40px;
+}
+
+::ng-deep .teeth-form-field .mat-select-arrow-wrapper{
+  padding-top: 8px;
 }

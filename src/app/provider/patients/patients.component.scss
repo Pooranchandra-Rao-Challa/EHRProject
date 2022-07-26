@@ -76,6 +76,7 @@ a {
     width: 1350px;
   }
 }
+
 .patients {
   mat-cell:nth-child(1),
   mat-header-cell:nth-child(1) {
@@ -152,7 +153,7 @@ a {
   align-items: center;
 }
 ::ng-deep .patients-search .mat-form-field-appearance-outline .mat-form-field-label{
-  top: 1.9em;
+  top: 1.5em;
 }
 
 ::ng-deep .patients-search .input-search .mat-form-field-outline-end{

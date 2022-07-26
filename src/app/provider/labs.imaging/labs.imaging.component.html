@@ -22,49 +22,50 @@
     <div class="col-lg-7 col-md-12 col-sm-12">
       <div class="row mt-2 row-dropdown">
         <mat-form-field appearance="outline" class="col-lg-4 col-md-12 col-sm-12 mat-form-field-wrapper hover my-lg-2 ">
-          <mat-select placeholder="Filter By Provider" disableOptionCentering>
-            <mat-option>EHRApplication ehr</mat-option>
+          <mat-select placeholder="Filter By Provider" disableOptionCentering (selectionChange)="onChangeProvider($event)">
+            <mat-option value='' selected>View All Providers</mat-option>
+            <mat-option *ngFor="let provider of PracticeProviders" [value]="provider.ProviderId">
+              {{provider.FullName}}</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field appearance="outline" class="col-lg-4 col-md-12 col-sm-12 mat-form-field-wrapper hover my-lg-2 ">
-          <mat-select placeholder="Filter By Type" disableOptionCentering>
-            <mat-option>Lab Order</mat-option>
-            <mat-option>Lab Results</mat-option>
+          <mat-select placeholder="Filter By Result" disableOptionCentering (selectionChange)="onChangeResultStatus($event)">
+            <mat-option>All</mat-option>
+            <mat-option *ngFor="let item of ResultStatuses" [value]="item.Value">
+              {{item.Name}}
+            </mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field appearance="outline"
           class="col-lg-4 col-md-12 col-sm-12 mat-form-field-wrapper  hover my-lg-2 ">
-          <mat-select placeholder="Filter By Status" disableOptionCentering>
-            <mat-option>Open</mat-option>
-            <mat-option>Pending</mat-option>
-            <mat-option>Closed</mat-option>
-            <mat-option>Canceled</mat-option>
-            <mat-option>Discontinued</mat-option>
-            <mat-option>Hold</mat-option>
-            <mat-option>Archive</mat-option>
+          <mat-select placeholder="Filter By Status" disableOptionCentering (selectionChange)="onChangeOrderStatus($event)">
+            <mat-option value='' selected>View All Active</mat-option>
+              <mat-option *ngFor="let item of OrderStatuses" [value]="item.Value">
+                {{item.Name}}
+              </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
     </div>
     <div class="col-lg-5 col-md-12 col-sm-12">
       <div class="row">
-        <div class="col-lg-9 col-md-12 col-11">
+        <div class="col-lg-10 col-md-10 col-sm-12  col-11">
           <div class="row">
             <div class="col-lg-10 col-md-11 col-10  my-lg-2 mt-4">
               <div class="search">
-                <input type="text" class="form-control" placeholder="Search Test"> <button class="btn"><i
-                    class="fa fa-search search-icon"></i></button>
+                <input matInput type="text" #SearchTest placeholder="Search Test"
+                class="searchInput">
               </div>
             </div>
           </div>
         </div>
-        <div class="col-lg-3 col-md-12 col-sm-12 mt-3  pb-3 pb-lg-0">
-          <div class="dropdown lab-drodown">
-            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
-              aria-expanded="false">
+        <div class="col-lg-2 col-md-2 col-sm-12 mt-3  pb-3 pb-lg-0">
+          <div class="dropdown lab-dropdown">
+            <button class="btn" type="button" id="dropdownMenuButton1" [matTooltip]="getToolTip"
+              aria-expanded="false" (click)="openComponentDialog(orderDialogComponent, null, ActionTypes.add)">
               <i class="fa fa-plus plus-icon"></i>
             </button>
-            <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton1" style="inset: -1px -74px auto auto;">
+            <!-- <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton1" style="inset: -1px -74px auto auto;">
               <input type="text" placeholder="" id="myInput" class="search-input-dropdown">
               <option class="active dropdown-item menu-option-dropdown mt-2"
                 (click)="openComponentDialog(orderDialogComponent, null, ActionTypes.add)">Order
@@ -72,7 +73,7 @@
               <option class="dropdown-item menu-option-dropdown"
                 (click)="openComponentDialog(orderResultDialogComponent, null, ActionTypes.add)">Result
 
-            </ul>
+            </ul> -->
           </div>
         </div>
       </div>
@@ -92,7 +93,9 @@
             </ng-container>
             <ng-container matColumnDef="Test">
               <th mat-header-cell *matHeaderCellDef>Test</th>
-              <td mat-cell *matCellDef="let lab">{{lab.Test}}</td>
+              <td mat-cell *matCellDef="let lab">
+                <div class="link-text" [innerHtml]="lab.Tests | labOrderTest" (click)="openEditDialog(lab)"></div>
+              </td>
             </ng-container>
             <ng-container matColumnDef="Type">
               <th mat-header-cell *matHeaderCellDef>Type</th>
@@ -108,15 +111,25 @@
             </ng-container>
             <ng-container matColumnDef="Status">
               <th mat-header-cell *matHeaderCellDef mat-sort-header="Status">Status</th>
-              <td mat-cell *matCellDef="let lab" >{{lab.Status}}</td>
+              <td mat-cell *matCellDef="let lab" >{{lab.OrderStatus}}</td>
             </ng-container>
             <ng-container matColumnDef="LabImagingStatus">
               <th mat-header-cell *matHeaderCellDef mat-sort-header="OrderStatus">Lab/Imaging Status</th>
-              <td mat-cell *matCellDef="let lab" >{{lab.OrderStatus}}</td>
+              <td mat-cell *matCellDef="let lab" >{{lab.ResultStatus}}</td>
             </ng-container>
             <ng-container matColumnDef="Created">
               <th mat-header-cell *matHeaderCellDef mat-sort-header="CreatedDate">Created</th>
               <td mat-cell *matCellDef="let lab" >{{lab.CreatedDate | date: 'yyyy-MM-dd'}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="Result">
+              <th mat-header-cell *matHeaderCellDef>Add Result</th>
+              <td mat-cell *matCellDef="let lab" >
+                <button class="btn" type="button" matTooltip="Add or Update Results"
+              aria-expanded="false" (click)="openResultDialog(lab)">
+              <i class="fa fa-plus plus-icon"></i>
+            </button>
+              </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="labImagingColumn"></tr>
@@ -184,7 +197,7 @@
                     </div>
                   </div>
                   <div class="col-lg-3 col-md-12 col-sm-12 mt-3  pb-3 pb-lg-0"  >
-                    <div class="dropdown lab-drodown">
+                    <div class="dropdown lab-dropdown">
                         <button class="btn dropdown-toggle " type="button" id="dropdownMenuButton1"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fa fa-plus plus-icon"></i>

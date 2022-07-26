@@ -1,5 +1,8 @@
 import { ProblemData } from "../../_models/_provider/_reports/problem";
 import { DatePipe } from "@angular/common";
+import { PracticeProviders } from '../../_models/_provider/practiceProviders';
+import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
+import { AuthenticationService } from "src/app/_services/authentication.service";
 import {
   Component,
   OnInit,
@@ -74,7 +77,8 @@ export class ProblemlistComponent implements OnInit {
   showPromblemListTable: boolean;
   showProblemListControls: boolean;
   disabledowloadExportbtn: boolean = true;
-  constructor(
+  PracticeProviders: PracticeProviders[];
+  constructor(private authenticationService: AuthenticationService,private smartSchedulerService: SmartSchedulerService,
     private service: Accountservice,
     private fb: FormBuilder,
     private tableutil: TableUtil,
@@ -93,7 +97,7 @@ export class ProblemlistComponent implements OnInit {
     this.problemreportlist.sort = this.sort.toArray()[0];
   }
   disableApplyButtonProblemlist() {
-    var Provider_Id =
+    var ProviderId =
       this.problemreportform.value.ProviderId == null
         ? ""
         : this.problemreportform.value.ProviderId;
@@ -105,18 +109,18 @@ export class ProblemlistComponent implements OnInit {
       this.problemreportform.value.EndDate == null
         ? ""
         : this.problemreportform.value.EndDate;
-    if (Provider_Id != "" && StartDate == "" && EndDate == "") {
+    if (ProviderId != "" && StartDate == "" && EndDate == "") {
       this.applyButtonToDisableproblem = false;
     }
-    else if (Provider_Id != "" && StartDate != "" && EndDate != "") {
+    else if (ProviderId != "" && StartDate != "" && EndDate != "") {
       this.applyButtonToDisableproblem = false;
       this.disableEndDateInput = false;
     }
-    else if (Provider_Id != "" && StartDate != "" && EndDate == "") {
+    else if (ProviderId != "" && StartDate != "" && EndDate == "") {
       this.applyButtonToDisableproblem = true;
       this.disableEndDateInput = false;
     }
-    else if (Provider_Id != "" && StartDate == "" && EndDate != "") {
+    else if (ProviderId != "" && StartDate == "" && EndDate != "") {
       this.applyButtonToDisableproblem = true;
     }
     else if (StartDate == "") {
@@ -187,21 +191,16 @@ export class ProblemlistComponent implements OnInit {
     });
   }
   getProviderList() {
-    let locationid = localStorage.getItem("providerlocation");
-
-    var req = {
-      LocationId: locationid,
-    };
-    this.service.getProviderList(req).subscribe((data) => {
-      if (data.IsSuccess) {
-        this.providerlist = data.ListResult;
-        this.filteredproviderList = this.providerlist.slice();
+    let req = { "ClinicId": this.authenticationService.userValue.ClinicId };
+    this.smartSchedulerService.PracticeProviders(req).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.PracticeProviders = resp.ListResult as PracticeProviders[];
       }
     });
   }
 
   getLocationsList(Location: any) {
-    this.service.getLocationsList(Location.Provider_Id).subscribe((data) => {
+    this.service.getLocationsList(Location.ProviderId).subscribe((data) => {
       if (data.IsSuccess) {
         this.locationslist = data.ListResult;
         this.filteredlocationList = this.locationslist.slice();

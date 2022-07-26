@@ -90,11 +90,11 @@
             <label class="control-label input-group-addon required">Status</label>
             <mat-form-field class="procedure-form-field" appearance="outline" [ngStyle]="{'padding-bottom':'0px'}">
               <mat-select class="select" [(ngModel)]="procedureInfo.Status">
-                <mat-option value="Completed">Completed</mat-option>
-                <mat-option value="Existing Curr. Provider">Existing Curr. Provider</mat-option>
+                <mat-option [value]="option.Value" *ngFor="let option of procedureStatuses">{{option.Name}}</mat-option>
+                <!-- <mat-option value="Existing Curr. Provider">Existing Curr. Provider</mat-option>
                 <mat-option value="Existing Other">Existing Other</mat-option>
                 <mat-option value="Referred">Referred</mat-option>
-                <mat-option value="Treatment planned">Treatment planned</mat-option>
+                <mat-option value="Treatment planned">Treatment planned</mat-option> -->
               </mat-select>
             </mat-form-field>
           </div>
@@ -171,7 +171,7 @@
               Mesiobuccal
             </mat-checkbox>
             <mat-checkbox [(ngModel)]="PitDistobuccal">
-              Distolingual
+              Distobuccal
             </mat-checkbox>
           </div>
           <div class="col-lg-4 col-md-4 col-4 items">
@@ -181,7 +181,7 @@
           </div>
           <div class="col-lg-4 col-md-4 col-4 items">
             <mat-checkbox [(ngModel)]="PitDistolingual">
-              Distobuccal
+              Distolingual
             </mat-checkbox>
           </div>
         </div>

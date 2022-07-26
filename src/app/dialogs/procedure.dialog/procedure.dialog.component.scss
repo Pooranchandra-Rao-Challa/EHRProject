@@ -14,11 +14,6 @@
   overflow-y: auto;
 }
 
-// .required::after {
-//   content: "*";
-//   color: red;
-// }
-
 #new-procedure-dialog div.row.title {
   background-color: #F7F7F7;
   display: inline-block;
@@ -53,12 +48,6 @@
   padding-top: 10px !important;
 }
 
-// ::ng-deep .mat-form-field-disabled .mat-form-field-underline {
-//   background-image: linear-gradient(to right, rgba(0, 0, 0, 1) 0, rgba(0, 0, 0, 0.42) 33%, #c2c7cc 0) !important;
-//   background-size: 1px 100% !important;
-//   background-repeat: repeat-x !important;
-// }
-
 
 ::ng-deep .medical-code-option .mat-option-text{
   white-space: normal !important;
@@ -85,3 +74,24 @@
     margin: 30px auto;
 }
 }
+
+/*mat-datepicker-toggle.mat-datepicker-toggle button.mat-focus-indicator.mat-icon-button {
+    background-color: #41b6a6;
+    color: #fff;
+    border-radius: 0%;
+    margin-top: 0px;
+    margin-bottom: -14px;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    margin-right: -10px;
+    border: 1px solid #41b6a6;
+    height: 3.1em !important;
+    width: 3.1em !important;
+    top: 0.06em;
+}*/
+/*mat-datepicker-toggle.mat-datepicker-toggle button.mat-icon-button span.mat-button-wrapper svg.mat-datepicker-toggle-default-icon > path {
+    fill: #fff;
+    stroke: #e0dcdc;
+    stroke-linejoin: round;
+    transition: d 0.2s;
+}*/

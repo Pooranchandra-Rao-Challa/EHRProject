@@ -2,12 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { SettingsService } from '../../_services/settings.service';
 import { UtilityService } from '../../_services/utiltiy.service';
-import { User, UserLocations } from '../../_models';
+import { EducationMaterialCode, EhrAlert, EhrTrigger, PatientEducationInfomation, TriggerInformation, User, UserLocations } from '../../_models';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { LocationSelectService } from '../../_navigations/provider.layout/location.service';
+import { BehaviorSubject, Subscription } from 'rxjs';
+// import { LocationSelectService } from '../../_navigations/provider.layout/location.service';
 import Swal from 'sweetalert2';
 import { isTemplateHead } from 'typescript';
+import { MedicalCode } from 'src/app/_models/codes';
+import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
+import { DatePipe } from '@angular/common';
 declare var $: any;
 
 @Component({
@@ -16,7 +19,17 @@ declare var $: any;
   styleUrls: ['./clinicdecision.component.scss']
 })
 export class ClinicDecisionComponent implements OnInit {
-  clinicalDecisionSupportList: any = [];
+  clinicalDecisionSupportList: EhrAlert[] = [];
+  newAlert?: EhrAlert = {};
+  ehrTriggerList: TriggerInformation = new TriggerInformation();
+  triggerSearchList = new BehaviorSubject<EhrTrigger[]>([]);
+  ehrTrigger: EhrTrigger = new EhrTrigger();
+
+  codeSystemsForClinicalDecision: string[] = ['SNOMED'];
+
+
+  clinicalDecisionSearchColumns = ["CODE", "CODE SYSTEM", "DESCRIPTION", "Delete"];
+
   user: User;
   multi: boolean = false;
   disabled: boolean = false;
@@ -39,7 +52,8 @@ export class ClinicDecisionComponent implements OnInit {
   showon: boolean = true;
   showoff: boolean = false;
   decisionSuppotForm: FormGroup;
-  buttonopen:boolean;
+  buttonopen: boolean;
+  TriggerSearchColumns = ["CODE", "CODE SYSTEM", "DESCRIPTION", "Delete"];
 
   TriggerRuleDD: any[] = [
     { value: 'ONE', viewValue: 'ONE' },
@@ -47,27 +61,16 @@ export class ClinicDecisionComponent implements OnInit {
     { value: 'Two or More', viewValue: 'Two or More' },
     { value: 'All', viewValue: 'All' },
   ];
-  codeSystemDD = [{ value: 'Snomed', viewValue: 'Snomed' }, { value: 'Local', viewValue: 'Local' }, { value: 'ICD10', viewValue: 'ICD10' }]
-  constructor(private fb: FormBuilder, private authService: AuthenticationService, private settingservice: SettingsService) {
+  constructor(private fb: FormBuilder, private authService: AuthenticationService, private settingservice: SettingsService, private alertmsg: AlertMessage,
+    private datePipe: DatePipe) {
     this.user = authService.userValue;
   }
   ngOnInit(): void {
-    this.decisionsupport();
+
     this.getclinicaldesupportlist();
   }
 
-  decisionsupport() {
-    this.decisionSuppotForm = this.fb.group({
-      alertName: [''],
-      description: [''],
-      resolution: [''],
-      bibliography: [''],
-      developer: [''],
-      fundingSource: [''],
-      releaseDate: [''],
-      triggerRule: ['']
-    })
-  }
+
   nameCheck() {
     let alertName = this.decisionSuppotForm.value.alertName;
     if (alertName == "") {
@@ -224,19 +227,17 @@ export class ClinicDecisionComponent implements OnInit {
     }
   }
 
- 
+
   flag: boolean = true;
 
-  open()
-  {
+  open() {
     this.show = true;
     this.step = -1
-    this.flag=true;
+    this.flag = true;
   }
-  close()
-  {
+  close() {
     this.show = false;
-    this.flag=false;
+    this.flag = false;
   }
   step: number;
   setStep(index: number) {
@@ -247,14 +248,126 @@ export class ClinicDecisionComponent implements OnInit {
     this.step = -1;
   }
   getclinicaldesupportlist() {
+
     var reqparams = {
       // providerid: "5b686dd4c832dd0c444f271b",
       providerid: this.user.ProviderId
     }
     this.settingservice.ClinicalDecisionSupport(reqparams).subscribe(response => {
-      this.clinicalDecisionSupportList = response.ListResult;
-      // console.log(this.clinicalDecisionSupportList);
 
+
+      if (response.IsSuccess) {
+
+        let alt = response.ListResult as EhrAlert[];
+        alt.forEach((value) => {
+          value.Triggers = JSON.parse(value.triggersInfo)
+        })
+        this.clinicalDecisionSupportList = alt;
+
+      }
     })
+  }
+
+
+  InsertUpadateClincialDecisionSupport(alert: EhrAlert) {
+
+
+    alert.strReleaseAt = this.datePipe.transform(alert.ReleaseAt, "MM/dd/yyyy")
+    let isAdd = alert.AlertId == undefined;
+    alert.ProviderId = this.user.ProviderId
+    this.settingservice.CreateUpdateClinicalDecisionSupport(alert).subscribe((resp) => {
+
+      if (resp.IsSuccess) {
+        this.getclinicaldesupportlist();
+        this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2JCDS001" : "M2JCDS002"]);
+        this.resetdialog();
+      }
+      else {
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2JCDS001"]);
+      }
+    });
+  }
+
+  enableSave() {
+    return !(
+      this.newAlert.AlertName != null && this.newAlert.AlertName != ""
+      && this.newAlert.Description != null && this.newAlert.Description != ""
+      && this.newAlert.Resolution != null && this.newAlert.Resolution != ""
+      && this.newAlert.Bibliography != null && this.newAlert.Bibliography != ""
+      && this.newAlert.Developer != null && this.newAlert.Developer != ""
+      && this.newAlert.Rule != null && this.newAlert.Rule != ""
+
+    )
+
+
+  }
+  triggerSave() {
+    return !(
+      this.ehrTrigger.Code != null && this.ehrTrigger.Code != ""
+      && this.ehrTrigger.System != null && this.ehrTrigger.System != ""
+      && this.ehrTrigger.Description != null && this.ehrTrigger.Description != ""
+
+
+    )
+
+
+  }
+  resetdialog() {
+    this.newAlert = new EhrAlert
+  }
+  resettriggerdialog() {
+    this.ehrTrigger = new EhrTrigger;
+    this.triggerSearchList = new BehaviorSubject<EhrTrigger[]>([]);
+
+  }
+
+  optionChangedForTrigger(value: MedicalCode) {
+    this.ehrTrigger.Code = value.Code
+    this.ehrTrigger.System = value.CodeSystem
+    this.ehrTrigger.Description = value.Description
+    this.ehrTrigger.CanDelete = false;
+    this.ehrTriggerList.Addtrigger.push(this.ehrTrigger);
+    this.triggerSearchList.next(this.ehrTriggerList.Addtrigger.filter(fn => fn.CanDelete === false));
+  }
+
+
+  removeEncounterDiagnosis(value: EhrTrigger, index: number) {
+    value.CanDelete = true;
+    this.triggerSearchList.next(this.ehrTriggerList.Addtrigger.filter(fn => fn.CanDelete === false));
+    this.ehrTrigger = new EhrTrigger();
+  }
+  newtrigger(item) {
+
+    this.ehrTrigger.AlertId = item;
+  }
+  CreateTrigger(ehrTrigger) {
+    this.settingservice.CreateTrigger(ehrTrigger).subscribe((resp) => {
+
+      if (resp.IsSuccess) {
+        this.getclinicaldesupportlist();
+        this.alertmsg.displayMessageDailog(ERROR_CODES["M2JCDS003"]);
+        this.resettriggerdialog();
+      }
+      else {
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2JCDS002"]);
+      }
+    });
+  }
+  DeleteTrigger(data) {
+
+    var req = {
+      TriggerId: data
+    }
+    this.settingservice.DeleteTrigger(req).subscribe((resp) => {
+
+      if (resp.IsSuccess) {
+        this.getclinicaldesupportlist();
+        this.alertmsg.displayMessageDailog(ERROR_CODES["M2JCDS004"]);
+      }
+      else {
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2JCDS003"]);
+      }
+    });
+
   }
 }

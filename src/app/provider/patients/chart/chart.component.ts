@@ -4,7 +4,7 @@ import { Observable, of, BehaviorSubject, fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 import { ProviderPatient } from './../../../_models/_provider/Providerpatient';
-import { Component, OnInit, ElementRef, ViewChild, ViewChildren } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, ViewChildren, AfterViewInit } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
 import { OverlayService } from '../../../overlay.service';
 import { AdvancedDirectivesDialogComponent } from '../../../dialogs/advanced.directives.dialog/advanced.directives.dialog.component';
@@ -17,7 +17,7 @@ import {
   Immunization, Medication, EncounterInfo, NewAppointment, SmokingStatus, TobaccoUseScreenings, TobaccoUseInterventions,
   Diagnosis, AllergyType, SeverityLevel, OnSetAt, DiagnosisDpCodes, PracticeProviders,
   AppointmentTypes, UserLocations, Room, AppointmentDialogInfo, Vaccine, User, TobaccoUse,
-  GlobalConstants, PatientSearchResults, Labandimaging, MEDICATION_NAMES
+  GlobalConstants, PatientSearchResults, Labandimaging, MEDICATION_NAMES, PatientSearch
 } from 'src/app/_models';
 
 
@@ -30,8 +30,6 @@ import { NewAppointmentDialogComponent } from 'src/app/dialogs/newappointment.di
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
 import { AddeditinterventionComponent } from 'src/app/dialogs/addeditintervention/addeditintervention.component';
 import { SettingsService } from '../../../_services/settings.service';
-import { T } from '@angular/cdk/keycodes';
-import { debug } from 'console';
 import { MedicationDialogComponent } from 'src/app/dialogs/medication.dialog/medication.dialog.component';
 import { AllergyDialogComponent } from 'src/app/dialogs/allergy.dialog/allergy.dialog.component';
 import { TobaccoUseDialogComponent } from 'src/app/dialogs/tobacco.use.dialog/tobacco.use.dialog.component';
@@ -41,15 +39,19 @@ import { TobaccoUseDialogComponent } from 'src/app/dialogs/tobacco.use.dialog/to
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.scss']
 })
-export class ChartComponent implements OnInit {
+export class ChartComponent implements OnInit, AfterViewInit {
   public selectedPatient: PatientSearchResults[];
   @ViewChild('searchVaccineCode', { static: true }) searchVaccineCode: ElementRef;
+
+  @ViewChild('searchPatient', { static: true })
+  searchPatient: ElementRef;
   labandimaging: Labandimaging;
-  // @ViewChild('searchMedicineCode', { static: true }) searchMedicineCode: ElementRef;
-  // filteredMedicines: Observable<PatientSearchResults[]>;
+
   vaccines: Observable<Vaccine[]>;
   filteredMedicines: any = [];
   isLoading = false;
+
+  filteredPatients: Observable<PatientSearch[]>;
 
   advancedDirectivesDialogComponent = AdvancedDirectivesDialogComponent;
   smokingStatusDialogComponent = SmokingStatusDialogComponent;
@@ -94,7 +96,7 @@ export class ChartComponent implements OnInit {
   currentPatient: ProviderPatient;
   ActionTypes = Actions;
   chartInfo: ChartInfo = new ChartInfo;
-  PatientAppointment: NewAppointment = {};
+  //PatientAppointment: NewAppointment = {};
   PracticeProviders: PracticeProviders[];
   AppointmentTypes: AppointmentTypes[];
   Locations: UserLocations[];
@@ -118,19 +120,13 @@ export class ChartComponent implements OnInit {
     private alertmsg: AlertMessage,
     public datepipe: DatePipe,
     private smartSchedulerService: SmartSchedulerService,
-    private settingsService: SettingsService) {
+    private settingsService: SettingsService,) {
     this.user = authService.userValue;
-  }
 
-  ngOnInit(): void {
-    this.loadGlobalConstants();
-    this.currentPatient = this.authService.viewModel.Patient;
-    this.ChartInfo();
-    this.TobaccoUseByPatientId();
-    this.loadDefaults();
-    this.loadAllergyNames('');
-    // this.loadVaccines();
-    this.loadLocationsList();
+
+  }
+  ngAfterViewInit(): void {
+
     fromEvent(this.searchVaccineCode.nativeElement, 'keyup').pipe(
       // get value
       map((event: any) => {
@@ -145,6 +141,51 @@ export class ChartComponent implements OnInit {
       // subscription for response
     ).subscribe(value => this._filterVaccine(value));
 
+    fromEvent(this.searchPatient.nativeElement, 'keyup').pipe(
+      // get value
+      map((event: any) => {
+        return event.target.value;
+      })
+      // if character length greater then 2
+      , filter(res => res.length > 2 && res.length < 6)
+      // Time in milliseconds between key events
+      , debounceTime(1000)
+      // If previous query is diffent from current
+      , distinctUntilChanged()
+      // subscription for response
+    ).subscribe(value => this._filterPatients(value));
+  }
+
+  _filterPatients(term: string) {
+    this.patientService
+      .PatientSearch({
+        ProviderId: this.authService.userValue.ProviderId,
+        ClinicId: this.authService.userValue.ClinicId,
+        SearchTerm: term
+      })
+      .subscribe(resp => {
+        if (resp.IsSuccess) {
+          this.filteredPatients = of(
+            resp.ListResult as PatientSearch[]);
+        } else this.filteredPatients = of([]);
+      })
+  }
+  onPatientSelected(selected) {
+    console.log(selected);
+
+    //this.labandImaging.CurrentPatient = selected.option.value;
+  }
+  displayWithPatientSearch(value: PatientSearch): string {
+    if (!value) return "";
+    return value.Name;
+  }
+  ngOnInit(): void {
+    this.loadGlobalConstants();
+    this.currentPatient = this.authService.viewModel.Patient;
+    this.ChartInfo();
+    this.loadDefaults();
+    this.loadAllergyNames('');
+    this.loadLocationsList();
   }
 
   _filterVaccine(term) {
@@ -179,7 +220,6 @@ export class ChartComponent implements OnInit {
 
   // search medications
   // _filterMedicine(term) {
-  //   console.log(term);
   //   this.isLoading = true;
   //   this.filteredMedicines = this.reason;
   //   // this.filteredMedicines = this.reason.filter(
@@ -244,13 +284,20 @@ export class ChartComponent implements OnInit {
       reqdata = dialogData;
     }
     else if (action == Actions.new && content === this.encounterDialogComponent) {
-      if (dialogData != null) reqdata = dialogData as ScheduledAppointment;
-      else reqdata = this.authService.viewModel.Patient;
-      if (reqdata.PatientId == null)
-        reqdata.PatientId = this.currentPatient.PatientId;
-
+      let ef = new EncounterInfo();
+      if (dialogData == null) {
+        ef.PatientId = this.authService.viewModel.Patient.PatientId;
+      }
+      reqdata = ef;
+    } else if (action == Actions.view && content === this.encounterDialogComponent) {
+      let ef = new EncounterInfo();
+      ef.EncounterId = dialogData.EncounterId
+      ef.PatientId = dialogData.PatientId
+      reqdata = ef;
     } else if (action == Actions.new && content === this.appointmentDialogComponent) {
-      reqdata = this.PatientAppointmentInfo(action);
+      reqdata = this.PatientAppointmentInfoForNew(action);
+    } else if (action == Actions.view && content === this.appointmentDialogComponent) {
+      reqdata = this.PatientAppointmentInfoForView(dialogData, action);
     }
 
     const ref = this.overlayService.open(content, reqdata);
@@ -332,6 +379,13 @@ export class ChartComponent implements OnInit {
       // this.displayWithVaccine(dialogData);
     }
   }
+
+  GetAppointmentInfo() {
+    let data: AppointmentDialogInfo = {}
+
+  }
+
+
 
   CreatePastMedicalHistories() {
     let isAdd = this.patientPastMedicalHistory.PastMedicalHistoryId == undefined;
@@ -426,8 +480,6 @@ export class ChartComponent implements OnInit {
   //       }));
   //       this.vaccines = sample;
   //       // this.vaccinesFilter = this.vaccines.slice();
-  //       console.log(this.vaccines);
-  //       console.log(this.vaccinesFilter);
   //       // if (this.patientImmunization.Code != "") {
   //       //   let data = this.patientImmunization.Code;
   //       //   let interventionlist = this.patientImmunization.find(x => x.Code == data);
@@ -652,22 +704,54 @@ export class ChartComponent implements OnInit {
     { value: 'All', viewValue: 'All' },
   ];
 
+  PatientAppointmentInfoForView(appointment: any, action?: Actions) {
+    let data = {} as AppointmentDialogInfo;
+    let PatientAppointment: NewAppointment = {};
 
-  PatientAppointmentInfo(action: Actions) {
+    PatientAppointment = {} as NewAppointment;
+    PatientAppointment.PatientId = appointment.PatientId;
+    PatientAppointment.PatientName = appointment.PatientName;
+    PatientAppointment.LocationId = appointment.LocationId;
+    PatientAppointment.ProviderId = appointment.ProviderId;
+    PatientAppointment.ClinicId = this.authService.userValue.ClinicId;
+    PatientAppointment.AppointmentId = appointment.AppointmentId;
+    PatientAppointment.AppointmentStatusId = appointment.ApptStatusId;
+    PatientAppointment.AppointmentTypeId = appointment.ApptTypeId;
+    PatientAppointment.LocationId = appointment.LocationId;
+    PatientAppointment.RoomId = appointment.RoomId;
+    PatientAppointment.Notes = appointment.Note;
+    PatientAppointment.Duration = 30;
+    PatientAppointment.Notes = appointment.Note;
+    PatientAppointment.Startat = appointment.StartAt
+    data.Title = "Edit Appointment";
+    data.ClinicId = this.authService.userValue.ClinicId;
+    data.ProviderId = appointment.ProviderId;
+    data.LocationId = appointment.LocationId;
+    data.PatientAppointment = PatientAppointment;
+    data.AppointmentTypes = this.AppointmentTypes;
+    data.PracticeProviders = this.PracticeProviders;
+    data.Locations = this.Locations;
+    data.Rooms = this.Rooms;
+    data.status = action;
+
+    return data;
+  }
+
+  PatientAppointmentInfoForNew(action: Actions) {
 
     let data = {} as AppointmentDialogInfo;
-    //this.PatientAppointment = {} as NewAppointment;
-    this.PatientAppointment.PatientId = this.currentPatient.PatientId;
-    this.PatientAppointment.PatientName = this.currentPatient.FirstName + ' ' + this.currentPatient.LastName;
-    this.PatientAppointment.LocationId = this.authService.userValue.CurrentLocation;
-    this.PatientAppointment.ProviderId = this.currentPatient.ProviderId;
-    this.PatientAppointment.ClinicId = this.authService.userValue.ClinicId;
-    this.PatientAppointment.Duration = 30;
+    let PatientAppointment: NewAppointment = {};
+    PatientAppointment.PatientId = this.currentPatient.PatientId;
+    PatientAppointment.PatientName = this.currentPatient.FirstName + ' ' + this.currentPatient.LastName;
+    PatientAppointment.LocationId = this.authService.userValue.CurrentLocation;
+    PatientAppointment.ProviderId = this.currentPatient.ProviderId;
+    PatientAppointment.ClinicId = this.authService.userValue.ClinicId;
+    PatientAppointment.Duration = 30;
     data.Title = "New Appointment";
     data.ClinicId = this.authService.userValue.ClinicId;
     data.ProviderId = this.currentPatient.ProviderId;
     data.LocationId = this.authService.userValue.CurrentLocation;
-    data.PatientAppointment = this.PatientAppointment;
+    data.PatientAppointment = PatientAppointment;
     data.AppointmentTypes = this.AppointmentTypes;
     data.PracticeProviders = this.PracticeProviders;
     data.Locations = this.Locations;

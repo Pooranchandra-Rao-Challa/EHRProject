@@ -5,6 +5,8 @@ import { Accountservice } from '../../_services/account.service';
 import { AuthenticationService } from '../../_services/authentication.service';
 import * as pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
+import { PracticeProviders } from '../../_models/_provider/practiceProviders';
+import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
 declare const $: any;
 
 @Component({
@@ -13,6 +15,8 @@ declare const $: any;
   styleUrls: ['./mureports.component.scss']
 })
 export class MureportsComponent implements OnInit {
+  
+  PracticeProviders: PracticeProviders[];
   checkboxValue021: boolean = false;
   checkboxValue01: boolean = false;
   checkboxValue022: boolean = false;
@@ -1943,42 +1947,43 @@ export class MureportsComponent implements OnInit {
     }
   }
 
-  constructor(private authenticationService: AuthenticationService, private service: Accountservice, private fb: FormBuilder, public datepipe: DatePipe) {
+  constructor(private authenticationService: AuthenticationService,private smartSchedulerService: SmartSchedulerService, private service: Accountservice, private fb: FormBuilder, public datepipe: DatePipe) {
     pdfMake.vfs = pdfFonts.pdfMake.vfs;
+    
   }
 
   ngOnInit() {
     this.getLocationsList('');
-    this.getProviderList('');
+    this.getProviderList();
+    //this.loadPatientProviders();
     this.Stage3Form();
 
   }
 
-  getProviderList(Providersdata: any) {
-    this.LocationName = Providersdata.Location_Name;
-    this.LocationPhone = Providersdata.Location_Phone;
-    this.LocationStreetAddress = Providersdata.Location_Street_Address;
-    this.LocationCity = Providersdata.Location_City == undefined ? '' : Providersdata.Location_City;
-    this.LocationState = Providersdata.Location_State == undefined ? '' : Providersdata.Location_State;
-    this.LocationName == undefined ? 0 : this.LocationName;
-    this.LocationZip = Providersdata.Location_Zip == undefined ? '' : Providersdata.Location_Zip;
+  // getProviderList(Providersdata: any) {
+  //   this.LocationName = Providersdata.Location_Name;
+  //   this.LocationPhone = Providersdata.Location_Phone;
+  //   this.LocationStreetAddress = Providersdata.Location_Street_Address;
+  //   this.LocationCity = Providersdata.Location_City == undefined ? '' : Providersdata.Location_City;
+  //   this.LocationState = Providersdata.Location_State == undefined ? '' : Providersdata.Location_State;
+  //   this.LocationName == undefined ? 0 : this.LocationName;
+  //   this.LocationZip = Providersdata.Location_Zip == undefined ? '' : Providersdata.Location_Zip;
 
-    let locationid = localStorage.getItem('providerlocation');
+  //   let locationid = localStorage.getItem('providerlocation');
 
-    var req = {
-      "LocationId": locationid,
-    }
-    this.service.getProviderList(req).subscribe(data => {
-      if (data.IsSuccess) {
-        this.providerlist = data.ListResult;
-        this.filteredproviderList = this.providerlist.slice();
-      }
-    });
-  }
+  //   var req = {
+  //     "LocationId": locationid,
+  //   }
+  //   this.service.getProviderList(req).subscribe(data => {
+  //     if (data.IsSuccess) {
+  //       this.providerlist = data.ListResult;
+  //       this.filteredproviderList = this.providerlist.slice();
+  //     }
+  //   });
+  // }
 
   getLocationsList(Location: any) {
-    this.ProviderName = Location.Provider_Name;
-    this.service.getLocationsList(Location.Provider_Id).subscribe(data => {
+    this.service.getLocationsList(Location.ProviderId).subscribe(data => {
       if (data.IsSuccess) {
         this.locationslist = data.ListResult;
         this.filteredlocationList = this.locationslist.slice();
@@ -1998,7 +2003,7 @@ export class MureportsComponent implements OnInit {
     var Patientreport = {
       "startDate": this.datepipe.transform(this.muReportForm.value.strSDate, 'yyyy-MM-dd', 'en-US'),
       "endDate": this.datepipe.transform(this.muReportForm.value.strEDate, 'yyyy-MM-dd', 'en-US'),
-      "provider_Id": this.muReportForm.value.provider_Id,
+      "ProviderId": this.muReportForm.value.ProviderId,
       "TypeName": req,
     }
     // console.log(this.muReportForm.value);
@@ -2045,7 +2050,7 @@ export class MureportsComponent implements OnInit {
     var MUreport = {
       "startDate": this.datepipe.transform(this.muReportForm.value.strSDate, 'MM/dd/yyyy', 'en-US'),
       "endDate": this.datepipe.transform(this.muReportForm.value.strEDate, 'MM/dd/yyyy', 'en-US'),
-      "provider_Id": this.muReportForm.value.provider_Id,
+      "ProviderId": this.muReportForm.value.ProviderId,
       "stage_type": this.muReportForm.value.stage_type,
     }
     this.ReportingDate = this.datepipe.transform(this.muReportForm.value.strSDate, 'MM/dd/yyyy', 'en-US');
@@ -2136,6 +2141,7 @@ export class MureportsComponent implements OnInit {
 
   getStage2NumeDenomicount(data: any) {
     this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
+    debugger;
     this.stage2NumeDenomicount = null;
     this.stage3NumeDenomicount = null;
     this.service.GetStage2NumeDenomiCount(data).subscribe(data => {
@@ -3304,7 +3310,7 @@ export class MureportsComponent implements OnInit {
     this.muReportForm = this.fb.group({
       strSDate: ['', Validators.required],
       strEDate: ['', Validators.required],
-      provider_Id: ['', Validators.required],
+      ProviderId: ['', Validators.required],
       stage_type: ['', Validators.required]
     })
   }
@@ -3314,7 +3320,7 @@ export class MureportsComponent implements OnInit {
     var Patientreport = {
       "startDate": this.muReportForm.value.strSDate,
       "endDate": this.muReportForm.value.strEDate,
-      "provider_Id": this.muReportForm.value.provider_Id,
+      "ProviderId": this.muReportForm.value.ProviderId,
       "TypeName": req,
     }
     // console.log(this.muReportForm.value);
@@ -3529,6 +3535,15 @@ export class MureportsComponent implements OnInit {
       this.sortDir = 1;
     }
     this.sortArr25('Numerator');
+  }
+
+  getProviderList() {
+    let req = { "ClinicId": this.authenticationService.userValue.ClinicId };
+    this.smartSchedulerService.PracticeProviders(req).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.PracticeProviders = resp.ListResult as PracticeProviders[];
+      }
+    });
   }
 
   sortArr25(colName: any) {

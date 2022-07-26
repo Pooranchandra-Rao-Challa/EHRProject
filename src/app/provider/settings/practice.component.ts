@@ -9,7 +9,7 @@ import { AuthenticationService } from '../../_services/authentication.service';
 import { SettingsService } from '../../_services/settings.service';
 import { UtilityService } from '../../_services/utiltiy.service';
 import { User } from '../../_models';
-import { LocationSelectService } from '../../_navigations/provider.layout/location.service';
+import { LocationSelectService } from '../../_navigations/provider.layout/view.notification.service';
 import { Accountservice } from '../../_services/account.service';
 import { Actions, NewUser } from 'src/app/_models/';
 import { UserDialogComponent } from 'src/app/dialogs/user.dialog/user.dialog.component';

@@ -1,0 +1,221 @@
+@import"../../../assets/cstm.material.scss";
+@import"../../../assets/common.scss";
+
+
+
+#editlaborder.modal-dialog{
+  max-width: unset;
+  width: 1000px;
+  left: calc(100% - 85%) !important;
+  margin: unset;
+}
+
+
+#editlaborder .modal-body {
+  max-height: calc(90vh - 200px);
+  padding: 0 !important;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+#editlaborder .modal-body > .row,
+#editlaborder .modal-body > .patient-block{
+  padding: 15px 25px 0 25px;
+}
+#editlaborder .modal-body > .row > .thead,
+#editlaborder .modal-body > .row > .tbody{
+  display: inherit;
+  margin-left: 14px;
+  width: 97.5%;
+  border-top: 1px solid #41b6a6;
+  border-left: 1px solid #41b6a6;
+  border-right: 1px solid #41b6a6;
+}
+
+#editlaborder .modal-body > .row > .tbody:last-child{
+  border-bottom: 1px solid #41b6a6 !important;
+}
+
+#editlaborder .row.highlight-blocks .title{
+  margin: unset;
+}
+::ng-deep  #editlaborder .modal-body > .row > .tbody .mat-radio-container .mat-radio-outer-circle{
+  height: 15px !important;
+  width: 15px !important;
+  top: 3px !important;
+  //background-color: #41b6a6 !important;
+}
+::ng-deep #editlaborder .modal-body > .row > .tbody .mat-radio-container .mat-radio-inner-circle{
+  height: 10px !important;
+  width: 10px !important;
+  top: 5px;
+  left: 2.5px;
+  background-color: #fff !important;
+}
+#editlaborder .modal-body > .row .panel-heading{
+  display: flex;
+  height: 40px;
+}
+#editlaborder .modal-body > .row .panel-heading .title{
+  width: 92.8%;
+  font-size: 16px;
+  font-weight: 500;
+
+}
+#editlaborder .modal-body > .row .panel-heading .title-right{
+  width:inherit;
+  float:right;
+}
+#editlaborder .modal-body > .row .panel-tests .header-row{
+  background: #41b6a6;
+  color:#fff;
+  height: 45px;
+  margin: 0 1px;
+}
+#editlaborder .modal-body > .row .panel-tests .header-row div{
+  padding-top: 12px;
+}
+#editlaborder .modal-body > .row .panel-tests .header-row div:not(:last-child){
+  border-right: 1px solid #fff;
+  text-align: center;
+  vertical-align:middle;
+}
+
+#editlaborder .modal-body > .row .panel-tests .data-row{
+  background: #fff;
+  color:#41b6a6;
+  height: 40px;
+  margin: 0 1px;
+}
+#editlaborder .modal-body > .row .panel-tests .data-row div input{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-left: 5px;
+  border: 1px solid #41b6a6;
+  width: 200px;
+  border-radius: 5px;
+  line-height: 25px;
+}
+
+#editlaborder .modal-body > .row .panel-tests .data-row div{
+  border-right: 1px solid #41b6a6;
+  border-bottom:  1px solid #41b6a6;
+}
+#editlaborder .modal-body > .row .panel-tests .data-row div:first-child{
+  border-left: 1px solid #41b6a6;
+}
+.minuicon {
+  border-radius: 50%;
+  border: 1px solid #41b6a6;
+  background: #fff;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 6.3px;
+  .fa-minus {
+    padding: 5px 0px 0px 0px;
+    color: #41b6a6;
+    background:transparent;
+    font-size: 16px;
+    font-family: "FontAwesome";
+    &:hover {
+      color: #fff;
+      background: #41b6a6;
+    }
+  }
+  &:hover {
+    .fa-minus{color: #fff;}
+    background: #41b6a6;
+  }
+}
+
+
+.notallowed-cursor {
+    cursor: not-allowed;
+}
+
+::ng-deep .chk-reviewed .mat-checkbox-inner-container{
+  height: 23px ;
+  width: 23px ;
+}
+
+
+#editlaborder .modal-footer{
+  display: unset;
+}
+
+#editlaborder .modal-footer .buttons button
+ {
+  margin:5px 9px;
+}
+#editlaborder .modal-footer .chk-reviewed{
+  margin:15px 0 0 0;
+}
+#editlaborder .modal-footer .chk-reviewed span{
+  margin-left:10px;
+  color: #41b6a6;
+}
+.form-control.input-border
+{
+border: 1px solid #41b6a6;
+height: 45px;
+}
+.text-border{
+    height: 71px;
+      border: 1px solid #41b6a6;
+      border-radius: 3px;
+      font-size: 15px;
+      padding: 10px 20px;
+      resize: both;
+      width: 100% !important;
+}
+.highlight-block {
+    background-color: rgba(65,182,166,0.1);
+    margin: 5px -2px ;
+    padding: 5px 9px 0 9px;
+}
+
+
+.patient-block {
+    background-color: rgba(65,182,166,0.1);
+
+}
+.plusicon {
+    border-radius: 66px;
+    border: 1px solid #41b6a6;
+    background: #fff;
+    width: 30px;
+    height: 29px;
+    text-align: center;
+    cursor: pointer;
+
+}
+.plusicon .fa-plus {
+
+  padding: 5px 0px 0px 0px;
+  color: #41b6a6;
+  font-size: 16px;
+  font-family: "FontAwesome"
+}
+// .tblheaderclass
+// {
+//    background-color: #41b6a6;
+//    height: 45px;
+//    color: #fff;
+//    border:1px solid #fff;
+//    text-align: center;
+
+// }
+
+// .table {
+//     --bs-table-accent-bg: none;
+//     border: 1px solid #41b6a6;
+//   }
+//   .table thead th {
+//     border: 1px solid #fff;
+// }
+
+// .table tr td {
+//     border: 1px solid #41b6a6;
+// }

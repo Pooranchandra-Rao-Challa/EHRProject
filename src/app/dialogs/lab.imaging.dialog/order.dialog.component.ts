@@ -1,6 +1,6 @@
 import { PatientService } from 'src/app/_services/patient.service';
 import { MedicalCode } from 'src/app/_models/codes';
-import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { fromEvent, Observable, of } from 'rxjs';
 import { ComponentType } from '@angular/cdk/portal';
@@ -23,20 +23,21 @@ import { DatePipe } from '@angular/common'
   templateUrl: './order.dialog.component.html',
   styleUrls: ['./order.dialog.component.scss']
 })
-export class OrderDialogComponent implements OnInit {
+export class OrderDialogComponent implements OnInit,AfterViewInit {
   @ViewChild('searchpatient', { static: true }) searchpatient: ElementRef;
   filteredPatients: Observable<PatientSearch[]>;
   orderTypeDD = [{ value: 'Lab', viewValue: 'Lab' }, { value: 'Imaging', viewValue: 'Imaging' }]
   formGroups: FormGroup;
-  labLabImageStatusesDD: any = [];
-  LabImageOrderStatusesDD: any[];
+  OrderStatuses: any = [];
+  ResultStatuses: any[];
   PracticeProviders: PracticeProviders[];
   labandImaging?: LabProcedureWithOrder = new LabProcedureWithOrder();
   isLoading: boolean = false;
   filteredOptions: Observable<MedicalCode[]>;
   testCodeComponent = TestCodeComponent;
   orderingFacilities: UserLocations[];
-
+  saveClicked: boolean = false;
+  diabledPatientSearch: boolean = false;
   constructor(private ref: EHROverlayRef,
     private fb: FormBuilder,
     private utilityService: UtilityService,
@@ -46,18 +47,25 @@ export class OrderDialogComponent implements OnInit {
     private alertMessage: AlertMessage,
     private authService: AuthenticationService,
     private overlayService: OverlayService,
+    private patientService: PatientService,
     private datePipe: DatePipe) {
     this.labandImaging = ref.RequestData as LabProcedureWithOrder;
+
+    if (this.labandImaging.CurrentPatient == null)
+      this.labandImaging.CurrentPatient = new PatientSearch();
+
+
     this.labandImaging.ProcedureType = this.labandImaging.View;
-    this.labandImaging.OrderingFacility = this.labandImaging.View;
     this.orderingFacilities = JSON.parse(this.authService.userValue.LocationInfo) as UserLocations[];
   }
 
   ngOnInit(): void {
-    this.getLabImageStatuses();
-    this.getLabImageOrderStatuses();
+    this.updatePatientInfo();
+    this.InitOrderStatuses();
+    this.InitResultStatuses();
     this.loadDefaults();
     this.initFormGroups();
+    this.initTestOrderGrid();
     fromEvent(this.searchpatient.nativeElement, 'keyup').pipe(
       // get value
       map((event: any) => {
@@ -88,6 +96,14 @@ export class OrderDialogComponent implements OnInit {
         } else this.filteredPatients = of([]);
       })
   }
+
+  ngAfterViewInit(){
+    if(this.labandImaging.CurrentPatient != null && this.labandImaging.CurrentPatient.Name != null){
+      this.searchpatient.nativeElement.value = this.labandImaging.CurrentPatient.Name;
+      this.diabledPatientSearch = true;
+    }
+
+  }
   onPatientSelected(selected) {
     this.labandImaging.CurrentPatient = selected.option.value;
   }
@@ -107,17 +123,48 @@ export class OrderDialogComponent implements OnInit {
   get orders() {
     return this.formGroups.get('orders') as FormArray
   }
-  addLabOrders() {
-    this.orders.push(this.addOrder());
+  addLabOrder(order: TestOrder = {}) {
+    this.orders.push(this.newOrder(order));
   }
   removeLabOrder(index: number) {
-    this.orders.controls.splice(index, 1);
+    this.orders.controls.splice(index, 1).forEach(ctrl => {
+      if (isNaN(ctrl.get("TestOrderId").value)) {
+        if (this.labandImaging.RemovedTestOrderIds == null) this.labandImaging.RemovedTestOrderIds = [];
+        this.labandImaging.RemovedTestOrderIds.push(ctrl.get("TestOrderId").value)
+      }
+    });
   }
-  addOrder() {
+  newOrder(order: TestOrder = {}) {
     return this.fb.group({
-      Code: "",
-      Test: ""
+      Code: order.Code,
+      Test: order.Test,
+      TestOrderId: order.TestOrderId
     })
+  }
+
+  updatePatientInfo() {
+    this.patientService
+      .PatientSearch({
+        PatientId: this.labandImaging.PatientId
+      })
+      .subscribe(resp => {
+        if (resp.IsSuccess) {
+          let pat = resp.ListResult as PatientSearch[];
+          if (pat.length == 1) {
+            this.labandImaging.CurrentPatient = pat[0];
+          } else {
+            this.labandImaging.CurrentPatient = new PatientSearch()
+          }
+        }
+
+      })
+  }
+
+  initTestOrderGrid() {
+    if (this.labandImaging.Tests != null)
+      this.labandImaging.Tests.forEach(order => {
+        this.addLabOrder(order);
+      })
   }
 
   get attachments() {
@@ -138,14 +185,14 @@ export class OrderDialogComponent implements OnInit {
     this.attachments.removeAt(index);
   }
 
-  getLabImageStatuses() {
-    this.utilityService.LabImageStatuses().subscribe(resp => {
-      this.labLabImageStatusesDD = resp.ListResult;
+  InitOrderStatuses() {
+    this.utilityService.OrderStatuses().subscribe(resp => {
+      this.OrderStatuses = resp.ListResult;
     })
   }
-  getLabImageOrderStatuses() {
-    this.utilityService.LabImageOrderStatuses().subscribe(resp => {
-      this.LabImageOrderStatusesDD = resp.ListResult;
+  InitResultStatuses() {
+    this.utilityService.ResultStatuses().subscribe(resp => {
+      this.ResultStatuses = resp.ListResult;
     })
 
   }
@@ -161,11 +208,11 @@ export class OrderDialogComponent implements OnInit {
     return !(this.labandImaging.CurrentPatient != null
       && this.labandImaging.ProcedureType != null && this.labandImaging.ProcedureType != ""
       && this.labandImaging.LabName != null && this.labandImaging.LabName != ""
-      && this.labandImaging.Status != null && this.labandImaging.Status != ""
+      && this.labandImaging.OrderStatus != null && this.labandImaging.OrderStatus != ""
       && this.labandImaging.ScheduledAt != null && this.labandImaging.ScheduledAt != ""
       && this.labandImaging.OrderingPhyscianId != null && this.labandImaging.OrderingPhyscianId != ""
       && this.labandImaging.OrderingFacility != null && this.labandImaging.OrderingFacility != ""
-      && this.labandImaging.OrderStatus != null && this.labandImaging.OrderStatus != ""
+      && this.labandImaging.ResultStatus != null && this.labandImaging.ResultStatus != ""
       && this.hasOrders)
 
 
@@ -182,12 +229,12 @@ export class OrderDialogComponent implements OnInit {
   }
 
   save() {
-    console.log(this.labandImaging);
+    this.saveClicked = true;
     let isAdd = this.labandImaging.LabProcedureId == null;
     this.labandImaging.ClinicId = this.authService.userValue.ClinicId;
     this.labandImaging.LocationId = this.authService.userValue.CurrentLocation;
-    this.labandImaging.StrScheduledAt = this.datePipe.transform(this.labandImaging.ScheduledAt,"MM/dd/yyyy")
-    this.labandImaging.strReceivedAt = this.datePipe.transform(this.labandImaging.ReceivedAt,"MM/dd/yyyy")
+    this.labandImaging.StrScheduledAt = this.datePipe.transform(this.labandImaging.ScheduledAt, "MM/dd/yyyy")
+    this.labandImaging.strReceivedAt = this.datePipe.transform(this.labandImaging.ReceivedAt, "MM/dd/yyyy")
 
     this.labsImagingService.CreateLabOrImagingOrder(this.labandImaging)
       .subscribe(resp => {
@@ -214,7 +261,7 @@ export class OrderDialogComponent implements OnInit {
       if (content === this.testCodeComponent) {
         if (res != null && res.data != null && res.data.TestCode) {
           let value = res.data.TestCode;
-          this.orders.controls[value.Index].setValue({ Code: value.Code, Test: value.Description });
+          this.orders.controls[value.Index].setValue({ Code: value.Code, Test: value.Description, TestOrderId: -1 * value.Index });
         }
       }
 
@@ -225,7 +272,7 @@ export class OrderDialogComponent implements OnInit {
     testCode.Query = element.target.value;
     testCode.Scope = 'Lonics';
     testCode.Index = index;
-    if(testCode.Query.length >= 3 )
-      this.openComponentDialog(this.testCodeComponent,testCode);
+    if (testCode.Query.length >= 3)
+      this.openComponentDialog(this.testCodeComponent, testCode);
   }
 }

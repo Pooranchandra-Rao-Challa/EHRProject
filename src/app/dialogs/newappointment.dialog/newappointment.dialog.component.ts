@@ -55,6 +55,8 @@ export class NewAppointmentDialogComponent implements OnInit {
     this.PatientAppointment = {} as NewAppointment;
 
     this.PatientAppointment = data.PatientAppointment;
+    console.log(this.PatientAppointment);
+
     this.appointmentTitle = data.Title;
     this.AppointmentTypes = data.AppointmentTypes;
     this.PracticeProviders = data.PracticeProviders;
@@ -68,8 +70,8 @@ export class NewAppointmentDialogComponent implements OnInit {
     }
     if(this.PatientAppointment && this.PatientAppointment.Startat != null)
       this.todayDate = this.PatientAppointment.Startat;
-    else
-      this.PatientAppointment.Startat = this.todayDate;
+    // else
+    //   this.PatientAppointment.Startat = this.todayDate;
 
 
 
@@ -94,6 +96,8 @@ export class NewAppointmentDialogComponent implements OnInit {
   }
 
   LoadAvailableTimeSlots() {
+    console.log(this.PatientAppointment.Startat);
+
     let ats = {
       "LocationId": this.PatientAppointment.LocationId,
       "RoomId": this.PatientAppointment.RoomId,
@@ -101,6 +105,8 @@ export class NewAppointmentDialogComponent implements OnInit {
       "RequestDate": this.PatientAppointment.Startat,
       "AppointmentId": this.PatientAppointment.AppointmentId
     };
+    console.log(ats);
+
     this.PatientAppointment.TimeSlot = null;
     this.smartSchedulerService.AvailableTimeSlots(ats).subscribe(resp => {
       if (resp.IsSuccess) {

@@ -1,13 +1,12 @@
 
 import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
-
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
 import { PatientService } from 'src/app/_services/patient.service';
 import { EHROverlayRef } from '../../ehr-overlay-ref';
 import { ComponentType } from '@angular/cdk/portal';
 import {
-  EncounterInfo, EncounterDiagnosis, ProceduresInfo, VitalInfo,PracticeProviders,Actions,
+  EncounterInfo, EncounterDiagnosis, ProceduresInfo, VitalInfo, PracticeProviders, Actions,
   ScheduledAppointment, AppointmentTypes,
   UserLocations,
   PatientChart
@@ -22,7 +21,7 @@ import { map, } from 'rxjs/operators';
 import { AlertMessage, ERROR_CODES } from './../../_alerts/alertMessage';
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 import { SignEncounterNoteComponent } from 'src/app/dialogs/encounter.dialog/sign.encounter.note.component'
-import { stringify } from 'querystring';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-encounter.dialog',
@@ -39,12 +38,11 @@ export class EncounterDialogComponent implements OnInit {
 
   EnableNewEncounterData: boolean = true;
   recommendedProcedures = new BehaviorSubject<ProceduresInfo[]>([]);
-  // completedProcedures = new BehaviorSubject<ProceduresInfo[]>([]);
   diagnosesInfo = new BehaviorSubject<EncounterDiagnosis[]>([]);
   vitalsInfo = new BehaviorSubject<VitalInfo[]>([]);
   teethNumbers = [] // [0,1,2,3,4]
-  @ViewChild('heightField',  { static: true }) heightField: ElementRef;
-  @ViewChild('weightField',  { static: true }) weightField: ElementRef;
+  @ViewChild('heightField', { static: true }) heightField: ElementRef;
+  @ViewChild('weightField', { static: true }) weightField: ElementRef;
   heightValue$: Observable<number>;
   weightValue$: Observable<number>;
   bmi$: Observable<number>;
@@ -71,38 +69,43 @@ export class EncounterDialogComponent implements OnInit {
   patient: ProviderPatient;
   signEncounterNoteComponent = SignEncounterNoteComponent;
 
+
   private messageflagSubject = new BehaviorSubject<boolean>(false);
   public messageflag$ = this.messageflagSubject.asObservable();
   constructor(private overlayref: EHROverlayRef, private authService: AuthenticationService,
     private smartSchedulerService: SmartSchedulerService,
     private patientService: PatientService,
     private overlayService: OverlayService,
-    private alertmsg: AlertMessage) {
-      let i = 1;  //normally would use var here
-      while(this.teethNumbers.push(i++)<32){}
-     }
+    private alertmsg: AlertMessage,
+    private datePipe: DatePipe) {
+    let i = 1;  //normally would use var here
+    while (this.teethNumbers.push(i++) < 32) { }
+  }
 
   ngOnInit(): void {
 
-
     this.heightValue$ = fromEvent<Event>(this.heightField.nativeElement, 'input')
-    .pipe(map(e => +(<HTMLInputElement>e.target).value));
+      .pipe(map(e => +(<HTMLInputElement>e.target).value));
     this.weightValue$ = fromEvent<Event>(this.weightField.nativeElement, 'input')
-    .pipe(map(e => +(<HTMLInputElement>e.target).value));
+      .pipe(map(e => +(<HTMLInputElement>e.target).value));
     this.bmi$ = combineLatest([this.heightValue$, this.weightValue$]).pipe(
       map(([h, w]) => this.computeBmi(h, w)),
     )
 
-
     this.location = (JSON.parse(this.authService.userValue.LocationInfo) as UserLocations[])
-    .filter((loc) => loc.locationId === this.authService.userValue.CurrentLocation )[0];
+      .filter((loc) => loc.locationId === this.authService.userValue.CurrentLocation)[0];
+
     this.loadDefaults();
+
     this.appointment = this.overlayref.RequestData as ScheduledAppointment
     this.patient = this.overlayref.RequestData as ProviderPatient;
 
-
     this.initEncoutnerView();
     this.loadEncouterView();
+    if(this.overlayref.RequestData["From"] == "ProcedureView"
+      && this.overlayref.RequestData.EncounterId == null){
+      this.encounterInfo.RecommendedProcedures.push(this.overlayref.RequestData as ProceduresInfo);
+    }
     this.encounterInfo.EnableNewEncounterData = this.EnableNewEncounterData;
     this.encounterInfo.Diagnoses.forEach(fn => {
       fn.MedLineUrl = this.medLinePlusUrl({
@@ -114,25 +117,27 @@ export class EncounterDialogComponent implements OnInit {
     this.recommendedProcedures.next(this.encounterInfo.RecommendedProcedures);
 
 
-    if(this.encounterInfo.Vital.CollectedAt != null)
-    this.encounterInfo.Vital.CollectedTime = this.encounterInfo.Vital.CollectedAt.toTimeString().substring(0, 5);
+    if (this.encounterInfo.Vital.CollectedAt != null)
+      this.encounterInfo.Vital.CollectedTime = this.encounterInfo.Vital.CollectedAt.toTimeString().substring(0, 5);
   }
+
   private computeBmi(height: number, weight: number): number {
     const bmi = (weight / ((height) * (height))) * 703;
     this.encounterInfo.Vital.BMI = Number(bmi.toFixed(2));
     return Number(bmi.toFixed(2));
   }
-  initEncoutnerView(){
-    if(this.EnableNewEncounterData){
+
+  initEncoutnerView() {
+    if (this.EnableNewEncounterData) {
       this.encounterInfo.EncounterType = "Office Visit (1853490003)";
       this.encounterInfo.EncounterCode = ""
-      this.encounterInfo.EncounterCodeSystem ="";
-      this.encounterInfo.EncounterDescription ="";
-    }else{
+      this.encounterInfo.EncounterCodeSystem = "";
+      this.encounterInfo.EncounterDescription = "";
+    } else {
       this.encounterInfo.EncounterType = "";
       this.encounterInfo.EncounterCode = "99213"
-      this.encounterInfo.EncounterCodeSystem ="SNOMED";
-      this.encounterInfo.EncounterDescription ="Office or Other Outpatient Visit";
+      this.encounterInfo.EncounterCodeSystem = "SNOMED";
+      this.encounterInfo.EncounterDescription = "Office or Other Outpatient Visit";
     }
   }
 
@@ -151,41 +156,46 @@ export class EncounterDialogComponent implements OnInit {
     });
 
   }
-  loadEncouterView(){
-    let requestdata = {"AppointmentId":null,"EncounterId":null}
-    if(this.appointment != null)
-      requestdata = {"EncounterId":this.appointment.EncounterId,
-                    "AppointmentId": this.appointment.EncounterId == null ?
-                            this.appointment.AppointmentId : null};
+
+  loadEncouterView() {
+    let requestdata = { "AppointmentId": null, "EncounterId": null }
+    if (this.appointment != null)
+      requestdata = {
+        "EncounterId": this.appointment.EncounterId,
+        "AppointmentId": this.appointment.EncounterId == null ?
+          this.appointment.AppointmentId : null
+      };
+
+
 
     this.dialogIsLoading = true;
     this.patientService.EncounterView(requestdata).subscribe(resp => {
       if (resp.IsSuccess) {
         this.dialogIsLoading = false;
-        if(resp.AffectedRecords == 1){
+        if (resp.AffectedRecords == 1) {
           this.encounterInfo = resp.Result as EncounterInfo;
           console.log(this.encounterInfo);
           this.diagnosesInfo.next(this.encounterInfo.Diagnoses);
           this.recommendedProcedures.next(this.encounterInfo.RecommendedProcedures);
           //console.log(this.encounterInfo.Vital.CollectedAt.toString().substring(11,16));
 
-          if(this.encounterInfo.Vital.CollectedAt != null)
+          if (this.encounterInfo.Vital.CollectedAt != null)
             this.encounterInfo.Vital.CollectedTime = this.encounterInfo.Vital.CollectedAt.toString().substring(11, 16);
           this.dischargeCode.Code = this.encounterInfo.DischargeStatusCode
           this.dischargeCode.Description = this.encounterInfo.DischargeStatus
           this.dischargeCode.CodeSystem = this.encounterInfo.DischargeStatusCodeSystem;
           console.log(this.dischargeCode);
-        }else{
+        } else {
           this.encounterInfo.ProviderId = this.authService.userValue.ProviderId;
           this.encounterInfo.LocationId = this.location.locationId;
-          if(this.appointment != null){
+          if (this.appointment != null) {
             this.encounterInfo.AppointmentId = this.appointment.AppointmentId;
             this.encounterInfo.PatientId = this.appointment.PatientId;
           }
 
         }
 
-      }else{
+      } else {
         this.overlayref.close();
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2AE003"])
       }
@@ -194,7 +204,7 @@ export class EncounterDialogComponent implements OnInit {
   documentationChanged(value) {
     this.encounterInfo.CurrentMedicationDocumented = (value as MatRadioButton).value
     if (this.encounterInfo.CurrentMedicationDocumented == 2) {
-      this.encounterInfo.EncounterCode ="";
+      this.encounterInfo.EncounterCode = "";
       this.encounterInfo.EncounterDescription = "";
       this.encounterInfo.EncounterCodeSystem = "";
     } else {
@@ -205,15 +215,15 @@ export class EncounterDialogComponent implements OnInit {
     }
   }
 
-  onDischargeCodeChange(value: MedicalCode){
+  onDischargeCodeChange(value: MedicalCode) {
     this.encounterInfo.DischargeStatus = value.Description;
-    this.encounterInfo.DischargeStatusCode   = value.Code
+    this.encounterInfo.DischargeStatusCode = value.Code
     this.encounterInfo.DischargeStatusCodeSystem = value.CodeSystem;
   }
 
-  onEncounterCodeChange(value: MedicalCode){
+  onEncounterCodeChange(value: MedicalCode) {
     this.encounterInfo.EncounterDescription = value.Description;
-    this.encounterInfo.EncounterCode   = value.Code
+    this.encounterInfo.EncounterCode = value.Code
     this.encounterInfo.EncounterCodeSystem = value.CodeSystem;
   }
 
@@ -230,13 +240,13 @@ export class EncounterDialogComponent implements OnInit {
     value.CanDelete = true;
     this.diagnosesInfo.next(this.encounterInfo.Diagnoses.filter(fn => fn.CanDelete === false));
   }
-  onReferralFromStateChange(value){
-    if(value){
+  onReferralFromStateChange(value) {
+    if (value) {
       this.encounterInfo.ReferredTo = false;
     }
   }
-  onReferralToStateChange(value){
-    if(value){
+  onReferralToStateChange(value) {
+    if (value) {
       this.encounterInfo.ReferredFrom = false;
     }
   }
@@ -306,13 +316,13 @@ export class EncounterDialogComponent implements OnInit {
   saveAsDraft() {
     this.encounterInfo.EnableNewEncounterData = this.EnableNewEncounterData;
     this.encounterInfo.Signed = false;
-    if(this.encounterInfo.ServiceEndAt == new Date())
+    if (this.encounterInfo.ServiceEndAt == new Date())
       this.encounterInfo.ServiceEndAt = null;
     this.updateEncounter();
   }
 
-  signConfirmation(){
-    this.openComponentDialog(this.signEncounterNoteComponent,null);
+  signConfirmation() {
+    this.openComponentDialog(this.signEncounterNoteComponent, null);
   }
   signEncounter() {
     this.encounterInfo.EnableNewEncounterData = this.EnableNewEncounterData;
@@ -321,59 +331,62 @@ export class EncounterDialogComponent implements OnInit {
   }
 
 
-  updateEncounter(){
+  updateEncounter() {
     let isAdd = this.encounterInfo.EncounterId == null;
+
+    this.encounterInfo.strServicedAt = this.datePipe.transform(this.encounterInfo.ServicedAt, "MM/dd/yyyy")
+    if (this.encounterInfo.ServiceEndAt != null)
+      this.encounterInfo.strServiceEndAt = this.datePipe.transform(this.encounterInfo.ServiceEndAt, "MM/dd/yyyy")
     console.log(this.encounterInfo);
 
-    return;
     this.patientService.CreateEncounter(this.encounterInfo).subscribe(resp => {
       if (resp.IsSuccess) {
-        this.overlayref.close({"UpdatedModal": PatientChart.Encounters});
+        this.overlayref.close({ "UpdatedModal": PatientChart.Encounters });
         this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2AE001" : "M2AE002"])
-      }else{
+      } else {
         this.overlayref.close();
         this.alertmsg.displayErrorDailog(ERROR_CODES[isAdd ? "E2AE001" : "E2AE002"])
       }
     });
   }
 
-  enableSaveButtons(){
+  enableSaveButtons() {
 
-    if(this.encounterInfo.HealthInfoExchange == true &&
+    if (this.encounterInfo.HealthInfoExchange == true &&
       this.encounterInfo.ReferredTo == false
       || this.encounterInfo.ReferralTo == ""
-      || this.encounterInfo.ReferralTo == null){
-        this.messageflagSubject.next(true);
-        this.message = "Update the provider to whom you referring this patient."
-      }else
-    if(this.encounterInfo.HealthInfoExchange == true &&
-      this.encounterInfo.ReferredFrom == false
-      || this.encounterInfo.ReferralFrom == ""
-      || this.encounterInfo.ReferralFrom == null  ){
+      || this.encounterInfo.ReferralTo == null) {
+      this.messageflagSubject.next(true);
+      this.message = "Update the provider to whom you referring this patient."
+    } else
+      if (this.encounterInfo.HealthInfoExchange == true &&
+        this.encounterInfo.ReferredFrom == false
+        || this.encounterInfo.ReferralFrom == ""
+        || this.encounterInfo.ReferralFrom == null) {
         this.messageflagSubject.next(true);
         this.message = "Update the provider from whom you redirected this patient."
-      }else this.messageflagSubject.next(false);;
+      } else this.messageflagSubject.next(false);;
   }
 
-  medLinePlusUrl(code: MedicalCode):string{
-    if(code.CodeSystem= "SNOMED"){
-      return "http://apps.nlm.nih.gov/medlineplus/services/mpconnect.cfm?mainSearchCriteria.v.cs=2.16.840.1.113883.6.96&amp;mainSearchCriteria.v.c="+code.Code
-    }else{
-      return "http://apps.nlm.nih.gov/medlineplus/services/mpconnect.cfm?mainSearchCriteria.v.cs=2.16.840.1.113883.6.90&mainSearchCriteria.v.c="+code.Code
+  medLinePlusUrl(code: MedicalCode): string {
+    if (code.CodeSystem = "SNOMED") {
+      return "http://apps.nlm.nih.gov/medlineplus/services/mpconnect.cfm?mainSearchCriteria.v.cs=2.16.840.1.113883.6.96&amp;mainSearchCriteria.v.c=" + code.Code
+    } else {
+      return "http://apps.nlm.nih.gov/medlineplus/services/mpconnect.cfm?mainSearchCriteria.v.cs=2.16.840.1.113883.6.90&mainSearchCriteria.v.c=" + code.Code
     }
   }
 
-  recordSuperBill(){
+  recordSuperBill() {
 
 
   }
 
-  addAddenda(){
+  addAddenda() {
 
 
   }
 
-  attachDocuments(){
+  attachDocuments() {
 
   }
 
@@ -383,7 +396,7 @@ export class EncounterDialogComponent implements OnInit {
     const ref = this.overlayService.open(content, data);
     ref.afterClosed$.subscribe(res => {
       if (content === this.signEncounterNoteComponent) {
-        if(res.data && res.data.signed){
+        if (res.data && res.data.signed) {
           this.signEncounter();
         }
       }

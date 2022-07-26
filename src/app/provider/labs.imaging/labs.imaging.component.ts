@@ -1,22 +1,25 @@
-import { tap } from 'rxjs/operators';
+import { UtilityService } from 'src/app/_services/utiltiy.service';
+import { tap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
-import { User,  } from 'src/app/_models/_account/user';
+import { User, } from 'src/app/_models/_account/user';
 import { LabsImagingService } from 'src/app/_services/labsimaging.service';
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
-import { Actions } from 'src/app/_models';
+import { Actions, PracticeProviders } from 'src/app/_models';
 import { OrderDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/order.dialog.component';
 import { OverlayService } from 'src/app/overlay.service';
 import { OrderResultDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/order.result.dialog.component';
-import { EditLabImagingOrderComponent } from 'src/app/dialogs/lab.imaging.dialog/order.edit.lab.imaging.component';
 import { OrderManualEntryDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/order.manual.entry.dialog.component';
 import { ViewModel } from 'src/app/_models/';
 import { LabProcedureWithOrder } from 'src/app/_models/_provider/LabandImage';
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
-import { BehaviorSubject, merge, Observable, of } from 'rxjs';
+import { BehaviorSubject, fromEvent, merge, Observable, of } from 'rxjs';
 import { catchError, finalize } from 'rxjs/operators';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { LabResultComponent } from 'src/app/dialogs/lab.imaging.dialog/lab.result.component';
+import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
+import { ImagingResultDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/imaging.result.dialog.component';
 declare var $: any;
 @Component({
   selector: 'app-labs.imaging',
@@ -25,23 +28,30 @@ declare var $: any;
 })
 export class LabsImagingComponent implements OnInit {
 
-  labImagingColumn: string[] = ['Order', 'Test', 'Type', 'Patient', 'Provider', 'Status', 'LabImagingStatus', 'Created'];
+  labImagingColumn: string[] = ['Order', 'Test', 'Type', 'Patient', 'Provider', 'Status', 'LabImagingStatus', 'Created', 'Result'];
   labImagingDataSource: any = [];
   user: User;
   ActionTypes = Actions;
   viewmodel?: ViewModel;
   orderDialogComponent = OrderDialogComponent;
   orderResultDialogComponent = OrderResultDialogComponent;
-  editLabImagingOrderComponent = EditLabImagingOrderComponent;
+  labResultComponent = LabResultComponent;
   orderManualEntryDialogComponent = OrderManualEntryDialogComponent;
+  imagingResultDialogComponent = ImagingResultDialogComponent;
   labandimaging?: LabProcedureWithOrder = new LabProcedureWithOrder();
   public labImageDatasource: LabImageDatasource;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  PracticeProviders: PracticeProviders[];
+  ResultStatuses: any[];
+  OrderStatuses: any[];
+  @ViewChild('SearchTest', { static: true }) SearchTest: ElementRef;
 
   constructor(private labImageService: LabsImagingService,
     private authService: AuthenticationService,
-    public overlayService: OverlayService,) {
+    private overlayService: OverlayService,
+    private smartSchedulerService: SmartSchedulerService,
+    private utilityService: UtilityService) {
     this.user = authService.userValue;
     this.viewmodel = authService.viewModel;
 
@@ -50,20 +60,23 @@ export class LabsImagingComponent implements OnInit {
   ngOnInit(): void {
     this.viewmodel.LabandImageView = "Lab";
     this.InitGridView(this.viewmodel.LabandImageView);
+    this.loadDefaults();
+    this.initImageStatueses();
+    this.initOrderStatuses();
   }
   ngAfterViewInit(): void {
     // server-side search
-    // fromEvent(this.searchPatient.nativeElement, 'keyup')
-    //   .pipe(
-    //     debounceTime(150),
-    //     distinctUntilChanged(),
-    //     tap(() => {
-    //       //this.page = 0;
-    //       this.paginator.pageIndex = 0;
-    //       this.loadPatients();
-    //     })
-    //   )
-    //   .subscribe();
+    fromEvent(this.SearchTest.nativeElement, 'keyup')
+      .pipe(
+        debounceTime(150),
+        distinctUntilChanged(),
+        tap(() => {
+          //this.page = 0;
+          this.paginator.pageIndex = 0;
+          this.loadLabandImageList();
+        })
+      )
+      .subscribe();
     // reset the paginator after sorting
     this.sort.sortChange.subscribe(() => {
       this.paginator.pageIndex = 0
@@ -75,31 +88,80 @@ export class LabsImagingComponent implements OnInit {
       )
       .subscribe();
   }
-  onChangeView(procedureType: string){
+  onChangeView(procedureType: string) {
     this.viewmodel.LabandImageView = procedureType;
     this.labImageDatasource.ProcedureType = procedureType;
     this.loadLabandImageList();
   }
-  InitGridView(procedureType: string)
-  {
+  loadDefaults() {
+    let req = { "ClinicId": this.authService.userValue.ClinicId };
+    this.smartSchedulerService.PracticeProviders(req).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.PracticeProviders = resp.ListResult as PracticeProviders[];
+      }
+    });
+  }
+  initImageStatueses() {
+    this.utilityService.ResultStatuses().subscribe(resp => {
+      this.ResultStatuses = resp.ListResult;
+    })
+
+  }
+
+  initOrderStatuses() {
+    this.utilityService.OrderStatuses().subscribe(resp => {
+      this.OrderStatuses = resp.ListResult;
+    })
+  }
+
+  onChangeProvider(evtSource) {
+    this.labImageDatasource.ProviderId = evtSource.value;
+    this.loadLabandImageList();
+  }
+
+  onChangeOrderStatus(evtSource) {
+    this.labImageDatasource.OrderStatus = evtSource.value;
+    this.loadLabandImageList();
+  }
+
+  onChangeResultStatus(evtSource) {
+    this.labImageDatasource.ResultStatus = evtSource.value;
+    this.loadLabandImageList();
+  }
+  get getToolTip(): string {
+    return `Add new ${this.viewmodel.LabandImageView} order`;
+  }
+
+  InitGridView(procedureType: string) {
     let reqparams = {
       "ClinicId": this.user.ClinicId,
       "ProcedureType": procedureType,
     }
     this.labImageDatasource = new LabImageDatasource(this.labImageService, reqparams);
-    this.labImageDatasource.loadLabImage();
+    this.loadLabandImageList();
   }
 
   loadLabandImageList() {
     //debugger;
     this.labImageDatasource.loadLabImage(
-      //this.searchPatient.nativeElement.value,
-      '',
+      this.SearchTest.nativeElement.value,
       this.sort.active,
       this.sort.direction,
       this.paginator.pageIndex,
       this.paginator.pageSize
     );
+  }
+  openEditDialog(data: LabProcedureWithOrder) {
+    if (this.viewmodel.LabandImageView == "Lab") {
+      this.openComponentDialog(this.orderDialogComponent, data, this.ActionTypes.view)
+    }
+  }
+  openResultDialog(data: LabProcedureWithOrder) {
+    if (this.viewmodel.LabandImageView == "Lab") {
+      this.openComponentDialog(this.labResultComponent, data, this.ActionTypes.view)
+    } else if (this.viewmodel.LabandImageView == "Image") {
+      this.openComponentDialog(this.imagingResultDialogComponent, data, Actions.view)
+    }
   }
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
     dialogData, action: Actions = this.ActionTypes.add) {
@@ -109,32 +171,47 @@ export class LabsImagingComponent implements OnInit {
       this.labandimaging.View = this.viewmodel.LabandImageView;
       reqdata = this.labandimaging;
     }
+    else if (action == Actions.view && content === this.orderDialogComponent && this.viewmodel.LabandImageView == "Lab") {
+      this.labandimaging = dialogData;
+      this.labandimaging.View = this.viewmodel.LabandImageView;
+      reqdata = this.labandimaging;
+    }
+    else if (action == Actions.view && content === this.labResultComponent && this.viewmodel.LabandImageView == "Lab") {
+      this.labandimaging = dialogData;
+      this.labandimaging.View = this.viewmodel.LabandImageView;
+      reqdata = this.labandimaging;
+    }
     else if (action == Actions.add && content === this.orderDialogComponent && this.viewmodel.LabandImageView == "Image") {
       this.labandimaging = new LabProcedureWithOrder();
       this.labandimaging.View = this.viewmodel.LabandImageView;
       reqdata = this.labandimaging;
     }
-    else if (action == Actions.add && content === this.orderResultDialogComponent  && this.viewmodel.LabandImageView == "Lab") {
-      this.labandimaging = new LabProcedureWithOrder();
-      this.labandimaging.View = this.viewmodel.LabandImageView;
-      this.labandimaging.ClinicId = this.user.ClinicId;
-      reqdata = this.labandimaging;
-    } else if (action == Actions.add && content === this.orderResultDialogComponent && this.viewmodel.LabandImageView == "Image") {
+    else if (action == Actions.add && content === this.imagingResultDialogComponent && this.viewmodel.LabandImageView == "Image") {
       this.labandimaging = new LabProcedureWithOrder();
       this.labandimaging.View = this.viewmodel.LabandImageView;
       reqdata = this.labandimaging;
     }
+    // else if (action == Actions.add && content === this.orderResultDialogComponent && this.viewmodel.LabandImageView == "Lab") {
+    //   this.labandimaging = new LabProcedureWithOrder();
+    //   this.labandimaging.View = this.viewmodel.LabandImageView;
+    //   this.labandimaging.ClinicId = this.user.ClinicId;
+    //   reqdata = this.labandimaging;
+    // } else if (action == Actions.add && content === this.orderResultDialogComponent && this.viewmodel.LabandImageView == "Image") {
+    //   this.labandimaging = new LabProcedureWithOrder();
+    //   this.labandimaging.View = this.viewmodel.LabandImageView;
+    //   reqdata = this.labandimaging;
+    // }
 
 
 
     const ref = this.overlayService.open(content, reqdata);
     ref.afterClosed$.subscribe(res => {
-      if (content === this.orderDialogComponent) {
+      if (content === this.orderDialogComponent
+        || content === this.labResultComponent) {
         if (res != null && res.data != null && res.data.saved) {
           this.InitGridView(this.viewmodel.LabandImageView);
         }
       }
-
     });
   }
 }
@@ -153,7 +230,7 @@ export class LabImageDatasource implements DataSource<LabProcedureWithOrder>{
 
   }
   connect(collectionViewer: CollectionViewer): Observable<LabProcedureWithOrder[] |
-  readonly LabProcedureWithOrder[]> {
+    readonly LabProcedureWithOrder[]> {
     return this.labImageSubject.asObservable();
   }
   disconnect(collectionViewer: CollectionViewer): void {
@@ -163,8 +240,23 @@ export class LabImageDatasource implements DataSource<LabProcedureWithOrder>{
   }
 
 
-  set ProcedureType(procedureType: string){
+  set ProcedureType(procedureType: string) {
     this.queryParams["ProcedureType"] = procedureType;
+  }
+
+  set ProviderId(providerId: string) {
+    this.queryParams["ProviderId"] = providerId;
+  }
+
+  set OrderStatus(orderStatus: string) {
+    this.queryParams["OrderStatus"] = orderStatus;
+  }
+
+  set ResultStatus(resultStatus: string) {
+    this.queryParams["ResultStatus"] = resultStatus;
+  }
+  set Filter(filter: string) {
+    this.queryParams["Filter"] = filter;
   }
 
   loadLabImage(filter = '', sortField = 'OrderNumber',
@@ -180,8 +272,12 @@ export class LabImageDatasource implements DataSource<LabProcedureWithOrder>{
       catchError(() => of([])),
       finalize(() => this.loadingSubject.next(false))
     ).subscribe(resp => {
-        this.labImageSubject.next(resp.ListResult as LabProcedureWithOrder[])
-      });
+      let lis = resp.ListResult as LabProcedureWithOrder[];
+      lis.forEach(value => {
+        value.Tests = JSON.parse(value.StrTests)
+      })
+      this.labImageSubject.next(lis)
+    });
   }
 
 

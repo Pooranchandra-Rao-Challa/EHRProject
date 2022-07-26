@@ -1,25 +1,21 @@
-import { AppComponent } from './../../app.component';
-
 
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder,  } from '@angular/forms';
 import { ComponentType } from '@angular/cdk/portal';
 import {  of, Subject, Subscription } from 'rxjs';
 import { catchError, debounceTime,  distinctUntilChanged, finalize, map } from 'rxjs/operators';
-
 import { OverlayService } from 'src/app/overlay.service';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
-import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { PracticeProviders } from 'src/app/_models/_provider/practiceProviders';
 import { PatientDialogComponent } from 'src/app/dialogs/patient.dialog/patient.dialog.component';
-import { LocationSelectService } from '../../_navigations/provider.layout/location.service';
+import { LocationSelectService,
+        ViewChangeService} from '../../_navigations/provider.layout/view.notification.service';
 import { NewAppointmentDialogComponent } from '../../dialogs/newappointment.dialog/newappointment.dialog.component';
 import { UpcomingAppointmentsDialogComponent } from '../../dialogs/upcoming.appointments.dialog/upcoming.appointments.dialog.component';
 import { EncounterDialogComponent } from '../../dialogs/encounter.dialog/encounter.dialog.component';
 import { CompleteAppointmentDialogComponent } from 'src/app/dialogs/newappointment.dialog/complete.appointment.component';
 import { AlertMessage, ERROR_CODES} from 'src/app/_alerts/alertMessage'
-import { RxNormAPIService } from 'src/app/_services/rxnorm.api.service';
 import * as moment from "moment";
 
 import {
@@ -29,11 +25,7 @@ import {
 } from 'src/app/_models/';
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 import { Router } from '@angular/router';
-import { T } from '@angular/cdk/keycodes';
 
-declare const CloseAppointment: any;
-declare const OpenSaveSuccessAppointment: any;
-declare const CloseSaveSuccessAppointment: any;
 
 @Component({
   selector: 'app-smart.schedule',
@@ -81,13 +73,12 @@ export class SmartScheduleComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
     private authService: AuthenticationService,
-    private utilityService: UtilityService,
     private smartSchedulerService: SmartSchedulerService,
     private locationSelectService: LocationSelectService,
     private alertMessage: AlertMessage,
     private overlayService: OverlayService,
     private router: Router,
-    private _rxnormAPIService:RxNormAPIService
+    private viewChangeService: ViewChangeService
   ) {
 
     // _CORSAPIService.Drugs("alanine").subscribe((result)=>console.log(result));
@@ -143,6 +134,7 @@ export class SmartScheduleComponent implements OnInit {
         this.authService.SetViewParam("Patient", p);
         this.authService.SetViewParam("PatientView", "Chart");
         this.authService.SetViewParam("View", "Patients");
+        this.viewChangeService.sendData("Patients");
         this.router.navigate(["/provider/patientdetails"]);
       }
     });
@@ -372,7 +364,7 @@ export class SmartScheduleComponent implements OnInit {
     }else{
       this.openComponentDialog( this.upcomingAppointmentsDialogComponent ,patient,this.PatinetActions(patient));
     }
-    //openComponentDialog((patient.NumberOfAppointments == 0 ? appointmentDialogComponent : upcomingAppointmentsDialogComponent),patient,PatinetActions(patient))"
+
     return patient.Name + "-" + patient.MobilePhone;
   }
   ngOnInit(): void {

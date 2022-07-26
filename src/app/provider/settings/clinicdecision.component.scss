@@ -8,9 +8,11 @@
   justify-content: space-between;
   box-sizing: border-box;
 }
-.Clinicalalignments{
+
+.Clinicalalignments {
   margin-left: 10px;
 }
+
 .new-alert-form .modal-dialog {
   pointer-events: auto !important;
   max-width: 780px;
@@ -34,6 +36,7 @@
   padding-top: 15px;
   margin-top: 2px;
 }
+
 .btn-open {
   background-color: #41b6a6;
   color: white;
@@ -45,8 +48,9 @@
   font-family: revert;
   // margin-right: 1px;
 }
-.btn-open:hover{
-  border-left:1px solid #fff;
+
+.btn-open:hover {
+  border-left: 1px solid #fff;
 }
 
 .btn-of {
@@ -55,23 +59,26 @@
   height: 40px;
   font-size: 15px;
   font-family: revert;
-  border-radius: 1px; 
-  border-right:1px solid #41b6a6;
+  border-radius: 1px;
+  border-right: 1px solid #41b6a6;
 
 }
-.plusicon{
+
+.plusicon {
   margin-right: 5px;
 }
+
 .btn-of:hover {
   background-color: #41b6a6;
   color: #fff;
-   margin-left: 1px;
-  border-right:1px solid #fff;
+  margin-left: 1px;
+  border-right: 1px solid #fff;
 }
+
 .btn-on {
   background-color: #41b6a6 !important;
   color: white;
-   border: 1px solid white;
+  border: 1px solid white;
   width: 80px;
   height: 40px;
   border-radius: 0px;
@@ -85,7 +92,8 @@
   width: 80px;
   height: 40px;
   border-radius: 0px;
-  font-size: 15px;;
+  font-size: 15px;
+  ;
   font-family: revert;
 }
 
@@ -201,10 +209,11 @@ mat-accordion .mat-expansion-panel:first-of-type {
   height: 45px;
   width: 150px;
 }
-.searchbtn
-{
+
+.searchbtn {
   padding-left: 26px;
 }
+
 .FieldValid {
   border-radius: 83%;
   height: 22px;
@@ -218,7 +227,8 @@ mat-accordion .mat-expansion-panel:first-of-type {
   background: #64ab5b;
   color: #f7f2f2;
 }
-.FieldInvalid{
+
+.FieldInvalid {
   border-radius: 77%;
   height: 24px;
   background: red;
@@ -226,6 +236,7 @@ mat-accordion .mat-expansion-panel:first-of-type {
   border-color: red;
   text-align: center;
 }
+
 .FieldValiddatepicker {
 
   height: 24px;
@@ -266,8 +277,8 @@ mat-accordion .mat-expansion-panel:first-of-type {
 
 .Cancelbtn {
   border-radius: 77%;
-  background: #d64841  !important;
-  color:#fff !important;
+  background: #d64841 !important;
+  color: #fff !important;
   font-size: 16px !important;
   margin-right: 20px !important;
   padding: 3px !important;
@@ -276,7 +287,7 @@ mat-accordion .mat-expansion-panel:first-of-type {
 
 .Cancelbtn:hover {
   background: #fff !important;
-  color:#d64841 !important;
+  color: #d64841 !important;
 }
 
 .trigger-align {
@@ -300,32 +311,83 @@ input::-webkit-input-placeholder {
 .prevent-click {
   margin-top: -12px;
 }
+
 .mat-expansion-panel:not([class*=mat-elevation-z]) {
   box-shadow: none;
 }
-.expansion-boder
-{
+
+.expansion-boder {
   border-bottom: 1px solid #41b6a6;
 }
-.text-border{
+
+.text-border {
   height: 71px;
-    border: 1px solid #41b6a6;
-    border-radius: 3px;
-    font-size: 15px;
-    padding: 10px 20px;
-    resize: both;
-    width: 100% !important;
+  border: 1px solid #41b6a6;
+  border-radius: 3px;
+  font-size: 15px;
+  padding: 10px 20px;
+  resize: both;
+  width: 100% !important;
 }
-.modal.new-alert-form  {
+
+.modal.new-alert-form {
   pointer-events: auto !important;
 }
+
 .modal.TriggerModal {
   pointer-events: auto !important;
 }
+
 ::ng-deep .triggeralignment.mat-select-panel {
   margin-top: 31px !important;
   max-height: 111px !important;
 }
+
 ::ng-deep .trplaceholder .mat-select-placeholder {
   color: #41b6a6 !important;
+}
+
+::ng-deep .headerowalig {
+  border: 1px solid #41b6a6;
+  background-color: rgba(65, 182, 166, 0.2) !important;
+  font-weight: 900;
+}
+
+.searchtable {
+  width: 100%;
+  border-left: none;
+  border-right: none;
+
+}
+
+.headeralig {
+  background-color: #fff;
+}
+
+mat-cell:last-of-type,
+mat-header-cell:last-of-type,
+mat-footer-cell:last-of-type {
+  padding-right: 1px;
+  margin: 10px 0px 10px 80px;
+}
+
+.error-close {
+  background-color: rgb(253, 65, 65) !important;
+  width: 25px;
+  height: 28px;
+  margin: 10px !important;
+  border: 1px solid white !important;
+  color: white !important;
+  border-radius: 50% !important;
+}
+
+.error-close:hover {
+  background-color: white !important;
+  border: 1px solid rgb(253, 44, 44) !important;
+  color: rgb(253, 44, 44) !important;
+
+}
+
+mat-cell[_ngcontent-epd-c366]:first-of-type {
+  padding-left: 20px;
 }

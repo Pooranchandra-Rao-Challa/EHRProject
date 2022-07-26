@@ -1,39 +1,76 @@
 @import"../../../assets/cstm.material.scss";
 @import"../../../assets/common.scss";
 
-.editordermodel.modal-content {
-    width: 164%;
-    max-height: 1000px;
+// .editordermodel.modal-content {
+//   width: 164%;
+//   max-height: 1000px;
 
+// }
+
+#imageresult-dialog.modal-dialog{
+  max-width: unset;
+  left: calc(100% - 80%) !important;
+  margin: unset;
+  width:1000px
+}
+.imageresult-dialog .modal-content{
+    width: 900px !important;
+}
+#imageresult-dialog .dropdown-menu{
+  min-width: unset;
+}
+#imageresult-dialog .modal-body {
+  max-height: calc(90vh - 200px);
+  overflow-y: auto;
+}
+.not-allowed{
+    cursor: not-allowed;
 }
 
-.btn-today
-{
-width: 111px;
-    /* height: 45px; */
-    /* display: block; */
-    padding: 0;
-    line-height: 2.7;
-    cursor: pointer;
-    border-radius: 3px;
-    font-size: 16px;
-    text-align: center;
-    margin-top: 20px;
+.btn-today {
+  width: 111px;
+  padding: 0;
+  line-height: 2.7;
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 16px;
+  text-align: center;
+  margin-top: 20px;
 }
-.text-border{
-    height: 71px;
-      border: 1px solid #41b6a6;
-      border-radius: 3px;
-      font-size: 15px;
-      padding: 10px 20px;
-      resize: both;
-      width: 100% !important;
-  }
 
-.modal-dialog .modal-body .highlight-blocks .right-block {
-    border-left: 1px solid #41b6a6;
+.text-border {
+  height: 71px;
+  border: 1px solid #41b6a6;
+  border-radius: 3px;
+  font-size: 15px;
+  padding: 10px 20px;
+  resize: both;
+  width: 100% !important;
 }
+
+
 .right-block {
-    padding: 15px 0;
-    background-color: rgba(65,182,166,0.1);
+  padding: 15px 0;
+  background-color: rgba(65, 182, 166, 0.1);
+}
+::ng-deep .chk-reviewed .mat-checkbox-inner-container{
+  height: 23px ;
+  width: 23px ;
+}
+
+
+#imageresult-dialog .modal-footer{
+  display: unset;
+}
+
+#imageresult-dialog .modal-footer .buttons button
+ {
+  margin:5px 9px;
+}
+#imageresult-dialog .modal-footer .chk-reviewed{
+  margin:15px 0 0 0;
+}
+#imageresult-dialog .modal-footer .chk-reviewed span{
+  margin-left:10px;
+  color: #41b6a6;
 }

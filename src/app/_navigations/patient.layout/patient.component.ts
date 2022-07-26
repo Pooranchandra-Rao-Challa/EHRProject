@@ -1,6 +1,6 @@
 
 import { Component } from '@angular/core';
-import { LocationSelectService, ViewChangeService } from '../provider.layout/location.service';
+import { LocationSelectService, ViewChangeService } from '../provider.layout/view.notification.service';
 
 
 @Component({ templateUrl: 'patient.component.html' })

@@ -31,18 +31,25 @@
   color: #fff !important;
 }
 
+.searchInput{
+  background: #fff;
+  color:Black;
+  border-radius: 5px;
+  padding-left: 5px;
+}
 // bootsrap drodpdown
-.lab-drodown {
+.lab-dropdown {
   border: 1px solid white;
   size: 22px;
   font-size: 20px;
   color: white;
   background: white;
   cursor: pointer;
-
+  margin-left: 30px;
+  border-radius: 5px;
 }
 
-.lab-drodown:hover {
+.lab-dropdown:hover {
   background: #41b6a6;
 
   .plus-icon {
@@ -139,6 +146,7 @@
   width:400px
 }
 
+.LabsimagingTable .mat-header-cell:nth-child(8),
 .LabsimagingTable .mat-header-cell:nth-child(7),
 .LabsimagingTable .mat-header-cell:nth-child(6),
 .LabsimagingTable .mat-header-cell:nth-child(5),
@@ -155,7 +163,14 @@
   border-top: 1px solid #fff;
   border-bottom: unset;
 }
-
+.LabsimagingTable .mat-header-cell:last-child {
+  width:80px
+}
+.link-text:hover{
+  color:#41b6a6;
+  text-decoration: underline;
+  cursor: pointer;
+}
 .LabsimagingTable .mat-header-row {
   height: 40px;
 }
@@ -275,9 +290,9 @@ input::-webkit-input-placeholder {
 }
 
 #dropdownMenuButton1{
-  padding: 0.45rem 1.375rem ;
+  padding: 0.45rem 1.5rem;
 }
 
-.lab-drodown .dropdown-menu{
+.lab-dropdown .dropdown-menu{
   border: 1px solid #41b6a6
 }
