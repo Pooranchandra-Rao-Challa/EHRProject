@@ -704,6 +704,14 @@ textarea.form-control.inputclass:hover{
 #immunization-table-modal .modal-dialog {
   max-width: 1179px;
 }
+#immunization-table-modal .mat-row {
+  padding: 10px;
+}
+#immunization-table-modal .mat-row:hover {
+  a{
+    color: #41b6a6 !important;
+  }
+}
 .icon {
   display: block;
   background-repeat: no-repeat;
