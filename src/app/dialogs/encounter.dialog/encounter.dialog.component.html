@@ -738,7 +738,7 @@
                       <mat-cell *matCellDef="let item">
                         <mat-form-field class="teeth-form-field" appearance="outline"
                           [ngStyle]="{'padding-bottom':'0px','width': '120px'}">
-                          <mat-select class="select" [(ngModel)]="item.ToothNo" style="width: 100px;">
+                          <mat-select class="select" [(ngModel)]="item.ToothNo" style="width: 100px;margin-top: -16px;">
                             <mat-option *ngFor="let teethno  of teethNumbers" [value]="teethno">{{teethno}}</mat-option>
                           </mat-select>
                         </mat-form-field>
@@ -756,7 +756,7 @@
                             <mat-icon pull-right>arrow_drop_down</mat-icon>
                           </mat-form-field> -->
                         <app-teeth-surface (optionValueChanged)="onToothSurfaceSelectedForRP($event,item,i)"
-                          [selectedOption]="item.Surface"></app-teeth-surface>
+                          [selectedOption]="item.Place"></app-teeth-surface>
                       </mat-cell>
                     </ng-container>
 

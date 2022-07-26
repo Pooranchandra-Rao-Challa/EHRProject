@@ -395,3 +395,11 @@
 ::ng-deep .encounter-checkbox.mat-checkbox {
   font-weight: normal !important;
 }
+
+::ng-deep .teeth-form-field .mat-select-value-text span{
+  margin-left: 40px;
+}
+
+::ng-deep .teeth-form-field .mat-select-arrow-wrapper{
+  padding-top: 8px;
+}

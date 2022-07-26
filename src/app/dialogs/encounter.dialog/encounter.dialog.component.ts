@@ -69,6 +69,7 @@ export class EncounterDialogComponent implements OnInit {
   patient: ProviderPatient;
   signEncounterNoteComponent = SignEncounterNoteComponent;
 
+
   private messageflagSubject = new BehaviorSubject<boolean>(false);
   public messageflag$ = this.messageflagSubject.asObservable();
   constructor(private overlayref: EHROverlayRef, private authService: AuthenticationService,
@@ -102,6 +103,14 @@ export class EncounterDialogComponent implements OnInit {
 
     this.initEncoutnerView();
     this.loadEncouterView();
+    console.log(this.overlayref.RequestData);
+
+
+    if(this.overlayref.RequestData["From"] == "ProcedureView"
+      && this.overlayref.RequestData.EncounterId == null){
+        console.log(this.overlayref.RequestData);
+      this.encounterInfo.RecommendedProcedures.push(this.overlayref.RequestData as ProceduresInfo);
+    }
     this.encounterInfo.EnableNewEncounterData = this.EnableNewEncounterData;
     this.encounterInfo.Diagnoses.forEach(fn => {
       fn.MedLineUrl = this.medLinePlusUrl({

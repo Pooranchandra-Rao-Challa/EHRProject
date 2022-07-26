@@ -12,7 +12,7 @@ import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { catchError, finalize } from 'rxjs/operators';
-import { AlertMessage, ERROR_CODES} from 'src/app/_alerts/alertMessage';
+import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 
 declare var $: any;
 @Component({
@@ -82,7 +82,7 @@ export class DentalChartComponent implements OnInit {
 
 
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
-dialogData: any, actions: Actions = this.ActionTypes.new, ToothNo: number = 0, medicalCode: MedicalCode) {
+    dialogData: any, actions: Actions = this.ActionTypes.new, ToothNo: number = 0, medicalCode: MedicalCode) {
     let reqData: any;
     if (content === this.procedureDialogComponent) {
       reqData = new ProceduresInfo();
@@ -108,8 +108,9 @@ dialogData: any, actions: Actions = this.ActionTypes.new, ToothNo: number = 0, m
         }
       }
 
-    }else if(content === this.encounterDialogComponent){
+    } else if (content === this.encounterDialogComponent) {
       reqData = dialogData;
+      reqData["From"] = "ProcedureView";
     }
 
 
@@ -125,12 +126,12 @@ dialogData: any, actions: Actions = this.ActionTypes.new, ToothNo: number = 0, m
     });
   }
 
-  canelProcedure(procedure: ProceduresInfo){
-    this.dentalService.CancelProcedure(procedure).subscribe(resp =>{
-      if(resp.IsSuccess){
+  canelProcedure(procedure: ProceduresInfo) {
+    this.dentalService.CancelProcedure(procedure).subscribe(resp => {
+      if (resp.IsSuccess) {
         this.procedureDataSource.loadProcedures();
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP1003"])
-      }else{
+      } else {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP1002"])
       }
     })
@@ -145,10 +146,7 @@ export class ProcedureDatasource implements DataSource<ProceduresInfo>{
   private loadingSubject = new BehaviorSubject<boolean>(false);
   public loading$ = this.loadingSubject.asObservable();
 
-
   constructor(private dentalService: DentalChartService, private queryParams: {}) {
-
-
   }
   connect(collectionViewer: CollectionViewer): Observable<ProceduresInfo[] | readonly ProceduresInfo[]> {
     return this.proceduresSubject.asObservable();
@@ -177,21 +175,16 @@ export class ProcedureDatasource implements DataSource<ProceduresInfo>{
     this.dentalService.PatientProcedureView(this.queryParams).pipe(
       catchError(() => of([])),
       finalize(() => this.loadingSubject.next(false))
-    )
-      .subscribe(resp => {
-        console.log(resp.ListResult);
-
+    ).subscribe(resp => {
+      if (resp.IsSuccess)
         this.proceduresSubject.next(resp.ListResult as ProceduresInfo[])
-      });
+      else this.proceduresSubject.next([]);
+    });
   }
-
 
   get TotalRecordSize(): number {
     if (this.proceduresSubject.getValue() && this.proceduresSubject.getValue().length > 0)
       return this.proceduresSubject.getValue()[0].TotalProcedures;
     return 0;
   }
-
-
-
 }
