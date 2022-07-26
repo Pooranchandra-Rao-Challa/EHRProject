@@ -247,9 +247,11 @@ export const ERROR_CODES: { [key: string]: string } = {
   //Messages for Patients Procedure Crete
   'M2CP1001': 'Procedure Added sucessfully',
   'M2CP1002': 'Procedure Updated sucessfully',
+  'M2CP1003': 'Procedure Deleted sucessfully',
 
   //ERRORs for Patients Procedure Crete
   'E2CP1001': 'Procedure Updated error',
+  'E2CP1002': 'Procedure Deletion error',
 
   // Smart Scheduler Apoointments;
   'M2AA001': 'Appointment Added successfully',
@@ -357,11 +359,15 @@ export const ERROR_CODES: { [key: string]: string } = {
   'M2G1001':'Lab Order added successfully',
   'M2G1002':'Lab Order updated successfully',
   'M2G1003':'Lab Order deleted successfully',
+  'M2G1004':'Lab Result added successfully',
+  'M2G1005':'Lab Result updated successfully',
 
   //Errors
-  'E2G1001':'Lab Order added successfully',
-  'E2G1002':'Lab Order updated successfully',
-  'E2G1003':'Lab Order deleted successfully',
+  'E2G1001':'Lab Order is not added',
+  'E2G1002':'Lab Order is not updated',
+  'E2G1003':'Lab Order is not deleted',
+  'E2G1004':'Lab Result is not added',
+  'E2G1005':'Lab Result is not updated',
 
   //Login Errors
   'EL001':'Wrong email or password',

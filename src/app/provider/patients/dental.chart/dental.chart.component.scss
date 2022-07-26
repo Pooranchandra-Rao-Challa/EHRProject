@@ -556,3 +556,139 @@ ul li, ol li, dl li {
 .label-design.label-Tooth{
   margin-left: 112px;
 }
+
+
+
+.procedure-list {
+
+  mat-cell:nth-child(1),
+  mat-header-cell:nth-child(1) {
+    flex: 0 0 5%;
+  }
+  mat-cell:nth-child(2),
+  mat-header-cell:nth-child(2) {
+    flex: 0 0 7%;
+
+  }
+  mat-cell:nth-child(3),
+  mat-header-cell:nth-child(3) {
+    flex: 0 0 7%;
+
+  }
+  mat-cell:nth-child(4),
+  mat-header-cell:nth-child(4) {
+    flex: 0 0 6%;
+
+  }
+  mat-cell:nth-child(5),
+  mat-header-cell:nth-child(5) {
+    flex: 0 0 7%;
+
+  }
+  mat-cell:nth-child(6),
+  mat-header-cell:nth-child(6) {
+    flex: 0 0 7%;
+
+  }
+  mat-cell:nth-child(7),
+  mat-header-cell:nth-child(7) {
+    flex: 0 0 31%;
+  }
+  mat-cell:nth-child(8),
+  mat-header-cell:nth-child(8) {
+    flex: 0 0 10%;
+  }
+  mat-cell:nth-child(9),
+  mat-header-cell:nth-child(9) {
+    flex: 0 0 6%;
+  }
+  mat-cell:nth-child(10),
+  mat-header-cell:nth-child(10) {
+    flex: 0 0 8%;
+  }
+  mat-cell:nth-child(11),
+  mat-header-cell:nth-child(11) {
+    flex: 0 0 6%;
+  }
+
+  a.encounter{
+    width: 30px;
+    background: #41b6a6;
+    color:#fff;
+    border-radius: 50%;
+    height: 30px;
+    line-height: 30px;
+    margin: auto;
+    transition: .3s;
+    border: 1px solid #41b6a6;
+
+    &:hover{
+      background: #fff;
+      color:#41b6a6;
+      .fa:hover{
+        color:#41b6a6
+      }
+    }
+    .fa{
+      display: inline-block;
+      font: normal normal normal 14px/1 FontAwesome;
+      font-size: 18px;
+      text-rendering: auto;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      margin-left: 6px;
+      margin-top: 6px;
+      color: white;
+
+    }
+  }
+
+  a.encounter-circle{
+    width: 30px;
+    background: #fff;
+    color: #41b6a6;
+    border-radius: 50%;
+    height: 30px;
+    line-height: 30px;
+    margin: auto;
+    transition: .3s;
+    border: 1px solid #41b6a6;
+
+    &:hover{
+      background: #41b6a6;
+      color:#fff;
+      .fa:hover{
+        color:#fff
+      }
+    }
+
+    .fa{
+      display: inline-block;
+      font: normal normal normal 14px/1 FontAwesome;
+      font-size: 18px;
+      text-rendering: auto;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      margin-left: 4px;
+      margin-top: 4px;
+      color: #41b6a6;
+      border: unset;
+      background: transparent;
+    }
+  }
+
+  button{
+    border:none;
+    background: transparent;
+    padding: unset;
+    margin-left: 15px;
+    width: 24px;
+    height: 24px;
+    mat-icon{
+      color: #41b6a6;
+      &:hover{
+        color: #27776c;
+      }
+    }
+  }
+}

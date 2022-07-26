@@ -11,28 +11,29 @@
         <label>Search Reaction(s): </label>
         <mat-form-field appearance="outline" class="col-12">
           <mat-select>
-            <mat-option>testing</mat-option>
+            <mat-select-filter [displayMember]="'CodeDescription'" [array]="reasonCodesFilter"
+              (filteredReturn)="reasonCodes = $event"></mat-select-filter>
+            <mat-option *ngFor="let reason of reasonCodes" [value]="reason" (click)="selectReason(reason)">
+              {{reason.CodeDescription}}
+            </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
       <div class="row">
         <label> Reason - Code</label>
-        <mat-form-field appearance="outline" class="col-12">
-          <input matInput placeholder="Reason code" />
+        <mat-form-field appearance="outline" class="grey-calendar col-12">
+          <input matInput placeholder="Reason - Code" [(ngModel)]="patientMedication.ReasonCode" />
         </mat-form-field>
       </div>
       <div class="row">
         <label>Reason - Description</label>
-        <mat-form-field appearance="outline" class="col-12">
-          <input matInput placeholder="Reason description" />
+        <mat-form-field appearance="outline" class="grey-calendar col-12">
+          <input matInput placeholder="Reason description" [(ngModel)]="patientMedication.ReasonDescription" />
         </mat-form-field>
-      </div>
-      <div class="row">
-        <input placeholder="cncsnc" />
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-green" data-bs-dismiss="modal" (click)="cancel()">
+      <button type="button" class="btn btn-green" data-bs-dismiss="modal" (click)="saveReason(patientMedication)">
         Done
       </button>
     </div>

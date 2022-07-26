@@ -19,6 +19,10 @@
 .not-allowed{
     cursor: not-allowed;
 }
+.disabled-color{
+  background: transparent;
+}
+
 .plusicon {
     border-radius: 50%;
     border: 1px solid #fff;
@@ -46,7 +50,7 @@
 .minuicon {
   border-radius: 50%;
   border: 1px solid #41b6a6;
-  background: #41b6a6;
+  background: #fff;
   width: 30px;
   height: 30px;
   text-align: center;
@@ -54,18 +58,18 @@
   margin-top: 6.3px;
   .fa-minus {
     padding: 5px 0px 0px 0px;
-    color: #fff;
+    color: #41b6a6;
     background:transparent;
     font-size: 16px;
     font-family: "FontAwesome";
     &:hover {
-      color: #41b6a6;
-      background: #fff;
+      color: #fff;
+      background: #41b6a6;
     }
   }
   &:hover {
-    .fa-minus{color: #41b6a6;}
-    background: #fff;
+    .fa-minus{color: #fff;}
+    background: #41b6a6;
   }
 }
 

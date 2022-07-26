@@ -1,5 +1,5 @@
 $input-panel: 30rem;
-$input-width: 12rem;
+$input-width: 10rem;
 
 :host {
   display: flex;
@@ -15,6 +15,17 @@ $input-width: 12rem;
 ::ng-deep .teeth-surface-input .mat-form-field-wrapper .mat-form-field-flex {
   margin-top: 0em;
 }
+
+::ng-deep .teeth-surface-input input.mat-input-element {
+  margin-top: -0.5em;
+}
+::ng-deep .teeth-surface-input .mat-input-element{
+  max-width: 90%;
+}
+::ng-deep .teeth-surface-input .mat-icon{
+  margin-top: -0.3em;
+}
+
 .teeth-surface-input-active {
   z-index: 100000;
 }

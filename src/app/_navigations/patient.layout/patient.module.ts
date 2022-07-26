@@ -20,7 +20,7 @@ import { MyprofileComponent } from 'src/app/patient/myprofile.component';
 import { PatientappointmentDialogComponent } from 'src/app/dialogs/patientappointment.dialog/patientappointment.dialog.component';
 import { OverlayService } from 'src/app/overlay.service';
 import { AlertMessage } from 'src/app/_alerts/alertMessage';
-import { LocationSelectService, ViewChangeService } from '../provider.layout/location.service';
+import { LocationSelectService, ViewChangeService } from '../provider.layout/view.notification.service';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 @NgModule({
   exports: [

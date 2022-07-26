@@ -3,6 +3,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { User, UserLocations,ViewModel } from '../../_models';
+import { ViewChangeService } from '../provider.layout/view.notification.service';
 @Component({
   selector: 'provider-app-navbar',
   templateUrl: './provider.navbar.component.html',
@@ -23,7 +24,8 @@ export class ProviderNavbarComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     config: NgbDropdownConfig, private router: Router,
-    private authenticationService: AuthenticationService) {
+    private authenticationService: AuthenticationService,
+    private viewChangeService: ViewChangeService) {
     config.placement = 'bottom-right';
     this.user = authenticationService.userValue;
     this.locationsInfo = JSON.parse(this.user.LocationInfo);
@@ -33,6 +35,13 @@ export class ProviderNavbarComponent implements OnInit {
 
   ngOnInit() {
     this.name = 'Smart Schedule';
+    this.viewChangeService.getData().subscribe(value => {
+      console.log(value);
+      this.name = value;
+      this.authenticationService.SetViewParam("View",value)
+      this.viewModel = this.authenticationService.viewModel;
+
+    });
   }
 
   changeLocation(locationId) {

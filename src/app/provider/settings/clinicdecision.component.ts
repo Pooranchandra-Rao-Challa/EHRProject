@@ -5,7 +5,7 @@ import { UtilityService } from '../../_services/utiltiy.service';
 import { EducationMaterialCode, EhrAlert, EhrTrigger, PatientEducationInfomation, TriggerInformation, User, UserLocations } from '../../_models';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { LocationSelectService } from '../../_navigations/provider.layout/location.service';
+// import { LocationSelectService } from '../../_navigations/provider.layout/location.service';
 import Swal from 'sweetalert2';
 import { isTemplateHead } from 'typescript';
 import { MedicalCode } from 'src/app/_models/codes';

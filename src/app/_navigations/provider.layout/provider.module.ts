@@ -31,7 +31,7 @@ import { CalendarComponent } from '../../provider/calendar/calendar.component';
 import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 // import { DateTimePickerModule } from "@syncfusion/ej2-angular-calendars";
 // import { ScheduleModule, DayService, WeekService } from '@syncfusion/ej2-angular-schedule';
-import { LocationSelectService, ViewChangeService } from './location.service';
+import { LocationSelectService, ViewChangeService } from './view.notification.service';
 import { UtilityService } from '../../_services/utiltiy.service';
 import { SmartSchedulerService } from '../../_services/smart.scheduler.service';
 import { SettingsModule } from '../../provider/settings/settings.module';
@@ -96,13 +96,16 @@ import { DiscontinueDialogComponent } from '../../dialogs/discontinue.dialog/dis
 
 import { OrderDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/order.dialog.component';
 import { OrderResultDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/order.result.dialog.component';
-import { EditLabImagingOrderComponent } from 'src/app/dialogs/lab.imaging.dialog/order.edit.lab.imaging.component';
+import { LabResultComponent } from 'src/app/dialogs/lab.imaging.dialog/lab.result.component';
 import { OrderManualEntryDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/order.manual.entry.dialog.component';
 import { ImagingResultDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/imaging.result.dialog.component';
 import { TestCodeComponent } from 'src/app/dialogs/lab.imaging.dialog/test.code.component';
+// import { CORSAPIService } from 'src/app/_services/cors.api.service';
+import { MedicationDialogComponent } from '../../dialogs/medication.dialog/medication.dialog.component';
+import { AllergyDialogComponent } from '../../dialogs/allergy.dialog/allergy.dialog.component';
 import { RxNormAPIService } from 'src/app/_services/rxnorm.api.service'
-
 //import { TimeMaskDirective } from 'src/app/_directives/input.time.mask.directive'
+import { LabOrderTestFormatPipe } from 'src/app/_pipes/lab.order.test.pipe'
 registerLocaleData(localeIt);
 @NgModule({
   exports: [
@@ -118,6 +121,9 @@ registerLocaleData(localeIt);
     TeethSurfaceModule,
     AddeditinterventionComponent,
     DiscontinueDialogComponent,
+    MedicationDialogComponent,
+    AllergyDialogComponent,
+    LabOrderTestFormatPipe
   ],
   declarations: [
     ProviderNavbarComponent,
@@ -149,6 +155,8 @@ registerLocaleData(localeIt);
     PatientDialogComponent,
     AdvancedDirectivesDialogComponent,
     DiscontinueDialogComponent,
+    MedicationDialogComponent,
+    AllergyDialogComponent,
     OverlayComponent,
     MouseOverHintDirective,
     UserDialogComponent,
@@ -169,11 +177,11 @@ registerLocaleData(localeIt);
     SignEncounterNoteComponent,
     OrderDialogComponent,
     OrderResultDialogComponent,
-    EditLabImagingOrderComponent,
+    LabResultComponent,
     OrderManualEntryDialogComponent,
     ImagingResultDialogComponent,
     TestCodeComponent,
-    //TimeMaskDirective,
+    LabOrderTestFormatPipe,
   ],
   imports: [
 
@@ -211,7 +219,7 @@ registerLocaleData(localeIt);
   ],
   providers: [LocationSelectService, ViewChangeService,
     UtilityService, SmartSchedulerService, OverlayService, PatientService, BillingService,
-     AlertMessage, RxNormAPIService,
+    AlertMessage, RxNormAPIService,
     { provide: LOCALE_ID, useValue: 'en-US' },
     { provide: MAT_DATE_LOCALE, useValue: 'en-US' },
     ProviderCodeDatabase,
@@ -231,11 +239,13 @@ registerLocaleData(localeIt);
     SignEncounterNoteComponent,
     PatientHealthPortalComponent,
     DiscontinueDialogComponent,
+    MedicationDialogComponent,
+    AllergyDialogComponent,
     CompleteAppointmentDialogComponent,
     OrderManualEntryDialogComponent,
     OrderResultDialogComponent,
     OrderDialogComponent,
-    EditLabImagingOrderComponent,
+    LabResultComponent,
     ImagingResultDialogComponent,
     TestCodeComponent]
 })

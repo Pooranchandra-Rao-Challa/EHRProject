@@ -37,9 +37,18 @@
           <div
             class="input-group new-search-group chart-patient-new-search-group col-xl-10 col-lg-9 col-md-9 col-12 mt-2 mt-md-0">
             <div class="new-search-input">
-              <input type="text" name="chart_find_patient" id="chart_find_patient"
+
+              <input matInput type="text" name="chart_find_patient" id="chart_find_patient" #searchPatient
                 class="new-search form-control ignore_spinner" placeholder="Search Patients..." />
-              <span class="input-group-addon input-group-addon-search chart-find-patient-btn"></span>
+                <mat-autocomplete [displayWith]="displayWithPatientSearch" #searchPatient="matAutocomplete"
+                (optionSelected)="onPatientSelected($event)">
+                <mat-option *ngIf="isLoading">Loading ...</mat-option>
+                <mat-option *ngFor="let option of filteredPatients | async" [value]="option"
+                  class="patient-serach-option"> <!-- [matAutocomplete]="searchPatient" -->
+                  {{option.Name}}
+                </mat-option>
+              </mat-autocomplete>
+
             </div>
           </div>
         </div>
@@ -259,8 +268,8 @@
                     <p class="card-title" data-bs-toggle="modal" data-bs-target="#allergies-modal">Allergies</p>
                   </div>
                   <div class="col-md-4 col-6">
-                    <div class="col-12 plusicon pull-right" (click)="resetDialog()" data-bs-toggle="modal"
-                      data-bs-target="#allergies-modal">
+                    <div class="col-12 plusicon pull-right"
+                      (click)="openComponentDialog(allergyDialogComponent,null,ActionTypes.add)">
                       <span><i class="fa fa-plus"></i></span>
                     </div>
                   </div>
@@ -269,8 +278,7 @@
               <div class="card-body">
                 <ul class="main-list" *ngFor="let allergie of chartInfo?.Alergies">
                   <li>
-                    <a data-bs-toggle="modal" data-bs-target="#allergies-modal"
-                      (click)="editDialog(allergie, 'allergie')">
+                    <a (click)="openComponentDialog(allergyDialogComponent,allergie,ActionTypes.view)">
                       <span>- {{allergie?.Note}}</span>
                     </a>
                   </li>
@@ -291,8 +299,8 @@
                     </p>
                   </div>
                   <div class="col-md-4 col-6">
-                    <div class="col-12 plusicon pull-right" data-bs-toggle="modal" data-bs-target="#medication-modal"
-                      (click)="resetDialog()">
+                    <div class="col-12 plusicon pull-right"
+                      (click)="openComponentDialog(medicationDialogComponent,null,ActionTypes.add)">
                       <span><i class="fa fa-plus"></i></span>
                     </div>
                   </div>
@@ -301,8 +309,7 @@
               <div class="card-body">
                 <ul class="main-list" *ngFor="let medication of chartInfo?.Medications">
                   <li>
-                    <a data-bs-toggle="modal" data-bs-target="#medication-modal"
-                      (click)="editDialog(medication, 'medication')">
+                    <a (click)="openComponentDialog(medicationDialogComponent, medication , ActionTypes.view)">
                       <span>
                         - {{medication?.DrugName}}
                       </span>
@@ -412,7 +419,7 @@
               <div class="card-body">
                 <ul class="main-list" *ngFor="let encounter of chartInfo.Encounters">
                   <li>
-                    <a (click)="openComponentDialog(encounterDialogComponent,encounter,ActionTypes.new)">
+                    <a (click)="openComponentDialog(encounterDialogComponent,encounter,ActionTypes.view)">
                       <span *ngIf="encounter?.ServicedAt != null && encounter?.ServicedAt !=''">
                         - {{encounter?.ServicedAt | date: 'MM/dd/yyyy'}}
                       </span>
@@ -472,20 +479,20 @@
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list" *ngFor="let appointment of appointments">
+                <ul class="main-list" *ngFor="let appointment of chartInfo.Appointments">
                   <li>
-                    <a>
-                      <span *ngIf="appointment?.start_at != null && appointment?.start_at !=''">
-                        - {{appointment?.start_at | date: 'MM/dd/yyyy'}}
+                    <a (click)="openComponentDialog(appointmentDialogComponent,appointment,ActionTypes.view)">
+                      <span *ngIf="appointment?.StartAt != null && appointment?.StartAt !=''">
+                        - {{appointment?.StartAt | date: 'MM/dd/yyyy'}}
                       </span>
-                      <span *ngIf="appointment?.appt_status != null && appointment?.appt_status !=''">
-                        - {{appointment?.appt_status}}
+                      <span *ngIf="appointment?.ApptStatus != null && appointment?.ApptStatus !=''">
+                        - {{appointment?.ApptStatus}}
                       </span>
                     </a>
                   </li>
                 </ul>
                 <ul class="main-list">
-                  <li *ngIf="appointments?.length == (0 || null || undefined)">
+                  <li *ngIf="chartInfo.Appointments?.length == (0 || null || undefined)">
                     <span>No appointments recorded.</span>
                   </li>
                 </ul>
@@ -1473,23 +1480,27 @@
             </mat-radio-button>
           </mat-radio-group>
         </div>
+        <div class="row mt-3">
+          <mat-label class="required">Vaccine:</mat-label>
+          <mat-form-field class="procedure-form-field" appearance="outline" [ngStyle]="{'width':'100%'}">
+            <input matInput #searchVaccineCode class="form-control" placeholder="Select Procedure Code" type="text"
+              id="searchVaccineCode" name=" searchVaccineCode" [matAutocomplete]="procedureCode" />
+            <mat-autocomplete [displayWith]="displayWithVaccine" #procedureCode="matAutocomplete"
+              (optionSelected)="onSelectedImmunization($event)">
+              <mat-option *ngIf="isLoading">Loading ...</mat-option>
+              <mat-option *ngFor="let option of vaccines | async" [value]="option" class="medical-code-option">
+                {{option.Code}} - {{option.Description}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          <span class="selected-allergen" id="allergenName" *ngIf="patientImmunization.Code != ''">
+            <p>{{patientImmunization.Code}} - {{patientImmunization.Description}}</p>
+            <a class="icon icon-sm icon-circle icon-ic-delete pull-right" id="allergy-delete"
+              (click)="deleteVaccineCode()"></a>
+          </span>
+        </div>
         <div
-          [ngStyle]="{'display': patientImmunization.ImmType == 'historical' || patientImmunization.ImmType == 'refused' ? 'none' : 'block' }"
-          class="mt-3">
-          <div class="row">
-            <mat-label class="required">Vaccine:</mat-label>
-            <mat-form-field class="procedure-form-field" appearance="outline" [ngStyle]="{'width':'100%'}">
-              <input matInput #searchVaccineCode class="form-control" placeholder="Select Procedure Code" type="text"
-                id="searchVaccineCode" name=" searchVaccineCode" [matAutocomplete]="procedureCode" />
-              <mat-autocomplete [displayWith]="displayWithVaccine" #procedureCode="matAutocomplete"
-                (optionSelected)="onSelectedImmunization($event)">
-                <mat-option *ngIf="isLoading">Loading ...</mat-option>
-                <mat-option *ngFor="let option of vaccines | async" [value]="option" class="medical-code-option">
-                  {{option.Code}} - {{option.Description}}
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
-          </div>
+          [ngStyle]="{'display': patientImmunization.ImmType == 'historical' || patientImmunization.ImmType == 'refused' ? 'none' : 'block' }">
           <div class="row">
             <div class="col-md-6 col-12">
               <div class="row">
@@ -1672,22 +1683,7 @@
           </div>
         </div>
         <div
-          [ngStyle]="{'display': patientImmunization.ImmType == 'administered' || patientImmunization.ImmType == 'refused' ? 'none' : 'block' }"
-          class="mt-3">
-          <div class="row">
-            <mat-label class="required">Vaccine:</mat-label>
-            <mat-form-field class="procedure-form-field" appearance="outline" [ngStyle]="{'width':'100%'}">
-              <input matInput #searchVaccineCode class="form-control" placeholder="Select Procedure Code" type="text"
-                id="searchVaccineCode" name=" searchVaccineCode" [matAutocomplete]="procedureCode" />
-              <mat-autocomplete [displayWith]="displayWithVaccine" #procedureCode="matAutocomplete"
-                (optionSelected)="onSelectedImmunization($event)">
-                <mat-option *ngIf="isLoading">Loading ...</mat-option>
-                <mat-option *ngFor="let option of vaccines | async" [value]="option" class="medical-code-option">
-                  {{option.Code}} - {{option.Description}}
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
-          </div>
+          [ngStyle]="{'display': patientImmunization.ImmType == 'administered' || patientImmunization.ImmType == 'refused' ? 'none' : 'block' }">
           <div class="row">
             <div class="col-md-6 col-12">
               <div class="row">
@@ -1734,22 +1730,7 @@
           </div>
         </div>
         <div
-          [ngStyle]="{'display': patientImmunization.ImmType == 'administered' || patientImmunization.ImmType == 'historical' ? 'none' : 'block' }"
-          class="mt-3">
-          <div class="row">
-            <mat-label class="required">Vaccine:</mat-label>
-            <mat-form-field class="procedure-form-field" appearance="outline" [ngStyle]="{'width':'100%'}">
-              <input matInput #searchVaccineCode class="form-control" placeholder="Select Procedure Code" type="text"
-                id="searchVaccineCode" name=" searchVaccineCode" [matAutocomplete]="procedureCode" />
-              <mat-autocomplete [displayWith]="displayWithVaccine" #procedureCode="matAutocomplete"
-                (optionSelected)="onSelectedImmunization($event)">
-                <mat-option *ngIf="isLoading">Loading ...</mat-option>
-                <mat-option *ngFor="let option of vaccines | async" [value]="option" class="medical-code-option">
-                  {{option.Code}} - {{option.Description}}
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
-          </div>
+          [ngStyle]="{'display': patientImmunization.ImmType == 'administered' || patientImmunization.ImmType == 'historical' ? 'none' : 'block' }">
           <div class="row">
             <div class="col-md-6 col-12">
               <div class="row">

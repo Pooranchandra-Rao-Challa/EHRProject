@@ -12,9 +12,11 @@ margin: unset;">
       <div class="row">
         <div class="col-md-3">
           <mat-label class="required">Patient Name:</mat-label>
-          <mat-form-field class="" appearance="outline" [ngStyle]="{'width':'100%'}">
+          <mat-form-field class="" appearance="outline" [ngStyle]="{'width':'100%'}"
+          [class.not-allowed]="diabledPatientSearch" [class.disabled-color]="diabledPatientSearch">
             <input matInput #searchpatient class="form-control" placeholder="Search Patient" type="text"
-              id="searchpatient" name="searchpatient" [matAutocomplete]="serachpatient" />
+              id="searchpatient" name="searchpatient" [matAutocomplete]="serachpatient" [disabled]="diabledPatientSearch"  [readonly]="diabledPatientSearch"
+              [class.disabled-color]="diabledPatientSearch" />
             <mat-autocomplete [displayWith]="displayWithPatientSearch" #serachpatient="matAutocomplete"
               (optionSelected)="onPatientSelected($event)">
               <mat-option *ngIf="isLoading">Loading ...</mat-option>
@@ -62,7 +64,7 @@ margin: unset;">
             <div class="col-md-4">
               <mat-label class="required">Lab Name:</mat-label>
               <mat-form-field appearance="outline" class="col-md-12 orderddhover">
-                <mat-select required placeholder="Other labs" [(ngModel)]="labandImaging.LabName">
+                <mat-select required placeholder="Select Other lab" [(ngModel)]="labandImaging.LabName">
                   <mat-option value="Other labs">
                     Other labs
                   </mat-option>
@@ -72,8 +74,8 @@ margin: unset;">
             <div class="col-md-4">
               <mat-label class="required">Status:</mat-label>
               <mat-form-field appearance="outline" class="col-md-12 orderddhover">
-                <mat-select required placeholder="Status" [(ngModel)]="labandImaging.Status">
-                  <mat-option *ngFor="let item of labLabImageStatusesDD" [value]="item.Value">
+                <mat-select required placeholder="Status" [(ngModel)]="labandImaging.OrderStatus">
+                  <mat-option *ngFor="let item of OrderStatuses" [value]="item.Value">
                     {{item.Name}}
                   </mat-option>
                 </mat-select>
@@ -119,8 +121,8 @@ margin: unset;">
             <div class="col-md-4">
               <mat-label class="required">Lab/Imaging Status:</mat-label>
               <mat-form-field appearance="outline" class="col-md-12 orderddhover">
-                <mat-select required placeholder="Status" [(ngModel)]="labandImaging.OrderStatus">
-                  <mat-option *ngFor="let item of LabImageOrderStatusesDD" [value]="item.Value">
+                <mat-select required placeholder="Status" [(ngModel)]="labandImaging.ResultStatus">
+                  <mat-option *ngFor="let item of ResultStatuses" [value]="item.Value">
                     {{item.Name}}
                   </mat-option>
                 </mat-select>
@@ -150,7 +152,7 @@ margin: unset;">
             </div>
             <div class="col-md-4 d-flex justify-content-end flex-sm-row flex-column">
               <div class="pull-right">
-                <button class="plusicon" type="button" aria-expanded="false" (click)="addLabOrders()">
+                <button class="plusicon" type="button" aria-expanded="false" (click)="addLabOrder()">
                   <i class="fa fa-plus"></i>
                 </button>
 
@@ -176,19 +178,19 @@ margin: unset;">
                       <mat-form-field appearance="outline" class="col-md-12" matTooltip="Enter minimum three digist">
                         <input matInput placeholder="" [data-index]="i" formControlName="Code" (blur)="getCodeInfo($event,i)" >
                       </mat-form-field>
-
                     </div>
                     <div class="col-md-7">
                       <mat-form-field appearance="outline" class="col-md-12">
-                        <input matInput placeholder="" formControlName="Test" readonly class="not-allowed" >
+                        <input matInput placeholder="" formControlName="Test" readonly class="not-allowed"
+                        [matTooltip]="atta.controls.Test.value" >
                       </mat-form-field>
+                      <input type="hidden" formControlName="TestOrderId">
                     </div>
                     <div class="col-md-1" style="padding-left: 30px ;">
                       <button class="minuicon" type="button" aria-expanded="false" (click)="removeLabOrder(i)">
                         <i class="fa fa-minus"></i>
                       </button>
                     </div>
-
                   </div>
                 </div>
               </div>
@@ -209,7 +211,6 @@ margin: unset;">
         <div class="pattach">
           <div class="container-fluid">
             <div class="row">
-              <!-- <div class="col-md-1"></div> -->
               <div class="col-md-10">
                 <p class="title mt-3"><b>Attachments:</b></p>
               </div>
@@ -236,14 +237,10 @@ margin: unset;">
             </div>
           </div>
         </div>
-
       </form>
-
-
-
     </div>
     <div class="modal-footer">
-      <button mat-raised-button type="submit" class="btn btn-green   pull-right" (click)="save()" [disabled]="enableSave()">Save</button>
+      <button mat-raised-button type="submit" class="btn btn-green   pull-right" (click)="save()" [disabled]="enableSave()" *ngIf="!saveClicked">Save</button>
       <button mat-raised-button type="submit" class="btn btn-green   pull-right" [disabled]="enableSave()">Sign</button>
       <button mat-raised-button class="btn btn-green pull-right" (click)="close()">Close</button>
     </div>

@@ -23,4 +23,8 @@ export class DentalChartService extends APIEndPoint {
   PatientProcedureView(reqparams: any) {
     return this._ProcessPostRequest<any>(this._patientProceduresViewUrl, reqparams);
   }
+
+  CancelProcedure(reqparams: any){
+    return this._ProcessPostRequest<any>(this._cancelProcedureUrl, reqparams);
+  }
 }

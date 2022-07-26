@@ -666,14 +666,28 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "AmendmentSources";
   }
 
-  get _labImageOrderNumberListUrl(){
-    return this._baseUrl + "LabImageOrderNumberList";
+  get _labImageOrderWithResultsListUrl() {
+    return this._baseUrl + "LabImageOrderWithResultsList";
   }
 
- get _createUpdateEducationMaterialUrl()
- {
-   return this._baseUrl + "CreateUpdateEducationMaterial";
- }
+  get _createUpdateEducationMaterialUrl() {
+    return this._baseUrl + "CreateUpdateEducationMaterial";
+  }
+
+  get _updateLabResultUrl() {
+    return this._baseUrl + "UpdateLabResult";
+  }
+
+  get _labResultUrl() {
+    return this._baseUrl + "LabResult";
+  }
+
+  get _procedureStatuesUrl(){
+    return this._baseUrl + "ProcedureStatues";
+  }
+  get _cancelProcedureUrl(){
+    return this._baseUrl + "CancelProcedure";
+  }
 
  get _createUpdateClinicalDecisionSupportUrl()
  {
@@ -690,8 +704,6 @@ export class APIEndPoint extends EndpointBase {
   constructor(public http: HttpClient) {
     super();
   }
-
-
 
   _ProcessPostRequestWithHeaders<T>(apiurl: string, reqdata: any): Observable<T> {
     return this.http.post<T>(apiurl, reqdata, this.requestHeaders).pipe(

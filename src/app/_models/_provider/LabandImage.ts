@@ -1,3 +1,4 @@
+import { TestScheduler } from 'rxjs-compat';
 import { PatientSearch } from 'src/app/_models';
 export class LabProcedureWithOrder {
   CurrentPatient?: PatientSearch = new PatientSearch();
@@ -7,23 +8,32 @@ export class LabProcedureWithOrder {
   Signed?: string;
   LocationId?: string;
   OrderId?: string;
+  OrderNumber?:string;
   ProcedureType?:string;
   LabName?: string;
-  Status?: string; // Status.
+  OrderStatus?: string; // Status.
   ScheduledAt?: string;
   StrScheduledAt?: string // use 'MM/dd/yyyy'
   OrderingPhyscianId?: string;
   OrderingFacility?: string;
-  OrderStatus?: string; // Lab and Imaging Status
+  ResultStatus?: string; // Lab and Imaging Status
   ReceivedAt?: string;
   strReceivedAt?: string; // use 'MM/dd/yyyy'
   Notes?: string;
-  Tests: TestOrder[] = [];
+  Tests?: TestOrder[] = [];
   View?: string;
   CreatedDate?: Date;
   PatientName?: string;
   ProviderName?: string;
   TotalRecords?: number;
+  LabResult?: LabResultInfo;
+  ImageResult?: ImageResultInfo;
+  StrTests?: string;
+  strResult?: string;
+  RemovedTestOrderIds?: string[] = [];
+  LabResultId?: string;
+  ImageResultId?: string;
+  ViewFor?: string;
 }
 
 export class TestOrder {
@@ -35,4 +45,38 @@ export class TestOrder {
   Units?: string;
   Flag?: string;
   Range?: string;
+}
+
+export class LabResultInfo{
+  LabResultId?: string;
+  Fasting?: string;
+  Specimen?: string;
+  SpecimenType?: string;
+  TestReportedAt?: string;
+  ProviderId?: string;
+  NPI?: string;
+  OrderName?: string;
+  OrderAddress?: string;
+  PerformingName?: string;
+  PerformingAddress?: string;
+  Notes?: string;
+  LabProcedureId?: string;
+  CollectedAt?: string;
+  ReceivedAt?: string;
+  TestedAt?: string;
+  OrderId?: string;
+  CollectedDate?: Date;
+  ReceivedDate?: Date;
+  TestedDate?: Date;
+  TestReportedDate?: Date;
+  CollectedTime?: string;
+  ReceivedTime?: string;
+  TestedTime?: string;
+}
+
+export class ImageResultInfo{
+  ImageResultId?: string;
+  ProviderId?: string;
+  OrderId?: string;
+  LabProcedureId?: string;
 }

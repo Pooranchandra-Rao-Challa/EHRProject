@@ -133,6 +133,7 @@ ul.go-to-nav {
 .new-search-input {
   display: inline-flex;
   width: 100%;
+  border: 1px solid #41b6a6;
 }
 
 input.new-search::placeholder {
@@ -152,7 +153,7 @@ input.new-search::placeholder {
 }
 
 .new-search {
-  background-color: #fff;
+ // background-color: #fff;
   color: #4A4A4A;
   border-color: #41b6a6;
 }
@@ -458,10 +459,6 @@ textarea.form-control {
   margin-top: 12px !important;
 }
 
-.underlined{
-  text-decoration: underline;
-}
-
 .title-bold {
   margin: 12px 0;
   color: #4A4A4A;
@@ -562,20 +559,6 @@ textarea.form-control {
   font-size: 15px;
 }
 
-.links-item {
-  background-color: #41b6a6;
-  color: #fff;
-  font-size: 15px;
-  padding: 12px 0px 1px 0px;
-  margin-bottom: 81px !important;
-}
-
-.links-item a {
-  color: #fff;
-  font-size: 16px;
-  padding: 9px 0 12px 9px;
-}
-
 ::-webkit-input-placeholder {
   /* Chrome/Opera/Safari */
   font-size: 14px;
@@ -605,9 +588,6 @@ textarea.form-control.inputclass:hover{
   color: #D9534E;
 }
 
-.modal-maxHeight.modal-dialog{
-  max-width: 750px;
-}
 .modal-dialog {
   overflow-y: initial !important;
   // max-width: inherit !important;
@@ -725,4 +705,26 @@ textarea.form-control.inputclass:hover{
 #immunization-table-modal .modal-dialog {
   max-width: 1179px;
 }
-
+.icon {
+  display: block;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: background-color .2s, background-image .2s;
+}
+#allergy-delete {
+  margin-left: 182px;
+  margin-top: -37px;
+}
+.icon.icon-circle {
+  border-radius: 50%;
+}
+.icon.icon-sm {
+  width: 24px;
+  height: 24px;
+}
+.icon.icon-ic-delete {
+  background-color: #d64841;
+  border: 1px solid #d64841;
+  background-image: url(/assets/images/icon-delete.svg);
+  background-size: 12px;
+}

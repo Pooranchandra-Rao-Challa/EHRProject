@@ -218,8 +218,6 @@ export class TreeProcedureComponent {
     const ref = this.overlayService.open(content, reqData);
 
     ref.afterClosed$.subscribe(res => {
-      console.log(res.data);
-
       if (content === this.procedureDialogComponent) {
         if (res.data != null) {
 

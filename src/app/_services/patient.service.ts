@@ -218,8 +218,8 @@ export class PatientService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._vaccinesUrl, reqparams);
   }
 
-  AllergyNames() {
-    return this._ProcessGetRequest<any>(this._allergyNamesUrl);
+  AllergyNames(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._allergyNamesUrl, reqparams);
   }
 
   LatestUpdatedPatientsUrl(reqparams: any) {
@@ -240,25 +240,21 @@ export class PatientService extends APIEndPoint {
   CreateProcedure(reqparams: any) {
     return this._ProcessPostRequest<any>(this._createProcedureUrl, reqparams);
   }
- GetPatientMessages(reqparams : any)
- {
-  return this._ProcessPostRequest<any>(this._patientMessagesUrl, reqparams);
- }
+  GetPatientMessages(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._patientMessagesUrl, reqparams);
+  }
 
- AmendmentDetails(reqparams : any)
- {
-   return this._ProcessPostRequest<any>(this._amendmentDetailsUrl,reqparams);
+  AmendmentDetails(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._amendmentDetailsUrl, reqparams);
 
- }
- CreateupdateAmendment(reqparams : any)
- {
-   return this._ProcessPostRequest<any>(this._createupdateAmendmentUrl,reqparams);
-   
- }
- DeleteAmendment(reqparams : any)
- {
-    return this._ProcessPostRequest<any>(this._deleteAmendmentUrl,reqparams);
- }
+  }
+  CreateupdateAmendment(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._createupdateAmendmentUrl, reqparams);
+
+  }
+  DeleteAmendment(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._deleteAmendmentUrl, reqparams);
+  }
 
 
   PatientSearch(reqparams: any) {
