@@ -137,4 +137,18 @@ export class SettingsService extends APIEndPoint {
   {
     return this._ProcessPostRequest<any>(this._createUpdateEducationMaterialUrl,reqparams)
   }
+
+  CreateUpdateClinicalDecisionSupport(reqparams: any)
+  {
+    return this._ProcessPostRequest<any>(this._createUpdateClinicalDecisionSupportUrl,reqparams)
+  }
+
+  CreateTrigger(reqparams: any)
+  {
+    return this._ProcessPostRequest<any>(this._createTriggerUrl,reqparams)
+  }
+  DeleteTrigger(reqparams: any)
+  {
+    return this._ProcessPostRequest<any>(this._deleteTriggerUrl,reqparams)
+  }
 }

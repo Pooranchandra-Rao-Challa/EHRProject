@@ -372,8 +372,17 @@ export const ERROR_CODES: { [key: string]: string } = {
   'M2JPE001':'Education Material added successfully',
   'M2JPE002':'Education Material updated successfully',
   //Education Material Error
-  'E2JPE001' :'Education Material updation Erroe '
-
+  'E2JPE001' :'Education Material updation Erroe ',
+  //Clinical Decision Support
+  'M2JCDS001':'Alert added sucessfully',
+  'M2JCDS002':'Alert updated successfully',
+  //Trigger Added and Delete
+  'M2JCDS003':'Trigger added sucessfully',
+  'M2JCDS004' :'Trigger deleted sucessfully ',
+  //Error for CDS
+  'E2JCDS001':'Alert updation error',
+  'E2JCDS002':'Trigger updation error',
+  'E2JCDS003':'Trigger deletion error'
 };
 
 

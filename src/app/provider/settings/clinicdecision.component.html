@@ -1,4 +1,3 @@
-
 <div class="card ">
   <div class="card-header bg-color ">
 
@@ -11,51 +10,51 @@
   <div class="card-body">
     <div class="row ">
       <div class="col-md-10">
-        <p  class="Helvetica-sans-serif-medium title-heading ">Turn all Accountable Care Organization Alerts on or off for all your patients</p>
+        <p class="Helvetica-sans-serif-medium title-heading ">Turn all Accountable Care Organization Alerts on or off
+          for all your patients</p>
       </div>
       <div class="col-md-2 d-flex justify-content-end">
-        <button class="btn" type="button"  [ngClass]=" flag ? 'btn-open' : 'btn-of'"  (click)="open()">On</button>
-        <button class="btn" type="button"  [ngClass]=" !flag ? 'btn-open' : 'btn-of'"  (click)="close()" >Off</button>
+        <button class="btn" type="button" [ngClass]=" flag ? 'btn-open' : 'btn-of'" (click)="open()">On</button>
+        <button class="btn" type="button" [ngClass]=" !flag ? 'btn-open' : 'btn-of'" (click)="close()">Off</button>
       </div>
-     </div>
-     </div>
-    <div class="prevent-click" *ngIf="show">
-      <div class="expansion-boder"></div>
-      <mat-accordion class="prevent-click" style="border-top: 1px solid #41b6a6;">
+    </div>
+  </div>
+  <div class="prevent-click" *ngIf="show">
+    <div class="expansion-boder"></div>
+    <mat-accordion class="prevent-click" style="border-top: 1px solid #41b6a6;">
       <mat-expansion-panel [disabled]="item?.isdisabled"
-        [ngStyle]="item?.isdisabled?{'opacity': '0.75'} : {'opacity': '1'}"
-         [expanded]="step === i" (opened)="setStep(i)"
-         class="customheader"  hideToggle="true" #example *ngFor="let item of clinicalDecisionSupportList | groupBy:'AlertId';let i = index">
-          <mat-expansion-panel-header class="panel-header">
-            <mat-panel-title>
-              <h1 class="number">{{i+1}}</h1>&nbsp;&nbsp;
-               <div *ngFor="let itemkey of item.value | groupBy:'AlertName' ">
-              <h4 class="titleText"> {{itemkey.key}}</h4>
-            </div>
-            </mat-panel-title>
-            <mat-panel-description class="d-flex justify-content-end">
-              <button class="btn" [ngClass]="!item?.isdisabled ?  'btn-on' : 'btn-off' " type="button"
-                (click)="disablemedication(item,false)">On</button>
-              <button class="btn" [ngClass]="item?.isdisabled ? 'btn-on' : 'btn-off' " type="button"
-                (click)="disablemedication(item,true)">Off</button>
-              <mat-icon class="play-up-arrow" *ngIf="!example.expanded" >play_arrow</mat-icon>
-              <mat-icon class="play-down-arrow" *ngIf="example.expanded">arrow_drop_down</mat-icon>
+        [ngStyle]="item?.isdisabled?{'opacity': '0.75'} : {'opacity': '1'}" [expanded]="step === i"
+        (opened)="setStep(i)" class="customheader" hideToggle="true" #example
+        *ngFor="let item of clinicalDecisionSupportList; let i=index">
+        <mat-expansion-panel-header class="panel-header">
+          <mat-panel-title>
+            <h1 class="number">{{i+1}}</h1>&nbsp;&nbsp;
 
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <div>
-            <div class="row field-align" *ngFor="let item1 of item.value |groupBy:'description'">
+            <h4 class="titleText">{{item.AlertName}} </h4>
+
+          </mat-panel-title>
+          <mat-panel-description class="d-flex justify-content-end">
+            <button class="btn" [ngClass]="!item?.isdisabled ?  'btn-on' : 'btn-off' " type="button"
+              (click)="disablemedication(item,false)">On</button>
+            <button class="btn" [ngClass]="item?.isdisabled ? 'btn-on' : 'btn-off' " type="button"
+              (click)="disablemedication(item,true)">Off</button>
+            <mat-icon class="play-up-arrow" *ngIf="!example.expanded">play_arrow</mat-icon>
+            <mat-icon class="play-down-arrow" *ngIf="example.expanded">arrow_drop_down</mat-icon>
+
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div>
+          <div class="row field-align">
             <mat-label class="mt-1 Helvetica-sans-serif-small">Description*</mat-label>
-            <mat-form-field appearance="outline">
-              <input matInput
-                placeholder="" value="{{item1.key}}">
+            <mat-form-field appearance="outline" class="col-md-12">
+              <input matInput placeholder="" [(ngModel)]="item.Description">
             </mat-form-field>
           </div>
-  
+
           <div class="row field-align">
-            <mat-label  class="Helvetica-sans-serif-small">Trigger Rule*   </mat-label>
+            <mat-label class="Helvetica-sans-serif-small">Trigger Rule* </mat-label>
             <mat-form-field appearance="outline">
-              <mat-select required>
+              <mat-select required [(ngModel)]="item.Rule">
                 <mat-option *ngFor="let trigger of TriggerRuleDD" [value]="trigger.value">
                   {{trigger.viewValue}}
                 </mat-option>
@@ -68,13 +67,14 @@
                 <p class="title trigger-align">Trigger Condition Builder</p>
               </div>
               <div class="col-lg-6">
-              <button type="button" class="btn btn-green btn-clinic pull-right" data-bs-toggle="modal" data-bs-target="#TriggerModal">
-                New Trigger
-              </button>
+                <button type="button" class="btn btn-green btn-clinic pull-right" data-bs-toggle="modal"
+                  data-bs-target="#TriggerModal" (click)="newtrigger(item.AlertId)">
+                  New Trigger
+                </button>
               </div>
             </div>
           </div>
-          <table class="table table-borderless" >
+          <table class="table table-borderless">
             <thead class="bg-color">
               <tr>
                 <td></td>
@@ -94,249 +94,292 @@
               </tr>
             </thead>
             <tbody>
-        
-              <ng-container *ngFor="let item1 of item.value | groupBy:'TriggerId'">
-              <tr  *ngFor="let data of item1.value">
+
+
+              <tr *ngFor="let data of item.Triggers">
                 <td></td>
                 <td>
-                  {{data.category}}
+                  {{data.Category}}
                 </td>
-                <td>{{data.code}}</td>
-                <td>{{data.system}}</td>
-                <td>{{data.TriggerDes}}</td>
-                <td>  <mat-icon class="close-icon Cancelbtn">close
-                </mat-icon>
-                  </td>
+                <td>{{data.Code}}</td>
+                <td>{{data.System}}</td>
+                <td>{{data.Description}}</td>
+                <td (click)="DeleteTrigger(data.TriggerId)">
+                  <mat-icon class="close-icon Cancelbtn">close
+                  </mat-icon>
+                </td>
               </tr>
-            </ng-container>
+
             </tbody>
           </table>
           <br>
-          <div class="row field-align" *ngFor="let item1 of item.value | groupBy:'resolution'">
+          <div class="row field-align">
             <mat-label class="Helvetica-sans-serif-small">Resolution: </mat-label>
-           
+
             <div class="col-md-12 mt-1">
-              <textarea matInput class="text-border"
-                placeholder="" value="{{item1.key}}"></textarea>
-              </div>
-          
+              <textarea matInput class="text-border" placeholder="" [(ngModel)]="item.Resolution"></textarea>
+            </div>
+
           </div>
-          <div class="row field-align" *ngFor="let item1 of item.value | groupBy:'bibliography'">
+          <div class="row field-align">
             <mat-label class="Helvetica-sans-serif-small mt-2">Bibliography:</mat-label>
-           <div class="col-md-12 mt-1">
+            <div class="col-md-12 mt-1">
               <!-- <textarea matInput
                 placeholder=""value="{{item1.key}}"></textarea> -->
-                <textarea class="text-border" matInput  value="{{item1.key}}"></textarea>
-              </div>
+              <textarea class="text-border" matInput [(ngModel)]="item.Bibliography"></textarea>
+            </div>
           </div>
-          <div class="row field-align" *ngFor="let item1 of item.value | groupBy:'developer' ">
+          <div class="row field-align">
             <mat-label class="Helvetica-sans-serif-small">Developer: </mat-label>
             <mat-form-field appearance="outline">
-              <input matInput placeholder="" value="{{item1.key}}">
+              <input matInput placeholder="" [(ngModel)]="item.Developer">
             </mat-form-field>
           </div>
           <div class="row field-align">
             <div class="col-md-2 mt-3">
               <mat-label class="Helvetica-sans-serif-small ">Funding Source:</mat-label>
             </div>
-            <div class="col-md-4"  *ngFor="let item1 of item.value | groupBy:'funding_source' " >
+            <div class="col-md-4">
               <mat-form-field appearance="outline">
-                <input matInput placeholder="" value="{{item1.key}}">
+                <input matInput placeholder="" [(ngModel)]="item.FundingSource">
               </mat-form-field>
             </div>
-  
-            <div class="col-md-2 mt-3"  >
+
+            <div class="col-md-2 mt-3">
               <mat-label class="Helvetica-sans-serif-small"> Release Date(s)</mat-label>
             </div>
-  
-            <mat-form-field appearance="outline" class="green-calendar col-md-4"  *ngFor="let item1 of item.value | groupBy:'release_at'">
-              <input matInput [matDatepicker]="dp" placeholder="" value="{{item1.key}}">
+
+            <mat-form-field appearance="outline" class="green-calendar col-md-4">
+              <input matInput [matDatepicker]="dp" placeholder="" [(ngModel)]="item.ReleaseAt">
               <mat-datepicker-toggle matSuffix [for]="dp">
                 <button _ngcontent-mqh-c316="" aria-hidden="true" class="is-primary button fa fa-calendar"></button>
               </mat-datepicker-toggle>
               <mat-datepicker #dp disabled="false"></mat-datepicker>
             </mat-form-field>
           </div>
-          <button class="btn btn-green btn-clinic pull-right" type="button">Save</button>
-</div>
-        </mat-expansion-panel>
-      </mat-accordion>
-      <div class="text-center py-2 col-12" *ngIf="clinicalDecisionSupportList.length == 0">
-        <h6 class="Helvetica-sans-serif-medium">   No records found</h6>
-      </div>
-      </div>
-      </div>
-
-      <!-- Add New Altert Modal -->
-      <div class="modal new-alert-form" id="modal-new-alert-form"  tabindex="-1"
-        aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content scrollable-modal">
-            <div class="modal-header Helvetica-sans-serif-medium">
-              <h4 class="modal-title Helvetica-sans-serif-medium">Add new alert</h4>
-              <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close">
-                X
-              </span>
-            </div>
-            <div class="modal-body">
-              <form [formGroup]="decisionSuppotForm">
-                <div class="row">
-                  <mat-label>Alert Name*</mat-label>
-                  <mat-form-field appearance="outline" class="col-md-12">
-                    <input matInput (mouseover)="nameCheck()" (mouseleave)="nameUnCheck()" formControlName="alertName"
-                      placeholder="">
-                    <mat-icon matSuffix *ngIf="checkedName" class="FieldValid">check</mat-icon>
-                    <mat-icon matSuffix *ngIf="uncheckedName" class="FieldInvalid">close</mat-icon>
-                  </mat-form-field>
-                </div>
-                <div class="row">
-                  <mat-label >Description*</mat-label>
-                  <mat-form-field appearance="outline" class="col-md-12">
-                    <input matInput placeholder (mouseover)=" descriptionCheck()" (mouseleave)="descriptionUnCheck()"
-                    formControlName="description">
-                    <mat-icon matSuffix *ngIf="checkedDescription" class="FieldValid">check</mat-icon>
-
-                  <mat-icon matSuffix *ngIf="uncheckedDescription" class="FieldInvalid">close</mat-icon>
-                  </mat-form-field>
-                </div>
-                <div class="row">
-                  <mat-label>Resolution*</mat-label>
-                  <mat-form-field appearance="outline" class="col-md-12">
-                    <input matInput placeholder (mouseover)="resolutionCheck()" (mouseleave)="resolutionUnCheck()"
-                     formControlName="resolution">
-                     <mat-icon matSuffix *ngIf="checkedResolution" class="FieldValid">check</mat-icon>
-                    <mat-icon class="close-icon" matSuffix *ngIf="unCheckedResolution" class="FieldInvalid">close
-                    </mat-icon>
-                  </mat-form-field>
-                </div>
-                <div class="row">
-                  <mat-label>Bibliography*</mat-label>
-                  <mat-form-field appearance="outline" class="col-md-12">
-                    <input matInput placeholder (mouseover)="bibliographyCheck()" (mouseleave)="bibliographyUnCheck()" formControlName="bibliography">
-                    <mat-icon matSuffix *ngIf="checkedbiBliography" class="FieldValid">check</mat-icon>
-                    <mat-icon class="close-icon" matSuffix *ngIf="unCheckedBibliography" class="FieldInvalid">close
-                    </mat-icon>
-                  </mat-form-field>
-                </div>
-                <div class="row">
-                  <mat-label>Developer*</mat-label>
-                  <mat-form-field appearance="outline" class="col-md-12">
-                    <input matInput placeholder (mouseover)="developerCheck()" (mouseleave)="developerUnCheck()" formControlName="developer">
-                    <mat-icon matSuffix *ngIf="checkedDeveloper" class="FieldValid">check</mat-icon>
-                    <mat-icon class="close-icon" matSuffix *ngIf="unCheckedDeveloper" class="FieldInvalid">close
-                    </mat-icon>
-                  </mat-form-field>
-                </div>
-                <div class="row">
-                  <div class="col-md-2">
-                    <mat-label>Funding Source:</mat-label>
-                  </div>
-                  <mat-form-field appearance="outline" class="col-md-4">
-                    <input matInput placeholder (mouseover)="fundingSourceCheck()" (mouseleave)="fundingSourceUnCheck()" formControlName="fundingSource">
-                    <mat-icon matSuffix *ngIf="checkedfundingSource" class="FieldValid">check</mat-icon>
-                    <mat-icon class="close-icon" matSuffix *ngIf="unCheckedfundingSource" class="FieldInvalid">close
-                    </mat-icon>
-                  </mat-form-field>
-                  <div class="col-md-2">
-                    <mat-label>Release Date(s)</mat-label>
-                  </div>
-                  <mat-form-field appearance="outline" class="col-md-4">
-                    <input matInput [matDatepicker]="dp1" placeholder="Stop Date" (mouseover)="releaseDateCheck()"
-                      (mouseleave)="releaseDateUnCheck()" formControlName="releaseDate" (focus)="dp1.open()">
-                    <mat-datepicker-toggle matSuffix [for]="dp1">
-                    </mat-datepicker-toggle>
-                    <mat-datepicker #dp1 disabled="false"></mat-datepicker>
-                    <mat-icon matSuffix *ngIf="checkedReleaseDate" class="FieldValiddatepicker">check</mat-icon>
-                    <mat-icon class="close-icon" matSuffix *ngIf="unCheckedReleaseDate" class="FieldInvaliddatepicker">close
-                    </mat-icon>
-
-                  </mat-form-field>
-                </div>
-                <div class="row">
-                  <mat-label>Trigger Rule*
-
-                  </mat-label>
-                  <mat-form-field appearance="outline" class="col-md-12 trplaceholder">
-                    <mat-select panelClass="triggeralignment" required formControlName="triggerRule" placeholder="Trigger Rule">
-                      <mat-option *ngFor="let trigger of TriggerRuleDD" [value]="trigger.value">
-                        {{trigger.viewValue}}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button class="btn btn-green btn-clinic" disabled>Add New Alert</button>
-
-            </div>
-          </div>
+          <button class="btn btn-green btn-clinic pull-right" type="button"
+            (click)="InsertUpadateClincialDecisionSupport(item)">Save</button>
         </div>
-      </div>
-      <!-- <ng-template #myTemplateRef>
-   
-      </ng-template>
- -->
+      </mat-expansion-panel>
+    </mat-accordion>
+    <div class="text-center py-2 col-12" *ngIf="clinicalDecisionSupportList.length == 0">
+      <h6 class="Helvetica-sans-serif-medium"> No records found</h6>
+    </div>
+  </div>
+</div>
 
-      <!-- TriggerModal -->
-<div class="modal  TriggerModal" id="TriggerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Add New Altert Modal -->
+<div class="modal new-alert-form" id="modal-new-alert-form" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
-    <div class="modal-content Trigger-content scrollable-modal ">
-      <div class="modal-header">
-        <h4 class="modal-title Helvetica-sans-serif-medium">Add new trigger</h4>
-        <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close">
+    <div class="modal-content scrollable-modal">
+      <div class="modal-header Helvetica-sans-serif-medium">
+        <h4 class="modal-title Helvetica-sans-serif-medium">Add new alert</h4>
+        <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close" (click)="resetdialog()">
           X
         </span>
       </div>
       <div class="modal-body">
-        <div>
-          <div>
-            <label>Category*</label>
-          </div>
-          <br>
-          <label>Code System*</label>
+
+        <div class="row">
+          <mat-label class="required">Alert Name</mat-label>
           <mat-form-field appearance="outline" class="col-md-12">
-            <mat-select required placeholder="Select Code system to search">
-              <mat-option *ngFor="let trigger of codeSystemDD" [value]="trigger.value">
+            <input matInput (mouseover)="nameCheck()" (mouseleave)="nameUnCheck()" [(ngModel)]="newAlert.AlertName"
+              placeholder="">
+            <mat-icon matSuffix *ngIf="checkedName" class="FieldValid">check</mat-icon>
+            <mat-icon matSuffix *ngIf="uncheckedName" class="FieldInvalid">close</mat-icon>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-label class="required">Description</mat-label>
+          <mat-form-field appearance="outline" class="col-md-12">
+            <input matInput placeholder (mouseover)=" descriptionCheck()" (mouseleave)="descriptionUnCheck()"
+              [(ngModel)]="newAlert.Description">
+            <mat-icon matSuffix *ngIf="checkedDescription" class="FieldValid">check</mat-icon>
+
+            <mat-icon matSuffix *ngIf="uncheckedDescription" class="FieldInvalid">close</mat-icon>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-label class="required">Resolution</mat-label>
+          <mat-form-field appearance="outline" class="col-md-12">
+            <input matInput placeholder (mouseover)="resolutionCheck()" (mouseleave)="resolutionUnCheck()"
+              [(ngModel)]="newAlert.Resolution">
+            <mat-icon matSuffix *ngIf="checkedResolution" class="FieldValid">check</mat-icon>
+            <mat-icon class="close-icon" matSuffix *ngIf="unCheckedResolution" class="FieldInvalid">close
+            </mat-icon>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-label class="required">Bibliography</mat-label>
+          <mat-form-field appearance="outline" class="col-md-12">
+            <input matInput placeholder (mouseover)="bibliographyCheck()" (mouseleave)="bibliographyUnCheck()"
+              [(ngModel)]="newAlert.Bibliography">
+            <mat-icon matSuffix *ngIf="checkedbiBliography" class="FieldValid">check</mat-icon>
+            <mat-icon class="close-icon" matSuffix *ngIf="unCheckedBibliography" class="FieldInvalid">close
+            </mat-icon>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-label class="required">Developer</mat-label>
+          <mat-form-field appearance="outline" class="col-md-12">
+            <input matInput placeholder (mouseover)="developerCheck()" (mouseleave)="developerUnCheck()"
+              [(ngModel)]="newAlert.Developer">
+            <mat-icon matSuffix *ngIf="checkedDeveloper" class="FieldValid">check</mat-icon>
+            <mat-icon class="close-icon" matSuffix *ngIf="unCheckedDeveloper" class="FieldInvalid">close
+            </mat-icon>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <mat-label>Funding Source:</mat-label>
+          </div>
+          <mat-form-field appearance="outline" class="col-md-4">
+            <input matInput placeholder (mouseover)="fundingSourceCheck()" (mouseleave)="fundingSourceUnCheck()"
+              [(ngModel)]="newAlert.FundingSource">
+            <mat-icon matSuffix *ngIf="checkedfundingSource" class="FieldValid">check</mat-icon>
+            <mat-icon class="close-icon" matSuffix *ngIf="unCheckedfundingSource" class="FieldInvalid">close
+            </mat-icon>
+          </mat-form-field>
+          <div class="col-md-2">
+            <mat-label>Release Date(s)</mat-label>
+          </div>
+          <mat-form-field appearance="outline" class="col-md-4">
+            <input matInput [matDatepicker]="dp1" placeholder="Stop Date" (mouseover)="releaseDateCheck()"
+              (mouseleave)="releaseDateUnCheck()" (focus)="dp1.open()" [(ngModel)]="newAlert.ReleaseAt">
+            <mat-datepicker-toggle matSuffix [for]="dp1">
+            </mat-datepicker-toggle>
+            <mat-datepicker #dp1 disabled="false"></mat-datepicker>
+            <mat-icon matSuffix *ngIf="checkedReleaseDate" class="FieldValiddatepicker">check</mat-icon>
+            <mat-icon class="close-icon" matSuffix *ngIf="unCheckedReleaseDate" class="FieldInvaliddatepicker">close
+            </mat-icon>
+
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-label class="required">Trigger Rule
+
+          </mat-label>
+          <mat-form-field appearance="outline" class="col-md-12 trplaceholder">
+            <mat-select panelClass="triggeralignment" required placeholder="Trigger Rule" [(ngModel)]="newAlert.Rule">
+              <mat-option *ngFor="let trigger of TriggerRuleDD" [value]="trigger.value">
                 {{trigger.viewValue}}
               </mat-option>
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="row">
-          <mat-label>Code*</mat-label>
-          <div class="col-md-9">
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-green btn-clinic" data-bs-dismiss="modal"
+          (click)="InsertUpadateClincialDecisionSupport(newAlert)" [disabled]="enableSave()">Add New Alert</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <ng-template #myTemplateRef>
+   
+      </ng-template>
+ -->
+
+<!-- TriggerModal -->
+<div class="modal  TriggerModal" id="TriggerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content Trigger-content scrollable-modal ">
+      <div class="modal-header">
+        <h4 class="modal-title Helvetica-sans-serif-medium">Add new trigger</h4>
+        <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close"
+          (click)="resettriggerdialog()">
+          X
+        </span>
+      </div>
+      <div class="modal-body">
+        <div class="col-lg-12 col-md-12 col-12 mat-field-no-round-right">
+          <medical-code-container [codeSystems]="codeSystemsForClinicalDecision"
+            (optionChanged)="optionChangedForTrigger($event)" [MinTermLength]="3" [showSelectedValue]="false">
+          </medical-code-container>
+        </div>
+
+        <mat-table mat-table [dataSource]="triggerSearchList" id="procedure-table" class="searchtable">
+          <ng-container matColumnDef="CODE">
+            <mat-header-cell *matHeaderCellDef>
+              <p class="text-capitalize-first"></p>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let item">
+              <span>{{ item.Code }}</span>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="CODE SYSTEM">
+            <mat-header-cell *matHeaderCellDef>
+              <p class="text-capitalize-first"></p>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let item">
+              <span>{{ item.System }}</span>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="DESCRIPTION">
+            <mat-header-cell *matHeaderCellDef>
+              <p class="text-capitalize-first"></p>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let item">
+              <span>{{ item.Description}}</span>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Delete">
+            <mat-header-cell *matHeaderCellDef>
+              <p class="text-capitalize-first"></p>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let item; let i = index; ">
+              <button type="button" class="btn cross-mark error-close" (click)="removeEncounterDiagnosis(item,i)"
+                title="Delete recommended Procedure">x</button>
+            </mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="clinicalDecisionSearchColumns" class="headeralig"></mat-header-row>
+          <mat-row *matRowDef=" let row; let i = index; columns: clinicalDecisionSearchColumns
+          " class="headerowalig"></mat-row>
+        </mat-table>
+
+        <div>
+          <div>
+            <mat-label class="required">Category</mat-label>
+          </div>
+          <div class="row">
+            <mat-label class="required">Code</mat-label>
+
             <mat-form-field appearance="outline" class="col-md-12">
-              <mat-select>
-                <mat-option class="mat-select-panel">
-                  <input matInput placeholder="Search">
-                </mat-option>
-              </mat-select>
+              <input matInput placeholder="" [(ngModel)]="ehrTrigger.Code">
             </mat-form-field>
+
           </div>
-          <div class="col-md-3 searchbtn ">
-            <button class="btn btn-green btn-clinic" type="button" disabled>Search Now</button>
-          </div>
+          <br>
+          <mat-label class="required">Code System</mat-label>
+
+          <mat-form-field appearance="outline" class="col-md-12">
+            <input matInput placeholder="" [(ngModel)]="ehrTrigger.System">
+          </mat-form-field>
         </div>
+
         <div class="col-md-12">
-          <mat-label>Description*:</mat-label>
-        
-            <textarea matInput class="text-border"
-              placeholder="" readonly disabled></textarea>
-         
-        <div class="row">
-          <div class="d-flex justify-content-end mt-2">
-          <button class="btn btn-green btn-clinic " type="button" disabled>Add trigger</button>
+          <mat-label class="required">Description:</mat-label>
+
+          <textarea matInput class="text-border" placeholder="" readonly disabled
+            [(ngModel)]="ehrTrigger.Description"></textarea>
+
+          <div class="row">
+            <div class="d-flex justify-content-end mt-2">
+              <button class="btn btn-green btn-clinic " type="button" data-bs-dismiss="modal"
+                (click)="CreateTrigger(ehrTrigger)" [disabled]="triggerSave()">Add trigger</button>
+            </div>
+          </div>
         </div>
-        </div>
+
+
+
       </div>
       <div class="modal-footer">
       </div>
     </div>
   </div>
 </div>
-
-
-
-
-

@@ -675,6 +675,18 @@ export class APIEndPoint extends EndpointBase {
    return this._baseUrl + "CreateUpdateEducationMaterial";
  }
 
+ get _createUpdateClinicalDecisionSupportUrl()
+ {
+   return this._baseUrl + "CreateUpdateClinicalDecisionSupport";
+ }
+ get _createTriggerUrl()
+ {
+   return this._baseUrl + "CreateTrigger";
+ }
+ get _deleteTriggerUrl()
+ {
+   return this._baseUrl + "DeleteTrigger"
+ }
   constructor(public http: HttpClient) {
     super();
   }
