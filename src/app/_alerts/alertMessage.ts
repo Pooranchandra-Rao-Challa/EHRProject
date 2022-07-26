@@ -12,8 +12,10 @@ export class AlertMessage {
       showConfirmButton: true,
       confirmButtonText: 'Close',
       width: '600',
-      customClass: { container: 'swal2-container-high-zindex' ,
-      confirmButton:'swal2-messaage'}
+      customClass: {
+        container: 'swal2-container-high-zindex',
+        confirmButton: 'swal2-messaage'
+      }
     });
   }
 
@@ -26,8 +28,10 @@ export class AlertMessage {
       cancelButtonText: 'Close',
       //cancelButtonColor: '#d74842',
       width: '500',
-      customClass: { title: 'swal2-title-error', container: 'swal2-container-high-zindex',
-      cancelButton: 'swal2-error' }
+      customClass: {
+        title: 'swal2-title-error', container: 'swal2-container-high-zindex',
+        cancelButton: 'swal2-error'
+      }
     });
   }
   displaysubmitted(message) {
@@ -225,6 +229,14 @@ export const ERROR_CODES: { [key: string]: string } = {
   // Error for Smoking Status
   'E2CSS001': 'Smoking status Updation error',
 
+  //Message for tobacco use in chart screen
+  'M2CTU001': 'Tobacco use added successfully',
+  'M2CTU002': 'Tobacco use updated successfully',
+  'M2CTU003': 'Tobacco use deleted successfully',
+
+  // Error for Smoking Status
+  'E2CTU001': 'Tobacco use Updation error',
+
   // Message for Admin Provider  Status
   'M1P001': 'Your 30-Day Trial version is finished',
   // Message for Insurance
@@ -345,34 +357,34 @@ export const ERROR_CODES: { [key: string]: string } = {
   // Error for Rooms
   'E2JSAS001': 'Appointment status created error',
 
-//Amendements
-'M2A001' : 'Amendments added successfully',
-'M2A002' : 'Amendments updated successfully',
-'M2A003' : 'Amendments deleted successfully',
+  //Amendements
+  'M2A001': 'Amendments added successfully',
+  'M2A002': 'Amendments updated successfully',
+  'M2A003': 'Amendments deleted successfully',
 
-//Error for Amendements
+  //Error for Amendements
 
-'E2A001' : 'Amendments created error',
+  'E2A001': 'Amendments created error',
   // Labs and Imageing Messags
-  'M2G1001':'Lab Order added successfully',
-  'M2G1002':'Lab Order updated successfully',
-  'M2G1003':'Lab Order deleted successfully',
+  'M2G1001': 'Lab Order added successfully',
+  'M2G1002': 'Lab Order updated successfully',
+  'M2G1003': 'Lab Order deleted successfully',
 
   //Errors
-  'E2G1001':'Lab Order added successfully',
-  'E2G1002':'Lab Order updated successfully',
-  'E2G1003':'Lab Order deleted successfully',
+  'E2G1001': 'Lab Order added successfully',
+  'E2G1002': 'Lab Order updated successfully',
+  'E2G1003': 'Lab Order deleted successfully',
 
   //Login Errors
-  'EL001':'Wrong email or password',
-  'EL002':'Session is timeout',
-  'EL003':'You need to sign in or sign up before continuing.',
+  'EL001': 'Wrong email or password',
+  'EL002': 'Session is timeout',
+  'EL003': 'You need to sign in or sign up before continuing.',
 
   //Education Material Message
-  'M2JPE001':'Education Material added successfully',
-  'M2JPE002':'Education Material updated successfully',
+  'M2JPE001': 'Education Material added successfully',
+  'M2JPE002': 'Education Material updated successfully',
   //Education Material Error
-  'E2JPE001' :'Education Material updation Erroe '
+  'E2JPE001': 'Education Material updation Erroe '
 
 };
 
