@@ -260,5 +260,8 @@ export class PatientService extends APIEndPoint {
   PatientSearch(reqparams: any) {
     return this._ProcessPostRequest<any>(this._patientSearchUrl, reqparams);
   }
-
+  RequestPatientAppointment(reqparams: any)
+  {
+    return this._ProcessPostRequest<any>(this._requestPatientAppointmentUrl,reqparams);
+  }
 }

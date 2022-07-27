@@ -699,7 +699,11 @@ export class APIEndPoint extends EndpointBase {
  }
  get _deleteTriggerUrl()
  {
-   return this._baseUrl + "DeleteTrigger"
+   return this._baseUrl + "DeleteTrigger";
+ }
+ get _requestPatientAppointmentUrl()
+ {
+   return this._baseUrl + "RequestPatientAppointment";
  }
   constructor(public http: HttpClient) {
     super();

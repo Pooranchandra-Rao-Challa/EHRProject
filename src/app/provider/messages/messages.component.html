@@ -90,6 +90,21 @@
                       </a>
                     </div>
                   </div>
+                  <div>
+                    <div class="row">
+                      <div class="col-md-1">
+                        <!-- <mat-checkbox class="col-lg-12 col-md-12">
+                        </mat-checkbox> -->
+                      </div>
+                      <div class="col-md-5">
+                         <!-- {{item.ProviderName}} -->
+                        </div> 
+                      <div class="col-md-3"></div>
+                      <div class="col-md-3">
+                        <!-- {{item.Updated | date:'M/d/yyyy'}} -->
+                      </div>
+                    </div>
+                  </div>
                   <div class="row drop-input">
                     <div class="dropdown">
                       <button class="drop-button" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
@@ -106,7 +121,56 @@
                   </div>
                 </div>
                 <div class=" col-md-8 right-block">
+                  <div *ngIf="basedOnClick">
+                    <div  class="mt-2">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <!-- {{item.ProviderName}} -->
+                        </div>
+                        <div class="col-md-2">
+                        </div>
+                        <div class="col-md-3 d-flex justify-content-end flex-sm-row flex-column">
+                          <!-- {{item.Updated | date:'M/d/yyyy'}},{{item.Updated | date:'shortTime'}} -->
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <!-- To {{item.PatientName}} -->
+                        </div>
+                        <div class="col-md-2">
 
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-end flex-sm-row flex-column">
+                          <img src="assets/images/header-dropdown-img.svg" class="img-xs rounded-circle header-avatar">
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="mt-5 dropdownborder" ></div>
+                    <div class="row mt-2">
+                     <div class="col-md-2 d-flex justify-content-start flex-sm-row flex-column">
+                       <button 
+                           class="btn  btn-green btn-messagesgreen  Helvetica-sans-serif-medium pull-right"
+                           type="button">Archive</button>
+                   </div>
+                   <div class="col-md-2 justify-content-start flex-sm-row flex-column">
+                     <button 
+                         class="btn  btn-danger btn-msgdanger  Helvetica-sans-serif-medium pull-right"
+                         type="button">Delete</button>
+                 </div>
+                 <div class="col-md-4"></div>
+                 <div class="col-md-2 justify-content-start flex-sm-row flex-column">
+                   <button 
+                       class="btn btn-green btn-messagesgreen Helvetica-sans-serif-medium pull-right"
+                       type="button">Reply</button>
+               </div>
+               <div class="col-md-2 justify-content-end flex-sm-row flex-column">
+                 <button 
+                     class="btn  btn-green btn-messagesgreen  Helvetica-sans-serif-medium pull-right"
+                     type="button">Forward</button>
+             </div>
+                    </div>
+                    </div>
                 </div>
               </diV>
 
