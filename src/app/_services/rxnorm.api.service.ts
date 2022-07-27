@@ -133,7 +133,7 @@ export class RxNormAPIService {
 
 }
 
-export class Drug {
+export interface Drug {
   Name: string;
   rxcui: string;
 }

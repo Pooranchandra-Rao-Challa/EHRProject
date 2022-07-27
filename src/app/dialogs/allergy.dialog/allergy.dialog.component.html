@@ -29,8 +29,8 @@
               id="searchAllergyName" name=" searchAllergyName" [matAutocomplete]="allergyName" />
             <mat-autocomplete [displayWith]="displayWithAllergy" #allergyName="matAutocomplete"
               (optionSelected)="onSelectedAllergy($event)">
-              <mat-option [hidden]="displayMessage == false" [disabled]="true">
-                <span class="fs-6">Enter atleast 3 characters</span>
+              <mat-option [hidden]="displayMessage == false" [disabled]="true" class="text-wrap lh-1 fs-6">
+                Enter atleast 3 characters, you can only select 1 item
               </mat-option>
               <mat-option *ngIf="isLoading">Loading ...</mat-option>
               <mat-option *ngFor="let option of allergens | async" [value]="option" class="medical-code-option">
@@ -78,7 +78,8 @@
             <mat-select placeholder="Select allergy reaction" [(ngModel)]="patientAllergy.Reaction">
               <mat-select-filter [displayMember]="'ReactionName'" [array]="allergyReactionFilter"
                 (filteredReturn)="allergyReaction = $event"></mat-select-filter>
-              <mat-option *ngFor="let allergy of allergyReaction" [value]="allergy.ReactionName">
+              <mat-option *ngFor="let allergy of allergyReaction" [value]="allergy.ReactionName"
+                (click)="onSelectedAllergyReaction(allergy.ReactionName)">
                 {{allergy.ReactionName}}
               </mat-option>
             </mat-select>
@@ -126,7 +127,7 @@
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-green mx-2" [disabled]="disableAllergies()" (click)="CreateAllergies()">
-        Save Changes
+        Save
       </button>
       <button type="button" class="btn btn-green" (click)="cancel()">
         Cancel

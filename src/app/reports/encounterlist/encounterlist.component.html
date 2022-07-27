@@ -10,15 +10,13 @@
       <div class="col-lg-1 col-md-3">
         <p class="float-left my-4">Provider:<span class="asterisk">*</span></p>
       </div>
-      <mat-form-field appearance="outline" class="col-lg-2 col-md-6 hover my-2">
-        <mat-select placeholder="Select One" disabledOptionCentering #searchedItem formControlName="provider_Id"
-          (selectionChange)="disableApplyButtonEncounterlist()">
-          <mat-select-filter disabledOptionCentering [placeholder]="'Search...'" [displayMember]="'Provider_Name'"
-            [array]="providerlist" (filteredReturn)="filteredproviderList =$event" *ngIf="searchedItem.focused">
-          </mat-select-filter>
-          <mat-option *ngFor="let item of filteredproviderList" [value]="item.Provider_Id"
+      <mat-form-field appearance="outline" class="col-lg-2 col-md-6 my-2 hover">
+        <mat-select placeholder="Select One" disableOptionCentering #searchedItem formControlName="ProviderId">
+          <mat-select-filter [placeholder]="'Search...'" [displayMember]="'FullName'" [array]="PracticeProviders"
+            (filteredReturn)="PracticeProviders =$event" *ngIf="searchedItem.focused"></mat-select-filter>
+          <mat-option *ngFor="let item of PracticeProviders" [value]="item.ProviderId"
             (click)="getLocationsList(item)">
-            {{item.Provider_Name}}
+            {{item.FullName}}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -29,8 +27,7 @@
         <mat-select placeholder="Select One" disableOptionCentering formControlName="location_Id">
           <!-- <mat-select-filter disabledOptionCentering [placeholder]="'Search...'" [displayMember]="'Location_Name'"
               [array]="locationslist" (filteredReturn)="filteredlocationList =$event"></mat-select-filter> -->
-          <mat-option *ngFor="let name of filteredlocationList" [value]="name.Location_Id"
-            (click)="getProviderList(name)">
+          <mat-option *ngFor="let name of filteredlocationList" [value]="name.Location_Id">
             {{name.Location_Name}}
           </mat-option>
         </mat-select>

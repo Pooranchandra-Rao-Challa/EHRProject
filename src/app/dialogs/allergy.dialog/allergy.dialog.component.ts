@@ -1,6 +1,5 @@
 import { DatePipe } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import * as moment from 'moment-timezone';
 import { fromEvent, Observable, of } from 'rxjs';
 import { filter, map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
@@ -9,6 +8,7 @@ import { Allergy, GlobalConstants, AllergyType, OnSetAt, SeverityLevel, AllergyN
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { PatientService } from 'src/app/_services/patient.service';
+const moment = require('moment');
 
 @Component({
   selector: 'app-allergy.dialog',
@@ -36,6 +36,9 @@ export class AllergyDialogComponent implements OnInit {
     this.updateLocalModel(ref.RequestData);
     if (this.patientAllergy.StartAt != (null || '' || undefined)) {
       this.patientAllergy.StartAt = moment(this.patientAllergy.StartAt).format('YYYY-MM-DD');
+    }
+    if (this.patientAllergy.EndAt != (null || '' || undefined)) {
+      this.patientAllergy.EndAt = moment(this.patientAllergy.EndAt).format('YYYY-MM-DD');
     }
   }
 
@@ -86,8 +89,11 @@ export class AllergyDialogComponent implements OnInit {
   }
 
   onSelectedAllergy(selected) {
-    debugger;
     this.patientAllergy.AllergenName = selected.option.value.AllergyName;
+  }
+
+  onSelectedAllergyReaction(selected) {
+    this.patientAllergy.Reaction = selected;
   }
 
   deleteAllergyName() {
@@ -103,7 +109,10 @@ export class AllergyDialogComponent implements OnInit {
   }
 
   cancel() {
-    this.ref.close(null);
+    // this.ref.close(null);
+    this.ref.close({
+      "UpdatedModal": PatientChart.Allergies
+    });
   }
 
   CreateAllergies() {
@@ -112,6 +121,7 @@ export class AllergyDialogComponent implements OnInit {
     this.patientAllergy.StartAt = this.datepipe.transform(this.patientAllergy.StartAt, "MM/dd/yyyy hh:mm:ss");
     this.patientAllergy.EndAt = this.datepipe.transform(this.patientAllergy.EndAt, "MM/dd/yyyy hh:mm:ss");
     this.patientAllergy.EncounterId = '60d72688391cba0e236c28c8';
+
     this.patientService.CreateAllergies(this.patientAllergy).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.ref.close({

@@ -5,6 +5,8 @@ import { FormBuilder } from "@angular/forms";
 import { Accountservice } from "../../_services/account.service";
 import { PatientData } from "../../_models";
 import { MatPaginator } from "@angular/material/paginator";
+import { PracticeProviders } from '../../_models/_provider/practiceProviders';
+import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
 import {
   MatSort
 } from "@angular/material/sort";
@@ -15,6 +17,7 @@ import {
   PageEvent
 } from "@angular/material/paginator";
 import { TableUtil } from "../tableUtil";
+import { AuthenticationService } from "src/app/_services/authentication.service";
 declare const $: any;
 
 @Component({
@@ -43,7 +46,7 @@ export class PatientlistComponent implements OnInit {
     SstartDate: string;
     SendDate: string;
     Checked: any;
-    provider_Id: any;
+    ProviderId: any;
     location_Id: any;
   };
   showPatientControls: boolean;
@@ -69,8 +72,9 @@ export class PatientlistComponent implements OnInit {
   name: string;
   subject: string;
   disabledowloadExportbtn: boolean = true;
+  PracticeProviders: PracticeProviders[];
 
-  constructor(
+  constructor(private authenticationService: AuthenticationService,private smartSchedulerService: SmartSchedulerService,
     private service: Accountservice,
     private fb: FormBuilder,
     private tableutil: TableUtil,
@@ -83,6 +87,7 @@ export class PatientlistComponent implements OnInit {
     this.PatientForm();
     this.getProviderList();
     this.getLocationsList("");
+    
   }
   ngAfterViewInit(): void {
     this.allPatientList.paginator = this.paginator.toArray()[0];
@@ -95,14 +100,14 @@ export class PatientlistComponent implements OnInit {
       AstartDate: [""],
       AendDate: [""],
       Checked: [""],
-      provider_Id: [""],
+      ProviderId: [""],
       location_Id: [""],
     });
   }
 
   onSubmitallpatientlist() {
     if (
-      this.patientForm.value.provider_Id == "" &&
+      this.patientForm.value.ProviderId == "" &&
       this.patientForm.value.location_Id == ""
     ) {
       return;
@@ -129,10 +134,10 @@ export class PatientlistComponent implements OnInit {
         "en-US"
       ),
       Checked: this.patientForm.value.Checked,
-      provider_Id:
-        this.patientForm.value.provider_Id == ""
+      ProviderId:
+        this.patientForm.value.ProviderId == ""
           ? null
-          : this.patientForm.value.provider_Id,
+          : this.patientForm.value.ProviderId,
       location_Id:
         this.patientForm.value.location_Id == ""
           ? null
@@ -142,8 +147,8 @@ export class PatientlistComponent implements OnInit {
     this.patientlistdata = patientlist;
   }
   disableApplyButton() {
-    var Provider_Id =
-      this.patientForm.value.provider_Id == null
+    var ProviderId =
+      this.patientForm.value.ProviderId == null
         ? ""
         : this.patientForm.value.provider_Id;
     var StartDate =
@@ -163,7 +168,7 @@ export class PatientlistComponent implements OnInit {
         ? ""
         : this.patientForm.value.AendDate;
     if (
-      Provider_Id != "" &&
+      ProviderId != "" &&
       StartDate == "" &&
       EndDate == "" &&
       AstartDate == "" &&
@@ -171,7 +176,7 @@ export class PatientlistComponent implements OnInit {
     ) {
       this.applyButtonToDisable = false;
     } else if (
-      Provider_Id != "" &&
+      ProviderId != "" &&
       StartDate != "" &&
       EndDate != "" &&
       AstartDate != "" &&
@@ -180,7 +185,7 @@ export class PatientlistComponent implements OnInit {
       this.applyButtonToDisable = false;
       this.disableEndDateInput = false;
     } else if (
-      Provider_Id != "" &&
+      ProviderId != "" &&
       StartDate != "" &&
       EndDate != "" &&
       AstartDate == "" &&
@@ -189,7 +194,7 @@ export class PatientlistComponent implements OnInit {
       this.applyButtonToDisable = false;
       this.disableEndDateInput = false;
     } else if (
-      Provider_Id != "" &&
+      ProviderId != "" &&
       StartDate == "" &&
       EndDate == "" &&
       AstartDate != "" &&
@@ -197,7 +202,7 @@ export class PatientlistComponent implements OnInit {
     ) {
       this.applyButtonToDisable = false;
     } else if (
-      Provider_Id != "" &&
+      ProviderId != "" &&
       StartDate != "" &&
       EndDate == "" &&
       AstartDate == "" &&
@@ -206,7 +211,7 @@ export class PatientlistComponent implements OnInit {
       this.applyButtonToDisable = true;
       this.disableEndDateInput = false;
     } else if (
-      Provider_Id != "" &&
+      ProviderId != "" &&
       StartDate == "" &&
       EndDate != "" &&
       AstartDate == "" &&
@@ -214,7 +219,7 @@ export class PatientlistComponent implements OnInit {
     ) {
       this.applyButtonToDisable = true;
     } else if (
-      Provider_Id != "" &&
+      ProviderId != "" &&
       AstartDate == "" &&
       AendDate != "" &&
       StartDate == "" &&
@@ -222,7 +227,7 @@ export class PatientlistComponent implements OnInit {
     ) {
       this.applyButtonToDisable = true;
     } else if (
-      Provider_Id != "" &&
+      ProviderId != "" &&
       AstartDate == "" &&
       AendDate != "" &&
       StartDate == "" &&
@@ -257,14 +262,10 @@ export class PatientlistComponent implements OnInit {
     });
   }
   getProviderList() {
-    let locationid = localStorage.getItem("providerlocation");
-    var req = {
-      LocationId: locationid,
-    };
-    this.service.getProviderList(req).subscribe((data) => {
-      if (data.IsSuccess) {
-        this.providerlist = data.ListResult;
-        this.filteredproviderList = this.providerlist.slice();
+    let req = { "ClinicId": this.authenticationService.userValue.ClinicId };
+    this.smartSchedulerService.PracticeProviders(req).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.PracticeProviders = resp.ListResult as PracticeProviders[];
       }
     });
   }
@@ -277,7 +278,7 @@ export class PatientlistComponent implements OnInit {
     }
   }
   getLocationsList(Location: any) {
-    this.service.getLocationsList(Location.Provider_Id).subscribe((data) => {
+    this.service.getLocationsList(Location.ProviderId).subscribe((data) => {
       if (data.IsSuccess) {
         this.locationslist = data.ListResult;
         this.filteredlocationList = this.locationslist.slice();
