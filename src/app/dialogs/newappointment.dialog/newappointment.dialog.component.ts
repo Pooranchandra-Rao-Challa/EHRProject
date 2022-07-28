@@ -53,7 +53,6 @@ export class NewAppointmentDialogComponent implements OnInit {
     private alert: AlertMessage) {
     let data: AppointmentDialogInfo = ref.RequestData;
     this.PatientAppointment = {} as NewAppointment;
-
     this.PatientAppointment = data.PatientAppointment;
     console.log(this.PatientAppointment);
 

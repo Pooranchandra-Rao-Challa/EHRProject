@@ -26,8 +26,8 @@
         <div class="row">
           <div class="col-lg-12">
             <div class="button">
-              <a class="btn btn-orange Helvetica-sans-serif-medium" data-remote="true" data-bs-toggle="modal"
-                (click)="openComponentDialog(PatientDialogComponent)">Request an Appt</a>
+              <a class="btn btn-orange Helvetica-sans-serif-medium" 
+                (click)="openComponentDialog(PatientDialogComponent, null, ActionTypes.add)">Request an Appt</a>
             </div>
           </div>
         </div>
@@ -48,7 +48,8 @@
               <td class="Helvetica-sans-serif-medium">{{item.StartAt | date:'M/d/yyyy'}}</td>
               <td class="Helvetica-sans-serif-medium">{{item.StartAt | date:'shortTime'}}</td>
               <td class="Helvetica-sans-serif-medium">{{item.ProviderName}}</td>
-              <td class="Helvetica-sans-serif-medium">{{item.ApptStatus}}</td>
+              <td class="Helvetica-sans-serif-medium"><p>{{item.ApptStatus}}</p><p  style="color: darkorange;">Reschedule</p><p  style="color: darkorange;">Cancel</p></td>
+              
             </tr>
             <tr>
               <td *ngIf="PatientUpcomingAppointmentsList?.length==null || PatientUpcomingAppointmentsList?.length==0" colspan="7" >

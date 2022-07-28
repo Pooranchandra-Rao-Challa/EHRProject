@@ -1496,7 +1496,8 @@
             </div>
             <div class="row">
               <mat-form-field appearance="outline" class="col-lg-12">
-                <input matInput autocomplete="off" placeholder="Description" formControlName="description">
+                <input matInput autocomplete="off" placeholder="Description" formControlName="description" required>
+                <mat-error *ngIf="checkError ('description', 'required')">Description is required</mat-error>
               </mat-form-field>
               <div class="col-lg-12">
                 <h6>Begin Date:<span class="asterisk">*</span></h6>
@@ -1508,10 +1509,12 @@
                     formControlName="startDate" (dateChange)="disableEndDateInCreateReport()">
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
+                  <mat-error *ngIf="checkError ('startDate', 'required')">Please select the start date</mat-error>
                 </mat-form-field>
 
                 <button appearance="outline" class="w-25 cstm-addon-btn my-1 my-md-1"
-                  style="border-top-left-radius: 0%; border-bottom-left-radius: 0%; height: 50px;">
+                  style="border-top-left-radius: 0%; border-bottom-left-radius: 0%; height: 50px;"
+                  matTooltip="Select Begin Date First" [matTooltipDisabled]="!disableEndDateInput">
                   <mat-select placeholder="Add" class="addons" [disabled]="disableEndDateInput">
                     <mat-option value="3" (click)="endDateCalculation(3)"> 3 months </mat-option>
                     <mat-option value="6" (click)="endDateCalculation(6)"> 6 months </mat-option>
@@ -1527,9 +1530,13 @@
               <mat-form-field appearance="outline" class="col-lg-12 ">
                 <input matInput class="pointer" style="text-overflow: ellipsis;" placeholder="End Date"
                   autocomplete="off" [min]="createReportForm.value.startDate" [disabled]="disableEndDateInput"
-                  [matDatepicker]="picker2" (click)="picker2.open()" readonly formControlName="endDate">
-                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                  [matDatepicker]="picker2" (click)="picker2.open()" readonly formControlName="endDate"
+                  matTooltip="Select Begin Date First" [matTooltipDisabled]="!disableEndDateInput">
+                <mat-datepicker-toggle matSuffix [for]="picker2" matTooltip="Select Begin Date First"
+                  [matTooltipDisabled]="!disableEndDateInput">
+                </mat-datepicker-toggle>
                 <mat-datepicker #picker2></mat-datepicker>
+                <mat-error *ngIf="checkError ('endDate', 'required')">Please select the end date</mat-error>
               </mat-form-field>
               <div class="col-lg-12">
                 <h6>CQM Update Year:<span class="asterisk">*</span></h6>
@@ -1539,76 +1546,90 @@
                   <mat-option value="2018">2018</mat-option>
                   <mat-option value="2019">2019</mat-option>
                 </mat-select>
+                <mat-error *ngIf="checkError ('bundleYear', 'required')">Please select the bundle year</mat-error>
               </mat-form-field>
               <div class="col-lg-12 ">
-                <button mat-button>Queue Report</button>
+                <button mat-button class="btn queue-report-btn" [disabled]="createReportForm.invalid">Queue
+                  Report</button>
               </div>
             </div>
           </div>
 
           <div class="col-lg-9 body my-3">
-            <div class="row" style="margin-top:1%;margin-left: 1%;">
-              <mat-form-field appearance="outline" class="col-lg-4 col-md-6 my-2 hover">
-                <mat-select placeholder="Select Provider" disableOptionCentering #searchedItem
-                  formControlName="providerId">
-                  <mat-select-filter [placeholder]="'Search...'" [displayMember]="'Provider_Name'"
-                    [array]="providerlist" (filteredReturn)="filteredproviderList =$event" *ngIf="searchedItem.focused">
-                  </mat-select-filter>
-                  <mat-option value="0" (click)="getProviderList(null)">
-                    Show all Providers
-                  </mat-option>
-                  <mat-option *ngFor="let item of filteredproviderList" [value]="item.Provider_Id"
-                    (click)="getLocationsList(item.Provider_Id)">
-                    {{item.Provider_Name}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-
-              <mat-form-field appearance="outline" class="col-lg-4 col-md-4 my-2 hover">
-                <mat-select placeholder="Select One" disableOptionCentering>
-                  <!-- <mat-select-filter [placeholder]="'Search...'" [displayMember]="'Location_Name'" [array]="locationslist"
-                    (filteredReturn)="filteredlocationList =$event"></mat-select-filter> -->
-                  <mat-option *ngFor="let name of filteredlocationList" [value]="name.Location_Id"
-                    (click)="getProviderList(name)">
-                    {{name.Location_Name}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
+            <div class="row" style="margin-top:1%;">
+              <div class="col-lg-4 col-md-6">
+                <h6 class="pl-3">Providers:<span class="asterisk">*</span></h6>
+                <mat-form-field appearance="outline" class="col-12 my-2 hover">
+                  <mat-select placeholder="Select Provider" disableOptionCentering #searchedItem
+                    formControlName="providerId">
+                    <mat-select-filter [placeholder]="'Search...'" [displayMember]="'Provider_Name'"
+                      [array]="providerlist" (filteredReturn)="filteredproviderList =$event"
+                      *ngIf="searchedItem.focused">
+                    </mat-select-filter>
+                    <!-- <mat-option value="0" (click)="getProviderList(null)">
+                      Show all Providers
+                    </mat-option> -->
+                    <mat-option *ngFor="let item of filteredproviderList" [value]="item.Provider_Id"
+                      (click)="getLocationsList(item.Provider_Id)">
+                      {{item.Provider_Name}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="checkError ('providerId', 'required')">Please select the provider</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-lg-4 col-md-4">
+                <h6 class="pl-3">Locations:<span class="asterisk">*</span></h6>
+                <mat-form-field appearance="outline" class="col-12 my-2 hover">
+                  <mat-select placeholder="Select Location" disableOptionCentering formControlName="locationId">
+                    <!-- <mat-select-filter [placeholder]="'Search...'" [displayMember]="'Location_Name'" [array]="locationslist"
+                      (filteredReturn)="filteredlocationList =$event"></mat-select-filter> -->
+                    <mat-option *ngFor="let name of filteredlocationList" [value]="name.Location_Id"
+                      (click)="getProviderList(name)">
+                      {{name.Location_Name}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="checkError ('locationId', 'required')">Please select the location</mat-error>
+                </mat-form-field>
+              </div>
             </div>
-
-            <div class="panel panel-overflow col-md-12">
+            <div class="row">
+              <div class="col-12 mx-3">
+                <h6>Measure List:<span class="asterisk">*</span></h6>
+                <mat-checkbox class=" example-margin" [checked]="true" [disabled]="true"></mat-checkbox>
+                <span class="pl-3">68, 69, 74, 75, 127, 138, 147, 155, 165</span>
+              </div>
+            </div>
+            <!-- <div class="panel panel-overflow col-md-12">
               <mat-expansion-panel class="my-4" (opened)="panelOpenState = true" (closed)="panelOpenState = false"
-                [expanded]="true" *ngFor="let location of userlocationInfo">
+                [expanded]="true" *ngFor="let location of locationNewReportList">
                 <mat-expansion-panel-header>
                   <mat-panel-title>
-                    {{location.locationName}}
+                    {{location.Name}}
                     <span class="asterisk">*</span>
                   </mat-panel-title>
                 </mat-expansion-panel-header>
                 <div class="row ">
-                  <div class="panel-body col-lg-12" *ngFor="let loc of filteredproviders">
-                    <mat-checkbox class="example-margin" [checked]="loc.Provider_Id" (click)="matCheckbox(loc,location)"
-                      formControlName="measureList">
-                      <span> {{loc.Provider_Name }}
-                        <!-- &nbsp;({{loc.Measures}}) -->
+                  <div class="panel-body col-lg-12" *ngFor="let provider of filteredproviders">
+                    <mat-checkbox class="example-margin" [checked]="provider.Provider_Id"
+                      (click)="matCheckbox(provider,location)" formControlName="measureList">
+                      <span> {{provider.Provider_Name }}
                       </span>
-                      <!-- {{ loc | json }} -->
                     </mat-checkbox>
                   </div>
                 </div>
               </mat-expansion-panel>
               <br />
               <br />
-            </div>
+            </div> -->
           </div>
         </div>
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-lg-3"></div>
           <div class=" col-lg-4  text-wrap my-3">
             <mat-checkbox class=" example-margin"></mat-checkbox><span class="cqmcheckbox "
               style="margin-left: 2%;">Override all provider pre-selected measures</span>
           </div>
-        </div>
+        </div> -->
         <!-- <button mat-button >Go Back</button> -->
       </form>
     </mat-card>

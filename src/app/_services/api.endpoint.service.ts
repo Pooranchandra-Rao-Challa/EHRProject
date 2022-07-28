@@ -43,7 +43,7 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "VerifyUserCredentials";
   }
   get _creatReportUrl() {
-    return this._baseUrl + "Creatreport";
+    return this._baseUrl + "CreateQueuedReport";
   }
   get _providersUrl() {
     return this._baseUrl + "GetProviders";
@@ -710,15 +710,22 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "CancelProcedure";
   }
 
-  get _createUpdateClinicalDecisionSupportUrl() {
-    return this._baseUrl + "CreateUpdateClinicalDecisionSupport";
-  }
-  get _createTriggerUrl() {
-    return this._baseUrl + "CreateTrigger";
-  }
-  get _deleteTriggerUrl() {
-    return this._baseUrl + "DeleteTrigger"
-  }
+ get _createUpdateClinicalDecisionSupportUrl()
+ {
+   return this._baseUrl + "CreateUpdateClinicalDecisionSupport";
+ }
+ get _createTriggerUrl()
+ {
+   return this._baseUrl + "CreateTrigger";
+ }
+ get _deleteTriggerUrl()
+ {
+   return this._baseUrl + "DeleteTrigger";
+ }
+ get _requestPatientAppointmentUrl()
+ {
+   return this._baseUrl + "RequestPatientAppointment";
+ }
   constructor(public http: HttpClient) {
     super();
   }
