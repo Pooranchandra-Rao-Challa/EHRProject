@@ -80,7 +80,7 @@ export class MedicationDialogComponent implements OnInit {
 
   displayWithMedication(value: Drug): string {
     if (!value) return "";
-    return value.Name;
+    return "";
   }
 
   onSelectedMedication(selected) {
@@ -91,9 +91,9 @@ export class MedicationDialogComponent implements OnInit {
 
   NDCList() {
     this.rxnormService.ndclist(this.patientMedication.Rxcui).subscribe((resp) => {
-      if (resp != []) {
+      if (resp.length > 0) {
         this.ndcList = resp;
-        // this.patientMedication.NDC = resp[0];
+        this.patientMedication.NDC = this.patientMedication.NDC == undefined ? resp[0] : this.patientMedication.NDC;
       }
       else {
         this.patientMedication.NDC = '';
@@ -155,5 +155,8 @@ export class MedicationDialogComponent implements OnInit {
 
   deleteMedicationName() {
     this.patientMedication.DrugName = null;
+    this.patientMedication.Rxcui = '';
+    this.patientMedication.NDC = '';
+    this.ndcList = [];
   }
 }
