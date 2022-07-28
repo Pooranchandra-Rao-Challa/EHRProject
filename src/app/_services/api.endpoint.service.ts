@@ -43,7 +43,7 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "VerifyUserCredentials";
   }
   get _creatReportUrl() {
-    return this._baseUrl + "Creatreport";
+    return this._baseUrl + "CreateQueuedReport";
   }
   get _providersUrl() {
     return this._baseUrl + "GetProviders";
