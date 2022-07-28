@@ -27,6 +27,7 @@ export class AllergyDialogComponent implements OnInit {
   isLoading = false;
   displayMessage = true;
   @ViewChild('searchAllergyName', { static: true }) searchAllergyName: ElementRef;
+  selectedReaction: string[] = [];
 
   constructor(private ref: EHROverlayRef,
     public datepipe: DatePipe,
@@ -46,6 +47,10 @@ export class AllergyDialogComponent implements OnInit {
     this.patientAllergy = new Allergy;
     if (data == null) return;
     this.patientAllergy = data;
+    if (data.Reaction != undefined) {
+      this.selectedReaction = data.Reaction.split(",");
+      this.patientAllergy.Reaction = this.selectedReaction.toString();
+    }
   }
 
   ngOnInit(): void {
@@ -93,7 +98,14 @@ export class AllergyDialogComponent implements OnInit {
   }
 
   onSelectedAllergyReaction(selected) {
-    this.patientAllergy.Reaction = selected;
+    if (this.selectedReaction.length > 0) {
+      this.selectedReaction.push(selected);
+      this.patientAllergy.Reaction = this.selectedReaction.map(function (val) { return val; }).join(',');
+    }
+    else {
+      this.selectedReaction = new Array(selected);
+      this.patientAllergy.Reaction = this.selectedReaction.map(function (val) { return val; }).join(',');
+    }
   }
 
   deleteAllergyName() {
@@ -135,16 +147,18 @@ export class AllergyDialogComponent implements OnInit {
     });
   }
 
+  deleteAllergyReaction(i) {
+    // this.selectedReaction.splice(this.selectedReaction.indexOf(selected), 1);
+    this.selectedReaction.splice(i, 1);
+    this.patientAllergy.Reaction = this.selectedReaction.toString();
+  }
+
   disableAllergies() {
     return !(this.patientAllergy.AllergenType == undefined ? '' : this.patientAllergy.AllergenType != ''
       && this.patientAllergy.AllergenName == undefined ? '' : this.patientAllergy.AllergenName != ''
         && this.patientAllergy.SeverityLevel == undefined ? '' : this.patientAllergy.SeverityLevel != ''
           && this.patientAllergy.OnSetAt == undefined ? '' : this.patientAllergy.OnSetAt != ''
-            && this.patientAllergy.Reaction == undefined ? '' : this.patientAllergy.Reaction != ''
-              && this.patientAllergy.StartAt == undefined ? '' : this.patientAllergy.StartAt != '')
-  }
-
-  deleteAllergyReaction() {
-    this.patientAllergy.Reaction = null;
+            && this.patientAllergy.StartAt == undefined ? '' : this.patientAllergy.StartAt != ''
+              && this.patientAllergy.Reaction == null ? '' : this.patientAllergy.Reaction != '')
   }
 }

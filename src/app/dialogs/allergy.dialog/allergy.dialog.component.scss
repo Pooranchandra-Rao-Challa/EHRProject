@@ -4,6 +4,13 @@
 .modal-maxHeight.modal-dialog{
   max-width: 850px;
 }
+.modal-allergie.modal-dialog {
+  overflow-y: initial !important;
+}
+.modal-allergie.modal-dialog .modal-body {
+  max-height: calc(90vh - 180px);
+  overflow-y: auto;
+}
 .title-bold {
   margin: 12px 0;
   color: #4A4A4A;
