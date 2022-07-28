@@ -104,6 +104,7 @@ import { TestCodeComponent } from 'src/app/dialogs/lab.imaging.dialog/test.code.
 import { MedicationDialogComponent } from '../../dialogs/medication.dialog/medication.dialog.component';
 import { AllergyDialogComponent } from '../../dialogs/allergy.dialog/allergy.dialog.component';
 import { RxNormAPIService } from 'src/app/_services/rxnorm.api.service'
+import { TobaccoUseDialogComponent } from '../../dialogs/tobacco.use.dialog/tobacco.use.dialog.component';
 //import { TimeMaskDirective } from 'src/app/_directives/input.time.mask.directive'
 import { LabOrderTestFormatPipe } from 'src/app/_pipes/lab.order.test.pipe'
 registerLocaleData(localeIt);
@@ -123,6 +124,7 @@ registerLocaleData(localeIt);
     DiscontinueDialogComponent,
     MedicationDialogComponent,
     AllergyDialogComponent,
+    TobaccoUseDialogComponent,
     LabOrderTestFormatPipe
   ],
   declarations: [
@@ -157,6 +159,7 @@ registerLocaleData(localeIt);
     DiscontinueDialogComponent,
     MedicationDialogComponent,
     AllergyDialogComponent,
+    TobaccoUseDialogComponent,
     OverlayComponent,
     MouseOverHintDirective,
     UserDialogComponent,
@@ -241,6 +244,7 @@ registerLocaleData(localeIt);
     DiscontinueDialogComponent,
     MedicationDialogComponent,
     AllergyDialogComponent,
+    TobaccoUseDialogComponent,
     CompleteAppointmentDialogComponent,
     OrderManualEntryDialogComponent,
     OrderResultDialogComponent,

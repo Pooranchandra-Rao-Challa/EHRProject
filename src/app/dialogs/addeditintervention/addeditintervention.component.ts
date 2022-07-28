@@ -1,11 +1,12 @@
 import { Router, RouterModule } from '@angular/router';
 import { CQMNotPerformed } from 'src/app/_models/_provider/cqmnotperformed';
-import { Component, OnInit } from '@angular/core';
+import { Component, ComponentFactoryResolver, OnInit, ViewContainerRef } from '@angular/core';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
-import { PatientChart, User } from 'src/app/_models';
+import { PatientChart, User, ViewModel } from 'src/app/_models';
 import { CQMNotPerformedService } from 'src/app/_services/cqmnotperforemed.service';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-addeditintervention',
@@ -47,9 +48,11 @@ export class AddeditinterventionComponent implements OnInit {
   CQMNotPerformed: CQMNotPerformed;
   intervention: any = [];
   PatientDetails: any = [];
+  private chartviewcontainerref: ViewContainerRef;
 
   constructor(private ref: EHROverlayRef, private cqmNotperformedService: CQMNotPerformedService,
-    private authService: AuthenticationService, private router: Router, private alertmsg: AlertMessage,) {
+    private authService: AuthenticationService, private router: Router, private alertmsg: AlertMessage,
+    private cfr: ComponentFactoryResolver,) {
     this.CQMNotPerformed = {} as CQMNotPerformed;
     this.updateLocalModel(ref.RequestData);
   }
@@ -90,7 +93,6 @@ export class AddeditinterventionComponent implements OnInit {
       resason = resason.split(" - ");
       this.CQMNotPerformed.ReasonCode = resason[0];
       this.CQMNotPerformed.ReasonDescription = resason[1];
-      console.log(resason);
     }
   }
 
@@ -98,24 +100,34 @@ export class AddeditinterventionComponent implements OnInit {
     this.CQMNotPerformed = new CQMNotPerformed;
     if (data == null) return;
     this.CQMNotPerformed = data;
+    this.CQMNotPerformed.CessationInterventionId = data.CessationInterventionId;
   }
 
   addUpdateCQMNotPerformed() {
     let isAdd = this.CQMNotPerformed.NPRId == "";
-    this.CQMNotPerformed.PatientId = this.PatientDetails.PatientId,
-      this.CQMNotPerformed.ProviderId = this.PatientDetails.ProviderId,
-      this.cqmNotperformedService.AddUpdateCQMNotPerformed(this.CQMNotPerformed).subscribe(resp => {
-        if (resp.IsSuccess) {
-          this.ref.close({
-            "UpdatedModal": PatientChart.CQMNotPerforemd
-          });
-          this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CCNP001" : "M2CCNP002"]);
-        }
-        else {
-          this.cancel();
-          this.alertmsg.displayErrorDailog(ERROR_CODES["E2CCNP001"]);
-        }
-      });
+    this.CQMNotPerformed.PatientId = this.PatientDetails.PatientId;
+    this.CQMNotPerformed.ProviderId = this.PatientDetails.ProviderId;
+    this.cqmNotperformedService.AddUpdateCQMNotPerformed(this.CQMNotPerformed).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.ref.close({
+          "UpdatedModal": PatientChart.CQMNotPerforemd
+        });
+        this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CCNP001" : "M2CCNP002"]);
+      }
+      else {
+        this.cancel();
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CCNP001"]);
+      }
+    });
+    this.loadCQMsNotPerformedComponent();
+  }
+
+  async loadCQMsNotPerformedComponent() {
+    this.chartviewcontainerref.clear();
+    const { CqmsNotPerformedComponent } = await import('../../provider/patients/cqms.not.performed/cqms.not.performed.component');
+    let viewcomp = this.chartviewcontainerref.createComponent(
+      this.cfr.resolveComponentFactory(CqmsNotPerformedComponent)
+    );
   }
 
   cancel() {

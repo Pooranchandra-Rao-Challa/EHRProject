@@ -388,6 +388,11 @@ export class APIEndPoint extends EndpointBase {
   get _tobaccoUseInterventionsUrl() {
     return this._baseUrl + "TobaccoUseInterventions";
   }
+
+  get _tobaccoUseByPatientIdUrl() {
+    return this._baseUrl + "TobaccoUseByPatientId";
+  }
+
   get _patientProviderUrl() {
     return this._baseUrl + "PracticeProviders";
   }
@@ -544,6 +549,10 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "CreateImmunizationsRefused";
   }
 
+  get _createTobaccoUseUrl() {
+    return this._baseUrl + "CreateTobaccoUse";
+  }
+
   get _vaccinesUrl() {
     return this._baseUrl + "Vaccines";
   }
@@ -682,10 +691,10 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "LabResult";
   }
 
-  get _procedureStatuesUrl(){
+  get _procedureStatuesUrl() {
     return this._baseUrl + "ProcedureStatues";
   }
-  get _cancelProcedureUrl(){
+  get _cancelProcedureUrl() {
     return this._baseUrl + "CancelProcedure";
   }
 
@@ -699,7 +708,11 @@ export class APIEndPoint extends EndpointBase {
  }
  get _deleteTriggerUrl()
  {
-   return this._baseUrl + "DeleteTrigger"
+   return this._baseUrl + "DeleteTrigger";
+ }
+ get _requestPatientAppointmentUrl()
+ {
+   return this._baseUrl + "RequestPatientAppointment";
  }
   constructor(public http: HttpClient) {
     super();

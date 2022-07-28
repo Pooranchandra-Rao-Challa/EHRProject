@@ -62,6 +62,11 @@ export class PatientService extends APIEndPoint {
   TobaccoUseInterventions(reqparams: any) {
     return this._ProcessPostRequest<any>(this._tobaccoUseInterventionsUrl, reqparams);
   }
+
+  TobaccoUseByPatientId(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._tobaccoUseByPatientIdUrl, reqparams);
+  }
+
   CreateCareTeam(reqparams: any) {
     return this._ProcessPostRequest<any>(this._careTeamUrl, reqparams);
   }
@@ -214,6 +219,10 @@ export class PatientService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._createImmunizationsRefusedUrl, reqparams);
   }
 
+  CreateTobaccoUse(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._createTobaccoUseUrl, reqparams);
+  }
+
   Vaccines(reqparams: any) {
     return this._ProcessPostRequest<any>(this._vaccinesUrl, reqparams);
   }
@@ -260,5 +269,8 @@ export class PatientService extends APIEndPoint {
   PatientSearch(reqparams: any) {
     return this._ProcessPostRequest<any>(this._patientSearchUrl, reqparams);
   }
-
+  RequestPatientAppointment(reqparams: any)
+  {
+    return this._ProcessPostRequest<any>(this._requestPatientAppointmentUrl,reqparams);
+  }
 }

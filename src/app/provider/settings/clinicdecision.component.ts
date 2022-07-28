@@ -270,8 +270,6 @@ export class ClinicDecisionComponent implements OnInit {
 
 
   InsertUpadateClincialDecisionSupport(alert: EhrAlert) {
-
-
     alert.strReleaseAt = this.datePipe.transform(alert.ReleaseAt, "MM/dd/yyyy")
     let isAdd = alert.AlertId == undefined;
     alert.ProviderId = this.user.ProviderId

@@ -5,8 +5,10 @@ import {  TemplateRef } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
 import { PatientService } from '../_services/patient.service';
 import { AuthenticationService } from '../_services/authentication.service';
-import { User } from '../_models';
+import { Actions, User } from '../_models';
 import { Appointments } from '../_models/_patient/appointments';
+import { connect } from 'http2';
+
 
 @Component({
   selector: 'app-appointment',
@@ -14,8 +16,7 @@ import { Appointments } from '../_models/_patient/appointments';
   styleUrls: ['./appointment.component.scss']
 })
 export class AppointmentComponent {
-  user: User
-
+  user: User;
   isPast:boolean=false;
   isUpcoming:boolean=true;
   displayReq = "none";
@@ -23,6 +24,8 @@ export class AppointmentComponent {
   DialogResponse = null;
   PatientPastAppointmentsList: Appointments
   PatientUpcomingAppointmentsList: Appointments
+  ActionTypes = Actions;
+  
 
   constructor(private overlayService :OverlayService,private patientservice: PatientService,private authenticationService: AuthenticationService,) {
     this.user = authenticationService.userValue
@@ -33,20 +36,26 @@ export class AppointmentComponent {
     this.getPatientUpcomingAppointments();
     this.getPatientPastAppointments();
 
+
   }
-  openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string) {
+
+  openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string, dialogData, action?: Actions) {
+    debugger;
     const ref = this.overlayService.open(content, null);
 
     ref.afterClosed$.subscribe(res => {
-      if (typeof content === 'string') {
-      //} else if (content === this.yesNoComponent) {
-        //this.yesNoComponentResponse = res.data;
+      let reqdata: any;
+      if (action == Actions.view && content === this.PatientDialogComponent) {
+        reqdata = dialogData;
       }
-      else if (content === this.PatientDialogComponent) {
-        this.DialogResponse = res.data;
-      }
+     
+    
+      const ref = this.overlayService.open(content, reqdata);
+      ref.afterClosed$.subscribe(res => {
+      });
     });
   }
+
   onUpcoming(){
     this.isUpcoming=true;
     this.isPast=false;
@@ -70,12 +79,13 @@ getPatientUpcomingAppointments()
 {
   var req={
     "PatientId": this.user.PatientId,
-
   }
   this.patientservice.PatientUpcomingAppointments(req).subscribe(res=>{
     this.PatientUpcomingAppointmentsList=res.ListResult;
-    console.log(this.PatientUpcomingAppointmentsList);
+   
   })
 }
+
+
 }
 
