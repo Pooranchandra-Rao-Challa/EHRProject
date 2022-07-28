@@ -57,10 +57,14 @@
   padding: 0px 10px !important;
   border-bottom: none !important;
  }
-
+.tobacco-use .screening-list .mat-row:hover {
+  background-color: #fff !important;
+}
 .tobacco-use .screening-list .mat-cell,
 .tobacco-use .screening-list .mat-header-cell {
   border-right: 1px solid rgb(221, 221, 221);
+  display: block;
+  align-self: stretch;
 }
 
 .tobacco-use .screening-list .mat-cell:last-of-type,
@@ -73,19 +77,19 @@
 .screening-table {
   mat-cell:nth-child(1),
   mat-header-cell:nth-child(1) {
-    flex: 0 0 12%;
+    width: 15% !important;
   }
   mat-cell:nth-child(2),
   mat-header-cell:nth-child(2) {
-    flex: 0 0 38%;
+    width: 35% !important;
   }
   mat-cell:nth-child(3),
   mat-header-cell:nth-child(3) {
-    flex: 0 0 12%;
+    width: 15% !important;
   }
   mat-cell:nth-child(4),
   mat-header-cell:nth-child(4) {
-    flex: 0 0 38%;
+    width: 35% !important;
   }
 }
 // @media (max-width: 1350px) {

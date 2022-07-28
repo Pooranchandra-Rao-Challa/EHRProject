@@ -78,11 +78,12 @@
                 <div class="bg-color col-12">
                   <p class="Helvetica-sans-serif-medium">Recorded Screening and Use</p>
                 </div>
-                <div class="scrollable-mat-table">
-                  <mat-table class="screening-table" [dataSource]="tobaccoUseList" matSort>
+                <div class="scrollable-mat-table screening-table">
+                  <mat-table [dataSource]="tobaccoUseList" matSort>
                     <ng-container matColumnDef="DatePerf">
                       <mat-header-cell *matHeaderCellDef>Date Perf</mat-header-cell>
-                      <mat-cell *matCellDef="let loc">{{loc.ScreeningDate | date: 'MM/dd/yyyy'}}</mat-cell>
+                      <mat-cell *matCellDef="let loc">{{loc.ScreeningDate | date: 'MM/dd/yyyy'}}
+                      </mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="Screeningperf">
                       <mat-header-cell *matHeaderCellDef>Screening perf</mat-header-cell>
@@ -94,7 +95,8 @@
                     </ng-container>
                     <ng-container matColumnDef="TobaccoUsecode_desc">
                       <mat-header-cell *matHeaderCellDef>Tobacco use code & Desc</mat-header-cell>
-                      <mat-cell *matCellDef="let loc">{{loc.ScreeningCode}} - {{loc.ScreeningDescription}}</mat-cell>
+                      <mat-cell *matCellDef="let loc">{{loc.ScreeningCode}} - {{loc.ScreeningDescription}}
+                      </mat-cell>
                     </ng-container>
                     <mat-header-row *matHeaderRowDef="screeningColumns"></mat-header-row>
                     <mat-row *matRowDef="let row; columns: screeningColumns"></mat-row>
