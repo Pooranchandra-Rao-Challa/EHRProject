@@ -714,6 +714,15 @@ export class APIEndPoint extends EndpointBase {
  {
    return this._baseUrl + "RequestPatientAppointment";
  }
+ get _appointmentsTypesByPatientIdUrl()
+ {
+  return this._baseUrl + "AppointmentsTypesByPatientId";
+ }
+
+ get _cancelPatientAppoinmentUrl()
+ {
+   return this._baseUrl + "CancelPatientAppoinment";
+ }
   constructor(public http: HttpClient) {
     super();
   }

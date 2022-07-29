@@ -152,6 +152,15 @@ export class AlertMessage {
  * LabsAndImaging
  * Order: 1
  * Results: 2
+ * 
+ * --------------------------------------------------
+ * Patient Module
+ * 
+ * Appoinments : A
+ * Messages : M
+ * DashBoard: D
+ * MyProfile
+ * 
  * ---------------------------------------------------
  * Errors Number shouw be three digits like 001
  *
@@ -400,7 +409,12 @@ export const ERROR_CODES: { [key: string]: string } = {
   //Error for CDS
   'E2JCDS001': 'Alert updation error',
   'E2JCDS002': 'Trigger updation error',
-  'E2JCDS003': 'Trigger deletion error'
+  'E2JCDS003': 'Trigger deletion error',
+  //Messages for Patient Appoinments
+  'M3A001': 'Appoinments added sucessfully ',
+  'M3A002': 'Appoinments cancelled successfully',
+  //Error Messages for Patient Appoinments
+  'E3A001': "Appoinments updation error"
 };
 
 

@@ -80,3 +80,58 @@ tr th {
   border-radius: 4px;
 
 }
+.modal-content{
+  width: 991px;
+    /* margin-left: -92px; */
+    margin-right: 212px;
+}
+
+button.timeslot-selected{
+  background-color: #41b6a6;
+  color: #fff;
+  border: 1px solid #41b6a6;
+}
+.timeslots{
+  font-size: 12px;
+  padding: auto;
+  font-weight: 500;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  border: 1px solid #41b6a6;
+
+}
+
+.timeslots:hover{
+  border: 1px solid #41b6a6;
+  background-color: #41b6a6;
+  color: #fff;
+}
+
+.modal-scrollbar {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 500px;
+  // width: 1045px;
+  }
+  .findopentime{
+    padding-top: 1px; 
+    padding-bottom:1px; 
+    border-radius: 5px;
+    height: 45px;
+  }
+  .available-slots {
+    border: 1px solid #41b6a6;
+    padding: 30px 25px 15px 20px;
+    border-radius: 4px;
+    background-color: rgba(65,182,166,0.1);
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+  }
+  .Statusnotconfirmed{
+    color: darkorange;
+  }
+  .Statusconfirmed
+  {
+    color: #41b6a6;
+  }
+  .StatusCancelled{
+    color: red;
+  }
