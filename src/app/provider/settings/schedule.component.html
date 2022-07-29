@@ -160,14 +160,11 @@
                 <div class="appointment-form">
                   <div class="room-card bg-color px-4">
                     <div class="row bg-color ">
-                      <div class="col-md-5 col-5">
+                      <div class="col-md-6 col-6">
                         <p class="plabel m-0 mt-3">Status</p>
                       </div>
-                      <div class="col-md-3 col-3">
+                      <div class="col-md-6 col-6">
                         <p class="plabel m-0 mt-3">Color</p>
-                      </div>
-                      <div class="col-md-4 col-4">
-                        <p class="plabel m-0 mt-3 pull-right">Edit Status</p>
                       </div>
                     </div>
                   </div>
@@ -176,48 +173,23 @@
                       <div *ngFor="let stat of status().controls; let statusIndex=index;">
                         <div [formGroupName]="statusIndex">
                           <div class="row px-4 pt-1 pb-2">
-                            <div class="col-md-5 col-5">
+                            <div class="col-md-6 col-6">
                               <div class="form-group">
                                 <input type="text" class="form-control inputclass" formControlName="Name"
                                   [class]="(!isNewStatus(statusIndex) || !status().controls[statusIndex].get('Editable').value) ? 'schedule-inputclass': 'inputclass'"
                                   [readonly]="!isNewStatus(statusIndex) || !status().controls[statusIndex].get('Editable').value">
                               </div>
                             </div>
-                            <div class="col-md-3 col-3">
+                            <div class="col-md-6 col-6">
                               <input class="cstm-color-picker"
                                 [(colorPicker)]="status().controls[statusIndex].get('Colour').value"
                                 [style.background]="status().controls[statusIndex].get('Colour').value" />
-                            </div>
-                            <div class="col-md-4 col-4 pt-2 pt-md-0"
-                              *ngIf="status().controls[statusIndex].get('Editable').value">
-                              <button type="button" class="btn  btn-green btn-edit pull-right"
-                                *ngIf="isNewStatus(statusIndex)" (click)="saveAppointmentStatus(statusIndex)">
-                                Save
-                              </button>
-                              <button type="button" class="btn  btn-green btn-edit pull-right"
-                                *ngIf="!isNewStatus(statusIndex)" (click)="onEditStatus(statusIndex)">
-                                Edit
-                              </button>
-                            </div>
-                            <div class="col-md-12 col-12 pt-2 cstm-border-bottom-appointment">
-                              <div class="col-4 pull-right">
-                                <button type="button" class="btn btn-green btn-remove pull-right"
-                                  *ngIf="status().controls[statusIndex].get('Editable').value"
-                                  (click)="removeAppointmentStatus(statusIndex)">
-                                  Remove
-                                </button>
-                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </form>
-                  <div class="px-3">
-                    <button type="submit" class="btn btn-green mb-2 w-100" (click)="addStatus()">
-                      Add Status
-                    </button>
-                  </div>
                 </div>
               </div>
               <div class="col-xl-6 col-lg-12 col-md-12 cstm-appointment-type pt-3 pt-xl-0">
