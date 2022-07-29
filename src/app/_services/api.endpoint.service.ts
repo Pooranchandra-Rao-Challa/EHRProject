@@ -43,7 +43,7 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "VerifyUserCredentials";
   }
   get _creatReportUrl() {
-    return this._baseUrl + "Creatreport";
+    return this._baseUrl + "CreateQueuedReport";
   }
   get _providersUrl() {
     return this._baseUrl + "GetProviders";
@@ -557,8 +557,20 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "Vaccines";
   }
 
+  get _searchInterventionCodesUrl() {
+    return this._baseUrl + "SearchInterventionCodes";
+  }
+
   get _allergyNamesUrl() {
     return this._baseUrl + "AllergyNames";
+  }
+
+  get _createInterventionsUrl() {
+    return this._baseUrl + "CreateInterventions";
+  }
+
+  get _interventionsByPatientIdUrl() {
+    return this._baseUrl + "InterventionsByPatientId";
   }
 
   get _changePasswordsUrl() {

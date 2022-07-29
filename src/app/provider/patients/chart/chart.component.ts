@@ -277,6 +277,9 @@ export class ChartComponent implements OnInit, AfterViewInit {
     else if (action == Actions.view && content === this.medicationDialogComponent) {
       reqdata = dialogData;
     }
+    else if (action == Actions.view && content === this.interventionDialogComponent) {
+      reqdata = dialogData;
+    }
     else if (action == Actions.view && content === this.allergyDialogComponent) {
       reqdata = dialogData;
     }
@@ -324,6 +327,9 @@ export class ChartComponent implements OnInit, AfterViewInit {
     }
     else if (data.UpdatedModal == PatientChart.Medications) {
       this.MedicationsByPatientId();
+    }
+    else if (data.UpdatedModal == PatientChart.Interventions) {
+      this.InterventionsByPatientId();
     }
     else if (data.UpdatedModal == PatientChart.Encounters) {
       this.EncountersByPatientId();
@@ -694,6 +700,13 @@ export class ChartComponent implements OnInit, AfterViewInit {
   TobaccoUseByPatientId() {
     this.patientService.TobaccoUseByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       if (resp.IsSuccess) this.tobaccoUseList = resp.ListResult;
+    });
+  }
+
+  // Get tobacco interventions info
+  InterventionsByPatientId() {
+    this.patientService.InterventionsByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
+      if (resp.IsSuccess) this.chartInfo.Interventions = resp.ListResult;
     });
   }
 

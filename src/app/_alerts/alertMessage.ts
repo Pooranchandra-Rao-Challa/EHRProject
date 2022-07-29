@@ -334,6 +334,14 @@ export const ERROR_CODES: { [key: string]: string } = {
   // Error for immunization
   'E2CCI001': 'Immunization Updation error',
 
+  //Message for interventions in chart screen
+  'M2CCSIA001': 'Intervention added successfully',
+  'M2CCSIA002': 'Intervention updated successfully',
+  'M2CCSIA003': 'Intervention deleted successfully',
+
+  // Error for Smoking Status
+  'E2CCSIA001': 'Intervention Updation error',
+
   // CQM Not performed
   'M2CCNP001': 'Not Performed Reason created successfully',
   'M2CCNP002': 'Not Performed Reason updated successfully',

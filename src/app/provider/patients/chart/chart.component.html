@@ -40,11 +40,12 @@
 
               <input matInput type="text" name="chart_find_patient" id="chart_find_patient" #searchPatient
                 class="new-search form-control ignore_spinner" placeholder="Search Patients..." />
-                <mat-autocomplete [displayWith]="displayWithPatientSearch" #searchPatient="matAutocomplete"
+              <mat-autocomplete [displayWith]="displayWithPatientSearch" #searchPatient="matAutocomplete"
                 (optionSelected)="onPatientSelected($event)">
                 <mat-option *ngIf="isLoading">Loading ...</mat-option>
                 <mat-option *ngFor="let option of filteredPatients | async" [value]="option"
-                  class="patient-serach-option"> <!-- [matAutocomplete]="searchPatient" -->
+                  class="patient-serach-option">
+                  <!-- [matAutocomplete]="searchPatient" -->
                   {{option.Name}}
                 </mat-option>
               </mat-autocomplete>
@@ -176,8 +177,7 @@
                     </a>
                   </li>
                 </ul>
-                <ul class="main-list"
-                  *ngIf="tobaccoUseList.length == 0">
+                <ul class="main-list" *ngIf="tobaccoUseList.length == 0">
                   <li>
                     <span>No tobacco use recorded.</span>
                   </li>
@@ -403,12 +403,24 @@
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list">
+                <ul class="main-list" *ngFor="let intervention of chartInfo?.Interventions">
                   <li>
-                    <span></span>
+                    <a (click)="openComponentDialog(interventionDialogComponent, intervention , ActionTypes.view)">
+                      <span *ngIf="intervention?.InterventionType != null && intervention?.InterventionType !=''">
+                        - {{intervention?.InterventionType}}
+                      </span>
+                    </a>
+                  </li>
+                  <li style="margin-left: 20px;">
+                    <span>
+                      {{intervention?.StartDate | date: 'MM/dd/yyyy'}}
+                    </span>
+                    <span *ngIf="intervention?.EndDate != null && intervention?.EndDate !=''">
+                      - {{intervention?.EndDate | date: 'MM/dd/yyyy'}}
+                    </span>
                   </li>
                 </ul>
-                <a class="view-more">view more</a>
+                <a class="view-more pull-right">view more</a>
               </div>
             </div>
           </div>

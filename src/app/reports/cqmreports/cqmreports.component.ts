@@ -12,6 +12,7 @@ import { Observable } from "rxjs/Observable";
 import { of } from "rxjs/observable/of";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
+import { PageEvent } from "@angular/material/paginator";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { formatDate } from "@angular/common";
 import * as pdfMake from "pdfmake/build/pdfmake";
@@ -23,9 +24,8 @@ import {
   transition,
   trigger,
 } from "@angular/animations";
-import { ToastrService } from "ngx-toastr";
+// import { ToastrService } from "ngx-toastr";
 import { DomSanitizer } from "@angular/platform-browser";
-
 
 import {
   CQMReportsData,
@@ -38,6 +38,7 @@ import {
 
 import { DownloadService } from "../../_services/download.service";
 import { AuthenticationService } from "../../_services/authentication.service";
+//import { locationClass } from "src/app/_models/locationClass";
 declare const $: any;
 @Component({
   selector: "app-cqmreports",
@@ -182,16 +183,17 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
   populationdescription: any;
   stratificationText: any;
   patientdob: string;
-  //locationarray: string[];
-  measures: any;
+  locationarray: string[];
+  measures: '68,69,74,75,127,138,147,155,165';
   filteredproviders: any;
   providerid: any;
   patientlistfilterlength: number;
   getoverrallreportlength: number;
-  userLocationInfo: UserLocations[];
+  provider: any;
+  locationNewReportList: any[];
 
   public downloadAsPDF() {
-    //debugger;
+    debugger;
     const documenDefinition = {
       content: [
         {
@@ -344,7 +346,7 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
   constructor(
     private downloadservice: DownloadService,
     private sanitizer: DomSanitizer,
-    private toastr: ToastrService,
+    //private toastr: ToastrService,
     protected http: HttpClient,
     private accountservice: Accountservice,
     private fb: FormBuilder,
@@ -352,7 +354,6 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
   ) {
     this.getoverrallreport = new MatTableDataSource<CQMReportsData>();
     this.user = authenticationService.userValue;
-    this.userLocationInfo = JSON.parse(this.user.LocationInfo);
     pdfMake.vfs = pdfFonts.pdfMake.vfs;
   }
 
@@ -367,59 +368,85 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
     this.queuedreportapplyfilter();
     this.displayedRows$ = of(messages);
     this.getCQMReportsQueuedReports();
-    this.getProviderList(this.providerid);
+    this.getProviderList();
     this.getLocationsList("");
     this.getlocations();
   }
-  getProviderList(i: any) {
-    let locationid = localStorage.getItem("providerlocation");
-    if (i == null || i == "") {
-      var req = {
-        "LocationId": locationid,
-      }
-      this.accountservice.getProviderList(req).subscribe((data) => {
-        if (data.IsSuccess) {
-          this.providerlist = data.ListResult;
-          this.filteredproviderList = this.providerlist.slice();
-          this.filteredproviders = this.providerlist;
-          this.filteredproviders = JSON.parse(JSON.stringify(this.providerlist));
-        }
-      });
+  // getProviderList(i: any) {
+  //   let locationid = localStorage.getItem("providerlocation");
+  //   if (i == null || i == "") {
+  //     var req = {
+  //       "LocationId": locationid,
+  //     }
+  //     this.accountservice.getProviderList(req).subscribe((data) => {
+  //       if (data.IsSuccess) {
+  //         this.providerlist = data.ListResult;
+  //         this.filteredproviderList = this.providerlist.slice();
+  //         this.filteredproviders = this.providerlist;
+  //         this.filteredproviders = JSON.parse(JSON.stringify(this.providerlist));
+  //       }
+  //     });
+  //   }
+  //   else if (i != null || i != "") {
+  //     var req = {
+  //       "LocationId": locationid,
+  //     }
+  //     debugger;
+  //     this.accountservice.getProviderList(req).subscribe((data) => {
+  //       if (data.IsSuccess) {
+  //         this.providerlist = data.ListResult;
+  //         this.filteredproviderList = this.providerlist.slice();
+  //         this.filteredproviders = this.providerlist.filter(a => a.Provider_Id === i);
+  //         //this.filteredproviders = JSON.parse(JSON.stringify(this.providerlist));
+  //       }
+  //     });
+  //   }
+  // }
+  getProviderList() {
+    let locationid = this.authenticationService.userValue.CurrentLocation;
+
+    var req = {
+      "LocationId": locationid,
     }
-    else if (i != null || i != "") {
-      var req = {
-        "LocationId": locationid,
+    this.accountservice.getProviderList(req).subscribe(data => {
+      if (data.IsSuccess) {
+        this.providerlist = data.ListResult;
+        this.filteredproviderList = this.providerlist.slice();
       }
-      //debugger;
-      this.accountservice.getProviderList(req).subscribe((data) => {
-        if (data.IsSuccess) {
-          this.providerlist = data.ListResult;
-          this.filteredproviderList = this.providerlist.slice();
-          this.filteredproviders = this.providerlist.filter(a => a.Provider_Id === i);
-          //this.filteredproviders = JSON.parse(JSON.stringify(this.providerlist));
-        }
-      });
-    }
+    });
   }
 
   getLocationsList(ProviderId) {
     this.providerid = ProviderId;
-    //debugger;
     this.accountservice.getLocationsList(this.providerid).subscribe(data => {
       if (data.IsSuccess) {
         this.locationslist = data.ListResult;
         this.filteredlocationList = this.locationslist.slice();
       }
-      this.getProviderList(ProviderId);
+      // this.getProviderList(ProviderId);
     });
   }
+  // getlocations() {
+  //   var location = this.user.LocationName;
+  //   this.locationarray = location.split(',');
+  //   for (var i = 0; i < this.locationarray.length; i++) {
+  //     this.locationarray[i] = this.locationarray[i].replace(/^\s*/, "").replace(/\s*$/, "");
+  //   }
+  // }
   getlocations() {
-    //var location = this.user.LocationName;
-    //this.locationarray = location.split(',');
-    //for (var i = 0; i < this.locationarray.length; i++) {
-      //this.locationarray[i] = this.locationarray[i].replace(/^\s*/, "").replace(/\s*$/, "");
-    //}
+    // this.locationNewReportList = [];
 
+    // let locationId = this.user.LocationId;
+    // let locationName = this.user.LocationName;
+    // let locationIdArray = locationId.split(',');
+    // let locationNameArray = locationName.split(',');
+
+    // for (var i = 0; i < locationNameArray.length; i++) {
+    //   var obj = new locationClass();
+    //   obj.Id = locationIdArray[i];
+    //   obj.Name = locationNameArray[i];
+    //   this.locationNewReportList.push(obj);
+    // }
   }
 
   onViewResults(queuedReportData: any) {
@@ -444,9 +471,11 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
       "MM/dd/yyyy",
       "en-US"
     );
+    console.log(this.patientlistmeasure);
     this.isViewResults = true;
     this.showTopData = true;
     this.GetDashBoardReport(queuedReportData.ReportId);
+    debugger
     // this.getPatientList(queuedReportData.ReportId);
     this.detailsTab("dashBoard");
   }
@@ -1308,7 +1337,8 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
 
   getCQMReportsQueuedReports() {
 
-    let locationid = localStorage.getItem("providerlocation");
+    let locationid = this.authenticationService.userValue.CurrentLocation;
+    debugger;
 
     let obj = {
       practiceId: locationid,
@@ -1316,24 +1346,25 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
     // let obj = {
     //   PracticeId: "5b686dd7c832dd0c444f288a",
     // };
-    this.customizedspinner = true; //$('body').addClass('loadactive').scrollTop(0);
+    this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
     this.accountservice.getCQMReportsQueuedReports(obj).subscribe((data) => {
       this.getoverrallreport.data = [];
       this.getoverrallreportlength = null;
       if (data.IsSuccess) {
-        this.customizedspinner = true; //$('body').addClass('loadactive').scrollTop(0);
+        this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
         this.getoverrallreport.data = data.ListResult[0] as CQMReportsData[];
+        debugger
         this.queuedreportdata = JSON.parse(
           JSON.stringify(data.ListResult[0] as CQMReportsData[])
         );
         this.getoverrallreportlength = this.getoverrallreport.data.length;
         this.showQueuedReportsTable = true;
         for (var i of data.ListResult[0]) {
-          this.measures = i.MeasuresList == '68,69,74,75,127,138,147,155,165' ? '68,69,74,75,127,138,147,155,165' : i.MeasuresList;
+          this.measures =  '68,69,74,75,127,138,147,155,165' ;
           break;
         }
       }
-      this.customizedspinner = false; //$('body').removeClass('loadactive');
+      this.customizedspinner = false; $('body').removeClass('loadactive');
     });
   }
 
@@ -1534,7 +1565,7 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
     this.getPatientListTabData = [];
     this.patientlistfilter = [];
     this.patientlistfilterlength = null;
-    this.customizedspinner = true; //$('body').addClass('loadactive').scrollTop(0)
+    this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0)
     this.accountservice.getCQMReportsDashboard(req).subscribe((data) => {
       if (data.IsSuccess) {
         this.getPatientListTabData = data;
@@ -1543,7 +1574,7 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
         this.patientlistfilterlength = this.patientlistfilter.length;
         this.p = 1;
       }
-      this.customizedspinner = false; //$('body').removeClass('loadactive');
+      this.customizedspinner = false; $('body').removeClass('loadactive');
     });
   }
 
@@ -1580,16 +1611,16 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
     this.DrilldownPatientData = [];
     this.ipp_conditions = [];
     this.deno_conditions = [];
-    this.customizedspinner = true; //$('body').addClass('loadactive').scrollTop(0);
+    this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
     this.accountservice
       .getCQMReportsMeasurePatientMetInfo(req)
       .subscribe((cmscoditions_data) => {
         if (cmscoditions_data.IsSuccess) {
           this.DrilldownPatientData = cmscoditions_data.ListResult[0];
 
-          this.customizedspinner = false;// $('body').removeClass('loadactive');
+          this.customizedspinner = false; $('body').removeClass('loadactive');
         } else {
-          this.customizedspinner = false; //$('body').removeClass('loadactive');
+          this.customizedspinner = false; $('body').removeClass('loadactive');
 
         }
 
@@ -1791,8 +1822,8 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
   createReport() {
     this.createReportForm = this.fb.group({
       description: ["", Validators.required],
-      providerId: [""],
-      locationId: [""],
+      providerId: ["", Validators.required],
+      locationId: ["", Validators.required],
       bundleYear: ["", Validators.required],
       startDate: ["", Validators.required],
       endDate: ["", Validators.required],
@@ -1800,29 +1831,54 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
       ranByUserID: [""],
     });
   }
-
-  matCheckbox(loc, location) {
-    this.loc = loc;
-    this.location = location;
+  public checkError = (controlName: string, errorName: string) => {
+    return this.createReportForm.controls[controlName].hasError(errorName);
   }
 
+  // matCheckbox(provider, location) {
+  //   this.provider = provider;
+  //   this.location = location;
+  // }
+
   onSubmitCreateReport() {
-    //debugger;
+    debugger;
     if (this.createReportForm.invalid) {
       return;
     }
+    // var Createreport = {
+    //   description: this.createReportForm.value.description,
+    //   providerId:
+    //     this.createReportForm.value.providerId == "" ||
+    //       this.createReportForm.value.providerId == null
+    //       ? this.provider.Provider_Id
+    //       : this.createReportForm.value.providerId,
+    //   locationId:
+    //     this.createReportForm.value.locationId == "" ||
+    //       this.createReportForm.value.locationId == null
+    //       ? this.location.Id
+    //       : this.createReportForm.value.locationId,
+    //   bundleYear: this.createReportForm.value.bundleYear,
+    //   startDate: formatDate(
+    //     this.createReportForm.value.startDate,
+    //     "yyyy-MM-dd",
+    //     "en-US"
+    //   ),
+    //   endDate: formatDate(
+    //     this.createReportForm.value.endDate,
+    //     "yyyy-MM-dd",
+    //     "en-US"
+    //   ),
+    //   measureList: this.measures,
+    //   ranByUserID:
+    //     this.createReportForm.value.providerId == "" ||
+    //       this.createReportForm.value.providerId == null
+    //       ? this.provider.Provider_Id
+    //       : this.createReportForm.value.providerId,
+    // };
     var Createreport = {
       description: this.createReportForm.value.description,
-      providerId:
-        this.createReportForm.value.providerId == "" ||
-          this.createReportForm.value.providerId == null
-          ? this.loc.Provider_Id
-          : this.createReportForm.value.providerId,
-      locationId:
-        this.createReportForm.value.locationId == "" ||
-          this.createReportForm.value.locationId == null
-          ? this.userLocationInfo[0].locationId
-          : this.createReportForm.value.locationId,
+      providerId: this.createReportForm.value.providerId,
+      locationId: this.createReportForm.value.locationId,
       bundleYear: this.createReportForm.value.bundleYear,
       startDate: formatDate(
         this.createReportForm.value.startDate,
@@ -1834,28 +1890,30 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
         "yyyy-MM-dd",
         "en-US"
       ),
-      measureList: this.measures,
-      ranByUserID:
-        this.createReportForm.value.providerId == "" ||
-          this.createReportForm.value.providerId == null
-          ? this.loc.Provider_Id
-          : this.createReportForm.value.providerId,
+      measureList: '68,69,74,75,127,138,147,155,165',
+      ranByUserID: this.createReportForm.value.providerId,
     };
     this.createupdateEmployee(Createreport);
   }
 
   createupdateEmployee(data: any) {
-    //debugger;
-    this.customizedspinner = true; //$('body').addClass('loadactive').scrollTop(0);
+    debugger;
+    this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
     this.accountservice.CreateQueuedReport(data).subscribe((data) => {
       if (data.IsSuccess) {
-        this.customizedspinner = true; //$('body').addClass('loadactive').scrollTop(0);
+        this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
+        debugger
         this.queuedreport();
-        this.toastr.success("Report created successfully", "Success Message", {
-          timeOut: 3000,
-        });
+        // this.toastr.success("Report created successfully", "Success Message", {
+        //   timeOut: 3000,
+        // });
       }
-      this.customizedspinner = false; //$('body').removeClass('loadactive');
+      else {
+        // this.toastr.success(data.EndUserMessage, "Failure Message", {
+        //   timeOut: 10000,
+        // });
+      }
+      this.customizedspinner = false; $('body').removeClass('loadactive');
     });
   }
 
@@ -1874,7 +1932,7 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
   }
 
   createreport() {
-    this.customizedspinner = true; //$('body').addClass('loadactive').scrollTop(0);
+    this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
     this.ViewResults = false;
     this.cqmcreatereport = true;
     this.showClearFilterBtn = false;
@@ -2212,7 +2270,7 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
   //   ];
   // }
   drilldownViewConditions(PatientId) {
-    //debugger;
+    debugger;
     var req = {
       // ReportId: this.MeasureReportId,
       // MeasureId: this.MeasureSetId,
@@ -2320,7 +2378,7 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
     this.downloadservice.getdownloadQRDA3(req);
   }
   getdownloadQRDA3MIPSReport() {
-    //debugger;
+    debugger;
     var req = {
       ReportId: this.patientlistmeasure.ReportId,
     };
@@ -2341,7 +2399,7 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
         this.providerslocationwisefilter = this.providerslocationwise;
         this.providerslocationwise1 = data.ListResult.Provider;
       }
-      this.customizedspinner = false; //$('body').removeClass('loadactive');
+      this.customizedspinner = false; $('body').removeClass('loadactive');
     });
   }
 

@@ -57,6 +57,7 @@ export enum PatientChart {
   Allergies,
   Medications,
   Discontinue,
+  Interventions,
   Encounters,
   CQMNotPerforemd
 }
@@ -73,6 +74,7 @@ export class ChartInfo {
   SmokingStatuses?: SmokingStatus[] = []
   TobaccoUseInterventions?: TobaccoUseScreenings[] = []
   TobaccoUseScreenings?: TobaccoUseInterventions[] = []
+  Interventions?: Intervention[] = []
 }
 
 export class Immunization {
@@ -189,6 +191,20 @@ export class Diagnosis {
   Acute?: boolean;
   Terminal?: boolean;
   Referral?: boolean;
+}
+
+export class Intervention {
+  InterventionId?: string;
+  PatientId?: string;
+  StartDate?: Date;
+  EndDate?: Date;
+  InterventionType?: string;
+  Code?: string;
+  Description?: string;
+  CodeSystem?: string;
+  Note?: string;
+  ReasonValueSetOID?: string;
+  LocationId?: string;
 }
 
 export interface Vaccine {
@@ -435,6 +451,16 @@ export class GlobalConstants {
     { 'Code': '59037007', 'Description': 'Drug intolerance', 'CodeDescription': '59037007 - Drug intolerance' },
     { 'Code': '62014003', 'Description': 'Adverse reaction to drug', 'CodeDescription': '62014003 - Adverse reaction to drug' }
   ];
+
+  public static INTERVENTION_TYPES = [
+    { 'InterventionType': 'BMI-Above Normal Weight' },
+    { 'InterventionType': 'BMI-Below Normal Weight' },
+    { 'InterventionType': 'BMI-Referral to Alternate Provider/Care Setting' },
+    { 'InterventionType': 'Tobacco Cessation Counseling' },
+    { 'InterventionType': 'Weight-Counseling for Nutrition' },
+    { 'InterventionType': 'Weight-Counseling for Physical Activity' },
+    { 'InterventionType': 'Controlling BP-Evidence of ESRD, dialysis, or renal transplant' }
+  ];
 }
 
 // export const PROCEDURE_REASON_CODES = [
@@ -459,7 +485,7 @@ export const MEDICATION_NAMES = [
 ];
 
 export class TobaccoUseConstants {
-  [x: string]: any;
+  // [x: string]: any;
 
   public slice;
 
