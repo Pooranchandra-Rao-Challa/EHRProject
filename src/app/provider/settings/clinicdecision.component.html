@@ -94,8 +94,6 @@
               </tr>
             </thead>
             <tbody>
-
-
               <tr *ngFor="let data of item.Triggers">
                 <td></td>
                 <td>
@@ -172,7 +170,7 @@
 <div class="modal new-alert-form" id="modal-new-alert-form" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content scrollable-modal">
-      <div class="modal-header Helvetica-sans-serif-medium">
+      <div class="modal-header Helvetica-sans-serif-medium" style="margin-top: -1px;margin-right: -1px;">
         <h4 class="modal-title Helvetica-sans-serif-medium">Add new alert</h4>
         <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close" (click)="resetdialog()">
           X
@@ -183,50 +181,55 @@
         <div class="row">
           <mat-label class="required">Alert Name</mat-label>
           <mat-form-field appearance="outline" class="col-md-12">
-            <input matInput (mouseover)="nameCheck()" (mouseleave)="nameUnCheck()" [(ngModel)]="newAlert.AlertName"
-              placeholder="">
-            <mat-icon matSuffix *ngIf="checkedName" class="FieldValid">check</mat-icon>
-            <mat-icon matSuffix *ngIf="uncheckedName" class="FieldInvalid">close</mat-icon>
+            <input matInput mouse-over-hint tickImagePath="assets/images/tick-mark.svg"
+            crossImagePath="assets/images/cross-mark.svg" [(ngModel)]="newAlert.AlertName"
+              placeholder="Alert Name" required>
+            <!-- <mat-icon matSuffix *ngIf="checkedName" class="FieldValid">check</mat-icon>
+            <mat-icon matSuffix *ngIf="uncheckedName" class="FieldInvalid">close</mat-icon> -->
           </mat-form-field>
         </div>
         <div class="row">
           <mat-label class="required">Description</mat-label>
           <mat-form-field appearance="outline" class="col-md-12">
-            <input matInput placeholder (mouseover)=" descriptionCheck()" (mouseleave)="descriptionUnCheck()"
-              [(ngModel)]="newAlert.Description">
-            <mat-icon matSuffix *ngIf="checkedDescription" class="FieldValid">check</mat-icon>
+            <input matInput placeholder="Description" mouse-over-hint tickImagePath="assets/images/tick-mark.svg"
+            crossImagePath="assets/images/cross-mark.svg"
+              [(ngModel)]="newAlert.Description" required>
+            <!-- <mat-icon matSuffix *ngIf="checkedDescription" class="FieldValid">check</mat-icon>
 
-            <mat-icon matSuffix *ngIf="uncheckedDescription" class="FieldInvalid">close</mat-icon>
+            <mat-icon matSuffix *ngIf="uncheckedDescription" class="FieldInvalid">close</mat-icon> -->
           </mat-form-field>
         </div>
         <div class="row">
           <mat-label class="required">Resolution</mat-label>
           <mat-form-field appearance="outline" class="col-md-12">
-            <input matInput placeholder (mouseover)="resolutionCheck()" (mouseleave)="resolutionUnCheck()"
-              [(ngModel)]="newAlert.Resolution">
-            <mat-icon matSuffix *ngIf="checkedResolution" class="FieldValid">check</mat-icon>
-            <mat-icon class="close-icon" matSuffix *ngIf="unCheckedResolution" class="FieldInvalid">close
-            </mat-icon>
+            <input matInput placeholder="Resolution" mouse-over-hint tickImagePath="assets/images/tick-mark.svg"
+            crossImagePath="assets/images/cross-mark.svg"
+              [(ngModel)]="newAlert.Resolution" required>
+            <!-- <mat-icon matSuffix *ngIf="checkedResolution" class="FieldValid">check</mat-icon>
+            <mat-icon class="close-icon" matSuffix *ngIf="unCheckedResolution" class="FieldInvalid">close -->
+            <!-- </mat-icon> -->
           </mat-form-field>
         </div>
         <div class="row">
           <mat-label class="required">Bibliography</mat-label>
           <mat-form-field appearance="outline" class="col-md-12">
-            <input matInput placeholder (mouseover)="bibliographyCheck()" (mouseleave)="bibliographyUnCheck()"
-              [(ngModel)]="newAlert.Bibliography">
-            <mat-icon matSuffix *ngIf="checkedbiBliography" class="FieldValid">check</mat-icon>
-            <mat-icon class="close-icon" matSuffix *ngIf="unCheckedBibliography" class="FieldInvalid">close
-            </mat-icon>
+            <input matInput placeholder="Bibliography" mouse-over-hint tickImagePath="assets/images/tick-mark.svg"
+            crossImagePath="assets/images/cross-mark.svg"
+              [(ngModel)]="newAlert.Bibliography" required>
+            <!-- <mat-icon matSuffix *ngIf="checkedbiBliography" class="FieldValid">check</mat-icon>
+            <mat-icon class="close-icon" matSuffix *ngIf="unCheckedBibliography" class="FieldInvalid">close -->
+            <!-- </mat-icon> -->
           </mat-form-field>
         </div>
         <div class="row">
           <mat-label class="required">Developer</mat-label>
           <mat-form-field appearance="outline" class="col-md-12">
-            <input matInput placeholder (mouseover)="developerCheck()" (mouseleave)="developerUnCheck()"
-              [(ngModel)]="newAlert.Developer">
-            <mat-icon matSuffix *ngIf="checkedDeveloper" class="FieldValid">check</mat-icon>
-            <mat-icon class="close-icon" matSuffix *ngIf="unCheckedDeveloper" class="FieldInvalid">close
-            </mat-icon>
+            <input matInput placeholder="Developer" mouse-over-hint tickImagePath="assets/images/tick-mark.svg"
+            crossImagePath="assets/images/cross-mark.svg"
+              [(ngModel)]="newAlert.Developer" required>
+            <!-- <mat-icon matSuffix *ngIf="checkedDeveloper" class="FieldValid">check</mat-icon>
+            <mat-icon class="close-icon" matSuffix *ngIf="unCheckedDeveloper" class="FieldInvalid">close -->
+            <!-- </mat-icon> -->
           </mat-form-field>
         </div>
         <div class="row">
@@ -234,24 +237,25 @@
             <mat-label>Funding Source:</mat-label>
           </div>
           <mat-form-field appearance="outline" class="col-md-4">
-            <input matInput placeholder (mouseover)="fundingSourceCheck()" (mouseleave)="fundingSourceUnCheck()"
-              [(ngModel)]="newAlert.FundingSource">
-            <mat-icon matSuffix *ngIf="checkedfundingSource" class="FieldValid">check</mat-icon>
-            <mat-icon class="close-icon" matSuffix *ngIf="unCheckedfundingSource" class="FieldInvalid">close
-            </mat-icon>
+            <input matInput placeholder="Funding Source" mouse-over-hint tickImagePath="assets/images/tick-mark.svg"
+            crossImagePath="assets/images/cross-mark.svg"
+              [(ngModel)]="newAlert.FundingSource" required>
+            <!-- <mat-icon matSuffix *ngIf="checkedfundingSource" class="FieldValid">check</mat-icon>
+            <mat-icon class="close-icon" matSuffix *ngIf="unCheckedfundingSource" class="FieldInvalid">close -->
+            <!-- </mat-icon> -->
           </mat-form-field>
           <div class="col-md-2">
             <mat-label>Release Date(s)</mat-label>
           </div>
-          <mat-form-field appearance="outline" class="col-md-4">
-            <input matInput [matDatepicker]="dp1" placeholder="Stop Date" (mouseover)="releaseDateCheck()"
-              (mouseleave)="releaseDateUnCheck()" (focus)="dp1.open()" [(ngModel)]="newAlert.ReleaseAt">
+          <mat-form-field appearance="outline" class="col-md-4 realease-date">
+            <input matInput [matDatepicker]="dp1" required placeholder="Stop Date" mouse-over-hint tickImagePath="assets/images/tick-mark.svg"
+            crossImagePath="assets/images/cross-mark.svg" (focus)="dp1.open()" [(ngModel)]="newAlert.ReleaseAt">
             <mat-datepicker-toggle matSuffix [for]="dp1">
             </mat-datepicker-toggle>
             <mat-datepicker #dp1 disabled="false"></mat-datepicker>
-            <mat-icon matSuffix *ngIf="checkedReleaseDate" class="FieldValiddatepicker">check</mat-icon>
-            <mat-icon class="close-icon" matSuffix *ngIf="unCheckedReleaseDate" class="FieldInvaliddatepicker">close
-            </mat-icon>
+            <!-- <mat-icon matSuffix *ngIf="checkedReleaseDate" class="FieldValiddatepicker">check</mat-icon>
+            <mat-icon class="close-icon" matSuffix *ngIf="unCheckedReleaseDate" class="FieldInvaliddatepicker">close -->
+            <!-- </mat-icon> -->
 
           </mat-form-field>
         </div>
@@ -260,7 +264,9 @@
 
           </mat-label>
           <mat-form-field appearance="outline" class="col-md-12 trplaceholder">
-            <mat-select panelClass="triggeralignment" required placeholder="Trigger Rule" [(ngModel)]="newAlert.Rule">
+            <mat-select panelClass="triggeralignment" required placeholder="Trigger Rule"
+            [(ngModel)]="newAlert.Rule" mouse-over-hint tickImagePath="assets/images/tick-mark.svg"
+            crossImagePath="assets/images/cross-mark.svg" >
               <mat-option *ngFor="let trigger of TriggerRuleDD" [value]="trigger.value">
                 {{trigger.viewValue}}
               </mat-option>
@@ -278,7 +284,7 @@
   </div>
 </div>
 <!-- <ng-template #myTemplateRef>
-   
+
       </ng-template>
  -->
 

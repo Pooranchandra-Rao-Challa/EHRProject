@@ -19,7 +19,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { OverlayModule } from '@angular/cdk/overlay';
-import { MouseOverHintDirective } from 'src/app/_directives/mouseover.hint.directive'
+//import { MouseOverHintDirective } from 'src/app/_directives/mouseover.hint.directive'
 
 import { ProviderNavbarComponent } from '../provider.navbar/provider.navbar.component';
 import { ProviderFooterComponent } from '../provider.navbar/provider.footer.component';
@@ -171,7 +171,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     AllergyDialogComponent,
     TobaccoUseDialogComponent,
     OverlayComponent,
-    MouseOverHintDirective,
+  //  MouseOverHintDirective,
     UserDialogComponent,
     NewAppointmentDialogComponent,
     UpcomingAppointmentsDialogComponent,
