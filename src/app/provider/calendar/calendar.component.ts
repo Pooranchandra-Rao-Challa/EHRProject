@@ -140,7 +140,8 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       }
 
     }
-
+    //this.fullcalendar.getApi().next = this.nextCalenderEvents.bind(this);
+    //this.fullcalendar.getApi().prev = this.previousCalenderEvents.bind(this);
   }
 
   UpdateResources() {
@@ -327,7 +328,23 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     this.toggleButtonVisibility = !this.toggleButtonVisibility;
   }
 
+  nextCalenderEvents(){
+    this.fullcalendar.getApi().next();
+    this.sundayDate = this.WeekBeginDate;
+    this.updateCalendarEvents();
+  }
 
+  previousCalenderEvents(){
+    this.fullcalendar.getApi().prev();
+    this.sundayDate = this.WeekBeginDate;
+    this.updateCalendarEvents();
+  }
+
+  get WeekBeginDate():Date{
+    let tdate = this.fullcalendar.getApi().getDate()
+    tdate.setDate(tdate.getDate() - tdate.getDay());
+    return tdate;
+  }
   InitCalendarOptions() {
     this.calendarOptions = {
       schedulerLicenseKey: '0977988272-fcs-1658237663',
@@ -336,6 +353,8 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       editable: true,
       duration: 30,
       weekends: true,
+      //navLinks: true,
+      //navLinkWeekClick: this.nextCalenderEvents.bind(this),
       views: {
         timeGridWeek: {
           titleFormat: { year: 'numeric', month: 'long' }
@@ -346,29 +365,32 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         },
       },
       customButtons: {
-        TDay: {
-          text: 'Day',
-          click: function () {
-            this.calendarOptions["initialView"] = "resourceTimeGridDay"
-          }
+        NextWeek: {
+          text: ' > ',
+          click: this.nextCalenderEvents.bind(this)
+          // click: function () {
+          //   //this.calendarOptions["initialView"] = "resourceTimeGridDay"
+          //   this.fullcalendar.getApi().next();
+          // }
         },
-        TWeek: {
-          text: 'Week',
-          click: function () {
-            this.calendarOptions["initialView"] = "timeGridWeek"
-          }
+        Previousweek: {
+          text: ' < ',
+          click: this.previousCalenderEvents.bind(this)
+          // click: function () {
+          //   //this.calendarOptions["initialView"] = "timeGridWeek"
+          //   this.fullcalendar.getApi().prev();
+          // }
         }
       },
 
       headerToolbar: {
         left: 'resourceTimeGridDay,timeGridWeek',
         center: 'title',
-        right: 'prev,next'
+        right: 'Previousweek,NextWeek'
       },
 
       dateClick: this.handleDateClick.bind(this),
       eventClick: this.handleEventClick.bind(this),
-      //eventDragStop: this.handleEventDragStop.bind(this),
       eventDrop: this.handleEventDragStop.bind(this),
       eventMouseEnter: function (args: EventHoveringArg) {
         //alert(JSON.stringify(args.event))
@@ -479,19 +501,19 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     // need for load calendar bundle first
     forwardRef(() => Calendar);
     this.InitCalendarOptions();
-    this.initPatient();
+    //this.initPatient();
     this.LoadAppointmentDefalts();
 
   }
 
-  initPatient() {
-    this.PatientAppointment = {};
-    this.SelectedLocationId = this.authService.userValue.CurrentLocation;
-    this.PatientAppointment.ProviderId = this.authService.userValue.ProviderId;
-    this.PatientAppointment.LocationId = this.SelectedLocationId;
-    this.PatientAppointment.Duration = 30;
-    //this.selectedAppointmentDate = new Date(new Date().toLocaleDateString());
-  }
+  // initPatient() {
+  //   this.PatientAppointment = {};
+  //   this.SelectedLocationId = this.authService.userValue.CurrentLocation;
+  //   this.PatientAppointment.ProviderId = this.authService.userValue.ProviderId;
+  //   this.PatientAppointment.LocationId = this.SelectedLocationId;
+  //   this.PatientAppointment.Duration = 30;
+  //   //this.selectedAppointmentDate = new Date(new Date().toLocaleDateString());
+  // }
 
   PatientAppointmentInfo(appointment: CalendarAppointment,action: Actions) {
     let data = {} as AppointmentDialogInfo;
