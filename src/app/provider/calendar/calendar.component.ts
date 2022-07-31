@@ -256,6 +256,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
             classNames: ['fc-event-appointment-type'],
             backgroundColor: appoinment.StatusColor,
             borderColor: appoinment.TypeColor,
+            resourceId: appoinment.RoomId,
             //textColor: app.AppColor,
             extendedProps: {
               'PatientName': appoinment.PatientName,
@@ -329,12 +330,14 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   }
 
   nextCalenderEvents(){
+    this.fullcalendar.getApi().removeAllEvents();
     this.fullcalendar.getApi().next();
     this.sundayDate = this.WeekBeginDate;
     this.updateCalendarEvents();
   }
 
   previousCalenderEvents(){
+    this.fullcalendar.getApi().removeAllEvents();
     this.fullcalendar.getApi().prev();
     this.sundayDate = this.WeekBeginDate;
     this.updateCalendarEvents();

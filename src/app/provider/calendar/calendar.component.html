@@ -1,6 +1,4 @@
-<!-- <p class="text-center mt-3">This screen is under development</p> -->
-
-<mat-drawer-container class="calendar-drawer" >
+<mat-drawer-container class="calendar-drawer">
   <mat-drawer #drawer opened="true" class="calendar-sidenav" mode="side" (openedChange)="handleButtons()">
     <div class="arrows-toggle pull-right" (click)="drawer.toggle()" *ngIf="toggleButtonVisibility">
       <i class="fa fa-angle-double-left"></i>
@@ -8,41 +6,39 @@
     <div id="left-drawer">
       <br>
       <mat-calendar class="mat-calendar"></mat-calendar>
-
       <mat-expansion-panel class="panel providers">
         <mat-expansion-panel-header class="panel-header">
           <mat-panel-title> Provider/Staff </mat-panel-title>
         </mat-expansion-panel-header>
         <div class="row cstm-checkbox-1 pt-2">
-          <mat-checkbox #providerToggle (change)="ToggleProviders($event)">
+          <mat-checkbox #providerToggle (change)="ToggleProviders($event)" checked="true">
             <span class="cstm-mat-checkbox-label">Select all</span>
           </mat-checkbox>
         </div>
         <div class="row pt-2">
           <mat-checkbox #providerCheckboxes *ngFor="let provider of practiceProviders; let i = index;"
-           [checked]="provider.ProviderId === user.ProviderId"
-           (change)="updateProviderCheckbox($event,provider)">
-                <span>{{provider.FullName}}</span></mat-checkbox>
+             checked="true" value="provider"
+            (change)="updateProviderCheckbox($event,provider)">
+            <span>{{provider.FullName}}</span>
+          </mat-checkbox>
         </div>
       </mat-expansion-panel>
-
       <mat-expansion-panel class="panel appointment-status">
         <mat-expansion-panel-header class="panel-header">
           <mat-panel-title> Appointment Status </mat-panel-title>
         </mat-expansion-panel-header>
         <div class="row cstm-checkbox-1 pt-2">
-          <mat-checkbox #appointmentStatusesToggle checked="true"
-          (change)="ToggleAllAppointmentStatuses($event)">
+          <mat-checkbox #appointmentStatusesToggle checked="true" (change)="ToggleAllAppointmentStatuses($event)">
             <span class="cstm-mat-checkbox-label">Select all</span>
           </mat-checkbox>
         </div>
         <div class="row pt-2">
           <mat-checkbox #appointmentStatusCheckboxes *ngFor="let status of appointmentStatuses; let i = index"
-          (change)="updateAppointmentStatus($event,status)" checked="true" value="status">
-            <span>{{status.Name}}</span></mat-checkbox>
+            (change)="updateAppointmentStatus($event,status)" checked="true" value="status">
+            <span>{{status.Name}}</span>
+          </mat-checkbox>
         </div>
       </mat-expansion-panel>
-
       <mat-expansion-panel class="panel appointment-types">
         <mat-expansion-panel-header class="panel-header">
           <mat-panel-title> Appointment Type </mat-panel-title>
@@ -53,9 +49,10 @@
           </mat-checkbox>
         </div>
         <div class="row pt-2">
-          <mat-checkbox #appointmentTypeCheckboxes checked="true"
-          *ngFor="let type of appointmentTypes; let i = index;" (change)="updateAppointmentType($event,type)">
-            <span>{{type.AppointmentType}}</span></mat-checkbox>
+          <mat-checkbox #appointmentTypeCheckboxes checked="true" *ngFor="let type of appointmentTypes; let i = index;"
+            (change)="updateAppointmentType($event,type)">
+            <span>{{type.AppointmentType}}</span>
+          </mat-checkbox>
         </div>
       </mat-expansion-panel>
 
@@ -65,13 +62,14 @@
         </mat-expansion-panel-header>
         <div class="row cstm-checkbox-1 pt-2">
           <mat-checkbox #roomsToggle checked="true" (change)="ToggleAllRooms($event)">
-            <span class="cstm-mat-checkbox-label" >Select all</span>
+            <span class="cstm-mat-checkbox-label">Select all</span>
           </mat-checkbox>
         </div>
         <div class="row pt-2">
           <mat-checkbox #roomCheckboxes *ngFor="let room of Rooms; let i = index;" checked="true"
-          (change)="updateRoom($event,room,i)" [value]="room">
-            <span>{{room.RoomName}}</span></mat-checkbox>
+            (change)="updateRoom($event,room,i)" [value]="room">
+            <span>{{room.RoomName}}</span>
+          </mat-checkbox>
         </div>
       </mat-expansion-panel>
 
@@ -83,42 +81,14 @@
       <i class="fa fa-angle-double-right"></i>
     </div>
     <div class="right-container schedule-wrapper" style="padding:30px 10px 0 10px">
-      <full-calendar  #fullcalendar [options]="calendarOptions" class="full-calendar">
+      <full-calendar #fullcalendar [options]="calendarOptions" class="full-calendar">
       </full-calendar>
     </div>
   </mat-drawer-content>
 </mat-drawer-container>
 <div class="row" style="width: 98.1%; margin-left: 20px;">
-  <patient-schedule [SelectedProviderId]="SelectedProviderId"
-  [SelectedLocationId]="SelectedLocationId"
-  [PracticeProviders]="practiceProviders"
-  [AppointmentTypes]="appointmentTypes"
-  [Locations]="locations"
-  [Rooms]="Rooms"
-  SwitchUrl="/provider/smartschedule"
-  [PatientAppointment]="PatientAppointment"
-  (RefreshParentView)="RefreshCalendar($event)"></patient-schedule>
+  <patient-schedule [SelectedProviderId]="SelectedProviderId" [SelectedLocationId]="SelectedLocationId"
+    [PracticeProviders]="practiceProviders" [AppointmentTypes]="appointmentTypes" [Locations]="locations"
+    [Rooms]="Rooms" SwitchUrl="/provider/smartschedule" [PatientAppointment]="PatientAppointment"
+    (RefreshParentView)="RefreshCalendar($event)"></patient-schedule>
 </div>
-
-
-<!-- <div style="padding:10px 10px ">
-  <div class="row">
-    <div class="col-lg-8">
-      <mat-form-field appearance="outline" class="new-search col-12">
-        <input matInput placeholder="Schedule Appointment ( Enter a patient's name or phone number )">
-      </mat-form-field>
-    </div>
-    <div class="col-lg-2">
-      <button mat-button class="btn new-patient-btn col-12">
-        Add New Patient
-      </button>
-    </div>
-    <div class="col-lg-2">
-      <a href="/provider/smartschedule">
-        <button mat-button class="btn switchbtn col-12">
-          Switch View
-        </button>
-      </a>
-    </div>
-  </div>
-</div> -->
