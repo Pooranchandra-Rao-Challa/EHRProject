@@ -40,11 +40,12 @@
 
               <input matInput type="text" name="chart_find_patient" id="chart_find_patient" #searchPatient
                 class="new-search form-control ignore_spinner" placeholder="Search Patients..." />
-                <mat-autocomplete [displayWith]="displayWithPatientSearch" #searchPatient="matAutocomplete"
+              <mat-autocomplete [displayWith]="displayWithPatientSearch" #searchPatient="matAutocomplete"
                 (optionSelected)="onPatientSelected($event)">
                 <mat-option *ngIf="isLoading">Loading ...</mat-option>
                 <mat-option *ngFor="let option of filteredPatients | async" [value]="option"
-                  class="patient-serach-option"> <!-- [matAutocomplete]="searchPatient" -->
+                  class="patient-serach-option">
+                  <!-- [matAutocomplete]="searchPatient" -->
                   {{option.Name}}
                 </mat-option>
               </mat-autocomplete>
@@ -122,7 +123,8 @@
                       <span (click)="openComponentDialog(smokingStatusDialogComponent, null, ActionTypes.add)">Smoking
                         Status</span>
                       <span style="cursor:auto;"> and </span>
-                      <span data-bs-toggle="modal" data-bs-target="#tobacco-use-modal">Tobacco Use</span>
+                      <span (click)="openComponentDialog(tobaccoUseDialogComponent,null,ActionTypes.add)">Tobacco
+                        Use</span>
                     </p>
                   </div>
                 </div>
@@ -145,39 +147,37 @@
                     <span>No smoking status recorded.</span>
                   </li>
                 </ul>
-                <ul class="main-list" *ngFor="let screening of chartInfo?.TobaccoUseScreenings">
+                <ul class="main-list" *ngFor="let screening of tobaccoUseList">
                   <li>
-                    <a>
-                      <span *ngIf="screening?.date_performed != null && screening?.date_performed !=''">
-                        - {{screening?.date_performed | date: 'MM/dd/yyyy'}}
+                    <a (click)="openComponentDialog(tobaccoUseDialogComponent, screening, ActionTypes.view)">
+                      <span *ngIf="screening?.ScreeningDate != null && screening?.ScreeningDate !=''">
+                        - {{screening?.ScreeningDate | date: 'MM/dd/yyyy'}}
                       </span>
-                      <span *ngIf="screening?.description != null && screening?.description !=''">
-                        - {{screening?.description}}
+                      <span *ngIf="screening?.ScreeningDescription != null && screening?.ScreeningDescription !=''">
+                        - {{screening?.ScreeningDescription}}
                       </span>
-                      <span *ngIf="screening?.code != null && screening?.code !=''">
-                        / {{screening?.code}}
+                      <span *ngIf="screening?.ScreeningCode != null && screening?.ScreeningCode !=''">
+                        / {{screening?.ScreeningCode}}
                       </span>
                     </a>
                   </li>
                 </ul>
-                <ul class="main-list" *ngFor="let interventions of chartInfo?.TobaccoUseInterventions">
+                <ul class="main-list" *ngFor="let interventions of tobaccoUseList">
                   <li>
-                    <a>
-                      <span
-                        *ngIf="interventions?.cessation_intervention_date != null && interventions?.cessation_intervention_date !=''">
-                        - {{interventions.cessation_intervention_date | date: 'MM/dd/yyyy'}}
+                    <a (click)="openComponentDialog(tobaccoUseDialogComponent, interventions, ActionTypes.view)">
+                      <span *ngIf="interventions?.CI_Date != null && interventions?.CI_Date !=''">
+                        - {{interventions.CI_Date | date: 'MM/dd/yyyy'}}
                       </span>
-                      <span *ngIf="interventions?.description != null && interventions?.description !=''">
-                        - {{interventions.description}}
+                      <span *ngIf="interventions?.CI_Description != null && interventions?.CI_Description !=''">
+                        - {{interventions.CI_Description}}
                       </span>
-                      <span *ngIf="interventions?.code != null && interventions?.code !=''">
-                        / {{interventions.code}}
+                      <span *ngIf="interventions?.CI_Code != null && interventions?.CI_Code !=''">
+                        / {{interventions.CI_Code}}
                       </span>
                     </a>
                   </li>
                 </ul>
-                <ul class="main-list"
-                  *ngIf="chartInfo?.TobaccoUseScreenings?.length == 0 && chartInfo?.TobaccoUseInterventions?.length == 0">
+                <ul class="main-list" *ngIf="tobaccoUseList.length == 0">
                   <li>
                     <span>No tobacco use recorded.</span>
                   </li>
@@ -265,7 +265,7 @@
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
-                    <p class="card-title" data-bs-toggle="modal" data-bs-target="#allergies-modal">Allergies</p>
+                    <p class="card-title">Allergies</p>
                   </div>
                   <div class="col-md-4 col-6">
                     <div class="col-12 plusicon pull-right"
@@ -279,7 +279,18 @@
                 <ul class="main-list" *ngFor="let allergie of chartInfo?.Alergies">
                   <li>
                     <a (click)="openComponentDialog(allergyDialogComponent,allergie,ActionTypes.view)">
-                      <span>- {{allergie?.Note}}</span>
+                      <span *ngIf="allergie?.AllergenName != null && allergie?.AllergenName !=''">
+                        - {{allergie?.AllergenName}}
+                      </span>
+                      <span *ngIf="allergie?.SeverityLevel != null && allergie?.SeverityLevel !=''">
+                        , {{allergie?.SeverityLevel}}
+                      </span>
+                      <span *ngIf="allergie?.Reaction != null && allergie?.Reaction !=''">
+                        , {{allergie?.Reaction}}
+                      </span>
+                      <span *ngIf="allergie?.StartAt != null && allergie?.StartAt !=''">
+                        , Start: {{allergie?.StartAt | date: 'MM/dd/yyyy'}}
+                      </span>
                     </a>
                   </li>
                 </ul>
@@ -316,14 +327,14 @@
                     </a>
                   </li>
                   <li style="margin-left: 20px;">
-                    <span *ngIf="medication?.start_at != null && medication?.start_at !=''">
-                      - {{medication?.start_at | date: 'MM/dd/yyyy'}}
+                    <span *ngIf="medication?.StartAt != null && medication?.StartAt !=''">
+                      {{medication?.StartAt | date: 'MM/dd/yyyy'}}
                     </span>
-                    <span *ngIf="medication?.stop_at != null && medication?.stop_at !=''">
-                      - {{medication?.stop_at | date: 'MM/dd/yyyy'}}
+                    <span *ngIf="medication?.StopAt != null && medication?.StopAt !=''">
+                      - {{medication?.StopAt | date: 'MM/dd/yyyy'}}
                     </span>
-                    <span *ngIf="medication?.cqm_status != null && medication?.cqm_status !=''">
-                      - {{medication?.cqm_status}}
+                    <span *ngIf="medication?.CQMStatus != null && medication?.CQMStatus !=''">
+                      - {{medication?.CQMStatus}}
                     </span>
                   </li>
                 </ul>
@@ -392,12 +403,24 @@
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list">
+                <ul class="main-list" *ngFor="let intervention of chartInfo?.Interventions">
                   <li>
-                    <span></span>
+                    <a (click)="openComponentDialog(interventionDialogComponent, intervention , ActionTypes.view)">
+                      <span *ngIf="intervention?.InterventionType != null && intervention?.InterventionType !=''">
+                        - {{intervention?.InterventionType}}
+                      </span>
+                    </a>
+                  </li>
+                  <li style="margin-left: 20px;">
+                    <span>
+                      {{intervention?.StartDate | date: 'MM/dd/yyyy'}}
+                    </span>
+                    <span *ngIf="intervention?.EndDate != null && intervention?.EndDate !=''">
+                      - {{intervention?.EndDate | date: 'MM/dd/yyyy'}}
+                    </span>
                   </li>
                 </ul>
-                <a class="view-more">view more</a>
+                <a class="view-more pull-right">view more</a>
               </div>
             </div>
           </div>
@@ -1830,22 +1853,38 @@
           <ng-container matColumnDef="VaccineDescription">
             <mat-header-cell *matHeaderCellDef mat-sort-header="VaccineDescription">Vaccine Description
             </mat-header-cell>
-            <mat-cell *matCellDef="let loc">{{loc.Description}}</mat-cell>
+            <mat-cell *matCellDef="let loc">
+              <a data-bs-toggle="modal" data-bs-target="#immunization-modal"
+                (click)="editDialog(loc, 'immunization')">{{loc.Description}}
+              </a>
+            </mat-cell>
           </ng-container>
           <ng-container matColumnDef="CVXCode">
             <mat-header-cell *matHeaderCellDef mat-sort-header="CVXCode">CVX Code</mat-header-cell>
-            <mat-cell *matCellDef="let loc">{{loc.Code}}</mat-cell>
+            <mat-cell *matCellDef="let loc">
+              <a data-bs-toggle="modal" data-bs-target="#immunization-modal"
+                (click)="editDialog(loc, 'immunization')">{{loc.Code}}
+              </a>
+            </mat-cell>
           </ng-container>
           <ng-container matColumnDef="Date">
             <mat-header-cell *matHeaderCellDef mat-sort-header="Date">Date</mat-header-cell>
-            <mat-cell *matCellDef="let loc">{{loc.AdministeredAt}}</mat-cell>
+            <mat-cell *matCellDef="let loc">
+              <a data-bs-toggle="modal" data-bs-target="#immunization-modal"
+                (click)="editDialog(loc, 'immunization')">{{loc.AdministeredAt | date: 'MM/dd/yyyy'}}
+              </a>
+            </mat-cell>
           </ng-container>
           <ng-container matColumnDef="Status">
             <mat-header-cell *matHeaderCellDef mat-sort-header="Status">Status</mat-header-cell>
-            <mat-cell *matCellDef="let loc">{{loc.ImmType}}</mat-cell>
+            <mat-cell *matCellDef="let loc">
+              <a data-bs-toggle="modal" data-bs-target="#immunization-modal"
+                (click)="editDialog(loc, 'immunization')">{{loc.ImmType}}
+              </a>
+            </mat-cell>
           </ng-container>
-          <mat-header-row *matHeaderRowDef="immuniztionColumns"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: immuniztionColumns"></mat-row>
+          <mat-header-row *matHeaderRowDef="immunizationColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: immunizationColumns"></mat-row>
         </mat-table>
       </div>
       <div class="modal-footer">

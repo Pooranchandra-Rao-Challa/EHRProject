@@ -11,10 +11,9 @@ import { InsuranceComponent } from './insurance/insurance.component';
 import { AmendmentsComponent } from './amendments/amendments.component';
 import { ResetPasswordComponent } from './resetpassword/resetpassword.component';
 import { CqmsNotPerformedComponent } from './cqms.not.performed/cqms.not.performed.component';
-import { SearchPipe } from '../../_pipes/search-filter.pipe';
 import { PatientsBreadCrumComponent } from './patients-bread-crum/patients-bread-crum.component';
 import { PaginatorDirective } from 'src/app/_directives/pagination.directive'
-import { BreadcrumbComponent} from 'src/app/provider/patients/patient.breadcrumb/breadcrumb.component'
+import { BreadcrumbComponent } from 'src/app/provider/patients/patient.breadcrumb/breadcrumb.component'
 import { TreeProcedureComponent } from 'src/app/provider/patients/dental.chart/tree.procedure.component'
 
 
@@ -48,7 +47,6 @@ import { TreeProcedureComponent } from 'src/app/provider/patients/dental.chart/t
     AmendmentsComponent,
     ResetPasswordComponent,
     CqmsNotPerformedComponent,
-    SearchPipe,
     PatientsBreadCrumComponent,
     PaginatorDirective,
     BreadcrumbComponent,

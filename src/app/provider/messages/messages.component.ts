@@ -13,7 +13,7 @@ export class MessagesComponent {
   displayReq = "none";
   MessageDialogComponent = NewmessageDialogComponent;
   DialogResponse = null;
-
+  basedOnClick:false;
 
   constructor(private overlayService :OverlayService) { }
 

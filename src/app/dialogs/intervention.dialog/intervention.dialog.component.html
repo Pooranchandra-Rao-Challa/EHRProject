@@ -13,13 +13,13 @@
         </div>
         <mat-form-field appearance="outline" class="grey-matform green-calendar col-lg-2 col-md-6">
           <input matInput class="pointer date-mat-class" autocomplete="off" [matDatepicker]="startDate"
-            (click)="startDate.open()" readonly placeholder="Start Date">
+            (click)="startDate.open()" readonly placeholder="Start Date" [(ngModel)]="patientIntervention.StartDate">
           <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
           <mat-datepicker #startDate></mat-datepicker>
         </mat-form-field>
         <mat-form-field appearance="outline" class="grey-matform green-calendar col-lg-2 col-md-6">
           <input matInput class="pointer date-mat-class" autocomplete="off" [matDatepicker]="endDate"
-            (click)="endDate.open()" readonly placeholder="End Date">
+            (click)="endDate.open()" readonly placeholder="End Date" [(ngModel)]="patientIntervention.EndDate">
           <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
           <mat-datepicker #endDate></mat-datepicker>
         </mat-form-field>
@@ -30,30 +30,33 @@
         </div>
         <mat-form-field appearance="outline" class="col-lg-4 col-md-6 hover cstm-mat-padding">
           <mat-select placeholder="Select One" disableOptionCentering id="ePracticeProviders"
-            placeholder="Select Intervention Type">
-            <mat-option>BMI
+            placeholder="Select Intervention Type" [(ngModel)]="patientIntervention.InterventionType">
+            <mat-option *ngFor="let type of interventionTypes" [value]="type.InterventionType">
+              {{type.InterventionType}}
             </mat-option>
           </mat-select>
         </mat-form-field>
         <div class="col-lg-6 col-md-6">
-          <mat-form-field appearance="outline" class="grey-matform input-search col-xl-11 col-lg-10 col-md-11 col-10">
-            <input matInput autocomplete="off" placeholder="Search Interventions" />
+          <mat-form-field appearance="outline" class="grey-matform col-12">
+            <input matInput #searchName placeholder="Search Intervention Codes" id="searchName" name=" searchName" />
           </mat-form-field>
-          <button class="btn-search col-xl-1 col-lg-2 col-md-1 col-2">
+          <!-- <button class="btn-search col-xl-1 col-lg-2 col-md-1 col-2">
             <mat-icon>search</mat-icon>
-          </button>
+          </button> -->
         </div>
       </div>
       <div class="table-responsive">
-        <mat-table [dataSource]="interventionList" matSort>
+        <mat-table class="interventions-table" [dataSource]="interventionCodes" matSort>
           <ng-container matColumnDef="Empty">
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
-            <mat-cell *matCellDef="let intervention"> {{intervention.Empty}} </mat-cell>
+            <mat-cell *matCellDef="let intervention">
+              <mat-checkbox (change)="onSelectInterventionCodes(intervention)"></mat-checkbox>
+            </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="InterventionType">
             <mat-header-cell *matHeaderCellDef mat-sort-header="InterventionType"> Intervention Type </mat-header-cell>
-            <mat-cell *matCellDef="let intervention"> {{intervention.InterventionType}} </mat-cell>
+            <mat-cell *matCellDef="let intervention"> {{intervention.Name}} </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="Code">
@@ -69,12 +72,12 @@
           <ng-container matColumnDef="ReasonNotPerformed">
             <mat-header-cell *matHeaderCellDef mat-sort-header="ReasonNotPerformed"> Add Reason Not Performed
             </mat-header-cell>
-            <mat-cell *matCellDef="let intervention"> {{intervention.ReasonNotPerformed}} </mat-cell>
+            <mat-cell *matCellDef="let intervention"> </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="Reason">
             <mat-header-cell *matHeaderCellDef mat-sort-header="Reason"> Reason </mat-header-cell>
-            <mat-cell *matCellDef="let intervention"> {{intervention.Reason}} </mat-cell>
+            <mat-cell *matCellDef="let intervention"> </mat-cell>
           </ng-container>
 
           <mat-header-row *matHeaderRowDef="interventionColumns"></mat-header-row>
@@ -89,12 +92,12 @@
           <mat-label>Notes:</mat-label>
         </div>
         <div class="col-lg-10">
-          <textarea class="form-control col-12"></textarea>
+          <textarea class="form-control col-12" [(ngModel)]="patientIntervention.Note"></textarea>
         </div>
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-green">Save</button>
+      <button class="btn btn-green" (click)="CreateIntervention()">Save</button>
       <button class="btn btn-green" (click)="cancel()">Cancel</button>
     </div>
   </div>

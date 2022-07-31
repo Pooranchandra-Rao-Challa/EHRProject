@@ -1,6 +1,5 @@
 import { DatePipe } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import * as moment from 'moment-timezone';
 import { fromEvent, Observable, of } from 'rxjs';
 import { filter, map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
@@ -9,6 +8,7 @@ import { Allergy, GlobalConstants, AllergyType, OnSetAt, SeverityLevel, AllergyN
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { PatientService } from 'src/app/_services/patient.service';
+const moment = require('moment');
 
 @Component({
   selector: 'app-allergy.dialog',
@@ -27,6 +27,7 @@ export class AllergyDialogComponent implements OnInit {
   isLoading = false;
   displayMessage = true;
   @ViewChild('searchAllergyName', { static: true }) searchAllergyName: ElementRef;
+  selectedReaction: string[] = [];
 
   constructor(private ref: EHROverlayRef,
     public datepipe: DatePipe,
@@ -37,12 +38,19 @@ export class AllergyDialogComponent implements OnInit {
     if (this.patientAllergy.StartAt != (null || '' || undefined)) {
       this.patientAllergy.StartAt = moment(this.patientAllergy.StartAt).format('YYYY-MM-DD');
     }
+    if (this.patientAllergy.EndAt != (null || '' || undefined)) {
+      this.patientAllergy.EndAt = moment(this.patientAllergy.EndAt).format('YYYY-MM-DD');
+    }
   }
 
   updateLocalModel(data: Allergy) {
     this.patientAllergy = new Allergy;
     if (data == null) return;
     this.patientAllergy = data;
+    if (data.Reaction != undefined) {
+      this.selectedReaction = data.Reaction.split(",");
+      this.patientAllergy.Reaction = this.selectedReaction.toString();
+    }
   }
 
   ngOnInit(): void {
@@ -86,8 +94,18 @@ export class AllergyDialogComponent implements OnInit {
   }
 
   onSelectedAllergy(selected) {
-    debugger;
     this.patientAllergy.AllergenName = selected.option.value.AllergyName;
+  }
+
+  onSelectedAllergyReaction(selected) {
+    if (this.selectedReaction.length > 0) {
+      this.selectedReaction.push(selected);
+      this.patientAllergy.Reaction = this.selectedReaction.map(function (val) { return val; }).join(',');
+    }
+    else {
+      this.selectedReaction = new Array(selected);
+      this.patientAllergy.Reaction = this.selectedReaction.map(function (val) { return val; }).join(',');
+    }
   }
 
   deleteAllergyName() {
@@ -103,7 +121,10 @@ export class AllergyDialogComponent implements OnInit {
   }
 
   cancel() {
-    this.ref.close(null);
+    // this.ref.close(null);
+    this.ref.close({
+      "UpdatedModal": PatientChart.Allergies
+    });
   }
 
   CreateAllergies() {
@@ -112,6 +133,7 @@ export class AllergyDialogComponent implements OnInit {
     this.patientAllergy.StartAt = this.datepipe.transform(this.patientAllergy.StartAt, "MM/dd/yyyy hh:mm:ss");
     this.patientAllergy.EndAt = this.datepipe.transform(this.patientAllergy.EndAt, "MM/dd/yyyy hh:mm:ss");
     this.patientAllergy.EncounterId = '60d72688391cba0e236c28c8';
+
     this.patientService.CreateAllergies(this.patientAllergy).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.ref.close({
@@ -125,16 +147,18 @@ export class AllergyDialogComponent implements OnInit {
     });
   }
 
+  deleteAllergyReaction(i) {
+    // this.selectedReaction.splice(this.selectedReaction.indexOf(selected), 1);
+    this.selectedReaction.splice(i, 1);
+    this.patientAllergy.Reaction = this.selectedReaction.toString();
+  }
+
   disableAllergies() {
     return !(this.patientAllergy.AllergenType == undefined ? '' : this.patientAllergy.AllergenType != ''
       && this.patientAllergy.AllergenName == undefined ? '' : this.patientAllergy.AllergenName != ''
         && this.patientAllergy.SeverityLevel == undefined ? '' : this.patientAllergy.SeverityLevel != ''
           && this.patientAllergy.OnSetAt == undefined ? '' : this.patientAllergy.OnSetAt != ''
-            && this.patientAllergy.Reaction == undefined ? '' : this.patientAllergy.Reaction != ''
-              && this.patientAllergy.StartAt == undefined ? '' : this.patientAllergy.StartAt != '')
-  }
-
-  deleteAllergyReaction() {
-    this.patientAllergy.Reaction = null;
+            && this.patientAllergy.StartAt == undefined ? '' : this.patientAllergy.StartAt != ''
+              && this.patientAllergy.Reaction == null ? '' : this.patientAllergy.Reaction != '')
   }
 }

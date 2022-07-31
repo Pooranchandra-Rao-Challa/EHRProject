@@ -1,0 +1,106 @@
+@import"../../../assets/cstm.material.scss";
+@import"../../../assets/common.scss";
+
+.modal-dialog {
+  overflow-y: initial !important;
+}
+.tobacco-use.modal-dialog {
+  margin-top: 20px;
+  max-width: 1140px;
+}
+.tobacco-use .modal-body {
+  padding: 0px !important;
+  max-height: calc(90vh - 90px);
+  overflow-y: auto;
+}
+.tobacco-use .modal-body .panel-header {
+  height: 50px;
+  padding: 16px 18px;
+  background-color: rgb(247, 247, 247);
+}
+.tobacco-use .modal-body .panel-body {
+  padding: 20px;
+}
+.tobacco-use .content .row {
+  margin-bottom: 10px;
+}
+.tobacco-use .screening-list .bg-color {
+  min-height: 50px;
+  border-radius: 3px 3px 0px 0px;
+}
+.tobacco-use .screening-list p {
+  padding: 15px;
+  margin-bottom: 0rem;
+}
+.tobacoo-padding {
+  padding: 8px 10px 8px 10px;
+}
+.tobacoo-padding mat-label {
+  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+  font-size: 14px;
+}
+.tobacco-use .screening-list .mat-table {
+  border-width: 0px 2px 2px 2px;
+  border-style: solid;
+  border-color: rgb(221, 221, 221);
+}
+.tobacco-use .screening-list .mat-header-row {
+ background-color: #fff;
+ min-height: 35px;
+ border-bottom: 1px solid rgb(221, 221, 221);
+}
+.tobacco-use .screening-list .mat-header-cell {
+  color: black !important;
+}
+.tobacco-use .screening-list .mat-row {
+  border-top: 1px solid rgb(221, 221, 221) !important;
+  padding: 0px 10px !important;
+  border-bottom: none !important;
+ }
+.tobacco-use .screening-list .mat-row:hover {
+  background-color: #fff !important;
+}
+.tobacco-use .screening-list .mat-cell,
+.tobacco-use .screening-list .mat-header-cell {
+  border-right: 1px solid rgb(221, 221, 221);
+  display: block;
+  align-self: stretch;
+}
+
+.tobacco-use .screening-list .mat-cell:last-of-type,
+.tobacco-use .screening-list .mat-header-cell:last-of-type  {
+  border-right: none;
+}
+.modal-footer .btn {
+  width: 100px;
+}
+.screening-table {
+  mat-cell:nth-child(1),
+  mat-header-cell:nth-child(1) {
+    width: 15% !important;
+  }
+  mat-cell:nth-child(2),
+  mat-header-cell:nth-child(2) {
+    width: 35% !important;
+  }
+  mat-cell:nth-child(3),
+  mat-header-cell:nth-child(3) {
+    width: 15% !important;
+  }
+  mat-cell:nth-child(4),
+  mat-header-cell:nth-child(4) {
+    width: 35% !important;
+  }
+}
+// @media (max-width: 1350px) {
+//   .scrollable-mat-table {
+//     max-width: 1200px;
+//     overflow-x: scroll;
+//   }
+//   .mat-table {
+//     width: 1350px;
+//   }
+// }
+.tobacco-use .btn.btn-green {
+  height: 45px;
+}

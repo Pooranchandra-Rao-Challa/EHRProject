@@ -270,6 +270,7 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
   }
 
   onAppointmentSave() {
+
     this.PatientAppointment.AppointmentTime = this.PatientAppointment.TimeSlot.StartDateTime;
     console.log(this.PatientAppointment.AppointmentTime);
     console.log(this.PatientAppointment);

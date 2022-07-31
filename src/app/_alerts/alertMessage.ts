@@ -12,8 +12,10 @@ export class AlertMessage {
       showConfirmButton: true,
       confirmButtonText: 'Close',
       width: '600',
-      customClass: { container: 'swal2-container-high-zindex' ,
-      confirmButton:'swal2-messaage'}
+      customClass: {
+        container: 'swal2-container-high-zindex',
+        confirmButton: 'swal2-messaage'
+      }
     });
   }
 
@@ -26,8 +28,10 @@ export class AlertMessage {
       cancelButtonText: 'Close',
       //cancelButtonColor: '#d74842',
       width: '500',
-      customClass: { title: 'swal2-title-error', container: 'swal2-container-high-zindex',
-      cancelButton: 'swal2-error' }
+      customClass: {
+        title: 'swal2-title-error', container: 'swal2-container-high-zindex',
+        cancelButton: 'swal2-error'
+      }
     });
   }
 
@@ -151,6 +155,15 @@ export class AlertMessage {
  * LabsAndImaging
  * Order: 1
  * Results: 2
+ *
+ * --------------------------------------------------
+ * Patient Module
+ *
+ * Appoinments : A
+ * Messages : M
+ * DashBoard: D
+ * MyProfile
+ *
  * ---------------------------------------------------
  * Errors Number shouw be three digits like 001
  *
@@ -227,6 +240,14 @@ export const ERROR_CODES: { [key: string]: string } = {
 
   // Error for Smoking Status
   'E2CSS001': 'Smoking status Updation error',
+
+  //Message for tobacco use in chart screen
+  'M2CTU001': 'Tobacco use added successfully',
+  'M2CTU002': 'Tobacco use updated successfully',
+  'M2CTU003': 'Tobacco use deleted successfully',
+
+  // Error for Smoking Status
+  'E2CTU001': 'Tobacco use Updation error',
 
   // Message for Admin Provider  Status
   'M1P001': 'Your 30-Day Trial version is finished',
@@ -316,6 +337,14 @@ export const ERROR_CODES: { [key: string]: string } = {
   // Error for immunization
   'E2CCI001': 'Immunization Updation error',
 
+  //Message for interventions in chart screen
+  'M2CCSIA001': 'Intervention added successfully',
+  'M2CCSIA002': 'Intervention updated successfully',
+  'M2CCSIA003': 'Intervention deleted successfully',
+
+  // Error for Smoking Status
+  'E2CCSIA001': 'Intervention Updation error',
+
   // CQM Not performed
   'M2CCNP001': 'Not Performed Reason created successfully',
   'M2CCNP002': 'Not Performed Reason updated successfully',
@@ -350,36 +379,36 @@ export const ERROR_CODES: { [key: string]: string } = {
   // Error for Rooms
   'E2JSAS001': 'Appointment status created error',
 
-//Amendements
-'M2A001' : 'Amendments added successfully',
-'M2A002' : 'Amendments updated successfully',
-'M2A003' : 'Amendments deleted successfully',
+  //Amendements
+  'M2A001': 'Amendments added successfully',
+  'M2A002': 'Amendments updated successfully',
+  'M2A003': 'Amendments deleted successfully',
 
-//Error for Amendements
+  //Error for Amendements
 
-'E2A001' : 'Amendments created error',
+  'E2A001': 'Amendments created error',
   // Labs and Imageing Messags
-  'M2G1001':'Lab Order added successfully',
-  'M2G1002':'Lab Order updated successfully',
-  'M2G1003':'Lab Order deleted successfully',
-  'M2G1004':'Lab Result added successfully',
-  'M2G1005':'Lab Result updated successfully',
+  'M2G1001': 'Lab Order added successfully',
+  'M2G1002': 'Lab Order updated successfully',
+  'M2G1003': 'Lab Order deleted successfully',
+  'M2G1004': 'Lab Result added successfully',
+  'M2G1005': 'Lab Result updated successfully',
 
   //Errors
-  'E2G1001':'Lab Order is not added',
-  'E2G1002':'Lab Order is not updated',
-  'E2G1003':'Lab Order is not deleted',
-  'E2G1004':'Lab Result is not added',
-  'E2G1005':'Lab Result is not updated',
+  'E2G1001': 'Lab Order is not added',
+  'E2G1002': 'Lab Order is not updated',
+  'E2G1003': 'Lab Order is not deleted',
+  'E2G1004': 'Lab Result is not added',
+  'E2G1005': 'Lab Result is not updated',
 
   //Login Errors
-  'EL001':'Wrong email or password',
-  'EL002':'Session is timeout',
-  'EL003':'You need to sign in or sign up before continuing.',
+  'EL001': 'Wrong email or password',
+  'EL002': 'Session is timeout',
+  'EL003': 'You need to sign in or sign up before continuing.',
 
   //Education Material Message
-  'M2JPE001':'Education Material added successfully',
-  'M2JPE002':'Education Material updated successfully',
+  'M2JPE001': 'Education Material added successfully',
+  'M2JPE002': 'Education Material updated successfully',
   //Education Material Error
   'E2JPE001' :'Education Material updation Error',
 
@@ -393,6 +422,21 @@ export const ERROR_CODES: { [key: string]: string } = {
   'E2B002':'An appointment is existing for the same time and resource',
   'E2B003':'Appointment is not rescheduled',
   'E2B004':'Appointment is not allocated',
+  //Clinical Decision Support
+  'M2JCDS001': 'Alert added sucessfully',
+  'M2JCDS002': 'Alert updated successfully',
+  //Trigger Added and Delete
+  'M2JCDS003': 'Trigger added sucessfully',
+  'M2JCDS004': 'Trigger deleted sucessfully ',
+  //Error for CDS
+  'E2JCDS001': 'Alert updation error',
+  'E2JCDS002': 'Trigger updation error',
+  'E2JCDS003': 'Trigger deletion error',
+  //Messages for Patient Appoinments
+  'M3A001': 'Appoinments added sucessfully ',
+  'M3A002': 'Appoinments cancelled successfully',
+  //Error Messages for Patient Appoinments
+  'E3A001': "Appoinments updation error"
 };
 
 

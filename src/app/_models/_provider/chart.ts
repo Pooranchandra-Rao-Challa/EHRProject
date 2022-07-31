@@ -53,9 +53,11 @@ export class Allergy {
 export enum PatientChart {
   AdvancedDirectives,
   SmokingStatus,
+  TobaccoUse,
   Allergies,
   Medications,
   Discontinue,
+  Interventions,
   Encounters,
   CQMNotPerforemd
 }
@@ -72,6 +74,7 @@ export class ChartInfo {
   SmokingStatuses?: SmokingStatus[] = []
   TobaccoUseInterventions?: TobaccoUseScreenings[] = []
   TobaccoUseScreenings?: TobaccoUseInterventions[] = []
+  Interventions?: Intervention[] = []
 }
 
 export class Immunization {
@@ -148,13 +151,13 @@ export class TobaccoUseScreenings {
 }
 
 export class TobaccoUseInterventions {
-  tobacco_use_id?: string;
-  patient_id?: string;
-  cessation_intervention_id?: string
-  cessation_intervention_date?: Date;
-  cessation_intervention_performed?: string;
-  code?: string;
-  description?: string;
+  TobaccoUseId?: string;
+  PatientId?: string;
+  CessationInterventionId?: string
+  CessationInterventionDate?: Date;
+  CessationInterventionPerformed?: string;
+  Code?: string;
+  Description?: string;
 }
 
 export class TobaccoUse {
@@ -188,6 +191,20 @@ export class Diagnosis {
   Acute?: boolean;
   Terminal?: boolean;
   Referral?: boolean;
+}
+
+export class Intervention {
+  InterventionId?: string;
+  PatientId?: string;
+  StartDate?: Date;
+  EndDate?: Date;
+  InterventionType?: string;
+  Code?: string;
+  Description?: string;
+  CodeSystem?: string;
+  Note?: string;
+  ReasonValueSetOID?: string;
+  LocationId?: string;
 }
 
 export interface Vaccine {
@@ -294,12 +311,6 @@ export enum DiagnosisDpCodes {   // Dp - dropdown
 export class GlobalConstants {
   public slice;
 
-  // public static AllergyReaction: string[] = ["Anaphylaxis", "Bloating/gas", "Bradycardia", "Chest Pain", "Conjunctivitis",
-  //   "Cough", "Diarrhea", "Difficulty speaking or swallowing", "Dizziness/Lightheadedness", "Facial swelling", "Hives",
-  //   "Irregular Heartbeat", "Itchiness", "Loss of consciousness", "Nausea Other", "Pain/cramping", "Patchy swelling-skin",
-  //   "Rash-generalized", "Rash-localized", "Respiratory Distress", "Runny nose", "Shortness of breath", "Tachycardia",
-  //   "Tongue swelling", "Unknown", "Vomiting", "Wheezing"];
-
   public static AllergyReactions = [
     { ReactionName: 'Anaphylaxis' },
     { ReactionName: 'Bloating/gas' },
@@ -335,8 +346,6 @@ export class GlobalConstants {
     { DrugName: 'Medication 2' },
     { DrugName: 'Medication 3' },
   ];
-
-  // public static Medication_Names: string[] = [ 'Medication 1', 'Medication 2', 'Medication 3' ];
 
   public static Units: string[] = ['EL U/0.5 ML', 'EL U/ML', 'GM', 'GM/100 ML', 'GM/10 ML', 'GM/200 ML', 'GM/20 ML',
     'GM/400 ML', 'GM/500 ML', 'GM/50 ML', 'LF-MCG/0.5', 'LF/O.5 ML', 'LFU', 'LFU/0.5 ML', 'MCG', 'MCG/0.5 ML', 'MCG/ML',
@@ -442,6 +451,16 @@ export class GlobalConstants {
     { 'Code': '59037007', 'Description': 'Drug intolerance', 'CodeDescription': '59037007 - Drug intolerance' },
     { 'Code': '62014003', 'Description': 'Adverse reaction to drug', 'CodeDescription': '62014003 - Adverse reaction to drug' }
   ];
+
+  public static INTERVENTION_TYPES = [
+    { 'InterventionType': 'BMI-Above Normal Weight' },
+    { 'InterventionType': 'BMI-Below Normal Weight' },
+    { 'InterventionType': 'BMI-Referral to Alternate Provider/Care Setting' },
+    { 'InterventionType': 'Tobacco Cessation Counseling' },
+    { 'InterventionType': 'Weight-Counseling for Nutrition' },
+    { 'InterventionType': 'Weight-Counseling for Physical Activity' },
+    { 'InterventionType': 'Controlling BP-Evidence of ESRD, dialysis, or renal transplant' }
+  ];
 }
 
 // export const PROCEDURE_REASON_CODES = [
@@ -464,3 +483,142 @@ export const MEDICATION_NAMES = [
   { 'Name': 'Medication 2' },
   { 'Name': 'Medication 3' },
 ];
+
+export class TobaccoUseConstants {
+  // [x: string]: any;
+
+  public slice;
+
+  public static SCREENING_PERFORMED = [
+    { 'Performed': 'Tobacco use CPHS' },
+    { 'Performed': 'Have you used tobacco in the last 30 days [SAMHSA]' },
+    { 'Performed': 'Have you used smokeless tobacco product in the last 30 days [SAMHSA]' },
+    { 'Performed': 'Tobacco smoking status NHIS' }
+  ];
+
+  public static SCREENING_TOBACCO_STATUS = [
+    { 'Code': '160603005', 'Description': 'Light cigarette smoker (1-9 cigs/day) (finding)' },
+    { 'Code': '160604004', 'Description': 'Moderate cigarette smoker (10-19 cigs/day) (finding)' },
+    { 'Code': '160605003', 'Description': 'Heavy cigarette smoker (20-39 cigs/day) (finding)' },
+    { 'Code': '160606002', 'Description': 'Very heavy cigarette smoker (40+ cigs/day) (finding)' },
+    { 'Code': '160619003', 'Description': 'Rolls own cigarettes (finding)' },
+    { 'Code': '228494002', 'Description': 'Snuff user (finding)' },
+    { 'Code': '228504007', 'Description': 'User of moist powdered tobacco (finding)' },
+    { 'Code': '228514003', 'Description': 'Chews plug tobacco (finding)' },
+    { 'Code': '228515002', 'Description': 'Chews twist tobacco (finding)' },
+    { 'Code': '228516001', 'Description': 'Chews loose leaf tobacco (finding)' },
+    { 'Code': '228517005', 'Description': 'Chews fine cut tobacco (finding)' },
+    { 'Code': '228518000', 'Description': 'Chews products containing tobacco (finding)' },
+    { 'Code': '230059006', 'Description': 'Occasional cigarette smoker (finding)' },
+    { 'Code': '230060001', 'Description': 'Light cigarette smoker (finding)' },
+    { 'Code': '230062009', 'Description': 'Moderate cigarette smoker (finding)' },
+    { 'Code': '230063004', 'Description': 'Heavy cigarette smoker (finding)' },
+    { 'Code': '230064005', 'Description': 'Very heavy cigarette smoker (finding)' },
+    { 'Code': '230065006', 'Description': 'Chain smoker (finding)' },
+    { 'Code': '266920004', 'Description': 'Trivial cigarette smoker (less than one cigarette/day) (finding)' },
+    { 'Code': '428041000124106', 'Description': 'Occasional tobacco smoker (finding)' },
+    { 'Code': '428061000124105', 'Description': 'Light tobacco smoker (finding)' },
+    { 'Code': '428071000124103', 'Description': 'Heavy tobacco smoker (finding)' },
+    { 'Code': '449868002', 'Description': 'Smokes tobacco daily (finding)' },
+    { 'Code': '59978006', 'Description': 'Cigar smoker (finding)' },
+    { 'Code': '65568007', 'Description': 'Cigarette smoker (finding)' },
+    { 'Code': '77176002', 'Description': 'Smoker (finding)' },
+    { 'Code': '81703003', 'Description': 'Chews tobacco (finding)' },
+    { 'Code': '82302008', 'Description': 'Pipe smoker (finding)' },
+    { 'Code': '105539002', 'Description': 'Non-smoker for personal reasons (finding)' },
+    { 'Code': '105540000', 'Description': 'Non-smoker for religious reasons (finding)' },
+    { 'Code': '105541001', 'Description': 'Non-smoker for medical reasons (finding)' },
+    { 'Code': '160618006', 'Description': 'Current non-smoker (finding)' },
+    { 'Code': '160620009', 'Description': 'Ex-pipe smoker (finding)' },
+    { 'Code': '160621008', 'Description': 'Ex-cigar smoker (finding)' },
+    { 'Code': '228501004', 'Description': 'Does not use moist powdered tobacco (finding)' },
+    { 'Code': '228502006', 'Description': 'Never used moist powdered tobacco (finding)' },
+    { 'Code': '228503001', 'Description': 'Ex-user of moist powdered tobacco (finding)' },
+    { 'Code': '228512004', 'Description': 'Never chewed tobacco (finding)' },
+    { 'Code': '266919005', 'Description': 'Never smoked tobacco (finding)' },
+    { 'Code': '266921000', 'Description': 'Ex-trivial cigarette smoker (<1/day) (finding)' },
+    { 'Code': '266922007', 'Description': 'Ex-light cigarette smoker (1-9/day) (finding)' },
+    { 'Code': '266923002', 'Description': 'Ex-moderate cigarette smoker (10-19/day) (finding)' },
+    { 'Code': '266924008', 'Description': 'Ex-heavy cigarette smoker (20-39/day) (finding)' },
+    { 'Code': '266925009', 'Description': 'Ex-very heavy cigarette smoker (40+/day) (finding)' },
+    { 'Code': '266928006', 'Description': 'Ex-cigarette smoker amount unknown (finding)' },
+    { 'Code': '281018007', 'Description': 'Ex-cigarette smoker (finding)' },
+    { 'Code': '360890004', 'Description': 'Intolerant ex-smoker (finding)' },
+    { 'Code': '360900008', 'Description': 'Aggressive ex-smoker (finding)' },
+    { 'Code': '360918006', 'Description': 'Aggressive non-smoker (finding)' },
+    { 'Code': '360929005', 'Description': 'Intolerant non-smoker (finding)' },
+    { 'Code': '405746006', 'Description': 'Current non smoker but past smoking history unknown (finding)' },
+    { 'Code': '53896009', 'Description': 'Tolerant ex-smoker (finding)' },
+    { 'Code': '8392000', 'Description': 'Non-smoker (finding)' },
+    { 'Code': '8517006', 'Description': 'Ex-smoker (finding)' },
+    { 'Code': '87739003', 'Description': 'Tolerant non-smoker (finding)' }
+  ];
+
+  public static INTERVENTION_PERFORMED = [
+    { 'Performed': 'Tobacco Use Cessation Counseling' },
+    { 'Performed': 'Tobacco Use Cessation Pharmacotherapy' }
+  ];
+
+  public static INTERVENTION_TOBACCO_STATUS = [
+    { 'Code': '171055003', 'Description': 'Pregnancy smoking education (procedure)' },
+    { 'Code': '185795007', 'Description': 'Stop smoking monitoring verbal invite (procedure)' },
+    { 'Code': '185796008', 'Description': 'Stop smoking monitoring telephone invite (procedure)' },
+    { 'Code': '225323000', 'Description': 'Smoking cessation education (procedure)' },
+    { 'Code': '225324006', 'Description': 'Smoking effects education (procedure)' },
+    { 'Code': '310429001', 'Description': 'Smoking monitoring invitation (procedure)' },
+    { 'Code': '315232003', 'Description': 'Referral to stop-smoking clinic (procedure)' },
+    { 'Code': '384742004', 'Description': 'Smoking cessation assistance (regime/therapy)' },
+    { 'Code': '395700008', 'Description': 'Referral to smoking cessation advisor (procedure)' },
+    { 'Code': '449841000124108', 'Description': 'Referral to tobacco use cessation clinic (procedure)' },
+    { 'Code': '449851000124105', 'Description': 'Referral to tobacco use cessation counselor (procedure)' },
+    { 'Code': '449861000124107', 'Description': 'Referral to tobacco use cessation counseling program (procedure)' },
+    { 'Code': '449871000124100', 'Description': 'Referral to tobacco use quit line (procedure)' },
+    { 'Code': '702388001', 'Description': 'Tobacco use cessation education (procedure)' },
+    { 'Code': '710081004', 'Description': 'Smoking cessation therapy (regime/therapy)' },
+    { 'Code': '711028002', 'Description': 'Counseling about tobacco use (procedure)' },
+    { 'Code': '99406', 'Description': 'Smoking and tobacco use cessation counseling visit; intermediate, greater than 3 minutes up to 10 minutes' },
+    { 'Code': '99407', 'Description': 'Smoking and tobacco use cessation counseling visit; intensive, greater than 10 minutes' },
+    { 'Code': '1232585', 'Description': '24 HR Bupropion Hydrochloride 450 MG Extended Release Oral Tablet' },
+    { 'Code': '151226', 'Description': 'topiramate 50 MG Oral Tablet' },
+    { 'Code': '1551468', 'Description': '12 HR Bupropion Hydrochloride 90 MG / Naltrexone hydrochloride 8 MG Extended Release Oral Tablet' },
+    { 'Code': '1797886', 'Description': 'Nicotine 0.5 MG/ACTUAT Metered Dose Nasal Spray' },
+    { 'Code': '1801289', 'Description': 'Smoking Cessation 12 HR Bupropion Hydrochloride 150 MG Extended Release Oral Tablet' },
+    { 'Code': '198029 ', 'Description': '24 HR Nicotine 0.583 MG/HR Transdermal System' },
+    { 'Code': '198030 ', 'Description': '24 HR Nicotine 0.875 MG/HR Transdermal System' },
+    { 'Code': '198031 ', 'Description': '24 HR Nicotine 0.292 MG/HR Transdermal System' },
+    { 'Code': '198045 ', 'Description': 'Nortriptyline 10 MG Oral Capsule' },
+    { 'Code': '198046 ', 'Description': 'Nortriptyline 50 MG Oral Capsule' },
+    { 'Code': '198047 ', 'Description': 'Nortriptyline 75 MG Oral Capsule' },
+    { 'Code': '199283 ', 'Description': 'Nortriptyline 10 MG Oral Tablet' },
+    { 'Code': '199888 ', 'Description': 'topiramate 25 MG Oral Tablet' },
+    { 'Code': '199889 ', 'Description': 'topiramate 100 MG Oral Tablet' },
+    { 'Code': '199890 ', 'Description': 'topiramate 200 MG Oral Tablet' },
+    { 'Code': '205315 ', 'Description': 'topiramate 25 MG Oral Capsule' },
+    { 'Code': '205316 ', 'Description': 'topiramate 15 MG Oral Capsule' },
+    { 'Code': '250983 ', 'Description': 'Nicotine 4 MG/ACTUAT Inhalant Solution' },
+    { 'Code': '311975 ', 'Description': 'Nicotine 4 MG Chewing Gum' },
+    { 'Code': '312036 ', 'Description': 'Nortriptyline 2 MG/ML Oral Solution' },
+    { 'Code': '314119 ', 'Description': 'Nicotine 2 MG Chewing Gum' },
+    { 'Code': '317136 ', 'Description': 'Nortriptyline 25 MG Oral Capsule' },
+    { 'Code': '359817 ', 'Description': 'Nicotine 2 MG Oral Lozenge' },
+    { 'Code': '359818 ', 'Description': 'Nicotine 4 MG Oral Lozenge' },
+    { 'Code': '636671 ', 'Description': 'varenicline 0.5 MG Oral Tablet' },
+    { 'Code': '636676 ', 'Description': 'varenicline 1 MG Oral Tablet' },
+    { 'Code': '749289 ', 'Description': '{11 (varenicline 0.5 MG Oral Tablet) / 42 (varenicline 1 MG Oral Tablet) } Pack' },
+    { 'Code': '749788 ', 'Description': '{56 (varenicline 1 MG Oral Tablet) } Pack' },
+    { 'Code': '892244 ', 'Description': '{14 (24 HR Nicotine 0.292 MG/HR Transdermal System) / 14 (24 HR Nicotine 0.583 MG/HR Transdermal System) / 28 (24 HR Nicotine 0.875 MG/HR Transdermal System) } Pack' },
+    { 'Code': '993503 ', 'Description': '12 HR Bupropion Hydrochloride 100 MG Extended Release Oral Tablet' },
+    { 'Code': '993518 ', 'Description': '12 HR Bupropion Hydrochloride 150 MG Extended Release Oral Tablet' },
+    { 'Code': '993536 ', 'Description': '12 HR Bupropion Hydrochloride 200 MG Extended Release Oral Tablet' },
+    { 'Code': '993541 ', 'Description': '24 HR Bupropion Hydrochloride 150 MG Extended Release Oral Tablet' },
+    { 'Code': '993550 ', 'Description': '24 HR Bupropion hydrobromide 174 MG Extended Release Oral Tablet' },
+    { 'Code': '993557 ', 'Description': '24 HR Bupropion Hydrochloride 300 MG Extended Release Oral Tablet' },
+    { 'Code': '993567 ', 'Description': '24 HR Bupropion hydrobromide 348 MG Extended Release Oral Tablet' },
+    { 'Code': '993681 ', 'Description': '24 HR Bupropion hydrobromide 522 MG Extended Release Oral Tablet' },
+    { 'Code': '993687 ', 'Description': 'Bupropion Hydrochloride 100 MG Oral Tablet' },
+    { 'Code': '993691 ', 'Description': 'Bupropion Hydrochloride 75 MG Oral Tablet' },
+    { 'Code': '998671 ', 'Description': '168 HR Clonidine 0.00417 MG/HR Transdermal System' },
+    { 'Code': '998675 ', 'Description': '168 HR Clonidine 0.00833 MG/HR Transdermal System' },
+    { 'Code': '998679 ', 'Description': '168 HR Clonidine 0.0125 MG/HR Transdermal System' }
+  ];
+}

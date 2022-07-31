@@ -32,6 +32,7 @@ import { AddeditinterventionComponent } from 'src/app/dialogs/addeditinterventio
 import { SettingsService } from '../../../_services/settings.service';
 import { MedicationDialogComponent } from 'src/app/dialogs/medication.dialog/medication.dialog.component';
 import { AllergyDialogComponent } from 'src/app/dialogs/allergy.dialog/allergy.dialog.component';
+import { TobaccoUseDialogComponent } from 'src/app/dialogs/tobacco.use.dialog/tobacco.use.dialog.component';
 
 @Component({
   selector: 'app-chart',
@@ -61,6 +62,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   discontinueDialogComponent = DiscontinueDialogComponent;
   medicationDialogComponent = MedicationDialogComponent;
   allergyDialogComponent = AllergyDialogComponent;
+  tobaccoUseDialogComponent = TobaccoUseDialogComponent;
   // advancedDirectives: AdvancedDirective[];
   patientDiagnoses: Diagnosis = new Diagnosis();
   patientAllergy: Allergy = new Allergy();
@@ -68,6 +70,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   patientMedication: Medication = new Medication();
   patientImmunization: Immunization = new Immunization();
   patientTobaccoUse: TobaccoUse = new TobaccoUse();
+  tobaccoUseList: TobaccoUse[] = [];
   // encounters: EncounterInfo[];
   appointments: NewAppointment[];
   // smokingstatus: SmokingStatus[];
@@ -102,7 +105,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   locationColumns: string[] = ['Location', 'Address', 'Phone', 'Providers'];
   screeningColumns: string[] = ['DatePerf', 'Screeningperf', 'Status', 'TobaccoUsecode_desc'];
   interventionColumns: string[] = ['DatePerf', 'Interventionperf', 'InterventionDesc', 'AddReasonNotPerformed', 'Reason'];
-  immuniztionColumns: string[] = ['VaccineDescription', 'CVXCode', 'Date', 'Status'];
+  immunizationColumns: string[] = ['VaccineDescription', 'CVXCode', 'Date', 'Status'];
   administered: boolean = false;
   historical: boolean = true;
   refused: boolean = true;
@@ -153,7 +156,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
     ).subscribe(value => this._filterPatients(value));
   }
 
-  _filterPatients(term: string){
+  _filterPatients(term: string) {
     this.patientService
       .PatientSearch({
         ProviderId: this.authService.userValue.ProviderId,
@@ -211,7 +214,6 @@ export class ChartComponent implements OnInit, AfterViewInit {
   }
 
   onSelectedImmunization(selected) {
-    debugger;
     this.patientImmunization.Code = selected.option.value.Code;
     this.patientImmunization.Description = selected.option.value.Description;
   }
@@ -266,10 +268,16 @@ export class ChartComponent implements OnInit, AfterViewInit {
     else if (action == Actions.view && content === this.smokingStatusDialogComponent) {
       reqdata = dialogData;
     }
+    else if (action == Actions.view && content === this.tobaccoUseDialogComponent) {
+      reqdata = dialogData;
+    }
     else if (action == Actions.view && content === this.cqmNotPerformedDialogComponent) {
       reqdata = dialogData;
     }
     else if (action == Actions.view && content === this.medicationDialogComponent) {
+      reqdata = dialogData;
+    }
+    else if (action == Actions.view && content === this.interventionDialogComponent) {
       reqdata = dialogData;
     }
     else if (action == Actions.view && content === this.allergyDialogComponent) {
@@ -280,19 +288,19 @@ export class ChartComponent implements OnInit, AfterViewInit {
     }
     else if (action == Actions.new && content === this.encounterDialogComponent) {
       let ef = new EncounterInfo();
-      if (dialogData == null){
+      if (dialogData == null) {
         ef.PatientId = this.authService.viewModel.Patient.PatientId;
       }
       reqdata = ef;
-    }else if (action == Actions.view && content === this.encounterDialogComponent) {
+    } else if (action == Actions.view && content === this.encounterDialogComponent) {
       let ef = new EncounterInfo();
       ef.EncounterId = dialogData.EncounterId
       ef.PatientId = dialogData.PatientId
       reqdata = ef;
     } else if (action == Actions.new && content === this.appointmentDialogComponent) {
       reqdata = this.PatientAppointmentInfoForNew(action);
-    }else if (action == Actions.view && content === this.appointmentDialogComponent) {
-      reqdata = this.PatientAppointmentInfoForView(dialogData,action);
+    } else if (action == Actions.view && content === this.appointmentDialogComponent) {
+      reqdata = this.PatientAppointmentInfoForView(dialogData, action);
     }
 
     const ref = this.overlayService.open(content, reqdata);
@@ -310,11 +318,18 @@ export class ChartComponent implements OnInit, AfterViewInit {
     else if (data.UpdatedModal == PatientChart.SmokingStatus) {
       this.SmokingStatusByPatientId();
     }
+    else if (data.UpdatedModal == PatientChart.TobaccoUse) {
+      this.TobaccoUseScreenings();
+      this.TobaccoUseInterventions();
+    }
     else if (data.UpdatedModal == PatientChart.Allergies) {
       this.AllergiesByPatientId();
     }
     else if (data.UpdatedModal == PatientChart.Medications) {
       this.MedicationsByPatientId();
+    }
+    else if (data.UpdatedModal == PatientChart.Interventions) {
+      this.InterventionsByPatientId();
     }
     else if (data.UpdatedModal == PatientChart.Encounters) {
       this.EncountersByPatientId();
@@ -325,6 +340,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
     this.patientService.ChartInfo({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.chartInfo = resp.Result;
+
       }
     });
   }
@@ -370,7 +386,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
     }
   }
 
-  GetAppointmentInfo(){
+  GetAppointmentInfo() {
     let data: AppointmentDialogInfo = {}
 
   }
@@ -496,7 +512,6 @@ export class ChartComponent implements OnInit, AfterViewInit {
   }
 
   CreateImmunizationsAdministered() {
-    debugger;
     let isAdd = this.patientImmunization.ImmunizationId == undefined;
     this.patientImmunization.PatientId = this.currentPatient.PatientId;
     this.patientService.CreateImmunizationsAdministered(this.patientImmunization).subscribe((resp) => {
@@ -678,6 +693,20 @@ export class ChartComponent implements OnInit, AfterViewInit {
   TobaccoUseInterventions() {
     this.patientService.TobaccoUseInterventions({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       if (resp.IsSuccess) this.chartInfo.TobaccoUseInterventions = resp.ListResult;
+    });
+  }
+
+  // Get tobacco interventions info
+  TobaccoUseByPatientId() {
+    this.patientService.TobaccoUseByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
+      if (resp.IsSuccess) this.tobaccoUseList = resp.ListResult;
+    });
+  }
+
+  // Get tobacco interventions info
+  InterventionsByPatientId() {
+    this.patientService.InterventionsByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
+      if (resp.IsSuccess) this.chartInfo.Interventions = resp.ListResult;
     });
   }
 

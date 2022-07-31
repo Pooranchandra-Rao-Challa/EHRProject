@@ -3,6 +3,8 @@ import { DatePipe } from "@angular/common";
 import { Component, OnInit, QueryList, ViewChildren } from "@angular/core";
 import { FormBuilder } from "@angular/forms";
 import { MatPaginator } from "@angular/material/paginator";
+import { PracticeProviders } from '../../_models/_provider/practiceProviders';
+import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
 import {
   MatSort
 } from "@angular/material/sort";
@@ -16,6 +18,7 @@ import { Accountservice } from "../../_services/account.service";
 import { EncounterData } from "../../_models";
 import { TableUtil } from "../tableUtil";
 import { $$ } from "protractor";
+import { AuthenticationService } from "src/app/_services/authentication.service";
 declare const $: any;
 
 @Component({
@@ -39,7 +42,7 @@ export class EncounterlistComponent implements OnInit {
     SstartDate: string;
     SendDate: string;
     Checked: any;
-    provider_Id: any;
+    ProviderId: any;
     location_Id: any;
   };
   showEncounterControls: boolean;
@@ -66,8 +69,9 @@ export class EncounterlistComponent implements OnInit {
   provider_Id: string;
   encounters: any;
   disabledowloadExportbtn: boolean = true;
+  PracticeProviders: PracticeProviders[];
 
-  constructor(
+  constructor(private authenticationService: AuthenticationService,private smartSchedulerService: SmartSchedulerService,
     private service: Accountservice,
     private fb: FormBuilder,
     private tableutil: TableUtil,
@@ -101,10 +105,10 @@ export class EncounterlistComponent implements OnInit {
     };
   }
   disableApplyButtonEncounterlist() {
-    var Provider_Id =
-      this.encounterForm.value.provider_Id == null
+    var ProviderId =
+      this.encounterForm.value.ProviderId == null
         ? ""
-        : this.encounterForm.value.provider_Id;
+        : this.encounterForm.value.ProviderId;
     var StartDate =
       this.encounterForm.value.SstartDate == null
         ? ""
@@ -113,18 +117,18 @@ export class EncounterlistComponent implements OnInit {
       this.encounterForm.value.SendDate == null
         ? ""
         : this.encounterForm.value.SendDate;
-    if (Provider_Id != "" && StartDate == "" && EndDate == "") {
+    if (ProviderId != "" && StartDate == "" && EndDate == "") {
       this.applyButtonToDisableencounter = false;
     }
-    else if (Provider_Id != "" && StartDate != "" && EndDate != "") {
+    else if (ProviderId != "" && StartDate != "" && EndDate != "") {
       this.applyButtonToDisableencounter = false;
       this.disableEndDateInput = false;
     }
-    else if (Provider_Id != "" && StartDate != "" && EndDate == "") {
+    else if (ProviderId != "" && StartDate != "" && EndDate == "") {
       this.applyButtonToDisableencounter = true;
       this.disableEndDateInput = false;
     }
-    else if (Provider_Id != "" && StartDate == "" && EndDate != "") {
+    else if (ProviderId != "" && StartDate == "" && EndDate != "") {
       this.applyButtonToDisableencounter = true;
     }
     else if (StartDate == "") {
@@ -142,14 +146,14 @@ export class EncounterlistComponent implements OnInit {
       SstartDate: [""],
       SendDate: [""],
       Checked: false,
-      provider_Id: [""],
+      ProviderId: [""],
       location_Id: [""],
     });
   }
 
   onSubmitEncounterlist() {
     if (
-      this.encounterForm.value.provider_Id == "" &&
+      this.encounterForm.value.ProviderId == "" &&
       this.encounterForm.value.location_Id == ""
     ) {
       return;
@@ -166,10 +170,10 @@ export class EncounterlistComponent implements OnInit {
         "en-US"
       ),
       Checked: this.encounterForm.value.Checked,
-      provider_Id:
-        this.encounterForm.value.provider_Id == ""
+      ProviderId:
+        this.encounterForm.value.ProviderId == ""
           ? null
-          : this.encounterForm.value.provider_Id,
+          : this.encounterForm.value.ProviderId,
       location_Id:
         this.encounterForm.value.location_Id == ""
           ? null
@@ -196,20 +200,15 @@ export class EncounterlistComponent implements OnInit {
     });
   }
   getProviderList() {
-    let locationid = localStorage.getItem("providerlocation");
-    var req = {
-      LocationId: locationid,
-    };
-    this.service.getProviderList(req).subscribe((data) => {
-      if (data.IsSuccess) {
-        this.providerlist = data.ListResult;
-        this.filteredproviderList = this.providerlist.slice();
+    let req = { "ClinicId": this.authenticationService.userValue.ClinicId };
+    this.smartSchedulerService.PracticeProviders(req).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.PracticeProviders = resp.ListResult as PracticeProviders[];
       }
     });
   }
-
   getLocationsList(Location: any) {
-    this.service.getLocationsList(Location.Provider_Id).subscribe((data) => {
+    this.service.getLocationsList(Location.ProviderId).subscribe((data) => {
       if (data.IsSuccess) {
         this.locationslist = data.ListResult;
         this.filteredlocationList = this.locationslist.slice();

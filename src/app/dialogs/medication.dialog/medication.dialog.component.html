@@ -8,20 +8,28 @@
     </div>
     <div class="modal-body">
       <div class="row mt-2">
-        <label class="title-field">Medication Name:</label>
-        <div class="col-md-10">
-          <mat-form-field class="grey-matform col-12" appearance="outline">
-            <mat-select [(ngModel)]="patientMedication.DrugName">
-              <mat-select-filter [displayMember]="'DrugName'" #searchItem [array]="medicationsFilter"
-                (filteredReturn)="medications = $event"></mat-select-filter>
-              <mat-option *ngFor="let medication of medications" [value]="medication.DrugName">
-                {{medication.DrugName}}
+        <label class="title-field required">Medication Name:</label>
+        <div class="col-12">
+          <mat-form-field class="medical-form-field" appearance="outline" [ngStyle]="{'width':'100%'}">
+            <input matInput #searchMedicationName class="form-control" placeholder="Search Medication Name" type="text"
+              id="searchMedicationName" name=" searchMedicationName" [matAutocomplete]="medicationName" />
+            <mat-autocomplete [displayWith]="displayWithMedication" #medicationName="matAutocomplete"
+              (optionSelected)="onSelectedMedication($event)">
+              <mat-option [hidden]="displayMessage == false" [disabled]="true" class="text-wrap lh-1 fs-6">
+                Enter atleast 3 characters, you can only select 1 item
               </mat-option>
-            </mat-select>
+              <mat-option *ngIf="isLoading">Loading ...</mat-option>
+              <mat-option *ngFor="let drug of medications | async" [value]="drug" class="medical-code-option">
+                {{drug.Name}}
+              </mat-option>
+              <mat-option *ngIf="noRecords">No Records Found</mat-option>
+            </mat-autocomplete>
           </mat-form-field>
-        </div>
-        <div class="col-md-2">
-          <button class="btn btn-green pull-right">Search</button>
+          <span class="selected-allergen" id="allergenName" *ngIf="patientMedication.DrugName != null">
+            <p>{{patientMedication.DrugName}}</p>
+            <a class="icon icon-sm icon-circle icon-ic-delete pull-right" id="allergy-delete"
+              (click)="deleteMedicationName()"></a>
+          </span>
         </div>
       </div>
       <div class="row mt-2">
@@ -34,7 +42,11 @@
         <div class="form-group col-md-6 ">
           <label class="title-field">NDC ID:</label>
           <mat-form-field class="grey-matform" appearance="outline">
-            <input matInput placeholder="NDC ID" name="ndcid:" [(ngModel)]="patientMedication.NDC" />
+            <mat-select [(ngModel)]="patientMedication.NDC">
+              <mat-option *ngFor="let ndc of ndcList" [value]="ndc">
+                {{ndc}}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
       </div>
@@ -83,7 +95,7 @@
       </div>
       <div class="row mt-2">
         <div class=" form-group col-md-6">
-          <label class="title-field">Start Date</label>
+          <label class="title-field required">Start Date</label>
           <mat-form-field appearance="outline" class="grey-matform grey-calendar medication-datepicker">
             <input matInput class="pointer date-mat-class" autocomplete="off" [matDatepicker]="picker5"
               (click)="picker5.open()" readonly placeholder="Start Date" [(ngModel)]="patientMedication.StartAt" />

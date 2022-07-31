@@ -2,56 +2,53 @@
   <div class="modal-content modal-cust-content">
     <div class="modal-header model-cust-heading">
       <p class="modal-title modal-cust-title">Request an Appointment</p>
-      <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close" (click)="cancel()">
+      <span type="button" class="cross-mark"   (click)="cancel()">
        x
       </span>
     </div>
     <div class="modal-body model-cust-body">
-      <form>
-
         <div class="row ">
           <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
-            <label for="Date" class="form-label">Date</label>
-            <input type="input" class="form-control inputclass" id="Date" placeholder="{{ hoverDATE }}" (mouseover)="hoverDATE='_/__/_'"  (mouseleave)="hoverDATE='Date'">
+             <mat-label class="col-12 required">Select Date:</mat-label>
+              <mat-form-field appearance="outline" class="col-12">
+                <input matInput class="pointer" autocomplete="off" [matDatepicker]="appointmentDate"
+                  (click)="appointmentDate.open()" readonly placeholder="Request Date" 
+                  [(ngModel)]="requestAppoinments.AppttDate" [ngModelOptions]="{standalone: true}" />
+                <mat-datepicker-toggle matSuffix [for]="appointmentDate">
+                </mat-datepicker-toggle>
+                <mat-datepicker #appointmentDate></mat-datepicker>
+              </mat-form-field>
           </div>
+         
           <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
-            <label for="Date" class="form-label"> Provider</label>
+            <mat-label for="Date" class="form-label required"> Provider</mat-label>
             <div class="form-group">
               <mat-form-field appearance="outline">
-                <mat-select  placeholder="Select Provider">
-                  <mat-option  *ngFor="let item of Providerdata" [value]="item.FullName">{{item.FullName}}</mat-option>
+                <mat-select  placeholder="Select Provider" [(ngModel)]="requestAppoinments.ProviderId">
+                  <mat-option  *ngFor="let item of Providerdata" [value]="item.ProviderId">{{item.FullName}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
-            <!-- <select class="form-select inputclass" id="sel1" name="sellist1">
-              <option class="dropdown-menu"  disabled selected>Select Provider</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-            </select> -->
           </div>
         </div>
 
         <div class="row">
           <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
-            <label for="Time" class="form-label">Time</label>
-            <input type="input" class="form-control inputclass" id="Time" placeholder="Time" placeholder="{{ hoverTime }}" (mouseover)="hoverTime='hh:mm XM'"  (mouseleave)="hoverTime='Time'">
+            <mat-label for="Time" class="form-label required">Time</mat-label>
+            <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-12">
+              <input matInput type="text" hint="12 hours format" appTimeMask
+              [(ngModel)]="requestAppoinments.AppointmentTime">
+            </mat-form-field>
           </div>
           <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
-            <label for="Date" class="form-label">Location </label>
+            <mat-label  class="form-label required">Location </mat-label>
             <div class="form-group">
               <mat-form-field appearance="outline">
-                <mat-select  placeholder="Select Location">
+                <mat-select  placeholder="Select Location" [(ngModel)]="requestAppoinments.LocationId">
                   <mat-option  *ngFor="let item of clinicaldata" [value]="item.LocationId">{{item.LocationName}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
-            <!-- <select class="form-select inputclass" id="sel1" name="sellist1">
-              <option class="dropdown-menu"  disabled selected>Select Location</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-            </select> -->
           </div>
         </div>
 
@@ -59,25 +56,15 @@
         <div class="row">
           <div class="col-lg-12 mt-3">
             <label for="Note" class="form-label">Note</label>
-            <textarea placeholder="Notes" class="form-control inputclass col-12 mt-3 mt-md-0"  id="Note" rows="3" ></textarea>
+            <textarea placeholder="Notes" class="form-control inputtextarea col-12 mt-3 mt-md-0"  id="Note" rows="3" [(ngModel)]="requestAppoinments.Note"></textarea>
 
           </div>
         </div>
-        <div class="row">
-          <div class="col-lg-12 mt-3">
-            <div class="row">
-              <p>*We will make every effort to accommodate exact times requested, but may need to suggest alternate
-                dates/times.</p>
-            </div>
-          </div>
+       
+        <div class="row mt-4" style="float: right;">
+          <button type="button"  class="btn btn-green col-md-4 mx-2" (click)="cancel()">Cancel</button>
+          <button type="button" class="btn btn-green col-md-4"  [disabled]="enableSave()" (click)="RequestAppointment(requestAppoinments)" >Submit</button>
         </div>
-        <div class="row" style="float: right;">
-          <button type="button"  class="btn btn-green col-md-4 mx-2"
-            data-bs-dismiss="modal" (click)="cancel()">Cancel</button>
-          <button type="button" class="btn btn-green col-md-4"  [disabled]="true" >Submit</button>
-        </div>
-      </form>
-
     </div>
   </div>
 </div>

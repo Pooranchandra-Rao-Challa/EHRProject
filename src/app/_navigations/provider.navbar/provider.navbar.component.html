@@ -28,12 +28,6 @@
         </a>
         <span class="messages-count">0</span>
       </li>
-      <li [class]="viewModel.View !== 'Direct Msg' ? 'nav-item': 'active nav-item'">
-        <a href="javascript:void(0)" class="nav-link item-direct-messages"
-          (click)="onChangeBreadCrum('provider/directmsg','Direct Msg')">Direct Msg
-        </a>
-        <span class="messages-count">0</span>
-      </li>
       <li class="eRx-nav-item">
         <a href="javascript:void(0)" class="nav-link item-erx disabled"
           (click)="onChangeBreadCrum('/provider/erx','eRx')">eRx

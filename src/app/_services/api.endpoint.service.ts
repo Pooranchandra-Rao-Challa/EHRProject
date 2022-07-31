@@ -43,7 +43,7 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "VerifyUserCredentials";
   }
   get _creatReportUrl() {
-    return this._baseUrl + "Creatreport";
+    return this._baseUrl + "CreateQueuedReport";
   }
   get _providersUrl() {
     return this._baseUrl + "GetProviders";
@@ -388,6 +388,11 @@ export class APIEndPoint extends EndpointBase {
   get _tobaccoUseInterventionsUrl() {
     return this._baseUrl + "TobaccoUseInterventions";
   }
+
+  get _tobaccoUseByPatientIdUrl() {
+    return this._baseUrl + "TobaccoUseByPatientId";
+  }
+
   get _patientProviderUrl() {
     return this._baseUrl + "PracticeProviders";
   }
@@ -544,12 +549,28 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "CreateImmunizationsRefused";
   }
 
+  get _createTobaccoUseUrl() {
+    return this._baseUrl + "CreateTobaccoUse";
+  }
+
   get _vaccinesUrl() {
     return this._baseUrl + "Vaccines";
   }
 
+  get _searchInterventionCodesUrl() {
+    return this._baseUrl + "SearchInterventionCodes";
+  }
+
   get _allergyNamesUrl() {
     return this._baseUrl + "AllergyNames";
+  }
+
+  get _createInterventionsUrl() {
+    return this._baseUrl + "CreateInterventions";
+  }
+
+  get _interventionsByPatientIdUrl() {
+    return this._baseUrl + "InterventionsByPatientId";
   }
 
   get _changePasswordsUrl() {
@@ -682,10 +703,10 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "LabResult";
   }
 
-  get _procedureStatuesUrl(){
+  get _procedureStatuesUrl() {
     return this._baseUrl + "ProcedureStatues";
   }
-  get _cancelProcedureUrl(){
+  get _cancelProcedureUrl() {
     return this._baseUrl + "CancelProcedure";
   }
 
@@ -701,6 +722,31 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "AllocateNewResource";
   }
 
+ get _createUpdateClinicalDecisionSupportUrl()
+ {
+   return this._baseUrl + "CreateUpdateClinicalDecisionSupport";
+ }
+ get _createTriggerUrl()
+ {
+   return this._baseUrl + "CreateTrigger";
+ }
+ get _deleteTriggerUrl()
+ {
+   return this._baseUrl + "DeleteTrigger";
+ }
+ get _requestPatientAppointmentUrl()
+ {
+   return this._baseUrl + "RequestPatientAppointment";
+ }
+ get _appointmentsTypesByPatientIdUrl()
+ {
+  return this._baseUrl + "AppointmentsTypesByPatientId";
+ }
+
+ get _cancelPatientAppoinmentUrl()
+ {
+   return this._baseUrl + "CancelPatientAppoinment";
+ }
   constructor(public http: HttpClient) {
     super();
   }

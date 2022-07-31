@@ -115,5 +115,42 @@ export class EducationMaterialCode implements IDeleteFlag {
   ResourceNotes?:string;
   CanDelete?: boolean = false;
 }
+ export class EhrAlert 
+ {
+  AlertId?:String
+  AlertName?:String
+  Bibliography?:String
+  Description?:String
+  Developer?:String
+  FundingSource?: string
+  ProviderId?: String
+  ReleaseAt?:Date
+  Resolution?:string
+  Rule?:String 
+  CanDelete?: boolean = false;
+  Triggers?:EhrTrigger[]
+  triggersInfo?:string;
+  strReleaseAt?:string;
+ }
+ export class EhrTrigger implements IDeleteFlag
+ {
+   TriggerId?:String
+   Category?:String
+   Code?:String
+   Description?:String
+   System?:String 
+   AlertId?:String
+   CanDelete?: boolean = false;
+ }
+ export class TriggerInformation {
+  Addtrigger?:EhrTrigger [] = [];
+ 
+}
 
-
+// export class Trig implements IDeleteFlag{
+//   category?:String
+//   code?:String
+//   TriggerDes?:String;
+//   system?:string;
+//   CanDelete?: boolean = false;
+// }

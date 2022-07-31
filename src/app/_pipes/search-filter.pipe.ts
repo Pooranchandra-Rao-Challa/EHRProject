@@ -5,7 +5,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class SearchPipe implements PipeTransform {
   transform(value: any, keys: any, term: string): string {
-    //debugger;
     if (!term) {
       return value;
     }
@@ -29,9 +28,9 @@ export class ActivePipe implements PipeTransform {
     //debugger;
     if (value) {
       return "Active";
-    }else if(value ==null){
+    } else if (value == null) {
       return ""
-    }else{
+    } else {
       return "InActive"
     }
 
@@ -46,11 +45,11 @@ export class FilterPipe implements PipeTransform {
   transform(items: any[], searchText: string): any[] {
     if (!items) return [];
     if (!searchText) return items;
-  
+
     return items.filter(item => {
       return Object.keys(item).some(key => {
         return String(item[key]).toLowerCase().includes(searchText.toLowerCase());
       });
     });
-   }
+  }
 }
