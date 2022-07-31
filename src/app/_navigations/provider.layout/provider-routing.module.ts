@@ -27,7 +27,7 @@ const routes: Routes = [
       { path: 'billing', component: BillingComponent },
       { path: 'messages', component: MessagesComponent },
       { path: 'labsimaging', component: LabsImagingComponent },
-      { path: "categoryreports", component: CategoryreportsComponent }
+      { path: 'categoryreports', component: CategoryreportsComponent }
     ]
   }
 ]

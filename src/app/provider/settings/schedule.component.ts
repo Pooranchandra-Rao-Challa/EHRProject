@@ -115,12 +115,12 @@ export class ScheduleComponent implements OnInit {
   status(): FormArray {
     return this.statusForm.get("status") as FormArray
   }
-  newStatus(): FormGroup {
+  newStatus(appointmentStatus: AppointmentStatus = {}): FormGroup {
     return this.fb.group({
-      Id: [''],
-      Name: [''],
-      Colour: [''],
-      Editable: ['true']
+      Id: [appointmentStatus.Id],
+      Name: [appointmentStatus.Name],
+      Colour: [appointmentStatus.Colour],
+      Editable: [appointmentStatus.Editable]
     })
   }
   addStatus() {
@@ -164,12 +164,12 @@ export class ScheduleComponent implements OnInit {
   type(): FormArray {
     return this.typeForm.get("type") as FormArray
   }
-  newType(): FormGroup {
+  newType(appointmentType: AppointmentType ={}): FormGroup {
     return this.fb.group({
-      Id: [''],
-      AppointmentType: [''],
-      Colour: [''],
-      Editable: ['true'],
+      Id: [appointmentType.Id],
+      AppointmentType: [appointmentType.AppointmentType],
+      Colour: [appointmentType.Colour],
+      Editable: [appointmentType.Editable],
       AppointmenttypeStatus: [false]
     })
   }
@@ -240,16 +240,11 @@ export class ScheduleComponent implements OnInit {
         this.appointmentStatusData = resp.ListResult;
         this.clearStatus();
         this.appointmentStatusData.forEach((appointmentStatus) => {
-          let appointmentstatus = this.newStatus();
-          appointmentstatus.controls["Id"].setValue(appointmentStatus.Id);
-          appointmentstatus.controls["Name"].setValue(appointmentStatus.Name);
-          appointmentstatus.controls["Colour"].setValue(appointmentStatus.Colour);
-          appointmentstatus.controls["Editable"].setValue(appointmentStatus.Editable);
-          this.pushStatus(appointmentstatus);
+          this.pushStatus(this.newStatus(appointmentStatus));
         })
       }
       else if (resp.IsSuccess == false) {
-        this.appointmentStatusData = resp.ListResult;
+
         this.clearStatus();
       }
     });
@@ -266,16 +261,10 @@ export class ScheduleComponent implements OnInit {
         this.appointmentTypeData = resp.ListResult;
         this.clearType();
         this.appointmentTypeData.forEach((appointmentType) => {
-          let appointmenttype = this.newType();
-          appointmenttype.controls["Id"].setValue(appointmentType.Id);
-          appointmenttype.controls["AppointmentType"].setValue(appointmentType.AppointmentType);
-          appointmenttype.controls["Colour"].setValue(appointmentType.Colour);
-          appointmenttype.controls["Editable"].setValue(appointmentType.Editable);
-          this.pushType(appointmenttype);
+          this.pushType(this.newType(appointmentType));
         })
       }
       else if (resp.IsSuccess == false) {
-        this.appointmentTypeData = resp.ListResult;
         this.clearType();
       }
     })

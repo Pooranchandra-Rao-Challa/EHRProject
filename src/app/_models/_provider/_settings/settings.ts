@@ -63,20 +63,20 @@ export interface RoomsSlot {
   Status?: boolean
 }
 
-export interface AppointmentStatus {
-  Id?: string,
-  Name?: string,
-  Colour?: string,
-  Editable?: boolean,
-  Appointmentstatus?: boolean
+export class AppointmentStatus {
+  Id?: string;
+  Name?: string;
+  Colour?: string;
+  Editable?: boolean = true;
+  //Appointmentstatus: boolean = true;
 }
 
-export interface AppointmentType {
-  Id?: string,
-  AppointmentType?: string,
-  Colour?: string,
-  Editable?: boolean,
-  AppointmenttypeStatus?: boolean
+export class AppointmentType {
+  Id?: string;
+  AppointmentType?: string;
+  Colour?: string;
+  Editable?: boolean = true;
+  //AppointmenttypeStatus?: boolean
 }
 
 export interface GeneralSchedule {
@@ -104,7 +104,7 @@ export class ChangePassword{
 
 export class PatientEducationInfomation {
   EducationMat?: EducationMaterialCode[] = [];
- 
+
 }
 export class EducationMaterialCode implements IDeleteFlag {
   EducationalId?:string

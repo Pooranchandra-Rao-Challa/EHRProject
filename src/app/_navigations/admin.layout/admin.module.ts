@@ -19,18 +19,12 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { SharedModule } from '../../_common/shared';
-//import { PatientNavbarComponent } from "../patient.navbar/patient.navbar.component";
 import { AdminNavbarComponent } from "../admin.navbar/admin.navbar.component";
 import { AdminRoutingModule } from "./admin-routing.module";
 import { AdminSidebarComponent } from "../admin.sidebar/admin.sidebar.component";
 import { AdminComponent } from './admin.component';
-import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
-// import { DateTimePickerModule } from "@syncfusion/ej2-angular-calendars";
-// import { ScheduleModule, DayService, WeekService } from '@syncfusion/ej2-angular-schedule';
-
 import { DashboardComponent } from 'src/app/admin/dashboard/dashboard.component';
 import { AdminPracticeComponent } from 'src/app/admin/admin-practice/admin-practice.component';
-
 import { AdminService } from '../../_services/admin.service';
 import { ActivePipe } from 'src/app/_pipes/search-filter.pipe';
 import { ProviderlistComponent } from '../../admin/providerlist/providerlist.component';
@@ -111,7 +105,6 @@ import { UtilityService } from 'src/app/_services/utiltiy.service';
     Ng2OrderModule,
     MatAutocompleteModule,
     // ScheduleModule,
-    DropDownListModule,
     // DateTimePickerModule,
     CKEditorModule,
     // Ng2SearchPipeModule

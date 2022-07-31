@@ -689,6 +689,18 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "CancelProcedure";
   }
 
+  get _calendarAppointmentsUrl(){
+    return this._baseUrl + "CalendarAppointments";
+  }
+
+  get _reschuduleAppoinmentUrl(){
+    return this._baseUrl + "ReschuduleAppoinment";
+  }
+
+  get _allocateNewResourceUrl(){
+    return this._baseUrl + "AllocateNewResource";
+  }
+
   constructor(public http: HttpClient) {
     super();
   }

@@ -30,6 +30,9 @@ export class AlertMessage {
       cancelButton: 'swal2-error' }
     });
   }
+
+
+
   displaysubmitted(message) {
     Swal.fire({
       title: message,
@@ -378,8 +381,18 @@ export const ERROR_CODES: { [key: string]: string } = {
   'M2JPE001':'Education Material added successfully',
   'M2JPE002':'Education Material updated successfully',
   //Education Material Error
-  'E2JPE001' :'Education Material updation Erroe '
+  'E2JPE001' :'Education Material updation Error',
 
+  //Calendar Events Messages
+  'M2B001': 'Rescheduled the appointment sucessfully',
+  'M2B002': 'Appointment is allocated to new resource successfully',
+
+
+  //Calendar Errors
+  'E2B001':'The time is elapsed to reschedule an appointment.',
+  'E2B002':'An appointment is existing for the same time and resource',
+  'E2B003':'Appointment is not rescheduled',
+  'E2B004':'Appointment is not allocated',
 };
 
 

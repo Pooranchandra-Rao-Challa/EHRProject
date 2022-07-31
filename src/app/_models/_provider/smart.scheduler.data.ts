@@ -105,8 +105,32 @@ export class AppointmentDialogInfo{
   Rooms?: Room[];
   AppointmentsOfPatient?: NewAppointment[];
   status?: Actions;
+  NavigationFrom?: string = "Smart Schedule";
 }
 
 export enum Actions {
   new,add, view, edit, upcomming,delete,create
+}
+
+export class CalendarAppointment{
+  AppointmentId?: string;
+  StartAt?: Date;
+  EndAt?: Date;
+  AppColor?: string
+  PatientId?: string
+  PatientName?: string
+  ProviderId?: string
+  LocationId?: string
+  ProviderName?: string
+  AppStatusId?: string
+  AppTypeId?: string
+  StatusColor?: string
+  status?: string
+  TypeColor?: string
+  ApptType?: string
+  RoomId?: string
+  RoomName?: string
+  Duration?: number
+  strStartAt?: string;
+  Notes?: string;
 }
