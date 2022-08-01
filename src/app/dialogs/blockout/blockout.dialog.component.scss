@@ -1,0 +1,76 @@
+@import "../../../assets/cstm.material.scss";
+@import"../../../assets/common.scss";
+
+#blockout-dialog.modal-dialog {
+  max-width: 660px;
+}
+
+::ng-deep #blockout-dialog {
+  .modal-body {
+    max-height: calc(90vh - 180px);
+    overflow-y: auto;
+  }
+
+  .modal-content {
+    margin: auto;
+  }
+
+  .modal-header {
+    margin-right: -1px;
+  }
+
+  .block-start-at.mat-form-field-appearance-outline .mat-form-field-prefix,
+  .block-start-at.mat-form-field-appearance-outline .mat-form-field-suffix {
+    top: .24em
+  }
+
+  .btn.btn-cancel {
+    color: #41b6a6;
+    border-color: #41b6a6;
+    background: #fff;
+    // font-family: inherit;
+  }
+
+  .btn.btn-cancel:hover {
+    color: #fff;
+    border-color: #41b6a6;
+    background: #41b6a6;
+  }
+
+  .btn.btn-spacer:not(:last-child):not(:first-child) {
+    margin: 0 30px;
+  }
+
+  .controls {
+    width: 100%;
+  }
+
+  .recurring-block {
+    background-color: rgba(65, 182, 166, 0.1);
+    border: 1px solid #41b6a6;
+    margin: 0 0px;
+    border-radius: 4px;
+  }
+  .mat-checkbox .mat-checkbox-layout{
+    padding-top:3px;
+    .mat-checkbox-label{
+      margin-left: 5px;
+      margin-top: 5px;
+    }
+  }
+  .label-for-radio, .label-for-radio1, .radiobutton-custom{
+    padding:10px;
+  }
+  .recurring-radio-buttons{
+    display: inherit;
+    height: 60px;
+  }
+  .recurring-checkboxes{
+    .mat-checkbox{
+      padding-right:15px;
+    }
+  }
+  .recurring-radio-buttons .label-for-radio{
+    margin-top:14px;
+  }
+}

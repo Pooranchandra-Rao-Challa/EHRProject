@@ -11,6 +11,10 @@ export class SmartSchedulerService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._practiceProvidersUrl, reqdata);
   }
 
+  PracticeStaff(reqdata: any) {
+    return this._ProcessPostRequest<any>(this._providerStaffUrl, reqdata);
+  }
+
   SearchPatients(reqdata: any) {
     // console.log(reqdata);
     return this._ProcessPostRequest<any>(this._searchPatientsUrl, reqdata);

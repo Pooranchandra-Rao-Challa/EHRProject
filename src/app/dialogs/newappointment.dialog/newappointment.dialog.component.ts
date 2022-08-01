@@ -1,3 +1,4 @@
+import { BehaviorSubject } from 'rxjs';
 import { Component, ElementRef, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import {
   AppointmentTypes, AvailableTimeSlot, Actions,
@@ -51,6 +52,8 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
   filteredPatients: Observable<PatientSearchResults[]>;
   isLoading: boolean = false;
   data: AppointmentDialogInfo = {};
+  showMessage: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  showHideMessage$ = this.showMessage.asObservable();
 
   constructor(
     private ref: EHROverlayRef,
@@ -68,7 +71,7 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
     this.PracticeProviders = this.data.PracticeProviders;
     this.Locations = this.data.Locations;
     this.Rooms = this.data.Rooms;
-    if (this.Rooms && this.Rooms.length > 0
+    if (this.Rooms && this.Rooms.length == 1
       && this.PatientAppointment.RoomId == null)
       this.PatientAppointment.RoomId = this.Rooms[0].RoomId;
 
@@ -142,9 +145,9 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
     return value.Name;
   }
 
-  onPatientSelected(selected: PatientSearchResults) {
-    // this.PatientAppointment.PatientName = selected.Name
-    // this.PatientAppointment.PatientId = selected.PatientId;
+  onPatientSelected(selected) {
+    this.PatientAppointment.PatientName = selected.option.value.Name
+    this.PatientAppointment.PatientId = selected.option.value.PatientId;
   }
 
   LoadAvailableTimeSlots() {
@@ -157,20 +160,21 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
       "RequestDate": this.PatientAppointment.Startat,
       "AppointmentId": this.PatientAppointment.AppointmentId
     };
-    console.log(ats);
 
-    this.PatientAppointment.TimeSlot = null;
     this.smartSchedulerService.AvailableTimeSlots(ats).subscribe(resp => {
       if (resp.IsSuccess) {
         this.AvaliableTimeSlots = resp.ListResult as AvailableTimeSlot[];
         this.AvaliableTimeSlots.forEach(obj => {
-          if (obj.Selected)
+          if (obj.Selected || (
+            (this.data.TimeSlot != null && obj.TimeSlot == this.data.TimeSlot.TimeSlot)
+          ))
             this.PatientAppointment.TimeSlot = obj;
         });
-
-        this.messageToShowTimeSlots = null;
+        this.showMessage.next(false);
+        this.messageToShowTimeSlots == null;
       }
       else {
+        this.showMessage.next(true);
         this.messageToShowTimeSlots = "There are no available time slots that match your request. Please try selecting a different date, time, or duration."
       }
     });
@@ -266,6 +270,7 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
       && this.PatientAppointment.TimeSlot != null
       && this.PatientAppointment.AppointmentTypeId != null
       && this.PatientAppointment.RoomId != null
+      && this.PatientAppointment.PatientId != null
       && this.PatientAppointment.Startat != null) || this.SaveInputDisable
   }
 

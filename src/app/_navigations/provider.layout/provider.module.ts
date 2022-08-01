@@ -101,7 +101,7 @@ import { MedicationDialogComponent } from '../../dialogs/medication.dialog/medic
 import { AllergyDialogComponent } from '../../dialogs/allergy.dialog/allergy.dialog.component';
 import { RxNormAPIService } from 'src/app/_services/rxnorm.api.service'
 import { TobaccoUseDialogComponent } from '../../dialogs/tobacco.use.dialog/tobacco.use.dialog.component';
-//import { TimeMaskDirective } from 'src/app/_directives/input.time.mask.directive'
+import { BlockoutDialogComponent } from 'src/app/dialogs/blockout/blockout.dialog.component'
 import { LabOrderTestFormatPipe } from 'src/app/_pipes/lab.order.test.pipe'
 registerLocaleData(localeIt);
 
@@ -135,6 +135,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     LabOrderTestFormatPipe,
     PatientScheduleComponent,
     TobaccoUseDialogComponent,
+    BlockoutDialogComponent,
     LabOrderTestFormatPipe
   ],
   declarations: [
@@ -162,7 +163,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     Condition,
     ConditionpadderPipe,
     ConditionformaterPipe,
-    //PatientsComponent,
+    BlockoutDialogComponent,
     //PatientDetailsComponent,
     PatientDialogComponent,
     AdvancedDirectivesDialogComponent,
@@ -261,6 +262,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     OrderDialogComponent,
     LabResultComponent,
     ImagingResultDialogComponent,
+    BlockoutDialogComponent,
     TestCodeComponent]
 })
 export class ProviderModule {

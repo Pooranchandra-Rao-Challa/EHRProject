@@ -111,8 +111,7 @@
         <div class="available-slots">
           <div class="row">
             <p>Available Time Slots (Select Only One):</p>
-            <span id="spantimeSlots"
-              (show)="messageToShowTimeSlots != null && messageToShowTimeSlots != ''">{{messageToShowTimeSlots}}</span>
+            <span id="spantimeSlots" *ngIf="showHideMessage$ | async">{{messageToShowTimeSlots}}</span>
             <div class="col-lg-4 col-md-3 col-12 pb-3" *ngFor="let slot of AvaliableTimeSlots">
               <button class="btn col-12 timeslots" [class.timeslot-selected]="slot === this.PatientAppointment.TimeSlot"
                 type="button" (click)="onTimeSlotSelect(slot)">
