@@ -527,19 +527,11 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     this.InitCalendarOptions();
     //this.initPatient();
     this.LoadAppointmentDefalts();
-    this.updateProviderAndStaff.subscribe((value)=>{
-      value.forEach(val => { this.providerAndStaff.push(val)})
+    this.updateProviderAndStaff.subscribe((value) => {
+      value.forEach(val => { this.providerAndStaff.push(val) })
     })
   }
 
-  // initPatient() {
-  //   this.PatientAppointment = {};
-  //   this.SelectedLocationId = this.authService.userValue.CurrentLocation;
-  //   this.PatientAppointment.ProviderId = this.authService.userValue.ProviderId;
-  //   this.PatientAppointment.LocationId = this.SelectedLocationId;
-  //   this.PatientAppointment.Duration = 30;
-  //   //this.selectedAppointmentDate = new Date(new Date().toLocaleDateString());
-  // }
 
   PatientAppointmentInfo(appointment: CalendarAppointment, action: Actions) {
     let data = {} as AppointmentDialogInfo;
@@ -552,7 +544,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     this.PatientAppointment.Duration = 30;
     let endAt = new Date(appointment.StartAt);
     endAt.setMinutes(endAt.getMinutes() + 30);
-    let timeslot = this.datepipe.transform(appointment.StartAt,"HH:mm a")+' - '+this.datepipe.transform(endAt,"HH:mm a")
+    let timeslot = this.datepipe.transform(appointment.StartAt, "HH:mm a") + ' - ' + this.datepipe.transform(endAt, "HH:mm a")
     let TimeSlot: AvailableTimeSlot = {};
     TimeSlot.EndDateTime = endAt;
     TimeSlot.StartDateTime = appointment.StartAt;
@@ -581,8 +573,10 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   SelectAppointment(event: EventApi): AppointmentDialogInfo {
     let appointment: CalendarAppointment = null;
+
     this.calendarAppointments.forEach(app => {
       if (app.AppointmentId == event.id) {
+
         appointment = app;
       }
     })
@@ -590,6 +584,8 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       appointment = {};
       appointment.StartAt = event.start;
     }
+
+
     return this.PatientAppointmentInfo(appointment, Actions.view);
   }
 
@@ -616,7 +612,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     let event: EventApi = arg.event;
     let eventDate = new Date(this.datepipe.transform(event.start, "MM/dd/yyyy"));
     let today = new Date(this.datepipe.transform(new Date(), "MM/dd/yyyy"));
-    let dialog: AppointmentDialogInfo = this.SelectAppointment(arg);
+    let dialog: AppointmentDialogInfo = this.SelectAppointment(arg.event);
     if (eventDate >= today)
       this.openComponentDialog(this.appointmentDialogComponent,
         dialog, Actions.view);

@@ -14,12 +14,12 @@
       <form>
         <div class="row">
           <mat-label>Patient :</mat-label>
-          <mat-form-field appearance="outline" class="col-12 hover" *ngIf="data.NavigationFrom == 'Smart Schedule'">
+          <mat-form-field appearance="outline" class="col-12 hover" [hidden]="data.PatientAppointment.PatientId == null">
             <input matInput placeholder="Patient Name" [(ngModel)]="PatientAppointment.PatientName"
               [ngModelOptions]="{standalone:true}" disabled class="notallowCursor">
           </mat-form-field>
 
-          <mat-form-field appearance="outline" class="col-12 hover" [hidden]="data.NavigationFrom != 'Calendar'" >
+          <mat-form-field appearance="outline" class="col-12 hover" [hidden]="data.PatientAppointment.PatientId != null" >
             <input matInput #searchPatient placeholder="Patient Name"
               [matAutocomplete]="patients">
               <mat-autocomplete [displayWith]="displayWith" #patients="matAutocomplete"
