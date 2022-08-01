@@ -108,6 +108,9 @@ import { TobaccoUseDialogComponent } from '../../dialogs/tobacco.use.dialog/toba
 //import { TimeMaskDirective } from 'src/app/_directives/input.time.mask.directive'
 import { LabOrderTestFormatPipe } from 'src/app/_pipes/lab.order.test.pipe'
 registerLocaleData(localeIt);
+import { InterventionTableDialogComponent } from '../../dialogs/intervention.table.dialog/intervention.table.dialog.component';
+import { AllergyTableDialogComponent } from '../../dialogs/allergy.table.dialog/allergy.table.dialog.component';
+
 @NgModule({
   exports: [
     MatInputModule,
@@ -125,7 +128,9 @@ registerLocaleData(localeIt);
     MedicationDialogComponent,
     AllergyDialogComponent,
     TobaccoUseDialogComponent,
-    LabOrderTestFormatPipe
+    LabOrderTestFormatPipe,
+    InterventionTableDialogComponent,
+    AllergyTableDialogComponent
   ],
   declarations: [
     ProviderNavbarComponent,
@@ -185,6 +190,8 @@ registerLocaleData(localeIt);
     ImagingResultDialogComponent,
     TestCodeComponent,
     LabOrderTestFormatPipe,
+    InterventionTableDialogComponent,
+    AllergyTableDialogComponent
   ],
   imports: [
 
@@ -251,7 +258,9 @@ registerLocaleData(localeIt);
     OrderDialogComponent,
     LabResultComponent,
     ImagingResultDialogComponent,
-    TestCodeComponent]
+    TestCodeComponent,
+    InterventionTableDialogComponent,
+    AllergyTableDialogComponent]
 })
 export class ProviderModule {
 
