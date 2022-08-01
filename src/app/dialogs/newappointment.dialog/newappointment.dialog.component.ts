@@ -64,7 +64,6 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
     this.PatientAppointment = {} as NewAppointment;
 
     this.PatientAppointment = this.data.PatientAppointment;
-    console.log(this.PatientAppointment);
 
     this.appointmentTitle = this.data.Title;
     this.AppointmentTypes = this.data.AppointmentTypes;
@@ -151,7 +150,6 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
   }
 
   LoadAvailableTimeSlots() {
-    console.log(this.PatientAppointment.Startat);
 
     let ats = {
       "LocationId": this.PatientAppointment.LocationId,
@@ -277,8 +275,7 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
   onAppointmentSave() {
 
     this.PatientAppointment.AppointmentTime = this.PatientAppointment.TimeSlot.StartDateTime;
-    console.log(this.PatientAppointment.AppointmentTime);
-    console.log(this.PatientAppointment);
+
 
     let isAdd = this.PatientAppointment.AppointmentId == null;
     this.SaveInputDisable = true;

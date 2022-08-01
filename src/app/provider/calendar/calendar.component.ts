@@ -594,8 +594,6 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   }
 
   handleDateClick(arg) {
-    console.log(arg);
-
     let event = arg;
     let eventDate = new Date(this.datepipe.transform(event.date, "MM/dd/yyyy"));
     let today = new Date(this.datepipe.transform(new Date(), "MM/dd/yyyy"))
@@ -609,15 +607,12 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
 
     let dialog: AppointmentDialogInfo = this.PatientAppointmentInfo(appointment, Actions.new);
-    console.log(dialog);
-
     if (eventDate >= today)
       this.openComponentDialog(this.appointmentDialogComponent,
         dialog, Actions.view);
   }
 
   handleEventClick(arg) {
-    console.log(arg);
     let event: EventApi = arg.event;
     let eventDate = new Date(this.datepipe.transform(event.start, "MM/dd/yyyy"));
     let today = new Date(this.datepipe.transform(new Date(), "MM/dd/yyyy"));
