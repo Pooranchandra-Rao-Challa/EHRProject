@@ -1,17 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { SettingsService } from '../../_services/settings.service';
-import { UtilityService } from '../../_services/utiltiy.service';
 import { EducationMaterialCode, EhrAlert, EhrTrigger, PatientEducationInfomation, TriggerInformation, User, UserLocations } from '../../_models';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject, Subscription } from 'rxjs';
-// import { LocationSelectService } from '../../_navigations/provider.layout/location.service';
-import Swal from 'sweetalert2';
-import { isTemplateHead } from 'typescript';
+
 import { MedicalCode } from 'src/app/_models/codes';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { DatePipe } from '@angular/common';
-declare var $: any;
 
 @Component({
   selector: 'clinicdecision-settings',
@@ -21,32 +17,30 @@ declare var $: any;
 export class ClinicDecisionComponent implements OnInit {
   clinicalDecisionSupportList: EhrAlert[] = [];
   newAlert?: EhrAlert = {};
-  ehrTriggerList: TriggerInformation = new TriggerInformation();
+  ehrTriggerList: TriggerInformation = {};
   triggerSearchList = new BehaviorSubject<EhrTrigger[]>([]);
   ehrTrigger: EhrTrigger = new EhrTrigger();
-
-  codeSystemsForClinicalDecision: string[] = ['SNOMED'];
-
-
+  codeSystemsForClinicalDecision: string[] = ['SNOMED/ICD10'];
   clinicalDecisionSearchColumns = ["CODE", "CODE SYSTEM", "DESCRIPTION", "Delete"];
 
   user: User;
   multi: boolean = false;
   disabled: boolean = false;
-  checkedName: boolean;
-  uncheckedName: boolean;
-  checkedDescription: boolean;
-  uncheckedDescription: boolean;
-  checkedResolution: boolean;
-  unCheckedResolution: boolean
-  checkedbiBliography: boolean;
-  unCheckedBibliography: boolean;
-  checkedDeveloper: boolean;
-  unCheckedDeveloper: boolean;
-  checkedfundingSource: boolean;
-  unCheckedfundingSource: boolean;
-  checkedReleaseDate: boolean;
-  unCheckedReleaseDate: boolean;
+  // checkedName: boolean;
+  // uncheckedName: boolean;
+  // checkedDescription: boolean;
+  // uncheckedDescription: boolean;
+  // checkedResolution: boolean;
+  // unCheckedResolution: boolean
+  // checkedbiBliography: boolean;
+  // unCheckedBibliography: boolean;
+  // checkedDeveloper: boolean;
+  // unCheckedDeveloper: boolean;
+  // checkedfundingSource: boolean;
+  // unCheckedfundingSource: boolean;
+  // checkedReleaseDate: boolean;
+  // unCheckedReleaseDate: boolean;
+
   AddNewAlert: boolean = true;
   show: boolean = true;
   showon: boolean = true;
@@ -61,7 +55,8 @@ export class ClinicDecisionComponent implements OnInit {
     { value: 'Two or More', viewValue: 'Two or More' },
     { value: 'All', viewValue: 'All' },
   ];
-  constructor(private fb: FormBuilder, private authService: AuthenticationService, private settingservice: SettingsService, private alertmsg: AlertMessage,
+  constructor(private fb: FormBuilder, private authService: AuthenticationService,
+    private settingservice: SettingsService, private alertmsg: AlertMessage,
     private datePipe: DatePipe) {
     this.user = authService.userValue;
   }
@@ -71,161 +66,161 @@ export class ClinicDecisionComponent implements OnInit {
   }
 
 
-  nameCheck() {
-    let alertName = this.decisionSuppotForm.value.alertName;
-    if (alertName == "") {
-      this.checkedName = false;
-      this.uncheckedName = true;
-    }
-    else {
-      this.checkedName = true;
-      this.uncheckedName = false;
-    }
-  }
-  nameUnCheck() {
-    let alertName = this.decisionSuppotForm.value.alertName;
-    if (alertName == "") {
-      this.checkedName = false;
-      this.uncheckedName = false;
-    }
-    else {
-      this.checkedName = true;
-      this.uncheckedName = false;
-    }
-  }
+  // nameCheck() {
+  //   let alertName = this.decisionSuppotForm.value.alertName;
+  //   if (alertName == "") {
+  //     this.checkedName = false;
+  //     this.uncheckedName = true;
+  //   }
+  //   else {
+  //     this.checkedName = true;
+  //     this.uncheckedName = false;
+  //   }
+  // }
+  // nameUnCheck() {
+  //   let alertName = this.decisionSuppotForm.value.alertName;
+  //   if (alertName == "") {
+  //     this.checkedName = false;
+  //     this.uncheckedName = false;
+  //   }
+  //   else {
+  //     this.checkedName = true;
+  //     this.uncheckedName = false;
+  //   }
+  // }
 
-  descriptionCheck() {
-    let description = this.decisionSuppotForm.value.description;
-    if (description == "") {
-      this.checkedDescription = false;
-      this.uncheckedDescription = true;
-    }
-    else {
-      this.checkedDescription = true;
-      this.uncheckedDescription = false;
-    }
-  }
-  descriptionUnCheck() {
-    let description = this.decisionSuppotForm.value.description;
-    if (description == "") {
-      this.checkedDescription = false;
-      this.uncheckedDescription = false;
-    }
-    else {
-      this.checkedDescription = true;
-      this.uncheckedDescription = false;
-    }
-  }
-  resolutionCheck() {
-    let resolution = this.decisionSuppotForm.value.resolution;
-    if (resolution == "") {
-      this.checkedResolution = false;
-      this.unCheckedResolution = true;
-    }
-    else {
-      this.checkedResolution = true;
-      this.unCheckedResolution = false;
-    }
-  }
-  resolutionUnCheck() {
-    let resolution = this.decisionSuppotForm.value.resolution;
-    if (resolution == "") {
-      this.checkedResolution = false;
-      this.unCheckedResolution = false;
-    }
-    else {
-      this.checkedResolution = true;
-      this.unCheckedResolution = false;
-    }
-  }
-  bibliographyCheck() {
-    let bibliography = this.decisionSuppotForm.value.bibliography;
-    if (bibliography == "") {
-      this.checkedbiBliography = false;
-      this.unCheckedBibliography = true;
-    }
-    else {
-      this.checkedbiBliography = true;
-      this.unCheckedBibliography = false;
-    }
-  }
-  bibliographyUnCheck() {
-    let bibliography = this.decisionSuppotForm.value.bibliography;
-    if (bibliography == "") {
-      this.checkedbiBliography = false;
-      this.unCheckedBibliography = false;
-    }
-    else {
-      this.checkedbiBliography = true;
-      this.unCheckedBibliography = false;
-    }
-  }
-  developerCheck() {
-    let developer = this.decisionSuppotForm.value.developer;
-    if (developer == "") {
-      this.checkedDeveloper = false;
-      this.unCheckedDeveloper = true;
-    }
-    else {
-      this.checkedDeveloper = true;
-      this.unCheckedDeveloper = false;
-    }
-  }
-  developerUnCheck() {
-    let developer = this.decisionSuppotForm.value.developer;
-    if (developer == "") {
-      this.checkedDeveloper = false;
-      this.unCheckedDeveloper = false;
-    }
-    else {
-      this.checkedDeveloper = true;
-      this.unCheckedDeveloper = false;
-    }
-  }
-  fundingSourceCheck() {
-    let fundingSource = this.decisionSuppotForm.value.fundingSource;
-    if (fundingSource == "") {
-      this.checkedfundingSource = false;
-      this.unCheckedfundingSource = true;
-    }
-    else {
-      this.checkedfundingSource = true;
-      this.unCheckedfundingSource = false;
-    }
-  }
-  fundingSourceUnCheck() {
-    let fundingSource = this.decisionSuppotForm.value.fundingSource;
-    if (fundingSource == "") {
-      this.checkedfundingSource = false;
-      this.unCheckedfundingSource = false;
-    }
-    else {
-      this.checkedfundingSource = true;
-      this.unCheckedfundingSource = false;
-    }
-  }
-  releaseDateCheck() {
-    let releaseDate = this.decisionSuppotForm.value.releaseDate;
-    if (releaseDate == "") {
-      this.checkedReleaseDate = false;
-      this.unCheckedReleaseDate = true;
-    }
-    else {
-      this.checkedReleaseDate = true;
-      this.unCheckedReleaseDate = false;
-    }
-  }
-  releaseDateUnCheck() {
-    let releaseDate = this.decisionSuppotForm.value.releaseDate;
-    if (releaseDate == "") {
-      this.checkedReleaseDate = false;
-      this.unCheckedReleaseDate = false;
-    }
-    else {
-      this.checkedReleaseDate = true;
-      this.unCheckedReleaseDate = false;
-    }
-  }
+  // descriptionCheck() {
+  //   let description = this.decisionSuppotForm.value.description;
+  //   if (description == "") {
+  //     this.checkedDescription = false;
+  //     this.uncheckedDescription = true;
+  //   }
+  //   else {
+  //     this.checkedDescription = true;
+  //     this.uncheckedDescription = false;
+  //   }
+  // }
+  // descriptionUnCheck() {
+  //   let description = this.decisionSuppotForm.value.description;
+  //   if (description == "") {
+  //     this.checkedDescription = false;
+  //     this.uncheckedDescription = false;
+  //   }
+  //   else {
+  //     this.checkedDescription = true;
+  //     this.uncheckedDescription = false;
+  //   }
+  // }
+  // resolutionCheck() {
+  //   let resolution = this.decisionSuppotForm.value.resolution;
+  //   if (resolution == "") {
+  //     this.checkedResolution = false;
+  //     this.unCheckedResolution = true;
+  //   }
+  //   else {
+  //     this.checkedResolution = true;
+  //     this.unCheckedResolution = false;
+  //   }
+  // }
+  // resolutionUnCheck() {
+  //   let resolution = this.decisionSuppotForm.value.resolution;
+  //   if (resolution == "") {
+  //     this.checkedResolution = false;
+  //     this.unCheckedResolution = false;
+  //   }
+  //   else {
+  //     this.checkedResolution = true;
+  //     this.unCheckedResolution = false;
+  //   }
+  // }
+  // bibliographyCheck() {
+  //   let bibliography = this.decisionSuppotForm.value.bibliography;
+  //   if (bibliography == "") {
+  //     this.checkedbiBliography = false;
+  //     this.unCheckedBibliography = true;
+  //   }
+  //   else {
+  //     this.checkedbiBliography = true;
+  //     this.unCheckedBibliography = false;
+  //   }
+  // }
+  // bibliographyUnCheck() {
+  //   let bibliography = this.decisionSuppotForm.value.bibliography;
+  //   if (bibliography == "") {
+  //     this.checkedbiBliography = false;
+  //     this.unCheckedBibliography = false;
+  //   }
+  //   else {
+  //     this.checkedbiBliography = true;
+  //     this.unCheckedBibliography = false;
+  //   }
+  // }
+  // developerCheck() {
+  //   let developer = this.decisionSuppotForm.value.developer;
+  //   if (developer == "") {
+  //     this.checkedDeveloper = false;
+  //     this.unCheckedDeveloper = true;
+  //   }
+  //   else {
+  //     this.checkedDeveloper = true;
+  //     this.unCheckedDeveloper = false;
+  //   }
+  // }
+  // developerUnCheck() {
+  //   let developer = this.decisionSuppotForm.value.developer;
+  //   if (developer == "") {
+  //     this.checkedDeveloper = false;
+  //     this.unCheckedDeveloper = false;
+  //   }
+  //   else {
+  //     this.checkedDeveloper = true;
+  //     this.unCheckedDeveloper = false;
+  //   }
+  // }
+  // fundingSourceCheck() {
+  //   let fundingSource = this.decisionSuppotForm.value.fundingSource;
+  //   if (fundingSource == "") {
+  //     this.checkedfundingSource = false;
+  //     this.unCheckedfundingSource = true;
+  //   }
+  //   else {
+  //     this.checkedfundingSource = true;
+  //     this.unCheckedfundingSource = false;
+  //   }
+  // }
+  // fundingSourceUnCheck() {
+  //   let fundingSource = this.decisionSuppotForm.value.fundingSource;
+  //   if (fundingSource == "") {
+  //     this.checkedfundingSource = false;
+  //     this.unCheckedfundingSource = false;
+  //   }
+  //   else {
+  //     this.checkedfundingSource = true;
+  //     this.unCheckedfundingSource = false;
+  //   }
+  // }
+  // releaseDateCheck() {
+  //   let releaseDate = this.decisionSuppotForm.value.releaseDate;
+  //   if (releaseDate == "") {
+  //     this.checkedReleaseDate = false;
+  //     this.unCheckedReleaseDate = true;
+  //   }
+  //   else {
+  //     this.checkedReleaseDate = true;
+  //     this.unCheckedReleaseDate = false;
+  //   }
+  // }
+  // releaseDateUnCheck() {
+  //   let releaseDate = this.decisionSuppotForm.value.releaseDate;
+  //   if (releaseDate == "") {
+  //     this.checkedReleaseDate = false;
+  //     this.unCheckedReleaseDate = false;
+  //   }
+  //   else {
+  //     this.checkedReleaseDate = true;
+  //     this.unCheckedReleaseDate = false;
+  //   }
+  // }
 
 
   flag: boolean = true;
@@ -368,4 +363,9 @@ export class ClinicDecisionComponent implements OnInit {
     });
 
   }
+}
+
+class CDSViewModel{
+  Name: boolean = false;
+
 }

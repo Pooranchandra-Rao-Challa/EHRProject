@@ -6,16 +6,16 @@
 // }
 .calendar-sidenav {
   width: 20%;
-  overflow-y:auto;
+  overflow-y: auto;
   overflow-x: hidden;
-}
-.calendar-drawer{
-  min-height: 700px;
+  height: calc(90vh - 97px);
 }
 
-.mat-calendar {
-  border: 1px solid #41b6a6;
-}
+// .calendar-drawer {
+//   min-height: 700px;
+// }
+
+
 
 .new-patient-btn {
   background-color: #ffdd57;
@@ -47,39 +47,28 @@
   width: 25px;
   height: 25px;
   padding: 4px 8px;
+
   .fa-angle-double-left,
   .fa-angle-double-right {
     color: #fff;
   }
 }
-.arrows-toggle:hover{
+
+.arrows-toggle:hover {
   background-color: white;
   border: solid 1px #41b6a6;
   color: #41a6b6;
+
   .fa-angle-double-left,
   .fa-angle-double-right {
-  color: #41a6b6;
+    color: #41a6b6;
 
   }
 }
 
-::ng-deep .panel-header{
+::ng-deep .panel-header {
   border-bottom: 0px !important;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .schedule-bottom {
   bottom: -63px;
@@ -88,11 +77,10 @@
   right: 0;
   left: 0;
 }
+
 .new-search {
   border-color: #fe8f00 !important;
 }
-
-
 
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
   color: #41b6a6 !important;
@@ -100,38 +88,6 @@
   height: 45px;
 }
 
-
-
-.panel {
-  background-color: #fff;
-  border: 1px solid #41b6a6;
-  line-height: 3.1;
-  color: #41b6a6;
-}
-.panel-header {
-  border-bottom: 1px solid #41b6a6;
-  border-bottom-left-radius: 0px;
-  border-bottom-right-radius: 0px;
-}
-.panel .mat-checkbox {
-  font-weight: normal;
-  font-size: 15px;
-  height: 30px;
-}
-.cstm-checkbox-1 {
-  border-bottom: 1px solid #41b6a6;
-}
-// related to popup
-.modal {
-  background: rgba(24, 24, 24, 0.82);
-}
-.modal-dialog {
-  max-width: 920px;
-}
-.modal-content {
-  background-color: #fff;
-  border: 1px solid #41b6a6;
-}
 fieldset {
   border: 1px solid #41b6a6;
 }
@@ -150,75 +106,51 @@ fieldset {
   padding-right: 0.75em;
   border: 2px groove (internal value);
 }
+
 .verify-btn {
   border: 1px solid #41b6a6;
 }
-.modal-header {
-  height: 30px !important;
-  background-color: #41b6a6;
-  color: #fff;
-  border: none;
-}
-.modal-body .form-group {
-  margin-bottom: 25px;
-}
-.input-group .input-group-addon {
-  height: 45px;
-  background-color: #d0d2db;
-  padding: 14px 15px;
-}
-.input-group-addon {
-  padding: 0 20px;
-  font-size: 14px;
-  line-height: 1;
-  color: #555;
-  background-color: #eee;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-.input-group .form-control {
-  padding: 0 20px;
-  font-size: 14px;
-  color: #74757e;
-  border: 1px solid #dedede;
-  background-color: #f5f5f5;
-  border-radius: 3px;
-  height: 45px;
-  margin: 0px;
-}
-.input-group .form-control:hover {
-  border: 1px solid #41b6a6;
-}
+
+
 .required::after {
   content: "*";
   color: red;
 }
+
 ::ng-deep .example-margin:hover {
+
   & .mat-checkbox-background,
   .mat-checkbox-frame {
     border-color: #41b6a6;
   }
 }
+
 ::ng-deep .mat-checkbox-checked.mat-accent {
+
   .mat-checkbox-background,
   .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
     background-color: rgb(243, 242, 242);
-    border-radius: 20% !important ;
+    border-radius: 20% !important;
     border-color: rgb(151, 150, 150);
     height: 19px;
     width: 19px;
   }
+
   .mat-checkbox-checkmark-path {
     stroke: grey !important;
   }
 }
+
 ::ng-deep .example-margin:hover {
+
   & .mat-checkbox-background,
   .mat-checkbox-frame {
     border-color: #41b6a6;
   }
 }
+
 ::ng-deep .example-margin {
+
   & .mat-checkbox-background,
   .mat-checkbox-frame {
     border-radius: 20% !important;
@@ -230,9 +162,11 @@ fieldset {
     height: 19px;
   }
 }
+
 .mat-checkbox {
   font-weight: bold;
 }
+
 ::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
   height: 23px;
   width: 23px;
@@ -240,93 +174,228 @@ fieldset {
 }
 
 ::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
-  background-color: #fff !important; /*inner circle color change*/
+  background-color: #fff !important;
+  /*inner circle color change */
 }
 
-::ng-deep.mat-radio-button.mat-accent.mat-radio-checked
-  .mat-radio-outer-circle {
+::ng-deep.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
   border-width: 5px;
-  border-color: #41b6a6 !important; /*outer ring color change*/
+  border-color: #41b6a6 !important;
+  /*outer ring color change*/
 }
+
 fieldset {
   border: 1px solid #ccc;
   padding: 12px 25px;
   margin-bottom: 32px;
   border-radius: 2px;
 }
-// related to scheduler
 
-::ng-deep .e-schedule .e-schedule-toolbar .e-toolbar-items {
-  box-shadow: none !important;
-  background-color: #41b6a6 !important;
-}
-::ng-deep .e-schedule .e-vertical-view .e-date-header-wrap table tbody td {
-  background-color: #41b6a6 !important;
-  color: #fff;
-}
-::ng-deep .e-schedule .e-vertical-view .e-left-indent-wrap table tbody td {
-  background-color: #41b6a6 !important;
-}
-::ng-deep .e-schedule .e-vertical-view .e-time-cells-wrap table td {
-  color: #41b6a6 !important;
-}
-::ng-deep .e-today {
-  display: none !important; // To hide Today option
-}
-::ng-deep .e-date-range {
-  display: none !important;
+
+//classes used by pcrao
+::ng-deep .calendar-drawer .mat-drawer-inner-container {
+  overflow-y: scroll;
+  overflow-x: auto;
 }
 
-ejs-dropdownlist {
+
+::ng-deep #left-drawer {
+  .mat-calendar {
+    border: 1px solid #41b6a6;
+    margin-top: 10px;
+  }
+
+  .mat-calendar-header {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    background: #41b6a6;
+    margin: -1px;
+  }
+
+  .mat-calendar-controls {
+    margin: unset;
+  }
+
+  .mat-calendar-previous-button,
+  .mat-calendar-next-button {
+    color: white;
+
+    &:hover {
+      color: #ffdd57;
+    }
+  }
+
+  .mat-calendar-period-button {
+    background: #41b6a6;
+    color: #fff;
+
+    &:hover {
+      color: #ffdd57;
+    }
+  }
+
+  .mat-calendar-arrow {
+    color: #fff !important;
+    border-top-color: #fff !important;
+
+    &:hover {
+      color: #ffdd57 !important;
+      border-top-color: #ffdd57 !important;
+    }
+  }
+
+  .mat-calendar-table-header th {
+    padding-top: 4px;
+    padding-bottom: 4px;
+
+  }
+
+  .mat-expansion-panel-header-title {
+    font-size: 16px;
+    color: #41b6a6;
+  }
+
+
+  .panel {
+    background-color: #fff;
+    border: 1px solid #41b6a6;
+    line-height: 3.1;
+    color: #41b6a6;
+    margin-top:10px;
+    .mat-checkbox {
+      font-weight: normal;
+      font-size: 15px;
+      height: 30px;
+    }
+  }
+
+  /*.schedule-accordion .bg-color, .mat-expansion-panel-header-title*/
+  .panel-header {
+    border-bottom: 1px solid #41b6a6;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+  }
+
+  .cstm-checkbox-1 {
+    border-bottom: 1px solid #41b6a6;
+    padding-bottom: 10px;
+
+  }
+
+  .mat-expansion-panel .mat-expansion-panel-header span.mat-expansion-indicator {
+    color: #41b6a6 !important;
+  }
+
+  // .mat-expansion-panel-header span.mat-expansion-indicator{
+  //   transform: rotate(270deg) !important;
+  // }
+  .mat-expansion-panel-header.mat-expanded {
+    height: 50px;
+
+  }
+
+  .mat-checkbox-background,
+  .mat-checkbox-frame {
+    top: unset;
+    left: unset;
+    right: 0;
+    bottom: unset;
+    width: 20px;
+    height: 20px;
+  }
+
+}
+
+
+::ng-deep .full-calendar {
+  height: calc(85vh - 90px);
   border: 1px solid #41b6a6;
-  border-radius: 4px;
-  margin-top: 0.5rem !important;
-  margin-bottom: 1.5rem !important;
-}
-.e-input-group {
-  border: none !important;
-  margin: 0px;
-  height: 38px;
-  padding: 0px 10px;
-}
-.e-input-group:not(.e-float-icon-left):not(.e-float-input)::before {
-  background: none !important;
-}
-.e-input-group.e-control-wrapper:not(.e-float-icon-left):not(.e-float-input)::before {
-  background: none !important;
-}
-::ng-deep .e-control.e-datetimepicker {
-  font-size: 30px !important;
-  border: 1px solid #41b6a6 !important;
-  border-radius: 4px !important;
-}
-::ng-deep .e-schedule .e-vertical-view .e-day-wrapper .e-appointment {
-  background: #41b6a6 !important;
-  border: 1px solid #41b6a6 !important;
-}
-.schedule-textarea {
-  border: 1px solid #41b6a6 !important;
-}
-::ng-deep .e-btn.e-flat.e-primary {
-  border-color: #41b6a6 !important;
-  color: #41b6a6 !important;
-}
-::ng-deep .e-btn.e-flat {
-  border-color: #41b6a6 !important;
-  color: #41b6a6 !important;
-}
-::ng-deep .e-dlg-header-content {
-  background-color: #41b6a6 !important;
-  margin-bottom: 20px !important;
-}
-::ng-deep .e-popup.e-popup-open.e-dialog {
-  width: 660px !important;
+  color: #41b6a6;
+
+  .fc-header-toolbar {
+    padding: 1em 1.0em;
+    background: #389e90;
+  }
+
+  .fc-toolbar-chunk .fc-button-group button {
+    padding: .5em;
+    width: 80px;
+    background: #41b6a6;
+    border: 1px solid #fff;
+    //box-shadow: #111 0 5px 0 0;
+    outline: none;
+    &:active,
+    &:focus{
+      outline: none;
+    }
+  }
+
+  .fc-toolbar-chunk .fc-button-group button.fc-button-active {
+    background: #389e90;
+    border: 1px solid #fff;
+  }
+
+  .fc-toolbar-chunk .fc-toolbar-title {
+    color: white;
+    font-family: 'Roboto';
+  }
+
+
+  div.fc-daygrid-body-unbalanced table.fc-scrollgrid-sync-table {
+    display: none;
+  }
+
+  .fc-timegrid.fc-view table.fc-col-header thead tr{
+    background: #41b6a6;
+    color: #fff;
+    height: 50px;
+  }
+  .fc-timegrid.fc-view table.fc-col-header thead tr th.fc-col-header-cell:not(.fc-day-today) div.fc-scrollgrid-sync-inner a.fc-col-header-cell-cushion{
+    background: #41b6a6;
+    color: #fff;
+  }
+  .fc-timegrid.fc-view table.fc-col-header thead tr th.fc-col-header-cell div.fc-scrollgrid-sync-inner{
+    margin: 14px;
+  }
+
+  .fc-day.fc-day-past:not(.fc-col-header-cell):not(.fc-day-sun):not(.fc-day-sat){
+    background: #eeeeee;
+  }
+
+  .fc-day.fc-day-today:not(.fc-col-header-cell),
+  .fc-day.fc-day-future:not(.fc-col-header-cell){
+    background: #fff;
+    cursor: pointer;
+  }
+  .fc-day.fc-day-sun:not(.fc-col-header-cell),
+  .fc-day.fc-day-sat:not(.fc-col-header-cell){
+    background: #f5fbfb;
+  }
+
+  .fc-col-header-cell.fc-day.fc-day-today .fc-col-header-cell-cushion {
+    background: #fff;
+    color:#41b6a6;
+    border-radius: 50%;
+    width: 80px;
+    height: 20px;
+  }
+
+  .fc-timegrid-body .fc-timegrid-slots table tbody tr{
+    height:30px;
+  }
+
+  .fc-event-appointment-type{
+    border-left: 30px solid;
+  }
+
+
+
 }
 
-::ng-deep
-  .appointment-form
-  .mat-form-field-appearance-outline
-  .mat-form-field-infix {
-  padding: 0.51em 0 0.89em 0 !important;
-  font-size: 14px;
+.fc-hide-control{
+  display: none;
 }
+#left-drawer {
+  padding: 15px 20px 10px 20px;
+}
+

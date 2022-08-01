@@ -34,6 +34,9 @@ export class AlertMessage {
       }
     });
   }
+
+
+
   displaysubmitted(message) {
     Swal.fire({
       title: message,
@@ -152,6 +155,15 @@ export class AlertMessage {
  * LabsAndImaging
  * Order: 1
  * Results: 2
+ *
+ * --------------------------------------------------
+ * Patient Module
+ *
+ * Appoinments : A
+ * Messages : M
+ * DashBoard: D
+ * MyProfile
+ *
  * ---------------------------------------------------
  * Errors Number shouw be three digits like 001
  *
@@ -398,7 +410,18 @@ export const ERROR_CODES: { [key: string]: string } = {
   'M2JPE001': 'Education Material added successfully',
   'M2JPE002': 'Education Material updated successfully',
   //Education Material Error
-  'E2JPE001': 'Education Material updation Erroe ',
+  'E2JPE001' :'Education Material updation Error',
+
+  //Calendar Events Messages
+  'M2B001': 'Rescheduled the appointment sucessfully',
+  'M2B002': 'Appointment is allocated to new resource successfully',
+
+
+  //Calendar Errors
+  'E2B001':'The time is elapsed to reschedule an appointment.',
+  'E2B002':'An appointment is existing for the same time and resource',
+  'E2B003':'Appointment is not rescheduled',
+  'E2B004':'Appointment is not allocated',
   //Clinical Decision Support
   'M2JCDS001': 'Alert added sucessfully',
   'M2JCDS002': 'Alert updated successfully',
@@ -408,7 +431,12 @@ export const ERROR_CODES: { [key: string]: string } = {
   //Error for CDS
   'E2JCDS001': 'Alert updation error',
   'E2JCDS002': 'Trigger updation error',
-  'E2JCDS003': 'Trigger deletion error'
+  'E2JCDS003': 'Trigger deletion error',
+  //Messages for Patient Appoinments
+  'M3A001': 'Appoinments added sucessfully ',
+  'M3A002': 'Appoinments cancelled successfully',
+  //Error Messages for Patient Appoinments
+  'E3A001': "Appoinments updation error"
 };
 
 

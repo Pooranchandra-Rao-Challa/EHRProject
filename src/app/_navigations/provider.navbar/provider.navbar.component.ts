@@ -36,7 +36,6 @@ export class ProviderNavbarComponent implements OnInit {
   ngOnInit() {
     this.name = 'Smart Schedule';
     this.viewChangeService.getData().subscribe(value => {
-      console.log(value);
       this.name = value;
       this.authenticationService.SetViewParam("View",value)
       this.viewModel = this.authenticationService.viewModel;

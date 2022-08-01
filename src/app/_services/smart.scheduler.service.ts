@@ -50,5 +50,15 @@ export class SmartSchedulerService extends APIEndPoint {
   UpdateAppointmentStatus(reqParams: any){
     return this._ProcessPostRequest<any>(this._updateAppointmentStatusUrl, reqParams);
   }
+  CalendarAppointments(reqParams: any){
+    return this._ProcessPostRequest<any>(this._calendarAppointmentsUrl, reqParams);
+  }
 
+  ReschuduleAppoinment(reqParams: any){
+    return this._ProcessPostRequest<any>(this._reschuduleAppoinmentUrl, reqParams);
+  }
+
+  AllocateNewResource(reqParams: any){
+    return this._ProcessPostRequest<any>(this._allocateNewResourceUrl, reqParams);
+  }
 }

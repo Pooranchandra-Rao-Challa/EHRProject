@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import {
   AppointmentTypes, AvailableTimeSlot, Actions,
   NewAppointment, PatientSearchResults, Room, ScheduledAppointment, UserLocations,
@@ -8,8 +8,10 @@ import { AuthenticationService } from 'src/app/_services/authentication.service'
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
 import { PracticeProviders } from '../../_models/_provider/practiceProviders';
 import { EHROverlayRef } from '../../ehr-overlay-ref';
-import { AlertMessage,ERROR_CODES } from 'src/app/_alerts/alertMessage';
+import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { fromEvent, Observable, of } from 'rxjs';
+import { filter, map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 
 
@@ -21,7 +23,7 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
     { provide: MAT_DATE_LOCALE, useValue: 'en-US' },
   ]
 })
-export class NewAppointmentDialogComponent implements OnInit {
+export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
   PatientAppointment: NewAppointment;
   SaveInputDisable: boolean;
   SelectedProviderId: string;
@@ -45,36 +47,56 @@ export class NewAppointmentDialogComponent implements OnInit {
   OperationMessage: string;
   todayDate: Date = new Date();
   myHolidayFilter: boolean;
+  @ViewChild('searchPatient', { static: true }) searchPatient: ElementRef;
+  filteredPatients: Observable<PatientSearchResults[]>;
+  isLoading: boolean = false;
+  data: AppointmentDialogInfo = {};
 
   constructor(
     private ref: EHROverlayRef,
     private authService: AuthenticationService,
     private smartSchedulerService: SmartSchedulerService,
     private alert: AlertMessage) {
-    let data: AppointmentDialogInfo = ref.RequestData;
+    this.data = ref.RequestData;
     this.PatientAppointment = {} as NewAppointment;
-    this.PatientAppointment = data.PatientAppointment;
+
+    this.PatientAppointment = this.data.PatientAppointment;
     console.log(this.PatientAppointment);
 
-    this.appointmentTitle = data.Title;
-    this.AppointmentTypes = data.AppointmentTypes;
-    this.PracticeProviders = data.PracticeProviders;
-    this.Locations = data.Locations;
-    this.Rooms = data.Rooms;
-    if (this.Rooms && this.Rooms.length > 0)
+    this.appointmentTitle = this.data.Title;
+    this.AppointmentTypes = this.data.AppointmentTypes;
+    this.PracticeProviders = this.data.PracticeProviders;
+    this.Locations = this.data.Locations;
+    this.Rooms = this.data.Rooms;
+    if (this.Rooms && this.Rooms.length > 0
+      && this.PatientAppointment.RoomId == null)
       this.PatientAppointment.RoomId = this.Rooms[0].RoomId;
 
-    if (data.status == Actions.view && data.PatientAppointment.AppointmentId != null) {
+    if ((this.data.status == Actions.view && this.data.PatientAppointment.AppointmentId != null)
+      || (this.PatientAppointment.RoomId != null && this.PatientAppointment.Startat != null &&
+        this.PatientAppointment.LocationId != null && this.PatientAppointment.Duration != null)) {
       this.LoadAvailableTimeSlots();
     }
-    if(this.PatientAppointment && this.PatientAppointment.Startat != null)
+    if (this.PatientAppointment && this.PatientAppointment.Startat != null)
       this.todayDate = this.PatientAppointment.Startat;
-    // else
-    //   this.PatientAppointment.Startat = this.todayDate;
 
+  }
+  ngAfterViewInit(): void {
+    if (this.searchPatient != null)
 
-
-
+      fromEvent(this.searchPatient.nativeElement, 'keyup').pipe(
+        // get value
+        map((event: any) => {
+          return event.target.value;
+        })
+        // if character length greater then 2
+        , filter(res => res.length > 2 && res.length < 6)
+        // Time in milliseconds between key events
+        , debounceTime(1000)
+        // If previous query is diffent from current
+        , distinctUntilChanged()
+        // subscription for response
+      ).subscribe(value => this._filterPatients(value));
   }
 
   ngOnInit(): void {
@@ -92,6 +114,37 @@ export class NewAppointmentDialogComponent implements OnInit {
       { Text: "2 hours 45 min", Value: 165 },
       { Text: "3 hours", Value: 180 },
       { Text: "Full Day", Value: 1440 }];
+
+
+  }
+
+  _filterPatients(term) {
+
+    this.isLoading = true;
+    this.smartSchedulerService
+      .SearchPatients({
+        ProviderId: this.SelectedProviderId,
+        ClinicId: this.authService.userValue.ClinicId,
+        SearchTerm: term
+      })
+      .subscribe(resp => {
+        this.isLoading = false;
+        if (resp.IsSuccess) {
+          this.filteredPatients = of(
+            resp.ListResult as PatientSearchResults[]);
+        } else this.filteredPatients = of([]);
+      })
+  }
+
+
+  displayWith(value: PatientSearchResults): string {
+    if (!value) return "";
+    return value.Name;
+  }
+
+  onPatientSelected(selected: PatientSearchResults) {
+    // this.PatientAppointment.PatientName = selected.Name
+    // this.PatientAppointment.PatientId = selected.PatientId;
   }
 
   LoadAvailableTimeSlots() {
@@ -134,22 +187,22 @@ export class NewAppointmentDialogComponent implements OnInit {
   }
 
   close() {
-    this.ref.close({'closed':true});
+    this.ref.close({ 'closed': true });
   }
 
-  OnLocationChange(event){
+  OnLocationChange(event) {
     this.PatientAppointment.LocationId = event.value;
     this.SelectedLocationId = this.PatientAppointment.LocationId;
     this.UpdateRooms();
     this.ClearTimeSlots();
   }
-  UpdateRooms(){
+  UpdateRooms() {
     let lreq = { "LocationId": this.SelectedLocationId };
     this.smartSchedulerService.RoomsForLocation(lreq).subscribe(resp => {
       if (resp.IsSuccess) {
         this.Rooms = resp.ListResult as Room[];
         this.PatientAppointment.RoomId = this.Rooms[0].RoomId;
-      }else {
+      } else {
         this.Rooms = [];
         this.PatientAppointment.RoomId = null;
       }
@@ -195,10 +248,10 @@ export class NewAppointmentDialogComponent implements OnInit {
 
 
   cancelAppointment() {
-    this.smartSchedulerService.CancelAppointment({ "AppointmentId": this.PatientAppointment.AppointmentId})
+    this.smartSchedulerService.CancelAppointment({ "AppointmentId": this.PatientAppointment.AppointmentId })
       .subscribe(resp => {
         if (resp.IsSuccess) {
-          this.ref.close({'refresh':true});
+          this.ref.close({ 'refresh': true });
           this.alert.displayMessageDailog(ERROR_CODES["M2AA003"]);
         }
         else {
@@ -217,6 +270,7 @@ export class NewAppointmentDialogComponent implements OnInit {
   }
 
   onAppointmentSave() {
+
     this.PatientAppointment.AppointmentTime = this.PatientAppointment.TimeSlot.StartDateTime;
     console.log(this.PatientAppointment.AppointmentTime);
     console.log(this.PatientAppointment);
@@ -226,14 +280,14 @@ export class NewAppointmentDialogComponent implements OnInit {
     this.smartSchedulerService.CreateAppointment(this.PatientAppointment).subscribe(resp => {
       if (resp.IsSuccess) {
         this.onError = false;
-        this.ref.close({'refresh':true});
+        this.ref.close({ 'refresh': true });
         this.OperationMessage = resp.EndUserMessage;
-        this.alert.displayMessageDailog(ERROR_CODES[isAdd ? "M2AA001" :"M2AA002"]);
+        this.alert.displayMessageDailog(ERROR_CODES[isAdd ? "M2AA001" : "M2AA002"]);
       }
       else {
         this.onError = true;
         this.OperationMessage = "Appointment is not saved"
-        this.alert.displayMessageDailog(ERROR_CODES[isAdd ? "E2AA001" :"E2AA002"]);
+        this.alert.displayMessageDailog(ERROR_CODES[isAdd ? "E2AA001" : "E2AA002"]);
       }
     });
   }

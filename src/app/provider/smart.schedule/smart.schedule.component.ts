@@ -1,27 +1,29 @@
 
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { FormBuilder,  } from '@angular/forms';
+import { FormBuilder, } from '@angular/forms';
 import { ComponentType } from '@angular/cdk/portal';
-import {  of, Subject, Subscription } from 'rxjs';
-import { catchError, debounceTime,  distinctUntilChanged, finalize, map } from 'rxjs/operators';
+import { of,  Subscription } from 'rxjs';
+import { catchError, } from 'rxjs/operators';
 import { OverlayService } from 'src/app/overlay.service';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
 import { PracticeProviders } from 'src/app/_models/_provider/practiceProviders';
 import { PatientDialogComponent } from 'src/app/dialogs/patient.dialog/patient.dialog.component';
-import { LocationSelectService,
-        ViewChangeService} from '../../_navigations/provider.layout/view.notification.service';
+import {
+  LocationSelectService,
+  ViewChangeService
+} from '../../_navigations/provider.layout/view.notification.service';
 import { NewAppointmentDialogComponent } from '../../dialogs/newappointment.dialog/newappointment.dialog.component';
 import { UpcomingAppointmentsDialogComponent } from '../../dialogs/upcoming.appointments.dialog/upcoming.appointments.dialog.component';
 import { EncounterDialogComponent } from '../../dialogs/encounter.dialog/encounter.dialog.component';
 import { CompleteAppointmentDialogComponent } from 'src/app/dialogs/newappointment.dialog/complete.appointment.component';
-import { AlertMessage, ERROR_CODES} from 'src/app/_alerts/alertMessage'
+import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage'
 import * as moment from "moment";
 
 import {
-  PatientSearchResults, Actions,
+   Actions,
   ScheduledAppointment, AppointmentTypes, NewAppointment,
-  UserLocations, Room, AvailableTimeSlot, AppointmentDialogInfo
+  UserLocations, Room,  AppointmentDialogInfo
 } from 'src/app/_models/';
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 import { Router } from '@angular/router';
@@ -39,7 +41,7 @@ export class SmartScheduleComponent implements OnInit {
   PracticeProviders: PracticeProviders[];
   Appointments: ScheduledAppointment[];
   NoofAppointment: Number;
-  SelectedProviderId: string ="";
+  SelectedProviderId: string = "";
   SelectedLocationId: string;
   psw: {};
   AppointmentTypes: AppointmentTypes[]
@@ -54,20 +56,17 @@ export class SmartScheduleComponent implements OnInit {
   ActionsType = Actions
 
   patientDialogComponent = PatientDialogComponent;
-  patientDialogResponse = null;
   appointmentDialogComponent = NewAppointmentDialogComponent;
   upcomingAppointmentsDialogComponent = UpcomingAppointmentsDialogComponent;
-  upcomingAppointmentDialogResponse = null;
   encounterDialogComponent = EncounterDialogComponent;
-  encounterDialogResponse = null;
   completeAppointmentDialogComponent = CompleteAppointmentDialogComponent;
 
   //Auto Search Paramters
-  public patients: PatientSearchResults[];
-  private patientSearchTerms = new Subject<string>();
-  public patientNameOrCellNumber = '';
-  public flag: boolean = true;
-  public selectedPatient: PatientSearchResults;
+  // public patients: PatientSearchResults[];
+  // private patientSearchTerms = new Subject<string>();
+  // public patientNameOrCellNumber = '';
+  // public flag: boolean = true;
+  //public selectedPatient: PatientSearchResults;
   // End of Auto SerachParamters
 
 
@@ -81,80 +80,81 @@ export class SmartScheduleComponent implements OnInit {
     private viewChangeService: ViewChangeService
   ) {
 
-    // _CORSAPIService.Drugs("alanine").subscribe((result)=>console.log(result));
-    // let values = [];
-    // _CORSAPIService.ndcs("213269").subscribe(value => { console.log(value);
-    //  values.push(value);} )
-    // console.log(values);
+    // this.patientSearchTerms
+    //   .pipe(debounceTime(300),  // wait for 300ms pause in events
+    //     distinctUntilChanged())   // ignore if next search term is same as previous
+    //   .subscribe((term) =>
+    //     this.smartSchedulerService
+    //       .SearchPatients({
+    //         ProviderId: this.SelectedProviderId,
+    //         ClinicId: this.authService.userValue.ClinicId,
+    //         SearchTerm: term
+    //       })
+    //       .subscribe(resp => {
+    //         if (resp.IsSuccess) {
+    //           this.patients = resp.ListResult;
+    //         }
 
-    //console.log(_rxnormAPIService.ndcs("213269"));
-
-    this.patientSearchTerms
-      .pipe(debounceTime(300),  // wait for 300ms pause in events
-        distinctUntilChanged())   // ignore if next search term is same as previous
-      .subscribe((term) =>
-        this.smartSchedulerService
-          .SearchPatients({
-            ProviderId: this.SelectedProviderId,
-            ClinicId: this.authService.userValue.ClinicId,
-            SearchTerm: term
-          })
-          .subscribe(resp => {
-            if (resp.IsSuccess) {
-              this.patients = resp.ListResult;
-            }
-
-          })
-      );
+    //       })
+    //   );
     this.locationsubscription = this.locationSelectService.getData().subscribe(locationId => {
       this.SelectedLocationId = locationId;
       this.LoadAppointmentDefalts();
     });
   }
 
-  PatinetActions(patient: PatientSearchResults) {
-    if (patient.NumberOfAppointments == 0) return Actions.new;
-    else return Actions.upcomming;
-  }
+  // PatinetActions(patient: PatientSearchResults) {
+  //   if (patient.NumberOfAppointments == 0) return Actions.new;
+  //   else return Actions.upcomming;
+  // }
 
   onPatientSelection(appoinment: ScheduledAppointment) {
-    console.log(appoinment);
+    //console.log(appoinment);
 
     this.smartSchedulerService.FilteredPatientsOfProvider({
-      "PatientId":appoinment.PatientId,
-      "PageIndex":0,
-      "PageSize":10,
+      "PatientId": appoinment.PatientId,
+      "PageIndex": 0,
+      "PageSize": 10,
       "SortField": "",
-      "SortDirection": "Asc"}).pipe(
+      "SortDirection": "Asc"
+    }).pipe(
       catchError(() => of([])),
     )
-    .subscribe(resp => {
-      if(resp.IsSuccess){
-        let p = (resp.ListResult as ProviderPatient[])[0];
-        this.authService.SetViewParam("Patient", p);
-        this.authService.SetViewParam("PatientView", "Chart");
-        this.authService.SetViewParam("View", "Patients");
-        this.viewChangeService.sendData("Patients");
-        this.router.navigate(["/provider/patientdetails"]);
-      }
-    });
+      .subscribe(resp => {
+        if (resp.IsSuccess) {
+          let p = (resp.ListResult as ProviderPatient[])[0];
+          this.authService.SetViewParam("Patient", p);
+          this.authService.SetViewParam("PatientView", "Chart");
+          this.authService.SetViewParam("View", "Patients");
+          this.viewChangeService.sendData("Patients");
+          this.router.navigate(["/provider/patientdetails"]);
+        }
+      });
   }
-  openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
-    data?: any, action?: Actions,status: string="") {
 
-    this.flag = false;
-    this.patientNameOrCellNumber = "";
+
+  openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
+    data?: any, action?: Actions, status: string = "") {
+
+    //this.flag = false;
+    //this.patientNameOrCellNumber = "";
+
     let dialogData: any;
-    if (content === this.appointmentDialogComponent && action == Actions.new) {
-      dialogData = this.PatientAppointmentInfoFromSearch(data, action);
-    } else if (content === this.appointmentDialogComponent && action == Actions.view) {
+
+    // if (content === this.appointmentDialogComponent && action == Actions.new) {
+    //   dialogData = this.PatientAppointmentInfoFromSearch(data, action);
+    // } else
+
+    if (content === this.appointmentDialogComponent && action == Actions.view) {
       dialogData = this.PatientAppointmentInfo(data, action);
-    } else if (content === this.upcomingAppointmentsDialogComponent) {
-      dialogData = this.PatientAppointmentInfoFromSearch(data, action);
-    } else if (content === this.encounterDialogComponent) {
+    }
+    // else if (content === this.upcomingAppointmentsDialogComponent) {
+    //   dialogData = this.PatientAppointmentInfoFromSearch(data, action);
+    // }
+    else if (content === this.encounterDialogComponent) {
       dialogData = data;
-    }else if (content === this.completeAppointmentDialogComponent) {
-      let d  = data as ScheduledAppointment;
+    } else if (content === this.completeAppointmentDialogComponent) {
+      let d = data as ScheduledAppointment;
       d.StatusToUpdate = status;
       dialogData = d;
     }
@@ -165,32 +165,33 @@ export class SmartScheduleComponent implements OnInit {
       if (typeof content === 'string') {
 
       }
-      else if (content === this.patientDialogComponent) {
-        this.patientDialogResponse = res.data;
-      }
+      // else if (content === this.patientDialogComponent) {
+      //   //this.patientDialogResponse = res.data;
+      // }
       else if (content === this.appointmentDialogComponent) {
 
-        this.flag = false;
-        this.patientNameOrCellNumber = "";
-        if(res.data && res.data.refresh){
+        //this.flag = false;
+        //this.patientNameOrCellNumber = "";
+        if (res.data && res.data.refresh) {
           this.filterAppointments();
         }
       }
-      else if (content === this.upcomingAppointmentsDialogComponent) {
-        this.flag = false;
-        this.patientNameOrCellNumber = "";
-        if(res.data && res.data.saved){
-          this.filterAppointments();
-        }
-      }
+      // else if (content === this.upcomingAppointmentsDialogComponent) {
+      //   //this.flag = false;
+      //   //this.patientNameOrCellNumber = "";
+      //   if (res.data && res.data.saved) {
+      //     this.filterAppointments();
+      //   }
+      // }
       else if (content == this.encounterDialogComponent) {
-        this.encounterDialogResponse = res.data;
-        if(res.data != null && res.data.saved){
-          this.filterAppointments();        }
+        //this.encounterDialogResponse = res.data;
+        if (res.data != null && res.data.saved) {
+          this.filterAppointments();
+        }
       }
-      else if( content == this.completeAppointmentDialogComponent){
-        if(res.data != null && res.data.confirmed){
-          this.updateAppointmentStatus(res.data.appointment,res.data.AppComponent.StatusToUpdate);
+      else if (content == this.completeAppointmentDialogComponent) {
+        if (res.data != null && res.data.confirmed) {
+          this.updateAppointmentStatus(res.data.appointment, res.data.AppComponent.StatusToUpdate);
         }
       }
     });
@@ -228,40 +229,40 @@ export class SmartScheduleComponent implements OnInit {
     return data;
   }
 
-  PatientAppointmentInfoFromSearch(PatientObj: PatientSearchResults, action?: Actions) {
-    let data = {} as AppointmentDialogInfo
-    this.PatientAppointment = {} as NewAppointment;
+  // PatientAppointmentInfoFromSearch(PatientObj: PatientSearchResults, action?: Actions) {
+  //   let data = {} as AppointmentDialogInfo
+  //   this.PatientAppointment = {} as NewAppointment;
 
-    this.selectedPatient = PatientObj as PatientSearchResults;
-    if (this.selectedPatient.NumberOfAppointments == 0) {
-      this.appointmentTitle = "Add New Appointment";
-      data.status = action;
-    } else {
-      this.PatientAppointments(PatientObj)
-      this.appointmentTitle = "Edit Appointment";
-      data.AppointmentsOfPatient = this.AppointmentsOfPatient;
-      data.status = action
-    }
+  //   this.selectedPatient = PatientObj as PatientSearchResults;
+  //   if (this.selectedPatient.NumberOfAppointments == 0) {
+  //     this.appointmentTitle = "Add New Appointment";
+  //     data.status = action;
+  //   } else {
+  //     this.PatientAppointments(PatientObj)
+  //     this.appointmentTitle = "Edit Appointment";
+  //     data.AppointmentsOfPatient = this.AppointmentsOfPatient;
+  //     data.status = action
+  //   }
 
-    this.PatientAppointment.PatientId = this.selectedPatient.PatientId;
-    this.PatientAppointment.PatientName = this.selectedPatient.Name;
-    this.PatientAppointment.LocationId = this.SelectedLocationId;
-    this.PatientAppointment.ProviderId = this.SelectedProviderId;
-    this.PatientAppointment.ClinicId = this.authService.userValue.ClinicId;
-    this.PatientAppointment.Duration = 30;
+  //   this.PatientAppointment.PatientId = this.selectedPatient.PatientId;
+  //   this.PatientAppointment.PatientName = this.selectedPatient.Name;
+  //   this.PatientAppointment.LocationId = this.SelectedLocationId;
+  //   this.PatientAppointment.ProviderId = this.SelectedProviderId;
+  //   this.PatientAppointment.ClinicId = this.authService.userValue.ClinicId;
+  //   this.PatientAppointment.Duration = 30;
 
-    data.Title = this.appointmentTitle;
-    data.ClinicId = this.authService.userValue.ClinicId;
-    data.ProviderId = this.SelectedProviderId;
-    data.LocationId = this.SelectedLocationId;
-    data.PatientAppointment = this.PatientAppointment;
-    data.AppointmentTypes = this.AppointmentTypes;
-    data.PracticeProviders = this.PracticeProviders;
-    data.Locations = this.Locations;
-    data.Rooms = this.Rooms;
+  //   data.Title = this.appointmentTitle;
+  //   data.ClinicId = this.authService.userValue.ClinicId;
+  //   data.ProviderId = this.SelectedProviderId;
+  //   data.LocationId = this.SelectedLocationId;
+  //   data.PatientAppointment = this.PatientAppointment;
+  //   data.AppointmentTypes = this.AppointmentTypes;
+  //   data.PracticeProviders = this.PracticeProviders;
+  //   data.Locations = this.Locations;
+  //   data.Rooms = this.Rooms;
 
-    return data;
-  }
+  //   return data;
+  // }
 
 
   loadDefaults() {
@@ -304,6 +305,9 @@ export class SmartScheduleComponent implements OnInit {
     });
   }
 
+  RefreshAppointments(event){
+    if(event) this.filterAppointments();
+  }
   filterAppointments() {
     let req = {
       "ClinicId": this.authService.userValue.ClinicId,
@@ -317,7 +321,7 @@ export class SmartScheduleComponent implements OnInit {
       if (resp.IsSuccess) {
         this.Appointments = resp.ListResult as ScheduledAppointment[];
         this.NoofAppointment = this.Appointments.length;
-        console.log(this.Appointments);
+
 
 
       } else {
@@ -328,45 +332,55 @@ export class SmartScheduleComponent implements OnInit {
     });
   }
 
-  searchPatient(term: string): void {
-    this.flag = true;
-    this.patientSearchTerms.next(term);
-  }
+  // searchPatient(term: string): void {
+  //   this.flag = true;
+  //   this.patientSearchTerms.next(term);
+  // }
 
 
-  PatientAppointments(PatientObj) {
-    let req = {
-      "PatientId": PatientObj.PatientId
-    };
+  // PatientAppointments(PatientObj) {
+  //   let req = {
+  //     "PatientId": PatientObj.PatientId
+  //   };
 
-    this.smartSchedulerService.ActiveAppointments(req).subscribe(resp => {
-      if (resp.IsSuccess) {
-        this.AppointmentsOfPatient = resp.ListResult as ScheduledAppointment[];
-        return this.AppointmentsOfPatient;
-      }
-    });
-  }
+  //   this.smartSchedulerService.ActiveAppointments(req).subscribe(resp => {
+  //     if (resp.IsSuccess) {
+  //       this.AppointmentsOfPatient = resp.ListResult as ScheduledAppointment[];
+  //       return this.AppointmentsOfPatient;
+  //     }
+  //   });
+  // }
 
 
 
-  displayPatient(value: PatientSearchResults): string {
-    if (!value) return "";
-    return ""
-    return value.Name + "-" + value.MobilePhone;
-  }
-  onPatientSelected(value: any): string {
-    if (!value) return "";
-    let patient = value.option.value;
-    console.log(patient);
-    this.patients =[];
-    if(patient.NumberOfAppointments == 0){
-      this.openComponentDialog( this.appointmentDialogComponent ,patient,this.PatinetActions(patient));
-    }else{
-      this.openComponentDialog( this.upcomingAppointmentsDialogComponent ,patient,this.PatinetActions(patient));
-    }
+  // displayPatient(value: PatientSearchResults): string {
+  //   if (!value) return "";
+  //   return ""
+  //   return value.Name + "-" + value.MobilePhone;
+  // }
 
-    return patient.Name + "-" + patient.MobilePhone;
-  }
+
+  // onPatientSelected(value: any): string {
+  //   if (!value) return "";
+  //   let patient = value.option.value;
+  //   console.log(patient);
+  //   this.patients =[];
+  //   if(patient.NumberOfAppointments == 0){
+  //     this.openComponentDialog( this.appointmentDialogComponent ,patient,this.PatinetActions(patient));
+  //   }else{
+  //     this.openComponentDialog( this.upcomingAppointmentsDialogComponent ,patient,this.PatinetActions(patient));
+  //   }
+
+  //   return patient.Name + "-" + patient.MobilePhone;
+  // }
+
+
+  // openNewPatinet(trggerOpen: boolean) {
+  //   if (trggerOpen)
+  //     this.openComponentDialog(this.patientDialogComponent);
+  // }
+
+
   ngOnInit(): void {
 
     this.PatientAppointment = {};
@@ -375,10 +389,7 @@ export class SmartScheduleComponent implements OnInit {
     this.PatientAppointment.LocationId = this.SelectedLocationId;
     this.PatientAppointment.Duration = 30;
     this.selectedAppointmentDate = new Date(new Date().toLocaleDateString());
-
-
     this.selectedWeekday = this.selectedAppointmentDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
-
     this.loadDefaults();
     this.LoadAppointmentDefalts();
   }
@@ -412,19 +423,19 @@ export class SmartScheduleComponent implements OnInit {
     this.filterAppointments();
   }
 
-  updateAppointmentStatus(appointment: ScheduledAppointment,status: string){
-    if(appointment.Status != status){
+  updateAppointmentStatus(appointment: ScheduledAppointment, status: string) {
+    if (appointment.Status != status) {
       appointment.StatusToUpdate = status;
       this.smartSchedulerService.UpdateAppointmentStatus(appointment).subscribe(resp => {
         if (resp.IsSuccess) {
           this.filterAppointments();
-          if(resp.IsSuccess && resp.Result!='Error01'){
+          if (resp.IsSuccess && resp.Result != 'Error01') {
             this.alertMessage.displayMessageDailog(ERROR_CODES["M2JSAT004"]);
-          }else{
+          } else {
             this.alertMessage.displayErrorDailog(ERROR_CODES["E2JSAT002"]);
           }
         }
-        else{
+        else {
           this.alertMessage.displayErrorDailog(ERROR_CODES["E2JSAT003"]);
         }
       });

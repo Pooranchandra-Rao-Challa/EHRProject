@@ -282,6 +282,14 @@
   font: 400 14px/20px Roboto, "Helvetica Neue", sans-serif;
 }
 
+::ng-deep .swal2-styled.swal2-deny {
+  width: 163px;
+  padding: 0px;
+  font-size: 18px;
+  font-family: "Roboto";
+  font-weight: 400;
+  height: 45px;
+}
 
 ::ng-deep .user-swal2-actions{
   margin: 0px;

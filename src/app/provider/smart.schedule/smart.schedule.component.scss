@@ -97,7 +97,7 @@ div.smart-schedule-header {
 // schedule bottom
 .schedule-bottom {
   margin-top: 13px;
-  margin-bottom: 0px;
+  margin-bottom: 10px;
   position: relative;
   right: 0;
   left: 0;
@@ -163,7 +163,7 @@ input::placeholder{
   border-radius: 0px;
 }
 .schedule-accordion .bg-color,
-::ng-deep .mat-expansion-panel-header-title{
+::ng-deep .schedule-accordion .mat-expansion-panel-header-title{
   margin: 0;
   color: #fff;
   font-size: 16px;

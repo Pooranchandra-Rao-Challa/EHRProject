@@ -19,7 +19,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { OverlayModule } from '@angular/cdk/overlay';
-import { MouseOverHintDirective } from 'src/app/_directives/mouseover.hint.directive'
+//import { MouseOverHintDirective } from 'src/app/_directives/mouseover.hint.directive'
 
 import { ProviderNavbarComponent } from '../provider.navbar/provider.navbar.component';
 import { ProviderFooterComponent } from '../provider.navbar/provider.footer.component';
@@ -28,9 +28,6 @@ import { ProviderComponent } from './provider.component';
 import { ProviderRoutingModule } from './provider-routing.module';
 import { SmartScheduleComponent } from '../../provider/smart.schedule/smart.schedule.component';
 import { CalendarComponent } from '../../provider/calendar/calendar.component';
-import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
-// import { DateTimePickerModule } from "@syncfusion/ej2-angular-calendars";
-// import { ScheduleModule, DayService, WeekService } from '@syncfusion/ej2-angular-schedule';
 import { LocationSelectService, ViewChangeService } from './view.notification.service';
 import { UtilityService } from '../../_services/utiltiy.service';
 import { SmartSchedulerService } from '../../_services/smart.scheduler.service';
@@ -93,14 +90,13 @@ import { registerLocaleData } from '@angular/common';
 import localeIt from '@angular/common/locales/en';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { DiscontinueDialogComponent } from '../../dialogs/discontinue.dialog/discontinue.dialog.component';
-
+import { PatientScheduleComponent } from 'src/app/provider/smart.schedule/patient.schedule.component';
 import { OrderDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/order.dialog.component';
 import { OrderResultDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/order.result.dialog.component';
 import { LabResultComponent } from 'src/app/dialogs/lab.imaging.dialog/lab.result.component';
 import { OrderManualEntryDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/order.manual.entry.dialog.component';
 import { ImagingResultDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/imaging.result.dialog.component';
 import { TestCodeComponent } from 'src/app/dialogs/lab.imaging.dialog/test.code.component';
-// import { CORSAPIService } from 'src/app/_services/cors.api.service';
 import { MedicationDialogComponent } from '../../dialogs/medication.dialog/medication.dialog.component';
 import { AllergyDialogComponent } from '../../dialogs/allergy.dialog/allergy.dialog.component';
 import { RxNormAPIService } from 'src/app/_services/rxnorm.api.service'
@@ -111,9 +107,20 @@ registerLocaleData(localeIt);
 import { InterventionTableDialogComponent } from '../../dialogs/intervention.table.dialog/intervention.table.dialog.component';
 import { AllergyTableDialogComponent } from '../../dialogs/allergy.table.dialog/allergy.table.dialog.component';
 
+import { FullCalendarModule } from '@fullcalendar/angular';
+import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
+import interactionPlugin from '@fullcalendar/interaction'; // a plugin!
+import timeGridPlugin from '@fullcalendar/resource-timegrid'; // a plugin!
+FullCalendarModule.registerPlugins([ // register FullCalendar plugins
+  dayGridPlugin,
+  interactionPlugin,
+  timeGridPlugin
+]);
+
 @NgModule({
   exports: [
     MatInputModule,
+    FullCalendarModule,
     PatientDialogComponent,
     AdvancedDirectivesDialogComponent,
     SmokingStatusDialogComponent,
@@ -127,6 +134,8 @@ import { AllergyTableDialogComponent } from '../../dialogs/allergy.table.dialog/
     DiscontinueDialogComponent,
     MedicationDialogComponent,
     AllergyDialogComponent,
+    LabOrderTestFormatPipe,
+    PatientScheduleComponent,
     TobaccoUseDialogComponent,
     LabOrderTestFormatPipe,
     InterventionTableDialogComponent,
@@ -166,7 +175,7 @@ import { AllergyTableDialogComponent } from '../../dialogs/allergy.table.dialog/
     AllergyDialogComponent,
     TobaccoUseDialogComponent,
     OverlayComponent,
-    MouseOverHintDirective,
+    //  MouseOverHintDirective,
     UserDialogComponent,
     NewAppointmentDialogComponent,
     UpcomingAppointmentsDialogComponent,
@@ -189,12 +198,13 @@ import { AllergyTableDialogComponent } from '../../dialogs/allergy.table.dialog/
     OrderManualEntryDialogComponent,
     ImagingResultDialogComponent,
     TestCodeComponent,
+    PatientScheduleComponent,
     LabOrderTestFormatPipe,
     InterventionTableDialogComponent,
     AllergyTableDialogComponent
   ],
   imports: [
-
+    FullCalendarModule,
     OverlayModule,
     ProviderRoutingModule,
     SharedModule,
@@ -217,7 +227,6 @@ import { AllergyTableDialogComponent } from '../../dialogs/allergy.table.dialog/
     Ng2OrderModule,
     MatAutocompleteModule,
     // ScheduleModule,
-    DropDownListModule,
     // DateTimePickerModule,
     SettingsModule,
     PatientsModule,

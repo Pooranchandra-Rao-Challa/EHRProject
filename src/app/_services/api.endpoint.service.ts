@@ -710,6 +710,18 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "CancelProcedure";
   }
 
+  get _calendarAppointmentsUrl(){
+    return this._baseUrl + "CalendarAppointments";
+  }
+
+  get _reschuduleAppoinmentUrl(){
+    return this._baseUrl + "ReschuduleAppoinment";
+  }
+
+  get _allocateNewResourceUrl(){
+    return this._baseUrl + "AllocateNewResource";
+  }
+
  get _createUpdateClinicalDecisionSupportUrl()
  {
    return this._baseUrl + "CreateUpdateClinicalDecisionSupport";
@@ -725,6 +737,15 @@ export class APIEndPoint extends EndpointBase {
  get _requestPatientAppointmentUrl()
  {
    return this._baseUrl + "RequestPatientAppointment";
+ }
+ get _appointmentsTypesByPatientIdUrl()
+ {
+  return this._baseUrl + "AppointmentsTypesByPatientId";
+ }
+
+ get _cancelPatientAppoinmentUrl()
+ {
+   return this._baseUrl + "CancelPatientAppoinment";
  }
   constructor(public http: HttpClient) {
     super();

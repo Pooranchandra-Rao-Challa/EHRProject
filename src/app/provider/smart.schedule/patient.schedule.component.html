@@ -1,0 +1,40 @@
+
+      <div class="row">
+        <div class="schedule-bottom">
+          <div class="row">
+            <div class="col-lg-8 col-md-6 col-12">
+              <div class="form-group">
+                <div class="input-group smartview-patient-search-result" appearance="outline" class="new-search col-12">
+                  <input class="form-control new-search" [matAutocomplete]="patientSerarch"
+                    placeholder="Schedule Appointment ( Enter a patient's name or phone number )" type="text"
+                    [(ngModel)]="patientNameOrCellNumber" (keyup)="searchPatient(patientNameOrCellNumber)" />
+                    <mat-autocomplete  #patientSerarch="matAutocomplete"  [displayWith]="displayPatient"
+                    (optionSelected)="onPatientSelected($event)" ><!-- -->
+                  <mat-option *ngFor="let patient of patients" [value]="patient" class="patient-search-option patient-search-option-menu-item">
+                    {{patient.Name}},
+                    {{patient.DateofBirth | date: 'MM/dd/yyyy'}} , {{patient.Age +' Year(s)'}} ,
+                    {{patient.PrimaryPhone ? 'P:'+patient.PrimaryPhone : ''}},
+                    {{patient.MobilePhone ? 'H:'+patient.MobilePhone : ''}},
+                    {{patient.NumberOfAppointments+' Appointment(s)'}}
+                  </mat-option>
+                </mat-autocomplete>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-12 my-2 my-md-0">
+              <button mat-button class="btn patientbtn col-12" type="button"
+                (click)="openComponentDialog(patientDialogComponent)">
+                Add New Patient
+              </button>
+            </div>
+            <div class="col-lg-2 col-md-3 col-12">
+              <!-- <a [routerLink]="SwitchUrl"> -->
+                <button mat-button class="btn switchbtn col-12" (click)="SwitchView()">
+                  Switch View
+                </button>
+              <!-- </a> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- openComponentDialog(patientDialogComponent)-->

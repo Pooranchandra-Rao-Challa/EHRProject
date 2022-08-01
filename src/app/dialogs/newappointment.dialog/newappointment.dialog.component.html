@@ -14,9 +14,22 @@
       <form>
         <div class="row">
           <mat-label>Patient :</mat-label>
-          <mat-form-field appearance="outline" class="col-12 hover">
+          <mat-form-field appearance="outline" class="col-12 hover" *ngIf="data.NavigationFrom == 'Smart Schedule'">
             <input matInput placeholder="Patient Name" [(ngModel)]="PatientAppointment.PatientName"
               [ngModelOptions]="{standalone:true}" disabled class="notallowCursor">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="col-12 hover" [hidden]="data.NavigationFrom != 'Calendar'" >
+            <input matInput #searchPatient placeholder="Patient Name"
+              [matAutocomplete]="patients">
+              <mat-autocomplete [displayWith]="displayWith" #patients="matAutocomplete"
+                (optionSelected)="onPatientSelected($event)">
+                <mat-option *ngIf="isLoading">Loading ...</mat-option>
+                <mat-option *ngFor="let option of filteredPatients | async" [value]="option"
+                  class="medical-code-option">
+                  {{option.Name}}
+                </mat-option>
+              </mat-autocomplete>
           </mat-form-field>
           <mat-label>Providers :</mat-label>
           <mat-form-field appearance="outline" class="col-12 hover">

@@ -1,5 +1,6 @@
-@import "../../../assets/common.scss";
+
 @import "../../../assets/cstm.material.scss";
+@import "../../../assets/common.scss";
 
 .card-header {
   display: flex;
@@ -13,10 +14,6 @@
   margin-left: 10px;
 }
 
-.new-alert-form .modal-dialog {
-  pointer-events: auto !important;
-  max-width: 780px;
-}
 
 .TriggerModal .modal-dialog {
   pointer-events: auto !important;
@@ -222,41 +219,41 @@ mat-accordion .mat-expansion-panel:first-of-type {
   text-align: center;
 }
 
-.FieldValid {
-  height: 24px;
-  background: #64ab5b;
-  color: #f7f2f2;
-}
+// .FieldValid {
+//   height: 24px;
+//   background: #64ab5b;
+//   color: #f7f2f2;
+// }
 
-.FieldInvalid {
-  border-radius: 77%;
-  height: 24px;
-  background: red;
-  color: white;
-  border-color: red;
-  text-align: center;
-}
+// .FieldInvalid {
+//   border-radius: 77%;
+//   height: 24px;
+//   background: red;
+//   color: white;
+//   border-color: red;
+//   text-align: center;
+// }
 
-.FieldValiddatepicker {
+// .FieldValiddatepicker {
 
-  height: 24px;
-  background: #64ab5b;
-  color: #f7f2f2;
-  margin-left: -26px;
-  margin-top: -28px;
-  border-radius: 55%
-}
+//   height: 24px;
+//   background: #64ab5b;
+//   color: #f7f2f2;
+//   margin-left: -26px;
+//   margin-top: -28px;
+//   border-radius: 55%
+// }
 
-.FieldInvaliddatepicker {
-  border-radius: 77%;
-  height: 24px;
-  background: red;
-  color: white;
-  border-color: red;
-  text-align: center;
-  margin-left: -26px;
-  margin-top: -28px;
-}
+// .FieldInvaliddatepicker {
+//   border-radius: 77%;
+//   height: 24px;
+//   background: red;
+//   color: white;
+//   border-color: red;
+//   text-align: center;
+//   margin-left: -26px;
+//   margin-top: -28px;
+// }
 
 
 .table-borderless> :not(:first-child) {
@@ -330,18 +327,66 @@ input::-webkit-input-placeholder {
   width: 100% !important;
 }
 
-.modal.new-alert-form {
+
+::ng-deep .modal.new-alert-form {
   pointer-events: auto !important;
+  .modal-dialog {
+    pointer-events: auto !important;
+    max-width: 780px;
+  }
+  input{
+    height:25px;
+  }
+  .mat-form-field-appearance-outline .mat-form-field-infix{
+    padding: 0.11em 0 0.89em 0 !important;
+  }
+  .mat-form-field-appearance-outline .mat-form-field-prefix,
+  .mat-form-field-appearance-outline .mat-form-field-suffix{
+    top: 1px;
+  }
+  .realease-date .mat-icon-button.mat-button-base{
+    border: 1px solid #41b6a6;
+    border-radius: 0 5px 5px 0;
+    padding: unset !important;
+    margin: -5px 0 0 0;
+    width: 45px !important;
+    height: 45px !important;
+    background: #41b6a6 !important;
+  }
+
+  .realease-date .mat-icon-button.mat-button-base svg.mat-datepicker-toggle-default-icon>path {
+    fill: #fff !important;
+    stroke: rgb(224, 220, 220) !important;
+    stroke-linejoin: round !important;
+    transition: d 0.2s !important;
+  }
+
+  .realease-date .mat-form-field-flex{
+    padding-right: 0 ;
+  }
+
+  .triggeralignment.mat-select-panel {
+    margin-top: 31px !important;
+    max-height: 111px !important;
+  }
+  mat-select{
+    height: 35px;
+  }
+  .mat-select-value{
+    width:98%;
+  }
+  .mat-select-trigger{
+    margin: 5px 0 5px 0;
+  }
+  .mat-select-arrow-wrapper{
+    padding-top: 8px;
+  }
 }
 
 .modal.TriggerModal {
   pointer-events: auto !important;
 }
 
-::ng-deep .triggeralignment.mat-select-panel {
-  margin-top: 31px !important;
-  max-height: 111px !important;
-}
 
 ::ng-deep .trplaceholder .mat-select-placeholder {
   color: #41b6a6 !important;
@@ -388,6 +433,6 @@ mat-footer-cell:last-of-type {
 
 }
 
-mat-cell[_ngcontent-epd-c366]:first-of-type {
-  padding-left: 20px;
-}
+// mat-cell[_ngcontent-epd-c366]:first-of-type {
+//   padding-left: 20px;
+// }

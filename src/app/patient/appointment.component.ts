@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
 import { OverlayService } from '../overlay.service';
 import { PatientappointmentDialogComponent } from 'src/app/dialogs/patientappointment.dialog/patientappointment.dialog.component';
-import {  TemplateRef } from '@angular/core';
+import { TemplateRef } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
 import { PatientService } from '../_services/patient.service';
 import { AuthenticationService } from '../_services/authentication.service';
-import { Actions, User } from '../_models';
+import { Actions, User, UserLocations } from '../_models';
 import { Appointments } from '../_models/_patient/appointments';
 import { connect } from 'http2';
+import { UtilityService } from '../_services/utiltiy.service';
+import { AlertMessage, ERROR_CODES } from '../_alerts/alertMessage';
 
 
 @Component({
@@ -17,75 +19,140 @@ import { connect } from 'http2';
 })
 export class AppointmentComponent {
   user: User;
-  isPast:boolean=false;
-  isUpcoming:boolean=true;
+  userlocation: UserLocations;
+  isPast: boolean = false;
+  isUpcoming: boolean = true;
   displayReq = "none";
   PatientDialogComponent = PatientappointmentDialogComponent;
   DialogResponse = null;
-  PatientPastAppointmentsList: Appointments
-  PatientUpcomingAppointmentsList: Appointments
+  PatientPastAppointmentsList: Appointments[]
+  PatientUpcomingAppointmentsList: Appointments[]
   ActionTypes = Actions;
-  
-
-  constructor(private overlayService :OverlayService,private patientservice: PatientService,private authenticationService: AuthenticationService,) {
+  RequestAppoinments: Appointments = {}
+  Providerdata: any;
+  clinicaldata: any;
+  constructor(private overlayService: OverlayService, private patientservice: PatientService, private authenticationService: AuthenticationService, private utilityService: UtilityService,
+    private alertmsg: AlertMessage,) {
     this.user = authenticationService.userValue
+    this.RequestAppoinments.LocationId;
     // this.locationsInfo = JSON.parse(this.user.LocationInfo)
   }
-
   ngOnInit(): void {
+
+    this.getProviders();
+    this.getLocations();
     this.getPatientUpcomingAppointments();
     this.getPatientPastAppointments();
-
-
   }
 
-  openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string, dialogData, action?: Actions) {
-    debugger;
+  openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string) {
     const ref = this.overlayService.open(content, null);
 
     ref.afterClosed$.subscribe(res => {
-      let reqdata: any;
-      if (action == Actions.view && content === this.PatientDialogComponent) {
-        reqdata = dialogData;
+      if (typeof content === 'string') {
+        //} else if (content === this.yesNoComponent) {
+        //this.yesNoComponentResponse = res.data;
       }
-     
-    
-      const ref = this.overlayService.open(content, reqdata);
-      ref.afterClosed$.subscribe(res => {
-      });
+      else if (content === this.PatientDialogComponent) {
+        this.DialogResponse = res.data;
+        this.getPatientPastAppointments();
+        this.getPatientUpcomingAppointments();
+      }
     });
   }
+  onUpcoming() {
+    this.isUpcoming = true;
+    this.isPast = false;
+  }
+  onPast() {
+    this.isUpcoming = false;
+    this.isPast = true;
+  }
+  getPatientPastAppointments() {
+    var req = {
+      "PatientId": this.user.PatientId,
+    }
+    this.patientservice.PatientPastAppointments(req).subscribe(res => {
+      this.PatientPastAppointmentsList = res.ListResult;
+      console.log(this.PatientPastAppointmentsList);
+      this.PatientPastAppointmentsList.map((e) => {
 
-  onUpcoming(){
-    this.isUpcoming=true;
-    this.isPast=false;
+        if (e.ApptStatus == 'Cancelled') {
+          e.class = "StatusCancelled";
+        }
+      })
+
+    })
   }
-  onPast(){
-    this.isUpcoming=false;
-    this.isPast=true;
+
+  getPatientUpcomingAppointments() {
+
+    var req = {
+      "PatientId": this.user.PatientId,
+    }
+    this.patientservice.PatientUpcomingAppointments(req).subscribe(res => {
+      this.PatientUpcomingAppointmentsList = res.ListResult;
+      console.log(this.PatientUpcomingAppointmentsList);
+      this.PatientUpcomingAppointmentsList.map((e) => {
+
+        if (e.ApptStatus == 'Not Confirmed') {
+          e.ApptStatus = 'Pending';
+          e.class = "Statusnotconfirmed";
+
+        }
+        else if (e.ApptStatus == 'Confirmed') {
+          e.ApptStatus = 'Confirmed';
+          e.class = "Statusconfirmed"
+
+        }
+        else if (e.ApptStatus == 'Cancelled') {
+          e.ApptStatus = 'your Appoinment is cancelled';
+
+        }
+      });
+
+    })
   }
-getPatientPastAppointments()
-{
-  var req={
-     "PatientId": this.user.PatientId,
+
+  reschedule(item) {
+    debugger;
+    this.RequestAppoinments = item;
+    this.RequestAppoinments.LocationId = item.LocationId
   }
-  this.patientservice.PatientPastAppointments(req).subscribe(res=>{
-    this.PatientPastAppointmentsList=res.ListResult;
-    console.log(this.PatientPastAppointmentsList);
-  })
+  getLocations() {
+    debugger
+    var req = {
+      "ClinicId": this.user.ClinicId,
+    }
+    this.patientservice.PatientLocations(req).subscribe(req => {
+      this.clinicaldata = req.ListResult;
+    })
+  }
+  getProviders() {
+    var req = {
+      "ClinicId": this.user.ClinicId,
+    }
+    this.patientservice.PatientProviders(req).subscribe(req => {
+      this.Providerdata = req.ListResult;
+    })
+  }
+
+  CancelAppoinments(AppointmentId) {
+    debugger;
+    var req = {
+      'ClinicId': this.user.ClinicId,
+      'AppointmentId': AppointmentId
+
+    }
+    this.patientservice.CancelPatientAppoinment(req).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.alertmsg.displayMessageDailog(ERROR_CODES["M3A002"])
+        this.getPatientPastAppointments();
+        this.getPatientUpcomingAppointments();
+      }
+      else {
+        this.alertmsg.displayMessageDailog(ERROR_CODES["E3A001"])
+      }
+    })
+  }
 }
-
-getPatientUpcomingAppointments()
-{
-  var req={
-    "PatientId": this.user.PatientId,
-  }
-  this.patientservice.PatientUpcomingAppointments(req).subscribe(res=>{
-    this.PatientUpcomingAppointmentsList=res.ListResult;
-   
-  })
-}
-
-
-}
-

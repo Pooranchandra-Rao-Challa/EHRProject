@@ -63,20 +63,20 @@ export interface RoomsSlot {
   Status?: boolean
 }
 
-export interface AppointmentStatus {
-  Id?: string,
-  Name?: string,
-  Colour?: string,
-  Editable?: boolean,
-  Appointmentstatus?: boolean
+export class AppointmentStatus {
+  Id?: string;
+  Name?: string;
+  Colour?: string;
+  Editable?: boolean = true;
+  //Appointmentstatus: boolean = true;
 }
 
-export interface AppointmentType {
-  Id?: string,
-  AppointmentType?: string,
-  Colour?: string,
-  Editable?: boolean,
-  AppointmenttypeStatus?: boolean
+export class AppointmentType {
+  Id?: string;
+  AppointmentType?: string;
+  Colour?: string;
+  Editable?: boolean = true;
+  //AppointmenttypeStatus?: boolean
 }
 
 export interface GeneralSchedule {
@@ -104,7 +104,7 @@ export class ChangePassword{
 
 export class PatientEducationInfomation {
   EducationMat?: EducationMaterialCode[] = [];
- 
+
 }
 export class EducationMaterialCode implements IDeleteFlag {
   EducationalId?:string
@@ -115,7 +115,7 @@ export class EducationMaterialCode implements IDeleteFlag {
   ResourceNotes?:string;
   CanDelete?: boolean = false;
 }
- export class EhrAlert 
+ export class EhrAlert
  {
   AlertId?:String
   AlertName?:String
@@ -126,7 +126,7 @@ export class EducationMaterialCode implements IDeleteFlag {
   ProviderId?: String
   ReleaseAt?:Date
   Resolution?:string
-  Rule?:String 
+  Rule?:String
   CanDelete?: boolean = false;
   Triggers?:EhrTrigger[]
   triggersInfo?:string;
@@ -138,13 +138,12 @@ export class EducationMaterialCode implements IDeleteFlag {
    Category?:String
    Code?:String
    Description?:String
-   System?:String 
+   System?:String
    AlertId?:String
    CanDelete?: boolean = false;
  }
  export class TriggerInformation {
-  Addtrigger?:EhrTrigger [] = [];
- 
+  Addtrigger?: EhrTrigger [] = [];
 }
 
 // export class Trig implements IDeleteFlag{
