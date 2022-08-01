@@ -265,7 +265,9 @@
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
-                    <p class="card-title">Allergies</p>
+                    <p class="card-title"
+                      (click)="openComponentDialog(allergyTableDialogComponent,chartInfo?.Alergies,ActionTypes.view)">
+                      Allergies</p>
                   </div>
                   <div class="col-md-4 col-6">
                     <div class="col-12 plusicon pull-right"
@@ -392,11 +394,13 @@
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
-                    <p class="card-title">Screenings/Interventions/Assessments</p>
+                    <p class="card-title"
+                      (click)="openComponentDialog(interventionTableDialogComponent,chartInfo?.Interventions,ActionTypes.view)">
+                      Screenings/Interventions/Assessments</p>
                   </div>
                   <div class="col-md-4 col-6">
                     <div class="col-12 plusicon pull-right"
-                      (click)="openComponentDialog(interventionDialogComponent, null)">
+                      (click)="openComponentDialog(interventionDialogComponent, null, ActionTypes.add)">
                       <span><i class="fa fa-plus"></i></span>
                     </div>
                   </div>
@@ -420,7 +424,13 @@
                     </span>
                   </li>
                 </ul>
-                <a class="view-more pull-right">view more</a>
+                <ul class="main-list" *ngIf="chartInfo?.Interventions?.length == 0">
+                  <li>
+                    <span>No interventions recorded.</span>
+                  </li>
+                </ul>
+                <a (click)="openComponentDialog(interventionTableDialogComponent,chartInfo?.Interventions,ActionTypes.view)"
+                  class="view-more pull-right">view more</a>
               </div>
             </div>
           </div>
@@ -1886,6 +1896,9 @@
           <mat-header-row *matHeaderRowDef="immunizationColumns"></mat-header-row>
           <mat-row *matRowDef="let row; columns: immunizationColumns"></mat-row>
         </mat-table>
+        <div class="norecords-found" *ngIf="chartInfo?.Immunizations?.length == 0">
+          No Immunizations Found
+        </div>
       </div>
       <div class="modal-footer">
         <button class="btn btn-green" data-bs-toggle="modal" data-bs-target="#immunization-modal">Add Vaccine</button>

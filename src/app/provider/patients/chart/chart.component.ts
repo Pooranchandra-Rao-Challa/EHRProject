@@ -1,3 +1,4 @@
+import { Intervention } from './../../../_models/_provider/chart';
 import { DiscontinueDialogComponent } from './../../../dialogs/discontinue.dialog/discontinue.dialog.component';
 import { filter, map, } from 'rxjs/operators';
 import { Observable, of, BehaviorSubject, fromEvent } from 'rxjs';
@@ -33,6 +34,8 @@ import { SettingsService } from '../../../_services/settings.service';
 import { MedicationDialogComponent } from 'src/app/dialogs/medication.dialog/medication.dialog.component';
 import { AllergyDialogComponent } from 'src/app/dialogs/allergy.dialog/allergy.dialog.component';
 import { TobaccoUseDialogComponent } from 'src/app/dialogs/tobacco.use.dialog/tobacco.use.dialog.component';
+import { InterventionTableDialogComponent } from 'src/app/dialogs/intervention.table.dialog/intervention.table.dialog.component';
+import { AllergyTableDialogComponent } from 'src/app/dialogs/allergy.table.dialog/allergy.table.dialog.component';
 
 @Component({
   selector: 'app-chart',
@@ -56,12 +59,14 @@ export class ChartComponent implements OnInit, AfterViewInit {
   advancedDirectivesDialogComponent = AdvancedDirectivesDialogComponent;
   smokingStatusDialogComponent = SmokingStatusDialogComponent;
   interventionDialogComponent = InterventionDialogComponent;
+  interventionTableDialogComponent = InterventionTableDialogComponent;
   encounterDialogComponent = EncounterDialogComponent;
   appointmentDialogComponent = NewAppointmentDialogComponent;
   cqmNotPerformedDialogComponent = AddeditinterventionComponent;
   discontinueDialogComponent = DiscontinueDialogComponent;
   medicationDialogComponent = MedicationDialogComponent;
   allergyDialogComponent = AllergyDialogComponent;
+  allergyTableDialogComponent = AllergyTableDialogComponent;
   tobaccoUseDialogComponent = TobaccoUseDialogComponent;
   // advancedDirectives: AdvancedDirective[];
   patientDiagnoses: Diagnosis = new Diagnosis();
@@ -280,7 +285,13 @@ export class ChartComponent implements OnInit, AfterViewInit {
     else if (action == Actions.view && content === this.interventionDialogComponent) {
       reqdata = dialogData;
     }
+    else if (action == Actions.view && content === this.interventionTableDialogComponent) {
+      reqdata = dialogData;
+    }
     else if (action == Actions.view && content === this.allergyDialogComponent) {
+      reqdata = dialogData;
+    }
+    else if (action == Actions.view && content === this.allergyTableDialogComponent) {
       reqdata = dialogData;
     }
     else if (action == Actions.view && content === this.discontinueDialogComponent) {
@@ -323,13 +334,25 @@ export class ChartComponent implements OnInit, AfterViewInit {
       this.TobaccoUseInterventions();
     }
     else if (data.UpdatedModal == PatientChart.Allergies) {
-      this.AllergiesByPatientId();
+      data.AllergyDataSource = data.AllergyDataSource == undefined ? [] : data.AllergyDataSource.length;
+      if (this.chartInfo.Alergies.length < data.AllergyDataSource.length) {
+        this.chartInfo.Alergies = data.AllergyDataSource;
+      }
+      else {
+        this.AllergiesByPatientId();
+      }
     }
     else if (data.UpdatedModal == PatientChart.Medications) {
       this.MedicationsByPatientId();
     }
     else if (data.UpdatedModal == PatientChart.Interventions) {
-      this.InterventionsByPatientId();
+      data.InterventionsDataSource = data.InterventionsDataSource == undefined ? [] : data.InterventionsDataSource.length;
+      if (this.chartInfo.Interventions.length < data.InterventionsDataSource.length) {
+        this.chartInfo.Interventions = data.InterventionsDataSource;
+      }
+      else {
+        this.InterventionsByPatientId();
+      }
     }
     else if (data.UpdatedModal == PatientChart.Encounters) {
       this.EncountersByPatientId();
