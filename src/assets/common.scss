@@ -298,3 +298,12 @@
   content: "*" !important;
   color: red !important;
 }
+.norecords-found{
+  text-align: center;
+  font-size: 15px;
+  min-height: 40px;
+  padding-top: 10px;
+  color: red;
+  border: 1px solid #41b6a6;
+  border-radius: 0px 0px 4px 4px;
+}

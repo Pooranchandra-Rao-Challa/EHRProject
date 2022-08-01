@@ -204,7 +204,9 @@ export class Intervention {
   CodeSystem?: string;
   Note?: string;
   ReasonValueSetOID?: string;
+  CQMStatus?: string;
   LocationId?: string;
+  ProviderName?: string;
 }
 
 export interface Vaccine {

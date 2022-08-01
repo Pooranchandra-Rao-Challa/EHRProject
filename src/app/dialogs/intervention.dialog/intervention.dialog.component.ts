@@ -23,6 +23,7 @@ export class InterventionDialogComponent implements OnInit {
   keys = 'Code,Description';
   filter: any;
   currentPatient: ProviderPatient;
+  selectedInterventionCodes: any[] = [];
 
   constructor(private ref: EHROverlayRef,
     private patientService: PatientService,
@@ -77,11 +78,23 @@ export class InterventionDialogComponent implements OnInit {
       });
   }
 
-  onSelectInterventionCodes(intervention: any) {
-    this.patientIntervention.Code = intervention.Code;
-    this.patientIntervention.Description = intervention.Description;
-    this.patientIntervention.CodeSystem = intervention.CodeSystem;
-    this.patientIntervention.ReasonValueSetOID = intervention.CodeSystemOId;
+  onSelectInterventionCodes(event, intervention: any, Code) {
+    if (event.checked == true) {
+      if (this.selectedInterventionCodes.length > 0) {
+        return this.selectedInterventionCodes.push(intervention);
+      }
+      else {
+        this.selectedInterventionCodes = new Array(intervention);
+        this.patientIntervention.Code = this.selectedInterventionCodes[0].Code;
+      }
+    }
+    else if (event.checked == false) {
+      this.selectedInterventionCodes = this.selectedInterventionCodes.filter(
+        function (data) {
+          return data.Code != Code;
+        }
+      );
+    }
   }
 
   CreateIntervention() {
@@ -89,17 +102,37 @@ export class InterventionDialogComponent implements OnInit {
     this.patientIntervention.PatientId = this.currentPatient.PatientId;
     this.patientIntervention.StartDate = new Date(this.datepipe.transform(this.patientIntervention.StartDate, "yyyy-MM-dd", "en-US"));
     this.patientIntervention.EndDate = new Date(this.datepipe.transform(this.patientIntervention.EndDate, "yyyy-MM-dd", "en-US"));
-    this.patientService.CreateInterventions(this.patientIntervention).subscribe((resp) => {
-      if (resp.IsSuccess) {
-        this.ref.close({
-          "UpdatedModal": PatientChart.Interventions
+
+    let Count = this.selectedInterventionCodes.length;
+    if (Count > 0) {
+      this.selectedInterventionCodes.forEach(intervention => {
+        this.patientIntervention.Code = intervention.Code;
+        this.patientIntervention.Description = intervention.Description;
+        this.patientIntervention.CodeSystem = intervention.CodeSystem;
+        this.patientIntervention.ReasonValueSetOID = intervention.CodeSystemOId;
+
+        this.patientService.CreateInterventions(this.patientIntervention).subscribe((resp) => {
+          if (resp.IsSuccess) {
+            this.ref.close({
+              "UpdatedModal": PatientChart.Interventions
+            });
+            this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CCSIA001" : "M2CCSIA002"]);
+          }
+          else {
+            this.alertmsg.displayErrorDailog(ERROR_CODES["E2CCSIA001"]);
+            this.cancel();
+          }
         });
-        this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CCSIA001" : "M2CCSIA002"]);
-      }
-      else {
-        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CCSIA001"]);
-        this.cancel();
-      }
-    })
+      });
+      // Empty state array
+      Count = 0;
+    }
+  }
+
+  disableIntervention() {
+    return !(this.patientIntervention.StartDate == undefined ? '' : this.patientIntervention.StartDate.toString() != ''
+      && this.patientIntervention.EndDate == undefined ? '' : this.patientIntervention.EndDate.toString() != ''
+        && this.patientIntervention.InterventionType == undefined ? '' : this.patientIntervention.InterventionType != ''
+          && this.patientIntervention.Code == undefined ? '' : this.patientIntervention.Code != '')
   }
 }

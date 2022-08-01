@@ -104,6 +104,8 @@ import { TobaccoUseDialogComponent } from '../../dialogs/tobacco.use.dialog/toba
 import { BlockoutDialogComponent } from 'src/app/dialogs/blockout/blockout.dialog.component'
 import { LabOrderTestFormatPipe } from 'src/app/_pipes/lab.order.test.pipe'
 registerLocaleData(localeIt);
+import { InterventionTableDialogComponent } from '../../dialogs/intervention.table.dialog/intervention.table.dialog.component';
+import { AllergyTableDialogComponent } from '../../dialogs/allergy.table.dialog/allergy.table.dialog.component';
 
 import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
@@ -136,7 +138,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     PatientScheduleComponent,
     TobaccoUseDialogComponent,
     BlockoutDialogComponent,
-    LabOrderTestFormatPipe
+    InterventionTableDialogComponent,
+    AllergyTableDialogComponent
   ],
   declarations: [
     ProviderNavbarComponent,
@@ -172,7 +175,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     AllergyDialogComponent,
     TobaccoUseDialogComponent,
     OverlayComponent,
-  //  MouseOverHintDirective,
+    //  MouseOverHintDirective,
     UserDialogComponent,
     NewAppointmentDialogComponent,
     UpcomingAppointmentsDialogComponent,
@@ -197,6 +200,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     TestCodeComponent,
     PatientScheduleComponent,
     LabOrderTestFormatPipe,
+    InterventionTableDialogComponent,
+    AllergyTableDialogComponent
   ],
   imports: [
     FullCalendarModule,
@@ -263,7 +268,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     LabResultComponent,
     ImagingResultDialogComponent,
     BlockoutDialogComponent,
-    TestCodeComponent]
+    TestCodeComponent,
+    InterventionTableDialogComponent,
+    AllergyTableDialogComponent]
 })
 export class ProviderModule {
 

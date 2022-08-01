@@ -609,7 +609,13 @@ textarea.form-control.inputclass:hover{
   font-size: 16px;
   text-align: center;
 }
-
+// diagnosis
+#used-diagnoses-modal .modal-dialog {
+  max-width: 754px;
+}
+#create-diagnoses-modal .modal-dialog {
+  max-width: 754px;
+}
 // medication popup
 #medication-modal .modal-dialog {
   max-width: 900px;
@@ -735,4 +741,8 @@ textarea.form-control.inputclass:hover{
   border: 1px solid #d64841;
   background-image: url(/assets/images/icon-delete.svg);
   background-size: 12px;
+}
+a.view-more:hover {
+  color: #41a6b6;
+  cursor: pointer;
 }
