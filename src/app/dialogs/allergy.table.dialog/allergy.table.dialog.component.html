@@ -1,0 +1,83 @@
+<div class="modal-dialog allergy-table-modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title Helvetica-sans-serif-medium w-100">Allergies</h4>
+      <span type="button" class="cross-mark" (click)="cancel()">
+        X
+      </span>
+    </div>
+    <div class="modal-body">
+      <div class="scrollable-mat-table">
+        <mat-table [dataSource]="allergyDatasource" matSort>
+          <ng-container matColumnDef="Type">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="AllergenType">Type
+            </mat-header-cell>
+            <mat-cell *matCellDef="let allergy">
+              <a (click)="openComponentDialog(allergyDialogComponent,allergy,ActionTypes.view)">
+                {{allergy.AllergenType}}
+              </a>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Allergen">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="AllergenName">Allergen</mat-header-cell>
+            <mat-cell *matCellDef="let allergy">
+              <a (click)="openComponentDialog(allergyDialogComponent,allergy,ActionTypes.view)">
+                {{allergy.AllergenName}}
+              </a>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Severity">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="SeverityLevel">Severity</mat-header-cell>
+            <mat-cell *matCellDef="let allergy">
+              <a (click)="openComponentDialog(allergyDialogComponent,allergy,ActionTypes.view)">
+                {{allergy.SeverityLevel}}
+              </a>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Reactions">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="Reaction">Reactions</mat-header-cell>
+            <mat-cell *matCellDef="let allergy">
+              <a (click)="openComponentDialog(allergyDialogComponent,allergy,ActionTypes.view)">
+                {{allergy.Reaction}}
+              </a>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Onset">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="OnSetAt">Onset</mat-header-cell>
+            <mat-cell *matCellDef="let allergy">
+              <a (click)="openComponentDialog(allergyDialogComponent,allergy,ActionTypes.view)">
+                {{allergy.OnSetAt}}
+              </a>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="StartDate">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="StartAt">Start Date</mat-header-cell>
+            <mat-cell *matCellDef="let allergy">
+              <a (click)="openComponentDialog(allergyDialogComponent,allergy,ActionTypes.view)">
+                {{allergy.StartAt | date: 'MM/dd/yyyy'}}
+              </a>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="EndDate">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="EndAt">End Date</mat-header-cell>
+            <mat-cell *matCellDef="let allergy">
+              <a (click)="openComponentDialog(allergyDialogComponent,allergy,ActionTypes.view)">
+                {{allergy.EndAt | date: 'MM/dd/yyyy'}}
+              </a>
+            </mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="allergyColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: allergyColumns"></mat-row>
+        </mat-table>
+        <div class="norecords-found" *ngIf="allergyDatasource?.data.length == 0">
+          No Allergies Found
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-green" (click)="openComponentDialog(allergyDialogComponent,null,ActionTypes.add)">Add
+        Vaccine</button>
+      <button class="btn btn-green" (click)="cancel()">Cancel</button>
+    </div>
+  </div>
+</div>
