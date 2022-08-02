@@ -3,7 +3,7 @@ import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { UserLocations } from 'src/app/_models/_account/user';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { Component, OnInit } from "@angular/core";
-import { Blockout, BlockOutDialog, PracticeProviders, User } from "src/app/_models";
+import { Blockout, BlockOutDialog, PracticeProviders, Room, User } from "src/app/_models";
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
 
@@ -165,7 +165,7 @@ export class BlockoutDialogComponent implements OnInit {
       case 'practice_location':
         this.blockoutDialog.Locations.forEach(val => {
           returnArray.push(
-            { Name: val.locationName, Value: val.locationId }
+            { Name: val.LocationName, Value: val.LocationId }
           )
         })
         break;
@@ -187,5 +187,21 @@ export class BlockoutDialogComponent implements OnInit {
       && (this.blockout.BlockoutForId != null && this.blockout.BlockoutForId != "")
       && (this.blockout.StartAt != null)
       && (this.blockout.ClinicId != null)
+  }
+  SelectionBlockoutForChange(event){
+    if(this.blockout.BlockoutFor == 'practice_location'){
+      this.UpdateRooms();
+    }
+  }
+  UpdateRooms() {
+    let lreq = { "LocationId": this.blockout.BlockoutForId };
+    this.smartSchedulerService.RoomsForLocation(lreq).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.blockoutDialog.Rooms = resp.ListResult as Room[];
+      } else {
+        this.blockoutDialog.Rooms = [];
+        this.blockout.RoomId = null;
+      }
+    });
   }
 }

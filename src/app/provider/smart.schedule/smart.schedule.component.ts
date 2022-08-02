@@ -288,7 +288,8 @@ export class SmartScheduleComponent implements OnInit {
       this.SelectedProviderId == "")
       this.Locations = JSON.parse(this.authService.userValue.LocationInfo);
     else {
-      this.smartSchedulerService.PracticeLocations({ "provider_Id": this.SelectedProviderId })
+      this.smartSchedulerService.PracticeLocations(this.SelectedProviderId,
+        this.authService.userValue.ClinicId)
         .subscribe(resp => {
           if (resp.IsSuccess) {
             this.Locations = resp.ListResult as UserLocations[];

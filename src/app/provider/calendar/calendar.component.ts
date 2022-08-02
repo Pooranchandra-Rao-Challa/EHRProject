@@ -376,9 +376,23 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       editable: true,
       duration: 30,
       weekends: true,
-
-      //navLinks: true,
-      //navLinkWeekClick: this.nextCalenderEvents.bind(this),
+      // businessHours: [ // specify an array instead
+      //   {
+      //     daysOfWeek: [1, 2, 3], // Monday, Tuesday, Wednesday
+      //     startTime: '6:00', // 8am
+      //     endTime: '20:00' // 6pm
+      //   },
+      //   {
+      //     daysOfWeek: [4, 5], // Thursday, Friday
+      //     startTime: '7:00', // 10am
+      //     endTime: '20:00' // 4pm
+      //   }
+      // ],
+      eventTimeFormat: {
+        hour: 'numeric',
+        minute: '2-digit',
+        meridiem: 'short'
+      },
       views: {
         timeGridWeek: {
           titleFormat: { year: 'numeric', month: 'long' }
@@ -392,18 +406,10 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         NextWeek: {
           text: ' > ',
           click: this.nextCalenderEvents.bind(this)
-          // click: function () {
-          //   //this.calendarOptions["initialView"] = "resourceTimeGridDay"
-          //   this.fullcalendar.getApi().next();
-          // }
         },
         Previousweek: {
           text: ' < ',
           click: this.previousCalenderEvents.bind(this)
-          // click: function () {
-          //   //this.calendarOptions["initialView"] = "timeGridWeek"
-          //   this.fullcalendar.getApi().prev();
-          // }
         }
       },
 
@@ -416,11 +422,12 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       dateClick: this.handleDateClick.bind(this),
       eventClick: this.handleEventClick.bind(this),
       eventDrop: this.handleEventDragStop.bind(this),
+      eventDidMount: this.handleEventMount.bind(this),
       eventMouseEnter: function (args: EventHoveringArg) {
         //alert(JSON.stringify(args.event))
         this.timer = setTimeout(() => {
           let myPopup = document.getElementById('event-view');
-          if (this.myPopup) { this.myPopup.remove(); }
+          if (myPopup) { myPopup.remove(); }
           let timer;
           let x = args.el.getBoundingClientRect().left + this.el.offsetWidth / 2; // Get the middle of the element
           let y = args.el.getBoundingClientRect().top + this.el.offsetHeight + 6; // Get the bottom of the element, plus a little extra
@@ -429,13 +436,15 @@ export class CalendarComponent implements OnInit, AfterViewInit {
           popup.style.width = "250px";
 
           let data = args.event.extendedProps;
-          popup.style.top = y.toString() + "px";
-          popup.style.left = x.toString() + "px";
+          // popup.style.top = y.toString() + "px";
+          //popup.style.left = x.toString() + "px";
           popup.style.background = "#fff"
           popup.style.color = "#41b6a6"
           popup.style.fontSize = "12px"
           popup.style.fontWeight = "600"
           popup.style.marginTop = "2px"
+          popup.style.position = "absolute"
+          popup.style.zIndex = "1000000"
 
 
           let dcontainer = document.createElement('div');
@@ -507,7 +516,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
           args.el.appendChild(popup);
           this.myPopup = popup;
           setTimeout(() => {
-            if (this.myPopup) this.myPopup.remove();
+            if (myPopup) this.myPopup.remove();
           }, 10000);
         }, this.delay)
       },
@@ -517,6 +526,10 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       }
 
     };
+  }
+
+  handleEventMount(arg) {
+    //console.log(arg);
   }
 
   ngOnInit() {
@@ -749,7 +762,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       this.SelectedProviderId == "")
       this.locations = JSON.parse(this.authService.userValue.LocationInfo);
     else {
-      this.smartSchedulerService.PracticeLocations({ "provider_Id": this.SelectedProviderId })
+      this.smartSchedulerService.PracticeLocations(this.SelectedProviderId,this.user.ClinicId)
         .subscribe(resp => {
           if (resp.IsSuccess) {
             this.locations = resp.ListResult as UserLocations[];

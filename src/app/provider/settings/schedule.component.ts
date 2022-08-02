@@ -15,7 +15,7 @@ declare var $: any;
 })
 export class ScheduleComponent implements OnInit {
   user: User;
-  LocationAddress: any;
+  ClinicLocations: any;
   roomForm: FormGroup;
   statusForm: FormGroup;
   typeForm: FormGroup;
@@ -50,10 +50,11 @@ export class ScheduleComponent implements OnInit {
 
   // get display Location Details
   getLocationsList() {
-    this.LocationAddress = [];
-    this.settingsService.PracticeLocations(this.user.ProviderId).subscribe(resp => {
+    this.ClinicLocations = [];
+
+    this.settingsService.PracticeLocations(this.user.ProviderId,this.user.ClinicId).subscribe(resp => {
       if (resp.IsSuccess) {
-        this.LocationAddress = resp.ListResult;
+        this.ClinicLocations = resp.ListResult;
       }
     });
   }

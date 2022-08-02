@@ -3,15 +3,16 @@ import { Component, OnInit, HostListener, TemplateRef } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { SettingsService } from 'src/app/_services/settings.service';
-import { User, UserLocations } from '../../_models';
-import { NewUser } from '../../_models/_provider/_settings/settings';
+import { User } from '../../_models';
+import { LocationDialog, NewUser } from '../../_models/_provider/_settings/settings';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
 import { ChangePasswordDialogComponent } from 'src/app/dialogs/user.dialog/changepassword.dialog.component';
 import { OverlayService } from '../../overlay.service';
-import { Actions } from 'src/app/_models/';
+import { Actions,Location } from 'src/app/_models/';
 import { LocationDialogComponent } from 'src/app/dialogs/location.dialog/location.dialog.component';
 import { AlertMessage, ERROR_CODES } from './../../_alerts/alertMessage';
+import { ThrowStmt } from '@angular/compiler';
 @Component({
   selector: 'app-user.dialog',
   templateUrl: './user.dialog.component.html',
@@ -41,6 +42,7 @@ export class UserDialogComponent implements OnInit {
 
   }
 
+  userQuery: {};
 
 
   constructor(private ref: EHROverlayRef,
@@ -50,9 +52,13 @@ export class UserDialogComponent implements OnInit {
     public overlayService: OverlayService,
     private authServer: AuthenticationService,
     private alertmsg: AlertMessage) {
-
     this.user = authServer.userValue;
-    this.getUserDataforEdit(ref.RequestData as NewUser);
+    this.userQuery = {
+      UserId: (ref.RequestData as NewUser).UserId,
+      LoginProviderId: this.user.ProviderId,
+      ClinicId: this.user.ClinicId
+    }
+    this.getUserDataforEdit();
     this.loadFormDefaults();
     this.getScreenSize();
     this.dynamicheight = { 'height.px': this.scrHeight - 250, }
@@ -94,15 +100,8 @@ export class UserDialogComponent implements OnInit {
     });
   }
 
-  getUserDataforEdit(u: NewUser) {
-    var reqparams = {
-      UserId: u.UserId,
-      LoginProviderId: this.user.ProviderId,
-      ClinicId: this.user.ClinicId
-    }
-
-
-    this.settingsService.UserInfoWithPraceticeLocations(reqparams).subscribe(resp => {
+  getUserDataforEdit() {
+    this.settingsService.UserInfoWithPracticeLocations(this.userQuery).subscribe(resp => {
       this.dialogIsLoading = false;
       if(resp.IsSuccess){
         this.EditProvider = resp.Result as NewUser;
@@ -130,13 +129,9 @@ export class UserDialogComponent implements OnInit {
     if (activity == 'add') {
       this.EditProvider.ClinicId = this.user.ClinicId;
       this.EditProvider.LocationId = this.user.CurrentLocation;
-    } else {
-
     }
     if (this.EditProvider.PracticeName == null)
       this.EditProvider.PracticeName = this.user.BusinessName;
-
-    // console.log(JSON.stringify(this.EditProvider))
     this.settingsService.AddUpdateUser(this.EditProvider).subscribe(resp => {
       if (resp.IsSuccess) {
         this.ref.close({'saved':'true'});
@@ -188,13 +183,23 @@ export class UserDialogComponent implements OnInit {
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
     data?: any, action?: Actions) {
     let dialogData: any;
-    if (content === this.locationDialogComponent && action == Actions.view) {
-      dialogData = data;
+    if (content === this.locationDialogComponent) {
+      let locdig: LocationDialog = {};
+      if(action == Actions.view){
+        locdig.ProviderId = this.EditProvider.ProviderId;
+        locdig.LocationInfo = data;
+      }
+      else{
+        locdig.ProviderId = this.EditProvider.ProviderId;
+      }
+      dialogData = locdig;
     }
-    const ref = this.overlayService.open(content, dialogData);
+    const ref = this.overlayService.open(content, dialogData,true);
     ref.afterClosed$.subscribe(res => {
       if (content === this.locationDialogComponent) {
-        this.locationDialogResponse = res.data;
+        console.log(res.data);
+        if(res.data != null && (res.data.saved || res.data.deleted))
+          this.getUserDataforEdit();
       }
     });
   }

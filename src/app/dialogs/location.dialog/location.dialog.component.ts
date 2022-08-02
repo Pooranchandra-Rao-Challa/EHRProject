@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
-
+import Swal from 'sweetalert2';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { SettingsService } from 'src/app/_services/settings.service';
-import { User } from 'src/app/_models';
+import { LocationDialog, User } from 'src/app/_models';
 import { Accountservice } from 'src/app/_services/account.service';
 import { PracticeLocation } from 'src/app/_models/';
 import { AlertMessage, ERROR_CODES } from './../../_alerts/alertMessage';
@@ -15,7 +15,7 @@ import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
 })
 export class LocationDialogComponent implements OnInit {
   locationColumns: string[] = ['Location', 'Address', 'Phone', 'Providers'];
-  timeStatus = [{name: 'Specific Hours'},{name: 'Closed/NA'},{name: 'Open 24 Hrs'}];
+  timeStatus = [{ name: 'Specific Hours' }, { name: 'Closed/NA' }, { name: 'Open 24 Hrs' }];
   PracticeLocData: PracticeLocation;
   PhonePattern: any;
   user: User;
@@ -25,14 +25,19 @@ export class LocationDialogComponent implements OnInit {
   manuallybtn: boolean = false;
   locationDisplayModel = "none";
   isDeletable: boolean = false;
+  data: LocationDialog
 
   constructor(private ref: EHROverlayRef,
     private authService: AuthenticationService,
     private settingsService: SettingsService,
     private accountservice: Accountservice,
     private alertmsg: AlertMessage) {
+    this.data = ref.RequestData as LocationDialog
+    console.log('data');
+    console.log(this.data);
 
-    this.editPracticeLocation(ref.RequestData)
+
+    this.editPracticeLocation(this.data.LocationInfo)
     this.user = authService.userValue;
     this.PhonePattern = {
       0: {
@@ -45,7 +50,7 @@ export class LocationDialogComponent implements OnInit {
   ngOnInit(): void {
 
   }
-  
+
   // address verification
   AddressVerification() {
     this.accountservice.VerifyAddress(this.PracticeLocData.Street).subscribe(resp => {
@@ -73,7 +78,7 @@ export class LocationDialogComponent implements OnInit {
 
     let data = this.PracticeLocData;
 
-    this.PracticeLocData.ProviderId = this.user.ProviderId;
+    this.PracticeLocData.ProviderId = this.data.ProviderId;
 
     this.PracticeLocData.From = data.SunOpenTime + ',' + data.MonOpenTime + ',' + data.TueOpenTime + ',' + data.WedOpenTime +
       ',' + data.ThursOpenTime + ',' + data.FriOpenTime + ',' + data.SatOpenTime;
@@ -90,12 +95,12 @@ export class LocationDialogComponent implements OnInit {
   }
   SaveupateLocation() {
     let isAdd = this.PracticeLocData.LocationId == null;
-    console.log(this.PracticeLocData);
     this.settingsService.AddUpdateLocation(this.PracticeLocData).subscribe(resp => {
       if (resp.IsSuccess) {
         this.addressVerfied = false;
         this.manuallybtn = false;
         this.PracticeLocData = new PracticeLocation;
+        this.ref.close({ saved: true })
         this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2JP002" : "M2JP001"])
       }
       else {
@@ -111,9 +116,8 @@ export class LocationDialogComponent implements OnInit {
 
   editPracticeLocation(reqparam) {
     this.displayforEditLocation = true;
-    //Location_Name,Location_Street_Address,Location_Phone,providers,Location_Id
-    if (reqparam == null) return;
-    this.settingsService.EditProviderLocation(reqparam.Location_Id).subscribe(resp => {
+    if (reqparam == null || reqparam.LocationId == null) return;
+    this.settingsService.EditProviderLocation(reqparam.LocationId).subscribe(resp => {
       if (resp.IsSuccess) {
         this.isDeletable = true;
         let location = resp.ListResult[0];
@@ -168,7 +172,6 @@ export class LocationDialogComponent implements OnInit {
         this.PracticeLocData.SatCloseTime = saturday.to;
         this.PracticeLocData.SatDDL = saturday.specific_hour;
 
-
       }
     });
   }
@@ -191,7 +194,7 @@ export class LocationDialogComponent implements OnInit {
   deleteLocation() {
     this.settingsService.DeleteLocation({ LocationId: this.PracticeLocData.LocationId }).subscribe(resp => {
       if (resp.IsSuccess) {
-        this.ref.close({'saved':true})
+        this.ref.close({ deleted: true })
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2JP003"])
       }
       else {

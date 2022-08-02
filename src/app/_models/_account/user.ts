@@ -20,9 +20,9 @@ export interface User {
   IsSuccess: boolean;
   IsInTrailPeriod: boolean;
 }
-export interface UserLocations {
-  locationId: string;
-  locationName: string;
+export class UserLocations {
+  LocationId: string;
+  LocationName: string;
 }
 
 export class ViewModel {
