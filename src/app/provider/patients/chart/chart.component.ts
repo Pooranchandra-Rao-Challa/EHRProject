@@ -1,11 +1,9 @@
-import { Intervention } from './../../../_models/_provider/chart';
 import { DiscontinueDialogComponent } from './../../../dialogs/discontinue.dialog/discontinue.dialog.component';
 import { filter, map, } from 'rxjs/operators';
 import { Observable, of, BehaviorSubject, fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-
 import { ProviderPatient } from './../../../_models/_provider/Providerpatient';
-import { Component, OnInit, ElementRef, ViewChild, ViewChildren, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
 import { OverlayService } from '../../../overlay.service';
 import { AdvancedDirectivesDialogComponent } from '../../../dialogs/advanced.directives.dialog/advanced.directives.dialog.component';
@@ -13,19 +11,14 @@ import { SmokingStatusDialogComponent } from 'src/app/dialogs/smoking.status.dia
 import { InterventionDialogComponent } from 'src/app/dialogs/intervention.dialog/intervention.dialog.component';
 import { PatientService } from '../../../_services/patient.service';
 import {
-  ScheduledAppointment,
-  AdvancedDirective, ChartInfo, PatientChart, Allergy, EncounterDiagnosis, PastMedicalHistory, Actions,
-  Immunization, Medication, EncounterInfo, NewAppointment, SmokingStatus, TobaccoUseScreenings, TobaccoUseInterventions,
-  Diagnosis, AllergyType, SeverityLevel, OnSetAt, DiagnosisDpCodes, PracticeProviders,
-  AppointmentTypes, UserLocations, Room, AppointmentDialogInfo, Vaccine, User, TobaccoUse,
-  GlobalConstants, PatientSearchResults, Labandimaging, MEDICATION_NAMES, PatientSearch
+  ChartInfo, PatientChart, PastMedicalHistory, Actions,
+  Immunization, EncounterInfo, NewAppointment, TobaccoUseScreenings, TobaccoUseInterventions, PracticeProviders,
+  AppointmentTypes, UserLocations, Room, AppointmentDialogInfo, Vaccine, User, TobaccoUse, GlobalConstants,
+  PatientSearchResults, Labandimaging, PatientSearch
 } from 'src/app/_models';
-
-
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { DatePipe } from "@angular/common";
-const moment = require('moment');
 import { EncounterDialogComponent } from '../../../dialogs/encounter.dialog/encounter.dialog.component';
 import { NewAppointmentDialogComponent } from 'src/app/dialogs/newappointment.dialog/newappointment.dialog.component';
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
@@ -36,7 +29,9 @@ import { AllergyDialogComponent } from 'src/app/dialogs/allergy.dialog/allergy.d
 import { TobaccoUseDialogComponent } from 'src/app/dialogs/tobacco.use.dialog/tobacco.use.dialog.component';
 import { InterventionTableDialogComponent } from 'src/app/dialogs/intervention.table.dialog/intervention.table.dialog.component';
 import { AllergyTableDialogComponent } from 'src/app/dialogs/allergy.table.dialog/allergy.table.dialog.component';
-
+import { FrequentlyUsedDiagnosesDialogComponent } from 'src/app/dialogs/frequently.used.diagnoses.dialog/frequently.used.diagnoses.dialog.component';
+import { AddDiagnosesDialogComponent } from 'src/app/dialogs/add.diagnoses.dialog/add.diagnoses.dialog.component';
+const moment = require('moment');
 @Component({
   selector: 'app-chart',
   templateUrl: './chart.component.html',
@@ -55,7 +50,8 @@ export class ChartComponent implements OnInit, AfterViewInit {
   isLoading = false;
 
   filteredPatients: Observable<PatientSearch[]>;
-
+  frequentlyUsedDiagnosesDialogComponent = FrequentlyUsedDiagnosesDialogComponent;
+  addDiagnosesDialogComponent = AddDiagnosesDialogComponent;
   advancedDirectivesDialogComponent = AdvancedDirectivesDialogComponent;
   smokingStatusDialogComponent = SmokingStatusDialogComponent;
   interventionDialogComponent = InterventionDialogComponent;
@@ -68,26 +64,13 @@ export class ChartComponent implements OnInit, AfterViewInit {
   allergyDialogComponent = AllergyDialogComponent;
   allergyTableDialogComponent = AllergyTableDialogComponent;
   tobaccoUseDialogComponent = TobaccoUseDialogComponent;
-  // advancedDirectives: AdvancedDirective[];
-  patientDiagnoses: Diagnosis = new Diagnosis();
-  patientAllergy: Allergy = new Allergy();
+
   patientPastMedicalHistory: PastMedicalHistory = new PastMedicalHistory();
-  patientMedication: Medication = new Medication();
   patientImmunization: Immunization = new Immunization();
-  patientTobaccoUse: TobaccoUse = new TobaccoUse();
   tobaccoUseList: TobaccoUse[] = [];
-  // encounters: EncounterInfo[];
   appointments: NewAppointment[];
-  // smokingstatus: SmokingStatus[];
   tobaccoscreenings: TobaccoUseScreenings[];
   tobaccointerventions: TobaccoUseInterventions[];
-  allergyType: AllergyType[];
-  severityLevel: SeverityLevel[];
-  onsetAt: OnSetAt[];
-  allergens: any[];
-  allergyReaction: GlobalConstants;
-  DxCodes: DiagnosisDpCodes[];
-  medications: GlobalConstants;
   immUnits: GlobalConstants;
   immRoutes: GlobalConstants;
   immBodySites: GlobalConstants;
@@ -101,15 +84,12 @@ export class ChartComponent implements OnInit, AfterViewInit {
   currentPatient: ProviderPatient;
   ActionTypes = Actions;
   chartInfo: ChartInfo = new ChartInfo;
-  //PatientAppointment: NewAppointment = {};
   PracticeProviders: PracticeProviders[];
   AppointmentTypes: AppointmentTypes[];
   Locations: UserLocations[];
   Rooms: Room[];
   medication_prescription: any[];
   locationColumns: string[] = ['Location', 'Address', 'Phone', 'Providers'];
-  screeningColumns: string[] = ['DatePerf', 'Screeningperf', 'Status', 'TobaccoUsecode_desc'];
-  interventionColumns: string[] = ['DatePerf', 'Interventionperf', 'InterventionDesc', 'AddReasonNotPerformed', 'Reason'];
   immunizationColumns: string[] = ['VaccineDescription', 'CVXCode', 'Date', 'Status'];
   administered: boolean = false;
   historical: boolean = true;
@@ -117,7 +97,6 @@ export class ChartComponent implements OnInit, AfterViewInit {
   LocationAddress: any;
   user: User;
   vaccinesFilter: any;
-  medicationsFilter: GlobalConstants;
 
   constructor(public overlayService: OverlayService,
     private patientService: PatientService,
@@ -189,7 +168,6 @@ export class ChartComponent implements OnInit, AfterViewInit {
     this.currentPatient = this.authService.viewModel.Patient;
     this.ChartInfo();
     this.loadDefaults();
-    this.loadAllergyNames('');
     this.loadLocationsList();
   }
 
@@ -223,17 +201,6 @@ export class ChartComponent implements OnInit, AfterViewInit {
     this.patientImmunization.Description = selected.option.value.Description;
   }
 
-  // search medications
-  // _filterMedicine(term) {
-  //   this.isLoading = true;
-  //   this.filteredMedicines = this.reason;
-  //   // this.filteredMedicines = this.reason.filter(
-  //   //   function (data) {
-  //   //     return data.ReasonCode == term;
-  //   //   }
-  //   // );
-  // }
-
   onMedicineSelected(selected) {
     this.labandimaging.ProviderId = selected.option.value.ProviderId;
     this.labandimaging.PatientId = selected.option.value.PatientId;
@@ -245,13 +212,6 @@ export class ChartComponent implements OnInit, AfterViewInit {
   }
 
   loadGlobalConstants() {
-    this.allergyType = Object.values(AllergyType);
-    this.severityLevel = Object.values(SeverityLevel);
-    this.onsetAt = Object.values(OnSetAt);
-    this.allergyReaction = GlobalConstants.AllergyReactions;
-    this.DxCodes = Object.values(DiagnosisDpCodes);
-    this.medications = GlobalConstants.Medication_Names;
-    this.medicationsFilter = this.medications.slice();
     this.immUnits = GlobalConstants.Units;
     this.immRoutes = GlobalConstants.Routes;
     this.immBodySites = GlobalConstants.BodySites;
@@ -267,7 +227,13 @@ export class ChartComponent implements OnInit, AfterViewInit {
   openComponentDialog(content: any | ComponentType<any> | string,
     dialogData, action: Actions = this.ActionTypes.add) {
     let reqdata: any;
-    if (action == Actions.view && content === this.advancedDirectivesDialogComponent) {
+    if (action == Actions.view && content === this.frequentlyUsedDiagnosesDialogComponent) {
+      reqdata = dialogData;
+    }
+    else if (action == Actions.view && content === this.addDiagnosesDialogComponent) {
+      reqdata = dialogData;
+    }
+    else if (action == Actions.view && content === this.advancedDirectivesDialogComponent) {
       reqdata = dialogData;
     }
     else if (action == Actions.view && content === this.smokingStatusDialogComponent) {
@@ -313,17 +279,24 @@ export class ChartComponent implements OnInit, AfterViewInit {
     } else if (action == Actions.view && content === this.appointmentDialogComponent) {
       reqdata = this.PatientAppointmentInfoForView(dialogData, action);
     }
-
     const ref = this.overlayService.open(content, reqdata);
     ref.afterClosed$.subscribe(res => {
-
       this.UpdateView(res.data);
     });
   }
 
   UpdateView(data) {
     if (data == null) return;
-    if (data.UpdatedModal == PatientChart.AdvancedDirectives) {
+    if (data.UpdatedModal == PatientChart.Diagnoses) {
+      data.DiagnosesList = data.DiagnosesList == undefined ? [] : data.DiagnosesList.length;
+      if (this.chartInfo.Diagnoses.length < data.DiagnosesList.length) {
+        this.chartInfo.Diagnoses = data.DiagnosesList;
+      }
+      else {
+        this.DiagnosesByPatientId();
+      }
+    }
+    else if (data.UpdatedModal == PatientChart.AdvancedDirectives) {
       this.AdvancedDirectivesByPatientId();
     }
     else if (data.UpdatedModal == PatientChart.SmokingStatus) {
@@ -369,35 +342,13 @@ export class ChartComponent implements OnInit, AfterViewInit {
   }
 
   resetDialog() {
-    this.patientMedication = new Medication;
-    this.patientAllergy = new Allergy;
     this.patientPastMedicalHistory = new PastMedicalHistory;
-    this.patientDiagnoses = new Diagnosis;
     this.patientImmunization = new Immunization;
   }
 
   editDialog(dialogData, name) {
     if (name == 'past medical history') {
       this.patientPastMedicalHistory = dialogData;
-    }
-    else if (name == 'allergie') {
-      if (dialogData.StartAt != undefined) {
-        dialogData.StartAt = moment(dialogData.StartAt).format('YYYY-MM-DD');
-      }
-      if (dialogData.EndAt != undefined) {
-        dialogData.EndAt = moment(dialogData.EndAt).format('YYYY-MM-DD');
-      }
-      this.patientAllergy = dialogData;
-      this.patientAllergy.AllergenId = dialogData.AllergenId;
-    }
-    else if (name == 'diagnosis') {
-      if (dialogData.StopAt != undefined) {
-        dialogData.StopAt = moment(dialogData.StopAt).format('YYYY-MM-DD');
-      }
-      this.patientDiagnoses = dialogData;
-    }
-    else if (name == 'medication') {
-      this.patientMedication = dialogData;
     }
     else if (name == 'immunization') {
       this.patientImmunization = dialogData;
@@ -414,8 +365,6 @@ export class ChartComponent implements OnInit, AfterViewInit {
 
   }
 
-
-
   CreatePastMedicalHistories() {
     let isAdd = this.patientPastMedicalHistory.PastMedicalHistoryId == undefined;
     this.patientPastMedicalHistory.PatientId = this.currentPatient.PatientId;
@@ -431,93 +380,6 @@ export class ChartComponent implements OnInit, AfterViewInit {
       }
     });
   }
-
-  loadAllergyNames(req) {
-    this.patientService.AllergyNames(req).subscribe((resp) => {
-      if (resp.IsSuccess) {
-        this.allergens = resp.ListResult;
-      }
-    })
-  }
-
-  CreateAllergies() {
-    let isAdd = this.patientAllergy.AlergieId == undefined;
-    this.patientAllergy.PatientId = this.currentPatient.PatientId;
-    this.patientAllergy.StartAt = this.datepipe.transform(this.patientAllergy.StartAt, "MM/dd/yyyy hh:mm:ss");
-    this.patientAllergy.EndAt = this.datepipe.transform(this.patientAllergy.EndAt, "MM/dd/yyyy hh:mm:ss");
-    this.patientAllergy.EncounterId = '60d72688391cba0e236c28c8';
-    this.patientService.CreateAllergies(this.patientAllergy).subscribe((resp) => {
-      if (resp.IsSuccess) {
-        this.AllergiesByPatientId();
-        this.resetDialog();
-        this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CA001" : "M2CA002"]);
-      }
-      else {
-        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CA001"]);
-        this.resetDialog();
-      }
-    });
-  }
-
-  todayStartAt() {
-    this.patientDiagnoses.StartAt = new Date();
-  }
-  todayStopAt() {
-    this.patientDiagnoses.StopAt = moment(new Date()).format('YYYY-MM-DD');
-  }
-
-  CreateDiagnoses() {
-    let isAdd = this.patientDiagnoses.DiagnosisId == undefined;
-    this.patientDiagnoses.PatinetId = this.currentPatient.PatientId;
-    this.patientDiagnoses.StopAt = this.datepipe.transform(this.patientDiagnoses.StopAt, "MM/dd/yyyy hh:mm:ss");
-    this.patientService.CreateDiagnoses(this.patientDiagnoses).subscribe((resp) => {
-      if (resp.IsSuccess) {
-        this.DiagnosesByPatientId();
-        this.resetDialog();
-        this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CD001" : "M2CD002"]);
-      }
-      else {
-        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CD001"]);
-        this.resetDialog();
-      }
-    });
-  }
-
-  CreateMedication() {
-    let isAdd = this.patientMedication.MedicationId == undefined;
-    this.patientMedication.PatientId = this.currentPatient.PatientId;
-    this.patientService.CreateMedication(this.patientMedication).subscribe((resp) => {
-      if (resp.IsSuccess) {
-        this.MedicationsByPatientId();
-        this.resetDialog();
-        this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CM001" : "M2CM002"]);
-      }
-      else {
-        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CM001"]);
-        this.resetDialog();
-      }
-    });
-  }
-
-  // loadVaccines() {
-  //   debugger;
-  //   this.patientService.Vaccines().subscribe(resp => {
-  //     if (resp.IsSuccess) {
-  //       var sample = resp.ListResult.map((x) => ({
-  //         'code': x.code,
-  //         'description': x.description
-  //       }));
-  //       this.vaccines = sample;
-  //       // this.vaccinesFilter = this.vaccines.slice();
-  //       // if (this.patientImmunization.Code != "") {
-  //       //   let data = this.patientImmunization.Code;
-  //       //   let interventionlist = this.patientImmunization.find(x => x.Code == data);
-  //       //   this.CQMNotPerformed.InterventionCode = interventionlist.Code;
-  //       //   this.CQMNotPerformed.InterventionDescription = interventionlist.Description;
-  //       // }
-  //     }
-  //   });
-  // }
 
   // get display Location Details
   loadLocationsList() {
@@ -587,29 +449,6 @@ export class ChartComponent implements OnInit, AfterViewInit {
       && this.patientPastMedicalHistory.OngoingProblems == undefined ? '' : this.patientPastMedicalHistory.OngoingProblems != ''
         && this.patientPastMedicalHistory.PerventiveCare == undefined ? '' : this.patientPastMedicalHistory.PerventiveCare != ''
           && this.patientPastMedicalHistory.NutritionHistory == undefined ? '' : this.patientPastMedicalHistory.NutritionHistory != '')
-  }
-
-  disableAllergies() {
-    return !(this.patientAllergy.AllergenType == undefined ? '' : this.patientAllergy.AllergenType != ''
-      && this.patientAllergy.AllergenName == undefined ? '' : this.patientAllergy.AllergenName != ''
-        && this.patientAllergy.SeverityLevel == undefined ? '' : this.patientAllergy.SeverityLevel != ''
-          && this.patientAllergy.OnSetAt == undefined ? '' : this.patientAllergy.OnSetAt != ''
-            && this.patientAllergy.Reaction == undefined ? '' : this.patientAllergy.Reaction != ''
-              && this.patientAllergy.StartAt == undefined ? '' : this.patientAllergy.StartAt != '')
-  }
-
-  disableDiagnosis() {
-    return !(this.patientDiagnoses.CodeSystem == undefined ? '' : this.patientDiagnoses.CodeSystem != ''
-      && this.patientDiagnoses.Code == undefined ? '' : this.patientDiagnoses.Code != ''
-        && this.patientDiagnoses.Description == undefined ? '' : this.patientDiagnoses.Description != ''
-          && this.patientDiagnoses.StartAt == undefined ? '' : this.patientDiagnoses.StartAt.toString() != ''
-            && this.patientDiagnoses.StopAt == undefined ? '' : this.patientDiagnoses.StopAt != ''
-              && this.patientDiagnoses.Note == undefined ? '' : this.patientDiagnoses.Note != '')
-  }
-
-  disableMedication() {
-    return !(this.patientMedication.DrugName == undefined ? '' : this.patientMedication.DrugName != ''
-      && this.patientMedication.StartAt == undefined ? '' : this.patientMedication.StartAt.toString() != '')
   }
 
   disableImmAdministered() {
