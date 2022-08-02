@@ -69,7 +69,11 @@
           <ng-container matColumnDef="ReasonNotPerformed">
             <mat-header-cell *matHeaderCellDef mat-sort-header="ReasonNotPerformed"> Add Reason Not Performed
             </mat-header-cell>
-            <mat-cell *matCellDef="let intervention"> </mat-cell>
+            <mat-cell *matCellDef="let intervention">
+              <button class="btn btn-green w-100" *ngIf="patientIntervention.InterventionId != undefined"
+                (click)="openComponentDialog(cqmNotPerformedDialogComponent,null,ActionTypes.view)">Add
+              </button>
+            </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="Reason">
