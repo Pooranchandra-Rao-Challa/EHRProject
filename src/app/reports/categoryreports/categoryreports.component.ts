@@ -39,14 +39,6 @@ export class CategoryreportsComponent implements OnInit {
     if (req == 1) {
       this.Reports = [
         { RepId: 1, Name: 'MU Summary', Id: 1 },
-        { RepId: 2, Name: 'CPOE: Medical Orders', Id: 1 },
-        { RepId: 3, Name: 'CPOE: Laboratory Orders', Id: 1 },
-        { RepId: 4, Name: 'CPOE: Radiology Orders', Id: 1 },
-        { RepId: 5, Name: 'Electronic Prescribing', Id: 1 },
-        { RepId: 6, Name: 'Health Info Exchange', Id: 1 },
-        { RepId: 7, Name: 'Patient Electronic Access', Id: 1 },
-        { RepId: 8, Name: 'View, Download, Transmit', Id: 1 },
-        { RepId: 9, Name: 'Secure Messaging', Id: 1 },
       ];
       // this.reports == 0;
     }

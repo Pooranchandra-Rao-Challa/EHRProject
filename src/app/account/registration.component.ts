@@ -202,7 +202,7 @@ export class RegistrationComponent implements OnInit {
     this.speciality = [
       { specId: 1, specName: 'Dentistry' },
       { specId: 2, specName: 'Endodontics' },
-      { specId: 3, specName: 'Oral and maxillofacial Pathology' },
+      { specId: 3, specName: 'Oral and Maxillofacial Pathology' },
       { specId: 4, specName: 'Oral and Maxillofacial Radiology' },
       { specId: 5, specName: 'Oral and Maxillofacial Surgery' },
       { specId: 6, specName: 'Orthodontics and Dentofacial Orthopedics' },
