@@ -1,3 +1,5 @@
+import { LocationSelectService } from 'src/app/_navigations/provider.layout/view.notification.service';
+import { BehaviorSubject } from 'rxjs';
 import { Component, OnInit, NgModule } from '@angular/core';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { SettingsService } from '../../_services/settings.service';
@@ -33,6 +35,7 @@ export class ScheduleComponent implements OnInit {
     private settingsService: SettingsService,
     private fb: FormBuilder,
     private idService: IdService,
+    private locationChanged: LocationSelectService,
     private alertmsg: AlertMessage) {
     this.user = authService.userValue;
 
@@ -46,6 +49,9 @@ export class ScheduleComponent implements OnInit {
     this.buildRoomsForm();
     this.buildStatusForm();
     this.buildTypeForm();
+    this.locationChanged.getData().subscribe(location=>{
+      this.getRoomsForLocation();
+    })
   }
 
   // get display Location Details
