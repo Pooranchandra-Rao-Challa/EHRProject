@@ -159,7 +159,7 @@ export class PatientsComponent implements OnInit,AfterViewInit {
   getPatientsByProvider() {
     let reqparams = {
       "ClinicId": this.user.ClinicId,
-      "ProviderId": this.user.ProviderId,
+      "ProviderId": null,
       "Status": "All"
     }
     this.patientsDataSource = new PatientDatasource(this.patientService, reqparams);

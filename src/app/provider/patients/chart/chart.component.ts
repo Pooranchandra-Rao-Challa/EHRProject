@@ -384,7 +384,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   // get display Location Details
   loadLocationsList() {
     this.LocationAddress = [];
-    this.settingsService.PracticeLocations(this.user.ProviderId).subscribe(resp => {
+    this.settingsService.PracticeLocations(this.user.ProviderId,this.user.ClinicId).subscribe(resp => {
       if (resp.IsSuccess) {
         this.LocationAddress = resp.ListResult;
       }

@@ -75,9 +75,9 @@ export class APIEndPoint extends EndpointBase {
   get _drilldownViewConditionsUrl() {
     return this._baseUrl + "CQMReports/DrilldownViewConditions";
   }
-  get _practiseLocationsUrl() {
-    return this._baseUrl + "GetLocationsList?Provider_Id";
-  }
+  // get _practiseLocationsUrl() {
+  //   return this._baseUrl + "GetLocationsList?Provider_Id";
+  // }
   get _displayDateTimeOfZoneUrl() {
     return this._baseUrl + "DisplayDateTimeOfZone";
   }
@@ -95,7 +95,7 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "AddUpdateLocation";
   }
   get _locationByIdUrl() {
-    return this._baseUrl + "GetLocationById?id";
+    return this._baseUrl + "GetLocationById";
   }
   get _providerDetailsUrl() {
     return this._baseUrl + "GetProviderListByLocation";
@@ -149,7 +149,7 @@ export class APIEndPoint extends EndpointBase {
   get _updateProviderAdmineAccessUrl() {
     return this._baseUrl + "UpdateProviderAdminAccess";
   }
-  get _userInfoWithPraceticeLocations() {
+  get _userInfoWithPracticeLocations() {
     return this._baseUrl + "UserInfoWithPracticeLocations";
   }
 
@@ -744,6 +744,10 @@ export class APIEndPoint extends EndpointBase {
 
   get _blockoutForUrl() {
     return this._baseUrl + "BlockoutFor";
+  }
+
+  get _clinicOrProviderLocationsUrl() {
+    return this._baseUrl + "ClinicOrProviderLocations";
   }
 
   constructor(public http: HttpClient) {

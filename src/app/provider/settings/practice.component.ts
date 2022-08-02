@@ -4,11 +4,10 @@ import { Subscription } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ComponentType } from '@angular/cdk/portal';
 import { DOCUMENT, PlatformLocation } from '@angular/common';
-
 import { AuthenticationService } from '../../_services/authentication.service';
 import { SettingsService } from '../../_services/settings.service';
 import { UtilityService } from '../../_services/utiltiy.service';
-import { User } from '../../_models';
+import { LocationDialog, User } from '../../_models';
 import { LocationSelectService } from '../../_navigations/provider.layout/view.notification.service';
 import { Accountservice } from '../../_services/account.service';
 import { Actions, NewUser } from 'src/app/_models/';
@@ -23,7 +22,7 @@ import { LocationDialogComponent } from 'src/app/dialogs/location.dialog/locatio
   templateUrl: './practice.component.html',
   styleUrls: ['./settings.component.scss']
 })
-export class PracticeComponent implements OnInit, AfterViewInit {
+export class PracticeComponent implements OnInit {
   TimeZoneForm: FormGroup;
   TimeZoneList: any;
   UTCTime: any;
@@ -31,14 +30,12 @@ export class PracticeComponent implements OnInit, AfterViewInit {
   locationdataSource: any;
   providersDataSource: NewUser[];
   ProviderId: any;
-
   locationColumns: string[] = ['Location', 'Address', 'Phone', 'Providers'];
   providerColumns: string[] = ['Image', 'FullName', 'Email', 'Role', 'Space', 'Status', 'EmergencyAccess']
   providerLocationColumn: string[] = ['LocationName', 'CityState', 'PracticeSchedule', 'ServicedLocation'];
   displayuser: "none";
   providerRoles: {}[];
   locationsubscription: Subscription;
-
   changedLocationId: string;
   NewUserData: NewUser;
   private updateSubscription: Subscription;
@@ -48,8 +45,6 @@ export class PracticeComponent implements OnInit, AfterViewInit {
   ActionsType = Actions;
   user: User;
   url: string;
-  //height: number =1530;
-  //let divEl = this.el.nativeElement.querySelector('#myDiv');
 
   constructor(private fb: FormBuilder,
     private authService: AuthenticationService,
@@ -64,34 +59,16 @@ export class PracticeComponent implements OnInit, AfterViewInit {
     this.user = authService.userValue;
     this.url = plaformLocation.href.replace(plaformLocation.pathname, '/');
 
-
-    // console.log(this._document.documentElement.scrollHeight);
-
-
-    // console.log('window width ', this._document.body.clientWidth);
-    // console.log('window height ', this._document.body.clientHeight);
-    // console.log('window width ', this._document.body.clientLeft);
-    // console.log('window height ', this._document.body.clientTop);
-
     this.changedLocationId = this.user.CurrentLocation;
-    this.locationsubscription = this.locationSelectService.getData().subscribe(locationId => {
-      this.changedLocationId = locationId;
+    this.locationsubscription = this.locationSelectService.getData().subscribe(LocationId => {
+      this.changedLocationId = LocationId;
       this.getProviderDetails();
     });
     this.NewUserData = {
     }
   }
-  ngAfterViewInit(): void {
-    // let scrollHeight = Math.max(
-    //   document.body.scrollHeight, document.documentElement.scrollHeight,
-    //   document.body.offsetHeight, document.documentElement.offsetHeight,
-    //   document.body.clientHeight, document.documentElement.clientHeight
-    // );
 
-    // alert('Full document height, with scrolled out part: ' + scrollHeight);
-  }
   ngOnDestroy() {
-    // unsubscribe to ensure no memory leaks
     this.locationsubscription.unsubscribe();
   }
   ngOnInit(): void {
@@ -129,7 +106,7 @@ export class PracticeComponent implements OnInit, AfterViewInit {
   }
   // get display Location Details
   practiceLocations() {
-    this.settingsService.PracticeLocations(this.user.ProviderId).subscribe(resp => {
+    this.settingsService.PracticeLocations(this.user.ProviderId, this.user.ClinicId).subscribe(resp => {
       if (resp.IsSuccess) {
         this.locationdataSource = resp.ListResult;
       }
@@ -146,13 +123,6 @@ export class PracticeComponent implements OnInit, AfterViewInit {
         this.providersDataSource = resp.ListResult as NewUser[];
       } else this.providersDataSource = [];
     });
-  }
-  timeChangeHandler(event: Event) {
-    // console.log(event);
-  }
-
-  invalidInputHandler() {
-    // some error handling
   }
   toggleAdmin(user: NewUser) {
     this.updateToggleUserFieldValues("Admin", user);
@@ -171,7 +141,6 @@ export class PracticeComponent implements OnInit, AfterViewInit {
       user: user
     }
     this.settingsService.ToggleUserFieldValues(reqparams).subscribe(resp => {
-
       let message: string;
       if (resp.IsSuccess) {
         message = resp.Message;
@@ -184,13 +153,13 @@ export class PracticeComponent implements OnInit, AfterViewInit {
     this.NewUserData.LocationId = this.user.CurrentLocation;
     if (this.NewUserData.PracticeName == null)
       this.NewUserData.PracticeName = this.user.BusinessName;
-      this.NewUserData.URL = this.url;
+    this.NewUserData.URL = this.url;
 
     this.settingsService.AddUpdateUser(this.NewUserData).subscribe(resp => {
       if (resp.IsSuccess) {
         this.getProviderDetails();
         this.NewUserData = new NewUser;
-        this.alertmsg.userCreateConfirm(resp.Result["Code"],resp.Result["ProviderName"])
+        this.alertmsg.userCreateConfirm(resp.Result["Code"], resp.Result["ProviderName"])
       }
       else {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2JP007"])
@@ -198,9 +167,6 @@ export class PracticeComponent implements OnInit, AfterViewInit {
     });
   }
 
-  closePopupAddress() {
-    //this.displayAddress = "none";
-  }
   getUserDataforEdit(u: NewUser) {
     var reqparams = {
       UserId: u.UserId,
@@ -208,43 +174,41 @@ export class PracticeComponent implements OnInit, AfterViewInit {
       ClinicId: this.user.ClinicId
     }
 
-    this.settingsService.UserInfoWithPraceticeLocations(reqparams).subscribe(resp => {
+    this.settingsService.UserInfoWithPracticeLocations(reqparams).subscribe(resp => {
       this.NewUserData = resp.Result as NewUser;
       this.NewUserData.LocationInfo = JSON.parse(resp.Result.LocationInfo);
     });
   }
 
   userInfoForEdit(data, action: Actions) {
-    //console.log(data);
     return data;
   }
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
     data?: any, action?: Actions) {
-
-    //    let scrollHeight = Math.max(
-    //   document.body.scrollHeight, document.documentElement.scrollHeight,
-    //   document.body.offsetHeight, document.documentElement.offsetHeight,
-    //   document.body.clientHeight, document.documentElement.clientHeight
-    // );
-
-
-
     let dialogData: any;
     if (content === this.userDialogComponent && action == Actions.view) {
       dialogData = this.userInfoForEdit(data, action);
-    } else if (content === this.locationDialogComponent && action == Actions.view) {
-      dialogData = data;
+    } else if (content === this.locationDialogComponent) {
+      let locdig: LocationDialog = {};
+      if (action == Actions.view) {
+        locdig.ProviderId = this.user.ProviderId;
+        locdig.LocationInfo = data;
+      }
+      else {
+        locdig.ProviderId = this.user.ProviderId;
+      }
+      dialogData = locdig;
     }
-    //sdocument.documentElement.getElementsByClassName("scrollable-container").
+
     const ref = this.overlayService.open(content, dialogData);
     ref.afterClosed$.subscribe(res => {
       if (content === this.userDialogComponent) {
-        if(res.data != null && res.data.saved){
-          this. getProviderDetails();
+        if (res.data != null && res.data.saved) {
+          this.getProviderDetails();
         }
-      }else if(content === this.locationDialogComponent){
-        if(res.data != null && res.data.saved){
-          this. practiceLocations();
+      } else if (content === this.locationDialogComponent) {
+        if (res.data != null && (res.data.saved || res.data.deleted)) {
+          this.practiceLocations();
         }
       }
     });
@@ -266,20 +230,20 @@ export class PracticeComponent implements OnInit, AfterViewInit {
   timeZoneChanged(value) {
     //this.DisplayDateTimeZone();
   }
-  OpenMessageDiloag(){
-    this.alertmsg.userCreateConfirm('Code',"Provider Name")
+  OpenMessageDiloag() {
+    this.alertmsg.userCreateConfirm('Code', "Provider Name")
   }
   /*  ^[A-Za-z0-9._%-]+@[A-Za-z0-9._-]+\\.[a-z]{2,3}$*/
   emailPattern = "^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$";
-  EnableSave(){
-    var emailReg =  /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
+  EnableSave() {
+    var emailReg = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
     return !(this.NewUserData.FirstName != null && this.NewUserData.FirstName != ""
-          && this.NewUserData.Email != null && this.NewUserData.Email != ""
-          && emailReg.test(this.NewUserData.Email)
-          && this.NewUserData.PracticeRole != null && this.NewUserData.PracticeRole != "");
+      && this.NewUserData.Email != null && this.NewUserData.Email != ""
+      && emailReg.test(this.NewUserData.Email)
+      && this.NewUserData.PracticeRole != null && this.NewUserData.PracticeRole != "");
   }
 
-  Close(){
+  Close() {
     this.NewUserData = new NewUser()
   }
 }

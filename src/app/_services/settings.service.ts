@@ -40,13 +40,23 @@ export class SettingsService extends APIEndPoint {
   }
 
   EditProviderLocation(reqparams: any) {
-    const apiEndPoint = this._locationByIdUrl + "=" + reqparams;
-    return this._ProcessGetRequest<any>(apiEndPoint);
+    const reqparm = {LocationId:reqparams};
+    return this._ProcessPostRequest<any>(this._locationByIdUrl,reqparm);
   }
 
-  PracticeLocations(providerId: any) {
-    const apiEndPoint = this._locationsListUrl + providerId;
-    return this._ProcessPostRequest<any>(apiEndPoint, providerId);
+  // PracticeLocations(providerId: any) {
+  //   const apiEndPoint = this._locationsListUrl + providerId;
+  //   return this._ProcessPostRequest<any>(apiEndPoint, providerId);
+  // }
+
+  PracticeLocations(ProviderId: string,ClinicId: string){
+    return this._ProcessPostRequest<any>(this._clinicOrProviderLocationsUrl,
+      {ProviderId:ProviderId,ClinicId:ClinicId});
+  }
+
+  ClinicLocations(ClinicId: string){
+    return this._ProcessPostRequest<any>(this._clinicOrProviderLocationsUrl,
+      {ClinicId:ClinicId});
   }
 
   ProviderDetails(reqparams: any) {
@@ -84,8 +94,8 @@ export class SettingsService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._updateProviderAdmineAccessUrl, reqparams);
   }
 
-  UserInfoWithPraceticeLocations(reqparams: any) {
-    return this._ProcessPostRequest<any>(this._userInfoWithPraceticeLocations, reqparams);
+  UserInfoWithPracticeLocations(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._userInfoWithPracticeLocations, reqparams);
   }
 
   AddUpdateUserDetails(reqparams: any) {

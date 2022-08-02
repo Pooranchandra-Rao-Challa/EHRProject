@@ -22,7 +22,8 @@
         <div class="col-lg-8 col-md-8 col-8">
           <mat-label class="required">{{LabelBlockoutFor}}</mat-label>
           <mat-form-field appearance="outline" class="col-md-12 orderddhover">
-            <mat-select required placeholder="Select" [(ngModel)]="blockout.BlockoutForId">
+            <mat-select required placeholder="Select" [(ngModel)]="blockout.BlockoutForId"
+            (change)="SelectionBlockoutForChange($event)">
               <mat-option *ngFor="let blockforitem of blockoutforItems;" [value]="blockforitem.Value">
                 {{blockforitem.Name}}
               </mat-option>
@@ -30,7 +31,7 @@
           </mat-form-field>
         </div>
         <div class="col-lg-4 col-md-4 col-4">
-          <mat-label class="required">Select Room</mat-label>
+          <mat-label>Select Room</mat-label>
           <mat-form-field appearance="outline" class="col-md-12 orderddhover">
             <mat-select required placeholder="Select Room" [(ngModel)]="blockout.BlockoutForId">
               <mat-option *ngFor="let room of blockoutDialog.Rooms;" [value]="room.RoomId">

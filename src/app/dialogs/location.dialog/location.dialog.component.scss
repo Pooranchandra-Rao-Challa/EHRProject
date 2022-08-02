@@ -49,16 +49,18 @@
   justify-content: space-around;
 }
 
-div#practice-location-model .modal-header{
-  margin: -1px;
+div#practice-location-model {
+  .modal-header{
+    margin: -1px;
+  }
+  .footer-buttons{
+    width: 100%;
+    button{
+      margin: 0 20px;
+    }
+  }
 }
 
-.btn-p-l-d-padding{
-  margin-right:40px !important;
-}
-.btn-p-l-c-padding{
-  margin-right:15px !important;
-}
 
 .error-close {
   background-color: rgb(253, 65, 65) !important;

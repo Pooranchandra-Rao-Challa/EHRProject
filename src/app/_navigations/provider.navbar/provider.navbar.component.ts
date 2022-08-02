@@ -29,7 +29,7 @@ export class ProviderNavbarComponent implements OnInit {
     config.placement = 'bottom-right';
     this.user = authenticationService.userValue;
     this.locationsInfo = JSON.parse(this.user.LocationInfo);
-    this.user.CurrentLocation = this.locationsInfo[0].locationId;
+    this.user.CurrentLocation = this.locationsInfo[0].LocationId;
     this.viewModel = authenticationService.viewModel;
   }
 

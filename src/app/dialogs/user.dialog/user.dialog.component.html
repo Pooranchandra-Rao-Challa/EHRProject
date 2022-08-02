@@ -50,7 +50,7 @@
                     <i class="fa fa-minus"></i>
                     <i class="errormessage">Please enter alphabets, space</i>
                   </div>
-                  
+
                   <div class="error_message" *ngIf="patientFirstName.errors?.required">
                     <i class="fa fa-minus"></i>
                     <i class="errormessage">First Name is required</i>
@@ -198,11 +198,14 @@
           <mat-table class="table table-responsive userfromPractable" [dataSource]="EditProvider.LocationInfo">
             <ng-container matColumnDef="LocationName">
               <mat-header-cell style="color: rgba(0, 0, 0, 0.54);" *matHeaderCellDef>Location Name</mat-header-cell>
-              <mat-cell *matCellDef="let loc">{{loc.Name}} </mat-cell>
+              <mat-cell *matCellDef="let loc">
+                <a class="cursorpointer" (click)="openComponentDialog(locationDialogComponent,loc,ActionsType.view)">{{loc.Name}}</a>
+                 </mat-cell>
             </ng-container>
             <ng-container matColumnDef="CityState">
               <mat-header-cell style="color: rgba(0, 0, 0, 0.54);" *matHeaderCellDef>City, State</mat-header-cell>
-              <mat-cell *matCellDef="let loc">{{loc.City}}, {{loc.State}}</mat-cell>
+              <mat-cell *matCellDef="let loc">
+                <a class="cursorpointer" (click)="openComponentDialog(locationDialogComponent,loc,ActionsType.view)">{{loc.City}}, {{loc.State}}</a></mat-cell>
             </ng-container>
             <ng-container matColumnDef="PracticeSchedule">
               <mat-header-cell style="color: rgba(0, 0, 0, 0.54);" *matHeaderCellDef>Practice Schedule</mat-header-cell>
@@ -214,7 +217,7 @@
               <mat-header-cell style="color: rgba(0, 0, 0, 0.54);" *matHeaderCellDef>Serviced Location(s)
               </mat-header-cell>
               <mat-cell *matCellDef="let loc" ngClass="nopadding">
-                <mat-checkbox class="example-margin" [ngModelOptions]="{standalone: true}" [ngModel]="loc.Assigned">
+                <mat-checkbox class="example-margin" [ngModelOptions]="{standalone: true}" [(ngModel)]="loc.Assigned">
                 </mat-checkbox>
               </mat-cell>
             </ng-container>
@@ -241,7 +244,7 @@
                 </mat-form-field>
               </div>
             </div>
-            
+
             <div class="col-lg-4 mt-lg-4 mt-2">
               <mat-checkbox class="example-margin" [(ngModel)]="EditProvider.Active">
                 <label class="settings-label mt-2">Active</label>

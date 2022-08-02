@@ -49,17 +49,17 @@
                   <ng-container matColumnDef="Location">
                     <mat-header-cell *matHeaderCellDef>Location name</mat-header-cell>
                     <mat-cell *matCellDef="let loc"><span class="text-decoration ">
-                        <a data-remote="true" class="cursorpointer"
+                        <a  class="cursorpointer"
                           (click)="openComponentDialog(locationDialogComponent,loc,ActionsType.view)">
-                          {{loc.Location_Name}}</a></span></mat-cell>
+                          {{loc.LocationName}}</a></span></mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="Address">
                     <mat-header-cell *matHeaderCellDef>Address</mat-header-cell>
                     <mat-cell class="address-oncursor" *matCellDef="let loc">
                       <span class="text-decoration ">
-                        <a data-remote="true" class="cursorpointer"
+                        <a class="cursorpointer"
                           (click)="openComponentDialog(locationDialogComponent,loc,ActionsType.view)">
-                          {{loc.Location_Street_Address}}</a></span>
+                          {{loc.Address}}</a></span>
                     </mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="Phone">
@@ -68,11 +68,11 @@
                       <span class="text-decoration ">
                         <a data-remote="true" class="cursorpointer"
                           (click)="openComponentDialog(locationDialogComponent,loc,ActionsType.view)">
-                          {{loc.Location_Phone}}</a></span></mat-cell>
+                          {{loc.Phone}}</a></span></mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="Providers">
                     <mat-header-cell *matHeaderCellDef># of Providers</mat-header-cell>
-                    <mat-cell class="address-oncursor" *matCellDef="let loc">{{loc.providers}}</mat-cell>
+                    <mat-cell class="address-oncursor" *matCellDef="let loc">{{loc.Providers}}</mat-cell>
                   </ng-container>
 
                   <mat-header-row *matHeaderRowDef="locationColumns"></mat-header-row>

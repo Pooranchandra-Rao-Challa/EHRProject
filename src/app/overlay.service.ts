@@ -13,7 +13,8 @@ export class OverlayService {
 
   open<R = any, T = any>(
     content: string | TemplateRef<any> | Type<any>,
-    data: T
+    data: T,
+    popupover: boolean = false
   ): EHROverlayRef<R> {
        let scrollHeight = Math.max(
       document.body.scrollHeight, document.documentElement.scrollHeight,
@@ -34,7 +35,7 @@ export class OverlayService {
     document.body.scrollBy(0,-document.body.scrollTop);
     document.body.style.overflow = "hidden";
     const overlayRef = this.overlay.create(configs);
-    const myOverlayRef = new EHROverlayRef<R, T>(overlayRef, content, data);
+    const myOverlayRef = new EHROverlayRef<R, T>(overlayRef, content, data,popupover);
     const injector = this.createInjector(myOverlayRef, this.injector);
     overlayRef.attach(new ComponentPortal(OverlayComponent, null, injector));
     return myOverlayRef;

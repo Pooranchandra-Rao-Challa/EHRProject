@@ -64,8 +64,7 @@
               <mat-select id="selSmartLocations" placeholder="Select Location" disableOptionCentering
                 [(ngModel)]="PatientAppointment.LocationId" [ngModelOptions]="{standalone:true}"
                 (selectionChange)="OnLocationChange($event)">
-
-                <mat-option *ngFor="let location of Locations" [value]="location.locationId">{{location.locationName}}
+                <mat-option *ngFor="let location of Locations" [value]="location.LocationId">{{location.LocationName}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
