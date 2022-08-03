@@ -106,7 +106,8 @@ export class AppointmentComponent {
 
         }
         else if (e.ApptStatus == 'Cancelled') {
-          e.ApptStatus = 'your Appoinment is cancelled';
+          e.ApptStatus = 'Cancelled';
+          e.class = "StatusCancelled";
 
         }
       });

@@ -25,6 +25,10 @@ import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter
 from '@angular/material-moment-adapter';
 import { CustomMomentDateAdapter } from 'src/app/_common/custom.date.adapter';
 import { AppMomentDateAdapter,MOMENT_DATE_FORMATS }from 'src/app/_common/app.moment.date.adapter';
+import { MessagesService } from './_services/messages.service';
+
+
+
 
 
 
@@ -37,6 +41,9 @@ import { AppMomentDateAdapter,MOMENT_DATE_FORMATS }from 'src/app/_common/app.mom
   ],
   declarations: [
     AppComponent,
+    
+    
+    
     
  
    
@@ -66,6 +73,8 @@ import { AppMomentDateAdapter,MOMENT_DATE_FORMATS }from 'src/app/_common/app.mom
     LabsImagingService,
     DentalChartService,
     CQMNotPerformedService,
+    MessagesService,
+
     { provide: DateAdapter, useClass: AppMomentDateAdapter },
    // { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
     { provide: MAT_DATE_FORMATS, useValue: MOMENT_DATE_FORMATS }

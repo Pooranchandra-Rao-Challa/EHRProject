@@ -747,6 +747,28 @@ export class APIEndPoint extends EndpointBase {
  {
    return this._baseUrl + "CancelPatientAppoinment";
  }
+
+ get _providerInboxMessagesUrl()
+ {
+   return this._baseUrl + "ProviderInboxMessages";
+ }
+
+ get _providerSentMessagesUrl()
+ {
+   return this._baseUrl + "ProviderSentMessages";
+ }
+
+ get _providerDraftMessagesUrl()
+ {
+   return this._baseUrl + "ProviderDraftMessages";
+ }
+
+ get _providerUrgentMessagesUrl()
+ {
+   return this._baseUrl + "ProviderUrgentMessages";
+ }
+
+ 
   constructor(public http: HttpClient) {
     super();
   }

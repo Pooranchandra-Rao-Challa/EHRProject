@@ -109,6 +109,9 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 import interactionPlugin from '@fullcalendar/interaction'; // a plugin!
 import timeGridPlugin from '@fullcalendar/resource-timegrid'; // a plugin!
+
+import { ProvidermessagetopracticeDialogComponent } from 'src/app/dialogs/providermessagetopractice.dialog/providermessagetopractice.dialog.component';
+import { ProvidermessagetopatientDialogComponent } from 'src/app/dialogs/providermessagetopatient.dialog/providermessagetopatient.dialog.component';
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
   interactionPlugin,
@@ -196,6 +199,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     TestCodeComponent,
     PatientScheduleComponent,
     LabOrderTestFormatPipe,
+    ProvidermessagetopatientDialogComponent,
+    ProvidermessagetopracticeDialogComponent
   ],
   imports: [
     FullCalendarModule,
@@ -261,7 +266,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     OrderDialogComponent,
     LabResultComponent,
     ImagingResultDialogComponent,
-    TestCodeComponent]
+    TestCodeComponent,
+    ProvidermessagetopatientDialogComponent,
+    ProvidermessagetopracticeDialogComponent]
 })
 export class ProviderModule {
 
