@@ -85,9 +85,9 @@ export class Accountservice extends APIEndPoint {
   }
 
 
-  getPractiseLocations(reqdata: any) {
-    return this._ProcessPostRequest<any>(this._practiseLocationsUrl, reqdata);
-  }
+  // getPractiseLocations(reqdata: any) {
+  //   return this._ProcessPostRequest<any>(this._practiseLocationsUrl, reqdata);
+  // }
 
   PostProvdierAdminAccess(reqparams: any) {
     return this._ProcessPostRequest<any>(this._provdierAdminAccessUrl, reqparams);

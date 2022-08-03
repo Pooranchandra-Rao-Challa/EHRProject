@@ -93,7 +93,7 @@ export class EncounterDialogComponent implements OnInit {
     )
 
     this.location = (JSON.parse(this.authService.userValue.LocationInfo) as UserLocations[])
-      .filter((loc) => loc.locationId === this.authService.userValue.CurrentLocation)[0];
+      .filter((loc) => loc.LocationId === this.authService.userValue.CurrentLocation)[0];
 
     this.loadDefaults();
 
@@ -187,7 +187,7 @@ export class EncounterDialogComponent implements OnInit {
           console.log(this.dischargeCode);
         } else {
           this.encounterInfo.ProviderId = this.authService.userValue.ProviderId;
-          this.encounterInfo.LocationId = this.location.locationId;
+          this.encounterInfo.LocationId = this.location.LocationId;
           if (this.appointment != null) {
             this.encounterInfo.AppointmentId = this.appointment.AppointmentId;
             this.encounterInfo.PatientId = this.appointment.PatientId;

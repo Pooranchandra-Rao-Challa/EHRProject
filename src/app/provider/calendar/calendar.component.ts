@@ -1,4 +1,6 @@
-import { AppointmentType, AppointmentStatus } from './../../_models/_provider/_settings/settings';
+import { AvailableTimeSlot } from './../../_models/_provider/smart.scheduler.data';
+import { BehaviorSubject } from 'rxjs';
+import { AppointmentType, AppointmentStatus, TimeSlot } from './../../_models/_provider/_settings/settings';
 import { SmartSchedulerService } from './../../_services/smart.scheduler.service';
 import { AuthenticationService } from './../../_services/authentication.service';
 import Swal from 'sweetalert2';
@@ -11,7 +13,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import resourceTimeGridPlugin from '@fullcalendar/resource-timegrid';
-import { Actions, AppointmentDialogInfo, CalendarAppointment, NewAppointment, PracticeProviders, Room, User, UserLocations } from 'src/app/_models';
+import { Actions, AppointmentDialogInfo, BlockOutDialog, CalendarAppointment, NewAppointment, PracticeProviders, Room, User, UserLocations } from 'src/app/_models';
 import { SettingsService } from 'src/app/_services/settings.service';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { LocationSelectService } from 'src/app/_navigations/provider.layout/view.notification.service';
@@ -19,6 +21,8 @@ import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { ComponentType } from '@angular/cdk/portal';
 import { NewAppointmentDialogComponent } from '../../dialogs/newappointment.dialog/newappointment.dialog.component';
 import { OverlayService } from 'src/app/overlay.service';
+import { BlockoutDialogComponent } from 'src/app/dialogs/blockout/blockout.dialog.component';
+import { I } from '@angular/cdk/keycodes';
 
 //import adaptivePlugin from '@fullcalendar/adaptive'
 
@@ -38,6 +42,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   calendarOptions: CalendarOptions;
   eventsModel: any;
   practiceProviders: PracticeProviders[];
+  providerStaff: PracticeProviders[];
   appointmentTypes: AppointmentType[];
   appointmentStatuses: AppointmentStatus[];
   PatientAppointment: NewAppointment;
@@ -45,6 +50,9 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   SelectedLocationId: string;
   Rooms: Room[];
   locations: UserLocations[];
+  providerAndStaff: PracticeProviders[] = [];
+  updateProviderAndStaff: BehaviorSubject<PracticeProviders[]> = new BehaviorSubject([])
+
   @ViewChild('fullcalendar') fullcalendar: FullCalendarComponent;
   @ViewChildren('roomCheckboxes') private roomCheckboxes: QueryList<any>;
   @ViewChild('roomsToggle') private roomsToggle: MatCheckbox;
@@ -60,6 +68,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   user: User;
   appointmentDialogComponent = NewAppointmentDialogComponent;
+  blockoutDialogComponent = BlockoutDialogComponent;
   sundayDate: Date = new Date();
 
   resources: any[] = [{}];
@@ -90,8 +99,19 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       .subscribe(resp => {
         if (resp.IsSuccess) {
           this.practiceProviders = resp.ListResult as PracticeProviders[];
+          this.updateProviderAndStaff.next(this.practiceProviders)
         }
       });
+
+    this.smartSchedulerService
+      .PracticeStaff({ "ClinicId": this.authService.userValue.ClinicId })
+      .subscribe(resp => {
+        if (resp.IsSuccess) {
+          this.providerStaff = resp.ListResult as PracticeProviders[];
+          this.updateProviderAndStaff.next(this.providerStaff)
+        }
+      });
+
 
     this.settingsService
       .AppointmentTypes({ 'ProviderId': this.authService.userValue.ProviderId })
@@ -329,21 +349,21 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     this.toggleButtonVisibility = !this.toggleButtonVisibility;
   }
 
-  nextCalenderEvents(){
+  nextCalenderEvents() {
     this.fullcalendar.getApi().removeAllEvents();
     this.fullcalendar.getApi().next();
     this.sundayDate = this.WeekBeginDate;
     this.updateCalendarEvents();
   }
 
-  previousCalenderEvents(){
+  previousCalenderEvents() {
     this.fullcalendar.getApi().removeAllEvents();
     this.fullcalendar.getApi().prev();
     this.sundayDate = this.WeekBeginDate;
     this.updateCalendarEvents();
   }
 
-  get WeekBeginDate():Date{
+  get WeekBeginDate(): Date {
     let tdate = this.fullcalendar.getApi().getDate()
     tdate.setDate(tdate.getDate() - tdate.getDay());
     return tdate;
@@ -356,8 +376,23 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       editable: true,
       duration: 30,
       weekends: true,
-      //navLinks: true,
-      //navLinkWeekClick: this.nextCalenderEvents.bind(this),
+      // businessHours: [ // specify an array instead
+      //   {
+      //     daysOfWeek: [1, 2, 3], // Monday, Tuesday, Wednesday
+      //     startTime: '6:00', // 8am
+      //     endTime: '20:00' // 6pm
+      //   },
+      //   {
+      //     daysOfWeek: [4, 5], // Thursday, Friday
+      //     startTime: '7:00', // 10am
+      //     endTime: '20:00' // 4pm
+      //   }
+      // ],
+      eventTimeFormat: {
+        hour: 'numeric',
+        minute: '2-digit',
+        meridiem: 'short'
+      },
       views: {
         timeGridWeek: {
           titleFormat: { year: 'numeric', month: 'long' }
@@ -371,18 +406,10 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         NextWeek: {
           text: ' > ',
           click: this.nextCalenderEvents.bind(this)
-          // click: function () {
-          //   //this.calendarOptions["initialView"] = "resourceTimeGridDay"
-          //   this.fullcalendar.getApi().next();
-          // }
         },
         Previousweek: {
           text: ' < ',
           click: this.previousCalenderEvents.bind(this)
-          // click: function () {
-          //   //this.calendarOptions["initialView"] = "timeGridWeek"
-          //   this.fullcalendar.getApi().prev();
-          // }
         }
       },
 
@@ -395,11 +422,12 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       dateClick: this.handleDateClick.bind(this),
       eventClick: this.handleEventClick.bind(this),
       eventDrop: this.handleEventDragStop.bind(this),
+      eventDidMount: this.handleEventMount.bind(this),
       eventMouseEnter: function (args: EventHoveringArg) {
         //alert(JSON.stringify(args.event))
         this.timer = setTimeout(() => {
           let myPopup = document.getElementById('event-view');
-          if (this.myPopup) { this.myPopup.remove(); }
+          if (myPopup) { myPopup.remove(); }
           let timer;
           let x = args.el.getBoundingClientRect().left + this.el.offsetWidth / 2; // Get the middle of the element
           let y = args.el.getBoundingClientRect().top + this.el.offsetHeight + 6; // Get the bottom of the element, plus a little extra
@@ -408,13 +436,15 @@ export class CalendarComponent implements OnInit, AfterViewInit {
           popup.style.width = "250px";
 
           let data = args.event.extendedProps;
-          popup.style.top = y.toString() + "px";
-          popup.style.left = x.toString() + "px";
+          // popup.style.top = y.toString() + "px";
+          //popup.style.left = x.toString() + "px";
           popup.style.background = "#fff"
           popup.style.color = "#41b6a6"
           popup.style.fontSize = "12px"
           popup.style.fontWeight = "600"
           popup.style.marginTop = "2px"
+          popup.style.position = "absolute"
+          popup.style.zIndex = "1000000"
 
 
           let dcontainer = document.createElement('div');
@@ -486,7 +516,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
           args.el.appendChild(popup);
           this.myPopup = popup;
           setTimeout(() => {
-            if (this.myPopup) this.myPopup.remove();
+            if (myPopup) this.myPopup.remove();
           }, 10000);
         }, this.delay)
       },
@@ -498,6 +528,10 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     };
   }
 
+  handleEventMount(arg) {
+    //console.log(arg);
+  }
+
   ngOnInit() {
     this.loadDefaults();
     this.updateCalendarEvents();
@@ -506,19 +540,13 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     this.InitCalendarOptions();
     //this.initPatient();
     this.LoadAppointmentDefalts();
-
+    this.updateProviderAndStaff.subscribe((value) => {
+      value.forEach(val => { this.providerAndStaff.push(val) })
+    })
   }
 
-  // initPatient() {
-  //   this.PatientAppointment = {};
-  //   this.SelectedLocationId = this.authService.userValue.CurrentLocation;
-  //   this.PatientAppointment.ProviderId = this.authService.userValue.ProviderId;
-  //   this.PatientAppointment.LocationId = this.SelectedLocationId;
-  //   this.PatientAppointment.Duration = 30;
-  //   //this.selectedAppointmentDate = new Date(new Date().toLocaleDateString());
-  // }
 
-  PatientAppointmentInfo(appointment: CalendarAppointment,action: Actions) {
+  PatientAppointmentInfo(appointment: CalendarAppointment, action: Actions) {
     let data = {} as AppointmentDialogInfo;
     this.PatientAppointment = {} as NewAppointment;
     this.PatientAppointment.PatientId = appointment.PatientId;
@@ -527,7 +555,16 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     this.PatientAppointment.ProviderId = appointment.ProviderId;
     this.PatientAppointment.ClinicId = this.authService.userValue.ClinicId;
     this.PatientAppointment.Duration = 30;
-    data.Title =  action == Actions.new ? "Add Appointment" : "Edit Appointment";
+    let endAt = new Date(appointment.StartAt);
+    endAt.setMinutes(endAt.getMinutes() + 30);
+    let timeslot = this.datepipe.transform(appointment.StartAt, "HH:mm a") + ' - ' + this.datepipe.transform(endAt, "HH:mm a")
+    let TimeSlot: AvailableTimeSlot = {};
+    TimeSlot.EndDateTime = endAt;
+    TimeSlot.StartDateTime = appointment.StartAt;
+    TimeSlot.TimeSlot = timeslot;
+    TimeSlot.Selected = true;
+    data.TimeSlot = TimeSlot;
+    data.Title = action == Actions.new ? "Add Appointment" : "Edit Appointment";
     data.ClinicId = this.authService.userValue.ClinicId;
     data.ProviderId = appointment.ProviderId;
     data.LocationId = appointment.LocationId;
@@ -547,51 +584,51 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     return data;
   }
 
-  SelectAppointment(event: EventApi): AppointmentDialogInfo
-  {
+  SelectAppointment(event: EventApi): AppointmentDialogInfo {
     let appointment: CalendarAppointment = null;
+
     this.calendarAppointments.forEach(app => {
-      if(app.AppointmentId == event.id) {
+      if (app.AppointmentId == event.id) {
+
         appointment = app;
       }
     })
-    if(appointment == null){
+    if (appointment == null) {
       appointment = {};
       appointment.StartAt = event.start;
     }
-    return this.PatientAppointmentInfo(appointment,Actions.view);
+
+
+    return this.PatientAppointmentInfo(appointment, Actions.view);
   }
 
   handleDateClick(arg) {
-    console.log(arg);
     let event = arg;
-    let eventDate = new Date(this.datepipe.transform(event.date,"MM/dd/yyyy"));
+    let eventDate = new Date(this.datepipe.transform(event.date, "MM/dd/yyyy"));
     let today = new Date(this.datepipe.transform(new Date(), "MM/dd/yyyy"))
     let appointment: CalendarAppointment = {};
     appointment.StartAt = event.date;
     appointment.ProviderId = this.authService.userValue.ProviderId;
     appointment.LocationId = this.authService.userValue.CurrentLocation;
 
-    if(event.resource != null)
+    if (event.resource != null)
       appointment.RoomId = event.resource.id;
 
-    let dialog: AppointmentDialogInfo = this.PatientAppointmentInfo(appointment,Actions.new);
-    console.log(dialog);
 
-    if(eventDate >= today )
+    let dialog: AppointmentDialogInfo = this.PatientAppointmentInfo(appointment, Actions.new);
+    if (eventDate >= today)
       this.openComponentDialog(this.appointmentDialogComponent,
-        dialog,Actions.view);
+        dialog, Actions.view);
   }
 
   handleEventClick(arg) {
-    console.log(arg);
     let event: EventApi = arg.event;
-    let eventDate = new Date(this.datepipe.transform(event.start,"MM/dd/yyyy"));
+    let eventDate = new Date(this.datepipe.transform(event.start, "MM/dd/yyyy"));
     let today = new Date(this.datepipe.transform(new Date(), "MM/dd/yyyy"));
-    let dialog: AppointmentDialogInfo = this.SelectAppointment(arg);
-    if(eventDate >= today )
-    this.openComponentDialog(this.appointmentDialogComponent,
-      dialog,Actions.view);
+    let dialog: AppointmentDialogInfo = this.SelectAppointment(arg.event);
+    if (eventDate >= today)
+      this.openComponentDialog(this.appointmentDialogComponent,
+        dialog, Actions.view);
   }
 
   checkEventMove(event: EventApi): boolean {
@@ -636,12 +673,12 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         oldEvent.getResources().length == 1) {
         let resoruce = event.getResources()[0]
         let oldresoruce = oldEvent.getResources()[0]
-        if(resoruce.id == oldresoruce.id){
+        if (resoruce.id == oldresoruce.id) {
           this.RescheduleAppointment(event);
-        }else if (this.checkEventMove(event)){
+        } else if (this.checkEventMove(event)) {
           this.displayMessageDialogWithResult(ERROR_CODES["E2B002"], arg);
         }
-        else{
+        else {
           this.AllocateNewResource(event)
         }
       }
@@ -714,6 +751,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   RefreshCalendar(event) {
     if (event) {
+      this.fullcalendar.getApi().removeAllEvents();
       this.updateCalendarEvents();
     }
 
@@ -724,7 +762,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       this.SelectedProviderId == "")
       this.locations = JSON.parse(this.authService.userValue.LocationInfo);
     else {
-      this.smartSchedulerService.PracticeLocations({ "provider_Id": this.SelectedProviderId })
+      this.smartSchedulerService.PracticeLocations(this.SelectedProviderId,this.user.ClinicId)
         .subscribe(resp => {
           if (resp.IsSuccess) {
             this.locations = resp.ListResult as UserLocations[];
@@ -741,15 +779,30 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     });
   }
 
+  BlockoutInfo() {
+    let blockoutDialog: BlockOutDialog = {}
+    blockoutDialog.Locations = this.locations;
+    blockoutDialog.PracticeProvider = this.practiceProviders;
+    blockoutDialog.Rooms = this.Rooms;
+    blockoutDialog.Staff = this.providerStaff;
+    return blockoutDialog;
+  }
+  OpenBlockoutDialog() {
+    this.openComponentDialog(this.blockoutDialogComponent,
+      this.BlockoutInfo(), Actions.new);
+  }
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
     data?: any, action?: Actions) {
     const ref = this.overlayService.open(content, data);
     ref.afterClosed$.subscribe(res => {
       if (content === this.appointmentDialogComponent) {
         if (res.data && res.data.refresh) {
+          this.fullcalendar.getApi().removeAllEvents();
           this.updateCalendarEvents();
           //this.RefreshParentView.emit(true);
         }
+      } else if (content == this.blockoutDialogComponent) {
+
       }
     });
 

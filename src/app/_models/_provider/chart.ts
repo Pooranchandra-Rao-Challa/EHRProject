@@ -51,6 +51,7 @@ export class Allergy {
 }
 
 export enum PatientChart {
+  Diagnoses,
   AdvancedDirectives,
   SmokingStatus,
   TobaccoUse,
@@ -191,6 +192,7 @@ export class Diagnosis {
   Acute?: boolean;
   Terminal?: boolean;
   Referral?: boolean;
+  IsEditable?: boolean = true;
 }
 
 export class Intervention {
@@ -204,7 +206,9 @@ export class Intervention {
   CodeSystem?: string;
   Note?: string;
   ReasonValueSetOID?: string;
+  CQMStatus?: string;
   LocationId?: string;
+  ProviderName?: string;
 }
 
 export interface Vaccine {

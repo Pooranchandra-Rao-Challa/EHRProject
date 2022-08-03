@@ -1,3 +1,4 @@
+
 import{ PracticeProviders} from'./practiceProviders';
 import { UserLocations } from '../';
 export interface NewAppointment {
@@ -85,7 +86,7 @@ export interface Room{
   RoomName? :string;
 }
 
-export interface AvailableTimeSlot{
+export class AvailableTimeSlot{
   Id? :number;
   TimeSlot? :string;
   StartDateTime? :Date;
@@ -105,6 +106,7 @@ export class AppointmentDialogInfo{
   Rooms?: Room[];
   AppointmentsOfPatient?: NewAppointment[];
   status?: Actions;
+  TimeSlot?: AvailableTimeSlot;
   NavigationFrom?: string = "Smart Schedule";
 }
 
@@ -133,4 +135,34 @@ export class CalendarAppointment{
   Duration?: number
   strStartAt?: string;
   Notes?: string;
+}
+
+export class Blockout{
+  BlockoutId?: string;
+  BlockoutFor?: string;
+  RecurType?: string;
+  BlockoutForId?: string;
+  StartAt?: Date;
+  Time?: string;
+  Duration?: number;
+  Description?: string;
+  Note?: string;
+  Recur?: boolean;
+  RecurTime?: number;
+  ClinicId?: string;
+  LocationId?: string;
+  RoomId?: string;
+  RangeDay?: BlockoutRangeDay[];
+}
+
+export class BlockoutRangeDay{
+  BlockoutId?: string;
+  RangeDay?: string;
+}
+
+export class BlockOutDialog{
+  PracticeProvider?: PracticeProviders[]
+  Staff?: PracticeProviders[]
+  Rooms?: Room[];
+  Locations?: UserLocations[];
 }

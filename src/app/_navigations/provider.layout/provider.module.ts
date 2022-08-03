@@ -101,9 +101,13 @@ import { MedicationDialogComponent } from '../../dialogs/medication.dialog/medic
 import { AllergyDialogComponent } from '../../dialogs/allergy.dialog/allergy.dialog.component';
 import { RxNormAPIService } from 'src/app/_services/rxnorm.api.service'
 import { TobaccoUseDialogComponent } from '../../dialogs/tobacco.use.dialog/tobacco.use.dialog.component';
-//import { TimeMaskDirective } from 'src/app/_directives/input.time.mask.directive'
+import { BlockoutDialogComponent } from 'src/app/dialogs/blockout/blockout.dialog.component'
 import { LabOrderTestFormatPipe } from 'src/app/_pipes/lab.order.test.pipe'
 registerLocaleData(localeIt);
+import { InterventionTableDialogComponent } from '../../dialogs/intervention.table.dialog/intervention.table.dialog.component';
+import { AllergyTableDialogComponent } from '../../dialogs/allergy.table.dialog/allergy.table.dialog.component';
+import { FrequentlyUsedDiagnosesDialogComponent } from '../../dialogs/frequently.used.diagnoses.dialog/frequently.used.diagnoses.dialog.component';
+import { AddDiagnosesDialogComponent } from '../../dialogs/add.diagnoses.dialog/add.diagnoses.dialog.component';
 
 import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
@@ -138,7 +142,11 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     LabOrderTestFormatPipe,
     PatientScheduleComponent,
     TobaccoUseDialogComponent,
-    LabOrderTestFormatPipe
+    BlockoutDialogComponent,
+    InterventionTableDialogComponent,
+    AllergyTableDialogComponent,
+    FrequentlyUsedDiagnosesDialogComponent,
+    AddDiagnosesDialogComponent
   ],
   declarations: [
     ProviderNavbarComponent,
@@ -165,7 +173,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     Condition,
     ConditionpadderPipe,
     ConditionformaterPipe,
-    //PatientsComponent,
+    BlockoutDialogComponent,
     //PatientDetailsComponent,
     PatientDialogComponent,
     AdvancedDirectivesDialogComponent,
@@ -174,7 +182,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     AllergyDialogComponent,
     TobaccoUseDialogComponent,
     OverlayComponent,
-  //  MouseOverHintDirective,
+    //  MouseOverHintDirective,
     UserDialogComponent,
     NewAppointmentDialogComponent,
     UpcomingAppointmentsDialogComponent,
@@ -200,7 +208,11 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     PatientScheduleComponent,
     LabOrderTestFormatPipe,
     ProvidermessagetopatientDialogComponent,
-    ProvidermessagetopracticeDialogComponent
+    ProvidermessagetopracticeDialogComponent,
+    InterventionTableDialogComponent,
+    AllergyTableDialogComponent,
+    FrequentlyUsedDiagnosesDialogComponent,
+    AddDiagnosesDialogComponent
   ],
   imports: [
     FullCalendarModule,
@@ -268,7 +280,13 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     ImagingResultDialogComponent,
     TestCodeComponent,
     ProvidermessagetopatientDialogComponent,
-    ProvidermessagetopracticeDialogComponent]
+    ProvidermessagetopracticeDialogComponent,
+    BlockoutDialogComponent,
+    TestCodeComponent,
+    InterventionTableDialogComponent,
+    AllergyTableDialogComponent,
+    FrequentlyUsedDiagnosesDialogComponent,
+    AddDiagnosesDialogComponent]
 })
 export class ProviderModule {
 

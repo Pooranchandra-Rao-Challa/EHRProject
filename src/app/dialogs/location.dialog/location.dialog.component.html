@@ -357,7 +357,7 @@
                       <mat-option *ngFor="let Status of timeStatus" [value]="Status.name">{{Status.name}}</mat-option>
                     </mat-select>
                   </mat-form-field>
-                  
+
                 </div>
               </div>
             </div>
@@ -401,7 +401,7 @@
                       <mat-option *ngFor="let Status of timeStatus" [value]="Status.name">{{Status.name}}</mat-option>
                     </mat-select>
                   </mat-form-field>
-                  
+
                 </div>
               </div>
             </div>
@@ -498,16 +498,20 @@
       <hr>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-danger btn-p-l-d-padding"
-        *ngIf="isDeletable && !PracticeLocData.locationprimary" (click)="deleteLocation()">
+      <div style="width:100%" class="footer-buttons">
+        <button type="button" class="btn btn-danger" style="float: left;"
+        *ngIf="PracticeLocData.LocationId != null && PracticeLocData.LocationId != ''
+         && !PracticeLocData.locationprimary" (click)="deleteLocation()">
         Delete
       </button>
-      <button type="button" class="btn btn-green" data-bs-dismiss="modal" (click)="updateLocation()">
-        Save Changes
-      </button>
-      <button type="button" class="btn btn-green btn-p-l-c-padding" (click)="close()">
+      <button type="button" class="btn btn-green" (click)="close()" style="float: right;">
         Cancel
       </button>
+      <button type="button" class="btn btn-green" data-bs-dismiss="modal" (click)="updateLocation()" style="float: right;">
+        Save Changes
+      </button>
+      </div>
+
     </div>
   </div>
 </div>

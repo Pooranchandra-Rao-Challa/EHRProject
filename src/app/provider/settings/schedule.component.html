@@ -14,8 +14,8 @@
                   <mat-form-field appearance="outline" class="col-12 cstm-loc-dropdown">
                     <mat-select disableOptionCentering [(ngModel)]="user.CurrentLocation"
                       (selectionChange)="getRoomsForLocation()">
-                      <mat-option *ngFor="let item of LocationAddress" [value]="item.Location_Id">
-                        {{item.Location_Name}}
+                      <mat-option *ngFor="let item of ClinicLocations" [value]="item.LocationId">
+                        {{item.LocationName}}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>

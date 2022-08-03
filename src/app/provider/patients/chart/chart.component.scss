@@ -41,10 +41,6 @@
   transition: border-color 0.2s, background 0.2s, color 0.2s;
 }
 
-.btn-custom {
-  width: 85px;
-}
-
 .dropdown-menu {
   width: 570px;
   border-color: #41b6a6;
@@ -234,18 +230,6 @@ input.new-search::placeholder {
   list-style-type: none;
   padding-left: 0;
 }
-.freq-used-list,
-.freq-used-list ul {
-  list-style-type: none;
-  padding: 0px;
-}
-
-.freq-used-list li:hover {
-  background-color: #41b6a6;
-  color: #fff;
-  text-decoration: underline;
-  cursor: pointer !important;
-}
 
 .cstm-icon-pencil {
   width: 25px;
@@ -353,14 +337,6 @@ ew-more {
   color: #dedede !important;
 
 }
-.btn-cancel {
-  width: 80px !important;
-  margin-left: 11px;
-}
-
-.btn-today {
-  width: 97px !important;
-}
 
 textarea.form-control {
   height: 119px !important;
@@ -379,14 +355,6 @@ textarea.form-control {
   font-size: 16px !important;
   color: #fff;
   padding: 9px 0px 0px 0px;
-}
-
-.side-boder {
-  border-left: 1px solid #41b6a6;
-}
-
-.row-head {
-  border-left: 1px solid #fff;
 }
 
 ::ng-deep .cstm-calendar.green-calendar .mat-datepicker-toggle.mat-datepicker-toggle button.mat-focus-indicator.mat-icon-button {
@@ -416,10 +384,6 @@ textarea.form-control {
 
 .modal-dialog {
   margin-top: calc(100px + 100px) !important;
-}
-
-.modal-header.header {
-  padding: 0px 10px !important;
 }
 
 .modal-provider:not(.modal-flash) .modal-dialog .modal-content .modal-header.modal-header-md .title {
@@ -610,68 +574,6 @@ textarea.form-control.inputclass:hover{
   text-align: center;
 }
 
-// medication popup
-#medication-modal .modal-dialog {
-  max-width: 900px;
-}
-#medication-prescription-modal .modal-dialog {
-  max-width: 754px;
-}
-#medication-prescription-modal .modal-body {
-  padding: 0px !important;
-}
-#medication-prescription-modal .mat-header-row {
-  background-color: #e5f8f5 !important;
-}
-#medication-prescription-modal .mat-header-cell {
-  color: black !important;
-}
-// tobacco use
-#tobacco-use-modal .modal-dialog {
-  max-width: 1140px;
-}
-#tobacco-use-modal .modal-body {
-  padding: 0px !important;
-  height: 735px;
-}
-#tobacco-use-modal .modal-body .panel-header {
-  height: 50px;
-  padding: 16px 18px;
-  background-color: rgb(247, 247, 247);
-}
-.tobacco-use .content .row {
-  margin-bottom: 10px;
-}
-.tobacco-use .screening-list .bg-color {
-  min-height: 50px;
-  border-radius: 3px 3px 0px 0px;
-}
-.tobacco-use .screening-list p {
-  padding: 15px;
-  margin-bottom: 0rem;
-}
-.tobacoo-padding {
-  padding: 8px 10px 8px 10px;
-}
-.tobacoo-padding mat-label {
-  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
-  font-size: 14px;
-}
-.tobacco-use .screening-list .mat-table {
-  border-width: 0px 2px 2px 2px;
-  border-style: solid;
-  border-color: rgb(221, 221, 221);
-}
-.tobacco-use .screening-list .mat-header-row {
- background-color: #fff;
- min-height: 35px;
-}
-.tobacco-use .screening-list .mat-header-cell {
-  color: black !important;
-}
-.modal-footer .btn {
-  width: 100px;
-}
 // add/edit immunization
 #immunization-modal .modal-dialog {
   max-width: 750px;
@@ -735,4 +637,8 @@ textarea.form-control.inputclass:hover{
   border: 1px solid #d64841;
   background-image: url(/assets/images/icon-delete.svg);
   background-size: 12px;
+}
+a.view-more:hover {
+  color: #41a6b6;
+  cursor: pointer;
 }

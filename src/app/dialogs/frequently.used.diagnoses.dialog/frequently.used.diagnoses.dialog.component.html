@@ -1,0 +1,43 @@
+<div class="modal-dialog used-diagnoses-modal">
+  <div class="modal-content body">
+    <div class="modal-header header">
+      <div class="col-md-4 col-6">
+        <h4 class="Helvetica-sans-serif-medium ">Frequently Used Dx</h4>
+      </div>
+      <div class="col-md-8 col-6 row-head">
+        <h4 class="Helvetica-sans-serif-medium mx-1">Record Diagnosis Dx</h4>
+      </div>
+    </div>
+    <div class="body">
+      <div class="row" style="padding: 0px 12px;">
+        <div class="freq-used-list col-sm-4 col-md-4 col-lg-4 my-2">
+          <ul *ngFor="let diagnose of frequentlyUsedDiagnoses"
+            (click)="openComponentDialog(addDiagnosesDialogComponent,diagnose,ActionTypes.view)">
+            <li>
+              <a>
+                <span class="px-3" *ngIf="diagnose?.Note != null && diagnose?.Note !=''">
+                  {{diagnose?.Note}}
+                </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-sm-8 col-md-8 col-lg-8 side-boder">
+          <medical-code-container class="mt-3" [codeSystems]="codeSystemsForDiagnosis"
+            (optionChanged)="optionChangedForDiagnosis($event)" [MinTermLength]="3" [showSelectedValue]="false">
+          </medical-code-container>
+          <div class="row mt-3 mb-3">
+            <div class="col-md-8 col-8">
+              <button class="btn btn-green"
+                (click)="openComponentDialog(addDiagnosesDialogComponent,null,ActionTypes.add)">Add
+                Custom Dx</button>
+            </div>
+            <div class="col-md-4 col-4">
+              <button class="btn btn-green btn-custom pull-right" (click)="cancel()">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

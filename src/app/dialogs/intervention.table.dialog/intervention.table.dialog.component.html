@@ -1,0 +1,94 @@
+<div class="modal-dialog intervention-table-modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title Helvetica-sans-serif-medium w-100">Screenings/Interventions/Assessments</h4>
+      <span type="button" class="cross-mark" (click)="cancel()">
+        X
+      </span>
+    </div>
+    <div class="modal-body scrollable-mat-table">
+      <mat-table [dataSource]="interventionDatasource" matSort>
+        <ng-container matColumnDef="StartDate">
+          <mat-header-cell *matHeaderCellDef mat-sort-header="StartDate">Start Date
+          </mat-header-cell>
+          <mat-cell *matCellDef="let intervention">
+            <a (click)="openComponentDialog(interventionDialogComponent,intervention,ActionTypes.view)">
+              {{intervention.StartDate | date: 'MM/dd/yyyy'}}
+            </a>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="EndDate">
+          <mat-header-cell *matHeaderCellDef mat-sort-header="EndDate">End Date</mat-header-cell>
+          <mat-cell *matCellDef="let intervention">
+            <a (click)="openComponentDialog(interventionDialogComponent,intervention,ActionTypes.view)">
+              {{intervention.EndDate | date: 'MM/dd/yyyy'}}
+            </a>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="ProviderName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header="ProviderName">Provider Name</mat-header-cell>
+          <mat-cell *matCellDef="let intervention">
+            <a (click)="openComponentDialog(interventionDialogComponent,intervention,ActionTypes.view)">
+              {{intervention.ProviderName}}
+            </a>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="InterventionType">
+          <mat-header-cell *matHeaderCellDef mat-sort-header="InterventionType">Intervention Type</mat-header-cell>
+          <mat-cell *matCellDef="let intervention">
+            <a (click)="openComponentDialog(interventionDialogComponent,intervention,ActionTypes.view)">
+              {{intervention.InterventionType}}
+            </a>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Code">
+          <mat-header-cell *matHeaderCellDef mat-sort-header="Code">Code</mat-header-cell>
+          <mat-cell *matCellDef="let intervention">
+            <a (click)="openComponentDialog(interventionDialogComponent,intervention,ActionTypes.view)">
+              {{intervention.Code}}
+            </a>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="CodeDescription">
+          <mat-header-cell *matHeaderCellDef mat-sort-header="CodeDescription">Code Description</mat-header-cell>
+          <mat-cell *matCellDef="let intervention">
+            <a (click)="openComponentDialog(interventionDialogComponent,intervention,ActionTypes.view)">
+              {{intervention.Description}}
+            </a>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Performed">
+          <mat-header-cell *matHeaderCellDef mat-sort-header="Performed">Performed</mat-header-cell>
+          <mat-cell *matCellDef="let intervention">
+            <a>{{intervention.Performed}}
+            </a>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="ReasonNotPerformed">
+          <mat-header-cell *matHeaderCellDef mat-sort-header="ReasonNotPerformed">Reason Not Performed</mat-header-cell>
+          <mat-cell *matCellDef="let intervention">
+            <a>{{intervention.ReasonNotPerformed}}
+            </a>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="CqmStatus">
+          <mat-header-cell *matHeaderCellDef mat-sort-header="CqmStatus">Cqm Status</mat-header-cell>
+          <mat-cell *matCellDef="let intervention">
+            <a>{{intervention.CqmStatus}}
+            </a>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="interventionColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: interventionColumns"></mat-row>
+      </mat-table>
+      <div class="norecords-found" *ngIf="interventionDatasource?.data.length == 0">
+        No Interventions Found
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-green" (click)="openComponentDialog(interventionDialogComponent,null,ActionTypes.add)">Add
+        Vaccine</button>
+      <button class="btn btn-green" (click)="cancel()">Cancel</button>
+    </div>
+  </div>
+</div>

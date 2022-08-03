@@ -16,7 +16,7 @@
           </mat-checkbox>
         </div>
         <div class="row pt-2">
-          <mat-checkbox #providerCheckboxes *ngFor="let provider of practiceProviders; let i = index;"
+          <mat-checkbox #providerCheckboxes *ngFor="let provider of providerAndStaff; let i = index;"
              checked="true" value="provider"
             (change)="updateProviderCheckbox($event,provider)">
             <span>{{provider.FullName}}</span>
@@ -73,7 +73,8 @@
         </div>
       </mat-expansion-panel>
 
-      <button mat-button class="panel col-12">Block Out Time</button>
+      <button mat-button class="panel col-12" (click)="OpenBlockoutDialog()"
+      >Block Out Time</button>
     </div>
   </mat-drawer>
   <mat-drawer-content>

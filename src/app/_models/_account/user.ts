@@ -1,6 +1,6 @@
 import { CQMNotPerformed } from './../_provider/cqmnotperformed';
 import { WeeklyUpdated } from '../_admin/weeklyupdated';
-import{ProviderPatient} from './../_provider/Providerpatient';
+import { ProviderPatient } from './../_provider/Providerpatient';
 export interface User {
   CurrentLocation: string;
   UserId: string;
@@ -18,29 +18,29 @@ export interface User {
   LocationInfo: string;
   BusinessName: string;
   IsSuccess: boolean;
-  IsInTrailPeriod:boolean;
+  IsInTrailPeriod: boolean;
 }
-export interface UserLocations {
-  locationId: string;
-  locationName: string;
+export class UserLocations {
+  LocationId: string;
+  LocationName: string;
 }
 
-export class ViewModel{
-  View? : string = "Smart Schedule";
+export class ViewModel {
+  View?: string = "Smart Schedule";
   SubView?: string = "";
   PatinetId?: string = "";
   Patient?: ProviderPatient;
   PatientView?: string = "";
-  CQMNotPerformed?:CQMNotPerformed;
-  CQMView?: string ="";
-  WeeklyUpdate?:WeeklyUpdated;
-  AdminViewName?:string;
+  CQMNotPerformed?: CQMNotPerformed;
+  CQMView?: string = "";
+  WeeklyUpdate?: WeeklyUpdated;
+  AdminViewName?: string;
   PatientBreadCrumb?: string[];
-  LabandImageView?:string = "Lab"
+  LabandImageView?: string = "Lab"
 }
 
-export class AdminViewModal{
+export class AdminViewModal {
   WeeklyUpdate?: WeeklyUpdated;
-  WeeklyUpdatedView?:string = ""
+  WeeklyUpdatedView?: string = ""
 }
 

@@ -37,17 +37,23 @@ export class NewUser {
 }
 
 export class Location {
-  Name: string;
-  LocationId: string;
-  City: string;
-  State: string;
-  WeekDay: string;
-  From: string;
-  To: string;
-  SpecifiHour: string;
-  Assigned: boolean = false
-  TimeSlots: TimeSlot[] = new TimeSlot()[0]
-  FormatedTimeSlot: string = "";
+  Name?: string;
+  LocationId?: string;
+  City?: string;
+  State?: string;
+  WeekDay?: string;
+  From?: string;
+  To?: string;
+  SpecifiHour?: string;
+  Assigned?: boolean = false
+  TimeSlots?: TimeSlot[] = new TimeSlot()[0]
+  FormatedTimeSlot?: string = "";
+}
+
+export class LocationDialog{
+
+  ProviderId?: string;
+  LocationInfo?: Location;
 }
 
 export class TimeSlot {

@@ -9,7 +9,7 @@
     <div class="modal-body">
       <div class="row">
         <div class="col-lg-2">
-          <mat-label>Date*:</mat-label>
+          <mat-label class="required">Date:</mat-label>
         </div>
         <mat-form-field appearance="outline" class="grey-matform green-calendar col-lg-2 col-md-6">
           <input matInput class="pointer date-mat-class" autocomplete="off" [matDatepicker]="startDate"
@@ -26,7 +26,7 @@
       </div>
       <div class="row">
         <div class="col-lg-2">
-          <mat-label>Intervention Type*:</mat-label>
+          <mat-label class="required">Intervention Type:</mat-label>
         </div>
         <mat-form-field appearance="outline" class="col-lg-4 col-md-6 hover cstm-mat-padding">
           <mat-select placeholder="Select One" disableOptionCentering id="ePracticeProviders"
@@ -37,20 +37,17 @@
           </mat-select>
         </mat-form-field>
         <div class="col-lg-6 col-md-6">
-          <mat-form-field appearance="outline" class="grey-matform col-12">
+          <mat-form-field appearance="outline" class="grey-matform cstm-validation col-12">
             <input matInput #searchName placeholder="Search Intervention Codes" id="searchName" name=" searchName" />
           </mat-form-field>
-          <!-- <button class="btn-search col-xl-1 col-lg-2 col-md-1 col-2">
-            <mat-icon>search</mat-icon>
-          </button> -->
         </div>
       </div>
-      <div class="table-responsive">
+      <div class="scrollable-mat-table">
         <mat-table class="interventions-table" [dataSource]="interventionCodes" matSort>
           <ng-container matColumnDef="Empty">
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
-            <mat-cell *matCellDef="let intervention">
-              <mat-checkbox (change)="onSelectInterventionCodes(intervention)"></mat-checkbox>
+            <mat-cell *matCellDef="let intervention; let i = index;">
+              <mat-checkbox (change)="onSelectInterventionCodes($event,intervention,intervention.Code)"></mat-checkbox>
             </mat-cell>
           </ng-container>
 
@@ -72,7 +69,11 @@
           <ng-container matColumnDef="ReasonNotPerformed">
             <mat-header-cell *matHeaderCellDef mat-sort-header="ReasonNotPerformed"> Add Reason Not Performed
             </mat-header-cell>
-            <mat-cell *matCellDef="let intervention"> </mat-cell>
+            <mat-cell *matCellDef="let intervention">
+              <button class="btn btn-green w-100" *ngIf="patientIntervention.InterventionId != undefined"
+                (click)="openComponentDialog(cqmNotPerformedDialogComponent,null,ActionTypes.view)">Add
+              </button>
+            </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="Reason">
@@ -81,7 +82,7 @@
           </ng-container>
 
           <mat-header-row *matHeaderRowDef="interventionColumns"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: interventionColumns;"></mat-row>
+          <mat-row *matRowDef="let row; columns: interventionColumns"></mat-row>
         </mat-table>
         <!-- <div class="norecords-found" *ngIf="interventionList.length">
           No Patients Found
@@ -97,7 +98,7 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-green" (click)="CreateIntervention()">Save</button>
+      <button class="btn btn-green" [disabled]="disableIntervention()" (click)="CreateIntervention()">Save</button>
       <button class="btn btn-green" (click)="cancel()">Cancel</button>
     </div>
   </div>

@@ -1,3 +1,5 @@
+import { LocationSelectService } from 'src/app/_navigations/provider.layout/view.notification.service';
+import { BehaviorSubject } from 'rxjs';
 import { Component, OnInit, NgModule } from '@angular/core';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { SettingsService } from '../../_services/settings.service';
@@ -15,7 +17,7 @@ declare var $: any;
 })
 export class ScheduleComponent implements OnInit {
   user: User;
-  LocationAddress: any;
+  ClinicLocations: any;
   roomForm: FormGroup;
   statusForm: FormGroup;
   typeForm: FormGroup;
@@ -33,6 +35,7 @@ export class ScheduleComponent implements OnInit {
     private settingsService: SettingsService,
     private fb: FormBuilder,
     private idService: IdService,
+    private locationChanged: LocationSelectService,
     private alertmsg: AlertMessage) {
     this.user = authService.userValue;
 
@@ -46,14 +49,18 @@ export class ScheduleComponent implements OnInit {
     this.buildRoomsForm();
     this.buildStatusForm();
     this.buildTypeForm();
+    this.locationChanged.getData().subscribe(location=>{
+      this.getRoomsForLocation();
+    })
   }
 
   // get display Location Details
   getLocationsList() {
-    this.LocationAddress = [];
-    this.settingsService.PracticeLocations(this.user.ProviderId).subscribe(resp => {
+    this.ClinicLocations = [];
+
+    this.settingsService.PracticeLocations(this.user.ProviderId,this.user.ClinicId).subscribe(resp => {
       if (resp.IsSuccess) {
-        this.LocationAddress = resp.ListResult;
+        this.ClinicLocations = resp.ListResult;
       }
     });
   }

@@ -90,8 +90,6 @@ export class PatientDialogComponent {
     this.PatientData.ProviderId = this.authService.userValue.ProviderId;
     this.PatientData.ClinicId = this.authService.userValue.ClinicId;
 
-    console.log(this.PatientData);
-
     this.utilityService.CreatePatient(this.PatientData).subscribe(resp => {
 
       if (resp.IsSuccess) {

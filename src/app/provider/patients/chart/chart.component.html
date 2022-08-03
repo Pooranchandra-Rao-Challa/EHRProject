@@ -75,12 +75,12 @@
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
-                    <p class="card-title" data-bs-toggle="modal" data-bs-target="#used-diagnoses-modal">Diagnoses (Dx)
+                    <p class="card-title">Diagnoses (Dx)
                     </p>
                   </div>
                   <div class="col-md-4 col-6">
-                    <div class="col-12 plusicon pull-right" data-bs-toggle="modal"
-                      data-bs-target="#used-diagnoses-modal" (click)="resetDialog()">
+                    <div class="col-12 plusicon pull-right"
+                      (click)="openComponentDialog(frequentlyUsedDiagnosesDialogComponent, chartInfo?.Diagnoses, ActionTypes.view)">
                       <span><i class="fa fa-plus"></i></span>
                     </div>
                   </div>
@@ -89,8 +89,7 @@
               <div class="card-body">
                 <ul class="main-list" *ngFor="let diagnose of chartInfo?.Diagnoses">
                   <li>
-                    <a data-bs-toggle="modal" data-bs-target="#create-diagnoses-modal"
-                      (click)="editDialog(diagnose, 'diagnosis')">
+                    <a (click)="openComponentDialog(addDiagnosesDialogComponent, diagnose, ActionTypes.view)">
                       <span *ngIf="diagnose?.Code != null && diagnose?.Code !=''">
                         - {{diagnose?.Code}}
                       </span>
@@ -265,7 +264,9 @@
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
-                    <p class="card-title">Allergies</p>
+                    <p class="card-title"
+                      (click)="openComponentDialog(allergyTableDialogComponent,chartInfo?.Alergies,ActionTypes.view)">
+                      Allergies</p>
                   </div>
                   <div class="col-md-4 col-6">
                     <div class="col-12 plusicon pull-right"
@@ -392,11 +393,13 @@
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
-                    <p class="card-title">Screenings/Interventions/Assessments</p>
+                    <p class="card-title"
+                      (click)="openComponentDialog(interventionTableDialogComponent,chartInfo?.Interventions,ActionTypes.view)">
+                      Screenings/Interventions/Assessments</p>
                   </div>
                   <div class="col-md-4 col-6">
                     <div class="col-12 plusicon pull-right"
-                      (click)="openComponentDialog(interventionDialogComponent, null)">
+                      (click)="openComponentDialog(interventionDialogComponent, null, ActionTypes.add)">
                       <span><i class="fa fa-plus"></i></span>
                     </div>
                   </div>
@@ -420,7 +423,13 @@
                     </span>
                   </li>
                 </ul>
-                <a class="view-more pull-right">view more</a>
+                <ul class="main-list" *ngIf="chartInfo?.Interventions?.length == 0">
+                  <li>
+                    <span>No interventions recorded.</span>
+                  </li>
+                </ul>
+                <a (click)="openComponentDialog(interventionTableDialogComponent,chartInfo?.Interventions,ActionTypes.view)"
+                  class="view-more pull-right">view more</a>
               </div>
             </div>
           </div>
@@ -533,149 +542,6 @@
   </div>
 </div>
 
-<!-- Frequently Used Diagnosis -->
-<div class="modal fade" id="used-diagnoses-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-maxHeight">
-    <div class="modal-content body">
-      <div class="modal-header header">
-        <div class="col-md-4 col-6">
-          <h4 class="Helvetica-sans-serif-medium ">Frequently Used Dx</h4>
-        </div>
-        <div class="col-md-8 col-6 row-head">
-          <h4 class="Helvetica-sans-serif-medium mx-1">Record Diagnosis Dx</h4>
-        </div>
-      </div>
-      <div class="body">
-        <div class="row" style="padding: 0px 12px;">
-          <div class="freq-used-list col-sm-4 col-md-4 col-lg-4 my-2">
-            <ul *ngFor="let diagnose of chartInfo?.Diagnoses" data-bs-toggle="modal"
-              data-bs-target="#create-diagnoses-modal" (click)="editDialog(diagnose, 'diagnosis')">
-              <li>
-                <a>
-                  <span class="px-3" *ngIf="diagnose?.Note != null && diagnose?.Note !=''">
-                    {{diagnose?.Note}}
-                  </span>
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div class="col-sm-8 col-md-8 col-lg-8 side-boder">
-            <mat-form-field appearance="outline" class="input-field input-bg w-100 mt-3 ">
-              <mat-select required placeholder="Please select one">
-                <mat-option *ngFor="let code of DxCodes" [value]="code">
-                  {{code}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <div class="input-group input-group-custom ">
-              <input aria-label="Search for messages" autocomplete="off" class="form-control input-border"
-                id="find-messages-input-1" placeholder="Search Messages" />
-              <span class="input-group-addon input-group-addon-right input-group-addon-search Search"
-                id="find-messages-button-1"><i class="fa fa-search"></i></span>
-            </div>
-            <div class="row mt-3 mb-3">
-              <div class="col-md-8 col-8">
-                <button class="btn btn-green" data-bs-toggle="modal" data-bs-target="#create-diagnoses-modal">Add
-                  Custom Dx</button>
-              </div>
-              <div class="col-md-4 col-4">
-                <button class="btn btn-green btn-custom pull-right" data-bs-dismiss="modal"
-                  aria-label="Close">Cancel</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Create diagnoses -->
-<div class="modal fade" id="create-diagnoses-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog modal-maxHeight">
-    <div class="modal-content body">
-      <div class="modal-header header">
-        <div class="col-sm-3 mx-2">
-          <h4 class="Helvetica-sans-serif-medium ">Diagnosis (Dx)</h4>
-        </div>
-        <div class="col-sm-7 row-head">
-          <h4 class="Helvetica-sans-serif-medium mx-1">Record Diagnosis(Dx)</h4>
-        </div>
-        <div>
-          <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close">
-            x
-          </span>
-        </div>
-      </div>
-      <div class="body">
-        <div class="row" style="padding: 0px 12px;">
-          <div class="col-sm-4">
-          </div>
-          <div class="col-sm-8 side-boder">
-            <mat-form-field appearance="outline" class=" mt-3 w-100">
-              <mat-select required placeholder="Please select one" [(ngModel)]="patientDiagnoses.CodeSystem">
-                <mat-option *ngFor="let code of DxCodes" [value]="code">
-                  {{code}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <label>Code</label>
-            <mat-form-field class="w-100" appearance="outline">
-              <input matInput placeholder="Code" name="Code" [(ngModel)]="patientDiagnoses.Code" />
-            </mat-form-field>
-            <label>Descrption</label>
-            <mat-form-field class="w-100" appearance="outline">
-              <input matInput placeholder="Descrption" [(ngModel)]="patientDiagnoses.Description" />
-            </mat-form-field>
-            <div class="row">
-              <label>Start Date</label>
-              <mat-form-field appearance="outline" class="green-calendar cstm-calendar col-md-8">
-                <input matInput class="pointer" [matDatepicker]="startdate" (click)="startdate.open()" readonly
-                  placeholder="Start Date" name="startdate" [(ngModel)]="patientDiagnoses.StartAt" />
-                <mat-datepicker-toggle matSuffix [for]="startdate">
-                </mat-datepicker-toggle>
-                <mat-datepicker #startdate></mat-datepicker>
-              </mat-form-field>
-              <div class="col-lg-4">
-                <button class="btn btn-green btn-today pull-right" (click)="todayStartAt()">Today</button>
-              </div>
-            </div>
-            <div class="row">
-              <label>End Date</label>
-              <mat-form-field appearance="outline" class="green-calendar cstm-calendar col-md-8">
-                <input matInput class="pointer" [matDatepicker]="enddate" placeholder="End Date" name="enddate"
-                  (click)="enddate.open()" readonly [(ngModel)]="patientDiagnoses.StopAt" />
-                <mat-datepicker-toggle matSuffix [for]="enddate">
-                </mat-datepicker-toggle>
-                <mat-datepicker #enddate></mat-datepicker>
-              </mat-form-field>
-              <div class="col-lg-4">
-                <button class="btn btn-green btn-today pull-right" (click)="todayStopAt()">Today</button>
-              </div>
-            </div>
-            <label>Diagnosis Notes:</label>
-            <textarea placeholder="Diagnosis Notes:" class="form-control col-12 mt-3 mt-md-0"
-              [(ngModel)]="patientDiagnoses.Note"></textarea>
-            <div class="row links">
-              <div class="col-lg-3 col-md-3 col-sm-3">
-                <p>Resources:</p>
-              </div>
-            </div>
-            <div class="right-block">
-              <button class="btn btn-green btn-cancel pull-right" data-bs-dismiss="modal" aria-label="Close"
-                (click)="resetDialog()">
-                Cancel</button>
-              <button class="btn btn-green btn-cancel mx-3 mb-3 pull-right" data-bs-toggle="modal"
-                data-bs-target="#create-diagnoses-modal" [disabled]="disableDiagnosis()"
-                (click)="CreateDiagnoses()">Save</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- Past medical history -->
 <div class="modal fade " id="pastmedical-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -899,337 +765,6 @@
   </div>
 </div>
 
-<!-- Allergies modal -->
-<div class="modal fade " id="allergies-modal" data-bs-backdrop="backdrop" tabindex="-1"
-  aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-md modal-maxHeight" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title Helvetica-sans-serif-medium">Record Allergy</h4>
-
-        <span type="button" class="cross-mark" data-bs-dismiss="modal">
-          X
-        </span>
-      </div>
-      <div class="modal-body bg-white scroolbar addlocationbody">
-        <div class="row mt-2">
-          <div class="col-md-2  ">
-            <label class="title-bold required">Allergy Type: </label>
-          </div>
-          <div class="col-md-4">
-            <mat-form-field appearance="outline">
-              <mat-select required [(ngModel)]="patientAllergy.AllergenType">
-                <mat-option *ngFor="let allergy of allergyType" [value]="allergy">
-                  {{allergy}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div class="col-md-2 ">
-            <label class="title-bold required">Allergen: </label>
-          </div>
-          <div class="col-md-4">
-            <mat-form-field appearance="outline" class="input-bg">
-              <mat-select required [(ngModel)]="patientAllergy.AllergenName">
-                <mat-option *ngFor="let allergie of allergens" [value]="allergie">
-                  {{allergie.AllergyName}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="row mt-2">
-          <div class="col-md-2 ">
-            <label class="title-bold required">Severity Level: </label>
-          </div>
-          <div class="col-md-4">
-            <mat-form-field appearance="outline">
-              <mat-select required [(ngModel)]="patientAllergy.SeverityLevel">
-                <mat-option *ngFor="let severity of severityLevel" [value]="severity">
-                  {{severity}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="row mt-2">
-          <div class="col-md-2 ">
-            <label class="title-bold required">Onset At: </label>
-          </div>
-          <div class="col-md-4">
-            <mat-form-field appearance="outline">
-              <mat-select required [(ngModel)]="patientAllergy.OnSetAt">
-                <mat-option *ngFor="let onset of onsetAt" [value]="onset">
-                  {{onset}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div class=" form-group col-md-6 ">
-            <label class="title-bold required">Reaction(s): </label>
-            <mat-form-field appearance="outline">
-              <mat-select required [(ngModel)]="patientAllergy.Reaction">
-                <mat-option *ngFor="let allergy of allergyReaction" [value]="allergy">
-                  {{allergy}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="row mt-2">
-          <div class="col-md-2 ">
-
-            <label class="title-bold required">Start Date </label>
-          </div>
-          <div class="col-md-6">
-            <mat-form-field appearance="outline" class="grey-matform green-calendar cstm-calendar col-md-8">
-              <input matInput [matDatepicker]="StartAt" placeholder="Start Date" name="startDate"
-                (click)="StartAt.open()" readonly [(ngModel)]="patientAllergy.StartAt" />
-              <mat-datepicker-toggle matSuffix [for]="StartAt">
-              </mat-datepicker-toggle>
-              <mat-datepicker #StartAt disabled="false"></mat-datepicker>
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="row mt-2">
-          <div class="col-md-2 ">
-            <label class="title-bold">End Date: </label>
-          </div>
-          <div class="col-md-6">
-            <mat-form-field appearance="outline" class="grey-matform green-calendar cstm-calendar col-md-8">
-              <input matInput [matDatepicker]="EndAt" placeholder="End Date" name="endDate" (click)="EndAt.open()"
-                readonly [(ngModel)]="patientAllergy.EndAt" />
-              <mat-datepicker-toggle matSuffix [for]="EndAt">
-              </mat-datepicker-toggle>
-              <mat-datepicker #EndAt disabled="false"></mat-datepicker>
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="col-md-12 mt-3">
-          <label class="title-bold">Notes:</label>
-          <textarea class="form-control inputclass col-12 mt-3 mt-md-0" [(ngModel)]="patientAllergy.Note"></textarea>
-        </div>
-      </div>
-
-      <div class="row mb-3 mt-1 mx-2">
-        <div class="col-md-12 locationbtns">
-          <div class="d-flex justify-content-end">
-            <button type="button" class="btn btn-lg btn-green col-xl-4 col-lg-4 col-md-4 col-8 mx-2"
-              data-bs-dismiss="modal" [disabled]="disableAllergies()" (click)="CreateAllergies()">
-              Save Changes
-            </button>
-            <button type="button" class="btn btn-lg btn-green col-xl-3 col-lg-3 col-md-3 col-5 mx-3"
-              data-bs-dismiss="modal" (click)="resetDialog()">
-              Cancel
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Medication -->
-<div class="modal" id="medication-modal" data-bs-backdrop="backdrop" tabindex="-1" aria-labelledby="staticBackdropLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title Helvetica-sans-serif-medium">Record Medication (Local)</h4>
-        <span type="button" class="cross-mark" data-bs-dismiss="modal">
-          X
-        </span>
-      </div>
-      <div class="modal-body bg-white scroolbar addlocationbody">
-        <div class="row mt-2">
-          <label class="title-field">Medication Name:</label>
-          <button type="button" class="btn btn-orange btn-save"
-            (click)="openComponentDialog(discontinueDialogComponent,null,ActionTypes.add)">
-            Discontinue
-          </button>
-          <div class="col-md-9">
-            <mat-form-field class="input-bg w-100" appearance="outline">
-              <mat-select [(ngModel)]="patientMedication.DrugName">
-                <mat-option *ngFor="let medication of medications" [value]="medication">
-                  {{medication}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div class="col-md-3 mt-1 ">
-            <button class="btn btn-green btn-search">Search</button>
-          </div>
-        </div>
-        <div class="row mt-2">
-          <div class="form-group col-md-6">
-            <label class="title-field">Rx Norm ID:</label>
-            <mat-form-field class="input-bg w-100" appearance="outline">
-              <input matInput placeholder="Rx Norm ID" name="rxnormid:" [(ngModel)]="patientMedication.Rxcui" />
-            </mat-form-field>
-          </div>
-          <div class="form-group col-md-6 ">
-            <label class="title-field">NDC ID:</label>
-            <mat-form-field class="input-bg w-100" appearance="outline">
-              <input matInput placeholder="NDC ID" name="ndcid:" [(ngModel)]="patientMedication.NDC" />
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="row mt-2">
-          <div class="form-group col-md-6">
-            <label class="title-field">Dose and Form:</label>
-            <mat-form-field class="input-bg w-100" appearance="outline">
-              <input matInput placeholder="Dose and Form" name="doseandform:"
-                [(ngModel)]="patientMedication.DoseandForm" />
-            </mat-form-field>
-          </div>
-          <div class="form-group col-md-6 ">
-            <label class="title-field">Dispense</label>
-            <mat-form-field class="input-bg w-100" appearance="outline">
-              <input matInput placeholder="Dispense" name="dispense:" [(ngModel)]="patientMedication.Dispense" />
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="row mt-2">
-          <div class="form-group col-md-6">
-            <label class="title-field">Units:</label>
-            <mat-form-field class="input-bg w-100" appearance="outline">
-              <input matInput placeholder="Units" name="units:" [(ngModel)]="patientMedication.Units" />
-            </mat-form-field>
-          </div>
-          <div class="form-group col-md-6">
-            <label class="title-field">Quantity:</label>
-            <mat-form-field class="input-bg w-100" appearance="outline">
-              <input matInput placeholder="Quantity" name="quantity" [(ngModel)]="patientMedication.Quantity" />
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="row mt-2">
-          <div class=" form-group col-md-6">
-            <label class="title-field">Refills:</label>
-            <mat-form-field class="input-bg w-100" appearance="outline">
-              <input matInput placeholder="Refills" name="refills:" [(ngModel)]="patientMedication.Refills" />
-            </mat-form-field>
-          </div>
-          <div class="form-group  col-md-6">
-            <label class="title-field">Days Supply:</label>
-            <mat-form-field class="input-bg w-100" appearance="outline">
-              <input matInput placeholder="Days Supply" name="dayssupply:" [(ngModel)]="patientMedication.DaysSupply" />
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="row mt-2">
-          <div class=" form-group col-md-6">
-            <label class="title-field">Start Date</label>
-            <mat-form-field appearance="outline" class="grey-matform grey-calendar medication-datepicker">
-              <input matInput class="pointer date-mat-class" autocomplete="off" [matDatepicker]="picker5"
-                (click)="picker5.open()" readonly placeholder="Start Date" [(ngModel)]="patientMedication.StartAt" />
-              <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
-              <mat-datepicker #picker5></mat-datepicker>
-            </mat-form-field>
-          </div>
-          <div class="form-group  col-md-6">
-            <label class="title-field">End Date</label>
-            <mat-form-field appearance="outline" class="grey-matform grey-calendar medication-datepicker">
-              <input matInput class="pointer date-mat-class" autocomplete="off" [matDatepicker]="picker4"
-                (click)="picker4.open()" readonly placeholder="End Date" [(ngModel)]="patientMedication.StopAt" />
-              <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
-              <mat-datepicker #picker4></mat-datepicker>
-            </mat-form-field>
-
-          </div>
-        </div>
-        <div class="row mt-2">
-          <div class=" form-group col-md-6">
-            <label class="title-field">Reasons</label>
-            <mat-form-field class="input-bg w-100" appearance="outline">
-              <input matInput placeholder="Reasons" name="reasons" [(ngModel)]="patientMedication.ReasonDescription" />
-            </mat-form-field>
-          </div>
-          <div class="form-group mt-4 col-md-6">
-            <button type="button" class="btn btn-orange btn-save" data-bs-toggle="modal"
-              data-bs-target="#discontinue-modal">
-              Discontinue
-            </button>
-          </div>
-        </div>
-        <div class="row mt-2">
-          <div class="form-group ">
-            <label class="title-bold">Patient Direction:</label>
-            <textarea class="form-control inputclass col-12 mt-3 mt-md-0" placeholder="Notes"
-              [(ngModel)]="patientMedication.Notes"></textarea>
-          </div>
-        </div>
-        <div class="row links-item mt-4">
-          <div class="col-md-2 col-sm-3">
-            <p>Resources:</p>
-          </div>
-          <div class="col-md-5 col-sm-5"><a class="underlined btn-modal medline-plus-link"
-              href="/medline_plus/info?code_system=RxNorm">Medline Plus</a></div>
-          <div class="col-md-5 col-sm-5"><a class="underlined btn-modal" id="education_materials_show"
-              data-target="#modal-education-materials" data-remote="true" data-bs-toggle="modal"
-              data-bs-target="#exampleModal7">Patient Education Materials</a></div>
-        </div>
-      </div>
-      <div class="row mb-3 mt-1 mx-3">
-        <div class="col-md-12 locationbtns">
-          <div class="d-flex justify-content-end">
-            <button type="button" class="btn btn-lg btn-green col-xl-4 col-lg-4 col-md-4 col-8 mx-2"
-              data-bs-dismiss="modal" [disabled]="disableMedication()" (click)="CreateMedication()">
-              Save Changes
-            </button>
-            <button type="button" class="btn btn-lg btn-green col-xl-3 col-lg-3 col-md-3 col-5 mx-3"
-              data-bs-dismiss="modal" (click)="resetDialog()">
-              Cancel
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Discontinue modal in medications -->
-<div class="modal" id="discontinue-modal" data-bs-backdrop="backdrop" tabindex="-1"
-  aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-md" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title Helvetica-sans-serif-medium">Select Reason</h4>
-        <span type="button" class="cross-mark" data-bs-dismiss="modal">
-          X
-        </span>
-      </div>
-      <div class="modal-body bg-white  addlocationbody">
-        <div class=" form-group col-md-12 ">
-          <label class="title-field">Search Reaction(s): </label>
-        </div>
-        <div class=" form-group col-md-12">
-          <label class="title-field"> Reason - Code</label>
-          <mat-form-field class="input-bg input-field w-100" appearance="outline">
-            <input matInput placeholder="Reason - Code" name="reasonscode" [(ngModel)]="patientMedication.ReasonCode" />
-          </mat-form-field>
-        </div>
-        <div class=" form-group col-md-12">
-          <label class="title-field">Reason - Description</label>
-          <mat-form-field class="input-bg input-field w-100" appearance="outline">
-            <input matInput placeholder="Reason Description" name="reasondescription"
-              [(ngModel)]="patientMedication.ReasonDescription" />
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row mb-3 mt-1 mx-2">
-        <div class="col-md-12 locationbtns">
-          <div class="d-flex justify-content-end">
-            <button type="button" class="btn btn-lg btn-green col-xl-3 col-lg-3 col-md-3 col-5 "
-              data-bs-dismiss="modal">
-              Done
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- Patient Education Material in medication popup -->
 <div class="modal fade " id="exampleModal7" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -1304,179 +839,6 @@
   </div>
 </div>
 
-<!-- Tobacoo use modal -->
-<div class="modal fade " id="tobacco-use-modal" data-bs-keyboard="false" tabindex="-1"
-  aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog tobacco-use" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title Helvetica-sans-serif-medium w-100 text-center">Tobacco Use</h4>
-        <span type="button" class="cross-mark" data-bs-dismiss="modal">
-          X
-        </span>
-      </div>
-      <div class="modal-body">
-        <div class="content">
-          <div class="panel">
-            <div class="panel-header">
-              <p class="panel-title Helvetica-sans-serif-medium">Screening and Use:</p>
-            </div>
-            <div class="panel-body">
-              <div class="row">
-                <div class="col-lg-2 col-md-6 col-12 tobacoo-padding">
-                  <mat-label>Screening Performed:*</mat-label>
-                </div>
-                <mat-form-field appearance="outline" class="col-lg-4 col-md-6 col-12 hover">
-                  <mat-select placeholder="Select Screening Performed" disableOptionCentering
-                    [(ngModel)]="patientTobaccoUse.ScreeningType">
-                    <mat-option>BMI
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-                <div class="col-lg-2 col-md-6 col-12 tobacoo-padding">
-                  <mat-label>Date Performed:*</mat-label>
-                </div>
-                <mat-form-field appearance="outline"
-                  class="grey-matform grey-calendar medication-datepicker col-lg-4 col-md-6 col-12">
-                  <input matInput class="pointer" autocomplete="off" [matDatepicker]="dateperformed"
-                    (click)="dateperformed.open()" readonly placeholder="Date Performed"
-                    [(ngModel)]="patientTobaccoUse.ScreeningDate" />
-                  <mat-datepicker-toggle matSuffix [for]="dateperformed"></mat-datepicker-toggle>
-                  <mat-datepicker #dateperformed></mat-datepicker>
-                </mat-form-field>
-              </div>
-              <div class="row">
-                <div class="col-lg-2 col-md-2 col-12 tobacoo-padding">
-                  <mat-label>Status:*</mat-label>
-                </div>
-                <div class="col-lg-4 col-md-4 col-12 tobacoo-padding">
-                  <mat-radio-group [(ngModel)]="patientTobaccoUse.Status">
-                    <mat-radio-button [value]="true"></mat-radio-button>
-                    <mat-label class="Helvetica-sans-serif-medium">User</mat-label>
-                    <mat-radio-button class="ms-5" [value]="false"></mat-radio-button>
-                    <mat-label class="Helvetica-sans-serif-medium">Non user</mat-label>
-                  </mat-radio-group>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-6 col-md-6 col-12">
-                  <button class="btn btn-green w-100"
-                    (click)="openComponentDialog(cqmNotPerformedDialogComponent,null,ActionTypes.add)">Add Not
-                    Performed</button>
-                </div>
-                <div class="col-lg-2 d-none d-lg-block d-xl-block"></div>
-                <div class="col-lg-4 col-md-6 col-12 mt-3 mt-md-0">
-                  <button class="btn btn-green w-100">Recorded Screening and Use</button>
-                </div>
-              </div>
-              <div class="row">
-                <div class="screening-list mb-5">
-                  <div class="bg-color col-12">
-                    <p class="Helvetica-sans-serif-medium">Recorded Screening and Use</p>
-                  </div>
-                  <mat-table class="table table-responsive" [dataSource]="chartInfo?.TobaccoUseScreenings" matSort>
-                    <ng-container matColumnDef="DatePerf">
-                      <mat-header-cell *matHeaderCellDef>Date Perf</mat-header-cell>
-                      <mat-cell *matCellDef="let loc">
-                      </mat-cell>
-                    </ng-container>
-                    <ng-container matColumnDef="Screeningperf">
-                      <mat-header-cell *matHeaderCellDef>Screening perf</mat-header-cell>
-                      <mat-cell *matCellDef="let loc"></mat-cell>
-                    </ng-container>
-                    <ng-container matColumnDef="Status">
-                      <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
-                      <mat-cell *matCellDef="let loc"></mat-cell>
-                    </ng-container>
-                    <ng-container matColumnDef="TobaccoUsecode_desc">
-                      <mat-header-cell *matHeaderCellDef>Tobacco use code & Desc</mat-header-cell>
-                      <mat-cell *matCellDef="let loc"></mat-cell>
-                    </ng-container>
-
-                    <mat-header-row *matHeaderRowDef="screeningColumns"></mat-header-row>
-                    <mat-row *matRowDef="let row; columns: screeningColumns"></mat-row>
-                  </mat-table>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="panel">
-            <div class="panel-header">
-              <p class="panel-title">Cessation Intervention:</p>
-            </div>
-            <div class="panel-body">
-              <div class="row">
-                <div class="col-lg-2 col-md-6 col-12 tobacoo-padding">
-                  <mat-label>Intervention Performed:*</mat-label>
-                </div>
-                <mat-form-field appearance="outline" class="col-lg-4 col-md-6 col-12 hover">
-                  <mat-select placeholder="Select Intervention Performed" disableOptionCentering
-                    [(ngModel)]="patientTobaccoUse.CI_Type">
-                    <mat-option>BMI
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-                <div class="col-lg-2 col-md-6 col-12 tobacoo-padding">
-                  <mat-label>Date Performed:*</mat-label>
-                </div>
-                <mat-form-field appearance="outline"
-                  class="grey-matform grey-calendar medication-datepicker col-lg-4 col-md-6 col-12">
-                  <input matInput class="pointer" autocomplete="off" [matDatepicker]="screeningDate"
-                    (click)="screeningDate.open()" readonly placeholder="Screening Date"
-                    [(ngModel)]="patientTobaccoUse.CI_Date" />
-                  <mat-datepicker-toggle matSuffix [for]="screeningDate"></mat-datepicker-toggle>
-                  <mat-datepicker #screeningDate></mat-datepicker>
-                </mat-form-field>
-              </div>
-              <div class="row">
-                <div class="col-lg-2 d-none d-lg-block d-xl-block"></div>
-                <div class="col-lg-4 col-md-6 col-12">
-                  <button class="btn btn-green w-100">Recorded Intervention</button>
-                </div>
-              </div>
-              <div class="row">
-                <div class="screening-list mb-5">
-                  <div class="bg-color col-12">
-                    <p class="Helvetica-sans-serif-medium">Recorded Cessation Interventions</p>
-                  </div>
-                  <mat-table class="table table-responsive" [dataSource]="chartInfo?.TobaccoUseInterventions" matSort>
-                    <ng-container matColumnDef="DatePerf">
-                      <mat-header-cell *matHeaderCellDef>Date Perf</mat-header-cell>
-                      <mat-cell *matCellDef="let loc">
-                      </mat-cell>
-                    </ng-container>
-                    <ng-container matColumnDef="Interventionperf">
-                      <mat-header-cell *matHeaderCellDef>Intervention perf</mat-header-cell>
-                      <mat-cell *matCellDef="let loc"></mat-cell>
-                    </ng-container>
-                    <ng-container matColumnDef="InterventionDesc">
-                      <mat-header-cell *matHeaderCellDef>Intervention Desc</mat-header-cell>
-                      <mat-cell *matCellDef="let loc"></mat-cell>
-                    </ng-container>
-                    <ng-container matColumnDef="AddReasonNotPerformed">
-                      <mat-header-cell *matHeaderCellDef>Add Reason Not Performed</mat-header-cell>
-                      <mat-cell *matCellDef="let loc"></mat-cell>
-                    </ng-container>
-                    <ng-container matColumnDef="Reason">
-                      <mat-header-cell *matHeaderCellDef>Reason</mat-header-cell>
-                      <mat-cell *matCellDef="let loc"></mat-cell>
-                    </ng-container>
-                    <mat-header-row *matHeaderRowDef="interventionColumns"></mat-header-row>
-                    <mat-row *matRowDef="let row; columns: interventionColumns"></mat-row>
-                  </mat-table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-green">Save</button>
-        <button class="btn btn-green" data-bs-dismiss="modal">Cancel</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- Add/Edit Immunization -->
 <div class="modal fade " id="immunization-modal" data-bs-keyboard="false" tabindex="-1"
@@ -1886,6 +1248,9 @@
           <mat-header-row *matHeaderRowDef="immunizationColumns"></mat-header-row>
           <mat-row *matRowDef="let row; columns: immunizationColumns"></mat-row>
         </mat-table>
+        <div class="norecords-found" *ngIf="chartInfo?.Immunizations?.length == 0">
+          No Immunizations Found
+        </div>
       </div>
       <div class="modal-footer">
         <button class="btn btn-green" data-bs-toggle="modal" data-bs-target="#immunization-modal">Add Vaccine</button>

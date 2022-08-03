@@ -80,4 +80,9 @@ export class UtilityService extends APIEndPoint {
     return this._ProcessGetRequest<any>(this._procedureStatuesUrl);
   }
 
+  BlockoutFor()
+  {
+    return this._ProcessGetRequest<any>(this._blockoutForUrl);
+  }
+
 }
