@@ -51,7 +51,6 @@ export class PatientappointmentDialogComponent implements OnInit {
     })
   }
   RequestAppointment(requestAppoinments: Appointments) {
-    debugger;
     requestAppoinments.StartAt= moment(requestAppoinments.AppttDate).format('YYYY-MM-DD ')+ moment(requestAppoinments.AppointmentTime, "HH:mm:ss").format("hh:mm:ss");
     requestAppoinments.PatientId = this.user.PatientId;
     requestAppoinments.ClinicId = this.user.ClinicId;

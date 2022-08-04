@@ -109,7 +109,6 @@ export class PatientEdnMaterialComponent implements OnInit {
   }
 
   optionChangedForDiagnosis(value: MedicalCode) {
-    debugger;
   //  this.educationMaterialCode= new EducationMaterialCode();
    this.educationMaterialCode.Code = value.Code
    this.educationMaterialCode.CodeSystem = value.CodeSystem

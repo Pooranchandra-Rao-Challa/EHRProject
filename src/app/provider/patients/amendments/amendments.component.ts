@@ -43,7 +43,6 @@ export class AmendmentsComponent implements OnInit {
   }
 
   getAmendment() {
-    debugger
     var reqparam = {
       "PatientId": this.PatientDetails.PatientId
     }
