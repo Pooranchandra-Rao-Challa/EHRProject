@@ -50,6 +50,7 @@ import { CommunicationsettingsComponent } from 'src/app/admin/communicationsetti
 import { AlertMessage } from 'src/app/_alerts/alertMessage';
 import { AdminPaginatorDirective } from 'src/app/_directives/admin.patinator.directive'
 import { UtilityService } from 'src/app/_services/utiltiy.service';
+import { IConfig, NgxMaskModule } from 'ngx-mask'
 
 
 @NgModule({
@@ -107,6 +108,7 @@ import { UtilityService } from 'src/app/_services/utiltiy.service';
     // ScheduleModule,
     // DateTimePickerModule,
     CKEditorModule,
+    NgxMaskModule.forRoot(),
     // Ng2SearchPipeModule
   ],
   providers: [AdminService, OverlayService, AlertMessage, PatientService,UtilityService

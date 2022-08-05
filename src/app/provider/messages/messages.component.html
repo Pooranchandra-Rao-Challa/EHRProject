@@ -4,15 +4,14 @@
       <div class="tabs">
         <ul class="nav nav-tabs styled nav-tab-styled" id="myTab" role="tablist">
           <li class="nav-item" role="presentation">
-            <!-- <a data-message_type="inbox" data-bs-toggle="tab" href="" role="tab">Inbox -->
             <a class="nav-link active" id="medical-tab" data-bs-toggle="tab" data-bs-target="#medical" type="button"
-              role="tab" aria-controls="medical" aria-selected="true">Indox
+              role="tab" aria-controls="medical" aria-selected="true" (click)="getProviderInboxMessages()">Indox
               <span class="message-count">0</span>
             </a>
           </li>
           <li class="nav-item" role="presentation">
             <a class="nav-link" id="send-tab" data-bs-toggle="tab" data-bs-target="#send" type="button" role="tab"
-              aria-controls="send" aria-selected="true">Sent
+              aria-controls="send" aria-selected="true" (click)=" getProviderSentMessage()">Sent
             </a>
           </li>
           <li class="nav-item" role="presentation">
@@ -26,158 +25,216 @@
               <span class="message-count" id="urgent-new-counting">0</span>
             </a>
           </li>
-          <li class="nav-item" role="presentation">
-            <a class="nav-link" id="archive-tab" data-bs-toggle="tab" data-bs-target="#archive" type="button" role="tab"
-              aria-controls="archive" aria-selected="true">Archive
-            </a>
-          </li>
         </ul>
 
-        <div class="tab-pane active" id="messagesInboxTab" role="tabpanel">
-          <div class="row controls">
-            <div class="col-md-5">
-              <div class="input-group input-group-custom ">
-                <input aria-label="Search for messages" autocomplete="off" class="form-control" id="find-messages-input"
-                  placeholder="Search Messages">
-                <span class="input-group-addon input-group-addon-right input-group-addon-search"
-                  id="find-messages-button"><i class="fa fa-search"></i></span>
-              </div>
+
+        <div class="row mt-5">
+          <div class="col-md-5">
+            <div class="input-group input-group-custom  ">
+              <input aria-label="Search for messages" #searchMessage autocomplete="off" class="form-control"
+                id="find-messages-input" placeholder="Search Messages">
+              <span class="input-group-addon input-group-addon-right input-group-addon-search"
+                id="find-messages-button"><i class="fa fa-search"></i></span>
             </div>
-            <div class="col-md-3">
-            </div>
-            <div class="col-md-2 col-sm-6">
-              <div class="input-group input-drop">
-                <button type="text" class="btn btn-light dropdown-toggle action " data-bs-toggle="dropdown">
-                 Actions
-                </button>
-                <ul class="dropdown-menu ">
-                  <li><u class="dropdown-item drop-menu" data-bs-toggle="modal"
-                      (click)="openComponentDialogmessage(MessageDialogComponent)">New Contact</u>
-                  </li>
-                  <li><u class="dropdown-item drop-menu" data-bs-toggle="modal"
-                    (click)="openComponentDialogmessage(MessageDialogComponent)">Go To Contact</u>
+          </div>
+          <div class="col-md-3">
+          </div>
+          <div class="col-md-2 col-sm-6">
+            <div class="input-group input-drop">
+              <button type="text" class="btn btn-light  dropdown-toggle action " data-bs-toggle="dropdown"
+                style="width: 88%;">
+                Actions
+              </button>
+              <ul class="dropdown-menu ">
+                <li><u class="dropdown-item drop-menu" data-bs-toggle="modal">New Contact</u>
                 </li>
-                </ul>
-              </div>
-            </div>
-            <div class="col-md-2 col-sm-6">
-              <div class="input-group input-drop">
-                <button type="text" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown">
-                  New Message
-                </button>
-                <ul class="dropdown-menu ">
-                  <li><u class="dropdown-item drop-menu" data-bs-toggle="modal"
-                      (click)="openComponentDialogmessage(MessageDialogComponent)">To Patient</u>
-                  </li>
-                  <li><u class="dropdown-item drop-menu" data-bs-toggle="modal"
-                    (click)="openComponentDialogmessage(MessageDialogComponent)">In Practice</u>
+                <li><u class="dropdown-item drop-menu" data-bs-toggle="modal">Go To Contact</u>
                 </li>
-                </ul>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-2 col-sm-6">
+            <div class="input-group input-drop">
+              <button type="text" class="btn btn-light btn-lightalignement dropdown-toggle" data-bs-toggle="dropdown"
+                style="width: 88%;">
+                New Message
+              </button>
+              <ul class="dropdown-menu ">
+                <li><u class="dropdown-item drop-menu" data-bs-toggle="modal"
+                    (click)="openComponentDialogmessage(toPatientdialogComponent,'Patient',ActionTypes.add,'')">To
+                    Patient</u>
+                </li>
+                <li><u class="dropdown-item drop-menu" data-bs-toggle="modal"
+                    (click)="openComponentDialogmessage(toPatientdialogComponent,'Practice',ActionTypes.add,'')">In
+                    Practice</u>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-5">
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="col-md-12">
+              <mat-select [(value)]="selected" placeholder="25 Msgs">
+                <mat-option *ngFor="let item of messagaeDD" [value]="item">{{item.viewValue}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6"></div>
+
+        </div>
+        <diV class="row mt-3" *ngIf="inbox">
+          <div class=" col-md-4 leftblockalignments left-block">
+            <mat-table matSort matSortActive="LastAccessed" matSortDirection="desc" matSortDisableClear
+              [dataSource]="providerInboxMessages">
+              <ng-container matColumnDef="To">
+                <mat-header-cell *matHeaderCellDef>From </mat-header-cell>
+                <mat-cell *matCellDef="let element" (click)="getProviderInboxMessage(element)">
+                  <p>{{element.PatientName}} </p>
+                  <p>{{element.Subject}}</p>
+                </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="Date">
+                <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.Updated | date:'M/d/yyyy'}} </mat-cell>
+              </ng-container>
+              <mat-header-row *matHeaderRowDef="displayedColumns" class="matheaderrow"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+            <!-- <div [hidden]="providerInboxMessages.TotalRecordSize==0">
+                      <div class="d-flex justify-content-end my-3">
+                        <div class="pg-container">
+                          <mat-paginator appPagination [length]="providerInboxMessages.TotalRecordSize" pageSize="10"
+                            [pageIndex]="0" [pageSizeOptions]="[10,20,30,40,50]">
+                          </mat-paginator>
+                        </div>
+                      </div>
+                    </div> -->
+            <div>
+            </div>
+          </div>
+          <div class=" col-md-8 rightblockalignments right-block">
+            <div *ngIf="inboxBasedOnCondition">
+              <div class="mt-2">
+                <div class="row">
+                  <div class="col-md-6">
+                    {{messageInbox.PatientName}}
+                  </div>
+                  <div class="col-md-2">
+                  </div>
+                  <div class="col-md-3 d-flex justify-content-end flex-sm-row flex-column">
+                    {{messageInbox.Updated | date:'M/d/yyyy'}},{{messageInbox.Updated | date:'shortTime'}}
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    To {{messageInbox.ProviderName}}
+                  </div>
+                  <div class="col-md-2">
+
+                  </div>
+                  <div class="col-md-6 d-flex justify-content-end flex-sm-row flex-column">
+                    <img src="assets/images/header-dropdown-img.svg" class="img-xs rounded-circle header-avatar">
+                  </div>
+                </div>
+                <div class="row mx-2 my-2">
+                  {{messageInbox.Body}}
+                </div>
+              </div>
+              <div class="mt-5 dropdownborder"></div>
+              <div class="row mt-2 mb-3 mx-2">
+                <div class="col-md-2 justify-content-start flex-sm-row flex-column">
+                  <button class="btn  btn-danger btn-msgdanger  Helvetica-sans-serif-medium pull-right"
+                    type="button">Delete</button>
+                </div>
+                <div class="col-md-6"></div>
+                <div class="col-md-2 justify-content-start flex-sm-row flex-column">
+                  <button class="btn btn-green btn-messagesgreen Helvetica-sans-serif-medium pull-right" type="button"
+                    (click)="openComponentDialogmessage(toPatientdialogComponent,messageInbox,ActionTypes.view,'Reply' )">Reply</button>
+                </div>
+                <div class="col-md-2 justify-content-end flex-sm-row flex-column">
+                  <button class="btn  btn-green btn-messagesgreen  Helvetica-sans-serif-medium pull-right" type="button"
+                    (click)="openComponentDialogmessage(toPatientdialogComponent,messageInbox,ActionTypes.view,'Forward')">Forward</button>
+                </div>
               </div>
             </div>
-            <div class="messages-content">
-              <diV class="row">
-                <div class=" col-md-4 left-block">
-                  <div class="row bg-color">
+            <!-- <div *ngIf="!inboxBasedOnCondition" class="mt-5">No Message Selected</div> -->
+          </div>
+        </diV>
+        <div class="messages-content mt-3" [hidden]="!sent">
+          <div class="row">
+
+            <div class=" col-md-4 leftblockalignments left-block">
+
+              <mat-table matSort matSortActive="LastAccessed" matSortDirection="desc" matSortDisableClear
+                [dataSource]="messageDataSource">
+                <ng-container matColumnDef="To">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header="ProviderName">To </mat-header-cell>
+                  <mat-cell *matCellDef="let element" (click)="getSentMessage(element)"> {{element.ProviderName}}
+                    {{element.Subject}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="Date">
+                  <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.Updated | date:'M/d/yyyy'}} </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns" class="matheaderrow"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+              </mat-table>
+              <div [hidden]="messageDataSource?.TotalRecordSize==0">
+                <div class="d-flex justify-content-end my-3">
+                  <div class="pg-container">
+                    <mat-paginator appPagination [length]="messageDataSource?.TotalRecordSize" pageSize="10"
+                      [pageIndex]="0" [pageSizeOptions]="[10,20,30,40,50]">
+                    </mat-paginator>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class=" col-md-8 rightblockalignments right-block">
+              <div *ngIf="sentMessage">
+                <div class="mt-2">
+                  <div class="row">
                     <div class="col-md-6">
-                      <a class="panel-titles" href="" id="sort-from">From
-                        <i class="fa fa-angle-down "></i>
-                      </a>
+                      {{sentMessages.ProviderName}}
                     </div>
-                    <div class="col-md-6 ">
-                      <a class="panel-title " href="" id="sort-from">Date
-                        <i class="fa fa-angle-up "></i>
-                      </a>
+                    <div class="col-md-2">
+                    </div>
+                    <div class="col-md-3 d-flex justify-content-end flex-sm-row flex-column">
+                      {{sentMessages.Updated | date:'M/d/yyyy'}},{{sentMessages.Updated | date:'shortTime'}}
                     </div>
                   </div>
-                  <div>
-                    <div class="row">
-                      <div class="col-md-1">
-                        <!-- <mat-checkbox class="col-lg-12 col-md-12">
-                        </mat-checkbox> -->
-                      </div>
-                      <div class="col-md-5">
-                         <!-- {{item.ProviderName}} -->
-                        </div> 
-                      <div class="col-md-3"></div>
-                      <div class="col-md-3">
-                        <!-- {{item.Updated | date:'M/d/yyyy'}} -->
-                      </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      To {{sentMessages.PatientName}}
                     </div>
-                  </div>
-                  <div class="row drop-input">
-                    <div class="dropdown">
-                      <button class="drop-button" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
-                        aria-expanded="false">
+                    <div class="col-md-2">
 
-                      </button>
-                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">25 Msg</a></li>
-                        <li><a class="dropdown-item" href="#">50 Msg</a></li>
-                        <li><a class="dropdown-item" href="#">75 Msg</a></li>
-                        <li><a class="dropdown-item" href="#">100 Msg</a></li>
-                      </ul>
                     </div>
+                    <div class="col-md-6 d-flex justify-content-end flex-sm-row flex-column">
+                      <img src="assets/images/header-dropdown-img.svg" class="img-xs rounded-circle header-avatar">
+                    </div>
+
+                  </div>
+                  <div class="row">
+                    {{sentMessages.Body}}
                   </div>
                 </div>
-                <div class=" col-md-8 right-block">
-                  <div *ngIf="basedOnClick">
-                    <div  class="mt-2">
-                      <div class="row">
-                        <div class="col-md-6">
-                          <!-- {{item.ProviderName}} -->
-                        </div>
-                        <div class="col-md-2">
-                        </div>
-                        <div class="col-md-3 d-flex justify-content-end flex-sm-row flex-column">
-                          <!-- {{item.Updated | date:'M/d/yyyy'}},{{item.Updated | date:'shortTime'}} -->
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-4">
-                          <!-- To {{item.PatientName}} -->
-                        </div>
-                        <div class="col-md-2">
+                <div class="mt-5 dropdownborder"></div>
+                <div class="row mt-2">
+                  <div class="col-md-2 d-flex justify-content-start flex-sm-row flex-column">
+                    <button class="btn  btn-danger btn-msgdanger  Helvetica-sans-serif-medium pull-right"
+                      type="button">Delete</button>
+                  </div>
 
-                        </div>
-                        <div class="col-md-6 d-flex justify-content-end flex-sm-row flex-column">
-                          <img src="assets/images/header-dropdown-img.svg" class="img-xs rounded-circle header-avatar">
-                        </div>
-                      </div>
+                  <div class="col-md-4"></div>
 
-                    </div>
-                    <div class="mt-5 dropdownborder" ></div>
-                    <div class="row mt-2">
-                     <div class="col-md-2 d-flex justify-content-start flex-sm-row flex-column">
-                       <button 
-                           class="btn  btn-green btn-messagesgreen  Helvetica-sans-serif-medium pull-right"
-                           type="button">Archive</button>
-                   </div>
-                   <div class="col-md-2 justify-content-start flex-sm-row flex-column">
-                     <button 
-                         class="btn  btn-danger btn-msgdanger  Helvetica-sans-serif-medium pull-right"
-                         type="button">Delete</button>
-                 </div>
-                 <div class="col-md-4"></div>
-                 <div class="col-md-2 justify-content-start flex-sm-row flex-column">
-                   <button 
-                       class="btn btn-green btn-messagesgreen Helvetica-sans-serif-medium pull-right"
-                       type="button">Reply</button>
-               </div>
-               <div class="col-md-2 justify-content-end flex-sm-row flex-column">
-                 <button 
-                     class="btn  btn-green btn-messagesgreen  Helvetica-sans-serif-medium pull-right"
-                     type="button">Forward</button>
-             </div>
-                    </div>
-                    </div>
                 </div>
-              </diV>
-
+              </div>
+              <div *ngIf="!sentMessage" class="mt-5">No Message Selected</div>
             </div>
-
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>

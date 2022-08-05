@@ -1,13 +1,16 @@
 import { PatientService } from 'src/app/_services/patient.service';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { EHROverlayRef } from '../../ehr-overlay-ref';
-import { GlobalConstants, Intervention, PatientChart } from './../../_models';
+import { Actions, GlobalConstants, Intervention, PatientChart } from './../../_models';
 import { fromEvent } from 'rxjs';
 import { filter, map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { DatePipe } from '@angular/common';
+import { AddeditinterventionComponent } from '../addeditintervention/addeditintervention.component';
+import { ComponentType } from 'ngx-toastr';
+import { OverlayService } from 'src/app/overlay.service';
 
 @Component({
   selector: 'app-intervention.dialog',
@@ -24,12 +27,15 @@ export class InterventionDialogComponent implements OnInit {
   filter: any;
   currentPatient: ProviderPatient;
   selectedInterventionCodes: any[] = [];
+  cqmNotPerformedDialogComponent = AddeditinterventionComponent;
+  ActionTypes = Actions;
 
   constructor(private ref: EHROverlayRef,
     private patientService: PatientService,
     private authService: AuthenticationService,
     private alertmsg: AlertMessage,
-    public datepipe: DatePipe,) {
+    public datepipe: DatePipe,
+    public overlayService: OverlayService) {
     this.updateLocalModel(ref.RequestData);
   }
 
@@ -134,5 +140,19 @@ export class InterventionDialogComponent implements OnInit {
       && this.patientIntervention.EndDate == undefined ? '' : this.patientIntervention.EndDate.toString() != ''
         && this.patientIntervention.InterventionType == undefined ? '' : this.patientIntervention.InterventionType != ''
           && this.patientIntervention.Code == undefined ? '' : this.patientIntervention.Code != '')
+  }
+
+  openComponentDialog(content: any | ComponentType<any> | string,
+    dialogData, action: Actions = this.ActionTypes.add) {
+    let reqdata: any;
+    if (action == Actions.view && content === this.cqmNotPerformedDialogComponent) {
+      reqdata = {
+        InterventionId: this.patientIntervention.InterventionId
+      }
+    }
+    const ref = this.overlayService.open(content, reqdata);
+    ref.afterClosed$.subscribe(res => {
+      // this.UpdateView(res.data);
+    });
   }
 }

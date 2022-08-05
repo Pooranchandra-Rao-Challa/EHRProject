@@ -51,6 +51,7 @@ export class Allergy {
 }
 
 export enum PatientChart {
+  Diagnoses,
   AdvancedDirectives,
   SmokingStatus,
   TobaccoUse,
@@ -191,6 +192,7 @@ export class Diagnosis {
   Acute?: boolean;
   Terminal?: boolean;
   Referral?: boolean;
+  IsEditable?: boolean = true;
 }
 
 export class Intervention {

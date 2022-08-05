@@ -103,7 +103,12 @@ export class APIEndPoint extends EndpointBase {
   get _providerRegistrationUrl() {
     return this._baseUrl + "RegisterNewProvider";
   }
-
+  get _adminRegistrationUrl() {
+    return this._baseUrl + "RegisterNewAdmin";
+  }
+  get _deleteAdminUrl() {
+    return this._baseUrl + "DeleteAdmin";
+  }
   get _appointmentTypesUrl() {
     return this._baseUrl + "AppointmentTypes";
   }
@@ -749,6 +754,34 @@ export class APIEndPoint extends EndpointBase {
   get _clinicOrProviderLocationsUrl() {
     return this._baseUrl + "ClinicOrProviderLocations";
   }
+
+
+
+ get _providerInboxMessagesUrl()
+ {
+   return this._baseUrl + "ProviderInboxMessages";
+ }
+
+ get _providerSentMessagesUrl()
+ {
+   return this._baseUrl + "ProviderSentMessages";
+ }
+
+ get _providerDraftMessagesUrl()
+ {
+   return this._baseUrl + "ProviderDraftMessages";
+ }
+
+ get _providerUrgentMessagesUrl()
+ {
+   return this._baseUrl + "ProviderUrgentMessages";
+ }
+
+ get _createMessageUrl()
+ {
+   return this._baseUrl + "CreateMessages";
+ }
+ 
 
   constructor(public http: HttpClient) {
     super();

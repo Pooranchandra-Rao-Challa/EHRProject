@@ -101,6 +101,7 @@ export class AddeditinterventionComponent implements OnInit {
     if (data == null) return;
     this.CQMNotPerformed = data;
     this.CQMNotPerformed.CessationInterventionId = data.CessationInterventionId;
+    this.CQMNotPerformed.InterventionId = data.InterventionId;
   }
 
   addUpdateCQMNotPerformed() {

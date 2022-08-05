@@ -31,7 +31,7 @@ export interface SearchPatient {
   SearchTerm: string;
 };
 
-export class PatientSearchResults {
+export class PatientSearchResults implements ToAddress {
   Name: string;
   Age: number;
   ContactNumber: string;
@@ -43,8 +43,13 @@ export class PatientSearchResults {
   Gender: string;
   PatientId?: string;
   ProviderName?: string;
+  UserId?:string;
 }
-
+export interface ToAddress
+{
+  UserId?:string;
+  Name?:string;
+}
 export interface ScheduleVisitStatus
 {
 

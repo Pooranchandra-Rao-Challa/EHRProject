@@ -106,7 +106,8 @@ export class AppointmentComponent {
 
         }
         else if (e.ApptStatus == 'Cancelled') {
-          e.ApptStatus = 'your Appoinment is cancelled';
+          e.ApptStatus = 'Cancelled';
+          e.class = "StatusCancelled";
 
         }
       });
@@ -115,12 +116,10 @@ export class AppointmentComponent {
   }
 
   reschedule(item) {
-    debugger;
     this.RequestAppoinments = item;
     this.RequestAppoinments.LocationId = item.LocationId
   }
   getLocations() {
-    debugger
     var req = {
       "ClinicId": this.user.ClinicId,
     }
