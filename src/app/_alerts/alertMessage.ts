@@ -164,6 +164,11 @@ export class AlertMessage {
  * DashBoard: D
  * MyProfile
  *
+ * ----------------------------------------------------
+ * Admin Module
+ *
+ * Admins : A
+ *
  * ---------------------------------------------------
  * Errors Number shouw be three digits like 001
  *
@@ -436,7 +441,13 @@ export const ERROR_CODES: { [key: string]: string } = {
   'M3A001': 'Appoinments added sucessfully ',
   'M3A002': 'Appoinments cancelled successfully',
   //Error Messages for Patient Appoinments
-  'E3A001': "Appoinments updation error"
+  'E3A001': "Appoinments updation error",
+
+  //Admin screen in admin module
+  'M1A003': 'Admin deleted successfully',
+
+  // Error for Admin
+  'E1A001': 'Admin deletion error',
 };
 
 
