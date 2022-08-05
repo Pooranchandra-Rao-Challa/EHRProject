@@ -164,6 +164,11 @@ export class AlertMessage {
  * DashBoard: D
  * MyProfile
  *
+ * ----------------------------------------------------
+ * Admin Module
+ *
+ * Admins : A
+ *
  * ---------------------------------------------------
  * Errors Number shouw be three digits like 001
  *
@@ -440,7 +445,13 @@ export const ERROR_CODES: { [key: string]: string } = {
   //Messages for provider messages
   'M2D001': "Secure Message sent successfully",
   //Error Message for provider messages
-  'E2D001':"Messages Updation Error"
+  'E2D001':"Messages Updation Error",
+
+  //Admin screen in admin module
+  'M1A003': 'Admin deleted successfully',
+
+  // Error for Admin
+  'E1A001': 'Admin deletion error',
 };
 
 

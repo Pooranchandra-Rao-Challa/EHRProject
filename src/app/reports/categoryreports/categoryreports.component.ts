@@ -35,7 +35,6 @@ export class CategoryreportsComponent implements OnInit {
 
   changereports(req) {
     this.categoryId = req;
-    debugger;
     if (req == 1) {
       this.Reports = [
         { RepId: 1, Name: 'MU Summary', Id: 1 },
@@ -94,7 +93,6 @@ export class CategoryreportsComponent implements OnInit {
       this.mureports = true;
     }
     else if (req == 2) {
-      debugger;
       this.mureports = false;
       this.patientlist = false;
       this.encounterlist = false;

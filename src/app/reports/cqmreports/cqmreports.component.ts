@@ -193,7 +193,6 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
   locationNewReportList: any[];
 
   public downloadAsPDF() {
-    debugger;
     const documenDefinition = {
       content: [
         {
@@ -1338,8 +1337,6 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
   getCQMReportsQueuedReports() {
 
     let locationid = this.authenticationService.userValue.CurrentLocation;
-    debugger;
-
     let obj = {
       practiceId: locationid,
     };
@@ -1353,7 +1350,6 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
       if (data.IsSuccess) {
         this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
         this.getoverrallreport.data = data.ListResult[0] as CQMReportsData[];
-        debugger
         this.queuedreportdata = JSON.parse(
           JSON.stringify(data.ListResult[0] as CQMReportsData[])
         );
@@ -1841,7 +1837,6 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
   // }
 
   onSubmitCreateReport() {
-    debugger;
     if (this.createReportForm.invalid) {
       return;
     }
@@ -1897,12 +1892,10 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
   }
 
   createupdateEmployee(data: any) {
-    debugger;
     this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
     this.accountservice.CreateQueuedReport(data).subscribe((data) => {
       if (data.IsSuccess) {
         this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
-        debugger
         this.queuedreport();
         // this.toastr.success("Report created successfully", "Success Message", {
         //   timeOut: 3000,
@@ -2270,7 +2263,6 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
   //   ];
   // }
   drilldownViewConditions(PatientId) {
-    debugger;
     var req = {
       // ReportId: this.MeasureReportId,
       // MeasureId: this.MeasureSetId,
@@ -2378,7 +2370,6 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
     this.downloadservice.getdownloadQRDA3(req);
   }
   getdownloadQRDA3MIPSReport() {
-    debugger;
     var req = {
       ReportId: this.patientlistmeasure.ReportId,
     };
