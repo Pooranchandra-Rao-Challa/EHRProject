@@ -79,6 +79,14 @@ export class AuthenticationService {
     );
     return observable;
   }
+
+  forceLoginWithAdminUser(encKey?: string)
+  {
+    if(this.isAdmin)
+    {
+
+    }
+  }
   patientLoginWithFormCredentials(creds: any): Observable<ResponseData> {
     const endpointUrl = this.apiEndPoint._authenticatePatientUrl;
     let observable = this.http.post<ResponseData>(endpointUrl, creds);

@@ -407,10 +407,11 @@ export class ScheduleComponent implements OnInit {
       clinicId: this.user.ClinicId
     };
     this.settingsService.Generalschedule(reqparams).subscribe((resp) => {
-      if(resp.IsSuccess)
-        this.generalSchedule = resp.ListResult[0];
+      if(resp.IsSuccess){
+        if(resp.ListResult.length == 1)
+          this.generalSchedule = resp.ListResult[0];
+      }
 
-      console.log(this.generalSchedule);
     })
   }
 
@@ -423,7 +424,7 @@ export class ScheduleComponent implements OnInit {
       concurrentapps: this.generalSchedule.ConcurrentApps,
       reschedulepatient: this.generalSchedule.PatientRescedule
     }
-    console.log(this.generalSchedule);
+
 
     this.settingsService.UpdateReschedule(reqparams).subscribe(resp => {
       if (resp.IsSuccess) {

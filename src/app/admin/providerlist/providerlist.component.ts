@@ -2,6 +2,12 @@ import { Component } from '@angular/core';
 import { ProviderList } from '../../_models/_admin/providerList';
 import { AdminService } from '../../_services/admin.service';
 
+class FilterOprions{
+  ActiveProvider: boolean = true
+  InactiveProvider: boolean = false;
+  PaidProvider: boolean = false;
+  TrailProvider: boolean = false;
+}
 
 @Component({
   selector: 'app-providerlist',
@@ -12,7 +18,6 @@ export class ProviderlistComponent {
   pageSize: number = 50;
   page: number = 1;
   filterTerm!: string;
-  // providersDataSource: ProviderList[] = [];
   dataSource: ProviderList[] = [];
   Active: boolean = true;
   Suspended: boolean = false;
@@ -20,11 +25,13 @@ export class ProviderlistComponent {
   Paid: boolean = false;
   ActiveStatus: string = '';
   TrailStatus: string = '';
-  providersDataSource:any =[];
+  providersDataSource: ProviderList[] = [];
+  filterOptions: FilterOprions = new FilterOprions()
 
 
 
-  constructor(private adminservice: AdminService) {
+  constructor(private adminservice: AdminService)
+  {
   }
 
   ngOnInit(): void {
@@ -44,7 +51,6 @@ export class ProviderlistComponent {
 
 
   filterChange(eventType, event) {
-
     if (eventType == 'ActiveStatus') {
       if (event == 'Active' && this.Active) {
         this.Suspended = false;
@@ -81,6 +87,9 @@ export class ProviderlistComponent {
     }
   }
 
+  ForceProviderLogin(){
+
+  }
 }
 
 

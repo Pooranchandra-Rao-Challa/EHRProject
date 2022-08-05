@@ -46,7 +46,7 @@ export class AdminsComponent implements OnInit {
     }
     const filterValue = value.toLowerCase();
     var searchData = this.codeList.filter(option => option.toLowerCase().includes(filterValue));
-    if (searchData.length === 0) {
+    if (searchData != null && searchData.length === 0) {
       return ['No Data Found']
     }
     return searchData;

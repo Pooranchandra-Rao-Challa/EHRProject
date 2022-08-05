@@ -33,6 +33,7 @@ export class BlockoutDialogComponent implements OnInit {
   ) {
     this.user = authService.userValue;
     this.blockout.ClinicId = this.user.ClinicId;
+    this.blockout.LocationId = this.user.CurrentLocation;
     this.blockoutDialog = ref.RequestData as BlockOutDialog;
   }
 
@@ -183,10 +184,20 @@ export class BlockoutDialogComponent implements OnInit {
   }
 
   enableSave(){
-      (this.blockout.BlockoutFor != null && this.blockout.BlockoutFor != "")
+     let flag = (this.blockout.BlockoutFor != null && this.blockout.BlockoutFor != "")
       && (this.blockout.BlockoutForId != null && this.blockout.BlockoutForId != "")
       && (this.blockout.StartAt != null)
       && (this.blockout.ClinicId != null)
+      && (this.blockout.LocationId != null)
+      && ((this.blockout.Duration != 1440 && this.blockout.Time != null) ||
+        this.blockout.Duration == 1440)
+      && ((this.blockout.Recur &&
+        (this.blockout.RecurType == 'daily' && this.blockout.RecurTime > 0)
+        ||((this.blockout.RecurType == 'weekly' && this.blockout.RecurTime > 0
+         && this.blockout.RangeDay != null &&  this.blockout.RangeDay.length > 0)))
+         || !this.blockout.Recur)
+     console.log(this.blockout);
+      return !flag;
   }
   SelectionBlockoutForChange(event){
     if(this.blockout.BlockoutFor == 'practice_location'){

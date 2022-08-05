@@ -1,6 +1,6 @@
 import { AvailableTimeSlot } from './../../_models/_provider/smart.scheduler.data';
 import { BehaviorSubject } from 'rxjs';
-import { AppointmentType, AppointmentStatus, TimeSlot } from './../../_models/_provider/_settings/settings';
+import { AppointmentType, AppointmentStatus, TimeSlot, GeneralSchedule } from './../../_models/_provider/_settings/settings';
 import { SmartSchedulerService } from './../../_services/smart.scheduler.service';
 import { AuthenticationService } from './../../_services/authentication.service';
 import Swal from 'sweetalert2';
@@ -8,7 +8,7 @@ import { DatePipe } from '@angular/common';
 
 import { Component, OnInit, ElementRef, Inject, LOCALE_ID, HostListener, ViewChild, forwardRef, AfterViewInit, QueryList, ViewChildren, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup } from "@angular/forms";
-import { CalendarOptions, Calendar, EventHoveringArg, EventApi } from '@fullcalendar/core';
+import { CalendarOptions, Calendar, EventHoveringArg, EventApi, BusinessHoursInput } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { FullCalendarComponent } from '@fullcalendar/angular';
@@ -52,6 +52,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   locations: UserLocations[];
   providerAndStaff: PracticeProviders[] = [];
   updateProviderAndStaff: BehaviorSubject<PracticeProviders[]> = new BehaviorSubject([])
+  CalendarSchedule: GeneralSchedule = {} as GeneralSchedule;
 
   @ViewChild('fullcalendar') fullcalendar: FullCalendarComponent;
   @ViewChildren('roomCheckboxes') private roomCheckboxes: QueryList<any>;
@@ -160,8 +161,6 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       }
 
     }
-    //this.fullcalendar.getApi().next = this.nextCalenderEvents.bind(this);
-    //this.fullcalendar.getApi().prev = this.previousCalenderEvents.bind(this);
   }
 
   UpdateResources() {
@@ -369,6 +368,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     return tdate;
   }
   InitCalendarOptions() {
+
     this.calendarOptions = {
       schedulerLicenseKey: '0977988272-fcs-1658237663',
       plugins: [resourceTimeGridPlugin, dayGridPlugin, interactionPlugin],
@@ -376,18 +376,12 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       editable: true,
       duration: 30,
       weekends: true,
-      // businessHours: [ // specify an array instead
-      //   {
-      //     daysOfWeek: [1, 2, 3], // Monday, Tuesday, Wednesday
-      //     startTime: '6:00', // 8am
-      //     endTime: '20:00' // 6pm
-      //   },
-      //   {
-      //     daysOfWeek: [4, 5], // Thursday, Friday
-      //     startTime: '7:00', // 10am
-      //     endTime: '20:00' // 4pm
-      //   }
-      // ],
+      // columnHeaderText: function(mom){if (mom.weekday() === 5) {
+      //   return 'Friday!';
+      // } else {
+      //   return mom.format('LLL');
+      // }},
+      // slotLabelFormat: 'h(:mm)a',
       eventTimeFormat: {
         hour: 'numeric',
         minute: '2-digit',
@@ -526,6 +520,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       }
 
     };
+
   }
 
   handleEventMount(arg) {
@@ -543,6 +538,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     this.updateProviderAndStaff.subscribe((value) => {
       value.forEach(val => { this.providerAndStaff.push(val) })
     })
+    this.CalenderSchedule();
   }
 
 
@@ -606,19 +602,27 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     let event = arg;
     let eventDate = new Date(this.datepipe.transform(event.date, "MM/dd/yyyy"));
     let today = new Date(this.datepipe.transform(new Date(), "MM/dd/yyyy"))
-    let appointment: CalendarAppointment = {};
-    appointment.StartAt = event.date;
-    appointment.ProviderId = this.authService.userValue.ProviderId;
-    appointment.LocationId = this.authService.userValue.CurrentLocation;
 
-    if (event.resource != null)
-      appointment.RoomId = event.resource.id;
+    if (eventDate >= today) {
+      let appointment: CalendarAppointment = {};
+      appointment.StartAt = event.date;
+      appointment.ProviderId = this.authService.userValue.ProviderId;
+      appointment.LocationId = this.authService.userValue.CurrentLocation;
+      if (event.resource != null)
+        appointment.RoomId = event.resource.id;
+      let dialog: AppointmentDialogInfo = this.PatientAppointmentInfo(appointment, Actions.new);
 
+      let isTimeInBusinessHours = (event.date as Date).getTime() > (this.CalendarSchedule.CalendarFrom).getTime()
+        && (event.date as Date).getTime() < (this.CalendarSchedule.CalendarTo).getTime()
 
-    let dialog: AppointmentDialogInfo = this.PatientAppointmentInfo(appointment, Actions.new);
-    if (eventDate >= today)
-      this.openComponentDialog(this.appointmentDialogComponent,
-        dialog, Actions.view);
+      if (this.CalendarSchedule.OutSidePracticeHour)
+        this.openComponentDialog(this.appointmentDialogComponent,
+          dialog, Actions.view);
+      else if (!isTimeInBusinessHours) {
+        this.displayMessageDialogForBusinessHours(ERROR_CODES["E2B005"], dialog)
+      }
+    }
+
   }
 
   handleEventClick(arg) {
@@ -633,21 +637,23 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   checkEventMove(event: EventApi): boolean {
     let flag: boolean = false;
-    this.fullcalendar.getApi().getEvents().forEach((evt) => {
-      if (event.startStr == evt.startStr
-        && event.id != evt.id
-      ) {
-        let eventResources = event.getResources()
-        let evtResources = evt.getResources()
-        eventResources.forEach(resource => {
-          evtResources.forEach(res => {
-            if (!flag)
-              flag = (res.id == resource.id);
+    if (!this.CalendarSchedule.ConcurrentApps) {
+      this.fullcalendar.getApi().getEvents().forEach((evt) => {
+        if (event.startStr == evt.startStr
+          && event.id != evt.id
+        ) {
+          let eventResources = event.getResources()
+          let evtResources = evt.getResources()
+          eventResources.forEach(resource => {
+            evtResources.forEach(res => {
+              if (!flag)
+                flag = (res.id == resource.id);
+            })
           })
-        })
 
-      }
-    })
+        }
+      })
+    }
     return flag;
   }
 
@@ -711,10 +717,33 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     })
   }
 
+  displayMessageDialogForBusinessHours(message, dialog: AppointmentDialogInfo) {
+    Swal.fire({
+      title: message,
+      position: 'top',
+      background: '#e1dddd',
+      showConfirmButton: true,
+      confirmButtonText: 'Accept',
+      showDenyButton: true,
+      denyButtonText: `Reject`,
+      width: '600',
+      customClass: {
+        container: 'swal2-container-high-zindex',
+        confirmButton: 'swal2-messaage'
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.openComponentDialog(this.appointmentDialogComponent,
+          dialog, Actions.view);
+      }
+    })
+  }
+
   RescheduleAppointment(event: EventApi) {
     this.calendarAppointments.forEach(appointment => {
       if (appointment.AppointmentId == event.id) {
         appointment.strStartAt = this.datepipe.transform(event.start, "MM/dd/yyyy HH:mm");
+        appointment.
         this.smartSchedulerService.ReschuduleAppoinment(appointment)
           .subscribe(resp => {
             if (resp.IsSuccess) {
@@ -754,7 +783,33 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       this.fullcalendar.getApi().removeAllEvents();
       this.updateCalendarEvents();
     }
+  }
 
+  TimeIn24Format() {
+    let time = (this.CalendarSchedule.CalendarFrom + "").replace('AM', " AM").replace('PM', " PM");
+    let tm = this.datepipe.transform(new Date(), 'MM/dd/yy') + ' ' + time
+    this.CalendarSchedule.CalendarFrom = new Date(tm)
+    time = (this.CalendarSchedule.CalendarTo + "").replace('AM', " AM").replace('PM', " PM");
+    tm = this.datepipe.transform(new Date(), 'MM/dd/yy') + ' ' + time.replace('AM', " AM").replace('PM', " PM")
+    this.CalendarSchedule.CalendarTo = new Date(tm)
+  }
+  CalenderSchedule() {
+    let reqparams = {
+      clinicId: this.user.ClinicId
+    };
+    this.settingsService.Generalschedule(reqparams).subscribe((resp) => {
+      if (resp.IsSuccess) {
+        if (resp.ListResult.length == 1) {
+          this.CalendarSchedule = resp.ListResult[0];
+          this.TimeIn24Format();
+          this.fullcalendar.getApi().setOption("businessHours", {
+            daysOfWeek: [1, 2, 3, 4, 5], // Monday, Tuesday, Wednesday
+            startTime: this.datepipe.transform(this.CalendarSchedule.CalendarFrom, 'H:mm'), // 8am
+            endTime: this.datepipe.transform(this.CalendarSchedule.CalendarTo, 'H:mm')// 6pm
+          })
+        }
+      }
+    })
   }
 
   LoadAppointmentDefalts() {
@@ -762,7 +817,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       this.SelectedProviderId == "")
       this.locations = JSON.parse(this.authService.userValue.LocationInfo);
     else {
-      this.smartSchedulerService.PracticeLocations(this.SelectedProviderId,this.user.ClinicId)
+      this.smartSchedulerService.PracticeLocations(this.SelectedProviderId, this.user.ClinicId)
         .subscribe(resp => {
           if (resp.IsSuccess) {
             this.locations = resp.ListResult as UserLocations[];
