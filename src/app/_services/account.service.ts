@@ -106,6 +106,14 @@ export class Accountservice extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._providerRegistrationUrl, reqparams);
   }
 
+  AdminRegistration(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._adminRegistrationUrl, reqparams);
+  }
+
+  DeleteAdmin(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._deleteAdminUrl, reqparams);
+  }
+
   EmailedUrls() {
     return this._ProcessGetRequest<any>(this._emailedUrlsUrl);
   }
