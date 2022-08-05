@@ -1,6 +1,8 @@
 .type-role {
   color: orange;
   font-size: 13px;
+  min-height: 40px;
+  padding: 17px;
 }
 .bx-menu,
 .icon-logout{
@@ -12,11 +14,14 @@
 }
 .home-content .not-allowed{
   cursor: not-allowed;
+  
 }
 .navbar-nav > .nav-item:hover {
   background: #3e4b5c!important;
-  min-height: 50px;
+  padding: 17px;
+  background-position: center 21px !important;
 }
+
 
 
 
