@@ -1,3 +1,4 @@
+import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { BehaviorSubject, } from 'rxjs';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { OverlayService } from 'src/app/overlay.service';
@@ -53,6 +54,7 @@ export class DashboardComponent implements OnInit {
   message: string;
   constructor(private adminservice: AdminService,
     private overlayService: OverlayService,
+    private authService: AuthenticationService,
     private alertmsg: AlertMessage) { }
 
   ngOnInit(): void {
@@ -285,18 +287,18 @@ export class DashboardComponent implements OnInit {
 
 
 
-  providerLogin(item) {
-    if (item.Trial == 'Paid' || item.lock == 'Unlock') {
-      // this.router.navigate(['/account/login']);
-      // this.alertmsg.displayMessageDailog(ERROR_CODES["M1P001"])
-    }
-    if (item.Trail == 'Not Paid' || item.lock == 'lock') {
-      //this.router.navigate(['/provider/smartschedule']);
-    }
-    if (item.Trail == 'Not Paid' || item.lock == 'Unlock') {
-      //this.router.navigate(['/provider/smartschedule']);
-    }
-  }
+  // providerLogin(item) {
+  //   if (item.Trial == 'Paid' || item.lock == 'Unlock') {
+  //     // this.router.navigate(['/account/login']);
+  //     // this.alertmsg.displayMessageDailog(ERROR_CODES["M1P001"])
+  //   }
+  //   if (item.Trail == 'Not Paid' || item.lock == 'lock') {
+  //     //this.router.navigate(['/provider/smartschedule']);
+  //   }
+  //   if (item.Trail == 'Not Paid' || item.lock == 'Unlock') {
+  //     //this.router.navigate(['/provider/smartschedule']);
+  //   }
+  // }
 
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string) {
     const ref = this.overlayService.open(content, null);
@@ -311,4 +313,22 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  switchUser(provider: ProviderList)
+  {
+    let switchKey: string  = provider.UserId +":" +provider.ProviderId;
+    console.log(switchKey);
+
+    this.adminservice.SwitchUserKey(provider).subscribe(resp =>{
+      if(resp.IsSuccess){
+        let encKey = resp.Result;
+        this.authService.SwitchUser({SwitchUserKey:switchKey,SwitchUserEncKey:encKey}).subscribe(logresp =>{
+          if (!logresp.IsSuccess) {
+
+          }
+        })
+      }
+    })
+
+
+  }
 }

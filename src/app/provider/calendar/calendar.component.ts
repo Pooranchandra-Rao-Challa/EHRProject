@@ -313,7 +313,8 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   updateCalendarEvents() {
     this.smartSchedulerService
-      .CalendarAppointments({ 'StartDate': this.datepipe.transform(this.sundayDate, "MM/dd/yyyy") })
+      .CalendarAppointments({ 'StartDate': this.datepipe.transform(this.sundayDate, "MM/dd/yyyy"),
+      ClinicId: this.user.ClinicId })
       .subscribe(resp => {
         if (resp.IsSuccess) {
           this.calendarAppointments = resp.ListResult as CalendarAppointment[];

@@ -60,8 +60,8 @@
                     <div class="col-md-1 col-1 appointment-time">Time</div>
                     <div class="col-md-2 col-2 patient">Patient Info</div>
                     <div class="col-md-2 col-2 provider">Provider</div>
-                    <div class="col-md-2 col-2">Visit Status</div>
-                    <div class="col-md-2 col-2 appt-type">Appointment Type</div>
+                    <div class="col-md-3 col-3">Visit Status</div>
+                    <div class="col-md-1 col-1 appt-type" style="white-space:nowrap">Appointment Type</div>
                     <div class="col-md-2 col-2 appointment-note">Notes</div>
                     <div class="col-md-1 col-1">Encounter</div>
                   </div>
@@ -84,8 +84,9 @@
                       <div *ngIf="appointment.MobilePhone">M: {{appointment.MobilePhone}}</div>
                     </div>
                     <div class="col-md-2 col-2 provider" *ngIf="appointment.IsCurrent" >{{appointment.ProviderName}}</div>
-                    <div class="col-md-2 col-2 visit-status" *ngIf="appointment.IsCurrent">
-
+                    <div class="col-md-3 col-3 visit-status" *ngIf="appointment.IsCurrent">
+                      <img [class]="appointment.Status == 'Request' ? 'img-smart-status-highlight' : 'img-smart-status-dim'" [class.show-hover] = "appointment.IsCurrent"
+                      src="assets/images/smart-schedule/user.svg" title="Request" />
                       <img [class]="appointment.Status == 'Scheduled' ? 'img-smart-status-highlight' : 'img-smart-status-dim'" [class.show-hover] = "appointment.IsCurrent"
                         src="assets/images/smart-schedule/scheduled.svg" title="Scheduled" (click)="updateAppointmentStatus(appointment,'Scheduled')" />
                       <img [class]="appointment.Status == 'Confirmed' ? 'img-smart-status-highlight' : 'img-smart-status-dim'" src="assets/images/smart-schedule/waiting.svg"
@@ -99,7 +100,7 @@
                       <img [class]="appointment.Status == 'No-Show' ? 'img-smart-status-highlight' : 'img-smart-status-dim'" src="assets/images/smart-schedule/no_show.svg"
                         title="No-Show" (click)="openComponentDialog(completeAppointmentDialogComponent,appointment,ActionsType.view,'No-Show')" [class.show-hover] = "appointment.IsCurrent"/>
                     </div>
-                    <div class="col-md-2 col-2 appt-type" *ngIf="appointment.IsCurrent">{{appointment.AppointmentType}}</div>
+                    <div class="col-md-1 col-1 appt-type" *ngIf="appointment.IsCurrent">{{appointment.AppointmentType}}</div>
                     <div class="col-md-2 col-2 appointment-note" *ngIf="appointment.IsCurrent">
                       {{appointment.Notes}}
                     </div>

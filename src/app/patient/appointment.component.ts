@@ -137,7 +137,7 @@ export class AppointmentComponent {
   }
 
   CancelAppoinments(AppointmentId) {
-    debugger;
+    //debugger;
     var req = {
       'ClinicId': this.user.ClinicId,
       'AppointmentId': AppointmentId
