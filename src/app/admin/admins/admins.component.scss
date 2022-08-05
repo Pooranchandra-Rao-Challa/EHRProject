@@ -33,11 +33,14 @@
   font-size: 12px;
   padding: 3px 5px;
 }
-h1 {
-  font-size: 72%;
+.tel-code h1{
+  font-size: 13px;
+  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
   white-space: pre-wrap;
 }
-
+.tel-code.mat-option {
+  padding: 5px !important;
+}
 .column{
   width: 1%;
 }
@@ -64,7 +67,7 @@ h1 {
   align-items: center;
   justify-content: space-between;
   padding: 1rem 1rem;
-  border-bottom: 2px solid white;
+  border-bottom: 2px solid #fff;
   border-top-left-radius: calc(0.3rem - 1px);
   border-top-right-radius: calc(0.3rem - 1px);
 }
@@ -72,6 +75,7 @@ h1 {
   box-shadow: none;
   border-radius: 0px;
   margin-left: -89%;
+  border: 1px solid #fff;
 }
 @media (max-width:1440px){
   .modal-dialog .modal-content {
@@ -86,7 +90,7 @@ h1 {
   flex-direction: column;
   width: 250%;
   pointer-events: auto;
-  background-color: white;
+  background-color: #fff;
 }
 @media (max-width:1596px )and (min-width: 930px) {
   .modal-content {
@@ -95,7 +99,7 @@ h1 {
     flex-direction: column;
     width: 184%;
     pointer-events: auto;
-    background-color: white;
+    background-color: #fff;
 }
 }
 @media (max-width:1596px )and (min-width: 930px) {
@@ -105,7 +109,7 @@ h1 {
     flex-direction: column;
     width: 184%;
     pointer-events: auto;
-    background-color: white;
+    background-color: #fff;
 }
 }
 @media (max-width:930px ) {
@@ -115,7 +119,7 @@ h1 {
     flex-direction: column;
     width: 140%;
     pointer-events: auto;
-    background-color: white;
+    background-color: #fff;
 }
 .modal.show .modal-dialog {
   transform: none;
