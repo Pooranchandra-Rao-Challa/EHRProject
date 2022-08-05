@@ -21,5 +21,8 @@ export class MessagesService extends APIEndPoint {
   ProviderUrgentMessages(reqparams: any) {
     return this._ProcessPostRequest<any>(this._providerUrgentMessagesUrl, reqparams);
   }
- 
+ CreateMessage(reqparams: any)
+ {
+   return this._ProcessPostRequest<any>(this._createMessageUrl,reqparams)
+ }
 }

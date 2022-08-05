@@ -1,3 +1,5 @@
+import { PatientSearch } from "../_account/newPatient";
+
 export class ProviderMessages
 {
             EmailMessageId?: string;
@@ -15,4 +17,12 @@ export class ProviderMessages
             PatientName ?: string;
             MessagesCount ?: number;
             TotalPatients?: number;
+            Urgent?:boolean;
+            Draft?:boolean;
+            Sent?:boolean;
+            UserId?:string;
+            ReplyMessage?:string;
+            CurrentPatient?: PatientSearch = new PatientSearch();
+            ForwardreplyMessage?:string ;
+
 }

@@ -436,7 +436,11 @@ export const ERROR_CODES: { [key: string]: string } = {
   'M3A001': 'Appoinments added sucessfully ',
   'M3A002': 'Appoinments cancelled successfully',
   //Error Messages for Patient Appoinments
-  'E3A001': "Appoinments updation error"
+  'E3A001': "Appoinments updation error",
+  //Messages for provider messages
+  'M2D001': "Secure Message sent successfully",
+  //Error Message for provider messages
+  'E2D001':"Messages Updation Error"
 };
 
 

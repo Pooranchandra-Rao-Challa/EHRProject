@@ -772,6 +772,10 @@ export class APIEndPoint extends EndpointBase {
    return this._baseUrl + "ProviderUrgentMessages";
  }
 
+ get _createMessageUrl()
+ {
+   return this._baseUrl + "CreateMessages";
+ }
  
   constructor(public http: HttpClient) {
     super();

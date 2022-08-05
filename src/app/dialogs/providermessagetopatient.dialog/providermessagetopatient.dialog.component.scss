@@ -71,10 +71,21 @@ input::-webkit-input-placeholder {
     cursor: not-allowed;
   }
   input[readonly] {
-    opacity: 0.5;
+    opacity: 10.5;
     cursor: not-allowed;
 
   }
+
   .modal-dialog {
     margin-top: calc(-24px + -24px) !important;
   }
+  .btn-msgsave {
+    width: 99px;
+    height: 43px;
+    padding: 0;
+    line-height: 2.7;
+    margin-right: 12px;
+}
+.textareaclass{
+  height: 90px;
+}
