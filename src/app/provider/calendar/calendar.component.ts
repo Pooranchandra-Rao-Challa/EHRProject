@@ -743,7 +743,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     this.calendarAppointments.forEach(appointment => {
       if (appointment.AppointmentId == event.id) {
         appointment.strStartAt = this.datepipe.transform(event.start, "MM/dd/yyyy HH:mm");
-        appointment.
+
         this.smartSchedulerService.ReschuduleAppoinment(appointment)
           .subscribe(resp => {
             if (resp.IsSuccess) {
