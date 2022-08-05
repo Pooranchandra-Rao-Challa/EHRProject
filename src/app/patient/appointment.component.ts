@@ -116,12 +116,10 @@ export class AppointmentComponent {
   }
 
   reschedule(item) {
-    debugger;
     this.RequestAppoinments = item;
     this.RequestAppoinments.LocationId = item.LocationId
   }
   getLocations() {
-    debugger
     var req = {
       "ClinicId": this.user.ClinicId,
     }

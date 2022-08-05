@@ -1,13 +1,41 @@
-<div class="home-content justify-content-between">
-  <i class='bx bx-menu'></i>
-  <div>
-    <span class="type-role">Type : admin</span>
-    <i class="icon-bell not-allowed mx-3"></i>
-    <i class="icon-envelope-open not-allowed mx-3"></i>
-    <i class="icon-calendar not-allowed mx-3"></i>
-    <i class="fa fa-user not-allowed mx-3">
-      <span class="admin-mailid mx-1"> {{user.Username}}</span>
-    </i>
-    <i class="icon-logout mx-3" (click)="logout()"></i>
-  </div>
+<div class="home-content" style="justify-content:right;">
+ 
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <span  class="type-role">Type : admin</span>
+      </li>
+    </ul>
+  
+  
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <i class="icon-bell not-allowed mx-3"></i>
+      </li>
+    </ul>
+  
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <i class="icon-envelope-open not-allowed mx-3"></i>
+      </li>
+    </ul>
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <i class="icon-calendar not-allowed mx-3"></i>
+      </li>
+    </ul>
+  
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <i class="fa fa-user not-allowed mx-3">
+          <span class="admin-mailid mx-1"> {{user.Username}}</span>
+        </i>
+      </li>
+    </ul>
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <i class="icon-logout mx-3" (click)="logout()"></i>
+      </li>
+    </ul>
+  
+  
 </div>
