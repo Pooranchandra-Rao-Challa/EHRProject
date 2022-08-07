@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { BehaviorSubject } from 'rxjs';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { UserLocations } from 'src/app/_models/_account/user';
@@ -6,6 +7,7 @@ import { Component, OnInit } from "@angular/core";
 import { Blockout, BlockOutDialog, PracticeProviders, Room, User } from "src/app/_models";
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
+import { AlertMessage,ERROR_CODES } from 'src/app/_alerts/alertMessage';
 
 
 @Component({
@@ -30,6 +32,8 @@ export class BlockoutDialogComponent implements OnInit {
     private authService: AuthenticationService,
     private smartSchedulerService: SmartSchedulerService,
     private utilityService: UtilityService,
+    private alertMessage: AlertMessage,
+    private datePipe: DatePipe
   ) {
     this.user = authService.userValue;
     this.blockout.ClinicId = this.user.ClinicId;
@@ -97,21 +101,31 @@ export class BlockoutDialogComponent implements OnInit {
     let flag: boolean = false;
     this.blockout.RangeDay.forEach(value => {
       if (!flag)
-        flag = value.RangeDay == "M"
+        flag = value.RangeDay == weekday;
     })
     return flag
   }
   OnWeekSelect(event) {
     let weekday = event.source.value;
-    let index: number = -1;
     if (this.blockout.RangeDay == null) this.blockout.RangeDay = [];
-    this.blockout.RangeDay.forEach((value, i) => {
-      if (value.RangeDay == weekday && !event.checked)
-        index = i;
-    })
-    if (index > -1) this.blockout.RangeDay.splice(index, 1)
-    else if (event.checked)
-      this.blockout.RangeDay.push({ RangeDay: weekday })
+
+    if (event.checked) {
+      let flag = false;
+      this.blockout.RangeDay.forEach((value) => {
+        if (value.RangeDay == weekday) {
+          value.CanDelete = false;
+          flag = true;
+        }
+      });
+      if (!flag)
+        this.blockout.RangeDay.push({ RangeDay: weekday, CanDelete: false });
+    }else{
+      this.blockout.RangeDay.forEach((value) => {
+        if (value.RangeDay == weekday) {
+          value.CanDelete = true;
+        }
+      })
+    }
   }
   SelectedBlockoutFor(event) {
     console.log(event);
@@ -183,8 +197,8 @@ export class BlockoutDialogComponent implements OnInit {
     return returnArray;
   }
 
-  enableSave(){
-     let flag = (this.blockout.BlockoutFor != null && this.blockout.BlockoutFor != "")
+  enableSave() {
+    let flag = (this.blockout.BlockoutFor != null && this.blockout.BlockoutFor != "")
       && (this.blockout.BlockoutForId != null && this.blockout.BlockoutForId != "")
       && (this.blockout.StartAt != null)
       && (this.blockout.ClinicId != null)
@@ -193,14 +207,14 @@ export class BlockoutDialogComponent implements OnInit {
         this.blockout.Duration == 1440)
       && ((this.blockout.Recur &&
         (this.blockout.RecurType == 'daily' && this.blockout.RecurTime > 0)
-        ||((this.blockout.RecurType == 'weekly' && this.blockout.RecurTime > 0
-         && this.blockout.RangeDay != null &&  this.blockout.RangeDay.length > 0)))
-         || !this.blockout.Recur)
-     console.log(this.blockout);
-      return !flag;
+        || ((this.blockout.RecurType == 'weekly' && this.blockout.RecurTime > 0
+          && this.blockout.RangeDay != null && this.blockout.RangeDay.length > 0)))
+        || !this.blockout.Recur)
+    //console.log(this.blockout);
+    return !flag;
   }
-  SelectionBlockoutForChange(event){
-    if(this.blockout.BlockoutFor == 'practice_location'){
+  SelectionBlockoutForChange(event) {
+    if (this.blockout.BlockoutFor == 'practice_location') {
       this.UpdateRooms();
     }
   }
@@ -214,5 +228,34 @@ export class BlockoutDialogComponent implements OnInit {
         this.blockout.RoomId = null;
       }
     });
+  }
+
+  Save() {
+
+    let isAdd = this.blockout.BlockoutId == null
+    this.blockout.strStartAt = this.datePipe.transform(this.blockout.StartAt,"MM/dd/yyyy")+" "+this.blockout.Time;
+    console.log(this.blockout);
+
+    this.smartSchedulerService.CreateBlockout(this.blockout).subscribe(resp =>{
+      if(resp.IsSuccess){
+        this.ref.close({refresh: true});
+        this.alertMessage.displayMessageDailog(ERROR_CODES[isAdd ? "M2B1001" : "M2B1002"])
+      }
+      else{
+        this.alertMessage.displayErrorDailog(ERROR_CODES[isAdd ? "E2B1001" : "E2B1002"])
+      }
+    })
+  }
+
+  Delete(){
+    this.smartSchedulerService.DeleteBlockout(this.blockout).subscribe(resp =>{
+      if(resp.IsSuccess){
+        this.ref.close({refresh: true});
+        this.alertMessage.displayMessageDailog(ERROR_CODES["M2B1003"])
+      }
+      else{
+        this.alertMessage.displayErrorDailog(ERROR_CODES["E2B1003"])
+      }
+    })
   }
 }

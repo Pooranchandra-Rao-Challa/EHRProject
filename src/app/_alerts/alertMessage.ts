@@ -156,6 +156,8 @@ export class AlertMessage {
  * Order: 1
  * Results: 2
  *
+ * CalendarModule
+ * Blockout: 1
  * --------------------------------------------------
  * Patient Module
  *
@@ -454,6 +456,15 @@ export const ERROR_CODES: { [key: string]: string } = {
 
   // Error for Admin
   'E1A001': 'Admin deletion error',
+
+  // Calendar Blockout messages
+  'M2B1001': 'Blockout added successfully',
+  'M2B1002': 'Blockout updated successfully',
+  'M2B1003': 'Blockout deleted successfully',
+
+  'E2B1001': 'Blockout adding error',
+  'E2B1002': 'Blockout update error',
+  'E2B1003': 'Blockout delete error',
 };
 
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
+import { LabProcedureWithOrder } from 'src/app/_models/_provider/LabandImage';
 
 @Component({
   selector: 'app-addimagingresultdialog',
@@ -8,7 +9,14 @@ import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
 })
 export class ImagingResultDialogComponent implements OnInit {
 
-  constructor(private ref: EHROverlayRef,) { }
+  labandimaging: LabProcedureWithOrder
+
+  constructor(private ref: EHROverlayRef,) {
+
+    this.labandimaging = ref.RequestData;
+    console.log(this.labandimaging);
+
+  }
 
   ngOnInit(): void {
   }

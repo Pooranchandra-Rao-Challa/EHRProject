@@ -159,12 +159,17 @@ export class Blockout{
   ClinicId?: string;
   LocationId?: string;
   RoomId?: string;
+  strStartAt?: string;
   RangeDay?: BlockoutRangeDay[];
+
+  start?: Date;
+  end?: Date;
 }
 
 export class BlockoutRangeDay{
   BlockoutId?: string;
   RangeDay?: string;
+  CanDelete?: boolean;
 }
 
 export class BlockOutDialog{

@@ -1,8 +1,8 @@
-import { AvailableTimeSlot } from './../../_models/_provider/smart.scheduler.data';
+import { AvailableTimeSlot, Blockout } from 'src/app/_models/_provider/smart.scheduler.data';
 import { BehaviorSubject } from 'rxjs';
 import { AppointmentType, AppointmentStatus, TimeSlot, GeneralSchedule } from './../../_models/_provider/_settings/settings';
-import { SmartSchedulerService } from './../../_services/smart.scheduler.service';
-import { AuthenticationService } from './../../_services/authentication.service';
+import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
+import { AuthenticationService } from 'src/app/_services/authentication.service';
 import Swal from 'sweetalert2';
 import { DatePipe } from '@angular/common';
 
@@ -11,7 +11,7 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { CalendarOptions, Calendar, EventHoveringArg, EventApi, BusinessHoursInput } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import { FullCalendarComponent } from '@fullcalendar/angular';
+import { FullCalendarComponent,EventClickArg } from '@fullcalendar/angular';
 import resourceTimeGridPlugin from '@fullcalendar/resource-timegrid';
 import { Actions, AppointmentDialogInfo, BlockOutDialog, CalendarAppointment, NewAppointment, PracticeProviders, Room, User, UserLocations } from 'src/app/_models';
 import { SettingsService } from 'src/app/_services/settings.service';
@@ -22,7 +22,7 @@ import { ComponentType } from '@angular/cdk/portal';
 import { NewAppointmentDialogComponent } from '../../dialogs/newappointment.dialog/newappointment.dialog.component';
 import { OverlayService } from 'src/app/overlay.service';
 import { BlockoutDialogComponent } from 'src/app/dialogs/blockout/blockout.dialog.component';
-import { I } from '@angular/cdk/keycodes';
+
 
 //import adaptivePlugin from '@fullcalendar/adaptive'
 
@@ -377,12 +377,14 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       editable: true,
       duration: 30,
       weekends: true,
+      selectable: true,
       // columnHeaderText: function(mom){if (mom.weekday() === 5) {
       //   return 'Friday!';
       // } else {
       //   return mom.format('LLL');
       // }},
       // slotLabelFormat: 'h(:mm)a',
+
       eventTimeFormat: {
         hour: 'numeric',
         minute: '2-digit',
@@ -418,6 +420,8 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       eventClick: this.handleEventClick.bind(this),
       eventDrop: this.handleEventDragStop.bind(this),
       eventDidMount: this.handleEventMount.bind(this),
+      select: this.handleSelectDuration.bind(this),
+      viewDidMount: this.handleViewDidMount.bind(this),
       eventMouseEnter: function (args: EventHoveringArg) {
         //alert(JSON.stringify(args.event))
         this.timer = setTimeout(() => {
@@ -540,6 +544,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       value.forEach(val => { this.providerAndStaff.push(val) })
     })
     this.CalenderSchedule();
+    this.CalendarBlockouts();
   }
 
 
@@ -690,6 +695,16 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         }
       }
     }
+  }
+
+  handleSelectDuration(arg){
+    console.log(arg);
+
+  }
+
+  handleViewDidMount(arg){
+    console.log(arg);
+
   }
 
   displayMessageDialogWithResult(message, arg) {
@@ -858,10 +873,115 @@ export class CalendarComponent implements OnInit, AfterViewInit {
           //this.RefreshParentView.emit(true);
         }
       } else if (content == this.blockoutDialogComponent) {
-
+        if (res.data && res.data.refresh) {
+          this.CalendarBlockouts();
+        }
       }
     });
 
   }
+  blockouts?: Blockout[] = [{}]
+  CalendarBlockouts(){
+    this.smartSchedulerService.CalendarBlockouts({ 'StartDate': this.datepipe.transform(this.sundayDate, "MM/dd/yyyy"),
+    ClinicId: this.user.ClinicId }).subscribe(resp=>{
+      if(resp.IsSuccess){
+        this.blockouts = resp.ListResult;
+        console.log(this.fullcalendar.getApi().view);
+
+        this.GetBlockouts();
+      }
+      else this.blockouts = [{}]
+    })
+  }
+
+  GetBlockouts(){
+    let startdate = this.fullcalendar.getApi().view.currentStart
+    let enddate = this.fullcalendar.getApi().view.currentEnd
+
+    this.blockouts.forEach(value =>{
+      value.start = new Date(this.datepipe.transform(value.StartAt,"MM/dd/yyyy HH:mm:ss"));
+      value.end = this.getEndDate(value.Duration,value.start)
+    })
+
+    this.fullcalendar.getApi().handleAction
+    console.log(this.blockouts);
+  }
+
+  getEndDate(duration: number,date: Date): Date{
+    let returnDate: Date = new Date(date)
+    switch(duration){
+      case 15:
+        returnDate.setMinutes(returnDate.getMinutes() + 15)
+        break;
+      case 30:
+        returnDate.setMinutes(returnDate.getMinutes() +30)
+        break;
+      case 45:
+        returnDate.setMinutes(returnDate.getMinutes() +45)
+        break;
+      case 60:
+        returnDate.setHours(returnDate.getHours() + 1)
+        break;
+      case 75:
+        returnDate.setHours(returnDate.getHours() + 1)
+        returnDate.setMinutes(returnDate.getMinutes() + 15)
+        break;
+      case 90:
+        returnDate.setHours(returnDate.getHours() + 1)
+        returnDate.setMinutes(returnDate.getMinutes() + 30)
+        break;
+      case 105:
+        returnDate.setHours(returnDate.getHours() + 1)
+        returnDate.setMinutes(returnDate.getMinutes() + 45)
+        break;
+      case 120:
+        returnDate.setHours(returnDate.getHours() + 2)
+        break;
+      case 135:
+        returnDate.setHours(returnDate.getHours() + 2)
+        returnDate.setMinutes(returnDate.getMinutes() + 15)
+        break;
+      case 150:
+        returnDate.setHours(returnDate.getHours() + 2)
+        returnDate.setMinutes(returnDate.getMinutes() + 30)
+        break;
+      case 165:
+        returnDate.setHours(returnDate.getHours() + 2)
+        returnDate.setMinutes(returnDate.getMinutes() + 45)
+        break;
+      case 180:
+        returnDate.setHours(returnDate.getHours() + 3)
+        break;
+      case 1440:
+        returnDate.setDate(returnDate.getDate() + 1)
+        break;
+    }
+    returnDate.setSeconds(returnDate.getSeconds()-1);
+    return returnDate;
+  }
 }
 
+/**{ Text: '15 min', Value: 15 },
+      { Text: "30 min", Value: 30 },
+      { Text: "45 min", Value: 45 },
+      { Text: "1 hour", Value: 60 },
+      { Text: "1 hour 15 min", Value: 75 },
+      { Text: "1 hour 30 min", Value: 90 },
+      { Text: "1 hour 45 min", Value: 105 },
+      { Text: "2 hours", Value: 120 },
+      { Text: "2 hours 15 min", Value: 135 },
+      { Text: "2 hours 30 min", Value: 150 },
+      { Text: "2 hours 45 min", Value: 165 },
+      { Text: "3 hours", Value: 180 },
+      { Text: "Full Day", Value: 1440 }];
+ */
+/** extendedProps: Identity<Dictionary>;
+    start: Identity<DateInput>;
+    end: Identity<DateInput>;
+    date: Identity<DateInput>;
+    allDay: BooleanConstructor;
+    id: StringConstructor;
+    groupId: StringConstructor;
+    title: StringConstructor;
+    url: StringConstructor;
+    interactive: BooleanConstructor; */
