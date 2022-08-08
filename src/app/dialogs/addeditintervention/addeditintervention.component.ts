@@ -48,7 +48,6 @@ export class AddeditinterventionComponent implements OnInit {
   CQMNotPerformed: CQMNotPerformed;
   intervention: any = [];
   PatientDetails: any = [];
-  private chartviewcontainerref: ViewContainerRef;
 
   constructor(private ref: EHROverlayRef, private cqmNotperformedService: CQMNotPerformedService,
     private authService: AuthenticationService, private router: Router, private alertmsg: AlertMessage,
@@ -70,9 +69,9 @@ export class AddeditinterventionComponent implements OnInit {
         this.interventaionFilter = this.interventaionList.slice();
         if (this.CQMNotPerformed.InterventionCode != "") {
           let data = this.CQMNotPerformed.InterventionCode;
-          let interventionlist = this.interventaionList.find(x => x.Code == data);
-          this.CQMNotPerformed.InterventionCode = interventionlist.Code;
-          this.CQMNotPerformed.InterventionDescription = interventionlist.Description
+          // let interventionlist = this.interventaionList.find(x => x.Code == data);
+          // this.CQMNotPerformed.InterventionCode = interventionlist.Code;
+          // this.CQMNotPerformed.InterventionDescription = interventionlist.Description
         }
       }
     });
@@ -111,7 +110,7 @@ export class AddeditinterventionComponent implements OnInit {
     this.cqmNotperformedService.AddUpdateCQMNotPerformed(this.CQMNotPerformed).subscribe(resp => {
       if (resp.IsSuccess) {
         this.ref.close({
-          "UpdatedModal": PatientChart.CQMNotPerforemd
+          saved: true
         });
         this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CCNP001" : "M2CCNP002"]);
       }
@@ -120,15 +119,6 @@ export class AddeditinterventionComponent implements OnInit {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2CCNP001"]);
       }
     });
-    this.loadCQMsNotPerformedComponent();
-  }
-
-  async loadCQMsNotPerformedComponent() {
-    this.chartviewcontainerref.clear();
-    const { CqmsNotPerformedComponent } = await import('../../provider/patients/cqms.not.performed/cqms.not.performed.component');
-    let viewcomp = this.chartviewcontainerref.createComponent(
-      this.cfr.resolveComponentFactory(CqmsNotPerformedComponent)
-    );
   }
 
   cancel() {

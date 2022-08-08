@@ -43,7 +43,8 @@
             <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-12 ddl-width">
               <mat-select placeholder="Search Interventaions" [(ngModel)]="CQMNotPerformed.InterventionCode">
                 <mat-select-filter [displayMember]="'Code'" [array]="interventaionFilter"
-                  (filteredReturn)="interventaionList = $event"></mat-select-filter>
+                  ></mat-select-filter>
+                  <!-- (filteredReturn)="interventaionlist = $event" -->
                 <mat-option *ngFor="let item of interventaionList" [value]="item.Code" (click)="interventaion(item)">
                   {{item.Code}} - {{item.Description}}
                 </mat-option>
