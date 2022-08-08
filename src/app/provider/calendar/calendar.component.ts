@@ -556,9 +556,9 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     this.PatientAppointment.LocationId = appointment.LocationId;
     this.PatientAppointment.ProviderId = appointment.ProviderId;
     this.PatientAppointment.ClinicId = this.authService.userValue.ClinicId;
-    this.PatientAppointment.Duration = 30;
+    this.PatientAppointment.Duration = appointment.Duration;
     let endAt = new Date(appointment.StartAt);
-    endAt.setMinutes(endAt.getMinutes() + 30);
+    endAt.setMinutes(endAt.getMinutes() + appointment.Duration);
     let timeslot = this.datepipe.transform(appointment.StartAt, "HH:mm a") + ' - ' + this.datepipe.transform(endAt, "HH:mm a")
     let TimeSlot: AvailableTimeSlot = {};
     TimeSlot.EndDateTime = endAt;
@@ -605,29 +605,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   }
 
   handleDateClick(arg) {
-    let event = arg;
-    let eventDate = new Date(this.datepipe.transform(event.date, "MM/dd/yyyy"));
-    let today = new Date(this.datepipe.transform(new Date(), "MM/dd/yyyy"))
 
-    if (eventDate >= today) {
-      let appointment: CalendarAppointment = {};
-      appointment.StartAt = event.date;
-      appointment.ProviderId = this.authService.userValue.ProviderId;
-      appointment.LocationId = this.authService.userValue.CurrentLocation;
-      if (event.resource != null)
-        appointment.RoomId = event.resource.id;
-      let dialog: AppointmentDialogInfo = this.PatientAppointmentInfo(appointment, Actions.new);
-
-      let isTimeInBusinessHours = (event.date as Date).getTime() > (this.CalendarSchedule.CalendarFrom).getTime()
-        && (event.date as Date).getTime() < (this.CalendarSchedule.CalendarTo).getTime()
-
-      if (this.CalendarSchedule.OutSidePracticeHour)
-        this.openComponentDialog(this.appointmentDialogComponent,
-          dialog, Actions.view);
-      else if (!isTimeInBusinessHours) {
-        this.displayMessageDialogForBusinessHours(ERROR_CODES["E2B005"], dialog)
-      }
-    }
 
   }
 
@@ -698,7 +676,42 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   }
 
   handleSelectDuration(arg){
+    let event = arg;
+    let eventDate = new Date(this.datepipe.transform(event.start, "MM/dd/yyyy"));
+    let today = new Date(this.datepipe.transform(new Date(), "MM/dd/yyyy"))
     console.log(arg);
+
+    var diff = Math.abs(event.start.getTime() - event.end.getTime());
+    var diffMin = Math.ceil(diff / (1000 * 60 ));
+    if(diffMin > 60*24) return;
+    if (eventDate >= today) {
+      let appointment: CalendarAppointment = {};
+      appointment.StartAt = event.start;
+      appointment.ProviderId = this.authService.userValue.ProviderId;
+      appointment.LocationId = this.authService.userValue.CurrentLocation;
+      appointment.Duration = diffMin;
+      if (event.resource != null)
+        appointment.RoomId = event.resource.id;
+      let dialog: AppointmentDialogInfo = this.PatientAppointmentInfo(appointment, Actions.new);
+
+      console.log(dialog);
+
+
+      let localStart = new Date(this.datepipe.transform(event.start as Date,"MM/dd/yyyy")+" "+this.datepipe.transform(this.CalendarSchedule.CalendarFrom,"HH:mm:ss"))
+      let localEnd = new Date(this.datepipe.transform(event.start as Date,"MM/dd/yyyy")+" "+this.datepipe.transform(this.CalendarSchedule.CalendarTo,"HH:mm:ss"))
+
+      let isTimeInBusinessHours = (event.start as Date).getTime() > localStart.getTime()
+        && (event.start as Date).getTime() < localEnd.getTime()
+
+
+      if (!this.CalendarSchedule.OutSidePracticeHour
+        || isTimeInBusinessHours)
+        this.openComponentDialog(this.appointmentDialogComponent,
+          dialog, Actions.view);
+      else if (!isTimeInBusinessHours) {
+        this.displayMessageDialogForBusinessHours(ERROR_CODES["E2B005"], dialog)
+      }
+    }
 
   }
 

@@ -19,14 +19,14 @@
                     <div class="col-lg-5">
                       <mat-label>Patient Name:</mat-label>
                       <mat-form-field appearance="outline" class="col-md-12">
-                        <input matInput placeholder="">
+                        <input matInput placeholder="" [(ngModel)]="labandimaging.PatientName">
                       </mat-form-field>
                     </div>
                     <div class="col-lg-5">
                       <mat-label>Schedule Date</mat-label>
                       <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-12">
                         <input matInput [matDatepicker]="dp2" placeholder="Received Date" (focus)="dp2?.open()"
-                          class="Helvetica-sans-serif-medium">
+                          class="Helvetica-sans-serif-medium" [(ngModel)]="labandimaging.ImageResult.ScheduledAt">
                         <mat-datepicker-toggle matSuffix [for]="dp2">
                         </mat-datepicker-toggle>
                         <mat-datepicker #dp2></mat-datepicker>
@@ -47,13 +47,13 @@
 
                       </mat-label>
                       <mat-form-field appearance="outline" class="col-md-12">
-                        <input matInput placeholder="">
+                        <input matInput placeholder="" [(ngModel)]="labandimaging.ImageResult.Exam">
                       </mat-form-field>
                     </div>
                     <div class="col-lg-4">
                       <mat-label>Requested By:</mat-label>
                       <mat-form-field appearance="outline" class="col-md-12">
-                        <input matInput placeholder="">
+                        <input matInput placeholder="" [(ngModel)]="labandimaging.ImageResult.RequestedBy">
                       </mat-form-field>
                     </div>
                   </div>
@@ -69,7 +69,7 @@
                   <div class="row">
                     <div class="col-lg-12">
                       <mat-form-field appearance="outline" class="col-md-12">
-                        <input matInput placeholder="">
+                        <input matInput placeholder="" [(ngModel)]="labandimaging.ImageResult.History">
                       </mat-form-field>
                     </div>
                   </div>
@@ -81,7 +81,7 @@
                   <div class="row">
                     <div class="col-lg-12">
                       <mat-form-field appearance="outline" class="col-md-12">
-                        <input matInput placeholder="">
+                        <input matInput placeholder="" [(ngModel)]="labandimaging.ImageResult.Radiopharmaceutical">
                       </mat-form-field>
                     </div>
                   </div>
@@ -93,7 +93,7 @@
                     <div class="col-lg-12">
 
                       <mat-label>Technique:</mat-label>
-                      <textarea matInput class="text-border" placeholder="" disabled></textarea>
+                      <textarea matInput class="text-border" placeholder="" [(ngModel)]="labandimaging.ImageResult.Technique"></textarea>
 
                     </div>
                   </div>
@@ -107,7 +107,7 @@
                       <mat-label>Comparison (if applicable):
 
                       </mat-label>
-                      <textarea matInput class="text-border" placeholder="" disabled></textarea>
+                      <textarea matInput class="text-border" placeholder="" [(ngModel)]="labandimaging.ImageResult.Comparision"></textarea>
 
                     </div>
                   </div>
@@ -121,7 +121,7 @@
                       <mat-label>Findings:
 
                       </mat-label>
-                      <textarea matInput class="text-border" placeholder="" disabled></textarea>
+                      <textarea matInput class="text-border" placeholder="" [(ngModel)]="labandimaging.ImageResult.Findings"></textarea>
 
                     </div>
                   </div>
@@ -133,7 +133,7 @@
                     <div class="col-lg-12">
 
                       <mat-label>Impression</mat-label>
-                      <textarea matInput class="text-border" placeholder="" disabled></textarea>
+                      <textarea matInput class="text-border" placeholder="" [(ngModel)]="labandimaging.ImageResult.Impression" ></textarea>
 
                     </div>
                   </div>
