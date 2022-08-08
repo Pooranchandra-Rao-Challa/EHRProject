@@ -3,8 +3,8 @@ import { OverlayService } from '../../overlay.service';
 import { TemplateRef } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
 import { NewmessageDialogComponent } from '../../dialogs/newmessage.dialog/newmessage.dialog.component';
-import {  } from 'src/app/_models/_patient/messages';
-import { User } from 'src/app/_models';
+import { } from 'src/app/_models/_patient/messages';
+import { Actions, User } from 'src/app/_models';
 import { MessagesService } from 'src/app/_services/messages.service';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { BehaviorSubject } from 'rxjs-compat';
@@ -28,7 +28,7 @@ export class MessagesComponent {
   MessageDialogComponent = NewmessageDialogComponent;
   toPatientdialogComponent = ProvidermessagetopatientDialogComponent;
   toPracticeMessageDialog = ProvidermessagetopracticeDialogComponent
-  DialogResponse = null;
+  DialogResponse: ProviderMessages = {};
   basedOnClick: false;
   providerInboxMessages: ProviderMessages[] = [];
   messageInbox: ProviderMessages = {};
@@ -44,24 +44,34 @@ export class MessagesComponent {
   sentMessage: boolean = false;
   draftMsg: boolean = false;
   urgentMesg: boolean = false;
-
   displayedColumns = ['To', 'Date'];
-
-  @ViewChild('SearchMessage', { static: true })
+  @ViewChild('searchMessage', { static: true })
   searchMessage: ElementRef;
+  ActionTypes = Actions;
+  inbox: boolean = false;
+  sent: boolean = false;
+  messagaeDD: any[] = [
+    { value: '25', viewValue: '25 Msg' },
+    { value: '50', viewValue: '50 Msg' },
+    { value: '75', viewValue: '75 Msg' },
+    { value: '100', viewValue: '100 Msg' },
+  ];
+  selected = '25';
+
+
+
   constructor(private overlayService: OverlayService, private messageservice: MessagesService, private authService: AuthenticationService) {
     this.user = authService.userValue;
-
   }
 
   ngOnInit(): void {
     this.getProviderInboxMessages();
-    this.getProviderSentMessage();
+
     this.getDraftMessages();
     this.getUrgentMessages();
+
   }
   ngAfterViewInit(): void {
-    debugger;
     // server-side search
     fromEvent(this.searchMessage.nativeElement, 'keyup')
       .pipe(
@@ -84,21 +94,24 @@ export class MessagesComponent {
         tap(() => this.loadMessages())
       )
       .subscribe();
+
   }
 
   getProviderInboxMessages() {
     var reqparams = {
       'UserId': this.user.UserId
     }
-    debugger;
+      ;
     this.messageservice.ProviderInboxMessages(reqparams).subscribe(response => {
 
 
       if (response.IsSuccess) {
         this.providerInboxMessages = response.ListResult;
-        console.log(this.providerInboxMessages);
+
       }
     })
+    this.inbox = true;
+    this.sent = false;
   }
 
   getProviderInboxMessage(item) {
@@ -108,16 +121,18 @@ export class MessagesComponent {
   }
 
   getProviderSentMessage() {
-    debugger
+
     var reqparams = {
       'UserId': this.user.UserId
     }
-
+    this.sent = true;
     this.messageDataSource = new MessageDatasource(this.messageservice, reqparams);
     this.messageDataSource.loadMessages();
+
+    this.inbox = false;
+    this.sentMessage = false
   }
   loadMessages() {
-    debugger;
     this.messageDataSource.loadMessages(
       this.searchMessage.nativeElement.value,
       this.sort.active,
@@ -137,11 +152,11 @@ export class MessagesComponent {
     var reqparams = {
       'UserId': this.user.UserId
     }
-    debugger;
+      ;
     this.messageservice.ProviderDraftMessages(reqparams).subscribe(response => {
       if (response.IsSuccess) {
         this.providerdraftMessages = response.ListResult;
-        console.log(this.providerInboxMessages);
+
       }
     })
   }
@@ -153,11 +168,11 @@ export class MessagesComponent {
     var reqparams = {
       'UserId': this.user.UserId
     }
-    debugger;
+      ;
     this.messageservice.ProviderUrgentMessages(reqparams).subscribe(response => {
       if (response.IsSuccess) {
         this.providerUrgentMessage = response.ListResult;
-        console.log(this.providerInboxMessages);
+
       }
     })
   }
@@ -167,25 +182,36 @@ export class MessagesComponent {
     this.urgentMesg = true;
   }
 
-  openComponentDialogmessage(content: TemplateRef<any> | ComponentType<any> | string) {
-    const ref = this.overlayService.open(content, null);
+  openComponentDialogmessage(content: any | ComponentType<any> | string, data,
+    action: Actions = this.ActionTypes.add, message) {
+
+    if (action == Actions.view && content === this.toPatientdialogComponent) {
+      data.ForwardreplyMessage = message;
+      this.DialogResponse = data;
+      this.DialogResponse.ForwardreplyMessage = data.ForwardreplyMessage;
+
+    }
+    else if (action == Actions.add && content === this.toPatientdialogComponent) {
+      this.DialogResponse = data;
+
+    }
+
+    const ref = this.overlayService.open(content, data);
 
     ref.afterClosed$.subscribe(res => {
-      if (typeof content === 'string') {
-        //} else if (content === this.yesNoComponent) {
-        //this.yesNoComponentResponse = res.data;
-      }
-      else if (content === this.toPatientdialogComponent) {
-        this.DialogResponse = res.data;
-      }
-      else if (content === this.toPracticeMessageDialog) {
-        this.DialogResponse = res.data;
-      }
+
     });
+
   }
 
 
-
+  //   openComponentDialog(content: any | ComponentType<any> | string,
+  //     dialogData, action: Actions = this.ActionTypes.add) {
+  //     let reqdata: any;
+  //     if (action == Actions.view && content === this.toPatientdialogComponent) {
+  //       reqdata = dialogData;
+  //     }
+  //     }
 }
 export class MessageDatasource implements DataSource<ProviderMessages>{
 
@@ -212,7 +238,7 @@ export class MessageDatasource implements DataSource<ProviderMessages>{
 
   loadMessages(filter = '', sortField = 'LastAccessed',
     sortDirection = 'desc', pageIndex = 0, pageSize = 10) {
-    debugger;
+    ;
     this.queryParams["SortField"] = sortField;
     this.queryParams["SortDirection"] = sortDirection;
     this.queryParams["PageIndex"] = pageIndex;

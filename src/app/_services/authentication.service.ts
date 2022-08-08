@@ -3,11 +3,11 @@ import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, Observer, observable, throwError, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { map,  tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { APIEndPoint } from './api.endpoint.service';
 import { environment } from "src/environments/environment";
-import { User, ResponseData,ViewModel, AdminViewModal } from '../_models';
-import { ERROR_CODES} from 'src/app/_alerts/alertMessage'
+import { User, ResponseData, ViewModel, AdminViewModal } from '../_models';
+import { ERROR_CODES } from 'src/app/_alerts/alertMessage'
 import { getLogger } from "../logger.config";
 const logModel = getLogger("ehr");
 const logger = logModel.getChildCategory("AuthenticationService");
@@ -27,13 +27,13 @@ export class AuthenticationService {
     else return undefined;
   }
 
-  public get viewModel() : ViewModel{
+  public get viewModel(): ViewModel {
     return JSON.parse(localStorage.getItem("viewModel")) as ViewModel;
   }
-  public SetViewParam(key: string,value: any) {
+  public SetViewParam(key: string, value: any) {
     let v = JSON.parse(localStorage.getItem("viewModel")) as ViewModel;
     v[key] = value;
-   localStorage.setItem('viewModel', JSON.stringify(v));
+    localStorage.setItem('viewModel', JSON.stringify(v));
   }
 
   constructor(
@@ -69,7 +69,7 @@ export class AuthenticationService {
             );
           else if (this.isPatient)
             this.router.navigate(['patinet/patientview']);
-        }else{
+        } else {
           this.logout(ERROR_CODES["EL001"])
         }
       }, err => {
@@ -78,6 +78,35 @@ export class AuthenticationService {
 
     );
     return observable;
+  }
+
+  SwitchUser(data: { SwitchUserKey: string, SwitchUserEncKey: string }) {
+    if (this.isAdmin) {
+      const endpointUrl = this.baseUrl + "SwitchUser/";
+      let observable = this.http.post<ResponseData>(endpointUrl, data).pipe<ResponseData>(
+        tap(resp => {
+          if (resp.IsSuccess) {
+            this.revokeToken();
+            localStorage.clear();
+            this.userSubject = new BehaviorSubject<User>(resp.Result as User);
+            localStorage.setItem('user', JSON.stringify(resp.Result as User));
+            this.updateViewModel();
+            this.startRefreshTokenTimer();
+            if (this.isProvider)
+              this.router.navigate(
+                ['/provider/smartschedule'],
+                { queryParams: { name: 'Smart Schedule' } }
+              );
+          } else {
+            this.logout(ERROR_CODES["EL005"])
+          }
+        }, err => {
+          this.logout(ERROR_CODES["EL005"]);
+        }),
+
+      );
+      return observable;
+    }
   }
   patientLoginWithFormCredentials(creds: any): Observable<ResponseData> {
     const endpointUrl = this.apiEndPoint._authenticatePatientUrl;
@@ -125,10 +154,9 @@ export class AuthenticationService {
     localStorage.removeItem('user');
     this.revokeToken();
     this.stopRefreshTokenTimer();
-    console.log(error);
-    if(error == '')
-    this.router.navigate(['/account/home']);
-    else{
+    if (error == '')
+      this.router.navigate(['/account/home']);
+    else {
       this.router.navigate(
         ['/account/home'],
         { queryParams: { message: error } }
@@ -171,7 +199,7 @@ export class AuthenticationService {
     clearTimeout(this.refreshTokenTimeout);
   }
 
-  private updateViewModel(){
+  private updateViewModel() {
     let viewModel: ViewModel = new ViewModel;
     localStorage.setItem('viewModel', JSON.stringify(viewModel));
   }

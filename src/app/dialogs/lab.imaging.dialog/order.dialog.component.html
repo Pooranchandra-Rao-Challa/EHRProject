@@ -102,7 +102,6 @@ margin: unset;">
               <mat-label class="required">Ordering Physician:</mat-label>
               <mat-form-field appearance="outline" class="col-md-12 orderddhover">
                 <mat-select required placeholder="" [(ngModel)]="labandImaging.OrderingPhyscianId">
-                  <mat-option value='' selected>View All Providers</mat-option>
                   <mat-option *ngFor="let provider of PracticeProviders" [value]="provider.ProviderId">
                     {{provider.FullName}}</mat-option>
                 </mat-select>
@@ -112,8 +111,8 @@ margin: unset;">
               <mat-label class="required">Ordering Facility:</mat-label>
               <mat-form-field appearance="outline" class="col-md-12 orderddhover not-allowed">
                 <mat-select required placeholder="" [(ngModel)]="labandImaging.OrderingFacility">
-                  <mat-option *ngFor="let item of orderingFacilities" [value]="item.locationName">
-                    {{item.locationName}}
+                  <mat-option *ngFor="let item of orderingFacilities" [value]="item.LocationName">
+                    {{item.LocationName}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>

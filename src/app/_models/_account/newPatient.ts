@@ -47,5 +47,6 @@ export class PatientSearch{
 	MobilePhone?: string;
 	DateofBirth?: Date;
 	Age?: Number;
+  User?:string;
 }
 

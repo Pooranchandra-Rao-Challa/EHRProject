@@ -757,25 +757,40 @@ export class APIEndPoint extends EndpointBase {
 
 
 
- get _providerInboxMessagesUrl()
- {
-   return this._baseUrl + "ProviderInboxMessages";
- }
+  get _providerInboxMessagesUrl() {
+    return this._baseUrl + "ProviderInboxMessages";
+  }
 
- get _providerSentMessagesUrl()
- {
-   return this._baseUrl + "ProviderSentMessages";
- }
+  get _providerSentMessagesUrl() {
+    return this._baseUrl + "ProviderSentMessages";
+  }
 
- get _providerDraftMessagesUrl()
- {
-   return this._baseUrl + "ProviderDraftMessages";
- }
+  get _providerDraftMessagesUrl() {
+    return this._baseUrl + "ProviderDraftMessages";
+  }
 
- get _providerUrgentMessagesUrl()
- {
-   return this._baseUrl + "ProviderUrgentMessages";
- }
+  get _providerUrgentMessagesUrl() {
+    return this._baseUrl + "ProviderUrgentMessages";
+  }
+
+  get _createMessageUrl() {
+    return this._baseUrl + "CreateMessages";
+  }
+
+  get _switchUserKeyUrl() {
+    return this._baseUrl + "SwitchUserKey";
+  }
+  get _createBlockoutUrl() {
+    return this._baseUrl + "CreateBlockout";
+  }
+
+  get _deleteBlockoutUrl() {
+    return this._baseUrl + "DeleteBlockout";
+  }
+
+  get _calendarBlockoutsUrl() {
+    return this._baseUrl + "CalendarBlockouts";
+  }
 
 
   constructor(public http: HttpClient) {

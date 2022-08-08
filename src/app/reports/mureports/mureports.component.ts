@@ -15,7 +15,7 @@ declare const $: any;
   styleUrls: ['./mureports.component.scss']
 })
 export class MureportsComponent implements OnInit {
-  
+
   PracticeProviders: PracticeProviders[];
   checkboxValue021: boolean = false;
   checkboxValue01: boolean = false;
@@ -1949,7 +1949,7 @@ export class MureportsComponent implements OnInit {
 
   constructor(private authenticationService: AuthenticationService,private smartSchedulerService: SmartSchedulerService, private service: Accountservice, private fb: FormBuilder, public datepipe: DatePipe) {
     pdfMake.vfs = pdfFonts.pdfMake.vfs;
-    
+
   }
 
   ngOnInit() {
@@ -2141,7 +2141,7 @@ export class MureportsComponent implements OnInit {
 
   getStage2NumeDenomicount(data: any) {
     this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
-    debugger;
+    //debugger;
     this.stage2NumeDenomicount = null;
     this.stage3NumeDenomicount = null;
     this.service.GetStage2NumeDenomiCount(data).subscribe(data => {

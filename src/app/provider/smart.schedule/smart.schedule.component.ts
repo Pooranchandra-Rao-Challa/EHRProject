@@ -191,7 +191,7 @@ export class SmartScheduleComponent implements OnInit {
       }
       else if (content == this.completeAppointmentDialogComponent) {
         if (res.data != null && res.data.confirmed) {
-          this.updateAppointmentStatus(res.data.appointment, res.data.AppComponent.StatusToUpdate);
+          this.updateAppointmentStatus(res.data.appointment);
         }
       }
     });
@@ -424,9 +424,8 @@ export class SmartScheduleComponent implements OnInit {
     this.filterAppointments();
   }
 
-  updateAppointmentStatus(appointment: ScheduledAppointment, status: string) {
-    if (appointment.Status != status) {
-      appointment.StatusToUpdate = status;
+  updateAppointmentStatus(appointment: ScheduledAppointment) {
+    if (appointment.Status != appointment.StatusToUpdate) {
       this.smartSchedulerService.UpdateAppointmentStatus(appointment).subscribe(resp => {
         if (resp.IsSuccess) {
           this.filterAppointments();
