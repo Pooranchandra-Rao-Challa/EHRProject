@@ -175,7 +175,10 @@
                   </ng-container>
                   <ng-container matColumnDef="AddReasonNotPerformed">
                     <mat-header-cell *matHeaderCellDef>Add Reason Not Performed</mat-header-cell>
-                    <mat-cell *matCellDef="let loc"></mat-cell>
+                    <mat-cell *matCellDef="let loc" class="text-center">
+                      <button class="btn btn-green btn-add-cqm" *ngIf="loc.CI_Id != undefined"
+                  (click)="openComponentDialog(cqmNotPerformedDialogComponent,null,ActionTypes.view)">Add</button>
+                    </mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="Reason">
                     <mat-header-cell *matHeaderCellDef>Reason</mat-header-cell>
