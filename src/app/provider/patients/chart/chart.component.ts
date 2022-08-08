@@ -31,6 +31,8 @@ import { InterventionTableDialogComponent } from 'src/app/dialogs/intervention.t
 import { AllergyTableDialogComponent } from 'src/app/dialogs/allergy.table.dialog/allergy.table.dialog.component';
 import { FrequentlyUsedDiagnosesDialogComponent } from 'src/app/dialogs/frequently.used.diagnoses.dialog/frequently.used.diagnoses.dialog.component';
 import { AddDiagnosesDialogComponent } from 'src/app/dialogs/add.diagnoses.dialog/add.diagnoses.dialog.component';
+import { ViewChangeService } from 'src/app/_navigations/provider.layout/view.notification.service';
+import { Router } from '@angular/router';
 const moment = require('moment');
 @Component({
   selector: 'app-chart',
@@ -104,10 +106,10 @@ export class ChartComponent implements OnInit, AfterViewInit {
     private alertmsg: AlertMessage,
     public datepipe: DatePipe,
     private smartSchedulerService: SmartSchedulerService,
-    private settingsService: SettingsService,) {
+    private settingsService: SettingsService,
+    private viewChangeService: ViewChangeService,
+    private router: Router) {
     this.user = authService.userValue;
-
-
   }
   ngAfterViewInit(): void {
 
@@ -169,6 +171,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
     this.ChartInfo();
     this.loadDefaults();
     this.loadLocationsList();
+    this.TobaccoUseByPatientId();
   }
 
   _filterVaccine(term) {
@@ -281,8 +284,19 @@ export class ChartComponent implements OnInit, AfterViewInit {
     }
     const ref = this.overlayService.open(content, reqdata);
     ref.afterClosed$.subscribe(res => {
-      this.UpdateView(res.data);
+      if(res.data != null && res.data.refreshCQMNotPerformed) {
+        this._navigateCQMNotPerformed();
+      }
+      else{
+        this.UpdateView(res.data);
+      }
     });
+  }
+
+  _navigateCQMNotPerformed(){
+    this.authService.SetViewParam("PatientView", "CQMs Not Performed");
+    this.authService.SetViewParam("View", "Patients");
+    this.viewChangeService.sendData("CQMs Not Performed");
   }
 
   UpdateView(data) {
@@ -303,8 +317,9 @@ export class ChartComponent implements OnInit, AfterViewInit {
       this.SmokingStatusByPatientId();
     }
     else if (data.UpdatedModal == PatientChart.TobaccoUse) {
-      this.TobaccoUseScreenings();
-      this.TobaccoUseInterventions();
+      // this.TobaccoUseScreenings();
+      // this.TobaccoUseInterventions();
+      this.TobaccoUseByPatientId();
     }
     else if (data.UpdatedModal == PatientChart.Allergies) {
       data.AllergyDataSource = data.AllergyDataSource == undefined ? [] : data.AllergyDataSource.length;
