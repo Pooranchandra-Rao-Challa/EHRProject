@@ -10,10 +10,33 @@ export class Registration{
   PracticeAddress?: string;
   SuiteNumber?: string = 'new suit';
   PrimaryPhone?: string;
+  PrimaryPhonePreffix?: string;
+  PrimaryPhoneSuffix?: string;
   MobilePhone?: string;
+  MobilePhonePreffix?: string;
+  MobilePhoneSuffix?: string;
   Email?: string;
   AltEmail?: string;
   Password?: string;
+  Address?: string;
+  SuitNumber?: string;
+  City?: string;
+  State?: string;
+  ZipCode?: string;
+  PrescribeFrom?: string;
+  DoseSpot?: boolean;
+  ClinicId?: string;
+  ClinicKey?: string;
+  ClinicianId?: string;
+  PracticeUsername?: string;
+  VendorUsername?: string;
+  ProviderUsername?: string;
+  PracticePassword?: string;
+  SecretKey?: string;
+  ProviderPassword?: string;
+  UserExternalId?: string;
+  RandomPassword?: string;
+  CreatedFromAdmin?: boolean = false;
 }
 
 export class ViewModel{
