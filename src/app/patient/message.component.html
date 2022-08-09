@@ -6,29 +6,24 @@
           <li class="nav-item" role="presentation">
             <!-- <a data-message_type="inbox" data-bs-toggle="tab" href="" role="tab">Inbox -->
             <a class="nav-link active" id="medical-tab" data-bs-toggle="tab" data-bs-target="#medical" type="button"
-              role="tab" aria-controls="medical" aria-selected="true">Indox
+              role="tab" aria-controls="medical" aria-selected="true" (click)="getpatientInboxMessages()">Inbox
               <span class="message-count">0</span>
             </a>
           </li>
           <li class="nav-item" role="presentation">
             <a class="nav-link" id="send-tab" data-bs-toggle="tab" data-bs-target="#send" type="button" role="tab"
-              aria-controls="send" aria-selected="true">Sent
+              aria-controls="send" aria-selected="true" (click)="getPatientSentMessage()">Sent
             </a>
           </li>
           <li class="nav-item" role="presentation">
             <a class="nav-link" id="draft-tab" data-bs-toggle="tab" data-bs-target="#draft" type="button" role="tab"
-              aria-controls="draft" aria-selected="true">Draft
+              aria-controls="draft" aria-selected="true" (click)="getDraftMessages()">Draft
             </a>
           </li>
           <li class="nav-item tab-danger" role="presentation">
             <a class="nav-link" id="urgent-tab" data-bs-toggle="tab" data-bs-target="#urgent" type="button" role="tab"
-              aria-controls="urgent" aria-selected="true">Urgent
+              aria-controls="urgent" aria-selected="true" (click)="getUrgentMessages()">Urgent
               <span class="message-count" id="urgent-new-counting">0</span>
-            </a>
-          </li>
-          <li class="nav-item" role="presentation">
-            <a class="nav-link" id="archive-tab" data-bs-toggle="tab" data-bs-target="#archive" type="button" role="tab"
-              aria-controls="archive" aria-selected="true">Archive
             </a>
           </li>
         </ul>
@@ -37,8 +32,8 @@
           <div class="row controls">
             <div class="col-md-5">
               <div class="input-group input-group-custom ">
-                <input aria-label="Search for messages" autocomplete="off" class="form-control" id="find-messages-input"
-                  placeholder="Search Messages">
+                <input aria-label="Search for messages" #searchMessage autocomplete="off" class="form-control"
+                  id="find-messages-input" placeholder="Search Messages">
                 <span class="input-group-addon input-group-addon-right input-group-addon-search"
                   id="find-messages-button"><i class="fa fa-search"></i></span>
               </div>
@@ -53,117 +48,322 @@
                   New Message
                 </button>
                 <ul class="dropdown-menu drop-menu">
-                  <li class="dropdown-item drop-item" (click)="openComponentDialogmessage(MessageDialogComponent)">New
+                  <li class="dropdown-item drop-item"
+                    (click)="openComponentDialogmessage(MessageDialogComponent,'Practice',ActionTypes.add,'')">New
                     Message</li>
                 </ul>
+
+
               </div>
 
             </div>
-            <div class="messages-content">
-              <diV class="row">
-                <div class=" col-md-4 leftblockalignments left-block">
-                  <div class="row bg-color">
-                    <div class="col-md-6">
-                      <a class="panel-titles" href="" id="sort-from">From
-                        <i class="fa fa-angle-down "></i>
-                      </a>
-                    </div>
-                    <div class="col-md-6 ">
-                      <a class="panel-title " href="" id="sort-from">Date
-                        <i class="fa fa-angle-up "></i>
-                      </a>
-                    </div>
-                  </div>
-                  <div *ngFor="let item of messages">
-                    <div class="row">
-                      <div class="col-md-1">
-                        <mat-checkbox class="col-lg-12 col-md-12">
-                        </mat-checkbox>
-                      </div>
-                      <div class="col-md-5" (click)="getmessage(item)">{{item.ProviderName}}</div>
-                      <div class="col-md-3"></div>
-                      <div class="col-md-3">{{item.Updated | date:'M/d/yyyy'}}</div>
-                    </div>
-                  </div>
-                  <div class="mt-5 dropdownborder" ></div>
-                  <div class="row drop-input">
-                    <div class="dropdown">
-                      <button class="drop-button" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
-                        aria-expanded="false">
 
-                      </button>
-                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">25 Msg</a></li>
-                        <li><a class="dropdown-item" href="#">50 Msg</a></li>
-                        <li><a class="dropdown-item" href="#">75 Msg</a></li>
-                        <li><a class="dropdown-item" href="#">100 Msg</a></li>
-                      </ul>
+
+            <diV class="row mt-3" [hidden]="!inbox">
+              <div class=" col-md-4 leftblockalignments left-block">
+                <mat-table matSort matSortActive="LastAccessed" matSortDirection="desc" matSortDisableClear
+                  [dataSource]="patientInboxMessageDatasource">
+                  <ng-container matColumnDef="From">
+                    <mat-header-cell *matHeaderCellDef>From </mat-header-cell>
+                    <mat-cell *matCellDef="let element" (click)="getPatientInboxMessage(element)">
+                      <p>{{element.ProviderName}} </p>
+                      <p>{{element.Subject}}</p>
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="Date">
+                    <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.Updated | date:'M/d/yyyy'}} </mat-cell>
+                  </ng-container>
+                  <mat-header-row *matHeaderRowDef="displaycolumnsinbox" class="matheaderrow"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: displaycolumnsinbox;"></mat-row>
+                </mat-table>
+                <div [hidden]="patientInboxMessageDatasource.TotalRecordSize==0">
+                  <div class="d-flex justify-content-end my-3">
+                    <div class="pg-container">
+                      <mat-paginator appPagination [length]="patientInboxMessageDatasource.TotalRecordSize"
+                        pageSize="10" [pageIndex]="0" [pageSizeOptions]="[10,20,30,40,50]">
+                      </mat-paginator>
                     </div>
                   </div>
                 </div>
-                <div class=" col-md-8 rightblockalignments right-block">
-                  <div *ngIf="basedoncondition">
-                    <div *ngFor="let item of messages" class="mt-2">
-                      <div class="row">
-                        <div class="col-md-6">
-                          {{item.ProviderName}}
-                        </div>
-                        <div class="col-md-2">
-                        </div>
-                        <div class="col-md-3 d-flex justify-content-end flex-sm-row flex-column">
-                          {{item.Updated | date:'M/d/yyyy'}},{{item.Updated | date:'shortTime'}}
-                        </div>
+                <div>
+                </div>
+              </div>
+              <div class=" col-md-8 rightblockalignments right-block">
+                <div *ngIf="inboxBasedOnCondition">
+                  <div class="mt-2">
+                    <div class="row">
+                      <div class="col-md-6">
+                        {{messageInbox.ProviderName}}
                       </div>
-                      <div class="row">
-                        <div class="col-md-4">
-                          To {{item.PatientName}}
-                        </div>
-                        <div class="col-md-2">
+                      <div class="col-md-2">
+                      </div>
+                      <div class="col-md-3 d-flex justify-content-end flex-sm-row flex-column">
+                        {{messageInbox.Updated | date:'M/d/yyyy'}},{{messageInbox.Updated | date:'shortTime'}}
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4">
+                        To {{messageInbox.PatientName}}
+                      </div>
+                      <div class="col-md-2">
 
-                        </div>
-                        <div class="col-md-6 d-flex justify-content-end flex-sm-row flex-column">
-                          <img src="assets/images/header-dropdown-img.svg" class="img-xs rounded-circle header-avatar">
-                        </div>
+                      </div>
+                      <div class="col-md-6 d-flex justify-content-end flex-sm-row flex-column">
+                        <img src="assets/images/header-dropdown-img.svg" class="img-xs rounded-circle header-avatar">
+                      </div>
+                    </div>
+                    <div class="row mx-2 my-2">
+                      {{messageInbox.Body}}
+                    </div>
+                  </div>
+                  <div class="mt-5 dropdownborder"></div>
+                  <div class="row mt-2 mb-3 mx-2">
+                    <div class="col-md-2 justify-content-start flex-sm-row flex-column">
+                      <button class="btn  btn-danger btn-msgdanger  Helvetica-sans-serif-medium pull-right"
+                        type="button"(click)="DeleteMessages(messageInbox.EmailMessageId)">Delete</button>
+                    </div>
+                    <div class="col-md-6"></div>
+                    <div class="col-md-2 justify-content-start flex-sm-row flex-column">
+                      <button class="btn btn-green btn-messagesgreen Helvetica-sans-serif-medium pull-right"
+                        type="button"
+                        (click)="openComponentDialogmessage(MessageDialogComponent,messageInbox,ActionTypes.view,'PatientReply' )">Reply</button>
+                    </div>
+                    <div class="col-md-2 justify-content-end flex-sm-row flex-column">
+                      <button class="btn  btn-green btn-messagesgreen  Helvetica-sans-serif-medium pull-right"
+                        type="button"
+                        (click)="openComponentDialogmessage(MessageDialogComponent,messageInbox,ActionTypes.view,'PatientForward')">Forward</button>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="!inboxBasedOnCondition" class="mt-5">No Message Selected</div>
+              </div>
+            </diV>
+            <div class="row mt-3" [hidden]="!sent">
+              <div class=" col-md-4 leftblockalignments left-block">
+
+
+                <mat-table matSort matSortActive="LastAccessed" matSortDirection="desc" matSortDisableClear
+                  [dataSource]="patientSentMessagesDatasource">
+                  <ng-container matColumnDef="To">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header="ProviderName">To </mat-header-cell>
+                    <mat-cell *matCellDef="let element" (click)="getSentMessage(element)"> {{element.PatientName}}
+                      {{element.Subject}} </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="Date">
+                    <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.Updated | date:'M/d/yyyy'}} </mat-cell>
+                  </ng-container>
+                  <mat-header-row *matHeaderRowDef="displayedColumns" class="matheaderrow"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+                <div [hidden]="patientSentMessagesDatasource?.TotalRecordSize==0">
+                  <div class="d-flex justify-content-end my-3">
+                    <div class="pg-container">
+                      <mat-paginator appPagination [length]="patientSentMessagesDatasource?.TotalRecordSize"
+                        pageSize="10" [pageIndex]="0" [pageSizeOptions]="[10,20,30,40,50]">
+                      </mat-paginator>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class=" col-md-8 rightblockalignments right-block">
+                <div *ngIf="sentMessage">
+                  <div class="mt-2">
+                    <div class="row">
+                      <div class="col-md-6">
+                        {{sentMessages.PatientName}}
+                      </div>
+                      <div class="col-md-2">
+                      </div>
+                      <div class="col-md-3 d-flex justify-content-end flex-sm-row flex-column">
+                        {{sentMessages.Updated | date:'M/d/yyyy'}},{{sentMessages.Updated | date:'shortTime'}}
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4">
+                        To {{sentMessages.ProviderName}}
+                      </div>
+                      <div class="col-md-2">
+
+                      </div>
+                      <div class="col-md-6 d-flex justify-content-end flex-sm-row flex-column">
+                        <img src="assets/images/header-dropdown-img.svg" class="img-xs rounded-circle header-avatar">
                       </div>
 
                     </div>
-                    <div class="mt-5 dropdownborder" ></div>
-                    <div class="row mt-2">
-                     <div class="col-md-2 d-flex justify-content-start flex-sm-row flex-column">
-                       <button 
-                           class="btn  btn-green btn-messagesgreen  Helvetica-sans-serif-medium pull-right"
-                           type="button">Archive</button>
-                   </div>
-                   <div class="col-md-2 justify-content-start flex-sm-row flex-column">
-                     <button 
-                         class="btn  btn-danger btn-msgdanger  Helvetica-sans-serif-medium pull-right"
-                         type="button">Delete</button>
-                 </div>
-                 <div class="col-md-4"></div>
-                 <div class="col-md-2 justify-content-start flex-sm-row flex-column">
-                   <button 
-                       class="btn btn-green btn-messagesgreen Helvetica-sans-serif-medium pull-right"
-                       type="button">Reply</button>
-               </div>
-               <div class="col-md-2 justify-content-end flex-sm-row flex-column">
-                 <button 
-                     class="btn  btn-green btn-messagesgreen  Helvetica-sans-serif-medium pull-right"
-                     type="button">Forward</button>
-             </div>
+                    <div class="row">
+                      {{sentMessages.Body}}
                     </div>
+                  </div>
+                  <div class="mt-5 dropdownborder"></div>
+                  <div class="row mt-2">
+                    <div class="col-md-2 d-flex justify-content-start flex-sm-row flex-column">
+                      <button class="btn  btn-danger btn-msgdanger  Helvetica-sans-serif-medium pull-right" (click)="DeleteMessages(sentMessages.EmailMessageId)">Delete</button>
                     </div>
-                    <div *ngIf="!basedoncondition" class="nomessageselect Helvetica-sans-serif-medium mt-5 ">
-                      No Message Selected
-                     </div>
-                    </div>
-                    
-              </diV>
 
+                    <div class="col-md-4"></div>
+
+                  </div>
+                </div>
+                <div *ngIf="!sentMessage" class="mt-5">No Message Selected</div>
+              </div>
+            </div>
             </div>
 
-          </div>
+            <div class="row mt-3" [hidden]="!draft">
+              <div class=" col-md-4 leftblockalignments left-block">
+                <mat-table matSort matSortActive="LastAccessed" matSortDirection="desc" matSortDisableClear
+                  [dataSource]="DraftMessages">
+                  <ng-container matColumnDef="To">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header="ProviderName">To </mat-header-cell>
+                    <mat-cell *matCellDef="let element" (click)="getDraftMessage(element)"> {{element.PatientName}}
+                      {{element.Subject}} </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="Date">
+                    <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.Updated | date:'M/d/yyyy'}} </mat-cell>
+                  </ng-container>
+                  <mat-header-row *matHeaderRowDef="displayedColumns" class="matheaderrow"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+                <!-- <div [hidden]="patientSentMessagesDatasource?.TotalRecordSize==0">
+                    <div class="d-flex justify-content-end my-3">
+                      <div class="pg-container">
+                        <mat-paginator appPagination [length]="patientSentMessagesDatasource?.TotalRecordSize" pageSize="10"
+                          [pageIndex]="0" [pageSizeOptions]="[10,20,30,40,50]">
+                        </mat-paginator>
+                      </div>
+                    </div>
+                  </div> -->
+              </div>
+              <div class=" col-md-8 rightblockalignments right-block">
+                <div *ngIf="draftMsg">
+                  <div class="mt-2">
+                    <div class="row">
+                      <div class="col-md-6">
+                        {{draftMessages.PatientName}}
+                      </div>
+                      <div class="col-md-2">
+                      </div>
+                      <div class="col-md-3 d-flex justify-content-end flex-sm-row flex-column">
+                        {{draftMessages.Updated | date:'M/d/yyyy'}},{{draftMessages.Updated | date:'shortTime'}}
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4">
+                        To {{draftMessages.ProviderName}}
+                      </div>
+                      <div class="col-md-2">
+
+                      </div>
+                      <div class="col-md-6 d-flex justify-content-end flex-sm-row flex-column">
+                        <img src="assets/images/header-dropdown-img.svg" class="img-xs rounded-circle header-avatar">
+                      </div>
+
+                    </div>
+                    <div class="row">
+                      {{draftMessages.Body}}
+                    </div>
+                  </div>
+                  <div class="mt-5 dropdownborder"></div>
+                  <div class="row mt-2">
+                    <div class="col-md-2 d-flex justify-content-start flex-sm-row flex-column">
+                      <button class="btn  btn-danger btn-msgdanger  Helvetica-sans-serif-medium pull-right"
+                        type="button" (click)="DeleteMessages('draftMessages.EmailMessageId')">Delete</button>
+                    </div>
+
+                    <div class="col-md-4"></div>
+
+                  </div>
+                </div>
+                <div *ngIf="!draftMsg" class="mt-5">No Message Selected</div>
+              </div>
+
+
+             
+
+            </div>
+            <diV class="row mt-3" [hidden]="!urgent">
+              <div class=" col-md-4 leftblockalignments left-block">
+                <mat-table matSort matSortActive="LastAccessed" matSortDirection="desc" matSortDisableClear
+                  [dataSource]="UrgentMessage">
+                  <ng-container matColumnDef="From">
+                    <mat-header-cell *matHeaderCellDef>From </mat-header-cell>
+                    <mat-cell *matCellDef="let element" (click)="getUrgentMessage(element)">
+                      <p>{{element.ProviderName}} </p>
+                      <p>{{element.Subject}}</p>
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="Date">
+                    <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.Updated | date:'M/d/yyyy'}} </mat-cell>
+                  </ng-container>
+                  <mat-header-row *matHeaderRowDef="displaycolumnsinbox" class="matheaderrow"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: displaycolumnsinbox;"></mat-row>
+                </mat-table>
+                <!-- <div [hidden]="patientInboxMessageDatasource.TotalRecordSize==0">
+                        <div class="d-flex justify-content-end my-3">
+                          <div class="pg-container">
+                            <mat-paginator appPagination [length]="patientInboxMessageDatasource.TotalRecordSize" pageSize="10"
+                              [pageIndex]="0" [pageSizeOptions]="[10,20,30,40,50]">
+                            </mat-paginator>
+                          </div>
+                        </div>
+                      </div> -->
+                <div>
+                </div>
+              </div>
+              <div class=" col-md-8 rightblockalignments right-block">
+                <div *ngIf="urgentMesg">
+                  <div class="mt-2">
+                    <div class="row">
+                      <div class="col-md-6">
+                        {{urgentMessages.ProviderName}}
+                      </div>
+                      <div class="col-md-2">
+                      </div>
+                      <div class="col-md-3 d-flex justify-content-end flex-sm-row flex-column">
+                        {{urgentMessages.Updated | date:'M/d/yyyy'}},{{urgentMessages.Updated | date:'shortTime'}}
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4">
+                        To {{urgentMessages.PatientName}}
+                      </div>
+                      <div class="col-md-2">
+
+                      </div>
+                      <div class="col-md-6 d-flex justify-content-end flex-sm-row flex-column">
+                        <img src="assets/images/header-dropdown-img.svg" class="img-xs rounded-circle header-avatar">
+                      </div>
+                    </div>
+                    <div class="row mx-2 my-2">
+                      {{urgentMessages.Body}}
+                    </div>
+                  </div>
+                  <div class="mt-5 dropdownborder"></div>
+                  <div class="row mt-2 mb-3 mx-2">
+                    <div class="col-md-2 justify-content-start flex-sm-row flex-column">
+                      <button class="btn  btn-danger btn-msgdanger  Helvetica-sans-serif-medium pull-right"
+                        type="button"(click)="DeleteMessages(urgentMessages.EmailMessageId)">Delete</button>
+                    </div>
+                    <div class="col-md-6"></div>
+                    <!-- <div class="col-md-2 justify-content-start flex-sm-row flex-column">
+                    <button class="btn btn-green btn-messagesgreen Helvetica-sans-serif-medium pull-right" type="button"
+                      (click)="openComponentDialogmessage(MessageDialogComponent,messageInbox,ActionTypes.view,'Reply' )">Reply</button>
+                  </div>
+                  <div class="col-md-2 justify-content-end flex-sm-row flex-column">
+                    <button class="btn  btn-green btn-messagesgreen  Helvetica-sans-serif-medium pull-right" type="button"
+                      (click)="openComponentDialogmessage(MessageDialogComponent,messageInbox,ActionTypes.view,'Forward')">Forward</button>
+                  </div> -->
+                  </div>
+                </div>
+                <div *ngIf="!urgentMesg" class="mt-5">No Message Selected</div>
+              </div>
+            </diV>
+         
         </div>
       </div>
     </div>
   </div>
-</div>

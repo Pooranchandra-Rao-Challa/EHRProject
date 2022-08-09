@@ -757,26 +757,35 @@ export class APIEndPoint extends EndpointBase {
 
 
 
-  get _providerInboxMessagesUrl() {
-    return this._baseUrl + "ProviderInboxMessages";
-  }
+ get _inboxMessagesUrl()
+ {
+   return this._baseUrl + "InboxMessages";
+ }
 
-  get _providerSentMessagesUrl() {
-    return this._baseUrl + "ProviderSentMessages";
-  }
+ get _sentMessagesUrl()
+ {
+   return this._baseUrl + "SentMessages";
+ }
 
-  get _providerDraftMessagesUrl() {
-    return this._baseUrl + "ProviderDraftMessages";
-  }
+ get _draftMessagesUrl()
+ {
+   return this._baseUrl + "DraftMessages";
+ }
 
-  get _providerUrgentMessagesUrl() {
-    return this._baseUrl + "ProviderUrgentMessages";
-  }
+ get _urgentMessagesUrl()
+ {
+   return this._baseUrl + "UrgentMessages";
+ }
 
-  get _createMessageUrl() {
-    return this._baseUrl + "CreateMessages";
-  }
-
+ get _createMessageUrl()
+ {
+   return this._baseUrl + "CreateMessages";
+ }
+ 
+ get _deleteMessageUrl()
+ {
+   return this._baseUrl + "DeleteMessages";
+ }
   get _switchUserKeyUrl() {
     return this._baseUrl + "SwitchUserKey";
   }

@@ -1,6 +1,6 @@
 import { PatientSearch } from "../_account/newPatient";
 
-export class ProviderMessages
+export class Messages
 {
             EmailMessageId?: string;
             Updated?: string;

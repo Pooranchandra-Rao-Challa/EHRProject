@@ -116,6 +116,7 @@ import timeGridPlugin from '@fullcalendar/resource-timegrid'; // a plugin!
 
 import { ProvidermessagetopracticeDialogComponent } from 'src/app/dialogs/providermessagetopractice.dialog/providermessagetopractice.dialog.component';
 import { ProvidermessagetopatientDialogComponent } from 'src/app/dialogs/providermessagetopatient.dialog/providermessagetopatient.dialog.component';
+import { MessagesService } from 'src/app/_services/messages.service';
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
   interactionPlugin,
@@ -249,7 +250,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   ],
   providers: [LocationSelectService, ViewChangeService,
     UtilityService, SmartSchedulerService, OverlayService, PatientService, BillingService,
-    AlertMessage, RxNormAPIService,
+    AlertMessage, RxNormAPIService,MessagesService,
     { provide: LOCALE_ID, useValue: 'en-US' },
     { provide: MAT_DATE_LOCALE, useValue: 'en-US' },
     ProviderCodeDatabase,
