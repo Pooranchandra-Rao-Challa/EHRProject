@@ -1,3 +1,4 @@
+import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { OverlayService } from 'src/app/overlay.service';
@@ -31,7 +32,9 @@ export class TobaccoUseDialogComponent implements OnInit {
   interventionPerformed: TobaccoUseConstants;
   interventionTobaccoStatus: TobaccoUseConstants;
   interventionTobaccoStatusFilter: TobaccoUseConstants;
-  tobaccoUseList: TobaccoUse[] = [];
+  // tobaccoUseList: TobaccoUse[] = [];
+  tobacooUseScreeningsSubject = new BehaviorSubject<TobaccoUseScreenings[]>([]);
+  tobacooUseInterventionsSubject = new BehaviorSubject<TobaccoUseInterventions[]>([]);
 
   constructor(private patientService: PatientService,
     private authService: AuthenticationService,
@@ -46,7 +49,7 @@ export class TobaccoUseDialogComponent implements OnInit {
     this.TobaccoUseScreenings();
     this.TobaccoUseInterventions();
     this.loadTobaccoUseConstants();
-    this.TobaccoUseByPatientId();
+    // this.TobaccoUseByPatientId();
   }
 
   updateLocalModel(data: TobaccoUse) {
@@ -80,24 +83,35 @@ export class TobaccoUseDialogComponent implements OnInit {
     this.ref.close(null);
   }
 
-  // Get tobacco interventions info
-  TobaccoUseByPatientId() {
-    this.patientService.TobaccoUseByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
-      if (resp.IsSuccess) this.tobaccoUseList = resp.ListResult;
-    });
-  }
+  // // Get tobacco interventions info
+  // TobaccoUseByPatientId() {
+  //   this.patientService.TobaccoUseByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
+  //     if (resp.IsSuccess){
+  //     this.tobaccoScreenings = resp.ListResult;
+  //     this.tobaccoInterventions = resp.ListResult;
+  //     this.tobacooUseScreeningsSubject.next(this.tobaccoScreenings);
+  //     this.tobacooUseInterventionsSubject.next(this.tobaccoInterventions);
+  //     }
+  //   });
+  // }
 
   // Get tobacco screnning info
   TobaccoUseScreenings() {
     this.patientService.TobaccoUseScreenings({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
-      if (resp.IsSuccess) this.tobaccoScreenings = resp.ListResult;
+      if (resp.IsSuccess) {
+        this.tobaccoScreenings = resp.ListResult;
+        this.tobacooUseScreeningsSubject.next(this.tobaccoScreenings);
+      }
     });
   }
 
   // Get tobacco interventions info
   TobaccoUseInterventions() {
     this.patientService.TobaccoUseInterventions({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
-      if (resp.IsSuccess) this.tobaccoInterventions = resp.ListResult;
+      if (resp.IsSuccess) {
+        this.tobaccoInterventions = resp.ListResult;
+        this.tobacooUseInterventionsSubject.next(this.tobaccoInterventions);
+      }
     });
   }
 
@@ -109,8 +123,13 @@ export class TobaccoUseDialogComponent implements OnInit {
         CessationInterventionId: this.patientTobaccoUse.CI_Id
       }
     }
-    const ref = this.overlayService.open(content, reqdata);
+    const ref = this.overlayService.open(content, reqdata, true);
     ref.afterClosed$.subscribe(res => {
+      if(res.data != null && res.data.saved){
+        this.ref.close({
+          refreshCQMNotPerformed: true
+        });
+      }
       // this.UpdateView(res.data);
     });
   }
@@ -150,7 +169,19 @@ export class TobaccoUseDialogComponent implements OnInit {
       'ScreeningCode': this.patientTobaccoUse.ScreeningCode,
       'ScreeningDescription': this.patientTobaccoUse.ScreeningDescription
     }
-    return this.tobaccoUseList.push(obj);
+    this.tobaccoScreenings.push(obj);
+    this.tobacooUseScreeningsSubject.next(this.tobaccoScreenings);
+  }
+
+  onSelectedRecordIntervention() {
+    let reqparams = {
+      'CI_Type': this.patientTobaccoUse.CI_Type,
+      'CI_Date': this.patientTobaccoUse.CI_Date,
+      'CI_Code': this.patientTobaccoUse.CI_Code,
+      'CI_Description': this.patientTobaccoUse.CI_Description
+    }
+    this.tobaccoInterventions.push(reqparams);
+    this.tobacooUseInterventionsSubject.next(this.tobaccoInterventions);
   }
 
   disableRecordScreening() {

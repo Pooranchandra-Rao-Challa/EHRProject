@@ -613,7 +613,7 @@ div.visit-status img.img-smart-schedule-status-schedule
   background-size: 6px 12px;
 }*/
 .visit-status{
-  margin: -10px;
+  margin: 0;
 }
 .visit-status img {
   background-color: transparent;
@@ -636,6 +636,7 @@ div.visit-status img.img-smart-status-dim
   transition: d 0.2s;
   filter: opacity(0.2);
 }
+
 
 div.visit-status img.show-hover{
   cursor: pointer;

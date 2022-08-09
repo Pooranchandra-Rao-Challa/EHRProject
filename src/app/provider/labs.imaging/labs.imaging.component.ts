@@ -166,30 +166,40 @@ export class LabsImagingComponent implements OnInit {
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
     dialogData, action: Actions = this.ActionTypes.add) {
     let reqdata: any;
-    if (action == Actions.add && content === this.orderDialogComponent && this.viewmodel.LabandImageView == "Lab") {
+    if (action == Actions.add &&
+      content === this.orderDialogComponent &&
+      this.viewmodel.LabandImageView == "Lab") {
       this.labandimaging = new LabProcedureWithOrder();
       this.labandimaging.View = this.viewmodel.LabandImageView;
       reqdata = this.labandimaging;
     }
-    else if (action == Actions.view && content === this.orderDialogComponent && this.viewmodel.LabandImageView == "Lab") {
+    else if (action == Actions.view &&
+      content === this.orderDialogComponent &&
+      this.viewmodel.LabandImageView == "Lab") {
       this.labandimaging = dialogData;
       this.labandimaging.View = this.viewmodel.LabandImageView;
       reqdata = this.labandimaging;
     }
-    else if (action == Actions.view && content === this.labResultComponent && this.viewmodel.LabandImageView == "Lab") {
+    else if (action == Actions.view
+      && content === this.labResultComponent
+      && this.viewmodel.LabandImageView == "Lab") {
       this.labandimaging = dialogData;
       this.labandimaging.View = this.viewmodel.LabandImageView;
       reqdata = this.labandimaging;
     }
-    else if (action == Actions.add && content === this.orderDialogComponent && this.viewmodel.LabandImageView == "Image") {
+    else if (action == Actions.add
+      && content === this.orderDialogComponent
+      && this.viewmodel.LabandImageView == "Image") {
       this.labandimaging = new LabProcedureWithOrder();
       this.labandimaging.View = this.viewmodel.LabandImageView;
       reqdata = this.labandimaging;
     }
-    else if (action == Actions.add && content === this.imagingResultDialogComponent && this.viewmodel.LabandImageView == "Image") {
-      this.labandimaging = new LabProcedureWithOrder();
+    else if (action == Actions.view && content === this.imagingResultDialogComponent && this.viewmodel.LabandImageView == "Image") {
+      this.labandimaging = dialogData;
       this.labandimaging.View = this.viewmodel.LabandImageView;
       reqdata = this.labandimaging;
+      console.log(reqdata);
+
     }
     // else if (action == Actions.add && content === this.orderResultDialogComponent && this.viewmodel.LabandImageView == "Lab") {
     //   this.labandimaging = new LabProcedureWithOrder();

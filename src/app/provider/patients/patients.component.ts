@@ -114,7 +114,7 @@ export class PatientsComponent implements OnInit,AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    debugger;
+    //debugger;
     // server-side search
     fromEvent(this.searchPatient.nativeElement, 'keyup')
       .pipe(

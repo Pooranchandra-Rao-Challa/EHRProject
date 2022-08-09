@@ -79,4 +79,15 @@ export class ImageResultInfo{
   ProviderId?: string;
   OrderId?: string;
   LabProcedureId?: string;
+  ScheduledAt?: Date;
+  Exam?: string;
+  RequestedBy?: string;
+  History?: string;
+  Radiopharmaceutical?: string;
+  Technique?: string;
+  Comparision?: string;
+  Findings?: string;
+  Impression?: string;
+  strScheduledAt?: string;
 }
+

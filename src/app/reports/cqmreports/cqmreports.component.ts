@@ -474,7 +474,7 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
     this.isViewResults = true;
     this.showTopData = true;
     this.GetDashBoardReport(queuedReportData.ReportId);
-    debugger
+    //debugger
     // this.getPatientList(queuedReportData.ReportId);
     this.detailsTab("dashBoard");
   }

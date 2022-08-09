@@ -26,9 +26,11 @@ export class PatientNavbarComponent implements OnInit {
   viewModel: ViewModel;
   @Output() Bredcrumchanged = new EventEmitter<String>();
 
-  constructor(private authenticationService: AuthenticationService,private patientService: PatientService,
+  constructor(private authenticationService: AuthenticationService, private patientService: PatientService,
     private route: ActivatedRoute,
     private router: Router) {
+    console.log(authenticationService.userValue);
+
     this.user = authenticationService.userValue;
     this.locationsInfo = JSON.parse(this.user.LocationInfo);
     //this.currentLocation = this.locationsInfo[0].locationId;
@@ -58,16 +60,16 @@ export class PatientNavbarComponent implements OnInit {
       }
     });
   }
-onChangeBreadCrum(url: string, name: string, view?: string,) {
-  this.authenticationService.SetViewParam("View",name)
-  if(view != null){
-    this.authenticationService.SetViewParam("SubView",view)
+  onChangeBreadCrum(url: string, name: string, view?: string,) {
+    this.authenticationService.SetViewParam("View", name)
+    if (view != null) {
+      this.authenticationService.SetViewParam("SubView", view)
+    }
+    this.viewModel = this.authenticationService.viewModel;
+    if (url == 'provider/patients') this.viewModel.PatientBreadCrumb = [];
+    this.Bredcrumchanged.emit(name);
+    this.router.navigate(
+      [url],
+    );
   }
-  this.viewModel = this.authenticationService.viewModel;
-  if(url=='provider/patients') this.viewModel.PatientBreadCrumb = [];
-  this.Bredcrumchanged.emit(name);
-  this.router.navigate(
-    [url],
-  );
-}
 }

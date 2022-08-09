@@ -144,9 +144,10 @@ export class TobaccoUseScreenings {
   TobaccoUseId?: string;
   PatientId?: string;
   ScreeningId?: string;
-  DatePerformed?: Date;
-  Description?: string;
-  Code?: string;
+  ScreeningType?: string;
+  ScreeningDate?: Date;
+  ScreeningDescription?: string;
+  ScreeningCode?: string;
   Status?: string;
   ScreeningPerformed?: string;
 }
@@ -154,11 +155,11 @@ export class TobaccoUseScreenings {
 export class TobaccoUseInterventions {
   TobaccoUseId?: string;
   PatientId?: string;
-  CessationInterventionId?: string
-  CessationInterventionDate?: Date;
-  CessationInterventionPerformed?: string;
-  Code?: string;
-  Description?: string;
+  CI_Id?: string;
+  CI_Date?: Date;
+  CI_Type?: string;
+  CI_Code?: string;
+  CI_Description?: string;
 }
 
 export class TobaccoUse {

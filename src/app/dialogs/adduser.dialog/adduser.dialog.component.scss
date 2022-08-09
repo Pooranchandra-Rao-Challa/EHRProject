@@ -20,8 +20,10 @@
   width: 1500px !important;
   border: 1px solid #f2f2f2 !important;
 }
-.modal-cust-header{
+
+.modal-cust-header {
   border-bottom: 1px solid #f2f2f2;
+  padding: 10px !important;
 }
 
 
@@ -33,8 +35,8 @@
   color: black;
   font-size: 16px;
   line-height: 10px !important;
+  padding: 5px !important;
 }
-
 
 
 .cancel-button {
@@ -192,60 +194,120 @@ input::-webkit-input-placeholder {
   margin-left: -4px;
   margin-top: -8px;
 }
-@media (min-width:300px) and (max-width:1600px)
-{
+
+@media (min-width:300px) and (max-width:1600px) {
   .modal-cust-content {
     width: 100%;
     border: 1px solid #ebebeb;
     background-color: #fff;
     margin-left: 0px;
-    margin-top: -50px;
-}
-  .npi-width{
+    margin-top: 50px;
+  }
+
+  .npi-width {
     width: 100%;
-   }
-   .ddl-width{
+  }
+
+  .ddl-width {
     width: 100%;
-   }
-   .radio-btn{
-     margin-left: -1px;
-   }
-   .radio-btn-label{
+  }
+
+  .radio-btn {
+    margin-left: -1px;
+  }
+
+  .radio-btn-label {
     margin-left: -10px;
-   }
-   .model-cust-footer {
+  }
+
+  .model-cust-footer {
     width: 100%;
   }
 }
-@media (min-width:1440px) and (max-width:1600px){
+
+@media (min-width:1440px) and (max-width:1600px) {
   .modal-cust-content {
     width: 1160px;
     border: 1px solid #ebebeb;
     background-color: #fff;
     margin-left: 260px;
-    margin-top: -80px3px;
+    margin-top: 80px 3px;
   }
+
   .npi-width {
-        width: 105%;
-     }
-   .model-cust-footer {
-      width: 1160px;
-    }
+    width: 105%;
+  }
+
+  .model-cust-footer {
+    width: 1160px;
+  }
 }
-@media (min-width:1601px) and (max-width:4500px){
+
+@media (min-width:1601px) and (max-width:4500px) {
   .modal-cust-content {
     width: 1382px;
     margin-left: 259px;
-    margin-top: -100px;
+    margin-top: 100px;
     border: 1px solid #ebebeb;
     background-color: #fff;
   }
+
   .npi-width {
     width: 105%;
- }
- .model-cust-footer {
-  width: 1382px;
-  background: white;
+  }
+
+  .model-cust-footer {
+    width: 1382px;
+    background: white;
+    border: 1px solid #f2f2f2;
+  }
+}
+
+.reg-button {
+  height: 35px;
+}
+
+.tel-code h1 {
+  font-size: 13px;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  white-space: pre-wrap;
+}
+
+.tel-code.mat-option {
+  padding: 5px !important;
+}
+
+// verify address
+
+.addressSuccess {
+  height: 55px;
+  background: #5BB85C;
+  color: white;
+}
+
+.addressInvalid {
+  height: 55px;
+  background: red;
+}
+
+.erroclose {
+  font-size: 0.875rem;
+  border: 1px solid white;
+  background: #ff0000 !important;
+}
+
+.modal.verify-address .modal-dialog {
+  margin: 20% auto !important;
+  max-width: 50% !important;
+}
+
+.modal.verify-address .modal-content {
+  background: #fff;
   border: 1px solid #f2f2f2;
 }
+.verify-address .link{
+  color: #41b6a6;
+  margin-left: -50px;
+  text-decoration: underline;
+  text-transform: lowercase;
 }

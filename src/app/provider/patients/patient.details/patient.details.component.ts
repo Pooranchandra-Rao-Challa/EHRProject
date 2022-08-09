@@ -20,6 +20,7 @@ import { LabProcedureWithOrder } from 'src/app/_models/_provider/LabandImage';
 // import { OrderDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/order.dialog.component'
 // import { LabResultComponent } from 'src/app/dialogs/lab.imaging.dialog/lab.result.component'
 import { OrderResultDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/order.result.dialog.component'
+import { ViewChangeService } from 'src/app/_navigations/provider.layout/view.notification.service';
 
 @Component({
   selector: 'app-patient.details',
@@ -57,7 +58,8 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
     private router: Router,
     private overlayService: OverlayService,
     private utilityService: UtilityService,
-    private alertmsg: AlertMessage) {
+    private alertmsg: AlertMessage,
+    private viewChangeService: ViewChangeService) {
     this.viewModel = authService.viewModel;
     if (this.viewModel.PatientView == null
       || this.viewModel.PatientView == '') {
@@ -72,6 +74,12 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit(): void {
+    this.viewChangeService.getData().subscribe(changedView =>
+      {
+        this.viewModel = this.authService.viewModel;
+        this.chartSubject.next(changedView)
+      }
+    );
     this.changedChartView$
       .pipe(
         catchError(() => of([])),

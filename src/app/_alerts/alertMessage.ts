@@ -156,6 +156,8 @@ export class AlertMessage {
  * Order: 1
  * Results: 2
  *
+ * CalendarModule
+ * Blockout: 1
  * --------------------------------------------------
  * Patient Module
  *
@@ -410,6 +412,7 @@ export const ERROR_CODES: { [key: string]: string } = {
   'EL001': 'Wrong email or password',
   'EL002': 'Session is timeout',
   'EL003': 'You need to sign in or sign up before continuing.',
+  'EL005': 'The login to provider account is failed.',
 
   //Education Material Message
   'M2JPE001': 'Education Material added successfully',
@@ -427,6 +430,7 @@ export const ERROR_CODES: { [key: string]: string } = {
   'E2B002':'An appointment is existing for the same time and resource',
   'E2B003':'Appointment is not rescheduled',
   'E2B004':'Appointment is not allocated',
+  'E2B005':'Creating appointment outside business hours, If acceptable click Confirm else Reject.',
   //Clinical Decision Support
   'M2JCDS001': 'Alert added sucessfully',
   'M2JCDS002': 'Alert updated successfully',
@@ -453,6 +457,15 @@ export const ERROR_CODES: { [key: string]: string } = {
 
   // Error for Admin
   'E1A001': 'Admin deletion error',
+
+  // Calendar Blockout messages
+  'M2B1001': 'Blockout added successfully',
+  'M2B1002': 'Blockout updated successfully',
+  'M2B1003': 'Blockout deleted successfully',
+
+  'E2B1001': 'Blockout adding error',
+  'E2B1002': 'Blockout update error',
+  'E2B1003': 'Blockout delete error',
 };
 
 

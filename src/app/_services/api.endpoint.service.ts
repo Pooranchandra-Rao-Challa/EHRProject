@@ -786,6 +786,21 @@ export class APIEndPoint extends EndpointBase {
  {
    return this._baseUrl + "DeleteMessages";
  }
+  get _switchUserKeyUrl() {
+    return this._baseUrl + "SwitchUserKey";
+  }
+  get _createBlockoutUrl() {
+    return this._baseUrl + "CreateBlockout";
+  }
+
+  get _deleteBlockoutUrl() {
+    return this._baseUrl + "DeleteBlockout";
+  }
+
+  get _calendarBlockoutsUrl() {
+    return this._baseUrl + "CalendarBlockouts";
+  }
+
 
   constructor(public http: HttpClient) {
     super();

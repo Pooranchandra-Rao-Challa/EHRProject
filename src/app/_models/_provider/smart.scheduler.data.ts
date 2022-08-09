@@ -113,6 +113,7 @@ export class AppointmentDialogInfo{
   status?: Actions;
   TimeSlot?: AvailableTimeSlot;
   NavigationFrom?: string = "Smart Schedule";
+  IsInBusinessHours?: boolean;
 }
 
 export enum Actions {
@@ -132,7 +133,7 @@ export class CalendarAppointment{
   AppStatusId?: string
   AppTypeId?: string
   StatusColor?: string
-  status?: string
+  Status?: string
   TypeColor?: string
   ApptType?: string
   RoomId?: string
@@ -140,6 +141,7 @@ export class CalendarAppointment{
   Duration?: number
   strStartAt?: string;
   Notes?: string;
+  ClinicId?: string;
 }
 
 export class Blockout{
@@ -157,12 +159,17 @@ export class Blockout{
   ClinicId?: string;
   LocationId?: string;
   RoomId?: string;
+  strStartAt?: string;
   RangeDay?: BlockoutRangeDay[];
+
+  start?: Date;
+  end?: Date;
 }
 
 export class BlockoutRangeDay{
   BlockoutId?: string;
   RangeDay?: string;
+  CanDelete?: boolean;
 }
 
 export class BlockOutDialog{

@@ -33,7 +33,7 @@
         <div class="col-lg-4 col-md-4 col-4">
           <mat-label>Select Room</mat-label>
           <mat-form-field appearance="outline" class="col-md-12 orderddhover">
-            <mat-select required placeholder="Select Room" [(ngModel)]="blockout.BlockoutForId">
+            <mat-select required placeholder="Select Room" [(ngModel)]="blockout.RoomId">
               <mat-option *ngFor="let room of blockoutDialog.Rooms;" [value]="room.RoomId">
                 {{room.RoomName}}
               </mat-option>
@@ -162,9 +162,11 @@
     </div>
     <div class="modal-footer">
       <div class="controls">
-        <a class="btn btn-default btn-danger btn-spacer" style="float:left">Delete</a>
-        <a class="btn btn-default btn-cancel btn-spacer" style="float:right">Cancel</a><input type="submit"
-          name="commit" value="Save" class="btn btn-default btn-green btn-spacer" style="float:right">
+        <a class="btn btn-default btn-danger btn-spacer" style="float:left" (click)="Delete()" *ngIf="blockout.BlockoutId != null">Delete</a>
+        <a class="btn btn-default btn-cancel btn-spacer" style="float:right" (click)="close()">Cancel</a>
+        <input type="submit" [disabled]=enableSave()
+          name="commit" value="Save" class="btn btn-default btn-green btn-spacer" style="float:right"
+          (click)="Save()">
       </div>
     </div>
   </div>

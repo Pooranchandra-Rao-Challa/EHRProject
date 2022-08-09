@@ -55,4 +55,8 @@ export class AdminService extends APIEndPoint {
   DeleteWeeklyStatus(reqparam:any){
     return this._ProcessPostRequest<any>(this._deleteWeeklyStatus, reqparam);
   }
+
+  SwitchUserKey(reqparam:any){
+    return this._ProcessPostRequest<any>(this._switchUserKeyUrl, reqparam);
+  }
 }
