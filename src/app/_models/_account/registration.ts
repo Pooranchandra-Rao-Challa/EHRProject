@@ -1,4 +1,6 @@
 export class Registration{
+  UserId?: string;
+  ProviderId?: string;
   Title?: string;
   FirstName?: string;
   MiddleName?: string;
@@ -23,19 +25,21 @@ export class Registration{
   City?: string;
   State?: string;
   ZipCode?: string;
-  PrescribeFrom?: string;
-  DoseSpot?: boolean;
-  ClinicId?: string;
-  ClinicKey?: string;
-  ClinicianId?: string;
+  EPrescribeFrom?: string;
+
+  IsDoseSpotRegistation?: boolean;
+  DoseSpotClinicId?: string;
+  DoseSpotClinicKey?: string;
+  DoseSpotClinicianId?: string;
+
   PracticeUsername?: string;
-  VendorUsername?: string;
-  ProviderUsername?: string;
   PracticePassword?: string;
-  SecretKey?: string;
+  VendorUsername?: string;
+  VendorSecretKey?: string;
+  ProviderUsername?: string;
   ProviderPassword?: string;
   UserExternalId?: string;
-  RandomPassword?: string;
+
   CreatedFromAdmin?: boolean = false;
 }
 

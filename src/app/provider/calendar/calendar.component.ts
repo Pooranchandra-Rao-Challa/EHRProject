@@ -161,6 +161,10 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       }
 
     }
+
+    this.fullcalendar.getApi().handleRenderRequest = () => {
+      console.log('test');
+    }
   }
 
   UpdateResources() {
@@ -545,6 +549,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     })
     this.CalenderSchedule();
     this.CalendarBlockouts();
+
   }
 
 
@@ -694,9 +699,6 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         appointment.RoomId = event.resource.id;
       let dialog: AppointmentDialogInfo = this.PatientAppointmentInfo(appointment, Actions.new);
 
-      console.log(dialog);
-
-
       let localStart = new Date(this.datepipe.transform(event.start as Date,"MM/dd/yyyy")+" "+this.datepipe.transform(this.CalendarSchedule.CalendarFrom,"HH:mm:ss"))
       let localEnd = new Date(this.datepipe.transform(event.start as Date,"MM/dd/yyyy")+" "+this.datepipe.transform(this.CalendarSchedule.CalendarTo,"HH:mm:ss"))
 
@@ -704,7 +706,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         && (event.start as Date).getTime() < localEnd.getTime()
 
 
-      if (!this.CalendarSchedule.OutSidePracticeHour
+      if (this.CalendarSchedule.OutSidePracticeHour
         || isTimeInBusinessHours)
         this.openComponentDialog(this.appointmentDialogComponent,
           dialog, Actions.view);
@@ -891,8 +893,9 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         }
       }
     });
-
   }
+
+
   blockouts?: Blockout[] = [{}]
   CalendarBlockouts(){
     this.smartSchedulerService.CalendarBlockouts({ 'StartDate': this.datepipe.transform(this.sundayDate, "MM/dd/yyyy"),
@@ -916,7 +919,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       value.end = this.getEndDate(value.Duration,value.start)
     })
 
-    this.fullcalendar.getApi().handleAction
+
     console.log(this.blockouts);
   }
 

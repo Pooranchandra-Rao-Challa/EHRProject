@@ -413,6 +413,7 @@ export const ERROR_CODES: { [key: string]: string } = {
   'EL002': 'Session is timeout',
   'EL003': 'You need to sign in or sign up before continuing.',
   'EL005': 'The login to provider account is failed.',
+  'EL006': 'Email not verified, please click on the verification in your email or resend confirmation to continue.',
 
   //Education Material Message
   'M2JPE001': 'Education Material added successfully',
