@@ -7,6 +7,7 @@ import { ComponentType } from '@angular/cdk/portal';
 import { AddUserDialogComponent } from 'src/app/dialogs/adduser.dialog/adduser.dialog.component';
 import { ProviderList } from 'src/app/_models/_admin/providerList';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
+import { Accountservice } from 'src/app/_services/account.service';
 
 export class FilterQueryParams {
   Active: boolean = true;
@@ -55,7 +56,8 @@ export class DashboardComponent implements OnInit {
   constructor(private adminservice: AdminService,
     private overlayService: OverlayService,
     private authService: AuthenticationService,
-    private alertmsg: AlertMessage) { }
+    private alertmsg: AlertMessage,
+    private accountservice: Accountservice) { }
 
   ngOnInit(): void {
     this.GetProivderList();
@@ -282,10 +284,18 @@ export class DashboardComponent implements OnInit {
       }
     });
   }
-
   closelockedModal() { this.lockedModal = 'none'; }
 
 
+  inactiveUser(event, item) {
+    item.Status = event.currentTarget.checked;
+    return;
+    this.accountservice.RegisterNewProvider(item).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.GetProivderList();
+      }
+    });
+  }
 
   // providerLogin(item) {
   //   if (item.Trial == 'Paid' || item.lock == 'Unlock') {

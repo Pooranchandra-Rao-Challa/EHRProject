@@ -26,7 +26,7 @@ export class AddUserDialogComponent implements OnInit {
   titles: {}[];
   degrees: {}[];
   specialities: {}[];
-  newUser: Registration = {} as Registration;
+  newUser: Registration = new Registration;
   randomPassword?: string = null;
   showPassword?: boolean = false;
   displayDialog: boolean;
@@ -157,9 +157,6 @@ export class AddUserDialogComponent implements OnInit {
       this.newUser.MobilePhone = '+1' + this.newUser.MobilePhonePreffix + this.newUser.MobilePhoneSuffix;
     }
 
-    console.log(this.newUser);
-
-    return
     this.accountservice.RegisterNewProvider(this.newUser).subscribe(resp => {
       if (resp.IsSuccess) {
         this.alertWithSuccess();

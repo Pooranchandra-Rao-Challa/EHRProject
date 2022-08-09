@@ -1,13 +1,13 @@
 export class Registration{
   UserId?: string;
   ProviderId?: string;
-  Title?: string;
+  Title?: string = 'Dr';
   FirstName?: string;
   MiddleName?: string;
   LastName?: string;
   PracticeName?: string;
-  Degree?: string;
-  Speciality?:string;
+  Degree?: string = 'DDS';
+  Speciality?:string = 'Dentistry';
   NPI?:string;
   PracticeAddress?: string;
   SuiteNumber?: string = 'new suit';
