@@ -1,85 +1,101 @@
 <div class="modal-dialog modal-xl">
   <div class="modal-content modal-cust-content">
     <div class="modal-header model-cust-heading">
-      <p class="modal-title modal-cust-title">New Message</p>
+      <p class="modal-title modal-cust-title" *ngIf="providerMessage.ForwardreplyMessage == null">New Message</p>
+      <p class="modal-title modal-cust-title" *ngIf="providerMessage.ForwardreplyMessage == 'Reply'">Reply Message</p>
+      <p class="modal-title modal-cust-title" *ngIf="providerMessage.ForwardreplyMessage == 'PatientReply'">Reply Message</p>
+      <p class="modal-title modal-cust-title" *ngIf="providerMessage.ForwardreplyMessage ==  'Forward'">Forward Message
+
+      </p>
+      
       <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close" (click)="cancel()">
         x
       </span>
     </div>
     <div class="modal-body model-cust-body">
-      <form class="pt-4">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="row">
-              <div class="form-group"></div>
-              <div class="input-group mb-3">
-                  <span class="input-group-addon labelclass form-control">To:</span>
-                  <mat-form-field class="procedure-form-field" appearance="outline" [ngStyle]="{'width':'90%'}">
-                    <input matInput #searchProcedureCode class="form-control" placeholder="Search" type="text"
-                      id="searchProcedureCode" name="searchProcedureCode" [matAutocomplete]="procedureCode" />
-                    <mat-autocomplete [displayWith]="displayWith" #procedureCode="matAutocomplete">
-                      <mat-option *ngFor="let option of filterProcedures" [value]="option"
-                        class="medical-code-option">
-                        {{option.Title|titlecase}} - {{option.FullName}}
-                      </mat-option>
-                    </mat-autocomplete>
-                  </mat-form-field>
-                  <span class="input-group-addon labelclass form-control"
-                    id="find-messages-button"><i class="fa fa-search"></i></span>
-              </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="row">
+            <div class="form-group"></div>
+            <div class="input-group mb-3">
+              <span class="input-group-addon labelclass form-control"> To :</span>
 
-              <div class="form-group"></div>
-              <div class="input-group mb-3">
-                  <span class="input-group-addon labelclass form-control">From:</span>
-                <input type="text" class="form-control inputclass" readonly aria-label="Amount" [(ngModel)]="user.FirstName" id="FirstName" name="FirstName"
-                #FirstName="ngModel">
-              </div>
+              <input matInput #searchpatient class="form-control inputclass" placeholder="Search To Address" type="text"
+                id="searchpatient" name="searchpatient" [matAutocomplete]="serachpatient"
+                [disabled]="diabledPatientSearch" [readonly]="diabledPatientSearch" />
+              <mat-autocomplete [displayWith]="displayWithPatientSearch" #serachpatient="matAutocomplete"
+                (optionSelected)="onPatientSelected($event)">
+                <mat-option *ngIf="isLoading">Loading ...</mat-option>
+                <mat-option *ngFor="let option of filteredPatients | async" [value]="option"
+                  class="patient-serach-option">
+                  {{option.Name}}
+                </mat-option>
+              </mat-autocomplete>
+
+            </div>
+
+            <div class="form-group"></div>
+            <div class="input-group mb-3">
+              <span class="input-group-addon labelclass form-control">From:</span>
+
+              <input matInput placeholder="" disabled class="form-control inputclass" [(ngModel)]="user.FirstName + user.LastName">
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="row">
-              <div>
-                <label for="subject" class="form-label ">Subject</label>
-                <input type="input" class="form-control inputclass " id="Subject" placeholder="Subject :"
-                  aria-describedby="subjectlHelp">
-              </div>
-              <div class="mt-2">
-                <label for="message" class="form-label">Message</label>
-                <input type="input" class="form-control inputclass" id="message" placeholder="Message :"
-                  aria-describedby="messageHelp">
-              </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="row">
+            <div class="col-md-12">
+              <label for="subject" class="form-label ">Subject</label>
+              <input matInput placeholder="" class="form-control inputclass" [(ngModel)]="providerMessage.Subject">
+
+            </div>
+
+            <div class="mt-2 col-md-12" *ngIf="providerMessage.EmailMessageId!=null">
+              <label for="message" class="form-label">Reply/Forward Message</label>
+              <textarea matInput placeholder="" class="form-control textareaclass inputclass"
+                [(ngModel)]="providerMessage.ReplyMessage"></textarea>
+            </div>
+            <div class="mt-2 col-md-12">
+              <label for="message" class="form-label">Message</label>
+              <textarea matInput placeholder="" class="form-control textareaclass inputclass col-md-12"
+                [(ngModel)]="providerMessage.Body" [disabled]="diabledPatientSearch"
+                [readonly]="diabledPatientSearch"></textarea>
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-lg-1 file_upload_glyph">
-            <div class="form-group">
-              <div class="input-group mt-4">
-                <span type="button" class="btn btn-green col-md-4 ">
-                  <i class="fa fa-paperclip" aria-hidden="true"></i>
-                </span>
-              </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-1 file_upload_glyph">
+          <div class="form-group">
+            <div class="input-group mt-4">
+              <span type="button" class="btn btn-green col-md-4 ">
+                <i class="fa fa-paperclip" aria-hidden="true"></i>
+              </span>
             </div>
           </div>
         </div>
-        <div class="row mt-5">
+      </div>
+      <div class="row mt-5">
+        <div class="col-lg-4 ">
           <div class="col-lg-4 ">
-            <div class="col-lg-4 ">
-              <mat-checkbox class="col-lg-12 col-md-12 example-margin">
-                <mat-lable class="custom-control-label">URGENT</mat-lable>
-              </mat-checkbox>
-            </div>
+            <mat-checkbox class="col-lg-12 col-md-12 example-margin" [(ngModel)]="providerMessage.Urgent">
+              <mat-lable class="custom-control-label">URGENT</mat-lable>
+
+            </mat-checkbox>
           </div>
         </div>
+      </div>
 
-        <div class="row" style="float: right;">
-          <button type="button" class="btn btn-green col-md-4 mx-2" data-bs-dismiss="modal"
-           >Save</button>
-          <button type="button"  (click)="cancel()" class="btn btn-green col-md-4">Cancel</button>
-        </div>
-      </form>
+      <div class="row" style="float: right;">
+        <button type="button" class="btn btn-green btn-msgsave col-md-4 mx-2" data-bs-dismiss="modal"
+          (click)="InsertMessage(false,true)">Send</button>
+        <button type="button" class="btn btn-green btn-msgsave col-md-4" (click)="InsertMessage(true,false)">Save As
+          Draft</button>
+          <button type="button" class="btn btn-green btn-msgsave col-md-4" (click)="cancel()">Cancel</button>
+      </div>
+
 
     </div>
   </div>

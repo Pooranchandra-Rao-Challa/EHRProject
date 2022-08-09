@@ -757,24 +757,24 @@ export class APIEndPoint extends EndpointBase {
 
 
 
- get _providerInboxMessagesUrl()
+ get _inboxMessagesUrl()
  {
-   return this._baseUrl + "ProviderInboxMessages";
+   return this._baseUrl + "InboxMessages";
  }
 
- get _providerSentMessagesUrl()
+ get _sentMessagesUrl()
  {
-   return this._baseUrl + "ProviderSentMessages";
+   return this._baseUrl + "SentMessages";
  }
 
- get _providerDraftMessagesUrl()
+ get _draftMessagesUrl()
  {
-   return this._baseUrl + "ProviderDraftMessages";
+   return this._baseUrl + "DraftMessages";
  }
 
- get _providerUrgentMessagesUrl()
+ get _urgentMessagesUrl()
  {
-   return this._baseUrl + "ProviderUrgentMessages";
+   return this._baseUrl + "UrgentMessages";
  }
 
  get _createMessageUrl()
@@ -782,6 +782,10 @@ export class APIEndPoint extends EndpointBase {
    return this._baseUrl + "CreateMessages";
  }
  
+ get _deleteMessageUrl()
+ {
+   return this._baseUrl + "DeleteMessages";
+ }
 
   constructor(public http: HttpClient) {
     super();

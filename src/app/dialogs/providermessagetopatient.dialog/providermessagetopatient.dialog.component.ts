@@ -6,7 +6,7 @@ import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators'
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { PatientSearch, PracticeProviders, User } from 'src/app/_models';
-import { ProviderMessages } from 'src/app/_models/_provider/messages';
+ import { Messages } from 'src/app/_models/_provider/messages';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { MessagesService } from 'src/app/_services/messages.service';
 import { PatientService } from 'src/app/_services/patient.service';
@@ -25,7 +25,7 @@ export class ProvidermessagetopatientDialogComponent implements OnInit {
   @ViewChild('searchpatient', { static: true }) searchpatient: ElementRef;
   filteredPatients: Observable<ToAddress[]>;
   isLoading: boolean = false;
-  providerMessage: ProviderMessages = new ProviderMessages();
+  providerMessage: Messages = new Messages();
   user: User;
   messageFor?: any;
   editMessageFor?: any
@@ -151,12 +151,12 @@ export class ProvidermessagetopatientDialogComponent implements OnInit {
     this.cancel();
   }
   Upadateviewmodel(data) {
-    this.providerMessage = new ProviderMessages
+    this.providerMessage = new Messages
     if (data == 'Patient') {
-      this.providerMessage = new ProviderMessages;
+      this.providerMessage = new Messages;
     }
     else if (data == 'Practice') {
-      this.providerMessage = new ProviderMessages;
+      this.providerMessage = new Messages;
     }
     else if (data.ForwardreplyMessage == 'Reply') {
       this.providerMessage = data;

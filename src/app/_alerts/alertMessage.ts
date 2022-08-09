@@ -444,6 +444,7 @@ export const ERROR_CODES: { [key: string]: string } = {
   'E3A001': "Appoinments updation error",
   //Messages for provider messages
   'M2D001': "Secure Message sent successfully",
+  'M2D002': "Message Deleted successfully",
   //Error Message for provider messages
   'E2D001':"Messages Updation Error",
 

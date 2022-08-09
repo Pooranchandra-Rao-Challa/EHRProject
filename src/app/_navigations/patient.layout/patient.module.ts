@@ -22,6 +22,8 @@ import { OverlayService } from 'src/app/overlay.service';
 import { AlertMessage } from 'src/app/_alerts/alertMessage';
 import { LocationSelectService, ViewChangeService } from '../provider.layout/view.notification.service';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
+import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
+import { MessagesService } from 'src/app/_services/messages.service';
 @NgModule({
   exports: [
     MatInputModule
@@ -48,7 +50,7 @@ import { UtilityService } from 'src/app/_services/utiltiy.service';
     CommonModule,
 
   ],
-  providers: [LocationSelectService,ViewChangeService,PatientService, OverlayService,AlertMessage,PatientNavbarComponent,UtilityService
+  providers: [LocationSelectService,ViewChangeService,PatientService, OverlayService,AlertMessage,PatientNavbarComponent,UtilityService,SmartSchedulerService,MessagesService
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

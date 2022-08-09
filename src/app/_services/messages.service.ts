@@ -6,23 +6,28 @@ import { HttpClient } from "@angular/common/http";
 export class MessagesService extends APIEndPoint {
   constructor(http: HttpClient) { super(http); }
 
-  ProviderInboxMessages(reqparams: any) {
-    return this._ProcessPostRequest<any>(this._providerInboxMessagesUrl, reqparams);
+  InboxMessages(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._inboxMessagesUrl, reqparams);
   }
 
-  ProviderSentMessages(reqparams: any) {
-    return this._ProcessPostRequest<any>(this._providerSentMessagesUrl, reqparams);
+  SentMessages(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._sentMessagesUrl, reqparams);
   }
 
-  ProviderDraftMessages(reqparams: any) {
-    return this._ProcessPostRequest<any>(this._providerDraftMessagesUrl, reqparams);
+  DraftMessages(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._draftMessagesUrl, reqparams);
   }
 
-  ProviderUrgentMessages(reqparams: any) {
-    return this._ProcessPostRequest<any>(this._providerUrgentMessagesUrl, reqparams);
+  UrgentMessages(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._urgentMessagesUrl, reqparams);
   }
  CreateMessage(reqparams: any)
  {
    return this._ProcessPostRequest<any>(this._createMessageUrl,reqparams)
+ }
+
+ DeleteMessages(reqParams:any)
+ {
+   return this._ProcessPostRequest<any>(this._deleteMessageUrl,reqParams)
  }
 }
