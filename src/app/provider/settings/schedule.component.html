@@ -145,11 +145,12 @@
                 </div>
                 <div class="row my-3 mx-2">
                   <div class="col-lg-9">
-                    <p class="mt-2 privdertext">EHRApplication ehr</p>
+                    <p class="mt-2 privdertext">{{user.FirstName+" "+user.LastName}}</p>
                   </div>
-                  <div class="col-lg-3">
+                  <div class="col-lg-2">
                     <button type="button" id="providerrooms"
-                      class="btn btn-md btn-green py-3 px-4 pull-right">Edit</button>
+                    (click)="GetUserInfoData()"
+                      class="btn btn-md btn-green py-3 px-4" style="float: right; height:unset;">Edit</button>
                   </div>
                 </div>
               </div>
