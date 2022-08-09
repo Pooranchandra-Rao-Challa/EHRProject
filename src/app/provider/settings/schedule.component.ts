@@ -1,13 +1,17 @@
+import { Actions } from 'src/app/_models';
 import { LocationSelectService } from 'src/app/_navigations/provider.layout/view.notification.service';
 import { BehaviorSubject } from 'rxjs';
-import { Component, OnInit, NgModule } from '@angular/core';
+import { Component, OnInit, NgModule, TemplateRef } from '@angular/core';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { SettingsService } from '../../_services/settings.service';
 import { User } from '../../_models';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { AppointmentStatus, AppointmentType, GeneralSchedule, RoomsSlot } from '../../_models/_provider/_settings/settings';
+import { AppointmentStatus, AppointmentType, GeneralSchedule, NewUser, RoomsSlot } from '../../_models/_provider/_settings/settings';
 import { IdService } from '../../_helpers/_id.service';
 import { AlertMessage, ERROR_CODES } from './../../_alerts/alertMessage';
+import { UserDialogComponent } from 'src/app/dialogs/user.dialog/user.dialog.component';
+import { ComponentType } from '@angular/cdk/portal';
+import { OverlayService } from 'src/app/overlay.service';
 declare var $: any;
 
 @Component({
@@ -28,12 +32,14 @@ export class ScheduleComponent implements OnInit {
   roomsOnEdit: number[] = [];
   statusOnEdit: number[] = [];
   typeOnEdit: number[] = [];
+  Actions = Actions;
   generalSchedule: GeneralSchedule = {} as GeneralSchedule;
-
+  userDialogComponent = UserDialogComponent;
 
   constructor(private authService: AuthenticationService,
     private settingsService: SettingsService,
     private fb: FormBuilder,
+    public overlayService: OverlayService,
     private idService: IdService,
     private locationChanged: LocationSelectService,
     private alertmsg: AlertMessage) {
@@ -436,5 +442,25 @@ export class ScheduleComponent implements OnInit {
         this.getGeneralSchedule();
       }
     })
+  }
+
+
+  GetUserInfoData() {
+    var reqparams = {
+      UserId: this.user.UserId,
+      LoginProviderId: this.user.ProviderId,
+      ClinicId: this.user.ClinicId
+    }
+    this.settingsService.UserInfoWithPracticeLocations(reqparams).subscribe(resp => {
+      let UserInfo = resp.Result as NewUser;
+      UserInfo.LocationInfo = JSON.parse(resp.Result.LocationInfo);
+      this.openComponentDialog(this.userDialogComponent,UserInfo,Actions.view)
+    });
+  }
+  openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
+    data?: any, action?: Actions) {
+    const ref = this.overlayService.open(content, data);
+    ref.afterClosed$.subscribe(res => {
+    });
   }
 }
