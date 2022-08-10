@@ -6,7 +6,7 @@
         X
       </span>
     </div>
-    <div class="modal-body">
+    <div class="modal-body adv-modal-body">
       <div class="row">
         <mat-form-field appearance="outline" class="grey-matform grey-calendar col-lg-8 col-md-6">
           <input matInput class="pointer date-mat-class" autocomplete="off" [matDatepicker]="picker1"
@@ -21,10 +21,11 @@
       <textarea placeholder="Advanced Directive Notes" class="form-control col-12 mt-3 mt-md-0"
         [(ngModel)]="advDirective.Notes"></textarea>
     </div>
-    <div class="modal-footer">
-      <button class="btn btn-green" (click)="CreateAdvancedDirectives()"
+    <div class="modal-footer dialog-footer">
+      <button class="btn btn-danger" *ngIf="advDirective.AdvancedDirectiveId != ''">Delete</button>
+      <button class="btn btn-green pull-right" (click)="cancel()">Cancel</button>
+      <button class="btn btn-green pull-right" (click)="CreateAdvancedDirectives()"
         [disabled]="disableadvDirective()">Save</button>
-      <button class="btn btn-green" (click)="cancel()">Cancel</button>
     </div>
   </div>
 </div>

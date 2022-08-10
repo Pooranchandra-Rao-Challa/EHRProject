@@ -1,11 +1,11 @@
 <div class="modal-dialog used-diagnoses-modal">
   <div class="modal-content body">
     <div class="modal-header header">
-      <div class="col-md-4 col-6">
-        <h4 class="Helvetica-sans-serif-medium ">Frequently Used Dx</h4>
+      <div class="col-md-4 col-6 row-head">
+        <h4 class="Helvetica-sans-serif-medium mt-3 mt-md-2">Frequently Used Dx</h4>
       </div>
-      <div class="col-md-8 col-6 row-head">
-        <h4 class="Helvetica-sans-serif-medium mx-1">Record Diagnosis Dx</h4>
+      <div class="col-md-8 col-6">
+        <h4 class="Helvetica-sans-serif-medium mx-2 mt-3">Record Diagnosis Dx</h4>
       </div>
     </div>
     <div class="body">
@@ -15,8 +15,8 @@
             (click)="openComponentDialog(addDiagnosesDialogComponent,diagnose,ActionTypes.view)">
             <li>
               <a>
-                <span class="px-3" *ngIf="diagnose?.Note != null && diagnose?.Note !=''">
-                  {{diagnose?.Note}}
+                <span class="px-3" *ngIf="diagnose?.Description != null && diagnose?.Description !=''">
+                  {{diagnose?.Description}}
                 </span>
               </a>
             </li>

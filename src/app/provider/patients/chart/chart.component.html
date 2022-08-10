@@ -93,8 +93,8 @@
                       <span *ngIf="diagnose?.Code != null && diagnose?.Code !=''">
                         - {{diagnose?.Code}}
                       </span>
-                      <span *ngIf="diagnose?.Note != null && diagnose?.Note !=''">
-                        - {{diagnose?.Note}}
+                      <span *ngIf="diagnose?.Description != null && diagnose?.Description !=''">
+                        - {{diagnose?.Description}}
                       </span>
                     </a>
                   </li>
@@ -595,7 +595,7 @@
               data-bs-dismiss="modal" [disabled]="disablePastMedicalHistory()" (click)="CreatePastMedicalHistories()">
               Save Changes
             </button>
-            <button type="button" class="btn btn-lg btn-green col-xl-3 col-lg-3 col-md-3 col-5 mx-3"
+            <button type="button" class="btn btn-lg btn-green col-xl-3 col-lg-3 col-md-3 col-5 mx-2"
               data-bs-dismiss="modal" (click)="resetDialog()">
               Cancel
             </button>
@@ -868,7 +868,7 @@
         <div class="row mt-3">
           <mat-label class="required">Vaccine:</mat-label>
           <mat-form-field class="procedure-form-field" appearance="outline" [ngStyle]="{'width':'100%'}">
-            <input matInput #searchVaccineCode class="form-control" placeholder="Select Procedure Code" type="text"
+            <input matInput #searchVaccineCode class="form-control" placeholder="Search vaccine" type="text"
               id="searchVaccineCode" name=" searchVaccineCode" [matAutocomplete]="procedureCode" />
             <mat-autocomplete [displayWith]="displayWithVaccine" #procedureCode="matAutocomplete"
               (optionSelected)="onSelectedImmunization($event)">
@@ -892,7 +892,7 @@
                 <mat-label class="required">Date Administered:</mat-label>
                 <mat-form-field appearance="outline" class="green-calendar col-12">
                   <input matInput class="pointer" autocomplete="off" [matDatepicker]="dateAdministered"
-                    (click)="dateAdministered.open()" readonly placeholder="Date Performed"
+                    (click)="dateAdministered.open()" readonly placeholder="Date administered"
                     [(ngModel)]="patientImmunization.AdministeredAt" />
                   <mat-datepicker-toggle matSuffix [for]="dateAdministered"></mat-datepicker-toggle>
                   <mat-datepicker #dateAdministered></mat-datepicker>
@@ -936,8 +936,8 @@
             <mat-label class="required">Administered:</mat-label>
             <mat-form-field appearance="outline" class="col-12">
               <mat-select placeholder="Select administered" [(ngModel)]="patientImmunization.AdministeredFacilityId">
-                <mat-option *ngFor="let item of LocationAddress" [value]="item.Location_Id">
-                  {{item.Location_Name}}
+                <mat-option *ngFor="let item of LocationAddress" [value]="item.LocationId">
+                  {{item.LocationName}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -947,7 +947,7 @@
               <div class="row">
                 <mat-label class="required">Manufacturer:</mat-label>
                 <mat-form-field appearance="outline" class="col-12">
-                  <mat-select placeholder="Enter Manufacturer" [(ngModel)]="patientImmunization.Manufacturer">
+                  <mat-select placeholder="Select manufacturer" [(ngModel)]="patientImmunization.Manufacturer">
                     <mat-option *ngFor="let manufacturer of immManufacturers" [value]="manufacturer">
                       {{manufacturer}}
                     </mat-option>
@@ -959,7 +959,7 @@
               <div class="row">
                 <mat-label class="required">Lot:</mat-label>
                 <mat-form-field appearance="outline" class="col-12">
-                  <input matInput placeholder="Enter Lot" [(ngModel)]="patientImmunization.Lot" />
+                  <input matInput placeholder="Enter lot" [(ngModel)]="patientImmunization.Lot" />
                 </mat-form-field>
               </div>
             </div>
@@ -969,7 +969,7 @@
               <div class="row">
                 <mat-label class="required">Quantity:</mat-label>
                 <mat-form-field appearance="outline" class="col-12">
-                  <input matInput placeholder="Enter Quantity" [(ngModel)]="patientImmunization.Quantity" />
+                  <input matInput placeholder="Enter quantity" [(ngModel)]="patientImmunization.Quantity" />
                 </mat-form-field>
               </div>
             </div>
@@ -977,7 +977,7 @@
               <div class="row">
                 <mat-label class="required">Dose:</mat-label>
                 <mat-form-field appearance="outline" class="col-12">
-                  <input matInput placeholder="Enter Dose" [(ngModel)]="patientImmunization.Dose" />
+                  <input matInput placeholder="Enter dose" [(ngModel)]="patientImmunization.Dose" />
                 </mat-form-field>
               </div>
             </div>
@@ -987,7 +987,7 @@
               <div class="row">
                 <mat-label class="required">Units:</mat-label>
                 <mat-form-field appearance="outline" class="col-12">
-                  <mat-select placeholder="Select Unit" [(ngModel)]="patientImmunization.Unit">
+                  <mat-select placeholder="Select unit" [(ngModel)]="patientImmunization.Unit">
                     <mat-option *ngFor="let unit of immUnits" [value]="unit">
                       {{unit}}
                     </mat-option>
@@ -1000,7 +1000,7 @@
                 <mat-label class="required">Expiration Date:</mat-label>
                 <mat-form-field appearance="outline" class="green-calendar col-12">
                   <input matInput class="pointer" autocomplete="off" [matDatepicker]="expirationDate"
-                    (click)="expirationDate.open()" readonly placeholder="Date Performed"
+                    (click)="expirationDate.open()" readonly placeholder="Expiration date"
                     [(ngModel)]="patientImmunization.ExpirationAt" />
                   <mat-datepicker-toggle matSuffix [for]="expirationDate"></mat-datepicker-toggle>
                   <mat-datepicker #expirationDate></mat-datepicker>
@@ -1075,7 +1075,7 @@
                 <mat-label class="required">Date Administered:</mat-label>
                 <mat-form-field appearance="outline" class="green-calendar col-12">
                   <input matInput class="pointer" autocomplete="off" [matDatepicker]="dateAdministeredHistorical"
-                    (click)="dateAdministeredHistorical.open()" readonly placeholder="Date Performed"
+                    (click)="dateAdministeredHistorical.open()" readonly placeholder="Date administered"
                     [(ngModel)]="patientImmunization.AdministeredAt" />
                   <mat-datepicker-toggle matSuffix [for]="dateAdministeredHistorical"></mat-datepicker-toggle>
                   <mat-datepicker #dateAdministeredHistorical></mat-datepicker>
@@ -1099,8 +1099,8 @@
             <mat-label class="required">Administered:</mat-label>
             <mat-form-field appearance="outline" class="col-12">
               <mat-select placeholder="Select administered" [(ngModel)]="patientImmunization.AdministeredFacilityId">
-                <mat-option *ngFor="let item of LocationAddress" [value]="item.Location_Id">
-                  {{item.Location_Name}}
+                <mat-option *ngFor="let item of LocationAddress" [value]="item.LocationId">
+                  {{item.LocationName}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -1148,7 +1148,7 @@
                 <mat-label class="required">Date Refused:</mat-label>
                 <mat-form-field appearance="outline" class="green-calendar col-12">
                   <input matInput class="pointer" autocomplete="off" [matDatepicker]="dateRefused"
-                    (click)="dateRefused.open()" readonly placeholder="Date Performed"
+                    (click)="dateRefused.open()" readonly placeholder="Date refused"
                     [(ngModel)]="patientImmunization.RefusedAt" />
                   <mat-datepicker-toggle matSuffix [for]="dateRefused"></mat-datepicker-toggle>
                   <mat-datepicker #dateRefused></mat-datepicker>
@@ -1165,9 +1165,9 @@
           <div class="row">
             <mat-label class="required">Practice:</mat-label>
             <mat-form-field appearance="outline" class="col-12">
-              <mat-select placeholder="Select Practice" [(ngModel)]="patientImmunization.AdministeredFacilityId">
-                <mat-option *ngFor="let item of LocationAddress" [value]="item.Location_Id">
-                  {{item.Location_Name}}
+              <mat-select placeholder="Select a practice" [(ngModel)]="patientImmunization.AdministeredFacilityId">
+                <mat-option *ngFor="let item of LocationAddress" [value]="item.LocationId">
+                  {{item.LocationName}}
                 </mat-option>
               </mat-select>
             </mat-form-field>

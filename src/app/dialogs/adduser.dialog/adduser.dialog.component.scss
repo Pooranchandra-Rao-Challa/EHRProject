@@ -321,3 +321,7 @@ input::-webkit-input-placeholder {
   outline: 0;
   box-shadow: none;
 }
+.required:after {
+  content: " *" !important;
+  color: red !important;
+}

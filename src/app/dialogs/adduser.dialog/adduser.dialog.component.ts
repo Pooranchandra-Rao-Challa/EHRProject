@@ -182,4 +182,17 @@ export class AddUserDialogComponent implements OnInit {
     });
   }
 
+  disableProviderRegistration() {
+    return !(this.newUser.Title == undefined ? '' : this.newUser.Title != ''
+      && this.newUser.FirstName == undefined ? '' : this.newUser.FirstName != ''
+        && this.newUser.LastName == undefined ? '' : this.newUser.LastName != ''
+          && this.newUser.Degree == undefined ? '' : this.newUser.Degree != ''
+            && this.newUser.Speciality == undefined ? '' : this.newUser.Speciality != ''
+              && this.newUser.NPI == undefined ? '' : this.newUser.NPI != ''
+                && this.newUser.Address == undefined ? '' : this.newUser.Address != ''
+                  && this.newUser.PrimaryPhonePreffix == undefined ? '' : this.newUser.PrimaryPhonePreffix != ''
+                    && this.newUser.PrimaryPhoneSuffix == undefined ? '' : this.newUser.PrimaryPhoneSuffix != ''
+                      && this.newUser.Email == undefined ? '' : this.newUser.Email != '')
+  }
+
 }

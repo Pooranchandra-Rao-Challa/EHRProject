@@ -13,16 +13,16 @@
         <div class="col-lg-5">
           <div class="row  mt-3">
             <div class="col-lg-3 col-md-12 col-12 mb-3">
-              <label class="form-label">Title</label>
-              <select id="LogoType" class="form-select" [(ngModel)]="newUser.Title">
+              <label class="form-label required">Title</label>
+              <select id="LogoType" name="LogoType" class="form-select" [(ngModel)]="newUser.Title">
                 <option *ngFor="let title of titles" [value]="title.Name">
                   {{title.Name}}
                 </option>
               </select>
             </div>
             <div class="col-lg-9 col-md-12 col-12 ">
-              <label class="form-label">First Name</label>
-              <input class="form-control text-design" type="text" placeholder="First Name" id="firstName"
+              <label class="form-label required">First Name</label>
+              <input class="form-control text-design" type="text" placeholder="First Name" id="firstName" name="firstName"
                 [(ngModel)]="newUser.FirstName">
             </div>
           </div>
@@ -30,34 +30,34 @@
 
         <div class="col-lg-2 col-md-12 col-12 mt-3">
           <label class="form-label">Middle Name</label>
-          <input class="form-control text-design" type="text" placeholder="Middle Name" id="MiddleName"
+          <input class="form-control text-design" type="text" placeholder="Middle Name" id="MiddleName" name="MiddleName"
             [(ngModel)]="newUser.MiddleName">
 
         </div>
         <div class="col-lg-5 col-md-12 col-12  mt-3 mb-2">
-          <label class="form-label">Last Name</label>
-          <input class="form-control text-design" type="text" placeholder="Last Name" id="LastName"
+          <label class="form-label required">Last Name</label>
+          <input class="form-control text-design" type="text" placeholder="Last Name" id="LastName" name="LastName"
             [(ngModel)]="newUser.LastName">
         </div>
         <div class="row my-2">
           <div class="col-lg-4 col-md-12 col-12 mb-3">
-            <label class="form-label">Degree</label>
-            <select id="LogoType" class="form-select" [(ngModel)]="newUser.Degree">
+            <label class="form-label required">Degree</label>
+            <select id="degrees" name="degrees" class="form-select" [(ngModel)]="newUser.Degree">
               <option *ngFor="let dg of degrees" [value]="dg.Name">
                 {{dg.Name}}
               </option>
             </select>
           </div>
           <div class="col-lg-4 col-md-12 col-12  mb-3">
-            <label class="form-label">Speciality</label>
-            <select id="LogoType" class="form-select" [(ngModel)]="newUser.Speciality">
+            <label class="form-label required">Speciality</label>
+            <select id="speciality"  name="speciality" class="form-select" [(ngModel)]="newUser.Speciality">
               <option *ngFor="let speciality of specialities" [value]="speciality.Name">
                 {{speciality.Name}}
               </option>
             </select>
           </div>
           <div class="col-lg-4 col-md-12 col-12">
-            <label class="form-label">NPI</label>
+            <label class="form-label required">NPI</label>
             <input class="form-control text-design npi-width" type="text"
               placeholder="National Provider Identifier(NPI)" [(ngModel)]="newUser.NPI">
           </div>
@@ -68,7 +68,7 @@
         <p class="mt-3">Mailing Address</p>
         <div class="col-lg-9 col-md-12 col-sm-12 col-12 mt-3 mb-2">
           <div class="row">
-            <label class="form-label">Street Address</label>
+            <label class="form-label required">Street Address</label>
             <div class="col-md-10">
               <input type="input" class="form-control text-design" placeholder="Street Address" id="StreedAddress"
                 name="StreedAddress" [(ngModel)]="newUser.Address">
@@ -81,23 +81,23 @@
 
         <div class="col-lg-3 col-md-12 col-sm-12 col-12 mt-3">
           <label class="form-label">Suit/API Number</label>
-          <input type="input" class="form-control text-design input-bgColor" id="APINumber"
+          <input type="input" class="form-control text-design input-bgColor" id="APINumber"  name="APINumber"
             placeholder="Suit/API Number" [(ngModel)]="newUser.SuitNumber" readonly>
         </div>
 
         <div class="col-lg-8 col-md-12 col-sm-12 col-12  mt-3">
           <label class="form-label">City</label>
-          <input type="input" class="form-control text-design input-bgColor" id="City" placeholder="City"
+          <input type="input" class="form-control text-design input-bgColor" id="City"  name="City" placeholder="City"
             [(ngModel)]="newUser.City" readonly>
         </div>
         <div class="col-lg-2 col-md-12 col-sm-12 col-12 mt-3">
           <label class="form-label">State</label>
-          <input type="input" class="form-control text-design input-bgColor" id="State" placeholder="State"
+          <input type="input" class="form-control text-design input-bgColor" id="State"  name="State" placeholder="State"
             [(ngModel)]="newUser.State" readonly>
         </div>
         <div class="col-lg-2 col-md-12 col-sm-12 col-12 mt-3">
           <label class="form-label">Zip Code</label>
-          <input type="input" class="form-control text-design input-bgColor" id="ZipCode" placeholder="Zip Code"
+          <input type="input" class="form-control text-design input-bgColor" id="ZipCode" name="ZipCode" placeholder="Zip Code"
             [(ngModel)]="newUser.ZipCode" readonly>
         </div>
         <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
@@ -115,7 +115,7 @@
               <input matInput placeholder="Primary Phone Number" [(ngModel)]="newUser.PrimaryPhone">
             </mat-form-field>
           </div> -->
-          <label class="form-label">Primary Phone</label>
+          <label class="form-label required">Primary Phone</label>
           <div class="input-group ">
             <mat-form-field class="example-full-width" appearance="outline">
               <input type="input" placeholder="(    )" aria-label="Number" matInput [formControl]="myControlPrimary"
@@ -169,14 +169,14 @@
           </div>
         </div>
         <div class="col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
-          <label class="form-label">Primary Email Address</label>
-          <input type="input" class="form-control text-design" id="PrimaryEmail" placeholder="Primary Email Address"
+          <label class="form-label required">Primary Email Address</label>
+          <input type="input" class="form-control text-design" id="PrimaryEmail" name="PrimaryEmail" placeholder="Primary Email Address"
             [(ngModel)]="newUser.Email">
         </div>
 
         <div class="col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
           <label class="form-label">Alternative Email Address</label>
-          <input type="input" class="form-control text-design" id="AlternativeEmail"
+          <input type="input" class="form-control text-design" id="AlternativeEmail" name="AlternativeEmail"
             placeholder="Alternative Email Address" [(ngModel)]="newUser.AltEmail">
         </div>
 
@@ -188,15 +188,15 @@
             <div class="form-check">
 
               <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" groupname="EprescribeFrom" class="custom-control-input" id="None" name="None">
+                <input type="radio" groupname="EprescribeFrom" class="custom-control-input" id="EPrescribeFrom" name="EPrescribeFrom">
                 <label class="custom-control-label mx-2" for="None" [(ngModel)]="newUser.EPrescribeFrom" value="none" >None</label>
 
-                <input type="radio" groupname="EprescribeFrom" class="custom-control-input mx-3 " id="Dosespot" name="Dosespot"
+                <input type="radio" groupname="EprescribeFrom" class="custom-control-input mx-3 " id="EPrescribeFrom" name="EPrescribeFrom"
                 [(ngModel)]="newUser.EPrescribeFrom" value="dosespot">
                 <label class="custom-control-label" for="Dosespot">Dosespot</label>
 
-                <input type="radio" groupname="EprescribeFrom" class="custom-control-input mx-3 radio-btn" id="DrFirst"
-                  name="inlineDefaultRadiosExample" [(ngModel)]="newUser.EPrescribeFrom" value="drfirst">
+                <input type="radio" groupname="EprescribeFrom" class="custom-control-input mx-3 radio-btn" id="EPrescribeFrom"
+                  name="EPrescribeFrom" [(ngModel)]="newUser.EPrescribeFrom" value="drfirst">
                 <label class="custom-control-label radio-btn-label" for="DrFirst">DrFirst</label>
               </div>
             </div>
@@ -213,19 +213,19 @@
             </div>
             <div class="col-lg-3 col-md-12 col-sm-12 col-12 mt-3">
               <label for="ClinicID" class="form-label">Clinic ID</label>
-              <input type="text" class="form-control text-design" id="ClinicID" placeholder="Clinic ID"
+              <input type="text" class="form-control text-design" id="ClinicID" name="ClinicID" placeholder="Clinic ID"
                 [(ngModel)]="newUser.DoseSpotClinicId">
             </div>
 
             <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
               <label for="ClinicKey" class="form-label">Clinic Key</label>
-              <input type="text" class="form-control text-design" id="ClinicKey" placeholder="Clinic Key"
+              <input type="text" class="form-control text-design" id="ClinicKey" name="ClinicKey" placeholder="Clinic Key"
                 [(ngModel)]="newUser.DoseSpotClinicKey">
             </div>
 
             <div class="col-lg-3 col-md-12 col-sm-12 col-12 mt-3">
               <label for="ClinicID" class="form-label">Prescriber ID/ Clinician ID</label>
-              <input type="text" class="form-control text-design" id="PrescriberID"
+              <input type="text" class="form-control text-design" id="PrescriberID" name="PrescriberID"
                 placeholder="Prescriber ID/ Clinician ID" [(ngModel)]="newUser.DoseSpotClinicianId">
             </div>
           </div>
@@ -236,42 +236,42 @@
 
             <div class="col-lg-4 col-md-12 col-sm-12 col-12 mt-3">
               <label for="RcopiaUsername" class="form-label">Rcopia User Name (Practice Username)</label>
-              <input type="text" class="form-control text-design" id="RcopiaUsername" placeholder="Rcopia Username"
+              <input type="text" class="form-control text-design" id="RcopiaUsername" name="RcopiaUsername" placeholder="Rcopia Username"
                 [(ngModel)]="newUser.PracticeUsername">
             </div>
 
             <div class="col-lg-4 col-md-12 col-sm-12 col-12 mt-3">
               <label for="VendorUsername" class="form-label">Vendor Username</label>
-              <input type="text" class="form-control text-design" id="VendorUsername" placeholder="Vendor Username"
+              <input type="text" class="form-control text-design" id="VendorUsername" name="VendorUsername" placeholder="Vendor Username"
                 [(ngModel)]="newUser.VendorUsername">
             </div>
 
             <div class="col-lg-4 col-md-12 col-sm-12 col-12 mt-3">
               <label for="RcopiaUsername" class="form-label">Rcopia User ID (Provider Username)</label>
-              <input type="text" class="form-control text-design" id="RcopiaUsername" placeholder="Rcopia Username"
+              <input type="text" class="form-control text-design" id="ProviderUsername" name="ProviderUsername" placeholder="Rcopia Username"
                 [(ngModel)]="newUser.ProviderUsername">
             </div>
 
             <div class="col-lg-4 col-md-12 col-sm-12 col-12 mt-3">
               <label for="PracticePassword" class="form-label">Rcopia User Name Password (Practice Password)</label>
-              <input type="text" class="form-control text-design" id="PracticePassword" placeholder="Practice Password"
+              <input type="text" class="form-control text-design" id="PracticePassword" name="PracticePassword" placeholder="Practice Password"
                 [(ngModel)]="newUser.PracticePassword">
             </div>
 
             <div class="col-lg-4 col-md-12 col-sm-12 col-12 mt-3">
               <label for="VendorPassword" class="form-label">Vendor Password (Secret Key)</label>
-              <input type="text" class="form-control text-design" id="VendorPassword" placeholder="Vendor Password"
+              <input type="text" class="form-control text-design" id="VendorPassword" name="VendorPassword" placeholder="Vendor Password"
                 [(ngModel)]="newUser.VendorSecretKey">
             </div>
 
             <div class="col-lg-4 col-md-12 col-sm-12 col-12 mt-3">
               <label for="ProviderPassword" class="form-label">Rcopia User ID Passsword (Provider Password)</label>
-              <input type="text" class="form-control text-design" id="ProviderPassword" placeholder="Provider Password"
+              <input type="text" class="form-control text-design" id="ProviderPassword" name="ProviderPassword" placeholder="Provider Password"
                 [(ngModel)]="newUser.ProviderPassword">
             </div>
             <div class="col-lg-4 col-md-12 col-sm-12 col-12 mt-3">
               <label for="RcopiaUsernname" class="form-label">Rcopia User ExternalID (Optional)</label>
-              <input type="text" class="form-control text-design" id="UserExternalId" placeholder="Rcopia User ExternalID"
+              <input type="text" class="form-control text-design" id="UserExternalId" name="UserExternalId" placeholder="Rcopia User ExternalID"
                 [(ngModel)]="newUser.UserExternalId">
             </div>
           </div>
@@ -281,7 +281,7 @@
           </div>
           <div class="p-2 bd-highlight w-50">
             <input class="form-control text-design" [type]="showPassword ? 'text' : 'password'"
-            placeholder="password" id="password"
+            placeholder="password" id="password" name="password"
               *ngIf="!DisplayPwdInput" [(ngModel)]="randomPassword" >
           </div>
           <div class="p-2 bd-highlight" *ngIf="!DisplayPwdInput">
@@ -292,7 +292,7 @@
       </div>
     </div>
     <div class="modal-footer model-cust-footer">
-      <button type="button" class="save-button col-md-4" (click)="createProviderRegistration()">Add New User </button>
+      <button type="button" class="btn save-button col-md-4" [disabled]="disableProviderRegistration()" (click)="createProviderRegistration()">Add New User </button>
       <button type="button" data-bs-dismiss="modal" class="cancel-button col-md-4" data-bs-dismiss="modal"
         aria-label="Close" (click)="close()">Cancel</button>
     </div>

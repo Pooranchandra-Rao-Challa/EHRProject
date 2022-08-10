@@ -199,7 +199,7 @@ div.search-box button:hover {
   border-color: #adadad;
   border-radius:0px;
 }
-.required:after {
-  content: " *" !important;
+.required:before {
+  content: "*" !important;
   color: red !important;
 }

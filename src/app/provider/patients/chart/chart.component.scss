@@ -327,16 +327,16 @@ ew-more {
   background-color: #f5f5f5;
 }
 
-::ng-deep .input-field.mat-form-field-appearance-outline:hover .mat-form-field-outline ,
-::ng-deep .input-field.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline{
-  background-color: #f5f5f5 !important;
-  color: #41b6a6 !important;
-}
-::ng-deep .input-field.mat-form-field-appearance-outline .mat-form-field-outline {
-  background-color: #f5f5f5 !important;
-  color: #dedede !important;
+// ::ng-deep .input-field.mat-form-field-appearance-outline:hover .mat-form-field-outline ,
+// ::ng-deep .input-field.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline{
+//   background-color: #f5f5f5 !important;
+//   color: #41b6a6 !important;
+// }
+// ::ng-deep .input-field.mat-form-field-appearance-outline .mat-form-field-outline {
+//   background-color: #f5f5f5 !important;
+//   color: #dedede !important;
 
-}
+// }
 
 textarea.form-control {
   height: 119px !important;
@@ -357,21 +357,21 @@ textarea.form-control {
   padding: 9px 0px 0px 0px;
 }
 
-::ng-deep .cstm-calendar.green-calendar .mat-datepicker-toggle.mat-datepicker-toggle button.mat-focus-indicator.mat-icon-button {
-  height: 45px !important;
-  border-top-right-radius: 3px;
-  border-bottom-right-radius: 3px;
-  margin-right: -8px;
-}
+// ::ng-deep .cstm-calendar.green-calendar .mat-datepicker-toggle.mat-datepicker-toggle button.mat-focus-indicator.mat-icon-button {
+//   height: 45px !important;
+//   border-top-right-radius: 3px;
+//   border-bottom-right-radius: 3px;
+//   margin-right: -8px;
+// }
 
-::ng-deep .medication-datepicker.grey-calendar .mat-datepicker-toggle.mat-datepicker-toggle button.mat-focus-indicator.mat-icon-button {
-  height: 45px !important;
-  margin-right: -9px;
-}
+// ::ng-deep .medication-datepicker.grey-calendar .mat-datepicker-toggle.mat-datepicker-toggle button.mat-focus-indicator.mat-icon-button {
+//   height: 45px !important;
+//   margin-right: -9px;
+// }
 
-::ng-deep .mat-select, .mat-input-element {
-  vertical-align: -webkit-baseline-middle;
-}
+// ::ng-deep .mat-select, .mat-input-element {
+//   vertical-align: -webkit-baseline-middle;
+// }
 
 .col-sm-4 {
   height: 39px;
@@ -506,14 +506,14 @@ textarea.form-control {
   background-color: rgba(65, 182, 166, 0.49);
 }
 
-::ng-deep .input-bg.mat-form-field-appearance-outline .mat-form-field-outline {
-  background-color: #f5f5f5 !important;
-  color: #dedede !important;
-}
-::ng-deep .input-bg.mat-form-field-appearance-outline:hover .mat-form-field-outline {
-  background-color: #f5f5f5 !important;
-  color: #41b6a6 !important;
-}
+// ::ng-deep .input-bg.mat-form-field-appearance-outline .mat-form-field-outline {
+//   background-color: #f5f5f5 !important;
+//   color: #dedede !important;
+// }
+// ::ng-deep .input-bg.mat-form-field-appearance-outline:hover .mat-form-field-outline {
+//   background-color: #f5f5f5 !important;
+//   color: #41b6a6 !important;
+// }
 .btn-save {
   margin-top: 6px;
   width: 100%;
@@ -575,6 +575,9 @@ textarea.form-control.inputclass:hover{
 }
 
 // add/edit immunization
+#immunization-modal .modal-footer .btn-green {
+  width: 85px !important;
+}
 #immunization-modal .modal-dialog {
   max-width: 750px;
 }
@@ -597,6 +600,12 @@ textarea.form-control.inputclass:hover{
 #immunization-modal.modal .modal-dialog .modal-content .modal-body {
   padding: 0px;
   overflow-x: hidden !important;
+}
+#immunization-modal.modal .modal-footer {
+  padding: 10px 23px !important;
+}
+::ng-deep #immunization-modal .mat-select, .mat-input-element {
+  vertical-align: -webkit-baseline-middle;
 }
 .textarea-margin mat-label {
   padding: 0px;

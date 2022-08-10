@@ -42,7 +42,7 @@
 .tobacco-use .screening-list .mat-table {
   border-width: 0px 2px 2px 2px;
   border-style: solid;
-  border-color: rgb(221, 221, 221);
+  border-color: rgb(221, 221, 221) !important;
 }
 .tobacco-use .screening-list .mat-header-row {
  background-color: #fff;
@@ -50,7 +50,9 @@
  border-bottom: 1px solid rgb(221, 221, 221);
 }
 .tobacco-use .screening-list .mat-header-cell {
-  color: black !important;
+  color: #333 !important;
+  font-weight: 500;
+  padding-top: 8px;
 }
 .tobacco-use .screening-list .mat-row {
   border-top: 1px solid rgb(221, 221, 221) !important;
