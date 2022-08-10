@@ -1,3 +1,4 @@
+import { SimplePaginationDirective } from 'src/app/_directives/simple.pagination.directive';
 import { AfterContentChecked, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { OverlayService } from '../../overlay.service';
 import { ComponentType } from '@angular/cdk/portal';
@@ -26,6 +27,7 @@ import { RecordsChangeService } from 'src/app/_navigations/provider.layout/view.
 export class MessagesComponent implements OnDestroy, AfterContentChecked {
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild("pagination",{ static: true }) pagination: SimplePaginationDirective
   MessageDialogComponent = NewmessageDialogComponent;
 
   public messageDataSource: MessageDatasource;
@@ -66,14 +68,14 @@ export class MessagesComponent implements OnDestroy, AfterContentChecked {
         distinctUntilChanged(),
         tap(() => {
           //this.page = 0;
-          this.currentPage = 0;
+          this.currentPage = 1;
           this.loadMessages();
         })
       )
       .subscribe();
     // reset the paginator after sorting
     this.sort.sortChange.subscribe(() => {
-      this.currentPage = 0
+      this.currentPage = 1
     });
 
     merge(this.sort.sortChange, this.currentPage)
@@ -112,6 +114,7 @@ export class MessagesComponent implements OnDestroy, AfterContentChecked {
     this.messageDataSource.MessageFilter = filter;
     this.currentMessage = null;
     this.currentPage = 1;
+    this.pagination.pageNo = 1;
     this.loadMessages()
   }
   showMessage(message) {

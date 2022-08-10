@@ -17,7 +17,9 @@ import {
   exportAs: "simplePagination"
 })
 export class SimplePaginationDirective implements OnChanges, OnInit {
-  @Input() pageNo = 1;
+  currentPage = 1;
+  @Input() set pageNo(value){ this.currentPage = value; this.setValue(this.currentPage); }
+           get pageNo(){return this.currentPage;}
   @Input() totalPages = 1;
   @Input() pageSize = 5;
   @Input() records = 5;
