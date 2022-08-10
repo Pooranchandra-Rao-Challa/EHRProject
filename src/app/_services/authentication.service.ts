@@ -57,11 +57,16 @@ export class AuthenticationService {
           localStorage.setItem('user', JSON.stringify(resp.Result as User));
           this.updateViewModel();
           this.startRefreshTokenTimer();
-          if (this.isProvider)
-            this.router.navigate(
-              ['provider/smartschedule'],
-              { queryParams: { name: 'Smart Schedule' } }
-            );
+          if (this.isProvider){
+            if(!this.isProviderVerfied){
+              this.logout(ERROR_CODES["EL006"])
+            }
+            else
+              this.router.navigate(
+                ['provider/smartschedule'],
+                { queryParams: { name: 'Smart Schedule' } }
+              );
+          }
           else if (this.isAdmin)
             this.router.navigate(
               ['admin/dashboard'],
@@ -92,11 +97,17 @@ export class AuthenticationService {
             localStorage.setItem('user', JSON.stringify(resp.Result as User));
             this.updateViewModel();
             this.startRefreshTokenTimer();
-            if (this.isProvider)
+            if (this.isProvider){
+              if(!this.isProviderVerfied){
+                this.logout(ERROR_CODES["EL006"])
+              }
+              else
               this.router.navigate(
                 ['/provider/smartschedule'],
                 { queryParams: { name: 'Smart Schedule' } }
               );
+            }
+
           } else {
             this.logout(ERROR_CODES["EL005"])
           }
@@ -180,6 +191,11 @@ export class AuthenticationService {
   get isAdmin(): boolean {
     if (this.userValue == undefined || this.userValue == null) return false;
     return this.userValue.Role.toLowerCase() == "admin"
+  }
+
+  get isProviderVerfied(): boolean{
+    if (this.userValue == undefined || this.userValue == null) return false;
+    return this.userValue.EmailConfirmation;
   }
 
   get isPatient(): boolean {

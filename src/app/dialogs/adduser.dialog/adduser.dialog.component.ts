@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
+import { IdService } from 'src/app/_helpers/_id.service';
 import { Registration } from 'src/app/_models/_account/registration';
 import { Accountservice } from 'src/app/_services/account.service';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
@@ -16,6 +17,7 @@ export class AddUserDialogComponent implements OnInit {
 
   myControlPrimary = new FormControl();
   myControlSecondary = new FormControl();
+
   filteredOptionsPrimary: any;
   filteredOptionsSecondary: any;
   codeListPrimary: string[] = ['501', '502', '401', '402', '601', '603'];
@@ -24,7 +26,9 @@ export class AddUserDialogComponent implements OnInit {
   titles: {}[];
   degrees: {}[];
   specialities: {}[];
-  newUser: Registration = {} as Registration;
+  newUser: Registration = new Registration;
+  randomPassword?: string = null;
+  showPassword?: boolean = false;
   displayDialog: boolean;
   displayAddress = "none";
   displaymsg: any;
@@ -35,16 +39,16 @@ export class AddUserDialogComponent implements OnInit {
   constructor(private ref: EHROverlayRef,
     private utilityService: UtilityService,
     private accountservice: Accountservice,
-    private plaformLocation: PlatformLocation) {
-      this.url = plaformLocation.href.replace(plaformLocation.pathname, '/');
-      //console.log(plaformLocation.href.replace(plaformLocation.pathname,'/'));
-      this.PhonePattern = {
-        0: {
-          pattern: new RegExp('\\d'),
-          symbol: 'X',
-        },
-      };
-    }
+    private plaformLocation: PlatformLocation,
+    private idService: IdService) {
+    this.url = plaformLocation.href.replace(plaformLocation.pathname, '/');
+    this.PhonePattern = {
+      0: {
+        pattern: new RegExp('\\d'),
+        symbol: 'X',
+      },
+    };
+  }
 
   ngOnInit(): void {
     this.filteredOptionsPrimary = this.myControlPrimary.valueChanges.pipe(startWith(''), map(value => this._filterPrimary(value)));
@@ -77,7 +81,11 @@ export class AddUserDialogComponent implements OnInit {
   }
 
   GeneratePassword() {
+    this.randomPassword = this.idService.generateID(12);
     this.DisplayPwdInput = false;
+  }
+  onCheckboxChange(event) {
+    this.showPassword = event.target.checked
   }
   close() {
     this.ref.close(null);
@@ -148,6 +156,7 @@ export class AddUserDialogComponent implements OnInit {
     else {
       this.newUser.MobilePhone = '+1' + this.newUser.MobilePhonePreffix + this.newUser.MobilePhoneSuffix;
     }
+
     this.accountservice.RegisterNewProvider(this.newUser).subscribe(resp => {
       if (resp.IsSuccess) {
         this.alertWithSuccess();

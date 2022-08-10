@@ -18,6 +18,7 @@ export interface User {
   LocationInfo: string;
   BusinessName: string;
   IsSuccess: boolean;
+  EmailConfirmation: boolean;
   IsInTrailPeriod: boolean;
 }
 export class UserLocations {

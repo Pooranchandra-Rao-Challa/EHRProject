@@ -1,11 +1,13 @@
 export class Registration{
-  Title?: string;
+  UserId?: string;
+  ProviderId?: string;
+  Title?: string = 'Dr';
   FirstName?: string;
   MiddleName?: string;
   LastName?: string;
   PracticeName?: string;
-  Degree?: string;
-  Speciality?:string;
+  Degree?: string = 'DDS';
+  Speciality?:string = 'Dentistry';
   NPI?:string;
   PracticeAddress?: string;
   SuiteNumber?: string = 'new suit';
@@ -23,19 +25,21 @@ export class Registration{
   City?: string;
   State?: string;
   ZipCode?: string;
-  PrescribeFrom?: string;
-  DoseSpot?: boolean;
-  ClinicId?: string;
-  ClinicKey?: string;
-  ClinicianId?: string;
+  EPrescribeFrom?: string;
+
+  IsDoseSpotRegistation?: boolean;
+  DoseSpotClinicId?: string;
+  DoseSpotClinicKey?: string;
+  DoseSpotClinicianId?: string;
+
   PracticeUsername?: string;
-  VendorUsername?: string;
-  ProviderUsername?: string;
   PracticePassword?: string;
-  SecretKey?: string;
+  VendorUsername?: string;
+  VendorSecretKey?: string;
+  ProviderUsername?: string;
   ProviderPassword?: string;
   UserExternalId?: string;
-  RandomPassword?: string;
+
   CreatedFromAdmin?: boolean = false;
 }
 
