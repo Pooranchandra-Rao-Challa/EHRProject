@@ -5,12 +5,11 @@ import { PatientProfile } from 'src/app/_models/_patient/patientprofile';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { PatientService } from 'src/app/_services/patient.service';
 import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
-import { PatientClinicalProvider } from 'src/app/_models/_patient/patientclinicalprovider';
 import { fromEvent, Observable, of } from 'rxjs';
 import { MessagesService } from 'src/app/_services/messages.service';
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
-import { Messages } from 'src/app/_models/_provider/messages';
+import { MessageDialogInfo, Messages } from 'src/app/_models/_provider/messages';
 class ToAddress {
   UserId?: string;
   Name?: string;
@@ -33,18 +32,21 @@ export class NewmessageDialogComponent implements OnInit {
   isLoading: boolean = false;
   providerMessage: Messages = new Messages();
   user: User;
-  messageFor?: any;
+  messageDialogData?: MessageDialogInfo;
   editMessageFor?: any
 
-  constructor(private ref: EHROverlayRef, private patientService: PatientService, private authenticationService: AuthenticationService,
-    private smartSchedulerService: SmartSchedulerService, private messageservice: MessagesService,
+  constructor(private ref: EHROverlayRef,
+    private patientService: PatientService,
+    private authenticationService: AuthenticationService,
+    private smartSchedulerService: SmartSchedulerService,
+    private messageservice: MessagesService,
     private alertmsg: AlertMessage,) {
     this.user = authenticationService.userValue;
+    this.messageDialogData = ref.RequestData;
 
-    this.messageFor = ref.RequestData;
-    console.log(ref.RequestData);
-
-    this.Upadateviewmodel(this.messageFor);
+    if (this.messageDialogData.Messages == null)
+      this.messageDialogData.Messages = {}
+    //this.Upadateviewmodel(this.messageFor);
 
   }
 
@@ -62,34 +64,43 @@ export class NewmessageDialogComponent implements OnInit {
       , distinctUntilChanged()
       // subscription for response
     ).subscribe(value => {
-      if (this.messageFor == 'Patient') {
+      if (this.messageDialogData.MessageFor == 'Patient') {
         this._filterPatient(value)
       }
-      else if (this.messageFor == 'Practice') {
+      else if (this.messageDialogData.MessageFor == 'Practice') {
         this._filetrProvider()
       }
-
-
-      else if (this.providerMessage.ForwardreplyMessage == 'Forward') {
+      else if (this.messageDialogData.MessageFor == 'Forward') {
         this.searchpatient.nativeElement.value = ''
         this.diabledPatientSearch = false
         this._filterPatient(value);
 
       }
-      else if (this.providerMessage.ForwardreplyMessage == 'PatientForward') {
+      else if (this.messageDialogData.MessageFor == 'PatientForward') {
         this.searchpatient.nativeElement.value = ''
         this.diabledPatientSearch = false
         this._filetrProvider();
 
       }
-
-      else if (this.providerMessage.ForwardreplyMessage == undefined) {
+      else if (this.messageDialogData.MessageFor == undefined) {
         this.searchpatient.nativeElement.value = ''
       }
 
     });
+  }
 
-
+  get Title(): string {
+    switch (this.messageDialogData.MessageFor) {
+      case "Patient":
+      case "Practice":
+        return "New";
+      case "Reply":
+      case "PatientReply":
+        return "Reply";
+      case "Forward":
+        return "Forward";
+    }
+    return "No"
   }
   cancel() {
     this.ref.close(null);
@@ -125,10 +136,8 @@ export class NewmessageDialogComponent implements OnInit {
     });
   }
   onPatientSelected(selected) {
-
-    this.providerMessage.CurrentPatient = selected.option.value;
-    this.providerMessage.ToId = selected.option.value.UserId;
-
+    this.messageDialogData.Messages.toAddress = selected.option.value;
+    this.messageDialogData.Messages.ToId = selected.option.value.UserId;
   }
   displayWithPatientSearch(value: ToAddress): string {
     if (!value) return "";
@@ -137,22 +146,22 @@ export class NewmessageDialogComponent implements OnInit {
 
   InsertMessage(item: boolean, sent: boolean) {
 
-    if (this.providerMessage.EmailMessageId != null) {
-      this.providerMessage.FromId = this.user.UserId;
-      this.providerMessage.ProviderName = this.user.FirstName;
+    if (this.messageDialogData.Messages.EmailMessageId != null) {
+      this.messageDialogData.Messages.FromId = this.user.UserId;
+      this.messageDialogData.Messages.ProviderName = this.user.FirstName;
       console.log(this.providerMessage);
-      this.providerMessage.Draft = item;
-      this.providerMessage.Body = this.providerMessage.ReplyMessage;
-      this.providerMessage.Sent = sent
+      this.messageDialogData.Messages.Draft = item;
+      this.messageDialogData.Messages.Body = this.providerMessage.ReplyMessage;
+      this.messageDialogData.Messages.Sent = sent
     }
     else {
-      this.providerMessage.FromId = this.user.UserId;
-      this.providerMessage.ProviderName = this.user.FirstName;
+      this.messageDialogData.Messages.FromId = this.user.UserId;
+      this.messageDialogData.Messages.ProviderName = this.user.FirstName;
       console.log(this.providerMessage);
-      this.providerMessage.Draft = item;
-      this.providerMessage.Sent = sent
+      this.messageDialogData.Messages.Draft = item;
+      this.messageDialogData.Messages.Sent = sent
     }
-    this.messageservice.CreateMessage(this.providerMessage).subscribe(resp => {
+    this.messageservice.CreateMessage(this.messageDialogData.Messages).subscribe(resp => {
       if (resp.IsSuccess) {
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2D001"]);
       }
@@ -164,42 +173,40 @@ export class NewmessageDialogComponent implements OnInit {
 
     this.cancel();
   }
-  Upadateviewmodel(data) {
-    debugger;
-    this.providerMessage = new Messages
-    if (data == 'Patient') {
-      this.providerMessage = new Messages;
-    }
-    else if (data == 'Practice') {
-      this.providerMessage = new Messages;
-    }
-    else if (data.ForwardreplyMessage == 'Reply') {
-      this.providerMessage = data;
-    }
-    else if (data.ForwardreplyMessage == 'Forward') {
-      this.providerMessage = data;
-    }
-   
-    else if(data.ForwardreplyMessage == 'PatientReply')
-    {
-      this.providerMessage = data;
-    }
-    else if(data.ForwardreplyMessage) {
-      this.providerMessage = data;
-    }
+  // Upadateviewmodel(data) {
+  //   debugger;
+  //   this.providerMessage = new Messages
+  //   if (data == 'Patient') {
+  //     this.providerMessage = new Messages;
+  //   }
+  //   else if (data == 'Practice') {
+  //     this.providerMessage = new Messages;
+  //   }
+  //   else if (data.ForwardreplyMessage == 'Reply') {
+  //     this.providerMessage = data;
+  //   }
+  //   else if (data.ForwardreplyMessage == 'Forward') {
+  //     this.providerMessage = data;
+  //   }
+  //   else if(data.ForwardreplyMessage == 'PatientReply')
+  //   {
+  //     this.providerMessage = data;
+  //   }
+  //   else if(data.ForwardreplyMessage) {
+  //     this.providerMessage = data;
+  //   }
 
-  }
+  // }
   diabledPatientSearch: boolean = false
   ngAfterViewInit() {
-    if (this.providerMessage.ForwardreplyMessage == 'Reply') {
+    if (this.messageDialogData.MessageFor == 'Reply') {
       this.searchpatient.nativeElement.value = this.providerMessage.PatientName;
       this.diabledPatientSearch = true;
     }
-    else if(this.providerMessage.ForwardreplyMessage == 'PatientReply')
-    {
+    else if (this.messageDialogData.MessageFor == 'PatientReply') {
       this.searchpatient.nativeElement.value = this.providerMessage.ProviderName;
       this.diabledPatientSearch = true;
     }
   }
- 
+
 }

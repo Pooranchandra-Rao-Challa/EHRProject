@@ -172,6 +172,8 @@ export class PatientDialogComponent {
             //'straight' update to database which recied from ref.data
             // Update Patient with invivation_sent_at, straight_invitation to database
           }
+        }else{
+          close();
         }
       }else if (content === this.addressVerificationDialogComponent) {
         console.log(res.data);

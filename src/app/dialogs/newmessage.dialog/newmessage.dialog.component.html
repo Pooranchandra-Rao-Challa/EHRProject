@@ -1,13 +1,7 @@
-<div class="modal-dialog modal-xl">
+<div class="modal-dialog modal-xl" id="form-message">
   <div class="modal-content modal-cust-content">
     <div class="modal-header model-cust-heading">
-      <p class="modal-title modal-cust-title" *ngIf="providerMessage.ForwardreplyMessage == null">New Message</p>
-      <p class="modal-title modal-cust-title" *ngIf="providerMessage.ForwardreplyMessage == 'Reply'">Reply Message</p>
-      <p class="modal-title modal-cust-title" *ngIf="providerMessage.ForwardreplyMessage == 'PatientReply'">Reply Message</p>
-      <p class="modal-title modal-cust-title" *ngIf="providerMessage.ForwardreplyMessage ==  'Forward'">Forward Message
-
-      </p>
-      
+      <p class="modal-title modal-cust-title">{{Title}} Message</p>
       <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close" (click)="cancel()">
         x
       </span>
@@ -19,10 +13,9 @@
             <div class="form-group"></div>
             <div class="input-group mb-3">
               <span class="input-group-addon labelclass form-control"> To :</span>
-
               <input matInput #searchpatient class="form-control inputclass" placeholder="Search To Address" type="text"
                 id="searchpatient" name="searchpatient" [matAutocomplete]="serachpatient"
-                [disabled]="diabledPatientSearch" [readonly]="diabledPatientSearch" />
+                [disabled]="diabledPatientSearch" [readonly]="diabledPatientSearch" [(ngModel)]="this.messageDialogData.Messages.toAddress" />
               <mat-autocomplete [displayWith]="displayWithPatientSearch" #serachpatient="matAutocomplete"
                 (optionSelected)="onPatientSelected($event)">
                 <mat-option *ngIf="isLoading">Loading ...</mat-option>
@@ -31,14 +24,12 @@
                   {{option.Name}}
                 </mat-option>
               </mat-autocomplete>
-
             </div>
-
             <div class="form-group"></div>
             <div class="input-group mb-3">
               <span class="input-group-addon labelclass form-control">From:</span>
-
-              <input matInput placeholder="" disabled class="form-control inputclass" [(ngModel)]="user.FirstName + user.LastName">
+              <input matInput placeholder="" disabled class="form-control inputclass"
+                [(ngModel)]="user.FirstName + user.LastName">
             </div>
           </div>
         </div>
@@ -47,20 +38,21 @@
         <div class="col-lg-12">
           <div class="row">
             <div class="col-md-12">
-              <label for="subject" class="form-label ">Subject</label>
-              <input matInput placeholder="" class="form-control inputclass" [(ngModel)]="providerMessage.Subject">
+              <label for="subject" class="form-label" style="margin-bottom: unset;">Subject</label>
+              <input matInput placeholder="" class="form-control inputclass"
+                [(ngModel)]="messageDialogData.Messages.Subject">
 
             </div>
 
-            <div class="mt-2 col-md-12" *ngIf="providerMessage.EmailMessageId!=null">
+            <div class="mt-2 col-md-12" *ngIf="messageDialogData.Messages.EmailMessageId!=null">
               <label for="message" class="form-label">Reply/Forward Message</label>
               <textarea matInput placeholder="" class="form-control textareaclass inputclass"
-                [(ngModel)]="providerMessage.ReplyMessage"></textarea>
+                [(ngModel)]="messageDialogData.Messages.ReplyMessage"></textarea>
             </div>
             <div class="mt-2 col-md-12">
-              <label for="message" class="form-label">Message</label>
-              <textarea matInput placeholder="" class="form-control textareaclass inputclass col-md-12"
-                [(ngModel)]="providerMessage.Body" [disabled]="diabledPatientSearch"
+              <label for="message" class="form-label" style="margin-bottom: unset;">Message</label>
+              <textarea matInput placeholder="" class="form-control textareaclass inputclass col-md-12 rows-5" rows="15"
+                [(ngModel)]="messageDialogData.Messages.Body" [disabled]="diabledPatientSearch"
                 [readonly]="diabledPatientSearch"></textarea>
             </div>
           </div>
@@ -77,24 +69,27 @@
           </div>
         </div>
       </div>
-      <div class="row mt-5">
-        <div class="col-lg-4 ">
-          <div class="col-lg-4 ">
-            <mat-checkbox class="col-lg-12 col-md-12 example-margin" [(ngModel)]="providerMessage.Urgent">
-              <mat-lable class="custom-control-label">URGENT</mat-lable>
+    </div>
 
+    <div class="modal-footer">
+      <div>
+        <div class="elements">
+          <div class="col-lg-4 ">
+            <mat-checkbox class="col-lg-12 col-md-12 example-margin" [(ngModel)]="messageDialogData.Messages.Urgent">
+              <mat-lable class="custom-control-label">URGENT</mat-lable>
             </mat-checkbox>
           </div>
         </div>
+
+        <div class="elements">
+          <button type="button" class="btn btn-green btn-msgsave col-md-4 mx-2" data-bs-dismiss="modal"
+            (click)="InsertMessage(false,true)">Send</button>
+          <button type="button" class="btn btn-green btn-msgsave col-md-4" (click)="InsertMessage(true,false)">Save As
+            Draft</button>
+          <button type="button" class="btn btn-green btn-msgsave col-md-4" (click)="cancel()">Cancel</button>
+        </div>
       </div>
 
-      <div class="row" style="float: right;">
-        <button type="button" class="btn btn-green btn-msgsave col-md-4 mx-2" data-bs-dismiss="modal"
-          (click)="InsertMessage(false,true)">Send</button>
-        <button type="button" class="btn btn-green btn-msgsave col-md-4" (click)="InsertMessage(true,false)">Save As
-          Draft</button>
-          <button type="button" class="btn btn-green btn-msgsave col-md-4" (click)="cancel()">Cancel</button>
-      </div>
 
 
     </div>

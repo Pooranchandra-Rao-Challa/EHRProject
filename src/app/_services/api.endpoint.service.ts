@@ -755,7 +755,10 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "ClinicOrProviderLocations";
   }
 
-
+  get _messagesUrl()
+  {
+    return this._baseUrl + "Messages";
+  }
 
  get _inboxMessagesUrl()
  {
@@ -781,7 +784,7 @@ export class APIEndPoint extends EndpointBase {
  {
    return this._baseUrl + "CreateMessages";
  }
- 
+
  get _deleteMessageUrl()
  {
    return this._baseUrl + "DeleteMessages";

@@ -1,6 +1,5 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterContentChecked, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { OverlayService } from '../../overlay.service';
-import { TemplateRef } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
 import { NewmessageDialogComponent } from '../../dialogs/newmessage.dialog/newmessage.dialog.component';
 import { } from 'src/app/_models/_patient/messages';
@@ -10,69 +9,54 @@ import { AuthenticationService } from 'src/app/_services/authentication.service'
 import { BehaviorSubject } from 'rxjs-compat';
 import { catchError, debounceTime, distinctUntilChanged, finalize, tap } from 'rxjs/operators';
 import { fromEvent, merge, Observable, of } from 'rxjs';
-import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { ProvidermessagetopracticeDialogComponent } from 'src/app/dialogs/providermessagetopractice.dialog/providermessagetopractice.dialog.component';
 import { ProvidermessagetopatientDialogComponent } from 'src/app/dialogs/providermessagetopatient.dialog/providermessagetopatient.dialog.component';
-import { Messages } from 'src/app/_models/_provider/messages';
+import { MessageDialogInfo, Messages } from 'src/app/_models/_provider/messages';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
+import { RecordsChangeService } from 'src/app/_navigations/provider.layout/view.notification.service';
 @Component({
   selector: 'app-labs.imaging',
   templateUrl: './messages.component.html',
-  styleUrls: ['./messages.component.scss']
+  styleUrls: ['./messages.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MessagesComponent {
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-  displayReq = "none";
+export class MessagesComponent implements OnDestroy, AfterContentChecked {
+
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
   MessageDialogComponent = NewmessageDialogComponent;
-  DialogResponse: Messages = {};
-  basedOnClick: false;
-  // providerInboxMessages: Messages[] = [];
-  messageInbox: Messages = {};
-  // providerSentMessages: Messages[] = [];
-  sentMessages: Messages = {};
-  providerdraftMessages: Messages[] = [];
-  draftMessages: Messages = {};
-  providerUrgentMessage: [] = [];
-  urgentMessages: Messages = {};
 
   public messageDataSource: MessageDatasource;
-  public inboxmessageDataSource: InboxMessageDatasource;
   user?: User;
-  inboxBasedOnCondition: boolean = false;
-  sentMessage: boolean = false;
-  draftMsg: boolean = false;
-  urgentMesg: boolean = false;
-  displayedColumns = ['To', 'Date'];
-  displaycolumnsinbox = ['From', 'Date']
-  @ViewChild('searchMessage', { static: true })
-  searchMessage: ElementRef;
+  @ViewChild('searchMessage', { static: true }) searchMessage: ElementRef;
   ActionTypes = Actions;
-  inbox: boolean = false;
-  sent: boolean = false;
-  draft: boolean = false;
-  urgent: boolean = false;
-  messagaeDD: any[] = [
-    { value: '25', viewValue: '25 Msg' },
-    { value: '50', viewValue: '50 Msg' },
-    { value: '75', viewValue: '75 Msg' },
-    { value: '100', viewValue: '100 Msg' },
+  messagePerPage: any[] = [
+    { value: '25', text: '25 Msg' },
+    { value: '50', text: '50 Msg' },
+    { value: '75', text: '75 Msg' },
+    { value: '100', text: '100 Msg' },
   ];
-  selected = '25';
 
+  currentMessageView: string = 'Inbox';
+  currentMessage: Message = null;
+  pageSize: number = 25;
+  currentPage: number = 1;
+  totalPages: number = 1;
 
-
-  constructor(private overlayService: OverlayService, private messageservice: MessagesService, private authService: AuthenticationService, private alertmsg: AlertMessage) {
+  constructor(
+    private recordsChangeService: RecordsChangeService,
+    private overlayService: OverlayService,
+    private messageService: MessagesService,
+    private authService: AuthenticationService,
+    private changeDedectionRef: ChangeDetectorRef,
+    private alertmsg: AlertMessage) {
     this.user = authService.userValue;
   }
 
   ngOnInit(): void {
-    this.getProviderInboxMessages();
-    // this.getDraftMessages();
-    // this.getUrgentMessages();
-
+    this.initMessage(this.currentMessageView);
   }
   ngAfterViewInit(): void {
     // server-side search
@@ -82,170 +66,128 @@ export class MessagesComponent {
         distinctUntilChanged(),
         tap(() => {
           //this.page = 0;
-          this.paginator.pageIndex = 0;
+          this.currentPage = 0;
           this.loadMessages();
         })
       )
       .subscribe();
     // reset the paginator after sorting
     this.sort.sortChange.subscribe(() => {
-      this.paginator.pageIndex = 0
+      this.currentPage = 0
     });
 
-    merge(this.sort.sortChange, this.paginator.page)
+    merge(this.sort.sortChange, this.currentPage)
       .pipe(
         tap(() => this.loadMessages())
       )
       .subscribe();
-
+    this.recordsChangeService.getData().subscribe(value => {
+      this.initPages(value);
+    })
+  }
+  ngAfterContentChecked(): void {
+    this.changeDedectionRef.detectChanges();
   }
 
-  getProviderInboxMessages() {
+  ngOnDestroy() {
+    this.recordsChangeService = null;
+  }
+  initPages(records: number) {
+    console.log(records);
+
+    this.totalPages = Math.floor(records / this.pageSize) * this.pageSize == records ?
+      records / this.pageSize : Math.floor(records / this.pageSize) + 1;
+  }
+
+  initMessage(filter: string) {
     var reqparams = {
-      'UserId': this.user.UserId
+      UserId: this.user.UserId,
+      MessageFilter: filter
     }
-
-    // this.messageservice.ProviderInboxMessages(reqparams).subscribe(response => {
-
-
-    //   if (response.IsSuccess) {
-    //     this.providerInboxMessages = response.ListResult;
-
-    //   }
-    // })
-    this.inboxmessageDataSource = new InboxMessageDatasource(this.messageservice, reqparams);
-    this.inboxmessageDataSource.loadInboxMessages()
-    this.inbox = true;
-    this.sent = false;
-    this.draft = false;
-    this.urgent = false;
-    this.inboxBasedOnCondition = false;
+    this.messageDataSource = new MessageDatasource(this.recordsChangeService, this.messageService, reqparams);
+    this.loadMessages()
   }
-  loadInboxMessages() {
-    this.inboxmessageDataSource.loadInboxMessages(
-      this.searchMessage.nativeElement.value,
-      this.sort.active,
-      this.sort.direction,
-      this.paginator.pageIndex,
-      this.paginator.pageSize
-    );
-
+  getMessages(filter: string) {
+    this.currentMessageView = filter;
+    this.messageDataSource.MessageFilter = filter;
+    this.currentMessage = null;
+    this.currentPage = 1;
+    this.loadMessages()
   }
-
-
-
-  getProviderInboxMessage(item) {
-
-    this.messageInbox = item
-    this.inboxBasedOnCondition = true;
-  }
-
-  getProviderSentMessage() {
-
-    var reqparams = {
-      'UserId': this.user.UserId
-    }
-    this.sent = true;
-    this.messageDataSource = new MessageDatasource(this.messageservice, reqparams);
-    this.messageDataSource.loadMessages();
-    this.inbox = false;
-    this.sentMessage = false
-    this.draft = false;
-    this.urgent = false;
+  showMessage(message) {
+    this.currentMessage = message;
   }
   loadMessages() {
     this.messageDataSource.loadMessages(
-      this.searchMessage.nativeElement.value,
+      this.searchMessage != null ? this.searchMessage.nativeElement.value : "",
       this.sort.active,
       this.sort.direction,
-      this.paginator.pageIndex,
-      this.paginator.pageSize
+      this.currentPage - 1,
+      this.pageSize
     );
   }
-  getSentMessage(item) {
-    this.sentMessages = item;
-    this.sentMessage = true
+  onPageChange(event) {
+    this.currentPage = event;
+    this.loadMessages();
+  }
+  onPageSizeChange(event){
+    //console.log(event);
+    this.pageSize = event.value.value;
+    this.loadMessages();
+  }
+  get IsInbox(): boolean {
+    return this.currentMessageView == "Inbox"
   }
 
-
-
-  getDraftMessages() {
-    var reqparams = {
-      'UserId': this.user.UserId
-    }
-    this.draft = true;
-    this.messageservice.DraftMessages(reqparams).subscribe(response => {
-      if (response.IsSuccess) {
-        this.providerdraftMessages = response.ListResult;
-
-      }
-    })
-    this.inbox = false;
-    this.sent = false;
-    this.draftMsg = false;
-    this.urgent = false;
-  }
-  getDraftMessage(item) {
-    this.draftMessages = item;
-    this.draftMsg = true;
-  }
-  getUrgentMessages() {
-    var reqparams = {
-      'UserId': this.user.UserId
-    }
-      ;
-    this.messageservice.UrgentMessages(reqparams).subscribe(response => {
-      if (response.IsSuccess) {
-        this.providerUrgentMessage = response.ListResult;
-
-      }
-    })
-    this.inbox = false;
-    this.sent = false;
-    this.urgent = true;
-    this.urgentMesg = false
-    this.draft = false;
+  get IsSent(): boolean {
+    return this.currentMessageView == "Sent"
   }
 
-  getUrgentMessage(item) {
-    this.urgentMessages = item;
-    this.urgentMesg = true;
+  get IsDraft(): boolean {
+    return this.currentMessageView == "Draft"
+  }
+
+  get IsUrgent(): boolean {
+    return this.currentMessageView == "Urgent"
+  }
+
+  get DisplayedColumns(): string[] {
+    return ['From', 'Date']
   }
 
   openComponentDialogmessage(content: any | ComponentType<any> | string, data,
-    action: Actions = this.ActionTypes.add, message) {
+    action: Actions = this.ActionTypes.add, message: string) {
+    let DialogResponse: MessageDialogInfo = {};
 
     if (action == Actions.view && content === this.MessageDialogComponent) {
-      data.ForwardreplyMessage = message;
-      this.DialogResponse = data;
-      this.DialogResponse.ForwardreplyMessage = data.ForwardreplyMessage;
+      DialogResponse.MessageFor = message
+      DialogResponse.Messages = data;
+      DialogResponse.Messages.toAddress ={}
+      DialogResponse.Messages.toAddress.Name = (data as Messages).PatientName
+      DialogResponse.Messages.toAddress.UserId = (data as Messages).ToId
+      DialogResponse.ForwardReplyMessage = message;
 
     }
     else if (action == Actions.add && content === this.MessageDialogComponent) {
-      this.DialogResponse = data;
-
+      DialogResponse.MessageFor = message;
+      DialogResponse.Messages = null;
+      DialogResponse.ForwardReplyMessage = null;
     }
 
-    const ref = this.overlayService.open(content, data);
-
+    const ref = this.overlayService.open(content, DialogResponse);
     ref.afterClosed$.subscribe(res => {
-
     });
 
   }
   DeleteMessages(item) {
     let data = item;
-    console.log(data);
     var req = {
       EmailMessageId: item
     }
-    this.messageservice.DeleteMessages(req).subscribe(resp => {
+    this.messageService.DeleteMessages(req).subscribe(resp => {
       if (resp.IsSuccess) {
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2D002"]);
-        this.getProviderInboxMessages();
-        this.getProviderSentMessage();
-        this.getUrgentMessages();
-        this.getDraftMessages();
+        this.getMessages(this.currentMessageView);
       }
       else {
         this.alertmsg.displayMessageDailog(ERROR_CODES["E2D001"]);
@@ -260,7 +202,9 @@ export class MessageDatasource implements DataSource<Messages>{
   public loading$ = this.loadingSubject.asObservable();
 
 
-  constructor(private messageservice: MessagesService, private queryParams: {}) {
+  constructor(
+    private recordsChangeService: RecordsChangeService,
+    private messageService: MessagesService, private queryParams: {}) {
 
 
   }
@@ -268,17 +212,21 @@ export class MessageDatasource implements DataSource<Messages>{
     return this.MessageSentSubject.asObservable();
   }
   disconnect(collectionViewer: CollectionViewer): void {
-    //collectionViewer.viewChange.
     this.MessageSentSubject.complete();
     this.loadingSubject.complete();
   }
+
   set UserId(id: string) {
     this.queryParams["UserId"] = id;
   }
 
-  loadMessages(filter = '', sortField = 'LastAccessed',
+  set MessageFilter(filter: string) {
+    this.queryParams["MessageFilter"] = filter;
+  }
+
+  loadMessages(filter = '', sortField = 'Created',
     sortDirection = 'desc', pageIndex = 0, pageSize = 10) {
-    ;
+
     this.queryParams["SortField"] = sortField;
     this.queryParams["SortDirection"] = sortDirection;
     this.queryParams["PageIndex"] = pageIndex;
@@ -286,76 +234,26 @@ export class MessageDatasource implements DataSource<Messages>{
     this.queryParams["Filter"] = filter;
     this.loadingSubject.next(true);
 
-    this.messageservice.SentMessages(this.queryParams).pipe(
+    this.messageService.Messages(this.queryParams).pipe(
       catchError(() => of([])),
       finalize(() => this.loadingSubject.next(false))
     )
       .subscribe(resp => {
-
-        this.MessageSentSubject.next(resp.ListResult as Messages[])
+        if(resp.IsSuccess){
+          this.MessageSentSubject.next(resp.ListResult as Messages[])
+          this.recordsChangeService.sendData(this.MessageSentSubject.getValue()[0].MessagesCount+"");
+        }
       });
   }
 
 
   get TotalRecordSize(): number {
-    if (this.MessageSentSubject.getValue() && this.MessageSentSubject.getValue().length > 0)
+    if (this.MessageSentSubject.getValue() && this.MessageSentSubject.getValue().length > 0) {
       return this.MessageSentSubject.getValue()[0].MessagesCount;
+    }
+
     return 0;
   }
 
 }
 
-
-
-
-export class InboxMessageDatasource implements DataSource<Messages>{
-
-  private InboxMessageSentSubject = new BehaviorSubject<Messages[]>([]);
-  private InboxloadingSubject = new BehaviorSubject<boolean>(false);
-  public Inboxloading$ = this.InboxloadingSubject.asObservable();
-
-
-  constructor(private messageservice: MessagesService, private queryParams: {}) {
-
-
-  }
-  connect(collectionViewer: CollectionViewer): Observable<Messages[] | readonly Messages[]> {
-    return this.InboxMessageSentSubject.asObservable();
-  }
-  disconnect(collectionViewer: CollectionViewer): void {
-    //collectionViewer.viewChange.
-    this.InboxMessageSentSubject.complete();
-    this.InboxloadingSubject.complete();
-  }
-  set UserId(id: string) {
-    this.queryParams["UserId"] = id;
-  }
-
-  loadInboxMessages(filter = '', sortField = 'LastAccessed',
-    sortDirection = 'desc', pageIndex = 0, pageSize = 10) {
-    ;
-    this.queryParams["SortField"] = sortField;
-    this.queryParams["SortDirection"] = sortDirection;
-    this.queryParams["PageIndex"] = pageIndex;
-    this.queryParams["PageSize"] = pageSize;
-    this.queryParams["Filter"] = filter;
-    this.InboxloadingSubject.next(true);
-
-    this.messageservice.InboxMessages(this.queryParams).pipe(
-      catchError(() => of([])),
-      finalize(() => this.InboxloadingSubject.next(false))
-    )
-      .subscribe(resp => {
-
-        this.InboxMessageSentSubject.next(resp.ListResult as Messages[])
-      });
-  }
-
-
-  get TotalRecordSize(): number {
-    if (this.InboxMessageSentSubject.getValue() && this.InboxMessageSentSubject.getValue().length > 0)
-      return this.InboxMessageSentSubject.getValue()[0].MessagesCount;
-    return 0;
-  }
-
-}

@@ -1,9 +1,9 @@
 <div class="modal-dialog modal-xl">
   <div class="modal-content modal-cust-content">
     <div class="modal-header model-cust-heading">
-      <p class="modal-title modal-cust-title" *ngIf="providerMessage.ForwardreplyMessage == null">New Message</p>
-      <p class="modal-title modal-cust-title" *ngIf="providerMessage.ForwardreplyMessage == 'Reply'">Reply Message</p>
-      <p class="modal-title modal-cust-title" *ngIf="providerMessage.ForwardreplyMessage ==  'Forward'">Forward Message
+      <p class="modal-title modal-cust-title" *ngIf="providerMessage.ForwardReplyMessage == null">New Message</p>
+      <p class="modal-title modal-cust-title" *ngIf="providerMessage.ForwardReplyMessage == 'Reply'">Reply Message</p>
+      <p class="modal-title modal-cust-title" *ngIf="providerMessage.ForwardReplyMessage ==  'Forward'">Forward Message
       </p>
       <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close" (click)="cancel()">
         x

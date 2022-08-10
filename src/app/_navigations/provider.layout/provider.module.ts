@@ -28,7 +28,8 @@ import { ProviderComponent } from './provider.component';
 import { ProviderRoutingModule } from './provider-routing.module';
 import { SmartScheduleComponent } from '../../provider/smart.schedule/smart.schedule.component';
 import { CalendarComponent } from '../../provider/calendar/calendar.component';
-import { LocationSelectService, ViewChangeService } from './view.notification.service';
+import { LocationSelectService, ViewChangeService,RecordsChangeService } from './view.notification.service';
+
 import { UtilityService } from '../../_services/utiltiy.service';
 import { SmartSchedulerService } from '../../_services/smart.scheduler.service';
 import { SettingsModule } from '../../provider/settings/settings.module';
@@ -248,7 +249,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     NgxMaskModule.forRoot(),
 
   ],
-  providers: [LocationSelectService, ViewChangeService,
+  providers: [LocationSelectService, ViewChangeService,RecordsChangeService,
     UtilityService, SmartSchedulerService, OverlayService, PatientService, BillingService,
     AlertMessage, RxNormAPIService,MessagesService,
     { provide: LOCALE_ID, useValue: 'en-US' },

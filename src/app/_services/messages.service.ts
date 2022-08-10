@@ -6,6 +6,10 @@ import { HttpClient } from "@angular/common/http";
 export class MessagesService extends APIEndPoint {
   constructor(http: HttpClient) { super(http); }
 
+  Messages(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._messagesUrl, reqparams);
+  }
+
   InboxMessages(reqparams: any) {
     return this._ProcessPostRequest<any>(this._inboxMessagesUrl, reqparams);
   }

@@ -6,6 +6,7 @@ import { SearchPipe } from '../_pipes/search-filter.pipe';
 import { QuickAppProMaterialModule } from "./material";
 import { TimeMaskDirective } from 'src/app/_directives/input.time.mask.directive'
 import { MouseOverHintDirective } from 'src/app/_directives/mouseover.hint.directive'
+import { SimplePaginationDirective } from 'src/app/_directives/simple.pagination.directive'
 //import { FullCalendarModule } from '@fullcalendar/angular';
 
 @NgModule({
@@ -22,9 +23,11 @@ import { MouseOverHintDirective } from 'src/app/_directives/mouseover.hint.direc
     FilterPipe,
     SearchPipe,
     TimeMaskDirective,
+    SimplePaginationDirective,
     MouseOverHintDirective
   ],
-  declarations: [GroupByPipe, FilterPipe, SearchPipe, TimeMaskDirective, MouseOverHintDirective],
+  declarations: [GroupByPipe, FilterPipe, SearchPipe, TimeMaskDirective,
+    MouseOverHintDirective,SimplePaginationDirective],
   entryComponents: []
 })
 export class SharedModule { }

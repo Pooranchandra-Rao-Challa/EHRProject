@@ -5,76 +5,117 @@ input::-webkit-input-placeholder {
   font-size: 100%;
   font-family: sans-serif;
 }
-.btn-green {
-  width: 92px;
-  height: 43px;
-  padding: 0;
-  line-height: 2.7;
-  margin-right: 12px;
-}
-.labelclass{
-  max-width: 67px !important;
-  // height: 20px !important;
+
+#form-message.modal-dialog {
+  margin-top: 80px;
 }
 
-.modal-header .modal-title {
+#form-message {
+  .btn-green {
+    width: 92px;
+    height: 43px;
+    padding: 0;
+    line-height: 2.7;
+    margin-right: 12px;
+  }
 
-  font-size: 16px !important;
-}
-.modal-header {
+  .labelclass {
+    max-width: 67px !important;
+    height: 46px;
+    top: -2px;
+  }
 
-  padding: 57px 16px 16px 5px !important;
+  .modal-header .modal-title {
+    font-size: 16px !important;
+  }
+  .modal-header {
+    padding: 15px 16px !important;
+    margin-right: -2px;
+    margin-top:-1px
+  }
+
+  .fa-paperclip {
+    font-size: x-large;
+    margin-right: 3%;
+    color: inherit;
+    margin-top: 10%;
+  }
+
+  .fa-paperclip:hover {
+    color: #fff;
+    background-color: #41b6a6;
+  }
+
+  .fa-search {
+    font-size: x-large;
+    color: #fff;
+    margin-left: 3%;
+    margin-top: -36%;
+  }
+
+  .custom-control-label {
+    color: red;
+    margin-left: 2%;
+    font-weight: 400;
+  }
+
+  .not-allowed {
+    cursor: not-allowed;
+  }
+
+  input[readonly] {
+    opacity: 0.5;
+    cursor: not-allowed;
+
+  }
+  .modal-footer > div{
+    width: 100%;
+    display: inherit;
+
+    .elements:first-child{
+      float: left;
+    }
+    .elements:last-child{
+      float: right;
+      width: 100%;
+      button{
+        float: right;
+      }
+    }
+  }
+  textarea.rows-5 {
+    /* height: calc(font-size * line-height * rows); */
+    height: calc(1em * 1.5 * 5);
+  }
+  .btn-msgsave{
+    width: 120px;
+  }
+
+  .btn-msgsave{
+    margin-left:unset  !important;
+  }
 }
-::ng-deep .example-margin {
+
+
+::ng-deep #form-message .example-margin {
+
   & .mat-checkbox-background,
   .mat-checkbox-frame {
     border-color: red !important;
   }
 }
 
-::ng-deep .mat-checkbox-checked.mat-accent {
+::ng-deep #form-message .mat-checkbox.mat-accent {
   .mat-checkbox-background,
   .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
-    // background-color: rgb(243, 242, 242);
     border-color: red !important;
-
+  }
+  .mat-checkbox-layout span{
+    padding-top: 10px;
+    margin-left: 10px;
   }
   .mat-checkbox-checkmark-path {
     stroke: red !important;
     border-color: red !important;
   }
 }
-.fa-paperclip{
-  font-size: x-large;
-  margin-right: 3%;
-  color: inherit;
-  margin-top: 10%;
-  }
-  .fa-paperclip:hover{
-    color: #fff;
-    background-color: #41b6a6;
-  }
-
-  .fa-search
-  {
-    font-size: x-large;
-    color: #fff;
-    margin-left: 3%;
-    margin-top: -36%;
-  }
-  .custom-control-label{
-    color: red;
-    margin-left: 2%;
-    font-weight: 400;
-  }
-  .not-allowed{
-    cursor: not-allowed;
-  }
-  input[readonly] {
-    opacity: 0.5;
-    cursor: not-allowed;
-
-  }
-  .modal-dialog {
-    margin-top: calc(-24px + -24px) !important;
-  }

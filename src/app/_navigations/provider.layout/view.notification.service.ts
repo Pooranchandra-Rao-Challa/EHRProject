@@ -36,3 +36,22 @@ export class ViewChangeService {
   }
 }
 
+
+
+@Injectable()
+export class RecordsChangeService {
+  private subject = new Subject<any>();
+
+  sendData(view: string) {
+    this.subject.next(view);
+  }
+
+  clearData() {
+    this.subject.next();
+  }
+
+  getData(): Observable<any> {
+    return this.subject.asObservable();
+  }
+}
+

@@ -261,22 +261,15 @@ a.dropdown-item:hover {
   border-left: 1px solid #41b6a6;
 }
 
-::ng-deep .leftblockalignments {
+.leftblockalignments {
   border-top: 1px solid #41b6a6;
   padding-left: 0px !important;
-  margin-right: -5px !important;
 }
 
 .panel-title {
   color: #fff;
   font-size: 16px;
   float: right;
-}
-
-.panel-titles {
-  color: #fff;
-  font-size: 16px;
-  float: left;
 }
 
 .drop-input {
@@ -334,7 +327,7 @@ mat-cell:first-of-type {
   color:#fff;
 }
 mat-header-cell:last-of-type, mat-footer-cell:last-of-type {
-  
+
   color:#fff;
 }
 mat-row, mat-footer-row {

@@ -63,13 +63,13 @@ export class ProvidermessagetopatientDialogComponent implements OnInit {
       }
 
 
-      else if (this.providerMessage.ForwardreplyMessage == 'Forward') {
+      else if (this.providerMessage.ForwardReplyMessage == 'Forward') {
         this.searchpatient.nativeElement.value = ''
         this.diabledPatientSearch = false
         this._filterPatient(value);
 
       }
-      else if (this.providerMessage.ForwardreplyMessage == undefined) {
+      else if (this.providerMessage.ForwardReplyMessage == undefined) {
         this.searchpatient.nativeElement.value = ''
       }
 
@@ -112,7 +112,7 @@ export class ProvidermessagetopatientDialogComponent implements OnInit {
   }
   onPatientSelected(selected) {
 
-    this.providerMessage.CurrentPatient = selected.option.value;
+    this.providerMessage.toAddress = selected.option.value;
     this.providerMessage.ToId = selected.option.value.UserId;
 
   }
@@ -172,7 +172,7 @@ export class ProvidermessagetopatientDialogComponent implements OnInit {
   }
   diabledPatientSearch: boolean = false
   ngAfterViewInit() {
-    if (this.providerMessage.ForwardreplyMessage == 'Reply') {
+    if (this.providerMessage.ForwardReplyMessage == 'Reply') {
       this.searchpatient.nativeElement.value = this.providerMessage.PatientName;
       this.diabledPatientSearch = true;
     }
