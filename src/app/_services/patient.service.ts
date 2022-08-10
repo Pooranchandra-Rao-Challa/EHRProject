@@ -288,6 +288,15 @@ export class PatientService extends APIEndPoint {
   
   CancelPatientAppoinment(reqparams: any)
   {
-    return this._ProcessPostRequest<any>(this._cancelPatientAppoinmentUrl,reqparams)
+    return this._ProcessPostRequest<any>(this._cancelPatientAppoinmentUrl,reqparams);
+  }
+  MyProfileSecurityQuestion(reqparms: any)
+  {
+    return this._ProcessPostRequest<any>(this._patientMyProfileSecurityQuestionUrl,reqparms);
+  }
+
+  UpdatePatientMyProfileSecurityQuestion(reqParams: any)
+  {
+    return this._ProcessPostRequest<any>(this._updatePatientMyProfileSecurityQuestionUrl,reqParams);
   }
 }

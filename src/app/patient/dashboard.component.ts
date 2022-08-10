@@ -2,7 +2,7 @@ import { NewmessageDialogComponent } from './../dialogs/newmessage.dialog/newmes
 import { PatientappointmentDialogComponent } from 'src/app/dialogs/patientappointment.dialog/patientappointment.dialog.component';
 import { Component, TemplateRef } from '@angular/core';
 import { OverlayService } from '../overlay.service';
-import { User, UserLocations, ViewModel } from '../_models';
+import { Actions, User, UserLocations, ViewModel } from '../_models';
 import { AuthenticationService } from '../_services/authentication.service';
 import { ComponentType } from '@angular/cdk/portal';
 import { PatientService } from '../_services/patient.service';
@@ -18,7 +18,7 @@ declare var $: any;
 export class DashboardComponent {
   isHealth:boolean=false;
   isAccees:boolean=false;
-
+  ActionTypes = Actions;
   displayNew = "none";
   user: User;
   locationsInfo: UserLocations[];
@@ -82,18 +82,26 @@ export class DashboardComponent {
       }
     });
   }
-  openComponentDialogmessage(content: TemplateRef<any> | ComponentType<any> | string) {
-    const ref = this.overlayService.open(content, null);
+  openComponentDialogmessage(content: any | ComponentType<any> | string, data,
+    action: Actions = this.ActionTypes.add, message) {
+
+    if (action == Actions.view && content === this.MessageDialogComponent) {
+      data.ForwardreplyMessage = message;
+      this.DialogResponse = data;
+      this.DialogResponse.ForwardreplyMessage = data.ForwardreplyMessage;
+
+    }
+    else if (action == Actions.add && content === this.MessageDialogComponent) {
+      this.DialogResponse = data;
+
+    }
+
+    const ref = this.overlayService.open(content, data);
 
     ref.afterClosed$.subscribe(res => {
-      if (typeof content === 'string') {
-      //} else if (content === this.yesNoComponent) {
-        //this.yesNoComponentResponse = res.data;
-      }
-      else if (content === this.MessageDialogComponent) {
-        this.DialogResponse = res.data;
-      }
+
     });
+
   }
   getPatientUpcomingAppointments()
 {

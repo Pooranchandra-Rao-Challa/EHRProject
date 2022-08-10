@@ -1,6 +1,6 @@
 import { PatientNavbarComponent } from './../_navigations/patient.navbar/patient.navbar.component';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
-import { areaCodes, PatientProfile } from './../_models/_patient/patientprofile';
+import { areaCodes, PatientProfile, PatientProfileSecurityQuestion } from './../_models/_patient/patientprofile';
 import { PatientService } from 'src/app/_services/patient.service';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
@@ -11,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AlertMessage, ERROR_CODES } from '../_alerts/alertMessage';
 import { MedicalCode } from '../_models/codes';
 import { UtilityService } from '../_services/utiltiy.service';
+import { Accountservice } from '../_services/account.service';
 
 
 
@@ -22,7 +23,9 @@ import { UtilityService } from '../_services/utiltiy.service';
 export class MyprofileComponent implements OnInit {
   user: User;
   myControl = new FormControl();
-  PatientProfile: PatientProfile;
+  PatientProfile: PatientProfile = {};
+  patientProfileSecurityQuestion:PatientProfileSecurityQuestion ={}
+  updateSecurityQuestion:PatientProfileSecurityQuestion = {}
   patietnprofile: any
   // options: string[] = ['501', '502', '401', '402', '601', '603'];
   filteredOptions: Observable<string[]>;
@@ -39,10 +42,19 @@ export class MyprofileComponent implements OnInit {
   @ViewChild('searchWorkPhone', { static: true }) searchWorkPhone: ElementRef;
   @ViewChild('searchPhone', { static: true }) searchPhone: ElementRef;
 
-  questions: string[] = ['What is your favorite sports team?', 'Which historical figure would you most like to meet?', 'In what city were you born?', 'What was the make and model of your first car?',
-    'What is your favorite movie?', 'What is the name of your favorite person in history?', 'Who is your favorite actor, musician, or artist?', 'What was your favorite sport in high school?',
-    'What is the name of your favorite book?', 'What was the last name of your first grade teacher?', 'Where were you when you had your first kiss?', 'Where were you when you had your first kiss?',
-    'What is the last name of the teacher who gave you your first falling grade?'];
+  questions: any[] = [{value:'What is your favorite sports team?',viewvalue:'What is your favorite sports team?'},
+                      {value:'Which historical figure would you most like to meet?',viewvalue:'Which historical figure would you most like to meet?'},
+                      {value:'In what city were you born?',viewvalue:'In what city were you born?'}, 
+                      {value:'What was the make and model of your first car?',viewvalue:'What was the make and model of your first car?'}, 
+                      {value:'What is your favorite movie?',viewvalue:'What is your favorite movie?'},
+                      {value:'What is the name of your favorite person in history?',viewvalue:'What is the name of your favorite person in history?'}, 
+                      {value:'Who is your favorite actor, musician, or artist?',viewvalue:'Who is your favorite actor, musician, or artist?'}, 
+                      {value:'What was your favorite sport in high school?',viewvalue:'What was your favorite sport in high school?'}, 
+                      {value:'What is the name of your favorite book?',viewvalue:'What is the name of your favorite book?'},
+                      {value:'What was the last name of your first grade teacher?',viewvalue:'What was the last name of your first grade teacher?'}, 
+                      {value:'Where were you when you had your first kiss?',viewvalue:'Where were you when you had your first kiss?'}, 
+                      {value:'Where were you when you had your first kiss?',viewvalue:'Where were you when you had your first kiss?'}, 
+                      {value:'What is the last name of the teacher who gave you your first falling grade?',viewvalue:'What is the last name of the teacher who gave you your first falling grade?'} ];
 
 
 relationship: any = [
@@ -65,9 +77,16 @@ GenderData:any=[
   { Id: '1', value: 'Male' },
   { Id: '2', value: 'Female' },
   { Id: '3', value: 'other' },
+
 ]
+addressVerfied:boolean = false;
+manuallybtn:boolean = false;
+disableaddressverification:boolean =false;
+emergencyAdressVerfied:boolean = false;
+emergencyManuallybtn:boolean = false;
+emergencydisableaddressverification:boolean = false;
   constructor(private patientService: PatientService,private authenticationService: AuthenticationService,private alertmsg: AlertMessage,
-    private PatientNavbar:PatientNavbarComponent,
+    private PatientNavbar:PatientNavbarComponent, private accountservice: Accountservice,
     private utilityService: UtilityService,) {
     this.user = authenticationService.userValue;
     this.searchCellPhoneData=[];
@@ -223,6 +242,122 @@ events(){
     var searchData = this.SourceData.filter(x => (((x.areaCode).toLowerCase().indexOf(searchText.toLowerCase().trim()) !== -1)));
     return searchData
   }
+getpatientsecurityQuestions()
+{
+  var req={
+    "PatientId": this.user.PatientId,
+  }
+  debugger;
+  this.patientService.MyProfileSecurityQuestion(req).subscribe(
+    resp=>
+    {
+    if(resp.IsSuccess)
+    {
+      this.patientProfileSecurityQuestion = resp.ListResult[0]
+      console.log( this.patientProfileSecurityQuestion);
+    }
+  }
+  )
+this.updateSecurityQuestion = new PatientProfileSecurityQuestion();
+}
+ChangeSecurityQuestion(item)
+{
+  this.updateSecurityQuestion.SecurityID = this.patientProfileSecurityQuestion.SecurityID;
+  this.updateSecurityQuestion.PateientId = this.patientProfileSecurityQuestion.PateientId;
+  this.patientService.UpdatePatientMyProfileSecurityQuestion(this.updateSecurityQuestion).subscribe(
+    
+      resp=>{
+        if(resp.IsSuccess)
+        {
+           this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP009"])
+        }
+        else
+        {
+          this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP008"]) 
+        }
+      }
+    
+  )
+}
 
+AddressVerification() {
+  this.accountservice.VerifyAddress(this.PatientProfile.Street).subscribe(resp => {
+    if (resp.IsSuccess) {
+      this.PatientProfile.city = resp.Result.components.city_name
+      this.PatientProfile.state = resp.Result.components.state_abbreviation
+      this.PatientProfile.StreetAddress = resp.Result.delivery_line_1
+      this.PatientProfile.zip = resp.Result.components.zipcode
+      this.PatientProfile.Street = "";
+      this.addressVerfied = true;
+      this.alertmsg.displayErrorDailog(ERROR_CODES["M2CP0010"])
+    }
+    else {
+      this.manuallybtn = true;
+      this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP009"])
+    }
+  });
+}
+
+enableManualEntry() {
+  this.manuallybtn = true;
+  this.clearAddress();
+}
+
+clearAddress() {
+  this.PatientProfile.Street = "";
+  this.PatientProfile.city = ""
+  this.PatientProfile.state = ""
+  this.PatientProfile.StreetAddress = ""
+  this.PatientProfile.zip = ""
+}
+enterAddressManually(item) {
+  this.disableaddressverification = true;
+}
+
+EmergencyclearAddress() {
+  this.PatientProfile.EmergencyStreet = "";
+  this.PatientProfile.EmergencyCity = ""
+  this.PatientProfile.EmergencyState = ""
+  this.PatientProfile.EmergencyStreetAddress = ""
+  this.PatientProfile.EmergencyZip = ""
+}
+
+
+
+emergencyAddressVerfied() {
+  this.accountservice.VerifyAddress(this.PatientProfile.EmergencyStreet).subscribe(resp => {
+    if (resp.IsSuccess) {
+      this.PatientProfile.EmergencyCity = resp.Result.components.city_name
+      this.PatientProfile.EmergencyState = resp.Result.components.state_abbreviation
+      this.PatientProfile.EmergencyStreetAddress = resp.Result.delivery_line_1
+      this.PatientProfile.EmergencyZip = resp.Result.components.zipcode
+      this.PatientProfile.EmergencyStreet = "";
+      this.emergencyAdressVerfied = true;
+      this.alertmsg.displayErrorDailog(ERROR_CODES["M2CP0010"])
+    }
+    else {
+      this.emergencyManuallybtn = true;
+      this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP009"])
+    }
+  });
+}
+emergencyEnableManualEntry() {
+  this.EmergencyclearAddress();
+  this.emergencyManuallybtn = true;
+  
+}
+emergencyAddressEnterManually(item) {
+  this.emergencydisableaddressverification = true;
+}
+
+enableSave() {
+  return !(
+     this.updateSecurityQuestion.Answer != null && this.updateSecurityQuestion.Answer != ""
+    && this.updateSecurityQuestion.Question != null && this.updateSecurityQuestion.Question != ""
+    && this.updateSecurityQuestion.ConfiramationActive !=null 
+   )
+
+
+}
 }
 

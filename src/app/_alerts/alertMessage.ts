@@ -225,6 +225,9 @@ export const ERROR_CODES: { [key: string]: string } = {
   'M2CP006': 'Next of kin updated successfully',
   'M2CP007': 'Immunization registry updated successfully',
   'M2CP008': 'Patient updated successfully',
+  //Security Question
+  'M2CP009' : 'Security Question is Updated Sucessfully ',
+  'M2CP0010': 'Address Verified',
 
   // Error for Patient profile directives
   'E2CP001': 'Personal Information Updation error',
@@ -234,6 +237,8 @@ export const ERROR_CODES: { [key: string]: string } = {
   'E2CP005': 'Demographics Updation error',
   'E2CP006': 'Next of kin Updation error',
   'E2CP007': 'Immunization Updation error',
+  'E2CP008': 'Security Question Updation Error',
+  'E2CP009': 'Address Verfication Failed',
   //Message for Partner signup
   'M3PS001': 'Application Submitted!',
 
