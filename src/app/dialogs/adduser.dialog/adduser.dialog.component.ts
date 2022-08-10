@@ -26,7 +26,7 @@ export class AddUserDialogComponent implements OnInit {
   titles: {}[];
   degrees: {}[];
   specialities: {}[];
-  newUser: Registration = {} as Registration;
+  newUser: Registration = new Registration;
   randomPassword?: string = null;
   showPassword?: boolean = false;
   displayDialog: boolean;
@@ -157,9 +157,6 @@ export class AddUserDialogComponent implements OnInit {
       this.newUser.MobilePhone = '+1' + this.newUser.MobilePhonePreffix + this.newUser.MobilePhoneSuffix;
     }
 
-    console.log(this.newUser);
-
-    return
     this.accountservice.RegisterNewProvider(this.newUser).subscribe(resp => {
       if (resp.IsSuccess) {
         this.alertWithSuccess();
@@ -183,6 +180,19 @@ export class AddUserDialogComponent implements OnInit {
       confirmButtonText: 'Close',
       width: '700',
     });
+  }
+
+  disableProviderRegistration() {
+    return !(this.newUser.Title == undefined ? '' : this.newUser.Title != ''
+      && this.newUser.FirstName == undefined ? '' : this.newUser.FirstName != ''
+        && this.newUser.LastName == undefined ? '' : this.newUser.LastName != ''
+          && this.newUser.Degree == undefined ? '' : this.newUser.Degree != ''
+            && this.newUser.Speciality == undefined ? '' : this.newUser.Speciality != ''
+              && this.newUser.NPI == undefined ? '' : this.newUser.NPI != ''
+                && this.newUser.Address == undefined ? '' : this.newUser.Address != ''
+                  && this.newUser.PrimaryPhonePreffix == undefined ? '' : this.newUser.PrimaryPhonePreffix != ''
+                    && this.newUser.PrimaryPhoneSuffix == undefined ? '' : this.newUser.PrimaryPhoneSuffix != ''
+                      && this.newUser.Email == undefined ? '' : this.newUser.Email != '')
   }
 
 }

@@ -135,7 +135,7 @@
                         </div>
                       </td>
                       <td class="text-center"><input class="form-check-input Status" type="checkbox"
-                          [checked]="item.Status" id="checkbox"></td>
+                          [checked]="item.Status" id="checkbox" (click)='inactiveUser($event, item)'></td>
                       <td class="td-width text-success">{{item.EmailVerifyStatus}}</td>
                       <td class="td-col-width"><button type="button" class="table-col-button"
                           (click)="openComponentDialog(UserDialogComponent)">View</button></td>

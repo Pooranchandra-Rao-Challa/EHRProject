@@ -302,13 +302,14 @@ export class ChartComponent implements OnInit, AfterViewInit {
   UpdateView(data) {
     if (data == null) return;
     if (data.UpdatedModal == PatientChart.Diagnoses) {
-      data.DiagnosesList = data.DiagnosesList == undefined ? [] : data.DiagnosesList.length;
-      if (this.chartInfo.Diagnoses.length < data.DiagnosesList.length) {
-        this.chartInfo.Diagnoses = data.DiagnosesList;
-      }
-      else {
-        this.DiagnosesByPatientId();
-      }
+      this.DiagnosesByPatientId();
+      // data.DiagnosesList = data.DiagnosesList == undefined ? [] : data.DiagnosesList.length;
+      // if (this.chartInfo.Diagnoses.length < data.DiagnosesList.length) {
+      //   this.chartInfo.Diagnoses = data.DiagnosesList;
+      // }
+      // else {
+      //   this.DiagnosesByPatientId();
+      // }
     }
     else if (data.UpdatedModal == PatientChart.AdvancedDirectives) {
       this.AdvancedDirectivesByPatientId();

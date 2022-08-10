@@ -65,17 +65,20 @@ export class FrequentlyUsedDiagnosesDialogComponent implements OnInit {
     }
     const ref = this.overlayService.open(content, reqdata);
     ref.afterClosed$.subscribe(res => {
-      this.UpdateView(res.data);
+      // this.UpdateView(res.data);
+      if(res.data != null){
+        this.ref.close(res.data);
+      }
     });
   }
 
-  UpdateView(data) {
-    if (data == null) return;
-    this.updatedModelNo = data.UpdatedModal;
-    if (data.UpdatedModal == PatientChart.Diagnoses) {
-      this.DiagnosesByPatientId();
-    }
-  }
+  // UpdateView(data) {
+  //   if (data == null) return;
+  //   this.updatedModelNo = data.UpdatedModal;
+  //   if (data.UpdatedModal == PatientChart.Diagnoses) {
+  //     this.DiagnosesByPatientId();
+  //   }
+  // }
 
   optionChangedForDiagnosis(value: MedicalCode) {
     this.frequentlyUsedDiagnoses.Code = value.Code;
@@ -85,10 +88,10 @@ export class FrequentlyUsedDiagnosesDialogComponent implements OnInit {
   }
 
   // Get diagnoses info
-  DiagnosesByPatientId() {
-    this.patientService.DiagnosesByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
-      if (resp.IsSuccess) this.frequentlyUsedDiagnoses = resp.ListResult;
-    });
-  }
+  // DiagnosesByPatientId() {
+  //   this.patientService.DiagnosesByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
+  //     if (resp.IsSuccess) this.frequentlyUsedDiagnoses = resp.ListResult;
+  //   });
+  // }
 
 }

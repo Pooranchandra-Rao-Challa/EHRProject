@@ -11,6 +11,9 @@
   max-height: calc(90vh - 180px);
   overflow-y: auto;
 }
+.modal-allergie.modal-dialog .modal-footer {
+  padding: 10px 23px !important;
+}
 .title-bold {
   margin: 12px 0;
   color: #4A4A4A;

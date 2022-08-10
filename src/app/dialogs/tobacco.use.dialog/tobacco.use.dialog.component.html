@@ -15,7 +15,7 @@
           <div class="panel-body">
             <div class="row">
               <div class="col-lg-2 col-md-6 col-12 tobacoo-padding">
-                <mat-label>Screening Performed:*</mat-label>
+                <mat-label class="required">Screening Performed:</mat-label>
               </div>
               <mat-form-field appearance="outline" class="col-lg-4 col-md-6 col-12 hover">
                 <mat-select placeholder="Select Screening Performed" disableOptionCentering
@@ -26,15 +26,15 @@
                 </mat-select>
               </mat-form-field>
               <div class="col-lg-2 col-md-6 col-12 tobacoo-padding">
-                <mat-label>Date Performed:*</mat-label>
+                <mat-label class="required">Date Performed:</mat-label>
               </div>
               <mat-form-field appearance="outline"
                 class="grey-matform grey-calendar medication-datepicker col-lg-4 col-md-6 col-12">
-                <input matInput class="pointer" autocomplete="off" [matDatepicker]="dateperformed"
-                  (click)="dateperformed.open()" readonly placeholder="Date Performed"
+                <input matInput class="pointer" autocomplete="off" [matDatepicker]="screeningDate"
+                  (click)="screeningDate.open()" readonly placeholder="Date Performed"
                   [(ngModel)]="patientTobaccoUse.ScreeningDate" />
-                <mat-datepicker-toggle matSuffix [for]="dateperformed"></mat-datepicker-toggle>
-                <mat-datepicker #dateperformed></mat-datepicker>
+                <mat-datepicker-toggle matSuffix [for]="screeningDate"></mat-datepicker-toggle>
+                <mat-datepicker #screeningDate></mat-datepicker>
               </mat-form-field>
             </div>
             <div class="row">
@@ -49,7 +49,7 @@
                 </mat-select>
               </mat-form-field>
               <div class="col-lg-2 col-md-2 col-12 tobacoo-padding">
-                <mat-label>Status:*</mat-label>
+                <mat-label class="required">Status:</mat-label>
               </div>
               <div class="col-lg-4 col-md-4 col-12 tobacoo-padding">
                 <mat-radio-group [(ngModel)]="patientTobaccoUse.Status">
@@ -116,7 +116,7 @@
           <div class="panel-body">
             <div class="row">
               <div class="col-lg-2 col-md-6 col-12 tobacoo-padding">
-                <mat-label>Intervention Performed:*</mat-label>
+                <mat-label  class="required">Intervention Performed:</mat-label>
               </div>
               <mat-form-field appearance="outline" class="col-lg-4 col-md-6 col-12 hover">
                 <mat-select placeholder="Select Intervention Performed" disableOptionCentering
@@ -127,15 +127,15 @@
                 </mat-select>
               </mat-form-field>
               <div class="col-lg-2 col-md-6 col-12 tobacoo-padding">
-                <mat-label>Date Performed:*</mat-label>
+                <mat-label  class="required">Date Performed:</mat-label>
               </div>
               <mat-form-field appearance="outline"
                 class="grey-matform grey-calendar medication-datepicker col-lg-4 col-md-6 col-12">
-                <input matInput class="pointer" autocomplete="off" [matDatepicker]="screeningDate"
-                  (click)="screeningDate.open()" readonly placeholder="Screening Date"
+                <input matInput class="pointer" autocomplete="off" [matDatepicker]="interventionDate"
+                  (click)="interventionDate.open()" readonly placeholder="Screening Date"
                   [(ngModel)]="patientTobaccoUse.CI_Date" />
-                <mat-datepicker-toggle matSuffix [for]="screeningDate"></mat-datepicker-toggle>
-                <mat-datepicker #screeningDate></mat-datepicker>
+                <mat-datepicker-toggle matSuffix [for]="interventionDate"></mat-datepicker-toggle>
+                <mat-datepicker #interventionDate></mat-datepicker>
               </mat-form-field>
             </div>
             <div class="row">

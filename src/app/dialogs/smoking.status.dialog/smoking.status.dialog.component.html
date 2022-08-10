@@ -52,7 +52,7 @@
       </div>
     </div>
     <div class="modal-footer dialog-footer">
-      <button class="btn btn-danger" *ngIf="smokingStatus.EffectiveFrom != undefined">Delete</button>
+      <button class="btn btn-danger" *ngIf="smokingStatus.SmokingStatusId != undefined">Delete</button>
       <button class="btn btn-green pull-right" (click)="cancel()">Cancel</button>
       <button class="btn btn-green pull-right" (click)="CreateSmokingStatus()"
         [disabled]="disablesmokingStatus()">Save</button>

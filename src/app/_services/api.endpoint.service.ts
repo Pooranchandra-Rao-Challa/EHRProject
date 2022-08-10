@@ -803,7 +803,15 @@ export class APIEndPoint extends EndpointBase {
   get _calendarBlockoutsUrl() {
     return this._baseUrl + "CalendarBlockouts";
   }
+ get _patientMyProfileSecurityQuestionUrl()
+ {
+   return this._baseUrl + "PatientMyProfileSecurityQuestion";
+ }
 
+ get _updatePatientMyProfileSecurityQuestionUrl()
+ {
+   return this._baseUrl + "UpdatePatientMyProfileSecurityQuestion"
+ }
 
   constructor(public http: HttpClient) {
     super();

@@ -32,8 +32,9 @@
 }
 
 .modal-cust-title {
-  color: black;
-  font-size: 16px;
+  color: #333333;
+  font-size: 15px;
+  font-family: sans-serif;
   line-height: 10px !important;
   padding: 5px !important;
 }
@@ -47,7 +48,7 @@
   background-color: #fff !important;
   border: 1px solid #ccc !important;
   padding: 7px 12px !important;
-  border-radius: 0px !important;
+  border-radius: 5px !important;
   color: black !important;
 }
 
@@ -67,6 +68,7 @@
   border: 1px solid #3598dc;
   color: #3598dc;
   padding: 3px 13px;
+  border-radius: 5px !important;
 }
 
 .save-button:hover {
@@ -86,6 +88,7 @@
 
 .form-control.text-design {
   border: 1px solid #ced4da;
+  border-radius: 5px !important;
   font-family: "Open Sans", sans-serif;
   height: 35px;
 }
@@ -114,6 +117,7 @@ input::-webkit-input-placeholder {
   height: 38px;
   border-radius: 1%;
   color: #c2cad8;
+  background-color: #fff !important;
 }
 
 .mat-autocomplete-panel {
@@ -265,6 +269,7 @@ input::-webkit-input-placeholder {
 
 .reg-button {
   height: 35px;
+  width: 100% !important;
 }
 
 .tel-code h1 {
@@ -310,4 +315,13 @@ input::-webkit-input-placeholder {
   margin-left: -50px;
   text-decoration: underline;
   text-transform: lowercase;
+}
+.form-select:focus {
+  border-color: #c2cad8;
+  outline: 0;
+  box-shadow: none;
+}
+.required:after {
+  content: " *" !important;
+  color: red !important;
 }

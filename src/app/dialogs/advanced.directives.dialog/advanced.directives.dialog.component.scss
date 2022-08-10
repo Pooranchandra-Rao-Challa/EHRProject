@@ -33,3 +33,10 @@ textarea.form-control{
 textarea::placeholder{
   color: #74757e;
 }
+.dialog-footer.modal-footer{
+  display: block;
+  padding: 10px 15px !important;
+}
+.adv-modal-body.modal-body {
+  padding: 20px 18px !important;
+}

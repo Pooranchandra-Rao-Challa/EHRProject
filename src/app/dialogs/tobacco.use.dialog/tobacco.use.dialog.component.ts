@@ -10,6 +10,7 @@ import { AddeditinterventionComponent } from '../addeditintervention/addeditinte
 import { ComponentType } from '@angular/cdk/portal';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-tobacco.use.dialog',
@@ -40,7 +41,8 @@ export class TobaccoUseDialogComponent implements OnInit {
     private authService: AuthenticationService,
     public overlayService: OverlayService,
     private ref: EHROverlayRef,
-    private alertmsg: AlertMessage) {
+    private alertmsg: AlertMessage,
+    public datepipe: DatePipe) {
     this.updateLocalModel(ref.RequestData);
   }
 
@@ -137,6 +139,8 @@ export class TobaccoUseDialogComponent implements OnInit {
   CreateTobaccoUse() {
     let isAdd = this.patientTobaccoUse.TobaccoUseId == undefined;
     this.patientTobaccoUse.PatientId = this.currentPatient.PatientId;
+    this.patientTobaccoUse.ScreeningDate = new Date(this.datepipe.transform(this.patientTobaccoUse.ScreeningDate, "yyyy-MM-dd", "en-US"));
+    this.patientTobaccoUse.CI_Date = new Date(this.datepipe.transform(this.patientTobaccoUse.CI_Date, "yyyy-MM-dd", "en-US"));
     this.patientService.CreateTobaccoUse(this.patientTobaccoUse).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.ref.close({

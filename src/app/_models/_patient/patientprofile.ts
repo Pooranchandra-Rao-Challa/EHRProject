@@ -39,6 +39,7 @@ export interface PatientProfile {
   UserId?: string;
   username?: string;
   email?: string;
+  Street?:string
   StreetAddress?: string;
   city?: string;
   state?: string;
@@ -50,6 +51,7 @@ export interface PatientProfile {
   RelationshipToPatient?: string;
   Phone?: string;
   EmergencyEmail?: string;
+  EmergencyStreet?:string;
   EmergencyStreetAddress?: string;
   EmergencyCity?: string;
   EmergencyState?: string;
@@ -74,4 +76,14 @@ export interface areaCodes {
   areaId?: string;
   areaCode?: string;
 
+}
+
+export class PatientProfileSecurityQuestion{
+  SecurityID?: string;
+  Question?: string; 
+  Answer?: string;
+  PateientId?:string;
+  CreatedAt?: Date;
+  UpdatedAt?: Date;
+  ConfiramationActive?:boolean
 }
