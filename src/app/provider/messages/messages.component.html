@@ -106,6 +106,7 @@
               <button (click)="pagination.last()" [disabled]="pagination.isLast">
                 >>
               </button>
+              <span> of {{totalRecords}}</span>
             </div>
             <div class="message-table-container mat-elevation-z8">
             <mat-table matSort matSortActive="Created" matSortDirection="desc" matSortDisableClear
@@ -113,8 +114,9 @@
               <ng-container matColumnDef="From">
                 <mat-header-cell *matHeaderCellDef>{{IsInbox || IsUrgent ? "From" : "To"}}</mat-header-cell>
                 <mat-cell *matCellDef="let message" (click)="showMessage(message)">
-                  <p>{{message.PatientName}} </p>
-                  <p>{{message.Subject}}</p>
+                  <div class="text-new-line"><div>{{message.PatientName}} </div>
+                    <div [class.text-truncate]="message.Subject.length > 50">{{message.Subject}}</div>
+                  </div>
                 </mat-cell>
               </ng-container>
               <ng-container matColumnDef="Date">
@@ -127,7 +129,7 @@
             </div>
           </div>
           <div class="rightblockalignments mat-elevation-z8">
-            <div *ngIf="currentMessage != null" style="padding-top:30px">
+            <div *ngIf="currentMessage != null" style="padding-top:10px">
               <div class="message-bounds">
                 <div class="row email-address">
                   <div class="col-md-6">
@@ -151,8 +153,10 @@
                   </div>
                 </div>
                 <div class="row email-address">
-                  <div class="col-md-12">
-                    Subject: {{currentMessage.Subject}}
+                  <div class="col-md-12" style="display: inline-flex;">
+                    Subject:<p  (mouseenter)="isExpandToggle()" (mouseleave)="isExpandToggle()"
+                      style="margin-left: 10px;margin-bottom:0px" [class.overflow]="isExpand"
+                      [class.show-overflow]="!isExpand">{{currentMessage.Subject}}</p>
                   </div>
                 </div>
                 <div style="border-bottom: 1px solid #41b6a6 ;"></div>
