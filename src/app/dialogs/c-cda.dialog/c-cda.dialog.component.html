@@ -2,7 +2,7 @@
     <div class="modal-content modal-cust-content">
       <div class="modal-header model-cust-heading">
         <p class="modal-title modal-cust-title">Create C-CDA</p>
-        <div class="dropdown actiondropdown">
+        <div class="dropdown actiondropdown" >
             <button class="btn btn-orange font-family dropdown-toggle" type="button" id="dropdownMenuButton2"
               data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
               Actions
@@ -30,7 +30,7 @@
                         <label class="Helvetica-sans-serif-medium">Document Type:
                             </label>
                         <mat-radio-group>
-                            <mat-radio-button class="radio-btn-label label-design my-1" value="Clinical Summary"[checked]='true' (click)="encouterdetails()">
+                            <mat-radio-button class="radio-btn-label label-design my-1" value="Clinical Summary" (click)="encouterdetails()"[checked]="true">
                                 Clinical Summary</mat-radio-button>
                             <mat-radio-button class="radio-btn-label label-design my-1" value="Transition of Care" (click)="transitiondetails()"
                             >
@@ -110,8 +110,8 @@
                     <div class="row mt-3">
                       <div class="col-md-4"></div>
  <div class="col-md-8">
-                      <button type="button" class="btn btn-green  col-md-4 mx-2">Preview XML</button>
-                  <button type="button" class="btn btn-green mx-2 col-md-4" >Preview HTML
+                      <button type="button" class="btn btn-green btn-msgsave col-md-4 mx-2">Preview XML</button>
+                  <button type="button" class="btn btn-green btn-msgsave col-md-4" >Preview Html
                   </button>
                   </div>
                     </div>

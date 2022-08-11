@@ -1,5 +1,11 @@
 @import"../../../assets/common.scss";
 
+
+input::-webkit-input-placeholder {
+  color: #74757e !important;
+  font-size: 100%;
+  font-family: sans-serif;
+}
 #form-ccda{
 #form-ccda.modal-dialog {
   margin-top: 80px;
