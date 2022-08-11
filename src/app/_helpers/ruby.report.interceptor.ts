@@ -24,9 +24,7 @@ export class RubyReportInterceptor implements HttpInterceptor {
         //rubyrails/authenticate/
         if (url.indexOf("rubyrails/authenticate/") > -1) {
           const user = this.authenticationService.loginWithRubyCredentials(rubySessionId());
-          /*console.log(user);
-          if (user)
-            return ok(JSON.stringify(user))*/
+
         }
         return next.handle(request);
       }))

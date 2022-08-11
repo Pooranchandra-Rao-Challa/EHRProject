@@ -326,8 +326,6 @@ export class DashboardComponent implements OnInit {
   switchUser(provider: ProviderList)
   {
     let switchKey: string  = provider.UserId +":" +provider.ProviderId;
-    console.log(switchKey);
-
     this.adminservice.SwitchUserKey(provider).subscribe(resp =>{
       if(resp.IsSuccess){
         let encKey = resp.Result;

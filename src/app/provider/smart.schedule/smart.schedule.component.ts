@@ -109,7 +109,7 @@ export class SmartScheduleComponent implements OnInit {
   // }
 
   onPatientSelection(appoinment: ScheduledAppointment) {
-    //console.log(appoinment);
+
 
     this.smartSchedulerService.FilteredPatientsOfProvider({
       "PatientId": appoinment.PatientId,
@@ -364,7 +364,6 @@ export class SmartScheduleComponent implements OnInit {
   // onPatientSelected(value: any): string {
   //   if (!value) return "";
   //   let patient = value.option.value;
-  //   console.log(patient);
   //   this.patients =[];
   //   if(patient.NumberOfAppointments == 0){
   //     this.openComponentDialog( this.appointmentDialogComponent ,patient,this.PatinetActions(patient));

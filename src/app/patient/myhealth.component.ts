@@ -33,8 +33,6 @@ export class MyhealthComponent implements OnInit {
    CarePlan:ProblemDX[];
 
   constructor(private authenticationService: AuthenticationService,private patientservise: PatientService,) {
-    //debugger
-
     this.user = authenticationService.userValue
     this.locationsInfo = JSON.parse(this.user.LocationInfo)
    }
@@ -121,7 +119,6 @@ export class MyhealthComponent implements OnInit {
     }
     this.patientservise.AllergiesByPatientId(reqparam).subscribe(resp => {
         this.AllAlergies = resp.ListResult;
-        console.log(this.AllAlergies);
     });
   }
     getLabTest() {

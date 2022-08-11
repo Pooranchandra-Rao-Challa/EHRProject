@@ -74,7 +74,6 @@ export class AppointmentComponent {
     }
     this.patientservice.PatientPastAppointments(req).subscribe(res => {
       this.PatientPastAppointmentsList = res.ListResult;
-      console.log(this.PatientPastAppointmentsList);
       this.PatientPastAppointmentsList.map((e) => {
 
         if (e.ApptStatus == 'Cancelled') {
@@ -92,7 +91,6 @@ export class AppointmentComponent {
     }
     this.patientservice.PatientUpcomingAppointments(req).subscribe(res => {
       this.PatientUpcomingAppointmentsList = res.ListResult;
-      console.log(this.PatientUpcomingAppointmentsList);
       this.PatientUpcomingAppointmentsList.map((e) => {
 
         if (e.ApptStatus == 'Not Confirmed') {
@@ -148,7 +146,6 @@ export class AppointmentComponent {
   }
 
   CancelAppoinments(AppointmentId) {
-    //debugger;
     var req = {
       'ClinicId': this.user.ClinicId,
       'AppointmentId': AppointmentId

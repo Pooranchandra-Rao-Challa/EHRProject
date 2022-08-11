@@ -36,7 +36,6 @@ export class ProviderNavbarComponent implements OnInit {
 
 
     this.user = authenticationService.userValue;
-    console.log(this.user);
     this.locationsInfo = JSON.parse(this.user.LocationInfo);
     this.user.CurrentLocation = this.locationsInfo[0].LocationId;
     this.viewModel = authenticationService.viewModel;

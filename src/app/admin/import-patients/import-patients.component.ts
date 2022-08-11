@@ -35,7 +35,6 @@ export class ImportPatientsComponent {
     this.adminservice.GetProviderList().subscribe(resp => {
       if (resp.IsSuccess) {
         this.ProviderList = resp.ListResult;
-        // console.log(this.ProviderList);
         this.SourceOfPaymentTypologyCodesFilter=this.ProviderList.slice();
         this.secondarySptcFilter=this.ProviderList.slice();
       }

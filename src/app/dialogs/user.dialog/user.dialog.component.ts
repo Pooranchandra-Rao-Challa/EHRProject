@@ -197,7 +197,7 @@ export class UserDialogComponent implements OnInit {
     const ref = this.overlayService.open(content, dialogData,true);
     ref.afterClosed$.subscribe(res => {
       if (content === this.locationDialogComponent) {
-        console.log(res.data);
+
         if(res.data != null && (res.data.saved || res.data.deleted))
           this.getUserDataforEdit();
       }

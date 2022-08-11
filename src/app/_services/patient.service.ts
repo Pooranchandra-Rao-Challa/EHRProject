@@ -170,8 +170,6 @@ export class PatientService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._updatePatientProfileUrl, reqparams);
   }
   CreateEncounter(reqparams: EncounterInfo) {
-    console.log(reqparams);
-
     return this._ProcessPostRequest<any>(this._createEncounterUrl, reqparams);
   }
 
@@ -285,7 +283,7 @@ export class PatientService extends APIEndPoint {
   {
     return this._ProcessPostRequest<any>(this._requestPatientAppointmentUrl,reqparams);
   }
-  
+
   CancelPatientAppoinment(reqparams: any)
   {
     return this._ProcessPostRequest<any>(this._cancelPatientAppoinmentUrl,reqparams);

@@ -142,7 +142,6 @@ export class LabsImagingComponent implements OnInit {
   }
 
   loadLabandImageList() {
-    //debugger;
     this.labImageDatasource.loadLabImage(
       this.SearchTest.nativeElement.value,
       this.sort.active,
@@ -198,8 +197,6 @@ export class LabsImagingComponent implements OnInit {
       this.labandimaging = dialogData;
       this.labandimaging.View = this.viewmodel.LabandImageView;
       reqdata = this.labandimaging;
-      console.log(reqdata);
-
     }
     // else if (action == Actions.add && content === this.orderResultDialogComponent && this.viewmodel.LabandImageView == "Lab") {
     //   this.labandimaging = new LabProcedureWithOrder();
@@ -244,7 +241,6 @@ export class LabImageDatasource implements DataSource<LabProcedureWithOrder>{
     return this.labImageSubject.asObservable();
   }
   disconnect(collectionViewer: CollectionViewer): void {
-    //collectionViewer.viewChange.
     this.labImageSubject.complete();
     this.loadingSubject.complete();
   }

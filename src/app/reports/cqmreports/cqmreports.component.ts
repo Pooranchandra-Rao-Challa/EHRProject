@@ -390,7 +390,6 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
   //     var req = {
   //       "LocationId": locationid,
   //     }
-  //     debugger;
   //     this.accountservice.getProviderList(req).subscribe((data) => {
   //       if (data.IsSuccess) {
   //         this.providerlist = data.ListResult;
@@ -470,11 +469,9 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
       "MM/dd/yyyy",
       "en-US"
     );
-    console.log(this.patientlistmeasure);
     this.isViewResults = true;
     this.showTopData = true;
     this.GetDashBoardReport(queuedReportData.ReportId);
-    //debugger
     // this.getPatientList(queuedReportData.ReportId);
     this.detailsTab("dashBoard");
   }

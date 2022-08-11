@@ -156,7 +156,6 @@ export class InsuranceComponent implements OnInit {
     this.InsuranceCompanyPlanList();
   }
   secondaryplus(item) {
-    //debugger;
     this.plusvalue = item;
     this.rowClicked = -1;
     this.data = true;
@@ -259,7 +258,6 @@ export class InsuranceComponent implements OnInit {
   }
 
   getInsuranceDetails(item) {
-    //debugger;
     if (item == 'primary') {
       var reqparam = {
         "InsuranceId": this.primlist.InsuranceCompanyPlanID
@@ -415,7 +413,6 @@ export class InsuranceComponent implements OnInit {
   }
 
   secondaryAddressverfied() {
-    //debugger;
     this.accountservice.VerifyAddress(this.secList.Street).subscribe(resp => {
       if (resp.IsSuccess) {
         this.secList.City = resp.Result.components.city_name
