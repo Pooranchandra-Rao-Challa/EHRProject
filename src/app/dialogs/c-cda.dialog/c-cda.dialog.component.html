@@ -8,12 +8,12 @@
           Actions
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-          <li><a>Download</a></li>
-          <li><a>Send to Patient Portal</a></li>
+          <li class="dropdown-item drop-menu"><a>Download</a></li>
+          <li class="dropdown-item drop-menu"><a>Send to Patient Portal</a></li>
           <li>
             <hr class="dropdown-divider">
           </li>
-          <li><a>Send to Direct</a></li>
+          <li class="dropdown-item drop-menu"><a>Send to Direct</a></li>
 
         </ul>
       </div>
@@ -31,90 +31,92 @@
               </label>
               <mat-radio-group>
                 <mat-radio-button class="radio-btn-label label-design my-1" value="Clinical Summary"
-                  (click)="encouterdetails()" [checked]="true">
+                  (click)="enableEncouterDetails()" [checked]="true">
                   Clinical Summary</mat-radio-button>
                 <mat-radio-button class="radio-btn-label label-design my-1" value="Transition of Care"
-                  (click)="transitiondetails()">
+                  (click)="enableTransitionDetails()">
 
                   Transition of Care </mat-radio-button>
               </mat-radio-group>
             </div>
           </div>
         </div>
-      </div>
+        <div class="col-lg-12 col-md-12 col-12 mb-4">
 
-      <div class="row">
+          <div class="row">
+            <div class=" col-md-4 leftblockalignments left-block">
+              <div class="row">
+                <p> SECTIONS TO INCLUDE  <a class="select-all" (click)="toggleSelectAll(true)">Select all</a> | <a class="deselect-all" (click)="toggleSelectAll(false)">Select none</a> </p>
+              </div>
+              <div class="row ccda-chk-section-group">
+                <mat-checkbox #patientInformationToggle (change)="TogglePatients($event)" checked="true">
+                  <span>Patient Information</span>
+                </mat-checkbox>
+              </div>
+              <div class="row pt-2 ccda-item-group">
+                <mat-checkbox #patientInformationCheckboxes *ngFor="let patient of patientInformation; let i = index;"
+                  checked="true" value="patient" (change)="verifyPatentToggler()">
+                  <span>{{patient.value}}</span>
+                </mat-checkbox>
+              </div>
+              <div *ngIf="enconterDetails">
+                <div class="row ccda-chk-section-group">
+                  <mat-checkbox #encounterDetailsToggle (change)="ToggleEncounter($event)" checked="true">
+                    <span class="ccda-mat-checkbox-label" >Encounter Details</span>
+                  </mat-checkbox>
+                </div>
+                <div class="row pt-2 ccda-item-group">
+                  <mat-checkbox #encounterDetailsCheckboxes *ngFor="let encounter of encounterDetails; let i = index;"
+                    checked="true" value="encounter" (change)="verifyEncounterToggler()">
+                    <span>{{encounter.value}}</span>
+                  </mat-checkbox>
+                </div>
+              </div>
+              <div *ngIf="!enconterDetails">
+                <div class="row ccda-chk-section-group">
+                  <mat-checkbox #transitionofCareDatailsToggle (change)="ToggleTransititionDetails($event)" checked="true">
+                    <span class="ccda-mat-checkbox-label">Transition Information</span>
+                  </mat-checkbox>
+                </div>
+                <div class="row pt-2 ccda-item-group">
+                  <mat-checkbox #transitionofCareDatailsCheckboxes
+                    *ngFor="let transitionofCareDatails of TransitionofCareDatails; let i = index;" checked="true"
+                    value="transitionofCareDatails" (change)="verifyTransitionofCareDatailsToggler()">
+                    <span>{{transitionofCareDatails.value}}</span>
+                  </mat-checkbox>
+                </div>
 
-        <p> SECTIONS TO INCLUDESelect all |Select none</p>
+              </div>
+              <div class="row ccda-chk-section-group">
+                <mat-checkbox #patientChartInformationToggle (change)="TogglePatientChartInfo($event)" checked="true">
+                  <span class="ccda-mat-checkbox-label">Patient Chart Information</span>
+                </mat-checkbox>
+              </div>
+              <div class="row pt-2 ccda-item-group">
+                <mat-checkbox #patientChartInformationCheckboxes (change)="verifyPatientChartInfoToggler()"
+                  *ngFor="let patientinfo of patientChartInformation; let i = index;" checked="true" value="patientinfo">
+                  <span>{{patientinfo.value}}</span>
+                </mat-checkbox>
+              </div>
 
-      </div>
-      <div class="row">
-        <div class=" col-md-4 leftblockalignments left-block">
-          <div class="row ccda-checkbox-1 pt-2">
-            <mat-checkbox #patientInformationToggle (change)="TogglePatients($event)" checked="true">
-              <span class="ccda-mat-checkbox-label">Patient Information</span>
-            </mat-checkbox>
-          </div>
-          <div class="row pt-2">
-            <mat-checkbox #patientInformationCheckboxes *ngFor="let patient of patientInformation; let i = index;"
-              checked="true" value="patient">
-              <span>{{patient.value}}</span>
-            </mat-checkbox>
-          </div>
-          <div *ngIf="enconterdetails">
-            <div class="row ccda-checkbox-1 pt-2">
-              <mat-checkbox #encounterDetailsToggle (change)="ToggleEncounter($event)" checked="true">
-                <span class="ccda-mat-checkbox-label">Encounter Details</span>
-              </mat-checkbox>
+
+
             </div>
-            <div class="row pt-2">
-              <mat-checkbox #encounterDetailsCheckboxes *ngFor="let encounter of encounterDetails; let i = index;"
-                checked="true" value="encounter">
-                <span>{{encounter.value}}</span>
-              </mat-checkbox>
+            <div class=" col-md-8 rightblockalignments right-block">
+              <div class="row mt-3">
+                <div class="col-md-4"></div>
+                <div class="col-md-8">
+                  <button type="button" class="btn btn-green btn-msgsave col-md-4 mx-2">Preview XML</button>
+                  <button type="button" class="btn btn-green btn-msgsave col-md-4">Preview Html
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
-          <div *ngIf="!enconterdetails">
-            <div class="row ccda-checkbox-1 pt-2">
-              <mat-checkbox #TransitionofCareDatailsToggle (change)="ToggleTransititionDetails($event)" checked="true">
-                <span class="ccda-mat-checkbox-label">Transition Information</span>
-              </mat-checkbox>
-            </div>
-            <div class="row pt-2">
-              <mat-checkbox #patientInformationCheckboxes
-                *ngFor="let transitionofCareDatails of TransitionofCareDatails; let i = index;" checked="true"
-                value="transitionofCareDatails">
-                <span>{{transitionofCareDatails.value}}</span>
-              </mat-checkbox>
-            </div>
-
-          </div>
-          <div class="row ccda-checkbox-1 pt-2">
-            <mat-checkbox #patientChartInformationToggle (change)="TogglePatientChartInfo($event)" checked="true">
-              <span class="ccda-mat-checkbox-label">Patient Chart Information</span>
-            </mat-checkbox>
-          </div>
-          <div class="row pt-2">
-            <mat-checkbox #patientInformationCheckboxes
-              *ngFor="let patientinfo of patientChartInformation; let i = index;" checked="true" value="patientinfo">
-              <span>{{patientinfo.value}}</span>
-            </mat-checkbox>
-          </div>
-
-
-
         </div>
-        <div class=" col-md-8 rightblockalignments right-block">
-          <div class="row mt-3">
-            <div class="col-md-4"></div>
-            <div class="col-md-8">
-              <button type="button" class="btn btn-green btn-msgsave col-md-4 mx-2">Preview XML</button>
-              <button type="button" class="btn btn-green btn-msgsave col-md-4">Preview Html
-              </button>
-            </div>
-          </div>
-        </div>
       </div>
+
+
 
 
 

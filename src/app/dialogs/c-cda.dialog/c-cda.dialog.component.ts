@@ -13,117 +13,120 @@ export class CCdaDialogComponent implements OnInit {
   @ViewChild('encounterDetailsToggle') private encounterDetailsToggle: MatCheckbox;
   @ViewChildren('encounterDetailsCheckboxes') private encounterDetailsCheckboxes: QueryList<any>;
   @ViewChild('patientChartInformationToggle') private patientChartInformationToggle: MatCheckbox;
-  @ViewChildren('PatientChartInformationCheckboxes') private PatientChartInformationCheckboxes: QueryList<any>;
-  @ViewChild('TransitionofCareDatailsToggle') private TransitionofCareDatailsToggle: MatCheckbox;
-  @ViewChildren('TransitionofCareDatailsCheckboxes') private TransitionofCareDatailsCheckboxes: QueryList<any>;
-
+  @ViewChildren('patientChartInformationCheckboxes') private patientChartInformationCheckboxes: QueryList<any>;
+  @ViewChild('transitionofCareDatailsToggle') private transitionofCareDatailsToggle: MatCheckbox;
+  @ViewChildren('transitionofCareDatailsCheckboxes') private transitionofCareDatailsCheckboxes: QueryList<any>;
+  enconterDetails: boolean = true;
   toggleButtonVisibility: boolean = false;
   constructor(private ref: EHROverlayRef,) { }
 
   ngOnInit(): void {
   }
 
-  
+
   cancel() {
     this.ref.close(null);
   }
   TogglePatients(event) {
-    // this.removeAllEvents();
-    if (event.source.checked) {
-    
-      this.patientInformationCheckboxes.toArray().forEach(source => {
-        source.checked = true;
-      })
-    } else {
-      this.patientInformationCheckboxes.toArray().forEach(source => {
-        source.checked = false;
-      })
-    }
+    this._doCheckActions(this.patientInformationCheckboxes, event.source.checked)
   }
   ToggleEncounter(event) {
-    // this.removeAllEvents();
-    if (event.source.checked) {
-    
-      this.encounterDetailsCheckboxes.toArray().forEach(source => {
-        source.checked = true;
-      })
-    } else {
-      this.encounterDetailsCheckboxes.toArray().forEach(source => {
-        source.checked = false;
-      })
-    }
+    this._doCheckActions(this.encounterDetailsCheckboxes, event.source.checked)
   }
   TogglePatientChartInfo(event) {
-    // this.removeAllEvents();
-    if (event.source.checked) {
-    
-      this.PatientChartInformationCheckboxes.toArray().forEach(source => {
-        source.checked = true;
-      })
-    } else {
-      this.PatientChartInformationCheckboxes.toArray().forEach(source => {
-        source.checked = false;
-      })
+    this._doCheckActions(this.patientChartInformationCheckboxes, event.source.checked)
+  }
+
+  ToggleTransititionDetails(event) {
+    this._doCheckActions(this.transitionofCareDatailsCheckboxes, event.source.checked)
+  }
+
+  _doCheckActions(checkboxes: QueryList<any>, flag: boolean) {
+    checkboxes.toArray().forEach(source => {
+      source.checked = flag;
+    })
+  }
+
+  verifyPatentToggler() {
+    this._doVerficationCheckboxGroup(this.patientInformationCheckboxes, this.patientInformationToggle)
+  }
+
+  verifyEncounterToggler() {
+    this._doVerficationCheckboxGroup(this.encounterDetailsCheckboxes, this.encounterDetailsToggle)
+  }
+
+  verifyPatientChartInfoToggler() {
+    this._doVerficationCheckboxGroup(this.patientChartInformationCheckboxes, this.patientChartInformationToggle)
+  }
+
+  verifyTransitionofCareDatailsToggler() {
+    this._doVerficationCheckboxGroup(this.transitionofCareDatailsCheckboxes, this.transitionofCareDatailsToggle)
+  }
+
+  _doVerficationCheckboxGroup(checkboxes: QueryList<any>, checkbox: MatCheckbox) {
+    let flag = true;
+    checkboxes.toArray().forEach(source => {
+      if (flag) flag = source.checked;
+    })
+    checkbox.checked = flag;
+  }
+
+  enableEncouterDetails() {
+    this.enconterDetails = true;
+  }
+  enableTransitionDetails() {
+    this.enconterDetails = false;
+  }
+
+  toggleSelectAll(flag: boolean) {
+    this._doCheckActions(this.patientInformationCheckboxes, flag)
+    if (this.enconterDetails) {
+      this._doCheckActions(this.encounterDetailsCheckboxes, flag)
+      this.encounterDetailsToggle.checked = flag;
     }
-  }
-
- ToggleTransititionDetails(event) {
-    // this.removeAllEvents();
-    if (event.source.checked) {
-    
-      this.TransitionofCareDatailsCheckboxes.toArray().forEach(source => {
-        source.checked = true;
-      })
-    } else {
-      this.TransitionofCareDatailsCheckboxes.toArray().forEach(source => {
-        source.checked = false;
-      })
+    this._doCheckActions(this.patientChartInformationCheckboxes, flag)
+    if (!this.enconterDetails) {
+      this._doCheckActions(this.transitionofCareDatailsCheckboxes, flag)
+      this.transitionofCareDatailsToggle.checked = flag;
     }
-  }
-  enconterdetails:boolean =true;
-  encouterdetails(){
-this.enconterdetails = true;
-  }
-  transitiondetails()
-  {
-    this.enconterdetails = false;
+    this.patientInformationToggle.checked = flag;
+    this.patientChartInformationToggle.checked = flag;
   }
 
+  patientInformation: any[] = [
+    { value: 'Patient Information' },
+    { value: 'Identification & Demographics' }]
 
-  patientInformation:any[] = [
-  { value: 'Patient Information' },
-  { value: 'Identification & Demographics'}]
-  
-  encounterDetails:any[]
-=[{value: 'Basic Information'},
-{value:'Reason for visit'},
-{value:'Clinical Instructions'},
-{value: 'Medication Administered'},
-{value: 'Immunizations Administered'},
-{value: 'Diagnostic Tests Pending'},
-{value: 'Future Scheduled Tests'},
-{value: 'Referrals to Other Providers'},
-{value: 'Recommended Patient Decision Aids'}
-]
-patientChartInformation:any[] = [{value :'Smoking Status'},
-{value : 'Problems (Dx)'},
-{value : 'Medications (Rx)'},
-{value : 'Medication Allergies'},
-{value : 'Laboratory Tests & Results'},
-{value : 'Vital Stats'},
-{value : 'Care Plan - Goals & Instructions'},
-{value : 'Procedures'},{value :'Care Team Members'}
-]
-
+  encounterDetails: any[]
+    = [{ value: 'Basic Information' },
+    { value: 'Reason for visit' },
+    { value: 'Clinical Instructions' },
+    { value: 'Medication Administered' },
+    { value: 'Immunizations Administered' },
+    { value: 'Diagnostic Tests Pending' },
+    { value: 'Future Scheduled Tests' },
+    { value: 'Referrals to Other Providers' },
+    { value: 'Recommended Patient Decision Aids' }
+    ]
+  patientChartInformation: any[] = [{ value: 'Smoking Status' },
+  { value: 'Problems (Dx)' },
+  { value: 'Medications (Rx)' },
+  { value: 'Medication Allergies' },
+  { value: 'Laboratory Tests & Results' },
+  { value: 'Vital Stats' },
+  { value: 'Care Plan - Goals & Instructions' },
+  { value: 'Procedures' }, { value: 'Care Team Members' }
+  ]
 
 
-TransitionofCareDatails:any[] =[{value:'Basic Information'},
-{value:'Encounter Diagnosis'},
-{value:'Immunizations'},
-{value:'Cognitive Status'},
-{value:'Functional Status'},
-{value:'Reason for Referral'},
-{value:'Discharge Instructions'}]
+
+  TransitionofCareDatails: any[] = [{ value: 'Basic Information' },
+  { value: 'Encounter Diagnosis' },
+  { value: 'Immunizations' },
+  { value: 'Cognitive Status' },
+  { value: 'Functional Status' },
+  { value: 'Reason for Referral' },
+  { value: 'Discharge Instructions' }]
 
 
 }

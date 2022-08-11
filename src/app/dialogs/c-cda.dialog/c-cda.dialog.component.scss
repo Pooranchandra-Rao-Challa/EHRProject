@@ -6,72 +6,115 @@ input::-webkit-input-placeholder {
   font-size: 100%;
   font-family: sans-serif;
 }
-#form-ccda{
-#form-ccda.modal-dialog {
-  margin-top: 80px;
-}
-.modal-dialog {
-  overflow-y: initial !important;
-  // max-width: inherit !important;
-  // margin: 0 !important;
-}
-.modal-body {
-  max-height: 700px !important;
-  overflow-y: auto;
-}
-// medication popup
-.modal-dialog {
-  max-width: 900px;
-}
+
+#form-ccda {
+  .modal-dialog {
+    margin-top: 80px;
+  }
 
 
-  
+  .modal-body {
+    max-height: calc(90vh - 180px);
+    overflow-y: auto;
+  }
+
+  // medication popup
+  .modal-dialog {
+    max-width: 900px;
+  }
+
+  .ccda-chk-section-group{
+    padding-top:2px;
+    padding-bottom:12px;
+    margin-top: 12px;
+    background-color: rgb(65, 181, 166, 0.2);
+
+  }
+  .ccda-item-group{
+    margin-left:20px;
+  }
+
   .modal-header .modal-title {
     font-size: 16px !important;
   }
+
   .modal-header {
     padding: 15px 16px !important;
     margin-right: -2px;
-    margin-top:-1px
+    margin-top: -1px
   }
 
-    .modal-footer > div{
+  .modal-footer>div {
     width: 100%;
     display: inherit;
 
+  }
+  .dropdown-menu {
+    border: 1px solid #fe8f00 !important;
+  }
+
+  .dropdown-toggle::after,
+  .dropdown-toggle.show::after{
+    margin-left: 60px !important;
+  }
+  .drop-menu {
+    color: black !important;
+  }
+
+  .select-all, .deselect-all{
+    color: #41b6a6;
+    cursor: pointer;
+  }
+  .mat-radio-button {
+    padding: 10px;
+  }
+
+  .drop-menu:hover {
+    color: #fff !important;
+    background: #41b6a6 !important ;
+    text-decoration: underline;
+  }
+
+  .rightblockalignments {
+    border: 1px solid #41b6a6;
+  }
+
+  .modal-cust-title{
+    white-space: nowrap;
+  }
+  .actiondropdown {
+    width: 100%;
+    button{
+      float: right;
+      margin-right:40px;
+      width: 170px;
     }
-.rightblockalignments{
-  border: 1px solid #41b6a6;
-}
-.actiondropdown{
-  margin-top: 10px;
-  margin-left: 500px;
+  }
+
 }
 
-.ccda-mat-checkbox-label
-{
-  background-color: rgb(65,181,166,0.2);
-}
-}
 ::ng-deep #form-ccda .example-margin {
 
   & .mat-checkbox-background,
   .mat-checkbox-frame {
-    border-color:#41b6a6
+    border-color: #41b6a6
   }
 }
 
 ::ng-deep #form-ccda .mat-checkbox.mat-accent {
+
   .mat-checkbox-background,
   .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
     border-color: #41b6a6 !important;
   }
-  .mat-checkbox-layout span{
+
+  .mat-checkbox-layout span {
     padding-top: 10px;
     margin-left: 10px;
   }
+
   .mat-checkbox-checkmark-path {
     stroke: #41b6a6 !important;
-    border-color:#41b6a6!important;
+    border-color: #41b6a6 !important;
   }
 }
