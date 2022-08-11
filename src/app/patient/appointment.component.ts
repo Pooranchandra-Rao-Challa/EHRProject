@@ -101,9 +101,20 @@ export class AppointmentComponent {
 
         }
         else if (e.ApptStatus == 'Confirmed') {
-          e.ApptStatus = 'Confirmed';
+          e.ApptStatus = 'Waiting';
           e.class = "Statusconfirmed"
 
+        }
+        else if(e.ApptStatus == 'Scheduled')
+        {
+          e.ApptStatus = 'Scheduled';
+          e.class = "Statusconfirmed"
+         
+        }
+        else if(e.ApptStatus == 'In-Progress')
+        {
+          e.ApptStatus = 'In-Progress';
+          e.class = "Statusconfirmed"
         }
         else if (e.ApptStatus == 'Cancelled') {
           e.ApptStatus = 'Cancelled';
