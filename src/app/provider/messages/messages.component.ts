@@ -85,7 +85,8 @@ export class MessagesComponent implements OnDestroy, AfterContentChecked {
       )
       .subscribe();
     this.recordsChangeService.getData().subscribe(value => {
-      this.initPages(value);
+      this.totalRecords = value;
+      this.initPages();
     })
   }
   ngAfterContentChecked(): void {
@@ -95,9 +96,9 @@ export class MessagesComponent implements OnDestroy, AfterContentChecked {
   ngOnDestroy() {
     this.recordsChangeService = null;
   }
-  initPages(records: number) {
+  initPages() {
 
-    this.totalRecords = records;
+    let records = this.totalRecords;
     this.totalPages = Math.floor(records / this.pageSize) * this.pageSize == records ?
       records / this.pageSize : Math.floor(records / this.pageSize) + 1;
   }
@@ -140,8 +141,13 @@ export class MessagesComponent implements OnDestroy, AfterContentChecked {
     this.loadMessages();
   }
   onPageSizeChange(event) {
-    //console.log(event);
-    this.pageSize = event.value.value;
+    console.log(event);
+    this.pageSize = event.value;
+    console.log(this.pageSize);
+
+    this.initPages();
+    console.log(this.totalPages);
+
     this.loadMessages();
   }
   get IsInbox(): boolean {
