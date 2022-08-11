@@ -1,0 +1,71 @@
+@import"../../../assets/common.scss";
+
+#form-ccda{
+#form-ccda.modal-dialog {
+  margin-top: 80px;
+}
+.modal-dialog {
+  overflow-y: initial !important;
+  // max-width: inherit !important;
+  // margin: 0 !important;
+}
+.modal-body {
+  max-height: 700px !important;
+  overflow-y: auto;
+}
+// medication popup
+.modal-dialog {
+  max-width: 900px;
+}
+
+
+  
+  .modal-header .modal-title {
+    font-size: 16px !important;
+  }
+  .modal-header {
+    padding: 15px 16px !important;
+    margin-right: -2px;
+    margin-top:-1px
+  }
+
+    .modal-footer > div{
+    width: 100%;
+    display: inherit;
+
+    }
+.rightblockalignments{
+  border: 1px solid #41b6a6;
+}
+.actiondropdown{
+  margin-top: 10px;
+  margin-left: 500px;
+}
+
+.ccda-mat-checkbox-label
+{
+  background-color: rgb(65,181,166,0.2);
+}
+}
+::ng-deep #form-ccda .example-margin {
+
+  & .mat-checkbox-background,
+  .mat-checkbox-frame {
+    border-color:#41b6a6
+  }
+}
+
+::ng-deep #form-ccda .mat-checkbox.mat-accent {
+  .mat-checkbox-background,
+  .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+    border-color: #41b6a6 !important;
+  }
+  .mat-checkbox-layout span{
+    padding-top: 10px;
+    margin-left: 10px;
+  }
+  .mat-checkbox-checkmark-path {
+    stroke: #41b6a6 !important;
+    border-color:#41b6a6!important;
+  }
+}

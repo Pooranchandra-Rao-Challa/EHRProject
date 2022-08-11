@@ -21,6 +21,8 @@ import { LabProcedureWithOrder } from 'src/app/_models/_provider/LabandImage';
 // import { LabResultComponent } from 'src/app/dialogs/lab.imaging.dialog/lab.result.component'
 import { OrderResultDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/order.result.dialog.component'
 import { ViewChangeService } from 'src/app/_navigations/provider.layout/view.notification.service';
+import { CCdaDialogComponent } from 'src/app/dialogs/c-cda.dialog/c-cda.dialog.component';
+
 
 @Component({
   selector: 'app-patient.details',
@@ -49,7 +51,9 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
   patientHealthPortalComponent = PatientHealthPortalComponent;
   encounterDialogComponent = EncounterDialogComponent;
   procedureDialogComponent = ProcedureDialogComponent;
-  orderResultDialogComponent = OrderResultDialogComponent;
+  orderResultDialogComponent = OrderResultDialogComponent
+  cCdaDialogComponent = CCdaDialogComponent
+  
 
 
   constructor(private authService: AuthenticationService,
@@ -346,6 +350,13 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
       dialogData = this.patient;
     } else if (action == Actions.view && content === this.orderResultDialogComponent) {
       dialogData = data;
+    }
+    else if(action == Actions.view && content === this.cCdaDialogComponent)
+    {
+      dialogData = data;
+    }
+    {
+
     }
     const ref = this.overlayService.open(content, dialogData);
 

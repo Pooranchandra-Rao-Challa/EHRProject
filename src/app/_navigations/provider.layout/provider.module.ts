@@ -148,7 +148,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     InterventionTableDialogComponent,
     AllergyTableDialogComponent,
     FrequentlyUsedDiagnosesDialogComponent,
-    AddDiagnosesDialogComponent
+    AddDiagnosesDialogComponent,
+    
   ],
   declarations: [
     ProviderNavbarComponent,
