@@ -27,7 +27,7 @@ import { RecordsChangeService } from 'src/app/_navigations/provider.layout/view.
 export class MessagesComponent implements OnDestroy, AfterContentChecked {
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
-  @ViewChild("pagination",{ static: true }) pagination: SimplePaginationDirective
+  @ViewChild("pagination", { static: true }) pagination: SimplePaginationDirective
   MessageDialogComponent = NewmessageDialogComponent;
 
   public messageDataSource: MessageDatasource;
@@ -46,6 +46,7 @@ export class MessagesComponent implements OnDestroy, AfterContentChecked {
   pageSize: number = 25;
   currentPage: number = 1;
   totalPages: number = 1;
+  totalRecords: number;
 
   constructor(
     private recordsChangeService: RecordsChangeService,
@@ -84,7 +85,8 @@ export class MessagesComponent implements OnDestroy, AfterContentChecked {
       )
       .subscribe();
     this.recordsChangeService.getData().subscribe(value => {
-      this.initPages(value);
+      this.totalRecords = value;
+      this.initPages();
     })
   }
   ngAfterContentChecked(): void {
@@ -94,9 +96,9 @@ export class MessagesComponent implements OnDestroy, AfterContentChecked {
   ngOnDestroy() {
     this.recordsChangeService = null;
   }
-  initPages(records: number) {
-    console.log(records);
+  initPages() {
 
+    let records = this.totalRecords;
     this.totalPages = Math.floor(records / this.pageSize) * this.pageSize == records ?
       records / this.pageSize : Math.floor(records / this.pageSize) + 1;
   }
@@ -117,6 +119,11 @@ export class MessagesComponent implements OnDestroy, AfterContentChecked {
     this.pagination.pageNo = 1;
     this.loadMessages()
   }
+  isExpand: boolean = true;
+
+  isExpandToggle() {
+    this.isExpand = !this.isExpand;
+  }
   showMessage(message) {
     this.currentMessage = message;
   }
@@ -133,9 +140,14 @@ export class MessagesComponent implements OnDestroy, AfterContentChecked {
     this.currentPage = event;
     this.loadMessages();
   }
-  onPageSizeChange(event){
-    //console.log(event);
-    this.pageSize = event.value.value;
+  onPageSizeChange(event) {
+    console.log(event);
+    this.pageSize = event.value;
+    console.log(this.pageSize);
+
+    this.initPages();
+    console.log(this.totalPages);
+
     this.loadMessages();
   }
   get IsInbox(): boolean {
@@ -165,7 +177,7 @@ export class MessagesComponent implements OnDestroy, AfterContentChecked {
     if (action == Actions.view && content === this.MessageDialogComponent) {
       DialogResponse.MessageFor = message
       DialogResponse.Messages = data;
-      DialogResponse.Messages.toAddress ={}
+      DialogResponse.Messages.toAddress = {}
       DialogResponse.Messages.toAddress.Name = (data as Messages).PatientName
       DialogResponse.Messages.toAddress.UserId = (data as Messages).ToId
       DialogResponse.ForwardReplyMessage = message;
@@ -242,9 +254,9 @@ export class MessageDatasource implements DataSource<Messages>{
       finalize(() => this.loadingSubject.next(false))
     )
       .subscribe(resp => {
-        if(resp.IsSuccess){
+        if (resp.IsSuccess) {
           this.MessageSentSubject.next(resp.ListResult as Messages[])
-          this.recordsChangeService.sendData(this.MessageSentSubject.getValue()[0].MessagesCount+"");
+          this.recordsChangeService.sendData(this.MessageSentSubject.getValue()[0].MessagesCount + "");
         }
       });
   }
