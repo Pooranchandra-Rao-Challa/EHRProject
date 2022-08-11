@@ -44,16 +44,16 @@ export class MyprofileComponent implements OnInit {
 
   questions: any[] = [{value:'What is your favorite sports team?',viewvalue:'What is your favorite sports team?'},
                       {value:'Which historical figure would you most like to meet?',viewvalue:'Which historical figure would you most like to meet?'},
-                      {value:'In what city were you born?',viewvalue:'In what city were you born?'}, 
-                      {value:'What was the make and model of your first car?',viewvalue:'What was the make and model of your first car?'}, 
+                      {value:'In what city were you born?',viewvalue:'In what city were you born?'},
+                      {value:'What was the make and model of your first car?',viewvalue:'What was the make and model of your first car?'},
                       {value:'What is your favorite movie?',viewvalue:'What is your favorite movie?'},
-                      {value:'What is the name of your favorite person in history?',viewvalue:'What is the name of your favorite person in history?'}, 
-                      {value:'Who is your favorite actor, musician, or artist?',viewvalue:'Who is your favorite actor, musician, or artist?'}, 
-                      {value:'What was your favorite sport in high school?',viewvalue:'What was your favorite sport in high school?'}, 
+                      {value:'What is the name of your favorite person in history?',viewvalue:'What is the name of your favorite person in history?'},
+                      {value:'Who is your favorite actor, musician, or artist?',viewvalue:'Who is your favorite actor, musician, or artist?'},
+                      {value:'What was your favorite sport in high school?',viewvalue:'What was your favorite sport in high school?'},
                       {value:'What is the name of your favorite book?',viewvalue:'What is the name of your favorite book?'},
-                      {value:'What was the last name of your first grade teacher?',viewvalue:'What was the last name of your first grade teacher?'}, 
-                      {value:'Where were you when you had your first kiss?',viewvalue:'Where were you when you had your first kiss?'}, 
-                      {value:'Where were you when you had your first kiss?',viewvalue:'Where were you when you had your first kiss?'}, 
+                      {value:'What was the last name of your first grade teacher?',viewvalue:'What was the last name of your first grade teacher?'},
+                      {value:'Where were you when you had your first kiss?',viewvalue:'Where were you when you had your first kiss?'},
+                      {value:'Where were you when you had your first kiss?',viewvalue:'Where were you when you had your first kiss?'},
                       {value:'What is the last name of the teacher who gave you your first falling grade?',viewvalue:'What is the last name of the teacher who gave you your first falling grade?'} ];
 
 
@@ -93,7 +93,6 @@ emergencydisableaddressverification:boolean = false;
     this.searchHomePhoneData=[];
     this.searchWorkPhoneData=[];
     this.searchPhoneData=[];
-    // console.log(this.user);
   }
 
   ngOnInit(): void {
@@ -115,9 +114,7 @@ emergencydisableaddressverification:boolean = false;
     });
   }
   updatePatientMyProfile() {
-    //debugger;
     this.patientService.UpdatePatientMyprofile(this.PatientProfile).subscribe(resp => {
-      //debugger;
       if (resp.IsSuccess) {
         this.PatientNavbar.getPatientProfile();
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP008"])
@@ -129,9 +126,7 @@ emergencydisableaddressverification:boolean = false;
   }
 
   updateContactInform() {
-    //debugger;
     this.patientService.UpdateContactInformation(this.PatientProfile).subscribe(resp => {
-     // debugger;
       if (resp.IsSuccess) {
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP002"])
       }
@@ -143,7 +138,6 @@ emergencydisableaddressverification:boolean = false;
 
   updateEmergencyContact() {
     this.patientService.UpdateEmergencyContact(this.PatientProfile).subscribe(resp => {
-      //debugger;
       if (resp.IsSuccess) {
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP003"])
       }
@@ -155,7 +149,6 @@ emergencydisableaddressverification:boolean = false;
 
 
   // private _filter(value: string): string[] {
-  //   //debugger
   //   if (value == "") {
   //     return ['Please enter 1 or more characters']
   //   }
@@ -220,8 +213,6 @@ events(){
   _filterProcedure() {
     this.utilityService.AreaCodes()
       .subscribe(resp => {
-        //debugger;
-        //this.isLoading = false;
         if (resp.IsSuccess) {
           this.SourceData=resp.ListResult;
         } else {
@@ -230,12 +221,10 @@ events(){
         }
       },
       error=>{
-        //debugger;
       })
   }
   //filter city on search text
   filterData(searchText: string) {
-    //debugger;
     if(searchText==''){
       return [];
     }
@@ -247,14 +236,12 @@ getpatientsecurityQuestions()
   var req={
     "PatientId": this.user.PatientId,
   }
-  debugger;
   this.patientService.MyProfileSecurityQuestion(req).subscribe(
     resp=>
     {
     if(resp.IsSuccess)
     {
       this.patientProfileSecurityQuestion = resp.ListResult[0]
-      console.log( this.patientProfileSecurityQuestion);
     }
   }
   )
@@ -265,7 +252,7 @@ ChangeSecurityQuestion(item)
   this.updateSecurityQuestion.SecurityID = this.patientProfileSecurityQuestion.SecurityID;
   this.updateSecurityQuestion.PateientId = this.patientProfileSecurityQuestion.PateientId;
   this.patientService.UpdatePatientMyProfileSecurityQuestion(this.updateSecurityQuestion).subscribe(
-    
+
       resp=>{
         if(resp.IsSuccess)
         {
@@ -273,10 +260,10 @@ ChangeSecurityQuestion(item)
         }
         else
         {
-          this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP008"]) 
+          this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP008"])
         }
       }
-    
+
   )
 }
 
@@ -344,7 +331,7 @@ emergencyAddressVerfied() {
 emergencyEnableManualEntry() {
   this.EmergencyclearAddress();
   this.emergencyManuallybtn = true;
-  
+
 }
 emergencyAddressEnterManually(item) {
   this.emergencydisableaddressverification = true;
@@ -354,7 +341,7 @@ enableSave() {
   return !(
      this.updateSecurityQuestion.Answer != null && this.updateSecurityQuestion.Answer != ""
     && this.updateSecurityQuestion.Question != null && this.updateSecurityQuestion.Question != ""
-    && this.updateSecurityQuestion.ConfiramationActive !=null 
+    && this.updateSecurityQuestion.ConfiramationActive !=null
    )
 
 

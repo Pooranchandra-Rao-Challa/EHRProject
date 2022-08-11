@@ -38,8 +38,6 @@ export class ActivePatientsComponent implements OnInit {
     var reqdata = {
       Active: true
     }
-    console.log(reqdata);
-
     this.patientsDataSource = new PatientDatasource(this.adminservice,reqdata);
     this.patientsDataSource.loadPatients();
 

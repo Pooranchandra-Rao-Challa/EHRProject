@@ -25,7 +25,6 @@ export class SearchPipe implements PipeTransform {
 })
 export class ActivePipe implements PipeTransform {
   transform(value: any): string {
-    //debugger;
     if (value) {
       return "Active";
     } else if (value == null) {

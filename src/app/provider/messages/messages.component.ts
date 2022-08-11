@@ -3,7 +3,6 @@ import { AfterContentChecked, ChangeDetectionStrategy, ChangeDetectorRef, Compon
 import { OverlayService } from '../../overlay.service';
 import { ComponentType } from '@angular/cdk/portal';
 import { NewmessageDialogComponent } from '../../dialogs/newmessage.dialog/newmessage.dialog.component';
-import { } from 'src/app/_models/_patient/messages';
 import { Actions, User } from 'src/app/_models';
 import { MessagesService } from 'src/app/_services/messages.service';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
@@ -12,8 +11,6 @@ import { catchError, debounceTime, distinctUntilChanged, finalize, tap } from 'r
 import { fromEvent, merge, Observable, of } from 'rxjs';
 import { MatSort } from '@angular/material/sort';
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
-import { ProvidermessagetopracticeDialogComponent } from 'src/app/dialogs/providermessagetopractice.dialog/providermessagetopractice.dialog.component';
-import { ProvidermessagetopatientDialogComponent } from 'src/app/dialogs/providermessagetopatient.dialog/providermessagetopatient.dialog.component';
 import { MessageDialogInfo, Messages } from 'src/app/_models/_provider/messages';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
@@ -30,7 +27,7 @@ export class MessagesComponent implements OnDestroy, AfterContentChecked {
   @ViewChild("pagination", { static: true }) pagination: SimplePaginationDirective
   MessageDialogComponent = NewmessageDialogComponent;
 
-  public messageDataSource: MessageDatasource;
+  public messageDataSource: MessagesDatasource;
   user?: User;
   @ViewChild('searchMessage', { static: true }) searchMessage: ElementRef;
   ActionTypes = Actions;
@@ -108,7 +105,7 @@ export class MessagesComponent implements OnDestroy, AfterContentChecked {
       UserId: this.user.UserId,
       MessageFilter: filter
     }
-    this.messageDataSource = new MessageDatasource(this.recordsChangeService, this.messageService, reqparams);
+    this.messageDataSource = new MessagesDatasource(this.recordsChangeService, this.messageService, reqparams);
     this.loadMessages()
   }
   getMessages(filter: string) {
@@ -141,13 +138,8 @@ export class MessagesComponent implements OnDestroy, AfterContentChecked {
     this.loadMessages();
   }
   onPageSizeChange(event) {
-    console.log(event);
     this.pageSize = event.value;
-    console.log(this.pageSize);
-
     this.initPages();
-    console.log(this.totalPages);
-
     this.loadMessages();
   }
   get IsInbox(): boolean {
@@ -210,7 +202,7 @@ export class MessagesComponent implements OnDestroy, AfterContentChecked {
     })
   }
 }
-export class MessageDatasource implements DataSource<Messages>{
+export class MessagesDatasource implements DataSource<Messages>{
 
   private MessageSentSubject = new BehaviorSubject<Messages[]>([]);
   private loadingSubject = new BehaviorSubject<boolean>(false);

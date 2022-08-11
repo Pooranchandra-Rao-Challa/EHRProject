@@ -40,7 +40,6 @@ export class AdminsComponent implements OnInit {
     private plaformLocation: PlatformLocation,
     private alertmsg: AlertMessage) {
     this.url = plaformLocation.href.replace(plaformLocation.pathname, '/');
-    //console.log(plaformLocation.href.replace(plaformLocation.pathname,'/'));
     this.PhonePattern = {
       0: {
         pattern: new RegExp('\\d'),

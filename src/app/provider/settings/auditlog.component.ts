@@ -55,7 +55,6 @@ export class AuditLogComponent implements OnInit {
     if (event == 'reset') {
       this.startDate = '';
       this.enddate = '';
-      //debugger;
       var reqparams = {
         ProviderId: this.user.ProviderId,
         // ProviderId: "5b686dd4c832dd0c444f271b",
@@ -64,7 +63,6 @@ export class AuditLogComponent implements OnInit {
       }
     }
     else {
-      //debugger;
       var reqparams = {
 
         ProviderId: this.user.ProviderId,
@@ -110,11 +108,9 @@ export class AuditLogComponent implements OnInit {
   }
 
   SearchDetails() {
-    //debugger;
     this.auditLogList = this.loglist.filter((invoice) => this.isMatch(invoice));
   }
   isMatch(item) {
-    //debugger;
     if (item instanceof Object) {
       return Object.keys(item).some((k) => this.isMatch(item[k]));
     } else {

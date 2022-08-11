@@ -50,7 +50,6 @@ export class BillingComponent implements OnInit {
     'SecInsCompanyName'];
   //get the billing details
   getBillings() {
-    //debugger;
     var reqparams = {
 
       // provider_Id: "5b686dd4c832dd0c444f271b",
@@ -61,8 +60,6 @@ export class BillingComponent implements OnInit {
     this.bs.BillingDetails(reqparams).subscribe(response => {
 
       this.dataSource = response.ListResult;
-      // console.log(this.dataSource);
-
       this.sampledata = this.dataSource;
 
     })
@@ -93,7 +90,6 @@ export class BillingComponent implements OnInit {
 
   //exporting the csv file
   exportToCsv() {
-    //debugger;
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.table.nativeElement);
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');

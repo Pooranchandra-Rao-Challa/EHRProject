@@ -66,7 +66,6 @@ export class LoginComponent implements OnInit {
           this.authfailedmessage = resp.EndUserMessage;
         else
           this.authfailedmessage = "Enter valid Email Id and Password";
-        // console.log(resp.EndUserMessage);
       }
     },
       (error) => {

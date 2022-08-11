@@ -144,11 +144,9 @@ export class PatientDialogComponent {
     const ref = this.overlayService.open(content, dialogData);
     ref.afterClosed$.subscribe(res => {
       if (content === this.patientPortalAccountComponent) {
-        console.log(res.data);
 
         if(res.data != null){
           this.utilityService.CreatePatientAccount(res.data).subscribe(resp => {
-            console.log(resp.IsSuccess);
 
             if(resp.IsSuccess){
               this.openComponentDialog(this.patientHealthPortalComponent,
@@ -176,14 +174,12 @@ export class PatientDialogComponent {
           close();
         }
       }else if (content === this.addressVerificationDialogComponent) {
-        console.log(res.data);
 
         if(res.data && res.data.useThis.UseAddress){
           this.PatientData.AddressResult = res.data.useThis.ValidatedAddress;
           this.PatientData.ValidatedAddress = res.data.useThis.Address;
           this.addressIsVarified = true;
           this.UseValidatedAddress();
-          console.log(this.PatientData);
 
 
         }else if(res.data && !res.data.UseAddress){

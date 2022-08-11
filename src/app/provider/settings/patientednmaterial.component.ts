@@ -46,34 +46,21 @@ export class PatientEdnMaterialComponent implements OnInit {
   }
   getPatientedmateriallist() {
     var reqparams = {
-      //  ClinicId: "588ba23dc1a4c002ab2b37ae"
       ClinicId: this.user.ClinicId
     }
-    // debugger;
     this.settingservice.EducationMaterials(reqparams).subscribe(response => {
-      // debugger;
       this.Patientedmateriallist = response.ListResult;
-      // console.log(this.Patientedmateriallist);
-
     })
   }
   indexExpanded: number = 0;
 
   togglePanels(index: number) {
-    //debugger;
-
     this.indexExpanded = index == this.indexExpanded ? -1 : index;
-
     this.expandedchangecolor = false;
-    // console.log(this.indexExpanded );
-
   }
   pageloadevent() {
     this.patientmaterialfrom = this.fb.group({
 
-      // codeSystem: [''],
-      // resouceNote: [''],
-      // attachments: this.fb.array([])
     })
   }
   get attachments() {

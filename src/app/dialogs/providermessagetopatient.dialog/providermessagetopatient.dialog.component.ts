@@ -35,8 +35,6 @@ export class ProvidermessagetopatientDialogComponent implements OnInit {
     this.user = authenticationService.userValue;
 
     this.messageFor = ref.RequestData;
-    console.log(ref.RequestData);
-
     this.Upadateviewmodel(this.messageFor);
 
   }
@@ -81,7 +79,7 @@ export class ProvidermessagetopatientDialogComponent implements OnInit {
     this.ref.close(null);
   }
   _filterPatient(term) {
-    console.log(term)
+
     this.isLoading = true;
     this.patientService
       .PatientSearch({
@@ -90,7 +88,7 @@ export class ProvidermessagetopatientDialogComponent implements OnInit {
         SearchTerm: term
       })
       .subscribe(resp => {
-        console.log(resp);
+
 
         this.isLoading = false;
         if (resp.IsSuccess) {
@@ -105,7 +103,6 @@ export class ProvidermessagetopatientDialogComponent implements OnInit {
       if (resp.IsSuccess) {
         this.filteredPatients = of(
           resp.ListResult as ToAddress[]);
-        console.log(resp.ListResult);
 
       }
     });
@@ -126,7 +123,6 @@ export class ProvidermessagetopatientDialogComponent implements OnInit {
     if (this.providerMessage.EmailMessageId != null) {
       this.providerMessage.FromId = this.user.UserId;
       this.providerMessage.ProviderName = this.user.FirstName;
-      console.log(this.providerMessage);
       this.providerMessage.Draft = item;
       this.providerMessage.Body = this.providerMessage.ReplyMessage;
       this.providerMessage.Sent = sent
@@ -134,7 +130,6 @@ export class ProvidermessagetopatientDialogComponent implements OnInit {
     else {
       this.providerMessage.FromId = this.user.UserId;
       this.providerMessage.ProviderName = this.user.FirstName;
-      console.log(this.providerMessage);
       this.providerMessage.Draft = item;
       this.providerMessage.Sent = sent
     }

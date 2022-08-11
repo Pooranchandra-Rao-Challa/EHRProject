@@ -16,12 +16,10 @@ export class SmartSchedulerService extends APIEndPoint {
   }
 
   SearchPatients(reqdata: any) {
-    // console.log(reqdata);
     return this._ProcessPostRequest<any>(this._searchPatientsUrl, reqdata);
   }
 
   ActiveAppointments(reqdata: any) {
-    // console.log(reqdata);
     return this._ProcessPostRequest<any>(this._activeAppointmentsUrl, reqdata);
   }
   AppointmentTypes(reqparams: any) {
@@ -39,11 +37,6 @@ export class SmartSchedulerService extends APIEndPoint {
   CreateAppointment(reqparams: any) {
     return this._ProcessPostRequest<any>(this._createAppointmentUrl, reqparams);
   }
-
-  // PracticeLocations(reqparams: any) {
-  //   const apiEndPoint = this._locationsListUrl + reqparams.providerId;
-  //   return this._ProcessPostRequest<any>(apiEndPoint, reqparams);
-  // }
 
   PracticeLocations(ProviderId: string,ClinicId: string){
     return this._ProcessPostRequest<any>(this._clinicOrProviderLocationsUrl,

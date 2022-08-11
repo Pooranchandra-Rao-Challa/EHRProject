@@ -17,7 +17,6 @@ export class ImagingResultDialogComponent implements OnInit {
     this.labandimaging = ref.RequestData;
     if(this.labandimaging.ImageResult == null)
     this.labandimaging.ImageResult = {}
-    console.log(this.labandimaging);
 
   }
 

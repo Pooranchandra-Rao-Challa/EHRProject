@@ -27,7 +27,6 @@ export class BreadcrumComponent implements OnInit {
       [url],
       { queryParams: { name: name } }
     );
-    // console.log(url)
   }
 
 

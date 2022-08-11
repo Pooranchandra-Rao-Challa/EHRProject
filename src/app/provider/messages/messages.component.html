@@ -124,7 +124,7 @@
                 <mat-cell *matCellDef="let message" (click)="showMessage(message)"> {{message.Updated | date:'M/d/yyyy'}} </mat-cell>
               </ng-container>
               <mat-header-row *matHeaderRowDef="DisplayedColumns  sticky: true" class="matheaderrow"></mat-header-row>
-              <mat-row *matRowDef="let row; columns: DisplayedColumns;"></mat-row>
+              <mat-row *matRowDef="let row; columns: DisplayedColumns;" ></mat-row>
             </mat-table>
             </div>
           </div>

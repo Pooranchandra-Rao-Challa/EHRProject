@@ -114,7 +114,7 @@ export class DashboardComponent {
 
     this.PatientUpcomingAppointmentsList=res.ListResult == null ? [] : res.ListResult;
     this.PatientUpcomingAppointmentsCount=res.ListResult == null ? 0 : res.ListResult[0].ApptCount;
-    console.log(this.PatientUpcomingAppointmentsList);
+
   })
 }
 getmessages()
@@ -124,11 +124,10 @@ getmessages()
         "PatientId": this.user.PatientId,
       }
       this.patientservice.GetPatientMessages(req).subscribe(res=>{
-      
+
         this.messages=res.ListResult == null ? [] : res.ListResult;
         this.messagescount=res.ListResult == null ? 0:res.ListResult[0].MessagesCount;
-        console.log(this.messages);
-        console.log(this.messagescount);
+
       })
 }
 }

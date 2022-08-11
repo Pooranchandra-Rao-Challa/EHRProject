@@ -498,7 +498,7 @@ this.procedureInfo.Place == "cusp_distolingual"
   }
 
   dateModified($event) {
-    console.log($event);
+
   }
 
   _filterProcedure(term) {

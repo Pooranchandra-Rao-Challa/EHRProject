@@ -108,7 +108,6 @@ export class LabResultComponent implements OnInit {
         PatientId: this.labandImaging.PatientId
       })
       .subscribe(resp => {
-        console.log(resp.ListResult);
         if (resp.IsSuccess) {
           let pat = resp.ListResult as PatientSearch[];
           if (pat.length == 1) {

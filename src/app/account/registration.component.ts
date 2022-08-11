@@ -39,7 +39,6 @@ export class RegistrationComponent implements OnInit {
     private plaformLocation: PlatformLocation) {
 
     this.url = plaformLocation.href.replace(plaformLocation.pathname, '/');
-    //console.log(plaformLocation.href.replace(plaformLocation.pathname,'/'));
     this.PhonePattern = {
       0: {
         pattern: new RegExp('\\d'),
@@ -253,12 +252,6 @@ export class RegistrationComponent implements OnInit {
   }
 
   GetPersonalInfo() {
-     console.log(this.PersonalInfo);
-console.log(this.PersonalInfo.valid);
-console.log(this.PersonalInfo.dirty);
-
-
-    return;
     this.PersonalDetials = this.PersonalInfo.value;
   }
   GetContactInfo() {

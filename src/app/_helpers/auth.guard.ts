@@ -24,13 +24,6 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<u
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const user = this.authenticationService.userValue;
     if (this.authenticationService.isLoggedIn()) {
-      // authorised so return true
-      // console.log(route.url);
-      // console.log(state.url);
-      // console.log(state.root);
-      // console.log(this.router.routerState);
-      // console.log(route.url[0]['path'])
-
       return true;
     }
 

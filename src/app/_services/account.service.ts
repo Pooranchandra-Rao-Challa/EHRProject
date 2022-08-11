@@ -120,7 +120,6 @@ export class Accountservice extends APIEndPoint {
 
   ProviderConfirmation(req: any) {
     let endpointurl: string = this._providerConfirmationUrl + "/?token=" + req.token;
-    // console.log(endpointurl);
     return this._ProcessGetRequest<any>(endpointurl);
   }
   PostPartnerSignup(reqparams: any) {
