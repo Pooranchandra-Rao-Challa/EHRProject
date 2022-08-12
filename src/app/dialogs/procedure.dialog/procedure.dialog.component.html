@@ -31,8 +31,8 @@
         <div class="col-lg-4 col-md-4 col-4">
           <div class="input-group">
             <label class="control-label input-group-addon required">Code</label>
-            <mat-form-field class="procedure-form-field" appearance="outline" disabled=true>
-              <input matInput class="form-control" placeholder="Code" disabled type="text" id="pCode" name="pCode"
+            <mat-form-field class="procedure-form-field" appearance="outline">
+              <input matInput class="form-control" placeholder="Code" disabled class="not-allowed" id="pCode" name="pCode"
                 [(ngModel)]="procedureInfo.Code" />
             </mat-form-field>
           </div>
@@ -41,7 +41,7 @@
           <div class="input-group">
             <label class="control-label input-group-addon required">Description</label>
             <mat-form-field class="procedure-form-field" appearance="outline">
-              <input matInput class="form-control" placeholder="Description" disabled type="text" id="pDescription"
+              <input matInput class="form-control" placeholder="Description" disabled class="not-allowed" id="pDescription"
                 name="pDescription" [(ngModel)]="procedureInfo.Description" [matTooltip]="procedureInfo.Description"
                 matToolTipPosition="after" matTooltipShowDelay="100"
                 matTooltipHideDelay="100" />
@@ -74,7 +74,7 @@
         </div>
         <div class="col-lg-4 col-md-4 col-4">
           <div class="input-group" [class.tooth-number-center]="procedureInfo.ViewFrom =='ToothNo'">
-            <label class="control-label input-group-addon required">Tooth</label>
+            <label class="control-label input-group-addon required">Tooth : </label>
             <mat-form-field class="procedure-form-field" appearance="outline"
             [ngStyle]="{'padding-bottom':'0px'}"
             *ngIf="procedureInfo.ViewFrom == null || procedureInfo.ViewFrom =='Tree'">
@@ -241,7 +241,7 @@
             <div class="input-group items">
               <label class="control-label input-group-addon">Reason Code:</label>
               <mat-form-field class="procedure-form-field" appearance="outline">
-                <input matInput class="form-control" style="width: 100%;" placeholder="Reason Code" disabled type="text"
+                <input matInput  disabled class="not-allowed" style="width: 100%;" placeholder="Reason Code"  type="text"
                   id="pResonCode" name="pResonCode" [(ngModel)]="procedureInfo.ReasonCode" />
               </mat-form-field>
             </div>
@@ -250,7 +250,7 @@
             <div class="input-group items">
               <label class="control-label input-group-addon">Reason Description:</label>
               <mat-form-field class="procedure-form-field" appearance="outline">
-                <input matInput class="form-control" style="width: 100%;" placeholder="Reason Description" disabled
+                <input matInput  disabled class="not-allowed" style="width: 100%;" placeholder="Reason Description" 
                   type="text" id="pResonDescription" name="pResonDescription"
                   [(ngModel)]="procedureInfo.ReasonDescription" />
               </mat-form-field>

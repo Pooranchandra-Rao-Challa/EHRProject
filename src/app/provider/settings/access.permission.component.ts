@@ -16,4 +16,6 @@ declare var $: any;
 })
 export class AccessPermissionComponent implements OnInit {
   ngOnInit(): void {}
+  displayedColumns = ['Date', 'Patient', 'LocationName', 'Provider',
+  'DataType', 'Action', 'Details'];
 }
