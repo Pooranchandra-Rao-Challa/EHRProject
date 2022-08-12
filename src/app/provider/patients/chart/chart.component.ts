@@ -116,10 +116,11 @@ export class ChartComponent implements OnInit, AfterViewInit {
     fromEvent(this.searchVaccineCode.nativeElement, 'keyup').pipe(
       // get value
       map((event: any) => {
+        this.vaccines = of([]);
         return event.target.value;
       })
-      // if character length greater then 1
-      , filter(res => res.length > 1)
+      // if character length greater or equals to 1
+      , filter(res => res.length >= 1)
       // Time in milliseconds between key events
       , debounceTime(1000)
       // If previous query is diffent from current
@@ -130,6 +131,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
     fromEvent(this.searchPatient.nativeElement, 'keyup').pipe(
       // get value
       map((event: any) => {
+        this.filteredPatients = of([]);
         return event.target.value;
       })
       // if character length greater then 2
@@ -191,7 +193,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
 
   displayWithVaccine(value: any): string {
     if (!value) return "";
-    return "";
+    else return "";
   }
 
   deleteVaccineCode() {
@@ -675,6 +677,8 @@ export class ChartComponent implements OnInit, AfterViewInit {
   }
 
   resetImmunization() {
+    this.vaccines = of([]);
+    this.displayWithVaccine('');
     if (this.patientImmunization.ImmunizationId == undefined) {
       this.patientImmunization = new Immunization;
     }

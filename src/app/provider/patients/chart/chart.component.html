@@ -869,7 +869,7 @@
           <mat-label class="required">Vaccine:</mat-label>
           <mat-form-field class="procedure-form-field" appearance="outline" [ngStyle]="{'width':'100%'}">
             <input matInput #searchVaccineCode class="form-control" placeholder="Search vaccine" type="text"
-              id="searchVaccineCode" name=" searchVaccineCode" [matAutocomplete]="procedureCode" />
+              id="searchVaccineCode" name=" searchVaccineCode" [matAutocomplete]="procedureCode"/>
             <mat-autocomplete [displayWith]="displayWithVaccine" #procedureCode="matAutocomplete"
               (optionSelected)="onSelectedImmunization($event)">
               <mat-option *ngIf="isLoading">Loading ...</mat-option>

@@ -48,6 +48,7 @@ export class InterventionDialogComponent implements OnInit {
     fromEvent(this.searchName.nativeElement, 'keyup').pipe(
       // get value
       map((event: any) => {
+        this.interventionCodes = [];
         return event.target.value;
       })
       // if character length greater then 0

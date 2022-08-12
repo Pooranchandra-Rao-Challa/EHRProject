@@ -133,7 +133,7 @@ export class Medication {
   Refills?: string;
   DaysSupply?: number;
   StartAt?: Date;
-  StopAt?: Date;
+  StopAt?: Date = null;
   ReasonCode?: string;
   ReasonDescription?: string;
   Notes?: string;

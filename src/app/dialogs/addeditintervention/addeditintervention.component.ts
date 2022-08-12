@@ -7,6 +7,7 @@ import { CQMNotPerformedService } from 'src/app/_services/cqmnotperforemed.servi
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { BehaviorSubject } from 'rxjs';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-addeditintervention',
@@ -51,7 +52,7 @@ export class AddeditinterventionComponent implements OnInit {
 
   constructor(private ref: EHROverlayRef, private cqmNotperformedService: CQMNotPerformedService,
     private authService: AuthenticationService, private router: Router, private alertmsg: AlertMessage,
-    private cfr: ComponentFactoryResolver,) {
+    private cfr: ComponentFactoryResolver, public datepipe: DatePipe,) {
     this.CQMNotPerformed = {} as CQMNotPerformed;
     this.updateLocalModel(ref.RequestData);
   }
@@ -104,9 +105,10 @@ export class AddeditinterventionComponent implements OnInit {
   }
 
   addUpdateCQMNotPerformed() {
-    let isAdd = this.CQMNotPerformed.NPRId == "";
+    let isAdd = this.CQMNotPerformed.NPRId == undefined;
     this.CQMNotPerformed.PatientId = this.PatientDetails.PatientId;
     this.CQMNotPerformed.ProviderId = this.PatientDetails.ProviderId;
+    this.CQMNotPerformed.Date = new Date(this.datepipe.transform(this.CQMNotPerformed.Date, "yyyy-MM-dd", "en-US"));
     this.cqmNotperformedService.AddUpdateCQMNotPerformed(this.CQMNotPerformed).subscribe(resp => {
       if (resp.IsSuccess) {
         this.ref.close({
@@ -123,5 +125,15 @@ export class AddeditinterventionComponent implements OnInit {
 
   cancel() {
     this.ref.close(null);
+  }
+
+  disableCQMNotPerformed() {
+    return !(this.CQMNotPerformed.ItemNotPerformed == undefined ? '' : this.CQMNotPerformed.ItemNotPerformed.toString() != ''
+      && this.CQMNotPerformed.Date == undefined ? '' : this.CQMNotPerformed.Date.toString() != ''
+        && this.CQMNotPerformed.InterventionType == undefined ? '' : this.CQMNotPerformed.InterventionType != ''
+          && this.CQMNotPerformed.InterventionCode == undefined ? '' : this.CQMNotPerformed.InterventionCode != ''
+            && this.CQMNotPerformed.Reason == undefined ? '' : this.CQMNotPerformed.Reason != ''
+              && this.CQMNotPerformed.ReasonCode == undefined ? '' : this.CQMNotPerformed.ReasonCode != ''
+                && this.CQMNotPerformed.ReasonDescription == undefined ? '' : this.CQMNotPerformed.ReasonDescription != '')
   }
 }
