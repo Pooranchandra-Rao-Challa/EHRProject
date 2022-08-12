@@ -5,7 +5,7 @@ export class LabProcedureWithOrder {
   LabProcedureId?: string;
   ClinicId?: string;
   PatientId?: string;
-  Signed?: string;
+  Signed?: boolean;
   LocationId?: string;
   OrderId?: string;
   OrderNumber?:string;
@@ -27,13 +27,21 @@ export class LabProcedureWithOrder {
   ProviderName?: string;
   TotalRecords?: number;
   LabResult?: LabResultInfo;
-  ImageResult?: ImageResultInfo;
+  TestResultsOfImages?: ImageResultInfo;
   StrTests?: string;
   strResult?: string;
   RemovedTestOrderIds?: string[] = [];
   LabResultId?: string;
   ImageResultId?: string;
   ViewFor?: string;
+
+
+  Exam?: string;
+  RequestedBy?: string;
+  History?: string;
+  RadioPharmaceutical?: string;
+  Technique?: string;
+  Comparison?: string;
 }
 
 export class TestOrder {
@@ -76,18 +84,16 @@ export class LabResultInfo{
 
 export class ImageResultInfo{
   ImageResultId?: string;
-  ProviderId?: string;
-  OrderId?: string;
   LabProcedureId?: string;
-  ScheduledAt?: Date;
+  ScheduleAt?: Date;
   Exam?: string;
   RequestedBy?: string;
   History?: string;
-  Radiopharmaceutical?: string;
+  RadioPharmaceutical?: string;
   Technique?: string;
-  Comparision?: string;
+  Comparison?: string;
   Findings?: string;
   Impression?: string;
-  strScheduledAt?: string;
+  strScheduleAt?: string;
 }
 

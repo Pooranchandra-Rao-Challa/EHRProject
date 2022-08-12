@@ -211,6 +211,8 @@ export class OrderDialogComponent implements OnInit,AfterViewInit {
       && this.labandImaging.OrderingPhyscianId != null && this.labandImaging.OrderingPhyscianId != ""
       && this.labandImaging.OrderingFacility != null && this.labandImaging.OrderingFacility != ""
       && this.labandImaging.ResultStatus != null && this.labandImaging.ResultStatus != ""
+      && this.labandImaging.CurrentPatient != null && this.labandImaging.CurrentPatient.PatientId != null
+      && this.labandImaging.CurrentPatient.PatientId != ""
       && this.hasOrders)
 
 
