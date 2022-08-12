@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { BehaviorSubject } from 'rxjs';
 import { Component, ElementRef, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import {
@@ -59,7 +60,8 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
     private ref: EHROverlayRef,
     private authService: AuthenticationService,
     private smartSchedulerService: SmartSchedulerService,
-    private alert: AlertMessage) {
+    private alert: AlertMessage,
+    private datePipe: DatePipe) {
     this.data = ref.RequestData;
     this.PatientAppointment = {} as NewAppointment;
 
@@ -156,7 +158,8 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
       "RoomId": this.PatientAppointment.RoomId,
       "Duration": this.PatientAppointment.Duration,
       "RequestDate": this.PatientAppointment.Startat,
-      "AppointmentId": this.PatientAppointment.AppointmentId
+      "AppointmentId": this.PatientAppointment.AppointmentId,
+      "strRequestDate": this.datePipe.transform(this.PatientAppointment.Startat,"MM/dd/yyyy"),
     };
 
     this.smartSchedulerService.AvailableTimeSlots(ats).subscribe(resp => {
@@ -275,10 +278,13 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
   onAppointmentSave() {
 
     this.PatientAppointment.AppointmentTime = this.PatientAppointment.TimeSlot.StartDateTime;
-
+    this.PatientAppointment.strAppointmentTime =
+    this.datePipe.transform(this.PatientAppointment.TimeSlot.StartDateTime,"MM/dd/yyyy HH:mm")
+    console.log(this.PatientAppointment);
 
     let isAdd = this.PatientAppointment.AppointmentId == null;
     this.SaveInputDisable = true;
+
     this.smartSchedulerService.CreateAppointment(this.PatientAppointment).subscribe(resp => {
       if (resp.IsSuccess) {
         this.onError = false;

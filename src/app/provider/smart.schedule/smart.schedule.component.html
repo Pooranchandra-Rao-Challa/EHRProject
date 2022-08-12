@@ -129,8 +129,8 @@
                     <div class="col-md-1 appointment-time">Time</div>
                     <div class="col-md-2 patient">Patient Info</div>
                     <div class="col-md-2 provider">Provider</div>
-                    <div class="col-md-2">Visit Status</div>
-                    <div class="col-md-2 appt-type">Appointment Type</div>
+                    <div class="col-md-3">Visit Status</div>
+                    <div class="col-md-1 appt-type" style="white-space:nowrap">Appointment Type</div>
                     <div class="col-md-2 appointment-note">Notes</div>
                     <div class="col-md-1">Encounter</div>
                   </div>
@@ -149,7 +149,7 @@
                         <div>DOB: {{appointment.DateofBirth | date:'MMM d, y'}}</div>
                       </div>
                       <div class="col-md-2 col-2 provider" *ngIf="appointment.IsPast">{{appointment.ProviderName}}</div>
-                      <div class="col-md-2 col-2 visit-status" *ngIf="appointment.IsPast">
+                      <div class="col-md-3 col-3 visit-status" *ngIf="appointment.IsPast">
 
                         <img class="img-smart-status-dim"
                           src="assets/images/smart-schedule/scheduled.svg" title="Scheduled" />
@@ -164,7 +164,7 @@
                         <img [class]="appointment.Status == 'No-Show' ? 'img-smart-status-highlight' : 'img-smart-status-dim'" src="assets/images/smart-schedule/no_show.svg"
                           title="No-Show"/>
                       </div>
-                      <div class="col-md-2 col-2 appt-type" *ngIf="appointment.IsPast">{{appointment.AppointmentType}}</div>
+                      <div class="col-md-1 col-1 appt-type" *ngIf="appointment.IsPast">{{appointment.AppointmentType}}</div>
                       <div class="col-md-2 col-2 appointment-note" *ngIf="appointment.IsPast">
                         {{appointment.Notes}}
                       </div>
