@@ -755,40 +755,33 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "ClinicOrProviderLocations";
   }
 
-  get _messagesUrl()
-  {
+  get _messagesUrl() {
     return this._baseUrl + "Messages";
   }
 
- get _inboxMessagesUrl()
- {
-   return this._baseUrl + "InboxMessages";
- }
+  get _inboxMessagesUrl() {
+    return this._baseUrl + "InboxMessages";
+  }
 
- get _sentMessagesUrl()
- {
-   return this._baseUrl + "SentMessages";
- }
+  get _sentMessagesUrl() {
+    return this._baseUrl + "SentMessages";
+  }
 
- get _draftMessagesUrl()
- {
-   return this._baseUrl + "DraftMessages";
- }
+  get _draftMessagesUrl() {
+    return this._baseUrl + "DraftMessages";
+  }
 
- get _urgentMessagesUrl()
- {
-   return this._baseUrl + "UrgentMessages";
- }
+  get _urgentMessagesUrl() {
+    return this._baseUrl + "UrgentMessages";
+  }
 
- get _createMessageUrl()
- {
-   return this._baseUrl + "CreateMessages";
- }
+  get _createMessageUrl() {
+    return this._baseUrl + "CreateMessages";
+  }
 
- get _deleteMessageUrl()
- {
-   return this._baseUrl + "DeleteMessages";
- }
+  get _deleteMessageUrl() {
+    return this._baseUrl + "DeleteMessages";
+  }
   get _switchUserKeyUrl() {
     return this._baseUrl + "SwitchUserKey";
   }
@@ -803,15 +796,22 @@ export class APIEndPoint extends EndpointBase {
   get _calendarBlockoutsUrl() {
     return this._baseUrl + "CalendarBlockouts";
   }
- get _patientMyProfileSecurityQuestionUrl()
- {
-   return this._baseUrl + "PatientMyProfileSecurityQuestion";
- }
+  get _patientMyProfileSecurityQuestionUrl() {
+    return this._baseUrl + "PatientMyProfileSecurityQuestion";
+  }
 
- get _updatePatientMyProfileSecurityQuestionUrl()
- {
-   return this._baseUrl + "UpdatePatientMyProfileSecurityQuestion"
- }
+  get _updatePatientMyProfileSecurityQuestionUrl() {
+    return this._baseUrl + "UpdatePatientMyProfileSecurityQuestion"
+  }
+
+  get _updateImageResultUrl() {
+    return this._baseUrl + "UpdateImageResult"
+  }
+
+  get _imageResultUrl() {
+    return this._baseUrl + "ImageResult"
+  }
+
 
   constructor(public http: HttpClient) {
     super();

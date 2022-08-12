@@ -32,4 +32,12 @@ export class LabsImagingService extends APIEndPoint {
   LabResult(reqparams: any){
     return this._ProcessPostRequest<any>(this._labResultUrl, reqparams);
   }
+  UpdateImageResult(reqparams: any){
+    return this._ProcessPostRequest<any>(this._updateImageResultUrl, reqparams);
+  }
+
+  ImageResult(reqparams: any){
+    return this._ProcessPostRequest<any>(this._imageResultUrl, reqparams);
+  }
+
 }

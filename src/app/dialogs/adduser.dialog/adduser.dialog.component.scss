@@ -165,8 +165,12 @@ input::-webkit-input-placeholder {
 }
 
 .cross-x {
-  font-size: 15px;
-  color: #9a9f9e;
+  font-size: 16px;
+  opacity: 0.5;
+}
+
+.cross-x:hover {
+  color: #767171;
 }
 
 .anchortag {
@@ -192,11 +196,12 @@ input::-webkit-input-placeholder {
   width: 470px;
 }
 
-.check-box-size {
-  width: 29px;
+.check-box-size,
+.radio-button-size input {
+  width: 17px;
   height: 17px;
-  margin-left: -4px;
-  margin-top: -8px;
+  margin-left: 0px;
+  margin-top: 0px;
 }
 
 @media (min-width:300px) and (max-width:1600px) {
@@ -310,17 +315,20 @@ input::-webkit-input-placeholder {
   background: #fff;
   border: 1px solid #f2f2f2;
 }
-.verify-address .link{
+
+.verify-address .link {
   color: #41b6a6;
   margin-left: -50px;
   text-decoration: underline;
   text-transform: lowercase;
 }
+
 .form-select:focus {
   border-color: #c2cad8;
   outline: 0;
   box-shadow: none;
 }
+
 .required:after {
   content: " *" !important;
   color: red !important;

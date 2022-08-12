@@ -185,9 +185,8 @@
           <div class="row my-3">
             <p class="my-2">E-Prescribe From</p>
             <label for="ClinicID" class="form-label mt-2">Eprescribe from :</label>
-            <div class="form-check">
-
-              <div class="custom-control custom-radio custom-control-inline">
+            <div class="form-check radio-button-size">
+              <div class="custom-control custom-radio custom-control-inline d-inline-flex">
                 <input type="radio" groupname="EprescribeFrom" class="custom-control-input" id="EPrescribeFrom" name="EPrescribeFrom">
                 <label class="custom-control-label mx-2" for="None" [(ngModel)]="newUser.EPrescribeFrom" value="none" >None</label>
 
@@ -206,7 +205,7 @@
         <div class="row-border row-align">
           <div class="row mb-4">
             <p class="mt-3">ERX Details</p>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-12 mt-3">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-12 mt-1 d-inline-flex">
               <input type="checkbox" class="check-box-size" [(ngModel)]="newUser.IsDoseSpotRegistation">
               <label class="form-check-label mx-2 checkbox-text" for="IsDoseSpotRegistation">DoseSpot Registration Completed</label>
 

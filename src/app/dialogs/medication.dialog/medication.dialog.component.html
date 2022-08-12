@@ -35,14 +35,14 @@
       <div class="row mt-2">
         <div class="form-group col-md-6">
           <label class="title-field">Rx Norm ID:</label>
-          <mat-form-field class="grey-matform" appearance="outline">
-            <input matInput placeholder="Rx Norm ID" name="rxnormid:" [(ngModel)]="patientMedication.Rxcui" />
+          <mat-form-field class="grey-matform disabled" appearance="outline">
+            <input matInput placeholder="Rx Norm ID" name="rxnormid:" [(ngModel)]="patientMedication.Rxcui" disabled/>
           </mat-form-field>
         </div>
         <div class="form-group col-md-6 ">
           <label class="title-field">NDC ID:</label>
           <mat-form-field class="grey-matform" appearance="outline">
-            <mat-select [(ngModel)]="patientMedication.NDC">
+            <mat-select placeholder="NDC Id" [(ngModel)]="patientMedication.NDC">
               <mat-option *ngFor="let ndc of ndcList" [value]="ndc">
                 {{ndc}}
               </mat-option>
@@ -139,8 +139,11 @@
         <div class="col-md-2 col-sm-3">
           <p>Resources:</p>
         </div>
-        <div class="col-md-5 col-sm-5"><a class="underlined" href="/medline_plus/info?code_system=RxNorm">Medline
-            Plus</a></div>
+        <div class="col-md-5 col-sm-5">
+          <a class="underlined" href="https://connect.medlineplus.gov/application?mainSearchCriteria.v.cs=2.16.840.1.113883.6.88&mainSearchCriteria.v.c=" target="_blank">
+            Medline Plus
+          </a>
+        </div>
         <div class="col-md-5 col-sm-5"><a class="underlined" id="education_materials_show"
             data-target="#modal-education-materials" data-remote="true" data-bs-toggle="modal"
             data-bs-target="#exampleModal7">Patient Education Materials</a></div>

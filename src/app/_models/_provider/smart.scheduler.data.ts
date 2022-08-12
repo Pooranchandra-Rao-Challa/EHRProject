@@ -25,6 +25,7 @@ export interface NewAppointment {
   Status? : string;
 	AppointmentType? : string;
   ProviderName? : string;
+  strAppointmentTime?: string;
 };
 
 export interface SearchPatient {

@@ -59,17 +59,17 @@ export class AllergyDialogComponent implements OnInit {
     fromEvent(this.searchAllergyName.nativeElement, 'keyup').pipe(
       // get value
       map((event: any) => {
+        this.allergens = of([]);
         return event.target.value;
       })
-      // if character length greater then 1
-      , filter(res => res.length > 2)
+      // if character length greater or equals to 1
+      , filter(res => res.length >= 1)
       // Time in milliseconds between key events
       , debounceTime(1000)
       // If previous query is diffent from current
       , distinctUntilChanged()
       // subscription for response
     ).subscribe(value => this._filterAllergyNames(value));
-
   }
 
   _filterAllergyNames(term) {

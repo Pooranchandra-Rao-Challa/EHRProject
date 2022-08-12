@@ -48,6 +48,7 @@ export class MedicationDialogComponent implements OnInit {
     fromEvent(this.searchMedicationName.nativeElement, 'keyup').pipe(
       // get value
       map((event: any) => {
+        this.medications = of([]);
         return event.target.value;
       })
       // if character length greater then 1

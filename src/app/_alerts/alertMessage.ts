@@ -405,6 +405,8 @@ export const ERROR_CODES: { [key: string]: string } = {
   'M2G1003': 'Lab Order deleted successfully',
   'M2G1004': 'Lab Result added successfully',
   'M2G1005': 'Lab Result updated successfully',
+  'M2G1006': 'Image Result added successfully',
+  'M2G1007': 'Image Result updated successfully',
 
   //Errors
   'E2G1001': 'Lab Order is not added',
@@ -412,6 +414,8 @@ export const ERROR_CODES: { [key: string]: string } = {
   'E2G1003': 'Lab Order is not deleted',
   'E2G1004': 'Lab Result is not added',
   'E2G1005': 'Lab Result is not updated',
+  'E2G1006': 'Image Result is not added',
+  'E2G1007': 'Image Result is not updated',
 
   //Login Errors
   'EL001': 'Wrong email or password',
@@ -424,6 +428,7 @@ export const ERROR_CODES: { [key: string]: string } = {
   'M2JPE001': 'Education Material added successfully',
   'M2JPE002': 'Education Material updated successfully',
   //Education Material Error
+
   'E2JPE001' :'Education Material updation Error',
 
   //Calendar Events Messages

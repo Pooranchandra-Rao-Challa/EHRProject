@@ -193,24 +193,12 @@ export class LabsImagingComponent implements OnInit {
       this.labandimaging.View = this.viewmodel.LabandImageView;
       reqdata = this.labandimaging;
     }
-    else if (action == Actions.view && content === this.imagingResultDialogComponent && this.viewmodel.LabandImageView == "Image") {
+    else if (action == Actions.view && content === this.imagingResultDialogComponent
+      && this.viewmodel.LabandImageView == "Image") {
       this.labandimaging = dialogData;
       this.labandimaging.View = this.viewmodel.LabandImageView;
       reqdata = this.labandimaging;
     }
-    // else if (action == Actions.add && content === this.orderResultDialogComponent && this.viewmodel.LabandImageView == "Lab") {
-    //   this.labandimaging = new LabProcedureWithOrder();
-    //   this.labandimaging.View = this.viewmodel.LabandImageView;
-    //   this.labandimaging.ClinicId = this.user.ClinicId;
-    //   reqdata = this.labandimaging;
-    // } else if (action == Actions.add && content === this.orderResultDialogComponent && this.viewmodel.LabandImageView == "Image") {
-    //   this.labandimaging = new LabProcedureWithOrder();
-    //   this.labandimaging.View = this.viewmodel.LabandImageView;
-    //   reqdata = this.labandimaging;
-    // }
-
-
-
     const ref = this.overlayService.open(content, reqdata);
     ref.afterClosed$.subscribe(res => {
       if (content === this.orderDialogComponent
