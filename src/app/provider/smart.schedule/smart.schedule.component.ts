@@ -423,6 +423,11 @@ export class SmartScheduleComponent implements OnInit {
     this.filterAppointments();
   }
 
+  updateAppointmentStatusDirect(appointment: ScheduledAppointment,StatusToUpdate: string){
+    appointment.StatusToUpdate = StatusToUpdate;
+    this.updateAppointmentStatus(appointment);
+  }
+
   updateAppointmentStatus(appointment: ScheduledAppointment) {
     if (appointment.Status != appointment.StatusToUpdate) {
       this.smartSchedulerService.UpdateAppointmentStatus(appointment).subscribe(resp => {

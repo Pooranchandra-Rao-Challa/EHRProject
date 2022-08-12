@@ -85,14 +85,14 @@
                     </div>
                     <div class="col-md-2 col-2 provider" *ngIf="appointment.IsCurrent" >{{appointment.ProviderName}}</div>
                     <div class="col-md-3 col-3 visit-status" *ngIf="appointment.IsCurrent">
-                      <img [class]="appointment.Status == 'Request' ? 'img-smart-status-highlight' : 'img-smart-status-dim'" [class.show-hover] = "appointment.IsCurrent"
+                      <img [class]="appointment.Status == 'Not Confirmed' ? 'img-smart-status-highlight' : 'img-smart-status-dim'" [class.show-hover] = "appointment.IsCurrent"
                       src="assets/images/smart-schedule/user.svg" title="Request" />
                       <img [class]="appointment.Status == 'Scheduled' ? 'img-smart-status-highlight' : 'img-smart-status-dim'" [class.show-hover] = "appointment.IsCurrent"
-                        src="assets/images/smart-schedule/scheduled.svg" title="Scheduled" (click)="updateAppointmentStatus(appointment,'Scheduled')" />
+                        src="assets/images/smart-schedule/scheduled.svg" title="Scheduled" (click)="updateAppointmentStatusDirect(appointment,'Scheduled')" />
                       <img [class]="appointment.Status == 'Confirmed' ? 'img-smart-status-highlight' : 'img-smart-status-dim'" src="assets/images/smart-schedule/waiting.svg"
-                        title="Waiting" (click)="updateAppointmentStatus(appointment,'Confirmed')" [class.show-hover] = "appointment.IsCurrent"/>
+                        title="Waiting" (click)="updateAppointmentStatusDirect(appointment,'Confirmed')" [class.show-hover] = "appointment.IsCurrent"/>
                       <img [class]="appointment.Status == 'In-Progress' ? 'img-smart-status-highlight' : 'img-smart-status-dim'" src="assets/images/smart-schedule/in_progress.svg"
-                        title="In-Progress" (click)="updateAppointmentStatus(appointment,'In-Progress')"  [class.show-hover] = "appointment.IsCurrent"/>
+                        title="In-Progress" (click)="updateAppointmentStatusDirect(appointment,'In-Progress')"  [class.show-hover] = "appointment.IsCurrent"/>
                       <img [class]="appointment.Status == 'Completed' ? 'img-smart-status-highlight' : 'img-smart-status-dim'" src="assets/images/smart-schedule/completed.svg"
                         title="Completed" (click)="openComponentDialog(completeAppointmentDialogComponent,appointment,ActionsType.view,'Completed')" [class.show-hover] = "appointment.IsCurrent"/>
                       <img [class]="appointment.Status == 'Cancelled' ? 'img-smart-status-highlight' : 'img-smart-status-dim'" src="assets/images/smart-schedule/cancel.svg"
@@ -150,7 +150,8 @@
                       </div>
                       <div class="col-md-2 col-2 provider" *ngIf="appointment.IsPast">{{appointment.ProviderName}}</div>
                       <div class="col-md-3 col-3 visit-status" *ngIf="appointment.IsPast">
-
+                        <img [class]="appointment.Status == 'Not Confirmed' ? 'img-smart-status-highlight' : 'img-smart-status-dim'"
+                        src="assets/images/smart-schedule/user.svg" title="Request" />
                         <img class="img-smart-status-dim"
                           src="assets/images/smart-schedule/scheduled.svg" title="Scheduled" />
                         <img class="img-smart-status-dim" src="assets/images/smart-schedule/waiting.svg"
