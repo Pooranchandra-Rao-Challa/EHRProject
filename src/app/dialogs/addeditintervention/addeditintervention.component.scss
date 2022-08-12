@@ -12,6 +12,7 @@
 .intervention-dialog .row {
   margin-top: 3px;
   margin-bottom: 13px;
+  padding-right: 0px;
 }
 
 .mat-label {
@@ -50,17 +51,12 @@ textarea.form-control {
   border: 1px solid #41b6a6;
 }
 
-.ddl-width {
-  width: 332px;
-}
-
 @media (max-width:1000px) {
   .intervention-dialog .modal-content {
     max-width: 100%;
     background-color: blue;
   }
-
-  .ddl-width {
-    width: 200px;
-  }
+}
+.intervention-dialog .modal-footer {
+  padding: 10px 35px !important;
 }

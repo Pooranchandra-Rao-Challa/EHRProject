@@ -30,7 +30,7 @@
             <mat-autocomplete [displayWith]="displayWithAllergy" #allergyName="matAutocomplete"
               (optionSelected)="onSelectedAllergy($event)">
               <mat-option [hidden]="displayMessage == false" [disabled]="true" class="text-wrap lh-1 fs-6">
-                Enter atleast 3 characters, you can only select 1 item
+                Enter atleast 1 character, you can only select 1 item
               </mat-option>
               <mat-option *ngIf="isLoading">Loading ...</mat-option>
               <mat-option *ngFor="let option of allergens | async" [value]="option" class="medical-code-option">
@@ -75,9 +75,9 @@
         <div class=" form-group col-md-6">
           <label class="title-bold required">Reaction(s): </label>
           <mat-form-field appearance="outline" class="col-12">
-            <mat-select placeholder="Select allergy reaction">
+            <mat-select placeholder="Select allergy reaction" #reaction>
               <mat-select-filter [displayMember]="'ReactionName'" [array]="allergyReactionFilter"
-                (filteredReturn)="allergyReaction = $event"></mat-select-filter>
+                (filteredReturn)="allergyReaction = $event" *ngIf="reaction.focused"></mat-select-filter>
               <mat-option *ngFor="let allergy of allergyReaction" [value]="allergy.ReactionName"
                 (click)="onSelectedAllergyReaction(allergy.ReactionName)">
                 {{allergy.ReactionName}}

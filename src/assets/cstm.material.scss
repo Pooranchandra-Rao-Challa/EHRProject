@@ -75,7 +75,9 @@
 
 ::ng-deep .mat-option {
   white-space: break-spaces;
-  line-height: 1em !important;
+  line-height: 20px !important;
+  height: auto !important;
+  padding: 10px !important;
 }
 
 // mat input search mat-form-field outline color
@@ -157,6 +159,11 @@
   .mat-checkbox-checkmark-path {
     stroke: #41b6a6 !important;
   }
+}
+
+::ng-deep .mat-checkbox-inner-container {
+  width: 25px !important;
+  height: 25px !important;
 }
 
 // Grey Calendar and mat input field

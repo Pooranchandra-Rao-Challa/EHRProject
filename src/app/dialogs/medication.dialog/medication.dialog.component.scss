@@ -71,9 +71,12 @@ border: 1px solid #41b6a6  !important;
 .icon.icon-ic-delete {
   background-color: #d64841;
   border: 1px solid #d64841;
-  background-image: url(/assets/images/icon-delete.svg);
+  background-image: url(/src/assets/images/icon-delete.svg);
   background-size: 12px;
 }
 .medication-modal .modal-footer {
   padding: 10px 35px !important;
+}
+.medication-modal .disabled input{
+  cursor: not-allowed;
 }

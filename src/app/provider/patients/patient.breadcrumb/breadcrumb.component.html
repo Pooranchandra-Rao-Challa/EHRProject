@@ -1,6 +1,6 @@
 
   <ul class="patient-navigation">
-    <li class="active" *ngFor="let breadcrumb of breadcrumbs">
+    <li *ngFor="let breadcrumb of breadcrumbs">
       <a [class.patients-link]="!breadcrumb.ShowRemoveIcon" [class.patient-link]="breadcrumb.ShowRemoveIcon"
       (click)="patientDetailsView(breadcrumb)"
       >
