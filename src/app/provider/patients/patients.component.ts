@@ -114,7 +114,6 @@ export class PatientsComponent implements OnInit,AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    //debugger;
     // server-side search
     fromEvent(this.searchPatient.nativeElement, 'keyup')
       .pipe(
@@ -168,7 +167,6 @@ export class PatientsComponent implements OnInit,AfterViewInit {
   }
 
   loadPatients() {
-    //debugger;
     this.patientsDataSource.loadPatients(
       this.searchPatient.nativeElement.value,
       this.sort.active,

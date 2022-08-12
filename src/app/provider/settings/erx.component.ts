@@ -35,7 +35,6 @@ export class ErxComponent implements OnInit {
 
     this.settingservice.Erx(reqparams).subscribe(reponse => {
       this.erxList = reponse.ListResult;
-      // console.log(this.erxList)
     })
   }
 }

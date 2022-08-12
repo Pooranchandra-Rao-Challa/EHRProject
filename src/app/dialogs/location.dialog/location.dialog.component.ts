@@ -33,8 +33,6 @@ export class LocationDialogComponent implements OnInit {
     private accountservice: Accountservice,
     private alertmsg: AlertMessage) {
     this.data = ref.RequestData as LocationDialog
-    console.log('data');
-    console.log(this.data);
 
 
     this.editPracticeLocation(this.data.LocationInfo)
@@ -129,7 +127,6 @@ export class LocationDialogComponent implements OnInit {
         let thursday = weekdata[4];
         let friday = weekdata[5];
         let saturday = weekdata[6];
-        //console.log(location[0]);
 
         this.PracticeLocData.LocationId = location[0]._id;
         this.PracticeLocData.ProviderId = this.user.ProviderId;
@@ -139,7 +136,6 @@ export class LocationDialogComponent implements OnInit {
         this.PracticeLocData.NPI = location[0].npi;
         this.PracticeLocData.RenderNPI = location[0].render_npi;
         this.PracticeLocData.Tin = location[0].tin_en;
-        // this.PracticeLocData.Street = location[0].street_address;
         this.PracticeLocData.StreetAddress = location[0].street_address;
         this.PracticeLocData.City = location[0].city;
         this.PracticeLocData.State = location[0].state;

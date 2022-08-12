@@ -118,6 +118,7 @@ import timeGridPlugin from '@fullcalendar/resource-timegrid'; // a plugin!
 import { ProvidermessagetopracticeDialogComponent } from 'src/app/dialogs/providermessagetopractice.dialog/providermessagetopractice.dialog.component';
 import { ProvidermessagetopatientDialogComponent } from 'src/app/dialogs/providermessagetopatient.dialog/providermessagetopatient.dialog.component';
 import { MessagesService } from 'src/app/_services/messages.service';
+import { CCdaDialogComponent } from 'src/app/dialogs/c-cda.dialog/c-cda.dialog.component';
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
   interactionPlugin,
@@ -148,7 +149,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     InterventionTableDialogComponent,
     AllergyTableDialogComponent,
     FrequentlyUsedDiagnosesDialogComponent,
-    AddDiagnosesDialogComponent
+    AddDiagnosesDialogComponent,
+    CCdaDialogComponent
+    
   ],
   declarations: [
     ProviderNavbarComponent,
@@ -214,7 +217,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     InterventionTableDialogComponent,
     AllergyTableDialogComponent,
     FrequentlyUsedDiagnosesDialogComponent,
-    AddDiagnosesDialogComponent
+    AddDiagnosesDialogComponent,
+    CCdaDialogComponent
   ],
   imports: [
     FullCalendarModule,
@@ -288,7 +292,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     InterventionTableDialogComponent,
     AllergyTableDialogComponent,
     FrequentlyUsedDiagnosesDialogComponent,
-    AddDiagnosesDialogComponent]
+    AddDiagnosesDialogComponent,
+    CCdaDialogComponent]
 })
 export class ProviderModule {
 

@@ -20,9 +20,6 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe(params => {
       const message = params['message'];
-      console.log(params);
-
-      console.log(message);
       if(message != null && message !=''){
         this.alertMessage.displayErrorDailog(message);
       }

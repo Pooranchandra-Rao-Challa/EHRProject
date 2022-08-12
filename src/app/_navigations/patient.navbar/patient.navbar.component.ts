@@ -29,11 +29,8 @@ export class PatientNavbarComponent implements OnInit {
   constructor(private authenticationService: AuthenticationService, private patientService: PatientService,
     private route: ActivatedRoute,
     private router: Router) {
-    console.log(authenticationService.userValue);
-
     this.user = authenticationService.userValue;
     this.locationsInfo = JSON.parse(this.user.LocationInfo);
-    //this.currentLocation = this.locationsInfo[0].locationId;
     this.viewModel = authenticationService.viewModel;
   }
 
@@ -54,7 +51,6 @@ export class PatientNavbarComponent implements OnInit {
       "PatientId": this.user.PatientId,
     }
     this.patientService.PatientMyProfileByPatientId(req).subscribe(resp => {
-      //debugger;
       if (resp.IsSuccess) {
         this.PatientProfile = resp.ListResult[0];
       }

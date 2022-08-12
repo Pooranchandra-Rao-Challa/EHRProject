@@ -106,7 +106,6 @@ export class NewmessageDialogComponent implements OnInit {
     this.ref.close(null);
   }
   _filterPatient(term) {
-    console.log(term)
     this.isLoading = true;
     this.patientService
       .PatientSearch({
@@ -115,7 +114,6 @@ export class NewmessageDialogComponent implements OnInit {
         SearchTerm: term
       })
       .subscribe(resp => {
-        console.log(resp);
 
         this.isLoading = false;
         if (resp.IsSuccess) {
@@ -130,7 +128,6 @@ export class NewmessageDialogComponent implements OnInit {
       if (resp.IsSuccess) {
         this.filteredPatients = of(
           resp.ListResult as ToAddress[]);
-        console.log(resp.ListResult);
 
       }
     });
@@ -149,7 +146,6 @@ export class NewmessageDialogComponent implements OnInit {
     if (this.messageDialogData.Messages.EmailMessageId != null) {
       this.messageDialogData.Messages.FromId = this.user.UserId;
       this.messageDialogData.Messages.ProviderName = this.user.FirstName;
-      console.log(this.providerMessage);
       this.messageDialogData.Messages.Draft = item;
       this.messageDialogData.Messages.Body = this.providerMessage.ReplyMessage;
       this.messageDialogData.Messages.Sent = sent
@@ -157,7 +153,6 @@ export class NewmessageDialogComponent implements OnInit {
     else {
       this.messageDialogData.Messages.FromId = this.user.UserId;
       this.messageDialogData.Messages.ProviderName = this.user.FirstName;
-      console.log(this.providerMessage);
       this.messageDialogData.Messages.Draft = item;
       this.messageDialogData.Messages.Sent = sent
     }
@@ -174,7 +169,6 @@ export class NewmessageDialogComponent implements OnInit {
     this.cancel();
   }
   // Upadateviewmodel(data) {
-  //   debugger;
   //   this.providerMessage = new Messages
   //   if (data == 'Patient') {
   //     this.providerMessage = new Messages;

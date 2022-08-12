@@ -28,11 +28,7 @@ export class VitalDialogComponent {
     this.Vital = new VitalInfo;
     if (data == null) return;
     this.Vital = data;
-    // console.log(this.Vital.CollectedAt.toTimeString().split(' ')[0]);
-
     this.CollectedTime = this.Vital.CollectedAt.toTimeString().substring(0, 5);
-    // console.log(this.Vital);
-
   }
   BloodTypes = [
     { Id: 1, BloodType: 'Group A' },

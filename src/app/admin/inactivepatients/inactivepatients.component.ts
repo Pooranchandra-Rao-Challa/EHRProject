@@ -38,8 +38,6 @@ export class InActivePatientsComponent implements OnInit {
     var reqdata = {
       Active: 0
     }
-    console.log(reqdata);
-
     this.patientsDataSource = new PatientDatasource(this.adminservice,reqdata);
     this.patientsDataSource.loadPatients();
 
@@ -111,8 +109,6 @@ export class PatientDatasource implements DataSource<Patient>{
     this.queryParams["PageSize"] = pageSize;
     this.queryParams["NameFilter"] = filter;
     this.loadingSubject.next(true);
-console.log(this.queryParams);
-
     this.adminservice.ActivePatients(this.queryParams).pipe(
       catchError(() => of([])),
       finalize(() => this.loadingSubject.next(false))

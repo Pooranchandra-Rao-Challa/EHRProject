@@ -20,11 +20,10 @@ import { MyprofileComponent } from 'src/app/patient/myprofile.component';
 import { PatientappointmentDialogComponent } from 'src/app/dialogs/patientappointment.dialog/patientappointment.dialog.component';
 import { OverlayService } from 'src/app/overlay.service';
 import { AlertMessage } from 'src/app/_alerts/alertMessage';
-import { LocationSelectService, ViewChangeService } from '../provider.layout/view.notification.service';
+import { LocationSelectService, ViewChangeService,RecordsChangeService } from '../provider.layout/view.notification.service';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
-import { MessagesService } from 'src/app/_services/messages.service';
-@NgModule({
+import { MessagesService } from 'src/app/_services/messages.service';@NgModule({
   exports: [
     MatInputModule
   ],
@@ -40,17 +39,16 @@ import { MessagesService } from 'src/app/_services/messages.service';
     PatientappointmentDialogComponent,
     NewmessageDialogComponent,
     FooterComponent,
-    ActivityLogComponent
-
-
+    ActivityLogComponent,
   ],
   imports: [
     PatientRoutingModule,
     SharedModule,
     CommonModule,
-
   ],
-  providers: [LocationSelectService,ViewChangeService,PatientService, OverlayService,AlertMessage,PatientNavbarComponent,UtilityService,SmartSchedulerService,MessagesService
+  providers: [LocationSelectService,ViewChangeService,PatientService,
+    OverlayService,AlertMessage,PatientNavbarComponent,UtilityService,
+    SmartSchedulerService,MessagesService,RecordsChangeService,
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

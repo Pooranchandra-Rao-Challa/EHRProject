@@ -128,7 +128,6 @@ export class BlockoutDialogComponent implements OnInit {
     }
   }
   SelectedBlockoutFor(event) {
-    console.log(event);
     this.changeOfBlockoutfor.next(event.value);
   }
   loadDefaults() {
@@ -210,7 +209,6 @@ export class BlockoutDialogComponent implements OnInit {
         || ((this.blockout.RecurType == 'weekly' && this.blockout.RecurTime > 0
           && this.blockout.RangeDay != null && this.blockout.RangeDay.length > 0)))
         || !this.blockout.Recur)
-    //console.log(this.blockout);
     return !flag;
   }
   SelectionBlockoutForChange(event) {
@@ -234,7 +232,6 @@ export class BlockoutDialogComponent implements OnInit {
 
     let isAdd = this.blockout.BlockoutId == null
     this.blockout.strStartAt = this.datePipe.transform(this.blockout.StartAt,"MM/dd/yyyy")+" "+this.blockout.Time;
-    console.log(this.blockout);
 
     this.smartSchedulerService.CreateBlockout(this.blockout).subscribe(resp =>{
       if(resp.IsSuccess){

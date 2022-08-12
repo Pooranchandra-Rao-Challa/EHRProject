@@ -67,12 +67,7 @@ export class TobaccoUseDialogComponent implements OnInit {
     this.interventionPerformed = TobaccoUseConstants.INTERVENTION_PERFORMED;
     this.interventionTobaccoStatus = TobaccoUseConstants.INTERVENTION_TOBACCO_STATUS;
     this.interventionTobaccoStatusFilter = this.interventionTobaccoStatus.slice();
-    // this.screeningTobaccoStatusModified = this.screeningTobaccoStatus.map((x) => {
-    //   Code: x.Code;
-    //   Description: x.Description;
-    //   CodeDescription: x.Code + '-' + x.Description
-    // });
-    // console.log(this.screeningTobaccoStatusModified);
+
 
   }
 

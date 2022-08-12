@@ -163,7 +163,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     }
 
     this.fullcalendar.getApi().handleRenderRequest = () => {
-      console.log('test');
+
     }
   }
 
@@ -533,7 +533,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   }
 
   handleEventMount(arg) {
-    //console.log(arg);
+
   }
 
   ngOnInit() {
@@ -684,8 +684,6 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     let event = arg;
     let eventDate = new Date(this.datepipe.transform(event.start, "MM/dd/yyyy"));
     let today = new Date(this.datepipe.transform(new Date(), "MM/dd/yyyy"))
-    console.log(arg);
-
     var diff = Math.abs(event.start.getTime() - event.end.getTime());
     var diffMin = Math.ceil(diff / (1000 * 60 ));
     if(diffMin > 60*24) return;
@@ -902,7 +900,6 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     ClinicId: this.user.ClinicId }).subscribe(resp=>{
       if(resp.IsSuccess){
         this.blockouts = resp.ListResult;
-        console.log(this.fullcalendar.getApi().view);
 
         this.GetBlockouts();
       }
@@ -918,9 +915,6 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       value.start = new Date(this.datepipe.transform(value.StartAt,"MM/dd/yyyy HH:mm:ss"));
       value.end = this.getEndDate(value.Duration,value.start)
     })
-
-
-    console.log(this.blockouts);
   }
 
   getEndDate(duration: number,date: Date): Date{

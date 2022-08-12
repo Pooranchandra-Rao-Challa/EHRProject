@@ -18,7 +18,7 @@ export class ChangePasswordDialogComponent {
     @Inject(MAT_DIALOG_DATA) reqdata,
     private fb: FormBuilder) {
       this.data = reqdata as ChangePassword
-      console.log(this.data);
+
 
       this.changepasswordform = fb.group({
         password: ['', [Validators.required,Validators.minLength(8),

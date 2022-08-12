@@ -53,11 +53,7 @@ export class OrderDialogComponent implements OnInit,AfterViewInit {
 
     if (this.labandImaging.CurrentPatient == null)
       this.labandImaging.CurrentPatient = new PatientSearch();
-
-
     this.labandImaging.ProcedureType = this.labandImaging.View;
-    console.log(this.authService.userValue.LocationInfo);
-
     this.orderingFacilities = JSON.parse(this.authService.userValue.LocationInfo) as UserLocations[];
   }
 

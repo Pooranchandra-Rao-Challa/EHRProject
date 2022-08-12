@@ -252,7 +252,7 @@
     }
 
     .body {
-      height: calc(100vh - 560px);
+      height: calc(100vh - 550px);
       overflow: hidden auto;
       margin: 1rem !important;
       line-height: 30px;
@@ -304,9 +304,38 @@
       width: 30px;
       text-align: center;
     }
-    span{
+
+    span {
       margin-right: 5px;
     }
+  }
+
+  .text-new-line{
+    white-space: pre;
+
+  }
+
+  .text-truncate {
+    display: inline-block;
+    max-width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .overflow {
+    display: inline-block;
+    width: 540px;
+    white-space: nowrap;
+    overflow: hidden auto !important;
+    text-overflow: ellipsis;
+  }
+  .show-overflow{
+    z-index: 10000;
+    width: 540px;
+    position: absolute;
+    display: inline-block;
+    margin-left: 60px !important;
   }
 
   mat-cell:first-of-type {
@@ -331,8 +360,8 @@
     padding-left: 0px;
   }
 
-
 }
+
 
 ::ng-deep #local-messages .mat-paginator-range-actions {
   display: flow-root !important;

@@ -174,17 +174,14 @@ export class EncounterDialogComponent implements OnInit {
         this.dialogIsLoading = false;
         if (resp.AffectedRecords == 1) {
           this.encounterInfo = resp.Result as EncounterInfo;
-          console.log(this.encounterInfo);
           this.diagnosesInfo.next(this.encounterInfo.Diagnoses);
           this.recommendedProcedures.next(this.encounterInfo.RecommendedProcedures);
-          //console.log(this.encounterInfo.Vital.CollectedAt.toString().substring(11,16));
 
           if (this.encounterInfo.Vital.CollectedAt != null)
             this.encounterInfo.Vital.CollectedTime = this.encounterInfo.Vital.CollectedAt.toString().substring(11, 16);
           this.dischargeCode.Code = this.encounterInfo.DischargeStatusCode
           this.dischargeCode.Description = this.encounterInfo.DischargeStatus
           this.dischargeCode.CodeSystem = this.encounterInfo.DischargeStatusCodeSystem;
-          console.log(this.dischargeCode);
         } else {
           this.encounterInfo.ProviderId = this.authService.userValue.ProviderId;
           this.encounterInfo.LocationId = this.location.LocationId;
@@ -337,7 +334,6 @@ export class EncounterDialogComponent implements OnInit {
     this.encounterInfo.strServicedAt = this.datePipe.transform(this.encounterInfo.ServicedAt, "MM/dd/yyyy")
     if (this.encounterInfo.ServiceEndAt != null)
       this.encounterInfo.strServiceEndAt = this.datePipe.transform(this.encounterInfo.ServiceEndAt, "MM/dd/yyyy")
-    console.log(this.encounterInfo);
 
     this.patientService.CreateEncounter(this.encounterInfo).subscribe(resp => {
       if (resp.IsSuccess) {
