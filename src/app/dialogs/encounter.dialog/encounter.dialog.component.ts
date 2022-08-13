@@ -96,14 +96,16 @@ export class EncounterDialogComponent implements OnInit {
       .filter((loc) => loc.LocationId === this.authService.userValue.CurrentLocation)[0];
 
     this.loadDefaults();
-
+    console.log(this.overlayref.RequestData );
     this.appointment = this.overlayref.RequestData as ScheduledAppointment
     this.patient = this.overlayref.RequestData as ProviderPatient;
+      console.log(this.appointment);
+
 
     this.initEncoutnerView();
     this.loadEncouterView();
-    if(this.overlayref.RequestData["From"] == "ProcedureView"
-      && this.overlayref.RequestData.EncounterId == null){
+    if (this.overlayref.RequestData["From"] == "ProcedureView"
+      && this.overlayref.RequestData.EncounterId == null) {
       this.encounterInfo.RecommendedProcedures.push(this.overlayref.RequestData as ProceduresInfo);
     }
     this.encounterInfo.EnableNewEncounterData = this.EnableNewEncounterData;
@@ -118,7 +120,7 @@ export class EncounterDialogComponent implements OnInit {
 
 
     if (this.encounterInfo.Vital.CollectedAt != null)
-      this.encounterInfo.Vital.CollectedTime = this.encounterInfo.Vital.CollectedAt.toTimeString().substring(0, 5);
+      this.encounterInfo.Vital.CollectedTime = this.datePipe.transform(this.encounterInfo.Vital.CollectedAt,"hh:mm a");
   }
 
   private computeBmi(height: number, weight: number): number {
@@ -174,20 +176,23 @@ export class EncounterDialogComponent implements OnInit {
         this.dialogIsLoading = false;
         if (resp.AffectedRecords == 1) {
           this.encounterInfo = resp.Result as EncounterInfo;
+          this.encounterInfo.PatientName = this.appointment.PatientName;
           this.diagnosesInfo.next(this.encounterInfo.Diagnoses);
           this.recommendedProcedures.next(this.encounterInfo.RecommendedProcedures);
 
           if (this.encounterInfo.Vital.CollectedAt != null)
-            this.encounterInfo.Vital.CollectedTime = this.encounterInfo.Vital.CollectedAt.toString().substring(11, 16);
+            this.encounterInfo.Vital.CollectedTime = this.datePipe.transform(this.encounterInfo.Vital.CollectedAt, "hh:mm a");
           this.dischargeCode.Code = this.encounterInfo.DischargeStatusCode
           this.dischargeCode.Description = this.encounterInfo.DischargeStatus
           this.dischargeCode.CodeSystem = this.encounterInfo.DischargeStatusCodeSystem;
+
         } else {
           this.encounterInfo.ProviderId = this.authService.userValue.ProviderId;
           this.encounterInfo.LocationId = this.location.LocationId;
           if (this.appointment != null) {
             this.encounterInfo.AppointmentId = this.appointment.AppointmentId;
             this.encounterInfo.PatientId = this.appointment.PatientId;
+            this.encounterInfo.PatientName = this.appointment.PatientName
           }
 
         }
@@ -240,11 +245,13 @@ export class EncounterDialogComponent implements OnInit {
   onReferralFromStateChange(value) {
     if (value) {
       this.encounterInfo.ReferredTo = false;
+      this.encounterInfo.ReferralTo = "";
     }
   }
   onReferralToStateChange(value) {
     if (value) {
       this.encounterInfo.ReferredFrom = false;
+      this.encounterInfo.ReferralFrom = "";
     }
   }
   optionChangedForDiagnosis(value: MedicalCode) {
@@ -287,11 +294,14 @@ export class EncounterDialogComponent implements OnInit {
   }
 
   onToothSurfaceSelectedForCP(value, item: ProceduresInfo, index) {
-    item.Surface = value;
+    item.Place = value;
   }
 
   onToothSurfaceSelectedForRP(value, item, index) {
-    item.Surface = value;
+    console.log(value);
+    console.log(item);
+
+    item.Place = value;
   }
 
   showAssociateVitals: boolean = true;
@@ -303,6 +313,7 @@ export class EncounterDialogComponent implements OnInit {
       this.showAssociateVitals = false;
     }
   }
+
 
 
 
@@ -331,9 +342,16 @@ export class EncounterDialogComponent implements OnInit {
   updateEncounter() {
     let isAdd = this.encounterInfo.EncounterId == null;
 
+    if (this.encounterInfo.Vital.CollectedAt != null)
+      this.encounterInfo.Vital.strCollectedAt = this.datePipe.transform(this.encounterInfo.Vital.CollectedAt, "MM/dd/yyyy")
+
+    if (this.encounterInfo.Vital.CollectedTime != null)
+    this.encounterInfo.Vital.strCollectedAt =  this.encounterInfo.Vital.strCollectedAt + " " + this.encounterInfo.Vital.CollectedTime;
     this.encounterInfo.strServicedAt = this.datePipe.transform(this.encounterInfo.ServicedAt, "MM/dd/yyyy")
     if (this.encounterInfo.ServiceEndAt != null)
       this.encounterInfo.strServiceEndAt = this.datePipe.transform(this.encounterInfo.ServiceEndAt, "MM/dd/yyyy")
+
+    console.log(this.encounterInfo);
 
     this.patientService.CreateEncounter(this.encounterInfo).subscribe(resp => {
       if (resp.IsSuccess) {

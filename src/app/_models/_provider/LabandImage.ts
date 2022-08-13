@@ -26,8 +26,8 @@ export class LabProcedureWithOrder {
   PatientName?: string;
   ProviderName?: string;
   TotalRecords?: number;
-  LabResult?: LabResultInfo;
-  TestResultsOfImages?: ImageResultInfo;
+  LabResult?: LabResultInfo = {};
+  TestResultsOfImages?: ImageResultInfo = {};
   StrTests?: string;
   strResult?: string;
   RemovedTestOrderIds?: string[] = [];

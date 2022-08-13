@@ -62,7 +62,7 @@ export class LocationDialogComponent implements OnInit {
       }
       else {
         this.manuallybtn = true;
-        this.alertmsg.displayErrorDailog(ERROR_CODES["E2JP001"])
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2JP009"])
       }
     });
   }

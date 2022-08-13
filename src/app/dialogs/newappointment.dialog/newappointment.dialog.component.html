@@ -13,7 +13,7 @@
     <div class="modal-body">
       <form>
         <div class="row">
-          <mat-label>Patient :</mat-label>
+          <mat-label class="required">Patient :</mat-label>
           <mat-form-field appearance="outline" class="col-12 hover" [hidden]="data.PatientAppointment.PatientId == null">
             <input matInput placeholder="Patient Name" [(ngModel)]="PatientAppointment.PatientName"
               [ngModelOptions]="{standalone:true}" disabled class="notallowCursor">
@@ -31,7 +31,7 @@
                 </mat-option>
               </mat-autocomplete>
           </mat-form-field>
-          <mat-label>Providers :</mat-label>
+          <mat-label class="required">Providers :</mat-label>
           <mat-form-field appearance="outline" class="col-12 hover">
             <mat-select id="practiveProviders2" placeholder="Select Provider" disableOptionCentering
               placeholder="Select Provider" [(ngModel)]="PatientAppointment.ProviderId"
@@ -40,7 +40,7 @@
                 {{provider.FullName}}</mat-option>
             </mat-select>
           </mat-form-field>
-          <mat-label>Appointment Types :</mat-label>
+          <mat-label class="required">Appointment Types :</mat-label>
           <mat-form-field appearance="outline" class="col-12">
             <mat-select id="selSmartAppointmentTypes" placeholder="Select Appointment Type" disableOptionCentering
               placeholder="Select Appointment Type" [(ngModel)]="PatientAppointment.AppointmentTypeId"
@@ -52,14 +52,14 @@
         </div>
         <div class="row">
           <div class="col-12">
-            <mat-label class="col-12">Notes</mat-label>
+            <mat-label class="col-12 required">Notes</mat-label>
             <textarea class="col-12 text-area" [(ngModel)]="PatientAppointment.Notes"
               [ngModelOptions]="{standalone:true}"></textarea>
           </div>
         </div>
         <div class="row">
           <div class="col-md-9 col-12">
-            <mat-label class="col-12">Locations:</mat-label>
+            <mat-label class="col-12 required">Locations:</mat-label>
             <mat-form-field appearance="outline" class="col-12">
               <mat-select id="selSmartLocations" placeholder="Select Location" disableOptionCentering
                 [(ngModel)]="PatientAppointment.LocationId" [ngModelOptions]="{standalone:true}"
@@ -70,7 +70,7 @@
             </mat-form-field>
           </div>
           <div class="col-md-3 col-12">
-            <mat-label class="col-12">Rooms:</mat-label>
+            <mat-label class="col-12 required">Rooms:</mat-label>
             <mat-form-field appearance="outline" class="col-12">
               <mat-select id="selSmartRooms" placeholder="Select One" disableOptionCentering
                 [(ngModel)]="PatientAppointment.RoomId" (selectionChange)="ClearTimeSlots()"
@@ -82,7 +82,7 @@
         </div>
         <div class="row">
           <div class="col-md-5">
-            <mat-label class="col-12">Select Date:</mat-label>
+            <mat-label class="col-12 required">Select Date:</mat-label>
             <mat-form-field appearance="outline" class="col-12">
               <input matInput class="pointer" autocomplete="off" [matDatepicker]="appointmentDate"
                 (click)="appointmentDate.open()" readonly placeholder="Request Date" [min]="todayDate"
@@ -93,7 +93,7 @@
             </mat-form-field>
           </div>
           <div class="col-md-4">
-            <mat-label>Duration:</mat-label>
+            <mat-label class="required">Duration:</mat-label>
             <mat-form-field appearance="outline" class="col-12">
               <mat-select id="selSmartDurations" placeholder="Select Duration" disableOptionCentering
                 [(ngModel)]="PatientAppointment.Duration" (selectionChange)="ClearTimeSlots()"
@@ -109,7 +109,7 @@
         </div>
         <div class="available-slots">
           <div class="row">
-            <p>Available Time Slots (Select Only One):</p>
+            <p class="required">Available Time Slots (Select Only One):</p>
             <span id="spantimeSlots" *ngIf="showHideMessage$ | async">{{messageToShowTimeSlots}}</span>
             <div class="col-lg-4 col-md-3 col-12 pb-3" *ngFor="let slot of AvaliableTimeSlots">
               <button class="btn col-12 timeslots" [class.timeslot-selected]="slot === this.PatientAppointment.TimeSlot"

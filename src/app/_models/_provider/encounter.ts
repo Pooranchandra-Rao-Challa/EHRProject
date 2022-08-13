@@ -29,6 +29,7 @@ export class EncounterInfo {
   ProviderId?: string;
   LocationId?: string;
   AppointmentId?: string;
+  PatientName?: string;
 
 
 
@@ -188,6 +189,7 @@ export class VitalInfo {
   UnitSystem: string = "us";
   TempType: string = "unspecified";
   Note?: string;
+  strCollectedAt?: string;
 }
 
 

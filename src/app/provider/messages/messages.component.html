@@ -83,7 +83,7 @@
         </div>
 
         <diV class="mt-3 message-content">
-          <div class="leftblockalignments ">
+          <div class="leftblockalignments " style="border:1px solid #41b6a6">
             <div class="pagination">
               <button (click)="pagination.first()" [disabled]="pagination.isFirst">
                 <<
@@ -115,7 +115,7 @@
                 <mat-header-cell *matHeaderCellDef>{{IsInbox || IsUrgent ? "From" : "To"}}</mat-header-cell>
                 <mat-cell *matCellDef="let message" (click)="showMessage(message)">
                   <div class="text-new-line"><div>{{message.PatientName}} </div>
-                    <div [class.text-truncate]="message.Subject.length > 50">{{message.Subject}}</div>
+                    <div [class.text-truncate]="message.Subject?.length > 50">{{message.Subject}}</div>
                   </div>
                 </mat-cell>
               </ng-container>

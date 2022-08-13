@@ -1,5 +1,5 @@
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from "@angular/core";
+import { Component, EventEmitter, HostListener, Input, OnInit, Output, TemplateRef } from "@angular/core";
 import { FormBuilder } from "@angular/forms";
 import { Subject } from "rxjs";
 import { AuthenticationService } from "src/app/_services/authentication.service";
@@ -26,10 +26,6 @@ export class PatientScheduleComponent implements OnInit{
   patientDialogComponent = PatientDialogComponent;
   appointmentDialogComponent = NewAppointmentDialogComponent;
   upcomingAppointmentsDialogComponent = UpcomingAppointmentsDialogComponent;
-  //completeAppointmentDialogComponent = CompleteAppointmentDialogComponent;
-
-
-
   @Input() SelectedProviderId: string;
   @Input() SelectedLocationId: string
   @Input() SwitchUrl:string;
@@ -39,9 +35,9 @@ export class PatientScheduleComponent implements OnInit{
   @Input() Rooms: Room[];
   @Input() PatientAppointment: NewAppointment;
 
+
   selectedPatient: PatientSearchResults;
-  //@Output() PatientSelected:EventEmitter<PatientSearchResults>= new EventEmitter();
-  //@Output() OpenNewPatient:EventEmitter<boolean> = new EventEmitter();
+  noSearchResults: boolean = false;
   @Output() RefreshParentView:EventEmitter<boolean> = new EventEmitter();
   private patientSearchTerms = new Subject<string>();
   public patients: PatientSearchResults[];
@@ -61,7 +57,14 @@ export class PatientScheduleComponent implements OnInit{
 ) {}
 
 
-
+@HostListener('document:click', ['$event'])
+  clickedOut($event: any) {
+    if($event.target.id != 'patientSerarch'){
+      this.patients=[];
+      this.patientNameOrCellNumber="";
+    }
+    $event.stopPropagation();
+  }
 
 
   ngOnInit(): void {
@@ -78,6 +81,9 @@ export class PatientScheduleComponent implements OnInit{
         .subscribe(resp => {
           if (resp.IsSuccess) {
             this.patients = resp.ListResult;
+          }else{
+            this.noSearchResults = true;
+            this.patients = [];
           }
 
         })
@@ -101,17 +107,17 @@ export class PatientScheduleComponent implements OnInit{
     let patient = value.option.value;
 
     this.patients =[];
-    if(patient.NumberOfAppointments == 0){
-      this.openComponentDialog( this.appointmentDialogComponent ,patient,this.PatinetActions(patient));
-    }else{
-      this.openComponentDialog( this.upcomingAppointmentsDialogComponent ,patient,this.PatinetActions(patient));
+    if(patient != null){
+      if(patient.NumberOfAppointments == 0){
+        this.openComponentDialog( this.appointmentDialogComponent ,patient,this.PatinetActions(patient));
+      }else{
+        this.openComponentDialog( this.upcomingAppointmentsDialogComponent ,patient,this.PatinetActions(patient));
+      }
     }
-
-    // return patient.Name + "-" + patient.MobilePhone;
   }
 
   PatinetActions(patient: PatientSearchResults) {
-    if (patient.NumberOfAppointments == 0) return Actions.new;
+    if (patient?.NumberOfAppointments == 0) return Actions.new;
     else return Actions.upcomming;
   }
   PatientAppointmentInfo(appointment: NewAppointment, action?: Actions) {

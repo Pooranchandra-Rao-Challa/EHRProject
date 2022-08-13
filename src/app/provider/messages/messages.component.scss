@@ -275,7 +275,7 @@
   }
 
   .message-table-container {
-    height: calc(100vh - 325px);
+    height: calc(100vh - 335px);
     max-width: 100%;
     overflow: hidden auto;
   }
@@ -336,6 +336,11 @@
     position: absolute;
     display: inline-block;
     margin-left: 60px !important;
+  }
+
+  .mat-table{
+    border-left:unset;
+    border-right:unset;
   }
 
   mat-cell:first-of-type {

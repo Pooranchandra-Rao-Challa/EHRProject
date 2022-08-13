@@ -28,5 +28,14 @@
 
 ::ng-deep .medical-code-option {
   height: fit-content !important;
-  margin: 5px 0 5px 0;
+  //margin: 5px 0 5px 0;
+}
+::ng-deep .mat-advance-medical-group label{
+  background: #41b6a6;
+  color:#fff;
+  border: 1px solid #41b6a6;
+}
+
+::ng-deep  .mat-advance-medical-group .mat-option{
+  padding:unset;
 }

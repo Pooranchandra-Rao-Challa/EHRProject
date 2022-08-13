@@ -3,7 +3,7 @@
   <div class="modal-content">
     <div class="modal-header">
       <h3 class="modal-title col-11 Helvetica-sans-serif-large" id="staticBackdropLabel">
-        Encounter Note - {{appointment.PatientName}} - {{location.LocationName}}
+        Encounter Note - {{encounterInfo.PatientName}} - {{location.LocationName}}
       </h3>
       <span type="button" class="cross-mark col-1" (click)="closePopup()" aria-label="Close">
         X
@@ -59,7 +59,7 @@
 
       <mat-progress-bar mode="indeterminate" bufferValue="50" value=100 *ngIf="dialogIsLoading"></mat-progress-bar>
       <div class="encounter-navigation">
-        <!-- <div *ngIf="messageflag$ | async">{{message}}</div> -->
+
         <mat-tab-group animationDuration="0ms">
           <mat-tab label="Meaningful Use" class="mat-ink-bar">
             <div class="encounter-tab-content">

@@ -272,12 +272,14 @@ export class ChartComponent implements OnInit, AfterViewInit {
       let ef = new EncounterInfo();
       if (dialogData == null) {
         ef.PatientId = this.authService.viewModel.Patient.PatientId;
+        ef.PatientName = this.authService.viewModel.Patient.FirstName+" "+this.authService.viewModel.Patient.LastName;
       }
       reqdata = ef;
     } else if (action == Actions.view && content === this.encounterDialogComponent) {
       let ef = new EncounterInfo();
       ef.EncounterId = dialogData.EncounterId
       ef.PatientId = dialogData.PatientId
+      ef.PatientName = this.authService.viewModel.Patient.FirstName+" "+this.authService.viewModel.Patient.LastName;
       reqdata = ef;
     } else if (action == Actions.new && content === this.appointmentDialogComponent) {
       reqdata = this.PatientAppointmentInfoForNew(action);

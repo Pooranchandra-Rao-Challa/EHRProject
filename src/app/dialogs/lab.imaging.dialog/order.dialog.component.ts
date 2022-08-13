@@ -228,6 +228,11 @@ export class OrderDialogComponent implements OnInit,AfterViewInit {
     return flag && values.length > 0;
   }
 
+  signed(){
+    this.labandImaging.Signed = true;
+    this.save();
+  }
+
   save() {
     this.saveClicked = true;
     let isAdd = this.labandImaging.LabProcedureId == null;
@@ -236,15 +241,17 @@ export class OrderDialogComponent implements OnInit,AfterViewInit {
     this.labandImaging.StrScheduledAt = this.datePipe.transform(this.labandImaging.ScheduledAt, "MM/dd/yyyy")
     this.labandImaging.strReceivedAt = this.datePipe.transform(this.labandImaging.ReceivedAt, "MM/dd/yyyy")
 
+
+
     this.labsImagingService.CreateLabOrImagingOrder(this.labandImaging)
       .subscribe(resp => {
         if (resp.IsSuccess) {
           this.ref.close({ "saved": true });
-          this.alertMessage.displayMessageDailog(ERROR_CODES[isAdd ? "M2G1001" : "M2G1002"]);
+          this.alertMessage.displayMessageDailog(ERROR_CODES[this.labandImaging.View == "Lab" ? isAdd ?  "M2G1001" : "M2G1002" : isAdd ?  "M2G1008" : "M2G1009"]);
 
         } else {
           this.close();
-          this.alertMessage.displayErrorDailog(ERROR_CODES[isAdd ? "E2G1001" : "E2G1002"]);
+          this.alertMessage.displayErrorDailog(ERROR_CODES[this.labandImaging.View == "Lab" ? isAdd ? "E2G1001" : "E2G1002" : isAdd ? "E2G1008" : "E2G1009"]);
         }
 
       });
@@ -256,7 +263,7 @@ export class OrderDialogComponent implements OnInit,AfterViewInit {
 
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
     dialogData, action: Actions = Actions.view) {
-    const ref = this.overlayService.open(content, dialogData);
+    const ref = this.overlayService.open(content, dialogData,true);
     ref.afterClosed$.subscribe(res => {
       if (content === this.testCodeComponent) {
         if (res != null && res.data != null && res.data.TestCode) {

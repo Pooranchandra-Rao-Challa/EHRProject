@@ -46,6 +46,7 @@ export class LabsImagingComponent implements OnInit {
   ResultStatuses: any[];
   OrderStatuses: any[];
   @ViewChild('SearchTest', { static: true }) SearchTest: ElementRef;
+  Pagesize: number = 10;
 
   constructor(private labImageService: LabsImagingService,
     private authService: AuthenticationService,
@@ -77,6 +78,7 @@ export class LabsImagingComponent implements OnInit {
         })
       )
       .subscribe();
+
     // reset the paginator after sorting
     this.sort.sortChange.subscribe(() => {
       this.paginator.pageIndex = 0
@@ -153,6 +155,8 @@ export class LabsImagingComponent implements OnInit {
   openEditDialog(data: LabProcedureWithOrder) {
     if (this.viewmodel.LabandImageView == "Lab") {
       this.openComponentDialog(this.orderDialogComponent, data, this.ActionTypes.view)
+    }else if (this.viewmodel.LabandImageView == "Image") {
+      this.openComponentDialog(this.orderDialogComponent, data, this.ActionTypes.view)
     }
   }
   openResultDialog(data: LabProcedureWithOrder) {
@@ -174,7 +178,8 @@ export class LabsImagingComponent implements OnInit {
     }
     else if (action == Actions.view &&
       content === this.orderDialogComponent &&
-      this.viewmodel.LabandImageView == "Lab") {
+      (this.viewmodel.LabandImageView == "Lab"
+      || this.viewmodel.LabandImageView == "Image")) {
       this.labandimaging = dialogData;
       this.labandimaging.View = this.viewmodel.LabandImageView;
       reqdata = this.labandimaging;

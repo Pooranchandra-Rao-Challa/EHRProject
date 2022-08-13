@@ -3,7 +3,7 @@ import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { BehaviorSubject, of } from 'rxjs';
 import { AfterViewInit, Component, ComponentFactoryResolver, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
-import { Actions, PatientPortalUser, ProceduresInfo, ViewModel } from "src/app/_models"
+import { Actions, EncounterInfo, PatientPortalUser, ProceduresInfo, ViewModel } from "src/app/_models"
 import { catchError, finalize } from 'rxjs/operators';
 import { PatientAccountInfo, PatientBreadcurm, ProviderPatient }
   from 'src/app/_models/_provider/Providerpatient';
@@ -53,7 +53,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
   procedureDialogComponent = ProcedureDialogComponent;
   orderResultDialogComponent = OrderResultDialogComponent
   cCdaDialogComponent = CCdaDialogComponent
-  
+
 
 
   constructor(private authService: AuthenticationService,
@@ -78,11 +78,10 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit(): void {
-    this.viewChangeService.getData().subscribe(changedView =>
-      {
-        this.viewModel = this.authService.viewModel;
-        this.chartSubject.next(changedView)
-      }
+    this.viewChangeService.getData().subscribe(changedView => {
+      this.viewModel = this.authService.viewModel;
+      this.chartSubject.next(changedView)
+    }
     );
     this.changedChartView$
       .pipe(
@@ -281,15 +280,19 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
   }
 
   _detailsView(patientview) {
+    this.viewChangeService.sendData("Patients");
     this.authService.SetViewParam("Patient", patientview);
     this.authService.SetViewParam("PatientView", "Chart");
     const currentUrl = this.router.url;
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate([currentUrl]);
+      this.router.navigate(["/provider/patientdetails"]);
     });
+    //this.router.navigate(["/provider/patientdetails"]);
   }
 
   _listView() {
+    this.viewChangeService.sendData("Patients");
+    this.authService.SetViewParam("View", "Patients")
     this.router.navigate(["provider/patients"]);
   }
 
@@ -347,16 +350,17 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
     } else if (content === this.patientHealthPortalComponent && action == Actions.view) {
       dialogData = data;
     } else if (action == Actions.new && content === this.encounterDialogComponent) {
-      dialogData = this.patient;
+      let ef = new EncounterInfo();
+      if (dialogData == null) {
+        ef.PatientId = this.authService.viewModel.Patient.PatientId;
+        ef.PatientName = this.authService.viewModel.Patient.FirstName + " " + this.authService.viewModel.Patient.LastName;
+      }
+      dialogData = ef
     } else if (action == Actions.view && content === this.orderResultDialogComponent) {
       dialogData = data;
     }
-    else if(action == Actions.view && content === this.cCdaDialogComponent)
-    {
+    else if (action == Actions.view && content === this.cCdaDialogComponent) {
       dialogData = data;
-    }
-    {
-
     }
     const ref = this.overlayService.open(content, dialogData);
 

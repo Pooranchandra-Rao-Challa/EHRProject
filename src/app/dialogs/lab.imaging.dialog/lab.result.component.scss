@@ -10,7 +10,9 @@
   margin: unset;
 }
 
-
+#editlaborder .place-holder::placeholder{
+  font-size:8pt;
+}
 #editlaborder .modal-body {
   max-height: calc(90vh - 200px);
   padding: 0 !important;
@@ -31,7 +33,9 @@
   border-left: 1px solid #41b6a6;
   border-right: 1px solid #41b6a6;
 }
-
+#editlaborder .modal-body > .row > .thead .th{
+  font-weight: 600;
+}
 #editlaborder .modal-body > .row > .tbody:last-child{
   border-bottom: 1px solid #41b6a6 !important;
 }

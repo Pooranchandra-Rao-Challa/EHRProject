@@ -14,7 +14,7 @@ import { LabsImagingService } from 'src/app/_services/labsimaging.service';
 })
 export class ImagingResultDialogComponent implements OnInit {
 
-  labandimaging: LabProcedureWithOrder
+  labandimaging: LabProcedureWithOrder = {};
 
   constructor(
     private ref: EHROverlayRef,
@@ -26,6 +26,7 @@ export class ImagingResultDialogComponent implements OnInit {
     console.log(this.labandimaging);
 
     if (this.labandimaging.TestResultsOfImages == null){
+      this.labandimaging.TestResultsOfImages = {};
       this.loadImageResults();
     }
 
@@ -72,12 +73,15 @@ export class ImagingResultDialogComponent implements OnInit {
     this.labandimaging.TestResultsOfImages = r1;
   }
 
+  saveClicked: boolean = false;
   save(){
+    this.saveClicked = true;
     this.labandimaging.TestResultsOfImages.strScheduleAt = this.datePipe.transform(this.labandimaging.TestResultsOfImages.ScheduleAt,"MM/dd/yyyy")
     this.labandimaging.TestResultsOfImages.ScheduleAt = new Date(this.labandimaging.TestResultsOfImages.ScheduleAt)
     this._updateModel();
   }
   sign(){
+    this.saveClicked = true;
     this.labandimaging.TestResultsOfImages.strScheduleAt = this.datePipe.transform(this.labandimaging.TestResultsOfImages.ScheduleAt,"MM/dd/yyyy")
     this.labandimaging.TestResultsOfImages.ScheduleAt = new Date(this.labandimaging.TestResultsOfImages.ScheduleAt)
     this.labandimaging.Signed = true;
@@ -85,6 +89,7 @@ export class ImagingResultDialogComponent implements OnInit {
   }
 
   _updateModel(){
+
     this.copyResults();
     let isAdd = this.labandimaging.TestResultsOfImages.ImageResultId == null || this.labandimaging.TestResultsOfImages.ImageResultId == '';
 

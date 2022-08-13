@@ -255,7 +255,6 @@ fieldset {
     color: #41b6a6;
   }
 
-
   .panel {
     background-color: #fff;
     border: 1px solid #41b6a6;
@@ -267,6 +266,26 @@ fieldset {
       font-size: 15px;
       height: 30px;
     }
+  }
+
+
+
+  .btn-blockout {
+    background-color: #fff;
+    border: 1px solid #41b6a6;
+    line-height: 3.1;
+    color: #41b6a6;
+    margin-top:10px;
+    .mat-checkbox {
+      font-weight: normal;
+      font-size: 15px;
+      height: 30px;
+    }
+  }
+
+  .btn-blockout:hover{
+    background-color: #41b6a6;
+    color: #fff;
   }
 
   /*.schedule-accordion .bg-color, .mat-expansion-panel-header-title*/

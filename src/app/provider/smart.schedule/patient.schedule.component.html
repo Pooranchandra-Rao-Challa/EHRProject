@@ -5,11 +5,12 @@
             <div class="col-lg-8 col-md-6 col-12">
               <div class="form-group">
                 <div class="input-group smartview-patient-search-result" appearance="outline" class="new-search col-12">
-                  <input class="form-control new-search" [matAutocomplete]="patientSerarch"
+                  <input class="form-control new-search" [matAutocomplete]="patientSerarch" id="patientSerarch"
                     placeholder="Schedule Appointment ( Enter a patient's name or phone number )" type="text"
                     [(ngModel)]="patientNameOrCellNumber" (keyup)="searchPatient(patientNameOrCellNumber)" />
                     <mat-autocomplete  #patientSerarch="matAutocomplete"  [displayWith]="displayPatient"
-                    (optionSelected)="onPatientSelected($event)" ><!-- -->
+                    (optionSelected)="onPatientSelected($event)" >
+                    <mat-option *ngIf="noSearchResults">No patient found. add <a class="new-patient-link" (click)="openComponentDialog(patientDialogComponent)">a new patient</a> and/or retry you search</mat-option>
                   <mat-option *ngFor="let patient of patients" [value]="patient" class="patient-search-option patient-search-option-menu-item">
                     {{patient.Name}},
                     {{patient.DateofBirth | date: 'MM/dd/yyyy'}} , {{patient.Age +' Year(s)'}} ,

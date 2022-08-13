@@ -3,7 +3,7 @@ left: calc(100% - 80%) !important;
 margin: unset;">
   <div class="modal-content ordermodel">
     <div class="modal-header" style="margin-left:-1px">
-      <p class="modal-title Roboto-medium">Add {{labandImaging.View}} Order </p>
+      <p class="modal-title Roboto-medium">{{labandImaging.LabProcedureId != null ? "Edit" : "Add"}} {{labandImaging.View}} Order </p>
       <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close" (click)="cancel()">
         X
       </span>
@@ -160,10 +160,10 @@ margin: unset;">
           </div>
           <div class="row">
             <div class="col-md-4" style="text-align: center;">
-              <mat-label class="text-white required">Code</mat-label>
+              <mat-label class="text-white required" matTooltip="Click the + icon to add Test Code">Code</mat-label>
             </div>
             <div class="col-md-4" style="text-align: center;">
-              <mat-label class="text-white required">Test</mat-label>
+              <mat-label class="text-white required" matTooltip="Click the + icon to add Test Code">Test</mat-label>
             </div>
           </div>
         </div>
@@ -239,8 +239,8 @@ margin: unset;">
       </form>
     </div>
     <div class="modal-footer">
-      <button mat-raised-button type="submit" class="btn btn-green   pull-right" (click)="save()" [disabled]="enableSave()" *ngIf="!saveClicked">Save</button>
-      <button mat-raised-button type="submit" class="btn btn-green   pull-right" [disabled]="enableSave()">Sign</button>
+      <button mat-raised-button type="submit" class="btn btn-green   pull-right" (click)="save()" [disabled]="enableSave()" *ngIf="!saveClicked && !labandImaging.Signed">Save</button>
+      <button mat-raised-button type="submit" class="btn btn-green   pull-right" (click)="signed()"  [disabled]="enableSave()" *ngIf="!labandImaging.Signed">Sign</button>
       <button mat-raised-button class="btn btn-green pull-right" (click)="close()">Close</button>
     </div>
   </div>

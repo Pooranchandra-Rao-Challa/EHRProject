@@ -1,6 +1,6 @@
 <div class="modal-dialog" id="editlaborder">
   <div class="modal-content editordermodel">
-    <div class="modal-header">
+    <div class="modal-header" style="margin-left:-1px;">
       <p class="modal-title Roboto-medium">Edit Lab Results</p>
       <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close" (click)="cancel()">
         X
@@ -25,7 +25,7 @@
             <mat-label>Phone:</mat-label>
             <mat-form-field appearance="outline" class="col-md-12">
               <input matInput placeholder="" disabled class="notallowed-cursor"
-                [ngModel]="labandImaging.CurrentPatient.PrimaryPhone">
+                [ngModel]="labandImaging.CurrentPatient.MobilePhone">
             </mat-form-field>
           </div>
 
@@ -229,7 +229,7 @@
             <div class="col-md-7">
               <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-12">
                 <input matInput [matDatepicker]="specimenCollected" placeholder="Specimen Collected Date"
-                  (focus)="specimenCollected?.open()" class="Helvetica-sans-serif-medium"
+                  (focus)="specimenCollected?.open()" class="Helvetica-sans-serif-medium place-holder"
                   [(ngModel)]="labandImaging.LabResult.CollectedDate">
                 <mat-datepicker-toggle matSuffix [for]="specimenCollected">
                 </mat-datepicker-toggle>
@@ -250,7 +250,7 @@
             <div class="col-md-7">
               <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-12">
                 <input matInput [matDatepicker]="specimenReceived" placeholder="Specimen Received Date"
-                  (focus)="specimenReceived?.open()" class="Helvetica-sans-serif-medium"
+                  (focus)="specimenReceived?.open()" class="Helvetica-sans-serif-medium place-holder"
                   [(ngModel)]="labandImaging.LabResult.ReceivedDate">
                 <mat-datepicker-toggle matSuffix [for]="specimenReceived">
                 </mat-datepicker-toggle>
@@ -271,7 +271,7 @@
             <div class="col-md-7">
               <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-12">
                 <input matInput [matDatepicker]="testPerfomred" placeholder="Test Performed Date"
-                  (focus)="testPerfomred?.open()" class="Helvetica-sans-serif-medium"
+                  (focus)="testPerfomred?.open()" class="Helvetica-sans-serif-medium place-holder"
                   [(ngModel)]="labandImaging.LabResult.TestedDate">
                 <mat-datepicker-toggle matSuffix [for]="testPerfomred">
                 </mat-datepicker-toggle>
@@ -302,7 +302,7 @@
                 </div>
               </div>
               <div class="row header-row">
-                <div class="col-md-2 Helvetica-sans-serif-medium">
+                <div class="col-md-2 Helvetica-sans-serif-medium" matTooltip="Click the + icon to add Test Code">
                   Code
                 </div>
                 <div class="col Helvetica-sans-serif-medium">
@@ -391,9 +391,9 @@
         <span class="mt-3">Reviewed</span>
       </div>
       <div class="buttons" style="float:right">
-        <button mat-raised-button type="submit" class="btn btn-green   pull-right" *ngIf="!saveClicked">Print</button>
-        <button mat-raised-button type="submit" class="btn btn-green   pull-right" >Sign</button>
-        <button mat-raised-button type="submit" class="btn btn-green   pull-right" (click)="save()">Save</button>
+        <button mat-raised-button type="submit" class="btn btn-green   pull-right">Print</button>
+        <button mat-raised-button type="submit" class="btn btn-green   pull-right" *ngIf="!labandImaging.Signed">Sign</button>
+        <button mat-raised-button type="submit" class="btn btn-green   pull-right" (click)="save()" *ngIf="!saveClicked && !labandImaging.Signed">Save</button>
       </div>
     </div>
   </div>

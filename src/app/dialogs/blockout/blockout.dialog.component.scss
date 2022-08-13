@@ -66,8 +66,9 @@
     height: 60px;
   }
   .recurring-checkboxes{
+    display: flex;
     .mat-checkbox{
-      padding-right:15px;
+      padding-right:10px;
     }
   }
   .recurring-radio-buttons .label-for-radio{

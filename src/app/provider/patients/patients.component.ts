@@ -14,6 +14,7 @@ import { PatientService } from './../../_services/patient.service';
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, fromEvent, merge, Observable, of } from 'rxjs';
 import { catchError, finalize, tap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { ViewChangeService } from 'src/app/_navigations/provider.layout/view.notification.service';
 
 @Component({
   selector: 'app-patients',
@@ -40,6 +41,7 @@ export class PatientsComponent implements OnInit,AfterViewInit {
     private authService: AuthenticationService,
     private router: Router,
     private smartSchedulerService: SmartSchedulerService,
+    private viewChangeService: ViewChangeService,
     private cfr: ComponentFactoryResolver) {
     this.user = authService.userValue;
     this.removedPatientIdsInBreadcurmb = authService.viewModel.PatientBreadCrumb
@@ -151,6 +153,8 @@ export class PatientsComponent implements OnInit,AfterViewInit {
   }
 
   onChangeViewState(patientview) {
+    this.viewChangeService.sendData("Patients");
+    this.authService.SetViewParam("View","Patients")
     this.authService.SetViewParam("Patient", patientview);
     this.authService.SetViewParam("PatientView", "Chart");
     this.router.navigate(["/provider/patientdetails"]);

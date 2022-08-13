@@ -196,6 +196,7 @@ export const ERROR_CODES: { [key: string]: string } = {
   'E2JP006': 'Location delation error.',
   'E2JP007': 'User add error.',
   'E2JP008': 'Password updation error.',
+  'E2JP009': 'Verification Failed- Address not verified, please try again!',
 
   //Message for provider setting schedule..
   'M2JS001': 'Timezone updated successfully',
@@ -407,6 +408,8 @@ export const ERROR_CODES: { [key: string]: string } = {
   'M2G1005': 'Lab Result updated successfully',
   'M2G1006': 'Image Result added successfully',
   'M2G1007': 'Image Result updated successfully',
+  'M2G1008': 'Image Order added successfully',
+  'M2G1009': 'Image Order updated successfully',
 
   //Errors
   'E2G1001': 'Lab Order is not added',
@@ -416,6 +419,8 @@ export const ERROR_CODES: { [key: string]: string } = {
   'E2G1005': 'Lab Result is not updated',
   'E2G1006': 'Image Result is not added',
   'E2G1007': 'Image Result is not updated',
+  'E2G1008': 'Image Order is not added',
+  'E2G1009': 'Image Order is not updated',
 
   //Login Errors
   'EL001': 'Wrong email or password',
