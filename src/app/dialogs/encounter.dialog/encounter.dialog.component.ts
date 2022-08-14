@@ -36,7 +36,7 @@ export class EncounterDialogComponent implements OnInit {
   procedureColumns = ["CODE", "CODE SYSTEM", "DESCRIPTION", "TOOTH", "TOOTH SURFACE", "Delete"];
   vitalsColumns = ["CollectedAt", "Height", "Weight", "BMI", "BP", "Temperature", "Pulse", "Respiratory_rate", "O2_Saturation", "Blood_type", "Actions"];
 
-  EnableNewEncounterData: boolean = true;
+  EnableNewEncounterData: boolean;
   recommendedProcedures = new BehaviorSubject<ProceduresInfo[]>([]);
   diagnosesInfo = new BehaviorSubject<EncounterDiagnosis[]>([]);
   vitalsInfo = new BehaviorSubject<VitalInfo[]>([]);
@@ -64,10 +64,11 @@ export class EncounterDialogComponent implements OnInit {
     { Id: 3, BloodType: 'Group AB' },
     { Id: 4, BloodType: 'Group O' }
   ]
-  dischargeCode = new MedicalCode();
+  dischargeCode: MedicalCode = {};
   dialogIsLoading: boolean = false;
   patient: ProviderPatient;
   signEncounterNoteComponent = SignEncounterNoteComponent;
+
 
 
   private messageflagSubject = new BehaviorSubject<boolean>(false);
@@ -80,10 +81,11 @@ export class EncounterDialogComponent implements OnInit {
     private datePipe: DatePipe) {
     let i = 1;  //normally would use var here
     while (this.teethNumbers.push(i++) < 32) { }
+
   }
 
   ngOnInit(): void {
-
+    this.EnableNewEncounterData = this.authService.userValue.EnableStage3;
     this.heightValue$ = fromEvent<Event>(this.heightField.nativeElement, 'input')
       .pipe(map(e => +(<HTMLInputElement>e.target).value));
     this.weightValue$ = fromEvent<Event>(this.weightField.nativeElement, 'input')

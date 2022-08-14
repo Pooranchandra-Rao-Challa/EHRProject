@@ -1,7 +1,7 @@
 import { MedicalCode } from 'src/app/_models/codes';
 import { ProceduresInfo } from 'src/app/_models';
 import { DentalChartService } from 'src/app/_services/dentalchart.service';
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { ProcedureDialogComponent } from 'src/app/dialogs/procedure.dialog/procedure.dialog.component';
 import { EncounterDialogComponent } from 'src/app/dialogs/encounter.dialog/encounter.dialog.component';
@@ -9,10 +9,11 @@ import { OverlayService } from 'src/app/overlay.service';
 import { ComponentType } from '@angular/cdk/portal';
 import { Actions } from 'src/app/_models';
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, fromEvent, Observable, of } from 'rxjs';
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
-import { catchError, finalize } from 'rxjs/operators';
+import { catchError, filter, finalize, map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
+import { TreeProcedureComponent } from './tree.procedure.component';
 
 declare var $: any;
 @Component({
@@ -20,7 +21,7 @@ declare var $: any;
   templateUrl: './dental.chart.component.html',
   styleUrls: ['./dental.chart.component.scss']
 })
-export class DentalChartComponent implements OnInit {
+export class DentalChartComponent implements OnInit,AfterViewInit {
   hoverStartDate: string = 'Start Date';
   hoverEndDate: string = 'End Date';
   AdultPrem: boolean = true;
@@ -34,7 +35,8 @@ export class DentalChartComponent implements OnInit {
   ActionTypes = Actions
   usedProcedures: MedicalCode;
   procedureColumns: string[] = ['SELECT', 'START DATE', 'END DATE', 'TOOTH', 'SURFACE', 'CODE', 'DESCRIPTION', 'PROVIDER', 'STATUS', 'CQM STATUS', 'Encounter'];
-
+  @ViewChild("procedureSearch",{static: true}) procedureSearch: ElementRef
+  @ViewChild("procedureTree",{static: true}) procedureTree: TreeProcedureComponent
   //patientProceduresView = new BehaviorSubject<ProceduresInfo[]> ([]);
   procedureDataSource: ProcedureDatasource;
 
@@ -44,7 +46,25 @@ export class DentalChartComponent implements OnInit {
     private alertmsg: AlertMessage,) {
     this.currentPatient = authService.viewModel.Patient;
   }
+  ngAfterViewInit(): void {
+    fromEvent(this.procedureSearch.nativeElement, 'keyup').pipe(
+      // get value
+      map((event: any) => {
+        return event.target.value;
+      })
+      // if character length greater then 2
+      //, filter(res => res.length > 2 && res.length < 6)
+      // Time in milliseconds between key events
+      , debounceTime(1000)
+      // If previous query is diffent from current
+      , distinctUntilChanged()
+      // subscription for response
+    ).subscribe(value => this._filterProcedure(value));
 
+  }
+  _filterProcedure(term:string){
+    this.procedureTree.filter.next(term);
+  }
   ngOnInit(): void {
     this.patientUsedProcedures();
     this.patientProcedureView();

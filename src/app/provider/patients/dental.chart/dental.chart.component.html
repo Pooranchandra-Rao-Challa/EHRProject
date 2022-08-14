@@ -590,17 +590,14 @@
           </div>
           <div class="find-procedure">
             <div class="form-group mx-3">
-              <div class="input-group py-3"><input type="text" name="search_procedure_code" id="search_procedure_code"
+              <div class="input-group py-3"><input type="text" #procedureSearch name="search_procedure_code" id="search_procedure_code"
                   class="form-control search-control" placeholder="Search Procedure(s)">
-                <button class="btn btn-info btn-md" type="button">
-                  <i class="fa fa-search "></i>
-                </button>
               </div>
             </div>
           </div>
         </div>
         <div [ngClass]="AdultPrem?'Adult-procedure':'child-procedure'">
-          <tree-procedure></tree-procedure>
+          <tree-procedure #procedureTree></tree-procedure>
         </div>
 
       </div>

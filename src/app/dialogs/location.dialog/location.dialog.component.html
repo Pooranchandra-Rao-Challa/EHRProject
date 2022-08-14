@@ -507,7 +507,7 @@
       <button type="button" class="btn btn-green" (click)="close()" style="float: right;">
         Cancel
       </button>
-      <button type="button" class="btn btn-green" data-bs-dismiss="modal" (click)="updateLocation()" style="float: right;">
+      <button type="button" class="btn btn-green" *ngIf="!saving" [disabled]="enableSave()" (click)="updateLocation()" style="float: right;">
         Save Changes
       </button>
       </div>

@@ -250,7 +250,7 @@
             <div class="input-group items">
               <label class="control-label input-group-addon">Reason Description:</label>
               <mat-form-field class="procedure-form-field" appearance="outline">
-                <input matInput  disabled class="not-allowed" style="width: 100%;" placeholder="Reason Description" 
+                <input matInput  disabled class="not-allowed" style="width: 100%;" placeholder="Reason Description"
                   type="text" id="pResonDescription" name="pResonDescription"
                   [(ngModel)]="procedureInfo.ReasonDescription" />
               </mat-form-field>
@@ -269,7 +269,7 @@
       <button type="button" class="btn btn-green"  (click)="save()" [disabled]="enableSave()">
         Save
       </button>
-      <button type="button" class="btn btn-danger " (click)="cancel()">
+      <button type="button" class="btn btn-green" (click)="cancel()">
         Cancel
       </button>
     </div>

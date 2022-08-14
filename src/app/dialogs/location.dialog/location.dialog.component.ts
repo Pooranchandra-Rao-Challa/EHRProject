@@ -26,6 +26,7 @@ export class LocationDialogComponent implements OnInit {
   locationDisplayModel = "none";
   isDeletable: boolean = false;
   data: LocationDialog
+  saving: boolean = false;
 
   constructor(private ref: EHROverlayRef,
     private authService: AuthenticationService,
@@ -70,6 +71,10 @@ export class LocationDialogComponent implements OnInit {
     this.manuallybtn = true;
     this.clearAddress();
   }
+
+  enableSave(){
+    return !(this.PracticeLocData.LocationName != null && this.PracticeLocData.LocationName != "")
+  }
   updateLocation() {
     // this.splitAddress = null;
     this.PracticeLocData.Street = this.PracticeLocData.StreetAddress;
@@ -92,6 +97,7 @@ export class LocationDialogComponent implements OnInit {
     this.SaveupateLocation();
   }
   SaveupateLocation() {
+    this.saving = true;
     let isAdd = this.PracticeLocData.LocationId == null;
     this.settingsService.AddUpdateLocation(this.PracticeLocData).subscribe(resp => {
       if (resp.IsSuccess) {

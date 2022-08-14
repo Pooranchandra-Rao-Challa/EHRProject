@@ -16,7 +16,7 @@ import {
   EventEmitter,
 } from '@angular/core';
 import { MatFormFieldControl } from '@angular/material/form-field';
-import { Subject,Observable,of } from 'rxjs';
+import { Subject, Observable, of } from 'rxjs';
 import {
   NgControl,
   ControlValueAccessor,
@@ -33,9 +33,9 @@ import {
   mixinDisabled,
   CanDisableCtor,
 } from '@angular/material/core';
-import { take,debounceTime, tap, switchMap, finalize, distinctUntilChanged, filter } from 'rxjs/operators';
+import { take, debounceTime, tap, switchMap, finalize, distinctUntilChanged, filter } from 'rxjs/operators';
 import { UtilityService } from '../../../_services/utiltiy.service'
-import { MedicalCode,CodeSystemGroup } from '../../../_models/codes';
+import { MedicalCode, CodeSystemGroup } from '../../../_models/codes';
 
 export interface FormFieldValue {
   query: string;
@@ -58,7 +58,7 @@ class SearchInputBase {
     public _parentForm: NgForm,
     public _defaultErrorStateMatcher: ErrorStateMatcher,
     public ngControl: NgControl
-  ) {}
+  ) { }
 }
 
 const _SearchInputMixiBase: CanUpdateErrorStateCtor &
@@ -82,11 +82,11 @@ const _SearchInputMixiBase: CanUpdateErrorStateCtor &
 })
 export class FieldControlComponent extends _SearchInputMixiBase
   implements
-    OnInit,
-    OnDestroy,
-    MatFormFieldControl<FormFieldValue>,
-    ControlValueAccessor,
-    DoCheck {
+  OnInit,
+  OnDestroy,
+  MatFormFieldControl<FormFieldValue>,
+  ControlValueAccessor,
+  DoCheck {
   static nextId = 0;
   @ViewChild(MatInput, { read: ElementRef, static: true })
   input: ElementRef;
@@ -130,7 +130,7 @@ export class FieldControlComponent extends _SearchInputMixiBase
   disabled: boolean;
 
   @Input()
-  codeSystems: string[]= [];
+  codeSystems: string[] = [];
 
   @Input()
   hideCodeSystem: boolean = true;
@@ -144,19 +144,19 @@ export class FieldControlComponent extends _SearchInputMixiBase
 
   form: FormGroup;
 
-  @Output() optionValueChanged: EventEmitter<MedicalCode> =new EventEmitter<MedicalCode>();
+  @Output() optionValueChanged: EventEmitter<MedicalCode> = new EventEmitter<MedicalCode>();
 
   filteredOptions: Observable<CodeSystemGroup[]>;
 
   minLengthTerm: number = 5;
 
   @Input()
-  MinTermLength:number = 5
+  MinTermLength: number = 5
 
   isLoading: boolean = false;
 
   @Input()
-  set selectedValue(value: MedicalCode){
+  set selectedValue(value: MedicalCode) {
     this._selectedValue = value;
   }
   get selectedValue() {
@@ -190,7 +190,7 @@ export class FieldControlComponent extends _SearchInputMixiBase
       scope: new FormControl(''),
       query: new FormControl(''),
     });
-   // (this.form.contains[1] as FormControl).
+    // (this.form.contains[1] as FormControl).
   }
 
   writeValue(obj: FormFieldValue): void {
@@ -228,7 +228,7 @@ export class FieldControlComponent extends _SearchInputMixiBase
       });
     this.form.valueChanges.pipe(
       filter(res => {
-        if(res.query != null && res.query.length < this.MinTermLength) {
+        if (res.query != null && res.query.length < this.MinTermLength) {
           this.isLoading = false;
           this.filteredOptions = of([]);
         }
@@ -240,36 +240,42 @@ export class FieldControlComponent extends _SearchInputMixiBase
         this.isLoading = true;
       }),
     )
-    .subscribe((value) =>
-    {
+      .subscribe((value) => {
         this.onChange(value);
         this.updateSearchResults(value)
-    });
+      });
 
   }
 
-  updateSearchResults(term: FormFieldValue){
-    if(term.query.length >= this.MinTermLength && term.scope != ""){
-      this.utilityService.MedicalCodes(term.query,term.scope)
+  updateSearchResults(term: FormFieldValue) {
+    if (term.query.length >= this.MinTermLength && term.scope != "") {
+      this.utilityService.MedicalCodes(term.query, term.scope)
         .subscribe(resp => {
-        this.isLoading = false;
-         if (resp.IsSuccess) {
+          this.isLoading = false;
+          if (resp.IsSuccess) {
             this.filteredOptions = of(
               groupBy(
-                  resp.ListResult as MedicalCode[],
-                  codesystem => codesystem.CodeSystem));
+                resp.ListResult as MedicalCode[],
+                codesystem => codesystem.CodeSystem));
           } else this.filteredOptions = of([]);
         })
-    }else this.filteredOptions = of([]);
+    } else this.filteredOptions = of([]);
   }
 
   onSelected() {
-   this.optionValueChanged.emit(this.selectedValue)
+    this.optionValueChanged.emit(this.selectedValue)
   }
 
-  displayWith(value: MedicalCode){
-    if(!value) return "";
-    return value.Code+"-"+value.Description;
+  displayWith(value: MedicalCode) {
+    console.log(value);
+    if (value == null) return "";
+    console.log(JSON.stringify(this._selectedValue));
+
+    console.log(value.Code);
+    console.log(value.Description);
+
+
+    return value.Code + "-" + value.Description;
   }
 
   ngDoCheck() {
@@ -288,7 +294,7 @@ export class FieldControlComponent extends _SearchInputMixiBase
 //   codes: MedicalCode[];
 // }
 function groupBy<_string, _MedicalCode>(array: MedicalCode[], grouper: (item: MedicalCode) => string) {
-  let rtnValue =  array.reduce((store, item) => {
+  let rtnValue = array.reduce((store, item) => {
     var key = grouper(item)
     if (!store.has(key)) {
       store.set(key, [item])

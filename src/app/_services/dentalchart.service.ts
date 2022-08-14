@@ -11,8 +11,9 @@ export class DentalChartService extends APIEndPoint {
   }
 
 
-  ProcedureCodesJSON(){
-    return this._ProcessGetRequest<any>(this._procedureCodesForDentalUrl);
+  ProcedureCodesJSON(term){
+    let url = this._procedureCodesForDentalUrl+"?searchTerm="+term;
+    return this._ProcessGetRequest<any>(url);
   }
 
   PatientUsedProcedures(reqparams: any) {

@@ -181,7 +181,7 @@
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog  modal-md" role="document">
     <div class="modal-content">
-      <div class="modal-header ">
+      <div class="modal-header" style="margin-right:-1px;">
         <h4 class="modal-title Helvetica-sans-serif-medium">Add New User</h4>
         <button type="button" class="btn cross-mark closemodel" data-bs-dismiss="modal" aria-label="Close"
           (click)="Close()">x</button>
@@ -265,7 +265,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-lg btn-green" [disabled]="EnableSave()" data-bs-dismiss="modal"
+        <button type="button" class="btn btn-green" [disabled]="EnableSave()" data-bs-dismiss="modal"
           (click)="updateUser()">
           Add
         </button>

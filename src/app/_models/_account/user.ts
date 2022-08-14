@@ -20,6 +20,7 @@ export interface User {
   IsSuccess: boolean;
   EmailConfirmation: boolean;
   IsInTrailPeriod: boolean;
+  EnableStage3: boolean;
 }
 export class UserLocations {
   LocationId: string;

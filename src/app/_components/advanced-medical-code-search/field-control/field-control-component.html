@@ -1,5 +1,5 @@
 <ng-container [formGroup]="form" id="mat-advance-medical-code">
-  <mat-select class="select" formControlName="scope" *ngIf="hideCodeSystem"
+  <mat-select class="select" formControlName="scope" *ngIf="hideCodeSystem" [disabled]="codeSystems.length == 0"
   disableOptionCentering panelClass="optionPanelClass" [(ngModel)]="codeSystems[0]">
     <mat-option *ngFor="let codeSystem  of codeSystems" [value]="codeSystem">{{codeSystem}}</mat-option>
   </mat-select>

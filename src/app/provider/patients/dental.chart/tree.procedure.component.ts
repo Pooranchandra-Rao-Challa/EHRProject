@@ -1,7 +1,8 @@
+import { filter } from 'rxjs/operators';
 
 import { SelectionModel } from '@angular/cdk/collections';
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { Component, Injectable, TemplateRef } from '@angular/core';
+import { Component, Injectable, Input, TemplateRef, OnInit } from '@angular/core';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { BehaviorSubject } from 'rxjs';
 import { DentalChartService } from 'src/app/_services/dentalchart.service';
@@ -11,9 +12,20 @@ import { OverlayService } from 'src/app/overlay.service';
 import { ComponentType } from '@angular/cdk/portal';
 import { Actions, ProceduresInfo } from 'src/app/_models';
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
+
+
+
 /**
  * Node for to-do item
  */
+
+export class ProcedureCode{
+  ProcedureId: string;
+  Category: string;
+  SubCategory: string;
+	ProcedureCode: string;
+	ProcedureDescription: string
+}
 export class ProcedureCodeNode {
   children: ProcedureCodeNode[];
   item: string;
@@ -33,29 +45,39 @@ export class ProcedureCodeFlatNode {
 @Injectable()
 export class ProviderCodeDatabase {
   dataChange = new BehaviorSubject<ProcedureCodeNode[]>([]);
+  noData = new BehaviorSubject<boolean>(false)
+  noData$ = this.noData.asObservable();
+  procedureCodes:  ProcedureCode[];
 
   get data(): ProcedureCodeNode[] {
     return this.dataChange.value;
   }
 
   constructor(private dentalService: DentalChartService) {
-    this.initialize();
+    this.initialize("");
+
   }
 
-  initialize() {
+  filterdata(term){
+    this.initialize(term);
+  }
+
+  initialize(term:string) {
     // Build the tree nodes from Json object. The result is a list of `ProcedureCodeNode` with nested
     //     file node as children.
     //const data = this.buildFileTree(TREE_DATA, 0);
-    this.dentalService.ProcedureCodesJSON().subscribe(resp => {
+    this.dentalService.ProcedureCodesJSON(term).subscribe(resp => {
       if (resp.IsSuccess) {
+        this.noData.next(false)
         //let database = new ProviderCodeDatabase(JSON.parse(resp.Result));
-        const data = this.buildFileTree(JSON.parse(resp.Result), 0);
+        this.procedureCodes = JSON.parse(resp.Result)
+
+        const data = this.buildFileTree(this.procedureCodes, 0);
         // Notify the change.
         this.dataChange.next(data);
       }
+      else this.noData.next(true)
     })
-
-
   }
 
   /**
@@ -103,7 +125,7 @@ export class ProviderCodeDatabase {
   styleUrls: ['tree.procedure.component.scss'],
   providers: [ProviderCodeDatabase],
 })
-export class TreeProcedureComponent {
+export class TreeProcedureComponent implements OnInit {
   /** Map from flat node to nested node. This helps us finding the nested node to be modified */
   flatNodeMap = new Map<ProcedureCodeFlatNode, ProcedureCodeNode>();
 
@@ -138,6 +160,10 @@ export class TreeProcedureComponent {
    */
   ActionTypes = Actions
 
+  filter = new BehaviorSubject<string>("");
+  filter$ = this.filter.asObservable();
+  nodata:boolean =false;
+
   constructor(private overlayService: OverlayService,
     private _database: ProviderCodeDatabase,
     private _authService: AuthenticationService) {
@@ -154,6 +180,14 @@ export class TreeProcedureComponent {
       this.dataSource.data = data;
     });
   }
+  ngOnInit(): void {
+    this.filter$.subscribe(term =>{
+      this._database.filterdata(term)
+    })
+    this._database.noData$.subscribe(flag => this.nodata = flag)
+  }
+
+
 
   getLevel = (node: ProcedureCodeFlatNode) => node.level;
 
