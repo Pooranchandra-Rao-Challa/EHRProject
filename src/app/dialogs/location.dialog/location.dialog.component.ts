@@ -73,7 +73,12 @@ export class LocationDialogComponent implements OnInit {
   }
 
   enableSave(){
-    return !(this.PracticeLocData.LocationName != null && this.PracticeLocData.LocationName != "")
+    let digits = /[0-9]{9}/;
+    let namevalidation = /[a-zA-Z\s*]*/;
+    return !(this.PracticeLocData.LocationName != null && this.PracticeLocData.LocationName != ""
+          && (digits.test(this.PracticeLocData.Tin) || this.PracticeLocData.Tin == null ||
+          this.PracticeLocData.Tin == "")
+          && namevalidation.test(this.PracticeLocData.LocationName))
   }
   updateLocation() {
     // this.splitAddress = null;

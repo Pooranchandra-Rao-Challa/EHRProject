@@ -378,19 +378,26 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
           });
         }
       } else if (content === this.patientHealthPortalComponent) {
-        if (ref.data !== null) {
+        if (res.data !== null) {
           this._completePatientAccountProcess(res.data.patientUser)
-          if (ref.data.download) {
+          if (res.data.download) {
 
             //'straight' update to database which recied from ref.data
             // Update Patient with invivation_sent_at, straight_invitation to database
             this.alertmsg.displayMessageDailog(ERROR_CODES["M2AP002"])
 
-          } else if (ref.data.sendemail) {
+          } else if (res.data.sendemail) {
             //'straight' update to database which recied from ref.data
             // Update Patient with invivation_sent_at, straight_invitation to database
             this.alertmsg.displayMessageDailog(ERROR_CODES["M2AP003"])
           }
+        }
+      } else if(content === this.encounterDialogComponent) {
+        if(res.data != null && res.data.refreshView){
+          if(this.viewModel.PatientView == "Dental Chart")
+            this.loadDentalChartComponent();
+          else if(this.viewModel.PatientView == "Chart")
+            this.loadChartComponent();
         }
       }
     });

@@ -168,6 +168,10 @@ div.ex3 {
 }
 .userfromPractable {
   border: 1px solid #2faa9a;
+  mat-row  mat-cell a,
+  mat-row  mat-cell div{
+    box-shadow: none;
+  }
 }
 ::ng-deep .example-margin:hover {
   & .mat-checkbox-background,

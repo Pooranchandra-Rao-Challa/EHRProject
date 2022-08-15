@@ -300,9 +300,6 @@ export class EncounterDialogComponent implements OnInit {
   }
 
   onToothSurfaceSelectedForRP(value, item, index) {
-    console.log(value);
-    console.log(item);
-
     item.Place = value;
   }
 
@@ -353,11 +350,9 @@ export class EncounterDialogComponent implements OnInit {
     if (this.encounterInfo.ServiceEndAt != null)
       this.encounterInfo.strServiceEndAt = this.datePipe.transform(this.encounterInfo.ServiceEndAt, "MM/dd/yyyy")
 
-    console.log(this.encounterInfo);
-
     this.patientService.CreateEncounter(this.encounterInfo).subscribe(resp => {
       if (resp.IsSuccess) {
-        this.overlayref.close({ "UpdatedModal": PatientChart.Encounters });
+        this.overlayref.close({ "UpdatedModal": PatientChart.Encounters, refreshView: true });
         this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2AE001" : "M2AE002"])
       } else {
         this.overlayref.close();

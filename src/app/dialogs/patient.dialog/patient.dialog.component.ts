@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 
 import {
   Component,
@@ -36,7 +37,8 @@ export class PatientDialogComponent {
     private authService: AuthenticationService,
     private utilityService: UtilityService,
     private alertmsg: AlertMessage,
-    private overlayService: OverlayService) {
+    private overlayService: OverlayService,
+    private datePipe: DatePipe) {
     this.PhonePattern = {
       0: {
         pattern: new RegExp('\\d'),
@@ -89,6 +91,7 @@ export class PatientDialogComponent {
     this.PatientData.LocationId = this.authService.userValue.CurrentLocation;
     this.PatientData.ProviderId = this.authService.userValue.ProviderId;
     this.PatientData.ClinicId = this.authService.userValue.ClinicId;
+    this.PatientData.strDateofBirth = this.datePipe.transform(this.PatientData.DateofBirth,"MM/dd/yyyy");
 
     this.utilityService.CreatePatient(this.PatientData).subscribe(resp => {
 

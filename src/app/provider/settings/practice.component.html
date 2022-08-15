@@ -6,7 +6,7 @@
         <div class="right-block mx-2">
           <div class="card">
             <div class="card-header">
-              <p class="row panel-title practice-align bg-color m-0">Practice Settings</p>
+              <p class="row panel-title practice-align bg-color m-0" style="padding-top: 15px;">Practice Settings</p>
             </div>
             <div class="row top-header mt-5 mx-3 mx-md-0">
               <div class="col-xl-2 col-lg-3 col-md-4 col-12">
@@ -16,7 +16,8 @@
                 <div class="form-group">
                   <mat-form-field appearance="outline">
                     <mat-select [(ngModel)]="user.TimeZone" (change)="timeZoneChanged($event)">
-                      <mat-option *ngFor="let timezone of TimeZoneList" [value]="timezone.DisplayName">{{timezone.DisplayName}}</mat-option>
+                      <mat-option *ngFor="let timezone of TimeZoneList" [value]="timezone.DisplayName">
+                        {{timezone.DisplayName}}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
@@ -36,7 +37,7 @@
             </div>
             <div class="colC">
               <div class="row panel-title practice-align bg-color m-0">
-                <div class="col-xl-11 col-lg-9 col-md-8 col-12">Practice Locations</div>
+                <div class="col-xl-11 col-lg-9 col-md-8 col-12" style="padding-top:5px">Practice Locations</div>
                 <div class="col-xl-1 col-lg-3 col-md-4 col-12">
                   <button class="plusicon pull-right"
                     (click)="openComponentDialog(locationDialogComponent,null,ActionsType.add)">
@@ -49,7 +50,7 @@
                   <ng-container matColumnDef="Location">
                     <mat-header-cell *matHeaderCellDef>Location name</mat-header-cell>
                     <mat-cell *matCellDef="let loc"><span class="text-decoration ">
-                        <a  class="cursorpointer"
+                        <a class="cursorpointer"
                           (click)="openComponentDialog(locationDialogComponent,loc,ActionsType.view)">
                           {{loc.LocationName}}</a></span></mat-cell>
                   </ng-container>
@@ -66,13 +67,17 @@
                     <mat-header-cell *matHeaderCellDef>Phone</mat-header-cell>
                     <mat-cell class="address-oncursor" *matCellDef="let loc">
                       <span class="text-decoration ">
-                        <a data-remote="true" class="cursorpointer"
+                        <a class="cursorpointer"
                           (click)="openComponentDialog(locationDialogComponent,loc,ActionsType.view)">
-                          {{loc.Phone}}</a></span></mat-cell>
+                          {{loc.Phone}}</a></span>
+                    </mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="Providers">
                     <mat-header-cell *matHeaderCellDef># of Providers</mat-header-cell>
-                    <mat-cell class="address-oncursor" *matCellDef="let loc">{{loc.Providers}}</mat-cell>
+                    <mat-cell class="address-oncursor" *matCellDef="let loc">
+                      <a class="cursorpointer"
+                        (click)="openComponentDialog(locationDialogComponent,loc,ActionsType.view)">{{loc.Providers}}</a>
+                    </mat-cell>
                   </ng-container>
 
                   <mat-header-row *matHeaderRowDef="locationColumns"></mat-header-row>
@@ -86,11 +91,11 @@
             <div class="colC">
               <div class="">
                 <div class="row panel-title practice-align bg-color m-0">
-                  <div class="col-xl-2 col-lg-12 col-md-12 col-12 providerlabel">Users</div>
-                  <div class="col-xl-4 col-lg-12 col-md-12 col-12 providerlabel">Practice ID#:
+                  <div class="col-xl-2 col-lg-12 col-md-12 col-12 providerlabel" style="padding-top:5px">Users</div>
+                  <div class="col-xl-4 col-lg-12 col-md-12 col-12 providerlabel" style="padding-top:5px">Practice ID#:
                     <u>{{user.UserId}}</u>
                   </div>
-                  <div class="col-xl-5 col-lg-9 col-md-9 col-12 providerlabel">Practice Name:
+                  <div class="col-xl-5 col-lg-9 col-md-9 col-12 providerlabel" style="padding-top:5px">Practice Name:
                     {{user.BusinessName}}
                   </div>
                   <div class="col-xl-1 col-lg-3 col-md-3 col-12">
@@ -193,8 +198,8 @@
               <div class="input-group">
                 <label class="labelclass form-control required" required>First Name</label>
                 <input class="addfromdesign inputclass form-control mx-0" type="text"
-                  [(ngModel)]="NewUserData.FirstName" autocomplete="off" id="firstName" name="firstName" #firstName="ngModel" required
-                  pattern="[a-zA-Z ]*" />
+                  [(ngModel)]="NewUserData.FirstName" autocomplete="off" id="firstName" name="firstName"
+                  #firstName="ngModel" required pattern="[a-zA-Z ]*" />
               </div>
               <div *ngIf="firstName.errors && (firstName.touched)">
                 <div class="error_message" *ngIf="firstName.errors?.required">
@@ -213,7 +218,8 @@
               <div class="input-group">
                 <label class="labelclass form-control">Last Name</label>
                 <input class="addfromdesign inputclass form-control mx-0" type="text" [(ngModel)]="NewUserData.LastName"
-                  id="lastName" name="lastName" autocomplete="off" #lastName="ngModel" required pattern="/[a-zA-Z ]*/" />
+                  id="lastName" name="lastName" autocomplete="off" #lastName="ngModel" required
+                  pattern="/[a-zA-Z ]*/" />
               </div>
             </div>
           </div>
@@ -242,11 +248,10 @@
             <div class="form-group">
               <label class="required" required>Provider Role:</label>
               <mat-form-field appearance="outline">
-              <mat-select [(ngModel)]="NewUserData.PracticeRole" autocomplete="off"
-              placeholder="User Role">
-                <mat-option *ngFor="let pRole of providerRoles" [value]="pRole.Value">{{pRole.Name}}
-                </mat-option>
-              </mat-select>
+                <mat-select [(ngModel)]="NewUserData.PracticeRole" autocomplete="off" placeholder="User Role">
+                  <mat-option *ngFor="let pRole of providerRoles" [value]="pRole.Value">{{pRole.Name}}
+                  </mat-option>
+                </mat-select>
               </mat-form-field>
             </div>
           </div>
@@ -254,10 +259,10 @@
             <div class="form-group">
               <label>Status:</label>
               <mat-form-field appearance="outline">
-              <mat-select placeholder="Status" autocomplete="off" [(ngModel)]="NewUserData.Active">
-                <mat-option value="True">Enable</mat-option>
-                <mat-option value="False">Disable</mat-option>
-              </mat-select>
+                <mat-select placeholder="Status" autocomplete="off" [(ngModel)]="NewUserData.Active">
+                  <mat-option value="True">Enable</mat-option>
+                  <mat-option value="False">Disable</mat-option>
+                </mat-select>
               </mat-form-field>
             </div>
           </div>
