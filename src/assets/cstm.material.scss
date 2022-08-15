@@ -73,8 +73,8 @@
   min-width: calc(100% + 22px) !important;
 }
 
-::ng-deep .mat-option {
-  white-space: break-spaces;
+::ng-deep .option-white-space.mat-option {
+  white-space: break-spaces !important;
   line-height: 20px !important;
   height: auto !important;
   padding: 10px !important;

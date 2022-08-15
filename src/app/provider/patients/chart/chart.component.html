@@ -853,14 +853,14 @@
       </div>
       <div class="modal-body">
         <div class="row">
-          <mat-radio-group [(ngModel)]="patientImmunization.ImmType" (click)="resetImmunization()">
-            <mat-radio-button value="administered">
+          <mat-radio-group [(ngModel)]="patientImmunization.ImmType">
+            <mat-radio-button value="administered" (change)="resetImmunization($event)">
               <mat-label class="Helvetica-sans-serif-medium">Administered</mat-label>
             </mat-radio-button>
-            <mat-radio-button class="ms-5" value="historical">
+            <mat-radio-button class="ms-5" value="historical" (change)="resetImmunization($event)">
               <mat-label class="Helvetica-sans-serif-medium">Historical</mat-label>
             </mat-radio-button>
-            <mat-radio-button class="ms-5" value="refused">
+            <mat-radio-button class="ms-5" value="refused" (change)="resetImmunization($event)">
               <mat-label class="Helvetica-sans-serif-medium">Refused</mat-label>
             </mat-radio-button>
           </mat-radio-group>
@@ -869,8 +869,8 @@
           <mat-label class="required">Vaccine:</mat-label>
           <mat-form-field class="procedure-form-field" appearance="outline" [ngStyle]="{'width':'100%'}">
             <input matInput #searchVaccineCode class="form-control" placeholder="Search vaccine" type="text"
-              id="searchVaccineCode" name=" searchVaccineCode" [matAutocomplete]="procedureCode"/>
-            <mat-autocomplete [displayWith]="displayWithVaccine" #procedureCode="matAutocomplete"
+              id="searchVaccineCode" name=" searchVaccineCode" [matAutocomplete]="vaccineCode"/>
+            <mat-autocomplete [displayWith]="displayWithVaccine" #vaccineCode="matAutocomplete"
               (optionSelected)="onSelectedImmunization($event)">
               <mat-option *ngIf="isLoading">Loading ...</mat-option>
               <mat-option *ngFor="let option of vaccines | async" [value]="option" class="medical-code-option">

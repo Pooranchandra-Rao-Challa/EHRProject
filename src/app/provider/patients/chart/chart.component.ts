@@ -678,9 +678,9 @@ export class ChartComponent implements OnInit, AfterViewInit {
     });
   }
 
-  resetImmunization() {
+  resetImmunization(event) {
+    this.searchVaccineCode.nativeElement.value = '';
     this.vaccines = of([]);
-    this.displayWithVaccine('');
     if (this.patientImmunization.ImmunizationId == undefined) {
       this.patientImmunization = new Immunization;
     }

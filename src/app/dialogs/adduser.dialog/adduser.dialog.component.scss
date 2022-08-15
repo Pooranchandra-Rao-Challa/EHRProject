@@ -329,7 +329,7 @@ input::-webkit-input-placeholder {
   box-shadow: none;
 }
 
-.required:after {
-  content: " *" !important;
+.required:before {
+  content: "*" !important;
   color: red !important;
 }
