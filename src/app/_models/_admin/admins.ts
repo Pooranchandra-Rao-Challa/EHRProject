@@ -33,3 +33,9 @@ export class AdminRegistration {
   MobilePhoneSuffix?: string;
   MobilePhonePreffix?: string;
 }
+
+
+export class  AreaCode{
+  AreaId?: string;
+  AreaCode?: string;
+}

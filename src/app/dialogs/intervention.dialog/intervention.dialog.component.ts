@@ -137,10 +137,7 @@ export class InterventionDialogComponent implements OnInit {
   }
 
   disableIntervention() {
-    return !(this.patientIntervention.StartDate == undefined ? '' : this.patientIntervention.StartDate.toString() != ''
-      && this.patientIntervention.EndDate == undefined ? '' : this.patientIntervention.EndDate.toString() != ''
-        && this.patientIntervention.InterventionType == undefined ? '' : this.patientIntervention.InterventionType != ''
-          && this.patientIntervention.Code == undefined ? '' : this.patientIntervention.Code != '')
+    return !(this.patientIntervention.StartDate && this.patientIntervention.EndDate && this.patientIntervention.InterventionType && this.patientIntervention.Code )
   }
 
   openComponentDialog(content: any | ComponentType<any> | string,

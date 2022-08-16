@@ -82,7 +82,6 @@ export class DashboardComponent implements OnInit {
           && (x.Paid == this.filterQueryParams.Paid ||
             this.filterQueryParams.Paid == null)
         );
-
       } else
         this.ProviderList = [];
     });

@@ -78,12 +78,8 @@ export class AddDiagnosesDialogComponent implements OnInit {
   }
 
   disableDiagnosis() {
-    return !(this.patientDiagnoses.CodeSystem == undefined ? '' : this.patientDiagnoses.CodeSystem != ''
-      && this.patientDiagnoses.Code == undefined ? '' : this.patientDiagnoses.Code != ''
-        && this.patientDiagnoses.Description == undefined ? '' : this.patientDiagnoses.Description != ''
-          && this.patientDiagnoses.StartAt == undefined ? '' : this.patientDiagnoses.StartAt.toString() != ''
-            && this.patientDiagnoses.StopAt == undefined ? '' : this.patientDiagnoses.StopAt != ''
-              && this.patientDiagnoses.Note == undefined ? '' : this.patientDiagnoses.Note != '')
+    return !(this.patientDiagnoses.CodeSystem && this.patientDiagnoses.Code && this.patientDiagnoses.Description && this.patientDiagnoses.StartAt
+            && this.patientDiagnoses.StopAt && this.patientDiagnoses.Note)
   }
 
 }

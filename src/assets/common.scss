@@ -387,3 +387,26 @@
   opacity: 1;
   transform: translate3d(0,0,0) rotate3d(1,1,1,0deg);
 }
+.icon {
+  display: block;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: background-color .2s, background-image .2s;
+}
+#icon-delete {
+  margin-left: 182px;
+  margin-top: -37px;
+}
+.icon.icon-circle {
+  border-radius: 50%;
+}
+.icon.icon-sm {
+  width: 24px;
+  height: 24px;
+}
+.icon.icon-ic-delete {
+  background-color: #d64841;
+  border: 1px solid #d64841;
+  background-image: url(../assets/images/icon-delete.svg);
+  background-size: 12px;
+}

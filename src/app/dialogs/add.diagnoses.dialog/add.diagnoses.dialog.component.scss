@@ -28,6 +28,7 @@
 }
 .btn-today {
   width: 97px !important;
+  height: 45px;
 }
 textarea.form-control {
   height: 119px !important;
@@ -63,4 +64,9 @@ textarea.form-control {
   color: #fe8f00;
   cursor: pointer !important;
   text-decoration: underline;
+}
+::ng-deep .not-allowed{
+  .mat-select-disabled .mat-select-value{
+    cursor: not-allowed !important;
+  }
 }
