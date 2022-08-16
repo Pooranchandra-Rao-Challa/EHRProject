@@ -150,7 +150,7 @@ export class DentalChartComponent implements OnInit,AfterViewInit {
     this.dentalService.CancelProcedure(procedure).subscribe(resp => {
       if (resp.IsSuccess) {
         this.procedureDataSource.loadProcedures();
-        this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP1003"])
+        this.alertmsg.displayErrorDailog(ERROR_CODES["M2CP1003"])
       } else {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP1002"])
       }

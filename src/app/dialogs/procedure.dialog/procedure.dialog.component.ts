@@ -54,6 +54,7 @@ export class ProcedureDialogComponent implements OnInit {
     fromEvent(this.searchProcedureCode.nativeElement, 'keyup').pipe(
       // get value
       map((event: any) => {
+        this.filteredProcedures = of([])
         return event.target.value;
       })
       // if character length greater then 2

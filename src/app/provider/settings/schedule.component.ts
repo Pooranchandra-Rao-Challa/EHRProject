@@ -1,6 +1,5 @@
 import { Actions } from 'src/app/_models';
 import { LocationSelectService } from 'src/app/_navigations/provider.layout/view.notification.service';
-import { BehaviorSubject } from 'rxjs';
 import { Component, OnInit, NgModule, TemplateRef } from '@angular/core';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { SettingsService } from '../../_services/settings.service';
@@ -55,7 +54,7 @@ export class ScheduleComponent implements OnInit {
     this.buildRoomsForm();
     this.buildStatusForm();
     this.buildTypeForm();
-    this.locationChanged.getData().subscribe(location=>{
+    this.locationChanged.getData().subscribe(location => {
       this.getRoomsForLocation();
     })
   }
@@ -64,7 +63,7 @@ export class ScheduleComponent implements OnInit {
   getLocationsList() {
     this.ClinicLocations = [];
 
-    this.settingsService.PracticeLocations(this.user.ProviderId,this.user.ClinicId).subscribe(resp => {
+    this.settingsService.PracticeLocations(this.user.ProviderId, this.user.ClinicId).subscribe(resp => {
       if (resp.IsSuccess) {
         this.ClinicLocations = resp.ListResult;
       }
@@ -177,29 +176,29 @@ export class ScheduleComponent implements OnInit {
   type(): FormArray {
     return this.typeForm.get("type") as FormArray
   }
-  newType(appointmentType: AppointmentType ={}): FormGroup {
+  newType(appointmentType: AppointmentType = new AppointmentType()): FormGroup {
     return this.fb.group({
-      Id: [appointmentType.Id],
-      AppointmentType: [appointmentType.AppointmentType],
-      Colour: [appointmentType.Colour],
-      Editable: [appointmentType.Editable],
-      AppointmenttypeStatus: [false]
+      Id: appointmentType.Id,
+      AppointmentType: appointmentType.AppointmentType,
+      Colour: appointmentType.Colour,
+      Editable: appointmentType.Editable,
+      AppointmenttypeStatus: false
     })
   }
   addType() {
-    let type = this.newType();
+    let appType = this.newType();
     let newtypeId = this.idService.decrementIds('appointmentType');
-    type.controls["Id"].setValue(newtypeId)
-    this.pushType(type);
+    appType.controls["Id"].setValue(newtypeId)
+    this.pushType(appType);
     this.typeOnEdit.push(this.type().length);
   }
   pushType(appointmenttype: FormGroup) {
-    this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
+    //this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
     this.type().push(appointmenttype);
-    setTimeout(() => {
-      this.customizedspinner = false;
-      $('body').removeClass('loadactive')
-    }, 1000);
+    // setTimeout(() => {
+    //   this.customizedspinner = false;
+    //   $('body').removeClass('loadactive')
+    // }, 1000);
   }
   clearType() {
     this.type().clear();
@@ -208,11 +207,13 @@ export class ScheduleComponent implements OnInit {
     let findIndex = this.typeOnEdit.findIndex(typeindex => typeIndex)
     findIndex !== -1 && this.typeOnEdit.splice(findIndex, 1)
   }
-  isNewType(typeIndex: number) {
-    let id = this.type().controls[typeIndex].get('Id').value;
-    if (isNaN(Number(id))) {
-      return false || this.typeOnEdit.findIndex(typeindex => typeindex === typeIndex) > -1;
-    } return true;
+  isNewType(rowIndex: number) {
+    let ctlValue = this.typeForm.controls.type["controls"][rowIndex].value;
+    let id = ctlValue.Id;
+    let editable = this.typeOnEdit.indexOf(rowIndex) >-1 && ctlValue.Editable
+    console.log(editable);
+
+    return isNaN(Number(id)) ? false : Number(id) < 0 ? true : editable;
   }
   onEditType(typeIndex: number) {
     this.typeOnEdit.push(typeIndex);
@@ -329,14 +330,26 @@ export class ScheduleComponent implements OnInit {
 
   // Add Update Appointment Type
   saveAppointmentType(typeIndex: number) {
-    let reqparams = {
+    let ctlType = this.typeForm.controls.type["controls"][typeIndex];
+
+
+    let ctlvalue = ctlType.value;
+    let reqparams: any;
+    if (!isNaN(Number(ctlvalue.Id)) && Number(ctlvalue.Id) < 0)
+      ctlvalue['TypeId'] = null;
+    else
+      ctlvalue['TypeId'] = ctlvalue.Id;
+
+
+    reqparams = {
       ProviderId: this.user.ProviderId,
-      TypeId: this.typeForm.controls.type["controls"][typeIndex].get('Id').value == "" ? null : this.typeForm.controls.type["controls"][typeIndex].get('Id').value,
+      TypeId: ctlvalue.TypeId,
       Editable: true,
-      TypeName: this.typeForm.controls.type["controls"][typeIndex].get('AppointmentType').value,
-      Colour: this.typeForm.controls.type["controls"][typeIndex].get('Colour').value
+      TypeName: ctlvalue.AppointmentType,
+      Colour: ctlvalue.Colour
     }
-    if (!isNaN(Number(reqparams.TypeId))) reqparams.TypeId = null;
+    console.log(reqparams);
+    //if (!isNaN(Number(reqparams.TypeId))) reqparams.TypeId = null;
     this.settingsService.AddUpdateAppointmentType(reqparams).subscribe(resp => {
       if (resp.IsSuccess) {
         this.clearSaveTypeIndex(typeIndex);
@@ -413,8 +426,8 @@ export class ScheduleComponent implements OnInit {
       clinicId: this.user.ClinicId
     };
     this.settingsService.Generalschedule(reqparams).subscribe((resp) => {
-      if(resp.IsSuccess){
-        if(resp.ListResult.length == 1)
+      if (resp.IsSuccess) {
+        if (resp.ListResult.length == 1)
           this.generalSchedule = resp.ListResult[0];
       }
 
@@ -454,7 +467,7 @@ export class ScheduleComponent implements OnInit {
     this.settingsService.UserInfoWithPracticeLocations(reqparams).subscribe(resp => {
       let UserInfo = resp.Result as NewUser;
       UserInfo.LocationInfo = JSON.parse(resp.Result.LocationInfo);
-      this.openComponentDialog(this.userDialogComponent,UserInfo,Actions.view)
+      this.openComponentDialog(this.userDialogComponent, UserInfo, Actions.view)
     });
   }
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,

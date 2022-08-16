@@ -1,7 +1,7 @@
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { Component, EventEmitter, HostListener, Input, OnInit, Output, TemplateRef } from "@angular/core";
 import { FormBuilder } from "@angular/forms";
-import { Subject } from "rxjs";
+import { of, Subject } from "rxjs";
 import { AuthenticationService } from "src/app/_services/authentication.service";
 import { SmartSchedulerService } from "src/app/_services/smart.scheduler.service";
 import { Actions, AppointmentDialogInfo, AppointmentTypes, NewAppointment, PatientSearchResults, PracticeProviders, Room, ScheduledAppointment, UserLocations } from 'src/app/_models';
@@ -69,7 +69,12 @@ export class PatientScheduleComponent implements OnInit{
 
   ngOnInit(): void {
     this.patientSearchTerms
-    .pipe(debounceTime(300),  // wait for 300ms pause in events
+    .pipe(
+      map(value=>{
+        this.patients =[]
+        return value;
+      }),
+      debounceTime(300),  // wait for 300ms pause in events
       distinctUntilChanged())   // ignore if next search term is same as previous
     .subscribe((term) =>
       this.smartSchedulerService

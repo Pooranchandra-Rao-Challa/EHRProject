@@ -12,7 +12,6 @@ import { OverlayService } from '../../overlay.service';
 import { Actions,Location } from 'src/app/_models/';
 import { LocationDialogComponent } from 'src/app/dialogs/location.dialog/location.dialog.component';
 import { AlertMessage, ERROR_CODES } from './../../_alerts/alertMessage';
-import { ThrowStmt } from '@angular/compiler';
 @Component({
   selector: 'app-user.dialog',
   templateUrl: './user.dialog.component.html',

@@ -22,22 +22,22 @@
             </div>
             <div class="col-lg-9 col-md-12 col-12 ">
               <label class="form-label required">First Name</label>
-              <input class="form-control text-design" type="text" placeholder="First Name" id="firstName" name="firstName"
-                [(ngModel)]="newUser.FirstName">
+              <input matInput class="form-control text-design" type="text" placeholder="First Name" id="firstName"
+                name="firstName" [(ngModel)]="newUser.FirstName">
             </div>
           </div>
         </div>
 
         <div class="col-lg-2 col-md-12 col-12 mt-3">
           <label class="form-label">Middle Name</label>
-          <input class="form-control text-design" type="text" placeholder="Middle Name" id="MiddleName" name="MiddleName"
-            [(ngModel)]="newUser.MiddleName">
+          <input matInput class="form-control text-design" type="text" placeholder="Middle Name" id="MiddleName"
+            name="MiddleName" [(ngModel)]="newUser.MiddleName">
 
         </div>
         <div class="col-lg-5 col-md-12 col-12  mt-3 mb-2">
           <label class="form-label required">Last Name</label>
-          <input class="form-control text-design" type="text" placeholder="Last Name" id="LastName" name="LastName"
-            [(ngModel)]="newUser.LastName">
+          <input matInput class="form-control text-design" type="text" placeholder="Last Name" id="LastName"
+            name="LastName" [(ngModel)]="newUser.LastName">
         </div>
         <div class="row my-2">
           <div class="col-lg-4 col-md-12 col-12 mb-3">
@@ -50,7 +50,7 @@
           </div>
           <div class="col-lg-4 col-md-12 col-12  mb-3">
             <label class="form-label required">Speciality</label>
-            <select id="speciality"  name="speciality" class="form-select" [(ngModel)]="newUser.Speciality">
+            <select id="speciality" name="speciality" class="form-select" [(ngModel)]="newUser.Speciality">
               <option *ngFor="let speciality of specialities" [value]="speciality.Name">
                 {{speciality.Name}}
               </option>
@@ -58,8 +58,9 @@
           </div>
           <div class="col-lg-4 col-md-12 col-12">
             <label class="form-label required">NPI</label>
-            <input class="form-control text-design npi-width" type="text"
-              placeholder="National Provider Identifier(NPI)" [(ngModel)]="newUser.NPI">
+            <input matInput class="form-control text-design npi-width" type="text" pattern="^[0-9]{10}$" required
+              #npi="ngModel" maxlength="10" npiValidator placeholder="National Provider Identifier(NPI)"
+              [(ngModel)]="newUser.NPI" [ngClass]="{'is-invalid' : (npi.touched || npi.dirty) && !npi.valid }">
           </div>
         </div>
       </div>
@@ -70,113 +71,86 @@
           <div class="row">
             <label class="form-label required">Street Address</label>
             <div class="col-md-10">
-              <input type="input" class="form-control text-design" placeholder="Street Address" id="StreedAddress"
-                name="StreedAddress" [(ngModel)]="newUser.Address">
+              <input matInput type="input" class="form-control text-design" placeholder="Street Address"
+                id="StreedAddress" name="StreedAddress" [(ngModel)]="newUser.Address">
             </div>
             <div class="col-md-2">
-              <button mat-button class="cancel-button reg-button col-md-12" (click)="AddressVerification()">Verify</button>
+              <button mat-button class="cancel-button reg-button col-md-12"
+                (click)="AddressVerification()">Verify</button>
             </div>
           </div>
         </div>
 
         <div class="col-lg-3 col-md-12 col-sm-12 col-12 mt-3">
           <label class="form-label">Suit/API Number</label>
-          <input type="input" class="form-control text-design input-bgColor" id="APINumber"  name="APINumber"
+          <input matInput type="input" class="form-control text-design input-bgColor" id="APINumber" name="APINumber"
             placeholder="Suit/API Number" [(ngModel)]="newUser.SuitNumber" readonly>
         </div>
 
         <div class="col-lg-8 col-md-12 col-sm-12 col-12  mt-3">
           <label class="form-label">City</label>
-          <input type="input" class="form-control text-design input-bgColor" id="City"  name="City" placeholder="City"
-            [(ngModel)]="newUser.City" readonly>
+          <input matInput type="input" class="form-control text-design input-bgColor" id="City" name="City"
+            placeholder="City" [(ngModel)]="newUser.City" readonly>
         </div>
         <div class="col-lg-2 col-md-12 col-sm-12 col-12 mt-3">
           <label class="form-label">State</label>
-          <input type="input" class="form-control text-design input-bgColor" id="State"  name="State" placeholder="State"
-            [(ngModel)]="newUser.State" readonly>
+          <input matInput type="input" class="form-control text-design input-bgColor" id="State" name="State"
+            placeholder="State" [(ngModel)]="newUser.State" readonly>
         </div>
         <div class="col-lg-2 col-md-12 col-sm-12 col-12 mt-3">
           <label class="form-label">Zip Code</label>
-          <input type="input" class="form-control text-design input-bgColor" id="ZipCode" name="ZipCode" placeholder="Zip Code"
-            [(ngModel)]="newUser.ZipCode" readonly>
+          <input matInput type="input" class="form-control text-design input-bgColor" id="ZipCode" name="ZipCode"
+            placeholder="Zip Code" [(ngModel)]="newUser.ZipCode" readonly>
         </div>
         <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
-          <!-- <div class="input-group ">
-            <mat-form-field class="example-full-width" appearance="outline">
-              <input type="input" placeholder="(    )" aria-label="Number" matInput [formControl]="myControl"
-                [matAutocomplete]="auto">
-              <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                  <p class="pgone-dropdwn">{{option}}</p>
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
-            <mat-form-field appearance="outline" class="example-width matfield-width">
-              <input matInput placeholder="Primary Phone Number" [(ngModel)]="newUser.PrimaryPhone">
-            </mat-form-field>
-          </div> -->
           <label class="form-label required">Primary Phone</label>
           <div class="input-group ">
             <mat-form-field class="example-full-width" appearance="outline">
-              <input type="input" placeholder="(    )" aria-label="Number" matInput [formControl]="myControlPrimary"
-                [matAutocomplete]="autoPrimary" [(ngModel)]="newUser.PrimaryPhonePreffix">
+              <input type="input" class="areacode" placeholder="(area-code)" aria-label="Number" matInput
+                [formControl]="myControlPrimary" [matAutocomplete]="autoPrimary"
+                [(ngModel)]="newUser.PrimaryPhonePreffix">
               <mat-autocomplete autoActiveFirstOption #autoPrimary="matAutocomplete">
-                <mat-option class="tel-code" *ngFor="let option of filteredOptionsPrimary | async" [value]="option" (click)="onSelectedPrimaryPhoneCode(option)">
+                <mat-option class="tel-code" *ngFor="let option of filteredOptionsPrimary | async" [value]="option"
+                  (click)="onSelectedPrimaryPhoneCode(option)">
                   <h1>{{option}}</h1>
                 </mat-option>
-                <!-- <mat-option *ngIf="!myControl.value">Please enter 1 or more characters</mat-option> -->
-                <!-- <mat-option>No Data Found</mat-option> -->
               </mat-autocomplete>
             </mat-form-field>
             <mat-form-field appearance="outline" class="example-width">
-              <input matInput placeholder="Primary Phone Number" class="cstm-tel" type="tel"
-              mask="000-0000" [showMaskTyped]="true" [patterns]="PhonePattern" [(ngModel)]="newUser.PrimaryPhoneSuffix">
+              <input matInput placeholder="Primary Phone Number" class="cstm-tel" type="tel" mask="000-0000"
+                [showMaskTyped]="true" [patterns]="PhonePattern" [(ngModel)]="newUser.PrimaryPhoneSuffix">
             </mat-form-field>
           </div>
         </div>
         <div class="col-lg-6 col-md-12 col-sm-12 col-12 mr-3 mt-3">
-          <!-- <div class="input-group ">
-            <mat-form-field class="example-full-width" appearance="outline">
-              <input type="input" placeholder="(    )" aria-label="Number" matInput [formControl]="myControl"
-                [matAutocomplete]="auto">
-              <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                  <p class="pgone-dropdwn">{{option}}</p>
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
-            <mat-form-field appearance="outline" class="example-width matfield-width">
-              <input matInput placeholder="Mobile Phone Number" [(ngModel)]="newUser.MobilePhone">
-            </mat-form-field>
-          </div> -->
           <label class="form-label">Mobile Phone</label>
           <div class="input-group mb-3">
-            <mat-form-field class="example-full-width" appearance="outline">
-              <input type="input" placeholder="(    )" aria-label="Number" matInput [formControl]="myControlSecondary"
-                [matAutocomplete]="autoSecondary" [(ngModel)]="newUser.MobilePhonePreffix">
+            <mat-form-field class="example-full-width" appearance="outline" width="80px">
+              <input type="input" class="areacode" placeholder="(area-code)" aria-label="Number" matInput
+                [formControl]="myControlSecondary" [matAutocomplete]="autoSecondary"
+                [(ngModel)]="newUser.MobilePhonePreffix">
               <mat-autocomplete autoActiveFirstOption #autoSecondary="matAutocomplete">
-                <mat-option class="tel-code" *ngFor="let option of filteredOptionsSecondary | async" [value]="option" (click)="onSelectedMobileCode(option)">
+                <mat-option class="tel-code" *ngFor="let option of filteredOptionsSecondary | async" [value]="option"
+                  (click)="onSelectedMobileCode(option)">
                   <h1>{{option}}</h1>
                 </mat-option>
-                <!-- <mat-option *ngIf="!myControl.value">Please enter 1 or more characters</mat-option> -->
-                <!-- <mat-option>No Data Found</mat-option> -->
               </mat-autocomplete>
             </mat-form-field>
             <mat-form-field appearance="outline" class="example-width">
-              <input matInput placeholder="Mobile Phone Number" class="cstm-tel" type="tel"
-              mask="000-0000" [showMaskTyped]="true" [patterns]="PhonePattern" [(ngModel)]="newUser.MobilePhoneSuffix">
+              <input matInput placeholder="Mobile Phone Number" class="cstm-tel" type="tel" mask="000-0000"
+                [showMaskTyped]="true" [patterns]="PhonePattern" [(ngModel)]="newUser.MobilePhoneSuffix">
             </mat-form-field>
           </div>
         </div>
         <div class="col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
           <label class="form-label required">Primary Email Address</label>
-          <input type="input" class="form-control text-design" id="PrimaryEmail" name="PrimaryEmail" placeholder="Primary Email Address"
-            [(ngModel)]="newUser.Email">
+          <input matInput type="input" class="form-control text-design" id="PrimaryEmail" name="PrimaryEmail"
+            placeholder="Primary Email Address" [(ngModel)]="newUser.Email">
         </div>
 
         <div class="col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
           <label class="form-label">Alternative Email Address</label>
-          <input type="input" class="form-control text-design" id="AlternativeEmail" name="AlternativeEmail"
+          <input matInput type="input" class="form-control text-design" id="AlternativeEmail" name="AlternativeEmail"
             placeholder="Alternative Email Address" [(ngModel)]="newUser.AltEmail">
         </div>
 
@@ -187,15 +161,16 @@
             <label for="ClinicID" class="form-label mt-2">Eprescribe from :</label>
             <div class="form-check radio-button-size">
               <div class="custom-control custom-radio custom-control-inline d-inline-flex">
-                <input type="radio" groupname="EprescribeFrom" class="custom-control-input" id="EPrescribeFrom" name="EPrescribeFrom">
-                <label class="custom-control-label mx-2" for="None" [(ngModel)]="newUser.EPrescribeFrom" value="none" >None</label>
+                <input type="radio" [(ngModel)]="newUser.EPrescribeFrom" value="none" groupname="EprescribeFrom"
+                  class="custom-control-input" id="EPrescribeFrom" name="EPrescribeFrom">
+                <label class="custom-control-label mx-2" for="None">None</label>
 
-                <input type="radio" groupname="EprescribeFrom" class="custom-control-input mx-3 " id="EPrescribeFrom" name="EPrescribeFrom"
-                [(ngModel)]="newUser.EPrescribeFrom" value="dosespot">
+                <input type="radio" groupname="EprescribeFrom" class="custom-control-input mx-3 " id="EPrescribeFrom"
+                  name="EPrescribeFrom" [(ngModel)]="newUser.EPrescribeFrom" value="dosespot">
                 <label class="custom-control-label" for="Dosespot">Dosespot</label>
 
-                <input type="radio" groupname="EprescribeFrom" class="custom-control-input mx-3 radio-btn" id="EPrescribeFrom"
-                  name="EPrescribeFrom" [(ngModel)]="newUser.EPrescribeFrom" value="drfirst">
+                <input type="radio" groupname="EprescribeFrom" class="custom-control-input mx-3 radio-btn"
+                  id="EPrescribeFrom" name="EPrescribeFrom" [(ngModel)]="newUser.EPrescribeFrom" value="drfirst">
                 <label class="custom-control-label radio-btn-label" for="DrFirst">DrFirst</label>
               </div>
             </div>
@@ -206,26 +181,31 @@
           <div class="row mb-4">
             <p class="mt-3">ERX Details</p>
             <div class="col-lg-12 col-md-12 col-sm-12 col-12 mt-1 d-inline-flex">
-              <input type="checkbox" class="check-box-size" [(ngModel)]="newUser.IsDoseSpotRegistation">
-              <label class="form-check-label mx-2 checkbox-text" for="IsDoseSpotRegistation">DoseSpot Registration Completed</label>
+              <input type="checkbox" class="check-box-size" [disabled]="user.Role=='compliance'"
+                [(ngModel)]="newUser.IsDoseSpotRegistation">
+              <label class="form-check-label mx-2 checkbox-text" [class.required]="newUser.EPrescribeFrom=='dosespot'"
+                for="IsDoseSpotRegistation">DoseSpot Registration Completed</label>
 
             </div>
             <div class="col-lg-3 col-md-12 col-sm-12 col-12 mt-3">
-              <label for="ClinicID" class="form-label">Clinic ID</label>
-              <input type="text" class="form-control text-design" id="ClinicID" name="ClinicID" placeholder="Clinic ID"
-                [(ngModel)]="newUser.DoseSpotClinicId">
+              <label for="ClinicID" class="form-label" [class.required]="newUser.EPrescribeFrom=='dosespot'">Clinic
+                ID</label>
+              <input type="text" class="form-control text-design" [disabled]="user.Role=='compliance'" id="ClinicID"
+                name="ClinicID" placeholder="Clinic ID" [(ngModel)]="newUser.DoseSpotClinicId">
             </div>
 
             <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
-              <label for="ClinicKey" class="form-label">Clinic Key</label>
-              <input type="text" class="form-control text-design" id="ClinicKey" name="ClinicKey" placeholder="Clinic Key"
-                [(ngModel)]="newUser.DoseSpotClinicKey">
+              <label for="ClinicKey" class="form-label" [class.required]="newUser.EPrescribeFrom=='dosespot'">Clinic
+                Key</label>
+              <input type="text" class="form-control text-design" [disabled]="user.Role=='compliance'" id="ClinicKey"
+                name="ClinicKey" placeholder="Clinic Key" [(ngModel)]="newUser.DoseSpotClinicKey">
             </div>
 
             <div class="col-lg-3 col-md-12 col-sm-12 col-12 mt-3">
-              <label for="ClinicID" class="form-label">Prescriber ID/ Clinician ID</label>
-              <input type="text" class="form-control text-design" id="PrescriberID" name="PrescriberID"
-                placeholder="Prescriber ID/ Clinician ID" [(ngModel)]="newUser.DoseSpotClinicianId">
+              <label for="ClinicID" class="form-label" [class.required]="newUser.EPrescribeFrom=='dosespot'">Prescriber
+                ID/ Clinician ID</label>
+              <input type="text" class="form-control text-design" [disabled]="user.Role=='compliance'" id="PrescriberID"
+                name="PrescriberID" placeholder="Prescriber ID/ Clinician ID" [(ngModel)]="newUser.DoseSpotClinicianId">
             </div>
           </div>
         </div>
@@ -234,43 +214,59 @@
             <p class="mt-3">DrFirst Details</p>
 
             <div class="col-lg-4 col-md-12 col-sm-12 col-12 mt-3">
-              <label for="RcopiaUsername" class="form-label">Rcopia User Name (Practice Username)</label>
-              <input type="text" class="form-control text-design" id="RcopiaUsername" name="RcopiaUsername" placeholder="Rcopia Username"
+              <label for="RcopiaUsername" class="form-label" [class.required]="newUser.EPrescribeFrom=='drfirst'">Rcopia
+                User Name (Practice Username)</label>
+              <input type="text" class="form-control text-design" [disabled]="user.Role=='compliance'"
+                id="RcopiaUsername" name="RcopiaUsername" placeholder="Rcopia Username"
                 [(ngModel)]="newUser.PracticeUsername">
             </div>
 
             <div class="col-lg-4 col-md-12 col-sm-12 col-12 mt-3">
-              <label for="VendorUsername" class="form-label">Vendor Username</label>
-              <input type="text" class="form-control text-design" id="VendorUsername" name="VendorUsername" placeholder="Vendor Username"
+              <label for="VendorUsername" class="form-label" [class.required]="newUser.EPrescribeFrom=='drfirst'">Vendor
+                Username</label>
+              <input type="text" class="form-control text-design" [disabled]="user.Role=='compliance'"
+                id="VendorUsername" name="VendorUsername" placeholder="Vendor Username"
                 [(ngModel)]="newUser.VendorUsername">
             </div>
 
             <div class="col-lg-4 col-md-12 col-sm-12 col-12 mt-3">
-              <label for="RcopiaUsername" class="form-label">Rcopia User ID (Provider Username)</label>
-              <input type="text" class="form-control text-design" id="ProviderUsername" name="ProviderUsername" placeholder="Rcopia Username"
+              <label for="RcopiaUsername" class="form-label" [class.required]="newUser.EPrescribeFrom=='drfirst'">Rcopia
+                User ID (Provider Username)</label>
+              <input type="text" class="form-control text-design" [disabled]="user.Role=='compliance'"
+                id="ProviderUsername" name="ProviderUsername" placeholder="Rcopia Username"
                 [(ngModel)]="newUser.ProviderUsername">
             </div>
 
             <div class="col-lg-4 col-md-12 col-sm-12 col-12 mt-3">
-              <label for="PracticePassword" class="form-label">Rcopia User Name Password (Practice Password)</label>
-              <input type="text" class="form-control text-design" id="PracticePassword" name="PracticePassword" placeholder="Practice Password"
+              <label for="PracticePassword" class="form-label"
+                [class.required]="newUser.EPrescribeFrom=='drfirst'">Rcopia User Name Password (Practice
+                Password)</label>
+              <input type="text" class="form-control text-design" [disabled]="user.Role=='compliance'"
+                id="PracticePassword" name="PracticePassword" placeholder="Practice Password"
                 [(ngModel)]="newUser.PracticePassword">
             </div>
 
             <div class="col-lg-4 col-md-12 col-sm-12 col-12 mt-3">
-              <label for="VendorPassword" class="form-label">Vendor Password (Secret Key)</label>
-              <input type="text" class="form-control text-design" id="VendorPassword" name="VendorPassword" placeholder="Vendor Password"
+              <label for="VendorPassword" class="form-label" [class.required]="newUser.EPrescribeFrom=='drfirst'">Vendor
+                Password (Secret Key)</label>
+              <input type="text" class="form-control text-design" [disabled]="user.Role=='compliance'"
+                id="VendorPassword" name="VendorPassword" placeholder="Vendor Password"
                 [(ngModel)]="newUser.VendorSecretKey">
             </div>
 
             <div class="col-lg-4 col-md-12 col-sm-12 col-12 mt-3">
-              <label for="ProviderPassword" class="form-label">Rcopia User ID Passsword (Provider Password)</label>
-              <input type="text" class="form-control text-design" id="ProviderPassword" name="ProviderPassword" placeholder="Provider Password"
+              <label for="ProviderPassword" class="form-label"
+                [class.required]="newUser.EPrescribeFrom=='drfirst'">Rcopia User ID Passsword (Provider
+                Password)</label>
+              <input type="text" class="form-control text-design" [disabled]="user.Role=='compliance'"
+                id="ProviderPassword" name="ProviderPassword" placeholder="Provider Password"
                 [(ngModel)]="newUser.ProviderPassword">
             </div>
             <div class="col-lg-4 col-md-12 col-sm-12 col-12 mt-3">
-              <label for="RcopiaUsernname" class="form-label">Rcopia User ExternalID (Optional)</label>
-              <input type="text" class="form-control text-design" id="UserExternalId" name="UserExternalId" placeholder="Rcopia User ExternalID"
+              <label for="RcopiaUsernname" class="form-label"
+                [class.required]="newUser.EPrescribeFrom=='drfirst'">Rcopia User ExternalID (Optional)</label>
+              <input type="text" class="form-control text-design" [disabled]="user.Role=='compliance'"
+                id="UserExternalId" name="UserExternalId" placeholder="Rcopia User ExternalID"
                 [(ngModel)]="newUser.UserExternalId">
             </div>
           </div>
@@ -279,19 +275,19 @@
           <div class="p-2 bd-highlight "> <a (click)="GeneratePassword()" class="anchortag">Generate Random Password</a>
           </div>
           <div class="p-2 bd-highlight w-50">
-            <input class="form-control text-design" [type]="showPassword ? 'text' : 'password'"
-            placeholder="password" id="password" name="password"
-              *ngIf="!DisplayPwdInput" [(ngModel)]="randomPassword" >
+            <input class="form-control text-design" [type]="showPassword ? 'text' : 'password'" placeholder="password"
+              id="password" name="password" *ngIf="!DisplayPwdInput" [(ngModel)]="randomPassword">
           </div>
           <div class="p-2 bd-highlight" *ngIf="!DisplayPwdInput">
-            <input type="checkbox" class="mx-2"  (change)="onCheckboxChange($event)"  >Show Password
+            <input type="checkbox" class="mx-2" (change)="onCheckboxChange($event)">Show Password
           </div>
         </div>
 
       </div>
     </div>
     <div class="modal-footer model-cust-footer">
-      <button type="button" class="btn save-button col-md-4" [disabled]="disableProviderRegistration()" (click)="createProviderRegistration()">Add New User </button>
+      <button type="button" class="btn save-button col-md-4" [disabled]="disableProviderRegistration()"
+        (click)="createProviderRegistration()">Add New User </button>
       <button type="button" data-bs-dismiss="modal" class="cancel-button col-md-4" data-bs-dismiss="modal"
         aria-label="Close" (click)="close()">Cancel</button>
     </div>
@@ -305,7 +301,7 @@
 <div class="modal verify-address" tabindex="-1" role="dialog" [ngStyle]="{'display':displayAddress}">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header" [ngClass]="displayDialog?'addressInvalid':'addressSuccess'">
+      <div class="modal-header" [ngClass]="displayDialog?'addressInvalid':'addressSuccess'" style="margin-bottom: -10px;">
         <h3 *ngIf="!displayDialog">Success</h3>
         <h3 *ngIf="displayDialog" class="text-white">Invalid Address</h3>
         <button type="button" *ngIf="!displayDialog" class="btn btn-sm btn-success adrsbtn"
@@ -317,19 +313,19 @@
           X
         </button>
       </div>
-        <div class="modal-body">
-          <div class="row">
-            <h4 class="text-center" style="margin-top: 1rem;margin-bottom: 2rem;">
-              {{displaymsg}}</h4>
-            <div class="col-lg-12 col-md-4 col-sm-4" *ngIf="!displayDialog">
-              <mat-form-field appearance="outline" class="example-full-width" [style.width.px]=700>
-                <input type="text" class="w-100" [value]="ValidAddressForUse" placeholder="address" matInput>
+      <div class="modal-body" style="border: 1px solid #41b6a6;">
+        <div class="row">
+          <h4 class="text-center" style="margin-top: 1rem;margin-bottom: 2rem;">
+            {{displaymsg}}</h4>
+          <div class="col-lg-12 col-md-4 col-sm-4" *ngIf="!displayDialog">
+            <mat-form-field appearance="outline" class="example-full-width" [style.width.px]=680 [sytle.paddingTop]=30>
+              <input type="text" class="w-100" [value]="ValidAddressForUse" placeholder="address" matInput>
 
-                <md-icon class="link" (click)="UseValidatedAddress()">Use this</md-icon>
-              </mat-form-field>
-            </div>
+              <md-icon class="link" (click)="UseValidatedAddress()">Use this</md-icon>
+            </mat-form-field>
           </div>
         </div>
+      </div>
     </div>
   </div>
 

@@ -140,10 +140,14 @@
             </div>
             <div class="col-lg-4 "><label><span class="settings-label">Expiration Date</span>
               </label>
-              <div class="form-group ">
-                <input type="text" placeholder="Expiration Date" class="inputclass"
-                  [(ngModel)]="EditProvider.ExpirationDate" autocomplete="off">
+              <div class="form-group" style="display: inherit;">
+                <input type="text" placeholder="Expiration Date" class="inputclass" style="width: 230px;"
+                  [(ngModel)]="EditProvider.ExpirationDate" autocomplete="off" [matDatepicker]="expirationDate">
+
+                  <mat-datepicker-toggle matSuffix [for]="expirationDate"></mat-datepicker-toggle>
+                  <mat-datepicker #expirationDate></mat-datepicker>
               </div>
+              <mat-hint style="font-size:8pt">MM/DD/YYYY</mat-hint>
             </div>
           </div>
           <div class="row">

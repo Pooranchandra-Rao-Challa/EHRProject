@@ -23,6 +23,7 @@ export interface Patient {
   Zipcode?: string;
   ManualAddress?: string;
   AddressResult?: any;
+  strDateofBirth?: string;
 }
 
 export class PatientPortalUser{

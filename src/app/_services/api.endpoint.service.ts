@@ -194,7 +194,7 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "PracticeProviders";
   }
   get _createPatinetUrl() {
-    return this._baseUrl + "CreatePatinet";
+    return this._baseUrl + "CreatePatient";
   }
   get _providerStaffUrl() {
     return this._baseUrl + "ProviderStaff";

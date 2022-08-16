@@ -23,7 +23,11 @@
 
 .modal-cust-header {
   border-bottom: 1px solid #f2f2f2;
-  padding: 10px !important;
+  padding: 10px 20px 10px 30px !important;
+  background: #dedede;
+  font-size: 18px;
+  font-weight: 600;
+  font-family: "Open Sans", sans-serif;
 }
 
 
@@ -69,6 +73,7 @@
   color: #3598dc;
   padding: 3px 13px;
   border-radius: 5px !important;
+  font-family: "Open Sans", sans-serif;
 }
 
 .save-button:hover {
@@ -91,6 +96,7 @@
   border-radius: 5px !important;
   font-family: "Open Sans", sans-serif;
   height: 35px;
+  padding-left:10px;
 }
 
 input::-webkit-input-placeholder {
@@ -105,11 +111,11 @@ input::-webkit-input-placeholder {
 }
 
 .example-full-width {
-  width: 12%;
+  width: 15%;
 }
-
+.is-invalid{color:red;}
 .example-width {
-  width: 88%;
+  width: 85%;
   height: 15%;
 }
 
@@ -231,6 +237,7 @@ input::-webkit-input-placeholder {
 
   .model-cust-footer {
     width: 100%;
+    border-top: unset;
   }
 }
 
@@ -329,7 +336,10 @@ input::-webkit-input-placeholder {
   box-shadow: none;
 }
 
-.required:before {
-  content: "*" !important;
+.required::before {
+  content: " *" !important;
   color: red !important;
+}
+.areacode::placeholder{
+  font-size: 10px;
 }

@@ -22,7 +22,10 @@
               "rxjs-compat",
               "xlsx",
               "rxjs",
-              "file-saver"
+              "file-saver",
+              "canvg",
+              "core-js",
+              "raf"
             ],
             "outputPath": "dist/EHRProject",
             "index": "src/index.html",

@@ -72,7 +72,7 @@
               </div>
             </div>
             <div class="general-content">
-              <p class="panel-title bg-color m-0 plabel">General</p>
+              <p class="panel-title bg-color m-0 plabel" style="padding-top: 15px;">General</p>
               <div class="row schedule-section">
                 <div class="col-xl-3 col-lg-5 col-md-6 pt-2">
                   <p class="plabel">Calendar Time Display Range :</p>
@@ -134,12 +134,12 @@
               </div>
             </div>
             <div>
-              <p class="panel-title bg-color m-0 plabel">Providers & Rooms
+              <p class="panel-title bg-color m-0 plabel" style="padding-top: 15px;">Providers & Rooms
               </p>
             </div>
             <div class="scrollable-provider-rooms">
               <div class="provider-rooms">
-                <div class="row panel-title bg-color m-0">
+                <div class="row panel-title bg-color m-0" style="padding-top: 15px;">
                   <div class="plabel col-lg-9">Provider</div>
                   <div class="col-lg-3 pull-right"><span class="plabel pull-right">Edit Provider Schedule</span></div>
                 </div>
@@ -155,7 +155,7 @@
                 </div>
               </div>
             </div>
-            <p class="panel-title bg-color plabel m-0">Appointment Statuses & Types
+            <p class="panel-title bg-color plabel m-0" style="padding-top: 15px;" >Appointment Statuses & Types
             <div class="row my-3  mx-2">
               <div class="col-xl-6 col-lg-12 col-md-12 cstm-appointment-status">
                 <div class="appointment-form">
@@ -210,24 +210,24 @@
                   </div>
                   <form [formGroup]="typeForm">
                     <div formArrayName="type">
-                      <div *ngFor="let type of type().controls; let typeIndex=index">
+                      <div *ngFor="let ctlType of type().controls; let typeIndex=index;">
                         <div [formGroupName]="typeIndex">
                           <div class="row px-4 pt-1 pb-2">
                             <div class="col-md-5 col-5">
                               <div class="form-group">
                                 <input type="text"
-                                  [class]="(!isNewType(typeIndex) || !typeForm.controls.type.controls[typeIndex].get('Editable').value) ? 'schedule-inputclass': 'inputclass'"
-                                  [readonly]="!isNewType(typeIndex) || !typeForm.controls.type.controls[typeIndex].get('Editable').value"
+                                  [class]="(!isNewType(typeIndex) || !ctlType.get('Editable').value) ? 'schedule-inputclass': 'inputclass'"
+                                  [readonly]="!isNewType(typeIndex) || !ctlType.get('Editable').value"
                                   class="form-control inputclass" formControlName="AppointmentType">
                               </div>
                             </div>
                             <div class="col-md-3 col-3">
                               <input class="cstm-color-picker"
-                                [(colorPicker)]="typeForm.controls.type.controls[typeIndex].get('Colour').value"
-                                [style.background]="typeForm.controls.type.controls[typeIndex].get('Colour').value" />
+                                [(colorPicker)]="ctlType.get('Colour').value"
+                                [style.background]="ctlType.get('Colour').value" />
                             </div>
                             <div class="col-md-4 col-4 pt-2 pt-md-0"
-                              *ngIf="typeForm.controls.type.controls[typeIndex].get('Editable').value">
+                              *ngIf="ctlType.get('Editable').value">
                               <button type="button" id="Actbtn7" class="btn btn-green btn-edit pull-right"
                                 *ngIf="isNewType(typeIndex)" (click)="saveAppointmentType(typeIndex)">
                                 Save
@@ -240,7 +240,7 @@
                             <div class="col-md-12 col-12 pt-2 cstm-border-bottom-appointment">
                               <div class="col-4 pull-right">
                                 <button type="button" id="Actbtn9" class="btn btn-green btn-remove pull-right"
-                                  *ngIf="typeForm.controls.type.controls[typeIndex].get('Editable').value"
+                                  *ngIf="ctlType.get('Editable').value"
                                   (click)="removeAppointmentType(typeIndex)">
                                   Remove
                                 </button>

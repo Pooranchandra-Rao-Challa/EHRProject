@@ -87,3 +87,12 @@ div#practice-location-model {
 .swal2-container{
   z-index: 100000;
 }
+.location-select .week{
+  margin:unset !important;
+}
+
+.location-select .week .weeks{
+  margin:unset !important;
+  height: 50px;
+  width: 100px;
+}
