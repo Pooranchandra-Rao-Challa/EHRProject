@@ -46,3 +46,21 @@ textarea.form-control {
   color: #fff;
   padding: 9px 0px 0px 0px;
 }
+.links-item {
+  background-color: #41b6a6;
+  color: #fff;
+  font-size: 15px;
+  padding: 12px 0px 1px 0px;
+  margin-bottom: 81px !important;
+}
+
+.links-item a {
+  color: #fff;
+  font-size: 16px;
+  padding: 9px 0 12px 9px;
+}
+.links-item a:hover{
+  color: #fe8f00;
+  cursor: pointer !important;
+  text-decoration: underline;
+}

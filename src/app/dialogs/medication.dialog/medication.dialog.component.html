@@ -19,7 +19,7 @@
                 Enter atleast 3 characters, you can only select 1 item
               </mat-option>
               <mat-option *ngIf="isLoading">Loading ...</mat-option>
-              <mat-option *ngFor="let drug of medications | async" [value]="drug" class="medical-code-option">
+              <mat-option ngClass="option-white-space" *ngFor="let drug of medications | async" [value]="drug" class="medical-code-option">
                 {{drug.Name}}
               </mat-option>
               <mat-option *ngIf="noRecords">No Records Found</mat-option>

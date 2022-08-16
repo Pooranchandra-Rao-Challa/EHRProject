@@ -84,9 +84,9 @@
           <mat-header-row *matHeaderRowDef="interventionColumns"></mat-header-row>
           <mat-row *matRowDef="let row; columns: interventionColumns"></mat-row>
         </mat-table>
-        <!-- <div class="norecords-found" *ngIf="interventionList.length">
-          No Patients Found
-        </div> -->
+        <div class="norecords-found" *ngIf="interventionCodes?.length == 0">
+          No Intervention Codes Found
+        </div>
       </div>
       <div class="row pt-3">
         <div class="col-lg-2">

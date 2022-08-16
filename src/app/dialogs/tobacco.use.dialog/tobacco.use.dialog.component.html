@@ -20,7 +20,7 @@
               <mat-form-field appearance="outline" class="col-lg-4 col-md-6 col-12 hover">
                 <mat-select placeholder="Select Screening Performed" disableOptionCentering
                   [(ngModel)]="patientTobaccoUse.ScreeningType">
-                  <mat-option *ngFor="let screening of screeningPerformed" [value]="screening.Performed">
+                  <mat-option class="option-white-space" *ngFor="let screening of screeningPerformed" [value]="screening.Performed">
                     {{screening.Performed}}
                   </mat-option>
                 </mat-select>
@@ -121,7 +121,7 @@
               <mat-form-field appearance="outline" class="col-lg-4 col-md-6 col-12 hover">
                 <mat-select placeholder="Select Intervention Performed" disableOptionCentering
                   [(ngModel)]="patientTobaccoUse.CI_Type">
-                  <mat-option *ngFor="let intervention of interventionPerformed" [value]="intervention.Performed">
+                  <mat-option class="option-white-space" *ngFor="let intervention of interventionPerformed" [value]="intervention.Performed">
                     {{intervention.Performed}}
                   </mat-option>
                 </mat-select>
