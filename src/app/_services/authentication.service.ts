@@ -128,19 +128,18 @@ export class AuthenticationService {
         this.userSubject = new BehaviorSubject<User>(resp.Result as User);
         localStorage.setItem('user', JSON.stringify(resp.Result as User));
         this.startRefreshTokenTimer();
-        if (this.isProvider)
-          this.router.navigate(
-            ['provider/smartschedule'],
-            { queryParams: { name: 'Smart Schedule' } }
-          );
-        else if (this.isAdmin)
-          this.router.navigate(['admin/providers']);
-        else if (this.isPatient)
+        this.SetViewParam("View", "dashboard")
+        if (this.isPatient)
           this.router.navigate(['patient/dashboard']);
+        else{
+          this.logout(ERROR_CODES["EL001"])
+        }
+      }else{
+        this.logout(ERROR_CODES["EL002"])
       }
     }),
       (error) => {
-        this.logout();
+        this.logout(ERROR_CODES["EL002"]);
       };
     return observable;
   }
