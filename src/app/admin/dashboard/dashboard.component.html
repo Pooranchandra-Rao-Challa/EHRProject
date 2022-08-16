@@ -105,7 +105,7 @@
                       <th></th>
                       <th></th>
                       <th></th>
-                      <th></th>
+                      <!-- <th></th> -->
                     </tr>
                   </thead>
                   <tbody>
@@ -135,7 +135,7 @@
                         </div>
                       </td>
                       <td class="text-center"><input class="form-check-input Status" type="checkbox"
-                          [checked]="item.Status" id="checkbox" (click)='inactiveUser($event, item)'></td>
+                          [checked]="item.Status" id="checkbox" (click)='deactivateUser($event, item)'></td>
                       <td class="td-width text-success">{{item.EmailVerifyStatus}}</td>
                       <td class="td-col-width"><button type="button" class="table-col-button"
                           (click)="openComponentDialog(UserDialogComponent)">View</button></td>
@@ -143,8 +143,8 @@
                           data-bs-target="#exampleModal">Reset MFA</button></td>
                       <td><button class="btn-lock td-btn-style" (click)="updateUserlock(item)">{{item.Locked ? "Unlock"
                           : "Lock"}}</button></td>
-                      <td><i class="material-icons delete-icon">delete</i>
-                      </td>
+                      <!-- <td><i class="material-icons delete-icon">delete</i>
+                      </td> -->
                     </tr>
                   </tbody>
                 </table>

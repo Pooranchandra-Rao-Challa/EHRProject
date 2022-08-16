@@ -74,7 +74,7 @@
 .modal-dialog .modal-content {
   box-shadow: none;
   border-radius: 0px;
-  margin-left: -89%;
+  margin-left: -20%;
   border: 1px solid #fff;
 }
 @media (max-width:1440px){
@@ -148,7 +148,7 @@
   text-align: center;
   width: auto;
   height: 36px;
-  // margin-left: 4%;
+  font-family: "Open Sans", sans-serif;
   background-color: #fff;
   border: 1px solid #3598dc;
   color: #3598dc;
@@ -265,14 +265,16 @@ input::-webkit-calendar-picker-indicator {
   border-radius: 0%;
   color: #c2cad8 !important;
 }
-.modal{
-  .modal-dialog{
-    margin-top: calc(106px + 79px) !important;
 
-  }
-}
 .modal .modal-dialog .modal-content .modal-header {
-  padding: 8px 0px 2px 9px !important;
+  padding: 10px !important;
+  background: #dedede;
+  font-size: 18px;
+  font-weight: 600;
+  font-family: "Open Sans", sans-serif;
+}
+.modal .modal-dialog .modal-content .modal-header hr{
+  margin: unset;
 }
 .form-control {
   font-size: 14px !important;

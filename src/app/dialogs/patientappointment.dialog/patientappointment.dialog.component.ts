@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
@@ -21,7 +22,9 @@ export class PatientappointmentDialogComponent implements OnInit {
   requestAppoinments?: Appointments = {}
 
 
-  constructor(private ref: EHROverlayRef, private patientservise: PatientService, private authenticationService: AuthenticationService,private alertmsg: AlertMessage,) {
+  constructor(private ref: EHROverlayRef, private patientservise: PatientService,
+    private authenticationService: AuthenticationService,private alertmsg: AlertMessage,
+    private datePipe:DatePipe) {
     this.user = authenticationService.userValue
     let data: Appointments = ref.RequestData;
   }
@@ -52,9 +55,9 @@ export class PatientappointmentDialogComponent implements OnInit {
   }
   RequestAppointment(requestAppoinments: Appointments) {
     //requestAppoinments.StartAt= moment(requestAppoinments.AppttDate).format('YYYY-MM-DD ')+ moment(requestAppoinments.AppointmentTime, "HH:mm:ss").format("hh:mm:ss");
+    //requestAppoinments.StartAt = this.datePipe.transform(requestAppoinments.AppttDate,"yyyy-MM-dd")
     requestAppoinments.PatientId = this.user.PatientId;
     requestAppoinments.ClinicId = this.user.ClinicId;
-    // requestAppoinments.StartAt = this.requestAppoinments.AppointmentTime
     this.patientservise.RequestPatientAppointment(requestAppoinments).subscribe(resp => {
       if (resp.IsSuccess) {
         this.alertmsg.displayMessageDailog(ERROR_CODES["M3A001"])

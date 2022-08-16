@@ -33,7 +33,7 @@ import {
   mixinDisabled,
   CanDisableCtor,
 } from '@angular/material/core';
-import { take, debounceTime, tap, switchMap, finalize, distinctUntilChanged, filter } from 'rxjs/operators';
+import { take, debounceTime, tap, switchMap, finalize, distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { UtilityService } from '../../../_services/utiltiy.service'
 import { MedicalCode, CodeSystemGroup } from '../../../_models/codes';
 
@@ -156,13 +156,14 @@ export class FieldControlComponent extends _SearchInputMixiBase
   isLoading: boolean = false;
 
   @Input()
-  set selectedValue(value: MedicalCode) {
-    this._selectedValue = value;
-  }
-  get selectedValue() {
-    return this._selectedValue;
-  }
-  private _selectedValue
+  selectedValue : MedicalCode
+  // set selectedValue(value: MedicalCode) {
+  //   this._selectedValue = value;
+  // }
+  // get selectedValue() {
+  //   return this._selectedValue;
+  // }
+  // private _selectedValue
 
   @Input()
   ShowSelectedValue: boolean = true;
@@ -227,6 +228,10 @@ export class FieldControlComponent extends _SearchInputMixiBase
         this.onToutch();
       });
     this.form.valueChanges.pipe(
+      map((event: any) => {
+        this.filteredOptions = of([])
+        return event;
+      }),
       filter(res => {
         if (res.query != null && res.query.length < this.MinTermLength) {
           this.isLoading = false;
@@ -267,12 +272,12 @@ export class FieldControlComponent extends _SearchInputMixiBase
   }
 
   displayWith(value: MedicalCode) {
-    console.log(value);
+    // console.log(value);
     if (value == null) return "";
-    console.log(JSON.stringify(this._selectedValue));
+    // console.log(JSON.stringify(this._selectedValue));
 
-    console.log(value.Code);
-    console.log(value.Description);
+    //  console.log(value.Code);
+    // console.log(value.Description);
 
 
     return value.Code + "-" + value.Description;

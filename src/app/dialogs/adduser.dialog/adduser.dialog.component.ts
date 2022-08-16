@@ -1,3 +1,5 @@
+
+import { AuthenticationService } from './../../_services/authentication.service';
 import { PlatformLocation } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
@@ -8,6 +10,7 @@ import { Registration } from 'src/app/_models/_account/registration';
 import { Accountservice } from 'src/app/_services/account.service';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 import Swal from 'sweetalert2';
+import { User } from 'src/app/_models';
 @Component({
   selector: 'app-adduser.dialog',
   templateUrl: './adduser.dialog.component.html',
@@ -35,13 +38,19 @@ export class AddUserDialogComponent implements OnInit {
   ValidAddressForUse: any;
   url: string;
   PhonePattern: any;
+  AddressResult: any;
+  user: User
 
   constructor(private ref: EHROverlayRef,
+    private authService: AuthenticationService,
     private utilityService: UtilityService,
     private accountservice: Accountservice,
     private plaformLocation: PlatformLocation,
     private idService: IdService) {
     this.url = plaformLocation.href.replace(plaformLocation.pathname, '/');
+    this.user = authService.userValue;
+    console.log(this.user.Role);
+
     this.PhonePattern = {
       0: {
         pattern: new RegExp('\\d'),
@@ -115,6 +124,7 @@ export class AddUserDialogComponent implements OnInit {
         if (resp.IsSuccess) {
           this.displayDialog = false;
           this.openPopupAddress();
+          this.AddressResult = resp.Result;
           this.ValidAddressForUse = resp.Result["delivery_line_1"] + ", " + resp.Result["last_line"]
           this.displaymsg = resp.EndUserMessage;
         }
@@ -135,6 +145,10 @@ export class AddUserDialogComponent implements OnInit {
   }
 
   UseValidatedAddress() {
+    this.newUser.City = this.AddressResult.components.city_name;
+    this.newUser.State = this.AddressResult.components.state_abbreviation;
+    this.newUser.Address = this.AddressResult.delivery_line_1;
+    this.newUser.ZipCode = this.AddressResult.components.zipcode;
     this.closePopupAddress();
   }
 
@@ -157,6 +171,7 @@ export class AddUserDialogComponent implements OnInit {
       this.newUser.MobilePhone = '+1' + this.newUser.MobilePhonePreffix + this.newUser.MobilePhoneSuffix;
     }
 
+    console.log(this.newUser)
     this.accountservice.RegisterNewProvider(this.newUser).subscribe(resp => {
       if (resp.IsSuccess) {
         this.alertWithSuccess();
@@ -183,6 +198,24 @@ export class AddUserDialogComponent implements OnInit {
   }
 
   disableProviderRegistration() {
+    // this.NPIValidator();
+    var npireg = /^[0-9]{10}$/;
+    let flag = (this.newUser.EPrescribeFrom == 'dosespot'
+      && this.newUser.DoseSpotClinicId != null && this.newUser.DoseSpotClinicId != ""
+      && this.newUser.IsDoseSpotRegistation != null && this.newUser.IsDoseSpotRegistation == true
+      && this.newUser.DoseSpotClinicKey != null && this.newUser.DoseSpotClinicKey != ""
+      && this.newUser.DoseSpotClinicianId != null && this.newUser.DoseSpotClinicianId != "") ||
+      (this.newUser.EPrescribeFrom == 'drfirst'
+        && this.newUser.VendorSecretKey != null && this.newUser.VendorSecretKey != ""
+        && this.newUser.VendorUsername != null && this.newUser.VendorUsername != ""
+        && this.newUser.ProviderUsername != null && this.newUser.ProviderUsername != ""
+        && this.newUser.ProviderPassword != null && this.newUser.ProviderPassword != ""
+        && this.newUser.PracticeUsername != null && this.newUser.PracticeUsername != ""
+        && this.newUser.PracticePassword != null && this.newUser.PracticePassword != ""
+        && this.newUser.UserExternalId != null && this.newUser.UserExternalId != ""
+      ) ||
+      this.newUser.EPrescribeFrom == 'none' || this.newUser.EPrescribeFrom == undefined
+
     return !(this.newUser.Title == undefined ? '' : this.newUser.Title != ''
       && this.newUser.FirstName == undefined ? '' : this.newUser.FirstName != ''
         && this.newUser.LastName == undefined ? '' : this.newUser.LastName != ''
@@ -192,7 +225,10 @@ export class AddUserDialogComponent implements OnInit {
                 && this.newUser.Address == undefined ? '' : this.newUser.Address != ''
                   && this.newUser.PrimaryPhonePreffix == undefined ? '' : this.newUser.PrimaryPhonePreffix != ''
                     && this.newUser.PrimaryPhoneSuffix == undefined ? '' : this.newUser.PrimaryPhoneSuffix != ''
-                      && this.newUser.Email == undefined ? '' : this.newUser.Email != '')
+                      && this.newUser.Email == undefined ? '' : this.newUser.Email != ''
+                      && flag && npireg.test(this.newUser.NPI))
   }
 
 }
+
+
