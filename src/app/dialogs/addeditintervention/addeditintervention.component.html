@@ -21,7 +21,9 @@
           </mat-form-field>
         </div>
         <div class="col-lg-6 col-md-6 col-xl-6 col-12">
-          <label for="DATEOFBIRTH*" class="form-label label-design required">Date Not Performed:</label>
+          <label for="DATEOFBIRTH*" class="form-label label-design required">
+            <b>Date Not Performed:</b>
+          </label>
           <mat-form-field appearance="outline" class="green-calendar col-12">
             <input matInput class="date-mat-class" autocomplete="off" [(ngModel)]="CQMNotPerformed.Date"
               [matDatepicker]="picker" (click)="picker.open()" readonly placeholder="Start Date">
@@ -36,7 +38,7 @@
           </div>
           <mat-form-field appearance="outline" class="col-lg-4 col-md-4 col-12 intervention-type">
             <mat-select placeholder="Select One" [(ngModel)]="CQMNotPerformed.InterventionType">
-              <mat-option [value]="item.value" *ngFor="let item of interventaionType">{{item.value}}</mat-option>
+              <mat-option class="option-white-space" [value]="item.value" *ngFor="let item of interventaionType">{{item.value}}</mat-option>
             </mat-select>
           </mat-form-field>
           <div class="col-lg-6 col-md-6">

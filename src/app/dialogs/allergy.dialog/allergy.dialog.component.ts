@@ -154,11 +154,7 @@ export class AllergyDialogComponent implements OnInit {
   }
 
   disableAllergies() {
-    return !(this.patientAllergy.AllergenType == undefined ? '' : this.patientAllergy.AllergenType != ''
-      && this.patientAllergy.AllergenName == undefined ? '' : this.patientAllergy.AllergenName != ''
-        && this.patientAllergy.SeverityLevel == undefined ? '' : this.patientAllergy.SeverityLevel != ''
-          && this.patientAllergy.OnSetAt == undefined ? '' : this.patientAllergy.OnSetAt != ''
-            && this.patientAllergy.StartAt == undefined ? '' : this.patientAllergy.StartAt != ''
-              && this.patientAllergy.Reaction == null ? '' : this.patientAllergy.Reaction != '')
+    return !(this.patientAllergy.AllergenType && this.patientAllergy.AllergenName && this.patientAllergy.SeverityLevel && this.patientAllergy.OnSetAt
+            && this.patientAllergy.StartAt && this.patientAllergy.Reaction)
   }
 }
