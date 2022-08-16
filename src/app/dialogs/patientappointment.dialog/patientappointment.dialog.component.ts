@@ -15,8 +15,6 @@ import { PatientService } from '../../_services/patient.service'
 export class PatientappointmentDialogComponent implements OnInit {
   user: User;
   displayReq = "none";
-  hoverDATE: string = 'Date';
-  hoverTime: string = 'Date';
   Providerdata: any;
   clinicaldata: any;
   requestAppoinments?: Appointments = {}
@@ -54,8 +52,11 @@ export class PatientappointmentDialogComponent implements OnInit {
     })
   }
   RequestAppointment(requestAppoinments: Appointments) {
-    //requestAppoinments.StartAt= moment(requestAppoinments.AppttDate).format('YYYY-MM-DD ')+ moment(requestAppoinments.AppointmentTime, "HH:mm:ss").format("hh:mm:ss");
-    //requestAppoinments.StartAt = this.datePipe.transform(requestAppoinments.AppttDate,"yyyy-MM-dd")
+    if(requestAppoinments.AppttDate != null)
+    this.requestAppoinments.strStartAt = this.datePipe.transform(this.requestAppoinments.AppttDate,"MM/dd/yyyy");
+    if(requestAppoinments.AppointmentTime != null && this.requestAppoinments.strStartAt!= null)
+    this.requestAppoinments.strStartAt = this.requestAppoinments.strStartAt + ' ' + this.requestAppoinments.AppointmentTime;
+
     requestAppoinments.PatientId = this.user.PatientId;
     requestAppoinments.ClinicId = this.user.ClinicId;
     this.patientservise.RequestPatientAppointment(requestAppoinments).subscribe(resp => {

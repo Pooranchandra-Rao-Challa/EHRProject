@@ -11,6 +11,8 @@ import { User } from 'src/app/_models';
 import { ProviderPatient } from 'src/app/_models/_provider/ProviderPatient';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
+import { Accountservice } from 'src/app/_services/account.service';
+import { calcProjectFileAndBasePath } from '@angular/compiler-cli';
 
 @Component({
   selector: 'app-profile',
@@ -24,7 +26,7 @@ export class ProfileComponent implements OnInit {
   myControl: FormControl = new FormControl();
   filteredProviderOptions: Observable<any[]>;
   filterPatientOptions: Observable<any[]>;
-  ethnicities = [{name: 'Hispani or Latino'},{name: 'Not Hispani or Latino'},{name: 'Patinet Decline to specify'}];
+  ethnicities = [{name: 'Hispanic or Latino'},{name: 'Not Hispanic or Latino'},{name: 'Patient Declined to specify'}];
   isShow: boolean;
   user: User;
   patientsList: ProviderPatient[];
@@ -57,9 +59,16 @@ export class ProfileComponent implements OnInit {
   patientRelationList: any = [];
   hoverDATEOFBIRTH:string='MM/DD/YYYY';
   hoverDATEOFDEATH:string='MM/DD/YYYY'
+  addressVerfied: boolean = false;
+  manuallybtn: boolean = false;
+  disableaddressverification: boolean = false;
+  emergencyManuallybtn:boolean = false;
+  emergencyAddressVerfied:boolean = false;
+  emergencyDisableAddressVerification:boolean = false;
+
 
   constructor(private patientService: PatientService, private utilityService: UtilityService,
-    private smartSchedulerService: SmartSchedulerService, private authService: AuthenticationService, private alertmsg: AlertMessage) {
+    private smartSchedulerService: SmartSchedulerService, private authService: AuthenticationService, private alertmsg: AlertMessage, private accountservice: Accountservice,) {
     this.user = authService.userValue;
     this.PatientMyProfile = {} as PatientProfile;
   }
@@ -287,5 +296,79 @@ export class ProfileComponent implements OnInit {
 
     });
   }
+  AddressVerification() {
+    this.accountservice.VerifyAddress(this.PatientMyProfile.Street).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.PatientMyProfile.city = resp.Result.components.city_name
+        this.PatientMyProfile.state = resp.Result.components.state_abbreviation
+        this.PatientMyProfile.StreetAddress = resp.Result.delivery_line_1
+        this.PatientMyProfile.zip = resp.Result.components.zipcode
+        this.PatientMyProfile.Street = "";
+        this.addressVerfied = true;
+        this.alertmsg.displayErrorDailog(ERROR_CODES["M2CP0010"])
+      }
+      else {
+        this.manuallybtn = true;
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP009"])
+      }
+    });
+  }
+
+  enableManualEntry() {
+    this.clearAddress();
+    this.manuallybtn = true;
+    
+  }
+
+  clearAddress() {
+    this.PatientMyProfile.Street = "";
+    this.PatientMyProfile.city = ""
+    this.PatientMyProfile.state = ""
+    this.PatientMyProfile.StreetAddress = ""
+    this.PatientMyProfile.zip = ""
+  }
+
+  enterAddressManually(item) {
+    this.disableaddressverification = true;
+  }
+
+
+
+  EmergencyAddressVerification() {
+    this.accountservice.VerifyAddress(this.PatientMyProfile.EmergencyStreet).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.PatientMyProfile.EmergencyCity = resp.Result.components.city_name
+        this.PatientMyProfile.EmergencyState = resp.Result.components.state_abbreviation
+        this.PatientMyProfile.EmergencyStreetAddress = resp.Result.delivery_line_1
+        this.PatientMyProfile.EmergencyZip = resp.Result.components.zipcode
+        this.PatientMyProfile.EmergencyStreet = "";
+        this.emergencyAddressVerfied = true;
+        this.alertmsg.displayErrorDailog(ERROR_CODES["M2CP0010"])
+      }
+      else {
+        this.emergencyManuallybtn = true;
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP009"])
+      }
+    });
+  }
+
+  EmergencyenableManualEntry() {
+    this.EmergencyclearAddress();
+    this.emergencyManuallybtn = true;
+    
+  }
+
+  EmergencyclearAddress() {
+    this.PatientMyProfile.EmergencyStreet = "";
+    this.PatientMyProfile.EmergencyCity = ""
+    this.PatientMyProfile.EmergencyState = ""
+    this.PatientMyProfile.EmergencyStreetAddress = ""
+    this.PatientMyProfile.EmergencyZip = ""
+  }
+
+  EmergencyenterAddressManually() {
+    this.emergencyDisableAddressVerification = true;
+  }
+
   allowAccess() { }
 }

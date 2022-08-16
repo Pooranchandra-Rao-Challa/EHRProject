@@ -142,45 +142,62 @@
 
               <div class="col-lg-8 col-md-8 col-xl-9 col-12 my-2">
                 <label for="HOMEADDRESS" class="form-label label-design">HOME ADDRESS</label>
-                <input class="input-group form-control" [(ngModel)]="PatientMyProfile.EmergencyStreetAddress"
-                  placeholder="HOME ADDRESS" type="text" id="HOME ADDRESS">
+                <input class="input-group form-control" [(ngModel)]="PatientMyProfile.EmergencyStreet"
+                  placeholder="HOME ADDRESS" type="text" id="HOME ADDRESS"  [disabled]="emergencyDisableAddressVerification">
               </div>
               <div class="col-lg-2 col-md-2 col-xl-3 col-12 mt-3">
-                <div class="p-2"><button type="button" class="btn btn-lg btn-styles btn-verify mt-2 py-1">Verify</button></div>
+                <div class="p-2"><button type="button" class="btn btn-lg btn-styles btn-verify mt-2 py-1"
+                  [disabled]="!PatientMyProfile.EmergencyStreet || emergencyDisableAddressVerification"
+                                (click)="EmergencyAddressVerification()">Verify</button></div>
               </div>
-              <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
+              <div class="col-lg-8 col-md-8 col-xl-9 col-12 my-2">
                 <div class="form-group">
                   <div class="input-group">
                     <label class="control-label input-group-addon">Street Address</label>
                     <input class="form-control" [(ngModel)]="PatientMyProfile.EmergencyStreetAddress"
-                      placeholder="Street Address" type="text" id="StreetAddress" name="StreetAddress" />
+                      placeholder="Street Address" type="text" id="StreetAddress" name="StreetAddress" [readonly]="!emergencyDisableAddressVerification" [class.address-verfied]="!emergencyManuallybtn"/>
                   </div>
                 </div>
               </div>
-              <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
+			   <div class="col-lg-2 col-md-2 col-xl-1 col-12 my-2 ">
+               
+          <button type="button" class="btn cross-mark error-close"
+          *ngIf="emergencyAddressVerfied && !emergencyManuallybtn" (click)="EmergencyenableManualEntry()"
+          title="Can enter manully when the verification results are in correct by clicking this icon">x</button>
+            </div>  
+              <div class="col-lg-2 col-md-2 col-xl-2 col-12 my-2 ">
+                <div class="form-group">
+                  <button class="btn-green btn manualbtn  py-0 btn-lg btn-md"
+                      *ngIf="emergencyManuallybtn || emergencyDisableAddressVerification"
+                      (click)="EmergencyenterAddressManually()">Enter Address Manually</button>
+              </div>
+              </div>
+              <div class="col-lg-12 col-md-12 col-xl-4 col-12 my-2">
                 <div class="form-group">
                   <div class="input-group">
                     <label class="control-label input-group-addon">City</label>
                     <input class="form-control" [(ngModel)]="PatientMyProfile.EmergencyCity" placeholder="City"
-                      type="text" id="City" name="City" />
+                      type="text" id="City" name="City" 
+                      [readonly]="!emergencyDisableAddressVerification" [class.address-verfied]="!emergencyManuallybtn"
+                      />
                   </div>
                 </div>
               </div>
-              <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
+              <div class="col-lg-12 col-md-12 col-xl-4 col-12 my-2">
                 <div class="form-group">
                   <div class="input-group">
                     <label class="control-label input-group-addon">State</label>
-                    <input class="form-control" [(ngModel)]="PatientMyProfile.EmergencyState" placeholder="State"
+                    <input class="form-control" [(ngModel)]="PatientMyProfile.EmergencyState" [readonly]="!emergencyDisableAddressVerification" [class.address-verfied]="!emergencyManuallybtn" placeholder="State"
                       type="text" id="State" name="State" />
                   </div>
                 </div>
               </div>
-              <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
+              <div class="col-lg-12 col-md-12 col-xl-4 col-12 my-2">
                 <div class="form-group">
                   <div class="input-group">
                     <label class="control-label input-group-addon">Zip</label>
                     <input class="form-control" [(ngModel)]="PatientMyProfile.EmergencyZip" placeholder="Zip"
-                      type="text" id="Zip" name="Zip" />
+                      type="text" id="Zip" name="Zip" [readonly]="!emergencyDisableAddressVerification" [class.address-verfied]="!emergencyManuallybtn" />
                   </div>
                 </div>
               </div>
@@ -370,44 +387,60 @@
               </div>
               <div class="col-lg-8 col-md-8 col-xl-9 col-12 my-2">
                 <label for="HOMEADDRESS" class="form-label label-design">HOME ADDRESS</label>
-                <input class="input-group form-control" placeholder="HOME ADDRESS" type="text" id="HOME ADDRESS">
+                <input class="input-group form-control" placeholder="HOME ADDRESS" type="text" id="HOME ADDRESS" [disabled]="disableaddressverification"
+                [(ngModel)]="PatientMyProfile.Street">
               </div>
               <div class="col-lg-2 col-md-2 col-xl-3 col-12 my-2 mt-3">
-                <div class="p-2"><button type="button" class="btn btn-lg btn-styles btn-verify mt-2">Verify</button></div>
+                <div class="p-2"><button type="button" class="btn btn-lg btn-styles btn-verify mt-2"
+                  [disabled]="!PatientMyProfile.Street || disableaddressverification"
+                                (click)="AddressVerification()">Verify</button></div>
               </div>
-              <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
+              <div class="col-lg-8 col-md-8 col-xl-9 col-12 my-2">
                 <div class="form-group">
                   <div class="input-group">
                     <label class="control-label input-group-addon">Street Address</label>
                     <input class="form-control" [(ngModel)]="PatientMyProfile.StreetAddress"
-                      placeholder="Street Address" type="text" id="StreetAddress" name="StreetAddress" />
+                      placeholder="Street Address" type="text" id="StreetAddress" name="StreetAddress" [readonly]="!disableaddressverification" [class.contactinfoaddress-verfied]="!manuallybtn" />
                   </div>
                 </div>
               </div>
-              <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
+			   <div class="col-lg-2 col-md-2 col-xl-1 col-12 my-2 ">
+               
+          <button type="button" class="btn cross-mark error-close"
+          *ngIf="addressVerfied && !manuallybtn" (click)="enableManualEntry()"
+          title="Can enter manully when the verification results are in correct by clicking this icon">x</button>
+            </div>  
+              <div class="col-lg-2 col-md-2 col-xl-2 col-12 my-2 ">
+                <div class="form-group">
+                  <button class="btn-green btn manualbtn  py-0 btn-lg btn-md"
+                      *ngIf="manuallybtn || disableaddressverification"
+                      (click)="enterAddressManually()">Enter Address Manually</button>
+              </div>
+              </div>
+              <div class="col-lg-12 col-md-12 col-xl-4 col-12 my-2">
                 <div class="form-group">
                   <div class="input-group">
                     <label class="control-label input-group-addon">City</label>
                     <input class="form-control" [(ngModel)]="PatientMyProfile.city" placeholder="City" type="text"
-                      id="City" name="City" />
+                      id="City" name="City" [readonly]="!disableaddressverification" [class.contactinfoaddress-verfied]="!manuallybtn" />
                   </div>
                 </div>
               </div>
-              <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
+              <div class="col-lg-12 col-md-12 col-xl-4 col-12 my-2">
                 <div class="form-group">
                   <div class="input-group">
                     <label class="control-label input-group-addon">State</label>
                     <input class="form-control" [(ngModel)]="PatientMyProfile.state" placeholder="State" type="text"
-                      id="State" name="State" />
+                      id="State" name="State" [readonly]="!disableaddressverification" [class.contactinfoaddress-verfied]="!manuallybtn" />
                   </div>
                 </div>
               </div>
-              <div class="col-lg-12 col-md-12 col-xl-6  col-12 my-2">
+              <div class="col-lg-12 col-md-12 col-xl-4  col-12 my-2">
                 <div class="form-group">
                   <div class="input-group">
                     <label class="control-label input-group-addon">Zip</label>
                     <input class="form-control" [(ngModel)]="PatientMyProfile.zip" placeholder="Zip" type="text"
-                      id="Zip" name="Zip" />
+                      id="Zip" name="Zip" [readonly]="!disableaddressverification" [class.contactinfoaddress-verfied]="!manuallybtn" />
                   </div>
                 </div>
               </div>
