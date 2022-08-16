@@ -1,13 +1,21 @@
 /* Patient Navbar */
 @import"../../_navigations/provider.navbar/provider.navbar.component.scss";
+
+
 .collapse .navbar-nav li a{
+
+
   padding: 50px 14px 11px 14px;
   background-position: center 7px !important;
   background-size: 26px !important;
+  white-space: nowrap !important;
 }
 
-::ng-deep .mat-menu-content:not(:empty) {
+// ::ng-deep .mat-menu-content:not(:empty) {
 
-  padding-right: 80px !important;
+//   padding-right: 80px !important;
+// }
+
+::ng-deep .patient-nav-menu .li-menu{
+  white-space: nowrap !important;
 }
-

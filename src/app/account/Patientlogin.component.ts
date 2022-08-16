@@ -45,13 +45,13 @@ export class PatientLoginComponent implements OnInit {
         };
 
         this.authenticationService.patientLoginWithFormCredentials(creds).subscribe(resp => {
-
-
             if (!resp.IsSuccess) {
                 this.showspinner = false;
                 this.message = '';
                 this.authfailedmessage = "Enter valid Email Id and Password";
             }
+
+
         });
 
     }
