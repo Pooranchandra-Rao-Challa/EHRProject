@@ -8,7 +8,8 @@ import { ComponentType } from '@angular/cdk/portal';
 import { PatientService } from '../_services/patient.service';
 import { Appointments } from '../_models/_patient/appointments';
 import { Router } from '@angular/router';
-import { Messages } from '../_models/_patient/messages';
+
+import { MessageDialogInfo, Messages } from '../_models/_provider/messages';
 declare var $: any;
 @Component({
   selector: 'app-dashboard',
@@ -79,27 +80,33 @@ export class DashboardComponent {
       }
       else if (content === this.PatientDialogComponent) {
         this.DialogResponse = res.data;
+        this.getPatientUpcomingAppointments();
       }
     });
   }
+
+
   openComponentDialogmessage(content: any | ComponentType<any> | string, data,
-    action: Actions = this.ActionTypes.add, message) {
+    action: Actions = this.ActionTypes.add, message: string) {
+    let DialogResponse: MessageDialogInfo = {};
 
     if (action == Actions.view && content === this.MessageDialogComponent) {
-      data.ForwardreplyMessage = message;
-      this.DialogResponse = data;
-      this.DialogResponse.ForwardreplyMessage = data.ForwardreplyMessage;
+      DialogResponse.MessageFor = message
+      DialogResponse.Messages = data;
+      DialogResponse.Messages.toAddress ={}
+      DialogResponse.Messages.toAddress.Name = (data as Messages).PatientName
+      DialogResponse.Messages.toAddress.UserId = (data as Messages).ToId
+      DialogResponse.ForwardReplyMessage = message;
 
     }
     else if (action == Actions.add && content === this.MessageDialogComponent) {
-      this.DialogResponse = data;
-
+      DialogResponse.MessageFor = message;
+      DialogResponse.Messages = null;
+      DialogResponse.ForwardReplyMessage = null;
     }
 
-    const ref = this.overlayService.open(content, data);
-
+    const ref = this.overlayService.open(content, DialogResponse);
     ref.afterClosed$.subscribe(res => {
-
     });
 
   }

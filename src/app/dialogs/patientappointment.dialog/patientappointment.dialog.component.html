@@ -12,14 +12,14 @@
              <mat-label class="col-12 required">Select Date:</mat-label>
               <mat-form-field appearance="outline" class="col-12">
                 <input matInput class="pointer" autocomplete="off" [matDatepicker]="appointmentDate"
-                  (click)="appointmentDate.open()" readonly placeholder="Request Date" 
+                  (click)="appointmentDate.open()" readonly placeholder="Request Date"
                   [(ngModel)]="requestAppoinments.AppttDate" [ngModelOptions]="{standalone: true}" />
                 <mat-datepicker-toggle matSuffix [for]="appointmentDate">
                 </mat-datepicker-toggle>
                 <mat-datepicker #appointmentDate></mat-datepicker>
               </mat-form-field>
           </div>
-         
+
           <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
             <mat-label for="Date" class="form-label required"> Provider</mat-label>
             <div class="form-group">
@@ -60,7 +60,7 @@
 
           </div>
         </div>
-       
+
         <div class="row mt-4" style="float: right;">
           <button type="button"  class="btn btn-green col-md-4 mx-2" (click)="cancel()">Cancel</button>
           <button type="button" class="btn btn-green col-md-4"  [disabled]="enableSave()" (click)="RequestAppointment(requestAppoinments)" >Submit</button>

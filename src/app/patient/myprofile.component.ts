@@ -97,7 +97,7 @@ emergencydisableaddressverification:boolean = false;
 
   ngOnInit(): void {
     this.getPatientProfile();
-    this._filterProcedure();
+    this._filterAreaCodes();
     this.events();
 
   }
@@ -210,7 +210,7 @@ events(){
     return value.areaCode;
   }
 
-  _filterProcedure() {
+  _filterAreaCodes() {
     this.utilityService.AreaCodes()
       .subscribe(resp => {
         if (resp.IsSuccess) {

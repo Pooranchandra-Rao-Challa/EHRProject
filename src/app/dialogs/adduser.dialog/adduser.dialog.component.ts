@@ -11,6 +11,8 @@ import { Accountservice } from 'src/app/_services/account.service';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 import Swal from 'sweetalert2';
 import { User } from 'src/app/_models';
+import { AreaCode } from 'src/app/_models/_admin/Admins';
+import { of } from 'rxjs';
 @Component({
   selector: 'app-adduser.dialog',
   templateUrl: './adduser.dialog.component.html',
@@ -23,8 +25,9 @@ export class AddUserDialogComponent implements OnInit {
 
   filteredOptionsPrimary: any;
   filteredOptionsSecondary: any;
-  codeListPrimary: string[] = ['501', '502', '401', '402', '601', '603'];
-  codeListSecondary: string[] = ['501', '502', '401', '402', '601', '603'];
+  //codeListPrimary: string[] = ['201', '202', '203', '204', '601', '603'];
+  //codeListSecondary: string[] = ['501', '502', '401', '402', '601', '603'];
+  AreaCodes: AreaCode[];
   DisplayPwdInput: boolean = true;
   titles: {}[];
   degrees: {}[];
@@ -60,33 +63,20 @@ export class AddUserDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.filteredOptionsPrimary = this.myControlPrimary.valueChanges.pipe(startWith(''), map(value => this._filterPrimary(value)));
-    this.filteredOptionsSecondary = this.myControlSecondary.valueChanges.pipe(startWith(''), map(valueS => this._filterSecondary(valueS)));
+    this.filteredOptionsPrimary = this.myControlPrimary.valueChanges.pipe(startWith(''), map(value => this._filterAreaCode(value)));
+    this.filteredOptionsSecondary = this.myControlSecondary.valueChanges.pipe(startWith(''), map(valueS => this._filterAreaCode(valueS)));
     this.loadDefaults();
   }
 
-  private _filterPrimary(value: string): string[] {
+  private _filterAreaCode(value: string): string[] {
     if (value == "") {
       return ['Please enter 1 or more characters']
     }
-    const filterValue = value;
-    var searchData = this.codeListPrimary.filter(option => option.includes(filterValue));
-    if (searchData.length === 0) {
+    var _areaCodes = this.AreaCodes.filter(option => option.AreaCode?.includes(value));
+    if (_areaCodes.length === 0) {
       return ['No Data Found']
     }
-    return searchData;
-  }
-
-  private _filterSecondary(value: string): string[] {
-    if (value == "") {
-      return ['Please enter 1 or more characters']
-    }
-    const filterValueSecondary = value;
-    var searchDataSecondary = this.codeListSecondary.filter(option => option.includes(filterValueSecondary));
-    if (searchDataSecondary.length === 0) {
-      return ['No Data Found']
-    }
-    return searchDataSecondary;
+    return _areaCodes.map(value => value.AreaCode);
   }
 
   GeneratePassword() {
@@ -116,6 +106,18 @@ export class AddUserDialogComponent implements OnInit {
         this.specialities = JSON.parse(resp.Result);
       }
     });
+
+    this.utilityService.AreaCodes()
+      .subscribe(resp => {
+        if (resp.IsSuccess) {
+          this.AreaCodes = resp.ListResult as AreaCode[];
+        } else {
+          this.AreaCodes=[];
+        }
+      },
+      error=>{
+      });
+
   }
 
   AddressVerification() {

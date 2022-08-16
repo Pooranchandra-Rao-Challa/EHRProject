@@ -32,6 +32,12 @@ export class PatientNavbarComponent implements OnInit {
     this.user = authenticationService.userValue;
     this.locationsInfo = JSON.parse(this.user.LocationInfo);
     this.viewModel = authenticationService.viewModel;
+    if(this.viewModel == null){
+      this.viewModel = new ViewModel();
+    }
+
+    console.log(this.viewModel);
+
   }
 
   ngOnInit(): void {
