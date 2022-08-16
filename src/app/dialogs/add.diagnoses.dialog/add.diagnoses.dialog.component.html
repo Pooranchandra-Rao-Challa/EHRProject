@@ -2,7 +2,7 @@
   <div class="modal-content body">
     <div class="modal-header header">
       <div class="col-sm-3 mx-2">
-        <h4 class="Helvetica-sans-serif-medium mt-3 mt-md-2">Diagnosis (Dx)</h4>
+        <h4 class="Helvetica-sans-serif-medium pt-3 pt-md-2">Diagnosis (Dx)</h4>
       </div>
       <div class="col-sm-7 row-head">
         <h4 class="Helvetica-sans-serif-medium mx-2 mt-3">Record Diagnosis(Dx)</h4>
@@ -19,7 +19,7 @@
         </div>
         <div class="col-sm-8 side-boder">
           <label class="required mt-3">Code System</label>
-          <mat-form-field appearance="outline" class="w-100">
+          <mat-form-field appearance="outline" class="w-100" [ngClass]="!patientDiagnoses.IsEditable ? 'not-allowed' : 'auto'">
             <mat-select placeholder="Please select one" [(ngModel)]="patientDiagnoses.CodeSystem"
               [disabled]="!patientDiagnoses.IsEditable">
               <mat-option *ngFor="let code of DxCodes" [value]="code">
@@ -30,12 +30,12 @@
           <label class="required">Code</label>
           <mat-form-field class="w-100" appearance="outline">
             <input matInput placeholder="Code" name="Code" [(ngModel)]="patientDiagnoses.Code"
-              [disabled]="!patientDiagnoses.IsEditable" />
+              [disabled]="!patientDiagnoses.IsEditable" [ngStyle]="{'cursor':!patientDiagnoses.IsEditable ? 'not-allowed' : 'auto' }"/>
           </mat-form-field>
           <label class="required">Descrption</label>
           <mat-form-field class="w-100" appearance="outline">
             <input matInput placeholder="Description" [(ngModel)]="patientDiagnoses.Description"
-              [disabled]="!patientDiagnoses.IsEditable" />
+              [disabled]="!patientDiagnoses.IsEditable" [ngStyle]="{'cursor':!patientDiagnoses.IsEditable ? 'not-allowed' : 'auto' }"/>
           </mat-form-field>
           <div class="row">
             <label class="required">Start Date</label>
@@ -47,7 +47,7 @@
               <mat-datepicker #startdate></mat-datepicker>
             </mat-form-field>
             <div class="col-lg-4">
-              <button class="btn btn-green btn-today pull-right" (click)="todayStartAt()">Today</button>
+              <button class="btn btn-green btn-today pull-right mt-1" (click)="todayStartAt()">Today</button>
             </div>
           </div>
           <div class="row">
@@ -60,7 +60,7 @@
               <mat-datepicker #enddate></mat-datepicker>
             </mat-form-field>
             <div class="col-lg-4">
-              <button class="btn btn-green btn-today pull-right" (click)="todayStopAt()">Today</button>
+              <button class="btn btn-green btn-today pull-right mt-1" (click)="todayStopAt()">Today</button>
             </div>
           </div>
           <label class="required">Diagnosis Notes:</label>

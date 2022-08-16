@@ -150,8 +150,7 @@ export class MedicationDialogComponent implements OnInit {
   }
 
   disableMedication() {
-    return !(this.patientMedication.DrugName == undefined ? '' : this.patientMedication.DrugName != ''
-      && this.patientMedication.StartAt == undefined ? '' : this.patientMedication.StartAt.toString() != '')
+    return !(this.patientMedication.DrugName && this.patientMedication.StartAt)
   }
 
   deleteMedicationName() {

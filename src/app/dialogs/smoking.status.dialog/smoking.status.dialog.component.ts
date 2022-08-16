@@ -38,8 +38,7 @@ export class SmokingStatusDialogComponent implements OnInit {
   }
 
   disablesmokingStatus() {
-    return !(this.smokingStatus.Status != undefined
-      && this.smokingStatus.EffectiveFrom != undefined)
+    return !(this.smokingStatus.Status && this.smokingStatus.EffectiveFrom)
   }
 
   cancel() {

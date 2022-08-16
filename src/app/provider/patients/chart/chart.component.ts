@@ -33,7 +33,7 @@ import { FrequentlyUsedDiagnosesDialogComponent } from 'src/app/dialogs/frequent
 import { AddDiagnosesDialogComponent } from 'src/app/dialogs/add.diagnoses.dialog/add.diagnoses.dialog.component';
 import { ViewChangeService } from 'src/app/_navigations/provider.layout/view.notification.service';
 import { Router } from '@angular/router';
-const moment = require('moment');
+// const moment = require('moment');
 @Component({
   selector: 'app-chart',
   templateUrl: './chart.component.html',
@@ -272,14 +272,14 @@ export class ChartComponent implements OnInit, AfterViewInit {
       let ef = new EncounterInfo();
       if (dialogData == null) {
         ef.PatientId = this.authService.viewModel.Patient.PatientId;
-        ef.PatientName = this.authService.viewModel.Patient.FirstName+" "+this.authService.viewModel.Patient.LastName;
+        ef.PatientName = this.authService.viewModel.Patient.FirstName + " " + this.authService.viewModel.Patient.LastName;
       }
       reqdata = ef;
     } else if (action == Actions.view && content === this.encounterDialogComponent) {
       let ef = new EncounterInfo();
       ef.EncounterId = dialogData.EncounterId
       ef.PatientId = dialogData.PatientId
-      ef.PatientName = this.authService.viewModel.Patient.FirstName+" "+this.authService.viewModel.Patient.LastName;
+      ef.PatientName = this.authService.viewModel.Patient.FirstName + " " + this.authService.viewModel.Patient.LastName;
       reqdata = ef;
     } else if (action == Actions.new && content === this.appointmentDialogComponent) {
       reqdata = this.PatientAppointmentInfoForNew(action);
@@ -288,16 +288,16 @@ export class ChartComponent implements OnInit, AfterViewInit {
     }
     const ref = this.overlayService.open(content, reqdata);
     ref.afterClosed$.subscribe(res => {
-      if(res.data != null && res.data.refreshCQMNotPerformed) {
+      if (res.data != null && res.data.refreshCQMNotPerformed) {
         this._navigateCQMNotPerformed();
       }
-      else{
+      else {
         this.UpdateView(res.data);
       }
     });
   }
 
-  _navigateCQMNotPerformed(){
+  _navigateCQMNotPerformed() {
     this.authService.SetViewParam("PatientView", "CQMs Not Performed");
     this.authService.SetViewParam("View", "Patients");
     this.viewChangeService.sendData("CQMs Not Performed");
@@ -404,7 +404,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   // get display Location Details
   loadLocationsList() {
     this.LocationAddress = [];
-    this.settingsService.PracticeLocations(this.user.ProviderId,this.user.ClinicId).subscribe(resp => {
+    this.settingsService.PracticeLocations(this.user.ProviderId, this.user.ClinicId).subscribe(resp => {
       if (resp.IsSuccess) {
         this.LocationAddress = resp.ListResult;
       }
@@ -465,39 +465,25 @@ export class ChartComponent implements OnInit, AfterViewInit {
   }
 
   disablePastMedicalHistory() {
-    return !(this.patientPastMedicalHistory.MajorEvents == undefined ? '' : this.patientPastMedicalHistory.MajorEvents != ''
-      && this.patientPastMedicalHistory.OngoingProblems == undefined ? '' : this.patientPastMedicalHistory.OngoingProblems != ''
-        && this.patientPastMedicalHistory.PerventiveCare == undefined ? '' : this.patientPastMedicalHistory.PerventiveCare != ''
-          && this.patientPastMedicalHistory.NutritionHistory == undefined ? '' : this.patientPastMedicalHistory.NutritionHistory != '')
+    return !(this.patientPastMedicalHistory.MajorEvents && this.patientPastMedicalHistory.OngoingProblems
+      && this.patientPastMedicalHistory.PerventiveCare && this.patientPastMedicalHistory.NutritionHistory)
   }
 
   disableImmAdministered() {
-    return !(this.patientImmunization.Code == undefined ? '' : this.patientImmunization.Code != ''
-      && this.patientImmunization.AdministeredAt == undefined ? '' : this.patientImmunization.AdministeredAt != ''
-        && this.patientImmunization.AdministeredById == undefined ? '' : this.patientImmunization.AdministeredById != ''
-          && this.patientImmunization.OrderedById == undefined ? '' : this.patientImmunization.OrderedById != ''
-            && this.patientImmunization.AdministeredFacilityId == undefined ? '' : this.patientImmunization.AdministeredFacilityId != ''
-              && this.patientImmunization.Manufacturer == undefined ? '' : this.patientImmunization.Manufacturer != ''
-                && this.patientImmunization.Lot == undefined ? '' : this.patientImmunization.Lot != ''
-                  && this.patientImmunization.Quantity == undefined ? '' : this.patientImmunization.Quantity != ''
-                    && this.patientImmunization.Dose == undefined ? '' : this.patientImmunization.Dose != ''
-                      && this.patientImmunization.Unit == undefined ? '' : this.patientImmunization.Unit != ''
-                        && this.patientImmunization.ExpirationAt == undefined ? '' : this.patientImmunization.ExpirationAt.toString() != '')
+    return !(this.patientImmunization.Code && this.patientImmunization.AdministeredAt && this.patientImmunization.AdministeredById
+          && this.patientImmunization.OrderedById && this.patientImmunization.AdministeredFacilityId && this.patientImmunization.Manufacturer
+          && this.patientImmunization.Lot && this.patientImmunization.Quantity && this.patientImmunization.Dose && this.patientImmunization.Unit
+          && this.patientImmunization.ExpirationAt)
   }
 
   disableImmHistorical() {
-    return !(this.patientImmunization.Code == undefined ? '' : this.patientImmunization.Code != ''
-      && this.patientImmunization.AdministeredAt == undefined ? '' : this.patientImmunization.AdministeredAt != ''
-        && this.patientImmunization.SourceOfInformation == undefined ? '' : this.patientImmunization.SourceOfInformation != ''
-          && this.patientImmunization.AdministeredFacilityId == undefined ? '' : this.patientImmunization.AdministeredFacilityId != '')
+    return !(this.patientImmunization.Code && this.patientImmunization.AdministeredAt && this.patientImmunization.SourceOfInformation
+      && this.patientImmunization.AdministeredFacilityId)
   }
 
   disableImmRefused() {
-    return !(this.patientImmunization.Code == undefined ? '' : this.patientImmunization.Code != ''
-      && this.patientImmunization.ReasonRefused == undefined ? '' : this.patientImmunization.ReasonRefused != ''
-        && this.patientImmunization.ReasonCode == undefined ? '' : this.patientImmunization.ReasonCode != ''
-          && this.patientImmunization.RefusedAt == undefined ? '' : this.patientImmunization.RefusedAt.toString() != ''
-            && this.patientImmunization.AdministeredFacilityId == undefined ? '' : this.patientImmunization.AdministeredFacilityId != '')
+    return !(this.patientImmunization.Code && this.patientImmunization.ReasonRefused && this.patientImmunization.ReasonCode
+      && this.patientImmunization.RefusedAt && this.patientImmunization.AdministeredFacilityId)
   }
 
   // Get advanced directives info

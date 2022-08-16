@@ -40,7 +40,7 @@
           </mat-form-field>
           <span class="selected-allergen" id="allergenName" *ngIf="patientAllergy.AllergenName != null">
             <p>{{patientAllergy.AllergenName}}</p>
-            <a class="icon icon-sm icon-circle icon-ic-delete pull-right" id="allergy-delete"
+            <a class="icon icon-sm icon-circle icon-ic-delete pull-right" id="icon-delete"
               (click)="deleteAllergyName()"></a>
           </span>
         </div>
@@ -87,7 +87,7 @@
           <span class="selected-allergen" id="allergenName" *ngIf="selectedReaction.length > 0">
             <div *ngFor="let selected of selectedReaction; let i=index">
               <p>{{selected}}</p>
-              <a class="icon icon-sm icon-circle icon-ic-delete pull-right" id="allergy-delete"
+              <a class="icon icon-sm icon-circle icon-ic-delete pull-right" id="icon-delete"
                 (click)="deleteAllergyReaction(i)"></a>
             </div>
           </span>

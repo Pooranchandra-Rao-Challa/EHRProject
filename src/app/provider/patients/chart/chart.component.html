@@ -880,7 +880,7 @@
           </mat-form-field>
           <span class="selected-allergen" id="allergenName" *ngIf="patientImmunization.Code != ''">
             <p>{{patientImmunization.Code}} - {{patientImmunization.Description}}</p>
-            <a class="icon icon-sm icon-circle icon-ic-delete pull-right" id="allergy-delete"
+            <a class="icon icon-sm icon-circle icon-ic-delete pull-right" id="icon-delete"
               (click)="deleteVaccineCode()"></a>
           </span>
         </div>
@@ -1131,7 +1131,7 @@
             </div>
             <div class="col-md-6 col-12">
               <div class="row">
-                <mat-label>Reason Refused Code:</mat-label>
+                <mat-label class="required">Reason Refused Code:</mat-label>
                 <mat-form-field appearance="outline" class="col-12">
                   <mat-select placeholder="Select refusal code" [(ngModel)]="patientImmunization.ReasonCode">
                     <mat-option *ngFor="let refusedcode of immReasonRefusedsCode" [value]="refusedcode">

@@ -79,7 +79,8 @@
                     (click)="openComponentDialog(UserDialogComponent)">Add New User</button>
                 </div>
                 <div class="search-box col-xl-11 col-lg-10 col-md-12 col-12">
-                  <input type="text" placeholder="Search Providers" [(ngModel)]="filterQueryParams.SearchTerm">
+                  <input type="text" placeholder="Search Providers" [(ngModel)]="filterQueryParams.SearchTerm"
+                    (keyup.enter)="StageChange($event)">
                   <button type="submit" id="searchProviders" (click)="StageChange($event)"><i
                       class="fa fa-search i-search"></i></button>
                 </div>
@@ -105,12 +106,11 @@
                       <th></th>
                       <th></th>
                       <th></th>
-                      <!-- <th></th> -->
                     </tr>
                   </thead>
                   <tbody>
                     <tr
-                      *ngFor="let item of this.filtededProviders | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+                      *ngFor="let item of filtededProviders | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
                       <td class="tbl-col">
                         <span class="my-2"> {{item.ProviderName}}, {{item.Degree}}</span>
                         <div class="d-flex justify-content-start my-2">
@@ -129,7 +129,6 @@
                           <div class="form-check form-switch mx-3 ">
                             <input class="form-check-input toggle-btn" type="checkbox" [checked]="!item.Paid"
                               (click)="changeTraiPaidStatus(item)" id="flexSwitchCheckDefault">
-                            <span class="toggle-mark"></span>
                           </div>
                           <div [ngClass]="!item.Paid?'text-black':'text-mute'" class="mr-3">{{item.Trial}}</div>
                         </div>
@@ -143,8 +142,6 @@
                           data-bs-target="#exampleModal">Reset MFA</button></td>
                       <td><button class="btn-lock td-btn-style" (click)="updateUserlock(item)">{{item.Locked ? "Unlock"
                           : "Lock"}}</button></td>
-                      <!-- <td><i class="material-icons delete-icon">delete</i>
-                      </td> -->
                     </tr>
                   </tbody>
                 </table>
