@@ -124,10 +124,10 @@ export class AppointmentComponent {
     })
   }
 
-  reschedule(item) {
-    this.RequestAppoinments = item;
-    this.RequestAppoinments.LocationId = item.LocationId
-  }
+  // reschedule(item) {
+  //   this.RequestAppoinments = item;
+  //   this.RequestAppoinments.LocationId = item.LocationId
+  // }
   getLocations() {
     var req = {
       "ClinicId": this.user.ClinicId,

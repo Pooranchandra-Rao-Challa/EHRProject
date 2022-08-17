@@ -54,7 +54,6 @@ export class PatientappointmentDialogComponent implements OnInit {
   RequestAppointment(requestAppoinments: Appointments) {
     if(requestAppoinments.AppttDate != null)
     this.requestAppoinments.strStartAt = this.datePipe.transform(this.requestAppoinments.AppttDate,"MM/dd/yyyy");
-    if(requestAppoinments.AppointmentTime != null && this.requestAppoinments.strStartAt!= null)
     this.requestAppoinments.strStartAt = this.requestAppoinments.strStartAt + ' ' + this.requestAppoinments.AppointmentTime;
 
     requestAppoinments.PatientId = this.user.PatientId;

@@ -227,7 +227,7 @@ export const ERROR_CODES: { [key: string]: string } = {
   'M2CP007': 'Immunization registry updated successfully',
   'M2CP008': 'Patient updated successfully',
   //Security Question
-  'M2CP009' : 'Security Question is Updated Sucessfully ',
+  'M2CP009': 'Security Question is Updated Sucessfully ',
   'M2CP0010': 'Address Verified',
 
   // Error for Patient profile directives
@@ -272,6 +272,8 @@ export const ERROR_CODES: { [key: string]: string } = {
   'M2CI005': 'Primary Insurance Updated successfully',
   'M2CI006': 'Secondary Insurance Added successfully',
   'M2CI007': 'Secondary Insurance Updated successfully',
+  'M2CI008': 'Primary Insurance Address Verfied successfully',
+  'M2CI009': 'Secondary Insurance Address Verfied successfully',
 
 
   //Error for Insurance
@@ -400,6 +402,8 @@ export const ERROR_CODES: { [key: string]: string } = {
   //Error for Amendements
 
   'E2A001': 'Amendments created error',
+  'E2A002': 'Amendments deleted successfully',
+
   // Labs and Imageing Messags
   'M2G1001': 'Lab Order added successfully',
   'M2G1002': 'Lab Order updated successfully',
@@ -434,7 +438,7 @@ export const ERROR_CODES: { [key: string]: string } = {
   'M2JPE002': 'Education Material updated successfully',
   //Education Material Error
 
-  'E2JPE001' :'Education Material updation Error',
+  'E2JPE001': 'Education Material updation Error',
 
   //Calendar Events Messages
   'M2B001': 'Rescheduled the appointment sucessfully',
@@ -442,11 +446,11 @@ export const ERROR_CODES: { [key: string]: string } = {
 
 
   //Calendar Errors
-  'E2B001':'The time is elapsed to reschedule an appointment.',
-  'E2B002':'An appointment is existing for the same time and resource',
-  'E2B003':'Appointment is not rescheduled',
-  'E2B004':'Appointment is not allocated',
-  'E2B005':'Creating appointment outside business hours, If acceptable click Confirm else Reject.',
+  'E2B001': 'The time is elapsed to reschedule an appointment.',
+  'E2B002': 'An appointment is existing for the same time and resource',
+  'E2B003': 'Appointment is not rescheduled',
+  'E2B004': 'Appointment is not allocated',
+  'E2B005': 'Creating appointment outside business hours, If acceptable click Confirm else Reject.',
   //Clinical Decision Support
   'M2JCDS001': 'Alert added sucessfully',
   'M2JCDS002': 'Alert updated successfully',
@@ -466,7 +470,7 @@ export const ERROR_CODES: { [key: string]: string } = {
   'M2D001': "Secure Message sent successfully",
   'M2D002': "Message Deleted successfully",
   //Error Message for provider messages
-  'E2D001':"Messages Updation Error",
+  'E2D001': "Messages Updation Error",
 
   //Admin screen in admin module
   'M1A003': 'Admin deleted successfully',

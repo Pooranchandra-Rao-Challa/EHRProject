@@ -35,6 +35,7 @@ export class SmokingStatusDialogComponent implements OnInit {
 
   todayDate() {
     this.smokingStatus.EffectiveFrom = moment(new Date()).format('YYYY-MM-DD');
+  
   }
 
   disablesmokingStatus() {

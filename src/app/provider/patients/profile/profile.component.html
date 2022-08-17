@@ -55,9 +55,9 @@
                   <mat-form-field appearance="outline" class="form-group profile-green-calendar">
                     <input matInput class="date-mat-class"   [(ngModel)]="PatientMyProfile.DateOfDeath" autocomplete="off"
                     (mouseover)="hoverDATEOFDEATH='_/__/_'"   (mouseleave)="hoverDATEOFDEATH='MM/DD/YYYY'"
-                      [matDatepicker]="picker" (click)="picker.open()"  placeholder="{{ hoverDATEOFDEATH }}">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
+                      [matDatepicker]="picker1" (click)="picker1.open()"  placeholder="{{ hoverDATEOFDEATH }}">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
                  </mat-form-field>
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
