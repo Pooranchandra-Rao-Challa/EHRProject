@@ -616,3 +616,33 @@ input[type='checkbox']:checked:after {
 input.mat-input-element {
   font-size: 17px;
 }
+.contactinfoaddress-verfied{
+  cursor: not-allowed !important;
+}
+.address-verfied{
+  cursor: not-allowed !important;
+}
+.error-close {
+  background-color: rgb(253, 65, 65) !important;
+  width: 25px;
+  height: 28px;
+  margin: 10px !important;
+  border: 1px solid white !important;
+  color: white !important;
+  border-radius: 50% !important;
+  padding-bottom: 28px;
+    padding-left: 18px
+}
+.error-close:hover {
+  background-color: white !important;
+  border: 1px solid rgb(253, 44, 44) !important;
+  color: rgb(253, 44, 44) !important;
+
+}
+.cross-mark {
+  border: "1px solid #fff;"
+}
+.manualbtn{
+  width: 167%;
+  margin-left: -62px;
+}

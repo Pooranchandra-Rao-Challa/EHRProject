@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment-timezone';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
@@ -18,7 +19,8 @@ export class AmendmentsComponent implements OnInit {
   AmendmentStatusesDD: any = [];
   AmendmentSourcesDD: any = [];
 
-  constructor(private patientservice: PatientService, private authService: AuthenticationService, private alertmsg: AlertMessage, private ulilityservice: UtilityService) {
+  constructor(private patientservice: PatientService, private authService: AuthenticationService, 
+    private alertmsg: AlertMessage, private ulilityservice: UtilityService, private datePipe:DatePipe) {
     this.amendment = [] as Amendments
   }
 
@@ -33,13 +35,13 @@ export class AmendmentsComponent implements OnInit {
   }
   AmendmentsColumns = ['DateRequested', 'Status', 'Description/Location', 'Scanned']
   todayDateforDateRequested() {
-    this.amendment.DateofRequest = moment(new Date()).format('YYYY-MM-DD');
+    this.amendment.DateofRequest = this.datePipe.transform(new Date(),"yyyy-MM-dd");
   }
   todayDateforDateAcceptedorDenied() {
-    this.amendment.DateofAccept = moment(new Date()).format('YYYY-MM-DD');
+    this.amendment.DateofAccept = this.datePipe.transform(new Date(),"yyyy-MM-dd");
   }
   todayforDateAppended() {
-    this.amendment.DateofAppended = moment(new Date()).format('YYYY-MM-DD');
+    this.amendment.DateofAppended = this.datePipe.transform(new Date(),"yyyy-MM-dd");
   }
 
   getAmendment() {
@@ -84,7 +86,7 @@ export class AmendmentsComponent implements OnInit {
     this.patientservice.DeleteAmendment(reqparam).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.getAmendment();
-        this.alertmsg.displayMessageDailog(ERROR_CODES["M2A003"]);
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2A002"]);
       }
       else {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2A001"]);

@@ -173,6 +173,10 @@ div.ex3 {
     box-shadow: none;
   }
 }
+.is-invalid{
+  color:red;
+  border: 1px solid red;
+}
 ::ng-deep .example-margin:hover {
   & .mat-checkbox-background,
   .mat-checkbox-frame {

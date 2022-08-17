@@ -1,12 +1,13 @@
 
 
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { User, UserLocations, ViewModel } from '../../_models';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PatientProfile } from 'src/app/_models/_patient/patientprofile';
 import { PatientService } from 'src/app/_services/patient.service';
+import { MatMenu } from '@angular/material/menu';
 declare var $: any;
 
 @Component({
@@ -15,23 +16,25 @@ declare var $: any;
   styleUrls: ['./patient.navbar.component.scss'],
   providers: [NgbDropdownConfig]
 })
-export class PatientNavbarComponent implements OnInit {
+export class PatientNavbarComponent implements OnInit,AfterViewInit {
   navbarOpen: boolean = false;
   user: User;
   view: string;
   locationsInfo: UserLocations[];
   currentLocation: string;
-  name: string;
+ // name: string;
   PatientProfile: PatientProfile;
   viewModel: ViewModel;
   @Output() Bredcrumchanged = new EventEmitter<String>();
+  menuwidth: number;
 
   constructor(private authenticationService: AuthenticationService, private patientService: PatientService,
     private route: ActivatedRoute,
+    private changeDetectorRef: ChangeDetectorRef,
     private router: Router) {
     this.user = authenticationService.userValue;
     this.locationsInfo = JSON.parse(this.user.LocationInfo);
-    this.viewModel = authenticationService.viewModel;
+    this.viewModel = authenticationService.viewModel as ViewModel;
     if(this.viewModel == null){
       this.viewModel = new ViewModel();
     }
@@ -39,9 +42,13 @@ export class PatientNavbarComponent implements OnInit {
     console.log(this.viewModel);
 
   }
+  ngAfterViewInit(): void {
+    this.menuwidth = (document.getElementById('UserDropdown').clientWidth+8);
+    this.changeDetectorRef.detectChanges();
+  }
 
   ngOnInit(): void {
-    this.name = 'dashboard';
+    //this.name = this.viewModel.View;
     this.getPatientProfile();
   }
 

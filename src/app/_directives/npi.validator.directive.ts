@@ -15,14 +15,14 @@ export class npiValidatorDirective implements Validator {
 
   validator: ValidatorFn;
   constructor() {
-    this.validator = this.emailValidator();
+    this.validator = this.npiValidator();
   }
 
   validate(c: FormControl) {
     return this.validator(c);
   }
 
-  emailValidator(): ValidatorFn {
+  npiValidator(): ValidatorFn {
     return (control: FormControl) => {
       if (control.value != null && control.value !== '') {
         //NPI numbers consist of 9 numeric digits followed by one numeric check digit, for a total of 10 numeric digits.

@@ -20,8 +20,10 @@ LocationName?:string;
 LocationId?:String;
 ClinicId?:string;
 status?:string;
-AppointmentTime?: Date;
+AppointmentTime?: string;
 AppttDate?:Date;
+strStartAt?:string;
 class?:any;
+
 }
 

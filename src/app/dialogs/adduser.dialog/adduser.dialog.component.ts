@@ -174,6 +174,7 @@ export class AddUserDialogComponent implements OnInit {
     }
 
     console.log(this.newUser)
+    return;
     this.accountservice.RegisterNewProvider(this.newUser).subscribe(resp => {
       if (resp.IsSuccess) {
         this.alertWithSuccess();
