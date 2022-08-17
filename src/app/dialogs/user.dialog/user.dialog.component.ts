@@ -40,7 +40,7 @@ export class UserDialogComponent implements OnInit {
     this.scrWidth = window.innerWidth;
 
   }
-
+  ssnpattern = { 0: { pattern: new RegExp(/^(?!666|000|9\\d{2})\\d{3}-(?!00)\\d{2}-(?!0{4})\\d{4}$/), symbol: '*' } };
   userQuery: {};
 
 
@@ -51,6 +51,7 @@ export class UserDialogComponent implements OnInit {
     public overlayService: OverlayService,
     private authServer: AuthenticationService,
     private alertmsg: AlertMessage) {
+
     this.user = authServer.userValue;
     this.userQuery = {
       UserId: (ref.RequestData as NewUser).UserId,

@@ -32,7 +32,7 @@ export class AuthenticationService {
   }
   public SetViewParam(key: string, value: any) {
     let v = JSON.parse(localStorage.getItem("viewModel")) as ViewModel;
-   // if(v==null) v = new ViewModel();
+    if(v==null) v = new ViewModel();
     v[key] = value;
     localStorage.setItem('viewModel', JSON.stringify(v));
   }
