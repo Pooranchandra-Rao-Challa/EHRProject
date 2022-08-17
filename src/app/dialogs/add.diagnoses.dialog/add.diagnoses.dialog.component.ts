@@ -6,7 +6,6 @@ import { Diagnosis, DiagnosisDpCodes, PatientChart } from 'src/app/_models';
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { PatientService } from 'src/app/_services/patient.service';
-const moment = require('moment');
 
 @Component({
   selector: 'app-add.diagnoses.dialog',
@@ -24,6 +23,9 @@ export class AddDiagnosesDialogComponent implements OnInit {
     private alertmsg: AlertMessage,
     public datepipe: DatePipe) {
     this.updateLocalModel(ref.RequestData);
+    if (this.patientDiagnoses.StopAt != (null || '' || undefined)) {
+      this.patientDiagnoses.StopAt = this.datepipe.transform(this.patientDiagnoses.StopAt, "yyyy-MM-dd");
+    }
   }
 
   ngOnInit(): void {
@@ -45,7 +47,7 @@ export class AddDiagnosesDialogComponent implements OnInit {
     this.patientDiagnoses.StartAt = new Date();
   }
   todayStopAt() {
-    this.patientDiagnoses.StopAt = moment(new Date()).format('YYYY-MM-DD');
+    this.patientDiagnoses.StopAt = this.datepipe.transform(new Date(), "yyyy-MM-dd");
   }
 
   CreateDiagnoses() {

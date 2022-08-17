@@ -33,7 +33,6 @@ import { FrequentlyUsedDiagnosesDialogComponent } from 'src/app/dialogs/frequent
 import { AddDiagnosesDialogComponent } from 'src/app/dialogs/add.diagnoses.dialog/add.diagnoses.dialog.component';
 import { ViewChangeService } from 'src/app/_navigations/provider.layout/view.notification.service';
 import { Router } from '@angular/router';
-// const moment = require('moment');
 @Component({
   selector: 'app-chart',
   templateUrl: './chart.component.html',
@@ -571,7 +570,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
     });
   }
 
-  // Get tobacco interventions info
+  // Get interventions info
   InterventionsByPatientId() {
     this.patientService.InterventionsByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       if (resp.IsSuccess) this.chartInfo.Interventions = resp.ListResult;

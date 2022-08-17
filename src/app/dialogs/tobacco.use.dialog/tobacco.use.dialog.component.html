@@ -42,7 +42,7 @@
                 <mat-select placeholder="Search Tobacco Use/Non-use" #screeningCode [(ngModel)]="patientTobaccoUse.ScreeningCode">
                   <mat-select-filter [displayMember]="'Code'" [array]="screeningTobaccoStatusFilter"
                     (filteredReturn)="screeningTobaccoStatus = $event" focused="'true'" *ngIf="screeningCode.focused"></mat-select-filter>
-                  <mat-option *ngFor="let screening of screeningTobaccoStatus" [value]="screening.Code"
+                  <mat-option class="option-white-space" *ngFor="let screening of screeningTobaccoStatus" [value]="screening.Code"
                     (click)="selectedScreeningStatus(screening)">
                     {{screening.Code}} - {{screening.Description}}
                   </mat-option>
@@ -140,10 +140,10 @@
             </div>
             <div class="row">
               <mat-form-field appearance="outline" class="col-md-6 col-12">
-                <mat-select placeholder="Search Tobacco Use/Non-use" #interventionCode [(ngModel)]="patientTobaccoUse.CI_Code">
+                <mat-select placeholder="Search Tobacco Use/Non-use" #interventionCode [(ngModel)]="patientTobaccoUse.CI_Code" [disableOptionCentering]="true">
                   <mat-select-filter [displayMember]="displayWithScreening" [array]="interventionTobaccoStatusFilter"
                     (filteredReturn)="interventionTobaccoStatus = $event" *ngIf="interventionCode.focused"></mat-select-filter>
-                  <mat-option *ngFor="let intervention of interventionTobaccoStatus" [value]="intervention.Code"
+                  <mat-option class="option-white-space" *ngFor="let intervention of interventionTobaccoStatus" [value]="intervention.Code"
                     (click)="selectedInterventionStatus(intervention)">
                     {{intervention.Code}} - {{intervention.Description}}
                   </mat-option>

@@ -12,6 +12,7 @@ import { PatientService } from 'src/app/_services/patient.service';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { fromEvent, Observable, of } from 'rxjs';
 import { filter, map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-medication.dialog',
@@ -37,7 +38,8 @@ export class MedicationDialogComponent implements OnInit {
     private authService: AuthenticationService,
     private patientService: PatientService,
     private rxnormService: RxNormAPIService,
-    private alertmsg: AlertMessage) {
+    private alertmsg: AlertMessage,
+    public datepipe: DatePipe) {
     this.updateLocalModel(ref.RequestData);
   }
 
@@ -49,10 +51,14 @@ export class MedicationDialogComponent implements OnInit {
       // get value
       map((event: any) => {
         this.medications = of([]);
+        this.noRecords = false;
+        if(event.target.value == ''){
+          this.displayMessage = true;
+        }
         return event.target.value;
       })
-      // if character length greater then 1
-      , filter(res => res.length > 2)
+      // if character length greater than or equals to 1
+      , filter(res => res.length >= 1)
       // Time in milliseconds between key events
       , debounceTime(1000)
       // If previous query is diffent from current
@@ -64,7 +70,6 @@ export class MedicationDialogComponent implements OnInit {
 
   _filterMedicationNames(term) {
     this.isLoading = true;
-    this.noRecords = false;
     this.rxnormService.Drugs(term)
       .subscribe(resp => {
         this.isLoading = false;
@@ -135,6 +140,10 @@ export class MedicationDialogComponent implements OnInit {
   CreateMedication() {
     let isAdd = this.patientMedication.MedicationId == undefined;
     this.patientMedication.PatientId = this.currentPatient.PatientId;
+    this.patientMedication.StartAt = new Date(this.datepipe.transform(this.patientMedication.StartAt, "MM/dd/yyyy hh:mm:ss"));
+    if(this.patientMedication.StopAt != null){
+      this.patientMedication.StopAt = new Date(this.datepipe.transform(this.patientMedication.StopAt, "MM/dd/yyyy hh:mm:ss"));
+    }
     this.patientService.CreateMedication(this.patientMedication).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.ref.close({

@@ -1,3 +1,4 @@
+import { ToAddress } from './../../_models/_provider/smart.scheduler.data';
 import { Component, OnInit } from '@angular/core';
 import { EHROverlayRef } from '../../ehr-overlay-ref';
 import { AdvancedDirective } from '../../_models/_provider/chart';
@@ -7,7 +8,6 @@ import { AlertMessage, ERROR_CODES } from './../../_alerts/alertMessage';
 import { PatientChart } from '../../_models/_provider/chart';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { ProviderPatient } from '../../_models/_provider/Providerpatient';
-const moment = require('moment');
 @Component({
   selector: 'app-advanced.directives.dialog',
   templateUrl: './advanced.directives.dialog.component.html',
@@ -24,7 +24,7 @@ export class AdvancedDirectivesDialogComponent implements OnInit {
     private authService: AuthenticationService) {
     this.updateLocalModel(ref.RequestData);
     if (this.advDirective.RecordAt != (null || '' || undefined)) {
-      this.advDirective.RecordAt = moment(this.advDirective.RecordAt).format('YYYY-MM-DD');
+      this.advDirective.RecordAt = this.datepipe.transform(this.advDirective.RecordAt, "yyyy-MM-dd");
     }
   }
 
@@ -33,7 +33,7 @@ export class AdvancedDirectivesDialogComponent implements OnInit {
   }
 
   todayDate() {
-    this.advDirective.RecordAt = moment(new Date()).format('YYYY-MM-DD');
+    this.advDirective.RecordAt = this.datepipe.transform(new Date(), "yyyy-MM-dd");
   }
 
   disableadvDirective() {

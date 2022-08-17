@@ -4,7 +4,10 @@
 .modal {
   font-family: 'Roboto';
 }
-
+.intervention-dialog.modal-dialog .modal-body {
+  max-height: calc(90vh - 180px);
+  overflow-y: auto;
+}
 .intervention-dialog .modal-content {
   width: 720px;
 }
@@ -54,7 +57,6 @@ textarea.form-control {
 @media (max-width:1000px) {
   .intervention-dialog .modal-content {
     max-width: 100%;
-    background-color: blue;
   }
 }
 .intervention-dialog .modal-footer {

@@ -410,3 +410,8 @@
   background-image: url(../assets/images/icon-delete.svg);
   background-size: 12px;
 }
+.icon.icon-ic-delete:hover {
+  background-color: #fff;
+  border: 1px solid #d64841;
+  background-image: url(../assets/images/icon-delete-hover.svg);
+}

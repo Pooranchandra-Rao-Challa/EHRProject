@@ -7,7 +7,6 @@ import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { ProviderPatient } from '../../_models/_provider/Providerpatient';
 import { PatientChart } from '../../_models/_provider/chart';
-const moment = require('moment');
 
 @Component({
   selector: 'app-smoking.status.dialog',
@@ -25,7 +24,7 @@ export class SmokingStatusDialogComponent implements OnInit {
     private authService: AuthenticationService) {
     this.updateLocalModel(ref.RequestData);
     if (this.smokingStatus.EffectiveFrom != (null || '' || undefined)) {
-      this.smokingStatus.EffectiveFrom = moment(this.smokingStatus.EffectiveFrom).format('YYYY-MM-DD');
+      this.smokingStatus.EffectiveFrom = this.datepipe.transform(this.smokingStatus.EffectiveFrom, "yyyy-MM-dd");
     }
   }
 
@@ -34,7 +33,7 @@ export class SmokingStatusDialogComponent implements OnInit {
   }
 
   todayDate() {
-    this.smokingStatus.EffectiveFrom = moment(new Date()).format('YYYY-MM-DD');
+    this.smokingStatus.EffectiveFrom = this.datepipe.transform(new Date(), "yyyy-MM-dd");
   }
 
   disablesmokingStatus() {
