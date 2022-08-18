@@ -1,3 +1,4 @@
+import { I } from '@angular/cdk/keycodes';
 import { DatePipe } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { fromEvent, Observable, of } from 'rxjs';
@@ -8,7 +9,6 @@ import { Allergy, GlobalConstants, AllergyType, OnSetAt, SeverityLevel, AllergyN
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { PatientService } from 'src/app/_services/patient.service';
-//const moment = require('moment');
 
 @Component({
   selector: 'app-allergy.dialog',
@@ -28,6 +28,7 @@ export class AllergyDialogComponent implements OnInit {
   displayMessage = true;
   @ViewChild('searchAllergyName', { static: true }) searchAllergyName: ElementRef;
   selectedReaction: string[] = [];
+  noRecords: boolean = false;
 
   constructor(private ref: EHROverlayRef,
     public datepipe: DatePipe,
@@ -38,12 +39,10 @@ export class AllergyDialogComponent implements OnInit {
     ) {
     this.updateLocalModel(ref.RequestData);
     if (this.patientAllergy.StartAt != (null || '' || undefined)) {
-      this.patientAllergy.StartAt = datePipe.transform(this.patientAllergy.StartAt,'YYYY-MM-DD');
-      //moment(this.patientAllergy.StartAt).format('YYYY-MM-DD');
+      this.patientAllergy.StartAt = this.datepipe.transform(this.patientAllergy.StartAt, "yyyy-MM-dd");
     }
     if (this.patientAllergy.EndAt != (null || '' || undefined)) {
-      this.patientAllergy.EndAt = datePipe.transform(this.patientAllergy.EndAt,'YYYY-MM-DD');
-      //moment(this.patientAllergy.EndAt).format('YYYY-MM-DD');
+      this.patientAllergy.EndAt = this.datepipe.transform(this.patientAllergy.EndAt, "yyyy-MM-dd");
     }
   }
 
@@ -64,6 +63,10 @@ export class AllergyDialogComponent implements OnInit {
       // get value
       map((event: any) => {
         this.allergens = of([]);
+        this.noRecords = false;
+        if(event.target.value == ''){
+          this.displayMessage = true;
+        }
         return event.target.value;
       })
       // if character length greater or equals to 1
@@ -88,7 +91,10 @@ export class AllergyDialogComponent implements OnInit {
         if (resp.IsSuccess) {
           this.allergens = of(
             resp.ListResult as AllergyNames[]);
-        } else this.allergens = of([]);
+        } else {
+          this.allergens = of([]);
+          this.noRecords = true;
+        }
       });
   }
 

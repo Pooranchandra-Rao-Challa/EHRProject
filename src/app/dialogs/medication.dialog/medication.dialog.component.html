@@ -16,7 +16,7 @@
             <mat-autocomplete [displayWith]="displayWithMedication" #medicationName="matAutocomplete"
               (optionSelected)="onSelectedMedication($event)">
               <mat-option [hidden]="displayMessage == false" [disabled]="true" class="text-wrap lh-1 fs-6">
-                Enter atleast 3 characters, you can only select 1 item
+                Enter atleast 1 character, you can only select 1 item
               </mat-option>
               <mat-option *ngIf="isLoading">Loading ...</mat-option>
               <mat-option ngClass="option-white-space" *ngFor="let drug of medications | async" [value]="drug" class="medical-code-option">
@@ -122,7 +122,7 @@
           </mat-form-field>
         </div>
         <div class="form-group mt-4 col-md-6">
-          <button type="button" class="btn btn-orange"
+          <button type="button" class="btn btn-orange mt-1"
             (click)="openComponentDialog(discontinueDialogComponent,null,ActionTypes.add)">
             Discontinue
           </button>

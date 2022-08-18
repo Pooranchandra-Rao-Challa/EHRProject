@@ -17,10 +17,14 @@
     min-height: 50px;
     margin-left: -3px !important;
 }
+.freq-used-list {
+  max-height: 200px;
+  overflow-y: auto;
+}
 .freq-used-list,
 .freq-used-list ul {
   list-style-type: none;
-  padding: 0px;
+  padding: 0px 5px;
 }
 
 .freq-used-list li:hover {

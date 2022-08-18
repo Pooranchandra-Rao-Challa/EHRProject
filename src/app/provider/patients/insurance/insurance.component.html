@@ -19,7 +19,7 @@
                         <mat-form-field appearance="outline"
                             class=" calendaricon green-calendar col-md-6">
                             <input matInput [matDatepicker]="DateOfBirth" placeholder="Date of Birth"
-                                (click)="DateOfBirth.open()" [(ngModel)]="primlist.DateOfBirth" class="Helvetica-sans-serif-medium">
+                                (click)="DateOfBirth.open()" [(ngModel)]="primlist.DateOfBirth" class="Helvetica-sans-serif-medium"  [max]="tomorrow">
                             <mat-datepicker-toggle matSuffix [for]="DateOfBirth">
                             </mat-datepicker-toggle>
                             <mat-datepicker #DateOfBirth disabled="false"></mat-datepicker>
@@ -116,7 +116,7 @@
                             <label class="Helvetica-sans-serif-medium">Insurance Company Plan</label>
                             <div class="input-group mb-3">
                                 <input type="text"
-                                    class="form-control  Helvetica-sans-serif-medium patientInsuranceTab input-border"
+                                    class="form-control  Helvetica-sans-serif-medium patientInsuranceTab input-border address-verfied"
                                     placeholder="Insurance Company Plan" [(ngModel)]="primlist.InsuranceCompanyPlan"
                                     aria-label="Subscriber Name" aria-describedby="basic-addon1" readonly>
                             </div>
@@ -340,9 +340,9 @@
                         <div class="col-11">
                             <label class="Helvetica-sans-serif-medium">Insurance Company Plan</label>
                             <div class="input-group mb-3">
-                                <input type="text" class="Helvetica-sans-serif-medium form-control patientInsuranceTab input-border"
+                                <input type="text" class="Helvetica-sans-serif-medium form-control patientInsuranceTab input-border address-verfied"
                                     placeholder="Insurance Company Plan" [(ngModel)]="secList.InsuranceCompanyPlan"
-                                    aria-label="Subscriber Name" aria-describedby="basic-addon1">
+                                    aria-label="Subscriber Name" aria-describedby="basic-addon1" readonly>
                             </div>
                         </div>
                         <div class="col-1  d-flex justify-content-end flex-sm-row flex-column">
@@ -463,7 +463,7 @@
                                 <div class="col-md-6">
 
                                     <div>
-                                        <label class="Helvetica-sans-serif-medium">Type:</label>
+                                        <label class="Helvetica-sans-serif-medium required">Type:</label>
                                         <mat-radio-group [(ngModel)]="insuraceComplanyPlan.PlanType">
                                             <mat-radio-button class="radio-btn-label label-design my-1" value="medical">
                                                 Medical</mat-radio-button>
@@ -475,7 +475,7 @@
                             </div>
                         </div>
                         <div class="row mb-4">
-                            <label class="Helvetica-sans-serif-medium">Insurance Company Name</label>
+                            <label class="Helvetica-sans-serif-medium required">Insurance Company Name</label>
                             <div class="input-group input-group-lg">
                                 <input type="text" class="form-control inputclass" placeholder="Insurance Company Name"
                                     [(ngModel)]="insuraceComplanyPlan.InsuranceCompanyName">
@@ -608,7 +608,7 @@
                             <div class="col-md-3" >
                                 <button mat-raised-button type="submit"
                                     class="btn btn-green btn-selectcancel" data-bs-dismiss="modal"
-                                    (click)="CreateUpdateInsuraceCompanyPlan()">Save</button>
+                                    (click)="CreateUpdateInsuraceCompanyPlan()" [disabled]="enableSave()">Save</button>
                             </div>
                             <div class="col-md-3">
                                 <button *ngIf="cancel2" mat-raised-button type="submit"
@@ -627,19 +627,11 @@
                     <div class="divScroll">
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="find-procedure">
-                                <div class="form-group ">
-                                    <div class="input-group">
-
-                                        <input type="text" name="search_procedure_code" id="search_procedure_code"
-                                            class="form-control search-control  Helvetica-sans-serif-medium"
-                                            placeholder="Search Insurance Company Plan" [(ngModel)]="searchText">
-                                        <button class="btn btn-info btn-md" type="button">
-                                            <i class="fa fa-search text-white"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
+                          
+                            <mat-form-field appearance="outline" class="col-md-12" style="width:300px">
+                                <mat-label>Search Insurance Company Plan</mat-label>
+                                <input matInput [(ngModel)]="searchText" placeholder="Search Insurance Company Plan"/>
+                              </mat-form-field>
                         </div>
                         <div class="col-md-2"></div>
                         <div class="col-md-4">
@@ -775,15 +767,15 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6 Helvetica-sans-serif-medium">Benifit Renewal:</div>
-                        <div class="col-md-6 Helvetica-sans-serif-medium">{{item.BenifitRenewal}}</div>
+                        <div class="col-md-6 Helvetica-sans-serif-medium">{{item.BenfitRenewal}}</div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 Helvetica-sans-serif-medium">Group #:</div>
-                        <div class="col-md-6 Helvetica-sans-serif-medium">{{item.Group}}</div>
+                        <div class="col-md-6 Helvetica-sans-serif-medium">{{item.GroupNo}}</div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 Helvetica-sans-serif-medium">Local #:</div>
-                        <div class="col-md-6 Helvetica-sans-serif-medium">{{item.Local}}</div>
+                        <div class="col-md-6 Helvetica-sans-serif-medium">{{item.LocalNo}}</div>
                     </div>
                 </div>
 

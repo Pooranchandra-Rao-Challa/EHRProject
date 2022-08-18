@@ -1,7 +1,7 @@
 export class    PrimaryInsurance {
     InsuranceId?: string;
     SubscriberNane?: string;
-    DateOfBirth?: Date;
+    DateOfBirth?: string;
     Gender?: string;
     Street?:string;
     StreetAddress?: string;
@@ -17,15 +17,16 @@ export class    PrimaryInsurance {
     PaymentTypologyDescription?:string;
     InsuranceType?: string;
     StartDate?: string;
-    EndDate?: string;
+    EndDate?: String;
     LocationId?:string;
     PatientId?:string;
     ProviderId?:string;
+    
 }
 export class SecondaryInsurance {
     InsuranceId?: string;
     SubscriberNane?: string;
-    DateOfBirth?: Date;
+    DateOfBirth?: string;
     Gender?: string;
     Street?:string;
     StreetAddress?: string;
@@ -48,7 +49,6 @@ export class SecondaryInsurance {
     ProviderId?:string;
 }
 export class ParticularInsuranceCompanyDetails {
-
     InsuranceCompanyId?: string;
     PlanType?: string;
     InsuranceCompanyName?: string;
@@ -62,8 +62,8 @@ export class ParticularInsuranceCompanyDetails {
     Contact?: string;
     Phone?: string;
     BenfitRenewal?: string;
-    Group?: string;
-    Local?: string;
+    GroupNo?: string;
+    LocalNo?: string;
     PayerID?: string;
     LocationId?:string;
 

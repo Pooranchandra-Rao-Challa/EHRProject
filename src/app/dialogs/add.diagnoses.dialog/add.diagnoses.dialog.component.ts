@@ -24,6 +24,9 @@ export class AddDiagnosesDialogComponent implements OnInit {
     private alertmsg: AlertMessage,
     public datepipe: DatePipe) {
     this.updateLocalModel(ref.RequestData);
+    if (this.patientDiagnoses.StopAt != (null || '' || undefined)) {
+      this.patientDiagnoses.StopAt = this.datepipe.transform(this.patientDiagnoses.StopAt, "yyyy-MM-dd");
+    }
   }
 
   ngOnInit(): void {
@@ -45,8 +48,7 @@ export class AddDiagnosesDialogComponent implements OnInit {
     this.patientDiagnoses.StartAt = new Date();
   }
   todayStopAt() {
-    this.patientDiagnoses.StopAt = this.datepipe.transform(new Date(),'YYYY-MM-DD');
-    //moment(new Date()).format('YYYY-MM-DD');
+    this.patientDiagnoses.StopAt = this.datepipe.transform(new Date(), "yyyy-MM-dd");
   }
 
   CreateDiagnoses() {

@@ -355,7 +355,7 @@ export class ClinicDecisionComponent implements OnInit {
 
       if (resp.IsSuccess) {
         this.getclinicaldesupportlist();
-        this.alertmsg.displayMessageDailog(ERROR_CODES["M2JCDS004"]);
+        this.alertmsg.displayErrorDailog(ERROR_CODES["M2JCDS004"]);
       }
       else {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2JCDS003"]);
