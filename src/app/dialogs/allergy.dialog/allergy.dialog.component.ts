@@ -34,7 +34,9 @@ export class AllergyDialogComponent implements OnInit {
     public datepipe: DatePipe,
     private alertmsg: AlertMessage,
     private authService: AuthenticationService,
-    private patientService: PatientService) {
+    private patientService: PatientService,
+    private datePipe: DatePipe
+    ) {
     this.updateLocalModel(ref.RequestData);
     if (this.patientAllergy.StartAt != (null || '' || undefined)) {
       this.patientAllergy.StartAt = this.datepipe.transform(this.patientAllergy.StartAt, "yyyy-MM-dd");

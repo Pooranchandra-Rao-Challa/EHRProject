@@ -39,3 +39,8 @@ export class  AreaCode{
   AreaId?: string;
   AreaCode?: string;
 }
+
+export class Clinic{
+  ClinicId?: string;
+  ClinicName?: string;
+}

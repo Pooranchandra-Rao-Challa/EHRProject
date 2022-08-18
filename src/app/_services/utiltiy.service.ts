@@ -84,5 +84,8 @@ export class UtilityService extends APIEndPoint {
   {
     return this._ProcessGetRequest<any>(this._blockoutForUrl);
   }
+  ClinicsForAdmin(){
+    return this._ProcessGetRequest<any>(this._clinicsForAdminUrl);
+  }
 
 }

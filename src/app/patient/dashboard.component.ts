@@ -10,6 +10,7 @@ import { Appointments } from '../_models/_patient/appointments';
 import { Router } from '@angular/router';
 
 import { MessageDialogInfo, Messages } from '../_models/_provider/messages';
+import { MessagesService } from '../_services/messages.service';
 declare var $: any;
 @Component({
   selector: 'app-dashboard',
@@ -31,8 +32,10 @@ export class DashboardComponent {
   viewModel: ViewModel;
   messages:Messages;
   messagescount:number=0;
+  currentMessageView: string = 'Inbox';
 
-  constructor(private authenticationService: AuthenticationService,private overlayService :OverlayService,private patientservice: PatientService,private router:Router) {
+  constructor(private authenticationService: AuthenticationService,private overlayService :OverlayService,private patientservice: PatientService,private router:Router,
+    private messageService: MessagesService,) {
 
     this.user = authenticationService.userValue;
     this.locationsInfo = JSON.parse(this.user.LocationInfo)
@@ -126,13 +129,22 @@ export class DashboardComponent {
 }
 getmessages()
 {
+  debugger;
       var req={
         // "PatientId": "5836dafef2e48f36ba90a996",
-        "PatientId": this.user.PatientId,
+        "UserId":this.user.UserId,
+        "PageIndex": 0,
+        "PageSize": 10,
+        "SortField": "Created",
+        "SortDirection": "desc",
+        "Filter": "",
+         "MessageFilter": "Inbox"
       }
-      this.patientservice.GetPatientMessages(req).subscribe(res=>{
+      this.messageService.Messages(req).subscribe(res=>{
 
         this.messages=res.ListResult == null ? [] : res.ListResult;
+console.log(this.messages);
+
         this.messagescount=res.ListResult == null ? 0:res.ListResult[0].MessagesCount;
 
       })

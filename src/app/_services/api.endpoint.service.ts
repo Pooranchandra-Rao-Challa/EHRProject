@@ -812,7 +812,9 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "ImageResult"
   }
 
-
+  get _clinicsForAdminUrl() {
+    return this._baseUrl + "ClinicsForAdmin"
+  }
   constructor(public http: HttpClient) {
     super();
   }

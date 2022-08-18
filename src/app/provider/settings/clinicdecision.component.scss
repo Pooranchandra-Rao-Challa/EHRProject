@@ -422,7 +422,8 @@ mat-footer-cell:last-of-type {
   color: rgb(253, 44, 44) !important;
 
 }
+.not-allowed
+{
+  cursor: not-allowed;
+}
 
-// mat-cell[_ngcontent-epd-c366]:first-of-type {
-//   padding-left: 20px;
-// }

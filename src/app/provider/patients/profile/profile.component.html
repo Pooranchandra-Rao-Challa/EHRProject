@@ -62,8 +62,10 @@
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="SOCIALSECURITYNUMBER" class="form-label label-design">SOCIAL SECURITY NUMBER</label>
-                <input class="input-group form-control" [(ngModel)]="PatientMyProfile.SSecuirtyNumber"
-                  placeholder="###-##-###" type="text" id="Name">
+                <input class="input-group form-control" [(ngModel)]="PatientMyProfile.SSecuirtyNumber" 
+                  placeholder="###-##-###" #ssn="ngModel" #ssnValidator #ssnMask pattern="^(?!666|000|9\d{2})\d{3}-(?!00)\d{2}-(?!0{4})\d{4}$" type="text" id="Name"
+                  [ngClass]="{'is-invalid' : (ssn.touched || ssn.dirty) && !ssn.valid }" maxlength="9" >
+                  <mat-hint style="font-size:8pt">323-32-3424</mat-hint>
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="CHARTID" class="form-label label-design">CHART ID</label>

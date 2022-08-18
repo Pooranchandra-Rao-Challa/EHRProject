@@ -11,7 +11,7 @@ import { Accountservice } from 'src/app/_services/account.service';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 import Swal from 'sweetalert2';
 import { User } from 'src/app/_models';
-import { AreaCode } from 'src/app/_models/_admin/Admins';
+import { AreaCode, Clinic } from 'src/app/_models/_admin/Admins';
 import { of } from 'rxjs';
 @Component({
   selector: 'app-adduser.dialog',
@@ -32,6 +32,7 @@ export class AddUserDialogComponent implements OnInit {
   titles: {}[];
   degrees: {}[];
   specialities: {}[];
+  Clinics?: Clinic[];
   newUser: Registration = new Registration;
   randomPassword?: string = null;
   showPassword?: boolean = false;
@@ -52,7 +53,6 @@ export class AddUserDialogComponent implements OnInit {
     private idService: IdService) {
     this.url = plaformLocation.href.replace(plaformLocation.pathname, '/');
     this.user = authService.userValue;
-    console.log(this.user.Role);
 
     this.PhonePattern = {
       0: {
@@ -106,6 +106,12 @@ export class AddUserDialogComponent implements OnInit {
         this.specialities = JSON.parse(resp.Result);
       }
     });
+    this.utilityService.ClinicsForAdmin().subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.Clinics = resp.ListResult as Clinic[];
+      }
+    });
+
 
     this.utilityService.AreaCodes()
       .subscribe(resp => {
@@ -221,15 +227,16 @@ export class AddUserDialogComponent implements OnInit {
 
     return !(this.newUser.Title == undefined ? '' : this.newUser.Title != ''
       && this.newUser.FirstName == undefined ? '' : this.newUser.FirstName != ''
-        && this.newUser.LastName == undefined ? '' : this.newUser.LastName != ''
-          && this.newUser.Degree == undefined ? '' : this.newUser.Degree != ''
-            && this.newUser.Speciality == undefined ? '' : this.newUser.Speciality != ''
-              && this.newUser.NPI == undefined ? '' : this.newUser.NPI != ''
-                && this.newUser.Address == undefined ? '' : this.newUser.Address != ''
-                  && this.newUser.PrimaryPhonePreffix == undefined ? '' : this.newUser.PrimaryPhonePreffix != ''
-                    && this.newUser.PrimaryPhoneSuffix == undefined ? '' : this.newUser.PrimaryPhoneSuffix != ''
-                      && this.newUser.Email == undefined ? '' : this.newUser.Email != ''
-                      && flag && npireg.test(this.newUser.NPI))
+      && this.newUser.LastName == undefined ? '' : this.newUser.LastName != ''
+      && this.newUser.Degree == undefined ? '' : this.newUser.Degree != ''
+      && this.newUser.Speciality == undefined ? '' : this.newUser.Speciality != ''
+      && this.newUser.NPI == undefined ? '' : this.newUser.NPI != ''
+      && this.newUser.Address == undefined ? '' : this.newUser.Address != ''
+      && this.newUser.ClinicId == undefined ? '' : this.newUser.ClinicId != ''
+      && this.newUser.PrimaryPhonePreffix == undefined ? '' : this.newUser.PrimaryPhonePreffix != ''
+      && this.newUser.PrimaryPhoneSuffix == undefined ? '' : this.newUser.PrimaryPhoneSuffix != ''
+      && this.newUser.Email == undefined ? '' : this.newUser.Email != ''
+      && flag && npireg.test(this.newUser.NPI))
   }
 
 }
