@@ -8,7 +8,7 @@ import { Allergy, GlobalConstants, AllergyType, OnSetAt, SeverityLevel, AllergyN
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { PatientService } from 'src/app/_services/patient.service';
-const moment = require('moment');
+//const moment = require('moment');
 
 @Component({
   selector: 'app-allergy.dialog',
@@ -33,13 +33,17 @@ export class AllergyDialogComponent implements OnInit {
     public datepipe: DatePipe,
     private alertmsg: AlertMessage,
     private authService: AuthenticationService,
-    private patientService: PatientService) {
+    private patientService: PatientService,
+    private datePipe: DatePipe
+    ) {
     this.updateLocalModel(ref.RequestData);
     if (this.patientAllergy.StartAt != (null || '' || undefined)) {
-      this.patientAllergy.StartAt = moment(this.patientAllergy.StartAt).format('YYYY-MM-DD');
+      this.patientAllergy.StartAt = datePipe.transform(this.patientAllergy.StartAt,'YYYY-MM-DD');
+      //moment(this.patientAllergy.StartAt).format('YYYY-MM-DD');
     }
     if (this.patientAllergy.EndAt != (null || '' || undefined)) {
-      this.patientAllergy.EndAt = moment(this.patientAllergy.EndAt).format('YYYY-MM-DD');
+      this.patientAllergy.EndAt = datePipe.transform(this.patientAllergy.EndAt,'YYYY-MM-DD');
+      //moment(this.patientAllergy.EndAt).format('YYYY-MM-DD');
     }
   }
 

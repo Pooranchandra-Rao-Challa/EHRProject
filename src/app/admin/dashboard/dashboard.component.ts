@@ -205,17 +205,20 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  disableSwitchUser: boolean = false;
   switchUser(provider: ProviderList)
   {
+    this.disableSwitchUser = true;
     let switchKey: string  = provider.UserId +":" +provider.ProviderId;
     this.adminservice.SwitchUserKey(provider).subscribe(resp =>{
       if(resp.IsSuccess){
         let encKey = resp.Result;
         this.authService.SwitchUser({SwitchUserKey:switchKey,SwitchUserEncKey:encKey}).subscribe(logresp =>{
           if (!logresp.IsSuccess) {
-
           }
         })
+      }else{
+        console.log(resp);
       }
     })
 

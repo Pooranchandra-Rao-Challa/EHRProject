@@ -6,7 +6,7 @@ import { Diagnosis, DiagnosisDpCodes, PatientChart } from 'src/app/_models';
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { PatientService } from 'src/app/_services/patient.service';
-const moment = require('moment');
+//const moment = require('moment');
 
 @Component({
   selector: 'app-add.diagnoses.dialog',
@@ -45,7 +45,8 @@ export class AddDiagnosesDialogComponent implements OnInit {
     this.patientDiagnoses.StartAt = new Date();
   }
   todayStopAt() {
-    this.patientDiagnoses.StopAt = moment(new Date()).format('YYYY-MM-DD');
+    this.patientDiagnoses.StopAt = this.datepipe.transform(new Date(),'YYYY-MM-DD');
+    //moment(new Date()).format('YYYY-MM-DD');
   }
 
   CreateDiagnoses() {

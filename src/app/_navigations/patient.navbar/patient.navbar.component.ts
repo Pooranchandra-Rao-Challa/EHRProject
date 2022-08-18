@@ -7,7 +7,6 @@ import { User, UserLocations, ViewModel } from '../../_models';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PatientProfile } from 'src/app/_models/_patient/patientprofile';
 import { PatientService } from 'src/app/_services/patient.service';
-import { MatMenu } from '@angular/material/menu';
 declare var $: any;
 
 @Component({

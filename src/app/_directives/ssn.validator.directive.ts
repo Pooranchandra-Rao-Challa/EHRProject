@@ -1,4 +1,4 @@
-import { Directive } from '@angular/core';
+import { Directive, Renderer2 } from '@angular/core';
 import { Validator, NG_VALIDATORS, ValidatorFn, FormControl } from '@angular/forms';
 
 @Directive({
@@ -14,7 +14,7 @@ import { Validator, NG_VALIDATORS, ValidatorFn, FormControl } from '@angular/for
 export class ssnValidatorDirective implements Validator {
 
   validator: ValidatorFn;
-  constructor() {
+  constructor(private renderer:Renderer2) {
     this.validator = this.ssnValidator();
   }
 
@@ -24,8 +24,18 @@ export class ssnValidatorDirective implements Validator {
 
   ssnValidator(): ValidatorFn {
     return (control: FormControl) => {
+      let start = this.renderer.selectRootElement('#ssn').selectionStart;
+      let end = this.renderer.selectRootElement('#ssn').selectionEnd;
+      let pattern = /^(?!666|000|9\d{2})\d{3}-(?!00)\d{2}-(?!0{4})\d{4}$/g;
+      let val = control.value.replace(pattern, '');
+      console.log(val);
+
+      control.setValue(val,{emitEvent: false})
+      this.renderer.selectRootElement('#ssn').setSelectionRange(start,end);
+
+
       if (control.value != null && control.value !== '') {
-        let pattern = /^(?!666|000|9\d{2})\d{3}-(?!00)\d{2}-(?!0{4})\d{4}$/;
+
         if(pattern.test(control.value)) return null;
         else return {
           npiValidator: { valid: false }
