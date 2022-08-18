@@ -26,7 +26,7 @@ export class SmokingStatusDialogComponent implements OnInit {
     private datePipe:DatePipe) {
     this.updateLocalModel(ref.RequestData);
     if (this.smokingStatus.EffectiveFrom != (null || '' || undefined)) {
-      this.smokingStatus.EffectiveFrom = datePipe.transform(this.smokingStatus.EffectiveFrom,'YYYY-MM-DD');
+      this.smokingStatus.EffectiveFrom = this.datepipe.transform(this.smokingStatus.EffectiveFrom, "yyyy-MM-dd");
       //moment(this.smokingStatus.EffectiveFrom).format('YYYY-MM-DD');
     }
   }
@@ -36,7 +36,7 @@ export class SmokingStatusDialogComponent implements OnInit {
   }
 
   todayDate() {
-    this.smokingStatus.EffectiveFrom = this.datePipe.transform(new Date(),'YYYY-MM-DD');
+    this.smokingStatus.EffectiveFrom = this.datepipe.transform(new Date(), "yyyy-MM-dd");
     //moment(new Date()).format('YYYY-MM-DD');
   }
 
