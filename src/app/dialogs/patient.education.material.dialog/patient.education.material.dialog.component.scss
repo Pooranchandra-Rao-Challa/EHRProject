@@ -1,0 +1,25 @@
+@import "../../../assets/cstm.material.scss";
+@import "../../../assets/common.scss";
+
+.header-change {
+  background-color: #D9534E;;
+}
+.modal-text {
+  font-size: 15px;
+  text-align: center;
+  color: #D9534E;
+}
+.edu-material-modal .modal-content {
+  border: 1px solid #D9534E;
+}
+.icon.icon-ic-material-not-found {
+  background-image: url(../../../assets/images/icon-material-not-found.svg);
+}
+.edu-material-modal .icon {
+  width: 82px;
+  height: 82px;
+  margin: 0 auto 20px auto;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
+}

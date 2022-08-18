@@ -25,7 +25,10 @@
               "file-saver",
               "canvg",
               "core-js",
-              "raf"
+              "raf",
+              "jspdf-autotable",
+              "moment-timezone",
+              "moment"
             ],
             "outputPath": "dist/EHRProject",
             "index": "src/index.html",
@@ -62,7 +65,7 @@
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
-              "buildOptimizer": true,
+              "buildOptimizer": false,
               "budgets": [
                 {
                   "type": "initial",
@@ -71,8 +74,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "10kb",
-                  "maximumError": "400kb"
+                  "maximumWarning": "1mb",
+                  "maximumError": "2mb"
                 }
               ]
             }

@@ -36,6 +36,7 @@
               <mat-option *ngFor="let option of allergens | async" [value]="option" class="medical-code-option">
                 {{option.AllergyName}}
               </mat-option>
+              <mat-option *ngIf="noRecords">No Records Found</mat-option>
             </mat-autocomplete>
           </mat-form-field>
           <span class="selected-allergen" id="allergenName" *ngIf="patientAllergy.AllergenName != null">

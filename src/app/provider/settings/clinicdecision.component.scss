@@ -198,9 +198,9 @@ mat-accordion .mat-expansion-panel:first-of-type {
   margin-top: 4px;
 }
 
-.Trigger-content {
-  height: 454px;
-}
+// .Trigger-content {
+//   height: 454px;
+// }
 
 .btn-clinic {
   height: 45px;
@@ -290,16 +290,6 @@ mat-accordion .mat-expansion-panel:first-of-type {
 .trigger-align {
   margin-top: 13px;
 }
-
-input::-webkit-input-placeholder {
-  color: #74757E !important;
-  font-size: 100%;
-  font-family: "Open Sans", sans-serif;
-  font-size: 11px;
-  font-weight: 800;
-
-}
-
 .title-heading {
   margin-top: 9px;
   margin-left: 10px;
@@ -332,7 +322,7 @@ input::-webkit-input-placeholder {
   pointer-events: auto !important;
   .modal-dialog {
     pointer-events: auto !important;
-    max-width: 780px;
+    max-width: 980px;
   }
   input{
     height:25px;
@@ -432,7 +422,8 @@ mat-footer-cell:last-of-type {
   color: rgb(253, 44, 44) !important;
 
 }
+.not-allowed
+{
+  cursor: not-allowed;
+}
 
-// mat-cell[_ngcontent-epd-c366]:first-of-type {
-//   padding-left: 20px;
-// }

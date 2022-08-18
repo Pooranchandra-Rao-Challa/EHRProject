@@ -45,14 +45,14 @@
         </mat-expansion-panel-header>
         <div>
           <div class="row field-align">
-            <mat-label class="mt-1 Helvetica-sans-serif-small">Description*</mat-label>
+            <mat-label class="mt-1 Helvetica-sans-serif-small required">Description</mat-label>
             <mat-form-field appearance="outline" class="col-md-12">
               <input matInput placeholder="" [(ngModel)]="item.Description">
             </mat-form-field>
           </div>
 
           <div class="row field-align">
-            <mat-label class="Helvetica-sans-serif-small">Trigger Rule* </mat-label>
+            <mat-label class="Helvetica-sans-serif-small required">Trigger Rule </mat-label>
             <mat-form-field appearance="outline">
               <mat-select required [(ngModel)]="item.Rule">
                 <mat-option *ngFor="let trigger of TriggerRuleDD" [value]="trigger.value">
@@ -79,16 +79,16 @@
               <tr>
                 <td></td>
                 <td>
-                  <p>Category</p>
+                  Category
                 </td>
                 <td>
-                  <p>Code</p>
+                  Code
                 </td>
                 <td>
-                  <p>Code System</p>
+                  Code System
                 </td>
                 <td>
-                  <p>Description</p>
+                  Description
                 </td>
                 <td></td>
               </tr>
@@ -300,7 +300,10 @@
         </span>
       </div>
       <div class="modal-body">
-        <div class="col-lg-12 col-md-12 col-12 mat-field-no-round-right">
+        <div>
+          <mat-label class="required">Category</mat-label>
+        </div>
+        <div class="col-lg-12 col-md-12 col-12 mat-field-no-round-right mt-4">
           <medical-code-container [codeSystems]="codeSystemsForClinicalDecision"
             (optionChanged)="optionChangedForTrigger($event)" [MinTermLength]="3" [showSelectedValue]="false">
           </medical-code-container>
@@ -348,43 +351,40 @@
         </mat-table>
 
         <div>
-          <div>
-            <mat-label class="required">Category</mat-label>
-          </div>
+        
           <div class="row">
             <mat-label class="required">Code</mat-label>
 
             <mat-form-field appearance="outline" class="col-md-12">
-              <input matInput placeholder="" [(ngModel)]="ehrTrigger.Code">
+              <input matInput placeholder="" [(ngModel)]="ehrTrigger.Code" class="not-allowed" disabled>
             </mat-form-field>
 
           </div>
           <br>
           <mat-label class="required">Code System</mat-label>
 
-          <mat-form-field appearance="outline" class="col-md-12">
-            <input matInput placeholder="" [(ngModel)]="ehrTrigger.System">
+          <mat-form-field appearance="outline" class="col-md-12 ">
+            <input matInput placeholder="" [(ngModel)]="ehrTrigger.System" disabled class="not-allowed">
           </mat-form-field>
         </div>
 
         <div class="col-md-12">
           <mat-label class="required">Description:</mat-label>
 
-          <textarea matInput class="text-border" placeholder="" readonly disabled
-            [(ngModel)]="ehrTrigger.Description"></textarea>
+          <textarea matInput class="text-border not-allowed" placeholder="" readonly disabled
+            [(ngModel)]="ehrTrigger.Description"  ></textarea>
 
-          <div class="row">
-            <div class="d-flex justify-content-end mt-2">
-              <button class="btn btn-green btn-clinic " type="button" data-bs-dismiss="modal"
-                (click)="CreateTrigger(ehrTrigger)" [disabled]="triggerSave()">Add trigger</button>
-            </div>
-          </div>
+          
         </div>
 
 
 
       </div>
       <div class="modal-footer">
+       
+            <button class="btn btn-green btn-clinic " type="button" data-bs-dismiss="modal"
+              (click)="CreateTrigger(ehrTrigger)" [disabled]="triggerSave()">Add trigger</button>
+         
       </div>
     </div>
   </div>

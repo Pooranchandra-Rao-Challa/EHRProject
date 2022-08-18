@@ -1,7 +1,7 @@
 import { PatientService } from 'src/app/_services/patient.service';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { EHROverlayRef } from '../../ehr-overlay-ref';
-import { Actions, GlobalConstants, Intervention, PatientChart } from './../../_models';
+import { Actions, GlobalConstants, ChartInfo, Intervention, PatientChart } from './../../_models';
 import { fromEvent } from 'rxjs';
 import { filter, map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
@@ -29,6 +29,7 @@ export class InterventionDialogComponent implements OnInit {
   selectedInterventionCodes: any[] = [];
   cqmNotPerformedDialogComponent = AddeditinterventionComponent;
   ActionTypes = Actions;
+  chartInfo: ChartInfo = new ChartInfo;
 
   constructor(private ref: EHROverlayRef,
     private patientService: PatientService,
@@ -42,13 +43,17 @@ export class InterventionDialogComponent implements OnInit {
   ngOnInit(): void {
     this.currentPatient = this.authService.viewModel.Patient;
     this.interventionTypes = GlobalConstants.INTERVENTION_TYPES;
+    this.InterventionsByPatientId();
   }
 
   ngAfterViewInit(): void {
     fromEvent(this.searchName.nativeElement, 'keyup').pipe(
       // get value
       map((event: any) => {
-        this.interventionCodes = [];
+        // this.interventionCodes = [];
+        if(event.target.value == ''){
+          this.interventionCodes = this.chartInfo.Interventions;
+        }
         return event.target.value;
       })
       // if character length greater then 0
@@ -81,6 +86,9 @@ export class InterventionDialogComponent implements OnInit {
       .subscribe(resp => {
         if (resp.IsSuccess) {
           this.interventionCodes = resp.ListResult;
+        }
+        else {
+          this.interventionCodes = [];
         }
       });
   }
@@ -153,4 +161,12 @@ export class InterventionDialogComponent implements OnInit {
       // this.UpdateView(res.data);
     });
   }
+
+    // Get tobacco interventions info
+    InterventionsByPatientId() {
+      this.patientService.InterventionsByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
+        if (resp.IsSuccess) this.chartInfo.Interventions = resp.ListResult;
+        this.interventionCodes = this.chartInfo.Interventions;
+      });
+    }
 }

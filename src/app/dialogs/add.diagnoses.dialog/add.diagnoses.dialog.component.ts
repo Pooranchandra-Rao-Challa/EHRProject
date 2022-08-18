@@ -1,12 +1,14 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { ComponentType } from 'ngx-toastr';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
+import { OverlayService } from 'src/app/overlay.service';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
-import { Diagnosis, DiagnosisDpCodes, PatientChart } from 'src/app/_models';
+import { Actions, Diagnosis, DiagnosisDpCodes, PatientChart } from 'src/app/_models';
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { PatientService } from 'src/app/_services/patient.service';
-const moment = require('moment');
+import { PatientEducationMaterialDialogComponent } from '../patient.education.material.dialog/patient.education.material.dialog.component';
 
 @Component({
   selector: 'app-add.diagnoses.dialog',
@@ -17,13 +19,19 @@ export class AddDiagnosesDialogComponent implements OnInit {
   patientDiagnoses: Diagnosis = new Diagnosis();
   DxCodes: DiagnosisDpCodes[];
   currentPatient: ProviderPatient;
+  patientEducationMaterialDialogComponent = PatientEducationMaterialDialogComponent;
+  ActionTypes = Actions;
 
   constructor(private ref: EHROverlayRef,
     private authService: AuthenticationService,
     private patientService: PatientService,
     private alertmsg: AlertMessage,
-    public datepipe: DatePipe) {
+    public datepipe: DatePipe,
+    public overlayService: OverlayService) {
     this.updateLocalModel(ref.RequestData);
+    if (this.patientDiagnoses.StopAt != (null || '' || undefined)) {
+      this.patientDiagnoses.StopAt = this.datepipe.transform(this.patientDiagnoses.StopAt, "yyyy-MM-dd");
+    }
   }
 
   ngOnInit(): void {
@@ -45,7 +53,7 @@ export class AddDiagnosesDialogComponent implements OnInit {
     this.patientDiagnoses.StartAt = new Date();
   }
   todayStopAt() {
-    this.patientDiagnoses.StopAt = moment(new Date()).format('YYYY-MM-DD');
+    this.patientDiagnoses.StopAt = this.datepipe.transform(new Date(), "yyyy-MM-dd");
   }
 
   CreateDiagnoses() {
@@ -80,6 +88,17 @@ export class AddDiagnosesDialogComponent implements OnInit {
   disableDiagnosis() {
     return !(this.patientDiagnoses.CodeSystem && this.patientDiagnoses.Code && this.patientDiagnoses.Description && this.patientDiagnoses.StartAt
             && this.patientDiagnoses.StopAt && this.patientDiagnoses.Note)
+  }
+
+  openComponentDialog(content: any | ComponentType<any> | string,
+    dialogData, action: Actions = this.ActionTypes.add) {
+    let reqdata: any;
+    if (action == Actions.view && content === this.patientEducationMaterialDialogComponent) {
+      reqdata = dialogData;
+    }
+    const ref = this.overlayService.open(content, reqdata, true);
+    ref.afterClosed$.subscribe(res => {
+    });
   }
 
 }

@@ -30,7 +30,6 @@ import {
   NG_VALUE_ACCESSOR,
   Validator,
 } from '@angular/forms';
-import { first } from 'rxjs/operators';
 import { isNumeric } from 'rxjs/util/isNumeric';
 @Directive({
   selector: '[appTimeMask]',
@@ -70,9 +69,10 @@ export class TimeMaskDirective implements OnInit, ControlValueAccessor, Validato
   }
 
   /** treat the keyss */
-  @HostListener('keydown', ['$event'])
+  @HostListener('document:keydown', ['$event'])
   onKeyDown(evt: KeyboardEvent) {
 
+    console.log(evt);
 
     const keyCode = evt.keyCode;
     switch (keyCode) {
@@ -89,12 +89,31 @@ export class TimeMaskDirective implements OnInit, ControlValueAccessor, Validato
 
       default:
         if ((keyCode >= ZERO && keyCode <= NINE) ||
-          (keyCode >= NUMPAD_ZERO && keyCode <= NUMPAD_NINE)) {
+          (keyCode >= NUMPAD_ZERO && keyCode <= NUMPAD_NINE)||
+          (keyCode == A || keyCode == P)) {
           // treat numbers
           this._setInputText(evt.key);
-        }
-        else if(keyCode == A || keyCode == P){
-          this._setInputText(evt.key);
+          // let key  = evt.key;
+          // const inputvalue = this._el.nativeElement.value;
+          // const meridian = inputvalue.split(' ')[1];
+          // const input: string[] = inputvalue.split(' ')[0].split(':');
+
+          // const hours: string = input[0];
+          // const minutes: string = input[1];
+
+          // const caretPosition = this._doGetCaretPosition();
+          // if(isNumeric(key)){
+          //   if (caretPosition < 3) {
+          //     this._setHours(hours, minutes, meridian ,key);
+          //   } else{
+          //     this._setMinutes(hours, minutes,meridian, key);
+          //   }
+          // }
+          // else{
+          //   this._setMeridianField(hours,minutes,key)
+          // }
+
+          // this._fieldJustGotFocus = false;
         }
     }
 
@@ -108,7 +127,7 @@ export class TimeMaskDirective implements OnInit, ControlValueAccessor, Validato
   }
 
   /**When the component receives a click, it is necessary to select hours or minutes */
-  @HostListener('click', ['$event'])
+  @HostListener('document:click', ['$event'])
   onClick(evt: MouseEvent) {
     this._fieldJustGotFocus = true;
     const caretPosition = this._doGetCaretPosition();
@@ -136,7 +155,7 @@ export class TimeMaskDirective implements OnInit, ControlValueAccessor, Validato
   }
 
   /** When the component loses focus, it triggers the ControlValueAccessor touched */
-  @HostListener('blur', ['$event'])
+  @HostListener('document:blur', ['$event'])
   onBlur(evt: any) {
     this._touched();
   }
@@ -186,7 +205,7 @@ export class TimeMaskDirective implements OnInit, ControlValueAccessor, Validato
   /**
    * Method called when user types a number key
    */
-  private _setInputText(key: string) {
+  public _setInputText(key: string) {
     const inputvalue = this._el.nativeElement.value;
     const meridian = inputvalue.split(' ')[1];
     const input: string[] = inputvalue.split(' ')[0].split(':');

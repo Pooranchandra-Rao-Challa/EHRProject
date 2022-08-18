@@ -142,13 +142,22 @@
             </mat-form-field>
           </div>
         </div>
-        <div class="col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+
+        <div class="col-lg-4 col-md-12 col-sm-12 col-12 mb-4">
+          <label class="form-label required">Practice/Clinic</label>
+          <select id="clinics" name="clinics" class="form-select" [(ngModel)]="newUser.ClinicId">
+            <option *ngFor="let clinic of Clinics" [value]="clinic.ClinicId">
+              {{clinic.ClinicName}}
+            </option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-12 col-sm-12 col-12 mb-4">
           <label class="form-label required">Primary Email Address</label>
           <input matInput type="input" class="form-control text-design" id="PrimaryEmail" name="PrimaryEmail"
             placeholder="Primary Email Address" [(ngModel)]="newUser.Email">
         </div>
 
-        <div class="col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
+        <div class="col-lg-4 col-md-12 col-sm-12 col-12 mb-4">
           <label class="form-label">Alternative Email Address</label>
           <input matInput type="input" class="form-control text-design" id="AlternativeEmail" name="AlternativeEmail"
             placeholder="Alternative Email Address" [(ngModel)]="newUser.AltEmail">
@@ -215,7 +224,7 @@
 
             <div class="col-lg-4 col-md-12 col-sm-12 col-12 mt-3">
               <label for="RcopiaUsername" class="form-label" [class.required]="newUser.EPrescribeFrom=='drfirst'">Rcopia
-                User Name (Practice Username)</label>
+                Rcopia User Name (Practice Username)</label>
               <input type="text" class="form-control text-design" [disabled]="user.Role=='compliance'"
                 id="RcopiaUsername" name="RcopiaUsername" placeholder="Rcopia Username"
                 [(ngModel)]="newUser.PracticeUsername">

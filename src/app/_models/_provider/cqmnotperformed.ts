@@ -17,3 +17,11 @@ export class CQMNotPerformed {
   Reasondetails?: string;
   CessationInterventionId?: string;
 }
+
+export class InterventionCodes {
+  public slice;
+
+  Code?: string;
+  Description?: string;
+  CodeDescription?: string;
+}

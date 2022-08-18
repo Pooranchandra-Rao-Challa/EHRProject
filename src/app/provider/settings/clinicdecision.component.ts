@@ -20,7 +20,7 @@ export class ClinicDecisionComponent implements OnInit {
   ehrTriggerList: TriggerInformation = {};
   triggerSearchList = new BehaviorSubject<EhrTrigger[]>([]);
   ehrTrigger: EhrTrigger = new EhrTrigger();
-  codeSystemsForClinicalDecision: string[] = ['SNOMED/ICD10'];
+  codeSystemsForClinicalDecision: string[] = ['SNOMED/ICD10','Local'];
   clinicalDecisionSearchColumns = ["CODE", "CODE SYSTEM", "DESCRIPTION", "Delete"];
 
   user: User;
@@ -355,7 +355,7 @@ export class ClinicDecisionComponent implements OnInit {
 
       if (resp.IsSuccess) {
         this.getclinicaldesupportlist();
-        this.alertmsg.displayMessageDailog(ERROR_CODES["M2JCDS004"]);
+        this.alertmsg.displayErrorDailog(ERROR_CODES["M2JCDS004"]);
       }
       else {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2JCDS003"]);

@@ -1,5 +1,5 @@
 import { Router, RouterModule } from '@angular/router';
-import { CQMNotPerformed } from 'src/app/_models/_provider/cqmnotperformed';
+import { CQMNotPerformed, InterventionCodes } from 'src/app/_models/_provider/cqmnotperformed';
 import { Component, ComponentFactoryResolver, OnInit, ViewContainerRef } from '@angular/core';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
 import { PatientChart, User, ViewModel } from 'src/app/_models';
@@ -8,7 +8,6 @@ import { AuthenticationService } from 'src/app/_services/authentication.service'
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { BehaviorSubject } from 'rxjs';
 import { DatePipe } from '@angular/common';
-
 @Component({
   selector: 'app-addeditintervention',
   templateUrl: './addeditintervention.component.html',
@@ -43,9 +42,9 @@ export class AddeditinterventionComponent implements OnInit {
     { Id: '11', value: '59037007 - Drug intolerance' },
     { Id: '12', value: '62014003 - Adverse reaction to drug' }
   ];
-  interventaionList: any = [];
+  interventaionList: InterventionCodes[] = [];
   reasonFiltered: any = [];
-  interventaionFilter: any = [];
+  interventaionFilter: InterventionCodes[] = [];
   CQMNotPerformed: CQMNotPerformed;
   intervention: any = [];
   PatientDetails: any = [];

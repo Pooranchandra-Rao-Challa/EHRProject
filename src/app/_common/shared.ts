@@ -9,6 +9,7 @@ import { MouseOverHintDirective } from 'src/app/_directives/mouseover.hint.direc
 import { SimplePaginationDirective } from 'src/app/_directives/simple.pagination.directive'
 import { npiValidatorDirective } from 'src/app/_directives/npi.validator.directive'
 import { ssnValidatorDirective } from 'src/app/_directives/ssn.validator.directive'
+import { SSNMaskDirective } from 'src/app/_directives/ssn.mask.directive'
 
 //import { FullCalendarModule } from '@fullcalendar/angular';
 
@@ -29,11 +30,12 @@ import { ssnValidatorDirective } from 'src/app/_directives/ssn.validator.directi
     SimplePaginationDirective,
     npiValidatorDirective,
     ssnValidatorDirective,
-    MouseOverHintDirective
+    MouseOverHintDirective,
+    SSNMaskDirective
   ],
   declarations: [GroupByPipe, FilterPipe, SearchPipe, TimeMaskDirective,
     MouseOverHintDirective,SimplePaginationDirective,npiValidatorDirective,
-    ssnValidatorDirective],
+    ssnValidatorDirective,SSNMaskDirective],
   entryComponents: []
 })
 export class SharedModule { }

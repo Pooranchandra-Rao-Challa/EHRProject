@@ -1,10 +1,6 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { disableDebugTools } from '@angular/platform-browser';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { table } from 'console';
 import { fromEvent, Observable, of } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, map, startWith } from 'rxjs/operators';
 import { PracticeLocation, User } from 'src/app/_models';
 
 import { AuthenticationService } from 'src/app/_services/authentication.service';
@@ -14,11 +10,7 @@ import { Accountservice } from 'src/app/_services/account.service';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { areaCodes } from 'src/app/_models/_patient/patientprofile';
 import { ParticularInsuranceCompanyDetails, PrimaryInsurance, SecondaryInsurance } from 'src/app/_models/_provider/insurance';
-
-
-const moment = require('moment');
-
-
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-insurance',
   templateUrl: './insurance.component.html',
@@ -65,7 +57,7 @@ export class InsuranceComponent implements OnInit {
   disableaddressverification: boolean = false;
   secondarymanuallybtn: boolean;
   secondarydisableaddressverification: boolean;
-  SearchKey = "";
+
   getInsurancePlanList: any;
   primaryInsDetail: boolean;
   secondaryInsDetail: boolean;
@@ -75,20 +67,21 @@ export class InsuranceComponent implements OnInit {
   searchCellPhoneData:any[];
   SourceData: any[];
   filterNumbers: any;
-
+  @Input() max: any;
+  tomorrow = new Date();
 
   constructor(private patientservice: PatientService,
     private route: ActivatedRoute,
     private authService: AuthenticationService,
     private alertmsg: AlertMessage,
-    private accountservice: Accountservice, private utilityService: UtilityService,) {
+    private accountservice: Accountservice, private utilityService: UtilityService, private datePipe:DatePipe) {
     this.primlist = {} as PrimaryInsurance;
     this.secList = {} as SecondaryInsurance;
     this.insuraceComplanyPlan = {} as ParticularInsuranceCompanyDetails;
     this.user = authService.userValue;
     this.changedLocationId = this.user.CurrentLocation;
-
     this.InsuranceCompanyPlanList();
+    this.tomorrow.setDate(this.tomorrow.getDate() );
   }
 
   ngOnInit(): void {
@@ -118,7 +111,7 @@ export class InsuranceComponent implements OnInit {
     this.btnstate = true;
     this.rowClicked = -1;
     this.InsuranceCompanyPlanList();
-    this.SearchKey = "";
+    this.searchText = "";
 
   }
 
@@ -240,18 +233,18 @@ export class InsuranceComponent implements OnInit {
           (x.InsuranceType === 'Primary')
         );
         this.primlist = primarydata[0];
-        this.primlist.StartDate = moment(primarydata[0].StartDate).format('YYYY-MM-DD');
-        this.primlist.DateOfBirth = moment(primarydata[0].DateOfBirth).format('YYYY-MM-DD');
-        this.primlist.EndDate = moment(primarydata[0].EndDate).format('YYYY-MM-DD');
+        this.primlist.StartDate = this.datePipe.transform(this.primlist.StartDate, "yyyy-MM-dd");
+        this.primlist.DateOfBirth = this.datePipe.transform(this.primlist.DateOfBirth,"yyyy-MM-dd");
+        this.primlist.EndDate = this.datePipe.transform(this.primlist.EndDate,"yyyy-MM-dd");
         let secondaryData = this.insuranceList.filter(x =>
           (x.InsuranceType === 'Secondary')
         )
         this.secList = secondaryData[0];
         this.secList = this.secList == undefined ? {} : this.secList;
         if (this.secList != undefined) {
-          this.secList.DateOfBirth = moment(secondaryData[0].DateOfBirth).format('YYYY-MM-DD');
-          this.secList.StartDate = moment(secondaryData[0].StartDate).format('YYYY-MM-DD');
-          this.secList.EndDate = moment(secondaryData[0].EndDate).format('YYYY-MM-DD');
+          this.secList.StartDate = this.datePipe.transform(this.secList.StartDate, "yyyy-MM-dd");
+          this.secList.DateOfBirth = this.datePipe.transform(this.secList.DateOfBirth,"yyyy-MM-dd");
+          this.secList.EndDate = this.datePipe.transform(this.secList.EndDate,"yyyy-MM-dd");
         }
       }
     });
@@ -297,7 +290,6 @@ export class InsuranceComponent implements OnInit {
   }
 
   CreateUpdateInsuraceCompanyPlan() {
-
     let isAdd = this.insuraceComplanyPlan.InsuranceCompanyId == "";
     this.insuraceComplanyPlan.LocationId = this.changedLocationId
     this.patientservice.CreateUpdateInsuranceCompanyPlan(this.insuraceComplanyPlan).subscribe((resp) => {
@@ -314,7 +306,7 @@ export class InsuranceComponent implements OnInit {
   deleteInsurancePlan() {
     this.patientservice.DeleteInsuranceCampanyplan(this.insuraceComplanyPlan).subscribe((resp) => {
       if (resp.IsSuccess) {
-        this.alertmsg.displayMessageDailog(ERROR_CODES["M2CI003"]);
+        this.alertmsg.displayErrorDailog(ERROR_CODES["M2CI003"]);
       }
     });
     this.InsuranceCompanyPlanList();
@@ -333,6 +325,10 @@ export class InsuranceComponent implements OnInit {
       this.primlist.PatientId = this.PatientDetails.PatientId;
       this.primlist.LocationId = this.changedLocationId;
       this.primlist.InsuranceType = this.primaryInsuranceType;
+       this.primlist.DateOfBirth = this.datePipe.transform(this.primlist.DateOfBirth, "MM/dd/yyyy");
+       this.primlist.StartDate = this.datePipe.transform(this.primlist.StartDate,"MM/dd/yyyy");
+       this.primlist.EndDate = this.datePipe.transform(this.primlist.EndDate,"MM/dd/yyyy");
+
       this.patientservice.CreateUpdateInsuranceDetails(this.primlist).subscribe((resp) => {
         if (resp.IsSuccess) {
           this.getInsuranceList();
@@ -354,6 +350,9 @@ export class InsuranceComponent implements OnInit {
       this.secList.PatientId = this.PatientDetails.PatientId;
       this.secList.LocationId = this.changedLocationId;
       this.secList.InsuranceType = this.secondaryInsuranceType;
+      this.secList.DateOfBirth = this.datePipe.transform(this.secList.DateOfBirth, "MM/dd/yyyy");
+      this.secList.StartDate = this.datePipe.transform(this.secList.StartDate,"MM/dd/yyyy");
+      this.secList.EndDate = this.datePipe.transform(this.secList.EndDate,"MM/dd/yyyy");
 
       this.patientservice.CreateUpdateInsuranceDetails(this.secList).subscribe((resp) => {
         if (resp.IsSuccess) {
@@ -379,6 +378,8 @@ export class InsuranceComponent implements OnInit {
         this.primlist.Zip = resp.Result.components.zipcode
         this.primlist.Street = "";
         this.addressVerfied = true;
+        this.alertmsg.displayMessageDailog(ERROR_CODES["M2CI008"]);
+
       }
       else {
         this.manuallybtn = true;
@@ -421,6 +422,7 @@ export class InsuranceComponent implements OnInit {
         this.secList.Zip = resp.Result.components.zipcode
         this.secList.Street = "";
         this.secondaryAdressVerfied = true;
+        this.alertmsg.displayMessageDailog(ERROR_CODES["M2CI009"]);
       }
       else {
         this.secondarymanuallybtn = true;
@@ -436,20 +438,7 @@ export class InsuranceComponent implements OnInit {
   secondaryenterAddressManually(item) {
     this.secondarydisableaddressverification = true;
   }
-  onFilterChange() {
-    // this.InsurancePlanList = this.getInsurancePlanList.filter((invoice) => this.isMatch(invoice));
-    this.InsurancePlanList = this.getInsurancePlanList.filter((invoice) => this.isMatch(invoice));
-    // this.InsurancePlanList = this.getInsurancePlanList.filter(i => i.name.toLowerCase().indexOf(initial.toLocaleLowerCase()) !== -1);
-  }
 
-  isMatch(item) {
-    if (item instanceof Object) {
-      return Object.keys(item).some((k) => this.isMatch(item[k]));
-    } else {
-      return item == null ? '' : item.toString().indexOf(this.SearchKey) > -1
-
-    }
-  }
   primaryspt(item) {
 
     this.primlist.SourceOfPaymentTypology = item.Code;
@@ -460,6 +449,13 @@ export class InsuranceComponent implements OnInit {
     this.secList.SourceOfPaymentTypology=item.Code;
     this.secList.PaymentTypologyDescription=item.Description;
   }
+  enableSave() {
+    return !(
+      this.insuraceComplanyPlan.PlanType != null && this.insuraceComplanyPlan.PlanType != ""
+      && this.insuraceComplanyPlan.InsuranceCompanyName != null && this.insuraceComplanyPlan.InsuranceCompanyName != ""
+    )
 
+
+  }
 }
 

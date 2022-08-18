@@ -1,5 +1,5 @@
 export class Amendments {
-  AmendmentId?: string;
+  AmendmentId?:  string;
     DateofRequest?: string='';
     DateofAccept?: string='';
     DateofAppended?: string='';
