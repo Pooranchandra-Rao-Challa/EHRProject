@@ -19,9 +19,8 @@
           <!-- Patient -->
           <div class="col-lg-12 col-md-12 col-12 mb-3">
             <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
-              <label>Patient Information</label>
+              <label class="fs-4">Patient Information</label>
             </div>
-
             <div class="row  mx-2">
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="Name" class="form-label label-design">Name</label>
@@ -103,7 +102,7 @@
           <!-- Emergency Contact -->
           <div class="col-lg-12 col-md-12 col-12 my-3">
             <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
-              <label>Emergency Contact</label>
+              <label class="fs-4">Emergency Contact</label>
             </div>
 
             <div class="row  mx-2">
@@ -150,7 +149,7 @@
                   [disabled]="!PatientMyProfile.EmergencyStreet || emergencyDisableAddressVerification"
                                 (click)="EmergencyAddressVerification()">Verify</button></div>
               </div>
-              <div class="col-lg-8 col-md-8 col-xl-9 col-12 my-2">
+              <div class="col-lg-8 col-md-12 col-xl-9 col-12 my-2">
                 <div class="form-group">
                   <div class="input-group">
                     <label class="control-label input-group-addon">Street Address</label>
@@ -160,11 +159,11 @@
                 </div>
               </div>
 			   <div class="col-lg-2 col-md-2 col-xl-1 col-12 my-2 ">
-               
+
           <button type="button" class="btn cross-mark error-close"
           *ngIf="emergencyAddressVerfied && !emergencyManuallybtn" (click)="EmergencyenableManualEntry()"
           title="Can enter manully when the verification results are in correct by clicking this icon">x</button>
-            </div>  
+            </div>
               <div class="col-lg-2 col-md-2 col-xl-2 col-12 my-2 ">
                 <div class="form-group">
                   <button class="btn-green btn manualbtn  py-0 btn-lg btn-md"
@@ -177,7 +176,7 @@
                   <div class="input-group">
                     <label class="control-label input-group-addon">City</label>
                     <input class="form-control" [(ngModel)]="PatientMyProfile.EmergencyCity" placeholder="City"
-                      type="text" id="City" name="City" 
+                      type="text" id="City" name="City"
                       [readonly]="!emergencyDisableAddressVerification" [class.address-verfied]="!emergencyManuallybtn"
                       />
                   </div>
@@ -213,7 +212,7 @@
           <!-- Next of kin -->
           <div class="col-lg-12 col-md-12 col-12 my-3">
             <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
-              <label>Next of kin</label>
+              <label class="fs-4">Next of kin</label>
             </div>
 
             <div class="row  mx-2">
@@ -281,7 +280,7 @@
           <!-- Immunization Registry-->
           <div class="col-lg-12 col-md-12 col-12 my-3">
             <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
-              <label>Immunization Registry</label>
+              <label class="fs-4">Immunization Registry</label>
             </div>
             <div class="row">
              <mat-radio-group [(ngModel)]="PatientMyProfile.ImmunizationrRegistry">
@@ -303,7 +302,7 @@
 
           <!-- <div class="col-lg-12 col-md-12 col-12 my-3">
             <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
-              <label>Immunization registry</label>
+              <label class="fs-4">Immunization registry</label>
             </div>
             <div class="row">
               <mat-radio-group [(ngModel)]="PatientMyProfile.ImmunizationrRegistry">
@@ -332,7 +331,7 @@
           <!-- Contact -->
           <div class="col-lg-12 col-md-12 col-12">
             <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
-              <label>Contact Information</label>
+              <label class="fs-4">Contact Information</label>
             </div>
             <div class="row  mx-2">
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
@@ -390,12 +389,12 @@
                 <input class="input-group form-control" placeholder="HOME ADDRESS" type="text" id="HOME ADDRESS" [disabled]="disableaddressverification"
                 [(ngModel)]="PatientMyProfile.Street">
               </div>
-              <div class="col-lg-2 col-md-2 col-xl-3 col-12 my-2 mt-3">
-                <div class="p-2"><button type="button" class="btn btn-lg btn-styles btn-verify mt-2"
-                  [disabled]="!PatientMyProfile.Street || disableaddressverification"
-                                (click)="AddressVerification()">Verify</button></div>
+              <div class="col-lg-2 col-md-4 col-xl-3 col-12 my-lg-2 mt-lg-3">
+                <div class="d-grid gap-1 p-2">
+                  <button type="button" class="btn btn-lg btn-styles btn-block btn-verify mt-4 mt-lg-2" [disabled]="!PatientMyProfile.Street || disableaddressverification" (click)="AddressVerification()">Verify</button>
+                </div>
               </div>
-              <div class="col-lg-8 col-md-8 col-xl-9 col-12 my-2">
+              <div class="col-lg-8 col-md-12 col-xl-9 col-12 my-2">
                 <div class="form-group">
                   <div class="input-group">
                     <label class="control-label input-group-addon">Street Address</label>
@@ -405,11 +404,10 @@
                 </div>
               </div>
 			   <div class="col-lg-2 col-md-2 col-xl-1 col-12 my-2 ">
-               
           <button type="button" class="btn cross-mark error-close"
           *ngIf="addressVerfied && !manuallybtn" (click)="enableManualEntry()"
           title="Can enter manully when the verification results are in correct by clicking this icon">x</button>
-            </div>  
+            </div>
               <div class="col-lg-2 col-md-2 col-xl-2 col-12 my-2 ">
                 <div class="form-group">
                   <button class="btn-green btn manualbtn  py-0 btn-lg btn-md"
@@ -456,10 +454,10 @@
           <!-- Patient Relationship -->
           <div class="col-lg-12 col-md-12 col-12 my-3">
             <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
-              <label>Patient Relationship</label>
+              <label class="fs-4">Patient Relationship</label>
             </div>
-            <div class="row  mx-2">
-              <div class="d-flex justify-content-end col-12">
+            <div class="row">
+              <div class="d-flex justify-content-lg-end col-12">
                 <div class="find-procedure">
                   <div class="form-group mx-3">
                     <div class="input-group py-3"><input type="text" name="search_procedure_code"
@@ -514,7 +512,7 @@
           <!-- Demographics -->
           <div class="col-lg-12 col-md-12 col-12 my-3">
             <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
-              <label>Demographics</label>
+              <label class="fs-4">Demographics</label>
             </div>
             <div class="row  mx-2">
               <div class="col-lg-6 col-md-6 col-xl-6 col-12 my-2">
@@ -629,7 +627,7 @@
           <!-- Care team -->
           <div class="col-lg-12 col-md-12 col-12 my-3">
             <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
-              <label>Care team</label>
+              <label class="fs-4">Care team</label>
             </div>
             <div class="row  mx-2">
               <div class="col-lg-2 col-md-2 col-xl-4 col-12"> </div>

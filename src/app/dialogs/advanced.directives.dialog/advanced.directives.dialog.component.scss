@@ -40,3 +40,7 @@ textarea::placeholder{
 .adv-modal-body.modal-body {
   padding: 20px 18px !important;
 }
+.modal-body {
+  max-height: calc(90vh - 200px);
+  overflow-y: auto;
+}
