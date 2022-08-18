@@ -78,7 +78,7 @@
 
           <div class="col-lg-12 col-md-12 col-12 mat-field-no-round-right">
             <medical-code-container [codeSystems]="codeSystemsForPatientEducation"
-          (optionChanged)="optionChangedForDiagnosis($event)" [MinTermLength]="3" [showSelectedValue]="false"></medical-code-container>
+          (optionChanged)="optionChangedForPed($event)" [MinTermLength]="3" [showSelectedValue]="false" placeholder="SNOMED"></medical-code-container>
           </div>
         </div>
         <div class="scrollable-mat-table">

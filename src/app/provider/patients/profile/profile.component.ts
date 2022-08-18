@@ -20,6 +20,7 @@ import { calcProjectFileAndBasePath } from '@angular/compiler-cli';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
+  patient: ProviderPatient;
   PatientDetails: any = [];
   PatientMyProfile: PatientProfile;
   PracticeProviders: PracticeProviders[];
@@ -126,6 +127,7 @@ export class ProfileComponent implements OnInit {
 
   //filter Provider on search text
   filterProvider(searchText: string) {
+    
     if (searchText.length < 1) {
       return [];
     }
@@ -226,6 +228,10 @@ export class ProfileComponent implements OnInit {
     this.patientService.UpdatePatientInformation(this.PatientMyProfile).subscribe(resp => {
       if (resp.IsSuccess) {
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP001"])
+        this.getPatientMyProfile();
+        // this.patient = this.authService.viewModel.Patient;
+
+ 
       }
       else {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP001"]);
@@ -369,6 +375,7 @@ export class ProfileComponent implements OnInit {
   EmergencyenterAddressManually() {
     this.emergencyDisableAddressVerification = true;
   }
+ 
 
   allowAccess() { }
 }

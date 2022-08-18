@@ -31,6 +31,9 @@ export class AppointmentComponent {
   RequestAppoinments: Appointments = {}
   Providerdata: any;
   clinicaldata: any;
+  selectedAppointmentDate: Date;
+  selectedWeekday: any;
+  selectedAppointmentDateString: string;
   constructor(private overlayService: OverlayService, private patientservice: PatientService, private authenticationService: AuthenticationService, private utilityService: UtilityService,
     private alertmsg: AlertMessage,) {
     this.user = authenticationService.userValue
@@ -43,6 +46,8 @@ export class AppointmentComponent {
     this.getLocations();
     this.getPatientUpcomingAppointments();
     this.getPatientPastAppointments();
+    this.selectedAppointmentDate = new Date(new Date().toLocaleDateString());
+    this.selectedWeekday = this.selectedAppointmentDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
   }
 
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string) {

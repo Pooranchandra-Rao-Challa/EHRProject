@@ -356,23 +356,23 @@
             <mat-label class="required">Code</mat-label>
 
             <mat-form-field appearance="outline" class="col-md-12">
-              <input matInput placeholder="" [(ngModel)]="ehrTrigger.Code">
+              <input matInput placeholder="" [(ngModel)]="ehrTrigger.Code" class="not-allowed" disabled>
             </mat-form-field>
 
           </div>
           <br>
           <mat-label class="required">Code System</mat-label>
 
-          <mat-form-field appearance="outline" class="col-md-12">
-            <input matInput placeholder="" [(ngModel)]="ehrTrigger.System">
+          <mat-form-field appearance="outline" class="col-md-12 ">
+            <input matInput placeholder="" [(ngModel)]="ehrTrigger.System" disabled class="not-allowed">
           </mat-form-field>
         </div>
 
         <div class="col-md-12">
           <mat-label class="required">Description:</mat-label>
 
-          <textarea matInput class="text-border" placeholder="" readonly disabled
-            [(ngModel)]="ehrTrigger.Description"></textarea>
+          <textarea matInput class="text-border not-allowed" placeholder="" readonly disabled
+            [(ngModel)]="ehrTrigger.Description"  ></textarea>
 
           
         </div>
