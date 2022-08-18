@@ -64,7 +64,7 @@ export class AllergyTableDialogComponent implements OnInit {
     if (action == Actions.view && content === this.allergyDialogComponent) {
       reqdata = dialogData;
     }
-    const ref = this.overlayService.open(content, reqdata);
+    const ref = this.overlayService.open(content, reqdata, true);
     ref.afterClosed$.subscribe(res => {
       this.UpdateView(res.data);
     });

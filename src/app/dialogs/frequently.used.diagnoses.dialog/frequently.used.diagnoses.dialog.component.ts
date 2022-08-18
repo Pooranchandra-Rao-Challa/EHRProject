@@ -63,7 +63,7 @@ export class FrequentlyUsedDiagnosesDialogComponent implements OnInit {
       reqdata = dialogData;
       this.frequentlyUsedDiagnoses.IsEditable = false;
     }
-    const ref = this.overlayService.open(content, reqdata);
+    const ref = this.overlayService.open(content, reqdata, true);
     ref.afterClosed$.subscribe(res => {
       // this.UpdateView(res.data);
       if(res.data != null){

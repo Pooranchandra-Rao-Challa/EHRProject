@@ -10,9 +10,9 @@
       <div class="row">
         <label>Search Reaction(s): </label>
         <mat-form-field appearance="outline" class="col-12">
-          <mat-select>
+          <mat-select placeholder="Search reaction" #reaction>
             <mat-select-filter [displayMember]="'CodeDescription'" [array]="reasonCodesFilter"
-              (filteredReturn)="reasonCodes = $event"></mat-select-filter>
+              (filteredReturn)="reasonCodes = $event" *ngIf="reaction.focused"></mat-select-filter>
             <mat-option *ngFor="let reason of reasonCodes" [value]="reason" (click)="selectReason(reason)">
               {{reason.CodeDescription}}
             </mat-option>
