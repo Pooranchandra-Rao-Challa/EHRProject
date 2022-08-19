@@ -234,8 +234,8 @@
       </form>
     </div>
     <div class="modal-footer">
-      <button mat-raised-button type="submit" class="btn btn-green   pull-right" (click)="save()" [disabled]="enableSave()" *ngIf="!saveClicked && !labandImaging.Signed">Save</button>
-      <button mat-raised-button type="submit" class="btn btn-green   pull-right" (click)="signed()"  [disabled]="enableSave()" *ngIf="!labandImaging.Signed">Sign</button>
+      <button mat-raised-button type="submit" class="btn btn-green   pull-right" (click)="save()" [disabled]="enableSave()">Save</button>
+      <button mat-raised-button type="submit" class="btn btn-green   pull-right" (click)="signed()"  [disabled]="enableSave()">Sign</button>
       <button mat-raised-button class="btn btn-green pull-right" (click)="close()">Close</button>
     </div>
   </div>

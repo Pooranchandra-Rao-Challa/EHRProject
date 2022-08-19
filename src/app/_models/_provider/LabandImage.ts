@@ -24,7 +24,9 @@ export class LabProcedureWithOrder {
   View?: string;
   CreatedDate?: Date;
   PatientName?: string;
+  PrimaryPhone?: string;
   ProviderName?: string;
+  sex?:string;
   TotalRecords?: number;
   LabResult?: LabResultInfo = {};
   TestResultsOfImages?: ImageResultInfo = {};

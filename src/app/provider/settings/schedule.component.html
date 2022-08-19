@@ -143,14 +143,14 @@
                   <div class="plabel col-lg-9">Provider</div>
                   <div class="col-lg-3 pull-right"><span class="plabel pull-right">Edit Provider Schedule</span></div>
                 </div>
-                <div class="row my-3 mx-2">
-                  <div class="col-lg-9">
-                    <p class="mt-2 privdertext">{{user.FirstName+" "+user.LastName}}</p>
+                <div class="row my-3 mx-2 provider-schedule-border" *ngFor="let provider of providersDataSource">
+                  <div class="col-lg-10" >
+                    <p class="mt-2 privdertext">{{provider.FirstName+" "+provider.LastName}}</p>
                   </div>
                   <div class="col-lg-2">
                     <button type="button" id="providerrooms"
-                    (click)="GetUserInfoData()"
-                      class="btn btn-md btn-green py-3 px-4" style="float: right; height:unset;">Edit</button>
+                    (click)="GetUserInfoData(provider)"
+                      class="btn btn-green btn-edit-user" style="float: right; height:unset;">Edit</button>
                   </div>
                 </div>
               </div>
@@ -216,23 +216,24 @@
                             <div class="col-md-5 col-5">
                               <div class="form-group">
                                 <input type="text"
-                                  [class]="(!isNewType(typeIndex) || !ctlType.get('Editable').value) ? 'schedule-inputclass': 'inputclass'"
-                                  [readonly]="!isNewType(typeIndex) || !ctlType.get('Editable').value"
+                                  [class]="!isTypeEditable(typeIndex) ? 'schedule-inputclass': 'inputclass'"
+                                  [readonly]="!isTypeEditable(typeIndex)"
                                   class="form-control inputclass" formControlName="AppointmentType">
                               </div>
                             </div>
                             <div class="col-md-3 col-3">
                               <input class="cstm-color-picker"
                                 [(colorPicker)]="ctlType.get('Colour').value"
-                                [style.background]="ctlType.get('Colour').value" />
+                                [style.background]="ctlType.get('Colour').value"
+                                formControlName="Colour"/>
                             </div>
                             <div class="col-md-4 col-4 pt-2 pt-md-0"
                               *ngIf="ctlType.get('Editable').value">
                               <button type="button" id="Actbtn7" class="btn btn-green btn-edit pull-right"
-                                *ngIf="isNewType(typeIndex)" (click)="saveAppointmentType(typeIndex)">
+                                *ngIf="isTypeEditable(typeIndex)" (click)="saveAppointmentType(typeIndex)">
                                 Save
                               </button>
-                              <button type="button" id="Actbtn8" *ngIf="!isNewType(typeIndex)"
+                              <button type="button" id="Actbtn8" *ngIf="!isTypeEditable(typeIndex) && ctlType.get('Editable').value"
                                 (click)="onEditType(typeIndex)" class="btn btn-green btn-edit pull-right">
                                 Edit
                               </button>

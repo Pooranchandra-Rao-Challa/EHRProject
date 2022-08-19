@@ -71,6 +71,7 @@ export class PatientScheduleComponent implements OnInit{
     this.patientSearchTerms
     .pipe(
       map(value=>{
+        this.noSearchResults = false;
         this.patients =[]
         return value;
       }),

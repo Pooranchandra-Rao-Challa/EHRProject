@@ -119,6 +119,7 @@ import { ProvidermessagetopracticeDialogComponent } from 'src/app/dialogs/provid
 import { ProvidermessagetopatientDialogComponent } from 'src/app/dialogs/providermessagetopatient.dialog/providermessagetopatient.dialog.component';
 import { MessagesService } from 'src/app/_services/messages.service';
 import { CCdaDialogComponent } from 'src/app/dialogs/c-cda.dialog/c-cda.dialog.component';
+import{MessageDialogComponent} from 'src/app/dialogs/alert.dialog/message.dialog.component'
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
   interactionPlugin,
@@ -151,7 +152,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     FrequentlyUsedDiagnosesDialogComponent,
     AddDiagnosesDialogComponent,
     PatientEducationMaterialDialogComponent,
-    CCdaDialogComponent
+    CCdaDialogComponent,
+    MessageDialogComponent
 
   ],
   declarations: [
@@ -220,7 +222,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     FrequentlyUsedDiagnosesDialogComponent,
     AddDiagnosesDialogComponent,
     PatientEducationMaterialDialogComponent,
-    CCdaDialogComponent
+    CCdaDialogComponent,
+    MessageDialogComponent
   ],
   imports: [
     FullCalendarModule,
@@ -296,7 +299,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     FrequentlyUsedDiagnosesDialogComponent,
     AddDiagnosesDialogComponent,
     PatientEducationMaterialDialogComponent,
-    CCdaDialogComponent]
+    CCdaDialogComponent,
+    MessageDialogComponent]
 })
 export class ProviderModule {
 
