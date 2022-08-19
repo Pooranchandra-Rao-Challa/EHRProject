@@ -36,7 +36,7 @@ div.patients-navigation{
   margin-right: 0;
 }
 .btn {
-  width: 165px;
+  // width: 165px;
   height: 45px;
   cursor: pointer;
   border-radius: 3px;
@@ -114,7 +114,7 @@ a {
   padding-top: 2px !important;
 }
 ::ng-deep .patients-wrapper .mat-checkbox-label{
-  padding-top: 10px !important;
+  // padding-top: 10px !important;
     padding-left: 10px !important;
 }
 ::ng-deep .patients-wrapper .mat-checkbox-layout{
@@ -150,5 +150,6 @@ a {
 ::ng-deep .patients-search .input-search .mat-form-field-outline-end{
   border-radius: 0 5px 5px 0 !important;
 }
-
-
+.mat-input-element {
+  width: 100% !important;
+}

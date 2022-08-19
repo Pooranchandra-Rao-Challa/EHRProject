@@ -20,7 +20,7 @@ export class ClinicDecisionComponent implements OnInit {
   ehrTriggerList: TriggerInformation = {};
   triggerSearchList = new BehaviorSubject<EhrTrigger[]>([]);
   ehrTrigger: EhrTrigger = new EhrTrigger();
-  codeSystemsForClinicalDecision: string[] = ['SNOMED/ICD10'];
+  codeSystemsForClinicalDecision: string[] = ['SNOMED/ICD10','Local'];
   clinicalDecisionSearchColumns = ["CODE", "CODE SYSTEM", "DESCRIPTION", "Delete"];
 
   user: User;

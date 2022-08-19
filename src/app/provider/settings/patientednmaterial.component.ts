@@ -21,7 +21,7 @@ export class PatientEdnMaterialComponent implements OnInit {
   searchnow: boolean = true;
   patientmaterialfrom: FormGroup
   expandedchangecolor: boolean = false;
-  codeSystemsForPatientEducation: string[] = ['SNOMED'];
+  codeSystemsForPatientEducation: string[] = ['','SNOMED/ICD10','CDT/CPT','Lonics','NDC','RxNorm'];
   patientEducationInfo: PatientEducationInfomation = new PatientEducationInfomation();
    patientEducationSearchList= new BehaviorSubject<EducationMaterialCode[]>([]);
   // columnsToDisplay = [ 'name', 'codeSystem', 'resouceNote', 'attachments'];
@@ -80,10 +80,6 @@ export class PatientEdnMaterialComponent implements OnInit {
     })
 
   }
-  codeSystemDD = [{ value: 'Snomed', viewValue: 'Snomed' }, { value: 'ICD10', viewValue: 'ICD10' },
-  { value: 'CDT', viewValue: 'CDT' }, { value: 'LOINC', viewValue: 'LOINC' }, { value: 'NDC', viewValue: 'NDC' }, { value: 'RxNorm', viewValue: 'RxNorm' }]
-
-
   removeattachemnt(i: number) {
 
     this.attachments.removeAt(i);
@@ -95,7 +91,7 @@ export class PatientEdnMaterialComponent implements OnInit {
 
   }
 
-  optionChangedForDiagnosis(value: MedicalCode) {
+  optionChangedForPed(value: MedicalCode) {
   //  this.educationMaterialCode= new EducationMaterialCode();
    this.educationMaterialCode.Code = value.Code
    this.educationMaterialCode.CodeSystem = value.CodeSystem

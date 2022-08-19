@@ -1,6 +1,5 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import * as moment from 'moment-timezone';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { Amendments } from 'src/app/_models/_provider/amendments';
 import { AuthenticationService } from 'src/app/_services/authentication.service';

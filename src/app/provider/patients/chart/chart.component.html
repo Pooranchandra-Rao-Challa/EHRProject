@@ -54,11 +54,11 @@
           </div>
         </div>
       </div>
-      <div class="pull-right col-xl-6 col-lg-7 col-md-12 col-12">
-        <div class="row pull-right" style="padding-right: 13px;">
-          <a class="btn btn-green col-lg-4 col-md-4 col-12 mt-2 mt-lg-0" id="check-alerts">Check CDS Alerts</a>
-          <a class="btn btn-green col-lg-4 col-md-4 col-12 mt-2 mt-lg-0">Refresh Chart</a>
-          <a class="btn btn-orange col-md-4 col-12 mt-2 mt-lg-0"
+      <div class="col-xl-6 col-lg-7 col-md-12 col-12">
+        <div class="row float-end mt-2 mt-lg-0 g-0">
+          <a class="btn btn-green" id="check-alerts">Check CDS Alerts</a>
+          <a class="btn btn-green mb-2 mb-md-0">Refresh Chart</a>
+          <a class="btn btn-orange"
             (click)="openComponentDialog(encounterDialogComponent,null,ActionTypes.new)">New
             Encounter Note
           </a>
@@ -542,6 +542,7 @@
   </div>
 </div>
 
+<!-- modal dialogs -->
 
 <!-- Past medical history -->
 <div class="modal fade " id="pastmedical-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -765,37 +766,6 @@
   </div>
 </div>
 
-
-<!-- Patient Education Material in medication popup -->
-<div class="modal fade " id="exampleModal7" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-  aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-md" role="document">
-    <div class="modal-content">
-      <div class="modal-header header-change">
-        <span type="button" class="cross-mark" data-bs-dismiss="modal">
-          X
-        </span>
-      </div>
-      <div class="modal-body">
-        <div class="scrollable-container" style="height: auto;">
-          <div class="content">
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="icon icon-ic-material-not-found"></div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-12 modal-text">
-                <p>No Patient Education Material Available for this Code</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- Medication and precription modal -->
 <div class="modal fade " id="medication-prescription-modal" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -839,7 +809,6 @@
   </div>
 </div>
 
-
 <!-- Add/Edit Immunization -->
 <div class="modal fade " id="immunization-modal" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -860,7 +829,7 @@
             <mat-radio-button class="ms-5" value="historical" (change)="resetImmunization($event)">
               <mat-label class="Helvetica-sans-serif-medium">Historical</mat-label>
             </mat-radio-button>
-            <mat-radio-button class="ms-5" value="refused" (change)="resetImmunization($event)">
+            <mat-radio-button class="ms-lg-5 mt-2 mt-sm-0" value="refused" (change)="resetImmunization($event)">
               <mat-label class="Helvetica-sans-serif-medium">Refused</mat-label>
             </mat-radio-button>
           </mat-radio-group>

@@ -190,3 +190,8 @@ a.disabled{
   color:#41a6b6 !important;
   background: white !important;
 }
+.modal-body {
+  max-height: calc(90vh - 180px);
+  overflow-y: auto;
+}
+

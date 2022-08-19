@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-lg-12 mt-2">
           <h4>
-            April 28, 2022
+            {{ selectedWeekday }}
           </h4>
         </div>
       </div>
@@ -58,7 +58,7 @@
             </tr>
             <tr>
               <td *ngIf="PatientUpcomingAppointmentsList?.length==null || PatientUpcomingAppointmentsList?.length==0"
-                colspan="7">
+                colspan="7" class="norecords-found">
                 You don't have any upcoming appointments.
               </td>
             </tr>
@@ -86,7 +86,7 @@
             </tr>
             <tr>
               <td *ngIf="PatientPastAppointmentsList?.length==null || PatientPastAppointmentsList?.length==0"
-                colspan="7">
+                colspan="7" class="norecords-found">
                 You don't have any past appointments.
               </td>
             </tr>

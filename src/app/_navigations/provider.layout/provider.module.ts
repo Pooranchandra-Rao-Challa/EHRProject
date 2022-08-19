@@ -109,7 +109,7 @@ import { InterventionTableDialogComponent } from '../../dialogs/intervention.tab
 import { AllergyTableDialogComponent } from '../../dialogs/allergy.table.dialog/allergy.table.dialog.component';
 import { FrequentlyUsedDiagnosesDialogComponent } from '../../dialogs/frequently.used.diagnoses.dialog/frequently.used.diagnoses.dialog.component';
 import { AddDiagnosesDialogComponent } from '../../dialogs/add.diagnoses.dialog/add.diagnoses.dialog.component';
-
+import { PatientEducationMaterialDialogComponent } from '../../dialogs/patient.education.material.dialog/patient.education.material.dialog.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 import interactionPlugin from '@fullcalendar/interaction'; // a plugin!
@@ -150,8 +150,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     AllergyTableDialogComponent,
     FrequentlyUsedDiagnosesDialogComponent,
     AddDiagnosesDialogComponent,
+    PatientEducationMaterialDialogComponent,
     CCdaDialogComponent
-    
+
   ],
   declarations: [
     ProviderNavbarComponent,
@@ -218,6 +219,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     AllergyTableDialogComponent,
     FrequentlyUsedDiagnosesDialogComponent,
     AddDiagnosesDialogComponent,
+    PatientEducationMaterialDialogComponent,
     CCdaDialogComponent
   ],
   imports: [
@@ -293,6 +295,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     AllergyTableDialogComponent,
     FrequentlyUsedDiagnosesDialogComponent,
     AddDiagnosesDialogComponent,
+    PatientEducationMaterialDialogComponent,
     CCdaDialogComponent]
 })
 export class ProviderModule {

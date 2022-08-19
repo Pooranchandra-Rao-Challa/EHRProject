@@ -28,9 +28,9 @@
   background: #41b6a6 ;
 }
 
-.btn-styles.btn-verify{
-  min-width: 220px;
-}
+// .btn-styles.btn-verify{
+//   min-width: 220px;
+// }
 
 .profile-hr {
   border-top: 3px solid #41b6a6;
@@ -45,13 +45,13 @@
   height: 56px;
   font-weight: 500;
   color: white;
-
 }
 
 .label-design {
-  font-size: 16px;
+  font-size: 14px;
   font-family: 'Roboto';
 }
+label{font-size: 14px;}
 
 .input-group.form-control {
   height: 50px;
@@ -195,6 +195,11 @@ input::-webkit-input-placeholder {
   border-color: #41b6a6 !important;
   background: white !important;
   width: 550px !important;
+}
+@media screen and (min-width:920px) {
+  .input-group>.form-control.search-control {
+    width: 550px !important;
+  }
 }
 
 // toggle on off checkbox

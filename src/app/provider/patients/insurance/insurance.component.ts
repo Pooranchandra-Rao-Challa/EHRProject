@@ -1,10 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { disableDebugTools } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { table } from 'console';
 import { fromEvent, Observable, of } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, map, startWith } from 'rxjs/operators';
 import { PracticeLocation, User } from 'src/app/_models';
 
 import { AuthenticationService } from 'src/app/_services/authentication.service';

@@ -8,11 +8,11 @@
   //margin-top: -115px;
 }
 .modal-body {
-  max-height: calc(90vh - 180px);
+  max-height: calc(90vh - 200px);
   overflow-y: auto;
 }
 .modal-content{
-  max-width: 660px;
+  max-width: 640px;
   margin: auto;
 }
 .modal-header{
@@ -53,10 +53,10 @@
   min-height: 45px;
 }
 .btn-appointment-cancel-right{
-  margin-right: 144px;
+  // margin-right: 144px;
   display: flow-root;
   float: inherit;
-  margin-left: -6px;
+  // margin-left: -6px;
   padding: 10px !important;
   border: 1px solid #d64841 !important;
 }
@@ -64,6 +64,7 @@
   background-color: #d64841 !important;
   color: white !important;
 }
+.btn:not(:last-child){margin-right: 8px !important;}
 /*
 ::ng-deep div#practiveProviders2-panel.mat-select-panel,
 ::ng-deep div#selSmartAppointmentTypes-panel.mat-select-panel,

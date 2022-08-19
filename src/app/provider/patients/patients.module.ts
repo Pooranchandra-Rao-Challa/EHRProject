@@ -15,6 +15,7 @@ import { PatientsBreadCrumComponent } from './patients-bread-crum/patients-bread
 import { PaginatorDirective } from 'src/app/_directives/pagination.directive'
 import { BreadcrumbComponent } from 'src/app/provider/patients/patient.breadcrumb/breadcrumb.component'
 import { TreeProcedureComponent } from 'src/app/provider/patients/dental.chart/tree.procedure.component'
+import { NgxMaskModule } from 'ngx-mask';
 
 
 
@@ -22,6 +23,8 @@ import { TreeProcedureComponent } from 'src/app/provider/patients/dental.chart/t
   imports: [
     SharedModule,
     CommonModule,
+    NgxMaskModule.forRoot(),
+
   ],
   exports: [
     PatientsComponent,

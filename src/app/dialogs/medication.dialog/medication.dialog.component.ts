@@ -13,6 +13,7 @@ import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { fromEvent, Observable, of } from 'rxjs';
 import { filter, map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { DatePipe } from '@angular/common';
+import { PatientEducationMaterialDialogComponent } from '../patient.education.material.dialog/patient.education.material.dialog.component';
 
 @Component({
   selector: 'app-medication.dialog',
@@ -21,6 +22,7 @@ import { DatePipe } from '@angular/common';
 })
 export class MedicationDialogComponent implements OnInit {
   discontinueDialogComponent = DiscontinueDialogComponent;
+  patientEducationMaterialDialogComponent = PatientEducationMaterialDialogComponent;
   ActionTypes = Actions;
   // medications: GlobalConstants;
   // medicationsFilter: GlobalConstants;
@@ -123,7 +125,7 @@ export class MedicationDialogComponent implements OnInit {
     if (action == Actions.view && content === this.discontinueDialogComponent) {
       reqdata = dialogData;
     }
-    const ref = this.overlayService.open(content, reqdata);
+    const ref = this.overlayService.open(content, reqdata, true);
     ref.afterClosed$.subscribe(res => {
       this.patientMedication.ReasonDescription = res.data.ReasonDescription;
     });

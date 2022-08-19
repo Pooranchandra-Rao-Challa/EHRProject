@@ -9,6 +9,11 @@
 .ordermodel.modal-content{
     width: 900px !important;
 }
+@media screen and (max-width:768px) {
+  .ordermodel.modal-content{
+    max-width: 520px !important;
+}
+}
 #labandimaging .dropdown-menu{
   min-width: unset;
 }
@@ -22,7 +27,7 @@
 .disabled-color{
   background: transparent;
 }
-
+mat-label{width: 100%;display: block;}
 .plusicon {
     border-radius: 50%;
     border: 1px solid #fff;
