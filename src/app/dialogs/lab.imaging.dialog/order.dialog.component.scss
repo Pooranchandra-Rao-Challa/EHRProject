@@ -17,7 +17,7 @@
 #labandimaging .dropdown-menu{
   min-width: unset;
 }
-.ordermodel .modal-body {
+.modal-body {
   max-height: calc(90vh - 200px);
   overflow-y: auto;
 }
@@ -145,5 +145,5 @@ mat-label{width: 100%;display: block;}
   top: -4px;
   height: 1.5em;
 }
-
+.mat-form-field{width: 100%;}
 

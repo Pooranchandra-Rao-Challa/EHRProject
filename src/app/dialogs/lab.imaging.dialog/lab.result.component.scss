@@ -3,12 +3,12 @@
 
 
 
-#editlaborder.modal-dialog{
-  max-width: unset;
-  width: 1000px;
-  left: calc(100% - 85%) !important;
-  margin: unset;
-}
+// #editlaborder.modal-dialog{
+//   max-width: unset;
+//   width: 1000px;
+//   left: calc(100% - 85%) !important;
+//   margin: unset;
+// }
 
 #editlaborder .place-holder::placeholder{
   font-size:8pt;
@@ -28,7 +28,7 @@
 #editlaborder .modal-body > .row > .tbody{
   display: inherit;
   margin-left: 14px;
-  width: 97.5%;
+  width: 100%;
   border-top: 1px solid #41b6a6;
   border-left: 1px solid #41b6a6;
   border-right: 1px solid #41b6a6;
@@ -58,13 +58,12 @@
 }
 #editlaborder .modal-body > .row .panel-heading{
   display: flex;
-  height: 40px;
+  // height: 40px;
 }
 #editlaborder .modal-body > .row .panel-heading .title{
   width: 92.8%;
   font-size: 16px;
   font-weight: 500;
-
 }
 #editlaborder .modal-body > .row .panel-heading .title-right{
   width:inherit;
@@ -73,7 +72,7 @@
 #editlaborder .modal-body > .row .panel-tests .header-row{
   background: #41b6a6;
   color:#fff;
-  height: 45px;
+  // height: 45px;
   margin: 0 1px;
 }
 #editlaborder .modal-body > .row .panel-tests .header-row div{
@@ -88,7 +87,7 @@
 #editlaborder .modal-body > .row .panel-tests .data-row{
   background: #fff;
   color:#41b6a6;
-  height: 40px;
+  // height: 40px;
   margin: 0 1px;
 }
 #editlaborder .modal-body > .row .panel-tests .data-row div input{
@@ -133,7 +132,8 @@
     background: #41b6a6;
   }
 }
-
+mat-label{display: block;width: 100%;}
+.mat-form-field{width: 100%;}
 
 .notallowed-cursor {
     cursor: not-allowed;
