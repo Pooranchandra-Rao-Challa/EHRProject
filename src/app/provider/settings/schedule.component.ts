@@ -207,13 +207,13 @@ export class ScheduleComponent implements OnInit {
     let findIndex = this.typeOnEdit.findIndex(typeindex => typeIndex)
     findIndex !== -1 && this.typeOnEdit.splice(findIndex, 1)
   }
-  isNewType(rowIndex: number) {
+  isTypeEditable(rowIndex: number) {
     let ctlValue = this.typeForm.controls.type["controls"][rowIndex].value;
     let id = ctlValue.Id;
     let editable = this.typeOnEdit.indexOf(rowIndex) >-1 && ctlValue.Editable
-    console.log(editable);
 
-    return isNaN(Number(id)) ? false : Number(id) < 0 ? true : editable;
+    let flag =  Number(id) < 0 ? true : editable;
+    return flag;
   }
   onEditType(typeIndex: number) {
     this.typeOnEdit.push(typeIndex);
@@ -334,6 +334,8 @@ export class ScheduleComponent implements OnInit {
 
 
     let ctlvalue = ctlType.value;
+    console.log(ctlvalue);
+
     let reqparams: any;
     if (!isNaN(Number(ctlvalue.Id)) && Number(ctlvalue.Id) < 0)
       ctlvalue['TypeId'] = null;
