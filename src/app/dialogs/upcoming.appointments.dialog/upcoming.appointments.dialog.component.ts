@@ -56,11 +56,13 @@ export class UpcomingAppointmentsDialogComponent implements OnInit {
       this.data.status = Actions.view;
       this.data.Title = "Edit Appointment";
       this.data.PatientAppointment.AppointmentId = patientapp.AppointmentId
+      this.data.PatientAppointment.ProviderId = patientapp.ProviderId
       this.data.PatientAppointment.Startat = patientapp.Startat
       this.data.PatientAppointment.AppointmentStatusId = patientapp.AppointmentStatusId;
       this.data.PatientAppointment.AppointmentTypeId = patientapp.AppointmentTypeId;
       this.data.PatientAppointment.Notes = patientapp.Notes;
       this.data.PatientAppointment.RoomId = patientapp.RoomId;
+      this.data.PatientAppointment.Duration = patientapp.Duration;
     }
     else {
       this.data.status = Actions.new;
@@ -76,6 +78,8 @@ export class UpcomingAppointmentsDialogComponent implements OnInit {
         if(res.data && res.data.saved){
           this.ref.close({'saved':true});
         } else if(res.data && res.data.closed){
+          this.ref.close({'closed':true});
+        }else if(res.data && res.data.refresh){
           this.ref.close({'closed':true});
         }
       }

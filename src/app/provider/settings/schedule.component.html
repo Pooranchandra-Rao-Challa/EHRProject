@@ -143,14 +143,14 @@
                   <div class="plabel col-lg-9">Provider</div>
                   <div class="col-lg-3 pull-right"><span class="plabel pull-right">Edit Provider Schedule</span></div>
                 </div>
-                <div class="row my-3 mx-2">
-                  <div class="col-lg-9">
-                    <p class="mt-2 privdertext">{{user.FirstName+" "+user.LastName}}</p>
+                <div class="row my-3 mx-2 provider-schedule-border" *ngFor="let provider of providersDataSource">
+                  <div class="col-lg-10" >
+                    <p class="mt-2 privdertext">{{provider.FirstName+" "+provider.LastName}}</p>
                   </div>
                   <div class="col-lg-2">
                     <button type="button" id="providerrooms"
-                    (click)="GetUserInfoData()"
-                      class="btn btn-md btn-green py-3 px-4" style="float: right; height:unset;">Edit</button>
+                    (click)="GetUserInfoData(provider)"
+                      class="btn btn-green btn-edit-user" style="float: right; height:unset;">Edit</button>
                   </div>
                 </div>
               </div>

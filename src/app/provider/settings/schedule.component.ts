@@ -34,6 +34,7 @@ export class ScheduleComponent implements OnInit {
   Actions = Actions;
   generalSchedule: GeneralSchedule = {} as GeneralSchedule;
   userDialogComponent = UserDialogComponent;
+  providersDataSource: NewUser[];
 
   constructor(private authService: AuthenticationService,
     private settingsService: SettingsService,
@@ -52,13 +53,25 @@ export class ScheduleComponent implements OnInit {
     this.getAppointmentType();
     this.getRoomsForLocation();
     this.buildRoomsForm();
+    this.getProviderDetails();
     this.buildStatusForm();
     this.buildTypeForm();
     this.locationChanged.getData().subscribe(location => {
       this.getRoomsForLocation();
     })
   }
-
+//get provide Details
+  getProviderDetails() {
+    var reqparams = {
+      provider_Id: this.user.ProviderId,
+      location_Id: this.user.CurrentLocation
+    }
+    this.settingsService.ProviderDetails(reqparams).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.providersDataSource = resp.ListResult as NewUser[];
+      } else this.providersDataSource = [];
+    });
+  }
   // get display Location Details
   getLocationsList() {
     this.ClinicLocations = [];
@@ -458,11 +471,11 @@ export class ScheduleComponent implements OnInit {
   }
 
 
-  GetUserInfoData() {
+  GetUserInfoData(provider) {
     var reqparams = {
-      UserId: this.user.UserId,
-      LoginProviderId: this.user.ProviderId,
-      ClinicId: this.user.ClinicId
+      UserId: provider.UserId,
+      LoginProviderId: provider.providerId,
+      ClinicId: provider.ClinicId
     }
     this.settingsService.UserInfoWithPracticeLocations(reqparams).subscribe(resp => {
       let UserInfo = resp.Result as NewUser;

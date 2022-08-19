@@ -14,6 +14,9 @@ import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { fromEvent, Observable, of } from 'rxjs';
 import { filter, map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import {MessageDialogComponent} from 'src/app/dialogs/alert.dialog/message.dialog.component'
+import { ComponentType } from 'ngx-toastr';
+import { OverlayService } from 'src/app/overlay.service';
 
 
 
@@ -55,17 +58,21 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
   data: AppointmentDialogInfo = {};
   showMessage: BehaviorSubject<boolean> = new BehaviorSubject(false);
   showHideMessage$ = this.showMessage.asObservable();
+  messageDialogComponent = MessageDialogComponent;
+  ActionTypes: any;
 
   constructor(
     private ref: EHROverlayRef,
     private authService: AuthenticationService,
     private smartSchedulerService: SmartSchedulerService,
     private alert: AlertMessage,
-    private datePipe: DatePipe) {
+    private datePipe: DatePipe,
+    private overlayService : OverlayService) {
     this.data = ref.RequestData;
     this.PatientAppointment = {} as NewAppointment;
 
     this.PatientAppointment = this.data.PatientAppointment;
+    
 
     this.appointmentTitle = this.data.Title;
     this.AppointmentTypes = this.data.AppointmentTypes;
@@ -290,6 +297,8 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
         this.onError = false;
         this.ref.close({ 'refresh': true });
         this.OperationMessage = resp.EndUserMessage;
+        //this.openComponentDialog(this.messageDialogComponent,null,Actions.view);
+        //if (this.data.NavigationFrom = )
         this.alert.displayMessageDailog(ERROR_CODES[isAdd ? "M2AA001" : "M2AA002"]);
       }
       else {
@@ -299,4 +308,16 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
       }
     });
   }
+  openComponentDialog(content: any | ComponentType<any> | string,
+    dialogData, action: Actions = this.ActionTypes.add) {
+    let reqdata: any;
+    if (action == Actions.view && content === this.messageDialogComponent) {
+      reqdata = dialogData;
+    }
+    const ref = this.overlayService.open(content, reqdata, true);
+    ref.afterClosed$.subscribe(res => {
+      
+    });
+  }
+
 }
