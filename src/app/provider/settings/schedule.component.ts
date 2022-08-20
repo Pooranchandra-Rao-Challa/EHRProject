@@ -4,7 +4,7 @@ import { Component, OnInit, NgModule, TemplateRef } from '@angular/core';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { SettingsService } from '../../_services/settings.service';
 import { User } from '../../_models';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
 import { AppointmentStatus, AppointmentType, GeneralSchedule, NewUser, RoomsSlot } from '../../_models/_provider/_settings/settings';
 import { IdService } from '../../_helpers/_id.service';
 import { AlertMessage, ERROR_CODES } from './../../_alerts/alertMessage';
@@ -179,7 +179,9 @@ export class ScheduleComponent implements OnInit {
   onEditStatus(statusIndex: number) {
     this.statusOnEdit.push(statusIndex);
   }
-
+  onAppTypeLog(ctrlType: AbstractControl,event){
+    ctrlType.value.Colour = event.color;
+  }
   // Appointment Type
   buildTypeForm() {
     this.typeForm = this.fb.group({

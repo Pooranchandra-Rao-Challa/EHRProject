@@ -222,10 +222,26 @@
                               </div>
                             </div>
                             <div class="col-md-3 col-3">
-                              <input class="cstm-color-picker"
+                                <input class="cstm-color-picker" [(colorPicker)]="ctlType.get('Colour').value"
+                                [style.background]="ctlType.get('Colour').value"
+                                [cpCancelButton]="true"
+                                [cpOKButton]="true"
+                                [cpPosition]="bottom"
+                                [cpPositionRelativeToArrow]="true"
+                                [cpCancelButtonClass]= "'btn btn-color-picker btn-xs'"
+                                [cpOKButtonClass]= "'btn btn-color-picker btn-xs'"
+                                (cpInputChange)="onAppTypeLog(ctlType, $event)"
+                                (cpSliderDragStart)="onAppTypeLog(ctlType, $event)"
+                                (cpSliderDragEnd)="onAppTypeLog(ctlType, $event)"
+                                />
+                              <!-- <input class="cstm-color-picker"
+                                [cpPosition]="'bottom'"
+                                [cpPositionRelativeToArrow]="true"
+                                [cpCancelButton]="true"
                                 [(colorPicker)]="ctlType.get('Colour').value"
                                 [style.background]="ctlType.get('Colour').value"
-                                formControlName="Colour"/>
+                                [cpCancelButtonClass]= "'btn btn-primary btn-xs'"
+                                formControlName="Colour"/> -->
                             </div>
                             <div class="col-md-4 col-4 pt-2 pt-md-0"
                               *ngIf="ctlType.get('Editable').value">

@@ -1,126 +1,130 @@
 <div class="container-fluid">
-  <div class="row">
-    <div class="d-flex justify-content-end flex-sm-row flex-column">
+  <div class="row" style="width: 100%">
+    <div class="d-flex justify-content-end flex-sm-row flex-column" style="float: right;
+    padding-right: unset;">
       <!-- Button trigger modal -->
       <div class="p-2"><button type="button" class="btn btn-lg btn-styles" data-bs-toggle="modal"
           data-bs-target="#ResetPwdModal">Reset Password</button></div>
       <div class="p-2"><button type="button" class="btn btn-lg btn-styles" data-bs-toggle="modal"
-          data-bs-target="#noteModal" >Notes</button></div>
-      <div class="p-2"><button type="button" class="btn btn-lg btn-danger btn-authorized" data-bs-toggle="modal"
+          data-bs-target="#noteModal">Notes</button></div>
+      <div class="p-2" style="padding-right: unset !important;"><button type="button"
+          class="btn btn-lg btn-danger btn-authorized" data-bs-toggle="modal"
           data-bs-target="#AuthorizedModal">Authorized Rep.</button></div>
       <!-- <div class="p-2"><button type="button" class="btn btn-lg btn-orange">Save</button></div> -->
     </div>
   </div>
 
-  <div class="profile-hr my-1">
+  <div class="profile-hr" style="border-right: 1px solid #41b6a6;">
     <div class="row">
       <div class="col-lg-6 col-md-6 col-12 mycontent-left">
         <div class="row">
           <!-- Patient -->
           <div class="col-lg-12 col-md-12 col-12 mb-3">
-            <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
-              <label class="fs-4">Patient Information</label>
+            <div class="d-inline-flex p-2 mb-3">
+              <label class="fs-4 profile-title">Patient Information</label>
             </div>
             <div class="row  mx-2">
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="Name" class="form-label label-design">Name</label>
                 <input type="text" class="input-group form-control" placeholder="First Name"
-                  [(ngModel)]="PatientMyProfile.FirstName" id="FirstName" >
+                  [(ngModel)]="patientMyProfile.FirstName" id="FirstName">
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="MiddleName" class="form-label label-design">Middle Name</label>
-                <input class="input-group form-control" [(ngModel)]="PatientMyProfile.MiddleName"
+                <input class="input-group form-control" [(ngModel)]="patientMyProfile.MiddleName"
                   placeholder="Middle (optional)" type="text" id="MiddleName">
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="LastName" class="form-label label-design">Last Name</label>
-                <input class="input-group form-control" [(ngModel)]="PatientMyProfile.LastName" placeholder="Last Name"
+                <input class="input-group form-control" [(ngModel)]="patientMyProfile.LastName" placeholder="Last Name"
                   type="text" id="LastName">
               </div>
 
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="DATEOFBIRTH*" class="form-label label-design">DATE OF BIRTH</label>
-                  <mat-form-field appearance="outline" class="form-group profile-green-calendar">
-                    <input matInput class="date-mat-class" autocomplete="off"  [(ngModel)]="PatientMyProfile.DateOfBirth"
-                    (mouseover)="hoverDATEOFBIRTH='_/__/_'"   (mouseleave)="hoverDATEOFBIRTH='MM/DD/YYYY'"
-                      [matDatepicker]="picker" (click)="picker.open()"  placeholder="{{ hoverDATEOFBIRTH }}">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                  </mat-form-field>
+                <mat-form-field appearance="outline" class="form-group profile-green-calendar">
+                  <input matInput class="date-mat-class" autocomplete="off" [(ngModel)]="patientMyProfile.DateOfBirth"
+                    (mouseover)="hoverDATEOFBIRTH='_/__/_'" (mouseleave)="hoverDATEOFBIRTH='MM/DD/YYYY'"
+                    [matDatepicker]="picker" (click)="picker.open()" placeholder="{{ hoverDATEOFBIRTH }}">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
               </div>
 
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="DATEOFDEATH" class="form-label label-design">DATE OF DEATH</label>
-                  <mat-form-field appearance="outline" class="form-group profile-green-calendar">
-                    <input matInput class="date-mat-class"   [(ngModel)]="PatientMyProfile.DateOfDeath" autocomplete="off"
-                    (mouseover)="hoverDATEOFDEATH='_/__/_'"   (mouseleave)="hoverDATEOFDEATH='MM/DD/YYYY'"
-                      [matDatepicker]="picker1" (click)="picker1.open()"  placeholder="{{ hoverDATEOFDEATH }}">
-                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                    <mat-datepicker #picker1></mat-datepicker>
-                 </mat-form-field>
+                <mat-form-field appearance="outline" class="form-group profile-green-calendar">
+                  <input matInput class="date-mat-class" [(ngModel)]="patientMyProfile.DateOfDeath" autocomplete="off"
+                    (mouseover)="hoverDATEOFDEATH='_/__/_'" (mouseleave)="hoverDATEOFDEATH='MM/DD/YYYY'"
+                    [matDatepicker]="picker1" (click)="picker1.open()" placeholder="{{ hoverDATEOFDEATH }}">
+                  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                  <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="SOCIALSECURITYNUMBER" class="form-label label-design">SOCIAL SECURITY NUMBER</label>
-                <input class="input-group form-control" [(ngModel)]="PatientMyProfile.SSecuirtyNumber" 
-                  placeholder="###-##-###" #ssn="ngModel" #ssnValidator #ssnMask pattern="^(?!666|000|9\d{2})\d{3}-(?!00)\d{2}-(?!0{4})\d{4}$" type="text" id="Name"
-                  [ngClass]="{'is-invalid' : (ssn.touched || ssn.dirty) && !ssn.valid }" maxlength="9" >
-                  <mat-hint style="font-size:8pt">323-32-3424</mat-hint>
+                <input class="input-group form-control" [(ngModel)]="patientMyProfile.SSecuirtyNumber"
+                  placeholder="###-##-###" #ssn="ngModel" #ssnValidator #ssnMask
+                  pattern="^(?!666|000|9\d{2})\d{3}-(?!00)\d{2}-(?!0{4})\d{4}$" type="text" id="Name"
+                  [ngClass]="{'is-invalid' : (ssn.touched || ssn.dirty) && !ssn.valid }" maxlength="9">
+                <mat-hint style="font-size:8pt">323-32-3424</mat-hint>
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="CHARTID" class="form-label label-design">CHART ID</label>
-                <input class="input-group form-control" [(ngModel)]="PatientMyProfile.ChartId" placeholder="CHART ID"
+                <input class="input-group form-control" [(ngModel)]="patientMyProfile.ChartId" placeholder="CHART ID"
                   type="text" id="CHARTID">
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="PATIENTID" class="form-label label-design">PATIENT ID</label>
-                <input class="input-group form-control patient-id" [(ngModel)]="PatientMyProfile.PatientId"
-                  placeholder="PATIENT ID" type="text" id="PATIENT ID" >
+                <input class="input-group form-control patient-id" [(ngModel)]="patientMyProfile.PatientId"
+                  placeholder="PATIENT ID" type="text" id="PATIENT ID">
               </div>
               <div class="col-lg-4 col-xl-4 col-md-6 col-12 my-2">
                 <label for="PATIENTID" class="form-label label-design">Preliminary Cause of Death</label>
-                <input class="input-group form-control" [(ngModel)]="PatientMyProfile.CauseofDeath"
+                <input class="input-group form-control" [(ngModel)]="patientMyProfile.CauseofDeath"
                   placeholder="Preliminary Cause of Death" type="text" id="PATIENT ID">
               </div>
               <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
                 <label for="SEX" class="form-label label-design  mx-lg-1">SEX</label>
                 <div>
-                  <mat-radio-group [(ngModel)]="PatientMyProfile.Gender">
-                    <mat-radio-button value="male"   class="radio-btn-label label-design my-1" >Male</mat-radio-button>
-                     <mat-radio-button value="female"   class="radio-btn-label label-design my-1">Female</mat-radio-button>
-                     <mat-radio-button value="other"   class="radio-btn-label label-design my-1">Other</mat-radio-button>
-                     <mat-radio-button value="Unknown"   class="radio-btn-label label-design my-1">Unknown</mat-radio-button>
-                 </mat-radio-group>
+                  <mat-radio-group [(ngModel)]="patientMyProfile.Gender">
+                    <mat-radio-button value="male" class="radio-btn-label label-design my-1">Male</mat-radio-button>
+                    <mat-radio-button value="female" class="radio-btn-label label-design my-1">Female</mat-radio-button>
+                    <mat-radio-button value="other" class="radio-btn-label label-design my-1">Other</mat-radio-button>
+                    <mat-radio-button value="Unknown" class="radio-btn-label label-design my-1">Unknown
+                    </mat-radio-button>
+                  </mat-radio-group>
                 </div>
               </div>
             </div>
             <div class="d-flex justify-content-end mt-3 mx-4">
               <button type="button" class="btn btn-lg btn-orange" (click)="updatePatientInformation()">Save</button>
-             </div>
+            </div>
           </div>
           <div class="col-lg-12 col-md-12 col-12">
-            <hr>
+            <hr style="margin: unset;">
           </div>
 
           <!-- Emergency Contact -->
-          <div class="col-lg-12 col-md-12 col-12 my-3">
-            <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
-              <label class="fs-4">Emergency Contact</label>
+          <div class="col-lg-12 col-md-12 col-12 mb-3">
+            <div class="d-inline-flex p-2 mb-3">
+              <label class="fs-4 profile-title">Emergency Contact</label>
             </div>
 
             <div class="row  mx-2">
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="Name" class="form-label label-design">Name</label>
-                <input class="input-group form-control" [(ngModel)]="PatientMyProfile.EmergencyFirstName"
+                <input class="input-group form-control" [(ngModel)]="patientMyProfile.EmergencyFirstName"
                   placeholder="Name" type="text" id="Name">
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="MiddleName" class="form-label label-design">Middle Name</label>
-                <input class="input-group form-control" [(ngModel)]="PatientMyProfile.EmergencyMiddleName"
+                <input class="input-group form-control" [(ngModel)]="patientMyProfile.EmergencyMiddleName"
                   placeholder="Middle (optional)" type="text" id="MiddleName">
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="LastName" class="form-label label-design">Last Name</label>
-                <input class="input-group form-control" [(ngModel)]="PatientMyProfile.EmergencyLastName"
+                <input class="input-group form-control" [(ngModel)]="patientMyProfile.EmergencyLastName"
                   placeholder="Last" type="text" id="LastName">
               </div>
 
@@ -128,8 +132,9 @@
                 <label for="RELATION" class="form-label label-design text-nowrap">RELATION TO PATIENT</label>
                 <div class="form-group">
                   <mat-form-field appearance="outline" class="col-12">
-                    <mat-select placeholder="Select Patient Relation" [(ngModel)]="PatientMyProfile.RelationshipToPatient">
-                      <mat-option  *ngFor="let item of relationship" [value]="item.value">{{item.value}}</mat-option>
+                    <mat-select placeholder="Select Patient Relation"
+                      [(ngModel)]="patientMyProfile.RelationshipToPatient">
+                      <mat-option *ngFor="let item of relationship" [value]="item.value">{{item.value}}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
@@ -137,50 +142,52 @@
 
               <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
                 <label for="PHONE" class="form-label label-design">PHONE</label>
-                <input class="input-group form-control" [(ngModel)]="PatientMyProfile.Phone" placeholder="Cell PHONE"
+                <input class="input-group form-control" [(ngModel)]="patientMyProfile.Phone" placeholder="Cell PHONE"
                   type="text" id="PHONE">
               </div>
 
               <div class="col-lg-8 col-md-8 col-xl-9 col-12 my-2">
                 <label for="HOMEADDRESS" class="form-label label-design">HOME ADDRESS</label>
-                <input class="input-group form-control" [(ngModel)]="PatientMyProfile.EmergencyStreet"
-                  placeholder="HOME ADDRESS" type="text" id="HOME ADDRESS"  [disabled]="emergencyDisableAddressVerification">
+                <input class="input-group form-control" [(ngModel)]="patientMyProfile.EmergencyStreet"
+                  placeholder="HOME ADDRESS" type="text" id="HOME ADDRESS"
+                  [disabled]="emergencyDisableAddressVerification">
               </div>
               <div class="col-lg-2 col-md-2 col-xl-3 col-12 mt-3">
                 <div class="p-2"><button type="button" class="btn btn-lg btn-styles btn-verify mt-2 py-1"
-                  [disabled]="!PatientMyProfile.EmergencyStreet || emergencyDisableAddressVerification"
-                                (click)="EmergencyAddressVerification()">Verify</button></div>
+                    [disabled]="!patientMyProfile.EmergencyStreet || emergencyDisableAddressVerification"
+                    (click)="EmergencyAddressVerification()">Verify</button></div>
               </div>
               <div class="col-lg-8 col-md-12 col-xl-9 col-12 my-2">
                 <div class="form-group">
                   <div class="input-group">
                     <label class="control-label input-group-addon">Street Address</label>
-                    <input class="form-control" [(ngModel)]="PatientMyProfile.EmergencyStreetAddress"
-                      placeholder="Street Address" type="text" id="StreetAddress" name="StreetAddress" [readonly]="!emergencyDisableAddressVerification" [class.address-verfied]="!emergencyManuallybtn"/>
+                    <input class="form-control" [(ngModel)]="patientMyProfile.EmergencyStreetAddress"
+                      placeholder="Street Address" type="text" id="StreetAddress" name="StreetAddress"
+                      [readonly]="!emergencyDisableAddressVerification"
+                      [class.address-verfied]="!emergencyManuallybtn" />
                   </div>
                 </div>
               </div>
-			   <div class="col-lg-2 col-md-2 col-xl-1 col-12 my-2 ">
+              <div class="col-lg-2 col-md-2 col-xl-1 col-12 my-2 ">
 
-          <button type="button" class="btn cross-mark error-close"
-          *ngIf="emergencyAddressVerfied && !emergencyManuallybtn" (click)="EmergencyenableManualEntry()"
-          title="Can enter manully when the verification results are in correct by clicking this icon">x</button>
-            </div>
+                <button type="button" class="btn cross-mark error-close"
+                  *ngIf="emergencyAddressVerfied && !emergencyManuallybtn" (click)="EmergencyenableManualEntry()"
+                  title="Can enter manully when the verification results are in correct by clicking this icon">x</button>
+              </div>
               <div class="col-lg-2 col-md-2 col-xl-2 col-12 my-2 ">
                 <div class="form-group">
                   <button class="btn-green btn manualbtn  py-0 btn-lg btn-md"
-                      *ngIf="emergencyManuallybtn || emergencyDisableAddressVerification"
-                      (click)="EmergencyenterAddressManually()">Enter Address Manually</button>
-              </div>
+                    *ngIf="emergencyManuallybtn || emergencyDisableAddressVerification"
+                    (click)="EmergencyenterAddressManually()">Enter Address Manually</button>
+                </div>
               </div>
               <div class="col-lg-12 col-md-12 col-xl-4 col-12 my-2">
                 <div class="form-group">
                   <div class="input-group">
                     <label class="control-label input-group-addon">City</label>
-                    <input class="form-control" [(ngModel)]="PatientMyProfile.EmergencyCity" placeholder="City"
-                      type="text" id="City" name="City"
-                      [readonly]="!emergencyDisableAddressVerification" [class.address-verfied]="!emergencyManuallybtn"
-                      />
+                    <input class="form-control" [(ngModel)]="patientMyProfile.EmergencyCity" placeholder="City"
+                      type="text" id="City" name="City" [readonly]="!emergencyDisableAddressVerification"
+                      [class.address-verfied]="!emergencyManuallybtn" />
                   </div>
                 </div>
               </div>
@@ -188,8 +195,9 @@
                 <div class="form-group">
                   <div class="input-group">
                     <label class="control-label input-group-addon">State</label>
-                    <input class="form-control" [(ngModel)]="PatientMyProfile.EmergencyState" [readonly]="!emergencyDisableAddressVerification" [class.address-verfied]="!emergencyManuallybtn" placeholder="State"
-                      type="text" id="State" name="State" />
+                    <input class="form-control" [(ngModel)]="patientMyProfile.EmergencyState"
+                      [readonly]="!emergencyDisableAddressVerification" [class.address-verfied]="!emergencyManuallybtn"
+                      placeholder="State" type="text" id="State" name="State" />
                   </div>
                 </div>
               </div>
@@ -197,67 +205,68 @@
                 <div class="form-group">
                   <div class="input-group">
                     <label class="control-label input-group-addon">Zip</label>
-                    <input class="form-control" [(ngModel)]="PatientMyProfile.EmergencyZip" placeholder="Zip"
-                      type="text" id="Zip" name="Zip" [readonly]="!emergencyDisableAddressVerification" [class.address-verfied]="!emergencyManuallybtn" />
+                    <input class="form-control" [(ngModel)]="patientMyProfile.EmergencyZip" placeholder="Zip"
+                      type="text" id="Zip" name="Zip" [readonly]="!emergencyDisableAddressVerification"
+                      [class.address-verfied]="!emergencyManuallybtn" />
                   </div>
                 </div>
               </div>
               <div class="d-flex justify-content-end mt-3">
                 <button type="button" class="btn btn-lg btn-orange" (click)="updateEmergencyContact()">Save</button>
-               </div>
+              </div>
             </div>
           </div>
           <div class="col-lg-12 col-md-12 col-12">
-            <hr>
+            <hr style="margin: unset;">
           </div>
 
           <!-- Next of kin -->
-          <div class="col-lg-12 col-md-12 col-12 my-3">
-            <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
-              <label class="fs-4">Next of kin</label>
+          <div class="col-lg-12 col-md-12 col-12 mb-3">
+            <div class="d-inline-flex p-2 mb-3">
+              <label class="fs-4 profile-title">Next of kin</label>
             </div>
 
             <div class="row  mx-2">
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="Name" class="form-label label-design">Name</label>
-                <input class="input-group form-control" [(ngModel)]="PatientMyProfile.NKFirstName" placeholder="Name"
+                <input class="input-group form-control" [(ngModel)]="patientMyProfile.NKFirstName" placeholder="Name"
                   type="text" id="Name">
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="MiddleName" class="form-label label-design">Middle Name</label>
-                <input class="input-group form-control" [(ngModel)]="PatientMyProfile.NkMiddleName"
+                <input class="input-group form-control" [(ngModel)]="patientMyProfile.NkMiddleName"
                   placeholder="Middle (optional)" type="text" id="MiddleName">
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="LAstName" class="form-label label-design">Last Name</label>
-                <input class="input-group form-control" [(ngModel)]="PatientMyProfile.NkLastName" placeholder="Last"
+                <input class="input-group form-control" [(ngModel)]="patientMyProfile.NkLastName" placeholder="Last"
                   type="text" id="LastName">
               </div>
               <div class="col-lg-5 col-md-5 col-xl-6 col-12 my-2">
                 <label for="RELATION" class="form-label label-design text-nowrap">RELATION TO PATIENT</label>
                 <mat-form-field appearance="outline" class="input-fields col-lg-12 col-md-12 col-12">
-                  <mat-select placeholder="Select One" [(ngModel)]="PatientMyProfile.NkRel">
+                  <mat-select placeholder="Select One" [(ngModel)]="patientMyProfile.NkRel">
                     <mat-option [value]="item.value" *ngFor="let item of relationship">{{item.value}}</mat-option>
                   </mat-select>
                 </mat-form-field>
                 <!-- <select class="form-select" aria-label="Default select example"
-                  [(ngModel)]="PatientMyProfile.NkRel">
+                  [(ngModel)]="patientMyProfile.NkRel">
                   <option [value]="item.value" *ngFor="let item of relationship">{{item.value}}</option>
                 </select> -->
               </div>
               <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
                 <label for="SEX" class="form-label label-design">PHONE</label>
-                <input class="input-group form-control" [(ngModel)]="PatientMyProfile.NKMobilePhone"
+                <input class="input-group form-control" [(ngModel)]="patientMyProfile.NKMobilePhone"
                   placeholder="Cell PHONE" type="text" id="DATEOFBIRTH">
               </div>
               <div class="col-lg-12 col-md-12 col-12 my-2">
                 <label for="DATEOFBIRTH*" class="form-label label-design">ADDRESS</label>
-                <input class="input-group form-control" [(ngModel)]="PatientMyProfile.NKStreetAddress"
+                <input class="input-group form-control" [(ngModel)]="patientMyProfile.NKStreetAddress"
                   placeholder="Street Address" type="text" id="DATEOFBIRTH">
               </div>
 
               <div class="col-lg-6 col-md-6 col-12 my-2">
-                <input class="input-group form-control" [(ngModel)]="PatientMyProfile.NKCity" placeholder="City"
+                <input class="input-group form-control" [(ngModel)]="patientMyProfile.NKCity" placeholder="City"
                   type="text" id="Name">
               </div>
               <div class="col-lg-3 col-md-3 col-12 my-2">
@@ -266,40 +275,43 @@
                 </select>
               </div>
               <div class="col-lg-3 col-md-3 col-12 my-2">
-                <input class="input-group form-control" [(ngModel)]="PatientMyProfile.NKZip" placeholder="Zip"
+                <input class="input-group form-control" [(ngModel)]="patientMyProfile.NKZip" placeholder="Zip"
                   type="text" id="Zip">
               </div>
               <div class="d-flex justify-content-end mt-3">
                 <button type="button" class="btn btn-lg btn-orange" (click)="updateNextOfKin()">Save</button>
-               </div>
+              </div>
 
             </div>
           </div>
           <div class="col-lg-12 col-md-12 col-12">
-            <hr>
+            <hr style="margin: unset;">
           </div>
 
           <!-- Immunization Registry-->
-          <div class="col-lg-12 col-md-12 col-12 my-3">
-            <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
-              <label class="fs-4">Immunization Registry</label>
+          <div class="col-lg-12 col-md-12 col-12 mb-3">
+            <div class="d-inline-flex p-2 mb-3">
+              <label class="fs-4 profile-title">Immunization Registry</label>
             </div>
             <div class="row">
-             <mat-radio-group [(ngModel)]="PatientMyProfile.ImmunizationrRegistry">
-              <div class="col-lg-12 col-md-12 col-12">
-               <mat-radio-button value="not_send"   class="radio-btn-label label-design my-1" >Don’t send immunization data. Patient has requested to protect their data.</mat-radio-button>
-              </div>
-              <div class="col-lg-12 col-md-12 col-12">
-                <mat-radio-button value="send"   class="radio-btn-label label-design my-1">Send immunization data. Patient has granted permission to release their data.</mat-radio-button>
-              </div>
-              <div class="col-lg-12 col-md-12 col-12">
-                <mat-radio-button value="not_specified"   class="radio-btn-label label-design my-1">Patient did not specify preference regarding sharing their data.</mat-radio-button>
-              </div>
+              <mat-radio-group [(ngModel)]="patientMyProfile.ImmunizationrRegistry">
+                <div class="col-lg-12 col-md-12 col-12">
+                  <mat-radio-button value="not_send" class="radio-btn-label label-design my-1">Don’t send immunization
+                    data. Patient has requested to protect their data.</mat-radio-button>
+                </div>
+                <div class="col-lg-12 col-md-12 col-12">
+                  <mat-radio-button value="send" class="radio-btn-label label-design my-1">Send immunization data.
+                    Patient has granted permission to release their data.</mat-radio-button>
+                </div>
+                <div class="col-lg-12 col-md-12 col-12">
+                  <mat-radio-button value="not_specified" class="radio-btn-label label-design my-1">Patient did not
+                    specify preference regarding sharing their data.</mat-radio-button>
+                </div>
               </mat-radio-group>
             </div>
             <div class="d-flex justify-content-end mt-3 mx-3">
               <button type="button" class="btn btn-lg btn-orange" (click)="updateImmunizationRegistry()">Save</button>
-             </div>
+            </div>
           </div>
 
           <!-- <div class="col-lg-12 col-md-12 col-12 my-3">
@@ -307,7 +319,7 @@
               <label class="fs-4">Immunization registry</label>
             </div>
             <div class="row">
-              <mat-radio-group [(ngModel)]="PatientMyProfile.ImmunizationrRegistry">
+              <mat-radio-group [(ngModel)]="patientMyProfile.ImmunizationrRegistry">
                 <div class="col-lg-12 col-md-12 col-12">
                   <mat-radio-button value="not_send" class="radio-btn-label label-design my-1">Don’t send immunization
                     data. Patient has requested to protect their data.</mat-radio-button>
@@ -328,42 +340,42 @@
         </div>
       </div>
 
-       <div class="col-lg-6 col-md-6 col-12">
+      <div class="col-lg-6 col-md-6 col-12">
         <div class="row">
           <!-- Contact -->
-          <div class="col-lg-12 col-md-12 col-12">
-            <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
-              <label class="fs-4">Contact Information</label>
+          <div class="col-lg-12 col-md-12 col-12 mb-3">
+            <div class="d-inline-flex p-2 mb-3">
+              <label class="fs-4 profile-title">Contact Information</label>
             </div>
             <div class="row  mx-2">
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="CELLPHONE" class="form-label label-design">CELL PHONE</label>
-                <input class="input-group form-control" [(ngModel)]="PatientMyProfile.MobilePhone"
+                <input class="input-group form-control" [(ngModel)]="patientMyProfile.MobilePhone"
                   placeholder="CELL PHONE" type="text" id="CELLPHONE">
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="Email" class="form-label label-design">Email</label>
-                <input class="input-group form-control" [(ngModel)]="PatientMyProfile.email" placeholder="Email"
+                <input class="input-group form-control" [(ngModel)]="patientMyProfile.email" placeholder="Email"
                   type="text" id="Email">
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="HOMEPHONE" class="form-label label-design">HOME PHONE</label>
-                <input class="input-group form-control" [(ngModel)]="PatientMyProfile.PrimaryPhone"
+                <input class="input-group form-control" [(ngModel)]="patientMyProfile.PrimaryPhone"
                   placeholder="HOME PHONE" type="text" id="HOME PHONE">
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="WORKPHONE" class="form-label label-design">WORK PHONE</label>
-                <input class="input-group form-control" [(ngModel)]="PatientMyProfile.WorkPhone"
+                <input class="input-group form-control" [(ngModel)]="patientMyProfile.WorkPhone"
                   placeholder="WORK PHONE" type="text" id="WORK PHONE">
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="Ext*" class="form-label label-design">Ext</label>
-                <input class="input-group form-control" [(ngModel)]="PatientMyProfile.EXT" placeholder="Ext" type="text"
+                <input class="input-group form-control" [(ngModel)]="patientMyProfile.EXT" placeholder="Ext" type="text"
                   id="Ext">
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="Preferred Contact" class="form-label label-design">Preferred Contact</label>
-                <input class="input-group form-control" [(ngModel)]="PatientMyProfile.PreferredContact"
+                <input class="input-group form-control" [(ngModel)]="patientMyProfile.PreferredContact"
                   placeholder="Preferred Contact" type="text" id="PreferredContact">
               </div>
 
@@ -371,7 +383,7 @@
                 <label class="form-label label-design">ENABLE EMAIL NOTIFICATIONS FOR THIS PATIENT</label>
                 <div>
                   <label class="switch">
-                    <input type="checkbox" id="togBtn" [(ngModel)]="PatientMyProfile.EmailReminder">
+                    <input type="checkbox" id="togBtn" [(ngModel)]="patientMyProfile.EmailReminder">
                     <div class="slider round"></div>
                   </label>
                   <label class="form-label label-design">SEND APPOINTMENT REMINDERS FOR THIS PATIENT</label>
@@ -381,48 +393,52 @@
                 <label class="form-label label-design">ENABLE SMS NOTIFICATIONS FOR THIS PATIENT</label>
                 <div>
                   <label class="switch">
-                    <input type="checkbox" id="togBtn" [(ngModel)]="PatientMyProfile.SMSReminder">
+                    <input type="checkbox" id="togBtn" [(ngModel)]="patientMyProfile.SMSReminder">
                     <div class="slider round"></div>
                   </label> <label class="form-label label-design">SEND APPOINTMENT REMINDERS FOR THIS PATIENT</label>
                 </div>
               </div>
               <div class="col-lg-8 col-md-8 col-xl-9 col-12 my-2">
                 <label for="HOMEADDRESS" class="form-label label-design">HOME ADDRESS</label>
-                <input class="input-group form-control" placeholder="HOME ADDRESS" type="text" id="HOME ADDRESS" [disabled]="disableaddressverification"
-                [(ngModel)]="PatientMyProfile.Street">
+                <input class="input-group form-control" placeholder="HOME ADDRESS" type="text" id="HOME ADDRESS"
+                  [disabled]="disableaddressverification" [(ngModel)]="patientMyProfile.Street">
               </div>
               <div class="col-lg-2 col-md-4 col-xl-3 col-12 my-lg-2 mt-lg-3">
                 <div class="d-grid gap-1 p-2">
-                  <button type="button" class="btn btn-lg btn-styles btn-block btn-verify mt-4 mt-lg-2" [disabled]="!PatientMyProfile.Street || disableaddressverification" (click)="AddressVerification()">Verify</button>
+                  <button type="button" class="btn btn-lg btn-styles btn-block btn-verify mt-4 mt-lg-2"
+                    [disabled]="!patientMyProfile.Street || disableaddressverification"
+                    (click)="AddressVerification()">Verify</button>
                 </div>
               </div>
               <div class="col-lg-8 col-md-12 col-xl-9 col-12 my-2">
                 <div class="form-group">
                   <div class="input-group">
                     <label class="control-label input-group-addon">Street Address</label>
-                    <input class="form-control" [(ngModel)]="PatientMyProfile.StreetAddress"
-                      placeholder="Street Address" type="text" id="StreetAddress" name="StreetAddress" [readonly]="!disableaddressverification" [class.contactinfoaddress-verfied]="!manuallybtn" />
+                    <input class="form-control" [(ngModel)]="patientMyProfile.StreetAddress"
+                      placeholder="Street Address" type="text" id="StreetAddress" name="StreetAddress"
+                      [readonly]="!disableaddressverification" [class.contactinfoaddress-verfied]="!manuallybtn" />
                   </div>
                 </div>
               </div>
-			   <div class="col-lg-2 col-md-2 col-xl-1 col-12 my-2 ">
-          <button type="button" class="btn cross-mark error-close"
-          *ngIf="addressVerfied && !manuallybtn" (click)="enableManualEntry()"
-          title="Can enter manully when the verification results are in correct by clicking this icon">x</button>
-            </div>
+              <div class="col-lg-2 col-md-2 col-xl-1 col-12 my-2 ">
+                <button type="button" class="btn cross-mark error-close" *ngIf="addressVerfied && !manuallybtn"
+                  (click)="enableManualEntry()"
+                  title="Can enter manully when the verification results are in correct by clicking this icon">x</button>
+              </div>
               <div class="col-lg-2 col-md-2 col-xl-2 col-12 my-2 ">
                 <div class="form-group">
                   <button class="btn-green btn manualbtn  py-0 btn-lg btn-md"
-                      *ngIf="manuallybtn || disableaddressverification"
-                      (click)="enterAddressManually()">Enter Address Manually</button>
-              </div>
+                    *ngIf="manuallybtn || disableaddressverification" (click)="enterAddressManually()">Enter Address
+                    Manually</button>
+                </div>
               </div>
               <div class="col-lg-12 col-md-12 col-xl-4 col-12 my-2">
                 <div class="form-group">
                   <div class="input-group">
                     <label class="control-label input-group-addon">City</label>
-                    <input class="form-control" [(ngModel)]="PatientMyProfile.city" placeholder="City" type="text"
-                      id="City" name="City" [readonly]="!disableaddressverification" [class.contactinfoaddress-verfied]="!manuallybtn" />
+                    <input class="form-control" [(ngModel)]="patientMyProfile.city" placeholder="City" type="text"
+                      id="City" name="City" [readonly]="!disableaddressverification"
+                      [class.contactinfoaddress-verfied]="!manuallybtn" />
                   </div>
                 </div>
               </div>
@@ -430,8 +446,9 @@
                 <div class="form-group">
                   <div class="input-group">
                     <label class="control-label input-group-addon">State</label>
-                    <input class="form-control" [(ngModel)]="PatientMyProfile.state" placeholder="State" type="text"
-                      id="State" name="State" [readonly]="!disableaddressverification" [class.contactinfoaddress-verfied]="!manuallybtn" />
+                    <input class="form-control" [(ngModel)]="patientMyProfile.state" placeholder="State" type="text"
+                      id="State" name="State" [readonly]="!disableaddressverification"
+                      [class.contactinfoaddress-verfied]="!manuallybtn" />
                   </div>
                 </div>
               </div>
@@ -439,31 +456,33 @@
                 <div class="form-group">
                   <div class="input-group">
                     <label class="control-label input-group-addon">Zip</label>
-                    <input class="form-control" [(ngModel)]="PatientMyProfile.zip" placeholder="Zip" type="text"
-                      id="Zip" name="Zip" [readonly]="!disableaddressverification" [class.contactinfoaddress-verfied]="!manuallybtn" />
+                    <input class="form-control" [(ngModel)]="patientMyProfile.zip" placeholder="Zip" type="text"
+                      id="Zip" name="Zip" [readonly]="!disableaddressverification"
+                      [class.contactinfoaddress-verfied]="!manuallybtn" />
                   </div>
                 </div>
               </div>
               <div class="d-flex justify-content-end mt-3">
                 <button type="button" class="btn btn-lg btn-orange" (click)="updateContactInform()">Save</button>
-               </div>
+              </div>
             </div>
           </div>
-          <div class="col-lg-12 col-md-12 col-12 my-3">
-            <hr>
+          <div class="col-lg-12 col-md-12 col-12">
+            <hr style="margin: unset;">
           </div>
 
           <!-- Patient Relationship -->
-          <div class="col-lg-12 col-md-12 col-12 my-3">
-            <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
-              <label class="fs-4">Patient Relationship</label>
+          <div class="col-lg-12 col-md-12 col-12 mb-3">
+            <div class="d-inline-flex p-2 mb-3">
+              <label class="fs-4 profile-title">Patient Relationship</label>
             </div>
             <div class="row">
-              <div class="d-flex justify-content-lg-end col-12">
+              <div class="d-flex col-12 mx-5">
                 <div class="find-procedure">
-                  <div class="form-group mx-3">
+                  <div class="form-group">
                     <div class="input-group py-3"><input type="text" name="search_procedure_code"
-                       id="search_procedure_code" class="form-control search-control" placeholder="Search Patient's Relationship">
+                        id="search_procedure_code" class="form-control search-control"
+                        placeholder="Search Patient's Relationship">
                       <button class="btn btn-info btn-md" type="button">
                         <i class="fa fa-search "></i>
                       </button>
@@ -473,7 +492,7 @@
               </div>
 
               <div class="col-lg-12 col-md-12 col-12">
-                <div class="table-responsive mt-1">
+                <div class="table-responsive mt-1  mx-5">
                   <table class="table">
                     <thead class="th-border">
                       <tr>
@@ -508,21 +527,22 @@
             </div>
           </div>
           <div class="col-lg-12 col-md-12 col-12 ">
-            <hr>
+            <hr style="margin: unset;">
           </div>
 
           <!-- Demographics -->
-          <div class="col-lg-12 col-md-12 col-12 my-3">
-            <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
-              <label class="fs-4">Demographics</label>
+          <div class="col-lg-12 col-md-12 col-12 mb-3">
+            <div class="d-inline-flex p-2 mb-3">
+              <label class="fs-4 profile-title">Demographics</label>
             </div>
             <div class="row  mx-2">
               <div class="col-lg-6 col-md-6 col-xl-6 col-12 my-2">
                 <label for="Name" class="form-label label-design">ETHNICITY</label>
                 <div class="form-group">
                   <mat-form-field appearance="outline">
-                    <mat-select  placeholder="Select Ethnicity" [(ngModel)]="PatientMyProfile.ethnicity">
-                      <mat-option  *ngFor="let ethnicity of ethnicities" [value]="ethnicity.name">{{ethnicity.name}}</mat-option>
+                    <mat-select placeholder="Select Ethnicity" [(ngModel)]="patientMyProfile.ethnicity">
+                      <mat-option *ngFor="let ethnicity of ethnicities" [value]="ethnicity.name">{{ethnicity.name}}
+                      </mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
@@ -531,20 +551,21 @@
                 <label for="MiddleName" class="form-label label-design">PREFERRED LANGUAGE</label>
                 <div class="form-group">
                   <mat-form-field appearance="outline">
-                    <mat-select  placeholder="Select Language" [(ngModel)]="PatientMyProfile.PreferredLanguage">
-                      <mat-option  *ngFor="let item of languageList" [value]="item.Name">{{item.Name}} {{(item.Alpha2)}}</mat-option>
+                    <mat-select placeholder="Select Language" [(ngModel)]="patientMyProfile.PreferredLanguage">
+                      <mat-option *ngFor="let item of languageList" [value]="item.Name">{{item.Name}} {{(item.Alpha2)}}
+                      </mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-xl-6 col-12 my-2">
                 <label for="GenderIdentity" class="form-label label-design">Gender Identity</label>
-                <input class="input-group form-control" [(ngModel)]="PatientMyProfile.GenderIdentity"
+                <input class="input-group form-control" [(ngModel)]="patientMyProfile.GenderIdentity"
                   placeholder="Gender Identity" type="text" id="Gender">
               </div>
               <div class="col-lg-6 col-md-6 col-xl-6 col-12 my-2">
                 <label for="Sexual" class="form-label label-design">Sexual Orientation</label>
-                <input class="input-group form-control" [(ngModel)]="PatientMyProfile.orientation"
+                <input class="input-group form-control" [(ngModel)]="patientMyProfile.orientation"
                   placeholder="Sexual Orientation" type="text" id="Sexual">
               </div>
               <div class="col-lg-12 col-md-12 col-12 my-2">
@@ -554,7 +575,7 @@
                     <div class="form-group">
                       <div class="input-group">
                         <input class="checkbox form-check-input" id="AMERICAN" name="AMERICAN" type="checkbox"
-                          [(ngModel)]="PatientMyProfile.AmericanRace">
+                          [(ngModel)]="patientMyProfile.AmericanRace">
                         <label class="label-design check-label check-label-mrg">AMERICAN INDIAN OR ALASKA NATIVE</label>
                       </div>
                     </div>
@@ -563,7 +584,7 @@
                     <div class="form-group">
                       <div class="input-group">
                         <input class="checkbox form-check-input" id="INDIAN" name="INDIAN" type="checkbox"
-                          [(ngModel)]="PatientMyProfile.AsianRace">
+                          [(ngModel)]="patientMyProfile.AsianRace">
                         <label class="label-design check-label">ASIAN</label>
                       </div>
                     </div>
@@ -572,7 +593,7 @@
                     <div class="form-group my-2 mt-lg-0">
                       <div class="input-group">
                         <input class="checkbox form-check-input" id="BLACKAFRICAN" name="BLACKAFRICAN" type="checkbox"
-                          [(ngModel)]="PatientMyProfile.AfricanRace">
+                          [(ngModel)]="patientMyProfile.AfricanRace">
                         <label class="label-design check-label check-label-mrg">BLACK OR AFRICAN AMERICAN</label>
                       </div>
                     </div>
@@ -581,7 +602,7 @@
                     <div class="form-group">
                       <div class="input-group">
                         <input class="checkbox form-check-input" id="WHITE" name="WHITE" type="checkbox"
-                          [(ngModel)]="PatientMyProfile.WhiteRace">
+                          [(ngModel)]="patientMyProfile.WhiteRace">
                         <label class="label-design check-label">WHITE</label>
                       </div>
                     </div>
@@ -590,7 +611,7 @@
                     <div class="form-group">
                       <div class="input-group">
                         <input class="checkbox form-check-input" id="NATIVE" name="NATIVE" type="checkbox"
-                          [(ngModel)]="PatientMyProfile.HawaiianRace">
+                          [(ngModel)]="patientMyProfile.HawaiianRace">
                         <label class="label-design check-label check-label-mrg">NATIVE HAWAIIAN OR OTHER PACIFIC
                           ISLANDER</label>
                       </div>
@@ -600,7 +621,7 @@
                     <div class="form-group">
                       <div class="input-group">
                         <input class="checkbox form-check-input" id="DECLINED" name="DECLINED" type="checkbox"
-                          [(ngModel)]="PatientMyProfile.UndeterminedRace">
+                          [(ngModel)]="patientMyProfile.UndeterminedRace">
                         <label class="label-design check-label check-label-mrg">DECLINED TO SPECIFY/UNDETERMINED</label>
                       </div>
                     </div>
@@ -610,7 +631,7 @@
                     <div class="form-group">
                       <div class="text-nowrap">
                         <input class="checkbox form-check-input" id="ETHNICITIES" name="ETHNICITIES" type="checkbox"
-                          [(ngModel)]="PatientMyProfile.MultipleRthnicity">
+                          [(ngModel)]="patientMyProfile.MultipleRthnicity">
                         <label class="label-design check-label ">MULTIPLE ETHNICITIES</label>
                       </div>
                     </div>
@@ -619,22 +640,22 @@
               </div>
               <div class="d-flex justify-content-end mt-3">
                 <button type="button" class="btn btn-lg btn-orange" (click)="updateDemography()">Save</button>
-               </div>
+              </div>
             </div>
           </div>
           <div class="col-lg-12 col-md-12 col-12">
-            <hr>
+            <hr style="margin:unset;">
           </div>
 
           <!-- Care team -->
-          <div class="col-lg-12 col-md-12 col-12 my-3">
-            <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
-              <label class="fs-4">Care team</label>
+          <div class="col-lg-12 col-md-12 col-12">
+            <div class="d-inline-flex p-2 mb-3">
+              <label class="fs-4 profile-title">Care team</label>
             </div>
             <div class="row  mx-2">
-              <div class="col-lg-2 col-md-2 col-xl-4 col-12"> </div>
-              <div class="col-lg-10 col-md-10 col-xl-8 col-12">
-                <div class="py-3 search-field">
+
+              <div class="col-lg-12 col-md-12 col-xl-12 col-12">
+                <div class="search-field">
                   <mat-form-field appearance="outline">
                     <input matInput placeholder="Search Provider" [matAutocomplete]="auto" [formControl]="myControl"
                       class="form-control search-control">
@@ -743,14 +764,15 @@
           </div>
           <div class="col-lg-12 col-md-4 col-sm-4">
             <div class="note-heigth">
-              <textarea class="form-control" rows="6"  [(ngModel)]="PatientMyProfile.Notes"></textarea>
+              <textarea class="form-control" rows="6" [(ngModel)]="patientMyProfile.Notes"></textarea>
             </div>
           </div>
         </div>
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-lg btn-green" data-bs-dismiss="modal" aria-label="Close" (click)="updateNote()">Save</button>
+        <button type="button" class="btn btn-lg btn-green" data-bs-dismiss="modal" aria-label="Close"
+          (click)="updateNote()">Save</button>
         <button type="button" class="btn btn-lg btn-green" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
       </div>
     </div>
@@ -906,7 +928,7 @@
           <div class="col-md-12 mt-2 col-lg-12 col-12">
             <mat-form-field appearance="outline" class="col-12 hover cstm-mat-padding">
               <mat-select placeholder="Select One" placeholder="Select relation">
-                <mat-option *ngFor="let item of relationship" [value]="value" >{{item.value}}
+                <mat-option *ngFor="let item of relationship" [value]="value">{{item.value}}
                 </mat-option>
               </mat-select>
             </mat-form-field>

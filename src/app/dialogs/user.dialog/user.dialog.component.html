@@ -31,20 +31,19 @@
                 <div class="col-lg-2 col-md-4 col-12"><label class="settings-label">Title</label>
                   <div class="form-group">
                     <!-- -->
-                      <mat-form-field appearance="outline" class="col-12">
-                        <mat-select class="col-12" placeholder="Title"
-                          [(ngModel)]="EditProvider.Title">
-                          <mat-option *ngFor="let title of titles" [value]="title.Name">
-                            {{title.Name}}.</mat-option>
-                        </mat-select>
-                      </mat-form-field>
+                    <mat-form-field appearance="outline" class="col-12">
+                      <mat-select class="col-12" placeholder="Title" [(ngModel)]="EditProvider.Title">
+                        <mat-option *ngFor="let title of titles" [value]="title.Name">
+                          {{title.Name}}.</mat-option>
+                      </mat-select>
+                    </mat-form-field>
                   </div>
                 </div>
                 <div class="col-lg-4 col-md-8 col-12"><label class="settings-label required">First Name</label>
                   <div class="form-group">
                     <input class="inputclass" type="text" autocomplete="off" placeholder="First Name"
-                    pattern="^[A-Za-z.\s]+$" required #patientFirstName="ngModel"
-                     [(ngModel)]="EditProvider.FirstName">
+                      pattern="^[A-Za-z.\s]+$" required #patientFirstName="ngModel"
+                      [(ngModel)]="EditProvider.FirstName">
                   </div>
                   <div class="error_message" *ngIf="patientFirstName.errors?.pattern">
                     <i class="fa fa-minus"></i>
@@ -59,8 +58,7 @@
                 <div class="col-lg-3 col-md-6 col-12"><label class="settings-label">Middle Name</label>
                   <div class="form-group">
                     <input type="text" placeholder="Middle Name" autocomplete="off" class="inputclass"
-                    pattern="^[A-Za-z_-\s]+$"  #patientMiddleName="ngModel"
-                      [(ngModel)]="EditProvider.MiddleName">
+                      pattern="^[A-Za-z_-\s]+$" #patientMiddleName="ngModel" [(ngModel)]="EditProvider.MiddleName">
                   </div>
                   <div class="error_message" *ngIf="patientMiddleName.errors?.pattern">
                     <i class="fa fa-minus"></i>
@@ -70,8 +68,7 @@
                 <div class="col-lg-3 col-md-6 col-12"><label class="settings-label required">Last Name</label>
                   <div class="form-group ">
                     <input type="text" placeholder="Last Name" autocomplete="off" class="inputclass"
-                    pattern="^[A-Za-z_-\s]+$" required #patientLastName="ngModel"
-                    [(ngModel)]="EditProvider.LastName">
+                      pattern="^[A-Za-z_-\s]+$" required #patientLastName="ngModel" [(ngModel)]="EditProvider.LastName">
                   </div>
                   <div class="error_message" *ngIf="patientLastName.errors?.pattern">
                     <i class="fa fa-minus"></i>
@@ -87,8 +84,7 @@
                 <div class="col-lg-2 col-md-4 col-12"><label class="settings-label">Degree</label>
                   <div class="form-group">
                     <mat-form-field appearance="outline" class="col-12">
-                      <mat-select class="col-12" placeholder="Degree"
-                        [(ngModel)]="EditProvider.Degree">
+                      <mat-select class="col-12" placeholder="Degree" [(ngModel)]="EditProvider.Degree">
                         <mat-option *ngFor="let dg of degrees" [value]="dg.Name">{{dg.Name}}
                         </mat-option>
                       </mat-select>
@@ -98,9 +94,9 @@
                 <div class="col-lg-5 col-md-8 col-12"><label class="settings-label">Speciality</label>
                   <div class="form-group">
                     <mat-form-field appearance="outline" class="col-12">
-                      <mat-select class="col-12" placeholder="Speciality"
-                        [(ngModel)]="EditProvider.Speciality">
-                        <mat-option *ngFor="let speciality of specialities" [value]="speciality.Name"> {{speciality.Name}}
+                      <mat-select class="col-12" placeholder="Speciality" [(ngModel)]="EditProvider.Speciality">
+                        <mat-option *ngFor="let speciality of specialities" [value]="speciality.Name">
+                          {{speciality.Name}}
                         </mat-option>
                       </mat-select>
                     </mat-form-field>
@@ -108,8 +104,8 @@
                 </div>
                 <div class="col-lg-5 col-md-12 col-12"><label class="settings-label">Secondary Speciality</label>
                   <div class="form-group">
-                    <input type="text" autocomplete="off" placeholder="Secondary speciality"
-                    class="inputclass" pattern="^[A-Za-z_-\s]+$"  #patientSecondarySpeciality="ngModel"
+                    <input type="text" autocomplete="off" placeholder="Secondary speciality" class="inputclass"
+                      pattern="^[A-Za-z_-\s]+$" #patientSecondarySpeciality="ngModel"
                       [(ngModel)]="EditProvider.SecondarySpeciality">
                   </div>
                   <div class="error_message" *ngIf="patientSecondarySpeciality.errors?.pattern">
@@ -130,8 +126,7 @@
             <div class="col-lg-4"><label class="settings-label">State</label>
               <div class="form-group">
                 <mat-form-field appearance="outline" class="col-12">
-                  <mat-select class="col-12" placeholder="State"
-                    [(ngModel)]="EditProvider.State">
+                  <mat-select class="col-12" placeholder="State" [(ngModel)]="EditProvider.State">
                     <mat-option *ngFor="let state of states" [value]="state.Name">{{state.Name}}
                     </mat-option>
                   </mat-select>
@@ -144,8 +139,8 @@
                 <input type="text" placeholder="Expiration Date" class="inputclass" style="width: 230px;"
                   [(ngModel)]="EditProvider.ExpirationDate" autocomplete="off" [matDatepicker]="expirationDate">
 
-                  <mat-datepicker-toggle matSuffix [for]="expirationDate"></mat-datepicker-toggle>
-                  <mat-datepicker #expirationDate></mat-datepicker>
+                <mat-datepicker-toggle matSuffix [for]="expirationDate"></mat-datepicker-toggle>
+                <mat-datepicker #expirationDate></mat-datepicker>
               </div>
               <mat-hint style="font-size:8pt">MM/DD/YYYY</mat-hint>
             </div>
@@ -153,20 +148,21 @@
           <div class="row">
             <div class="col-lg-3"><label class="settings-label">NPI</label>
               <div class="form-group">
-                <input type="text" placeholder="NPI" autocomplete="off" class="inputclass"
-                #npi="ngModel" maxlength="10" npiValidator
-                [ngClass]="{'is-invalid' : (npi.touched || npi.dirty) && !npi.valid }"
-                 [(ngModel)]="EditProvider.Npi">
+                <input type="text" placeholder="NPI" autocomplete="off" class="inputclass" #npi="ngModel" maxlength="10"
+                  npiValidator #numberMask numberMask="9999999999"
+                  [ngClass]="{'is-invalid' : (npi.touched || npi.dirty) && !npi.valid }" [(ngModel)]="EditProvider.Npi">
               </div>
             </div>
             <div class="col-lg-3"><label class="settings-label">DEA #</label>
               <div class="form-group">
-                <input type="text" placeholder="DEA #" autocomplete="off" class="inputclass" [(ngModel)]="EditProvider.Dea">
+                <input type="text" placeholder="DEA #" autocomplete="off" class="inputclass"
+                  [(ngModel)]="EditProvider.Dea">
               </div>
             </div>
             <div class="col-lg-3 "><label class="settings-label">UPIN</label>
               <div class="form-group ">
-                <input type="text" placeholder="UPIN" autocomplete="off" class="inputclass" [(ngModel)]="EditProvider.UPin">
+                <input type="text" placeholder="UPIN" autocomplete="off" class="inputclass"
+                  [(ngModel)]="EditProvider.UPin">
               </div>
             </div>
             <div class="col-lg-3 "><label class="settings-label">EHR1 User ID
@@ -180,18 +176,16 @@
           <div class="row">
             <div class="col-lg-3"><label class="settings-label">NADEAN</label>
               <div class="form-group">
-                <input type="text" placeholder="NADEAN" autocomplete="off" class="inputclass" [(ngModel)]="EditProvider.NADean">
+                <input type="text" placeholder="NADEAN" autocomplete="off" class="inputclass"
+                  [(ngModel)]="EditProvider.NADean">
               </div>
             </div>
             <div class="col-lg-3"><label class="settings-label">SOCIAL SECURITY NUMBER</label>
               <div class="form-group">
-                <input matInput type="text" autocomplete="off"  #ssn="ngModel" #ssnValidator #ssnMask
-                pattern="^(?!666|000|9\d{2})\d{3}-(?!00)\d{2}-(?!0{4})\d{4}$" placeholder="###-##-####"
-                class="inputclass" [(ngModel)]="EditProvider.SSN"
-                [ngClass]="{'is-invalid' : (ssn.touched || ssn.dirty) && !ssn.valid }">
+                <input matInput type="text" autocomplete="off" #ssn="ngModel" #ssnValidator #numberMask
+                  placeholder="###-##-####" class="inputclass" [(ngModel)]="EditProvider.SSN" numberMask="999-99-9999"
+                  [ngClass]="{'is-invalid' : (ssn.touched || ssn.dirty) && !ssn.valid }">
               </div>
-              <mat-hint style="font-size:8pt">323-32-3424</mat-hint>
-
             </div>
           </div>
         </div>
@@ -211,13 +205,17 @@
             <ng-container matColumnDef="LocationName">
               <mat-header-cell style="color: rgba(0, 0, 0, 0.54);" *matHeaderCellDef>Location Name</mat-header-cell>
               <mat-cell *matCellDef="let loc">
-                <a class="cursorpointer" (click)="openComponentDialog(locationDialogComponent,loc,ActionsType.view)">{{loc.Name}}</a>
-                 </mat-cell>
+                <a class="cursorpointer"
+                  (click)="openComponentDialog(locationDialogComponent,loc,ActionsType.view)">{{loc.Name}}</a>
+              </mat-cell>
             </ng-container>
             <ng-container matColumnDef="CityState">
               <mat-header-cell style="color: rgba(0, 0, 0, 0.54);" *matHeaderCellDef>City, State</mat-header-cell>
               <mat-cell *matCellDef="let loc">
-                <a class="cursorpointer" (click)="openComponentDialog(locationDialogComponent,loc,ActionsType.view)">{{loc.City}}, {{loc.State}}</a></mat-cell>
+                <a class="cursorpointer"
+                  (click)="openComponentDialog(locationDialogComponent,loc,ActionsType.view)">{{loc.City}},
+                  {{loc.State}}</a>
+              </mat-cell>
             </ng-container>
             <ng-container matColumnDef="PracticeSchedule">
               <mat-header-cell style="color: rgba(0, 0, 0, 0.54);" *matHeaderCellDef>Practice Schedule</mat-header-cell>

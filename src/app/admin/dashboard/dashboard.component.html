@@ -127,8 +127,8 @@
                         <div class="d-flex justify-content-between">
                           <div [ngClass]="!item.Paid?'text-mute':'text-black'">Trail ({{item.TrailDays}} d left)</div>
                           <div class="form-check form-switch mx-3 ">
-                            <input class="form-check-input toggle-btn" type="checkbox" [checked]="!item.Paid"
-                              (click)="changeTraiPaidStatus(item)" id="flexSwitchCheckDefault">
+                            <input class="form-check-input toggle-btn" type="checkbox" [checked]="item.Paid"
+                              (click)="changeTraiPaidStatus(item,$event)" id="flexSwitchCheckDefault">
                           </div>
                           <div [ngClass]="!item.Paid?'text-black':'text-mute'" class="mr-3">{{item.Trial}}</div>
                         </div>

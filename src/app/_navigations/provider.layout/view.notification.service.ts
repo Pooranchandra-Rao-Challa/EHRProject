@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs';
+import { PatientProfile } from 'src/app/_models/_patient/patientprofile';
 
 @Injectable()
 export class LocationSelectService {
@@ -37,6 +38,23 @@ export class ViewChangeService {
 }
 
 
+
+@Injectable()
+export class PatientUpdateService {
+  private subject = new Subject<PatientProfile>();
+
+  sendData(view: PatientProfile) {
+    this.subject.next(view);
+  }
+
+  clearData() {
+    this.subject.next();
+  }
+
+  getData(): Observable<PatientProfile> {
+    return this.subject.asObservable();
+  }
+}
 
 @Injectable()
 export class RecordsChangeService {

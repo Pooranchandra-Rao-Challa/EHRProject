@@ -66,5 +66,7 @@ export class ParticularInsuranceCompanyDetails {
     LocalNo?: string;
     PayerID?: string;
     LocationId?:string;
+    PhonePreffix?: string;
+    PhoneSuffix?: string;
 
 }
