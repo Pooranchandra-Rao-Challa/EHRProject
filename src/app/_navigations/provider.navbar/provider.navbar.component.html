@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-color provider-header">
   <button class="navbar-toggler" type="button" (click)="toggleNavbar()">
-    <span class="navbar-toggler-icon"></span>
+    <span class="navbar-toggler-icon"><i class="fa fa-bars text-white fs-2"></i></span>
   </button>
   <div>
     <img src="assets/images/logo.svg" alt="logo" class="img-fluid mx-3" />
@@ -56,7 +56,7 @@
     </ul>
   </div>
 
-  <ul class="navbar-nav pull-right">
+  <ul class="navbar-nav pull-right m-auto m-lg-0">
     <li [matMenuTriggerFor]="menu" class="nav-item nav-top-right">
       <a class="nav-link dropdown-toggle" id="UserDropdown">
         <span class="profile-text">{{ this.user.FirstName}}&nbsp;&nbsp;{{this.user.LastName}}</span>
