@@ -245,13 +245,9 @@ export class OrderDialogComponent implements OnInit,AfterViewInit {
     this.labandImaging.LocationId = this.authService.userValue.CurrentLocation;
     this.labandImaging.StrScheduledAt = this.datePipe.transform(this.labandImaging.ScheduledAt, "MM/dd/yyyy")
     this.labandImaging.strReceivedAt = this.datePipe.transform(this.labandImaging.ReceivedAt, "MM/dd/yyyy")
-
-
-debugger;
     this.labsImagingService.CreateLabOrImagingOrder(this.labandImaging)
       .subscribe(resp => {
         if (resp.IsSuccess) {
-          debugger;
           this.ref.close({ "saved": true });
           this.alertMessage.displayMessageDailog(ERROR_CODES[this.labandImaging.View == "Lab" ? isAdd ?  "M2G1001" : "M2G1002" : isAdd ?  "M2G1008" : "M2G1009"]);
 

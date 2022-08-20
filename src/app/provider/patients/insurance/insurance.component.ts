@@ -322,11 +322,9 @@ export class InsuranceComponent implements OnInit {
   }
 
   CreateUpdateInsuraceCompanyPlan() {
-    debugger;
     let isAdd = this.insuraceComplanyPlan.InsuranceCompanyId == "";
     this.insuraceComplanyPlan.Phone = '+1' + this.insuraceComplanyPlan.PhonePreffix + this.insuraceComplanyPlan.PhoneSuffix;
     this.insuraceComplanyPlan.LocationId = this.changedLocationId;
-    return
     this.patientservice.CreateUpdateInsuranceCompanyPlan(this.insuraceComplanyPlan).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CI001" : "M2CI002"]);

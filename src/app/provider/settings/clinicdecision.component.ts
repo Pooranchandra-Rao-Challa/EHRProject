@@ -318,7 +318,6 @@ export class ClinicDecisionComponent implements OnInit {
   }
 
   optionChangedForTrigger(value: MedicalCode) {
-    debugger;
     this.ehrTrigger.Code = value.Code
     this.ehrTrigger.System = value.CodeSystem
     this.ehrTrigger.Description = value.Description
