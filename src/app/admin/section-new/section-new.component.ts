@@ -37,9 +37,12 @@ export class SectionNewComponent implements OnInit {
     this.adminservice.WeeklyUpdateList().subscribe(resp => {
       if (resp.IsSuccess) {
         this.WeeklyUpdatedList = resp.ListResult;
-        this.SequenceNumber = this.WeeklyUpdatedList.length + 1;
-        if(this.WeeklyUpdate.WeeklyUpdateId == null){
-          this.WeeklyUpdate.Sequence = this.SequenceNumber;
+        this.SequenceNumber = this.WeeklyUpdatedList.length - 1;
+        if(this.WeeklyUpdate.WeeklyUpdateId == null && this.WeeklyUpdatedList.length > 0){
+          this.WeeklyUpdate.Sequence = this.WeeklyUpdatedList[this.SequenceNumber].Sequence + 1;
+        }
+        else if(this.WeeklyUpdate.WeeklyUpdateId == null && this.WeeklyUpdatedList.length == 0){
+          this.WeeklyUpdate.Sequence = 1;
         }
       }
   });
