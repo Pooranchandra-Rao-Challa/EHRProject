@@ -32,6 +32,7 @@ export class PatientDialogComponent {
   patientPortalAccountComponent = PatientPortalAccountComponent;
   patientHealthPortalComponent = PatientHealthPortalComponent;
   addressVerificationDialogComponent = AddressVerificationDialogComponent;
+  todayDate: Date;
 
   constructor(private dialogRef: EHROverlayRef,
     private authService: AuthenticationService,
@@ -45,7 +46,7 @@ export class PatientDialogComponent {
         symbol: 'X',
       },
     };
-
+    this.todayDate = new Date();
   }
   cancel() {
     this.dialogRef.close({'refresh':true});

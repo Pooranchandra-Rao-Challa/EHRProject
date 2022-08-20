@@ -73,7 +73,7 @@
             <mat-form-field appearance="outline" class="grey-matform new-patient">
               <input matInput [matDatepicker]="dp" placeholder="Date of Birth" [(ngModel)]="PatientData.DateofBirth"
                 #dateofBirth="ngModel" name="DateofBirth" required
-                pattern="^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$">
+                pattern="^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$" [max]="todayDate">
               <mat-datepicker-toggle matSuffix [for]="dp">
               </mat-datepicker-toggle>
               <mat-datepicker #dp disabled="false"></mat-datepicker>

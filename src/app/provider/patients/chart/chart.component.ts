@@ -349,6 +349,9 @@ export class ChartComponent implements OnInit, AfterViewInit {
     else if (data.UpdatedModal == PatientChart.Encounters) {
       this.EncountersByPatientId();
     }
+    else if (data.UpdatedModal == PatientChart.Appointment) {
+      this.AppointmentsByPatientId();
+    }
   }
 
   ChartInfo() {
@@ -538,7 +541,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   // Get appointments info
   AppointmentsByPatientId() {
     this.patientService.AppointmentsByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
-      if (resp.IsSuccess) this.appointments = resp.ListResult;
+      if (resp.IsSuccess) this.chartInfo.Appointments = resp.ListResult;
     });
   }
 

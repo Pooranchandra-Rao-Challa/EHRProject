@@ -1,3 +1,6 @@
+<div id="pause" class="d-flex align-items-center justify-content-center" *ngIf="customizedspinner">
+  <div id="spinner"></div>
+</div>
 <div class="patients-wrapper">
   <div class="patients-navigation d-none d-lg-block">
     <ng-template #patientbreadcrumb></ng-template>
@@ -45,8 +48,8 @@
           matSort matSortActive="LastAccessed" matSortDirection="desc" matSortDisableClear>
           <ng-container matColumnDef="Image">
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
-            <mat-cell *matCellDef>
-              <a routerLink="/provider/patientdetails">
+            <mat-cell *matCellDef="let patient">
+              <a (click)="onChangeViewState(patient)" class="cursor-pointer">
                 <img class="avatar mx-2" src="assets/images/avatar-empty.svg" alt="Avatar empty">
               </a>
             </mat-cell>
@@ -123,7 +126,7 @@
           <mat-row *matRowDef="let row; columns: patientColumns;">
           </mat-row>
         </mat-table>
-        <div class="norecords-found" *ngIf="patientsDataSource.TotalRecordSize == 0">
+        <div class="norecords-found" *ngIf="patientsDataSource?.TotalRecordSize == 0">
           No Patients Found
         </div>
       </div>
