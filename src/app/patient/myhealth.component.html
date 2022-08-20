@@ -5,7 +5,7 @@
         <div class="panel panel-default">
           <div class="panel-body side-panel mx-2">
             <div class="photo-container">
-              <img class="photo-patient responsive" src="assets/images/avtrar-myhealth.svg" styclass="admin-side-logo ">
+              <img class="photo-patient responsive" src="assets/images/avtrar-myhealth.svg" class="admin-side-logo">
             </div>
             <div class="row clinic-info heding">
               <div class="col-xs-12 mb-2 mt-4">
@@ -53,9 +53,9 @@
           <div class="col-md-3"><span class="green-color">DOB: </span><span
               class="Helvetica-sans-serif-large">{{PatientProfile?.DateOfBirth| date:'dd/MM/yyyy'}}</span></div>
           <div class="col-md-3"><span class="green-color">Age: </span><span class="Helvetica-sans-serif-large">{{PatientProfile?.Age}}</span></div>
-          <!-- <div class="col-md-3"><span class="green-color">Sex: </span><span
-              class="Helvetica-sans-serif-large">{{PatientProfile.Sex}}</span></div>
-        </div> -->
+          <div class="col-md-3"><span class="green-color">Sex: </span><span
+              class="Helvetica-sans-serif-large">{{PatientProfile.Gender}}</span></div>
+        </div>
           <div class="row mt-4">
             <div class="col-md-3"><span class="green-color">Race: </span> </div>
             <div class="col-md-3"><span class="green-color">Ethnicity: </span><span
@@ -65,8 +65,8 @@
           </div>
           <div class="row mt-4">
 
-            <div class="col-md-6F" >    <span  class="green-color">Smoking Status:-</span>
-         <span *ngFor="let i of StatusList"  class="Helvetica-sans-serif-large">{{i.Status}}{{i.EffectiveFrom}},</span>
+            <div class="col-md-6F" >    <span  class="green-color">Smoking Status:- </span>
+         <span *ngFor="let i of StatusList"  class="Helvetica-sans-serif-large">{{i.Status}} {{i.EffectiveFrom}},</span>
               <div >
                 <!-- <span  class="Helvetica-sans-serif-large"> </span> -->
               </div>

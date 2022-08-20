@@ -205,7 +205,7 @@ input::placeholder{
     width: 1903px;
   }
   .scrollable-table {
-    overflow-x: scroll;
+    overflow-x: auto !important;
   }
 }
 
@@ -254,8 +254,9 @@ input::placeholder{
 .smart-schedule-header .appointment-filter-count-bar{
   font-size: 14px;
 }
+.smart-schedule-header .appointment-filter-datestring-bar,
 .smart-schedule-header .appointment-filter-count-bar,
-.smart-schedule-header .appointment-filter-date-bar ,
+.smart-schedule-header .appointment-filter-date-bar,
 .smart-schedule-header .appointment-filter-dropdown-bar{
   display: inline-block;
   white-space: nowrap;
@@ -666,6 +667,10 @@ div.visit-status img.img-smart-status-highlight {
 .appintment-link:hover{
   color:#41b6a6;
   cursor: pointer;
+}
+
+.appointment-time{
+  color:#41b6a6;
 }
 .appintment-link div{
   background: transparent;

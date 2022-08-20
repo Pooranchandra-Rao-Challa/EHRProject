@@ -9,10 +9,15 @@
 .ordermodel.modal-content{
     width: 900px !important;
 }
+@media screen and (max-width:768px) {
+  .ordermodel.modal-content{
+    max-width: 520px !important;
+}
+}
 #labandimaging .dropdown-menu{
   min-width: unset;
 }
-.ordermodel .modal-body {
+.modal-body {
   max-height: calc(90vh - 200px);
   overflow-y: auto;
 }
@@ -22,7 +27,7 @@
 .disabled-color{
   background: transparent;
 }
-
+mat-label{width: 100%;display: block;}
 .plusicon {
     border-radius: 50%;
     border: 1px solid #fff;
@@ -140,5 +145,5 @@
   top: -4px;
   height: 1.5em;
 }
-
+.mat-form-field{width: 100%;}
 

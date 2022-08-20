@@ -20,7 +20,7 @@ import { LabProcedureWithOrder } from 'src/app/_models/_provider/LabandImage';
 // import { OrderDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/order.dialog.component'
 // import { LabResultComponent } from 'src/app/dialogs/lab.imaging.dialog/lab.result.component'
 import { OrderResultDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/order.result.dialog.component'
-import { ViewChangeService } from 'src/app/_navigations/provider.layout/view.notification.service';
+import { PatientUpdateService, ViewChangeService } from 'src/app/_navigations/provider.layout/view.notification.service';
 import { CCdaDialogComponent } from 'src/app/dialogs/c-cda.dialog/c-cda.dialog.component';
 
 
@@ -63,14 +63,16 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
     private overlayService: OverlayService,
     private utilityService: UtilityService,
     private alertmsg: AlertMessage,
-    private viewChangeService: ViewChangeService) {
+    private viewChangeService: ViewChangeService,
+    private patientUpdateNotifier: PatientUpdateService) {
     this.viewModel = authService.viewModel;
     if (this.viewModel.PatientView == null
       || this.viewModel.PatientView == '') {
       this.viewModel.PatientView = 'Chart';
     }
     this.patient = this.authService.viewModel.Patient;
-    this.removedPatientIdsInBreadcurmb = authService.viewModel.PatientBreadCrumb
+    this.removedPatientIdsInBreadcurmb = authService.viewModel.PatientBreadCrumb;
+
   }
   ngAfterViewInit(): void {
     this.chartSubject.next(this.viewModel.PatientView);
@@ -78,6 +80,13 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit(): void {
+    this.patientUpdateNotifier.getData().subscribe(patientUpdatedData =>{
+      this.patient.Dob = patientUpdatedData.DateOfBirth
+      this.patient.Age = Number(patientUpdatedData.Age);
+      this.patient.FirstName = patientUpdatedData.FirstName;
+      this.patient.LastName = patientUpdatedData.LastName;
+      this.patient.Gender = patientUpdatedData.Sex;
+    })
     this.viewChangeService.getData().subscribe(changedView => {
       this.viewModel = this.authService.viewModel;
       this.chartSubject.next(changedView)
@@ -280,9 +289,12 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
   }
 
   _detailsView(patientview) {
-    this.viewChangeService.sendData("Patients");
+    //this.viewChangeService.sendData("Patients");
+    console.log(
+      this.authService.viewModel);
     this.authService.SetViewParam("Patient", patientview);
     this.authService.SetViewParam("PatientView", "Chart");
+    this.authService.SetViewParam("View", "Patients");
     const currentUrl = this.router.url;
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
       this.router.navigate(["/provider/patientdetails"]);

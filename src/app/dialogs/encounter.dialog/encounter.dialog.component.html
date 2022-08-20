@@ -11,12 +11,13 @@
     </div>
     <div class="modal-body padding-unset">
       <div class="encounter-content-header">
+        <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6">
           <div class="row">
-            <div class="encounter-title">
+            <div class="encounter-title col-12">
               Date of Service:
             </div>
-            <div class="col-xl-4">
+            <div class="col-xl-4 col-12">
               <mat-label class="col-12">Start Date</mat-label>
               <mat-form-field appearance="outline" class="col-12 cstm-datepicker-toggle">
                 <input matInput class="pointer" autocomplete="off" [matDatepicker]="startDate"
@@ -25,7 +26,7 @@
                 <mat-datepicker #startDate></mat-datepicker>
               </mat-form-field>
             </div>
-            <div class="col-xl-4">
+            <div class="col-xl-4 col-12">
               <mat-label class="col-12">End Date</mat-label>
               <mat-form-field appearance="outline" class="col-12 cstm-datepicker-toggle">
                 <input matInput class="pointer" autocomplete="off" [matDatepicker]="endDate" (click)="endDate.open()"
@@ -38,11 +39,11 @@
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6">
           <div class="row">
-            <div class="encounter-title">
+            <div class="encounter-title col-12">
               Provider:
             </div>
-            <div class="col-xl-8 encounter-provider" style="margin-top:18px">
-              <mat-label class="col-12"></mat-label>
+            <div class="col-xl-8 col-12 encounter-provider">
+              <mat-label class="d-block invisible">hidden</mat-label>
               <mat-form-field appearance="outline" class="col-10 hover cstm-mat-padding">
                 <mat-select placeholder="Select One" disableOptionCentering id="encounterPracticeProviders"
                   placeholder="Select Provider" [(ngModel)]="encounterInfo.ProviderId">
@@ -56,10 +57,9 @@
           </div>
         </div>
       </div>
-
+      </div>
       <mat-progress-bar mode="indeterminate" bufferValue="50" value=100 *ngIf="dialogIsLoading"></mat-progress-bar>
       <div class="encounter-navigation">
-
         <mat-tab-group animationDuration="0ms">
           <mat-tab label="Meaningful Use" class="mat-ink-bar">
             <div class="encounter-tab-content">
@@ -108,7 +108,7 @@
                         <div class="col-lg-6 col-md-6 col-12 encounter-label">
                           New Patient Encounter?
                         </div>
-                        <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px; display: flex;">
+                        <div class="col-lg-6 col-md-6 col-12" style="padding: 5px 10px; display: flex;">
                           <mat-form-field appearance="outline" class="col-12 hover cstm-mat-padding">
                             <mat-select disableOptionCentering placeholder="Select New Patient Encounter"
                               [(ngModel)]="encounterInfo.NewPatientEncounter">
@@ -122,7 +122,7 @@
                         <div class="col-lg-6 col-md-6 col-12 encounter-label">
                           Patient Health Data
                         </div>
-                        <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px; display: flex;">
+                        <div class="col-lg-6 col-md-6 col-12" style="padding: 5px 10px; display: flex;">
                           <mat-form-field appearance="outline" class="col-12 hover cstm-mat-padding">
                             <mat-select disableOptionCentering placeholder="Select Patient Health Data"
                               [(ngModel)]="encounterInfo.PatientHealthData">
@@ -142,7 +142,7 @@
                               target="_blank">Search Recommended Resources</a>
                           </div>
                         </div>
-                        <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px; display: flex;">
+                        <div class="col-lg-6 col-md-6 col-12" style="padding: 5px 10px; display: flex;">
                           <mat-form-field appearance="outline" class="col-12 hover cstm-mat-padding">
                             <mat-select disableOptionCentering placeholder="Select Resources Provided Status"
                               [(ngModel)]="encounterInfo.PatientEducation">
@@ -467,9 +467,9 @@
                 <div class="row">
 
                   <div class="row">
-                    <div class="form-group col-lg-6 col-md-6 col-6" style="display: inline;">
+                    <div class="form-group col-lg-6 col-md-6 col-12" style="display: inline;">
                       <label class="col-12 vital-label required">Collected date:</label>
-                      <mat-form-field appearance="outline" class="col-lg-10 col-md-10 col-10">
+                      <mat-form-field appearance="outline" class="col-lg-12 col-12">
                         <input class="vital-input " matInput class="pointer" autocomplete="off"
                           [matDatepicker]="collectedDate" [(ngModel)]="encounterInfo.Vital.CollectedAt"
                           (click)="collectedDate.open()" readonly placeholder="Collected Date">
@@ -477,20 +477,18 @@
                         <mat-datepicker #collectedDate></mat-datepicker>
                       </mat-form-field>
                       <label class="col-12 vital-label required">Time:</label>
-                      <mat-form-field appearance="outline" class="col-lg-10 col-md-10 col-10">
+                      <mat-form-field appearance="outline" class="col-lg-12 col-12">
                         <input matInput class="vital-input" type="text" hint="12 hours format"
                           [(ngModel)]="encounterInfo.Vital.CollectedTime" appTimeMask>
 
                       </mat-form-field>
                     </div>
-                    <div class="form-group col-lg-6 col-md-6 col-6" style="float: right">
+                    <div class="form-group col-lg-6 col-md-6 col-12" style="float: right">
                       <label class="col-12 vital-label">Comments:</label>
                       <textarea class="textarea col-12" style="height:80%"
                         [(ngModel)]="encounterInfo.Vital.Note"></textarea>
                     </div>
                   </div>
-
-
                 </div>
                 <div class="row vitals-heading">
                   <p class="text-center fw-bolder fs-5 Helvetica-sans-serif-medium mt-2">Add a new record for vitals:

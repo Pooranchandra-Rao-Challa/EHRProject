@@ -102,7 +102,16 @@ ul.go-to-nav {
     margin-left: 17%;
   }
 }
+@media (max-width: 430px) {
+  .new-search-group.chart-patient-new-search-group {
+    width: 100%;
+    margin-left: 0% !important;
+  }
 
+  .pull-right {
+    padding: 0px 13px;
+  }
+}
 @media (max-width: 768px) {
   .new-search-group.chart-patient-new-search-group {
     width: 72%;
@@ -112,17 +121,6 @@ ul.go-to-nav {
 
   .pull-right {
     padding: 0px 7px;
-  }
-}
-
-@media (max-width: 425px) {
-  .new-search-group.chart-patient-new-search-group {
-    width: 100%;
-    margin-left: 0%;
-  }
-
-  .pull-right {
-    padding: 0px 13px;
   }
 }
 

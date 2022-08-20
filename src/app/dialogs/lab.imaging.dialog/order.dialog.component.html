@@ -1,7 +1,5 @@
-<div class="modal-dialog" id="labandImaging" style=" max-width: unset;
-left: calc(100% - 80%) !important;
-margin: unset;">
-  <div class="modal-content ordermodel">
+<div id="labandImaging" class="modal-dialog modal-lg">
+  <div class="modal-content">
     <div class="modal-header" style="margin-left:-1px">
       <p class="modal-title Roboto-medium">{{labandImaging.LabProcedureId != null ? "Edit" : "Add"}} {{labandImaging.View}} Order </p>
       <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close" (click)="cancel()">
@@ -10,9 +8,9 @@ margin: unset;">
     </div>
     <div class="modal-body">
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-lg-3 col-md-6 col-12">
           <mat-label class="required">Patient Name:</mat-label>
-          <mat-form-field class="" appearance="outline" [ngStyle]="{'width':'100%'}"
+          <mat-form-field class="" appearance="outline"
           [class.not-allowed]="diabledPatientSearch" [class.disabled-color]="diabledPatientSearch">
             <input matInput #searchpatient class="form-control" placeholder="Search Patient" type="text"
               id="searchpatient" name="searchpatient" [matAutocomplete]="serachpatient" [disabled]="diabledPatientSearch"  [readonly]="diabledPatientSearch"
@@ -27,25 +25,25 @@ margin: unset;">
             </mat-autocomplete>
           </mat-form-field>
         </div>
-        <div class="col-md-2">
+        <div class="col-lg-2 col-md-6 col-12">
           <mat-label>Patient ID:</mat-label>
           <mat-form-field appearance="outline" class="col-md-12 ">
             <input matInput placeholder="" disabled class="not-allowed" [(ngModel)]="labandImaging.CurrentPatient.PatientId">
           </mat-form-field>
         </div>
-        <div class="col-md-2">
+        <div class="col-lg-2 col-md-6 col-12">
           <mat-label>Sex:</mat-label>
           <mat-form-field appearance="outline" class="col-md-12">
             <input matInput placeholder="" disabled class="not-allowed" [(ngModel)]="labandImaging.CurrentPatient.Gender">
           </mat-form-field>
         </div>
-        <div class="col-md-2">
+        <div class="col-lg-2 col-md-6 col-12">
           <mat-label>Age:</mat-label>
           <mat-form-field appearance="outline" class="col-md-12">
             <input matInput placeholder="" disabled class="not-allowed" [(ngModel)]="labandImaging.CurrentPatient.Age">
           </mat-form-field>
         </div>
-        <div class="col-md-3">
+        <div class="col-lg-3 col-md-6 col-12">
           <mat-label>Date of birth:</mat-label>
           <mat-form-field appearance="outline" class="col-md-12">
             <input matInput placeholder="" disabled class="not-allowed" [ngModel]="labandImaging.CurrentPatient.DateofBirth | date:'MM/dd/yyyy'">
@@ -53,15 +51,15 @@ margin: unset;">
         </div>
       </div>
       <div class="row">
-        <div class="col-md-8 col-lg-8">
+        <div class="col-md-12 col-lg-8 col-12">
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-lg-4 col-md-6 col-12">
               <mat-label class="required">Order Type:</mat-label>
               <mat-form-field appearance="outline" class="col-md-12">
                 <input matInput placeholder="" disabled class="not-allowed" [(ngModel)]="labandImaging.ProcedureType">
               </mat-form-field>
             </div>
-            <div class="col-md-4">
+            <div class="col-lg-4 col-md-6 col-12">
               <mat-label class="required">Lab Name:</mat-label>
               <mat-form-field appearance="outline" class="col-md-12 orderddhover">
                 <mat-select required placeholder="Select Other lab" [(ngModel)]="labandImaging.LabName">
@@ -71,7 +69,7 @@ margin: unset;">
                 </mat-select>
               </mat-form-field>
             </div>
-            <div class="col-md-4">
+            <div class="col-lg-4 col-md-6 col-12">
               <mat-label class="required">Status:</mat-label>
               <mat-form-field appearance="outline" class="col-md-12 orderddhover">
                 <mat-select required placeholder="Status" [(ngModel)]="labandImaging.OrderStatus">
@@ -83,7 +81,7 @@ margin: unset;">
             </div>
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-lg-4 col-md-12 col-12">
           <mat-label class="required">Schedule Date:</mat-label>
           <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-12">
             <input matInput [matDatepicker]="dp1" placeholder="Start Date" (focus)="dp1?.open()"
@@ -92,13 +90,12 @@ margin: unset;">
             </mat-datepicker-toggle>
             <mat-datepicker #dp1></mat-datepicker>
           </mat-form-field>
-
         </div>
       </div>
       <div class="row">
-        <div class="col-md-8 col-lg-8">
+        <div class="col-md-12 col-lg-8 col-12">
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-lg-4 col-md-6 col-12">
               <mat-label class="required">Ordering Physician:</mat-label>
               <mat-form-field appearance="outline" class="col-md-12 orderddhover">
                 <mat-select required placeholder="" [(ngModel)]="labandImaging.OrderingPhyscianId">
@@ -107,7 +104,7 @@ margin: unset;">
                 </mat-select>
               </mat-form-field>
             </div>
-            <div class="col-md-4">
+            <div class="col-lg-4 col-md-6 col-12">
               <mat-label class="required">Ordering Facility:</mat-label>
               <mat-form-field appearance="outline" class="col-md-12 orderddhover not-allowed">
                 <mat-select required placeholder="" [(ngModel)]="labandImaging.OrderingFacility">
@@ -117,7 +114,7 @@ margin: unset;">
                 </mat-select>
               </mat-form-field>
             </div>
-            <div class="col-md-4">
+            <div class="col-lg-4 col-md-6 col-12">
               <mat-label class="required">Lab/Imaging Status:</mat-label>
               <mat-form-field appearance="outline" class="col-md-12 orderddhover">
                 <mat-select required placeholder="Status" [(ngModel)]="labandImaging.ResultStatus">
@@ -129,7 +126,7 @@ margin: unset;">
             </div>
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-lg-12 col-md-6 col-12">
           <mat-label>Received Date:</mat-label>
           <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-12">
             <input matInput [matDatepicker]="dp2" placeholder="Received Date" (focus)="dp2?.open()"
@@ -138,31 +135,29 @@ margin: unset;">
             </mat-datepicker-toggle>
             <mat-datepicker #dp2></mat-datepicker>
           </mat-form-field>
-
         </div>
       </div>
 
       <div class="card">
         <div class="card-header" style="margin-right: -1px;">
           <div class="row">
-            <div class="col-md-8">
+            <div class="col-lg-8 col-md-6 col-12">
               <span class="Helvetica-sans-serif-medium text-white mt-1">Tests Ordered (mimimum one test order is
                 required)</span>
             </div>
-            <div class="col-md-4 d-flex justify-content-end flex-sm-row flex-column">
-              <div class="pull-right">
+            <div class="col-lg-4 col-md-6 col-12 d-flex justify-content-end flex-sm-row flex-column">
+              <div class="pull-right text-right">
                 <button class="plusicon" type="button" aria-expanded="false" (click)="addLabOrder()">
                   <i class="fa fa-plus"></i>
                 </button>
-
               </div>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-4" style="text-align: center;">
+            <div class="col-lg-4 col-md-6 col-12" style="text-align: center;">
               <mat-label class="text-white required" matTooltip="Click the + icon to add Test Code">Code</mat-label>
             </div>
-            <div class="col-md-4" style="text-align: center;">
+            <div class="col-lg-4 col-md-6 col-12" style="text-align: center;">
               <mat-label class="text-white required" matTooltip="Click the + icon to add Test Code">Test</mat-label>
             </div>
           </div>
@@ -173,19 +168,19 @@ margin: unset;">
               <div *ngFor="let atta of orders.controls; let i=index ">
                 <div [formGroupName]="i">
                   <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-lg-4 col-md-6 col-12">
                       <mat-form-field appearance="outline" class="col-md-12" matTooltip="Enter minimum three digist">
                         <input matInput placeholder="" [data-index]="i" formControlName="Code" (blur)="getCodeInfo($event,i)" >
                       </mat-form-field>
                     </div>
-                    <div class="col-md-7">
+                    <div class="col-lg-7 col-md-6 col-12">
                       <mat-form-field appearance="outline" class="col-md-12">
                         <input matInput placeholder="" formControlName="Test" readonly class="not-allowed"
                         [matTooltip]="atta.controls.Test.value" >
                       </mat-form-field>
                       <input type="hidden" formControlName="TestOrderId">
                     </div>
-                    <div class="col-md-1" style="padding-left: 30px ;">
+                    <div class="col-lg-1 col-md-6 col-12" style="padding-left: 30px ;">
                       <button class="minuicon" type="button" aria-expanded="false" (click)="removeLabOrder(i)">
                         <i class="fa fa-minus"></i>
                       </button>
@@ -199,7 +194,7 @@ margin: unset;">
       </div>
 
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 col-12">
           <mat-label>Notes:</mat-label>
           <textarea matInput class="text-border" placeholder="Info about order"
             [(ngModel)]="labandImaging.Notes"></textarea>
@@ -210,10 +205,10 @@ margin: unset;">
         <div class="pattach">
           <div class="container-fluid">
             <div class="row">
-              <div class="col-md-10">
+              <div class="col-lg-10 col-10">
                 <p class="title mt-3"><b>Attachments:</b></p>
               </div>
-              <div class="col-md-2 mt-2 " style="margin-top: 0.75rem !important;">
+              <div class="col-lg-2 mt-2 col-2" style="margin-top: 0.75rem !important;">
                 <button class="attchmentplusicon icon-border pull-right" type="button" (click)="attachements()">
                   <i class="fa fa-plus"></i>
                 </button>
@@ -239,8 +234,8 @@ margin: unset;">
       </form>
     </div>
     <div class="modal-footer">
-      <button mat-raised-button type="submit" class="btn btn-green   pull-right" (click)="save()" [disabled]="enableSave()" *ngIf="!saveClicked && !labandImaging.Signed">Save</button>
-      <button mat-raised-button type="submit" class="btn btn-green   pull-right" (click)="signed()"  [disabled]="enableSave()" *ngIf="!labandImaging.Signed">Sign</button>
+      <button mat-raised-button type="submit" class="btn btn-green   pull-right" (click)="save()" [disabled]="enableSave()">Save</button>
+      <button mat-raised-button type="submit" class="btn btn-green   pull-right" (click)="signed()"  [disabled]="enableSave()">Sign</button>
       <button mat-raised-button class="btn btn-green pull-right" (click)="close()">Close</button>
     </div>
   </div>

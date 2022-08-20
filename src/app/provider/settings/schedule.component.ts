@@ -4,7 +4,7 @@ import { Component, OnInit, NgModule, TemplateRef } from '@angular/core';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { SettingsService } from '../../_services/settings.service';
 import { User } from '../../_models';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
 import { AppointmentStatus, AppointmentType, GeneralSchedule, NewUser, RoomsSlot } from '../../_models/_provider/_settings/settings';
 import { IdService } from '../../_helpers/_id.service';
 import { AlertMessage, ERROR_CODES } from './../../_alerts/alertMessage';
@@ -34,6 +34,7 @@ export class ScheduleComponent implements OnInit {
   Actions = Actions;
   generalSchedule: GeneralSchedule = {} as GeneralSchedule;
   userDialogComponent = UserDialogComponent;
+  providersDataSource: NewUser[];
 
   constructor(private authService: AuthenticationService,
     private settingsService: SettingsService,
@@ -52,13 +53,25 @@ export class ScheduleComponent implements OnInit {
     this.getAppointmentType();
     this.getRoomsForLocation();
     this.buildRoomsForm();
+    this.getProviderDetails();
     this.buildStatusForm();
     this.buildTypeForm();
     this.locationChanged.getData().subscribe(location => {
       this.getRoomsForLocation();
     })
   }
-
+//get provide Details
+  getProviderDetails() {
+    var reqparams = {
+      provider_Id: this.user.ProviderId,
+      location_Id: this.user.CurrentLocation
+    }
+    this.settingsService.ProviderDetails(reqparams).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.providersDataSource = resp.ListResult as NewUser[];
+      } else this.providersDataSource = [];
+    });
+  }
   // get display Location Details
   getLocationsList() {
     this.ClinicLocations = [];
@@ -166,7 +179,9 @@ export class ScheduleComponent implements OnInit {
   onEditStatus(statusIndex: number) {
     this.statusOnEdit.push(statusIndex);
   }
-
+  onAppTypeLog(ctrlType: AbstractControl,event){
+    ctrlType.value.Colour = event.color;
+  }
   // Appointment Type
   buildTypeForm() {
     this.typeForm = this.fb.group({
@@ -207,13 +222,13 @@ export class ScheduleComponent implements OnInit {
     let findIndex = this.typeOnEdit.findIndex(typeindex => typeIndex)
     findIndex !== -1 && this.typeOnEdit.splice(findIndex, 1)
   }
-  isNewType(rowIndex: number) {
+  isTypeEditable(rowIndex: number) {
     let ctlValue = this.typeForm.controls.type["controls"][rowIndex].value;
     let id = ctlValue.Id;
     let editable = this.typeOnEdit.indexOf(rowIndex) >-1 && ctlValue.Editable
-    console.log(editable);
 
-    return isNaN(Number(id)) ? false : Number(id) < 0 ? true : editable;
+    let flag =  Number(id) < 0 ? true : editable;
+    return flag;
   }
   onEditType(typeIndex: number) {
     this.typeOnEdit.push(typeIndex);
@@ -334,6 +349,8 @@ export class ScheduleComponent implements OnInit {
 
 
     let ctlvalue = ctlType.value;
+    console.log(ctlvalue);
+
     let reqparams: any;
     if (!isNaN(Number(ctlvalue.Id)) && Number(ctlvalue.Id) < 0)
       ctlvalue['TypeId'] = null;
@@ -458,11 +475,11 @@ export class ScheduleComponent implements OnInit {
   }
 
 
-  GetUserInfoData() {
+  GetUserInfoData(provider) {
     var reqparams = {
-      UserId: this.user.UserId,
-      LoginProviderId: this.user.ProviderId,
-      ClinicId: this.user.ClinicId
+      UserId: provider.UserId,
+      LoginProviderId: provider.providerId,
+      ClinicId: provider.ClinicId
     }
     this.settingsService.UserInfoWithPracticeLocations(reqparams).subscribe(resp => {
       let UserInfo = resp.Result as NewUser;

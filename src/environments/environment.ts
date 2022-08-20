@@ -20,6 +20,31 @@ export const RX_NDCS_STATUS_URI = (ndc:string) => `REST/ndcstatus.json?ndc=${ndc
 
 export const RX_URI_NDC_PROPERTIES = (ndc:string) => `REST/rxcui/${ndc}/properties.json`;
 
+export const MEDLINE_PLUS_SERVER = 'http://apps.nlm.nih.gov/medlineplus/services/mpconnect.cfm'
+export const MEDLINE_PLUS_ICD ='mainSearchCriteria.v.cs=2.16.840.1.113883.6.90'
+export const MEDLINE_PLUS_SNOMED = 'mainSearchCriteria.v.cs=2.16.840.1.113883.6.96'
+export const MEDLINE_PLUS_LOINC = 'mainSearchCriteria.v.cs=2.16.840.1.113883.6.1'
+export const MEDLINE_PLUS_RXNORM = 'mainSearchCriteria.v.cs=2.16.840.1.113883.6.88'
+
+export const MEDLINE_PLUS_URL = (code:string,codesystem:string) => `${MEDLINE_PLUS_SERVER}?${codesystem}=${code}`
+
+//export const MEDLINE_PLUS_ICD = (code:string) => `{MEDLINE_PLUS_SERVER}?mainSearchCriteria.v.cs=2.16.840.1.113883.6.90=`
+
+/**
+ MEDLINE_PLUS_SERVER:                          'http://apps.nlm.nih.gov/medlineplus/services/mpconnect.cfm'
+  MEDLINE_PLUS_ICD:                             'mainSearchCriteria.v.cs=2.16.840.1.113883.6.90'
+  MEDLINE_PLUS_SNOMED:                          'mainSearchCriteria.v.cs=2.16.840.1.113883.6.96'
+  MEDLINE_PLUS_LOINC:                           'mainSearchCriteria.v.cs=2.16.840.1.113883.6.1'
+  MEDLINE_PLUS_RXNORM:                          'mainSearchCriteria.v.cs=2.16.840.1.113883.6.88'
+  MEDLINE_PLUS_CODE_PARAM:                      'mainSearchCriteria.v.c'
+
+
+
+
+*/
+
+
+
 /***
  *  public const string RX_END_POINT = "https://rxnav.nlm.nih.gov/";
     public const string RX_URI = "REST/rxcui/{0}/properties.json";

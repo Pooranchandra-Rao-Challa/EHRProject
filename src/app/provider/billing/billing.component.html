@@ -1,26 +1,22 @@
-
-
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-8 col-lg-8 col-8">
+    <div class="col-md-8 col-lg-8 col-12">
       <div class="row">
-        <mat-form-field appearance="outline" class="col-md-4">
+        <mat-form-field appearance="outline" class="col-md-4 col-12">
           <mat-label>Search patient</mat-label>
           <mat-select ngModel name="search" #search="ngModel">
             <mat-option>-Select-</mat-option>
           </mat-select>
         </mat-form-field>
-        <div class="col-md-1 col-1 col-lg-1 py-3 px-1 pull-right d-flex justify-content-end flex-sm-row flex-column">Proc Date &nbsp;:&nbsp;from</div>
-     
+        <label class="col-md-1 col-12 col-lg-1 py-lg-3 px-lg-1 pull-right d-flex justify-content-end flex-sm-row flex-column">Proc Date &nbsp;:&nbsp;from</label>
         <mat-form-field appearance="outline" class="green-calendar col-md-3">
-          <input matInput [matDatepicker]="dp"  placeholder="Start Date"    name="startDate"
+          <input matInput [matDatepicker]="dp"  placeholder="Start Date" name="startDate"
           [(ngModel)]="startDate"(click)="dp.open()">
           <mat-datepicker-toggle matSuffix [for]="dp">
           </mat-datepicker-toggle>
           <mat-datepicker #dp disabled="false"></mat-datepicker>
          </mat-form-field>
-         <p class="col-md-1 toalignment">to</p>
-
+         <label class="col-md-1 col-12 px-3 px-lg-3 toalignment pt-0 pt-lg-3">to</label>
         <mat-form-field appearance="outline" class="green-calendar col-md-3">
           <input matInput [matDatepicker]="dp1" placeholder="Stop Date"  name="enddate"
           [(ngModel)]="enddate">
@@ -30,13 +26,12 @@
         </mat-form-field>
   </div>
 </div>
-      <div class="col-md-2 mt-2">
+      <div class="col-md-2 mt-lg-3 d-grid d-sm-inline">
         <button mat-raised-button type="submit" (click)="getBillings()" class="btn btn-green btn-reports runreport">Run Report</button>
       </div>
-      <div class="col-md-2 mt-2">
-        <button mat-raised-button class="btn btn-green btn-reports pull-right" (click)="resetpage()" style="margin: 2px 15px 2px 3px;">Reset</button>
+      <div class="col-md-2 mt-lg-3 d-grid d-sm-inline mt-3 mt-sm-0">
+        <button mat-raised-button class="btn btn-green btn-reports pull-right" (click)="resetpage()">Reset</button>
       </div>
-
   </div>
 </div>
 <!-- <div class="row">
@@ -58,30 +53,26 @@
     <button mat-raised-button class="btn btn-green btn-reports" (click)="exportToPdf()">Export PDF</button>
   </div>
 </div> -->
-<div class="row">
-  <div class="col-md-5 mt-3">
-    <p class="col-md-3 pull-right mt-3">Filter by status:</p>
+<div class="row mb-2">
+  <div class="col-md-5 col-12 mt-lg-3 px-4">
+    <label class="float-lg-end mt-lg-3">Filter by status:</label>
   </div>
-  <mat-form-field appearance="outline" class="col-md-5 mt-3  pull-right statusFilter" style="padding-left: 170px;">
+  <mat-form-field appearance="outline" class="col-md-4 mt-lg-3  pull-right statusFilter px-4">
     <mat-select id="statusFilter" #select multiple placeholder="Select all to include">
       <mat-option (click)="optionClick()" *ngFor="let fs of filterstatus" [value]="fs.value">
         {{fs.viewValue}}
       </mat-option>
     </mat-select>
   </mat-form-field>
+  <div class="col-md-3 col-12 ps-4">
+    <button mat-raised-button class="btn btn-green btn-reports mt-lg-3 me-4" (click)="exportToCsv()">Export&nbsp;CSV</button>
+    <button mat-raised-button class="btn btn-green btn-reports mt-lg-3" (click)="exportToPdf()">Export PDF</button>
+  </div>
+  <!-- <div class="col-md-1 col-6 pr-4">
 
-  <div class="col-md-1">
-    <button mat-raised-button class="btn btn-green btn-reports mt-3" (click)="exportToCsv()">Export CSV</button>
-  </div>
-  <div class="col-md-1 ">
-    <button mat-raised-button class="btn btn-green btn-reports mt-3" (click)="exportToPdf()" style="margin-left: -16px;">Export PDF</button>
-  </div>
+  </div> -->
 </div>
-
-
-
 <div class="table-responsive billing mb-5" #TABLE>
-
   <table mat-table [dataSource]="sampledata" #table id="my-table">
     <ng-container matColumnDef="ProcDate">
       <th mat-header-cell *matHeaderCellDef>Proc Date </th>
@@ -133,8 +124,6 @@
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
- 
-  
   </table>
   <div class=" table-NoRecord text-center text-danger py-2 col-12" *ngIf="sampledata.length == 0">
     No records found.

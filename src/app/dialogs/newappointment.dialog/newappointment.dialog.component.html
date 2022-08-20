@@ -121,15 +121,19 @@
         </div>
       </form>
     </div>
-    <div class="modal-footer">
+    <div class="modal-footer justify-content-md-between">
+      <div>
       <button class="btn btn-default  btn-appointment-cancel-right" [hidden]="PatientAppointment.AppointmentId == null"
         (click)="cancelAppointment()">Cancel</button>
-      <button class="btn btn-green col-md-4 col-7" [disabled]="DiabledAppointmentSave()"
+      </div>
+      <div>
+      <button class="btn btn-green px-lg-5 px-3" [disabled]="DiabledAppointmentSave()"
         (click)="onAppointmentSave()">Save
         Appointment</button>
-      <button id="appointmentClose" class="btn btn-green col-md-3 col-4" (click)="close()">
+      <button id="appointmentClose" class="btn btn-green px-2" (click)="close()">
         Close
       </button>
+    </div>
     </div>
   </div>
 </div>

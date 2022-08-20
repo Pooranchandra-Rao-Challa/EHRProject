@@ -28,7 +28,7 @@ import { ProviderComponent } from './provider.component';
 import { ProviderRoutingModule } from './provider-routing.module';
 import { SmartScheduleComponent } from '../../provider/smart.schedule/smart.schedule.component';
 import { CalendarComponent } from '../../provider/calendar/calendar.component';
-import { LocationSelectService, ViewChangeService,RecordsChangeService } from './view.notification.service';
+import { LocationSelectService, ViewChangeService,RecordsChangeService,PatientUpdateService } from './view.notification.service';
 
 import { UtilityService } from '../../_services/utiltiy.service';
 import { SmartSchedulerService } from '../../_services/smart.scheduler.service';
@@ -119,6 +119,7 @@ import { ProvidermessagetopracticeDialogComponent } from 'src/app/dialogs/provid
 import { ProvidermessagetopatientDialogComponent } from 'src/app/dialogs/providermessagetopatient.dialog/providermessagetopatient.dialog.component';
 import { MessagesService } from 'src/app/_services/messages.service';
 import { CCdaDialogComponent } from 'src/app/dialogs/c-cda.dialog/c-cda.dialog.component';
+import{MessageDialogComponent} from 'src/app/dialogs/alert.dialog/message.dialog.component'
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
   interactionPlugin,
@@ -151,7 +152,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     FrequentlyUsedDiagnosesDialogComponent,
     AddDiagnosesDialogComponent,
     PatientEducationMaterialDialogComponent,
-    CCdaDialogComponent
+    CCdaDialogComponent,
+    MessageDialogComponent
 
   ],
   declarations: [
@@ -220,7 +222,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     FrequentlyUsedDiagnosesDialogComponent,
     AddDiagnosesDialogComponent,
     PatientEducationMaterialDialogComponent,
-    CCdaDialogComponent
+    CCdaDialogComponent,
+    MessageDialogComponent
   ],
   imports: [
     FullCalendarModule,
@@ -255,7 +258,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     NgxMaskModule.forRoot(),
 
   ],
-  providers: [LocationSelectService, ViewChangeService,RecordsChangeService,
+  providers: [LocationSelectService, ViewChangeService,RecordsChangeService,PatientUpdateService,
     UtilityService, SmartSchedulerService, OverlayService, PatientService, BillingService,
     AlertMessage, RxNormAPIService,MessagesService,
     { provide: LOCALE_ID, useValue: 'en-US' },
@@ -296,7 +299,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     FrequentlyUsedDiagnosesDialogComponent,
     AddDiagnosesDialogComponent,
     PatientEducationMaterialDialogComponent,
-    CCdaDialogComponent]
+    CCdaDialogComponent,
+    MessageDialogComponent]
 })
 export class ProviderModule {
 

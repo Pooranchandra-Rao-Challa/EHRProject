@@ -30,6 +30,7 @@ import {
   NG_VALUE_ACCESSOR,
   Validator,
 } from '@angular/forms';
+import { eventNames } from 'process';
 import { isNumeric } from 'rxjs/util/isNumeric';
 @Directive({
   selector: '[appTimeMask]',
@@ -69,10 +70,8 @@ export class TimeMaskDirective implements OnInit, ControlValueAccessor, Validato
   }
 
   /** treat the keyss */
-  @HostListener('document:keydown', ['$event'])
+  @HostListener('keydown', ['$event'])
   onKeyDown(evt: KeyboardEvent) {
-
-    console.log(evt);
 
     const keyCode = evt.keyCode;
     switch (keyCode) {
@@ -93,6 +92,7 @@ export class TimeMaskDirective implements OnInit, ControlValueAccessor, Validato
           (keyCode == A || keyCode == P)) {
           // treat numbers
           this._setInputText(evt.key);
+
           // let key  = evt.key;
           // const inputvalue = this._el.nativeElement.value;
           // const meridian = inputvalue.split(' ')[1];

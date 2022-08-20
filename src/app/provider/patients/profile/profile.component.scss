@@ -28,30 +28,30 @@
   background: #41b6a6 ;
 }
 
-.btn-styles.btn-verify{
-  min-width: 220px;
-}
+// .btn-styles.btn-verify{
+//   min-width: 220px;
+// }
 
-.profile-hr {
-  border-top: 3px solid #41b6a6;
-  margin-top: -9px;
-}
+// .profile-hr {
+//  // margin-top: -9px;
+// }
 
 .d-inline-flex {
   font-size: 26px;
   font-family: "Roboto";
-  padding: 7px 82px 7px 18px !important;
+  //padding: 7px 82px 7px 18px !important;
   background-color: #41b6a6;
   height: 56px;
   font-weight: 500;
   color: white;
-
+  width:100%;
 }
 
 .label-design {
-  font-size: 16px;
+  font-size: 14px;
   font-family: 'Roboto';
 }
+label{font-size: 14px;}
 
 .input-group.form-control {
   height: 50px;
@@ -183,7 +183,7 @@ input::-webkit-input-placeholder {
   color: white;
   background-color: #41b6a6;
   border-color: #41b6a6;
-  width: 70px;
+  width: 68px;
 }
 
 .label-design.check-label {
@@ -195,6 +195,11 @@ input::-webkit-input-placeholder {
   border-color: #41b6a6 !important;
   background: white !important;
   width: 550px !important;
+}
+@media screen and (min-width:920px) {
+  .input-group>.form-control.search-control {
+    width: 550px !important;
+  }
 }
 
 // toggle on off checkbox
@@ -480,9 +485,9 @@ tr td {
   height: 50px;
 }
 
-.search-field {
-  margin-left: 381px;
-}
+// .search-field {
+//   margin-left: 381px;
+// }
 
 .mat-option:hover {
   background-color: white !important;
@@ -591,13 +596,16 @@ input[type='checkbox']:checked:after {
 
 .mycontent-left {
   border-right: 1px solid #41b6a6;
+  padding-right: unset !important;
 }
 
 .btn.btn-info.btn-autosearch {
   height: 49px;
   margin-top: -5px;
 }
-
+.profile-title{
+  margin-left:10px
+}
 .grey-calendar .mat-datepicker-toggle.mat-datepicker-toggle button.mat-focus-indicator.mat-icon-button {
   background-color: #41b6a6 !important;
   color: #fff !important;
