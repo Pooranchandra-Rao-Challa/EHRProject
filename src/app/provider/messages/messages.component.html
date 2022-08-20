@@ -33,24 +33,24 @@
 
 
         <div class="row mt-3">
-          <div class="col-md-3">
-            <mat-form-field appearance="outline" class="col-md-12">
+          <div class="col-lg-3 col-md-3 col-12">
+            <mat-form-field appearance="outline" class="w-100">
               <mat-select [(value)]="pageSize" placeholder="25 Msgs" (selectionChange)="onPageSizeChange($event)">
                 <mat-option *ngFor="let item of messagePerPage" [value]="item.value">{{item.text}}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
-          <div class="col-md-3">
-            <div class="input-group input-group-custom  ">
+          <div class="col-lg-3 col-md-3 col-12">
+            <div class="input-group input-group-custom">
               <input aria-label="Search for messages" #searchMessage autocomplete="off" class="form-control"
                 id="find-messages-input" placeholder="Search Messages">
               <span class="input-group-addon input-group-addon-right input-group-addon-search"
                 id="find-messages-button"><i class="fa fa-search"></i></span>
             </div>
           </div>
-          <div class="col-md-2">
+          <div class="col-lg-2 col-md-2 col-12 d-none d-lg-inline-flex">
           </div>
-          <div class="col-md-2 col-sm-6">
+          <div class="col-lg-2 col-md-3 col-sm-6 col mt-2 mt-sm-0">
             <div class="input-group input-drop">
               <button type="text" class="btn btn-light btn-actions dropdown-toggle" data-bs-toggle="dropdown">
                 Actions
@@ -63,7 +63,7 @@
               </ul>
             </div>
           </div>
-          <div class="col-md-2 col-sm-6">
+          <div class="col-lg-2 col-md-3 col-sm-6 col mt-2 mt-sm-0">
             <div class="input-group input-drop">
               <button type="text" class="btn btn-light btn-actions  dropdown-toggle" data-bs-toggle="dropdown">
                 New Message
@@ -166,22 +166,22 @@
               </div>
               <div class="message-footer"></div>
               <div class="row mt-2 mb-2 mx-2" *ngIf="currentMessageView=='Inbox' || currentMessageView=='Draft'">
-                <div class="col-md-2 justify-content-start flex-sm-row flex-column">
+                <div class="col-md-2 col justify-content-start flex-sm-row flex-column">
                   <button class="btn  btn-danger btn-msgdanger  Helvetica-sans-serif-medium pull-right" type="button"
                     (click)="DeleteMessages(currentMessage.EmailMessageId)">Delete</button>
                 </div>
-                <div class="col-md-6"></div>
-                <div class="col-md-2 justify-content-start flex-sm-row flex-column">
+                <div class="col-md-6 d-none d-sm-inline-flex"></div>
+                <div class="col-md-2 col justify-content-start flex-sm-row flex-column">
                   <button class="btn btn-green btn-messagesgreen Helvetica-sans-serif-medium pull-right" type="button"
                     (click)="openComponentDialogmessage(MessageDialogComponent,currentMessage,ActionTypes.view,'Reply' )">Reply</button>
                 </div>
-                <div class="col-md-2 justify-content-end flex-sm-row flex-column">
+                <div class="col-md-2 col justify-content-end flex-sm-row flex-column">
                   <button class="btn  btn-green btn-messagesgreen  Helvetica-sans-serif-medium pull-right" type="button"
                     (click)="openComponentDialogmessage(MessageDialogComponent,currentMessage,ActionTypes.view,'Forward')">Forward</button>
                 </div>
               </div>
             </div>
-            <div *ngIf="currentMessage == null" class="mt-5" style="text-align: center;">No Message Selected</div>
+            <div *ngIf="currentMessage == null" class="mt-lg-5 my-2" style="text-align: center;">No Message Selected</div>
           </div>
         </diV>
       </div>

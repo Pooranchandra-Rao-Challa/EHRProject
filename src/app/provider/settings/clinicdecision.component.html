@@ -1,6 +1,5 @@
 <div class="card ">
-  <div class="card-header bg-color ">
-
+  <div class="card-header bg-color">
     <h5 class="Helvetica-sans-serif-medium mt-2 Clinicalalignments">Clinical Decision Support</h5>
     <button class="plusicon" type="button" data-bs-toggle="modal" data-bs-target="#modal-new-alert-form"
       aria-expanded="false">
@@ -305,7 +304,7 @@
         </div>
         <div class="col-lg-12 col-md-12 col-12 mat-field-no-round-right mt-4">
           <medical-code-container [codeSystems]="codeSystemsForClinicalDecision"
-            (optionChanged)="optionChangedForTrigger($event)" [MinTermLength]="3" [showSelectedValue]="false">
+            (optionChanged)="optionChangedForTrigger($event)" [MinTermLength]="3" [showSelectedValue]="true">
           </medical-code-container>
         </div>
 
@@ -351,7 +350,7 @@
         </mat-table>
 
         <div>
-        
+
           <div class="row">
             <mat-label class="required">Code</mat-label>
 
@@ -374,17 +373,17 @@
           <textarea matInput class="text-border not-allowed" placeholder="" readonly disabled
             [(ngModel)]="ehrTrigger.Description"  ></textarea>
 
-          
+
         </div>
 
 
 
       </div>
       <div class="modal-footer">
-       
+
             <button class="btn btn-green btn-clinic " type="button" data-bs-dismiss="modal"
               (click)="CreateTrigger(ehrTrigger)" [disabled]="triggerSave()">Add trigger</button>
-         
+
       </div>
     </div>
   </div>

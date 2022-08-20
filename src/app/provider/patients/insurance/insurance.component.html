@@ -1,4 +1,3 @@
-
 <div class="container-fluid customoverlay">
     <div class="row">
         <div class="col-md-6">
@@ -15,17 +14,17 @@
                             aria-label="Subscriber Name" aria-describedby="basic-addon">
                     </div>
                     <div class="row">
-                      <div class="col-lg-6 col-md-12 col-12">
-                        <label class="Helvetica-sans-serif-medium d-block">Date of Birth</label>
-                        <mat-form-field appearance="outline"
-                            class=" calendaricon green-calendar">
-                            <input matInput [matDatepicker]="DateOfBirth" placeholder="Date of Birth"
-                                (click)="DateOfBirth.open()" [(ngModel)]="primlist.DateOfBirth" class="Helvetica-sans-serif-medium"  [max]="tomorrow">
-                            <mat-datepicker-toggle matSuffix [for]="DateOfBirth">
-                            </mat-datepicker-toggle>
-                            <mat-datepicker #DateOfBirth disabled="false"></mat-datepicker>
-                        </mat-form-field>
-                      </div>
+                        <div class="col-lg-6 col-md-12 col-12">
+                            <label class="Helvetica-sans-serif-medium d-block">Date of Birth</label>
+                            <mat-form-field appearance="outline" class=" calendaricon green-calendar">
+                                <input matInput [matDatepicker]="DateOfBirth" placeholder="Date of Birth"
+                                    (click)="DateOfBirth.open()" [(ngModel)]="primlist.DateOfBirth"
+                                    class="Helvetica-sans-serif-medium" [max]="tomorrow">
+                                <mat-datepicker-toggle matSuffix [for]="DateOfBirth">
+                                </mat-datepicker-toggle>
+                                <mat-datepicker #DateOfBirth disabled="false"></mat-datepicker>
+                            </mat-form-field>
+                        </div>
                         <div class="col-lg-6 col-md-12 col-12">
                             <label class="Helvetica-sans-serif-medium d-block">Gender:</label>
                             <div>
@@ -51,8 +50,7 @@
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-4 col-4 d-flex justify-content-end flex-sm-row flex-column">
-                            <button
-                                class="btn btn-green btn-verify Helvetica-sans-serif-medium mt-4"
+                            <button class="btn btn-green btn-verify Helvetica-sans-serif-medium mt-4"
                                 [disabled]="!primlist.Street || disableaddressverification"
                                 (click)="AddressVerification()">VERIFY</button>
 
@@ -64,7 +62,8 @@
                                 <div class="input-group input-group-lg">
                                     <span class="input-group-text Helvetica-sans-serif-medium"
                                         id="inputGroup-sizing-lg">Street Address</span>
-                                    <input [readonly]="!disableaddressverification" [class.address-verfied]="!manuallybtn"
+                                    <input [readonly]="!disableaddressverification"
+                                        [class.address-verfied]="!manuallybtn"
                                         class="form-control input-border Helvetica-sans-serif-medium"
                                         [(ngModel)]="primlist.StreetAddress" placeholder="Street Address" type="text"
                                         id="StreetAddress" name="StreetAddress">
@@ -75,7 +74,8 @@
                                 *ngIf="addressVerfied && !manuallybtn" (click)="enableManualEntry()"
                                 title="Can enter manully when the verification results are in correct by clicking this icon">x</button>
                         </div>
-                        <div class="col-md-2  patient-street-address d-flex justify-content-end flex-sm-row flex-column">
+                        <div
+                            class="col-md-2  patient-street-address d-flex justify-content-end flex-sm-row flex-column">
                             <div class="form-group">
                                 <button class="btn-green btn manualbtn  py-0 btn-lg btn-md"
                                     *ngIf="manuallybtn || disableaddressverification"
@@ -176,17 +176,21 @@
 
                     <div class="row">
                         <div class="col-lg-12 col-md-12">
-                            <mat-label  class="Helvetica-sans-serif-medium placehold">Source of Payment Typology </mat-label>
+                            <mat-label class="Helvetica-sans-serif-medium placehold">Source of Payment Typology
+                            </mat-label>
                             <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-12 ddl-width ddhover">
-                              <mat-select panelClass="optionalignment"  [(ngModel)]="primlist.SourceOfPaymentTypology" placeholder="Source of Payment Typology">
-                                <mat-select-filter  [displayMember]="'Code'" [array]="SourceOfPaymentTypologyCodesFilter"
-                                  (filteredReturn)="SourceOfPaymentTypologyCodes = $event"></mat-select-filter>
-                                <mat-option  *ngFor="let item of SourceOfPaymentTypologyCodes" [value]="item.Code" (click)="primaryspt(item)" >
-                                  {{item.Code}} - {{item.Description}}
-                                </mat-option>
-                              </mat-select>
+                                <mat-select panelClass="optionalignment" [(ngModel)]="primlist.SourceOfPaymentTypology"
+                                    placeholder="Source of Payment Typology">
+                                    <mat-select-filter [displayMember]="'Code'"
+                                        [array]="SourceOfPaymentTypologyCodesFilter"
+                                        (filteredReturn)="SourceOfPaymentTypologyCodes = $event"></mat-select-filter>
+                                    <mat-option *ngFor="let item of SourceOfPaymentTypologyCodes" [value]="item.Code"
+                                        (click)="primaryspt(item)">
+                                        {{item.Code}} - {{item.Description}}
+                                    </mat-option>
+                                </mat-select>
                             </mat-form-field>
-                          </div>
+                        </div>
                     </div>
 
                     <div class="row">
@@ -198,17 +202,16 @@
                         </div>
                     </div>
                     <div class="row">
-                        <mat-form-field appearance="outline"
-                            class="calendaricon green-calendar col-md-6">
+                        <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-6">
                             <input matInput [matDatepicker]="dp2" placeholder="Start Date" (focus)="dp2?.open()"
-                                [(ngModel)]="primlist.StartDate"  class="Helvetica-sans-serif-medium">
+                                [(ngModel)]="primlist.StartDate" class="Helvetica-sans-serif-medium">
                             <mat-datepicker-toggle matSuffix [for]="dp2">
                             </mat-datepicker-toggle>
-                            <mat-datepicker #dp2 ></mat-datepicker>
+                            <mat-datepicker #dp2></mat-datepicker>
                         </mat-form-field>
                         <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-6">
-                            <input matInput [matDatepicker]="dp1" placeholder="Stop Date" [(ngModel)]="primlist.EndDate"(focus)="dp1?.open()"
-                                class="Helvetica-sans-serif-medium">
+                            <input matInput [matDatepicker]="dp1" placeholder="Stop Date" [(ngModel)]="primlist.EndDate"
+                                (focus)="dp1?.open()" class="Helvetica-sans-serif-medium">
                             <mat-datepicker-toggle matSuffix [for]="dp1">
                             </mat-datepicker-toggle>
                             <mat-datepicker #dp1 disabled="false"></mat-datepicker>
@@ -236,17 +239,18 @@
                             [(ngModel)]="secList.SubscriberNane">
                     </div>
                     <div class="row">
-                      <div class="col-lg-6 col-md-12 col-12">
-                        <label class="Helvetica-sans-serif-medium d-block">Date of Birth</label>
-                        <mat-form-field appearance="outline" class="calendaricon green-calendar">
-                            <input matInput [matDatepicker]="dp4" placeholder="Date of Birth"
-                                [(ngModel)]="secList.DateOfBirth"(focus)="dp4?.open()"class="Helvetica-sans-serif-medium">
-                            <mat-datepicker-toggle matSuffix [for]="dp4">
-                            </mat-datepicker-toggle>
-                            <mat-datepicker #dp4 disabled="false"></mat-datepicker>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-lg-6 col-md-12 col-12">
+                        <div class="col-lg-6 col-md-12 col-12">
+                            <label class="Helvetica-sans-serif-medium d-block">Date of Birth</label>
+                            <mat-form-field appearance="outline" class="calendaricon green-calendar">
+                                <input matInput [matDatepicker]="dp4" placeholder="Date of Birth"
+                                    [(ngModel)]="secList.DateOfBirth" (focus)="dp4?.open()"
+                                    class="Helvetica-sans-serif-medium">
+                                <mat-datepicker-toggle matSuffix [for]="dp4">
+                                </mat-datepicker-toggle>
+                                <mat-datepicker #dp4 disabled="false"></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-12">
                             <label class="Helvetica-sans-serif-medium d-block">Gender:</label>
                             <div>
                                 <mat-radio-group [(ngModel)]="secList.Gender">
@@ -271,10 +275,9 @@
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-4 col-4 d-flex justify-content-end flex-sm-row flex-column">
-                                <button
-                                    class="btn btn-green btn-verify Helvetica-sans-serif-medium mt-4"
-                                    [disabled]="!secList.Street || secondarydisableaddressverification"
-                                    (click)="secondaryAddressverfied()">VERIFY</button>
+                            <button class="btn btn-green btn-verify Helvetica-sans-serif-medium mt-4"
+                                [disabled]="!secList.Street || secondarydisableaddressverification"
+                                (click)="secondaryAddressverfied()">VERIFY</button>
                         </div>
                     </div>
                     <div class="row">
@@ -339,7 +342,8 @@
                         <div class="col-11">
                             <label class="Helvetica-sans-serif-medium">Insurance Company Plan</label>
                             <div class="input-group mb-3">
-                                <input type="text" class="Helvetica-sans-serif-medium form-control patientInsuranceTab input-border address-verfied"
+                                <input type="text"
+                                    class="Helvetica-sans-serif-medium form-control patientInsuranceTab input-border address-verfied"
                                     placeholder="Insurance Company Plan" [(ngModel)]="secList.InsuranceCompanyPlan"
                                     aria-label="Subscriber Name" aria-describedby="basic-addon1" readonly>
                             </div>
@@ -357,9 +361,9 @@
                         <div class="col-7 col-md-7 col-lg-8">
                             <label class="Helvetica-sans-serif-medium">Subscriber Id</label>
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control Helvetica-sans-serif-medium patientInsuranceTab" placeholder="Subscriber Id"
-                                    aria-label="Subscriber Name" aria-describedby="basic-addon1"
-                                    [(ngModel)]="secList.SubscriberId">
+                                <input type="text" class="form-control Helvetica-sans-serif-medium patientInsuranceTab"
+                                    placeholder="Subscriber Id" aria-label="Subscriber Name"
+                                    aria-describedby="basic-addon1" [(ngModel)]="secList.SubscriberId">
                             </div>
                         </div>
                         <div class="col-5 col-md-5 col-lg-4 d-flex justify-content-end flex-sm-row flex-column">
@@ -387,18 +391,20 @@
                             </mat-radio-group>
                         </div>
                     </div>
-					 <div class="col-lg-12 col-md-12">
-                        <mat-label  class="Helvetica-sans-serif-medium">Source of Payment Typology </mat-label>
+                    <div class="col-lg-12 col-md-12">
+                        <mat-label class="Helvetica-sans-serif-medium">Source of Payment Typology </mat-label>
                         <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-12 ddl-width ddhover">
-                          <mat-select panelClass="optionalignment"  [(ngModel)]="secList.SourceOfPaymentTypology" placeholder="Source of Payment Typology">
-                            <mat-select-filter [displayMember]="'Code'" [array]="secondarySptcFilter"
-                              (filteredReturn)="SourceOfPaymentTypologyCodes = $event"></mat-select-filter>
-                            <mat-option  class="matpanelalignment" *ngFor="let item of SourceOfPaymentTypologyCodes" [value]="item.Code" (click)="secondaryspt(item)" >
-                              {{item.Code}} - {{item.Description}}
-                            </mat-option>
-                          </mat-select>
+                            <mat-select panelClass="optionalignment" [(ngModel)]="secList.SourceOfPaymentTypology"
+                                placeholder="Source of Payment Typology">
+                                <mat-select-filter [displayMember]="'Code'" [array]="secondarySptcFilter"
+                                    (filteredReturn)="SourceOfPaymentTypologyCodes = $event"></mat-select-filter>
+                                <mat-option class="matpanelalignment" *ngFor="let item of SourceOfPaymentTypologyCodes"
+                                    [value]="item.Code" (click)="secondaryspt(item)">
+                                    {{item.Code}} - {{item.Description}}
+                                </mat-option>
+                            </mat-select>
                         </mat-form-field>
-                      </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-6">
                             <label class="Helvetica-sans-serif-medium">Start Date</label>
@@ -410,7 +416,8 @@
                     <div class="row">
                         <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-6">
                             <input matInput [matDatepicker]="dp5" placeholder="Start Date"
-                                [(ngModel)]="secList.StartDate" (focus)="dp5?.open()" class="Helvetica-sans-serif-medium">
+                                [(ngModel)]="secList.StartDate" (focus)="dp5?.open()"
+                                class="Helvetica-sans-serif-medium">
                             <mat-datepicker-toggle matSuffix [for]="dp5">
 
                             </mat-datepicker-toggle>
@@ -420,7 +427,8 @@
 
 
                         <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-6">
-                            <input matInput [matDatepicker]="dp6" placeholder="Stop Date" [(ngModel)]="secList.EndDate"(focus)="dp6?.open()"class="Helvetica-sans-serif-medium">
+                            <input matInput [matDatepicker]="dp6" placeholder="Stop Date" [(ngModel)]="secList.EndDate"
+                                (focus)="dp6?.open()" class="Helvetica-sans-serif-medium">
                             <mat-datepicker-toggle matSuffix [for]="dp6">
                             </mat-datepicker-toggle>
                             <mat-datepicker #dp6 disabled="false"></mat-datepicker>
@@ -444,7 +452,8 @@
             <div class="modal-header">
                 <span *ngIf="data" class="Helvetica-sans-serif-medium text-white">Select Insurance Company Plan </span>
                 <span *ngIf="!data" class="Helvetica-sans-serif-medium">Add/Edit Insurance Company Plan </span>
-                <span *ngIf="data" type="button" (click)="cancel()" class="cross-mark" data-bs-dismiss="modal" aria-label="Close">
+                <span *ngIf="data" type="button" (click)="cancel()" class="cross-mark" data-bs-dismiss="modal"
+                    aria-label="Close">
                     X
                 </span>
                 <span *ngIf="!data" type="button" (click)="cancel()" class="cross-mark">
@@ -457,146 +466,170 @@
 
                     <div class="container">
                         <div class="divScroll1">
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12 col-12 mb-4">
-                                <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-12 mb-4">
+                                    <div class="col-md-6">
 
-                                    <div>
-                                        <label class="Helvetica-sans-serif-medium required">Type:</label>
-                                        <mat-radio-group [(ngModel)]="insuraceComplanyPlan.PlanType">
-                                            <mat-radio-button class="radio-btn-label label-design my-1" value="medical">
-                                                Medical</mat-radio-button>
-                                            <mat-radio-button class="radio-btn-label label-design my-1" value="dental">
-                                                Dental</mat-radio-button>
-                                        </mat-radio-group>
+                                        <div>
+                                            <label class="Helvetica-sans-serif-medium required">Type:</label>
+                                            <mat-radio-group [(ngModel)]="insuraceComplanyPlan.PlanType">
+                                                <mat-radio-button class="radio-btn-label label-design my-1"
+                                                    value="medical">
+                                                    Medical</mat-radio-button>
+                                                <mat-radio-button class="radio-btn-label label-design my-1"
+                                                    value="dental">
+                                                    Dental</mat-radio-button>
+                                            </mat-radio-group>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row mb-4">
-                            <label class="Helvetica-sans-serif-medium required">Insurance Company Name</label>
-                            <div class="input-group input-group-lg">
-                                <input type="text" class="form-control inputclass" placeholder="Insurance Company Name"
-                                    [(ngModel)]="insuraceComplanyPlan.InsuranceCompanyName">
-                            </div>
-                        </div>
-                        <div class="row mb-4">
-                            <div class="col-md-6">
-                                <label class="Helvetica-sans-serif-medium">Group Plan</label>
+                            <div class="row mb-4">
+                                <label class="Helvetica-sans-serif-medium required">Insurance Company Name</label>
                                 <div class="input-group input-group-lg">
-                                    <input type="text" class="form-control inputclass" placeholder="Group Plan"
-                                        [(ngModel)]="insuraceComplanyPlan.GroupPlan">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="Helvetica-sans-serif-medium">Employer</label>
-                                <div class="input-group input-group-lg">
-                                    <input type="text" class="form-control inputclass" placeholder="Employer"
-                                        [(ngModel)]="insuraceComplanyPlan.Employer">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mb-4">
-                            <div class="input-group input-group-lg">
-                                <span class="input-group-text Helvetica-sans-serif-medium"
-                                    id="inputGroup-sizing-lg">Street Address</span>
-                                <input type="text" class="form-control inputclass"
-                                    [(ngModel)]="insuraceComplanyPlan.StreetAddress">
-                            </div>
-
-                        </div>
-                        <div class="row">
-                            <div class="col-5  mb-3">
-                                <div class="input-group input-group-lg">
-                                    <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
-                                        id="inputGroup-sizing-lg ">City</span>
                                     <input type="text" class="form-control inputclass"
-                                        [(ngModel)]="insuraceComplanyPlan.City">
+                                        placeholder="Insurance Company Name"
+                                        [(ngModel)]="insuraceComplanyPlan.InsuranceCompanyName">
                                 </div>
                             </div>
-                            <div class="col-3 mb-3">
-                                <div class="input-group input-group-lg ">
-                                    <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
-                                        id="inputGroup-sizing-lg ">State</span>
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <label class="Helvetica-sans-serif-medium">Group Plan</label>
+                                    <div class="input-group input-group-lg">
+                                        <input type="text" class="form-control inputclass" placeholder="Group Plan"
+                                            [(ngModel)]="insuraceComplanyPlan.GroupPlan">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="Helvetica-sans-serif-medium">Employer</label>
+                                    <div class="input-group input-group-lg">
+                                        <input type="text" class="form-control inputclass" placeholder="Employer"
+                                            [(ngModel)]="insuraceComplanyPlan.Employer">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-text Helvetica-sans-serif-medium"
+                                        id="inputGroup-sizing-lg">Street Address</span>
                                     <input type="text" class="form-control inputclass"
-                                        [(ngModel)]="insuraceComplanyPlan.State">
+                                        [(ngModel)]="insuraceComplanyPlan.StreetAddress">
                                 </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="input-group input-group-lg">
-                                    <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
-                                        id="inputGroup-sizing-lg ">Zip</span>
-                                    <input type="text" class="form-control inputclass"
-                                        [(ngModel)]="insuraceComplanyPlan.Zip">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mb-4">
-                            <label class="Helvetica-sans-serif-medium ">Contact</label>
-                            <div class="input-group input-group-lg">
-                                <input type="text" class="form-control inputclass" placeholder="Contact"
-                                    [(ngModel)]="insuraceComplanyPlan.Contact">
-                            </div>
-                        </div>
-                        <div class="row mb-4">
-                            <div class="col-md-6">
-                                <label class="Helvetica-sans-serif-medium">Phone</label>
-                                <div class="input-group input-group-lg">
-                                    <input type="text" class="form-control inputclass" placeholder="Phone"
-                                        [(ngModel)]="insuraceComplanyPlan.Phone">
-                                </div>
-                            </div>
 
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <label class="Helvetica-sans-serif-medium">Benefit Renewal</label>
-                                <div class="form-group">
-                                    <select class="col-12 inputclass" [(ngModel)]="insuraceComplanyPlan.BenfitRenewal">
-                                        <option value="Jan" selected>Jan</option>
-                                        <option value="Feb">Feb</option>
-                                        <option value="Mar">Mar</option>
-                                        <option value="Apr">Apr</option>
-                                        <option value="May">May</option>
-                                        <option value="Jun">Jun</option>
-                                        <option value="Jul">Jul</option>
-                                        <option value="Sep">Sep</option>
-                                        <option value="Oct">Oct</option>
-                                        <option value="Nov">Nov</option>
-                                        <option value="Dec">Dec</option>
-
-                                    </select>
+                            </div>
+                            <div class="row">
+                                <div class="col-5  mb-3">
+                                    <div class="input-group input-group-lg">
+                                        <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
+                                            id="inputGroup-sizing-lg ">City</span>
+                                        <input type="text" class="form-control inputclass"
+                                            [(ngModel)]="insuraceComplanyPlan.City">
+                                    </div>
+                                </div>
+                                <div class="col-3 mb-3">
+                                    <div class="input-group input-group-lg ">
+                                        <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
+                                            id="inputGroup-sizing-lg ">State</span>
+                                        <input type="text" class="form-control inputclass"
+                                            [(ngModel)]="insuraceComplanyPlan.State">
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="input-group input-group-lg">
+                                        <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
+                                            id="inputGroup-sizing-lg ">Zip</span>
+                                        <input type="text" class="form-control inputclass"
+                                            [(ngModel)]="insuraceComplanyPlan.Zip">
+                                    </div>
                                 </div>
                             </div>
-
-                        </div>
-                        <div class="row mb-4">
-                            <div class="col-md-6">
-                                <label class="Helvetica-sans-serif-medium">Group #</label>
+                            <div class="row mb-4">
+                                <label class="Helvetica-sans-serif-medium ">Contact</label>
                                 <div class="input-group input-group-lg">
-                                    <input type="text" class="form-control inputclass" placeholder="Group #"
-                                        [(ngModel)]="insuraceComplanyPlan.GroupNo">
+                                    <input type="text" class="form-control inputclass" placeholder="Contact"
+                                        [(ngModel)]="insuraceComplanyPlan.Contact">
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <label class="Helvetica-sans-serif-medium">Local #</label>
-                                <div class="input-group input-group-lg">
-                                    <input type="text" class="form-control inputclass " placeholder="Local #"
-                                        [(ngModel)]="insuraceComplanyPlan.LocalNo">
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <label class="Helvetica-sans-serif-medium">Phone</label>
+                                    <div class="input-group input-group-lg">
+                                        <!-- <input type="text" class="form-control inputclass" placeholder="Phone"
+                                        [(ngModel)]="insuraceComplanyPlan.Phone"> -->
+
+                                        <mat-form-field class="phone-full-width" appearance="outline">
+                                            <input type="input" class="areacode" placeholder="(area-code)"
+                                                aria-label="Number" matInput [formControl]="myControlPrimary"
+                                                [matAutocomplete]="autoPrimary"
+                                                [(ngModel)]="insuraceComplanyPlan.PhonePreffix">
+                                            <mat-autocomplete autoActiveFirstOption #autoPrimary="matAutocomplete">
+                                                <mat-option class="tel-code"
+                                                    *ngFor="let option of filteredAreacodes | async" [value]="option"
+                                                    (click)="onSelectedPrimaryPhoneCode(option)">
+                                                    <h1>{{option}}</h1>
+                                                </mat-option>
+                                            </mat-autocomplete>
+                                        </mat-form-field>
+                                        <mat-form-field appearance="outline" class="phone-width">
+                                            <input matInput placeholder="Primary Phone Number" class="cstm-tel"
+                                                type="tel" mask="000-0000" [showMaskTyped]="true"
+                                                [patterns]="PhonePattern"
+                                                [(ngModel)]="insuraceComplanyPlan.PhoneSuffix">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <label class="Helvetica-sans-serif-medium">Benefit Renewal</label>
+                                    <div class="form-group">
+                                        <select class="col-12 inputclass"
+                                            [(ngModel)]="insuraceComplanyPlan.BenfitRenewal">
+                                            <option value="Jan" selected>Jan</option>
+                                            <option value="Feb">Feb</option>
+                                            <option value="Mar">Mar</option>
+                                            <option value="Apr">Apr</option>
+                                            <option value="May">May</option>
+                                            <option value="Jun">Jun</option>
+                                            <option value="Jul">Jul</option>
+                                            <option value="Sep">Sep</option>
+                                            <option value="Oct">Oct</option>
+                                            <option value="Nov">Nov</option>
+                                            <option value="Dec">Dec</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <label class="Helvetica-sans-serif-medium">Group #</label>
+                                    <div class="input-group input-group-lg">
+                                        <input type="text" class="form-control inputclass" placeholder="Group #"
+                                            [(ngModel)]="insuraceComplanyPlan.GroupNo">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="Helvetica-sans-serif-medium">Local #</label>
+                                    <div class="input-group input-group-lg">
+                                        <input type="text" class="form-control inputclass " placeholder="Local #"
+                                            [(ngModel)]="insuraceComplanyPlan.LocalNo">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-4 ">
+                                <label class="Helvetica-sans-serif-medium">Payer ID</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control inputclass" placeholder="Payer ID"
+                                        [(ngModel)]="insuraceComplanyPlan.PayerID">
                                 </div>
                             </div>
                         </div>
-                        <div class="row mb-4 ">
-                            <label class="Helvetica-sans-serif-medium">Payer ID</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control inputclass" placeholder="Payer ID"
-                                    [(ngModel)]="insuraceComplanyPlan.PayerID">
-                            </div>
-                        </div>
-</div>
 
                         <div class="row mb-2">
                             <div class="col-md-3">
                                 <button *ngIf="delete" mat-raised-button type="submit" class="btn btn-danger btn-danger"
-                                data-bs-dismiss="modal" (click)="deleteInsurancePlan()">Delete</button>
+                                    data-bs-dismiss="modal" (click)="deleteInsurancePlan()">Delete</button>
                             </div>
                             <!-- <div class="col-md-4">
 
@@ -604,15 +637,15 @@
                             <div class="col-md-3">
 
                             </div>
-                            <div class="col-md-3" >
-                                <button mat-raised-button type="submit"
-                                    class="btn btn-green btn-selectcancel" data-bs-dismiss="modal"
-                                    (click)="CreateUpdateInsuraceCompanyPlan()" [disabled]="enableSave()">Save</button>
+                            <div class="col-md-3">
+                                <button mat-raised-button type="submit" class="btn btn-green btn-selectcancel"
+                                    data-bs-dismiss="modal" (click)="CreateUpdateInsuraceCompanyPlan()"
+                                    [disabled]="enableSave()">Save</button>
                             </div>
                             <div class="col-md-3">
                                 <button *ngIf="cancel2" mat-raised-button type="submit"
                                     class="btn btn-green btn-selectcancel  pull-right" (click)=cancel()>Cancel</button>
-                                    <button *ngIf="cancel1" mat-raised-button type="submit"
+                                <button *ngIf="cancel1" mat-raised-button type="submit"
                                     class="btn btn-green btn-selectcancel  pull-right" (click)=cancel()
                                     data-bs-dismiss="modal" aria-label="Close">Cancel</button>
                             </div>
@@ -624,75 +657,76 @@
                 </ng-template>
                 <ng-template #other_content>
                     <div class="divScroll">
-                    <div class="row">
-                        <div class="col-md-6">
-                          
-                            <mat-form-field appearance="outline" class="col-md-12" style="width:300px">
-                                <mat-label>Search Insurance Company Plan</mat-label>
-                                <input matInput [(ngModel)]="searchText" placeholder="Search Insurance Company Plan"/>
-                              </mat-form-field>
+                        <div class="row">
+                            <div class="col-md-6">
+
+                                <mat-form-field appearance="outline" class="col-md-12" style="width:300px">
+                                    <mat-label>Search Insurance Company Plan</mat-label>
+                                    <input matInput [(ngModel)]="searchText"
+                                        placeholder="Search Insurance Company Plan" />
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-2"></div>
+                            <div class="col-md-4">
+                                <button (click)=AddInsuranceCompanyPlan()
+                                    class="btn btn-green btn-insurancecompany Helvetica-sans-serif-medium pull-right"
+                                    type="button">Add Insurance Company Plan </button>
+                            </div>
                         </div>
-                        <div class="col-md-2"></div>
-                        <div class="col-md-4">
-                            <button (click)=AddInsuranceCompanyPlan()
-                                class="btn btn-green btn-insurancecompany Helvetica-sans-serif-medium pull-right"
-                                type="button">Add Insurance Company Plan </button>
+                        <table class="table table-borderless">
+                            <thead class="bg-color">
+                                <tr>
+
+                                    <th class="Helvetica-sans-serif-medium">
+                                        Insurance Company Name
+                                    </th>
+                                    <th class="Helvetica-sans-serif-medium">
+                                        Group Plan
+                                    </th>
+                                    <th class="Helvetica-sans-serif-medium">
+                                        Group #
+                                    </th>
+                                    <th class="Helvetica-sans-serif-medium">
+                                        Local #
+                                    </th>
+                                    <th class="Helvetica-sans-serif-medium">
+                                        Employer Name
+                                    </th>
+                                    <th class="Helvetica-sans-serif-medium">
+                                        Payer ID
+                                    </th>
+                                    <th class="Helvetica-sans-serif-medium">
+                                        Address
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of InsurancePlanList | globalsearch: searchText; let idx = index;"
+                                    [style.background-color]="rowClicked == idx ? 'rgb(254, 143, 0)' : ''"
+                                    (click)="changeTableRowColor(idx,false)" (dblclick)=edit(idx)>
+                                    <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)"
+                                        class="Helvetica-sans-serif-medium">{{item.InsuranceCompanyName}}</td>
+                                    <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)"
+                                        class="Helvetica-sans-serif-medium">{{item.GroupPlan}}</td>
+                                    <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)"
+                                        class="Helvetica-sans-serif-medium">{{item.GroupNo}}</td>
+                                    <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)"
+                                        class="Helvetica-sans-serif-medium"> {{item.LocalNo}}</td>
+                                    <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)"
+                                        class="Helvetica-sans-serif-medium">{{item.Employer}}</td>
+                                    <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)"
+                                        class="Helvetica-sans-serif-medium">{{item.PayerID}}</td>
+                                    <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)"
+                                        class="Helvetica-sans-serif-medium">
+                                        {{item.StreetAddress}},{{item.City}},{{item.State}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div *ngIf="(InsurancePlanList | globalsearch: searchText).length === 0">
+                            <div class="text-center Helvetica-sans-serif-medium norecordfound">No records found.</div>
+
                         </div>
-                    </div>
-                    <table class="table table-borderless">
-                        <thead class="bg-color">
-                            <tr>
-
-                                <th class="Helvetica-sans-serif-medium">
-                                    Insurance Company Name
-                                </th>
-                                <th class="Helvetica-sans-serif-medium">
-                                    Group Plan
-                                </th>
-                                <th class="Helvetica-sans-serif-medium">
-                                    Group #
-                                </th>
-                                <th class="Helvetica-sans-serif-medium">
-                                    Local #
-                                </th>
-                                <th class="Helvetica-sans-serif-medium">
-                                    Employer Name
-                                </th>
-                                <th class="Helvetica-sans-serif-medium">
-                                    Payer ID
-                                </th>
-                                <th class="Helvetica-sans-serif-medium">
-                                    Address
-                                </th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                           <tr *ngFor="let item of InsurancePlanList | globalsearch: searchText; let idx = index;"
-                                [style.background-color]="rowClicked == idx ? 'rgb(254, 143, 0)' : ''"
-                                (click)="changeTableRowColor(idx,false)" (dblclick)=edit(idx)>
-                                <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)"
-                                    class="Helvetica-sans-serif-medium">{{item.InsuranceCompanyName}}</td>
-                                <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)"
-                                    class="Helvetica-sans-serif-medium">{{item.GroupPlan}}</td>
-                                <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)"
-                                    class="Helvetica-sans-serif-medium">{{item.GroupNo}}</td>
-                                <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)"
-                                    class="Helvetica-sans-serif-medium"> {{item.LocalNo}}</td>
-                                <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)"
-                                    class="Helvetica-sans-serif-medium">{{item.Employer}}</td>
-                                <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)"
-                                    class="Helvetica-sans-serif-medium">{{item.PayerID}}</td>
-                                <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)"
-                                    class="Helvetica-sans-serif-medium">
-                                    {{item.StreetAddress}},{{item.City}},{{item.State}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div *ngIf="(InsurancePlanList | globalsearch: searchText).length === 0">
-                        <div class="text-center Helvetica-sans-serif-medium norecordfound">No records found.</div>
-
-                    </div>
                     </div>
                     <div class="row mt-4">
                         <div class="col-md-6">

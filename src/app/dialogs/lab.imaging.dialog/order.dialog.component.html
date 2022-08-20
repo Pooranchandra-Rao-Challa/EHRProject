@@ -8,7 +8,7 @@
     </div>
     <div class="modal-body">
       <div class="row">
-        <div class="col-lg-3 col-md-6 col-12">
+        <div class="col-lg-2 col-md-6 col-12">
           <mat-label class="required">Patient Name:</mat-label>
           <mat-form-field class="" appearance="outline"
           [class.not-allowed]="diabledPatientSearch" [class.disabled-color]="diabledPatientSearch">
@@ -43,12 +43,19 @@
             <input matInput placeholder="" disabled class="not-allowed" [(ngModel)]="labandImaging.CurrentPatient.Age">
           </mat-form-field>
         </div>
-        <div class="col-lg-3 col-md-6 col-12">
+        <div class="col-lg-2 col-md-6 col-12">
           <mat-label>Date of birth:</mat-label>
           <mat-form-field appearance="outline" class="col-md-12">
             <input matInput placeholder="" disabled class="not-allowed" [ngModel]="labandImaging.CurrentPatient.DateofBirth | date:'MM/dd/yyyy'">
           </mat-form-field>
         </div>
+        
+  <div class="col-lg-2  col-md-6 col-12">
+    <mat-label>Phone</mat-label>
+    <mat-form-field appearance="outline" class="col-md-12">
+      <input matInput placeholder="" disabled class="not-allowed" [(ngModel)]="labandImaging.CurrentPatient.PrimaryPhone">
+    </mat-form-field>
+  </div>
       </div>
       <div class="row">
         <div class="col-md-12 col-lg-8 col-12">
@@ -96,7 +103,7 @@
         <div class="col-md-12 col-lg-8 col-12">
           <div class="row">
             <div class="col-lg-4 col-md-6 col-12">
-              <mat-label class="required">Ordering Physician:</mat-label>
+               <mat-label class="required">Ordering Physician:</mat-label>
               <mat-form-field appearance="outline" class="col-md-12 orderddhover">
                 <mat-select required placeholder="" [(ngModel)]="labandImaging.OrderingPhyscianId">
                   <mat-option *ngFor="let provider of PracticeProviders" [value]="provider.ProviderId">
@@ -115,7 +122,7 @@
               </mat-form-field>
             </div>
             <div class="col-lg-4 col-md-6 col-12">
-              <mat-label class="required">Lab/Imaging Status:</mat-label>
+               <mat-label class="required">Lab/Imaging Status:</mat-label>
               <mat-form-field appearance="outline" class="col-md-12 orderddhover">
                 <mat-select required placeholder="Status" [(ngModel)]="labandImaging.ResultStatus">
                   <mat-option *ngFor="let item of ResultStatuses" [value]="item.Value">
@@ -126,17 +133,18 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-12 col-md-6 col-12">
+        <div class="col-lg-4 col-md-12 col-12">
           <mat-label>Received Date:</mat-label>
-          <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-12">
-            <input matInput [matDatepicker]="dp2" placeholder="Received Date" (focus)="dp2?.open()"
-              class="Helvetica-sans-serif-medium" [(ngModel)]="labandImaging.ReceivedAt">
-            <mat-datepicker-toggle matSuffix [for]="dp2">
-            </mat-datepicker-toggle>
-            <mat-datepicker #dp2></mat-datepicker>
-          </mat-form-field>
+              <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-12">
+                <input matInput [matDatepicker]="dp2" placeholder="Received Date" (focus)="dp2?.open()"
+                  class="Helvetica-sans-serif-medium" [(ngModel)]="labandImaging.ReceivedAt">
+                <mat-datepicker-toggle matSuffix [for]="dp2">
+                </mat-datepicker-toggle>
+                <mat-datepicker #dp2></mat-datepicker>
+              </mat-form-field>
         </div>
       </div>
+	  
 
       <div class="card">
         <div class="card-header" style="margin-right: -1px;">

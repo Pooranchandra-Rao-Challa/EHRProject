@@ -17,7 +17,8 @@ import { DatePipe } from '@angular/common';
 export class ClinicDecisionComponent implements OnInit {
   clinicalDecisionSupportList: EhrAlert[] = [];
   newAlert?: EhrAlert = {};
-  ehrTriggerList: TriggerInformation = {};
+  ehrTriggerList: TriggerInformation = new TriggerInformation;
+  // patientEducationInfo: PatientEducationInfomation = new PatientEducationInfomation();
   triggerSearchList = new BehaviorSubject<EhrTrigger[]>([]);
   ehrTrigger: EhrTrigger = new EhrTrigger();
   codeSystemsForClinicalDecision: string[] = ['SNOMED/ICD10','Local'];
@@ -309,6 +310,8 @@ export class ClinicDecisionComponent implements OnInit {
     this.newAlert = new EhrAlert
   }
   resettriggerdialog() {
+    
+  let d:MedicalCode = new MedicalCode()
     this.ehrTrigger = new EhrTrigger;
     this.triggerSearchList = new BehaviorSubject<EhrTrigger[]>([]);
 
@@ -321,6 +324,7 @@ export class ClinicDecisionComponent implements OnInit {
     this.ehrTrigger.CanDelete = false;
     this.ehrTriggerList.Addtrigger.push(this.ehrTrigger);
     this.triggerSearchList.next(this.ehrTriggerList.Addtrigger.filter(fn => fn.CanDelete === false));
+   
   }
 
 
@@ -330,8 +334,10 @@ export class ClinicDecisionComponent implements OnInit {
     this.ehrTrigger = new EhrTrigger();
   }
   newtrigger(item) {
-
     this.ehrTrigger.AlertId = item;
+    let d:MedicalCode = new MedicalCode()
+    this.ehrTrigger = new EhrTrigger;
+    this.triggerSearchList = new BehaviorSubject<EhrTrigger[]>([]);
   }
   CreateTrigger(ehrTrigger) {
     this.settingservice.CreateTrigger(ehrTrigger).subscribe((resp) => {
@@ -339,7 +345,7 @@ export class ClinicDecisionComponent implements OnInit {
       if (resp.IsSuccess) {
         this.getclinicaldesupportlist();
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2JCDS003"]);
-        this.resettriggerdialog();
+        // this.resettriggerdialog();
       }
       else {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2JCDS002"]);
