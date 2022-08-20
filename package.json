@@ -50,7 +50,7 @@
     "ng-bootstrap": "^1.6.3",
     "ng-packagr": "^10.1.2",
     "ng2-order-pipe": "^0.1.5",
-    "ngx-color-picker": "^10.1.0",
+    "ngx-color-picker": "^11.0.0",
     "ngx-mask": "^10.0.4",
     "ngx-mat-select-search": "^3.3.3",
     "ngx-mat-timepicker": "^10.0.3",

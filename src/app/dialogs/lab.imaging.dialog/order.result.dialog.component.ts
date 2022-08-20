@@ -74,7 +74,7 @@ export class OrderResultDialogComponent implements OnInit {
 
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
     dialogData, action: Actions = this.ActionTypes.add) {
-    const ref = this.overlayService.open(content, dialogData);
+    const ref = this.overlayService.open(content, dialogData,true);
     ref.afterClosed$.subscribe(res => {
 
 

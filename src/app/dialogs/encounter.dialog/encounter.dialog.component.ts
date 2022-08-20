@@ -22,6 +22,14 @@ import { AlertMessage, ERROR_CODES } from './../../_alerts/alertMessage';
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 import { SignEncounterNoteComponent } from 'src/app/dialogs/encounter.dialog/sign.encounter.note.component'
 import { DatePipe } from '@angular/common';
+import {
+  environment,
+  MEDLINE_PLUS_URL,
+  MEDLINE_PLUS_LOINC,
+  MEDLINE_PLUS_RXNORM,
+  MEDLINE_PLUS_SNOMED,
+  MEDLINE_PLUS_ICD
+} from "src/environments/environment";
 
 @Component({
   selector: 'app-encounter.dialog',
@@ -98,10 +106,10 @@ export class EncounterDialogComponent implements OnInit {
       .filter((loc) => loc.LocationId === this.authService.userValue.CurrentLocation)[0];
 
     this.loadDefaults();
-    console.log(this.overlayref.RequestData );
+    console.log(this.overlayref.RequestData);
     this.appointment = this.overlayref.RequestData as ScheduledAppointment
     this.patient = this.overlayref.RequestData as ProviderPatient;
-      console.log(this.appointment);
+    console.log(this.appointment);
 
 
     this.initEncoutnerView();
@@ -122,7 +130,7 @@ export class EncounterDialogComponent implements OnInit {
 
 
     if (this.encounterInfo.Vital.CollectedAt != null)
-      this.encounterInfo.Vital.CollectedTime = this.datePipe.transform(this.encounterInfo.Vital.CollectedAt,"hh:mm a");
+      this.encounterInfo.Vital.CollectedTime = this.datePipe.transform(this.encounterInfo.Vital.CollectedAt, "hh:mm a");
   }
 
   private computeBmi(height: number, weight: number): number {
@@ -345,7 +353,7 @@ export class EncounterDialogComponent implements OnInit {
       this.encounterInfo.Vital.strCollectedAt = this.datePipe.transform(this.encounterInfo.Vital.CollectedAt, "MM/dd/yyyy")
 
     if (this.encounterInfo.Vital.CollectedTime != null)
-    this.encounterInfo.Vital.strCollectedAt =  this.encounterInfo.Vital.strCollectedAt + " " + this.encounterInfo.Vital.CollectedTime;
+      this.encounterInfo.Vital.strCollectedAt = this.encounterInfo.Vital.strCollectedAt + " " + this.encounterInfo.Vital.CollectedTime;
     this.encounterInfo.strServicedAt = this.datePipe.transform(this.encounterInfo.ServicedAt, "MM/dd/yyyy")
     if (this.encounterInfo.ServiceEndAt != null)
       this.encounterInfo.strServiceEndAt = this.datePipe.transform(this.encounterInfo.ServiceEndAt, "MM/dd/yyyy")
@@ -381,9 +389,9 @@ export class EncounterDialogComponent implements OnInit {
 
   medLinePlusUrl(code: MedicalCode): string {
     if (code.CodeSystem = "SNOMED") {
-      return "http://apps.nlm.nih.gov/medlineplus/services/mpconnect.cfm?mainSearchCriteria.v.cs=2.16.840.1.113883.6.96&amp;mainSearchCriteria.v.c=" + code.Code
+      return MEDLINE_PLUS_URL(code.Code, MEDLINE_PLUS_SNOMED)
     } else {
-      return "http://apps.nlm.nih.gov/medlineplus/services/mpconnect.cfm?mainSearchCriteria.v.cs=2.16.840.1.113883.6.90&mainSearchCriteria.v.c=" + code.Code
+      return MEDLINE_PLUS_URL(code.Code, MEDLINE_PLUS_ICD)
     }
   }
 

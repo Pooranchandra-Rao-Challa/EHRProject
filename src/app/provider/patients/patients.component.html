@@ -1,24 +1,25 @@
 <div class="patients-wrapper">
+  <div class="patients-navigation d-none d-lg-block">
+    <ng-template #patientbreadcrumb></ng-template>
+    <div class="clearfix"></div>
+  </div>
   <div class="container-fluid-full" style="margin-top: -18px;">
-    <div class="patients-navigation">
-      <ng-template #patientbreadcrumb></ng-template>
-    </div>
     <div class="patients-navigation-info bg-color" style=" clear: both;">{{paginator.pageIndex * paginator.pageSize+1}} - {{paginator.pageIndex * paginator.pageSize+paginator.pageSize}} of  {{patientsDataSource.TotalRecordSize}} PATIENTS</div>
     <div class="content" style=" clear: both;">
-      <div class="row controls">
-        <div class="col-xl-9 col-lg-9 col-md-9 col-9" style="float: left; display:flex">
+      <div class="row controls pb-2">
+        <div class="col-xl-9 col-lg-9 col-md-12 col-12 flex-column flex-md-row" style="float: left; display:flex">
           <div class="patients-search" style="float: left;">
             <mat-form-field appearance="outline" class="input-search" style="width:300px">
               <mat-label>Search Patient With Name or Phone Number</mat-label>
               <input matInput #SearchPatient autocomplete="off" placeholder="Search by name or phone number"/>
             </mat-form-field>
           </div>
-          <div class="pb-3 pb-lg-0" style="margin-right: 10px;margin-left:10px">
-            <mat-checkbox class=" col-lg-12 col-md-9 col-12 pull-right" (change)="showInactivePatients($event)">
+          <div class="pb-3 pb-lg-0 mt-2" style="margin-right: 10px;margin-left:10px;min-width: 130px;">
+            <mat-checkbox class="col-lg-12 col-12 pull-right" (change)="showInactivePatients($event)">
               Show Inactive
             </mat-checkbox>
           </div>
-          <div class="">
+          <div class="col-lg-4 col">
             <mat-form-field appearance="outline" class="col-12 hover" >
               <mat-select placeholder="All Providers" disableOptionCentering (selectionChange)="onProviderChange($event.value)">
                 <mat-option value="All">All Providers</mat-option>
@@ -28,9 +29,9 @@
             </mat-form-field>
           </div>
         </div>
-        <div class="col-xl-3 col-lg-3 col-md-3 col-3" style="float: right;">
+        <div class="col-xl-3 col-lg-3 col-md-12 col-12" style="float: right;">
           <button mat-button class="btn btn-orange pull-right Helvetica-sans-serif-medium"
-            (click)="openComponentDialog(patientDialogComponent)">
+            (click)="openComponentDialog(patientDialogComponent)" title="Add Patient">
             Add Patient
           </button>
         </div>

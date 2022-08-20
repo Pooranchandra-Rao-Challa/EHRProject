@@ -28,7 +28,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-lg-4 col-md-4 col-4">
+        <div class="col-lg-4 col-md-6 col-12">
           <div class="input-group">
             <label class="control-label input-group-addon required">Code</label>
             <mat-form-field class="procedure-form-field" appearance="outline">
@@ -37,7 +37,7 @@
             </mat-form-field>
           </div>
         </div>
-        <div class="col-lg-4 col-md-4 col-4">
+        <div class="col-lg-4 col-md-6 col-12">
           <div class="input-group">
             <label class="control-label input-group-addon required">Description</label>
             <mat-form-field class="procedure-form-field" appearance="outline">
@@ -48,7 +48,7 @@
             </mat-form-field>
           </div>
         </div>
-        <div class="col-lg-4 col-md-4 col-4">
+        <div class="col-lg-4 col-md-6 col-12">
           <div class="input-group">
             <label class="control-label input-group-addon">Base Price</label>
             <mat-form-field class="procedure-form-field" appearance="outline">
@@ -59,10 +59,10 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-lg-4 col-md-4 col-4">
+        <div class="col-lg-4 col-md-6 col-12">
           <div class="input-group">
             <label class="control-label input-group-addon required">Start Date</label>
-            <mat-form-field class="procedure-form-field" appearance="outline">
+            <mat-form-field class="procedure-form-field w-100" appearance="outline">
               <input matInput class="form-control" placeholder="Start Date" type="text" id="pStartDate"
                 name="pStartDate" [(ngModel)]="procedureInfo.Date" [matDatepicker]="startDate"
                 (dateChange)="dateModified($event)"/>
@@ -72,7 +72,7 @@
             </mat-form-field>
           </div>
         </div>
-        <div class="col-lg-4 col-md-4 col-4">
+        <div class="col-lg-4 col-md-6 col-12">
           <div class="input-group" [class.tooth-number-center]="procedureInfo.ViewFrom =='ToothNo'">
             <label class="control-label input-group-addon required">Tooth : </label>
             <mat-form-field class="procedure-form-field" appearance="outline"
@@ -85,7 +85,7 @@
             <label *ngIf="procedureInfo.ViewFrom =='ToothNo'">{{procedureInfo.ToothNo}}</label>
           </div>
         </div>
-        <div class="col-lg-4 col-md-4 col-4">
+        <div class="col-lg-4 col-md-6 col-12">
           <div class="input-group">
             <label class="control-label input-group-addon required">Status</label>
             <mat-form-field class="procedure-form-field" appearance="outline" [ngStyle]="{'padding-bottom':'0px'}">
@@ -101,7 +101,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-lg-4 col-md-4 col-4">
+        <div class="col-lg-4 col-md-6 col-12">
           <div class="input-group">
             <label class="control-label input-group-addon">End Date</label>
             <mat-form-field class="teeth-form-field" appearance="outline">
@@ -123,7 +123,7 @@
         </div>
 
         <div class="row group">
-          <div class="col-lg-4 col-md-4 col-4 items">
+          <div class="col-lg-4 col-md-6 col-12 items">
             <mat-checkbox [(ngModel)]="BuccalV">
               Buccal v
             </mat-checkbox>
@@ -137,7 +137,7 @@
               Lingual v
             </mat-checkbox>
           </div>
-          <div class="col-lg-4 col-md-4 col-4 items">
+          <div class="col-lg-4 col-md-6 col-12 items">
             <mat-checkbox [(ngModel)]="FacialV">
               Facial v
             </mat-checkbox>
@@ -148,7 +148,7 @@
               Buccal
             </mat-checkbox>
           </div>
-          <div class="col-lg-4 col-md-4 col-4 items">
+          <div class="col-lg-4 col-md-6 col-12 items">
             <mat-checkbox [(ngModel)]="Mesial">
               Mesial
             </mat-checkbox>
@@ -166,7 +166,7 @@
           </div>
         </div>
         <div class="row group">
-          <div class="col-lg-4 col-md-4 col-4 items">
+          <div class="col-lg-4 col-md-6 col-12 items">
             <mat-checkbox [(ngModel)]="PitMesiobuccal">
               Mesiobuccal
             </mat-checkbox>
@@ -174,12 +174,12 @@
               Distobuccal
             </mat-checkbox>
           </div>
-          <div class="col-lg-4 col-md-4 col-4 items">
+          <div class="col-lg-4 col-md-6 col-12 items">
             <mat-checkbox [(ngModel)]="PitMesiolingual">
               Mesiolingual
             </mat-checkbox>
           </div>
-          <div class="col-lg-4 col-md-4 col-4 items">
+          <div class="col-lg-4 col-md-6 col-12 items">
             <mat-checkbox [(ngModel)]="PitDistolingual">
               Distolingual
             </mat-checkbox>
@@ -191,7 +191,7 @@
           </div>
         </div>
         <div class="row group">
-          <div class="col-lg-4 col-md-4 col-4 items">
+          <div class="col-lg-4 col-md-6 col-12 items">
             <mat-checkbox [(ngModel)]="CuspMesial">
               Mesial
             </mat-checkbox>
@@ -199,7 +199,7 @@
               Distal
             </mat-checkbox>
           </div>
-          <div class="col-lg-4 col-md-4 col-4 items">
+          <div class="col-lg-4 col-md-6 col-12 items">
             <mat-checkbox [(ngModel)]="CuspMesiobuccal">
               Mesiobuccal
             </mat-checkbox>
@@ -207,7 +207,7 @@
               Distobuccal
             </mat-checkbox>
           </div>
-          <div class="col-lg-4 col-md-4 col-4 items">
+          <div class="col-lg-4 col-md-6 col-12 items">
             <mat-checkbox [(ngModel)]="CuspMesiolingual">
               Mesiolingual
             </mat-checkbox>
@@ -237,7 +237,7 @@
           </div>
         </div>
         <div class="row group">
-          <div class="col-lg-6 col-md-6 col-6">
+          <div class="col-lg-6 col-md-6 col-12">
             <div class="input-group items">
               <label class="control-label input-group-addon">Reason Code:</label>
               <mat-form-field class="procedure-form-field" appearance="outline">
@@ -246,7 +246,7 @@
               </mat-form-field>
             </div>
           </div>
-          <div class="col-lg-6 col-md-6 col-6">
+          <div class="col-lg-6 col-md-6 col-12">
             <div class="input-group items">
               <label class="control-label input-group-addon">Reason Description:</label>
               <mat-form-field class="procedure-form-field" appearance="outline">

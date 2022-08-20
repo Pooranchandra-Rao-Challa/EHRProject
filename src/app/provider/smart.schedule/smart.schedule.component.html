@@ -10,17 +10,15 @@
       <div class="row">
         <div class="smart-schedule-header mt-2 mt-lg-0">
           <div class="row" style="align-items: center">
-            <div class="col-xl-2 col-lg-3 col-md-6 col-12 appointment-filter-datestring-bar">
+            <div class="col-xl-2 col-lg-4 col-md-6 col-12 appointment-filter-datestring-bar">
               <b>{{ selectedWeekday }}</b>
             </div>
             <div class="col-xl-1 col-lg-2 col-md-6 col-12 appointment-filter-date-bar pt-2 pt-md-0">
-              <div class="buttons ">
+              <div class="buttons">
                 <button class="button is-primary bg-color lte" (click)="DateUpDown('movedown')">&lt;</button>
                 <mat-form-field class="cstm-width smart-schedule-datepicker" appearance="fill">
                   <input hidden matInput [matDatepicker]="picker" (dateChange)="selectedCalendarDate($event)" />
-
                   <mat-datepicker #picker></mat-datepicker>
-
                 </mat-form-field>
                 <button aria-hidden="true" class="is-primary bg-color button fa fa-calendar"
                 (click)="picker.open()"></button>
@@ -138,7 +136,7 @@
 
                   <div class="row text-center table-body" *ngFor="let appointment of Appointments" [ngStyle]="{display:appointment.IsPast?'inline-flux':'none'}">
 
-                      <div class="col-md-1 col-1 appointment-time" *ngIf="appointment.IsPast">
+                      <div class="col-md-1 col-1 appointment-time " *ngIf="appointment.IsPast">
                         {{appointment.AppointmentTime | date:'MM/dd/yyyy'}}
                         &nbsp;
                         Time: {{appointment.AppointmentTime | date:'hh:mm a'}}

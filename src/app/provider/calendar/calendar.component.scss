@@ -10,13 +10,23 @@
   overflow-x: hidden;
   height: calc(90vh - 97px);
 }
+// @media screen and (max-width: 640px) {
+//   .calendar-sidenav {
+//     width: 58%;
+//   }
+//   .mat-drawer-content{margin-left: 58% !important;}
+// }
+// @media screen and (max-width: 768px) {
+//   .calendar-sidenav {
+//     width: 32%;
+//   }
+//   .mat-drawer-content{margin-left: 32% !important;}
+// }
+#left-drawer .panel{line-height: 1.1;}
 
 // .calendar-drawer {
 //   min-height: 700px;
 // }
-
-
-
 .new-patient-btn {
   background-color: #ffdd57;
   border-color: #ffdd57;

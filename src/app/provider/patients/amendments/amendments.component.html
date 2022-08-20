@@ -49,13 +49,6 @@
       </mat-row>
     </mat-table>
   </div>
-
-
-
-
-
-
-
   <div class="modal Patient-Education " id="modal-Patient-Education" data-bs-keyboard="false" tabindex="-1"
     aria-hidden="true">
     <div class="modal-dialog">
@@ -72,37 +65,37 @@
         <div class="modal-body divScroll">
           <div class="row">
             <mat-label class="Helvetica-sans-serif-medium">Date Requested:</mat-label>
-            <mat-form-field appearance="outline" class="calendaralignment green-calendar col-lg-7 col-md-5">
+            <mat-form-field appearance="outline" class="calendaralignment green-calendar col-lg-7 col-md-7">
               <input matInput class="pointer date-mat-class" autocomplete="off" [matDatepicker]="DateRequest"
                 (click)="DateRequest.open()" placeholder="mm/dd/yyyy" [(ngModel)]="amendment.DateofRequest">
               <mat-datepicker-toggle matSuffix [for]="DateRequest"></mat-datepicker-toggle>
               <mat-datepicker #DateRequest></mat-datepicker>
             </mat-form-field>
-            <div class="col-lg-4 col-md-6">
+            <div class="col-lg-4 col-md-5">
               <button class="btn btn-green btn-today col-12" (click)="todayDateforDateRequested()">Today</button>
             </div>
           </div>
           <div class="row">
             <mat-label class="Helvetica-sans-serif-medium">Date Accepted/Denied:</mat-label>
-            <mat-form-field appearance="outline" class="calendaralignment green-calendar col-lg-7 col-md-5">
+            <mat-form-field appearance="outline" class="calendaralignment green-calendar col-lg-7 col-md-7">
               <input matInput class="pointer date-mat-class" autocomplete="off" [matDatepicker]="DateAccepted"
                 (click)="DateAccepted.open()" readonly placeholder="mm/dd/yyyy" [(ngModel)]="amendment.DateofAccept">
               <mat-datepicker-toggle matSuffix [for]="DateAccepted"></mat-datepicker-toggle>
               <mat-datepicker #DateAccepted></mat-datepicker>
             </mat-form-field>
-            <div class="col-lg-4 col-md-6">
+            <div class="col-lg-4 col-md-5">
               <button class="btn btn-green btn-today col-12" (click)="todayDateforDateAcceptedorDenied()">Today</button>
             </div>
           </div>
           <div class="row">
             <mat-label class="Helvetica-sans-serif-medium">Date Appended:</mat-label>
-            <mat-form-field appearance="outline" class="calendaralignment green-calendar col-lg-7 col-md-5">
+            <mat-form-field appearance="outline" class="calendaralignment green-calendar col-lg-7 col-md-7">
               <input matInput class="pointer date-mat-class" autocomplete="off" [matDatepicker]="DateAppended"
                 (click)="DateAppended.open()" readonly placeholder="mm/dd/yyyy" [(ngModel)]="amendment.DateofAppended">
               <mat-datepicker-toggle matSuffix [for]="DateAppended"></mat-datepicker-toggle>
               <mat-datepicker #DateAppended></mat-datepicker>
             </mat-form-field>
-            <div class="col-lg-4 col-md-6">
+            <div class="col-lg-4 col-md-5">
               <button class="btn btn-green btn-today col-12" (click)="todayforDateAppended()">Today</button>
             </div>
           </div>
