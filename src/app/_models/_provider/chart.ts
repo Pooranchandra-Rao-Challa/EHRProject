@@ -60,7 +60,8 @@ export enum PatientChart {
   Discontinue,
   Interventions,
   Encounters,
-  CQMNotPerforemd
+  CQMNotPerforemd,
+  Appointment
 }
 
 export class ChartInfo {

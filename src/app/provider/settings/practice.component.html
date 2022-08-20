@@ -112,10 +112,10 @@
                   <ng-container matColumnDef="Image">
                     <mat-header-cell *matHeaderCellDef></mat-header-cell>
                     <mat-cell *matCellDef="let user">
-                      <span>
+                      <a (click)="openComponentDialog(userDialogComponent,user,ActionsType.view)">
                         <img class="avatar avatar-empty mx-2" src="assets/images/avatar-empty.svg" alt="Avatar empty"
                           width="32" height="32" style="border-radius: 36px ;background: #cfcaca;">
-                      </span>
+                      </a>
                     </mat-cell>
                   </ng-container>
                   <!--data-bs-toggle="modal" data-bs-target="#edit-user-modal"-->
