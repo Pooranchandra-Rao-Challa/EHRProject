@@ -11,6 +11,9 @@ import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { areaCodes } from 'src/app/_models/_patient/patientprofile';
 import { ParticularInsuranceCompanyDetails, PrimaryInsurance, SecondaryInsurance } from 'src/app/_models/_provider/insurance';
 import { DatePipe } from '@angular/common';
+import { AreaCode } from 'src/app/_models/_admin/Admins';
+import { FormControl } from '@angular/forms';
+import { map, startWith } from 'rxjs/operators';
 @Component({
   selector: 'app-insurance',
   templateUrl: './insurance.component.html',
@@ -69,6 +72,9 @@ export class InsuranceComponent implements OnInit {
   filterNumbers: any;
   @Input() max: any;
   tomorrow = new Date();
+  AreaCodes: AreaCode[];
+  filteredAreacodes:any
+  myControlPrimary = new FormControl();
 
   constructor(private patientservice: PatientService,
     private route: ActivatedRoute,
@@ -90,9 +96,36 @@ export class InsuranceComponent implements OnInit {
     this.getPatientDetails();
     this.getSourceOfPaymentTypologyCodesDD();
     this.InsuranceCompanyPlanList();
-    this.getInsuranceList();
+    this.getInsuranceList(); 
+    this.loadDefaults();
+    this.filteredAreacodes = this.myControlPrimary.valueChanges.pipe(startWith(''), map(value => this._filterAreaCode(value)));
+  }
+  loadDefaults() {
+    
+    this.utilityService.AreaCodes()
+      .subscribe(resp => {
+        if (resp.IsSuccess) {
+          this.AreaCodes = resp.ListResult as AreaCode[];
+        } else {
+          this.AreaCodes=[];
+        }
+      },
+      error=>{
+      });
 
-
+  }
+  private _filterAreaCode(value: string): string[] {
+    if (value == "") {
+      return ['Please enter 1 or more characters']
+    }
+    var _areaCodes = this.AreaCodes.filter(option => option.AreaCode?.includes(value));
+    if (_areaCodes.length === 0) {
+      return ['No Data Found']
+    }
+    return _areaCodes.map(value => value.AreaCode);
+  }
+  onSelectedPrimaryPhoneCode(code: string) {
+    this.insuraceComplanyPlan.Phone = code;
   }
 
   AddInsuranceCompanyPlan() {
@@ -158,7 +191,6 @@ export class InsuranceComponent implements OnInit {
 
   }
   Selected() {
-
     if (this.plusvalue == "primary") {
       this.primlist.InsuranceCompanyPlan = this.arry[0].InsuranceCompanyName;
       this.primlist.InsuranceCompanyPlanID = this.arry[0].InsuranceCompanyId;
@@ -290,8 +322,11 @@ export class InsuranceComponent implements OnInit {
   }
 
   CreateUpdateInsuraceCompanyPlan() {
+    debugger;
     let isAdd = this.insuraceComplanyPlan.InsuranceCompanyId == "";
-    this.insuraceComplanyPlan.LocationId = this.changedLocationId
+    this.insuraceComplanyPlan.Phone = '+1' + this.insuraceComplanyPlan.PhonePreffix + this.insuraceComplanyPlan.PhoneSuffix;
+    this.insuraceComplanyPlan.LocationId = this.changedLocationId;
+    return
     this.patientservice.CreateUpdateInsuranceCompanyPlan(this.insuraceComplanyPlan).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CI001" : "M2CI002"]);

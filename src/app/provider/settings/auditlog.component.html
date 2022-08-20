@@ -1,4 +1,6 @@
-
+<div id="pause" class="d-flex align-items-center justify-content-center" *ngIf="customizedspinner">
+  <div id="spinner"></div>
+</div>
 <div class="card">
   <div class="card-header bg-color">
   <h5 class="Helvetica-sans-serif-medium mt-3">Audit Log</h5>
@@ -87,7 +89,7 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 </div>
-  <div class="text-center norecordfound py-2 col-12 Helvetica-sans-serif-medium" *ngIf="auditLogList==0">
+  <div class="text-center norecordfound py-2 col-12 Helvetica-sans-serif-medium" *ngIf="auditLogList?.length==0">
     Audit Logs Not Found
  </div>
 </div>

@@ -540,13 +540,29 @@
                             </div>
                         </div>
                         <div class="row mb-4">
-                            <div class="col-md-6">
+                             <div class="col-md-6">
                                 <label class="Helvetica-sans-serif-medium">Phone</label>
                                 <div class="input-group input-group-lg">
-                                    <input type="text" class="form-control inputclass" placeholder="Phone"
-                                        [(ngModel)]="insuraceComplanyPlan.Phone">
-                                </div>
-                            </div>
+                                    <!-- <input type="text" class="form-control inputclass" placeholder="Phone"
+                                        [(ngModel)]="insuraceComplanyPlan.Phone"> -->
+                                
+                                <mat-form-field class="phone-full-width" appearance="outline">
+              <input type="input" class="areacode" placeholder="(area-code)" aria-label="Number" matInput
+                [formControl]="myControlPrimary" [matAutocomplete]="autoPrimary"
+                [(ngModel)]="insuraceComplanyPlan.PhonePreffix">
+              <mat-autocomplete autoActiveFirstOption #autoPrimary="matAutocomplete">
+                <mat-option class="tel-code" *ngFor="let option of filteredAreacodes | async" [value]="option"
+                  (click)="onSelectedPrimaryPhoneCode(option)">
+                  <h1>{{option}}</h1>
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="phone-width">
+                <input matInput placeholder="Primary Phone Number" class="cstm-tel" type="tel" mask="000-0000"
+                  [showMaskTyped]="true" [patterns]="PhonePattern" [(ngModel)]="insuraceComplanyPlan.PhoneSuffix">
+              </mat-form-field>
+        </div>
+        </div>
                       
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <label class="Helvetica-sans-serif-medium">Benefit Renewal</label>
