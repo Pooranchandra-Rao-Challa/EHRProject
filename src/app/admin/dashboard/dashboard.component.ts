@@ -1,7 +1,7 @@
 import { SettingsService } from 'src/app/_services/settings.service';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { BehaviorSubject, } from 'rxjs';
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, Inject, OnInit, TemplateRef } from '@angular/core';
 import { OverlayService } from 'src/app/overlay.service';
 import { AdminService } from 'src/app/_services/admin.service';
 import { ComponentType } from '@angular/cdk/portal';
@@ -10,7 +10,7 @@ import { ProviderList } from 'src/app/_models/_admin/providerList';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { Accountservice } from 'src/app/_services/account.service';
 import { NewUser } from 'src/app/_models';
-
+import { DOCUMENT } from '@angular/common';
 export class FilterQueryParams {
   Active: boolean = true;
   Paid?: boolean = null;
@@ -43,7 +43,9 @@ export class DashboardComponent implements OnInit {
   lockedModal = 'none';
   AccessProvider = 'none';
   message: string;
-  constructor(private adminservice: AdminService,
+  constructor(
+    @Inject(DOCUMENT) private document: Document,
+    private adminservice: AdminService,
     private overlayService: OverlayService,
     private authService: AuthenticationService,
     private alertmsg: AlertMessage,
@@ -125,28 +127,27 @@ export class DashboardComponent implements OnInit {
   }
 
   freezDocument() {
-    document.body.scrollBy(0, -document.body.scrollTop);
+    document.body.scrollBy(0, - document.body.scrollTop);
     document.body.style.overflow = "hidden";
   }
   clearDocument() {
     document.body.style.overflow = "auto";
   }
   // update trail/paid provider
-  changeTraiPaidStatus(item) {
-    let trailvalue;
-    if (item.Trial == 'Trail') {
-      trailvalue = null;
-    }
-    else {
-      trailvalue = 0;
-    }
+  changeTraiPaidStatus(item,event) {
+    console.log(item);
+    console.log(event.target.checked);
     let reqparam = {
       "ProviderId": item.ProviderId,
-      "Trail": trailvalue
+      "Trail": event.target.checked ? null:30
     }
+
+    let y = document.body.scrollTop;
+
     this.adminservice.UpdatedTrailStatus(reqparam).subscribe(resp => {
       if (resp.IsSuccess) {
         this.GetProivderList();
+        document.body.scrollTo(0,y);
       }
     })
   }
