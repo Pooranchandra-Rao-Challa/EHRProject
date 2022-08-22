@@ -67,7 +67,7 @@ export class ProfileComponent implements OnInit {
   emergencyManuallybtn:boolean = false;
   emergencyAddressVerfied:boolean = false;
   emergencyDisableAddressVerification:boolean = false;
-
+  PhonePattern:any
 
   constructor(private patientService: PatientService,
     private utilityService: UtilityService,
@@ -78,6 +78,12 @@ export class ProfileComponent implements OnInit {
     private patientUpdateNotifier: PatientUpdateService) {
     this.user = authService.userValue;
     this.patientMyProfile = {} as PatientProfile;
+    this.PhonePattern = {
+      0: {
+        pattern: new RegExp('\\d'),
+        symbol: 'X',
+      },
+    };
   }
 
   ngOnInit(): void {
@@ -232,7 +238,7 @@ export class ProfileComponent implements OnInit {
   }
 
   updatePatientInformation() {
-    this.patientService.UpdatePatientInformation(this.patientMyProfile).subscribe(resp => {
+        this.patientService.UpdatePatientInformation(this.patientMyProfile).subscribe(resp => {
       if (resp.IsSuccess) {
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP001"])
         this.getPatientMyProfile();
