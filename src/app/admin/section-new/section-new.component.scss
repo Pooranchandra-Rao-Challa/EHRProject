@@ -72,6 +72,7 @@ input::-webkit-input-placeholder {
 
 .modal-dialog {
   max-width: 45% !important;
+  z-index: 99999;
 }
 
 .ehr-img {
@@ -92,7 +93,7 @@ input::-webkit-input-placeholder {
 
 @media(min-width:321px) and (max-width:450px) {
   .toptxt {
-    margin-left: 195px !important;
+    margin-left: 230px !important;
     font-size: 10px !important;
   }
 }
@@ -136,12 +137,31 @@ input::-webkit-input-placeholder {
   }
 }
 
-@media(min-width:1000px) and (max-width:1200px) {
+@media(max-width:764px) {
   .toptxt {
-    margin-left: 170px !important;
+    margin-left: 330px !important;
   }
 }
-
+@media(max-width:1024px) {
+  .toptxt {
+    margin-left: 115px !important;
+  }
+}
+@media(min-width:1024px) {
+  .toptxt {
+    margin-left: 240px !important;
+  }
+}
+@media(min-width:1260px) {
+  .toptxt {
+    margin-left: 285px !important;
+  }
+}
+@media(min-width:1540px) {
+  .toptxt {
+    margin-left: 360px !important;
+  }
+}
 @media (min-width:851px) and (max-width:1800px) {
   .modal-cust-content {
     width: 142%;
@@ -157,9 +177,7 @@ input::-webkit-input-placeholder {
   //   left: 100%;
   // }
 
-  .toptxt {
-    margin-left: 158px;
-  }
+
 }
 
 .modal-header {
@@ -194,9 +212,9 @@ input::-webkit-input-placeholder {
   text-align: center;
 }
 
-.cheader.cheader2 {
-  margin-right: -60px;
-}
+// .cheader.cheader2 {
+//   margin-right: -60px;
+// }
 
 .header-text {
   display: table-cell;
@@ -208,13 +226,13 @@ input::-webkit-input-placeholder {
 
 .modal .modal-dialog .modal-content .modal-header {
   padding: 30px 26px !important;
-  margin-left: -90px !important;
+  // margin-left: -90px !important;
 }
 
 .toptxt {
   color: #ff9800;
-  margin-left: 195px;
-  width: 150px;
+  // margin-left: 195px;
+   width: 150px;
   float: left;
   // margin-left: 201px;
   margin-top: 5px;
@@ -263,3 +281,7 @@ option.first-option {
 option:hover {
   background-color: yellow;
 }
+// .modal-body {
+//   max-height: calc(90vh - 200px);
+//   overflow-y: auto;
+// }
