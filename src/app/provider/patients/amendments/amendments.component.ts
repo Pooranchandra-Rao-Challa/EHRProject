@@ -110,4 +110,11 @@ export class AmendmentsComponent implements OnInit {
       this.AmendmentSourcesDD = res.ListResult == null ? [] : res.ListResult;
     })
   }
+  enableSave()
+  {
+    return !(this.amendment.DateofRequest != null
+      && this.amendment.Source != null && this.amendment.Source != ""
+      && this.amendment.Status != null && this.amendment.Status != "")
+      
+  }
 }
