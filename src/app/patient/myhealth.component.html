@@ -2,7 +2,7 @@
   <div class="content container" id="myhealth-wrapper">
     <div class="row">
       <div class="col-lg-3 left-block">
-        <div class="panel panel-default">
+        <div class="panel panel-default float-lg-end">
           <div class="panel-body side-panel mx-2">
             <div class="photo-container">
               <img class="photo-patient responsive" src="assets/images/avtrar-myhealth.svg" class="admin-side-logo">
@@ -27,7 +27,6 @@
                 <li *ngFor="let item of clinicaldata">
                   {{item.StreetAddress}}
                 </li>
-
               </ul>
             </div>
             <div class="row clinic-info heding">
@@ -60,7 +59,7 @@
             <div class="col-md-3"><span class="green-color">Race: </span> </div>
             <div class="col-md-3"><span class="green-color">Ethnicity: </span><span
                 class="Helvetica-sans-serif-large">{{PatientProfile?.ethnicity}}</span></div>
-            <div class="col-md-3"><span class="green-color">Preferred Language: </span><span
+            <div class="col-md-4"><span class="green-color">Preferred Language: </span><span
                 class="Helvetica-sans-serif-large">{{PatientProfile?.PreferredLanguage}}</span></div>
           </div>
           <div class="row mt-4">
