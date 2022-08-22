@@ -284,7 +284,6 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
   }
 
   onAppointmentSave() {
-    debugger;
     this.PatientAppointment.AppointmentTime = this.PatientAppointment.TimeSlot.StartDateTime;
     this.PatientAppointment.strAppointmentTime =
     this.datePipe.transform(this.PatientAppointment.TimeSlot.StartDateTime,"MM/dd/yyyy HH:mm")
