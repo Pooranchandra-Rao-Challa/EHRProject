@@ -6,12 +6,10 @@
   font-family: 'Roboto';
   font-weight: 400;
 }
-.modal-dialog {
+.smoking-status.modal-dialog {
   overflow-y: initial !important;
-  // max-width: inherit !important;
-  // margin: 0 !important;
 }
-.modal-body {
+.smoking-status .modal-body {
   max-height: calc(90vh - 180px);
   overflow-y: auto;
 }

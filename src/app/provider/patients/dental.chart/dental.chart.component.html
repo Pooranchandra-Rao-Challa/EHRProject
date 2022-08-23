@@ -692,7 +692,7 @@
 
         <ng-container matColumnDef="PROVIDER">
           <mat-header-cell *matHeaderCellDef>PROVIDER</mat-header-cell>
-          <mat-cell *matCellDef="let procedure">{{procedure?.ProviderName}}</mat-cell>
+          <mat-cell *matCellDef="let procedure">{{user.FirstName}} {{user.LastName}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="STATUS">

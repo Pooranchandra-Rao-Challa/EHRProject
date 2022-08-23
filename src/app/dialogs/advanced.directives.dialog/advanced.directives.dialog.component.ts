@@ -23,9 +23,9 @@ export class AdvancedDirectivesDialogComponent implements OnInit {
     private alertmsg: AlertMessage,
     private authService: AuthenticationService) {
     this.updateLocalModel(ref.RequestData);
-    if (this.advDirective.RecordAt != (null || '' || undefined)) {
-      this.advDirective.RecordAt = this.datepipe.transform(this.advDirective.RecordAt, "yyyy-MM-dd");
-    }
+    // if (this.advDirective.RecordAt != (null || '' || undefined)) {
+    //   this.advDirective.RecordAt = this.datepipe.transform(this.advDirective.RecordAt, "yyyy-MM-dd");
+    // }
   }
 
   ngOnInit(): void {

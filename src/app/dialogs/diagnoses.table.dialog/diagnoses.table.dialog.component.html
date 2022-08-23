@@ -1,0 +1,72 @@
+<div class="modal-dialog diagnosis-table-modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title Helvetica-sans-serif-medium w-100">Diagnosis Dx</h4>
+      <span type="button" class="cross-mark" (click)="cancel()">
+        X
+      </span>
+    </div>
+    <div class="modal-body scrollable-mat-table">
+      <mat-table [dataSource]="patientDiagnosesList" matSort>
+        <ng-container matColumnDef="Description">
+          <mat-header-cell *matHeaderCellDef mat-sort-header="Description">Description
+          </mat-header-cell>
+          <mat-cell *matCellDef="let diagnosis">
+            <a (click)="openComponentDialog(addDiagnosesDialogComponent, diagnosis, ActionTypes.view)">
+              {{diagnosis.Description}}
+            </a>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Code">
+          <mat-header-cell *matHeaderCellDef mat-sort-header="Code">Code</mat-header-cell>
+          <mat-cell *matCellDef="let diagnosis">
+            <a (click)="openComponentDialog(addDiagnosesDialogComponent, diagnosis, ActionTypes.view)">
+              {{diagnosis.Code}}
+            </a>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="CodeType">
+          <mat-header-cell *matHeaderCellDef mat-sort-header="CodeType">Code Type</mat-header-cell>
+          <mat-cell *matCellDef="let diagnosis">
+            <a (click)="openComponentDialog(addDiagnosesDialogComponent, diagnosis, ActionTypes.view)">
+              {{diagnosis.CodeSystem}}
+            </a>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Start">
+          <mat-header-cell *matHeaderCellDef mat-sort-header="StartAt">Start</mat-header-cell>
+          <mat-cell *matCellDef="let diagnosis">
+            <a (click)="openComponentDialog(addDiagnosesDialogComponent, diagnosis, ActionTypes.view)">
+              {{diagnosis.StartAt | date:'MM/dd/yyyy'}}
+            </a>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Stop">
+          <mat-header-cell *matHeaderCellDef mat-sort-header="StopAt">Stop</mat-header-cell>
+          <mat-cell *matCellDef="let diagnosis">
+            <a (click)="openComponentDialog(addDiagnosesDialogComponent, diagnosis, ActionTypes.view)">
+              {{diagnosis.StopAt | date:'MM/dd/yyyy'}}
+            </a>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Status">
+          <mat-header-cell *matHeaderCellDef mat-sort-header="Status">Status</mat-header-cell>
+          <mat-cell *matCellDef="let diagnosis">
+            <a (click)="openComponentDialog(addDiagnosesDialogComponent, diagnosis, ActionTypes.view)">
+              {{diagnosis.Status}}
+            </a>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="diagnosesColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: diagnosesColumns"></mat-row>
+      </mat-table>
+      <div class="norecords-found" *ngIf="patientDiagnosesList?.data.length == 0">
+        No Diagnosis Found
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-green" (click)="openComponentDialog(addDiagnosesDialogComponent, null, ActionTypes.add)">Record DX</button>
+      <button class="btn btn-green" (click)="cancel()">Cancel</button>
+    </div>
+  </div>
+</div>

@@ -1,5 +1,5 @@
 import { MedicalCode } from 'src/app/_models/codes';
-import { ProceduresInfo } from 'src/app/_models';
+import { ProceduresInfo, User } from 'src/app/_models';
 import { DentalChartService } from 'src/app/_services/dentalchart.service';
 import { Component, OnInit, TemplateRef, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
@@ -22,6 +22,7 @@ declare var $: any;
   styleUrls: ['./dental.chart.component.scss']
 })
 export class DentalChartComponent implements OnInit,AfterViewInit {
+  user: User;
   hoverStartDate: string = 'Start Date';
   hoverEndDate: string = 'End Date';
   AdultPrem: boolean = true;
@@ -44,6 +45,7 @@ export class DentalChartComponent implements OnInit,AfterViewInit {
     private dentalService: DentalChartService,
     private authService: AuthenticationService,
     private alertmsg: AlertMessage,) {
+    this.user = authService.userValue;
     this.currentPatient = authService.viewModel.Patient;
   }
   ngAfterViewInit(): void {

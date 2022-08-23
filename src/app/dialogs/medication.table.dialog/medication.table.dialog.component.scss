@@ -1,0 +1,54 @@
+@import"../../../assets/common.scss";
+@import"../../../assets/cstm.material.scss";
+
+.medication-table-modal {
+  --bs-table-accent-bg: none !important;
+}
+
+.medication-table-modal.modal-dialog {
+  overflow-y: initial !important;
+  max-width: 900px;
+}
+
+.medication-table-modal.modal-dialog .modal-header {
+  padding: 0px 10px !important;
+}
+
+.medication-table-modal .modal-body {
+  max-height: calc(90vh - 90px);
+  overflow-y: auto;
+}
+
+.medication-table-modal .mat-row {
+  padding: 10px;
+}
+
+.medication-table-modal .mat-row:hover {
+  background-color: #fff !important;
+
+  a {
+    color: #41b6a6 !important;
+  }
+}
+
+.medication-table-modal .mat-table {
+  border-radius: 3px;
+  max-height: 700px !important;
+  overflow-y: auto;
+}
+
+.medication-table-modal a.erx-icon {
+  display: inline-block;
+  background-image: url(../../../assets/images/chart-medication-erx.svg);
+  width: 70px;
+  height: 20px;
+  text-align: center;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 17px;
+  color: #fff;
+}
+.manual-RX {
+  display: grid;
+  cursor: pointer;
+}
