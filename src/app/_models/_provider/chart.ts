@@ -139,6 +139,7 @@ export class Medication {
   ReasonDescription?: string;
   Notes?: string;
   CQMStatus?: string;
+  Status?: string;
 }
 
 export class TobaccoUseScreenings {

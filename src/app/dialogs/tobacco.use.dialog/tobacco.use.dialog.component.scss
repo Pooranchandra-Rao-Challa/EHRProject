@@ -1,6 +1,9 @@
 @import"../../../assets/cstm.material.scss";
 @import"../../../assets/common.scss";
 
+.tobacco-use.modal-dialog {
+  --bs-table-accent-bg: none !important;
+}
 .modal-dialog {
   overflow-y: initial !important;
 }

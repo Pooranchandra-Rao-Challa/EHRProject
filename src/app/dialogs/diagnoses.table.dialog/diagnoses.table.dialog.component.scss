@@ -1,0 +1,28 @@
+@import"../../../assets/common.scss";
+@import"../../../assets/cstm.material.scss";
+
+.diagnosis-table-modal {
+  --bs-table-accent-bg: none !important;
+}
+.diagnosis-table-modal.modal-dialog {
+  overflow-y: initial !important;
+  max-width: 1100px;
+}
+.diagnosis-table-modal .modal-body {
+  max-height: calc(90vh - 90px);
+  overflow-y: auto;
+}
+.diagnosis-table-modal .mat-row {
+  padding: 10px;
+}
+.diagnosis-table-modal .mat-row:hover {
+  background-color: #fff !important;
+  a{
+    color: #41b6a6 !important;
+  }
+}
+.diagnosis-table-modal .mat-table{
+  border-radius: 3px;
+  max-height: 700px !important;
+  overflow-y: auto;
+}

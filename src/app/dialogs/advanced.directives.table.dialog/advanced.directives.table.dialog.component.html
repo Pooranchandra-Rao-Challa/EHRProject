@@ -1,0 +1,37 @@
+<div class="modal-dialog directives-table-modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title Helvetica-sans-serif-medium w-100">Smoking Status Table</h4>
+      <span type="button" class="cross-mark" (click)="cancel()">
+        X
+      </span>
+    </div>
+    <div class="modal-body scrollable-mat-table">
+      <mat-table [dataSource]="patientAdvancedDirectives" matSort>
+        <ng-container matColumnDef="RecordAt">
+          <mat-header-cell *matHeaderCellDef mat-sort-header="RecordAt">Record Date
+          </mat-header-cell>
+          <mat-cell *matCellDef="let directive">
+            <a (click)="openComponentDialog(advancedDirectivesDialogComponent, directive, ActionTypes.view)">
+              {{directive.RecordAt | date: 'MM/dd/yyyy'}}
+            </a>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Notes">
+          <mat-header-cell *matHeaderCellDef mat-sort-header="Notes">Note</mat-header-cell>
+          <mat-cell *matCellDef="let directive">
+            <a (click)="openComponentDialog(advancedDirectivesDialogComponent, directive, ActionTypes.view)">
+              {{directive.Notes}}
+            </a>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="advancedDirectiveColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: advancedDirectiveColumns"></mat-row>
+      </mat-table>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-green" (click)="openComponentDialog(advancedDirectivesDialogComponent, null, ActionTypes.add)">Add</button>
+      <button class="btn btn-green" (click)="cancel()">Cancel</button>
+    </div>
+  </div>
+</div>
