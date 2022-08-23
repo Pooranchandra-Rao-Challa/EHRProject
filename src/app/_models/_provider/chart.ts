@@ -18,20 +18,21 @@ export class SmokingStatus {
 export class PastMedicalHistory {
   PastMedicalHistoryId?: string;
   PatientId?: string;
-  CreatedAt?: Date;
   OngoingProblems?: string;
   NutritionHistory?: string;
   MajorEvents?: string;
   PerventiveCare?: string;
+  FamilyMedicalHistories?: FamilyMedicalHistory[] =[]
+}
+
+export class FamilyMedicalHistory{
   FamilyHealthyHistoryId?: string;
-  fFirstName?: string;
-  fLastName?: string;
+  FirstName?: string;
+  LastName?: string;
   Relationship?: string;
-  fBirthAt?: string;
-  fDeceased?: boolean;
-  fNote?: string;
-  fCreatedAt?: Date;
-  fUpdatedAt?: Date;
+  BirthAt?: string;
+  Deceased?: boolean;
+  Note?: string;
 }
 
 export class Allergy {
