@@ -92,7 +92,8 @@ p {
 .searchmenu{
   position: absolute;
     inset: 0px auto auto 0px;
-    margin: -3px 2px !important;
+    margin: 0px !important;
+    padding-top: 0px;
     transform: translate(542px, 205px);
     border: 1px solid #d3d3d3;
     border-radius: 0px;
@@ -145,16 +146,11 @@ input, .form-control:focus, input:focus, select:focus, textarea:focus, button:fo
   .searchmenu{
     width: 298px !important;
   }
-  .btn-Preview{
-    display: block;
-    margin-left:-150px !important;
-    margin-top:60px !important;
-   }
 }
 @media (min-width:601px) and (max-width:990px)
 {
   .dropdown-toggle{
-    width: 360px !important;
+    width: 320px !important;
   }
   .searchmenu{
     width: 358px !important;
@@ -167,29 +163,26 @@ input, .form-control:focus, input:focus, select:focus, textarea:focus, button:fo
 @media (min-width:991px) and (max-width:1350px)
 {
   .dropdown-toggle{
-     margin-left:100px !important;
+    //  margin-left:100px !important;
     width: 302px !important;
   }
   .searchmenu{
     width: 299px !important;
   }
-  .btn-Preview{
-    margin-left:300px !important;
-   }
 
 }
 @media (min-width:1351px) and (max-width:1650px)
 {
-  .dropdown-toggle{
-    margin-left:200px !important;
-    width: 350px !important;
-  }
+  // .dropdown-toggle{
+  //   // margin-left:200px !important;
+  //   width: 350px !important;
+  // }
   .searchmenu{
     width: 341px   !important;
   }
-  .btn-Preview{
-    margin-left:38px !important;
-   }
+  // .btn-Preview{
+  //   margin-left:38px !important;
+  //  }
 }
 
 .ellipsis {

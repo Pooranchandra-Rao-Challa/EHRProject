@@ -16,7 +16,7 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-12 col-12">
                             <label class="Helvetica-sans-serif-medium d-block">Date of Birth</label>
-                            <mat-form-field appearance="outline" class=" calendaricon green-calendar">
+                            <mat-form-field appearance="outline" class=" calendaricon green-calendar w-100">
                                 <input matInput [matDatepicker]="DateOfBirth" placeholder="Date of Birth"
                                     (click)="DateOfBirth.open()" [(ngModel)]="primlist.DateOfBirth"
                                     class="Helvetica-sans-serif-medium" [max]="tomorrow">
@@ -49,7 +49,7 @@
                                     aria-describedby="basic-addon1" [(ngModel)]="primlist.Street" #Address required>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-4 col-4 d-flex justify-content-end flex-sm-row flex-column">
+                        <div class="col-lg-3 col-md-4 col-4">
                             <button class="btn btn-green btn-verify Helvetica-sans-serif-medium mt-4"
                                 [disabled]="!primlist.Street || disableaddressverification"
                                 (click)="AddressVerification()">VERIFY</button>
@@ -57,7 +57,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-9 col-11">
+                        <div class="col-lg-9 col-md-11 col-11">
                             <div class="form-group">
                                 <div class="input-group input-group-lg">
                                     <span class="input-group-text Helvetica-sans-serif-medium"
@@ -70,14 +70,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-1"><button type="button" class="btn cross-mark error-close"
+                        <div class="col-md-1 col-lg-1 col-1"><button type="button" class="btn cross-mark error-close"
                                 *ngIf="addressVerfied && !manuallybtn" (click)="enableManualEntry()"
                                 title="Can enter manully when the verification results are in correct by clicking this icon">x</button>
                         </div>
                         <div
-                            class="col-md-2  patient-street-address d-flex justify-content-end flex-sm-row flex-column">
+                            class="col-md-12 col-lg-2 col-12 patient-street-address">
                             <div class="form-group">
-                                <button class="btn-green btn manualbtn  py-0 btn-lg btn-md"
+                                <button class="btn-green btn manualbtn py-0 btn-lg btn-md"
                                     *ngIf="manuallybtn || disableaddressverification"
                                     (click)="enterAddressManually()">Enter Address Manually</button>
                             </div>
@@ -85,7 +85,7 @@
                     </div>
                     <br>
                     <div class="row">
-                        <div class="col-lg-5 col-12 mb-3">
+                        <div class="col-xl-5 col-lg-4 col-12 mb-3">
                             <div class="input-group input-group-lg">
                                 <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
                                     id="inputGroup-sizing-lg ">City</span>
@@ -94,8 +94,8 @@
                                     [(ngModel)]="primlist.City">
                             </div>
                         </div>
-                        <div class="col-lg-3 col-12 mb-3">
-                            <div class="input-group input-group-lg ">
+                        <div class="col-xl-4 col-lg-4 col-12 mb-3">
+                            <div class="input-group input-group-lg">
                                 <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
                                     id="inputGroup-sizing-lg ">State</span>
                                 <input type="text" [readonly]="!disableaddressverification"
@@ -103,7 +103,7 @@
                                     [(ngModel)]="primlist.State">
                             </div>
                         </div>
-                        <div class="col-lg-4 col-12">
+                        <div class="col-xl-3 col-lg-4 col-12">
                             <div class="input-group input-group-lg">
                                 <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
                                     id="inputGroup-sizing-lg ">Zip</span>
@@ -114,7 +114,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-11">
+                        <div class="col-10">
                             <label class="Helvetica-sans-serif-medium">Insurance Company Plan</label>
                             <div class="input-group mb-3">
                                 <input type="text"
@@ -123,7 +123,7 @@
                                     aria-label="Subscriber Name" aria-describedby="basic-addon1" readonly>
                             </div>
                         </div>
-                        <div class="col-1  d-flex justify-content-end flex-sm-row flex-column">
+                        <div class="col-2">
                             <button class="plusicon mt-4" type="button" (click)="primaryplus('primary')"
                                 data-bs-toggle="modal" data-bs-target="#modal-primary-Insurance" aria-expanded="false">
                                 <i class="fa fa-plus"></i>
@@ -131,7 +131,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-7 col-md-7 col-lg-8">
+                        <div class="col-12 col-md-7 col-lg-8">
                             <label class="Helvetica-sans-serif-medium">Subscriber Id</label>
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control Helvetica-sans-serif-medium patientInsuranceTab"
@@ -139,9 +139,9 @@
                                     aria-describedby="basic-addon" [(ngModel)]="primlist.SubscriberId">
                             </div>
                         </div>
-                        <div class="col-5 col-md-5 col-lg-4 d-flex justify-content-end flex-sm-row flex-column">
+                        <div class="col-12 col-md-12 col-lg-4">
                             <button [disabled]="viewpidetailsforprimary"
-                                class="btn btn-green btn-insurance pull-right  Helvetica-sans-serif-medium"
+                                class="btn btn-green btn-insurance pull-right Helvetica-sans-serif-medium mt-2 mt-lg-4"
                                 type="button" (click)="getInsuranceDetails('primary')" data-bs-toggle="modal"
                                 data-bs-target="#Primary-Insurance-Details"> View Primary Insurance details</button>
                         </div>
@@ -241,7 +241,7 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-12 col-12">
                             <label class="Helvetica-sans-serif-medium d-block">Date of Birth</label>
-                            <mat-form-field appearance="outline" class="calendaricon green-calendar">
+                            <mat-form-field appearance="outline" class="calendaricon green-calendar w-100">
                                 <input matInput [matDatepicker]="dp4" placeholder="Date of Birth"
                                     [(ngModel)]="secList.DateOfBirth" (focus)="dp4?.open()"
                                     class="Helvetica-sans-serif-medium">
@@ -274,14 +274,14 @@
                                     aria-describedby="basic-addon1" [(ngModel)]="secList.Street" #Address>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-4 col-4 d-flex justify-content-end flex-sm-row flex-column">
+                        <div class="col-lg-3 col-md-4 col-4">
                             <button class="btn btn-green btn-verify Helvetica-sans-serif-medium mt-4"
                                 [disabled]="!secList.Street || secondarydisableaddressverification"
                                 (click)="secondaryAddressverfied()">VERIFY</button>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-9 col-lg-9 col-11">
+                        <div class="col-lg-9 col-md-11 col-11">
                             <div class="form-group">
                                 <div class="input-group input-group-lg">
                                     <span class="input-group-text Helvetica-sans-serif-medium "
@@ -293,25 +293,23 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-1 col-1">
+                        <div class="co-lg-1 col-md-1 col-1">
                             <button type="button" class="btn cross-mark error-close"
                                 *ngIf="secondaryAdressVerfied && !secondarymanuallybtn"
                                 (click)="secondaryenableManualEntry()"
                                 title="Can enter manully when the verification results are in correct by clicking this icon">x</button>
                         </div>
-                        <div class="col-md-2 col-lg-2 d-flex justify-content-end flex-sm-row flex-column">
+                        <div class="col-md-12 col-lg-2 col-12">
                             <div class="form-group">
-                                <button class="btn-green btn manualbtn"
+                                <button class="btn-green btn manualbtn mt-4"
                                     *ngIf="secondarymanuallybtn || secondarydisableaddressverification"
-                                    (click)="secondaryenterAddressManually()">Enter
-                                    Address
-                                    Manually</button>
+                                    (click)="secondaryenterAddressManually()">Enter Address Manually</button>
                             </div>
                         </div>
                     </div>
                     <br>
                     <div class="row">
-                        <div class="col-lg-5 col-12 mb-3">
+                        <div class="col-xl-5 col-lg-4 col-12 mb-3">
                             <div class="input-group input-group-lg">
                                 <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
                                     id="inputGroup-sizing-lg ">City</span>
@@ -320,7 +318,7 @@
                                     [(ngModel)]="secList.City">
                             </div>
                         </div>
-                        <div class="col-lg-3 col-12 mb-3">
+                        <div class="col-xl-4 col-lg-4 col-12 mb-3">
                             <div class="input-group input-group-lg ">
                                 <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
                                     id="inputGroup-sizing-lg ">State</span>
@@ -328,7 +326,7 @@
                                     class="form-control input-border" [(ngModel)]="secList.State">
                             </div>
                         </div>
-                        <div class="col-lg-4 col-12">
+                        <div class="col-xl-3 col-lg-4 col-12">
                             <div class="input-group input-group-lg">
                                 <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
                                     id="inputGroup-sizing-lg ">Zip</span>
@@ -339,7 +337,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-11">
+                        <div class="col-10">
                             <label class="Helvetica-sans-serif-medium">Insurance Company Plan</label>
                             <div class="input-group mb-3">
                                 <input type="text"
@@ -348,8 +346,7 @@
                                     aria-label="Subscriber Name" aria-describedby="basic-addon1" readonly>
                             </div>
                         </div>
-                        <div class="col-1  d-flex justify-content-end flex-sm-row flex-column">
-
+                        <div class="col-2">
                             <button class="plusicon mt-4" type="button" data-bs-toggle="modal"
                                 (click)="secondaryplus('secondary')" data-bs-target="#modal-primary-Insurance"
                                 aria-expanded="false">
@@ -358,7 +355,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-7 col-md-7 col-lg-8">
+                        <div class="col-12 col-md-12 col-lg-8">
                             <label class="Helvetica-sans-serif-medium">Subscriber Id</label>
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control Helvetica-sans-serif-medium patientInsuranceTab"
@@ -366,9 +363,9 @@
                                     aria-describedby="basic-addon1" [(ngModel)]="secList.SubscriberId">
                             </div>
                         </div>
-                        <div class="col-5 col-md-5 col-lg-4 d-flex justify-content-end flex-sm-row flex-column">
+                        <div class="col-12 col-md-12 col-lg-4">
                             <button [disabled]="viewpidetailsforsecondary"
-                                class="btn btn-green btn-insurance pull-right  Helvetica-sans-serif-medium"
+                                class="btn btn-green btn-insurance pull-right  Helvetica-sans-serif-medium mt-2 mt-lg-4"
                                 (click)="getInsuranceDetails('secondary')" type="button" data-bs-toggle="modal"
                                 data-bs-target="#Primary-Insurance-Details">
                                 View Secondary Insurance details
