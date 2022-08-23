@@ -247,7 +247,11 @@ input::-webkit-input-placeholder {
   transform: translate(-50%, -50%)
 }
 .form-select:focus {
-  border-color: #fafafa !important;
+ 
+    border-color: #c2cad8 !important;
+    outline: 0;
+    box-shadow: none;
+  
 }
 #select {
   width: 100px;
