@@ -1,0 +1,51 @@
+@import"../../../assets/cstm.material.scss";
+@import"../../../assets/common.scss";
+
+.smoking-table-modal {
+  --bs-table-accent-bg: none !important;
+}
+
+.smoking-table-modal.modal-dialog {
+  overflow-y: initial !important;
+  max-width: 650px;
+}
+
+.smoking-table-modal.modal-dialog .modal-header {
+  padding: 0px 10px !important;
+}
+
+.smoking-table-modal .modal-body {
+  max-height: calc(90vh - 90px);
+  overflow-y: auto;
+}
+
+.smoking-table-modal .mat-row:hover {
+  background-color: #fff !important;
+
+  a {
+    color: #41b6a6 !important;
+  }
+}
+
+.smoking-table-modal .mat-row {
+  padding: 10px;
+}
+
+.smoking-table-modal {
+  @media (max-width: 1350px) {
+    .scrollable-mat-table {
+      width: 100%;
+      overflow-x: scroll;
+    }
+
+    .mat-table {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 450px) {
+    .mat-table {
+      width: 400px;
+    }
+  }
+}

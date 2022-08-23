@@ -173,7 +173,7 @@ export class PatientsComponent implements OnInit,AfterViewInit {
     setTimeout(() => {
       this.customizedspinner = false;
       $('body').removeClass('loadactive')
-    }, 1000);
+    }, 2000);
     this.patientsDataSource.loadPatients();
   }
 

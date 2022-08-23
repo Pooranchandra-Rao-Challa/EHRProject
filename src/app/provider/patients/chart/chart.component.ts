@@ -33,6 +33,11 @@ import { FrequentlyUsedDiagnosesDialogComponent } from 'src/app/dialogs/frequent
 import { AddDiagnosesDialogComponent } from 'src/app/dialogs/add.diagnoses.dialog/add.diagnoses.dialog.component';
 import { ViewChangeService } from 'src/app/_navigations/provider.layout/view.notification.service';
 import { Router } from '@angular/router';
+import { DiagnosesTableDialogComponent } from 'src/app/dialogs/diagnoses.table.dialog/diagnoses.table.dialog.component';
+import { MedicationTableDialogComponent } from 'src/app/dialogs/medication.table.dialog/medication.table.dialog.component';
+import { TobaccoUseTableDialogComponent } from 'src/app/dialogs/tobacco.use.table.dialog/tobacco.use.table.dialog.component';
+import { SmokingStatusTableDialogComponent } from 'src/app/dialogs/smoking.status.table.dialog/smoking.status.table.dialog.component';
+import { AdvancedDirectivesTableDialogComponent } from 'src/app/dialogs/advanced.directives.table.dialog/advanced.directives.table.dialog.component';
 @Component({
   selector: 'app-chart',
   templateUrl: './chart.component.html',
@@ -53,8 +58,11 @@ export class ChartComponent implements OnInit, AfterViewInit {
   filteredPatients: Observable<PatientSearch[]>;
   frequentlyUsedDiagnosesDialogComponent = FrequentlyUsedDiagnosesDialogComponent;
   addDiagnosesDialogComponent = AddDiagnosesDialogComponent;
+  diagnosesTableDialogComponent = DiagnosesTableDialogComponent;
   advancedDirectivesDialogComponent = AdvancedDirectivesDialogComponent;
+  advancedDirectivesTableDialogComponent = AdvancedDirectivesTableDialogComponent;
   smokingStatusDialogComponent = SmokingStatusDialogComponent;
+  smokingStatusTableDialogComponent = SmokingStatusTableDialogComponent;
   interventionDialogComponent = InterventionDialogComponent;
   interventionTableDialogComponent = InterventionTableDialogComponent;
   encounterDialogComponent = EncounterDialogComponent;
@@ -62,9 +70,11 @@ export class ChartComponent implements OnInit, AfterViewInit {
   cqmNotPerformedDialogComponent = AddeditinterventionComponent;
   discontinueDialogComponent = DiscontinueDialogComponent;
   medicationDialogComponent = MedicationDialogComponent;
+  medicationTableDialogComponent = MedicationTableDialogComponent;
   allergyDialogComponent = AllergyDialogComponent;
   allergyTableDialogComponent = AllergyTableDialogComponent;
   tobaccoUseDialogComponent = TobaccoUseDialogComponent;
+  tobaccoUseTableDialogComponent = TobaccoUseTableDialogComponent;
 
   patientPastMedicalHistory: PastMedicalHistory = new PastMedicalHistory();
   patientImmunization: Immunization = new Immunization();
@@ -89,8 +99,6 @@ export class ChartComponent implements OnInit, AfterViewInit {
   AppointmentTypes: AppointmentTypes[];
   Locations: UserLocations[];
   Rooms: Room[];
-  medication_prescription: any[];
-  locationColumns: string[] = ['Location', 'Address', 'Phone', 'Providers'];
   immunizationColumns: string[] = ['VaccineDescription', 'CVXCode', 'Date', 'Status'];
   administered: boolean = false;
   historical: boolean = true;
@@ -237,19 +245,34 @@ export class ChartComponent implements OnInit, AfterViewInit {
     else if (action == Actions.view && content === this.addDiagnosesDialogComponent) {
       reqdata = dialogData;
     }
+    else if (action == Actions.view && content === this.diagnosesTableDialogComponent) {
+      reqdata = dialogData;
+    }
     else if (action == Actions.view && content === this.advancedDirectivesDialogComponent) {
+      reqdata = dialogData;
+    }
+    else if (action == Actions.view && content === this.advancedDirectivesTableDialogComponent) {
       reqdata = dialogData;
     }
     else if (action == Actions.view && content === this.smokingStatusDialogComponent) {
       reqdata = dialogData;
     }
+    else if (action == Actions.view && content === this.smokingStatusTableDialogComponent) {
+      reqdata = dialogData;
+    }
     else if (action == Actions.view && content === this.tobaccoUseDialogComponent) {
+      reqdata = dialogData;
+    }
+    else if (action == Actions.view && content === this.tobaccoUseTableDialogComponent) {
       reqdata = dialogData;
     }
     else if (action == Actions.view && content === this.cqmNotPerformedDialogComponent) {
       reqdata = dialogData;
     }
     else if (action == Actions.view && content === this.medicationDialogComponent) {
+      reqdata = dialogData;
+    }
+    else if (action == Actions.view && content === this.medicationTableDialogComponent) {
       reqdata = dialogData;
     }
     else if (action == Actions.view && content === this.interventionDialogComponent) {
@@ -358,7 +381,6 @@ export class ChartComponent implements OnInit, AfterViewInit {
     this.patientService.ChartInfo({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.chartInfo = resp.Result;
-
       }
     });
   }
@@ -421,6 +443,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   CreateImmunizationsAdministered() {
     let isAdd = this.patientImmunization.ImmunizationId == undefined;
     this.patientImmunization.PatientId = this.currentPatient.PatientId;
+    this.patientImmunization.ExpirationAt = new Date(this.datepipe.transform(this.patientImmunization.ExpirationAt, "MM/dd/yyyy hh:mm:ss"));
     this.patientService.CreateImmunizationsAdministered(this.patientImmunization).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.ImmunizationsByPatientId();

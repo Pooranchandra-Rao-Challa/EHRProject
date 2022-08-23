@@ -1,0 +1,112 @@
+<div class="modal-dialog tobacco-use">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title Helvetica-sans-serif-medium w-100 text-center">Tobacco Use</h4>
+      <span type="button" class="cross-mark" (click)="cancel()">
+        X
+      </span>
+    </div>
+    <div class="modal-body">
+      <div class="content">
+        <div class="panel">
+          <div class="panel-header">
+            <p class="panel-title Helvetica-sans-serif-medium">Screening and Use:</p>
+          </div>
+          <div class="panel-body">
+            <div class="row">
+              <div class="screening-list mb-5">
+                <div class="bg-color col-12">
+                  <p class="Helvetica-sans-serif-medium">Recorded Screening and Use</p>
+                </div>
+                <div class="scrollable-mat-table screening-table">
+                  <mat-table [dataSource]="patientTobaccoUse" matSort>
+                    <ng-container matColumnDef="DatePerf">
+                      <mat-header-cell *matHeaderCellDef>Date Perf</mat-header-cell>
+                      <mat-cell *matCellDef="let tobaccouse">
+                        <a (click)="openComponentDialog(tobaccoUseDialogComponent, tobaccouse, ActionTypes.view)">
+                          {{tobaccouse.ScreeningDate | date: 'MM/dd/yyyy'}}
+                        </a>
+                      </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="Screeningperf">
+                      <mat-header-cell *matHeaderCellDef>Screening perf</mat-header-cell>
+                      <mat-cell *matCellDef="let tobaccouse">
+                        <a (click)="openComponentDialog(tobaccoUseDialogComponent, tobaccouse, ActionTypes.view)">
+                          {{tobaccouse.ScreeningType}}
+                        </a>
+                      </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="Status">
+                      <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+                      <mat-cell *matCellDef="let tobaccouse">
+                        <a (click)="openComponentDialog(tobaccoUseDialogComponent, tobaccouse, ActionTypes.view)">
+                          {{tobaccouse.Status}}
+                        </a>
+                      </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="TobaccoUsecode_desc">
+                      <mat-header-cell *matHeaderCellDef>Tobacco use code & Desc</mat-header-cell>
+                      <mat-cell *matCellDef="let tobaccouse">
+                        <a (click)="openComponentDialog(tobaccoUseDialogComponent, tobaccouse, ActionTypes.view)">
+                          {{tobaccouse.ScreeningCode}} - {{tobaccouse.ScreeningDescription}}
+                        </a>
+                      </mat-cell>
+                    </ng-container>
+                    <mat-header-row *matHeaderRowDef="screeningColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: screeningColumns"></mat-row>
+                  </mat-table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-header">
+            <p class="panel-title">Cessation Intervention:</p>
+          </div>
+          <div class="panel-body">
+            <div class="row">
+              <div class="screening-list mb-5">
+                <div class="bg-color col-12">
+                  <p class="Helvetica-sans-serif-medium">Recorded Cessation Interventions</p>
+                </div>
+                <mat-table [dataSource]="patientTobaccoUse" matSort>
+                  <ng-container matColumnDef="DatePerf">
+                    <mat-header-cell *matHeaderCellDef>Date Perf</mat-header-cell>
+                    <mat-cell *matCellDef="let tobaccouse">
+                      <a (click)="openComponentDialog(tobaccoUseDialogComponent, tobaccouse, ActionTypes.view)">
+                        {{tobaccouse.CI_Date | date: 'MM/dd/yyyy'}}
+                      </a>
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="Interventionperf">
+                    <mat-header-cell *matHeaderCellDef>Intervention perf</mat-header-cell>
+                    <mat-cell *matCellDef="let tobaccouse">
+                      <a (click)="openComponentDialog(tobaccoUseDialogComponent, tobaccouse, ActionTypes.view)">
+                        {{tobaccouse.CI_Type}}
+                      </a>
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="InterventionDesc">
+                    <mat-header-cell *matHeaderCellDef>Intervention Desc</mat-header-cell>
+                    <mat-cell *matCellDef="let tobaccouse">
+                      <a (click)="openComponentDialog(tobaccoUseDialogComponent, tobaccouse, ActionTypes.view)">
+                        {{tobaccouse.CI_Description}}
+                      </a>
+                    </mat-cell>
+                  </ng-container>
+                  <mat-header-row *matHeaderRowDef="interventionColumns"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: interventionColumns"></mat-row>
+                </mat-table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-green" (click)="openComponentDialog(tobaccoUseDialogComponent, null, ActionTypes.add)">Add</button>
+      <button class="btn btn-green" (click)="cancel()">Cancel</button>
+    </div>
+  </div>
+</div>
