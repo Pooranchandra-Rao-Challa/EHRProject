@@ -81,4 +81,9 @@ export class SmartSchedulerService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._calendarBlockoutsUrl, reqParams);
   }
 
+  BlockoutInfo(reqParams: any){
+    return this._ProcessPostRequest<any>(this._blockoutInfoUrl, reqParams);
+  }
+
+
 }

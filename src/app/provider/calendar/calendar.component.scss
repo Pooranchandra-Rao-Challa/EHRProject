@@ -134,7 +134,15 @@ fieldset {
     border-color: #41b6a6;
   }
 }
-
+.color-item-group{
+  display: inline-flex;
+  align-items: baseline;
+}
+.color-items{
+  width:15px;
+  height:15px;
+  margin-right:5px;
+}
 ::ng-deep .mat-checkbox-checked.mat-accent {
 
   .mat-checkbox-background,
