@@ -74,8 +74,7 @@
                                 *ngIf="addressVerfied && !manuallybtn" (click)="enableManualEntry()"
                                 title="Can enter manully when the verification results are in correct by clicking this icon">x</button>
                         </div>
-                        <div
-                            class="col-md-12 col-lg-2 col-12 patient-street-address">
+                        <div class="col-md-12 col-lg-2 col-12 patient-street-address">
                             <div class="form-group">
                                 <button class="btn-green btn manualbtn py-0 btn-lg btn-md"
                                     *ngIf="manuallybtn || disableaddressverification"
@@ -785,7 +784,8 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6 Helvetica-sans-serif-medium">Address:</div>
-                        <div class="col-md-6 Helvetica-sans-serif-medium">{{item.StreetAddress}},{{item.City}},{{item.State}},{{item.Zip}}</div>
+                        <div class="col-md-6 Helvetica-sans-serif-medium">
+                            {{item.StreetAddress}},{{item.City}},{{item.State}},{{item.Zip}}</div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 Helvetica-sans-serif-medium">Contact:</div>
