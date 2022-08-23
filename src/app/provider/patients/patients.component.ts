@@ -15,6 +15,7 @@ import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, fromEvent, merge, Observable, of } from 'rxjs';
 import { catchError, finalize, tap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { ViewChangeService } from 'src/app/_navigations/provider.layout/view.notification.service';
+declare var $: any;
 
 @Component({
   selector: 'app-patients',
@@ -22,6 +23,7 @@ import { ViewChangeService } from 'src/app/_navigations/provider.layout/view.not
   styleUrls: ['./patients.component.scss']
 })
 export class PatientsComponent implements OnInit,AfterViewInit {
+  customizedspinner: boolean;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('SearchPatient', { static: true })
@@ -166,7 +168,12 @@ export class PatientsComponent implements OnInit,AfterViewInit {
       "ProviderId": null,
       "Status": "All"
     }
+    this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
     this.patientsDataSource = new PatientDatasource(this.patientService, reqparams);
+    setTimeout(() => {
+      this.customizedspinner = false;
+      $('body').removeClass('loadactive')
+    }, 1000);
     this.patientsDataSource.loadPatients();
   }
 
@@ -200,7 +207,7 @@ export class PatientsComponent implements OnInit,AfterViewInit {
 }
 
 export class PatientDatasource implements DataSource<ProviderPatient>{
-
+  customizedspinner: boolean;
   private patientsSubject = new BehaviorSubject<ProviderPatient[]>([]);
   private loadingSubject = new BehaviorSubject<boolean>(false);
   public loading$ = this.loadingSubject.asObservable();
@@ -234,14 +241,16 @@ export class PatientDatasource implements DataSource<ProviderPatient>{
     this.queryParams["PageSize"] = pageSize;
     this.queryParams["Filter"] = filter;
     this.loadingSubject.next(true);
-
     this.patientService.FilteredPatientsOfProvider(this.queryParams).pipe(
       catchError(() => of([])),
       finalize(() => this.loadingSubject.next(false))
     )
       .subscribe(resp => {
-
-        this.patientsSubject.next(resp.ListResult as ProviderPatient[])
+        this.patientsSubject.next(resp.ListResult as ProviderPatient[]);
+        // setTimeout(() => {
+        //   this.customizedspinner = false;
+        //   $('body').removeClass('loadactive')
+        // }, 1000);
       });
   }
 

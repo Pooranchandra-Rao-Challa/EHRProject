@@ -13,7 +13,7 @@
   padding-left: 13px;
 }
 .w3-button {
-  min-width: 10px !important;
+  width: 30px !important;
   min-height: 10px !important;
   border: 1px solid white !important;
   padding: 0px 5px !important;
@@ -290,6 +290,7 @@ a {
 }
 
 .modal-body {
+  max-height: 450px;
   overflow-y: auto !important;
   border: 1px solid #41b6a6;
 }

@@ -4,7 +4,8 @@ import { Component, ElementRef, OnInit, ViewChild, AfterViewInit } from '@angula
 import {
   AppointmentTypes, AvailableTimeSlot, Actions,
   NewAppointment, PatientSearchResults, Room, ScheduledAppointment, UserLocations,
-  AppointmentDialogInfo
+  AppointmentDialogInfo,
+  PatientChart
 } from 'src/app/_models/';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
@@ -72,7 +73,7 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
     this.PatientAppointment = {} as NewAppointment;
 
     this.PatientAppointment = this.data.PatientAppointment;
-    
+
 
     this.appointmentTitle = this.data.Title;
     this.AppointmentTypes = this.data.AppointmentTypes;
@@ -283,7 +284,6 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
   }
 
   onAppointmentSave() {
-
     this.PatientAppointment.AppointmentTime = this.PatientAppointment.TimeSlot.StartDateTime;
     this.PatientAppointment.strAppointmentTime =
     this.datePipe.transform(this.PatientAppointment.TimeSlot.StartDateTime,"MM/dd/yyyy HH:mm")
@@ -295,7 +295,8 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
     this.smartSchedulerService.CreateAppointment(this.PatientAppointment).subscribe(resp => {
       if (resp.IsSuccess) {
         this.onError = false;
-        this.ref.close({ 'refresh': true });
+        this.ref.close({ 'refresh': true,
+        'UpdatedModal': PatientChart.Appointment });
         this.OperationMessage = resp.EndUserMessage;
         //this.openComponentDialog(this.messageDialogComponent,null,Actions.view);
         //if (this.data.NavigationFrom = )
@@ -316,7 +317,7 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
     }
     const ref = this.overlayService.open(content, reqdata, true);
     ref.afterClosed$.subscribe(res => {
-      
+
     });
   }
 

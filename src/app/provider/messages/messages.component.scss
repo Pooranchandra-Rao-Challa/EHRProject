@@ -17,6 +17,15 @@
     height: calc(100vh - 130px);
     max-width: 1133px;
   }
+  @media screen and (max-width:1080px) {
+    .container{height: 100%;max-width: 100%;}
+    .message-content{flex-direction: column;}
+    .message-table-container{overflow: auto;height: unset !important;}
+    .mat-table{width: 100% !important;}
+    .matheaderrow{width: 100% !important;}
+    .rightblockalignments{width: 100% !important;margin-top: 10px;margin-left: 0px !important;}
+    .mat-row{width: 100% !important;}
+  }
 
   .nav-tabs {
     border-bottom: 1px solid #ddd;
@@ -225,7 +234,10 @@
   @media (max-width: 1024px) {
     .btn-light {
       white-space: break-spaces;
-
+    }
+    .rightblockalignments {
+      width: 100%;
+      display: block;
     }
   }
 

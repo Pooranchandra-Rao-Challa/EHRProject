@@ -64,7 +64,7 @@
         </div>
         <div class="modal-body divScroll">
           <div class="row">
-            <mat-label class="Helvetica-sans-serif-medium">Date Requested:</mat-label>
+            <mat-label class="Helvetica-sans-serif-medium required">Date Requested:</mat-label>
             <mat-form-field appearance="outline" class="calendaralignment green-calendar col-lg-7 col-md-7">
               <input matInput class="pointer date-mat-class" autocomplete="off" [matDatepicker]="DateRequest"
                 (click)="DateRequest.open()" placeholder="mm/dd/yyyy" [(ngModel)]="amendment.DateofRequest">
@@ -101,10 +101,10 @@
           </div>
           <div class="row">
             <div class="col-md-6">
-              <mat-label class="Helvetica-sans-serif-medium">Status:</mat-label>
+              <mat-label class="Helvetica-sans-serif-medium required">Status:</mat-label>
             </div>
             <div class="col-md-6">
-              <mat-label class="Helvetica-sans-serif-medium">Source:</mat-label>
+              <mat-label class="Helvetica-sans-serif-medium required">Source:</mat-label>
             </div>
           </div>
           <div class="row">
@@ -158,7 +158,7 @@
             data-bs-dismiss="modal" *ngIf="amendment?.AmendmentId != null && amendment?.AmendmentId !=''"
             (click)=deleteAmendment()>Delete</button>
           <button mat-raised-button type="submit" class="btn btn-green searchnow Helvetica-sans-serif-medium pull-right"
-            (click)="createUpadateAmendment()" data-bs-dismiss="modal">Save</button>
+            (click)="createUpadateAmendment()" data-bs-dismiss="modal" [disabled]="enableSave()">Save</button>
           <button mat-raised-button type="submit"
             class="btn btn-green searchnow Helvetica-sans-serif-medium  pull-right" data-bs-dismiss="modal"
             (click)="resetDialog()">Cancel</button>

@@ -21,8 +21,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of defaultmessage ">
-            <td>{{item?.CommunicationId}}</td>
+          <tr *ngFor="let item of defaultmessage;  let i=index">
+            <td>{{i+1}}</td>
             <td>{{item?.CommunicationType}}</td>
             <td>{{item?.message}}</td>
             <td><button class="btn-lock table-col-button"

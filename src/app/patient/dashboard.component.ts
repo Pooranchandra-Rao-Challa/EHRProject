@@ -129,7 +129,6 @@ export class DashboardComponent {
 }
 getmessages()
 {
-  debugger;
       var req={
         // "PatientId": "5836dafef2e48f36ba90a996",
         "UserId":this.user.UserId,

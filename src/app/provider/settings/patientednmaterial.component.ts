@@ -90,7 +90,7 @@ export class PatientEdnMaterialComponent implements OnInit {
     (this.patientmaterialfrom.controls['attachments'] as FormArray).clear();
 
   }
-
+  valuedisable:boolean = false
   optionChangedForPed(value: MedicalCode) {
   //  this.educationMaterialCode= new EducationMaterialCode();
    this.educationMaterialCode.Code = value.Code
@@ -99,10 +99,16 @@ export class PatientEdnMaterialComponent implements OnInit {
    this.educationMaterialCode.CanDelete = false;
     this.patientEducationInfo.EducationMat.push(this.educationMaterialCode);
     this.patientEducationSearchList.next(this.patientEducationInfo.EducationMat.filter(fn => fn.CanDelete === false));
+    
+    return " ";
+    
+  }
+  displayWithPatientEd(value: MedicalCode): string {
+    if (!value) return "";
+    return "";
   }
 
-
-  removeEncounterDiagnosis(value: EducationMaterialCode, index: number) {
+  removePatientEdM(value: EducationMaterialCode, index: number) {
     value.CanDelete = true;
     this.patientEducationSearchList.next(this.patientEducationInfo.EducationMat.filter(fn => fn.CanDelete === false));
     this.educationMaterialCode = new EducationMaterialCode();

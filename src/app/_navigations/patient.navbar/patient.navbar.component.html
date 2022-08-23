@@ -1,11 +1,10 @@
 <nav class="navbar navbar-expand-lg bg-color">
   <button class="navbar-toggler" type="button" (click)="toggleNavbar()">
-    <span class="navbar-toggler-icon"></span>
+    <span class="navbar-toggler-icon"><span class="navbar-toggler-icon"><i class="fa fa-bars text-white fs-2"></i></span></span>
   </button>
   <img src="assets/images/logo.svg" alt="logo" class="img-fluid mx-3" />
   <div class="collapse navbar-collapse" [ngClass]="{ 'show': navbarOpen }">
     <ul class="navbar-nav mr-auto menuactive">
-
       <li class="nav-item" [class.active]="viewModel.View == 'dashboard'">
         <a href="javascript:void(0)" (click)="onChangeBreadCrum('patient/dashboard','dashboard')"
           routerLinkActive="router-link-active" class="nav-link active item-dashboard">Dashboard
@@ -38,7 +37,7 @@
       </li>
     </ul>
   </div>
-  <ul class="navbar-nav pull-right patient-nav-menu">
+  <ul class="navbar-nav pull-right patient-nav-menu m-auto m-lg-0">
     <li [matMenuTriggerFor]="menu" class="nav-item nav-top-right">
       <a class="nav-link dropdown-toggle" id="UserDropdown">
         <span class="profile-text">{{ this.user.FirstName}}&nbsp;&nbsp;{{this.user.LastName}}</span>

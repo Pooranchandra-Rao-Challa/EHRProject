@@ -21,7 +21,7 @@
                       <mat-progress-bar mode="indeterminate" bufferValue="50" value=100
                       *ngIf="patientsDataSource.loading$ | async" ></mat-progress-bar>
                       <mat-table [dataSource]=patientsDataSource
-                        matSort matSortActive="FullName" matSortDirection="asc" matSortDisableClear>
+                        matSort matSortActive="FullName" matSortDirection="asc" class="resp-width" matSortDisableClear>
 
                         <ng-container matColumnDef="Name">
                           <mat-header-cell *matHeaderCellDef mat-sort-header="FullName" class="header">Name</mat-header-cell>

@@ -44,14 +44,16 @@ export class AuditLogComponent implements OnInit {
 
   constructor(private authService: AuthenticationService, private settingservice: SettingsService) {
     this.user = authService.userValue;
-
-
   }
+
+
+ 
   ngOnInit(): void {
     // this.getdata();
     this.getAuditLogList('');
   }
   getAuditLogList(event) {
+    this.auditloglistspinner();
     if (event == 'reset') {
       this.startDate = '';
       this.enddate = '';
@@ -74,11 +76,19 @@ export class AuditLogComponent implements OnInit {
     this.settingservice.AuditLogs(reqparams).subscribe(reponse => {
       this.auditLogList = reponse.ListResult;
       this.loglist = this.auditLogList
+     
       // this.TotalItems = this.auditLogList.length;
 
     })
   }
-
+  customizedspinner:boolean
+  auditloglistspinner() {
+    this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
+    setTimeout(() => {
+      this.customizedspinner = false;
+      $('body').removeClass('loadactive')
+    }, 1000);
+  }
   dataType: string[] = [
     "Schedule",
     "Chart",

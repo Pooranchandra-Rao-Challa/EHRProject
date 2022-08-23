@@ -52,7 +52,7 @@
 //   height: 45px;
 // }
 .btn-verify {
-  width: 195px;
+  // width: 195px;
   height: 45px;
 }
 
@@ -87,12 +87,12 @@
 }
 
 .btn-insurance {
-  width: 277px;
+  // width: 277px;
     margin: 0px;
-    height: 45px;
-    margin-top: 26px;
+    height: 50px;
+    // margin-top: 26px;
     margin-right: 5px;
-    padding: 0px;
+    padding: 0px 2px;
 }
 
 
@@ -310,4 +310,11 @@
   }
   .address-verfied{
     cursor:not-allowed;
+  }
+  .phone-width {
+    width: 85%;
+    height: 15%;
+  }
+  .phone-full-width {
+    width: 15%;
   }

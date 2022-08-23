@@ -13,6 +13,7 @@ import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { Accountservice } from 'src/app/_services/account.service';
 import { calcProjectFileAndBasePath } from '@angular/compiler-cli';
+import { PatientUpdateService } from 'src/app/_navigations/provider.layout/view.notification.service';
 
 @Component({
   selector: 'app-profile',
@@ -22,7 +23,7 @@ import { calcProjectFileAndBasePath } from '@angular/compiler-cli';
 export class ProfileComponent implements OnInit {
   patient: ProviderPatient;
   PatientDetails: any = [];
-  PatientMyProfile: PatientProfile;
+  patientMyProfile: PatientProfile;
   PracticeProviders: PracticeProviders[];
   myControl: FormControl = new FormControl();
   filteredProviderOptions: Observable<any[]>;
@@ -66,19 +67,29 @@ export class ProfileComponent implements OnInit {
   emergencyManuallybtn:boolean = false;
   emergencyAddressVerfied:boolean = false;
   emergencyDisableAddressVerification:boolean = false;
+  PhonePattern:any
 
-
-  constructor(private patientService: PatientService, private utilityService: UtilityService,
-    private smartSchedulerService: SmartSchedulerService, private authService: AuthenticationService, private alertmsg: AlertMessage, private accountservice: Accountservice,) {
+  constructor(private patientService: PatientService,
+    private utilityService: UtilityService,
+    private smartSchedulerService: SmartSchedulerService,
+    private authService: AuthenticationService,
+    private alertmsg: AlertMessage,
+    private accountservice: Accountservice,
+    private patientUpdateNotifier: PatientUpdateService) {
     this.user = authService.userValue;
-    this.PatientMyProfile = {} as PatientProfile;
+    this.patientMyProfile = {} as PatientProfile;
+    this.PhonePattern = {
+      0: {
+        pattern: new RegExp('\\d'),
+        symbol: 'X',
+      },
+    };
   }
 
   ngOnInit(): void {
     this.getPatientDetails();
     this.getPatientMyProfile();
     this.getProviderList();
-    this.relationship;
     this.getlanguagesInfo();
     this.getPatientsRelationByProvider();
   }
@@ -106,9 +117,11 @@ export class ProfileComponent implements OnInit {
     }
     this.patientService.PatientMyProfileByPatientId(reqparam).subscribe(resp => {
       if (resp.IsSuccess) {
-        this.PatientMyProfile = resp.ListResult[0];
-        this.PatientMyProfile.Gender = this.PatientMyProfile.Gender;
-      }
+        this.patientMyProfile = resp.ListResult[0];
+        this.patientMyProfile.Gender = this.patientMyProfile.Gender;
+        console.log(this.patientMyProfile);
+      }else console.log(resp);
+
     });
   }
 
@@ -127,7 +140,7 @@ export class ProfileComponent implements OnInit {
 
   //filter Provider on search text
   filterProvider(searchText: string) {
-    
+
     if (searchText.length < 1) {
       return [];
     }
@@ -225,13 +238,13 @@ export class ProfileComponent implements OnInit {
   }
 
   updatePatientInformation() {
-    this.patientService.UpdatePatientInformation(this.PatientMyProfile).subscribe(resp => {
+        this.patientService.UpdatePatientInformation(this.patientMyProfile).subscribe(resp => {
       if (resp.IsSuccess) {
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP001"])
         this.getPatientMyProfile();
         // this.patient = this.authService.viewModel.Patient;
+        this.patientUpdateNotifier.sendData(this.patientMyProfile)
 
- 
       }
       else {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP001"]);
@@ -240,7 +253,7 @@ export class ProfileComponent implements OnInit {
   }
 
   updateContactInform() {
-    this.patientService.UpdateContactInformation(this.PatientMyProfile).subscribe(resp => {
+    this.patientService.UpdateContactInformation(this.patientMyProfile).subscribe(resp => {
       if (resp.IsSuccess) {
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP002"])
       }
@@ -251,7 +264,7 @@ export class ProfileComponent implements OnInit {
   }
 
   updateEmergencyContact() {
-    this.patientService.UpdateEmergencyContact(this.PatientMyProfile).subscribe(resp => {
+    this.patientService.UpdateEmergencyContact(this.patientMyProfile).subscribe(resp => {
       if (resp.IsSuccess) {
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP003"])
       }
@@ -262,7 +275,7 @@ export class ProfileComponent implements OnInit {
   }
 
   updateNextOfKin() {
-    this.patientService.UpdateNextofkin(this.PatientMyProfile).subscribe(resp => {
+    this.patientService.UpdateNextofkin(this.patientMyProfile).subscribe(resp => {
       if (resp.IsSuccess) {
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP006"])
       }
@@ -273,7 +286,7 @@ export class ProfileComponent implements OnInit {
   }
 
   updateDemography() {
-    this.patientService.UpdateDemographics(this.PatientMyProfile).subscribe(resp => {
+    this.patientService.UpdateDemographics(this.patientMyProfile).subscribe(resp => {
       if (resp.IsSuccess) {
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP005"])
       }
@@ -284,7 +297,7 @@ export class ProfileComponent implements OnInit {
   }
 
   updateImmunizationRegistry() {
-    this.patientService.UpdateImmunizationRegistry(this.PatientMyProfile).subscribe(resp => {
+    this.patientService.UpdateImmunizationRegistry(this.patientMyProfile).subscribe(resp => {
       if (resp.IsSuccess) {
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP007"])
       }
@@ -295,7 +308,7 @@ export class ProfileComponent implements OnInit {
   }
 
   updateNote() {
-    this.patientService.UpdateNotes(this.PatientMyProfile).subscribe(resp => {
+    this.patientService.UpdateNotes(this.patientMyProfile).subscribe(resp => {
       if (resp.IsSuccess) {
         let success = resp.EndUserMessage;
       }
@@ -303,13 +316,13 @@ export class ProfileComponent implements OnInit {
     });
   }
   AddressVerification() {
-    this.accountservice.VerifyAddress(this.PatientMyProfile.Street).subscribe(resp => {
+    this.accountservice.VerifyAddress(this.patientMyProfile.Street).subscribe(resp => {
       if (resp.IsSuccess) {
-        this.PatientMyProfile.city = resp.Result.components.city_name
-        this.PatientMyProfile.state = resp.Result.components.state_abbreviation
-        this.PatientMyProfile.StreetAddress = resp.Result.delivery_line_1
-        this.PatientMyProfile.zip = resp.Result.components.zipcode
-        this.PatientMyProfile.Street = "";
+        this.patientMyProfile.city = resp.Result.components.city_name
+        this.patientMyProfile.state = resp.Result.components.state_abbreviation
+        this.patientMyProfile.StreetAddress = resp.Result.delivery_line_1
+        this.patientMyProfile.zip = resp.Result.components.zipcode
+        this.patientMyProfile.Street = "";
         this.addressVerfied = true;
         this.alertmsg.displayErrorDailog(ERROR_CODES["M2CP0010"])
       }
@@ -323,15 +336,15 @@ export class ProfileComponent implements OnInit {
   enableManualEntry() {
     this.clearAddress();
     this.manuallybtn = true;
-    
+
   }
 
   clearAddress() {
-    this.PatientMyProfile.Street = "";
-    this.PatientMyProfile.city = ""
-    this.PatientMyProfile.state = ""
-    this.PatientMyProfile.StreetAddress = ""
-    this.PatientMyProfile.zip = ""
+    this.patientMyProfile.Street = "";
+    this.patientMyProfile.city = ""
+    this.patientMyProfile.state = ""
+    this.patientMyProfile.StreetAddress = ""
+    this.patientMyProfile.zip = ""
   }
 
   enterAddressManually(item) {
@@ -341,13 +354,13 @@ export class ProfileComponent implements OnInit {
 
 
   EmergencyAddressVerification() {
-    this.accountservice.VerifyAddress(this.PatientMyProfile.EmergencyStreet).subscribe(resp => {
+    this.accountservice.VerifyAddress(this.patientMyProfile.EmergencyStreet).subscribe(resp => {
       if (resp.IsSuccess) {
-        this.PatientMyProfile.EmergencyCity = resp.Result.components.city_name
-        this.PatientMyProfile.EmergencyState = resp.Result.components.state_abbreviation
-        this.PatientMyProfile.EmergencyStreetAddress = resp.Result.delivery_line_1
-        this.PatientMyProfile.EmergencyZip = resp.Result.components.zipcode
-        this.PatientMyProfile.EmergencyStreet = "";
+        this.patientMyProfile.EmergencyCity = resp.Result.components.city_name
+        this.patientMyProfile.EmergencyState = resp.Result.components.state_abbreviation
+        this.patientMyProfile.EmergencyStreetAddress = resp.Result.delivery_line_1
+        this.patientMyProfile.EmergencyZip = resp.Result.components.zipcode
+        this.patientMyProfile.EmergencyStreet = "";
         this.emergencyAddressVerfied = true;
         this.alertmsg.displayErrorDailog(ERROR_CODES["M2CP0010"])
       }
@@ -361,21 +374,21 @@ export class ProfileComponent implements OnInit {
   EmergencyenableManualEntry() {
     this.EmergencyclearAddress();
     this.emergencyManuallybtn = true;
-    
+
   }
 
   EmergencyclearAddress() {
-    this.PatientMyProfile.EmergencyStreet = "";
-    this.PatientMyProfile.EmergencyCity = ""
-    this.PatientMyProfile.EmergencyState = ""
-    this.PatientMyProfile.EmergencyStreetAddress = ""
-    this.PatientMyProfile.EmergencyZip = ""
+    this.patientMyProfile.EmergencyStreet = "";
+    this.patientMyProfile.EmergencyCity = ""
+    this.patientMyProfile.EmergencyState = ""
+    this.patientMyProfile.EmergencyStreetAddress = ""
+    this.patientMyProfile.EmergencyZip = ""
   }
 
   EmergencyenterAddressManually() {
     this.emergencyDisableAddressVerification = true;
   }
- 
+
 
   allowAccess() { }
 }

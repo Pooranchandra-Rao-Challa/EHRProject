@@ -672,12 +672,7 @@ ul.menuclass li.active a {
     overflow-x: auto;
   }
 }
-::ng-deep .color-picker{
-    height: 270px !important;
-    margin-top: -26px !important;
-    top: initial !important;
-    left: initial !important;
-}
+
 .cstm-color-picker{
   width: 25px;
   height: 25px;
@@ -892,3 +887,65 @@ img.avatar:hover{
   color: #fff;
 }
 
+
+
+
+::ng-deep .color-picker{
+  height: 270px !important;
+  margin-top: -26px !important;
+  margin-left: 25px !important;
+  top: initial !important;
+  left: initial !important;
+  border: 1px solid #41b6a6;
+  height: 320px !important;
+}
+::ng-deep .color-picker .btn-color-picker{
+  color:#fff;
+  background: #41b6a6;
+  border:1px solid #41b6a6;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+::ng-deep .color-picker .btn-color-picker:hover{
+  color:#41b6a6;
+  background: #fff;
+}
+// ::ng-deep .color-picker {
+//   position: absolute;
+//   z-index: 100000;
+//   width: 230px;
+//   height: auto;
+//   border: #777 solid 1px;
+//   cursor: default;
+//   -webkit-user-select: none;
+//   -khtml-user-select: none;
+//   -moz-user-select: none;
+//   -ms-user-select: none;
+//   user-select: none;
+//   background-color: #fff;
+// }
+
+// ::ng-deep .color-picker .arrow.arrow-right,
+// ::ng-deep .color-picker .arrow.arrow-right-bottom,
+// ::ng-deep .color-picker .arrow.arrow-bottom-right {
+//   top: 8px;
+//   left: -20px;
+//   border-width: 5px 10px;
+//   border-color: rgba(0, 0, 0, 0) #777 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+// }
+
+
+// ::ng-deep  .color-picker .arrow {
+//   position: absolute;
+//   z-index: 999999;
+//   width: 0;
+//   height: 0;
+//   border-style: solid;
+// }
+
+// ::ng-deep .color-picker * {
+//   -webkit-box-sizing: border-box;
+//   -moz-box-sizing: border-box;
+//   box-sizing: border-box;
+//   margin: 0;
+//   font-size: 11px;
+// }

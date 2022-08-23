@@ -136,7 +136,7 @@
 
                   <div class="row text-center table-body" *ngFor="let appointment of Appointments" [ngStyle]="{display:appointment.IsPast?'inline-flux':'none'}">
 
-                      <div class="col-md-1 col-1 appointment-time" *ngIf="appointment.IsPast">
+                      <div class="col-md-1 col-1 appointment-time " *ngIf="appointment.IsPast">
                         {{appointment.AppointmentTime | date:'MM/dd/yyyy'}}
                         &nbsp;
                         Time: {{appointment.AppointmentTime | date:'hh:mm a'}}
