@@ -1,15 +1,17 @@
-
-  <ul class="patient-navigation">
-    <li *ngFor="let breadcrumb of breadcrumbs">
-      <a [class.patients-link]="!breadcrumb.ShowRemoveIcon" [class.patient-link]="breadcrumb.ShowRemoveIcon"
-      (click)="patientDetailsView(breadcrumb)"
-      >
-        <div class="patient-name">{{breadcrumb.Name}}</div>
-        <div class="patient-dob" *ngIf="breadcrumb.ShowRemoveIcon">{{breadcrumb.DOB | date: 'MM/dd/yyyy'}}</div>
-      </a>
-      <a class="remove-chart-patient patient-remove-link" *ngIf="breadcrumb.ShowRemoveIcon"
+<ul class="patient-navigation">
+  <li *ngFor="let breadcrumb of breadcrumbs">
+    <a [class.patients-link]="!breadcrumb.ShowRemoveIcon" [class.patient-link]="breadcrumb.ShowRemoveIcon"
+      [href]="'../../provider/patients'" *ngIf="breadcrumb.Name=='Patients'">
+      <div class="patient-name" [class.bread-crumb-active]="breadcrumb.ActiveId">{{breadcrumb.Name}}</div>
+    </a>
+    <a [class.patients-link]="!breadcrumb.ShowRemoveIcon" [class.patient-link]="breadcrumb.ShowRemoveIcon"
+      [href]='"../../provider/patientdetails/?paramkey="+breadcrumb.EncKey' *ngIf="breadcrumb.Name!='Patients'">
+      <div class="patient-name" [class.bread-crumb-active]="breadcrumb.ActiveId">{{breadcrumb.Name}}</div>
+      <div class="patient-dob"  [class.bread-crumb-active]="breadcrumb.ActiveId">{{breadcrumb.DOB | date: 'MM/dd/yyyy'}}</div>
+    </a>
+    <a class="remove-chart-patient patient-remove-link" *ngIf="breadcrumb.ShowRemoveIcon"
       (click)="removePatientBreadcrumbInView(breadcrumb.PatientId)">
-        <i class="fa fa-times"></i>
-      </a>
-    </li>
-  </ul>
+      <i class="fa fa-times cross-icon"></i>
+    </a>
+  </li>
+</ul>

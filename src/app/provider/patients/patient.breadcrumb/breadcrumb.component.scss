@@ -3,6 +3,7 @@
 ul.patient-navigation{
   padding-left: 0px;
   text-align: center;
+  margin: unset;
 }
 ul.patient-navigation > li {
   display: inline-flex;
@@ -36,4 +37,14 @@ ul.patient-navigation li a.remove-chart-patient {
 
 .patients-link{
   padding-top: 10px
+}
+
+.bread-crumb-active{
+  color:#41b6a6 !important;
+}
+.cross-icon{
+  color: #41b6a6;
+}
+.cross-icon:hover{
+  color: #05d5b9;
 }

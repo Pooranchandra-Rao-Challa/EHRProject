@@ -14,22 +14,22 @@
       <form>
         <div class="row">
           <mat-label class="required">Patient :</mat-label>
-          <mat-form-field appearance="outline" class="col-12 hover" [hidden]="data.PatientAppointment.PatientId == null">
+          <mat-form-field appearance="outline" class="col-12 hover"
+            [hidden]="data.PatientAppointment.PatientId == null">
             <input matInput placeholder="Patient Name" [(ngModel)]="PatientAppointment.PatientName"
               [ngModelOptions]="{standalone:true}" disabled class="notallowCursor">
           </mat-form-field>
 
-          <mat-form-field appearance="outline" class="col-12 hover" [hidden]="data.PatientAppointment.PatientId != null" >
-            <input matInput #searchPatient placeholder="Patient Name"
-              [matAutocomplete]="patients">
-              <mat-autocomplete [displayWith]="displayWith" #patients="matAutocomplete"
-                (optionSelected)="onPatientSelected($event)">
-                <mat-option *ngIf="isLoading">Loading ...</mat-option>
-                <mat-option *ngFor="let option of filteredPatients | async" [value]="option"
-                  class="medical-code-option">
-                  {{option.Name}}
-                </mat-option>
-              </mat-autocomplete>
+          <mat-form-field appearance="outline" class="col-12 hover"
+            [hidden]="data.PatientAppointment.PatientId != null">
+            <input matInput #searchPatient placeholder="Patient Name" [matAutocomplete]="patients">
+            <mat-autocomplete [displayWith]="displayWith" #patients="matAutocomplete"
+              (optionSelected)="onPatientSelected($event)">
+              <mat-option *ngIf="isLoading">Loading ...</mat-option>
+              <mat-option *ngFor="let option of filteredPatients | async" [value]="option" class="medical-code-option">
+                {{option.Name}}
+              </mat-option>
+            </mat-autocomplete>
           </mat-form-field>
           <mat-label class="required">Providers :</mat-label>
           <mat-form-field appearance="outline" class="col-12 hover">
@@ -104,7 +104,8 @@
             </mat-form-field>
           </div>
           <div class="col-md-3 pb-3" style="padding-top: 23px">
-            <button class="btn btn-green col-12" style="padding-top: 1px; padding-bottom:1px; border-radius: 5px" (click)="LoadAvailableTimeSlots()">Find Open Time</button>
+            <button class="btn btn-green col-12" style="padding-top: 1px; padding-bottom:1px; border-radius: 5px"
+              (click)="LoadAvailableTimeSlots()">Find Open Time</button>
           </div>
         </div>
         <div class="available-slots">
@@ -122,19 +123,22 @@
       </form>
     </div>
     <div class="modal-footer justify-content-md-between">
-      <div>
-      <button class="btn btn-default  btn-appointment-cancel-right" [hidden]="PatientAppointment.AppointmentId == null"
-        (click)="cancelAppointment()">Cancel</button>
+      <div style="width:100%">
+      <div style="float:left">
+        <button class="btn btn-default  btn-appointment-cancel-right"
+          [hidden]="PatientAppointment.AppointmentId == null" (click)="cancelAppointment()">Cancel</button>
       </div>
-      <div>
-      <button class="btn btn-green px-lg-5 px-3" [disabled]="DiabledAppointmentSave()"
-        (click)="onAppointmentSave()">Save
-        Appointment</button>
-      <button id="appointmentClose" class="btn btn-green px-2" (click)="close()">
-        Close
-      </button>
+      <div style="float:right;">
+        <button class="btn btn-green px-lg-5 px-3" [disabled]="DiabledAppointmentSave()"
+          (click)="onAppointmentSave()">Save
+          Appointment</button>
+        <button id="appointmentClose" class="btn btn-green px-lg-3 px-2 mx-3" (click)="close()">
+          Close
+        </button>
+      </div>
     </div>
     </div>
   </div>
 </div>
+
 

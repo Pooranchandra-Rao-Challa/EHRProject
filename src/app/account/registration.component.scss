@@ -12,6 +12,15 @@ body {
 .one-ehr-images {
   margin-top: -6rem;
 }
+
+authorization-signup-wrapper .mat-select-panel {
+  border-radius: 4px;
+  margin-top: 0px !important;
+  margin-left: -10px !important;
+  position: absolute !important;
+  top: 34px;
+  min-width: calc(100% + 22px) !important;
+}
 .authorization-signup-wrapper .ehr-img-top {
   position: relative;
   width: 100%;

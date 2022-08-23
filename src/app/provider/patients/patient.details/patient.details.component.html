@@ -1,4 +1,4 @@
-<div class="patients-navigation d-none d-lg-block" style="margin-top: -18px;">
+<div class="patients-navigation d-none d-lg-block">
   <!-- <patient-breadcrumb></patient-breadcrumb> -->
   <ng-template #patientbreadcrumb></ng-template>
 </div>
@@ -11,10 +11,10 @@
       <b>DOB:</b>
       <time>{{patient?.Dob | date: 'MM/dd/yyyy'}}</time>
     </li>
-    <li *ngIf="patient.MobilePhone != null">
+    <li *ngIf="patient?.MobilePhone != null">
       <b>C:</b>{{patient.MobilePhone}}
     </li>
-    <li *ngIf="patient.PrimaryPhone != null">
+    <li *ngIf="patient?.PrimaryPhone != null">
       <b>H:</b>{{patient.PrimaryPhone}}
     </li>
     <li *ngIf="patientAccountInfo.HasAccount">

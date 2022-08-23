@@ -79,14 +79,19 @@ export class DashboardComponent implements OnInit {
     this.adminservice.GetProviderList().subscribe(resp => {
       if (resp.IsSuccess) {
         this.ProviderList = resp.ListResult;
-        this.filtededProviders = this.ProviderList.filter(x =>
-          x.Status == this.filterQueryParams.Active
-          && (x.Paid == this.filterQueryParams.Paid ||
-            this.filterQueryParams.Paid == null)
-        );
+        this.filtededProviders = this._filterProviders();
       } else
         this.ProviderList = [];
     });
+  }
+
+  _filterProviders(value:FilterQueryParams=null): ProviderList[]{
+    let val = value == null ? new FilterQueryParams() : value;
+    return this.ProviderList.filter(x =>
+      (val.SearchTerm == "" || x.ProviderName.toLowerCase().match(val.SearchTerm.toLowerCase()))
+      && x.Status == val.Active
+      && (x.Paid == val.Paid || val.Paid == null)
+    );
   }
 
 
