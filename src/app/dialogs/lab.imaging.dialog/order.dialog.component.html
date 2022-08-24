@@ -49,7 +49,7 @@
             <input matInput placeholder="" disabled class="not-allowed" [ngModel]="labandImaging.CurrentPatient.DateofBirth | date:'MM/dd/yyyy'">
           </mat-form-field>
         </div>
-        
+
   <div class="col-lg-2  col-md-6 col-12">
     <mat-label>Phone</mat-label>
     <mat-form-field appearance="outline" class="col-md-12">
@@ -144,7 +144,7 @@
               </mat-form-field>
         </div>
       </div>
-	  
+
 
       <div class="card">
         <div class="card-header" style="margin-right: -1px;">
@@ -242,8 +242,8 @@
       </form>
     </div>
     <div class="modal-footer">
-      <button mat-raised-button type="submit" class="btn btn-green   pull-right" (click)="save()" [disabled]="enableSave()">Save</button>
-      <button mat-raised-button type="submit" class="btn btn-green   pull-right" (click)="signed()"  [disabled]="enableSave()">Sign</button>
+      <button mat-raised-button type="submit" class="btn btn-green   pull-right" (click)="save()" *ngIf="!saveClicked && !labandImaging.Signed" [disabled]="enableSave()">Save</button>
+      <button mat-raised-button type="submit" class="btn btn-green   pull-right" (click)="signed()" *ngIf="!labandImaging.Signed" [disabled]="enableSave()">Sign</button>
       <button mat-raised-button class="btn btn-green pull-right" (click)="close()">Close</button>
     </div>
   </div>

@@ -5,6 +5,10 @@ div.patients-navigation{
   background:#ecf8f6;
   width: inherit;
   height: 60px;
+  margin: unset;
+  ul{
+    margin: unset;
+  }
 }
 .patients-navigation-info {
   min-height: 50px;
@@ -153,3 +157,4 @@ a {
 .mat-input-element {
   width: 100% !important;
 }
+

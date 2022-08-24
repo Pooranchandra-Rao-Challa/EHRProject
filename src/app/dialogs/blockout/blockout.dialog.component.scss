@@ -21,7 +21,36 @@
 
   .block-start-at.mat-form-field-appearance-outline .mat-form-field-prefix,
   .block-start-at.mat-form-field-appearance-outline .mat-form-field-suffix {
-    top: .24em
+    top: .24em;
+  }
+
+  .mat-datepicker-toggle-default-icon {
+    color: #41b6a6 !important;
+  }
+  mat-datepicker-toggle.mat-datepicker-toggle
+    button.mat-icon-button
+    span.mat-button-wrapper
+    svg.mat-datepicker-toggle-default-icon
+    > path {
+    fill: #fff;
+    stroke: rgb(224, 220, 220);
+    stroke-linejoin: round;
+    transition: d 0.2s;
+  }
+  mat-datepicker-toggle.mat-datepicker-toggle
+    button.mat-focus-indicator.mat-icon-button {
+    background-color: #41b6a6;
+    color: #fff;
+    border-radius: 0%;
+    margin-top: 0px;
+    margin-bottom: -14px;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    margin-right: -10px;
+    border: 1px solid #41b6a6;
+    height: 3.1em !important;
+    width: 3.1em !important;
+    top: 0.06em;
   }
 
   .btn.btn-cancel {

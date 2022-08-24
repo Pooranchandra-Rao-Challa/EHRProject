@@ -15,7 +15,8 @@ export class ProviderPatient{
   PrimaryPhone: string;
   ProviderId: string;
   active: boolean;
-
+  EncKey:string;
+  ShowDetailView: boolean;
   AdvancedDirectives: AdvancedDirective[] = [];
   TotalPatients: number;
 }
@@ -28,7 +29,9 @@ export class PatientBreadcurm{
   PatientId?: string;
   ProviderId?: string;
   ShowRemoveIcon?: boolean = false;
+  EncKey?: string;
   Details?: ProviderPatient;
+  ActiveId?: boolean;
 }
 
 export class PatientAccountInfo{

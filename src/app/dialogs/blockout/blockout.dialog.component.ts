@@ -39,6 +39,10 @@ export class BlockoutDialogComponent implements OnInit {
     this.blockout.ClinicId = this.user.ClinicId;
     this.blockout.LocationId = this.user.CurrentLocation;
     this.blockoutDialog = ref.RequestData as BlockOutDialog;
+    this.blockout = this.blockoutDialog.Blockout;
+    this.blockout.Time = datePipe.transform(this.blockout.StartAt,"hh:mm a");
+    console.log(this.blockout.Time );
+
   }
 
   ngOnInit(): void {
@@ -235,7 +239,7 @@ export class BlockoutDialogComponent implements OnInit {
 
     this.smartSchedulerService.CreateBlockout(this.blockout).subscribe(resp =>{
       if(resp.IsSuccess){
-        this.ref.close({refresh: true});
+        this.ref.close({refresh: true,id:this.blockout.BlockoutId});
         this.alertMessage.displayMessageDailog(ERROR_CODES[isAdd ? "M2B1001" : "M2B1002"])
       }
       else{
