@@ -20,7 +20,7 @@
           <input type="text" class="w-100 p-2 searchInput" [(ngModel)]="searchValue"
             (ngModelChange)="filterDropdown($event)" autofocus name="provider" id="myinputbox">
            <a *ngFor="let option of filteredList; let i=index" class="dropdown-item pointer text-containt drodownlist"
-            [ngClass]="{'alternateBackground': i%2 == 0 }" (click)="selectValue(option.ProviderName)">
+            [ngClass]="{'alternateBackground': i%2 == 0 }" (click)="selectValue(option.ProviderName)"id="choose">
             {{option.ProviderName}}
         </a>
         </ul>

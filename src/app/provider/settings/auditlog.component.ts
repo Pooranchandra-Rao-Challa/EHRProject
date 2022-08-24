@@ -87,7 +87,7 @@ export class AuditLogComponent implements OnInit {
     setTimeout(() => {
       this.customizedspinner = false;
       $('body').removeClass('loadactive')
-    }, 1000);
+    }, 2000);
   }
   dataType: string[] = [
     "Schedule",

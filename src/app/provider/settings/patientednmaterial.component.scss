@@ -171,16 +171,16 @@
 .modal.Patient-Education {
   pointer-events: auto !important;
 }
-.error-close {
+.cross-mark.error-close-ped {
   background-color: rgb(253, 65, 65) !important;
   width: 25px;
   height: 28px;
-  margin: 10px !important;
+  margin-left: 130px !important;
   border: 1px solid white !important;
   color: white !important;
   border-radius: 50% !important;
 }
-.error-close:hover {
+.cross-mark.error-close-ped:hover {
   background-color: white !important;
   border: 1px solid rgb(253, 44, 44) !important;
   color: rgb(253, 44, 44) !important;
@@ -199,4 +199,7 @@
 mat-cell:last-of-type, mat-header-cell:last-of-type, mat-footer-cell:last-of-type {
   padding-right: 1px;
   margin: 10px 0px 10px 80px;
+}
+mat-header-row{
+  border-style: none;
 }

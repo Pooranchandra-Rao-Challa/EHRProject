@@ -324,7 +324,7 @@ export class ProfileComponent implements OnInit {
         this.patientMyProfile.zip = resp.Result.components.zipcode
         this.patientMyProfile.Street = "";
         this.addressVerfied = true;
-        this.alertmsg.displayErrorDailog(ERROR_CODES["M2CP0010"])
+        this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP0010"])
       }
       else {
         this.manuallybtn = true;
@@ -362,7 +362,7 @@ export class ProfileComponent implements OnInit {
         this.patientMyProfile.EmergencyZip = resp.Result.components.zipcode
         this.patientMyProfile.EmergencyStreet = "";
         this.emergencyAddressVerfied = true;
-        this.alertmsg.displayErrorDailog(ERROR_CODES["M2CP0010"])
+        this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP0010"])
       }
       else {
         this.emergencyManuallybtn = true;

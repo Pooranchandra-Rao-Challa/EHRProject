@@ -125,9 +125,14 @@ input, .form-control:focus, input:focus, select:focus, textarea:focus, button:fo
   color: white;
   background-color: #337ab7 !important;
 }
+.drodownlist:active{
+  font-size: 14px;
+  color: white;
+  background-color: #337ab7 !important;
+}
 .dropdown-toggle::after {
   position: relative;
-  right: -150px;
+  right: -250px;
   color: grey;
 }
 
@@ -135,7 +140,7 @@ input, .form-control:focus, input:focus, select:focus, textarea:focus, button:fo
 @media(min-width:980px) and (max-width:3000px)
 {
   .text-truncate {
-    margin-left: -145px;
+    margin-left: -268px;
   }
 }
 @media(max-width:600px)
@@ -309,3 +314,7 @@ input, .form-control:focus, input:focus, select:focus, textarea:focus, button:fo
   font-family: "Open Sans", sans-serif !important;
   font-size: 14px !important;
  }
+ .dropdown-menu{
+  min-width: 24rem;
+ }
+
