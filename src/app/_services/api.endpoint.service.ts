@@ -815,6 +815,10 @@ export class APIEndPoint extends EndpointBase {
   get _clinicsForAdminUrl() {
     return this._baseUrl + "ClinicsForAdmin"
   }
+  get _blockoutInfoUrl() {
+    return this._baseUrl + "BlockoutInfo"
+  }
+
   constructor(public http: HttpClient) {
     super();
   }

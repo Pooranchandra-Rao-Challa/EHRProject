@@ -58,8 +58,7 @@
         <div class="row float-end mt-2 mt-lg-0 g-0">
           <a class="btn btn-green" id="check-alerts">Check CDS Alerts</a>
           <a class="btn btn-green mb-2 mb-md-0">Refresh Chart</a>
-          <a class="btn btn-orange"
-            (click)="openComponentDialog(encounterDialogComponent,null,ActionTypes.new)">New
+          <a class="btn btn-orange" (click)="openComponentDialog(encounterDialogComponent,null,ActionTypes.new)">New
             Encounter Note
           </a>
         </div>
@@ -75,7 +74,9 @@
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
-                    <p class="card-title">Diagnoses (Dx)
+                    <p class="card-title"
+                      (click)="openComponentDialog(diagnosesTableDialogComponent,chartInfo?.Diagnoses,ActionTypes.view)">
+                      Diagnoses (Dx)
                     </p>
                   </div>
                   <div class="col-md-4 col-6">
@@ -87,7 +88,7 @@
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list" *ngFor="let diagnose of chartInfo?.Diagnoses">
+                <ul class="main-list" *ngFor="let diagnose of chartInfo?.Diagnoses | slice:0:5">
                   <li>
                     <a (click)="openComponentDialog(addDiagnosesDialogComponent, diagnose, ActionTypes.view)">
                       <span *ngIf="diagnose?.Code != null && diagnose?.Code !=''">
@@ -112,6 +113,9 @@
                     <span>No active Dx recorded.</span>
                   </li>
                 </ul>
+                <a class="card-title"
+                  (click)="openComponentDialog(diagnosesTableDialogComponent,chartInfo?.Diagnoses,ActionTypes.view)"
+                  *ngIf="chartInfo?.Diagnoses?.length > 5" class="view-more pull-right">view more</a>
               </div>
             </div>
             <div class="card">
@@ -129,7 +133,7 @@
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list" *ngFor="let smoking of chartInfo?.SmokingStatuses">
+                <ul class="main-list" *ngFor="let smoking of chartInfo?.SmokingStatuses | slice:0:5">
                   <li>
                     <a (click)="openComponentDialog(smokingStatusDialogComponent, smoking, ActionTypes.view)">
                       <span *ngIf="smoking?.EffectiveFrom != null && smoking?.EffectiveFrom !=''">
@@ -146,41 +150,58 @@
                     <span>No smoking status recorded.</span>
                   </li>
                 </ul>
-                <ul class="main-list" *ngFor="let screening of tobaccoUseList">
-                  <li>
-                    <a (click)="openComponentDialog(tobaccoUseDialogComponent, screening, ActionTypes.view)">
-                      <span *ngIf="screening?.ScreeningDate != null && screening?.ScreeningDate !=''">
-                        - {{screening?.ScreeningDate | date: 'MM/dd/yyyy'}}
-                      </span>
-                      <span *ngIf="screening?.ScreeningDescription != null && screening?.ScreeningDescription !=''">
-                        - {{screening?.ScreeningDescription}}
-                      </span>
-                      <span *ngIf="screening?.ScreeningCode != null && screening?.ScreeningCode !=''">
-                        / {{screening?.ScreeningCode}}
-                      </span>
-                    </a>
-                  </li>
-                </ul>
-                <ul class="main-list" *ngFor="let interventions of tobaccoUseList">
-                  <li>
-                    <a (click)="openComponentDialog(tobaccoUseDialogComponent, interventions, ActionTypes.view)">
-                      <span *ngIf="interventions?.CI_Date != null && interventions?.CI_Date !=''">
-                        - {{interventions.CI_Date | date: 'MM/dd/yyyy'}}
-                      </span>
-                      <span *ngIf="interventions?.CI_Description != null && interventions?.CI_Description !=''">
-                        - {{interventions.CI_Description}}
-                      </span>
-                      <span *ngIf="interventions?.CI_Code != null && interventions?.CI_Code !=''">
-                        / {{interventions.CI_Code}}
-                      </span>
-                    </a>
-                  </li>
-                </ul>
+                <div *ngIf="chartInfo?.SmokingStatuses?.length > 5">
+                  <a (click)="openComponentDialog(smokingStatusTableDialogComponent, chartInfo?.SmokingStatuses, ActionTypes.view)"
+                    class="view-more pull-right mb-2">view more
+                  </a>
+                  <br>
+                </div>
+                <div *ngFor="let screening_interventions of tobaccoUseList | slice:0:2">
+                  <ul class="main-list">
+                    <li>
+                      <a
+                        (click)="openComponentDialog(tobaccoUseDialogComponent, screening_interventions, ActionTypes.view)">
+                        <span
+                          *ngIf="screening_interventions?.ScreeningDate != null && screening_interventions?.ScreeningDate !=''">
+                          - {{screening_interventions?.ScreeningDate | date: 'MM/dd/yyyy'}}
+                        </span>
+                        <span
+                          *ngIf="screening_interventions?.ScreeningDescription != null && screening_interventions?.ScreeningDescription !=''">
+                          - {{screening_interventions?.ScreeningDescription}}
+                        </span>
+                        <span
+                          *ngIf="screening_interventions?.ScreeningCode != null && screening_interventions?.ScreeningCode !=''">
+                          / {{screening_interventions?.ScreeningCode}}
+                        </span>
+                      </a>
+                    </li>
+                  </ul>
+                  <ul class="main-list">
+                    <li>
+                      <a
+                        (click)="openComponentDialog(tobaccoUseDialogComponent, screening_interventions, ActionTypes.view)">
+                        <span *ngIf="screening_interventions?.CI_Date != null && screening_interventions?.CI_Date !=''">
+                          - {{screening_interventions.CI_Date | date: 'MM/dd/yyyy'}}
+                        </span>
+                        <span
+                          *ngIf="screening_interventions?.CI_Description != null && screening_interventions?.CI_Description !=''">
+                          - {{screening_interventions.CI_Description}}
+                        </span>
+                        <span *ngIf="screening_interventions?.CI_Code != null && screening_interventions?.CI_Code !=''">
+                          / {{screening_interventions.CI_Code}}
+                        </span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
                 <ul class="main-list" *ngIf="tobaccoUseList.length == 0">
                   <li>
                     <span>No tobacco use recorded.</span>
                   </li>
                 </ul>
+                <a *ngIf="tobaccoUseList?.length > 2"
+                  (click)="openComponentDialog(tobaccoUseTableDialogComponent, tobaccoUseList, ActionTypes.view)"
+                  class="view-more pull-right">view more</a>
               </div>
             </div>
             <div class="card">
@@ -239,7 +260,7 @@
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list" *ngFor="let directive of chartInfo?.AdvancedDirectives">
+                <ul class="main-list" *ngFor="let directive of chartInfo?.AdvancedDirectives | slice:0:5">
                   <li>
                     <a (click)="openComponentDialog(advancedDirectivesDialogComponent, directive, ActionTypes.view)">
                       <span *ngIf="directive?.RecordAt != null && directive?.RecordAt !=''">
@@ -256,6 +277,9 @@
                     <span>No advanced directives recorded.</span>
                   </li>
                 </ul>
+                <a *ngIf="chartInfo?.AdvancedDirectives?.length > 5"
+                  (click)="openComponentDialog(advancedDirectivesTableDialogComponent, chartInfo?.AdvancedDirectives, ActionTypes.view)"
+                  class="view-more pull-right">view more</a>
               </div>
             </div>
           </div>
@@ -277,7 +301,7 @@
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list" *ngFor="let allergie of chartInfo?.Alergies">
+                <ul class="main-list" *ngFor="let allergie of chartInfo?.Alergies | slice:0:5">
                   <li>
                     <a (click)="openComponentDialog(allergyDialogComponent,allergie,ActionTypes.view)">
                       <span *ngIf="allergie?.AllergenName != null && allergie?.AllergenName !=''">
@@ -300,13 +324,16 @@
                     <span>No active allergies recorded</span>
                   </li>
                 </ul>
+                <a (click)="openComponentDialog(allergyTableDialogComponent,chartInfo?.Alergies,ActionTypes.view)"
+                  *ngIf="chartInfo?.Alergies?.length > 5" class="view-more pull-right">view more</a>
               </div>
             </div>
             <div class="card">
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
-                    <p class="card-title" data-bs-toggle="modal" data-bs-target="#medication-prescription-modal">
+                    <p class="card-title"
+                      (click)="openComponentDialog(medicationTableDialogComponent, chartInfo?.Medications , ActionTypes.view)">
                       Medications and Prescription
                     </p>
                   </div>
@@ -319,7 +346,7 @@
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list" *ngFor="let medication of chartInfo?.Medications">
+                <ul class="main-list" *ngFor="let medication of chartInfo?.Medications | slice:0:5">
                   <li>
                     <a (click)="openComponentDialog(medicationDialogComponent, medication , ActionTypes.view)">
                       <span>
@@ -344,6 +371,8 @@
                     <span>No medications recorded.</span>
                   </li>
                 </ul>
+                <a (click)="openComponentDialog(medicationTableDialogComponent, chartInfo?.Medications , ActionTypes.view)"
+                  *ngIf="chartInfo?.Medications?.length > 5" class="view-more pull-right">view more</a>
               </div>
             </div>
             <div class="card">
@@ -361,7 +390,7 @@
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list" *ngFor="let immunization of chartInfo?.Immunizations">
+                <ul class="main-list" *ngFor="let immunization of chartInfo?.Immunizations | slice:0:5">
                   <li>
                     <a data-bs-toggle="modal" data-bs-target="#immunization-modal"
                       (click)="editDialog(immunization, 'immunization')">
@@ -387,6 +416,8 @@
                     <span>No immunizations recorded.</span>
                   </li>
                 </ul>
+                <a data-bs-toggle="modal" data-bs-target="#immunization-table-modal"
+                  *ngIf="chartInfo?.Immunizations?.length > 5" class="view-more pull-right">view more</a>
               </div>
             </div>
             <div class="card">
@@ -406,7 +437,7 @@
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list" *ngFor="let intervention of chartInfo?.Interventions">
+                <ul class="main-list" *ngFor="let intervention of chartInfo?.Interventions | slice:0:5">
                   <li>
                     <a (click)="openComponentDialog(interventionDialogComponent, intervention , ActionTypes.view)">
                       <span *ngIf="intervention?.InterventionType != null && intervention?.InterventionType !=''">
@@ -429,7 +460,7 @@
                   </li>
                 </ul>
                 <a (click)="openComponentDialog(interventionTableDialogComponent,chartInfo?.Interventions,ActionTypes.view)"
-                  class="view-more pull-right">view more</a>
+                  *ngIf="chartInfo?.Interventions?.length > 5" class="view-more pull-right">view more</a>
               </div>
             </div>
           </div>
@@ -766,49 +797,6 @@
   </div>
 </div>
 
-<!-- Medication and precription modal -->
-<div class="modal fade " id="medication-prescription-modal" data-bs-keyboard="false" tabindex="-1"
-  aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title Helvetica-sans-serif-medium">
-          <span>All | </span>
-          <span>Medications | </span>
-          <span>Prescription</span>
-        </h4>
-        <span type="button" class="cross-mark" data-bs-dismiss="modal">
-          X
-        </span>
-      </div>
-      <div class="modal-body">
-        <mat-table class="table table-responsive" [dataSource]="medication_prescription" matSort>
-          <ng-container matColumnDef="Location">
-            <mat-header-cell *matHeaderCellDef>Location name</mat-header-cell>
-            <mat-cell *matCellDef="let loc">
-            </mat-cell>
-          </ng-container>
-          <ng-container matColumnDef="Address">
-            <mat-header-cell *matHeaderCellDef>Address</mat-header-cell>
-            <mat-cell *matCellDef="let loc"></mat-cell>
-          </ng-container>
-          <ng-container matColumnDef="Phone">
-            <mat-header-cell *matHeaderCellDef>Phone</mat-header-cell>
-            <mat-cell *matCellDef="let loc"></mat-cell>
-          </ng-container>
-          <ng-container matColumnDef="Providers">
-            <mat-header-cell *matHeaderCellDef># of Providers</mat-header-cell>
-            <mat-cell *matCellDef="let loc"></mat-cell>
-          </ng-container>
-
-          <mat-header-row *matHeaderRowDef="locationColumns"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: locationColumns"></mat-row>
-        </mat-table>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- Add/Edit Immunization -->
 <div class="modal fade " id="immunization-modal" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -838,7 +826,7 @@
           <mat-label class="required">Vaccine:</mat-label>
           <mat-form-field class="procedure-form-field" appearance="outline" [ngStyle]="{'width':'100%'}">
             <input matInput #searchVaccineCode class="form-control" placeholder="Search vaccine" type="text"
-              id="searchVaccineCode" name=" searchVaccineCode" [matAutocomplete]="vaccineCode"/>
+              id="searchVaccineCode" name=" searchVaccineCode" [matAutocomplete]="vaccineCode" />
             <mat-autocomplete [displayWith]="displayWithVaccine" #vaccineCode="matAutocomplete"
               (optionSelected)="onSelectedImmunization($event)">
               <mat-option *ngIf="isLoading">Loading ...</mat-option>

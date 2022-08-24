@@ -45,6 +45,44 @@ label.control-label{display: block;width: 100%;}
   border-radius: 5px;
 }
 
+
+::ng-deep #new-procedure-dialog .mat-datepicker-toggle-default-icon {
+  color: #41b6a6 !important;
+}
+::ng-deep #new-procedure-dialog  .cstm-datepicker-toggle .mat-focus-indicator {
+  background-color: #fff;
+}
+::ng-deep #new-procedure-dialog .mat-tab-header-pagination-controls-enabled
+  .mat-tab-header-pagination {
+  color: #fff !important;
+}
+
+::ng-deep #new-procedure-dialog  mat-datepicker-toggle.mat-datepicker-toggle
+  button.mat-icon-button
+  span.mat-button-wrapper
+  svg.mat-datepicker-toggle-default-icon
+  > path {
+  fill: #fff;
+  stroke: rgb(224, 220, 220);
+  stroke-linejoin: round;
+  transition: d 0.2s;
+}
+::ng-deep #new-procedure-dialog  mat-datepicker-toggle.mat-datepicker-toggle
+  button.mat-focus-indicator.mat-icon-button {
+  background-color: #41b6a6;
+  color: #fff;
+  border-radius: 0%;
+  margin-top: 0px;
+  margin-bottom: -14px;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  margin-right: -10px;
+  border: 1px solid #41b6a6;
+  height: 3.1em !important;
+  width: 3.1em !important;
+  top: 0.06em;
+}
+
 ::ng-deep #new-procedure-dialog span.mat-checkbox-label {
   margin-left: 10px !important;
   padding-top: 10px !important;

@@ -86,7 +86,8 @@ export class PatientsComponent implements OnInit,AfterViewInit {
           let pb: PatientBreadcurm = {
             Name: "Patients",
             ViewType: 0,
-            ProviderId: this.authService.userValue.ProviderId
+            ProviderId: this.authService.userValue.ProviderId,
+            ActiveId: true,
           }
           this.breadcrumbs.push(pb);
           patients.forEach((p) => {
@@ -96,10 +97,12 @@ export class PatientsComponent implements OnInit,AfterViewInit {
               ViewType: 1,
               PatientId: p.PatientId,
               ShowRemoveIcon: true,
+              EncKey: p.EncKey,
               Details: p
             }
             this.breadcrumbs.push(pb);
           });
+
           this.loadPatientBreadcrumbView()
         }
       })
@@ -173,7 +176,7 @@ export class PatientsComponent implements OnInit,AfterViewInit {
     setTimeout(() => {
       this.customizedspinner = false;
       $('body').removeClass('loadactive')
-    }, 1000);
+    }, 2000);
     this.patientsDataSource.loadPatients();
   }
 

@@ -1,7 +1,7 @@
 import { WeeklyUpdated } from './../../_models/_admin/weeklyupdated';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { AdminService } from '../../_services/admin.service';
 import { AdminViewModal } from 'src/app/_models';
 import Swal from 'sweetalert2';
@@ -159,6 +159,9 @@ export class WeeklyUpdatedComponent implements OnInit {
         this.GetWeeklyUpdate();
       });
   }
-
+  onfoucs()
+  {
+    document.getElementById("myinputbox").focus();
+  }
 }
 

@@ -163,6 +163,7 @@ export class Blockout{
   strStartAt?: string;
   RangeDay?: BlockoutRangeDay[];
 
+  strRangeDay?: string;
   start?: Date;
   end?: Date;
 }
@@ -170,7 +171,7 @@ export class Blockout{
 export class BlockoutRangeDay{
   BlockoutId?: string;
   RangeDay?: string;
-  CanDelete?: boolean;
+  CanDelete?: boolean = false;
 }
 
 export class BlockOutDialog{
@@ -178,4 +179,5 @@ export class BlockOutDialog{
   Staff?: PracticeProviders[]
   Rooms?: Room[];
   Locations?: UserLocations[];
+  Blockout?: Blockout;
 }

@@ -1,0 +1,40 @@
+<div class="modal-dialog smoking-table-modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title Helvetica-sans-serif-medium w-100">Smoking Status Table</h4>
+      <span type="button" class="cross-mark" (click)="cancel()">
+        X
+      </span>
+    </div>
+    <div class="modal-body scrollable-mat-table">
+      <mat-table [dataSource]="patientSmokingStatusList" matSort>
+        <ng-container matColumnDef="Status">
+          <mat-header-cell *matHeaderCellDef mat-sort-header="Status">Smoking Status
+          </mat-header-cell>
+          <mat-cell *matCellDef="let smoking">
+            <a (click)="openComponentDialog(smokingStatusDialogComponent, smoking, ActionTypes.view)">
+              {{smoking.Status}}
+            </a>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="EffectiveFrom">
+          <mat-header-cell *matHeaderCellDef mat-sort-header="EffectiveFrom">Effective Date</mat-header-cell>
+          <mat-cell *matCellDef="let smoking">
+            <a (click)="openComponentDialog(smokingStatusDialogComponent, smoking, ActionTypes.view)">
+              {{smoking.EffectiveFrom | date: 'MM/dd/yyyy'}}
+            </a>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="smokingStatusColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: smokingStatusColumns"></mat-row>
+      </mat-table>
+      <div class="norecords-found" *ngIf="patientSmokingStatusList?.data.length == 0">
+        No Diagnosis Found
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-green" (click)="openComponentDialog(smokingStatusDialogComponent, null, ActionTypes.add)">Add</button>
+      <button class="btn btn-green" (click)="cancel()">Cancel</button>
+    </div>
+  </div>
+</div>

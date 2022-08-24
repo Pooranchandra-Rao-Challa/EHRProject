@@ -11,7 +11,7 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { CalendarOptions, Calendar, EventHoveringArg, EventApi, BusinessHoursInput } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import { FullCalendarComponent,EventClickArg } from '@fullcalendar/angular';
+import { FullCalendarComponent, EventClickArg } from '@fullcalendar/angular';
 import resourceTimeGridPlugin from '@fullcalendar/resource-timegrid';
 import { Actions, AppointmentDialogInfo, BlockOutDialog, CalendarAppointment, NewAppointment, PracticeProviders, Room, User, UserLocations } from 'src/app/_models';
 import { SettingsService } from 'src/app/_services/settings.service';
@@ -53,6 +53,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   providerAndStaff: PracticeProviders[] = [];
   updateProviderAndStaff: BehaviorSubject<PracticeProviders[]> = new BehaviorSubject([])
   CalendarSchedule: GeneralSchedule = {} as GeneralSchedule;
+  blockouts?: Blockout[] = [{}]
 
   @ViewChild('fullcalendar') fullcalendar: FullCalendarComponent;
   @ViewChildren('roomCheckboxes') private roomCheckboxes: QueryList<any>;
@@ -213,6 +214,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   ToggleAllAppointmentTypes(event) {
     this.removeAllEvents();
+    this.updateBlockOuts();
     if (event.source.checked) {
       this.updateCalendarEvents();
       this.appointmentTypeCheckboxes.toArray().forEach(source => {
@@ -236,6 +238,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   ToggleAllAppointmentStatuses(event) {
     this.removeAllEvents();
+    this.updateBlockOuts();
     if (event.source.checked) {
       this.updateCalendarEvents();
       this.appointmentStatusCheckboxes.toArray().forEach(source => {
@@ -296,6 +299,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     this.removeAllEvents();
     if (event.source.checked) {
       this.updateCalendarEvents();
+      this.updateBlockOuts();
       this.providerCheckboxes.toArray().forEach(source => {
         source.checked = true;
       })
@@ -317,8 +321,10 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   updateCalendarEvents() {
     this.smartSchedulerService
-      .CalendarAppointments({ 'StartDate': this.datepipe.transform(this.sundayDate, "MM/dd/yyyy"),
-      ClinicId: this.user.ClinicId })
+      .CalendarAppointments({
+        'StartDate': this.datepipe.transform(this.sundayDate, "MM/dd/yyyy"),
+        ClinicId: this.user.ClinicId
+      })
       .subscribe(resp => {
         if (resp.IsSuccess) {
           this.calendarAppointments = resp.ListResult as CalendarAppointment[];
@@ -329,6 +335,8 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   updateWeeklyEvents() {
     this.calendarAppointments.forEach(app => {
+      if (this.fullcalendar.getApi().getEventById(app.AppointmentId) != null)
+        this.fullcalendar.getApi().getEventById(app.AppointmentId).remove();
       this.fullcalendar.getApi().addEvent({
         id: app.AppointmentId,
         title: app.PatientName,
@@ -342,11 +350,35 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         extendedProps: {
           PatientName: app.PatientName,
           ProviderName: app.ProviderName, Room: app.RoomName,
-          Duration: app.Duration
+          Duration: app.Duration,
+          IsBlockout: false,
         }
       })
     })
 
+  }
+
+  updateBlockOuts() {
+    this.blockouts.forEach(blockout => {
+      if (this.fullcalendar.getApi().getEventById(blockout.BlockoutId) != null)
+        this.fullcalendar.getApi().getEventById(blockout.BlockoutId).remove();
+      this.fullcalendar.getApi().addEvent({
+        id: blockout.BlockoutId,
+        title: blockout.Description,
+        start: blockout.start,
+        end: blockout.end,
+        classNames: ['fc-event-blockout'],
+        backgroundColor: "#BBBBBB",
+        borderColor: "#BBBBBB",
+        resourceId: blockout.RoomId,
+        //textColor: app.AppColor,
+        extendedProps: {
+          IsBlockout: true,
+          Note: blockout.Note,
+          Duration: blockout.Duration
+        }
+      })
+    })
   }
 
   handleButtons() {
@@ -358,6 +390,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     this.fullcalendar.getApi().next();
     this.sundayDate = this.WeekBeginDate;
     this.updateCalendarEvents();
+    this.updateBlockOuts();
   }
 
   previousCalenderEvents() {
@@ -365,6 +398,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     this.fullcalendar.getApi().prev();
     this.sundayDate = this.WeekBeginDate;
     this.updateCalendarEvents();
+    this.updateBlockOuts()
   }
 
   get WeekBeginDate(): Date {
@@ -429,6 +463,8 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       eventMouseEnter: function (args: EventHoveringArg) {
         //alert(JSON.stringify(args.event))
         this.timer = setTimeout(() => {
+          let data = args.event.extendedProps;
+          if(data.IsBlockout) return;
           let myPopup = document.getElementById('event-view');
           if (myPopup) { myPopup.remove(); }
           let timer;
@@ -438,7 +474,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
           popup.id = "event-view"
           popup.style.width = "250px";
 
-          let data = args.event.extendedProps;
+
           // popup.style.top = y.toString() + "px";
           //popup.style.left = x.toString() + "px";
           popup.style.background = "#fff"
@@ -615,13 +651,20 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   }
 
   handleEventClick(arg) {
+    console.log(arg);
+
     let event: EventApi = arg.event;
-    let eventDate = new Date(this.datepipe.transform(event.start, "MM/dd/yyyy"));
-    let today = new Date(this.datepipe.transform(new Date(), "MM/dd/yyyy"));
-    let dialog: AppointmentDialogInfo = this.SelectAppointment(arg.event);
-    if (eventDate >= today)
-      this.openComponentDialog(this.appointmentDialogComponent,
-        dialog, Actions.view);
+    if (!event.extendedProps.IsBlockout) {
+      let eventDate = new Date(this.datepipe.transform(event.start, "MM/dd/yyyy"));
+      let today = new Date(this.datepipe.transform(new Date(), "MM/dd/yyyy"));
+      let dialog: AppointmentDialogInfo = this.SelectAppointment(arg.event);
+      if (eventDate >= today)
+        this.openComponentDialog(this.appointmentDialogComponent,
+          dialog, Actions.view);
+    }
+    else {
+      this.OpenBlockoutForEdit(event.id, this.BlockoutDialogInfo())
+    }
   }
 
   checkEventMove(event: EventApi): boolean {
@@ -649,6 +692,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   handleEventDragStop(arg) {
     let event: EventApi = arg.event as EventApi;
     let oldEvent: EventApi = arg.oldEvent as EventApi;
+    if (event.extendedProps.IsBlockout) arg.revert();
 
     if (arg.view.type == 'timeGridWeek') {
       if (event.start < new Date()) {
@@ -680,13 +724,13 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     }
   }
 
-  handleSelectDuration(arg){
+  handleSelectDuration(arg) {
     let event = arg;
     let eventDate = new Date(this.datepipe.transform(event.start, "MM/dd/yyyy"));
     let today = new Date(this.datepipe.transform(new Date(), "MM/dd/yyyy"))
     var diff = Math.abs(event.start.getTime() - event.end.getTime());
-    var diffMin = Math.ceil(diff / (1000 * 60 ));
-    if(diffMin > 60*24) return;
+    var diffMin = Math.ceil(diff / (1000 * 60));
+    if (diffMin > 60 * 24) return;
     if (eventDate >= today) {
       let appointment: CalendarAppointment = {};
       appointment.StartAt = event.start;
@@ -697,8 +741,8 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         appointment.RoomId = event.resource.id;
       let dialog: AppointmentDialogInfo = this.PatientAppointmentInfo(appointment, Actions.new);
 
-      let localStart = new Date(this.datepipe.transform(event.start as Date,"MM/dd/yyyy")+" "+this.datepipe.transform(this.CalendarSchedule.CalendarFrom,"HH:mm:ss"))
-      let localEnd = new Date(this.datepipe.transform(event.start as Date,"MM/dd/yyyy")+" "+this.datepipe.transform(this.CalendarSchedule.CalendarTo,"HH:mm:ss"))
+      let localStart = new Date(this.datepipe.transform(event.start as Date, "MM/dd/yyyy") + " " + this.datepipe.transform(this.CalendarSchedule.CalendarFrom, "HH:mm:ss"))
+      let localEnd = new Date(this.datepipe.transform(event.start as Date, "MM/dd/yyyy") + " " + this.datepipe.transform(this.CalendarSchedule.CalendarTo, "HH:mm:ss"))
 
       let isTimeInBusinessHours = (event.start as Date).getTime() > localStart.getTime()
         && (event.start as Date).getTime() < localEnd.getTime()
@@ -715,7 +759,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   }
 
-  handleViewDidMount(arg){
+  handleViewDidMount(arg) {
     console.log(arg);
 
   }
@@ -809,7 +853,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   RefreshCalendar(event) {
     if (event) {
-      this.fullcalendar.getApi().removeAllEvents();
+      //this.fullcalendar.getApi().removeAllEvents();
       this.updateCalendarEvents();
     }
   }
@@ -863,7 +907,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     });
   }
 
-  BlockoutInfo() {
+  BlockoutDialogInfo(): BlockOutDialog {
     let blockoutDialog: BlockOutDialog = {}
     blockoutDialog.Locations = this.locations;
     blockoutDialog.PracticeProvider = this.practiceProviders;
@@ -873,7 +917,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   }
   OpenBlockoutDialog() {
     this.openComponentDialog(this.blockoutDialogComponent,
-      this.BlockoutInfo(), Actions.new);
+      this.BlockoutDialogInfo(), Actions.new);
   }
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
     data?: any, action?: Actions) {
@@ -881,9 +925,8 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     ref.afterClosed$.subscribe(res => {
       if (content === this.appointmentDialogComponent) {
         if (res.data && res.data.refresh) {
-          this.fullcalendar.getApi().removeAllEvents();
+          //this.fullcalendar.getApi().removeAllEvents();
           this.updateCalendarEvents();
-          //this.RefreshParentView.emit(true);
         }
       } else if (content == this.blockoutDialogComponent) {
         if (res.data && res.data.refresh) {
@@ -894,40 +937,52 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   }
 
 
-  blockouts?: Blockout[] = [{}]
-  CalendarBlockouts(){
-    this.smartSchedulerService.CalendarBlockouts({ 'StartDate': this.datepipe.transform(this.sundayDate, "MM/dd/yyyy"),
-    ClinicId: this.user.ClinicId }).subscribe(resp=>{
-      if(resp.IsSuccess){
-        this.blockouts = resp.ListResult;
 
+  CalendarBlockouts() {
+    this.smartSchedulerService.CalendarBlockouts({
+      'StartDate': this.datepipe.transform(this.sundayDate, "MM/dd/yyyy"),
+      ClinicId: this.user.ClinicId
+    }).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.blockouts = resp.ListResult;
         this.GetBlockouts();
+
+
+        this.updateBlockOuts();
       }
       else this.blockouts = [{}]
     })
   }
 
-  GetBlockouts(){
-    let startdate = this.fullcalendar.getApi().view.currentStart
-    let enddate = this.fullcalendar.getApi().view.currentEnd
-
-    this.blockouts.forEach(value =>{
-      value.start = new Date(this.datepipe.transform(value.StartAt,"MM/dd/yyyy HH:mm:ss"));
-      value.end = this.getEndDate(value.Duration,value.start)
+  OpenBlockoutForEdit(blockoutId: string, blockoutdata: BlockOutDialog) {
+    this.smartSchedulerService.BlockoutInfo({
+      BlockoutId: blockoutId
+    }).subscribe(resp => {
+      if (resp.IsSuccess) {
+        blockoutdata.Blockout = resp.Result as Blockout;
+        this.openComponentDialog(this.blockoutDialogComponent,
+          blockoutdata, Actions.view);
+      }
+    })
+  }
+  GetBlockouts() {
+    this.blockouts.forEach(value => {
+      value.start = new Date(this.datepipe.transform(value.StartAt, "MM/dd/yyyy HH:mm:ss"));
+      value.end = this.getEndDate(value.Duration, value.start)
     })
   }
 
-  getEndDate(duration: number,date: Date): Date{
+  getEndDate(duration: number, date: Date): Date {
     let returnDate: Date = new Date(date)
-    switch(duration){
+    switch (duration) {
       case 15:
         returnDate.setMinutes(returnDate.getMinutes() + 15)
         break;
       case 30:
-        returnDate.setMinutes(returnDate.getMinutes() +30)
+        returnDate.setMinutes(returnDate.getMinutes() + 30)
         break;
       case 45:
-        returnDate.setMinutes(returnDate.getMinutes() +45)
+        returnDate.setMinutes(returnDate.getMinutes() + 45)
         break;
       case 60:
         returnDate.setHours(returnDate.getHours() + 1)
@@ -966,7 +1021,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         returnDate.setDate(returnDate.getDate() + 1)
         break;
     }
-    returnDate.setSeconds(returnDate.getSeconds()-1);
+    returnDate.setSeconds(returnDate.getSeconds() - 1);
     return returnDate;
   }
 }

@@ -134,7 +134,15 @@ fieldset {
     border-color: #41b6a6;
   }
 }
-
+.color-item-group{
+  display: inline-flex;
+  align-items: baseline;
+}
+.color-items{
+  width:15px;
+  height:15px;
+  margin-right:5px;
+}
 ::ng-deep .mat-checkbox-checked.mat-accent {
 
   .mat-checkbox-background,
@@ -283,8 +291,9 @@ fieldset {
   .btn-blockout {
     background-color: #fff;
     border: 1px solid #41b6a6;
-    line-height: 3.1;
+    line-height: 2.6;
     color: #41b6a6;
+    border-radius: 4px;
     margin-top:10px;
     .mat-checkbox {
       font-weight: normal;
@@ -303,6 +312,7 @@ fieldset {
     border-bottom: 1px solid #41b6a6;
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
+    height:40px !important;
   }
 
   .cstm-checkbox-1 {

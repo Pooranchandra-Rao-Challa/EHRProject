@@ -2,6 +2,12 @@
 @import"../../../assets/cstm.material.scss";
 /* Matterial Dropdown */
 
+.lab-order-container {
+  height: calc(100vh - 335px);
+  max-width: 100%;
+  overflow: hidden auto;
+}
+
 ::ng-deep .hover.mat-form-field-appearance-outline:hover .mat-form-field-outline,
 .hover.mat-form-field-appearance-outline:active .mat-form-field-outline {
   background: #41b6a6 !important;

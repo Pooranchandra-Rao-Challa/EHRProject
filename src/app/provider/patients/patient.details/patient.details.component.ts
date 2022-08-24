@@ -8,7 +8,7 @@ import { catchError, finalize } from 'rxjs/operators';
 import { PatientAccountInfo, PatientBreadcurm, ProviderPatient }
   from 'src/app/_models/_provider/Providerpatient';
 import { PatientService } from 'src/app/_services/patient.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { OverlayService } from 'src/app/overlay.service';
 import { PatientPortalAccountComponent } from '../../../dialogs/patient.dialog/patient.portal.account.dialog.component';
 import { PatientHealthPortalComponent } from 'src/app/dialogs/patient.dialog/patient.health.portal.component';
@@ -60,17 +60,21 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
     private cfr: ComponentFactoryResolver,
     private patientService: PatientService,
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     private overlayService: OverlayService,
     private utilityService: UtilityService,
     private alertmsg: AlertMessage,
     private viewChangeService: ViewChangeService,
     private patientUpdateNotifier: PatientUpdateService) {
     this.viewModel = authService.viewModel;
+
+
+
     if (this.viewModel.PatientView == null
       || this.viewModel.PatientView == '') {
       this.viewModel.PatientView = 'Chart';
     }
-    this.patient = this.authService.viewModel.Patient;
+
     this.removedPatientIdsInBreadcurmb = authService.viewModel.PatientBreadCrumb;
 
   }
@@ -79,8 +83,10 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
   }
 
 
+
   ngOnInit(): void {
-    this.patientUpdateNotifier.getData().subscribe(patientUpdatedData =>{
+    this.loadBreadcurmData();
+    this.patientUpdateNotifier.getData().subscribe(patientUpdatedData => {
       this.patient.Dob = patientUpdatedData.DateOfBirth
       this.patient.Age = Number(patientUpdatedData.Age);
       this.patient.FirstName = patientUpdatedData.FirstName;
@@ -115,11 +121,14 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
         this.loadingSubject.next(false)
       });
 
-    this.loadBreadcurmData();
+
+
+  }
+
+  loadDependents() {
     this.loadPatientAccountInfo();
     this.getUserInfoForPatient();
     this.updateProcedureInfo();
-
   }
 
   updateProcedureInfo() {
@@ -245,35 +254,55 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
   }
 
   loadBreadcurmData() {
-    this.patientService.LatestUpdatedPatientsUrl({
-      ProviderId: this.authService.userValue.ProviderId,
-      RemovedPatientIds: this.removedPatientIdsInBreadcurmb
-    })
-      .subscribe(resp => {
-
-        if (resp.IsSuccess) {
-          let patients = resp.ListResult as ProviderPatient[];
-          this.breadcrumbs = [];
-          let pb: PatientBreadcurm = {
-            Name: "Patients",
-            ViewType: 0,
-            ProviderId: this.authService.userValue.ProviderId
-          }
-          this.breadcrumbs.push(pb);
-          patients.forEach((p) => {
+    let paramkey = this.activatedRoute.snapshot.queryParams.paramkey;
+    if (paramkey == null) {
+      this.patient = this.authService.viewModel.Patient;
+      this.loadDependents();
+    }
+    else {
+      this.patientService.LatestUpdatedPatientsUrl({
+        ProviderId: this.authService.userValue.ProviderId,
+        RemovedPatientIds: this.removedPatientIdsInBreadcurmb,
+        EncKey: paramkey
+      })
+        .subscribe(resp => {
+          if (resp.IsSuccess) {
+            let patients = resp.ListResult as ProviderPatient[];
+            this.breadcrumbs = [];
             let pb: PatientBreadcurm = {
-              Name: p.FirstName + ' ' + p.LastName,
-              DOB: p.Dob,
-              ViewType: 1,
-              PatientId: p.PatientId,
-              ShowRemoveIcon: true,
-              Details: p
+              Name: "Patients",
+              ViewType: 0,
+              ActiveId: false,
+              ProviderId: this.authService.userValue.ProviderId
             }
             this.breadcrumbs.push(pb);
-          });
-          this.loadPatientBreadcrumbView()
-        }
-      })
+            let flag = false;
+            patients.forEach((p) => {
+              let pb: PatientBreadcurm = {
+                Name: p.FirstName + ' ' + p.LastName,
+                DOB: p.Dob,
+                ViewType: 1,
+                PatientId: p.PatientId,
+                ShowRemoveIcon: true,
+                EncKey: p.EncKey,
+                ActiveId: p.ShowDetailView,
+                Details: p
+              }
+              if (p.ShowDetailView) {
+                this.authService.SetViewParam('Patient', p);
+                this.viewModel = this.authService.viewModel;
+                flag = true;
+              }
+              this.breadcrumbs.push(pb);
+            });
+            if (!flag) this.patient = this.authService.viewModel.Patient;
+
+            this.patient = this.authService.viewModel.Patient;
+            this.loadPatientBreadcrumbView()
+          }
+        })
+    }
+
   }
 
   updateBreadcurmbModel() {
@@ -296,7 +325,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
     this.authService.SetViewParam("PatientView", "Chart");
     this.authService.SetViewParam("View", "Patients");
     const currentUrl = this.router.url;
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+    this.router.navigateByUrl(currentUrl, { skipLocationChange: true }).then(() => {
       this.router.navigate(["/provider/patientdetails"]);
     });
     //this.router.navigate(["/provider/patientdetails"]);
@@ -404,11 +433,11 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
             this.alertmsg.displayMessageDailog(ERROR_CODES["M2AP003"])
           }
         }
-      } else if(content === this.encounterDialogComponent) {
-        if(res.data != null && res.data.refreshView){
-          if(this.viewModel.PatientView == "Dental Chart")
+      } else if (content === this.encounterDialogComponent) {
+        if (res.data != null && res.data.refreshView) {
+          if (this.viewModel.PatientView == "Dental Chart")
             this.loadDentalChartComponent();
-          else if(this.viewModel.PatientView == "Chart")
+          else if (this.viewModel.PatientView == "Chart")
             this.loadChartComponent();
         }
       }

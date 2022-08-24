@@ -13,16 +13,16 @@
     <div class="col-lg-5 col-xl-3 col-md-8 col-12">
       <div class="statusDropdownContainer ">
         <a class="btn dropdown-toggle statusFilterDropdown" href="#" role="button" id="dropdownMenuLink"
-          data-bs-toggle="dropdown" aria-expanded="false">
+          data-bs-toggle="dropdown" aria-expanded="false" (click)="onfoucs()">
           <span class="text-truncate">{{selectedValue ? selectedValue : 'select'}}</span>
         </a>
         <ul class="dropdown-menu searchmenu" aria-labelledby="dropdownMenuLink">
           <input type="text" class="w-100 p-2 searchInput" [(ngModel)]="searchValue"
-            (ngModelChange)="filterDropdown($event)">
+            (ngModelChange)="filterDropdown($event)" autofocus name="provider" id="myinputbox">
            <a *ngFor="let option of filteredList; let i=index" class="dropdown-item pointer text-containt drodownlist"
             [ngClass]="{'alternateBackground': i%2 == 0 }" (click)="selectValue(option.ProviderName)">
             {{option.ProviderName}}
-          </a>
+        </a>
         </ul>
       </div>
     </div>
@@ -80,5 +80,4 @@
     </div>
   </div>
 </div>
-
 
