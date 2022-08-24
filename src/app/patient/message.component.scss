@@ -287,7 +287,10 @@
     width: 365px;
     margin-left: 0px;
   }
-
+  .mat-table{
+    border-left:unset;
+    border-right:unset;
+  }
   .pagination {
     position: sticky;
     position: -webkit-sticky;
@@ -322,7 +325,9 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
-
+  .in-practice:hover{
+    color:#41b6a6;
+  }
   .overflow {
     display: inline-block;
     width: 540px;
@@ -367,3 +372,4 @@
   display: flow-root !important;
   align-items: center;
 }
+

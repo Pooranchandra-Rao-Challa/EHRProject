@@ -65,25 +65,17 @@
           </div>
           <div class="col-md-2 col-sm-6">
             <div class="input-group input-drop">
-              <button type="text" class="btn btn-light btn-actions  dropdown-toggle" data-bs-toggle="dropdown">
-                New Message
+              <button type="text" class="btn btn-light btn-actions in-practice" 
+              (click)="openComponentDialogmessage(MessageDialogComponent,null,ActionTypes.add,'Practice')">
+              In
+              Practice
               </button>
-              <ul class="dropdown-menu ">
-                <li><u class="dropdown-item drop-menu" data-bs-toggle="modal"
-                    (click)="openComponentDialogmessage(MessageDialogComponent,null,ActionTypes.add,'Patient')">To
-                    Patient</u>
-                </li>
-                <li><u class="dropdown-item drop-menu" data-bs-toggle="modal"
-                    (click)="openComponentDialogmessage(MessageDialogComponent,null,ActionTypes.add,'Practice')">In
-                    Practice</u>
-                </li>
-              </ul>
             </div>
           </div>
         </div>
 
         <diV class="mt-3 message-content">
-          <div class="leftblockalignments ">
+          <div class="leftblockalignments" style="border: #41b6a6 solid 1px;">
             <div class="pagination">
               <button (click)="pagination.first()" [disabled]="pagination.isFirst">
                 <<
@@ -114,7 +106,7 @@
               <ng-container matColumnDef="From">
                 <mat-header-cell *matHeaderCellDef>{{IsInbox || IsUrgent ? "From" : "To"}}</mat-header-cell>
                 <mat-cell *matCellDef="let message" (click)="showMessage(message)">
-                  <div class="text-new-line"><div>{{message.PatientName}} </div>
+                  <div class="text-new-line"><div>{{message.ProviderName}} </div>
                     <div [class.text-truncate]="message.Subject.length > 50">{{message.Subject}}</div>
                   </div>
                 </mat-cell>
@@ -133,7 +125,7 @@
               <div class="message-bounds">
                 <div class="row email-address">
                   <div class="col-md-6">
-                    From: {{IsInbox || IsUrgent ? currentMessage.PatientName : currentMessage.ProviderName}}
+                    From: {{IsInbox || IsUrgent ? currentMessage.ProviderName : currentMessage.PatientName}}
                   </div>
                   <div class="col-md-2">
                   </div>
@@ -143,7 +135,7 @@
                 </div>
                 <div class="row email-address">
                   <div class="col-md-4">
-                    To: {{IsInbox || IsUrgent ? currentMessage.ProviderName : currentMessage.PatientName}}
+                    To: {{IsInbox || IsUrgent ? currentMessage.PatientName : currentMessage.ProviderName}}
                   </div>
                   <div class="col-md-2">
 
