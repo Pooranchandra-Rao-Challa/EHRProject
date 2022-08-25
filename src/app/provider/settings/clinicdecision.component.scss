@@ -406,11 +406,11 @@ mat-footer-cell:last-of-type {
   margin: 10px 0px 10px 80px;
 }
 
-.error-close {
+.cross-mark.error-close {
   background-color: rgb(253, 65, 65) !important;
   width: 25px;
-  height: 28px;
-  margin: 10px !important;
+  height: 24px;
+  margin-left: 114px !important;
   border: 1px solid white !important;
   color: white !important;
   border-radius: 50% !important;
@@ -427,3 +427,11 @@ mat-footer-cell:last-of-type {
   cursor: not-allowed;
 }
 mat-label{display: block;width: 100%;}
+.scrollable-modal{
+  height: 820px;
+ 
+}
+.modal-content.Trigger-content
+{
+  height: auto;
+}

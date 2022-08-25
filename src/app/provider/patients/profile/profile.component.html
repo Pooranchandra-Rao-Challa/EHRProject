@@ -41,7 +41,7 @@
               </div>
 
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
-                <label for="DATEOFBIRTH*" class="form-label label-design">DATE OF BIRTH</label>
+                <label for="DATEOFBIRTH*" class="form-label label-design">Date Of Birth</label>
                 <mat-form-field appearance="outline" class="form-group profile-green-calendar">
                   <input matInput class="date-mat-class" autocomplete="off" [(ngModel)]="patientMyProfile.DateOfBirth"
                     (mouseover)="hoverDATEOFBIRTH='_/__/_'" (mouseleave)="hoverDATEOFBIRTH='MM/DD/YYYY'"
@@ -52,7 +52,7 @@
               </div>
 
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
-                <label for="DATEOFDEATH" class="form-label label-design">DATE OF DEATH</label>
+                <label for="DATEOFDEATH" class="form-label label-design">Date Of Death</label>
                 <mat-form-field appearance="outline" class="form-group profile-green-calendar">
                   <input matInput class="date-mat-class" [(ngModel)]="patientMyProfile.DateOfDeath" autocomplete="off"
                     (mouseover)="hoverDATEOFDEATH='_/__/_'" (mouseleave)="hoverDATEOFDEATH='MM/DD/YYYY'"
@@ -62,30 +62,30 @@
                 </mat-form-field>
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
-                <label for="SOCIALSECURITYNUMBER" class="form-label label-design">SOCIAL SECURITY NUMBER</label>
-                <input class="input-group form-control" [(ngModel)]="patientMyProfile.SSecuirtyNumber"
+                <label for="SOCIALSECURITYNUMBER" class="form-label label-design">Social Security Number</label>
+                <input class="input-group form-control ssno-emergencykin-phone" [(ngModel)]="patientMyProfile.SSecuirtyNumber"
                   placeholder="###-##-###" #ssn="ngModel" #ssnValidator #ssnMask
                   pattern="^(?!666|000|9\d{2})\d{3}-(?!00)\d{2}-(?!0{4})\d{4}$" type="text" id="Name"
                   [ngClass]="{'is-invalid' : (ssn.touched || ssn.dirty) && !ssn.valid }" maxlength="9">
                 <mat-hint style="font-size:8pt">323-32-3424</mat-hint>
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
-                <label for="CHARTID" class="form-label label-design">CHART ID</label>
+                <label for="CHARTID" class="form-label label-design">Chart Id</label>
                 <input class="input-group form-control" [(ngModel)]="patientMyProfile.ChartId" placeholder="CHART ID"
                   type="text" id="CHARTID">
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
-                <label for="PATIENTID" class="form-label label-design">PATIENT ID</label>
+                <label for="PATIENTID" class="form-label label-design">Patient Id</label>
                 <input class="input-group form-control patient-id" [(ngModel)]="patientMyProfile.PatientId"
                   placeholder="PATIENT ID" type="text" id="PATIENT ID">
               </div>
               <div class="col-lg-4 col-xl-4 col-md-6 col-12 my-2">
-                <label for="PATIENTID" class="form-label label-design">Preliminary Cause of Death</label>
+                <label for="PATIENTID" class="form-label label-design">Preliminary Cause Of Death</label>
                 <input class="input-group form-control" [(ngModel)]="patientMyProfile.CauseofDeath"
                   placeholder="Preliminary Cause of Death" type="text" id="PATIENT ID">
               </div>
               <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
-                <label for="SEX" class="form-label label-design  mx-lg-1">SEX</label>
+                <label for="SEX" class="form-label label-design  mx-lg-1">Sex</label>
                 <div>
                   <mat-radio-group [(ngModel)]="patientMyProfile.Gender">
                     <mat-radio-button value="male" class="radio-btn-label label-design my-1">Male</mat-radio-button>
@@ -129,7 +129,7 @@
               </div>
 
               <div class="col-lg-6 col-md-6 col-xl-6 col-12 my-2">
-                <label for="RELATION" class="form-label label-design text-nowrap">RELATION TO PATIENT</label>
+                <label for="RELATION" class="form-label label-design text-nowrap">Relation To Patient</label>
                 <div class="form-group">
                   <mat-form-field appearance="outline" class="col-12">
                     <mat-select placeholder="Select Patient Relation"
@@ -141,16 +141,16 @@
               </div>
 
               <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
-                <label for="PHONE" class="form-label label-design">PHONE</label>
-                <input class="input-group form-control" [(ngModel)]="patientMyProfile.Phone" placeholder="Cell PHONE"
+                <label for="PHONE" class="form-label label-design">Phone</label>
+                <input class="input-group form-control ssno-emergencykin-phone" [(ngModel)]="patientMyProfile.Phone" placeholder="Cell PHONE"
                   type="tel" id="PHONE" mask=" (000) 000-0000" [showMaskTyped]="true"
                   [patterns]="PhonePattern">
               </div>
 
               <div class="col-lg-8 col-md-8 col-xl-9 col-12 my-2">
-                <label for="HOMEADDRESS" class="form-label label-design">HOME ADDRESS</label>
+                <label for="HOMEADDRESS" class="form-label label-design">Home <Address></Address></label>
                 <input class="input-group form-control" [(ngModel)]="patientMyProfile.EmergencyStreet"
-                  placeholder="HOME ADDRESS" type="text" id="HOME ADDRESS"
+                  placeholder="Home Address" type="text" id="HOME ADDRESS"
                   [disabled]="emergencyDisableAddressVerification">
               </div>
               <div class="col-lg-2 col-md-2 col-xl-3 col-12 mt-3">
@@ -244,7 +244,7 @@
                   type="text" id="LastName">
               </div>
               <div class="col-lg-5 col-md-5 col-xl-6 col-12 my-2">
-                <label for="RELATION" class="form-label label-design text-nowrap">RELATION TO PATIENT</label>
+                <label for="RELATION" class="form-label label-design text-nowrap">Relation To Patient</label>
                 <mat-form-field appearance="outline" class="input-fields col-lg-12 col-md-12 col-12">
                   <mat-select placeholder="Select One" [(ngModel)]="patientMyProfile.NkRel">
                     <mat-option [value]="item.value" *ngFor="let item of relationship">{{item.value}}</mat-option>
@@ -256,13 +256,13 @@
                 </select> -->
               </div>
               <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
-                <label for="SEX" class="form-label label-design">PHONE</label>
-                <input class="input-group form-control" [(ngModel)]="patientMyProfile.NKMobilePhone"
+                <label for="SEX" class="form-label label-design">Phone</label>
+                <input class="input-group form-control ssno-emergencykin-phone" [(ngModel)]="patientMyProfile.NKMobilePhone"
                   placeholder="Cell PHONE" type="text" id="DATEOFBIRTH" mask=" (000) 000-0000" [showMaskTyped]="true"
                   [patterns]="PhonePattern">
               </div>
               <div class="col-lg-12 col-md-12 col-12 my-2">
-                <label for="DATEOFBIRTH*" class="form-label label-design">ADDRESS</label>
+                <label for="DATEOFBIRTH*" class="form-label label-design">Address</label>
                 <input class="input-group form-control" [(ngModel)]="patientMyProfile.NKStreetAddress"
                   placeholder="Street Address" type="text" id="DATEOFBIRTH">
               </div>
@@ -351,7 +351,7 @@
             </div>
             <div class="row  mx-2">
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
-                <label for="CELLPHONE" class="form-label label-design">CELL PHONE</label>
+                <label for="CELLPHONE" class="form-label label-design">Cell Phone</label>
                 <input class="input-group form-control" [(ngModel)]="patientMyProfile.MobilePhone"
                   placeholder="CELL PHONE" type="tel" id="CELLPHONE" mask=" (000) 000-0000" [showMaskTyped]="true"
                   [patterns]="PhonePattern" >
@@ -362,13 +362,13 @@
                   type="text" id="Email">
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
-                <label for="HOMEPHONE" class="form-label label-design">HOME PHONE</label>
+                <label for="HOMEPHONE" class="form-label label-design">Home Phone</label>
                 <input class="input-group form-control" [(ngModel)]="patientMyProfile.PrimaryPhone"
                   placeholder="HOME PHONE" type="tel" id="HOME PHONE" mask=" (000) 000-0000" [showMaskTyped]="true"
                   [patterns]="PhonePattern">
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
-                <label for="WORKPHONE" class="form-label label-design">WORK PHONE</label>
+                <label for="WORKPHONE" class="form-label label-design">Work Phone</label>
                 <input class="input-group form-control" [(ngModel)]="patientMyProfile.WorkPhone"
                   placeholder="WORK PHONE" type="tel" id="WORK PHONE" mask=" (000) 000-0000" [showMaskTyped]="true"
                   [patterns]="PhonePattern">
@@ -404,8 +404,8 @@
                 </div>
               </div>
               <div class="col-lg-8 col-md-8 col-xl-9 col-12 my-2">
-                <label for="HOMEADDRESS" class="form-label label-design">HOME ADDRESS</label>
-                <input class="input-group form-control" placeholder="HOME ADDRESS" type="text" id="HOME ADDRESS"
+                <label for="HOMEADDRESS" class="form-label label-design">Home Address</label>
+                <input class="input-group form-control" placeholder="Home Address" type="text" id="HOME ADDRESS"
                   [disabled]="disableaddressverification" [(ngModel)]="patientMyProfile.Street">
               </div>
               <div class="col-lg-2 col-md-4 col-xl-3 col-12 my-lg-2 mt-lg-3">
@@ -542,7 +542,7 @@
             </div>
             <div class="row  mx-2">
               <div class="col-lg-6 col-md-6 col-xl-6 col-12 my-2">
-                <label for="Name" class="form-label label-design">ETHNICITY</label>
+                <label for="Name" class="form-label label-design">Ethnicity</label>
                 <div class="form-group">
                   <mat-form-field appearance="outline">
                     <mat-select placeholder="Select Ethnicity" [(ngModel)]="patientMyProfile.ethnicity">
@@ -553,7 +553,7 @@
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-xl-6 col-12 my-2">
-                <label for="MiddleName" class="form-label label-design">PREFERRED LANGUAGE</label>
+                <label for="MiddleName" class="form-label label-design">Preferred Language</label>
                 <div class="form-group">
                   <mat-form-field appearance="outline">
                     <mat-select placeholder="Select Language" [(ngModel)]="patientMyProfile.PreferredLanguage">
@@ -685,9 +685,9 @@
                       <table class="table">
                         <thead class="th-border">
                           <tr>
-                            <th scope="col">NAME/SPECIALITY</th>
-                            <th scope="col">RELATIONSHIP TO PATIENT</th>
-                            <th scope="col">CONTACT</th>
+                            <th scope="col">Name/Speciality</th>
+                            <th scope="col">Relationship To Patient</th>
+                            <th scope="col">Contact</th>
                             <th></th>
                           </tr>
                         </thead>

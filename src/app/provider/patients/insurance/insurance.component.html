@@ -89,7 +89,7 @@
                                 <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
                                     id="inputGroup-sizing-lg ">City</span>
                                 <input type="text" [readonly]="!disableaddressverification"
-                                    class="form-control input-border Helvetica-sans-serif-medium"
+                                [class.address-verfied]="!manuallybtn"   class="form-control input-border Helvetica-sans-serif-medium"
                                     [(ngModel)]="primlist.City">
                             </div>
                         </div>
@@ -99,7 +99,7 @@
                                     id="inputGroup-sizing-lg ">State</span>
                                 <input type="text" [readonly]="!disableaddressverification"
                                     class="form-control input-border Helvetica-sans-serif-medium"
-                                    [(ngModel)]="primlist.State">
+                                    [(ngModel)]="primlist.State" [class.address-verfied]="!manuallybtn">
                             </div>
                         </div>
                         <div class="col-xl-3 col-lg-4 col-12">
@@ -107,7 +107,7 @@
                                 <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
                                     id="inputGroup-sizing-lg ">Zip</span>
                                 <input type="text" [readonly]="!disableaddressverification"
-                                    class="form-control input-border" [(ngModel)]="primlist.Zip">
+                                    class="form-control input-border" [(ngModel)]="primlist.Zip" [class.address-verfied]="!manuallybtn">
                             </div>
                         </div>
                     </div>
@@ -288,7 +288,7 @@
                                     <input [readonly]="!secondarydisableaddressverification"
                                         class="form-control input-border Helvetica-sans-serif-medium"
                                         [(ngModel)]="secList.StreetAddress" placeholder="Street Address" type="text"
-                                        id="StreetAddress" name="StreetAddress">
+                                        id="StreetAddress" name="StreetAddress"[class.address-verfied]="!secondarymanuallybtn">
                                 </div>
                             </div>
                         </div>
@@ -314,7 +314,7 @@
                                     id="inputGroup-sizing-lg ">City</span>
                                 <input type="text" [readonly]="!secondarydisableaddressverification"
                                     class="form-control input-border Helvetica-sans-serif-medium"
-                                    [(ngModel)]="secList.City">
+                                    [(ngModel)]="secList.City"[class.address-verfied]="!secondarymanuallybtn">
                             </div>
                         </div>
                         <div class="col-xl-4 col-lg-4 col-12 mb-3">
@@ -322,7 +322,7 @@
                                 <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
                                     id="inputGroup-sizing-lg ">State</span>
                                 <input type="text" [readonly]="!secondarydisableaddressverification"
-                                    class="form-control input-border" [(ngModel)]="secList.State">
+                                    class="form-control input-border" [(ngModel)]="secList.State"[class.address-verfied]="!secondarymanuallybtn">
                             </div>
                         </div>
                         <div class="col-xl-3 col-lg-4 col-12">
@@ -330,7 +330,7 @@
                                 <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
                                     id="inputGroup-sizing-lg ">Zip</span>
                                 <input type="text" [readonly]="!secondarydisableaddressverification"
-                                    class="form-control input-border" [(ngModel)]="secList.Zip">
+                                    class="form-control input-border" [(ngModel)]="secList.Zip"[class.address-verfied]="!secondarymanuallybtn">
                             </div>
                         </div>
                     </div>

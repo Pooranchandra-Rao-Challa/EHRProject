@@ -19,6 +19,10 @@
   }
   .accordion div:not(.collapsed) {
     border-bottom:0px solid #41b6a6;
+    cursor: pointer;
+ }
+ .accordianpointer{
+   cursor: pointer;
  }
   @media (max-width: 320px) {
     .title{
@@ -96,9 +100,11 @@
   margin-top: 10%;
 
 }
-.accordion-button:not(.collapsed) {
+::ng-deep .accordion-button:not(.collapsed) {
    background-color: #fff;
+  
 }
+
 ul{
   list-style-type: none;
 }

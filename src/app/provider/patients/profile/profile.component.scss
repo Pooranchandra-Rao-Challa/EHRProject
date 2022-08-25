@@ -59,7 +59,13 @@ label{font-size: 14px;}
   border-radius: 3px;
   margin-top: -8px;
 }
-
+.input-group.form-control.ssno-emergencykin-phone
+{
+  height: 46px;
+  border-color: #41b6a6 !important;
+  border-radius: 3px;
+  margin-top: 3px;
+}
 input::-webkit-input-placeholder {
   color: #595757 !important;
   font-size: 16px;

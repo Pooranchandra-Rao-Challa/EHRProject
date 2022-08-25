@@ -78,8 +78,8 @@
 
           <div class="col-lg-12 col-md-12 col-12 mat-field-no-round-right">
             <medical-code-container [codeSystems]="codeSystemsForPatientEducation"
-          (optionChanged)="optionChangedForPed($event)" [MinTermLength]="3" 
-                     placeholder="SNOMED" ></medical-code-container>
+          (optionChanged)="optionChangedForPed($event)" [MinTermLength]="3"  placeholder="SNOMED"
+          [showSelectedValue]="true" ></medical-code-container>
           </div>
         </div>
         <div class="scrollable-mat-table">
@@ -116,7 +116,7 @@
                 <p class="text-capitalize-first"></p>
               </mat-header-cell>
               <mat-cell *matCellDef="let item; let i = index; ">
-                <button type="button" class="btn cross-mark error-close"
+                <button type="button" class="btn cross-mark error-close-ped"
                   (click)="removePatientEdM(item,i)"
                   title="Delete recommended Procedure">x</button>
               </mat-cell>

@@ -66,7 +66,7 @@ export class SectionNewComponent implements OnInit {
   show(msg) {
     Swal.fire({
       text: msg,
-      confirmButtonText: 'close'
+      confirmButtonText: 'success'
     });
   }
 
