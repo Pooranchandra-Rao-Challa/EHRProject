@@ -92,28 +92,6 @@ export class TimeMaskDirective implements OnInit, ControlValueAccessor, Validato
           (keyCode == A || keyCode == P)) {
           // treat numbers
           this._setInputText(evt.key);
-
-          // let key  = evt.key;
-          // const inputvalue = this._el.nativeElement.value;
-          // const meridian = inputvalue.split(' ')[1];
-          // const input: string[] = inputvalue.split(' ')[0].split(':');
-
-          // const hours: string = input[0];
-          // const minutes: string = input[1];
-
-          // const caretPosition = this._doGetCaretPosition();
-          // if(isNumeric(key)){
-          //   if (caretPosition < 3) {
-          //     this._setHours(hours, minutes, meridian ,key);
-          //   } else{
-          //     this._setMinutes(hours, minutes,meridian, key);
-          //   }
-          // }
-          // else{
-          //   this._setMeridianField(hours,minutes,key)
-          // }
-
-          // this._fieldJustGotFocus = false;
         }
     }
 

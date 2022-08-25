@@ -7,7 +7,7 @@ import { Component, OnInit } from "@angular/core";
 import { Blockout, BlockOutDialog, PracticeProviders, Room, User } from "src/app/_models";
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
-import { AlertMessage,ERROR_CODES } from 'src/app/_alerts/alertMessage';
+import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 
 
 @Component({
@@ -36,17 +36,20 @@ export class BlockoutDialogComponent implements OnInit {
     private datePipe: DatePipe
   ) {
     this.user = authService.userValue;
-    this.blockout.ClinicId = this.user.ClinicId;
-    this.blockout.LocationId = this.user.CurrentLocation;
     this.blockoutDialog = ref.RequestData as BlockOutDialog;
     this.blockout = this.blockoutDialog.Blockout;
-    this.blockout.Time = datePipe.transform(this.blockout.StartAt,"hh:mm a");
-    console.log(this.blockout.Time );
+    console.log(this.blockout);
+
+    if (this.blockout.ClinicId == null)
+      this.blockout.ClinicId = this.user.ClinicId;
+    if (this.blockout.LocationId == null)
+      this.blockout.LocationId = this.user.CurrentLocation;
+    if (this.blockout != null && this.blockout != null)
+      this.blockout.Time = datePipe.transform(this.blockout.StartAt, "hh:mm a");
 
   }
 
   ngOnInit(): void {
-    this.blockout.RecurTime
     this.blockoutforItems = this.BlockoutItems;
     this.loadDefaults();
     this.changeOfBlockoutfor.subscribe((value) => {
@@ -123,7 +126,7 @@ export class BlockoutDialogComponent implements OnInit {
       });
       if (!flag)
         this.blockout.RangeDay.push({ RangeDay: weekday, CanDelete: false });
-    }else{
+    } else {
       this.blockout.RangeDay.forEach((value) => {
         if (value.RangeDay == weekday) {
           value.CanDelete = true;
@@ -199,20 +202,39 @@ export class BlockoutDialogComponent implements OnInit {
     }
     return returnArray;
   }
+  onChangeRecur(event) {
 
+    if (event.checked) {
+      this.blockout.StartAt = null;
+      this.blockout.Duration = -1;
+      this.blockout.Time = null;
+    } else {
+      this.blockout.RecurType = null;
+      this.blockout.RecurStartAt = null;
+      this.blockout.RecurEndAt = null;
+      this.blockout.DayRecurStartTime = null;
+      this.blockout.DayRecurEndTime = null;
+      this.blockout.RangeDay = null;
+    }
+  }
   enableSave() {
+    let timeRx = /^(0?[1-9]|1[012])(:[0-5]\d) [APap][mM]$/;
+
+    let dailyflag = this.blockout.RecurType == 'daily' && this.blockout.Recur && this.blockout.RecurStartAt != null
+      && this.blockout.DayRecurStartTime != null && timeRx.test(this.blockout.DayRecurStartTime)
+      && this.blockout.DayRecurEndTime != null && timeRx.test(this.blockout.DayRecurEndTime);
+
+    let weeklyflag = this.blockout.RecurType == 'weekly' && this.blockout.Recur && this.blockout.RecurStartAt != null
+      && this.blockout.RangeDay != null && this.blockout.RangeDay.length > 0
+
+    let regularflag = !this.blockout.Recur && this.blockout.StartAt != null &&
+      ((this.blockout.Duration != 1440 && this.blockout.Time != null) || this.blockout.Duration == 1440)
+
     let flag = (this.blockout.BlockoutFor != null && this.blockout.BlockoutFor != "")
       && (this.blockout.BlockoutForId != null && this.blockout.BlockoutForId != "")
-      && (this.blockout.StartAt != null)
       && (this.blockout.ClinicId != null)
       && (this.blockout.LocationId != null)
-      && ((this.blockout.Duration != 1440 && this.blockout.Time != null) ||
-        this.blockout.Duration == 1440)
-      && ((this.blockout.Recur &&
-        (this.blockout.RecurType == 'daily' && this.blockout.RecurTime > 0)
-        || ((this.blockout.RecurType == 'weekly' && this.blockout.RecurTime > 0
-          && this.blockout.RangeDay != null && this.blockout.RangeDay.length > 0)))
-        || !this.blockout.Recur)
+      && (regularflag || dailyflag || weeklyflag)
     return !flag;
   }
   SelectionBlockoutForChange(event) {
@@ -235,26 +257,33 @@ export class BlockoutDialogComponent implements OnInit {
   Save() {
 
     let isAdd = this.blockout.BlockoutId == null
-    this.blockout.strStartAt = this.datePipe.transform(this.blockout.StartAt,"MM/dd/yyyy")+" "+this.blockout.Time;
 
-    this.smartSchedulerService.CreateBlockout(this.blockout).subscribe(resp =>{
-      if(resp.IsSuccess){
-        this.ref.close({refresh: true,id:this.blockout.BlockoutId});
+    if (this.blockout.StartAt != null)
+      this.blockout.strStartAt = this.datePipe.transform(this.blockout.StartAt, "MM/dd/yyyy") + " " + this.blockout.Time;
+
+    if (this.blockout.RecurStartAt != null)
+      this.blockout.strRecurStartAt = this.datePipe.transform(this.blockout.RecurStartAt, "MM/dd/yyyy");
+    if (this.blockout.RecurEndAt != null)
+      this.blockout.strRecurEndAt = this.datePipe.transform(this.blockout.RecurEndAt, "MM/dd/yyyy");
+
+    this.smartSchedulerService.CreateBlockout(this.blockout).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.ref.close({ refresh: true, id: this.blockout.BlockoutId });
         this.alertMessage.displayMessageDailog(ERROR_CODES[isAdd ? "M2B1001" : "M2B1002"])
       }
-      else{
+      else {
         this.alertMessage.displayErrorDailog(ERROR_CODES[isAdd ? "E2B1001" : "E2B1002"])
       }
     })
   }
 
-  Delete(){
-    this.smartSchedulerService.DeleteBlockout(this.blockout).subscribe(resp =>{
-      if(resp.IsSuccess){
-        this.ref.close({refresh: true});
+  Delete() {
+    this.smartSchedulerService.DeleteBlockout(this.blockout).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.ref.close({ refresh: true });
         this.alertMessage.displayMessageDailog(ERROR_CODES["M2B1003"])
       }
-      else{
+      else {
         this.alertMessage.displayErrorDailog(ERROR_CODES["E2B1003"])
       }
     })
