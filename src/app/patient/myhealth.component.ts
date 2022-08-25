@@ -67,7 +67,7 @@ export class MyhealthComponent implements OnInit {
       "PatientId": this.user.PatientId,
     }
     this.patientservise.PatientMyProfileByPatientId(req).subscribe(resp => {
-        this.PatientProfile=resp.ListResult[0]
+        this.PatientProfile=resp.ListResult[0];
     })
   }
   getLocations() {
