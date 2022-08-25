@@ -360,13 +360,13 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   updateBlockOuts() {
     this.blockouts.forEach(blockout => {
-      if (this.fullcalendar.getApi().getEventById(blockout.BlockoutId) != null)
-        this.fullcalendar.getApi().getEventById(blockout.BlockoutId).remove();
+      // if (this.fullcalendar.getApi().getEventById(blockout.BlockoutId) != null)
+      //   this.fullcalendar.getApi().getEventById(blockout.BlockoutId).remove();
       this.fullcalendar.getApi().addEvent({
         id: blockout.BlockoutId,
-        title: blockout.Description,
-        start: blockout.start,
-        end: blockout.end,
+        title: blockout.Message == "" ? "Blockout day" : blockout.Message,
+        start: blockout.StartAt,
+        end: blockout.EndAt,
         classNames: ['fc-event-blockout'],
         backgroundColor: "#BBBBBB",
         borderColor: "#BBBBBB",
@@ -390,7 +390,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     this.fullcalendar.getApi().next();
     this.sundayDate = this.WeekBeginDate;
     this.updateCalendarEvents();
-    this.updateBlockOuts();
+    this.CalendarBlockouts();
   }
 
   previousCalenderEvents() {
@@ -398,7 +398,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     this.fullcalendar.getApi().prev();
     this.sundayDate = this.WeekBeginDate;
     this.updateCalendarEvents();
-    this.updateBlockOuts()
+    this.CalendarBlockouts()
   }
 
   get WeekBeginDate(): Date {
@@ -651,7 +651,6 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   }
 
   handleEventClick(arg) {
-    console.log(arg);
 
     let event: EventApi = arg.event;
     if (!event.extendedProps.IsBlockout) {
@@ -913,9 +912,11 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     blockoutDialog.PracticeProvider = this.practiceProviders;
     blockoutDialog.Rooms = this.Rooms;
     blockoutDialog.Staff = this.providerStaff;
+    blockoutDialog.Blockout = {}
     return blockoutDialog;
   }
   OpenBlockoutDialog() {
+
     this.openComponentDialog(this.blockoutDialogComponent,
       this.BlockoutDialogInfo(), Actions.new);
   }
@@ -945,9 +946,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     }).subscribe(resp => {
       if (resp.IsSuccess) {
         this.blockouts = resp.ListResult;
-        this.GetBlockouts();
-
-
+        //this.GetBlockouts();
         this.updateBlockOuts();
       }
       else this.blockouts = [{}]
@@ -956,7 +955,8 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   OpenBlockoutForEdit(blockoutId: string, blockoutdata: BlockOutDialog) {
     this.smartSchedulerService.BlockoutInfo({
-      BlockoutId: blockoutId
+      BlockoutId: blockoutId,
+      strCurrentDate: this.datepipe.transform(new Date(), 'MM/dd/yyyy')
     }).subscribe(resp => {
       if (resp.IsSuccess) {
         blockoutdata.Blockout = resp.Result as Blockout;
@@ -965,65 +965,67 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       }
     })
   }
-  GetBlockouts() {
-    this.blockouts.forEach(value => {
-      value.start = new Date(this.datepipe.transform(value.StartAt, "MM/dd/yyyy HH:mm:ss"));
-      value.end = this.getEndDate(value.Duration, value.start)
-    })
-  }
 
-  getEndDate(duration: number, date: Date): Date {
-    let returnDate: Date = new Date(date)
-    switch (duration) {
-      case 15:
-        returnDate.setMinutes(returnDate.getMinutes() + 15)
-        break;
-      case 30:
-        returnDate.setMinutes(returnDate.getMinutes() + 30)
-        break;
-      case 45:
-        returnDate.setMinutes(returnDate.getMinutes() + 45)
-        break;
-      case 60:
-        returnDate.setHours(returnDate.getHours() + 1)
-        break;
-      case 75:
-        returnDate.setHours(returnDate.getHours() + 1)
-        returnDate.setMinutes(returnDate.getMinutes() + 15)
-        break;
-      case 90:
-        returnDate.setHours(returnDate.getHours() + 1)
-        returnDate.setMinutes(returnDate.getMinutes() + 30)
-        break;
-      case 105:
-        returnDate.setHours(returnDate.getHours() + 1)
-        returnDate.setMinutes(returnDate.getMinutes() + 45)
-        break;
-      case 120:
-        returnDate.setHours(returnDate.getHours() + 2)
-        break;
-      case 135:
-        returnDate.setHours(returnDate.getHours() + 2)
-        returnDate.setMinutes(returnDate.getMinutes() + 15)
-        break;
-      case 150:
-        returnDate.setHours(returnDate.getHours() + 2)
-        returnDate.setMinutes(returnDate.getMinutes() + 30)
-        break;
-      case 165:
-        returnDate.setHours(returnDate.getHours() + 2)
-        returnDate.setMinutes(returnDate.getMinutes() + 45)
-        break;
-      case 180:
-        returnDate.setHours(returnDate.getHours() + 3)
-        break;
-      case 1440:
-        returnDate.setDate(returnDate.getDate() + 1)
-        break;
-    }
-    returnDate.setSeconds(returnDate.getSeconds() - 1);
-    return returnDate;
-  }
+
+  // GetBlockouts() {
+  //   this.blockouts.forEach(value => {
+  //     value.start = new Date(this.datepipe.transform(value.StartAt, "MM/dd/yyyy HH:mm:ss"));
+  //     value.end = this.getEndDate(value.Duration, value.start)
+  //   })
+  // }
+
+  // getEndDate(duration: number, date: Date): Date {
+  //   let returnDate: Date = new Date(date)
+  //   switch (duration) {
+  //     case 15:
+  //       returnDate.setMinutes(returnDate.getMinutes() + 15)
+  //       break;
+  //     case 30:
+  //       returnDate.setMinutes(returnDate.getMinutes() + 30)
+  //       break;
+  //     case 45:
+  //       returnDate.setMinutes(returnDate.getMinutes() + 45)
+  //       break;
+  //     case 60:
+  //       returnDate.setHours(returnDate.getHours() + 1)
+  //       break;
+  //     case 75:
+  //       returnDate.setHours(returnDate.getHours() + 1)
+  //       returnDate.setMinutes(returnDate.getMinutes() + 15)
+  //       break;
+  //     case 90:
+  //       returnDate.setHours(returnDate.getHours() + 1)
+  //       returnDate.setMinutes(returnDate.getMinutes() + 30)
+  //       break;
+  //     case 105:
+  //       returnDate.setHours(returnDate.getHours() + 1)
+  //       returnDate.setMinutes(returnDate.getMinutes() + 45)
+  //       break;
+  //     case 120:
+  //       returnDate.setHours(returnDate.getHours() + 2)
+  //       break;
+  //     case 135:
+  //       returnDate.setHours(returnDate.getHours() + 2)
+  //       returnDate.setMinutes(returnDate.getMinutes() + 15)
+  //       break;
+  //     case 150:
+  //       returnDate.setHours(returnDate.getHours() + 2)
+  //       returnDate.setMinutes(returnDate.getMinutes() + 30)
+  //       break;
+  //     case 165:
+  //       returnDate.setHours(returnDate.getHours() + 2)
+  //       returnDate.setMinutes(returnDate.getMinutes() + 45)
+  //       break;
+  //     case 180:
+  //       returnDate.setHours(returnDate.getHours() + 3)
+  //       break;
+  //     case 1440:
+  //       returnDate.setDate(returnDate.getDate() + 1)
+  //       break;
+  //   }
+  //   returnDate.setSeconds(returnDate.getSeconds() - 1);
+  //   return returnDate;
+  // }
 }
 
 /**{ Text: '15 min', Value: 15 },

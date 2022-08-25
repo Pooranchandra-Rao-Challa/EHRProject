@@ -1,6 +1,6 @@
 <div class="modal-dialog" role="document" id="blockout-dialog">
   <div class="modal-content">
-    <div class="modal-header">
+    <div class="modal-header" style="margin-top:-1px">
       <!-- -->
       <h4 class="modal-title Helvetica-sans-serif-medium">
         {{ this.blockout.BlockoutId ? "Edit" : "Add" }} Blockout</h4>
@@ -11,7 +11,7 @@
         <div class="col-lg-12 col-md-12 col-12">
           <mat-label class="required">Select Blockout for:</mat-label>
           <mat-form-field appearance="outline" class="col-md-12 orderddhover">
-            <mat-select required placeholder="Select Blockout for" [(ngModel)]="blockout.BlockoutFor"
+            <mat-select required placeholder="Select Blockout for" [disabled]="!blockout.CanEdit" [(ngModel)]="blockout.BlockoutFor"
               (selectionChange)="SelectedBlockoutFor($event)">
               <mat-option *ngFor="let blockfor of blockoutfor;" [value]="blockfor.Value">
                 {{blockfor.Name}}
@@ -22,8 +22,8 @@
         <div class="col-lg-8 col-md-8 col-8">
           <mat-label class="required">{{LabelBlockoutFor}}</mat-label>
           <mat-form-field appearance="outline" class="col-md-12 orderddhover">
-            <mat-select required placeholder="Select" [(ngModel)]="blockout.BlockoutForId"
-            (change)="SelectionBlockoutForChange($event)">
+            <mat-select required placeholder="Select" [disabled]="!blockout.CanEdit" [(ngModel)]="blockout.BlockoutForId"
+              (change)="SelectionBlockoutForChange($event)">
               <mat-option *ngFor="let blockforitem of blockoutforItems;" [value]="blockforitem.Value">
                 {{blockforitem.Name}}
               </mat-option>
@@ -33,7 +33,7 @@
         <div class="col-lg-4 col-md-4 col-4">
           <mat-label>Select Room</mat-label>
           <mat-form-field appearance="outline" class="col-md-12 orderddhover">
-            <mat-select required placeholder="Select Room" [(ngModel)]="blockout.RoomId">
+            <mat-select required placeholder="Select Room" [disabled]="!blockout.CanEdit" [(ngModel)]="blockout.RoomId">
               <mat-option *ngFor="let room of blockoutDialog.Rooms;" [value]="room.RoomId">
                 {{room.RoomName}}
               </mat-option>
@@ -41,133 +41,162 @@
           </mat-form-field>
         </div>
       </div>
-      <div class="row">
-        <div class="col-lg-5 col-md-5 col-5">
-          <mat-label class="col-12 required">Select Date:</mat-label>
-          <mat-form-field appearance="outline" class="col-12 block-start-at">
-            <input matInput class="pointer" autocomplete="off" [matDatepicker]="appointmentDate"
-              (click)="appointmentDate.open()" readonly placeholder="Request Date" [min]="todayDate"
-              [(ngModel)]="blockout.StartAt" [ngModelOptions]="{standalone: true}" />
-            <mat-datepicker-toggle matSuffix [for]="appointmentDate" dateChange="ClearTimeSlots()">
-            </mat-datepicker-toggle>
-            <mat-datepicker #appointmentDate></mat-datepicker>
-          </mat-form-field>
-        </div>
-        <div class="col-md-3">
-          <mat-label class="col-12 required">Select Time:</mat-label>
-          <mat-form-field appearance="outline" class="col-lg-10 col-md-10 col-10">
-            <input matInput class="vital-input" type="text" hint="12 hours format" [(ngModel)]="blockout.Time"
-              appTimeMask>
-          </mat-form-field>
-        </div>
-        <div class="col-md-4">
-          <mat-label class="col-12 required">Duration:</mat-label>
-          <mat-form-field appearance="outline" class="col-12">
-            <mat-select id="selSmartDurations" placeholder="Select Duration" disableOptionCentering
-              [(ngModel)]="blockout.Duration" [ngModelOptions]="{standalone:true}">
-              <mat-option *ngFor="let period of PeriodsOfTimeSlots" [value]="period.Value">{{period.Text}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </div>
+
       <div class="row">
         <div class="col-lg-12 col-md-12 col-12" style="float: right">
           <label class="col-12 required">Description:</label>
-          <textarea class="textarea col-12" rows="4" [(ngModel)]="blockout.Description"></textarea>
+          <textarea class="textarea col-12" [disabled]="!blockout.CanEdit" rows="4" [(ngModel)]="blockout.Description"></textarea>
         </div>
       </div>
       <div class="row">
         <div class="col-lg-12 col-md-12 col-12" style="float: right">
           <label class="col-12 required">Note:</label>
-          <textarea class="textarea col-12" rows="8" [(ngModel)]="blockout.Note"></textarea>
+          <textarea class="textarea col-12" [disabled]="!blockout.CanEdit" rows="8" [(ngModel)]="blockout.Note"></textarea>
         </div>
       </div>
       <div class="row recurring-block">
-        <div class="row" style="height: 40px;">
-          <div class="col-lg-5 col-md-5 col-5 checkbox-custom checkbox-blockout-recurring">
-            <mat-checkbox  [ngModelOptions]="{standalone:true}" [(ngModel)]="blockout.Recur">
-              <span class="checkbox-label">Recurring</span>
-            </mat-checkbox><!-- [(ngModel)]="blockout.Recur"-->
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-12 checkbox-custom checkbox-blockout-recurring">
+            <div class="row">
+              <mat-hint class="hint-note" *ngIf="blockout.BlockoutId != null && !blockout.CanEdit && blockout.Recur">The Record is in use, can not update or delete, but can close by updating recur end at date</mat-hint>
+              <mat-hint class="hint-note" *ngIf="blockout.BlockoutId != null && !blockout.CanEdit && !blockout.Recur">The Record is in use, can not update or delete</mat-hint>
 
-          </div>
-          <div class=" col-lg-7 col-md-7 col-7  recurring-radio-buttons" *ngIf="blockout.Recur">
-            <label class="label-for-radio1 required">Chooose one:</label>
-            <div class="radiobutton-custom">
-              <mat-radio-button type="radio" [checked]="IsDaily" [ngModelOptions]="{standalone:true}" value="daily" checked="checked"
-                id="block_out_recur_type_daily" (change)="OnRecurTypeSelect($event)"
-                ><span class="radio-label">Daily</span></mat-radio-button>
+              <mat-checkbox [ngModelOptions]="{standalone:true}" [disabled]="!blockout.CanEdit" [(ngModel)]="blockout.Recur"
+              (change)="onChangeRecur($event)">
+                <span class="checkbox-label" >Recurring</span>
+              </mat-checkbox>
+              <div class="col-lg-5 col-md-5 col-5" *ngIf="blockout.Recur">
+                <mat-label class="col-12 required">Recur Start Date:</mat-label>
+                <mat-form-field appearance="outline" class="col-12 block-start-at">
+                  <input matInput class="pointer" [disabled]="!blockout.CanEdit" autocomplete="off" [matDatepicker]="recurStartDate"
+                    (click)="recurStartDate.open()" readonly placeholder="Request Date" [min]="todayDate"
+                    [(ngModel)]="blockout.RecurStartAt" [ngModelOptions]="{standalone: true}" />
+                  <mat-datepicker-toggle matSuffix [for]="recurStartDate" dateChange="ClearTimeSlots()">
+                  </mat-datepicker-toggle>
+                  <mat-datepicker #recurStartDate></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div class="col-lg-5 col-md-5 col-5" *ngIf="blockout.Recur">
+                <mat-label class="col-12">Recur End Date:</mat-label>
+                <mat-form-field appearance="outline" class="col-12 block-start-at">
+                  <input matInput class="pointer" [disabled]="!(blockout.CanEdit || blockout.RecurEndAt==null)" autocomplete="off" [matDatepicker]="recurEndDate"
+                    (click)="recurEndDate.open()" readonly placeholder="Request Date" [min]="todayDate"
+                    [(ngModel)]="blockout.RecurEndAt" [ngModelOptions]="{standalone: true}" />
+                  <mat-datepicker-toggle matSuffix [for]="recurEndDate" dateChange="ClearTimeSlots()">
+                  </mat-datepicker-toggle>
+                  <mat-datepicker #recurEndDate></mat-datepicker>
+                </mat-form-field>
+
+              </div>
             </div>
-            <div class="radiobutton-custom">
-              <mat-radio-button type="radio" [checked]="IsWeekly" [ngModelOptions]="{standalone:true}"
-              value="weekly" (change)="OnRecurTypeSelect($event)"
-              id="block_out_recur_type_weekly"><span
-              class="radio-label">Weekly</span></mat-radio-button>
+            <div class="row" *ngIf="!blockout.Recur">
+              <div class="col-lg-5 col-md-5 col-5">
+                <mat-label class="col-12 required">Select Date:</mat-label>
+                <mat-form-field appearance="outline" class="col-12 block-start-at">
+                  <input matInput class="pointer" [disabled]="!blockout.CanEdit" autocomplete="off" [matDatepicker]="appointmentDate"
+                    (click)="appointmentDate.open()" readonly placeholder="Request Date" [min]="todayDate"
+                    [(ngModel)]="blockout.StartAt" [ngModelOptions]="{standalone: true}" />
+                  <mat-datepicker-toggle matSuffix [for]="appointmentDate" dateChange="ClearTimeSlots()">
+                  </mat-datepicker-toggle>
+                  <mat-datepicker #appointmentDate></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div class="col-md-3">
+                <mat-label class="col-12 required">Select Time:</mat-label>
+                <mat-form-field appearance="outline" class="col-lg-10 col-md-10 col-10">
+                  <input matInput class="vital-input" [disabled]="!blockout.CanEdit" type="text" hint="12 hours format" [(ngModel)]="blockout.Time"
+                    appTimeMask>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-label class="col-12 required">Duration:</mat-label>
+                <mat-form-field appearance="outline" class="col-12">
+                  <mat-select id="selSmartDurations" [disabled]="!blockout.CanEdit" placeholder="Select Duration" disableOptionCentering
+                    [(ngModel)]="blockout.Duration" [ngModelOptions]="{standalone:true}">
+                    <mat-option *ngFor="let period of PeriodsOfTimeSlots" [value]="period.Value">{{period.Text}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row" *ngIf="blockout.Recur">
+              <div class=" col-lg-12 col-md-12 col-12">
+                <div class="row">
+                  <label class="label-for-radio1 required">Chooose one:</label>
+                  <div class="radiobutton-custom">
+                    <mat-radio-button type="radio" [disabled]="!blockout.CanEdit"  [checked]="IsDaily" [ngModelOptions]="{standalone:true}"
+                      value="daily" checked="checked" id="block_out_recur_type_daily"
+                      (change)="OnRecurTypeSelect($event)"><span class="radio-label">Daily</span>
+                    </mat-radio-button>
+
+                    <div class="col-lg-9 col-md-9 col-sm-9 recurring-radio-buttons" *ngIf="(IsDaily)">
+                      <label class="label-for-radio required">Between</label>
+                      <input matInput [disabled]="!blockout.CanEdit"  appTimeMask placeholder="" [(ngModel)]="blockout.DayRecurStartTime">
+
+                      <input matInput [disabled]="!blockout.CanEdit"  appTimeMask placeholder="" [(ngModel)]="blockout.DayRecurEndTime">
+                      <label class="label-for-radio"> of a day</label>
+                    </div>
+
+                  </div>
+                  <div class="radiobutton-custom">
+                    <mat-radio-button type="radio" [disabled]="!blockout.CanEdit" [checked]="IsWeekly" [ngModelOptions]="{standalone:true}"
+                      value="weekly" (change)="OnRecurTypeSelect($event)" id="block_out_recur_type_weekly"><span
+                        class="radio-label">Weekly</span></mat-radio-button>
+
+                    <div *ngIf="IsWeekly">
+
+                      <div class="col-lg-12 col-md-12 col-12" style="margin-left: 10px;">
+                        <div class="recurring-checkboxes">
+                          <mat-checkbox [disabled]="!blockout.CanEdit" (change)="OnWeekSelect($event)" [checked]="IsMonday"
+                            [ngModelOptions]="{standalone:true}" value="M">
+                            <span class="checkbox-label">M</span>
+                          </mat-checkbox>
+                          <mat-checkbox [disabled]="!blockout.CanEdit" (change)="OnWeekSelect($event)" [checked]="IsTuesday"
+                            [ngModelOptions]="{standalone:true}" value="T">
+                            <span class="checkbox-label">T</span>
+                          </mat-checkbox>
+                          <mat-checkbox [disabled]="!blockout.CanEdit" (change)="OnWeekSelect($event)" [checked]="IsWednesday"
+                            [ngModelOptions]="{standalone:true}" value="W">
+                            <span class="checkbox-label">W</span>
+                          </mat-checkbox>
+                          <mat-checkbox [disabled]="!blockout.CanEdit" (change)="OnWeekSelect($event)" [checked]="IsThursday"
+                            [ngModelOptions]="{standalone:true}" value="Th">
+                            <span class="checkbox-label">Th</span>
+                          </mat-checkbox>
+                          <mat-checkbox [disabled]="!blockout.CanEdit" (change)="OnWeekSelect($event)" [checked]="IsFriday"
+                            [ngModelOptions]="{standalone:true}" value="F">
+                            <span class="checkbox-label">F</span>
+                          </mat-checkbox>
+                          <mat-checkbox [disabled]="!blockout.CanEdit" (change)="OnWeekSelect($event)" [checked]="IsSaturday"
+                            [ngModelOptions]="{standalone:true}" value="Sa">
+                            <span class="checkbox-label">Sa</span>
+                          </mat-checkbox>
+                          <mat-checkbox [disabled]="!blockout.CanEdit" (change)="OnWeekSelect($event)" [checked]="IsSunday"
+                            [ngModelOptions]="{standalone:true}" value="Su">
+                            <span class="checkbox-label">Su</span>
+                          </mat-checkbox>
+
+                        </div>
+                        <label class="label-for-radio">of every week</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div class="row" *ngIf="blockout.Recur && (IsDaily || IsWeekly)">
-          <div class="col-lg-5 col-md-5 col-5">
-            &nbsp;
-          </div>
-          <div class="col-lg-7 col-md-7 col-7 recurring-radio-buttons" >
-            <label class="label-for-radio required">Recur Every #:</label>
-            <div class="radiobutton-custom">
-              <mat-form-field appearance="outline" style="width:40px">
-                <input matInput placeholder="" [(ngModel)]="blockout.RecurTime">
-              </mat-form-field>
-            </div>
-            <label class="label-for-radio required" *ngIf="IsWeekly">weeks on:</label>
-          </div>
-        </div>
-        <div class="row" *ngIf="blockout.Recur && IsWeekly">
-          <div class="col-lg-3 col-md-3 col-3">
-            &nbsp;
-          </div>
-          <div class="col-lg-9 col-md-9 col-9 recurring-radio-buttons" >
-            <div class="recurring-checkboxes">
-              <mat-checkbox (change)="OnWeekSelect($event)"  [checked]="IsMonday"
-              [ngModelOptions]="{standalone:true}" value="M">
-                <span class="checkbox-label">M</span>
-              </mat-checkbox>
-              <mat-checkbox (change)="OnWeekSelect($event)" [checked]="IsTuesday"
-              [ngModelOptions]="{standalone:true}"  value="T">
-                <span class="checkbox-label">T</span>
-              </mat-checkbox>
-              <mat-checkbox (change)="OnWeekSelect($event)" [checked]="IsWednesday"
-              [ngModelOptions]="{standalone:true}"  value="W">
-                <span class="checkbox-label">W</span>
-              </mat-checkbox>
-              <mat-checkbox (change)="OnWeekSelect($event)"[checked]="IsThursday"
-              [ngModelOptions]="{standalone:true}"  value="Th">
-                <span class="checkbox-label">Th</span>
-              </mat-checkbox>
-              <mat-checkbox (change)="OnWeekSelect($event)" [checked]="IsFriday"
-              [ngModelOptions]="{standalone:true}"  value="F">
-                <span class="checkbox-label">F</span>
-              </mat-checkbox>
-              <mat-checkbox (change)="OnWeekSelect($event)" [checked]="IsSaturday"
-              [ngModelOptions]="{standalone:true}"  value="Sa">
-                <span class="checkbox-label">Sa</span>
-              </mat-checkbox>
-              <mat-checkbox (change)="OnWeekSelect($event)" [checked]="IsSunday"
-              [ngModelOptions]="{standalone:true}"  value="Su">
-                <span class="checkbox-label">Su</span>
-              </mat-checkbox>
-            </div>
-          </div>
       </div>
-      </div>
-
     </div>
+
     <div class="modal-footer">
       <div class="controls">
-        <a class="btn btn-default btn-danger btn-spacer" style="float:left" (click)="Delete()" *ngIf="blockout.BlockoutId != null">Delete</a>
+        <a class="btn btn-default btn-danger btn-spacer" style="float:left" (click)="Delete()"
+          *ngIf="blockout.BlockoutId != null && blockout.CanEdit">Delete</a>
         <a class="btn btn-default btn-cancel btn-spacer" style="float:right" (click)="close()">Cancel</a>
-        <input type="submit" [disabled]=enableSave()
-          name="commit" value="Save" class="btn btn-default btn-green btn-spacer" style="float:right"
-          (click)="Save()">
+        <input type="submit" [disabled]=enableSave() name="commit" value="Save"
+        *ngIf="blockout.CanEdit || (blockout.RecurEndAt==null && blockout.Recur)"
+          class="btn btn-default btn-green btn-spacer" style="float:right" (click)="Save()">
       </div>
     </div>
   </div>
-</div>
