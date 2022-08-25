@@ -159,7 +159,7 @@ export class WeeklyUpdatedComponent implements OnInit {
         this.GetWeeklyUpdate();
       });
   }
-  onfoucs()
+  onfocus()
   {
     document.getElementById("myinputbox").focus();
   }

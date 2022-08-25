@@ -125,10 +125,13 @@ input, .form-control:focus, input:focus, select:focus, textarea:focus, button:fo
   color: white;
   background-color: #337ab7 !important;
 }
-.drodownlist:active{
-  font-size: 14px;
-  color: white;
-  background-color: #337ab7 !important;
+.dropdown-menu .dropdown-item:active {
+    background: initial;
+}
+.drodownlist:active {
+    font-size: 14px;
+    color: white;
+    background-color: #337ab7 !important;
 }
 .dropdown-toggle::after {
   position: relative;

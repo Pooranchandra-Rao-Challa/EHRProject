@@ -280,8 +280,8 @@ export const ERROR_CODES: { [key: string]: string } = {
   'E2CI001': 'Insurance Company Plan  Updation error',
   'E2CI002': 'Primary Insurance Updation error',
   'E2CI003': 'Secondary Insurance Updation error',
-  'E2CI004': 'Primary Insurance Address Updation error',
-  'E2CI005': 'Secondary Insurance Address Updation error',
+  'E2CI004': 'Primary Insurance  Address Verification Failed',
+  'E2CI005': 'Secondary Insurance Address Verification Failed',
 
   //Messages for Patients Procedure Crete
   'M2CP1001': 'Procedure Added sucessfully',
