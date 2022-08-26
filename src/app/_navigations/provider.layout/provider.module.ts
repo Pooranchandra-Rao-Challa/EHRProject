@@ -126,6 +126,7 @@ import { TobaccoUseTableDialogComponent } from 'src/app/dialogs/tobacco.use.tabl
 import { SmokingStatusTableDialogComponent } from 'src/app/dialogs/smoking.status.table.dialog/smoking.status.table.dialog.component';
 import { AdvancedDirectivesTableDialogComponent } from 'src/app/dialogs/advanced.directives.table.dialog/advanced.directives.table.dialog.component';
 
+
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
   interactionPlugin,
@@ -239,7 +240,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     MedicationTableDialogComponent,
     TobaccoUseTableDialogComponent,
     SmokingStatusTableDialogComponent,
-    AdvancedDirectivesTableDialogComponent
+    AdvancedDirectivesTableDialogComponent,
+   
   ],
   imports: [
     FullCalendarModule,

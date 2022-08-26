@@ -25,18 +25,18 @@
             </div>
             <div class="row  mx-2">
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
-                <label for="Name" class="form-label label-design">Name</label>
-                <input type="text" class="input-group form-control" placeholder="First Name"
-                  [(ngModel)]="patientMyProfile.FirstName" id="FirstName">
+                <label for="Name" class="form-label label-design required">First Name</label>
+                <input type="text" alphaOnly class="input-group form-control" placeholder="First Name"
+                  [(ngModel)]="patientMyProfile.FirstName" id="FirstName" >
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="MiddleName" class="form-label label-design">Middle Name</label>
                 <input class="input-group form-control" [(ngModel)]="patientMyProfile.MiddleName"
-                  placeholder="Middle (optional)" type="text" id="MiddleName">
+                  placeholder="Middle (optional)" type="text" id="MiddleName" alphaOnly>
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
-                <label for="LastName" class="form-label label-design">Last Name</label>
-                <input class="input-group form-control" [(ngModel)]="patientMyProfile.LastName" placeholder="Last Name"
+                <label for="LastName" class="form-label label-design required">Last Name</label>
+                <input class="input-group form-control" alphaOnly [(ngModel)]="patientMyProfile.LastName" placeholder="Last Name"
                   type="text" id="LastName">
               </div>
 
@@ -360,7 +360,17 @@
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="Email" class="form-label label-design">Email</label>
                 <input class="input-group form-control" [(ngModel)]="patientMyProfile.email" placeholder="Email"
-                  type="text" id="Email">
+                  type="text"  id="email" name="email" autocomplete="off" #email="ngModel" required [pattern]="emailPattern" >
+                  <div *ngIf="email.errors && (email.touched)">
+                    <div class="text-danger" *ngIf="email.errors.required">
+                      <span class="text-danger"></span>
+                      <p>Please enter Email</p>
+                    </div>
+                    <div class="text-danger" *ngIf="email.errors.pattern">
+                      <span class="text-danger"></span>
+                      <p>Email not valid</p>
+                    </div>
+                  </div>
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="HOMEPHONE" class="form-label label-design">Home Phone</label>

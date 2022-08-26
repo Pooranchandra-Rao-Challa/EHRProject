@@ -16,7 +16,7 @@
                     <div class="form-group">
                       <mat-form-field class="grey-matform w-100" appearance="outline">
                         <input matInput placeholder="First Name" [(ngModel)]="PatientProfile.FirstName" id="FirstName"
-                          name="FirstName" #FirstName="ngModel" required  pattern="[a-zA-Z ]*">
+                          name="FirstName" #FirstName="ngModel" required  pattern="[a-zA-Z ]*" alphaOnly>
                       </mat-form-field>
                       <div *ngIf="FirstName.errors && (FirstName.touched)">
                         <div class="error_message" *ngIf="FirstName.errors?.required">
@@ -35,7 +35,7 @@
                     <div class="form-group">
                       <mat-form-field class="grey-matform w-100" appearance="outline">
                         <input matInput placeholder="Middle Name" [(ngModel)]="PatientProfile.MiddleName"
-                          id="MiddleName" name="MiddleName" #MiddleName="ngModel">
+                          id="MiddleName" name="MiddleName" #MiddleName="ngModel" alphaOnly>
                       </mat-form-field>
                     </div>
                   </div>
@@ -44,7 +44,7 @@
                     <div class="form-group">
                       <mat-form-field class="grey-matform w-100" appearance="outline">
                         <input matInput placeholder="Last Name" [(ngModel)]="PatientProfile.LastName" id="LastName"
-                          name="LastName" #LastName="ngModel" required  pattern="[a-zA-Z ]*">
+                          name="LastName" #LastName="ngModel" required  pattern="[a-zA-Z ]*" alphaOnly>
                       </mat-form-field>
                       <div *ngIf="LastName.errors && (LastName.touched)">
                         <div class="error_message" *ngIf="LastName.errors?.required">

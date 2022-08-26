@@ -86,7 +86,7 @@ export class ProfileComponent implements OnInit {
     };
     this.tomorrow.setDate(this.tomorrow.getDate() );
   }
-
+  emailPattern = "^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$";
   ngOnInit(): void {
     this.getPatientDetails();
     this.getPatientMyProfile();
