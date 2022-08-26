@@ -428,10 +428,15 @@ mat-footer-cell:last-of-type {
 }
 mat-label{display: block;width: 100%;}
 .scrollable-modal{
-  height: 820px;
- 
+  height:850px;
 }
 .modal-content.Trigger-content
 {
   height: auto;
+}
+.mat-expansion-panel-header-title, .mat-expansion-panel-header-description {
+  display: flex;
+  flex-grow: 1;
+  margin-right: 16px;
+  margin-top: 6px;
 }

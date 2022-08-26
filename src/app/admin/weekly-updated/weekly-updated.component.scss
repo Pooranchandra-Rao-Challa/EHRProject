@@ -125,18 +125,19 @@ input, .form-control:focus, input:focus, select:focus, textarea:focus, button:fo
   color: white;
   background-color: #337ab7 !important;
 }
-.dropdown-menu .dropdown-item:active {
-    background: initial;
-}
-.drodownlist:active {
-    font-size: 14px;
-    color: white;
-    background-color: #337ab7 !important;
+::ng-deep .drodownlist:focus{
+  font-size: 14px;
+  color: white;
+  background-color: #337ab7 !important;
 }
 .dropdown-toggle::after {
   position: relative;
   right: -250px;
   color: grey;
+}
+.selecteditem:focus{
+  color: white;
+  background-color: #337ab7 !important;
 }
 
 // media query for drodown box and menulist
@@ -153,6 +154,13 @@ input, .form-control:focus, input:focus, select:focus, textarea:focus, button:fo
   }
   .searchmenu{
     width: 298px !important;
+  }
+}
+@media(max-width:600px)
+{
+  .text-truncate
+  {
+    margin-left: -247px;
   }
 }
 @media (min-width:601px) and (max-width:990px)

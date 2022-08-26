@@ -68,7 +68,7 @@ export class ProfileComponent implements OnInit {
   emergencyAddressVerfied:boolean = false;
   emergencyDisableAddressVerification:boolean = false;
   PhonePattern:any
-
+  tomorrow = new Date();
   constructor(private patientService: PatientService,
     private utilityService: UtilityService,
     private smartSchedulerService: SmartSchedulerService,
@@ -84,6 +84,7 @@ export class ProfileComponent implements OnInit {
         symbol: 'X',
       },
     };
+    this.tomorrow.setDate(this.tomorrow.getDate() );
   }
 
   ngOnInit(): void {

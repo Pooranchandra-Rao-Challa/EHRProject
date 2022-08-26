@@ -490,5 +490,6 @@ export class InsuranceComponent implements OnInit {
 
 
   }
+  
 }
 

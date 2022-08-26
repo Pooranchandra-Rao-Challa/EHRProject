@@ -39,17 +39,24 @@
 
             <div class="pt-4">
               <div class="row">
+                <div class="row">
+                  <div class="col-md-4"> <mat-label class="Helvetica-sans-serif-medium required">First Name</mat-label></div>
+                  <div class="col-md-4"></div>
+                  <div class="col-md-4">
+                    <mat-label class="Helvetica-sans-serif-medium required">Last Name</mat-label>
+                  </div>
+                </div>
                 <div class="col-lg-12">
-
                   <div class="row">
+                   
                     <mat-form-field appearance="outline" class="col-lg-4 col-md-4 col-sm-4 col-12">
-                      <input matInput placeholder="First Name" [(ngModel)]="partnerSignup.first_name">
+                      <input matInput  placeholder="First Name" [(ngModel)]="partnerSignup.first_name">
                     </mat-form-field>
 
                     <mat-form-field appearance="outline" class="col-lg-4 col-md-4 col-sm-4 col-12">
                       <input matInput placeholder="Middle Name" [(ngModel)]="partnerSignup.middle_name">
                     </mat-form-field>
-
+                 
                     <mat-form-field appearance="outline" class="col-lg-4 col-md-4 col-sm-4 col-12">
                       <input matInput placeholder="Last Name" [(ngModel)]="partnerSignup.last_name">
                     </mat-form-field>
@@ -66,13 +73,22 @@
                 </div>
               </div>
               <div class="row">
+                <div class="col-md-6">
+                  <mat-label class="Helvetica-sans-serif-medium required">Phone Number</mat-label>
+                </div>
+                <div class="col-md-6">
+                  <mat-label class="Helvetica-sans-serif-medium required">Email</mat-label>
+                </div>
+
+              </div>
+              <div class="row">
                 <div class="col-lg-12">
                   <div class="row">
                     <mat-form-field appearance="outline" class="col-lg-6 col-md-4 col-sm-4 col-12">
-                      <input type="text" matInput placeholder="Phone Number *" [(ngModel)]="partnerSignup.phone_number" >
+                      <input type="text" matInput placeholder="Phone Number" [(ngModel)]="partnerSignup.phone_number">
                     </mat-form-field>
                     <mat-form-field appearance="outline" class="col-lg-6 col-md-4 col-sm-4 col-12">
-                      <input matInput placeholder="Email *" [(ngModel)]="partnerSignup.email" >
+                      <input matInput placeholder="Email" [(ngModel)]="partnerSignup.email">
                     </mat-form-field>
                   </div>
                 </div>
@@ -96,18 +112,18 @@
 
                       <div class="row">
                         <mat-form-field appearance="outline" class="col-lg-4 col-md-4 col-sm-4 col-12">
-                          <input matInput placeholder="Company Name" [(ngModel)]="partnerSignup.company_name" >
+                          <input matInput placeholder="Company Name" [(ngModel)]="partnerSignup.company_name">
                         </mat-form-field>
                         <mat-form-field appearance="outline" class="col-lg-4 col-md-4 col-sm-4 col-12">
-                          <input matInput placeholder="Company Address" [(ngModel)]="partnerSignup.company_address"
-                            >
+                          <input matInput placeholder="Company Address" [(ngModel)]="partnerSignup.company_address">
                         </mat-form-field>
                         <mat-form-field appearance="outline" class="col-lg-4 col-md-4 col-sm-4 col-12">
                           <input matInput placeholder="Company Url(s)" [(ngModel)]="partnerSignup.company_url">
                         </mat-form-field>
                       </div>
                       <div class="mt-3">
-                        <textarea matInput placeholder="Tell us a little about why you'd like to partner up!"></textarea>
+                        <textarea matInput
+                          placeholder="Tell us a little about why you'd like to partner up!"></textarea>
                       </div>
 
                       <div class="row pl-4">
@@ -115,8 +131,8 @@
                           <div class="controls">
                             <button type="button" [ngClass]="(partnerSignup.email==''||partnerSignup.email==null||partnerSignup.phone_number==''||partnerSignup.phone_number==null)?
                             'disable-button col-md-2': 'reg-button col-md-2'"
-                             (click)="CreatePartnerSignup(partnerSignup)" [disabled]="partnerSignup.email==''||partnerSignup.email==null
-                             ||partnerSignup.phone_number==''||partnerSignup.phone_number==null" >Submit</button>
+                              (click)="CreatePartnerSignup(partnerSignup)" [disabled]="partnerSignup.email==''||partnerSignup.email==null
+                             ||partnerSignup.phone_number==''||partnerSignup.phone_number==null">Submit</button>
                           </div>
                         </div>
                       </div>

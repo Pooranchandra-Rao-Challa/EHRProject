@@ -182,7 +182,7 @@
                                     placeholder="Source of Payment Typology">
                                     <mat-select-filter [displayMember]="'Code'"
                                         [array]="SourceOfPaymentTypologyCodesFilter"
-                                        (filteredReturn)="SourceOfPaymentTypologyCodes = $event"></mat-select-filter>
+                                        (filteredReturn)="SourceOfPaymentTypologyCodes = $event" id="inputcursor"></mat-select-filter>
                                     <mat-option *ngFor="let item of SourceOfPaymentTypologyCodes" [value]="item.Code"
                                         (click)="primaryspt(item)">
                                         {{item.Code}} - {{item.Description}}
@@ -243,7 +243,7 @@
                             <mat-form-field appearance="outline" class="calendaricon green-calendar w-100">
                                 <input matInput [matDatepicker]="dp4" placeholder="Date of Birth"
                                     [(ngModel)]="secList.DateOfBirth" (focus)="dp4?.open()"
-                                    class="Helvetica-sans-serif-medium">
+                                    class="Helvetica-sans-serif-medium" [max]="tomorrow">
                                 <mat-datepicker-toggle matSuffix [for]="dp4">
                                 </mat-datepicker-toggle>
                                 <mat-datepicker #dp4 disabled="false"></mat-datepicker>

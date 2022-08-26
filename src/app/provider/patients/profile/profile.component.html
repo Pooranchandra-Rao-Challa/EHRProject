@@ -45,7 +45,7 @@
                 <mat-form-field appearance="outline" class="form-group profile-green-calendar">
                   <input matInput class="date-mat-class" autocomplete="off" [(ngModel)]="patientMyProfile.DateOfBirth"
                     (mouseover)="hoverDATEOFBIRTH='_/__/_'" (mouseleave)="hoverDATEOFBIRTH='MM/DD/YYYY'"
-                    [matDatepicker]="picker" (click)="picker.open()" placeholder="{{ hoverDATEOFBIRTH }}">
+                    [matDatepicker]="picker" (click)="picker.open()" placeholder="{{ hoverDATEOFBIRTH }}" [max]="tomorrow">
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
@@ -154,7 +154,8 @@
                   [disabled]="emergencyDisableAddressVerification">
               </div>
               <div class="col-lg-2 col-md-2 col-xl-3 col-12 mt-3">
-                <div class="p-2"><button type="button" class="btn btn-lg btn-styles btn-verify mt-2 py-1"
+                <div class="d-grid gap-1 p-2 mt-3">
+                  <button type="button" class="btn btn-lg btn-styles btn-verify mt-2 py-1"
                     [disabled]="!patientMyProfile.EmergencyStreet || emergencyDisableAddressVerification"
                     (click)="EmergencyAddressVerification()">Verify</button></div>
               </div>
