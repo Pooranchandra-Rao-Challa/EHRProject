@@ -18,7 +18,7 @@
 .btn.btn-styles {
   color: #41b6a6;
   background: #ffffff ;
-  padding: 0px 35px;
+  padding: 0px 75px !important;
   height: 50px;
   border: 1px solid #41b6a6;
 }
@@ -659,7 +659,81 @@ input.mat-input-element {
   border: "1px solid #fff;"
 }
 .manualbtn{
-  width: 30%;
+  width: 23%;
   padding: unset !important;
  // margin-left: -62px;
+}
+
+// @media (min-width:1600px)  {
+//   .btn.btn-styles {
+//     color: #41b6a6;
+//     background: #ffffff ;
+//     padding: 0px 115px;
+//     height: 50px;
+//     border: 1px solid #41b6a6;
+//   }
+// }
+// @media (min-width:1024px)  {
+//   .btn.btn-styles {
+//     color: #41b6a6;
+//     background: #ffffff ;
+//     padding: 0px 39px;
+//     height: 50px;
+//     border: 1px solid #41b6a6;
+//   }
+// }
+// @media (min-width:2560px)  {
+//   .btn.btn-styles {
+
+//     padding: 0px 115px !important;
+
+//   }
+// }
+// @media (min-width:1024px)  {
+//   .btn.btn-styles {
+
+//     padding: 0px 75px !important;
+
+//   }
+// }
+
+
+@media (min-width:1600px) and (min-width:900px) {
+  .btn.btn-styles {
+
+    padding: 0px 57px !important;
+
+  }
+}
+@media (min-width:1920px) and (min-width:1080px) {
+  .btn.btn-styles {
+
+    padding: 0px 74px !important;
+
+  }
+}
+@media (min-width:1024px) and (min-width:769px) {
+  .btn.btn-styles {
+
+    padding: 0px 40px !important;
+
+  }
+}
+@media (min-width:768px) and (min-width:481px) {
+  .btn.btn-styles {
+
+    padding: 0px 56px !important;
+
+  }
+}
+@media (max-width:768px) and (max-width:481px) {
+  .btn.btn-styles {
+
+    padding: 0px 56px !important;
+
+  }
+}
+.error-message-alignment{
+  margin-left: 20px;
+  line-height: 3px;
 }

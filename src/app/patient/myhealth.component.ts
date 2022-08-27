@@ -31,7 +31,6 @@ export class MyhealthComponent implements OnInit {
    LabTest:LabtestResult[];
    ProcedurePatietn:ProblemDX[];
    CarePlan:ProblemDX[];
-
   constructor(private authenticationService: AuthenticationService,private patientservise: PatientService,) {
     this.user = authenticationService.userValue
     this.locationsInfo = JSON.parse(this.user.LocationInfo)
@@ -67,7 +66,7 @@ export class MyhealthComponent implements OnInit {
       "PatientId": this.user.PatientId,
     }
     this.patientservise.PatientMyProfileByPatientId(req).subscribe(resp => {
-        this.PatientProfile=resp.ListResult[0]
+        this.PatientProfile=resp.ListResult[0];
     })
   }
   getLocations() {

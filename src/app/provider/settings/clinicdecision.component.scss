@@ -163,6 +163,10 @@ mat-accordion .mat-expansion-panel:first-of-type {
   padding-top: 8px;
   margin-left: 20px;
   margin-right: -4px;
+  transform: rotate(61deg);
+    font-size: 29px;
+ 
+
 }
 
 .play-down-arrow {
@@ -428,10 +432,15 @@ mat-footer-cell:last-of-type {
 }
 mat-label{display: block;width: 100%;}
 .scrollable-modal{
-  height: 820px;
- 
+  height:850px;
 }
 .modal-content.Trigger-content
 {
   height: auto;
+}
+.mat-expansion-panel-header-title, .mat-expansion-panel-header-description {
+  display: flex;
+  flex-grow: 1;
+  margin-right: 16px;
+  margin-top: 6px;
 }

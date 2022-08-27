@@ -125,10 +125,7 @@ import { MedicationTableDialogComponent } from 'src/app/dialogs/medication.table
 import { TobaccoUseTableDialogComponent } from 'src/app/dialogs/tobacco.use.table.dialog/tobacco.use.table.dialog.component';
 import { SmokingStatusTableDialogComponent } from 'src/app/dialogs/smoking.status.table.dialog/smoking.status.table.dialog.component';
 import { AdvancedDirectivesTableDialogComponent } from 'src/app/dialogs/advanced.directives.table.dialog/advanced.directives.table.dialog.component';
-// import { FileUploadComponent } from 'src/app/_components/file.upload.component'
-// import { FileUploadService } from 'src/app/_services/file.upload.service';
 
-// import { MatFileUploadModule } from 'angular-material-fileupload';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -246,7 +243,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     TobaccoUseTableDialogComponent,
     SmokingStatusTableDialogComponent,
     AdvancedDirectivesTableDialogComponent,
-    // FileUploadComponent
+
   ],
   imports: [
     FullCalendarModule,

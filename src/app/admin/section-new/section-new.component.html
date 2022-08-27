@@ -9,12 +9,12 @@
     <div class="col-lg-12 col-xl-12 col-md-12 col-12 mt-2">
       <form class="row  form-border my-3">
         <div class="col-md-4 mt-3">
-          <label for="Sequence" class="form-label">Sequence*</label>
+          <label for="Sequence" class="form-label required">Sequence</label>
           <input type="text" class="form-control text-design" [(ngModel)]="WeeklyUpdate.Sequence" #sequence="ngModel"
              [ngModelOptions]="{standalone: true}" id="Sequence" name="Sequence" placeholder="Sequence">
         </div>
         <div class="col-md-4 mt-3">
-          <label for="Heading" class="form-label">Heading*</label>
+          <label for="Heading" class="form-label required">Heading</label>
           <input type="text" class="form-control text-design" [(ngModel)]="WeeklyUpdate.Header"
             [ngModelOptions]="{standalone: true}" id="Heading" name="Heading" placeholder="Heading Text">
         </div>
@@ -45,7 +45,7 @@
           </select>
         </div>
         <div class="col-md-12 mt-3">
-          <label for="Body" class="form-label">Body*</label>
+          <label for="Body" class="form-label required">Body</label>
           <ckeditor [(ngModel)]="WeeklyUpdate.Body" [ngModelOptions]="{standalone: true}"></ckeditor>
         </div>
         <div class="col-12 mb-3 mt-4">

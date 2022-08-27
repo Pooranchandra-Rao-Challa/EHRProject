@@ -68,7 +68,7 @@ export class ProfileComponent implements OnInit {
   emergencyAddressVerfied: boolean = false;
   emergencyDisableAddressVerification: boolean = false;
   PhonePattern: any
-
+  tomorrow = new Date();
   constructor(private patientService: PatientService,
     private utilityService: UtilityService,
     private smartSchedulerService: SmartSchedulerService,
@@ -84,8 +84,9 @@ export class ProfileComponent implements OnInit {
         symbol: 'X',
       },
     };
+    this.tomorrow.setDate(this.tomorrow.getDate());
   }
-
+  emailPattern = "^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$";
   ngOnInit(): void {
     this.getPatientDetails();
     this.getPatientMyProfile();
@@ -395,33 +396,33 @@ export class ProfileComponent implements OnInit {
   namePattern = /^[a-zA-Z ]*$/;
 
   enablePatientInfo() {
-   // let namePattern = /^[a-zA-Z ]*$/;
-    let ssnPattern =/^(?!666|000|9\d{2})\d{3}-(?!00)\d{2}-(?!0{4})\d{4}$/;
+    // let namePattern = /^[a-zA-Z ]*$/;
+    let ssnPattern = /^(?!666|000|9\d{2})\d{3}-(?!00)\d{2}-(?!0{4})\d{4}$/;
     let flag = !(this.namePattern.test(this.patientMyProfile.FirstName)
       && this.namePattern.test(this.patientMyProfile.LastName)
       && (this.patientMyProfile.MiddleName == null || this.patientMyProfile.MiddleName == ''
-       || this.namePattern.test(this.patientMyProfile.MiddleName))
-      && (this.patientMyProfile.SSecuirtyNumber == null || this.patientMyProfile.SSecuirtyNumber==''
-        ||ssnPattern.test(this.patientMyProfile.SSecuirtyNumber)));
+        || this.namePattern.test(this.patientMyProfile.MiddleName))
+      && (this.patientMyProfile.SSecuirtyNumber == null || this.patientMyProfile.SSecuirtyNumber == ''
+        || ssnPattern.test(this.patientMyProfile.SSecuirtyNumber)));
 
     return flag;
   }
 
- email = /^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$/;
+  email = /^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$/;
   enableEmergencyContactInfo() {
-   // let namePattern = /^[a-zA-Z ]*$/;
+    // let namePattern = /^[a-zA-Z ]*$/;
     let flag = !((this.namePattern.test(this.patientMyProfile.EmergencyFirstName)
       && this.patientMyProfile.EmergencyFirstName != null && this.patientMyProfile.EmergencyFirstName != '')
       && (this.namePattern.test(this.patientMyProfile.EmergencyLastName)
-      && this.patientMyProfile.EmergencyLastName != null && this.patientMyProfile.EmergencyLastName != '')
+        && this.patientMyProfile.EmergencyLastName != null && this.patientMyProfile.EmergencyLastName != '')
       && (this.patientMyProfile.EmergencyMiddleName == null || this.patientMyProfile.EmergencyMiddleName == ''
-       || this.namePattern.test(this.patientMyProfile.EmergencyMiddleName))
+        || this.namePattern.test(this.patientMyProfile.EmergencyMiddleName))
       && this.patientMyProfile.RelationshipToPatient != null && this.patientMyProfile.RelationshipToPatient != '');
 
     return flag;
   }
 
-  enablePatientContactInfo(){
+  enablePatientContactInfo() {
 
   }
 }

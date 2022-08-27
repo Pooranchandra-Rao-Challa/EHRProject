@@ -23,37 +23,37 @@
             <div class="d-inline-flex p-2 mb-3">
               <label class="fs-4 profile-title">Patient Information</label>
             </div>
-            <div *ngIf="firstName.errors && (firstName.touched)">
+            <div *ngIf="firstName.errors && (firstName.touched)" class="error-message-alignment">
               <div class="error_message" *ngIf="firstName.errors?.required">
                 <span class="e_arrow"></span>
-                <i class="errormessage">Please enter First Name</i>
+                <p class="errormessage">Please enter First Name</p>
               </div>
               <div class="error_message" *ngIf="firstName.errors?.pattern">
                 <span class="e_arrow"></span>
-                <i class="errormessage">First name not valid, Use only Alphabets and space</i>
+                <p class="errormessage">First name not valid, Use only Alphabets and space</p>
               </div>
             </div>
-            <div *ngIf="middleName.errors && (middleName.touched)">
+            <div *ngIf="middleName.errors && (middleName.touched)" class="error-message-alignment">
               <div class="error_message" *ngIf="middleName.errors?.pattern">
                 <span class="e_arrow"></span>
-                <i class="errormessage">Middle name not valid, Use only Alphabets and space</i>
+                <p class="errormessage">Middle name not valid, Use only Alphabets and space</p>
               </div>
             </div>
-            <div *ngIf="lastName.errors && (lastName.touched)">
+            <div *ngIf="lastName.errors && (lastName.touched)" class="error-message-alignment">
               <div class="error_message" *ngIf="lastName.errors?.required">
                 <span class="e_arrow"></span>
-                <i class="errormessage">Please enter Last Name</i>
+                <p class="errormessage">Please enter Last Name</p>
               </div>
               <div class="error_message" *ngIf="lastName.errors?.pattern">
                 <span class="e_arrow"></span>
-                <i class="errormessage">Lasst name not valid, Use only Alphabets and space</i>
+                <p class="errormessage">Last name not valid, Use only Alphabets and space</p>
               </div>
             </div>
 
-            <div *ngIf="ssn.errors && (ssn.touched)">
+            <div *ngIf="ssn.errors && (ssn.touched)" class="error-message-alignment">
               <div class="error_message" *ngIf="ssn.errors?.pattern">
                 <span class="e_arrow"></span>
-                <i class="errormessage">SSN should be enter as shown in the hint</i>
+                <p class="errormessage">SSN should be enter as shown in the hint</p>
               </div>
             </div>
 
@@ -78,6 +78,7 @@
                 <input class="input-group form-control" [(ngModel)]="patientMyProfile.LastName" placeholder="Last Name"
                   type="text" id="LastName" pattern="^[a-zA-Z ]*$" #lastName="ngModel"
                   [ngModelOptions]="{standalone: true}">
+
               </div>
 
 
@@ -87,7 +88,7 @@
                 <mat-form-field appearance="outline" class="form-group profile-green-calendar">
                   <input matInput class="date-mat-class" autocomplete="off" [(ngModel)]="patientMyProfile.DateOfBirth"
                     (mouseover)="hoverDATEOFBIRTH='_/__/_'" (mouseleave)="hoverDATEOFBIRTH='MM/DD/YYYY'"
-                    [matDatepicker]="picker" (click)="picker.open()" placeholder="{{ hoverDATEOFBIRTH }}">
+                    [matDatepicker]="picker" (click)="picker.open()" placeholder="{{ hoverDATEOFBIRTH }}" [max]="tomorrow">
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
@@ -156,30 +157,30 @@
             <div class="d-inline-flex p-2 mb-3">
               <label class="fs-4 profile-title">Emergency Contact</label>
             </div>
-            <div *ngIf="contactfirstName.errors && (contactfirstName.touched)">
+            <div *ngIf="contactfirstName.errors && (contactfirstName.touched)" class="error-message-alignment">
               <div class="error_message" *ngIf="contactfirstName.errors?.required">
                 <span class="e_arrow"></span>
-                <i class="errormessage">Please enter First Name</i>
+                <p class="errormessage">Please enter First Name</p>
               </div>
               <div class="error_message" *ngIf="contactfirstName.errors?.pattern">
                 <span class="e_arrow"></span>
-                <i class="errormessage">First name not valid, Use only Alphabets and space</i>
+                <p class="errormessage">First name not valid, Use only Alphabets and space</p>
               </div>
             </div>
-            <div *ngIf="contactmiddleName.errors && (contactmiddleName.touched)">
+            <div *ngIf="contactmiddleName.errors && (contactmiddleName.touched)" class="error-message-alignment">
               <div class="error_message" *ngIf="contactmiddleName.errors?.pattern">
                 <span class="e_arrow"></span>
-                <i class="errormessage">Middle name not valid, Use only Alphabets and space</i>
+                <p class="errormessage">Middle name not valid, Use only Alphabets and space</p>
               </div>
             </div>
-            <div *ngIf="contactlastName.errors && (contactlastName.touched)">
+            <div *ngIf="contactlastName.errors && (contactlastName.touched)" class="error-message-alignment">
               <div class="error_message" *ngIf="contactlastName.errors?.required">
                 <span class="e_arrow"></span>
-                <i class="errormessage">Please enter Last Name</i>
+                <p class="errormessage">Please enter Last Name</p>
               </div>
               <div class="error_message" *ngIf="contactlastName.errors?.pattern">
                 <span class="e_arrow"></span>
-                <i class="errormessage">Lasst name not valid, Use only Alphabets and space</i>
+                <p class="errormessage">Lasst name not valid, Use only Alphabets and space</p>
               </div>
             </div>
             <div class="row  mx-2">
@@ -233,15 +234,15 @@
               </div>
 
               <div class="col-lg-12 col-md-12 col-xl-12 col-12 my-2">
-                <div style="width: 100%; display: flex;  align-items: baseline;">
-                  <div class="input-group" style="width:70%; margin-right:20px">
+                <div style="width: 100%; display: flex;  align-items: center;">
+                  <div class="input-group" style="width:74%; margin-right:20px">
                     <label class="control-label input-group-addon">Street Address</label>
                     <input class="form-control" [(ngModel)]="patientMyProfile.EmergencyStreetAddress"
                       placeholder="Street Address" type="text" id="StreetAddress" name="StreetAddress"
                       [readonly]="!emergencyDisableAddressVerification"
                       [class.address-verfied]="!emergencyManuallybtn" />
                   </div>
-                  <button type="button" class="btn cross-mark error-close"
+                  <button type="button" class="btn cross-mark error-close" style="padding: unset;"
                     *ngIf="emergencyAddressVerfied && !emergencyManuallybtn" (click)="EmergencyenableManualEntry()"
                     title="Can enter manully when the verification results are in correct by clicking this icon">x</button>
                   <button class="btn-green btn manualbtn  py-0 btn-lg btn-md"
@@ -428,10 +429,10 @@
             <div class="d-inline-flex p-2 mb-3">
               <label class="fs-4 profile-title">Contact Information</label>
             </div>
-            <div *ngIf="patientEmail.errors && (patientEmail.touched)">
+            <div *ngIf="patientEmail.errors && (patientEmail.touched)" class="error-message-alignment">
               <div class="error_message" *ngIf="patientEmail.errors?.pattern">
                 <span class="e_arrow"></span>
-                <i class="errormessage">Enter Email in correct format</i>
+                <p class="errormessage">Enter Email in correct format</p>
               </div>
             </div>
             <div class="row  mx-2">
@@ -446,6 +447,7 @@
                 <input class="input-group form-control" [(ngModel)]="patientMyProfile.email"
                  placeholder="Email" pattern="^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$"
                   #patientEmail="ngModel" type="text" id="Email">
+
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="HOMEPHONE" class="form-label label-design">Home Phone</label>
@@ -489,40 +491,48 @@
                   </label> <label class="form-label label-design">SEND APPOINTMENT REMINDERS FOR THIS PATIENT</label>
                 </div>
               </div>
-              <div class="col-lg-8 col-md-8 col-xl-9 col-12 my-2">
+              <div class="col-lg-12 col-md-12 col-xl-12 col-12 my-2">
                 <label for="HOMEADDRESS" class="form-label label-design">Home Address</label>
+                <div style="width: 100%; display: flex;  align-items: baseline;">
                 <input class="input-group form-control" placeholder="Home Address" type="text" id="HOME ADDRESS"
+                   style="margin-right:20px"
                   [disabled]="disableaddressverification" [(ngModel)]="patientMyProfile.Street">
-              </div>
-              <div class="col-lg-2 col-md-4 col-xl-3 col-12 my-lg-2 mt-lg-3">
-                <div class="d-grid gap-1 p-2">
                   <button type="button" class="btn btn-lg btn-styles btn-block btn-verify mt-4 mt-lg-2"
-                    [disabled]="!patientMyProfile.Street || disableaddressverification"
-                    (click)="AddressVerification()">Verify</button>
+                  [disabled]="!patientMyProfile.Street || disableaddressverification"
+                  (click)="AddressVerification()">Verify</button>
                 </div>
               </div>
-              <div class="col-lg-8 col-md-12 col-xl-9 col-12 my-2">
-                <div class="form-group">
-                  <div class="input-group">
+              <!-- <div class="col-lg-2 col-md-4 col-xl-3 col-12 my-lg-2 mt-lg-3">
+                <div class="d-grid gap-1 p-2">
+
+                </div>
+              </div> -->
+              <div class="col-lg-12 col-md-12 col-xl-12 col-12 my-2">
+                <!--   <div style="width: 100%; display: flex;  align-items: center;">
+                  <div class="input-group" style="width:74%; margin-right:20px">-->
+                <div style="width: 100%; display: flex;  align-items: center;">
+                  <div class="input-group" style="width:74%; margin-right:20px">
                     <label class="control-label input-group-addon">Street Address</label>
                     <input class="form-control" [(ngModel)]="patientMyProfile.StreetAddress"
                       placeholder="Street Address" type="text" id="StreetAddress" name="StreetAddress"
                       [readonly]="!disableaddressverification" [class.contactinfoaddress-verfied]="!manuallybtn" />
                   </div>
+                  <button type="button" class="btn cross-mark error-close" *ngIf="addressVerfied && !manuallybtn"
+                  (click)="enableManualEntry()" style="padding: unset;"
+                  title="Can enter manully when the verification results are in correct by clicking this icon">x</button>
+                  <button class="btn-green btn manualbtn  py-0 btn-lg btn-md"
+                  *ngIf="manuallybtn || disableaddressverification" (click)="enterAddressManually()">Enter Address
+                  Manually</button>
                 </div>
               </div>
-              <div class="col-lg-2 col-md-2 col-xl-1 col-12 my-2 ">
-                <button type="button" class="btn cross-mark error-close" *ngIf="addressVerfied && !manuallybtn"
-                  (click)="enableManualEntry()"
-                  title="Can enter manully when the verification results are in correct by clicking this icon">x</button>
+              <!-- <div class="col-lg-2 col-md-2 col-xl-1 col-12 my-2 ">
+
               </div>
               <div class="col-lg-2 col-md-2 col-xl-2 col-12 my-2 ">
                 <div class="form-group">
-                  <button class="btn-green btn manualbtn  py-0 btn-lg btn-md"
-                    *ngIf="manuallybtn || disableaddressverification" (click)="enterAddressManually()">Enter Address
-                    Manually</button>
+
                 </div>
-              </div>
+              </div> -->
               <div class="col-lg-12 col-md-12 col-xl-4 col-12 my-2">
                 <div class="form-group">
                   <div class="input-group">

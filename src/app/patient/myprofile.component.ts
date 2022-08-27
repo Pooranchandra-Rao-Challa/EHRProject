@@ -74,8 +74,8 @@ relationship: any = [
   { Id: '15', value: 'UnKnown' },
 ]
 GenderData:any=[
-  { Id: '1', value: 'Male' },
-  { Id: '2', value: 'Female' },
+  { Id: '1', value: 'male' },
+  { Id: '2', value: 'female' },
   { Id: '3', value: 'other' },
 
 ]
