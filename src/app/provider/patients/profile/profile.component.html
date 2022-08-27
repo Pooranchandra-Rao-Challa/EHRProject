@@ -61,7 +61,7 @@
             <div class="row  mx-2">
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="Name" class="form-label label-design required">First Name</label>
-                <input type="text" class="input-group form-control" placeholder="First Name"
+                <input type="text" class="input-group form-control" required placeholder="First Name"
                   [(ngModel)]="patientMyProfile.FirstName" id="FirstName" pattern="^[a-zA-Z ]*$" #firstName="ngModel"
                   [ngModelOptions]="{standalone: true}">
               </div>
@@ -75,7 +75,7 @@
 
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="LastName" class="form-label label-design required">Last Name</label>
-                <input class="input-group form-control" [(ngModel)]="patientMyProfile.LastName" placeholder="Last Name"
+                <input class="input-group form-control" required [(ngModel)]="patientMyProfile.LastName" placeholder="Last Name"
                   type="text" id="LastName" pattern="^[a-zA-Z ]*$" #lastName="ngModel"
                   [ngModelOptions]="{standalone: true}">
 
@@ -180,9 +180,17 @@
               </div>
               <div class="error_message" *ngIf="contactlastName.errors?.pattern">
                 <span class="e_arrow"></span>
-                <p class="errormessage">Lasst name not valid, Use only Alphabets and space</p>
+                <p class="errormessage">Last name not valid, Use only Alphabets and space</p>
               </div>
             </div>
+            <div *ngIf="EMPatientRelationship.errors && (EMPatientRelationship.touched)" class="error-message-alignment">
+              <div class="error_message" *ngIf="EMPatientRelationship.errors?.required">
+                <span class="e_arrow"></span>
+                <p class="errormessage">Select relationship with patient</p>
+              </div>
+            </div>
+
+
             <div class="row  mx-2">
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="Name" class="form-label label-design required">Name</label>
@@ -206,7 +214,7 @@
                 <label for="RELATION" class="form-label label-design text-nowrap required">Relation To Patient</label>
                 <div class="form-group">
                   <mat-form-field appearance="outline" class="col-12">
-                    <mat-select placeholder="Select Patient Relation"
+                    <mat-select placeholder="Select Patient Relation" required #EMPatientRelationship
                       [(ngModel)]="patientMyProfile.RelationshipToPatient">
                       <mat-option *ngFor="let item of relationship" [value]="item.value">{{item.value}}</mat-option>
                     </mat-select>
@@ -216,7 +224,7 @@
 
               <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
                 <label for="PHONE" class="form-label label-design">Phone</label>
-                <input class="input-group form-control ssno-emergencykin-phone" [(ngModel)]="patientMyProfile.Phone"
+                <input class="input-group form-control" [(ngModel)]="patientMyProfile.Phone"
                   placeholder="Cell PHONE" type="tel" id="PHONE" mask=" (000) 000-0000" [showMaskTyped]="true"
                   [patterns]="PhonePattern">
               </div>
@@ -249,16 +257,7 @@
                     *ngIf="emergencyManuallybtn || emergencyDisableAddressVerification"
                     (click)="EmergencyenterAddressManually()">Enter Address Manually</button>
                 </div>
-
               </div>
-              <!-- <div class="col-lg-2 col-md-2 col-xl-1 col-12 my-2 ">
-
-              </div>
-              <div class="col-lg-2 col-md-2 col-xl-2 col-12 my-2 ">
-                <div class="form-group">
-
-                </div>
-              </div> -->
               <div class="col-lg-12 col-md-12 col-xl-4 col-12 my-2">
                 <div class="form-group">
                   <div class="input-group">
@@ -304,45 +303,73 @@
             <div class="d-inline-flex p-2 mb-3">
               <label class="fs-4 profile-title">Next of kin</label>
             </div>
+            <div *ngIf="nkFirstName.errors && (nkFirstName.touched)" class="error-message-alignment">
+              <div class="error_message" *ngIf="nkFirstName.errors?.required">
+                <span class="e_arrow"></span>
+                <p class="errormessage">Please enter First Name</p>
+              </div>
+              <div class="error_message" *ngIf="nkFirstName.errors?.pattern">
+                <span class="e_arrow"></span>
+                <p class="errormessage">First name not valid, Use only Alphabets and space</p>
+              </div>
+            </div>
+            <div *ngIf="nkMiddleName.errors && (nkMiddleName.touched)" class="error-message-alignment">
+              <div class="error_message" *ngIf="nkMiddleName.errors?.pattern">
+                <span class="e_arrow"></span>
+                <p class="errormessage">Middle name not valid, Use only Alphabets and space</p>
+              </div>
+            </div>
+            <div *ngIf="nkLastName.errors && (nkLastName.touched)" class="error-message-alignment">
+              <div class="error_message" *ngIf="nkLastName.errors?.required">
+                <span class="e_arrow"></span>
+                <p class="errormessage">Please enter Last Name</p>
+              </div>
+              <div class="error_message" *ngIf="nkLastName.errors?.pattern">
+                <span class="e_arrow"></span>
+                <p class="errormessage">Last name not valid, Use only Alphabets and space</p>
+              </div>
+            </div>
+            <div *ngIf="nkRelationship.errors && (nkRelationship.touched)" class="error-message-alignment">
+              <div class="error_message" *ngIf="nkRelationship.errors?.required">
+                <span class="e_arrow"></span>
+                <p class="errormessage">Please select relationship with patient</p>
+              </div>
+            </div>
 
             <div class="row  mx-2">
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
-                <label for="Name" class="form-label label-design">Name</label>
-                <input class="input-group form-control" [(ngModel)]="patientMyProfile.NKFirstName" placeholder="Name"
-                  type="text" id="Name">
+                <label for="Name" class="form-label label-design required">First Name</label>
+                <input class="input-group form-control" required [(ngModel)]="patientMyProfile.NKFirstName" placeholder="First Name"
+                  type="text" id="nkName" pattern="^[a-zA-Z ]*$" #nkFirstName="ngModel">
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
-                <label for="MiddleName" class="form-label label-design">Middle Name</label>
+                <label for="MiddleName" class="form-label label-design ">Middle Name</label>
                 <input class="input-group form-control" [(ngModel)]="patientMyProfile.NkMiddleName"
-                  placeholder="Middle (optional)" type="text" id="MiddleName">
+                  placeholder="Middle (optional)" type="text" id="nkMiddleName" pattern="^[a-zA-Z ]*$" #nkMiddleName="ngModel">
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
-                <label for="LAstName" class="form-label label-design">Last Name</label>
-                <input class="input-group form-control" [(ngModel)]="patientMyProfile.NkLastName" placeholder="Last"
-                  type="text" id="LastName">
+                <label for="LAstName" class="form-label label-design required">Last Name</label>
+                <input class="input-group form-control" required [(ngModel)]="patientMyProfile.NkLastName" placeholder="Last Name"
+                  type="text" id="nkLastName" pattern="^[a-zA-Z ]*$" #nkLastName="ngModel">
               </div>
               <div class="col-lg-5 col-md-5 col-xl-6 col-12 my-2">
-                <label for="RELATION" class="form-label label-design text-nowrap">Relation To Patient</label>
+                <label for="RELATION" class="form-label label-design text-nowrap required">Relation To Patient</label>
                 <mat-form-field appearance="outline" class="input-fields col-lg-12 col-md-12 col-12">
-                  <mat-select placeholder="Select One" [(ngModel)]="patientMyProfile.NkRel">
+                  <mat-select placeholder="Select One" required [(ngModel)]="patientMyProfile.NkRel" #nkRelationship="ngModel">
                     <mat-option [value]="item.value" *ngFor="let item of relationship">{{item.value}}</mat-option>
                   </mat-select>
                 </mat-form-field>
-                <!-- <select class="form-select" aria-label="Default select example"
-                  [(ngModel)]="patientMyProfile.NkRel">
-                  <option [value]="item.value" *ngFor="let item of relationship">{{item.value}}</option>
-                </select> -->
               </div>
               <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
                 <label for="SEX" class="form-label label-design">Phone</label>
                 <input class="input-group form-control ssno-emergencykin-phone"
-                  [(ngModel)]="patientMyProfile.NKMobilePhone" placeholder="Cell PHONE" type="text" id="DATEOFBIRTH"
+                  [(ngModel)]="patientMyProfile.NKMobilePhone" placeholder="Cell PHONE" type="text" id="NkMobilePhone"
                   mask=" (000) 000-0000" [showMaskTyped]="true" [patterns]="PhonePattern">
               </div>
               <div class="col-lg-12 col-md-12 col-12 my-2">
-                <label for="DATEOFBIRTH*" class="form-label label-design">Address</label>
+                <label for="NKStreetAddress*" class="form-label label-design">Address</label>
                 <input class="input-group form-control" [(ngModel)]="patientMyProfile.NKStreetAddress"
-                  placeholder="Street Address" type="text" id="DATEOFBIRTH">
+                  placeholder="Street Address" type="text" id="NKStreetAddress">
               </div>
 
               <div class="col-lg-6 col-md-6 col-12 my-2">
@@ -359,7 +386,7 @@
                   type="text" id="Zip">
               </div>
               <div class="d-flex justify-content-end mt-3">
-                <button type="button" class="btn btn-lg btn-orange" (click)="updateNextOfKin()">Save</button>
+                <button type="button" class="btn btn-lg btn-orange" [disabled]="enableNextKinInfo()" (click)="updateNextOfKin()">Save</button>
               </div>
 
             </div>
@@ -393,30 +420,6 @@
               <button type="button" class="btn btn-lg btn-orange" (click)="updateImmunizationRegistry()">Save</button>
             </div>
           </div>
-
-          <!-- <div class="col-lg-12 col-md-12 col-12 my-3">
-            <div class="d-inline-flex p-2 my-2 mx-3 mb-4">
-              <label class="fs-4">Immunization registry</label>
-            </div>
-            <div class="row">
-              <mat-radio-group [(ngModel)]="patientMyProfile.ImmunizationrRegistry">
-                <div class="col-lg-12 col-md-12 col-12">
-                  <mat-radio-button value="not_send" class="radio-btn-label label-design my-1">Don’t send immunization
-                    data. Patient has requested to protect their data.</mat-radio-button>
-                </div>
-                <div class="col-lg-12 col-md-12 col-12">
-                  <mat-radio-button value="sent" class="radio-btn-label label-design my-1">send immunization data.
-                    Patient has requested to protect their data.</mat-radio-button>
-                </div>
-                <div class="col-lg-12 col-md-12 col-12">
-                  <mat-radio-button value="not_specified" class="radio-btn-label label-design my-1">Patient did not
-                    specify preference regarding sharing their data.</mat-radio-button>
-                </div>
-              </mat-radio-group>
-            </div>
-
-          </div> -->
-
         </div>
       </div>
 
@@ -433,6 +436,12 @@
               <div class="error_message" *ngIf="patientEmail.errors?.pattern">
                 <span class="e_arrow"></span>
                 <p class="errormessage">Enter Email in correct format</p>
+              </div>
+            </div>
+            <div *ngIf="pWorkPhone.errors && (pWorkPhone.touched)" class="error-message-alignment">
+              <div class="error_message" *ngIf="pWorkPhone.errors?.pattern">
+                <span class="e_arrow"></span>
+                <p class="errormessage">Work Phone number should be 10 digits.</p>
               </div>
             </div>
             <div class="row  mx-2">
@@ -459,7 +468,7 @@
                 <label for="WORKPHONE" class="form-label label-design">Work Phone</label>
                 <input class="input-group form-control" [(ngModel)]="patientMyProfile.WorkPhone"
                   placeholder="WORK PHONE" type="tel" id="WORK PHONE" mask=" (000) 000-0000" [showMaskTyped]="true"
-                  [patterns]="PhonePattern">
+                  [patterns]="PhonePattern" #pWorkPhone="ngModel">
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="Ext*" class="form-label label-design">Ext</label>
@@ -502,14 +511,7 @@
                   (click)="AddressVerification()">Verify</button>
                 </div>
               </div>
-              <!-- <div class="col-lg-2 col-md-4 col-xl-3 col-12 my-lg-2 mt-lg-3">
-                <div class="d-grid gap-1 p-2">
-
-                </div>
-              </div> -->
               <div class="col-lg-12 col-md-12 col-xl-12 col-12 my-2">
-                <!--   <div style="width: 100%; display: flex;  align-items: center;">
-                  <div class="input-group" style="width:74%; margin-right:20px">-->
                 <div style="width: 100%; display: flex;  align-items: center;">
                   <div class="input-group" style="width:74%; margin-right:20px">
                     <label class="control-label input-group-addon">Street Address</label>
@@ -525,14 +527,6 @@
                   Manually</button>
                 </div>
               </div>
-              <!-- <div class="col-lg-2 col-md-2 col-xl-1 col-12 my-2 ">
-
-              </div>
-              <div class="col-lg-2 col-md-2 col-xl-2 col-12 my-2 ">
-                <div class="form-group">
-
-                </div>
-              </div> -->
               <div class="col-lg-12 col-md-12 col-xl-4 col-12 my-2">
                 <div class="form-group">
                   <div class="input-group">
@@ -564,7 +558,7 @@
                 </div>
               </div>
               <div class="d-flex justify-content-end mt-3">
-                <button type="button" class="btn btn-lg btn-orange" (click)="updateContactInform()">Save</button>
+                <button type="button" class="btn btn-lg btn-orange" [disabled]="enablePatientContactInfo()" (click)="updateContactInform()">Save</button>
               </div>
             </div>
           </div>

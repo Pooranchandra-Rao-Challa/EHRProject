@@ -2,8 +2,8 @@
   <div id="pause" class="d-flex align-items-center justify-content-center" *ngIf="customizedspinner">
     <div id="spinner"></div>
   </div>
-  <div class="row" *ngIf="isViewResults && ViewResults">
-    <div class="col-md-12 grid-margin stretch-card">
+  <div class="row" *ngIf="isViewResults && ViewResults" style="margin:unset">
+    <div class="col-md-12 cqm-container stretch-card">
       <div class="card mat-elevation-z8">
         <div class="card-body ">
           <div class="float-right">
@@ -1314,8 +1314,8 @@
     </div>
   </div>
 
-  <div class="row" [hidden]="isViewResults" [hidden]="!ViewResults">
-    <div class="col-md-12 grid-margin stretch-card">
+  <div class="row" [hidden]="isViewResults" [hidden]="!ViewResults" style="margin:unset">
+    <div class="col-md-12 cqm-container grid-margin stretch-card">
       <div class="card mat-elevation-z8" style="min-height: 500px;">
         <div class="card-body">
           <h3>Queued Reports</h3>

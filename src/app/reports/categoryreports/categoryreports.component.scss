@@ -1,6 +1,20 @@
-// .top-header {
-//   background-color: #41b6a6;
-// }
+.report-header {
+  background: #41b6a6;
+}
+
+
+.top-header {
+  background-color: #41b6a6;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mat-form-field-wrapper {
+  margin-bottom: unset !important;
+  padding-bottom: unset !important;
+}
+
 // .row {
 //   border-bottom: none;
 //   max-height: 100%;
@@ -26,51 +40,46 @@
 // }
 // /* Dropdown */
 
-// ::ng-deep
-//   .hover.mat-form-field-appearance-outline:hover
-//   .mat-form-field-outline,
-// .hover.mat-form-field-appearance-outline:active .mat-form-field-outline {
-//   background: #41b6a6 !important;
-//   border: none !important;
-// }
-// ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
-//   background-color: #fff !important;
-//   border-radius: 6px;
-//   border: 1px solid #41b6a6 !important;
-// }
-// .mat-option.mat-active {
-//   background: #e5f8f5 !important;
-// }
-// ::ng-deep .mat-select-arrow {
-//   color: #4d4b4b !important;
-// }
-// ::ng-deep .mat-select-placeholder {
-//   color: #4d4b4b !important;
-// }
-// ::ng-deep .matInput-placeholder {
-//   color: #4d4b4b !important;
-// }
-// .mat-form-field-wrapper {
-//   height: 34px !important;
-// }
-// ::ng-deep .hover.mat-form-field-appearance-outline:hover .mat-select-arrow {
-//   color: white !important;
-// }
-// ::ng-deep
-//   .hover.mat-form-field-appearance-outline:hover
-//   .mat-select-placeholder {
-//   color: white !important;
-// }
-// ::ng-deep
-//   .hover.mat-form-field-appearance-outline:hover
-//   .mat-select-value-text {
-//   color: white !important;
-// }
-// //input outline color
-// ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
-//   color: #fff !important;
-//   // opacity: 1!important;
-// }
+::ng-deep #category-report .hover.mat-form-field-appearance-outline:hover
+  .mat-form-field-outline,
+  #category-report .hover.mat-form-field-appearance-outline:active .mat-form-field-outline {
+  background: #41b6a6 !important;
+  border: none !important;
+}
+::ng-deep #category-report .mat-form-field-appearance-outline .mat-form-field-outline {
+  background-color: #fff !important;
+  border-radius: 6px;
+  border: 1px solid #41b6a6 !important;
+}
+::ng-deep #category-report .mat-option.mat-active {
+  background: #e5f8f5 !important;
+}
+::ng-deep #category-report .mat-select-arrow {
+  color: #4d4b4b !important;
+}
+::ng-deep #category-report .mat-select-placeholder {
+  color: #4d4b4b !important;
+}
+::ng-deep #category-report .matInput-placeholder {
+  color: #4d4b4b !important;
+}
+
+::ng-deep #category-report .hover.mat-form-field-appearance-outline:hover .mat-select-arrow {
+  color: white !important;
+}
+::ng-deep #category-report .hover.mat-form-field-appearance-outline:hover
+  .mat-select-placeholder {
+  color: white !important;
+}
+::ng-deep #category-report .hover.mat-form-field-appearance-outline:hover
+  .mat-select-value-text {
+  color: white !important;
+}
+//input outline color
+::ng-deep #category-report .mat-form-field-appearance-outline .mat-form-field-outline {
+  color: #fff !important;
+  // opacity: 1!important;
+}
 
 // //mat-input focused color
 // ::ng-deep
@@ -114,25 +123,29 @@
 //   color: #fff !important;
 // }
 
-// ::ng-deep .mat-select-panel {
-//   min-width: calc(100% + 22px) !important;
-//   max-width: calc(min-width) !important;
-//   margin-left: 5px !important;
-// }
-// .mat-option {
-//   border-left: 1px solid #41b6a6;
-//   border-right: 1px solid #41b6a6;
-// }
-// .mat-option:last-child {
-//   border-right: 1px solid #41b6a6;
-// }
-// .mat-option:last-child {
-//   border-bottom: 1px solid #41b6a6;
-// }
-// .mat-option:hover {
-//   background-color: #e5f8f5;
-// }
-// .mat-option.mat-selected:not(.mat-option-disabled) {
-//   color: black;
-//   text-shadow: black;
-// }
+#category-report ::ng-deep .select-option-panel{
+  margin-top: 30px !important;
+}
+
+#category-report ::ng-deep .mat-select-panel {
+  min-width: calc(100% + 22px) !important;
+  max-width: calc(min-width) !important;
+  margin-left: 5px !important;
+}
+#category-report .mat-option {
+  border-left: 1px solid #41b6a6;
+  border-right: 1px solid #41b6a6;
+}
+#category-report .mat-option:last-child {
+  border-right: 1px solid #41b6a6;
+}
+#category-report .mat-option:last-child {
+  border-bottom: 1px solid #41b6a6;
+}
+#category-report .mat-option:hover {
+  background-color: #e5f8f5;
+}
+#category-report .mat-option.mat-selected:not(.mat-option-disabled) {
+  color: black;
+  text-shadow: black;
+}
