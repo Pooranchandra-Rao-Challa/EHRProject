@@ -589,7 +589,9 @@ input[type='checkbox']:checked:after {
   padding: 4px !important;
   border: 1px solid #d64841;
 }
-
+.ssno-emergencykin-phone.is-invalid{
+  color: #d64841 !important;
+}
 .Cancelbtn:hover {
   background: #fff !important;
   color: #d64841 !important;
@@ -657,6 +659,7 @@ input.mat-input-element {
   border: "1px solid #fff;"
 }
 .manualbtn{
-  width: 167%;
-  margin-left: -62px;
+  width: 30%;
+  padding: unset !important;
+ // margin-left: -62px;
 }

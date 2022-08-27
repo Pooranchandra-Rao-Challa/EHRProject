@@ -23,25 +23,67 @@
             <div class="d-inline-flex p-2 mb-3">
               <label class="fs-4 profile-title">Patient Information</label>
             </div>
+            <div *ngIf="firstName.errors && (firstName.touched)">
+              <div class="error_message" *ngIf="firstName.errors?.required">
+                <span class="e_arrow"></span>
+                <i class="errormessage">Please enter First Name</i>
+              </div>
+              <div class="error_message" *ngIf="firstName.errors?.pattern">
+                <span class="e_arrow"></span>
+                <i class="errormessage">First name not valid, Use only Alphabets and space</i>
+              </div>
+            </div>
+            <div *ngIf="middleName.errors && (middleName.touched)">
+              <div class="error_message" *ngIf="middleName.errors?.pattern">
+                <span class="e_arrow"></span>
+                <i class="errormessage">Middle name not valid, Use only Alphabets and space</i>
+              </div>
+            </div>
+            <div *ngIf="lastName.errors && (lastName.touched)">
+              <div class="error_message" *ngIf="lastName.errors?.required">
+                <span class="e_arrow"></span>
+                <i class="errormessage">Please enter Last Name</i>
+              </div>
+              <div class="error_message" *ngIf="lastName.errors?.pattern">
+                <span class="e_arrow"></span>
+                <i class="errormessage">Lasst name not valid, Use only Alphabets and space</i>
+              </div>
+            </div>
+
+            <div *ngIf="ssn.errors && (ssn.touched)">
+              <div class="error_message" *ngIf="ssn.errors?.pattern">
+                <span class="e_arrow"></span>
+                <i class="errormessage">SSN should be enter as shown in the hint</i>
+              </div>
+            </div>
+
+
             <div class="row  mx-2">
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
-                <label for="Name" class="form-label label-design">Name</label>
+                <label for="Name" class="form-label label-design required">First Name</label>
                 <input type="text" class="input-group form-control" placeholder="First Name"
-                  [(ngModel)]="patientMyProfile.FirstName" id="FirstName">
-              </div>
-              <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
-                <label for="MiddleName" class="form-label label-design">Middle Name</label>
-                <input class="input-group form-control" [(ngModel)]="patientMyProfile.MiddleName"
-                  placeholder="Middle (optional)" type="text" id="MiddleName">
-              </div>
-              <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
-                <label for="LastName" class="form-label label-design">Last Name</label>
-                <input class="input-group form-control" [(ngModel)]="patientMyProfile.LastName" placeholder="Last Name"
-                  type="text" id="LastName">
+                  [(ngModel)]="patientMyProfile.FirstName" id="FirstName" pattern="^[a-zA-Z ]*$" #firstName="ngModel"
+                  [ngModelOptions]="{standalone: true}">
               </div>
 
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
-                <label for="DATEOFBIRTH*" class="form-label label-design">Date Of Birth</label>
+                <label for="MiddleName" class="form-label label-design">Middle Name</label>
+                <input class="input-group form-control" [(ngModel)]="patientMyProfile.MiddleName"
+                  placeholder="Middle (optional)" type="text" id="MiddleName" pattern="^[a-zA-Z ]*$"
+                  #middleName="ngModel" [ngModelOptions]="{standalone: true}">
+              </div>
+
+              <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
+                <label for="LastName" class="form-label label-design required">Last Name</label>
+                <input class="input-group form-control" [(ngModel)]="patientMyProfile.LastName" placeholder="Last Name"
+                  type="text" id="LastName" pattern="^[a-zA-Z ]*$" #lastName="ngModel"
+                  [ngModelOptions]="{standalone: true}">
+              </div>
+
+
+
+              <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
+                <label for="DATEOFBIRTH*" class="form-label label-design required">Date Of Birth</label>
                 <mat-form-field appearance="outline" class="form-group profile-green-calendar">
                   <input matInput class="date-mat-class" autocomplete="off" [(ngModel)]="patientMyProfile.DateOfBirth"
                     (mouseover)="hoverDATEOFBIRTH='_/__/_'" (mouseleave)="hoverDATEOFBIRTH='MM/DD/YYYY'"
@@ -63,10 +105,9 @@
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="SOCIALSECURITYNUMBER" class="form-label label-design">Social Security Number</label>
-                <input class="input-group form-control ssno-emergencykin-phone" [(ngModel)]="patientMyProfile.SSecuirtyNumber"
-                  placeholder="###-##-###" #ssn="ngModel" #ssnValidator #ssnMask
-                  pattern="^(?!666|000|9\d{2})\d{3}-(?!00)\d{2}-(?!0{4})\d{4}$" type="text" id="Name"
-                  [ngClass]="{'is-invalid' : (ssn.touched || ssn.dirty) && !ssn.valid }" maxlength="9">
+                <input class="input-group form-control ssno-emergencykin-phone"
+                  [(ngModel)]="patientMyProfile.SSecuirtyNumber" placeholder="###-##-####" #ssn="ngModel"
+                  pattern="^(?!666|000|9\d{2})\d{3}-(?!00)\d{2}-(?!0{4})\d{4}$" type="text" id="PSSN">
                 <mat-hint style="font-size:8pt">323-32-3424</mat-hint>
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
@@ -79,13 +120,15 @@
                 <input class="input-group form-control patient-id" [(ngModel)]="patientMyProfile.PatientId"
                   placeholder="PATIENT ID" type="text" id="PATIENT ID">
               </div>
+
               <div class="col-lg-4 col-xl-4 col-md-6 col-12 my-2">
                 <label for="PATIENTID" class="form-label label-design">Preliminary Cause Of Death</label>
                 <input class="input-group form-control" [(ngModel)]="patientMyProfile.CauseofDeath"
                   placeholder="Preliminary Cause of Death" type="text" id="PATIENT ID">
               </div>
+
               <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
-                <label for="SEX" class="form-label label-design  mx-lg-1">Sex</label>
+                <label for="SEX" class="form-label label-design  mx-lg-1 required">Sex</label>
                 <div>
                   <mat-radio-group [(ngModel)]="patientMyProfile.Gender">
                     <mat-radio-button value="male" class="radio-btn-label label-design my-1">Male</mat-radio-button>
@@ -97,8 +140,11 @@
                 </div>
               </div>
             </div>
+
+
             <div class="d-flex justify-content-end mt-3 mx-4">
-              <button type="button" class="btn btn-lg btn-orange" (click)="updatePatientInformation()">Save</button>
+              <button type="button" class="btn btn-lg btn-orange" [disabled]="enablePatientInfo()"
+                (click)="updatePatientInformation()">Save</button>
             </div>
           </div>
           <div class="col-lg-12 col-md-12 col-12">
@@ -110,26 +156,53 @@
             <div class="d-inline-flex p-2 mb-3">
               <label class="fs-4 profile-title">Emergency Contact</label>
             </div>
-
+            <div *ngIf="contactfirstName.errors && (contactfirstName.touched)">
+              <div class="error_message" *ngIf="contactfirstName.errors?.required">
+                <span class="e_arrow"></span>
+                <i class="errormessage">Please enter First Name</i>
+              </div>
+              <div class="error_message" *ngIf="contactfirstName.errors?.pattern">
+                <span class="e_arrow"></span>
+                <i class="errormessage">First name not valid, Use only Alphabets and space</i>
+              </div>
+            </div>
+            <div *ngIf="contactmiddleName.errors && (contactmiddleName.touched)">
+              <div class="error_message" *ngIf="contactmiddleName.errors?.pattern">
+                <span class="e_arrow"></span>
+                <i class="errormessage">Middle name not valid, Use only Alphabets and space</i>
+              </div>
+            </div>
+            <div *ngIf="contactlastName.errors && (contactlastName.touched)">
+              <div class="error_message" *ngIf="contactlastName.errors?.required">
+                <span class="e_arrow"></span>
+                <i class="errormessage">Please enter Last Name</i>
+              </div>
+              <div class="error_message" *ngIf="contactlastName.errors?.pattern">
+                <span class="e_arrow"></span>
+                <i class="errormessage">Lasst name not valid, Use only Alphabets and space</i>
+              </div>
+            </div>
             <div class="row  mx-2">
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
-                <label for="Name" class="form-label label-design">Name</label>
-                <input class="input-group form-control" [(ngModel)]="patientMyProfile.EmergencyFirstName"
-                  placeholder="Name" type="text" id="Name">
+                <label for="Name" class="form-label label-design required">Name</label>
+                <input class="input-group form-control" required="true"
+                  [(ngModel)]="patientMyProfile.EmergencyFirstName" placeholder="Name" type="text" id="CName"
+                  pattern="^[a-zA-Z ]*$" #contactfirstName="ngModel">
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="MiddleName" class="form-label label-design">Middle Name</label>
                 <input class="input-group form-control" [(ngModel)]="patientMyProfile.EmergencyMiddleName"
-                  placeholder="Middle (optional)" type="text" id="MiddleName">
+                  placeholder="Middle (optional)" type="text" id="CMiddleName" pattern="^[a-zA-Z ]*$"
+                  #contactmiddleName="ngModel">
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
-                <label for="LastName" class="form-label label-design">Last Name</label>
-                <input class="input-group form-control" [(ngModel)]="patientMyProfile.EmergencyLastName"
-                  placeholder="Last" type="text" id="LastName">
+                <label for="LastName" class="form-label label-design required">Last Name</label>
+                <input class="input-group form-control" required="true" [(ngModel)]="patientMyProfile.EmergencyLastName"
+                  placeholder="Last" type="text" id="CLastName" pattern="^[a-zA-Z ]*$" #contactlastName="ngModel">
               </div>
 
               <div class="col-lg-6 col-md-6 col-xl-6 col-12 my-2">
-                <label for="RELATION" class="form-label label-design text-nowrap">Relation To Patient</label>
+                <label for="RELATION" class="form-label label-design text-nowrap required">Relation To Patient</label>
                 <div class="form-group">
                   <mat-form-field appearance="outline" class="col-12">
                     <mat-select placeholder="Select Patient Relation"
@@ -142,46 +215,49 @@
 
               <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
                 <label for="PHONE" class="form-label label-design">Phone</label>
-                <input class="input-group form-control ssno-emergencykin-phone" [(ngModel)]="patientMyProfile.Phone" placeholder="Cell PHONE"
-                  type="tel" id="PHONE" mask=" (000) 000-0000" [showMaskTyped]="true"
+                <input class="input-group form-control ssno-emergencykin-phone" [(ngModel)]="patientMyProfile.Phone"
+                  placeholder="Cell PHONE" type="tel" id="PHONE" mask=" (000) 000-0000" [showMaskTyped]="true"
                   [patterns]="PhonePattern">
               </div>
 
-              <div class="col-lg-8 col-md-8 col-xl-9 col-12 my-2">
-                <label for="HOMEADDRESS" class="form-label label-design">Home <Address></Address></label>
-                <input class="input-group form-control" [(ngModel)]="patientMyProfile.EmergencyStreet"
-                  placeholder="Home Address" type="text" id="HOME ADDRESS"
-                  [disabled]="emergencyDisableAddressVerification">
-              </div>
-              <div class="col-lg-2 col-md-2 col-xl-3 col-12 mt-3">
-                <div class="p-2"><button type="button" class="btn btn-lg btn-styles btn-verify mt-2 py-1"
+              <div class="col-lg-12 col-md-12 col-xl-12 col-12 my-2">
+                <label for="HOMEADDRESS" class="form-label label-design">Home</label>
+                <div style="width: 100%; display: flex;  align-items: baseline;">
+                  <input class="input-group form-control" [(ngModel)]="patientMyProfile.EmergencyStreet"
+                    placeholder="Home Address" type="text" id="HOME ADDRESS" style="margin-right:20px"
+                    [disabled]="emergencyDisableAddressVerification">
+                  <button type="button" class="btn btn-lg btn-styles btn-verify mt-2 py-1"
                     [disabled]="!patientMyProfile.EmergencyStreet || emergencyDisableAddressVerification"
-                    (click)="EmergencyAddressVerification()">Verify</button></div>
+                    (click)="EmergencyAddressVerification()">Verify</button>
+                </div>
               </div>
-              <div class="col-lg-8 col-md-12 col-xl-9 col-12 my-2">
-                <div class="form-group">
-                  <div class="input-group">
+
+              <div class="col-lg-12 col-md-12 col-xl-12 col-12 my-2">
+                <div style="width: 100%; display: flex;  align-items: baseline;">
+                  <div class="input-group" style="width:70%; margin-right:20px">
                     <label class="control-label input-group-addon">Street Address</label>
                     <input class="form-control" [(ngModel)]="patientMyProfile.EmergencyStreetAddress"
                       placeholder="Street Address" type="text" id="StreetAddress" name="StreetAddress"
                       [readonly]="!emergencyDisableAddressVerification"
                       [class.address-verfied]="!emergencyManuallybtn" />
                   </div>
-                </div>
-              </div>
-              <div class="col-lg-2 col-md-2 col-xl-1 col-12 my-2 ">
-
-                <button type="button" class="btn cross-mark error-close"
-                  *ngIf="emergencyAddressVerfied && !emergencyManuallybtn" (click)="EmergencyenableManualEntry()"
-                  title="Can enter manully when the verification results are in correct by clicking this icon">x</button>
-              </div>
-              <div class="col-lg-2 col-md-2 col-xl-2 col-12 my-2 ">
-                <div class="form-group">
+                  <button type="button" class="btn cross-mark error-close"
+                    *ngIf="emergencyAddressVerfied && !emergencyManuallybtn" (click)="EmergencyenableManualEntry()"
+                    title="Can enter manully when the verification results are in correct by clicking this icon">x</button>
                   <button class="btn-green btn manualbtn  py-0 btn-lg btn-md"
                     *ngIf="emergencyManuallybtn || emergencyDisableAddressVerification"
                     (click)="EmergencyenterAddressManually()">Enter Address Manually</button>
                 </div>
+
               </div>
+              <!-- <div class="col-lg-2 col-md-2 col-xl-1 col-12 my-2 ">
+
+              </div>
+              <div class="col-lg-2 col-md-2 col-xl-2 col-12 my-2 ">
+                <div class="form-group">
+
+                </div>
+              </div> -->
               <div class="col-lg-12 col-md-12 col-xl-4 col-12 my-2">
                 <div class="form-group">
                   <div class="input-group">
@@ -213,7 +289,8 @@
                 </div>
               </div>
               <div class="d-flex justify-content-end mt-3">
-                <button type="button" class="btn btn-lg btn-orange" (click)="updateEmergencyContact()">Save</button>
+                <button type="button" class="btn btn-lg btn-orange" [disabled]="enableEmergencyContactInfo()"
+                  (click)="updateEmergencyContact()">Save</button>
               </div>
             </div>
           </div>
@@ -257,9 +334,9 @@
               </div>
               <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
                 <label for="SEX" class="form-label label-design">Phone</label>
-                <input class="input-group form-control ssno-emergencykin-phone" [(ngModel)]="patientMyProfile.NKMobilePhone"
-                  placeholder="Cell PHONE" type="text" id="DATEOFBIRTH" mask=" (000) 000-0000" [showMaskTyped]="true"
-                  [patterns]="PhonePattern">
+                <input class="input-group form-control ssno-emergencykin-phone"
+                  [(ngModel)]="patientMyProfile.NKMobilePhone" placeholder="Cell PHONE" type="text" id="DATEOFBIRTH"
+                  mask=" (000) 000-0000" [showMaskTyped]="true" [patterns]="PhonePattern">
               </div>
               <div class="col-lg-12 col-md-12 col-12 my-2">
                 <label for="DATEOFBIRTH*" class="form-label label-design">Address</label>
@@ -344,22 +421,31 @@
 
       <div class="col-lg-6 col-md-6 col-12">
         <div class="row">
+
+
           <!-- Contact -->
           <div class="col-lg-12 col-md-12 col-12 mb-3">
             <div class="d-inline-flex p-2 mb-3">
               <label class="fs-4 profile-title">Contact Information</label>
+            </div>
+            <div *ngIf="patientEmail.errors && (patientEmail.touched)">
+              <div class="error_message" *ngIf="patientEmail.errors?.pattern">
+                <span class="e_arrow"></span>
+                <i class="errormessage">Enter Email in correct format</i>
+              </div>
             </div>
             <div class="row  mx-2">
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="CELLPHONE" class="form-label label-design">Cell Phone</label>
                 <input class="input-group form-control" [(ngModel)]="patientMyProfile.MobilePhone"
                   placeholder="CELL PHONE" type="tel" id="CELLPHONE" mask=" (000) 000-0000" [showMaskTyped]="true"
-                  [patterns]="PhonePattern" >
+                  [patterns]="PhonePattern">
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="Email" class="form-label label-design">Email</label>
-                <input class="input-group form-control" [(ngModel)]="patientMyProfile.email" placeholder="Email"
-                  type="text" id="Email">
+                <input class="input-group form-control" [(ngModel)]="patientMyProfile.email"
+                 placeholder="Email" pattern="^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$"
+                  #patientEmail="ngModel" type="text" id="Email">
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="HOMEPHONE" class="form-label label-design">Home Phone</label>

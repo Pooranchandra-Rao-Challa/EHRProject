@@ -259,7 +259,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
       this.patient = this.authService.viewModel.Patient;
       this.loadDependents();
     }
-    else {
+    // else {
       this.patientService.LatestUpdatedPatientsUrl({
         ProviderId: this.authService.userValue.ProviderId,
         RemovedPatientIds: this.removedPatientIdsInBreadcurmb,
@@ -285,7 +285,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
                 PatientId: p.PatientId,
                 ShowRemoveIcon: true,
                 EncKey: p.EncKey,
-                ActiveId: p.ShowDetailView,
+                ActiveId: p.ShowDetailView == false ? this.patient?.PatientId == p.PatientId : p.ShowDetailView,
                 Details: p
               }
               if (p.ShowDetailView) {
@@ -301,7 +301,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
             this.loadPatientBreadcrumbView()
           }
         })
-    }
+    // }
 
   }
 

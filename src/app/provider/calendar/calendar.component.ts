@@ -317,6 +317,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     })
     this.providerToggle.checked = allchecked;
     this.updateEvents(event.source.checked, { value: provider.ProviderId })
+    //this.updateBlockOuts(event.source.checked,{ value: provider.ProviderId });
   }
 
   updateCalendarEvents() {
@@ -358,26 +359,32 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   }
 
-  updateBlockOuts() {
+  updateBlockOuts(toggler?: boolean,check: { value: string } = null) {
     this.blockouts.forEach(blockout => {
-      // if (this.fullcalendar.getApi().getEventById(blockout.BlockoutId) != null)
-      //   this.fullcalendar.getApi().getEventById(blockout.BlockoutId).remove();
-      this.fullcalendar.getApi().addEvent({
-        id: blockout.BlockoutId,
-        title: blockout.Message == "" ? "Blockout day" : blockout.Message,
-        start: blockout.StartAt,
-        end: blockout.EndAt,
-        classNames: ['fc-event-blockout'],
-        backgroundColor: "#BBBBBB",
-        borderColor: "#BBBBBB",
-        resourceId: blockout.RoomId,
-        //textColor: app.AppColor,
-        extendedProps: {
-          IsBlockout: true,
-          Note: blockout.Note,
-          Duration: blockout.Duration
-        }
-      })
+      // if(!toggler && check?.value == blockout.BlockoutForId){
+      //   if (this.fullcalendar.getApi().getEventById(blockout.BlockoutId) != null)
+      //           this.fullcalendar.getApi().getEventById(blockout.BlockoutId).remove();
+      // }else if((this.fullcalendar.getApi().getEventById(blockout.BlockoutId) == null)
+      // || (this.fullcalendar.getApi().getEventById(blockout.BlockoutId) != null
+      //   && this.fullcalendar.getApi().getEventById(blockout.BlockoutId).start !=
+      //   blockout.StartAt) ){
+        this.fullcalendar.getApi().addEvent({
+          id: blockout.BlockoutId,
+          title: blockout.Message == "" ? "Blockout day" : blockout.Message,
+          start: blockout.StartAt,
+          end: blockout.EndAt,
+          classNames: ['fc-event-blockout'],
+          backgroundColor: "#BBBBBB",
+          borderColor: "#BBBBBB",
+          resourceId: blockout.RoomId,
+          //textColor: app.AppColor,
+          extendedProps: {
+            IsBlockout: true,
+            Note: blockout.Note,
+            Duration: blockout.Duration
+          }
+        })
+      // }
     })
   }
 
