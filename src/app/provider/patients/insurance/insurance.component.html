@@ -11,8 +11,16 @@
                     <div class="input-group mb-3">
                         <input type="text" class="form-control patientInsuranceTab Helvetica-sans-serif-medium"
                             placeholder="Subscriber Name" [(ngModel)]="primlist.SubscriberNane"
-                            aria-label="Subscriber Name" aria-describedby="basic-addon" alphaOnly>
-                    </div>
+                            aria-label="Subscriber Name" aria-describedby="basic-addon" alphaOnly #subscriberName="ngModel" required>
+                           
+                    </div> 
+                    <div *ngIf="subscriberName.errors && (subscriberName.touched)" class="error-message-alignment">
+                        <div class="text-danger" *ngIf="subscriberName.errors?.required">
+                          <span class="text-danger"></span>
+                          <p class="text-danger">Please enter Subscriber Name</p>
+                        </div>
+                        </div>
+
                     <div class="row">
                         <div class="col-lg-6 col-md-12 col-12">
                             <label class="Helvetica-sans-serif-medium d-block required">Date of Birth</label>
@@ -235,8 +243,14 @@
                     <div class="input-group mb-3">
                         <input type="text" class="form-control patientInsuranceTab Helvetica-sans-serif-medium"
                             placeholder="Subscriber Name" aria-label="Subscriber Name" aria-describedby="basic-addon1"
-                            [(ngModel)]="secList.SubscriberNane" alphaOnly>
+                            [(ngModel)]="secList.SubscriberNane" alphaOnly #sSubscriberName="ngModel" required>
                     </div>
+                    <div *ngIf="sSubscriberName.errors && (sSubscriberName.touched)">
+                        <div class="text-danger" *ngIf="sSubscriberName.errors?.required">
+                          <span class="text-danger"></span>
+                          <p class="text-danger">Please enter Subscriber Name</p>
+                        </div>
+                        </div>
                     <div class="row">
                         <div class="col-lg-6 col-md-12 col-12">
                             <label class="Helvetica-sans-serif-medium d-block required">Date of Birth</label>
