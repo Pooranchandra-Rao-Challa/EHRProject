@@ -53,6 +53,10 @@
     top: 0.06em;
   }
 
+  .hint-note{
+    color:#e55406;
+    font-weight: 600;
+  }
   .btn.btn-cancel {
     color: #41b6a6;
     border-color: #41b6a6;
@@ -90,9 +94,27 @@
   .label-for-radio, .label-for-radio1, .radiobutton-custom{
     padding:10px;
   }
+
+  .radiobutton-custom{
+    display: flex;
+    align-items: baseline;
+  }
   .recurring-radio-buttons{
     display: inherit;
-    height: 60px;
+    //height: 60px;
+    margin-left: 50px;
+    align-items: baseline;
+    white-space: nowrap;
+    input{
+      width: 80px;
+      padding-left:5px;
+      margin: 10px;
+      border:unset I !important;
+      border:#41b6a6 1px solid !important;
+    }
+    label{
+      white-space: nowrap;
+    }
   }
   .recurring-checkboxes{
     display: flex;
@@ -100,7 +122,5 @@
       padding-right:10px;
     }
   }
-  .recurring-radio-buttons .label-for-radio{
-    margin-top:14px;
-  }
+
 }

@@ -168,9 +168,18 @@ export class DashboardComponent implements OnInit {
     }
     this.adminservice.UpdateLockedUser(reqparam).subscribe(resp => {
       if (resp.IsSuccess) {
-        this.displayHeading = msg;
+        if(item.Locked == true)
+      {
+        this.displayHeading = 'unlocked';
         this.GetProivderList();
         this.lockedModal = 'block';
+      }
+      else{
+        this.displayHeading = 'locked';
+        this.GetProivderList();
+        this.lockedModal = 'block';
+      }
+       
       }
     });
   }

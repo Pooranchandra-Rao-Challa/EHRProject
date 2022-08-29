@@ -162,10 +162,24 @@ export class Blockout{
   RoomId?: string;
   strStartAt?: string;
   RangeDay?: BlockoutRangeDay[];
+  RoomName?: string;
+  RecurStartAt?: Date;
+  RecurEndAt?: Date
+  BlockoutName?: string;
+  Message?: string;
+  DayRecurStartTime?: string;
+  DayRecurEndTime?: string;
+
+  // added for calendar display;
+  WeekName?: string;
+  BlockOutDate?: Date;
+  EndAt?: Date;
+
 
   strRangeDay?: string;
-  start?: Date;
-  end?: Date;
+  strRecurStartAt?: string;
+  strRecurEndAt?: string;
+  CanEdit?: boolean;
 }
 
 export class BlockoutRangeDay{

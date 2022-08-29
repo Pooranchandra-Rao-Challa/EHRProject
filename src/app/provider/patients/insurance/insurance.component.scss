@@ -305,7 +305,7 @@
 }
 
 ::ng-deep .optionalignment.mat-select-panel {
-  margin-top: 31px !important;
+  margin-top: 4px !important;
   max-height: 169px !important;
 }
 
@@ -337,4 +337,13 @@
 
 .phone-full-width {
   width: 15%;
+}
+.tel-code h1 {
+  font-size: 13px;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  white-space: pre-wrap;
+}
+
+.tel-code.mat-option {
+  padding: 5px !important;
 }

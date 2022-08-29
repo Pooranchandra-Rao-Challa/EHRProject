@@ -35,7 +35,7 @@
           <mat-checkbox #appointmentStatusCheckboxes *ngFor="let status of appointmentStatuses; let i = index"
             (change)="updateAppointmentStatus($event,status)" checked="true" value="status">
             <div class="color-item-group">
-              <div class="color-items" [style.background-color]="status.Colour"></div><span>{{status.Name}}</span>
+              <div class="color-items" [style.background-color]="status.Colour"></div><span>{{status.Name == null ? "." : status.Name }}</span>
             </div>
           </mat-checkbox>
         </div>
@@ -53,7 +53,7 @@
           <mat-checkbox #appointmentTypeCheckboxes checked="true" *ngFor="let type of appointmentTypes; let i = index;"
             (change)="updateAppointmentType($event,type)">
             <div class="color-item-group">
-              <div class="color-items" [style.background-color]="type.Colour"></div><span>{{type.AppointmentType}}</span>
+              <div class="color-items" [style.background-color]="type.Colour"></div><span>{{type.AppointmentType == null ? "." : type.AppointmentType}}</span>
             </div>
           </mat-checkbox>
         </div>

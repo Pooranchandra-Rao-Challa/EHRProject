@@ -22,7 +22,8 @@ export class WeeklyUpdatedComponent implements OnInit {
   ProviderList: any = [];
   FistProviderName: string;
   viewModel: AdminViewModal;
-  weeklyUpdate: WeeklyUpdated
+  weeklyUpdate: WeeklyUpdated;
+  isColorActive:boolean;
 
   constructor(private router: Router, private adminservice: AdminService, private authService: AuthenticationService) {
     this.weeklyUpdate = {} as WeeklyUpdated;
@@ -32,7 +33,12 @@ export class WeeklyUpdatedComponent implements OnInit {
     this.GetWeeklyUpdate();
     this.GetProviderNameList();
   }
+  // ngAfterViewInit(){
+    
+  //     this.isColorActive = true;
+  //   }
 
+  
   GetWeeklyUpdate() {
     this.adminservice.WeeklyUpdateList().subscribe(resp => {
       if (resp.IsSuccess) {
@@ -159,7 +165,7 @@ export class WeeklyUpdatedComponent implements OnInit {
         this.GetWeeklyUpdate();
       });
   }
-  onfoucs()
+  onfocus()
   {
     document.getElementById("myinputbox").focus();
   }

@@ -56,7 +56,14 @@
               class="Helvetica-sans-serif-large">{{PatientProfile?.Gender}}</span></div>
         </div>
           <div class="row mt-4">
-            <div class="col-md-3"><span class="green-color">Race: </span> </div>
+            <div class="col-md-3"><span class="green-color">Race: </span> 
+            <span *ngIf="PatientProfile?.AfricanRace == true" class="Helvetica-sans-serif-large">African Race </span>
+            <span *ngIf="PatientProfile?.AmericanRace == true" class="Helvetica-sans-serif-large">American Race </span>
+            <span *ngIf="PatientProfile?.AsianRace == true" class="Helvetica-sans-serif-large">Asian Race </span>
+            <span *ngIf="PatientProfile?.WhiteRace == true" class="Helvetica-sans-serif-large">White Race </span>
+            <span *ngIf="PatientProfile?.HawaiianRace == true" class="Helvetica-sans-serif-large">Hawaiian Race </span>
+            <span *ngIf="PatientProfile?.UndeterminedRace == true" class="Helvetica-sans-serif-large">Undetermined Race </span> 
+          </div>
             <div class="col-md-3"><span class="green-color">Ethnicity: </span><span
                 class="Helvetica-sans-serif-large">{{PatientProfile?.ethnicity}}</span></div>
             <div class="col-md-4"><span class="green-color">Preferred Language: </span><span
@@ -77,7 +84,7 @@
               </div>
           </div>
 
-          <div class="row mt-4">
+          <div class="row mt-4 accordianpointer">
             <div class="col-md-12 accordion">
               <div class="accordion-button collapsed panel-collapse" data-bs-toggle="collapse"
                 data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
@@ -101,7 +108,7 @@
               </div>
             </div>
           </div>
-          <div class="row mt-3">
+          <div class="row mt-3 accordianpointer">
             <div class="col-md-12 accordion">
               <div class="accordion-button collapsed panel-collapse" data-bs-toggle="collapse"
                 data-bs-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample1">
@@ -126,7 +133,7 @@
               </div>
             </div>
           </div>
-          <div class="row mt-3">
+          <div class="row mt-3 accordianpointer">
             <div class="col-md-12 accordion">
               <div class="accordion-button collapsed panel-collapse" data-bs-toggle="collapse"
                 data-bs-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2">
@@ -152,7 +159,7 @@
               </div>
             </div>
           </div>
-          <div class="row mt-3">
+          <div class="row mt-3 accordianpointer">
             <div class="col-md-12 accordion">
               <div class="accordion-button collapsed panel-collapse" data-bs-toggle="collapse"
                 data-bs-target="#collapseExample3" aria-expanded="false" aria-controls="collapseExample3">
@@ -181,7 +188,7 @@
               </div>
             </div>
           </div>
-          <div class="row mt-3">
+          <div class="row mt-3 accordianpointer">
             <div class="col-md-12 accordion">
               <div class="accordion-button collapsed panel-collapse" data-bs-toggle="collapse"
                 data-bs-target="#collapseExample4" aria-expanded="false" aria-controls="collapseExample4">
@@ -204,7 +211,7 @@
               </div>
             </div>
           </div>
-          <div class="row mt-3">
+          <div class="row mt-3 accordianpointer">
             <div class="col-md-12 accordion">
               <div class="accordion-button collapsed panel-collapse" data-bs-toggle="collapse"
                 data-bs-target="#collapseExample6" aria-expanded="false" aria-controls="collapseExample6">
@@ -230,7 +237,7 @@
             </div>
 
           </div>
-          <div class="row mt-3 mb-3 ">
+          <div class="row mt-3 mb-3 accordianpointer">
             <div class="col-md-12 accordion">
               <div class="accordion-button collapsed panel-collapse" data-bs-toggle="collapse"
                 data-bs-target="#collapseExample7" aria-expanded="false" aria-controls="collapseExample7">

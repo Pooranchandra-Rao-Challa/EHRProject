@@ -89,7 +89,7 @@
                                 <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
                                     id="inputGroup-sizing-lg ">City</span>
                                 <input type="text" [readonly]="!disableaddressverification"
-                                    class="form-control input-border Helvetica-sans-serif-medium"
+                                [class.address-verfied]="!manuallybtn"   class="form-control input-border Helvetica-sans-serif-medium"
                                     [(ngModel)]="primlist.City">
                             </div>
                         </div>
@@ -99,7 +99,7 @@
                                     id="inputGroup-sizing-lg ">State</span>
                                 <input type="text" [readonly]="!disableaddressverification"
                                     class="form-control input-border Helvetica-sans-serif-medium"
-                                    [(ngModel)]="primlist.State">
+                                    [(ngModel)]="primlist.State" [class.address-verfied]="!manuallybtn">
                             </div>
                         </div>
                         <div class="col-xl-3 col-lg-4 col-12">
@@ -107,7 +107,7 @@
                                 <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
                                     id="inputGroup-sizing-lg ">Zip</span>
                                 <input type="text" [readonly]="!disableaddressverification"
-                                    class="form-control input-border" [(ngModel)]="primlist.Zip">
+                                    class="form-control input-border" [(ngModel)]="primlist.Zip" [class.address-verfied]="!manuallybtn">
                             </div>
                         </div>
                     </div>
@@ -182,7 +182,7 @@
                                     placeholder="Source of Payment Typology">
                                     <mat-select-filter [displayMember]="'Code'"
                                         [array]="SourceOfPaymentTypologyCodesFilter"
-                                        (filteredReturn)="SourceOfPaymentTypologyCodes = $event"></mat-select-filter>
+                                        (filteredReturn)="SourceOfPaymentTypologyCodes = $event" id="inputcursor"></mat-select-filter>
                                     <mat-option *ngFor="let item of SourceOfPaymentTypologyCodes" [value]="item.Code"
                                         (click)="primaryspt(item)">
                                         {{item.Code}} - {{item.Description}}
@@ -243,7 +243,7 @@
                             <mat-form-field appearance="outline" class="calendaricon green-calendar w-100">
                                 <input matInput [matDatepicker]="dp4" placeholder="Date of Birth"
                                     [(ngModel)]="secList.DateOfBirth" (focus)="dp4?.open()"
-                                    class="Helvetica-sans-serif-medium">
+                                    class="Helvetica-sans-serif-medium" [max]="tomorrow">
                                 <mat-datepicker-toggle matSuffix [for]="dp4">
                                 </mat-datepicker-toggle>
                                 <mat-datepicker #dp4 disabled="false"></mat-datepicker>
@@ -288,7 +288,7 @@
                                     <input [readonly]="!secondarydisableaddressverification"
                                         class="form-control input-border Helvetica-sans-serif-medium"
                                         [(ngModel)]="secList.StreetAddress" placeholder="Street Address" type="text"
-                                        id="StreetAddress" name="StreetAddress">
+                                        id="StreetAddress" name="StreetAddress"[class.address-verfied]="!secondarymanuallybtn">
                                 </div>
                             </div>
                         </div>
@@ -314,7 +314,7 @@
                                     id="inputGroup-sizing-lg ">City</span>
                                 <input type="text" [readonly]="!secondarydisableaddressverification"
                                     class="form-control input-border Helvetica-sans-serif-medium"
-                                    [(ngModel)]="secList.City">
+                                    [(ngModel)]="secList.City"[class.address-verfied]="!secondarymanuallybtn">
                             </div>
                         </div>
                         <div class="col-xl-4 col-lg-4 col-12 mb-3">
@@ -322,7 +322,7 @@
                                 <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
                                     id="inputGroup-sizing-lg ">State</span>
                                 <input type="text" [readonly]="!secondarydisableaddressverification"
-                                    class="form-control input-border" [(ngModel)]="secList.State">
+                                    class="form-control input-border" [(ngModel)]="secList.State"[class.address-verfied]="!secondarymanuallybtn">
                             </div>
                         </div>
                         <div class="col-xl-3 col-lg-4 col-12">
@@ -330,7 +330,7 @@
                                 <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
                                     id="inputGroup-sizing-lg ">Zip</span>
                                 <input type="text" [readonly]="!secondarydisableaddressverification"
-                                    class="form-control input-border" [(ngModel)]="secList.Zip">
+                                    class="form-control input-border" [(ngModel)]="secList.Zip"[class.address-verfied]="!secondarymanuallybtn">
                             </div>
                         </div>
                     </div>

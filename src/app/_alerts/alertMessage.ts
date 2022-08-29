@@ -237,7 +237,7 @@ export const ERROR_CODES: { [key: string]: string } = {
   'M2CP008': 'Patient updated successfully',
   //Security Question
   'M2CP009': 'Security Question is Updated Sucessfully ',
-  'M2CP0010': 'Address Verified',
+  'M2CP0010': 'Address Veirified',
 
   // Error for Patient profile directives
   'E2CP001': 'Personal Information Updation error',
@@ -248,7 +248,7 @@ export const ERROR_CODES: { [key: string]: string } = {
   'E2CP006': 'Next of kin Updation error',
   'E2CP007': 'Immunization Updation error',
   'E2CP008': 'Security Question Updation Error',
-  'E2CP009': 'Address Verfication Failed',
+  'E2CP009': 'Address Veirfication Failed',
   //Message for Partner signup
   'M3PS001': 'Application Submitted!',
 
@@ -281,16 +281,16 @@ export const ERROR_CODES: { [key: string]: string } = {
   'M2CI005': 'Primary Insurance Updated successfully',
   'M2CI006': 'Secondary Insurance Added successfully',
   'M2CI007': 'Secondary Insurance Updated successfully',
-  'M2CI008': 'Primary Insurance Address Verfied successfully',
-  'M2CI009': 'Secondary Insurance Address Verfied successfully',
+  'M2CI008': 'Primary Insurance Address Verified successfully',
+  'M2CI009': 'Secondary Insurance Address Verified successfully',
 
 
   //Error for Insurance
   'E2CI001': 'Insurance Company Plan  Updation error',
   'E2CI002': 'Primary Insurance Updation error',
   'E2CI003': 'Secondary Insurance Updation error',
-  'E2CI004': 'Primary Insurance Address Updation error',
-  'E2CI005': 'Secondary Insurance Address Updation error',
+  'E2CI004': 'Primary Insurance  Address Verification Failed',
+  'E2CI005': 'Secondary Insurance Address Verification Failed',
 
   //Messages for Patients Procedure Crete
   'M2CP1001': 'Procedure Added sucessfully',

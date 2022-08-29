@@ -1,7 +1,8 @@
 <div id="pause" class="d-flex align-items-center justify-content-center" *ngIf="customizedspinner">
   <div id="spinner"></div>
 </div>
-<div class="container-fluid">
+<div class="container-fluid" id="encounter-list" style="background-color: #e5f8f5;">
+  <div class="encounter-list-container">
   <form [formGroup]="encounterForm">
     <div class="row" style="background-color: #e5f8f5;">
       <div class="col-lg-2 col-md-3">
@@ -79,6 +80,7 @@
       </div>
     </div>
   </form>
+
 </div>
 <div class="ehr-cqm-table-container encounter" [hidden]="!showencounterTable">
   <mat-table [dataSource]="encounterlist" matSort>
@@ -152,7 +154,7 @@
       </mat-header-cell>
       <mat-cell class="flex1 submenu" *matCellDef="let lesson"> {{lesson.Prim_Source_Payment_Typology}} </mat-cell>
     </ng-container>
-    <mat-header-row *matHeaderRowDef="EncountersColumns"></mat-header-row>
+    <mat-header-row *matHeaderRowDef="EncountersColumns sticky: true"></mat-header-row>
     <mat-row *matRowDef="let row; columns: EncountersColumns;">
     </mat-row>
   </mat-table>
@@ -161,5 +163,8 @@
   </div>
 </div>
 <mat-paginator class="arrow" #paginator [length]="encounterlist.data.length" [pageIndex]="pageIndex"
-  [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" [hidden]="!encounterlist.data.length">
+  [pageSize]="pageSize" style="margin-bottom: 10px;background: #41b6a6;" [pageSizeOptions]="pageSizeOptions" [hidden]="!encounterlist.data.length">
 </mat-paginator>
+
+</div>
+

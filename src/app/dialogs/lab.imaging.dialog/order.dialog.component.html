@@ -1,7 +1,8 @@
 <div id="labandImaging" class="modal-dialog modal-lg">
   <div class="modal-content">
     <div class="modal-header" style="margin-left:-1px">
-      <p class="modal-title Roboto-medium">{{labandImaging.LabProcedureId != null ? "Edit" : "Add"}} {{labandImaging.View}} Order </p>
+      <p class="modal-title Roboto-medium">{{labandImaging.LabProcedureId != null ? "Edit" : "Add"}}
+        {{labandImaging.View}} Order </p>
       <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close" (click)="cancel()">
         X
       </span>
@@ -10,10 +11,11 @@
       <div class="row">
         <div class="col-lg-2 col-md-6 col-12">
           <mat-label class="required">Patient Name:</mat-label>
-          <mat-form-field class="" appearance="outline"
-          [class.not-allowed]="diabledPatientSearch" [class.disabled-color]="diabledPatientSearch">
+          <mat-form-field class="" appearance="outline" [class.not-allowed]="diabledPatientSearch"
+            [class.disabled-color]="diabledPatientSearch">
             <input matInput #searchpatient class="form-control" placeholder="Search Patient" type="text"
-              id="searchpatient" name="searchpatient" [matAutocomplete]="serachpatient" [disabled]="diabledPatientSearch"  [readonly]="diabledPatientSearch"
+              id="searchpatient" name="searchpatient" [matAutocomplete]="serachpatient"
+              [disabled]="diabledPatientSearch" [readonly]="diabledPatientSearch"
               [class.disabled-color]="diabledPatientSearch" />
             <mat-autocomplete [displayWith]="displayWithPatientSearch" #serachpatient="matAutocomplete"
               (optionSelected)="onPatientSelected($event)">
@@ -28,13 +30,15 @@
         <div class="col-lg-2 col-md-6 col-12">
           <mat-label>Patient ID:</mat-label>
           <mat-form-field appearance="outline" class="col-md-12 ">
-            <input matInput placeholder="" disabled class="not-allowed" [(ngModel)]="labandImaging.CurrentPatient.PatientId">
+            <input matInput placeholder="" disabled class="not-allowed"
+              [(ngModel)]="labandImaging.CurrentPatient.PatientId">
           </mat-form-field>
         </div>
         <div class="col-lg-2 col-md-6 col-12">
           <mat-label>Sex:</mat-label>
           <mat-form-field appearance="outline" class="col-md-12">
-            <input matInput placeholder="" disabled class="not-allowed" [(ngModel)]="labandImaging.CurrentPatient.Gender">
+            <input matInput placeholder="" disabled class="not-allowed"
+              [(ngModel)]="labandImaging.CurrentPatient.Gender">
           </mat-form-field>
         </div>
         <div class="col-lg-2 col-md-6 col-12">
@@ -46,16 +50,18 @@
         <div class="col-lg-2 col-md-6 col-12">
           <mat-label>Date of birth:</mat-label>
           <mat-form-field appearance="outline" class="col-md-12">
-            <input matInput placeholder="" disabled class="not-allowed" [ngModel]="labandImaging.CurrentPatient.DateofBirth | date:'MM/dd/yyyy'">
+            <input matInput placeholder="" disabled class="not-allowed"
+              [ngModel]="labandImaging.CurrentPatient.DateofBirth | date:'MM/dd/yyyy'">
           </mat-form-field>
         </div>
 
-  <div class="col-lg-2  col-md-6 col-12">
-    <mat-label>Phone</mat-label>
-    <mat-form-field appearance="outline" class="col-md-12">
-      <input matInput placeholder="" disabled class="not-allowed" [(ngModel)]="labandImaging.CurrentPatient.PrimaryPhone">
-    </mat-form-field>
-  </div>
+        <div class="col-lg-2  col-md-6 col-12">
+          <mat-label>Phone</mat-label>
+          <mat-form-field appearance="outline" class="col-md-12">
+            <input matInput placeholder="" disabled class="not-allowed"
+              [(ngModel)]="labandImaging.CurrentPatient.PrimaryPhone">
+          </mat-form-field>
+        </div>
       </div>
       <div class="row">
         <div class="col-md-12 col-lg-8 col-12">
@@ -103,7 +109,7 @@
         <div class="col-md-12 col-lg-8 col-12">
           <div class="row">
             <div class="col-lg-4 col-md-6 col-12">
-               <mat-label class="required">Ordering Physician:</mat-label>
+              <mat-label class="required">Ordering Physician:</mat-label>
               <mat-form-field appearance="outline" class="col-md-12 orderddhover">
                 <mat-select required placeholder="" [(ngModel)]="labandImaging.OrderingPhyscianId">
                   <mat-option *ngFor="let provider of PracticeProviders" [value]="provider.ProviderId">
@@ -122,7 +128,7 @@
               </mat-form-field>
             </div>
             <div class="col-lg-4 col-md-6 col-12">
-               <mat-label class="required">Lab/Imaging Status:</mat-label>
+              <mat-label class="required">Lab/Imaging Status:</mat-label>
               <mat-form-field appearance="outline" class="col-md-12 orderddhover">
                 <mat-select required placeholder="Status" [(ngModel)]="labandImaging.ResultStatus">
                   <mat-option *ngFor="let item of ResultStatuses" [value]="item.Value">
@@ -135,13 +141,13 @@
         </div>
         <div class="col-lg-4 col-md-12 col-12">
           <mat-label>Received Date:</mat-label>
-              <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-12">
-                <input matInput [matDatepicker]="dp2" placeholder="Received Date" (focus)="dp2?.open()"
-                  class="Helvetica-sans-serif-medium" [(ngModel)]="labandImaging.ReceivedAt">
-                <mat-datepicker-toggle matSuffix [for]="dp2">
-                </mat-datepicker-toggle>
-                <mat-datepicker #dp2></mat-datepicker>
-              </mat-form-field>
+          <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-12">
+            <input matInput [matDatepicker]="dp2" placeholder="Received Date" (focus)="dp2?.open()"
+              class="Helvetica-sans-serif-medium" [(ngModel)]="labandImaging.ReceivedAt">
+            <mat-datepicker-toggle matSuffix [for]="dp2">
+            </mat-datepicker-toggle>
+            <mat-datepicker #dp2></mat-datepicker>
+          </mat-form-field>
         </div>
       </div>
 
@@ -178,13 +184,14 @@
                   <div class="row">
                     <div class="col-lg-4 col-md-6 col-12">
                       <mat-form-field appearance="outline" class="col-md-12" matTooltip="Enter minimum three digist">
-                        <input matInput placeholder="" [data-index]="i" formControlName="Code" (blur)="getCodeInfo($event,i)" >
+                        <input matInput placeholder="" [data-index]="i" formControlName="Code"
+                          (blur)="getCodeInfo($event,i)">
                       </mat-form-field>
                     </div>
                     <div class="col-lg-7 col-md-6 col-12">
                       <mat-form-field appearance="outline" class="col-md-12">
                         <input matInput placeholder="" formControlName="Test" readonly class="not-allowed"
-                        [matTooltip]="atta.controls.Test.value" >
+                          [matTooltip]="atta.controls.Test.value">
                       </mat-form-field>
                       <input type="hidden" formControlName="TestOrderId">
                     </div>
@@ -213,6 +220,7 @@
         <div class="pattach">
           <div class="container-fluid">
             <div class="row">
+
               <div class="col-lg-10 col-10">
                 <p class="title mt-3"><b>Attachments:</b></p>
               </div>
@@ -224,17 +232,46 @@
             </div>
           </div>
         </div>
+        <!-- <div>
+          <file-upload requiredFileType="jpg,jpeg,png,gif,pdf.doc,xls,docx,xlsx,tiff" locationToUpload="LabandImage"></file-upload>
+        </div> -->
         <div formArrayName="attachments" class="row">
           <div *ngFor="let atta of attachments.controls; let i=index ">
             <div [formGroupName]="i" style="border: 1px solid #41b6a6; padding: 8px; border-top:unset">
-              <div class="row">
-                <div class="col-md-1  pt-2 pb-2">
-                  <input type="file" formControlName="file">
+              <div class="row" style="align-items: center;">
+                <label for="singleFile">Upload file</label>
+                <input id="singleFile" type="file" [fileUploadInputFor]="fileUploadQueue" />
+                <br>
+                <!-- <mat-file-upload-queue #fileUploadQueue [fileAlias]="file" [httpUrl]="uploadurl">
+                  <mat-file-upload [file]="file" [id]="i" *ngFor="let file of fileUploadQueue.files; let i = index" onUpload="UploadCompleated(file,event)">
+                  </mat-file-upload>
+                </mat-file-upload-queue> -->
+                <!-- <file-upload requiredFileType="jpg,jpeg,png,gif,pdf.doc,xls,docx,xlsx,tiff" locationToUpload="LabandImage"></file-upload> -->
+                <!-- <div class="col-md-1  pt-2 pb-2" style="display: none;">
+                  <input type="file" class="file-input" [accept]="requiredFileType" #fileUpload> -->
+                <!-- (change)="onFileSelected($event)"-->
+                <!-- </div> -->
+                <!-- <div class="file-upload col-md-5" style="display: inline-flex">
+                  <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
+                    <mat-icon>attach_file</mat-icon>
+                  </button>
+                </div>
+                <div class="progress col-md-5" *ngIf="uploadProgress">
+                  <mat-progress-bar class="progress-bar" mode="determinate" [value]="uploadProgress">
+                  </mat-progress-bar>
+                  <mat-icon class="cancel-upload" (click)="cancelUpload()">delete_forever
+                  </mat-icon>
+                </div> -->
+                <!-- <div class="col-md-1" style="padding-top: 8px;">
+                  <mat-icon class="closefile" (click)="removeAttachemnt(i)">cancel</mat-icon>
+                </div> -->
+                <!-- <div class="col-md-1  pt-2 pb-2">
+                  <input type="file" formControlName="file" #upload{{i}}>
                 </div>
                 <div class="col-md-10"></div>
                 <div class="col-md-1" style="padding-top: 8px;">
                   <mat-icon class="closefile" (click)="removeAttachemnt(i)">close</mat-icon>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
@@ -242,8 +279,10 @@
       </form>
     </div>
     <div class="modal-footer">
-      <button mat-raised-button type="submit" class="btn btn-green   pull-right" (click)="save()" *ngIf="!saveClicked && !labandImaging.Signed" [disabled]="enableSave()">Save</button>
-      <button mat-raised-button type="submit" class="btn btn-green   pull-right" (click)="signed()" *ngIf="!labandImaging.Signed" [disabled]="enableSave()">Sign</button>
+      <button mat-raised-button type="submit" class="btn btn-green   pull-right" (click)="save()"
+        *ngIf="!saveClicked && !labandImaging.Signed" [disabled]="enableSave()">Save</button>
+      <button mat-raised-button type="submit" class="btn btn-green   pull-right" (click)="signed()"
+        *ngIf="!labandImaging.Signed" [disabled]="enableSave()">Sign</button>
       <button mat-raised-button class="btn btn-green pull-right" (click)="close()">Close</button>
     </div>
   </div>
