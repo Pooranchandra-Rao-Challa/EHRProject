@@ -16,7 +16,9 @@ import { LabsImagingService } from 'src/app/_services/labsimaging.service';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { TestCode, TestCodeComponent } from './test.code.component';
 import { OverlayService } from 'src/app/overlay.service';
+// import { FileUploadService } from 'src/app/_services/file.upload.service';
 import { DatePipe } from '@angular/common'
+import { UPLOAD_URL } from 'src/environments/environment';
 
 @Component({
   selector: 'app-order-dialog',
@@ -38,6 +40,7 @@ export class OrderDialogComponent implements OnInit,AfterViewInit {
   orderingFacilities: UserLocations[];
   saveClicked: boolean = false;
   diabledPatientSearch: boolean = false;
+  uploadurl = UPLOAD_URL("LabandImage");
   constructor(private ref: EHROverlayRef,
     private fb: FormBuilder,
     private utilityService: UtilityService,
@@ -48,7 +51,9 @@ export class OrderDialogComponent implements OnInit,AfterViewInit {
     private authService: AuthenticationService,
     private overlayService: OverlayService,
     private patientService: PatientService,
+    // private fileUploadService: FileUploadService,
     private datePipe: DatePipe) {
+
     this.labandImaging = ref.RequestData as LabProcedureWithOrder;
 
     if (this.labandImaging.CurrentPatient == null)
@@ -108,7 +113,7 @@ export class OrderDialogComponent implements OnInit,AfterViewInit {
     this.labandImaging.PatientName = this.labandImaging.CurrentPatient.Name;
     this.labandImaging.PrimaryPhone = this.labandImaging.CurrentPatient.PrimaryPhone;
     //this.labandImaging.Se = this.labandImaging.CurrentPatient.PrimaryPhone;
-    
+
   }
   displayWithPatientSearch(value: PatientSearch): string {
     if (!value) return "";
@@ -169,6 +174,8 @@ export class OrderDialogComponent implements OnInit,AfterViewInit {
         this.addLabOrder(order);
       })
   }
+
+  requiredFileType: string ="jpg,jpeg,png,gif,pdf.doc,xls,docx,xlsx,tiff"
 
   get attachments() {
     return this.formGroups.get('attachments') as FormArray
@@ -245,6 +252,12 @@ export class OrderDialogComponent implements OnInit,AfterViewInit {
     this.labandImaging.LocationId = this.authService.userValue.CurrentLocation;
     this.labandImaging.StrScheduledAt = this.datePipe.transform(this.labandImaging.ScheduledAt, "MM/dd/yyyy")
     this.labandImaging.strReceivedAt = this.datePipe.transform(this.labandImaging.ReceivedAt, "MM/dd/yyyy")
+
+    if(!this.labandImaging.Signed || this.labandImaging.Signed == null)
+      this.labandImaging.Signed = this.labandImaging.ResultStatus == "signed";
+    else
+    this.labandImaging.ResultStatus = "signed";
+
     this.labsImagingService.CreateLabOrImagingOrder(this.labandImaging)
       .subscribe(resp => {
         if (resp.IsSuccess) {
@@ -283,5 +296,12 @@ export class OrderDialogComponent implements OnInit,AfterViewInit {
     testCode.Index = index;
     if (testCode.Query.length >= 3)
       this.openComponentDialog(this.testCodeComponent, testCode);
+  }
+
+  UploadCompleated(file,event){
+    console.log(file);
+    console.log(event);
+
+
   }
 }

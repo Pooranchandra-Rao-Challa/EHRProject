@@ -1,11 +1,11 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PatientService } from 'src/app/_services/patient.service';
 import { PatientProfile } from 'src/app/_models/_patient/patientprofile';
 import { PracticeProviders } from 'src/app/_models/_provider/practiceProviders';
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { FormControl } from '@angular/forms';
-import { map,startWith } from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/_models';
 import { ProviderPatient } from 'src/app/_models/_provider/ProviderPatient';
@@ -28,7 +28,7 @@ export class ProfileComponent implements OnInit {
   myControl: FormControl = new FormControl();
   filteredProviderOptions: Observable<any[]>;
   filterPatientOptions: Observable<any[]>;
-  ethnicities = [{name: 'Hispanic or Latino'},{name: 'Not Hispanic or Latino'},{name: 'Patient Declined to specify'}];
+  ethnicities = [{ name: 'Hispanic or Latino' }, { name: 'Not Hispanic or Latino' }, { name: 'Patient Declined to specify' }];
   isShow: boolean;
   user: User;
   patientsList: ProviderPatient[];
@@ -59,15 +59,15 @@ export class ProfileComponent implements OnInit {
   secondaryLanguage: any = [];
   languageList: any = [];
   patientRelationList: any = [];
-  hoverDATEOFBIRTH:string='MM/DD/YYYY';
-  hoverDATEOFDEATH:string='MM/DD/YYYY'
+  hoverDATEOFBIRTH: string = 'MM/DD/YYYY';
+  hoverDATEOFDEATH: string = 'MM/DD/YYYY'
   addressVerfied: boolean = false;
   manuallybtn: boolean = false;
   disableaddressverification: boolean = false;
-  emergencyManuallybtn:boolean = false;
-  emergencyAddressVerfied:boolean = false;
-  emergencyDisableAddressVerification:boolean = false;
-  PhonePattern:any
+  emergencyManuallybtn: boolean = false;
+  emergencyAddressVerfied: boolean = false;
+  emergencyDisableAddressVerification: boolean = false;
+  PhonePattern: any
   tomorrow = new Date();
   constructor(private patientService: PatientService,
     private utilityService: UtilityService,
@@ -80,11 +80,11 @@ export class ProfileComponent implements OnInit {
     this.patientMyProfile = {} as PatientProfile;
     this.PhonePattern = {
       0: {
-        pattern: new RegExp('\\d'),
+        pattern:   new RegExp('\\d'),
         symbol: 'X',
       },
     };
-    this.tomorrow.setDate(this.tomorrow.getDate() );
+    this.tomorrow.setDate(this.tomorrow.getDate());
   }
   emailPattern = "^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$";
   ngOnInit(): void {
@@ -121,7 +121,7 @@ export class ProfileComponent implements OnInit {
         this.patientMyProfile = resp.ListResult[0];
         this.patientMyProfile.Gender = this.patientMyProfile.Gender;
         console.log(this.patientMyProfile);
-      }else console.log(resp);
+      } else console.log(resp);
 
     });
   }
@@ -239,7 +239,7 @@ export class ProfileComponent implements OnInit {
   }
 
   updatePatientInformation() {
-        this.patientService.UpdatePatientInformation(this.patientMyProfile).subscribe(resp => {
+    this.patientService.UpdatePatientInformation(this.patientMyProfile).subscribe(resp => {
       if (resp.IsSuccess) {
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP001"])
         this.getPatientMyProfile();
@@ -392,4 +392,63 @@ export class ProfileComponent implements OnInit {
 
 
   allowAccess() { }
+
+  namePattern = /^[a-zA-Z ]*$/;
+
+  enablePatientInfo() {
+    // let namePattern = /^[a-zA-Z ]*$/;
+    let ssnPattern = /^(?!666|000|9\d{2})\d{3}-(?!00)\d{2}-(?!0{4})\d{4}$/;
+    let flag = !(this.namePattern.test(this.patientMyProfile.FirstName)
+      && this.namePattern.test(this.patientMyProfile.LastName)
+      && (this.patientMyProfile.MiddleName == null || this.patientMyProfile.MiddleName == ''
+        || this.namePattern.test(this.patientMyProfile.MiddleName))
+      && (this.patientMyProfile.SSecuirtyNumber == null || this.patientMyProfile.SSecuirtyNumber == ''
+        || ssnPattern.test(this.patientMyProfile.SSecuirtyNumber)));
+
+    return flag;
+  }
+
+  email = /^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$/;
+  phonepattern =/^[0-9]{10}/;
+  enableEmergencyContactInfo() {
+    let flag = !((this.namePattern.test(this.patientMyProfile.EmergencyFirstName)
+      && this.patientMyProfile.EmergencyFirstName != null && this.patientMyProfile.EmergencyFirstName != '')
+      && (this.namePattern.test(this.patientMyProfile.EmergencyLastName)
+        && this.patientMyProfile.EmergencyLastName != null && this.patientMyProfile.EmergencyLastName != '')
+      && (this.patientMyProfile.EmergencyMiddleName == null || this.patientMyProfile.EmergencyMiddleName == ''
+        || this.namePattern.test(this.patientMyProfile.EmergencyMiddleName))
+      && this.patientMyProfile.RelationshipToPatient != null && this.patientMyProfile.RelationshipToPatient != ''
+      &&(this. patientMyProfile.Phone == null || this. patientMyProfile.Phone == ""
+              || this.phonepattern.test(this. patientMyProfile.Phone)));
+
+
+    return flag;
+  }
+
+  enablePatientContactInfo() {
+    let flag =!((this.patientMyProfile.email == null || this.patientMyProfile.email == ""
+              || this.email.test(this.patientMyProfile.email))
+              &&(this.patientMyProfile.PrimaryPhone == null || this.patientMyProfile.PrimaryPhone == ""
+              || this.phonepattern.test(this.patientMyProfile.PrimaryPhone))
+              &&(this.patientMyProfile.MobilePhone == null || this.patientMyProfile.MobilePhone == ""
+              || this.phonepattern.test(this.patientMyProfile.MobilePhone))
+              &&(this.patientMyProfile.WorkPhone == null || this.patientMyProfile.WorkPhone == ""
+              || this.phonepattern.test(this.patientMyProfile.WorkPhone)))
+
+
+    return flag;
+  }
+
+  enableNextKinInfo() {
+    let flag =!((this.namePattern.test(this.patientMyProfile.NKFirstName)
+              && this.patientMyProfile.NKFirstName != null && this.patientMyProfile.NKFirstName != '')
+              &&(this.namePattern.test(this.patientMyProfile.NkLastName)
+              && this.patientMyProfile.NkLastName != null && this.patientMyProfile.NkLastName != '')
+              &&(this.patientMyProfile.NkMiddleName == null || this.patientMyProfile.NkMiddleName == ''
+              || this.namePattern.test(this.patientMyProfile.NkMiddleName))
+              && this.patientMyProfile.NkRel != null && this.patientMyProfile.NkRel != ''
+              &&(this.patientMyProfile.NKMobilePhone == null || this.patientMyProfile.NKMobilePhone == ""
+              || this.phonepattern.test(this.patientMyProfile.NKMobilePhone)))
+    return flag;
+  }
 }

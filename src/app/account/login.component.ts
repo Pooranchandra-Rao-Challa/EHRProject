@@ -16,7 +16,6 @@ export class LoginComponent implements OnInit {
   authfailedmessage: string = '';
   creds: any;
   showspinner: boolean;
-  ruby_session_id: any = '';
   showPassword: boolean = false;
   constructor(private fb: FormBuilder,
     protected http: HttpClient,
@@ -25,16 +24,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.showspinner = false;
-    const url = window.location.href;
-    if (url.includes('?')) {
-      const httpParams = new HttpParams({ fromString: url.split('?')[1] });
-      this.ruby_session_id = httpParams.get('s_id');
-      if (this.ruby_session_id != '' && this.ruby_session_id != null) {
-        this.showspinner = true;
-        this.message = 'Please wait while navigating to reports page';
-        //this.authenticationService.loginWithRubyCredentials(this.ruby_session_id);
-      }
-    }
     this.buildForm();
   }
 

@@ -1,14 +1,14 @@
-<div class="my-3">
-  <div class="container-fluid">
+<div id="category-report">
+  <div class="container-fluid report-header">
     <div class="row top-header">
-      <div class="col-lg-4 col-md-12 col-sm-12">
+      <div class="col-lg-6 col-md-12 col-sm-12">
         <div class="row">
           <div class="col-lg-3 col-md-12 col-sm-12">
             <p class="top-block my-lg-4">Category:</p>
           </div>
           <mat-form-field appearance="outline"
             class="col-lg-9 col-md-12 col-sm-12 mat-form-field-wrapper hover my-lg-2 my-md-2 my-2 mb-md-4 mb-lg-4">
-            <mat-select placeholder="Select One" disableOptionCentering>
+            <mat-select placeholder="Select One" disableOptionCentering panelClass="select-option-panel">
               <mat-option *ngFor="let cat of category" [value]="cat.Id" (click)="changereports(cat.Id)">
                 {{cat.Name}}
               </mat-option>
@@ -16,7 +16,7 @@
           </mat-form-field>
         </div>
       </div>
-      <div class="col-lg-4 col-md-12 col-sm-12">
+      <div class="col-lg-6 col-md-12 col-sm-12">
         <div class="row" [ngClass]="{'d-none': this.categoryId == 2 }">
           <div class="col-lg-3 col-md-12 col-sm-12">
             <p class="top-block my-lg-4">Reports:</p>
@@ -32,8 +32,6 @@
           </mat-form-field>
         </div>
         <div class="clearfix"></div>
-      </div>
-      <div class="col-lg-4 col-md-12 col-12">
       </div>
     </div>
   </div>

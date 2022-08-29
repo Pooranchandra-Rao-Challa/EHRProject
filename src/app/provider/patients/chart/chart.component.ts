@@ -38,6 +38,7 @@ import { MedicationTableDialogComponent } from 'src/app/dialogs/medication.table
 import { TobaccoUseTableDialogComponent } from 'src/app/dialogs/tobacco.use.table.dialog/tobacco.use.table.dialog.component';
 import { SmokingStatusTableDialogComponent } from 'src/app/dialogs/smoking.status.table.dialog/smoking.status.table.dialog.component';
 import { AdvancedDirectivesTableDialogComponent } from 'src/app/dialogs/advanced.directives.table.dialog/advanced.directives.table.dialog.component';
+import { PastMedicalHistoryDialogComponent } from 'src/app/dialogs/past.medical.history.dialog/past.medical.history.dialog.component';
 @Component({
   selector: 'app-chart',
   templateUrl: './chart.component.html',
@@ -75,8 +76,8 @@ export class ChartComponent implements OnInit, AfterViewInit {
   allergyTableDialogComponent = AllergyTableDialogComponent;
   tobaccoUseDialogComponent = TobaccoUseDialogComponent;
   tobaccoUseTableDialogComponent = TobaccoUseTableDialogComponent;
+  pastMedicalHistoryDialogComponent = PastMedicalHistoryDialogComponent;
 
-  patientPastMedicalHistory: PastMedicalHistory = new PastMedicalHistory();
   patientImmunization: Immunization = new Immunization();
   tobaccoUseList: TobaccoUse[] = [];
   appointments: NewAppointment[];
@@ -266,6 +267,9 @@ export class ChartComponent implements OnInit, AfterViewInit {
     else if (action == Actions.view && content === this.tobaccoUseTableDialogComponent) {
       reqdata = dialogData;
     }
+    else if (action == Actions.view && content === this.pastMedicalHistoryDialogComponent) {
+      reqdata = dialogData;
+    }
     else if (action == Actions.view && content === this.cqmNotPerformedDialogComponent) {
       reqdata = dialogData;
     }
@@ -348,6 +352,9 @@ export class ChartComponent implements OnInit, AfterViewInit {
       // this.TobaccoUseInterventions();
       this.TobaccoUseByPatientId();
     }
+    else if (data.UpdatedModal == PatientChart.PastMedicalHistory || data.UpdatedModal == PatientChart.FamilyMedicalHistory) {
+      this.PastMedicalHistoriesByPatientId();
+    }
     else if (data.UpdatedModal == PatientChart.Allergies) {
       data.AllergyDataSource = data.AllergyDataSource == undefined ? [] : data.AllergyDataSource.length;
       if (this.chartInfo.Alergies.length < data.AllergyDataSource.length) {
@@ -386,15 +393,11 @@ export class ChartComponent implements OnInit, AfterViewInit {
   }
 
   resetDialog() {
-    this.patientPastMedicalHistory = new PastMedicalHistory;
     this.patientImmunization = new Immunization;
   }
 
   editDialog(dialogData, name) {
-    if (name == 'past medical history') {
-      this.patientPastMedicalHistory = dialogData;
-    }
-    else if (name == 'immunization') {
+    if (name == 'immunization') {
       this.patientImmunization = dialogData;
       var dateString = this.patientImmunization.AdministeredAt;
       var timeFull = dateString.split('T');
@@ -407,22 +410,6 @@ export class ChartComponent implements OnInit, AfterViewInit {
   GetAppointmentInfo() {
     let data: AppointmentDialogInfo = {}
 
-  }
-
-  CreatePastMedicalHistories() {
-    let isAdd = this.patientPastMedicalHistory.PastMedicalHistoryId == undefined;
-    this.patientPastMedicalHistory.PatientId = this.currentPatient.PatientId;
-    this.patientService.CreatePastMedicalHistories(this.patientPastMedicalHistory).subscribe((resp) => {
-      if (resp.IsSuccess) {
-        this.PastMedicalHistoriesByPatientId();
-        this.resetDialog();
-        this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CPMH001" : "M2CPMH002"]);
-      }
-      else {
-        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CPMH001"]);
-        this.resetDialog();
-      }
-    });
   }
 
   // get display Location Details
@@ -487,11 +474,6 @@ export class ChartComponent implements OnInit, AfterViewInit {
         this.resetDialog();
       }
     });
-  }
-
-  disablePastMedicalHistory() {
-    return !(this.patientPastMedicalHistory.MajorEvents && this.patientPastMedicalHistory.OngoingProblems
-      && this.patientPastMedicalHistory.PerventiveCare && this.patientPastMedicalHistory.NutritionHistory)
   }
 
   disableImmAdministered() {
