@@ -138,6 +138,7 @@ export class AlertMessage {
  * Smoking Status : SS
  * Tobacco Use : TU
  * Past Medical Histories : PMH
+ * Family health histories : FHH
  * Advanced Directives : AD
  * Allergies : A
  * Medications And Prescription : M
@@ -216,6 +217,14 @@ export const ERROR_CODES: { [key: string]: string } = {
 
   // Error for past medical histories
   'E2CPMH001': 'Past medical history Updation error',
+
+  //Message for family health histories in chart screen
+  'M2CFHH001': 'Family health history added successfully',
+  'M2CFHH002': 'Family health history updated successfully',
+  'M2CFHH003': 'Family health history deleted successfully',
+
+  // Error for family health histories
+  'E2CFHH001': 'Family health history Updation error',
 
   // Message form Patient profile screen
   'M2CP001': 'Personal Information updated successfully',

@@ -125,6 +125,8 @@ import { MedicationTableDialogComponent } from 'src/app/dialogs/medication.table
 import { TobaccoUseTableDialogComponent } from 'src/app/dialogs/tobacco.use.table.dialog/tobacco.use.table.dialog.component';
 import { SmokingStatusTableDialogComponent } from 'src/app/dialogs/smoking.status.table.dialog/smoking.status.table.dialog.component';
 import { AdvancedDirectivesTableDialogComponent } from 'src/app/dialogs/advanced.directives.table.dialog/advanced.directives.table.dialog.component';
+import { PastMedicalHistoryDialogComponent } from 'src/app/dialogs/past.medical.history.dialog/past.medical.history.dialog.component';
+import { FamilyHealthHistoryDialogComponent } from 'src/app/dialogs/family.health.history.dialog/family.health.history.dialog.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -164,7 +166,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     MedicationTableDialogComponent,
     TobaccoUseTableDialogComponent,
     SmokingStatusTableDialogComponent,
-    AdvancedDirectivesTableDialogComponent
+    AdvancedDirectivesTableDialogComponent,
+    PastMedicalHistoryDialogComponent,
+    FamilyHealthHistoryDialogComponent
 
   ],
   declarations: [
@@ -239,7 +243,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     MedicationTableDialogComponent,
     TobaccoUseTableDialogComponent,
     SmokingStatusTableDialogComponent,
-    AdvancedDirectivesTableDialogComponent
+    AdvancedDirectivesTableDialogComponent,
+    PastMedicalHistoryDialogComponent,
+    FamilyHealthHistoryDialogComponent
   ],
   imports: [
     FullCalendarModule,
@@ -321,7 +327,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     MedicationTableDialogComponent,
     TobaccoUseTableDialogComponent,
     SmokingStatusTableDialogComponent,
-    AdvancedDirectivesTableDialogComponent]
+    AdvancedDirectivesTableDialogComponent,
+    PastMedicalHistoryDialogComponent,
+    FamilyHealthHistoryDialogComponent]
 })
 export class ProviderModule {
 
