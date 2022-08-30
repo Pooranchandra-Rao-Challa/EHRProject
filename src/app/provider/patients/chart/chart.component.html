@@ -74,8 +74,7 @@
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
-                    <p class="card-title"
-                      (click)="openComponentDialog(diagnosesTableDialogComponent,chartInfo?.Diagnoses,ActionTypes.view)">
+                    <p class="card-title">
                       Diagnoses (Dx)
                     </p>
                   </div>
@@ -208,8 +207,7 @@
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
-                    <p class="card-title"
-                    (click)="openComponentDialog(pastMedicalHistoryDialogComponent, chartInfo?.PastMedicalHistories, ActionTypes.view)">
+                    <p class="card-title">
                       Past Medical
                       History
                     </p>
@@ -217,7 +215,7 @@
                   <div class="col-md-4 col-6">
                     <div class="col-12">
                       <div class="edit-icon pull-right"
-                      (click)="openComponentDialog(pastMedicalHistoryDialogComponent, chartInfo?.PastMedicalHistories, ActionTypes.view)">
+                        (click)="openComponentDialog(pastMedicalHistoryDialogComponent, chartInfo?.PastMedicalHistories, ActionTypes.view)">
                         <span class="cstm-icon-pencil"></span>
                       </div>
                     </div>
@@ -227,7 +225,8 @@
               <div class="card-body">
                 <ul class="main-list" *ngFor="let pastmedical of chartInfo?.PastMedicalHistories">
                   <li>
-                    <a (click)="openComponentDialog(pastMedicalHistoryDialogComponent, chartInfo?.PastMedicalHistories, ActionTypes.view)">
+                    <a
+                      (click)="openComponentDialog(pastMedicalHistoryDialogComponent, chartInfo?.PastMedicalHistories, ActionTypes.view)">
                       <span *ngIf="pastmedical?.CreatedAt != null && pastmedical?.CreatedAt !=''">
                         - {{pastmedical?.CreatedAt | date: 'MM/dd/yyyy'}}
                       </span>
@@ -287,8 +286,7 @@
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
-                    <p class="card-title"
-                      (click)="openComponentDialog(allergyTableDialogComponent,chartInfo?.Alergies,ActionTypes.view)">
+                    <p class="card-title">
                       Allergies</p>
                   </div>
                   <div class="col-md-4 col-6">
@@ -331,8 +329,7 @@
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
-                    <p class="card-title"
-                      (click)="openComponentDialog(medicationTableDialogComponent, chartInfo?.Medications , ActionTypes.view)">
+                    <p class="card-title">
                       Medications and Prescription
                     </p>
                   </div>
@@ -423,8 +420,7 @@
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
-                    <p class="card-title"
-                      (click)="openComponentDialog(interventionTableDialogComponent,chartInfo?.Interventions,ActionTypes.view)">
+                    <p class="card-title">
                       Screenings/Interventions/Assessments</p>
                   </div>
                   <div class="col-md-4 col-6">
@@ -479,7 +475,7 @@
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list" *ngFor="let encounter of chartInfo.Encounters">
+                <ul class="main-list" *ngFor="let encounter of chartInfo?.Encounters | slice:0:5">
                   <li>
                     <a (click)="openComponentDialog(encounterDialogComponent,encounter,ActionTypes.view)">
                       <span *ngIf="encounter?.ServicedAt != null && encounter?.ServicedAt !=''">
@@ -499,11 +495,13 @@
                     </div>
                   </li>
                 </ul>
-                <ul class="main-list" *ngIf="chartInfo.Encounters?.length == (0 || null || undefined)">
+                <ul class="main-list" *ngIf="chartInfo?.Encounters?.length == 0">
                   <li>
                     <span>No encounters recorded.</span>
                   </li>
                 </ul>
+                <a (click)="openComponentDialog(encounterTableDialogComponent,chartInfo?.Encounters,ActionTypes.view)"
+                  *ngIf="chartInfo?.Encounters?.length > 5" class="view-more pull-right">view more</a>
               </div>
             </div>
             <div class="card">
@@ -541,7 +539,7 @@
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list" *ngFor="let appointment of chartInfo.Appointments">
+                <ul class="main-list" *ngFor="let appointment of chartInfo?.Appointments | slice:0:1">
                   <li>
                     <a (click)="openComponentDialog(appointmentDialogComponent,appointment,ActionTypes.view)">
                       <span *ngIf="appointment?.StartAt != null && appointment?.StartAt !=''">
@@ -554,10 +552,12 @@
                   </li>
                 </ul>
                 <ul class="main-list">
-                  <li *ngIf="chartInfo.Appointments?.length == (0 || null || undefined)">
+                  <li *ngIf="chartInfo?.Appointments?.length == 0">
                     <span>No appointments recorded.</span>
                   </li>
                 </ul>
+                <a (click)="openComponentDialog(appointmentsTableDialogComponent,chartInfo?.Appointments,ActionTypes.view)"
+                  *ngIf="chartInfo?.Appointments?.length > 1" class="view-more pull-right">view more</a>
               </div>
             </div>
             <a class="patient-chart" href="https://dentaltraumaguide.org/dental-guides/" target="_blank">Clinical
@@ -573,165 +573,6 @@
 </div>
 
 <!-- modal dialogs -->
-
-<!-- Family healthy history -->
-<div class="modal fade " id="familyhealth-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-  aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-md" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title Helvetica-sans-serif-medium">Add Family Health History</h4>
-        <span type="button" class="cross-mark" data-bs-dismiss="modal">
-          X
-        </span>
-      </div>
-      <div class="scroolbar">
-        <div class="modal-body  colour-bg">
-          <div class="row">
-            <div class="col-lg-2 col-md-2 left-block">
-              <div class="form-group">
-                <p class="title-bold">Relative</p>
-              </div>
-              <div class="relative-icon">
-              </div>
-            </div>
-            <div class="col-lg-10 col-md-10 ">
-              <div class="row">
-                <div class=" form-group col-lg-5 col-md-5">
-                  <label>First Name</label>
-                  <mat-form-field class="w-100" appearance="outline">
-                    <input matInput placeholder="First Name" />
-                  </mat-form-field>
-                </div>
-                <div class="form-group col-lg-7 col-md-7">
-                  <label>Last Name</label>
-                  <mat-form-field class="w-100" appearance="outline">
-                    <input matInput placeholder="Last Name" />
-                  </mat-form-field>
-                </div>
-              </div>
-              <div class="row mt-2">
-                <div class="col-md-4 float-left">
-                  <label class="title-bold">Relationship</label>
-                </div>
-                <div class="col-md-8">
-                  <mat-form-field appearance="outline">
-                    <mat-select required>
-                      <mat-option *ngFor="let trigger of TriggerRuleDD" [value]="trigger.value">
-                        {{trigger.viewValue}}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-
-              </div>
-              <div class="row">
-                <div class="col-md-2">
-                  <label class="title-bold">Birthdate</label>
-                </div>
-                <div class="col-md-6">
-                  <mat-form-field class="form-group" appearance="outline">
-                    <input matInput [matDatepicker]="picker2" (click)="picker2.open()" />
-                    <mat-datepicker #picker2></mat-datepicker>
-                  </mat-form-field>
-                </div>
-                <div class="col-md-4 ">
-                  <mat-checkbox class="col-lg-12 col-md-12 example-margin">
-                    <div class="checkbox-label">Deceased</div>
-                  </mat-checkbox>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <p class="title-bold">Diagnosis</p>
-          </div>
-          <div>
-            <ul class="diagnosis_list">
-              <li>
-                <p>-no existing Dx(s)</p>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <div class="col-md-12 mt-3 accordion">
-              <div class="accordion-button collapsed panel-collapse" data-bs-toggle="collapse"
-                data-bs-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample1">
-                <p class="collaps-title">Add (Dx)</p>
-              </div>
-            </div>
-            <div class="collapse" id="collapseExample1">
-              <div class="panel-expand">
-                <div class="panel-body">
-                  <div class="row">
-                    <div class="input-group input-group-custom search-input">
-                      <input aria-label="Search for messages" autocomplete="off"
-                        class="new-search form-control ignore_spinner" id="find-messages-input-2"
-                        placeholder="Search Messages" />
-                      <span class="input-group-addon input-group-addon-search chart-find-patient-btn"
-                        id="find-messages-button-2"><i class="fa fa-search"></i></span>
-                    </div>
-                    <div class="row mt-3">
-                      <div class="col-md-4 ">
-                        <label class="title-bold">
-                          Start Date
-                        </label>
-                      </div>
-                      <div class="col-md-5">
-                        <mat-form-field class="form-group" appearance="outline">
-                          <input matInput [matDatepicker]="picker" (click)="picker.open()" />
-                          <mat-datepicker #picker></mat-datepicker>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-2">
-                        <button class="btn btn-green btn-add " [disabled]="true">Add Dx</button>
-                      </div>
-                    </div>
-                    <div class="row mt-2">
-                      <div class="col-md-4 ">
-                        <label class="title-bold">
-                          Stop Date
-                        </label>
-                      </div>
-                      <div class="col-md-5">
-                        <mat-form-field class="form-group" appearance="outline">
-                          <input matInput [matDatepicker]="picker1" (click)="picker1.open()" />
-                          <mat-datepicker #picker1></mat-datepicker>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-2">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-12 mt-3">
-            <label>Notes:</label>
-            <textarea class="form-control col-12 mt-3 mt-md-0"></textarea>
-          </div>
-        </div>
-      </div>
-      <div class="row mb-3 mt-3 mx-3">
-        <div class="col-md-12 locationbtns">
-          <div class="d-flex justify-content-end">
-            <button type="button" class="btn btn-lg btn-green col-xl-4 col-lg-4 col-md-4 col-8 mx-2"
-              data-bs-toggle="modal" data-bs-target="#pastmedical-modal">
-              Add
-            </button>
-            <button type="button" class="btn btn-lg btn-green col-xl-3 col-lg-3 col-md-3 col-5 mx-3"
-              data-bs-dismiss="modal">
-              Cancel
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- Add/Edit Immunization -->
 <div class="modal fade " id="immunization-modal" data-bs-keyboard="false" tabindex="-1"
@@ -796,7 +637,7 @@
               <div class="row">
                 <mat-label class="required">Time administered:</mat-label>
                 <mat-form-field appearance="outline" class="col-12">
-                  <input matInput placeholder="hh:mm xm" [(ngModel)]="patientImmunization.AdministeredTime" />
+                  <input matInput type="text" appTimeMask [(ngModel)]="patientImmunization.AdministeredTime" />
                 </mat-form-field>
               </div>
             </div>

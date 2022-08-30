@@ -28,12 +28,10 @@ export class TobaccoUseDialogComponent implements OnInit {
   ActionTypes = Actions;
   screeningPerformed: TobaccoUseConstants;
   screeningTobaccoStatus: TobaccoUseConstants;
-  // screeningTobaccoStatusModified: any = [];
   screeningTobaccoStatusFilter: TobaccoUseConstants;
   interventionPerformed: TobaccoUseConstants;
   interventionTobaccoStatus: TobaccoUseConstants;
   interventionTobaccoStatusFilter: TobaccoUseConstants;
-  // tobaccoUseList: TobaccoUse[] = [];
   tobacooUseScreeningsSubject = new BehaviorSubject<TobaccoUseScreenings[]>([]);
   tobacooUseInterventionsSubject = new BehaviorSubject<TobaccoUseInterventions[]>([]);
 
@@ -51,7 +49,6 @@ export class TobaccoUseDialogComponent implements OnInit {
     this.TobaccoUseScreenings();
     this.TobaccoUseInterventions();
     this.loadTobaccoUseConstants();
-    // this.TobaccoUseByPatientId();
   }
 
   updateLocalModel(data: TobaccoUse) {
@@ -67,8 +64,6 @@ export class TobaccoUseDialogComponent implements OnInit {
     this.interventionPerformed = TobaccoUseConstants.INTERVENTION_PERFORMED;
     this.interventionTobaccoStatus = TobaccoUseConstants.INTERVENTION_TOBACCO_STATUS;
     this.interventionTobaccoStatusFilter = this.interventionTobaccoStatus.slice();
-
-
   }
 
   displayWithScreening(value: any): string {
@@ -117,7 +112,8 @@ export class TobaccoUseDialogComponent implements OnInit {
     let reqdata: any;
     if (action == Actions.view && content === this.cqmNotPerformedDialogComponent) {
       reqdata = {
-        CessationInterventionId: this.patientTobaccoUse.CI_Id
+        CessationInterventionId: dialogData,
+        InterventionId: null
       }
     }
     const ref = this.overlayService.open(content, reqdata, true);
@@ -127,7 +123,6 @@ export class TobaccoUseDialogComponent implements OnInit {
           refreshCQMNotPerformed: true
         });
       }
-      // this.UpdateView(res.data);
     });
   }
 

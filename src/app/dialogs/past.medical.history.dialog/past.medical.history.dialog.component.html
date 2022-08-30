@@ -37,7 +37,7 @@
               <span>{{familyhealthdetails.Relationship}}</span>
               <span>{{familyhealthdetails.CodeSystem}}</span>
             </a>
-            <p *ngFor="let diagnose of familyhealthdetails.Diagnoses">
+            <p class="mb-0" *ngFor="let diagnose of familyhealthdetails?.Diagnoses">
               <span>- {{diagnose.Description}}, </span>
               <span>START DATE: - {{diagnose.StartAt | date: 'MM/dd/yyyy'}}, </span>
               <span>STOP DATE: - {{diagnose.StopAt | date: 'MM/dd/yyyy'}}</span>

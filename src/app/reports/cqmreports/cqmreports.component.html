@@ -1,4 +1,4 @@
-<div>
+<div id="cqmreports">
   <div id="pause" class="d-flex align-items-center justify-content-center" *ngIf="customizedspinner">
     <div id="spinner"></div>
   </div>
@@ -7,7 +7,7 @@
       <div class="card mat-elevation-z8">
         <div class="card-body ">
           <div class="float-right">
-            <button (click)="queuedreport()" class="mr-3">Go Back</button>
+            <button (click)="queuedreport()" class="mr-3 btn-cqm-report">Go Back</button>
           </div>
           <ngb-tabset [(activeId)]="tabId" class="tab-basic" (tabChange)="detailsTab($event)">
             <ngb-tab title="Summary" id="summary">
@@ -755,7 +755,7 @@
                                       <td style="width: 5%;">{{details.DenException}}</td>
                                       <td style="width: 5%;">N/A</td>
                                       <td style="width: 7%;font-size:14px" (click)="showPatientListTab(details)"><button
-                                          class="viewResult">View Details</button></td>
+                                          class="btn-cqm-report">View Details</button></td>
                                     </tr>
                                   </tbody>
                                 </table>
@@ -1320,13 +1320,13 @@
         <div class="card-body">
           <h3>Queued Reports</h3>
           <div class="row my-4">
-            <div class="col-xl-1 col-lg-2 col-md-3 col-3"><button mat-button class="viewResult"
+            <div class="col-xl-1 col-lg-2 col-md-3 col-3"><button mat-button class="btn-cqm-report"
                 (click)="useFilterbtn()">Use
                 Filter</button></div>
             <div class="col-xl-1 col-lg-2 col-md-3 col-3"><button mat-button (click)="createreport()"
-                class="mx-3 viewResult">New Report</button></div>
-            <div class="col-xl-2 col-lg-2 col-md-3 col-3"><button mat-button class="mx-5 viewResult"
-                (click)="queuedreporttabfilterClear()" *ngIf="showClearFilterBtn">Clear Filter</button></div>
+                class="mx-1 btn-cqm-report">New Report</button></div>
+            <div class="col-xl-2 col-lg-2 col-md-3 col-3" *ngIf="showClearFilterBtn"><button mat-button
+                class="mx-5 btn-cqm-report" (click)="queuedreporttabfilterClear()">Clear Filter</button></div>
           </div>
           <div class="panel panel-default container-fluid mx-1 my-3" [hidden]="!showUseFilterForm">
             <div class="row panel-heading">Filter by</div>
@@ -1364,8 +1364,7 @@
                     <mat-datepicker #picker></mat-datepicker>
                   </mat-form-field>
 
-                  <button appearance="outline" class="w-25 cstm-addon-btn"
-                    style="border-top-left-radius: 0%; border-bottom-left-radius: 0%; height: 50px;">
+                  <button appearance="outline" class="w-25 cstm-addon-btn">
                     <mat-select placeholder="Add" class="addons" [disabled]="disableEndDateInput">
                       <mat-option value="3" (click)="endDateCalculationInQueuedReport(3)"> 3 months </mat-option>
                       <mat-option value="6" (click)="endDateCalculationInQueuedReport(6)"> 6 months </mat-option>
@@ -1384,9 +1383,9 @@
               </div>
               <div class="row">
                 <div class="col-xl-10 col-lg-9 col-md-8">
-                  <button mat-button type="submit" class="col-xl-1 col-md-2 col-12 viewResult mr-3"
+                  <button mat-button type="submit" class="col-xl-1 col-md-2 col-12 btn-cqm-report mr-3"
                     (click)="queuedreporttabfilter()">Apply Filter</button>
-                  <button mat-button type="button" class="col-xl-1 col-md-2 col-12 viewResult my-3"
+                  <button mat-button type="button" class="col-xl-1 col-md-2 col-12 btn-cqm-report my-3"
                     (click)="queuedreporttabfilterClear()">Clear Filter</button>
                 </div>
                 <div class="col-xl-2 col-lg-3 col-md-4">
@@ -1405,19 +1404,19 @@
               </div>
             </form>
           </div>
-          <div class="ehr-cqm-table-container cqm-mat-table">
+          <div class="cqm-mat-table ehr-cqm-table-container-report-list">
             <mat-table class="table table-responsive cstm-mat-cell-align" [dataSource]="getoverrallreport" matSort>
               <ng-container matColumnDef="Description">
                 <mat-header-cell fxFlex="20%" *matHeaderCellDef mat-sort-header="Description" class="cstm-widthgd qr">
                   Description</mat-header-cell>
-                <mat-cell fxFlex="20%" *matCellDef="let queuedReportData" class="cstm-widthgd mat-row qc">
+                <mat-cell fxFlex="20%" *matCellDef="let queuedReportData" class="cstm-widthgd qc">
                   {{queuedReportData.Description}} </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="Measures">
                 <mat-header-cell fxFlex="15%" *matHeaderCellDef mat-sort-header="MeasuresList" class="cstm-widthgd1 qr">
                   Measures</mat-header-cell>
-                <mat-cell fxFlex="15%" *matCellDef="let queuedReportData" class="cstm-widthgd1 mat-row qc">
+                <mat-cell fxFlex="15%" *matCellDef="let queuedReportData" class="cstm-widthgd1 qc">
                   {{queuedReportData.MeasuresList}} </mat-cell>
               </ng-container>
 
@@ -1425,7 +1424,7 @@
                 <mat-header-cell fxFlex="20%" *matHeaderCellDef mat-sort-header="StartDate" class="cstm-widthgd qr">
                   Measurement Period
                 </mat-header-cell>
-                <mat-cell fxFlex="20%" *matCellDef="let queuedReportData" class="cstm-widthgd mat-row qc">
+                <mat-cell fxFlex="20%" *matCellDef="let queuedReportData" class="cstm-widthgd qc">
                   {{queuedReportData.MeasurementPeriod}}</mat-cell>
               </ng-container>
 
@@ -1456,20 +1455,17 @@
                 <mat-header-cell fxFlex="12%" *matHeaderCellDef class="cstm-widthgdAction qr">View Results
                 </mat-header-cell>
                 <mat-cell fxFlex="12%" *matCellDef="let queuedReportData;" class="cstm-widthgdAction qc">
-                  <button mat-button class="viewResult" (click)="onViewResults(queuedReportData)"
+                  <button mat-button class="btn-cqm-report" (click)="onViewResults(queuedReportData)"
                     style="margin-top: 1%;">View Results</button>
                 </mat-cell>
               </ng-container>
-              <mat-header-row *matHeaderRowDef="queuedReportsColumns"></mat-header-row>
+              <mat-header-row *matHeaderRowDef="queuedReportsColumns sticky:true"></mat-header-row>
               <mat-row *matRowDef="let row; columns: queuedReportsColumns"></mat-row>
             </mat-table>
-            <table class="Norecordstable">
-              <tr [hidden]="getoverrallreportlength!=0">
-                <td style="color: red; text-align: center;">
+            <div class="Norecordstable" *ngIf="getoverrallreportlength==0"
+            style="color: red; text-align: center;">
                   No Records Found!
-                </td>
-              </tr>
-            </table>
+            </div>
           </div>
         </div>
       </div>
@@ -1477,20 +1473,20 @@
   </div>
 
   <!-- Create Cqm report-->
-  <div *ngIf="cqmcreatereport">
-    <mat-card>
+  <div *ngIf="cqmcreatereport" class="create-cqm-report">
+    <mat-card style="border:#41b6a6 1px solid">
       <div class="row">
         <div class="col-lg-11 col-md-10 col-12">
-          <h1>Queue a Report</h1>
+          <h1 style="margin-left: 12px;">Queue a Report</h1>
         </div>
         <div class="col-lg-1 col-md-2 col-12 my-md-2">
-          <button class="col-md-12 col-4 float-right" (click)="queuedreport()">Go back</button>
+          <button class="col-md-12 col-4 btn-cqm-report" (click)="queuedreport()">Go back</button>
         </div>
       </div>
       <br />
       <form [formGroup]="createReportForm" (ngSubmit)="onSubmitCreateReport()">
-        <div class="row">
-          <div class="col-lg-3  queuereprt">
+        <div class="row" style="margin: 2px;">
+          <div class="col-lg-3 queuereprt">
             <div>
               <h6>Description:<span class="asterisk">*</span></h6>
             </div>
@@ -1503,7 +1499,7 @@
                 <h6>Begin Date:<span class="asterisk">*</span></h6>
               </div>
               <div class="col-xl-12 col-lg-12 col-md-12 col-12">
-                <mat-form-field appearance="outline" class="w-75">
+                <mat-form-field appearance="outline" class="w-75 being-date">
                   <input matInput class="pointer" style="text-overflow: ellipsis;" placeholder="Begin Date"
                     autocomplete="off" [matDatepicker]="picker" (click)="picker.open()" readonly
                     formControlName="startDate" (dateChange)="disableEndDateInCreateReport()">
@@ -1512,8 +1508,7 @@
                   <mat-error *ngIf="checkError ('startDate', 'required')">Please select the start date</mat-error>
                 </mat-form-field>
 
-                <button appearance="outline" class="w-25 cstm-addon-btn my-1 my-md-1"
-                  style="border-top-left-radius: 0%; border-bottom-left-radius: 0%; height: 50px;"
+                <button appearance="outline" class="w-25 cstm-addon-btn"
                   matTooltip="Select Begin Date First" [matTooltipDisabled]="!disableEndDateInput">
                   <mat-select placeholder="Add" class="addons" [disabled]="disableEndDateInput">
                     <mat-option value="3" (click)="endDateCalculation(3)"> 3 months </mat-option>
@@ -1527,7 +1522,7 @@
               <div class="col-lg-12">
                 <h6>End Date:<span class="asterisk">*</span></h6>
               </div>
-              <mat-form-field appearance="outline" class="col-lg-12 ">
+              <mat-form-field appearance="outline" class="col-lg-12 end-date">
                 <input matInput class="pointer" style="text-overflow: ellipsis;" placeholder="End Date"
                   autocomplete="off" [min]="createReportForm.value.startDate" [disabled]="disableEndDateInput"
                   [matDatepicker]="picker2" (click)="picker2.open()" readonly formControlName="endDate"
@@ -1549,13 +1544,16 @@
                 <mat-error *ngIf="checkError ('bundleYear', 'required')">Please select the bundle year</mat-error>
               </mat-form-field>
               <div class="col-lg-12 ">
-                <button mat-button class="btn queue-report-btn" [disabled]="createReportForm.invalid">Queue
+                <button class="btn-cqm-queue-report col-8" [class.inactive]="createReportForm.invalid"
+                [class.active]="!createReportForm.invalid" [disabled]="createReportForm.invalid">Queue
                   Report</button>
               </div>
             </div>
+
+
           </div>
 
-          <div class="col-lg-9 body my-3">
+          <div class="col-lg-9 mat-elevation-z8 .cqm-body  my-3">
             <div class="row" style="margin-top:1%;">
               <div class="col-lg-4 col-md-6">
                 <h6 class="pl-3">Providers:<span class="asterisk">*</span></h6>

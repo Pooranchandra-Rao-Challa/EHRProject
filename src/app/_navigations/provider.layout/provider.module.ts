@@ -129,6 +129,9 @@ import { PastMedicalHistoryDialogComponent } from 'src/app/dialogs/past.medical.
 import { FamilyHealthHistoryDialogComponent } from 'src/app/dialogs/family.health.history.dialog/family.health.history.dialog.component';
 import {AuthorizedrepresentativeDialogComponent} from 'src/app/dialogs/authorizedrepresentative.dialog/authorizedrepresentative.dialog.component';
 import {AddauthorizedrepresentativeDialogComponent} from 'src/app/dialogs/addauthorizedrepresentative.dialog/addauthorizedrepresentative.dialog.component';
+import { EncounterTableDialogComponent } from 'src/app/dialogs/encounter.table.dialog/encounter.table.dialog.component';
+import { AppointmentsTableDialogComponent } from 'src/app/dialogs/appointments.table.dialog/appointments.table.dialog.component';
+
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
   interactionPlugin,
@@ -171,7 +174,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     PastMedicalHistoryDialogComponent,
     FamilyHealthHistoryDialogComponent,
     AuthorizedrepresentativeDialogComponent,
-    AddauthorizedrepresentativeDialogComponent
+    AddauthorizedrepresentativeDialogComponent,
+    EncounterTableDialogComponent,
+    AppointmentsTableDialogComponent,
     // FileUploadComponent,
 
 
@@ -252,7 +257,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     PastMedicalHistoryDialogComponent,
     FamilyHealthHistoryDialogComponent,
     AuthorizedrepresentativeDialogComponent,
-    AddauthorizedrepresentativeDialogComponent
+    AddauthorizedrepresentativeDialogComponent,
+    EncounterTableDialogComponent,
+    AppointmentsTableDialogComponent
 
   ],
   imports: [
@@ -339,7 +346,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     SmokingStatusTableDialogComponent,
     AdvancedDirectivesTableDialogComponent,
     PastMedicalHistoryDialogComponent,
-    FamilyHealthHistoryDialogComponent]
+    FamilyHealthHistoryDialogComponent,
+    EncounterTableDialogComponent,
+    AppointmentsTableDialogComponent]
 })
 export class ProviderModule {
 
