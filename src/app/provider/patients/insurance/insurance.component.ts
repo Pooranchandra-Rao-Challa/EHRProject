@@ -494,7 +494,6 @@ export class InsuranceComponent implements OnInit {
     return !(this.primlist.SubscriberNane != null && this.primlist.SubscriberNane != ""
       && this.primlist.DateOfBirth != null && this.primlist.DateOfBirth != ""
       && this.primlist.Gender != null && this.primlist.Gender != ""
-      && this.primlist.Gender != null && this.primlist.Gender != ""
       && this.primlist.StreetAddress!=null && this.primlist.StreetAddress !=""
       && this.primlist.City != null && this.primlist.City != ""
       && this.primlist.State != null && this.primlist.State != ""
@@ -509,7 +508,6 @@ export class InsuranceComponent implements OnInit {
   secondaryenableSave() {
     return !(this.secList.SubscriberNane != null && this.secList.SubscriberNane != ""
       && this.secList.DateOfBirth != null && this.secList.DateOfBirth != ""
-      && this.secList.Gender != null && this.secList.Gender != ""
       && this.secList.Gender != null && this.secList.Gender != ""
       && this.secList.StreetAddress!=null && this.secList.StreetAddress !=""
       && this.secList.City != null && this.secList.City != ""

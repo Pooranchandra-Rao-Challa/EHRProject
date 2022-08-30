@@ -36,7 +36,6 @@ export class PastMedicalHistoryDialogComponent implements OnInit {
   }
 
   updateLocalModel(data: any) {
-    debugger;
     this.patientPastMedicalHistory = new PastMedicalHistory;
     if (data == null) return;
     if (data.length != 0) {
@@ -102,7 +101,6 @@ export class PastMedicalHistoryDialogComponent implements OnInit {
 
   openComponentDialog(content: any | ComponentType<any> | string,
     dialogData, action: Actions = this.ActionTypes.add) {
-    debugger;
     let reqdata: any;
     if (action == Actions.view && content === this.familyHealthHistoryDialogComponent) {
       reqdata = dialogData;

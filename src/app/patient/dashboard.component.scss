@@ -1,3 +1,5 @@
+@import"../../assets/common.scss";
+@import"../../assets/cstm.material.scss";
 .h4-title {
   margin-top: 36px !important;
 }
@@ -216,4 +218,15 @@ h4 {
 
 .nav-link {
   padding: 0.2rem 1rem !important;
+}
+.save-button {
+  height: 41px;
+  border-radius: 3px;
+  margin-left: 75%;
+  width: 25%;
+  margin-top: 1%;
+}
+.modal-content.view-appoinments
+{
+  width:500px
 }

@@ -127,8 +127,8 @@ import { SmokingStatusTableDialogComponent } from 'src/app/dialogs/smoking.statu
 import { AdvancedDirectivesTableDialogComponent } from 'src/app/dialogs/advanced.directives.table.dialog/advanced.directives.table.dialog.component';
 import { PastMedicalHistoryDialogComponent } from 'src/app/dialogs/past.medical.history.dialog/past.medical.history.dialog.component';
 import { FamilyHealthHistoryDialogComponent } from 'src/app/dialogs/family.health.history.dialog/family.health.history.dialog.component';
-
-
+import {AuthorizedrepresentativeDialogComponent} from 'src/app/dialogs/authorizedrepresentative.dialog/authorizedrepresentative.dialog.component';
+import {AddauthorizedrepresentativeDialogComponent} from 'src/app/dialogs/addauthorizedrepresentative.dialog/addauthorizedrepresentative.dialog.component';
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
   interactionPlugin,
@@ -169,7 +169,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     SmokingStatusTableDialogComponent,
     AdvancedDirectivesTableDialogComponent,
     PastMedicalHistoryDialogComponent,
-    FamilyHealthHistoryDialogComponent
+    FamilyHealthHistoryDialogComponent,
+    AuthorizedrepresentativeDialogComponent,
+    AddauthorizedrepresentativeDialogComponent
     // FileUploadComponent,
 
 
@@ -248,7 +250,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     SmokingStatusTableDialogComponent,
     AdvancedDirectivesTableDialogComponent,
     PastMedicalHistoryDialogComponent,
-    FamilyHealthHistoryDialogComponent
+    FamilyHealthHistoryDialogComponent,
+    AuthorizedrepresentativeDialogComponent,
+    AddauthorizedrepresentativeDialogComponent
 
   ],
   imports: [

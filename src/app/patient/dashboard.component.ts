@@ -33,6 +33,7 @@ export class DashboardComponent {
   messages:Messages;
   messagescount:number=0;
   currentMessageView: string = 'Inbox';
+  viewAppoinments: Appointments = {} as Appointments;
 
   constructor(private authenticationService: AuthenticationService,private overlayService :OverlayService,private patientservice: PatientService,private router:Router,
     private messageService: MessagesService,) {
@@ -147,5 +148,9 @@ console.log(this.messages);
         this.messagescount=res.ListResult == null ? 0:res.ListResult[0].MessagesCount;
 
       })
+}
+showappoinments(item)
+{
+  this.viewAppoinments = item;
 }
 }

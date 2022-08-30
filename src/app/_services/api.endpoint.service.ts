@@ -805,24 +805,28 @@ export class APIEndPoint extends EndpointBase {
   }
 
   get _updatePatientMyProfileSecurityQuestionUrl() {
-    return this._baseUrl + "UpdatePatientMyProfileSecurityQuestion"
+    return this._baseUrl + "UpdatePatientMyProfileSecurityQuestion";
   }
 
   get _updateImageResultUrl() {
-    return this._baseUrl + "UpdateImageResult"
+    return this._baseUrl + "UpdateImageResult";
   }
 
   get _imageResultUrl() {
-    return this._baseUrl + "ImageResult"
+    return this._baseUrl + "ImageResult";
   }
 
   get _clinicsForAdminUrl() {
-    return this._baseUrl + "ClinicsForAdmin"
+    return this._baseUrl + "ClinicsForAdmin";
   }
   get _blockoutInfoUrl() {
-    return this._baseUrl + "BlockoutInfo"
+    return this._baseUrl + "BlockoutInfo";
   }
 
+  get _createAuthorizedRepresentativeUrl()
+  {
+    return this._baseUrl + "CreateAuthorizedRepresentative";
+  }
   constructor(public http: HttpClient) {
     super();
   }

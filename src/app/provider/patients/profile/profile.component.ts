@@ -7,13 +7,16 @@ import { AuthenticationService } from 'src/app/_services/authentication.service'
 import { FormControl } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { User } from 'src/app/_models';
+import { Actions, User } from 'src/app/_models';
 import { ProviderPatient } from 'src/app/_models/_provider/ProviderPatient';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { Accountservice } from 'src/app/_services/account.service';
 import { calcProjectFileAndBasePath } from '@angular/compiler-cli';
 import { PatientUpdateService } from 'src/app/_navigations/provider.layout/view.notification.service';
+import { ComponentType } from '@angular/cdk/portal';
+import { AuthorizedrepresentativeDialogComponent } from 'src/app/dialogs/authorizedrepresentative.dialog/authorizedrepresentative.dialog.component';
+import { OverlayService } from 'src/app/overlay.service';
 
 @Component({
   selector: 'app-profile',
@@ -69,13 +72,16 @@ export class ProfileComponent implements OnInit {
   emergencyDisableAddressVerification: boolean = false;
   PhonePattern: any
   tomorrow = new Date();
+  ActionTypes = Actions;
+  authorizedRepresentativeDialogComponent = AuthorizedrepresentativeDialogComponent
   constructor(private patientService: PatientService,
     private utilityService: UtilityService,
     private smartSchedulerService: SmartSchedulerService,
     private authService: AuthenticationService,
     private alertmsg: AlertMessage,
     private accountservice: Accountservice,
-    private patientUpdateNotifier: PatientUpdateService) {
+    private patientUpdateNotifier: PatientUpdateService,
+    public overlayService: OverlayService,) {
     this.user = authService.userValue;
     this.patientMyProfile = {} as PatientProfile;
     this.PhonePattern = {
@@ -451,4 +457,20 @@ export class ProfileComponent implements OnInit {
               || this.phonepattern.test(this.patientMyProfile.NKMobilePhone)))
     return flag;
   }
+
+
+  openComponentDialog(content: any | ComponentType<any> | string,
+    dialogData, action: Actions = this.ActionTypes.add) {
+    let reqdata: any;
+    if (action == Actions.view && content === this.authorizedRepresentativeDialogComponent) {
+      reqdata = dialogData;
+    }
+    
+    const ref = this.overlayService.open(content, reqdata);
+    ref.afterClosed$.subscribe(res => {
+    
+     
+    });
+  }
+
 }
