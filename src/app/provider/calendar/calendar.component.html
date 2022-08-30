@@ -5,7 +5,7 @@
     </div>
     <div id="left-drawer">
       <br>
-      <mat-calendar class="mat-calendar"></mat-calendar>
+      <mat-calendar class="mat-calendar" [selected]="selectedDate" (selectedChange)="SwitchfullcalendarToDate($event)"></mat-calendar>
       <mat-expansion-panel class="panel providers">
         <mat-expansion-panel-header class="panel-header">
           <mat-panel-title> Provider/Staff </mat-panel-title>
