@@ -530,6 +530,10 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "CreatePastMedicalHistories";
   }
 
+  get _createFamilyHealthHistoriesUrl() {
+    return this._baseUrl + "CreateFamilyHealthHistories";
+  }
+
   get _createAllergiesUrl() {
     return this._baseUrl + "CreateAllergies";
   }

@@ -51,10 +51,7 @@
 //   color: #41b6a6 !important;
 //   height: 45px;
 // }
-.btn-verify {
-  // width: 195px;
-  height: 45px;
-}
+
 
 .input-group-text {
   background-color: #41b6a6;
@@ -87,12 +84,8 @@
 }
 
 .btn-insurance {
-  // width: 277px;
-  margin: 0px;
-  height: 50px;
-  // margin-top: 26px;
-  margin-right: 5px;
-  padding: 0px 2px;
+  width: 100%;
+  height: 55%;
 }
 
 
@@ -146,10 +139,10 @@
 }
 
 .btn-insurancecompany {
-  width: 239px;
-  height: 47px;
-  font-size: 14px;
-  margin-left: 38px;
+  // width: 239px;
+  // height: 47px;
+  // font-size: 14px;
+  // margin-left: 38px;
 }
 
 .bg-color {
@@ -210,20 +203,12 @@
 
 .manualbtn {
   height: 45px;
-  width: 195px;
+  // width: 195px;
   padding: 2px;
+  margin-left: -46px;
 }
 
-// @media (max-width: 1440px) {
-//   .manualbtn {
-//     width: 145px;
-//   }
-// }
-// @media (max-width: 1024px) {
-//   .manualbtn {
-//     width: 160px;
-//   }
-// }
+
 @media (max-width: 1600px) {
   .manualbtn {
     width: 165px;
@@ -346,4 +331,105 @@
 
 .tel-code.mat-option {
   padding: 5px !important;
+}
+.btn-verify {
+ 
+  height: 45px;
+ min-width:170px !important;
+}
+
+@media(max-width:1440px)
+{
+  .btn-verify {
+   min-width:105px !important;
+  }
+}
+@media (min-width: 2560px) {
+  
+  .plusicon {
+   
+    width: 119%;
+    margin-left: -23%;
+  }
+  .manualbtn {
+    margin-left: -99px;
+  }
+  .btn-verify {
+   width:280px !important;
+  }
+}
+
+@media(max-width:1440px)
+{
+  .plusicon{
+    width:124%;
+    margin-left: -21%;
+  }
+  .manualbtn{
+    padding: 0px;
+    margin-left: -19px;
+    max-width: 102px;
+  }
+}
+@media(max-width:1024px)
+{
+  .plusicon
+  {
+    width: 245%;
+    margin-left: -144%;
+  }
+  .manualbtn{
+    margin-left: -48px;
+    max-width: 100px;
+  }
+}
+@media(max-width:768px)
+{
+  .plusicon{
+    width: 31px;
+    margin-left: -18px;
+}
+.manualbtn
+{
+  margin-left: 144px;
+  max-width: 201px;
+  margin-top: 11px;
+ 
+}
+.divScroll {
+  overflow-y: scroll;
+  overflow-x: scroll;
+  height: 500px;
+  width:735px;
+}
+.divScroll1 {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 500px;
+  width: 735px;
+}
+  
+}
+@media(max-width:425px)
+{
+  .plusicon
+  {
+    width:30px;
+    margin-left: -21px;
+  }
+  .btn-verify {
+   margin-bottom: 10px;
+   }
+   .manualbtn
+{
+  margin-left: 175px;
+  max-width: 214px;
+  margin-top: 11px;
+}
+.divScroll {
+  overflow-y: scroll;
+  overflow-x: scroll;
+  height: 500px;
+  width:400px;
+}
 }

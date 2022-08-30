@@ -208,16 +208,16 @@
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
-                    <p class="card-title" data-bs-toggle="modal" data-bs-target="#pastmedical-modal"
-                      (click)="editDialog(chartInfo?.PastMedicalHistories?.length == 0 ? {} : chartInfo?.PastMedicalHistories[0], 'past medical history')">
+                    <p class="card-title"
+                    (click)="openComponentDialog(pastMedicalHistoryDialogComponent, chartInfo?.PastMedicalHistories, ActionTypes.view)">
                       Past Medical
                       History
                     </p>
                   </div>
                   <div class="col-md-4 col-6">
                     <div class="col-12">
-                      <div class="edit-icon pull-right" data-bs-toggle="modal" data-bs-target="#pastmedical-modal"
-                        (click)="editDialog(chartInfo?.PastMedicalHistories?.length == 0 ? {} : chartInfo?.PastMedicalHistories[0], 'past medical history')">
+                      <div class="edit-icon pull-right"
+                      (click)="openComponentDialog(pastMedicalHistoryDialogComponent, chartInfo?.PastMedicalHistories, ActionTypes.view)">
                         <span class="cstm-icon-pencil"></span>
                       </div>
                     </div>
@@ -227,8 +227,7 @@
               <div class="card-body">
                 <ul class="main-list" *ngFor="let pastmedical of chartInfo?.PastMedicalHistories">
                   <li>
-                    <a data-bs-toggle="modal" data-bs-target="#pastmedical-modal"
-                      (click)="editDialog(pastmedical, 'past medical history')">
+                    <a (click)="openComponentDialog(pastMedicalHistoryDialogComponent, chartInfo?.PastMedicalHistories, ActionTypes.view)">
                       <span *ngIf="pastmedical?.CreatedAt != null && pastmedical?.CreatedAt !=''">
                         - {{pastmedical?.CreatedAt | date: 'MM/dd/yyyy'}}
                       </span>
@@ -574,69 +573,6 @@
 </div>
 
 <!-- modal dialogs -->
-
-<!-- Past medical history -->
-<div class="modal fade " id="pastmedical-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-  aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-md" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title Helvetica-sans-serif-medium">Record Past Medical History</h4>
-        <span type="button" class="cross-mark" data-bs-dismiss="modal" (click)="resetDialog()">
-          X
-        </span>
-      </div>
-      <div class="modal-body bg-white scroolbar addlocationbody">
-        <div class="col-md-12">
-          <label class="required">Major Events:</label>
-          <textarea class="form-control col-12 mt-3 mt-md-0"
-            [(ngModel)]="patientPastMedicalHistory.MajorEvents"></textarea>
-        </div>
-        <div class="col-md-12">
-          <label class="required">Ongoing Medical Problems:</label>
-          <textarea class="form-control col-12 mt-3 mt-md-0"
-            [(ngModel)]="patientPastMedicalHistory.OngoingProblems"></textarea>
-        </div>
-        <div class="col-md-12">
-          <div class="row card-bg mt-2">
-            <div class="col-md-8 col-6">
-              <p class="card-title title">Family Health History:</p>
-            </div>
-            <div class="col-md-4 col-6">
-              <div class="col-12 plusicon plus-icons pull-right"><span><i class="fa fa-plus" data-bs-toggle="modal"
-                    data-bs-target="#familyhealth-modal"></i></span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-12 mt-1">
-          <label class="required">Preventative Care:</label>
-          <textarea class="form-control col-12 mt-3 mt-md-0"
-            [(ngModel)]="patientPastMedicalHistory.PerventiveCare"></textarea>
-        </div>
-        <div class="col-md-12">
-          <label class="required">Nutrition History:</label>
-          <textarea class="form-control col-12 mt-3 mt-md-0"
-            [(ngModel)]="patientPastMedicalHistory.NutritionHistory"></textarea>
-        </div>
-      </div>
-      <div class="row mb-3 mt-1 mx-3">
-        <div class="col-md-12 locationbtns">
-          <div class="d-flex justify-content-end">
-            <button type="button" class="btn btn-lg btn-green col-xl-4 col-lg-4 col-md-4 col-8 mx-2"
-              data-bs-dismiss="modal" [disabled]="disablePastMedicalHistory()" (click)="CreatePastMedicalHistories()">
-              Save Changes
-            </button>
-            <button type="button" class="btn btn-lg btn-green col-xl-3 col-lg-3 col-md-3 col-5 mx-2"
-              data-bs-dismiss="modal" (click)="resetDialog()">
-              Cancel
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- Family healthy history -->
 <div class="modal fade " id="familyhealth-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"

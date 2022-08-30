@@ -193,6 +193,10 @@ export class PatientService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._createPastMedicalHistoriesUrl, reqparams);
   }
 
+  CreateFamilyHealthHistories(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._createFamilyHealthHistoriesUrl, reqparams);
+  }
+
   CreateAllergies(reqparams: any) {
     return this._ProcessPostRequest<any>(this._createAllergiesUrl, reqparams);
   }

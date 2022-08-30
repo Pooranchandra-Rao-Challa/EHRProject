@@ -1,0 +1,162 @@
+<div class="modal-dialog family-health-modal" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title Helvetica-sans-serif-medium">Add Family Health History</h4>
+      <span type="button" class="cross-mark" (click)="cancel()">
+        X
+      </span>
+    </div>
+    <div class="scroolbar">
+      <div class="modal-body">
+        <div>
+          <div class="row colour-bg pt-2 mb-3">
+            <div class="col-lg-2 col-md-2 left-block">
+              <div class="form-group">
+                <p class="title-bold">Relative</p>
+              </div>
+              <div class="relative-icon">
+                <input class="age-input form-control disabled" type="text" *ngIf="patientFamilyHealthHistory?.FamilyMedicalHistoryInfo?.Age > 0"
+                [(ngModel)]="patientFamilyHealthHistory.FamilyMedicalHistoryInfo.Age" >
+                <!-- <span [(ngModel)]="patientFamilyHealthHistory.FamilyMedicalHistoryInfo.Age"></span> -->
+              </div>
+            </div>
+            <div class="col-lg-10 col-md-10">
+              <div class="row">
+                <div class=" form-group col-lg-6 col-md-6">
+                  <label class="title-bold">First Name</label>
+                  <mat-form-field class="w-100" appearance="outline">
+                    <input matInput placeholder="First Name" [(ngModel)]="patientFamilyHealthHistory.FamilyMedicalHistoryInfo.FirstName" />
+                  </mat-form-field>
+                </div>
+                <div class="form-group col-lg-6 col-md-6">
+                  <label class="title-bold">Last Name</label>
+                  <mat-form-field class="w-100" appearance="outline">
+                    <input matInput placeholder="Last Name" [(ngModel)]="patientFamilyHealthHistory.FamilyMedicalHistoryInfo.LastName" />
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class=" form-group col-lg-6 col-md-6">
+                  <label class="title-bold">Relationship</label>
+                  <mat-form-field appearance="outline">
+                    <mat-select placeholder="Select a relationship" [(ngModel)]="patientFamilyHealthHistory.FamilyMedicalHistoryInfo.Relationship">
+                      <mat-option *ngFor="let relation of patientRelationShip" [value]="relation.Relationship">
+                        {{relation.Relationship}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="form-group col-lg-6 col-md-6">
+                  <label class="title-bold">Birthdate</label>
+                  <mat-form-field class="form-group green-calendar" appearance="outline">
+                    <input matInput class="pointer" autocomplete="off" [matDatepicker]="birthDate" (click)="birthDate.open()" readonly placeholder="Date of birth"
+                    [(ngModel)]="patientFamilyHealthHistory.FamilyMedicalHistoryInfo.BirthAt" (dateChange)="ageCalculator()"/>
+                    <mat-datepicker-toggle matSuffix [for]="birthDate"></mat-datepicker-toggle>
+                    <mat-datepicker #birthDate></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <mat-checkbox class="col-md-2 example-margin" [(ngModel)]="patientFamilyHealthHistory.FamilyMedicalHistoryInfo.Deceased">
+                  <div class="checkbox-label">Deceased</div>
+                </mat-checkbox>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <p class="title-bold">Diagnosis</p>
+        </div>
+        <div>
+          <ul class="diagnosis_list" *ngFor="let diagnosis of patientFamilyHealthHistory?.FamilyMedicalHistoryInfo?.Diagnoses; let i=index">
+            <li>
+              <span>
+                <p>- {{diagnosis.Code}}, {{diagnosis.Description}},
+                  Start Date: {{diagnosis.StartAt | date: 'MM/dd/yyyy'}},
+                  Stop Date: {{diagnosis.StopAt | date: 'MM/dd/yyyy'}}
+                </p>
+                <a class="icon icon-sm icon-circle icon-ic-delete pull-right" id="icon-delete"
+                  (click)="deleteDiagnose(i)"></a>
+              </span>
+              <p *ngIf="patientFamilyHealthHistory?.FamilyMedicalHistoryInfo?.Diagnoses?.length == 0">-no existing Dx(s)</p>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="col-md-12 mt-3 accordion">
+            <div class="accordion-button collapsed panel-collapse" data-bs-toggle="collapse"
+              data-bs-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample1">
+              <p class="collaps-title">Add Dx</p>
+            </div>
+          </div>
+          <div class="collapse" id="collapseExample1">
+            <div class="panel-expand">
+              <div class="panel-body">
+                <div class="row">
+                  <!-- <div class="input-group input-group-custom search-input">
+                    <input aria-label="Search" autocomplete="off" class="new-search form-control ignore_spinner"
+                      id="find-messages-input-2" placeholder="Search" />
+                    <span class="input-group-addon input-group-addon-search chart-find-patient-btn"
+                      id="find-messages-button-2"></span>
+                  </div> -->
+                  <medical-code-container class="mt-3 mb-2" [codeSystems]="codeSystemsForDiagnosis"
+                  (optionChanged)="optionChangedForDiagnosis($event)" [MinTermLength]="3" [showSelectedValue]="true">
+                </medical-code-container>
+                  <div class="row mt-3">
+                    <div class="col-md-4 ">
+                      <label class="title-bold margin">
+                        Start Date
+                      </label>
+                    </div>
+                    <div class="col-md-5">
+                      <!-- <mat-form-field class="green-calendar" appearance="outline">
+                        <input matInput class="pointer" autocomplete="off" [matDatepicker]="startDate" (click)="startDate.open()" readonly placeholder="Start Date"
+                        [(ngModel)]="patientFamilyHealthHistory.FamilyMedicalHistoryInfo.DiagnosesInfo.StartAt" />
+                        <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+                        <mat-datepicker #startDate></mat-datepicker>
+                      </mat-form-field> -->
+                    </div>
+                    <div class="col-md-2">
+                      <button class="btn btn-green btn-add mt-1" (click)="bindDiagnosesCode()" [disabled]="disableAddDxbtn">Add Dx</button>
+                    </div>
+                  </div>
+                  <div class="row mt-2">
+                    <div class="col-md-4 ">
+                      <label class="title-bold margin">
+                        Stop Date
+                      </label>
+                    </div>
+                    <div class="col-md-5">
+                      <!-- <mat-form-field class="green-calendar" appearance="outline">
+                        <input matInput class="pointer" autocomplete="off" [matDatepicker]="stopDate" (click)="stopDate.open()" readonly placeholder="Stop Date"
+                        [(ngModel)]="patientFamilyHealthHistory.FamilyMedicalHistoryInfo.DiagnosesInfo.StopAt"/>
+                        <mat-datepicker-toggle matSuffix [for]="stopDate"></mat-datepicker-toggle>
+                        <mat-datepicker #stopDate></mat-datepicker>
+                      </mat-form-field> -->
+                    </div>
+                    <div class="col-md-2">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 mt-3">
+          <label>Notes:</label>
+          <textarea class="form-control col-12 mt-3 mt-md-0" [(ngModel)]="patientFamilyHealthHistory.FamilyMedicalHistoryInfo.Notes"></textarea>
+        </div>
+      </div>
+      <!-- <div class="modal-body">
+      </div> -->
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-green" (click)="Create()">
+        Save
+      </button>
+      <button type="button" class="btn btn-green" (click)="cancel()">
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>
