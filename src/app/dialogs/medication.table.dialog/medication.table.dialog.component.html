@@ -7,45 +7,51 @@
           <span>Medications | </span>
           <span>Prescription</span>
         </h4>
-        <div class="manual-RX" (click)="openComponentDialog(medicationDialogComponent, null, ActionTypes.add)">
+        <!-- <div class="manual-RX" (click)="openComponentDialog(medicationDialogComponent, null, ActionTypes.add)">
           <a class="erx-icon">
           </a>
           <span>Manual RX</span>
-        </div>
+        </div> -->
+        <span type="button" class="cross-mark" (click)="cancel()">
+          X
+        </span>
       </div>
       <div class="modal-body">
-        <mat-table [dataSource]="medication_prescription" matSort>
-          <ng-container matColumnDef="Status">
-            <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
-            <mat-cell *matCellDef="let medication">
-              <a (click)="openComponentDialog(medicationDialogComponent, medication, ActionTypes.view)">
-                {{medication.Status}}{{medication?.StartAt | date:'MM/dd/yyyy'}}
-              </a>
-            </mat-cell>
-          </ng-container>
-          <ng-container matColumnDef="Name">
-            <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-            <mat-cell *matCellDef="let medication">
-              <a (click)="openComponentDialog(medicationDialogComponent, medication, ActionTypes.view)">
-                {{medication?.DrugName}}
-              </a>
-            </mat-cell>
-          </ng-container>
-          <ng-container matColumnDef="Type">
-            <mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
-            <mat-cell *matCellDef="let medication">
-            </mat-cell>
-          </ng-container>
-          <ng-container matColumnDef="Method">
-            <mat-header-cell *matHeaderCellDef>Method</mat-header-cell>
-            <mat-cell *matCellDef="let medication"></mat-cell>
-          </ng-container>
+        <div scrollable-mat-table>
+          <mat-table [dataSource]="medication_prescription" matSort>
+            <ng-container matColumnDef="Status">
+              <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+              <mat-cell *matCellDef="let medication">
+                <a (click)="openComponentDialog(medicationDialogComponent, medication, ActionTypes.view)">
+                  {{medication.Status}}{{medication?.StartAt | date:'MM/dd/yyyy'}}
+                </a>
+              </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Name">
+              <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+              <mat-cell *matCellDef="let medication">
+                <a (click)="openComponentDialog(medicationDialogComponent, medication, ActionTypes.view)">
+                  {{medication?.DrugName}}
+                </a>
+              </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Type">
+              <mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
+              <mat-cell *matCellDef="let medication">
+              </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Method">
+              <mat-header-cell *matHeaderCellDef>Method</mat-header-cell>
+              <mat-cell *matCellDef="let medication"></mat-cell>
+            </ng-container>
 
-          <mat-header-row *matHeaderRowDef="medicationColumns"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: medicationColumns"></mat-row>
-        </mat-table>
+            <mat-header-row *matHeaderRowDef="medicationColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: medicationColumns"></mat-row>
+          </mat-table>
+        </div>
       </div>
       <div class="modal-footer">
+        <button class="btn btn-green mx-2" (click)="openComponentDialog(medicationDialogComponent, null, ActionTypes.add)" >Add</button>
         <button class="btn btn-green" (click)="cancel()">Cancel</button>
       </div>
     </div>

@@ -1,0 +1,37 @@
+<div class="modal-dialog encounter-table-modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title Helvetica-sans-serif-medium w-100">Smoking Status Table</h4>
+      <span type="button" class="cross-mark" (click)="cancel()">
+        X
+      </span>
+    </div>
+    <div class="modal-body scrollable-mat-table">
+      <mat-table [dataSource]="patientencounters" matSort>
+        <ng-container matColumnDef="ServicedAt">
+          <mat-header-cell *matHeaderCellDef mat-sort-header="ServicedAt">Serviced Date
+          </mat-header-cell>
+          <mat-cell *matCellDef="let encounter">
+            <a (click)="openComponentDialog(encounterDialogComponent, encounter, ActionTypes.view)">
+              {{encounter.ServicedAt | date: 'MM/dd/yyyy'}}
+            </a>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="VisitingReason">
+          <mat-header-cell *matHeaderCellDef mat-sort-header="VisitingReason">Visiting Reason</mat-header-cell>
+          <mat-cell *matCellDef="let encounter">
+            <a (click)="openComponentDialog(encounterDialogComponent, encounter, ActionTypes.view)">
+              {{encounter.VisitingReason}}
+            </a>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="encounterColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: encounterColumns"></mat-row>
+      </mat-table>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-green" (click)="openComponentDialog(encounterDialogComponent, null, ActionTypes.add)">Add</button>
+      <button class="btn btn-green" (click)="cancel()">Cancel</button>
+    </div>
+  </div>
+</div>

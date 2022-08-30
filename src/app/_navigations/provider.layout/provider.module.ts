@@ -127,7 +127,8 @@ import { SmokingStatusTableDialogComponent } from 'src/app/dialogs/smoking.statu
 import { AdvancedDirectivesTableDialogComponent } from 'src/app/dialogs/advanced.directives.table.dialog/advanced.directives.table.dialog.component';
 import { PastMedicalHistoryDialogComponent } from 'src/app/dialogs/past.medical.history.dialog/past.medical.history.dialog.component';
 import { FamilyHealthHistoryDialogComponent } from 'src/app/dialogs/family.health.history.dialog/family.health.history.dialog.component';
-
+import { EncounterTableDialogComponent } from 'src/app/dialogs/encounter.table.dialog/encounter.table.dialog.component';
+import { AppointmentsTableDialogComponent } from 'src/app/dialogs/appointments.table.dialog/appointments.table.dialog.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -169,7 +170,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     SmokingStatusTableDialogComponent,
     AdvancedDirectivesTableDialogComponent,
     PastMedicalHistoryDialogComponent,
-    FamilyHealthHistoryDialogComponent
+    FamilyHealthHistoryDialogComponent,
+    EncounterTableDialogComponent,
+    AppointmentsTableDialogComponent,
     // FileUploadComponent,
 
 
@@ -248,7 +251,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     SmokingStatusTableDialogComponent,
     AdvancedDirectivesTableDialogComponent,
     PastMedicalHistoryDialogComponent,
-    FamilyHealthHistoryDialogComponent
+    FamilyHealthHistoryDialogComponent,
+    EncounterTableDialogComponent,
+    AppointmentsTableDialogComponent
 
   ],
   imports: [
@@ -335,7 +340,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     SmokingStatusTableDialogComponent,
     AdvancedDirectivesTableDialogComponent,
     PastMedicalHistoryDialogComponent,
-    FamilyHealthHistoryDialogComponent]
+    FamilyHealthHistoryDialogComponent,
+    EncounterTableDialogComponent,
+    AppointmentsTableDialogComponent]
 })
 export class ProviderModule {
 

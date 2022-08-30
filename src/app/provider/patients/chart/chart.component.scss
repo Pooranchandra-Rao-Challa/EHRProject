@@ -102,6 +102,7 @@ ul.go-to-nav {
     margin-left: 17%;
   }
 }
+
 @media (max-width: 430px) {
   .new-search-group.chart-patient-new-search-group {
     width: 100%;
@@ -112,6 +113,7 @@ ul.go-to-nav {
     padding: 0px 13px;
   }
 }
+
 @media (max-width: 768px) {
   .new-search-group.chart-patient-new-search-group {
     width: 72%;
@@ -135,62 +137,24 @@ input.new-search::placeholder {
   opacity: 0.9;
 }
 
-.input-group .form-control {
-  // display: table-cell;
-  height: 45px;
-  border-radius: 4px;
-}
-
-.input-group .form-control:first-child {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-}
-
 .new-search {
- // background-color: #fff;
+  // background-color: #fff;
   color: #4A4A4A;
   border-color: #41b6a6;
 }
-.input-search{
-  border-color: #dedede ;
+
+.input-search {
+  border-color: #dedede;
 }
+
 .input-search:hover,
-.input-search:focus{
+.input-search:focus {
   border-color: #41b6a6;
 }
+
 .form-control {
   padding: 0 20px;
   font-size: 15px;
-}
-
-.input-group .input-group-addon.chart-find-patient-btn {
-  background-color: #41b6a6;
-  cursor: pointer;
-}
-
-.input-group .input-group-addon.input-group-addon-search {
-  background-image: url(../../../../assets/images/search-icon.svg);
-  margin-left: 0%;
-}
-
-.input-group .input-group-addon {
-  width: 66px;
-  height: 45px;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.input-group-addon {
-  border-radius: 4px;
-}
-
-.input-group-addon:last-child {
-  border-left: 0;
-}
-
-.input-group-addon:last-child {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
 }
 
 // right side buttons
@@ -205,7 +169,7 @@ input.new-search::placeholder {
 // card
 .patientChartTab {
   padding: 10px 20px;
- // max-height: 700px;
+  // max-height: 700px;
   border-top: 3px solid #41b6a6;
 }
 
@@ -274,6 +238,7 @@ a.patient-chart {
 a.patient-chart:hover {
   color: #23527c;
 }
+
 ew-more {
   float: right;
   text-align: right;
@@ -325,17 +290,6 @@ ew-more {
   background-color: #f5f5f5;
 }
 
-// ::ng-deep .input-field.mat-form-field-appearance-outline:hover .mat-form-field-outline ,
-// ::ng-deep .input-field.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline{
-//   background-color: #f5f5f5 !important;
-//   color: #41b6a6 !important;
-// }
-// ::ng-deep .input-field.mat-form-field-appearance-outline .mat-form-field-outline {
-//   background-color: #f5f5f5 !important;
-//   color: #dedede !important;
-
-// }
-
 textarea.form-control {
   height: 119px !important;
   resize: none;
@@ -354,22 +308,6 @@ textarea.form-control {
   color: #fff;
   padding: 9px 0px 0px 0px;
 }
-
-// ::ng-deep .cstm-calendar.green-calendar .mat-datepicker-toggle.mat-datepicker-toggle button.mat-focus-indicator.mat-icon-button {
-//   height: 45px !important;
-//   border-top-right-radius: 3px;
-//   border-bottom-right-radius: 3px;
-//   margin-right: -8px;
-// }
-
-// ::ng-deep .medication-datepicker.grey-calendar .mat-datepicker-toggle.mat-datepicker-toggle button.mat-focus-indicator.mat-icon-button {
-//   height: 45px !important;
-//   margin-right: -9px;
-// }
-
-// ::ng-deep .mat-select, .mat-input-element {
-//   vertical-align: -webkit-baseline-middle;
-// }
 
 .col-sm-4 {
   height: 39px;
@@ -402,25 +340,9 @@ textarea.form-control {
   margin: 0;
 }
 
-.scroolbar {
-  height: 560px;
-  top: 94%;
-  box-sizing: border-box;
-  white-space: nowrap;
-  overflow-y: scroll;
-  background: white;
-}
-
 .plus-icons {
   border: 1px solid #41b6a6 !important;
   margin-top: 12px !important;
-}
-
-.title-bold {
-  margin: 12px 0;
-  color: #4A4A4A;
-  font-size: 15px;
-  font-weight: 600;
 }
 
 .checkbox-label {
@@ -430,52 +352,12 @@ textarea.form-control {
   font-size: 16px;
 }
 
-.diagnosis_list {
-  padding-left: 20px;
-  list-style-type: none;
-}
-
-.accordion {
-  background-color: rgba(65, 182, 166, 0.1);
-}
-
-.panel-collapse {
-  border: 1px solid #41b6a6;
-  line-height: 20%;
-  background-color: rgba(65, 182, 166, 0.1);
-}
-
-.panel-expand {
-  border: 1px solid #41b6a6;
-  border-top: none;
-}
-
 .modal-dialog {
   margin-top: calc(50px + 50px) !important;
 }
 
-.panel-body {
-  padding: 15px 26px 5px 21px;
-}
-
 .search-input {
   border-color: #41b6a6;
-}
-
-.btn-add {
-  width: 114px !important;
-}
-
-.collaps-title {
-  font-size: 14px;
-  padding: 0px 0px 0px 0px;
-  color: #41b6a6;
-}
-
-.accordion-button:not(.collapsed) {
-  background-color: rgba(65, 182, 166, 0.1);
-  box-shadow: inset 0 0px 0 rgb(0 0 0 / 13%);
-  border-bottom: none;
 }
 
 .btn-lg {
@@ -486,23 +368,6 @@ textarea.form-control {
   padding: 15px 13px !important;
 }
 
-.relative-icon {
-  width: 65px;
-  height: 65px;
-  margin: 0 auto 68px auto;
-  border: 1px solid #41b6a6;
-  border-radius: 50%;
-  background-color: rgba(65, 182, 166, 0.49);
-}
-
-// ::ng-deep .input-bg.mat-form-field-appearance-outline .mat-form-field-outline {
-//   background-color: #f5f5f5 !important;
-//   color: #dedede !important;
-// }
-// ::ng-deep .input-bg.mat-form-field-appearance-outline:hover .mat-form-field-outline {
-//   background-color: #f5f5f5 !important;
-//   color: #41b6a6 !important;
-// }
 .btn-save {
   margin-top: 6px;
   width: 100%;
@@ -517,22 +382,23 @@ textarea.form-control {
   font-size: 14px;
 }
 
-.locationbtns{
+.locationbtns {
   margin-left: 8px;
 }
 
-textarea.form-control.inputclass{
-    border: 1px solid #dedede  !important;
+textarea.form-control.inputclass {
+  border: 1px solid #dedede !important;
 }
 
 textarea.form-control.inputclass:focus,
-textarea.form-control.inputclass:hover{
-  border: 1px solid #41b6a6  !important;
+textarea.form-control.inputclass:hover {
+  border: 1px solid #41b6a6 !important;
 }
 
 //waring message modal
 .header-change {
-  background-color: #D9534E;;
+  background-color: #D9534E;
+  ;
 }
 
 .modal-text {
@@ -546,16 +412,19 @@ textarea.form-control.inputclass:hover{
   // max-width: inherit !important;
   // margin: 0 !important;
 }
+
 .modal-body {
   max-height: calc(90vh - 180px);
   overflow-y: auto;
 }
+
 .body {
   max-height: calc(90vh - 130px);
   overflow-y: auto;
   overflow-x: hidden;
 }
-.icons-design{
+
+.icons-design {
   border: 1px solid #41a6b6;
   width: 24px;
   height: 24px;
@@ -567,9 +436,11 @@ textarea.form-control.inputclass:hover{
 #immunization-modal .modal-footer .btn-green {
   width: 85px !important;
 }
+
 #immunization-modal .modal-dialog {
   max-width: 750px;
 }
+
 #immunization-modal textarea {
   height: 131px !important;
   resize: none;
@@ -577,42 +448,53 @@ textarea.form-control.inputclass:hover{
   border-color: #41b6a6;
   border-radius: 6px;
 }
+
 #immunization-modal mat-label {
-  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 15px;
   color: #74757e;
   margin: 0 0 10px 5px;
 }
+
 #immunization-modal .textarea-margin {
   margin: 0px;
 }
+
 #immunization-modal.modal .modal-dialog .modal-content .modal-body {
   padding: 0px;
   overflow-x: hidden !important;
 }
+
 #immunization-modal.modal .modal-footer {
   padding: 10px 23px !important;
 }
-::ng-deep #immunization-modal .mat-select, .mat-input-element {
+
+::ng-deep #immunization-modal .mat-select,
+.mat-input-element {
   vertical-align: -webkit-baseline-middle;
 }
+
 .textarea-margin mat-label {
   padding: 0px;
-  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 15px;
 }
+
 // immunization table
 #immunization-table-modal .modal-dialog {
   max-width: 1179px;
 }
+
 #immunization-table-modal .mat-row {
   padding: 10px;
 }
+
 #immunization-table-modal .mat-row:hover {
-  a{
+  a {
     color: #41b6a6 !important;
   }
 }
+
 a.view-more:hover {
   color: #41a6b6;
   cursor: pointer;

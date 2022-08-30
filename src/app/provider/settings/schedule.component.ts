@@ -447,7 +447,6 @@ export class ScheduleComponent implements OnInit {
         if (resp.ListResult.length == 1)
           this.generalSchedule = resp.ListResult[0];
       }
-
     })
   }
 

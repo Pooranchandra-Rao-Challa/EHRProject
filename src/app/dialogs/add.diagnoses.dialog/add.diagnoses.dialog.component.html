@@ -34,7 +34,7 @@
               [disabled]="!patientDiagnoses.IsEditable"
               [ngStyle]="{'cursor':!patientDiagnoses.IsEditable ? 'not-allowed' : 'auto' }" />
           </mat-form-field>
-          <label class="required">Descrption</label>
+          <label class="required">Description</label>
           <mat-form-field class="w-100" appearance="outline">
             <input matInput placeholder="Description" [(ngModel)]="patientDiagnoses.Description"
               [disabled]="!patientDiagnoses.IsEditable"

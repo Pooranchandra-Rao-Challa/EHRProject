@@ -117,7 +117,6 @@ export class InterventionDialogComponent implements OnInit {
     this.patientIntervention.PatientId = this.currentPatient.PatientId;
     this.patientIntervention.StartDate = new Date(this.datepipe.transform(this.patientIntervention.StartDate, "yyyy-MM-dd", "en-US"));
     this.patientIntervention.EndDate = new Date(this.datepipe.transform(this.patientIntervention.EndDate, "yyyy-MM-dd", "en-US"));
-
     let Count = this.selectedInterventionCodes.length;
     if (Count > 0) {
       this.selectedInterventionCodes.forEach(intervention => {
@@ -153,12 +152,16 @@ export class InterventionDialogComponent implements OnInit {
     let reqdata: any;
     if (action == Actions.view && content === this.cqmNotPerformedDialogComponent) {
       reqdata = {
-        InterventionId: this.patientIntervention.InterventionId
+        CessationInterventionId: null,
+        InterventionId: dialogData
       }
     }
     const ref = this.overlayService.open(content, reqdata);
     ref.afterClosed$.subscribe(res => {
       // this.UpdateView(res.data);
+      if(res.data != null){
+        this.ref.close(res.data);
+      }
     });
   }
 
