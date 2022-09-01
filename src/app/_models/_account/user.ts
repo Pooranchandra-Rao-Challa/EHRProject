@@ -9,6 +9,7 @@ export interface User {
   AdminId: string;
   PatientId: string;
   RepresentativeId: string;
+  RepresentativeName: string;
   Username: string;
   Role: string;
   FirstName: string;
