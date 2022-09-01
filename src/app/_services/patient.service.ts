@@ -278,7 +278,9 @@ export class PatientService extends APIEndPoint {
   DeleteAmendment(reqparams: any) {
     return this._ProcessPostRequest<any>(this._deleteAmendmentUrl, reqparams);
   }
-
+  DeleteDiagnoses(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._deleteDiagnosesUrl, reqparams);
+  }
 
   PatientSearch(reqparams: any) {
     return this._ProcessPostRequest<any>(this._patientSearchUrl, reqparams);
@@ -300,5 +302,9 @@ export class PatientService extends APIEndPoint {
   UpdatePatientMyProfileSecurityQuestion(reqParams: any)
   {
     return this._ProcessPostRequest<any>(this._updatePatientMyProfileSecurityQuestionUrl,reqParams);
+  }
+  CreateAuthorizedRepresentative(reqParams: any)
+  {
+    return this._ProcessPostRequest<any>(this._createAuthorizedRepresentativeUrl,reqParams);
   }
 }

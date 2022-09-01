@@ -235,9 +235,11 @@ export const ERROR_CODES: { [key: string]: string } = {
   'M2CP006': 'Next of kin updated successfully',
   'M2CP007': 'Immunization registry updated successfully',
   'M2CP008': 'Patient updated successfully',
+  
   //Security Question
   'M2CP009': 'Security Question is Updated Sucessfully ',
   'M2CP0010': 'Address Veirified',
+  'M2CP0011': 'Authorized representative added sucessfully',
 
   // Error for Patient profile directives
   'E2CP001': 'Personal Information Updation error',
@@ -249,6 +251,7 @@ export const ERROR_CODES: { [key: string]: string } = {
   'E2CP007': 'Immunization Updation error',
   'E2CP008': 'Security Question Updation Error',
   'E2CP009': 'Address Veirfication Failed',
+  'E2CP0010': 'Authorized representative failed',
   //Message for Partner signup
   'M3PS001': 'Application Submitted!',
 
@@ -293,9 +296,9 @@ export const ERROR_CODES: { [key: string]: string } = {
   'E2CI005': 'Secondary Insurance Address Verification Failed',
 
   //Messages for Patients Procedure Crete
-  'M2CP1001': 'Procedure Added sucessfully',
-  'M2CP1002': 'Procedure Updated sucessfully',
-  'M2CP1003': 'Procedure Deleted sucessfully',
+  'M2CP1001': 'Procedure Added successfully',
+  'M2CP1002': 'Procedure Updated successfully',
+  'M2CP1003': 'Procedure Deleted successfully',
 
   //ERRORs for Patients Procedure Crete
   'E2CP1001': 'Procedure Updated error',
@@ -344,6 +347,7 @@ export const ERROR_CODES: { [key: string]: string } = {
 
   // Error for diagnoses
   'E2CD001': 'Diagnoses Updation error',
+  'E2CD002': 'Diagnoses deleted error',
 
   //Message for medication in chart screen
   'M2CM001': 'Medication added successfully',
@@ -450,7 +454,7 @@ export const ERROR_CODES: { [key: string]: string } = {
   'E2JPE001': 'Education Material updation Error',
 
   //Calendar Events Messages
-  'M2B001': 'Rescheduled the appointment sucessfully',
+  'M2B001': 'Rescheduled the appointment successfully',
   'M2B002': 'Appointment is allocated to new resource successfully',
 
 
@@ -461,17 +465,17 @@ export const ERROR_CODES: { [key: string]: string } = {
   'E2B004': 'Appointment is not allocated',
   'E2B005': 'Creating appointment outside business hours, If acceptable click Confirm else Reject.',
   //Clinical Decision Support
-  'M2JCDS001': 'Alert added sucessfully',
+  'M2JCDS001': 'Alert added successfully',
   'M2JCDS002': 'Alert updated successfully',
   //Trigger Added and Delete
-  'M2JCDS003': 'Trigger added sucessfully',
-  'M2JCDS004': 'Trigger deleted sucessfully ',
+  'M2JCDS003': 'Trigger added successfully',
+  'M2JCDS004': 'Trigger deleted successfully ',
   //Error for CDS
   'E2JCDS001': 'Alert updation error',
   'E2JCDS002': 'Trigger updation error',
   'E2JCDS003': 'Trigger deletion error',
   //Messages for Patient Appoinments
-  'M3A001': 'Appoinments added sucessfully ',
+  'M3A001': 'Appoinments added successfully ',
   'M3A002': 'Appoinments cancelled successfully',
   //Error Messages for Patient Appoinments
   'E3A001': "Appoinments updation error",

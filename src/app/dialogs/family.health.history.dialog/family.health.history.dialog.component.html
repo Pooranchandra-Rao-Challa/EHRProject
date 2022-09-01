@@ -23,13 +23,13 @@
             <div class="col-lg-10 col-md-10">
               <div class="row">
                 <div class=" form-group col-lg-6 col-md-6">
-                  <label class="title-bold">First Name</label>
+                  <label class="title-bold required">First Name</label>
                   <mat-form-field class="w-100" appearance="outline">
                     <input matInput placeholder="First Name" [(ngModel)]="patientFamilyHealthHistory.FamilyMedicalHistoryInfo.FirstName" />
                   </mat-form-field>
                 </div>
                 <div class="form-group col-lg-6 col-md-6">
-                  <label class="title-bold">Last Name</label>
+                  <label class="title-bold required">Last Name</label>
                   <mat-form-field class="w-100" appearance="outline">
                     <input matInput placeholder="Last Name" [(ngModel)]="patientFamilyHealthHistory.FamilyMedicalHistoryInfo.LastName" />
                   </mat-form-field>
@@ -37,7 +37,7 @@
               </div>
               <div class="row">
                 <div class=" form-group col-lg-6 col-md-6">
-                  <label class="title-bold">Relationship</label>
+                  <label class="title-bold required">Relationship</label>
                   <mat-form-field appearance="outline">
                     <mat-select placeholder="Select a relationship" [(ngModel)]="patientFamilyHealthHistory.FamilyMedicalHistoryInfo.Relationship">
                       <mat-option *ngFor="let relation of patientRelationShip" [value]="relation.Relationship">
@@ -47,7 +47,7 @@
                   </mat-form-field>
                 </div>
                 <div class="form-group col-lg-6 col-md-6">
-                  <label class="title-bold">Birthdate</label>
+                  <label class="title-bold required">Birthdate</label>
                   <mat-form-field class="form-group green-calendar" appearance="outline">
                     <input matInput class="pointer" autocomplete="off" [matDatepicker]="birthDate" (click)="birthDate.open()" readonly placeholder="Date of birth"
                     [(ngModel)]="patientFamilyHealthHistory.FamilyMedicalHistoryInfo.BirthAt" (dateChange)="ageCalculator()"/>
@@ -109,12 +109,12 @@
                       </label>
                     </div>
                     <div class="col-md-5">
-                      <!-- <mat-form-field class="green-calendar" appearance="outline">
+                      <mat-form-field class="green-calendar" appearance="outline">
                         <input matInput class="pointer" autocomplete="off" [matDatepicker]="startDate" (click)="startDate.open()" readonly placeholder="Start Date"
-                        [(ngModel)]="patientFamilyHealthHistory.FamilyMedicalHistoryInfo.DiagnosesInfo.StartAt" />
+                        [(ngModel)]="diagnosesStartDate" />
                         <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
                         <mat-datepicker #startDate></mat-datepicker>
-                      </mat-form-field> -->
+                      </mat-form-field>
                     </div>
                     <div class="col-md-2">
                       <button class="btn btn-green btn-add mt-1" (click)="bindDiagnosesCode()" [disabled]="disableAddDxbtn">Add Dx</button>
@@ -127,12 +127,12 @@
                       </label>
                     </div>
                     <div class="col-md-5">
-                      <!-- <mat-form-field class="green-calendar" appearance="outline">
+                      <mat-form-field class="green-calendar" appearance="outline">
                         <input matInput class="pointer" autocomplete="off" [matDatepicker]="stopDate" (click)="stopDate.open()" readonly placeholder="Stop Date"
-                        [(ngModel)]="patientFamilyHealthHistory.FamilyMedicalHistoryInfo.DiagnosesInfo.StopAt"/>
+                        [(ngModel)]="diagnosesStopDate" />
                         <mat-datepicker-toggle matSuffix [for]="stopDate"></mat-datepicker-toggle>
                         <mat-datepicker #stopDate></mat-datepicker>
-                      </mat-form-field> -->
+                      </mat-form-field>
                     </div>
                     <div class="col-md-2">
                     </div>
@@ -151,7 +151,7 @@
       </div> -->
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-green" (click)="Create()">
+      <button type="button" class="btn btn-green" (click)="Create()" [disabled]="disableFamilyHealthHistory()">
         Save
       </button>
       <button type="button" class="btn btn-green" (click)="cancel()">

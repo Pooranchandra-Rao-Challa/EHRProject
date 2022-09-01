@@ -30,7 +30,7 @@ export class PastMedicalHistory {
 
 export class FamilyMedicalHistory {
   FamilyHealthHistoryId?: string;
-  FPastMedicalHistoryId?: string;
+  PastMedicalHistoryId?: string;
   FirstName?: string;
   LastName?: string;
   Relationship?: string;
@@ -39,7 +39,7 @@ export class FamilyMedicalHistory {
   Notes?: string;
   Age?: number = 0;
   CodeSystem?: string;
-  Diagnoses?: Diagnosis [] = [];
+  Diagnoses: Diagnosis [] = [];
   DiagnosesInfo?: Diagnosis = new Diagnosis();
 }
 
@@ -163,6 +163,7 @@ export class TobaccoUseScreenings {
   ScreeningCode?: string;
   Status?: string;
   ScreeningPerformed?: string;
+  CQMReason?: string;
 }
 
 export class TobaccoUseInterventions {
@@ -224,6 +225,7 @@ export class Intervention {
   CQMStatus?: string;
   LocationId?: string;
   ProviderName?: string;
+  CQMReason?: string;
 }
 
 export interface Vaccine {

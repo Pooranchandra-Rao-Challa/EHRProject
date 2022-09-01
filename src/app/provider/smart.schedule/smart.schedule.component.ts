@@ -225,6 +225,7 @@ export class SmartScheduleComponent implements OnInit {
     data.PatientAppointment.AppointmentTypeId = appointment.AppointmentTypeId;
     data.PatientAppointment.RoomId = appointment.RoomId;
     data.PatientAppointment.Notes = appointment.Notes;
+    data.PatientAppointment.Duration = appointment.Duration;
     data.status = action;
     return data;
   }

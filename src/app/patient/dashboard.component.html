@@ -17,13 +17,24 @@
         <div class="panel panel-default">
           <div class="panel-body">
             <div class="container ">
+              
           <div *ngFor="let item of PatientUpcomingAppointmentsList">
-            <div class="Helvetica-sans-serif-medium mt-2">
-              Provider:{{item.ProviderName}}
+            <div class="row">
+              <div class="col-md-6">
+                <div class="Helvetica-sans-serif-medium mt-2">
+                  Provider:{{item.ProviderName}}
+                </div>
+                <div class="Helvetica-sans-serif-medium mt-2 upcomingAppoinment">
+                  {{item.StartAt | date:'M/d/yyyy'}},{{item.StartAt | date:'shortTime'}}
+                </div>
+              </div>
+              <div class="col-md-6">
+                <button type="button" class="btn btn-green save-button" data-bs-toggle="modal"
+                data-bs-target="#upcoming-appoinment"(click)="showappoinments(item)">View</button>
+              </div>
+            
             </div>
-            <div class="Helvetica-sans-serif-large mt-2 upcomingAppoinment">
-            {{item.StartAt | date:'M/d/yyyy'}},{{item.StartAt | date:'shortTime'}}
-          </div>
+           
           </div>
           </div>
 
@@ -155,5 +166,81 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+
+<div class="modal " id="upcoming-appoinment" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+      <div class="modal-content view-appoinments ">
+          <div class="modal-header">
+
+           
+
+            <span class="Helvetica-sans-serif-medium">View Appointment </span>
+            <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close">
+                X
+            </span>
+        </div>
+        <div class="modal-body modal-scrollbar">
+          <div class="row mb-1">
+            <div class="col-md-6 Helvetica-sans-serif-medium">Patient Name:</div>
+            <div class="col-md-6 Helvetica-sans-serif-medium"><b>{{viewAppoinments.PatientName}}</b></div>
+
+        </div>
+        <div class="row mb-1">
+          <div class="col-md-6 Helvetica-sans-serif-medium">Provider Name:</div>
+          <div class="col-md-6 Helvetica-sans-serif-medium"><b>{{viewAppoinments.ProviderName}}</b></div>
+
+      </div>
+      <div class="row mb-1">
+        <div class="col-md-6 Helvetica-sans-serif-medium">Appointment Type:</div>
+        <div class="col-md-6 Helvetica-sans-serif-medium"><b>{{viewAppoinments.ApptType}}</b></div>
+
+    </div>
+    <div class="row mb-1">
+      <div class="col-md-6 Helvetica-sans-serif-medium">Appointment Status:</div>
+      <div class="col-md-6 Helvetica-sans-serif-medium" *ngIf="viewAppoinments.ApptStatus == 'Not Confirmed'"><b>pending</b></div>
+      <div class="col-md-6 Helvetica-sans-serif-medium" *ngIf="viewAppoinments.ApptStatus == 'Confirmed'"><b>Waiting</b></div>
+      <div class="col-md-6 Helvetica-sans-serif-medium" *ngIf="viewAppoinments.ApptStatus == 'Scheduled'"><b>Status Confirmed</b></div>
+      <div class="col-md-6 Helvetica-sans-serif-medium" *ngIf="viewAppoinments.ApptStatus == 'In-Progress'"><b>Status Confirmed</b></div>
+      <div class="col-md-6 Helvetica-sans-serif-medium" *ngIf="viewAppoinments.ApptStatus == 'Cancelled'"><b>Status Cancelled</b></div>
+  </div>
+  
+    <div class="row mb-1">
+      <div class="col-md-6 Helvetica-sans-serif-medium">Location Name :</div>
+      <div class="col-md-6 Helvetica-sans-serif-medium"><b>{{viewAppoinments.LocationName}}</b></div>
+
+  </div>
+  <div class="row mb-1">
+    <div class="col-md-6 Helvetica-sans-serif-medium">Room:</div>
+    <div class="col-md-6 Helvetica-sans-serif-medium"><b>{{viewAppoinments.Room}}</b></div>
+
+</div>
+  <div class="row mb-1">
+    <div class="col-md-6 Helvetica-sans-serif-medium">Appoinment Date:</div>
+    <div class="col-md-6 Helvetica-sans-serif-medium"><b>{{viewAppoinments.StartAt | date:'M/d/yyyy'}}</b></div>
+
+</div>
+<div class="row mb-1">
+  <div class="col-md-6 Helvetica-sans-serif-medium">Appoinment Time:</div>
+  <div class="col-md-6 Helvetica-sans-serif-medium"><b>{{viewAppoinments.StartAt | date:'shortTime'}}</b></div>
+
+</div>
+<div class="row mb-1">
+  <div class="col-md-6 Helvetica-sans-serif-medium">Duration:</div>
+  <div class="col-md-6 Helvetica-sans-serif-medium"><b>{{viewAppoinments.Duration}} min</b></div>
+
+</div>
+<div class="row mb-1">
+  <div class="col-md-6 Helvetica-sans-serif-medium">Note:</div>
+  <div class="col-md-6 Helvetica-sans-serif-medium"><b>{{viewAppoinments.Note}}</b></div>
+</div>
+</div>
+
+          <div class="modal-footer">
+              
+          </div>
+      </div>
   </div>
 </div>

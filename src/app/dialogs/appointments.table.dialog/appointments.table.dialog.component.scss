@@ -1,0 +1,51 @@
+@import"../../../assets/cstm.material.scss";
+@import"../../../assets/common.scss";
+
+.appointment-table-modal {
+  --bs-table-accent-bg: none !important;
+}
+
+.appointment-table-modal.modal-dialog {
+  overflow-y: initial !important;
+  max-width: 650px;
+}
+
+.appointment-table-modal.modal-dialog .modal-header {
+  padding: 0px 10px !important;
+}
+
+.appointment-table-modal .modal-body {
+  max-height: calc(90vh - 90px);
+  overflow-y: auto;
+}
+
+.appointment-table-modal .mat-row:hover {
+  background-color: #fff !important;
+
+  a {
+    color: #41b6a6 !important;
+  }
+}
+
+.appointment-table-modal .mat-row {
+  padding: 10px;
+}
+
+.appointment-table-modal {
+  @media (max-width: 1350px) {
+    .scrollable-mat-table {
+      width: 100%;
+      overflow-x: scroll;
+    }
+
+    .mat-table {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .mat-table {
+      width: 400px;
+    }
+  }
+}

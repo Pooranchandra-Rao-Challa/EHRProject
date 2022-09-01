@@ -9,6 +9,7 @@ import { Obj } from '@popperjs/core';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { I } from '@angular/cdk/keycodes';
 import { DatePipe } from '@angular/common';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-family.health.history.dialog',
@@ -21,7 +22,10 @@ export class FamilyHealthHistoryDialogComponent implements OnInit {
   codeSystemsForDiagnosis: string[] = ['SNOMED/ICD10'];
   currentPatient: ProviderPatient;
   disableAddDxbtn: boolean = true;
-  // diagnosesSubject = new BehaviorSubject<Diagnosis[]>([]);
+  diagnosesStartDate: Date;
+  diagnosesStopDate: string;
+  originalDiagnoses: any[] = [];
+  onSelectedDiagnoses: Diagnosis;
 
   constructor(private ref: EHROverlayRef,
     private authService: AuthenticationService,
@@ -30,95 +34,92 @@ export class FamilyHealthHistoryDialogComponent implements OnInit {
     private patientService: PatientService) {
     this.currentPatient = this.authService.viewModel.Patient;
     this.updateLocalModel(ref.RequestData);
-   }
+  }
 
   ngOnInit(): void {
     this.patientRelationShip = GlobalConstants.RELATIONSHIP;
+    this.diagnosesStartDate = new Date();
+    this.diagnosesStopDate = this.datepipe.transform(new Date(), "yyyy-MM-dd");
+
   }
-  // jsonObj: Array<Object>;
-  updateLocalModel(data: any) {
-    this.patientFamilyHealthHistory = new PastMedicalHistory;
-    // data.PastMedicalHistory.Diagnoses = data.PastMedicalHistory.Diagnoses == null ? [] : data.PastMedicalHistory.Diagnoses;
+
+  updateLocalModel(data: FamilyMedicalHistory) {
+    this.patientFamilyHealthHistory.FamilyMedicalHistoryInfo = new FamilyMedicalHistory;
     if (data == null) return;
     this.patientFamilyHealthHistory.FamilyMedicalHistoryInfo = data;
-
-    // if(data.FamilHealthDetails?.length != 0 || data.FamilHealthDetails?.length != undefined) {
-    //   this.patientFamilyHealthHistory.FamilyMedicalHistoryInfo = data.FamilHealthDetails;
-    // }
-    // if(data.FamilHealthDetails == null) {
-    //   this.patientFamilyHealthHistory.FamilyMedicalHistoryInfo = new FamilyMedicalHistory;
-    // }
-    // if(data.PastMedicalHistory.Diagnoses.length > 0) {
-    //     this.patientFamilyHealthHistory.Diagnoses = JSON.parse(data.PastMedicalHistory.Diagnoses);
-    //     console.log(this.patientFamilyHealthHistory.Diagnoses);
-    //     this.patientFamilyHealthHistory.Diagnoses.forEach(diagonses => {
-    //       if(diagonses.DFamilyHealthHistoryId == this.patientFamilyHealthHistory.FamilyMedicalHistoryInfo.FamilyHealthHistoryId) {
-    //         this.patientFamilyHealthHistory.Diagnoses = [];
-    //         this.patientFamilyHealthHistory.Diagnoses.push(diagonses);
-    //         console.log(this.patientFamilyHealthHistory.Diagnoses);
-    //       }
-    //     });
-    //     console.log(this.patientFamilyHealthHistory?.Diagnoses);
-
-    // }
-    // this.patientFamilyHealthHistory.PastMedicalHistoryId = data.PastMedicalHistory.PastMedicalHistoryId;
   }
 
   cancel() {
     this.ref.close(null);
   }
 
-  onSelectedDiagnoses: Diagnosis;
   optionChangedForDiagnosis(value: Diagnosis) {
     this.onSelectedDiagnoses = value;
     this.disableAddDxbtn = false;
-    // this.diagnosesSubject.next(this.patientFamilyHealthHistory.Diagnoses);
-
-    // console.log(this.diagnosesSubject);
   }
 
-  bindDiagnosesCode(){
+  bindDiagnosesCode() {
     let reqparams = {
-      'Code' : this.onSelectedDiagnoses.Code,
-      'CodeSystem' : this.onSelectedDiagnoses.CodeSystem,
-      'Description' : this.onSelectedDiagnoses.Description,
-      // 'StartAt' : this.patientFamilyHealthHistory.FamilyMedicalHistoryInfo.DiagnosesInfo.StartAt,
-      // 'StopAt' : this.patientFamilyHealthHistory.FamilyMedicalHistoryInfo.DiagnosesInfo.StopAt
+      'Code': this.onSelectedDiagnoses.Code,
+      'CodeSystem': this.onSelectedDiagnoses.CodeSystem,
+      'Description': this.onSelectedDiagnoses.Description,
+      'StartAt': this.diagnosesStartDate,
+      'StopAt': this.diagnosesStopDate.toString()
     }
-
     this.patientFamilyHealthHistory.FamilyMedicalHistoryInfo.Diagnoses.push(reqparams);
+    this.diagnosesStartDate = new Date();
+    this.diagnosesStopDate = this.datepipe.transform(new Date(), "yyyy-MM-dd");
     this.disableAddDxbtn = true;
   }
 
   deleteDiagnose(i) {
-    if(this.patientFamilyHealthHistory.FamilyMedicalHistoryInfo.Diagnoses[i].DiagnosisId == undefined){
+    if (this.patientFamilyHealthHistory.FamilyMedicalHistoryInfo.Diagnoses[i].DiagnosisId == undefined) {
       this.patientFamilyHealthHistory.FamilyMedicalHistoryInfo.Diagnoses.splice(i, 1);
     }
-    // this.selectedReaction.splice(this.selectedReaction.indexOf(selected), 1);
+    else {
+      let reqparams = {
+        DiagnosisId: this.patientFamilyHealthHistory.FamilyMedicalHistoryInfo.Diagnoses[i].DiagnosisId
+      }
+      this.patientService.DeleteDiagnoses(reqparams).subscribe((resp) => {
+        if (resp.IsSuccess) {
+          this.ref.close({
+            "UpdatedModal": PatientChart.FamilyMedicalHistory
+          });
+          this.alertmsg.displayMessageDailog(ERROR_CODES["M2CD003"]);
+        }
+        else {
+          this.alertmsg.displayErrorDailog(ERROR_CODES["E2CD002"]);
+        }
+      });
+    }
   }
 
-  ageCalculator(){
-    if(this.patientFamilyHealthHistory.FamilyMedicalHistoryInfo.BirthAt){
+  ageCalculator() {
+    if (this.patientFamilyHealthHistory.FamilyMedicalHistoryInfo.BirthAt) {
       let timeDiff = Math.abs(Date.now() - new Date(this.patientFamilyHealthHistory.FamilyMedicalHistoryInfo.BirthAt).getTime());
-      this.patientFamilyHealthHistory.FamilyMedicalHistoryInfo.Age = Math.floor((timeDiff / (1000 * 3600 * 24))/365.25);
+      this.patientFamilyHealthHistory.FamilyMedicalHistoryInfo.Age = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365.25);
     }
   }
 
   Create() {
     let isAdd = this.patientFamilyHealthHistory.FamilyMedicalHistoryInfo.FamilyHealthHistoryId == undefined;
     this.patientFamilyHealthHistory.PatientId = this.currentPatient.PatientId;
-    return
     this.patientService.CreateFamilyHealthHistories(this.patientFamilyHealthHistory).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.ref.close({
           "UpdatedModal": PatientChart.FamilyMedicalHistory
         });
-        // this.PastMedicalHistoriesByPatientId();
         this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CFHH001" : "M2CFHH002"]);
       }
       else {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2CFHH001"]);
       }
     });
+  }
+
+  disableFamilyHealthHistory() {
+    return !(this.patientFamilyHealthHistory.FamilyMedicalHistoryInfo.FirstName && this.patientFamilyHealthHistory.FamilyMedicalHistoryInfo.LastName
+      && this.patientFamilyHealthHistory.FamilyMedicalHistoryInfo.Relationship && this.patientFamilyHealthHistory.FamilyMedicalHistoryInfo.BirthAt
+      && this.patientFamilyHealthHistory.FamilyMedicalHistoryInfo.Age > 0)
   }
 }

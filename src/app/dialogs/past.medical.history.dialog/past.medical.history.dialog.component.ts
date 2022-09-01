@@ -22,6 +22,7 @@ export class PastMedicalHistoryDialogComponent implements OnInit {
   chartInfo: ChartInfo = new ChartInfo;
   familyHealthHistoryDialogComponent = FamilyHealthHistoryDialogComponent;
   ActionTypes = Actions;
+  strFamilyMedicalHistories: unknown;
 
   constructor(private ref: EHROverlayRef,
     private authService: AuthenticationService,
@@ -36,7 +37,6 @@ export class PastMedicalHistoryDialogComponent implements OnInit {
   }
 
   updateLocalModel(data: any) {
-    debugger;
     this.patientPastMedicalHistory = new PastMedicalHistory;
     if (data == null) return;
     if (data.length != 0) {
@@ -45,28 +45,11 @@ export class PastMedicalHistoryDialogComponent implements OnInit {
     }
     if (this.patientPastMedicalHistory.FamilyMedicalHistories.length > 0) {
       this.patientPastMedicalHistory.FamilyMedicalHistories = JSON.parse(this.patientPastMedicalHistory.FamilyMedicalHistories.toString());
-      console.log(this.patientPastMedicalHistory.FamilyMedicalHistories);
-
-      // this.patientPastMedicalHistory.FamilyMedicalHistories.forEach(familydetails => {
-      //   this.patientPastMedicalHistory.Diagnoses = this.patientPastMedicalHistory.Diagnoses == null ? [] : this.patientPastMedicalHistory.Diagnoses;
-      //   if(this.patientPastMedicalHistory.Diagnoses.length > 0){
-      //     this.patientPastMedicalHistory.Diagnoses.forEach(diagnse => {
-      //       if(familydetails.FamilyHealthHistoryId == diagnse.DFamilyHealthHistoryId){
-      //         this.patientPastMedicalHistory.Diagnoses.push(diagnse);
-      //       }
-      //       else{
-      //         this.patientPastMedicalHistory.Diagnoses = [];
-      //       }
-      //     })
-      //   }
-      // })
-      // if(this.patientPastMedicalHistory.Diagnoses.length > 0){
-      // }
-
     }
   }
-
   cancel() {
+    this.strFamilyMedicalHistories = JSON.stringify(this.patientPastMedicalHistory.FamilyMedicalHistories);
+    this.patientPastMedicalHistory.FamilyMedicalHistories = this.strFamilyMedicalHistories as FamilyMedicalHistory[];
     this.ref.close(null);
   }
 
@@ -75,7 +58,6 @@ export class PastMedicalHistoryDialogComponent implements OnInit {
     this.patientPastMedicalHistory.PatientId = this.currentPatient.PatientId;
     this.patientService.CreatePastMedicalHistories(this.patientPastMedicalHistory).subscribe((resp) => {
       if (resp.IsSuccess) {
-        // this.PastMedicalHistoriesByPatientId();
         this.ref.close({
           "UpdatedModal": PatientChart.PastMedicalHistory
         });
@@ -95,27 +77,19 @@ export class PastMedicalHistoryDialogComponent implements OnInit {
   // Get Past Medical Histories info
   PastMedicalHistoriesByPatientId() {
     this.patientService.PastMedicalHistoriesByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
-      // this.pastMedicalHistories = resp.ListResult;
       if (resp.IsSuccess) this.chartInfo.PastMedicalHistories = resp.ListResult;
     });
   }
 
   openComponentDialog(content: any | ComponentType<any> | string,
     dialogData, action: Actions = this.ActionTypes.add) {
-    debugger;
     let reqdata: any;
     if (action == Actions.view && content === this.familyHealthHistoryDialogComponent) {
       reqdata = dialogData;
-      // reqdata = {
-      //   FamilHealthDetails: dialogData,
-      //   // DiagnosisDetails: this.patientPastMedicalHistory?.Diagnoses
-      //   PastMedicalHistory: this.patientPastMedicalHistory
-      // }
     }
     else if (action == Actions.add && content === this.familyHealthHistoryDialogComponent) {
-      reqdata = {
-        PastMedicalHistoryId: this.patientPastMedicalHistory.PastMedicalHistoryId
-      }
+      reqdata = new FamilyMedicalHistory;
+      reqdata.PastMedicalHistoryId  = this.patientPastMedicalHistory.PastMedicalHistoryId;
     }
     const ref = this.overlayService.open(content, reqdata, true);
     ref.afterClosed$.subscribe(res => {
