@@ -432,6 +432,7 @@ export class ProfileComponent implements OnInit {
   }
 
   enablePatientContactInfo() {
+    
     let flag =!((this.patientMyProfile.email == null || this.patientMyProfile.email == ""
               || this.email.test(this.patientMyProfile.email))
               &&(this.patientMyProfile.PrimaryPhone == null || this.patientMyProfile.PrimaryPhone == ""

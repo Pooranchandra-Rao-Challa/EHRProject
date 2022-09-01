@@ -832,6 +832,12 @@ export class APIEndPoint extends EndpointBase {
   {
     return this._baseUrl + "CreateAuthorizedRepresentative";
   }
+
+  get _authorizedRepresentativesUrl()
+  {
+    return this._baseUrl + "AuthorizedRepresentatives";
+  }
+  
   constructor(public http: HttpClient) {
     super();
   }

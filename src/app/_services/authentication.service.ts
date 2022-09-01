@@ -129,7 +129,7 @@ export class AuthenticationService {
         localStorage.setItem('user', JSON.stringify(resp.Result as User));
         this.startRefreshTokenTimer();
         this.SetViewParam("View", "dashboard")
-        if (this.isPatient)
+        if (this.isPatient || this.isRepresentative)
           this.router.navigate(['patient/dashboard']);
         else{
           this.logout(ERROR_CODES["EL001"])
@@ -201,6 +201,11 @@ export class AuthenticationService {
   get isPatient(): boolean {
     if (this.userValue == undefined || this.userValue == null) return false;
     return this.userValue.Role.toLowerCase() == "patient"
+  }
+
+  get isRepresentative(): boolean {
+    if (this.userValue == undefined || this.userValue == null) return false;
+    return this.userValue.Role.toLowerCase() == "representative"
   }
 
   private startRefreshTokenTimer() {

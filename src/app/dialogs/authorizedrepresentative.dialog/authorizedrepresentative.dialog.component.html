@@ -14,21 +14,21 @@
                     <th>Full Name</th>
                     <th>Primary Email</th>
                     <th>Contact Phone</th>
-                    <th>Active Phone</th>
+                    <th>Active</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <!-- <tr>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>mdo</td>
-                    <td>Otto</td>
-                    <td>mdo</td>
-                  </tr> -->
+                  <tr *ngFor="let resp of athorizedRepresentatives">
+                    <td>{{resp.FirstName}} {{resp.LastName}}</td>
+                    <td>{{resp.Email}}</td>
+                    <td>{{resp.ContactPhone}}</td>
+                    <td>{{resp.Active}}</td>
+                    <td><mat-icon class="respicon" (click)="openComponentDialog(addauthorizedRepresentativeDialogComponent,resp,ActionTypes.view)">edit</mat-icon></td>
+                  </tr>
                 </tbody>
               </table>
-              <div class="NoRecord text-center py-2">
+              <div class="NoRecord text-center py-2"*ngIf="athorizedRepresentatives?.length == 0">
                 No Representatives Found
               </div>
             </div>

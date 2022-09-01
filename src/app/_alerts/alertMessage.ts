@@ -237,9 +237,10 @@ export const ERROR_CODES: { [key: string]: string } = {
   'M2CP008': 'Patient updated successfully',
   
   //Security Question
-  'M2CP009': 'Security Question is Updated Sucessfully ',
+  'M2CP009':  'Security Question is Updated Sucessfully ',
   'M2CP0010': 'Address Veirified',
   'M2CP0011': 'Authorized representative added sucessfully',
+  'M2CP0012': 'Authorized representative updated sucessfully',
 
   // Error for Patient profile directives
   'E2CP001': 'Personal Information Updation error',

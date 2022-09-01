@@ -307,4 +307,9 @@ export class PatientService extends APIEndPoint {
   {
     return this._ProcessPostRequest<any>(this._createAuthorizedRepresentativeUrl,reqParams);
   }
+  AuthorizedRepresentatives(reqParams: any)
+  {
+    return this._ProcessPostRequest<any>(this._authorizedRepresentativesUrl,reqParams);
+  }
+  
 }
