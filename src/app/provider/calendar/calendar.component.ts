@@ -74,6 +74,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   sundayDate: Date = new Date();
 
   resources: any[] = [{}];
+  selectedDate = null;
 
   calendarAppointments: CalendarAppointment[] = [{}]
   constructor(private fb: FormBuilder,
@@ -85,6 +86,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     private overlayService: OverlayService,
     private datepipe: DatePipe) {
     this.user = authService.userValue;
+    this.selectedDate = new Date();
     this.sundayDate.setDate(this.sundayDate.getDate() - this.sundayDate.getDay());
     this.SelectedProviderId = this.user.ProviderId;
     this.SelectedLocationId = this.user.CurrentLocation;
@@ -163,9 +165,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
     }
 
-    this.fullcalendar.getApi().handleRenderRequest = () => {
-
-    }
+    this.highlightSelectedDate();
   }
 
   UpdateResources() {
@@ -317,6 +317,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     })
     this.providerToggle.checked = allchecked;
     this.updateEvents(event.source.checked, { value: provider.ProviderId })
+    //this.updateBlockOuts(event.source.checked,{ value: provider.ProviderId });
   }
 
   updateCalendarEvents() {
@@ -358,10 +359,49 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   }
 
-  updateBlockOuts() {
+  SwitchfullcalendarToDate(event) {
+    this.selectedDate = new Date(event);
+    this.sundayDate.setDate(this.selectedDate.getDate() - this.selectedDate.getDay());
+
+
+    if (this.fullcalendar.getApi().currentData.viewApi.type == "timeGridWeek")
+      this.fullcalendar.getApi().changeView(this.fullcalendar.getApi().currentData.viewApi.type, this.selectedDate);
+    else
+      this.fullcalendar.getApi().changeView(this.fullcalendar.getApi().currentData.viewApi.type, this.selectedDate);
+    this.fullcalendar.getApi().removeAllEvents();
+    this.highlightSelectedDate();
+    this.updateCalendarEvents();
+    this.CalendarBlockouts();
+  }
+
+  highlightSelectedDate(){
+
+    let curdate = this.datepipe.transform(this.selectedDate, "yyyy-MM-dd")
+    this.fullcalendar.getApi().el.querySelectorAll("a[data-selected='true']").forEach((nodeElement: HTMLElement)=>{
+      nodeElement.classList.remove('fc-selected-date');
+      nodeElement.removeAttribute("data-selected");
+    });
+
+
+    this.fullcalendar.getApi().el.querySelectorAll("th[data-date='" + curdate + "']").forEach((nodeElement: HTMLElement) => {
+      nodeElement.childNodes.forEach((ne: HTMLElement) => {
+        if (ne.children.length > 0) {
+          ne.children[0].classList.remove('fc-selected-date')
+          ne.children[0].classList.add('fc-selected-date')
+          ne.children[0].setAttribute("data-selected","true")
+        }
+      })
+    })
+  }
+  updateBlockOuts(toggler?: boolean, check: { value: string } = null) {
     this.blockouts.forEach(blockout => {
-      // if (this.fullcalendar.getApi().getEventById(blockout.BlockoutId) != null)
-      //   this.fullcalendar.getApi().getEventById(blockout.BlockoutId).remove();
+      // if(!toggler && check?.value == blockout.BlockoutForId){
+      //   if (this.fullcalendar.getApi().getEventById(blockout.BlockoutId) != null)
+      //           this.fullcalendar.getApi().getEventById(blockout.BlockoutId).remove();
+      // }else if((this.fullcalendar.getApi().getEventById(blockout.BlockoutId) == null)
+      // || (this.fullcalendar.getApi().getEventById(blockout.BlockoutId) != null
+      //   && this.fullcalendar.getApi().getEventById(blockout.BlockoutId).start !=
+      //   blockout.StartAt) ){
       this.fullcalendar.getApi().addEvent({
         id: blockout.BlockoutId,
         title: blockout.Message == "" ? "Blockout day" : blockout.Message,
@@ -378,6 +418,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
           Duration: blockout.Duration
         }
       })
+      // }
     })
   }
 
@@ -464,7 +505,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         //alert(JSON.stringify(args.event))
         this.timer = setTimeout(() => {
           let data = args.event.extendedProps;
-          if(data.IsBlockout) return;
+          if (data.IsBlockout) return;
           let myPopup = document.getElementById('event-view');
           if (myPopup) { myPopup.remove(); }
           let timer;

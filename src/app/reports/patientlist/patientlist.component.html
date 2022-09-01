@@ -1,173 +1,171 @@
 <div id="pause" class="d-flex align-items-center justify-content-center" *ngIf="customizedspinner">
   <div id="spinner"></div>
 </div>
-<div class="container-fluid">
-  <form [formGroup]="patientForm">
-    <div class="row" style="background-color: #e5f8f5;">
-      <div class="col-lg-2 col-md-3">
-      </div>
-      <div class="col-lg-1 col-md-3">
-        <p class="float-left my-4">Provider:<span class="asterisk">*</span></p>
-      </div>
-      <mat-form-field appearance="outline" class="col-lg-2 col-md-6 my-2 hover">
-        <mat-select placeholder="Select One" disableOptionCentering #searchedItem formControlName="ProviderId">
-          <mat-select-filter [placeholder]="'Search...'" [displayMember]="'FullName'" [array]="PracticeProviders"
-            (filteredReturn)="PracticeProviders =$event" *ngIf="searchedItem.focused"></mat-select-filter>
-          <mat-option *ngFor="let item of PracticeProviders" [value]="item.ProviderId"
-            (click)="getLocationsList(item)">
-            {{item.FullName}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      
-      <div class="col-lg-1 col-md-6 col-sm-12">
-        <p class="float-left my-4 mr-md-2">Location(s):</p>
-      </div>
-      <mat-form-field appearance="outline" class="col-lg-2 col-md-6 my-2 hover">
-        <mat-select placeholder="Select One" disableOptionCentering formControlName="location_Id">
-          <!-- <mat-select-filter [placeholder]="'Search...'" [displayMember]="'Location_Name'" [array]="locationslist"
+<div class="container-fluid" id="patient-list" style="background-color: #e5f8f5;">
+  <div class="patient-list-container">
+    <form [formGroup]="patientForm">
+      <div class="row">
+        <div class="col-lg-1 col-md-3">
+          <p class="float-left my-4">Provider:<span class="asterisk">*</span></p>
+        </div>
+        <mat-form-field appearance="outline" class="col-lg-3 col-md-6 my-2 hover">
+          <mat-select placeholder="Select One" disableOptionCentering #searchedItem formControlName="ProviderId">
+            <mat-select-filter [placeholder]="'Search...'" [displayMember]="'FullName'" [array]="PracticeProviders"
+              (filteredReturn)="PracticeProviders =$event" *ngIf="searchedItem.focused"></mat-select-filter>
+            <mat-option *ngFor="let item of PracticeProviders" [value]="item.ProviderId"
+              (click)="getLocationsList(item)">
+              {{item.FullName}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <div class="col-lg-1 col-md-6 col-sm-12">
+          <p class="float-left my-4 mr-md-2">Location(s):</p>
+        </div>
+        <mat-form-field appearance="outline" class="col-lg-3 col-md-6 my-2 hover">
+          <mat-select placeholder="Select One" disableOptionCentering formControlName="location_Id">
+            <!-- <mat-select-filter [placeholder]="'Search...'" [displayMember]="'Location_Name'" [array]="locationslist"
               (filteredReturn)="filteredlocationList =$event"></mat-select-filter> -->
-          <mat-option *ngFor="let name of filteredlocationList" [value]="name.Location_Id"
-            >
-            {{name.Location_Name}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="row" style="background-color: #e5f8f5; font-family: serif;">
-      <div class="col-lg-2">
+            <mat-option *ngFor="let name of filteredlocationList" [value]="name.Location_Id">
+              {{name.Location_Name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
-      <div class="col-lg-1 col-md">
-        <p class="float-left my-4">From:</p>
+      <div class="row" style="background-color: #e5f8f5; font-family: serif;">
+
+        <div class="col-lg-1 col-md">
+          <p class="float-left my-4">From:</p>
+        </div>
+        <mat-form-field appearance="outline" class="col-lg-3 my-2">
+          <input matInput class="pointer" autocomplete="off" (dateChange)="disableApplyButton()" [max]="tomorrow"
+            [matDatepicker]="picker3" (click)="picker3.open()" readonly placeholder="Start Date"
+            formControlName="SstartDate" (selectionChange)="disableApplyButton()">
+          <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+          <mat-datepicker #picker3 closeAfterSelection="false"></mat-datepicker>
+        </mat-form-field>
+        <div class="col-lg-1">
+          <p class="float-left my-4">To:<span *ngIf="!disableEndDateInput" class="asterisk">*</span></p>
+        </div>
+        <mat-form-field appearance="outline" class="col-lg-3 my-2">
+          <input matInput class="pointer" autocomplete="off" (dateChange)="disableApplyButton()" [max]="tomorrow"
+            [min]="patientForm.value.SstartDate" [matDatepicker]="picker4" (click)="picker4.open()" readonly
+            placeholder="Stop Date" formControlName="SendDate" [disabled]='disableEndDateInput'>
+          <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+          <mat-datepicker #picker4></mat-datepicker>
+        </mat-form-field>
+        <div class="col-lg-2 my-2">
+          <button class="btn col-lg-12 btn-height my-1" (click)="onSubmitallpatientlist()"
+            [disabled]='applyButtonToDisable'>
+            Apply Filters
+          </button>
+        </div>
+        <div class="col-lg-2 my-2">
+          <button class="btn col-lg-12 btn-height my-1 px-lg-3 px-2 my-1" (click)="downloadPatientListExcel()"
+            [disabled]="disabledowloadExportbtn">
+            Export CSV
+          </button>
+        </div>
       </div>
-      <mat-form-field appearance="outline" class="col-lg-2 my-2">
-        <input matInput class="pointer" autocomplete="off" (dateChange)="disableApplyButton()" [max]="tomorrow"
-          [matDatepicker]="picker3" (click)="picker3.open()" readonly placeholder="Start Date"
-          formControlName="SstartDate" (selectionChange)="disableApplyButton()">
-        <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-        <mat-datepicker #picker3 closeAfterSelection="false"></mat-datepicker>
-      </mat-form-field>
-      <div class="col-lg-1">
-        <p class="float-left my-4">To:<span *ngIf="!disableEndDateInput" class="asterisk">*</span></p>
+      <div class="row" style="background-color: #e5f8f5;">
+
+        <div class="col-lg-4 my-1 mb-3">
+          <mat-checkbox class="col-lg-12 col-md-12 example-margin" style="margin-left: 0px;" formControlName="Checked">
+          </mat-checkbox><span class="ps-2">Include Inactive
+            Patients</span>
+        </div>
       </div>
-      <mat-form-field appearance="outline" class="col-lg-2 my-2">
-        <input matInput class="pointer" autocomplete="off" (dateChange)="disableApplyButton()" [max]="tomorrow"
-          [min]="patientForm.value.SstartDate" [matDatepicker]="picker4" (click)="picker4.open()" readonly
-          placeholder="Stop Date" formControlName="SendDate" [disabled]='disableEndDateInput'>
-        <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
-        <mat-datepicker #picker4></mat-datepicker>
-      </mat-form-field>
-      <div class="col-lg-2 my-2">
-        <button class="btn col-lg-12 btn-height my-1" (click)="onSubmitallpatientlist()"
-          [disabled]='applyButtonToDisable'>
-          Apply Filters
-        </button>
-      </div>
-      <div class="col-lg-2 my-2">
-        <button class="btn col-lg-12 btn-height my-1 px-lg-3 px-2 my-1" (click)="downloadPatientListExcel()"
-          [disabled]="disabledowloadExportbtn">
-          Export CSV
-        </button>
-      </div>
-    </div>
-    <div class="row" style="background-color: #e5f8f5;">
-      <div class="col-lg-3"></div>
-      <div class="col-lg-4 my-1 mb-3">
-        <mat-checkbox class="col-lg-12 col-md-12 example-margin" style="margin-left: 0px;" formControlName="Checked">
-        </mat-checkbox><span class="ps-2">Include Inactive
-          Patients</span>
-      </div>
-    </div>
-    <div class="row" style="background-color: #e5f8f5; font-family: serif;">
-    </div>
-  </form>
-</div>
-<div class="ehr-cqm-table-container patient" [hidden]="!showpatientTable">
-  <mat-table [dataSource]="allPatientList" matSort>
-    <ng-container matColumnDef="Patient_Id">
-      <mat-header-cell *matHeaderCellDef mat-sort-header="Patient_Id">Patient Id</mat-header-cell>
-      <mat-cell *matCellDef="let lesson"> {{lesson.Patient_Id}} </mat-cell>
-    </ng-container>
 
-    <ng-container matColumnDef="Patient_Name">
-      <mat-header-cell *matHeaderCellDef mat-sort-header="Patient_Name"> Patient Name</mat-header-cell>
-      <mat-cell *matCellDef="let lesson">{{lesson.Patient_Name}} </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="Date_of_Birth">
-      <mat-header-cell *matHeaderCellDef mat-sort-header="Date_of_Birth">Date of Birth</mat-header-cell>
-      <mat-cell *matCellDef="let lesson"> {{lesson.Date_of_Birth | date: 'yyyy/MM/dd'}} </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="Age">
-      <mat-header-cell *matHeaderCellDef mat-sort-header="Age">Age</mat-header-cell>
-      <mat-cell *matCellDef="let lesson"> {{lesson.Age}} </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="Cell_Phone">
-      <mat-header-cell *matHeaderCellDef mat-sort-header="Cell_Phone">Cell Phone</mat-header-cell>
-      <mat-cell *matCellDef="let lesson"> {{lesson.Cell_Phone}} </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="Home_phone">
-      <mat-header-cell *matHeaderCellDef mat-sort-header="Home_phone">Home Phone</mat-header-cell>
-      <mat-cell style="padding-left: 20px;" *matCellDef="let lesson"> {{lesson.Home_phone}} </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="Work_Phone">
-      <mat-header-cell *matHeaderCellDef mat-sort-header="Work_Phone">Work Phone</mat-header-cell>
-      <mat-cell *matCellDef="let lesson"> {{lesson.Work_Phone}} </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="Email_Address">
-      <mat-header-cell *matHeaderCellDef mat-sort-header="Email_Address">Email Address</mat-header-cell>
-      <mat-cell c *matCellDef="let lesson"> {{lesson.Email_Address}} </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="Gender">
-      <mat-header-cell *matHeaderCellDef mat-sort-header="Gender">Gender</mat-header-cell>
-      <mat-cell *matCellDef="let lesson"> {{lesson.Gender}} </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="Address" class="flex1">
-      <mat-header-cell *matHeaderCellDef mat-sort-header="Address">Address</mat-header-cell>
-      <mat-cell *matCellDef="let lesson"> {{lesson.Address}} </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="City">
-      <mat-header-cell *matHeaderCellDef mat-sort-header="City">City</mat-header-cell>
-      <mat-cell *matCellDef="let lesson"> {{lesson.City}} </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="State">
-      <mat-header-cell *matHeaderCellDef mat-sort-header="State">State</mat-header-cell>
-      <mat-cell *matCellDef="let lesson"> {{lesson.State}} </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="Zip">
-      <mat-header-cell *matHeaderCellDef mat-sort-header="Zip">Zip</mat-header-cell>
-      <mat-cell *matCellDef="let lesson"> {{lesson.Zip}} </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="Prime_Subscriber_No">
-      <mat-header-cell class="flex1" *matHeaderCellDef mat-sort-header="Prime_Subscriber_No">Prime Subscriber Id
-      </mat-header-cell>
-      <mat-cell *matCellDef="let lesson"> {{lesson.Prime_Subscriber_No}} </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="Prime_Subscriber_Name">
-      <mat-header-cell *matHeaderCellDef mat-sort-header="Prime_Subscriber_Name">Prime Subscriber Name
-      </mat-header-cell>
-      <mat-cell *matCellDef="let lesson"> {{lesson.Prime_Subscriber_Name}} </mat-cell>
-    </ng-container>
-
-    <mat-header-row *matHeaderRowDef="PatientListColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: PatientListColumns;"></mat-row>
-  </mat-table>
-  <div style="color: red;text-align: center;" *ngIf="allPatientList.data.length==0">
-    No Records Found!
+    </form>
   </div>
+  <div class="ehr-cqm-table-container patient" [hidden]="!showpatientTable">
+    <mat-table [dataSource]="allPatientList" matSort>
+      <ng-container matColumnDef="Patient_Id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header="Patient_Id">Patient Id</mat-header-cell>
+        <mat-cell *matCellDef="let lesson"> {{lesson.Patient_Id}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Patient_Name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header="Patient_Name"> Patient Name</mat-header-cell>
+        <mat-cell *matCellDef="let lesson">{{lesson.Patient_Name}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Date_of_Birth">
+        <mat-header-cell *matHeaderCellDef mat-sort-header="Date_of_Birth">Date of Birth</mat-header-cell>
+        <mat-cell *matCellDef="let lesson"> {{lesson.Date_of_Birth | date: 'yyyy/MM/dd'}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Age">
+        <mat-header-cell *matHeaderCellDef mat-sort-header="Age">Age</mat-header-cell>
+        <mat-cell *matCellDef="let lesson"> {{lesson.Age}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Cell_Phone">
+        <mat-header-cell *matHeaderCellDef mat-sort-header="Cell_Phone">Cell Phone</mat-header-cell>
+        <mat-cell *matCellDef="let lesson"> {{lesson.Cell_Phone}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Home_phone">
+        <mat-header-cell *matHeaderCellDef mat-sort-header="Home_phone">Home Phone</mat-header-cell>
+        <mat-cell style="padding-left: 20px;" *matCellDef="let lesson"> {{lesson.Home_phone}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Work_Phone">
+        <mat-header-cell *matHeaderCellDef mat-sort-header="Work_Phone">Work Phone</mat-header-cell>
+        <mat-cell *matCellDef="let lesson"> {{lesson.Work_Phone}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Email_Address">
+        <mat-header-cell *matHeaderCellDef mat-sort-header="Email_Address">Email Address</mat-header-cell>
+        <mat-cell c *matCellDef="let lesson"> {{lesson.Email_Address}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Gender">
+        <mat-header-cell *matHeaderCellDef mat-sort-header="Gender">Gender</mat-header-cell>
+        <mat-cell *matCellDef="let lesson"> {{lesson.Gender}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Address" class="flex1">
+        <mat-header-cell *matHeaderCellDef mat-sort-header="Address">Address</mat-header-cell>
+        <mat-cell *matCellDef="let lesson"> {{lesson.Address}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="City">
+        <mat-header-cell *matHeaderCellDef mat-sort-header="City">City</mat-header-cell>
+        <mat-cell *matCellDef="let lesson"> {{lesson.City}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="State">
+        <mat-header-cell *matHeaderCellDef mat-sort-header="State">State</mat-header-cell>
+        <mat-cell *matCellDef="let lesson"> {{lesson.State}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Zip">
+        <mat-header-cell *matHeaderCellDef mat-sort-header="Zip">Zip</mat-header-cell>
+        <mat-cell *matCellDef="let lesson"> {{lesson.Zip}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Prime_Subscriber_No">
+        <mat-header-cell class="flex1" *matHeaderCellDef mat-sort-header="Prime_Subscriber_No">Prime Subscriber Id
+        </mat-header-cell>
+        <mat-cell *matCellDef="let lesson"> {{lesson.Prime_Subscriber_No}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Prime_Subscriber_Name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header="Prime_Subscriber_Name">Prime Subscriber Name
+        </mat-header-cell>
+        <mat-cell *matCellDef="let lesson"> {{lesson.Prime_Subscriber_Name}} </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="PatientListColumns  sticky: true"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: PatientListColumns;"></mat-row>
+    </mat-table>
+    <div style="color: red;text-align: center;" *ngIf="allPatientList.data.length==0">
+      No Records Found!
+    </div>
+  </div>
+  <mat-paginator class="arrow" #paginator [length]="allPatientList.data.length"
+    style="margin-bottom: 10px;background: #41b6a6;" [pageIndex]="pageIndex" [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions" [hidden]="!allPatientList.data.length">
+  </mat-paginator>
 </div>
-<mat-paginator class="arrow" #paginator [length]="allPatientList.data.length" [pageIndex]="pageIndex"
-  [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" [hidden]="!allPatientList.data.length">
-</mat-paginator>

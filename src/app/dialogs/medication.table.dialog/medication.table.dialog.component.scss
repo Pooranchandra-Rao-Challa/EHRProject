@@ -15,7 +15,7 @@
 }
 
 .medication-table-modal .modal-body {
-  max-height: calc(90vh - 90px);
+  max-height: calc(90vh - 180px);
   overflow-y: auto;
 }
 
@@ -31,10 +31,27 @@
   }
 }
 
+.medication-table-modal .mat-header-cell {
+  padding: 0px 20px !important;
+}
+
 .medication-table-modal .mat-table {
   border-radius: 3px;
   max-height: 700px !important;
   overflow-y: auto;
+}
+
+@media (max-width: 1350px) {
+  .medication-table-modal {
+    .scrollable-mat-table {
+      max-width: 1200px;
+      overflow-x: scroll;
+    }
+
+    .mat-table {
+      width: 1300px;
+    }
+  }
 }
 
 .medication-table-modal a.erx-icon {
@@ -48,7 +65,27 @@
   background-size: 17px;
   color: #fff;
 }
+
 .manual-RX {
   display: grid;
   cursor: pointer;
+}
+
+.medication-table-modal {
+  mat-cell:nth-child(1),
+  mat-header-cell:nth-child(1) {
+    flex: 0 0 15%;
+  }
+  mat-cell:nth-child(2),
+  mat-header-cell:nth-child(2) {
+    flex: 0 0 55%;
+  }
+  mat-cell:nth-child(3),
+  mat-header-cell:nth-child(3) {
+    flex: 0 0 15%;
+  }
+  mat-cell:nth-child(4),
+  mat-header-cell:nth-child(4) {
+    flex: 0 0 15%;
+  }
 }

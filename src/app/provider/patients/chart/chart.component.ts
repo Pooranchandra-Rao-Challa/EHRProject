@@ -38,6 +38,9 @@ import { MedicationTableDialogComponent } from 'src/app/dialogs/medication.table
 import { TobaccoUseTableDialogComponent } from 'src/app/dialogs/tobacco.use.table.dialog/tobacco.use.table.dialog.component';
 import { SmokingStatusTableDialogComponent } from 'src/app/dialogs/smoking.status.table.dialog/smoking.status.table.dialog.component';
 import { AdvancedDirectivesTableDialogComponent } from 'src/app/dialogs/advanced.directives.table.dialog/advanced.directives.table.dialog.component';
+import { PastMedicalHistoryDialogComponent } from 'src/app/dialogs/past.medical.history.dialog/past.medical.history.dialog.component';
+import { EncounterTableDialogComponent } from 'src/app/dialogs/encounter.table.dialog/encounter.table.dialog.component';
+import { AppointmentsTableDialogComponent } from 'src/app/dialogs/appointments.table.dialog/appointments.table.dialog.component';
 @Component({
   selector: 'app-chart',
   templateUrl: './chart.component.html',
@@ -66,7 +69,9 @@ export class ChartComponent implements OnInit, AfterViewInit {
   interventionDialogComponent = InterventionDialogComponent;
   interventionTableDialogComponent = InterventionTableDialogComponent;
   encounterDialogComponent = EncounterDialogComponent;
+  encounterTableDialogComponent = EncounterTableDialogComponent;
   appointmentDialogComponent = NewAppointmentDialogComponent;
+  appointmentsTableDialogComponent = AppointmentsTableDialogComponent;
   cqmNotPerformedDialogComponent = AddeditinterventionComponent;
   discontinueDialogComponent = DiscontinueDialogComponent;
   medicationDialogComponent = MedicationDialogComponent;
@@ -75,8 +80,8 @@ export class ChartComponent implements OnInit, AfterViewInit {
   allergyTableDialogComponent = AllergyTableDialogComponent;
   tobaccoUseDialogComponent = TobaccoUseDialogComponent;
   tobaccoUseTableDialogComponent = TobaccoUseTableDialogComponent;
+  pastMedicalHistoryDialogComponent = PastMedicalHistoryDialogComponent;
 
-  patientPastMedicalHistory: PastMedicalHistory = new PastMedicalHistory();
   patientImmunization: Immunization = new Immunization();
   tobaccoUseList: TobaccoUse[] = [];
   appointments: NewAppointment[];
@@ -266,6 +271,9 @@ export class ChartComponent implements OnInit, AfterViewInit {
     else if (action == Actions.view && content === this.tobaccoUseTableDialogComponent) {
       reqdata = dialogData;
     }
+    else if (action == Actions.view && content === this.pastMedicalHistoryDialogComponent) {
+      reqdata = dialogData;
+    }
     else if (action == Actions.view && content === this.cqmNotPerformedDialogComponent) {
       reqdata = dialogData;
     }
@@ -303,10 +311,16 @@ export class ChartComponent implements OnInit, AfterViewInit {
       ef.PatientId = dialogData.PatientId
       ef.PatientName = this.authService.viewModel.Patient.FirstName + " " + this.authService.viewModel.Patient.LastName;
       reqdata = ef;
+    }
+    else if (action == Actions.view && content === this.encounterTableDialogComponent) {
+      reqdata = dialogData;
     } else if (action == Actions.new && content === this.appointmentDialogComponent) {
       reqdata = this.PatientAppointmentInfoForNew(action);
     } else if (action == Actions.view && content === this.appointmentDialogComponent) {
       reqdata = this.PatientAppointmentInfoForView(dialogData, action);
+    }
+    else if (action == Actions.view && content === this.appointmentsTableDialogComponent) {
+      reqdata = dialogData;
     }
     const ref = this.overlayService.open(content, reqdata);
     ref.afterClosed$.subscribe(res => {
@@ -348,6 +362,9 @@ export class ChartComponent implements OnInit, AfterViewInit {
       // this.TobaccoUseInterventions();
       this.TobaccoUseByPatientId();
     }
+    else if (data.UpdatedModal == PatientChart.PastMedicalHistory || data.UpdatedModal == PatientChart.FamilyMedicalHistory) {
+      this.PastMedicalHistoriesByPatientId();
+    }
     else if (data.UpdatedModal == PatientChart.Allergies) {
       data.AllergyDataSource = data.AllergyDataSource == undefined ? [] : data.AllergyDataSource.length;
       if (this.chartInfo.Alergies.length < data.AllergyDataSource.length) {
@@ -386,43 +403,22 @@ export class ChartComponent implements OnInit, AfterViewInit {
   }
 
   resetDialog() {
-    this.patientPastMedicalHistory = new PastMedicalHistory;
     this.patientImmunization = new Immunization;
   }
 
   editDialog(dialogData, name) {
-    if (name == 'past medical history') {
-      this.patientPastMedicalHistory = dialogData;
-    }
-    else if (name == 'immunization') {
+    if (name == 'immunization') {
       this.patientImmunization = dialogData;
       var dateString = this.patientImmunization.AdministeredAt;
       var timeFull = dateString.split('T');
       var time = timeFull[1].split('.');
+      this.patientImmunization.AdministeredAt = this.datepipe.transform(timeFull[0], "yyyy-MM-dd");
       this.patientImmunization.AdministeredTime = time[0];
-      // this.displayWithVaccine(dialogData);
     }
   }
 
   GetAppointmentInfo() {
     let data: AppointmentDialogInfo = {}
-
-  }
-
-  CreatePastMedicalHistories() {
-    let isAdd = this.patientPastMedicalHistory.PastMedicalHistoryId == undefined;
-    this.patientPastMedicalHistory.PatientId = this.currentPatient.PatientId;
-    this.patientService.CreatePastMedicalHistories(this.patientPastMedicalHistory).subscribe((resp) => {
-      if (resp.IsSuccess) {
-        this.PastMedicalHistoriesByPatientId();
-        this.resetDialog();
-        this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CPMH001" : "M2CPMH002"]);
-      }
-      else {
-        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CPMH001"]);
-        this.resetDialog();
-      }
-    });
   }
 
   // get display Location Details
@@ -444,6 +440,10 @@ export class ChartComponent implements OnInit, AfterViewInit {
     let isAdd = this.patientImmunization.ImmunizationId == undefined;
     this.patientImmunization.PatientId = this.currentPatient.PatientId;
     this.patientImmunization.ExpirationAt = new Date(this.datepipe.transform(this.patientImmunization.ExpirationAt, "MM/dd/yyyy hh:mm:ss"));
+    var dateString = this.datepipe.transform(this.patientImmunization.AdministeredAt, "yyyy-MM-dd");
+      var datetime = dateString.split(' ');
+      var onlyDate = datetime[0];
+      this.patientImmunization.AdministeredAt = onlyDate + 'T' + this.patientImmunization.AdministeredTime;
     this.patientService.CreateImmunizationsAdministered(this.patientImmunization).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.ImmunizationsByPatientId();
@@ -489,13 +489,8 @@ export class ChartComponent implements OnInit, AfterViewInit {
     });
   }
 
-  disablePastMedicalHistory() {
-    return !(this.patientPastMedicalHistory.MajorEvents && this.patientPastMedicalHistory.OngoingProblems
-      && this.patientPastMedicalHistory.PerventiveCare && this.patientPastMedicalHistory.NutritionHistory)
-  }
-
   disableImmAdministered() {
-    return !(this.patientImmunization.Code && this.patientImmunization.AdministeredAt && this.patientImmunization.AdministeredById
+    return !(this.patientImmunization.Code && this.patientImmunization.AdministeredAt && this.patientImmunization.AdministeredTime && this.patientImmunization.AdministeredById
           && this.patientImmunization.OrderedById && this.patientImmunization.AdministeredFacilityId && this.patientImmunization.Manufacturer
           && this.patientImmunization.Lot && this.patientImmunization.Quantity && this.patientImmunization.Dose && this.patientImmunization.Unit
           && this.patientImmunization.ExpirationAt)

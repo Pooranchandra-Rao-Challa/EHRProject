@@ -190,8 +190,9 @@
             </div>
             <div class="col-lg-3"><label class="settings-label">SOCIAL SECURITY NUMBER</label>
               <div class="form-group">
-                <input matInput type="text" autocomplete="off" #ssn="ngModel" #ssnValidator #numberMask
-                  placeholder="###-##-####" class="inputclass" [(ngModel)]="EditProvider.SSN" numberMask="999-99-9999"
+                <input matInput type="text" autocomplete="off" #ssn="ngModel"
+                  placeholder="###-##-####" class="inputclass" [(ngModel)]="EditProvider.SSN"
+                  pattern="^(?!666|000|9\d{2})\d{3}-(?!00)\d{2}-(?!0{4})\d{4}$"
                   [ngClass]="{'is-invalid' : (ssn.touched || ssn.dirty) && !ssn.valid }">
               </div>
             </div>
@@ -235,7 +236,7 @@
               <mat-header-cell style="color: rgba(0, 0, 0, 0.54);" *matHeaderCellDef>Serviced Location(s)
               </mat-header-cell>
               <mat-cell *matCellDef="let loc" ngClass="nopadding">
-                <mat-checkbox class="example-margin" [ngModelOptions]="{standalone: true}" [(ngModel)]="loc.Assigned">
+                <mat-checkbox  [ngModelOptions]="{standalone: true}" [(ngModel)]="loc.Assigned">
                 </mat-checkbox>
               </mat-cell>
             </ng-container>

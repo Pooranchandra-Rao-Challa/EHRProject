@@ -102,7 +102,7 @@
                     <mat-row *matRowDef="let row; columns: screeningColumns"></mat-row>
                   </mat-table>
                   <div class="norecords-found" *ngIf="tobaccoScreenings.length == 0">
-                    No Screenings Recorded
+                    No Screenings Record
                   </div>
                 </div>
               </div>
@@ -176,19 +176,21 @@
                   <ng-container matColumnDef="AddReasonNotPerformed">
                     <mat-header-cell *matHeaderCellDef>Add Reason Not Performed</mat-header-cell>
                     <mat-cell *matCellDef="let loc" class="text-center">
-                      <button class="btn btn-green btn-add-cqm" *ngIf="loc.CI_Id != undefined"
-                  (click)="openComponentDialog(cqmNotPerformedDialogComponent,null,ActionTypes.view)">Add</button>
+                      <button class="btn btn-green btn-add-cqm" *ngIf="loc.CI_Id != undefined" [disabled]="loc.CQMReason"
+                  (click)="openComponentDialog(cqmNotPerformedDialogComponent,loc.CI_Id,ActionTypes.view)">Add</button>
                     </mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="Reason">
                     <mat-header-cell *matHeaderCellDef>Reason</mat-header-cell>
-                    <mat-cell *matCellDef="let loc"></mat-cell>
+                    <mat-cell *matCellDef="let loc">
+                      {{loc.CQMReason}}
+                    </mat-cell>
                   </ng-container>
                   <mat-header-row *matHeaderRowDef="interventionColumns"></mat-header-row>
                   <mat-row *matRowDef="let row; columns: interventionColumns"></mat-row>
                 </mat-table>
                 <div class="norecords-found" *ngIf="tobaccoInterventions.length == 0">
-                  No Interventions Recorded
+                  No Interventions Record
                 </div>
               </div>
             </div>

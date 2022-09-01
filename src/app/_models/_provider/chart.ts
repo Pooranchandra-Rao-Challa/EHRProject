@@ -22,17 +22,25 @@ export class PastMedicalHistory {
   NutritionHistory?: string;
   MajorEvents?: string;
   PerventiveCare?: string;
-  FamilyMedicalHistories?: FamilyMedicalHistory[] =[]
+  FamilyMedicalHistories?: FamilyMedicalHistory[] = [];
+  FamilyMedicalHistoryInfo?: FamilyMedicalHistory = new FamilyMedicalHistory();
+  // Diagnoses?: Diagnosis [] = [];
+  // DiagnosesInfo?: Diagnosis = new Diagnosis();
 }
 
-export class FamilyMedicalHistory{
-  FamilyHealthyHistoryId?: string;
+export class FamilyMedicalHistory {
+  FamilyHealthHistoryId?: string;
+  PastMedicalHistoryId?: string;
   FirstName?: string;
   LastName?: string;
   Relationship?: string;
   BirthAt?: string;
   Deceased?: boolean;
-  Note?: string;
+  Notes?: string;
+  Age?: number = 0;
+  CodeSystem?: string;
+  Diagnoses: Diagnosis [] = [];
+  DiagnosesInfo?: Diagnosis = new Diagnosis();
 }
 
 export class Allergy {
@@ -56,6 +64,8 @@ export enum PatientChart {
   AdvancedDirectives,
   SmokingStatus,
   TobaccoUse,
+  PastMedicalHistory,
+  FamilyMedicalHistory,
   Allergies,
   Medications,
   Discontinue,
@@ -153,6 +163,7 @@ export class TobaccoUseScreenings {
   ScreeningCode?: string;
   Status?: string;
   ScreeningPerformed?: string;
+  CQMReason?: string;
 }
 
 export class TobaccoUseInterventions {
@@ -185,6 +196,7 @@ export class TobaccoUse {
 export class Diagnosis {
   DiagnosisId?: string;
   PatinetId?: string;
+  DFamilyHealthHistoryId?: string;
   CodeSystem?: string;
   Code?: string;
   Description?: string;
@@ -213,6 +225,7 @@ export class Intervention {
   CQMStatus?: string;
   LocationId?: string;
   ProviderName?: string;
+  CQMReason?: string;
 }
 
 export interface Vaccine {
@@ -469,6 +482,23 @@ export class GlobalConstants {
     { 'InterventionType': 'Weight-Counseling for Physical Activity' },
     { 'InterventionType': 'Controlling BP-Evidence of ESRD, dialysis, or renal transplant' }
   ];
+
+  public static RELATIONSHIP = [
+    { 'Id': '1', 'Relationship': 'Parent-Mother' },
+    { 'Id': '2', 'Relationship': 'Parent-Father' },
+    { 'Id': '3', 'Relationship': 'Sibling-Sister' },
+    { 'Id': '4', 'Relationship': 'Sibling-Brother' },
+    { 'Id': '5', 'Relationship': 'Child-Daughter' },
+    { 'Id': '6', 'Relationship': 'Child-Son' },
+    { 'Id': '8', 'Relationship': 'Grandparent-Grandmother' },
+    { 'Id': '9', 'Relationship': 'Grandparent-Grandfather' },
+    { 'Id': '10', 'Relationship': 'Great Grandparent' },
+    { 'Id': '11', 'Relationship': 'Uncle' },
+    { 'Id': '12', 'Relationship': 'Aunt' },
+    { 'Id': '13', 'Relationship': 'Cousin' },
+    { 'Id': '14', 'Relationship': 'Other' },
+    { 'Id': '15', 'Relationship': 'UnKnown' },
+  ]
 }
 
 // export const PROCEDURE_REASON_CODES = [

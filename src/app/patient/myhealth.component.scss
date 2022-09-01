@@ -17,12 +17,12 @@
     line-height: 20%;
     border-bottom: 2px solid #41b6a6;
   }
-  .accordion div:not(.collapsed) {
-    border-bottom:0px solid #41b6a6;
-    cursor: pointer;
+  .accordion  {
+    // border-bottom:0px solid #41b6a6;
+    cursor: pointer !important;
  }
  .accordianpointer{
-   cursor: pointer;
+   cursor: pointer !important;
  }
   @media (max-width: 320px) {
     .title{
@@ -131,9 +131,11 @@ padding: 12px 6px 12px 0px;
   background-repeat: no-repeat;
   background-size: 1.25rem;
   transition: transform 0.2s ease-in-out;
+  cursor: pointer !important;
 }
 
 .accordion-button:not(.collapsed)::after {
     background-image: url("/assets/images/down-arrow.svg");
     transform: rotate(-180deg);
+    cursor: pointer !important;
 }

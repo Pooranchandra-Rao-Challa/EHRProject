@@ -1,0 +1,37 @@
+<div class="modal-dialog appointment-table-modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title Helvetica-sans-serif-medium w-100">Smoking Status Table</h4>
+      <span type="button" class="cross-mark" (click)="cancel()">
+        X
+      </span>
+    </div>
+    <div class="modal-body scrollable-mat-table">
+      <mat-table [dataSource]="patientAppointments" matSort>
+        <ng-container matColumnDef="StartAt">
+          <mat-header-cell *matHeaderCellDef mat-sort-header="StartAt">Start Date
+          </mat-header-cell>
+          <mat-cell *matCellDef="let appointment">
+            <a (click)="openComponentDialog(newAppointmentDialogComponent, appointment, ActionTypes.view)">
+              {{appointment.StartAt | date: 'MM/dd/yyyy'}}
+            </a>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="ApptStatus">
+          <mat-header-cell *matHeaderCellDef mat-sort-header="ApptStatus">Appointment Status</mat-header-cell>
+          <mat-cell *matCellDef="let appointment">
+            <a (click)="openComponentDialog(newAppointmentDialogComponent, appointment, ActionTypes.view)">
+              {{appointment.ApptStatus}}
+            </a>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="appointmentColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: appointmentColumns"></mat-row>
+      </mat-table>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-green" (click)="openComponentDialog(newAppointmentDialogComponent, null, ActionTypes.new)">Add</button>
+      <button class="btn btn-green" (click)="cancel()">Cancel</button>
+    </div>
+  </div>
+</div>

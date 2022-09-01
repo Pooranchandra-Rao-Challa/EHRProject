@@ -21,16 +21,11 @@ import { LabsImagingService } from './_services/labsimaging.service';
 import { CQMNotPerformedService } from './_services/cqmnotperforemed.service';
 
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter, MAT_MOMENT_DATE_FORMATS }
-from '@angular/material-moment-adapter';
-import { CustomMomentDateAdapter } from 'src/app/_common/custom.date.adapter';
+// import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter, MAT_MOMENT_DATE_FORMATS }
+// from '@angular/material-moment-adapter';
+// import { CustomMomentDateAdapter } from 'src/app/_common/custom.date.adapter';
 import { AppMomentDateAdapter,MOMENT_DATE_FORMATS }from 'src/app/_common/app.moment.date.adapter';
 import { MessagesService } from './_services/messages.service';
-
-
-
-
-
 
 
 
@@ -41,13 +36,8 @@ import { MessagesService } from './_services/messages.service';
   ],
   declarations: [
     AppComponent,
-    
-    
-    
-    
-    
- 
    
+    
   ],
   imports: [
     NgbModule,
@@ -75,9 +65,7 @@ import { MessagesService } from './_services/messages.service';
     DentalChartService,
     CQMNotPerformedService,
     MessagesService,
-
     { provide: DateAdapter, useClass: AppMomentDateAdapter },
-   // { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
     { provide: MAT_DATE_FORMATS, useValue: MOMENT_DATE_FORMATS }
 
   ],

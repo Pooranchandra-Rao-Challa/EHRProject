@@ -1,7 +1,7 @@
 .container-fluid {
-  width: 100%;
-  border: 1px solid #41b6a6;
-  border-bottom: 1px solid #41b6a6;
+  width: 90%;
+  //border: 1px solid #41b6a6;
+  //border-bottom: 1px solid #41b6a6;
   padding-left: 12.5px;
 }
 .container,
@@ -12,31 +12,31 @@
 .container-xl {
   padding-left: 13px;
 }
-.w3-button {
+#mureports .w3-button {
   width: 30px !important;
   min-height: 10px !important;
   border: 1px solid white !important;
   padding: 0px 5px !important;
   color: #fff !important;
 }
-.w3-button:hover {
+#mureports .w3-button:hover {
   background-color: #41b6a6 !important;
   color: #fff !important;
 }
-.example-margin {
+#mureports .example-margin {
   text-align: center !important;
 }
-.color {
+#mureports .color {
   background-color: #fff !important;
 }
-.table {
+#mureports .table {
   width: 100% !important;
 }
-.content-block {
+#mureports .content-block {
   min-height: 624px;
   background-color: #fff;
 }
-.row {
+#mureports .row {
   border-bottom: none;
   max-height: 100%;
 }
@@ -44,7 +44,7 @@
   border: none;
 }
 
-::ng-deep .example-margin:hover {
+::ng-deep #mureports  .example-margin:hover {
   & .mat-checkbox-background,
   .mat-checkbox-frame {
     border-color: #41b6a6;
@@ -53,119 +53,113 @@
 
 /* Dropdown */
 
-::ng-deep
-  .hover.mat-form-field-appearance-outline:hover
-  .mat-form-field-outline,
-.hover.mat-form-field-appearance-outline:active .mat-form-field-outline {
+::ng-deep #mureports .hover.mat-form-field-appearance-outline:hover .mat-form-field-outline,
+::ng-deep #mureports .hover.mat-form-field-appearance-outline:active .mat-form-field-outline {
   background: #41b6a6 !important;
   border: none !important;
 }
-::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+::ng-deep #mureports .mat-form-field-appearance-outline .mat-form-field-outline {
   background-color: #fff !important;
   border-radius: 6px;
   border: 1px solid #41b6a6 !important;
 }
-.mat-option.mat-active {
+#mureports .mat-option.mat-active {
   background: #e5f8f5 !important;
 }
-::ng-deep .mat-select-arrow {
+::ng-deep #mureports .mat-select-arrow {
   color: #4d4b4b !important;
 }
-::ng-deep .mat-select-placeholder {
+::ng-deep #mureports .mat-select-placeholder {
   color: #4d4b4b !important;
 }
-::ng-deep .matInput-placeholder {
+::ng-deep #mureports .matInput-placeholder {
   color: #4d4b4b !important;
 }
-.mat-form-field-wrapper {
+#mureports .mat-form-field-wrapper {
   height: 34px !important;
 }
-::ng-deep .hover.mat-form-field-appearance-outline:hover .mat-select-arrow {
+::ng-deep #mureports .hover.mat-form-field-appearance-outline:hover .mat-select-arrow {
   color: white !important;
 }
-::ng-deep
-  .hover.mat-form-field-appearance-outline:hover
+::ng-deep #mureports .hover.mat-form-field-appearance-outline:hover
   .mat-select-placeholder {
   color: white !important;
 }
-::ng-deep
-  .hover.mat-form-field-appearance-outline:hover
+::ng-deep #mureports .hover.mat-form-field-appearance-outline:hover
   .mat-select-value-text {
   color: white !important;
 }
 //input outline color
-::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+::ng-deep #mureports .mat-form-field-appearance-outline .mat-form-field-outline {
   color: #fff !important;
   // opacity: 1!important;
 }
 
 //mat-input focused color
-::ng-deep
-  .mat-form-field-appearance-outline.mat-focused
+::ng-deep #mureports .mat-form-field-appearance-outline.mat-focused
   .mat-form-field-outline-thick {
   color: #fff !important;
 }
 
 // mat-input error outline color
-::ng-deep
-  .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid
+::ng-deep #mureports  .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid
   .mat-form-field-outline-thick {
   color: #fff !important;
   opacity: 0.8 !important;
 }
 
 // mat-input carent color
-::ng-deep .mat-input-element {
+::ng-deep #mureports .mat-input-element {
   caret-color: black !important;
 }
 
 // mat-input error carent color
-::ng-deep .mat-form-field-invalid .mat-input-element,
+::ng-deep #mureports .mat-form-field-invalid .mat-input-element,
 .mat-warn .mat-input-element {
   caret-color: #fff !important;
 }
 
 // mat-label normal state style
-::ng-deep .mat-form-field-label {
+::ng-deep #mureports .mat-form-field-label {
   color: #fff (0, 0, 0, 0.6) !important;
   // color: $mainColor!important;
 }
 
 // mat-label focused style
-::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+::ng-deep #mureports .mat-form-field.mat-focused .mat-form-field-label {
   color: #fff !important;
 }
 
 // mat-label error style
-::ng-deep .mat-form-field.mat-form-field-invalid .mat-form-field-label {
+::ng-deep #mureports .mat-form-field.mat-form-field-invalid .mat-form-field-label {
   color: #fff !important;
 }
 
-::ng-deep .mat-select-panel {
+::ng-deep #mureports .mat-select-panel {
   min-width: calc(100% + 22px) !important;
   max-width: calc(min-width) !important;
   margin-left: 5px !important;
 }
 
-.mat-row:hover {
+#mureports .mat-row:hover {
   a {
     cursor: pointer;
     text-decoration: underline;
     color: #41b6a6;
   }
 }
-a {
+#mureports a {
   color: rgba(0, 0, 0, 0.87);
 }
-::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+::ng-deep #mureports .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
   background-color: #41b6a6 !important;
 }
 
-::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
+::ng-deep #mureports .mat-radio-button.mat-accent .mat-radio-inner-circle {
   background-color: #fff !important; /*inner circle color change*/
 }
 
-::ng-deep.mat-radio-button.mat-accent.mat-radio-checked
+::ng-deep #mureports .mat-radio-button.mat-accent.mat-radio-checked
   .mat-radio-outer-circle {
   border-width: 5px;
   border-color: #41b6a6 !important; /*outer ring color change*/
@@ -180,55 +174,55 @@ a {
   color: #41b6a6;
   cursor: pointer;
 }
-.grid-margin {
+#mureports .grid-margin {
   border-width: 3px;
   border-style: solid;
   border-color: #41b6a6;
   overflow-x: auto;
 }
-.mat-header-cell {
+#mureports .mat-header-cell {
   color: white;
   border-right: 1px solid white;
   max-height: 54px;
 }
-.mat-header-cell:last-child {
+#mureports .mat-header-cell:last-child {
   border-right: none;
 }
-.submenu {
+#mureports .submenu {
   border-right: 1px solid #41b6a6;
   padding-top: 25px;
 }
-.submenu:last-child {
+#mureports .submenu:last-child {
   border-right: none;
 }
-.mat-header-row {
+#mureports .mat-header-row {
   background-color: #41b6a6;
   // border-right-width: 1px;
   // border-right-style: solid;
 }
-.mat-row:hover {
+#mureports .mat-row:hover {
   background-color: #e5f8f5;
 }
-.mat-row,
-.mat-header-row {
+#mureports .mat-row,
+#mureports .mat-header-row {
   display: flex;
   align-items: center;
   height: 53px;
   font-family: serif;
   border-right: 1px solid #41b6a6;
 }
-.menu:hover {
+#mureports .menu:hover {
   background-color: rgb(227, 238, 248);
 }
-.menu {
+#mureports .menu {
   background-color: rgb(243, 180, 144);
   border-bottom-color: rgb(243, 180, 144);
 }
-.stage3table,
-.stage2table {
+#mureports .stage3table,
+#mureports .stage2table {
   border-left: 1px solid #41b6a6;
 }
-::ng-deep .mat-checkbox-checked.mat-accent {
+::ng-deep #mureports .mat-checkbox-checked.mat-accent {
   .mat-checkbox-background,
   .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
     background-color: rgb(243, 242, 242);
@@ -241,13 +235,13 @@ a {
     stroke: grey !important;
   }
 }
-::ng-deep .example-margin:hover {
+::ng-deep #mureports .example-margin:hover {
   & .mat-checkbox-background,
   .mat-checkbox-frame {
     border-color: #41b6a6;
   }
 }
-::ng-deep .example-margin {
+::ng-deep #mureports .example-margin {
   & .mat-checkbox-background,
   .mat-checkbox-frame {
     border-radius: 20% !important;
@@ -259,12 +253,12 @@ a {
     height: 19px;
   }
 }
-.mat-cell {
+#mureports .mat-cell {
   border-bottom: #41b6a6 1px solid;
 }
 
-.mat-cell,
-.mat-header-cell {
+#mureports .mat-cell,
+#mureports .mat-header-cell {
   font-size: 15px;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   padding: 12px 20px;
@@ -276,7 +270,7 @@ a {
 //   overflow-x: auto;
 // }
 
-.mat-checkbox {
+#mureports .mat-checkbox {
   font-weight: bold;
 }
 
@@ -294,29 +288,30 @@ a {
   overflow-y: auto !important;
   border: 1px solid #41b6a6;
 }
-p {
+#mureports p {
   font-family: "Roboto", sans-serif;
   font-size: 16px;
 }
-button {
+#mureports button {
   background-color: #fff;
   border: 1px solid #41b6a6;
   height: 45px;
   color: #41b6a6;
   border-radius: 3px;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
-button:hover {
+#mureports button:hover {
   background-color: #41b6a6;
   color: #fff;
   border: 1px solid #fff;
 }
 
-.content-block {
+#mureports .content-block {
   max-height: 624px;
   background-color: #fff;
 }
 
-mat-header-cell {
+#mureports mat-header-cell {
   background-color: #41b6a6 !important;
   width: 100%;
   max-height: 54px;
@@ -324,7 +319,7 @@ mat-header-cell {
   display: block;
   align-self: stretch !important;
 }
-mat-cell {
+#mureports mat-cell {
   border-right: 1px solid #41b6a6;
   max-height: 80px;
   border-bottom: 1px solid #41b6a6;
@@ -334,36 +329,41 @@ mat-cell {
   align-self: stretch !important;
 }
 
-.ehr-cqm-table-container {
+#mureports .ehr-cqm-table-container {
   position: relative;
   overflow: auto;
   border: #41b6a6 1px solid;
   text-align: center;
 }
-h1 {
+#mureports h1 {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 500;
   line-height: 1.1;
 }
-.panel {
+#mureports .panel {
   overflow-y: scroll;
   max-height: 500px;
 }
-h6 {
+#mureports h6 {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: bold;
   line-height: 1.1;
 }
-.body {
+// .body {
+//   background-color: rgb(247, 245, 245);
+//   border: 3px solid rgb(226, 226, 226) !important;
+//   border-radius: 6px;
+// }
+#mureports mat-expansion-panel-header {
   background-color: rgb(247, 245, 245);
   border: 3px solid rgb(226, 226, 226) !important;
-  border-radius: 6px;
 }
-mat-expansion-panel-header {
-  background-color: rgb(247, 245, 245);
-  border: 3px solid rgb(226, 226, 226) !important;
+#mureports .ehr-cqm-container{
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
 }
-
 @media (max-width: 1350px) {
   .ehr-cqm-container {
     max-width: 1200px;
@@ -374,11 +374,11 @@ mat-expansion-panel-header {
   }
 }
 
-table {
+#mureports table {
   border-collapse: collapse;
 }
 
-td {
+#mureports td {
   padding-top: 1em;
   padding-bottom: 1em;
 }
@@ -407,8 +407,7 @@ td {
   background-color: red;
 }
 
-::ng-deep
-  mat-datepicker-toggle.mat-datepicker-toggle
+::ng-deep #mureports mat-datepicker-toggle.mat-datepicker-toggle
   button.mat-icon-button
   span.mat-button-wrapper
   svg.mat-datepicker-toggle-default-icon
@@ -418,8 +417,7 @@ td {
   stroke-linejoin: round;
   transition: d 0.2s;
 }
-::ng-deep
-  mat-datepicker-toggle.mat-datepicker-toggle
+::ng-deep  mat-datepicker-toggle.mat-datepicker-toggle
   button.mat-focus-indicator.mat-icon-button {
   background-color: #41b6a6;
   color: #fff;
@@ -433,7 +431,7 @@ td {
   height: 3.1em !important;
   width: 3.1em !important;
 }
-.mat-form-field:not(.mat-form-field-appearance-legacy)
+#mureports .mat-form-field:not(.mat-form-field-appearance-legacy)
   .mat-form-field-suffix
   .mat-icon-button {
   display: block;

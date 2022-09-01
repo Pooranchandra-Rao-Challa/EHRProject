@@ -490,6 +490,35 @@ export class InsuranceComponent implements OnInit {
 
 
   }
-  
+  primaryenableSave() {
+    return !(this.primlist.SubscriberNane != null && this.primlist.SubscriberNane != ""
+      && this.primlist.DateOfBirth != null && this.primlist.DateOfBirth != ""
+      && this.primlist.Gender != null && this.primlist.Gender != ""
+      && this.primlist.StreetAddress!=null && this.primlist.StreetAddress !=""
+      && this.primlist.City != null && this.primlist.City != ""
+      && this.primlist.State != null && this.primlist.State != ""
+      && this.primlist.Zip != null && this.primlist.Zip != ""
+      && this.primlist.InsuranceCompanyPlanID != null && this.primlist.InsuranceCompanyPlanID != ""
+      && this.primlist.InsuranceCompanyPlan != null && this.primlist.InsuranceCompanyPlan !=""
+      && this.primlist.RelationshipToSubscriber != null && this.primlist.RelationshipToSubscriber !=""
+      &&  this.primlist.SourceOfPaymentTypology != null && this.primlist.SourceOfPaymentTypology !=""
+      &&  this.primlist.StartDate != null && this.primlist.StartDate !=""
+    )
+  }
+  secondaryenableSave() {
+    return !(this.secList.SubscriberNane != null && this.secList.SubscriberNane != ""
+      && this.secList.DateOfBirth != null && this.secList.DateOfBirth != ""
+      && this.secList.Gender != null && this.secList.Gender != ""
+      && this.secList.StreetAddress!=null && this.secList.StreetAddress !=""
+      && this.secList.City != null && this.secList.City != ""
+      && this.secList.State != null && this.secList.State != ""
+      && this.secList.Zip != null && this.secList.Zip != ""
+      && this.secList.InsuranceCompanyPlanID != null && this.secList.InsuranceCompanyPlanID != ""
+      && this.secList.InsuranceCompanyPlan != null && this.secList.InsuranceCompanyPlan !=""
+      && this.secList.RelationshipToSubscriber != null && this.secList.RelationshipToSubscriber !=""
+      &&  this.secList.SourceOfPaymentTypology != null && this.secList.SourceOfPaymentTypology !=""
+      &&  this.secList.StartDate != null && this.secList.StartDate !=""
+    )
+  }
 }
 

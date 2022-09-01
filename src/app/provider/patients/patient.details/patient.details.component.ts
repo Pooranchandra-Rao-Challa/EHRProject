@@ -22,6 +22,7 @@ import { LabProcedureWithOrder } from 'src/app/_models/_provider/LabandImage';
 import { OrderResultDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/order.result.dialog.component'
 import { PatientUpdateService, ViewChangeService } from 'src/app/_navigations/provider.layout/view.notification.service';
 import { CCdaDialogComponent } from 'src/app/dialogs/c-cda.dialog/c-cda.dialog.component';
+import { AuthorizedrepresentativeDialogComponent } from 'src/app/dialogs/authorizedrepresentative.dialog/authorizedrepresentative.dialog.component';
 
 
 @Component({
@@ -51,8 +52,9 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
   patientHealthPortalComponent = PatientHealthPortalComponent;
   encounterDialogComponent = EncounterDialogComponent;
   procedureDialogComponent = ProcedureDialogComponent;
-  orderResultDialogComponent = OrderResultDialogComponent
-  cCdaDialogComponent = CCdaDialogComponent
+  orderResultDialogComponent = OrderResultDialogComponent;
+  cCdaDialogComponent = CCdaDialogComponent;
+  authorizedRepresentativeDialogComponent = AuthorizedrepresentativeDialogComponent
 
 
 
@@ -259,7 +261,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
       this.patient = this.authService.viewModel.Patient;
       this.loadDependents();
     }
-    else {
+    // else {
       this.patientService.LatestUpdatedPatientsUrl({
         ProviderId: this.authService.userValue.ProviderId,
         RemovedPatientIds: this.removedPatientIdsInBreadcurmb,
@@ -285,7 +287,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
                 PatientId: p.PatientId,
                 ShowRemoveIcon: true,
                 EncKey: p.EncKey,
-                ActiveId: p.ShowDetailView,
+                ActiveId: p.ShowDetailView == false ? this.patient?.PatientId == p.PatientId : p.ShowDetailView,
                 Details: p
               }
               if (p.ShowDetailView) {
@@ -301,7 +303,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
             this.loadPatientBreadcrumbView()
           }
         })
-    }
+    // }
 
   }
 
@@ -403,6 +405,10 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
     else if (action == Actions.view && content === this.cCdaDialogComponent) {
       dialogData = data;
     }
+    else if(action == Actions.view && content === this.authorizedRepresentativeDialogComponent)
+    {
+        dialogData = data
+    }
     const ref = this.overlayService.open(content, dialogData);
 
     ref.afterClosed$.subscribe(res => {
@@ -440,7 +446,9 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
           else if (this.viewModel.PatientView == "Chart")
             this.loadChartComponent();
         }
-      }
+      
+      
+    }
     });
   }
 }
