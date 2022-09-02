@@ -5,7 +5,7 @@ import { Directive, ElementRef, HostListener } from '@angular/core';
 })
 export class AlphaDirective {
 
-  private regex: RegExp = new RegExp(/^[A-Z|a-z|]+$/);
+  private regex: RegExp = new RegExp(/^[a-zA-Z ]*$/);
 
   private specialKeys: Array<string> = ['Backspace', 'Tab', 'End', 'Home', '-'];
   constructor(private el: ElementRef) {

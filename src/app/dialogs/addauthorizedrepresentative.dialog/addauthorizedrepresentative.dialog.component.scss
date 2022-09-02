@@ -52,6 +52,10 @@
     background-color: #fff;
     border-color: #b4bcc8;
   }
+  .form-check-input:focus {
+   
+    border-color: #41b6a6;
+  }
   
 .form-check-input[type=radio]:hover {
     border-color: #41b6a6;

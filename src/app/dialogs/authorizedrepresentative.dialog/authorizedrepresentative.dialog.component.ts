@@ -35,7 +35,6 @@ export class AuthorizedrepresentativeDialogComponent implements OnInit {
 }
 openComponentDialog(content: any | ComponentType<any> | string,
   dialogData, action: Actions = this.ActionTypes.add) {
-    debugger;
   let reqdata: any;
   if (action == Actions.view && content === this.addauthorizedRepresentativeDialogComponent) {
     reqdata = dialogData;

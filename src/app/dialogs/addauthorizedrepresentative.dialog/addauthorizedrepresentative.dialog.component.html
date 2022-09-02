@@ -18,7 +18,7 @@
             <div *ngIf="firstName.errors && (firstName.touched)" class="error-message-alignment">
               <div class="text-danger" *ngIf="firstName.errors?.required">
                 <span class="text-danger"></span>
-                <p class="text-danger">Please enter First Name</p>
+                <p class="text-danger">Please enter first name</p>
               </div>
               </div>
             <div class="col-lg-12 col-md-12 col-12 my-2">
@@ -33,7 +33,7 @@
             <div *ngIf="lastName.errors && (lastName.touched)" class="error-message-alignment">
               <div class="text-danger" *ngIf="lastName.errors?.required">
                 <span class="text-danger"></span>
-                <p class="text-danger">Please enter Last Name</p>
+                <p class="text-danger">Please enter last name</p>
               </div>
               </div>
             <div class="col-lg-12 col-md-12 col-12 my-2">
@@ -48,11 +48,11 @@
             </div>
             <div *ngIf="email.errors && (email.touched)" >
               <div class="text-danger" *ngIf="email.errors?.required">
-                <p class="text-danger">Please enter Email</p>
+                <p class="text-danger">Please enter email</p>
               </div>
                 <div class="text-danger" *ngIf="email.errors?.pattern">
                   <span class="text-danger"></span>
-                  <p class="text-danger">Enter Email in correct format</p>
+                  <p class="text-danger">Enter email in correct format</p>
                 </div>
               </div>
             <div class="col-lg-12 col-md-12 col-12 my-2">
@@ -70,9 +70,9 @@
               <div class="form-group">
                 <div class="input-group">
                   <input class="checkbox form-check-input" id="Authorized" name="Authorized" type="checkbox" [(ngModel)]="authorizedRepresentative.Active">
-                  <a href="#" class="a-design">Representative has read and signed
+                  <p class="a-design">Representative has read and signed
                     <span class="a-authorized">Authorized Representative Acceptable Use Policy </span>
-                  </a>
+                  </p>
                 </div>
               </div>
             </div>

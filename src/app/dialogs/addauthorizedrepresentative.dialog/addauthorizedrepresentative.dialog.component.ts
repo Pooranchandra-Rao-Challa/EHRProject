@@ -56,11 +56,12 @@ this.patientservice.CreateAuthorizedRepresentative(this.authorizedRepresentative
 })
 }
 phonepattern =/^[0-9]{10}/;
+email = /^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$/;
 enableSave()
 {
   return !(this.authorizedRepresentative.FirstName != null && this.authorizedRepresentative.FirstName != ""
       && this.authorizedRepresentative.LastName != null && this.authorizedRepresentative.LastName != ""
-      && this.authorizedRepresentative.Email != null && this.authorizedRepresentative.Email != ""
+      && this.authorizedRepresentative.Email != null || this.authorizedRepresentative.Email != "" && this.email.test(this.authorizedRepresentative.Email)
       && this.authorizedRepresentative.Active!=null
        &&this.authorizedRepresentative.ContactPhone == null || this.authorizedRepresentative.ContactPhone == ""
        || this.phonepattern.test(this.authorizedRepresentative.ContactPhone));

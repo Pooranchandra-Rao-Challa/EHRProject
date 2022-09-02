@@ -309,13 +309,11 @@ export class ClinicDecisionComponent implements OnInit {
   resetdialog() {
     this.newAlert = new EhrAlert
   }
-  resettriggerdialog() {
-    
-  let d:MedicalCode = new MedicalCode()
-    this.ehrTrigger = new EhrTrigger;
-    this.triggerSearchList = new BehaviorSubject<EhrTrigger[]>([]);
-
-  }
+  resettriggerdialog  () {
+      this.ehrTrigger = new EhrTrigger();
+      this.triggerSearchList = new BehaviorSubject<EhrTrigger[]>([]);
+      this.ehrTriggerList = new TriggerInformation;
+    }
 
   optionChangedForTrigger(value: MedicalCode) {
     this.ehrTrigger.Code = value.Code
@@ -328,7 +326,7 @@ export class ClinicDecisionComponent implements OnInit {
   }
 
 
-  removeEncounterDiagnosis(value: EhrTrigger, index: number) {
+  removetrigger(value: EhrTrigger, index: number) {
     value.CanDelete = true;
     this.triggerSearchList.next(this.ehrTriggerList.Addtrigger.filter(fn => fn.CanDelete === false));
     this.ehrTrigger = new EhrTrigger();
@@ -336,7 +334,6 @@ export class ClinicDecisionComponent implements OnInit {
   newtrigger(item) {
     this.ehrTrigger.AlertId = item;
     let d:MedicalCode = new MedicalCode()
-    this.ehrTrigger = new EhrTrigger;
     this.triggerSearchList = new BehaviorSubject<EhrTrigger[]>([]);
   }
   CreateTrigger(ehrTrigger) {
@@ -345,7 +342,8 @@ export class ClinicDecisionComponent implements OnInit {
       if (resp.IsSuccess) {
         this.getclinicaldesupportlist();
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2JCDS003"]);
-        // this.resettriggerdialog();
+        this.ehrTrigger = new EhrTrigger;
+         this.resettriggerdialog();
       }
       else {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2JCDS002"]);

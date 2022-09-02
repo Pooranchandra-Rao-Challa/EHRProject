@@ -100,7 +100,7 @@
                   {{data.Category}}
                 </td>
                 <td>{{data.Code}}</td>
-                <td>{{data.System}}</td>
+                <td>{{data.CodeSystem}}</td>
                 <td>{{data.Description}}</td>
                 <td (click)="DeleteTrigger(data.TriggerId)">
                   <mat-icon class="close-icon Cancelbtn">close
@@ -340,7 +340,7 @@
               <p class="text-capitalize-first"></p>
             </mat-header-cell>
             <mat-cell *matCellDef="let item; let i = index; ">
-              <button type="button" class="btn cross-mark error-close" (click)="removeEncounterDiagnosis(item,i)"
+              <button type="button" class="btn cross-mark error-close" (click)="removetrigger(item,i)"
                 title="Delete recommended Procedure">x</button>
             </mat-cell>
           </ng-container>
