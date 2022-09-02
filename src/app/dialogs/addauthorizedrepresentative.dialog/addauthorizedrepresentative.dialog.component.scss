@@ -62,7 +62,7 @@
     font-size: 18px;
     font-family: "Roboto";
     margin-top: -23px;
-    margin-left: 28px !important;
+    margin-left: 45px !important;
     font-weight: 400;
   }
   
@@ -77,4 +77,6 @@
   .a-authorized:hover {
     color: #5ad4c4;
   }
-  
+  .emailnotallowed{
+    cursor: not-allowed !important;
+  }

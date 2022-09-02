@@ -78,4 +78,10 @@ export class PatientNavbarComponent implements OnInit,AfterViewInit {
       [url],
     );
   }
+  get LoggedInUser()
+  {
+    if( this.user.Role == "representative") return this.user.RepresentativeName;
+    else return this.user.FirstName +' '+ this.user.LastName;
+
+  }
 }
