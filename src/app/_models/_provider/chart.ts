@@ -94,6 +94,7 @@ export class Immunization {
   ImmunizationId?: string;
   PatientId?: string;
   AdministeredAt?: string;
+  AdministeredDate?: Date;
   ExpirationAt?: Date;
   Notes?: string;
   ImmType?: string = 'administered';

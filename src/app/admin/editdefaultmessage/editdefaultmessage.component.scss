@@ -1,32 +1,47 @@
 @import"../../../assets/admin.common.scss";
-.form-control{
-    background-color: #eef1f5;
-    opacity: 1;
-    border: 1px solid #c2cad8;
-    font-size: 14px;
-    line-height: 1.1;
-  }
-  h1{
-    font-weight: 400;
-    font-size: 34px;
-    font-family: inherit;
-  }
-  .table-border{
-    margin-left: 2%;
-  }
-  .bold {
-    font-weight: 700 !important;
-  }
-  .btn-style  {
-    font-family: inherit;
-    border-radius: 0%;
-    line-height: 1.44;
-  }
-  .form-group label {
-    font-size: 14px;
-    padding-top: 10px;
-  }
-  textarea:focus {
-    border-radius: 5px;
-    border: 2px solid black;
-  }
+
+.form-control {
+  background-color: #eef1f5;
+  opacity: 1;
+  border: 1px solid #c2cad8;
+  font-size: 14px;
+  line-height: 1.1;
+}
+
+h1 {
+  font-weight: 400;
+  font-size: 34px;
+  font-family: inherit;
+}
+
+.table-border {
+  margin-left: 2%;
+}
+
+.bold {
+  font-weight: 700 !important;
+}
+
+.btn-style {
+  font-family: inherit;
+  border-radius: 0%;
+  line-height: 1.44;
+}
+
+.form-group label {
+  font-size: 14px;
+  padding-top: 10px;
+}
+
+textarea:focus-visible {
+  border-radius: 5px;
+  border: 2px solid black;
+}
+
+textarea {
+  resize: both;
+}
+
+.btn-back {
+  font-family: Arial, Helvetica, sans-serif;
+}
