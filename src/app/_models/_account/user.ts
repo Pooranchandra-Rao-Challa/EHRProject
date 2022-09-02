@@ -23,6 +23,7 @@ export interface User {
   EmailConfirmation: boolean;
   IsInTrailPeriod: boolean;
   EnableStage3: boolean;
+  RepresentativeUserId:string;
 }
 export class UserLocations {
   LocationId: string;
