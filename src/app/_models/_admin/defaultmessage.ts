@@ -1,6 +1,5 @@
 export interface DefaultMessage {
-  CommunicationId?:string,
+  CommunicationId?: string,
   CommunicationType?: string,
-  message?: string
-
-  }
+  Message?: string
+}

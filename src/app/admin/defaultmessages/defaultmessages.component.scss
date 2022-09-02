@@ -54,4 +54,16 @@ h1 {
 	font-weight: 300;
 	font-size: 36px;
 }
+.default-message-table .table>:not(caption)>*>* {
+  padding: 0px 10px !important;
+}
+@media (max-width: 768px) {
+  .default-message-table.table-responsive {
+    max-width: 900px;
+    overflow-x: scroll;
+  }
 
+  .table {
+    width: 900px;
+  }
+}

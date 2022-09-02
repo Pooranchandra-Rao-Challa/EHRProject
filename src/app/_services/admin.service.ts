@@ -59,4 +59,9 @@ export class AdminService extends APIEndPoint {
   SwitchUserKey(reqparam:any){
     return this._ProcessPostRequest<any>(this._switchUserKeyUrl, reqparam);
   }
+
+  UpdateDefaultMessage(reqparams:any){
+    return this._ProcessPostRequest<any>(this._updateDefaultMessageUrl, reqparams);
+  }
+
 }

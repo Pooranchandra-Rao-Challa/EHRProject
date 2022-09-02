@@ -171,6 +171,7 @@ export class AlertMessage {
  * Admin Module
  *
  * Admins : A
+ * Default Messages : DM
  *
  * ---------------------------------------------------
  * Errors Number shouw be three digits like 001
@@ -235,7 +236,7 @@ export const ERROR_CODES: { [key: string]: string } = {
   'M2CP006': 'Next of kin updated successfully',
   'M2CP007': 'Immunization registry updated successfully',
   'M2CP008': 'Patient updated successfully',
-  
+
   //Security Question
   'M2CP009':  'Security question is updated successfully ',
   'M2CP0010': 'Address verification',
@@ -490,7 +491,13 @@ export const ERROR_CODES: { [key: string]: string } = {
   'M1A003': 'Admin deleted successfully',
 
   // Error for Admin
-  'E1A001': 'Admin deletion error',
+  'E1DM001': 'Admin deletion error',
+
+  //Default messages in admin module
+  'M1DM001': 'Default messages updated successfully',
+
+  // Error for Default messages
+  'E1A001': 'Default messages updation error',
 
   // Calendar Blockout messages
   'M2B1001': 'Blockout added successfully',

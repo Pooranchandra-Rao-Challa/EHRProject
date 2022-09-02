@@ -37,19 +37,17 @@
           <div class="input-group new-search-group chart-patient-new-search-group
           col-xl-10 col-lg-9 col-md-9 col-12 mt-2 mt-md-0">
             <div class="new-search-input" style="margin-left: 6px; height: 45px;">
-              <input matInput type="text" name="chart_find_patient" id="chart_find_patient" #searchPatient
+              <input matInput type="text" name="searchPatient" id="searchPatient" #searchPatient
                 class="new-search form-control ignore_spinner" placeholder="Search Patients..."
-                style="height: 42px; border: none; top: 1px; margin-top: 1px;" />
-              <mat-autocomplete [displayWith]="displayWithPatientSearch" #searchPatient="matAutocomplete"
+                style="height: 42px; border: none; top: 1px; margin-top: 1px;" [matAutocomplete]="Patient" />
+              <mat-autocomplete [displayWith]="displayWithPatientSearch" #Patient="matAutocomplete"
                 (optionSelected)="onPatientSelected($event)">
                 <mat-option *ngIf="isLoading">Loading ...</mat-option>
                 <mat-option *ngFor="let option of filteredPatients | async" [value]="option"
                   class="patient-serach-option">
-                  <!-- [matAutocomplete]="searchPatient" -->
                   {{option.Name}}
                 </mat-option>
               </mat-autocomplete>
-
             </div>
           </div>
         </div>
@@ -419,11 +417,11 @@
             <div class="card">
               <div class="card-header">
                 <div class="row">
-                  <div class="col-md-8 col-6">
-                    <p class="card-title">
+                  <div class="col-md-8 col-8">
+                    <p class="card-title text-break">
                       Screenings/Interventions/Assessments</p>
                   </div>
-                  <div class="col-md-4 col-6">
+                  <div class="col-md-4 col-4">
                     <div class="col-12 plusicon pull-right"
                       (click)="openComponentDialog(interventionDialogComponent, null, ActionTypes.add)">
                       <span><i class="fa fa-plus"></i></span>
@@ -539,7 +537,7 @@
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list" *ngFor="let appointment of chartInfo?.Appointments | slice:0:1">
+                <ul class="main-list" *ngFor="let appointment of chartInfo?.Appointments | slice:0:5">
                   <li>
                     <a (click)="openComponentDialog(appointmentDialogComponent,appointment,ActionTypes.view)">
                       <span *ngIf="appointment?.StartAt != null && appointment?.StartAt !=''">
@@ -557,7 +555,7 @@
                   </li>
                 </ul>
                 <a (click)="openComponentDialog(appointmentsTableDialogComponent,chartInfo?.Appointments,ActionTypes.view)"
-                  *ngIf="chartInfo?.Appointments?.length > 1" class="view-more pull-right">view more</a>
+                  *ngIf="chartInfo?.Appointments?.length > 5" class="view-more pull-right">view more</a>
               </div>
             </div>
             <a class="patient-chart" href="https://dentaltraumaguide.org/dental-guides/" target="_blank">Clinical

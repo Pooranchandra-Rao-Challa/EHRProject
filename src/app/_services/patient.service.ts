@@ -311,5 +311,5 @@ export class PatientService extends APIEndPoint {
   {
     return this._ProcessPostRequest<any>(this._authorizedRepresentativesUrl,reqParams);
   }
-  
+
 }

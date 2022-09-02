@@ -1,3 +1,4 @@
+import { DefaultMessage } from './../_admin/defaultmessage';
 import { CQMNotPerformed } from './../_provider/cqmnotperformed';
 import { WeeklyUpdated } from '../_admin/weeklyupdated';
 import { ProviderPatient } from './../_provider/Providerpatient';
@@ -22,6 +23,7 @@ export interface User {
   EmailConfirmation: boolean;
   IsInTrailPeriod: boolean;
   EnableStage3: boolean;
+  RepresentativeUserId:string;
 }
 export class UserLocations {
   LocationId: string;
@@ -39,11 +41,12 @@ export class ViewModel {
   WeeklyUpdate?: WeeklyUpdated;
   AdminViewName?: string;
   PatientBreadCrumb?: string[];
-  LabandImageView?: string = "Lab"
+  LabandImageView?: string = "Lab";
+  DefaultMessageView?: DefaultMessage;
 }
 
 export class AdminViewModal {
   WeeklyUpdate?: WeeklyUpdated;
-  WeeklyUpdatedView?: string = ""
+  WeeklyUpdatedView?: string = "";
 }
 
