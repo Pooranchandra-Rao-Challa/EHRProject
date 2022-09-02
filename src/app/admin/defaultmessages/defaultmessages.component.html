@@ -10,23 +10,23 @@
       <h1>Default Messages</h1>
     </div>
 
-    <div class="table-responsive">
+    <div class="table-responsive default-message-table">
       <table class="table table-bordered">
         <thead class="th-border">
           <tr>
-            <th>Sr. No</th>
-            <th>Communication Type</th>
-            <th>Message</th>
-            <th></th>
+            <th style="width: 10%;">Sr. No</th>
+            <th style="width: 20%;">Communication Type</th>
+            <th style="width: 60%;">Message</th>
+            <th style="width: 10%;"></th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let item of defaultmessage;  let i=index">
-            <td>{{i+1}}</td>
-            <td>{{item?.CommunicationType}}</td>
-            <td>{{item?.message}}</td>
-            <td><button class="btn-lock table-col-button"
-              (click)="onSubmit('Edit default messages','admin/editdefaultmessage')">Edit</button></td>
+            <td style="width: 10%;">{{i+1}}</td>
+            <td style="width: 20%;">{{item?.CommunicationType}}</td>
+            <td style="width: 60%;">{{item?.Message}}</td>
+            <td style="width: 10%;"><button class="btn-lock table-col-button"
+              (click)="onSubmit('Edit default messages','admin/editdefaultmessage', item)">Edit</button></td>
           </tr>
         </tbody>
       </table>

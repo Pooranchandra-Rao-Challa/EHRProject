@@ -1,4 +1,3 @@
-
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, Observer, observable, throwError, of } from 'rxjs';
 import { Router } from '@angular/router';
@@ -30,6 +29,7 @@ export class AuthenticationService {
   public get viewModel(): ViewModel {
     return JSON.parse(localStorage.getItem("viewModel")) as ViewModel;
   }
+
   public SetViewParam(key: string, value: any) {
     let v = JSON.parse(localStorage.getItem("viewModel")) as ViewModel;
     if(v==null) v = new ViewModel();

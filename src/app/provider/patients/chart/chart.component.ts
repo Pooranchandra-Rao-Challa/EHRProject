@@ -409,11 +409,13 @@ export class ChartComponent implements OnInit, AfterViewInit {
   editDialog(dialogData, name) {
     if (name == 'immunization') {
       this.patientImmunization = dialogData;
-      var dateString = this.patientImmunization.AdministeredAt;
-      var timeFull = dateString.split('T');
-      var time = timeFull[1].split('.');
-      this.patientImmunization.AdministeredAt = this.datepipe.transform(timeFull[0], "yyyy-MM-dd");
-      this.patientImmunization.AdministeredTime = time[0];
+      // var dateString = this.patientImmunization.AdministeredAt;
+      // var timeFull = dateString.split('T');
+      // var time = timeFull[1].split('.');
+      // this.patientImmunization.AdministeredAt = this.datepipe.transform(timeFull[0], "yyyy-MM-dd");
+      // this.patientImmunization.AdministeredTime = time[0];
+      this.patientImmunization.AdministeredTime = this.datepipe.transform(this.patientImmunization.AdministeredAt, "hh:mm a");
+      this.patientImmunization.AdministeredAt = this.datepipe.transform(new Date(this.patientImmunization.AdministeredAt), "yyyy-MM-dd");
     }
   }
 
@@ -440,10 +442,12 @@ export class ChartComponent implements OnInit, AfterViewInit {
     let isAdd = this.patientImmunization.ImmunizationId == undefined;
     this.patientImmunization.PatientId = this.currentPatient.PatientId;
     this.patientImmunization.ExpirationAt = new Date(this.datepipe.transform(this.patientImmunization.ExpirationAt, "MM/dd/yyyy hh:mm:ss"));
-    var dateString = this.datepipe.transform(this.patientImmunization.AdministeredAt, "yyyy-MM-dd");
-      var datetime = dateString.split(' ');
-      var onlyDate = datetime[0];
-      this.patientImmunization.AdministeredAt = onlyDate + 'T' + this.patientImmunization.AdministeredTime;
+    // var dateString = this.datepipe.transform(this.patientImmunization.AdministeredAt, "yyyy-MM-dd");
+    //   var datetime = dateString.split(' ');
+    //   var onlyDate = datetime[0];
+    //   this.patientImmunization.AdministeredAt = onlyDate + 'T' + this.patientImmunization.AdministeredTime;
+    this.patientImmunization.AdministeredAt = this.datepipe.transform(this.patientImmunization.AdministeredAt, "yyyy-MM-dd");
+    this.patientImmunization.AdministeredAt = this.patientImmunization.AdministeredAt + ' ' + this.patientImmunization.AdministeredTime;
     this.patientService.CreateImmunizationsAdministered(this.patientImmunization).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.ImmunizationsByPatientId();
@@ -490,10 +494,10 @@ export class ChartComponent implements OnInit, AfterViewInit {
   }
 
   disableImmAdministered() {
-    return !(this.patientImmunization.Code && this.patientImmunization.AdministeredAt && this.patientImmunization.AdministeredTime && this.patientImmunization.AdministeredById
-          && this.patientImmunization.OrderedById && this.patientImmunization.AdministeredFacilityId && this.patientImmunization.Manufacturer
-          && this.patientImmunization.Lot && this.patientImmunization.Quantity && this.patientImmunization.Dose && this.patientImmunization.Unit
-          && this.patientImmunization.ExpirationAt)
+    return !(this.patientImmunization.Code && this.patientImmunization.AdministeredAt && this.patientImmunization.AdministeredTime != '00:00 AM'
+          && this.patientImmunization.AdministeredById && this.patientImmunization.OrderedById && this.patientImmunization.AdministeredFacilityId
+          && this.patientImmunization.Manufacturer && this.patientImmunization.Lot && this.patientImmunization.Quantity && this.patientImmunization.Dose
+          && this.patientImmunization.Unit && this.patientImmunization.ExpirationAt)
   }
 
   disableImmHistorical() {
