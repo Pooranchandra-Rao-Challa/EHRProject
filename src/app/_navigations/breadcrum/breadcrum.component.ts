@@ -12,7 +12,7 @@ import { ViewChangeService } from '../provider.layout/view.notification.service'
 export class BreadcrumComponent implements OnInit {
   isSubscribe: boolean = false;
   currentView: string = "Smart Schedule"
-  isproduction: boolean = environment.production;
+  showemail: boolean = environment.showemail;
   user: User
   constructor(private authenticationService: AuthenticationService,
     private router: Router,
