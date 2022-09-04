@@ -5,6 +5,7 @@ export interface EmailedUrls{
   PostedUrl?: string;
   RefKey?: string;
   Errors?: string;
+  Html?: string;
   Active?: boolean;
   CreateAt?: Date;
 }

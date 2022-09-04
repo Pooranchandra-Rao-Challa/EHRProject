@@ -1,5 +1,7 @@
+import { User } from 'src/app/_models';
+import { Router } from '@angular/router';
 import { Component, Input, OnInit } from '@angular/core';
-import { ViewModel } from 'src/app/_models';
+import { environment } from 'src/environments/environment';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { ViewChangeService } from '../provider.layout/view.notification.service';
 @Component({
@@ -10,9 +12,13 @@ import { ViewChangeService } from '../provider.layout/view.notification.service'
 export class BreadcrumComponent implements OnInit {
   isSubscribe: boolean = false;
   currentView: string = "Smart Schedule"
+  isproduction: boolean = environment.production;
+  user: User
   constructor(private authenticationService: AuthenticationService,
+    private router: Router,
     private viewChangeService: ViewChangeService,) {
-    if(authenticationService.viewModel.View)
+      this.user = authenticationService.userValue;
+    if (authenticationService.viewModel.View)
       this.currentView = authenticationService.viewModel.View;
     viewChangeService.getData().subscribe(view => this.currentView = view)
   }
@@ -21,6 +27,12 @@ export class BreadcrumComponent implements OnInit {
 
   }
 
+  onEmailURLs() {
+    this.router.navigate(["account/emailedurls"])
+  }
 
+  get TrailText(){
+    return `Your Trial Period Ends in ${this.user.TrialDaysLeft.valueOf()} day(s)`;
+  }
 
 }

@@ -240,7 +240,7 @@
             <div [formGroupName]="i" style="border: 1px solid #41b6a6; padding: 8px; border-top:unset">
               <div class="row" style="align-items: center;">
                 <label for="singleFile">Upload file</label>
-                <input id="singleFile" type="file" [fileUploadInputFor]="fileUploadQueue" />
+                <input id="singleFile" type="file" [fileUploadInputFor]="fileUploadQueue" (change)="onFileSelected($event)"/>
                 <br>
                 <!-- <mat-file-upload-queue #fileUploadQueue [fileAlias]="file" [httpUrl]="uploadurl">
                   <mat-file-upload [file]="file" [id]="i" *ngFor="let file of fileUploadQueue.files; let i = index" onUpload="UploadCompleated(file,event)">

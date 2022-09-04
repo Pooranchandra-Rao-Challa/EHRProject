@@ -32,6 +32,7 @@ export class AdminRegistration {
   MobilePhoneCode?: string;
   MobilePhoneSuffix?: string;
   MobilePhonePreffix?: string;
+  URL?: string;
 }
 
 

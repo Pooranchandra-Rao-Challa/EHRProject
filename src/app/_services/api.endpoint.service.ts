@@ -103,8 +103,8 @@ export class APIEndPoint extends EndpointBase {
   get _providerRegistrationUrl() {
     return this._baseUrl + "RegisterNewProvider";
   }
-  get _adminRegistrationUrl() {
-    return this._baseUrl + "RegisterNewAdmin";
+  get _createAdminUrl() {
+    return this._baseUrl + "CreateAdmin";
   }
   get _deleteAdminUrl() {
     return this._baseUrl + "DeleteAdmin";
@@ -841,6 +841,16 @@ export class APIEndPoint extends EndpointBase {
   get _authorizedRepresentativesUrl()
   {
     return this._baseUrl + "AuthorizedRepresentatives";
+  }
+
+
+  get _securePasswordChangeUrl()
+  {
+    return this._baseUrl + "SecurePasswordChange";
+  }
+
+  get _createProviderUrl() {
+    return this._baseUrl + "CreateProvider";
   }
 
   constructor(public http: HttpClient) {

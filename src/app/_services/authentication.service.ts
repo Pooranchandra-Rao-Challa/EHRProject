@@ -1,3 +1,4 @@
+import { SecureCreds } from './../_models/_account/user';
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, Observer, observable, throwError, of } from 'rxjs';
 import { Router } from '@angular/router';
@@ -86,6 +87,16 @@ export class AuthenticationService {
     return observable;
   }
 
+  SecurePasswordChangeForProvider(creds: SecureCreds){
+    const endpointUrl = this.baseUrl + "SecurePasswordChange";
+    return this.http.post<any>(endpointUrl, creds);
+  }
+
+  // SecurePasswordChangeForRep(creds: SecureCreds){
+  //   const endpointUrl = this.baseUrl + "SecurePasswordChangeForRep";
+  //   return this.http.post<any>(endpointUrl, creds);
+  // }
+
   SwitchUser(data: { SwitchUserKey: string, SwitchUserEncKey: string }) {
     if (this.isAdmin) {
       const endpointUrl = this.baseUrl + "SwitchUser/";
@@ -120,6 +131,8 @@ export class AuthenticationService {
       return observable;
     }
   }
+
+
   patientLoginWithFormCredentials(creds: any): Observable<ResponseData> {
     const endpointUrl = this.apiEndPoint._authenticatePatientUrl;
     let observable = this.http.post<ResponseData>(endpointUrl, creds);

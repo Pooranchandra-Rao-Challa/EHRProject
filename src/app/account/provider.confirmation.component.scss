@@ -1,0 +1,30 @@
+.logo-rectangle {
+  width: 277.2px;
+  margin: 0 auto;
+  background-image: url(../../assets/images/logo-rectangle.svg);
+  background-repeat: no-repeat;
+}
+
+.ehr-img-top {
+  position: relative;
+  width: 100%;
+  left: 0%;
+  height: 88px;
+  top: 77px;
+  background-color: #41b6a6;
+}
+
+.vertical-center {
+  top: 50%;
+  -ms-transform: translateY(-60%);
+  transform: translateY(-60%);
+  border-bottom: 1px solid #41b6a6;
+  padding-bottom: 30px;
+}
+
+.cstm-container {
+  width: 100%;
+  margin: auto;
+  align-items: center;
+  text-align: center;
+}

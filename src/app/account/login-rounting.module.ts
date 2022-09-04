@@ -17,16 +17,15 @@ const routes: Routes = [
     path: '', component: LayoutComponent,
     children: [
       { path: 'login', component: LoginComponent },
-      { path: 'rubyloginfailed', component: RubyAuthenticationFailedComponenet },
       { path: 'registration', component: RegistrationComponent },
       { path: 'home', component: HomeComponent },
       { path: 'patientlogin', component: PatientLoginComponent },
       { path: 'partnersignup', component: PartnerSignupComponent },
       { path: 'createpassword', component: CreatePasswordComponent },
       { path: 'providerconfirmation', component: ProviderConfirmationComponent },
-      { path: 'emailedUrls', component: EmailedUrlsComponent },
+      { path: 'emailedurls', component: EmailedUrlsComponent },
     ]
-  }
+  },
 ]
 
 @NgModule({

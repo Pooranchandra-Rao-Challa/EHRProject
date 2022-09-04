@@ -7,4 +7,6 @@ export class Authorizedrepresentative{
     Email?:string;
     ContactPhone?:string;
     Active?:boolean;
+
+    URL?: string;
 }

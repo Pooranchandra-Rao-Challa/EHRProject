@@ -51,7 +51,7 @@ export class AddUserDialogComponent implements OnInit {
     private accountservice: Accountservice,
     private plaformLocation: PlatformLocation,
     private idService: IdService) {
-    this.url = plaformLocation.href.replace(plaformLocation.pathname, '/');
+    this.url = plaformLocation.href.substring(0,plaformLocation.href.indexOf('?')).replace(plaformLocation.pathname, '/');
     this.user = authService.userValue;
 
     this.PhonePattern = {
@@ -135,6 +135,7 @@ export class AddUserDialogComponent implements OnInit {
           this.AddressResult = resp.Result;
           this.ValidAddressForUse = resp.Result["delivery_line_1"] + ", " + resp.Result["last_line"]
           this.displaymsg = resp.EndUserMessage;
+
         }
         else {
           this.displayDialog = true;
@@ -157,6 +158,7 @@ export class AddUserDialogComponent implements OnInit {
     this.newUser.State = this.AddressResult.components.state_abbreviation;
     this.newUser.Address = this.AddressResult.delivery_line_1;
     this.newUser.ZipCode = this.AddressResult.components.zipcode;
+    this.newUser.PracticeAddress = this.ValidAddressForUse;
     this.closePopupAddress();
   }
 
@@ -178,8 +180,8 @@ export class AddUserDialogComponent implements OnInit {
     else {
       this.newUser.MobilePhone = '+1' + this.newUser.MobilePhonePreffix + this.newUser.MobilePhoneSuffix;
     }
-    console.log(this.newUser)
-    this.accountservice.RegisterNewProvider(this.newUser).subscribe(resp => {
+    this.newUser.URL =  this.url
+    this.accountservice.CreateProvider(this.newUser).subscribe(resp => {
       if (resp.IsSuccess) {
         this.alertWithSuccess();
       }

@@ -22,6 +22,7 @@ export interface User {
   IsSuccess: boolean;
   EmailConfirmation: boolean;
   IsInTrailPeriod: boolean;
+  TrialDaysLeft?: number;
   EnableStage3: boolean;
   RepresentativeUserId:string;
 }
@@ -50,3 +51,8 @@ export class AdminViewModal {
   WeeklyUpdatedView?: string = "";
 }
 
+export class SecureCreds{
+  SecurityCode?: string;
+  Password?: string;
+  Token?: string;
+}
