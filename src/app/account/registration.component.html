@@ -160,14 +160,15 @@
                   <p class="category-title required">NPI NUMBER</p>
                   <mat-form-field appearance="outline" class="col-12">
                     <input matInput (mouseover)="viewModel.NPI=$event.target.value!= null&& $event.target.value!=''"
-                      (mouseleave)="viewModel.NPI=false" formControlName="NPI"
+                      (mouseleave)="viewModel.NPI=false" formControlName="NPI" #numberMask numberMask="9999999999"
                       placeholder="National Provider Identifier(NPI)" formControlName="NPI">
-                    <mat-icon matSuffix *ngIf="viewModel.NPI && !NPI.errors?.pattern && !NPI.errors?.required" class="FieldValid">check</mat-icon>
+                    <mat-icon matSuffix *ngIf="viewModel.NPI && !NPI.errors?.invalidnpi && !NPI.errors?.required"
+                    class="FieldValid">check</mat-icon>
 
                   </mat-form-field>
-                  <div class="error_message" *ngIf="NPI.errors?.pattern">
+                  <div class="error_message" *ngIf="NPI.errors?.invalidnpi">
                     <i class="fa fa-minus"></i>
-                    <i>Please enter alphabets, space</i>
+                    <i>Please enter number only</i>
                   </div>
                   <div class="error_message" *ngIf="NPI.errors?.required">
                     <i class="fa fa-minus"></i>
@@ -412,8 +413,7 @@
           <div class="content">
             <button mat-button class="reg-button col-md-2 prev-step4">PREV.
               STEP</button>
-            <button mat-button class="reg-button col-md-2 mx-2" (click)="SaveRegitration()"
-            >
+            <button mat-button class="reg-button col-md-2 mx-2" (click)="SaveRegitration()" *ngIf="!invokedRegistration">
               COMPLETE REGISTRATION</button>
           </div>
         </div>

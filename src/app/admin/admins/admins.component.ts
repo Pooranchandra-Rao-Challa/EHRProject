@@ -39,7 +39,7 @@ export class AdminsComponent implements OnInit {
     private accountservice: Accountservice,
     private plaformLocation: PlatformLocation,
     private alertmsg: AlertMessage) {
-    this.url = plaformLocation.href.replace(plaformLocation.pathname, '/');
+    this.url = plaformLocation.href.substring(0, plaformLocation.href.indexOf('?')).replace(plaformLocation.pathname, '/');
     this.PhonePattern = {
       0: {
         pattern: new RegExp('\\d'),
@@ -147,8 +147,8 @@ export class AdminsComponent implements OnInit {
     else {
       this.newAdminRegistration.MobilePhone = '+1' + this.newAdminRegistration.MobilePhonePreffix + this.newAdminRegistration.MobilePhoneSuffix;
     }
-    this.newAdminRegistration.Password = 'Sample456';
-    this.accountservice.AdminRegistration(this.newAdminRegistration).subscribe(resp => {
+    this.newAdminRegistration.URL = this.url;
+    this.accountservice.CreateAdmin(this.newAdminRegistration).subscribe(resp => {
       if (resp.IsSuccess) {
         this.alertWithSuccess();
         this.getAdminList();
@@ -198,8 +198,8 @@ export class AdminsComponent implements OnInit {
     this.newAdminRegistration.PrimaryPhonePreffix = code;
   }
 
-  DeleteAdmin(AdminId : string) {
-    this.accountservice.DeleteAdmin({ AdminId : AdminId }).subscribe(resp => {
+  DeleteAdmin(AdminId: string) {
+    this.accountservice.DeleteAdmin({ AdminId: AdminId }).subscribe(resp => {
       if (resp.IsSuccess) {
         this.alertmsg.displayMessageDailog(ERROR_CODES["M1A003"]);
         this.getAdminList();

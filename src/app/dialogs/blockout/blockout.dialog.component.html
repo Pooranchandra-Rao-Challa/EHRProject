@@ -195,7 +195,7 @@
           *ngIf="blockout.BlockoutId != null && blockout.CanEdit">Delete</a>
         <a class="btn btn-default btn-cancel btn-spacer" style="float:right" (click)="close()">Cancel</a>
         <input type="submit" [disabled]=enableSave() name="commit" value="Save"
-        *ngIf="blockout.CanEdit || (blockout.RecurEndAt==null && blockout.Recur)"
+        *ngIf="!blockout.CanEdit || (blockout.RecurEndAt==null && blockout.Recur)"
           class="btn btn-default btn-green btn-spacer" style="float:right" (click)="Save()">
       </div>
     </div>

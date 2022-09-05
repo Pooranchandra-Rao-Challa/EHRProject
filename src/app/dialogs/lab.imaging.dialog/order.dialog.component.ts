@@ -16,7 +16,7 @@ import { LabsImagingService } from 'src/app/_services/labsimaging.service';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { TestCode, TestCodeComponent } from './test.code.component';
 import { OverlayService } from 'src/app/overlay.service';
-// import { FileUploadService } from 'src/app/_services/file.upload.service';
+import { FileUploadService } from 'src/app/_services/file.upload.service';
 import { DatePipe } from '@angular/common'
 import { UPLOAD_URL } from 'src/environments/environment';
 
@@ -51,7 +51,7 @@ export class OrderDialogComponent implements OnInit,AfterViewInit {
     private authService: AuthenticationService,
     private overlayService: OverlayService,
     private patientService: PatientService,
-    // private fileUploadService: FileUploadService,
+    private fileUploadService: FileUploadService,
     private datePipe: DatePipe) {
 
     this.labandImaging = ref.RequestData as LabProcedureWithOrder;
@@ -60,6 +60,44 @@ export class OrderDialogComponent implements OnInit,AfterViewInit {
       this.labandImaging.CurrentPatient = new PatientSearch();
     this.labandImaging.ProcedureType = this.labandImaging.View;
     this.orderingFacilities = JSON.parse(this.authService.userValue.LocationInfo) as UserLocations[];
+  }
+
+  onFileSelected(event) {
+    const uploadurl = UPLOAD_URL("LabandImage");
+    const file: File = event.target.files[0];
+    console.log(file);
+    this.fileUploadService.upload("LabandImage",file);
+    // const url = this.plaformLocation.href.replace(this.plaformLocation.pathname, '/');
+    // console.log(url);
+
+    // if (file) {
+    //   let fileName = file.name;
+    //   const formData = new FormData();
+    //   formData.append("file", file, fileName);
+    //   const upload$ = this.http.post(uploadurl, formData, {
+    //     reportProgress: true,
+    //     observe: 'events',
+    //     headers: {
+    //       "Content-Type": file.type,
+    //       "Content-Disposition": "form-data; name="+this.fileName,
+    //       "Authorization" : `Bearer ${this.authService.userValue.JwtToken}`
+    //     },
+    //     params: {
+    //       clientFilename: file.name,
+    //       mimeType: file.type
+    //     }
+    //   })
+    //     .pipe(
+    //       finalize(() => this.reset())
+    //     );
+
+    //   this.uploadSub = upload$.subscribe(event => {
+    //     if (event.type == HttpEventType.UploadProgress) {
+    //       this.uploadProgress = Math.round(100 * (event.loaded / event.total));
+    //     }
+    //   })
+    // }
+
   }
 
   ngOnInit(): void {

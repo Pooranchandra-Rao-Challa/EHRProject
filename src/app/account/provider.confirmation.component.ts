@@ -7,7 +7,7 @@ import { Accountservice } from '../_services/account.service';
 @Component({
   selector: 'provider-confirmation',
   templateUrl: './provider.confirmation.component.html',
-  //styleUrls: ['./provider.confirmation.component.scss']
+  styleUrls: ['./provider.confirmation.component.scss']
 })
 export class ProviderConfirmationComponent implements OnInit {
   constructor(private route: ActivatedRoute,
@@ -15,7 +15,9 @@ export class ProviderConfirmationComponent implements OnInit {
 
   message: string;
   token: string;
+/**
 
+} */
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.token = params.token;

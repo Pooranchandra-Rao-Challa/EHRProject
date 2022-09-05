@@ -106,8 +106,8 @@ export class Accountservice extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._providerRegistrationUrl, reqparams);
   }
 
-  AdminRegistration(reqparams: any) {
-    return this._ProcessPostRequest<any>(this._adminRegistrationUrl, reqparams);
+  CreateAdmin(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._createAdminUrl, reqparams);
   }
 
   DeleteAdmin(reqparams: any) {
@@ -122,7 +122,12 @@ export class Accountservice extends APIEndPoint {
     let endpointurl: string = this._providerConfirmationUrl + "/?token=" + req.token;
     return this._ProcessGetRequest<any>(endpointurl);
   }
-  PostPartnerSignup(reqparams: any) {
+
+  CreatePartnerSignup(reqparams: any) {
     return this._ProcessPostRequest<any>(this._createPartnerSignupUrl, reqparams);
+  }
+
+  CreateProvider(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._createProviderUrl, reqparams);
   }
 }

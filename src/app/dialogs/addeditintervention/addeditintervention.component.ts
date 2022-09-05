@@ -104,7 +104,6 @@ export class AddeditinterventionComponent implements OnInit {
   }
 
   addUpdateCQMNotPerformed() {
-    debugger;
     let isAdd = this.CQMNotPerformed.NPRId == undefined;
     this.CQMNotPerformed.PatientId = this.PatientDetails.PatientId;
     this.CQMNotPerformed.ProviderId = this.PatientDetails.ProviderId;

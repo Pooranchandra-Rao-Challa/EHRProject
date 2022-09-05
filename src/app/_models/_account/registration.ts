@@ -27,6 +27,7 @@ export class Registration{
   State?: string;
   ZipCode?: string;
   EPrescribeFrom?: string;
+  URL?: string;
 
   IsDoseSpotRegistation?: boolean;
   DoseSpotClinicId?: string;

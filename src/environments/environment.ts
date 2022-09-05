@@ -7,7 +7,7 @@ export const environment = {
   baseUrl: 'http://localhost:4345/',
   RX_END_POINT: 'https://rxnav.nlm.nih.gov/',
   RX_URI_NDC_PROPERTIES:'REST/rxcui/{0}/properties.json',
-
+  showemail:true,
 };
 
 export const RX_DRUG_URI = (term:string) => `REST/drugs.json?name=${term}`;
@@ -22,7 +22,7 @@ export const RX_URI_NDC_PROPERTIES = (ndc:string) => `REST/rxcui/${ndc}/properti
 
 
 
-export const UPLOAD_URL = (location:string) => `../../uploadresources/${location}`;
+export const UPLOAD_URL = (location:string) => `http://${environment.baseUrl}/uploadresources/${location}`;
 
 export const MEDLINE_PLUS_SERVER = 'http://apps.nlm.nih.gov/medlineplus/services/mpconnect.cfm'
 export const MEDLINE_PLUS_ICD ='mainSearchCriteria.v.cs=2.16.840.1.113883.6.90'

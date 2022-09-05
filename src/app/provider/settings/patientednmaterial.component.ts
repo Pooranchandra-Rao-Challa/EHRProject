@@ -117,7 +117,7 @@ export class PatientEdnMaterialComponent implements OnInit {
     this.educationMaterialCode = new EducationMaterialCode();
     this.patientEducationSearchList = new BehaviorSubject<EducationMaterialCode[]>([]);
     this.patientEducationInfo= new PatientEducationInfomation();
-    this.patientEducationSearchList.next(this.patientEducationInfo.EducationMat);
+    // this.patientEducationSearchList.next(this.patientEducationInfo.EducationMat);
   }
 
   createUpadateEducationMaterial() {

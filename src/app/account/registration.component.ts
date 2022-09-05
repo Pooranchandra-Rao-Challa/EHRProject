@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PlatformLocation } from '@angular/common';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { Accountservice } from '../_services/account.service';
 import { ViewModel, Registration } from '../_models/_account/registration';
@@ -33,12 +33,13 @@ export class RegistrationComponent implements OnInit {
   PhonePattern: any;
   viewModel: ViewModel = {} as ViewModel;
   registration: Registration = {} as Registration;
+  invokedRegistration: boolean = false;
   url: string;
 
   constructor(private fb: FormBuilder, private accountservice: Accountservice,
     private plaformLocation: PlatformLocation) {
 
-    this.url = plaformLocation.href.replace(plaformLocation.pathname, '/');
+    this.url = plaformLocation.href.substring(0, plaformLocation.href.indexOf('?')).replace(plaformLocation.pathname, '/');
     this.PhonePattern = {
       0: {
         pattern: new RegExp('\\d'),
@@ -95,42 +96,94 @@ export class RegistrationComponent implements OnInit {
     });
   }
 
+  npiValidator(): ValidatorFn {
+    return (control: FormControl) => {
+      if (control.value != null && control.value !== '') {
+        //NPI numbers consist of 9 numeric digits followed by one numeric check digit, for a total of 10 numeric digits.
+        let npi = control.value;
+        let npiDigitArray = npi.split("").reverse()
+          .map((stringDigit: string) => { return Number(stringDigit) });
+        let firstdigit = npiDigitArray[0];
+        //The NPI numbers check digit is calculated using the ISO standard Luhn Formula algorithm for Modulus 10 "double-add-double".
+        //event digist logic.
+        let evenDigistArr = npiDigitArray
+          .filter((a: number, i: number) => i % 2 == 1)
+          .map((evenDigit: number) => {
+            // doubling the number and adding into single digit if more than 10.
+            let doubleNumber = 2 * Number(evenDigit);
+            if (doubleNumber > 0) {
+              let sum = 0;
+              (doubleNumber + "").split("").map(val => { return Number(val) }).forEach(v => {
+                sum += v;
+              })
+              return sum;
+            } else return doubleNumber;
+          })
+        let resultsum = 0;
+
+        //excluding first digit, odd digit logic is merged with even digit logic array
+        npiDigitArray
+          .filter((a: number, i: number) => i % 2 == 0 && i != 0)
+          .concat(evenDigistArr)
+          .forEach((v: number) => { resultsum += v })
+
+        //NPI numbers are compatible with ISO identification card standards for a card issuer identifier
+        //when using the 80840 prefix.
+        // appending 24 for 80840 default appender to NPI number
+        resultsum += 24;
+
+        //The following NPI validation example will show you step by step how to apply ISO standard
+        //Luhn algorithm for NPI number validation:
+        let checkval = (resultsum + "").split("").reverse().map((v) => { return Number(v) })[0]
+        if (checkval != 0) checkval = 10 - checkval
+        if (firstdigit == checkval) return null;
+        else return {
+          invalidnpi: true, invalid: true
+        };
+
+      } else {
+        return {
+          invalidnpi: true, invalid: true
+        };
+      }
+    };
+  }
 
   buildPersonalForm() {
     this.PersonalInfo = this.fb.group({
       Title: [],
       FirstName: ['', [Validators.required, Validators.pattern(/^[A-Za-z_-\s]+$/)]],
       MiddleName: ['', [Validators.pattern(/^[A-Za-z_-\s]+$/)]],
-      LastName: ['', [Validators.required,Validators.pattern(/^[A-Za-z_-\s]+$/)]],
+      LastName: ['', [Validators.required, Validators.pattern(/^[A-Za-z_-\s]+$/)]],
       PracticeId: [],
-      PracticeName: ['', [Validators.required,Validators.pattern(/^[A-Za-z_-\s]+$/)]],
+      PracticeName: ['', [Validators.required, Validators.pattern(/^[A-Za-z_-\s]+$/)]],
       Degree: ['', [Validators.required],],
       Speciality: ['', [Validators.required]],
-      NPI: ['', [Validators.required,Validators.pattern(/^[A-Za-z0-9_-\s]+$/)]],
+      NPI: ['', Validators.compose([Validators.required, this.npiValidator()])],
 
     })
     this.PersonalInfo.get('Title').setValue('Dr')
   }
 
-  get firstName(){
+  get firstName() {
     return this.PersonalInfo.get('FirstName');
   }
-  get middleName(){
+  get middleName() {
     return this.PersonalInfo.get('MiddleName');
   }
-  get lastName(){
+  get lastName() {
     return this.PersonalInfo.get('LastName');
   }
-  get practiceName(){
+  get practiceName() {
     return this.PersonalInfo.get('PracticeName');
   }
-  get degree(){
+  get degree() {
     return this.PersonalInfo.get('Degree');
   }
-  get specialityvalue(){
+  get specialityvalue() {
     return this.PersonalInfo.get('Speciality');
   }
-  get NPI(){
+  get NPI() {
     return this.PersonalInfo.get('NPI');
   }
 
@@ -141,10 +194,10 @@ export class RegistrationComponent implements OnInit {
       MobilePhone: ['', [ValidatePhone]],
     })
   }
-  get practiceAddress(){
+  get practiceAddress() {
     return this.ContactInfomation.get('PracticeAddress');
   }
-  get primaryPhone(){
+  get primaryPhone() {
     return this.ContactInfomation.get('PrimaryPhone');
   }
   buildAccountInfoForm() {
@@ -156,16 +209,16 @@ export class RegistrationComponent implements OnInit {
     }, { validators: this.MatchPassword })
 
   }
-  get email(){
+  get email() {
     return this.AccountInfomation.get('Email');
   }
-  get altEmail(){
+  get altEmail() {
     return this.AccountInfomation.get('AltEmail');
   }
-  get password(){
+  get password() {
     return this.AccountInfomation.get('EncryptedPassword');
   }
-  get confirmPassword(){
+  get confirmPassword() {
     return this.AccountInfomation.get('ConfirmPassword');
   }
   MatchPassword(AC: AbstractControl) {
@@ -280,7 +333,7 @@ export class RegistrationComponent implements OnInit {
       Password: this.AccountDetails.EncryptedPassword,
       URL: this.url
     }
-
+    this.invokedRegistration = true;
     this.accountservice.RegisterNewProvider(reqparams).subscribe(resp => {
       if (resp.IsSuccess) {
         this.alertWithSuccess();

@@ -1,17 +1,46 @@
-
 <div class="bread-crum">
-<div class="header">
-  <div class="categories-header">
-    <div class="row">
-      <div class="categories-container col-xl-6 col-lg-5 col-md-5 col-5 col-sm-5">
-        <ul class="categories">
-          <li><a class="inactive">Home</a></li>
-          <li><i class="category-arrow fa fa-angle-right icon-folder"></i></li>
-          <li><a class="active">{{currentView}}</a></li>
-        </ul>
+  <div class="header">
+    <div class="categories-header">
+      <div class="row">
+        <div class="categories-container col-xl-6 col-lg-5 col-md-5 col-5 col-sm-5">
+          <ul class="categories">
+            <li><a class="inactive">Home</a></li>
+            <li><i class="category-arrow fa fa-angle-right icon-folder"></i></li>
+            <li><a class="active">{{currentView}}</a></li>
+          </ul>
+        </div><!--   -->
+        <div *ngIf="user.IsInTrailPeriod" class="categories-container col-lg-4"
+        [class.col-xl-4] = showemail [class.col-lg-4] = showemail [class.col-md-4] = showemail
+        [class.col-5] = showemail [col-sm-4] = showemail
+        [class.col-xl-6] = !showemail [class.col-lg-6] = !showemail [class.col-md-6] = !showemail
+        [class.col-6] = !showemail [col-sm-6] = !showemail
+        style="padding-top: 8px;">
+          <div style="    float: left;
+          width: 100%;">
+            <div style="    margin-left: 30px;
+          float: right;
+          margin-right: 20px;
+          color: orange;">Subscribe</div>
+            <p style="    margin: unset;
+          float: right;">{{TrailText}}</p>
+          </div>
+        </div>
+        <a *ngIf="showemail" style=" float: right;
+      padding-right: 30px;
+      padding-top: 10px;
+      font-size: 8pt;
+      vertical-align: bottom;
+      text-align: right;
+      color: blue;
+      cursor: pointer;" class="categories-container col-xl-1 col-lg-1 col-md-1 col-1 col-sm-1"
+      [class.col-xl-1] ="user.IsInTrailPeriod" [class.col-lg-1] ="user.IsInTrailPeriod"
+      [class.col-md-1] ="user.IsInTrailPeriod" [class.col-1] ="user.IsInTrailPeriod" [class.col-sm-1] ="user.IsInTrailPeriod"
+      [class.col-xl-6] ="!user.IsInTrailPeriod" [class.col-lg-6] ="!user.IsInTrailPeriod"
+      [class.col-md-6] ="!user.IsInTrailPeriod" [class.col-6] ="!user.IsInTrailPeriod" [class.col-sm-6] ="!user.IsInTrailPeriod"
+          [routerLink]="['../account/emailedurls']" routerLinkActive="router-link-active" target="_blank">
+          Verify Email</a>
       </div>
+      <div class="clearfix d-block"></div>
     </div>
-    <div class="clearfix d-block"></div>
   </div>
-</div>
 </div>
