@@ -24,6 +24,7 @@ const routes: Routes = [
       { path: 'createpassword', component: CreatePasswordComponent },
       { path: 'providerconfirmation', component: ProviderConfirmationComponent },
       { path: 'emailedurls', component: EmailedUrlsComponent },
+      
     ]
   },
 ]

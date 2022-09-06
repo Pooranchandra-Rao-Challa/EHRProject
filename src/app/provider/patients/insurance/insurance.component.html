@@ -11,15 +11,16 @@
                     <div class="input-group mb-3">
                         <input type="text" class="form-control patientInsuranceTab Helvetica-sans-serif-medium"
                             placeholder="Subscriber Name" [(ngModel)]="primlist.SubscriberNane"
-                            aria-label="Subscriber Name" aria-describedby="basic-addon" alphaOnly #subscriberName="ngModel" required>
-                           
-                    </div> 
-                    <div *ngIf="subscriberName.errors && (subscriberName.touched)" class="error-message-alignment">
-                        <div class="text-danger" *ngIf="subscriberName.errors?.required">
-                          <span class="text-danger"></span>
-                          <p class="text-danger">Please enter Subscriber Name</p>
+                            aria-label="Subscriber Name" aria-describedby="basic-addon" alphaOnly
+                            #subscriberName="ngModel" required>
+
+                    </div>
+                    <div *ngIf="subscriberName.errors && (subscriberName.touched)">
+                        <div class="error_message" *ngIf="subscriberName.errors?.required">
+                            <span class="text-danger"></span>
+                            <p class="errormessage">Please enter subscriber name</p>
                         </div>
-                        </div>
+                    </div>
 
                     <div class="row">
                         <div class="col-lg-6 col-md-12 col-12">
@@ -27,11 +28,19 @@
                             <mat-form-field appearance="outline" class=" calendaricon green-calendar w-100">
                                 <input matInput [matDatepicker]="DateOfBirth" placeholder="Date of Birth"
                                     (click)="DateOfBirth.open()" [(ngModel)]="primlist.DateOfBirth"
-                                    class="Helvetica-sans-serif-medium" [max]="tomorrow">
+                                    class="Helvetica-sans-serif-medium" [max]="tomorrow" #dateofbirth="ngModel"
+                                    required>
                                 <mat-datepicker-toggle matSuffix [for]="DateOfBirth">
                                 </mat-datepicker-toggle>
                                 <mat-datepicker #DateOfBirth disabled="false"></mat-datepicker>
                             </mat-form-field>
+                            <div *ngIf="dateofbirth.errors && (dateofbirth.touched)">
+                                <div class="error_message" *ngIf="dateofbirth.errors?.required">
+                                    <span class="e_arrow"></span>
+                                    <p class="errormessage">Please select date of birth</p>
+                                </div>
+                            </div>
+
                         </div>
                         <div class="col-lg-6 col-md-12 col-12">
                             <label class="Helvetica-sans-serif-medium d-block required">Gender:</label>
@@ -47,45 +56,45 @@
                             </div>
                         </div>
                     </div>
-                   
-                        <div class="col-lg-12 col-md-12 col-12 col-xl-12">
-                            <label class="Helvetica-sans-serif-medium required">Address</label>
-                            <div class="input-group mb-3">
-                                <input type="text" [disabled]="disableaddressverification"
-                                    class="form-control patientInsuranceTab Helvetica-sans-serif-medium"
-                                    placeholder="Enter full address here" aria-label="Subscriber Name"
-                                    aria-describedby="basic-addon1" [(ngModel)]="primlist.Street" #Address required style="margin-right:20px">
-                          
+
+                    <div class="col-lg-12 col-md-12 col-12 col-xl-12">
+                        <label class="Helvetica-sans-serif-medium required">Address</label>
+                        <div class="input-group mb-3">
+                            <input type="text" [disabled]="disableaddressverification"
+                                class="form-control patientInsuranceTab Helvetica-sans-serif-medium"
+                                placeholder="Enter full address here" aria-label="Subscriber Name"
+                                aria-describedby="basic-addon1" [(ngModel)]="primlist.Street" #Address required
+                                style="margin-right:20px">
+
                             <button class="btn btn-green btn-verify Helvetica-sans-serif-medium pull-right"
                                 [disabled]="!primlist.Street || disableaddressverification"
                                 (click)="AddressVerification()">VERIFY</button>
-                            </div>
-                       
+                        </div>
+
                     </div>
-                   
+
                     <div class="col-lg-12 col-md-12 col-12 col-xl-12">
                         <div style="display: flex;  align-items: center;">
-                             <div class="input-group input-group-lg" style="width:74%;">
-                                 <span class="input-group-text Helvetica-sans-serif-medium"
-                                     id="inputGroup-sizing-lg">Street Address</span>
-                                 <input [readonly]="!disableaddressverification"
-                                     [class.address-verfied]="!manuallybtn"
-                                     class="form-control input-border Helvetica-sans-serif-medium"
-                                     [(ngModel)]="primlist.StreetAddress" placeholder="Street Address" type="text"
-                                     id="StreetAddress" name="StreetAddress">
-                                     </div>
-                             
-                             <button type="button" class="btn cross-mark error-close"
-                             *ngIf="addressVerfied && !manuallybtn" (click)="enableManualEntry()"
-                             title="Can enter manully when the verification results are in correct by clicking this icon">x</button>
-                             <button class="btn-green btn manualbtn  btn-lg"
-                             *ngIf="manuallybtn || disableaddressverification"
-                             (click)="enterAddressManually()">Enter Address Manually</button>
-                      
-                     </div>
-                 </div>
-                     
-                   
+                            <div class="input-group input-group-lg" style="width:78%;">
+                                <span class="input-group-text Helvetica-sans-serif-medium"
+                                    id="inputGroup-sizing-lg">Street Address</span>
+                                <input [readonly]="!disableaddressverification" [class.address-verfied]="!manuallybtn"
+                                    class="form-control input-border Helvetica-sans-serif-medium"
+                                    [(ngModel)]="primlist.StreetAddress" placeholder="Street Address" type="text"
+                                    id="StreetAddress" name="StreetAddress">
+                            </div>
+
+                            <button type="button" class="btn cross-mark error-close"
+                                *ngIf="addressVerfied && !manuallybtn" (click)="enableManualEntry()"
+                                title="Can enter manully when the verification results are in correct by clicking this icon">x</button>
+                            <button class="btn-green btn manualbtn  btn-lg"
+                                *ngIf="manuallybtn || disableaddressverification" (click)="enterAddressManually()">Enter
+                                Address Manually</button>
+
+                        </div>
+                    </div>
+
+
                     <br>
                     <div class="row">
                         <div class="col-xl-5 col-lg-4 col-12 mb-3">
@@ -93,7 +102,8 @@
                                 <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
                                     id="inputGroup-sizing-lg ">City</span>
                                 <input type="text" [readonly]="!disableaddressverification"
-                                [class.address-verfied]="!manuallybtn"   class="form-control input-border Helvetica-sans-serif-medium"
+                                    [class.address-verfied]="!manuallybtn"
+                                    class="form-control input-border Helvetica-sans-serif-medium"
                                     [(ngModel)]="primlist.City">
                             </div>
                         </div>
@@ -111,7 +121,8 @@
                                 <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
                                     id="inputGroup-sizing-lg ">Zip</span>
                                 <input type="text" [readonly]="!disableaddressverification"
-                                    class="form-control input-border" [(ngModel)]="primlist.Zip" [class.address-verfied]="!manuallybtn">
+                                    class="form-control input-border" [(ngModel)]="primlist.Zip"
+                                    [class.address-verfied]="!manuallybtn">
                             </div>
                         </div>
                     </div>
@@ -150,7 +161,8 @@
                         </div>
                     </div>
                     <div class="col-lg-12 col-md-12 col-xl-12 col-12 my-2">
-                        <label for="" class="form-label label-design  mx-lg-1 required">Relationship to Subscriber</label>
+                        <label for="" class="form-label label-design  mx-lg-1 required">Relationship to
+                            Subscriber</label>
                         <div>
                             <mat-radio-group [(ngModel)]="primlist.RelationshipToSubscriber">
                                 <mat-radio-button value="Self" class="radio-btn-label label-design my-1">Self
@@ -183,15 +195,18 @@
                             </mat-label>
                             <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-12 ddl-width ddhover">
                                 <mat-select panelClass="optionalignment" [(ngModel)]="primlist.SourceOfPaymentTypology"
-                                    placeholder="Source of Payment Typology">
+                                    placeholder="Source of Payment Typology" required #sourcePTypology="ngModel">
                                     <mat-select-filter [displayMember]="'Code'"
                                         [array]="SourceOfPaymentTypologyCodesFilter"
-                                        (filteredReturn)="SourceOfPaymentTypologyCodes = $event" id="inputcursor"></mat-select-filter>
+                                        (filteredReturn)="SourceOfPaymentTypologyCodes = $event" id="inputcursor">
+                                    </mat-select-filter>
                                     <mat-option *ngFor="let item of SourceOfPaymentTypologyCodes" [value]="item.Code"
                                         (click)="primaryspt(item)">
                                         {{item.Code}} - {{item.Description}}
                                     </mat-option>
                                 </mat-select>
+                                <mat-error class="sourcepaymenttypology" *ngIf="sourcePTypology.hasError('required')">
+                                    Please select source of payment typology </mat-error>
                             </mat-form-field>
                         </div>
                     </div>
@@ -205,25 +220,37 @@
                         </div>
                     </div>
                     <div class="row">
-                        <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-6">
-                            <input matInput [matDatepicker]="dp2" placeholder="Start Date" (focus)="dp2?.open()"
-                                [(ngModel)]="primlist.StartDate" class="Helvetica-sans-serif-medium">
-                            <mat-datepicker-toggle matSuffix [for]="dp2">
-                            </mat-datepicker-toggle>
-                            <mat-datepicker #dp2></mat-datepicker>
-                        </mat-form-field>
-                        <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-6">
-                            <input matInput [matDatepicker]="dp1" placeholder="Stop Date" [(ngModel)]="primlist.EndDate"
-                                (focus)="dp1?.open()" class="Helvetica-sans-serif-medium">
-                            <mat-datepicker-toggle matSuffix [for]="dp1">
-                            </mat-datepicker-toggle>
-                            <mat-datepicker #dp1 disabled="false"></mat-datepicker>
-                        </mat-form-field>
-
+                        <div class="col-md-6">
+                            <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-12">
+                                <input matInput [matDatepicker]="dp2" placeholder="Start Date" (focus)="dp2?.open()"
+                                    [(ngModel)]="primlist.StartDate" class="Helvetica-sans-serif-medium"
+                                    #startdate="ngModel" required>
+                                <mat-datepicker-toggle matSuffix [for]="dp2">
+                                </mat-datepicker-toggle>
+                                <mat-datepicker #dp2></mat-datepicker>
+                            </mat-form-field>
+                            <div *ngIf="startdate.errors && (startdate.touched)">
+                                <div class="error_message" *ngIf="startdate.errors?.required">
+                                    <span class="e_arrow"></span>
+                                    <p class="errormessage">Please select start date</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-12">
+                                <input matInput [matDatepicker]="dp1" placeholder="Stop Date"
+                                    [(ngModel)]="primlist.EndDate" (focus)="dp1?.open()"
+                                    class="Helvetica-sans-serif-medium">
+                                <mat-datepicker-toggle matSuffix [for]="dp1">
+                                </mat-datepicker-toggle>
+                                <mat-datepicker #dp1 disabled="false"></mat-datepicker>
+                            </mat-form-field>
+                        </div>
                     </div>
                     <div class="Insurance">
                         <button class="btn btn-orange pull-right mt-2 Helvetica-sans-serif-medium"
-                            (click)="CreateUpdateInsuranceDetails('primary')"[disabled]="primaryenableSave()">Save Primary Insurance</button>
+                            (click)="CreateUpdateInsuranceDetails('primary')" [disabled]="primaryenableSave()">Save
+                            Primary Insurance</button>
                     </div>
                 </div>
             </div>
@@ -243,21 +270,28 @@
                     </div>
                     <div *ngIf="sSubscriberName.errors && (sSubscriberName.touched)">
                         <div class="text-danger" *ngIf="sSubscriberName.errors?.required">
-                          <span class="text-danger"></span>
-                          <p class="text-danger">Please enter Subscriber Name</p>
+                            <span class="text-danger"></span>
+                            <p class="errormessage">Please enter Subscriber Name</p>
                         </div>
-                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-lg-6 col-md-12 col-12">
                             <label class="Helvetica-sans-serif-medium d-block required">Date of Birth</label>
                             <mat-form-field appearance="outline" class="calendaricon green-calendar w-100">
                                 <input matInput [matDatepicker]="dp4" placeholder="Date of Birth"
                                     [(ngModel)]="secList.DateOfBirth" (focus)="dp4?.open()"
-                                    class="Helvetica-sans-serif-medium" [max]="tomorrow">
+                                    class="Helvetica-sans-serif-medium" [max]="tomorrow" #sdateofbirth="ngModel"
+                                    required>
                                 <mat-datepicker-toggle matSuffix [for]="dp4">
                                 </mat-datepicker-toggle>
                                 <mat-datepicker #dp4 disabled="false"></mat-datepicker>
                             </mat-form-field>
+                            <div *ngIf="sdateofbirth.errors && (sdateofbirth.touched)">
+                                <div class="error_message" *ngIf="sdateofbirth.errors?.required">
+                                    <span class="e_arrow"></span>
+                                    <p class="errormessage">Please select date of birth</p>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-lg-6 col-md-12 col-12">
                             <label class="Helvetica-sans-serif-medium d-block required">Gender:</label>
@@ -298,7 +332,8 @@
                                     <input [readonly]="!secondarydisableaddressverification"
                                         class="form-control input-border Helvetica-sans-serif-medium"
                                         [(ngModel)]="secList.StreetAddress" placeholder="Street Address" type="text"
-                                        id="StreetAddress" name="StreetAddress"[class.address-verfied]="!secondarymanuallybtn">
+                                        id="StreetAddress" name="StreetAddress"
+                                        [class.address-verfied]="!secondarymanuallybtn">
                                 </div>
                             </div>
                         </div>
@@ -324,7 +359,7 @@
                                     id="inputGroup-sizing-lg ">City</span>
                                 <input type="text" [readonly]="!secondarydisableaddressverification"
                                     class="form-control input-border Helvetica-sans-serif-medium"
-                                    [(ngModel)]="secList.City"[class.address-verfied]="!secondarymanuallybtn">
+                                    [(ngModel)]="secList.City" [class.address-verfied]="!secondarymanuallybtn">
                             </div>
                         </div>
                         <div class="col-xl-4 col-lg-4 col-12 mb-3">
@@ -332,7 +367,8 @@
                                 <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
                                     id="inputGroup-sizing-lg ">State</span>
                                 <input type="text" [readonly]="!secondarydisableaddressverification"
-                                    class="form-control input-border" [(ngModel)]="secList.State"[class.address-verfied]="!secondarymanuallybtn">
+                                    class="form-control input-border" [(ngModel)]="secList.State"
+                                    [class.address-verfied]="!secondarymanuallybtn">
                             </div>
                         </div>
                         <div class="col-xl-3 col-lg-4 col-12">
@@ -340,7 +376,8 @@
                                 <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
                                     id="inputGroup-sizing-lg ">Zip</span>
                                 <input type="text" [readonly]="!secondarydisableaddressverification"
-                                    class="form-control input-border" [(ngModel)]="secList.Zip"[class.address-verfied]="!secondarymanuallybtn">
+                                    class="form-control input-border" [(ngModel)]="secList.Zip"
+                                    [class.address-verfied]="!secondarymanuallybtn">
                             </div>
                         </div>
                     </div>
@@ -383,7 +420,8 @@
                     </div>
 
                     <div class="col-lg-12 col-md-12 col-xl-12 col-12 my-2">
-                        <label for="" class="form-label label-design  mx-lg-1 required">Relationship to Subscriber</label>
+                        <label for="" class="form-label label-design  mx-lg-1 required">Relationship to
+                            Subscriber</label>
                         <div>
                             <mat-radio-group [(ngModel)]="secList.RelationshipToSubscriber">
                                 <mat-radio-button value="Self" class="radio-btn-label label-design my-1">Self
@@ -401,7 +439,7 @@
                         <mat-label class="Helvetica-sans-serif-medium required">Source of Payment Typology </mat-label>
                         <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-12 ddl-width ddhover">
                             <mat-select panelClass="optionalignment" [(ngModel)]="secList.SourceOfPaymentTypology"
-                                placeholder="Source of Payment Typology">
+                                placeholder="Source of Payment Typology" #ssourcePTypology="ngModel" required>
                                 <mat-select-filter [displayMember]="'Code'" [array]="secondarySptcFilter"
                                     (filteredReturn)="SourceOfPaymentTypologyCodes = $event"></mat-select-filter>
                                 <mat-option class="matpanelalignment" *ngFor="let item of SourceOfPaymentTypologyCodes"
@@ -409,6 +447,8 @@
                                     {{item.Code}} - {{item.Description}}
                                 </mat-option>
                             </mat-select>
+                            <mat-error class="sourcepaymenttypology" *ngIf="ssourcePTypology.hasError('required')">
+                                Please select source of payment typology </mat-error>
                         </mat-form-field>
                     </div>
                     <div class="row">
@@ -420,30 +460,39 @@
                         </div>
                     </div>
                     <div class="row">
-                        <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-6">
-                            <input matInput [matDatepicker]="dp5" placeholder="Start Date"
-                                [(ngModel)]="secList.StartDate" (focus)="dp5?.open()"
-                                class="Helvetica-sans-serif-medium">
-                            <mat-datepicker-toggle matSuffix [for]="dp5">
+                        <div class="col-md-6">
+                            <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-12">
+                                <input matInput [matDatepicker]="dp5" placeholder="Start Date"
+                                    [(ngModel)]="secList.StartDate" (focus)="dp5?.open()"
+                                    class="Helvetica-sans-serif-medium" required #sstartdate="ngModel">
+                                <mat-datepicker-toggle matSuffix [for]="dp5">
 
-                            </mat-datepicker-toggle>
-                            <mat-datepicker #dp5 disabled="false"></mat-datepicker>
-                        </mat-form-field>
+                                </mat-datepicker-toggle>
+                                <mat-datepicker #dp5 disabled="false"></mat-datepicker>
+                            </mat-form-field>
+                            <!-- <div *ngIf="sstartdate.errors && (sstartdate.touched)">
+                                <div class="error_message" *ngIf="sstartdate.errors?.required">
+                                  <span class="e_arrow"></span>
+                                  <p class="errormessage">Please select start date</p>
+                                </div>
+                                </div> -->
+                        </div>
 
-
-
-                        <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-6">
-                            <input matInput [matDatepicker]="dp6" placeholder="Stop Date" [(ngModel)]="secList.EndDate"
-                                (focus)="dp6?.open()" class="Helvetica-sans-serif-medium">
-                            <mat-datepicker-toggle matSuffix [for]="dp6">
-                            </mat-datepicker-toggle>
-                            <mat-datepicker #dp6 disabled="false"></mat-datepicker>
-                        </mat-form-field>
-
+                        <div class="col-md-6">
+                            <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-12">
+                                <input matInput [matDatepicker]="dp6" placeholder="Stop Date"
+                                    [(ngModel)]="secList.EndDate" (focus)="dp6?.open()"
+                                    class="Helvetica-sans-serif-medium">
+                                <mat-datepicker-toggle matSuffix [for]="dp6">
+                                </mat-datepicker-toggle>
+                                <mat-datepicker #dp6 disabled="false"></mat-datepicker>
+                            </mat-form-field>
+                        </div>
                     </div>
                     <div class="Insurance">
                         <button class="btn btn-orange pull-right Helvetica-sans-serif-medium mt-2"
-                            (click)="CreateUpdateInsuranceDetails('secondary')" [disabled]="secondaryenableSave()">Save Secondary Insurance</button>
+                            (click)="CreateUpdateInsuranceDetails('secondary')" [disabled]="secondaryenableSave()">Save
+                            Secondary Insurance</button>
                     </div>
                 </div>
             </div>
@@ -492,12 +541,12 @@
                             </div>
                             <div class="row mb-4">
                                 <div class="col-12 col-md-12 col-lg-12 col-xl-12">
-                                <label class="Helvetica-sans-serif-medium required">Insurance Company Name</label>
-                                <div class="input-group input-group-lg">
-                                    <input type="text" class="form-control inputclass"
-                                        placeholder="Insurance Company Name"
-                                        [(ngModel)]="insuraceComplanyPlan.InsuranceCompanyName">
-                                </div>
+                                    <label class="Helvetica-sans-serif-medium required">Insurance Company Name</label>
+                                    <div class="input-group input-group-lg">
+                                        <input type="text" class="form-control inputclass"
+                                            placeholder="Insurance Company Name"
+                                            [(ngModel)]="insuraceComplanyPlan.InsuranceCompanyName">
+                                    </div>
                                 </div>
                             </div>
                             <div class="row mb-4">
@@ -676,8 +725,7 @@
                             </div>
                             <div class="col-md-2"></div>
                             <div class="col-12 col-md-4 col-lg-4 col-xl-4">
-                                <button (click)=AddInsuranceCompanyPlan()
-                                    class="btn btn-green pull-right"
+                                <button (click)=AddInsuranceCompanyPlan() class="btn btn-green pull-right"
                                     type="button">Add Insurance Company Plan </button>
                             </div>
                         </div>

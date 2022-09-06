@@ -10,16 +10,15 @@ import { EmailedUrls } from 'src/app/_models/emailed.urls'
 })
 export class EmailedUrlsComponent {
 
-
-  @ViewChild('divhtmlview', { static: true })
-  private divhtmlview: ElementRef;
-
-
+  @ViewChild('iframe', { static: true })
+  iframe: ElementRef;
+  doc;
+  element;
   constructor(private accountService: Accountservice) {
     this.InitUrls();
   }
   emaildUrls: EmailedUrls[]
-  emailedColumns: string[] = ['Name','FunctionalName', 'Created'];
+  emailedColumns: string[] = ['Name', 'FunctionalName', 'Created'];
   selectedEmail: EmailedUrls = null;
   InitUrls() {
     this.accountService.EmailedUrls().subscribe(resp => {
@@ -28,25 +27,23 @@ export class EmailedUrlsComponent {
       }
     })
   }
+  onLoad(iframe) {
+    this.doc = iframe.contentDocument || iframe.contentWindow;
+    console.log(iframe.contentDocument);
 
+  }
   async loadHtmlView(pkey: number) {
-    console.log(pkey);
-    console.log(this.divhtmlview);
     this.emaildUrls.forEach((data, i) => {
       if (data.Pkey == pkey) {
-        console.log(data.Html);
-
         this.selectedEmail = data;
+        if (this.element)
+          this.doc.body.removeChild(this.element)
+        this.element = document.createRange().createContextualFragment(this.selectedEmail?.Html);
+
+        this.doc.body.appendChild(this.element);
+
       }
     }
     )
-
-    // this.htmlviewref.clear();
-    // const { ChartComponent } = await import('../chart/chart.component');
-    // let viewcomp = this.chartviewcontainerref.createComponent(
-    //   this.cfr.resolveComponentFactory(ChartComponent)
-    // );
-    // viewcomp.changeDetectorRef.detectChanges();
-
   }
 }

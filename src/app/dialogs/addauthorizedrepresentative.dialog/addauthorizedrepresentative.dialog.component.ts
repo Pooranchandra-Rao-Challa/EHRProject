@@ -26,8 +26,13 @@ export class AddauthorizedrepresentativeDialogComponent implements OnInit {
     private patientservice: PatientService,
     private plaformLocation: PlatformLocation,
     private alertmsg: AlertMessage,) {
-
-    this.url = plaformLocation.href.substring(0, plaformLocation.href.indexOf('?')).replace(plaformLocation.pathname, '/');
+     this.url = plaformLocation.href.replace(plaformLocation.pathname, '/');
+     if(plaformLocation.href.indexOf('?')>-1)
+     {
+      this.url = plaformLocation.href.substring(0,plaformLocation.href.indexOf('?')).replace(plaformLocation.pathname, '/');
+     }
+    console.log(this.url);
+    // console.log(this.url);
     this.updateLocalModel(ref.RequestData);
     this.PhonePattern = {
       0: {
@@ -42,17 +47,15 @@ export class AddauthorizedrepresentativeDialogComponent implements OnInit {
   }
   cancel() {
     this.ref.close(null);
-
   }
   CreateAuthorizedRepresentative() {
     this.authorizedRepresentative.URL = this.url;
+    console.log(this.url);
     let isAdd = this.authorizedRepresentative.AuthorizedRepId == undefined
     this.authorizedRepresentative.PatientId = this.currentPatient.PatientId;
     this.patientservice.CreateAuthorizedRepresentative(this.authorizedRepresentative).subscribe((resp) => {
       if (resp.IsSuccess) {
-
         this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CP0011" : "M2CP0012"]);
-
         this.ref.close(this.authorizedRepresentative);
       }
       else {
@@ -63,12 +66,12 @@ export class AddauthorizedrepresentativeDialogComponent implements OnInit {
   phonepattern = /^[0-9]{10}/;
   email = /^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$/;
   enableSave() {
-    return !(this.authorizedRepresentative.FirstName != null && this.authorizedRepresentative.FirstName != ""
-      && this.authorizedRepresentative.LastName != null && this.authorizedRepresentative.LastName != ""
-      && this.authorizedRepresentative.Email != null || this.authorizedRepresentative.Email != "" && this.email.test(this.authorizedRepresentative.Email)
-      && this.authorizedRepresentative.Active != null
-      && this.authorizedRepresentative.ContactPhone == null || this.authorizedRepresentative.ContactPhone == ""
-      || this.phonepattern.test(this.authorizedRepresentative.ContactPhone));
+    return !((this.authorizedRepresentative.FirstName != null && this.authorizedRepresentative.FirstName != "")
+      && (this.authorizedRepresentative.LastName != null && this.authorizedRepresentative.LastName != "")
+      && (this.email.test(this.authorizedRepresentative.Email))
+      && (this.authorizedRepresentative.Active != null)
+      && (this.authorizedRepresentative.ContactPhone == null || this.authorizedRepresentative.ContactPhone == ""
+      || this.phonepattern.test(this.authorizedRepresentative.ContactPhone)));
   }
   updateLocalModel(data: Authorizedrepresentative) {
     this.authorizedRepresentative = new Authorizedrepresentative;

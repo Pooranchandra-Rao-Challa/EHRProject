@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { PatientService } from 'src/app/_services/patient.service';
 import { PatientProfile } from 'src/app/_models/_patient/patientprofile';
 import { PracticeProviders } from 'src/app/_models/_provider/practiceProviders';
@@ -71,7 +71,8 @@ export class ProfileComponent implements OnInit {
   emergencyAddressVerfied: boolean = false;
   emergencyDisableAddressVerification: boolean = false;
   PhonePattern: any
-  tomorrow = new Date();
+  @Input() max: any;
+  disableupcomingdates = new Date();
   ActionTypes = Actions;
   authorizedRepresentativeDialogComponent = AuthorizedrepresentativeDialogComponent
   constructor(private patientService: PatientService,
@@ -90,8 +91,9 @@ export class ProfileComponent implements OnInit {
         symbol: 'X',
       },
     };
-    this.tomorrow.setDate(this.tomorrow.getDate());
+    this.disableupcomingdates.setDate(this.disableupcomingdates.getDate());
   }
+
   emailPattern = "^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$";
   ngOnInit(): void {
     this.getPatientDetails();
@@ -354,7 +356,7 @@ export class ProfileComponent implements OnInit {
     this.patientMyProfile.zip = ""
   }
 
-  enterAddressManually(item) {
+  enterAddressManually() {
     this.disableaddressverification = true;
   }
 
@@ -462,6 +464,7 @@ export class ProfileComponent implements OnInit {
 
   openComponentDialog(content: any | ComponentType<any> | string,
     dialogData, action: Actions = this.ActionTypes.add) {
+    
     let reqdata: any;
     if (action == Actions.view && content === this.authorizedRepresentativeDialogComponent) {
       reqdata = dialogData;
