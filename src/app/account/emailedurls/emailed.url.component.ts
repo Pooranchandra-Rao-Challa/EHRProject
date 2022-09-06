@@ -10,12 +10,10 @@ import { EmailedUrls } from 'src/app/_models/emailed.urls'
 })
 export class EmailedUrlsComponent {
 
-  @ViewChild('iframe', { static: true }) 
+  @ViewChild('iframe', { static: true })
   iframe: ElementRef;
   doc;
   element;
-  
-
   constructor(private accountService: Accountservice) {
     this.InitUrls();
   }
@@ -32,21 +30,16 @@ export class EmailedUrlsComponent {
   onLoad(iframe) {
     this.doc = iframe.contentDocument || iframe.contentWindow;
     console.log(iframe.contentDocument);
-    
+
   }
   async loadHtmlView(pkey: number) {
-    console.log(pkey);
-    console.log(this.iframe);
     this.emaildUrls.forEach((data, i) => {
       if (data.Pkey == pkey) {
-        console.log(this.doc);
-        
-        console.log(data.Html);
         this.selectedEmail = data;
-        if(this.element)
-        this.doc.body.removeChild(this.element)
+        if (this.element)
+          this.doc.body.removeChild(this.element)
         this.element = document.createRange().createContextualFragment(this.selectedEmail?.Html);
-       
+
         this.doc.body.appendChild(this.element);
 
       }

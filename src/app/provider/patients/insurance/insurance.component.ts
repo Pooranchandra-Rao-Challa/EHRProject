@@ -65,29 +65,29 @@ export class InsuranceComponent implements OnInit {
   primaryInsDetail: boolean;
   secondaryInsDetail: boolean;
   SourceOfPaymentTypologyCodesFilter: any;
-  secondarySptcFilter:any;
+  secondarySptcFilter: any;
   searchText: string;
-  searchCellPhoneData:any[];
+  searchCellPhoneData: any[];
   SourceData: any[];
   filterNumbers: any;
   @Input() max: any;
   tomorrow = new Date();
   AreaCodes: AreaCode[];
-  filteredAreacodes:any
+  filteredAreacodes: any
   myControlPrimary = new FormControl();
 
   constructor(private patientservice: PatientService,
     private route: ActivatedRoute,
     private authService: AuthenticationService,
     private alertmsg: AlertMessage,
-    private accountservice: Accountservice, private utilityService: UtilityService, private datePipe:DatePipe) {
+    private accountservice: Accountservice, private utilityService: UtilityService, private datePipe: DatePipe) {
     this.primlist = {} as PrimaryInsurance;
     this.secList = {} as SecondaryInsurance;
     this.insuraceComplanyPlan = {} as ParticularInsuranceCompanyDetails;
     this.user = authService.userValue;
     this.changedLocationId = this.user.CurrentLocation;
     this.InsuranceCompanyPlanList();
-    this.tomorrow.setDate(this.tomorrow.getDate() );
+    this.tomorrow.setDate(this.tomorrow.getDate());
   }
 
   ngOnInit(): void {
@@ -96,22 +96,22 @@ export class InsuranceComponent implements OnInit {
     this.getPatientDetails();
     this.getSourceOfPaymentTypologyCodesDD();
     this.InsuranceCompanyPlanList();
-    this.getInsuranceList(); 
+    this.getInsuranceList();
     this.loadDefaults();
     this.filteredAreacodes = this.myControlPrimary.valueChanges.pipe(startWith(''), map(value => this._filterAreaCode(value)));
   }
   loadDefaults() {
-    
+
     this.utilityService.AreaCodes()
       .subscribe(resp => {
         if (resp.IsSuccess) {
           this.AreaCodes = resp.ListResult as AreaCode[];
         } else {
-          this.AreaCodes=[];
+          this.AreaCodes = [];
         }
       },
-      error=>{
-      });
+        error => {
+        });
 
   }
   private _filterAreaCode(value: string): string[] {
@@ -223,16 +223,15 @@ export class InsuranceComponent implements OnInit {
   getSourceOfPaymentTypologyCodesDD() {
     this.patientservice.SourceOfPaymentTypologyCodes().subscribe(resp => {
       if (resp.IsSuccess) {
-      this.SourceOfPaymentTypologyCodes = resp.ListResult;
-      this.SourceOfPaymentTypologyCodesFilter=this.SourceOfPaymentTypologyCodes.slice();
-      this.secondarySptcFilter=this.SourceOfPaymentTypologyCodes.slice();
-      if(this.primlist.SourceOfPaymentTypology ! ="")
-      {
-          let data =this.primlist.SourceOfPaymentTypology;
-          let SourceOfPaymentTypologyCodes=this.SourceOfPaymentTypologyCodes.find(x=>x.Code == data);
-          this.primlist.SourceOfPaymentTypology=SourceOfPaymentTypologyCodes.Code;
-          this.primlist.PaymentTypologyDescription=SourceOfPaymentTypologyCodes.Description;
-      }
+        this.SourceOfPaymentTypologyCodes = resp.ListResult;
+        this.SourceOfPaymentTypologyCodesFilter = this.SourceOfPaymentTypologyCodes.slice();
+        this.secondarySptcFilter = this.SourceOfPaymentTypologyCodes.slice();
+        if (this.primlist.SourceOfPaymentTypology! = "") {
+          let data = this.primlist.SourceOfPaymentTypology;
+          let SourceOfPaymentTypologyCodes = this.SourceOfPaymentTypologyCodes.find(x => x.Code == data);
+          this.primlist.SourceOfPaymentTypology = SourceOfPaymentTypologyCodes.Code;
+          this.primlist.PaymentTypologyDescription = SourceOfPaymentTypologyCodes.Description;
+        }
       }
     })
   }
@@ -266,8 +265,8 @@ export class InsuranceComponent implements OnInit {
         );
         this.primlist = primarydata[0];
         this.primlist.StartDate = this.datePipe.transform(this.primlist.StartDate, "yyyy-MM-dd");
-        this.primlist.DateOfBirth = this.datePipe.transform(this.primlist.DateOfBirth,"yyyy-MM-dd");
-        this.primlist.EndDate = this.datePipe.transform(this.primlist.EndDate,"yyyy-MM-dd");
+        this.primlist.DateOfBirth = this.datePipe.transform(this.primlist.DateOfBirth, "yyyy-MM-dd");
+        this.primlist.EndDate = this.datePipe.transform(this.primlist.EndDate, "yyyy-MM-dd");
         let secondaryData = this.insuranceList.filter(x =>
           (x.InsuranceType === 'Secondary')
         )
@@ -275,8 +274,8 @@ export class InsuranceComponent implements OnInit {
         this.secList = this.secList == undefined ? {} : this.secList;
         if (this.secList != undefined) {
           this.secList.StartDate = this.datePipe.transform(this.secList.StartDate, "yyyy-MM-dd");
-          this.secList.DateOfBirth = this.datePipe.transform(this.secList.DateOfBirth,"yyyy-MM-dd");
-          this.secList.EndDate = this.datePipe.transform(this.secList.EndDate,"yyyy-MM-dd");
+          this.secList.DateOfBirth = this.datePipe.transform(this.secList.DateOfBirth, "yyyy-MM-dd");
+          this.secList.EndDate = this.datePipe.transform(this.secList.EndDate, "yyyy-MM-dd");
         }
       }
     });
@@ -292,8 +291,8 @@ export class InsuranceComponent implements OnInit {
           this.InsurancDetailslist = resp.ListResult;
           this.insuraceComplanyPlan = resp.ListResult[0];
         });
-        this.primaryInsDetail=true;
-        this.secondaryInsDetail=false;
+      this.primaryInsDetail = true;
+      this.secondaryInsDetail = false;
     }
     else {
       var reqparam = {
@@ -304,8 +303,8 @@ export class InsuranceComponent implements OnInit {
           this.InsurancDetailslist = resp.ListResult;
           this.insuraceComplanyPlan = resp.ListResult[0];
         });
-        this.primaryInsDetail=false;
-        this.secondaryInsDetail=true;
+      this.primaryInsDetail = false;
+      this.secondaryInsDetail = true;
     }
   }
 
@@ -352,15 +351,15 @@ export class InsuranceComponent implements OnInit {
   CreateUpdateInsuranceDetails(item) {
     if (item == "primary") {
 
-        let isAdd = this.primlist.InsuranceId == undefined;
+      let isAdd = this.primlist.InsuranceId == undefined;
 
       this.primlist.ProviderId = this.user.ProviderId;
       this.primlist.PatientId = this.PatientDetails.PatientId;
       this.primlist.LocationId = this.changedLocationId;
       this.primlist.InsuranceType = this.primaryInsuranceType;
-       this.primlist.DateOfBirth = this.datePipe.transform(this.primlist.DateOfBirth, "MM/dd/yyyy");
-       this.primlist.StartDate = this.datePipe.transform(this.primlist.StartDate,"MM/dd/yyyy");
-       this.primlist.EndDate = this.datePipe.transform(this.primlist.EndDate,"MM/dd/yyyy");
+      this.primlist.DateOfBirth = this.datePipe.transform(this.primlist.DateOfBirth, "MM/dd/yyyy");
+      this.primlist.StartDate = this.datePipe.transform(this.primlist.StartDate, "MM/dd/yyyy");
+      this.primlist.EndDate = this.datePipe.transform(this.primlist.EndDate, "MM/dd/yyyy");
 
       this.patientservice.CreateUpdateInsuranceDetails(this.primlist).subscribe((resp) => {
         if (resp.IsSuccess) {
@@ -377,15 +376,15 @@ export class InsuranceComponent implements OnInit {
     }
     else {
 
-        let isAdd = this.secList.InsuranceId == undefined;
+      let isAdd = this.secList.InsuranceId == undefined;
 
       this.secList.ProviderId = this.user.ProviderId;
       this.secList.PatientId = this.PatientDetails.PatientId;
       this.secList.LocationId = this.changedLocationId;
       this.secList.InsuranceType = this.secondaryInsuranceType;
       this.secList.DateOfBirth = this.datePipe.transform(this.secList.DateOfBirth, "MM/dd/yyyy");
-      this.secList.StartDate = this.datePipe.transform(this.secList.StartDate,"MM/dd/yyyy");
-      this.secList.EndDate = this.datePipe.transform(this.secList.EndDate,"MM/dd/yyyy");
+      this.secList.StartDate = this.datePipe.transform(this.secList.StartDate, "MM/dd/yyyy");
+      this.secList.EndDate = this.datePipe.transform(this.secList.EndDate, "MM/dd/yyyy");
 
       this.patientservice.CreateUpdateInsuranceDetails(this.secList).subscribe((resp) => {
         if (resp.IsSuccess) {
@@ -477,10 +476,9 @@ export class InsuranceComponent implements OnInit {
     this.primlist.SourceOfPaymentTypology = item.Code;
     this.primlist.PaymentTypologyDescription = item.Description;
   }
-  secondaryspt(item)
-  {
-    this.secList.SourceOfPaymentTypology=item.Code;
-    this.secList.PaymentTypologyDescription=item.Description;
+  secondaryspt(item) {
+    this.secList.SourceOfPaymentTypology = item.Code;
+    this.secList.PaymentTypologyDescription = item.Description;
   }
   enableSave() {
     return !(
@@ -494,30 +492,30 @@ export class InsuranceComponent implements OnInit {
     return !(this.primlist.SubscriberNane != null && this.primlist.SubscriberNane != ""
       && this.primlist.DateOfBirth != null && this.primlist.DateOfBirth != ""
       && this.primlist.Gender != null && this.primlist.Gender != ""
-      && this.primlist.StreetAddress!=null && this.primlist.StreetAddress !=""
+      && this.primlist.StreetAddress != null && this.primlist.StreetAddress != ""
       && this.primlist.City != null && this.primlist.City != ""
       && this.primlist.State != null && this.primlist.State != ""
       && this.primlist.Zip != null && this.primlist.Zip != ""
       && this.primlist.InsuranceCompanyPlanID != null && this.primlist.InsuranceCompanyPlanID != ""
-      && this.primlist.InsuranceCompanyPlan != null && this.primlist.InsuranceCompanyPlan !=""
-      && this.primlist.RelationshipToSubscriber != null && this.primlist.RelationshipToSubscriber !=""
-      &&  this.primlist.SourceOfPaymentTypology != null && this.primlist.SourceOfPaymentTypology !=""
-      &&  this.primlist.StartDate != null && this.primlist.StartDate !=""
+      && this.primlist.InsuranceCompanyPlan != null && this.primlist.InsuranceCompanyPlan != ""
+      && this.primlist.RelationshipToSubscriber != null && this.primlist.RelationshipToSubscriber != ""
+      && this.primlist.SourceOfPaymentTypology != null && this.primlist.SourceOfPaymentTypology != ""
+      && this.primlist.StartDate != null && this.primlist.StartDate != ""
     )
   }
   secondaryenableSave() {
     return !(this.secList.SubscriberNane != null && this.secList.SubscriberNane != ""
       && this.secList.DateOfBirth != null && this.secList.DateOfBirth != ""
       && this.secList.Gender != null && this.secList.Gender != ""
-      && this.secList.StreetAddress!=null && this.secList.StreetAddress !=""
+      && this.secList.StreetAddress != null && this.secList.StreetAddress != ""
       && this.secList.City != null && this.secList.City != ""
       && this.secList.State != null && this.secList.State != ""
       && this.secList.Zip != null && this.secList.Zip != ""
       && this.secList.InsuranceCompanyPlanID != null && this.secList.InsuranceCompanyPlanID != ""
-      && this.secList.InsuranceCompanyPlan != null && this.secList.InsuranceCompanyPlan !=""
-      && this.secList.RelationshipToSubscriber != null && this.secList.RelationshipToSubscriber !=""
-      &&  this.secList.SourceOfPaymentTypology != null && this.secList.SourceOfPaymentTypology !=""
-      &&  this.secList.StartDate != null && this.secList.StartDate !=""
+      && this.secList.InsuranceCompanyPlan != null && this.secList.InsuranceCompanyPlan != ""
+      && this.secList.RelationshipToSubscriber != null && this.secList.RelationshipToSubscriber != ""
+      && this.secList.SourceOfPaymentTypology != null && this.secList.SourceOfPaymentTypology != ""
+      && this.secList.StartDate != null && this.secList.StartDate != ""
     )
   }
 }

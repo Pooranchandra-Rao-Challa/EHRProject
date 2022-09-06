@@ -17,15 +17,15 @@
 
 .btn.btn-styles {
   color: #41b6a6;
-  background: #ffffff ;
+  background: #ffffff;
   padding: 0px 75px !important;
   height: 50px;
   border: 1px solid #41b6a6;
 }
 
-.btn.btn-styles:hover{
+.btn.btn-styles:hover {
   color: #ffffff;
-  background: #41b6a6 ;
+  background: #41b6a6;
 }
 
 // .btn-styles.btn-verify{
@@ -44,14 +44,17 @@
   height: 56px;
   font-weight: 500;
   color: white;
-  width:100%;
+  width: 100%;
 }
 
 .label-design {
   font-size: 14px;
   font-family: 'Roboto';
 }
-label{font-size: 14px;}
+
+label {
+  font-size: 14px;
+}
 
 .input-group.form-control {
   height: 50px;
@@ -59,13 +62,14 @@ label{font-size: 14px;}
   border-radius: 3px;
   margin-top: -8px;
 }
-.input-group.form-control.ssno-emergencykin-phone
-{
+
+.input-group.form-control.ssno-emergencykin-phone {
   height: 46px;
   border-color: #41b6a6 !important;
   border-radius: 3px;
   margin-top: 3px;
 }
+
 input::-webkit-input-placeholder {
   color: #595757 !important;
   font-size: 16px;
@@ -202,6 +206,7 @@ input::-webkit-input-placeholder {
   background: white !important;
   width: 550px !important;
 }
+
 @media screen and (min-width:920px) {
   .input-group>.form-control.search-control {
     width: 550px !important;
@@ -590,9 +595,11 @@ input[type='checkbox']:checked:after {
   padding: 4px !important;
   border: 1px solid #d64841;
 }
-.ssno-emergencykin-phone.is-invalid{
+
+.ssno-emergencykin-phone.is-invalid {
   color: #d64841 !important;
 }
+
 .Cancelbtn:hover {
   background: #fff !important;
   color: #d64841 !important;
@@ -612,9 +619,11 @@ input[type='checkbox']:checked:after {
   height: 49px;
   margin-top: -5px;
 }
-.profile-title{
-  margin-left:10px
+
+.profile-title {
+  margin-left: 10px
 }
+
 .grey-calendar .mat-datepicker-toggle.mat-datepicker-toggle button.mat-focus-indicator.mat-icon-button {
   background-color: #41b6a6 !important;
   color: #fff !important;
@@ -633,12 +642,15 @@ input[type='checkbox']:checked:after {
 input.mat-input-element {
   font-size: 17px;
 }
-.contactinfoaddress-verfied{
+
+.contactinfoaddress-verfied {
   cursor: not-allowed !important;
 }
-.address-verfied{
+
+.address-verfied {
   cursor: not-allowed !important;
 }
+
 .error-close {
   background-color: rgb(253, 65, 65) !important;
   width: 25px;
@@ -648,21 +660,24 @@ input.mat-input-element {
   color: white !important;
   border-radius: 50% !important;
   padding-bottom: 28px;
-    padding-left: 18px
+  padding-left: 18px
 }
+
 .error-close:hover {
   background-color: white !important;
   border: 1px solid rgb(253, 44, 44) !important;
   color: rgb(253, 44, 44) !important;
 
 }
+
 .cross-mark {
   border: "1px solid #fff;"
 }
-.manualbtn{
+
+.manualbtn {
   width: 18%;
   padding: unset !important;
- // margin-left: -62px;
+  // margin-left: -62px;
 }
 
 // @media (min-width:1600px)  {
@@ -706,6 +721,7 @@ input.mat-input-element {
 
   }
 }
+
 @media (min-width:1920px) and (min-width:1080px) {
   .btn.btn-styles {
 
@@ -713,6 +729,7 @@ input.mat-input-element {
 
   }
 }
+
 @media (min-width:1024px) and (min-width:769px) {
   .btn.btn-styles {
 
@@ -720,6 +737,7 @@ input.mat-input-element {
 
   }
 }
+
 @media (min-width:768px) and (min-width:481px) {
   .btn.btn-styles {
 
@@ -727,6 +745,7 @@ input.mat-input-element {
 
   }
 }
+
 @media (max-width:768px) and (max-width:481px) {
   .btn.btn-styles {
 
@@ -734,18 +753,19 @@ input.mat-input-element {
 
   }
 }
-.error-message-alignment{
+
+.error-message-alignment {
   margin-left: 20px;
   line-height: 3px;
 }
-.input-marign-alignments
-{
+
+.input-marign-alignments {
   margin: unset !important;
 }
-.relationerrormessage
-{
-   color: #d64841!important;
-    font-size: 15px !important;
-    margin-top:7px !important;
-    font-family: "Roboto";
+
+.relationerrormessage {
+  color: #d64841 !important;
+  font-size: 15px !important;
+  margin-top: 7px !important;
+  font-family: "Roboto";
 }
