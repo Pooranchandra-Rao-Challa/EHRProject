@@ -9,7 +9,8 @@ export interface Admins {
     email?: string,
     C_role?:string,
     alt_email?:string,
-    }
+    UserId?: string;
+  }
 
 export class AdminRegistration {
   UserId?: string;

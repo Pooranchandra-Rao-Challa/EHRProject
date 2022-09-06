@@ -4,12 +4,13 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { ViewModel } from '../../_models/_account/registration';
-import { AdminRegistration, Admins } from 'src/app/_models/_admin/Admins';
+import { AdminRegistration, Admins, AreaCode } from 'src/app/_models/_admin/Admins';
 import { Accountservice } from 'src/app/_services/account.service';
 import { AdminService } from 'src/app/_services/admin.service';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 import Swal from 'sweetalert2';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
+import { I } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-admins',
@@ -33,6 +34,9 @@ export class AdminsComponent implements OnInit {
   viewModel: ViewModel = {} as ViewModel;
   url: string;
   PhonePattern: any;
+  AreaCodes: AreaCode[];
+  phonePattern = /^[0-9]{10}/;
+  emailPattern = /^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$/;
 
   constructor(private adminservice: AdminService,
     private utilityService: UtilityService,
@@ -49,8 +53,8 @@ export class AdminsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.filteredOptionsPrimary = this.myControlPrimary.valueChanges.pipe(startWith(''), map(value => this._filterPrimary(value)));
-    this.filteredOptionsSecondary = this.myControlSecondary.valueChanges.pipe(startWith(''), map(valueS => this._filterSecondary(valueS)));
+    this.filteredOptionsPrimary = this.myControlPrimary.valueChanges.pipe(startWith(''), map(value => this._filterAreaCode(value)));
+    this.filteredOptionsSecondary = this.myControlSecondary.valueChanges.pipe(startWith(''), map(valueS => this._filterAreaCode(valueS)));
     this.getAdminList();
     this.loadDefaults();
   }
@@ -71,36 +75,33 @@ export class AdminsComponent implements OnInit {
         this.titles = JSON.parse(resp.Result);
       }
     });
+
+    this.utilityService.AreaCodes()
+      .subscribe(resp => {
+        if (resp.IsSuccess) {
+          this.AreaCodes = resp.ListResult as AreaCode[];
+        } else {
+          this.AreaCodes = [];
+        }
+      },
+        error => {
+        });
   }
 
-  private _filterPrimary(value: string): string[] {
+  private _filterAreaCode(value: string): string[] {
     if (value == "") {
       return ['Please enter 1 or more characters']
     }
-    const filterValue = value;
-    var searchData = this.codeListPrimary.filter(option => option.includes(filterValue));
-    if (searchData.length === 0) {
+    var _areaCodes = this.AreaCodes.filter(option => option.AreaCode?.includes(value));
+    if (_areaCodes.length === 0) {
       return ['No Data Found']
     }
-    return searchData;
-  }
-
-  private _filterSecondary(value: string): string[] {
-    if (value == "") {
-      return ['Please enter 1 or more characters']
-    }
-    const filterValueSecondary = value;
-    var searchDataSecondary = this.codeListSecondary.filter(option => option.includes(filterValueSecondary));
-    if (searchDataSecondary.length === 0) {
-      return ['No Data Found']
-    }
-    return searchDataSecondary;
+    return _areaCodes.map(value => value.AreaCode);
   }
 
   isView(item) {
     this.isSave = true;
     this.isAddAdmin = false;
-
     this.newAdminRegistration.AdminId = item.AdminId;
     this.newAdminRegistration.Role = item.C_role;
     this.newAdminRegistration.Title = item.C_title;
@@ -109,6 +110,7 @@ export class AdminsComponent implements OnInit {
     this.newAdminRegistration.FirstName = item.first_name;
     this.newAdminRegistration.LastName = item.last_name;
     this.newAdminRegistration.MiddleName = item.middle_name;
+    this.newAdminRegistration.UserId = item.UserId;
     if (item.primary_phone == null) {
       this.newAdminRegistration.PrimaryPhonePreffix = '';
       this.newAdminRegistration.PrimaryPhoneSuffix = '';
@@ -177,14 +179,21 @@ export class AdminsComponent implements OnInit {
   }
 
   disableAdminRegistration() {
-    return !(this.newAdminRegistration.Title == undefined ? '' : this.newAdminRegistration.Title != ''
-      && this.newAdminRegistration.FirstName == undefined ? '' : this.newAdminRegistration.FirstName != ''
-        && this.newAdminRegistration.LastName == undefined ? '' : this.newAdminRegistration.LastName != ''
-          && this.newAdminRegistration.Role == undefined ? '' : this.newAdminRegistration.Role != ''
-            && this.newAdminRegistration.PrimaryPhonePreffix == undefined ? '' : this.newAdminRegistration.PrimaryPhonePreffix != ''
-              && this.newAdminRegistration.PrimaryPhoneSuffix == undefined ? '' : this.newAdminRegistration.PrimaryPhoneSuffix != ''
-                && this.newAdminRegistration.Email == null ? '' : this.newAdminRegistration.Email != '')
+    // this.newAdminRegistration.MobilePhonePreffix = this.newAdminRegistration.MobilePhonePreffix == undefined ? '' : this.newAdminRegistration.MobilePhonePreffix;
+    // let mNo = this.newAdminRegistration.MobilePhonePreffix ?? '' + this.newAdminRegistration.MobilePhoneSuffix ?? '';
+    let mNo = this.newAdminRegistration.MobilePhonePreffix + this.newAdminRegistration.MobilePhoneSuffix;
+    let pNo = this.newAdminRegistration.PrimaryPhonePreffix + this.newAdminRegistration.PrimaryPhoneSuffix;
+    return !(this.newAdminRegistration.Title
+      && this.newAdminRegistration.FirstName
+      && this.newAdminRegistration.LastName
+      && this.newAdminRegistration.Role
+      && (this.phonePattern.test(pNo))
+      && (this.emailPattern.test(this.newAdminRegistration.Email))
+      && (this.newAdminRegistration.AltEmail == null || this.newAdminRegistration.AltEmail == ''
+        || (this.emailPattern.test(this.newAdminRegistration.AltEmail)))
+      && ((!this.newAdminRegistration.MobilePhonePreffix && !this.newAdminRegistration.MobilePhoneSuffix) || (this.phonePattern.test(mNo))))
   }
+  // && (mNo == undefined || mNo == "" || (this.phonePattern.test(mNo)))
 
   resetDialog() {
     this.newAdminRegistration = new AdminRegistration;

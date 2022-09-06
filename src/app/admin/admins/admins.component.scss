@@ -245,13 +245,13 @@ input::-webkit-calendar-picker-indicator {
   opacity: 0;
 }
 
-.mat-option {
+.tel-code.mat-option {
   border-left: 1px solid #0a0a0a;
   border-right: 1px solid #050505;
   color: black !important;
   background-color: #fff;
   height: auto;
-  width: 63%;
+  width: 100%;
   overflow-wrap: anywhere;
 }
 

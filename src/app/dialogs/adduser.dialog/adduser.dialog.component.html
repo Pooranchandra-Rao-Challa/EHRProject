@@ -2,7 +2,7 @@
   <div class="modal-content modal-cust-content">
     <div class="modal-header modal-cust-header">
       <h1 class="modal-title modal-cust-title">New User</h1>
-      <span type="button" class="cross-x" data-bs-dismiss="modal" aria-label="Close" (click)="close()">
+      <span type="button" class="cross-x" (click)="close()">
         x
       </span>
     </div>
@@ -146,7 +146,7 @@
 
         <div class="col-lg-4 col-md-12 col-sm-12 col-12 mb-4">
           <label class="form-label required">Practice/Clinic</label>
-          <select id="clinics" name="clinics" class="form-select" [(ngModel)]="newUser.ClinicId">
+          <select placeholder="Select one clinic"  id="clinics" name="clinics" class="form-select" [(ngModel)]="newUser.ClinicId">
             <option *ngFor="let clinic of Clinics" [value]="clinic.ClinicId">
               {{clinic.ClinicName}}
             </option>
@@ -190,28 +190,29 @@
         <div class="row-border row-align">
           <div class="row mb-4">
             <p class="mt-3">ERX Details</p>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-12 mt-1 d-inline-flex">
+            <!-- col-lg-12 col-md-12 col-sm-12 col-12 mt-1 d-inline-flex -->
+            <div class="col-lg-3 col-md-12 col-sm-12 col-12 mt-lg-4 pt-lg-2 d-inline-flex">
               <input type="checkbox" class="check-box-size" [disabled]="user.Role=='compliance'"
                 [(ngModel)]="newUser.IsDoseSpotRegistation">
               <label class="form-check-label mx-2 checkbox-text" [class.required]="newUser.EPrescribeFrom=='dosespot'"
                 for="IsDoseSpotRegistation">DoseSpot Registration Completed</label>
-
             </div>
-            <div class="col-lg-3 col-md-12 col-sm-12 col-12 mt-3">
+            <!-- Clinic Id -->
+            <!-- <div class="col-lg-3 col-md-12 col-sm-12 col-12 mt-3">
               <label for="ClinicID" class="form-label" [class.required]="newUser.EPrescribeFrom=='dosespot'">Clinic
                 ID</label>
               <input type="text" class="form-control text-design" [disabled]="user.Role=='compliance'" id="ClinicID"
                 name="ClinicID" placeholder="Clinic ID" [(ngModel)]="newUser.DoseSpotClinicId">
-            </div>
+            </div> -->
 
-            <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
+            <div class="col-lg-6 col-md-12 col-sm-12 col-12">
               <label for="ClinicKey" class="form-label" [class.required]="newUser.EPrescribeFrom=='dosespot'">Clinic
                 Key</label>
               <input type="text" class="form-control text-design" [disabled]="user.Role=='compliance'" id="ClinicKey"
                 name="ClinicKey" placeholder="Clinic Key" [(ngModel)]="newUser.DoseSpotClinicKey">
             </div>
 
-            <div class="col-lg-3 col-md-12 col-sm-12 col-12 mt-3">
+            <div class="col-lg-3 col-md-12 col-sm-12 col-12">
               <label for="ClinicID" class="form-label" [class.required]="newUser.EPrescribeFrom=='dosespot'">Prescriber
                 ID/ Clinician ID</label>
               <input type="text" class="form-control text-design" [disabled]="user.Role=='compliance'" id="PrescriberID"
@@ -298,8 +299,7 @@
     <div class="modal-footer model-cust-footer">
       <button type="button" class="btn save-button col-md-4" [disabled]="disableProviderRegistration()"
         (click)="createProviderRegistration()">Add New User </button>
-      <button type="button" data-bs-dismiss="modal" class="cancel-button col-md-4" data-bs-dismiss="modal"
-        aria-label="Close" (click)="close()">Cancel</button>
+      <button type="button" class="cancel-button col-md-4" (click)="close()">Cancel</button>
     </div>
   </div>
 </div>

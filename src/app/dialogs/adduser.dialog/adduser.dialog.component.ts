@@ -44,6 +44,8 @@ export class AddUserDialogComponent implements OnInit {
   PhonePattern: any;
   AddressResult: any;
   user: User
+  phonePattern = /^[0-9]{10}/;
+  emailPattern = /^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$/;
 
   constructor(private ref: EHROverlayRef,
     private authService: AuthenticationService,
@@ -51,7 +53,7 @@ export class AddUserDialogComponent implements OnInit {
     private accountservice: Accountservice,
     private plaformLocation: PlatformLocation,
     private idService: IdService) {
-    this.url = plaformLocation.href.substring(0,plaformLocation.href.indexOf('?')).replace(plaformLocation.pathname, '/');
+    this.url = plaformLocation.href.substring(0, plaformLocation.href.indexOf('?')).replace(plaformLocation.pathname, '/');
     this.user = authService.userValue;
 
     this.PhonePattern = {
@@ -66,6 +68,7 @@ export class AddUserDialogComponent implements OnInit {
     this.filteredOptionsPrimary = this.myControlPrimary.valueChanges.pipe(startWith(''), map(value => this._filterAreaCode(value)));
     this.filteredOptionsSecondary = this.myControlSecondary.valueChanges.pipe(startWith(''), map(valueS => this._filterAreaCode(valueS)));
     this.loadDefaults();
+    this.newUser.EPrescribeFrom = 'none';
   }
 
   private _filterAreaCode(value: string): string[] {
@@ -118,11 +121,11 @@ export class AddUserDialogComponent implements OnInit {
         if (resp.IsSuccess) {
           this.AreaCodes = resp.ListResult as AreaCode[];
         } else {
-          this.AreaCodes=[];
+          this.AreaCodes = [];
         }
       },
-      error=>{
-      });
+        error => {
+        });
 
   }
 
@@ -180,24 +183,30 @@ export class AddUserDialogComponent implements OnInit {
     else {
       this.newUser.MobilePhone = '+1' + this.newUser.MobilePhonePreffix + this.newUser.MobilePhoneSuffix;
     }
-    this.newUser.URL =  this.url
+    this.newUser.URL = this.url;
     this.accountservice.CreateProvider(this.newUser).subscribe(resp => {
       if (resp.IsSuccess) {
         this.alertWithSuccess();
+        this.ref.close({
+          saved: true
+        });
       }
       else {
         Swal.fire({
+          position: 'top',
           icon: 'error',
-          title: 'Oops...',
+          title: 'There is some issue to send the mail',
           text: resp.EndUserMessage,
           width: '700',
-        })
+        });
+        this.close();
       }
     });
   }
 
   alertWithSuccess() {
     Swal.fire({
+      position: 'top',
       icon: 'success',
       title: 'Thank you for registering for an EHR1 Account! An email with instructions for how to complete  setup of your account has been sent to ' + this.newUser.Email,
       showConfirmButton: true,
@@ -209,8 +218,9 @@ export class AddUserDialogComponent implements OnInit {
   disableProviderRegistration() {
     // this.NPIValidator();
     var npireg = /^[0-9]{10}$/;
+    let pNo = this.newUser.PrimaryPhonePreffix + this.newUser.PrimaryPhoneSuffix;
+    let mNo = this.newUser.MobilePhonePreffix + this.newUser.MobilePhoneSuffix;
     let flag = (this.newUser.EPrescribeFrom == 'dosespot'
-      && this.newUser.DoseSpotClinicId != null && this.newUser.DoseSpotClinicId != ""
       && this.newUser.IsDoseSpotRegistation != null && this.newUser.IsDoseSpotRegistation == true
       && this.newUser.DoseSpotClinicKey != null && this.newUser.DoseSpotClinicKey != ""
       && this.newUser.DoseSpotClinicianId != null && this.newUser.DoseSpotClinicianId != "") ||
@@ -227,18 +237,18 @@ export class AddUserDialogComponent implements OnInit {
 
     return !(this.newUser.Title == undefined ? '' : this.newUser.Title != ''
       && this.newUser.FirstName == undefined ? '' : this.newUser.FirstName != ''
-      && this.newUser.LastName == undefined ? '' : this.newUser.LastName != ''
-      && this.newUser.Degree == undefined ? '' : this.newUser.Degree != ''
-      && this.newUser.Speciality == undefined ? '' : this.newUser.Speciality != ''
-      && this.newUser.NPI == undefined ? '' : this.newUser.NPI != ''
-      && this.newUser.Address == undefined ? '' : this.newUser.Address != ''
-      && this.newUser.ClinicId == undefined ? '' : this.newUser.ClinicId != ''
-      && this.newUser.PrimaryPhonePreffix == undefined ? '' : this.newUser.PrimaryPhonePreffix != ''
-      && this.newUser.PrimaryPhoneSuffix == undefined ? '' : this.newUser.PrimaryPhoneSuffix != ''
-      && this.newUser.Email == undefined ? '' : this.newUser.Email != ''
-      && flag && npireg.test(this.newUser.NPI))
+        && this.newUser.LastName == undefined ? '' : this.newUser.LastName != ''
+          && this.newUser.Degree == undefined ? '' : this.newUser.Degree != ''
+            && this.newUser.Speciality == undefined ? '' : this.newUser.Speciality != ''
+              && this.newUser.NPI == undefined ? '' : this.newUser.NPI != ''
+                && this.newUser.Address == undefined ? '' : this.newUser.Address != ''
+                  && this.newUser.ClinicId == undefined ? '' : this.newUser.ClinicId != ''
+                  && (this.phonePattern.test(pNo))
+                  && ((!this.newUser.MobilePhonePreffix && !this.newUser.MobilePhoneSuffix) || (this.phonePattern.test(mNo)))
+                  && (this.emailPattern.test(this.newUser.Email))
+                  && (this.newUser.AltEmail == null || this.newUser.AltEmail == '' || (this.emailPattern.test(this.newUser.AltEmail)))
+                  && flag && npireg.test(this.newUser.NPI))
   }
-
 }
 
 
