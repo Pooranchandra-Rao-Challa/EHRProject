@@ -26,6 +26,7 @@ export class BlockoutDialogComponent implements OnInit {
   blockoutDialog?: BlockOutDialog = {}
   changeOfBlockoutfor: BehaviorSubject<string> = new BehaviorSubject<string>("")
   todayDate: Date = new Date()
+
   PeriodsOfTimeSlots: { Text: string, Value: number }[]
   constructor(
     private ref: EHROverlayRef,
@@ -35,10 +36,12 @@ export class BlockoutDialogComponent implements OnInit {
     private alertMessage: AlertMessage,
     private datePipe: DatePipe
   ) {
+    this.todayDate = new Date(datePipe.transform(this.todayDate,"MM/dd/yyyy"));
     this.user = authService.userValue;
     this.blockoutDialog = ref.RequestData as BlockOutDialog;
     this.blockout = this.blockoutDialog.Blockout;
-    console.log(this.blockout);
+    if(this.blockout?.strRangeDay) this.blockout.RangeDay = JSON.parse(this.blockout?.strRangeDay);
+
 
     if (this.blockout.ClinicId == null)
       this.blockout.ClinicId = this.user.ClinicId;
@@ -58,6 +61,9 @@ export class BlockoutDialogComponent implements OnInit {
   }
   close() {
     this.ref.close();
+  }
+  get IsRecurEndDayisToday(){
+    return this.blockout?.RecurEndAt != null && new Date(this.blockout?.RecurEndAt) <= this.todayDate
   }
   get IsDaily() {
     return this.blockout.RecurType == "daily"

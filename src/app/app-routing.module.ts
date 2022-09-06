@@ -16,9 +16,6 @@ const routes: Routes = [
   { path: 'provider', loadChildren: providerModule, canActivate: [AuthGuard]  },
   { path: 'admin', loadChildren: adminModule, canActivate: [AuthGuard]  },
   { path: 'patient', loadChildren: patientModule, canActivate: [AuthGuard]  },
-  // otherwise redirect to home
-  // { path: '**', redirectTo: '/' },
-
 ];
 
 @NgModule({

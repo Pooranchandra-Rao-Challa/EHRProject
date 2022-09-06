@@ -26,6 +26,10 @@ import { BlockoutDialogComponent } from 'src/app/dialogs/blockout/blockout.dialo
 
 //import adaptivePlugin from '@fullcalendar/adaptive'
 
+class BlockOutInfo {
+  id?: string;
+  providerId: string;
+}
 
 @Component({
   selector: 'app-calendar',
@@ -214,7 +218,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   ToggleAllAppointmentTypes(event) {
     this.removeAllEvents();
-    this.updateBlockOuts();
+    this.updateBlockOuts(true,null);
     if (event.source.checked) {
       this.updateCalendarEvents();
       this.appointmentTypeCheckboxes.toArray().forEach(source => {
@@ -238,7 +242,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   ToggleAllAppointmentStatuses(event) {
     this.removeAllEvents();
-    this.updateBlockOuts();
+    this.updateBlockOuts(true,null);
     if (event.source.checked) {
       this.updateCalendarEvents();
       this.appointmentStatusCheckboxes.toArray().forEach(source => {
@@ -262,7 +266,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   removeAllEvents() {
     this.fullcalendar.getApi().getEvents().forEach(event => {
-      event.remove();
+      if(event.extendedProps.IsEvent) event.remove();
     })
   }
 
@@ -299,7 +303,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     this.removeAllEvents();
     if (event.source.checked) {
       this.updateCalendarEvents();
-      this.updateBlockOuts();
+      this.updateBlockOuts(true,null);
       this.providerCheckboxes.toArray().forEach(source => {
         source.checked = true;
       })
@@ -317,7 +321,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     })
     this.providerToggle.checked = allchecked;
     this.updateEvents(event.source.checked, { value: provider.ProviderId })
-    //this.updateBlockOuts(event.source.checked,{ value: provider.ProviderId });
+    this.updateBlockOuts(event.source.checked,{ value: provider.ProviderId });
   }
 
   updateCalendarEvents() {
@@ -349,6 +353,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         resourceId: app.RoomId,
         //textColor: app.AppColor,
         extendedProps: {
+          IsEvent: true,
           PatientName: app.PatientName,
           ProviderName: app.ProviderName, Room: app.RoomName,
           Duration: app.Duration,
@@ -374,10 +379,10 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     this.CalendarBlockouts();
   }
 
-  highlightSelectedDate(){
+  highlightSelectedDate() {
 
     let curdate = this.datepipe.transform(this.selectedDate, "yyyy-MM-dd")
-    this.fullcalendar.getApi().el.querySelectorAll("a[data-selected='true']").forEach((nodeElement: HTMLElement)=>{
+    this.fullcalendar.getApi().el.querySelectorAll("a[data-selected='true']").forEach((nodeElement: HTMLElement) => {
       nodeElement.classList.remove('fc-selected-date');
       nodeElement.removeAttribute("data-selected");
     });
@@ -388,38 +393,44 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         if (ne.children.length > 0) {
           ne.children[0].classList.remove('fc-selected-date')
           ne.children[0].classList.add('fc-selected-date')
-          ne.children[0].setAttribute("data-selected","true")
+          ne.children[0].setAttribute("data-selected", "true")
         }
       })
     })
   }
-  updateBlockOuts(toggler?: boolean, check: { value: string } = null) {
-    this.blockouts.forEach(blockout => {
-      // if(!toggler && check?.value == blockout.BlockoutForId){
-      //   if (this.fullcalendar.getApi().getEventById(blockout.BlockoutId) != null)
-      //           this.fullcalendar.getApi().getEventById(blockout.BlockoutId).remove();
-      // }else if((this.fullcalendar.getApi().getEventById(blockout.BlockoutId) == null)
-      // || (this.fullcalendar.getApi().getEventById(blockout.BlockoutId) != null
-      //   && this.fullcalendar.getApi().getEventById(blockout.BlockoutId).start !=
-      //   blockout.StartAt) ){
-      this.fullcalendar.getApi().addEvent({
-        id: blockout.BlockoutId,
-        title: blockout.Message == "" ? "Blockout day" : blockout.Message,
-        start: blockout.StartAt,
-        end: blockout.EndAt,
-        classNames: ['fc-event-blockout'],
-        backgroundColor: "#BBBBBB",
-        borderColor: "#BBBBBB",
-        resourceId: blockout.RoomId,
-        //textColor: app.AppColor,
-        extendedProps: {
-          IsBlockout: true,
-          Note: blockout.Note,
-          Duration: blockout.Duration
-        }
-      })
-      // }
+
+  removeAllBlockouts() {
+    this.fullcalendar.getApi().getEvents().forEach((value, i) => {
+      if (value.extendedProps.IsBlockout) value.remove();
     })
+  }
+  updateBlockOuts(toggler?: boolean, check: { value: string } = null) {
+    this.removeAllBlockouts();
+
+    this.blockouts.forEach(blockout => {
+      if((check == null || (check != null && check.value != blockout.BlockoutForId))
+      || (toggler && (check != null && check.value == blockout.BlockoutForId))){
+        let bid = blockout.BlockoutId + ':' + blockout.SequenceNumber;
+        this.fullcalendar.getApi().addEvent({
+          id: bid,
+          title: blockout.Message == "" ? "Blockout day" : blockout.Message,
+          start: blockout.StartAt,
+          end: blockout.EndAt,
+          classNames: ['fc-event-blockout'],
+          backgroundColor: "#BBBBBB",
+          borderColor: "#BBBBBB",
+          resourceId: blockout.RoomId,
+          extendedProps: {
+            IsBlockout: true,
+            Note: blockout.Note,
+            bidFor: blockout.BlockoutFor,
+            bid: blockout.BlockoutForId,
+            Duration: blockout.Duration
+          }
+        })
+      }
+    });
+
   }
 
   handleButtons() {
@@ -957,9 +968,10 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     return blockoutDialog;
   }
   OpenBlockoutDialog() {
-
+    let blockOutDialog = this.BlockoutDialogInfo();
+    blockOutDialog.Blockout.CanEdit = true;
     this.openComponentDialog(this.blockoutDialogComponent,
-      this.BlockoutDialogInfo(), Actions.new);
+      blockOutDialog, Actions.new);
   }
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
     data?: any, action?: Actions) {
@@ -988,15 +1000,18 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       if (resp.IsSuccess) {
         this.blockouts = resp.ListResult;
         //this.GetBlockouts();
-        this.updateBlockOuts();
+        this.updateBlockOuts(true,null);
       }
       else this.blockouts = [{}]
     })
   }
 
   OpenBlockoutForEdit(blockoutId: string, blockoutdata: BlockOutDialog) {
+    let bId = blockoutId;
+    if (blockoutId.indexOf(':') > -1)
+      bId = blockoutId.substring(0, blockoutId.indexOf(':'));
     this.smartSchedulerService.BlockoutInfo({
-      BlockoutId: blockoutId,
+      BlockoutId: bId,
       strCurrentDate: this.datepipe.transform(new Date(), 'MM/dd/yyyy')
     }).subscribe(resp => {
       if (resp.IsSuccess) {

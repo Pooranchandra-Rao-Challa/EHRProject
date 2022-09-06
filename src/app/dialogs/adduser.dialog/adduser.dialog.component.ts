@@ -209,6 +209,7 @@ export class AddUserDialogComponent implements OnInit {
   disableProviderRegistration() {
     // this.NPIValidator();
     var npireg = /^[0-9]{10}$/;
+
     let flag = (this.newUser.EPrescribeFrom == 'dosespot'
       && this.newUser.DoseSpotClinicId != null && this.newUser.DoseSpotClinicId != ""
       && this.newUser.IsDoseSpotRegistation != null && this.newUser.IsDoseSpotRegistation == true
