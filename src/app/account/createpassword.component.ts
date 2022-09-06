@@ -39,6 +39,7 @@ export class CreatePasswordComponent implements OnInit {
   get v() { return this.createPasswordForm.controls; }
 
   UpdatePassword(){
+    
     let formValues = this.createPasswordForm.value;
     this.secureCred.Password = formValues.NewPassword;
     this.secureCred.SecurityCode = formValues.SecurityCode;

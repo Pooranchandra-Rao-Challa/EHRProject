@@ -14,10 +14,10 @@
                             aria-label="Subscriber Name" aria-describedby="basic-addon" alphaOnly #subscriberName="ngModel" required>
                            
                     </div> 
-                    <div *ngIf="subscriberName.errors && (subscriberName.touched)" class="error-message-alignment">
-                        <div class="text-danger" *ngIf="subscriberName.errors?.required">
+                    <div *ngIf="subscriberName.errors && (subscriberName.touched)">
+                        <div class="error_message" *ngIf="subscriberName.errors?.required">
                           <span class="text-danger"></span>
-                          <p class="text-danger">Please enter Subscriber Name</p>
+                          <p class="errormessage">Please enter subscriber name</p>
                         </div>
                         </div>
 
@@ -27,11 +27,18 @@
                             <mat-form-field appearance="outline" class=" calendaricon green-calendar w-100">
                                 <input matInput [matDatepicker]="DateOfBirth" placeholder="Date of Birth"
                                     (click)="DateOfBirth.open()" [(ngModel)]="primlist.DateOfBirth"
-                                    class="Helvetica-sans-serif-medium" [max]="tomorrow">
+                                    class="Helvetica-sans-serif-medium" [max]="tomorrow" #dateofbirth="ngModel" required>
                                 <mat-datepicker-toggle matSuffix [for]="DateOfBirth">
                                 </mat-datepicker-toggle>
                                 <mat-datepicker #DateOfBirth disabled="false"></mat-datepicker>
                             </mat-form-field>
+                            <div *ngIf="dateofbirth.errors && (dateofbirth.touched)">
+                                <div class="error_message" *ngIf="dateofbirth.errors?.required">
+                                  <span class="e_arrow"></span>
+                                  <p class="errormessage">Please select date of birth</p>
+                                </div>
+                                </div>
+                               
                         </div>
                         <div class="col-lg-6 col-md-12 col-12">
                             <label class="Helvetica-sans-serif-medium d-block required">Gender:</label>
@@ -65,7 +72,7 @@
                    
                     <div class="col-lg-12 col-md-12 col-12 col-xl-12">
                         <div style="display: flex;  align-items: center;">
-                             <div class="input-group input-group-lg" style="width:74%;">
+                             <div class="input-group input-group-lg" style="width:78%;">
                                  <span class="input-group-text Helvetica-sans-serif-medium"
                                      id="inputGroup-sizing-lg">Street Address</span>
                                  <input [readonly]="!disableaddressverification"
@@ -183,7 +190,7 @@
                             </mat-label>
                             <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-12 ddl-width ddhover">
                                 <mat-select panelClass="optionalignment" [(ngModel)]="primlist.SourceOfPaymentTypology"
-                                    placeholder="Source of Payment Typology">
+                                    placeholder="Source of Payment Typology"  required #sourcePTypology="ngModel">
                                     <mat-select-filter [displayMember]="'Code'"
                                         [array]="SourceOfPaymentTypologyCodesFilter"
                                         (filteredReturn)="SourceOfPaymentTypologyCodes = $event" id="inputcursor"></mat-select-filter>
@@ -192,6 +199,7 @@
                                         {{item.Code}} - {{item.Description}}
                                     </mat-option>
                                 </mat-select>
+                                <mat-error class="sourcepaymenttypology" *ngIf="sourcePTypology.hasError('required')">Please select source of payment typology </mat-error>
                             </mat-form-field>
                         </div>
                     </div>
@@ -205,21 +213,30 @@
                         </div>
                     </div>
                     <div class="row">
-                        <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-6">
+                        <div class="col-md-6">
+                            <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-12">
                             <input matInput [matDatepicker]="dp2" placeholder="Start Date" (focus)="dp2?.open()"
-                                [(ngModel)]="primlist.StartDate" class="Helvetica-sans-serif-medium">
+                                [(ngModel)]="primlist.StartDate" class="Helvetica-sans-serif-medium" #startdate="ngModel" required>
                             <mat-datepicker-toggle matSuffix [for]="dp2">
                             </mat-datepicker-toggle>
                             <mat-datepicker #dp2></mat-datepicker>
                         </mat-form-field>
-                        <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-6">
+                        <div *ngIf="startdate.errors && (startdate.touched)">
+                            <div class="error_message" *ngIf="startdate.errors?.required">
+                              <span class="e_arrow"></span>
+                              <p class="errormessage">Please select start date</p>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                        <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-12">
                             <input matInput [matDatepicker]="dp1" placeholder="Stop Date" [(ngModel)]="primlist.EndDate"
                                 (focus)="dp1?.open()" class="Helvetica-sans-serif-medium">
                             <mat-datepicker-toggle matSuffix [for]="dp1">
                             </mat-datepicker-toggle>
                             <mat-datepicker #dp1 disabled="false"></mat-datepicker>
                         </mat-form-field>
-
+                    </div>
                     </div>
                     <div class="Insurance">
                         <button class="btn btn-orange pull-right mt-2 Helvetica-sans-serif-medium"
@@ -244,7 +261,7 @@
                     <div *ngIf="sSubscriberName.errors && (sSubscriberName.touched)">
                         <div class="text-danger" *ngIf="sSubscriberName.errors?.required">
                           <span class="text-danger"></span>
-                          <p class="text-danger">Please enter Subscriber Name</p>
+                          <p class="errormessage">Please enter Subscriber Name</p>
                         </div>
                         </div>
                     <div class="row">
@@ -253,11 +270,17 @@
                             <mat-form-field appearance="outline" class="calendaricon green-calendar w-100">
                                 <input matInput [matDatepicker]="dp4" placeholder="Date of Birth"
                                     [(ngModel)]="secList.DateOfBirth" (focus)="dp4?.open()"
-                                    class="Helvetica-sans-serif-medium" [max]="tomorrow">
+                                    class="Helvetica-sans-serif-medium" [max]="tomorrow" #sdateofbirth="ngModel" required>
                                 <mat-datepicker-toggle matSuffix [for]="dp4">
                                 </mat-datepicker-toggle>
                                 <mat-datepicker #dp4 disabled="false"></mat-datepicker>
                             </mat-form-field>
+                            <div *ngIf="sdateofbirth.errors && (sdateofbirth.touched)">
+                                <div class="error_message" *ngIf="sdateofbirth.errors?.required">
+                                  <span class="e_arrow"></span>
+                                  <p class="errormessage">Please select date of birth</p>
+                                </div>
+                                </div>
                         </div>
                         <div class="col-lg-6 col-md-12 col-12">
                             <label class="Helvetica-sans-serif-medium d-block required">Gender:</label>
@@ -401,7 +424,7 @@
                         <mat-label class="Helvetica-sans-serif-medium required">Source of Payment Typology </mat-label>
                         <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-12 ddl-width ddhover">
                             <mat-select panelClass="optionalignment" [(ngModel)]="secList.SourceOfPaymentTypology"
-                                placeholder="Source of Payment Typology">
+                                placeholder="Source of Payment Typology" #ssourcePTypology="ngModel" required>
                                 <mat-select-filter [displayMember]="'Code'" [array]="secondarySptcFilter"
                                     (filteredReturn)="SourceOfPaymentTypologyCodes = $event"></mat-select-filter>
                                 <mat-option class="matpanelalignment" *ngFor="let item of SourceOfPaymentTypologyCodes"
@@ -409,6 +432,7 @@
                                     {{item.Code}} - {{item.Description}}
                                 </mat-option>
                             </mat-select>
+                            <mat-error class="sourcepaymenttypology" *ngIf="ssourcePTypology.hasError('required')">Please select source of payment typology </mat-error>
                         </mat-form-field>
                     </div>
                     <div class="row">
@@ -420,26 +444,33 @@
                         </div>
                     </div>
                     <div class="row">
-                        <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-6">
-                            <input matInput [matDatepicker]="dp5" placeholder="Start Date"
-                                [(ngModel)]="secList.StartDate" (focus)="dp5?.open()"
-                                class="Helvetica-sans-serif-medium">
-                            <mat-datepicker-toggle matSuffix [for]="dp5">
+                        <div class="col-md-6">
+                            <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-12">
+                                <input matInput [matDatepicker]="dp5" placeholder="Start Date"
+                                    [(ngModel)]="secList.StartDate" (focus)="dp5?.open()"
+                                    class="Helvetica-sans-serif-medium" required #sstartdate="ngModel">
+                                <mat-datepicker-toggle matSuffix [for]="dp5">
 
-                            </mat-datepicker-toggle>
-                            <mat-datepicker #dp5 disabled="false"></mat-datepicker>
-                        </mat-form-field>
+                                </mat-datepicker-toggle>
+                                <mat-datepicker #dp5 disabled="false"></mat-datepicker>
+                            </mat-form-field>
+                            <!-- <div *ngIf="sstartdate.errors && (sstartdate.touched)">
+                                <div class="error_message" *ngIf="sstartdate.errors?.required">
+                                  <span class="e_arrow"></span>
+                                  <p class="errormessage">Please select start date</p>
+                                </div>
+                                </div> -->
+                        </div>
 
-
-
-                        <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-6">
+                        <div class="col-md-6">
+                        <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-12">
                             <input matInput [matDatepicker]="dp6" placeholder="Stop Date" [(ngModel)]="secList.EndDate"
                                 (focus)="dp6?.open()" class="Helvetica-sans-serif-medium">
                             <mat-datepicker-toggle matSuffix [for]="dp6">
                             </mat-datepicker-toggle>
                             <mat-datepicker #dp6 disabled="false"></mat-datepicker>
                         </mat-form-field>
-
+</div>
                     </div>
                     <div class="Insurance">
                         <button class="btn btn-orange pull-right Helvetica-sans-serif-medium mt-2"
