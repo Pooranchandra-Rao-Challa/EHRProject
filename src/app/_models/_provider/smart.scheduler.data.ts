@@ -169,6 +169,7 @@ export class Blockout{
   Message?: string;
   DayRecurStartTime?: string;
   DayRecurEndTime?: string;
+  SequenceNumber?: number;
 
   // added for calendar display;
   WeekName?: string;

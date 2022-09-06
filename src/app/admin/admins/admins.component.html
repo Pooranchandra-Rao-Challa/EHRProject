@@ -11,7 +11,7 @@
               <h4>ADMINS</h4>
             </div>
             <div class="example col-lg-1 col-md-12 col-12 ">
-              <button class="btn-add common-button-style" data-bs-toggle="modal" data-bs-target="#staticBackdrop1"
+              <button class="btn-add common-button-style" data-bs-toggle="modal" data-bs-target="#new-admin-modal"
                 (click)="onAddAdmin()">Add New Admin </button>
             </div>
           </div>
@@ -32,8 +32,9 @@
                     </td>
                     <td class="user-email">{{item.email}}</td>
                     <td class="column"><button class="btn-view table-col-button" data-bs-toggle="modal"
-                        data-bs-target="#staticBackdrop1" (click)="isView(item)">View</button></td>
-                    <td><button type="button" class="Cancelbtn" (click)="DeleteAdmin(item.AdminId)"><i class="fa fa-close icon-close"></i></button></td>
+                        data-bs-target="#new-admin-modal" (click)="isView(item)">View</button></td>
+                    <td><button type="button" class="Cancelbtn" (click)="DeleteAdmin(item.AdminId)"><i
+                          class="fa fa-close icon-close"></i></button></td>
                     <td><button class="btn-view  table-col-button">Disable Duo</button></td>
                   </tr>
                 </tbody>
@@ -50,12 +51,8 @@
   </div>
 </div>
 
-<!-- <div class="row">
-
-</div> -->
-
-
-<div class="modal fade " id="staticBackdrop1" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop4"
+<!-- New Admin Registration Modal -->
+<div class="modal fade " id="new-admin-modal" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop4"
   aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -66,7 +63,6 @@
           X
         </span>
       </div>
-      <hr>
       <div class="modal-body">
         <div class="content">
           <div class="row border">
@@ -103,34 +99,7 @@
               </select>
             </div>
           </div>
-
           <div class="row border mt-4">
-            <!-- <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
-                                <div class="input-group ">
-                                    <div class="example-full-width">
-                                        <input class="form-control" type="text" list="codes"  [formControl]="myControl"
-                                            placeholder="(    )">
-                                        <datalist id="codes">
-                                            <option *ngFor="let c of codeList" [value]="c">{{c}}</option>
-                                        </datalist>
-                                    </div>
-                                    <input type="text" class="form-control" placeholder="Primary Phone Number">
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
-                                <div class="input-group ">
-                                    <div class="p-0 example-full-width">
-                                        <input class="form-control" type="text" list="codes"  [formControl]="myControl"
-                                            placeholder="(    )">
-                                        <datalist id="codes">
-                                            <option *ngFor="let c of codeList" [value]="c">{{c}}</option>
-                                        </datalist>
-                                    </div>
-                                    <input type="text" class="form-control" placeholder="Mobile Phone Number">
-                                </div>
-                            </div> -->
-
             <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
               <label class="required">Primary Phone Number</label>
               <div class="input-group ">
@@ -138,16 +107,16 @@
                   <input type="input" placeholder="(    )" aria-label="Number" matInput [formControl]="myControlPrimary"
                     [matAutocomplete]="autoPrimary" [(ngModel)]="newAdminRegistration.PrimaryPhonePreffix">
                   <mat-autocomplete autoActiveFirstOption #autoPrimary="matAutocomplete">
-                    <mat-option class="tel-code" *ngFor="let option of filteredOptionsPrimary | async" [value]="option" (click)="onSelectedPrimaryPhoneCode(option)">
+                    <mat-option class="tel-code" *ngFor="let option of filteredOptionsPrimary | async" [value]="option"
+                      (click)="onSelectedPrimaryPhoneCode(option)">
                       <h1>{{option}}</h1>
                     </mat-option>
-                    <!-- <mat-option *ngIf="!myControl.value">Please enter 1 or more characters</mat-option> -->
-                    <!-- <mat-option>No Data Found</mat-option> -->
                   </mat-autocomplete>
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="example-width">
-                  <input matInput placeholder="Primary Phone Number" class="cstm-tel" type="tel"
-                  mask="000-0000" [showMaskTyped]="true" [patterns]="PhonePattern" [(ngModel)]="newAdminRegistration.PrimaryPhoneSuffix">
+                  <input matInput placeholder="Primary Phone Number" class="cstm-tel" type="tel" mask="000-0000"
+                    [showMaskTyped]="true" [patterns]="PhonePattern"
+                    [(ngModel)]="newAdminRegistration.PrimaryPhoneSuffix">
                 </mat-form-field>
               </div>
             </div>
@@ -156,19 +125,20 @@
               <label>Mobile Phone Number</label>
               <div class="input-group mb-3">
                 <mat-form-field class="example-full-width" appearance="outline">
-                  <input type="input" placeholder="(    )" aria-label="Number" matInput [formControl]="myControlSecondary"
-                    [matAutocomplete]="autoSecondary" [(ngModel)]="newAdminRegistration.MobilePhonePreffix">
+                  <input type="input" placeholder="(    )" aria-label="Number" matInput
+                    [formControl]="myControlSecondary" [matAutocomplete]="autoSecondary"
+                    [(ngModel)]="newAdminRegistration.MobilePhonePreffix">
                   <mat-autocomplete autoActiveFirstOption #autoSecondary="matAutocomplete">
-                    <mat-option class="tel-code" *ngFor="let option of filteredOptionsSecondary | async" [value]="option" (click)="onSelectedMobileCode(option)">
+                    <mat-option class="tel-code" *ngFor="let option of filteredOptionsSecondary | async"
+                      [value]="option" (click)="onSelectedMobileCode(option)">
                       <h1>{{option}}</h1>
                     </mat-option>
-                    <!-- <mat-option *ngIf="!myControl.value">Please enter 1 or more characters</mat-option> -->
-                    <!-- <mat-option>No Data Found</mat-option> -->
                   </mat-autocomplete>
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="example-width">
-                  <input matInput placeholder="Mobile Phone Number" class="cstm-tel" type="tel"
-                  mask="000-0000" [showMaskTyped]="true" [patterns]="PhonePattern" [(ngModel)]="newAdminRegistration.MobilePhoneSuffix">
+                  <input matInput placeholder="Mobile Phone Number" class="cstm-tel" type="tel" mask="000-0000"
+                    [showMaskTyped]="true" [patterns]="PhonePattern"
+                    [(ngModel)]="newAdminRegistration.MobilePhoneSuffix">
                 </mat-form-field>
               </div>
             </div>
@@ -185,15 +155,15 @@
             </div>
 
           </div>
-
-          <div class="row  mt-4 mb-2" style="float: right;">
-            <button type="button" *ngIf="isSave" class="btn save-button col-md-4" data-bs-dismiss="modal"
-            [disabled]="disableAdminRegistration()" (click)="CreateAdminRegistration()">Save </button>
-            <button type="button" *ngIf="isAddAdmin" class="btn save-button col-md-4" data-bs-dismiss="modal"
-              [disabled]="disableAdminRegistration()" (click)="CreateAdminRegistration()">Add New Admin </button>
-            <button type="button" data-bs-dismiss="modal" class="btn-cancel col-md-4" (click)="resetDialog()">Cancel</button>
-          </div>
         </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" *ngIf="isSave" class="btn save-button" data-bs-dismiss="modal"
+        [disabled]="disableAdminRegistration()" (click)="CreateAdminRegistration()">Save </button>
+      <button type="button" *ngIf="isAddAdmin" class="btn save-button" data-bs-dismiss="modal"
+        [disabled]="disableAdminRegistration()" (click)="CreateAdminRegistration()">Add New Admin </button>
+      <button type="button" data-bs-dismiss="modal" class="btn-cancel"
+        (click)="resetDialog()">Cancel</button>
       </div>
     </div>
   </div>
