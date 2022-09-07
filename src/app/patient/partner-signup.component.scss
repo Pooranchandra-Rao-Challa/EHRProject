@@ -100,13 +100,13 @@ body {
   color: #dedede;
 }
 //input outline color
-::ng-deep .mat-form-field-appearance-outline:hover .mat-form-field-outline {
+::ng-deep div#partnersignup.mat-form-field-appearance-outline:hover .mat-form-field-outline {
   color: #41b6a6 !important;
   // opacity: 1!important;
 }
 
 //mat-input focused color
-::ng-deep
+::ng-deep div#partnersignup
   .mat-form-field-appearance-outline.mat-focused
   .mat-form-field-outline-thick {
   color: #41b6a6 !important;
@@ -224,3 +224,7 @@ textarea::-webkit-input-placeholder {
 textarea:focus, textarea:hover{
    border: 1px solid #41b6a6;
 }
+// ::ng-deep div#partnersignup.mat-form-field-infix {
+//   padding: 0.5em 0;
+//   border-top: 1.2em solid transparent;
+// }

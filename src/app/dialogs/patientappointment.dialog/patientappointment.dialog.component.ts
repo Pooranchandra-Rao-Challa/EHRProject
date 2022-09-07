@@ -74,8 +74,8 @@ export class PatientappointmentDialogComponent implements OnInit {
     return !(
       this.requestAppoinments.ProviderId != null && this.requestAppoinments.ProviderId != ""
       && this.requestAppoinments.LocationId != null && this.requestAppoinments.LocationId != ""
-      && this.requestAppoinments.AppointmentTime != null
-      && this.requestAppoinments.AppttDate != null
+      && this.requestAppoinments.AppointmentTime != null && this.requestAppoinments.AppointmentTime !=""
+      && this.requestAppoinments.AppttDate != null 
       
      )
 
