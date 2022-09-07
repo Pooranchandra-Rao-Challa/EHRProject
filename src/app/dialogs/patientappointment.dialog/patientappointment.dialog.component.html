@@ -13,7 +13,7 @@
               <mat-form-field appearance="outline" class="col-12">
                 <input matInput class="pointer" autocomplete="off" [matDatepicker]="appointmentDate"
                   (click)="appointmentDate.open()" readonly placeholder="Request Date"
-                  [(ngModel)]="requestAppoinments.AppttDate" [ngModelOptions]="{standalone: true}" />
+                  [(ngModel)]="requestAppoinments.AppttDate" [ngModelOptions]="{standalone: true}" [min]="minDate"  />
                 <mat-datepicker-toggle matSuffix [for]="appointmentDate">
                 </mat-datepicker-toggle>
                 <mat-datepicker #appointmentDate></mat-datepicker>

@@ -49,6 +49,7 @@ export class AddauthorizedrepresentativeDialogComponent implements OnInit {
     this.ref.close(null);
   }
   CreateAuthorizedRepresentative() {
+    
     this.authorizedRepresentative.URL = this.url;
     console.log(this.url);
     let isAdd = this.authorizedRepresentative.AuthorizedRepId == undefined
@@ -69,7 +70,7 @@ export class AddauthorizedrepresentativeDialogComponent implements OnInit {
     return !((this.authorizedRepresentative.FirstName != null && this.authorizedRepresentative.FirstName != "")
       && (this.authorizedRepresentative.LastName != null && this.authorizedRepresentative.LastName != "")
       && (this.email.test(this.authorizedRepresentative.Email))
-      && (this.authorizedRepresentative.Active != null)
+      && (this.authorizedRepresentative.Active != false && this.authorizedRepresentative.Active != null)
       && (this.authorizedRepresentative.ContactPhone == null || this.authorizedRepresentative.ContactPhone == ""
       || this.phonepattern.test(this.authorizedRepresentative.ContactPhone)));
   }

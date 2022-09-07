@@ -19,7 +19,7 @@ export class PatientappointmentDialogComponent implements OnInit {
   clinicaldata: any;
   requestAppoinments?: Appointments = {}
 
-
+  minDate = new Date();
   constructor(private ref: EHROverlayRef, private patientservise: PatientService,
     private authenticationService: AuthenticationService,private alertmsg: AlertMessage,
     private datePipe:DatePipe) {

@@ -477,10 +477,10 @@ export const ERROR_CODES: { [key: string]: string } = {
   'E2JCDS002': 'Trigger updation error',
   'E2JCDS003': 'Trigger deletion error',
   //Messages for Patient Appoinments
-  'M3A001': 'Appoinments added successfully ',
-  'M3A002': 'Appoinments cancelled successfully',
+  'M3A001': 'Appointments added successfully ',
+  'M3A002': 'Appointments cancelled successfully',
   //Error Messages for Patient Appoinments
-  'E3A001': "Appoinments updation error",
+  'E3A001': "Appointments updation error",
   //Messages for provider messages
   'M2D001': "Secure Message sent successfully",
   'M2D002': "Message Deleted successfully",

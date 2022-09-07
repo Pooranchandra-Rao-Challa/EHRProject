@@ -57,6 +57,7 @@ export class WeeklyUpdatedComponent implements OnInit {
   }
 
   filterDropdown(e) {
+    debugger;
     window.scrollTo(window.scrollX, window.scrollY + 1);
     let searchString = e.toLowerCase();
     if (!searchString) {
@@ -71,8 +72,10 @@ export class WeeklyUpdatedComponent implements OnInit {
     window.scrollTo(window.scrollX, window.scrollY - 1);
   }
 
-  selectValue(name) {
+  selectValue(name,bool) {
     this.selectedValue = name;
+    this.isColorActive = bool;
+    this.searchValue = '';
   }
 
   NavigateSection(name, url, item: WeeklyUpdated = null) {

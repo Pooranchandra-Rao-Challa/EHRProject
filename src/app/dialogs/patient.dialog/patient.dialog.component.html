@@ -14,17 +14,13 @@
               <label class="control-label input-group-addon required">First Name</label>
               <input class="form-control" alphaOnly mouse-over-hint tickImagePath="assets/images/tick-mark.svg"
                 crossImagePath="assets/images/cross-mark.svg" placeholder="First Name" type="text" id="firstName"
-                name="firstName" required pattern="[a-zA-Z ]*" #firstName="ngModel" [(ngModel)]="PatientData.FirstName"
+                name="firstName" required  #firstName="ngModel" [(ngModel)]="PatientData.FirstName"
                 [ngModelOptions]="{standalone: true}" />
             </div>
             <div *ngIf="firstName.errors && (firstName.touched)">
               <div class="error_message" *ngIf="firstName.errors?.required">
                 <span class="e_arrow"></span>
-                <i class="errormessage">Please enter First Name</i>
-              </div>
-              <div class="error_message" *ngIf="firstName.errors?.pattern">
-                <span class="e_arrow"></span>
-                <i class="errormessage">First name not valid, Use only Alphabets and space</i>
+                <p class="errormessage">Please enter first name</p>
               </div>
             </div>
           </div>
@@ -34,16 +30,11 @@
             <div class="input-group">
               <label class="control-label input-group-addon">Middle Name</label>
               <input class="form-control" mouse-over-hint tickImagePath="assets/images/tick-mark.svg"
-                crossImagePath="assets/images/cross-mark.svg" placeholder="Middle Name" type="text" pattern="[a-zA-Z ]*"
+                crossImagePath="assets/images/cross-mark.svg" placeholder="Middle Name" type="text" 
                 #middleName="ngModel" [ngModelOptions]="{standalone: true}" [(ngModel)]="PatientData.MiddleName" alphaOnly />
             </div>
           </div>
-          <div *ngIf="middleName.errors && (middleName.touched)">
-            <div class="error_message" *ngIf="middleName.errors?.pattern">
-              <span class="e_arrow"></span>
-              <p class="errormessage">Middle name not valid, Use only Alphabets and space</p>
-            </div>
-          </div>
+        
         </div>
         <div class="col-lg-4 col-md-6 col-12">
           <div class="form-group">
@@ -51,18 +42,15 @@
               <label class="control-label input-group-addon required">Last Name</label>
               <input class="form-control" mouse-over-hint tickImagePath="assets/images/tick-mark.svg"
                 crossImagePath="assets/images/cross-mark.svg" placeholder="Last Name" type="text" id="lastName"
-                name="lastName" required pattern="[a-zA-Z ]*" #lastName="ngModel" [ngModelOptions]="{standalone: true}"
+                name="lastName" required #lastName="ngModel" [ngModelOptions]="{standalone: true}"
                 [(ngModel)]="PatientData.LastName" alphaOnly />
             </div>
             <div *ngIf="lastName.errors && (lastName.touched)">
               <div class="error_message" *ngIf="lastName.errors?.required">
                 <span class="e_arrow"></span>
-                <p class="errormessage">Please enter Last Name</p>
+                <p class="errormessage">Please enter last name</p>
               </div>
-              <div class="error_message" *ngIf="lastName.errors?.pattern">
-                <span class="e_arrow"></span>
-                <p class="errormessage">Lasst name not valid, Use only Alphabets and space</p>
-              </div>
+             
             </div>
           </div>
         </div>
@@ -78,14 +66,14 @@
               </mat-datepicker-toggle>
               <mat-datepicker #dp disabled="false"></mat-datepicker>
             </mat-form-field>
-
-          </div>
-          <div *ngIf="dateofBirth.errors && (dateofBirth.touched)">
-            <div class="error_message" *ngIf="dateofBirth.errors?.required">
-              <span class="e_arrow"></span>
-              <i class="errormessage">Please enter Date of Birth</i>
+            <div *ngIf="dateofBirth.errors && (dateofBirth.touched)">
+              <div class="error_message" *ngIf="dateofBirth.errors?.required">
+                <span class="e_arrow"></span>
+                <p class="errormessage">Please select date of birth</p>
+              </div>
             </div>
           </div>
+          
         </div>
       </div>
 

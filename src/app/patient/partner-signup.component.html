@@ -41,25 +41,35 @@
               <div class="row">
                 <div class="row">
                   <div class="col-md-4"> <mat-label class="Helvetica-sans-serif-medium required">First Name</mat-label></div>
-                  <div class="col-md-4"></div>
+                  <div class="col-md-4"><mat-label class="Helvetica-sans-serif-medium">Middle Name</mat-label></div>
                   <div class="col-md-4">
                     <mat-label class="Helvetica-sans-serif-medium required">Last Name</mat-label>
                   </div>
                 </div>
                 <div class="col-lg-12">
                   <div class="row">
-                   
-                    <mat-form-field appearance="outline" class="col-lg-4 col-md-4 col-sm-4 col-12">
-                      <input matInput  placeholder="First Name" [(ngModel)]="partnerSignup.first_name">
+                   <div class="col-md-4">
+                    <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-sm-12 col-12">
+                      <input matInput  placeholder="First Name" [(ngModel)]="partnerSignup.first_name" alphaOnly required #firstName="ngModel">
                     </mat-form-field>
-
-                    <mat-form-field appearance="outline" class="col-lg-4 col-md-4 col-sm-4 col-12">
-                      <input matInput placeholder="Middle Name" [(ngModel)]="partnerSignup.middle_name">
+                    <div *ngIf="firstName.errors && (firstName.touched)">
+                      <div class="error_message" *ngIf="firstName.errors?.required">
+                          <span class="text-danger"></span>
+                          <p class="errormessage">Please enter first name</p>
+                      </div>
+                  </div>
+                   </div>
+                   <div class="col-md-4">
+                    <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-sm-12 col-12">
+                      <input matInput placeholder="Middle Name" [(ngModel)]="partnerSignup.middle_name" alphaOnly>
                     </mat-form-field>
                  
-                    <mat-form-field appearance="outline" class="col-lg-4 col-md-4 col-sm-4 col-12">
-                      <input matInput placeholder="Last Name" [(ngModel)]="partnerSignup.last_name">
+                   </div>
+                   <div class="col-md-4">
+                    <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-sm-12 col-12">
+                      <input matInput placeholder="Last Name" [(ngModel)]="partnerSignup.last_name" alphaOnly>
                     </mat-form-field>
+                   </div>
                   </div>
                 </div>
               </div>
