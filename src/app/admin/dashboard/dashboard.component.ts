@@ -35,7 +35,6 @@ export class DashboardComponent implements OnInit {
   SelectedProvider: ProviderList = {};
   displayAccess: string;
   Id: any;
-
   provideraccess: any;
   Locked: boolean;
   displayHeading: string;
@@ -43,6 +42,7 @@ export class DashboardComponent implements OnInit {
   lockedModal = 'none';
   AccessProvider = 'none';
   message: string;
+
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private adminservice: AdminService,
@@ -85,7 +85,7 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  _filterProviders(value:FilterQueryParams=null): ProviderList[]{
+  _filterProviders(value: FilterQueryParams = null): ProviderList[] {
     let val = value == null ? new FilterQueryParams() : value;
     return this.ProviderList.filter(x =>
       (val.SearchTerm == "" || x.ProviderName.toLowerCase().match(val.SearchTerm.toLowerCase()))
@@ -103,13 +103,11 @@ export class DashboardComponent implements OnInit {
   }
   // updte provider access
   providerPrimaryAccess() {
-
     let reqparam =
     {
       ProviderId: this.SelectedProvider.ProviderId,
       Accesss: !this.SelectedProvider.IsPrimaryProvider
     }
-
     this.adminservice.UpdateAccessProvider(reqparam).subscribe(resp => {
       if (resp.IsSuccess) {
         this.primaryProviderModal = 'none';
@@ -139,20 +137,16 @@ export class DashboardComponent implements OnInit {
     document.body.style.overflow = "auto";
   }
   // update trail/paid provider
-  changeTraiPaidStatus(item,event) {
-    console.log(item);
-    console.log(event.target.checked);
+  changeTraiPaidStatus(item, event) {
     let reqparam = {
       "ProviderId": item.ProviderId,
-      "Trail": event.target.checked ? null:30
+      "Trail": event.target.checked ? null : 30
     }
-
     let y = document.body.scrollTop;
-
     this.adminservice.UpdatedTrailStatus(reqparam).subscribe(resp => {
       if (resp.IsSuccess) {
         this.GetProivderList();
-        document.body.scrollTo(0,y);
+        document.body.scrollTo(0, y);
       }
     })
   }
@@ -168,18 +162,17 @@ export class DashboardComponent implements OnInit {
     }
     this.adminservice.UpdateLockedUser(reqparam).subscribe(resp => {
       if (resp.IsSuccess) {
-        if(item.Locked == true)
-      {
-        this.displayHeading = 'unlocked';
-        this.GetProivderList();
-        this.lockedModal = 'block';
-      }
-      else{
-        this.displayHeading = 'locked';
-        this.GetProivderList();
-        this.lockedModal = 'block';
-      }
-       
+        if (item.Locked == true) {
+          this.displayHeading = 'unlocked';
+          this.GetProivderList();
+          this.lockedModal = 'block';
+        }
+        else {
+          this.displayHeading = 'locked';
+          this.GetProivderList();
+          this.lockedModal = 'block';
+        }
+
       }
     });
   }
@@ -187,13 +180,13 @@ export class DashboardComponent implements OnInit {
 
 
   deactivateUser(event, item: ProviderList) {
-    let  user: NewUser = new NewUser();
+    let user: NewUser = new NewUser();
     user.UserId = item.UserId;
     user.Active = event.currentTarget.checked;
-    this.updateToggleUserFieldValues("Active",user)
+    this.updateToggleUserFieldValues("Active", user)
   }
 
- updateToggleUserFieldValues(fieldToUpdate: string, user: NewUser) {
+  updateToggleUserFieldValues(fieldToUpdate: string, user: NewUser) {
     var reqparams = {
       fieldToUpdate: fieldToUpdate,
       user: user
@@ -217,26 +210,32 @@ export class DashboardComponent implements OnInit {
       else if (content === this.UserDialogComponent) {
         this.DialogResponse = res.data;
       }
+      if (res.data != null) {
+        this.UpdateView(res.data);
+      }
     });
   }
 
+  UpdateView(data) {
+    if (data == null) return;
+    if (data.saved) {
+      this.GetProivderList();
+    }
+  }
+
   disableSwitchUser: boolean = false;
-  switchUser(provider: ProviderList)
-  {
+  switchUser(provider: ProviderList) {
     this.disableSwitchUser = true;
-    let switchKey: string  = provider.UserId +":" +provider.ProviderId;
-    this.adminservice.SwitchUserKey(provider).subscribe(resp =>{
-      if(resp.IsSuccess){
+    let switchKey: string = provider.UserId + ":" + provider.ProviderId;
+    this.adminservice.SwitchUserKey(provider).subscribe(resp => {
+      if (resp.IsSuccess) {
         let encKey = resp.Result;
-        this.authService.SwitchUser({SwitchUserKey:switchKey,SwitchUserEncKey:encKey}).subscribe(logresp =>{
+        this.authService.SwitchUser({ SwitchUserKey: switchKey, SwitchUserEncKey: encKey }).subscribe(logresp => {
           if (!logresp.IsSuccess) {
           }
         })
-      }else{
-        console.log(resp);
+      } else {
       }
     })
-
-
   }
 }

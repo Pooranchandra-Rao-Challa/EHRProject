@@ -169,7 +169,8 @@ input.new-search::placeholder {
 // card
 .patientChartTab {
   padding: 10px 20px;
-  // max-height: 700px;
+  max-height: 700px;
+  overflow-y: scroll;
   border-top: 3px solid #41b6a6;
 }
 

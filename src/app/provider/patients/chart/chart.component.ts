@@ -171,8 +171,6 @@ export class ChartComponent implements OnInit, AfterViewInit {
       })
   }
   onPatientSelected(selected) {
-    console.log(selected);
-
     //this.labandImaging.CurrentPatient = selected.option.value;
   }
   displayWithPatientSearch(value: PatientSearch): string {
@@ -697,6 +695,10 @@ export class ChartComponent implements OnInit, AfterViewInit {
     else {
       this.ImmunizationsByPatientId();
     }
+  }
+
+  gotoDiagnoses() {
+    document.getElementById("toDiagnoses").scrollIntoView();
   }
 
 }

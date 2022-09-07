@@ -380,7 +380,9 @@ mat-form-field{
 }
 .error_message i{
   font-size:14px;
-  color:chocolate;
+  font-style: normal;
+  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+  color: #d74842;
 }
 .required:before {
   content: "*" !important;

@@ -170,6 +170,7 @@ export class AlertMessage {
  * ----------------------------------------------------
  * Admin Module
  *
+ * Provider Registration : PR
  * Admins : A
  * Default Messages : DM
  *
@@ -498,6 +499,12 @@ export const ERROR_CODES: { [key: string]: string } = {
 
   // Error for Default messages
   'E1A001': 'Default messages updation error',
+
+    //Provider registration in admin module
+    'M1PR001': 'Default messages updated successfully',
+
+    // Error for Provider registration
+    'E1PR001': 'Default messages updation error',
 
   // Calendar Blockout messages
   'M2B1001': 'Blockout added successfully',

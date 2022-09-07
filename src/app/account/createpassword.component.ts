@@ -18,14 +18,13 @@ export class CreatePasswordComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private authService: AuthenticationService) {
-
-
-    }
+  }
 
   ngOnInit() {
     this.buildCreatePasswordForm();
     this.secureCred.Token = this.activatedRoute.snapshot.queryParams.token;
   }
+
   buildCreatePasswordForm() {
     this.createPasswordForm = this.fb.group({
       SecurityCode: ['', [Validators.required]],
@@ -38,13 +37,11 @@ export class CreatePasswordComponent implements OnInit {
   }
   get v() { return this.createPasswordForm.controls; }
 
-  UpdatePassword(){
-    
+  UpdatePassword() {
     let formValues = this.createPasswordForm.value;
     this.secureCred.Password = formValues.NewPassword;
     this.secureCred.SecurityCode = formValues.SecurityCode;
-    console.log(this.secureCred);
-    this.authService.SecurePasswordChangeForProvider(this.secureCred).subscribe(resp =>{
+    this.authService.SecurePasswordChangeForProvider(this.secureCred).subscribe(resp => {
       this.verifyMail(resp.IsSuccess);
     })
   }
@@ -57,6 +54,10 @@ export class CreatePasswordComponent implements OnInit {
         confirmButtonText: 'Close',
         width: '700'
 
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.router.navigate(['account/login']);
+        }
       });
     }
     else {
@@ -64,7 +65,8 @@ export class CreatePasswordComponent implements OnInit {
         title: 'Your email address has not-verified. Please contact to the admin.',
         text: 'Failed',
         width: '700',
-      })
+      });
     }
   }
 }
+
