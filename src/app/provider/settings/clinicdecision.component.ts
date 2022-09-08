@@ -240,7 +240,6 @@ export class ClinicDecisionComponent implements OnInit {
     this.step = index;
   }
   disablemedication(item, bool) {
-    debugger;
     item.isdisabled = bool;
     this.step = -1;
   }
