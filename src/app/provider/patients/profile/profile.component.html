@@ -90,7 +90,7 @@
                   Number</label>
                 <input class="input-group form-control ssno-emergencykin-phone"
                   [(ngModel)]="patientMyProfile.SSecuirtyNumber" placeholder="###-##-####" #ssn="ngModel"
-                  pattern="^(?!666|000|9\d{2})\d{3}-(?!00)\d{2}-(?!0{4})\d{4}$" type="text" id="PSSN">
+                  pattern="^(?!666|000|9\d{2})\d{3}-(?!00)\d{2}-(?!0{4})\d{4}$" type="text" id="PSSN" maxlength="11">
                 <mat-hint style="font-size:8pt">323-32-3424</mat-hint>
                 <div *ngIf="ssn.errors && (ssn.touched)" class="error-message-alignment">
                   <div class="error_message" *ngIf="ssn.errors?.pattern">
@@ -429,7 +429,13 @@
                 <label for="CELLPHONE" class="form-label label-design">Cell Phone</label>
                 <input class="input-group form-control" [(ngModel)]="patientMyProfile.MobilePhone"
                   placeholder="CELL PHONE" type="tel" id="CELLPHONE" mask=" (000) 000-0000" [showMaskTyped]="true"
-                  [patterns]="PhonePattern">
+                  [patterns]="PhonePattern" required #cellPhone="ngModel">
+                  <div *ngIf="cellPhone.errors && (cellPhone.touched)">
+                    <div class="error_message" *ngIf="cellPhone.errors?.pattern">
+                      <span class="e_arrow"></span>
+                      <p class="errormessage">Cell phone number should be 10 digits.</p>
+                    </div>
+                  </div>
 
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
@@ -438,7 +444,7 @@
                   pattern="^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$" #patientEmail="ngModel" type="text"
                   id="Email">
                 <div *ngIf="patientEmail.errors && (patientEmail.touched)">
-                  <div class="error_message" *ngIf="patientEmail.errors?.pattern">
+                  <div class="error_message" *ngIf="patientEmail.errors?.required">
                     <span class="e_arrow"></span>
                     <p class="errormessage">Enter email in correct format</p>
                   </div>
@@ -448,19 +454,25 @@
                 <label for="HOMEPHONE" class="form-label label-design">Home Phone</label>
                 <input class="input-group form-control" [(ngModel)]="patientMyProfile.PrimaryPhone"
                   placeholder="HOME PHONE" type="tel" id="HOME PHONE" mask=" (000) 000-0000" [showMaskTyped]="true"
-                  [patterns]="PhonePattern">
+                  [patterns]="PhonePattern" #homePhone="ngModel" required>
+                  <div *ngIf="homePhone.errors && (homePhone.touched)">
+                    <div class="error_message" *ngIf="homePhone.errors?.required">
+                      <span class="e_arrow"></span>
+                      <p class="errormessage">Home phone number should be 10 digits.</p>
+                    </div>
+                  </div>
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="WORKPHONE" class="form-label label-design">Work Phone</label>
                 <input class="input-group form-control" [(ngModel)]="patientMyProfile.WorkPhone"
                   placeholder="WORK PHONE" type="tel" id="WORK PHONE" mask=" (000) 000-0000" [showMaskTyped]="true"
-                  [patterns]="PhonePattern" #pWorkPhone="ngModel">
-                <!-- <div *ngIf="pWorkPhone.errors && (pWorkPhone.touched)">
-                    <div class="error_message" *ngIf="pWorkPhone.errors?.pattern">
+                  [patterns]="PhonePattern" #pWorkPhone="ngModel" required>
+                 <div *ngIf="pWorkPhone.errors && (pWorkPhone.touched)">
+                    <div class="error_message" *ngIf="pWorkPhone.errors?.required">
                       <span class="e_arrow"></span>
-                      <p class="errormessage">Work Phone number should be 10 digits.</p>
+                      <p class="errormessage">Work phone number should be 10 digits.</p>
                     </div>
-                  </div>  -->
+                  </div>
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="Ext*" class="form-label label-design">Ext</label>

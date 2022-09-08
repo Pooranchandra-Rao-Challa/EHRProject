@@ -26,17 +26,17 @@
                     <span class="input-group-addon labelclass form-control required">Location Name</span>
                     <input class="form-control mx-0 inputclass" type="text" [(ngModel)]="PracticeLocData.LocationName"
                       id="locationName" name="locationName" placeholder="Location Name" #locationName="ngModel" required
-                      pattern="[a-zA-Z\s*]*" />
+                      alphaOnly />
                   </div>
                   <div *ngIf="locationName.errors && (locationName.touched)">
                     <div class="error_message" *ngIf="locationName.errors?.required">
                       <span class="e_arrow"></span>
-                      <i class="errormessage">Please enter Location Name</i>
+                      <p class="errormessage">Please enter location name</p>
                     </div>
-                    <div class="error_message" *ngIf="locationName.errors?.pattern">
+                    <!-- <div class="error_message" *ngIf="locationName.errors?.pattern">
                       <span class="e_arrow"></span>
-                      <i>Location name not valid, Use only Alphabets and space</i>
-                    </div>
+                      <p>Location name not valid, Use only Alphabets and space</p>
+                    </div> -->
                   </div>
                 </div>
               </div>
@@ -100,7 +100,7 @@
                           <input [readonly]="!disableaddressverification" placeholder="Street Address"
                             style="background: white" class="form-control mx-0 inputclass"
                             [(ngModel)]="PracticeLocData.StreetAddress" #streetAddress required mouse-over-hint
-                            tickImagePath="assets/images/tick-mark.svg" crossImagePath="assets/images/cross-mark.svg" />
+                            tickImagePath="assets/images/tick-mark.svg" crossImagePath="assets/images/cross-mark.svg" [class.address-verfied]="!manuallybtn" />
                           <button type="button" class="btn cross-mark error-close"
                             *ngIf="addressVerfied && !manuallybtn" (click)="enableManualEntry()"
                             title="Can enter manully when the verification results are in correct by clicking this icon">x</button>
@@ -123,10 +123,10 @@
                   <div class="form-group">
                     <div class="input-group">
                       <span class="input-group-addon labelclass form-control">City</span>
-                      <input [readonly]="!disableaddressverification" class="string required inputbg form-control mx-0"
+                      <input [readonly]="!disableaddressverification" class="string required inputbg form-control inputclass mx-0"
                         type="text" required name="City" id="City" mouse-over-hint
                         tickImagePath="assets/images/tick-mark.svg" crossImagePath="assets/images/cross-mark.svg"
-                        [(ngModel)]="PracticeLocData.City">
+                        [(ngModel)]="PracticeLocData.City" [class.address-verfied]="!manuallybtn">
                     </div>
                   </div>
                 </div>
@@ -134,10 +134,10 @@
                   <div class="form-group">
                     <div class="input-group">
                       <span class="input-group-addon labelclass form-control">State</span>
-                      <input [readonly]="!disableaddressverification" class="string required inputbg form-control mx-0"
+                      <input [readonly]="!disableaddressverification" class="string required inputbg form-control inputclass mx-0"
                         type="text" name="State" id="State" required mouse-over-hint
                         tickImagePath="assets/images/tick-mark.svg" crossImagePath="assets/images/cross-mark.svg"
-                        [(ngModel)]="PracticeLocData.State">
+                        [(ngModel)]="PracticeLocData.State" [class.address-verfied]="!manuallybtn">
                     </div>
                   </div>
                 </div>
@@ -146,10 +146,10 @@
                     <div class="input-group">
                       <span class="input-group-addon labelclass form-control">Zip</span>
                       <input class="form-conrtol" [readonly]="!disableaddressverification"
-                        class="string required inputbg form-control mx-0" required mouse-over-hint
+                        class="string required inputbg form-control inputclass mx-0" required mouse-over-hint
                         tickImagePath="assets/images/tick-mark.svg" crossImagePath="assets/images/cross-mark.svg"
                         type="text" name="Zip" id="Zip"
-                        [(ngModel)]="PracticeLocData.Zipcode">
+                        [(ngModel)]="PracticeLocData.Zipcode" [class.address-verfied]="!manuallybtn">
                     </div>
                   </div>
                 </div>
@@ -163,7 +163,7 @@
               <div class="form-group">
                 <div class="input-group">
                   <span class="input-group-addon labelclass form-control">Organization NPI:</span>
-                  <input class="form-control mx-0 inputclass"  type="text" [(ngModel)]="PracticeLocData.NPI">
+                  <input class="form-control mx-0 inputclass"  type="text" [(ngModel)]="PracticeLocData.NPI" maxlength="10">
                 </div>
               </div>
             </div>
@@ -173,7 +173,7 @@
               <div class="form-group">
                 <div class="input-group">
                   <span class="input-group-addon labelclass form-control">Rendering NPI:</span>
-                  <input class="form-control mx-0 inputclass" type="text" [(ngModel)]="PracticeLocData.RenderNPI">
+                  <input class="form-control mx-0 inputclass" type="text" [(ngModel)]="PracticeLocData.RenderNPI" maxlength="10">
                 </div>
               </div>
             </div>
@@ -188,7 +188,7 @@
                 </div>
                 <div class="error_message" *ngIf="tinein.errors?.pattern">
                   <span class="e_arrow"></span>
-                  <i>Enter only 9 digit number.</i>
+                  <p class="errormessage">Enter only 9 digit number.</p>
                 </div>
               </div>
             </div>
@@ -444,7 +444,7 @@
         </button>
         <button type="button" class="btn btn-green" *ngIf="!saving" [disabled]="enableSave()" (click)="updateLocation()"
           style="float: right;">
-          Save Changes
+          Save 
         </button>
       </div>
 

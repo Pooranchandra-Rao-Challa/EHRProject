@@ -428,7 +428,7 @@ export class ScheduleComponent implements OnInit {
       this.settingsService.DropAppointmentType(typeId).subscribe(resp => {
         if (resp.IsSuccess) {
           this.getAppointmentType();
-          this.alertmsg.displayMessageDailog(ERROR_CODES["M2JSAT003"]);
+          this.alertmsg.displayErrorDailog(ERROR_CODES["M2JSAT003"]);
         }
         else {
           this.getAppointmentType();

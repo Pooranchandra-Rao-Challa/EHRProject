@@ -240,7 +240,7 @@ export const ERROR_CODES: { [key: string]: string } = {
 
   //Security Question
   'M2CP009':  'Security question is updated successfully ',
-  'M2CP0010': 'Address verification',
+  'M2CP0010': 'Address verified successfully',
   'M2CP0011': 'Authorized representative added sucessfully',
   'M2CP0012': 'Authorized representative updated sucessfully',
 
@@ -253,7 +253,7 @@ export const ERROR_CODES: { [key: string]: string } = {
   'E2CP006': 'Next of kin Updation error',
   'E2CP007': 'Immunization Updation error',
   'E2CP008': 'Security Question Updation Error',
-  'E2CP009': 'Address Verification Failed',
+  'E2CP009': 'Address verification failed',
   'E2CP0010': 'Authorized representative failed',
   //Message for Partner signup
   'M3PS001': 'Application Submitted!',
