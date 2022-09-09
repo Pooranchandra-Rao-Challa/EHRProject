@@ -48,8 +48,15 @@
                     <span class="input-group-addon labelclass form-control">Phone Number</span>
                     <input class="form-control mx-0 inputclass" placeholder="Cell Phone" type="tel" prefix="+1"
                       [(ngModel)]="PracticeLocData.LocationPhone" mask=" (000) 000-0000" [showMaskTyped]="true"
-                      [patterns]="PhonePattern" />
-                  </div>
+                      #locationPhone="ngModel" />
+                    </div>
+                      <div *ngIf="locationPhone.errors && (locationPhone.touched)">
+                        <div class="error_message" *ngIf="locationPhone.errors?.mask">
+                          <span class="e_arrow"></span>
+                          <p class="errormessage"> Phone number should be 10 digits.</p>
+                        </div>
+                      </div>
+                 
                 </div>
               </div>
             </div>
@@ -60,8 +67,15 @@
                     <span class="input-group-addon labelclass form-control">Fax</span>
                     <input class="form-control mx-0 inputclass" placeholder="Cell Phone" type="tel" prefix="+1"
                       [(ngModel)]="PracticeLocData.Fax" mask=" (000) 000-0000" [showMaskTyped]="true"
-                      [patterns]="PhonePattern" />
-                  </div>
+                     #fax="ngModel" />
+                    </div>
+                      <div *ngIf="fax.errors && (fax.touched)">
+                        <div class="error_message" *ngIf="fax.errors?.mask">
+                          <span class="e_arrow"></span>
+                          <p class="errormessage"> Fax number should be 10 digits.</p>
+                        </div>
+                      </div>
+                 
                 </div>
               </div>
             </div>

@@ -182,7 +182,7 @@
 
               <div class="col-lg-6 col-md-6 col-xl-6 col-12 my-2">
                 <label for="RELATION" class="label-design required">Relation To Patient</label>
-                <div class="form-group">
+         
                   <mat-form-field appearance="outline" class="col-12">
                     <mat-select placeholder="Select Patient Relation" required #EMPatientRelationship="ngModel"
                       [(ngModel)]="patientMyProfile.RelationshipToPatient">
@@ -193,13 +193,19 @@
                   </mat-form-field>
 
 
-                </div>
+               
               </div>
 
               <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
                 <label for="PHONE" class="form-label label-design">Phone</label>
                 <input class="input-group form-control" [(ngModel)]="patientMyProfile.Phone" placeholder="Cell PHONE"
-                  type="tel" id="PHONE" mask=" (000) 000-0000" [showMaskTyped]="true" [patterns]="PhonePattern">
+                  type="tel" id="PHONE" mask=" (000) 000-0000" [showMaskTyped]="true"  #phone="ngModel" prefix="+1">
+                  <div *ngIf="phone.errors && (phone.touched)">
+                    <div class="error_message" *ngIf="phone.errors?.mask">
+                      <span class="e_arrow"></span>
+                      <p class="errormessage"> Phone number should be 10 digits.</p>
+                    </div>
+                  </div>
               </div>
 
               <div class="col-lg-12 col-md-12 col-xl-12 col-12 my-2">
@@ -353,7 +359,14 @@
                 <label for="SEX" class="input-marign-alignments label-design">Phone</label>
                 <input class="input-group form-control ssno-emergencykin-phone"
                   [(ngModel)]="patientMyProfile.NKMobilePhone" placeholder="Cell PHONE" type="text" id="NkMobilePhone"
-                  mask=" (000) 000-0000" [showMaskTyped]="true" [patterns]="PhonePattern">
+                  mask=" (000) 000-0000" [showMaskTyped]="true" #nkMobilePhone="ngModel" prefix="+1">
+                  <div *ngIf="nkMobilePhone.errors && (nkMobilePhone.touched)">
+                    <div class="error_message" *ngIf="nkMobilePhone.errors?.mask">
+                      <span class="e_arrow"></span>
+                      <p class="errormessage"> Phone number should be 10 digits.</p>
+                    </div>
+                  </div>
+                  
               </div>
               <div class="col-lg-12 col-md-12 col-12 my-2">
                 <label for="NKStreetAddress*" class="form-label label-design">Address</label>
@@ -429,9 +442,9 @@
                 <label for="CELLPHONE" class="form-label label-design">Cell Phone</label>
                 <input class="input-group form-control" [(ngModel)]="patientMyProfile.MobilePhone"
                   placeholder="CELL PHONE" type="tel" id="CELLPHONE" mask=" (000) 000-0000" [showMaskTyped]="true"
-                  [patterns]="PhonePattern" required #cellPhone="ngModel">
+                   required #cellPhone="ngModel" prefix="+1">
                   <div *ngIf="cellPhone.errors && (cellPhone.touched)">
-                    <div class="error_message" *ngIf="cellPhone.errors?.pattern">
+                    <div class="error_message" *ngIf="cellPhone.errors?.mask">
                       <span class="e_arrow"></span>
                       <p class="errormessage">Cell phone number should be 10 digits.</p>
                     </div>
@@ -454,9 +467,9 @@
                 <label for="HOMEPHONE" class="form-label label-design">Home Phone</label>
                 <input class="input-group form-control" [(ngModel)]="patientMyProfile.PrimaryPhone"
                   placeholder="HOME PHONE" type="tel" id="HOME PHONE" mask=" (000) 000-0000" [showMaskTyped]="true"
-                  [patterns]="PhonePattern" #homePhone="ngModel" required>
+                   #homePhone="ngModel" required prefix="+1">
                   <div *ngIf="homePhone.errors && (homePhone.touched)">
-                    <div class="error_message" *ngIf="homePhone.errors?.required">
+                    <div class="error_message" *ngIf="homePhone.errors?.mask">
                       <span class="e_arrow"></span>
                       <p class="errormessage">Home phone number should be 10 digits.</p>
                     </div>
@@ -466,9 +479,9 @@
                 <label for="WORKPHONE" class="form-label label-design">Work Phone</label>
                 <input class="input-group form-control" [(ngModel)]="patientMyProfile.WorkPhone"
                   placeholder="WORK PHONE" type="tel" id="WORK PHONE" mask=" (000) 000-0000" [showMaskTyped]="true"
-                  [patterns]="PhonePattern" #pWorkPhone="ngModel" required>
+                  #pWorkPhone="ngModel" required prefix="+1">
                  <div *ngIf="pWorkPhone.errors && (pWorkPhone.touched)">
-                    <div class="error_message" *ngIf="pWorkPhone.errors?.required">
+                    <div class="error_message" *ngIf="pWorkPhone.errors?.mask">
                       <span class="e_arrow"></span>
                       <p class="errormessage">Work phone number should be 10 digits.</p>
                     </div>

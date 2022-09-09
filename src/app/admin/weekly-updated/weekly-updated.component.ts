@@ -57,7 +57,6 @@ export class WeeklyUpdatedComponent implements OnInit {
   }
 
   filterDropdown(e) {
-    debugger;
     window.scrollTo(window.scrollX, window.scrollY + 1);
     let searchString = e.toLowerCase();
     if (!searchString) {

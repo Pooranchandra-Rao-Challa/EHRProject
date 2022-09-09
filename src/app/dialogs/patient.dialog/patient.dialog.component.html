@@ -96,8 +96,14 @@
             <label class="control-label input-group-addon">Cell Phone</label>
             <input class="form-control" placeholder="Cell Phone" type="tel" mask=" (000) 000-0000" 
                [showMaskTyped]="true" [patterns]="PhonePattern"
-              [(ngModel)]="PatientData.CellPhone" prefix="+1"  />
+              [(ngModel)]="PatientData.CellPhone" prefix="+1" required #cellPhone="ngModel" />
           
+          </div>
+          <div *ngIf="cellPhone.errors && (cellPhone.touched)">
+            <div class="error_message" *ngIf="cellPhone.errors?.mask">
+              <span class="e_arrow"></span>
+              <p class="errormessage"> Phone number should be 10 digits.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -107,7 +113,13 @@
             <label class="control-label input-group-addon">Home Phone</label>
             <input class="form-control"  [(ngModel)]="PatientData.Homephone"  type="tel" mask=" (000) 000-0000" 
               [showMaskTyped]="true" [patterns]="PhonePattern" 
-              />
+              prefix="+1" #homePhone="ngModel" required  prefix="+1" />
+          </div>
+          <div *ngIf="homePhone.errors && (homePhone.touched)">
+            <div class="error_message" *ngIf="homePhone.errors?.mask">
+              <span class="e_arrow"></span>
+              <p class="errormessage"> Phone number should be 10 digits.</p>
+            </div>
           </div>
         </div>
       </div>
