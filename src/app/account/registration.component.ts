@@ -4,6 +4,7 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Vali
 import Swal from 'sweetalert2';
 import { Accountservice } from '../_services/account.service';
 import { ViewModel, Registration } from '../_models/_account/registration';
+import { Router } from '@angular/router';
 
 
 declare var $: any;
@@ -37,9 +38,13 @@ export class RegistrationComponent implements OnInit {
   url: string;
 
   constructor(private fb: FormBuilder, private accountservice: Accountservice,
+    private router: Router,
     private plaformLocation: PlatformLocation) {
+    this.url = plaformLocation.href.replace(plaformLocation.pathname, '/');
+    if (plaformLocation.href.indexOf('?') > -1)
+      this.url = plaformLocation.href.substring(0, plaformLocation.href.indexOf('?')).replace(plaformLocation.pathname, '/');
 
-    this.url = plaformLocation.href.substring(0, plaformLocation.href.indexOf('?')).replace(plaformLocation.pathname, '/');
+
     this.PhonePattern = {
       0: {
         pattern: new RegExp('\\d'),
@@ -151,7 +156,7 @@ export class RegistrationComponent implements OnInit {
 
   buildPersonalForm() {
     this.PersonalInfo = this.fb.group({
-      Title: [],
+      Title: ['', [Validators.required]],
       FirstName: ['', [Validators.required, Validators.pattern(/^[A-Za-z_-\s]+$/)]],
       MiddleName: ['', [Validators.pattern(/^[A-Za-z_-\s]+$/)]],
       LastName: ['', [Validators.required, Validators.pattern(/^[A-Za-z_-\s]+$/)]],
@@ -159,12 +164,15 @@ export class RegistrationComponent implements OnInit {
       PracticeName: ['', [Validators.required, Validators.pattern(/^[A-Za-z_-\s]+$/)]],
       Degree: ['', [Validators.required],],
       Speciality: ['', [Validators.required]],
-      NPI: ['', Validators.compose([Validators.required, this.npiValidator()])],
+      NPI: ['', [Validators.required, this.npiValidator()]],
 
     })
     this.PersonalInfo.get('Title').setValue('Dr')
   }
 
+  get title() {
+    return this.PersonalInfo.get('Title');
+  }
   get firstName() {
     return this.PersonalInfo.get('FirstName');
   }
@@ -183,7 +191,7 @@ export class RegistrationComponent implements OnInit {
   get specialityvalue() {
     return this.PersonalInfo.get('Speciality');
   }
-  get NPI() {
+  get npi() {
     return this.PersonalInfo.get('NPI');
   }
 
@@ -337,6 +345,7 @@ export class RegistrationComponent implements OnInit {
     this.accountservice.RegisterNewProvider(reqparams).subscribe(resp => {
       if (resp.IsSuccess) {
         this.alertWithSuccess();
+        this.router.navigate(['/account/home']);
       }
       else {
         Swal.fire({
@@ -357,7 +366,7 @@ export class RegistrationComponent implements OnInit {
   alertWithSuccess() {
     Swal.fire({
       icon: 'success',
-      title: 'Thank you for registering for an EHR1 Account! An email with instructions for how to complete  setup of your account has been sent to ' + this.AccountDetails.Email,
+      title: 'Thank you for registering in an EHR1 Account! An email with instructions for how to complete  setup of your account has been sent to ' + this.AccountDetails.Email,
       showConfirmButton: true,
       confirmButtonText: 'Close',
       width: '700',

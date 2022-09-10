@@ -46,6 +46,8 @@ export class AddUserDialogComponent implements OnInit {
   user: User
   phonePattern = /^[0-9]{10}/;
   emailPattern = /^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$/;
+  emailVerfied?: boolean = null;
+  emailVerficationMessage?: string;
 
   constructor(private ref: EHROverlayRef,
     private authService: AuthenticationService,
@@ -53,8 +55,12 @@ export class AddUserDialogComponent implements OnInit {
     private accountservice: Accountservice,
     private plaformLocation: PlatformLocation,
     private idService: IdService) {
-    this.url = plaformLocation.href.substring(0, plaformLocation.href.indexOf('?')).replace(plaformLocation.pathname, '/');
+    this.url = plaformLocation.href.replace(plaformLocation.pathname, '/');
+    if (plaformLocation.href.indexOf('?') > -1)
+      this.url = plaformLocation.href.substring(0, plaformLocation.href.indexOf('?')).replace(plaformLocation.pathname, '/');
     this.user = authService.userValue;
+    console.log(this.newUser);
+
 
     this.PhonePattern = {
       0: {
@@ -69,6 +75,17 @@ export class AddUserDialogComponent implements OnInit {
     this.filteredOptionsSecondary = this.myControlSecondary.valueChanges.pipe(startWith(''), map(valueS => this._filterAreaCode(valueS)));
     this.loadDefaults();
     this.newUser.EPrescribeFrom = 'none';
+  }
+
+
+  checkEmailExistance() {
+
+    if (this.emailPattern.test(this.newUser.Email))
+      this.accountservice.CheckEmailAvailablity({ Email: this.newUser.Email }).subscribe((resp) => {
+        this.emailVerfied = resp.IsSuccess;
+        this.emailVerficationMessage = resp.EndUserMessage
+      })
+    else this.emailVerfied = null;
   }
 
   private _filterAreaCode(value: string): string[] {
@@ -207,11 +224,18 @@ export class AddUserDialogComponent implements OnInit {
   alertWithSuccess() {
     Swal.fire({
       position: 'top',
-      icon: 'success',
+      //icon: 'success',
       title: 'Thank you for registering for an EHR1 Account! An email with instructions for how to complete  setup of your account has been sent to ' + this.newUser.Email,
-      showConfirmButton: true,
       confirmButtonText: 'Close',
       width: '700',
+      customClass: {
+        cancelButton: 'admin-cancel-button',
+        title: "admin-swal2-styled"
+      },
+      background: '#f9f9f9',
+      showCancelButton: true,
+      showConfirmButton: false,
+      backdrop: true,
     });
   }
 
@@ -231,7 +255,7 @@ export class AddUserDialogComponent implements OnInit {
         && this.newUser.ProviderPassword != null && this.newUser.ProviderPassword != ""
         && this.newUser.PracticeUsername != null && this.newUser.PracticeUsername != ""
         && this.newUser.PracticePassword != null && this.newUser.PracticePassword != ""
-        && this.newUser.UserExternalId != null && this.newUser.UserExternalId != ""
+        // && this.newUser.UserExternalId != null && this.newUser.UserExternalId != ""
       ) ||
       this.newUser.EPrescribeFrom == 'none' || this.newUser.EPrescribeFrom == undefined
 

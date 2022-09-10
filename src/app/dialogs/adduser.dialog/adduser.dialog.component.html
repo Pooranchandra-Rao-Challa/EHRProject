@@ -1,4 +1,4 @@
-<div class="modal-dialog appointment-form">
+<div class="modal-dialog add-edit-user-form">
   <div class="modal-content modal-cust-content">
     <div class="modal-header modal-cust-header">
       <h1 class="modal-title modal-cust-title">New User</h1>
@@ -6,7 +6,7 @@
         x
       </span>
     </div>
-    <div class="modal-body model-cust-body">
+    <div class="modal-body model-cust-body body-scroller">
       <div class="row">
       </div>
       <div class="row row-border mx-2">
@@ -14,54 +14,86 @@
           <div class="row  mt-3">
             <div class="col-lg-3 col-md-12 col-12 mb-3">
               <label class="form-label required">Title</label>
-              <select id="LogoType" name="LogoType" class="form-select" [(ngModel)]="newUser.Title">
+              <select id="LogoType" name="LogoType" class="form-select" [(ngModel)]="newUser.Title" #title="ngModel"
+                required>
                 <option *ngFor="let title of titles" [value]="title.Name">
                   {{title.Name}}
                 </option>
               </select>
+              <div *ngIf="title.errors && title.touched ">
+                <div class="error_message" *ngIf="title.errors?.required">
+                  <p class="errormessage">Please select Title</p>
+                </div>
+              </div>
             </div>
             <div class="col-lg-9 col-md-12 col-12 ">
               <label class="form-label required">First Name</label>
-              <input matInput class="form-control text-design" type="text" placeholder="First Name" id="firstName" alphaOnly
-                name="firstName" [(ngModel)]="newUser.FirstName">
+              <input matInput class="form-control text-design" required type="text" placeholder="First Name"
+                id="firstName" alphaOnly name="firstName" [(ngModel)]="newUser.FirstName" #firstname="ngModel">
+              <div *ngIf="firstname.errors && firstname.touched ">
+                <div class="error_message" *ngIf="firstname.errors?.required">
+                  <p class="errormessage">Please enter first name</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
         <div class="col-lg-2 col-md-12 col-12 mt-3">
           <label class="form-label">Middle Name</label>
-          <input matInput class="form-control text-design" type="text" placeholder="Middle Name" id="MiddleName" alphaOnly
-            name="MiddleName" [(ngModel)]="newUser.MiddleName">
+          <input matInput class="form-control text-design" type="text" placeholder="Middle Name" id="MiddleName"
+            alphaOnly name="MiddleName" [(ngModel)]="newUser.MiddleName">
 
         </div>
         <div class="col-lg-5 col-md-12 col-12  mt-3 mb-2">
           <label class="form-label required">Last Name</label>
           <input matInput class="form-control text-design" type="text" placeholder="Last Name" id="LastName" alphaOnly
-            name="LastName" [(ngModel)]="newUser.LastName">
+            name="LastName" [(ngModel)]="newUser.LastName" required #lastname="ngModel">
+          <div *ngIf="lastname.errors && lastname.touched ">
+            <div class="error_message" *ngIf="lastname.errors?.required">
+              <p class="errormessage">Please enter last name</p>
+            </div>
+          </div>
         </div>
         <div class="row my-2">
           <div class="col-lg-4 col-md-12 col-12 mb-3">
             <label class="form-label required">Degree</label>
-            <select id="degrees" name="degrees" class="form-select" [(ngModel)]="newUser.Degree">
+            <select class="form-select" [(ngModel)]="newUser.Degree" #degree="ngModel" required>
               <option *ngFor="let dg of degrees" [value]="dg.Name">
                 {{dg.Name}}
               </option>
             </select>
+            <div *ngIf="degree.errors && degree.touched ">
+              <div class="error_message" *ngIf="degree.errors?.required">
+                <p class="errormessage">Please select Degree</p>
+              </div>
+            </div>
           </div>
           <div class="col-lg-4 col-md-12 col-12  mb-3">
             <label class="form-label required">Speciality</label>
-            <select id="speciality" name="speciality" class="form-select" [(ngModel)]="newUser.Speciality">
+            <select id="speciality" name="speciality" class="form-select" [(ngModel)]="newUser.Speciality"
+              #speciality="ngModel" required>
               <option *ngFor="let speciality of specialities" [value]="speciality.Name">
                 {{speciality.Name}}
               </option>
             </select>
+            <div *ngIf="speciality.errors && speciality.touched ">
+              <div class="error_message" *ngIf="speciality.errors?.required">
+                <p class="errormessage">Please select Speciality</p>
+              </div>
+            </div>
           </div>
           <div class="col-lg-4 col-md-12 col-12">
             <label class="form-label required">NPI</label>
             <input matInput class="form-control text-design npi-width" type="text" pattern="^[0-9]{10}$" required
               #npi="ngModel" maxlength="10" npiValidator placeholder="National Provider Identifier(NPI)" #numberMask
-              numberMask="9999999999"
-              [(ngModel)]="newUser.NPI" [ngClass]="{'is-invalid' : (npi.touched || npi.dirty) && !npi.valid }">
+              numberMask="9999999999" [(ngModel)]="newUser.NPI"
+              [ngClass]="{'is-invalid' : (npi.touched || npi.dirty) && !npi.valid }">
+            <div *ngIf="npi.errors && npi.touched ">
+              <div class="error_message" *ngIf="npi.errors?.required">
+                <p class="errormessage">Please enter NPI</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -73,7 +105,12 @@
             <label class="form-label required">Street Address</label>
             <div class="col-md-10">
               <input matInput type="input" class="form-control text-design" placeholder="Street Address"
-                id="StreedAddress" name="StreedAddress" [(ngModel)]="newUser.Address">
+                id="StreedAddress" name="StreedAddress" [(ngModel)]="newUser.Address" #address="ngModel" required>
+              <div *ngIf="address.errors && address.touched ">
+                <div class="error_message" *ngIf="address.errors?.required">
+                  <p class="errormessage">Please enter Street Address</p>
+                </div>
+              </div>
             </div>
             <div class="col-md-2">
               <button mat-button class="cancel-button reg-button col-md-12"
@@ -119,8 +156,14 @@
             </mat-form-field>
             <mat-form-field appearance="outline" class="example-width">
               <input matInput placeholder="Primary Phone Number" class="cstm-tel" type="tel" mask="000-0000"
-                [showMaskTyped]="true" [patterns]="PhonePattern" [(ngModel)]="newUser.PrimaryPhoneSuffix">
+                [showMaskTyped]="true" [patterns]="PhonePattern" required #primaryphone="ngModel"
+                [(ngModel)]="newUser.PrimaryPhoneSuffix">
             </mat-form-field>
+            <div *ngIf="primaryphone.errors && primaryphone.touched" style="margin: -20px 0 0 0">
+              <div class="error_message" *ngIf="primaryphone.errors?.required">
+                <p class="errormessage">Please enter primary phone</p>
+              </div>
+            </div>
           </div>
         </div>
         <div class="col-lg-6 col-md-12 col-sm-12 col-12 mr-3 mt-3">
@@ -146,16 +189,37 @@
 
         <div class="col-lg-4 col-md-12 col-sm-12 col-12 mb-4">
           <label class="form-label required">Practice/Clinic</label>
-          <select placeholder="Select one clinic"  id="clinics" name="clinics" class="form-select" [(ngModel)]="newUser.ClinicId">
+          <select placeholder="Select one clinic" id="clinics" name="clinics" class="form-select"
+            [(ngModel)]="newUser.ClinicId" #clinic="ngModel" required>
             <option *ngFor="let clinic of Clinics" [value]="clinic.ClinicId">
               {{clinic.ClinicName}}
             </option>
           </select>
+          <div *ngIf="clinic.errors && clinic.touched ">
+            <div class="error_message" *ngIf="clinic.errors?.required">
+              <p class="errormessage">Please select the Practice</p>
+            </div>
+          </div>
         </div>
         <div class="col-lg-4 col-md-12 col-sm-12 col-12 mb-4">
           <label class="form-label required">Primary Email Address</label>
           <input matInput type="input" class="form-control text-design" id="PrimaryEmail" name="PrimaryEmail"
-            placeholder="Primary Email Address" [(ngModel)]="newUser.Email">
+            placeholder="Primary Email Address" [(ngModel)]="newUser.Email" #primaryEmail="ngModel" required
+            (keyup)="checkEmailExistance()" pattern="^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$">
+          <div *ngIf="primaryEmail.errors && primaryEmail.touched ">
+            <div class="error_message" *ngIf="primaryEmail.errors?.required">
+              <p class="errormessage">Please enter Primary Email</p>
+            </div>
+            <div class="error_message" *ngIf="primaryEmail.errors?.pattern">
+              <p class="errormessage">Please enter valid Email</p>
+            </div>
+          </div>
+          <div *ngIf="emailVerfied != null">
+            <div [class.error_message]="!emailVerfied" [class.success_message]="emailVerfied">
+              <p [class.error_message]="!emailVerfied" [class.success_message]="emailVerfied">
+                {{emailVerficationMessage}}</p>
+            </div>
+          </div>
         </div>
 
         <div class="col-lg-4 col-md-12 col-sm-12 col-12 mb-4">
@@ -175,9 +239,9 @@
                   class="custom-control-input" id="EPrescribeFrom" name="EPrescribeFrom">
                 <label class="custom-control-label mx-2" for="None">None</label>
 
-                <input type="radio" groupname="EprescribeFrom" class="custom-control-input mx-3 " id="EPrescribeFrom"
+                <!-- <input type="radio" groupname="EprescribeFrom" class="custom-control-input mx-3 " id="EPrescribeFrom"
                   name="EPrescribeFrom" [(ngModel)]="newUser.EPrescribeFrom" value="dosespot">
-                <label class="custom-control-label" for="Dosespot">Dosespot</label>
+                <label class="custom-control-label" for="Dosespot">Dosespot</label> -->
 
                 <input type="radio" groupname="EprescribeFrom" class="custom-control-input mx-3 radio-btn"
                   id="EPrescribeFrom" name="EPrescribeFrom" [(ngModel)]="newUser.EPrescribeFrom" value="drfirst">
@@ -187,7 +251,7 @@
           </div>
         </div>
 
-        <div class="row-border row-align">
+        <div class="row-border row-align" *ngIf="false">
           <div class="row mb-4">
             <p class="mt-3">ERX Details</p>
             <!-- col-lg-12 col-md-12 col-sm-12 col-12 mt-1 d-inline-flex -->
@@ -228,24 +292,41 @@
               <label for="RcopiaUsername" class="form-label" [class.required]="newUser.EPrescribeFrom=='drfirst'">
                 Rcopia User Name (Practice Username)</label>
               <input type="text" class="form-control text-design" [disabled]="user.Role=='compliance'"
-                id="RcopiaUsername" name="RcopiaUsername" placeholder="Rcopia Username"
-                [(ngModel)]="newUser.PracticeUsername">
+                id="RcopiaUsername" name="RcopiaUsername" placeholder="Rcopia Username" #rcopiauser="ngModel"
+                [required]="newUser.EPrescribeFrom=='drfirst'" [(ngModel)]="newUser.PracticeUsername">
+              <div *ngIf="rcopiauser.errors && rcopiauser.touched && newUser.EPrescribeFrom=='drfirst'">
+                <div class="error_message" *ngIf="rcopiauser.errors?.required">
+                  <p class="errormessage">Please enter Rcopia User Name</p>
+                </div>
+              </div>
             </div>
 
             <div class="col-lg-4 col-md-12 col-sm-12 col-12 mt-3">
               <label for="VendorUsername" class="form-label" [class.required]="newUser.EPrescribeFrom=='drfirst'">Vendor
                 Username</label>
               <input type="text" class="form-control text-design" [disabled]="user.Role=='compliance'"
-                id="VendorUsername" name="VendorUsername" placeholder="Vendor Username"
-                [(ngModel)]="newUser.VendorUsername">
+                id="VendorUsername" name="VendorUsername" placeholder="Vendor Username" #vendorusername="ngModel"
+                [required]="newUser.EPrescribeFrom=='drfirst'" [(ngModel)]="newUser.VendorUsername">
+              <div *ngIf="vendorusername.errors && vendorusername.touched && newUser.EPrescribeFrom=='drfirst'">
+                <div class="error_message" *ngIf="vendorusername.errors?.required">
+                  <p class="errormessage">Please enter Vendor
+                    Username</p>
+                </div>
+              </div>
             </div>
 
             <div class="col-lg-4 col-md-12 col-sm-12 col-12 mt-3">
               <label for="RcopiaUsername" class="form-label" [class.required]="newUser.EPrescribeFrom=='drfirst'">Rcopia
                 User ID (Provider Username)</label>
               <input type="text" class="form-control text-design" [disabled]="user.Role=='compliance'"
-                id="ProviderUsername" name="ProviderUsername" placeholder="Rcopia Username"
-                [(ngModel)]="newUser.ProviderUsername">
+                id="ProviderUsername" name="ProviderUsername" placeholder="Rcopia Username" #rocipiauserid="ngModel"
+                [(ngModel)]="newUser.ProviderUsername" [required]="newUser.EPrescribeFrom=='drfirst'">
+              <div *ngIf="rocipiauserid.errors && rocipiauserid.touched && newUser.EPrescribeFrom=='drfirst'">
+                <div class="error_message" *ngIf="rocipiauserid.errors?.required">
+                  <p class="errormessage">Please enter Rcopia
+                    User ID</p>
+                </div>
+              </div>
             </div>
 
             <div class="col-lg-4 col-md-12 col-sm-12 col-12 mt-3">
@@ -254,15 +335,27 @@
                 Password)</label>
               <input type="text" class="form-control text-design" [disabled]="user.Role=='compliance'"
                 id="PracticePassword" name="PracticePassword" placeholder="Practice Password"
-                [(ngModel)]="newUser.PracticePassword">
+                #rcopiauserpassword="ngModel" [(ngModel)]="newUser.PracticePassword"
+                [required]="newUser.EPrescribeFrom=='drfirst'">
+              <div *ngIf="rcopiauserpassword.errors && rcopiauserpassword.touched && newUser.EPrescribeFrom=='drfirst'">
+                <div class="error_message" *ngIf="rcopiauserpassword.errors?.required">
+                  <p class="errormessage">Please enter Rcopia User Name Password</p>
+                </div>
+              </div>
             </div>
 
             <div class="col-lg-4 col-md-12 col-sm-12 col-12 mt-3">
               <label for="VendorPassword" class="form-label" [class.required]="newUser.EPrescribeFrom=='drfirst'">Vendor
                 Password (Secret Key)</label>
               <input type="text" class="form-control text-design" [disabled]="user.Role=='compliance'"
-                id="VendorPassword" name="VendorPassword" placeholder="Vendor Password"
-                [(ngModel)]="newUser.VendorSecretKey">
+                id="VendorPassword" name="VendorPassword" placeholder="Vendor Password" #vendorpassword="ngModel"
+                [(ngModel)]="newUser.VendorSecretKey" [required]="newUser.EPrescribeFrom=='drfirst'">
+              <div *ngIf="vendorpassword.errors && vendorpassword.touched && newUser.EPrescribeFrom=='drfirst'">
+                <div class="error_message" *ngIf="vendorpassword.errors?.required">
+                  <p class="errormessage">Please enter Vendor
+                    Username</p>
+                </div>
+              </div>
             </div>
 
             <div class="col-lg-4 col-md-12 col-sm-12 col-12 mt-3">
@@ -271,14 +364,25 @@
                 Password)</label>
               <input type="text" class="form-control text-design" [disabled]="user.Role=='compliance'"
                 id="ProviderPassword" name="ProviderPassword" placeholder="Provider Password"
-                [(ngModel)]="newUser.ProviderPassword">
+                [(ngModel)]="newUser.ProviderPassword" #rcopiauseridpassword="ngModel"
+                [required]="newUser.EPrescribeFrom=='drfirst'">
+              <div *ngIf="rcopiauseridpassword.errors && rcopiauseridpassword.touched && newUser.EPrescribeFrom=='drfirst'">
+                <div class="error_message" *ngIf="rcopiauseridpassword.errors?.required">
+                  <p class="errormessage">Rcopia User ID Passsword</p>
+                </div>
+              </div>
             </div>
             <div class="col-lg-4 col-md-12 col-sm-12 col-12 mt-3">
-              <label for="RcopiaUsernname" class="form-label"
-                [class.required]="newUser.EPrescribeFrom=='drfirst'">Rcopia User ExternalID (Optional)</label>
+              <!--[class.required]="newUser.EPrescribeFrom=='drfirst'"-->
+              <label for="RcopiaUsernname" class="form-label">Rcopia User ExternalID (Optional)</label>
               <input type="text" class="form-control text-design" [disabled]="user.Role=='compliance'"
                 id="UserExternalId" name="UserExternalId" placeholder="Rcopia User ExternalID"
                 [(ngModel)]="newUser.UserExternalId">
+                <!-- <div *ngIf="rcopiaexternalId.errors && rcopiaexternalId.touched && newUser.EPrescribeFrom=='drfirst'">
+                  <div class="error_message" *ngIf="rcopiaexternalId.errors?.required">
+                    <p class="errormessage">Rcopia User ExternalID</p>
+                  </div>
+                </div> --><!--#rcopiaexternalId="ngModel" [required]="newUser.EPrescribeFrom=='drfirst'"-->
             </div>
           </div>
         </div>
@@ -311,7 +415,8 @@
 <div class="modal verify-address" tabindex="-1" role="dialog" [ngStyle]="{'display':displayAddress}">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header" [ngClass]="displayDialog?'addressInvalid':'addressSuccess'" style="margin-bottom: -10px;">
+      <div class="modal-header" [ngClass]="displayDialog?'addressInvalid':'addressSuccess'"
+        style="margin-bottom: -10px;">
         <h3 *ngIf="!displayDialog">Success</h3>
         <h3 *ngIf="displayDialog" class="text-white">Invalid Address</h3>
         <button type="button" *ngIf="!displayDialog" class="btn btn-sm btn-success adrsbtn"

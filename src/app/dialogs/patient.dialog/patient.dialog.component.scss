@@ -177,3 +177,17 @@ button#dob.btn-outline-secondary.calendar {
 .address-verfied{
   cursor:not-allowed;
 }
+
+.new-patient-form .error_message{
+  color: #8c2929;
+  content: '*';
+  display: flex;
+  align-items: center;
+}
+
+.new-patient-form .success_message{
+  color: rgb(0, 152, 3);
+  content: '*';
+  display: flex;
+  align-items: center;
+}

@@ -27,20 +27,19 @@ export class EmailedUrlsComponent {
       }
     })
   }
+
   onLoad(iframe) {
     this.doc = iframe.contentDocument || iframe.contentWindow;
-    console.log(iframe.contentDocument);
-
   }
-  async loadHtmlView(pkey: number) {
+
+  loadHtmlView(pkey: number) {
     this.emaildUrls.forEach((data, i) => {
       if (data.Pkey == pkey) {
         this.selectedEmail = data;
-        if (this.element)
-          this.doc.body.removeChild(this.element)
+        //if (this.element!=undefined)
+          //this.iframe.nativeElement.contentDocument.body.removeChild(this.element)
         this.element = document.createRange().createContextualFragment(this.selectedEmail?.Html);
-
-        this.doc.body.appendChild(this.element);
+        this.iframe.nativeElement.contentDocument.body.appendChild(this.element)
 
       }
     }

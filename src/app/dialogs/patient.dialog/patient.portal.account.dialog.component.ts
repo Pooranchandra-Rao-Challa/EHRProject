@@ -11,18 +11,17 @@ import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
   templateUrl: './patient.portal.account.dialog.component.html',
   styleUrls: ['./patient.portal.account.dialog.component.scss'],
 })
-export class PatientPortalAccountComponent{
-  patientUser:  PatientPortalUser;
-  constructor(private dialogRef: EHROverlayRef,){
-    this.patientUser = dialogRef.data  as PatientPortalUser;
-    if(this.patientUser ==null) this.patientUser =  new PatientPortalUser()
+export class PatientPortalAccountComponent {
+  patientUser: PatientPortalUser;
+  constructor(private dialogRef: EHROverlayRef,) {
+    this.patientUser = dialogRef.data as PatientPortalUser;
+    if (this.patientUser == null) this.patientUser = new PatientPortalUser()
     this.patientUser.Username
   }
-  cancel(){
+  cancel() {
     this.dialogRef.close();
   }
-  createPatientAccount(){
-
+  createPatientAccount() {
     this.dialogRef.close(this.patientUser);
   }
 }

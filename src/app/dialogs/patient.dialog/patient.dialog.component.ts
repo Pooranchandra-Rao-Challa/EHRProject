@@ -1,5 +1,4 @@
-import { DatePipe } from '@angular/common';
-
+import { DatePipe, PlatformLocation } from '@angular/common';
 import {
   Component,
   Output,
@@ -15,8 +14,13 @@ import { Patient, PatientPortalUser, Actions } from 'src/app/_models';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { PatientPortalAccountComponent } from 'src/app/dialogs/patient.dialog/patient.portal.account.dialog.component';
 import { PatientHealthPortalComponent } from 'src/app/dialogs/patient.dialog/patient.health.portal.component';
-import { AddressVerificationDialogComponent,AddressValidation } from 'src/app/dialogs/address.verification.dialog/address.verification.dialog.component';
-
+import { AddressVerificationDialogComponent, AddressValidation } from 'src/app/dialogs/address.verification.dialog/address.verification.dialog.component';
+import * as jspdf from 'jspdf';
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+import htmlToPdfmake from 'html-to-pdfmake';
+import { Accountservice } from 'src/app/_services/account.service';
 
 @Component({
   selector: 'patient-dialog',
@@ -33,13 +37,23 @@ export class PatientDialogComponent {
   patientHealthPortalComponent = PatientHealthPortalComponent;
   addressVerificationDialogComponent = AddressVerificationDialogComponent;
   todayDate: Date;
+  url: string;
+  emailVerfied?: boolean = null;
+  emailVerficationMessage?: string;
+  emailPattern = /^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$/;
 
   constructor(private dialogRef: EHROverlayRef,
     private authService: AuthenticationService,
     private utilityService: UtilityService,
     private alertmsg: AlertMessage,
     private overlayService: OverlayService,
+    private plaformLocation: PlatformLocation,
+    private accountservice: Accountservice,
     private datePipe: DatePipe) {
+    this.url = plaformLocation.href.replace(plaformLocation.pathname, '/');
+    if (plaformLocation.href.indexOf('?') > -1)
+      this.url = plaformLocation.href.substring(0, plaformLocation.href.indexOf('?')).replace(plaformLocation.pathname, '/');
+
     this.PhonePattern = {
       0: {
         pattern: new RegExp('\\d'),
@@ -49,28 +63,43 @@ export class PatientDialogComponent {
     this.todayDate = new Date();
   }
   cancel() {
-    this.dialogRef.close({'refresh':true});
+    this.dialogRef.close({ 'refresh': true });
   }
   enableSave() {
     return !(this.PatientData.FirstName != null && this.PatientData.FirstName != ""
       && this.PatientData.LastName != null && this.PatientData.LastName != ""
       && this.PatientData.DateofBirth != null
       && this.PatientData.Gender != null && this.PatientData.Gender != ""
-      && ((!this.PatientData.PatinetHasNoEmail &&
-        this.PatientData.Email != null && this.PatientData.Email != "") || this.PatientData.PatinetHasNoEmail))
+      && ((!this.PatientData.PatinetHasNoEmail && this.emailVerfied == true &&
+        this.emailPattern.test(this.PatientData.Email)) || this.PatientData.PatinetHasNoEmail))
   }
+
+  checkEmailExistance() {
+    if (this.PatientData.PatinetHasNoEmail) {
+      this.emailVerfied = null;
+      this.emailVerficationMessage = "";
+    } else {
+      if (this.emailPattern.test(this.PatientData.Email))
+        this.accountservice.CheckEmailAvailablity({ Email: this.PatientData.Email }).subscribe((resp) => {
+          this.emailVerfied = resp.IsSuccess;
+          this.emailVerficationMessage = resp.EndUserMessage
+        })
+      else this.emailVerfied = null;
+    }
+  }
+
   VerifyPatientAddress() {
     this.utilityService.VerifyAddress(this.PatientData.Address).subscribe(resp => {
       let av = new AddressValidation();
-      if(resp.IsSuccess){
+      if (resp.IsSuccess) {
         av.IsValid = true;
         av.Address = resp.Result["delivery_line_1"] + ", " + resp.Result["last_line"]
         av.ValidatedAddress = resp.Result;
       }
-      else{
+      else {
         av.IsValid = false;
       }
-      this.openComponentDialog(this.addressVerificationDialogComponent,av,Actions.view);
+      this.openComponentDialog(this.addressVerificationDialogComponent, av, Actions.view);
     });
   }
 
@@ -83,27 +112,27 @@ export class PatientDialogComponent {
     this.PatientData.Address = this.PatientData.ValidatedAddress;
   }
   UpdatePatient() {
-    if(this.PatientData.StreetAddress == null || this.PatientData.StreetAddress == ""){
-      if(this.PatientData.ValidatedAddress != null && this.PatientData.ValidatedAddress != "")
+    if (this.PatientData.StreetAddress == null || this.PatientData.StreetAddress == "") {
+      if (this.PatientData.ValidatedAddress != null && this.PatientData.ValidatedAddress != "")
         this.PatientData.StreetAddress = this.PatientData.ValidatedAddress;
-      else if(this.PatientData.Address != null && this.PatientData.Address != "")
+      else if (this.PatientData.Address != null && this.PatientData.Address != "")
         this.PatientData.StreetAddress = this.PatientData.Address;
     }
     this.PatientData.LocationId = this.authService.userValue.CurrentLocation;
     this.PatientData.ProviderId = this.authService.userValue.ProviderId;
     this.PatientData.ClinicId = this.authService.userValue.ClinicId;
-    this.PatientData.strDateofBirth = this.datePipe.transform(this.PatientData.DateofBirth,"MM/dd/yyyy");
+    this.PatientData.strDateofBirth = this.datePipe.transform(this.PatientData.DateofBirth, "MM/dd/yyyy");
 
     this.utilityService.CreatePatient(this.PatientData).subscribe(resp => {
 
       if (resp.IsSuccess) {
-        if(resp.Result != null){
-          this.hideSaveButton =true;
+        if (resp.Result != null) {
+          this.hideSaveButton = true;
           let patientPortalUser = resp.Result as PatientPortalUser;
           this.openComponentDialog(this.patientPortalAccountComponent,
             patientPortalUser, Actions.view)
         }
-        else{
+        else {
           this.cancel();
           this.alertmsg.displayMessageDailog(ERROR_CODES["M2AP001"])
         }
@@ -120,15 +149,36 @@ export class PatientDialogComponent {
     this.PatientData.Email = "";
   }
 
-  downloadPDF(){
+  downloadPDF(html) {
     // let patientDefService: PdfService = new PdfService();
     // let docDef: InvitationPdf = new InvitationPdf()
     // patientDefService.generatePdf(docDef.patientInviationDefinition())
+    var pdfdoc = new jspdf.jsPDF();
+    var html = htmlToPdfmake(html);
+
+    const documentDefinition = { content: html };
+    pdfMake.createPdf(documentDefinition).open();
   }
 
-  _completePatientAccountProcess(req: PatientPortalUser){
-    this.utilityService.CompletePatientAccountProcess(req).subscribe(resp => {
+  _completePatientAccountProcess(data) {
+    let patient: PatientPortalUser = data.patientUser;
+    patient.SendInvitation = data.sendemail;
+    patient.URL = this.url;
+    this.utilityService.CompletePatientAccountProcess(patient).subscribe(resp => {
       if (resp.IsSuccess) {
+        this.cancel();
+        if (data.download) {
+          this.downloadPDF(resp.html);
+          //'straight' update to database which receied from ref.data
+          // Update Patient with invivation_sent_at, straight_invitation to database
+          this.alertmsg.displayMessageDailog(ERROR_CODES["M2AP002"])
+        } else if (data.sendemail) {
+
+          //'straight' update to database which recied from ref.data
+          // Update Patient with invivation_sent_at, straight_invitation to database
+          //Invitation successfully sent to patient email
+        }
+
         //this.alertmsg.displayErrorDailog(ERROR_CODES["E2AP002"])
       } else {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2AP002"])
@@ -140,53 +190,39 @@ export class PatientDialogComponent {
     let dialogData: any;
     if (content === this.patientPortalAccountComponent && action == Actions.view) {
       dialogData = data;
-    }else if(content === this.patientHealthPortalComponent && action == Actions.view) {
+    } else if (content === this.patientHealthPortalComponent && action == Actions.view) {
       dialogData = data;
-    }else if(content === this.addressVerificationDialogComponent && action == Actions.view){
+    } else if (content === this.addressVerificationDialogComponent && action == Actions.view) {
       dialogData = data;
     }
     const ref = this.overlayService.open(content, dialogData);
     ref.afterClosed$.subscribe(res => {
       if (content === this.patientPortalAccountComponent) {
-
-        if(res.data != null){
+        if (res.data != null) {
           this.utilityService.CreatePatientAccount(res.data).subscribe(resp => {
 
-            if(resp.IsSuccess){
+            if (resp.IsSuccess) {
               this.openComponentDialog(this.patientHealthPortalComponent,
-                res.data,Actions.view);
-            }else{
+                res.data, Actions.view);
+            } else {
               this.cancel();
               this.alertmsg.displayErrorDailog(ERROR_CODES["E2AP002"])
             }
           });
         }
-      }else if (content === this.patientHealthPortalComponent) {
-        if(ref.data !== null){
-          this._completePatientAccountProcess(res.data.patientUser);
-          if(ref.data.download){
-            //'straight' update to database which recied from ref.data
-            // Update Patient with invivation_sent_at, straight_invitation to database
-            this.alertmsg.displayMessageDailog(ERROR_CODES["M2AP002"])
-
-          }else if(ref.data.sendemail){
-            this.alertmsg.displayMessageDailog(ERROR_CODES["M2AP003"])
-            //'straight' update to database which recied from ref.data
-            // Update Patient with invivation_sent_at, straight_invitation to database
-          }
-        }else{
-          close();
+      } else if (content === this.patientHealthPortalComponent) {
+        if (res.data !== null) {
+          this._completePatientAccountProcess(res.data);
+        } else {
+          this.cancel();
         }
-      }else if (content === this.addressVerificationDialogComponent) {
-
-        if(res.data && res.data.useThis.UseAddress){
+      } else if (content === this.addressVerificationDialogComponent) {
+        if (res.data && res.data.useThis.UseAddress) {
           this.PatientData.AddressResult = res.data.useThis.ValidatedAddress;
           this.PatientData.ValidatedAddress = res.data.useThis.Address;
           this.addressIsVarified = true;
           this.UseValidatedAddress();
-
-
-        }else if(res.data && !res.data.UseAddress){
+        } else if (res.data && !res.data.UseAddress) {
 
         }
       }

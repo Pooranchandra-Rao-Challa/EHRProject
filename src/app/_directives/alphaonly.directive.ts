@@ -9,7 +9,7 @@ export class AlphaDirective {
 
   private specialKeys: Array<string> = ['Backspace', 'Tab', 'End', 'Home', '-'];
   constructor(private el: ElementRef) {
-    
+
    }
   @HostListener('keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {
@@ -24,3 +24,4 @@ export class AlphaDirective {
     }
   }
 }
+

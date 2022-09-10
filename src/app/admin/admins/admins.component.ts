@@ -11,6 +11,7 @@ import { UtilityService } from 'src/app/_services/utiltiy.service';
 import Swal from 'sweetalert2';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { I } from '@angular/cdk/keycodes';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admins',
@@ -37,13 +38,20 @@ export class AdminsComponent implements OnInit {
   AreaCodes: AreaCode[];
   phonePattern = /^[0-9]{10}/;
   emailPattern = /^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$/;
+  emailVerfied?:boolean = null;
+  emailVerficationMessage?:string;
 
   constructor(private adminservice: AdminService,
     private utilityService: UtilityService,
     private accountservice: Accountservice,
     private plaformLocation: PlatformLocation,
+    private router: Router,
     private alertmsg: AlertMessage) {
-    this.url = plaformLocation.href.substring(0, plaformLocation.href.indexOf('?')).replace(plaformLocation.pathname, '/');
+      this.url = plaformLocation.href.replace(plaformLocation.pathname, '/');
+      if (plaformLocation.href.indexOf('?') > -1)
+        this.url = plaformLocation.href.substring(0, plaformLocation.href.indexOf('?')).replace(plaformLocation.pathname, '/');
+
+
     this.PhonePattern = {
       0: {
         pattern: new RegExp('\\d'),
@@ -158,10 +166,17 @@ export class AdminsComponent implements OnInit {
       }
       else {
         Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: resp.EndUserMessage,
+          title: 'resp.EndUserMessage,',
           width: '700',
+          customClass: {
+            cancelButton: 'admin-cancel-button',
+            title:"admin-swal2-styled"
+          },
+          background: '#f9f9f9',
+          showCancelButton: true,
+          cancelButtonText: 'Close',
+          showConfirmButton:false,
+          backdrop: true,
         });
         this.resetDialog();
       }
@@ -170,20 +185,35 @@ export class AdminsComponent implements OnInit {
 
   alertWithSuccess() {
     Swal.fire({
-      icon: 'success',
       title: 'Thank you for registering for an EHR1 Account! An email with instructions for how to complete  setup of your account has been sent to ' + this.newAdminRegistration.Email,
-      showConfirmButton: true,
-      confirmButtonText: 'Close',
       width: '700',
+      customClass: {
+        cancelButton: 'admin-cancel-button',
+        title:"admin-swal2-styled"
+      },
+      background: '#f9f9f9',
+      showCancelButton: true,
+      cancelButtonText: 'Close',
+      showConfirmButton:false,
+      backdrop: true,
     });
   }
 
+  checkEmailExistance() {
+
+    if (this.emailPattern.test(this.newAdminRegistration.Email))
+      this.accountservice.CheckEmailAvailablity({Email:this.newAdminRegistration.Email}).subscribe((resp) =>{
+        this.emailVerfied = resp.IsSuccess;
+        this.emailVerficationMessage = resp.EndUserMessage
+      })
+    else this.emailVerfied = null;
+  }
   disableAdminRegistration() {
     // this.newAdminRegistration.MobilePhonePreffix = this.newAdminRegistration.MobilePhonePreffix == undefined ? '' : this.newAdminRegistration.MobilePhonePreffix;
     // let mNo = this.newAdminRegistration.MobilePhonePreffix ?? '' + this.newAdminRegistration.MobilePhoneSuffix ?? '';
     let mNo = this.newAdminRegistration.MobilePhonePreffix + this.newAdminRegistration.MobilePhoneSuffix;
     let pNo = this.newAdminRegistration.PrimaryPhonePreffix + this.newAdminRegistration.PrimaryPhoneSuffix;
-    return !(this.newAdminRegistration.Title
+    return !((this.emailVerfied == true) && this.newAdminRegistration.Title
       && this.newAdminRegistration.FirstName
       && this.newAdminRegistration.LastName
       && this.newAdminRegistration.Role
@@ -191,7 +221,8 @@ export class AdminsComponent implements OnInit {
       && (this.emailPattern.test(this.newAdminRegistration.Email))
       && (this.newAdminRegistration.AltEmail == null || this.newAdminRegistration.AltEmail == ''
         || (this.emailPattern.test(this.newAdminRegistration.AltEmail)))
-      && ((!this.newAdminRegistration.MobilePhonePreffix && !this.newAdminRegistration.MobilePhoneSuffix) || (this.phonePattern.test(mNo))))
+      && ((!this.newAdminRegistration.MobilePhonePreffix && !this.newAdminRegistration.MobilePhoneSuffix) ||
+      (this.phonePattern.test(mNo))))
   }
   // && (mNo == undefined || mNo == "" || (this.phonePattern.test(mNo)))
 
