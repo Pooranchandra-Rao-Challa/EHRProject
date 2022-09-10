@@ -29,7 +29,7 @@
                                 <input matInput [matDatepicker]="DateOfBirth" placeholder="Date of Birth"
                                     (click)="DateOfBirth.open()" [(ngModel)]="primlist.DateOfBirth"
                                     class="Helvetica-sans-serif-medium" [max]="tomorrow" #dateofbirth="ngModel"
-                                    required>
+                                    required readonly>
                                 <mat-datepicker-toggle matSuffix [for]="DateOfBirth">
                                 </mat-datepicker-toggle>
                                 <mat-datepicker #DateOfBirth disabled="false"></mat-datepicker>

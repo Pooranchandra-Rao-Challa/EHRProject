@@ -79,7 +79,7 @@ export class AppointmentComponent {
     }
     this.patientservice.PatientPastAppointments(req).subscribe(res => {
       this.PatientPastAppointmentsList = res.ListResult;
-      this.PatientPastAppointmentsList.map((e) => {
+      this.PatientPastAppointmentsList?.map((e) => {
 
         if (e.ApptStatus == 'Cancelled') {
           e.class = "StatusCancelled";
@@ -96,7 +96,7 @@ export class AppointmentComponent {
     }
     this.patientservice.PatientUpcomingAppointments(req).subscribe(res => {
       this.PatientUpcomingAppointmentsList = res.ListResult;
-      this.PatientUpcomingAppointmentsList.map((e) => {
+      this.PatientUpcomingAppointmentsList?.map((e) => {
 
         if (e.ApptStatus == 'Not Confirmed') {
           e.ApptStatus = 'Pending';

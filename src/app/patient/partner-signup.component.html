@@ -1,3 +1,4 @@
+<div id="partnersignup">
 <div class="authorization-signup-wrapper pt-4">
   <div class="one-ehr-images">
     <div class="ehr-img-top">
@@ -67,8 +68,14 @@
                    </div>
                    <div class="col-md-4">
                     <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-sm-12 col-12">
-                      <input matInput placeholder="Last Name" [(ngModel)]="partnerSignup.last_name" alphaOnly>
+                      <input matInput placeholder="Last Name" [(ngModel)]="partnerSignup.last_name" alphaOnly #lastName="ngModel" required>
                     </mat-form-field>
+                    <div *ngIf="lastName.errors && (lastName.touched)">
+                      <div class="error_message" *ngIf="lastName.errors?.required">
+                          <span class="text-danger"></span>
+                          <p class="errormessage">Please enter last name</p>
+                      </div>
+                  </div>
                    </div>
                   </div>
                 </div>
@@ -94,12 +101,36 @@
               <div class="row">
                 <div class="col-lg-12">
                   <div class="row">
-                    <mat-form-field appearance="outline" class="col-lg-6 col-md-4 col-sm-4 col-12">
-                      <input type="text" matInput placeholder="Phone Number" [(ngModel)]="partnerSignup.phone_number">
-                    </mat-form-field>
-                    <mat-form-field appearance="outline" class="col-lg-6 col-md-4 col-sm-4 col-12">
-                      <input matInput placeholder="Email" [(ngModel)]="partnerSignup.email">
-                    </mat-form-field>
+                    <div class="col-md-6">
+                      <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-sm-12 col-12">
+                        <input type="text" matInput placeholder="Phone Number" [(ngModel)]="partnerSignup.phone_number"
+                        mask=" (000) 000-0000" [showMaskTyped]="true" [patterns]="PhonePattern" #phoneNumber="ngModel" required>
+                      </mat-form-field>
+                      <div *ngIf="phoneNumber.errors && (phoneNumber.touched)">
+                        <div class="error_message" *ngIf="phoneNumber.errors?.required">
+                            <span class="text-danger"></span>
+                            <p class="errormessage">Enter valid phone number</p>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col-md-6">
+                      <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-sm-12 col-12">
+                        <input matInput placeholder="Email" [(ngModel)]="partnerSignup.email" 
+                         pattern="^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$" #Email="ngModel" required>
+                      </mat-form-field>
+                      <div *ngIf="Email.errors && (Email.touched)">
+                        <div class="error_message" *ngIf="Email.errors?.required">
+                          <span class="e_arrow"></span>
+                          <p class="errormessage">Please enter email</p>
+                        </div>
+                        <div class="error_message" *ngIf="Email.errors?.pattern">
+                          <span class="e_arrow"></span>
+                          <p class="errormessage">Enter email in correct format</p>
+                        </div>
+                      </div>
+                    </div>
+                
+             
                   </div>
                 </div>
               </div>
@@ -155,4 +186,5 @@
         </div>
       </div>
     </div>
+  </div>
   </div>

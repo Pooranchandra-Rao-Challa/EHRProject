@@ -199,18 +199,17 @@
                 <label class="labelclass form-control required" required>First Name</label>
                 <input class="addfromdesign inputclass form-control mx-0" type="text"
                   [(ngModel)]="NewUserData.FirstName" autocomplete="off" id="firstName" name="firstName"
-                  #firstName="ngModel" required pattern="[a-zA-Z ]*" />
-              </div>
-              <div *ngIf="firstName.errors && (firstName.touched)">
-                <div class="error_message" *ngIf="firstName.errors?.required">
-                  <span class="e_arrow"></span>
-                  <i>Please enter First Name</i>
+                  #firstName="ngModel" required alphaOnly />
                 </div>
-                <div class="error_message" *ngIf="firstName.errors?.pattern">
-                  <span class="e_arrow"></span>
-                  <i>First name not valid, Use only Alphabets and space</i>
-                </div>
-              </div>
+                  <div *ngIf="firstName.errors && (firstName.touched)">
+                    <div class="error_message" *ngIf="firstName.errors?.required">
+                      <span class="e_arrow"></span>
+                      <p class="errormessage">Please enter First Name</p>
+                    </div>
+                  </div>
+            
+             
+             
             </div>
           </div>
           <div class="col-lg-12 col-md-12 col-12 my-2">
@@ -219,7 +218,7 @@
                 <label class="labelclass form-control">Last Name</label>
                 <input class="addfromdesign inputclass form-control mx-0" type="text" [(ngModel)]="NewUserData.LastName"
                   id="lastName" name="lastName" autocomplete="off" #lastName="ngModel" required
-                  pattern="/[a-zA-Z ]*/" />
+                  alphaOnly />
               </div>
             </div>
           </div>
@@ -228,18 +227,15 @@
               <div class="input-group input-group-phone">
                 <label class="labelclass form-control required">Email</label>
                 <input class="addfromdesign inputclass form-control mx-0" type="text" [(ngModel)]="NewUserData.Email"
-                  id="email" name="email" autocomplete="off" #email="ngModel" required [pattern]="emailPattern" />
+                  id="email" name="email" autocomplete="off" #email="ngModel" required    pattern="^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$" />
                 <!-- ^[A-Za-z0-9._%-]+@[A-Za-z0-9._-]+\\.[a-z]{2,3}$ -->
               </div>
               <div *ngIf="email.errors && (email.touched)">
-                <div class="error_message" *ngIf="email.errors.required">
-                  <span class="e_arrow"></span>
-                  <i>Please enter Email</i>
-                </div>
                 <div class="error_message" *ngIf="email.errors.pattern">
                   <span class="e_arrow"></span>
-                  <i>Email not valid</i>
+                  <p class="errormessage">Enter email in correct format </p>
                 </div>
+          
               </div>
             </div>
           </div>

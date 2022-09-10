@@ -21,15 +21,18 @@ export class PatientappointmentDialogComponent implements OnInit {
 
   minDate = new Date();
   constructor(private ref: EHROverlayRef, private patientservise: PatientService,
-    private authenticationService: AuthenticationService,private alertmsg: AlertMessage,
-    private datePipe:DatePipe) {
+    private authenticationService: AuthenticationService, private alertmsg: AlertMessage,
+    private datePipe: DatePipe) {
     this.user = authenticationService.userValue
     let data: Appointments = ref.RequestData;
+
+
   }
 
   ngOnInit(): void {
     this.getProviders();
     this.getLocations();
+
   }
   cancel() {
     this.ref.close(null);
@@ -52,8 +55,8 @@ export class PatientappointmentDialogComponent implements OnInit {
     })
   }
   RequestAppointment(requestAppoinments: Appointments) {
-    if(requestAppoinments.AppttDate != null)
-    this.requestAppoinments.strStartAt = this.datePipe.transform(this.requestAppoinments.AppttDate,"MM/dd/yyyy");
+    if (requestAppoinments.AppttDate != null)
+      this.requestAppoinments.strStartAt = this.datePipe.transform(this.requestAppoinments.AppttDate, "MM/dd/yyyy");
     this.requestAppoinments.strStartAt = this.requestAppoinments.strStartAt + ' ' + this.requestAppoinments.AppointmentTime;
 
     requestAppoinments.PatientId = this.user.PatientId;
@@ -70,16 +73,14 @@ export class PatientappointmentDialogComponent implements OnInit {
     })
   }
 
+
   enableSave() {
+    let regexp = new RegExp('^(0?[1-9]|1[0-2]):[0-5][0-9]?(\s*[AaPp][Mm])?')
     return !(
       this.requestAppoinments.ProviderId != null && this.requestAppoinments.ProviderId != ""
       && this.requestAppoinments.LocationId != null && this.requestAppoinments.LocationId != ""
-      && this.requestAppoinments.AppointmentTime != null && this.requestAppoinments.AppointmentTime !=""
-      && this.requestAppoinments.AppttDate != null 
-      
-     )
-
-
+      && this.requestAppoinments.AppttDate != null
+      && regexp.test(this.requestAppoinments.AppointmentTime)
+    )
   }
-
 }

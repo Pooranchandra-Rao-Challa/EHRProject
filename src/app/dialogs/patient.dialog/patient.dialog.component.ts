@@ -65,6 +65,10 @@ export class PatientDialogComponent {
   cancel() {
     this.dialogRef.close({ 'refresh': true });
   }
+
+  phonepattern =/^[0-9]{10}/;
+  email = /^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$/;
+
   enableSave() {
     return !(this.PatientData.FirstName != null && this.PatientData.FirstName != ""
       && this.PatientData.LastName != null && this.PatientData.LastName != ""

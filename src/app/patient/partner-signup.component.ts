@@ -17,10 +17,16 @@ export class PartnerSignupComponent implements OnInit {
   partnerSignup: PartnerSignup = {} as PartnerSignup;
   phone_number = '';
   email = '';
+  PhonePattern:any
 
 
   constructor(private accountservice: Accountservice, private alertmsg: AlertMessage) {
-
+    this.PhonePattern = {
+      0: {
+        pattern:   new RegExp('\\d'),
+        symbol: 'X',
+      },
+    };
   }
 
   ngOnInit(): void {
