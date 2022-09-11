@@ -16,6 +16,14 @@
   width: 25%;
 }
 
+ehr-img-top1 {
+  margin: auto;
+  width: 100%;
+  left: 0%;
+  height: 88px;
+  background-color: #41b6a6;
+}
+
 @media (max-width: 425px) {
   .login_address {
     flex: 0 0 auto;
@@ -29,3 +37,98 @@
   }
 }
 
+
+
+.authorization-top {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #fff;
+  background-size: cover;
+  background-position: center center;
+  height:275px;
+}
+
+.string-top {
+  position: absolute;
+  width: 100%;
+  height: 89px;
+  top: 93px;
+  background-color: #41b6a6;
+}
+
+.image-center {
+  width: 277.2px;
+  margin: 0 auto;
+  background-image: url(http://localhost:4200/assets/images/logo-rectangle.svg);
+  background-repeat: no-repeat;
+}
+
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.container::before {
+  display: table;
+  content: " ";
+}
+
+.container::after {
+  display: table;
+  content: " ";
+}
+
+.string-top-container {
+  margin-top: 14px;
+  margin-bottom: 14px;
+  margin-left: -26px;
+}
+
+.string-top-home-link {
+  width: 276px;
+  left: 12px;
+  display: block;
+  position: relative;
+  margin: 0 auto;
+  top: -178px
+}
+
+.content-top-1 {
+  border-bottom: 1px solid rgba(74, 74, 74, 0.5);
+  //margin-top: 33px;
+}
+.authorization-signin-wrapper{
+  height: auto;
+    font-family: 'Times New Roman';
+    color: #4a4a4a;
+}
+.authorization-content .services .google-play, .authorization-content .services .app-store {
+  background-size: 216px;
+  background-position: 113px center;
+}
+.authorization-content .services .google-play {
+  background: #fff url(/assets/google-play-logo-9f0984e….svg) 86% 46% no-repeat;
+}
+.authorization-content .services a {
+  display: inline-block;
+  margin: 0 2.5px 0 2.5px;
+  width: 351px;
+  height: 95px;
+  border-radius: 8px;
+  border: 1px solid #c9c7c7;
+}
+.services-1
+{
+  margin-bottom: 8px;
+  border: 1px solid #ddd;
+  border-radius: 7px;
+  box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
+  background-color: white;
+}
+.main-title p {
+  font-size: 18px;
+  font-family: 'Times New Roman';
+  margin: 0 0 8px 0;
+}
