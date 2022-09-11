@@ -105,9 +105,7 @@ export class LoginComponent implements OnInit {
 
 
     });
-
     if (email) {
-      //Swal.fire(`Entered email: ${email}`)
       this.accountservice.RaisePasswordChangeRequest({Email:email,URL:this.url}).subscribe((resp)=>{
         this.openErrorDialog(resp.EndUserMessage);
       })
@@ -143,10 +141,6 @@ export class LoginComponent implements OnInit {
       this.accountservice.ResendValidationMail({Email:email,URL:this.url}).subscribe((resp)=>{
         this.openErrorDialog(resp.EndUserMessage);
       })
-      //Verification resent to: #{@user.email}. Please check your inbox and spam folder (May take a few minutes)
-      //Swal.fire(`Verification resent to: ${email}. Please check your inbox and spam folder (May take a few minutes)`)
-
-      //"Email is already verified"
     }
   }
 

@@ -1,7 +1,8 @@
+import { Vaccine } from './../_models/_provider/chart';
 
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { isSetAccessor } from 'typescript';
+import { SECURE_QUESTIONS } from 'src/app/_models/_patient/patientprofile';
 import { AuthenticationService } from '../_services/authentication.service';
 import Swal from 'sweetalert2';
 
@@ -19,9 +20,13 @@ export class PatientLoginComponent implements OnInit {
   isdefaultEdit: boolean = false;
   isdefault: boolean = true;
   showPassword: boolean = false;
-  constructor(private fb: FormBuilder, private authenticationService: AuthenticationService) { }
+  constructor(private fb: FormBuilder, private authenticationService: AuthenticationService) {
+    console.log(SECURE_QUESTIONS.map((question)=>{ return question.value}));
+
+  }
   ngOnInit() {
     this.buildForm();
+
   }
 
 
@@ -55,8 +60,43 @@ export class PatientLoginComponent implements OnInit {
   public togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
   }
-  async openResetPassword() {
 
+  openResetPasswordOptions(){
+    Swal.fire({
+      title: 'Password Reset Options',
+      customClass: {
+        container: 'round-container',
+        title: 'swal2-title-patient-login',
+        input: 'swal-input',
+        cancelButton: 'cancel-button-patient-login',
+        confirmButton: 'confirm-button-patient-login'
+      },
+      reverseButtons: true,
+      background: '#f9f9f9',
+      showCancelButton: true,
+      cancelButtonText: 'Answer Security Question',
+      confirmButtonText: 'Enter Your Recovery Email',
+      backdrop: true,
+      width:'500px'
+    }).then((result) => {
+      console.log(result);
+      if(result.dismiss == Swal.DismissReason.cancel){
+        this.openUsername();
+      }
+      else if(result.isConfirmed){
+        this.openResetPassword();
+      }
+
+      // if (result.isCan) {
+      //   Swal.fire({
+      //     title: `${result.value.login}'s avatar`,
+      //     imageUrl: result.value.avatar_url
+      //   })
+      // }
+    })
+
+  }
+  async openResetPassword() {
     const { value: email } = await Swal.fire({
       title: 'Reset Your Password',
       text: 'Enter the email address associated with your account and an email with password reset instructions will be sent.',
@@ -66,11 +106,11 @@ export class PatientLoginComponent implements OnInit {
       },
       padding: '1px !important',
       customClass: {
-        title: 'modal-header header-font',
+        title: 'login-modal-header login-header-font',
         //container:'pop-contrainer',
         input: 'swal-input',
-        cancelButton: 'cancel-button cancel-button1',
-        confirmButton: 'confirm-button confirm-button1'
+        cancelButton: 'login-cancel-button login-cancel-button1',
+        confirmButton: 'login-confirm-button login-confirm-button1'
       },
       reverseButtons: true,
       background: '#f9f9f9',
@@ -82,14 +122,88 @@ export class PatientLoginComponent implements OnInit {
 
 
     });
-
     if (email) {
-      Swal.fire(`Entered email: ${email}`)
+      // this.accountservice.RaisePasswordChangeRequest({Email:email,URL:this.url}).subscribe((resp)=>{
+      //   this.openErrorDialog(resp.EndUserMessage);
+      // })
+    }
+  }
+  userName:string;
+  async openUsername() {
+    const { value: text } = await Swal.fire({
+      title: 'Reset Your Password',
+      text: 'Please Enter your EHR1 Patient portal username and follow the prompts to reset your password.',
+      input: 'text',
+      inputAttributes: {
+        autocapitalize: 'off'
+      },
+      inputValidator: (value) => {
+        if (!value) {
+          return 'You need enter login username!'
+        }
+      },
+      padding: '1px !important',
+      customClass: {
+        title: 'login-modal-header login-header-font',
+        //container:'pop-contrainer',
+        input: 'swal-input',
+        cancelButton: 'login-cancel-button login-cancel-button1',
+        confirmButton: 'login-confirm-button '
+      },
+      reverseButtons: true,
+      background: '#f9f9f9',
+      showCancelButton: false,
+      cancelButtonText: 'Go Back',
+      confirmButtonText: 'Continue',
+      backdrop: true,
+      inputPlaceholder: 'Enter user name',
+      width:'400px'
+
+    });
+    if (text) {
+      this.userName = text;
+      this.openSecurityQuestion();
+      // this.accountservice.RaisePasswordChangeRequest({Email:email,URL:this.url}).subscribe((resp)=>{
+      //   this.openErrorDialog(resp.EndUserMessage);
+      // })
+    }
+  }
+
+  async openSecurityQuestion() {
+    const { value: text } = await Swal.fire({
+      title: 'Answer Security Question',
+      text: 'Please Answer your security Question to reset your EHR1 patient portal password',
+      input: 'select',
+      inputOptions: SECURE_QUESTIONS.map((question)=>{ return question.value}),
+      inputAttributes: {
+        autocapitalize: 'off'
+      },
+      padding: '1px !important',
+      customClass: {
+        title: 'login-modal-header login-header-font',
+        //container:'pop-contrainer',
+        input: 'swal-input',
+        cancelButton: 'login-cancel-button login-cancel-button1',
+        confirmButton: 'login-confirm-button login-confirm-button1'
+      },
+      reverseButtons: true,
+      background: '#f9f9f9',
+      showCancelButton: true,
+      cancelButtonText: 'Go Back',
+      confirmButtonText: 'Continue',
+      backdrop: true,
+      inputPlaceholder: 'Select Security Question',
+      width:'500px'
+
+    });
+    if (text) {
+      // this.accountservice.RaisePasswordChangeRequest({Email:email,URL:this.url}).subscribe((resp)=>{
+      //   this.openErrorDialog(resp.EndUserMessage);
+      // })
     }
   }
 
   async openResendVerification() {
-
     const { value: email } = await Swal.fire({
       title: 'Email Verification',
       input: 'email',
@@ -99,27 +213,23 @@ export class PatientLoginComponent implements OnInit {
       showCloseButton: true,
       padding: '1px !important',
       customClass: {
-        title: 'modal-header header-font',
-        //container:'pop-contrainer',
+        title: 'login-modal-header login-header-font',
         input: 'swal-input',
-        //cancelButton:'cancel-button cancel-button1',
-        confirmButton: 'confirm-button',
-        closeButton: 'close-button'
+        confirmButton: 'login-confirm-button',
+        closeButton: 'login-close-button'
       },
       reverseButtons: true,
       background: '#f9f9f9',
       inputLabel: 'Email Address :',
-      //showCancelButton: false,
-      //cancelButtonText:'Go Back',
       confirmButtonText: 'Resend Verification',
       backdrop: true,
       inputPlaceholder: 'Enter your email address',
-
-
     });
 
     if (email) {
-      Swal.fire(`Entered email: ${email}`)
+      // this.accountservice.ResendValidationMail({Email:email,URL:this.url}).subscribe((resp)=>{
+      //   this.openErrorDialog(resp.EndUserMessage);
+      // })
     }
   }
 

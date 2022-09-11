@@ -1,15 +1,7 @@
 @import"../account/login.component.scss";
 
 
-.services {
-  margin-bottom: 5px;
-  border: 1px solid #ddd;
-  border-radius: 7px;
-  -webkit-box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
-  box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
-  background-color: white;
-  margin: 4px -5px 6px -35px;
-}
+
 
 .login_address {
   flex: 0 0 auto;
@@ -88,7 +80,7 @@ ehr-img-top1 {
 
 .string-top-home-link {
   width: 276px;
-  left: 12px;
+  //left: 12px;
   display: block;
   position: relative;
   margin: 0 auto;
@@ -131,4 +123,29 @@ ehr-img-top1 {
   font-size: 18px;
   font-family: 'Times New Roman';
   margin: 0 0 8px 0;
+}
+::ng-deep .swal2-title-patient-login{
+  margin:unset !important;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+::ng-deep .swal2-styled.swal2-cancel.cancel-button-patient-login,
+::ng-deep .swal2-styled.swal2-confirm.confirm-button-patient-login{
+  width: 45%;
+  font:600;
+  border: 1px solid #41b6a6;
+  color:#41b6a6;
+  background: #fff;
+  &:hover{
+    background: #41b6a6;
+    color:#fff;
+  }
+}
+::ng-deep .swal2-actions{
+  margin: 10px 30px !important;
+}
+
+::ng-deep .round-container{
+  border-radius: 5px;
 }
