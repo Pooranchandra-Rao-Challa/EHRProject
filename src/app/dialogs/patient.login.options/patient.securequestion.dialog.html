@@ -1,0 +1,111 @@
+<div class="modal-dialog" id="secure-questions-dialog">
+  <div class="modal-content">
+    <div class="modal-header" style="margin-top: -1px;">
+      <h3 class="modal-title col-11 Helvetica-sans-serif-large" id="staticBackdropLabel">
+        Reset Your Password
+      </h3>
+      <span type="button" class="cross-mark col-1" aria-label="Close" (click)="cancel()">
+        X
+      </span>
+    </div>
+    <div class="modal-body">
+      <div *ngIf="!resultProcessed">
+        <div class="row validation-inputs">
+          <div class="col-lg-4 col-md-4 col-4">
+
+            <label class="control-label input-group-addon required">Username:</label>
+          </div>
+          <div class="col-lg-8 col-md-8 col-8">
+            <mat-form-field class="col-12" class="procedure-form-field" appearance="outline">
+              <input matInput class="form-control" placeholder="Username" id="userName" name="userName"
+                [(ngModel)]="userInfo.Username" />
+            </mat-form-field>
+
+          </div>
+        </div>
+        <div class="row validation-inputs">
+          <div class="col-lg-4 col-md-4 col-4">
+            <label class="control-label input-group-addon required">Secure Questions:</label>
+          </div>
+          <div class="col-lg-8 col-md-8col-8">
+
+            <mat-form-field class=" col-12" appearance="outline">
+              <mat-select placeholder="Select secure question" [(ngModel)]="userInfo.SecureQuestion">
+                <mat-option *ngFor="let question of secureQuestions" [value]="question.key">
+                  {{question.value}}.</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+          </div>
+        </div>
+        <div class="row validation-inputs">
+          <div class="col-lg-4 col-md-4 col-4">
+            <label class="control-label input-group-addon required">Answer:</label>
+          </div>
+          <div class="col-lg-8 col-md-8col-8">
+            <mat-form-field class="col-12" class="procedure-form-field" appearance="outline">
+              <input matInput class="form-control" placeholder="Answer" id="Answer" name="Answer"
+                [(ngModel)]="userInfo.Answer" />
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <div class="row messages" *ngIf="resultProcessed && !this.result.HasQuestion">
+        <div>Security Question is not set for provided patient. Please contact EHR1 Support by</div>
+        <div>email at: support@ehr1.zendesk.com or by phone at: (888) 399-5507.</div>
+      </div>
+      <div class="row messages" *ngIf="resultProcessed && this.result.HasQuestion && !result.Valid">
+        <div>Security Question is not matched for patient username. Please contact EHR1 Support by</div>
+        <div>email at: support@ehr1.zendesk.com or by phone at: (888) 399-5507.</div>
+      </div>
+      <div *ngIf="resultProcessed && result.Valid">
+        <form [formGroup]="resetPassowrdForm">
+          <div class="row">
+            <div class="form-group">
+              <label class="control-label input-group-addon required">Password:</label>
+              <mat-form-field class=" col-12" appearance="outline">
+                <input matInput autocomplete="off" class="form-control" formControlName="Password" placeholder="Password"
+                  type="password" pattern="^[a-zA-Z0-9 ]{8,15}$" id="password" type="password">
+              </mat-form-field>
+            </div>
+            <div *ngIf="v.Password.touched && v.Password.errors" class=" alert-danger">
+              <div *ngIf="v.Password.errors?.required">New Password is required</div>
+              <div *ngIf="v.Password.errors?.pattern">New Password must be characters and numbers between 8 to 15 length
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label input-group-addon required">Confirm Password:</label>
+              <mat-form-field  class=" col-12" appearance="outline">
+                <input matInput autocomplete="off" class="form-control" formControlName="ConfirmPassword"
+                  placeholder="Confirm Password" type="password" pattern="^[a-zA-Z0-9 ]{8,15}$" name="confirm_password"
+                  id="confirm_password">
+              </mat-form-field>
+            </div>
+            <div *ngIf="v.ConfirmPassword.touched && v.ConfirmPassword.errors" class=" alert-danger">
+              <div *ngIf="v.ConfirmPassword.errors?.required">Confirm New Password is
+                required</div>
+              <div *ngIf="v.ConfirmPassword.errors?.pattern">New Password must be characters and numbers between 8 to 15
+                length</div>
+              <div *ngIf="v.ConfirmPassword.errors?.confirmedValidator">Password and Confirm Password must be match.
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" *ngIf="!resultProcessed" class="btn btn-green" (click)="continue()"
+        [disabled]="disableContinue()">
+        Continue
+      </button>
+      <button type="button" *ngIf="resultProcessed && result.Valid" class="btn btn-green" (click)="ResetPassword()"
+        [disabled]="disableResetPassword()">
+        Reset Password
+      </button>
+      <button type="button" *ngIf="resultProcessed" class="btn btn-green" (click)="cancel()">
+        Close
+      </button>
+    </div>
+  </div>
+</div>

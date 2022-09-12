@@ -1,9 +1,10 @@
-import { Vaccine } from './../_models/_provider/chart';
-
+import { OverlayService } from './../overlay.service';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { SECURE_QUESTIONS } from 'src/app/_models/_patient/patientprofile';
+//import { SECURE_QUESTIONS } from 'src/app/_models/_patient/patientprofile';
 import { AuthenticationService } from '../_services/authentication.service';
+import { PatientPasswordChangeRequestDialogComponent } from 'src/app/dialogs/patient.login.options/patient.securequestion.dialog'
 import Swal from 'sweetalert2';
 
 
@@ -20,15 +21,18 @@ export class PatientLoginComponent implements OnInit {
   isdefaultEdit: boolean = false;
   isdefault: boolean = true;
   showPassword: boolean = false;
-  constructor(private fb: FormBuilder, private authenticationService: AuthenticationService) {
-    console.log(SECURE_QUESTIONS.map((question)=>{ return question.value}));
+  SQDialog = PatientPasswordChangeRequestDialogComponent;
+  constructor(private fb: FormBuilder,
+    private authenticationService: AuthenticationService,
+    private dialog: MatDialog,) {
+   // console.log(SECURE_QUESTIONS.map((question) => { return question.value }));
 
   }
+
   ngOnInit() {
     this.buildForm();
 
   }
-
 
   buildForm() {
     this.loginForm = this.fb.group({
@@ -36,6 +40,7 @@ export class PatientLoginComponent implements OnInit {
       Password: ['']
     });
   }
+
   OnLoginSubmit() {
     this.showspinner = true;
     this.message = 'Please wait while verifying your Email Id and Password';
@@ -57,11 +62,35 @@ export class PatientLoginComponent implements OnInit {
       }
     });
   }
+
+  openChangePasswordDialog() {
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.panelClass = 'app-change-password-dialog';
+    dialogConfig.data = {
+      id: 2,
+      title: 'Change Password',
+      Email: '',
+      userName: this.userName
+    };
+
+    let dialogRef = this.dialog.open(this.SQDialog, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+
+
+    });
+
+
+  }
+
   public togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
   }
 
-  openResetPasswordOptions(){
+  openResetPasswordOptions() {
     Swal.fire({
       title: 'Password Reset Options',
       customClass: {
@@ -77,13 +106,13 @@ export class PatientLoginComponent implements OnInit {
       cancelButtonText: 'Answer Security Question',
       confirmButtonText: 'Enter Your Recovery Email',
       backdrop: true,
-      width:'500px'
+      width: '500px'
     }).then((result) => {
       console.log(result);
-      if(result.dismiss == Swal.DismissReason.cancel){
-        this.openUsername();
+      if (result.dismiss == Swal.DismissReason.cancel) {
+        this.openChangePasswordDialog();
       }
-      else if(result.isConfirmed){
+      else if (result.isConfirmed) {
         this.openResetPassword();
       }
 
@@ -128,7 +157,7 @@ export class PatientLoginComponent implements OnInit {
       // })
     }
   }
-  userName:string;
+  userName: string;
   async openUsername() {
     const { value: text } = await Swal.fire({
       title: 'Reset Your Password',
@@ -157,51 +186,51 @@ export class PatientLoginComponent implements OnInit {
       confirmButtonText: 'Continue',
       backdrop: true,
       inputPlaceholder: 'Enter user name',
-      width:'400px'
+      width: '400px'
 
     });
     if (text) {
       this.userName = text;
-      this.openSecurityQuestion();
+      //this.openSecurityQuestion();
       // this.accountservice.RaisePasswordChangeRequest({Email:email,URL:this.url}).subscribe((resp)=>{
       //   this.openErrorDialog(resp.EndUserMessage);
       // })
     }
   }
 
-  async openSecurityQuestion() {
-    const { value: text } = await Swal.fire({
-      title: 'Answer Security Question',
-      text: 'Please Answer your security Question to reset your EHR1 patient portal password',
-      input: 'select',
-      inputOptions: SECURE_QUESTIONS.map((question)=>{ return question.value}),
-      inputAttributes: {
-        autocapitalize: 'off'
-      },
-      padding: '1px !important',
-      customClass: {
-        title: 'login-modal-header login-header-font',
-        //container:'pop-contrainer',
-        input: 'swal-input',
-        cancelButton: 'login-cancel-button login-cancel-button1',
-        confirmButton: 'login-confirm-button login-confirm-button1'
-      },
-      reverseButtons: true,
-      background: '#f9f9f9',
-      showCancelButton: true,
-      cancelButtonText: 'Go Back',
-      confirmButtonText: 'Continue',
-      backdrop: true,
-      inputPlaceholder: 'Select Security Question',
-      width:'500px'
+  // async openSecurityQuestion() {
+  //   const { value: text } = await Swal.fire({
+  //     title: 'Answer Security Question',
+  //     text: 'Please Answer your security Question to reset your EHR1 patient portal password',
+  //     input: 'select',
+  //     inputOptions: SECURE_QUESTIONS.map((question) => { return question.value }),
+  //     inputAttributes: {
+  //       autocapitalize: 'off'
+  //     },
+  //     padding: '1px !important',
+  //     customClass: {
+  //       title: 'login-modal-header login-header-font',
+  //       //container:'pop-contrainer',
+  //       input: 'swal-input',
+  //       cancelButton: 'login-cancel-button login-cancel-button1',
+  //       confirmButton: 'login-confirm-button login-confirm-button1'
+  //     },
+  //     reverseButtons: true,
+  //     background: '#f9f9f9',
+  //     showCancelButton: true,
+  //     cancelButtonText: 'Go Back',
+  //     confirmButtonText: 'Continue',
+  //     backdrop: true,
+  //     inputPlaceholder: 'Select Security Question',
+  //     width: '500px'
 
-    });
-    if (text) {
-      // this.accountservice.RaisePasswordChangeRequest({Email:email,URL:this.url}).subscribe((resp)=>{
-      //   this.openErrorDialog(resp.EndUserMessage);
-      // })
-    }
-  }
+  //   });
+  //   if (text) {
+  //     // this.accountservice.RaisePasswordChangeRequest({Email:email,URL:this.url}).subscribe((resp)=>{
+  //     //   this.openErrorDialog(resp.EndUserMessage);
+  //     // })
+  //   }
+  // }
 
   async openResendVerification() {
     const { value: email } = await Swal.fire({

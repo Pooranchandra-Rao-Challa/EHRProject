@@ -103,9 +103,15 @@ export class ChangePassword{
   Password?: string;
   ConfirmPassword?: string;
   Userid?:string;
+  Username?: string;
+  SecureQuestion?:string;
+  Answer?:string;
 }
 
-
+export class ChangePasswordResult{
+  Valid?:boolean;
+  HasQuestion?:boolean;
+}
 
 
 export class PatientEducationInfomation {
