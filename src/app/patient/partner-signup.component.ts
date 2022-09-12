@@ -34,6 +34,7 @@ export class PartnerSignupComponent implements OnInit {
 
 
   CreatePartnerSignup(partnerSignup) {
+    debugger
     let isAdd = this.partnerSignup.C_id == null;
     this.accountservice.CreatePartnerSignup(partnerSignup).subscribe((resp) => {
       if (resp.IsSuccess) {
@@ -52,5 +53,15 @@ export class PartnerSignupComponent implements OnInit {
   // getRequiredErrorMessage(field) {
   //   return this.company_address.get(field).hasError('required') ? 'You must enter a value' : '';
   // }
-
+  phonepattern =/^[0-9]{10}/;
+patnerSignupEmail = /^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$/;
+  enablesave()
+  {
+    return !((this.partnerSignup.first_name!=null && this.partnerSignup.first_name!='')
+            &&(this.partnerSignup.last_name!=null && this.partnerSignup.last_name!='') 
+            &&(this.phonepattern.test(this.partnerSignup.phone_number))
+            &&(this.patnerSignupEmail.test(this.partnerSignup.email)));
+            
+  }
+  
 }

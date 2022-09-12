@@ -18,8 +18,8 @@ declare var $: any;
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
-  isHealth:boolean=false;
-  isAccees:boolean=false;
+  isHealth: boolean = false;
+  isAccees: boolean = false;
   ActionTypes = Actions;
   displayNew = "none";
   user: User;
@@ -28,21 +28,18 @@ export class DashboardComponent {
   MessageDialogComponent = NewmessageDialogComponent;
   DialogResponse = null;
   PatientUpcomingAppointmentsList: Appointments;
-  PatientUpcomingAppointmentsCount:number=0;
+  PatientUpcomingAppointmentsCount: number = 0;
   viewModel: ViewModel;
-  messages:Messages;
-  messagescount:number=0;
+  messages: Messages;
+  messagescount: number = 0;
   currentMessageView: string = 'Inbox';
   viewAppoinments: Appointments = {} as Appointments;
-
-  constructor(private authenticationService: AuthenticationService,private overlayService :OverlayService,private patientservice: PatientService,private router:Router,
+  constructor(private authenticationService: AuthenticationService, private overlayService: OverlayService, private patientservice: PatientService, private router: Router,
     private messageService: MessagesService,) {
-
     this.user = authenticationService.userValue;
     this.locationsInfo = JSON.parse(this.user.LocationInfo)
     this.viewModel = authenticationService.viewModel;
-
-   }
+  }
 
   ngOnInit(): void {
     this.getPatientUpcomingAppointments();
@@ -50,36 +47,33 @@ export class DashboardComponent {
     $(document).ready(function () {
 
       $('ul.navbar-nav > li')
-              .click(function (e) {
+        .click(function (e) {
           $('ul.navbar-nav > li')
-              .removeClass('active');
+            .removeClass('active');
           $(this).addClass('active');
-      });
-  });
+        });
+    });
   }
-  onChangeViewState(view){
-
-    this.authenticationService.SetViewParam("SubView",view);
+  onChangeViewState(view) {
+    this.authenticationService.SetViewParam("SubView", view);
     this.viewModel = this.authenticationService.viewModel;
     this.router.navigate(
       ['/patient/dashboard'],
     );
   }
-  onhealth(){
-    this.isAccees=false;
-    this.isHealth=true;
+  onhealth() {
+    this.isAccees = false;
+    this.isHealth = true;
   }
-  onAcess(){
-    this.isHealth=false;
-    this.isAccees=true;
-
+  onAcess() {
+    this.isHealth = false;
+    this.isAccees = true;
   }
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string) {
     const ref = this.overlayService.open(content, null);
-
     ref.afterClosed$.subscribe(res => {
       if (typeof content === 'string') {
-      //} else if (content === this.yesNoComponent) {
+        //} else if (content === this.yesNoComponent) {
         //this.yesNoComponentResponse = res.data;
       }
       else if (content === this.PatientDialogComponent) {
@@ -93,64 +87,55 @@ export class DashboardComponent {
   openComponentDialogmessage(content: any | ComponentType<any> | string, data,
     action: Actions = this.ActionTypes.add, message: string) {
     let DialogResponse: MessageDialogInfo = {};
-
     if (action == Actions.view && content === this.MessageDialogComponent) {
       DialogResponse.MessageFor = message
       DialogResponse.Messages = data;
-      DialogResponse.Messages.toAddress ={}
+      DialogResponse.Messages.toAddress = {}
       DialogResponse.Messages.toAddress.Name = (data as Messages).PatientName
       DialogResponse.Messages.toAddress.UserId = (data as Messages).ToId
       DialogResponse.ForwardReplyMessage = message;
-
     }
     else if (action == Actions.add && content === this.MessageDialogComponent) {
       DialogResponse.MessageFor = message;
       DialogResponse.Messages = null;
       DialogResponse.ForwardReplyMessage = null;
     }
-
     const ref = this.overlayService.open(content, DialogResponse);
     ref.afterClosed$.subscribe(res => {
     });
 
   }
-  getPatientUpcomingAppointments()
-{
-  var req={
-     "PatientId": this.user.PatientId,
-    // "PatientId":"62385146391cba10c7c20539"
+  getPatientUpcomingAppointments() {
+    var req = {
+      "PatientId": this.user.PatientId,
+      // "PatientId":"62385146391cba10c7c20539"
+    }
+    this.patientservice.PatientUpcomingAppointments(req).subscribe(res => {
+      this.PatientUpcomingAppointmentsList = res.ListResult == null ? [] : res.ListResult;
+      this.PatientUpcomingAppointmentsCount = res.ListResult.length;
+    })
   }
-  this.patientservice.PatientUpcomingAppointments(req).subscribe(res=>{
+  getmessages() {
+    var req = {
+      // "PatientId": "5836dafef2e48f36ba90a996",
+      "UserId": this.user.UserId,
+      "PageIndex": 0,
+      "PageSize": 10,
+      "SortField": "Created",
+      "SortDirection": "desc",
+      "Filter": "",
+      "MessageFilter": "Inbox"
+    }
+    this.messageService.Messages(req).subscribe(res => {
 
+      this.messages = res.ListResult == null ? [] : res.ListResult;
+      console.log(this.messages);
 
-    this.PatientUpcomingAppointmentsList=res.ListResult == null ? [] : res.ListResult;
-    this.PatientUpcomingAppointmentsCount=res.ListResult == null ? 0 : res.ListResult[0].ApptCount;
+      this.messagescount = res.ListResult == null ? 0 : res.ListResult[0].MessagesCount;
 
-  })
-}
-getmessages()
-{
-      var req={
-        // "PatientId": "5836dafef2e48f36ba90a996",
-        "UserId":this.user.UserId,
-        "PageIndex": 0,
-        "PageSize": 10,
-        "SortField": "Created",
-        "SortDirection": "desc",
-        "Filter": "",
-         "MessageFilter": "Inbox"
-      }
-      this.messageService.Messages(req).subscribe(res=>{
-
-        this.messages=res.ListResult == null ? [] : res.ListResult;
-console.log(this.messages);
-
-        this.messagescount=res.ListResult == null ? 0:res.ListResult[0].MessagesCount;
-
-      })
-}
-showappoinments(item)
-{
-  this.viewAppoinments = item;
-}
+    })
+  }
+  showappoinments(item) {
+    this.viewAppoinments = item;
+  }
 }
