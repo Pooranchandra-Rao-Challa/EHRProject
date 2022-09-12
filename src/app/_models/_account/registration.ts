@@ -2,16 +2,16 @@ export class Registration{
   UserId?: string;
   ClinicId?: string;
   ProviderId?: string;
-  Title?: string = 'Dr';
+  Title?: string ;
   FirstName?: string;
   MiddleName?: string;
   LastName?: string;
   PracticeName?: string;
-  Degree?: string = 'DDS';
-  Speciality?:string = 'Dentistry';
+  Degree?: string;
+  Speciality?:string;
   NPI?:string;
   PracticeAddress?: string;
-  SuiteNumber?: string = 'new suit';
+  SuiteNumber?: string ;
   PrimaryPhone?: string;
   PrimaryPhonePreffix?: string;
   PrimaryPhoneSuffix?: string;
@@ -60,4 +60,8 @@ export class ViewModel{
   AltEmail: boolean = false;
   Password: boolean=false;
   ConfirmPassword: boolean = false;
+}
+
+export class ValidationMail{
+  Email: string;
 }

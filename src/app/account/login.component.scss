@@ -25,12 +25,11 @@
   font-family: revert !important;
 
 }
-::ng-deep .swal2-title {
-  margin-top: 0px !important;
 
+
+::ng-deep .login-modal-header {
+  margin:0 !important;
 }
-
-
 #authfailedmessage {
   color: rgba(240, 13, 13, 0.932);
 }
@@ -258,12 +257,26 @@ user agent stylesheet div {
   vertical-align: middle;
   font-family: 'Roboto' !important;
 }
+::ng-deep .login-close-button{
+  top: 14px;
+  position: absolute;
+  margin-right: 10px;
+  width :0.8em !important;
+  height: 0.8em !important;
+}
 
+::ng-deep .login-confirm-button {
+  white-space: nowrap;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    width: unset !important;
+}
 .content {
   text-align: center;
   color: #74757e;
 
 }
+
 
 
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {

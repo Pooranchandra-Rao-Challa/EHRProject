@@ -43,7 +43,7 @@
     <div class="modal-footer">
       <button class="btn btn-green" (click)="downloadInviteasPDF()">Download Invite as PDF</button>
       <button class="btn btn-green" aria-label="Close" (click)="sendInviteToEmailAddress()"
-      *ngif="patientUser.Email != null">
+      *ngIf="patientUser.Email != null">
         Send Invite to Email Address
       </button>
       <button class="btn btn-green" aria-label="Close" (click)="cancel()">

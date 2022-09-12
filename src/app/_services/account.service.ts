@@ -130,4 +130,16 @@ export class Accountservice extends APIEndPoint {
   CreateProvider(reqparams: any) {
     return this._ProcessPostRequest<any>(this._createProviderUrl, reqparams);
   }
+
+  ResendValidationMail(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._resendValidationMailUrl, reqparams);
+  }
+
+  RaisePasswordChangeRequest(reqparams: any){
+    return this._ProcessPostRequest<any>(this._raisePasswordChangeRequestUrl, reqparams);
+  }
+
+  CheckEmailAvailablity(creds: any) {
+    return this.http.post<any>(this._checkEmailAvailablityUrl, creds);
+  }
 }

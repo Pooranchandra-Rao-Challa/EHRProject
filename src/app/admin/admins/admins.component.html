@@ -76,8 +76,13 @@
             </div>
             <div class="col-lg-4 col-md-3 col-sm-12 col-12 mt-3">
               <label class="required">First Name</label>
-              <input type="input" class="form-control border-input" id="firstname" placeholder="First Name"
-                [(ngModel)]="newAdminRegistration.FirstName" alphaOnly>
+              <input type="input" class="form-control border-input" required #firstname="ngModel"
+                placeholder="First Name" [(ngModel)]="newAdminRegistration.FirstName" alphaOnly>
+              <div *ngIf="firstname.errors && firstname.touched ">
+                <div class="error_message" *ngIf="firstname.errors?.required">
+                  <p class="errormessage">Please enter first name</p>
+                </div>
+              </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-12 col-12 mt-3">
               <label>Middle Name</label>
@@ -86,8 +91,14 @@
             </div>
             <div class="col-lg-4 col-md-3 col-sm-12 col-12 mt-3">
               <label class="required">Last Name</label>
-              <input type="input" class="form-control border-input" id="lastname" placeholder="Last Name"
-                [(ngModel)]="newAdminRegistration.LastName" alphaOnly>
+              <input type="input" class="form-control border-input" required #lastname="ngModel" id="lastname"
+                placeholder="Last Name" [(ngModel)]="newAdminRegistration.LastName" alphaOnly>
+              <div *ngIf="lastname.errors && lastname.touched">
+                <div class="error_message" *ngIf="lastname.errors?.required">
+                  <!-- <i class="fa fa-minus"></i> -->
+                  <p class="errormessage">Please enter last name</p>
+                </div>
+              </div>
             </div>
             <div class="col-lg-5 col-md-5 col-sm-12 col-12 mt-3 mb-4">
               <label class="required">Role</label>
@@ -115,9 +126,15 @@
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="example-width">
                   <input matInput placeholder="Primary Phone Number" class="cstm-tel" type="tel" mask="000-0000"
-                    [showMaskTyped]="true" [patterns]="PhonePattern"
+                    [showMaskTyped]="true" [patterns]="PhonePattern" required #primaryphone="ngModel"
                     [(ngModel)]="newAdminRegistration.PrimaryPhoneSuffix">
                 </mat-form-field>
+                <div *ngIf="primaryphone.errors && primaryphone.touched" style="margin: -20px 0 0 0">
+                  <div class="error_message" *ngIf="primaryphone.errors?.required">
+                    <!-- <i class="fa fa-minus"></i> -->
+                    <p class="errormessage">Please enter primary phone</p>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -145,13 +162,37 @@
 
             <div class="col-lg-6 col-md-12 col-sm-12 col-12  mb-4">
               <label class="required">Email Address</label>
-              <input type="input" class="form-control border-input" id="Date" placeholder="Email Address"
-                [(ngModel)]="newAdminRegistration.Email">
+              <input type="input" class="form-control border-input" #adminEmail="ngModel" required id="Date"
+                placeholder="Email Address" [(ngModel)]="newAdminRegistration.Email"
+                pattern="^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$" (keyup)="checkEmailExistance()">
+              <div *ngIf="adminEmail.errors && adminEmail.touched">
+                <div class="error_message" *ngIf="adminEmail.errors?.pattern">
+                  <p class="errormessage">Please enter valid Email</p>
+                </div>
+                <div class="error_message" *ngIf="adminEmail.errors?.required">
+                  <p class="errormessage">Please enter Email</p>
+                </div>
+              </div>
+              <div *ngIf="emailVerfied != null">
+                <div [class.error_message]="!emailVerfied" [class.success_message]="emailVerfied">
+                  <p [class.error_message]="!emailVerfied" [class.success_message]="emailVerfied">
+                    {{emailVerficationMessage}}</p>
+                </div>
+              </div>
             </div>
+
             <div class="col-lg-6 col-md-12 col-sm-12 col-12 mb-4">
               <label>Alternative EMail Address</label>
               <input type="input" class="form-control border-input" id="Date" placeholder="Alternative EMail Address"
-                [(ngModel)]="newAdminRegistration.AltEmail">
+                [(ngModel)]="newAdminRegistration.AltEmail" #adminAltEmail="ngModel"
+                pattern="^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$">
+
+              <div *ngIf="adminAltEmail.errors && adminAltEmail.touched">
+                <div class="error_message" *ngIf="adminAltEmail.errors?.pattern">
+                  <!-- <i class="fa fa-minus"></i> -->
+                  <p class="errormessage">Please enter valid Email</p>
+                </div>
+              </div>
             </div>
 
           </div>
@@ -159,11 +200,10 @@
       </div>
       <div class="modal-footer">
         <button type="button" *ngIf="isSave" class="btn save-button" data-bs-dismiss="modal"
-        [disabled]="disableAdminRegistration()" (click)="CreateAdminRegistration()">Save </button>
-      <button type="button" *ngIf="isAddAdmin" class="btn save-button" data-bs-dismiss="modal"
-        [disabled]="disableAdminRegistration()" (click)="CreateAdminRegistration()">Add New Admin </button>
-      <button type="button" data-bs-dismiss="modal" class="btn-cancel"
-        (click)="resetDialog()">Cancel</button>
+          [disabled]="disableAdminRegistration()" (click)="CreateAdminRegistration()">Save </button>
+        <button type="button" *ngIf="isAddAdmin" class="btn save-button" data-bs-dismiss="modal"
+          [disabled]="disableAdminRegistration()" (click)="CreateAdminRegistration()">Add New Admin </button>
+        <button type="button" data-bs-dismiss="modal" class="btn-cancel" (click)="resetDialog()">Cancel</button>
       </div>
     </div>
   </div>
