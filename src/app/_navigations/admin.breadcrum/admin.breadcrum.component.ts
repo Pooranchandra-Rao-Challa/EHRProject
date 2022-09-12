@@ -8,7 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BreadcrumComponent implements OnInit {
 
-  menuName: any = 'Practices';
+  menuName: any = 'Add New Section';
+  // Practices
   constructor(private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
