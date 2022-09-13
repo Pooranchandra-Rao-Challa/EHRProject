@@ -1,0 +1,75 @@
+@import "../../../assets/cstm.material.scss";
+@import"../../../assets/common.scss";
+
+#secure-questions-dialog.modal-dialog {
+  margin: unset;
+  max-width: 805px;
+  max-height: 800px;
+}
+
+#secure-questions-dialog {
+  .modal-content .modal-header {
+    padding: 20px 16px;
+  }
+
+  .modal-content {
+    border: 1px solid rgb(65 182 166) !important;
+  }
+
+  .modal-content {
+    width: 600px !important;
+    height: 400px !important;
+  }
+
+  .modal-header {
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    color: white;
+    background-color: #41b6a6;
+    border-bottom: none;
+    min-height: 50px;
+    max-height: 50px;
+  }
+
+  .modal-body {
+    background-attachment: fixed;
+    background: white;
+    height: 600px
+  }
+
+  .validation-inputs {
+    align-items: center;
+    margin: 5px 5px 0 5px;
+
+    .control-label {
+      white-space: nowrap;
+    }
+  }
+
+
+
+  .messages div{
+    margin: 10px 0;
+    color:#41b6a6;
+    font-size: 16px;
+  }
+
+  .form-control::placeholder {
+    color: #41b6a6;
+    font-size: 16px;
+  }
+
+  .alert-danger {
+    color: #d64841;
+    background-color: transparent;
+    font-size: 15px;
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+    margin-top: -10px;
+    margin-bottom: 15px;
+  }
+
+}
+
+::ng-deep .app-change-password-dialog .mat-dialog-container {
+  margin: unset;
+  padding: unset;
+}

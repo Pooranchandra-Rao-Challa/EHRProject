@@ -867,6 +867,7 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "CheckEmailAvailablity";
   }
 
+
   constructor(public http: HttpClient) {
     super();
   }

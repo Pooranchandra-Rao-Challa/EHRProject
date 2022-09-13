@@ -102,6 +102,11 @@ export class LoginComponent implements OnInit {
       confirmButtonText: 'Okay-Send it !',
       backdrop: true,
       inputPlaceholder: 'Enter your email address',
+      inputValidator: (value) => {
+        if (!/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/.test(value)) {
+          return 'You need to enter valid email!'
+        }
+      }
 
 
     });
@@ -135,6 +140,11 @@ export class LoginComponent implements OnInit {
       confirmButtonText: 'Resend Verification',
       backdrop: true,
       inputPlaceholder: 'Enter your email address',
+      inputValidator: (value) => {
+        if (!/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/.test(value)) {
+          return 'You need to enter valid email!'
+        }
+      }
     });
 
     if (email) {
@@ -145,7 +155,6 @@ export class LoginComponent implements OnInit {
   }
 
   openErrorDialog( message:string) {
-
     Swal.fire({
       title: message,
       padding: '1px !important',
