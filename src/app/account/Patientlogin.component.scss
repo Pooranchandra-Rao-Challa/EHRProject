@@ -267,6 +267,19 @@ li {
  }
 
 
+ ::ng-deep .swal2-title.login-modal-header {
+  margin:unset !important;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  padding: 20px !important;
+  background-color: #41b6a6;
+  color: #fff;
+  font-size: 24px;
+  font-family: "Roboto";
+  font-weight: 400;
+  margin-bottom: 40px !important;
+}
+
 ::ng-deep .swal2-title-patient-login{
   margin:unset !important;
   border-top-left-radius: 5px;
