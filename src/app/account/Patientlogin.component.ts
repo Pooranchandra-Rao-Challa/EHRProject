@@ -109,7 +109,7 @@ export class PatientLoginComponent implements OnInit {
       backdrop: true,
       width: '500px'
     }).then((result) => {
-      console.log(result);
+
       if (result.dismiss == Swal.DismissReason.cancel) {
         this.openChangePasswordDialog();
       }
