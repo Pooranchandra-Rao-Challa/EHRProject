@@ -8,7 +8,7 @@ import { ComponentType } from '@angular/cdk/portal';
 import { filter, map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
 import { Actions, PatientSearch, UserLocations, } from 'src/app/_models';
-import { LabProcedureWithOrder, TestOrder } from 'src/app/_models/_provider/LabandImage';
+import { Attachment, LabProcedureWithOrder, TestOrder } from 'src/app/_models/_provider/LabandImage';
 import { PracticeProviders } from 'src/app/_models/_provider/practiceProviders';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
@@ -41,6 +41,7 @@ export class OrderDialogComponent implements OnInit, AfterViewInit {
   saveClicked: boolean = false;
   diabledPatientSearch: boolean = false;
   httpRequestParams = new HttpParams();
+  uploadTo: string = "LabandImage"
 
   constructor(private ref: EHROverlayRef,
     private fb: FormBuilder,
@@ -54,10 +55,13 @@ export class OrderDialogComponent implements OnInit, AfterViewInit {
     private patientService: PatientService,
     private fileUploadService: FileUploadService,
     private datePipe: DatePipe) {
-    this.httpRequestParams.set("EntityName","LabandImage");
-    console.log(this.httpRequestParams);
-
+    this.httpRequestParams = this.httpRequestParams.append("EntityName", "LabandImage");
     this.labandImaging = ref.RequestData as LabProcedureWithOrder;
+
+    if (this.labandImaging.LabProcedureId != null && this.labandImaging.LabProcedureId != "")
+      this.httpRequestParams = this.httpRequestParams.append("EntityId", this.labandImaging.LabProcedureId);
+
+    console.log(this.httpRequestParams);
 
     if (this.labandImaging.CurrentPatient == null)
       this.labandImaging.CurrentPatient = new PatientSearch();
@@ -290,7 +294,6 @@ export class OrderDialogComponent implements OnInit, AfterViewInit {
           this.orders.controls[value.Index].setValue({ Code: value.Code, Test: value.Description, TestOrderId: -1 * value.Index });
         }
       }
-
     });
   }
   getCodeInfo(element, index) {
@@ -302,10 +305,40 @@ export class OrderDialogComponent implements OnInit, AfterViewInit {
       this.openComponentDialog(this.testCodeComponent, testCode);
   }
 
-  UploadCompleated(file, event) {
-    console.log(file);
-    console.log(event);
+  UploadCompleted(data) {
+    if (data.event.body) {
+      if (!this.labandImaging.Attachments) this.labandImaging.Attachments = [];
+      this.labandImaging.Attachments.push(data.event.body as Attachment)
+    }
+  }
 
-
+  ItemRemoved(attachmentId) {
+    this.removeAttachment(attachmentId);
+  }
+  removeAttachment(attachmentId) {
+    this.labandImaging.Attachments.forEach((value) => {
+      if (value.AttachmentId == attachmentId)
+        value.IsDeleted = true;
+    });
+  }
+  DeleteAttachment(attachmentId) {
+    this.removeAttachment(attachmentId);
+  }
+  showImage:boolean = false;
+  Imagedata:string;
+  showDocument(attachmentId) {
+    this.labandImaging.Attachments.forEach((value) => {
+      if (value.AttachmentId == attachmentId) {
+        this.labsImagingService.ImagetoBase64String(value).subscribe(resp =>{
+          if(resp.IsSuccess){
+            this.showImage = true;
+            console.log(resp.Result);
+            this.Imagedata = resp.Result;
+          }else{
+            this.showImage = false;
+          }
+        })
+      }
+    });
   }
 }
