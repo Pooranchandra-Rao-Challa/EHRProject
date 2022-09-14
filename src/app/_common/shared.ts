@@ -11,18 +11,19 @@ import { npiValidatorDirective } from 'src/app/_directives/npi.validator.directi
 import { ssnValidatorDirective } from 'src/app/_directives/ssn.validator.directive'
 import { NunberMaskDirective } from 'src/app/_directives/number.mask.directive'
 import { AlphaDirective } from "../_directives/alphaonly.directive";
-
-//import { FullCalendarModule } from '@fullcalendar/angular';
+import { FileUploadModule } from 'src/app/file.upload/file-upload.module'
 
 @NgModule({
   imports: [
     QuickAppProMaterialModule,
     //FullCalendarModule,
     ReactiveFormsModule,
-    FormsModule
+    FileUploadModule,
+    FormsModule,
   ],
   exports: [
     QuickAppProMaterialModule,
+    FileUploadModule,
     //FullCalendarModule,
     GroupByPipe,
     FilterPipe,
@@ -33,7 +34,7 @@ import { AlphaDirective } from "../_directives/alphaonly.directive";
     ssnValidatorDirective,
     MouseOverHintDirective,
     NunberMaskDirective,
-    AlphaDirective
+    AlphaDirective,
   ],
   declarations: [GroupByPipe, FilterPipe, SearchPipe, TimeMaskDirective,
     MouseOverHintDirective,SimplePaginationDirective,npiValidatorDirective,

@@ -309,3 +309,30 @@ input.mat-input-element {
   min-width: 70px !important;
   margin-top: -5px;
 }
+
+
+
+#new-admin-modal .error_message{
+  color: #8c2929;
+  content: '*';
+  display: flex;
+  align-items: center;
+}
+
+#new-admin-modal .success_message{
+  color: rgb(0, 152, 3);
+  content: '*';
+  display: flex;
+  align-items: center;
+}
+
+login-cancel-button{
+  background-color: #35414f;
+  color: #fff;
+
+}
+
+login-cancel-button:hover{
+  background-color: #fff;
+  color: #35414f;
+}

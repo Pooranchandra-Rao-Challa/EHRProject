@@ -33,7 +33,7 @@ export class AuthenticationService {
 
   public SetViewParam(key: string, value: any) {
     let v = JSON.parse(localStorage.getItem("viewModel")) as ViewModel;
-    if(v==null) v = new ViewModel();
+    if (v == null) v = new ViewModel();
     v[key] = value;
     localStorage.setItem('viewModel', JSON.stringify(v));
   }
@@ -56,26 +56,45 @@ export class AuthenticationService {
       tap(resp => {
         if (resp.IsSuccess) {
           this.userSubject = new BehaviorSubject<User>(resp.Result as User);
-          localStorage.setItem('user', JSON.stringify(resp.Result as User));
-          this.updateViewModel();
-          this.startRefreshTokenTimer();
-          if (this.isProvider){
-            if(!this.isProviderVerfied){
-              this.logout(ERROR_CODES["EL006"])
+          console.log(this.userValue);
+
+          if (this.userValue.IsSuccess) {
+            localStorage.setItem('user', JSON.stringify(resp.Result as User));
+            this.updateViewModel();
+            this.startRefreshTokenTimer();
+            if (this.isProvider) {
+              if (!this.isProviderVerfied)
+                this.logout(ERROR_CODES["EL006"])
+              else if (!this.isProviderActive)
+                this.logout(ERROR_CODES["EL008"])
+              else if (this.isUserLocked)
+                this.logout(ERROR_CODES["EL009"])
+              else
+                this.router.navigate(
+                  ['provider/smartschedule'],
+                  { queryParams: { name: 'Smart Schedule' } }
+                );
             }
-            else
-              this.router.navigate(
-                ['provider/smartschedule'],
-                { queryParams: { name: 'Smart Schedule' } }
-              );
+            else if (this.isAdmin)
+              if (this.isUserLocked)
+                this.logout(ERROR_CODES["EL010"])
+              else if (this.isUserLocked)
+                this.logout(ERROR_CODES["EL011"])
+              else
+                this.router.navigate(
+                  ['admin/dashboard'],
+                  { queryParams: { name: 'Providers' } }
+                );
+            else if (this.isPatient)
+              this.logout(ERROR_CODES["EL001"]);
+          } else if (this.isFirstTimeLogin) {
+            if (this.isProvider)
+              this.logout(ERROR_CODES["EL006"])
+            else if (this.isAdmin)
+              this.logout(ERROR_CODES["EL007"])
+          } else {
+            this.logout(ERROR_CODES["EL001"])
           }
-          else if (this.isAdmin)
-            this.router.navigate(
-              ['admin/dashboard'],
-              { queryParams: { name: 'Providers' } }
-            );
-          else if (this.isPatient)
-            this.router.navigate(['patinet/patientview']);
         } else {
           this.logout(ERROR_CODES["EL001"])
         }
@@ -87,15 +106,21 @@ export class AuthenticationService {
     return observable;
   }
 
-  SecurePasswordChangeForProvider(creds: SecureCreds){
+  SecurePasswordChangeForProvider(creds: SecureCreds) {
     const endpointUrl = this.baseUrl + "SecurePasswordChange";
     return this.http.post<any>(endpointUrl, creds);
   }
+  UpdatePasswordOnRequest(creds: any) {
+    const endpointUrl = this.baseUrl + "UpdatePasswordOnRequest";
+    return this.http.post<any>(endpointUrl, creds);
+  }
 
-  // SecurePasswordChangeForRep(creds: SecureCreds){
-  //   const endpointUrl = this.baseUrl + "SecurePasswordChangeForRep";
-  //   return this.http.post<any>(endpointUrl, creds);
-  // }
+  ValidatePatientChangePasswordInputs(creds: any) {
+    const endpointUrl = this.baseUrl + "ValidatePatientChangePasswordInputs";
+    return this.http.post<any>(endpointUrl, creds);
+  }
+
+
 
   SwitchUser(data: { SwitchUserKey: string, SwitchUserEncKey: string }) {
     if (this.isAdmin) {
@@ -109,15 +134,15 @@ export class AuthenticationService {
             localStorage.setItem('user', JSON.stringify(resp.Result as User));
             this.updateViewModel();
             this.startRefreshTokenTimer();
-            if (this.isProvider){
-              if(!this.isProviderVerfied){
+            if (this.isProvider) {
+              if (!this.isProviderVerfied) {
                 this.logout(ERROR_CODES["EL006"])
               }
               else
-              this.router.navigate(
-                ['/provider/smartschedule'],
-                { queryParams: { name: 'Smart Schedule' } }
-              );
+                this.router.navigate(
+                  ['/provider/smartschedule'],
+                  { queryParams: { name: 'Smart Schedule' } }
+                );
             }
 
           } else {
@@ -144,10 +169,10 @@ export class AuthenticationService {
         this.SetViewParam("View", "dashboard")
         if (this.isPatient || this.isRepresentative)
           this.router.navigate(['patient/dashboard']);
-        else{
+        else {
           this.logout(ERROR_CODES["EL001"])
         }
-      }else{
+      } else {
         this.logout(ERROR_CODES["EL002"])
       }
     }),
@@ -206,7 +231,7 @@ export class AuthenticationService {
     return this.userValue.Role.toLowerCase() == "admin"
   }
 
-  get isProviderVerfied(): boolean{
+  get isProviderVerfied(): boolean {
     if (this.userValue == undefined || this.userValue == null) return false;
     return this.userValue.EmailConfirmation;
   }
@@ -219,6 +244,22 @@ export class AuthenticationService {
   get isRepresentative(): boolean {
     if (this.userValue == undefined || this.userValue == null) return false;
     return this.userValue.Role.toLowerCase() == "representative"
+  }
+
+  get isFirstTimeLogin(): boolean {
+    return this.userValue.IsFirstTimeLogin;
+  }
+
+  get isProviderActive(): boolean {
+    return this.userValue.ProviderActive;
+  }
+
+  get isUserLocked(): boolean {
+    return this.userValue.UserLocked;
+  }
+
+  get isAdminActive(): boolean {
+    return this.userValue.AdminActive;
   }
 
   private startRefreshTokenTimer() {

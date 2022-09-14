@@ -71,8 +71,10 @@ export class WeeklyUpdatedComponent implements OnInit {
     window.scrollTo(window.scrollX, window.scrollY - 1);
   }
 
-  selectValue(name) {
+  selectValue(name,bool) {
     this.selectedValue = name;
+    this.isColorActive = bool;
+    this.searchValue = '';
   }
 
   NavigateSection(name, url, item: WeeklyUpdated = null) {
@@ -158,6 +160,11 @@ export class WeeklyUpdatedComponent implements OnInit {
         title: 'Are you sure you want to delete the record',
         showCancelButton: true,
         confirmButtonText: 'Yes',
+        confirmButtonColor:'#337ab7',
+        customClass: {
+          title: 'swal2-title-message'
+        
+        }
       }).then((result) => {
         if (result.value) {
           this.deleteWeeklyUpdated(id);

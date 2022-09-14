@@ -33,11 +33,16 @@ export class PatientPortalUser{
   Username?: string;
   Password?: string;
   Email?: string;
+  ProviderName?: string;
+  LocationName?: string;
+  BusinessName?: string;
   ConfirmPassword?: string;
   PatientRelationshipUserId?: string;
   PatientRelationName?: string;
   Relationship?: string;
   PatientRelationUsername?: string;
+  SendInvitation?:boolean;
+  URL?:string;
 }
 
 export class PatientSearch{

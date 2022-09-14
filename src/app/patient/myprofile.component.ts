@@ -9,7 +9,7 @@ import { debounceTime, distinctUntilChanged, filter, map, startWith } from 'rxjs
 import { User } from '../_models';
 import { ActivatedRoute } from '@angular/router';
 import { AlertMessage, ERROR_CODES } from '../_alerts/alertMessage';
-import { MedicalCode } from '../_models/codes';
+import { SECURE_QUESTIONS } from 'src/app/_models/_patient/patientprofile';
 import { UtilityService } from '../_services/utiltiy.service';
 import { Accountservice } from '../_services/account.service';
 
@@ -42,20 +42,7 @@ export class MyprofileComponent implements OnInit {
   @ViewChild('searchWorkPhone', { static: true }) searchWorkPhone: ElementRef;
   @ViewChild('searchPhone', { static: true }) searchPhone: ElementRef;
 
-  questions: any[] = [{value:'What is your favorite sports team?',viewvalue:'What is your favorite sports team?'},
-                      {value:'Which historical figure would you most like to meet?',viewvalue:'Which historical figure would you most like to meet?'},
-                      {value:'In what city were you born?',viewvalue:'In what city were you born?'},
-                      {value:'What was the make and model of your first car?',viewvalue:'What was the make and model of your first car?'},
-                      {value:'What is your favorite movie?',viewvalue:'What is your favorite movie?'},
-                      {value:'What is the name of your favorite person in history?',viewvalue:'What is the name of your favorite person in history?'},
-                      {value:'Who is your favorite actor, musician, or artist?',viewvalue:'Who is your favorite actor, musician, or artist?'},
-                      {value:'What was your favorite sport in high school?',viewvalue:'What was your favorite sport in high school?'},
-                      {value:'What is the name of your favorite book?',viewvalue:'What is the name of your favorite book?'},
-                      {value:'What was the last name of your first grade teacher?',viewvalue:'What was the last name of your first grade teacher?'},
-                      {value:'Where were you when you had your first kiss?',viewvalue:'Where were you when you had your first kiss?'},
-                      {value:'Where were you when you had your first kiss?',viewvalue:'Where were you when you had your first kiss?'},
-                      {value:'What is the last name of the teacher who gave you your first falling grade?',viewvalue:'What is the last name of the teacher who gave you your first falling grade?'} ];
-
+  questions: any[] = SECURE_QUESTIONS
 
 relationship: any = [
   { Id: '1', value: 'Parent-Mother' },

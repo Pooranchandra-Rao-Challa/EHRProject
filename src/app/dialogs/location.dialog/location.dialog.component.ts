@@ -60,6 +60,7 @@ export class LocationDialogComponent implements OnInit {
         this.PracticeLocData.Zipcode = resp.Result.components.zipcode
         this.PracticeLocData.Street = "";
         this.addressVerfied = true;
+        this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP0010"]);
       }
       else {
         this.manuallybtn = true;
@@ -72,13 +73,18 @@ export class LocationDialogComponent implements OnInit {
     this.clearAddress();
   }
 
-  enableSave(){
+  phonepattern = /^[0-9]{10}/;
+  enableSave() {
     let digits = /[0-9]{9}/;
     let namevalidation = /[a-zA-Z\s*]*/;
     return !(this.PracticeLocData.LocationName != null && this.PracticeLocData.LocationName != ""
-          && (digits.test(this.PracticeLocData.Tin) || this.PracticeLocData.Tin == null ||
-          this.PracticeLocData.Tin == "")
-          && namevalidation.test(this.PracticeLocData.LocationName))
+      && (digits.test(this.PracticeLocData.Tin) || this.PracticeLocData.Tin == null ||
+        this.PracticeLocData.Tin == "")
+      && namevalidation.test(this.PracticeLocData.LocationName)
+      && (this.PracticeLocData.LocationPhone == null || this.PracticeLocData.LocationPhone == ""
+        || this.phonepattern.test(this.PracticeLocData.LocationPhone))
+      && (this.PracticeLocData.Fax == null || this.PracticeLocData.Fax == ""
+        || this.phonepattern.test(this.PracticeLocData.Fax)))
   }
   updateLocation() {
     // this.splitAddress = null;

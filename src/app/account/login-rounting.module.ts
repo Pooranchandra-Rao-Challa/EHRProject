@@ -11,6 +11,8 @@ import { PartnerSignupComponent } from '../patient/partner-signup.component';
 import { CreatePasswordComponent } from './createpassword.component'
 import { ProviderConfirmationComponent } from './provider.confirmation.component'
 import { EmailedUrlsComponent} from 'src/app/account/emailedurls/emailed.url.component'
+import { ChangePasswordComponent } from './change.password.component'
+
 
 const routes: Routes = [
   {
@@ -22,9 +24,10 @@ const routes: Routes = [
       { path: 'patientlogin', component: PatientLoginComponent },
       { path: 'partnersignup', component: PartnerSignupComponent },
       { path: 'createpassword', component: CreatePasswordComponent },
+      { path: 'changepassword', component: ChangePasswordComponent },
       { path: 'providerconfirmation', component: ProviderConfirmationComponent },
       { path: 'emailedurls', component: EmailedUrlsComponent },
-      
+
     ]
   },
 ]

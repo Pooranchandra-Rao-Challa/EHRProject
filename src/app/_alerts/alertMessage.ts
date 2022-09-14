@@ -21,13 +21,14 @@ export class AlertMessage {
 
   displayErrorDailog(message) {
     Swal.fire({
-      title: message,
+      title:message,
+
       position: 'top',
       showCancelButton: true,
       showConfirmButton: false,
       cancelButtonText: 'Close',
       //cancelButtonColor: '#d74842',
-      width: '500',
+      width: '600',
       customClass: {
         title: 'swal2-title-error', container: 'swal2-container-high-zindex',
         cancelButton: 'swal2-error'
@@ -54,10 +55,10 @@ export class AlertMessage {
       background: '#e1dddd',
       showConfirmButton: true,
       html:
-        'An email has been set to, ' +
+        '<p>An email has been sent to, ' +
         '<p>' + provider +
         '<p> He/She wil need to enter the Practice record ID# to activate their account.' +
-        '<p>  Practice Record ID# <b>' + code + '</b>',
+        '<p> Practice Record ID# <b>' + code + '</b>',
       confirmButtonText: 'Done',
       confirmButtonColor: "#41b6a6",
       customClass: {
@@ -240,7 +241,7 @@ export const ERROR_CODES: { [key: string]: string } = {
 
   //Security Question
   'M2CP009':  'Security question is updated successfully ',
-  'M2CP0010': 'Address verification',
+  'M2CP0010': 'Address verified successfully',
   'M2CP0011': 'Authorized representative added sucessfully',
   'M2CP0012': 'Authorized representative updated sucessfully',
 
@@ -253,7 +254,7 @@ export const ERROR_CODES: { [key: string]: string } = {
   'E2CP006': 'Next of kin Updation error',
   'E2CP007': 'Immunization Updation error',
   'E2CP008': 'Security Question Updation Error',
-  'E2CP009': 'Address Verification Failed',
+  'E2CP009': 'Address verification failed',
   'E2CP0010': 'Authorized representative failed',
   //Message for Partner signup
   'M3PS001': 'Application Submitted!',
@@ -333,7 +334,7 @@ export const ERROR_CODES: { [key: string]: string } = {
   'E2AP001': 'Patient Adding error',
   'E2AP002': 'Patient User account create error',
   'M2AP002': 'Patient Invitaion pdf downloaded',
-  'M2AP003': 'Patient Invitaion mail sent',
+  'M2AP003': 'Invitation successfully sent to patient email',
 
   //Message for allergies in chart screen
   'M2CA001': 'Allergy added successfully',
@@ -447,7 +448,12 @@ export const ERROR_CODES: { [key: string]: string } = {
   'EL002': 'Session is timeout',
   'EL003': 'You need to sign in or sign up before continuing.',
   'EL005': 'The login to provider account is failed.',
-  'EL006': 'Email not verified, please click on the verification in your email or resend confirmation to continue.',
+  'EL006': 'Email is not verified, if you haven\'t received Email, please click on the \'Resend Email Verification\' in login form.',
+  'EL007': 'Admin account is not set up, raise the request for change password',
+  'EL008': 'Provider account is not active',
+  'EL009': 'Provider user account is locked',
+  'EL010': 'Admin user account is locked',
+  'EL011': 'Admin account is not active',
 
   //Education Material Message
   'M2JPE001': 'Education Material added successfully',
@@ -478,10 +484,10 @@ export const ERROR_CODES: { [key: string]: string } = {
   'E2JCDS002': 'Trigger updation error',
   'E2JCDS003': 'Trigger deletion error',
   //Messages for Patient Appoinments
-  'M3A001': 'Appoinments added successfully ',
-  'M3A002': 'Appoinments cancelled successfully',
+  'M3A001': 'Appointments added successfully ',
+  'M3A002': 'Appointments cancelled successfully',
   //Error Messages for Patient Appoinments
-  'E3A001': "Appoinments updation error",
+  'E3A001': "Appointments updation error",
   //Messages for provider messages
   'M2D001': "Secure Message sent successfully",
   'M2D002': "Message Deleted successfully",

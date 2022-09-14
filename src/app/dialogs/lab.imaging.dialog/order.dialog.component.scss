@@ -1,43 +1,55 @@
 @import"../../../assets/cstm.material.scss";
 @import"../../../assets/common.scss";
 
-#labandimaging.modal-dialog{
+#labandimaging.modal-dialog {
   max-width: unset;
   left: calc(100% - 80%) !important;
   margin: unset;
 }
-.ordermodel.modal-content{
-    width: 900px !important;
+
+.ordermodel.modal-content {
+  width: 900px !important;
 }
+
 @media screen and (max-width:768px) {
-  .ordermodel.modal-content{
+  .ordermodel.modal-content {
     max-width: 520px !important;
+  }
 }
-}
-#labandimaging .dropdown-menu{
+
+#labandimaging .dropdown-menu {
   min-width: unset;
 }
+
 .modal-body {
   max-height: calc(90vh - 200px);
   overflow-y: auto;
 }
-.not-allowed{
-    cursor: not-allowed;
+
+.not-allowed {
+  cursor: not-allowed;
 }
-.disabled-color{
+
+.disabled-color {
   background: transparent;
 }
-mat-label{width: 100%;display: block;}
-.plusicon {
-    border-radius: 50%;
-    border: 1px solid #fff;
-    background: #fff;
-    width: 30px;
-    height: 29px;
-    text-align: center;
-    cursor: pointer;
-   // margin-left: 10px;
+
+mat-label {
+  width: 100%;
+  display: block;
 }
+
+.plusicon {
+  border-radius: 50%;
+  border: 1px solid #fff;
+  background: #fff;
+  width: 30px;
+  height: 29px;
+  text-align: center;
+  cursor: pointer;
+  // margin-left: 10px;
+}
+
 .plusicon .fa-plus {
   padding: 5px 0px 0px 0px;
   color: #41b6a6;
@@ -52,6 +64,7 @@ mat-label{width: 100%;display: block;}
   font-size: 16px;
   font-family: "FontAwesome"
 }
+
 .minuicon {
   border-radius: 50%;
   border: 1px solid #41b6a6;
@@ -61,32 +74,39 @@ mat-label{width: 100%;display: block;}
   text-align: center;
   cursor: pointer;
   margin-top: 6.3px;
+
   .fa-minus {
     padding: 5px 0px 0px 0px;
     color: #41b6a6;
-    background:transparent;
+    background: transparent;
     font-size: 16px;
     font-family: "FontAwesome";
+
     &:hover {
       color: #fff;
       background: #41b6a6;
     }
   }
+
   &:hover {
-    .fa-minus{color: #fff;}
+    .fa-minus {
+      color: #fff;
+    }
+
     background: #41b6a6;
   }
 }
 
-.text-border{
+.text-border {
   height: 71px;
-    border: 1px solid #41b6a6;
-    border-radius: 3px;
-    font-size: 15px;
-    padding: 10px 20px;
-    resize: both;
-    width: 100% !important;
+  border: 1px solid #41b6a6;
+  border-radius: 3px;
+  font-size: 15px;
+  padding: 10px 20px;
+  resize: both;
+  width: 100% !important;
 }
+
 .pattach {
   border: 1px solid #41b6a6;
   margin-top: 20px;
@@ -100,7 +120,11 @@ mat-label{width: 100%;display: block;}
   cursor: pointer;
 
 }
-.formarray:not(first-child) { border-top: none; }
+
+.formarray:not(first-child) {
+  border-top: none;
+}
+
 // .formarray:not(last-child) { border-bottom: none; }
 
 
@@ -117,6 +141,7 @@ mat-label{width: 100%;display: block;}
   color: #d64841;
   border: 1px solid #d64841;
 }
+
 ::ng-deep .orderddhover.mat-form-field-appearance-outline:hover .mat-form-field-outline {
   background-color: #41b6a6 !important;
 
@@ -133,6 +158,7 @@ mat-label{width: 100%;display: block;}
   cursor: pointer;
   margin-left: 10px;
 }
+
 .attchmentplusicon .fa-plus {
 
   padding: 5px 0px 0px 0px;
@@ -141,9 +167,46 @@ mat-label{width: 100%;display: block;}
   font-family: "FontAwesome"
 }
 
-#labandimaging .mat-select-trigger{
+#labandimaging .mat-select-trigger {
   top: -4px;
   height: 1.5em;
 }
-.mat-form-field{width: 100%;}
 
+.mat-form-field {
+  width: 100%;
+}
+.file-view {
+  padding-bottom: 10px;
+}
+
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  float:right;
+  margin: 10px 0;
+
+
+  label {
+    background-color: #fff;
+    color: #41b6a6;
+    padding: 0.5rem;
+    font-family: sans-serif;
+    border-radius: 0.3rem;
+    border: 1px solid #41b6a6;
+    cursor: pointer;
+
+    &:hover{
+      background-color: #41b6a6;
+      color: #fff;
+    }
+  }
+}
+
+
+.upload-btn-wrapper input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}

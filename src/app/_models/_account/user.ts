@@ -25,6 +25,10 @@ export interface User {
   TrialDaysLeft?: number;
   EnableStage3: boolean;
   RepresentativeUserId:string;
+  IsFirstTimeLogin: boolean;
+  ProviderActive: boolean;
+  UserLocked: boolean;
+  AdminActive: boolean;
 }
 export class UserLocations {
   LocationId: string;

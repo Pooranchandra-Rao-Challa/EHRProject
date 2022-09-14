@@ -99,13 +99,13 @@ img,svg {
  {
   overflow-y: scroll;
   max-height: calc(100vh - 400px);
-  min-height: 452px
+  min-height: 607px
 }
 
 .adult-frequnecy {
   overflow-y: scroll;
   max-height: calc(70vh - 53px);
-  min-height: 502px;
+  min-height: 654px;
 }
 
 .child-procedure {
@@ -538,7 +538,7 @@ ul li, ol li, dl li {
 }
 
 .tree-leaf-item:hover{
-  color: #41a6b6;
+  color: #41b6a6;
   cursor: pointer;
   text-decoration: underline;
 }

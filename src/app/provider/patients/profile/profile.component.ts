@@ -4,7 +4,7 @@ import { PatientProfile } from 'src/app/_models/_patient/patientprofile';
 import { PracticeProviders } from 'src/app/_models/_provider/practiceProviders';
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
-import { FormControl } from '@angular/forms';
+import { AbstractControl, FormControl } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Actions, User } from 'src/app/_models';
@@ -432,6 +432,7 @@ export class ProfileComponent implements OnInit {
 
     return flag;
   }
+ 
 
   enablePatientContactInfo() {
     
@@ -478,3 +479,4 @@ export class ProfileComponent implements OnInit {
   }
 
 }
+

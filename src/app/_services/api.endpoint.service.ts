@@ -622,8 +622,6 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "CompletePatientAccountProcess";
   }
 
-
-
   get _patientPastAppointmentsUrl() {
     return this._baseUrl + "PatientPastAppointments";
   }
@@ -853,9 +851,27 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "CreateProvider";
   }
 
+  get _resendValidationMailUrl() {
+    return this._baseUrl + "ResendValidationMail";
+  }
+
+  get _sendPatientInvitationUrl() {
+    return this._baseUrl + "SendPatientInvitation";
+  }
+
+  get _raisePasswordChangeRequestUrl() {
+    return this._baseUrl + "RaisePasswordChangeRequest";
+  }
+
+  get _checkEmailAvailablityUrl() {
+    return this._baseUrl + "CheckEmailAvailablity";
+  }
+
+
   constructor(public http: HttpClient) {
     super();
   }
+
 
   _ProcessPostRequestWithHeaders<T>(apiurl: string, reqdata: any): Observable<T> {
     return this.http.post<T>(apiurl, reqdata, this.requestHeaders).pipe(

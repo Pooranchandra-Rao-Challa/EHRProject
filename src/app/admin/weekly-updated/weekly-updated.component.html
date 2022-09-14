@@ -18,9 +18,9 @@
         </a>
         <ul class="dropdown-menu searchmenu" aria-labelledby="dropdownMenuLink">
           <input type="text" class="w-100 p-2 searchInput" [(ngModel)]="searchValue"
-            (ngModelChange)="filterDropdown($event)" autofocus name="provider" id="myinputbox">
+            (ngModelChange)="filterDropdown($event)" autofocus name="provider" id="myinputbox" autocomplete="false">
            <a *ngFor="let option of filteredList; let i=index" class="dropdown-item pointer text-containt drodownlist"
-            [class.selecteditem]="isColorActive" (click)="selectValue(option.ProviderName)"id="choose">
+           [Class.btn-on]="option?.isColorActive" (click)="selectValue(option.ProviderName,true)"id="choose" >
             {{option.ProviderName}}
         </a>
         </ul>

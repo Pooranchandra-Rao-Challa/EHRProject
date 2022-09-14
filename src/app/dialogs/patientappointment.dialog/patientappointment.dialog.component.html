@@ -11,13 +11,14 @@
           <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
              <mat-label class="col-12 required">Select Date:</mat-label>
               <mat-form-field appearance="outline" class="col-12">
-                <input matInput class="pointer" autocomplete="off" [matDatepicker]="appointmentDate"
-                  (click)="appointmentDate.open()" readonly placeholder="Request Date"
-                  [(ngModel)]="requestAppoinments.AppttDate" [ngModelOptions]="{standalone: true}" />
+                <input matInput class="pointer"  [matDatepicker]="appointmentDate"
+                  (click)="appointmentDate.open()"  placeholder="Request Date"
+                  [(ngModel)]="requestAppoinments.AppttDate" [ngModelOptions]="{standalone: true}" [min]="minDate"  />
                 <mat-datepicker-toggle matSuffix [for]="appointmentDate">
                 </mat-datepicker-toggle>
                 <mat-datepicker #appointmentDate></mat-datepicker>
               </mat-form-field>
+         
           </div>
 
           <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
@@ -37,8 +38,14 @@
             <mat-label for="Time" class="form-label required">Time</mat-label>
             <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-12">
               <input matInput type="text" hint="12 hours format" appTimeMask
-              [(ngModel)]="requestAppoinments.AppointmentTime">
+              [(ngModel)]="requestAppoinments.AppointmentTime" #time1="ngModel" pattern="'^(0?[1-9]|1[0-2]):[0-5][0-9]?(\s*[AaPp][Mm])?'" required>
             </mat-form-field>
+            <!-- <div *ngIf="time1.errors && (time1.touched)">
+              <div class="text-danger" *ngIf="time1.errors?.pattern">
+                <span class="e_arrow"></span>
+                <p class="text-danger">Work phone number should be 10 digits.</p>
+              </div>
+            </div> -->
           </div>
           <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
             <mat-label  class="form-label required">Location </mat-label>

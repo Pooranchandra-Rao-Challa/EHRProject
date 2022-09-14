@@ -293,3 +293,17 @@ option:hover {
   background-color: red;
   color: #fff;
 }
+.vertical-buttons
+{
+  flex-direction: column;
+}
+::ng-deep .swal2-confirm.swal-messaage
+{
+  background-color: #337ab7;
+  border: 1px solid #337ab7 !important;
+
+}
+::ng-deep .swal2-confirm.swal2-container-high{
+  z-index: 10px !important;
+
+}

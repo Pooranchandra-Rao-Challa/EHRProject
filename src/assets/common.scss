@@ -220,30 +220,18 @@
 .cdk-overlay-pane{
   background-color: #d64841 !important;
 }
-// common sweetalert
-::ng-deep .swal2-styled.swal2-confirm {
-  background-color: #fff !important;
-  color: #41b6a6 !important;
-  border: 1px solid #41b6a6 !important;
-  width: 163px;
-  padding: 0px;
-  font-size: 18px;
-  font-family: 'Roboto';
-  font-weight: 400;
-  height: 45px;
-}
 ::ng-deep .swal2-styled.swal2-confirm:focus{
   box-shadow: none;
 }
 ::ng-deep .swal2-title {
-  padding: 20px;
+  padding: 20px  !important;
   background-color: #41b6a6;
   color: #fff;
   font-size: 24px;
   font-family: 'Roboto';
   font-weight: 400;
-  margin-top: 200px;
-  margin-bottom: 40px;
+  margin-top: 200px !important;
+  margin-bottom: 40px  !important;
 }
 ::ng-deep .swal2-actions{
   margin: 1.25em auto 60px;
@@ -251,6 +239,23 @@
 ::ng-deep .swal2-container.swal2-center > .swal2-popup {
   width: 600px;
   background: url(./images/pro-reg-bg.png);
+}
+
+::ng-deep .admin-swal2-styled{
+  margin: 100px 0!important;
+  background: #35414f !important;
+  color: #fff !important;
+  padding: 30px 0 !important;
+  font-size: 25px !important;
+  font-weight: 500 !important;
+}
+::ng-deep .admin-cancel-button{
+  background: #35414f !important;
+  color: #fff !important;
+}
+::ng-deep .admin-cancel-button:hover{
+  background: #fff !important;
+  color: #35414f !important;
 }
 // ::ng-deep .swal2-actions:not(.swal2-loading) .swal2-styled:hover {
 //   background-color: #41b6a6 !important;
@@ -294,7 +299,7 @@
 ::ng-deep .user-swal2-actions{
   margin: 0px;
 }
-.required:before {
+.required::before {
   content: "*" !important;
   color: red !important;
 }

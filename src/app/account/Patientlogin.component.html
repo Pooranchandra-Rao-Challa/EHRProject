@@ -2,29 +2,40 @@
   <div id="spinner"></div>
   <div id="message">{{ message }}</div>
 </div>
-<div class="login img-responsive" *ngIf="!showspinner">
-  <div class="one-ehr-images pt-4 pb-4">
-    <div class="ehr-img-top">
-      <div class="text-center logo-rectangle">
-        <img width="232" height="88" src="assets/images/EHR.svg">
+<div class="login img-responsive" *ngIf="!showspinner" style="height: 100vh;">
+  <div id="signin-wrapper" class="authorization-signin-wrapper">
+    <div class="authorization-top">
+      <div class="string">
+        <div class="string-top">
+          <div class="image-center">
+            <img width="232" height="88" alt="EHR1 Logo" src="assets/images/EHR.svg" />
+          </div>
+          <div class="container">
+            <div class="string-top-container">
+              <a class="string-top-home-link" href="/">
+                <img width="146" height="248" alt="EHR1 One Num Logo" src="assets/images/one.svg" />
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="text-center">
-      <img width="146" height="248" class="img-fluid" src="assets/images/one.svg">
+    <div class="content-top-1">
+      <!-- <div class="col-sm-8 col-sm-offset-2" style="margin: 0 auto;padding:0 15px">
+        <h2 class="signup">PLEASE SIGN IN TO VIEW YOUR ACCOUNT</h2>
+      </div> -->
+      <div class="col-sm-8 col-sm-offset-2" style="margin: 0 auto;padding:0 15px">
+        <div class="main-title">
+          <h2 class="signup">PLEASE SIGN IN TO VIEW YOUR ACCOUNT</h2>
+          <!-- <p>Don't have an account yet? <a class="wcag-green" href="/">Sign up here</a></p> -->
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="content-top">
-    <div class="container cstm-container pt-3">
-      <h2 class="signup">PLEASE SIGN IN TO VIEW YOUR ACCOUNT</h2>
-    </div>
-  </div>
-  <div class="content">
-    <div>
-      <div class="container cstm-container pt-2 pb-4" id="flexbox">
-        <!-- Top header -->
+    <div class="">
+      <div class="container col-sm-8 col-sm-offset-2 pb-4" id="flexbox" style="margin: 0 auto;">
         <div class="row top-header">
-          <div class="col-lg-4 col-md-6 col-sm-6">
-            <div class="Login-form">
+          <div class="col-lg-5 col-md-5 col-sm-5">
+            <div class="login-form">
               <mat-card-content>
                 <form class="my-form" [formGroup]="loginForm">
                   <div>
@@ -40,11 +51,11 @@
                     </mat-form-field>
                   </div>
                   <div class="pull-right address">
-                    <div data-bs-toggle="modal" (click)="openResetPassword()" class="message-hints">Forgot your
+                    <div  (click)="openResetPasswordOptions()" class="message-hints">Forgot your
                       password?</div>
-                    <div data-bs-toggle="modal" (click)="openResendVerification()" class="message-hints">
+                    <!-- <div  (click)="openResendVerification()" class="message-hints">
                       Resend Email Verification
-                    </div>
+                    </div> -->
                   </div>
                 </form>
               </mat-card-content>
@@ -56,21 +67,20 @@
               <button class="btn btn-green signin" mat-raised-button (click)="OnLoginSubmit()">Sign in</button>
             </div>
           </div>
-          <div class="col-lg-4 col-md-1 col-sm-6">
-          </div>
-          <div class="col-lg-4 col-md-5 col-sm-1 mt-3 login_address">
+          <div class="col-lg-2 col-md-2 col-sm-2"></div>
+          <div class="col-lg-5 col-md-5 col-sm-5 mt-3">
             <div class="row mt-2">
               <h4>To make our EHR evenmore secure for you, please download our two-factor authentication
                 application</h4>
             </div>
-            <div>
-              <div class="services mt-4">
+            <div style="width: 84%;">
+              <div class="services-1 mt-4">
                 <a aria-label="android application" href="https://goo.gl/6S9W6g">
                   <img width="80" height="140" class="img-fluid" src="assets/qr_code_PNG25.png">
                   <img width="200" height="100" class="img-fluid" src="assets/google-play-logo-9f0984.png">
                 </a>
               </div>
-              <div class="services">
+              <div class="services-1">
                 <a aria-label="android application" href="https://goo.gl/XW81jL">
                   <img width="80" height="140" class="img-fluid" src="assets/qr_code_PNG25.png">
                   <img width="200" height="150" class="img-fluid mt-2 mb-2" src="assets/app store.png">
@@ -79,6 +89,11 @@
             </div>
           </div>
         </div>
+
+
+
       </div>
+
     </div>
   </div>
+</div>

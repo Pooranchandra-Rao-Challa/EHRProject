@@ -1,0 +1,188 @@
+<style>
+    /* patient email template css from here to end of the style*/
+  .patientemailalignments {
+    border: 1px solid #979797;
+    border-radius: 18px;
+    margin: 72px auto;
+    width: 801px
+  }
+
+  .patienttablealignments {
+    border-collapse: collapse;
+    margin: -1px;
+  }
+
+  .logalignmnets {
+    background: url('') no-repeat 100% 100%;
+    border: 0;
+    display: table-cell;
+    height: 165px;
+    padding: 0;
+    width: 800px;
+  }
+
+  tbody {
+    width: 100%;
+  }
+
+  .patienttdalignments {
+    border: 0;
+    padding: 7px 60px
+  }
+
+  .patientextalignments {
+    color: #000;
+    font-family: 'Times New Roman';
+    font-size: 14px;
+    margin: 0
+  }
+
+  .patientsupportteam {
+    color: #000;
+    font-family: 'Times New Roman';
+    font-size: 14px;
+    margin: 0;
+    font-weight: bold;
+  }
+
+  .patienttablefooter {
+    border: 0;
+    border-radius: 0 0 16px 16px;
+    height: 25px;
+    padding: 0 60px;
+    background-color: #41b6a6;
+  }
+
+  .locationalignmnets {
+    border: 0;
+    padding: 40px 60px 7px
+  }
+
+  .loctiontextalignment {
+    border-bottom-color: #000;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-top-color: #000;
+    border-top-style: solid;
+    border-top-width: 1px;
+    font-family: 'Times New Roman';
+    font-size: 34px;
+    margin: 0;
+    padding: 10px;
+    text-align: center;
+  }
+
+  .locationnamehighlight {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+
+  .patientusernameborder {
+    border: 2px solid #41b6a6;
+    border-radius: 6px;
+    color: #000;
+    font-family: 'Times New Roman';
+    font-size: 14px;
+    margin: 0 auto;
+    padding: 15px 50px;
+    width: 40%
+  }
+
+  .usernamepassword {
+    margin: 21%
+  }
+
+  .llcfooter {
+    color: #fff;
+    font-family: 'Times New Roman';
+    font-size: 14px;
+    margin: 0
+  }
+</style>
+<div class="patientemailalignments">
+    <table class="patienttablealignments">
+      <thead>
+        <tr>
+          <td>
+            <a href="https://1.ehr.one">
+              <img alt="Logo header mailer" src="http://localhost:4200/assets/images/logo-header-mailer.png">
+            </a>
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="locationalignmnets">
+            <p class="loctiontextalignment">
+              <span class="locationnamehighlight">##LOCATION##</span>
+              is pleased to offer you access to your Patient Portal through EHR1!
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td class="patienttdalignments">
+            <p class="patientextalignments">Dear ##NAME##,</p>
+          </td>
+        </tr>
+        <tr>
+          <td class="patienttdalignments">
+            <p class="patientextalignments">For your convenience we have created your patient portal account for you!</p>
+          </td>
+        </tr>
+        <tr>
+          <td class="patienttdalignments">
+            <p class="patientextalignments">Visit us at
+              <a href="https://1.ehr.one"></a>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td class="patienttdalignments">
+            <p class="patientextalignments">
+              Please help us keep you in the loop; once logged in, please view your clinical summary via your Messages and
+              begin taking advantage of all of our services!</p>
+          </td>
+        </tr>
+        <tr>
+          <td class="patienttdalignments">
+            <p class="patientextalignments">Sincerely,</p>
+          </td>
+        </tr>
+        <tr>
+          <td class="patienttdalignments">
+            <p class="patientsupportteam">Your EHR1 Support Team</p>
+          </td>
+        </tr>
+        <tr>
+          <td class="patienttdalignments">
+            <p class="patientusernameborder">
+              <span class="usernamepassword">Username: ##USERNAME##<br><br>
+              </span><span class="usernamepassword">Password: ##PASSWORD##<br>
+              </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td class="patienttdalignments">
+            <p class="patientextalignments">API Access Feature – Access or Link Health Information
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td class="patienttdalignments">
+            <p class="patientextalignments">Credentials can be used to authenticate to a third-party application if it has
+              been registered with EHR1 and has connected to our public API. For assistance registering new applications,
+              submit a support ticket.</p>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td class="patienttablefooter">
+            <p class="llcfooter">© 2022 EHR One, LLC</p>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+
+  </div>
