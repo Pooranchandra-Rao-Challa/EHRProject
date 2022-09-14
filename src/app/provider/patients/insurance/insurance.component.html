@@ -1,182 +1,173 @@
 <div class="container-fluid customoverlay">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="card mt-2">
-                <div class="card-header">
-                    <span class="Helvetica-sans-serif-medium text-white mt-1">Primary Insurance</span>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card mt-2">
+        <div class="card-header">
+          <span class="Helvetica-sans-serif-medium text-white mt-1">Primary Insurance</span>
+        </div>
+        <div class="card-body">
+          <label class="Helvetica-sans-serif-medium required">Subscriber
+            Name</label>
+          <div class="input-group mb-3">
+            <input type="text" class="form-control patientInsuranceTab Helvetica-sans-serif-medium"
+              placeholder="Subscriber Name" [(ngModel)]="primlist.SubscriberNane" aria-label="Subscriber Name"
+              aria-describedby="basic-addon" alphaOnly #subscriberName="ngModel" required>
+
+          </div>
+          <div *ngIf="subscriberName.errors && (subscriberName.touched)">
+            <div class="error_message" *ngIf="subscriberName.errors?.required">
+              <span class="text-danger"></span>
+              <p class="errormessage">Please enter subscriber name</p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6 col-md-12 col-12">
+              <label class="Helvetica-sans-serif-medium d-block required">Date of Birth</label>
+              <mat-form-field appearance="outline" class=" calendaricon green-calendar w-100">
+                <input matInput [matDatepicker]="DateOfBirth" placeholder="Date of Birth" (click)="DateOfBirth.open()"
+                  [(ngModel)]="primlist.DateOfBirth" class="Helvetica-sans-serif-medium" [max]="tomorrow"
+                  #dateofbirth="ngModel" required>
+                <mat-datepicker-toggle matSuffix [for]="DateOfBirth">
+                </mat-datepicker-toggle>
+                <mat-datepicker #DateOfBirth disabled="false"></mat-datepicker>
+              </mat-form-field>
+              <div *ngIf="dateofbirth.errors && (dateofbirth.touched)">
+                <div class="error_message" *ngIf="dateofbirth.errors?.required">
+                  <span class="e_arrow"></span>
+                  <p class="errormessage">Please select date of birth</p>
                 </div>
-                <div class="card-body">
-                    <label class="Helvetica-sans-serif-medium required">Subscriber
-                        Name</label>
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control patientInsuranceTab Helvetica-sans-serif-medium"
-                            placeholder="Subscriber Name" [(ngModel)]="primlist.SubscriberNane"
-                            aria-label="Subscriber Name" aria-describedby="basic-addon" alphaOnly
-                            #subscriberName="ngModel" required>
+              </div>
 
-                    </div>
-                    <div *ngIf="subscriberName.errors && (subscriberName.touched)">
-                        <div class="error_message" *ngIf="subscriberName.errors?.required">
-                            <span class="text-danger"></span>
-                            <p class="errormessage">Please enter subscriber name</p>
-                        </div>
-                    </div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-12">
+              <label class="Helvetica-sans-serif-medium d-block required">Gender:</label>
+              <div>
+                <mat-radio-group [(ngModel)]="primlist.Gender">
+                  <mat-radio-button class="radio-btn-label label-design my-1" value="male"> Male
+                  </mat-radio-button>
+                  <mat-radio-button class="radio-btn-label label-design my-1" value="female">Female
+                  </mat-radio-button>
+                  <mat-radio-button class="radio-btn-label label-design my-1" value="other">Other
+                  </mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xl-9 col-lg-8 col-12">
+              <label class="Helvetica-sans-serif-medium required">Address</label>
+              <div class="input-group mb-3">
+                <input type="text" [disabled]="disableaddressverification"
+                  class="form-control patientInsuranceTab Helvetica-sans-serif-medium"
+                  placeholder="Enter full address here" aria-label="Subscriber Name" aria-describedby="basic-addon1"
+                  [(ngModel)]="primlist.Street" #Address required>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-12">
+              <button class="btn btn-green btn-verify Helvetica-sans-serif-medium mt-lg-4 mb-4 pull-right"
+                [disabled]="!primlist.Street || disableaddressverification"
+                (click)="AddressVerification()">VERIFY</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xl-9 col-lg-8 col-12">
+              <div class="input-group input-group-lg">
+                <span class="input-group-text Helvetica-sans-serif-medium" id="inputGroup-sizing-lg">Street
+                  Address</span>
+                <input [readonly]="!disableaddressverification" [class.address-verfied]="!manuallybtn"
+                  class="form-control input-border Helvetica-sans-serif-medium" [(ngModel)]="primlist.StreetAddress"
+                  placeholder="Street Address" type="text" id="StreetAddress" name="StreetAddress">
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-12">
+              <button type="button" class="btn cross-mark error-close" *ngIf="addressVerfied && !manuallybtn"
+                (click)="enableManualEntry()"
+                title="Can enter manully when the verification results are in correct by clicking this icon">x</button>
+              <button class="btn-green btn btn-verify mb-2 mt-2 mt-lg-0 pull-right" *ngIf="manuallybtn || disableaddressverification"
+                (click)="enterAddressManually()">Enter
+                Address Manually</button>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-xl-5 col-lg-4 col-12 mb-3">
+              <div class="input-group input-group-lg">
+                <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
+                  id="inputGroup-sizing-lg ">City</span>
+                <input type="text" [readonly]="!disableaddressverification" [class.address-verfied]="!manuallybtn"
+                  class="form-control input-border Helvetica-sans-serif-medium" [(ngModel)]="primlist.City">
+              </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-12 mb-3">
+              <div class="input-group input-group-lg">
+                <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
+                  id="inputGroup-sizing-lg ">State</span>
+                <input type="text" [readonly]="!disableaddressverification"
+                  class="form-control input-border Helvetica-sans-serif-medium" [(ngModel)]="primlist.State"
+                  [class.address-verfied]="!manuallybtn">
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-12">
+              <div class="input-group input-group-lg">
+                <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
+                  id="inputGroup-sizing-lg ">Zip</span>
+                <input type="text" [readonly]="!disableaddressverification" class="form-control input-border"
+                  [(ngModel)]="primlist.Zip" [class.address-verfied]="!manuallybtn">
+              </div>
+            </div>
+          </div>
 
-                    <div class="row">
-                        <div class="col-lg-6 col-md-12 col-12">
-                            <label class="Helvetica-sans-serif-medium d-block required">Date of Birth</label>
-                            <mat-form-field appearance="outline" class=" calendaricon green-calendar w-100">
-                                <input matInput [matDatepicker]="DateOfBirth" placeholder="Date of Birth"
-                                    (click)="DateOfBirth.open()" [(ngModel)]="primlist.DateOfBirth"
-                                    class="Helvetica-sans-serif-medium" [max]="tomorrow" #dateofbirth="ngModel"
-                                    required>
-                                <mat-datepicker-toggle matSuffix [for]="DateOfBirth">
-                                </mat-datepicker-toggle>
-                                <mat-datepicker #DateOfBirth disabled="false"></mat-datepicker>
-                            </mat-form-field>
-                            <div *ngIf="dateofbirth.errors && (dateofbirth.touched)">
-                                <div class="error_message" *ngIf="dateofbirth.errors?.required">
-                                    <span class="e_arrow"></span>
-                                    <p class="errormessage">Please select date of birth</p>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="col-lg-6 col-md-12 col-12">
-                            <label class="Helvetica-sans-serif-medium d-block required">Gender:</label>
-                            <div>
-                                <mat-radio-group [(ngModel)]="primlist.Gender">
-                                    <mat-radio-button class="radio-btn-label label-design my-1" value="male"> Male
-                                    </mat-radio-button>
-                                    <mat-radio-button class="radio-btn-label label-design my-1" value="female">Female
-                                    </mat-radio-button>
-                                    <mat-radio-button class="radio-btn-label label-design my-1" value="other">Other
-                                    </mat-radio-button>
-                                </mat-radio-group>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-12 col-md-12 col-12 col-xl-12">
-                        <label class="Helvetica-sans-serif-medium required">Address</label>
-                        <div class="input-group mb-3">
-                            <input type="text" [disabled]="disableaddressverification"
-                                class="form-control patientInsuranceTab Helvetica-sans-serif-medium"
-                                placeholder="Enter full address here" aria-label="Subscriber Name"
-                                aria-describedby="basic-addon1" [(ngModel)]="primlist.Street" #Address required
-                                style="margin-right:20px">
-
-                            <button class="btn btn-green btn-verify Helvetica-sans-serif-medium pull-right"
-                                [disabled]="!primlist.Street || disableaddressverification"
-                                (click)="AddressVerification()">VERIFY</button>
-                        </div>
-
-                    </div>
-
-                    <div class="col-lg-12 col-md-12 col-12 col-xl-12">
-                        <div style="display: flex;  align-items: center;">
-                            <div class="input-group input-group-lg" style="width:78%;">
-                                <span class="input-group-text Helvetica-sans-serif-medium"
-                                    id="inputGroup-sizing-lg">Street Address</span>
-                                <input [readonly]="!disableaddressverification" [class.address-verfied]="!manuallybtn"
-                                    class="form-control input-border Helvetica-sans-serif-medium"
-                                    [(ngModel)]="primlist.StreetAddress" placeholder="Street Address" type="text"
-                                    id="StreetAddress" name="StreetAddress">
-                            </div>
-
-                            <button type="button" class="btn cross-mark error-close"
-                                *ngIf="addressVerfied && !manuallybtn" (click)="enableManualEntry()"
-                                title="Can enter manully when the verification results are in correct by clicking this icon">x</button>
-                            <button class="btn-green btn manualbtn  btn-lg"
-                                *ngIf="manuallybtn || disableaddressverification" (click)="enterAddressManually()">Enter
-                                Address Manually</button>
-
-                        </div>
-                    </div>
-
-
-                    <br>
-                    <div class="row">
-                        <div class="col-xl-5 col-lg-4 col-12 mb-3">
-                            <div class="input-group input-group-lg">
-                                <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
-                                    id="inputGroup-sizing-lg ">City</span>
-                                <input type="text" [readonly]="!disableaddressverification"
-                                    [class.address-verfied]="!manuallybtn"
-                                    class="form-control input-border Helvetica-sans-serif-medium"
-                                    [(ngModel)]="primlist.City">
-                            </div>
-                        </div>
-                        <div class="col-xl-4 col-lg-4 col-12 mb-3">
-                            <div class="input-group input-group-lg">
-                                <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
-                                    id="inputGroup-sizing-lg ">State</span>
-                                <input type="text" [readonly]="!disableaddressverification"
-                                    class="form-control input-border Helvetica-sans-serif-medium"
-                                    [(ngModel)]="primlist.State" [class.address-verfied]="!manuallybtn">
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-12">
-                            <div class="input-group input-group-lg">
-                                <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
-                                    id="inputGroup-sizing-lg ">Zip</span>
-                                <input type="text" [readonly]="!disableaddressverification"
-                                    class="form-control input-border" [(ngModel)]="primlist.Zip"
-                                    [class.address-verfied]="!manuallybtn">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-11 col-md-11 col-lg-11 col-xl-11">
-                            <label class="Helvetica-sans-serif-medium required">Insurance Company Plan</label>
-                            <div class="input-group mb-3">
-                                <input type="text"
-                                    class="form-control  Helvetica-sans-serif-medium patientInsuranceTab input-border address-verfied"
-                                    placeholder="Insurance Company Plan" [(ngModel)]="primlist.InsuranceCompanyPlan"
-                                    aria-label="Subscriber Name" aria-describedby="basic-addon1" readonly>
-                            </div>
-                        </div>
-                        <div class="col-1 col-md-1 col-lg-1 col-xl-1">
-                            <button class="plusicon mt-4" type="button" (click)="primaryplus('primary')"
-                                data-bs-toggle="modal" data-bs-target="#modal-primary-Insurance" aria-expanded="false">
-                                <i class="fa fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 col-md-12 col-lg-7 col-xl-7">
-                            <label class="Helvetica-sans-serif-medium">Subscriber Id</label>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control Helvetica-sans-serif-medium patientInsuranceTab"
-                                    placeholder="Subscriber Id" aria-label="Subscriber Name"
-                                    aria-describedby="basic-addon" [(ngModel)]="primlist.SubscriberId">
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-12 col-lg-5 col-xl-5">
-                            <button [disabled]="viewpidetailsforprimary"
-                                class="btn btn-green btn-insurance pull-right Helvetica-sans-serif-medium mt-4"
-                                type="button" (click)="getInsuranceDetails('primary')" data-bs-toggle="modal"
-                                data-bs-target="#Primary-Insurance-Details"> View Primary Insurance details</button>
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-md-12 col-xl-12 col-12 my-2">
-                        <label for="" class="form-label label-design  mx-lg-1 required">Relationship to
-                            Subscriber</label>
-                        <div>
-                            <mat-radio-group [(ngModel)]="primlist.RelationshipToSubscriber">
-                                <mat-radio-button value="Self" class="radio-btn-label label-design my-1">Self
-                                </mat-radio-button>
-                                <mat-radio-button value="Spouse" class="radio-btn-label label-design my-1">Spouse
-                                </mat-radio-button>
-                                <mat-radio-button value="Child" class="radio-btn-label label-design my-1">Child
-                                </mat-radio-button>
-                                <mat-radio-button value="Other" class="radio-btn-label label-design my-1">Other
-                                </mat-radio-button>
-                            </mat-radio-group>
-                        </div>
-                    </div>
-                    <!-- <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="row">
+            <div class="col-11 col-md-11 col-lg-11 col-xl-11">
+              <label class="Helvetica-sans-serif-medium required">Insurance Company Plan</label>
+              <div class="input-group mb-3">
+                <input type="text"
+                  class="form-control  Helvetica-sans-serif-medium patientInsuranceTab input-border address-verfied"
+                  placeholder="Insurance Company Plan" [(ngModel)]="primlist.InsuranceCompanyPlan"
+                  aria-label="Subscriber Name" aria-describedby="basic-addon1" readonly>
+              </div>
+            </div>
+            <div class="col-1 col-md-1 col-lg-1 col-xl-1">
+              <button class="plusicon mt-4" type="button" (click)="primaryplus('primary')" data-bs-toggle="modal"
+                data-bs-target="#modal-primary-Insurance" aria-expanded="false">
+                <i class="fa fa-plus"></i>
+              </button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 col-md-12 col-lg-7 col-xl-7">
+              <label class="Helvetica-sans-serif-medium">Subscriber Id</label>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control Helvetica-sans-serif-medium patientInsuranceTab"
+                  placeholder="Subscriber Id" aria-label="Subscriber Name" aria-describedby="basic-addon"
+                  [(ngModel)]="primlist.SubscriberId">
+              </div>
+            </div>
+            <div class="col-12 col-md-12 col-lg-5 col-xl-5">
+              <button [disabled]="viewpidetailsforprimary"
+                class="btn btn-green btn-insurance pull-right Helvetica-sans-serif-medium mt-4" type="button"
+                (click)="getInsuranceDetails('primary')" data-bs-toggle="modal"
+                data-bs-target="#Primary-Insurance-Details"> View Primary Insurance details</button>
+            </div>
+          </div>
+          <div class="col-lg-12 col-md-12 col-xl-12 col-12 my-2">
+            <label for="" class="form-label label-design  mx-lg-1 required">Relationship to
+              Subscriber</label>
+            <div>
+              <mat-radio-group [(ngModel)]="primlist.RelationshipToSubscriber">
+                <mat-radio-button value="Self" class="radio-btn-label label-design my-1">Self
+                </mat-radio-button>
+                <mat-radio-button value="Spouse" class="radio-btn-label label-design my-1">Spouse
+                </mat-radio-button>
+                <mat-radio-button value="Child" class="radio-btn-label label-design my-1">Child
+                </mat-radio-button>
+                <mat-radio-button value="Other" class="radio-btn-label label-design my-1">Other
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+          <!-- <div class="col-lg-12 col-md-12 col-sm-12">
 
                         <div class="form-group">
                             <select class="col-12 inputclassdropdown Helvetica-sans-serif-medium"
@@ -189,707 +180,633 @@
                         </div>
                     </div> -->
 
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12">
-                            <mat-label class="Helvetica-sans-serif-medium placehold required">Source of Payment Typology
-                            </mat-label>
-                            <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-12 ddl-width ddhover">
-                                <mat-select panelClass="optionalignment" [(ngModel)]="primlist.SourceOfPaymentTypology"
-                                    placeholder="Source of Payment Typology" required #sourcePTypology="ngModel">
-                                    <mat-select-filter [displayMember]="'Code'"
-                                        [array]="SourceOfPaymentTypologyCodesFilter"
-                                        (filteredReturn)="SourceOfPaymentTypologyCodes = $event" id="inputcursor">
-                                    </mat-select-filter>
-                                    <mat-option *ngFor="let item of SourceOfPaymentTypologyCodes" [value]="item.Code"
-                                        (click)="primaryspt(item)">
-                                        {{item.Code}} - {{item.Description}}
-                                    </mat-option>
-                                </mat-select>
-                                <mat-error class="sourcepaymenttypology" *ngIf="sourcePTypology.hasError('required')">
-                                    Please select source of payment typology </mat-error>
-                            </mat-form-field>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label class="Helvetica-sans-serif-medium required">Start Date</label>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="Helvetica-sans-serif-medium">End Date</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-12">
-                                <input matInput [matDatepicker]="dp2" placeholder="Start Date" (focus)="dp2?.open()"
-                                    [(ngModel)]="primlist.StartDate" class="Helvetica-sans-serif-medium"
-                                    #startdate="ngModel" required>
-                                <mat-datepicker-toggle matSuffix [for]="dp2">
-                                </mat-datepicker-toggle>
-                                <mat-datepicker #dp2></mat-datepicker>
-                            </mat-form-field>
-                            <div *ngIf="startdate.errors && (startdate.touched)">
-                                <div class="error_message" *ngIf="startdate.errors?.required">
-                                    <span class="e_arrow"></span>
-                                    <p class="errormessage">Please select start date</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-12">
-                                <input matInput [matDatepicker]="dp1" placeholder="Stop Date"
-                                    [(ngModel)]="primlist.EndDate" (focus)="dp1?.open()"
-                                    class="Helvetica-sans-serif-medium">
-                                <mat-datepicker-toggle matSuffix [for]="dp1">
-                                </mat-datepicker-toggle>
-                                <mat-datepicker #dp1 disabled="false"></mat-datepicker>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="Insurance">
-                        <button class="btn btn-orange pull-right mt-2 Helvetica-sans-serif-medium"
-                            (click)="CreateUpdateInsuranceDetails('primary')" [disabled]="primaryenableSave()">Save
-                            Primary Insurance</button>
-                    </div>
-                </div>
+          <div class="row">
+            <div class="col-lg-12 col-md-12">
+              <mat-label class="Helvetica-sans-serif-medium placehold required">Source of Payment Typology
+              </mat-label>
+              <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-12 ddl-width ddhover">
+                <mat-select panelClass="optionalignment" [(ngModel)]="primlist.SourceOfPaymentTypology"
+                  placeholder="Source of Payment Typology" required #sourcePTypology="ngModel">
+                  <mat-select-filter [displayMember]="'Code'" [array]="SourceOfPaymentTypologyCodesFilter"
+                    (filteredReturn)="SourceOfPaymentTypologyCodes = $event" id="inputcursor">
+                  </mat-select-filter>
+                  <mat-option *ngFor="let item of SourceOfPaymentTypologyCodes" [value]="item.Code"
+                    (click)="primaryspt(item)">
+                    {{item.Code}} - {{item.Description}}
+                  </mat-option>
+                </mat-select>
+                <mat-error class="sourcepaymenttypology" *ngIf="sourcePTypology.hasError('required')">
+                  Please select source of payment typology </mat-error>
+              </mat-form-field>
             </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card mt-2">
-                <div class="card-header">
-                    <span class="Helvetica-sans-serif-medium text-white mt-1">Secondary Insurance</span>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <label class="Helvetica-sans-serif-medium required">Start Date</label>
+            </div>
+            <div class="col-md-6">
+              <label class="Helvetica-sans-serif-medium">End Date</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-12">
+                <input matInput [matDatepicker]="dp2" placeholder="Start Date" (focus)="dp2?.open()"
+                  [(ngModel)]="primlist.StartDate" class="Helvetica-sans-serif-medium" #startdate="ngModel" required>
+                <mat-datepicker-toggle matSuffix [for]="dp2">
+                </mat-datepicker-toggle>
+                <mat-datepicker #dp2></mat-datepicker>
+              </mat-form-field>
+              <div *ngIf="startdate.errors && (startdate.touched)">
+                <div class="error_message" *ngIf="startdate.errors?.required">
+                  <span class="e_arrow"></span>
+                  <p class="errormessage">Please select start date</p>
                 </div>
-                <div class="card-body">
-                    <label class="Helvetica-sans-serif-medium required">Subscriber
-                        Name</label>
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control patientInsuranceTab Helvetica-sans-serif-medium"
-                            placeholder="Subscriber Name" aria-label="Subscriber Name" aria-describedby="basic-addon1"
-                            [(ngModel)]="secList.SubscriberNane" alphaOnly #sSubscriberName="ngModel" required>
-                    </div>
-                    <div *ngIf="sSubscriberName.errors && (sSubscriberName.touched)">
-                        <div class="text-danger" *ngIf="sSubscriberName.errors?.required">
-                            <span class="text-danger"></span>
-                            <p class="errormessage">Please enter Subscriber Name</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6 col-md-12 col-12">
-                            <label class="Helvetica-sans-serif-medium d-block required">Date of Birth</label>
-                            <mat-form-field appearance="outline" class="calendaricon green-calendar w-100">
-                                <input matInput [matDatepicker]="dp4" placeholder="Date of Birth"
-                                    [(ngModel)]="secList.DateOfBirth" (focus)="dp4?.open()"
-                                    class="Helvetica-sans-serif-medium" [max]="tomorrow" #sdateofbirth="ngModel"
-                                    required>
-                                <mat-datepicker-toggle matSuffix [for]="dp4">
-                                </mat-datepicker-toggle>
-                                <mat-datepicker #dp4 disabled="false"></mat-datepicker>
-                            </mat-form-field>
-                            <div *ngIf="sdateofbirth.errors && (sdateofbirth.touched)">
-                                <div class="error_message" *ngIf="sdateofbirth.errors?.required">
-                                    <span class="e_arrow"></span>
-                                    <p class="errormessage">Please select date of birth</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-12 col-12">
-                            <label class="Helvetica-sans-serif-medium d-block required">Gender:</label>
-                            <div>
-                                <mat-radio-group [(ngModel)]="secList.Gender">
-                                    <mat-radio-button value="male" class="radio-btn-label label-design my-1">Male
-                                    </mat-radio-button>
-                                    <mat-radio-button value="female" class="radio-btn-label label-design my-1">Female
-                                    </mat-radio-button>
-                                    <mat-radio-button value="other" class="radio-btn-label label-design my-1">Other
-                                    </mat-radio-button>
-                                </mat-radio-group>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-9 col-md-8 col-12">
-                            <label class="Helvetica-sans-serif-medium required">Address</label>
-                            <div class="input-group mb-3">
-                                <input type="text" [disabled]="secondarydisableaddressverification"
-                                    class="form-control patientInsuranceTab Helvetica-sans-serif-medium"
-                                    placeholder="Enter full address here" aria-label="Subscriber Name"
-                                    aria-describedby="basic-addon1" [(ngModel)]="secList.Street" #Address>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-12">
-                            <button class="btn btn-green btn-verify Helvetica-sans-serif-medium mt-md-4 pull-right"
-                                [disabled]="!secList.Street || secondarydisableaddressverification"
-                                (click)="secondaryAddressverfied()">VERIFY</button>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-9 col-xl-9 col-md-12 col-12">
-                            <div class="form-group">
-                                <div class="input-group input-group-lg">
-                                    <span class="input-group-text Helvetica-sans-serif-medium "
-                                        id="inputGroup-sizing-lg ">Street Address</span>
-                                    <input [readonly]="!secondarydisableaddressverification"
-                                        class="form-control input-border Helvetica-sans-serif-medium"
-                                        [(ngModel)]="secList.StreetAddress" placeholder="Street Address" type="text"
-                                        id="StreetAddress" name="StreetAddress"
-                                        [class.address-verfied]="!secondarymanuallybtn">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="co-lg-1 col-md-12 col-12 col-xl-1">
-                            <button type="button" class="btn cross-mark error-close"
-                                *ngIf="secondaryAdressVerfied && !secondarymanuallybtn"
-                                (click)="secondaryenableManualEntry()"
-                                title="Can enter manully when the verification results are in correct by clicking this icon">x</button>
-                        </div>
-                        <div class="col-md-12 col-lg-2 col-12 col-xl-2 ">
-                            <div class="form-group">
-                                <button class="btn-green btn manualbtn"
-                                    *ngIf="secondarymanuallybtn || secondarydisableaddressverification"
-                                    (click)="secondaryenterAddressManually()">Enter Address Manually</button>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-xl-5 col-lg-4 col-12 mb-3">
-                            <div class="input-group input-group-lg">
-                                <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
-                                    id="inputGroup-sizing-lg ">City</span>
-                                <input type="text" [readonly]="!secondarydisableaddressverification"
-                                    class="form-control input-border Helvetica-sans-serif-medium"
-                                    [(ngModel)]="secList.City" [class.address-verfied]="!secondarymanuallybtn">
-                            </div>
-                        </div>
-                        <div class="col-xl-4 col-lg-4 col-12 mb-3">
-                            <div class="input-group input-group-lg ">
-                                <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
-                                    id="inputGroup-sizing-lg ">State</span>
-                                <input type="text" [readonly]="!secondarydisableaddressverification"
-                                    class="form-control input-border" [(ngModel)]="secList.State"
-                                    [class.address-verfied]="!secondarymanuallybtn">
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-12">
-                            <div class="input-group input-group-lg">
-                                <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
-                                    id="inputGroup-sizing-lg ">Zip</span>
-                                <input type="text" [readonly]="!secondarydisableaddressverification"
-                                    class="form-control input-border" [(ngModel)]="secList.Zip"
-                                    [class.address-verfied]="!secondarymanuallybtn">
-                            </div>
-                        </div>
-                    </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-12">
+                <input matInput [matDatepicker]="dp1" placeholder="Stop Date" [(ngModel)]="primlist.EndDate"
+                  (focus)="dp1?.open()" class="Helvetica-sans-serif-medium">
+                <mat-datepicker-toggle matSuffix [for]="dp1">
+                </mat-datepicker-toggle>
+                <mat-datepicker #dp1 disabled="false"></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="Insurance">
+            <button class="btn btn-orange pull-right mt-2 Helvetica-sans-serif-medium"
+              (click)="CreateUpdateInsuranceDetails('primary')" [disabled]="primaryenableSave()">Save
+              Primary Insurance</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card mt-2">
+        <div class="card-header">
+          <span class="Helvetica-sans-serif-medium text-white mt-1">Secondary Insurance</span>
+        </div>
+        <div class="card-body">
+          <label class="Helvetica-sans-serif-medium required">Subscriber
+            Name</label>
+          <div class="input-group mb-3">
+            <input type="text" class="form-control patientInsuranceTab Helvetica-sans-serif-medium"
+              placeholder="Subscriber Name" aria-label="Subscriber Name" aria-describedby="basic-addon1"
+              [(ngModel)]="secList.SubscriberNane" alphaOnly #sSubscriberName="ngModel" required>
+          </div>
+          <div *ngIf="sSubscriberName.errors && (sSubscriberName.touched)">
+            <div class="text-danger" *ngIf="sSubscriberName.errors?.required">
+              <span class="text-danger"></span>
+              <p class="errormessage">Please enter Subscriber Name</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-md-12 col-12">
+              <label class="Helvetica-sans-serif-medium d-block required">Date of Birth</label>
+              <mat-form-field appearance="outline" class="calendaricon green-calendar w-100">
+                <input matInput [matDatepicker]="dp4" placeholder="Date of Birth" [(ngModel)]="secList.DateOfBirth"
+                  (focus)="dp4?.open()" class="Helvetica-sans-serif-medium" [max]="tomorrow" #sdateofbirth="ngModel"
+                  required>
+                <mat-datepicker-toggle matSuffix [for]="dp4">
+                </mat-datepicker-toggle>
+                <mat-datepicker #dp4 disabled="false"></mat-datepicker>
+              </mat-form-field>
+              <div *ngIf="sdateofbirth.errors && (sdateofbirth.touched)">
+                <div class="error_message" *ngIf="sdateofbirth.errors?.required">
+                  <span class="e_arrow"></span>
+                  <p class="errormessage">Please select date of birth</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-12">
+              <label class="Helvetica-sans-serif-medium d-block required">Gender:</label>
+              <div>
+                <mat-radio-group [(ngModel)]="secList.Gender">
+                  <mat-radio-button value="male" class="radio-btn-label label-design my-1">Male
+                  </mat-radio-button>
+                  <mat-radio-button value="female" class="radio-btn-label label-design my-1">Female
+                  </mat-radio-button>
+                  <mat-radio-button value="other" class="radio-btn-label label-design my-1">Other
+                  </mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xl-9 col-lg-8 col-12">
+              <label class="Helvetica-sans-serif-medium required">Address</label>
+              <div class="input-group mb-3">
+                <input type="text" [disabled]="secondarydisableaddressverification"
+                  class="form-control patientInsuranceTab Helvetica-sans-serif-medium"
+                  placeholder="Enter full address here" aria-label="Subscriber Name" aria-describedby="basic-addon1"
+                  [(ngModel)]="secList.Street" #Address>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-12">
+              <button class="btn btn-green btn-verify Helvetica-sans-serif-medium mt-lg-4 mb-4 pull-right"
+                [disabled]="!secList.Street || secondarydisableaddressverification"
+                (click)="secondaryAddressverfied()">VERIFY</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xl-9 col-lg-8 col-12">
+              <div class="form-group">
+                <div class="input-group input-group-lg">
+                  <span class="input-group-text Helvetica-sans-serif-medium " id="inputGroup-sizing-lg ">Street
+                    Address</span>
+                  <input [readonly]="!secondarydisableaddressverification"
+                    class="form-control input-border Helvetica-sans-serif-medium" [(ngModel)]="secList.StreetAddress"
+                    placeholder="Street Address" type="text" id="StreetAddress" name="StreetAddress"
+                    [class.address-verfied]="!secondarymanuallybtn">
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-12" >
+              <button type="button" class="btn cross-mark error-close" *ngIf="secondaryAdressVerfied && !secondarymanuallybtn"
+                 (click)="secondaryenableManualEntry()"
+                title="Can enter manully when the verification results are in correct by clicking this icon">x</button>
+                <button class="btn-green btn btn-verify mb-2 mt-2 mt-lg-0 pull-right" *ngIf="secondarymanuallybtn || secondarydisableaddressverification"
+                (click)="secondaryenterAddressManually()">Enter Address Manually</button>
+            </div>
+            <!-- <div class="col-xl-3 col-lg-4 col-12" *ngIf="secondarymanuallybtn || secondarydisableaddressverification">
+              <div class="form-group">
+                <button class="btn-green btn btn-verify"
+                  (click)="secondaryenterAddressManually()">Enter Address Manually</button>
+              </div>
+            </div> -->
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-xl-5 col-lg-4 col-12 mb-3">
+              <div class="input-group input-group-lg">
+                <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
+                  id="inputGroup-sizing-lg ">City</span>
+                <input type="text" [readonly]="!secondarydisableaddressverification"
+                  class="form-control input-border Helvetica-sans-serif-medium" [(ngModel)]="secList.City"
+                  [class.address-verfied]="!secondarymanuallybtn">
+              </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-12 mb-3">
+              <div class="input-group input-group-lg ">
+                <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
+                  id="inputGroup-sizing-lg ">State</span>
+                <input type="text" [readonly]="!secondarydisableaddressverification" class="form-control input-border"
+                  [(ngModel)]="secList.State" [class.address-verfied]="!secondarymanuallybtn">
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-12">
+              <div class="input-group input-group-lg">
+                <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
+                  id="inputGroup-sizing-lg ">Zip</span>
+                <input type="text" [readonly]="!secondarydisableaddressverification" class="form-control input-border"
+                  [(ngModel)]="secList.Zip" [class.address-verfied]="!secondarymanuallybtn">
+              </div>
+            </div>
+          </div>
 
-                    <div class="row">
-                        <div class="col-11 col-md-11 col-xl-11 col-lg-11">
-                            <label class="Helvetica-sans-serif-medium required">Insurance Company Plan</label>
-                            <div class="input-group mb-3">
-                                <input type="text"
-                                    class="Helvetica-sans-serif-medium form-control patientInsuranceTab input-border address-verfied"
-                                    placeholder="Insurance Company Plan" [(ngModel)]="secList.InsuranceCompanyPlan"
-                                    aria-label="Subscriber Name" aria-describedby="basic-addon1" readonly>
-                            </div>
-                        </div>
-                        <div class="col-1 col-md-1 col-xl-1 col-lg-1 pull-right">
-                            <button class="plusicon mt-4" type="button" data-bs-toggle="modal"
-                                (click)="secondaryplus('secondary')" data-bs-target="#modal-primary-Insurance"
-                                aria-expanded="false">
-                                <i class="fa fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 col-md-12 col-lg-7 col-xl-7">
-                            <label class="Helvetica-sans-serif-medium">Subscriber Id</label>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control Helvetica-sans-serif-medium patientInsuranceTab"
-                                    placeholder="Subscriber Id" aria-label="Subscriber Name"
-                                    aria-describedby="basic-addon1" [(ngModel)]="secList.SubscriberId">
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-12 col-lg-5 col-xl-5">
-                            <button [disabled]="viewpidetailsforsecondary"
-                                class="btn btn-green btn-insurance pull-right  Helvetica-sans-serif-medium mt-4"
-                                (click)="getInsuranceDetails('secondary')" type="button" data-bs-toggle="modal"
-                                data-bs-target="#Primary-Insurance-Details">
-                                View Secondary Insurance details
-                            </button>
-                        </div>
-                    </div>
+          <div class="row">
+            <div class="col-11 col-md-11 col-xl-11 col-lg-11">
+              <label class="Helvetica-sans-serif-medium required">Insurance Company Plan</label>
+              <div class="input-group mb-3">
+                <input type="text"
+                  class="Helvetica-sans-serif-medium form-control patientInsuranceTab input-border address-verfied"
+                  placeholder="Insurance Company Plan" [(ngModel)]="secList.InsuranceCompanyPlan"
+                  aria-label="Subscriber Name" aria-describedby="basic-addon1" readonly>
+              </div>
+            </div>
+            <div class="col-1 col-md-1 col-xl-1 col-lg-1 pull-right">
+              <button class="plusicon mt-4" type="button" data-bs-toggle="modal" (click)="secondaryplus('secondary')"
+                data-bs-target="#modal-primary-Insurance" aria-expanded="false">
+                <i class="fa fa-plus"></i>
+              </button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 col-md-12 col-lg-7 col-xl-7">
+              <label class="Helvetica-sans-serif-medium">Subscriber Id</label>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control Helvetica-sans-serif-medium patientInsuranceTab"
+                  placeholder="Subscriber Id" aria-label="Subscriber Name" aria-describedby="basic-addon1"
+                  [(ngModel)]="secList.SubscriberId">
+              </div>
+            </div>
+            <div class="col-12 col-md-12 col-lg-5 col-xl-5">
+              <button [disabled]="viewpidetailsforsecondary"
+                class="btn btn-green btn-insurance pull-right  Helvetica-sans-serif-medium mt-4"
+                (click)="getInsuranceDetails('secondary')" type="button" data-bs-toggle="modal"
+                data-bs-target="#Primary-Insurance-Details">
+                View Secondary Insurance details
+              </button>
+            </div>
+          </div>
 
-                    <div class="col-lg-12 col-md-12 col-xl-12 col-12 my-2">
-                        <label for="" class="form-label label-design  mx-lg-1 required">Relationship to
-                            Subscriber</label>
-                        <div>
-                            <mat-radio-group [(ngModel)]="secList.RelationshipToSubscriber">
-                                <mat-radio-button value="Self" class="radio-btn-label label-design my-1">Self
-                                </mat-radio-button>
-                                <mat-radio-button value="Spouse" class="radio-btn-label label-design my-1">Spouse
-                                </mat-radio-button>
-                                <mat-radio-button value="Child" class="radio-btn-label label-design my-1">Child
-                                </mat-radio-button>
-                                <mat-radio-button value="Other" class="radio-btn-label label-design my-1">Other
-                                </mat-radio-button>
-                            </mat-radio-group>
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-md-12">
-                        <mat-label class="Helvetica-sans-serif-medium required">Source of Payment Typology </mat-label>
-                        <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-12 ddl-width ddhover">
-                            <mat-select panelClass="optionalignment" [(ngModel)]="secList.SourceOfPaymentTypology"
-                                placeholder="Source of Payment Typology" #ssourcePTypology="ngModel" required>
-                                <mat-select-filter [displayMember]="'Code'" [array]="secondarySptcFilter"
-                                    (filteredReturn)="SourceOfPaymentTypologyCodes = $event"></mat-select-filter>
-                                <mat-option class="matpanelalignment" *ngFor="let item of SourceOfPaymentTypologyCodes"
-                                    [value]="item.Code" (click)="secondaryspt(item)">
-                                    {{item.Code}} - {{item.Description}}
-                                </mat-option>
-                            </mat-select>
-                            <mat-error class="sourcepaymenttypology" *ngIf="ssourcePTypology.hasError('required')">
-                                Please select source of payment typology </mat-error>
-                        </mat-form-field>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label class="Helvetica-sans-serif-medium required">Start Date</label>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="Helvetica-sans-serif-medium">End Date</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-12">
-                                <input matInput [matDatepicker]="dp5" placeholder="Start Date"
-                                    [(ngModel)]="secList.StartDate" (focus)="dp5?.open()"
-                                    class="Helvetica-sans-serif-medium" required #sstartdate="ngModel">
-                                <mat-datepicker-toggle matSuffix [for]="dp5">
+          <div class="col-lg-12 col-md-12 col-xl-12 col-12 my-2">
+            <label for="" class="form-label label-design  mx-lg-1 required">Relationship to
+              Subscriber</label>
+            <div>
+              <mat-radio-group [(ngModel)]="secList.RelationshipToSubscriber">
+                <mat-radio-button value="Self" class="radio-btn-label label-design my-1">Self
+                </mat-radio-button>
+                <mat-radio-button value="Spouse" class="radio-btn-label label-design my-1">Spouse
+                </mat-radio-button>
+                <mat-radio-button value="Child" class="radio-btn-label label-design my-1">Child
+                </mat-radio-button>
+                <mat-radio-button value="Other" class="radio-btn-label label-design my-1">Other
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+          <div class="col-lg-12 col-md-12">
+            <mat-label class="Helvetica-sans-serif-medium required">Source of Payment Typology </mat-label>
+            <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-12 ddl-width ddhover">
+              <mat-select panelClass="optionalignment" [(ngModel)]="secList.SourceOfPaymentTypology"
+                placeholder="Source of Payment Typology" #ssourcePTypology="ngModel" required>
+                <mat-select-filter [displayMember]="'Code'" [array]="secondarySptcFilter"
+                  (filteredReturn)="SourceOfPaymentTypologyCodes = $event"></mat-select-filter>
+                <mat-option class="matpanelalignment" *ngFor="let item of SourceOfPaymentTypologyCodes"
+                  [value]="item.Code" (click)="secondaryspt(item)">
+                  {{item.Code}} - {{item.Description}}
+                </mat-option>
+              </mat-select>
+              <mat-error class="sourcepaymenttypology" *ngIf="ssourcePTypology.hasError('required')">
+                Please select source of payment typology </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label class="Helvetica-sans-serif-medium required">Start Date</label>
+            </div>
+            <div class="col-md-6">
+              <label class="Helvetica-sans-serif-medium">End Date</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-12">
+                <input matInput [matDatepicker]="dp5" placeholder="Start Date" [(ngModel)]="secList.StartDate"
+                  (focus)="dp5?.open()" class="Helvetica-sans-serif-medium" required #sstartdate="ngModel">
+                <mat-datepicker-toggle matSuffix [for]="dp5">
 
-                                </mat-datepicker-toggle>
-                                <mat-datepicker #dp5 disabled="false"></mat-datepicker>
-                            </mat-form-field>
-                            <!-- <div *ngIf="sstartdate.errors && (sstartdate.touched)">
+                </mat-datepicker-toggle>
+                <mat-datepicker #dp5 disabled="false"></mat-datepicker>
+              </mat-form-field>
+              <!-- <div *ngIf="sstartdate.errors && (sstartdate.touched)">
                                 <div class="error_message" *ngIf="sstartdate.errors?.required">
                                   <span class="e_arrow"></span>
                                   <p class="errormessage">Please select start date</p>
                                 </div>
                                 </div> -->
-                        </div>
-
-                        <div class="col-md-6">
-                            <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-12">
-                                <input matInput [matDatepicker]="dp6" placeholder="Stop Date"
-                                    [(ngModel)]="secList.EndDate" (focus)="dp6?.open()"
-                                    class="Helvetica-sans-serif-medium">
-                                <mat-datepicker-toggle matSuffix [for]="dp6">
-                                </mat-datepicker-toggle>
-                                <mat-datepicker #dp6 disabled="false"></mat-datepicker>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="Insurance">
-                        <button class="btn btn-orange pull-right Helvetica-sans-serif-medium mt-2"
-                            (click)="CreateUpdateInsuranceDetails('secondary')" [disabled]="secondaryenableSave()">Save
-                            Secondary Insurance</button>
-                    </div>
-                </div>
             </div>
+
+            <div class="col-md-6">
+              <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-12">
+                <input matInput [matDatepicker]="dp6" placeholder="Stop Date" [(ngModel)]="secList.EndDate"
+                  (focus)="dp6?.open()" class="Helvetica-sans-serif-medium">
+                <mat-datepicker-toggle matSuffix [for]="dp6">
+                </mat-datepicker-toggle>
+                <mat-datepicker #dp6 disabled="false"></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="Insurance">
+            <button class="btn btn-orange pull-right Helvetica-sans-serif-medium mt-2"
+              (click)="CreateUpdateInsuranceDetails('secondary')" [disabled]="secondaryenableSave()">Save
+              Secondary Insurance</button>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 <!-- Related to primary insurance card -->
 
 <div class="modal " id="modal-primary-Insurance" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <span *ngIf="data" class="Helvetica-sans-serif-medium text-white">Select Insurance Company Plan </span>
-                <span *ngIf="!data" class="Helvetica-sans-serif-medium">Add/Edit Insurance Company Plan </span>
-                <span *ngIf="data" type="button" (click)="cancel()" class="cross-mark" data-bs-dismiss="modal"
-                    aria-label="Close">
-                    X
-                </span>
-                <span *ngIf="!data" type="button" (click)="cancel()" class="cross-mark">
-                    X
-                </span>
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span *ngIf="data" class="Helvetica-sans-serif-medium text-white">Select Insurance Company Plan </span>
+        <span *ngIf="!data" class="Helvetica-sans-serif-medium">Add/Edit Insurance Company Plan </span>
+        <span *ngIf="data" type="button" (click)="cancel()" class="cross-mark" data-bs-dismiss="modal"
+          aria-label="Close">
+          X
+        </span>
+        <span *ngIf="!data" type="button" (click)="cancel()" class="cross-mark">
+          X
+        </span>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="isValid;then content else other_content"></div>
+        <ng-template #content>
+          <div class="scrollable-body">
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-12 mb-4">
+                <div class="col-md-6">
+                  <div>
+                    <label class="Helvetica-sans-serif-medium required">Type:</label>
+                    <mat-radio-group [(ngModel)]="insuraceComplanyPlan.PlanType">
+                      <mat-radio-button class="radio-btn-label label-design my-1" value="medical">
+                        Medical</mat-radio-button>
+                      <mat-radio-button class="radio-btn-label label-design my-1" value="dental">
+                        Dental</mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="modal-body modal-scrollbar">
-                <div *ngIf="isValid;then content else other_content"></div>
-                <ng-template #content>
+            <div class="row mb-4">
+              <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                <label class="Helvetica-sans-serif-medium required">Insurance Company Name</label>
+                <div class="input-group input-group-lg">
+                  <input type="text" class="form-control inputclass" placeholder="Insurance Company Name"
+                    [(ngModel)]="insuraceComplanyPlan.InsuranceCompanyName">
+                </div>
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-12 col-md-6 col-lg-6 col-xl-6">
+                <label class="Helvetica-sans-serif-medium">Group Plan</label>
+                <div class="input-group input-group-lg">
+                  <input type="text" class="form-control inputclass" placeholder="Group Plan"
+                    [(ngModel)]="insuraceComplanyPlan.GroupPlan">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label class="Helvetica-sans-serif-medium">Employer</label>
+                <div class="input-group input-group-lg">
+                  <input type="text" class="form-control inputclass" placeholder="Employer"
+                    [(ngModel)]="insuraceComplanyPlan.Employer">
+                </div>
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="input-group input-group-lg">
+                <span class="input-group-text Helvetica-sans-serif-medium" id="inputGroup-sizing-lg">Street
+                  Address</span>
+                <input type="text" class="form-control inputclass" [(ngModel)]="insuraceComplanyPlan.StreetAddress">
+              </div>
 
-                    <div class="container">
-                        <div class="divScroll1">
-                            <div class="row">
-                                <div class="col-lg-12 col-md-12 col-12 mb-4">
-                                    <div class="col-md-6">
-
-                                        <div>
-                                            <label class="Helvetica-sans-serif-medium required">Type:</label>
-                                            <mat-radio-group [(ngModel)]="insuraceComplanyPlan.PlanType">
-                                                <mat-radio-button class="radio-btn-label label-design my-1"
-                                                    value="medical">
-                                                    Medical</mat-radio-button>
-                                                <mat-radio-button class="radio-btn-label label-design my-1"
-                                                    value="dental">
-                                                    Dental</mat-radio-button>
-                                            </mat-radio-group>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mb-4">
-                                <div class="col-12 col-md-12 col-lg-12 col-xl-12">
-                                    <label class="Helvetica-sans-serif-medium required">Insurance Company Name</label>
-                                    <div class="input-group input-group-lg">
-                                        <input type="text" class="form-control inputclass"
-                                            placeholder="Insurance Company Name"
-                                            [(ngModel)]="insuraceComplanyPlan.InsuranceCompanyName">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mb-4">
-                                <div class="col-12 col-md-6 col-lg-6 col-xl-6">
-                                    <label class="Helvetica-sans-serif-medium">Group Plan</label>
-                                    <div class="input-group input-group-lg">
-                                        <input type="text" class="form-control inputclass" placeholder="Group Plan"
-                                            [(ngModel)]="insuraceComplanyPlan.GroupPlan">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="Helvetica-sans-serif-medium">Employer</label>
-                                    <div class="input-group input-group-lg">
-                                        <input type="text" class="form-control inputclass" placeholder="Employer"
-                                            [(ngModel)]="insuraceComplanyPlan.Employer">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mb-4">
-                                <div class="input-group input-group-lg">
-                                    <span class="input-group-text Helvetica-sans-serif-medium"
-                                        id="inputGroup-sizing-lg">Street Address</span>
-                                    <input type="text" class="form-control inputclass"
-                                        [(ngModel)]="insuraceComplanyPlan.StreetAddress">
-                                </div>
-
-                            </div>
-                            <div class="row">
-                                <div class="col-5  mb-3">
-                                    <div class="input-group input-group-lg">
-                                        <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
-                                            id="inputGroup-sizing-lg ">City</span>
-                                        <input type="text" class="form-control inputclass"
-                                            [(ngModel)]="insuraceComplanyPlan.City">
-                                    </div>
-                                </div>
-                                <div class="col-3 mb-3">
-                                    <div class="input-group input-group-lg ">
-                                        <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
-                                            id="inputGroup-sizing-lg ">State</span>
-                                        <input type="text" class="form-control inputclass"
-                                            [(ngModel)]="insuraceComplanyPlan.State">
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="input-group input-group-lg">
-                                        <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
-                                            id="inputGroup-sizing-lg ">Zip</span>
-                                        <input type="text" class="form-control inputclass"
-                                            [(ngModel)]="insuraceComplanyPlan.Zip">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mb-4">
-                                <label class="Helvetica-sans-serif-medium ">Contact</label>
-                                <div class="input-group input-group-lg">
-                                    <input type="text" class="form-control inputclass" placeholder="Contact"
-                                        [(ngModel)]="insuraceComplanyPlan.Contact">
-                                </div>
-                            </div>
-                            <div class="row mb-4">
-                                <div class="col-md-6">
-                                    <label class="Helvetica-sans-serif-medium">Phone</label>
-                                    <div class="input-group input-group-lg">
-                                        <!-- <input type="text" class="form-control inputclass" placeholder="Phone"
+            </div>
+            <div class="row">
+              <div class="col-md-5 col-6 mb-3">
+                <div class="input-group input-group-lg">
+                  <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
+                    id="inputGroup-sizing-lg ">City</span>
+                  <input type="text" class="form-control inputclass" [(ngModel)]="insuraceComplanyPlan.City">
+                </div>
+              </div>
+              <div class="col-md-3 col-6 mb-3">
+                <div class="input-group input-group-lg ">
+                  <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
+                    id="inputGroup-sizing-lg ">State</span>
+                  <input type="text" class="form-control inputclass" [(ngModel)]="insuraceComplanyPlan.State">
+                </div>
+              </div>
+              <div class="col-md-4 col-6">
+                <div class="input-group input-group-lg">
+                  <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
+                    id="inputGroup-sizing-lg ">Zip</span>
+                  <input type="text" class="form-control inputclass" [(ngModel)]="insuraceComplanyPlan.Zip">
+                </div>
+              </div>
+            </div>
+            <div class="row mb-4">
+              <label class="Helvetica-sans-serif-medium ">Contact</label>
+              <div class="input-group input-group-lg">
+                <input type="text" class="form-control inputclass" placeholder="Contact"
+                  [(ngModel)]="insuraceComplanyPlan.Contact">
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-md-6">
+                <label class="Helvetica-sans-serif-medium">Phone</label>
+                <div class="input-group input-group-lg">
+                  <!-- <input type="text" class="form-control inputclass" placeholder="Phone"
                                         [(ngModel)]="insuraceComplanyPlan.Phone"> -->
 
-                                        <mat-form-field class="phone-full-width" appearance="outline">
-                                            <input type="input" class="areacode" placeholder="(area-code)"
-                                                aria-label="Number" matInput [formControl]="myControlPrimary"
-                                                [matAutocomplete]="autoPrimary"
-                                                [(ngModel)]="insuraceComplanyPlan.PhonePreffix">
-                                            <mat-autocomplete autoActiveFirstOption #autoPrimary="matAutocomplete">
-                                                <mat-option class="tel-code"
-                                                    *ngFor="let option of filteredAreacodes | async" [value]="option"
-                                                    (click)="onSelectedPrimaryPhoneCode(option)">
-                                                    <h1>{{option}}</h1>
-                                                </mat-option>
-                                            </mat-autocomplete>
-                                        </mat-form-field>
-                                        <mat-form-field appearance="outline" class="phone-width">
-                                            <input matInput placeholder="Primary Phone Number" class="cstm-tel"
-                                                type="tel" mask="000-0000" [showMaskTyped]="true"
-                                                [patterns]="PhonePattern"
-                                                [(ngModel)]="insuraceComplanyPlan.PhoneSuffix">
-                                        </mat-form-field>
-                                    </div>
-                                </div>
+                  <mat-form-field class="phone-full-width" appearance="outline">
+                    <input type="input" class="areacode" placeholder="(area-code)" aria-label="Number" matInput
+                      [formControl]="myControlPrimary" [matAutocomplete]="autoPrimary"
+                      [(ngModel)]="insuraceComplanyPlan.PhonePreffix">
+                    <mat-autocomplete autoActiveFirstOption #autoPrimary="matAutocomplete">
+                      <mat-option class="tel-code" *ngFor="let option of filteredAreacodes | async" [value]="option"
+                        (click)="onSelectedPrimaryPhoneCode(option)">
+                        <h1>{{option}}</h1>
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+                  <mat-form-field appearance="outline" class="phone-width">
+                    <input matInput placeholder="Primary Phone Number" class="cstm-tel" type="tel" mask="000-0000"
+                      [showMaskTyped]="true" [patterns]="PhonePattern" [(ngModel)]="insuraceComplanyPlan.PhoneSuffix">
+                  </mat-form-field>
+                </div>
+              </div>
 
-                                <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <label class="Helvetica-sans-serif-medium">Benefit Renewal</label>
-                                    <div class="form-group">
-                                        <select class="col-12 inputclass"
-                                            [(ngModel)]="insuraceComplanyPlan.BenfitRenewal">
-                                            <option value="Jan" selected>Jan</option>
-                                            <option value="Feb">Feb</option>
-                                            <option value="Mar">Mar</option>
-                                            <option value="Apr">Apr</option>
-                                            <option value="May">May</option>
-                                            <option value="Jun">Jun</option>
-                                            <option value="Jul">Jul</option>
-                                            <option value="Sep">Sep</option>
-                                            <option value="Oct">Oct</option>
-                                            <option value="Nov">Nov</option>
-                                            <option value="Dec">Dec</option>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <label class="Helvetica-sans-serif-medium">Benefit Renewal</label>
+                <div class="form-group">
+                  <select class="col-12 inputclass" [(ngModel)]="insuraceComplanyPlan.BenfitRenewal">
+                    <option value="Jan" selected>Jan</option>
+                    <option value="Feb">Feb</option>
+                    <option value="Mar">Mar</option>
+                    <option value="Apr">Apr</option>
+                    <option value="May">May</option>
+                    <option value="Jun">Jun</option>
+                    <option value="Jul">Jul</option>
+                    <option value="Sep">Sep</option>
+                    <option value="Oct">Oct</option>
+                    <option value="Nov">Nov</option>
+                    <option value="Dec">Dec</option>
 
-                                        </select>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="row mb-4">
-                                <div class="col-md-6">
-                                    <label class="Helvetica-sans-serif-medium">Group #</label>
-                                    <div class="input-group input-group-lg">
-                                        <input type="text" class="form-control inputclass" placeholder="Group #"
-                                            [(ngModel)]="insuraceComplanyPlan.GroupNo">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="Helvetica-sans-serif-medium">Local #</label>
-                                    <div class="input-group input-group-lg">
-                                        <input type="text" class="form-control inputclass " placeholder="Local #"
-                                            [(ngModel)]="insuraceComplanyPlan.LocalNo">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mb-4 ">
-                                <label class="Helvetica-sans-serif-medium">Payer ID</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control inputclass" placeholder="Payer ID"
-                                        [(ngModel)]="insuraceComplanyPlan.PayerID">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mb-2">
-                            <div class="col-md-3">
-                                <button *ngIf="delete" mat-raised-button type="submit" class="btn btn-danger btn-danger"
-                                    data-bs-dismiss="modal" (click)="deleteInsurancePlan()">Delete</button>
-                            </div>
-                            <!-- <div class="col-md-4">
-
-                    </div> -->
-                            <div class="col-md-3">
-
-                            </div>
-                            <div class="col-md-3">
-                                <button mat-raised-button type="submit" class="btn btn-green btn-selectcancel"
-                                    data-bs-dismiss="modal" (click)="CreateUpdateInsuraceCompanyPlan()"
-                                    [disabled]="enableSave()">Save</button>
-                            </div>
-                            <div class="col-md-3">
-                                <button *ngIf="cancel2" mat-raised-button type="submit"
-                                    class="btn btn-green btn-selectcancel  pull-right" (click)=cancel()>Cancel</button>
-                                <button *ngIf="cancel1" mat-raised-button type="submit"
-                                    class="btn btn-green btn-selectcancel  pull-right" (click)=cancel()
-                                    data-bs-dismiss="modal" aria-label="Close">Cancel</button>
-                            </div>
-                        </div>
-                    </div>.
-
-
-
-                </ng-template>
-                <ng-template #other_content>
-                    <div class="divScroll">
-                        <div class="row">
-                            <div class="col-12 col-md-6 col-lg-6 col-xl-6">
-
-                                <mat-form-field appearance="outline" class="col-md-12" style="width:300px">
-                                    <mat-label>Search Insurance Company Plan</mat-label>
-                                    <input matInput [(ngModel)]="searchText"
-                                        placeholder="Search Insurance Company Plan" />
-                                </mat-form-field>
-                            </div>
-                            <div class="col-md-2"></div>
-                            <div class="col-12 col-md-4 col-lg-4 col-xl-4">
-                                <button (click)=AddInsuranceCompanyPlan() class="btn btn-green pull-right"
-                                    type="button">Add Insurance Company Plan </button>
-                            </div>
-                        </div>
-                        <table class="table table-borderless">
-                            <thead class="bg-color">
-                                <tr>
-
-                                    <th class="Helvetica-sans-serif-medium">
-                                        Insurance Company Name
-                                    </th>
-                                    <th class="Helvetica-sans-serif-medium">
-                                        Group Plan
-                                    </th>
-                                    <th class="Helvetica-sans-serif-medium">
-                                        Group #
-                                    </th>
-                                    <th class="Helvetica-sans-serif-medium">
-                                        Local #
-                                    </th>
-                                    <th class="Helvetica-sans-serif-medium">
-                                        Employer Name
-                                    </th>
-                                    <th class="Helvetica-sans-serif-medium">
-                                        Payer ID
-                                    </th>
-                                    <th class="Helvetica-sans-serif-medium">
-                                        Address
-                                    </th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let item of InsurancePlanList | globalsearch: searchText; let idx = index;"
-                                    [style.background-color]="rowClicked == idx ? 'rgb(254, 143, 0)' : ''"
-                                    (click)="changeTableRowColor(idx,false)" (dblclick)=edit(idx)>
-                                    <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)"
-                                        class="Helvetica-sans-serif-medium">{{item.InsuranceCompanyName}}</td>
-                                    <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)"
-                                        class="Helvetica-sans-serif-medium">{{item.GroupPlan}}</td>
-                                    <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)"
-                                        class="Helvetica-sans-serif-medium">{{item.GroupNo}}</td>
-                                    <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)"
-                                        class="Helvetica-sans-serif-medium"> {{item.LocalNo}}</td>
-                                    <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)"
-                                        class="Helvetica-sans-serif-medium">{{item.Employer}}</td>
-                                    <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)"
-                                        class="Helvetica-sans-serif-medium">{{item.PayerID}}</td>
-                                    <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)"
-                                        class="Helvetica-sans-serif-medium">
-                                        {{item.StreetAddress}},{{item.City}},{{item.State}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div *ngIf="(InsurancePlanList | globalsearch: searchText).length === 0">
-                            <div class="text-center Helvetica-sans-serif-medium norecordfound">No records found.</div>
-
-                        </div>
-                    </div>
-                    <div class="row mt-4">
-                        <div class="col-md-6">
-                        </div>
-                        <div class="col-md-3">
-                            <button mat-raised-button type="submit" class="btn btn-green btn-selectcancel"
-                                (click)="Selected()" data-bs-dismiss="modal" aria-label="Close"
-                                [disabled]="btnstate">Select</button>
-                        </div>
-                        <div class="col-md-3">
-                            <button mat-raised-button type="submit" class="btn btn-green btn-selectcancel   pull-right"
-                                data-bs-dismiss="modal" aria-label="Close" (click)=cancel()>Cancel</button>
-                        </div>
-                    </div>
-
-                </ng-template>
-            </div>
-            <div class="modal-footer">
+                  </select>
+                </div>
+              </div>
 
             </div>
-        </div>
+            <div class="row mb-4">
+              <div class="col-md-6">
+                <label class="Helvetica-sans-serif-medium">Group #</label>
+                <div class="input-group input-group-lg">
+                  <input type="text" class="form-control inputclass" placeholder="Group #"
+                    [(ngModel)]="insuraceComplanyPlan.GroupNo">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label class="Helvetica-sans-serif-medium">Local #</label>
+                <div class="input-group input-group-lg">
+                  <input type="text" class="form-control inputclass " placeholder="Local #"
+                    [(ngModel)]="insuraceComplanyPlan.LocalNo">
+                </div>
+              </div>
+            </div>
+            <div class="row mb-4 ">
+              <label class="Helvetica-sans-serif-medium">Payer ID</label>
+              <div class="input-group">
+                <input type="text" class="form-control inputclass" placeholder="Payer ID"
+                  [(ngModel)]="insuraceComplanyPlan.PayerID">
+              </div>
+            </div>
+          </div>
+          <div class="row mt-2 pt-3">
+            <div class="col-md-3">
+              <button *ngIf="delete" mat-raised-button type="submit" class="btn btn-danger btn-danger"
+                data-bs-dismiss="modal" (click)="deleteInsurancePlan()">Delete</button>
+            </div>
+            <div class="col-md-9">
+              <div class="pull-right">
+                <button mat-raised-button type="submit" class="btn btn-green btn-selectcancel mx-2"
+                  data-bs-dismiss="modal" (click)="CreateUpdateInsuraceCompanyPlan()"
+                  [disabled]="enableSave()">Save</button>
+                <button *ngIf="cancel2" mat-raised-button type="submit" class="btn btn-green btn-selectcancel"
+                  (click)=cancel()>Cancel</button>
+                <button *ngIf="cancel1" mat-raised-button type="submit" class="btn btn-green btn-selectcancel"
+                  (click)=cancel() data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template #other_content>
+          <div class="row mb-2">
+            <div class="col-md-6 col-12">
+              <mat-form-field appearance="outline" class="col-lg-6 col-md-8 col-12">
+                <mat-label>Search Insurance Company Plan</mat-label>
+                <input matInput [(ngModel)]="searchText" placeholder="Search Insurance Company Plan" />
+              </mat-form-field>
+            </div>
+            <div class="col-md-6 col-12">
+              <button (click)=AddInsuranceCompanyPlan() class="btn btn-green pull-right" type="button">Add Insurance
+                Company Plan </button>
+            </div>
+          </div>
+          <div class="divScroll">
+            <table class="table table-borderless">
+              <thead class="bg-color">
+                <tr>
+                  <th class="Helvetica-sans-serif-medium">
+                    Insurance Company Name
+                  </th>
+                  <th class="Helvetica-sans-serif-medium">
+                    Group Plan
+                  </th>
+                  <th class="Helvetica-sans-serif-medium">
+                    Group #
+                  </th>
+                  <th class="Helvetica-sans-serif-medium">
+                    Local #
+                  </th>
+                  <th class="Helvetica-sans-serif-medium">
+                    Employer Name
+                  </th>
+                  <th class="Helvetica-sans-serif-medium">
+                    Payer ID
+                  </th>
+                  <th class="Helvetica-sans-serif-medium">
+                    Address
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of InsurancePlanList | globalsearch: searchText; let idx = index;"
+                  [style.background-color]="rowClicked == idx ? 'rgb(254, 143, 0)' : ''"
+                  (click)="changeTableRowColor(idx,false)" (dblclick)=edit(idx)>
+                  <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)" class="Helvetica-sans-serif-medium">
+                    {{item.InsuranceCompanyName}}</td>
+                  <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)" class="Helvetica-sans-serif-medium">
+                    {{item.GroupPlan}}</td>
+                  <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)" class="Helvetica-sans-serif-medium">
+                    {{item.GroupNo}}</td>
+                  <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)" class="Helvetica-sans-serif-medium">
+                    {{item.LocalNo}}</td>
+                  <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)" class="Helvetica-sans-serif-medium">
+                    {{item.Employer}}</td>
+                  <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)" class="Helvetica-sans-serif-medium">
+                    {{item.PayerID}}</td>
+                  <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)" class="Helvetica-sans-serif-medium">
+                    {{item.StreetAddress}},{{item.City}},{{item.State}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div *ngIf="(InsurancePlanList | globalsearch: searchText).length === 0">
+              <div class="text-center Helvetica-sans-serif-medium norecordfound">No records found.</div>
+            </div>
+          </div>
+          <div class="row mt-2 d-flex-inline justify-content-end">
+            <button mat-raised-button type="submit" class="btn btn-green btn-selectcancel mx-2" (click)="Selected()"
+              data-bs-dismiss="modal" aria-label="Close" [disabled]="btnstate">Select</button>
+            <button mat-raised-button type="submit" class="btn btn-green btn-selectcancel" data-bs-dismiss="modal"
+              aria-label="Close" (click)=cancel()>Cancel</button>
+          </div>
+        </ng-template>
+      </div>
     </div>
+  </div>
 </div>
 <!-- Related to insurance details in primary insurance -->
 <div class="modal " id="Primary-Insurance-Details" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content PrimaryInsuranceDetails">
-            <div class="modal-header">
-
-                <!-- <span  class="Helvetica-sans-serif-medium"> </span> -->
-                <!-- {{ thi ? 'Text_For_True' : 'Text_For_False' }} -->
-                <span *ngIf="primaryInsDetail" class="Helvetica-sans-serif-medium">Primary Insurance Details </span>
-                <!-- {{ this.insuraceComplanyPlan.InsuranceCompanyId == '' ? 'add' : 'edit' }} -->
-
-                <span *ngIf="secondaryInsDetail" class="Helvetica-sans-serif-medium">Secondary Insurance Details </span>
-                <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close">
-                    X
-                </span>
-            </div>
-            <div class="modal-body modal-scrollbar modalbodycolor" style=" border-bottom: 3px solid #41b6a6;">
-
-                <div *ngFor="let item of InsurancDetailslist">
-                    <div class="row">
-                        <div class="col-md-6 Helvetica-sans-serif-medium">Type:</div>
-                        <div class="col-md-6 Helvetica-sans-serif-medium">{{item.PlanType}}</div>
-
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 Helvetica-sans-serif-medium">Insurance Company Name:</div>
-                        <div class="col-md-6 Helvetica-sans-serif-medium">{{item.InsuranceCompanyName}}</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 Helvetica-sans-serif-medium">Group Plan:</div>
-                        <div class="col-md-6 Helvetica-sans-serif-medium">{{item.GroupPlan}}</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 Helvetica-sans-serif-medium">Employer:</div>
-                        <div class="col-md-6 Helvetica-sans-serif-medium">{{item.Employer}}</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 Helvetica-sans-serif-medium">Address:</div>
-                        <div class="col-md-6 Helvetica-sans-serif-medium">
-                            {{item.StreetAddress}},{{item.City}},{{item.State}},{{item.Zip}}</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 Helvetica-sans-serif-medium">Contact:</div>
-                        <div class="col-md-6 Helvetica-sans-serif-medium">{{item.Contact}}</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 Helvetica-sans-serif-medium">Phone:</div>
-                        <div class="col-md-6 Helvetica-sans-serif-medium">{{item.Phone}}</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 Helvetica-sans-serif-medium">Benifit Renewal:</div>
-                        <div class="col-md-6 Helvetica-sans-serif-medium">{{item.BenfitRenewal}}</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 Helvetica-sans-serif-medium">Group #:</div>
-                        <div class="col-md-6 Helvetica-sans-serif-medium">{{item.GroupNo}}</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 Helvetica-sans-serif-medium">Local #:</div>
-                        <div class="col-md-6 Helvetica-sans-serif-medium">{{item.LocalNo}}</div>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="modal-footer">
-                <div class="row">
-                    <div class="col-md-4">
-
-                    </div>
-                    <div class="col-md-3">
-                        <button mat-raised-button type="submit" class="btn btn-green btn-primary"
-                            (click)="primaryinsurancedetails()" data-bs-toggle="modal"
-                            data-bs-target="#modal-primary-Insurance">Edit</button>
-                    </div>
-                    <div class="col-md-2">
-
-                    </div>
-                    <div class="col-md-3">
-                        <button mat-raised-button type="submit" class="btn btn-green btn-primary"
-                            data-bs-dismiss="modal" aria-label="Close">Cancel</button>
-                    </div>
-                </div>
-            </div>
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content PrimaryInsuranceDetails">
+      <div class="modal-header">
+        <!-- <span  class="Helvetica-sans-serif-medium"> </span> -->
+        <!-- {{ thi ? 'Text_For_True' : 'Text_For_False' }} -->
+        <span *ngIf="primaryInsDetail" class="Helvetica-sans-serif-medium">Primary Insurance Details </span>
+        <!-- {{ this.insuraceComplanyPlan.InsuranceCompanyId == '' ? 'add' : 'edit' }} -->
+        <span *ngIf="secondaryInsDetail" class="Helvetica-sans-serif-medium">Secondary Insurance Details </span>
+        <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close">
+          X
+        </span>
+      </div>
+      <div class="modal-body modal-scrollbar modalbodycolor" style=" border-bottom: 3px solid #41b6a6;">
+        <div *ngFor="let item of InsurancDetailslist">
+          <div class="row">
+            <div class="col-md-6 Helvetica-sans-serif-medium">Type:</div>
+            <div class="col-md-6 Helvetica-sans-serif-medium">{{item.PlanType}}</div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 Helvetica-sans-serif-medium">Insurance Company Name:</div>
+            <div class="col-md-6 Helvetica-sans-serif-medium">{{item.InsuranceCompanyName}}</div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 Helvetica-sans-serif-medium">Group Plan:</div>
+            <div class="col-md-6 Helvetica-sans-serif-medium">{{item.GroupPlan}}</div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 Helvetica-sans-serif-medium">Employer:</div>
+            <div class="col-md-6 Helvetica-sans-serif-medium">{{item.Employer}}</div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 Helvetica-sans-serif-medium">Address:</div>
+            <div class="col-md-6 Helvetica-sans-serif-medium">
+              {{item.StreetAddress}},{{item.City}},{{item.State}},{{item.Zip}}</div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 Helvetica-sans-serif-medium">Contact:</div>
+            <div class="col-md-6 Helvetica-sans-serif-medium">{{item.Contact}}</div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 Helvetica-sans-serif-medium">Phone:</div>
+            <div class="col-md-6 Helvetica-sans-serif-medium">{{item.Phone}}</div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 Helvetica-sans-serif-medium">Benifit Renewal:</div>
+            <div class="col-md-6 Helvetica-sans-serif-medium">{{item.BenfitRenewal}}</div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 Helvetica-sans-serif-medium">Group #:</div>
+            <div class="col-md-6 Helvetica-sans-serif-medium">{{item.GroupNo}}</div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 Helvetica-sans-serif-medium">Local #:</div>
+            <div class="col-md-6 Helvetica-sans-serif-medium">{{item.LocalNo}}</div>
+          </div>
         </div>
+      </div>
+      <div class="modal-footer">
+        <button mat-raised-button type="submit" class="btn btn-green btn-primary" (click)="primaryinsurancedetails()"
+          data-bs-toggle="modal" data-bs-target="#modal-primary-Insurance">Edit</button>
+        <button mat-raised-button type="submit" class="btn btn-green btn-primary" data-bs-dismiss="modal"
+          aria-label="Close">Cancel</button>
+      </div>
     </div>
+  </div>
 </div>

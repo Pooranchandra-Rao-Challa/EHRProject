@@ -46,7 +46,7 @@
   border-radius: 3px;
   font-size: 16px;
   text-align: center;
-  margin-left: -9px;
+  margin-top: 3px;
 }
 
 .modal-content {
@@ -64,22 +64,21 @@
 }
 
 .searchnow {
-  width: 150px !important;
   height: 45px !important;
 }
 
-::ng-deep .calendaralignment.green-calendar mat-datepicker-toggle.mat-datepicker-toggle button.mat-focus-indicator.mat-icon-button {
-  height: 3.7em !important;
-}
+// ::ng-deep .calendaralignment.green-calendar mat-datepicker-toggle.mat-datepicker-toggle button.mat-focus-indicator.mat-icon-button {
+//   height: 3.7em !important;
+// }
 
-.divScroll {
-  overflow-y: scroll;
-  overflow-x: hidden;
-  height: 500px;
-  // width: 1045px;
-}
-.modal-body {
-  max-height: calc(90vh - 200px);
+// .divScroll {
+//   overflow-y: scroll;
+//   overflow-x: hidden;
+//   // height: 500px;
+//   // width: 1045px;
+// }
+.modal-amendments .modal-body {
+  max-height: calc(90vh - 170px);
   overflow-y: auto;
 }
 .pattach {

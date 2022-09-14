@@ -154,6 +154,12 @@ a {
 ::ng-deep .patients-search .input-search .mat-form-field-outline-end{
   border-radius: 0 5px 5px 0 !important;
 }
+@media (max-width: 425px) {
+  .patients-search .input-search.mat-form-field-appearance-outline{
+    width: 100% !important;
+  }
+}
+
 .mat-input-element {
   width: 100% !important;
 }
