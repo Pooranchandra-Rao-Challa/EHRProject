@@ -338,3 +338,10 @@ input, .form-control:focus, input:focus, select:focus, textarea:focus, button:fo
 .dropdown-menu .dropdown-item:active {
   background: red;
 }
+
+::ng-deep .swal2-title.swal2-title-message {
+  padding: 20px  !important;
+  font-size: 24px;
+  font-family: 'Roboto';
+  font-weight: 400;
+}

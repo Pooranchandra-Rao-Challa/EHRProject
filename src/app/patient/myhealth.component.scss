@@ -1,5 +1,5 @@
 @import"../../assets/common.scss";
-
+#myhealth{
 #myhealth-wrapper {
   padding-top: 70px;
 }
@@ -138,4 +138,5 @@ padding: 12px 6px 12px 0px;
     background-image: url("/assets/images/down-arrow.svg");
     transform: rotate(-180deg);
     cursor: pointer !important;
+}
 }

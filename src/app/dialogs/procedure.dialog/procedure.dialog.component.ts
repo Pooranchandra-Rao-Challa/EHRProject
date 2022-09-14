@@ -467,7 +467,6 @@ this.procedureInfo.Place == "cusp_distolingual"
 
 
   save() {
-
     let isAdd = this.procedureInfo.ProcedureId == null;
     this.procedureInfo.PatientId = this.patient.PatientId;
     if(this.procedureInfo.ProviderId)

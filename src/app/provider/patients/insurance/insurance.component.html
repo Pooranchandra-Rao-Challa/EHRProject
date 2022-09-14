@@ -697,7 +697,7 @@
                             </div>
                             <div class="col-md-3">
                                 <button mat-raised-button type="submit" class="btn btn-green btn-selectcancel"
-                                    data-bs-dismiss="modal" (click)="CreateUpdateInsuraceCompanyPlan()"
+                                    data-bs-dismiss="modal" (click)="CreateUpdateInsuraceCompanyPlan(insuraceComplanyPlan)"
                                     [disabled]="enableSave()">Save</button>
                             </div>
                             <div class="col-md-3">
@@ -762,19 +762,19 @@
                                 <tr *ngFor="let item of InsurancePlanList | globalsearch: searchText; let idx = index;"
                                     [style.background-color]="rowClicked == idx ? 'rgb(254, 143, 0)' : ''"
                                     (click)="changeTableRowColor(idx,false)" (dblclick)=edit(idx)>
-                                    <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)"
+                                    <td (dblclick)="getInsuranceDetail(item)"
                                         class="Helvetica-sans-serif-medium">{{item.InsuranceCompanyName}}</td>
-                                    <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)"
+                                    <td (dblclick)="getInsuranceDetail(item)"
                                         class="Helvetica-sans-serif-medium">{{item.GroupPlan}}</td>
-                                    <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)"
+                                    <td (dblclick)="getInsuranceDetail(item)"
                                         class="Helvetica-sans-serif-medium">{{item.GroupNo}}</td>
-                                    <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)"
+                                    <td (dblclick)="getInsuranceDetail(item)"
                                         class="Helvetica-sans-serif-medium"> {{item.LocalNo}}</td>
-                                    <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)"
+                                    <td (dblclick)="getInsuranceDetail(item)"
                                         class="Helvetica-sans-serif-medium">{{item.Employer}}</td>
-                                    <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)"
+                                    <td (dblclick)="getInsuranceDetail(item)"
                                         class="Helvetica-sans-serif-medium">{{item.PayerID}}</td>
-                                    <td (dblclick)="getInsuranceDetail(item.InsuranceCompanyId)"
+                                    <td (dblclick)="getInsuranceDetail(item)"
                                         class="Helvetica-sans-serif-medium">
                                         {{item.StreetAddress}},{{item.City}},{{item.State}}</td>
                                 </tr>

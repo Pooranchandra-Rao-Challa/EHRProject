@@ -163,6 +163,7 @@ export class InsuranceComponent implements OnInit {
     this.delete = true;
     this.data = false;
     this.cancel1 = true;
+    this.getInsuranceDetail(this.insuraceComplanyPlan)
   }
 
   changeTableRowColor(idx, event) {
@@ -289,6 +290,7 @@ export class InsuranceComponent implements OnInit {
       this.patientservice.InsurancDetails(reqparam).subscribe(
         resp => {
           this.InsurancDetailslist = resp.ListResult;
+          
           this.insuraceComplanyPlan = resp.ListResult[0];
         });
       this.primaryInsDetail = true;
@@ -308,23 +310,61 @@ export class InsuranceComponent implements OnInit {
     }
   }
 
-  getInsuranceDetail(id) {
-    var reqparam = {
-      "InsuranceId": id
+  // getInsuranceDetail(item) {
+  //   var reqparam = {
+  //     "InsuranceId": item.InsuranceCompanyId
+  //   }
+  //   if (item.Phone == null) {
+  //     this.insuraceComplanyPlan.PhonePreffix = '';
+  //     this.insuraceComplanyPlan.PhoneSuffix = '';
+  //   }
+  //   else {
+  //     let list = item.primary_phone.split('+1');
+  //     this.insuraceComplanyPlan.PhonePreffix = list[1].slice(0, 3);
+  //     this.insuraceComplanyPlan.PhoneSuffix = list[1].slice(3, 10);
+  //   }
+  //   this.patientservice.InsurancDetails(reqparam).subscribe(
+  //     resp => {
+  //       let InsurancDetailslist = resp.ListResult;
+  //       this.insuraceComplanyPlan = resp.ListResult[0];
+  //     }
+  //   )
+  // }
+  getInsuranceDetail(item) {
+    this.insuraceComplanyPlan.InsuranceCompanyId = item.InsuranceCompanyId;
+    this.insuraceComplanyPlan.PlanType = item.PlanType
+    this.insuraceComplanyPlan.InsuranceCompanyName = item.InsuranceCompanyName;
+    this.insuraceComplanyPlan.GroupPlan = item.GroupPlan
+    this.insuraceComplanyPlan.Employer = item.Employer
+    this.insuraceComplanyPlan.Address
+    this.insuraceComplanyPlan.StreetAddress = item.StreetAddress;
+    this.insuraceComplanyPlan.City = item.City;
+    this.insuraceComplanyPlan.State = item.State;
+    this.insuraceComplanyPlan.Zip = item.Zip;
+    this.insuraceComplanyPlan.Contact = item.Contact
+    this.insuraceComplanyPlan.BenfitRenewal = item.BenfitRenewal
+    this.insuraceComplanyPlan.GroupNo = item.GroupNo
+    this.insuraceComplanyPlan.LocalNo = item.LocalNo
+    this.insuraceComplanyPlan.PayerID = item.PayerID
+    // this.insuraceComplanyPlan.LocationId;
+    if (item.Phone == null) {
+      this.insuraceComplanyPlan.PhonePreffix = '';
+      this.insuraceComplanyPlan.PhoneSuffix = '';
     }
-    this.patientservice.InsurancDetails(reqparam).subscribe(
-      resp => {
-        let InsurancDetailslist = resp.ListResult;
-        this.insuraceComplanyPlan = resp.ListResult[0];
-      }
-    )
+    else {
+      let list = item.Phone.split('+1');
+      this.insuraceComplanyPlan.PhonePreffix = list[1].slice(0, 3);
+      this.insuraceComplanyPlan.PhoneSuffix = list[1].slice(3, 10);
+    }
+
+
   }
 
-  CreateUpdateInsuraceCompanyPlan() {
-    let isAdd = this.insuraceComplanyPlan.InsuranceCompanyId == "";
-    this.insuraceComplanyPlan.Phone = '+1' + this.insuraceComplanyPlan.PhonePreffix + this.insuraceComplanyPlan.PhoneSuffix;
-    this.insuraceComplanyPlan.LocationId = this.changedLocationId;
-    this.patientservice.CreateUpdateInsuranceCompanyPlan(this.insuraceComplanyPlan).subscribe((resp) => {
+  CreateUpdateInsuraceCompanyPlan(insuraceComplanyPlan: ParticularInsuranceCompanyDetails) {
+    let isAdd = insuraceComplanyPlan?.InsuranceCompanyId == "";
+    insuraceComplanyPlan.Phone = '+1' + this.insuraceComplanyPlan.PhonePreffix + this.insuraceComplanyPlan.PhoneSuffix;
+    insuraceComplanyPlan.LocationId = this.changedLocationId;
+    this.patientservice.CreateUpdateInsuranceCompanyPlan(insuraceComplanyPlan).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CI001" : "M2CI002"]);
       }
