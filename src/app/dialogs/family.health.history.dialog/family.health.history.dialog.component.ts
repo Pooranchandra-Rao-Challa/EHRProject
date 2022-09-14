@@ -26,6 +26,8 @@ export class FamilyHealthHistoryDialogComponent implements OnInit {
   diagnosesStopDate: string;
   originalDiagnoses: any[] = [];
   onSelectedDiagnoses: Diagnosis;
+  // todayDate: Date;
+  minBirthdate: Date;
 
   constructor(private ref: EHROverlayRef,
     private authService: AuthenticationService,
@@ -34,13 +36,14 @@ export class FamilyHealthHistoryDialogComponent implements OnInit {
     private patientService: PatientService) {
     this.currentPatient = this.authService.viewModel.Patient;
     this.updateLocalModel(ref.RequestData);
+    // this.todayDate = new Date();
   }
 
   ngOnInit(): void {
     this.patientRelationShip = GlobalConstants.RELATIONSHIP;
     this.diagnosesStartDate = new Date();
     this.diagnosesStopDate = this.datepipe.transform(new Date(), "yyyy-MM-dd");
-
+    this.minDate();
   }
 
   updateLocalModel(data: FamilyMedicalHistory) {
@@ -63,7 +66,7 @@ export class FamilyHealthHistoryDialogComponent implements OnInit {
       'Code': this.onSelectedDiagnoses.Code,
       'CodeSystem': this.onSelectedDiagnoses.CodeSystem,
       'Description': this.onSelectedDiagnoses.Description,
-      'StartAt': this.diagnosesStartDate,
+      'StartAt': new Date(this.datepipe.transform(this.diagnosesStartDate, "MM/dd/yyyy hh:mm:ss")),
       'StopAt': this.diagnosesStopDate.toString()
     }
     this.patientFamilyHealthHistory.FamilyMedicalHistoryInfo.Diagnoses.push(reqparams);
@@ -99,6 +102,11 @@ export class FamilyHealthHistoryDialogComponent implements OnInit {
       let timeDiff = Math.abs(Date.now() - new Date(this.patientFamilyHealthHistory.FamilyMedicalHistoryInfo.BirthAt).getTime());
       this.patientFamilyHealthHistory.FamilyMedicalHistoryInfo.Age = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365.25);
     }
+  }
+
+  minDate(){
+    const now = new Date();
+    this.minBirthdate = new Date(this.datepipe.transform(now.setFullYear(now.getFullYear() - 1), "yyyy-MM-dd"));
   }
 
   Create() {

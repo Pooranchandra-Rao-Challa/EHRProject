@@ -25,13 +25,13 @@
                 <div class=" form-group col-lg-6 col-md-6">
                   <label class="title-bold required">First Name</label>
                   <mat-form-field class="w-100" appearance="outline">
-                    <input matInput placeholder="First Name" [(ngModel)]="patientFamilyHealthHistory.FamilyMedicalHistoryInfo.FirstName" />
+                    <input matInput placeholder="First Name" [(ngModel)]="patientFamilyHealthHistory.FamilyMedicalHistoryInfo.FirstName" alphaOnly />
                   </mat-form-field>
                 </div>
                 <div class="form-group col-lg-6 col-md-6">
                   <label class="title-bold required">Last Name</label>
                   <mat-form-field class="w-100" appearance="outline">
-                    <input matInput placeholder="Last Name" [(ngModel)]="patientFamilyHealthHistory.FamilyMedicalHistoryInfo.LastName" />
+                    <input matInput placeholder="Last Name" [(ngModel)]="patientFamilyHealthHistory.FamilyMedicalHistoryInfo.LastName" alphaOnly />
                   </mat-form-field>
                 </div>
               </div>
@@ -49,11 +49,13 @@
                 <div class="form-group col-lg-6 col-md-6">
                   <label class="title-bold required">Birthdate</label>
                   <mat-form-field class="form-group green-calendar" appearance="outline">
-                    <input matInput class="pointer" autocomplete="off" [matDatepicker]="birthDate" (click)="birthDate.open()" readonly placeholder="Date of birth"
+                    <input matInput class="pointer" autocomplete="off" [matDatepicker]="birthDate" (click)="birthDate.open()" [max]="minBirthdate" readonly placeholder="Date of birth"
                     [(ngModel)]="patientFamilyHealthHistory.FamilyMedicalHistoryInfo.BirthAt" (dateChange)="ageCalculator()"/>
                     <mat-datepicker-toggle matSuffix [for]="birthDate"></mat-datepicker-toggle>
                     <mat-datepicker #birthDate></mat-datepicker>
                   </mat-form-field>
+                  <span><b>Note:</b>Age should be atleast one year</span>
+                  <!-- [max]="todayDate" -->
                 </div>
               </div>
               <div class="row">
