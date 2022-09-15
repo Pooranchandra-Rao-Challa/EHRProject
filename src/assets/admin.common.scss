@@ -203,3 +203,9 @@ div.search-box button:hover {
   content: "*" !important;
   color: red !important;
 }
+.body-scroller::-webkit-scrollbar-thumb {
+  background: #35414f;
+  border-radius: 10px;
+  background-clip: padding-box;
+  border: 0.05em solid #eeeeee;
+}

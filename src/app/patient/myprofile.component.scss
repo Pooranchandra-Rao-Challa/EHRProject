@@ -39,18 +39,16 @@
 .save-button {
   height: 45px;
   border-radius: 3px;
-  margin-left: 60%;
-  width: 40%;
-  margin-top: 7%
+  width: 105px;
+  margin-top: 9%;
 }
 
-@media (max-width: 974px) {
+@media (max-width: 1020px) {
   .save-button {
-    height: 50px;
+    height: 45px;
     border-radius: 3px;
-    margin-left: 288%;
-    width: 40%;
-    margin-top: 7%
+    width: 105px;
+    margin-top: 0px;
   }
 }
 
@@ -58,7 +56,7 @@
   border-radius: 5px;
   // width: 100%;
   margin-bottom: 4%;
-
+  height: 45px;
 }
 img {
   max-width: inherit;
@@ -80,6 +78,10 @@ img:hover {
 .mat-form-field-appearance-outline:focus .mat-form-field-outline {
   color: #41b6a6 !important;
 }
+// ::ng-deep .grey-matform.mat-form-field-appearance-outline:hover .mat-form-field-outline,
+// .mat-form-field-appearance-outline:hover .mat-form-field-outline {
+//   background-color: #dedede !important;
+// }
 
 ::ng-deep .filed-border.mat-form-field-appearance-outline .mat-form-field-outline {
   color: #dedede !important;
@@ -93,10 +95,10 @@ img:hover {
 }
 
 .down-button {
-  height: 50px;
+  height: 45px;
   border-radius: 3px;
-  margin-left: 78%;
-  width: 20%;
+  min-width: 85px;
+  max-width: 105px;
 }
 
 .content span {
@@ -268,4 +270,21 @@ input[readonly] {
 .modal-body {
   max-height: calc(90vh - 200px);
   overflow-y: auto;
+}
+.phone-full-width {
+  width: 15%;
+}
+
+.tel-code h1 {
+  font-size: 13px;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  white-space: pre-wrap;
+}
+
+.tel-code.mat-option {
+  padding: 5px !important;
+}
+.phone-width {
+  width: 85%;
+  height: 15%;
 }

@@ -84,8 +84,8 @@
               <button type="button" class="btn cross-mark error-close" *ngIf="addressVerfied && !manuallybtn"
                 (click)="enableManualEntry()"
                 title="Can enter manully when the verification results are in correct by clicking this icon">x</button>
-              <button class="btn-green btn btn-verify mb-2 mt-2 mt-lg-0 pull-right" *ngIf="manuallybtn || disableaddressverification"
-                (click)="enterAddressManually()">Enter
+              <button class="btn-green btn btn-verify mb-2 mt-2 mt-lg-0 pull-right"
+                *ngIf="manuallybtn || disableaddressverification" (click)="enterAddressManually()">Enter
                 Address Manually</button>
             </div>
           </div>
@@ -185,10 +185,10 @@
               <mat-label class="Helvetica-sans-serif-medium placehold required">Source of Payment Typology
               </mat-label>
               <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-12 ddl-width ddhover">
-                <mat-select panelClass="optionalignment" [(ngModel)]="primlist.SourceOfPaymentTypology"
+                <mat-select panelClass="optionalignment" [(ngModel)]="primlist.SourceOfPaymentTypology" #primaryPaymentTypology
                   placeholder="Source of Payment Typology" required #sourcePTypology="ngModel">
                   <mat-select-filter [displayMember]="'Code'" [array]="SourceOfPaymentTypologyCodesFilter"
-                    (filteredReturn)="SourceOfPaymentTypologyCodes = $event" id="inputcursor">
+                    (filteredReturn)="SourceOfPaymentTypologyCodes = $event" id="inputcursor" *ngIf="primaryPaymentTypology.focused">
                   </mat-select-filter>
                   <mat-option *ngFor="let item of SourceOfPaymentTypologyCodes" [value]="item.Code"
                     (click)="primaryspt(item)">
@@ -323,11 +323,12 @@
                 </div>
               </div>
             </div>
-            <div class="col-xl-3 col-lg-4 col-12" >
-              <button type="button" class="btn cross-mark error-close" *ngIf="secondaryAdressVerfied && !secondarymanuallybtn"
-                 (click)="secondaryenableManualEntry()"
+            <div class="col-xl-3 col-lg-4 col-12">
+              <button type="button" class="btn cross-mark error-close"
+                *ngIf="secondaryAdressVerfied && !secondarymanuallybtn" (click)="secondaryenableManualEntry()"
                 title="Can enter manully when the verification results are in correct by clicking this icon">x</button>
-                <button class="btn-green btn btn-verify mb-2 mt-2 mt-lg-0 pull-right" *ngIf="secondarymanuallybtn || secondarydisableaddressverification"
+              <button class="btn-green btn btn-verify mb-2 mt-2 mt-lg-0 pull-right"
+                *ngIf="secondarymanuallybtn || secondarydisableaddressverification"
                 (click)="secondaryenterAddressManually()">Enter Address Manually</button>
             </div>
             <!-- <div class="col-xl-3 col-lg-4 col-12" *ngIf="secondarymanuallybtn || secondarydisableaddressverification">
@@ -421,10 +422,10 @@
           <div class="col-lg-12 col-md-12">
             <mat-label class="Helvetica-sans-serif-medium required">Source of Payment Typology </mat-label>
             <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-12 ddl-width ddhover">
-              <mat-select panelClass="optionalignment" [(ngModel)]="secList.SourceOfPaymentTypology"
+              <mat-select panelClass="optionalignment" [(ngModel)]="secList.SourceOfPaymentTypology" #secondaryPaymentTypology
                 placeholder="Source of Payment Typology" #ssourcePTypology="ngModel" required>
                 <mat-select-filter [displayMember]="'Code'" [array]="secondarySptcFilter"
-                  (filteredReturn)="SourceOfPaymentTypologyCodes = $event"></mat-select-filter>
+                  (filteredReturn)="SourceOfPaymentTypologyCodes = $event"  *ngIf="secondaryPaymentTypology.focused"></mat-select-filter>
                 <mat-option class="matpanelalignment" *ngFor="let item of SourceOfPaymentTypologyCodes"
                   [value]="item.Code" (click)="secondaryspt(item)">
                   {{item.Code}} - {{item.Description}}

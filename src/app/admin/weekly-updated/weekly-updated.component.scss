@@ -341,7 +341,7 @@ input, .form-control:focus, input:focus, select:focus, textarea:focus, button:fo
 
 ::ng-deep .swal2-title.swal2-title-message {
   padding: 20px  !important;
-  font-size: 24px;
-  font-family: 'Roboto';
-  font-weight: 400;
+  font-size: 24px !important;
+  font-family: 'Roboto' !important;
+  font-weight: 400 !important;
 }

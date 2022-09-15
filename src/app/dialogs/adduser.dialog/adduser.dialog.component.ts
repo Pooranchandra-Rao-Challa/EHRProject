@@ -59,9 +59,6 @@ export class AddUserDialogComponent implements OnInit {
     if (plaformLocation.href.indexOf('?') > -1)
       this.url = plaformLocation.href.substring(0, plaformLocation.href.indexOf('?')).replace(plaformLocation.pathname, '/');
     this.user = authService.userValue;
-    console.log(this.newUser);
-
-
     this.PhonePattern = {
       0: {
         pattern: new RegExp('\\d'),
@@ -246,33 +243,68 @@ export class AddUserDialogComponent implements OnInit {
     let mNo = this.newUser.MobilePhonePreffix + this.newUser.MobilePhoneSuffix;
     let flag = (this.newUser.EPrescribeFrom == 'dosespot'
       && this.newUser.IsDoseSpotRegistation != null && this.newUser.IsDoseSpotRegistation == true
-      && this.newUser.DoseSpotClinicKey != null && this.newUser.DoseSpotClinicKey != ""
-      && this.newUser.DoseSpotClinicianId != null && this.newUser.DoseSpotClinicianId != "") ||
+      && this.newUser.DoseSpotClinicKey
+      && this.newUser.DoseSpotClinicianId) ||
       (this.newUser.EPrescribeFrom == 'drfirst'
-        && this.newUser.VendorSecretKey != null && this.newUser.VendorSecretKey != ""
-        && this.newUser.VendorUsername != null && this.newUser.VendorUsername != ""
-        && this.newUser.ProviderUsername != null && this.newUser.ProviderUsername != ""
-        && this.newUser.ProviderPassword != null && this.newUser.ProviderPassword != ""
-        && this.newUser.PracticeUsername != null && this.newUser.PracticeUsername != ""
-        && this.newUser.PracticePassword != null && this.newUser.PracticePassword != ""
+        && this.newUser.VendorSecretKey
+        && this.newUser.VendorUsername
+        && this.newUser.ProviderUsername
+        && this.newUser.ProviderPassword
+        && this.newUser.PracticeUsername
+        && this.newUser.PracticePassword
         // && this.newUser.UserExternalId != null && this.newUser.UserExternalId != ""
       ) ||
       this.newUser.EPrescribeFrom == 'none' || this.newUser.EPrescribeFrom == undefined
 
-    return !(this.newUser.Title == undefined ? '' : this.newUser.Title != ''
-      && this.newUser.FirstName == undefined ? '' : this.newUser.FirstName != ''
-        && this.newUser.LastName == undefined ? '' : this.newUser.LastName != ''
-          && this.newUser.Degree == undefined ? '' : this.newUser.Degree != ''
-            && this.newUser.Speciality == undefined ? '' : this.newUser.Speciality != ''
-              && this.newUser.NPI == undefined ? '' : this.newUser.NPI != ''
-                && this.newUser.Address == undefined ? '' : this.newUser.Address != ''
-                  && this.newUser.ClinicId == undefined ? '' : this.newUser.ClinicId != ''
+    return !(this.newUser.Title
+      && this.newUser.FirstName
+        && this.newUser.LastName
+          && this.newUser.Degree
+            && this.newUser.Speciality
+              && this.newUser.NPI
+                && this.newUser.Address
+                  && this.newUser.ClinicId
                   && (this.phonePattern.test(pNo))
                   && ((!this.newUser.MobilePhonePreffix && !this.newUser.MobilePhoneSuffix) || (this.phonePattern.test(mNo)))
                   && (this.emailPattern.test(this.newUser.Email))
                   && (this.newUser.AltEmail == null || this.newUser.AltEmail == '' || (this.emailPattern.test(this.newUser.AltEmail)))
                   && flag && npireg.test(this.newUser.NPI))
   }
+
+  // disableProviderRegistration() {
+  //   // this.NPIValidator();
+  //   var npireg = /^[0-9]{10}$/;
+  //   let pNo = this.newUser.PrimaryPhonePreffix + this.newUser.PrimaryPhoneSuffix;
+  //   let mNo = this.newUser.MobilePhonePreffix + this.newUser.MobilePhoneSuffix;
+  //   let flag = (this.newUser.EPrescribeFrom == 'dosespot'
+  //     && this.newUser.IsDoseSpotRegistation != null && this.newUser.IsDoseSpotRegistation == true
+  //     && this.newUser.DoseSpotClinicKey != null && this.newUser.DoseSpotClinicKey != ""
+  //     && this.newUser.DoseSpotClinicianId != null && this.newUser.DoseSpotClinicianId != "") ||
+  //     (this.newUser.EPrescribeFrom == 'drfirst'
+  //       && this.newUser.VendorSecretKey != null && this.newUser.VendorSecretKey != ""
+  //       && this.newUser.VendorUsername != null && this.newUser.VendorUsername != ""
+  //       && this.newUser.ProviderUsername != null && this.newUser.ProviderUsername != ""
+  //       && this.newUser.ProviderPassword != null && this.newUser.ProviderPassword != ""
+  //       && this.newUser.PracticeUsername != null && this.newUser.PracticeUsername != ""
+  //       && this.newUser.PracticePassword != null && this.newUser.PracticePassword != ""
+  //       // && this.newUser.UserExternalId != null && this.newUser.UserExternalId != ""
+  //     ) ||
+  //     this.newUser.EPrescribeFrom == 'none' || this.newUser.EPrescribeFrom == undefined
+
+  //   return !(this.newUser.Title == undefined ? '' : this.newUser.Title != ''
+  //     && this.newUser.FirstName == undefined ? '' : this.newUser.FirstName != ''
+  //       && this.newUser.LastName == undefined ? '' : this.newUser.LastName != ''
+  //         && this.newUser.Degree == undefined ? '' : this.newUser.Degree != ''
+  //           && this.newUser.Speciality == undefined ? '' : this.newUser.Speciality != ''
+  //             && this.newUser.NPI == undefined ? '' : this.newUser.NPI != ''
+  //               && this.newUser.Address == undefined ? '' : this.newUser.Address != ''
+  //                 && this.newUser.ClinicId == undefined ? '' : this.newUser.ClinicId != ''
+  //                 && (this.phonePattern.test(pNo))
+  //                 && ((!this.newUser.MobilePhonePreffix && !this.newUser.MobilePhoneSuffix) || (this.phonePattern.test(mNo)))
+  //                 && (this.emailPattern.test(this.newUser.Email))
+  //                 && (this.newUser.AltEmail == null || this.newUser.AltEmail == '' || (this.emailPattern.test(this.newUser.AltEmail)))
+  //                 && flag && npireg.test(this.newUser.NPI))
+  // }
 }
 
 

@@ -68,7 +68,7 @@ export class SectionNewComponent implements OnInit {
       // position: 'center',
       text: msg,
       confirmButtonText: 'close',
-      // confirmButtonColor:'#337ab7',
+      confirmButtonColor:'#337ab7',
       // confirmButtonAriaLabel:'false',
       customClass: {
         container: 'swal2-container-high',

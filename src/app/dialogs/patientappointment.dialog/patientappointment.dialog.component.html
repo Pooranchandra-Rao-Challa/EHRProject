@@ -13,22 +13,33 @@
               <mat-form-field appearance="outline" class="col-12">
                 <input matInput class="pointer"  [matDatepicker]="appointmentDate"
                   (click)="appointmentDate.open()"  placeholder="Request Date"
-                  [(ngModel)]="requestAppoinments.AppttDate" [ngModelOptions]="{standalone: true}" [min]="minDate"  />
+                  [(ngModel)]="requestAppoinments.AppttDate" [ngModelOptions]="{standalone: true}" [min]="minDate" required #selectDate="ngModel"required/>
                 <mat-datepicker-toggle matSuffix [for]="appointmentDate">
                 </mat-datepicker-toggle>
                 <mat-datepicker #appointmentDate></mat-datepicker>
               </mat-form-field>
-         
+              <div *ngIf="selectDate.errors && (selectDate.touched)">
+                <div class="error_message" *ngIf="selectDate.errors?.required">
+                  <span class="e_arrow"></span>
+                  <p class="errormessage">Please select the date</p>
+                </div>
+              </div>
           </div>
 
           <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
             <mat-label for="Date" class="form-label required"> Provider</mat-label>
             <div class="form-group">
               <mat-form-field appearance="outline">
-                <mat-select  placeholder="Select Provider" [(ngModel)]="requestAppoinments.ProviderId">
+                <mat-select  placeholder="Select Provider" [(ngModel)]="requestAppoinments.ProviderId" #selectprovider="ngModel" required>
                   <mat-option  *ngFor="let item of Providerdata" [value]="item.ProviderId">{{item.FullName}}</mat-option>
                 </mat-select>
               </mat-form-field>
+              <div *ngIf="selectprovider.errors && (selectprovider.touched)">
+                <div class="error_message" *ngIf="selectprovider.errors?.required">
+                  <span class="e_arrow"></span>
+                  <p class="errormessage">Please select the provider</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -38,23 +49,29 @@
             <mat-label for="Time" class="form-label required">Time</mat-label>
             <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-12">
               <input matInput type="text" hint="12 hours format" appTimeMask
-              [(ngModel)]="requestAppoinments.AppointmentTime" #time1="ngModel" pattern="'^(0?[1-9]|1[0-2]):[0-5][0-9]?(\s*[AaPp][Mm])?'" required>
+              [(ngModel)]="requestAppoinments.AppointmentTime" #apptTime="ngModel"  required>
             </mat-form-field>
-            <!-- <div *ngIf="time1.errors && (time1.touched)">
-              <div class="text-danger" *ngIf="time1.errors?.pattern">
+            <div *ngIf="apptTime.errors && (apptTime.touched)">
+              <div class="error_message" *ngIf="apptTime.errors?.required">
                 <span class="e_arrow"></span>
-                <p class="text-danger">Work phone number should be 10 digits.</p>
+                <p class="errormessage">Please select the time </p>
               </div>
-            </div> -->
+            </div>
           </div>
           <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
             <mat-label  class="form-label required">Location </mat-label>
             <div class="form-group">
               <mat-form-field appearance="outline">
-                <mat-select  placeholder="Select Location" [(ngModel)]="requestAppoinments.LocationId">
+                <mat-select  placeholder="Select Location" [(ngModel)]="requestAppoinments.LocationId" #locationName="ngModel" required>
                   <mat-option  *ngFor="let item of clinicaldata" [value]="item.LocationId">{{item.LocationName}}</mat-option>
                 </mat-select>
               </mat-form-field>
+              <div *ngIf="locationName.errors && (locationName.touched)">
+                <div class="error_message" *ngIf="locationName.errors?.required">
+                  <span class="e_arrow"></span>
+                  <p class="errormessage">Please select the location </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

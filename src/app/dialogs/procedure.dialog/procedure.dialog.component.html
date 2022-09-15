@@ -31,7 +31,7 @@
         <div class="col-lg-4 col-md-6 col-12">
           <div class="input-group">
             <label class="control-label input-group-addon required">Code</label>
-            <mat-form-field class="procedure-form-field" appearance="outline">
+            <mat-form-field class="procedure-form-field w-100" appearance="outline">
               <input matInput class="form-control" placeholder="Code" disabled class="not-allowed" id="pCode" name="pCode"
                 [(ngModel)]="procedureInfo.Code" />
             </mat-form-field>
@@ -40,7 +40,7 @@
         <div class="col-lg-4 col-md-6 col-12">
           <div class="input-group">
             <label class="control-label input-group-addon required">Description</label>
-            <mat-form-field class="procedure-form-field" appearance="outline">
+            <mat-form-field class="procedure-form-field w-100" appearance="outline">
               <input matInput class="form-control" placeholder="Description" disabled class="not-allowed" id="pDescription"
                 name="pDescription" [(ngModel)]="procedureInfo.Description" [matTooltip]="procedureInfo.Description"
                 matToolTipPosition="after" matTooltipShowDelay="100"
@@ -51,7 +51,7 @@
         <div class="col-lg-4 col-md-6 col-12">
           <div class="input-group">
             <label class="control-label input-group-addon">Base Price</label>
-            <mat-form-field class="procedure-form-field" appearance="outline">
+            <mat-form-field class="procedure-form-field w-100" appearance="outline">
               <input matInput class="form-control" placeholder="Base Price" type="text" id="pBasePrice"
                 name="pBasePrice" [(ngModel)]="procedureInfo.Fee" />
             </mat-form-field>
@@ -62,9 +62,9 @@
         <div class="col-lg-4 col-md-6 col-12">
           <div class="input-group">
             <label class="control-label input-group-addon required">Start Date</label>
-            <mat-form-field class="procedure-form-field w-100" appearance="outline">
-              <input matInput class="form-control" placeholder="Start Date" type="text" id="pStartDate"
-                name="pStartDate" [(ngModel)]="procedureInfo.Date" [matDatepicker]="startDate"
+            <mat-form-field class="procedure-form-field green-calendar w-100" appearance="outline">
+              <input matInput class="pointer" autocomplete="off" placeholder="Start Date" type="text" id="pStartDate"
+                name="pStartDate" (click)="startDate.open()" readonly [(ngModel)]="procedureInfo.Date" [matDatepicker]="startDate"
                 (dateChange)="dateModified($event)"/>
                 <mat-hint>MM/DD/YYYY</mat-hint>
                 <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
@@ -75,7 +75,7 @@
         <div class="col-lg-4 col-md-6 col-12">
           <div class="input-group" [class.tooth-number-center]="procedureInfo.ViewFrom =='ToothNo'">
             <label class="control-label input-group-addon required">Tooth : </label>
-            <mat-form-field class="procedure-form-field" appearance="outline"
+            <mat-form-field class="procedure-form-field w-100" appearance="outline"
             [ngStyle]="{'padding-bottom':'0px'}"
             *ngIf="procedureInfo.ViewFrom == null || procedureInfo.ViewFrom =='Tree'">
               <mat-select class="select" [(ngModel)]="procedureInfo.ToothNo">
@@ -88,7 +88,7 @@
         <div class="col-lg-4 col-md-6 col-12">
           <div class="input-group">
             <label class="control-label input-group-addon required">Status</label>
-            <mat-form-field class="procedure-form-field" appearance="outline" [ngStyle]="{'padding-bottom':'0px'}">
+            <mat-form-field class="procedure-form-field w-100" appearance="outline" [ngStyle]="{'padding-bottom':'0px'}">
               <mat-select class="select" [(ngModel)]="procedureInfo.Status">
                 <mat-option [value]="option.Value" *ngFor="let option of procedureStatuses">{{option.Name}}</mat-option>
                 <!-- <mat-option value="Existing Curr. Provider">Existing Curr. Provider</mat-option>
@@ -104,9 +104,9 @@
         <div class="col-lg-4 col-md-6 col-12">
           <div class="input-group">
             <label class="control-label input-group-addon">End Date</label>
-            <mat-form-field class="teeth-form-field" appearance="outline">
-              <input matInput class="form-control" placeholder="End Date" type="text" id="pBasePrice" name="pBasePrice"
-                [(ngModel)]="procedureInfo.EndDate"  [matDatepicker]="endDate"/>
+            <mat-form-field class="teeth-form-field green-calendar w-100" appearance="outline">
+              <input matInput class="pointer" autocomplete="off" placeholder="End Date" type="text" id="pBasePrice" name="pBasePrice"
+              [matDatepicker]="endDate" (click)="endDate.open()" readonly [(ngModel)]="procedureInfo.EndDate" />
                 <mat-hint>MM/DD/YYYY</mat-hint>
                 <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
                 <mat-datepicker #endDate></mat-datepicker>
@@ -220,10 +220,10 @@
           Reasons:
         </div>
         <div class="row group">
-          <div class="col-lg-12 col-md-12 col-12 items">
-            <div class="input-group items">
+          <div class="col-lg-12 col-md-12 col-12">
+            <div class="input-group">
               <label class="control-label input-group-addon">Search Reason:</label>
-              <mat-form-field class="procedure-form-field" appearance="outline">
+              <mat-form-field class="procedure-form-field w-100" appearance="outline">
                 <input matInput #searchReasonCode class="form-control" placeholder="Select Reason Code" type="text"
                   id="searchReasonCode" name="searchReasonCode" [matAutocomplete]="reasonCode" />
                 <mat-autocomplete [displayWith]="displayReason" #reasonCode="matAutocomplete"
@@ -238,18 +238,18 @@
         </div>
         <div class="row group">
           <div class="col-lg-6 col-md-6 col-12">
-            <div class="input-group items">
+            <div class="input-group">
               <label class="control-label input-group-addon">Reason Code:</label>
-              <mat-form-field class="procedure-form-field" appearance="outline">
+              <mat-form-field class="procedure-form-field w-100" appearance="outline">
                 <input matInput  disabled class="not-allowed" style="width: 100%;" placeholder="Reason Code"  type="text"
                   id="pResonCode" name="pResonCode" [(ngModel)]="procedureInfo.ReasonCode" />
               </mat-form-field>
             </div>
           </div>
           <div class="col-lg-6 col-md-6 col-12">
-            <div class="input-group items">
+            <div class="input-group">
               <label class="control-label input-group-addon">Reason Description:</label>
-              <mat-form-field class="procedure-form-field" appearance="outline">
+              <mat-form-field class="procedure-form-field w-100" appearance="outline">
                 <input matInput  disabled class="not-allowed" style="width: 100%;" placeholder="Reason Description"
                   type="text" id="pResonDescription" name="pResonDescription"
                   [(ngModel)]="procedureInfo.ReasonDescription" />
@@ -260,7 +260,7 @@
         <div class="row group">
           <div class="col-lg-12 col-md-12 col-12">
             <label>Note:</label>
-            <textarea class="textarea col-12" [(ngModel)]="procedureInfo.Notes"></textarea>
+            <textarea class="procedure-textarea col-12" [(ngModel)]="procedureInfo.Notes"></textarea>
           </div>
         </div>
       </div>

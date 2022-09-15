@@ -328,7 +328,7 @@
                         <div class="col-lg-12" style="padding: 7px 10px; display:flex;">
                           <mat-checkbox class="encounter-checkbox" [(ngModel)]="encounterInfo.HealthInfoExchange">Health
                             Information Exchange</mat-checkbox>
-                          <mat-icon aria-hidden="false" style="color:#41a6b6;margin-left:8px; border:1px"
+                          <mat-icon aria-hidden="false" style="color:#41b6a6;margin-left:8px; border:1px"
                             matTooltipPosition="right" matTooltipShowDelay="200" matTooltip="Check this box IF this patient was referred to an outside source.
                           IF you check this box, please go to the referral tab, check referred to,
                           and input where/who you are referring them to (i.e Dr. Smith" aria-label="Example home icon">
@@ -753,7 +753,7 @@
                             <input matInput teethSurface style="width: 80px;">
                             <mat-icon pull-right>arrow_drop_down</mat-icon>
                           </mat-form-field> -->
-                        <app-teeth-surface (optionValueChanged)="onToothSurfaceSelectedForRP($event,item,i)"
+                        <app-teeth-surface class="pointer" readonly (optionValueChanged)="onToothSurfaceSelectedForRP($event,item,i)"
                           [selectedOption]="item.Place"></app-teeth-surface>
                       </mat-cell>
                     </ng-container>

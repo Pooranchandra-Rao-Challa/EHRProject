@@ -55,8 +55,8 @@
             </div>
           </div>
         </div>
-        <div class="row my-2">
-          <div class="col-lg-4 col-md-12 col-12 mb-3">
+        <div class="row my-2 mx-0">
+          <div class="col-lg-4 col-md-12 col-12 mb-3 px-0 px-lg-2">
             <label class="form-label required">Degree</label>
             <select class="form-select" [(ngModel)]="newUser.Degree" #degree="ngModel" required>
               <option *ngFor="let dg of degrees" [value]="dg.Name">
@@ -69,7 +69,7 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-4 col-md-12 col-12  mb-3">
+          <div class="col-lg-4 col-md-12 col-12  mb-3 px-0 px-lg-2">
             <label class="form-label required">Speciality</label>
             <select id="speciality" name="speciality" class="form-select" [(ngModel)]="newUser.Speciality"
               #speciality="ngModel" required>
@@ -83,7 +83,7 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-4 col-md-12 col-12">
+          <div class="col-lg-4 col-md-12 col-12 px-0">
             <label class="form-label required">NPI</label>
             <input matInput class="form-control text-design npi-width" type="text" pattern="^[0-9]{10}$" required
               #npi="ngModel" maxlength="10" npiValidator placeholder="National Provider Identifier(NPI)" #numberMask
@@ -112,7 +112,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2 mt-2 mt-md-0">
               <button mat-button class="cancel-button reg-button col-md-12"
                 (click)="AddressVerification()">Verify</button>
             </div>
@@ -366,7 +366,8 @@
                 id="ProviderPassword" name="ProviderPassword" placeholder="Provider Password"
                 [(ngModel)]="newUser.ProviderPassword" #rcopiauseridpassword="ngModel"
                 [required]="newUser.EPrescribeFrom=='drfirst'">
-              <div *ngIf="rcopiauseridpassword.errors && rcopiauseridpassword.touched && newUser.EPrescribeFrom=='drfirst'">
+              <div
+                *ngIf="rcopiauseridpassword.errors && rcopiauseridpassword.touched && newUser.EPrescribeFrom=='drfirst'">
                 <div class="error_message" *ngIf="rcopiauseridpassword.errors?.required">
                   <p class="errormessage">Rcopia User ID Passsword</p>
                 </div>
@@ -378,11 +379,12 @@
               <input type="text" class="form-control text-design" [disabled]="user.Role=='compliance'"
                 id="UserExternalId" name="UserExternalId" placeholder="Rcopia User ExternalID"
                 [(ngModel)]="newUser.UserExternalId">
-                <!-- <div *ngIf="rcopiaexternalId.errors && rcopiaexternalId.touched && newUser.EPrescribeFrom=='drfirst'">
+              <!-- <div *ngIf="rcopiaexternalId.errors && rcopiaexternalId.touched && newUser.EPrescribeFrom=='drfirst'">
                   <div class="error_message" *ngIf="rcopiaexternalId.errors?.required">
                     <p class="errormessage">Rcopia User ExternalID</p>
                   </div>
-                </div> --><!--#rcopiaexternalId="ngModel" [required]="newUser.EPrescribeFrom=='drfirst'"-->
+                </div> -->
+              <!--#rcopiaexternalId="ngModel" [required]="newUser.EPrescribeFrom=='drfirst'"-->
             </div>
           </div>
         </div>

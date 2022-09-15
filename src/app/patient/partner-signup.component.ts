@@ -34,7 +34,6 @@ export class PartnerSignupComponent implements OnInit {
 
 
   CreatePartnerSignup(partnerSignup) {
-    debugger
     let isAdd = this.partnerSignup.C_id == null;
     this.accountservice.CreatePartnerSignup(partnerSignup).subscribe((resp) => {
       if (resp.IsSuccess) {

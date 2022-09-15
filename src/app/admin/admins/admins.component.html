@@ -63,7 +63,7 @@
           X
         </span>
       </div>
-      <div class="modal-body">
+      <div class="modal-body body-scroller">
         <div class="content">
           <div class="row border">
             <div class="col-lg-1 col-md-3 col-sm-12 col-12 mt-3">
@@ -129,7 +129,7 @@
                     [showMaskTyped]="true" [patterns]="PhonePattern" required #primaryphone="ngModel"
                     [(ngModel)]="newAdminRegistration.PrimaryPhoneSuffix">
                 </mat-form-field>
-                <div *ngIf="primaryphone.errors && primaryphone.touched" style="margin: -20px 0 0 0">
+                <div *ngIf="primaryphone.errors && primaryphone.touched" style="margin: -12px 0 0 0">
                   <div class="error_message" *ngIf="primaryphone.errors?.required">
                     <!-- <i class="fa fa-minus"></i> -->
                     <p class="errormessage">Please enter primary phone</p>
