@@ -16,7 +16,7 @@
             <input matInput #searchpatient class="form-control" placeholder="Search Patient" type="text"
               id="searchpatient" name="searchpatient" [matAutocomplete]="serachpatient"
               [disabled]="diabledPatientSearch" [readonly]="diabledPatientSearch"
-              [class.disabled-color]="diabledPatientSearch" />
+              [class.disabled-color]="diabledPatientSearch" [(ngModel)]="labandImaging.CurrentPatient" />
             <mat-autocomplete [displayWith]="displayWithPatientSearch" #serachpatient="matAutocomplete"
               (optionSelected)="onPatientSelected($event)">
               <mat-option *ngIf="isLoading">Loading ...</mat-option>
@@ -216,6 +216,10 @@
         </div>
       </div>
 
+      <app-attachment [EntityName]="EntityName" [EntityId]="labandImaging.LabProcedureId"
+      [Attachments]="labandImaging.Attachments" (onItemsModify)="ItemsModified($event)"
+      [acceptPdf]="true" [fileSize]="1" [httpUrl]="fileUploadUrl"></app-attachment>
+<!--
 
       <div class="attachments" style="display:flex">
         <div class="container-items col-lg-3 col-md-3 col-3 col-sm-3">
@@ -264,7 +268,7 @@
           </div>
         </div>
       </div>
-      </div>
+      </div> -->
 
     </div>
     <div class="modal-footer">
