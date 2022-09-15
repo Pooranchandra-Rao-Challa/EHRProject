@@ -215,37 +215,56 @@
             [(ngModel)]="labandImaging.Notes"></textarea>
         </div>
       </div>
-      <div class="pattach">
-        <div class="container-fluid">
+
+
+      <div class="attachments" style="display:flex">
+        <div class="container-items col-lg-3 col-md-3 col-3 col-sm-3">
+          <div class="row">
+            <div class="items" *ngFor="let attachment of labandImaging.Attachments">
+                <div class="item" (click)="showDocument(attachment.AttachmentId)">{{attachment.FileName}}</div>
+                <div for="forremove" class="remove" (click)="DeleteAttachment(attachment.AttachmentId)">
+                  <mat-icon>delete</mat-icon>
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="display-item col-lg-6 col-md-6 col-6 col-sm-6">
+          <div *ngIf="showImage">
+            <img [src]="Imagedata">
+          </div>
+        </div>
+
+        <div class="upload-items col-lg-3 col-md-3 col-3 col-sm-3" style="float: right;">
+        <div class="container-fluid" style="clear:both">
           <div class="row">
             <div class="col-lg-10 col-10">
               <p class="title mt-4"><b>Attachments:</b></p>
             </div>
-            <div class="col-lg-2 col-2" >
+            <div class="col-lg-2 col-2">
               <div class="upload-btn-wrapper">
-              <label for="singleFile">
-                <mat-icon>attach_file</mat-icon>
-              </label>
-              <input id="singleFile" name="myFile" type="file" hidden="true" [fileUploadInputFor]="fileUploadQueue" />
+                <label for="singleFile">
+                  <mat-icon>attach_file</mat-icon>
+                </label>
+                <input id="singleFile" name="myFile" type="file" hidden="true"
+                  [fileUploadInputFor]="fileUploadQueue" />
+              </div>
             </div>
-
-
+            <div>
+              <div class="col-lg-12 col-md-12 col-12 col-sm-12">
+                <file-upload-queue #fileUploadQueue [fileAlias]="uploadTo" [httpRequestParams]="httpRequestParams"
+                  [httpUrl]="'http://localhost:4345/api/upload/UploadSingleFile'">
+                  <file-upload [file]="file" [id]="i" *ngFor="let file of fileUploadQueue.files; let i = index"
+                    [httpRequestParams]="httpRequestParams" [fileAlias]="uploadTo"
+                    (onUpload)="UploadCompleted($event)" (onItemRemove)="ItemRemoved($event)">
+                  </file-upload>
+                </file-upload-queue>
+              </div>
             </div>
-            <div class="col-lg-12 col-12">
-              <file-upload-queue #fileUploadQueue [fileAlias]="'file'"
-              [httpRequestParams]="httpRequestParams"
-              [httpUrl]="'http://localhost:4345/api/upload/UploadSingleFile'">
-              <file-upload [file]="file" [id]="i" *ngFor="let file of fileUploadQueue.files; let i = index"
-              [httpRequestParams]="httpRequestParams"></file-upload>
-            </file-upload-queue>
-
-            </div>
-
-
           </div>
         </div>
       </div>
-
+      </div>
 
     </div>
     <div class="modal-footer">

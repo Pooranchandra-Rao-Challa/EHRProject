@@ -21,7 +21,7 @@ declare var $: any;
   templateUrl: './dental.chart.component.html',
   styleUrls: ['./dental.chart.component.scss']
 })
-export class DentalChartComponent implements OnInit,AfterViewInit {
+export class DentalChartComponent implements OnInit, AfterViewInit {
   user: User;
   hoverStartDate: string = 'Start Date';
   hoverEndDate: string = 'End Date';
@@ -36,8 +36,8 @@ export class DentalChartComponent implements OnInit,AfterViewInit {
   ActionTypes = Actions
   usedProcedures: MedicalCode;
   procedureColumns: string[] = ['SELECT', 'START DATE', 'END DATE', 'TOOTH', 'SURFACE', 'CODE', 'DESCRIPTION', 'PROVIDER', 'STATUS', 'CQM STATUS', 'Encounter'];
-  @ViewChild("procedureSearch",{static: true}) procedureSearch: ElementRef
-  @ViewChild("procedureTree",{static: true}) procedureTree: TreeProcedureComponent
+  @ViewChild("procedureSearch", { static: true }) procedureSearch: ElementRef
+  @ViewChild("procedureTree", { static: true }) procedureTree: TreeProcedureComponent
   //patientProceduresView = new BehaviorSubject<ProceduresInfo[]> ([]);
   procedureDataSource: ProcedureDatasource;
 
@@ -64,7 +64,7 @@ export class DentalChartComponent implements OnInit,AfterViewInit {
     ).subscribe(value => this._filterProcedure(value));
 
   }
-  _filterProcedure(term:string){
+  _filterProcedure(term: string) {
     this.procedureTree.filter.next(term);
   }
   ngOnInit(): void {

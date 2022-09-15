@@ -366,7 +366,8 @@
                 id="ProviderPassword" name="ProviderPassword" placeholder="Provider Password"
                 [(ngModel)]="newUser.ProviderPassword" #rcopiauseridpassword="ngModel"
                 [required]="newUser.EPrescribeFrom=='drfirst'">
-              <div *ngIf="rcopiauseridpassword.errors && rcopiauseridpassword.touched && newUser.EPrescribeFrom=='drfirst'">
+              <div
+                *ngIf="rcopiauseridpassword.errors && rcopiauseridpassword.touched && newUser.EPrescribeFrom=='drfirst'">
                 <div class="error_message" *ngIf="rcopiauseridpassword.errors?.required">
                   <p class="errormessage">Rcopia User ID Passsword</p>
                 </div>
@@ -378,11 +379,12 @@
               <input type="text" class="form-control text-design" [disabled]="user.Role=='compliance'"
                 id="UserExternalId" name="UserExternalId" placeholder="Rcopia User ExternalID"
                 [(ngModel)]="newUser.UserExternalId">
-                <!-- <div *ngIf="rcopiaexternalId.errors && rcopiaexternalId.touched && newUser.EPrescribeFrom=='drfirst'">
+              <!-- <div *ngIf="rcopiaexternalId.errors && rcopiaexternalId.touched && newUser.EPrescribeFrom=='drfirst'">
                   <div class="error_message" *ngIf="rcopiaexternalId.errors?.required">
                     <p class="errormessage">Rcopia User ExternalID</p>
                   </div>
-                </div> --><!--#rcopiaexternalId="ngModel" [required]="newUser.EPrescribeFrom=='drfirst'"-->
+                </div> -->
+              <!--#rcopiaexternalId="ngModel" [required]="newUser.EPrescribeFrom=='drfirst'"-->
             </div>
           </div>
         </div>

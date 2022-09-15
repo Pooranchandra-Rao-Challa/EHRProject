@@ -36,7 +36,7 @@ export class LabProcedureWithOrder {
   LabResultId?: string;
   ImageResultId?: string;
   ViewFor?: string;
-
+  Attachments?: Attachment[] = [];
 
   Exam?: string;
   RequestedBy?: string;
@@ -97,5 +97,13 @@ export class ImageResultInfo{
   Findings?: string;
   Impression?: string;
   strScheduleAt?: string;
+}
+
+export class Attachment{
+    FileName: string;
+    EnitityName: string;
+    EntityId: string;
+    AttachmentId:string;
+    IsDeleted?:boolean = false;
 }
 

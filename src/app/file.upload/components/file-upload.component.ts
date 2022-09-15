@@ -55,6 +55,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
 
   private _file: any;
   private _id: number;
+  private _attachmentId: string;
 
   @Input()
   get file(): any {
@@ -80,7 +81,8 @@ export class FileUploadComponent implements OnInit, OnDestroy {
 
   /** Output  */
   @Output() removeEvent = new EventEmitter<FileUploadComponent>();
-  @Output() onUpload = new EventEmitter();
+  @Output() onUpload = new EventEmitter<{ file: string, event: any }>();
+  @Output() onItemRemove = new EventEmitter<string>();
 
   private fileUploadSubscription: any;
 
@@ -131,6 +133,10 @@ export class FileUploadComponent implements OnInit, OnDestroy {
               total: event.total,
             });
           }
+          if(event.body){
+            this._attachmentId = event.body.AttachmentId;
+            this.removeEvent.emit(this);
+          }
           this.onUpload.emit({ file: this._file, event: event });
         },
         (error: any) => {
@@ -148,6 +154,8 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   public remove(): void {
     this.subs.unsubscribe();
     this.removeEvent.emit(this);
+    if(this._attachmentId)
+      this.onItemRemove.emit(this._attachmentId)
   }
 
   ngOnDestroy() {

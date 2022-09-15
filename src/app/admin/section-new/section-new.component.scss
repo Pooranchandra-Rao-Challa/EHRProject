@@ -1,5 +1,5 @@
 @import "../../../assets/admin.common.scss";
-
+#adminsection{
 h1 {
   font-size: 36px;
   font-family: "Open Sans", sans-serif;
@@ -289,21 +289,20 @@ option:hover {
 //   max-height: calc(90vh - 200px);
 //   overflow-y: auto;
 // }
-.confirmButtonText{
-  background-color: red;
-  color: #fff;
-}
+
 .vertical-buttons
 {
   flex-direction: column;
 }
-::ng-deep .swal2-confirm.swal-messaage
-{
-  background-color: #337ab7;
-  border: 1px solid #337ab7 !important;
+// ::ng-deep .swal2-confirm.swal-messaage
+// {
+//   background-color: #337ab7 !important;
+//   border: 1px solid #337ab7 !important;
 
-}
-::ng-deep .swal2-confirm.swal2-container-high{
-  z-index: 10px !important;
+// }
+// ::ng-deep .swal2-title.swal2-title-message
+// ::ng-deep .swal2-confirm.swal2-container-high{
+//   z-index: 10px !important;
 
+// }
 }
