@@ -56,7 +56,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
 
   vaccines: Observable<Vaccine[]>;
   filteredMedicines: any = [];
-  isLoading = false;
+  isLoading: boolean = false;
 
   filteredPatients: Observable<PatientSearch[]>;
   frequentlyUsedDiagnosesDialogComponent = FrequentlyUsedDiagnosesDialogComponent;
@@ -111,6 +111,8 @@ export class ChartComponent implements OnInit, AfterViewInit {
   LocationAddress: any;
   user: User;
   vaccinesFilter: any;
+  displayMessage: boolean = true;
+  noRecords: boolean = false;
 
   constructor(public overlayService: OverlayService,
     private patientService: PatientService,
@@ -129,6 +131,10 @@ export class ChartComponent implements OnInit, AfterViewInit {
       // get value
       map((event: any) => {
         this.vaccines = of([]);
+        this.noRecords = false;
+        if(event.target.value == ''){
+          this.displayMessage = true;
+        }
         return event.target.value;
       })
       // if character length greater or equals to 1
@@ -144,10 +150,14 @@ export class ChartComponent implements OnInit, AfterViewInit {
       // get value
       map((event: any) => {
         this.filteredPatients = of([]);
+        this.noRecords = false;
+        if(event.target.value == ''){
+          this.displayMessage = true;
+        }
         return event.target.value;
       })
-      // if character length greater then 2
-      , filter(res => res.length > 2 && res.length < 6)
+      // if character length greater then 0
+      , filter(res => res.length > 0)
       // Time in milliseconds between key events
       , debounceTime(1000)
       // If previous query is diffent from current
@@ -157,6 +167,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   }
 
   _filterPatients(term: string) {
+    this.isLoading = true;
     this.patientService
       .PatientSearch({
         ProviderId: this.authService.userValue.ProviderId,
@@ -164,10 +175,16 @@ export class ChartComponent implements OnInit, AfterViewInit {
         SearchTerm: term
       })
       .subscribe(resp => {
+        this.isLoading = false;
+        this.displayMessage = false;
         if (resp.IsSuccess) {
           this.filteredPatients = of(
             resp.ListResult as PatientSearch[]);
-        } else this.filteredPatients = of([]);
+        }
+        else {
+          this.filteredPatients = of([]);
+          this.noRecords = true;
+        }
       })
   }
   onPatientSelected(selected) {
@@ -194,10 +211,15 @@ export class ChartComponent implements OnInit, AfterViewInit {
     this.patientService.Vaccines(reqparams)
       .subscribe(resp => {
         this.isLoading = false;
+        this.displayMessage = false;
         if (resp.IsSuccess) {
           this.vaccines = of(
             resp.ListResult as Vaccine[]);
-        } else this.vaccines = of([]);
+        }
+        else {
+          this.vaccines = of([]);
+          this.noRecords = true;
+        }
       });
   }
 
@@ -697,8 +719,47 @@ export class ChartComponent implements OnInit, AfterViewInit {
     }
   }
 
-  gotoDiagnoses() {
+  scrollToDiagnoses() {
     document.getElementById("toDiagnoses").scrollIntoView();
   }
 
+  scrollToSmokingStatus() {
+    document.getElementById("toSmokingStatus").scrollIntoView();
+  }
+
+  scrollToPastMedicalHistory() {
+    document.getElementById("toPastMedicalHistory").scrollIntoView();
+  }
+
+  scrollToAdvancedDirectives() {
+    document.getElementById("toAdvancedDirectives").scrollIntoView();
+  }
+
+  scrollToAllergies() {
+    document.getElementById("toAllergies").scrollIntoView();
+  }
+
+  scrollToMedications() {
+    document.getElementById("toMedications").scrollIntoView();
+  }
+
+  scrollToImmunizations() {
+    document.getElementById("toImmunizations").scrollIntoView();
+  }
+
+  scrollToInterventions() {
+    document.getElementById("toInterventions").scrollIntoView();
+  }
+
+  scrollToEncounters() {
+    document.getElementById("toEncounters").scrollIntoView();
+  }
+
+  scrollToMessages() {
+    document.getElementById("toMessages").scrollIntoView();
+  }
+
+  scrollToAppointments() {
+    document.getElementById("toAppointments").scrollIntoView();
+  }
 }

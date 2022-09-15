@@ -1,10 +1,9 @@
 <div class="modal-dialog modal-md" role="document" id="practice-location-model">
   <div class="modal-content">
     <div class="modal-header">
-
       <h4 class="modal-title Helvetica-sans-serif-medium">{{ this.PracticeLocData.LocationId ? "Edit" : "Add" }}
         location</h4>
-      <button type="button" class="btn cross-mark closemodel" (click)="close()">x</button>
+      <span type="button" class="cross-mark" (click)="close()">x</span>
     </div>
     <div class="modal-body bg-white scroolbar addlocationbody">
       <div class="mb-0">
@@ -56,7 +55,7 @@
                           <p class="errormessage"> Phone number should be 10 digits.</p>
                         </div>
                       </div>
-                 
+
                 </div>
               </div>
             </div>
@@ -75,7 +74,7 @@
                           <p class="errormessage"> Fax number should be 10 digits.</p>
                         </div>
                       </div>
-                 
+
                 </div>
               </div>
             </div>
@@ -458,7 +457,7 @@
         </button>
         <button type="button" class="btn btn-green" *ngIf="!saving" [disabled]="enableSave()" (click)="updateLocation()"
           style="float: right;">
-          Save 
+          Save
         </button>
       </div>
 

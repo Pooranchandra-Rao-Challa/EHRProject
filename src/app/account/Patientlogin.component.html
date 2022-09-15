@@ -44,7 +44,7 @@
                     </mat-form-field>
                     <mat-form-field class="w-100" appearance="outline">
                       <input matInput placeholder="Password" [type]="showPassword ? 'text' : 'password'" name="Password"
-                        formControlName="Password" />
+                        formControlName="Password" (keyup.enter)="OnLoginSubmit()" />
 
                       <img [src]="showPassword ? 'assets/images/eye-open.svg' : 'assets/images/eye-close.svg'"
                         class="img-svg-eye" (click)="togglePasswordVisibility()" />

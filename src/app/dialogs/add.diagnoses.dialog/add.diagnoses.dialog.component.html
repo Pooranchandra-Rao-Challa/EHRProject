@@ -86,14 +86,14 @@
                 Education Materials</a>
             </div>
           </div>
-          <div class="right-block">
-            <button class="btn btn-green btn-cancel pull-right" (click)="cancel()">
-              Cancel</button>
-            <button class="btn btn-green btn-cancel mx-3 mb-3 pull-right" [disabled]="disableDiagnosis()"
-              (click)="CreateDiagnoses()">Save</button>
-          </div>
         </div>
       </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-green mx-3 pull-right" [disabled]="disableDiagnosis()"
+      (click)="CreateDiagnoses()">Save</button>
+      <button class="btn btn-green pull-right" (click)="cancel()">
+        Cancel</button>
     </div>
   </div>
 </div>

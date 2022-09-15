@@ -1,115 +1,115 @@
-
 <div class="dashboard-patient wrapper mt-4">
   <div class="content container" id="appointments-wrapper">
     <div class="panel panel-default">
       <div class="panel-body">
-        <div class="content">
-
-            <div class="row ">
-              <div class="col-md-2 ">
-                <img src="assets/images/avatar-empty-white.svg" styclass="admin-side-logo mx-2" class="img">
+        <div class="content mt-3">
+          <div class="row ">
+            <div class="col-md-2 ">
+              <img src="assets/images/avatar-empty-white.svg" styclass="admin-side-logo mx-2" class="img">
+            </div>
+            <div class="col-md-10">
+              <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-12   ">
+                  <label class="required Helvetica-sans-serif-medium">First Name</label>
+                  <div class="form-group">
+                    <mat-form-field class="grey-matform w-100" appearance="outline">
+                      <input matInput placeholder="First Name" [(ngModel)]="PatientProfile.FirstName" id="FirstName"
+                        name="FirstName" #FirstName="ngModel" required pattern="[a-zA-Z ]*" alphaOnly>
+                    </mat-form-field>
+                    <div *ngIf="FirstName.errors && (FirstName.touched)">
+                      <div class="error_message" *ngIf="FirstName.errors?.required">
+                        <span class="e_arrow"></span>
+                        <p class="text-danger">Please enter First Name</p>
+                      </div>
+                      <div class="error_message" *ngIf="FirstName.errors?.pattern">
+                        <span class="e_arrow"></span>
+                        <i class="text-danger">First name not valid, Use only Alphabets and space</i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+                  <label class="labelfontzise">Middle Name</label>
+                  <div class="form-group">
+                    <mat-form-field class="grey-matform w-100" appearance="outline">
+                      <input matInput placeholder="Middle Name" [(ngModel)]="PatientProfile.MiddleName" id="MiddleName"
+                        name="MiddleName" #MiddleName="ngModel" alphaOnly>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+                  <label class="labelfontzise Helvetica-sans-serif-medium required">Last FullName</label>
+                  <div class="form-group">
+                    <mat-form-field class="grey-matform w-100" appearance="outline">
+                      <input matInput placeholder="Last Name" [(ngModel)]="PatientProfile.LastName" id="LastName"
+                        name="LastName" #LastName="ngModel" required pattern="[a-zA-Z ]*" alphaOnly>
+                    </mat-form-field>
+                    <div *ngIf="LastName.errors && (LastName.touched)">
+                      <div class="error_message" *ngIf="LastName.errors?.required">
+                        <span class="e_arrow"></span>
+                        <p class="text-danger">Please enter Last Name</p>
+                      </div>
+                      <div class="error_message" *ngIf="LastName.errors?.pattern">
+                        <span class="e_arrow"></span>
+                        <p class="text-danger">Last name not valid, Use only Alphabets and space</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="col-md-10">
-                <div class="row">
-                  <div class="col-lg-4 col-md-4 col-sm-12 col-12   ">
-                    <label>First Name<sub class="text-danger Helvetica-sans-serif-medium">*</sub></label>
-                    <div class="form-group">
-                      <mat-form-field class="grey-matform w-100" appearance="outline">
-                        <input matInput placeholder="First Name" [(ngModel)]="PatientProfile.FirstName" id="FirstName"
-                          name="FirstName" #FirstName="ngModel" required  pattern="[a-zA-Z ]*" alphaOnly>
-                      </mat-form-field>
-                      <div *ngIf="FirstName.errors && (FirstName.touched)">
-                        <div class="error_message" *ngIf="FirstName.errors?.required">
-                          <span class="e_arrow"></span>
-                          <p class="text-danger">Please enter First Name</p>
-                        </div>
-                        <div class="error_message" *ngIf="FirstName.errors?.pattern">
-                          <span class="e_arrow"></span>
-                          <i class="text-danger">First name not valid, Use only Alphabets and space</i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 col-md-4 col-sm-12 col-12">
-                    <label class="labelfontzise">Middle Name</label>
-                    <div class="form-group">
-                      <mat-form-field class="grey-matform w-100" appearance="outline">
-                        <input matInput placeholder="Middle Name" [(ngModel)]="PatientProfile.MiddleName"
-                          id="MiddleName" name="MiddleName" #MiddleName="ngModel" alphaOnly>
-                      </mat-form-field>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 col-md-4 col-sm-12 col-12">
-                    <label class="labelfontzise">Last Name<sub class="text-danger Helvetica-sans-serif-medium">*</sub></label>
-                    <div class="form-group">
-                      <mat-form-field class="grey-matform w-100" appearance="outline">
-                        <input matInput placeholder="Last Name" [(ngModel)]="PatientProfile.LastName" id="LastName"
-                          name="LastName" #LastName="ngModel" required  pattern="[a-zA-Z ]*" alphaOnly>
-                      </mat-form-field>
-                      <div *ngIf="LastName.errors && (LastName.touched)">
-                        <div class="error_message" *ngIf="LastName.errors?.required">
-                          <span class="e_arrow"></span>
-                          <p class="text-danger">Please enter Last Name</p>
-                        </div>
-                        <div class="error_message" *ngIf="LastName.errors?.pattern">
-                          <span class="e_arrow"></span>
-                          <p class="text-danger">Last name not valid, Use only Alphabets and space</p>
-                        </div>
-                      </div>
-                    </div>
+              <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-6 col-12 "><label class="labelfontzise">Date of Birth
+                  </label>
+                  <div class="form-group">
+                    <mat-form-field appearance="outline" class="grey-matform ">
+                      <input matInput [matDatepicker]="dp" placeholder="Start Date"
+                        [(ngModel)]="PatientProfile.DateOfBirth" #DateofBirth="ngModel" name="DateofBirth" required
+                        pattern="^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$">
+                      <mat-datepicker-toggle matSuffix [for]="dp">
+                      </mat-datepicker-toggle>
+                      <mat-datepicker #dp disabled="false"></mat-datepicker>
+                    </mat-form-field>
+
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-lg-4 col-md-6 col-sm-6 col-12 "><label class="labelfontzise">Date of Birth
-                    </label>
-                    <div class="form-group">
-                      <mat-form-field appearance="outline" class="grey-matform ">
-                        <input matInput [matDatepicker]="dp"  placeholder="Start Date"
-                        [(ngModel)]="PatientProfile.DateOfBirth" #DateofBirth="ngModel" name="DateofBirth" required pattern="^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$">
-                        <mat-datepicker-toggle matSuffix [for]="dp">
-                        </mat-datepicker-toggle>
-                        <mat-datepicker #dp disabled="false"></mat-datepicker>
-                       </mat-form-field>
-
-                    </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 col-12 "><label class="labelfontzise">Sex </label>
+                  <div class="form-group">
+                    <mat-form-field appearance="outline" class="grey-matform w-100">
+                      <mat-select placeholder="Select Gender" id="Gender" placeholder="Select Sex"
+                        [(ngModel)]="PatientProfile.Gender" disableOptionCentering id="Gender" name="Gender"
+                        #Gender="ngModel">
+                        <mat-option *ngFor="let items of GenderData" [value]="items.value">{{items.value}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
                   </div>
-                  <div class="col-lg-4 col-md-6 col-sm-6 col-12 "><label class="labelfontzise">Sex </label>
-                    <div class="form-group">
-                      <mat-form-field appearance="outline" class="grey-matform w-100">
-                        <mat-select placeholder="Select Gender" id="Gender" placeholder="Select Sex"
-                        [(ngModel)]="PatientProfile.Gender" disableOptionCentering
-                         id="Gender" name="Gender" #Gender="ngModel">
-                          <mat-option *ngFor="let items of GenderData" [value]="items.value">{{items.value}}
-                          </mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                    </div>
-                  </div>
+                </div>
 
-                  <div class="col-lg-4 col-md-4 col-sm-4 col-12">
-                    <button type="button" class="btn btn-green save-button" [ngClass]="(PatientProfile.FirstName==''||PatientProfile.FirstName==null
-                    ||PatientProfile.LastName==''||PatientProfile.LastName==null)? 'disable-button col-md-2': 'reg-button col-md-2'"
+                <div class="col-lg-4 col-12">
+                  <button type="button" class="btn btn-green save-button pull-right"
+                    [ngClass]="(PatientProfile.FirstName==''||PatientProfile.FirstName==null
+                    ||PatientProfile.LastName==''||PatientProfile.LastName==null)? 'disable-button col-md-2 col-12': 'reg-button col-md-2 col-12'"
                     [disabled]="PatientProfile.FirstName==''||PatientProfile.FirstName==null||PatientProfile.LastName==''||PatientProfile.LastName==null"
-                     (click)="updatePatientMyProfile()">Save</button>
-                  </div>
+                    (click)="updatePatientMyProfile()">Save</button>
                 </div>
-                <div class="row ">
-                  <div class="col-lg-12 col-md-12">
-                    <p>Account Access</p>
-                    <div class="row controls">
-                      <div class="col-lg-12 col-md-12 col-12">
-                        <button type="button" class="btn btn-green btn-sm btn-change me-md-3" data-bs-toggle="modal"
-                          data-bs-target="#staticBackdrop1">Change Password</button>
-                          <button type="button" class="btn btn-green btn-sm btn-change" data-bs-toggle="modal"
-                          data-bs-target="#exampleModal" (click)="getpatientsecurityQuestions()">
-                          Change your Security Question
-                        </button>
-                      </div>
+              </div>
+              <div class="row ">
+                <div class="col-lg-12 col-md-12">
+                  <p>Account Access</p>
+                  <div class="row controls">
+                    <div class="col-lg-12 col-md-12 col-12">
+                      <button type="button" class="btn btn-green btn-sm btn-change me-md-3 me-2" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop1">Change Password</button>
+                      <button type="button" class="btn btn-green btn-sm btn-change" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal" (click)="getpatientsecurityQuestions()">
+                        Change your Security Question
+                      </button>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
         </div>
       </div>
     </div>
@@ -118,155 +118,153 @@
         <h4 class="contctinfor">My Contact Information</h4>
         <div class="panel panel-default">
           <div class="panel-body">
-              <div class="row">
-                <label class="labelfontzise">Cell Phone </label>
-                <div class="input-group ">
-                  <mat-form-field class="example-full-width grey-matform " appearance="outline" >
-                    <input matInput #searchCellPhone class="form-control" placeholder="( :" type="text"
-                      id="searchCellPhone" name="searchCellPhone" [matAutocomplete]="procedureCode" />
-                    <mat-autocomplete [displayWith]="displayWith" #procedureCode="matAutocomplete">
-                        <mat-option *ngIf="searchCellPhoneData.length===0&&searchCellPhone.value.length===0">
-                          Please enter 1 or more characters
-                        </mat-option>
-                        <mat-option *ngIf="searchCellPhoneData.length===0&&searchCellPhone.value.length>0">
-                          No Data Found
-                        </mat-option>
-                      <mat-option  *ngFor="let option of searchCellPhoneData" [value]="option"
-                        class="medical-code-option">
-                        {{option.areaCode}}
-                      </mat-option>
+            <div class="row">
+              <label class="labelfontzise">Cell Phone </label>
+              <div class="input-group ">
+                <mat-form-field class="example-full-width grey-matform " appearance="outline">
+                  <input matInput #searchCellPhone class="form-control" placeholder="( :" type="text"
+                    id="searchCellPhone" name="searchCellPhone" [matAutocomplete]="procedureCode" />
+                  <mat-autocomplete [displayWith]="displayWith" #procedureCode="matAutocomplete">
+                    <mat-option *ngIf="searchCellPhoneData.length===0&&searchCellPhone.value.length===0">
+                      Please enter 1 or more characters
+                    </mat-option>
+                    <mat-option *ngIf="searchCellPhoneData.length===0&&searchCellPhone.value.length>0">
+                      No Data Found
+                    </mat-option>
+                    <mat-option *ngFor="let option of searchCellPhoneData" [value]="option" class="medical-code-option">
+                      {{option.areaCode}}
+                    </mat-option>
 
-                    </mat-autocomplete>
-                  </mat-form-field>
-                  <mat-form-field appearance="outline" class="example-width grey-matform ">
-                    <input matInput placeholder="Cell Phone" [(ngModel)]="PatientProfile.MobilePhone" id="MobilePhone"
-                      name="MobilePhone" #MobilePhone="ngModel">
-                  </mat-form-field>
-                </div>
+                  </mat-autocomplete>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="example-width grey-matform ">
+                  <input matInput placeholder="Cell Phone" [(ngModel)]="PatientProfile.MobilePhone" id="MobilePhone"
+                    name="MobilePhone" #MobilePhone="ngModel">
+                </mat-form-field>
               </div>
+            </div>
 
-              <div class="row mt-2">
-                <label class="labelfontzise">Email </label>
-                <div class="form-group">
-                  <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-sm-12 col-12 grey-matform ">
-                    <input matInput placeholder="Email" [(ngModel)]="PatientProfile.email" id="email" name="email"
-                      #email="ngModel">
-                  </mat-form-field>
-                </div>
+            <div class="row mt-2">
+              <label class="labelfontzise">Email </label>
+              <div class="form-group">
+                <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-sm-12 col-12 grey-matform ">
+                  <input matInput placeholder="Email" [(ngModel)]="PatientProfile.email" id="email" name="email"
+                    #email="ngModel">
+                </mat-form-field>
               </div>
+            </div>
 
-              <div class="row">
-                <label class="labelfontzise mt-2">Home Phone </label>
-                <div class="input-group mb-1">
-                  <mat-form-field class="example-full-width grey-matform " appearance="outline" >
-                    <input matInput #searchHomePhone class="form-control" placeholder="(  :" type="text"
-                      id="searchHomePhone" name="searchHomePhone" [matAutocomplete]="procedureCode1" />
-                    <mat-autocomplete [displayWith]="displayWith" #procedureCode1="matAutocomplete">
-                      <mat-option *ngIf="searchHomePhoneData.length===0&&searchHomePhone.value.length===0">
-                        Please enter 1 or more characters
-                      </mat-option>
-                      <mat-option *ngIf="searchHomePhoneData.length===0&&searchHomePhone.value.length>0">
-                        No Data Found
-                      </mat-option>
-                      <mat-option *ngFor="let option of searchHomePhoneData" [value]="option"
-                        class="medical-code-option">
-                        {{option.areaCode}}
-                      </mat-option>
-                    </mat-autocomplete>
-                  </mat-form-field>
-                  <mat-form-field appearance="outline" class="example-width grey-matform">
-                    <input matInput placeholder=" Home Phone" [(ngModel)]="PatientProfile.PrimaryPhone"
-                      id="PrimaryPhone" name="PrimaryPhone" #PrimaryPhone="ngModel">
-                  </mat-form-field>
-                </div>
+            <div class="row">
+              <label class="labelfontzise mt-2">Home Phone </label>
+              <div class="input-group mb-1">
+                <mat-form-field class="example-full-width grey-matform " appearance="outline">
+                  <input matInput #searchHomePhone class="form-control" placeholder="(  :" type="text"
+                    id="searchHomePhone" name="searchHomePhone" [matAutocomplete]="procedureCode1" />
+                  <mat-autocomplete [displayWith]="displayWith" #procedureCode1="matAutocomplete">
+                    <mat-option *ngIf="searchHomePhoneData.length===0&&searchHomePhone.value.length===0">
+                      Please enter 1 or more characters
+                    </mat-option>
+                    <mat-option *ngIf="searchHomePhoneData.length===0&&searchHomePhone.value.length>0">
+                      No Data Found
+                    </mat-option>
+                    <mat-option *ngFor="let option of searchHomePhoneData" [value]="option" class="medical-code-option">
+                      {{option.areaCode}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="example-width grey-matform">
+                  <input matInput placeholder=" Home Phone" [(ngModel)]="PatientProfile.PrimaryPhone" id="PrimaryPhone"
+                    name="PrimaryPhone" #PrimaryPhone="ngModel">
+                </mat-form-field>
               </div>
+            </div>
 
-              <div class="row">
-                <label class="labelfontzise ">Work Phone </label>
-                <div class="input-group mb-1">
-                  <mat-form-field class="example-full-width grey-matform " appearance="outline" >
-                    <input matInput #searchWorkPhone class="form-control" placeholder="( :" type="text"
-                      id="searchWorkPhone" name="searchWorkPhone" [matAutocomplete]="procedureCode2" />
-                      <mat-autocomplete [displayWith]="displayWith" #procedureCode2="matAutocomplete">
-                        <mat-option *ngIf="searchWorkPhoneData.length===0&&searchWorkPhone.value.length===0">
-                          Please enter 1 or more characters
-                        </mat-option>
-                        <mat-option *ngIf="searchWorkPhoneData.length===0&&searchWorkPhone.value.length>0">
-                          No Data Found
-                        </mat-option>
-                        <mat-option *ngFor="let option of searchWorkPhoneData" [value]="option"
-                          class="medical-code-option">
-                          {{option.areaCode}}
-                        </mat-option>
-                      </mat-autocomplete>
-                  </mat-form-field>
-                  <mat-form-field appearance="outline" class="example-width grey-matform ">
-                    <input matInput placeholder="Work Phone" [(ngModel)]="PatientProfile.WorkPhone" id="WorkPhone"
-                      name="WorkPhone" #WorkPhone="ngModel">
-                  </mat-form-field>
-                </div>
+            <div class="row">
+              <label class="labelfontzise ">Work Phone </label>
+              <div class="input-group mb-1">
+                <mat-form-field class="example-full-width grey-matform " appearance="outline">
+                  <input matInput #searchWorkPhone class="form-control" placeholder="( :" type="text"
+                    id="searchWorkPhone" name="searchWorkPhone" [matAutocomplete]="procedureCode2" />
+                  <mat-autocomplete [displayWith]="displayWith" #procedureCode2="matAutocomplete">
+                    <mat-option *ngIf="searchWorkPhoneData.length===0&&searchWorkPhone.value.length===0">
+                      Please enter 1 or more characters
+                    </mat-option>
+                    <mat-option *ngIf="searchWorkPhoneData.length===0&&searchWorkPhone.value.length>0">
+                      No Data Found
+                    </mat-option>
+                    <mat-option *ngFor="let option of searchWorkPhoneData" [value]="option" class="medical-code-option">
+                      {{option.areaCode}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="example-width grey-matform ">
+                  <input matInput placeholder="Work Phone" [(ngModel)]="PatientProfile.WorkPhone" id="WorkPhone"
+                    name="WorkPhone" #WorkPhone="ngModel">
+                </mat-form-field>
               </div>
+            </div>
 
-              <div class="row">
-                <h5 class="Helvetica-sans-serif-small">HOME ADDRESS</h5>
-                <div class="col-md-9 mt-1">
-                  <mat-form-field appearance="outline"  class="filed-border col-lg-12 col-md-12 col-sm-12 col-12">
-                    <input matInput placeholder="Enter full address here (including suite number)" [disabled]="disableaddressverification"
-                      [(ngModel)]="PatientProfile.Street">
-                  </mat-form-field>
-                </div>
-                <div class="col-md-3 mt-1">
-                  <button type="button" class="btn btn-green verify-button"  [disabled]="!PatientProfile.Street || disableaddressverification"
+            <div class="row">
+              <h5 class="Helvetica-sans-serif-small">HOME ADDRESS</h5>
+              <div class="col-md-9 mt-1">
+                <mat-form-field appearance="outline" class="filed-border col-lg-12 col-md-12 col-sm-12 col-12">
+                  <input matInput placeholder="Enter full address here (including suite number)"
+                    [disabled]="disableaddressverification" [(ngModel)]="PatientProfile.Street">
+                </mat-form-field>
+              </div>
+              <div class="col-md-3 mt-2">
+                <button type="button" class="btn btn-green verify-button"
+                  [disabled]="!PatientProfile.Street || disableaddressverification"
                   (click)="AddressVerification()">VERIFY</button>
-                </div>
               </div>
+            </div>
 
-              <div class="row mt-1">
-                <div class="col-md-7">
-                  <mat-form-field appearance="outline" class="filed-border noHover col-md-12 ">
-                    <input matInput readonly placeholder="Street Address" [(ngModel)]="PatientProfile.StreetAddress"
-                      id="StreetAddress" name="StreetAddress" #StreetAddress="ngModel" [readonly]="!disableaddressverification" [class.address-verfied]="!manuallybtn" >
-                  </mat-form-field>
-                </div>
-                <div class="col-md-1"><button type="button" class="btn cross-mark error-close"
+            <div class="row mt-1">
+              <div class="col-md-7">
+                <mat-form-field appearance="outline" class="filed-border noHover col-md-12 ">
+                  <input matInput readonly placeholder="Street Address" [(ngModel)]="PatientProfile.StreetAddress"
+                    id="StreetAddress" name="StreetAddress" #StreetAddress="ngModel"
+                    [readonly]="!disableaddressverification" [class.address-verfied]="!manuallybtn">
+                </mat-form-field>
+              </div>
+              <div class="col-md-1"><button type="button" class="btn cross-mark error-close"
                   *ngIf="addressVerfied && !manuallybtn" (click)="enableManualEntry()"
                   title="Can enter manully when the verification results are in correct by clicking this icon">x</button>
-
-          </div>
-          <div class="col-md-4  patient-street-address d-flex justify-content-end flex-sm-row flex-column">
-            <div class="form-group">
-                <button class="btn-green btn manualbtn  py-0 btn-lg btn-md"
-                    *ngIf="manuallybtn || disableaddressverification"
-                    (click)="enterAddressManually()">Enter Address Manually</button>
-            </div>
-        </div>
               </div>
-              <div class="row">
-                <mat-form-field appearance="outline"
-                  class="grey-matform noHover col-lg-4 col-md-4 col-sm-12 col-12 mt-3 ">
-                  <input matInput readonly placeholder="City" [readonly]="!disableaddressverification" [(ngModel)]="PatientProfile.city" id="city" name="city"
-                    #city="ngModel">
-                </mat-form-field>
-
-
-                <mat-form-field appearance="outline"
-                  class="grey-matform noHover  col-lg-4 col-md-4 col-sm-12 col-12 mt-3 ">
-                  <input matInput readonly placeholder="State" [readonly]="!disableaddressverification" [(ngModel)]="PatientProfile.state" id="state"
-                    name="state" #state="ngModel">
-                </mat-form-field>
-
-                <mat-form-field appearance="outline"
-                  class="grey-matform noHover col-lg-4 col-md-4 col-sm-12 col-12 mt-3">
-                  <input matInput readonly placeholder="Zip" [readonly]="!disableaddressverification" [(ngModel)]="PatientProfile.zip" id="zip" name="zip"
-                    #zip="ngModel">
-                </mat-form-field>
-              </div>
-
-              <div class="row mb-3">
-                <div class="d-flex justify-content-end">
-                  <button type="button" class="btn btn-green btn-save" (click)="updateContactInform()">Save</button>
+              <div class="col-md-4  patient-street-address d-flex justify-content-end flex-sm-row flex-column">
+                <div class="form-group">
+                  <button class="btn-green btn manualbtn  py-0 btn-lg btn-md"
+                    *ngIf="manuallybtn || disableaddressverification" (click)="enterAddressManually()">Enter Address
+                    Manually</button>
                 </div>
               </div>
+            </div>
+
+            <div class="row">
+              <mat-form-field appearance="outline"
+                class="grey-matform noHover col-lg-4 col-md-4 col-sm-12 col-12 mt-3 ">
+                <input matInput readonly placeholder="City" [readonly]="!disableaddressverification"
+                  [(ngModel)]="PatientProfile.city" id="city" name="city" #city="ngModel">
+              </mat-form-field>
+
+
+              <mat-form-field appearance="outline"
+                class="grey-matform noHover  col-lg-4 col-md-4 col-sm-12 col-12 mt-3 ">
+                <input matInput readonly placeholder="State" [readonly]="!disableaddressverification"
+                  [(ngModel)]="PatientProfile.state" id="state" name="state" #state="ngModel">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="grey-matform noHover col-lg-4 col-md-4 col-sm-12 col-12 mt-3">
+                <input matInput readonly placeholder="Zip" [readonly]="!disableaddressverification"
+                  [(ngModel)]="PatientProfile.zip" id="zip" name="zip" #zip="ngModel">
+              </mat-form-field>
+            </div>
+
+            <div class="row mb-3">
+              <div class="d-flex justify-content-end">
+                <button type="button" class="btn btn-green btn-save" (click)="updateContactInform()">Save</button>
+              </div>
+            </div>
 
           </div>
         </div>
@@ -278,135 +276,139 @@
           <div class="panel-body">
 
 
-              <div class="row">
-                <div class="col-lg-4 col-md-12 col-sm-12 col-12">
-                  <label class="labelfontzise">First Name</label>
-                  <div class="form-group">
-                    <mat-form-field class="grey-matform w-100" appearance="outline">
-                      <input matInput placeholder="First Name" [(ngModel)]="PatientProfile.EmergencyFirstName"
-                        id="EmergencyFirstName" name="EmergencyFirstName" #EmergencyFirstName="ngModel">
-                    </mat-form-field>
-                  </div>
-                </div>
-                <div class="col-lg-4 col-md-12 col-sm-12 col-12">
-                  <label class="labelfontzise">Middle Name</label>
-                  <div class="form-group">
-                    <mat-form-field class="grey-matform w-100" appearance="outline">
-                      <input matInput placeholder="Middle Name" [(ngModel)]="PatientProfile.EmergencyMiddleName"
-                        id="EmergencyMiddleName" name="EmergencyMiddleName" #EmergencyMiddleName="ngModel">
-                    </mat-form-field>
-                  </div>
-                </div>
-                <div class="col-lg-4 col-md-12 col-sm-12 col-12">
-                  <label class="labelfontzise">Last Name</label>
-                  <div class="form-group">
-                    <mat-form-field class="grey-matform w-100" appearance="outline">
-                      <input matInput placeholder="Last Name" [(ngModel)]="PatientProfile.EmergencyLastName"
-                        id="EmergencyLastName" name="EmergencyLastName" #EmergencyLastName="ngModel">
-                    </mat-form-field>
-                  </div>
+            <div class="row">
+              <div class="col-lg-4 col-md-12 col-sm-12 col-12">
+                <label class="labelfontzise">First Name</label>
+                <div class="form-group">
+                  <mat-form-field class="grey-matform w-100" appearance="outline">
+                    <input matInput placeholder="First Name" [(ngModel)]="PatientProfile.EmergencyFirstName"
+                      id="EmergencyFirstName" name="EmergencyFirstName" #EmergencyFirstName="ngModel">
+                  </mat-form-field>
                 </div>
               </div>
+              <div class="col-lg-4 col-md-12 col-sm-12 col-12">
+                <label class="labelfontzise">Middle Name</label>
+                <div class="form-group">
+                  <mat-form-field class="grey-matform w-100" appearance="outline">
+                    <input matInput placeholder="Middle Name" [(ngModel)]="PatientProfile.EmergencyMiddleName"
+                      id="EmergencyMiddleName" name="EmergencyMiddleName" #EmergencyMiddleName="ngModel">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-12 col-sm-12 col-12">
+                <label class="labelfontzise">Last Name</label>
+                <div class="form-group">
+                  <mat-form-field class="grey-matform w-100" appearance="outline">
+                    <input matInput placeholder="Last Name" [(ngModel)]="PatientProfile.EmergencyLastName"
+                      id="EmergencyLastName" name="EmergencyLastName" #EmergencyLastName="ngModel">
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
 
-              <div class="row mt-2">
-                <mat-label>Relationship to Patient</mat-label>
-                <mat-form-field appearance="outline"
-                  class="dropdown grey-matform col-lg-12 col-md-12 col-sm-12 col-12 ">
-                    <mat-select placeholder="All Providers"  [(ngModel)]="PatientProfile.RelationshipToPatient" disableOptionCentering
-                    id="RelationshipToPatient" name="RelationshipToPatient" #RelationshipToPatient="ngModel">
-                      <mat-option *ngFor="let item of relationship" [value]="item.value">{{item.value}}
-                      </mat-option>
-                    </mat-select>
+            <div class="row mt-2">
+              <mat-label>Relationship to Patient</mat-label>
+              <mat-form-field appearance="outline" class="dropdown grey-matform col-lg-12 col-md-12 col-sm-12 col-12 ">
+                <mat-select placeholder="All Providers" [(ngModel)]="PatientProfile.RelationshipToPatient"
+                  disableOptionCentering id="RelationshipToPatient" name="RelationshipToPatient"
+                  #RelationshipToPatient="ngModel">
+                  <mat-option *ngFor="let item of relationship" [value]="item.value">{{item.value}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+
+            <div class="row">
+              <label class="labelfontzise mt-2">Phone </label>
+              <div class="input-group mb-1">
+                <mat-form-field class="example-full-width grey-matform procedure-form-field " appearance="outline">
+                  <input matInput #searchPhone class="form-control" placeholder="( :" type="text" id="searchPhone"
+                    name="searchPhone" [matAutocomplete]="procedureCode3" />
+                  <mat-autocomplete [displayWith]="displayWith" #procedureCode3="matAutocomplete">
+                    <mat-option *ngIf="searchPhoneData.length===0&&searchPhone.value.length===0">
+                      Please enter 1 or more characters
+                    </mat-option>
+                    <mat-option *ngIf="searchPhoneData.length===0&&searchPhone.value.length>0">
+                      No Data Found
+                    </mat-option>
+                    <mat-option *ngFor="let option of searchPhoneData" [value]="option" class="medical-code-option">
+                      {{option.areaCode}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="example-width grey-matform">
+                  <input matInput placeholder="Phone" [(ngModel)]="PatientProfile.Phone" id="Phone" name="Phone"
+                    #Phone="ngModel">
                 </mat-form-field>
               </div>
+            </div>
 
+            <div class="row">
+              <mat-label>Email</mat-label>
+              <mat-form-field appearance="outline" class="grey-matform col-lg-12 col-md-12 col-sm-12 col-12">
+                <input matInput placeholder="Email" [(ngModel)]="PatientProfile.EmergencyEmail" id="EmergencyEmail"
+                  name="EmergencyEmail" #EmergencyEmail="ngModel">
+              </mat-form-field>
+            </div>
 
-              <div class="row">
-                <label class="labelfontzise mt-2">Phone </label>
-                <div class="input-group mb-1">
-                  <mat-form-field class="example-full-width grey-matform procedure-form-field " appearance="outline" >
-                    <input matInput #searchPhone class="form-control" placeholder="( :" type="text"
-                      id="searchPhone" name="searchPhone" [matAutocomplete]="procedureCode3" />
-                      <mat-autocomplete [displayWith]="displayWith" #procedureCode3="matAutocomplete">
-                        <mat-option *ngIf="searchPhoneData.length===0&&searchPhone.value.length===0">
-                          Please enter 1 or more characters
-                        </mat-option>
-                        <mat-option *ngIf="searchPhoneData.length===0&&searchPhone.value.length>0">
-                          No Data Found
-                        </mat-option>
-                        <mat-option *ngFor="let option of searchPhoneData" [value]="option"
-                          class="medical-code-option">
-                          {{option.areaCode}}
-                        </mat-option>
-                      </mat-autocomplete>
-                  </mat-form-field>
-                  <mat-form-field appearance="outline" class="example-width grey-matform">
-                    <input matInput placeholder="Phone" [(ngModel)]="PatientProfile.Phone" id="Phone" name="Phone"
-                      #Phone="ngModel">
-                  </mat-form-field>
-                </div>
-              </div>
-
-              <div class="row">
-                <mat-label>Email</mat-label>
-                <mat-form-field appearance="outline" class="grey-matform col-lg-12 col-md-12 col-sm-12 col-12">
-                  <input matInput placeholder="Email" [(ngModel)]="PatientProfile.EmergencyEmail" id="EmergencyEmail"
-                    name="EmergencyEmail" #EmergencyEmail="ngModel">
+            <div class="row mt-1">
+              <h5 class="Helvetica-sans-serif-small">HOME ADDRESS</h5>
+              <div class="col-md-9 mt-1">
+                <mat-form-field appearance="outline" class="filed-border col-lg-12 col-md-12 col-sm-12 col-12">
+                  <input matInput placeholder="Enter full address here (including suite number)"
+                    [disabled]="emergencydisableaddressverification" [(ngModel)]="PatientProfile.EmergencyStreet">
                 </mat-form-field>
               </div>
-
-              <div class="row mt-1">
-                <h5 class="Helvetica-sans-serif-small">HOME ADDRESS</h5>
-                <div class="col-md-9 mt-1">
-                  <mat-form-field appearance="outline" class="filed-border col-lg-12 col-md-12 col-sm-12 col-12">
-                    <input matInput placeholder="Enter full address here (including suite number)"[disabled]="emergencydisableaddressverification"
-                    [(ngModel)]="PatientProfile.EmergencyStreet">
-                  </mat-form-field>
-                </div>
-                <div class="col-md-3 mt-1">
-                  <button type="button" class="btn btn-green verify-button"  [disabled]="!PatientProfile.EmergencyStreet || emergencydisableaddressverification"
+              <div class="col-md-3 mt-2">
+                <button type="button" class="btn btn-green verify-button"
+                  [disabled]="!PatientProfile.EmergencyStreet || emergencydisableaddressverification"
                   (click)="emergencyAddressVerfied()">VERIFY</button>
-                </div>
               </div>
+            </div>
 
-              <div class="row mt-1">
-                <div class="col-md-7">
+            <div class="row mt-1">
+              <div class="col-md-7">
                 <mat-form-field appearance="outline" class="filed-border noHover col-md-12">
                   <input readonly matInput placeholder="Street Address"
                     [(ngModel)]="PatientProfile.EmergencyStreetAddress" id="EmergencyStreetAddress"
-                    name="EmergencyStreetAddress" #EmergencyStreetAddress="ngModel" [readonly]="!emergencydisableaddressverification" [class.address-verfied]="!emergencyManuallybtn">
+                    name="EmergencyStreetAddress" #EmergencyStreetAddress="ngModel"
+                    [readonly]="!emergencydisableaddressverification" [class.address-verfied]="!emergencyManuallybtn">
                 </mat-form-field>
               </div>
               <div class="col-md-1"><button type="button" class="btn cross-mark error-close"
-                *ngIf="emergencyAdressVerfied && !emergencyManuallybtn" (click)="emergencyEnableManualEntry()"
-                title="Can enter manully when the verification results are in correct by clicking this icon">x</button>
-
-        </div>
-        <div class="col-md-4  patient-street-address d-flex justify-content-end flex-sm-row flex-column">
-          <div class="form-group">
-              <button class="btn-green btn manualbtn  py-0 btn-lg btn-md"
-                  *ngIf="emergencyManuallybtn || emergencydisableaddressverification"
-                  (click)="emergencyAddressEnterManually()">Enter Address Manually</button>
-          </div>
+                  *ngIf="emergencyAdressVerfied && !emergencyManuallybtn" (click)="emergencyEnableManualEntry()"
+                  title="Can enter manully when the verification results are in correct by clicking this icon">x</button>
               </div>
+              <div class="col-md-4  patient-street-address d-flex justify-content-end flex-sm-row flex-column">
+                <div class="form-group">
+                  <button class="btn-green btn manualbtn  py-0 btn-lg btn-md"
+                    *ngIf="emergencyManuallybtn || emergencydisableaddressverification"
+                    (click)="emergencyAddressEnterManually()">Enter Address Manually</button>
+                </div>
+              </div>
+            </div>
+
               <div class="row ">
                 <mat-form-field appearance="outline"
                   class="grey-matform noHover col-lg-4 col-md-4 col-sm-12 col-12 mt-3">
                   <input matInput readonly placeholder="City" [(ngModel)]="PatientProfile.EmergencyCity"
-                    id="EmergencyCity" name="EmergencyCity" #EmergencyCity="ngModel" [readonly]="!emergencydisableaddressverification">
+                    id="EmergencyCity" name="EmergencyCity" #EmergencyCity="ngModel"
+                    [readonly]="!emergencydisableaddressverification">
                 </mat-form-field>
 
 
                 <mat-form-field appearance="outline"
                   class="grey-matform noHover col-lg-4 col-md-4 col-sm-12 col-12 mt-3">
                   <input matInput readonly placeholder="State" [(ngModel)]="PatientProfile.EmergencyState"
-                    id="EmergencyState" name="EmergencyState" #EmergencyState="ngModel"  [readonly]="!emergencydisableaddressverification">
+                    id="EmergencyState" name="EmergencyState" #EmergencyState="ngModel"
+                    [readonly]="!emergencydisableaddressverification">
                 </mat-form-field>
 
                 <mat-form-field appearance="outline"
                   class="grey-matform noHover col-lg-4 col-md-4 col-sm-12 col-12 mt-3">
                   <input matInput readonly placeholder="Zip" [(ngModel)]="PatientProfile.EmergencyZip" id="EmergencyZip"
-                    name="EmergencyZip" #EmergencyZip="ngModel"  [readonly]="!emergencydisableaddressverification">
+                    name="EmergencyZip" #EmergencyZip="ngModel" [readonly]="!emergencydisableaddressverification">
                 </mat-form-field>
               </div>
 
@@ -418,28 +420,27 @@
 
           </div>
         </div>
-      </div>
 
+      </div>
     </div>
   </div>
-</div>
 
 
 
 
 
-<div class="modal fade" id="staticBackdrop1" data-bs-keyboard="false" tabindex="-1"
-  aria-labelledby="staticBackdropLabel" aria-hidden="true"  data-backdrop="static" >
-  <div class="modal-dialog">
-    <div class="modal-content body">
-      <div class="modal-header">
-        <h4 class="Helvetica-sans-serif-medium">Edit Password</h4>
-        <span type="button" class="cross-mark" data-bs-dismiss="modal">
-          X
-        </span>
-      </div>
-      <div class="modal-body">
-        <div class="content">
+  <div class="modal fade" id="staticBackdrop1" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog">
+      <div class="modal-content body">
+        <div class="modal-header">
+          <h4 class="Helvetica-sans-serif-medium">Edit Password</h4>
+          <span type="button" class="cross-mark" data-bs-dismiss="modal">
+            X
+          </span>
+        </div>
+        <div class="modal-body">
+          <div class="content">
 
             <div class="row mt-3">
               <div class="col-lg-12">
@@ -477,30 +478,29 @@
                 </div>
               </div>
             </div>
-            <div class="row mt-3">
-              <button type="button" class="btn btn-green down-button">Save
+            <div class="row justify-content-end mx-1">
+              <button type="button" class="btn btn-green down-button pull-right">Save
               </button>
             </div>
-
-          <!-- end personal info -->
+            <!-- end personal info -->
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content body">
-      <div class="modal-header">
-        <h4 class="Helvetica-sans-serif-medium">CHANGE SECURITY QUESTION</h4>
-        <span type="button" class="cross-mark" data-bs-dismiss="modal">
-          X
-        </span>
-      </div>
-      <div class="modal-body">
-        <div class="content">
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content body">
+        <div class="modal-header">
+          <h4 class="Helvetica-sans-serif-medium">CHANGE SECURITY QUESTION</h4>
+          <span type="button" class="cross-mark" data-bs-dismiss="modal">
+            X
+          </span>
+        </div>
+        <div class="modal-body">
+          <div class="content">
 
             <p>
               Answer your existing security question in order to create a new one. Please choose a question you can
@@ -532,8 +532,10 @@
                 <div class="form-group ">
                   <mat-form-field appearance="outline"
                     class="dropdown grey-matform col-lg-12 col-md-12 col-sm-12 col-12">
-                    <mat-select placeholder="In what city was your first job?" [(ngModel)]="updateSecurityQuestion.Question">
-                      <mat-option class="menu" *ngFor="let question of questions" [value]="question.key">{{question.value}}
+                    <mat-select placeholder="In what city was your first job?"
+                      [(ngModel)]="updateSecurityQuestion.Question">
+                      <mat-option class="menu" *ngFor="let question of questions" [value]="question.key">
+                        {{question.value}}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
@@ -557,8 +559,9 @@
             </div>
             <div class="row">
               <label class="title ">IMPORTANT</label>
-              <mat-checkbox class="grey-matform example-margin mt-2 mr-2" [(ngModel)]="updateSecurityQuestion.ConfiramationActive">
-                <mat-label class="checkbox-label" >I understand my access to patients portal will be locked if I am
+              <mat-checkbox class="grey-matform example-margin mt-2 mr-2"
+                [(ngModel)]="updateSecurityQuestion.ConfiramationActive">
+                <mat-label class="checkbox-label">I understand my access to patients portal will be locked if I am
                   unable to answer this question</mat-label>
               </mat-checkbox>
             </div>
@@ -566,15 +569,15 @@
             <div class="row mt-4">
               <div class="d-flex justify-content-end">
                 <button type="button" class="btn btn-green mx-2 " data-bs-dismiss="modal"
-                (click)="ChangeSecurityQuestion(updateSecurityQuestion)" [disabled]="enableSave()">Change</button>
-                <button type="button" class="btn btn-green"  data-bs-dismiss="modal">Cancel</button>
+                  (click)="ChangeSecurityQuestion(updateSecurityQuestion)" [disabled]="enableSave()">Change</button>
+                <button type="button" class="btn btn-green" data-bs-dismiss="modal">Cancel</button>
               </div>
             </div>
 
 
-          <!-- end personal info -->
+            <!-- end personal info -->
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>

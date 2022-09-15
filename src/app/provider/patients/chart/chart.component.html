@@ -13,22 +13,22 @@
                 <li>
                   <ul class="go-to-nav">
                     <li>
-                      <a (click)="gotoDiagnoses()">Diagnoses (Dx)</a>
+                      <a (click)="scrollToDiagnoses()">Diagnoses (Dx)</a>
                     </li>
-                    <li><a>Smoking Status</a></li>
-                    <li><a>Past Medical History</a></li>
-                    <li><a>Advanced Directives</a></li>
+                    <li><a (click)="scrollToSmokingStatus()">Smoking Status</a></li>
+                    <li><a (click)="scrollToPastMedicalHistory()">Past Medical History</a></li>
+                    <li><a (click)="scrollToAdvancedDirectives()">Advanced Directives</a></li>
                   </ul>
                   <ul class="go-to-nav">
-                    <li><a>Allergies</a></li>
-                    <li><a>Medications (Rx)</a></li>
-                    <li><a>Immunizations</a></li>
-                    <li><a>Screenings/Interventions/<br>Assessments</a></li>
+                    <li><a (click)="scrollToAllergies()">Allergies</a></li>
+                    <li><a (click)="scrollToMedications()">Medications (Rx)</a></li>
+                    <li><a (click)="scrollToImmunizations()">Immunizations</a></li>
+                    <li><a (click)="scrollToInterventions()">Screenings/Interventions/<br>Assessments</a></li>
                   </ul>
                   <ul class="go-to-nav">
-                    <li><a>Encounters</a></li>
-                    <li><a>Messages</a></li>
-                    <li><a>Appointments</a></li>
+                    <li><a (click)="scrollToEncounters()">Encounters</a></li>
+                    <li><a (click)="scrollToMessages()">Messages</a></li>
+                    <li><a (click)="scrollToAppointments()">Appointments</a></li>
                   </ul>
                 </li>
               </ul>
@@ -42,11 +42,15 @@
                 style="height: 42px; border: none; top: 1px; margin-top: 1px;" [matAutocomplete]="Patient" />
               <mat-autocomplete [displayWith]="displayWithPatientSearch" #Patient="matAutocomplete"
                 (optionSelected)="onPatientSelected($event)">
+                <mat-option [hidden]="displayMessage == false" [disabled]="true" class="text-wrap lh-1 fs-6">
+                  Enter atleast 1 character, you can only select 1 item
+                </mat-option>
                 <mat-option *ngIf="isLoading">Loading ...</mat-option>
                 <mat-option *ngFor="let option of filteredPatients | async" [value]="option"
                   class="patient-serach-option">
                   {{option.Name}}
                 </mat-option>
+                <mat-option *ngIf="noRecords">No Records Found</mat-option>
               </mat-autocomplete>
             </div>
           </div>
@@ -115,15 +119,15 @@
                   *ngIf="chartInfo?.Diagnoses?.length > 5" class="view-more pull-right">view more</a>
               </div>
             </div>
-            <div class="card">
+            <div class="card" id="toSmokingStatus">
               <div class="card-header">
                 <div class="row">
                   <div class="col-12">
                     <p class="card-title">
-                      <span (click)="openComponentDialog(smokingStatusDialogComponent, null, ActionTypes.add)">Smoking
+                      <span class="pointer" (click)="openComponentDialog(smokingStatusDialogComponent, null, ActionTypes.add)">Smoking
                         Status</span>
-                      <span style="cursor:auto;"> and </span>
-                      <span (click)="openComponentDialog(tobaccoUseDialogComponent,null,ActionTypes.add)">Tobacco
+                      <span> and </span>
+                      <span class="pointer" (click)="openComponentDialog(tobaccoUseDialogComponent,null,ActionTypes.add)">Tobacco
                         Use</span>
                     </p>
                   </div>
@@ -201,7 +205,7 @@
                   class="view-more pull-right">view more</a>
               </div>
             </div>
-            <div class="card">
+            <div class="card" id="toPastMedicalHistory">
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
@@ -241,7 +245,7 @@
                 </ul>
               </div>
             </div>
-            <div class="card">
+            <div class="card" id="toAdvancedDirectives">
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
@@ -280,7 +284,7 @@
             </div>
           </div>
           <div class="col-lg-4 col-4">
-            <div class="card">
+            <div class="card" id="toAllergies">
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
@@ -323,7 +327,7 @@
                   *ngIf="chartInfo?.Alergies?.length > 5" class="view-more pull-right">view more</a>
               </div>
             </div>
-            <div class="card">
+            <div class="card" id="toMedications">
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
@@ -369,11 +373,11 @@
                   *ngIf="chartInfo?.Medications?.length > 5" class="view-more pull-right">view more</a>
               </div>
             </div>
-            <div class="card">
+            <div class="card" id="toImmunizations">
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
-                    <p class="card-title" data-bs-toggle="modal" data-bs-target="#immunization-table-modal">
+                    <p class="card-title">
                       Immunizations</p>
                   </div>
                   <div class="col-md-4 col-6">
@@ -414,7 +418,7 @@
                   *ngIf="chartInfo?.Immunizations?.length > 5" class="view-more pull-right">view more</a>
               </div>
             </div>
-            <div class="card">
+            <div class="card" id="toInterventions">
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-8">
@@ -458,7 +462,7 @@
             </div>
           </div>
           <div class="col-lg-4 col-4">
-            <div class="card">
+            <div class="card" id="toEncounters">
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
@@ -502,7 +506,7 @@
                   *ngIf="chartInfo?.Encounters?.length > 5" class="view-more pull-right">view more</a>
               </div>
             </div>
-            <div class="card">
+            <div class="card" id="toMessages">
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
@@ -522,7 +526,7 @@
                 </ul>
               </div>
             </div>
-            <div class="card">
+            <div class="card" id="toAppointments">
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
@@ -604,10 +608,14 @@
               id="searchVaccineCode" name=" searchVaccineCode" [matAutocomplete]="vaccineCode" />
             <mat-autocomplete [displayWith]="displayWithVaccine" #vaccineCode="matAutocomplete"
               (optionSelected)="onSelectedImmunization($event)">
+              <mat-option [hidden]="displayMessage == false" [disabled]="true" class="text-wrap lh-1 fs-6">
+                Enter atleast 1 character, you can only select 1 item
+              </mat-option>
               <mat-option *ngIf="isLoading">Loading ...</mat-option>
               <mat-option *ngFor="let option of vaccines | async" [value]="option" class="medical-code-option">
                 {{option.Code}} - {{option.Description}}
               </mat-option>
+              <mat-option *ngIf="noRecords">No Records Found</mat-option>
             </mat-autocomplete>
           </mat-form-field>
           <span class="selected-allergen" id="allergenName" *ngIf="patientImmunization.Code != ''">
