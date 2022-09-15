@@ -107,25 +107,48 @@ mat-label {
   width: 100% !important;
 }
 
-.pattach {
-  border: 1px solid #41b6a6;
+
+
+.attachments {
   margin-top: 20px;
-  background-color: rgba(65, 182, 166, 0.1);
+  .container-items{
+    border: 1px solid #41b6a6;
+
+    .items{
+      display: flex;
+      margin:10px;
+      div{
+        margin:10px;
+      }
+      div.remmove{
+        float: right;
+      }
+      div.item{
+        width: 75%;
+      }
+      .mat-icon{
+        color:#41b6a6;
+        background: #fff;
+        border: 1px solid #41b6a6;
+        font-size: 21px;
+        &:hover{
+          color:#fff;
+          background: #41b6a6;
+        }
+      }
+    }
+  }
+  .display-item{
+    border: 1px solid #41b6a6;
+    border-right: unset;
+    border-left: unset;
+  }
+  .upload-items{
+    border: 1px solid #41b6a6;;
+    background-color: rgba(65, 182, 166, 0.1);
+  }
 }
 
-.formarray {
-  border-top: 1px solid #41b6a6;
-  background-color: rgba(65, 182, 166, 0.1);
-  border-bottom: 1px solid #41b6a6;
-  cursor: pointer;
-
-}
-
-.formarray:not(first-child) {
-  border-top: none;
-}
-
-// .formarray:not(last-child) { border-bottom: none; }
 
 
 .closefile {
