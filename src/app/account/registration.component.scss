@@ -289,7 +289,10 @@ a:hover {
   text-decoration: underline;
   text-transform: lowercase;
 }
-
+.validaddresspointer
+{
+  cursor: pointer !important;
+}
 .croxbtn{
     border-radius: 77%;
     height: 27px;

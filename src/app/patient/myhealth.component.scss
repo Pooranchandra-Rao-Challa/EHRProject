@@ -127,7 +127,7 @@ padding: 12px 6px 12px 0px;
   height: 1.25rem;
   margin-left: auto;
   content: "";
-  background-image: url("/assets/images/down-arrow.svg");
+  background-image: url("../../assets/images/down-arrow.svg");
   background-repeat: no-repeat;
   background-size: 1.25rem;
   transition: transform 0.2s ease-in-out;
@@ -135,8 +135,9 @@ padding: 12px 6px 12px 0px;
 }
 
 .accordion-button:not(.collapsed)::after {
-    background-image: url("/assets/images/down-arrow.svg");
+    background-image: url("../../assets/images/down-arrow.svg");
     transform: rotate(-180deg);
     cursor: pointer !important;
 }
 }
+// background-image: url("../../../assets/images/down-arrow.svg");

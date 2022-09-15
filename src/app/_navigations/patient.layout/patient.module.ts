@@ -26,7 +26,8 @@ import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service
 import { PatientPasswordChangeRequestDialogComponent } from 'src/app/dialogs/patient.login.options/patient.securequestion.dialog'
 import { OverlayComponent } from '../../overlay/overlay.component';
 import { OverlayService } from '../../overlay.service'
-import { MessagesService } from 'src/app/_services/messages.service';@NgModule({
+import { MessagesService } from 'src/app/_services/messages.service';import { NgxMaskModule } from 'ngx-mask';
+@NgModule({
   exports: [
     MatInputModule
   ],
@@ -50,6 +51,7 @@ import { MessagesService } from 'src/app/_services/messages.service';@NgModule({
     PatientRoutingModule,
     SharedModule,
     CommonModule,
+    NgxMaskModule.forRoot(),
   ],
   providers: [LocationSelectService,ViewChangeService,PatientService,
     AlertMessage,PatientNavbarComponent,UtilityService,OverlayService,

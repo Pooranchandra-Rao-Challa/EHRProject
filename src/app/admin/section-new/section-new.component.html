@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" id="adminsection">
   <div class="row">
     <div class="col-lg-12 col-xl-12 col-md-12 col-12 mt-3">
       <app-admin-breadcrum></app-admin-breadcrum>
@@ -11,7 +11,7 @@
         <div class="col-md-4 mt-3">
           <label for="Sequence" class="form-label required">Sequence</label>
           <input type="text" class="form-control text-design" [(ngModel)]="WeeklyUpdate.Sequence" #sequence="ngModel"
-             [ngModelOptions]="{standalone: true}" id="Sequence" name="Sequence" placeholder="Sequence">
+            [ngModelOptions]="{standalone: true}" id="Sequence" name="Sequence" placeholder="Sequence">
         </div>
         <div class="col-md-4 mt-3">
           <label for="Heading" class="form-label required">Heading</label>
@@ -38,7 +38,8 @@
         </div>
         <div class="col-4 mt-3">
           <label for="LogoType" class="form-label">Slide Type</label>
-          <select  id="inputState" class="form-select text-design" [(ngModel)]="WeeklyUpdate.SlideType" name="inputState">
+          <select id="inputState" class="form-select text-design" [(ngModel)]="WeeklyUpdate.SlideType"
+            name="inputState">
             <option class="first-option" selected>Info</option>
             <option>Count</option>
             <option>Trending</option>
@@ -94,7 +95,3 @@
     </div>
   </div>
 </div>
-
-
-
-

@@ -84,8 +84,8 @@
               <button type="button" class="btn cross-mark error-close" *ngIf="addressVerfied && !manuallybtn"
                 (click)="enableManualEntry()"
                 title="Can enter manully when the verification results are in correct by clicking this icon">x</button>
-              <button class="btn-green btn btn-verify mb-2 mt-2 mt-lg-0 pull-right" *ngIf="manuallybtn || disableaddressverification"
-                (click)="enterAddressManually()">Enter
+              <button class="btn-green btn btn-verify mb-2 mt-2 mt-lg-0 pull-right"
+                *ngIf="manuallybtn || disableaddressverification" (click)="enterAddressManually()">Enter
                 Address Manually</button>
             </div>
           </div>
@@ -323,11 +323,12 @@
                 </div>
               </div>
             </div>
-            <div class="col-xl-3 col-lg-4 col-12" >
-              <button type="button" class="btn cross-mark error-close" *ngIf="secondaryAdressVerfied && !secondarymanuallybtn"
-                 (click)="secondaryenableManualEntry()"
+            <div class="col-xl-3 col-lg-4 col-12">
+              <button type="button" class="btn cross-mark error-close"
+                *ngIf="secondaryAdressVerfied && !secondarymanuallybtn" (click)="secondaryenableManualEntry()"
                 title="Can enter manully when the verification results are in correct by clicking this icon">x</button>
-                <button class="btn-green btn btn-verify mb-2 mt-2 mt-lg-0 pull-right" *ngIf="secondarymanuallybtn || secondarydisableaddressverification"
+              <button class="btn-green btn btn-verify mb-2 mt-2 mt-lg-0 pull-right"
+                *ngIf="secondarymanuallybtn || secondarydisableaddressverification"
                 (click)="secondaryenterAddressManually()">Enter Address Manually</button>
             </div>
             <!-- <div class="col-xl-3 col-lg-4 col-12" *ngIf="secondarymanuallybtn || secondarydisableaddressverification">

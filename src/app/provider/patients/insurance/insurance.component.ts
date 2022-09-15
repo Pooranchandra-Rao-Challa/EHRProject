@@ -290,7 +290,7 @@ export class InsuranceComponent implements OnInit {
       this.patientservice.InsurancDetails(reqparam).subscribe(
         resp => {
           this.InsurancDetailslist = resp.ListResult;
-          
+
           this.insuraceComplanyPlan = resp.ListResult[0];
         });
       this.primaryInsDetail = true;
@@ -356,8 +356,6 @@ export class InsuranceComponent implements OnInit {
       this.insuraceComplanyPlan.PhonePreffix = list[1].slice(0, 3);
       this.insuraceComplanyPlan.PhoneSuffix = list[1].slice(3, 10);
     }
-
-
   }
 
   CreateUpdateInsuraceCompanyPlan(insuraceComplanyPlan: ParticularInsuranceCompanyDetails) {

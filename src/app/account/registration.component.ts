@@ -369,7 +369,8 @@ export class RegistrationComponent implements OnInit {
       title: 'Thank you for registering in an EHR1 Account! An email with instructions for how to complete  setup of your account has been sent to ' + this.AccountDetails.Email,
       showConfirmButton: true,
       confirmButtonText: 'Close',
-      width: '700',
+      width: '500',
+      
     });
   }
 }
