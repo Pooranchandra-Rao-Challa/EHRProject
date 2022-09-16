@@ -262,47 +262,47 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
       this.loadDependents();
     }
     // else {
-      this.patientService.LatestUpdatedPatientsUrl({
-        ProviderId: this.authService.userValue.ProviderId,
-        RemovedPatientIds: this.removedPatientIdsInBreadcurmb,
-        EncKey: paramkey
-      })
-        .subscribe(resp => {
-          if (resp.IsSuccess) {
-            let patients = resp.ListResult as ProviderPatient[];
-            this.breadcrumbs = [];
+    this.patientService.LatestUpdatedPatientsUrl({
+      ProviderId: this.authService.userValue.ProviderId,
+      RemovedPatientIds: this.removedPatientIdsInBreadcurmb,
+      EncKey: paramkey
+    })
+      .subscribe(resp => {
+        if (resp.IsSuccess) {
+          let patients = resp.ListResult as ProviderPatient[];
+          this.breadcrumbs = [];
+          let pb: PatientBreadcurm = {
+            Name: "Patients",
+            ViewType: 0,
+            ActiveId: false,
+            ProviderId: this.authService.userValue.ProviderId
+          }
+          this.breadcrumbs.push(pb);
+          let flag = false;
+          patients.forEach((p) => {
             let pb: PatientBreadcurm = {
-              Name: "Patients",
-              ViewType: 0,
-              ActiveId: false,
-              ProviderId: this.authService.userValue.ProviderId
+              Name: p.FirstName + ' ' + p.LastName,
+              DOB: p.Dob,
+              ViewType: 1,
+              PatientId: p.PatientId,
+              ShowRemoveIcon: true,
+              EncKey: p.EncKey,
+              ActiveId: p.ShowDetailView == false ? this.patient?.PatientId == p.PatientId : p.ShowDetailView,
+              Details: p
+            }
+            if (p.ShowDetailView) {
+              this.authService.SetViewParam('Patient', p);
+              this.viewModel = this.authService.viewModel;
+              flag = true;
             }
             this.breadcrumbs.push(pb);
-            let flag = false;
-            patients.forEach((p) => {
-              let pb: PatientBreadcurm = {
-                Name: p.FirstName + ' ' + p.LastName,
-                DOB: p.Dob,
-                ViewType: 1,
-                PatientId: p.PatientId,
-                ShowRemoveIcon: true,
-                EncKey: p.EncKey,
-                ActiveId: p.ShowDetailView == false ? this.patient?.PatientId == p.PatientId : p.ShowDetailView,
-                Details: p
-              }
-              if (p.ShowDetailView) {
-                this.authService.SetViewParam('Patient', p);
-                this.viewModel = this.authService.viewModel;
-                flag = true;
-              }
-              this.breadcrumbs.push(pb);
-            });
-            if (!flag) this.patient = this.authService.viewModel.Patient;
+          });
+          if (!flag) this.patient = this.authService.viewModel.Patient;
 
-            this.patient = this.authService.viewModel.Patient;
-            this.loadPatientBreadcrumbView()
-          }
-        })
+          this.patient = this.authService.viewModel.Patient;
+          this.loadPatientBreadcrumbView()
+        }
+      })
     // }
 
   }
@@ -405,9 +405,8 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
     else if (action == Actions.view && content === this.cCdaDialogComponent) {
       dialogData = data;
     }
-    else if(action == Actions.view && content === this.authorizedRepresentativeDialogComponent)
-    {
-        dialogData = data
+    else if (action == Actions.view && content === this.authorizedRepresentativeDialogComponent) {
+      dialogData = data
     }
     const ref = this.overlayService.open(content, dialogData);
 
@@ -446,9 +445,12 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
           else if (this.viewModel.PatientView == "Chart")
             this.loadChartComponent();
         }
-      
-      
-    }
+
+
+      }
+      else if (content === this.procedureDialogComponent) {
+        this.loadDentalChartComponent();
+      }
     });
   }
 }

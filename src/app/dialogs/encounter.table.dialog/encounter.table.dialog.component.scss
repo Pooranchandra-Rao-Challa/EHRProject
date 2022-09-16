@@ -15,7 +15,7 @@
 }
 
 .encounter-table-modal .modal-body {
-  max-height: calc(90vh - 90px);
+  max-height: calc(90vh - 160px);
   overflow-y: auto;
 }
 
@@ -35,7 +35,7 @@
   @media (max-width: 1350px) {
     .scrollable-mat-table {
       width: 100%;
-      overflow-x: scroll;
+      overflow-x: auto;
     }
 
     .mat-table {

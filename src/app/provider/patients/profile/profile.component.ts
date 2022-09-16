@@ -17,6 +17,7 @@ import { PatientUpdateService } from 'src/app/_navigations/provider.layout/view.
 import { ComponentType } from '@angular/cdk/portal';
 import { AuthorizedrepresentativeDialogComponent } from 'src/app/dialogs/authorizedrepresentative.dialog/authorizedrepresentative.dialog.component';
 import { OverlayService } from 'src/app/overlay.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-profile',
@@ -81,6 +82,7 @@ export class ProfileComponent implements OnInit {
     private authService: AuthenticationService,
     private alertmsg: AlertMessage,
     private accountservice: Accountservice,
+    public datepipe: DatePipe,
     private patientUpdateNotifier: PatientUpdateService,
     public overlayService: OverlayService,) {
     this.user = authService.userValue;
@@ -121,7 +123,6 @@ export class ProfileComponent implements OnInit {
 
   // get patient details by id
   getPatientMyProfile() {
-    debugger
     var reqparam = {
       "PatientId": this.PatientDetails.PatientId
     }
@@ -129,7 +130,6 @@ export class ProfileComponent implements OnInit {
       if (resp.IsSuccess) {
         this.patientMyProfile = resp.ListResult[0];
         this.patientMyProfile.Gender = this.patientMyProfile.Gender;
-        console.log(this.patientMyProfile);
       } else console.log(resp);
 
     });
@@ -248,12 +248,14 @@ export class ProfileComponent implements OnInit {
   }
 
   updatePatientInformation() {
+    this.patientMyProfile.DateOfBirth = this.datepipe.transform(this.patientMyProfile.DateOfBirth, "yyyy-MM-dd");
+    this.patientMyProfile.DateOfDeath = this.datepipe.transform(this.patientMyProfile.DateOfDeath, "yyyy-MM-dd")
     this.patientService.UpdatePatientInformation(this.patientMyProfile).subscribe(resp => {
       if (resp.IsSuccess) {
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP001"])
         this.getPatientMyProfile();
         // this.patient = this.authService.viewModel.Patient;
-        this.patientUpdateNotifier.sendData(this.patientMyProfile)
+        this.patientUpdateNotifier.sendData(this.patientMyProfile);
 
       }
       else {
@@ -263,9 +265,10 @@ export class ProfileComponent implements OnInit {
   }
 
   updateContactInform() {
+    this.patientMyProfile.UserId = this.user.UserId;
     this.patientService.UpdateContactInformation(this.patientMyProfile).subscribe(resp => {
       if (resp.IsSuccess) {
-        this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP002"])
+        this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP002"]);
       }
       else {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP002"]);

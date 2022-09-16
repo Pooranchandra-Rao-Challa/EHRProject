@@ -492,9 +492,14 @@
                     </a>
                     <div style="float: right;" *ngIf="encounter.Signed">
                       <div mat-icon-button class="folder-node">
-                        <i class="fa fa-plus icons-design"></i>
+                        <i class="fa fa-check icons-design"></i>
                       </div>
                     </div>
+                    <span class="selected-allergen" id="allergenName" *ngIf="!encounter.Signed">
+                      <div>
+                        <a class="icon icon-sm icon-circle icon-ic-delete pull-right" id="icon-delete"></a>
+                      </div>
+                    </span>
                   </li>
                 </ul>
                 <ul class="main-list" *ngIf="chartInfo?.Encounters?.length == 0">

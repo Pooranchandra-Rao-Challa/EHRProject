@@ -9,7 +9,7 @@
     <div class="modal-body scrollable-mat-table">
       <mat-table [dataSource]="patientAppointments" matSort>
         <ng-container matColumnDef="StartAt">
-          <mat-header-cell *matHeaderCellDef mat-sort-header="StartAt">Start Date
+          <mat-header-cell *matHeaderCellDef mat-sort-header="StartAt">Appointment Date
           </mat-header-cell>
           <mat-cell *matCellDef="let appointment">
             <a (click)="openComponentDialog(newAppointmentDialogComponent, appointment, ActionTypes.view)">

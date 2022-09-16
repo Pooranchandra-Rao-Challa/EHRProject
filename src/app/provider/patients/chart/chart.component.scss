@@ -427,10 +427,24 @@ textarea.form-control.inputclass:hover {
 
 .icons-design {
   border: 1px solid #41b6a6;
-  width: 24px;
-  height: 24px;
+  border-radius: 5px;
+  width: 25px;
+  height: 25px;
   font-size: 16px;
   text-align: center;
+  vertical-align: middle;
+  font-family: 'FontAwesome';
+  color: #41b6a6;
+}
+
+.icons-design.fa-check:before {
+  content: "";
+  vertical-align: middle;
+  font-size: 20px;
+}
+
+#toEncounters #icon-delete.icon-ic-delete {
+  margin-top: -28px;
 }
 
 // add/edit immunization
@@ -500,6 +514,7 @@ a.view-more:hover {
   color: #41b6a6;
   cursor: pointer;
 }
+
 .patientChartTab .card .card-title {
   cursor: auto;
 }
