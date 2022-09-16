@@ -107,7 +107,7 @@
                 <mat-header-cell *matHeaderCellDef>{{IsInbox || IsUrgent ? "From" : "To"}}</mat-header-cell>
                 <mat-cell *matCellDef="let message" (click)="showMessage(message)">
                   <div class="text-new-line"><div>{{message.ProviderName}} </div>
-                    <div [class.text-truncate]="message.Subject.length > 50">{{message.Subject}}</div>
+                    <div [class.text-truncate]="message?.Subject?.length > 50">{{message.Subject}}</div>
                   </div>
                 </mat-cell>
               </ng-container>

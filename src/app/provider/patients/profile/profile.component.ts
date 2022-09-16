@@ -121,7 +121,6 @@ export class ProfileComponent implements OnInit {
 
   // get patient details by id
   getPatientMyProfile() {
-    debugger
     var reqparam = {
       "PatientId": this.PatientDetails.PatientId
     }
