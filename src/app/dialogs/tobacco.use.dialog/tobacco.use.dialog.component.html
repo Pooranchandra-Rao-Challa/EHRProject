@@ -69,7 +69,7 @@
               <div class="col-lg-2 d-none d-lg-block d-xl-block"></div>
               <div class="col-lg-4 col-md-6 col-12 mt-3 mt-md-0">
                 <button class="btn btn-green w-100" [disabled]="disableRecordScreening()"
-                  (click)="onSelectedRecordScreening()">Recorded Screening and
+                  (click)="onSelectedRecordScreening()">Record Screening and
                   Use</button>
               </div>
             </div>
@@ -151,7 +151,7 @@
               </mat-form-field>
               <div class="col-lg-2 d-none d-lg-block d-xl-block"></div>
               <div class="col-lg-4 col-md-6 col-12">
-                <button class="btn btn-green w-100" [disabled]="disableRecordIntervention()" (click)="onSelectedRecordIntervention()">Recorded
+                <button class="btn btn-green w-100" [disabled]="disableRecordIntervention()" (click)="onSelectedRecordIntervention()">Record
                   Intervention</button>
               </div>
             </div>
@@ -160,6 +160,7 @@
                 <div class="bg-color col-12">
                   <p class="Helvetica-sans-serif-medium">Recorded Cessation Interventions</p>
                 </div>
+                <div class="scrollable-mat-table">
                 <mat-table [dataSource]="tobacooUseInterventionsSubject" matSort>
                   <ng-container matColumnDef="DatePerf">
                     <mat-header-cell *matHeaderCellDef>Date Perf</mat-header-cell>
@@ -192,6 +193,7 @@
                 <div class="norecords-found" *ngIf="tobaccoInterventions.length == 0">
                   No Interventions Record
                 </div>
+              </div>
               </div>
             </div>
           </div>

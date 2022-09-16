@@ -185,10 +185,10 @@
               <mat-label class="Helvetica-sans-serif-medium placehold required">Source of Payment Typology
               </mat-label>
               <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-12 ddl-width ddhover">
-                <mat-select panelClass="optionalignment" [(ngModel)]="primlist.SourceOfPaymentTypology"
-                  placeholder="Source of Payment Typology" required #sourcePTypology="ngModel" #primarysource>
+                <mat-select panelClass="optionalignment" [(ngModel)]="primlist.SourceOfPaymentTypology" #primaryPaymentTypology
+                  placeholder="Source of Payment Typology" required #sourcePTypology="ngModel">
                   <mat-select-filter [displayMember]="'Code'" [array]="SourceOfPaymentTypologyCodesFilter"
-                    (filteredReturn)="SourceOfPaymentTypologyCodes = $event" id="inputcursor" *ngIf="primarysource.focused" >
+                    (filteredReturn)="SourceOfPaymentTypologyCodes = $event" id="inputcursor" *ngIf="primaryPaymentTypology.focused">
                   </mat-select-filter>
                   <mat-option *ngFor="let item of SourceOfPaymentTypologyCodes" [value]="item.Code"
                     (click)="primaryspt(item)">
@@ -422,10 +422,10 @@
           <div class="col-lg-12 col-md-12">
             <mat-label class="Helvetica-sans-serif-medium required">Source of Payment Typology </mat-label>
             <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-12 ddl-width ddhover">
-              <mat-select panelClass="optionalignment" [(ngModel)]="secList.SourceOfPaymentTypology"
-                placeholder="Source of Payment Typology" #ssourcePTypology="ngModel" required #secondarysource>
+              <mat-select panelClass="optionalignment" [(ngModel)]="secList.SourceOfPaymentTypology" #secondaryPaymentTypology
+                placeholder="Source of Payment Typology" #ssourcePTypology="ngModel" required>
                 <mat-select-filter [displayMember]="'Code'" [array]="secondarySptcFilter"
-                  (filteredReturn)="SourceOfPaymentTypologyCodes = $event" *ngIf="secondarysource.focused"></mat-select-filter>
+                  (filteredReturn)="SourceOfPaymentTypologyCodes = $event"  *ngIf="secondaryPaymentTypology.focused"></mat-select-filter>
                 <mat-option class="matpanelalignment" *ngFor="let item of SourceOfPaymentTypologyCodes"
                   [value]="item.Code" (click)="secondaryspt(item)">
                   {{item.Code}} - {{item.Description}}

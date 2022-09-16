@@ -172,9 +172,7 @@
                   <p class="category-title required">CREDENTIALS</p>
                   <mat-form-field appearance="outline" class="col-12">
                     <mat-select id="selCredentials" formControlName="Degree" placeholder="Credentials"
-                      [disableOptionCentering]="true"
-                      (mouseover)="viewModel.Degree=degree.value!= null && degree.value!=''"
-                      (mouseleave)="viewModel.Degree=false">
+                      [disableOptionCentering]="true">
                       <mat-option *ngFor="let cred of credentials" [value]="cred.credName">{{cred.credName}}
                       </mat-option>
                     </mat-select>
@@ -192,9 +190,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-4">
                   <p class="category-title required">SPECIALITY</p>
                   <mat-form-field appearance="outline" class="col-12">
-                    <mat-select placeholder="Speciality" formControlName="Speciality"
-                      (mouseover)="viewModel.Speciality=specialityvalue.value!= null && specialityvalue.value!=''"
-                      (mouseleave)="viewModel.Speciality=false" [disableOptionCentering]="true">
+                    <mat-select placeholder="Speciality" formControlName="Speciality">
                       <mat-option *ngFor="let spec of speciality" [value]="spec.specName">{{spec.specName}}</mat-option>
                     </mat-select>
                     <mat-icon matSuffix
@@ -273,7 +269,7 @@
                     </mat-form-field>
 
                     <div class="col-md-2 pt-1">
-                      <button mat-button class="reg-button col-md-12" (click)="AddressVerification()"
+                      <button mat-button class="reg-button col-md-12 pull-right" (click)="AddressVerification()"
                         [disabled]="addressVerified" [class.disable-button]="addressVerified">VERIFY</button>
                     </div>
 

@@ -211,8 +211,14 @@
     padding: 0px 70px 0px 0px !important;
   }
 
-  .dropdown-menu {
+  .input-drop .dropdown-menu {
     border: 1px solid #41b6a6 !important;
+    margin: -2px 0px !important;
+  }
+
+  .input-drop .dropdown-item:hover{
+    background-color: #fff;
+    cursor: pointer;
   }
 
   .btn-light {

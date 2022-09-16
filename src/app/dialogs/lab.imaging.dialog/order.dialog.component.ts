@@ -1,4 +1,4 @@
-import { HttpParams } from '@angular/common/http';
+
 import { PatientService } from 'src/app/_services/patient.service';
 import { MedicalCode } from 'src/app/_models/codes';
 import { AfterViewInit, Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
@@ -19,6 +19,7 @@ import { TestCode, TestCodeComponent } from './test.code.component';
 import { OverlayService } from 'src/app/overlay.service';
 import { FileUploadService } from 'src/app/_services/file.upload.service';
 import { DatePipe } from '@angular/common'
+import { UPLOAD_URL} from 'src/environments/environment'
 
 @Component({
   selector: 'app-order-dialog',
@@ -40,8 +41,8 @@ export class OrderDialogComponent implements OnInit, AfterViewInit {
   orderingFacilities: UserLocations[];
   saveClicked: boolean = false;
   diabledPatientSearch: boolean = false;
-  httpRequestParams = new HttpParams();
-  uploadTo: string = "LabandImage"
+  EntityName: string = "laborder"
+  fileUploadUrl:string;
 
   constructor(private ref: EHROverlayRef,
     private fb: FormBuilder,
@@ -55,18 +56,19 @@ export class OrderDialogComponent implements OnInit, AfterViewInit {
     private patientService: PatientService,
     private fileUploadService: FileUploadService,
     private datePipe: DatePipe) {
-    this.httpRequestParams = this.httpRequestParams.append("EntityName", "LabandImage");
     this.labandImaging = ref.RequestData as LabProcedureWithOrder;
+    this.fileUploadUrl = UPLOAD_URL('api/upload/UploadSingleFile')
 
-    if (this.labandImaging.LabProcedureId != null && this.labandImaging.LabProcedureId != "")
-      this.httpRequestParams = this.httpRequestParams.append("EntityId", this.labandImaging.LabProcedureId);
-
-    console.log(this.httpRequestParams);
 
     if (this.labandImaging.CurrentPatient == null)
       this.labandImaging.CurrentPatient = new PatientSearch();
     this.labandImaging.ProcedureType = this.labandImaging.View;
     this.orderingFacilities = JSON.parse(this.authService.userValue.LocationInfo) as UserLocations[];
+
+
+    if(this.labandImaging.StrAttachments!=undefined)
+      this.labandImaging.Attachments = JSON.parse(this.labandImaging.StrAttachments) as Attachment[];
+
   }
 
 
@@ -120,7 +122,6 @@ export class OrderDialogComponent implements OnInit, AfterViewInit {
     this.labandImaging.PatientId = this.labandImaging.CurrentPatient.PatientId;
     this.labandImaging.PatientName = this.labandImaging.CurrentPatient.Name;
     this.labandImaging.PrimaryPhone = this.labandImaging.CurrentPatient.PrimaryPhone;
-    //this.labandImaging.Se = this.labandImaging.CurrentPatient.PrimaryPhone;
 
   }
   displayWithPatientSearch(value: PatientSearch): string {
@@ -305,40 +306,7 @@ export class OrderDialogComponent implements OnInit, AfterViewInit {
       this.openComponentDialog(this.testCodeComponent, testCode);
   }
 
-  UploadCompleted(data) {
-    if (data.event.body) {
-      if (!this.labandImaging.Attachments) this.labandImaging.Attachments = [];
-      this.labandImaging.Attachments.push(data.event.body as Attachment)
-    }
-  }
-
-  ItemRemoved(attachmentId) {
-    this.removeAttachment(attachmentId);
-  }
-  removeAttachment(attachmentId) {
-    this.labandImaging.Attachments.forEach((value) => {
-      if (value.AttachmentId == attachmentId)
-        value.IsDeleted = true;
-    });
-  }
-  DeleteAttachment(attachmentId) {
-    this.removeAttachment(attachmentId);
-  }
-  showImage:boolean = false;
-  Imagedata:string;
-  showDocument(attachmentId) {
-    this.labandImaging.Attachments.forEach((value) => {
-      if (value.AttachmentId == attachmentId) {
-        this.labsImagingService.ImagetoBase64String(value).subscribe(resp =>{
-          if(resp.IsSuccess){
-            this.showImage = true;
-            console.log(resp.Result);
-            this.Imagedata = resp.Result;
-          }else{
-            this.showImage = false;
-          }
-        })
-      }
-    });
+  ItemsModified(data){
+    this.labandImaging.Attachments = data;
   }
 }

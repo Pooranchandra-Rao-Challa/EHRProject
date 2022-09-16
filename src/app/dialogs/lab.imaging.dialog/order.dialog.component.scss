@@ -107,50 +107,6 @@ mat-label {
   width: 100% !important;
 }
 
-
-
-.attachments {
-  margin-top: 20px;
-  .container-items{
-    border: 1px solid #41b6a6;
-
-    .items{
-      display: flex;
-      margin:10px;
-      div{
-        margin:10px;
-      }
-      div.remmove{
-        float: right;
-      }
-      div.item{
-        width: 75%;
-      }
-      .mat-icon{
-        color:#41b6a6;
-        background: #fff;
-        border: 1px solid #41b6a6;
-        font-size: 21px;
-        &:hover{
-          color:#fff;
-          background: #41b6a6;
-        }
-      }
-    }
-  }
-  .display-item{
-    border: 1px solid #41b6a6;
-    border-right: unset;
-    border-left: unset;
-  }
-  .upload-items{
-    border: 1px solid #41b6a6;;
-    background-color: rgba(65, 182, 166, 0.1);
-  }
-}
-
-
-
 .closefile {
   border-radius: 77%;
   background: #d64841;
@@ -171,25 +127,6 @@ mat-label {
 
 }
 
-.attchmentplusicon {
-  border-radius: 4px;
-  border: 1px solid #41b6a6;
-  background: #fff;
-  width: 70px;
-  height: 29px;
-  text-align: center;
-  cursor: pointer;
-  margin-left: 10px;
-}
-
-.attchmentplusicon .fa-plus {
-
-  padding: 5px 0px 0px 0px;
-  color: #41b6a6;
-  font-size: 16px;
-  font-family: "FontAwesome"
-}
-
 #labandimaging .mat-select-trigger {
   top: -4px;
   height: 1.5em;
@@ -197,39 +134,4 @@ mat-label {
 
 .mat-form-field {
   width: 100%;
-}
-.file-view {
-  padding-bottom: 10px;
-}
-
-.upload-btn-wrapper {
-  position: relative;
-  overflow: hidden;
-  float:right;
-  margin: 10px 0;
-
-
-  label {
-    background-color: #fff;
-    color: #41b6a6;
-    padding: 0.5rem;
-    font-family: sans-serif;
-    border-radius: 0.3rem;
-    border: 1px solid #41b6a6;
-    cursor: pointer;
-
-    &:hover{
-      background-color: #41b6a6;
-      color: #fff;
-    }
-  }
-}
-
-
-.upload-btn-wrapper input[type=file] {
-  font-size: 100px;
-  position: absolute;
-  left: 0;
-  top: 0;
-  opacity: 0;
 }

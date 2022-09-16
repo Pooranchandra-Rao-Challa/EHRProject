@@ -149,6 +149,7 @@ h3{
   color: #efefef !important;
   background-color: #fff;
   border-radius: 5px;
+  height: 45px;
 }
 ::ng-deep div#registration-form .mat-form-field-appearance-outline:hover .mat-form-field-outline {
   //border: .1em #41b6a6 !important;
@@ -221,10 +222,13 @@ a:hover {
   color: white !important;
 }
 ::ng-deep .mat-select-panel {
+  margin-top: 0px !important;
+  margin-left: -10px !important;
+  position: absolute !important;
+  top: 29px;
   min-width: calc(100% + 22px) !important;
-  padding-top:25px;
-  //margin-left: 5px !important;
 }
+
 .mat-option.mat-selected:not(.mat-option-disabled) {
   color: black;
   text-shadow: black;
@@ -369,13 +373,12 @@ mat-form-field{
   background-color: #41a6a6 !important;
 }
 .disable-button{
-  color:grey;
-  background-color: lightgray;
+  opacity: 0.5;
 }
-.disable-button:hover{
-  color:grey;
-  background-color: lightgray;
-}
+// .disable-button:hover{
+//   color:grey;
+//   background-color: lightgray;
+// }
 .error_message{
   z-index: 1000;
   position: absolute;

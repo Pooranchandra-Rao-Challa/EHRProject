@@ -3,7 +3,6 @@
     <div class="panel panel-default">
       <div class="panel-body">
         <div class="content">
-
           <div class="row ">
             <div class="col-md-2 ">
               <img src="assets/images/avatar-empty-white.svg" styclass="admin-side-logo mx-2" class="img">
@@ -11,7 +10,7 @@
             <div class="col-md-10">
               <div class="row">
                 <div class="col-lg-4 col-md-4 col-sm-12 col-12   ">
-                  <label>First Name<sub class="text-danger Helvetica-sans-serif-medium">*</sub></label>
+                  <label class="required Helvetica-sans-serif-medium">First Name</label>
                   <div class="form-group">
                     <mat-form-field class="grey-matform w-100" appearance="outline">
                       <input matInput placeholder="First Name" [(ngModel)]="PatientProfile.FirstName" id="FirstName"
@@ -39,8 +38,7 @@
                   </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-12 col-12">
-                  <label class="labelfontzise">Last Name<sub
-                      class="text-danger Helvetica-sans-serif-medium">*</sub></label>
+                  <label class="labelfontzise Helvetica-sans-serif-medium required">Last FullName</label>
                   <div class="form-group">
                     <mat-form-field class="grey-matform w-100" appearance="outline">
                       <input matInput placeholder="Last Name" [(ngModel)]="PatientProfile.LastName" id="LastName"
@@ -71,7 +69,6 @@
                       </mat-datepicker-toggle>
                       <mat-datepicker #dp disabled="false"></mat-datepicker>
                     </mat-form-field>
-
                   </div>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-6 col-12 "><label class="labelfontzise">Sex </label>
@@ -86,11 +83,10 @@
                     </mat-form-field>
                   </div>
                 </div>
-
-                <div class="col-lg-4 col-md-4 col-sm-4 col-12">
-                  <button type="button" class="btn btn-green save-button"
+                <div class="col-lg-4 col-12">
+                  <button type="button" class="btn btn-green save-button pull-right"
                     [ngClass]="(PatientProfile.FirstName==''||PatientProfile.FirstName==null
-                    ||PatientProfile.LastName==''||PatientProfile.LastName==null)? 'disable-button col-md-2': 'reg-button col-md-2'"
+                    ||PatientProfile.LastName==''||PatientProfile.LastName==null)? 'disable-button col-md-2 col-12': 'reg-button col-md-2 col-12'"
                     [disabled]="PatientProfile.FirstName==''||PatientProfile.FirstName==null||PatientProfile.LastName==''||PatientProfile.LastName==null"
                     (click)="updatePatientMyProfile()">Save</button>
                 </div>
@@ -100,7 +96,7 @@
                   <p>Account Access</p>
                   <div class="row controls">
                     <div class="col-lg-12 col-md-12 col-12">
-                      <button type="button" class="btn btn-green btn-sm btn-change me-md-3" data-bs-toggle="modal"
+                      <button type="button" class="btn btn-green btn-sm btn-change me-md-3 me-2" data-bs-toggle="modal"
                         data-bs-target="#staticBackdrop1">Change Password</button>
                       <button type="button" class="btn btn-green btn-sm btn-change" data-bs-toggle="modal"
                         data-bs-target="#exampleModal" (click)="getpatientsecurityQuestions()">
@@ -139,7 +135,6 @@
                 </mat-form-field>
               </div>
             </div>
-
             <div class="row mt-2">
               <label class="labelfontzise">Email </label>
               <div class="form-group">
@@ -149,7 +144,6 @@
                 </mat-form-field>
               </div>
             </div>
-
             <div class="row">
               <label class="labelfontzise mt-2">Home Phone </label>
               <div class="input-group mb-1">
@@ -188,10 +182,8 @@
                   <input matInput placeholder="Primary Phone Number" class="cstm-tel" type="tel"
                     [(ngModel)]="PatientProfile.WorkPhoneSuffix" mask="000-0000" [showMaskTyped]="true">
                 </mat-form-field>
-
               </div>
             </div>
-
             <div class="row">
               <h5 class="Helvetica-sans-serif-small">HOME ADDRESS</h5>
               <div class="col-md-9 mt-1">
@@ -200,13 +192,12 @@
                     [disabled]="disableaddressverification" [(ngModel)]="PatientProfile.Street">
                 </mat-form-field>
               </div>
-              <div class="col-md-3 mt-1">
+              <div class="col-md-3 mt-2">
                 <button type="button" class="btn btn-green verify-button"
                   [disabled]="!PatientProfile.Street || disableaddressverification"
                   (click)="AddressVerification()">VERIFY</button>
               </div>
             </div>
-
             <div class="row mt-1">
               <div class="col-md-7">
                 <mat-form-field appearance="outline" class="filed-border noHover col-md-12 ">
@@ -218,7 +209,6 @@
               <div class="col-md-1"><button type="button" class="btn cross-mark error-close"
                   *ngIf="addressVerfied && !manuallybtn" (click)="enableManualEntry()"
                   title="Can enter manully when the verification results are in correct by clicking this icon">x</button>
-
               </div>
               <div class="col-md-4  patient-street-address d-flex justify-content-end flex-sm-row flex-column">
                 <div class="form-group">
@@ -234,8 +224,6 @@
                 <input matInput readonly placeholder="City" [readonly]="!disableaddressverification"
                   [(ngModel)]="PatientProfile.city" id="city" name="city" #city="ngModel">
               </mat-form-field>
-
-
               <mat-form-field appearance="outline"
                 class="grey-matform noHover  col-lg-4 col-md-4 col-sm-12 col-12 mt-3 ">
                 <input matInput readonly placeholder="State" [readonly]="!disableaddressverification"
@@ -247,23 +235,18 @@
                   [(ngModel)]="PatientProfile.zip" id="zip" name="zip" #zip="ngModel">
               </mat-form-field>
             </div>
-
             <div class="row mb-3">
               <div class="d-flex justify-content-end">
                 <button type="button" class="btn btn-green btn-save" (click)="updateContactInform()">Save</button>
               </div>
             </div>
-
           </div>
         </div>
       </div>
-
       <div class="col-lg-6 col-md-12 col-sm-12 col-12">
         <h4 class="contctinfor">Emergency Contact</h4>
         <div class="panel panel-default">
           <div class="panel-body">
-
-
             <div class="row">
               <div class="col-lg-4 col-md-12 col-sm-12 col-12">
                 <label class="labelfontzise">First Name</label>
@@ -293,7 +276,6 @@
                 </div>
               </div>
             </div>
-
             <div class="row mt-2">
               <mat-label>Relationship to Patient</mat-label>
               <mat-form-field appearance="outline" class="dropdown grey-matform col-lg-12 col-md-12 col-sm-12 col-12 ">
@@ -325,7 +307,6 @@
                 </mat-form-field>
               </div>
             </div>
-
             <div class="row">
               <mat-label>Email</mat-label>
               <mat-form-field appearance="outline" class="grey-matform col-lg-12 col-md-12 col-sm-12 col-12">
@@ -333,7 +314,6 @@
                   name="EmergencyEmail" #EmergencyEmail="ngModel">
               </mat-form-field>
             </div>
-
             <div class="row mt-1">
               <h5 class="Helvetica-sans-serif-small">HOME ADDRESS</h5>
               <div class="col-md-9 mt-1">
@@ -342,13 +322,12 @@
                     [disabled]="emergencydisableaddressverification" [(ngModel)]="PatientProfile.EmergencyStreet">
                 </mat-form-field>
               </div>
-              <div class="col-md-3 mt-1">
+              <div class="col-md-3 mt-2">
                 <button type="button" class="btn btn-green verify-button"
                   [disabled]="!PatientProfile.EmergencyStreet || emergencydisableaddressverification"
                   (click)="emergencyAddressVerfied()">VERIFY</button>
               </div>
             </div>
-
             <div class="row mt-1">
               <div class="col-md-7">
                 <mat-form-field appearance="outline" class="filed-border noHover col-md-12">
@@ -361,7 +340,6 @@
               <div class="col-md-1"><button type="button" class="btn cross-mark error-close"
                   *ngIf="emergencyAdressVerfied && !emergencyManuallybtn" (click)="emergencyEnableManualEntry()"
                   title="Can enter manully when the verification results are in correct by clicking this icon">x</button>
-
               </div>
               <div class="col-md-4  patient-street-address d-flex justify-content-end flex-sm-row flex-column">
                 <div class="form-group">
@@ -370,197 +348,180 @@
                     (click)="emergencyAddressEnterManually()">Enter Address Manually</button>
                 </div>
               </div>
-              <div class="row ">
-                <mat-form-field appearance="outline"
-                  class="grey-matform noHover col-lg-4 col-md-4 col-sm-12 col-12 mt-3">
-                  <input matInput readonly placeholder="City" [(ngModel)]="PatientProfile.EmergencyCity"
-                    id="EmergencyCity" name="EmergencyCity" #EmergencyCity="ngModel"
-                    [readonly]="!emergencydisableaddressverification">
-                </mat-form-field>
-
-
-                <mat-form-field appearance="outline"
-                  class="grey-matform noHover col-lg-4 col-md-4 col-sm-12 col-12 mt-3">
-                  <input matInput readonly placeholder="State" [(ngModel)]="PatientProfile.EmergencyState"
-                    id="EmergencyState" name="EmergencyState" #EmergencyState="ngModel"
-                    [readonly]="!emergencydisableaddressverification">
-                </mat-form-field>
-
-                <mat-form-field appearance="outline"
-                  class="grey-matform noHover col-lg-4 col-md-4 col-sm-12 col-12 mt-3">
-                  <input matInput readonly placeholder="Zip" [(ngModel)]="PatientProfile.EmergencyZip" id="EmergencyZip"
-                    name="EmergencyZip" #EmergencyZip="ngModel" [readonly]="!emergencydisableaddressverification">
-                </mat-form-field>
-              </div>
-
-              <div class="row mb-3">
-                <div class="d-flex justify-content-end">
-                  <button type="button" class="btn btn-green btn-save" (click)="updateEmergencyContact()">Save</button>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-
-
-
-
-  <div class="modal fade" id="staticBackdrop1" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true" data-backdrop="static">
-    <div class="modal-dialog">
-      <div class="modal-content body">
-        <div class="modal-header">
-          <h4 class="Helvetica-sans-serif-medium">Edit Password</h4>
-          <span type="button" class="cross-mark" data-bs-dismiss="modal">
-            X
-          </span>
-        </div>
-        <div class="modal-body">
-          <div class="content">
-
-            <div class="row mt-3">
-              <div class="col-lg-12">
-                <label>Email Address</label>
-              </div>
-              <div class="col-lg-12 ">
-                <div class="form-group ">
-                  <mat-form-field class="grey-matform w-100" appearance="outline">
-                    <input matInput placeholder="E-Mail">
-                  </mat-form-field>
-                </div>
-              </div>
-            </div>
-            <div class="row mt-3">
-              <div class="col-lg-12">
-                <label>New Password</label>
-              </div>
-              <div class="col-lg-12">
-                <div class="form-group ">
-                  <mat-form-field class="grey-matform w-100" appearance="outline">
-                    <input matInput placeholder="New Password">
-                  </mat-form-field>
-                </div>
-              </div>
-            </div>
-            <div class="row mt-3">
-              <div class="col-lg-12">
-                <label>New Password Confirmation</label>
-              </div>
-              <div class="col-lg-12 ">
-                <div class="form-group ">
-                  <mat-form-field class="grey-matform w-100" appearance="outline">
-                    <input matInput placeholder="New Password Confirmation">
-                  </mat-form-field>
-                </div>
-              </div>
-            </div>
-            <div class="row mt-3">
-              <button type="button" class="btn btn-green down-button">Save
-              </button>
-            </div>
-
-            <!-- end personal info -->
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content body">
-        <div class="modal-header">
-          <h4 class="Helvetica-sans-serif-medium">CHANGE SECURITY QUESTION</h4>
-          <span type="button" class="cross-mark" data-bs-dismiss="modal">
-            X
-          </span>
-        </div>
-        <div class="modal-body">
-          <div class="content">
-
-            <p>
-              Answer your existing security question in order to create a new one. Please choose a question you can
-              remember! You will get locked out of your portal if you are unable to answer correctly.
-            </p>
-            <h5 class="title">EXISTING QUESTION:</h5>
-            <p>{{patientProfileSecurityQuestion?.Question}}</p>
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="form-group">
-                  <label class="title">ANSWER</label>
-                </div>
-              </div>
-              <div class="col-lg-12 ">
-                <div class="form-group ">
-                  <mat-form-field class="grey-matform w-100" appearance="outline">
-                    <input matInput value="{{patientProfileSecurityQuestion?.Answer}}">
-                  </mat-form-field>
-                </div>
-              </div>
             </div>
             <div class="row ">
-              <div class="col-lg-12">
-                <div class="form-group">
-                  <label class="title">NEW QUESTION</label>
-                </div>
-              </div>
-              <div class="col-lg-12">
-                <div class="form-group ">
-                  <mat-form-field appearance="outline"
-                    class="dropdown grey-matform col-lg-12 col-md-12 col-sm-12 col-12">
-                    <mat-select placeholder="In what city was your first job?"
-                      [(ngModel)]="updateSecurityQuestion.Question">
-                      <mat-option class="menu" *ngFor="let question of questions" [value]="question.key">
-                        {{question.value}}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-                <hr>
-              </div>
+              <mat-form-field appearance="outline" class="grey-matform noHover col-lg-4 col-md-4 col-sm-12 col-12 mt-3">
+                <input matInput readonly placeholder="City" [(ngModel)]="PatientProfile.EmergencyCity"
+                  id="EmergencyCity" name="EmergencyCity" #EmergencyCity="ngModel"
+                  [readonly]="!emergencydisableaddressverification">
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="grey-matform noHover col-lg-4 col-md-4 col-sm-12 col-12 mt-3">
+                <input matInput readonly placeholder="State" [(ngModel)]="PatientProfile.EmergencyState"
+                  id="EmergencyState" name="EmergencyState" #EmergencyState="ngModel"
+                  [readonly]="!emergencydisableaddressverification">
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="grey-matform noHover col-lg-4 col-md-4 col-sm-12 col-12 mt-3">
+                <input matInput readonly placeholder="Zip" [(ngModel)]="PatientProfile.EmergencyZip" id="EmergencyZip"
+                  name="EmergencyZip" #EmergencyZip="ngModel" [readonly]="!emergencydisableaddressverification">
+              </mat-form-field>
             </div>
-            <div class="row ">
-              <div class="col-lg-12">
-                <div class="form-group">
-                  <label class="title">ANSWER</label>
-                </div>
-              </div>
-              <div class="col-lg-12 ">
-                <div class="form-group ">
-                  <mat-form-field class="grey-matform w-100" appearance="outline">
-                    <input matInput [(ngModel)]="updateSecurityQuestion.Answer">
-                  </mat-form-field>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <label class="title ">IMPORTANT</label>
-              <mat-checkbox class="grey-matform example-margin mt-2 mr-2"
-                [(ngModel)]="updateSecurityQuestion.ConfiramationActive">
-                <mat-label class="checkbox-label">I understand my access to patients portal will be locked if I am
-                  unable to answer this question</mat-label>
-              </mat-checkbox>
-            </div>
-
-            <div class="row mt-4">
+            <div class="row mb-3">
               <div class="d-flex justify-content-end">
-                <button type="button" class="btn btn-green mx-2 " data-bs-dismiss="modal"
-                  (click)="ChangeSecurityQuestion(updateSecurityQuestion)" [disabled]="enableSave()">Change</button>
-                <button type="button" class="btn btn-green" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-green btn-save" (click)="updateEmergencyContact()">Save</button>
               </div>
             </div>
-
-
-            <!-- end personal info -->
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
+
+
+<div class="modal fade" id="staticBackdrop1" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content body">
+      <div class="modal-header">
+        <h4 class="Helvetica-sans-serif-medium">Edit Password</h4>
+        <span type="button" class="cross-mark" data-bs-dismiss="modal">
+          X
+        </span>
+      </div>
+      <div class="modal-body">
+        <div class="content">
+          <div class="row mt-3">
+            <div class="col-lg-12">
+              <label>Email Address</label>
+            </div>
+            <div class="col-lg-12 ">
+              <div class="form-group ">
+                <mat-form-field class="grey-matform w-100" appearance="outline">
+                  <input matInput placeholder="E-Mail">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-lg-12">
+              <label>New Password</label>
+            </div>
+            <div class="col-lg-12">
+              <div class="form-group ">
+                <mat-form-field class="grey-matform w-100" appearance="outline">
+                  <input matInput placeholder="New Password">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-lg-12">
+              <label>New Password Confirmation</label>
+            </div>
+            <div class="col-lg-12 ">
+              <div class="form-group ">
+                <mat-form-field class="grey-matform w-100" appearance="outline">
+                  <input matInput placeholder="New Password Confirmation">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-end mx-1">
+            <button type="button" class="btn btn-green down-button pull-right">Save
+            </button>
+          </div>
+          <!-- end personal info -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content body">
+      <div class="modal-header">
+        <h4 class="Helvetica-sans-serif-medium">CHANGE SECURITY QUESTION</h4>
+        <span type="button" class="cross-mark" data-bs-dismiss="modal">
+          X
+        </span>
+      </div>
+      <div class="modal-body">
+        <div class="content">
+          <p>
+            Answer your existing security question in order to create a new one. Please choose a question you can
+            remember! You will get locked out of your portal if you are unable to answer correctly.
+          </p>
+          <h5 class="title">EXISTING QUESTION:</h5>
+          <p>{{patientProfileSecurityQuestion?.Question}}</p>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="form-group">
+                <label class="title">ANSWER</label>
+              </div>
+            </div>
+            <div class="col-lg-12 ">
+              <div class="form-group ">
+                <mat-form-field class="grey-matform w-100" appearance="outline">
+                  <input matInput value="{{patientProfileSecurityQuestion?.Answer}}">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="row ">
+            <div class="col-lg-12">
+              <div class="form-group">
+                <label class="title">NEW QUESTION</label>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="form-group ">
+                <mat-form-field appearance="outline" class="dropdown grey-matform col-lg-12 col-md-12 col-sm-12 col-12">
+                  <mat-select placeholder="In what city was your first job?"
+                    [(ngModel)]="updateSecurityQuestion.Question">
+                    <mat-option class="menu" *ngFor="let question of questions" [value]="question.key">
+                      {{question.value}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <hr>
+            </div>
+          </div>
+          <div class="row ">
+            <div class="col-lg-12">
+              <div class="form-group">
+                <label class="title">ANSWER</label>
+              </div>
+            </div>
+            <div class="col-lg-12 ">
+              <div class="form-group ">
+                <mat-form-field class="grey-matform w-100" appearance="outline">
+                  <input matInput [(ngModel)]="updateSecurityQuestion.Answer">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <label class="title ">IMPORTANT</label>
+            <mat-checkbox class="grey-matform example-margin mt-2 mr-2"
+              [(ngModel)]="updateSecurityQuestion.ConfiramationActive">
+              <mat-label class="checkbox-label">I understand my access to patients portal will be locked if I am
+                unable to answer this question</mat-label>
+            </mat-checkbox>
+          </div>
+
+          <div class="row mt-4">
+            <div class="d-flex justify-content-end">
+              <button type="button" class="btn btn-green mx-2 " data-bs-dismiss="modal"
+                (click)="ChangeSecurityQuestion(updateSecurityQuestion)" [disabled]="enableSave()">Change</button>
+              <button type="button" class="btn btn-green" data-bs-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+          <!-- end personal info -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
