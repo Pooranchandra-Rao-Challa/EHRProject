@@ -2,19 +2,27 @@
   <div id="spinner"></div>
   <div id="message">{{ message }}</div>
 </div>
-<div class="login img-responsive" *ngIf="!showspinner">
-  <div class="one-ehr-images pt-4 pb-4">
-    <div class="ehr-img-top">
-      <div class="text-center logo-rectangle">
-        <img width="232" height="88" src="assets/images/EHR.svg">
+<div class="login img-responsive" id="login-form" *ngIf="!showspinner">
+  <div id="signin-wrapper" class="authorization-signin-wrapper">
+   <div class="authorization-top">
+      <div class="string">
+        <div class="string-top">
+          <div class="image-center">
+            <img width="232" height="88" alt="EHR1 Logo" src="assets/images/EHR.svg" />
+          </div>
+          <div class="container">
+            <div class="string-top-container">
+              <a class="string-top-home-link" href="/">
+                <img width="146" height="248" alt="EHR1 One Num Logo" src="assets/images/one.svg" />
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="text-center" style="margin-top:-91px">
-      <img width="146" height="248" class="img-fluid" src="assets/images/one.svg">
     </div>
   </div>
   <div class="content-top">
-    <div class="container cstm-container pt-3">
+    <div class="container">
       <h2 class="signup">PLEASE SIGN IN TO VIEW YOUR ACCOUNT</h2>
       <h4 class="sign">
         Don't have an account yet?
@@ -25,7 +33,7 @@
   </div>
   <div class="content">
     <div>
-      <div class="container cstm-container pt-2 pb-4" id="flexbox">
+      <div class="container pt-2 pb-4" id="flexbox">
         <!-- Top header -->
         <div class="row top-header">
           <div class="col-lg-4 col-md-6 col-sm-12">
@@ -62,11 +70,13 @@
             </div>
           </div>
           <div class="col-lg-6 col-md-6 col-sm-12 px-5">
-            <div class="row">
+            <div class="row" style="    margin: unset;
+            padding: unset;
+            width: 82%; float: right;">
               <div class="col-lg-6 col-md-12 vediologo col-sm-12 ">
                 <img src="assets/videologo.png" />
               </div>
-              <div class="col-lg-6 heding ">
+              <div class="col-lg-6 heading ">
                 <div>(Ask us how to join)</div>
               </div>
 
@@ -76,7 +86,9 @@
                 </video>
               </div>
             </div>
-            <div class="video-content">
+            <div class="video-content" style="    margin: unset;
+            padding: unset;
+            width: 82%; float: right;">
               <ul>
                 <li><i></i>Cut prescription errors down from<strong> 42.5% to 6%</strong></li>
                 <li>

@@ -1,10 +1,11 @@
 <div class="container-fluid">
-  <div class="row " style="border-bottom:3px solid #41b6a6;">
+  <div class="row">
     <div class="d-flex justify-content-end flex-sm-row flex-column">
-      <div class="p-2"><button type="button" class="btn btn-md btn-danger btn-authorized">Authorized Rep.</button>
+      <div class="p-2">
+        <!-- <button type="button" class="btn btn-md btn-danger btn-authorized">Authorized Rep.</button> -->
       </div>
       <div class="p-2">
-        <button type="button" class="btn btn-md btn-green btn-authorized" disabled>Print</button>
+         <!-- <button type="button" class="btn btn-md btn-green btn-authorized" disabled>Print</button>  -->
       </div>
     </div>
   </div>
@@ -49,7 +50,7 @@
       </mat-row>
     </mat-table>
   </div>
-  <div class="modal Patient-Education " id="modal-Patient-Education" data-bs-keyboard="false" tabindex="-1"
+  <div class="modal modal-amendments" id="modal-Patient-Education" data-bs-keyboard="false" tabindex="-1"
     aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -62,7 +63,7 @@
             X
           </span>
         </div>
-        <div class="modal-body divScroll">
+        <div class="modal-body">
           <div class="row">
             <mat-label class="Helvetica-sans-serif-medium required">Date Requested:</mat-label>
             <mat-form-field appearance="outline" class="calendaralignment green-calendar col-lg-7 col-md-7">
@@ -71,8 +72,8 @@
               <mat-datepicker-toggle matSuffix [for]="DateRequest"></mat-datepicker-toggle>
               <mat-datepicker #DateRequest></mat-datepicker>
             </mat-form-field>
-            <div class="col-lg-4 col-md-5">
-              <button class="btn btn-green btn-today col-12" (click)="todayDateforDateRequested()">Today</button>
+            <div class="col-lg-5 col-md-5">
+              <button class="btn btn-green btn-today col-12 pull-right"(click)="todayDateforDateRequested()">Today</button>
             </div>
           </div>
           <div class="row">
@@ -83,8 +84,8 @@
               <mat-datepicker-toggle matSuffix [for]="DateAccepted"></mat-datepicker-toggle>
               <mat-datepicker #DateAccepted></mat-datepicker>
             </mat-form-field>
-            <div class="col-lg-4 col-md-5">
-              <button class="btn btn-green btn-today col-12" (click)="todayDateforDateAcceptedorDenied()">Today</button>
+            <div class="col-lg-5 col-md-5">
+              <button class="btn btn-green btn-today col-12 pull-right" (click)="todayDateforDateAcceptedorDenied()">Today</button>
             </div>
           </div>
           <div class="row">
@@ -95,8 +96,8 @@
               <mat-datepicker-toggle matSuffix [for]="DateAppended"></mat-datepicker-toggle>
               <mat-datepicker #DateAppended></mat-datepicker>
             </mat-form-field>
-            <div class="col-lg-4 col-md-5">
-              <button class="btn btn-green btn-today col-12" (click)="todayforDateAppended()">Today</button>
+            <div class="col-lg-5 col-md-5">
+              <button class="btn btn-green btn-today col-12 pull-right" (click)="todayforDateAppended()">Today</button>
             </div>
           </div>
           <div class="row">

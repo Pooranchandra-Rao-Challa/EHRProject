@@ -2,7 +2,7 @@
   <div id="spinner"></div>
 </div>
 <div class="patients-wrapper">
-  <div class="patients-navigation d-none d-lg-block">
+  <div class="patients-navigation"><!-- d-none d-lg-block -->
     <ng-template #patientbreadcrumb></ng-template>
     <div class="clearfix"></div>
   </div>
@@ -91,13 +91,12 @@
             </mat-header-cell>
             <mat-cell *matCellDef="let patient"> {{patient?.Age}} </mat-cell>
           </ng-container>
-
           <ng-container matColumnDef="ContactInfo">
             <mat-header-cell *matHeaderCellDef>CONTACT INFO</mat-header-cell>
             <mat-cell *matCellDef="let patient">
-              <span>
-                {{patient?.MobilePhone}}
-                <br>
+              <span >
+                <p *ngIf="patient?.MobilePhone!=null " style="margin: auto;">H:{{patient?.MobilePhone}} </p>
+                <p *ngIf="patient?.PrimaryPhone!=null" style="margin:auto;">P:{{patient?.PrimaryPhone}}</p> 
                 {{patient?.Email}}
               </span>
             </mat-cell>

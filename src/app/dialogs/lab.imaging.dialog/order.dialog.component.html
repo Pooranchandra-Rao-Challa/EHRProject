@@ -1,6 +1,6 @@
 <div id="labandImaging" class="modal-dialog modal-lg">
   <div class="modal-content">
-    <div class="modal-header" style="margin-left:-1px">
+    <div class="modal-header" style="margin-left:-1px;margin-top:-1px">
       <p class="modal-title Roboto-medium">{{labandImaging.LabProcedureId != null ? "Edit" : "Add"}}
         {{labandImaging.View}} Order </p>
       <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close" (click)="cancel()">
@@ -16,7 +16,7 @@
             <input matInput #searchpatient class="form-control" placeholder="Search Patient" type="text"
               id="searchpatient" name="searchpatient" [matAutocomplete]="serachpatient"
               [disabled]="diabledPatientSearch" [readonly]="diabledPatientSearch"
-              [class.disabled-color]="diabledPatientSearch" />
+              [class.disabled-color]="diabledPatientSearch" [(ngModel)]="labandImaging.CurrentPatient" />
             <mat-autocomplete [displayWith]="displayWithPatientSearch" #serachpatient="matAutocomplete"
               (optionSelected)="onPatientSelected($event)">
               <mat-option *ngIf="isLoading">Loading ...</mat-option>
@@ -216,67 +216,60 @@
         </div>
       </div>
 
-      <form [formGroup]="formGroups">
-        <div class="pattach">
-          <div class="container-fluid">
-            <div class="row">
+      <app-attachment [EntityName]="EntityName" [EntityId]="labandImaging.LabProcedureId"
+      [Attachments]="labandImaging.Attachments" (onItemsModify)="ItemsModified($event)"
+      [acceptPdf]="true" [fileSize]="1" [httpUrl]="fileUploadUrl"></app-attachment>
+<!--
 
-              <div class="col-lg-10 col-10">
-                <p class="title mt-3"><b>Attachments:</b></p>
+      <div class="attachments" style="display:flex">
+        <div class="container-items col-lg-3 col-md-3 col-3 col-sm-3">
+          <div class="row">
+            <div class="items" *ngFor="let attachment of labandImaging.Attachments">
+                <div class="item" (click)="showDocument(attachment.AttachmentId)">{{attachment.FileName}}</div>
+                <div for="forremove" class="remove" (click)="DeleteAttachment(attachment.AttachmentId)">
+                  <mat-icon>delete</mat-icon>
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="display-item col-lg-6 col-md-6 col-6 col-sm-6">
+          <div *ngIf="showImage">
+            <img [src]="Imagedata">
+          </div>
+        </div>
+
+        <div class="upload-items col-lg-3 col-md-3 col-3 col-sm-3" style="float: right;">
+        <div class="container-fluid" style="clear:both">
+          <div class="row">
+            <div class="col-lg-10 col-10">
+              <p class="title mt-4"><b>Attachments:</b></p>
+            </div>
+            <div class="col-lg-2 col-2">
+              <div class="upload-btn-wrapper">
+                <label for="singleFile">
+                  <mat-icon>attach_file</mat-icon>
+                </label>
+                <input id="singleFile" name="myFile" type="file" hidden="true"
+                  [fileUploadInputFor]="fileUploadQueue" />
               </div>
-              <div class="col-lg-2 mt-2 col-2" style="margin-top: 0.75rem !important;">
-                <button class="attchmentplusicon icon-border pull-right" type="button" (click)="attachements()">
-                  <i class="fa fa-plus"></i>
-                </button>
+            </div>
+            <div>
+              <div class="col-lg-12 col-md-12 col-12 col-sm-12">
+                <file-upload-queue #fileUploadQueue [fileAlias]="uploadTo" [httpRequestParams]="httpRequestParams"
+                  [httpUrl]="'http://localhost:4345/api/upload/UploadSingleFile'">
+                  <file-upload [file]="file" [id]="i" *ngFor="let file of fileUploadQueue.files; let i = index"
+                    [httpRequestParams]="httpRequestParams" [fileAlias]="uploadTo"
+                    (onUpload)="UploadCompleted($event)" (onItemRemove)="ItemRemoved($event)">
+                  </file-upload>
+                </file-upload-queue>
               </div>
             </div>
           </div>
         </div>
-        <!-- <div>
-          <file-upload requiredFileType="jpg,jpeg,png,gif,pdf.doc,xls,docx,xlsx,tiff" locationToUpload="LabandImage"></file-upload>
-        </div> -->
-        <div formArrayName="attachments" class="row">
-          <div *ngFor="let atta of attachments.controls; let i=index ">
-            <div [formGroupName]="i" style="border: 1px solid #41b6a6; padding: 8px; border-top:unset">
-              <div class="row" style="align-items: center;">
-                <label for="singleFile">Upload file</label>
-                <input id="singleFile" type="file" [fileUploadInputFor]="fileUploadQueue" (change)="onFileSelected($event)"/>
-                <br>
-                <!-- <mat-file-upload-queue #fileUploadQueue [fileAlias]="file" [httpUrl]="uploadurl">
-                  <mat-file-upload [file]="file" [id]="i" *ngFor="let file of fileUploadQueue.files; let i = index" onUpload="UploadCompleated(file,event)">
-                  </mat-file-upload>
-                </mat-file-upload-queue> -->
-                <!-- <file-upload requiredFileType="jpg,jpeg,png,gif,pdf.doc,xls,docx,xlsx,tiff" locationToUpload="LabandImage"></file-upload> -->
-                <!-- <div class="col-md-1  pt-2 pb-2" style="display: none;">
-                  <input type="file" class="file-input" [accept]="requiredFileType" #fileUpload> -->
-                <!-- (change)="onFileSelected($event)"-->
-                <!-- </div> -->
-                <!-- <div class="file-upload col-md-5" style="display: inline-flex">
-                  <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
-                    <mat-icon>attach_file</mat-icon>
-                  </button>
-                </div>
-                <div class="progress col-md-5" *ngIf="uploadProgress">
-                  <mat-progress-bar class="progress-bar" mode="determinate" [value]="uploadProgress">
-                  </mat-progress-bar>
-                  <mat-icon class="cancel-upload" (click)="cancelUpload()">delete_forever
-                  </mat-icon>
-                </div> -->
-                <!-- <div class="col-md-1" style="padding-top: 8px;">
-                  <mat-icon class="closefile" (click)="removeAttachemnt(i)">cancel</mat-icon>
-                </div> -->
-                <!-- <div class="col-md-1  pt-2 pb-2">
-                  <input type="file" formControlName="file" #upload{{i}}>
-                </div>
-                <div class="col-md-10"></div>
-                <div class="col-md-1" style="padding-top: 8px;">
-                  <mat-icon class="closefile" (click)="removeAttachemnt(i)">close</mat-icon>
-                </div> -->
-              </div>
-            </div>
-          </div>
-        </div>
-      </form>
+      </div>
+      </div> -->
+
     </div>
     <div class="modal-footer">
       <button mat-raised-button type="submit" class="btn btn-green   pull-right" (click)="save()"

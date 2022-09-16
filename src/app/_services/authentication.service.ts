@@ -115,7 +115,10 @@ export class AuthenticationService {
     return this.http.post<any>(endpointUrl, creds);
   }
 
-
+  ValidatePatientChangePasswordInputs(creds: any) {
+    const endpointUrl = this.baseUrl + "ValidatePatientChangePasswordInputs";
+    return this.http.post<any>(endpointUrl, creds);
+  }
 
 
 

@@ -137,6 +137,11 @@ export class WeeklyUpdatedComponent implements OnInit {
         title: 'Are you sure you want to change the status',
         showCancelButton: true,
         confirmButtonText: 'Yes',
+        confirmButtonColor:'#337ab7',
+        customClass: {
+          title: 'swal2-title-message'
+        
+        }
         // cancelButtonText: 'No'
       }).then((result) => {
         if (result.value) {
@@ -160,6 +165,11 @@ export class WeeklyUpdatedComponent implements OnInit {
         title: 'Are you sure you want to delete the record',
         showCancelButton: true,
         confirmButtonText: 'Yes',
+        confirmButtonColor:'#337ab7',
+        customClass: {
+          title: 'swal2-title-message'
+        
+        }
       }).then((result) => {
         if (result.value) {
           this.deleteWeeklyUpdated(id);

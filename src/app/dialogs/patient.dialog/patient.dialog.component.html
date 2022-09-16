@@ -97,7 +97,7 @@
             <div class="input-group">
               <label class="control-label input-group-addon">Cell Phone</label>
               <input class="form-control" placeholder="Cell Phone" type="tel" mask=" (000) 000-0000" prefix="+1"
-                placeHolderCharacter="0" name="cellPhone" [showMaskTyped]="true" [patterns]="PhonePattern"
+               [showMaskTyped]="true" [patterns]="PhonePattern"
                 [(ngModel)]="PatientData.CellPhone" [ngModelOptions]="{standalone: true}" />
             </div>
           </div>
@@ -106,9 +106,9 @@
           <div class="form-group">
             <div class="input-group">
               <label class="control-label input-group-addon">Home Phone</label>
-              <input class="form-control" placeholder="Home Phone" type="tel" mask=" (000) 000-0000" name="homephone"
+              <input class="form-control" placeholder="Home Phone" type="tel" mask=" (000) 000-0000" 
                 [ngModelOptions]="{standalone: true}" [showMaskTyped]="true" [patterns]="PhonePattern" prefix="+1"
-                [(ngModel)]="PatientData.Homephone" placeHolderCharacter="0" />
+                [(ngModel)]="PatientData.Homephone"  />
             </div>
           </div>
         </div>

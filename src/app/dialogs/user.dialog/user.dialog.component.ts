@@ -167,7 +167,6 @@ export class UserDialogComponent implements OnInit {
     {
       this.settingsService.ChangePassword(result).subscribe(resp => {
         if (resp.IsSuccess) {
-          //this.ref.close({'saved':'true'});
           this.alertmsg.displayMessageDailog(ERROR_CODES["M2JP009"]);
         }
         else {

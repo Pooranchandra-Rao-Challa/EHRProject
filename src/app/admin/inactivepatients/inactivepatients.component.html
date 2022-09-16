@@ -24,40 +24,40 @@
                       matSort matSortActive="FullName" matSortDirection="asc" matSortDisableClear>
 
                       <ng-container matColumnDef="Name">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header="FullName">Name</mat-header-cell>
+                        <mat-header-cell *matHeaderCellDef mat-sort-header="FullName"><b>Name</b></mat-header-cell>
                         <mat-cell *matCellDef="let patient">
                           {{patient?.FullName}}
                         </mat-cell>
                       </ng-container>
 
                       <ng-container matColumnDef="Email">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header="Email">Email</mat-header-cell>
+                        <mat-header-cell *matHeaderCellDef mat-sort-header="Email"><b>Email</b></mat-header-cell>
                         <mat-cell *matCellDef="let patient">
                           {{patient?.Email}}
                         </mat-cell>
                       </ng-container>
 
                       <ng-container matColumnDef="PatientPortalAccount">
-                        <mat-header-cell *matHeaderCellDef>Patient Portal Account</mat-header-cell>
+                        <mat-header-cell *matHeaderCellDef><b>Patient Portal Account</b></mat-header-cell>
                         <mat-cell *matCellDef="let patient">
                           {{patient?.PatientPortalAccount}}
                         </mat-cell>
                       </ng-container>
 
                       <ng-container matColumnDef="Phone">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header="Phone">Phone</mat-header-cell>
+                        <mat-header-cell *matHeaderCellDef mat-sort-header="Phone"><b>Phone</b></mat-header-cell>
                         <mat-cell *matCellDef="let patient">
                           {{patient?.Phone}}
                         </mat-cell>
                       </ng-container>
 
                       <ng-container matColumnDef="Address">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header="Address">Address</mat-header-cell>
+                        <mat-header-cell *matHeaderCellDef mat-sort-header="Address"><b>Address</b></mat-header-cell>
                         <mat-cell *matCellDef="let patient"> {{patient?.Address}} </mat-cell>
                       </ng-container>
 
                       <ng-container matColumnDef="Status">
-                        <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+                        <mat-header-cell *matHeaderCellDef><b>Status</b></mat-header-cell>
                         <mat-cell *matCellDef="let patient">
                             {{patient?.Active | active}}
                         </mat-cell>

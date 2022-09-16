@@ -1,3 +1,4 @@
+
 import { PatientService } from 'src/app/_services/patient.service';
 import { MedicalCode } from 'src/app/_models/codes';
 import { AfterViewInit, Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
@@ -7,7 +8,7 @@ import { ComponentType } from '@angular/cdk/portal';
 import { filter, map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
 import { Actions, PatientSearch, UserLocations, } from 'src/app/_models';
-import { LabProcedureWithOrder, TestOrder } from 'src/app/_models/_provider/LabandImage';
+import { Attachment, LabProcedureWithOrder, TestOrder } from 'src/app/_models/_provider/LabandImage';
 import { PracticeProviders } from 'src/app/_models/_provider/practiceProviders';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
@@ -18,14 +19,14 @@ import { TestCode, TestCodeComponent } from './test.code.component';
 import { OverlayService } from 'src/app/overlay.service';
 import { FileUploadService } from 'src/app/_services/file.upload.service';
 import { DatePipe } from '@angular/common'
-import { UPLOAD_URL } from 'src/environments/environment';
+import { UPLOAD_URL} from 'src/environments/environment'
 
 @Component({
   selector: 'app-order-dialog',
   templateUrl: './order.dialog.component.html',
   styleUrls: ['./order.dialog.component.scss']
 })
-export class OrderDialogComponent implements OnInit,AfterViewInit {
+export class OrderDialogComponent implements OnInit, AfterViewInit {
   @ViewChild('searchpatient', { static: true }) searchpatient: ElementRef;
   filteredPatients: Observable<PatientSearch[]>;
   orderTypeDD = [{ value: 'Lab', viewValue: 'Lab' }, { value: 'Imaging', viewValue: 'Imaging' }]
@@ -40,7 +41,9 @@ export class OrderDialogComponent implements OnInit,AfterViewInit {
   orderingFacilities: UserLocations[];
   saveClicked: boolean = false;
   diabledPatientSearch: boolean = false;
-  uploadurl = UPLOAD_URL("LabandImage");
+  EntityName: string = "laborder"
+  fileUploadUrl:string;
+
   constructor(private ref: EHROverlayRef,
     private fb: FormBuilder,
     private utilityService: UtilityService,
@@ -53,52 +56,21 @@ export class OrderDialogComponent implements OnInit,AfterViewInit {
     private patientService: PatientService,
     private fileUploadService: FileUploadService,
     private datePipe: DatePipe) {
-
     this.labandImaging = ref.RequestData as LabProcedureWithOrder;
+    this.fileUploadUrl = UPLOAD_URL('api/upload/UploadSingleFile')
+
 
     if (this.labandImaging.CurrentPatient == null)
       this.labandImaging.CurrentPatient = new PatientSearch();
     this.labandImaging.ProcedureType = this.labandImaging.View;
     this.orderingFacilities = JSON.parse(this.authService.userValue.LocationInfo) as UserLocations[];
-  }
 
-  onFileSelected(event) {
-    const uploadurl = UPLOAD_URL("LabandImage");
-    const file: File = event.target.files[0];
-    console.log(file);
-    this.fileUploadService.upload("LabandImage",file);
-    // const url = this.plaformLocation.href.replace(this.plaformLocation.pathname, '/');
-    // console.log(url);
 
-    // if (file) {
-    //   let fileName = file.name;
-    //   const formData = new FormData();
-    //   formData.append("file", file, fileName);
-    //   const upload$ = this.http.post(uploadurl, formData, {
-    //     reportProgress: true,
-    //     observe: 'events',
-    //     headers: {
-    //       "Content-Type": file.type,
-    //       "Content-Disposition": "form-data; name="+this.fileName,
-    //       "Authorization" : `Bearer ${this.authService.userValue.JwtToken}`
-    //     },
-    //     params: {
-    //       clientFilename: file.name,
-    //       mimeType: file.type
-    //     }
-    //   })
-    //     .pipe(
-    //       finalize(() => this.reset())
-    //     );
-
-    //   this.uploadSub = upload$.subscribe(event => {
-    //     if (event.type == HttpEventType.UploadProgress) {
-    //       this.uploadProgress = Math.round(100 * (event.loaded / event.total));
-    //     }
-    //   })
-    // }
+    if(this.labandImaging.StrAttachments!=undefined)
+      this.labandImaging.Attachments = JSON.parse(this.labandImaging.StrAttachments) as Attachment[];
 
   }
+
 
   ngOnInit(): void {
     this.updatePatientInfo();
@@ -138,8 +110,8 @@ export class OrderDialogComponent implements OnInit,AfterViewInit {
       })
   }
 
-  ngAfterViewInit(){
-    if(this.labandImaging.CurrentPatient != null && this.labandImaging.CurrentPatient.Name != null){
+  ngAfterViewInit() {
+    if (this.labandImaging.CurrentPatient != null && this.labandImaging.CurrentPatient.Name != null) {
       this.searchpatient.nativeElement.value = this.labandImaging.CurrentPatient.Name;
       this.diabledPatientSearch = true;
     }
@@ -150,7 +122,6 @@ export class OrderDialogComponent implements OnInit,AfterViewInit {
     this.labandImaging.PatientId = this.labandImaging.CurrentPatient.PatientId;
     this.labandImaging.PatientName = this.labandImaging.CurrentPatient.Name;
     this.labandImaging.PrimaryPhone = this.labandImaging.CurrentPatient.PrimaryPhone;
-    //this.labandImaging.Se = this.labandImaging.CurrentPatient.PrimaryPhone;
 
   }
   displayWithPatientSearch(value: PatientSearch): string {
@@ -213,7 +184,7 @@ export class OrderDialogComponent implements OnInit,AfterViewInit {
       })
   }
 
-  requiredFileType: string ="jpg,jpeg,png,gif,pdf.doc,xls,docx,xlsx,tiff"
+  requiredFileType: string = "jpg,jpeg,png,gif,pdf.doc,xls,docx,xlsx,tiff"
 
   get attachments() {
     return this.formGroups.get('attachments') as FormArray
@@ -278,7 +249,7 @@ export class OrderDialogComponent implements OnInit,AfterViewInit {
     return flag && values.length > 0;
   }
 
-  signed(){
+  signed() {
     this.labandImaging.Signed = true;
     this.save();
   }
@@ -291,16 +262,16 @@ export class OrderDialogComponent implements OnInit,AfterViewInit {
     this.labandImaging.StrScheduledAt = this.datePipe.transform(this.labandImaging.ScheduledAt, "MM/dd/yyyy")
     this.labandImaging.strReceivedAt = this.datePipe.transform(this.labandImaging.ReceivedAt, "MM/dd/yyyy")
 
-    if(!this.labandImaging.Signed || this.labandImaging.Signed == null)
+    if (!this.labandImaging.Signed || this.labandImaging.Signed == null)
       this.labandImaging.Signed = this.labandImaging.ResultStatus == "signed";
     else
-    this.labandImaging.ResultStatus = "signed";
+      this.labandImaging.ResultStatus = "signed";
 
     this.labsImagingService.CreateLabOrImagingOrder(this.labandImaging)
       .subscribe(resp => {
         if (resp.IsSuccess) {
           this.ref.close({ "saved": true });
-          this.alertMessage.displayMessageDailog(ERROR_CODES[this.labandImaging.View == "Lab" ? isAdd ?  "M2G1001" : "M2G1002" : isAdd ?  "M2G1008" : "M2G1009"]);
+          this.alertMessage.displayMessageDailog(ERROR_CODES[this.labandImaging.View == "Lab" ? isAdd ? "M2G1001" : "M2G1002" : isAdd ? "M2G1008" : "M2G1009"]);
 
         } else {
           this.close();
@@ -316,7 +287,7 @@ export class OrderDialogComponent implements OnInit,AfterViewInit {
 
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
     dialogData, action: Actions = Actions.view) {
-    const ref = this.overlayService.open(content, dialogData,true);
+    const ref = this.overlayService.open(content, dialogData, true);
     ref.afterClosed$.subscribe(res => {
       if (content === this.testCodeComponent) {
         if (res != null && res.data != null && res.data.TestCode) {
@@ -324,7 +295,6 @@ export class OrderDialogComponent implements OnInit,AfterViewInit {
           this.orders.controls[value.Index].setValue({ Code: value.Code, Test: value.Description, TestOrderId: -1 * value.Index });
         }
       }
-
     });
   }
   getCodeInfo(element, index) {
@@ -336,10 +306,7 @@ export class OrderDialogComponent implements OnInit,AfterViewInit {
       this.openComponentDialog(this.testCodeComponent, testCode);
   }
 
-  UploadCompleated(file,event){
-    console.log(file);
-    console.log(event);
-
-
+  ItemsModified(data){
+    this.labandImaging.Attachments = data;
   }
 }

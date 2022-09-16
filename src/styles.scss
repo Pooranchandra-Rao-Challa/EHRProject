@@ -427,7 +427,7 @@ mat-paginator {
   border-bottom-right-radius: 6px !important;
   margin-right: -10px !important;
   border: 1px solid #41b6a6 !important;
-  height: 3.1em !important;
+  height: 45px !important;
   width: 3.1em !important;
 }
 
@@ -1043,8 +1043,20 @@ i {
   color: white !important;
   background-color: #41b6a6 !important;
 }
-.login-modal-header{
+
+
+
+::ng-deep .swal2-title.login-modal-header {
+  margin:unset !important;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  padding: 20px !important;
   background-color: #41b6a6 !important;
+  color: #fff;
+  font-size: 24px;
+  font-family: "Roboto";
+  font-weight: 400;
+  margin-bottom: 40px !important;
 }
 
 // pagination

@@ -87,7 +87,7 @@ export class ProfileComponent implements OnInit {
     this.patientMyProfile = {} as PatientProfile;
     this.PhonePattern = {
       0: {
-        pattern:   new RegExp('\\d'),
+        pattern: new RegExp('\\d'),
         symbol: 'X',
       },
     };
@@ -417,7 +417,7 @@ export class ProfileComponent implements OnInit {
   }
 
   email = /^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$/;
-  phonepattern =/^[0-9]{10}/;
+  phonepattern = /^[0-9]{10}/;
   enableEmergencyContactInfo() {
     let flag = !((this.namePattern.test(this.patientMyProfile.EmergencyFirstName)
       && this.patientMyProfile.EmergencyFirstName != null && this.patientMyProfile.EmergencyFirstName != '')
@@ -426,55 +426,55 @@ export class ProfileComponent implements OnInit {
       && (this.patientMyProfile.EmergencyMiddleName == null || this.patientMyProfile.EmergencyMiddleName == ''
         || this.namePattern.test(this.patientMyProfile.EmergencyMiddleName))
       && this.patientMyProfile.RelationshipToPatient != null && this.patientMyProfile.RelationshipToPatient != ''
-      &&(this. patientMyProfile.Phone == null || this. patientMyProfile.Phone == ""
-              || this.phonepattern.test(this. patientMyProfile.Phone)));
+      && (this.patientMyProfile.Phone == null || this.patientMyProfile.Phone == ""
+        || this.phonepattern.test(this.patientMyProfile.Phone)));
 
 
     return flag;
   }
- 
+
 
   enablePatientContactInfo() {
-    
-    let flag =!((this.patientMyProfile.email == null || this.patientMyProfile.email == ""
-              || this.email.test(this.patientMyProfile.email))
-              &&(this.patientMyProfile.PrimaryPhone == null || this.patientMyProfile.PrimaryPhone == ""
-              || this.phonepattern.test(this.patientMyProfile.PrimaryPhone))
-              &&(this.patientMyProfile.MobilePhone == null || this.patientMyProfile.MobilePhone == ""
-              || this.phonepattern.test(this.patientMyProfile.MobilePhone))
-              &&(this.patientMyProfile.WorkPhone == null || this.patientMyProfile.WorkPhone == ""
-              || this.phonepattern.test(this.patientMyProfile.WorkPhone)))
+
+    let flag = !((this.patientMyProfile.email == null || this.patientMyProfile.email == ""
+      || this.email.test(this.patientMyProfile.email))
+      && (this.patientMyProfile.PrimaryPhone == null || this.patientMyProfile.PrimaryPhone == ""
+        || this.phonepattern.test(this.patientMyProfile.PrimaryPhone))
+      && (this.patientMyProfile.MobilePhone == null || this.patientMyProfile.MobilePhone == ""
+        || this.phonepattern.test(this.patientMyProfile.MobilePhone))
+      && (this.patientMyProfile.WorkPhone == null || this.patientMyProfile.WorkPhone == ""
+        || this.phonepattern.test(this.patientMyProfile.WorkPhone)))
 
 
     return flag;
   }
 
   enableNextKinInfo() {
-    let flag =!((this.namePattern.test(this.patientMyProfile.NKFirstName)
-              && this.patientMyProfile.NKFirstName != null && this.patientMyProfile.NKFirstName != '')
-              &&(this.namePattern.test(this.patientMyProfile.NkLastName)
-              && this.patientMyProfile.NkLastName != null && this.patientMyProfile.NkLastName != '')
-              &&(this.patientMyProfile.NkMiddleName == null || this.patientMyProfile.NkMiddleName == ''
-              || this.namePattern.test(this.patientMyProfile.NkMiddleName))
-              && this.patientMyProfile.NkRel != null && this.patientMyProfile.NkRel != ''
-              &&(this.patientMyProfile.NKMobilePhone == null || this.patientMyProfile.NKMobilePhone == ""
-              || this.phonepattern.test(this.patientMyProfile.NKMobilePhone)))
+    let flag = !((this.namePattern.test(this.patientMyProfile.NKFirstName)
+      && this.patientMyProfile.NKFirstName != null && this.patientMyProfile.NKFirstName != '')
+      && (this.namePattern.test(this.patientMyProfile.NkLastName)
+        && this.patientMyProfile.NkLastName != null && this.patientMyProfile.NkLastName != '')
+      && (this.patientMyProfile.NkMiddleName == null || this.patientMyProfile.NkMiddleName == ''
+        || this.namePattern.test(this.patientMyProfile.NkMiddleName))
+      && this.patientMyProfile.NkRel != null && this.patientMyProfile.NkRel != ''
+      && (this.patientMyProfile.NKMobilePhone == null || this.patientMyProfile.NKMobilePhone == ""
+        || this.phonepattern.test(this.patientMyProfile.NKMobilePhone)))
     return flag;
   }
 
 
   openComponentDialog(content: any | ComponentType<any> | string,
     dialogData, action: Actions = this.ActionTypes.add) {
-    
+
     let reqdata: any;
     if (action == Actions.view && content === this.authorizedRepresentativeDialogComponent) {
       reqdata = dialogData;
     }
-    
+
     const ref = this.overlayService.open(content, reqdata);
     ref.afterClosed$.subscribe(res => {
-    
-     
+
+
     });
   }
 

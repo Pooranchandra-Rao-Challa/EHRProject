@@ -37,7 +37,7 @@
               (click)="disablemedication(item,false)">On</button>
             <button class="btn" [ngClass]="item?.isdisabled ? 'btn-on' : 'btn-off' " type="button"
               (click)="disablemedication(item,true)">Off</button>
-         
+
             <mat-icon class="play-up-arrow" *ngIf="!example.expanded">play_arrow</mat-icon>
             <mat-icon class="play-down-arrow" *ngIf="example.expanded">arrow_drop_down</mat-icon>
 

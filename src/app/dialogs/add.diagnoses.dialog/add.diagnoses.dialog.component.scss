@@ -4,8 +4,8 @@
 .create-diagnoses-modal.modal-dialog {
   max-width: 950px;
 }
-.body {
-  max-height: calc(90vh - 130px);
+.create-diagnoses-modal .body {
+  max-height: calc(90vh - 180px);
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -21,10 +21,6 @@
 }
 .btn-custom {
   width: 85px;
-}
-.btn-cancel {
-  width: 80px !important;
-  margin-left: 11px;
 }
 .btn-today {
   width: 97px !important;

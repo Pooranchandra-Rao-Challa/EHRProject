@@ -159,9 +159,9 @@ export class PatientDialogComponent {
     // patientDefService.generatePdf(docDef.patientInviationDefinition())
     var pdfdoc = new jspdf.jsPDF();
     var html = htmlToPdfmake(html);
-
     const documentDefinition = { content: html };
     pdfMake.createPdf(documentDefinition).open();
+
   }
 
   _completePatientAccountProcess(data) {
@@ -172,7 +172,7 @@ export class PatientDialogComponent {
       if (resp.IsSuccess) {
         this.cancel();
         if (data.download) {
-          this.downloadPDF(resp.html);
+          this.downloadPDF(resp.Result.html);
           //'straight' update to database which receied from ref.data
           // Update Patient with invivation_sent_at, straight_invitation to database
           this.alertmsg.displayMessageDailog(ERROR_CODES["M2AP002"])

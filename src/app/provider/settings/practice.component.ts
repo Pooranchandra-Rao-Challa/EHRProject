@@ -63,6 +63,7 @@ export class PracticeComponent implements OnInit {
       this.changedLocationId = LocationId;
       this.getProviderDetails();
     });
+    this.practiceLocations();
     this.NewUserData = {
     }
   }
@@ -84,12 +85,16 @@ export class PracticeComponent implements OnInit {
       }
     });
   }
+  filterTimeZone:any
+  timelist:any
   // dropdown for TimeZone
   getTimeZoneList() {
     this.settingsService.TimeZones().subscribe(resp => {
       if (resp.IsSuccess) {
         this.TimeZoneList = resp.ListResult;
+        this.filterTimeZone = this.TimeZoneList.slice();
         this.DisplayDateTimeZone();
+       
       }
     });
   }
@@ -148,6 +153,7 @@ export class PracticeComponent implements OnInit {
 
   }
   updateUser() {
+    debugger
     this.NewUserData.ClinicId = this.user.ClinicId;
     this.NewUserData.LocationId = this.user.CurrentLocation;
     if (this.NewUserData.PracticeName == null)
@@ -184,6 +190,7 @@ export class PracticeComponent implements OnInit {
   }
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
     data?: any, action?: Actions) {
+    
     let dialogData: any;
     if (content === this.userDialogComponent && action == Actions.view) {
       dialogData = this.userInfoForEdit(data, action);
@@ -204,10 +211,12 @@ export class PracticeComponent implements OnInit {
       if (content === this.userDialogComponent) {
         if (res.data != null && res.data.saved) {
           this.getProviderDetails();
+          this.practiceLocations();
         }
       } else if (content === this.locationDialogComponent) {
         if (res.data != null && (res.data.saved || res.data.deleted)) {
           this.practiceLocations();
+          this.getProviderDetails();
         }
       }
     });
@@ -233,12 +242,12 @@ export class PracticeComponent implements OnInit {
     this.alertmsg.userCreateConfirm('Code', "Provider Name")
   }
   /*  ^[A-Za-z0-9._%-]+@[A-Za-z0-9._-]+\\.[a-z]{2,3}$*/
-  emailPattern = "^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$";
+  emailPattern = /^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$/;
   EnableSave() {
     var emailReg = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
     return !(this.NewUserData.FirstName != null && this.NewUserData.FirstName != ""
       && this.NewUserData.Email != null && this.NewUserData.Email != ""
-      && emailReg.test(this.NewUserData.Email)
+      && this.emailPattern.test(this.NewUserData.Email)
       && this.NewUserData.PracticeRole != null && this.NewUserData.PracticeRole != "");
   }
 

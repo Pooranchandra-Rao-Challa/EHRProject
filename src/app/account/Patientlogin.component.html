@@ -27,7 +27,7 @@
       <div class="col-sm-8 col-sm-offset-2" style="margin: 0 auto;padding:0 15px">
         <div class="main-title">
           <h2 class="signup">PLEASE SIGN IN TO VIEW YOUR ACCOUNT</h2>
-          <p>Don't have an account yet? <a class="wcag-green" href="/">Sign up here</a></p>
+          <!-- <p>Don't have an account yet? <a class="wcag-green" href="/">Sign up here</a></p> -->
         </div>
       </div>
     </div>
@@ -35,7 +35,7 @@
       <div class="container col-sm-8 col-sm-offset-2 pb-4" id="flexbox" style="margin: 0 auto;">
         <div class="row top-header">
           <div class="col-lg-5 col-md-5 col-sm-5">
-            <div class="Login-form">
+            <div class="login-form">
               <mat-card-content>
                 <form class="my-form" [formGroup]="loginForm">
                   <div>
@@ -44,7 +44,7 @@
                     </mat-form-field>
                     <mat-form-field class="w-100" appearance="outline">
                       <input matInput placeholder="Password" [type]="showPassword ? 'text' : 'password'" name="Password"
-                        formControlName="Password" />
+                        formControlName="Password" (keyup.enter)="OnLoginSubmit()" />
 
                       <img [src]="showPassword ? 'assets/images/eye-open.svg' : 'assets/images/eye-close.svg'"
                         class="img-svg-eye" (click)="togglePasswordVisibility()" />
@@ -53,9 +53,9 @@
                   <div class="pull-right address">
                     <div  (click)="openResetPasswordOptions()" class="message-hints">Forgot your
                       password?</div>
-                    <div  (click)="openResendVerification()" class="message-hints">
+                    <!-- <div  (click)="openResendVerification()" class="message-hints">
                       Resend Email Verification
-                    </div>
+                    </div> -->
                   </div>
                 </form>
               </mat-card-content>
@@ -73,7 +73,7 @@
               <h4>To make our EHR evenmore secure for you, please download our two-factor authentication
                 application</h4>
             </div>
-            <div>
+            <div style="width: 84%;">
               <div class="services-1 mt-4">
                 <a aria-label="android application" href="https://goo.gl/6S9W6g">
                   <img width="80" height="140" class="img-fluid" src="assets/qr_code_PNG25.png">

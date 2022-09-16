@@ -312,7 +312,7 @@ export class ClinicDecisionComponent implements OnInit {
   resettriggerdialog  () {
       this.ehrTrigger = new EhrTrigger();
       this.triggerSearchList = new BehaviorSubject<EhrTrigger[]>([]);
-      this.ehrTriggerList = new TriggerInformation;
+      this.ehrTriggerList = new TriggerInformation();
     }
 
   optionChangedForTrigger(value: MedicalCode) {
@@ -322,7 +322,7 @@ export class ClinicDecisionComponent implements OnInit {
     this.ehrTrigger.CanDelete = false;
     this.ehrTriggerList.Addtrigger.push(this.ehrTrigger);
     this.triggerSearchList.next(this.ehrTriggerList.Addtrigger.filter(fn => fn.CanDelete === false));
-   
+
   }
 
 

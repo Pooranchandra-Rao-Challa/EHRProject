@@ -1,0 +1,24 @@
+.file-summary {
+  font-size: 0.85rem;
+}
+
+.upload-progress {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 10px;
+
+  ::ng-deep .mat-progress-bar .mat-progress-bar-element {
+    transition: none;
+  }
+
+  ::ng-deep button.mat-icon-button span.mat-button-wrapper .mat-icon{
+    color:#41b6a6;
+    background: #fff;
+    border: 1px solid #41b6a6;
+    &:hover{
+      color:#fff;
+      background: #41b6a6;
+    }
+  }
+}

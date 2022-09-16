@@ -52,7 +52,7 @@ export class SectionNewComponent implements OnInit {
     this.adminservice.AddUpdateWeeklyUpdated(this.WeeklyUpdate).subscribe(resp => {
       if (resp.IsSuccess) {
         this.WeeklyUpdate = resp.ListResult;
-        if (resp.EndUserMessage = 'WeeklyUpdated created successfully') {
+        if (resp.EndUserMessage =='WeeklyUpdated created successfully') {
           this.show('Admin/Section created successfully');
         }
         else {
@@ -65,8 +65,17 @@ export class SectionNewComponent implements OnInit {
 
   show(msg) {
     Swal.fire({
+      // position: 'center',
       text: msg,
-      confirmButtonText: 'success'
+      confirmButtonText: 'close',
+      confirmButtonColor:'#337ab7',
+      // confirmButtonAriaLabel:'false',
+      customClass: {
+        container: 'swal2-container-high',
+        confirmButton: 'swal-messaage'
+      }
+    
+      
     });
   }
 

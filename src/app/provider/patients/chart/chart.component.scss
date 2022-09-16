@@ -170,7 +170,7 @@ input.new-search::placeholder {
 .patientChartTab {
   padding: 10px 20px;
   max-height: 700px;
-  overflow-y: scroll;
+  overflow-y: auto;
   border-top: 3px solid #41b6a6;
 }
 
@@ -426,7 +426,7 @@ textarea.form-control.inputclass:hover {
 }
 
 .icons-design {
-  border: 1px solid #41a6b6;
+  border: 1px solid #41b6a6;
   width: 24px;
   height: 24px;
   font-size: 16px;
@@ -497,6 +497,9 @@ textarea.form-control.inputclass:hover {
 }
 
 a.view-more:hover {
-  color: #41a6b6;
+  color: #41b6a6;
   cursor: pointer;
+}
+.patientChartTab .card .card-title {
+  cursor: auto;
 }

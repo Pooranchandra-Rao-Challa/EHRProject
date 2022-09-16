@@ -867,6 +867,9 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "CheckEmailAvailablity";
   }
 
+  get _imagetoBase64StringUrl() {
+    return this._baseUrl + "api/upload/ImagetoBase64String";
+  }
   constructor(public http: HttpClient) {
     super();
   }

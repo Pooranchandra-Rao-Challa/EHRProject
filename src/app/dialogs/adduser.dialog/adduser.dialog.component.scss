@@ -337,6 +337,10 @@ input::-webkit-input-placeholder {
   box-shadow: none;
 }
 
+.add-edit-user-form .form-select {
+  height: 35px;
+}
+
 .required::before {
   content: " *" !important;
   color: red !important;

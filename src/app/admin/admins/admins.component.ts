@@ -72,6 +72,8 @@ export class AdminsComponent implements OnInit {
     this.adminservice.AdminList().subscribe(resp => {
       if (resp.IsSuccess) {
         this.adminDataSource = resp.ListResult;
+        
+  
       } else
         this.adminDataSource = [];
     });
@@ -137,6 +139,7 @@ export class AdminsComponent implements OnInit {
       this.newAdminRegistration.MobilePhonePreffix = secondarylist[1].slice(0, 3);
       this.newAdminRegistration.MobilePhoneSuffix = secondarylist[1].slice(3, 10);
     }
+    this.checkEmailExistance();
   }
 
   onAddAdmin() {
@@ -202,9 +205,12 @@ export class AdminsComponent implements OnInit {
   checkEmailExistance() {
 
     if (this.emailPattern.test(this.newAdminRegistration.Email))
-      this.accountservice.CheckEmailAvailablity({Email:this.newAdminRegistration.Email}).subscribe((resp) =>{
+      this.accountservice.CheckEmailAvailablity({Email:this.newAdminRegistration.Email,AdminId:this.newAdminRegistration.AdminId}).subscribe((resp) =>{
         this.emailVerfied = resp.IsSuccess;
+        if(this.newAdminRegistration.AdminId == null)
+        {
         this.emailVerficationMessage = resp.EndUserMessage
+        }
       })
     else this.emailVerfied = null;
   }

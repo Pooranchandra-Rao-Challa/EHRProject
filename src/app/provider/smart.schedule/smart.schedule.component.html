@@ -55,7 +55,7 @@
               <div class="table-container">
                 <div class="table-appointments-for-today table table-dashboard finished_appointments">
                   <div class="row text-center table-header">
-                    <div class="col-md-1 col-1 appointment-time">Time</div>
+                    <div class="col-md-1 col-1">Time</div>
                     <div class="col-md-2 col-2 patient">Patient Info</div>
                     <div class="col-md-2 col-2 provider">Provider</div>
                     <div class="col-md-3 col-3">Visit Status</div>
@@ -124,7 +124,7 @@
               <div class="table-container">
                 <div class="table-appointments-for-today table table-dashboard finished_appointments">
                   <div class="row text-center table-header">
-                    <div class="col-md-1 appointment-time">Time</div>
+                    <div class="col-md-1">Time</div>
                     <div class="col-md-2 patient">Patient Info</div>
                     <div class="col-md-2 provider">Provider</div>
                     <div class="col-md-3">Visit Status</div>
@@ -132,7 +132,6 @@
                     <div class="col-md-2 appointment-note">Notes</div>
                     <div class="col-md-1">Encounter</div>
                   </div>
-
 
                   <div class="row text-center table-body" *ngFor="let appointment of Appointments" [ngStyle]="{display:appointment.IsPast?'inline-flux':'none'}">
 

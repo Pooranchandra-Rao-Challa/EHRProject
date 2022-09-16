@@ -204,13 +204,6 @@ input::-webkit-input-placeholder {
 .input-group>.form-control.search-control {
   border-color: #41b6a6 !important;
   background: white !important;
-  width: 550px !important;
-}
-
-@media screen and (min-width:920px) {
-  .input-group>.form-control.search-control {
-    width: 550px !important;
-  }
 }
 
 // toggle on off checkbox
@@ -768,4 +761,12 @@ input.mat-input-element {
   font-size: 15px !important;
   margin-top: 7px !important;
   font-family: "Roboto";
+}
+::ng-deep .radio-btn-label.mat-radio-button .mat-radio-label-content {
+  white-space: break-spaces;
+  padding: 5px;
+}
+.checkboxalignment
+{
+  margin-left: 21px !important;
 }
