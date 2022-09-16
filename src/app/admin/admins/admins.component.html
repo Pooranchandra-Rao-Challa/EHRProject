@@ -162,7 +162,7 @@
 
             <div class="col-lg-6 col-md-12 col-sm-12 col-12  mb-4">
               <label class="required">Email Address</label>
-              <input type="input" class="form-control border-input" #adminEmail="ngModel" required id="Date"
+              <input type="input" class="form-control border-input" [disabled]="newAdminRegistration.AdminId!=null" [class.notallowCursor]="newAdminRegistration.AdminId!=null" #adminEmail="ngModel" required id="Date"
                 placeholder="Email Address" [(ngModel)]="newAdminRegistration.Email"
                 pattern="^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$" (keyup)="checkEmailExistance()">
               <div *ngIf="adminEmail.errors && adminEmail.touched">

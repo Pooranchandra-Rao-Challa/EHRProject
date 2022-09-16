@@ -1,11 +1,9 @@
 import { AuthenticationService } from 'src/app/_services/authentication.service';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit,  } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ConfirmedValidator } from '../_common/confirm-password';
 import Swal from 'sweetalert2';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SecureCreds } from '../_models';
-import { tokenName } from '@angular/compiler';
 
 @Component({
   selector: 'app-createpassword',

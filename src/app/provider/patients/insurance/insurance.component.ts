@@ -22,7 +22,6 @@ import { map, startWith } from 'rxjs/operators';
 export class InsuranceComponent implements OnInit {
   user: User;
   displaytitle: any;
-  errorBlock: boolean;
   error: boolean = false;
   delete: boolean = false;
   data: boolean = true;
@@ -45,8 +44,10 @@ export class InsuranceComponent implements OnInit {
   primaryplusicon: any;
   secondaryplusicon: any;
   btnstate: boolean = true;
-  rowClicked
-  arry: any[] = [];
+  rowClicked:any
+  arry:any
+  selectingInsuranceCompanyName: any;
+  selectingInsuranceCompanyPlanId:any
   InsuranceCompanyPlan: string;
   show: boolean;
   InsurancDetailslist: any = [];
@@ -60,16 +61,12 @@ export class InsuranceComponent implements OnInit {
   disableaddressverification: boolean = false;
   secondarymanuallybtn: boolean;
   secondarydisableaddressverification: boolean;
-
   getInsurancePlanList: any;
   primaryInsDetail: boolean;
   secondaryInsDetail: boolean;
   SourceOfPaymentTypologyCodesFilter: any;
   secondarySptcFilter: any;
   searchText: string;
-  searchCellPhoneData: any[];
-  SourceData: any[];
-  filterNumbers: any;
   @Input() max: any;
   tomorrow = new Date();
   AreaCodes: AreaCode[];
@@ -150,7 +147,7 @@ export class InsuranceComponent implements OnInit {
 
 
   edit(event, idx) {
-    this.arry.push(this.InsurancePlanList[idx]);
+    // this.arry.push(this.InsurancePlanList[idx]);
     this.isValid = true;
     this.delete = true;
     this.data = false;
@@ -166,10 +163,11 @@ export class InsuranceComponent implements OnInit {
     this.getInsuranceDetail(this.insuraceComplanyPlan)
   }
 
-  changeTableRowColor(idx, event) {
-    this.arry = [];
+  changeTableRowColor(item,idx, event) {
+    // this.arry = [];
     this.rowClicked = idx;
-    this.arry.push(this.InsurancePlanList[idx]);
+    this.selectingInsuranceCompanyName = item.InsuranceCompanyName;
+    this.selectingInsuranceCompanyPlanId = item.InsuranceCompanyId;
     this.btnstate = event;
 
   }
@@ -193,14 +191,18 @@ export class InsuranceComponent implements OnInit {
   }
   Selected() {
     if (this.plusvalue == "primary") {
-      this.primlist.InsuranceCompanyPlan = this.arry[0].InsuranceCompanyName;
-      this.primlist.InsuranceCompanyPlanID = this.arry[0].InsuranceCompanyId;
+      this.primlist.InsuranceCompanyPlan = this.selectingInsuranceCompanyName;
+      this.primlist.InsuranceCompanyPlanID = this.selectingInsuranceCompanyPlanId;
       this.viewpidetailsforprimary = false;
+      this.searchText = "";
+
     }
     else {
-      this.secList.InsuranceCompanyPlan = this.arry[0].InsuranceCompanyName
-      this.secList.InsuranceCompanyPlanID = this.arry[0].InsuranceCompanyId;
+      this.secList.InsuranceCompanyPlan = this.selectingInsuranceCompanyName;
+      this.secList.InsuranceCompanyPlanID = this.selectingInsuranceCompanyPlanId;
       this.viewpidetailsforsecondary = false;
+      this.searchText = "";
+
     }
   }
 

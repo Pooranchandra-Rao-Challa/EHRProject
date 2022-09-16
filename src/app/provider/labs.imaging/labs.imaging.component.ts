@@ -216,7 +216,6 @@ export class LabsImagingComponent implements OnInit {
   }
 }
 
-
 export class LabImageDatasource implements DataSource<LabProcedureWithOrder>{
 
   private labImageSubject = new BehaviorSubject<LabProcedureWithOrder[]>([]);

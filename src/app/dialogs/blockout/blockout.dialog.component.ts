@@ -287,7 +287,7 @@ export class BlockoutDialogComponent implements OnInit {
     this.smartSchedulerService.DeleteBlockout(this.blockout).subscribe(resp => {
       if (resp.IsSuccess) {
         this.ref.close({ refresh: true });
-        this.alertMessage.displayMessageDailog(ERROR_CODES["M2B1003"])
+        this.alertMessage.displayErrorDailog(ERROR_CODES["M2B1003"])
       }
       else {
         this.alertMessage.displayErrorDailog(ERROR_CODES["E2B1003"])

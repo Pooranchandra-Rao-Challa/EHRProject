@@ -132,6 +132,7 @@ import { AddauthorizedrepresentativeDialogComponent } from 'src/app/dialogs/adda
 import { EncounterTableDialogComponent } from 'src/app/dialogs/encounter.table.dialog/encounter.table.dialog.component';
 import { AppointmentsTableDialogComponent } from 'src/app/dialogs/appointments.table.dialog/appointments.table.dialog.component';
 import { FileUploadService} from 'src/app/_services/file.upload.service'
+import {AttachmentComponent} from 'src/app/_components/attachments/attachment.component'
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
   interactionPlugin,
@@ -177,7 +178,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     AddauthorizedrepresentativeDialogComponent,
     EncounterTableDialogComponent,
     AppointmentsTableDialogComponent,
-    // FileUploadComponent,
+    AttachmentComponent,
 
 
   ],
@@ -259,7 +260,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     AuthorizedrepresentativeDialogComponent,
     AddauthorizedrepresentativeDialogComponent,
     EncounterTableDialogComponent,
-    AppointmentsTableDialogComponent
+    AppointmentsTableDialogComponent,
+    AttachmentComponent
 
   ],
   imports: [
