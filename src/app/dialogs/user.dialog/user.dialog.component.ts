@@ -105,6 +105,7 @@ export class UserDialogComponent implements OnInit {
       this.dialogIsLoading = false;
       if(resp.IsSuccess){
         this.EditProvider = resp.Result as NewUser;
+        console.log(this.EditProvider);
         this.EditProvider.LocationInfo = JSON.parse(resp.Result.LocationInfo);
         this.updateTimeSlotString();
       }
