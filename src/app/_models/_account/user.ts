@@ -29,6 +29,7 @@ export interface User {
   ProviderActive: boolean;
   UserLocked: boolean;
   AdminActive: boolean;
+  Npi:string;
 }
 export class UserLocations {
   LocationId: string;

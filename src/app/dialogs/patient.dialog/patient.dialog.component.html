@@ -39,7 +39,7 @@
         </div>
         <div class="col-lg-4 col-md-6 col-12">
           <div class="form-group">
-            <div class="input-group">
+            <div class="input-group mt-md-4 mt-lg-0">
               <label class="control-label input-group-addon required">Last Name</label>
               <input class="form-control" mouse-over-hint tickImagePath="assets/images/tick-mark.svg"
                 crossImagePath="assets/images/cross-mark.svg" placeholder="Last Name" type="text" id="lastName"
@@ -59,9 +59,9 @@
           <div><label class="labelfontzise required">Date Of Birth
             </label>
             <div class="form-group">
-              <mat-form-field appearance="outline" class="grey-matform new-patient">
-                <input matInput [matDatepicker]="dp" placeholder="Date of Birth" [(ngModel)]="PatientData.DateofBirth"
-                  #dateofBirth="ngModel" name="DateofBirth" required
+              <mat-form-field appearance="outline" class="grey-matform grey-calendar">
+                <input class="pointer" matInput [matDatepicker]="dp" placeholder="Date of Birth" [(ngModel)]="PatientData.DateofBirth"
+                  #dateofBirth="ngModel" name="DateofBirth" (click)="dp.open()" readonly required
                   pattern="^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$" [max]="todayDate">
                 <mat-datepicker-toggle matSuffix [for]="dp">
                 </mat-datepicker-toggle>
@@ -94,7 +94,7 @@
         </div>
         <div class="col-lg-6 col-md-6 col-12">
           <div class="form-group">
-            <div class="input-group">
+            <div class="input-group mt-md-4 mt-lg-0">
               <label class="control-label input-group-addon">Cell Phone</label>
               <input class="form-control" placeholder="Cell Phone" type="tel" mask=" (000) 000-0000" prefix="+1"
                [showMaskTyped]="true" [patterns]="PhonePattern"

@@ -55,6 +55,7 @@ export class AddUserDialogComponent implements OnInit {
     private accountservice: Accountservice,
     private plaformLocation: PlatformLocation,
     private idService: IdService) {
+      this.updateLocalModel(ref.RequestData);
     this.url = plaformLocation.href.replace(plaformLocation.pathname, '/');
     if (plaformLocation.href.indexOf('?') > -1)
       this.url = plaformLocation.href.substring(0, plaformLocation.href.indexOf('?')).replace(plaformLocation.pathname, '/');
@@ -74,6 +75,31 @@ export class AddUserDialogComponent implements OnInit {
     this.newUser.EPrescribeFrom = 'none';
   }
 
+  updateLocalModel(data: Registration) {
+    this.newUser = new Registration;
+    if (data == null) return;
+    else {
+      this.newUser = data;
+      if (this.newUser.PrimaryPhone == null) {
+        this.newUser.PrimaryPhonePreffix = '';
+        this.newUser.PrimaryPhoneSuffix = '';
+      }
+      else {
+        let list = this.newUser.PrimaryPhone.split('+1');
+        this.newUser.PrimaryPhonePreffix = list[1].slice(0, 3);
+        this.newUser.PrimaryPhoneSuffix = list[1].slice(3, 10);
+      }
+      if (this.newUser.MobilePhone == null) {
+        this.newUser.MobilePhonePreffix = '';
+        this.newUser.MobilePhoneSuffix = '';
+      }
+      else {
+        let secondarylist = this.newUser.MobilePhone.split('+1');
+        this.newUser.MobilePhonePreffix = secondarylist[1].slice(0, 3);
+        this.newUser.MobilePhoneSuffix = secondarylist[1].slice(3, 10);
+      }
+    }
+  }
 
   checkEmailExistance() {
 

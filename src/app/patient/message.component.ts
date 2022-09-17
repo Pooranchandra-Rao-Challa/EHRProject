@@ -165,15 +165,26 @@ export class MessageComponent {
   openComponentDialogmessage(content: any | ComponentType<any> | string, data,
     action: Actions = this.ActionTypes.add, message: string) {
     let DialogResponse: MessageDialogInfo = {};
+    debugger
 
     if (action == Actions.view && content === this.MessageDialogComponent) {
+      if(message == 'Reply')
+      {
       DialogResponse.MessageFor = message
       DialogResponse.Messages = data;
       DialogResponse.Messages.toAddress = {}
-      DialogResponse.Messages.toAddress.Name = (data as Messages).PatientName
-      DialogResponse.Messages.toAddress.UserId = (data as Messages).ToId
+      DialogResponse.Messages.toAddress.Name = (data as Messages).ProviderName
+      DialogResponse.Messages.toAddress.UserId = (data as Messages).ProviderId
       DialogResponse.ForwardReplyMessage = message;
-
+      }
+      else{
+        DialogResponse.MessageFor = message
+        DialogResponse.Messages = data;
+        DialogResponse.Messages.toAddress = {}
+        // DialogResponse.Messages.toAddress.Name = (data as Messages)
+        // DialogResponse.Messages.toAddress.UserId = (data as Messages).ProviderId
+        DialogResponse.ForwardReplyMessage = message;
+      }
     }
     else if (action == Actions.add && content === this.MessageDialogComponent) {
       DialogResponse.MessageFor = message;

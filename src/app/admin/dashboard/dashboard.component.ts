@@ -9,7 +9,7 @@ import { AddUserDialogComponent } from 'src/app/dialogs/adduser.dialog/adduser.d
 import { ProviderList } from 'src/app/_models/_admin/providerList';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { Accountservice } from 'src/app/_services/account.service';
-import { NewUser } from 'src/app/_models';
+import { Actions, NewUser } from 'src/app/_models';
 import { DOCUMENT } from '@angular/common';
 export class FilterQueryParams {
   Active: boolean = true;
@@ -42,6 +42,7 @@ export class DashboardComponent implements OnInit {
   lockedModal = 'none';
   AccessProvider = 'none';
   message: string;
+  ActionTypes = Actions;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
@@ -200,8 +201,12 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string) {
-    const ref = this.overlayService.open(content, null);
+  openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,dialogData, action: Actions = this.ActionTypes.add) {
+    let reqdata: any;
+    if (action == Actions.view && content === this.UserDialogComponent) {
+      reqdata = dialogData;
+    }
+    const ref = this.overlayService.open(content, reqdata);
     ref.afterClosed$.subscribe(res => {
       if (typeof content === 'string') {
         //} else if (content === this.yesNoComponent) {

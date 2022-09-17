@@ -76,7 +76,7 @@
               <div class="row pt-0 ">
                 <div class="col-xl-1 col-lg-1 col-md-12 col-12  mb-3 col-btn ">
                   <button type="button" class="common-button-style button-style text-nowrap btn pull-right ml-3"
-                    (click)="openComponentDialog(UserDialogComponent)">Add New User</button>
+                    (click)="openComponentDialog(UserDialogComponent,null,ActionTypes.add)">Add New User</button>
                 </div>
                 <div class="search-box col-xl-11 col-lg-10 col-md-12 col-12">
                   <input type="text" placeholder="Search Providers" [(ngModel)]="filterQueryParams.SearchTerm"
@@ -137,7 +137,7 @@
                           [checked]="item.Status" id="checkbox" (click)='deactivateUser($event, item)'></td>
                       <td class="td-width text-success">{{item.EmailVerifyStatus}}</td>
                       <td class="td-col-width"><button type="button" class="table-col-button"
-                          (click)="openComponentDialog(UserDialogComponent)">View</button></td>
+                          (click)="openComponentDialog(UserDialogComponent,item,ActionTypes.view)">View</button></td>
                       <td class="td-col-width"><button type="button" class="table-col-button" data-bs-toggle="modal"
                           data-bs-target="#exampleModal">Reset MFA</button></td>
                       <td><button class="btn-lock td-btn-style" (click)="updateUserlock(item)">{{item.Locked ? "Unlock"

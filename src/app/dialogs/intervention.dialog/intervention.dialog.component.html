@@ -53,7 +53,7 @@
 
           <ng-container matColumnDef="InterventionType">
             <mat-header-cell *matHeaderCellDef mat-sort-header="InterventionType"> Intervention Type </mat-header-cell>
-            <mat-cell *matCellDef="let intervention"> {{intervention.Name}} </mat-cell>
+            <mat-cell *matCellDef="let intervention"> {{intervention.InterventionType}} </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="Code">
@@ -71,7 +71,7 @@
             </mat-header-cell>
             <mat-cell *matCellDef="let intervention" class="justify-content-center">
               <button class="btn btn-green btn-add-cqm"
-                *ngIf="patientIntervention.InterventionId != undefined || patientIntervention.InterventionId != null || patientIntervention.InterventionId != ''"
+                *ngIf="addBtnWhileSearch"
                 [disabled]="intervention.CQMReason"
                 (click)="openComponentDialog(cqmNotPerformedDialogComponent,intervention.InterventionId,ActionTypes.view)">Add
               </button>
@@ -84,6 +84,14 @@
               <p>{{intervention.CQMReason}}</p>
             </mat-cell>
           </ng-container>
+
+            <ng-container matColumnDef="CqmStatus">
+              <mat-header-cell *matHeaderCellDef mat-sort-header="CqmStatus" [style.display]="patientIntervention.InterventionId ? 'flex' : 'none'">Cqm Status</mat-header-cell>
+              <mat-cell *matCellDef="let intervention" [style.display]="patientIntervention.InterventionId ? 'flex' : 'none'">
+                <a>{{intervention.CqmStatus}}
+                </a>
+              </mat-cell>
+            </ng-container>
 
           <mat-header-row *matHeaderRowDef="interventionColumns"></mat-header-row>
           <mat-row *matRowDef="let row; columns: interventionColumns"></mat-row>

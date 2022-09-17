@@ -18,7 +18,7 @@ import { OverlayService } from 'src/app/overlay.service';
   styleUrls: ['./intervention.dialog.component.scss']
 })
 export class InterventionDialogComponent implements OnInit {
-  interventionColumns: string[] = ['Empty', 'InterventionType', 'Code', 'Description', 'ReasonNotPerformed', 'Reason'];
+  interventionColumns: string[] = ['Empty', 'InterventionType', 'Code', 'Description', 'ReasonNotPerformed', 'Reason', 'CqmStatus'];
   interventionCodes: any[] = [];
   patientIntervention: Intervention = new Intervention();
   interventionTypes: GlobalConstants;
@@ -53,6 +53,7 @@ export class InterventionDialogComponent implements OnInit {
         // this.interventionCodes = [];
         if(event.target.value == ''){
           this.interventionCodes = this.chartInfo.Interventions;
+          this.addBtnWhileSearch = true;
         }
         return event.target.value;
       })
@@ -70,6 +71,7 @@ export class InterventionDialogComponent implements OnInit {
     this.patientIntervention = new Intervention;
     if (data == null) return;
     this.patientIntervention = data;
+    this.addBtnWhileSearch = true;
     this.SearchInterventionCodes('');
   }
 
@@ -77,6 +79,7 @@ export class InterventionDialogComponent implements OnInit {
     this.ref.close(null);
   }
 
+  addBtnWhileSearch: boolean = true;
   SearchInterventionCodes(term) {
     var term = term == '' ? this.patientIntervention.Code : term;
     let reqparams = {
@@ -86,6 +89,7 @@ export class InterventionDialogComponent implements OnInit {
       .subscribe(resp => {
         if (resp.IsSuccess) {
           this.interventionCodes = resp.ListResult;
+          this.addBtnWhileSearch = false;
         }
         else {
           this.interventionCodes = [];
@@ -170,6 +174,7 @@ export class InterventionDialogComponent implements OnInit {
       this.patientService.InterventionsByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
         if (resp.IsSuccess) this.chartInfo.Interventions = resp.ListResult;
         this.interventionCodes = this.chartInfo.Interventions;
+        this.addBtnWhileSearch = true;
       });
     }
 }
