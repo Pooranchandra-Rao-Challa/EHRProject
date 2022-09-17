@@ -42,6 +42,7 @@
     "hammerjs": "^2.0.8",
     "html-to-pdfmake": "^2.3.8",
     "html-webpack-plugin": "^4.5.2",
+    "html2canvas": "^1.4.1",
     "jquery": "^3.6.0",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.5.23",

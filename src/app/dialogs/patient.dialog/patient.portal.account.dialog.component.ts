@@ -21,7 +21,9 @@ export class PatientPortalAccountComponent {
   cancel() {
     this.dialogRef.close();
   }
+  createPatientInvoked:boolean = false;
   createPatientAccount() {
+    this.createPatientInvoked = true;
     this.dialogRef.close(this.patientUser);
   }
 }

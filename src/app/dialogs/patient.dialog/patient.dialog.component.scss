@@ -191,3 +191,14 @@ button#dob.btn-outline-secondary.calendar {
   display: flex;
   align-items: center;
 }
+
+
+.fa-hourglass::before {
+  display: inline-block;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+}
+.fontawesomesvg {width: 1em;
+  height: 1em;
+  vertical-align: -.125em;
+}

@@ -172,6 +172,7 @@
     color: #4a90e2;
     text-decoration: underline;
     transition: opacity 0.2s;
+
   }
 
   .mailer-confirmation-instructions tbody tr:nth-child(7) td:hover,
@@ -183,7 +184,7 @@
 
 </style>
 <div style="display: flex;">
-
+  <!-- <div><button (click)="downloadPDF()">Download</button></div> -->
   <div style="width:40%;margin-right:30px">
     <mat-table class="table table-responsive userfromPractable" [dataSource]="emaildUrls">
       <ng-container matColumnDef="Name">
@@ -208,6 +209,8 @@
   </div>
 
   <!-- <div #divhtmlview [innerHTML]="selectedEmail?.Html"></div> -->
-  <iframe id="emailpdftemplate" style="height: 900px; width: 100%;" #iframe (load)="onLoad(iframe)"></iframe>
+  <iframe id="emailpdftemplate" style="height: 900px; width: 100%;" #iframe (load)="onLoad(iframe)">
+
+  </iframe>
 
 </div>

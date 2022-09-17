@@ -1,10 +1,35 @@
 @import "../../../assets/cstm.material.scss";
 @import "../../../assets/common.scss";
 
-#patient-user-account-dialog .modal-content{
-
-  width:600px;
+#patient-user-account-dialog .modal-content {
+  width: 700px;
 }
-#patient-user-account-dialog .row{
-  padding-bottom:10px;
+
+#patient-user-account-dialog .row {
+  padding-bottom: 10px;
+}
+
+#patient-user-account-dialog .modal-body {
+  max-height: calc(90vh - 200px);
+  overflow-y: auto;
+}
+
+#patient-user-account-dialog .show-iframe {
+  display: block;
+  width: 630px;
+  height: 500px;
+}
+
+#patient-user-account-dialog .no-show-iframe {
+  display: none;
+}
+
+.fa-hourglass::before {
+  display: inline-block;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+}
+.fontawesomesvg {width: 1em;
+  height: 1em;
+  vertical-align: -.125em;
 }
