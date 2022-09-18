@@ -1,6 +1,5 @@
 import { ImageResultInfo, Attachment } from './../../_models/_provider/LabandImage';
 import { DatePipe } from '@angular/common';
-import { I } from '@angular/cdk/keycodes';
 import { Component, OnInit } from '@angular/core';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
@@ -58,22 +57,6 @@ export class ImagingResultDialogComponent implements OnInit {
     })
   }
 
-  // copyResults(){
-  //   let r1: ImageResultInfo = {};
-  //   r1.Exam = this.labandimaging.TestResultsOfImages.Exam;
-  //   r1.Comparison = this.labandimaging.TestResultsOfImages.Comparison;
-  //   r1.Findings = this.labandimaging.TestResultsOfImages.Findings;
-  //   r1.History = this.labandimaging.TestResultsOfImages.History;
-  //   r1.ImageResultId = this.labandimaging.TestResultsOfImages.ImageResultId;
-  //   r1.Impression = this.labandimaging.TestResultsOfImages.Impression;
-  //   r1.LabProcedureId = this.labandimaging.TestResultsOfImages.LabProcedureId;
-  //   r1.RadioPharmaceutical = this.labandimaging.TestResultsOfImages.RadioPharmaceutical;
-  //   r1.RequestedBy = this.labandimaging.TestResultsOfImages.RequestedBy;
-  //   r1.ScheduleAt = this.labandimaging.TestResultsOfImages.ScheduleAt;
-  //   r1.Technique = this.labandimaging.TestResultsOfImages.Technique;
-  //   r1.strScheduleAt = this.labandimaging.TestResultsOfImages.strScheduleAt;
-  //   this.labandimaging.TestResultsOfImages = r1;
-  // }
 
   saveClicked: boolean = false;
   save() {
@@ -91,8 +74,6 @@ export class ImagingResultDialogComponent implements OnInit {
   }
 
   _updateModel() {
-
-    //this.copyResults();
     let isAdd = this.labandimaging.TestResultsOfImages.ImageResultId == null || this.labandimaging.TestResultsOfImages.ImageResultId == '';
 
     this.labsImagingService.UpdateImageResult(this.labandimaging).subscribe(resp => {
