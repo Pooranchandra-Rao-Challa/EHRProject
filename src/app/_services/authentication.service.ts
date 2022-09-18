@@ -56,8 +56,6 @@ export class AuthenticationService {
       tap(resp => {
         if (resp.IsSuccess) {
           this.userSubject = new BehaviorSubject<User>(resp.Result as User);
-          console.log(this.userValue);
-
           if (this.userValue.IsSuccess) {
             localStorage.setItem('user', JSON.stringify(resp.Result as User));
             this.updateViewModel();

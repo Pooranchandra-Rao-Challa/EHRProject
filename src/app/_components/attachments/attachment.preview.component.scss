@@ -2,8 +2,11 @@
 
 .attachments {
   margin-top: 20px;
-  .container-items{
+  .container-items-border{
     border: 1px solid #41b6a6;
+  }
+
+  .container-items{
     direction: ltr;
 
     .items{

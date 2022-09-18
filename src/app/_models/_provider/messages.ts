@@ -1,3 +1,4 @@
+import { Attachment } from './LabandImage';
 import { ToAddress } from './smart.scheduler.data';
 import { PatientSearch } from "../_account/newPatient";
 
@@ -24,6 +25,7 @@ export class Messages {
   ReplyMessage?: string;
   toAddress?: ToAddress = {};
   ForwardReplyMessage?: string;
+  Attachments?: Attachment[] =[];
 }
 
 export class MessageDialogInfo{

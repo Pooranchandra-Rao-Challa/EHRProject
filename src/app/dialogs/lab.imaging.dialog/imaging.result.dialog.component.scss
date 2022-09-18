@@ -9,14 +9,14 @@
 
 #imageresult-dialog.modal-dialog {
   max-width: unset;
-  left: calc(100% - 80%) !important;
+  left: calc(100% - 95%) !important;
   margin: unset;
-  width: 1000px
+  width: 1200px
 }
 
 #imageresult-dialog {
   .modal-content {
-    width: 900px !important;
+    width: 1200px !important;
   }
 
   .dropdown-menu {
@@ -71,11 +71,6 @@
     width: 100% !important;
   }
 
-
-  .right-block {
-    padding: 15px 0;
-    background-color: rgba(65, 182, 166, 0.1);
-  }
 }
 
 

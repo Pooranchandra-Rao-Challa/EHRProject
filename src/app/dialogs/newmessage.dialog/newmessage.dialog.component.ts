@@ -10,6 +10,7 @@ import { MessagesService } from 'src/app/_services/messages.service';
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { MessageDialogInfo, Messages } from 'src/app/_models/_provider/messages';
+import { UPLOAD_URL } from 'src/environments/environment'
 class ToAddress {
   UserId?: string;
   Name?: string;
@@ -22,18 +23,15 @@ class ToAddress {
 export class NewmessageDialogComponent implements OnInit {
 
   PatientProfile: PatientProfile;
-  proceduresData: any;
-  filterProcedures: any;
-
-  // procedureInfo: ProceduresInfo = new ProceduresInfo();
-  // @ViewChild('searchProcedureCode', { static: true }) searchProcedureCode: ElementRef;
+  EntityName: string = "Message"
   @ViewChild('searchpatient', { static: true }) searchpatient: ElementRef;
-  filteredPatients: Observable<ToAddress[]>;
+  filteredToAddressMembers: Observable<ToAddress[]>;
   isLoading: boolean = false;
-  providerMessage: Messages = new Messages();
   user: User;
   messageDialogData?: MessageDialogInfo;
-  editMessageFor?: any
+  message?: Messages;
+  fileUploadUrl?: string;
+  diabledPatientSearch: boolean = false
 
   constructor(private ref: EHROverlayRef,
     private patientService: PatientService,
@@ -43,18 +41,18 @@ export class NewmessageDialogComponent implements OnInit {
     private alertmsg: AlertMessage,) {
     this.user = authenticationService.userValue;
     this.messageDialogData = ref.RequestData;
+    this.message = this.messageDialogData.Messages;
+    this.fileUploadUrl = UPLOAD_URL('api/upload/UploadSingleFile')
 
-    if (this.messageDialogData.Messages == null)
-      this.messageDialogData.Messages = {}
-    //this.Upadateviewmodel(this.messageFor);
-
+    if (this.message == null)
+      this.message = {}
   }
 
   ngOnInit(): void {
     fromEvent(this.searchpatient.nativeElement, 'keyup').pipe(
       // get value
       map((event: any) => {
-        this.filteredPatients = of([]);
+        this.filteredToAddressMembers = of([]);
         return event.target.value;
       })
       // if character length greater then 2
@@ -118,24 +116,24 @@ export class NewmessageDialogComponent implements OnInit {
 
         this.isLoading = false;
         if (resp.IsSuccess) {
-          this.filteredPatients = of(
+          this.filteredToAddressMembers = of(
             resp.ListResult as ToAddress[]);
-        } else this.filteredPatients = of([]);
+        } else this.filteredToAddressMembers = of([]);
       })
   }
   _filetrProvider() {
     let req = { "ClinicId": this.authenticationService.userValue.ClinicId };
     this.smartSchedulerService.PracticeProviders(req).subscribe(resp => {
       if (resp.IsSuccess) {
-        this.filteredPatients = of(
+        this.filteredToAddressMembers = of(
           resp.ListResult as ToAddress[]);
 
       }
     });
   }
   onPatientSelected(selected) {
-    this.messageDialogData.Messages.toAddress = selected.option.value;
-    this.messageDialogData.Messages.ToId = selected.option.value.UserId;
+    this.message.toAddress = selected.option.value;
+    this.message.ToId = selected.option.value.UserId;
   }
   displayWithPatientSearch(value: ToAddress): string {
     if (!value) return "";
@@ -143,21 +141,19 @@ export class NewmessageDialogComponent implements OnInit {
   }
 
   InsertMessage(item: boolean, sent: boolean) {
-
-    if (this.messageDialogData.Messages.EmailMessageId != null) {
-      this.messageDialogData.Messages.FromId = this.user.UserId;
-      this.messageDialogData.Messages.ProviderName = this.user.FirstName;
-      this.messageDialogData.Messages.Draft = item;
-      this.messageDialogData.Messages.Body = this.providerMessage.ReplyMessage;
-      this.messageDialogData.Messages.Sent = sent
+    if (this.message.EmailMessageId != null) {
+      this.message.FromId = this.user.UserId;
+      this.message.ProviderName = this.user.FirstName;
+      this.message.Draft = item;
+      this.message.Sent = sent
     }
     else {
-      this.messageDialogData.Messages.FromId = this.user.UserId;
-      this.messageDialogData.Messages.ProviderName = this.user.FirstName;
-      this.messageDialogData.Messages.Draft = item;
-      this.messageDialogData.Messages.Sent = sent
+      this.message.FromId = this.user.UserId;
+      this.message.ProviderName = this.user.FirstName;
+      this.message.Draft = item;
+      this.message.Sent = sent
     }
-    this.messageservice.CreateMessage(this.messageDialogData.Messages).subscribe(resp => {
+    this.messageservice.CreateMessage(this.message).subscribe(resp => {
       if (resp.IsSuccess) {
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2D001"]);
       }
@@ -169,39 +165,14 @@ export class NewmessageDialogComponent implements OnInit {
 
     this.cancel();
   }
-  // Upadateviewmodel(data) {
-  //   this.providerMessage = new Messages
-  //   if (data == 'Patient') {
-  //     this.providerMessage = new Messages;
-  //   }
-  //   else if (data == 'Practice') {
-  //     this.providerMessage = new Messages;
-  //   }
-  //   else if (data.ForwardreplyMessage == 'Reply') {
-  //     this.providerMessage = data;
-  //   }
-  //   else if (data.ForwardreplyMessage == 'Forward') {
-  //     this.providerMessage = data;
-  //   }
-  //   else if(data.ForwardreplyMessage == 'PatientReply')
-  //   {
-  //     this.providerMessage = data;
-  //   }
-  //   else if(data.ForwardreplyMessage) {
-  //     this.providerMessage = data;
-  //   }
 
-  // }
-  diabledPatientSearch: boolean = false
   ngAfterViewInit() {
-    if (this.messageDialogData.MessageFor == 'Reply') {
-      this.searchpatient.nativeElement.value = this.providerMessage.PatientName;
+    if (this.messageDialogData.MessageFor == 'Reply'
+      || this.messageDialogData.MessageFor == 'PatientReply')
       this.diabledPatientSearch = true;
-    }
-    else if (this.messageDialogData.MessageFor == 'PatientReply') {
-      this.searchpatient.nativeElement.value = this.providerMessage.ProviderName;
-      this.diabledPatientSearch = true;
-    }
   }
 
+  ItemsModified(data) {
+    this.message.Attachments = data;
+  }
 }

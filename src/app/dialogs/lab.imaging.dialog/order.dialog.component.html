@@ -216,9 +216,9 @@
         </div>
       </div>
 
-      <app-attachment [EntityName]="EntityName" [EntityId]="labandImaging.LabProcedureId"
+      <app-attachment-preview [EntityName]="EntityName" [EntityId]="labandImaging.LabProcedureId"
       [Attachments]="labandImaging.Attachments" (onItemsModify)="ItemsModified($event)"
-      [acceptPdf]="true" [fileSize]="1" [httpUrl]="fileUploadUrl"></app-attachment>
+      [acceptPdf]="true" [fileSize]="10" [httpUrl]="fileUploadUrl"></app-attachment-preview>
 <!--
 
       <div class="attachments" style="display:flex">

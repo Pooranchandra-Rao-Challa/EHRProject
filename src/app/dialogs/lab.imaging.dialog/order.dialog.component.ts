@@ -26,7 +26,7 @@ import { UPLOAD_URL} from 'src/environments/environment'
   templateUrl: './order.dialog.component.html',
   styleUrls: ['./order.dialog.component.scss']
 })
-export class OrderDialogComponent implements OnInit, AfterViewInit {
+export class OrderDialogComponent implements OnInit {
   @ViewChild('searchpatient', { static: true }) searchpatient: ElementRef;
   filteredPatients: Observable<PatientSearch[]>;
   orderTypeDD = [{ value: 'Lab', viewValue: 'Lab' }, { value: 'Imaging', viewValue: 'Imaging' }]
@@ -68,6 +68,7 @@ export class OrderDialogComponent implements OnInit, AfterViewInit {
 
     if(this.labandImaging.StrAttachments!=undefined)
       this.labandImaging.Attachments = JSON.parse(this.labandImaging.StrAttachments) as Attachment[];
+    else this.labandImaging.Attachments = [];
 
   }
 
@@ -79,6 +80,7 @@ export class OrderDialogComponent implements OnInit, AfterViewInit {
     this.loadDefaults();
     this.initFormGroups();
     this.initTestOrderGrid();
+    this.diabledPatientSearch = this.labandImaging.CurrentPatient != null;
     fromEvent(this.searchpatient.nativeElement, 'keyup').pipe(
       // get value
       map((event: any) => {
@@ -110,13 +112,14 @@ export class OrderDialogComponent implements OnInit, AfterViewInit {
       })
   }
 
-  ngAfterViewInit() {
-    if (this.labandImaging.CurrentPatient != null && this.labandImaging.CurrentPatient.Name != null) {
-      this.searchpatient.nativeElement.value = this.labandImaging.CurrentPatient.Name;
-      this.diabledPatientSearch = true;
-    }
+  // ngAfterViewInit() {
+  //   if (this.labandImaging.CurrentPatient != null &&
+  //     this.labandImaging.CurrentPatient.Name != null) {
+  //     this.searchpatient.nativeElement.value = this.labandImaging.CurrentPatient.Name;
+  //     this.diabledPatientSearch = true;
+  //   }
 
-  }
+  // }
   onPatientSelected(selected) {
     this.labandImaging.CurrentPatient = selected.option.value;
     this.labandImaging.PatientId = this.labandImaging.CurrentPatient.PatientId;
@@ -184,7 +187,7 @@ export class OrderDialogComponent implements OnInit, AfterViewInit {
       })
   }
 
-  requiredFileType: string = "jpg,jpeg,png,gif,pdf.doc,xls,docx,xlsx,tiff"
+
 
   get attachments() {
     return this.formGroups.get('attachments') as FormArray
@@ -255,6 +258,8 @@ export class OrderDialogComponent implements OnInit, AfterViewInit {
   }
 
   save() {
+    console.log(this.labandImaging.Attachments);
+
     this.saveClicked = true;
     let isAdd = this.labandImaging.LabProcedureId == null;
     this.labandImaging.ClinicId = this.authService.userValue.ClinicId;

@@ -131,8 +131,10 @@ import { AuthorizedrepresentativeDialogComponent } from 'src/app/dialogs/authori
 import { AddauthorizedrepresentativeDialogComponent } from 'src/app/dialogs/addauthorizedrepresentative.dialog/addauthorizedrepresentative.dialog.component';
 import { EncounterTableDialogComponent } from 'src/app/dialogs/encounter.table.dialog/encounter.table.dialog.component';
 import { AppointmentsTableDialogComponent } from 'src/app/dialogs/appointments.table.dialog/appointments.table.dialog.component';
-import { FileUploadService} from 'src/app/_services/file.upload.service'
-import {AttachmentComponent} from 'src/app/_components/attachments/attachment.component'
+import { FileUploadService } from 'src/app/_services/file.upload.service'
+import { AttachmentPreviewComponent } from "src/app/_components/attachments/attachment.preview.component";
+//import { AttachmentNopreviewComponent } from 'src/app/_components/attachments/attachment.nopreview.component'
+//import { AttachmentComponent } from 'src/app/_components/attachments/attachment.component'
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
   interactionPlugin,
@@ -178,8 +180,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     AddauthorizedrepresentativeDialogComponent,
     EncounterTableDialogComponent,
     AppointmentsTableDialogComponent,
-    AttachmentComponent,
-
+    AttachmentPreviewComponent,
+    //AttachmentNopreviewComponent,
+    //AttachmentComponent,
 
   ],
   declarations: [
@@ -261,7 +264,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     AddauthorizedrepresentativeDialogComponent,
     EncounterTableDialogComponent,
     AppointmentsTableDialogComponent,
-    AttachmentComponent
+    AttachmentPreviewComponent,
+   // AttachmentNopreviewComponent,
+   // AttachmentComponent
 
   ],
   imports: [

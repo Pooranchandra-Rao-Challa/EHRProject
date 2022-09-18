@@ -27,9 +27,14 @@ import { PatientPasswordChangeRequestDialogComponent } from 'src/app/dialogs/pat
 import { OverlayComponent } from '../../overlay/overlay.component';
 import { OverlayService } from '../../overlay.service'
 import { MessagesService } from 'src/app/_services/messages.service';import { NgxMaskModule } from 'ngx-mask';
+import { AttachmentNopreviewComponent } from 'src/app/_components/attachments/attachment.nopreview.component'
+
+
+
 @NgModule({
   exports: [
-    MatInputModule
+    MatInputModule,
+    AttachmentNopreviewComponent,
   ],
   declarations: [
     PatientNavbarComponent,
@@ -45,6 +50,7 @@ import { MessagesService } from 'src/app/_services/messages.service';import { Ng
     FooterComponent,
     ActivityLogComponent,
     PatientPasswordChangeRequestDialogComponent,
+    AttachmentNopreviewComponent,
 
   ],
   imports: [

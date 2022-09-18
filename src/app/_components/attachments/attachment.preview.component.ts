@@ -1,21 +1,20 @@
-import { Observable, of } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 import { Attachment } from 'src/app/_models/_provider/LabandImage';
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild, } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { LabsImagingService } from 'src/app/_services/labsimaging.service';
 import { HttpParams } from '@angular/common/http';
 
+
 @Component({
-  selector: 'app-attachment',
-  templateUrl: './attachment.component.html',
-  styleUrls: ['./attachment.component.scss']
+  selector: 'app-attachment-preview',
+  templateUrl: './attachment.preview.component.html',
+  styleUrls: ['./attachment.preview.component.scss']
 })
-export class AttachmentComponent implements OnInit {
+export class AttachmentPreviewComponent implements OnInit {
 
   constructor(
-    private labsImagingService: LabsImagingService,) {
-
-    }
+    private labsImagingService: LabsImagingService) {
+  }
 
   private _entityId: string;
   private _entityName: string;
@@ -54,26 +53,23 @@ export class AttachmentComponent implements OnInit {
   @Input() acceptImages: boolean = true;
   @Input() acceptDocs: boolean = false;
   @Input() acceptPdf: boolean = false;
-  @Input() fileSize:number = 20;
+  @Input() fileSize: number = 20;
 
   @Output() onItemsModify = new EventEmitter<Attachment[]>();
-  @Input() httpUrl:string;
+  @Input() httpUrl: string;
 
 
   ngOnInit(): void {
-    this.attachmentSubject.subscribe(attachments =>{
-      console.log(attachments);
-
+    this.attachmentSubject.subscribe(attachments => {
       this.activeAttachments = attachments.filter((att) => att.IsDeleted == false);
-      console.log(this.activeAttachments);
-
-    })
+    });
   }
 
   UploadCompleted(data) {
     if (data.event.body) {
-      if (!this.Attachments) this.Attachments = [];
-      this.Attachments.push(data.event.body as Attachment)
+      if (!this.Attachments)
+        this.Attachments = [];
+      this.Attachments.push(data.event.body as Attachment);
       this.attachmentSubject.next(this._attachments);
       this.raiseItemsModified();
     }
@@ -128,7 +124,8 @@ export class AttachmentComponent implements OnInit {
   showDocument(attachmentId) {
     this.Attachments.forEach((value) => {
       if (value.AttachmentId == attachmentId) {
-        if (value.FileName.endsWith(".pdf")) return;
+        if (value.FileName.endsWith(".pdf"))
+          return;
         this.labsImagingService.ImagetoBase64String(value).subscribe(resp => {
           this.viewId = attachmentId;
           if (resp.IsSuccess) {
@@ -137,7 +134,7 @@ export class AttachmentComponent implements OnInit {
           } else {
             this.showImage = false;
           }
-        })
+        });
       }
     });
   }

@@ -110,7 +110,6 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   }
 
   public upload(): void {
-    console.log(this.httpRequestParams);
     this.uploadInProgressSubject.next(true);
     // How to set the alias?
     let formData = new FormData();

@@ -7,150 +7,104 @@
       </span>
     </div>
     <div class="modal-body">
-      <div class="row highlight-blocks">
-        <div class="col-lg-8 col-md-8 left-block">
-          <div class="row highlight-block">
+      <div class="row">
+        <div class="col-lg-12 col-md-12">
+          <div class="row">
             <div class="col-lg-12">
               <div class="row">
-                <div class="col-lg-12">
-                  <div class="row">
-                    <div class="col-lg-5">
-                      <mat-label>Patient Name:</mat-label>
-                      <mat-form-field appearance="outline" class="col-md-12">
-                        <input matInput placeholder="" disabled="true" class="not-allowed" [(ngModel)]="labandimaging.PatientName" readonly="true">
-                      </mat-form-field>
-                    </div>
-                    <div class="col-lg-5">
-                      <mat-label>Schedule Date</mat-label>
-                      <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-12">
-                        <input matInput [matDatepicker]="dp2" placeholder="Schedule Date" (focus)="dp2?.open()"
-                          class="Helvetica-sans-serif-medium" [(ngModel)]="labandimaging.TestResultsOfImages.ScheduleAt">
-                        <mat-datepicker-toggle matSuffix [for]="dp2">
-                        </mat-datepicker-toggle>
-                        <mat-datepicker #dp2></mat-datepicker>
-                      </mat-form-field>
-                    </div>
-                    <div class="col-lg-2 col-md-2 mt-4">
-                      <button class="btn btn-green" style="margin-left: -16px;" (click)="SelectToday()">Today</button>
-                    </div>
-                  </div>
+                <div class="col-lg-5 col-md-5 col-sm-5">
+                  <mat-label>Patient Name:</mat-label>
+                  <mat-form-field appearance="outline" class="col-md-12">
+                    <input matInput placeholder="" disabled="true" class="not-allowed"
+                      [(ngModel)]="labandimaging.PatientName" readonly="true">
+                  </mat-form-field>
                 </div>
-              </div>
-              <div class=" row">
-                <div class="col-lg-12">
-                  <div class="row">
-                    <div class="col-lg-8">
-                      <mat-label>Exam:
-                      </mat-label>
-                      <mat-form-field appearance="outline" class="col-md-12">
-                        <input matInput placeholder="" [(ngModel)]="labandimaging.TestResultsOfImages.Exam">
-                      </mat-form-field>
-                    </div>
-                    <div class="col-lg-4">
-                      <mat-label>Requested By:</mat-label>
-                      <mat-form-field appearance="outline" class="col-md-12">
-                        <input matInput placeholder="" [(ngModel)]="labandimaging.TestResultsOfImages.RequestedBy">
-                      </mat-form-field>
-                    </div>
-                  </div>
+                <div class="col-lg-5 col-md-5 col-sm-5">
+                  <mat-label>Schedule Date</mat-label>
+                  <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-12">
+                    <input matInput [matDatepicker]="dp2" placeholder="Schedule Date" (focus)="dp2?.open()"
+                      class="Helvetica-sans-serif-medium" [(ngModel)]="labandimaging.TestResultsOfImages.ScheduleAt">
+                    <mat-datepicker-toggle matSuffix [for]="dp2">
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #dp2></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 mt-4">
+                  <button class="btn btn-green" style="margin-left: -16px; float: right;"
+                    (click)="SelectToday()">Today</button>
                 </div>
               </div>
             </div>
           </div>
-          <div class="row highlight-block">
+          <div class=" row">
             <div class="col-lg-12">
               <div class="row">
-                <div class="col-lg-12">
-                  <div class="row">
-                    <div class="col-lg-12">
-                      <mat-label>History:</mat-label>
-                      <mat-form-field appearance="outline" class="col-md-12">
-                        <input matInput placeholder="" [(ngModel)]="labandimaging.TestResultsOfImages.History">
-                      </mat-form-field>
-                    </div>
-                  </div>
+                <div class="col-lg-8">
+                  <mat-label>Exam:
+                  </mat-label>
+                  <mat-form-field appearance="outline" class="col-md-12">
+                    <input matInput placeholder="" [(ngModel)]="labandimaging.TestResultsOfImages.Exam">
+                  </mat-form-field>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-12 row-content">
-                  <div class="row">
-                    <div class="col-lg-12">
-                      <mat-label>Radiopharmaceutical:</mat-label>
-                      <mat-form-field appearance="outline" class="col-md-12">
-                        <input matInput placeholder="" [(ngModel)]="labandimaging.TestResultsOfImages.RadioPharmaceutical">
-                      </mat-form-field>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-12 row-content">
-                  <div class="row">
-                    <div class="col-lg-12">
-                      <mat-label>Technique:</mat-label>
-                        <textarea matInput placeholder=""
-                        class="input-text-area"
-                        cdkTextareaAutosize="false"
-                        cdkAutosizeMinRows="2"
-                        cdkAutosizeMaxRows="15"
-                        [(ngModel)]="labandimaging.TestResultsOfImages.Technique"></textarea>
-
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-12 row-content">
-                  <div class="row">
-                    <div class="col-lg-12">
-                      <mat-label>Comparison (if applicable):</mat-label>
-                        <textarea matInput placeholder=""
-                        class="input-text-area"
-                        cdkTextareaAutosize="false"
-                        cdkAutosizeMinRows="2"
-                        cdkAutosizeMaxRows="15"
-                        [(ngModel)]="labandimaging.TestResultsOfImages.Comparison"></textarea>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-12 row-content">
-                  <div class="row">
-                    <div class="col-lg-12">
-                      <mat-label>Findings:</mat-label>
-
-                        <textarea matInput placeholder=""
-                        class="input-text-area"
-                        cdkTextareaAutosize="false"
-                        cdkAutosizeMinRows="2"
-                        cdkAutosizeMaxRows="15"
-                          [(ngModel)]="labandimaging.TestResultsOfImages.Findings"></textarea>
-
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-12 row-content">
-                  <div class="row">
-                    <div class="col-lg-12">
-                      <mat-label>Impression:</mat-label>
-                        <textarea matInput placeholder=""
-                        class="input-text-area"
-                        cdkTextareaAutosize="false"
-                        cdkAutosizeMinRows="2"
-                        cdkAutosizeMaxRows="15"
-                          [(ngModel)]="labandimaging.TestResultsOfImages.Impression"></textarea>
-
-                    </div>
-                  </div>
+                <div class="col-lg-4">
+                  <mat-label>Requested By:</mat-label>
+                  <mat-form-field appearance="outline" class="col-md-12">
+                    <input matInput placeholder="" [(ngModel)]="labandimaging.TestResultsOfImages.RequestedBy">
+                  </mat-form-field>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="col-lg-4 col-md-4 right-block">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <mat-label>History:</mat-label>
+              <mat-form-field appearance="outline" class="col-md-12">
+                <input matInput placeholder="" [(ngModel)]="labandimaging.TestResultsOfImages.History">
+              </mat-form-field>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <mat-label>Radiopharmaceutical:</mat-label>
+              <mat-form-field appearance="outline" class="col-md-12">
+                <input matInput placeholder="" [(ngModel)]="labandimaging.TestResultsOfImages.RadioPharmaceutical">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <mat-label>Technique:</mat-label>
+              <textarea matInput placeholder="" class="input-text-area" cdkTextareaAutosize="false"
+                cdkAutosizeMinRows="2" cdkAutosizeMaxRows="15"
+                [(ngModel)]="labandimaging.TestResultsOfImages.Technique"></textarea>
+
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <mat-label>Comparison (if applicable):</mat-label>
+              <textarea matInput placeholder="" class="input-text-area" cdkTextareaAutosize="false"
+                cdkAutosizeMinRows="2" cdkAutosizeMaxRows="15"
+                [(ngModel)]="labandimaging.TestResultsOfImages.Comparison"></textarea>
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <mat-label>Findings:</mat-label>
+
+              <textarea matInput placeholder="" class="input-text-area" cdkTextareaAutosize="false"
+                cdkAutosizeMinRows="2" cdkAutosizeMaxRows="15"
+                [(ngModel)]="labandimaging.TestResultsOfImages.Findings"></textarea>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <mat-label>Impression:</mat-label>
+              <textarea matInput placeholder="" class="input-text-area" cdkTextareaAutosize="false"
+                cdkAutosizeMinRows="2" cdkAutosizeMaxRows="15"
+                [(ngModel)]="labandimaging.TestResultsOfImages.Impression"></textarea>
+            </div>
+          </div>
+          <div class="row">
+            <app-attachment-preview [EntityName]="EntityName" [EntityId]="labandimaging.ImageResultId"
+              [Attachments]="labandimaging.ImageAttachments || []" (onItemsModify)="ItemsModified($event)" [acceptPdf]="true"
+              [fileSize]="10" [httpUrl]="fileUploadUrl"></app-attachment-preview>
+          </div>
         </div>
       </div>
     </div>
@@ -160,9 +114,11 @@
         </mat-checkbox>
         <span class="mt-3">Reviewed</span>
       </div>
-      <div class="col-md-8">
-        <button mat-raised-button type="submit" class="btn btn-green pull-right mx-2" (click)="save()" *ngIf="!saveClicked && !labandimaging.Signed">Save</button>
-        <button mat-raised-button type="submit" class="btn btn-green pull-right mx-2" (click)="sign()" *ngIf="!labandimaging.Signed">Sign</button>
+      <div style="float:right">
+        <button mat-raised-button type="submit" class="btn btn-green pull-right mx-2" (click)="save()"
+          *ngIf="!saveClicked && !labandimaging.Signed">Save</button>
+        <button mat-raised-button type="submit" class="btn btn-green pull-right mx-2" (click)="sign()"
+          *ngIf="!labandimaging.Signed">Sign</button>
         <button mat-raised-button type="submit" class="btn btn-green pull-right mx-2" *ngIf="false">Print</button>
       </div>
     </div>
