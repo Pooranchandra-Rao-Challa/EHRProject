@@ -192,8 +192,8 @@
               <div class="form-group">
                 <input matInput type="text" autocomplete="off" #ssn="ngModel"
                   placeholder="###-##-####" class="inputclass" [(ngModel)]="EditProvider.SSN"
-                  pattern="^(?!666|000|9\d{2})\d{3}-(?!00)\d{2}-(?!0{4})\d{4}$"
-                  [ngClass]="{'is-invalid' : (ssn.touched || ssn.dirty) && !ssn.valid }">
+                  [patterns]="pattern" mask="000-00-0000">
+                <mat-hint style="font-size:8pt">323-32-3424</mat-hint>
               </div>
             </div>
           </div>

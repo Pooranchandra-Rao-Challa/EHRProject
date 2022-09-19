@@ -165,8 +165,6 @@ export class MessageComponent {
   openComponentDialogmessage(content: any | ComponentType<any> | string, data,
     action: Actions = this.ActionTypes.add, message: string) {
     let DialogResponse: MessageDialogInfo = {};
-    debugger
-
     if (action == Actions.view && content === this.MessageDialogComponent) {
       if(message == 'Reply')
       {

@@ -19,7 +19,7 @@ import { TestCode, TestCodeComponent } from './test.code.component';
 import { OverlayService } from 'src/app/overlay.service';
 import { FileUploadService } from 'src/app/_services/file.upload.service';
 import { DatePipe } from '@angular/common'
-import { UPLOAD_URL} from 'src/environments/environment'
+import { UPLOAD_URL } from 'src/environments/environment'
 
 @Component({
   selector: 'app-order-dialog',
@@ -42,7 +42,8 @@ export class OrderDialogComponent implements OnInit {
   saveClicked: boolean = false;
   diabledPatientSearch: boolean = false;
   EntityName: string = "laborder"
-  fileUploadUrl:string;
+  fileUploadUrl: string;
+  norecords: boolean = false
 
   constructor(private ref: EHROverlayRef,
     private fb: FormBuilder,
@@ -66,7 +67,7 @@ export class OrderDialogComponent implements OnInit {
     this.orderingFacilities = JSON.parse(this.authService.userValue.LocationInfo) as UserLocations[];
 
 
-    if(this.labandImaging.StrAttachments!=undefined)
+    if (this.labandImaging.StrAttachments != undefined)
       this.labandImaging.Attachments = JSON.parse(this.labandImaging.StrAttachments) as Attachment[];
     else this.labandImaging.Attachments = [];
 
@@ -84,6 +85,7 @@ export class OrderDialogComponent implements OnInit {
     fromEvent(this.searchpatient.nativeElement, 'keyup').pipe(
       // get value
       map((event: any) => {
+        this.norecords = false
         return event.target.value;
       })
       // if character length greater then 2
@@ -108,7 +110,11 @@ export class OrderDialogComponent implements OnInit {
         if (resp.IsSuccess) {
           this.filteredPatients = of(
             resp.ListResult as PatientSearch[]);
-        } else this.filteredPatients = of([]);
+        } else 
+        {
+          this.filteredPatients = of([]);
+          this.norecords = true
+        }
       })
   }
 
@@ -311,7 +317,7 @@ export class OrderDialogComponent implements OnInit {
       this.openComponentDialog(this.testCodeComponent, testCode);
   }
 
-  ItemsModified(data){
+  ItemsModified(data) {
     this.labandImaging.Attachments = data;
   }
 }
