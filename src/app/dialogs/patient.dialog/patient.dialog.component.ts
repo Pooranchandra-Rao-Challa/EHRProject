@@ -134,7 +134,6 @@ export class PatientDialogComponent {
     this.PatientData.ProviderId = this.authService.userValue.ProviderId;
     this.PatientData.ClinicId = this.authService.userValue.ClinicId;
     this.PatientData.strDateofBirth = this.datePipe.transform(this.PatientData.DateofBirth, "MM/dd/yyyy");
-
     this.utilityService.CreatePatient(this.PatientData).subscribe(resp => {
       this.saveInvoked = false;
       if (resp.IsSuccess) {
