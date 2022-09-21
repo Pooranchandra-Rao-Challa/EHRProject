@@ -680,6 +680,10 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "DeleteDiagnoses";
   }
 
+  get _deletePatientUrl() {
+    return this._baseUrl + "DeletePatient";
+  }
+
   get _patientSearchUrl() {
     return this._baseUrl + "PatientSearch";
   }

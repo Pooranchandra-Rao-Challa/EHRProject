@@ -48,7 +48,7 @@
         <hr class="dropdown-divider">
       </li>
       <li><a>Invite to Patient Portal</a></li>
-      <li><a>Send a Message</a></li>
+      <li><a (click)="openComponentDialogmessage(MessageDialogComponent,null,ActionTypes.view, 'Patient')">Send a Message</a></li>
       <li>
         <hr class="dropdown-divider">
       </li>
@@ -71,7 +71,7 @@
       <li>
         <hr class="dropdown-divider">
       </li>
-      <li><a class="delete-patient">Delete Patient</a></li>
+      <li><a (click)="DeletePatient()" class="delete-patient">Delete Patient</a></li>
     </ul>
   </div>
 </div>

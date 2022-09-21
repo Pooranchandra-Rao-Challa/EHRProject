@@ -67,8 +67,9 @@
                         <mat-row *matRowDef="let row; columns: patientColumns;">
                         </mat-row>
                       </mat-table>
-
-
+                      <div class="table-NoRecord text-center text-danger py-2 col-12" *ngIf="patientsDataSource.TotalRecordSize == 0">
+                        No Active Patients Found
+                      </div>
 
 
                         <!-- <div class="table-responsive table-scrollable-borderless admin-table-scroll">

@@ -1,3 +1,6 @@
+import { MessagesService } from './../../../_services/messages.service';
+import { Messages } from './../../../_models/_patient/messages';
+import { ViewModel } from './../../../_models/_account/user';
 import { DiscontinueDialogComponent } from './../../../dialogs/discontinue.dialog/discontinue.dialog.component';
 import { filter, map, } from 'rxjs/operators';
 import { Observable, of, BehaviorSubject, fromEvent } from 'rxjs';
@@ -41,6 +44,9 @@ import { AdvancedDirectivesTableDialogComponent } from 'src/app/dialogs/advanced
 import { PastMedicalHistoryDialogComponent } from 'src/app/dialogs/past.medical.history.dialog/past.medical.history.dialog.component';
 import { EncounterTableDialogComponent } from 'src/app/dialogs/encounter.table.dialog/encounter.table.dialog.component';
 import { AppointmentsTableDialogComponent } from 'src/app/dialogs/appointments.table.dialog/appointments.table.dialog.component';
+import { MessageDialogInfo } from 'src/app/_models/_provider/messages';
+import { NewmessageDialogComponent } from 'src/app/dialogs/newmessage.dialog/newmessage.dialog.component';
+
 @Component({
   selector: 'app-chart',
   templateUrl: './chart.component.html',
@@ -81,6 +87,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   tobaccoUseDialogComponent = TobaccoUseDialogComponent;
   tobaccoUseTableDialogComponent = TobaccoUseTableDialogComponent;
   pastMedicalHistoryDialogComponent = PastMedicalHistoryDialogComponent;
+  MessageDialogComponent = NewmessageDialogComponent;
 
   patientImmunization: Immunization = new Immunization();
   tobaccoUseList: TobaccoUse[] = [];
@@ -113,9 +120,12 @@ export class ChartComponent implements OnInit, AfterViewInit {
   vaccinesFilter: any;
   displayMessage: boolean = true;
   noRecords: boolean = false;
+  viewModel: ViewModel;
+  patientMessages: Messages[] = [];
 
   constructor(public overlayService: OverlayService,
     private patientService: PatientService,
+    private messageService: MessagesService,
     private authService: AuthenticationService,
     private alertmsg: AlertMessage,
     public datepipe: DatePipe,
@@ -124,6 +134,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
     private viewChangeService: ViewChangeService,
     private router: Router) {
     this.user = authService.userValue;
+    this.viewModel = authService.viewModel;
   }
   ngAfterViewInit(): void {
 
@@ -132,7 +143,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
       map((event: any) => {
         this.vaccines = of([]);
         this.noRecords = false;
-        if(event.target.value == ''){
+        if (event.target.value == '') {
           this.displayMessage = true;
         }
         return event.target.value;
@@ -151,7 +162,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
       map((event: any) => {
         this.filteredPatients = of([]);
         this.noRecords = false;
-        if(event.target.value == ''){
+        if (event.target.value == '') {
           this.displayMessage = true;
         }
         return event.target.value;
@@ -201,6 +212,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
     this.loadDefaults();
     this.loadLocationsList();
     this.TobaccoUseByPatientId();
+    this.GetProviderMessagesFromPatient();
   }
 
   _filterVaccine(term) {
@@ -515,9 +527,9 @@ export class ChartComponent implements OnInit, AfterViewInit {
 
   disableImmAdministered() {
     return !(this.patientImmunization.Code && this.patientImmunization.AdministeredAt && this.patientImmunization.AdministeredTime != '00:00 AM'
-          && this.patientImmunization.AdministeredById && this.patientImmunization.OrderedById && this.patientImmunization.AdministeredFacilityId
-          && this.patientImmunization.Manufacturer && this.patientImmunization.Lot && this.patientImmunization.Quantity && this.patientImmunization.Dose
-          && this.patientImmunization.Unit && this.patientImmunization.ExpirationAt)
+      && this.patientImmunization.AdministeredById && this.patientImmunization.OrderedById && this.patientImmunization.AdministeredFacilityId
+      && this.patientImmunization.Manufacturer && this.patientImmunization.Lot && this.patientImmunization.Quantity && this.patientImmunization.Dose
+      && this.patientImmunization.Unit && this.patientImmunization.ExpirationAt)
   }
 
   disableImmHistorical() {
@@ -619,6 +631,22 @@ export class ChartComponent implements OnInit, AfterViewInit {
   InterventionsByPatientId() {
     this.patientService.InterventionsByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       if (resp.IsSuccess) this.chartInfo.Interventions = resp.ListResult;
+    });
+  }
+
+  // Get patient messages info
+  GetProviderMessagesFromPatient() {
+    let reqParams = {
+      "UserId": this.viewModel.Patient.UserId,
+      "SortField": 'Created',
+      "SortDirection": 'desc',
+      "PageIndex": 0,
+      "PageSize": 25,
+      "Filter": null,
+      "MessageFilter": 'Sent'
+    }
+    this.messageService.Messages(reqParams).subscribe((resp) => {
+      if (resp.IsSuccess) this.patientMessages = resp.ListResult;
     });
   }
 
@@ -761,5 +789,21 @@ export class ChartComponent implements OnInit, AfterViewInit {
 
   scrollToAppointments() {
     document.getElementById("toAppointments").scrollIntoView();
+  }
+
+  openComponentDialogmessage(content: any | ComponentType<any> | string, data,
+    action: Actions = this.ActionTypes.add, message: string) {
+    let DialogResponse: MessageDialogInfo = {};
+    if (action == Actions.view && content === this.MessageDialogComponent) {
+      DialogResponse.MessageFor = message
+      DialogResponse.Messages = {};
+      DialogResponse.Messages.toAddress = {}
+      DialogResponse.Messages.toAddress.Name = this.viewModel.Patient.FirstName + ' ' + this.viewModel.Patient.LastName;
+      DialogResponse.Messages.toAddress.UserId = this.viewModel.Patient.UserId;
+      DialogResponse.ForwardReplyMessage = message;
+    }
+    const ref = this.overlayService.open(content, DialogResponse);
+    ref.afterClosed$.subscribe(res => {
+    });
   }
 }
