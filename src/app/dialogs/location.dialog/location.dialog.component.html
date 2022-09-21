@@ -25,7 +25,7 @@
                     <span class="input-group-addon labelclass form-control required">Location Name</span>
                     <input class="form-control mx-0 inputclass" type="text" [(ngModel)]="PracticeLocData.LocationName"
                       id="locationName" name="locationName" placeholder="Location Name" #locationName="ngModel" required
-                      alphaOnly />
+                      alphaOnly autocomplete="off" />
                   </div>
                   <div *ngIf="locationName.errors && (locationName.touched)">
                     <div class="error_message" *ngIf="locationName.errors?.required">

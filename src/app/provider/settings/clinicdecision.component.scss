@@ -221,44 +221,6 @@ mat-accordion .mat-expansion-panel:first-of-type {
   color: #f7f2f2;
   text-align: center;
 }
-
-// .FieldValid {
-//   height: 24px;
-//   background: #64ab5b;
-//   color: #f7f2f2;
-// }
-
-// .FieldInvalid {
-//   border-radius: 77%;
-//   height: 24px;
-//   background: red;
-//   color: white;
-//   border-color: red;
-//   text-align: center;
-// }
-
-// .FieldValiddatepicker {
-
-//   height: 24px;
-//   background: #64ab5b;
-//   color: #f7f2f2;
-//   margin-left: -26px;
-//   margin-top: -28px;
-//   border-radius: 55%
-// }
-
-// .FieldInvaliddatepicker {
-//   border-radius: 77%;
-//   height: 24px;
-//   background: red;
-//   color: white;
-//   border-color: red;
-//   text-align: center;
-//   margin-left: -26px;
-//   margin-top: -28px;
-// }
-
-
 .table-borderless> :not(:first-child) {
   border-top-width: 0;
   border-bottom-width: 1px;
@@ -323,10 +285,10 @@ mat-accordion .mat-expansion-panel:first-of-type {
 
 ::ng-deep .modal.new-alert-form {
   pointer-events: auto !important;
-  .modal-dialog {
-    pointer-events: auto !important;
-    max-width: 980px;
-  }
+  // .modal-dialog {
+  //   pointer-events: auto !important;
+  //   max-width: 980px;
+  // }
   input{
     height:25px;
   }
@@ -442,4 +404,11 @@ mat-label{display: block;width: 100%;}
   flex-grow: 1;
   margin-right: 16px;
   margin-top: 6px;
+}
+#modal-new-alert-form .modal-dialog{
+  max-width: 750px;
+}
+.modal-body {
+  max-height: calc(75vh - 180px);
+  overflow-y: auto;
 }

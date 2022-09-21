@@ -120,7 +120,7 @@
             <div class="col-lg-4"><label class="settings-label">Medical/ Dental License #</label>
               <div class="form-group">
                 <input type="text" autocomplete="off" placeholder="Medical/ Dental License #" class="inputclass"
-                  [(ngModel)]="EditProvider.DentalLicense">
+                  [(ngModel)]="EditProvider.DentalLicence">
               </div>
             </div>
             <div class="col-lg-4"><label class="settings-label">State</label>
@@ -212,14 +212,14 @@
         <div class="scrollable-mat-table">
           <mat-table class="table table-responsive userfromPractable" [dataSource]="EditProvider.LocationInfo">
             <ng-container matColumnDef="LocationName">
-              <mat-header-cell style="color: rgba(0, 0, 0, 0.54);" *matHeaderCellDef>Location Name</mat-header-cell>
+              <mat-header-cell style="color: rgba(0, 0, 0, 0.54);" *matHeaderCellDef><b>Location Name</b></mat-header-cell>
               <mat-cell *matCellDef="let loc">
                 <a class="cursorpointer"
                   (click)="openComponentDialog(locationDialogComponent,loc,ActionsType.view)">{{loc.Name}}</a>
               </mat-cell>
             </ng-container>
             <ng-container matColumnDef="CityState">
-              <mat-header-cell style="color: rgba(0, 0, 0, 0.54);" *matHeaderCellDef>City, State</mat-header-cell>
+              <mat-header-cell style="color: rgba(0, 0, 0, 0.54);" *matHeaderCellDef><b>City, State</b></mat-header-cell>
               <mat-cell *matCellDef="let loc">
                 <a class="cursorpointer"
                   (click)="openComponentDialog(locationDialogComponent,loc,ActionsType.view)">{{loc.City}},
@@ -227,13 +227,13 @@
               </mat-cell>
             </ng-container>
             <ng-container matColumnDef="PracticeSchedule">
-              <mat-header-cell style="color: rgba(0, 0, 0, 0.54);" *matHeaderCellDef>Practice Schedule</mat-header-cell>
+              <mat-header-cell style="color: rgba(0, 0, 0, 0.54);" *matHeaderCellDef><b>Practice Schedule</b></mat-header-cell>
               <mat-cell *matCellDef="let loc" ngClass="nopadding nopadding2">
                 <div [innerHTML]="loc.TimeSlots | weekdayFormat"></div>
               </mat-cell>
             </ng-container>
             <ng-container matColumnDef="ServicedLocation">
-              <mat-header-cell style="color: rgba(0, 0, 0, 0.54);" *matHeaderCellDef>Serviced Location(s)
+              <mat-header-cell style="color: rgba(0, 0, 0, 0.54);" *matHeaderCellDef><b>Serviced Location(s)</b>
               </mat-header-cell>
               <mat-cell *matCellDef="let loc" ngClass="nopadding">
                 <mat-checkbox  [ngModelOptions]="{standalone: true}" [(ngModel)]="loc.Assigned">
