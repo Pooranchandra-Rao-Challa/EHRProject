@@ -322,7 +322,7 @@ export const ERROR_CODES: { [key: string]: string } = {
   // Smart Schedulerl Encounters;
   'M2AE001': 'Encounter Added successfully',
   'M2AE002': 'Encounter Updated successfully',
-
+  'M2AE003': 'Encounter draft record saved successfully',
   'E2AE001': 'Encounter Adding error',
   'E2AE002': 'Encounter Update error',
   'E2AE003': 'Encounter Data Read  error',
