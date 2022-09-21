@@ -17,7 +17,7 @@
         <div class="panel panel-default">
           <div class="panel-body">
             <div class="container ">
-              
+
           <div *ngFor="let item of PatientUpcomingAppointmentsList">
             <div class="row">
               <div class="col-md-6">
@@ -32,9 +32,9 @@
                 <button type="button" class="btn btn-green save-button" data-bs-toggle="modal"
                 data-bs-target="#upcoming-appoinment"(click)="showappoinments(item)">View</button>
               </div>
-            
+
             </div>
-           
+
           </div>
           </div>
 
@@ -175,7 +175,7 @@
       <div class="modal-content view-appoinments ">
           <div class="modal-header">
 
-           
+
 
             <span class="Helvetica-sans-serif-medium">View Appointment </span>
             <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close">
@@ -206,7 +206,7 @@
       <div class="col-md-6 Helvetica-sans-serif-medium" *ngIf="viewAppoinments.ApptStatus == 'In-Progress'"><b>Status Confirmed</b></div>
       <div class="col-md-6 Helvetica-sans-serif-medium" *ngIf="viewAppoinments.ApptStatus == 'Cancelled'"><b>Status Cancelled</b></div>
   </div>
-  
+
     <div class="row mb-1">
       <div class="col-md-6 Helvetica-sans-serif-medium">Location Name :</div>
       <div class="col-md-6 Helvetica-sans-serif-medium"><b>{{viewAppoinments.LocationName}}</b></div>
@@ -239,7 +239,7 @@
 </div>
 
           <div class="modal-footer">
-              
+
           </div>
       </div>
   </div>

@@ -1,7 +1,7 @@
 <div class="modal-dialog add-edit-user-form">
   <div class="modal-content modal-cust-content">
     <div class="modal-header modal-cust-header">
-      <h1 class="modal-title modal-cust-title"><b>New User</b></h1>
+      <h1 class="modal-title modal-cust-title"><b>{{ newUser.ProviderId ? 'Edit' : 'New'}} User</b></h1>
       <span type="button" class="cross-x" (click)="close()">
         x
       </span>
@@ -404,7 +404,7 @@
     </div>
     <div class="modal-footer model-cust-footer">
       <button type="button" class="btn save-button col-md-4" [disabled]="disableProviderRegistration()"
-        (click)="createProviderRegistration()">Add New User </button>
+        (click)="createProviderRegistration()"> {{ newUser.ProviderId ? 'Save' : 'Add New User' }} </button>
       <button type="button" class="cancel-button col-md-4" (click)="close()">Cancel</button>
     </div>
   </div>
