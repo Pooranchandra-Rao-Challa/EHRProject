@@ -21,7 +21,7 @@ export class AlertMessage {
 
   displayErrorDailog(message) {
     Swal.fire({
-      title:message,
+      title: message,
 
       position: 'top',
       showCancelButton: true,
@@ -109,6 +109,7 @@ export class AlertMessage {
  *
  * SETTINGS
  * Practice : P
+ * Access Permission : AC
  * Schedule : S
  * Erx.  : E
  * Patinet Educations: PE
@@ -240,7 +241,7 @@ export const ERROR_CODES: { [key: string]: string } = {
   'M2CP008': 'Patient updated successfully',
 
   //Security Question
-  'M2CP009':  'Security question is updated successfully ',
+  'M2CP009': 'Security question is updated successfully ',
   'M2CP0010': 'Address verified successfully',
   'M2CP0011': 'Authorized representative added sucessfully',
   'M2CP0012': 'Authorized representative updated sucessfully',
@@ -335,6 +336,8 @@ export const ERROR_CODES: { [key: string]: string } = {
   'E2AP002': 'Patient User account create error',
   'M2AP002': 'Patient Invitaion pdf downloaded',
   'M2AP003': 'Invitation successfully sent to patient email',
+  'M2AP004': 'Patient deleted successsfully',
+  'E2AP003': 'Patient deletion error',
 
   //Message for allergies in chart screen
   'M2CA001': 'Allergy added successfully',
@@ -383,6 +386,13 @@ export const ERROR_CODES: { [key: string]: string } = {
 
   // Error for CQM Not performed
   'E2CCNP001': 'Not Performed Reason created error',
+
+  // Access Permission
+  'M2JAC001': 'Access Permission updated successfully',
+
+  // Error for access permission
+  'E2JAC001': 'Rooms created error',
+
 
   // Schedule - Rooms
   'M2JSR001': 'Room added successfully',
@@ -506,11 +516,11 @@ export const ERROR_CODES: { [key: string]: string } = {
   // Error for Default messages
   'E1A001': 'Default messages updation error',
 
-    //Provider registration in admin module
-    'M1PR001': 'Default messages updated successfully',
+  //Provider registration in admin module
+  'M1PR001': 'Default messages updated successfully',
 
-    // Error for Provider registration
-    'E1PR001': 'Default messages updation error',
+  // Error for Provider registration
+  'E1PR001': 'Default messages updation error',
 
   // Calendar Blockout messages
   'M2B1001': 'Blockout added successfully',

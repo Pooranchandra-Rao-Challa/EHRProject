@@ -268,6 +268,7 @@ export class ProfileComponent implements OnInit {
     this.patientMyProfile.UserId = this.user.UserId;
     this.patientService.UpdateContactInformation(this.patientMyProfile).subscribe(resp => {
       if (resp.IsSuccess) {
+        this.getPatientMyProfile();
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP002"]);
       }
       else {

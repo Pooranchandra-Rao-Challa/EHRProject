@@ -19,6 +19,7 @@ export class ProviderPatient{
   ShowDetailView: boolean;
   AdvancedDirectives: AdvancedDirective[] = [];
   TotalPatients: number;
+  UserId?: string;
 }
 
 

@@ -209,3 +209,6 @@ div.search-box button:hover {
   background-clip: padding-box;
   border: 0.05em solid #eeeeee;
 }
+::ng-deep body.swal2-height-auto {
+  height: 100% !important;
+}

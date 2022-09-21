@@ -11,12 +11,10 @@
       <div class="row">
         <div class="col-lg-2 col-md-6 col-12">
           <mat-label class="required">Patient Name:</mat-label>
-          <mat-form-field class="" appearance="outline" [class.not-allowed]="diabledPatientSearch"
-            [class.disabled-color]="diabledPatientSearch">
+          <mat-form-field class="" appearance="outline" >
             <input matInput #searchpatient class="form-control" placeholder="Search Patient" type="text"
               id="searchpatient" name="searchpatient" [matAutocomplete]="serachpatient"
-              [disabled]="diabledPatientSearch" [readonly]="diabledPatientSearch"
-              [class.disabled-color]="diabledPatientSearch" [(ngModel)]="labandImaging.CurrentPatient" />
+               [(ngModel)]="labandImaging.CurrentPatient" />
             <mat-autocomplete [displayWith]="displayWithPatientSearch" #serachpatient="matAutocomplete"
               (optionSelected)="onPatientSelected($event)">
               <mat-option *ngIf="isLoading">Loading ...</mat-option>
@@ -24,8 +22,10 @@
                 class="patient-serach-option">
                 {{option.Name}}
               </mat-option>
+              <mat-option *ngIf="norecords"> No Records Found</mat-option>
             </mat-autocomplete>
           </mat-form-field>
+              <!-- [disabled]="diabledPatientSearch" [readonly]="diabledPatientSearch" [class.disabled-color]="diabledPatientSearch" -->
         </div>
         <div class="col-lg-2 col-md-6 col-12">
           <mat-label>Patient ID:</mat-label>

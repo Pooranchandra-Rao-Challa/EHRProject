@@ -1,8 +1,60 @@
-<div class="scrollable-container mt-4 mx-4 border">
+<div class="scrollable-container access-permission mx-1 mb-3 border">
   <div class="general-content border">
     <p class="panel-title bg-color m-0 plabel">Access Permissions</p>
-    <div class="example-container">
-      <p>Access Permissions under development</p>
+    <div class="example-container scrollable-mat-table">
+      <mat-table class="access-permission-practice-table" [dataSource]="accessPermissiondataSource">
+        <ng-container matColumnDef="empty">
+          <mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-cell *matCellDef="let loc">{{loc.Name}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="admin">
+          <mat-header-cell *matHeaderCellDef>admin</mat-header-cell>
+          <mat-cell *matCellDef="let loc">
+            <mat-checkbox [checked]="true"></mat-checkbox>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="back_office">
+          <mat-header-cell *matHeaderCellDef>back_office</mat-header-cell>
+          <mat-cell *matCellDef="let loc">
+            <mat-checkbox [checked]="true"></mat-checkbox>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="dentist">
+          <mat-header-cell *matHeaderCellDef>dentist</mat-header-cell>
+          <mat-cell *matCellDef="let loc">
+            <mat-checkbox [checked]="true"></mat-checkbox>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="ehr1_administrator">
+          <mat-header-cell *matHeaderCellDef>ehr1_administrator</mat-header-cell>
+          <mat-cell *matCellDef="let loc">
+            <mat-checkbox [checked]="true"></mat-checkbox>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="front_desk">
+          <mat-header-cell *matHeaderCellDef>front_desk</mat-header-cell>
+          <mat-cell *matCellDef="let loc">
+            <mat-checkbox [checked]="true"></mat-checkbox>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="hygientist">
+          <mat-header-cell *matHeaderCellDef>hygientist</mat-header-cell>
+          <mat-cell *matCellDef="let loc">
+            <mat-checkbox [checked]="true"></mat-checkbox>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="accessPermissionColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: accessPermissionColumns"></mat-row>
+      </mat-table>
+      <div class="norecords-found" *ngIf="accessPermissiondataSource?.length == 0">
+        No Acces Permissions Found
+      </div>
+      <div class="row my-3">
+        <div class="col-12">
+          <button class="btn btn-green pull-right mx-2" (click)="SaveAccessPermission()">Save</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

@@ -1,3 +1,5 @@
+import { User } from './../../../_models/_account/user';
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { BehaviorSubject, of } from 'rxjs';
@@ -23,7 +25,8 @@ import { OrderResultDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/o
 import { PatientUpdateService, ViewChangeService } from 'src/app/_navigations/provider.layout/view.notification.service';
 import { CCdaDialogComponent } from 'src/app/dialogs/c-cda.dialog/c-cda.dialog.component';
 import { AuthorizedrepresentativeDialogComponent } from 'src/app/dialogs/authorizedrepresentative.dialog/authorizedrepresentative.dialog.component';
-
+import { NewmessageDialogComponent } from 'src/app/dialogs/newmessage.dialog/newmessage.dialog.component';
+import { MessageDialogInfo, Messages } from 'src/app/_models/_provider/messages';
 
 @Component({
   selector: 'app-patient.details',
@@ -55,6 +58,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
   orderResultDialogComponent = OrderResultDialogComponent;
   cCdaDialogComponent = CCdaDialogComponent;
   authorizedRepresentativeDialogComponent = AuthorizedrepresentativeDialogComponent
+  MessageDialogComponent = NewmessageDialogComponent;
 
 
 
@@ -445,11 +449,43 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
           else if (this.viewModel.PatientView == "Chart")
             this.loadChartComponent();
         }
-
-
       }
       else if (content === this.procedureDialogComponent) {
-        this.loadDentalChartComponent();
+        if (res.data.saved == true) {
+          if (this.viewModel.PatientView == "Dental Chart") {
+            this.loadDentalChartComponent();
+          }
+        }
+      }
+    });
+  }
+
+  openComponentDialogmessage(content: any | ComponentType<any> | string, data,
+    action: Actions = this.ActionTypes.add, message: string) {
+    let DialogResponse: MessageDialogInfo = {};
+
+    if (action == Actions.view && content === this.MessageDialogComponent) {
+      DialogResponse.MessageFor = message
+      DialogResponse.Messages = {};
+      DialogResponse.Messages.toAddress = {}
+      DialogResponse.Messages.toAddress.Name = this.viewModel.Patient.FirstName + ' ' + this.viewModel.Patient.LastName;
+      DialogResponse.Messages.toAddress.UserId = this.viewModel.Patient.UserId;
+      DialogResponse.ForwardReplyMessage = message;
+    }
+
+    const ref = this.overlayService.open(content, DialogResponse);
+    ref.afterClosed$.subscribe(res => {
+    });
+  }
+
+  DeletePatient() {
+    this.patient.active = false;
+    this.patientService.DeletePatient(this.patient).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.alertmsg.displayErrorDailog(ERROR_CODES["M2AP004"]);
+        this.router.navigate(["/provider/patients"]);
+      } else {
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2AP003"]);
       }
     });
   }

@@ -153,7 +153,6 @@ export class PracticeComponent implements OnInit {
 
   }
   updateUser() {
-    debugger
     this.NewUserData.ClinicId = this.user.ClinicId;
     this.NewUserData.LocationId = this.user.CurrentLocation;
     if (this.NewUserData.PracticeName == null)
