@@ -122,6 +122,7 @@ export class NewmessageDialogComponent implements OnInit {
       })
   }
   _filetrProvider() {
+    debugger
     let req = { "ClinicId": this.authenticationService.userValue.ClinicId };
     this.smartSchedulerService.PracticeProviders(req).subscribe(resp => {
       if (resp.IsSuccess) {
@@ -141,6 +142,7 @@ export class NewmessageDialogComponent implements OnInit {
   }
 
   InsertMessage(item: boolean, sent: boolean) {
+    debugger
     if (this.message.EmailMessageId != null) {
       this.message.FromId = this.user.UserId;
       this.message.ProviderName = this.user.FirstName;

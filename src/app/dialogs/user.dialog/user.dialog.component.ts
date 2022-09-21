@@ -42,7 +42,7 @@ export class UserDialogComponent implements OnInit {
   }
   ssnpattern = { 0: { pattern: new RegExp(/^(?!666|000|9\\d{2})\\d{3}-(?!00)\\d{2}-(?!0{4})\\d{4}$/), symbol: '*' } };
   userQuery: {};
-
+  pattern = { 0: { pattern: new RegExp('\\d'), symbol: '*' } };
 
   constructor(private ref: EHROverlayRef,
     private settingsService: SettingsService,
@@ -62,6 +62,7 @@ export class UserDialogComponent implements OnInit {
     this.loadFormDefaults();
     this.getScreenSize();
     this.dynamicheight = { 'height.px': this.scrHeight - 250, }
+    
   }
 
   ngOnInit(): void {

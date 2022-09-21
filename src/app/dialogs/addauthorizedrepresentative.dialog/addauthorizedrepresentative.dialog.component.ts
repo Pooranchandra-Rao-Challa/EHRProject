@@ -49,7 +49,6 @@ export class AddauthorizedrepresentativeDialogComponent implements OnInit {
     this.ref.close(null);
   }
   CreateAuthorizedRepresentative() {
-    
     this.authorizedRepresentative.URL = this.url;
     console.log(this.url);
     let isAdd = this.authorizedRepresentative.AuthorizedRepId == undefined

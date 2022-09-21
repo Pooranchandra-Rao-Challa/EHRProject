@@ -165,8 +165,6 @@ export class MessageComponent {
   openComponentDialogmessage(content: any | ComponentType<any> | string, data,
     action: Actions = this.ActionTypes.add, message: string) {
     let DialogResponse: MessageDialogInfo = {};
-    debugger
-
     if (action == Actions.view && content === this.MessageDialogComponent) {
       if(message == 'Reply')
       {
@@ -204,11 +202,11 @@ export class MessageComponent {
     }
     this.messageService.DeleteMessages(req).subscribe(resp => {
       if (resp.IsSuccess) {
-        this.alertmsg.displayMessageDailog(ERROR_CODES["M2D002"]);
+        this.alertmsg.displayErrorDailog(ERROR_CODES["M2D002"]);
         this.getMessages(this.currentMessageView);
       }
       else {
-        this.alertmsg.displayMessageDailog(ERROR_CODES["E2D001"]);
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2D001"]);
       }
     })
   }

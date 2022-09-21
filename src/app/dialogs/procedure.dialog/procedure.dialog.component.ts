@@ -33,6 +33,8 @@ export class ProcedureDialogComponent implements OnInit {
   selectedCode: string;
   isLoading = false;
   procedureStatuses: any;
+  displayMessage:boolean = true;
+  noRecords:boolean = false;
   constructor(private overlayref: EHROverlayRef,
     private authService: AuthenticationService,
     private patientService: PatientService,
@@ -55,6 +57,10 @@ export class ProcedureDialogComponent implements OnInit {
       // get value
       map((event: any) => {
         this.filteredProcedures = of([])
+        this.noRecords = true;
+        if(event.target.value == ''){
+          this.displayMessage = true;
+        }
         return event.target.value;
       })
       // if character length greater then 2
@@ -507,10 +513,14 @@ this.procedureInfo.Place == "cusp_distolingual"
     this.utilityService.MedicalCodes(term, "CDT/CPT")
       .subscribe(resp => {
         this.isLoading = false;
+          this.displayMessage = false;
         if (resp.IsSuccess) {
           this.filteredProcedures = of(
             resp.ListResult as MedicalCode[]);
         } else this.filteredProcedures = of([]);
+        {
+          this.noRecords = true;
+        }
       })
   }
 

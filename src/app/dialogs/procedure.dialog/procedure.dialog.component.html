@@ -17,11 +17,15 @@
                 id="searchProcedureCode" name="searchProcedureCode" [matAutocomplete]="procedureCode"/>
               <mat-autocomplete [displayWith]="displayWith" #procedureCode="matAutocomplete"
                 (optionSelected)="onProcedureSelected($event)">
+                <mat-option [hidden]="displayMessage == false" [disabled]="true" class="text-wrap lh-1 fs-6">
+                  Enter atleast 3 character, you can only select 1 item
+                </mat-option>
                 <mat-option *ngIf="isLoading">Loading ...</mat-option>
                 <mat-option *ngFor="let option of filteredProcedures | async" [value]="option"
                   class="medical-code-option">
                   {{option.Code}} - {{option.Description}}
                 </mat-option>
+                <!-- <mat-option *ngIf="noRecords">No Records Found</mat-option> -->
               </mat-autocomplete>
             </mat-form-field>
           </div>
@@ -74,7 +78,11 @@
         </div>
         <div class="col-lg-4 col-md-6 col-12">
           <div class="input-group" [class.tooth-number-center]="procedureInfo.ViewFrom =='ToothNo'">
-            <label class="control-label input-group-addon required">Tooth : </label>
+            <div class="row">
+              <div class="col-md-6"><label class="control-label input-group-addon required">Tooth:</label></div>
+              <div class="col-md-6"> <label *ngIf="procedureInfo.ViewFrom =='ToothNo'">{{procedureInfo.ToothNo}}</label></div>
+            </div>
+           
             <mat-form-field class="procedure-form-field w-100" appearance="outline"
             [ngStyle]="{'padding-bottom':'0px'}"
             *ngIf="procedureInfo.ViewFrom == null || procedureInfo.ViewFrom =='Tree'">
@@ -82,7 +90,7 @@
                 <mat-option *ngFor="let toothNo  of teethNumbers" [value]="toothNo">{{toothNo}}</mat-option>
               </mat-select>
             </mat-form-field>
-            <label *ngIf="procedureInfo.ViewFrom =='ToothNo'">{{procedureInfo.ToothNo}}</label>
+            <!-- <label *ngIf="procedureInfo.ViewFrom =='ToothNo'">{{procedureInfo.ToothNo}}</label> -->
           </div>
         </div>
         <div class="col-lg-4 col-md-6 col-12">
