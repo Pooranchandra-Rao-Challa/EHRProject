@@ -96,7 +96,7 @@
             <mat-cell *matCellDef="let patient">
               <span >
                 <p *ngIf="patient?.MobilePhone!=null " style="margin: auto;">H:{{patient?.MobilePhone}} </p>
-                <p *ngIf="patient?.PrimaryPhone!=null" style="margin:auto;">P:{{patient?.PrimaryPhone}}</p> 
+                <p *ngIf="patient?.PrimaryPhone!=null" style="margin:auto;">P:{{patient?.PrimaryPhone}}</p>
                 {{patient?.Email}}
               </span>
             </mat-cell>
@@ -122,7 +122,8 @@
           </ng-container>
 
           <mat-header-row *matHeaderRowDef="patientColumns" class="mat-cust-header"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: patientColumns;">
+          <mat-row *matRowDef="let row; columns: patientColumns;"
+          [ngStyle]="!row.active && {'opacity': 0.5}">
           </mat-row>
         </mat-table>
         <div class="norecords-found" *ngIf="patientsDataSource?.TotalRecordSize == 0">
