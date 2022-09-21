@@ -14,9 +14,15 @@ export class WeekdayFormatPipe implements PipeTransform {
     timeSlots.forEach(timeslot => {
       if(rtnString != '') rtnString += '<br/>'
       if(timeslot.SpecificHour == 'Specific Hours')
-        rtnString += timeslot.WeekDay+', '+timeslot.From+'-'+timeslot.To
-      else
-        rtnString += timeslot.WeekDay+', '+timeslot.SpecificHour;
+        rtnString +='<div style="color:green" >'+ timeslot.WeekDay+', '+timeslot.From+'-'+timeslot.To +  '</div>'
+      else if(timeslot.SpecificHour == 'Closed/NA')
+      {
+        rtnString += '<div style="color:red" >'+ timeslot.WeekDay+', '+timeslot.SpecificHour+'</div>';
+      }
+      else{
+        rtnString += '<div style="color:#74757e" >'+ timeslot.WeekDay+', '+timeslot.SpecificHour+'</div>';
+      }
+     
     });
     return this.sanitizer.bypassSecurityTrustHtml(rtnString);
   }

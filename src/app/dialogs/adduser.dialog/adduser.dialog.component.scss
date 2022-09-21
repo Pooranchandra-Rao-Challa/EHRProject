@@ -98,6 +98,7 @@
   height: 35px;
   font-size: 1rem !important;
   padding-left:10px;
+  background-color: #fff;
 }
 
 input::-webkit-input-placeholder {
@@ -191,10 +192,13 @@ input::-webkit-input-placeholder {
 }
 
 .input-bgColor {
-  background-color: #eef1f5;
+  // background-color: #eef1f5;
+  // opacity: 1;
+}
+.form-control:disabled, .form-control[readonly] {
+  /* background-color: #e9ecef; */
   opacity: 1;
 }
-
 .row>* {
   flex-shrink: unset;
 }
@@ -396,4 +400,9 @@ input::-webkit-input-placeholder {
 .not-allowed
 {
   cursor: not-allowed !important;
+
+}
+.readonlybgcolorchange
+{
+  background-color: #fff !important;
 }
