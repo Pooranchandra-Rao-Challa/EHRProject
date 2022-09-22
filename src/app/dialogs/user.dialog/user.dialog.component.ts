@@ -206,4 +206,9 @@ export class UserDialogComponent implements OnInit {
       }
     });
   }
+  enablesave()
+  {
+    return!(this.EditProvider.FirstName!=null && this.EditProvider.FirstName!=''
+    && this.EditProvider.LastName!=null && this.EditProvider.LastName!='')
+  }
 }

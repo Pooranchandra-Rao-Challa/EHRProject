@@ -127,42 +127,36 @@
               </div>
 
             </div>
-            <div class="row">
-              <div class="col-lg-12 col-md-12 col-xl-7 col-sm-12">
-                <div class="form-group my-2 mt-lg-0 checkboxalignment">
-                  <div class="input-group">
-                    <input class="checkbox form-check-input" id="Active" name="Active" type="checkbox"
-                      [(ngModel)]="patientMyProfile.Active">
-                    <label class="label-design check-label check-label-mrg">ACTIVE PATIENT
-                    </label>
-                  </div>
+            <div class="col-lg-12 col-md-12 col-xl-7 col-sm-12">
+              <div class="form-group checkalignment">
+                <div class="input-group">
+                  <input class="checkbox form-check-input" id="Active" name="Active" type="checkbox"
+                  [(ngModel)]="patientMyProfile.Active">
+                <label class="label-design check-label check-label-mrg">ACTIVE PATIENT
+                </label>
                 </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-lg-4 col-md-4 col-xl-4 col-sm-12">
-                <div class="form-group my-2 mt-lg-0 checkboxalignment">
-                  <div class="input-group">
-                    <input class="checkbox form-check-input " id="PortalAccess" name="PortalAccess" type="checkbox"
-                      [(ngModel)]="patientMyProfile.DeclinedPortalAccess">
-                    <label class="label-design check-label">PATIENT DECLINED PORTAL ACCESS</label>
-                  </div>
+            <div class="col-lg-12 col-md-12 col-xl-7 col-sm-12">
+              <div class="form-group checkalignment">
+                <div class="input-group">
+                  <input class="checkbox form-check-input " id="PortalAccess" name="PortalAccess" type="checkbox"
+                  [(ngModel)]="patientMyProfile.DeclinedPortalAccess">
+                <label class="label-design check-label">PATIENT DECLINED PORTAL ACCESS</label>
+              
                 </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-lg-12 col-md-12 col-xl-7 col-sm-12 mt-2">
-                <div class="form-group my-2 mt-lg-0 checkboxalignment">
-                  <div class="input-group">
-                    <input class="checkbox form-check-input" id="VisionImpared" name="VisionImpared" type="checkbox"
+            <div class="col-lg-12 col-md-12 col-xl-7 col-sm-12">
+              <div class="form-group checkalignment">
+                <div class="input-group">
+                  <input class="checkbox form-check-input" id="VisionImpared" name="VisionImpared" type="checkbox"
                       [(ngModel)]="patientMyProfile.VisionImpared">
                     <label class="label-design check-label check-label-mrg">PATIENT IS VISION IMPARED</label>
-                  </div>
+              
                 </div>
               </div>
             </div>
-
-
             <div class="d-flex justify-content-end mt-3 mx-4">
               <button type="button" class="btn btn-lg btn-orange" [disabled]="enablePatientInfo()"
                 (click)="updatePatientInformation()">Save</button>
