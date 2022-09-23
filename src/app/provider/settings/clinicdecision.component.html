@@ -103,7 +103,7 @@
                 <td>{{data.CodeSystem}}</td>
                 <td>{{data.Description}}</td>
                 <td (click)="DeleteTrigger(data.TriggerId)">
-                  <mat-icon class="close-icon Cancelbtn">close
+                  <mat-icon class="close-icon  Cancelbtn" style="cursor: pointer;">close
                   </mat-icon>
                 </td>
               </tr>
@@ -138,7 +138,7 @@
               <mat-label class="Helvetica-sans-serif-small ">Funding Source:</mat-label>
             </div>
             <div class="col-md-4">
-              <mat-form-field appearance="outline">
+              <mat-form-field appearance="outline" class="col-md-12">
                 <input matInput placeholder="" [(ngModel)]="item.FundingSource">
               </mat-form-field>
             </div>

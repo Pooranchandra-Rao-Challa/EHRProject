@@ -78,7 +78,6 @@ export class ClinicDecisionComponent implements OnInit {
   flag: boolean = true;
 
   open(value:boolean) {
-    debugger
     this.show = true;
     this.step = -1
     this.flag = value;
@@ -86,7 +85,6 @@ export class ClinicDecisionComponent implements OnInit {
 
   }
   close(value:boolean) {
-    debugger
     this.show = false;
     this.flag = value;
     this.authService.SetViewParam("Cds", value);
