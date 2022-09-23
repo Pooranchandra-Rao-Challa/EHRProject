@@ -208,12 +208,12 @@ export class ScheduleComponent implements OnInit {
     this.typeOnEdit.push(this.type().length);
   }
   pushType(appointmenttype: FormGroup) {
-    //this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
+    this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
     this.type().push(appointmenttype);
-    // setTimeout(() => {
-    //   this.customizedspinner = false;
-    //   $('body').removeClass('loadactive')
-    // }, 1000);
+    setTimeout(() => {
+      this.customizedspinner = false;
+      $('body').removeClass('loadactive')
+    }, 1000);
   }
   clearType() {
     this.type().clear();
@@ -346,18 +346,12 @@ export class ScheduleComponent implements OnInit {
   // Add Update Appointment Type
   saveAppointmentType(typeIndex: number) {
     let ctlType = this.typeForm.controls.type["controls"][typeIndex];
-
-
     let ctlvalue = ctlType.value;
-    console.log(ctlvalue);
-
     let reqparams: any;
     if (!isNaN(Number(ctlvalue.Id)) && Number(ctlvalue.Id) < 0)
       ctlvalue['TypeId'] = null;
     else
       ctlvalue['TypeId'] = ctlvalue.Id;
-
-
     reqparams = {
       ProviderId: this.user.ProviderId,
       TypeId: ctlvalue.TypeId,
@@ -365,7 +359,6 @@ export class ScheduleComponent implements OnInit {
       TypeName: ctlvalue.AppointmentType,
       Colour: ctlvalue.Colour
     }
-    console.log(reqparams);
     //if (!isNaN(Number(reqparams.TypeId))) reqparams.TypeId = null;
     this.settingsService.AddUpdateAppointmentType(reqparams).subscribe(resp => {
       if (resp.IsSuccess) {

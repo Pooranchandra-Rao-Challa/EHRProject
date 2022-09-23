@@ -349,7 +349,7 @@ export class RegistrationComponent implements OnInit {
       }
       else {
         Swal.fire({
-          icon: 'error',
+          // icon: 'error',
           title: 'Oops...',
           text: resp.EndUserMessage,
           width: '700',
@@ -365,12 +365,12 @@ export class RegistrationComponent implements OnInit {
 
   alertWithSuccess() {
     Swal.fire({
-      icon: 'success',
+      // icon: 'success',
       title: 'Thank you for registering in an EHR1 Account! An email with instructions for how to complete  setup of your account has been sent to ' + this.AccountDetails.Email,
       showConfirmButton: true,
       confirmButtonText: 'Close',
       width: '500',
-      
+
     });
   }
 }

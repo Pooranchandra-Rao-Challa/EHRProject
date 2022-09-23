@@ -288,11 +288,8 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
     this.PatientAppointment.AppointmentTime = this.PatientAppointment.TimeSlot.StartDateTime;
     this.PatientAppointment.strAppointmentTime =
     this.datePipe.transform(this.PatientAppointment.TimeSlot.StartDateTime,"MM/dd/yyyy HH:mm")
-    console.log(this.PatientAppointment);
-
     let isAdd = this.PatientAppointment.AppointmentId == null;
     this.SaveInputDisable = true;
-
     this.smartSchedulerService.CreateAppointment(this.PatientAppointment).subscribe(resp => {
       if (resp.IsSuccess) {
         this.onError = false;

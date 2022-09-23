@@ -11,10 +11,10 @@
       <div class="row">
         <div class="col-lg-2 col-md-6 col-12">
           <mat-label class="required">Patient Name:</mat-label>
-          <mat-form-field class="" appearance="outline" >
+          <mat-form-field class="" appearance="outline">
             <input matInput #searchpatient class="form-control" placeholder="Search Patient" type="text"
               id="searchpatient" name="searchpatient" [matAutocomplete]="serachpatient"
-               [(ngModel)]="labandImaging.CurrentPatient" />
+              [(ngModel)]="labandImaging.CurrentPatient" />
             <mat-autocomplete [displayWith]="displayWithPatientSearch" #serachpatient="matAutocomplete"
               (optionSelected)="onPatientSelected($event)">
               <mat-option *ngIf="isLoading">Loading ...</mat-option>
@@ -25,7 +25,7 @@
               <mat-option *ngIf="norecords"> No Records Found</mat-option>
             </mat-autocomplete>
           </mat-form-field>
-              <!-- [disabled]="diabledPatientSearch" [readonly]="diabledPatientSearch" [class.disabled-color]="diabledPatientSearch" -->
+          <!-- [disabled]="diabledPatientSearch" [readonly]="diabledPatientSearch" [class.disabled-color]="diabledPatientSearch" -->
         </div>
         <div class="col-lg-2 col-md-6 col-12">
           <mat-label>Patient ID:</mat-label>
@@ -151,7 +151,6 @@
         </div>
       </div>
 
-
       <div class="card">
         <div class="card-header" style="margin-right: -1px;">
           <div class="row">
@@ -217,9 +216,9 @@
       </div>
 
       <app-attachment-preview [EntityName]="EntityName" [EntityId]="labandImaging.LabProcedureId"
-      [Attachments]="labandImaging.Attachments" (onItemsModify)="ItemsModified($event)"
-      [acceptPdf]="true" [fileSize]="10" [httpUrl]="fileUploadUrl"></app-attachment-preview>
-<!--
+        [Attachments]="labandImaging.Attachments" (onItemsModify)="ItemsModified($event)" [acceptPdf]="true"
+        [fileSize]="10" [httpUrl]="fileUploadUrl"></app-attachment-preview>
+      <!--
 
       <div class="attachments" style="display:flex">
         <div class="container-items col-lg-3 col-md-3 col-3 col-sm-3">

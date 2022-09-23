@@ -8,15 +8,19 @@
 // }
 
 #imageresult-dialog.modal-dialog {
+  // max-width: unset;
+  // left: calc(100% - 95%) !important;
+  // margin: unset;
+  // width: 1200px;
   max-width: unset;
-  left: calc(100% - 95%) !important;
-  margin: unset;
-  width: 1200px
+  left: 0px;
+  margin: 30px auto !important;
+  width: 100% !important;
 }
 
 #imageresult-dialog {
   .modal-content {
-    width: 1200px !important;
+    width: 100% !important;
   }
 
   .dropdown-menu {

@@ -32,6 +32,8 @@ export class NewmessageDialogComponent implements OnInit {
   message?: Messages;
   fileUploadUrl?: string;
   diabledPatientSearch: boolean = false
+  displayMessage: boolean = true;
+  noRecords: boolean = false;
 
   constructor(private ref: EHROverlayRef,
     private patientService: PatientService,
@@ -53,6 +55,10 @@ export class NewmessageDialogComponent implements OnInit {
       // get value
       map((event: any) => {
         this.filteredToAddressMembers = of([]);
+        this.noRecords = false;
+        if(event.target.value == ''){
+          this.displayMessage = true;
+        }
         return event.target.value;
       })
       // if character length greater then 2
@@ -113,21 +119,31 @@ export class NewmessageDialogComponent implements OnInit {
         SearchTerm: term
       })
       .subscribe(resp => {
-
         this.isLoading = false;
+        this.displayMessage = false;
         if (resp.IsSuccess) {
           this.filteredToAddressMembers = of(
             resp.ListResult as ToAddress[]);
-        } else this.filteredToAddressMembers = of([]);
+        }
+        else {
+          this.filteredToAddressMembers = of([]);
+          this.noRecords = true;
+        }
       })
   }
   _filetrProvider() {
+    this.isLoading = true;
     let req = { "ClinicId": this.authenticationService.userValue.ClinicId };
     this.smartSchedulerService.PracticeProviders(req).subscribe(resp => {
+      this.isLoading = false;
+      this.displayMessage = false;
       if (resp.IsSuccess) {
         this.filteredToAddressMembers = of(
           resp.ListResult as ToAddress[]);
-
+      }
+      else {
+        this.filteredToAddressMembers = of([]);
+        this.noRecords = true;
       }
     });
   }

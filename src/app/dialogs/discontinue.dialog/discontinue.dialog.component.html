@@ -2,7 +2,7 @@
   <div class="modal-content">
     <div class="modal-header">
       <h4 class="modal-title Helvetica-sans-serif-medium">Select Reason</h4>
-      <span class="cross-mark" data-bs-dismiss="modal" aria-label="Close" (click)="cancel()">
+      <span class="cross-mark pointer" (click)="cancel()">
         X
       </span>
     </div>
@@ -33,7 +33,7 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-green" data-bs-dismiss="modal" (click)="saveReason(patientMedication)">
+      <button type="button" class="btn btn-green" (click)="saveReason(patientMedication)">
         Done
       </button>
     </div>

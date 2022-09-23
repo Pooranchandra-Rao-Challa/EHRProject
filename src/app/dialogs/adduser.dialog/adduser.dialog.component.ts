@@ -289,7 +289,7 @@ export class AddUserDialogComponent implements OnInit {
             && this.newUser.Speciality
               && this.newUser.NPI
                 && this.newUser.Address
-                  && this.newUser.ClinicId
+                  && this.newUser.clinic_id
                   && (this.phonePattern.test(pNo))
                   && ((!this.newUser.MobilePhonePreffix && !this.newUser.MobilePhoneSuffix) || (this.phonePattern.test(mNo)))
                   && (this.emailPattern.test(this.newUser.Email))

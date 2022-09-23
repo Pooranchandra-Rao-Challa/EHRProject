@@ -1,3 +1,7 @@
+<div id="pause" class="d-flex align-items-center justify-content-center" *ngIf="customizedspinner">
+  <div id="spinner"></div>
+</div>
+
 <div class="chart-wrapper">
   <div class="controls-container">
     <div class="row controls">
@@ -47,7 +51,7 @@
                 </mat-option>
                 <mat-option *ngIf="isLoading">Loading ...</mat-option>
                 <mat-option *ngFor="let option of filteredPatients | async" [value]="option"
-                  class="patient-serach-option">
+                  class="patient-serach-option" (click)="onSelectedPatient(option)">
                   {{option.Name}}
                 </mat-option>
                 <mat-option *ngIf="noRecords">No Records Found</mat-option>
