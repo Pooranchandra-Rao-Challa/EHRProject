@@ -13,6 +13,54 @@
   }
 }
 
+body {
+  margin: 0px;
+}
+.authorization-signup-wrapper {
+  height: auto;
+  color: #4a4a4a;
+  // background-color: #ebe9e9;
+  background: url(../../assets/images/pro-reg-bg.png);
+}
+.one-ehr-images {
+  margin-top: -6rem;
+}
+
+authorization-signup-wrapper .mat-select-panel {
+  border-radius: 4px;
+  margin-top: 0px !important;
+  margin-left: -10px !important;
+  position: absolute !important;
+  top: 34px;
+  min-width: calc(100% + 22px) !important;
+}
+.authorization-signup-wrapper .ehr-img-top {
+  position: relative;
+  width: 100%;
+  left: 0%;
+  height: 89px;
+  top: 168px;
+  background-color: #41b6a6;
+}
+.ehr-img-top {
+  background-color: #41b6a6;
+}
+.ehr-img-top .text-center {
+  background-color: #41b6a6;
+}
+.logo-rectangle {
+  width: 277.2px;
+  margin: 0 auto;
+  background-image: url(../../assets/images/logo-rectangle.svg);
+  background-repeat: no-repeat;
+}
+.main-title p {
+  font-size: 18px;
+}
+h3{
+  font-size: 24px;
+  text-transform: uppercase;
+}
 
 .btn.btn-green {
   color: #41b6a6;
@@ -25,7 +73,18 @@
   border-color: #41b6a6;
   background: #41b6a6;
 }
-
+a:hover {
+  color: #41b6a6;
+  text-decoration: none;
+  font-family: "Times New Roman";
+  // text-decoration: underline;
+}
+a {
+  color: #41b6a6;
+  text-decoration: none;
+  font-family: "Times New Roman";
+  // text-decoration: underline;
+}
 .vediologo img {
   height: 90%;
   width: 95%;
@@ -232,7 +291,7 @@ video {
     width: 100%;
     left: 0%;
     height: 88px;
-    top: 77px;
+    top: 168px;
     background-color: #41b6a6;
   }
 
@@ -299,6 +358,7 @@ video {
   .img-svg-eye {
     width: 5%;
     position: absolute;
+    margin-left: -15px;
   }
 
   .verify {
