@@ -528,6 +528,8 @@ export class TobaccoUseConstants {
 
   public slice;
 
+  public map;
+
   public static SCREENING_PERFORMED = [
     { 'Performed': 'Tobacco use CPHS' },
     { 'Performed': 'Have you used tobacco in the last 30 days [SAMHSA]' },
@@ -536,7 +538,7 @@ export class TobaccoUseConstants {
   ];
 
   public static SCREENING_TOBACCO_STATUS = [
-    { 'Code': '160603005', 'Description': 'Light cigarette smoker (1-9 cigs/day) (finding)' },
+    { Code: '160603005', 'Description': 'Light cigarette smoker (1-9 cigs/day) (finding)' },
     { 'Code': '160604004', 'Description': 'Moderate cigarette smoker (10-19 cigs/day) (finding)' },
     { 'Code': '160605003', 'Description': 'Heavy cigarette smoker (20-39 cigs/day) (finding)' },
     { 'Code': '160606002', 'Description': 'Very heavy cigarette smoker (40+ cigs/day) (finding)' },

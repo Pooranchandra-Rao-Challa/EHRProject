@@ -6,7 +6,7 @@ import { filter, map, } from 'rxjs/operators';
 import { Observable, of, BehaviorSubject, fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { ProviderPatient } from './../../../_models/_provider/Providerpatient';
-import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
 import { OverlayService } from '../../../overlay.service';
 import { AdvancedDirectivesDialogComponent } from '../../../dialogs/advanced.directives.dialog/advanced.directives.dialog.component';
@@ -35,7 +35,6 @@ import { AllergyTableDialogComponent } from 'src/app/dialogs/allergy.table.dialo
 import { FrequentlyUsedDiagnosesDialogComponent } from 'src/app/dialogs/frequently.used.diagnoses.dialog/frequently.used.diagnoses.dialog.component';
 import { AddDiagnosesDialogComponent } from 'src/app/dialogs/add.diagnoses.dialog/add.diagnoses.dialog.component';
 import { ViewChangeService } from 'src/app/_navigations/provider.layout/view.notification.service';
-import { Router } from '@angular/router';
 import { DiagnosesTableDialogComponent } from 'src/app/dialogs/diagnoses.table.dialog/diagnoses.table.dialog.component';
 import { MedicationTableDialogComponent } from 'src/app/dialogs/medication.table.dialog/medication.table.dialog.component';
 import { TobaccoUseTableDialogComponent } from 'src/app/dialogs/tobacco.use.table.dialog/tobacco.use.table.dialog.component';
@@ -46,6 +45,7 @@ import { EncounterTableDialogComponent } from 'src/app/dialogs/encounter.table.d
 import { AppointmentsTableDialogComponent } from 'src/app/dialogs/appointments.table.dialog/appointments.table.dialog.component';
 import { MessageDialogInfo } from 'src/app/_models/_provider/messages';
 import { NewmessageDialogComponent } from 'src/app/dialogs/newmessage.dialog/newmessage.dialog.component';
+declare var $: any;
 
 @Component({
   selector: 'app-chart',
@@ -55,8 +55,8 @@ import { NewmessageDialogComponent } from 'src/app/dialogs/newmessage.dialog/new
 export class ChartComponent implements OnInit, AfterViewInit {
   public selectedPatient: PatientSearchResults[];
   @ViewChild('searchVaccineCode', { static: true }) searchVaccineCode: ElementRef;
-
   @ViewChild('searchPatient', { static: true })
+
   searchPatient: ElementRef;
   labandimaging: Labandimaging;
 
@@ -122,6 +122,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   noRecords: boolean = false;
   viewModel: ViewModel;
   patientMessages: Messages[] = [];
+  customizedspinner: boolean;
 
   constructor(public overlayService: OverlayService,
     private patientService: PatientService,
@@ -131,8 +132,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
     public datepipe: DatePipe,
     private smartSchedulerService: SmartSchedulerService,
     private settingsService: SettingsService,
-    private viewChangeService: ViewChangeService,
-    private router: Router) {
+    private viewChangeService: ViewChangeService) {
     this.user = authService.userValue;
     this.viewModel = authService.viewModel;
   }
@@ -205,6 +205,12 @@ export class ChartComponent implements OnInit, AfterViewInit {
     if (!value) return "";
     return value.Name;
   }
+
+  onSelectedPatient(value) {
+    this.authService.SetViewParam("Patient", value);
+    window.location.href = "provider/patientdetails";
+  }
+
   ngOnInit(): void {
     this.loadGlobalConstants();
     this.currentPatient = this.authService.viewModel.Patient;

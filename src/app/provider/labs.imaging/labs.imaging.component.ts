@@ -154,7 +154,7 @@ export class LabsImagingComponent implements OnInit {
   }
   openEditDialog(data: LabProcedureWithOrder) {
     if (this.viewmodel.LabandImageView == "Lab") {
-      this.openComponentDialog(this.orderDialogComponent, data, this.ActionTypes.view)
+      this.openComponentDialog(this.orderDialogComponent, data, this.ActionTypes.view);
     }else if (this.viewmodel.LabandImageView == "Image") {
       this.openComponentDialog(this.orderDialogComponent, data, this.ActionTypes.view)
     }

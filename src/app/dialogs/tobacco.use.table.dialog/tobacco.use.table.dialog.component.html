@@ -70,34 +70,36 @@
                 <div class="bg-color col-12">
                   <p class="Helvetica-sans-serif-medium">Recorded Cessation Interventions</p>
                 </div>
-                <mat-table [dataSource]="patientTobaccoUse" matSort>
-                  <ng-container matColumnDef="DatePerf">
-                    <mat-header-cell *matHeaderCellDef>Date Perf</mat-header-cell>
-                    <mat-cell *matCellDef="let tobaccouse">
-                      <a (click)="openComponentDialog(tobaccoUseDialogComponent, tobaccouse, ActionTypes.view)">
-                        {{tobaccouse.CI_Date | date: 'MM/dd/yyyy'}}
-                      </a>
-                    </mat-cell>
-                  </ng-container>
-                  <ng-container matColumnDef="Interventionperf">
-                    <mat-header-cell *matHeaderCellDef>Intervention perf</mat-header-cell>
-                    <mat-cell *matCellDef="let tobaccouse">
-                      <a (click)="openComponentDialog(tobaccoUseDialogComponent, tobaccouse, ActionTypes.view)">
-                        {{tobaccouse.CI_Type}}
-                      </a>
-                    </mat-cell>
-                  </ng-container>
-                  <ng-container matColumnDef="InterventionDesc">
-                    <mat-header-cell *matHeaderCellDef>Intervention Desc</mat-header-cell>
-                    <mat-cell *matCellDef="let tobaccouse">
-                      <a (click)="openComponentDialog(tobaccoUseDialogComponent, tobaccouse, ActionTypes.view)">
-                        {{tobaccouse.CI_Description}}
-                      </a>
-                    </mat-cell>
-                  </ng-container>
-                  <mat-header-row *matHeaderRowDef="interventionColumns"></mat-header-row>
-                  <mat-row *matRowDef="let row; columns: interventionColumns"></mat-row>
-                </mat-table>
+                <div class="scrollable-mat-table">
+                  <mat-table [dataSource]="patientTobaccoUse" matSort>
+                    <ng-container matColumnDef="DatePerf">
+                      <mat-header-cell *matHeaderCellDef>Date Perf</mat-header-cell>
+                      <mat-cell *matCellDef="let tobaccouse">
+                        <a (click)="openComponentDialog(tobaccoUseDialogComponent, tobaccouse, ActionTypes.view)">
+                          {{tobaccouse.CI_Date | date: 'MM/dd/yyyy'}}
+                        </a>
+                      </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="Interventionperf">
+                      <mat-header-cell *matHeaderCellDef>Intervention perf</mat-header-cell>
+                      <mat-cell *matCellDef="let tobaccouse">
+                        <a (click)="openComponentDialog(tobaccoUseDialogComponent, tobaccouse, ActionTypes.view)">
+                          {{tobaccouse.CI_Type}}
+                        </a>
+                      </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="InterventionDesc">
+                      <mat-header-cell *matHeaderCellDef>Intervention Desc</mat-header-cell>
+                      <mat-cell *matCellDef="let tobaccouse">
+                        <a (click)="openComponentDialog(tobaccoUseDialogComponent, tobaccouse, ActionTypes.view)">
+                          {{tobaccouse.CI_Description}}
+                        </a>
+                      </mat-cell>
+                    </ng-container>
+                    <mat-header-row *matHeaderRowDef="interventionColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: interventionColumns"></mat-row>
+                  </mat-table>
+                </div>
               </div>
             </div>
           </div>
@@ -105,7 +107,8 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-green" (click)="openComponentDialog(tobaccoUseDialogComponent, null, ActionTypes.add)">Add</button>
+      <button class="btn btn-green"
+        (click)="openComponentDialog(tobaccoUseDialogComponent, null, ActionTypes.add)">Add</button>
       <button class="btn btn-green" (click)="cancel()">Cancel</button>
     </div>
   </div>

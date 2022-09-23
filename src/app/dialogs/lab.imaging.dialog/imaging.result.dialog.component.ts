@@ -90,4 +90,8 @@ export class ImagingResultDialogComponent implements OnInit {
   ItemsModified(data) {
     this.labandimaging.ImageAttachments = data;
   }
+
+  disableSaveBtn() {
+    return !(this.labandimaging.PatientName && this.labandimaging.TestResultsOfImages.ScheduleAt);
+  }
 }

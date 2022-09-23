@@ -81,8 +81,8 @@ div#practice-location-model {
 .manualbtn{
   white-space: normal !important;
   word-wrap: normal;
-
   padding:5px;
+  height: 45px;
 }
 .swal2-container{
   z-index: 100000;
@@ -98,4 +98,11 @@ div#practice-location-model {
 }
 .address-verfied {
   cursor: not-allowed;
+}
+
+@media (max-width: 325px) {
+  .form-group .input-group .input-group-addon {
+    padding: 8px 5px;
+    white-space: break-spaces;
+  }
 }

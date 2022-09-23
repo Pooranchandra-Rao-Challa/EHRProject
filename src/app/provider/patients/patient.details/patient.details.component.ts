@@ -73,22 +73,16 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
     private viewChangeService: ViewChangeService,
     private patientUpdateNotifier: PatientUpdateService) {
     this.viewModel = authService.viewModel;
-
-
-
     if (this.viewModel.PatientView == null
       || this.viewModel.PatientView == '') {
       this.viewModel.PatientView = 'Chart';
     }
-
     this.removedPatientIdsInBreadcurmb = authService.viewModel.PatientBreadCrumb;
-
   }
+
   ngAfterViewInit(): void {
     this.chartSubject.next(this.viewModel.PatientView);
   }
-
-
 
   ngOnInit(): void {
     this.loadBreadcurmData();
@@ -339,7 +333,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
 
   _listView() {
     this.viewChangeService.sendData("Patients");
-    this.authService.SetViewParam("View", "Patients")
+    this.authService.SetViewParam("View", "Patients");
     this.router.navigate(["provider/patients"]);
   }
 

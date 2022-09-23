@@ -1,6 +1,6 @@
 export class Registration{
   UserId?: string;
-  ClinicId?: string;
+  clinic_id?: string;
   ProviderId?: string;
   Title?: string ;
   FirstName?: string;

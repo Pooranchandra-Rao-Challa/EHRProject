@@ -14,6 +14,9 @@ import { SecureCreds } from '../_models';
 export class CreatePasswordComponent implements OnInit {
   createPasswordForm: FormGroup;
   secureCred: SecureCreds = {};
+  showPassword: boolean = false;
+  showConfirmPassword: boolean = false;
+
   constructor(private fb: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -67,6 +70,14 @@ export class CreatePasswordComponent implements OnInit {
         width: '700',
       });
     }
+  }
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
+
+  toggleConfirmPasswordVisibility(): void {
+    this.showConfirmPassword = !this.showConfirmPassword;
   }
 }
 
