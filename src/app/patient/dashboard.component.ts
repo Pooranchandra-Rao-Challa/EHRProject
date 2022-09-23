@@ -112,7 +112,7 @@ export class DashboardComponent {
     }
     this.patientservice.PatientUpcomingAppointments(req).subscribe(res => {
       this.PatientUpcomingAppointmentsList = res.ListResult == null ? [] : res.ListResult;
-      this.PatientUpcomingAppointmentsCount = res.ListResult.length;
+      this.PatientUpcomingAppointmentsCount = res.ListResult?.length;
     })
   }
   getmessages() {

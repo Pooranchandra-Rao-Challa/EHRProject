@@ -1,21 +1,25 @@
 @import"../../../assets/cstm.material.scss";
 @import"../../../assets/common.scss";
-*{
+
+* {
   font-size: 15px;
   font-family: 'Roboto';
   font-weight: 400;
 }
-.btn{
+
+.btn {
   height: 45px;
 }
-textarea.form-control{
-  height: 119px !important;
-    resize: none;
-    font-size: 15px;
-    padding-top: 10px !important;
-    padding-bottom: 10px !important;
-    line-height: 1.5;
+
+textarea.form-control {
+  min-height: 119px !important;
+  resize: both;
+  font-size: 15px;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+  line-height: 1.5;
 }
+
 .form-control {
   padding: 0 20px;
   color: #74757e;
@@ -27,19 +31,24 @@ textarea.form-control{
   box-shadow: none !important;
   cursor: auto !important;
 }
-.form-control:hover{
+
+.form-control:hover {
   border: 1px solid #41b6a6;
 }
-textarea::placeholder{
+
+textarea::placeholder {
   color: #74757e;
 }
-.dialog-footer.modal-footer{
+
+.dialog-footer.modal-footer {
   display: block;
   padding: 10px 15px !important;
 }
+
 .adv-modal-body.modal-body {
   padding: 20px 18px !important;
 }
+
 .modal-body {
   max-height: calc(90vh - 200px);
   overflow-y: auto;

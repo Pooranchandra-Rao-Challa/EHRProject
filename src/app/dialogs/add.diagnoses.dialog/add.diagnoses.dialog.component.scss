@@ -27,8 +27,8 @@
   height: 45px;
 }
 textarea.form-control {
-  height: 119px !important;
-  resize: none;
+  min-height: 119px !important;
+  resize: both;
   font-size: 15px;
   padding-top: 10px !important;
   padding-bottom: 10px !important;

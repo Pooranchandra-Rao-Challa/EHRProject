@@ -49,6 +49,7 @@ export class ViewModel {
   PatientBreadCrumb?: string[];
   LabandImageView?: string = "Lab";
   DefaultMessageView?: DefaultMessage;
+  Cds?:boolean = true;
 }
 
 export class AdminViewModal {

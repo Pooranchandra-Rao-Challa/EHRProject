@@ -226,11 +226,18 @@
           <div class="col-lg-12 col-md-12 col-12 my-2">
             <div class="form-group">
               <div class="input-group">
-                <label class="labelclass form-control">Last Name</label>
+                <label class="labelclass form-control required">Last Name</label>
                 <input class="addfromdesign inputclass form-control mx-0" type="text" [(ngModel)]="NewUserData.LastName"
                   id="lastName" name="lastName" autocomplete="off" #lastName="ngModel" required
                   alphaOnly />
               </div>
+              <div *ngIf="lastName.errors && (lastName.touched)">
+                <div class="error_message" *ngIf="lastName.errors?.required">
+                  <span class="e_arrow"></span>
+                  <p class="errormessage">Please enter last Name</p>
+                </div>
+              </div>
+        
             </div>
           </div>
           <div class="col-lg-12 col-md-12 col-12">

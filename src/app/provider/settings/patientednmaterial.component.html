@@ -6,7 +6,7 @@
         <div class="card-header">
           <span class="Helvetica-sans-serif-medium text-white mt-1">Patient Education Material</span>
           <button class="plusicon" type="button" data-bs-toggle="modal" data-bs-target="#modal-Patient-Education"
-            aria-expanded="false">
+            aria-expanded="false" (click)="resetDialog()">
             <i class="fa fa-plus"></i>
           </button>
         </div>
@@ -18,7 +18,7 @@
                 <mat-expansion-panel-header [ngClass]="!expandedchangecolor?'open-exp':'close-exp'">
                   <mat-icon class="play-left-arrow" (click)="togglePanels(i)" *ngIf="!example.expanded">play_arrow
                   </mat-icon>
-                  <mat-icon class="play-down-arrow" (click)="togglePanels(i)" *ngIf="example.expanded" >arrow_drop_down
+                  <mat-icon class="play-down-arrow" (click)="togglePanels(i)" *ngIf="example.expanded">arrow_drop_down
                   </mat-icon>
                   &nbsp;&nbsp;&nbsp;&nbsp;
                   <section style="margin-top: 10px;">
@@ -49,7 +49,7 @@
                 </div>
               </mat-expansion-panel>
               <div class="text-center py-2 col-12" *ngIf="Patientedmateriallist.length == 0">
-                <h6 class="Helvetica-sans-serif-medium"> No Education Materials Found.</h6>
+                <h6 class="Helvetica-sans-serif-medium" style="color: red;"> No Education Materials Found.</h6>
               </div>
             </mat-accordion>
 
@@ -66,10 +66,11 @@
     <div class="modal-content">
       <div class="modal-header">
         <span class="Helvetica-sans-serif-medium">
-          {{educationMaterialCode?.EducationalId == null ? 'Add Patient Education Material' : 'View Patient Education Material'}}
+          {{educationMaterialCode?.EducationalId == null ? 'Add Patient Education Material' : 'View Patient Education
+          Material'}}
         </span>
         <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close"
-          style="border: 1px solid #fff;" (click)="resetDialog()" >
+          style="border: 1px solid #fff;" (click)="resetDialog()">
           X
         </span>
       </div>
@@ -77,14 +78,13 @@
         <div class="row">
           <div class="col-lg-12 col-md-12 col-12 ">
             <medical-code-container [codeSystems]="codeSystemsForPatientEducation"
-          (optionChanged)="optionChangedForPed($event)" [MinTermLength]="3"  placeholder="SNOMED"
-          [showSelectedValue]="true" ></medical-code-container>
+              (optionChanged)="optionChangedForPed($event)" [MinTermLength]="3" placeholder="SNOMED"
+              [showSelectedValue]="true"></medical-code-container>
           </div>
         </div>
         <div class="scrollable-mat-table">
-          <mat-table mat-table [dataSource]="patientEducationSearchList" id="procedure-table"
-          class="">
-            <ng-container  matColumnDef="CODE">
+          <mat-table mat-table [dataSource]="patientEducationSearchList" id="procedure-table" class="">
+            <ng-container matColumnDef="CODE">
               <mat-header-cell *matHeaderCellDef>
                 <p class="text-capitalize-first"></p>
               </mat-header-cell>
@@ -93,7 +93,7 @@
               </mat-cell>
             </ng-container>
 
-            <ng-container  matColumnDef="CODE SYSTEM">
+            <ng-container matColumnDef="CODE SYSTEM">
               <mat-header-cell *matHeaderCellDef>
                 <p class="text-capitalize-first"></p>
               </mat-header-cell>
@@ -102,7 +102,7 @@
               </mat-cell>
             </ng-container>
 
-            <ng-container  matColumnDef="DESCRIPTION">
+            <ng-container matColumnDef="DESCRIPTION">
               <mat-header-cell *matHeaderCellDef>
                 <p class="text-capitalize-first"></p>
               </mat-header-cell>
@@ -110,65 +110,69 @@
                 <span>{{ item.Name}}</span>
               </mat-cell>
             </ng-container>
-            <ng-container  matColumnDef="Delete">
+            <ng-container matColumnDef="Delete">
               <mat-header-cell *matHeaderCellDef>
                 <p class="text-capitalize-first"></p>
               </mat-header-cell>
               <mat-cell *matCellDef="let item; let i = index; ">
-                <button type="button" class="btn cross-mark error-close-ped"
-                  (click)="removePatientEdM(item,i)"
+                <button type="button" class="btn cross-mark error-close-ped" (click)="removePatientEdM(item,i)"
                   title="Delete recommended Procedure">x</button>
               </mat-cell>
             </ng-container>
             <mat-header-row *matHeaderRowDef="patientEdMaterialSearchColumns"></mat-header-row>
             <mat-row *matRowDef=" let row; let i = index; columns: patientEdMaterialSearchColumns
-            "  class="headerowalig"></mat-row>
+            " class="headerowalig"></mat-row>
           </mat-table>
         </div>
 
-    <div class="row">
-<div class="col-md-6">
-  <mat-label> Code System :</mat-label>
-  <mat-form-field appearance="outline" class="col-md-12">
-    <input matInput placeholder="" [(ngModel)]="educationMaterialCode.CodeSystem" readonly disabled class="inputfeildisable">
-  </mat-form-field>
-</div>
-<div class="col-md-6">
-  <mat-label> Code</mat-label>
-  <mat-form-field appearance="outline" class="col-md-12">
-    <input matInput placeholder="" [(ngModel)]="educationMaterialCode.Code" readonly disabled class="inputfeildisable">
-  </mat-form-field>
-</div>
+        <div class="row">
+          <div class="col-md-6">
+            <mat-label> Code System :</mat-label>
+            <mat-form-field appearance="outline" class="col-md-12">
+              <input matInput placeholder="" [(ngModel)]="educationMaterialCode.CodeSystem" readonly disabled
+                class="inputfeildisable">
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-label> Code</mat-label>
+            <mat-form-field appearance="outline" class="col-md-12">
+              <input matInput placeholder="" [(ngModel)]="educationMaterialCode.Code" readonly disabled
+                class="inputfeildisable">
+            </mat-form-field>
+          </div>
 
-    </div>
+        </div>
         <div class="row">
           <mat-label>Name:</mat-label>
           <mat-form-field appearance="outline" class="col-md-12">
-            <input matInput placeholder="" [(ngModel)]="educationMaterialCode.Name" readonly disabled class="inputfeildisable">
+            <input matInput placeholder="" [(ngModel)]="educationMaterialCode.Name" readonly disabled
+              class="inputfeildisable">
           </mat-form-field>
         </div>
         <div class="row">
           <div class="col-12">
             <mat-label class="col-12">Resource Notes:</mat-label>
-            <textarea class="col-12 text-area" [(ngModel)]="educationMaterialCode.ResourceNotes"></textarea>
+            <textarea matInput class="col-12 text-area" [(ngModel)]="educationMaterialCode.ResourceNotes" matInput></textarea>
+          
+
           </div>
         </div>
         <div class="pattach">
           <div class="container-fluid">
-          <div class="row">
-            <!-- <div class="col-md-1"></div> -->
-          <div class="col-md-10">
-            <p class="title mt-3"><b>Attachments:</b></p>
+            <div class="row">
+              <!-- <div class="col-md-1"></div> -->
+              <div class="col-md-10">
+                <p class="title mt-3"><b>Attachments:</b></p>
+              </div>
+              <div class="col-md-2 mt-2 ">
+                <button class="plusicon icon-border pull-right" type="button">
+                  <i class="fa fa-plus"></i>
+                </button>
+              </div>
+            </div>
           </div>
-          <div class="col-md-2 mt-2 ">
-            <button class="plusicon icon-border pull-right" type="button">
-              <i class="fa fa-plus"></i>
-            </button>
-          </div>
         </div>
-        </div>
-        </div>
-         <!-- <form [formGroup]="patientmaterialfrom">
+        <!-- <form [formGroup]="patientmaterialfrom">
 
 
           <div class="row">
@@ -181,7 +185,7 @@
             <div class="container-fluid">
             <div class="row">
               <!-- <div class="col-md-1"></div> -->
-            <!-- <div class="col-md-10">
+        <!-- <div class="col-md-10">
               <p class="title mt-3"><b>Attachments:</b></p>
             </div>
             <div class="col-md-2 mt-2 ">
@@ -211,11 +215,11 @@
 
       </div>
       <div class="modal-footer">
-        <button mat-raised-button type="submit" class="btn btn-green searchnow  pull-right"  data-bs-dismiss="modal" (click)="createUpadateEducationMaterial()">Save</button>
-        <button mat-raised-button type="submit" class="btn btn-green searchnow  pull-right"  data-bs-dismiss="modal" (click)="resetDialog()">Cancel</button>
+        <button mat-raised-button type="submit" class="btn btn-green searchnow  pull-right" data-bs-dismiss="modal"
+          (click)="createUpadateEducationMaterial()" [disabled]="enableSavePed()">Save</button>
+        <button mat-raised-button type="submit" class="btn btn-green searchnow  pull-right" data-bs-dismiss="modal"
+          (click)="resetDialog()">Cancel</button>
       </div>
     </div>
   </div>
 </div>
-
-

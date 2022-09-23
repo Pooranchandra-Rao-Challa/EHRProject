@@ -201,11 +201,16 @@ h4 {
   font-weight: 300;
   line-height: 1.4;
   border-radius: 0%;
-  border: 1px solid #c2cad8;
+  //border: 1px solid #c2cad8;
 }
 
 form .form-select:focus {
   box-shadow: none;
+}
+.form-select:focus{
+border-color: none;
+box-shadow: none;
+
 }
 
 .portlet.light .portlet-body {

@@ -9,7 +9,7 @@ import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
 import { ChangePasswordDialogComponent } from 'src/app/dialogs/user.dialog/changepassword.dialog.component';
 import { OverlayService } from '../../overlay.service';
-import { Actions,Location } from 'src/app/_models/';
+import { Actions, Location } from 'src/app/_models/';
 import { LocationDialogComponent } from 'src/app/dialogs/location.dialog/location.dialog.component';
 import { AlertMessage, ERROR_CODES } from './../../_alerts/alertMessage';
 @Component({
@@ -62,7 +62,7 @@ export class UserDialogComponent implements OnInit {
     this.loadFormDefaults();
     this.getScreenSize();
     this.dynamicheight = { 'height.px': this.scrHeight - 250, }
-    
+
   }
 
   ngOnInit(): void {
@@ -104,24 +104,27 @@ export class UserDialogComponent implements OnInit {
   getUserDataforEdit() {
     this.settingsService.UserInfoWithPracticeLocations(this.userQuery).subscribe(resp => {
       this.dialogIsLoading = false;
-      if(resp.IsSuccess){
+      if (resp.IsSuccess) {
         this.EditProvider = resp.Result as NewUser;
         console.log(this.EditProvider);
         this.EditProvider.LocationInfo = JSON.parse(resp.Result.LocationInfo);
+        // if(this.EditProvider.LocationInfo.)
+        console.log(this.EditProvider.LocationInfo);
+        
         this.updateTimeSlotString();
       }
     });
   }
 
-  updateTimeSlotString(){
-    this.EditProvider.LocationInfo.forEach(loc =>{
+  updateTimeSlotString() {
+    this.EditProvider.LocationInfo.forEach(loc => {
       let rtnString = '';
       loc.TimeSlots.forEach(timeslot => {
-        if(rtnString != '') rtnString += '<br>'
-        if(timeslot.SpecificHour == 'Specific Hours')
-          rtnString += timeslot.WeekDay+', '+timeslot.From+'-'+timeslot.To
+        if (rtnString != '') rtnString += '<br>'
+        if (timeslot.SpecificHour == 'Specific Hours')
+          rtnString +='<p style="color:red" >'+ timeslot.WeekDay + ', ' + timeslot.From + '-' + timeslot.To + '</p>'
         else
-          rtnString += timeslot.WeekDay+', '+timeslot.SpecificHour;
+          rtnString += '<p style="color:red" >'+ timeslot.WeekDay + ', ' + timeslot.SpecificHour +'</p>';
       })
       loc.FormatedTimeSlot = rtnString;
     });
@@ -136,7 +139,7 @@ export class UserDialogComponent implements OnInit {
       this.EditProvider.PracticeName = this.user.BusinessName;
     this.settingsService.AddUpdateUser(this.EditProvider).subscribe(resp => {
       if (resp.IsSuccess) {
-        this.ref.close({'saved':'true'});
+        this.ref.close({ 'saved': 'true' });
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2JP005"]);
       }
       else {
@@ -164,8 +167,7 @@ export class UserDialogComponent implements OnInit {
 
     let dialogRef = this.dialog.open(ChangePasswordDialogComponent, dialogConfig);
 
-    dialogRef.afterClosed().subscribe(result =>
-    {
+    dialogRef.afterClosed().subscribe(result => {
       this.settingsService.ChangePassword(result).subscribe(resp => {
         if (resp.IsSuccess) {
           this.alertmsg.displayMessageDailog(ERROR_CODES["M2JP009"]);
@@ -186,22 +188,27 @@ export class UserDialogComponent implements OnInit {
     let dialogData: any;
     if (content === this.locationDialogComponent) {
       let locdig: LocationDialog = {};
-      if(action == Actions.view){
+      if (action == Actions.view) {
         locdig.ProviderId = this.EditProvider.ProviderId;
         locdig.LocationInfo = data;
       }
-      else{
+      else {
         locdig.ProviderId = this.EditProvider.ProviderId;
       }
       dialogData = locdig;
     }
-    const ref = this.overlayService.open(content, dialogData,true);
+    const ref = this.overlayService.open(content, dialogData, true);
     ref.afterClosed$.subscribe(res => {
       if (content === this.locationDialogComponent) {
 
-        if(res.data != null && (res.data.saved || res.data.deleted))
+        if (res.data != null && (res.data.saved || res.data.deleted))
           this.getUserDataforEdit();
       }
     });
+  }
+  enablesave()
+  {
+    return!(this.EditProvider.FirstName!=null && this.EditProvider.FirstName!=''
+    && this.EditProvider.LastName!=null && this.EditProvider.LastName!='')
   }
 }

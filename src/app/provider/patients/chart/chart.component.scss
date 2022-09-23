@@ -292,8 +292,8 @@ ew-more {
 }
 
 textarea.form-control {
-  height: 119px !important;
-  resize: none;
+  min-height: 119px !important;
+  resize: both;
   font-size: 15px;
   padding-top: 10px !important;
   padding-bottom: 10px !important;
@@ -457,8 +457,9 @@ textarea.form-control.inputclass:hover {
 }
 
 #immunization-modal textarea {
-  height: 131px !important;
-  resize: none;
+  // height: 131px !important;
+  min-height: 119px !important;
+    resize: both;
   background-color: #fff;
   border-color: #41b6a6;
   border-radius: 6px;
