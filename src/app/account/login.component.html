@@ -3,34 +3,32 @@
   <div id="message">{{ message }}</div>
 </div>
 <div class="login img-responsive" id="login-form" *ngIf="!showspinner">
-  <div id="signin-wrapper" class="authorization-signin-wrapper">
-   <div class="authorization-top">
-      <div class="string">
-        <div class="string-top">
-          <div class="image-center">
-            <img width="232" height="88" alt="EHR1 Logo" src="assets/images/EHR.svg" />
-          </div>
-          <div class="container">
-            <div class="string-top-container">
-              <a class="string-top-home-link" href="/">
-                <img width="146" height="248" alt="EHR1 One Num Logo" src="assets/images/one.svg" />
-              </a>
+  <div id="signin-wrapper" class="authorization-signup-wrapper pt-4">
+    <div class="one-ehr-images">
+      <div class="ehr-img-top">
+        <div class="text-center logo-rectangle">
+          <img width="232" height="88" src="assets/images/EHR.svg">
+        </div>
+      </div>
+      <div class="text-center">
+        <img width="146" height="240" src="assets/images/one.svg">
+      </div>
+  </div>
+    <div class="content-top">
+      <div class="container pt-5">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="main-title">
+              <h2>PLEASE SIGN IN TO VIEW YOUR ACCOUNT</h2>
+              <p>Don't have an account yet? <a routerLink="/account/registration">Sign up here</a>
+              </p>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="content-top">
-    <div class="container">
-      <h2 class="signup">PLEASE SIGN IN TO VIEW YOUR ACCOUNT</h2>
-      <h4 class="sign">
-        Don't have an account yet?
-        <!-- <span style="color: #287066" href="/account/registration">Sign up here</span> -->
-        <a class="sign-up-here" routerLink="/account/registration">Sign up here</a>
-      </h4>
-    </div>
-  </div>
+
   <div class="content">
     <div>
       <div class="container pt-2 pb-4" id="flexbox">
@@ -47,7 +45,7 @@
                     <mat-form-field class="w-100" appearance="outline">
                       <input matInput placeholder="Password" [type]="showPassword ? 'text' : 'password'" name="Password"
                         formControlName="Password" (keyup.enter)="OnFormSubmit()" />
-
+  
                       <img [src]="showPassword ? 'assets/images/eye-open.svg' : 'assets/images/eye-close.svg'"
                         class="img-svg-eye" (click)="togglePasswordVisibility()" />
                     </mat-form-field>
@@ -66,20 +64,21 @@
               <mat-checkbox class="example-margin"><span style="margin:-5px">Remember me</span></mat-checkbox>
             </div>
             <div style="text-align: left;">
-              <button class="btn btn-green signin" type="submit" mat-raised-button (click)="OnFormSubmit()">Sign in</button>
+              <button class="btn btn-green signin" type="submit" mat-raised-button (click)="OnFormSubmit()">Sign
+                in</button>
             </div>
           </div>
           <div class="col-lg-6 col-md-6 col-sm-12 px-5">
             <div class="row" style="    margin: unset;
-            padding: unset;
-            width: 82%; float: right;">
+              padding: unset;
+              width: 82%; float: right;">
               <div class="col-lg-6 col-md-12 vediologo col-sm-12 ">
                 <img src="assets/videologo.png" />
               </div>
               <div class="col-lg-6 heading ">
                 <div>(Ask us how to join)</div>
               </div>
-
+  
               <div class="video">
                 <video controls #videoPlayer controlsList="nodownload">
                   <source src="assets/iPrescribe-short.mp4" type="video/mp4" />
@@ -87,8 +86,8 @@
               </div>
             </div>
             <div class="video-content" style="    margin: unset;
-            padding: unset;
-            width: 82%; float: right;">
+              padding: unset;
+              width: 82%; float: right;">
               <ul>
                 <li><i></i>Cut prescription errors down from<strong> 42.5% to 6%</strong></li>
                 <li>
@@ -126,4 +125,3 @@
     </div>
   </div>
 </div>
-
