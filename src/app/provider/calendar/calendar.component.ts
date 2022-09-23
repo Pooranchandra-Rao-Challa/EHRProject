@@ -1002,7 +1002,11 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         //this.GetBlockouts();
         this.updateBlockOuts(true,null);
       }
-      else this.blockouts = [{}]
+      else
+      { 
+      this.blockouts = [{}]
+      this.updateBlockOuts(true,null);
+      }
     })
   }
 

@@ -215,12 +215,19 @@
                       class="FieldValid">check</mat-icon>
                   </mat-form-field>
                   <!-- <div class="error_message" *ngIf="npi.errors && npi.touched"> -->
-                    <div class="error_message" style="margin: unset;padding: unset" *ngIf="!npi.errors?.required && npi.errors?.invalidnpi">
+                    <!-- <div class="error_message" style="margin: unset;padding: unset" *ngIf="!npi.errors?.required && npi.errors?.invalidnpi">
                       <p class="errormessage"  style="margin: unset;padding: unset">NPI number is invalid</p>
                     </div>
                     <div class="error_message" style="margin: unset;padding: unset" *ngIf="npi.errors?.required">
                       <p class="errormessage" style="margin: unset;padding: unset">Please enter NPI number</p>
-                    <!-- </div> -->
+                  </div> -->
+                  <div *ngIf="(npi.touched || npi.dirty)">
+                    <div class="error_message" style="margin: unset;padding: unset" *ngIf="!npi.errors?.required && npi.errors?.invalidnpi">
+                      <p class="errormessage" style="margin: unset;padding: unset">NPI number is invalid</p>
+                    </div>
+                    <div class="error_message" style="margin: unset;padding: unset" *ngIf="npi.errors?.required">
+                      <p class="errormessage" style="margin: unset;padding: unset">Please enter NPI number</p>
+                    </div>
                   </div>
 
                 </div>
