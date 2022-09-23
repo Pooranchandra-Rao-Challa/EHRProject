@@ -140,6 +140,12 @@ export class PatientEdnMaterialComponent implements OnInit {
     this.educationMaterialCode=item;
 
   }
-
+enableSavePed()
+{
+  return !(this.educationMaterialCode.Code!=null && this.educationMaterialCode.Code!=''
+          && this.educationMaterialCode.CodeSystem!=null && this.educationMaterialCode.CodeSystem!=''
+          && this.educationMaterialCode.Name!=null && this.educationMaterialCode!=''
+          && this.educationMaterialCode.ResourceNotes!=null && this.educationMaterialCode!='')
+}
 }
 

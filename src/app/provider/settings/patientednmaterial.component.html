@@ -6,7 +6,7 @@
         <div class="card-header">
           <span class="Helvetica-sans-serif-medium text-white mt-1">Patient Education Material</span>
           <button class="plusicon" type="button" data-bs-toggle="modal" data-bs-target="#modal-Patient-Education"
-            aria-expanded="false">
+            aria-expanded="false" (click)="resetDialog()">
             <i class="fa fa-plus"></i>
           </button>
         </div>
@@ -152,7 +152,9 @@
         <div class="row">
           <div class="col-12">
             <mat-label class="col-12">Resource Notes:</mat-label>
-            <textarea class="col-12 text-area" [(ngModel)]="educationMaterialCode.ResourceNotes"></textarea>
+            <textarea matInput class="col-12 text-area" [(ngModel)]="educationMaterialCode.ResourceNotes" matInput></textarea>
+          
+
           </div>
         </div>
         <div class="pattach">
@@ -214,7 +216,7 @@
       </div>
       <div class="modal-footer">
         <button mat-raised-button type="submit" class="btn btn-green searchnow  pull-right" data-bs-dismiss="modal"
-          (click)="createUpadateEducationMaterial()">Save</button>
+          (click)="createUpadateEducationMaterial()" [disabled]="enableSavePed()">Save</button>
         <button mat-raised-button type="submit" class="btn btn-green searchnow  pull-right" data-bs-dismiss="modal"
           (click)="resetDialog()">Cancel</button>
       </div>

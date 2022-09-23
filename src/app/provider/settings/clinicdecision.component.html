@@ -13,8 +13,8 @@
           for all your patients</p>
       </div>
       <div class="col-md-2 d-flex justify-content-end">
-        <button class="btn" type="button" [ngClass]=" flag ? 'btn-open' : 'btn-of'" (click)="open()">On</button>
-        <button class="btn" type="button" [ngClass]=" !flag ? 'btn-open' : 'btn-of'" (click)="close()">Off</button>
+        <button class="btn" type="button" [ngClass]="flag ? 'btn-open' : 'btn-of'" (click)="open(true)">On</button>
+        <button class="btn" type="button" [ngClass]=" !flag ? 'btn-open' : 'btn-of'" (click)="close(false)">Off</button>
       </div>
     </div>
   </div>
