@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 import { LoginRoutingModule } from './login-rounting.module';
 import { LayoutComponent } from './layout.component';
 import { LoginComponent } from './login.component';
-import { RubyAuthenticationFailedComponenet } from './ruby.authentication.failed.component';
 import { RegistrationComponent } from "../account/registration.component";
 import { HomeComponent } from "../account/home.comonent";
 import { SharedModule } from '../_common/shared';
@@ -31,7 +30,6 @@ import { AlertMessage } from '../_alerts/alertMessage';
   declarations: [
     LayoutComponent,
     LoginComponent,
-    RubyAuthenticationFailedComponenet,
     RegistrationComponent,
     HomeComponent,
     PatientLoginComponent,

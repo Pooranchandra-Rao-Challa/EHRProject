@@ -84,7 +84,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   @Output() onUpload = new EventEmitter<{ file: string, event: any }>();
   @Output() onItemRemove = new EventEmitter<string>();
 
-  private fileUploadSubscription: any;
+
 
   constructor(
     private HttpClient: HttpClient,
@@ -139,9 +139,6 @@ export class FileUploadComponent implements OnInit, OnDestroy {
           this.onUpload.emit({ file: this._file, event: event });
         },
         (error: any) => {
-          if (this.fileUploadSubscription) {
-            this.fileUploadSubscription.unsubscribe();
-          }
           this.uploadInProgressSubject.next(false);
           this.onUpload.emit({ file: this._file, event: event });
         },

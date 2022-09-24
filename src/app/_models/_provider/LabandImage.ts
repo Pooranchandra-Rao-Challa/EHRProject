@@ -108,6 +108,7 @@ export class Attachment{
     EntityName: string;
     EntityId: string;
     AttachmentId:string;
+    FullFileName?: string;
     IsDeleted?:boolean = false;
 }
 

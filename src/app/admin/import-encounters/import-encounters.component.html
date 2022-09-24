@@ -4,42 +4,57 @@
   </div>
 </div>
 
-<div class="page-content settings-wrapper" id="settings-wrapper">
-    <div class="row">
-        <div class="form-group col-md-8 col-md-offset-3">
-          <h1>Upload excel file to import encounters</h1>
-        </div>
+<div class="page-content upload-wrapper" id="upload-wrapper">
+  <div class="row">
+    <div class="form-group col-md-12">
+      <h1 class="title">Upload excel file to import encounters</h1>
     </div>
-    <div class="body-input" >
-        <label>Provider :</label>
-        <div class="control-section mt-2">
-          <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-12">
-            <mat-select   [(ngModel)]="primlist.ProviderName" placeholder="Select Provider">
-              <mat-select-filter  [displayMember]="'ProviderName'" [array]="SourceOfPaymentTypologyCodesFilter"
-                (filteredReturn)="ProviderList = $event"></mat-select-filter>
-              <mat-option  panelClass="myPanelClass" *ngFor="let item of ProviderList" [value]="item.ProviderName" >
-            {{item.ProviderName}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-
-
-        <div class="form-group col-lg-12 mt-3 ">
-            <label class="input-lable" for="admin_import_datum_data_file">Data file</label>
-        </div>
-        <div class="form-group col-lg-12 mt-2">
-            <input accept=".csv" type="file" name="admin_import_datum[data_file]" id="admin_import_datum_data_file">
-        </div>
-
-        <div class="form-group  col-lg-12 mt-3 ">
-            <div class="actions">
-                <button type="submit"
-                     class="btn btn-style "
-                    >Import</button>
-                <button type="button" class="btn btn-back mx-2">Back</button>
-            </div>
-        </div>
+  </div>
+  <div class="upload-input">
+    <label>Provider :</label>
+    <div class="form-group col-lg-12 mt-2">
+      <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-12">
+        <mat-select class="col-lg-12 col-md-12 col-12" #searchProvider  [(ngModel)]="ProviderId" placeholder="Select Provider">
+          <mat-select-filter class="for-parent-select" [placeholder]="'Filter Provider by Name'" *ngIf="searchProvider.focused" [displayMember]="'ProviderName'"
+          [array]="ProviderList"
+            (filteredReturn)="filterredProviders = $event"></mat-select-filter>
+          <mat-option panelClass="myPanelClass" *ngFor="let item of filterredProviders" [value]="item.ProviderId">
+            {{ "["+item.ClinicName +"] - "+ item.ProviderName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
+
+    <div class="form-group col-lg-12 mt-2">
+
+      <div class="upload-btn-wrapper">
+        <label for="singleFile" class="upload-label">
+          Upload Data File
+        </label>
+        <input id="singleFile" name="myFile" accept=".csv,.xls,xlsx" type="file" hidden="true"
+          (change)="onFileSelected($event)" />
+
+      </div>
+      <label style="font-size:16px; margin-left:10px">{{file != null ? file.name : ""}}</label>
+    </div>
+
+    <div class="form-group  col-lg-12 mt-3 ">
+      <div class="actions">
+        <button type="submit" [class.btn-not-allowed]="!enableImport" class="btn btn-style"
+        (click)="upload()" >Import</button>
+        <button type="button" class="btn btn-back mx-2">Back</button>
+      </div>
+      <ng-container *ngIf="uploadProgress$ | async as uploadProgress">
+        <mat-card class="progress-card">
+          <label>Progress</label>
+          <mat-progress-bar [value]="uploadProgress.progressPercentage"></mat-progress-bar>
+          <span class="file-summary">{{ uploadProgress.progressPercentage }}%</span>
+          <span>
+            {{ uploadProgress.loaded | bytes }} of
+            {{ uploadProgress.total | bytes }}</span>
+        </mat-card>
+        <label *ngIf="uploaded">{{"Uploaded the file: "+fileName}}</label>
+      </ng-container>
+    </div>
+  </div>
 </div>
-

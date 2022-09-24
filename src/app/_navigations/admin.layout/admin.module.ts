@@ -51,6 +51,10 @@ import { AlertMessage } from 'src/app/_alerts/alertMessage';
 import { AdminPaginatorDirective } from 'src/app/_directives/admin.patinator.directive'
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { IConfig, NgxMaskModule } from 'ngx-mask'
+import { UploadService } from 'src/app/_services/upload.file.service';
+import { EhrInterceptor } from 'src/app/_helpers';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
 
 
 @NgModule({
@@ -111,8 +115,9 @@ import { IConfig, NgxMaskModule } from 'ngx-mask'
     NgxMaskModule.forRoot(),
     // Ng2SearchPipeModule
   ],
-  providers: [AdminService, OverlayService, AlertMessage, PatientService,UtilityService
-
+  providers: [AdminService,UploadService,
+    OverlayService, AlertMessage, PatientService,UtilityService,
+    { provide: HTTP_INTERCEPTORS, useClass: EhrInterceptor, multi: true },
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

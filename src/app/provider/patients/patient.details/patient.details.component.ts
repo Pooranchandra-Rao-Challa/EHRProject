@@ -129,7 +129,6 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
 
   loadDependents() {
     this.loadPatientAccountInfo();
-    this.getUserInfoForPatient();
     this.updateProcedureInfo();
   }
 
@@ -154,7 +153,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
     this.chartSubject.next(patientView);
 
   }
-
+  //#region Tab Components
   async loadChartComponent() {
     if (this.viewModel.PatientView != 'Chart')
       this.chartviewcontainerref.clear();
@@ -238,6 +237,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
     }
   }
 
+//#endregion
 
   async loadPatientBreadcrumbView() {
     this.patientbreadcrumb.clear();
@@ -261,7 +261,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
       this.patient = this.authService.viewModel.Patient;
       this.loadDependents();
     }
-    // else {
+
     this.patientService.LatestUpdatedPatientsUrl({
       ProviderId: this.authService.userValue.ProviderId,
       RemovedPatientIds: this.removedPatientIdsInBreadcurmb,
@@ -297,13 +297,13 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
             }
             this.breadcrumbs.push(pb);
           });
-          if (!flag) this.patient = this.authService.viewModel.Patient;
 
           this.patient = this.authService.viewModel.Patient;
-          this.loadPatientBreadcrumbView()
+          this.loadPatientBreadcrumbView();
+          this.loadDependents();
         }
       })
-    // }
+
 
   }
 
@@ -339,16 +339,15 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
     this.router.navigate(["provider/patients"]);
   }
 
-  getUserInfoForPatient() {
+  InvitePatient(content: TemplateRef<any> | ComponentType<any> | string,action?: Actions) {
     this.patientUser = new PatientPortalUser();
     this.patientUser.Email = this.patient.Email;
     this.patientUser.DateofBirth = new Date(this.patient.Dob);
     this.patientUser.PatientId = this.patient.PatientId;
-
-
     this.utilityService.GetUserInfoForPatient(this.patientUser).subscribe(resp => {
       if (resp.IsSuccess) {
         this.patientUser = resp.Result as PatientPortalUser;
+        this.openComponentDialog(content,this.patientUser,action)
       }
     })
   }
@@ -384,6 +383,9 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
 
   }
 
+  // InvitePatient(){
+
+  // }
 
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
     data?: any, action?: Actions) {

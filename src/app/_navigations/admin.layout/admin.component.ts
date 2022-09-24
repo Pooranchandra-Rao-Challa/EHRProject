@@ -8,7 +8,7 @@ export class AdminComponent {
   constructor(
     private router: Router
   ) {
-
+    document.body.id ="adminbody"
 
   }
 }

@@ -25,7 +25,7 @@
     </li>
     <li *ngIf="!patientAccountInfo.HasAccount && patientAccountInfo.InvitationSentAt == null">
       <a class="btn-modal inivte-to-portal-button"
-      (click)="openComponentDialog(patientPortalAccountComponent,patientUser,ActionTypes.view)">
+      (click)="InvitePatient(patientPortalAccountComponent,ActionTypes.view)">
         <span class="fa fa-plus-circle"></span> Invite to Patient Portal</a>
     </li>
   </ul>

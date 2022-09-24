@@ -54,6 +54,8 @@ export class AuthenticationService {
     const endpointUrl = this.baseUrl + "Authenticate/";
     let observable = this.http.post<ResponseData>(endpointUrl, creds).pipe<ResponseData>(
       tap(resp => {
+        console.log(resp);
+
         if (resp.IsSuccess) {
           this.userSubject = new BehaviorSubject<User>(resp.Result as User);
           if (this.userValue.IsSuccess) {
@@ -212,6 +214,7 @@ export class AuthenticationService {
   }
 
   isLoggedIn() {
+    if(!this.userValue) return false;
     const jwtToken = JSON.parse(atob(this.userValue.JwtToken.split('.')[1]));
     const expires = new Date(jwtToken.exp * 1000);
     const timediff = expires.getTime() - Date.now();

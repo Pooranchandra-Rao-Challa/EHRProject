@@ -1,4 +1,4 @@
-import { ImportPatient } from './../../_models/_admin/importpatient';
+import { ImportFile } from 'src/app/_models/_admin/importfile';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AdminService } from 'src/app/_services/admin.service';
@@ -10,35 +10,35 @@ import { AdminService } from 'src/app/_services/admin.service';
 })
 export class ListImportedDataComponent implements OnInit {
 
-  importpatient:ImportPatient[];
-  page:any=1;
-  pageSize:any=10
-  collectionSize:any=10000;
-  premiumData : any[] = [];
+  importFiles: ImportFile[];
+  page: any = 1;
+  pageSize: any = 10
+  collectionSize: any = 10000;
+  premiumData: any[] = [];
 
-  constructor( private router: Router,private adminservice: AdminService) { }
+  constructor(private router: Router, private adminservice: AdminService) { }
 
   ngOnInit(): void {
     this.getImportPatient();
   }
 
-  onSubmit(name,url){
+  onSubmit(name, url) {
     this.router.navigate(
       [url],
-      { queryParams: { name: name,edit:'Edit default messages'} }
+      { queryParams: { name: name, edit: 'Edit default messages' } }
     );
-    }
-    getImportPatient () {
-      this.adminservice.AdminImportedPatientEncounter().subscribe(resp => {
-        if (resp.IsSuccess) {
-          this.importpatient = resp.ListResult;
-        } else
-          this.importpatient = [];
-      });
-    }
-    onPageChange(index){
-      this.importpatient =  this.premiumData
-        .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
-      this.getImportPatient();
-    }
+  }
+  getImportPatient() {
+    this.adminservice.AdminImportedPatientEncounter().subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.importFiles = resp.ListResult;
+      } else
+        this.importFiles = [];
+    });
+  }
+  onPageChange(index) {
+    this.importFiles = this.premiumData
+      .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
+    this.getImportPatient();
+  }
 }

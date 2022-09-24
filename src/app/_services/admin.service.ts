@@ -64,4 +64,8 @@ export class AdminService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._updateDefaultMessageUrl, reqparams);
   }
 
+  ImportData(reqparams:any){
+    return this._ProcessPostRequest<any>(this._importDataUrl, reqparams);
+  }
+
 }

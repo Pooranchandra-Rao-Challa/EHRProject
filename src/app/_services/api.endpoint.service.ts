@@ -870,6 +870,11 @@ export class APIEndPoint extends EndpointBase {
   get _imagetoBase64StringUrl() {
     return this._baseUrl + "api/upload/ImagetoBase64String";
   }
+
+  get _importDataUrl() {
+    return this._baseUrl + "ImportData";
+  }
+
   constructor(public http: HttpClient) {
     super();
   }
