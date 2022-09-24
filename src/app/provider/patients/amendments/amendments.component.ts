@@ -37,7 +37,7 @@ export class AmendmentsComponent implements OnInit {
      this.amendment.DateofRequest = this.datePipe.transform(new Date(),"yyyy-MM-dd");
   }
   todayDateforDateAcceptedorDenied() {
-     this.amendment.DateofAccept = this.datePipe.transform(new Date(),"yyyy-MM-dd hh:mm:ss");
+     this.amendment.DateofAccept = this.datePipe.transform(new Date(),"yyyy-MM-dd");
   }
   todayforDateAppended() {
      this.amendment.DateofAppended = this.datePipe.transform(new Date(),"yyyy-MM-dd");
@@ -57,9 +57,9 @@ export class AmendmentsComponent implements OnInit {
     let isAdd = this.amendment.AmendmentId == undefined;
     this.amendment.PatientId = this.PatientDetails.PatientId;
     // this.amendment.DateofAccept = new Date(this.datePipe.transform(this.amendment.DateofAccept, "MM/dd/yyyy hh:mm:ss"));
-    this.amendment.DateofRequest = this.datePipe.transform(this.amendment.DateofRequest,"yyyy-MM-dd hh:mm:ss");
-    this.amendment.DateofAccept = this.datePipe.transform(this.amendment.DateofAccept,"yyyy-MM-dd hh:mm:ss");
-    this.amendment.DateofAppended = this.datePipe.transform(this.amendment.DateofAppended,"yyyy-MM-dd hh:mm:ss");
+    this.amendment.DateofRequest = this.datePipe.transform(this.amendment.DateofRequest,"yyyy-MM-dd");
+    this.amendment.DateofAccept = this.datePipe.transform(this.amendment.DateofAccept,"yyyy-MM-dd");
+    this.amendment.DateofAppended = this.datePipe.transform(this.amendment.DateofAppended,"yyyy-MM-dd");
    
     this.patientservice.CreateupdateAmendment(this.amendment).subscribe((resp) => {
       if (resp.IsSuccess) {

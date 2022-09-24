@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid labs-imaging-wrapper">
   <div class="row">
     <div class="col-lg-12 col-md-12 col-12">
       <div class="labs-imaging-tabs">
@@ -20,8 +20,8 @@
 
   <div class="row top-header bg-color mx-0">
     <div class="col-lg-7 col-md-12 col-sm-12">
-      <div class="row mt-2 row-dropdown">
-        <mat-form-field appearance="outline" class="col-lg-4 col-md-12 col-sm-12 mat-form-field-wrapper hover my-lg-2 ">
+      <div class="row mt-3 row-dropdown">
+        <mat-form-field appearance="outline" class="col-lg-4 col-md-12 col-sm-12  hover">
           <mat-select placeholder="Filter By Provider" disableOptionCentering
             (selectionChange)="onChangeProvider($event)">
             <mat-option value='' selected>View All Providers</mat-option>
@@ -29,7 +29,7 @@
               {{provider.FullName}}</mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field appearance="outline" class="col-lg-4 col-md-12 col-sm-12 mat-form-field-wrapper hover my-lg-2 ">
+        <mat-form-field appearance="outline" class="col-lg-4 col-md-12 col-sm-12  hover">
           <mat-select placeholder="Filter By Result" disableOptionCentering
             (selectionChange)="onChangeResultStatus($event)">
             <mat-option>All</mat-option>
@@ -38,8 +38,7 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field appearance="outline"
-          class="col-lg-4 col-md-12 col-sm-12 mat-form-field-wrapper  hover my-lg-2 ">
+        <mat-form-field appearance="outline" class="col-lg-4 col-md-12 col-sm-12   hover">
           <mat-select placeholder="Filter By Status" disableOptionCentering
             (selectionChange)="onChangeOrderStatus($event)">
             <mat-option value='' selected>View All Active</mat-option>
@@ -52,17 +51,17 @@
     </div>
     <div class="col-lg-5 col-md-12 col-sm-12">
       <div class="row">
-        <div class="col-lg-10 col-md-10 col-sm-12  col-11">
+        <div class="col-xl-9 col-lg-10 col-md-10  col-12">
           <div class="row">
-            <div class="col-lg-10 col-md-11 col-10  my-lg-2 mt-4">
+            <div class="col-lg-10 col-md-11 col-12">
               <div class="search">
-                <input matInput type="text" #SearchTest placeholder="Search Test" class="searchInput">
+                <input matInput type="text" #SearchTest placeholder="Search Test" class="searchInput ">
               </div>
             </div>
           </div>
         </div>
-        <div class="col-lg-2 col-md-2 col-sm-12 mt-3  pb-3 pb-lg-0">
-          <div class="dropdown lab-dropdown">
+        <div class="col-xl-3 col-lg-2 col-md-2 col-12 mt-3 pt-1 pb-3 pb-lg-0">
+          <div class="dropdown lab-dropdown pull-right">
             <button class="btn" type="button" id="dropdownMenuButton1" [matTooltip]="getToolTip" aria-expanded="false"
               (click)="openComponentDialog(orderDialogComponent, null, ActionTypes.add)">
               <i class="fa fa-plus plus-icon"></i>
@@ -78,60 +77,58 @@
     <div class="col-lg-12 col-md-12  col-12 ">
       <mat-progress-bar mode="indeterminate" bufferValue="50" value=100 *ngIf="labImageDatasource.loading$ | async">
       </mat-progress-bar>
-      <div class="scrollable-mat-table">
-        <div class="LabsimagingTable table-responsive  lab-order-container">
-          <table mat-table [dataSource]="labImageDatasource" matSort matSortDirection="desc" matSortDisableClear>
-            <ng-container matColumnDef="Order">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header="OrderNumber">Order #</th>
-              <td mat-cell *matCellDef="let lab">{{lab.OrderNumber}}</td>
-            </ng-container>
-            <ng-container matColumnDef="Test">
-              <th mat-header-cell *matHeaderCellDef>Test</th>
-              <td mat-cell *matCellDef="let lab">
-                <div class="link-text" [innerHtml]="lab.Tests | labOrderTest" (click)="openEditDialog(lab)"></div>
-              </td>
-            </ng-container>
-            <ng-container matColumnDef="Type">
-              <th mat-header-cell *matHeaderCellDef>Type</th>
-              <td mat-cell *matCellDef="let lab">{{lab.ProcedureType}}</td>
-            </ng-container>
-            <ng-container matColumnDef="Patient">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header="PatientName">Patient</th>
-              <td mat-cell *matCellDef="let lab">{{lab.PatientName}}</td>
-            </ng-container>
-            <ng-container matColumnDef="Provider">
-              <th mat-header-cell *matHeaderCellDef>Provider</th>
-              <td mat-cell *matCellDef="let lab">{{lab.ProviderName}}</td>
-            </ng-container>
-            <ng-container matColumnDef="Status">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header="Status">Status</th>
-              <td mat-cell *matCellDef="let lab">{{lab.OrderStatus}}</td>
-            </ng-container>
-            <ng-container matColumnDef="LabImagingStatus">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header="OrderStatus">Lab/Imaging Status</th>
-              <td mat-cell *matCellDef="let lab">{{lab.ResultStatus}}</td>
-            </ng-container>
-            <ng-container matColumnDef="Created">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header="CreatedDate">Created</th>
-              <td mat-cell *matCellDef="let lab">{{lab.CreatedDate | date: 'yyyy-MM-dd'}}</td>
-            </ng-container>
+      <div class="LabsimagingTable table-responsive  lab-order-container">
+        <table mat-table [dataSource]="labImageDatasource" matSort matSortDirection="desc" matSortDisableClear>
+          <ng-container matColumnDef="Order">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="OrderNumber">Order #</th>
+            <td mat-cell *matCellDef="let lab">{{lab.OrderNumber}}</td>
+          </ng-container>
+          <ng-container matColumnDef="Test">
+            <th mat-header-cell *matHeaderCellDef>Test</th>
+            <td mat-cell *matCellDef="let lab">
+              <div class="link-text" [innerHtml]="lab.Tests | labOrderTest" (click)="openEditDialog(lab)"></div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Type">
+            <th mat-header-cell *matHeaderCellDef>Type</th>
+            <td mat-cell *matCellDef="let lab">{{lab.ProcedureType}}</td>
+          </ng-container>
+          <ng-container matColumnDef="Patient">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="PatientName">Patient</th>
+            <td mat-cell *matCellDef="let lab">{{lab.PatientName}}</td>
+          </ng-container>
+          <ng-container matColumnDef="Provider">
+            <th mat-header-cell *matHeaderCellDef>Provider</th>
+            <td mat-cell *matCellDef="let lab">{{lab.ProviderName}}</td>
+          </ng-container>
+          <ng-container matColumnDef="Status">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="Status">Status</th>
+            <td mat-cell *matCellDef="let lab">{{lab.OrderStatus}}</td>
+          </ng-container>
+          <ng-container matColumnDef="LabImagingStatus">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="OrderStatus">Lab/Imaging Status</th>
+            <td mat-cell *matCellDef="let lab">{{lab.ResultStatus}}</td>
+          </ng-container>
+          <ng-container matColumnDef="Created">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="CreatedDate">Created</th>
+            <td mat-cell *matCellDef="let lab">{{lab.CreatedDate | date: 'yyyy-MM-dd'}}</td>
+          </ng-container>
 
-            <ng-container matColumnDef="Result">
-              <th mat-header-cell *matHeaderCellDef>Add Result</th>
-              <td mat-cell *matCellDef="let lab">
-                <button class="btn" type="button" matTooltip="Add or Update Results" aria-expanded="false"
-                  (click)="openResultDialog(lab)">
-                  <i class="fa fa-plus plus-icon"></i>
-                </button>
-              </td>
-            </ng-container>
+          <ng-container matColumnDef="Result">
+            <th mat-header-cell *matHeaderCellDef>Add Result</th>
+            <td mat-cell *matCellDef="let lab">
+              <button class="btn" type="button" matTooltip="Add or Update Results" aria-expanded="false"
+                (click)="openResultDialog(lab)">
+                <i class="fa fa-plus plus-icon"></i>
+              </button>
+            </td>
+          </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="labImagingColumn sticky: true"></tr>
-            <tr mat-row class="table-row" *matRowDef="let row; columns: labImagingColumn"></tr>
-          </table>
-          <div class="table-NoRecord text-center py-2 col-12" *ngIf="labImageDatasource.TotalRecordSize == 0">
-            No {{labandimaging.View}} Orders
-          </div>
+          <tr mat-header-row *matHeaderRowDef="labImagingColumn sticky: true"></tr>
+          <tr mat-row class="table-row" *matRowDef="let row; columns: labImagingColumn"></tr>
+        </table>
+        <div class="table-NoRecord text-center py-2 col-12" *ngIf="labImageDatasource.TotalRecordSize == 0">
+          No {{labandimaging.View}} Orders
         </div>
       </div>
 

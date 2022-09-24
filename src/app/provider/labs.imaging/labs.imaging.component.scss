@@ -18,7 +18,7 @@
   color: #fff !important;
 }
 
-::ng-deep .hover.mat-form-field-appearance-outline:hover .mat-select-placeholder{
+::ng-deep .hover.mat-form-field-appearance-outline:hover .mat-select-placeholder {
   color: #fff !important;
 }
 
@@ -30,9 +30,9 @@
   color: white !important;
 }
 
-.row-dropdown {
-  margin-bottom: -30px;
-}
+// .row-dropdown {
+//   margin-bottom: -30px;
+// }
 
 ::ng-deep .hover.mat-form-field-appearance-outline:hover .mat-select-value-text {
   color: #fff !important;
@@ -97,10 +97,10 @@
 }
 
 .search input {
-  min-height: 42px;
+  min-height: 43px;
   text-indent: 3px;
   border: 0px solid #d6d4d4;
-  margin-top: 8px;
+  margin-top: 21px;
 }
 
 .search-icon {
@@ -129,7 +129,6 @@
 .plus-icon {
   color: #41b6a6;
   font-size: 23px !important;
-  margin-left: -11px;
 }
 
 .search-input-dropdown {
@@ -281,22 +280,8 @@
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-@media (max-width:768px) {
-  .scrollable-mat-table {
-    overflow-y: scroll !important;
-  }
-
-  .LabsimagingTable {
-    width: 1000px !important;
-  }
-
-  .mat-form-field-wrapper {
-    margin-bottom: -23px !important;
-  }
-}
-
 .table-responsive {
-  overflow-x: hidden !important;
+  overflow-x: auto !important;
 }
 
 

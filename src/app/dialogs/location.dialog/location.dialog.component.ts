@@ -208,7 +208,7 @@ export class LocationDialogComponent implements OnInit {
     this.settingsService.DeleteLocation({ LocationId: this.PracticeLocData.LocationId }).subscribe(resp => {
       if (resp.IsSuccess) {
         this.ref.close({ deleted: true })
-        this.alertmsg.displayMessageDailog(ERROR_CODES["M2JP003"])
+        this.alertmsg.displayErrorDailog(ERROR_CODES["M2JP003"])
       }
       else {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2JP005"]);

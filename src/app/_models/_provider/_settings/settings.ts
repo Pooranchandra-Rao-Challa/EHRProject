@@ -17,7 +17,8 @@ export class NewUser {
   Degree?: string;
   Speciality?: string;
   SecondarySpeciality?: string;
-  DentalLicense?: string;
+  DentalLicence?: string;
+  
   ExpirationDate?: string;
   State?: string;
   Npi?: string;

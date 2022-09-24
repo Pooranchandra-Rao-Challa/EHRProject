@@ -25,7 +25,7 @@
                     <span class="input-group-addon labelclass form-control required">Location Name</span>
                     <input class="form-control mx-0 inputclass" type="text" [(ngModel)]="PracticeLocData.LocationName"
                       id="locationName" name="locationName" placeholder="Location Name" #locationName="ngModel" required
-                      alphaOnly />
+                      alphaOnly autocomplete="off" />
                   </div>
                   <div *ngIf="locationName.errors && (locationName.touched)">
                     <div class="error_message" *ngIf="locationName.errors?.required">
@@ -54,12 +54,12 @@
                       <span class="e_arrow"></span>
                       <p class="errormessage"> Phone number should be 10 digits.</p>
                     </div>
-                      <div *ngIf="locationPhone.errors && (locationPhone.touched)">
-                        <div class="error_message" *ngIf="locationPhone.errors?.mask">
-                          <span class="e_arrow"></span>
-                          <p class="errormessage"> Phone number should be 10 digits.</p>
-                        </div>
+                    <div *ngIf="locationPhone.errors && (locationPhone.touched)">
+                      <div class="error_message" *ngIf="locationPhone.errors?.mask">
+                        <span class="e_arrow"></span>
+                        <p class="errormessage"> Phone number should be 10 digits.</p>
                       </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -77,386 +77,387 @@
                       <span class="e_arrow"></span>
                       <p class="errormessage"> Fax number should be 10 digits.</p>
                     </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div class="row-container my-2">
-            <div class="left-block" id="signup-wrapper-patient"><input class="hidden validate user_street_address"
-                aria-label="street" type="hidden" name="location[street_address]" id="location_street_address">
-              <div class="row profile-block-body">
-                <div class="col-lg-12">
-                  <div class="form-group"><label>ADDRESS</label></div>
-                  <div class="row">
-                    <div class="col-lg-8 col-md8 col-sm-8">
-                      <div class="form-group">
-                        <input [disabled]="disableaddressverification" placeholder="Enter Full Address here"
-                          class="form-control mx-0 my-2 inputclass" [(ngModel)]="PracticeLocData.Street" #Address />
-                      </div>
-                      <h6 class="Helvetica-sans-serif-small" style="white-space: break-spaces;">Enter Address - Street
-                        Address, City, State, Zipcode
-                      </h6>
-                    </div><!-- data-bs-toggle="modal" data-bs-target="#practice-location-modal"-->
-                    <div class="col-lg-4 col-md-4 col-sm-4">
-                      <div class="form-group">
-                        <button type="button"
-                          [disabled]="PracticeLocData.Street == null || PracticeLocData.Street=='' || disableaddressverification"
-                          (click)="AddressVerification()" class="btn btn-green btn-lg mt-2"
-                          style="padding: 0;height: 44px;">VERIFY</button>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row my-3 street-add showAddressfield">
-                    <div class="col-lg-9 col-md-8 col-sm-9 patient-street-address">
-                      <div class="form-group">
-                        <div class="input-group"> <span class="input-group-addon labelclass form-control">Street
-                            Address</span>
-                          <input [readonly]="!disableaddressverification" placeholder="Street Address"
-                            style="background: white" class="form-control mx-0 inputclass"
-                            [(ngModel)]="PracticeLocData.StreetAddress" #streetAddress required mouse-over-hint
-                            tickImagePath="assets/images/tick-mark.svg" crossImagePath="assets/images/cross-mark.svg"
-                            [class.address-verfied]="!manuallybtn" />
-                          <button type="button" class="btn cross-mark error-close"
-                            *ngIf="addressVerfied && !manuallybtn" (click)="enableManualEntry()"
-                            title="Can enter manully when the verification results are in correct by clicking this icon">x</button>
+            <div class="row-container my-2">
+              <div class="left-block" id="signup-wrapper-patient"><input class="hidden validate user_street_address"
+                  aria-label="street" type="hidden" name="location[street_address]" id="location_street_address">
+                <div class="row profile-block-body">
+                  <div class="col-lg-12">
+                    <div class="form-group"><label>ADDRESS</label></div>
+                    <div class="row">
+                      <div class="col-lg-8 col-md8 col-sm-8">
+                        <div class="form-group">
+                          <input [disabled]="disableaddressverification" placeholder="Enter Full Address here"
+                            class="form-control mx-0 my-2 inputclass" [(ngModel)]="PracticeLocData.Street" #Address />
+                        </div>
+                        <h6 class="Helvetica-sans-serif-small" style="white-space: break-spaces;">Enter Address - Street
+                          Address, City, State, Zipcode
+                        </h6>
+                      </div><!-- data-bs-toggle="modal" data-bs-target="#practice-location-modal"-->
+                      <div class="col-lg-4 col-md-4 col-sm-4">
+                        <div class="form-group">
+                          <button type="button"
+                            [disabled]="PracticeLocData.Street == null || PracticeLocData.Street=='' || disableaddressverification"
+                            (click)="AddressVerification()" class="btn btn-green btn-lg mt-2"
+                            style="padding: 0;height: 44px;">VERIFY</button>
                         </div>
                       </div>
                     </div>
-                    <div class="col-lg-3 col-md-2 col-sm-9 patient-street-address">
-                      <div class="form-group">
-                        <button class="btn-green btn manualbtn  py-0 btn-lg btn-md"
-                          *ngIf="manuallybtn || disableaddressverification" (click)="enterAddressManually()">Enter
-                          Address
-                          Manually</button>
+                    <div class="row my-3 street-add showAddressfield">
+                      <div class="col-lg-8 col-md-8 col-12 patient-street-address">
+                        <div class="form-group">
+                          <div class="input-group"> <span class="input-group-addon labelclass form-control">Street
+                              Address</span>
+                            <input [readonly]="!disableaddressverification" placeholder="Street Address"
+                              style="background: white" class="form-control mx-0 inputclass"
+                              [(ngModel)]="PracticeLocData.StreetAddress" #streetAddress required mouse-over-hint
+                              tickImagePath="assets/images/tick-mark.svg" crossImagePath="assets/images/cross-mark.svg"
+                              [class.address-verfied]="!manuallybtn || !disableaddressverification" />
+                            <button type="button" class="btn cross-mark error-close"
+                              *ngIf="addressVerfied && !manuallybtn" (click)="enableManualEntry()"
+                              title="Can enter manully when the verification results are in correct by clicking this icon">x</button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-lg-4 col-md-4 col-12 patient-street-address">
+                        <div class="form-group">
+                          <button class="btn btn-green manualbtn mt-2 mt-lg-0"
+                            *ngIf="manuallybtn || disableaddressverification" (click)="enterAddressManually()">Enter
+                            Address
+                            Manually</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row ">
+                  <div class="col-lg-4 col-md-4 col-sm-4">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-addon labelclass form-control">City</span>
+                        <input [readonly]="!disableaddressverification"
+                          class="string required inputbg form-control inputclass mx-0" type="text" required name="City"
+                          id="City" mouse-over-hint tickImagePath="assets/images/tick-mark.svg"
+                          crossImagePath="assets/images/cross-mark.svg" [(ngModel)]="PracticeLocData.City"
+                          [class.address-verfied]="!manuallybtn || !disableaddressverification">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-4 my-2 my-md-0">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-addon labelclass form-control">State</span>
+                        <input [readonly]="!disableaddressverification"
+                          class="string required inputbg form-control inputclass mx-0" type="text" name="State"
+                          id="State" required mouse-over-hint tickImagePath="assets/images/tick-mark.svg"
+                          crossImagePath="assets/images/cross-mark.svg" [(ngModel)]="PracticeLocData.State"
+                          [class.address-verfied]="!manuallybtn || !disableaddressverification">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-4">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-addon labelclass form-control">Zip</span>
+                        <input class="form-conrtol" [readonly]="!disableaddressverification"
+                          class="string required inputbg form-control inputclass mx-0" required mouse-over-hint
+                          tickImagePath="assets/images/tick-mark.svg" crossImagePath="assets/images/cross-mark.svg"
+                          type="text" name="Zip" id="Zip" [(ngModel)]="PracticeLocData.Zipcode"
+                          [class.address-verfied]="!manuallybtn || !disableaddressverification">
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="row ">
+            </div>
+
+            <hr>
+            <div class="row my-2">
+              <div class="col-lg-12">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon labelclass form-control">Organization NPI:</span>
+                    <input class="form-control mx-0 inputclass" type="text" [(ngModel)]="PracticeLocData.NPI"
+                      maxlength="10">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row my-2">
+              <div class="col-lg-12">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon labelclass form-control">Rendering NPI:</span>
+                    <input class="form-control mx-0 inputclass" type="text" [(ngModel)]="PracticeLocData.RenderNPI"
+                      maxlength="10">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row my-2">
+              <div class="col-lg-12">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon labelclass form-control">TIN/EIN:</span>
+                    <input class="form-control mt-1 mx-0 inputclass" maxlength="9" type="text" pattern="[0-9]*"
+                      [(ngModel)]="PracticeLocData.Tin" #tinein="ngModel" style="margin: unset !important;">
+                  </div>
+                  <div class="error_message" *ngIf="tinein.errors?.pattern">
+                    <span class="e_arrow"></span>
+                    <p class="errormessage">Enter only 9 digit number.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <hr>
+            <div class="row-container location-select">
+              <div class="row my-3">
+                <div class="col-lg-2 col-md-2 col-sm-2"></div>
+                <div class="form-group col-lg-3 col-md-3 col-sm-3 col-lg-offset-left-10 text-center ">
+                  <span class="input-group-addon labelclass form-control">Open:</span>
+                </div>
+                <div class="form-group collabel-lg-3 col-md-3 col-sm-3 col-lg-offset-left-10 text-center">
+                  <span class="input-group-addon labelclass form-control">Closed:</span>
+                </div>
+                <div class="col-lg-4"></div>
+              </div>
+              <div class="row">
+                <input value="sunday" class="hidden" type="hidden" name="location[timeslots_attributes[0]][weekday]"
+                  id="location_timeslots_attributes_0__weekday">
+                <div class="col-lg-2 col-md-2 col-sm-2 mt-3 week">
+                  <p class="weeks input-group-addon labelclass form-control">Sunday</p>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Sunday-Opening</mat-label>
+                      <input matInput type="text" [(ngModel)]="PracticeLocData.SunOpenTime" appTimeMask>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Sunday-Closing</mat-label>
+                      <input matInput type="text" [(ngModel)]="PracticeLocData.SunCloseTime" appTimeMask>
+                    </mat-form-field>
+                  </div>
+                </div>
                 <div class="col-lg-4 col-md-4 col-sm-4">
                   <div class="form-group">
-                    <div class="input-group">
-                      <span class="input-group-addon labelclass form-control">City</span>
-                      <input [readonly]="!disableaddressverification"
-                        class="string required inputbg form-control inputclass mx-0" type="text" required name="City"
-                        id="City" mouse-over-hint tickImagePath="assets/images/tick-mark.svg"
-                        crossImagePath="assets/images/cross-mark.svg" [(ngModel)]="PracticeLocData.City"
-                        [class.address-verfied]="!manuallybtn">
-                    </div>
+                    <mat-form-field appearance="outline">
+                      <mat-select [(ngModel)]="PracticeLocData.SunDDL">
+                        <mat-option *ngFor="let Status of timeStatus" [value]="Status.name">{{Status.name}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
                   </div>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 my-2 my-md-0">
+              </div>
+              <div class="row my-3">
+                <input value="monday" class="hidden" type="hidden" name="location[timeslots_attributes[1]][weekday]"
+                  id="location_timeslots_attributes_1__weekday">
+                <div class="col-lg-2 col-md-2 col-sm-2 mt-3 week">
+                  <p class="weeks input-group-addon labelclass form-control">Monday</p>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
                   <div class="form-group">
-                    <div class="input-group">
-                      <span class="input-group-addon labelclass form-control">State</span>
-                      <input [readonly]="!disableaddressverification"
-                        class="string required inputbg form-control inputclass mx-0" type="text" name="State" id="State"
-                        required mouse-over-hint tickImagePath="assets/images/tick-mark.svg"
-                        crossImagePath="assets/images/cross-mark.svg" [(ngModel)]="PracticeLocData.State"
-                        [class.address-verfied]="!manuallybtn">
-                    </div>
+                    <mat-form-field appearance="outline">
+                      <mat-label>Monday-Opening</mat-label>
+                      <input matInput type="text" [(ngModel)]="PracticeLocData.MonOpenTime" appTimeMask>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Monday-Closing</mat-label>
+                      <input matInput type="text" [(ngModel)]="PracticeLocData.MonCloseTime" appTimeMask>
+                    </mat-form-field>
                   </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4">
                   <div class="form-group">
-                    <div class="input-group">
-                      <span class="input-group-addon labelclass form-control">Zip</span>
-                      <input class="form-conrtol" [readonly]="!disableaddressverification"
-                        class="string required inputbg form-control inputclass mx-0" required mouse-over-hint
-                        tickImagePath="assets/images/tick-mark.svg" crossImagePath="assets/images/cross-mark.svg"
-                        type="text" name="Zip" id="Zip" [(ngModel)]="PracticeLocData.Zipcode"
-                        [class.address-verfied]="!manuallybtn">
-                    </div>
+                    <mat-form-field appearance="outline">
+                      <mat-select [(ngModel)]="PracticeLocData.MonDDL">
+                        <mat-option *ngFor="let Status of timeStatus" [value]="Status.name">{{Status.name}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
+              <div class="row my-3"><input value="tuesday" class="hidden" type="hidden"
+                  name="location[timeslots_attributes[2]][weekday]" id="location_timeslots_attributes_2__weekday">
+                <div class="col-lg-2 col-md-2 col-sm-2 mt-3 week">
+                  <p class="weeks input-group-addon labelclass form-control">Tuesday</p>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Tuesday-Opening</mat-label>
+                      <input matInput type="text" [(ngModel)]="PracticeLocData.TueOpenTime" appTimeMask>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Tuesday-Closing</mat-label>
+                      <input matInput type="text" [(ngModel)]="PracticeLocData.TueCloseTime" appTimeMask>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-select [(ngModel)]="PracticeLocData.TueDDL">
+                        <mat-option *ngFor="let Status of timeStatus" [value]="Status.name">{{Status.name}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="row my-3"><input value="wednesday" class="hidden" type="hidden"
+                  name="location[timeslots_attributes[3]][weekday]" id="location_timeslots_attributes_3__weekday">
+                <div class="col-lg-2 col-md-2 col-sm-2 mt-3 week">
+                  <p class="weeks input-group-addon labelclass form-control">Wednesday</p>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Wednesday-Opening</mat-label>
+                      <input matInput type="text" [(ngModel)]="PracticeLocData.WedOpenTime" appTimeMask>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Wednesday-Closing</mat-label>
+                      <input matInput type="text" [(ngModel)]="PracticeLocData.WedCloseTime" appTimeMask>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-select [(ngModel)]="PracticeLocData.WedDDL">
+                        <mat-option *ngFor="let Status of timeStatus" [value]="Status.name">{{Status.name}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
 
-          <hr>
-          <div class="row my-2">
-            <div class="col-lg-12">
-              <div class="form-group">
-                <div class="input-group">
-                  <span class="input-group-addon labelclass form-control">Organization NPI:</span>
-                  <input class="form-control mx-0 inputclass" type="text" [(ngModel)]="PracticeLocData.NPI"
-                    maxlength="10">
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-          <div class="row my-2">
-            <div class="col-lg-12">
-              <div class="form-group">
-                <div class="input-group">
-                  <span class="input-group-addon labelclass form-control">Rendering NPI:</span>
-                  <input class="form-control mx-0 inputclass" type="text" [(ngModel)]="PracticeLocData.RenderNPI"
-                    maxlength="10">
+              <div class="row my-3"><input value="thursday" class="hidden" type="hidden"
+                  name="location[timeslots_attributes[4]][weekday]" id="location_timeslots_attributes_4__weekday">
+                <div class="col-lg-2 col-md-2 col-sm-2 mx-0 mt-3 week">
+                  <p class="weeks input-group-addon labelclass form-control">Thursday</p>
                 </div>
-              </div>
-            </div>
-          </div>
-          <div class="row my-2">
-            <div class="col-lg-12">
-              <div class="form-group">
-                <div class="input-group">
-                  <span class="input-group-addon labelclass form-control">TIN/EIN:</span>
-                  <input class="form-control mt-1 mx-0 inputclass" maxlength="9" type="text" pattern="[0-9]*"
-                    [(ngModel)]="PracticeLocData.Tin" #tinein="ngModel" style="margin: unset !important;">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <div class="form-group ">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Thursday-Opening</mat-label>
+                      <input matInput type="text" [(ngModel)]="PracticeLocData.ThursOpenTime" appTimeMask>
+                    </mat-form-field>
+                  </div>
                 </div>
-                <div class="error_message" *ngIf="tinein.errors?.pattern">
-                  <span class="e_arrow"></span>
-                  <p class="errormessage">Enter only 9 digit number.</p>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Thursday-Closing</mat-label>
+                      <input matInput type="text" [(ngModel)]="PracticeLocData.ThursCloseTime" appTimeMask>
+                    </mat-form-field>
+                  </div>
                 </div>
-              </div>
-            </div>
-          </div>
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-select [(ngModel)]="PracticeLocData.ThursDDL">
+                        <mat-option *ngFor="let Status of timeStatus" [value]="Status.name">{{Status.name}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
 
-          <hr>
-          <div class="row-container location-select">
-            <div class="row my-3">
-              <div class="col-lg-2 col-md-2 col-sm-2"></div>
-              <div class="form-group col-lg-3 col-md-3 col-sm-3 col-lg-offset-left-10 text-center ">
-                <span class="input-group-addon labelclass form-control">Open:</span>
-              </div>
-              <div class="form-group collabel-lg-3 col-md-3 col-sm-3 col-lg-offset-left-10 text-center">
-                <span class="input-group-addon labelclass form-control">Closed:</span>
-              </div>
-              <div class="col-lg-4"></div>
-            </div>
-            <div class="row">
-              <input value="sunday" class="hidden" type="hidden" name="location[timeslots_attributes[0]][weekday]"
-                id="location_timeslots_attributes_0__weekday">
-              <div class="col-lg-2 col-md-2 col-sm-2 mt-3 week">
-                <p class="weeks input-group-addon labelclass form-control">Sunday</p>
-              </div>
-              <div class="col-lg-3 col-md-3 col-sm-3">
-                <div class="form-group">
-                  <mat-form-field appearance="outline">
-                    <mat-label>Sunday-Opening</mat-label>
-                    <input matInput type="text" [(ngModel)]="PracticeLocData.SunOpenTime" appTimeMask>
-                  </mat-form-field>
+                  </div>
                 </div>
               </div>
-              <div class="col-lg-3 col-md-3 col-sm-3">
-                <div class="form-group">
-                  <mat-form-field appearance="outline">
-                    <mat-label>Sunday-Closing</mat-label>
-                    <input matInput type="text" [(ngModel)]="PracticeLocData.SunCloseTime" appTimeMask>
-                  </mat-form-field>
+              <div class="row my-3">
+                <input value="friday" class="hidden" type="hidden" name="location[timeslots_attributes[5]][weekday]"
+                  id="location_timeslots_attributes_5__weekday">
+                <div class="col-lg-2 col-md-2 col-sm-2 mt-3 week">
+                  <p class="weeks input-group-addon labelclass form-control">Friday</p>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Friday-Opening</mat-label>
+                      <input matInput type="text" [(ngModel)]="PracticeLocData.FriOpenTime" appTimeMask>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Friday-Closing</mat-label>
+                      <input matInput type="text" [(ngModel)]="PracticeLocData.FriCloseTime" appTimeMask>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-select [(ngModel)]="PracticeLocData.FriDDL">
+                        <mat-option *ngFor="let Status of timeStatus" [value]="Status.name">{{Status.name}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
                 </div>
               </div>
-              <div class="col-lg-4 col-md-4 col-sm-4">
-                <div class="form-group">
-                  <mat-form-field appearance="outline">
-                    <mat-select [(ngModel)]="PracticeLocData.SunDDL">
-                      <mat-option *ngFor="let Status of timeStatus" [value]="Status.name">{{Status.name}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
+              <div class="row mt-3"><input value="saturday" class="hidden" type="hidden"
+                  name="location[timeslots_attributes[6]][weekday]" id="location_timeslots_attributes_6__weekday">
+                <div class="col-lg-2 col-md-2 col-sm-2 mt-3 week">
+                  <p class="weeks input-group-addon labelclass form-control">Saturday</p>
                 </div>
-              </div>
-            </div>
-            <div class="row my-3">
-              <input value="monday" class="hidden" type="hidden" name="location[timeslots_attributes[1]][weekday]"
-                id="location_timeslots_attributes_1__weekday">
-              <div class="col-lg-2 col-md-2 col-sm-2 mt-3 week">
-                <p class="weeks input-group-addon labelclass form-control">Monday</p>
-              </div>
-              <div class="col-lg-3 col-md-3 col-sm-3">
-                <div class="form-group">
-                  <mat-form-field appearance="outline">
-                    <mat-label>Monday-Opening</mat-label>
-                    <input matInput type="text" [(ngModel)]="PracticeLocData.MonOpenTime" appTimeMask>
-                  </mat-form-field>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Saturday-Opening</mat-label>
+                      <input matInput type="text" [(ngModel)]="PracticeLocData.SatOpenTime" appTimeMask>
+                    </mat-form-field>
+                  </div>
                 </div>
-              </div>
-              <div class="col-lg-3 col-md-3 col-sm-3">
-                <div class="form-group">
-                  <mat-form-field appearance="outline">
-                    <mat-label>Monday-Closing</mat-label>
-                    <input matInput type="text" [(ngModel)]="PracticeLocData.MonCloseTime" appTimeMask>
-                  </mat-form-field>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Saturday-Closing</mat-label>
+                      <input matInput type="text" [(ngModel)]="PracticeLocData.SatCloseTime" appTimeMask>
+                    </mat-form-field>
+                  </div>
                 </div>
-              </div>
-              <div class="col-lg-4 col-md-4 col-sm-4">
-                <div class="form-group">
-                  <mat-form-field appearance="outline">
-                    <mat-select [(ngModel)]="PracticeLocData.MonDDL">
-                      <mat-option *ngFor="let Status of timeStatus" [value]="Status.name">{{Status.name}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-              </div>
-            </div>
-            <div class="row my-3"><input value="tuesday" class="hidden" type="hidden"
-                name="location[timeslots_attributes[2]][weekday]" id="location_timeslots_attributes_2__weekday">
-              <div class="col-lg-2 col-md-2 col-sm-2 mt-3 week">
-                <p class="weeks input-group-addon labelclass form-control">Tuesday</p>
-              </div>
-              <div class="col-lg-3 col-md-3 col-sm-3">
-                <div class="form-group">
-                  <mat-form-field appearance="outline">
-                    <mat-label>Tuesday-Opening</mat-label>
-                    <input matInput type="text" [(ngModel)]="PracticeLocData.TueOpenTime" appTimeMask>
-                  </mat-form-field>
-                </div>
-              </div>
-              <div class="col-lg-3 col-md-3 col-sm-3">
-                <div class="form-group">
-                  <mat-form-field appearance="outline">
-                    <mat-label>Tuesday-Closing</mat-label>
-                    <input matInput type="text" [(ngModel)]="PracticeLocData.TueCloseTime" appTimeMask>
-                  </mat-form-field>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-4 col-sm-4">
-                <div class="form-group">
-                  <mat-form-field appearance="outline">
-                    <mat-select [(ngModel)]="PracticeLocData.TueDDL">
-                      <mat-option *ngFor="let Status of timeStatus" [value]="Status.name">{{Status.name}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-              </div>
-            </div>
-            <div class="row my-3"><input value="wednesday" class="hidden" type="hidden"
-                name="location[timeslots_attributes[3]][weekday]" id="location_timeslots_attributes_3__weekday">
-              <div class="col-lg-2 col-md-2 col-sm-2 mt-3 week">
-                <p class="weeks input-group-addon labelclass form-control">Wednesday</p>
-              </div>
-              <div class="col-lg-3 col-md-3 col-sm-3">
-                <div class="form-group">
-                  <mat-form-field appearance="outline">
-                    <mat-label>Wednesday-Opening</mat-label>
-                    <input matInput type="text" [(ngModel)]="PracticeLocData.WedOpenTime" appTimeMask>
-                  </mat-form-field>
-                </div>
-              </div>
-              <div class="col-lg-3 col-md-3 col-sm-3">
-                <div class="form-group">
-                  <mat-form-field appearance="outline">
-                    <mat-label>Wednesday-Closing</mat-label>
-                    <input matInput type="text" [(ngModel)]="PracticeLocData.WedCloseTime" appTimeMask>
-                  </mat-form-field>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-4 col-sm-4">
-                <div class="form-group">
-                  <mat-form-field appearance="outline">
-                    <mat-select [(ngModel)]="PracticeLocData.WedDDL">
-                      <mat-option *ngFor="let Status of timeStatus" [value]="Status.name">{{Status.name}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-
-                </div>
-              </div>
-            </div>
-            <div class="row my-3"><input value="thursday" class="hidden" type="hidden"
-                name="location[timeslots_attributes[4]][weekday]" id="location_timeslots_attributes_4__weekday">
-              <div class="col-lg-2 col-md-2 col-sm-2 mx-0 mt-3 week">
-                <p class="weeks input-group-addon labelclass form-control">Thursday</p>
-              </div>
-              <div class="col-lg-3 col-md-3 col-sm-3">
-                <div class="form-group ">
-                  <mat-form-field appearance="outline">
-                    <mat-label>Thursday-Opening</mat-label>
-                    <input matInput type="text" [(ngModel)]="PracticeLocData.ThursOpenTime" appTimeMask>
-                  </mat-form-field>
-                </div>
-              </div>
-              <div class="col-lg-3 col-md-3 col-sm-3">
-                <div class="form-group">
-                  <mat-form-field appearance="outline">
-                    <mat-label>Thursday-Closing</mat-label>
-                    <input matInput type="text" [(ngModel)]="PracticeLocData.ThursCloseTime" appTimeMask>
-                  </mat-form-field>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-4 col-sm-4">
-                <div class="form-group">
-                  <mat-form-field appearance="outline">
-                    <mat-select [(ngModel)]="PracticeLocData.ThursDDL">
-                      <mat-option *ngFor="let Status of timeStatus" [value]="Status.name">{{Status.name}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-
-                </div>
-              </div>
-            </div>
-            <div class="row my-3">
-              <input value="friday" class="hidden" type="hidden" name="location[timeslots_attributes[5]][weekday]"
-                id="location_timeslots_attributes_5__weekday">
-              <div class="col-lg-2 col-md-2 col-sm-2 mt-3 week">
-                <p class="weeks input-group-addon labelclass form-control">Friday</p>
-              </div>
-              <div class="col-lg-3 col-md-3 col-sm-3">
-                <div class="form-group">
-                  <mat-form-field appearance="outline">
-                    <mat-label>Friday-Opening</mat-label>
-                    <input matInput type="text" [(ngModel)]="PracticeLocData.FriOpenTime" appTimeMask>
-                  </mat-form-field>
-                </div>
-              </div>
-              <div class="col-lg-3 col-md-3 col-sm-3">
-                <div class="form-group">
-                  <mat-form-field appearance="outline">
-                    <mat-label>Friday-Closing</mat-label>
-                    <input matInput type="text" [(ngModel)]="PracticeLocData.FriCloseTime" appTimeMask>
-                  </mat-form-field>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-4 col-sm-4">
-                <div class="form-group">
-                  <mat-form-field appearance="outline">
-                    <mat-select [(ngModel)]="PracticeLocData.FriDDL">
-                      <mat-option *ngFor="let Status of timeStatus" [value]="Status.name">{{Status.name}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-              </div>
-            </div>
-            <div class="row mt-3"><input value="saturday" class="hidden" type="hidden"
-                name="location[timeslots_attributes[6]][weekday]" id="location_timeslots_attributes_6__weekday">
-              <div class="col-lg-2 col-md-2 col-sm-2 mt-3 week">
-                <p class="weeks input-group-addon labelclass form-control">Saturday</p>
-              </div>
-              <div class="col-lg-3 col-md-3 col-sm-3">
-                <div class="form-group">
-                  <mat-form-field appearance="outline">
-                    <mat-label>Saturday-Opening</mat-label>
-                    <input matInput type="text" [(ngModel)]="PracticeLocData.SatOpenTime" appTimeMask>
-                  </mat-form-field>
-                </div>
-              </div>
-              <div class="col-lg-3 col-md-3 col-sm-3">
-                <div class="form-group">
-                  <mat-form-field appearance="outline">
-                    <mat-label>Saturday-Closing</mat-label>
-                    <input matInput type="text" [(ngModel)]="PracticeLocData.SatCloseTime" appTimeMask>
-                  </mat-form-field>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-4 col-sm-4">
-                <div class="form-group">
-                  <mat-form-field appearance="outline">
-                    <mat-select [(ngModel)]="PracticeLocData.SatDDL">
-                      <mat-option *ngFor="let Status of timeStatus" [value]="Status.name">{{Status.name}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-select [(ngModel)]="PracticeLocData.SatDDL">
+                        <mat-option *ngFor="let Status of timeStatus" [value]="Status.name">{{Status.name}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <hr>
       </div>
-      <hr>
     </div>
     <div class="modal-footer">
       <div style="width:100%" class="footer-buttons">
         <button type="button" class="btn btn-danger" style="float: left;" *ngIf="PracticeLocData.LocationId != null && PracticeLocData.LocationId != ''
-         && !PracticeLocData.locationprimary" (click)="deleteLocation()">
+       && !PracticeLocData.locationprimary" (click)="deleteLocation()">
           Delete
         </button>
         <button type="button" class="btn btn-green" (click)="close()" style="float: right;">

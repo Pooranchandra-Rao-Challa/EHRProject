@@ -1,3 +1,7 @@
+<div id="pause" class="d-flex align-items-center justify-content-center" *ngIf="customizedspinner">
+  <div id="spinner"></div>
+</div>
+
 <div class="chart-wrapper">
   <div class="controls-container">
     <div class="row controls">
@@ -47,7 +51,7 @@
                 </mat-option>
                 <mat-option *ngIf="isLoading">Loading ...</mat-option>
                 <mat-option *ngFor="let option of filteredPatients | async" [value]="option"
-                  class="patient-serach-option">
+                  class="patient-serach-option" (click)="onSelectedPatient(option)">
                   {{option.Name}}
                 </mat-option>
                 <mat-option *ngIf="noRecords">No Records Found</mat-option>
@@ -124,10 +128,12 @@
                 <div class="row">
                   <div class="col-12">
                     <p class="card-title">
-                      <span class="pointer" (click)="openComponentDialog(smokingStatusDialogComponent, null, ActionTypes.add)">Smoking
+                      <span class="pointer"
+                        (click)="openComponentDialog(smokingStatusDialogComponent, null, ActionTypes.add)">Smoking
                         Status</span>
                       <span> and </span>
-                      <span class="pointer" (click)="openComponentDialog(tobaccoUseDialogComponent,null,ActionTypes.add)">Tobacco
+                      <span class="pointer"
+                        (click)="openComponentDialog(tobaccoUseDialogComponent,null,ActionTypes.add)">Tobacco
                         Use</span>
                     </p>
                   </div>
@@ -518,17 +524,33 @@
                     <p class="card-title">Messages</p>
                   </div>
                   <div class="col-md-4 col-6">
-                    <div class="col-12 plusicon pull-right"><span><i class="fa fa-plus"></i></span>
+                    <div class="col-12 plusicon pull-right"
+                      (click)="openComponentDialogmessage(MessageDialogComponent,null,ActionTypes.view, 'Patient')">
+                      <span><i class="fa fa-plus"></i></span>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="card-body">
-                <ul class="main-list">
+                <ul class="main-list" *ngFor="let message of patientMessages | slice:0:5">
                   <li>
-                    <span></span>
+                    <a style="cursor: auto;">
+                      <span *ngIf="message?.Subject != null && message?.Subject !=''">
+                        - {{message?.Subject}}
+                      </span>
+                      <span *ngIf="message?.DateTime != null && message?.DateTime !=''">
+                        - {{message?.DateTime | date: 'MM/dd/yyyy'}}
+                      </span>
+                    </a>
                   </li>
                 </ul>
+                <ul class="main-list">
+                  <li *ngIf="patientMessages?.length == 0">
+                    <span>No message recorded.</span>
+                  </li>
+                </ul>
+                <a
+                  *ngIf="patientMessages.length > 5" class="view-more pull-right">view more</a>
               </div>
             </div>
             <div class="card" id="toAppointments">
@@ -809,7 +831,7 @@
           </div>
           <div class="row textarea-margin">
             <mat-label>Notes:</mat-label>
-            <textarea class="col-12" placeholder="Notes" [(ngModel)]="patientImmunization.Notes"></textarea>
+            <textarea class="col-12 form-control" placeholder="Notes" [(ngModel)]="patientImmunization.Notes"></textarea>
           </div>
         </div>
         <div
@@ -856,7 +878,7 @@
           </div>
           <div class="row textarea-margin">
             <mat-label>Notes:</mat-label>
-            <textarea class="col-12" placeholder="Notes" [(ngModel)]="patientImmunization.Notes"></textarea>
+            <textarea class="col-12 form-control" placeholder="Notes" [(ngModel)]="patientImmunization.Notes"></textarea>
           </div>
         </div>
         <div
@@ -923,7 +945,7 @@
           </div>
           <div class="row textarea-margin">
             <mat-label>Notes:</mat-label>
-            <textarea class="col-12" placeholder="Notes" [(ngModel)]="patientImmunization.Notes"></textarea>
+            <textarea class="col-12 form-control" placeholder="Notes" [(ngModel)]="patientImmunization.Notes"></textarea>
           </div>
         </div>
       </div>

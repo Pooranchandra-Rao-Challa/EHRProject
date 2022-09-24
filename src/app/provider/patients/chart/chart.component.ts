@@ -1,9 +1,12 @@
+import { MessagesService } from './../../../_services/messages.service';
+import { Messages } from './../../../_models/_patient/messages';
+import { ViewModel } from './../../../_models/_account/user';
 import { DiscontinueDialogComponent } from './../../../dialogs/discontinue.dialog/discontinue.dialog.component';
 import { filter, map, } from 'rxjs/operators';
 import { Observable, of, BehaviorSubject, fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { ProviderPatient } from './../../../_models/_provider/Providerpatient';
-import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
 import { OverlayService } from '../../../overlay.service';
 import { AdvancedDirectivesDialogComponent } from '../../../dialogs/advanced.directives.dialog/advanced.directives.dialog.component';
@@ -32,7 +35,6 @@ import { AllergyTableDialogComponent } from 'src/app/dialogs/allergy.table.dialo
 import { FrequentlyUsedDiagnosesDialogComponent } from 'src/app/dialogs/frequently.used.diagnoses.dialog/frequently.used.diagnoses.dialog.component';
 import { AddDiagnosesDialogComponent } from 'src/app/dialogs/add.diagnoses.dialog/add.diagnoses.dialog.component';
 import { ViewChangeService } from 'src/app/_navigations/provider.layout/view.notification.service';
-import { Router } from '@angular/router';
 import { DiagnosesTableDialogComponent } from 'src/app/dialogs/diagnoses.table.dialog/diagnoses.table.dialog.component';
 import { MedicationTableDialogComponent } from 'src/app/dialogs/medication.table.dialog/medication.table.dialog.component';
 import { TobaccoUseTableDialogComponent } from 'src/app/dialogs/tobacco.use.table.dialog/tobacco.use.table.dialog.component';
@@ -41,6 +43,10 @@ import { AdvancedDirectivesTableDialogComponent } from 'src/app/dialogs/advanced
 import { PastMedicalHistoryDialogComponent } from 'src/app/dialogs/past.medical.history.dialog/past.medical.history.dialog.component';
 import { EncounterTableDialogComponent } from 'src/app/dialogs/encounter.table.dialog/encounter.table.dialog.component';
 import { AppointmentsTableDialogComponent } from 'src/app/dialogs/appointments.table.dialog/appointments.table.dialog.component';
+import { MessageDialogInfo } from 'src/app/_models/_provider/messages';
+import { NewmessageDialogComponent } from 'src/app/dialogs/newmessage.dialog/newmessage.dialog.component';
+declare var $: any;
+
 @Component({
   selector: 'app-chart',
   templateUrl: './chart.component.html',
@@ -49,8 +55,8 @@ import { AppointmentsTableDialogComponent } from 'src/app/dialogs/appointments.t
 export class ChartComponent implements OnInit, AfterViewInit {
   public selectedPatient: PatientSearchResults[];
   @ViewChild('searchVaccineCode', { static: true }) searchVaccineCode: ElementRef;
-
   @ViewChild('searchPatient', { static: true })
+
   searchPatient: ElementRef;
   labandimaging: Labandimaging;
 
@@ -81,6 +87,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   tobaccoUseDialogComponent = TobaccoUseDialogComponent;
   tobaccoUseTableDialogComponent = TobaccoUseTableDialogComponent;
   pastMedicalHistoryDialogComponent = PastMedicalHistoryDialogComponent;
+  MessageDialogComponent = NewmessageDialogComponent;
 
   patientImmunization: Immunization = new Immunization();
   tobaccoUseList: TobaccoUse[] = [];
@@ -113,17 +120,21 @@ export class ChartComponent implements OnInit, AfterViewInit {
   vaccinesFilter: any;
   displayMessage: boolean = true;
   noRecords: boolean = false;
+  viewModel: ViewModel;
+  patientMessages: Messages[] = [];
+  customizedspinner: boolean;
 
   constructor(public overlayService: OverlayService,
     private patientService: PatientService,
+    private messageService: MessagesService,
     private authService: AuthenticationService,
     private alertmsg: AlertMessage,
     public datepipe: DatePipe,
     private smartSchedulerService: SmartSchedulerService,
     private settingsService: SettingsService,
-    private viewChangeService: ViewChangeService,
-    private router: Router) {
+    private viewChangeService: ViewChangeService) {
     this.user = authService.userValue;
+    this.viewModel = authService.viewModel;
   }
   ngAfterViewInit(): void {
 
@@ -132,7 +143,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
       map((event: any) => {
         this.vaccines = of([]);
         this.noRecords = false;
-        if(event.target.value == ''){
+        if (event.target.value == '') {
           this.displayMessage = true;
         }
         return event.target.value;
@@ -151,7 +162,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
       map((event: any) => {
         this.filteredPatients = of([]);
         this.noRecords = false;
-        if(event.target.value == ''){
+        if (event.target.value == '') {
           this.displayMessage = true;
         }
         return event.target.value;
@@ -194,6 +205,12 @@ export class ChartComponent implements OnInit, AfterViewInit {
     if (!value) return "";
     return value.Name;
   }
+
+  onSelectedPatient(value) {
+    this.authService.SetViewParam("Patient", value);
+    window.location.href = "provider/patientdetails";
+  }
+
   ngOnInit(): void {
     this.loadGlobalConstants();
     this.currentPatient = this.authService.viewModel.Patient;
@@ -201,6 +218,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
     this.loadDefaults();
     this.loadLocationsList();
     this.TobaccoUseByPatientId();
+    this.GetProviderMessagesFromPatient();
   }
 
   _filterVaccine(term) {
@@ -515,9 +533,9 @@ export class ChartComponent implements OnInit, AfterViewInit {
 
   disableImmAdministered() {
     return !(this.patientImmunization.Code && this.patientImmunization.AdministeredAt && this.patientImmunization.AdministeredTime != '00:00 AM'
-          && this.patientImmunization.AdministeredById && this.patientImmunization.OrderedById && this.patientImmunization.AdministeredFacilityId
-          && this.patientImmunization.Manufacturer && this.patientImmunization.Lot && this.patientImmunization.Quantity && this.patientImmunization.Dose
-          && this.patientImmunization.Unit && this.patientImmunization.ExpirationAt)
+      && this.patientImmunization.AdministeredById && this.patientImmunization.OrderedById && this.patientImmunization.AdministeredFacilityId
+      && this.patientImmunization.Manufacturer && this.patientImmunization.Lot && this.patientImmunization.Quantity && this.patientImmunization.Dose
+      && this.patientImmunization.Unit && this.patientImmunization.ExpirationAt)
   }
 
   disableImmHistorical() {
@@ -619,6 +637,22 @@ export class ChartComponent implements OnInit, AfterViewInit {
   InterventionsByPatientId() {
     this.patientService.InterventionsByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       if (resp.IsSuccess) this.chartInfo.Interventions = resp.ListResult;
+    });
+  }
+
+  // Get patient messages info
+  GetProviderMessagesFromPatient() {
+    let reqParams = {
+      "UserId": this.viewModel.Patient.UserId,
+      "SortField": 'Created',
+      "SortDirection": 'desc',
+      "PageIndex": 0,
+      "PageSize": 25,
+      "Filter": null,
+      "MessageFilter": 'Sent'
+    }
+    this.messageService.Messages(reqParams).subscribe((resp) => {
+      if (resp.IsSuccess) this.patientMessages = resp.ListResult;
     });
   }
 
@@ -761,5 +795,21 @@ export class ChartComponent implements OnInit, AfterViewInit {
 
   scrollToAppointments() {
     document.getElementById("toAppointments").scrollIntoView();
+  }
+
+  openComponentDialogmessage(content: any | ComponentType<any> | string, data,
+    action: Actions = this.ActionTypes.add, message: string) {
+    let DialogResponse: MessageDialogInfo = {};
+    if (action == Actions.view && content === this.MessageDialogComponent) {
+      DialogResponse.MessageFor = message
+      DialogResponse.Messages = {};
+      DialogResponse.Messages.toAddress = {}
+      DialogResponse.Messages.toAddress.Name = this.viewModel.Patient.FirstName + ' ' + this.viewModel.Patient.LastName;
+      DialogResponse.Messages.toAddress.UserId = this.viewModel.Patient.UserId;
+      DialogResponse.ForwardReplyMessage = message;
+    }
+    const ref = this.overlayService.open(content, DialogResponse);
+    ref.afterClosed$.subscribe(res => {
+    });
   }
 }

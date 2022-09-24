@@ -153,7 +153,6 @@ export class PracticeComponent implements OnInit {
 
   }
   updateUser() {
-    debugger
     this.NewUserData.ClinicId = this.user.ClinicId;
     this.NewUserData.LocationId = this.user.CurrentLocation;
     if (this.NewUserData.PracticeName == null)
@@ -245,7 +244,7 @@ export class PracticeComponent implements OnInit {
   emailPattern = /^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$/;
   EnableSave() {
     var emailReg = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
-    return !(this.NewUserData.FirstName != null && this.NewUserData.FirstName != ""
+    return !(this.NewUserData.FirstName != null && this.NewUserData.FirstName != ""&& this.NewUserData.LastName != null && this.NewUserData.LastName != ""
       && this.NewUserData.Email != null && this.NewUserData.Email != ""
       && this.emailPattern.test(this.NewUserData.Email)
       && this.NewUserData.PracticeRole != null && this.NewUserData.PracticeRole != "");

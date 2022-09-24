@@ -99,7 +99,8 @@ export class AuditLogComponent implements OnInit {
     "Dosespot",
     "Setting",
     "Patient Portal",
-    "Rcopia"
+    "Rcopia",
+    "Appointment"
   ];
   Action: string[] = [
     "Add",

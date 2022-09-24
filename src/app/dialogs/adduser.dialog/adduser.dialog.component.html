@@ -1,7 +1,7 @@
 <div class="modal-dialog add-edit-user-form">
   <div class="modal-content modal-cust-content">
     <div class="modal-header modal-cust-header">
-      <h1 class="modal-title modal-cust-title"><b>New User</b></h1>
+      <h1 class="modal-title modal-cust-title"><b>{{ newUser.ProviderId ? 'Edit' : 'New'}} User</b></h1>
       <span type="button" class="cross-x" (click)="close()">
         x
       </span>
@@ -87,11 +87,14 @@
             <label class="form-label required">NPI</label>
             <input matInput class="form-control text-design npi-width" type="text" pattern="^[0-9]{10}$" required
               #npi="ngModel" maxlength="10" npiValidator placeholder="National Provider Identifier(NPI)" #numberMask
-              numberMask="9999999999" [(ngModel)]="newUser.NPI"
-              [ngClass]="{'is-invalid' : (npi.touched || npi.dirty) && !npi.valid }">
-            <div *ngIf="npi.errors && npi.touched ">
+              [(ngModel)]="newUser.NPI" [ngClass]="{'is-invalid' : (npi.touched || npi.dirty) && !npi.valid }">
+            <!-- numberMask="9999999999" :- Because of this data is not binding to the edit form -->
+            <div *ngIf="(npi.touched || npi.dirty) && !npi.valid">
               <div class="error_message" *ngIf="npi.errors?.required">
                 <p class="errormessage">Please enter NPI</p>
+              </div>
+              <div class="error_message" *ngIf="!npi.valid && !npi.errors?.required">
+                <p class="errormessage">Please enter valid NPI</p>
               </div>
             </div>
           </div>
@@ -121,24 +124,24 @@
 
         <div class="col-lg-3 col-md-12 col-sm-12 col-12 mt-3">
           <label class="form-label">Suite/Apt Number</label>
-          <input matInput type="input" class="form-control text-design input-bgColor" id="APINumber" name="APINumber"
-            placeholder="Suite/Apt Number" [(ngModel)]="newUser.SuitNumber" readonly>
+          <input matInput type="input" class="form-control text-design  not-allowed" id="APINumber" name="APINumber"
+            placeholder="Suite/Apt Number" [(ngModel)]="newUser.SuitNumber" readonly >
         </div>
 
         <div class="col-lg-8 col-md-12 col-sm-12 col-12  mt-3">
           <label class="form-label">City</label>
-          <input matInput type="input" class="form-control text-design input-bgColor" id="City" name="City"
+          <input matInput type="input" class="form-control text-design input-bgColor not-allowed " id="City" name="City"
             placeholder="City" [(ngModel)]="newUser.City" readonly>
         </div>
         <div class="col-lg-2 col-md-12 col-sm-12 col-12 mt-3">
           <label class="form-label">State</label>
-          <input matInput type="input" class="form-control text-design input-bgColor" id="State" name="State"
-            placeholder="State" [(ngModel)]="newUser.State" readonly>
+          <input matInput type="input" class="form-control text-design input-bgColor not-allowed" id="State"
+            name="State" placeholder="State" [(ngModel)]="newUser.State" readonly>
         </div>
         <div class="col-lg-2 col-md-12 col-sm-12 col-12 mt-3">
           <label class="form-label">Zip Code</label>
-          <input matInput type="input" class="form-control text-design input-bgColor" id="ZipCode" name="ZipCode"
-            placeholder="Zip Code" [(ngModel)]="newUser.ZipCode" readonly>
+          <input matInput type="input" class="form-control text-design input-bgColor not-allowed" id="ZipCode"
+            name="ZipCode" placeholder="Zip Code" [(ngModel)]="newUser.ZipCode" readonly>
         </div>
         <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
           <label class="form-label required">Primary Phone</label>
@@ -190,7 +193,7 @@
         <div class="col-lg-4 col-md-12 col-sm-12 col-12 mb-4">
           <label class="form-label required">Practice/Clinic</label>
           <select placeholder="Select one clinic" id="clinics" name="clinics" class="form-select"
-            [(ngModel)]="newUser.ClinicId" #clinic="ngModel" required>
+            [(ngModel)]="newUser.clinic_id" #clinic="ngModel" required>
             <option *ngFor="let clinic of Clinics" [value]="clinic.ClinicId">
               {{clinic.ClinicName}}
             </option>
@@ -404,7 +407,7 @@
     </div>
     <div class="modal-footer model-cust-footer">
       <button type="button" class="btn save-button col-md-4" [disabled]="disableProviderRegistration()"
-        (click)="createProviderRegistration()">Add New User </button>
+        (click)="createProviderRegistration()"> {{ newUser.ProviderId ? 'Save' : 'Add New User' }} </button>
       <button type="button" class="cancel-button col-md-4" (click)="close()">Cancel</button>
     </div>
   </div>

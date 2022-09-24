@@ -282,6 +282,10 @@ export class PatientService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._deleteDiagnosesUrl, reqparams);
   }
 
+  DeletePatient(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._deletePatientUrl, reqparams);
+  }
+
   PatientSearch(reqparams: any) {
     return this._ProcessPostRequest<any>(this._patientSearchUrl, reqparams);
   }

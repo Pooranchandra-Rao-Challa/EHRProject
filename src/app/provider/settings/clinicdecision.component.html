@@ -13,8 +13,8 @@
           for all your patients</p>
       </div>
       <div class="col-md-2 d-flex justify-content-end">
-        <button class="btn" type="button" [ngClass]=" flag ? 'btn-open' : 'btn-of'" (click)="open()">On</button>
-        <button class="btn" type="button" [ngClass]=" !flag ? 'btn-open' : 'btn-of'" (click)="close()">Off</button>
+        <button class="btn" type="button" [ngClass]="flag ? 'btn-open' : 'btn-of'" (click)="open(true)">On</button>
+        <button class="btn" type="button" [ngClass]=" !flag ? 'btn-open' : 'btn-of'" (click)="close(false)">Off</button>
       </div>
     </div>
   </div>
@@ -103,7 +103,7 @@
                 <td>{{data.CodeSystem}}</td>
                 <td>{{data.Description}}</td>
                 <td (click)="DeleteTrigger(data.TriggerId)">
-                  <mat-icon class="close-icon Cancelbtn">close
+                  <mat-icon class="close-icon  Cancelbtn" style="cursor: pointer;">close
                   </mat-icon>
                 </td>
               </tr>
@@ -138,7 +138,7 @@
               <mat-label class="Helvetica-sans-serif-small ">Funding Source:</mat-label>
             </div>
             <div class="col-md-4">
-              <mat-form-field appearance="outline">
+              <mat-form-field appearance="outline" class="col-md-12">
                 <input matInput placeholder="" [(ngModel)]="item.FundingSource">
               </mat-form-field>
             </div>
@@ -161,15 +161,16 @@
       </mat-expansion-panel>
     </mat-accordion>
     <div class="text-center py-2 col-12" *ngIf="clinicalDecisionSupportList.length == 0">
-      <h6 class="Helvetica-sans-serif-medium"> No records found</h6>
+      <h6 class="Helvetica-sans-serif-medium" style="color: red;"> No records found</h6>
     </div>
   </div>
 </div>
 
 <!-- Add New Altert Modal -->
-<div class="modal new-alert-form" id="modal-new-alert-form" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content scrollable-modal">
+<div class="modal fade " id="modal-new-alert-form" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
       <div class="modal-header Helvetica-sans-serif-medium" style="margin-top: -1px;margin-right: -1px;">
         <h4 class="modal-title Helvetica-sans-serif-medium">Add new alert</h4>
         <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close" (click)="resetdialog()">
@@ -177,13 +178,12 @@
         </span>
       </div>
       <div class="modal-body">
-
         <div class="row">
           <mat-label class="required">Alert Name</mat-label>
           <mat-form-field appearance="outline" class="col-md-12">
             <input matInput mouse-over-hint tickImagePath="assets/images/tick-mark.svg"
-            crossImagePath="assets/images/cross-mark.svg" [(ngModel)]="newAlert.AlertName"
-              placeholder="Alert Name" required>
+              crossImagePath="assets/images/cross-mark.svg" [(ngModel)]="newAlert.AlertName" placeholder="Alert Name"
+              required>
             <!-- <mat-icon matSuffix *ngIf="checkedName" class="FieldValid">check</mat-icon>
             <mat-icon matSuffix *ngIf="uncheckedName" class="FieldInvalid">close</mat-icon> -->
           </mat-form-field>
@@ -192,8 +192,7 @@
           <mat-label class="required">Description</mat-label>
           <mat-form-field appearance="outline" class="col-md-12">
             <input matInput placeholder="Description" mouse-over-hint tickImagePath="assets/images/tick-mark.svg"
-            crossImagePath="assets/images/cross-mark.svg"
-              [(ngModel)]="newAlert.Description" required>
+              crossImagePath="assets/images/cross-mark.svg" [(ngModel)]="newAlert.Description" required>
             <!-- <mat-icon matSuffix *ngIf="checkedDescription" class="FieldValid">check</mat-icon>
 
             <mat-icon matSuffix *ngIf="uncheckedDescription" class="FieldInvalid">close</mat-icon> -->
@@ -203,8 +202,7 @@
           <mat-label class="required">Resolution</mat-label>
           <mat-form-field appearance="outline" class="col-md-12">
             <input matInput placeholder="Resolution" mouse-over-hint tickImagePath="assets/images/tick-mark.svg"
-            crossImagePath="assets/images/cross-mark.svg"
-              [(ngModel)]="newAlert.Resolution" required>
+              crossImagePath="assets/images/cross-mark.svg" [(ngModel)]="newAlert.Resolution" required>
             <!-- <mat-icon matSuffix *ngIf="checkedResolution" class="FieldValid">check</mat-icon>
             <mat-icon class="close-icon" matSuffix *ngIf="unCheckedResolution" class="FieldInvalid">close -->
             <!-- </mat-icon> -->
@@ -214,8 +212,7 @@
           <mat-label class="required">Bibliography</mat-label>
           <mat-form-field appearance="outline" class="col-md-12">
             <input matInput placeholder="Bibliography" mouse-over-hint tickImagePath="assets/images/tick-mark.svg"
-            crossImagePath="assets/images/cross-mark.svg"
-              [(ngModel)]="newAlert.Bibliography" required>
+              crossImagePath="assets/images/cross-mark.svg" [(ngModel)]="newAlert.Bibliography" required>
             <!-- <mat-icon matSuffix *ngIf="checkedbiBliography" class="FieldValid">check</mat-icon>
             <mat-icon class="close-icon" matSuffix *ngIf="unCheckedBibliography" class="FieldInvalid">close -->
             <!-- </mat-icon> -->
@@ -225,21 +222,20 @@
           <mat-label class="required">Developer</mat-label>
           <mat-form-field appearance="outline" class="col-md-12">
             <input matInput placeholder="Developer" mouse-over-hint tickImagePath="assets/images/tick-mark.svg"
-            crossImagePath="assets/images/cross-mark.svg"
-              [(ngModel)]="newAlert.Developer" required>
+              crossImagePath="assets/images/cross-mark.svg" [(ngModel)]="newAlert.Developer" required>
             <!-- <mat-icon matSuffix *ngIf="checkedDeveloper" class="FieldValid">check</mat-icon>
             <mat-icon class="close-icon" matSuffix *ngIf="unCheckedDeveloper" class="FieldInvalid">close -->
             <!-- </mat-icon> -->
           </mat-form-field>
         </div>
+
         <div class="row">
           <div class="col-md-2">
             <mat-label>Funding Source:</mat-label>
           </div>
           <mat-form-field appearance="outline" class="col-md-4">
             <input matInput placeholder="Funding Source" mouse-over-hint tickImagePath="assets/images/tick-mark.svg"
-            crossImagePath="assets/images/cross-mark.svg"
-              [(ngModel)]="newAlert.FundingSource" required>
+              crossImagePath="assets/images/cross-mark.svg" [(ngModel)]="newAlert.FundingSource" required>
             <!-- <mat-icon matSuffix *ngIf="checkedfundingSource" class="FieldValid">check</mat-icon>
             <mat-icon class="close-icon" matSuffix *ngIf="unCheckedfundingSource" class="FieldInvalid">close -->
             <!-- </mat-icon> -->
@@ -248,8 +244,9 @@
             <mat-label>Release Date(s)</mat-label>
           </div>
           <mat-form-field appearance="outline" class="col-md-4 realease-date">
-            <input matInput [matDatepicker]="dp1" required placeholder="Stop Date" mouse-over-hint tickImagePath="assets/images/tick-mark.svg"
-            crossImagePath="assets/images/cross-mark.svg" (focus)="dp1.open()" [(ngModel)]="newAlert.ReleaseAt">
+            <input matInput [matDatepicker]="dp1" required placeholder="Stop Date" mouse-over-hint
+              tickImagePath="assets/images/tick-mark.svg" crossImagePath="assets/images/cross-mark.svg"
+              (focus)="dp1.open()" [(ngModel)]="newAlert.ReleaseAt">
             <mat-datepicker-toggle matSuffix [for]="dp1">
             </mat-datepicker-toggle>
             <mat-datepicker #dp1 disabled="false"></mat-datepicker>
@@ -263,29 +260,23 @@
           <mat-label class="required">Trigger Rule
           </mat-label>
           <mat-form-field appearance="outline" class="col-md-12 trplaceholder">
-            <mat-select panelClass="triggeralignment" required placeholder="Trigger Rule"
-            [(ngModel)]="newAlert.Rule" mouse-over-hint tickImagePath="assets/images/tick-mark.svg"
-            crossImagePath="assets/images/cross-mark.svg" >
+            <mat-select panelClass="triggeralignment" required placeholder="Trigger Rule" [(ngModel)]="newAlert.Rule"
+              mouse-over-hint tickImagePath="assets/images/tick-mark.svg" crossImagePath="assets/images/cross-mark.svg">
               <mat-option *ngFor="let trigger of TriggerRuleDD" [value]="trigger.value">
                 {{trigger.viewValue}}
               </mat-option>
             </mat-select>
           </mat-form-field>
         </div>
-
       </div>
       <div class="modal-footer">
         <button class="btn btn-green btn-clinic" data-bs-dismiss="modal"
           (click)="InsertUpadateClincialDecisionSupport(newAlert)" [disabled]="enableSave()">Add New Alert</button>
-
       </div>
     </div>
   </div>
 </div>
-<!-- <ng-template #myTemplateRef>
 
-      </ng-template>
- -->
 
 <!-- TriggerModal -->
 <div class="modal  TriggerModal" id="TriggerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -371,15 +362,15 @@
           <mat-label class="required">Description:</mat-label>
 
           <textarea matInput class="text-border not-allowed" placeholder="" readonly disabled
-            [(ngModel)]="ehrTrigger.Description"  ></textarea>
+            [(ngModel)]="ehrTrigger.Description"></textarea>
 
 
         </div>
       </div>
       <div class="modal-footer">
 
-            <button class="btn btn-green btn-clinic " type="button" data-bs-dismiss="modal"
-              (click)="CreateTrigger(ehrTrigger)" [disabled]="triggerSave()">Add trigger</button>
+        <button class="btn btn-green btn-clinic " type="button" data-bs-dismiss="modal"
+          (click)="CreateTrigger(ehrTrigger)" [disabled]="triggerSave()">Add trigger</button>
 
       </div>
     </div>

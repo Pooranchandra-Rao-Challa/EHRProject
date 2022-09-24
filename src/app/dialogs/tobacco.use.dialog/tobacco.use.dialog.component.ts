@@ -1,3 +1,4 @@
+import { pipe } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
@@ -60,15 +61,20 @@ export class TobaccoUseDialogComponent implements OnInit {
   loadTobaccoUseConstants() {
     this.screeningPerformed = TobaccoUseConstants.SCREENING_PERFORMED;
     this.screeningTobaccoStatus = TobaccoUseConstants.SCREENING_TOBACCO_STATUS;
+    this.screeningTobaccoStatus = this.screeningTobaccoStatus.map((obj) => ({
+      Code: obj.Code,
+      Description: obj.Description,
+      CodeDescription: obj.Code + ' - ' + obj.Description
+    }));
     this.screeningTobaccoStatusFilter = this.screeningTobaccoStatus.slice();
     this.interventionPerformed = TobaccoUseConstants.INTERVENTION_PERFORMED;
     this.interventionTobaccoStatus = TobaccoUseConstants.INTERVENTION_TOBACCO_STATUS;
+    this.interventionTobaccoStatus = this.interventionTobaccoStatus.map((obj) => ({
+      Code: obj.Code,
+      Description: obj.Description,
+      CodeDescription: obj.Code + ' - ' + obj.Description
+    }));
     this.interventionTobaccoStatusFilter = this.interventionTobaccoStatus.slice();
-  }
-
-  displayWithScreening(value: any): string {
-    if (!value) return "";
-    return value.Code + "-" + value.Description;
   }
 
   cancel() {
@@ -118,7 +124,7 @@ export class TobaccoUseDialogComponent implements OnInit {
     }
     const ref = this.overlayService.open(content, reqdata, true);
     ref.afterClosed$.subscribe(res => {
-      if(res.data != null && res.data.saved){
+      if (res.data != null && res.data.saved) {
         this.ref.close({
           refreshCQMNotPerformed: true
         });

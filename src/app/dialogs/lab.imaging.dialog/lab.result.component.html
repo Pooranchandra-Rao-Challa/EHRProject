@@ -33,21 +33,21 @@
         <div class="row">
           <div class="col-md-6 col-lg-6">
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-lg-6 col-md-12">
                 <mat-label>Date of birth:</mat-label>
                 <mat-form-field appearance="outline" class="col-md-12">
                   <input matInput placeholder="" disabled class="notallowed-cursor"
                     [ngModel]="labandImaging.CurrentPatient.DateofBirth | date:'MM-dd-yyyy'">
                 </mat-form-field>
               </div>
-              <div class="col-md-3">
+              <div class="col-lg-3 col-md-6">
                 <mat-label>Sex:</mat-label>
                 <mat-form-field appearance="outline" class="col-md-12">
                   <input matInput placeholder="" disabled class="notallowed-cursor"
                     [ngModel]="labandImaging.CurrentPatient.Gender">
                 </mat-form-field>
               </div>
-              <div class="col-md-3">
+              <div class="col-lg-3 col-md-6">
                 <mat-label>Age:</mat-label>
                 <mat-form-field appearance="outline" class="col-md-12">
                   <input matInput placeholder="" disabled class="notallowed-cursor"
@@ -75,7 +75,7 @@
           </div>
         </div>
       </div>
-      <div class="row" >
+      <div class="row">
         <mat-label>Select Order:</mat-label>
         <div class="thead">
           <div class="Helvetica-sans-serif-medium col-1 th"></div>
@@ -88,7 +88,7 @@
         </div>
         <div class="tbody" *ngFor="let item of labOrders">
           <div class="Helvetica-sans-serif-medium col-1 td">
-            <mat-radio-button [checked]="item.LabProcedureId == labandImaging.LabProcedureId" ></mat-radio-button>
+            <mat-radio-button [checked]="item.LabProcedureId == labandImaging.LabProcedureId"></mat-radio-button>
           </div>
           <div class="Helvetica-sans-serif-medium col-1 td">{{item.OrderNumber}}</div>
           <div class="Helvetica-sans-serif-medium col-2 td">{{item.LabName}}</div>
@@ -97,10 +97,9 @@
           <div class="Helvetica-sans-serif-medium col-2 td">{{item.ScheduledAt | date:"MM-dd-yyyy"}}</div>
           <div class="Helvetica-sans-serif-medium col-2 td">{{item.CreatedDate | date:"MM-dd-yyyy"}}</div>
         </div>
-
       </div>
-      <div class="row mt-1" >
-        <div class="col-md-9">
+      <div class="row mt-1">
+        <div class="col-lg-9 col-md-12">
           <div class="row">
             <div class="col-md-6">
               <mat-label>Specimen #:</mat-label>
@@ -117,11 +116,11 @@
           </div>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-lg-3 col-md-12">
           <mat-label>Test Report Date:</mat-label>
           <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-12">
             <input matInput [matDatepicker]="testReportedDate" placeholder="Test Report Date"
-              (focus)="testReportedDate?.open()" class="Helvetica-sans-serif-medium"
+              (click)="testReportedDate?.open()" class="Helvetica-sans-serif-medium pointer" readonly
               [(ngModel)]="labandImaging.LabResult.TestReportedDate">
             <mat-datepicker-toggle matSuffix [for]="testReportedDate">
             </mat-datepicker-toggle>
@@ -129,8 +128,8 @@
           </mat-form-field>
         </div>
       </div>
-      <div class="row" >
-        <div class="col-md-8">
+      <div class="row">
+        <div class="col-lg-8 col-md-12">
           <div class="row">
             <div class="col-md-7">
               <mat-label class="required">Ordering Physician:</mat-label>
@@ -152,19 +151,19 @@
           </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-lg-4 col-md-12">
           <mat-label class="required">Lab/Imaging Status:</mat-label>
-              <mat-form-field appearance="outline" class="col-md-12 orderddhover">
-                <mat-select required placeholder="Status" [(ngModel)]="labandImaging.ResultStatus">
-                  <mat-option *ngFor="let item of ResultStatuses" [value]="item.Value">
-                    {{item.Name}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
+          <mat-form-field appearance="outline" class="col-md-12 orderddhover">
+            <mat-select required placeholder="Status" [(ngModel)]="labandImaging.ResultStatus">
+              <mat-option *ngFor="let item of ResultStatuses" [value]="item.Value">
+                {{item.Name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
       </div>
-      <div class="row highlight-blocks" >
-        <div class="col-lg-7 col-md-7 left-block">
+      <div class="row highlight-blocks">
+        <div class="col-lg-7 col-md-12 left-block">
 
           <div class="row highlight-block">
             <div class="col-lg-12">
@@ -223,13 +222,13 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-5 col-md-5 right-block">
+        <div class="col-lg-5 col-md-12 right-block">
           <div class="row highlight-block">
             <p class="title">Specimen Collected:</p>
             <div class="col-md-7">
               <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-12">
                 <input matInput [matDatepicker]="specimenCollected" placeholder="Specimen Collected Date"
-                  (focus)="specimenCollected?.open()" class="Helvetica-sans-serif-medium place-holder"
+                  (click)="specimenCollected?.open()" class="Helvetica-sans-serif-medium place-holder pointer" readonly
                   [(ngModel)]="labandImaging.LabResult.CollectedDate">
                 <mat-datepicker-toggle matSuffix [for]="specimenCollected">
                 </mat-datepicker-toggle>
@@ -250,7 +249,7 @@
             <div class="col-md-7">
               <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-12">
                 <input matInput [matDatepicker]="specimenReceived" placeholder="Specimen Received Date"
-                  (focus)="specimenReceived?.open()" class="Helvetica-sans-serif-medium place-holder"
+                  (click)="specimenReceived?.open()" class="Helvetica-sans-serif-medium place-holder pointer" readonly
                   [(ngModel)]="labandImaging.LabResult.ReceivedDate">
                 <mat-datepicker-toggle matSuffix [for]="specimenReceived">
                 </mat-datepicker-toggle>
@@ -271,7 +270,7 @@
             <div class="col-md-7">
               <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-12">
                 <input matInput [matDatepicker]="testPerfomred" placeholder="Test Performed Date"
-                  (focus)="testPerfomred?.open()" class="Helvetica-sans-serif-medium place-holder"
+                  (click)="testPerfomred?.open()" class="Helvetica-sans-serif-medium place-holder pointer" readonly
                   [(ngModel)]="labandImaging.LabResult.TestedDate">
                 <mat-datepicker-toggle matSuffix [for]="testPerfomred">
                 </mat-datepicker-toggle>
@@ -289,12 +288,12 @@
           </div>
         </div>
       </div>
-      <div class="row" >
+      <div class="row">
         <div class="col-lg-12">
           <div class="form-group">
             <div class="panel panel-tests">
               <div class="panel-heading">
-                <div class="title">Tests Ordered (mimimum one test order is required)</div>
+                <div class="title">Tests Ordered (minimum one test order is required)</div>
                 <div class="title-right">
                   <button class="plusicon" type="button" aria-expanded="false" (click)="addTestOrder()">
                     <i class="fa fa-plus"></i>
@@ -372,10 +371,10 @@
           </div>
         </div>
       </div>
-      <div class="row" >
+      <div class="row">
       </div>
       <div class="clearfix d-block w-100"></div>
-      <div class="row mt-1" >
+      <div class="row mt-1">
         <div class="col-md-12">
           <mat-label>Notes:</mat-label>
           <textarea matInput class="text-border" placeholder="" [(ngModel)]="labandImaging.LabResult.Notes"></textarea>
@@ -391,8 +390,10 @@
       </div>
       <div class="buttons" style="float:right">
         <button mat-raised-button type="submit" class="btn btn-green   pull-right">Print</button>
-        <button mat-raised-button type="submit" class="btn btn-green   pull-right" *ngIf="!labandImaging.Signed">Sign</button>
-        <button mat-raised-button type="submit" class="btn btn-green   pull-right" (click)="save()" *ngIf="!saveClicked && !labandImaging.Signed">Save</button>
+        <button mat-raised-button type="submit" class="btn btn-green   pull-right"
+          *ngIf="!labandImaging.Signed">Sign</button>
+        <button mat-raised-button type="submit" class="btn btn-green   pull-right" (click)="save()"
+          *ngIf="!saveClicked && !labandImaging.Signed">Save</button>
       </div>
     </div>
   </div>

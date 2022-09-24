@@ -49,6 +49,10 @@
       <mat-row *matRowDef="let row; columns: AmendmentsColumns;">
       </mat-row>
     </mat-table>
+    <div  class="norecords-found" *ngIf="amendmentlist.length == 0" style="font-size: 14px;
+    font-family: Roboto" >
+        No Amendments Found
+    </div>
   </div>
   <div class="modal modal-amendments" id="modal-Patient-Education" data-bs-keyboard="false" tabindex="-1"
     aria-hidden="true">
