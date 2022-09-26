@@ -51,7 +51,7 @@
         <div class="row">
           <div class="col-md-3"> <span class="size">{{ this.user.FirstName}} {{this.user.LastName}}</span></div>
           <div class="col-md-3"><span class="green-color">DOB: </span><span
-              class="Helvetica-sans-serif-large">{{PatientProfile?.DateOfBirth| date:'dd/MM/yyyy'}}</span></div>
+              class="Helvetica-sans-serif-large">{{PatientProfile?.DateOfBirth| date:'MM/dd/yyyy'}}</span></div>
           <div class="col-md-3"><span class="green-color">Age: </span><span class="Helvetica-sans-serif-large">{{PatientProfile?.Age}}</span></div>
           <div class="col-md-3"><span class="green-color">Sex: </span><span
               class="Helvetica-sans-serif-large">{{PatientProfile?.Gender}}</span></div>
@@ -102,7 +102,7 @@
                     <p class="problem_dx">Chronic:</p>
                     <p class="problem_dx">Acute:</p>
                     <div *ngFor="let i of ProblemDxData">
-                      <div class="acute-item">{{i.Description +' ,'+ i.Code +', '+ (i.StartDate| date:'dd/MM/yyyy') }}</div>
+                      <div class="acute-item">{{i.Description +' ,'+ i.Code +', '+ (i.StartDate| date:'MM/dd/yyyy') }}</div>
                     </div>
                   </div>
                 </div>
@@ -124,8 +124,8 @@
                     <div *ngFor="let i of Medications">
                       <div class="acute-item" >
                         <p>Display Name:{{i.DrugName}}</p>
-                        <p >Start At:{{i.StartAt}}<br> </p>
-                        <p>End Date:{{i.StopAt}}</p>
+                        <p >Start At:{{i.StartAt| date:'MM/dd/yyyy'}}<br> </p>
+                        <p>End Date:{{i.StopAt| date:'MM/dd/yyyy'}}</p>
                       </div>
 
                     </div>
@@ -151,7 +151,7 @@
                       <div class="acute-item" >
                         <p >Severity :{{i.SeverityLevel}}<br>
                             Onset :{{i.OnSetAt}}<br>
-                            Start Date:{{i.StartAt}}</p>
+                            Start Date:{{i.StartAt| date:'MM/dd/yyyy'}}</p>
                           </div>
 
                     </div>
@@ -179,7 +179,7 @@
                         <p >Lab Order : {{i.Num}}<br>
                           Test Name : {{i.Test}}<br>
                           LOINC code : {{i.Code}}<br>
-                          Test Report Date : {{i.TestReportedAt}}
+                          Test Report Date : {{i.TestReportedAt| date:'MM/dd/yyyy'}}
                         </p>
                       </div>
 

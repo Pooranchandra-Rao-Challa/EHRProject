@@ -14,6 +14,7 @@ import { DatePipe } from '@angular/common';
 import { AreaCode } from 'src/app/_models/_admin/Admins';
 import { FormControl } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
+declare var $: any;
 @Component({
   selector: 'app-insurance',
   templateUrl: './insurance.component.html',
@@ -96,6 +97,26 @@ export class InsuranceComponent implements OnInit {
     this.getInsuranceList();
     this.loadDefaults();
     this.filteredAreacodes = this.myControlPrimary.valueChanges.pipe(startWith(''), map(value => this._filterAreaCode(value)));
+  //   $('#modal-primary-Insurance').on('shown', function () {
+  //     $(".divScroll").scrollTop(0);
+  // });
+//   var scrollPos = 0;
+// $('.modal')
+// .on('show.bs.modal', function (){
+// scrollPos = $('.divScroll').scrollTop();
+// $('body').css({
+// overflow: 'hidden',
+// position: '',
+// top : -scrollPos
+// });
+// })
+// .on('hide.bs.modal', function (){
+// $('body').css({
+// overflow: '',
+// position: '',
+// top: ''
+// }).scrollTop(scrollPos);
+// });
   }
   loadDefaults() {
 
