@@ -106,11 +106,8 @@ export class UserDialogComponent implements OnInit {
       this.dialogIsLoading = false;
       if (resp.IsSuccess) {
         this.EditProvider = resp.Result as NewUser;
-        console.log(this.EditProvider);
         this.EditProvider.LocationInfo = JSON.parse(resp.Result.LocationInfo);
         // if(this.EditProvider.LocationInfo.)
-        console.log(this.EditProvider.LocationInfo);
-        
         this.updateTimeSlotString();
       }
     });
@@ -203,7 +200,8 @@ export class UserDialogComponent implements OnInit {
 
         if (res.data != null && (res.data.saved || res.data.deleted))
           this.getUserDataforEdit();
-      }
+          this.ref.close({ viewRefresh: true })
+        }
     });
   }
   enablesave()

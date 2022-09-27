@@ -136,7 +136,7 @@
             <div class="col-lg-4 "><label><span class="settings-label">Expiration Date</span>
               </label>
               <div class="form-group" style="display: inherit;">
-                <input type="text" placeholder="Expiration Date" class="inputclass" style="width: 230px;"
+                <input type="text" placeholder="Expiration Date" class="inputclass pointer" style="width: 230px;" (click)="expirationDate?.open()" readonly
                   [(ngModel)]="EditProvider.ExpirationDate" autocomplete="off" [matDatepicker]="expirationDate">
 
                 <mat-datepicker-toggle matSuffix [for]="expirationDate"></mat-datepicker-toggle>
@@ -157,7 +157,7 @@
             <div class="col-lg-3"><label class="settings-label">NPI</label>
               <div class="form-group">
                 <input type="text" placeholder="NPI" autocomplete="off" class="inputclass" #npi="ngModel" maxlength="10"
-                  npiValidator #numberMask 
+                  npiValidator #numberMask
                   [ngClass]="{'is-invalid' : (npi.touched || npi.dirty) && !npi.valid }" [(ngModel)]="EditProvider.Npi">
               </div>
             </div>

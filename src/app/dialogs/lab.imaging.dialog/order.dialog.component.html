@@ -97,8 +97,8 @@
         <div class="col-lg-4 col-md-12 col-12">
           <mat-label class="required">Schedule Date:</mat-label>
           <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-12">
-            <input matInput [matDatepicker]="dp1" placeholder="Start Date" (focus)="dp1?.open()"
-              class="Helvetica-sans-serif-medium" [(ngModel)]="labandImaging.ScheduledAt">
+            <input matInput [matDatepicker]="dp1" placeholder="Start Date" (click)="dp1?.open()" readonly
+              class="Helvetica-sans-serif-medium pointer" [(ngModel)]="labandImaging.ScheduledAt">
             <mat-datepicker-toggle matSuffix [for]="dp1">
             </mat-datepicker-toggle>
             <mat-datepicker #dp1></mat-datepicker>
@@ -142,8 +142,8 @@
         <div class="col-lg-4 col-md-12 col-12">
           <mat-label>Received Date:</mat-label>
           <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-12">
-            <input matInput [matDatepicker]="dp2" placeholder="Received Date" (focus)="dp2?.open()"
-              class="Helvetica-sans-serif-medium" [(ngModel)]="labandImaging.ReceivedAt">
+            <input matInput [matDatepicker]="dp2" placeholder="Received Date" (click)="dp2?.open()" readonly
+              class="Helvetica-sans-serif-medium pointer" [(ngModel)]="labandImaging.ReceivedAt">
             <mat-datepicker-toggle matSuffix [for]="dp2">
             </mat-datepicker-toggle>
             <mat-datepicker #dp2></mat-datepicker>

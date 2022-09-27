@@ -60,7 +60,7 @@ export class ScheduleComponent implements OnInit {
       this.getRoomsForLocation();
     })
   }
-//get provide Details
+  //get provide Details
   getProviderDetails() {
     var reqparams = {
       provider_Id: this.user.ProviderId,
@@ -75,8 +75,7 @@ export class ScheduleComponent implements OnInit {
   // get display Location Details
   getLocationsList() {
     this.ClinicLocations = [];
-
-    this.settingsService.PracticeLocations(this.user.ProviderId, this.user.ClinicId).subscribe(resp => {
+    this.settingsService.PracticeLocations(null, this.user.ClinicId).subscribe(resp => {       /* this.user.ProviderId -- reqparam in place of null */
       if (resp.IsSuccess) {
         this.ClinicLocations = resp.ListResult;
       }
@@ -179,7 +178,7 @@ export class ScheduleComponent implements OnInit {
   onEditStatus(statusIndex: number) {
     this.statusOnEdit.push(statusIndex);
   }
-  onAppTypeLog(ctrlType: AbstractControl,event){
+  onAppTypeLog(ctrlType: AbstractControl, event) {
     ctrlType.value.Colour = event.color;
   }
   // Appointment Type
@@ -225,9 +224,9 @@ export class ScheduleComponent implements OnInit {
   isTypeEditable(rowIndex: number) {
     let ctlValue = this.typeForm.controls.type["controls"][rowIndex].value;
     let id = ctlValue.Id;
-    let editable = this.typeOnEdit.indexOf(rowIndex) >-1 && ctlValue.Editable
+    let editable = this.typeOnEdit.indexOf(rowIndex) > -1 && ctlValue.Editable
 
-    let flag =  Number(id) < 0 ? true : editable;
+    let flag = Number(id) < 0 ? true : editable;
     return flag;
   }
   onEditType(typeIndex: number) {

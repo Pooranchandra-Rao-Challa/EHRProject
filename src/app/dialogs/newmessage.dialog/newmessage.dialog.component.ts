@@ -168,7 +168,7 @@ export class NewmessageDialogComponent implements OnInit {
       this.message.ProviderName = this.user.FirstName;
       this.message.Draft = item;
       this.message.Sent = sent;
-      this.message.ToId = this.messageDialogData.Messages.toAddress.UserId;
+      this.message.ToId = this.messageDialogData.Messages ? this.messageDialogData.Messages.toAddress.UserId : this.message.ToId;
     }
     this.messageservice.CreateMessage(this.message).subscribe(resp => {
       if (resp.IsSuccess) {

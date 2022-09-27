@@ -32,7 +32,7 @@
             <h4 class="titleText">{{item.AlertName}} </h4>
 
           </mat-panel-title>
-          <mat-panel-description class="d-flex justify-content-end">
+          <mat-panel-description class="d-flex justify-content-end mb-2 mb-lg-0">
             <button class="btn" [ngClass]="!item?.isdisabled ?  'btn-on' : 'btn-off' " type="button"
               (click)="disablemedication(item,false)">On</button>
             <button class="btn" [ngClass]="item?.isdisabled ? 'btn-on' : 'btn-off' " type="button"
@@ -74,6 +74,7 @@
               </div>
             </div>
           </div>
+          <div class="scrollable-table clinical-decision-table">
           <table class="table table-borderless">
             <thead class="bg-color">
               <tr>
@@ -110,6 +111,7 @@
 
             </tbody>
           </table>
+          </div>
           <br>
           <div class="row field-align">
             <mat-label class="Helvetica-sans-serif-small">Resolution: </mat-label>
@@ -148,7 +150,7 @@
             </div>
 
             <mat-form-field appearance="outline" class="green-calendar col-md-4">
-              <input matInput [matDatepicker]="dp" placeholder="" [(ngModel)]="item.ReleaseAt">
+              <input matInput class="pointer" [matDatepicker]="dp" placeholder="" [(ngModel)]="item.ReleaseAt" (click)="dp?.open()" readonly>
               <mat-datepicker-toggle matSuffix [for]="dp">
                 <button _ngcontent-mqh-c316="" aria-hidden="true" class="is-primary button fa fa-calendar"></button>
               </mat-datepicker-toggle>
@@ -244,9 +246,9 @@
             <mat-label>Release Date(s)</mat-label>
           </div>
           <mat-form-field appearance="outline" class="col-md-4 realease-date">
-            <input matInput [matDatepicker]="dp1" required placeholder="Stop Date" mouse-over-hint
+            <input matInput class="pointer" [matDatepicker]="dp1" required placeholder="Stop Date" mouse-over-hint
               tickImagePath="assets/images/tick-mark.svg" crossImagePath="assets/images/cross-mark.svg"
-              (focus)="dp1.open()" [(ngModel)]="newAlert.ReleaseAt">
+              (click)="dp1.open()" readonly [(ngModel)]="newAlert.ReleaseAt">
             <mat-datepicker-toggle matSuffix [for]="dp1">
             </mat-datepicker-toggle>
             <mat-datepicker #dp1 disabled="false"></mat-datepicker>
@@ -353,7 +355,7 @@
           <br>
           <mat-label class="required">Code System</mat-label>
 
-          <mat-form-field appearance="outline" class="col-md-12 ">
+          <mat-form-field appearance="outline" class="col-md-12 col-12">
             <input matInput placeholder="" [(ngModel)]="ehrTrigger.System" disabled class="not-allowed">
           </mat-form-field>
         </div>

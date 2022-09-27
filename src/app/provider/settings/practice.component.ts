@@ -85,8 +85,8 @@ export class PracticeComponent implements OnInit {
       }
     });
   }
-  filterTimeZone:any
-  timelist:any
+  filterTimeZone: any
+  timelist: any
   // dropdown for TimeZone
   getTimeZoneList() {
     this.settingsService.TimeZones().subscribe(resp => {
@@ -94,7 +94,7 @@ export class PracticeComponent implements OnInit {
         this.TimeZoneList = resp.ListResult;
         this.filterTimeZone = this.TimeZoneList.slice();
         this.DisplayDateTimeZone();
-       
+
       }
     });
   }
@@ -110,7 +110,7 @@ export class PracticeComponent implements OnInit {
   }
   // get display Location Details
   practiceLocations() {
-    this.settingsService.PracticeLocations(this.user.ProviderId, this.user.ClinicId).subscribe(resp => {
+    this.settingsService.PracticeLocations(null, this.user.ClinicId).subscribe(resp => {         /* this.user.ProviderId -- reqparam in place of null */
       if (resp.IsSuccess) {
         this.locationdataSource = resp.ListResult;
       }
@@ -189,7 +189,7 @@ export class PracticeComponent implements OnInit {
   }
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
     data?: any, action?: Actions) {
-    
+
     let dialogData: any;
     if (content === this.userDialogComponent && action == Actions.view) {
       dialogData = this.userInfoForEdit(data, action);
@@ -208,7 +208,7 @@ export class PracticeComponent implements OnInit {
     const ref = this.overlayService.open(content, dialogData);
     ref.afterClosed$.subscribe(res => {
       if (content === this.userDialogComponent) {
-        if (res.data != null && res.data.saved) {
+        if (res.data != null && (res.data.saved || res.data.viewRefresh == true)) {
           this.getProviderDetails();
           this.practiceLocations();
         }
@@ -244,7 +244,7 @@ export class PracticeComponent implements OnInit {
   emailPattern = /^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$/;
   EnableSave() {
     var emailReg = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
-    return !(this.NewUserData.FirstName != null && this.NewUserData.FirstName != ""&& this.NewUserData.LastName != null && this.NewUserData.LastName != ""
+    return !(this.NewUserData.FirstName != null && this.NewUserData.FirstName != "" && this.NewUserData.LastName != null && this.NewUserData.LastName != ""
       && this.NewUserData.Email != null && this.NewUserData.Email != ""
       && this.emailPattern.test(this.NewUserData.Email)
       && this.NewUserData.PracticeRole != null && this.NewUserData.PracticeRole != "");

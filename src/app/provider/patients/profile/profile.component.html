@@ -57,10 +57,10 @@
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="DATEOFBIRTH*" class="label-design required input-marign-alignments">Date Of Birth</label>
                 <mat-form-field appearance="outline" class="form-group profile-green-calendar">
-                  <input matInput class="date-mat-class" autocomplete="off" [(ngModel)]="patientMyProfile.DateOfBirth"
+                  <input matInput class="date-mat-class pointer" autocomplete="off" [(ngModel)]="patientMyProfile.DateOfBirth"
                     (mouseover)="hoverDATEOFBIRTH='_/__/_'" (mouseleave)="hoverDATEOFBIRTH='MM/DD/YYYY'"
                     [matDatepicker]="picker" (click)="picker.open()" placeholder="{{ hoverDATEOFBIRTH }}"
-                    [max]="disableupcomingdates" #dateOfBirth="ngModel" required>
+                    [max]="disableupcomingdates" #dateOfBirth="ngModel" required readonly>
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
@@ -75,9 +75,9 @@
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="DATEOFDEATH" class="label-design input-marign-alignments">Date Of Death</label>
                 <mat-form-field appearance="outline" class="form-group profile-green-calendar">
-                  <input matInput class="date-mat-class" [(ngModel)]="patientMyProfile.DateOfDeath" autocomplete="off"
+                  <input matInput class="date-mat-class pointer" [(ngModel)]="patientMyProfile.DateOfDeath" autocomplete="off"
                     (mouseover)="hoverDATEOFDEATH='_/__/_'" (mouseleave)="hoverDATEOFDEATH='MM/DD/YYYY'"
-                    [matDatepicker]="picker1" (click)="picker1.open()" placeholder="{{ hoverDATEOFDEATH }}">
+                    [matDatepicker]="picker1" (click)="picker1.open()" readonly placeholder="{{ hoverDATEOFDEATH }}">
                   <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                   <mat-datepicker #picker1></mat-datepicker>
                 </mat-form-field>
@@ -143,7 +143,7 @@
                   <input class="checkbox form-check-input " id="PortalAccess" name="PortalAccess" type="checkbox"
                   [(ngModel)]="patientMyProfile.DeclinedPortalAccess">
                 <label class="label-design check-label">PATIENT DECLINED PORTAL ACCESS</label>
-              
+
                 </div>
               </div>
             </div>
@@ -153,7 +153,7 @@
                   <input class="checkbox form-check-input" id="VisionImpared" name="VisionImpared" type="checkbox"
                       [(ngModel)]="patientMyProfile.VisionImpared">
                     <label class="label-design check-label check-label-mrg">PATIENT IS VISION IMPARED</label>
-              
+
                 </div>
               </div>
             </div>
