@@ -72,7 +72,7 @@
             <mat-label class="Helvetica-sans-serif-medium required">Date Requested:</mat-label>
             <mat-form-field appearance="outline" class="calendaralignment green-calendar col-lg-7 col-md-7">
               <input matInput class="pointer date-mat-class" autocomplete="off" [matDatepicker]="DateRequest"
-                (click)="DateRequest.open()" placeholder="mm/dd/yyyy" [(ngModel)]="amendment.DateofRequest">
+                (click)="DateRequest.open()" placeholder="mm/dd/yyyy" [(ngModel)]="amendment.DateofRequest" readonly>
               <mat-datepicker-toggle matSuffix [for]="DateRequest"></mat-datepicker-toggle>
               <mat-datepicker #DateRequest></mat-datepicker>
             </mat-form-field>

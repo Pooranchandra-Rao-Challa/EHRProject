@@ -40,17 +40,18 @@
 
             <div class="pt-4">
               <div class="row">
-                <div class="row">
+                <!-- <div class="row">
                   <div class="col-md-4"> <mat-label class="Helvetica-sans-serif-medium required">First Name</mat-label></div>
                   <div class="col-md-4"><mat-label class="Helvetica-sans-serif-medium labelalignments">Middle Name</mat-label></div>
                   <div class="col-md-4">
                     <mat-label class="Helvetica-sans-serif-medium required labelalignments">Last Name</mat-label>
                   </div>
-                </div>
+                </div> -->
                 <div class="col-lg-12">
                   <div class="row">
-                   <div class="col-md-4">
-                    <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-sm-12 col-12">
+                   <div class="form-group  col-md-4">
+                     <label class="Helvetica-sans-serif-medium required">First Name</label>
+                    <mat-form-field appearance="outline" >
                       <input matInput  placeholder="First Name" [(ngModel)]="partnerSignup.first_name" alphaOnly required #firstName="ngModel" class="mt-1">
                     </mat-form-field>
                     <div *ngIf="firstName.errors && (firstName.touched)">
@@ -60,14 +61,16 @@
                       </div>
                   </div>
                    </div>
-                   <div class="col-md-4">
-                    <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-sm-12 col-12">
+                   <div class="form-group  col-md-4">
+                    <label class="Helvetica-sans-serif-medium">Middle Name</label>
+                    <mat-form-field appearance="outline" >
                       <input matInput placeholder="Middle Name" [(ngModel)]="partnerSignup.middle_name" alphaOnly class="mt-1">
                     </mat-form-field>
                  
                    </div>
-                   <div class="col-md-4">
-                    <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-sm-12 col-12">
+                   <div class=" form-group col-md-4">
+                    <label class="Helvetica-sans-serif-medium required">Last Name</label>
+                    <mat-form-field appearance="outline" >
                       <input matInput placeholder="Last Name" [(ngModel)]="partnerSignup.last_name" alphaOnly #lastName="ngModel" required class="mt-1">
                     </mat-form-field>
                     <div *ngIf="lastName.errors && (lastName.touched)">
@@ -80,16 +83,19 @@
                   </div>
                 </div>
               </div>
+            
               <div class="row">
                 <div class="col-lg-12">
+                  
                   <div class="row">
+                    <label class="Helvetica-sans-serif-medium">Full Address</label>
                     <mat-form-field appearance="outline" class="col-lg-12">
                       <input matInput placeholder="Full Address" [(ngModel)]="partnerSignup.full_address" class="mt-1">
                     </mat-form-field>
                   </div>
                 </div>
               </div>
-              <div class="row">
+              <!-- <div class="row">
                 <div class="col-md-6">
                   <mat-label class="Helvetica-sans-serif-medium required">Phone Number</mat-label>
                 </div>
@@ -97,24 +103,30 @@
                   <mat-label class="Helvetica-sans-serif-medium required">Email</mat-label>
                 </div>
 
-              </div>
+              </div> -->
               <div class="row">
                 <div class="col-lg-12">
                   <div class="row">
-                    <div class="col-md-6">
-                      <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="col-md-6 form-group">
+                      <label class="Helvetica-sans-serif-medium required">Phone Number</label>
+                      <mat-form-field appearance="outline" >
                         <input type="text" matInput placeholder="Phone Number" [(ngModel)]="partnerSignup.phone_number"
-                        mask=" (000) 000-0000" [showMaskTyped]="true" [patterns]="PhonePattern" #phoneNumber="ngModel" required class="mt-1">
+                        mask=" (000) 000-0000" [showMaskTyped]="true"  #phoneNumber="ngModel" required class="mt-1"prefix="+1">
                       </mat-form-field>
                       <div *ngIf="phoneNumber.errors && (phoneNumber.touched)">
-                        <div class="error_message" *ngIf="phoneNumber.errors?.mask">
-                            <span class="text-danger"></span>
-                            <p class="errormessage">Enter valid phone number</p>
+                        <div class="error_message" *ngIf="phoneNumber.errors?.required">
+                          <span class="e_arrow"></span>
+                          <p class="errormessage">Please enter Phone Number</p>
                         </div>
+                        <div class="error_message" *ngIf="phoneNumber.errors?.mask">
+                          <span class="e_arrow"></span>
+                          <p class="errormessage"> Phone number should be 10 digits.</p>
+                        </div>
+                      </div>
                     </div>
-                    </div>
-                    <div class="col-md-6">
-                      <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="col-md-6 form-group">
+                      <label class="Helvetica-sans-serif-medium required">Email</label>
+                      <mat-form-field appearance="outline" >
                         <input matInput placeholder="Email" [(ngModel)]="partnerSignup.email" 
                          pattern="^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$" #Email="ngModel" required class="mt-1">
                       </mat-form-field>
@@ -153,25 +165,37 @@
                   </span>
                
                   <div class="row pt-4">
-                    <div class="row">
+                    <!-- <div class="row">
                       <div class="col-md-4"> <mat-label class="Helvetica-sans-serif-medium ">Company Name</mat-label></div>
                       <div class="col-md-4"><mat-label class="Helvetica-sans-serif-medium labelalignments">Company Address</mat-label></div>
                       <div class="col-md-4">
                         <mat-label class="Helvetica-sans-serif-medium labelalignments">Company Url(s)</mat-label>
                       </div>
-                      </div>
+                      </div> -->
                     <div class="col-lg-12">
 
                       <div class="row">
-                        <mat-form-field appearance="outline" class="col-lg-4 col-md-4 col-sm-4 col-12">
-                          <input matInput placeholder="Company Name" [(ngModel)]="partnerSignup.company_name"class="mt-1">
-                        </mat-form-field>
-                        <mat-form-field appearance="outline" class="col-lg-4 col-md-4 col-sm-4 col-12">
-                          <input matInput placeholder="Company Address" [(ngModel)]="partnerSignup.company_address" class="mt-1">
-                        </mat-form-field>
-                        <mat-form-field appearance="outline" class="col-lg-4 col-md-4 col-sm-4 col-12">
-                          <input matInput placeholder="Company Url(s)" [(ngModel)]="partnerSignup.company_url"class="mt-1">
-                        </mat-form-field>
+                        <div class="col-md-4 form-group">
+                          <label class="Helvetica-sans-serif-medium ">Company Name</label>
+                          <mat-form-field appearance="outline">
+                            <input matInput placeholder="Company Name" [(ngModel)]="partnerSignup.company_name"class="mt-1">
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-4 form-group">
+                          <label class="Helvetica-sans-serif-medium ">Company Address</label>
+                          <mat-form-field appearance="outline">
+                            <input matInput placeholder="Company Address" [(ngModel)]="partnerSignup.company_address" class="mt-1">
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-4 form-group">
+                          <label class="Helvetica-sans-serif-medium ">Company Url(s)</label>
+                          <mat-form-field appearance="outline">
+                            <input matInput placeholder="Company Url(s)" [(ngModel)]="partnerSignup.company_url"class="mt-1">
+                          </mat-form-field>
+                        </div>
+                       
+                     
+                      
                       </div>
                       <div class="mt-3">
                         <mat-label class="Helvetica-sans-serif-medium">Company Description</mat-label>
