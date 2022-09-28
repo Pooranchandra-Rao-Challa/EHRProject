@@ -1,6 +1,6 @@
 @import"../../../assets/common.scss";
 
-
+#patientappoinment{
 input::-webkit-input-placeholder {
   color: #74757e !important;
 
@@ -45,4 +45,5 @@ textarea::-webkit-input-placeholder {
 .modal-body {
   max-height: calc(90vh - 200px);
   overflow-y: auto;
+}
 }

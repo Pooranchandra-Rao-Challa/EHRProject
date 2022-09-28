@@ -36,10 +36,14 @@ h4 {
   margin-right: 2%;
 }
 
-a:hover {
+a :hover {
   color: #fe8f00;
   cursor: pointer;
 
+}
+a :active {
+  color: #fe8f00;
+  cursor: pointer;
 }
 
 .fa-angle-right:hover {
@@ -211,10 +215,10 @@ h4 {
 
 /*code to change background color*/
 
-// .navbar-nav>.active>a {
+ul>.active>a {
 
-//   color: #fe8f00;
-// }
+  color: #fe8f00;
+}
 
 .nav-link {
   padding: 0.2rem 1rem !important;
@@ -229,4 +233,22 @@ h4 {
 .modal-content.view-appoinments
 {
   width:500px
+}
+// .nav-item.link-active {
+//   color: #fe8f00 !important;
+// }
+// .nav-item.link-active a:active, .nav-item.link-active a:visited, .nav-item.link-active a:focus{color: #fe8f00 !important;}
+
+
+.secondary-text-dark:focus
+{
+  color: #fe8f00 !important;
+}
+.secondary-text-dark:active
+{
+  color: #fe8f00 !important;
+}
+.secondary-text-dark:visited
+{
+  color: #fe8f00 !important;
 }
