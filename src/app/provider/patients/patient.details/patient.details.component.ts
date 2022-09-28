@@ -91,7 +91,9 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
       this.patient.Age = Number(patientUpdatedData.Age);
       this.patient.FirstName = patientUpdatedData.FirstName;
       this.patient.LastName = patientUpdatedData.LastName;
-      this.patient.Gender = patientUpdatedData.Sex;
+      this.patient.Gender = patientUpdatedData.Gender;
+      this.patient.MobilePhone = patientUpdatedData.MobilePhone;
+      this.patient.PrimaryPhone = patientUpdatedData.PrimaryPhone;
     })
     this.viewChangeService.getData().subscribe(changedView => {
       this.viewModel = this.authService.viewModel;

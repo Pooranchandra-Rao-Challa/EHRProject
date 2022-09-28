@@ -17,16 +17,16 @@
   <div class="row">
     <div class="d-flex justify-content-start flex-column flex-md-row">
       <mat-form-field appearance="outline" class="col-md-3  green-calendar">
-        <input matInput [matDatepicker]="dp"  placeholder="From" name="startDate"
-        [(ngModel)]="startDate" (focus)="dp?.open()" >
+        <input matInput class="pointer" [matDatepicker]="dp"  placeholder="From" name="startDate"
+        [(ngModel)]="startDate" (click)="dp?.open()" readonly>
         <mat-datepicker-toggle matSuffix [for]="dp">
         </mat-datepicker-toggle>
         <mat-datepicker #dp disabled="false"></mat-datepicker>
       </mat-form-field>
       <div class="mx-1 cust-hyphen">-</div>
       <mat-form-field appearance="outline" class="col-md-3 green-calendar">
-        <input matInput [matDatepicker]="dp1" placeholder="To" name="enddate"
-        [(ngModel)]="enddate" (dateChange)="getAuditLogList('')" (focus)="dp1?.open()">
+        <input matInput class="pointer" [matDatepicker]="dp1" placeholder="To" name="enddate"
+        [(ngModel)]="enddate" (dateChange)="getAuditLogList('')" (click)="dp1?.open()" readonly>
         <mat-datepicker-toggle matSuffix [for]="dp1">
         </mat-datepicker-toggle>
         <mat-datepicker #dp1 disabled="false"></mat-datepicker>

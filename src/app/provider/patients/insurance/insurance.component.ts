@@ -2,7 +2,6 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { fromEvent, Observable, of } from 'rxjs';
 import { PracticeLocation, User } from 'src/app/_models';
-
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { PatientService } from 'src/app/_services/patient.service';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
@@ -45,10 +44,10 @@ export class InsuranceComponent implements OnInit {
   primaryplusicon: any;
   secondaryplusicon: any;
   btnstate: boolean = true;
-  rowClicked:any
-  arry:any
+  rowClicked: any
+  arry: any
   selectingInsuranceCompanyName: any;
-  selectingInsuranceCompanyPlanId:any
+  selectingInsuranceCompanyPlanId: any
   InsuranceCompanyPlan: string;
   show: boolean;
   InsurancDetailslist: any = [];
@@ -184,7 +183,7 @@ export class InsuranceComponent implements OnInit {
     this.getInsuranceDetail(this.insuraceComplanyPlan)
   }
 
-  changeTableRowColor(item,idx, event) {
+  changeTableRowColor(item, idx, event) {
     // this.arry = [];
     this.rowClicked = idx;
     this.selectingInsuranceCompanyName = item.InsuranceCompanyName;
@@ -208,7 +207,6 @@ export class InsuranceComponent implements OnInit {
     this.isValid = false;
     this.cancel2 = false;
     this.cancel1 = false;
-
   }
   Selected() {
     if (this.plusvalue == "primary") {

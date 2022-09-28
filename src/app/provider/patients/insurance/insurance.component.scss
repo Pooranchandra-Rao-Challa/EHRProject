@@ -387,8 +387,9 @@
 
 @media(max-width:425px) {
   .plusicon {
-    width: 30px;
-    margin-left: -21px;
+    width: 100%;
+    margin-left: 0px;
+    padding: 0px;
   }
 
   .manualbtn {
@@ -417,7 +418,7 @@
 }
 
 .btn.btn-green {
-  height: 45px;
+  min-height: 45px;
 }
 
 #modal-primary-Insurance.modal {

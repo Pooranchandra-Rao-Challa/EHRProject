@@ -361,10 +361,21 @@ export class EncounterDialogComponent implements OnInit {
     this.patientService.CreateEncounter(this.encounterInfo).subscribe(resp => {
       if (resp.IsSuccess) {
         this.overlayref.close({ "UpdatedModal": PatientChart.Encounters, refreshView: true });
-        this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2AE001" : "M2AE002"])
-      } else {
+        if (this.encounterInfo.Signed == true) {
+          this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2AE001" : "M2AE002"]);
+        }
+        else {
+          this.alertmsg.displayMessageDailog(ERROR_CODES["M2AE003"]);
+        }
+      }
+      else {
         this.overlayref.close();
-        this.alertmsg.displayErrorDailog(ERROR_CODES[isAdd ? "E2AE001" : "E2AE002"])
+        if (this.encounterInfo.Signed == true) {
+          this.alertmsg.displayErrorDailog(ERROR_CODES[isAdd ? "E2AE001" : "E2AE002"]);
+        }
+        else {
+          this.alertmsg.displayErrorDailog(ERROR_CODES["E2AE004"]);
+        }
       }
     });
   }

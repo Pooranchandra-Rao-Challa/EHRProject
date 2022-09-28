@@ -23,7 +23,7 @@
       <div class="row mt-3 row-dropdown">
         <mat-form-field appearance="outline" class="col-lg-4 col-md-12 col-sm-12  hover">
           <mat-select placeholder="Filter By Provider" disableOptionCentering
-            (selectionChange)="onChangeProvider($event)">
+            (selectionChange)="onChangeProvider($event)" [(ngModel)]="provider">
             <mat-option value='' selected>View All Providers</mat-option>
             <mat-option *ngFor="let provider of PracticeProviders" [value]="provider.ProviderId">
               {{provider.FullName}}</mat-option>
@@ -31,7 +31,7 @@
         </mat-form-field>
         <mat-form-field appearance="outline" class="col-lg-4 col-md-12 col-sm-12  hover">
           <mat-select placeholder="Filter By Result" disableOptionCentering
-            (selectionChange)="onChangeResultStatus($event)">
+            (selectionChange)="onChangeResultStatus($event)" [(ngModel)]="result">
             <mat-option>All</mat-option>
             <mat-option *ngFor="let item of ResultStatuses" [value]="item.Value">
               {{item.Name}}
@@ -40,7 +40,7 @@
         </mat-form-field>
         <mat-form-field appearance="outline" class="col-lg-4 col-md-12 col-sm-12   hover">
           <mat-select placeholder="Filter By Status" disableOptionCentering
-            (selectionChange)="onChangeOrderStatus($event)">
+            (selectionChange)="onChangeOrderStatus($event)" [(ngModel)]="status">
             <mat-option value='' selected>View All Active</mat-option>
             <mat-option *ngFor="let item of OrderStatuses" [value]="item.Value">
               {{item.Name}}

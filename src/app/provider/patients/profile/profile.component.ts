@@ -64,7 +64,7 @@ export class ProfileComponent implements OnInit {
   languageList: any = [];
   patientRelationList: any = [];
   hoverDATEOFBIRTH: string = 'MM/DD/YYYY';
-  hoverDATEOFDEATH: string = 'MM/DD/YYYY'
+  hoverDATEOFDEATH: string = 'MM/DD/YYYY';
   addressVerfied: boolean = false;
   manuallybtn: boolean = false;
   disableaddressverification: boolean = false;
@@ -256,7 +256,7 @@ export class ProfileComponent implements OnInit {
         this.getPatientMyProfile();
         // this.patient = this.authService.viewModel.Patient;
         this.patientUpdateNotifier.sendData(this.patientMyProfile);
-
+        this.authService.SetViewParam("Patient", this.patientMyProfile);
       }
       else {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP001"]);
@@ -270,6 +270,8 @@ export class ProfileComponent implements OnInit {
       if (resp.IsSuccess) {
         this.getPatientMyProfile();
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP002"]);
+        this.patientUpdateNotifier.sendData(this.patientMyProfile);
+        this.authService.SetViewParam("Patient", this.patientMyProfile);
       }
       else {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP002"]);

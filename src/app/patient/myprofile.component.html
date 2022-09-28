@@ -62,7 +62,7 @@
                   </label>
                   <div class="form-group">
                     <mat-form-field appearance="outline" class="grey-matform ">
-                      <input matInput [matDatepicker]="dp" placeholder="Start Date"
+                      <input matInput class="pointer" [matDatepicker]="dp" placeholder="Start Date" (click)="dp?.open()" readonly
                         [(ngModel)]="PatientProfile.DateOfBirth" #DateofBirth="ngModel" name="DateofBirth" required
                         pattern="^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$">
                       <mat-datepicker-toggle matSuffix [for]="dp">
