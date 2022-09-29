@@ -179,11 +179,11 @@ input::-webkit-input-placeholder {
 }
 
 
-input[readonly] {
-  opacity: 0.5;
-  cursor:not-allowed !important;
+// input[readonly] {
+//   opacity: 0.5;
+//   cursor:not-allowed !important;
 
-}
+// }
 .noHover{
   cursor: not-allowed;
 }

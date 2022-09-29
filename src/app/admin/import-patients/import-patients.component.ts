@@ -75,7 +75,6 @@ export class ImportPatientsComponent {
   }
 
   upload() {
-
     if (this.file) {
       this.fileName = this.file.name;
       const formData = new FormData();
@@ -104,8 +103,11 @@ export class ImportPatientsComponent {
           () => this.uploadInProgressSubject.next(false)
         )
     }
-  }
 
+    // this.router.navigate(['admin/importeddata'], { queryParams: { name: 'Import Data'} }); 
+   
+  }
+  
   get enableImport(): boolean {
     return this.ProviderId != null && this.ProviderId != "" && this.file != null;
   }

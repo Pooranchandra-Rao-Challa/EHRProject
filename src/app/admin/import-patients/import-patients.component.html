@@ -41,7 +41,7 @@
     <div class="form-group  col-lg-12 mt-3 ">
       <div class="actions">
         <button type="button" [class.btn-not-allowed]="!enableImport" class="btn btn-style" [disabled]="!enableImport"
-          (click)="upload()">Import</button>
+          (click)="upload()" >Import</button>
         <button type="button" class="btn btn-back mx-2" (click)="BackToListImportData('Import Data','admin/importeddata')">Back</button>
       </div>
       <ng-container *ngIf="uploadProgress$ | async as uploadProgress">

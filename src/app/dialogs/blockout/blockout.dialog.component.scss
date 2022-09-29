@@ -122,5 +122,14 @@
       padding-right:10px;
     }
   }
-
+  .inputtextarea {
+    height: 71px;
+    border: 1px solid #41b6a6;
+    border-radius: 3px;
+    font-size: 15px;
+    padding: 10px 20px;
+    resize: both;
+    width: 100% !important;
+    resize: both;
+  }
 }
