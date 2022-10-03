@@ -315,6 +315,9 @@ export class PatientService extends APIEndPoint {
   {
     return this._ProcessPostRequest<any>(this._authorizedRepresentativesUrl,reqParams);
   }
-
+  ChangeFooterVersion()
+  {
+    return this._ProcessGetRequest<any>(this._getAdminVersionUrl);
+  }
 
 }

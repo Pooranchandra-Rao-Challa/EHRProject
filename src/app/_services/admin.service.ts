@@ -68,4 +68,14 @@ export class AdminService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._importDataUrl, reqparams);
   }
 
+  GetAdminSettingVersion()
+  {
+    return this._ProcessGetRequest<any>(this._getAdminVersionUrl);
+  }
+
+  UpdateAdminSettingVersion(reqparams:any)
+  {
+    return this._ProcessPostRequest<any>(this._updateAdminVersionUrl,reqparams);
+  }
+
 }

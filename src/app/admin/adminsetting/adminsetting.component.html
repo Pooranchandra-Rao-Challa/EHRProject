@@ -12,8 +12,8 @@
                         <label>App Version:</label>
                     </div>
                     <div class="col-lg-9 col-md-9 col-9">
-                        <input class="string optional form-control" type="text" value="v2.0" name="app_setting[version]"
-                            id="app_setting_version">
+                        <input class="" type="text" 
+                            [(ngModel)]="adminSettingVersion.Version">
                     </div>
                 </div>
             </div>
@@ -24,7 +24,7 @@
             <div class="col-lg-3 col-md-3 col-3 ">
             </div>
             <div class="col-lg-9 col-md-9 col-9">
-                <button class="btn-save" type="button" name="commit">Save</button>
+                <button class="btn-save" type="button" name="commit"(click)="UpdateAdminSettingVersion()">Save</button>
             </div>
         </div>
     </div>
