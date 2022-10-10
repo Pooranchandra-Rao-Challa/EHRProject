@@ -26,8 +26,8 @@ export class MessagesComponent implements OnDestroy, AfterContentChecked {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild("pagination", { static: true }) pagination: SimplePaginationDirective
   MessageDialogComponent = NewmessageDialogComponent;
-
   public messageDataSource: MessagesDatasource;
+  message?: Messages;
   user?: User;
   @ViewChild('searchMessage', { static: true }) searchMessage: ElementRef;
   ActionTypes = Actions;
@@ -123,6 +123,15 @@ export class MessagesComponent implements OnDestroy, AfterContentChecked {
   }
   showMessage(message) {
     this.currentMessage = message;
+   if(this.currentMessageView == 'Inbox')
+   {
+
+    this.messageService.ReadInboxMessages(this.currentMessage).subscribe(resp=>
+    {  
+      
+      })
+    }
+    
   }
   loadMessages() {
     this.messageDataSource.loadMessages(

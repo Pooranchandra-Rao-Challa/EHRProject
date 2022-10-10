@@ -12,7 +12,7 @@
 
   .container {
     border-radius: 3px;
-    border: 1px solid #41b6a6;
+   border: 1px solid #41b6a6;
     margin-bottom: 10px;
     height: calc(100vh - 130px);
     max-width: 1133px;
@@ -75,13 +75,13 @@
     right: 15px;
     display: inline-block;
     font-size: 11px;
-    border-radius: 15px;
-    padding: 0 11px;
+     border-radius: 15px;
+    padding: 0 5px;
     border: 1px solid #41b6a6;
   }
 
   .nav-tabs.styled .nav-tabs.message-count.active {
-    border: 1px solid #fff;
+    // border: 1px solid #fff;
   }
 
 

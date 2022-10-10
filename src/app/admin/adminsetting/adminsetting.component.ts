@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { AdminSetting } from 'src/app/_models/_admin/adminsettings';
 import { AdminService } from 'src/app/_services/admin.service';
 import Swal from 'sweetalert2';
@@ -10,7 +11,7 @@ import Swal from 'sweetalert2';
 })
 export class AdminsettingComponent implements OnInit {
   adminSettingVersion:AdminSetting = {};
-  constructor(private adminservice: AdminService,) { }
+  constructor(private adminservice: AdminService,  private alertmsg: AlertMessage) { }
 
   ngOnInit(): void {
     this.GetAdminSettingVersion();
@@ -34,7 +35,8 @@ export class AdminsettingComponent implements OnInit {
       {
         if(resp.IsSuccess)
         {
-          this.GetAdminSettingVersion()
+          this.GetAdminSettingVersion();
+         this.alertmsg.displayMessageDailog(ERROR_CODES["M1AS001"]);
         }
       }
     )

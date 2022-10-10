@@ -887,6 +887,11 @@ export class APIEndPoint extends EndpointBase {
   {
     return this._baseUrl + "UpdateAdminSettingsAppVersion";
   }
+
+  get _readInboxMessageUrl()
+  {
+    return this._baseUrl + "ReadInboxMessages";
+  }
   constructor(public http: HttpClient) {
     super();
   }
