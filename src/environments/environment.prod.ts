@@ -5,6 +5,7 @@ export const environment = {
   //redirectUrl:'http://183.82.111.111/EHRCQMReports/dashboard'
   //redirectUrl:'http://182.18.157.215/EHR/Web/account/login',
   baseUrl: 'http://182.18.157.215/EHR/API/',
+  //VIRTUAL_URL:'EHR/API/',
   //baseUrl:'http://localhost/EHR/API/',
   RX_END_POINT: 'https://rxnav.nlm.nih.gov/',
   RX_URI_NDC_PROPERTIES:'REST/rxcui/{0}/properties.json',
@@ -22,7 +23,7 @@ export const RX_NDCS_STATUS_URI = (ndc:string) => `REST/ndcstatus.json?ndc=${ndc
 export const RX_URI_NDC_PROPERTIES = (ndc:string) => `REST/rxcui/${ndc}/properties.json`;
 
 
-export const UPLOAD_URL = (location:string) => `../../uploadresources/${location}`;
+export const UPLOAD_URL = (uri:string) => `${environment.baseUrl}${uri}`;
 
 export const MEDLINE_PLUS_SERVER = 'http://apps.nlm.nih.gov/medlineplus/services/mpconnect.cfm'
 export const MEDLINE_PLUS_ICD ='mainSearchCriteria.v.cs=2.16.840.1.113883.6.90'
