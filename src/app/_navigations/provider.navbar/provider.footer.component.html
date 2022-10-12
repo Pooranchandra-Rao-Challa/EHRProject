@@ -1,3 +1,4 @@
 <div class="footer">
-  <p class="app-version">©&nbsp;2022 EHR One, LLC&nbsp;&nbsp;version: v2.0</p>
+  <div *ngFor="let item of providerFooterVersion">
+  <p class="app-version">©&nbsp;2022 EHR One, LLC&nbsp;&nbsp;version: {{item.Version}}</p>
 </div>

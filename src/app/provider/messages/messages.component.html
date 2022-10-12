@@ -7,7 +7,7 @@
             <a class="nav-link" id="medical-tab" data-bs-toggle="tab" data-bs-target="#medical" type="button" role="tab"
               aria-controls="medical" aria-selected="true" (click)="getMessages('Inbox')" [class.active]="IsInbox"
               [class.inactive]="!IsInbox">Inbox
-              <span class="message-count">0</span>
+              <span class="message-count">{{this.user.UnReadMails}}</span>
             </a>
           </li>
           <li class="nav-item" role="presentation">
@@ -26,7 +26,7 @@
             <a class="nav-link" id="urgent-tab" data-bs-toggle="tab" data-bs-target="#urgent" type="button" role="tab"
               aria-controls="urgent" aria-selected="true" (click)="getMessages('Urgent')" [class.active]="IsUrgent"
               [class.inactive]="!IsUrgent">Urgent
-              <span class="message-count" id="urgent-new-counting">0</span>
+              <span class="message-count" id="urgent-new-counting">{{this.user.UrgentMessages}}</span>
             </a>
           </li>
         </ul>

@@ -31,8 +31,6 @@ export class AddauthorizedrepresentativeDialogComponent implements OnInit {
      {
       this.url = plaformLocation.href.substring(0,plaformLocation.href.indexOf('?')).replace(plaformLocation.pathname, '/');
      }
-    console.log(this.url);
-    // console.log(this.url);
     this.updateLocalModel(ref.RequestData);
     this.PhonePattern = {
       0: {

@@ -96,26 +96,26 @@ export class InsuranceComponent implements OnInit {
     this.getInsuranceList();
     this.loadDefaults();
     this.filteredAreacodes = this.myControlPrimary.valueChanges.pipe(startWith(''), map(value => this._filterAreaCode(value)));
-  //   $('#modal-primary-Insurance').on('shown', function () {
-  //     $(".divScroll").scrollTop(0);
-  // });
-//   var scrollPos = 0;
-// $('.modal')
-// .on('show.bs.modal', function (){
-// scrollPos = $('.divScroll').scrollTop();
-// $('body').css({
-// overflow: 'hidden',
-// position: '',
-// top : -scrollPos
-// });
-// })
-// .on('hide.bs.modal', function (){
-// $('body').css({
-// overflow: '',
-// position: '',
-// top: ''
-// }).scrollTop(scrollPos);
-// });
+    //   $('#modal-primary-Insurance').on('shown', function () {
+    //     $(".divScroll").scrollTop(0);
+    // });
+    //   var scrollPos = 0;
+    // $('.modal')
+    // .on('show.bs.modal', function (){
+    // scrollPos = $('.divScroll').scrollTop();
+    // $('body').css({
+    // overflow: 'hidden',
+    // position: '',
+    // top : -scrollPos
+    // });
+    // })
+    // .on('hide.bs.modal', function (){
+    // $('body').css({
+    // overflow: '',
+    // position: '',
+    // top: ''
+    // }).scrollTop(scrollPos);
+    // });
   }
   loadDefaults() {
 
@@ -207,6 +207,7 @@ export class InsuranceComponent implements OnInit {
     this.isValid = false;
     this.cancel2 = false;
     this.cancel1 = false;
+    this.InsuranceCompanyPlanList();
   }
   Selected() {
     if (this.plusvalue == "primary") {
@@ -246,6 +247,7 @@ export class InsuranceComponent implements OnInit {
     this.patientservice.SourceOfPaymentTypologyCodes().subscribe(resp => {
       if (resp.IsSuccess) {
         this.SourceOfPaymentTypologyCodes = resp.ListResult;
+
         this.SourceOfPaymentTypologyCodesFilter = this.SourceOfPaymentTypologyCodes.slice();
         this.secondarySptcFilter = this.SourceOfPaymentTypologyCodes.slice();
         if (this.primlist.SourceOfPaymentTypology! = "") {
@@ -405,6 +407,7 @@ export class InsuranceComponent implements OnInit {
     this.isValid = false;
     this.cancel2 = false;
     this.cancel1 = false;
+    this.searchText = '';
   }
 
   CreateUpdateInsuranceDetails(item) {

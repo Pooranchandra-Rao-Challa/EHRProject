@@ -51,7 +51,7 @@ export class PatientSearch{
   Gender?: string;
   PrimaryPhone?: string;
 	MobilePhone?: string;
-	DateofBirth?: Date;
+	Dob?: Date;
 	Age?: Number;
   User?:string;
 }

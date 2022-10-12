@@ -18,6 +18,7 @@ import { ComponentType } from '@angular/cdk/portal';
 import { AuthorizedrepresentativeDialogComponent } from 'src/app/dialogs/authorizedrepresentative.dialog/authorizedrepresentative.dialog.component';
 import { OverlayService } from 'src/app/overlay.service';
 import { DatePipe } from '@angular/common';
+import { DentalChartComponent } from '../dental.chart/dental.chart.component';
 
 @Component({
   selector: 'app-profile',
@@ -27,7 +28,7 @@ import { DatePipe } from '@angular/common';
 export class ProfileComponent implements OnInit {
   patient: ProviderPatient;
   PatientDetails: any = [];
-  patientMyProfile: PatientProfile;
+  patientMyProfile: PatientProfile = new PatientProfile();
   PracticeProviders: PracticeProviders[];
   myControl: FormControl = new FormControl();
   filteredProviderOptions: Observable<any[]>;
@@ -324,12 +325,21 @@ export class ProfileComponent implements OnInit {
   }
 
   updateNote() {
+
+    this.patientMyProfile.Notes = this.patientMyProfile.Notes;
     this.patientService.UpdateNotes(this.patientMyProfile).subscribe(resp => {
       if (resp.IsSuccess) {
         let success = resp.EndUserMessage;
       }
+      console.log(this.patientMyProfile);
+
 
     });
+    this.getPatientMyProfile();
+  }
+  cancel() {
+    this.patientMyProfile.Notes = '';
+    this.getPatientMyProfile();
   }
   AddressVerification() {
     this.accountservice.VerifyAddress(this.patientMyProfile.Street).subscribe(resp => {

@@ -1,4 +1,4 @@
-export interface PatientProfile {
+export class PatientProfile {
   PatientId?: string;
   ProfileImage?: string;
   FirstName?: string;

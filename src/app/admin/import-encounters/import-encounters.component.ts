@@ -9,6 +9,7 @@ import { UploadService } from 'src/app/_services/upload.file.service';
 import { HttpEventType } from '@angular/common/http';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { ImportFile } from 'src/app/_models/_admin/importfile';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-import-encounters',
@@ -35,7 +36,7 @@ export class ImportEncountersComponent {
 
   constructor(private adminservice: AdminService,
     private authService: AuthenticationService,
-    private uploadService: UploadService,) {
+    private uploadService: UploadService, private router: Router) {
       this.providers = {} as ProviderList;
     }
 
@@ -111,6 +112,12 @@ export class ImportEncountersComponent {
 
   get enableImport():boolean{
     return this.ProviderId != null && this.ProviderId != "" && this.file != null;
+  }
+  BackToListImportData(name, url) {
+    this.router.navigate(
+      [url],
+      { queryParams: { name: name } }
+    );
   }
 }
 class Provider{

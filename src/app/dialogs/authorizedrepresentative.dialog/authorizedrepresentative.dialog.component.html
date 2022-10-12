@@ -24,11 +24,11 @@
                     <td>{{resp.Email}}</td>
                     <td>{{resp.ContactPhone}}</td>
                     <td>{{resp.Active}}</td>
-                    <td><mat-icon class="respicon" (click)="openComponentDialog(addauthorizedRepresentativeDialogComponent,resp,ActionTypes.view)">edit</mat-icon></td>
+                    <td><mat-icon class="respicon pointer" (click)="openComponentDialog(addauthorizedRepresentativeDialogComponent,resp,ActionTypes.view)">edit</mat-icon></td>
                   </tr>
                 </tbody>
               </table>
-              <div class="NoRecord text-center py-2"*ngIf="athorizedRepresentatives?.length == 0">
+              <div class="NoRecord text-center  py-2"*ngIf="athorizedRepresentatives?.length == 0">
                 No Representatives Found
               </div>
             </div>

@@ -53,7 +53,6 @@ export class AuditLogComponent implements OnInit {
     this.getAuditLogList('');
   }
   getAuditLogList(event) {
-    this.auditloglistspinner();
     if (event == 'reset') {
       this.startDate = '';
       this.enddate = '';
@@ -73,7 +72,13 @@ export class AuditLogComponent implements OnInit {
         to: this.enddate
       }
     }
+    this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
     this.settingservice.AuditLogs(reqparams).subscribe(reponse => {
+      setTimeout(() => {
+        this.customizedspinner = false;
+        $('body').removeClass('loadactive')
+      }, 1500);
+     
       this.auditLogList = reponse.ListResult;
       this.loglist = this.auditLogList
      
@@ -81,14 +86,17 @@ export class AuditLogComponent implements OnInit {
 
     })
   }
+ 
+  
+ 
   customizedspinner:boolean
-  auditloglistspinner() {
-    this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
-    setTimeout(() => {
-      this.customizedspinner = false;
-      $('body').removeClass('loadactive')
-    }, 2000);
-  }
+  // auditloglistspinner() {
+  //   this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
+  //   setTimeout(() => {
+  //     this.customizedspinner = false;
+  //     $('body').removeClass('loadactive')
+  //   }, 2500);
+  // }
   dataType: string[] = [
     "Schedule",
     "Chart",
