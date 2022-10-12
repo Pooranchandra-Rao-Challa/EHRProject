@@ -2,7 +2,7 @@
   <div class="modal-content">
     <div class="modal-header" style="margin-top: -1px;">
       <h3 class="modal-title col-11 Helvetica-sans-serif-large" id="staticBackdropLabel">
-        Add Procedure
+        {{this.procedureInfo.ProcedureId == null? 'Add Procedure': 'Edit Procedure'}}
       </h3>
       <span type="button" class="cross-mark col-1" aria-label="Close" (click)="cancel()">
         X
@@ -70,7 +70,7 @@
               <input matInput class="pointer" autocomplete="off" placeholder="Start Date" type="text" id="pStartDate"
                 name="pStartDate" (click)="startDate.open()" readonly [(ngModel)]="procedureInfo.Date" [matDatepicker]="startDate"
                 (dateChange)="dateModified($event)"/>
-                <mat-hint>MM/DD/YYYY</mat-hint>
+                <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
                 <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
                 <mat-datepicker #startDate></mat-datepicker>
             </mat-form-field>
@@ -115,7 +115,7 @@
             <mat-form-field class="teeth-form-field green-calendar w-100" appearance="outline">
               <input matInput class="pointer" autocomplete="off" placeholder="End Date" type="text" id="pBasePrice" name="pBasePrice"
               [matDatepicker]="endDate" (click)="endDate.open()" readonly [(ngModel)]="procedureInfo.EndDate" />
-                <mat-hint>MM/DD/YYYY</mat-hint>
+                <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
                 <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
                 <mat-datepicker #endDate></mat-datepicker>
             </mat-form-field>
