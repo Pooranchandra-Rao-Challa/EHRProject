@@ -76,7 +76,7 @@ export class EncounterDialogComponent implements OnInit {
   dialogIsLoading: boolean = false;
   patient: ProviderPatient;
   signEncounterNoteComponent = SignEncounterNoteComponent;
-
+  isNavigateFromProductView: boolean = false;
 
 
   private messageflagSubject = new BehaviorSubject<boolean>(false);
@@ -106,14 +106,11 @@ export class EncounterDialogComponent implements OnInit {
       .filter((loc) => loc.LocationId === this.authService.userValue.CurrentLocation)[0];
 
     this.loadDefaults();
-    console.log(this.overlayref.RequestData);
     this.appointment = this.overlayref.RequestData as ScheduledAppointment
     this.patient = this.overlayref.RequestData as ProviderPatient;
-    console.log(this.appointment);
-
-
     this.initEncoutnerView();
     this.loadEncouterView();
+    this.isNavigateFromProductView = this.overlayref.RequestData["From"] == "ProcedureView";
     if (this.overlayref.RequestData["From"] == "ProcedureView"
       && this.overlayref.RequestData.EncounterId == null) {
       this.encounterInfo.RecommendedProcedures.push(this.overlayref.RequestData as ProceduresInfo);
@@ -240,8 +237,15 @@ export class EncounterDialogComponent implements OnInit {
   }
 
   removeRecommendedProcedure(value: ProceduresInfo, index: number) {
-    value.CanDelete = true;
-    this.recommendedProcedures.next(this.encounterInfo.RecommendedProcedures.filter(fn => fn.CanDelete === false));
+    // if (value.ViewFrom != 'ProcedureView') {
+    if (this.overlayref.RequestData.ViewFrom != "ProcedureView") {
+        value.CanDelete = true;
+        this.recommendedProcedures.next(this.encounterInfo.RecommendedProcedures.filter(fn => fn.CanDelete === false));
+    }
+    else {
+      this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP1003"])
+      // Can't delete this procedure from encounter form, however this procedure can be deleted from the parent form i.e. Dental form.
+    }
   }
 
   removeCompletedProcedure(value: ProceduresInfo, index: number) {
@@ -360,7 +364,7 @@ export class EncounterDialogComponent implements OnInit {
 
     this.patientService.CreateEncounter(this.encounterInfo).subscribe(resp => {
       if (resp.IsSuccess) {
-        this.overlayref.close({ "UpdatedModal": PatientChart.Encounters, refreshView: true });
+        this.overlayref.close({ "UpdatedModal": PatientChart.Encounters, refreshView: true, "saved": true });
         if (this.encounterInfo.Signed == true) {
           this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2AE001" : "M2AE002"]);
         }

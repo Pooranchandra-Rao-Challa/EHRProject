@@ -48,7 +48,6 @@ export class AddauthorizedrepresentativeDialogComponent implements OnInit {
   }
   CreateAuthorizedRepresentative() {
     this.authorizedRepresentative.URL = this.url;
-    console.log(this.url);
     let isAdd = this.authorizedRepresentative.AuthorizedRepId == undefined
     this.authorizedRepresentative.PatientId = this.currentPatient.PatientId;
     this.patientservice.CreateAuthorizedRepresentative(this.authorizedRepresentative).subscribe((resp) => {

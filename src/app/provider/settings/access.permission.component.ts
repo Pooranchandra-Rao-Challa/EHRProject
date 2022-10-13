@@ -7,7 +7,7 @@ import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
   styleUrls: ['./settings.component.scss']
 })
 export class AccessPermissionComponent implements OnInit {
-  accessPermissionColumns = ['empty', 'admin', 'back_office', 'dentist', 'ehr1_administrator', 'front_desk', 'hygientist'];
+  accessPermissionColumns = ['empty', 'admin', 'back_office', 'dentist', 'ehr1_administrator', 'front_desk', 'hygienist'];
 
   accessPermissiondataSource = [
     {Name: 'Advanced directive show?'},

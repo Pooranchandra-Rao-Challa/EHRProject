@@ -109,3 +109,8 @@ $input-width: 10rem;
 .opttion-selected{
   color:#e84371
 }
+
+.required::before {
+  content: "*" !important;
+  color: red !important;
+}

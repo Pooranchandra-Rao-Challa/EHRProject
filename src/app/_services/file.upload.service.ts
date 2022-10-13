@@ -21,8 +21,6 @@ export class FileUploadService {
 
   upload(location:string,file:File) {
     const uploadurl = UPLOAD_URL(location);
-    console.log(uploadurl);
-
       if (file) {
         this.fileName = file.name;
         const formData = new FormData();
@@ -43,8 +41,6 @@ export class FileUploadService {
           );
 
         this.uploadSub = upload$.subscribe(event => {
-          console.log(event);
-
           if (event.type == HttpEventType.UploadProgress) {
             this.uploadProgress = Math.round(100 * (event.loaded / event.total));
             this.uploadNotifier.next(this.uploadProgress)

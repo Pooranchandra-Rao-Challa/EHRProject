@@ -487,10 +487,10 @@ this.procedureInfo.Place == "cusp_distolingual"
       .subscribe(resp => {
         if (resp.IsSuccess) {
           this.overlayref.close({ "saved": true });
-          this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CP1001" : "M2CP1002"])
+          this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CP1001" : "M2CP1002"]);
         } else {
           this.overlayref.close();
-          this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP1001"])
+          this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP1001"]);
         }
       });
   }

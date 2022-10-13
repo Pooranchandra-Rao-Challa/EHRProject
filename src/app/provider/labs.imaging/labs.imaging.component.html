@@ -113,6 +113,10 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header="CreatedDate">Created</th>
             <td mat-cell *matCellDef="let lab">{{lab.CreatedDate | date: 'yyyy-MM-dd'}}</td>
           </ng-container>
+          <ng-container matColumnDef="Signed">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="Signed">Signed</th>
+            <td mat-cell *matCellDef="let lab">{{lab.Signed == true ? 'Signed' : 'Unsigned'}}</td>
+          </ng-container>
 
           <ng-container matColumnDef="Result">
             <th mat-header-cell *matHeaderCellDef>Add Result</th>

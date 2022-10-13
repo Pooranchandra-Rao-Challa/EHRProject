@@ -449,7 +449,7 @@
               </tr>
               <tr>
                 <td><img src="assets/images/dental-chart/teeth-img/1-top.png" alt="Tooth adult 1 lg"
-                    class=" child-img-size childprimpointer" 
+                    class=" child-img-size childprimpointer"
                     (click)="openComponentDialog(procedureDialogComponent,null,ActionTypes.new,1)"></td>
                 <td><img src="assets/images/dental-chart/teeth-img/2-top.png" alt="Tooth adult 2 lg"
                     class=" child-img-size childprimpointer"
@@ -716,11 +716,8 @@
           <mat-header-cell *matHeaderCellDef>Encounter
           </mat-header-cell>
           <mat-cell *matCellDef="let procedure">
-            <a class="encounter" *ngIf="procedure.Signed" (click)="openComponentDialog(encounterDialogComponent,procedure,ActionTypes.view)">
-              <i class="fa fa-check"></i>
-            </a>
-            <a class="encounter-circle" *ngIf="!procedure.Signed" (click)="openComponentDialog(encounterDialogComponent,procedure,ActionTypes.view)">
-              <i class="fa fa-plus"></i>
+            <a [class.encounter]="procedure.Signed" [class.encounter-circle]="!procedure.Signed" (click)="openComponentDialog(encounterDialogComponent,procedure,ActionTypes.view)">
+              <i class="fa" [class.fa-check]="procedure.Signed" [class.fa-plus]="!procedure.Signed"></i>
             </a>
           </mat-cell>
         </ng-container>
@@ -729,7 +726,9 @@
         <mat-row *matRowDef="let row; columns: procedureColumns;">
         </mat-row>
       </mat-table>
-
+      <div class="norecords-found" *ngIf="procedureDataSource?.TotalRecordSize == 0">
+        No Dental Charts Found
+      </div>
     </div>
   </div>
 </div>

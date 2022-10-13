@@ -73,7 +73,7 @@ export class NewmessageDialogComponent implements OnInit {
         this._filterPatient(value)
       }
       else if (this.messageDialogData.MessageFor == 'Practice') {
-        this._filetrProvider()
+        this._filetrProvider(value)
       }
       else if (this.messageDialogData.MessageFor == 'Forward') {
         this.searchpatient.nativeElement.value = ''
@@ -84,7 +84,7 @@ export class NewmessageDialogComponent implements OnInit {
       else if (this.messageDialogData.MessageFor == 'PatientForward') {
         this.searchpatient.nativeElement.value = ''
         this.diabledPatientSearch = false
-        this._filetrProvider();
+        this._filetrProvider(value);
 
       }
       else if (this.messageDialogData.MessageFor == undefined) {
@@ -131,9 +131,9 @@ export class NewmessageDialogComponent implements OnInit {
         }
       })
   }
-  _filetrProvider() {
+  _filetrProvider(term) {
     this.isLoading = true;
-    let req = { "ClinicId": this.authenticationService.userValue.ClinicId };
+    let req = { "ClinicId": this.authenticationService.userValue.ClinicId, "SearchTerm": term };
     this.smartSchedulerService.PracticeProviders(req).subscribe(resp => {
       this.isLoading = false;
       this.displayMessage = false;

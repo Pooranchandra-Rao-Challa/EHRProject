@@ -57,10 +57,11 @@
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="DATEOFBIRTH*" class="label-design required input-marign-alignments">Date Of Birth</label>
                 <mat-form-field appearance="outline" class="form-group profile-green-calendar">
-                  <input matInput class="date-mat-class pointer" autocomplete="off" [(ngModel)]="patientMyProfile.DateOfBirth"
-                    (mouseover)="hoverDATEOFBIRTH='_/__/_'" (mouseleave)="hoverDATEOFBIRTH='MM/DD/YYYY'"
-                    [matDatepicker]="picker" (click)="picker.open()" placeholder="{{ hoverDATEOFBIRTH }}"
-                    [max]="disableupcomingdates" #dateOfBirth="ngModel" required readonly>
+                  <input matInput class="date-mat-class pointer" autocomplete="off"
+                    [(ngModel)]="patientMyProfile.DateOfBirth" (mouseover)="hoverDATEOFBIRTH='_/__/_'"
+                    (mouseleave)="hoverDATEOFBIRTH='MM/DD/YYYY'" [matDatepicker]="picker" (click)="picker.open()"
+                    placeholder="{{ hoverDATEOFBIRTH }}" [max]="disableupcomingdates" #dateOfBirth="ngModel" required
+                    readonly>
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
@@ -75,9 +76,10 @@
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="DATEOFDEATH" class="label-design input-marign-alignments">Date Of Death</label>
                 <mat-form-field appearance="outline" class="form-group profile-green-calendar">
-                  <input matInput class="date-mat-class pointer" [(ngModel)]="patientMyProfile.DateOfDeath" autocomplete="off"
-                    (mouseover)="hoverDATEOFDEATH='_/__/_'" (mouseleave)="hoverDATEOFDEATH='MM/DD/YYYY'"
-                    [matDatepicker]="picker1" (click)="picker1.open()" readonly placeholder="{{ hoverDATEOFDEATH }}">
+                  <input matInput class="date-mat-class pointer" [(ngModel)]="patientMyProfile.DateOfDeath"
+                    autocomplete="off" (mouseover)="hoverDATEOFDEATH='_/__/_'"
+                    (mouseleave)="hoverDATEOFDEATH='MM/DD/YYYY'" [matDatepicker]="picker1" (click)="picker1.open()"
+                    readonly placeholder="{{ hoverDATEOFDEATH }}">
                   <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                   <mat-datepicker #picker1></mat-datepicker>
                 </mat-form-field>
@@ -131,9 +133,9 @@
               <div class="form-group checkalignment">
                 <div class="input-group">
                   <input class="checkbox form-check-input" id="Active" name="Active" type="checkbox"
-                  [(ngModel)]="patientMyProfile.Active">
-                <label class="label-design check-label check-label-mrg">ACTIVE PATIENT
-                </label>
+                    [(ngModel)]="patientMyProfile.Active">
+                  <label class="label-design check-label check-label-mrg">ACTIVE PATIENT
+                  </label>
                 </div>
               </div>
             </div>
@@ -141,8 +143,8 @@
               <div class="form-group checkalignment">
                 <div class="input-group">
                   <input class="checkbox form-check-input " id="PortalAccess" name="PortalAccess" type="checkbox"
-                  [(ngModel)]="patientMyProfile.DeclinedPortalAccess">
-                <label class="label-design check-label">PATIENT DECLINED PORTAL ACCESS</label>
+                    [(ngModel)]="patientMyProfile.DeclinedPortalAccess">
+                  <label class="label-design check-label">PATIENT DECLINED PORTAL ACCESS</label>
 
                 </div>
               </div>
@@ -151,8 +153,8 @@
               <div class="form-group checkalignment">
                 <div class="input-group">
                   <input class="checkbox form-check-input" id="VisionImpared" name="VisionImpared" type="checkbox"
-                      [(ngModel)]="patientMyProfile.VisionImpared">
-                    <label class="label-design check-label check-label-mrg">PATIENT IS VISION IMPARED</label>
+                    [(ngModel)]="patientMyProfile.VisionImpared">
+                  <label class="label-design check-label check-label-mrg">PATIENT IS VISION IMPARED</label>
 
                 </div>
               </div>
@@ -618,7 +620,7 @@
               <label class="fs-4 profile-title">Patient Relationship</label>
             </div>
             <div class="row">
-              <div class="d-flex col-12 mx-lg-4 mx-2">
+              <!-- <div class="d-flex col-12 mx-lg-4 mx-2">
                 <div class="find-procedure">
                   <div class="form-group">
                     <div class="input-group py-3"><input type="text" name="search_procedure_code"
@@ -630,7 +632,27 @@
                     </div>
                   </div>
                 </div>
+              </div> -->
+
+              <div class="col-lg-6 col-md-6 col-12 mx-4">
+                <mat-form-field appearance="outline" class="col-12">
+                  <input matInput #searchpatient class="form-control search-control" placeholder="Search Patient"
+                    type="text" id="searchpatient" name="searchpatient" [matAutocomplete]="serachpatient" />
+                  <mat-autocomplete [displayWith]="displayWithPatientSearch" #serachpatient="matAutocomplete"
+                    (optionSelected)="onPatientSelected($event)">
+                    <mat-option [hidden]="displayMessage == false" [disabled]="true" class="text-wrap lh-1 fs-6">
+                      Enter atleast 1 character, you can only select 1 item
+                    </mat-option>
+                    <mat-option *ngIf="isLoading">Loading ...</mat-option>
+                    <mat-option *ngFor="let option of filterPatientOptions | async" [value]="option"
+                      class="patient-serach-option">
+                      {{option.Name}}
+                    </mat-option>
+                    <mat-option *ngIf="noRecords">No Records Found</mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
               </div>
+
 
               <div class="col-lg-12 col-md-12 col-12">
                 <div class="table-responsive mt-1 mx-lg-4 mx-2">
@@ -645,14 +667,14 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let item of patientRelationList">
+                      <tr *ngFor="let item of patientRelationListSubject">
                         <td>{{item?.FirstName}}</td>
                         <td>{{item.UserName}}</td>
-                        <td>{{item.relationships}}</td>
-                        <td *ngIf="item.relationships !='' "><button class="btn btn-access allow-access" type="button"
+                        <td>{{item.RelationShip}}</td>
+                        <td *ngIf="item.RelationShip !='' "><button class="btn btn-access allow-access" type="button"
                             data-bs-toggle="modal" data-bs-target="#RelationtoPatientModal"
-                            (click)="allowAccess()">Allow Access</button></td>
-                        <td *ngIf="item.relationships =='' ">
+                            (click)="allowAccess(item)">Allow Access</button></td>
+                        <td *ngIf="item.RelationShip =='' ">
                           <button class="btn btn-access remove-access" type="button"
                             (click)="removeAccessed(item.PatientId)">Remove Access</button>
                         </td>
@@ -666,6 +688,9 @@
                 </div>
               </div>
             </div>
+
+
+
           </div>
           <div class="col-lg-12 col-md-12 col-12 ">
             <hr style="margin: unset;">
@@ -801,8 +826,8 @@
                     <input matInput placeholder="Search Provider" [matAutocomplete]="auto" [formControl]="myControl"
                       class="form-control search-control">
                     <mat-autocomplete #auto="matAutocomplete" auto>
-                      <mat-option *ngFor="let item of filteredProviderOptions | async" [value]="item.FullName">
-                        <a (click)="getCareTeamDetails(item.ProviderId)">{{item.FullName}}</a>
+                      <mat-option *ngFor="let item of filteredProviderOptions | async" [value]="item.FullName" (click)="getCareTeamDetails(item.ProviderId)">
+                       {{item.FullName}}
                       </mat-option>
                       <mat-option *ngIf="isShow">
                         <span> No Records Found</span>
@@ -828,7 +853,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr class="care-team-table" *ngFor="let item of this.CareTeamList; let i = index">
+                          <tr class="care-team-table" *ngFor="let item of CareTeamList; let i = index">
                             <td> <span class="name">{{item.FirstName}}</span> <br>
                               <span class="mt-2">In practice</span>
                             </td>
@@ -839,7 +864,7 @@
                               <span class="mt-2">james@ehr1.us</span>
                             </td>
                             <td>
-                              <mat-icon class="close-icon Cancelbtn">close</mat-icon>
+                              <mat-icon class="close-icon Cancelbtn" (click)="deleteCareTeam(item.CareTeamId)">close</mat-icon>
                             </td>
                           </tr>
                         </tbody>
@@ -1068,8 +1093,8 @@
           <h6><b>Relationship:</b></h6>
           <div class="col-md-12 mt-2 col-lg-12 col-12">
             <mat-form-field appearance="outline" class="col-12 hover cstm-mat-padding">
-              <mat-select placeholder="Select One" placeholder="Select relation">
-                <mat-option *ngFor="let item of relationship" [value]="value">{{item.value}}
+              <mat-select placeholder="Select relation" [(ngModel)]="selectedPatient.RelationShip">
+                <mat-option *ngFor="let item of relationship" [value]="item.value">{{item.value}}
                 </mat-option>
               </mat-select>
             </mat-form-field>

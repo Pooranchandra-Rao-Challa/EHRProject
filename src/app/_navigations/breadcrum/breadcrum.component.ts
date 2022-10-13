@@ -17,10 +17,10 @@ export class BreadcrumComponent implements OnInit {
   constructor(private authenticationService: AuthenticationService,
     private router: Router,
     private viewChangeService: ViewChangeService,) {
-      this.user = authenticationService.userValue;
+    this.user = authenticationService.userValue;
     if (authenticationService.viewModel.View)
       this.currentView = authenticationService.viewModel.View;
-    viewChangeService.getData().subscribe(view => this.currentView = view)
+    viewChangeService.getData().subscribe(view => this.currentView = view);
   }
 
   ngOnInit(): void {
@@ -28,10 +28,10 @@ export class BreadcrumComponent implements OnInit {
   }
 
   onEmailURLs() {
-    this.router.navigate(["account/emailedurls"])
+    this.router.navigate(["account/emailedurls"]);
   }
 
-  get TrailText(){
+  get TrailText() {
     return `Your Trial Period Ends in ${this.user.TrialDaysLeft.valueOf()} day(s)`;
   }
 

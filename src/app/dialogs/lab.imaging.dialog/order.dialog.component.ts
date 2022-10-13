@@ -110,7 +110,7 @@ export class OrderDialogComponent implements OnInit {
         if (resp.IsSuccess) {
           this.filteredPatients = of(
             resp.ListResult as PatientSearch[]);
-        } else 
+        } else
         {
           this.filteredPatients = of([]);
           this.norecords = true
@@ -176,7 +176,7 @@ export class OrderDialogComponent implements OnInit {
         if (resp.IsSuccess) {
           let pat = resp.ListResult as PatientSearch[];
           if (pat.length == 1) {
-            this.labandImaging.CurrentPatient = pat[0];          
+            this.labandImaging.CurrentPatient = pat[0];
           } else {
             this.labandImaging.CurrentPatient = new PatientSearch()
           }
@@ -263,7 +263,6 @@ export class OrderDialogComponent implements OnInit {
   }
 
   save() {
-    console.log(this.labandImaging.Attachments);
     this.saveClicked = true;
     let isAdd = this.labandImaging.LabProcedureId == null;
     this.labandImaging.ClinicId = this.authService.userValue.ClinicId;

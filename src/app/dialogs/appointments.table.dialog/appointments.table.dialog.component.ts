@@ -46,8 +46,6 @@ export class AppointmentsTableDialogComponent implements OnInit {
     this.patientAppointments.data = [];
     if (data == null) return;
     this.patientAppointments.data = data as NewAppointment[];
-    console.log(this.patientAppointments.data);
-
   }
 
   cancel(){

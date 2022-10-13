@@ -28,7 +28,7 @@ declare var $: any;
 })
 export class LabsImagingComponent implements OnInit {
 
-  labImagingColumn: string[] = ['Order', 'Test', 'Type', 'Patient', 'Provider', 'Status', 'LabImagingStatus', 'Created', 'Result'];
+  labImagingColumn: string[] = ['Order', 'Test', 'Type', 'Patient', 'Provider', 'Status', 'LabImagingStatus', 'Created', 'Signed', 'Result'];
   labImagingDataSource: any = [];
   user: User;
   ActionTypes = Actions;
@@ -219,9 +219,7 @@ export class LabsImagingComponent implements OnInit {
     ref.afterClosed$.subscribe(res => {
       if (content === this.orderDialogComponent
         || content === this.labResultComponent) {
-        if (res != null && res.data != null && res.data.saved) {
           this.InitGridView(this.viewmodel.LabandImageView);
-        }
       }
     });
   }
@@ -285,7 +283,7 @@ export class LabImageDatasource implements DataSource<LabProcedureWithOrder>{
       lis.forEach(value => {
         value.Tests = JSON.parse(value.StrTests)
       })
-      this.labImageSubject.next(lis)
+      this.labImageSubject.next(lis);
     });
   }
 

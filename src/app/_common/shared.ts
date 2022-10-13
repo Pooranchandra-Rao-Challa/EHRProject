@@ -12,6 +12,8 @@ import { ssnValidatorDirective } from 'src/app/_directives/ssn.validator.directi
 import { NunberMaskDirective } from 'src/app/_directives/number.mask.directive'
 import { AlphaDirective } from "../_directives/alphaonly.directive";
 import { FileUploadModule } from 'src/app/file.upload/file-upload.module'
+import { InterceptorService } from "../_loader/interceptor.service";
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
 
 @NgModule({
   imports: [
@@ -39,6 +41,9 @@ import { FileUploadModule } from 'src/app/file.upload/file-upload.module'
   declarations: [GroupByPipe, FilterPipe, SearchPipe, TimeMaskDirective,
     MouseOverHintDirective,SimplePaginationDirective,npiValidatorDirective,
     ssnValidatorDirective,NunberMaskDirective,AlphaDirective],
+  providers : [
+    { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
+  ],
   entryComponents: []
 })
 export class SharedModule { }

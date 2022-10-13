@@ -6,78 +6,97 @@
   color: white;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
 i {
   font-size: 18px;
   color: #fff;
 }
+
 .nav-link {
   margin-top: 0.3rem;
 }
+
 @media (min-width: 1024px) {
   .nav-link {
     text-align: center;
   }
+
   .navbar-collapse {
     justify-content: center;
   }
 }
+
 @media (max-width: 768px) {
   .navbar-nav {
     margin-left: 1rem;
   }
 }
+
 .navbar-expand-lg.navbar-nav.nav-link {
   padding-bottom: 0px !important;
   padding-top: -1px !important;
 }
+
 .headertext {
   display: inline;
 }
+
 .navbar {
   padding-top: 0rem;
   padding-bottom: 0rem;
   line-height: initial;
   height: auto !important;
 }
-.navbar-nav > .nav-item:hover {
+
+.navbar-nav>.nav-item:hover {
   background-color: #2e877b;
   border-bottom: 3px solid #fe8f00;
   height: 75px;
 }
-.navbar-nav > .nav-item.nav-top-right{
+
+.navbar-nav>.nav-item.nav-top-right {
   padding: 10px 5px;
   height: 75px;
 }
-.navbar-nav > .nav-item.nav-top-right:hover {
+
+.navbar-nav>.nav-item.nav-top-right:hover {
   padding: 10px 5px;
   height: 75px;
 }
+
 .navbar .navbar-collapse .navbar-nav li a {
   border: 4px solid transparent;
   font-family: 'Roboto';
 }
-.eRx-nav-item{
+
+.eRx-nav-item {
   line-height: 1;
 }
+
 .img-fluid {
   height: 66px;
 }
+
 button.mat-menu-item {
   width: 100%;
   height: 35px;
   background-color: #2e877b;
 }
+
 button.mat-menu-item:hover {
   background-color: #22645b !important;
   // border-left: 3px solid #fe8f00;
 }
+
 ::ng-deep .mat-menu-panel {
   border: 1px solid #2e877b !important;
   background-color: #2e877b !important;
 }
+
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
   background-color: #fff !important;
 }
+
 ::ng-deep .mat-menu-content:not(:empty) {
   padding-top: 0px !important;
   padding-bottom: 0px !important;
@@ -85,71 +104,69 @@ button.mat-menu-item:hover {
 
 // nav-provider icons
 .collapse .navbar-nav li a.item-prov-dashboard {
-  background: url(../../../assets/images/nav-provider/smart-schedule.svg) 100%
-    100% no-repeat;
+  background: url(../../../assets/images/nav-provider/smart-schedule.svg) 100% 100% no-repeat;
 }
+
 .collapse .navbar-nav li a.item-schedule {
-  background: url(../../../assets/images/nav-provider/prov-calendar.svg) 100% 100%
-    no-repeat;
+  background: url(../../../assets/images/nav-provider/prov-calendar.svg) 100% 100% no-repeat;
 }
+
 .collapse .navbar-nav li a.item-patients {
-  background: url(../../../assets/images/nav-provider/patients.svg) 100% 100%
-    no-repeat;
+  background: url(../../../assets/images/nav-provider/patients.svg) 100% 100% no-repeat;
 }
+
 .collapse .navbar-nav li a.item-provider-messages {
-  background: url(../../../assets/images/nav-provider/prov-messages.svg) 100% 100%
-    no-repeat;
+  background: url(../../../assets/images/nav-provider/prov-messages.svg) 100% 100% no-repeat;
 }
+
 .collapse .navbar-nav li a.item-direct-messages {
-  background: url(../../../assets/images/nav-provider/direct-messages.svg) 100%
-    100% no-repeat;
+  background: url(../../../assets/images/nav-provider/direct-messages.svg) 100% 100% no-repeat;
 }
+
 .collapse .navbar-nav li a.item-erx {
-  background: url(../../../assets/images/nav-provider/erx.svg) 100% 100%
-    no-repeat;
+  background: url(../../../assets/images/nav-provider/erx.svg) 100% 100% no-repeat;
 }
+
 .collapse .navbar-nav li a.item-labsimaging {
-  background: url(../../../assets/images/nav-provider/labsimaging.svg) 100% 100%
-    no-repeat;
+  background: url(../../../assets/images/nav-provider/labsimaging.svg) 100% 100% no-repeat;
 }
+
 .collapse .navbar-nav li a.item-reports {
-  background: url(../../../assets/images/nav-provider/reports.svg) 100% 100%
-    no-repeat;
+  background: url(../../../assets/images/nav-provider/reports.svg) 100% 100% no-repeat;
 }
+
 .collapse .navbar-nav li a.item-billing {
-  background: url(../../../assets/images/nav-provider/billing.svg) 100% 100%
-    no-repeat;
+  background: url(../../../assets/images/nav-provider/billing.svg) 100% 100% no-repeat;
 }
+
 .collapse .navbar-nav li a.item-settings {
-  background: url(../../../assets/images/nav-provider/settings.svg) 100% 100%
-    no-repeat;
+  background: url(../../../assets/images/nav-provider/settings.svg) 100% 100% no-repeat;
 }
 
 // nav-patient icons
 .collapse .navbar-nav li a.item-dashboard {
-  background: url(../../../assets/images/nav-patient/dashboard.svg) 100% 100%
-    no-repeat;
+  background: url(../../../assets/images/nav-patient/dashboard.svg) 100% 100% no-repeat;
 }
+
 .collapse .navbar-nav li a.item-appointments {
-  background: url(../../../assets/images/nav-patient/appointments.svg) 100% 100%
-    no-repeat;
+  background: url(../../../assets/images/nav-patient/appointments.svg) 100% 100% no-repeat;
 }
+
 .collapse .navbar-nav li a.item-messages {
-  background: url(../../../assets/images/nav-patient/messages.svg) 100% 100%
-    no-repeat;
+  background: url(../../../assets/images/nav-patient/messages.svg) 100% 100% no-repeat;
 }
+
 .collapse .navbar-nav li a.item-myhealth {
-  background: url(../../../assets/images/nav-patient/myhealth.svg) 100% 100%
-    no-repeat;
+  background: url(../../../assets/images/nav-patient/myhealth.svg) 100% 100% no-repeat;
 }
+
 .collapse .navbar-nav li a.item-myprofile {
-  background: url(../../../assets/images/nav-patient/myprofile.svg) 100% 100%
-    no-repeat;
-    background-size: 24px !important;
+  background: url(../../../assets/images/nav-patient/myprofile.svg) 100% 100% no-repeat;
+  background-size: 24px !important;
 }
+
 .collapse .navbar-nav li a.item-mydocuments {
-  background: url(../../../assets/images/nav-patient/mydocuments.svg) 100% 100%
-    no-repeat;
+  background: url(../../../assets/images/nav-patient/mydocuments.svg) 100% 100% no-repeat;
 }
 
 .collapse .navbar-nav li a {
@@ -160,12 +177,15 @@ button.mat-menu-item:hover {
   background-size: 16px !important;
   margin: 0 .1em;
 }
+
 .navbar-link {
   margin-top: 0px !important;
 }
+
 ::ng-deep .provider-header .mat-form-field-appearance-outline .mat-form-field-wrapper {
   margin: 0px !important;
 }
+
 .messages-count {
   position: absolute;
     right: 20%;
@@ -178,40 +198,48 @@ button.mat-menu-item:hover {
     height: 20px;
     width: 20px;
 }
-a.disabled{
+
+a.disabled {
   pointer-events: none;
-  color:gray;
+  color: gray;
   opacity: 0.5;
 }
-.button:hover, .navbar-nav  li.nav-item[aria-expanded="true"] {
+
+.button:hover,
+.navbar-nav li.nav-item[aria-expanded="true"] {
   background-color: #2e877b;
 }
-.nav-right-dropdown span{
+
+.nav-right-dropdown span {
   color: #fff;
 }
-.navbar-toggler{
+
+.navbar-toggler {
   border: 0px;
 }
+
 .nav-item.active {
   height: 75px;
   background-color: #2e877b;
   border-bottom: 3px solid #fe8f00;
 }
 
-.nav-li{
-  color: rgba(255,255,255,0.8);
+.nav-li {
+  color: rgba(255, 255, 255, 0.8);
   margin-top: -4px;
 }
-.profile-text{
-display: inline-block;
-vertical-align: middle;
-white-space: nowrap;
-overflow: hidden;
-text-overflow: ellipsis;
-margin-right: 12px;
-max-width: 183px;
+
+.profile-text {
+  display: inline-block;
+  vertical-align: middle;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 12px;
+  max-width: 183px;
 }
-.li-menu{
+
+.li-menu {
   padding: 13px 30px 0 20px !important;
   display: block;
   border-radius: 0;
@@ -219,25 +247,101 @@ max-width: 183px;
   font-size: 14px;
   font-family: 'Helvetica Neue';
   border-left: 3px solid transparent;
-  color: rgba(255,255,255,0.8);
+  color: rgba(255, 255, 255, 0.8);
   line-height: 0.2rem;
   cursor: pointer;
 }
-.li-menu:hover{
-background-color: #22645b !important;
-border-left: 3px solid #fe8f00;
-padding: 13px 30px 0 20px !important;
+
+.li-menu:hover {
+  background-color: #22645b !important;
+  border-left: 3px solid #fe8f00;
+  padding: 13px 30px 0 20px !important;
 }
-.dropdown-divider{
+
+.dropdown-divider {
   list-style-type: none;
 }
-li.no-bullets{
+
+li.no-bullets {
   list-style-type: none;
   margin-top: 4px;
 }
-.li-menu.border-bottom{
-  border-bottom: 1px solid rgba(255,255,255,0.8) !important;
+
+.li-menu.border-bottom {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.8) !important;
 }
-.header-avatar{
+
+.header-avatar {
   background: #D8D8D8;
+}
+
+#modal-about-ehr1 {
+  // .modal-dialog {
+  //   margin-top: 305px;
+  //   margin-bottom: 305px;
+  // }
+
+  .modal-dialog .modal-content {
+    border-radius: 3px;
+    max-width: 360px;
+    margin: auto;
+  }
+
+  .modal-header {
+    min-height: 35px;
+    background-color: transparent;
+    border: 0;
+  }
+
+  .modal-body {
+    padding: 0px;
+  }
+
+  .modal-body .top-block {
+    padding: 17px 37px 32px 37px;
+  }
+
+  .modal-body p {
+    text-align: center;
+    font-size: 14px;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    color: #74757e;
+    margin: 0;
+  }
+
+  .modal-body .center-block .logo {
+    width: 100%;
+    height: 78px;
+    background-color: #41b6a6;
+    background-image: url(../../../assets/images/about-ehr1-logo.svg);
+    background-size: 61px;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .modal-body .bottom-block {
+    padding: 34px 40px;
+  }
+
+  .cross-mark {
+    color: #41b6a6;
+    border: 1px solid #41b6a6;
+  }
+
+  a,
+  a:hover {
+    color: #41b6a6;
+    text-decoration: underline !important;
+    cursor: pointer;
+  }
+}
+// ::ng-deep .loader-container .mat-progress-bar-buffer {
+//   background-color: red !important;
+// }
+// ::ng-deep .loader-container .mat-progress-bar-background {
+//   background-color: #fe8f00 !important;
+// }
+
+::ng-deep .loader-container .mat-progress-bar .mat-progress-bar-element::after {
+  background-color: #d64841 !important;
 }

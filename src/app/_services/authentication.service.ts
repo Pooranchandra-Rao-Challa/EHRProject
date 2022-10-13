@@ -54,8 +54,6 @@ export class AuthenticationService {
     const endpointUrl = this.baseUrl + "Authenticate/";
     let observable = this.http.post<ResponseData>(endpointUrl, creds).pipe<ResponseData>(
       tap(resp => {
-        console.log(resp);
-
         if (resp.IsSuccess) {
           this.userSubject = new BehaviorSubject<User>(resp.Result as User);
           if (this.userValue.IsSuccess) {
@@ -170,10 +168,10 @@ export class AuthenticationService {
         if (this.isPatient || this.isRepresentative)
           this.router.navigate(['patient/dashboard']);
         else {
-          this.logout(ERROR_CODES["EL001"])
+          this.logout(ERROR_CODES["EL001"]);
         }
       } else {
-        this.logout(ERROR_CODES["EL002"])
+        this.logout(ERROR_CODES["EL001"]); // EL002
       }
     }),
       (error) => {
