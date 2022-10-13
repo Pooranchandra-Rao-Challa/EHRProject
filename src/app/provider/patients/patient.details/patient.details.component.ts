@@ -369,7 +369,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
     labOrImage.PatientId = this.patient.PatientId;
     labOrImage.CurrentPatient = {};
     labOrImage.CurrentPatient.PatientId = this.patient.PatientId;
-    labOrImage.CurrentPatient.DateofBirth = new Date(this.patient.Dob);
+    labOrImage.CurrentPatient.Dob = new Date(this.patient.Dob);
     labOrImage.CurrentPatient.Name = this.patient?.FirstName + ' ' + this.patient?.LastName
     labOrImage.CurrentPatient.PrimaryPhone = this.patient?.PrimaryPhone
     labOrImage.CurrentPatient.Age = this.patient?.Age;

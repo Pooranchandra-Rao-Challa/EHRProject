@@ -187,7 +187,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   ],
   declarations: [
     ProviderNavbarComponent,
-    ProviderFooterComponent,
+     ProviderFooterComponent,
     ProviderComponent,
     CalendarComponent,
     SmartScheduleComponent,

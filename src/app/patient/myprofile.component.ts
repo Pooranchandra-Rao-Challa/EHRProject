@@ -52,6 +52,7 @@ export class MyprofileComponent implements OnInit {
     { Id: '1', value: 'male' },
     { Id: '2', value: 'female' },
     { Id: '3', value: 'other' },
+    { Id: '4', value: 'unknown' }
 
   ]
   addressVerfied: boolean = false;

@@ -43,6 +43,7 @@ export class DashboardComponent implements OnInit {
   AccessProvider = 'none';
   message: string;
   ActionTypes = Actions;
+search?:string;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,

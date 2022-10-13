@@ -41,4 +41,11 @@ export class ListImportedDataComponent implements OnInit {
       .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
     this.getImportPatient();
   }
+  gotoImportPatientOrImportEncounter(name, url) {
+    this.router.navigate(
+      [url],
+      { queryParams: { name: name } }
+    );
+  }
+ 
 }

@@ -21,7 +21,7 @@ export class ClinicDecisionComponent implements OnInit {
   // patientEducationInfo: PatientEducationInfomation = new PatientEducationInfomation();
   triggerSearchList = new BehaviorSubject<EhrTrigger[]>([]);
   ehrTrigger: EhrTrigger = new EhrTrigger();
-  codeSystemsForClinicalDecision: string[] = ['SNOMED/ICD10','Local'];
+  codeSystemsForClinicalDecision: string[] = ['SNOMED/ICD10', 'Local'];
   clinicalDecisionSearchColumns = ["CODE", "CODE SYSTEM", "DESCRIPTION", "Delete"];
 
   user: User;
@@ -75,14 +75,14 @@ export class ClinicDecisionComponent implements OnInit {
 
   flag: boolean = true;
 
-  open(value:boolean) {
+  open(value: boolean) {
     this.show = true;
     this.step = -1
     this.flag = value;
-     this.authService.SetViewParam("Cds", value);
+    this.authService.SetViewParam("Cds", value);
 
   }
-  close(value:boolean) {
+  close(value: boolean) {
     this.show = false;
     this.flag = value;
     this.authService.SetViewParam("Cds", value);
@@ -162,11 +162,11 @@ export class ClinicDecisionComponent implements OnInit {
   resetdialog() {
     this.newAlert = new EhrAlert
   }
-  resettriggerdialog  () {
-      this.ehrTrigger = new EhrTrigger();
-      this.triggerSearchList = new BehaviorSubject<EhrTrigger[]>([]);
-      this.ehrTriggerList = new TriggerInformation();
-    }
+  resettriggerdialog() {
+    this.ehrTrigger = new EhrTrigger();
+    this.triggerSearchList = new BehaviorSubject<EhrTrigger[]>([]);
+    this.ehrTriggerList = new TriggerInformation();
+  }
 
   optionChangedForTrigger(value: MedicalCode) {
     this.ehrTrigger.Code = value.Code
@@ -186,7 +186,7 @@ export class ClinicDecisionComponent implements OnInit {
   }
   newtrigger(item) {
     this.ehrTrigger.AlertId = item;
-    let d:MedicalCode = new MedicalCode()
+    let d: MedicalCode = new MedicalCode()
     this.triggerSearchList = new BehaviorSubject<EhrTrigger[]>([]);
   }
   CreateTrigger(ehrTrigger) {
@@ -196,7 +196,7 @@ export class ClinicDecisionComponent implements OnInit {
         this.getclinicaldesupportlist();
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2JCDS003"]);
         this.ehrTrigger = new EhrTrigger;
-         this.resettriggerdialog();
+        this.resettriggerdialog();
       }
       else {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2JCDS002"]);
@@ -222,7 +222,7 @@ export class ClinicDecisionComponent implements OnInit {
   }
 }
 
-class CDSViewModel{
+class CDSViewModel {
   Name: boolean = false;
 
 }

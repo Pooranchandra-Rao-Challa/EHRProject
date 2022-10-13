@@ -2,9 +2,9 @@
   <div class="modal-content modal-cust-content">
     <div class="modal-header model-cust-heading">
       <p class="modal-title modal-cust-title" *ngIf="providerMessage.ForwardReplyMessage == null">New Message</p>
-      <p class="modal-title modal-cust-title" *ngIf="providerMessage.ForwardReplyMessage == 'Reply'">Reply Message</p>
+      <!-- <p class="modal-title modal-cust-title" *ngIf="providerMessage.ForwardReplyMessage == 'Reply'">Reply Message</p>
       <p class="modal-title modal-cust-title" *ngIf="providerMessage.ForwardReplyMessage ==  'Forward'">Forward Message
-      </p>
+      </p> -->
       <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close" (click)="cancel()">
         x
       </span>
@@ -49,11 +49,11 @@
 
             </div>
 
-            <div class="mt-2 col-md-12" *ngIf="providerMessage.EmailMessageId!=null">
+            <!-- <div class="mt-2 col-md-12" *ngIf="providerMessage.EmailMessageId!=null">
               <label for="message" class="form-label">Reply/Forward Message</label>
               <textarea matInput placeholder="" class="form-control textareaclass inputclass"
                 [(ngModel)]="providerMessage.ReplyMessage"></textarea>
-            </div>
+            </div> -->
             <div class="mt-2 col-md-12">
               <label for="message" class="form-label">Message</label>
               <textarea matInput placeholder="" class="form-control textareaclass inputclass col-md-12"

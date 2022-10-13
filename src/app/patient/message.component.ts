@@ -122,6 +122,14 @@ export class MessageComponent {
   }
   showMessage(message) {
     this.currentMessage = message;
+    if(this.currentMessageView == 'Inbox')
+    {
+ 
+     this.messageService.ReadInboxMessages(this.currentMessage).subscribe(resp=>
+     {  
+       
+       })
+     }
   }
   loadMessages() {
     this.messageDataSource.loadMessages(

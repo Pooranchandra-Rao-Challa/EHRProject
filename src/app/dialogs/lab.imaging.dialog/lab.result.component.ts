@@ -5,7 +5,7 @@ import { AuthenticationService } from 'src/app/_services/authentication.service'
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
-import { Actions, PatientSearch, PracticeProviders } from 'src/app/_models';
+import { Actions, PatientSearch, PracticeProviders, User } from 'src/app/_models';
 import { LabProcedureWithOrder, LabResultInfo, TestOrder } from 'src/app/_models/_provider/LabandImage';
 import { PatientService } from 'src/app/_services/patient.service';
 import { TestCode, TestCodeComponent } from './test.code.component';
@@ -29,6 +29,7 @@ export class LabResultComponent implements OnInit {
   testCodeComponent = TestCodeComponent;
   orderIsManual?: boolean = false;
   saveClicked?: boolean = false;
+  user:User;
   constructor(private ref: EHROverlayRef,
     private fb: FormBuilder,
     private patientService: PatientService,

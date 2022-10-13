@@ -131,7 +131,6 @@ export class OrderDialogComponent implements OnInit {
     this.labandImaging.PatientId = this.labandImaging.CurrentPatient.PatientId;
     this.labandImaging.PatientName = this.labandImaging.CurrentPatient.Name;
     this.labandImaging.PrimaryPhone = this.labandImaging.CurrentPatient.PrimaryPhone;
-
   }
   displayWithPatientSearch(value: PatientSearch): string {
     if (!value) return "";

@@ -34,6 +34,7 @@ export class DashboardComponent {
   messagescount: number = 0;
   currentMessageView: string = 'Inbox';
   viewAppoinments: Appointments = {} as Appointments;
+  viewMessages:Messages = {} as Messages;
   constructor(private authenticationService: AuthenticationService, private overlayService: OverlayService, private patientservice: PatientService, private router: Router,
     private messageService: MessagesService,) {
     this.user = authenticationService.userValue;
@@ -137,5 +138,9 @@ export class DashboardComponent {
   }
   showappoinments(item) {
     this.viewAppoinments = item;
+  }
+  showMessages(messages) {
+    this.viewMessages = messages;
+    console.log(this.viewMessages);
   }
 }

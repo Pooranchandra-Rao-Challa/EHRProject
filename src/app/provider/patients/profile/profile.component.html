@@ -122,7 +122,7 @@
                     <mat-radio-button value="male" class="radio-btn-label label-design my-1">Male</mat-radio-button>
                     <mat-radio-button value="female" class="radio-btn-label label-design my-1">Female</mat-radio-button>
                     <mat-radio-button value="other" class="radio-btn-label label-design my-1">Other</mat-radio-button>
-                    <mat-radio-button value="Unknown" class="radio-btn-label label-design my-1">Unknown
+                    <mat-radio-button value="unknown" class="radio-btn-label label-design my-1">Unknown
                     </mat-radio-button>
                   </mat-radio-group>
                 </div>
@@ -177,9 +177,9 @@
 
             <div class="row  mx-2">
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
-                <label for="Name" class="form-label label-design required">Name</label>
+                <label for="Name" class="form-label label-design required">First Name</label>
                 <input class="input-group form-control" required="true"
-                  [(ngModel)]="patientMyProfile.EmergencyFirstName" placeholder="Name" type="text" id="CName"
+                  [(ngModel)]="patientMyProfile.EmergencyFirstName" placeholder="First Name" type="text" id="CName"
                   #contactfirstName="ngModel" alphaOnly required>
                 <div *ngIf="contactfirstName.errors && (contactfirstName.touched)">
                   <div class="error_message" *ngIf="contactfirstName.errors?.required">
@@ -198,7 +198,7 @@
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="LastName" class="form-label label-design required">Last Name</label>
                 <input class="input-group form-control" [(ngModel)]="patientMyProfile.EmergencyLastName"
-                  placeholder="Last" type="text" id="CLastName" pattern="^[a-zA-Z ]*$" #contactlastName="ngModel"
+                  placeholder="Last Name" type="text" id="CLastName" pattern="^[a-zA-Z ]*$" #contactlastName="ngModel"
                   alphaOnly required>
                 <div *ngIf="contactlastName.errors && (contactlastName.touched)">
                   <div class="error_message" *ngIf="contactlastName.errors?.required">
@@ -939,7 +939,7 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-lg btn-green" data-bs-dismiss="modal" aria-label="Close"
           (click)="updateNote()">Save</button>
-        <button type="button" class="btn btn-lg btn-green" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+        <button type="button" class="btn btn-lg btn-green" data-bs-dismiss="modal" aria-label="Close" (click)="cancel()">Cancel</button>
       </div>
     </div>
   </div>

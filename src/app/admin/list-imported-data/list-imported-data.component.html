@@ -7,8 +7,8 @@
 <div class="page-content settings-wrapper" id="settings-wrapper" style="min-height: 650px;">
     <h1>List Of Imported Data</h1>
     <div class="form-group">
-        <a class="btn btn-style" href="admin/importpatient">Import Patients</a>
-        <a class="btn  btn-style mx-2" href="admin/importencounter">Import Encounters</a>
+        <a class="btn btn-style" (click)="gotoImportPatientOrImportEncounter('Import Patient','admin/importpatient')">Import Patients</a>
+        <a class="btn  btn-style mx-2" (click)="gotoImportPatientOrImportEncounter('Import Encounter','admin/importencounter')">Import Encounters</a>
     </div>
     <div class="table-responsive">
       <table class="table table-bordered">
@@ -35,7 +35,7 @@
 
           </tr>
         </tbody>
-        <div class="table-NoRecord text-center py-2 col-12" *ngIf="importFiles.length == 0">
+        <div class="table-NoRecord text-center py-2 col-12" *ngIf="importFiles?.length == 0">
           Data Not Found
         </div>
     </table>

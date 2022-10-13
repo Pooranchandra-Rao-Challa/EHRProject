@@ -778,7 +778,7 @@
           <div class="row">
             <mat-label>Route:</mat-label>
             <mat-form-field appearance="outline" class="col-12">
-              <mat-select placeholder="Search a route" [(ngModel)]="patientImmunization.Route">
+              <mat-select placeholder="Select a route" [(ngModel)]="patientImmunization.Route">
                 <mat-option *ngFor="let route of immRoutes" [value]="route">
                   {{route}}
                 </mat-option>
@@ -788,7 +788,7 @@
           <div class="row">
             <mat-label>Body Site:</mat-label>
             <mat-form-field appearance="outline" class="col-12">
-              <mat-select placeholder="Search a body site" [(ngModel)]="patientImmunization.BodySite">
+              <mat-select placeholder="Select a body site" [(ngModel)]="patientImmunization.BodySite">
                 <mat-option *ngFor="let bodysite of immBodySites" [value]="bodysite">
                   {{bodysite}}
                 </mat-option>
@@ -798,7 +798,7 @@
           <div class="row">
             <mat-label>Funding Source:</mat-label>
             <mat-form-field appearance="outline" class="col-12">
-              <mat-select placeholder="Search a founding source" [(ngModel)]="patientImmunization.FundingSource">
+              <mat-select placeholder="Select a funding source" [(ngModel)]="patientImmunization.FundingSource">
                 <mat-option *ngFor="let source of immFundingSources" [value]="source">
                   {{source}}
                 </mat-option>

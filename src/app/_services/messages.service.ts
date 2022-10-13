@@ -27,11 +27,15 @@ export class MessagesService extends APIEndPoint {
   }
  CreateMessage(reqparams: any)
  {
-   return this._ProcessPostRequest<any>(this._createMessageUrl,reqparams)
+   return this._ProcessPostRequest<any>(this._createMessageUrl,reqparams);
  }
 
  DeleteMessages(reqParams:any)
  {
-   return this._ProcessPostRequest<any>(this._deleteMessageUrl,reqParams)
+   return this._ProcessPostRequest<any>(this._deleteMessageUrl,reqParams);
+ }
+ ReadInboxMessages(reqparam:any)
+ {
+   return this._ProcessPostRequest<any>(this._readInboxMessageUrl,reqparam);
  }
 }

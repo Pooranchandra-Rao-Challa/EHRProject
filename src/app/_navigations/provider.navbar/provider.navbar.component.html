@@ -33,7 +33,8 @@
         <a href="javascript:void(0)" class="nav-link item-provider-messages"
           (click)="onChangeBreadCrum('provider/messages','Messages')">Messages
         </a>
-        <span class="messages-count">0</span>
+        <span class="messages-count" style="margin-left: 10px !important;
+        margin-right: 2px !important;">{{this.user.UnReadMails}}</span>
       </li>
       <li class="eRx-nav-item">
         <a href="javascript:void(0)" class="nav-link item-erx disabled"

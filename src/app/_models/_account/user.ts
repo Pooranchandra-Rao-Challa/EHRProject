@@ -30,6 +30,8 @@ export interface User {
   UserLocked: boolean;
   AdminActive: boolean;
   Npi:string;
+  UnReadMails?:number ;
+  UrgentMessages?:number;
 }
 export class UserLocations {
   LocationId: string;

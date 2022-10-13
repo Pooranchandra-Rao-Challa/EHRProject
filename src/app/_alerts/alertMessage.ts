@@ -175,6 +175,7 @@ export class AlertMessage {
  * Provider Registration : PR
  * Admins : A
  * Default Messages : DM
+ * Admin Settings : AS
  *
  * ---------------------------------------------------
  * Errors Number shouw be three digits like 001
@@ -509,7 +510,7 @@ export const ERROR_CODES: { [key: string]: string } = {
 
   //Admin screen in admin module
   'M1A003': 'Admin deleted successfully',
-
+  'M1AS001': 'App version updated successfully',
   // Error for Admin
   'E1DM001': 'Admin deletion error',
 

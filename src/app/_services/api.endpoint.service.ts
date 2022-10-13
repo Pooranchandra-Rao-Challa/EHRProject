@@ -887,6 +887,19 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "ImportData";
   }
 
+  get _getAdminVersionUrl()
+  {
+    return this._baseUrl + "GetAdminSettingVersion";
+  }
+  get _updateAdminVersionUrl()
+  {
+    return this._baseUrl + "UpdateAdminSettingsAppVersion";
+  }
+
+  get _readInboxMessageUrl()
+  {
+    return this._baseUrl + "ReadInboxMessages";
+  }
   constructor(public http: HttpClient) {
     super();
   }
