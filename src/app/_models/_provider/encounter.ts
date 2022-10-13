@@ -159,7 +159,6 @@ export class ProceduresInfo implements IDeleteFlag {
   strReasonStartDate?: string;
   strEndDate?: string;
   strDate?: string;
-
   ViewFrom?: string;
   CanDelete?: boolean = false;
   TotalProcedures?: number;

@@ -804,6 +804,10 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "DeleteBlockout";
   }
 
+  get _deleteCareTeamProviderIdsUrl() {
+    return this._baseUrl + "DeleteCareTeamProviderIds";
+  }
+
   get _calendarBlockoutsUrl() {
     return this._baseUrl + "CalendarBlockouts";
   }
@@ -869,6 +873,10 @@ export class APIEndPoint extends EndpointBase {
 
   get _checkEmailAvailablityUrl() {
     return this._baseUrl + "CheckEmailAvailablity";
+  }
+
+  get _createPatientsRelationShipUrl() {
+    return this._baseUrl + "CreatePatientsRelationShip";
   }
 
   get _imagetoBase64StringUrl() {

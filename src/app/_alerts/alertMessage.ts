@@ -308,6 +308,7 @@ export const ERROR_CODES: { [key: string]: string } = {
   //ERRORs for Patients Procedure Crete
   'E2CP1001': 'Procedure Updated error',
   'E2CP1002': 'Procedure Deletion error',
+  'E2CP1003': 'Cannot delete this procedure from encounter form, however this procedure can be deleted from the parent form i.e. Dental form.',
 
   // Smart Scheduler Apoointments;
   'M2AA001': 'Appointment Added successfully',

@@ -59,8 +59,6 @@ export class PatientPasswordChangeRequestDialogComponent implements OnInit {
       this.authService.ValidatePatientChangePasswordInputs(this.userInfo).subscribe((resp)=>{
         if(resp.IsSuccess){
           this.result = resp.Result as ChangePasswordResult;
-          console.log(this.result);
-
         }
       })
 

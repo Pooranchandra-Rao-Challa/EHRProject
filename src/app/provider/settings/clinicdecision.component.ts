@@ -64,17 +64,15 @@ export class ClinicDecisionComponent implements OnInit {
     this.viewModel = authService.viewModel;
     this.show = this.viewModel.Cds;
     this.flag = this.viewModel.Cds;
-
-    console.log(this.viewModel);
   }
   ngOnInit(): void {
-    
+
     this.getclinicaldesupportlist();
     // this.viewModel.Cds="Off"
   }
 
 
-  
+
   flag: boolean = true;
 
   open(value:boolean) {
@@ -88,8 +86,6 @@ export class ClinicDecisionComponent implements OnInit {
     this.show = false;
     this.flag = value;
     this.authService.SetViewParam("Cds", value);
-    console.log(this.viewModel);
-    
   }
   step: number;
   setStep(index: number) {

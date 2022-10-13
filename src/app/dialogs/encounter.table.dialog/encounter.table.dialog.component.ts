@@ -36,8 +36,6 @@ export class EncounterTableDialogComponent implements OnInit {
     this.patientencounters.data = [];
     if (data == null) return;
     this.patientencounters.data = data as unknown as EncounterInfo[];
-    console.log(this.patientencounters.data);
-
   }
 
   cancel(){

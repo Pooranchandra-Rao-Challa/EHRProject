@@ -47,7 +47,7 @@ export class AuditLogComponent implements OnInit {
   }
 
 
- 
+
   ngOnInit(): void {
     // this.getdata();
     this.getAuditLogList('');
@@ -76,7 +76,7 @@ export class AuditLogComponent implements OnInit {
     this.settingservice.AuditLogs(reqparams).subscribe(reponse => {
       this.auditLogList = reponse.ListResult;
       this.loglist = this.auditLogList
-     
+
       // this.TotalItems = this.auditLogList.length;
 
     })

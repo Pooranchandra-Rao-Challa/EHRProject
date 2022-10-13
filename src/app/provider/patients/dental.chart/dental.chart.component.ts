@@ -114,13 +114,10 @@ export class DentalChartComponent implements OnInit, AfterViewInit {
           reqData.PatientId = this.currentPatient.PatientId;
           reqData.ProviderId = this.currentPatient.ProviderId;
           reqData.LocationId = this.authService.userValue.CurrentLocation;
-
         }
-
         if (ToothNo > 0) {
           reqData.ToothNo = ToothNo;
           reqData.ViewFrom = "ToothNo";
-
         }
         if (medicalCode) {
           reqData.Code = medicalCode.Code
@@ -129,17 +126,15 @@ export class DentalChartComponent implements OnInit, AfterViewInit {
           reqData.ViewFrom = "Tree";
         }
       }
-
     } else if (content === this.encounterDialogComponent) {
       reqData = dialogData;
+      reqData.ViewFrom = "ProcedureView";
       reqData["From"] = "ProcedureView";
     }
 
-
     const ref = this.overlayService.open(content, reqData);
-
     ref.afterClosed$.subscribe(res => {
-      if (content === this.procedureDialogComponent) {
+      if (content === this.procedureDialogComponent || content === this.encounterDialogComponent) {
         if (res.data != null && res.data.saved) {
           this.procedureDataSource.loadProcedures();
           this.patientUsedProcedures();

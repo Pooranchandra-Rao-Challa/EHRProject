@@ -55,10 +55,7 @@ export class LoginComponent implements OnInit {
       "EmailId": data.UserName,
       "Password": data.Password,
     };
-    console.log('clicked login');
-
     this.authenticationService.loginWithFormCredentials(creds).subscribe(resp => {
-      console.log('clicked login');
       if (!resp.IsSuccess) {
         this.showspinner = false;
         this.message = '';

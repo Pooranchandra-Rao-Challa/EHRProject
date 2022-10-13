@@ -1,6 +1,6 @@
 export class Registration{
   UserId?: string;
-  clinic_id?: string;
+  ClinicId?: string;
   ProviderId?: string;
   Title?: string ;
   FirstName?: string;
@@ -28,12 +28,10 @@ export class Registration{
   ZipCode?: string;
   EPrescribeFrom?: string;
   URL?: string;
-
   IsDoseSpotRegistation?: boolean;
   DoseSpotClinicId?: string;
   DoseSpotClinicKey?: string;
   DoseSpotClinicianId?: string;
-
   PracticeUsername?: string;
   PracticePassword?: string;
   VendorUsername?: string;
@@ -41,7 +39,6 @@ export class Registration{
   ProviderUsername?: string;
   ProviderPassword?: string;
   UserExternalId?: string;
-
   CreatedFromAdmin?: boolean = false;
 }
 

@@ -104,7 +104,6 @@ export class MessageComponent {
       UserId: this.user.UserId,
       MessageFilter: filter
     }
-    console.log(reqparams);
     this.messageDataSource = new MessageDatasource(this.recordsChangeService, this.messageService, reqparams);
     this.loadMessages()
   }

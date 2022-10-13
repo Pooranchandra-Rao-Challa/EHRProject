@@ -321,14 +321,12 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
 
   _detailsView(patientview) {
     //this.viewChangeService.sendData("Patients");
-    console.log(
-      this.authService.viewModel);
     this.authService.SetViewParam("Patient", patientview);
     this.authService.SetViewParam("PatientView", "Chart");
     this.authService.SetViewParam("View", "Patients");
     const currentUrl = this.router.url;
     this.router.navigateByUrl(currentUrl, { skipLocationChange: true }).then(() => {
-      this.router.navigate(["/provider/patientdetails"]);
+      this.router.navigate(["provider/patientdetails"]);
     });
     //this.router.navigate(["/provider/patientdetails"]);
   }
