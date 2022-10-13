@@ -114,7 +114,7 @@
 
                 </nav> -->
 
-                <div class="admin-pg-container">
+                <div class="admin-pg-container"[hidden]="!patientsDataSource.TotalRecordSize">
                   <mat-paginator adminPagination
                      [length]="patientsDataSource.TotalRecordSize" [pageSize]="pageSize"
                      [pageIndex] = "page"

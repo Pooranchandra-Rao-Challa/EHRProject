@@ -82,6 +82,7 @@ export class WeeklyUpdatedComponent implements OnInit {
     this.authService.SetViewParam('AdminViewName', name);
     this.router.navigate(
       [url],
+      { queryParams: { name: name }}
     );
   }
 

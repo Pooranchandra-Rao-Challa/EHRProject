@@ -33,7 +33,7 @@
       <h1>Weekly Update</h1>
     </div>
     <div class="col-lg-12 col-xl-12 col-md-12 col-12 mt-2">
-      <button type="button" class="btn-style mx-1" (click)="NavigateSection('SectionsNew','admin/sectionnew')">Add New
+      <button type="button" class="btn-style mx-1" (click)="NavigateSection('Add New Section','admin/sectionnew')">Add New
         Section</button>
     </div>
     <div class="col-lg-12 col-xl-12 col-md-12 col-12 mt-3 mb-5">
@@ -67,7 +67,7 @@
               <td>{{item.TagLine}}</td>
               <td>
                 <button type="button" class="btn btn-style btn-edit btn-sm mx-1"
-                  (click)="NavigateSection('SectionsNew','admin/sectionnew',item)">Edit</button>
+                  (click)="NavigateSection('Edit Section','admin/sectionnew',item)">Edit</button>
                 <button type="button" class="btn btn-delete btn-sm mx-1 my-md-1 my-xs-1 my-sm-1" (click)="confirmdelete(item.WeeklyUpdateId)">Delete</button>
               </td>
             </tr>

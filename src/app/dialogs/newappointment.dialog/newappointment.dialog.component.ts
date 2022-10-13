@@ -265,7 +265,7 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
       .subscribe(resp => {
         if (resp.IsSuccess) {
           this.ref.close({ 'refresh': true });
-          this.alert.displayMessageDailog(ERROR_CODES["M2AA003"]);
+          this.alert.displayErrorDailog(ERROR_CODES["M2AA003"]);
         }
         else {
           this.alert.displayErrorDailog(ERROR_CODES["E2AA003"]);
@@ -282,6 +282,7 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
       && this.PatientAppointment.PatientId != null
       && this.PatientAppointment.ProviderId != null
       && this.PatientAppointment.Startat != null) || this.SaveInputDisable
+      && this.PatientAppointment.Notes != null
   }
 
   onAppointmentSave() {

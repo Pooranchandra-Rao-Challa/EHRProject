@@ -36,10 +36,25 @@ export class AdminsettingComponent implements OnInit {
         if(resp.IsSuccess)
         {
           this.GetAdminSettingVersion();
-         this.alertmsg.displayMessageDailog(ERROR_CODES["M1AS001"]);
+        //  this.alertmsg.displayMessageDailog(ERROR_CODES["M1AS001"]);
+        this.alertWithSuccess();
         }
       }
     )
   }
-
+  alertWithSuccess() {
+    Swal.fire({
+      title: 'App version is updated sucessfully' ,
+      width: '700',
+      customClass: {
+        cancelButton: 'admin-cancel-button',
+        title:"admin-swal2-styled"
+      },
+      background: '#f9f9f9',
+      showCancelButton: true,
+      cancelButtonText: 'Close',
+      showConfirmButton:false,
+      backdrop: true,
+    });
+  }
 }
