@@ -7,6 +7,7 @@ import { User, UserLocations, ViewModel } from '../../_models';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PatientProfile } from 'src/app/_models/_patient/patientprofile';
 import { PatientService } from 'src/app/_services/patient.service';
+import { LoaderService } from 'src/app/_loader/loader.service';
 declare var $: any;
 
 @Component({
@@ -30,7 +31,8 @@ export class PatientNavbarComponent implements OnInit,AfterViewInit {
   constructor(private authenticationService: AuthenticationService, private patientService: PatientService,
     private route: ActivatedRoute,
     private changeDetectorRef: ChangeDetectorRef,
-    private router: Router) {
+    private router: Router,
+    public loaderService: LoaderService) {
     this.user = authenticationService.userValue;
     this.locationsInfo = JSON.parse(this.user.LocationInfo);
     this.viewModel = authenticationService.viewModel as ViewModel;
