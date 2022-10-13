@@ -60,11 +60,7 @@ export class AttachmentNopreviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.attachmentSubject.subscribe(attachments =>{
-      console.log(attachments);
-
       this.activeAttachments = attachments.filter((att) => att.IsDeleted == false);
-      console.log(this.activeAttachments);
-
     })
   }
 

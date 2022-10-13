@@ -1,57 +1,66 @@
-
-
 .attachments {
   margin-top: 20px;
-  .container-items-border{
+
+  .container-items-border {
     border: 1px solid #41b6a6;
   }
 
-  .container-items{
+  .container-items {
     direction: ltr;
 
-    .items{
+    .items {
       display: flex;
-      margin:10px;
+      margin: 10px;
       direction: ltr;
-      div{
-        margin:10px;
+
+      div {
+        margin: 10px;
       }
-      div.remmove{
+
+      div.remmove {
         float: right;
 
       }
-      div.item{
+
+      div.item {
         width: 75%;
         cursor: pointer;
         text-decoration: underline;
-        &:hover{
-          color:#41b6a6;
+
+        &:hover {
+          color: #41b6a6;
         }
       }
-      .mat-icon{
-        color:#41b6a6;
+
+      .mat-icon {
+        color: #41b6a6;
         background: #fff;
         border: 1px solid #41b6a6;
         width: 28px;
         height: 28px;
         font-size: 24px;
-        &:hover{
-          color:#fff;
+
+        &:hover {
+          color: #fff;
           background: #41b6a6;
         }
       }
     }
   }
-  .display-item{
+
+  .display-item {
     border: 1px solid #41b6a6;
     border-right: unset;
     border-left: unset;
-    div.show-image{
+
+    div.show-image {
       margin: 10px;
     }
   }
-  .upload-items{
-    border: 1px solid #41b6a6;;
+
+  .upload-items {
+    border: 1px solid #41b6a6;
+    ;
     background-color: rgba(65, 182, 166, 0.1);
   }
 }
@@ -60,7 +69,7 @@
 .upload-btn-wrapper {
   position: relative;
   overflow: hidden;
-  float:right;
+  float: right;
   margin: 10px 0;
 
 
@@ -73,7 +82,7 @@
     border: 1px solid #41b6a6;
     cursor: pointer;
 
-    &:hover{
+    &:hover {
       background-color: #41b6a6;
       color: #fff;
     }
@@ -87,4 +96,15 @@
   left: 0;
   top: 0;
   opacity: 0;
+}
+
+@media (max-width: 990px) {
+  .scrollable {
+    width: 100%;
+    overflow-x: auto;
+    .attachments {
+      width: 700px;
+      overflow-x: auto;
+    }
+  }
 }
