@@ -16,6 +16,7 @@ export class WeeklyUpdatedComponent implements OnInit {
   WeeklyUpdatedList: any = [];
   selectedValue: string;
   searchValue: string;
+  ProviderId: string = null;
   filteredList: any = [];
   DisplayTdBody: string;
   RowIndex: number;
