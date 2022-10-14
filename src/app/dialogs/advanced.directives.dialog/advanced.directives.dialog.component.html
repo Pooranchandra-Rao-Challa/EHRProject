@@ -22,7 +22,7 @@
         [(ngModel)]="advDirective.Notes"></textarea>
     </div>
     <div class="modal-footer dialog-footer">
-      <button class="btn btn-danger" *ngIf="advDirective.AdvancedDirectiveId != ''">Delete</button>
+      <!-- <button class="btn btn-danger" *ngIf="advDirective.AdvancedDirectiveId != ''">Delete</button> -->
       <button class="btn btn-green pull-right" (click)="cancel()">Cancel</button>
       <button class="btn btn-green pull-right" (click)="CreateAdvancedDirectives()"
         [disabled]="disableadvDirective()">Save</button>
