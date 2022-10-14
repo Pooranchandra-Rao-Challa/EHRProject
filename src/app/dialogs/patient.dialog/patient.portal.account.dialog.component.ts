@@ -5,6 +5,7 @@ import {
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
 import { PatientPortalUser } from 'src/app/_models';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
+import { Accountservice } from 'src/app/_services/account.service';
 
 @Component({
   selector: 'patient-portal-account-dialog',
@@ -12,8 +13,11 @@ import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
   styleUrls: ['./patient.portal.account.dialog.component.scss'],
 })
 export class PatientPortalAccountComponent {
-  patientUser: PatientPortalUser;
-  constructor(private dialogRef: EHROverlayRef,) {
+  patientUser: PatientPortalUser = {PatinetHasNoEmail: true};
+  emailVerfied?: boolean = null;
+  emailVerficationMessage?: string;
+  emailPattern = /^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$/;
+  constructor(private dialogRef: EHROverlayRef,private accountservice: Accountservice,) {
     this.patientUser = dialogRef.data as PatientPortalUser;
     if (this.patientUser == null) this.patientUser = new PatientPortalUser()
     this.patientUser.Username
@@ -26,4 +30,22 @@ export class PatientPortalAccountComponent {
     this.createPatientInvoked = true;
     this.dialogRef.close(this.patientUser);
   }
+  
+  checkEmailExistance() {
+    if (this.patientUser.PatinetHasNoEmail) {
+      this.emailVerfied = null;
+      this.emailVerficationMessage = "";
+    } else {
+      if (this.emailPattern.test(this.patientUser.Email))
+        this.accountservice.CheckEmailAvailablity({ Email: this.patientUser.Email }).subscribe((resp) => {
+          this.emailVerfied = resp.IsSuccess;
+          this.emailVerficationMessage = resp.EndUserMessage
+        })
+      else this.emailVerfied = null;
+    }
+  }
+  ClearEmailWhenPatientHasNoEmail(event) {
+    this.patientUser.Email = "";
+  }
+
 }

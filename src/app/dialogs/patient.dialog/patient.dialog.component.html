@@ -112,40 +112,6 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-6 col-md-6 col-12">
-          <div class="form-group">
-            <div class="input-group">
-              <label class="control-label input-group-addon" [class.required]="!patinetHasNoEmail.checked">Email</label>
-              <input class="form-control" placeholder="Please enter valid Email" type="text" #patientEmail="ngModel"
-                [disabled]="patinetHasNoEmail.checked" pattern="^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$"
-                [(ngModel)]="PatientData.Email" required mouse-over-hint tickImagePath="assets/images/tick-mark.svg"
-                crossImagePath="assets/images/cross-mark.svg" (keyup)="checkEmailExistance()" />
-
-            </div>
-            <div *ngIf="patientEmail.errors && patientEmail.touched">
-              <div class="error_message" *ngIf="patientEmail.errors?.pattern">
-                <p class="errormessage">Please enter valid Email</p>
-              </div>
-              <div class="error_message" *ngIf="patientEmail.errors?.required">
-                <p class="errormessage">Please enter Email</p>
-              </div>
-            </div>
-            <div *ngIf="emailVerfied != null">
-              <div [class.error_message]="!emailVerfied" [class.success_message]="emailVerfied">
-                <p [class.error_message]="!emailVerfied" [class.success_message]="emailVerfied">
-                  {{emailVerficationMessage}}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6 col-md-6 col-12 pt-2 pb-3" style="display: inline-flex;">
-
-          <input type="checkbox" class="patient-email-checkbox col-12 mx-2" #patinetHasNoEmail ngModel
-            id="patinetHasNoEmail" name="patinetHasNoEmail" (click)="ClearEmailWhenPatientHasNoEmail($event)"
-            [(ngModel)]="PatientData.PatinetHasNoEmail" />
-          <div>Patient does not have an email address</div>
-
-        </div>
       </div>
       <div class="row">
         <fieldset>
