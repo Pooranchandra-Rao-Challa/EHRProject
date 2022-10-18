@@ -12,7 +12,7 @@ export class ListImportedDataComponent implements OnInit {
 
   importFiles: ImportFile[];
   page: any = 1;
-  pageSize: any = 10
+  pageSize: any = 20
   collectionSize: any = 10000;
   premiumData: any[] = [];
 

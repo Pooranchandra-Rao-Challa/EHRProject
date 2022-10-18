@@ -46,6 +46,7 @@ export class LabProcedureWithOrder {
   RadioPharmaceutical?: string;
   Technique?: string;
   Comparison?: string;
+  NPI?:string;
 }
 
 export class TestOrder {

@@ -247,7 +247,7 @@ export class AdminsComponent implements OnInit {
   DeleteAdmin(AdminId: string) {
     this.accountservice.DeleteAdmin({ AdminId: AdminId }).subscribe(resp => {
       if (resp.IsSuccess) {
-        this.alertmsg.displayMessageDailog(ERROR_CODES["M1A003"]);
+        this.alertmsg.displayErrorDailog(ERROR_CODES["M1A003"]);
         this.getAdminList();
       }
       else {
