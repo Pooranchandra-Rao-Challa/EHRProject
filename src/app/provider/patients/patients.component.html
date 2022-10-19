@@ -55,7 +55,7 @@
             </mat-cell>
           </ng-container>
           <ng-container matColumnDef="First">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="FirstName">FIRST</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="First">FIRST</mat-header-cell>
             <mat-cell *matCellDef="let patient">
               <a (click)="onChangeViewState(patient)">{{patient?.FirstName}}</a>
             </mat-cell>
@@ -69,7 +69,7 @@
           </ng-container>
 
           <ng-container matColumnDef="Last">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="LastName">LAST</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="Last">LAST</mat-header-cell>
             <mat-cell *matCellDef="let patient">
               <a (click)="onChangeViewState(patient)">{{patient?.LastName}}</a>
             </mat-cell>

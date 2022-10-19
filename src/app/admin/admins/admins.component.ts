@@ -243,7 +243,6 @@ export class AdminsComponent implements OnInit {
   onSelectedPrimaryPhoneCode(code: string) {
     this.newAdminRegistration.PrimaryPhonePreffix = code;
   }
-
   DeleteAdmin(AdminId: string) {
     this.accountservice.DeleteAdmin({ AdminId: AdminId }).subscribe(resp => {
       if (resp.IsSuccess) {

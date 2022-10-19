@@ -120,7 +120,6 @@ export class PatientEdnMaterialComponent implements OnInit {
     // this.patientEducationSearchList.next(this.patientEducationInfo.EducationMat);
     this.getPatientedmateriallist();
   }
-
   createUpadateEducationMaterial() {
     let isAdd = this.educationMaterialCode.EducationalId == undefined;
     this.educationMaterialCode.ClinicId = this.user.ClinicId;

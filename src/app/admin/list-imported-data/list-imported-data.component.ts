@@ -15,9 +15,7 @@ export class ListImportedDataComponent implements OnInit {
   pageSize: any = 20
   collectionSize: any = 10000;
   premiumData: any[] = [];
-
   constructor(private router: Router, private adminservice: AdminService) { }
-
   ngOnInit(): void {
     this.getImportPatient();
   }
