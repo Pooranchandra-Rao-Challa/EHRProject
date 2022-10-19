@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
-import { User } from 'src/app/_models';
+import { PatientChart, User } from 'src/app/_models';
 import { PatientProfile } from 'src/app/_models/_patient/patientprofile';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { PatientService } from 'src/app/_services/patient.service';

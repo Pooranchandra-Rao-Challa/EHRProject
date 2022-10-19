@@ -128,19 +128,14 @@ export class DashboardComponent {
       "MessageFilter": "Inbox"
     }
     this.messageService.Messages(req).subscribe(res => {
-
       this.messages = res.ListResult == null ? [] : res.ListResult;
-      console.log(this.messages);
-
       this.messagescount = res.ListResult == null ? 0 : res.ListResult[0].MessagesCount;
-
-    })
+    });
   }
   showappoinments(item) {
     this.viewAppoinments = item;
   }
   showMessages(messages) {
     this.viewMessages = messages;
-    console.log(this.viewMessages);
   }
 }

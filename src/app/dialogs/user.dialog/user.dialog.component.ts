@@ -51,7 +51,6 @@ export class UserDialogComponent implements OnInit {
     public overlayService: OverlayService,
     private authServer: AuthenticationService,
     private alertmsg: AlertMessage) {
-
     this.user = authServer.userValue;
     this.userQuery = {
       UserId: (ref.RequestData as NewUser).UserId,
@@ -119,9 +118,9 @@ export class UserDialogComponent implements OnInit {
       loc.TimeSlots.forEach(timeslot => {
         if (rtnString != '') rtnString += '<br>'
         if (timeslot.SpecificHour == 'Specific Hours')
-          rtnString +='<p style="color:red" >'+ timeslot.WeekDay + ', ' + timeslot.From + '-' + timeslot.To + '</p>'
+          rtnString += '<p style="color:red" >' + timeslot.WeekDay + ', ' + timeslot.From + '-' + timeslot.To + '</p>'
         else
-          rtnString += '<p style="color:red" >'+ timeslot.WeekDay + ', ' + timeslot.SpecificHour +'</p>';
+          rtnString += '<p style="color:red" >' + timeslot.WeekDay + ', ' + timeslot.SpecificHour + '</p>';
       })
       loc.FormatedTimeSlot = rtnString;
     });
@@ -200,13 +199,12 @@ export class UserDialogComponent implements OnInit {
 
         if (res.data != null && (res.data.saved || res.data.deleted))
           this.getUserDataforEdit();
-          this.ref.close({ viewRefresh: true })
-        }
+        this.ref.close({ viewRefresh: true })
+      }
     });
   }
-  enablesave()
-  {
-    return!(this.EditProvider.FirstName!=null && this.EditProvider.FirstName!=''
-    && this.EditProvider.LastName!=null && this.EditProvider.LastName!='')
+  enablesave() {
+    return !(this.EditProvider.FirstName != null && this.EditProvider.FirstName != ''
+      && this.EditProvider.LastName != null && this.EditProvider.LastName != '')
   }
 }

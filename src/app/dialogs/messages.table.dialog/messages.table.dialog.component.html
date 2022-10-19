@@ -1,0 +1,37 @@
+<div class="modal-dialog message-table-modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title Helvetica-sans-serif-medium w-100">Messages View</h4>
+      <span type="button" class="cross-mark" (click)="cancel()">
+        X
+      </span>
+    </div>
+    <div class="modal-body scrollable-mat-table">
+      <mat-table [dataSource]="patientMessages" matSort>
+        <ng-container matColumnDef="Subject">
+          <mat-header-cell *matHeaderCellDef mat-sort-header="Subject">Message Subject
+          </mat-header-cell>
+          <mat-cell *matCellDef="let message">
+            <a (click)="openComponentDialog(viewMessageDialogComponent,message,ActionTypes.view)">
+              {{message.Subject}}
+            </a>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Updated">
+          <mat-header-cell *matHeaderCellDef mat-sort-header="Updated">Message Updated</mat-header-cell>
+          <mat-cell *matCellDef="let message">
+            <a (click)="openComponentDialog(viewMessageDialogComponent,message,ActionTypes.view)">
+              {{message.ApptStatus | date: 'MM/dd/yyyy'}}
+            </a>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="messagesColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: messagesColumns"></mat-row>
+      </mat-table>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-green" (click)="openComponentDialogmessage(newmessageDialogComponent, null, ActionTypes.view, 'Patient')">Add</button>
+      <button class="btn btn-green" (click)="cancel()">Cancel</button>
+    </div>
+  </div>
+</div>

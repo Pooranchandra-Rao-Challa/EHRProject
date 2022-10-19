@@ -133,6 +133,10 @@ import { EncounterTableDialogComponent } from 'src/app/dialogs/encounter.table.d
 import { AppointmentsTableDialogComponent } from 'src/app/dialogs/appointments.table.dialog/appointments.table.dialog.component';
 import { FileUploadService } from 'src/app/_services/file.upload.service'
 import { AttachmentPreviewComponent } from "src/app/_components/attachments/attachment.preview.component";
+import { NotifyMessageService } from "src/app/_navigations/provider.layout/view.notification.service";
+import { MessagesTableDialogComponent } from 'src/app/dialogs/messages.table.dialog/messages.table.dialog.component';
+import { ViewMessageDialogComponent } from 'src/app/dialogs/view.message.dialog/view.message.dialog.component';
+
 //import { AttachmentNopreviewComponent } from 'src/app/_components/attachments/attachment.nopreview.component'
 //import { AttachmentComponent } from 'src/app/_components/attachments/attachment.component'
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
@@ -181,6 +185,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     EncounterTableDialogComponent,
     AppointmentsTableDialogComponent,
     AttachmentPreviewComponent,
+    MessagesTableDialogComponent,
+    ViewMessageDialogComponent,
     //AttachmentNopreviewComponent,
     //AttachmentComponent,
 
@@ -265,6 +271,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     EncounterTableDialogComponent,
     AppointmentsTableDialogComponent,
     AttachmentPreviewComponent,
+    MessagesTableDialogComponent,
+    ViewMessageDialogComponent,
    // AttachmentNopreviewComponent,
    // AttachmentComponent
 
@@ -307,6 +315,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     UtilityService, SmartSchedulerService, OverlayService, PatientService, BillingService,
     AlertMessage, RxNormAPIService, MessagesService,
     FileUploadService,
+    NotifyMessageService,
     { provide: LOCALE_ID, useValue: 'en-US' },
     { provide: MAT_DATE_LOCALE, useValue: 'en-US' },
     ProviderCodeDatabase,
@@ -355,7 +364,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     PastMedicalHistoryDialogComponent,
     FamilyHealthHistoryDialogComponent,
     EncounterTableDialogComponent,
-    AppointmentsTableDialogComponent]
+    AppointmentsTableDialogComponent,
+    MessagesTableDialogComponent,
+    ViewMessageDialogComponent]
 })
 export class ProviderModule {
 

@@ -534,7 +534,7 @@
               <div class="card-body">
                 <ul class="main-list" *ngFor="let message of patientMessages | slice:0:5">
                   <li>
-                    <a style="cursor: auto;">
+                    <a (click)="openComponentDialog(viewMessageDialogComponent,message,ActionTypes.view)">
                       <span *ngIf="message?.Subject != null && message?.Subject !=''">
                         - {{message?.Subject}}
                       </span>
@@ -549,8 +549,10 @@
                     <span>No message recorded.</span>
                   </li>
                 </ul>
-                <a
+                <a (click)="openComponentDialog(messagesTableDialogComponent,patientMessages,ActionTypes.view)"
                   *ngIf="patientMessages.length > 5" class="view-more pull-right">view more</a>
+                  <!-- <a (click)="openComponentDialog(messagesTableDialogComponent,patientMessages,ActionTypes.view)"
+                  *ngIf="chartInfo?.Appointments?.length > 5" class="view-more pull-right">view more</a> -->
               </div>
             </div>
             <div class="card" id="toAppointments">

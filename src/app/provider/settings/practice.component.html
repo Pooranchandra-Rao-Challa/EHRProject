@@ -28,7 +28,7 @@
                       (filteredReturn)="TimeZoneList = $event"[displayMember]="'DisplayName'" *ngIf="timeZone.focused"></mat-select-filter>
                     <mat-option  *ngFor="let item of TimeZoneList"
                       [value]="item.DisplayName" >
-                      {{item.DisplayName}} 
+                      {{item.DisplayName}}
                     </mat-option>
                   </mat-select>
                   </mat-form-field>
@@ -218,9 +218,9 @@
                       <p class="errormessage">Please enter First Name</p>
                     </div>
                   </div>
-            
-             
-             
+
+
+
             </div>
           </div>
           <div class="col-lg-12 col-md-12 col-12 my-2">
@@ -237,7 +237,7 @@
                   <p class="errormessage">Please enter last Name</p>
                 </div>
               </div>
-        
+
             </div>
           </div>
           <div class="col-lg-12 col-md-12 col-12">
@@ -253,7 +253,7 @@
                   <span class="e_arrow"></span>
                   <p class="errormessage">Enter email in correct format </p>
                 </div>
-          
+
               </div>
             </div>
           </div>
@@ -269,7 +269,10 @@
               </mat-form-field>
             </div>
           </div>
-          <div class="col-lg-6 col-md-6 col-12 my-2">
+
+          <!-- We are going to remove this dropdown -->
+
+          <!-- <div class="col-lg-6 col-md-6 col-12 my-2">
             <div class="form-group">
               <label>Status:</label>
               <mat-form-field appearance="outline">
@@ -279,7 +282,7 @@
                 </mat-select>
               </mat-form-field>
             </div>
-          </div>
+          </div> -->
 
         </div>
       </div>

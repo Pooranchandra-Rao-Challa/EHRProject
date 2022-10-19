@@ -411,11 +411,13 @@ export const ERROR_CODES: { [key: string]: string } = {
   'M2JSAT002': 'Appointment type updated successfully',
   'M2JSAT003': 'Appointment type deleted successfully',
   'M2JSAT004': 'Appointment status is updated successfully',
+  'M2JSAT005': 'Appointment is cancelled successfully',
 
   // Error for Rooms
   'E2JSAT001': 'Appointment type created error',
   'E2JSAT002': 'Appointment status is not updated.',
   'E2JSAT003': 'Appointment status update error.',
+  'E2JSAT004': 'Appointment cancellation error',
 
   // Schedule - Appointment Status
   'M2JSAS001': 'Appointment status added successfully',
@@ -468,6 +470,7 @@ export const ERROR_CODES: { [key: string]: string } = {
   'EL009': 'Provider user account is locked',
   'EL010': 'Admin user account is locked',
   'EL011': 'Admin account is not active',
+  'EL012': 'Provider trial period is closed please do subscribe for accessing application.',
 
   //Education Material Message
   'M2JPE001': 'Education Material added successfully',

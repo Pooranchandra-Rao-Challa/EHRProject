@@ -1,3 +1,4 @@
+import { NotifyMessageService } from 'src/app/_navigations/provider.layout/view.notification.service';
 import { LoaderService } from './../../_loader/loader.service';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { Component, OnInit, Output, EventEmitter, TemplateRef } from '@angular/core';
@@ -24,16 +25,22 @@ export class ProviderNavbarComponent implements OnInit {
   view: string;
   name: string;
   viewModel: ViewModel;
-  userDialogComponent = UserDialogComponent
+  userDialogComponent = UserDialogComponent;
+  unreadMails: number;
+  urgentMails: number;
+
   constructor(private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
     public overlayService: OverlayService,
     private settingsService: SettingsService,
     private viewChangeService: ViewChangeService,
+    private notifyMessage: NotifyMessageService,
     public loaderService: LoaderService) {
     // config.placement = 'bottom-right';
     this.user = authenticationService.userValue;
+    this.unreadMails = this.user.UnReadMails;
+    this.urgentMails = this.user.UrgentMessages;
     this.locationsInfo = JSON.parse(this.user.LocationInfo);
     this.user.CurrentLocation = this.locationsInfo[0].LocationId;
     this.viewModel = authenticationService.viewModel;
@@ -46,6 +53,10 @@ export class ProviderNavbarComponent implements OnInit {
       this.authenticationService.SetViewParam("View", value)
       this.viewModel = this.authenticationService.viewModel;
 
+    });
+    this.notifyMessage.getData().subscribe(value => {
+      this.unreadMails = value.UnreadCount;
+      this.urgentMails = value.UrgentCount;
     });
   }
 

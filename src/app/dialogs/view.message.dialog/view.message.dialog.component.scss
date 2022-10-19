@@ -1,0 +1,18 @@
+@import"../../../assets/cstm.material.scss";
+@import"../../../assets/common.scss";
+
+.view-messages {
+  .modal-dialog {
+    overflow-y: initial !important;
+  }
+
+  .modal-content
+  {
+    width:500px
+  }
+
+  .message-table-modal .modal-body {
+    max-height: calc(90vh - 160px);
+    overflow-y: auto;
+  }
+}
