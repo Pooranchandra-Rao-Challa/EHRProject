@@ -10,8 +10,19 @@
         </li>
       </ul>
     </div>
-    <div class="col-lg-5 col-xl-3 col-md-8 col-12">
-      <div class="statusDropdownContainer ">
+      <div class="col-lg-3 col-xl-3 col-md-3 mx-3">
+        <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-12 ">
+          <mat-select class="col-lg-12 col-md-12 col-12" #searchProvider [(ngModel)]="ProviderId" placeholder="Select Provider">
+            <mat-select-filter class="for-parent-select"  [displayMember]="'ProviderName'" [array]="ProviderList"
+              (filteredReturn)="filteredList = $event" [placeholder]="'Filter Provider by Name'"
+              *ngIf="searchProvider.focused"></mat-select-filter>
+            <mat-option panelClass="myPanelClass" *ngFor="let item of filteredList" [value]="item.ProviderId">
+              {{item.ProviderName}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <!-- <div class="statusDropdownContainer ">
         <a class="btn dropdown-toggle statusFilterDropdown" href="#" role="button" id="dropdownMenuLink"
           data-bs-toggle="dropdown" aria-expanded="false" (click)="onfocus()">
           <span class="text-truncate">{{selectedValue ? selectedValue : 'select'}}</span>
@@ -24,8 +35,8 @@
             {{option.ProviderName}}
         </a>
         </ul>
-      </div>
-    </div>
+      </div> -->
+    <!-- </div> -->
     <div class="col-lg-2 col-xl-2 col-md-3 col-12">
       <button type="button" class="btn-style btn-Preview mx-1 py-2">Preview</button>
     </div>
@@ -33,7 +44,7 @@
       <h1>Weekly Update</h1>
     </div>
     <div class="col-lg-12 col-xl-12 col-md-12 col-12 mt-2">
-      <button type="button" class="btn-style mx-1" (click)="NavigateSection('SectionsNew','admin/sectionnew')">Add New
+      <button type="button" class="btn-style mx-1" (click)="NavigateSection('Add New Section','admin/sectionnew')">Add New
         Section</button>
     </div>
     <div class="col-lg-12 col-xl-12 col-md-12 col-12 mt-3 mb-5">
@@ -67,7 +78,7 @@
               <td>{{item.TagLine}}</td>
               <td>
                 <button type="button" class="btn btn-style btn-edit btn-sm mx-1"
-                  (click)="NavigateSection('SectionsNew','admin/sectionnew',item)">Edit</button>
+                  (click)="NavigateSection('Edit Section','admin/sectionnew',item)">Edit</button>
                 <button type="button" class="btn btn-delete btn-sm mx-1 my-md-1 my-xs-1 my-sm-1" (click)="confirmdelete(item.WeeklyUpdateId)">Delete</button>
               </td>
             </tr>

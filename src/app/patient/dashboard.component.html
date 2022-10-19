@@ -206,13 +206,16 @@
         <div class="row mb-1">
           <div class="col-md-6 Helvetica-sans-serif-medium">Appointment Status:</div>
           <div class="col-md-6 Helvetica-sans-serif-medium" *ngIf="viewAppoinments.ApptStatus == 'Not Confirmed'">
-            <b>pending</b></div>
+            <b>pending</b>
+          </div>
           <div class="col-md-6 Helvetica-sans-serif-medium" *ngIf="viewAppoinments.ApptStatus == 'Confirmed'">
-            <b>Waiting</b></div>
+            <b>Waiting</b>
+          </div>
           <div class="col-md-6 Helvetica-sans-serif-medium" *ngIf="viewAppoinments.ApptStatus == 'Scheduled'"><b>Status
               Confirmed</b></div>
           <div class="col-md-6 Helvetica-sans-serif-medium" *ngIf="viewAppoinments.ApptStatus == 'In-Progress'">
-            <b>Status Confirmed</b></div>
+            <b>Status Confirmed</b>
+          </div>
           <div class="col-md-6 Helvetica-sans-serif-medium" *ngIf="viewAppoinments.ApptStatus == 'Cancelled'"><b>Status
               Cancelled</b></div>
         </div>

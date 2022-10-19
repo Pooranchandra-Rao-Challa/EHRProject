@@ -31,7 +31,7 @@ import { timeStamp } from 'console';
   styleUrls: ['./patient.dialog.component.scss'],
 })
 export class PatientDialogComponent {
-  PatientData: Patient = { PatinetHasNoEmail: true, Gender: 'male' };
+  PatientData: Patient = {Gender: 'male' };
   PhonePattern: {};
   @Output() onPatientClose = new EventEmitter();
   hideSaveButton: boolean = false;
@@ -41,9 +41,8 @@ export class PatientDialogComponent {
   addressVerificationDialogComponent = AddressVerificationDialogComponent;
   todayDate: Date;
   url: string;
-  emailVerfied?: boolean = null;
-  emailVerficationMessage?: string;
-  emailPattern = /^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$/;
+
+ 
 
   constructor(private dialogRef: EHROverlayRef,
     private authService: AuthenticationService,
@@ -70,30 +69,17 @@ export class PatientDialogComponent {
   }
 
   phonepattern =/^[0-9]{10}/;
-  email = /^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$/;
+ 
 
   enableSave() {
     return !(this.PatientData.FirstName != null && this.PatientData.FirstName != ""
       && this.PatientData.LastName != null && this.PatientData.LastName != ""
       && this.PatientData.DateofBirth != null
       && this.PatientData.Gender != null && this.PatientData.Gender != ""
-      && ((!this.PatientData.PatinetHasNoEmail && this.emailVerfied == true &&
-        this.emailPattern.test(this.PatientData.Email)) || this.PatientData.PatinetHasNoEmail))
+   )
   }
 
-  checkEmailExistance() {
-    if (this.PatientData.PatinetHasNoEmail) {
-      this.emailVerfied = null;
-      this.emailVerficationMessage = "";
-    } else {
-      if (this.emailPattern.test(this.PatientData.Email))
-        this.accountservice.CheckEmailAvailablity({ Email: this.PatientData.Email }).subscribe((resp) => {
-          this.emailVerfied = resp.IsSuccess;
-          this.emailVerficationMessage = resp.EndUserMessage
-        })
-      else this.emailVerfied = null;
-    }
-  }
+ 
   showHourglass:boolean = false;
   VerifyPatientAddress() {
     this.showHourglass = true;
@@ -156,9 +142,7 @@ export class PatientDialogComponent {
 
   }
 
-  ClearEmailWhenPatientHasNoEmail(event) {
-    this.PatientData.Email = "";
-  }
+
 
   // downloadPDF(html) {
 

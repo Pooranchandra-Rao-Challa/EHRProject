@@ -267,7 +267,7 @@ export class LabImageDatasource implements DataSource<LabProcedureWithOrder>{
   }
 
   loadLabImage(filter = '', sortField = 'OrderNumber',
-    sortDirection = 'desc', pageIndex = 0, pageSize = 10) {
+    sortDirection = 'asc', pageIndex = 0, pageSize = 10) {
     this.queryParams["SortField"] = sortField;
     this.queryParams["SortDirection"] = sortDirection;
     this.queryParams["PageIndex"] = pageIndex;

@@ -16,3 +16,25 @@
   height: 1em;
   vertical-align: -.125em;
 }
+.success_message{
+  color: rgb(0, 152, 3);
+  content: '*';
+  display: flex;
+  align-items: center;
+}
+.error_message{
+  color: #8c2929;
+  content: '*';
+  display: flex;
+  align-items: center;
+}
+
+.form-control.focusedemail:focus
+{
+  border: 1px solid #41b6a6;
+}
+.form-control:disabled, .form-control[readonly] {
+  background-color: #fff;
+  opacity: 1;
+  cursor: not-allowed;
+}

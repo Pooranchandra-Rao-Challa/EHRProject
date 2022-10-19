@@ -24,7 +24,7 @@
             </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of importFiles ">
+          <tr *ngFor="let item of importFiles| slice: (page-1) * pageSize : (page-1) * pageSize + pageSize ">
             <td>{{item?.ImportId}}</td>
             <td>{{item?.ProviderName}}</td>
             <td>{{item?.FileName}}</td>
@@ -32,7 +32,6 @@
             <td>{{item?.DataType}}</td>
             <td>{{item?.Status}}</td>
             <td><a title="false" data-toggle="tooltip" data-placement="right" class="download-rep">Download Report</a></td>
-
           </tr>
         </tbody>
         <div class="table-NoRecord text-center py-2 col-12" *ngIf="importFiles?.length == 0">
@@ -43,10 +42,13 @@
     <div class="d-flex justify-content-end my-3">
       <nav aria-label="Page navigation">
           <ul class="pagination mt-4">
-              <ngb-pagination [pageSize]="pageSize" [collectionSize]="collectionSize" (pageChange)="onPageChange($event)"
-                  [maxSize]="10" [(page)]="page" aria-label="Default pagination">
+              <ngb-pagination [pageSize]="pageSize" [collectionSize]="importFiles.length"
+                  [maxSize]="9" [(page)]="page" aria-label="Default pagination">
               </ngb-pagination>
           </ul>
+          <!-- <ngb-pagination [pageSize]="pageSize" [collectionSize]="filtededProviders.length" [maxSize]="9" [(page)]="page"
+          aria-label="Default pagination">
+        </ngb-pagination> -->
       </nav>
   </div>
 </div>

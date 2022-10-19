@@ -77,7 +77,7 @@ export class AuditLogComponent implements OnInit {
       setTimeout(() => {
         this.customizedspinner = false;
         $('body').removeClass('loadactive')
-      }, 1500);
+      }, 2000);
      
       this.auditLogList = reponse.ListResult;
       this.loglist = this.auditLogList
