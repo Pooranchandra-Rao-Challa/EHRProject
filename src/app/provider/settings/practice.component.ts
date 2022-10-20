@@ -57,7 +57,6 @@ export class PracticeComponent implements OnInit {
     @Inject(DOCUMENT) private _document: Document) {
     this.user = authService.userValue;
     this.url = plaformLocation.href.replace(plaformLocation.pathname, '/');
-
     this.changedLocationId = this.user.CurrentLocation;
     this.locationsubscription = this.locationSelectService.getData().subscribe(LocationId => {
       this.changedLocationId = LocationId;

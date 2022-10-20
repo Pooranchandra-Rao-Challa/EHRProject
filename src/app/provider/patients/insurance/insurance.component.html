@@ -58,11 +58,10 @@
             <div class="col-xl-9 col-lg-8 col-12">
               <label class="Helvetica-sans-serif-medium required">Address</label>
               <div class="input-group mb-3">
-                <input type="text"
-                  class="form-control patientInsuranceTab Helvetica-sans-serif-medium"
+                <input type="text" class="form-control patientInsuranceTab Helvetica-sans-serif-medium"
                   placeholder="Enter full address here" aria-label="Subscriber Name" aria-describedby="basic-addon1"
                   [(ngModel)]="primlist.Street" #Address required>
-                  <!-- [disabled]="disableaddressverification" -->
+                <!-- [disabled]="disableaddressverification" -->
               </div>
             </div>
             <div class="col-xl-3 col-lg-4 col-12">
@@ -96,7 +95,8 @@
               <div class="input-group input-group-lg">
                 <span class="input-group-text prefix-alignments Helvetica-sans-serif-medium"
                   id="inputGroup-sizing-lg ">City</span>
-                <input type="text" [readonly]="!disableaddressverification" [class.address-verfied]="!disableaddressverification"
+                <input type="text" [readonly]="!disableaddressverification"
+                  [class.address-verfied]="!disableaddressverification"
                   class="form-control input-border Helvetica-sans-serif-medium" [(ngModel)]="primlist.City">
               </div>
             </div>
@@ -186,10 +186,11 @@
               <mat-label class="Helvetica-sans-serif-medium placehold required">Source of Payment Typology
               </mat-label>
               <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-12 ddl-width ddhover">
-                <mat-select panelClass="optionalignment" [(ngModel)]="primlist.SourceOfPaymentTypology" #primaryPaymentTypology
-                  placeholder="Source of Payment Typology" required #sourcePTypology="ngModel">
+                <mat-select panelClass="optionalignment" [(ngModel)]="primlist.SourceOfPaymentTypology"
+                  #primaryPaymentTypology placeholder="Source of Payment Typology" required #sourcePTypology="ngModel">
                   <mat-select-filter [displayMember]="'Code'" [array]="SourceOfPaymentTypologyCodesFilter"
-                    (filteredReturn)="SourceOfPaymentTypologyCodes = $event" id="inputcursor" *ngIf="primaryPaymentTypology.focused">
+                    (filteredReturn)="SourceOfPaymentTypologyCodes = $event" id="inputcursor"
+                    *ngIf="primaryPaymentTypology.focused">
                   </mat-select-filter>
                   <mat-option *ngFor="let item of SourceOfPaymentTypologyCodes" [value]="item.Code"
                     (click)="primaryspt(item)">
@@ -214,7 +215,8 @@
             <div class="col-md-6">
               <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-12">
                 <input matInput [matDatepicker]="dp2" placeholder="Start Date" (click)="dp2?.open()"
-                  [(ngModel)]="primlist.StartDate" class="Helvetica-sans-serif-medium pointer" #startdate="ngModel" required readonly>
+                  [(ngModel)]="primlist.StartDate" class="Helvetica-sans-serif-medium pointer" #startdate="ngModel"
+                  required readonly (dateChange)="dateChangeForPrimary($event)">
                 <mat-datepicker-toggle matSuffix [for]="dp2">
                 </mat-datepicker-toggle>
                 <mat-datepicker #dp2></mat-datepicker>
@@ -229,8 +231,9 @@
             <div class="col-md-6">
               <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-12">
                 <input matInput [matDatepicker]="dp1" placeholder="Stop Date" [(ngModel)]="primlist.EndDate"
-                  (click)="dp1?.open()" class="Helvetica-sans-serif-medium pointer" readonly>
-                <mat-datepicker-toggle matSuffix [for]="dp1">
+                  (click)="dp1?.open()" class="Helvetica-sans-serif-medium pointer" readonly [min]="endDateForPrimary"
+                  [disabled]="primlist.StartDate == null">
+                <mat-datepicker-toggle matSuffix [for]="dp1" [disabled]="primlist.StartDate == null">
                 </mat-datepicker-toggle>
                 <mat-datepicker #dp1 disabled="false"></mat-datepicker>
               </mat-form-field>
@@ -268,8 +271,8 @@
               <label class="Helvetica-sans-serif-medium d-block required">Date of Birth</label>
               <mat-form-field appearance="outline" class="calendaricon green-calendar w-100">
                 <input matInput [matDatepicker]="dp4" placeholder="Date of Birth" [(ngModel)]="secList.DateOfBirth"
-                  (click)="dp4?.open()" class="Helvetica-sans-serif-medium pointer" [max]="tomorrow" #sdateofbirth="ngModel"
-                  required readonly>
+                  (click)="dp4?.open()" class="Helvetica-sans-serif-medium pointer" [max]="tomorrow"
+                  #sdateofbirth="ngModel" required readonly>
                 <mat-datepicker-toggle matSuffix [for]="dp4">
                 </mat-datepicker-toggle>
                 <mat-datepicker #dp4 disabled="false"></mat-datepicker>
@@ -299,11 +302,10 @@
             <div class="col-xl-9 col-lg-8 col-12">
               <label class="Helvetica-sans-serif-medium required">Address</label>
               <div class="input-group mb-3">
-                <input type="text"
-                  class="form-control patientInsuranceTab Helvetica-sans-serif-medium"
+                <input type="text" class="form-control patientInsuranceTab Helvetica-sans-serif-medium"
                   placeholder="Enter full address here" aria-label="Subscriber Name" aria-describedby="basic-addon1"
                   [(ngModel)]="secList.Street" #Address>
-                  <!-- [disabled]="secondarydisableaddressverification" -->
+                <!-- [disabled]="secondarydisableaddressverification" -->
               </div>
             </div>
             <div class="col-xl-3 col-lg-4 col-12">
@@ -424,10 +426,11 @@
           <div class="col-lg-12 col-md-12">
             <mat-label class="Helvetica-sans-serif-medium required">Source of Payment Typology </mat-label>
             <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-12 ddl-width ddhover">
-              <mat-select panelClass="optionalignment" [(ngModel)]="secList.SourceOfPaymentTypology" #secondaryPaymentTypology
-                placeholder="Source of Payment Typology" #ssourcePTypology="ngModel" required>
+              <mat-select panelClass="optionalignment" [(ngModel)]="secList.SourceOfPaymentTypology"
+                #secondaryPaymentTypology placeholder="Source of Payment Typology" #ssourcePTypology="ngModel" required>
                 <mat-select-filter [displayMember]="'Code'" [array]="secondarySptcFilter"
-                  (filteredReturn)="SourceOfPaymentTypologyCodes = $event"  *ngIf="secondaryPaymentTypology.focused"></mat-select-filter>
+                  (filteredReturn)="SourceOfPaymentTypologyCodes = $event" *ngIf="secondaryPaymentTypology.focused">
+                </mat-select-filter>
                 <mat-option class="matpanelalignment" *ngFor="let item of SourceOfPaymentTypologyCodes"
                   [value]="item.Code" (click)="secondaryspt(item)">
                   {{item.Code}} - {{item.Description}}
@@ -449,7 +452,8 @@
             <div class="col-md-6">
               <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-12">
                 <input matInput [matDatepicker]="dp5" placeholder="Start Date" [(ngModel)]="secList.StartDate"
-                  (click)="dp5?.open()" class="Helvetica-sans-serif-medium pointer pointer" required #sstartdate="ngModel" readonly>
+                  (click)="dp5?.open()" class="Helvetica-sans-serif-medium pointer pointer" required
+                  #sstartdate="ngModel" readonly (dateChange)="dateChangeForSecondary($event)">
                 <mat-datepicker-toggle matSuffix [for]="dp5">
 
                 </mat-datepicker-toggle>
@@ -466,8 +470,9 @@
             <div class="col-md-6">
               <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-12">
                 <input matInput [matDatepicker]="dp6" placeholder="Stop Date" [(ngModel)]="secList.EndDate"
-                  (click)="dp6?.open()" class="Helvetica-sans-serif-medium pointer" readonly>
-                <mat-datepicker-toggle matSuffix [for]="dp6">
+                  (click)="dp6?.open()" class="Helvetica-sans-serif-medium pointer" readonly [min]="endDateForSecondary"
+                  [disabled]="secList.StartDate == null">
+                <mat-datepicker-toggle matSuffix [for]="dp6" [disabled]="secList.StartDate == null">
                 </mat-datepicker-toggle>
                 <mat-datepicker #dp6 disabled="false"></mat-datepicker>
               </mat-form-field>

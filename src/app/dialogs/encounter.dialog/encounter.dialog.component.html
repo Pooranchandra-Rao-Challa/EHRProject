@@ -12,51 +12,54 @@
     <div class="modal-body padding-unset">
       <div class="encounter-content-header">
         <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-6">
-          <div class="row">
-            <div class="encounter-title col-12">
-              Date of Service:
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="row">
+              <div class="encounter-title col-12">
+                Date of Service:
+              </div>
+              <div class="col-xl-4 col-12">
+                <mat-label class="col-12">Start Date</mat-label>
+                <mat-form-field appearance="outline" class="col-12 cstm-datepicker-toggle">
+                  <input matInput class="pointer" autocomplete="off" [matDatepicker]="startDate"
+                    (click)="startDate.open()" readonly placeholder="Start Date" [(ngModel)]="encounterInfo.ServicedAt"
+                    (dateChange)="dateChange($event)" />
+                  <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+                  <mat-datepicker #startDate></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div class="col-xl-4 col-12">
+                <mat-label class="col-12">End Date</mat-label>
+                <mat-form-field appearance="outline" class="col-12 cstm-datepicker-toggle">
+                  <input matInput class="pointer" autocomplete="off" [matDatepicker]="endDate" (click)="endDate.open()"
+                    readonly placeholder="End Date" [(ngModel)]="encounterInfo.ServiceEndAt" [min]="endDateForEncounter"
+                    [disabled]="encounterInfo.ServicedAt == null" />
+                  <mat-datepicker-toggle matSuffix [for]="endDate" [disabled]="encounterInfo.ServicedAt == null">
+                  </mat-datepicker-toggle>
+                  <mat-datepicker #endDate></mat-datepicker>
+                </mat-form-field>
+              </div>
             </div>
-            <div class="col-xl-4 col-12">
-              <mat-label class="col-12">Start Date</mat-label>
-              <mat-form-field appearance="outline" class="col-12 cstm-datepicker-toggle">
-                <input matInput class="pointer" autocomplete="off" [matDatepicker]="startDate"
-                  (click)="startDate.open()" readonly placeholder="Start Date" [(ngModel)]="encounterInfo.ServicedAt" />
-                <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
-                <mat-datepicker #startDate></mat-datepicker>
-              </mat-form-field>
-            </div>
-            <div class="col-xl-4 col-12">
-              <mat-label class="col-12">End Date</mat-label>
-              <mat-form-field appearance="outline" class="col-12 cstm-datepicker-toggle">
-                <input matInput class="pointer" autocomplete="off" [matDatepicker]="endDate" (click)="endDate.open()"
-                  readonly placeholder="End Date" [(ngModel)]="encounterInfo.ServiceEndAt" />
-                <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
-                <mat-datepicker #endDate></mat-datepicker>
-              </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="row">
+              <div class="encounter-title col-12">
+                Provider:
+              </div>
+              <div class="col-xl-8 col-12 encounter-provider">
+                <mat-label class="d-block invisible">hidden</mat-label>
+                <mat-form-field appearance="outline" class="col-10 hover cstm-mat-padding">
+                  <mat-select placeholder="Select One" disableOptionCentering id="encounterPracticeProviders"
+                    placeholder="Select Provider" [(ngModel)]="encounterInfo.ProviderId">
+                    <mat-option>None</mat-option>
+                    <mat-option *ngFor="let provider of PracticeProviders" [value]="provider.ProviderId">
+                      {{provider.FullName}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
             </div>
           </div>
         </div>
-        <div class="col-lg-6 col-md-6 col-sm-6">
-          <div class="row">
-            <div class="encounter-title col-12">
-              Provider:
-            </div>
-            <div class="col-xl-8 col-12 encounter-provider">
-              <mat-label class="d-block invisible">hidden</mat-label>
-              <mat-form-field appearance="outline" class="col-10 hover cstm-mat-padding">
-                <mat-select placeholder="Select One" disableOptionCentering id="encounterPracticeProviders"
-                  placeholder="Select Provider" [(ngModel)]="encounterInfo.ProviderId">
-                  <mat-option>None</mat-option>
-                  <mat-option *ngFor="let provider of PracticeProviders" [value]="provider.ProviderId">
-                    {{provider.FullName}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-          </div>
-        </div>
-      </div>
       </div>
       <mat-progress-bar mode="indeterminate" bufferValue="50" value=100 *ngIf="dialogIsLoading"></mat-progress-bar>
       <div class="encounter-navigation">
@@ -165,8 +168,8 @@
                         <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px">
                           <medical-code-container [codeSystems]="codeSystemsForDischarge"
                             (optionChanged)="onDischargeCodeChange($event)" MinTermLength="3"
-                            PlaceHolderText="Discharge Status (SNOMED)"
-                            [showSelectedValue]="true"></medical-code-container>
+                            PlaceHolderText="Discharge Status (SNOMED)" [showSelectedValue]="true">
+                          </medical-code-container>
                         </div>
                       </div>
                       <div class="row">
@@ -467,26 +470,26 @@
                 <div class="row">
 
                   <!-- <div class="row"> -->
-                    <div class="form-group col-lg-6 col-md-6 col-12" style="display: inline;">
-                      <label class="col-12 vital-label required">Collected date:</label>
-                      <mat-form-field appearance="outline" class="col-lg-12 col-12">
-                        <input class="vital-input " matInput class="pointer" autocomplete="off"
-                          [matDatepicker]="collectedDate" [(ngModel)]="encounterInfo.Vital.CollectedAt"
-                          (click)="collectedDate.open()" readonly placeholder="Collected Date">
-                        <mat-datepicker-toggle matSuffix [for]="collectedDate"></mat-datepicker-toggle>
-                        <mat-datepicker #collectedDate></mat-datepicker>
-                      </mat-form-field>
-                      <label class="col-12 vital-label required">Time:</label>
-                      <mat-form-field appearance="outline" class="col-lg-12 col-12">
-                        <input matInput class="vital-input" type="text" hint="12 hours format"
-                          [(ngModel)]="encounterInfo.Vital.CollectedTime" appTimeMask>
+                  <div class="form-group col-lg-6 col-md-6 col-12" style="display: inline;">
+                    <label class="col-12 vital-label required">Collected date:</label>
+                    <mat-form-field appearance="outline" class="col-lg-12 col-12">
+                      <input class="vital-input " matInput class="pointer" autocomplete="off"
+                        [matDatepicker]="collectedDate" [(ngModel)]="encounterInfo.Vital.CollectedAt"
+                        (click)="collectedDate.open()" readonly placeholder="Collected Date">
+                      <mat-datepicker-toggle matSuffix [for]="collectedDate"></mat-datepicker-toggle>
+                      <mat-datepicker #collectedDate></mat-datepicker>
+                    </mat-form-field>
+                    <label class="col-12 vital-label required">Time:</label>
+                    <mat-form-field appearance="outline" class="col-lg-12 col-12">
+                      <input matInput class="vital-input" type="text" hint="12 hours format"
+                        [(ngModel)]="encounterInfo.Vital.CollectedTime" appTimeMask>
 
-                      </mat-form-field>
-                    </div>
-                    <div class="form-group col-lg-6 col-md-6 col-12" style="float: right">
-                      <label class="col-12 vital-label">Comments:</label>
-                      <textarea class="textarea col-12" style="height:80%; border:1px solid #41b6a6"
-                        [(ngModel)]="encounterInfo.Vital.Note"></textarea>
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group col-lg-6 col-md-6 col-12" style="float: right">
+                    <label class="col-12 vital-label">Comments:</label>
+                    <textarea class="textarea col-12" style="height:80%; border:1px solid #41b6a6"
+                      [(ngModel)]="encounterInfo.Vital.Note"></textarea>
                     <!-- </div> -->
                   </div>
                 </div>
@@ -734,8 +737,7 @@
                         <p class="text-capitalize-first">TOOTH</p>
                       </mat-header-cell>
                       <mat-cell *matCellDef="let item">
-                        <mat-form-field class="teeth-form-field" appearance="outline"
-                          [ngStyle]="{'width': '120px'}">
+                        <mat-form-field class="teeth-form-field" appearance="outline" [ngStyle]="{'width': '120px'}">
                           <mat-label class="required">Tooth</mat-label>
                           <mat-select class="select" [(ngModel)]="item.ToothNo" style="width: 100px;">
                             <mat-option *ngFor="let teethno  of teethNumbers" [value]="teethno">{{teethno}}</mat-option>
@@ -754,7 +756,8 @@
                             <input matInput teethSurface style="width: 80px;">
                             <mat-icon pull-right>arrow_drop_down</mat-icon>
                           </mat-form-field> -->
-                        <app-teeth-surface class="pointer" readonly (optionValueChanged)="onToothSurfaceSelectedForRP($event,item,i)"
+                        <app-teeth-surface class="pointer" readonly
+                          (optionValueChanged)="onToothSurfaceSelectedForRP($event,item,i)"
                           [selectedOption]="item.Place"></app-teeth-surface>
                       </mat-cell>
                     </ng-container>

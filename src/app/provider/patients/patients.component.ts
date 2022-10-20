@@ -181,7 +181,6 @@ export class PatientsComponent implements OnInit,AfterViewInit {
   }
 
   loadPatients() {
-    debugger
     this.patientsDataSource.loadPatients(
       this.searchPatient.nativeElement.value,
       this.sort.active,
@@ -238,7 +237,6 @@ export class PatientDatasource implements DataSource<ProviderPatient>{
 
   loadPatients(filter = '', sortField = 'LastAccessed',
     sortDirection = 'desc', pageIndex = 0, pageSize = 10) {
-      debugger
     this.queryParams["SortField"] = sortField;
     this.queryParams["SortDirection"] = sortDirection;
     this.queryParams["PageIndex"] = pageIndex;

@@ -13,14 +13,17 @@
         </div>
         <mat-form-field appearance="outline" class="grey-matform green-calendar col-lg-2 col-md-6">
           <input matInput class="pointer date-mat-class" autocomplete="off" [matDatepicker]="startDate"
-            (click)="startDate.open()" readonly placeholder="Start Date" [(ngModel)]="patientIntervention.StartDate">
+            (click)="startDate.open()" readonly placeholder="Start Date" [(ngModel)]="patientIntervention.StartDate"
+            (dateChange)="dateChange($event)">
           <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
           <mat-datepicker #startDate></mat-datepicker>
         </mat-form-field>
         <mat-form-field appearance="outline" class="grey-matform green-calendar col-lg-2 col-md-6">
           <input matInput class="pointer date-mat-class" autocomplete="off" [matDatepicker]="endDate"
-            (click)="endDate.open()" readonly placeholder="End Date" [(ngModel)]="patientIntervention.EndDate">
-          <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+            (click)="endDate.open()" readonly placeholder="End Date" [(ngModel)]="patientIntervention.EndDate"
+            [min]="endDateForInterventions" [disabled]="patientIntervention.StartDate == null">
+          <mat-datepicker-toggle matSuffix [for]="endDate" [disabled]="patientIntervention.StartDate == null">
+          </mat-datepicker-toggle>
           <mat-datepicker #endDate></mat-datepicker>
         </mat-form-field>
       </div>
@@ -70,9 +73,7 @@
             <mat-header-cell *matHeaderCellDef mat-sort-header="ReasonNotPerformed"> Add Reason Not Performed
             </mat-header-cell>
             <mat-cell *matCellDef="let intervention" class="justify-content-center">
-              <button class="btn btn-green btn-add-cqm"
-                *ngIf="addBtnWhileSearch"
-                [disabled]="intervention.CQMReason"
+              <button class="btn btn-green btn-add-cqm" *ngIf="addBtnWhileSearch" [disabled]="intervention.CQMReason"
                 (click)="openComponentDialog(cqmNotPerformedDialogComponent,intervention.InterventionId,ActionTypes.view)">Add
               </button>
             </mat-cell>
@@ -85,13 +86,15 @@
             </mat-cell>
           </ng-container>
 
-            <ng-container matColumnDef="CqmStatus">
-              <mat-header-cell *matHeaderCellDef mat-sort-header="CqmStatus" [style.display]="patientIntervention.InterventionId ? 'flex' : 'none'">Cqm Status</mat-header-cell>
-              <mat-cell *matCellDef="let intervention" [style.display]="patientIntervention.InterventionId ? 'flex' : 'none'">
-                <a>{{intervention.CqmStatus}}
-                </a>
-              </mat-cell>
-            </ng-container>
+          <ng-container matColumnDef="CqmStatus">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="CqmStatus"
+              [style.display]="patientIntervention.InterventionId ? 'flex' : 'none'">Cqm Status</mat-header-cell>
+            <mat-cell *matCellDef="let intervention"
+              [style.display]="patientIntervention.InterventionId ? 'flex' : 'none'">
+              <a>{{intervention.CqmStatus}}
+              </a>
+            </mat-cell>
+          </ng-container>
 
           <mat-header-row *matHeaderRowDef="interventionColumns"></mat-header-row>
           <mat-row *matRowDef="let row; columns: interventionColumns"></mat-row>

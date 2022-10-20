@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ComponentType } from 'ngx-toastr';
+import { Subject } from 'rxjs-compat';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
 import { OverlayService } from 'src/app/overlay.service';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
@@ -21,7 +22,8 @@ export class AddDiagnosesDialogComponent implements OnInit {
   currentPatient: ProviderPatient;
   patientEducationMaterialDialogComponent = PatientEducationMaterialDialogComponent;
   ActionTypes = Actions;
-
+  minDateToFinish = new Subject<string>()
+  endDateForDiagnosis;
   constructor(private ref: EHROverlayRef,
     private authService: AuthenticationService,
     private patientService: PatientService,
@@ -32,6 +34,9 @@ export class AddDiagnosesDialogComponent implements OnInit {
     if (this.patientDiagnoses.StopAt != (null || '' || undefined)) {
       this.patientDiagnoses.StopAt = this.datepipe.transform(this.patientDiagnoses.StopAt, "yyyy-MM-dd");
     }
+    this.minDateToFinish.subscribe(d => {
+      this.endDateForDiagnosis = new Date(d);
+    })
   }
 
   ngOnInit(): void {
@@ -51,9 +56,14 @@ export class AddDiagnosesDialogComponent implements OnInit {
 
   todayStartAt() {
     this.patientDiagnoses.StartAt = new Date();
+    let val = this.patientDiagnoses.StartAt;
+    this.minDateToFinish.next(val.toString());
   }
   todayStopAt() {
     this.patientDiagnoses.StopAt = this.datepipe.transform(new Date(), "yyyy-MM-dd");
+  }
+  dateChange(e) {
+    this.minDateToFinish.next(e.value.toString());
   }
 
   CreateDiagnoses() {
@@ -87,7 +97,7 @@ export class AddDiagnosesDialogComponent implements OnInit {
 
   disableDiagnosis() {
     return !(this.patientDiagnoses.CodeSystem && this.patientDiagnoses.Code && this.patientDiagnoses.Description && this.patientDiagnoses.StartAt
-            && this.patientDiagnoses.StopAt && this.patientDiagnoses.Note)
+      && this.patientDiagnoses.StopAt && this.patientDiagnoses.Note)
   }
 
   openComponentDialog(content: any | ComponentType<any> | string,

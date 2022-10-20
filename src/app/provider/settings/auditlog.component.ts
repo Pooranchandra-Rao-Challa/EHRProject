@@ -4,6 +4,8 @@ import { AuthenticationService } from '../../_services/authentication.service';
 import { SettingsService } from '../../_services/settings.service';
 import { UtilityService } from '../../_services/utiltiy.service';
 import { User, UserLocations } from '../../_models';
+import { Subject } from 'rxjs-compat';
+import { borderTopRightRadius } from 'html2canvas/dist/types/css/property-descriptors/border-radius';
 
 
 
@@ -41,9 +43,15 @@ export class AuditLogComponent implements OnInit {
   // mockHeaders = `'Date', 'Patient','User',
   // 'DataType', 'Action', 'Details'
   // `
+  minDateToFinish = new Subject<string>()
+  endDateForAuditLog;
 
   constructor(private authService: AuthenticationService, private settingservice: SettingsService) {
     this.user = authService.userValue;
+    this.minDateToFinish.subscribe(a =>
+      {
+        this.endDateForAuditLog = new Date(a);
+      })
   }
 
 
@@ -51,6 +59,10 @@ export class AuditLogComponent implements OnInit {
   ngOnInit(): void {
     // this.getdata();
     this.getAuditLogList('');
+  }
+  dateChange(e)
+  {
+  this.minDateToFinish.next(e.value.toString());
   }
   getAuditLogList(event) {
     if (event == 'reset') {

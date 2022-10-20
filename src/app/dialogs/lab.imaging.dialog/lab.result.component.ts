@@ -29,7 +29,7 @@ export class LabResultComponent implements OnInit {
   testCodeComponent = TestCodeComponent;
   orderIsManual?: boolean = false;
   saveClicked?: boolean = false;
-  user:User;
+  user: User;
   constructor(private ref: EHROverlayRef,
     private fb: FormBuilder,
     private patientService: PatientService,
@@ -162,10 +162,10 @@ export class LabResultComponent implements OnInit {
   }
 
   removeLabOrder(index: number) {
-   this.testOrders.controls.splice(index, 1).forEach(ctrl => {
-      if(isNaN(ctrl.get("TestOrderId").value))
-        if(this.labandImaging.RemovedTestOrderIds ==null) this.labandImaging.RemovedTestOrderIds = [];
-        this.labandImaging.RemovedTestOrderIds.push(ctrl.get("TestOrderId").value);
+    this.testOrders.controls.splice(index, 1).forEach(ctrl => {
+      if (isNaN(ctrl.get("TestOrderId").value))
+        if (this.labandImaging.RemovedTestOrderIds == null) this.labandImaging.RemovedTestOrderIds = [];
+      this.labandImaging.RemovedTestOrderIds.push(ctrl.get("TestOrderId").value);
     });
   }
 
@@ -186,7 +186,7 @@ export class LabResultComponent implements OnInit {
           this.testOrders.controls[value.Index].setValue({
             Code: value.Code, Test: value.Description,
             Result: "", Flag: "", Units: "", Range: "", Delete: "",
-            TestOrderId: -1*value.Index
+            TestOrderId: -1 * value.Index
           });
         }
       }
@@ -225,6 +225,7 @@ export class LabResultComponent implements OnInit {
       this.labandImaging.LabResult.TestReportedAt = this.datePipe.transform(this.labandImaging.LabResult.TestReportedDate, "MM/dd/yyyy");
 
     this.labandImaging.strResult = JSON.stringify(this.labandImaging.LabResult);
+    this.labandImaging.LabResult.NPI = this.labandImaging.NPI;
 
     let isAdd = this.labandImaging.LabResult.LabResultId == null || this.labandImaging.LabResult.LabResultId == '';
 
