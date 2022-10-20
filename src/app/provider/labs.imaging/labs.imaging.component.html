@@ -114,7 +114,7 @@
             <td mat-cell *matCellDef="let lab">{{lab.CreatedDate | date: 'yyyy-MM-dd'}}</td>
           </ng-container>
           <ng-container matColumnDef="Signed">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header="Signed">Signed</th>
+            <th mat-header-cell *matHeaderCellDef>Signed/UnSigned</th>
             <td mat-cell *matCellDef="let lab">{{lab.Signed == true ? 'Signed' : 'Unsigned'}}</td>
           </ng-container>
 
