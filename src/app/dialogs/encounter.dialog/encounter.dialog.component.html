@@ -414,7 +414,7 @@
                     <div class="col-lg-2">
                       <mat-checkbox class="referral-margin col-12" #referralfrom
                         (change)='onReferralFromStateChange(referralfrom.checked)'
-                        [(ngModel)]="encounterInfo.ReferredFrom" style="font-weight: normal">Referred from:
+                        [(ngModel)]="encounterInfo.ReferredFrom" style="font-weight: normal"><span [class.required]="encounterInfo.ReferredFrom">Referred from:</span>
                       </mat-checkbox>
                     </div>
                     <div class="col-lg-4">
@@ -426,7 +426,7 @@
                     <div class="col-lg-2">
                       <mat-checkbox class="referral-margin col-12" #referralto
                         (change)='onReferralToStateChange(referralto.checked)' [(ngModel)]="encounterInfo.ReferredTo"
-                        style="font-weight: normal">Referred to:
+                        style="font-weight: normal"><span [class.required]="encounterInfo.ReferredTo">Referred to:</span>
                       </mat-checkbox>
                     </div>
                     <div class="col-lg-4">
@@ -496,16 +496,16 @@
                 </div>
                 <div class="row">
                   <div class="form-group col-md-4" style="display: flex;">
-                    <mat-label class="col-4 vital-label">Height(in):</mat-label>
+                    <mat-label class="col-4 vital-label" [class.required]="this.encounterInfo.Vital.Height || this.encounterInfo.Vital.Weight">Height(in):</mat-label>
                     <mat-form-field appearance="outline" class="col-12 vital-mat-form-field">
 
-                      <input matInput class="col-6" #heightField [(ngModel)]="encounterInfo.Vital.Height">
+                      <input matInput type="number" class="col-6" #heightField [(ngModel)]="encounterInfo.Vital.Height">
                       <!-- <mat-hint align="end">in</mat-hint> -->
                       <mat-hint class="vital-mat-form-field-unit-label"></mat-hint>
                     </mat-form-field>
                   </div>
                   <div class="form-group col-md-4">
-                    <mat-label class="col-4 vital-label">Weight(lb):</mat-label>
+                    <mat-label class="col-4 vital-label" [class.required]="this.encounterInfo.Vital.Height || this.encounterInfo.Vital.Weight">Weight(lb):</mat-label>
                     <mat-form-field appearance="outline" class="col-12 vital-mat-form-field">
 
                       <input matInput class="vital-input col-4" #weightField [(ngModel)]="encounterInfo.Vital.Weight">
@@ -513,25 +513,26 @@
                     </mat-form-field>
                   </div>
                   <div class="form-group col-md-4">
-                    <mat-label class="col-4 vital-label">BMI</mat-label>
+                    <mat-label class="col-4 vital-label" [class.required]="this.encounterInfo.Vital.Height || this.encounterInfo.Vital.Weight">BMI</mat-label>
                     <mat-form-field appearance="outline" class="col-12 vital-mat-form-field">
 
                       <input matInput class="vital-input col-4" #bmiField [value]="bmi$ | async" disabled="true"
                         [(ngModel)]="encounterInfo.Vital.BMI">
                       <mat-hint class="vital-mat-form-field-unit-label"></mat-hint>
                     </mat-form-field>
+                    <!-- disabled="true" -->
                   </div>
                 </div>
                 <div class="row">
                   <div class="form-group col-md-4">
-                    <mat-label class="col-4 vital-label">BP:Systolic(mmHg)</mat-label>
+                    <mat-label class="col-4 vital-label" [class.required]="this.encounterInfo.Vital.BPSystolic || this.encounterInfo.Vital.BPDiastolic">BP:Systolic(mmHg)</mat-label>
                     <mat-form-field appearance="outline" class="col-12 vital-mat-form-field">
                       <input matInput class="col-4 vital-input" [(ngModel)]="encounterInfo.Vital.BPSystolic">
                       <mat-hint class="vital-mat-form-field-unit-label"></mat-hint>
                     </mat-form-field>
                   </div>
                   <div class="form-group col-md-4">
-                    <mat-label class="col-4 vital-label">BP:Diastolic(mmHg)</mat-label>
+                    <mat-label class="col-4 vital-label" [class.required]="this.encounterInfo.Vital.BPSystolic || this.encounterInfo.Vital.BPDiastolic">BP:Diastolic(mmHg)</mat-label>
                     <mat-form-field appearance="outline" class=" col-12 vital-mat-form-field">
                       <input matInput class="col-4 vital-input" [(ngModel)]="encounterInfo.Vital.BPDiastolic">
                       <mat-hint class="vital-mat-form-field-unit-label"></mat-hint>
@@ -540,6 +541,7 @@
                   <div class="form-group col-md-4"></div>
                 </div>
                 <div class="row">
+                  <mat-label class="vital-label col-12 mb-2"><b>Note : Please enter atleast one field of the below.</b></mat-label>
                   <div class="form-group col-md-4">
                     <mat-label class="col-4 vital-label">Temperature(F):</mat-label>
                     <mat-form-field appearance="outline" class=" col-12 vital-mat-form-field">
@@ -936,7 +938,7 @@
         Attach Documents
       </button>
       <button type="button" class="btn btn-green" (click)="saveAsDraft()"
-        *ngIf="!encounterInfo.Signed  && !dialogIsLoading">
+        *ngIf="!encounterInfo.Signed  && !dialogIsLoading" [disabled]="enableSaveButtons()">
         Save as Draft
       </button>
       <button type="button" class="btn btn-orange" (click)="signConfirmation()"

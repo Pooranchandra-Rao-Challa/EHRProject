@@ -394,7 +394,7 @@
       <div class="buttons" style="float:right">
         <button mat-raised-button type="submit" class="btn btn-green   pull-right">Print</button>
         <button mat-raised-button type="submit" class="btn btn-green   pull-right"
-          *ngIf="!labandImaging.Signed" [disabled]="!labandImaging.LabResult.TestReportedDate">Sign</button>
+          *ngIf="!labandImaging.Signed" [disabled]="!labandImaging.LabResult.TestReportedDate" (click)="save()">Sign</button>
         <button mat-raised-button type="submit" class="btn btn-green   pull-right" (click)="save()"
           *ngIf="!saveClicked && !labandImaging.Signed" [disabled]="!labandImaging.LabResult.TestReportedDate">Save</button>
       </div>

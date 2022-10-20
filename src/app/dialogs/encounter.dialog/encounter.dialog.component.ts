@@ -239,8 +239,8 @@ export class EncounterDialogComponent implements OnInit {
   removeRecommendedProcedure(value: ProceduresInfo, index: number) {
     // if (value.ViewFrom != 'ProcedureView') {
     if (this.overlayref.RequestData.ViewFrom != "ProcedureView") {
-        value.CanDelete = true;
-        this.recommendedProcedures.next(this.encounterInfo.RecommendedProcedures.filter(fn => fn.CanDelete === false));
+      value.CanDelete = true;
+      this.recommendedProcedures.next(this.encounterInfo.RecommendedProcedures.filter(fn => fn.CanDelete === false));
     }
     else {
       this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP1003"])
@@ -385,21 +385,51 @@ export class EncounterDialogComponent implements OnInit {
   }
 
   enableSaveButtons() {
+    let flag = ((this.encounterInfo.Vital.CollectedAt && this.encounterInfo.Vital.CollectedTime) && (this.encounterInfo.Vital.Temperature ||
+      this.encounterInfo.Vital.O2Saturation || this.encounterInfo.Vital.Pulse || this.encounterInfo.Vital.RespiratoryRate ||
+      this.encounterInfo.Vital.BloodType))
+    if (this.encounterInfo.ReferredFrom == true) {
+      return !(this.encounterInfo.ReferralFrom && flag)
+    }
+    else if (this.encounterInfo.ReferredTo == true) {
+      return !(this.encounterInfo.ReferralTo && flag)
+    }
+    else if ((this.encounterInfo.Vital.Height || this.encounterInfo.Vital.Weight) && !(this.encounterInfo.Vital.Height && this.encounterInfo.Vital.Weight)) {
+      return !(this.encounterInfo.Vital.Height && this.encounterInfo.Vital.Weight && flag)
+    }
+    else if ((this.encounterInfo.Vital.BPSystolic || this.encounterInfo.Vital.BPDiastolic) && !(this.encounterInfo.Vital.BPSystolic && this.encounterInfo.Vital.BPDiastolic)) {
+      return !(this.encounterInfo.Vital.BPSystolic && this.encounterInfo.Vital.BPDiastolic && flag)
+    }
+    else {
+      return !(flag)
+    }
 
-    if (this.encounterInfo.HealthInfoExchange == true &&
-      this.encounterInfo.ReferredTo == false
-      || this.encounterInfo.ReferralTo == ""
-      || this.encounterInfo.ReferralTo == null) {
-      this.messageflagSubject.next(true);
-      this.message = "Update the provider to whom you referring this patient."
-    } else
-      if (this.encounterInfo.HealthInfoExchange == true &&
-        this.encounterInfo.ReferredFrom == false
-        || this.encounterInfo.ReferralFrom == ""
-        || this.encounterInfo.ReferralFrom == null) {
-        this.messageflagSubject.next(true);
-        this.message = "Update the provider from whom you redirected this patient."
-      } else this.messageflagSubject.next(false);;
+    // return !(this.encounterInfo.Vital.CollectedAt && this.encounterInfo.Vital.CollectedTime)
+
+
+    // if (this.encounterInfo.HealthInfoExchange == true &&
+    //   this.encounterInfo.ReferredTo == false
+    //   || this.encounterInfo.ReferralTo == ""
+    //   || this.encounterInfo.ReferralTo == null) {
+    //   this.messageflagSubject.next(true);
+    //   this.message = "Update the provider to whom you referring this patient."
+    // } else
+    //   if (this.encounterInfo.HealthInfoExchange == true &&
+    //     this.encounterInfo.ReferredFrom == false
+    //     || this.encounterInfo.ReferralFrom == ""
+    //     || this.encounterInfo.ReferralFrom == null) {
+    //     this.messageflagSubject.next(true);
+    //     this.message = "Update the provider from whom you redirected this patient."
+    //   } else this.messageflagSubject.next(false);;
+  }
+
+  checkRecommendedProceduresMandatoryFields() {
+    let flag = true;
+    this.encounterInfo.RecommendedProcedures.forEach((value) => {
+      flag = value.ToothNo != null && value.Place != null;
+      if (!flag) return false;
+    });
+    return flag;
   }
 
   medLinePlusUrl(code: MedicalCode): string {
