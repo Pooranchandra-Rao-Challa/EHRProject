@@ -110,7 +110,7 @@
                     {{user.BusinessName}}
                   </div>
                   <div class="col-xl-1 col-lg-3 col-md-3 col-12">
-                    <button class="plusicon pull-right" data-bs-toggle="modal" data-bs-target="#user-modal">
+                    <button class="plusicon pull-right" (click)="openComponentDialog(praticeAdduserDialogComponent,null,ActionsType.add)">
                       <i class="fa fa-plus addprovider mx-1"></i>
                     </button>
                   </div>
@@ -193,7 +193,7 @@
 
 
 <!-- Add User Modal Popup -->
-<div class="modal fade" id="user-modal" [ngStyle]="{'display':displayuser}" data-bs-keyboard="false" tabindex="-1"
+<!-- <div class="modal fade" id="user-modal" [ngStyle]="{'display':displayuser}" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog  modal-md" role="document">
     <div class="modal-content">
@@ -246,7 +246,7 @@
                 <label class="labelclass form-control required">Email</label>
                 <input class="addfromdesign inputclass form-control mx-0" type="text" [(ngModel)]="NewUserData.Email"
                   id="email" name="email" autocomplete="off" #email="ngModel" required    pattern="^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$" />
-                <!-- ^[A-Za-z0-9._%-]+@[A-Za-z0-9._-]+\\.[a-z]{2,3}$ -->
+    
               </div>
               <div *ngIf="email.errors && (email.touched)">
                 <div class="error_message" *ngIf="email.errors.pattern">
@@ -270,19 +270,7 @@
             </div>
           </div>
 
-          <!-- We are going to remove this dropdown -->
-
-          <!-- <div class="col-lg-6 col-md-6 col-12 my-2">
-            <div class="form-group">
-              <label>Status:</label>
-              <mat-form-field appearance="outline">
-                <mat-select placeholder="Status" autocomplete="off" [(ngModel)]="NewUserData.Active">
-                  <mat-option value="True">Enable</mat-option>
-                  <mat-option value="False">Disable</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-          </div> -->
+        
 
         </div>
       </div>
@@ -294,4 +282,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
