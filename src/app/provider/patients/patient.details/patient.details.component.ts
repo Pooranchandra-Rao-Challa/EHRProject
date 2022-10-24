@@ -91,7 +91,9 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
       this.patient.Age = Number(patientUpdatedData.Age);
       this.patient.FirstName = patientUpdatedData.FirstName;
       this.patient.LastName = patientUpdatedData.LastName;
-      this.patient.Gender = patientUpdatedData.Sex;
+      this.patient.Gender = patientUpdatedData.Gender;
+      this.patient.MobilePhone = patientUpdatedData.MobilePhone;
+      this.patient.PrimaryPhone = patientUpdatedData.PrimaryPhone;
     })
     this.viewChangeService.getData().subscribe(changedView => {
       this.viewModel = this.authService.viewModel;
@@ -319,14 +321,12 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
 
   _detailsView(patientview) {
     //this.viewChangeService.sendData("Patients");
-    console.log(
-      this.authService.viewModel);
     this.authService.SetViewParam("Patient", patientview);
     this.authService.SetViewParam("PatientView", "Chart");
     this.authService.SetViewParam("View", "Patients");
     const currentUrl = this.router.url;
     this.router.navigateByUrl(currentUrl, { skipLocationChange: true }).then(() => {
-      this.router.navigate(["/provider/patientdetails"]);
+      this.router.navigate(["provider/patientdetails"]);
     });
     //this.router.navigate(["/provider/patientdetails"]);
   }
@@ -369,7 +369,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
     labOrImage.PatientId = this.patient.PatientId;
     labOrImage.CurrentPatient = {};
     labOrImage.CurrentPatient.PatientId = this.patient.PatientId;
-    labOrImage.CurrentPatient.DateofBirth = new Date(this.patient.Dob);
+    labOrImage.CurrentPatient.Dob = new Date(this.patient.Dob);
     labOrImage.CurrentPatient.Name = this.patient?.FirstName + ' ' + this.patient?.LastName
     labOrImage.CurrentPatient.PrimaryPhone = this.patient?.PrimaryPhone
     labOrImage.CurrentPatient.Age = this.patient?.Age;

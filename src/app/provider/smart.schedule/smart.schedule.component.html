@@ -81,6 +81,7 @@
                       <div *ngIf="appointment.PrimaryPhone">H: {{appointment.PrimaryPhone}}</div>
                       <div *ngIf="appointment.MobilePhone">M: {{appointment.MobilePhone}}</div>
                       <div *ngIf="appointment.ContactEmail">M: {{appointment.ContactEmail}}</div>
+                      <div *ngIf="appointment.Email">E:{{appointment.Email}}</div>
                     </div>
                     <div class="col-md-2 col-2 provider" *ngIf="appointment.IsCurrent" >{{appointment.ProviderName}}</div>
                     <div class="col-md-3 col-3 visit-status" *ngIf="appointment.IsCurrent">
@@ -109,7 +110,7 @@
                       </button>
                     </div>
                   </div>
-                  
+
                 </div>
               </div>
             </div>
@@ -142,11 +143,15 @@
                         {{appointment.AppointmentTime | date:'MM/dd/yyyy'}}
                         &nbsp;
                         Time: {{appointment.AppointmentTime | date:'hh:mm a'}}
+
                       </div>
                       <div class="col-md-2 col-2 appintment-link" *ngIf="appointment.IsPast"
                         (click)="openComponentDialog(appointmentDialogComponent,appointment,ActionsType.view)">
                         <div>{{appointment.PatientName}}</div>
                         <div>DOB: {{appointment.DateofBirth | date:'MMM d, y'}}</div>
+                        <div> H: {{appointment.PrimaryPhone}}</div>
+                          <div>M: {{appointment.MobilePhone}}</div>
+                          <div>E:{{appointment.Email}}</div>
                       </div>
                       <div class="col-md-2 col-2 provider" *ngIf="appointment.IsPast">{{appointment.ProviderName}}</div>
                       <div class="col-md-3 col-3 visit-status" *ngIf="appointment.IsPast">

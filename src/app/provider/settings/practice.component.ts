@@ -15,6 +15,7 @@ import { UserDialogComponent } from 'src/app/dialogs/user.dialog/user.dialog.com
 import { OverlayService } from '../../overlay.service';
 import { AlertMessage, ERROR_CODES } from './../../_alerts/alertMessage';
 import { LocationDialogComponent } from 'src/app/dialogs/location.dialog/location.dialog.component';
+import { PraticeAdduserDialogComponent } from 'src/app/dialogs/pratice.adduser.dialog/pratice.adduser.dialog.component';
 
 
 @Component({
@@ -45,6 +46,7 @@ export class PracticeComponent implements OnInit {
   ActionsType = Actions;
   user: User;
   url: string;
+  praticeAdduserDialogComponent = PraticeAdduserDialogComponent
 
   constructor(private fb: FormBuilder,
     private authService: AuthenticationService,
@@ -57,7 +59,6 @@ export class PracticeComponent implements OnInit {
     @Inject(DOCUMENT) private _document: Document) {
     this.user = authService.userValue;
     this.url = plaformLocation.href.replace(plaformLocation.pathname, '/');
-
     this.changedLocationId = this.user.CurrentLocation;
     this.locationsubscription = this.locationSelectService.getData().subscribe(LocationId => {
       this.changedLocationId = LocationId;
@@ -78,6 +79,7 @@ export class PracticeComponent implements OnInit {
     this.loadFormDefaults();
   }
 
+  
   loadFormDefaults() {
     this.utilityService.ProviderRoles().subscribe(resp => {
       if (resp.IsSuccess) {
@@ -85,8 +87,8 @@ export class PracticeComponent implements OnInit {
       }
     });
   }
-  filterTimeZone:any
-  timelist:any
+  filterTimeZone: any
+  timelist: any
   // dropdown for TimeZone
   getTimeZoneList() {
     this.settingsService.TimeZones().subscribe(resp => {
@@ -94,7 +96,7 @@ export class PracticeComponent implements OnInit {
         this.TimeZoneList = resp.ListResult;
         this.filterTimeZone = this.TimeZoneList.slice();
         this.DisplayDateTimeZone();
-       
+
       }
     });
   }
@@ -110,7 +112,7 @@ export class PracticeComponent implements OnInit {
   }
   // get display Location Details
   practiceLocations() {
-    this.settingsService.PracticeLocations(this.user.ProviderId, this.user.ClinicId).subscribe(resp => {
+    this.settingsService.PracticeLocations(null, this.user.ClinicId).subscribe(resp => {         /* this.user.ProviderId -- reqparam in place of null */
       if (resp.IsSuccess) {
         this.locationdataSource = resp.ListResult;
       }
@@ -152,24 +154,25 @@ export class PracticeComponent implements OnInit {
     });
 
   }
-  updateUser() {
-    this.NewUserData.ClinicId = this.user.ClinicId;
-    this.NewUserData.LocationId = this.user.CurrentLocation;
-    if (this.NewUserData.PracticeName == null)
-      this.NewUserData.PracticeName = this.user.BusinessName;
-    this.NewUserData.URL = this.url;
+  //This method will be available praticeAdduserDialogComponent
+  // updateUser() {
+  //   this.NewUserData.ClinicId = this.user.ClinicId;
+  //   this.NewUserData.LocationId = this.user.CurrentLocation;
+  //   if (this.NewUserData.PracticeName == null)
+  //     this.NewUserData.PracticeName = this.user.BusinessName;
+  //   this.NewUserData.URL = this.url;
 
-    this.settingsService.AddUpdateUser(this.NewUserData).subscribe(resp => {
-      if (resp.IsSuccess) {
-        this.getProviderDetails();
-        this.NewUserData = new NewUser;
-        this.alertmsg.userCreateConfirm(resp.Result["Code"], resp.Result["ProviderName"])
-      }
-      else {
-        this.alertmsg.displayErrorDailog(ERROR_CODES["E2JP007"])
-      }
-    });
-  }
+  //   this.settingsService.AddUpdateUser(this.NewUserData).subscribe(resp => {
+  //     if (resp.IsSuccess) {
+  //       this.getProviderDetails();
+  //       this.NewUserData = new NewUser;
+  //       this.alertmsg.userCreateConfirm(resp.Result["Code"], resp.Result["ProviderName"])
+  //     }
+  //     else {
+  //       this.alertmsg.displayErrorDailog(ERROR_CODES["E2JP007"])
+  //     }
+  //   });
+  // }
 
   getUserDataforEdit(u: NewUser) {
     var reqparams = {
@@ -189,7 +192,7 @@ export class PracticeComponent implements OnInit {
   }
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
     data?: any, action?: Actions) {
-    
+
     let dialogData: any;
     if (content === this.userDialogComponent && action == Actions.view) {
       dialogData = this.userInfoForEdit(data, action);
@@ -198,6 +201,10 @@ export class PracticeComponent implements OnInit {
       if (action == Actions.view) {
         locdig.ProviderId = this.user.ProviderId;
         locdig.LocationInfo = data;
+      }
+      else if(content === this.praticeAdduserDialogComponent)
+      {
+
       }
       else {
         locdig.ProviderId = this.user.ProviderId;
@@ -208,15 +215,21 @@ export class PracticeComponent implements OnInit {
     const ref = this.overlayService.open(content, dialogData);
     ref.afterClosed$.subscribe(res => {
       if (content === this.userDialogComponent) {
-        if (res.data != null && res.data.saved) {
+        if (res.data != null && (res.data.saved || res.data.viewRefresh == true)) {
           this.getProviderDetails();
           this.practiceLocations();
         }
-      } else if (content === this.locationDialogComponent) {
+      } 
+      else if (content === this.locationDialogComponent) {
         if (res.data != null && (res.data.saved || res.data.deleted)) {
           this.practiceLocations();
           this.getProviderDetails();
         }
+      }
+      else if(content === this.praticeAdduserDialogComponent)
+      {
+        this.practiceLocations();
+        this.getProviderDetails();
       }
     });
   }
@@ -241,15 +254,7 @@ export class PracticeComponent implements OnInit {
     this.alertmsg.userCreateConfirm('Code', "Provider Name")
   }
   /*  ^[A-Za-z0-9._%-]+@[A-Za-z0-9._-]+\\.[a-z]{2,3}$*/
-  emailPattern = /^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$/;
-  EnableSave() {
-    var emailReg = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
-    return !(this.NewUserData.FirstName != null && this.NewUserData.FirstName != ""&& this.NewUserData.LastName != null && this.NewUserData.LastName != ""
-      && this.NewUserData.Email != null && this.NewUserData.Email != ""
-      && this.emailPattern.test(this.NewUserData.Email)
-      && this.NewUserData.PracticeRole != null && this.NewUserData.PracticeRole != "");
-  }
-
+ 
   Close() {
     this.NewUserData = new NewUser()
   }

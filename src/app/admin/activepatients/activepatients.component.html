@@ -75,7 +75,7 @@
                 <div class="d-flex justify-content-end  mx-3">
 
 
-                  <div class="admin-pg-container">
+                  <div class="admin-pg-container" [hidden]="!patientsDataSource.TotalRecordSize">
                     <mat-paginator adminPagination
                        [length]="patientsDataSource.TotalRecordSize" [pageSize]="pageSize"
                        [pageIndex] = "page"

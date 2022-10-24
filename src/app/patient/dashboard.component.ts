@@ -34,6 +34,7 @@ export class DashboardComponent {
   messagescount: number = 0;
   currentMessageView: string = 'Inbox';
   viewAppoinments: Appointments = {} as Appointments;
+  viewMessages:Messages = {} as Messages;
   constructor(private authenticationService: AuthenticationService, private overlayService: OverlayService, private patientservice: PatientService, private router: Router,
     private messageService: MessagesService,) {
     this.user = authenticationService.userValue;
@@ -127,15 +128,14 @@ export class DashboardComponent {
       "MessageFilter": "Inbox"
     }
     this.messageService.Messages(req).subscribe(res => {
-
       this.messages = res.ListResult == null ? [] : res.ListResult;
-      console.log(this.messages);
-
       this.messagescount = res.ListResult == null ? 0 : res.ListResult[0].MessagesCount;
-
-    })
+    });
   }
   showappoinments(item) {
     this.viewAppoinments = item;
+  }
+  showMessages(messages) {
+    this.viewMessages = messages;
   }
 }

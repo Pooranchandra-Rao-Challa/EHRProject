@@ -317,3 +317,10 @@ mat-cell:last-of-type {
 ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-wrapper {
   padding-bottom: 1.25em !important;
 }
+
+::ng-deep .mat-tooltip {
+  background-color: #41b6a6;
+  border: 1px solid #fff;
+  color: #fff;
+  font-size: 14px;
+}

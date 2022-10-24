@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs';
+import { User, UserLocations } from 'src/app/_models';
 import { PatientProfile } from 'src/app/_models/_patient/patientprofile';
 
 @Injectable()
@@ -69,6 +70,28 @@ export class RecordsChangeService {
   }
 
   getData(): Observable<any> {
+    return this.subject.asObservable();
+  }
+}
+
+export class MessageCounts {
+  UnreadCount: number;
+  UrgentCount: number;
+}
+
+@Injectable()
+export class NotifyMessageService {
+  private subject = new Subject<any>();
+
+  sendData(counts: MessageCounts) {
+    this.subject.next(counts);
+  }
+
+  clearData() {
+    this.subject.next();
+  }
+
+  getData(): Observable<MessageCounts> {
     return this.subject.asObservable();
   }
 }

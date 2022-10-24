@@ -90,6 +90,10 @@ export class PatientService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._careTeamByPatientIdUrl, reqparams);
   }
 
+  CreatePatientsRelationShip(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._createPatientsRelationShipUrl, reqparams);
+  }
+
   LabTestResultByPatientId(reqparams: any) {
     return this._ProcessPostRequest<any>(this._labTestResultByPatientIdUrl, reqparams);
   }
@@ -286,6 +290,10 @@ export class PatientService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._deletePatientUrl, reqparams);
   }
 
+  DeleteCareTeamProviderIds(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._deleteCareTeamProviderIdsUrl, reqparams);
+  }
+
   PatientSearch(reqparams: any) {
     return this._ProcessPostRequest<any>(this._patientSearchUrl, reqparams);
   }
@@ -315,6 +323,9 @@ export class PatientService extends APIEndPoint {
   {
     return this._ProcessPostRequest<any>(this._authorizedRepresentativesUrl,reqParams);
   }
-
+  ChangeFooterVersion()
+  {
+    return this._ProcessGetRequest<any>(this._getAdminVersionUrl);
+  }
 
 }

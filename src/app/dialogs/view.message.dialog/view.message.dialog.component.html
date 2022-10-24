@@ -1,0 +1,34 @@
+  <div class="modal-dialog view-messages">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="Helvetica-sans-serif-medium">View Messages </span>
+        <span type="button" class="cross-mark" (click)="cancel()">
+          X
+        </span>
+      </div>
+      <div class="modal-body modal-scrollbar">
+        <div class="row mb-1">
+          <div class="col-md-6 Helvetica-sans-serif-medium">Date:</div>
+          <div class="col-md-6 Helvetica-sans-serif-medium"><b>{{viewMessages.Updated | date:'M/d/yyyy'}}</b></div>
+        </div>
+        <div class="row mb-1">
+          <div class="col-md-6 Helvetica-sans-serif-medium">From:</div>
+          <div class="col-md-6 Helvetica-sans-serif-medium"><b>{{viewMessages.PatientName}}</b></div>
+        </div>
+        <div class="row mb-1">
+          <div class="col-md-6 Helvetica-sans-serif-medium">To:</div>
+          <div class="col-md-6 Helvetica-sans-serif-medium"><b>{{viewMessages.ProviderName}}</b></div>
+        </div>
+        <div class="row mb-1">
+          <div class="col-md-6 Helvetica-sans-serif-medium">Subject :</div>
+          <div class="col-md-6 Helvetica-sans-serif-medium"><b>{{viewMessages.Subject}}</b></div>
+        </div>
+        <div class="row mb-1">
+          <div class="col-md-6 Helvetica-sans-serif-medium">Body:</div>
+          <div class="col-md-6 Helvetica-sans-serif-medium"><b>{{viewMessages.Body}}</b></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>

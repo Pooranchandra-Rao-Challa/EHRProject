@@ -27,8 +27,10 @@
             </div>
             <div class="col-md-5">
               <div><b>Type: &nbsp;</b>{{patientapp.AppointmentType}}</div>
-              <div><a href="javascript:void(0)"
-                (click)="close()" >Cancel</a></div>
+              <div>
+                <a href="javascript:void(0)" (click)="updateAppointmentStatus(patientapp)" *ngIf="patientapp.Status != 'Cancelled'" >Cancel</a>
+                <p class="text-red-color" *ngIf="patientapp.Status == 'Cancelled'">Cancelled</p>
+              </div>
             </div>
           </div>
         </div>

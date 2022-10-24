@@ -804,6 +804,10 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "DeleteBlockout";
   }
 
+  get _deleteCareTeamProviderIdsUrl() {
+    return this._baseUrl + "DeleteCareTeamProviderIds";
+  }
+
   get _calendarBlockoutsUrl() {
     return this._baseUrl + "CalendarBlockouts";
   }
@@ -871,6 +875,10 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "CheckEmailAvailablity";
   }
 
+  get _createPatientsRelationShipUrl() {
+    return this._baseUrl + "CreatePatientsRelationShip";
+  }
+
   get _imagetoBase64StringUrl() {
     return this._baseUrl + "api/upload/ImagetoBase64String";
   }
@@ -879,6 +887,19 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "ImportData";
   }
 
+  get _getAdminVersionUrl()
+  {
+    return this._baseUrl + "GetAdminSettingVersion";
+  }
+  get _updateAdminVersionUrl()
+  {
+    return this._baseUrl + "UpdateAdminSettingsAppVersion";
+  }
+
+  get _readInboxMessageUrl()
+  {
+    return this._baseUrl + "ReadInboxMessages";
+  }
   constructor(public http: HttpClient) {
     super();
   }

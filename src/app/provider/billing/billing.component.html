@@ -11,7 +11,7 @@
         <label class="col-md-1 col-12 col-lg-1 py-lg-3 px-lg-1 pull-right d-flex justify-content-end flex-sm-row flex-column">Proc Date &nbsp;:&nbsp;from</label>
         <mat-form-field appearance="outline" class="green-calendar col-md-3">
           <input matInput [matDatepicker]="dp"  placeholder="Start Date" name="startDate"
-          [(ngModel)]="startDate"(click)="dp.open()">
+          [(ngModel)]="startDate"(click)="dp.open()" readonly class="pointer">
           <mat-datepicker-toggle matSuffix [for]="dp">
           </mat-datepicker-toggle>
           <mat-datepicker #dp disabled="false"></mat-datepicker>
@@ -19,7 +19,7 @@
          <label class="col-md-1 col-12 px-3 px-lg-3 toalignment pt-0 pt-lg-3">to</label>
         <mat-form-field appearance="outline" class="green-calendar col-md-3">
           <input matInput [matDatepicker]="dp1" placeholder="Stop Date"  name="enddate"
-          [(ngModel)]="enddate">
+          [(ngModel)]="enddate" readonly (click)="dp1.open()" class="pointer">
           <mat-datepicker-toggle matSuffix [for]="dp1">
           </mat-datepicker-toggle>
           <mat-datepicker #dp1 disabled="false"></mat-datepicker>

@@ -1,107 +1,108 @@
-<div id="pause" class="d-flex align-items-center justify-content-center" *ngIf="customizedspinner">
+<!-- <div id="pause" class="d-flex align-items-center justify-content-center" *ngIf="customizedspinner">
   <div id="spinner"></div>
-</div>
+</div> -->
 <div class="card">
   <div class="card-header bg-color">
-  <h5 class="Helvetica-sans-serif-medium mt-3">Audit Log</h5>
-  <div class="exportpdf pull-right">
+    <h5 class="Helvetica-sans-serif-medium mt-3">Audit Log</h5>
+    <div class="exportpdf pull-right">
       <mat-form-field appearance="outline">
-    <mat-select class="export" style="color: #41b6a6;" placeholder="Export">
-      <mat-option class="matcolor" (click)="download()">Csv</mat-option>
-      <mat-option (click)="print()">Print</mat-option>
-    </mat-select>
-  </mat-form-field>
-  </div>
+        <mat-select class="export" style="color: #41b6a6;" placeholder="Export">
+          <mat-option class="matcolor" (click)="download()">Csv</mat-option>
+          <mat-option (click)="print()">Print</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
   </div>
   <div class="card-body">
-  <div class="row">
-    <div class="d-flex justify-content-start flex-column flex-md-row">
-      <mat-form-field appearance="outline" class="col-md-3  green-calendar">
-        <input matInput [matDatepicker]="dp"  placeholder="From" name="startDate"
-        [(ngModel)]="startDate" (focus)="dp?.open()" >
-        <mat-datepicker-toggle matSuffix [for]="dp">
-        </mat-datepicker-toggle>
-        <mat-datepicker #dp disabled="false"></mat-datepicker>
-      </mat-form-field>
-      <div class="mx-1 cust-hyphen">-</div>
-      <mat-form-field appearance="outline" class="col-md-3 green-calendar">
-        <input matInput [matDatepicker]="dp1" placeholder="To" name="enddate"
-        [(ngModel)]="enddate" (dateChange)="getAuditLogList('')" (focus)="dp1?.open()">
-        <mat-datepicker-toggle matSuffix [for]="dp1">
-        </mat-datepicker-toggle>
-        <mat-datepicker #dp1 disabled="false"></mat-datepicker>
-      </mat-form-field>
-      <div class="col-md-2 mx-lg-4 mb-3 mb-sm-0">
-        <button mat-raised-button type="submit"
-        class="btn btn-green hover-class" (click)="getAuditLogList('reset')">Reset</button>
+    <div class="row">
+      <div class="d-flex justify-content-start flex-column flex-md-row">
+        <mat-form-field appearance="outline" class="col-md-3  green-calendar">
+          <input matInput class="pointer" [matDatepicker]="dp" placeholder="From" name="startDate"
+            [(ngModel)]="startDate" (click)="dp?.open()" readonly (dateChange)="dateChange($event)">
+          <mat-datepicker-toggle matSuffix [for]="dp">
+          </mat-datepicker-toggle>
+          <mat-datepicker #dp disabled="false"></mat-datepicker>
+        </mat-form-field>
+        <div class="mx-1 cust-hyphen">-</div>
+        <mat-form-field appearance="outline" class="col-md-3 green-calendar">
+          <input matInput class="pointer" [matDatepicker]="dp1" placeholder="To" name="enddate" [(ngModel)]="enddate"
+            (dateChange)="getAuditLogList('')" (click)="dp1?.open()" readonly [min]="endDateForAuditLog"
+            [disabled]="startDate == null">
+          <mat-datepicker-toggle matSuffix [for]="dp1" [disabled]="startDate == null">
+          </mat-datepicker-toggle>
+          <mat-datepicker #dp1 disabled="false"></mat-datepicker>
+        </mat-form-field>
+        <div class="col-md-2 mx-lg-4 mb-3 mb-sm-0">
+          <button mat-raised-button type="submit" class="btn btn-green hover-class"
+            (click)="getAuditLogList('reset')">Reset</button>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="example-container px-2">
-<div #TABLE class="table-align table-responsive">
-  <table mat-table id="table" [dataSource]="auditLogList | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
-    <ng-container matColumnDef="Date">
-      <th mat-header-cell *matHeaderCellDef class="text-center"> Date </th>
-      <td mat-cell *matCellDef="let element" class="text-center">{{element.DATE | date:'MM/dd/yyyy'}}</td>
-    </ng-container>
-    <ng-container matColumnDef="Patient">
-      <th mat-header-cell *matHeaderCellDef class="text-center"> Patient  </th>
-      <td mat-cell *matCellDef="let element" class="text-center">{{element.PatientName}}</td>
-    </ng-container>
-    <ng-container matColumnDef="LocationName">
-      <th mat-header-cell *matHeaderCellDef class="text-center"> Location Name  </th>
-      <td mat-cell *matCellDef="let element" class="text-center">{{element.LocationName}}</td>
-    </ng-container>
-    <ng-container matColumnDef="Provider">
-      <th mat-header-cell *matHeaderCellDef class="text-center"> Provider  </th>
-      <td mat-cell *matCellDef="let element" class="text-center">{{element.ProviderName}}</td>
-    </ng-container>
-    <ng-container matColumnDef="DataType">
-      <th mat-header-cell *matHeaderCellDef class="th-dropdown">
-        <mat-form-field class="placehold" appearance="outline">
-        <mat-select [(ngModel)]="SearchKey"  placeholder="DataType">
-          <mat-option *ngFor="let topping of dataType" [value]="topping" (click)="SearchDetails(topping)">
-            {{topping}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-       </th>
-      <td mat-cell *matCellDef="let element" class="text-center">{{element.DataType}}</td>
-    </ng-container>
-    <ng-container matColumnDef="Action">
-      <th mat-header-cell *matHeaderCellDef class="th-dropdown">
-        <mat-form-field class="placehold" appearance="outline">
-        <mat-select placeholder="Action" [(ngModel)]="SearchKey">
-          <mat-option *ngFor="let action of Action" [value]="action" (click)="SearchDetails(action)">
-            {{action}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field> </th>
-      <td mat-cell *matCellDef="let element" class="text-center">{{element.Action}}</td>
-    </ng-container>
-    <ng-container matColumnDef="Details">
-      <th mat-header-cell *matHeaderCellDef class="text-center"> Details  </th>
-      <td mat-cell *matCellDef="let element" class="text-center">{{element.Detail}}</td>
-    </ng-container>
+    <div class="example-container px-2">
+      <div #TABLE class="table-align table-responsive">
+        <table mat-table id="table"
+          [dataSource]="auditLogList | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+          <ng-container matColumnDef="Date">
+            <th mat-header-cell *matHeaderCellDef class="text-center"> Date </th>
+            <td mat-cell *matCellDef="let element" class="text-center">{{element.DATE | date:'MM/dd/yyyy'}}</td>
+          </ng-container>
+          <ng-container matColumnDef="Patient">
+            <th mat-header-cell *matHeaderCellDef class="text-center"> Patient </th>
+            <td mat-cell *matCellDef="let element" class="text-center">{{element.PatientName}}</td>
+          </ng-container>
+          <ng-container matColumnDef="LocationName">
+            <th mat-header-cell *matHeaderCellDef class="text-center"> Location Name </th>
+            <td mat-cell *matCellDef="let element" class="text-center">{{element.LocationName}}</td>
+          </ng-container>
+          <ng-container matColumnDef="Provider">
+            <th mat-header-cell *matHeaderCellDef class="text-center"> Provider </th>
+            <td mat-cell *matCellDef="let element" class="text-center">{{element.ProviderName}}</td>
+          </ng-container>
+          <ng-container matColumnDef="DataType">
+            <th mat-header-cell *matHeaderCellDef class="th-dropdown">
+              <mat-form-field class="placehold" appearance="outline">
+                <mat-select [(ngModel)]="SearchKey" placeholder="DataType">
+                  <mat-option *ngFor="let topping of dataType" [value]="topping" (click)="SearchDetails(topping)">
+                    {{topping}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </th>
+            <td mat-cell *matCellDef="let element" class="text-center">{{element.DataType}}</td>
+          </ng-container>
+          <ng-container matColumnDef="Action">
+            <th mat-header-cell *matHeaderCellDef class="th-dropdown">
+              <mat-form-field class="placehold" appearance="outline">
+                <mat-select placeholder="Action" [(ngModel)]="SearchKey">
+                  <mat-option *ngFor="let action of Action" [value]="action" (click)="SearchDetails(action)">
+                    {{action}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </th>
+            <td mat-cell *matCellDef="let element" class="text-center">{{element.Action}}</td>
+          </ng-container>
+          <ng-container matColumnDef="Details">
+            <th mat-header-cell *matHeaderCellDef class="text-center"> Details </th>
+            <td mat-cell *matCellDef="let element" class="text-center">{{element.Detail}}</td>
+          </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-</div>
-  <div class="text-center norecordfound py-2 col-12 Helvetica-sans-serif-medium" *ngIf="auditLogList?.length==0">
-    Audit Logs Not Found
- </div>
-</div>
-  <div [hidden]="auditLogList==0">
-      <div class="d-flex justify-content-end my-3">
-    <nav aria-label="Page navigation ">
-      <ul class="pagination mt-4 page-green">
-        <ngb-pagination  [pageSize]="pageSize" [collectionSize]="auditLogList.length"  [(page)]="page"  [maxSize]="9"  aria-label="Default pagination">
-        </ngb-pagination>
-      </ul>
-    </nav>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+      <div class="text-center norecordfound py-2 col-12 Helvetica-sans-serif-medium" *ngIf="auditLogList?.length==0">
+        Audit Logs Not Found
+      </div>
     </div>
-  </div>
-
-
-
+    <div [hidden]="auditLogList==0">
+      <div class="d-flex justify-content-end my-3">
+        <nav aria-label="Page navigation ">
+          <ul class="pagination mt-4 page-green">
+            <ngb-pagination [pageSize]="pageSize" [collectionSize]="auditLogList.length" [(page)]="page" [maxSize]="9"
+              aria-label="Default pagination">
+            </ngb-pagination>
+          </ul>
+        </nav>
+      </div>
+    </div>

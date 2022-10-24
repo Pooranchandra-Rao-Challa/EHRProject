@@ -1,6 +1,6 @@
 <mat-form-field class="teeth-surface-form-field" appearance="outline" class="teeth-surface-input"
   [class.teeth-surface-input-active]="showPanel$ | async" cdkOverlayOrigin #originOverlay="cdkOverlayOrigin">
-  <!-- <mat-label>Teeth Surface</mat-label> -->
+  <mat-label class="required">Teeth Surface</mat-label>
   <div style="display:flex;vertical-align: middle;">
     <input class="pointer" matInput style="width:10rem" [formControl]="teethCtrl" name="teeth-surface" placeholder="Select Surface..." readonly
       [(ngModel)]="selectedOption" />

@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
-import { User } from 'src/app/_models';
+import { PatientChart, User } from 'src/app/_models';
 import { PatientProfile } from 'src/app/_models/_patient/patientprofile';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { PatientService } from 'src/app/_services/patient.service';
@@ -73,7 +73,7 @@ export class NewmessageDialogComponent implements OnInit {
         this._filterPatient(value)
       }
       else if (this.messageDialogData.MessageFor == 'Practice') {
-        this._filetrProvider()
+        this._filetrProvider(value)
       }
       else if (this.messageDialogData.MessageFor == 'Forward') {
         this.searchpatient.nativeElement.value = ''
@@ -84,7 +84,7 @@ export class NewmessageDialogComponent implements OnInit {
       else if (this.messageDialogData.MessageFor == 'PatientForward') {
         this.searchpatient.nativeElement.value = ''
         this.diabledPatientSearch = false
-        this._filetrProvider();
+        this._filetrProvider(value);
 
       }
       else if (this.messageDialogData.MessageFor == undefined) {
@@ -131,9 +131,9 @@ export class NewmessageDialogComponent implements OnInit {
         }
       })
   }
-  _filetrProvider() {
+  _filetrProvider(term) {
     this.isLoading = true;
-    let req = { "ClinicId": this.authenticationService.userValue.ClinicId };
+    let req = { "ClinicId": this.authenticationService.userValue.ClinicId, "SearchTerm": term };
     this.smartSchedulerService.PracticeProviders(req).subscribe(resp => {
       this.isLoading = false;
       this.displayMessage = false;
@@ -168,7 +168,7 @@ export class NewmessageDialogComponent implements OnInit {
       this.message.ProviderName = this.user.FirstName;
       this.message.Draft = item;
       this.message.Sent = sent;
-      this.message.ToId = this.messageDialogData.Messages.toAddress.UserId;
+      this.message.ToId = this.messageDialogData.Messages ? this.messageDialogData.Messages.toAddress.UserId : this.message.ToId;
     }
     this.messageservice.CreateMessage(this.message).subscribe(resp => {
       if (resp.IsSuccess) {

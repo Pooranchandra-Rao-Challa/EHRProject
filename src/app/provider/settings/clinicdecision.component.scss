@@ -164,7 +164,7 @@ mat-accordion .mat-expansion-panel:first-of-type {
   margin-right: -4px;
   transform: rotate(61deg);
     font-size: 29px;
- 
+
 
 }
 
@@ -411,4 +411,14 @@ mat-label{display: block;width: 100%;}
 .modal-body {
   max-height: calc(75vh - 180px);
   overflow-y: auto;
+}
+
+@media (max-width: 1024px) {
+  .scrollable-table.clinical-decision-table {
+    width: 100%;
+    overflow-x: auto;
+  }
+  .clinical-decision-table .table {
+    width: 1300px;
+  }
 }

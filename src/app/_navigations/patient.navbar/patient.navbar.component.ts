@@ -1,3 +1,4 @@
+import { NotifyMessageService } from 'src/app/_navigations/provider.layout/view.notification.service';
 
 
 import { Component, EventEmitter, OnInit, Output, AfterViewInit, ChangeDetectorRef } from '@angular/core';
@@ -7,6 +8,7 @@ import { User, UserLocations, ViewModel } from '../../_models';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PatientProfile } from 'src/app/_models/_patient/patientprofile';
 import { PatientService } from 'src/app/_services/patient.service';
+import { LoaderService } from 'src/app/_loader/loader.service';
 declare var $: any;
 
 @Component({
@@ -26,12 +28,18 @@ export class PatientNavbarComponent implements OnInit,AfterViewInit {
   viewModel: ViewModel;
   @Output() Bredcrumchanged = new EventEmitter<String>();
   menuwidth: number;
+  unreadMails: number = 0;
+  urgentMails: number = 0;
 
   constructor(private authenticationService: AuthenticationService, private patientService: PatientService,
     private route: ActivatedRoute,
     private changeDetectorRef: ChangeDetectorRef,
-    private router: Router) {
+    private router: Router,
+    private notifyMessage: NotifyMessageService,
+    public loaderService: LoaderService) {
     this.user = authenticationService.userValue;
+    this.unreadMails = this.user.UnReadMails;
+    this.urgentMails = this.user.UrgentMessages;
     this.locationsInfo = JSON.parse(this.user.LocationInfo);
     this.viewModel = authenticationService.viewModel as ViewModel;
     if(this.viewModel == null){
@@ -47,6 +55,10 @@ export class PatientNavbarComponent implements OnInit,AfterViewInit {
   ngOnInit(): void {
     //this.name = this.viewModel.View;
     this.getPatientProfile();
+    this.notifyMessage.getData().subscribe(value => {
+      this.unreadMails = value.UnreadCount;
+      this.urgentMails = value.UrgentCount;
+    });
   }
 
   toggleNavbar() {

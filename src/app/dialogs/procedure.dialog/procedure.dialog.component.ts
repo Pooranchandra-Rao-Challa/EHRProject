@@ -3,7 +3,7 @@ import { ProceduresInfo, REASON_CODES, } from './../../_models/_provider/encount
 import { filter, map, } from 'rxjs/operators';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Component, ElementRef, OnInit, ViewChild, } from '@angular/core';
-import { Observable, of, BehaviorSubject, fromEvent } from 'rxjs';
+import { Observable, of, BehaviorSubject, fromEvent, Subject } from 'rxjs';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { PatientService } from 'src/app/_services/patient.service';
@@ -33,8 +33,12 @@ export class ProcedureDialogComponent implements OnInit {
   selectedCode: string;
   isLoading = false;
   procedureStatuses: any;
-  displayMessage:boolean = true;
-  noRecords:boolean = false;
+  displayMessage: boolean = true;
+  noRecords: boolean = false;
+  minDateToFinish = new Subject<string>();
+  minDate;
+  // minDateToFinish = new Subject<String>();
+  endDateForProcedure;
   constructor(private overlayref: EHROverlayRef,
     private authService: AuthenticationService,
     private patientService: PatientService,
@@ -49,16 +53,22 @@ export class ProcedureDialogComponent implements OnInit {
     if (overlayref.RequestData != null)
       this.procedureInfo = overlayref.RequestData;
 
+    this.minDateToFinish.subscribe(r => {
+      this.endDateForProcedure = new Date(r);
+    })
 
 
   }
+
+
+
   ngOnInit(): void {
     fromEvent(this.searchProcedureCode.nativeElement, 'keyup').pipe(
       // get value
       map((event: any) => {
         this.filteredProcedures = of([])
         this.noRecords = true;
-        if(event.target.value == ''){
+        if (event.target.value == '') {
           this.displayMessage = true;
         }
         return event.target.value;
@@ -74,7 +84,9 @@ export class ProcedureDialogComponent implements OnInit {
     this._procedureStatuses();
     this.setSelectedValue();
   }
-
+  dateChange(e) {
+    this.minDateToFinish.next(e.value.toString());
+  }
   cancel() {
     this.overlayref.close()
   }
@@ -417,34 +429,34 @@ cusp_distolingual */
     this.CuspDistolingual$.next(false);
 
   }
-/**
- *
- *
-this.procedureInfo.Place == "surface_buccal_v"
-this.procedureInfo.Place == "surface_facial_v"
-this.procedureInfo.Place == "surface_mesial"
-this.procedureInfo.Place == "surface_incisal"
-this.procedureInfo.Place == "surface_distal"
-this.procedureInfo.Place == "surface_lingual"
-this.procedureInfo.Place == "surface_facial"
-this.procedureInfo.Place == "surface_buccal"
-this.procedureInfo.Place == "surface_occlusal"
-this.procedureInfo.Place == "surface_lingual_v"
-
-
-this.procedureInfo.Place == "pit_mesiobuccal"
-this.procedureInfo.Place == "pit_mesiolingual"
-this.procedureInfo.Place == "pit_distobuccal"
-this.procedureInfo.Place == "pit_distolingual"
-
-
-this.procedureInfo.Place == "cusp_mesial"
-this.procedureInfo.Place == "cusp_mesiobuccal"
-this.procedureInfo.Place == "cusp_mesiolingual"
-this.procedureInfo.Place == "cusp_distal"
-this.procedureInfo.Place == "cusp_distobuccal"
-this.procedureInfo.Place == "cusp_distolingual"
-*/
+  /**
+   *
+   *
+  this.procedureInfo.Place == "surface_buccal_v"
+  this.procedureInfo.Place == "surface_facial_v"
+  this.procedureInfo.Place == "surface_mesial"
+  this.procedureInfo.Place == "surface_incisal"
+  this.procedureInfo.Place == "surface_distal"
+  this.procedureInfo.Place == "surface_lingual"
+  this.procedureInfo.Place == "surface_facial"
+  this.procedureInfo.Place == "surface_buccal"
+  this.procedureInfo.Place == "surface_occlusal"
+  this.procedureInfo.Place == "surface_lingual_v"
+  
+  
+  this.procedureInfo.Place == "pit_mesiobuccal"
+  this.procedureInfo.Place == "pit_mesiolingual"
+  this.procedureInfo.Place == "pit_distobuccal"
+  this.procedureInfo.Place == "pit_distolingual"
+  
+  
+  this.procedureInfo.Place == "cusp_mesial"
+  this.procedureInfo.Place == "cusp_mesiobuccal"
+  this.procedureInfo.Place == "cusp_mesiolingual"
+  this.procedureInfo.Place == "cusp_distal"
+  this.procedureInfo.Place == "cusp_distobuccal"
+  this.procedureInfo.Place == "cusp_distolingual"
+  */
   setSelectedValue() {
     this.BuccalV$.next(this.procedureInfo.Place == "surface_buccal_v");
     this.Facial$.next(this.procedureInfo.Place == "surface_facial");
@@ -467,7 +479,7 @@ this.procedureInfo.Place == "cusp_distolingual"
     this.CuspMesiobuccal$.next(this.procedureInfo.Place == "cusp_mesiobuccal");
     this.CuspDistobuccal$.next(this.procedureInfo.Place == "cusp_distobuccal");
     this.CuspMesiolingual$.next(this.procedureInfo.Place == "cusp_mesiolingual");
-    this.CuspDistolingual$.next(this.procedureInfo.Place == "cusp_distolingual" );
+    this.CuspDistolingual$.next(this.procedureInfo.Place == "cusp_distolingual");
 
   }
 
@@ -475,8 +487,8 @@ this.procedureInfo.Place == "cusp_distolingual"
   save() {
     let isAdd = this.procedureInfo.ProcedureId == null;
     this.procedureInfo.PatientId = this.patient.PatientId;
-    if(this.procedureInfo.ProviderId)
-    this.procedureInfo.ProviderId = this.patient.ProviderId;
+    if (this.procedureInfo.ProviderId)
+      this.procedureInfo.ProviderId = this.patient.ProviderId;
     this.procedureInfo.LocationId = this.authService.userValue.CurrentLocation;
     this.procedureInfo.strDate = this.datePipe.transform(this.procedureInfo.Date, "MM/dd/yyyy")
     this.procedureInfo.strEndDate = this.datePipe.transform(this.procedureInfo.EndDate, "MM/dd/yyyy")
@@ -487,10 +499,10 @@ this.procedureInfo.Place == "cusp_distolingual"
       .subscribe(resp => {
         if (resp.IsSuccess) {
           this.overlayref.close({ "saved": true });
-          this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CP1001" : "M2CP1002"])
+          this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CP1001" : "M2CP1002"]);
         } else {
           this.overlayref.close();
-          this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP1001"])
+          this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP1001"]);
         }
       });
   }
@@ -503,9 +515,6 @@ this.procedureInfo.Place == "cusp_distolingual"
       && this.procedureInfo.Place != null && this.procedureInfo.Place != "");
   }
 
-  dateModified($event) {
-
-  }
 
   _filterProcedure(term) {
 
@@ -513,7 +522,7 @@ this.procedureInfo.Place == "cusp_distolingual"
     this.utilityService.MedicalCodes(term, "CDT/CPT")
       .subscribe(resp => {
         this.isLoading = false;
-          this.displayMessage = false;
+        this.displayMessage = false;
         if (resp.IsSuccess) {
           this.filteredProcedures = of(
             resp.ListResult as MedicalCode[]);

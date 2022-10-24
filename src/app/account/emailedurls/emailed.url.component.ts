@@ -49,8 +49,6 @@ export class EmailedUrlsComponent {
   }
 
   downloadPDF() {
-
-    console.log(this.iframe.nativeElement.contentDocument)
     html2canvas(this.iframe.nativeElement.contentDocument.body).then((canvas) => {
       let fileWidth = 208;
       let fileHeight = (canvas.height * fileWidth) / canvas.width;

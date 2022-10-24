@@ -1,7 +1,7 @@
 import { I } from '@angular/cdk/keycodes';
 import { DatePipe } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { fromEvent, Observable, of } from 'rxjs';
+import { fromEvent, Observable, of, Subject } from 'rxjs';
 import { filter, map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
@@ -29,6 +29,9 @@ export class AllergyDialogComponent implements OnInit {
   @ViewChild('searchAllergyName', { static: true }) searchAllergyName: ElementRef;
   selectedReaction: string[] = [];
   noRecords: boolean = false;
+  minDateToFinish = new Subject<string>();
+  minDateForEndDate;
+
 
   constructor(private ref: EHROverlayRef,
     public datepipe: DatePipe,
@@ -36,7 +39,7 @@ export class AllergyDialogComponent implements OnInit {
     private authService: AuthenticationService,
     private patientService: PatientService,
     private datePipe: DatePipe
-    ) {
+  ) {
     this.updateLocalModel(ref.RequestData);
     if (this.patientAllergy.StartAt != (null || '' || undefined)) {
       this.patientAllergy.StartAt = this.datepipe.transform(this.patientAllergy.StartAt, "yyyy-MM-dd");
@@ -44,8 +47,14 @@ export class AllergyDialogComponent implements OnInit {
     if (this.patientAllergy.EndAt != (null || '' || undefined)) {
       this.patientAllergy.EndAt = this.datepipe.transform(this.patientAllergy.EndAt, "yyyy-MM-dd");
     }
-  }
+    this.minDateToFinish.subscribe(r => {
+      this.minDateForEndDate = new Date(r);
+    })
 
+  }
+  dateChange(e) {
+    this.minDateToFinish.next(e.value.toString());
+  }
   updateLocalModel(data: Allergy) {
     this.patientAllergy = new Allergy;
     if (data == null) return;
@@ -64,7 +73,7 @@ export class AllergyDialogComponent implements OnInit {
       map((event: any) => {
         this.allergens = of([]);
         this.noRecords = false;
-        if(event.target.value == ''){
+        if (event.target.value == '') {
           this.displayMessage = true;
         }
         return event.target.value;
@@ -165,6 +174,6 @@ export class AllergyDialogComponent implements OnInit {
 
   disableAllergies() {
     return !(this.patientAllergy.AllergenType && this.patientAllergy.AllergenName && this.patientAllergy.SeverityLevel && this.patientAllergy.OnSetAt
-            && this.patientAllergy.StartAt && this.patientAllergy.Reaction)
+      && this.patientAllergy.StartAt && this.patientAllergy.Reaction)
   }
 }

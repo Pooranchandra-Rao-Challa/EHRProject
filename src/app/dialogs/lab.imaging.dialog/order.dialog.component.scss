@@ -135,3 +135,13 @@ mat-label {
 .mat-form-field {
   width: 100%;
 }
+@media (max-width: 990px) {
+  .scrollable-card {
+    width: 100%;
+    overflow-x: auto;
+
+    .card {
+      width: 700px;
+    }
+  }
+}

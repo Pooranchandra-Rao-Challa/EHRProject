@@ -23,7 +23,7 @@
       <div class="row mt-3 row-dropdown">
         <mat-form-field appearance="outline" class="col-lg-4 col-md-12 col-sm-12  hover">
           <mat-select placeholder="Filter By Provider" disableOptionCentering
-            (selectionChange)="onChangeProvider($event)">
+            (selectionChange)="onChangeProvider($event)" [(ngModel)]="provider">
             <mat-option value='' selected>View All Providers</mat-option>
             <mat-option *ngFor="let provider of PracticeProviders" [value]="provider.ProviderId">
               {{provider.FullName}}</mat-option>
@@ -31,7 +31,7 @@
         </mat-form-field>
         <mat-form-field appearance="outline" class="col-lg-4 col-md-12 col-sm-12  hover">
           <mat-select placeholder="Filter By Result" disableOptionCentering
-            (selectionChange)="onChangeResultStatus($event)">
+            (selectionChange)="onChangeResultStatus($event)" [(ngModel)]="result">
             <mat-option>All</mat-option>
             <mat-option *ngFor="let item of ResultStatuses" [value]="item.Value">
               {{item.Name}}
@@ -40,7 +40,7 @@
         </mat-form-field>
         <mat-form-field appearance="outline" class="col-lg-4 col-md-12 col-sm-12   hover">
           <mat-select placeholder="Filter By Status" disableOptionCentering
-            (selectionChange)="onChangeOrderStatus($event)">
+            (selectionChange)="onChangeOrderStatus($event)" [(ngModel)]="status">
             <mat-option value='' selected>View All Active</mat-option>
             <mat-option *ngFor="let item of OrderStatuses" [value]="item.Value">
               {{item.Name}}
@@ -78,7 +78,7 @@
       <mat-progress-bar mode="indeterminate" bufferValue="50" value=100 *ngIf="labImageDatasource.loading$ | async">
       </mat-progress-bar>
       <div class="LabsimagingTable table-responsive  lab-order-container">
-        <table mat-table [dataSource]="labImageDatasource" matSort matSortDirection="desc" matSortDisableClear>
+        <table mat-table [dataSource]="labImageDatasource" matSort matSortDirection="asc" matSortDisableClear>
           <ng-container matColumnDef="Order">
             <th mat-header-cell *matHeaderCellDef mat-sort-header="OrderNumber">Order #</th>
             <td mat-cell *matCellDef="let lab">{{lab.OrderNumber}}</td>
@@ -113,6 +113,10 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header="CreatedDate">Created</th>
             <td mat-cell *matCellDef="let lab">{{lab.CreatedDate | date: 'yyyy-MM-dd'}}</td>
           </ng-container>
+          <ng-container matColumnDef="Signed">
+            <th mat-header-cell *matHeaderCellDef>Signed/UnSigned</th>
+            <td mat-cell *matCellDef="let lab">{{lab.Signed == true ? 'Signed' : 'Unsigned'}}</td>
+          </ng-container>
 
           <ng-container matColumnDef="Result">
             <th mat-header-cell *matHeaderCellDef>Add Result</th>
@@ -127,15 +131,15 @@
           <tr mat-header-row *matHeaderRowDef="labImagingColumn sticky: true"></tr>
           <tr mat-row class="table-row" *matRowDef="let row; columns: labImagingColumn"></tr>
         </table>
-        <div class="table-NoRecord text-center py-2 col-12" *ngIf="labImageDatasource.TotalRecordSize == 0">
+        <div class="table-NoRecord text-center py-2 col-12" style="color: red;" *ngIf="labImageDatasource.TotalRecordSize == 0">
           No {{labandimaging.View}} Orders
         </div>
       </div>
 
     </div>
-    <div class="d-flex justify-content-end my-3">
-      <div class="pg-container">
-        <mat-paginator appPagination [length]="labImageDatasource.TotalRecordSize" [pageSize]="Pagesize" [pageIndex]="0"
+    <div class="d-flex justify-content-end my-3" >
+      <div class="pg-container" [hidden]="!labImageDatasource.TotalRecordSize">
+        <mat-paginator   appPagination [length]="labImageDatasource.TotalRecordSize" [pageSize]="Pagesize" [pageIndex]="0"
           [pageSizeOptions]="[10,20,30,40,50]">
         </mat-paginator>
       </div>

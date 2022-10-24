@@ -20,7 +20,7 @@ export class AuthorizedrepresentativeDialogComponent implements OnInit {
   currentPatient: ProviderPatient;
   athorizedRepresentatives: Authorizedrepresentative[] = [];
   constructor(private ref:EHROverlayRef, public overlayService: OverlayService,private authService: AuthenticationService,
-    private patientservice: PatientService,) { 
+    private patientservice: PatientService,) {
       this.currentPatient = this.authService.viewModel.Patient;
       // this.getauthorizedrepresentatives();
     }
@@ -29,9 +29,9 @@ export class AuthorizedrepresentativeDialogComponent implements OnInit {
     this.getauthorizedrepresentatives();
   }
   cancel() {
-    
+
       this.ref.close(null);
-    
+
 }
 openComponentDialog(content: any | ComponentType<any> | string,
   dialogData, action: Actions = this.ActionTypes.add) {
@@ -39,14 +39,14 @@ openComponentDialog(content: any | ComponentType<any> | string,
   if (action == Actions.view && content === this.addauthorizedRepresentativeDialogComponent) {
     reqdata = dialogData;
   }
-  
+
   const ref = this.overlayService.open(content, reqdata);
   ref.afterClosed$.subscribe(res => {
-    
+
     this.getauthorizedrepresentatives();
-    
+
   });
- 
+
 }
 
 getauthorizedrepresentatives()
@@ -59,9 +59,8 @@ getauthorizedrepresentatives()
     if(resp.IsSuccess)
     {
       this.athorizedRepresentatives = resp.ListResult;
-      console.log(this.athorizedRepresentatives);
     }
-   
+
   })
 }
 }

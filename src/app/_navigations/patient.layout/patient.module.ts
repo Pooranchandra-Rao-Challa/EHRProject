@@ -28,7 +28,7 @@ import { OverlayComponent } from '../../overlay/overlay.component';
 import { OverlayService } from '../../overlay.service'
 import { MessagesService } from 'src/app/_services/messages.service';import { NgxMaskModule } from 'ngx-mask';
 import { AttachmentNopreviewComponent } from 'src/app/_components/attachments/attachment.nopreview.component'
-
+import { NotifyMessageService } from 'src/app/_navigations/provider.layout/view.notification.service';
 
 
 @NgModule({
@@ -51,7 +51,6 @@ import { AttachmentNopreviewComponent } from 'src/app/_components/attachments/at
     ActivityLogComponent,
     PatientPasswordChangeRequestDialogComponent,
     AttachmentNopreviewComponent,
-
   ],
   imports: [
     PatientRoutingModule,
@@ -61,8 +60,7 @@ import { AttachmentNopreviewComponent } from 'src/app/_components/attachments/at
   ],
   providers: [LocationSelectService,ViewChangeService,PatientService,
     AlertMessage,PatientNavbarComponent,UtilityService,OverlayService,
-    SmartSchedulerService,MessagesService,RecordsChangeService,
-
+    SmartSchedulerService,MessagesService,RecordsChangeService,NotifyMessageService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [PatientPasswordChangeRequestDialogComponent]

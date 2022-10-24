@@ -4,6 +4,8 @@ import { AuthenticationService } from '../../_services/authentication.service';
 import { SettingsService } from '../../_services/settings.service';
 import { UtilityService } from '../../_services/utiltiy.service';
 import { User, UserLocations } from '../../_models';
+import { Subject } from 'rxjs-compat';
+import { borderTopRightRadius } from 'html2canvas/dist/types/css/property-descriptors/border-radius';
 
 
 
@@ -41,19 +43,28 @@ export class AuditLogComponent implements OnInit {
   // mockHeaders = `'Date', 'Patient','User',
   // 'DataType', 'Action', 'Details'
   // `
+  minDateToFinish = new Subject<string>()
+  endDateForAuditLog;
 
   constructor(private authService: AuthenticationService, private settingservice: SettingsService) {
     this.user = authService.userValue;
+    this.minDateToFinish.subscribe(a =>
+      {
+        this.endDateForAuditLog = new Date(a);
+      })
   }
 
 
- 
+
   ngOnInit(): void {
     // this.getdata();
     this.getAuditLogList('');
   }
+  dateChange(e)
+  {
+  this.minDateToFinish.next(e.value.toString());
+  }
   getAuditLogList(event) {
-    this.auditloglistspinner();
     if (event == 'reset') {
       this.startDate = '';
       this.enddate = '';
@@ -73,22 +84,31 @@ export class AuditLogComponent implements OnInit {
         to: this.enddate
       }
     }
+    this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
     this.settingservice.AuditLogs(reqparams).subscribe(reponse => {
+      setTimeout(() => {
+        this.customizedspinner = false;
+        $('body').removeClass('loadactive')
+      }, 2000);
+     
       this.auditLogList = reponse.ListResult;
       this.loglist = this.auditLogList
-     
+
       // this.TotalItems = this.auditLogList.length;
 
     })
   }
+ 
+  
+ 
   customizedspinner:boolean
-  auditloglistspinner() {
-    this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
-    setTimeout(() => {
-      this.customizedspinner = false;
-      $('body').removeClass('loadactive')
-    }, 2000);
-  }
+  // auditloglistspinner() {
+  //   this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
+  //   setTimeout(() => {
+  //     this.customizedspinner = false;
+  //     $('body').removeClass('loadactive')
+  //   }, 2500);
+  // }
   dataType: string[] = [
     "Schedule",
     "Chart",

@@ -445,6 +445,5 @@ export class SmartScheduleComponent implements OnInit {
         }
       });
     }
-
   }
 }

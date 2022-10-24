@@ -14,10 +14,11 @@ import { FormControl, Validators } from '@angular/forms';
 })
 export class PartnerSignupComponent implements OnInit {
 
-  partnerSignup: PartnerSignup = {} as PartnerSignup;
+  partnerSignup?: PartnerSignup = {};
   phone_number = '';
   email = '';
   PhonePattern:any
+  
 
 
   constructor(private accountservice: Accountservice, private alertmsg: AlertMessage) {
@@ -37,16 +38,19 @@ export class PartnerSignupComponent implements OnInit {
     let isAdd = this.partnerSignup.C_id == null;
     this.accountservice.CreatePartnerSignup(partnerSignup).subscribe((resp) => {
       if (resp.IsSuccess) {
-        this.alertmsg.displaysubmitted(ERROR_CODES[isAdd ? "M3PS001" : "E3PS001"]);
-        this.resetForm();
+        this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M3PS001" : "E3PS001"]);
+        this.resetForm(); 
+
       }
       else {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E3PS001"]);
       }
+      this.partnerSignup = {} as PartnerSignup;
     })
   }
   resetForm() {
-    this.partnerSignup = {} as PartnerSignup;
+    // this.partnerSignup = {} as PartnerSignup;
+    this.partnerSignup = new PartnerSignup
   }
 
   // getRequiredErrorMessage(field) {

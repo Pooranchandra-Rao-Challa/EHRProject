@@ -15,7 +15,7 @@ import {
   MedicalCode
 } from 'src/app/_models/codes';
 import { MatRadioButton } from '@angular/material/radio';
-import { BehaviorSubject, combineLatest, fromEvent, merge, Observable } from 'rxjs'
+import { BehaviorSubject, combineLatest, fromEvent, merge, Observable, Subject } from 'rxjs'
 import { OverlayService } from 'src/app/overlay.service';
 import { map, } from 'rxjs/operators';
 import { AlertMessage, ERROR_CODES } from './../../_alerts/alertMessage';
@@ -76,7 +76,9 @@ export class EncounterDialogComponent implements OnInit {
   dialogIsLoading: boolean = false;
   patient: ProviderPatient;
   signEncounterNoteComponent = SignEncounterNoteComponent;
-
+  isNavigateFromProductView: boolean = false;
+  minDateToFinish = new Subject<string>();
+  endDateForEncounter;
 
 
   private messageflagSubject = new BehaviorSubject<boolean>(false);
@@ -89,6 +91,14 @@ export class EncounterDialogComponent implements OnInit {
     private datePipe: DatePipe) {
     let i = 1;  //normally would use var here
     while (this.teethNumbers.push(i++) < 32) { }
+    // this.encounterInfo.ServicedAt = new Date;
+
+
+    this.minDateToFinish.subscribe(e => {
+      this.endDateForEncounter = new Date(e);
+    }
+
+    )
 
   }
 
@@ -106,14 +116,11 @@ export class EncounterDialogComponent implements OnInit {
       .filter((loc) => loc.LocationId === this.authService.userValue.CurrentLocation)[0];
 
     this.loadDefaults();
-    console.log(this.overlayref.RequestData);
     this.appointment = this.overlayref.RequestData as ScheduledAppointment
     this.patient = this.overlayref.RequestData as ProviderPatient;
-    console.log(this.appointment);
-
-
     this.initEncoutnerView();
     this.loadEncouterView();
+    this.isNavigateFromProductView = this.overlayref.RequestData["From"] == "ProcedureView";
     if (this.overlayref.RequestData["From"] == "ProcedureView"
       && this.overlayref.RequestData.EncounterId == null) {
       this.encounterInfo.RecommendedProcedures.push(this.overlayref.RequestData as ProceduresInfo);
@@ -131,8 +138,11 @@ export class EncounterDialogComponent implements OnInit {
 
     if (this.encounterInfo.Vital.CollectedAt != null)
       this.encounterInfo.Vital.CollectedTime = this.datePipe.transform(this.encounterInfo.Vital.CollectedAt, "hh:mm a");
+    this.endDateForEncounter = new Date(this.encounterInfo.ServicedAt);
   }
-
+  dateChange(e) {
+    this.minDateToFinish.next(e.value.toString());
+  }
   private computeBmi(height: number, weight: number): number {
     const bmi = (weight / ((height) * (height))) * 703;
     this.encounterInfo.Vital.BMI = Number(bmi.toFixed(2));
@@ -240,8 +250,15 @@ export class EncounterDialogComponent implements OnInit {
   }
 
   removeRecommendedProcedure(value: ProceduresInfo, index: number) {
-    value.CanDelete = true;
-    this.recommendedProcedures.next(this.encounterInfo.RecommendedProcedures.filter(fn => fn.CanDelete === false));
+    // if (value.ViewFrom != 'ProcedureView') {
+    if (this.overlayref.RequestData.ViewFrom != "ProcedureView") {
+      value.CanDelete = true;
+      this.recommendedProcedures.next(this.encounterInfo.RecommendedProcedures.filter(fn => fn.CanDelete === false));
+    }
+    else {
+      this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP1003"])
+      // Can't delete this procedure from encounter form, however this procedure can be deleted from the parent form i.e. Dental form.
+    }
   }
 
   removeCompletedProcedure(value: ProceduresInfo, index: number) {
@@ -360,31 +377,72 @@ export class EncounterDialogComponent implements OnInit {
 
     this.patientService.CreateEncounter(this.encounterInfo).subscribe(resp => {
       if (resp.IsSuccess) {
-        this.overlayref.close({ "UpdatedModal": PatientChart.Encounters, refreshView: true });
-        this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2AE001" : "M2AE002"])
-      } else {
+        this.overlayref.close({ "UpdatedModal": PatientChart.Encounters, refreshView: true, "saved": true });
+        if (this.encounterInfo.Signed == true) {
+          this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2AE001" : "M2AE002"]);
+        }
+        else {
+          this.alertmsg.displayMessageDailog(ERROR_CODES["M2AE003"]);
+        }
+      }
+      else {
         this.overlayref.close();
-        this.alertmsg.displayErrorDailog(ERROR_CODES[isAdd ? "E2AE001" : "E2AE002"])
+        if (this.encounterInfo.Signed == true) {
+          this.alertmsg.displayErrorDailog(ERROR_CODES[isAdd ? "E2AE001" : "E2AE002"]);
+        }
+        else {
+          this.alertmsg.displayErrorDailog(ERROR_CODES["E2AE004"]);
+        }
       }
     });
   }
 
   enableSaveButtons() {
+    let flag = ((this.encounterInfo.Vital.CollectedAt && this.encounterInfo.Vital.CollectedTime) && (this.encounterInfo.Vital.Temperature ||
+      this.encounterInfo.Vital.O2Saturation || this.encounterInfo.Vital.Pulse || this.encounterInfo.Vital.RespiratoryRate ||
+      this.encounterInfo.Vital.BloodType))
+    if (this.encounterInfo.ReferredFrom == true) {
+      return !(this.encounterInfo.ReferralFrom && flag)
+    }
+    else if (this.encounterInfo.ReferredTo == true) {
+      return !(this.encounterInfo.ReferralTo && flag)
+    }
+    else if ((this.encounterInfo.Vital.Height || this.encounterInfo.Vital.Weight) && !(this.encounterInfo.Vital.Height && this.encounterInfo.Vital.Weight)) {
+      return !(this.encounterInfo.Vital.Height && this.encounterInfo.Vital.Weight && flag)
+    }
+    else if ((this.encounterInfo.Vital.BPSystolic || this.encounterInfo.Vital.BPDiastolic) && !(this.encounterInfo.Vital.BPSystolic && this.encounterInfo.Vital.BPDiastolic)) {
+      return !(this.encounterInfo.Vital.BPSystolic && this.encounterInfo.Vital.BPDiastolic && flag)
+    }
+    else {
+      return !(flag)
+    }
 
-    if (this.encounterInfo.HealthInfoExchange == true &&
-      this.encounterInfo.ReferredTo == false
-      || this.encounterInfo.ReferralTo == ""
-      || this.encounterInfo.ReferralTo == null) {
-      this.messageflagSubject.next(true);
-      this.message = "Update the provider to whom you referring this patient."
-    } else
-      if (this.encounterInfo.HealthInfoExchange == true &&
-        this.encounterInfo.ReferredFrom == false
-        || this.encounterInfo.ReferralFrom == ""
-        || this.encounterInfo.ReferralFrom == null) {
-        this.messageflagSubject.next(true);
-        this.message = "Update the provider from whom you redirected this patient."
-      } else this.messageflagSubject.next(false);;
+    // return !(this.encounterInfo.Vital.CollectedAt && this.encounterInfo.Vital.CollectedTime)
+
+
+    // if (this.encounterInfo.HealthInfoExchange == true &&
+    //   this.encounterInfo.ReferredTo == false
+    //   || this.encounterInfo.ReferralTo == ""
+    //   || this.encounterInfo.ReferralTo == null) {
+    //   this.messageflagSubject.next(true);
+    //   this.message = "Update the provider to whom you referring this patient."
+    // } else
+    //   if (this.encounterInfo.HealthInfoExchange == true &&
+    //     this.encounterInfo.ReferredFrom == false
+    //     || this.encounterInfo.ReferralFrom == ""
+    //     || this.encounterInfo.ReferralFrom == null) {
+    //     this.messageflagSubject.next(true);
+    //     this.message = "Update the provider from whom you redirected this patient."
+    //   } else this.messageflagSubject.next(false);;
+  }
+
+  checkRecommendedProceduresMandatoryFields() {
+    let flag = true;
+    this.encounterInfo.RecommendedProcedures.forEach((value) => {
+      flag = value.ToothNo != null && value.Place != null;
+      if (!flag) return false;
+    });
+    return flag;
   }
 
   medLinePlusUrl(code: MedicalCode): string {

@@ -23,40 +23,40 @@
                     <mat-table [dataSource]=patientsDataSource
                       matSort matSortActive="FullName" matSortDirection="asc" matSortDisableClear>
                       <ng-container matColumnDef="Name">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header="FullName"><b>Name</b></mat-header-cell>
+                        <mat-header-cell *matHeaderCellDef mat-sort-header="FullName"class="header">Name</mat-header-cell>
                         <mat-cell *matCellDef="let patient">
                           {{patient?.FullName}}
                         </mat-cell>
                       </ng-container>
 
                       <ng-container matColumnDef="Email">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header="Email"><b>Email</b></mat-header-cell>
+                        <mat-header-cell *matHeaderCellDef mat-sort-header="Email"class="header">Email</mat-header-cell>
                         <mat-cell *matCellDef="let patient">
                           {{patient?.Email}}
                         </mat-cell>
                       </ng-container>
 
                       <ng-container matColumnDef="PatientPortalAccount">
-                        <mat-header-cell *matHeaderCellDef><b>Patient Portal Account</b></mat-header-cell>
+                        <mat-header-cell class="header" *matHeaderCellDef>Patient Portal Account</mat-header-cell>
                         <mat-cell *matCellDef="let patient">
                           {{patient?.PatientPortalAccount}}
                         </mat-cell>
                       </ng-container>
 
                       <ng-container matColumnDef="Phone">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header="Phone"><b>Phone</b></mat-header-cell>
+                        <mat-header-cell class="header" *matHeaderCellDef mat-sort-header="Phone">Phone</mat-header-cell>
                         <mat-cell *matCellDef="let patient">
                           {{patient?.Phone}}
                         </mat-cell>
                       </ng-container>
 
                       <ng-container matColumnDef="Address">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header="Address"><b>Address</b></mat-header-cell>
+                        <mat-header-cell class="header" *matHeaderCellDef mat-sort-header="Address">Address</mat-header-cell>
                         <mat-cell *matCellDef="let patient"> {{patient?.Address}} </mat-cell>
                       </ng-container>
 
                       <ng-container matColumnDef="Status">
-                        <mat-header-cell *matHeaderCellDef><b>Status</b></mat-header-cell>
+                        <mat-header-cell class="header" *matHeaderCellDef>Status</mat-header-cell>
                         <mat-cell *matCellDef="let patient">
                             {{patient?.Active | active}}
                         </mat-cell>
@@ -67,10 +67,21 @@
                       </mat-row>
                     </mat-table>
                     <div class="table-NoRecord text-center text-danger py-2 col-12" *ngIf="patientsDataSource.TotalRecordSize == 0">
-                      No InActive Patients Found
+                      No Inactive Patients Found
                     </div>
               <div class="d-flex justify-content-end  mx-3">
-                <div class="admin-pg-container">
+                <!-- <nav aria-label="Page navigation">
+                    <ul class="pagination mt-4">
+                        <ngb-pagination [pageSize]="pageSize"  [collectionSize]="collectionSize" (pageChange)="onPageChange($event)"
+                            [maxSize]="10" [(page)]="page" aria-label="Default pagination">
+                        </ngb-pagination>
+                    </ul>
+
+
+
+                </nav> -->
+
+                <div class="admin-pg-container"[hidden]="!patientsDataSource.TotalRecordSize">
                   <mat-paginator adminPagination
                      [length]="patientsDataSource.TotalRecordSize" [pageSize]="pageSize"
                      [pageIndex] = "page"

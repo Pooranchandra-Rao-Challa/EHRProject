@@ -25,6 +25,7 @@ export class FilterQueryParams {
 export class DashboardComponent implements OnInit {
   pageSize: number = 50;
   page: number = 1;
+
   ProviderList: ProviderList[] = [{}];
   filterQueryParams: FilterQueryParams = new FilterQueryParams();
   filterSubject = new BehaviorSubject<FilterQueryParams>(this.filterQueryParams);
@@ -43,6 +44,7 @@ export class DashboardComponent implements OnInit {
   AccessProvider = 'none';
   message: string;
   ActionTypes = Actions;
+  search?: string;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
@@ -57,7 +59,8 @@ export class DashboardComponent implements OnInit {
     this.GetProivderList();
     this.filterSubject.subscribe(value => {
       this.filtededProviders = this.ProviderList.filter(x =>
-        (value.SearchTerm == "" || x.ProviderName.toLowerCase().match(value.SearchTerm.toLowerCase()))
+        (value.SearchTerm == "" || x.ProviderName?.toLowerCase().match(value.SearchTerm?.toLowerCase()) ||
+          x.PracticeName?.toLowerCase().match(value.SearchTerm?.toLowerCase()))
         && x.Status == value.Active
         && (x.Paid == value.Paid || value.Paid == null)
       );
@@ -65,6 +68,7 @@ export class DashboardComponent implements OnInit {
   }
 
   StageChange(event) {
+    this.page = 1;
     if (event.target.id == 'Suspended')
       this.filterQueryParams.Active = !event.target.checked;
     else if (event.target.id == 'Active')
@@ -80,6 +84,8 @@ export class DashboardComponent implements OnInit {
     this.adminservice.GetProviderList().subscribe(resp => {
       if (resp.IsSuccess) {
         this.ProviderList = resp.ListResult;
+        console.log(this.ProviderList);
+
         this.filtededProviders = this._filterProviders();
       } else
         this.ProviderList = [];
@@ -89,7 +95,8 @@ export class DashboardComponent implements OnInit {
   _filterProviders(value: FilterQueryParams = null): ProviderList[] {
     let val = value == null ? new FilterQueryParams() : value;
     return this.ProviderList.filter(x =>
-      (val.SearchTerm == "" || x.ProviderName.toLowerCase().match(val.SearchTerm.toLowerCase()))
+      (val.SearchTerm == "" || (x.ProviderName?.toLowerCase().match(val.SearchTerm?.toLowerCase())) ||
+        x.PracticeName?.toLowerCase().match(value.SearchTerm?.toLowerCase()))
       && x.Status == val.Active
       && (x.Paid == val.Paid || val.Paid == null)
     );
@@ -201,7 +208,7 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,dialogData, action: Actions = this.ActionTypes.add) {
+  openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string, dialogData, action: Actions = this.ActionTypes.add) {
     let reqdata: any;
     if (action == Actions.view && content === this.UserDialogComponent) {
       reqdata = dialogData;

@@ -12,12 +12,10 @@ export class ListImportedDataComponent implements OnInit {
 
   importFiles: ImportFile[];
   page: any = 1;
-  pageSize: any = 10
+  pageSize: any = 20
   collectionSize: any = 10000;
   premiumData: any[] = [];
-
   constructor(private router: Router, private adminservice: AdminService) { }
-
   ngOnInit(): void {
     this.getImportPatient();
   }
@@ -41,4 +39,11 @@ export class ListImportedDataComponent implements OnInit {
       .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
     this.getImportPatient();
   }
+  gotoImportPatientOrImportEncounter(name, url) {
+    this.router.navigate(
+      [url],
+      { queryParams: { name: name } }
+    );
+  }
+ 
 }

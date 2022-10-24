@@ -45,6 +45,8 @@ import { EncounterTableDialogComponent } from 'src/app/dialogs/encounter.table.d
 import { AppointmentsTableDialogComponent } from 'src/app/dialogs/appointments.table.dialog/appointments.table.dialog.component';
 import { MessageDialogInfo } from 'src/app/_models/_provider/messages';
 import { NewmessageDialogComponent } from 'src/app/dialogs/newmessage.dialog/newmessage.dialog.component';
+import { MessagesTableDialogComponent } from 'src/app/dialogs/messages.table.dialog/messages.table.dialog.component';
+import { ViewMessageDialogComponent } from 'src/app/dialogs/view.message.dialog/view.message.dialog.component';
 declare var $: any;
 
 @Component({
@@ -88,7 +90,8 @@ export class ChartComponent implements OnInit, AfterViewInit {
   tobaccoUseTableDialogComponent = TobaccoUseTableDialogComponent;
   pastMedicalHistoryDialogComponent = PastMedicalHistoryDialogComponent;
   MessageDialogComponent = NewmessageDialogComponent;
-
+  messagesTableDialogComponent = MessagesTableDialogComponent;
+  viewMessageDialogComponent = ViewMessageDialogComponent;
   patientImmunization: Immunization = new Immunization();
   tobaccoUseList: TobaccoUse[] = [];
   appointments: NewAppointment[];
@@ -360,6 +363,12 @@ export class ChartComponent implements OnInit, AfterViewInit {
     else if (action == Actions.view && content === this.appointmentsTableDialogComponent) {
       reqdata = dialogData;
     }
+    else if (action == Actions.view && content === this.viewMessageDialogComponent) {
+      reqdata = dialogData;
+    }
+    else if (action == Actions.view && content === this.messagesTableDialogComponent) {
+      reqdata = dialogData;
+    }
     const ref = this.overlayService.open(content, reqdata);
     ref.afterClosed$.subscribe(res => {
       if (res.data != null && res.data.refreshCQMNotPerformed) {
@@ -427,6 +436,9 @@ export class ChartComponent implements OnInit, AfterViewInit {
     else if (data.UpdatedModal == PatientChart.Encounters) {
       this.EncountersByPatientId();
     }
+    // else if (data.UpdatedModal == PatientChart.Message) {
+    //   this.GetProviderMessagesFromPatient();
+    // }
     else if (data.UpdatedModal == PatientChart.Appointment) {
       this.AppointmentsByPatientId();
     }
@@ -649,7 +661,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
       "PageIndex": 0,
       "PageSize": 25,
       "Filter": null,
-      "MessageFilter": 'Sent'
+      "MessageFilter": 'Inbox'
     }
     this.messageService.Messages(reqParams).subscribe((resp) => {
       if (resp.IsSuccess) this.patientMessages = resp.ListResult;

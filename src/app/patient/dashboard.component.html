@@ -11,35 +11,35 @@
             Upcoming Appointments
             <span>({{PatientUpcomingAppointmentsCount}})</span>
             <!-- [(ngModel)]="secList.StartDate" -->
-          <!-- <input type="text"  [(ngModel)]="PatientUpcomingAppointmentsCount.ApptCount"> -->
+            <!-- <input type="text"  [(ngModel)]="PatientUpcomingAppointmentsCount.ApptCount"> -->
           </h4>
         </div>
         <div class="panel panel-default">
           <div class="panel-body">
             <div class="container ">
 
-          <div *ngFor="let item of PatientUpcomingAppointmentsList">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="Helvetica-sans-serif-medium mt-2">
-                  Provider:{{item.ProviderName}}
-                </div>
-                <div class="Helvetica-sans-serif-medium mt-2 upcomingAppoinment">
-                  {{item.StartAt | date:'M/d/yyyy'}},{{item.StartAt | date:'shortTime'}}
-                </div>
-              </div>
-              <div class="col-md-6 mt-1">
-                <button type="button" class="btn btn-green save-button" data-bs-toggle="modal"
-                data-bs-target="#upcoming-appoinment"(click)="showappoinments(item)">View</button>
-              </div>
+              <div *ngFor="let item of PatientUpcomingAppointmentsList">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="Helvetica-sans-serif-medium mt-2">
+                      Provider:{{item.ProviderName}}
+                    </div>
+                    <div class="Helvetica-sans-serif-medium mt-2 upcomingAppoinment">
+                      {{item.StartAt | date:'M/d/yyyy'}},{{item.StartAt | date:'shortTime'}}
+                    </div>
+                  </div>
+                  <div class="col-md-6 mt-1">
+                    <button type="button" class="btn btn-green save-button" data-bs-toggle="modal"
+                      data-bs-target="#upcoming-appoinment" (click)="showappoinments(item)">View</button>
+                  </div>
 
+                </div>
+
+              </div>
             </div>
 
           </div>
-          </div>
-
-   </div>
-   </div>
+        </div>
         <div class="form-row-field">
           <h4>
             New Messages
@@ -49,24 +49,30 @@
         <div class="panel panel-default">
           <div class="panel-body">
             <div class="container ">
-          <div *ngFor="let msgs of messages">
-            <div class="Helvetica-sans-serif-medium mt-2">
-              <div class="row">
-              <div class="col-md-1">
-              <img alt="notification-icon" class="" src="assets\images\icon_message-dark-e687a43f63c6cab797c2126fb5f16f6461175358f49a8325939b037a18ef5fff.svg">
-            </div>
-            <div class="col-lg-9 col-sm-7 col-md-9 col-xs-8"  style="font-size: 18px;">
-              <b class="Helvetica-sans-serif-medium">{{msgs.Updated | date:'M/d/yyyy'}},{{msgs.Updated | date:'shortTime'}}</b>
-              <p class="Helvetica-sans-serif-medium">{{msgs.Subject}},From: &nbsp;{{msgs.ProviderName}} </p></div>
+              <div *ngFor="let msgs of messages">
+                <div class="Helvetica-sans-serif-medium mt-2">
+                  <div class="row">
+                    <div class="col-md-1">
+                      <img alt="notification-icon" class=""
+                        src="assets\images\icon_message-dark-e687a43f63c6cab797c2126fb5f16f6461175358f49a8325939b037a18ef5fff.svg">
+                    </div>
+                    <div class="col-md-5" style="font-size: 18px;">
+                      <b class="Helvetica-sans-serif-medium">{{msgs.Updated | date:'M/d/yyyy'}},{{msgs.Updated |
+                        date:'shortTime'}}</b>
+                      <p class="Helvetica-sans-serif-medium">{{msgs.Subject}},From: &nbsp;{{msgs.ProviderName}} </p>
+                    </div>
+                    <div class="col-md-6">
+                      <button type="button" class="btn btn-green save-button" data-bs-toggle="modal"
+                        data-bs-target="#Inboxmessages" (click)=" showMessages(msgs)">View</button>
+                    </div>
+                  </div>
+                </div>
 
-            </div>
+              </div>
             </div>
 
           </div>
-          </div>
-
-   </div>
-   </div>
+        </div>
         <div class="form-row-field" *ngIf="isHealth">
           <div class="panel panel-default">
             <div class="panel-body linkhealth">
@@ -129,10 +135,9 @@
         </div>
         <div class="panel panel-default">
           <div class="panel-body">
-            <ul class="navbar-nav active">
+            <ul class="">
               <li class="nav-item ">
-                <a class="secondary-text-dark nav-link"
-                  (click)="openComponentDialog(PatientDialogComponent)">
+                <a class="secondary-text-dark nav-link" (click)="openComponentDialog(PatientDialogComponent)">
 
                   <i class="fa fa-angle-right">
                   </i>
@@ -172,75 +177,134 @@
 
 <div class="modal " id="upcoming-appoinment" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-sm">
-      <div class="modal-content view-appoinments ">
-          <div class="modal-header">
+    <div class="modal-content view-appoinments ">
+      <div class="modal-header">
 
 
 
-            <span class="Helvetica-sans-serif-medium">View Appointment </span>
-            <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close">
-                X
-            </span>
-        </div>
-        <div class="modal-body modal-scrollbar">
-          <div class="row mb-1">
-            <div class="col-md-6 Helvetica-sans-serif-medium">Patient Name:</div>
-            <div class="col-md-6 Helvetica-sans-serif-medium"><b>{{viewAppoinments.PatientName}}</b></div>
+        <span class="Helvetica-sans-serif-medium">View Appointment </span>
+        <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close">
+          X
+        </span>
+      </div>
+      <div class="modal-body modal-scrollbar">
+        <div class="row mb-1">
+          <div class="col-md-6 Helvetica-sans-serif-medium">Patient Name:</div>
+          <div class="col-md-6 Helvetica-sans-serif-medium"><b>{{viewAppoinments.PatientName}}</b></div>
 
         </div>
         <div class="row mb-1">
           <div class="col-md-6 Helvetica-sans-serif-medium">Provider Name:</div>
           <div class="col-md-6 Helvetica-sans-serif-medium"><b>{{viewAppoinments.ProviderName}}</b></div>
 
-      </div>
-      <div class="row mb-1">
-        <div class="col-md-6 Helvetica-sans-serif-medium">Appointment Type:</div>
-        <div class="col-md-6 Helvetica-sans-serif-medium"><b>{{viewAppoinments.ApptType}}</b></div>
+        </div>
+        <div class="row mb-1">
+          <div class="col-md-6 Helvetica-sans-serif-medium">Appointment Type:</div>
+          <div class="col-md-6 Helvetica-sans-serif-medium"><b>{{viewAppoinments.ApptType}}</b></div>
 
-    </div>
-    <div class="row mb-1">
-      <div class="col-md-6 Helvetica-sans-serif-medium">Appointment Status:</div>
-      <div class="col-md-6 Helvetica-sans-serif-medium" *ngIf="viewAppoinments.ApptStatus == 'Not Confirmed'"><b>pending</b></div>
-      <div class="col-md-6 Helvetica-sans-serif-medium" *ngIf="viewAppoinments.ApptStatus == 'Confirmed'"><b>Waiting</b></div>
-      <div class="col-md-6 Helvetica-sans-serif-medium" *ngIf="viewAppoinments.ApptStatus == 'Scheduled'"><b>Status Confirmed</b></div>
-      <div class="col-md-6 Helvetica-sans-serif-medium" *ngIf="viewAppoinments.ApptStatus == 'In-Progress'"><b>Status Confirmed</b></div>
-      <div class="col-md-6 Helvetica-sans-serif-medium" *ngIf="viewAppoinments.ApptStatus == 'Cancelled'"><b>Status Cancelled</b></div>
-  </div>
-
-    <div class="row mb-1">
-      <div class="col-md-6 Helvetica-sans-serif-medium">Location Name :</div>
-      <div class="col-md-6 Helvetica-sans-serif-medium"><b>{{viewAppoinments.LocationName}}</b></div>
-
-  </div>
-  <div class="row mb-1">
-    <div class="col-md-6 Helvetica-sans-serif-medium">Room:</div>
-    <div class="col-md-6 Helvetica-sans-serif-medium"><b>{{viewAppoinments.Room}}</b></div>
-
-</div>
-  <div class="row mb-1">
-    <div class="col-md-6 Helvetica-sans-serif-medium">Appoinment Date:</div>
-    <div class="col-md-6 Helvetica-sans-serif-medium"><b>{{viewAppoinments.StartAt | date:'M/d/yyyy'}}</b></div>
-
-</div>
-<div class="row mb-1">
-  <div class="col-md-6 Helvetica-sans-serif-medium">Appoinment Time:</div>
-  <div class="col-md-6 Helvetica-sans-serif-medium"><b>{{viewAppoinments.StartAt | date:'shortTime'}}</b></div>
-
-</div>
-<div class="row mb-1">
-  <div class="col-md-6 Helvetica-sans-serif-medium">Duration:</div>
-  <div class="col-md-6 Helvetica-sans-serif-medium"><b>{{viewAppoinments.Duration}} min</b></div>
-
-</div>
-<div class="row mb-1">
-  <div class="col-md-6 Helvetica-sans-serif-medium">Note:</div>
-  <div class="col-md-6 Helvetica-sans-serif-medium"><b>{{viewAppoinments.Note}}</b></div>
-</div>
-</div>
-
-          <div class="modal-footer">
-
+        </div>
+        <div class="row mb-1">
+          <div class="col-md-6 Helvetica-sans-serif-medium">Appointment Status:</div>
+          <div class="col-md-6 Helvetica-sans-serif-medium" *ngIf="viewAppoinments.ApptStatus == 'Not Confirmed'">
+            <b>pending</b>
           </div>
+          <div class="col-md-6 Helvetica-sans-serif-medium" *ngIf="viewAppoinments.ApptStatus == 'Confirmed'">
+            <b>Waiting</b>
+          </div>
+          <div class="col-md-6 Helvetica-sans-serif-medium" *ngIf="viewAppoinments.ApptStatus == 'Scheduled'"><b>Status
+              Confirmed</b></div>
+          <div class="col-md-6 Helvetica-sans-serif-medium" *ngIf="viewAppoinments.ApptStatus == 'In-Progress'">
+            <b>Status Confirmed</b>
+          </div>
+          <div class="col-md-6 Helvetica-sans-serif-medium" *ngIf="viewAppoinments.ApptStatus == 'Cancelled'"><b>Status
+              Cancelled</b></div>
+        </div>
+
+        <div class="row mb-1">
+          <div class="col-md-6 Helvetica-sans-serif-medium">Location Name :</div>
+          <div class="col-md-6 Helvetica-sans-serif-medium"><b>{{viewAppoinments.LocationName}}</b></div>
+
+        </div>
+        <div class="row mb-1">
+          <div class="col-md-6 Helvetica-sans-serif-medium">Room:</div>
+          <div class="col-md-6 Helvetica-sans-serif-medium"><b>{{viewAppoinments.Room}}</b></div>
+
+        </div>
+        <div class="row mb-1">
+          <div class="col-md-6 Helvetica-sans-serif-medium">Appoinment Date:</div>
+          <div class="col-md-6 Helvetica-sans-serif-medium"><b>{{viewAppoinments.StartAt | date:'M/d/yyyy'}}</b></div>
+
+        </div>
+        <div class="row mb-1">
+          <div class="col-md-6 Helvetica-sans-serif-medium">Appoinment Time:</div>
+          <div class="col-md-6 Helvetica-sans-serif-medium"><b>{{viewAppoinments.StartAt | date:'shortTime'}}</b></div>
+
+        </div>
+        <div class="row mb-1">
+          <div class="col-md-6 Helvetica-sans-serif-medium">Duration:</div>
+          <div class="col-md-6 Helvetica-sans-serif-medium"><b>{{viewAppoinments.Duration}} min</b></div>
+
+        </div>
+        <div class="row mb-1">
+          <div class="col-md-6 Helvetica-sans-serif-medium">Note:</div>
+          <div class="col-md-6 Helvetica-sans-serif-medium"><b>{{viewAppoinments.Note}}</b></div>
+        </div>
       </div>
+
+      <div class="modal-footer">
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal " id="Inboxmessages" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content view-appoinments ">
+      <div class="modal-header">
+
+
+
+        <span class="Helvetica-sans-serif-medium">View Messages </span>
+        <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close">
+          X
+        </span>
+      </div>
+      <div class="modal-body modal-scrollbar">
+        <div class="row mb-1">
+          <div class="col-md-6 Helvetica-sans-serif-medium">Date:</div>
+          <div class="col-md-6 Helvetica-sans-serif-medium"><b>{{viewMessages.Updated | date:'M/d/yyyy'}}</b></div>
+
+        </div>
+        <div class="row mb-1">
+          <div class="col-md-6 Helvetica-sans-serif-medium">From:</div>
+          <div class="col-md-6 Helvetica-sans-serif-medium"><b>{{viewMessages.PatientName}}</b></div>
+
+        </div>
+        <div class="row mb-1">
+          <div class="col-md-6 Helvetica-sans-serif-medium">To:</div>
+          <div class="col-md-6 Helvetica-sans-serif-medium"><b>{{viewMessages.ProviderName}}</b></div>
+
+        </div>
+
+
+        <div class="row mb-1">
+          <div class="col-md-6 Helvetica-sans-serif-medium">Subject :</div>
+          <div class="col-md-6 Helvetica-sans-serif-medium"><b>{{viewMessages.Subject}}</b></div>
+
+        </div>
+        <div class="row mb-1">
+          <div class="col-md-6 Helvetica-sans-serif-medium">Body:</div>
+          <div class="col-md-6 Helvetica-sans-serif-medium"><b>{{viewMessages.Body}}</b></div>
+
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+
+      </div>
+    </div>
   </div>
 </div>

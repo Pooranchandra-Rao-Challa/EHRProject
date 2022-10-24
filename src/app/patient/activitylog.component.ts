@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { AuthenticationService } from '../_services/authentication.service';
 import { User, UserLocations } from '../_models'
 import { ActiveLog } from '../_models/_patient/activelog';
+import { Subject } from 'rxjs-compat';
+import { A } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-activitylog',
@@ -11,43 +13,50 @@ import { ActiveLog } from '../_models/_patient/activelog';
 })
 export class ActivityLogComponent {
 
-  ActiveLogData:ActiveLog;
+  ActiveLogData: ActiveLog;
   locationsInfo: UserLocations[];
   user: User
   startDate: string;
   enddate: string;
-
-  constructor( private authenticationService: AuthenticationService,private patientservise: PatientService,) {
+  minDateToFinish = new Subject<string>();
+  endDateForActivityLog;
+  constructor(private authenticationService: AuthenticationService, private patientservise: PatientService,) {
     this.user = authenticationService.userValue
-    this.locationsInfo = JSON.parse(this.user.LocationInfo)
-   }
+    this.locationsInfo = JSON.parse(this.user.LocationInfo);
+    this.minDateToFinish.subscribe(a => {
+      this.endDateForActivityLog = new Date(a);
+    })
+  }
   ngOnInit(): void {
     this.getActivetLogList('');
-   }
+  }
 
 
+  dateChange(e) {
+    this.minDateToFinish.next(e.value.toString());
 
-   getActivetLogList(event) {
-    if(event == 'reset')
-    {
+  }
+  getActivetLogList(event) {
+    if (event == 'reset') {
       this.startDate = '';
       this.enddate = '';
-      var reqparams={
+      var reqparams = {
         "PatientId": this.user.PatientId,
-        from:this.startDate,
+        from: this.startDate,
         to: this.enddate
       }
     }
-    else{
-      var reqparams={
+    else {
+      var reqparams = {
         "PatientId": this.user.PatientId,
-        from:this.startDate,
-        to:this.enddate
+        from: this.startDate,
+        to: this.enddate
       }
     }
 
     this.patientservise.MyActivityLogs(reqparams).subscribe(resp => {
-         this.ActiveLogData=resp.ListResult;
+      this.ActiveLogData = resp.ListResult;
     })
   }
+
 }

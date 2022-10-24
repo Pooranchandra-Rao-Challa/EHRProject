@@ -193,7 +193,7 @@
         <div class="col-lg-4 col-md-12 col-sm-12 col-12 mb-4">
           <label class="form-label required">Practice/Clinic</label>
           <select placeholder="Select one clinic" id="clinics" name="clinics" class="form-select"
-            [(ngModel)]="newUser.clinic_id" #clinic="ngModel" required>
+            [(ngModel)]="newUser.ClinicId" #clinic="ngModel" required>
             <option *ngFor="let clinic of Clinics" [value]="clinic.ClinicId">
               {{clinic.ClinicName}}
             </option>
@@ -441,7 +441,7 @@
             <mat-form-field appearance="outline" class="example-full-width" [style.width.px]=680 [sytle.paddingTop]=30>
               <input type="text" class="w-100" [value]="ValidAddressForUse" placeholder="address" matInput>
 
-              <md-icon class="link" (click)="UseValidatedAddress()">Use this</md-icon>
+              <md-icon class="link" (click)="UseValidatedAddress()"  style="cursor: pointer;">Use this</md-icon>
             </mat-form-field>
           </div>
         </div>

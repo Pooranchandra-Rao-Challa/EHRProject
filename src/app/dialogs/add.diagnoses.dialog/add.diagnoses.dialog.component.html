@@ -44,7 +44,8 @@
             <label class="required">Start Date</label>
             <mat-form-field appearance="outline" class="green-calendar col-md-8">
               <input matInput class="pointer" [matDatepicker]="startdate" (click)="startdate.open()" readonly
-                placeholder="Start Date" name="startdate" [(ngModel)]="patientDiagnoses.StartAt" />
+                placeholder="Start Date" name="startdate" [(ngModel)]="patientDiagnoses.StartAt"
+                (dateChange)="dateChange($event)" />
               <mat-datepicker-toggle matSuffix [for]="startdate">
               </mat-datepicker-toggle>
               <mat-datepicker #startdate></mat-datepicker>
@@ -57,13 +58,15 @@
             <label class="required">End Date</label>
             <mat-form-field appearance="outline" class="green-calendar col-md-8">
               <input matInput class="pointer" [matDatepicker]="enddate" placeholder="End Date" name="enddate"
-                (click)="enddate.open()" readonly [(ngModel)]="patientDiagnoses.StopAt" />
-              <mat-datepicker-toggle matSuffix [for]="enddate">
+                (click)="enddate.open()" readonly [(ngModel)]="patientDiagnoses.StopAt" [min]="endDateForDiagnosis"
+                [disabled]="patientDiagnoses.StartAt == null" />
+              <mat-datepicker-toggle matSuffix [for]="enddate" [disabled]="patientDiagnoses.StartAt == null">
               </mat-datepicker-toggle>
               <mat-datepicker #enddate></mat-datepicker>
             </mat-form-field>
             <div class="col-lg-4">
-              <button class="btn btn-green btn-today pull-right mt-1" (click)="todayStopAt()">Today</button>
+              <button class="btn btn-green btn-today pull-right mt-1" (click)="todayStopAt()"
+                [disabled]="patientDiagnoses.StartAt == null">Today</button>
             </div>
           </div>
           <label class="required">Diagnosis Notes:</label>
@@ -91,7 +94,7 @@
     </div>
     <div class="modal-footer">
       <button class="btn btn-green mx-3 pull-right" [disabled]="disableDiagnosis()"
-      (click)="CreateDiagnoses()">Save</button>
+        (click)="CreateDiagnoses()">Save</button>
       <button class="btn btn-green pull-right" (click)="cancel()">
         Cancel</button>
     </div>

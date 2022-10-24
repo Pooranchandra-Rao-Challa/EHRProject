@@ -175,6 +175,7 @@ export class AlertMessage {
  * Provider Registration : PR
  * Admins : A
  * Default Messages : DM
+ * Admin Settings : AS
  *
  * ---------------------------------------------------
  * Errors Number shouw be three digits like 001
@@ -308,6 +309,7 @@ export const ERROR_CODES: { [key: string]: string } = {
   //ERRORs for Patients Procedure Crete
   'E2CP1001': 'Procedure Updated error',
   'E2CP1002': 'Procedure Deletion error',
+  'E2CP1003': 'Cannot delete this procedure from encounter form, however this procedure can be deleted from the parent form i.e. Dental form.',
 
   // Smart Scheduler Apoointments;
   'M2AA001': 'Appointment Added successfully',
@@ -326,6 +328,8 @@ export const ERROR_CODES: { [key: string]: string } = {
   'E2AE001': 'Encounter Adding error',
   'E2AE002': 'Encounter Update error',
   'E2AE003': 'Encounter Data Read  error',
+  'E2AE004': 'Encounter draft error',
+
 
   //Error for WeeklyUpated
   'E1WU001': 'Please insert the data into the fields',
@@ -407,11 +411,13 @@ export const ERROR_CODES: { [key: string]: string } = {
   'M2JSAT002': 'Appointment type updated successfully',
   'M2JSAT003': 'Appointment type deleted successfully',
   'M2JSAT004': 'Appointment status is updated successfully',
+  'M2JSAT005': 'Appointment is cancelled successfully',
 
   // Error for Rooms
   'E2JSAT001': 'Appointment type created error',
   'E2JSAT002': 'Appointment status is not updated.',
   'E2JSAT003': 'Appointment status update error.',
+  'E2JSAT004': 'Appointment cancellation error',
 
   // Schedule - Appointment Status
   'M2JSAS001': 'Appointment status added successfully',
@@ -464,6 +470,7 @@ export const ERROR_CODES: { [key: string]: string } = {
   'EL009': 'Provider user account is locked',
   'EL010': 'Admin user account is locked',
   'EL011': 'Admin account is not active',
+  'EL012': 'Provider trial period is closed please do subscribe for accessing application.',
 
   //Education Material Message
   'M2JPE001': 'Education Material added successfully',
@@ -506,7 +513,7 @@ export const ERROR_CODES: { [key: string]: string } = {
 
   //Admin screen in admin module
   'M1A003': 'Admin deleted successfully',
-
+  'M1AS001': 'App version updated successfully',
   // Error for Admin
   'E1DM001': 'Admin deletion error',
 

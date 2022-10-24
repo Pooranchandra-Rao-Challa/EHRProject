@@ -51,7 +51,7 @@ export class EncounterInfo {
   EncounterType?: string = "Office Visit (1853490003)";
   NewPatientEncounter: boolean;
   PatientHealthData: string = "";
-  PatientEducation: boolean ;
+  PatientEducation: boolean;
   DischargeStatus: string = "";
   DischargeStatusCode: string = "";
   DischargeStatusCodeSystem: string = "";
@@ -159,7 +159,6 @@ export class ProceduresInfo implements IDeleteFlag {
   strReasonStartDate?: string;
   strEndDate?: string;
   strDate?: string;
-
   ViewFrom?: string;
   CanDelete?: boolean = false;
   TotalProcedures?: number;
@@ -209,41 +208,42 @@ export const REASON_CODES = [
 ];
 
 export const INTERVENSION_TYPES = ["BMI-Above Normal Follow-up",
- "BMI-Above Normal Medication",
- "BMI-Referrals where weight assessement may occur",
- "BMI-Below Normal Follow-up",
- "BMI-Below Normal Medication",
- "Weight-Counseling for Nutrition",
+  "BMI-Above Normal Medication",
+  "BMI-Referrals where weight assessement may occur",
+  "BMI-Below Normal Follow-up",
+  "BMI-Below Normal Medication",
+  "Weight-Counseling for Nutrition",
   "Weight-Counseling for Physical Activity"
 ];
 
-export const MEDICAL_REASONS_NOT_PERFORMED =["Medical Reason", "Patient Refused"];
+export const MEDICAL_REASONS_NOT_PERFORMED = ["Medical Reason", "Patient Refused"];
 
-export const OTHER_REASON_NOT_PERFORMED =  ["Current Meds Documented", "BMI Screening/Follow-up", "Tobacco Use Screening/Cessation Counseling"];
+export const OTHER_REASON_NOT_PERFORMED = ["Current Meds Documented", "BMI Screening/Follow-up", "Tobacco Use Screening/Cessation Counseling"];
 
 
 export const TOOTH_PROBLEM_PLACES = {
-"surface_buccal_v": "Surface Buccal V",
-"surface_facial_v": "Surface Facial V",
-"surface_mesial": "Surface Mesial",
-"surface_incisal": "Surface Incisal",
-"surface_distal": "Surface Distal",
-"surface_lingual": "Surface Lingual",
-"surface_facial": "Surface Facial",
-"surface_buccal": "Surface Buccal",
-"surface_occlusal": "Surface Occlusal V",
-"surface_lingual_v": "Surface Lingual V",
+  "surface_buccal_v": "Surface Buccal V",
+  "surface_facial_v": "Surface Facial V",
+  "surface_mesial": "Surface Mesial",
+  "surface_incisal": "Surface Incisal",
+  "surface_distal": "Surface Distal",
+  "surface_lingual": "Surface Lingual",
+  "surface_facial": "Surface Facial",
+  "surface_buccal": "Surface Buccal",
+  "surface_occlusal": "Surface Occlusal V",
+  "surface_lingual_v": "Surface Lingual V",
 
-"pit_mesiobuccal": "Pit Mesiobuccal",
-"pit_mesiolingual": "Pit Mesiolingual",
-"pit_distobuccal": "Pit Distobuccal",
-"pit_distolingual": "Pit Distolingual",
-"cusp_mesial": "Cusp Mesial",
-"cusp_mesiobuccal": "Cusp Mesiobuccal",
-"cusp_mesiolingual": "Cusp Mesiolingual",
-"cusp_distal": "Cusp Distal",
-"cusp_distobuccal": "Cusp Distobuccal",
-"cusp_distolingual": "Cusp Distolingual" };
+  "pit_mesiobuccal": "Pit Mesiobuccal",
+  "pit_mesiolingual": "Pit Mesiolingual",
+  "pit_distobuccal": "Pit Distobuccal",
+  "pit_distolingual": "Pit Distolingual",
+  "cusp_mesial": "Cusp Mesial",
+  "cusp_mesiobuccal": "Cusp Mesiobuccal",
+  "cusp_mesiolingual": "Cusp Mesiolingual",
+  "cusp_distal": "Cusp Distal",
+  "cusp_distobuccal": "Cusp Distobuccal",
+  "cusp_distolingual": "Cusp Distolingual"
+};
 
 /**def update_intervention_cqm_status
     self.intervention.update(:cqm_status => reason_code == '407563006' ? 'INT' : 'PRFND') if self.intervention.present?

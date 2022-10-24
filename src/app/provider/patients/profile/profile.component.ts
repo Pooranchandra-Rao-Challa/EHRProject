@@ -1,12 +1,14 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { PatientSearch } from './../../../_models/_account/newPatient';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { PatientService } from 'src/app/_services/patient.service';
 import { PatientProfile } from 'src/app/_models/_patient/patientprofile';
 import { PracticeProviders } from 'src/app/_models/_provider/practiceProviders';
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { AbstractControl, FormControl } from '@angular/forms';
-import { map, startWith } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, map, startWith } from 'rxjs/operators';
+import { fromEvent, Observable, of } from 'rxjs';
 import { Actions, User } from 'src/app/_models';
 import { ProviderPatient } from 'src/app/_models/_provider/ProviderPatient';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
@@ -18,6 +20,7 @@ import { ComponentType } from '@angular/cdk/portal';
 import { AuthorizedrepresentativeDialogComponent } from 'src/app/dialogs/authorizedrepresentative.dialog/authorizedrepresentative.dialog.component';
 import { OverlayService } from 'src/app/overlay.service';
 import { DatePipe } from '@angular/common';
+import { DentalChartComponent } from '../dental.chart/dental.chart.component';
 
 @Component({
   selector: 'app-profile',
@@ -27,11 +30,11 @@ import { DatePipe } from '@angular/common';
 export class ProfileComponent implements OnInit {
   patient: ProviderPatient;
   PatientDetails: any = [];
-  patientMyProfile: PatientProfile;
+  patientMyProfile: PatientProfile = new PatientProfile();
   PracticeProviders: PracticeProviders[];
   myControl: FormControl = new FormControl();
   filteredProviderOptions: Observable<any[]>;
-  filterPatientOptions: Observable<any[]>;
+  filterPatientOptions: Observable<PatientSearch[]>;
   ethnicities = [{ name: 'Hispanic or Latino' }, { name: 'Not Hispanic or Latino' }, { name: 'Patient Declined to specify' }];
   isShow: boolean;
   user: User;
@@ -63,8 +66,9 @@ export class ProfileComponent implements OnInit {
   secondaryLanguage: any = [];
   languageList: any = [];
   patientRelationList: any = [];
+  patientRelationListSubject = new BehaviorSubject<any[]>([]);
   hoverDATEOFBIRTH: string = 'MM/DD/YYYY';
-  hoverDATEOFDEATH: string = 'MM/DD/YYYY'
+  hoverDATEOFDEATH: string = 'MM/DD/YYYY';
   addressVerfied: boolean = false;
   manuallybtn: boolean = false;
   disableaddressverification: boolean = false;
@@ -75,7 +79,15 @@ export class ProfileComponent implements OnInit {
   @Input() max: any;
   disableupcomingdates = new Date();
   ActionTypes = Actions;
-  authorizedRepresentativeDialogComponent = AuthorizedrepresentativeDialogComponent
+  authorizedRepresentativeDialogComponent = AuthorizedrepresentativeDialogComponent;
+  @ViewChild('searchpatient', { static: true }) searchpatient: ElementRef;
+  diabledPatientSearch: boolean = false
+  displayMessage: boolean = true;
+  noRecords: boolean = false;
+  isLoading: boolean = false;
+  currentPatient: ProviderPatient;
+  selectedPatient: ProviderPatient;
+
   constructor(private patientService: PatientService,
     private utilityService: UtilityService,
     private smartSchedulerService: SmartSchedulerService,
@@ -86,6 +98,8 @@ export class ProfileComponent implements OnInit {
     private patientUpdateNotifier: PatientUpdateService,
     public overlayService: OverlayService,) {
     this.user = authService.userValue;
+    this.currentPatient = this.authService.viewModel.Patient;
+    this.selectedPatient = this.authService.viewModel.Patient;
     this.patientMyProfile = {} as PatientProfile;
     this.PhonePattern = {
       0: {
@@ -97,12 +111,73 @@ export class ProfileComponent implements OnInit {
   }
 
   emailPattern = "^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$";
+
+  ngAfterViewInit(): void {
+    fromEvent(this.searchpatient.nativeElement, 'keyup').pipe(
+      // get value
+      map((event: any) => {
+        this.filteredProviderOptions = of([]);
+        this.noRecords = false;
+        if (event.target.value == '') {
+          this.displayMessage = true;
+        }
+        return event.target.value;
+      })
+      // if character length greater or equals to 1
+      , filter(res => res.length >= 1)
+      // Time in milliseconds between key events
+      , debounceTime(1000)
+      // If previous query is diffent from current
+      , distinctUntilChanged()
+      // subscription for response
+    ).subscribe(value => this._filterPatient(value));
+  }
+
+
   ngOnInit(): void {
     this.getPatientDetails();
     this.getPatientMyProfile();
     this.getProviderList();
     this.getlanguagesInfo();
     this.getPatientsRelationByProvider();
+    this.getCareTeamByPatientId(this.currentPatient.PatientId);
+  }
+
+  _filterPatient(term) {
+    this.isLoading = true;
+    this.patientService
+      .PatientSearch({
+        ProviderId: this.authService.userValue.ProviderId,
+        ClinicId: this.authService.userValue.ClinicId,
+        SearchTerm: term
+      })
+      .subscribe(resp => {
+        this.isLoading = false;
+        this.displayMessage = false;
+        if (resp.IsSuccess) {
+          this.filterPatientOptions = of(
+            resp.ListResult as PatientSearch[]);
+        }
+        else {
+          this.filterPatientOptions = of([]);
+          this.noRecords = true;
+        }
+      })
+  }
+
+  onPatientSelected(selected) {
+    let reqParams: any = {
+      'FirstName': selected.option.value.FirstName,
+      'UserName': selected.option.value.RelationShip,
+      'PatientId': selected.option.value.PatientId
+    }
+    this.patientRelationList.push(reqParams);
+    this.patientRelationListSubject.next(this.patientRelationList);
+  }
+
+  displayWithPatientSearch(value: PatientSearch): string {
+    if (!value) return "";
+    return value.Name;
   }
 
   //get Language List
@@ -205,12 +280,13 @@ export class ProfileComponent implements OnInit {
     let reqparam = {
       "ProviderId": this.user.ProviderId
     }
-    // this.patientService.PatientsRelationByProviderId(reqparam).subscribe(resp => {
-    //   if (resp.IsSuccess) {
-    //     // this.patientRelationList = resp.ListResult;
-    //     // this.GetFilterList = resp.ListResult;
-    //   }
-    // })
+    this.patientService.PatientsRelationByProviderId(reqparam).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.patientRelationList = resp.ListResult;
+        this.patientRelationListSubject = this.patientRelationList;
+        this.GetFilterList = resp.ListResult;
+      }
+    })
   }
 
   // search patient details
@@ -229,6 +305,15 @@ export class ProfileComponent implements OnInit {
   }
 
   savePatientRelation() {
+    let reqParams = {
+      "PatientId": this.selectedPatient.PatientId,
+      "RelationShip": this.selectedPatient.RelationShip
+    }
+    this.patientService.CreatePatientsRelationShip(reqParams).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.getPatientsRelationByProvider();
+      }
+    });
     this.allowaccess = false;
     this.removeAccess = false;
   }
@@ -247,7 +332,26 @@ export class ProfileComponent implements OnInit {
     this.CareTeamList.splice(index, 1);
   }
 
+  deleteCareTeam(CareTeamId) {
+    let reqparam = {
+      "CareTeamId": CareTeamId
+    }
+    this.patientService.DeleteCareTeamProviderIds(reqparam).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.getCareTeamByPatientId(this.PatientDetails.PatientId);
+      }
+    })
+    // this.CareTeamList.splice(index, 1);
+  }
+
+  ageCalculator() {
+    if (this.patientMyProfile.DateOfBirth) {
+      let timeDiff = Math.abs(Date.now() - new Date(this.patientMyProfile.DateOfBirth).getTime());
+      this.patientMyProfile.Age = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365.25).toString();
+    }
+  }
   updatePatientInformation() {
+    this.ageCalculator();
     this.patientMyProfile.DateOfBirth = this.datepipe.transform(this.patientMyProfile.DateOfBirth, "yyyy-MM-dd");
     this.patientMyProfile.DateOfDeath = this.datepipe.transform(this.patientMyProfile.DateOfDeath, "yyyy-MM-dd")
     this.patientService.UpdatePatientInformation(this.patientMyProfile).subscribe(resp => {
@@ -256,7 +360,7 @@ export class ProfileComponent implements OnInit {
         this.getPatientMyProfile();
         // this.patient = this.authService.viewModel.Patient;
         this.patientUpdateNotifier.sendData(this.patientMyProfile);
-
+        this.authService.SetViewParam("Patient", this.patientMyProfile);
       }
       else {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP001"]);
@@ -270,6 +374,8 @@ export class ProfileComponent implements OnInit {
       if (resp.IsSuccess) {
         this.getPatientMyProfile();
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP002"]);
+        this.patientUpdateNotifier.sendData(this.patientMyProfile);
+        this.authService.SetViewParam("Patient", this.patientMyProfile);
       }
       else {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP002"]);
@@ -322,12 +428,21 @@ export class ProfileComponent implements OnInit {
   }
 
   updateNote() {
+
+    this.patientMyProfile.Notes = this.patientMyProfile.Notes;
     this.patientService.UpdateNotes(this.patientMyProfile).subscribe(resp => {
       if (resp.IsSuccess) {
         let success = resp.EndUserMessage;
       }
+      console.log(this.patientMyProfile);
+
 
     });
+    this.getPatientMyProfile();
+  }
+  cancel() {
+    this.patientMyProfile.Notes = '';
+    this.getPatientMyProfile();
   }
   AddressVerification() {
     this.accountservice.VerifyAddress(this.patientMyProfile.Street).subscribe(resp => {
@@ -404,7 +519,9 @@ export class ProfileComponent implements OnInit {
   }
 
 
-  allowAccess() { }
+  allowAccess(item: ProviderPatient) {
+    this.selectedPatient = item;
+  }
 
   namePattern = /^[a-zA-Z ]*$/;
 

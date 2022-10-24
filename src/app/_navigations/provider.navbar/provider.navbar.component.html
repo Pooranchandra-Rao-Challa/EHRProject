@@ -1,3 +1,10 @@
+<div *ngIf="loaderService?.isLoading | async" class="loader-container">
+  <mat-progress-bar [value]="loaderService?.progressValue"></mat-progress-bar>
+  <div id="pause" class="d-flex align-items-center justify-content-center">
+    <div id="spinner"></div>
+  </div>
+</div>
+
 <nav class="navbar navbar-expand-lg bg-color provider-header">
   <button class="navbar-toggler" type="button" (click)="toggleNavbar()">
     <span class="navbar-toggler-icon"><i class="fa fa-bars text-white fs-2"></i></span>
@@ -26,7 +33,8 @@
         <a href="javascript:void(0)" class="nav-link item-provider-messages"
           (click)="onChangeBreadCrum('provider/messages','Messages')">Messages
         </a>
-        <span class="messages-count">0</span>
+        <span class="messages-count" style="margin-left: 10px !important;
+        margin-right: 2px !important;">{{unreadMails}}</span>
       </li>
       <li class="eRx-nav-item">
         <a href="javascript:void(0)" class="nav-link item-erx disabled"
@@ -72,16 +80,43 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
+        </div>
     <li class="li-menu"><a class="nav-li text-nowrap" (click)="GetUserInfoData()">My Account</a></li>
-    <li class="li-menu"><a class="nav-li text-nowrap">About EHR1</a></li>
+    <li class="li-menu" data-bs-toggle="modal" data-bs-target="#modal-about-ehr1"><a class="nav-li text-nowrap">About
+        EHR1</a></li>
     <li class="li-menu border-bottom"><a class="nav-li">Lock</a></li>
     <li class="li-menu" (click)="logout()"><a class="nav-li">Log out</a></li>
-    </div>
     </mat-menu>
     </li>
   </ul>
 </nav>
 
 
-
-
+<!-- About EHR1 dialog -->
+<div class="modal fade" id="modal-about-ehr1" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header modal-header-sm justify-content-end">
+        <span type="button" class="cross-mark" data-bs-dismiss="modal">X</span>
+      </div>
+      <div class="modal-body">
+        <div class="top-block">
+          <p>EHR1 - Electronic Health Record Version 1.0</p>
+          <p>Copyright © 2015 EHR1. All Rights Reserved</p>
+        </div>
+        <div class="center-block">
+          <div class="logo"></div>
+        </div>
+        <div class="bottom-block">
+          <p>View the&nbsp;
+            <a>Healthcare Provider User Agreement</a>,&nbsp;
+            <a>Privacy policy</a>
+            and&nbsp;
+            <a>Terms of Use</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

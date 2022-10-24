@@ -5,7 +5,7 @@ import { AuthenticationService } from 'src/app/_services/authentication.service'
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
-import { Actions, PatientSearch, PracticeProviders } from 'src/app/_models';
+import { Actions, PatientSearch, PracticeProviders, User } from 'src/app/_models';
 import { LabProcedureWithOrder, LabResultInfo, TestOrder } from 'src/app/_models/_provider/LabandImage';
 import { PatientService } from 'src/app/_services/patient.service';
 import { TestCode, TestCodeComponent } from './test.code.component';
@@ -29,6 +29,7 @@ export class LabResultComponent implements OnInit {
   testCodeComponent = TestCodeComponent;
   orderIsManual?: boolean = false;
   saveClicked?: boolean = false;
+  user: User;
   constructor(private ref: EHROverlayRef,
     private fb: FormBuilder,
     private patientService: PatientService,
@@ -110,8 +111,6 @@ export class LabResultComponent implements OnInit {
       .subscribe(resp => {
         if (resp.IsSuccess) {
           let pat = resp.ListResult as PatientSearch[];
-          console.log(pat);
-
           if (pat.length == 1) {
             this.labandImaging.CurrentPatient = pat[0];
           } else {
@@ -163,10 +162,10 @@ export class LabResultComponent implements OnInit {
   }
 
   removeLabOrder(index: number) {
-   this.testOrders.controls.splice(index, 1).forEach(ctrl => {
-      if(isNaN(ctrl.get("TestOrderId").value))
-        if(this.labandImaging.RemovedTestOrderIds ==null) this.labandImaging.RemovedTestOrderIds = [];
-        this.labandImaging.RemovedTestOrderIds.push(ctrl.get("TestOrderId").value);
+    this.testOrders.controls.splice(index, 1).forEach(ctrl => {
+      if (isNaN(ctrl.get("TestOrderId").value))
+        if (this.labandImaging.RemovedTestOrderIds == null) this.labandImaging.RemovedTestOrderIds = [];
+      this.labandImaging.RemovedTestOrderIds.push(ctrl.get("TestOrderId").value);
     });
   }
 
@@ -187,7 +186,7 @@ export class LabResultComponent implements OnInit {
           this.testOrders.controls[value.Index].setValue({
             Code: value.Code, Test: value.Description,
             Result: "", Flag: "", Units: "", Range: "", Delete: "",
-            TestOrderId: -1*value.Index
+            TestOrderId: -1 * value.Index
           });
         }
       }
@@ -226,6 +225,7 @@ export class LabResultComponent implements OnInit {
       this.labandImaging.LabResult.TestReportedAt = this.datePipe.transform(this.labandImaging.LabResult.TestReportedDate, "MM/dd/yyyy");
 
     this.labandImaging.strResult = JSON.stringify(this.labandImaging.LabResult);
+    this.labandImaging.LabResult.NPI = this.labandImaging.NPI;
 
     let isAdd = this.labandImaging.LabResult.LabResultId == null || this.labandImaging.LabResult.LabResultId == '';
 

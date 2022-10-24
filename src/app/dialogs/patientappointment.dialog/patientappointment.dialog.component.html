@@ -1,3 +1,4 @@
+<div id="patientappoinment">
 <div class="modal-dialog modal-xl">
   <div class="modal-content modal-cust-content">
     <div class="modal-header model-cust-heading">
@@ -12,7 +13,7 @@
              <mat-label class="col-12 required">Select Date:</mat-label>
               <mat-form-field appearance="outline" class="col-12">
                 <input matInput class="pointer"  [matDatepicker]="appointmentDate"
-                  (click)="appointmentDate.open()"  placeholder="Request Date"
+                  (click)="appointmentDate.open()"  placeholder="Request Date"readonly
                   [(ngModel)]="requestAppoinments.AppttDate" [ngModelOptions]="{standalone: true}" [min]="minDate" required #selectDate="ngModel"required/>
                 <mat-datepicker-toggle matSuffix [for]="appointmentDate">
                 </mat-datepicker-toggle>
@@ -24,6 +25,7 @@
                   <p class="errormessage">Please select the date</p>
                 </div>
               </div>
+              
           </div>
 
           <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
@@ -51,12 +53,19 @@
               <input matInput type="text" hint="12 hours format" appTimeMask
               [(ngModel)]="requestAppoinments.AppointmentTime" #apptTime="ngModel"  required>
             </mat-form-field>
-            <div *ngIf="apptTime.errors && (apptTime.touched)">
+            <div *ngIf="(apptTime.dirty || apptTime.touched)">
               <div class="error_message" *ngIf="apptTime.errors?.required">
                 <span class="e_arrow"></span>
                 <p class="errormessage">Please select the time </p>
               </div>
             </div>
+            <!-- <div *ngIf="apptTime.invalid && (apptTime.dirty || apptTime.touched)"
+            class="alert alert-danger">
+
+         <div *ngIf="apptTime.errors.required">
+           Name is required.
+         </div>
+         </div> -->
           </div>
           <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-3">
             <mat-label  class="form-label required">Location </mat-label>
@@ -84,6 +93,9 @@
 
           </div>
         </div>
+        <div class="row mt-4">
+          <p>*We will make every effort to accommodate exact times requested, but may need to suggest alternate dates/times.</p>
+        </div>
 
         <div class="row mt-4" style="float: right;">
           <button type="button"  class="btn btn-green col-md-4 mx-2" (click)="cancel()">Cancel</button>
@@ -91,4 +103,5 @@
         </div>
     </div>
   </div>
+</div>
 </div>

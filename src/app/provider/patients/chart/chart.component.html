@@ -10,7 +10,7 @@
           <div class="pull-left col-xl-2 col-lg-3 col-md-3 col-12">
             <div class="dropdown">
               <a class="btn btn-go-to dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown"
-                aria-expanded="false" data-bs-auto-close="outside">
+                aria-expanded="false">
                 <span>Go to...</span>
               </a>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
@@ -534,7 +534,7 @@
               <div class="card-body">
                 <ul class="main-list" *ngFor="let message of patientMessages | slice:0:5">
                   <li>
-                    <a style="cursor: auto;">
+                    <a (click)="openComponentDialog(viewMessageDialogComponent,message,ActionTypes.view)">
                       <span *ngIf="message?.Subject != null && message?.Subject !=''">
                         - {{message?.Subject}}
                       </span>
@@ -549,8 +549,10 @@
                     <span>No message recorded.</span>
                   </li>
                 </ul>
-                <a
+                <a (click)="openComponentDialog(messagesTableDialogComponent,patientMessages,ActionTypes.view)"
                   *ngIf="patientMessages.length > 5" class="view-more pull-right">view more</a>
+                  <!-- <a (click)="openComponentDialog(messagesTableDialogComponent,patientMessages,ActionTypes.view)"
+                  *ngIf="chartInfo?.Appointments?.length > 5" class="view-more pull-right">view more</a> -->
               </div>
             </div>
             <div class="card" id="toAppointments">
@@ -778,7 +780,7 @@
           <div class="row">
             <mat-label>Route:</mat-label>
             <mat-form-field appearance="outline" class="col-12">
-              <mat-select placeholder="Search a route" [(ngModel)]="patientImmunization.Route">
+              <mat-select placeholder="Select a route" [(ngModel)]="patientImmunization.Route">
                 <mat-option *ngFor="let route of immRoutes" [value]="route">
                   {{route}}
                 </mat-option>
@@ -788,7 +790,7 @@
           <div class="row">
             <mat-label>Body Site:</mat-label>
             <mat-form-field appearance="outline" class="col-12">
-              <mat-select placeholder="Search a body site" [(ngModel)]="patientImmunization.BodySite">
+              <mat-select placeholder="Select a body site" [(ngModel)]="patientImmunization.BodySite">
                 <mat-option *ngFor="let bodysite of immBodySites" [value]="bodysite">
                   {{bodysite}}
                 </mat-option>
@@ -798,7 +800,7 @@
           <div class="row">
             <mat-label>Funding Source:</mat-label>
             <mat-form-field appearance="outline" class="col-12">
-              <mat-select placeholder="Search a founding source" [(ngModel)]="patientImmunization.FundingSource">
+              <mat-select placeholder="Select a funding source" [(ngModel)]="patientImmunization.FundingSource">
                 <mat-option *ngFor="let source of immFundingSources" [value]="source">
                   {{source}}
                 </mat-option>

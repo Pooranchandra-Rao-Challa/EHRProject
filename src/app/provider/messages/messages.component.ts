@@ -1,3 +1,4 @@
+import { NotifyMessageService } from './../../_navigations/provider.layout/view.notification.service';
 import { SimplePaginationDirective } from 'src/app/_directives/simple.pagination.directive';
 import { AfterContentChecked, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { OverlayService } from '../../overlay.service';
@@ -14,7 +15,7 @@ import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { MessageDialogInfo, Messages } from 'src/app/_models/_provider/messages';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
-import { RecordsChangeService } from 'src/app/_navigations/provider.layout/view.notification.service';
+import { RecordsChangeService, MessageCounts } from 'src/app/_navigations/provider.layout/view.notification.service';
 @Component({
   selector: 'app-labs.imaging',
   templateUrl: './messages.component.html',
@@ -26,8 +27,8 @@ export class MessagesComponent implements OnDestroy, AfterContentChecked {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild("pagination", { static: true }) pagination: SimplePaginationDirective
   MessageDialogComponent = NewmessageDialogComponent;
-
   public messageDataSource: MessagesDatasource;
+  message?: Messages;
   user?: User;
   @ViewChild('searchMessage', { static: true }) searchMessage: ElementRef;
   ActionTypes = Actions;
@@ -51,6 +52,7 @@ export class MessagesComponent implements OnDestroy, AfterContentChecked {
     private messageService: MessagesService,
     private authService: AuthenticationService,
     private changeDedectionRef: ChangeDetectorRef,
+    private notifyMessage: NotifyMessageService,
     private alertmsg: AlertMessage) {
     this.user = authService.userValue;
   }
@@ -121,9 +123,23 @@ export class MessagesComponent implements OnDestroy, AfterContentChecked {
   isExpandToggle() {
     this.isExpand = !this.isExpand;
   }
-  showMessage(message) {
+  showMessage(message: Messages) {
     this.currentMessage = message;
+    if (this.currentMessageView == 'Inbox' || this.currentMessageView == 'Urgent') {
+      this.messageService.ReadInboxMessages(this.currentMessage).subscribe(resp => {
+        if (resp.IsSuccess) {
+          this.user.UnReadMails--;
+          if (message.Urgent) this.user.UrgentMessages--;
+          var counts: MessageCounts = new MessageCounts();
+          counts.UnreadCount = this.user.UnReadMails;
+          counts.UrgentCount = this.user.UrgentMessages;
+          this.notifyMessage.sendData(counts);
+          this.authService.updateMessageCounts(counts);
+        }
+      })
+    }
   }
+
   loadMessages() {
     this.messageDataSource.loadMessages(
       this.searchMessage != null ? this.searchMessage.nativeElement.value : "",
@@ -183,6 +199,7 @@ export class MessagesComponent implements OnDestroy, AfterContentChecked {
 
     const ref = this.overlayService.open(content, DialogResponse);
     ref.afterClosed$.subscribe(res => {
+      this.loadMessages();
     });
 
   }

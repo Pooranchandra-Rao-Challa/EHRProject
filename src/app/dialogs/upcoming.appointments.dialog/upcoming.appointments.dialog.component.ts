@@ -1,3 +1,4 @@
+import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { NewAppointment,Actions,
         AppointmentDialogInfo,
@@ -22,6 +23,7 @@ export class UpcomingAppointmentsDialogComponent implements OnInit {
   constructor(
     private ref: EHROverlayRef,
     private smartSchedulerService: SmartSchedulerService,
+    private alertMessage: AlertMessage,
     private overlayService: OverlayService) {
       this.data = ref.RequestData;
       this.PatientAppointments(this.data.PatientAppointment.PatientId)
@@ -45,6 +47,8 @@ export class UpcomingAppointmentsDialogComponent implements OnInit {
       this.dialogIsLoading = true;
       if (resp.IsSuccess) {
         this.AppointmentsOfPatient = resp.ListResult as ScheduledAppointment[];
+        console.log(this.AppointmentsOfPatient);
+
         this.dialogIsLoading = false;
       }
     });
@@ -84,7 +88,26 @@ export class UpcomingAppointmentsDialogComponent implements OnInit {
         }
       }
     });
+  }
 
-
+  updateAppointmentStatus(patientapp: ScheduledAppointment) {
+    patientapp.StatusToUpdate = 'Cancelled';
+    if (patientapp.Status != patientapp.StatusToUpdate) {
+      this.smartSchedulerService.UpdateAppointmentStatus(patientapp).subscribe(resp => {
+        if (resp.IsSuccess) {
+          // this.filterAppointments();
+          this.alertMessage.displayMessageDailog(ERROR_CODES["M2JSAT005"]);
+          // if (resp.IsSuccess && resp.Result != 'Error01') {
+          //   this.alertMessage.displayMessageDailog(ERROR_CODES["M2JSAT005"]);
+          // } else {
+          //   this.alertMessage.displayErrorDailog(ERROR_CODES["E2JSAT002"]);
+          // }
+        }
+        else {
+          this.alertMessage.displayErrorDailog(ERROR_CODES["E2JSAT004"]);
+        }
+      });
+    }
+    this.ref.close(null);
   }
 }

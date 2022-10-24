@@ -16,7 +16,7 @@ export interface Patient {
   Email?: string;
   Gender?: string;
   Address?: string;
-  PatinetHasNoEmail: boolean;
+  // PatinetHasNoEmail?: boolean;
   ValidatedAddress?: string;
   City?: string;
   State?: string;
@@ -43,6 +43,7 @@ export class PatientPortalUser{
   PatientRelationUsername?: string;
   SendInvitation?:boolean;
   URL?:string;
+  PatinetHasNoEmail: boolean;
 }
 
 export class PatientSearch{
@@ -51,7 +52,7 @@ export class PatientSearch{
   Gender?: string;
   PrimaryPhone?: string;
 	MobilePhone?: string;
-	DateofBirth?: Date;
+	Dob?: Date;
 	Age?: Number;
   User?:string;
 }

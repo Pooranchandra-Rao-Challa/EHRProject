@@ -23,7 +23,7 @@ declare var $: any;
   styleUrls: ['./patients.component.scss']
 })
 export class PatientsComponent implements OnInit,AfterViewInit {
-  customizedspinner: boolean;
+  // customizedspinner: boolean;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('SearchPatient', { static: true })
@@ -171,12 +171,12 @@ export class PatientsComponent implements OnInit,AfterViewInit {
       "ProviderId": null,
       "Status": "All"
     }
-    this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
+    // this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
     this.patientsDataSource = new PatientDatasource(this.patientService, reqparams);
-    setTimeout(() => {
-      this.customizedspinner = false;
-      $('body').removeClass('loadactive')
-    }, 2000);
+    // setTimeout(() => {
+    //   this.customizedspinner = false;
+    //   $('body').removeClass('loadactive')
+    // }, 2000);
     this.patientsDataSource.loadPatients();
   }
 
@@ -189,7 +189,6 @@ export class PatientsComponent implements OnInit,AfterViewInit {
       this.paginator.pageSize
     );
   }
-
   showInactivePatients(event) {
     this.patientsDataSource.Status = event.checked ? "InActive" :  "All"
     this.loadPatients();
@@ -210,7 +209,7 @@ export class PatientsComponent implements OnInit,AfterViewInit {
 }
 
 export class PatientDatasource implements DataSource<ProviderPatient>{
-  customizedspinner: boolean;
+  // customizedspinner: boolean;
   private patientsSubject = new BehaviorSubject<ProviderPatient[]>([]);
   private loadingSubject = new BehaviorSubject<boolean>(false);
   public loading$ = this.loadingSubject.asObservable();

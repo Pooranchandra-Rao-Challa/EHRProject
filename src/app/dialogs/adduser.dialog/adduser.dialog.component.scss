@@ -287,6 +287,7 @@ input::-webkit-input-placeholder {
 .reg-button {
   height: 35px;
   width: 100% !important;
+  // cursor: pointer !important;
 }
 
 .tel-code h1 {
@@ -369,7 +370,21 @@ input::-webkit-input-placeholder {
   align-items: center;
 }
 
+.adrsbtn {
+  background-color: #48a948;
+  width: 38px;
+  height: 28px;
+  padding: 1px;
+  border: 1px solid white;
+  color: white;
+}
 
+.adrsbtn:hover {
+  background-color: #48a948;
+  width: 38px;
+  padding: 0px;
+  border: 1px solid white;
+}
 ::ng-deep .admin-swal2-styled{
   margin: 100px 0!important;
   background: #35414f !important;

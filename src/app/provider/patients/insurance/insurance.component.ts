@@ -1,8 +1,7 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { fromEvent, Observable, of } from 'rxjs';
+import { fromEvent, Observable, of, Subject } from 'rxjs';
 import { PracticeLocation, User } from 'src/app/_models';
-
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { PatientService } from 'src/app/_services/patient.service';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
@@ -14,6 +13,8 @@ import { DatePipe } from '@angular/common';
 import { AreaCode } from 'src/app/_models/_admin/Admins';
 import { FormControl } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
+import { DataExtractorService } from 'mat-table-exporter';
+declare var $: any;
 @Component({
   selector: 'app-insurance',
   templateUrl: './insurance.component.html',
@@ -44,10 +45,10 @@ export class InsuranceComponent implements OnInit {
   primaryplusicon: any;
   secondaryplusicon: any;
   btnstate: boolean = true;
-  rowClicked:any
-  arry:any
+  rowClicked: any
+  arry: any
   selectingInsuranceCompanyName: any;
-  selectingInsuranceCompanyPlanId:any
+  selectingInsuranceCompanyPlanId: any
   InsuranceCompanyPlan: string;
   show: boolean;
   InsurancDetailslist: any = [];
@@ -69,10 +70,22 @@ export class InsuranceComponent implements OnInit {
   searchText: string;
   @Input() max: any;
   tomorrow = new Date();
+  sample : any
   AreaCodes: AreaCode[];
   filteredAreacodes: any
   myControlPrimary = new FormControl();
+  minDateToPrimary = new Subject<string>();
+  endDateForPrimary;
+  minDateToSecondary = new Subject<string>();
+  endDateForSecondary;
 
+  dateChangeForPrimary(e) {
+    this.minDateToPrimary.next(e.value.toString());    
+  }
+  dateChangeForSecondary(e)
+  {
+    this.minDateToSecondary.next(e.value.toString());  
+  }
   constructor(private patientservice: PatientService,
     private route: ActivatedRoute,
     private authService: AuthenticationService,
@@ -85,6 +98,13 @@ export class InsuranceComponent implements OnInit {
     this.changedLocationId = this.user.CurrentLocation;
     this.InsuranceCompanyPlanList();
     this.tomorrow.setDate(this.tomorrow.getDate());
+    this.minDateToPrimary.subscribe(r => {
+      this.endDateForPrimary = new Date(r);
+    })
+    this.minDateToSecondary.subscribe(r=>
+      {
+        this.endDateForSecondary = new Date(r);
+      })
   }
 
   ngOnInit(): void {
@@ -96,6 +116,26 @@ export class InsuranceComponent implements OnInit {
     this.getInsuranceList();
     this.loadDefaults();
     this.filteredAreacodes = this.myControlPrimary.valueChanges.pipe(startWith(''), map(value => this._filterAreaCode(value)));
+    //   $('#modal-primary-Insurance').on('shown', function () {
+    //     $(".divScroll").scrollTop(0);
+    // });
+    //   var scrollPos = 0;
+    // $('.modal')
+    // .on('show.bs.modal', function (){
+    // scrollPos = $('.divScroll').scrollTop();
+    // $('body').css({
+    // overflow: 'hidden',
+    // position: '',
+    // top : -scrollPos
+    // });
+    // })
+    // .on('hide.bs.modal', function (){
+    // $('body').css({
+    // overflow: '',
+    // position: '',
+    // top: ''
+    // }).scrollTop(scrollPos);
+    // });
   }
   loadDefaults() {
 
@@ -163,7 +203,7 @@ export class InsuranceComponent implements OnInit {
     this.getInsuranceDetail(this.insuraceComplanyPlan)
   }
 
-  changeTableRowColor(item,idx, event) {
+  changeTableRowColor(item, idx, event) {
     // this.arry = [];
     this.rowClicked = idx;
     this.selectingInsuranceCompanyName = item.InsuranceCompanyName;
@@ -187,7 +227,7 @@ export class InsuranceComponent implements OnInit {
     this.isValid = false;
     this.cancel2 = false;
     this.cancel1 = false;
-
+    this.InsuranceCompanyPlanList();
   }
   Selected() {
     if (this.plusvalue == "primary") {
@@ -227,6 +267,7 @@ export class InsuranceComponent implements OnInit {
     this.patientservice.SourceOfPaymentTypologyCodes().subscribe(resp => {
       if (resp.IsSuccess) {
         this.SourceOfPaymentTypologyCodes = resp.ListResult;
+
         this.SourceOfPaymentTypologyCodesFilter = this.SourceOfPaymentTypologyCodes.slice();
         this.secondarySptcFilter = this.SourceOfPaymentTypologyCodes.slice();
         if (this.primlist.SourceOfPaymentTypology! = "") {
@@ -386,6 +427,7 @@ export class InsuranceComponent implements OnInit {
     this.isValid = false;
     this.cancel2 = false;
     this.cancel1 = false;
+    this.searchText = '';
   }
 
   CreateUpdateInsuranceDetails(item) {

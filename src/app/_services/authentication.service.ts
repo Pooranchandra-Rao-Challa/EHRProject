@@ -1,3 +1,5 @@
+import { ProviderList } from './../_models/_admin/providerList';
+import { MessageCounts } from './../_navigations/provider.layout/view.notification.service';
 import { SecureCreds } from './../_models/_account/user';
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, Observer, observable, throwError, of } from 'rxjs';
@@ -48,14 +50,13 @@ export class AuthenticationService {
       this.user = this.userSubject.asObservable();
     }
 
+
   }
 
   loginWithFormCredentials(creds: any): Observable<ResponseData> {
     const endpointUrl = this.baseUrl + "Authenticate/";
     let observable = this.http.post<ResponseData>(endpointUrl, creds).pipe<ResponseData>(
       tap(resp => {
-        console.log(resp);
-
         if (resp.IsSuccess) {
           this.userSubject = new BehaviorSubject<User>(resp.Result as User);
           if (this.userValue.IsSuccess) {
@@ -64,11 +65,16 @@ export class AuthenticationService {
             this.startRefreshTokenTimer();
             if (this.isProvider) {
               if (!this.isProviderVerfied)
-                this.logout(ERROR_CODES["EL006"])
+                this.logout(ERROR_CODES["EL006"]);
               else if (!this.isProviderActive)
-                this.logout(ERROR_CODES["EL008"])
+                this.logout(ERROR_CODES["EL008"]);
               else if (this.isUserLocked)
-                this.logout(ERROR_CODES["EL009"])
+                this.logout(ERROR_CODES["EL009"]);
+              else if (!this.isProviderInTrialPeriod && !this.isProviderTrialPeriodClosed) {
+                // Provider trial period is closed please do subscribe for accessing application.
+                // alert('Provider trial period is closed please do subscribe for accessing application.');
+                this.logout(ERROR_CODES["EL012"]);
+              }
               else
                 this.router.navigate(
                   ['provider/smartschedule'],
@@ -77,9 +83,9 @@ export class AuthenticationService {
             }
             else if (this.isAdmin)
               if (this.isUserLocked)
-                this.logout(ERROR_CODES["EL010"])
+                this.logout(ERROR_CODES["EL010"]);
               else if (this.isUserLocked)
-                this.logout(ERROR_CODES["EL011"])
+                this.logout(ERROR_CODES["EL011"]);
               else
                 this.router.navigate(
                   ['admin/dashboard'],
@@ -89,14 +95,14 @@ export class AuthenticationService {
               this.logout(ERROR_CODES["EL001"]);
           } else if (this.isFirstTimeLogin) {
             if (this.isProvider)
-              this.logout(ERROR_CODES["EL006"])
+              this.logout(ERROR_CODES["EL006"]);
             else if (this.isAdmin)
-              this.logout(ERROR_CODES["EL007"])
+              this.logout(ERROR_CODES["EL007"]);
           } else {
-            this.logout(ERROR_CODES["EL001"])
+            this.logout(ERROR_CODES["EL001"]);
           }
         } else {
-          this.logout(ERROR_CODES["EL001"])
+          this.logout(ERROR_CODES["EL001"]);
         }
       }, err => {
         this.logout(ERROR_CODES["EL002"]);
@@ -138,6 +144,9 @@ export class AuthenticationService {
               if (!this.isProviderVerfied) {
                 this.logout(ERROR_CODES["EL006"])
               }
+              else if (!this.isProviderInTrialPeriod) {
+                this.logout(ERROR_CODES["EL006"])
+              }
               else
                 this.router.navigate(
                   ['/provider/smartschedule'],
@@ -170,10 +179,10 @@ export class AuthenticationService {
         if (this.isPatient || this.isRepresentative)
           this.router.navigate(['patient/dashboard']);
         else {
-          this.logout(ERROR_CODES["EL001"])
+          this.logout(ERROR_CODES["EL001"]);
         }
       } else {
-        this.logout(ERROR_CODES["EL002"])
+        this.logout(ERROR_CODES["EL001"]); // EL002
       }
     }),
       (error) => {
@@ -214,7 +223,7 @@ export class AuthenticationService {
   }
 
   isLoggedIn() {
-    if(!this.userValue) return false;
+    if (!this.userValue) return false;
     const jwtToken = JSON.parse(atob(this.userValue.JwtToken.split('.')[1]));
     const expires = new Date(jwtToken.exp * 1000);
     const timediff = expires.getTime() - Date.now();
@@ -263,12 +272,27 @@ export class AuthenticationService {
     return this.userValue.AdminActive;
   }
 
+  get isProviderInTrialPeriod(): boolean {
+    return this.userValue.TrialDaysLeft > 0;
+  }
+
+  get isProviderTrialPeriodClosed(): boolean {
+    return this.userValue.TrialDaysLeft == null;
+  }
+
+  updateMessageCounts(counts: MessageCounts) {
+    let u = this.userValue;
+    u.UnReadMails = counts.UnreadCount;
+    u.UrgentMessages = counts.UrgentCount;
+    this.userSubject.next(u);
+    localStorage.setItem('user', JSON.stringify(u as User));
+  }
+
   private startRefreshTokenTimer() {
     const jwtToken = JSON.parse(atob(this.userValue.JwtToken.split('.')[1]));
     const expires = new Date(jwtToken.exp * 1000);
     const timeout = expires.getTime() - Date.now() - (60 * 1000);
     this.refreshTokenTimeout = setTimeout(() => this.refreshToken(), timeout);
-
   }
 
   private stopRefreshTokenTimer() {

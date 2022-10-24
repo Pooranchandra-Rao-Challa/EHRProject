@@ -8,22 +8,24 @@
       <div class="row">
         <div class="d-flex justify-content-start">
           <mat-form-field appearance="outline" class="col-md-3 mx-4 green-calendar">
-            <input matInput [matDatepicker]="dp"  placeholder="From" name="startDate" [(ngModel)]="startDate" >
+            <input matInput class="pointer" [matDatepicker]="dp" placeholder="From" name="startDate"
+              (click)="dp?.open()" readonly [(ngModel)]="startDate" (dateChange)="dateChange($event)">
             <mat-datepicker-toggle matSuffix [for]="dp">
             </mat-datepicker-toggle>
             <mat-datepicker #dp disabled="false"></mat-datepicker>
           </mat-form-field>
           <div class="mx-1 cust-hyphen">-</div>
           <mat-form-field appearance="outline" class="col-md-3 green-calendar">
-            <input matInput [matDatepicker]="dp1" placeholder="To" name="enddate" [(ngModel)]="enddate"
-            (dateChange)="getActivetLogList('')">
-            <mat-datepicker-toggle matSuffix [for]="dp1">
+            <input matInput class="pointer" [matDatepicker]="dp1" placeholder="To" name="enddate" (click)="dp1?.open()"
+              readonly [(ngModel)]="enddate" (dateChange)="getActivetLogList('')" [min]="endDateForActivityLog"
+              [disabled]="startDate == null">
+            <mat-datepicker-toggle matSuffix [for]="dp1" [disabled]="startDate == null">
             </mat-datepicker-toggle>
             <mat-datepicker #dp1 disabled="false"></mat-datepicker>
           </mat-form-field>
           <div class="col-md-3 mx-4">
-            <button mat-raised-button type="submit"
-            class="btn btn-green hover-class " (click)="getActivetLogList('reset')">Reset</button>
+            <button mat-raised-button type="submit" class="btn btn-green hover-class "
+              (click)="getActivetLogList('reset')">Reset</button>
           </div>
         </div>
       </div>
@@ -31,7 +33,7 @@
       <div class="table-responsive">
         <table class="table table-grayed table-grayed-checkboxed" id="appointments-upcoming">
           <thead class="th-border">
-            <tr class="th-border text-center" >
+            <tr class="th-border text-center">
               <th class="border-date">Date</th>
               <th>Action</th>
               <th class="b8">Details</th>
@@ -49,6 +51,6 @@
       </div>
       <div class="text-center text-danger py-2 col-12" *ngIf="ActiveLogData==0">
         Audit Logs Not Found
-     </div>
+      </div>
     </div>
   </div>

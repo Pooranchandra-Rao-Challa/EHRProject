@@ -2,7 +2,7 @@
   <div class="modal-content">
     <div class="modal-header" style="margin-top: -1px;">
       <h3 class="modal-title col-11 Helvetica-sans-serif-large" id="staticBackdropLabel">
-        Add Procedure
+        {{this.procedureInfo.ProcedureId == null? 'Add Procedure': 'Edit Procedure'}}
       </h3>
       <span type="button" class="cross-mark col-1" aria-label="Close" (click)="cancel()">
         X
@@ -14,7 +14,7 @@
           <div class="input-group">
             <mat-form-field class="procedure-form-field" appearance="outline" [ngStyle]="{'width':'100%'}">
               <input matInput #searchProcedureCode class="form-control" placeholder="Search Procedure Code" type="text"
-                id="searchProcedureCode" name="searchProcedureCode" [matAutocomplete]="procedureCode"/>
+                id="searchProcedureCode" name="searchProcedureCode" [matAutocomplete]="procedureCode" />
               <mat-autocomplete [displayWith]="displayWith" #procedureCode="matAutocomplete"
                 (optionSelected)="onProcedureSelected($event)">
                 <mat-option [hidden]="displayMessage == false" [disabled]="true" class="text-wrap lh-1 fs-6">
@@ -36,8 +36,8 @@
           <div class="input-group">
             <label class="control-label input-group-addon required">Code</label>
             <mat-form-field class="procedure-form-field w-100" appearance="outline">
-              <input matInput class="form-control" placeholder="Code" disabled class="not-allowed" id="pCode" name="pCode"
-                [(ngModel)]="procedureInfo.Code" />
+              <input matInput class="form-control" placeholder="Code" disabled class="not-allowed" id="pCode"
+                name="pCode" [(ngModel)]="procedureInfo.Code" />
             </mat-form-field>
           </div>
         </div>
@@ -45,9 +45,9 @@
           <div class="input-group">
             <label class="control-label input-group-addon required">Description</label>
             <mat-form-field class="procedure-form-field w-100" appearance="outline">
-              <input matInput class="form-control" placeholder="Description" disabled class="not-allowed" id="pDescription"
-                name="pDescription" [(ngModel)]="procedureInfo.Description" [matTooltip]="procedureInfo.Description"
-                matToolTipPosition="after" matTooltipShowDelay="100"
+              <input matInput class="form-control" placeholder="Description" disabled class="not-allowed"
+                id="pDescription" name="pDescription" [(ngModel)]="procedureInfo.Description"
+                [matTooltip]="procedureInfo.Description" matToolTipPosition="after" matTooltipShowDelay="100"
                 matTooltipHideDelay="100" />
             </mat-form-field>
           </div>
@@ -68,11 +68,11 @@
             <label class="control-label input-group-addon required">Start Date</label>
             <mat-form-field class="procedure-form-field green-calendar w-100" appearance="outline">
               <input matInput class="pointer" autocomplete="off" placeholder="Start Date" type="text" id="pStartDate"
-                name="pStartDate" (click)="startDate.open()" readonly [(ngModel)]="procedureInfo.Date" [matDatepicker]="startDate"
-                (dateChange)="dateModified($event)"/>
-                <mat-hint>MM/DD/YYYY</mat-hint>
-                <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
-                <mat-datepicker #startDate></mat-datepicker>
+                name="pStartDate" (click)="startDate.open()" readonly [(ngModel)]="procedureInfo.Date"
+                [matDatepicker]="startDate" (dateChange)="dateChange($event)" />
+              <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+              <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+              <mat-datepicker #startDate></mat-datepicker>
             </mat-form-field>
           </div>
         </div>
@@ -80,12 +80,12 @@
           <div class="input-group" [class.tooth-number-center]="procedureInfo.ViewFrom =='ToothNo'">
             <div class="row">
               <div class="col-md-6"><label class="control-label input-group-addon required">Tooth:</label></div>
-              <div class="col-md-6"> <label *ngIf="procedureInfo.ViewFrom =='ToothNo'">{{procedureInfo.ToothNo}}</label></div>
+              <div class="col-md-6"> <label *ngIf="procedureInfo.ViewFrom =='ToothNo'">{{procedureInfo.ToothNo}}</label>
+              </div>
             </div>
-           
-            <mat-form-field class="procedure-form-field w-100" appearance="outline"
-            [ngStyle]="{'padding-bottom':'0px'}"
-            *ngIf="procedureInfo.ViewFrom == null || procedureInfo.ViewFrom =='Tree'">
+
+            <mat-form-field class="procedure-form-field w-100" appearance="outline" [ngStyle]="{'padding-bottom':'0px'}"
+              *ngIf="procedureInfo.ViewFrom == null || procedureInfo.ViewFrom =='Tree'">
               <mat-select class="select" [(ngModel)]="procedureInfo.ToothNo">
                 <mat-option *ngFor="let toothNo  of teethNumbers" [value]="toothNo">{{toothNo}}</mat-option>
               </mat-select>
@@ -96,7 +96,8 @@
         <div class="col-lg-4 col-md-6 col-12">
           <div class="input-group">
             <label class="control-label input-group-addon required">Status</label>
-            <mat-form-field class="procedure-form-field w-100" appearance="outline" [ngStyle]="{'padding-bottom':'0px'}">
+            <mat-form-field class="procedure-form-field w-100" appearance="outline"
+              [ngStyle]="{'padding-bottom':'0px'}">
               <mat-select class="select" [(ngModel)]="procedureInfo.Status">
                 <mat-option [value]="option.Value" *ngFor="let option of procedureStatuses">{{option.Name}}</mat-option>
                 <!-- <mat-option value="Existing Curr. Provider">Existing Curr. Provider</mat-option>
@@ -113,11 +114,13 @@
           <div class="input-group">
             <label class="control-label input-group-addon">End Date</label>
             <mat-form-field class="teeth-form-field green-calendar w-100" appearance="outline">
-              <input matInput class="pointer" autocomplete="off" placeholder="End Date" type="text" id="pBasePrice" name="pBasePrice"
-              [matDatepicker]="endDate" (click)="endDate.open()" readonly [(ngModel)]="procedureInfo.EndDate" />
-                <mat-hint>MM/DD/YYYY</mat-hint>
-                <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
-                <mat-datepicker #endDate></mat-datepicker>
+              <input matInput class="pointer" autocomplete="off" placeholder="End Date" type="text" id="pBasePrice"
+                name="pBasePrice" [matDatepicker]="endDate" (click)="endDate.open()" readonly
+                [(ngModel)]="procedureInfo.EndDate" [min]="endDateForProcedure"
+                [disabled]="procedureInfo.Date == null" />
+              <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+              <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+              <mat-datepicker #endDate></mat-datepicker>
             </mat-form-field>
           </div>
         </div>
@@ -249,7 +252,7 @@
             <div class="input-group">
               <label class="control-label input-group-addon">Reason Code:</label>
               <mat-form-field class="procedure-form-field w-100" appearance="outline">
-                <input matInput  disabled class="not-allowed" style="width: 100%;" placeholder="Reason Code"  type="text"
+                <input matInput disabled class="not-allowed" style="width: 100%;" placeholder="Reason Code" type="text"
                   id="pResonCode" name="pResonCode" [(ngModel)]="procedureInfo.ReasonCode" />
               </mat-form-field>
             </div>
@@ -258,7 +261,7 @@
             <div class="input-group">
               <label class="control-label input-group-addon">Reason Description:</label>
               <mat-form-field class="procedure-form-field w-100" appearance="outline">
-                <input matInput  disabled class="not-allowed" style="width: 100%;" placeholder="Reason Description"
+                <input matInput disabled class="not-allowed" style="width: 100%;" placeholder="Reason Description"
                   type="text" id="pResonDescription" name="pResonDescription"
                   [(ngModel)]="procedureInfo.ReasonDescription" />
               </mat-form-field>
@@ -274,7 +277,7 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-green"  (click)="save()" [disabled]="enableSave()">
+      <button type="button" class="btn btn-green" (click)="save()" [disabled]="enableSave()">
         Save
       </button>
       <button type="button" class="btn btn-green" (click)="cancel()">

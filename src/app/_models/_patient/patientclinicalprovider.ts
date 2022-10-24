@@ -93,5 +93,6 @@ export interface LabtestResult {
   Code?: string
   Test?: string
   TestReportedAt?:string
+  ProcedureType?:string
 
 }

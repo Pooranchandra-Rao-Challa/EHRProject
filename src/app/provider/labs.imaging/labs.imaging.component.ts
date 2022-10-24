@@ -28,7 +28,7 @@ declare var $: any;
 })
 export class LabsImagingComponent implements OnInit {
 
-  labImagingColumn: string[] = ['Order', 'Test', 'Type', 'Patient', 'Provider', 'Status', 'LabImagingStatus', 'Created', 'Result'];
+  labImagingColumn: string[] = ['Order', 'Test', 'Type', 'Patient', 'Provider', 'Status', 'LabImagingStatus', 'Created', 'Signed', 'Result'];
   labImagingDataSource: any = [];
   user: User;
   ActionTypes = Actions;
@@ -47,6 +47,9 @@ export class LabsImagingComponent implements OnInit {
   OrderStatuses: any[];
   @ViewChild('SearchTest', { static: true }) SearchTest: ElementRef;
   Pagesize: number = 10;
+  provider: string;
+  result: string;
+  status: string;
 
   constructor(private labImageService: LabsImagingService,
     private authService: AuthenticationService,
@@ -91,6 +94,14 @@ export class LabsImagingComponent implements OnInit {
       .subscribe();
   }
   onChangeView(procedureType: string) {
+    this.provider = '';
+    this.result = '';
+    this.status = '';
+    this.SearchTest.nativeElement.value = '';
+    this.labImageDatasource.ProviderId = '';
+    this.labImageDatasource.OrderStatus = '';
+    this.labImageDatasource.ResultStatus = '';
+
     this.viewmodel.LabandImageView = procedureType;
     this.labImageDatasource.ProcedureType = procedureType;
     this.loadLabandImageList();
@@ -208,9 +219,7 @@ export class LabsImagingComponent implements OnInit {
     ref.afterClosed$.subscribe(res => {
       if (content === this.orderDialogComponent
         || content === this.labResultComponent) {
-        if (res != null && res.data != null && res.data.saved) {
           this.InitGridView(this.viewmodel.LabandImageView);
-        }
       }
     });
   }
@@ -258,7 +267,7 @@ export class LabImageDatasource implements DataSource<LabProcedureWithOrder>{
   }
 
   loadLabImage(filter = '', sortField = 'OrderNumber',
-    sortDirection = 'desc', pageIndex = 0, pageSize = 10) {
+    sortDirection = 'asc', pageIndex = 0, pageSize = 10) {
     this.queryParams["SortField"] = sortField;
     this.queryParams["SortDirection"] = sortDirection;
     this.queryParams["PageIndex"] = pageIndex;
@@ -274,7 +283,7 @@ export class LabImageDatasource implements DataSource<LabProcedureWithOrder>{
       lis.forEach(value => {
         value.Tests = JSON.parse(value.StrTests)
       })
-      this.labImageSubject.next(lis)
+      this.labImageSubject.next(lis);
     });
   }
 

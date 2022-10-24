@@ -1,70 +1,74 @@
 <div id="myhealth">
-<div class="dashboard-patient-wrapper">
-  <div class="content container" id="myhealth-wrapper">
-    <div class="row">
-      <div class="col-lg-3 left-block">
-        <div class="panel panel-default float-lg-end">
-          <div class="panel-body side-panel mx-2">
-            <div class="photo-container">
-              <img class="photo-patient responsive" src="assets/images/avtrar-myhealth.svg" class="admin-side-logo">
-            </div>
-            <div class="row clinic-info heding">
-              <div class="col-xs-12 mb-2 mt-4">
-                <u class="profile-text">Provider(s):</u>
+  <div class="dashboard-patient-wrapper">
+    <div class="content container" id="myhealth-wrapper">
+      <div class="row">
+        <div class="col-lg-3 left-block">
+          <div class="panel panel-default float-lg-end">
+            <div class="panel-body side-panel mx-2">
+              <div class="photo-container">
+                <img class="photo-patient responsive" src="assets/images/avtrar-myhealth.svg" class="admin-side-logo">
               </div>
-            </div>
-            <div>
-              <ul>
-                <li *ngFor="let item of Providerdata">{{(item.Title|titlecase) +' '+ item.FullName}}</li>
-              </ul>
-            </div>
-            <div class="row clinic-info heding">
-              <div class="col-xs-12 mb-2">
-                <u class="profile-text">Practice Address(es):</u>
+              <div class="row clinic-info heding">
+                <div class="col-xs-12 mb-2 mt-4">
+                  <u class="profile-text">Provider(s):</u>
+                </div>
               </div>
-            </div>
-            <div>
-              <ul>
-                <li *ngFor="let item of clinicaldata">
-                  {{item.StreetAddress}}
-                </li>
-              </ul>
-            </div>
-            <div class="row clinic-info heding">
-              <div class="col-xs-12 mb-4">
-                <u class="profile-text">Care Team Member(s):</u>
+              <div>
+                <ul>
+                  <li *ngFor="let item of Providerdata">{{(item.Title|titlecase) +' '+ item.FullName}}</li>
+                </ul>
               </div>
-            </div>
-            <div>
-              <ul>
-                <li *ngFor="let i of CareTeamList">
-                  {{i.FirstName+' '+i.LastName}}
-                </li>
-              </ul>
-            </div>
+              <div class="row clinic-info heding">
+                <div class="col-xs-12 mb-2">
+                  <u class="profile-text">Practice Address(es):</u>
+                </div>
+              </div>
+              <div>
+                <ul>
+                  <li *ngFor="let item of clinicaldata">
+                    {{item.StreetAddress}}
+                  </li>
+                </ul>
+              </div>
+              <div class="row clinic-info heding">
+                <div class="col-xs-12 mb-4">
+                  <u class="profile-text">Care Team Member(s):</u>
+                </div>
+              </div>
+              <div>
+                <ul>
+                  <li *ngFor="let i of CareTeamList">
+                    {{i.FirstName+' '+i.LastName}}
+                  </li>
+                </ul>
+              </div>
 
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="col-lg-9  right-block float-left; ">
-        <div class="row">
-          <div class="col-md-3"> <span class="size">{{ this.user.FirstName}} {{this.user.LastName}}</span></div>
-          <div class="col-md-3"><span class="green-color">DOB: </span><span
-              class="Helvetica-sans-serif-large">{{PatientProfile?.DateOfBirth| date:'dd/MM/yyyy'}}</span></div>
-          <div class="col-md-3"><span class="green-color">Age: </span><span class="Helvetica-sans-serif-large">{{PatientProfile?.Age}}</span></div>
-          <div class="col-md-3"><span class="green-color">Sex: </span><span
-              class="Helvetica-sans-serif-large">{{PatientProfile?.Gender}}</span></div>
-        </div>
+        <div class="col-lg-9  right-block float-left; ">
+          <div class="row">
+            <div class="col-md-3"> <span class="size">{{ this.user.FirstName}} {{this.user.LastName}}</span></div>
+            <div class="col-md-3"><span class="green-color">DOB: </span><span
+                class="Helvetica-sans-serif-large">{{PatientProfile?.DateOfBirth| date:'MM/dd/yyyy'}}</span></div>
+            <div class="col-md-3"><span class="green-color">Age: </span><span
+                class="Helvetica-sans-serif-large">{{PatientProfile?.Age}}</span></div>
+            <div class="col-md-3"><span class="green-color">Sex: </span><span
+                class="Helvetica-sans-serif-large">{{PatientProfile?.Gender}}</span></div>
+          </div>
           <div class="row mt-4">
-            <div class="col-md-3"><span class="green-color">Race: </span> 
-            <span *ngIf="PatientProfile?.AfricanRace == true" class="Helvetica-sans-serif-large">African Race </span>
-            <span *ngIf="PatientProfile?.AmericanRace == true" class="Helvetica-sans-serif-large">American Race </span>
-            <span *ngIf="PatientProfile?.AsianRace == true" class="Helvetica-sans-serif-large">Asian Race </span>
-            <span *ngIf="PatientProfile?.WhiteRace == true" class="Helvetica-sans-serif-large">White Race </span>
-            <span *ngIf="PatientProfile?.HawaiianRace == true" class="Helvetica-sans-serif-large">Hawaiian Race </span>
-            <span *ngIf="PatientProfile?.UndeterminedRace == true" class="Helvetica-sans-serif-large">Undetermined Race </span> 
-          </div>
+            <div class="col-md-3"><span class="green-color">Race: </span>
+              <span *ngIf="PatientProfile?.AfricanRace == true" class="Helvetica-sans-serif-large">African Race </span>
+              <span *ngIf="PatientProfile?.AmericanRace == true" class="Helvetica-sans-serif-large">American Race
+              </span>
+              <span *ngIf="PatientProfile?.AsianRace == true" class="Helvetica-sans-serif-large">Asian Race </span>
+              <span *ngIf="PatientProfile?.WhiteRace == true" class="Helvetica-sans-serif-large">White Race </span>
+              <span *ngIf="PatientProfile?.HawaiianRace == true" class="Helvetica-sans-serif-large">Hawaiian Race
+              </span>
+              <span *ngIf="PatientProfile?.UndeterminedRace == true" class="Helvetica-sans-serif-large">Undetermined
+                Race </span>
+            </div>
             <div class="col-md-3"><span class="green-color">Ethnicity: </span><span
                 class="Helvetica-sans-serif-large">{{PatientProfile?.ethnicity}}</span></div>
             <div class="col-md-4"><span class="green-color">Preferred Language: </span><span
@@ -72,17 +76,18 @@
           </div>
           <div class="row mt-4">
 
-            <div class="col-md-6F" >    <span  class="green-color">Smoking Status:- </span>
-         <span *ngFor="let i of StatusList"  class="Helvetica-sans-serif-large">{{i.Status}} {{i.EffectiveFrom}},</span>
-              <div >
+            <div class="col-md-6F"> <span class="green-color">Smoking Status:- </span>
+              <span *ngFor="let i of StatusList" class="Helvetica-sans-serif-large">{{i.Status}}
+                {{i.EffectiveFrom}},</span>
+              <div>
                 <!-- <span  class="Helvetica-sans-serif-large"> </span> -->
               </div>
 
 
 
 
-                <!-- <span innerHTML="{{i.Status}}{{i.EffectiveFrom}}"></span> </b></p> -->
-              </div>
+              <!-- <span innerHTML="{{i.Status}}{{i.EffectiveFrom}}"></span> </b></p> -->
+            </div>
           </div>
 
           <div class="row mt-4 accordianpointer">
@@ -102,7 +107,8 @@
                     <p class="problem_dx">Chronic:</p>
                     <p class="problem_dx">Acute:</p>
                     <div *ngFor="let i of ProblemDxData">
-                      <div class="acute-item">{{i.Description +' ,'+ i.Code +', '+ (i.StartDate| date:'dd/MM/yyyy') }}</div>
+                      <div class="acute-item">{{i.Description +' ,'+ i.Code +', '+ (i.StartDate| date:'MM/dd/yyyy') }}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -122,10 +128,10 @@
                 <div class="panel-body">
                   <div class="title-dx">
                     <div *ngFor="let i of Medications">
-                      <div class="acute-item" >
+                      <div class="acute-item">
                         <p>Display Name:{{i.DrugName}}</p>
-                        <p >Start At:{{i.StartAt}}<br> </p>
-                        <p>End Date:{{i.StopAt}}</p>
+                        <p>Start At:{{i.StartAt| date:'MM/dd/yyyy'}}<br> </p>
+                        <p>End Date:{{i.StopAt| date:'MM/dd/yyyy'}}</p>
                       </div>
 
                     </div>
@@ -148,11 +154,11 @@
                 <div class="panel-body">
                   <div class="title-dx">
                     <div *ngFor="let i of AllAlergies">
-                      <div class="acute-item" >
-                        <p >Severity :{{i.SeverityLevel}}<br>
-                            Onset :{{i.OnSetAt}}<br>
-                            Start Date:{{i.StartAt}}</p>
-                          </div>
+                      <div class="acute-item">
+                        <p>Severity :{{i.SeverityLevel}}<br>
+                          Onset :{{i.OnSetAt}}<br>
+                          Start Date:{{i.StartAt| date:'MM/dd/yyyy'}}</p>
+                      </div>
 
                     </div>
                   </div>
@@ -175,11 +181,12 @@
                 <div class="panel-body">
                   <div class="title-dx">
                     <div *ngFor="let i of LabTest">
-                      <div class="acute-item" >
-                        <p >Lab Order : {{i.Num}}<br>
+                      <div class="acute-item">
+                        <p>Lab Order : {{i.Num}}<br>
                           Test Name : {{i.Test}}<br>
                           LOINC code : {{i.Code}}<br>
-                          Test Report Date : {{i.TestReportedAt}}
+                          {{i?.ProcedureType == 'Lab' ? 'Test Report Date' : 'Scheduled Report Date'}} :
+                          {{i.TestReportedAt| date:'MM/dd/yyyy'}}
                         </p>
                       </div>
 
@@ -204,7 +211,9 @@
                     <div *ngFor="let i of VitalStatus ">
                       <!-- <div class="acute-item">{{i.Height +' '+ i.Weight +' '+ i.BloodPressure }}</div> -->
                       <p class="acute-item">
-                        Height : {{i.Height}}; Weight:{{i.Weight}};BloodPressure :{{i.BloodPressure}};BMI;{{i.Bmi}};Temperature:{{i.Temperature}};Heart Rate:{{i.HeartRate}};Blood Type: {{i.BloodType}}
+                        Height : {{i.Height}}; Weight:{{i.Weight}};BloodPressure
+                        :{{i.BloodPressure}};BMI;{{i.Bmi}};Temperature:{{i.Temperature}};Heart
+                        Rate:{{i.HeartRate}};Blood Type: {{i.BloodType}}
                       </p>
                     </div>
                   </div>
@@ -227,9 +236,9 @@
                 <div class="panel-body">
                   <div class="title-dx">
                     <div *ngFor="let i of CarePlan">
-                      <div class="acute-item" >
-                        <p >Code : {{i.Code}}<br>
-                           Description : {{i.Description}}<br>
+                      <div class="acute-item">
+                        <p>Code : {{i.Code}}<br>
+                          Description : {{i.Description}}<br>
                       </div>
                     </div>
                   </div>
@@ -253,9 +262,9 @@
                 <div class="panel-body">
                   <div class="title-dx">
                     <div *ngFor="let i of ProcedurePatietn">
-                      <div class="acute-item" >
-                        <p >Code : {{i.Code}}<br>
-                           Description : {{i.Description}}<br>
+                      <div class="acute-item">
+                        <p>Code : {{i.Code}}<br>
+                          Description : {{i.Description}}<br>
                       </div>
                     </div>
                   </div>
