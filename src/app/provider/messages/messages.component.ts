@@ -39,7 +39,7 @@ export class MessagesComponent implements OnDestroy, AfterContentChecked {
   ];
 
   currentMessageView: string = 'Inbox';
-  currentMessage: Message = null;
+  currentMessage: Messages = null;
   pageSize: number = 25;
   currentPage: number = 1;
   totalPages: number = 1;

@@ -3,6 +3,7 @@ import {
   Component,
   OnInit,
   QueryList,
+  ViewChild,
   ViewChildren,
 } from "@angular/core";
 import { ViewEncapsulation } from "@angular/core";
@@ -38,6 +39,9 @@ import {
 
 import { DownloadService } from "../../_services/download.service";
 import { AuthenticationService } from "../../_services/authentication.service";
+import { MatTabChangeEvent, MatTabGroup } from "@angular/material/tabs";
+import { Map } from "typescript";
+import { T } from "@angular/cdk/keycodes";
 //import { locationClass } from "src/app/_models/locationClass";
 declare const $: any;
 @Component({
@@ -83,7 +87,7 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
   ];
   public getDrilldownEncountersData = new MatTableDataSource<DrillEncounters>();
   public getDrilldownListTabData = new MatTableDataSource<DrillPatient>();
-  public getDrilldownListTabData1 = new MatTableDataSource<DrillAuthor>();
+  //public getDrilldownListTabData1 = new MatTableDataSource<DrillAuthor>();
 
   expandedElement: DrillEncounters | null;
   expandedElement1: DrillPatient | null;
@@ -105,9 +109,9 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
   getDashBoardreport: any;
   showQueuedReportsTable: boolean;
   panelOpenState: boolean = false;
-  showPatientList: boolean = false;
+  //showPatientList: boolean = false;
   showDrilldown: boolean = false;
-  showTopData: boolean;
+  // showTopData: boolean;
   showUseFilterForm: boolean = false;
   showClearFilterBtn: boolean = false;
   showChooseFile: boolean = false;
@@ -129,17 +133,17 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
   locationslist: any;
   filteredproviderList: any = [];
   filteredlocationList: any;
-  checksbtn: boolean = true;
-  countsbtn: boolean = false;
+
 
   // @ViewChildren(MatPaginator) paginator = new QueryList<MatPaginator>();
   @ViewChildren(MatSort) sort = new QueryList<MatSort>();
 
   public getoverrallreport = new MatTableDataSource<CQMReportsData>();
 
+  // @ViewChild("queuedReportTabSet", { static: false }) queuedReportTabSet: MatTabGroup;
   router: any;
   cqmcreatereport: boolean;
-  tabId: string;
+  tabId: number;
   isLoggedIn: boolean;
   datasourceid: string;
   datasesssion: string;
@@ -147,15 +151,14 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
   ReportId: MatTableDataSource<CQMReportsData>;
   showcheckcountbtn: boolean;
   displayedRows$: Observable<any>;
-  patientlistdata: any = {};
-  patientlistmeasure: any;
+  selectedMeasureInfo: any = {};
+  selectedQueuedReport: any;
   Id: any;
-  x: any;
   getDetailsTabData: any;
   getDetailsTabData1: any;
   getDetailsTabData2: any;
   patientinfo: any;
-  y: any;
+  measureIdentifiers: any;
   providerslocationwise: any;
   providerslocationwise1: any;
   MeasureReportId: any;
@@ -163,25 +166,25 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
   location: any;
   providerslocationwisefilter: any;
   startDate: any;
-  patientlistfilter: any;
+  patientlistfilter: any[] =[];
   xml: any;
   qrdareport: any;
   queuedreportdata: any = [];
-  ipp_conditions: any = [];
-  deno_conditions: any = [];
-  num_conditions: any = [];
-  deno_excep_conditions: any = [];
-  deno_exclu_conditions: any = [];
+  //ipp_conditions: any = [];
+  //deno_conditions: any = [];
+  //num_conditions: any = [];
+  //deno_excep_conditions: any = [];
+  //deno_exclu_conditions: any = [];
   DrilldownPatientData: any = [];
   MeasureSetId: any;
-  MeasureIdentifier: any;
+  //MeasureIdentifier: any;
   StratificationText: any;
   firstencounter: any;
   lastencounter: string;
   startdate: string;
   enddate: string;
-  populationdescription: any;
-  stratificationText: any;
+  //populationdescription: any;
+  //stratificationText: any;
   patientdob: string;
   locationarray: string[];
   measures: '68,69,74,75,127,138,147,155,165';
@@ -191,6 +194,7 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
   getoverrallreportlength: number;
   provider: any;
   locationNewReportList: any[];
+  activeId: any;
 
   public downloadAsPDF() {
     const documenDefinition = {
@@ -208,7 +212,7 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
                   color: "white",
                 },
                 {
-                  text: this.patientlistmeasure.DateCreated,
+                  text: this.selectedQueuedReport.DateCreated,
                   fillColor: "#e5f8f5",
                   color: "black",
                 },
@@ -216,7 +220,7 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
               [
                 { text: "Performer", fillColor: "#41b6a6", color: "white" },
                 {
-                  text: this.patientlistmeasure.ProviderName,
+                  text: this.selectedQueuedReport.ProviderName,
                   fillColor: "#e5f8f5",
                   color: "black",
                 },
@@ -224,7 +228,7 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
               [
                 { text: "Author", fillColor: "#41b6a6", color: "white" },
                 {
-                  text: this.patientlistmeasure.LocationName,
+                  text: this.selectedQueuedReport.LocationName,
                   fillColor: "#e5f8f5",
                   color: "black",
                 },
@@ -248,7 +252,7 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
                   color: "white",
                 },
                 {
-                  text: this.patientlistmeasure.LocationName,
+                  text: this.selectedQueuedReport.LocationName,
                   fillColor: "#e5f8f5",
                   color: "black",
                 },
@@ -256,7 +260,7 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
               [
                 { text: "Contact Info", fillColor: "#41b6a6", color: "white" },
                 {
-                  text: this.patientlistmeasure.Location_phone,
+                  text: this.selectedQueuedReport.Location_phone,
                   fillColor: "#e5f8f5",
                   color: "black",
                 },
@@ -339,7 +343,7 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
     // pdfMake.createPdf(documenDefinition).open();
     pdfMake
       .createPdf(documenDefinition)
-      .download(this.patientlistmeasure.ReportId + ".pdf");
+      .download(this.selectedQueuedReport.ReportId + ".pdf");
   }
 
   constructor(
@@ -448,32 +452,33 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
   }
 
   onViewResults(queuedReportData: any) {
-    this.patientlistmeasure = queuedReportData;
+    this.selectedQueuedReport = queuedReportData;
     this.firstencounter = formatDate(
-      this.patientlistmeasure.First_Encounter,
+      this.selectedQueuedReport.First_Encounter,
       "dd MMM yyyy",
       "en-US"
     );
     this.lastencounter = formatDate(
-      this.patientlistmeasure.Last_Encounter,
+      this.selectedQueuedReport.Last_Encounter,
       "dd MMM yyyy",
       "en-US"
     );
     this.startdate = formatDate(
-      this.patientlistmeasure.StartDate,
+      this.selectedQueuedReport.StartDate,
       "MM/dd/yyyy",
       "en-US"
     );
     this.enddate = formatDate(
-      this.patientlistmeasure.EndDate,
+      this.selectedQueuedReport.EndDate,
       "MM/dd/yyyy",
       "en-US"
     );
     this.isViewResults = true;
-    this.showTopData = true;
+    // this.showTopData = true;
     this.GetDashBoardReport(queuedReportData.ReportId);
     // this.getPatientList(queuedReportData.ReportId);
-    this.detailsTab("dashBoard");
+    this.getDetails();
+    this.detailsTab(2);
   }
 
   disableEndDateInCreateReport() {
@@ -1287,17 +1292,16 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
   }
 
   getDetails() {
-    this.x = this.patientlistmeasure.MeasurementPeriod.split("-");
-
-    this.y = this.patientlistmeasure.MeasuresList.split(",");
+    let duration = this.selectedQueuedReport.MeasurementPeriod.split("-");
+    this.measureIdentifiers = this.selectedQueuedReport.MeasuresList.split(",");
     var req = {
       SessionName: "Detail",
-      ReportId: this.patientlistmeasure.ReportId,
-      PatientId: this.patientlistmeasure.PatientId,
-      LocationId: this.patientlistmeasure.PracticeID,
-      ProviderId: this.patientlistmeasure.ProviderId,
-      StartDate: this.x[0],
-      EndDate: this.x[1],
+      ReportId: this.selectedQueuedReport.ReportId,
+      PatientId: this.selectedQueuedReport.PatientId,
+      LocationId: this.selectedQueuedReport.PracticeID,
+      ProviderId: this.selectedQueuedReport.ProviderId,
+      StartDate: duration[0],
+      EndDate: duration[1],
     };
     this.accountservice.getCQMReportsDashboard(req).subscribe((data) => {
       let mainData = data.ListResult[0];
@@ -1316,8 +1320,11 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
           }
         }
       }
+
+
       this.getDetailsTabData = mainData;
       this.getDetailsTabData1 = childData;
+      console.log(this.getDetailsTabData);
     });
   }
 
@@ -1337,25 +1344,22 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
     let obj = {
       practiceId: locationid,
     };
-    // let obj = {
-    //   PracticeId: "5b686dd7c832dd0c444f288a",
-    // };
     this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
     this.accountservice.getCQMReportsQueuedReports(obj).subscribe((data) => {
       this.getoverrallreport.data = [];
       this.getoverrallreportlength = null;
       if (data.IsSuccess) {
         this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
-        this.getoverrallreport.data = data.ListResult[0] as CQMReportsData[];
+        this.getoverrallreport.data = data.ListResult as CQMReportsData[];
         this.queuedreportdata = JSON.parse(
-          JSON.stringify(data.ListResult[0] as CQMReportsData[])
+          JSON.stringify(data.ListResult as CQMReportsData[])
         );
         this.getoverrallreportlength = this.getoverrallreport.data.length;
         this.showQueuedReportsTable = true;
-        for (var i of data.ListResult[0]) {
-          this.measures =  '68,69,74,75,127,138,147,155,165' ;
-          break;
-        }
+        // for (var i of data.ListResult[0]) {
+        this.measures = '68,69,74,75,127,138,147,155,165';
+        //  break;
+        //}
       }
       this.customizedspinner = false; $('body').removeClass('loadactive');
     });
@@ -1377,12 +1381,20 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
       ReportId: ReportId,
     };
     this.MeasureReportId = ReportId;
+
+    this.measureIdentifiers = this.selectedQueuedReport.MeasuresList.split(",");
     this.accountservice.getCQMReportsDashboard(req).subscribe((data) => {
-      this.getDashBoardreport = data;
-      //this.StratificationText=this.getDashBoardreport.StratificationText;
-      this.getDashBoardreport = this.getDashBoardreport.ListResult;
+      console.log(data.ListResult)
+      this.getDashBoardreport = data.ListResult;
+      let reportGroups: QueueReportInfo[] = data.ListResult as QueueReportInfo[];
+
+      this.reportMeasureGroups = groupBy(reportGroups, reportGroups => reportGroups.MeasureIdentifier);
+      console.log(this.reportMeasureGroups);
+
     });
   }
+
+  reportMeasureGroups: QueueReportInfoGroup[]
 
   useFilterbtn() {
     if (this.showUseFilterForm == false) {
@@ -1548,21 +1560,22 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
     this.patientlistfilter = this.getPatientListTabData;
   }
 
-  getPatientList(MeasureSetId) {
+  getPatientList() {
     var req = {
       SessionName: "Patient List",
-      ReportId: this.MeasureReportId,
-      MeasureSetId: MeasureSetId,
+      ReportId: this.selectedQueuedReport.ReportId,
+      MeasureSetId: this.selectedMeasureInfo.MeasureSetId,
     };
-    this.MeasureSetId = MeasureSetId;
+    this.MeasureSetId = this.selectedMeasureInfo.MeasureSetId;
     this.getPatientListTabData = [];
     this.patientlistfilter = [];
     this.patientlistfilterlength = null;
     this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0)
     this.accountservice.getCQMReportsDashboard(req).subscribe((data) => {
       if (data.IsSuccess) {
-        this.getPatientListTabData = data;
-        this.getPatientListTabData = this.getPatientListTabData.ListResult;
+        this.getPatientListTabData = data.ListResult;
+        console.log(this.getPatientListTabData);
+
         this.patientlistfilter = this.getPatientListTabData;
         this.patientlistfilterlength = this.patientlistfilter.length;
         this.p = 1;
@@ -1585,11 +1598,10 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
     };
     this.accountservice.getCQMReportsDashboard(req).subscribe((data) => {
       this.getDrilldownListTabData = data.ListResult[0];
-      this.getDrilldownListTabData.data = data.ListResult as DrillPatient[];
+      this.getDrilldownListTabData.data = data.ListResult[0] as DrillPatient[];
       this.getDrilldownEncountersData = data.ListResult[1];
-      this.getDrilldownListTabData1.data = data.ListResult[1] as DrillAuthor[];
-      this.getDrilldownEncountersData.data =
-        data.ListResult as DrillEncounters[];
+      //this.getDrilldownListTabData1.data = data.ListResult[1] as DrillAuthor[];
+      this.getDrilldownEncountersData.data = data.ListResult[1] as DrillEncounters[];
     });
   }
 
@@ -1600,15 +1612,17 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
       PatientId: PatientId,
     };
     //this.MeasureIdentifier = this.MeasureIdentifier;
-    this.measureidentifiler = this.MeasureIdentifier;
+    //this.measureidentifiler = this.MeasureIdentifier;
     this.DrilldownPatientData = [];
-    this.ipp_conditions = [];
-    this.deno_conditions = [];
+    //this.ipp_conditions = [];
+    //this.deno_conditions = [];
     this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
     this.accountservice
       .getCQMReportsMeasurePatientMetInfo(req)
       .subscribe((cmscoditions_data) => {
         if (cmscoditions_data.IsSuccess) {
+          console.log(cmscoditions_data.ListResult);
+
           this.DrilldownPatientData = cmscoditions_data.ListResult[0];
 
           this.customizedspinner = false; $('body').removeClass('loadactive');
@@ -1617,200 +1631,200 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
 
         }
 
-        if (
-          this.measureidentifiler == "CMS 68" ||
-          this.measureidentifiler == "CMS 69" ||
-          this.measureidentifiler == "CMS 74" ||
-          this.measureidentifiler == "CMS 75" ||
-          this.measureidentifiler == "CMS 127" ||
-          this.measureidentifiler == "CMS 147" ||
-          this.measureidentifiler == "CMS 165"
-        ) {
-          this.ipp_conditions =
-            this.DrilldownPatientData.IPPConditions != null
-              ? JSON.parse(this.DrilldownPatientData.IPPConditions)
-              : JSON.parse(this.ippconditions[this.measureidentifiler]);
-          this.deno_conditions =
-            this.DrilldownPatientData.DenConditions != null
-              ? JSON.parse(this.DrilldownPatientData.DenConditions)
-              : JSON.parse(this.denconditions[this.measureidentifiler]);
-          this.deno_exclu_conditions =
-            this.DrilldownPatientData.DenExclusionConditions != null
-              ? JSON.parse(this.DrilldownPatientData.DenExclusionConditions)
-              : JSON.parse(this.denexcluconditions[this.measureidentifiler]);
-          this.num_conditions =
-            this.DrilldownPatientData.NumeratorConditions != null
-              ? JSON.parse(this.DrilldownPatientData.NumeratorConditions)
-              : JSON.parse(this.numconditions[this.measureidentifiler]);
-          this.deno_excep_conditions =
-            this.DrilldownPatientData.DenExceptionConditions != null
-              ? JSON.parse(this.DrilldownPatientData.DenExceptionConditions)
-              : JSON.parse(this.denexcepconditions[this.measureidentifiler]);
-        } else if (this.measureidentifiler == "CMS 138") {
-          this.ipp_conditions =
-            this.DrilldownPatientData.IPPConditions != null
-              ? JSON.parse(this.DrilldownPatientData.IPPConditions)
-              : JSON.parse(this.ippconditions[this.measureidentifiler]);
-          this.deno_conditions =
-            this.DrilldownPatientData.DenConditions != null
-              ? JSON.parse(this.DrilldownPatientData.DenConditions)
-              : JSON.parse(this.denconditions[this.measureidentifiler]);
-          this.deno_exclu_conditions =
-            this.DrilldownPatientData.DenExclusionConditions != null
-              ? JSON.parse(this.DrilldownPatientData.DenExclusionConditions)
-              : JSON.parse(this.denexcluconditions[this.measureidentifiler]);
-          this.num_conditions =
-            this.DrilldownPatientData.NumeratorConditions != null
-              ? JSON.parse(this.DrilldownPatientData.NumeratorConditions)
-              : JSON.parse(
-                this.numconditions.CMS138[this.populationdescription]
-              );
-          this.deno_excep_conditions =
-            this.DrilldownPatientData.DenExceptionConditions != null
-              ? JSON.parse(this.DrilldownPatientData.DenExceptionConditions)
-              : JSON.parse(
-                this.denexcepconditions.CMS138[this.populationdescription]
-              );
-        } else if (this.measureidentifiler == "CMS 155") {
-          this.ipp_conditions =
-            this.DrilldownPatientData.IPPConditions != null
-              ? JSON.parse(this.DrilldownPatientData.IPPConditions)
-              : JSON.parse(this.ippconditions[this.measureidentifiler]);
-          this.deno_conditions =
-            this.DrilldownPatientData.DenConditions != null
-              ? JSON.parse(this.DrilldownPatientData.DenConditions)
-              : JSON.parse(this.denconditions[this.measureidentifiler]);
-          this.deno_exclu_conditions =
-            this.DrilldownPatientData.DenExclusionConditions != null
-              ? JSON.parse(this.DrilldownPatientData.DenExclusionConditions)
-              : JSON.parse(this.denexcluconditions[this.measureidentifiler]);
-          this.deno_excep_conditions =
-            this.DrilldownPatientData.DenExceptionConditions != null
-              ? JSON.parse(this.DrilldownPatientData.DenExceptionConditions)
-              : JSON.parse(this.denexcepconditions[this.measureidentifiler]);
-          this.num_conditions =
-            this.DrilldownPatientData.NumeratorConditions != null
-              ? JSON.parse(this.DrilldownPatientData.NumeratorConditions)
-              : JSON.parse(
-                this.numconditions.CMS155[this.populationdescription]
-              );
-        }
+        // if (
+        //   this.measureidentifiler == "CMS 68" ||
+        //   this.measureidentifiler == "CMS 69" ||
+        //   this.measureidentifiler == "CMS 74" ||
+        //   this.measureidentifiler == "CMS 75" ||
+        //   this.measureidentifiler == "CMS 127" ||
+        //   this.measureidentifiler == "CMS 147" ||
+        //   this.measureidentifiler == "CMS 165"
+        // ) {
+        //   this.ipp_conditions =
+        //     this.DrilldownPatientData.IPPConditions != null
+        //       ? JSON.parse(this.DrilldownPatientData.IPPConditions)
+        //       : JSON.parse(this.ippconditions[this.measureidentifiler]);
+        //   this.deno_conditions =
+        //     this.DrilldownPatientData.DenConditions != null
+        //       ? JSON.parse(this.DrilldownPatientData.DenConditions)
+        //       : JSON.parse(this.denconditions[this.measureidentifiler]);
+        //   this.deno_exclu_conditions =
+        //     this.DrilldownPatientData.DenExclusionConditions != null
+        //       ? JSON.parse(this.DrilldownPatientData.DenExclusionConditions)
+        //       : JSON.parse(this.denexcluconditions[this.measureidentifiler]);
+        //   this.num_conditions =
+        //     this.DrilldownPatientData.NumeratorConditions != null
+        //       ? JSON.parse(this.DrilldownPatientData.NumeratorConditions)
+        //       : JSON.parse(this.numconditions[this.measureidentifiler]);
+        //   this.deno_excep_conditions =
+        //     this.DrilldownPatientData.DenExceptionConditions != null
+        //       ? JSON.parse(this.DrilldownPatientData.DenExceptionConditions)
+        //       : JSON.parse(this.denexcepconditions[this.measureidentifiler]);
+        // } else if (this.measureidentifiler == "CMS 138") {
+        //   this.ipp_conditions =
+        //     this.DrilldownPatientData.IPPConditions != null
+        //       ? JSON.parse(this.DrilldownPatientData.IPPConditions)
+        //       : JSON.parse(this.ippconditions[this.measureidentifiler]);
+        //   this.deno_conditions =
+        //     this.DrilldownPatientData.DenConditions != null
+        //       ? JSON.parse(this.DrilldownPatientData.DenConditions)
+        //       : JSON.parse(this.denconditions[this.measureidentifiler]);
+        //   this.deno_exclu_conditions =
+        //     this.DrilldownPatientData.DenExclusionConditions != null
+        //       ? JSON.parse(this.DrilldownPatientData.DenExclusionConditions)
+        //       : JSON.parse(this.denexcluconditions[this.measureidentifiler]);
+        //   this.num_conditions =
+        //     this.DrilldownPatientData.NumeratorConditions != null
+        //       ? JSON.parse(this.DrilldownPatientData.NumeratorConditions)
+        //       : JSON.parse(
+        //         this.numconditions.CMS138[this.populationdescription]
+        //       );
+        //   this.deno_excep_conditions =
+        //     this.DrilldownPatientData.DenExceptionConditions != null
+        //       ? JSON.parse(this.DrilldownPatientData.DenExceptionConditions)
+        //       : JSON.parse(
+        //         this.denexcepconditions.CMS138[this.populationdescription]
+        //       );
+        // } else if (this.measureidentifiler == "CMS 155") {
+        //   this.ipp_conditions =
+        //     this.DrilldownPatientData.IPPConditions != null
+        //       ? JSON.parse(this.DrilldownPatientData.IPPConditions)
+        //       : JSON.parse(this.ippconditions[this.measureidentifiler]);
+        //   this.deno_conditions =
+        //     this.DrilldownPatientData.DenConditions != null
+        //       ? JSON.parse(this.DrilldownPatientData.DenConditions)
+        //       : JSON.parse(this.denconditions[this.measureidentifiler]);
+        //   this.deno_exclu_conditions =
+        //     this.DrilldownPatientData.DenExclusionConditions != null
+        //       ? JSON.parse(this.DrilldownPatientData.DenExclusionConditions)
+        //       : JSON.parse(this.denexcluconditions[this.measureidentifiler]);
+        //   this.deno_excep_conditions =
+        //     this.DrilldownPatientData.DenExceptionConditions != null
+        //       ? JSON.parse(this.DrilldownPatientData.DenExceptionConditions)
+        //       : JSON.parse(this.denexcepconditions[this.measureidentifiler]);
+        //   this.num_conditions =
+        //     this.DrilldownPatientData.NumeratorConditions != null
+        //       ? JSON.parse(this.DrilldownPatientData.NumeratorConditions)
+        //       : JSON.parse(
+        //         this.numconditions.CMS155[this.populationdescription]
+        //       );
+        // }
       });
   }
 
-  measureidentifiler: any = 68;
-  ippconditions = {
-    "CMS 68":
-      '{"has_birthdate":0, "age_gt_18": 0, "encountered":1, "encounter_met_ondate":1 }',
-    "CMS 69":
-      '{"has_brithdate":1, "age_gt_18": 1, "encountered":0, "encounter_met_ondate":0}',
-    "CMS 74":
-      '{"has_brithdate":1, "age_lt_20":0, "office_visit":0, "established_office_visit":1, "encountered_preventive_init" :1, "initial_office_visit": 0, "service_established_office_visit":0, "service_initial_office_visit":0, "encounter_met_ondate":0 }',
-    "CMS 75":
-      '{"has_brithdate":1, "age_lt_20":0, "office_visit":0, "established_office_visit":1, "encountered_preventive_init" :1, "initial_office_visit": 0, "service_established_office_visit":0, "service_initial_office_visit":0, "encounter_met_ondate":0 }',
-    "CMS 127":
-      '{"has_brithdate":1, "age_gte_65":1, "office_visit":0, "annual_wellness":1, "established_office_visit":1, "initial_office_visit":0, "home_health_service":1, "care_service_long_term":0, "nursing_facility_visit":1, "Discharge_service_nursing":0, "encounter_met_ondate":0 }',
-    "CMS 138":
-      '{ "has_brithdate":1, "age_gte_18":1, "health_assessment_individual":1, "health_assessment_initial":0, "home_healthcare":0, "health_reassessment":1, "occupational_therapy":0, "office_visit":1, "ophthalmological_services":0, "psych_visit_diagnostic":1, "psych_visit_psychotherapy":0, "psychoanalysis":1, "speech_hearing":0, "annual_wellness":1, "established_office_visit":0, "established_office_visit":0, "group_counseling":0, "services_other":1, "services_individual":1, "services_initial":1,"encounter_met_ondate":1}',
-    "CMS 147":
-      '{"has_brithdate":1, "age_gte_6":1, "peritoneal_dialysis":1, "peritoneal_dialysis_met_ondate":0, "hemodialysis":1, "hemodialysis_met_ondate":0, "office_visit":1, "outpatient":0, "care_service":1, "health_care":1, "patient_interaction":0, "initial_office_0_to_17":1, "initial_office_0_to_18":0, "individual_Counselling":1, "group_counselling":0, "care_service":1, "nursing_facility":0, "facility_visit":1, "wellness_visit":0, "established_office_visit":0, "service_office_visit":1, "encounter_met_ondate":1 }',
-    "CMS 155":
-      '{ "has_brithdate":1, "age_bw_3to17":1 , "office_visit":0, "individual":0, "establishe_office_visit":1, "initial_office_visit":0, "group_counseling":0, "home_healthcare":1, "encounter_on_metdate":0}',
-    "CMS 165":
-      '{ "has_brithdate":1, "age_bw_18to85":1, "office_visit":0, "wellness_visit":0, "established_office_visit":0, "Initial_office_visit":0, "home_healthcare":0, "encounter_met_ondate":0, "diagnosis_hypertension":0, "diagnosis_hypertension_6_less_after_metondate":1, "diagnosis_hypertension_overlap_met_ondate":0}',
-  };
+  // measureidentifiler: any = 68;
+  // ippconditions = {
+  //   "CMS 68":
+  //     '{"has_birthdate":0, "age_gt_18": 0, "encountered":1, "encounter_met_ondate":1 }',
+  //   "CMS 69":
+  //     '{"has_brithdate":1, "age_gt_18": 1, "encountered":0, "encounter_met_ondate":0}',
+  //   "CMS 74":
+  //     '{"has_brithdate":1, "age_lt_20":0, "office_visit":0, "established_office_visit":1, "encountered_preventive_init" :1, "initial_office_visit": 0, "service_established_office_visit":0, "service_initial_office_visit":0, "encounter_met_ondate":0 }',
+  //   "CMS 75":
+  //     '{"has_brithdate":1, "age_lt_20":0, "office_visit":0, "established_office_visit":1, "encountered_preventive_init" :1, "initial_office_visit": 0, "service_established_office_visit":0, "service_initial_office_visit":0, "encounter_met_ondate":0 }',
+  //   "CMS 127":
+  //     '{"has_brithdate":1, "age_gte_65":1, "office_visit":0, "annual_wellness":1, "established_office_visit":1, "initial_office_visit":0, "home_health_service":1, "care_service_long_term":0, "nursing_facility_visit":1, "Discharge_service_nursing":0, "encounter_met_ondate":0 }',
+  //   "CMS 138":
+  //     '{ "has_brithdate":1, "age_gte_18":1, "health_assessment_individual":1, "health_assessment_initial":0, "home_healthcare":0, "health_reassessment":1, "occupational_therapy":0, "office_visit":1, "ophthalmological_services":0, "psych_visit_diagnostic":1, "psych_visit_psychotherapy":0, "psychoanalysis":1, "speech_hearing":0, "annual_wellness":1, "established_office_visit":0, "established_office_visit":0, "group_counseling":0, "services_other":1, "services_individual":1, "services_initial":1,"encounter_met_ondate":1}',
+  //   "CMS 147":
+  //     '{"has_brithdate":1, "age_gte_6":1, "peritoneal_dialysis":1, "peritoneal_dialysis_met_ondate":0, "hemodialysis":1, "hemodialysis_met_ondate":0, "office_visit":1, "outpatient":0, "care_service":1, "health_care":1, "patient_interaction":0, "initial_office_0_to_17":1, "initial_office_0_to_18":0, "individual_Counselling":1, "group_counselling":0, "care_service":1, "nursing_facility":0, "facility_visit":1, "wellness_visit":0, "established_office_visit":0, "service_office_visit":1, "encounter_met_ondate":1 }',
+  //   "CMS 155":
+  //     '{ "has_brithdate":1, "age_bw_3to17":1 , "office_visit":0, "individual":0, "establishe_office_visit":1, "initial_office_visit":0, "group_counseling":0, "home_healthcare":1, "encounter_on_metdate":0}',
+  //   "CMS 165":
+  //     '{ "has_brithdate":1, "age_bw_18to85":1, "office_visit":0, "wellness_visit":0, "established_office_visit":0, "Initial_office_visit":0, "home_healthcare":0, "encounter_met_ondate":0, "diagnosis_hypertension":0, "diagnosis_hypertension_6_less_after_metondate":1, "diagnosis_hypertension_overlap_met_ondate":0}',
+  // };
 
-  denconditions = {
-    "CMS 68":
-      '{"has_birthdate":0, "age_gt_18": 0, "encountered":1, "encounter_met_ondate":1 }',
-    "CMS 69":
-      '{"has_brithdate":1, "age_gt_18": 0, "encountered":0, "encounter_met_ondate":0}',
-    "CMS 74":
-      '{"has_brithdate":1, "age_lt_20":0, "office_visit":0, "established_office_visit":1, "encountered_preventive_init":1, "initial_office_visit": 0, "service_established_office_visit":0, "service_initial_office_visit":0, "encounter_met_ondate":0 }',
-    "CMS 75":
-      '{"has_brithdate":1, "age_lt_20":0, "office_visit":0, "established_office_visit":1, "encountered_preventive_init":1, "initial_office_visit":0, "service_established_office_visit":0, "service_initial_office_visit":0, "encounter_met_ondate":0 }',
-    "CMS 127":
-      '{"has_brithdate":1, "age_gte_65":1, "office_visit":0, "annual_wellness":1, "established_office_visit":1, "initial_office_visit":0, "home_health_service":1, "care_service_long_term":0, "nursing_facility_visit":1, "Discharge_service_nursing":0, "encounter_met_ondate":0 }',
-    "CMS 138":
-      '{"tobacco_user":0, "has_brithdate":1, "age_gte_18":1 ,"health_assessment_individual":1, "health_assessment_initial":0, "home_healthcare":0, "health_reassessment":1, "occupational_therapy":0, "office_visit":1, "ophthalmological_services": 0, "psych_visit_diagnostic":1, "psych_visit_psychotherapy": 0, "psychoanalysis": 1, "speech_hearing":0, "annual_wellness":1, "established_office_visit":0, "established_office_visit":0, "group_counseling":0, "services_other":1, "services_individual":1, "services_initial":1, "encounter_met_ondate":1}',
-    "CMS 147":
-      '{"peritoneal_dialysis":0, "hemodialysis":1, "Influenza":0, "Encounter_influeza_met_ondate":1, "Infleza_season":0, "has_brithdate":1, "age_gte_6":1, "peritoneal_dialysis":1, "peritoneal_dialysis_met_ondate":0, "hemodialysis":1, "hemodialysis_met_ondate":0, "office_visit":1, "outpatient":0, "care_service":1, "health_care":1, "patient_interaction":0, "initial_office_0_to_17":1, "initial_office_0_to_18":0, "individual_Counselling":1, "group_counselling":0, "care_service":1, "nursing_facility":0, "facility_visit":1, "wellness_visit":0, "established_office_visit":0, "service_office_visit":1, "encounter_met_ondate":1}',
-    "CMS 155":
-      '{ "has_brithdate":1, "age_bw_3to17":1 , "office_visit":0, "individual":0, "establishe_office_visit":1, "initial_office_visit":0, "group_counseling":0, "home_healthcare":1, "encounter_on_metdate":0}',
-    "CMS 165":
-      '{ "has_brithdate":1, "age_bw_18to85":1, "office_visit":0, "wellness_visit":0, "established_office_visit":0, "Initial_office_visit":0, "home_healthcare":0, "encounter_met_ondate":0, "diagnosis_hypertension":0, "diagnosis_hypertension_6_less_after_metondate":1, "diagnosis_hypertension_overlap_met_ondate":0}',
-  };
+  // denconditions = {
+  //   "CMS 68":
+  //     '{"has_birthdate":0, "age_gt_18": 0, "encountered":1, "encounter_met_ondate":1 }',
+  //   "CMS 69":
+  //     '{"has_brithdate":1, "age_gt_18": 0, "encountered":0, "encounter_met_ondate":0}',
+  //   "CMS 74":
+  //     '{"has_brithdate":1, "age_lt_20":0, "office_visit":0, "established_office_visit":1, "encountered_preventive_init":1, "initial_office_visit": 0, "service_established_office_visit":0, "service_initial_office_visit":0, "encounter_met_ondate":0 }',
+  //   "CMS 75":
+  //     '{"has_brithdate":1, "age_lt_20":0, "office_visit":0, "established_office_visit":1, "encountered_preventive_init":1, "initial_office_visit":0, "service_established_office_visit":0, "service_initial_office_visit":0, "encounter_met_ondate":0 }',
+  //   "CMS 127":
+  //     '{"has_brithdate":1, "age_gte_65":1, "office_visit":0, "annual_wellness":1, "established_office_visit":1, "initial_office_visit":0, "home_health_service":1, "care_service_long_term":0, "nursing_facility_visit":1, "Discharge_service_nursing":0, "encounter_met_ondate":0 }',
+  //   "CMS 138":
+  //     '{"tobacco_user":0, "has_brithdate":1, "age_gte_18":1 ,"health_assessment_individual":1, "health_assessment_initial":0, "home_healthcare":0, "health_reassessment":1, "occupational_therapy":0, "office_visit":1, "ophthalmological_services": 0, "psych_visit_diagnostic":1, "psych_visit_psychotherapy": 0, "psychoanalysis": 1, "speech_hearing":0, "annual_wellness":1, "established_office_visit":0, "established_office_visit":0, "group_counseling":0, "services_other":1, "services_individual":1, "services_initial":1, "encounter_met_ondate":1}',
+  //   "CMS 147":
+  //     '{"peritoneal_dialysis":0, "hemodialysis":1, "Influenza":0, "Encounter_influeza_met_ondate":1, "Infleza_season":0, "has_brithdate":1, "age_gte_6":1, "peritoneal_dialysis":1, "peritoneal_dialysis_met_ondate":0, "hemodialysis":1, "hemodialysis_met_ondate":0, "office_visit":1, "outpatient":0, "care_service":1, "health_care":1, "patient_interaction":0, "initial_office_0_to_17":1, "initial_office_0_to_18":0, "individual_Counselling":1, "group_counselling":0, "care_service":1, "nursing_facility":0, "facility_visit":1, "wellness_visit":0, "established_office_visit":0, "service_office_visit":1, "encounter_met_ondate":1}',
+  //   "CMS 155":
+  //     '{ "has_brithdate":1, "age_bw_3to17":1 , "office_visit":0, "individual":0, "establishe_office_visit":1, "initial_office_visit":0, "group_counseling":0, "home_healthcare":1, "encounter_on_metdate":0}',
+  //   "CMS 165":
+  //     '{ "has_brithdate":1, "age_bw_18to85":1, "office_visit":0, "wellness_visit":0, "established_office_visit":0, "Initial_office_visit":0, "home_healthcare":0, "encounter_met_ondate":0, "diagnosis_hypertension":0, "diagnosis_hypertension_6_less_after_metondate":1, "diagnosis_hypertension_overlap_met_ondate":0}',
+  // };
 
-  denexcluconditions = {
-    "CMS 68": '{"":""}',
-    "CMS 69":
-      '{"palliative_care_order":1, "palliative_care_order_on_or_before":0, "palliative_care_encounter":0, "palliative_care_encounter_on_or_before":0, "physical_exam_performed":1, "no_bmi_refused": 0, "no_bmi_during_encountered":0, "pregnancy": 0, "pregnancy_overlaps_measuring_period": 0}',
-    "CMS 74":
-      '{"discharge_hospice":0, "home_hospice":1, "healthcare_facility":0, "hospice_order":1, "hospice_performed":1 }',
-    "CMS 75":
-      '{ "encounterd":0, "discharge_home_met_ondate":0, "discharge_healthcare_met_ondate":0, "interventioned_order":0, "interventioned_order_met_ondate":1, "interventioned_ambulatory":1, "interventioned_met_overlap_ondate":0}',
-    "CMS 127":
-      '{"encounterd":0, "discharge_home_met_ondate":0, "discharge_healthcare_met_ondate":0, "interventioned_order":0 , "interventioned_order_met_ondate":1, "interventioned_ambulatory":1, "interventioned_met_overlap_ondate":0 }',
-    "CMS 138": '{"":""}',
-    "CMS 147": '{"":""}',
-    "CMS 155":
-      '{ "diagnosis_pregnancy":0, "diagnosis_pregnancy_overlap_date":1, "encounter_inpatient":0, "encounter_inpatient_to_home":1, "encounter_inpatient_to_healthcare":0, "encounter_met_ondate":1, "intervention_order":1, "intervention_order_met_ondate":0, "intervention_performed":1, "intervention_met_ondate":0}',
-    "CMS 165":
-      '{ "esrd_services":0, "esrd_services_before_on_metdate":0, "access_for_dialysis":1, "access_for_dialysis_before_on_metdate":0, "kidney_transplant":0, "kidney_transplant_before_on_metdate":1, "dialysis_services":1, "dialysis_services_before_met_ondate":1, "diagnosis_pregnancy":0, "diagnosis_pregnancy_overlaps_ondate":0, "diagnosis_reneal":0, "diagnosis_reneal_overlaps_ondate":0, "kidney_transplant":0, "kidney_transplant_overlaps_ondate":0, "kidney_disease":1, "kidney_disease_overlaps_ondate":0, "encounter_inpatient":1, "encounter_inpatient_home_procedure":0, "encounter_inpatient_healthcare_procedure":0, "encounter_inpatient_on_metdate":0, "order_ambulatory":1, "order_ambulatory_on_metdate":0, "performed_ambulatory":0, "performed_ambulatory_overlaps_ondate":1}',
-  };
+  // denexcluconditions = {
+  //   "CMS 68": '{"":""}',
+  //   "CMS 69":
+  //     '{"palliative_care_order":1, "palliative_care_order_on_or_before":0, "palliative_care_encounter":0, "palliative_care_encounter_on_or_before":0, "physical_exam_performed":1, "no_bmi_refused": 0, "no_bmi_during_encountered":0, "pregnancy": 0, "pregnancy_overlaps_measuring_period": 0}',
+  //   "CMS 74":
+  //     '{"discharge_hospice":0, "home_hospice":1, "healthcare_facility":0, "hospice_order":1, "hospice_performed":1 }',
+  //   "CMS 75":
+  //     '{ "encounterd":0, "discharge_home_met_ondate":0, "discharge_healthcare_met_ondate":0, "interventioned_order":0, "interventioned_order_met_ondate":1, "interventioned_ambulatory":1, "interventioned_met_overlap_ondate":0}',
+  //   "CMS 127":
+  //     '{"encounterd":0, "discharge_home_met_ondate":0, "discharge_healthcare_met_ondate":0, "interventioned_order":0 , "interventioned_order_met_ondate":1, "interventioned_ambulatory":1, "interventioned_met_overlap_ondate":0 }',
+  //   "CMS 138": '{"":""}',
+  //   "CMS 147": '{"":""}',
+  //   "CMS 155":
+  //     '{ "diagnosis_pregnancy":0, "diagnosis_pregnancy_overlap_date":1, "encounter_inpatient":0, "encounter_inpatient_to_home":1, "encounter_inpatient_to_healthcare":0, "encounter_met_ondate":1, "intervention_order":1, "intervention_order_met_ondate":0, "intervention_performed":1, "intervention_met_ondate":0}',
+  //   "CMS 165":
+  //     '{ "esrd_services":0, "esrd_services_before_on_metdate":0, "access_for_dialysis":1, "access_for_dialysis_before_on_metdate":0, "kidney_transplant":0, "kidney_transplant_before_on_metdate":1, "dialysis_services":1, "dialysis_services_before_met_ondate":1, "diagnosis_pregnancy":0, "diagnosis_pregnancy_overlaps_ondate":0, "diagnosis_reneal":0, "diagnosis_reneal_overlaps_ondate":0, "kidney_transplant":0, "kidney_transplant_overlaps_ondate":0, "kidney_disease":1, "kidney_disease_overlaps_ondate":0, "encounter_inpatient":1, "encounter_inpatient_home_procedure":0, "encounter_inpatient_healthcare_procedure":0, "encounter_inpatient_on_metdate":0, "order_ambulatory":1, "order_ambulatory_on_metdate":0, "performed_ambulatory":0, "performed_ambulatory_overlaps_ondate":1}',
+  // };
 
-  denexcepconditions = {
-    "CMS 68":
-      '{ "encountered":0, "encounter_met_ondate":0, "notperformed":0, "procedure_done":0 }',
-    "CMS 69":
-      '{ "nobmi":1, "nobmi_reason": 0, "nobmi_reason_met": 0, "highbmi_no_medication":0, "highbmi_medical_reason":0, "highbmi_reason_met":0, "highbmi_no_followup":0, "highbmi_no_followup_reason":0, "highbmi_no_followup_met":0, "lowbmi_no_medication":0, "lowbmi_medical_reason":0, "lowbmi_reason_met":0, "lowbmi_no_followup":0, "lowbmi_no_followup_reason":0, "lowbmi_no_followup_met":0, "noreferral":0, "noreferral_reason":0, "noreferral_reason_met":0}',
-    "CMS 74": '{"nodata":1}',
-    "CMS 75": '{"":""}',
-    "CMS 127": '{"":""}',
-    "CMS 147":
-      '{ "Allergey_influenza_vaccine":0, "Allergey_influenza_vaccine_overlaps_metdate":0, "diagnosis_influenza_vaccine":0, "diagnosis_influenza_vaccine_overlaps_metdate":0, "egg_influenza_vaccine":1, "egg_influenza_vaccine_overlaps_metdate":1, "immunization_influenza_vaccine":0, "immunization_influen_vaccine_overlap_metdate":1, "procedure_influenza_vaccine":0, "procedure_influenza_vaccine_metdate":1, "communication_influenza_vaccine":0, "communication_influenza_vaccine_on_metdate":1}',
-    "CMS 155": '{"":""}',
-    "CMS 165": '{"":""}',
-    CMS138: {
-      "Population 1: Screened for tobacco use at least once within 24 mos":
-        '{"tobacco_user":0, "diagnosis":0, "diagnosis_met_overlap_ondate":1, "assessment":0, "assessment_met_before_24mons":1, "assessment_medical_reason_met_in":0, "no_tobacco_cessation_counseling":0, "no_pharmacotherapy_ordered":0, "limited_life":0, "limited_life_overlaps_on_metdate":1, "medication_not_ordered":1, "medication_not_ordered_same_after_date":0, "medication_not_ordered":1, "medication_not_ordered_before_on_metdate":1, "medication_not_ordered_in_medical_reason":0, "intervention_tobacco_user":0, "intervention_tobacco_user_same_after_date":1, "intervention_tobacco_user_before_date":0, "intervention_tobacco_user_in_medical_reason":1, "assessment_tobacco_user":0, "assessment_tobacco_before_metdate":1, "assessment_tobacco_in_medical_reason":0 }',
-      "Population 3: Screened for tobacco use at least once within 24 mos AND received cessation intervention if identified as a tobacco user":
-        '{"tobacco_user":0, "diagnosis":0, "diagnosis_met_overlap_ondate":1, "assessment":0, "assessment_met_before_24mons":1, "assessment_medical_reason_met_in":0, "no_tobacco_cessation_counseling":0, "no_pharmacotherapy_ordered":0, "limited_life":0, "limited_life_overlaps_on_metdate":1, "medication_not_ordered":1, "medication_not_ordered_same_after_date":0, "medication_not_ordered":1, "medication_not_ordered_before_on_metdate":1, "medication_not_ordered_in_medical_reason":0, "intervention_tobacco_user":0, "intervention_tobacco_user_same_after_date":1, "intervention_tobacco_user_before_date":0, "intervention_tobacco_user_in_medical_reason":1, "assessment_tobacco_user":0, "assessment_tobacco_before_metdate":1, "assessment_tobacco_in_medical_reason":0 }',
-      "Population 2: Received tobacco cessation intervention":
-        '{"tobacco_user":0, "tobacco_nonuser":1, "tobacco_met_ondate": 1, "pharmacotherapy_cesation":1, "pharmacotherapy_ordered":0, "tobacco_cessation_counseling":0, "medication_active_tobacco":1, "medication_active_tobacco_met_ondate":1, "medication_active_tobacco_before_met_ondate":1, "medication_order_tobacco":0, "medication_order_tobacco_before_met_ondate":0, "intervention_tobacco":1, "intervention_tobacco_same_after_metdate":0, "intervention_tobacco_before_met_ondate":1, "assessment_tobacco":0, "assessment_tobacco_start_24mons_before":1, "tobacco_nonuser":0, "tobacco_nonuser_24monts_before_date":1, "tobacco_non_user":1, "tobacco_user":0, "diagnosis":0, "diagnosis_met_overlap_ondate":1, "assessment":0, "assessment_met_before_24mons":1, "assessment_medical_reason_met_in":0, "no_tobacco_cessation_counseling":0, "no_pharmacotherapy_ordered":0, "limited_life":0, "limited_life_overlaps_on_metdate":1, "medication_not_ordered":1, "medication_not_ordered_same_after_date":0, "medication_not_ordered":1, "medication_not_ordered_before_on_metdate":1, "medication_not_ordered_in_medical_reason":0, "intervention_tobacco_user":0, "intervention_tobacco_user_same_after_date":1, "intervention_tobacco_user_before_date":0, "intervention_tobacco_user_in_medical_reason":1, "assessment_tobacco_user":0, "assessment_tobacco_before_metdate":1, "assessment_tobacco_in_medical_reason":0 }',
-    },
-  };
+  // denexcepconditions = {
+  //   "CMS 68":
+  //     '{ "encountered":0, "encounter_met_ondate":0, "notperformed":0, "procedure_done":0 }',
+  //   "CMS 69":
+  //     '{ "nobmi":1, "nobmi_reason": 0, "nobmi_reason_met": 0, "highbmi_no_medication":0, "highbmi_medical_reason":0, "highbmi_reason_met":0, "highbmi_no_followup":0, "highbmi_no_followup_reason":0, "highbmi_no_followup_met":0, "lowbmi_no_medication":0, "lowbmi_medical_reason":0, "lowbmi_reason_met":0, "lowbmi_no_followup":0, "lowbmi_no_followup_reason":0, "lowbmi_no_followup_met":0, "noreferral":0, "noreferral_reason":0, "noreferral_reason_met":0}',
+  //   "CMS 74": '{"nodata":1}',
+  //   "CMS 75": '{"":""}',
+  //   "CMS 127": '{"":""}',
+  //   "CMS 147":
+  //     '{ "Allergey_influenza_vaccine":0, "Allergey_influenza_vaccine_overlaps_metdate":0, "diagnosis_influenza_vaccine":0, "diagnosis_influenza_vaccine_overlaps_metdate":0, "egg_influenza_vaccine":1, "egg_influenza_vaccine_overlaps_metdate":1, "immunization_influenza_vaccine":0, "immunization_influen_vaccine_overlap_metdate":1, "procedure_influenza_vaccine":0, "procedure_influenza_vaccine_metdate":1, "communication_influenza_vaccine":0, "communication_influenza_vaccine_on_metdate":1}',
+  //   "CMS 155": '{"":""}',
+  //   "CMS 165": '{"":""}',
+  //   CMS138: {
+  //     "Population 1: Screened for tobacco use at least once within 24 mos":
+  //       '{"tobacco_user":0, "diagnosis":0, "diagnosis_met_overlap_ondate":1, "assessment":0, "assessment_met_before_24mons":1, "assessment_medical_reason_met_in":0, "no_tobacco_cessation_counseling":0, "no_pharmacotherapy_ordered":0, "limited_life":0, "limited_life_overlaps_on_metdate":1, "medication_not_ordered":1, "medication_not_ordered_same_after_date":0, "medication_not_ordered":1, "medication_not_ordered_before_on_metdate":1, "medication_not_ordered_in_medical_reason":0, "intervention_tobacco_user":0, "intervention_tobacco_user_same_after_date":1, "intervention_tobacco_user_before_date":0, "intervention_tobacco_user_in_medical_reason":1, "assessment_tobacco_user":0, "assessment_tobacco_before_metdate":1, "assessment_tobacco_in_medical_reason":0 }',
+  //     "Population 3: Screened for tobacco use at least once within 24 mos AND received cessation intervention if identified as a tobacco user":
+  //       '{"tobacco_user":0, "diagnosis":0, "diagnosis_met_overlap_ondate":1, "assessment":0, "assessment_met_before_24mons":1, "assessment_medical_reason_met_in":0, "no_tobacco_cessation_counseling":0, "no_pharmacotherapy_ordered":0, "limited_life":0, "limited_life_overlaps_on_metdate":1, "medication_not_ordered":1, "medication_not_ordered_same_after_date":0, "medication_not_ordered":1, "medication_not_ordered_before_on_metdate":1, "medication_not_ordered_in_medical_reason":0, "intervention_tobacco_user":0, "intervention_tobacco_user_same_after_date":1, "intervention_tobacco_user_before_date":0, "intervention_tobacco_user_in_medical_reason":1, "assessment_tobacco_user":0, "assessment_tobacco_before_metdate":1, "assessment_tobacco_in_medical_reason":0 }',
+  //     "Population 2: Received tobacco cessation intervention":
+  //       '{"tobacco_user":0, "tobacco_nonuser":1, "tobacco_met_ondate": 1, "pharmacotherapy_cesation":1, "pharmacotherapy_ordered":0, "tobacco_cessation_counseling":0, "medication_active_tobacco":1, "medication_active_tobacco_met_ondate":1, "medication_active_tobacco_before_met_ondate":1, "medication_order_tobacco":0, "medication_order_tobacco_before_met_ondate":0, "intervention_tobacco":1, "intervention_tobacco_same_after_metdate":0, "intervention_tobacco_before_met_ondate":1, "assessment_tobacco":0, "assessment_tobacco_start_24mons_before":1, "tobacco_nonuser":0, "tobacco_nonuser_24monts_before_date":1, "tobacco_non_user":1, "tobacco_user":0, "diagnosis":0, "diagnosis_met_overlap_ondate":1, "assessment":0, "assessment_met_before_24mons":1, "assessment_medical_reason_met_in":0, "no_tobacco_cessation_counseling":0, "no_pharmacotherapy_ordered":0, "limited_life":0, "limited_life_overlaps_on_metdate":1, "medication_not_ordered":1, "medication_not_ordered_same_after_date":0, "medication_not_ordered":1, "medication_not_ordered_before_on_metdate":1, "medication_not_ordered_in_medical_reason":0, "intervention_tobacco_user":0, "intervention_tobacco_user_same_after_date":1, "intervention_tobacco_user_before_date":0, "intervention_tobacco_user_in_medical_reason":1, "assessment_tobacco_user":0, "assessment_tobacco_before_metdate":1, "assessment_tobacco_in_medical_reason":0 }',
+  //   },
+  // };
 
-  numconditions = {
-    "CMS 68":
-      '{ "encountered":0, "encounter_met_ondate":0, "performed":0, "procedure_done":0}',
-    "CMS 69":
-      '{ "physical_exam_performed":1, "has_last_bmi_in_encounted_period":0, "bmi_not_null":0, "bmi_normal":0, "bmi_high":1, "bmi_low": 0}',
-    "CMS 74": '{ "fluoride_met":0, "fluoride_met_ondate":0 }',
-    "CMS 75": '{ "Diagnosised":0, "Diagnosised_met_ondate":1 }',
-    "CMS 127":
-      '{"Immunization_vaccine":1, "Immunization_vaccine_met_ondate":0, "procedure_vaccine":1, "procedure_vaccine_met_ondate":0 }',
-    "CMS 147":
-      '{ "communication_influzeea_vaccine":0, "communication_influzeea_vaccine_on_metdate":1, "immunization_influzeea_vaccine":0, "immunization_influzeea_vaccine_met_ondate":1, "procedure_influzeea_vaccine":0, "procedure_influzeea_vaccine_met_ondate":1}',
-    "CMS 165":
-      '{ "systolic_blood_pressure":0, "systolic_blood_pressure_not_null":1, "systolic_blood_pressure_met_ondate":1, "dialstolic_blood_pressure":0, "dialstolic_blood_pressure_on_metdate":0, "essential_hypertension":1, "essential_hypertension_6m_less_after_ondate":0, "essential_hypertension_overlaps_on_metdate":0, "outpatientVisit":0, "hypertensionDiagnosis":1, "hypertensiondiagnosis_overlap_outpatientVisit_metdate":0, "diastolicBP":0, "outpatientVisit_overlaps_diastolicBP_metdate":0, "systolicBP":1, "outpatientVisit_overlaps_systolicBP_metdate":1, "visitwithBP":1, "has_systolic_blood_pressure_less_than_140":0, "has_diastolic_blood_pressure_less_than_90":1}',
-    CMS155: {
-      "Population 1: Height, weight, and body mass index (BMI) percentile documentation":
-        '{"physical_exam_weight":0, "physical_exam_weight_met_ondate":0, "physical_exam_weight_not_null":0, "physical_exam_height":0, "physical_exam_height_met_ondate":0, "physical_exam_height_not_null":0, "physical_exam_percentile":0, "physical_exam_percentile_on_metdate":0, "physical_exam_percentile_not_null":0}',
-      "Population 2: Counseling for nutrition":
-        '{ "Intervention_nutrition":0, "Intervention_nutrition_on_metdate":0}',
-      "Population 3: Counseling for physical activity":
-        '{ "Intervention_physical_activity":0, "Intervention_physical_activity_on_metdate":0 }',
-    },
-    CMS138: {
-      "Population 1: Screened for tobacco use at least once within 24 mos":
-        '{"tobacco_user":0, "tobacco_nonuser":1, "tobacco_met_ondate": 1, "pharmacotherapy_cesation":1, "pharmacotherapy_ordered":0, "tobacco_cessation_counseling":0, "medication_active_tobacco":1, "medication_active_tobacco_met_ondate":1, "medication_active_tobacco_before_met_ondate":1, "medication_order_tobacco":0, "medication_order_tobacco_before_met_ondate":0, "intervention_tobacco":1, "intervention_tobacco_same_after_metdate":0, "intervention_tobacco_before_met_ondate":1, "assessment_tobacco":0, "assessment_tobacco_start_24mons_before":1, "tobacco_nonuser":0, "tobacco_nonuser_24monts_before_date":1, "tobacco_non_user":1 }',
-      "Population 3: Screened for tobacco use at least once within 24 mos AND received cessation intervention if identified as a tobacco user":
-        '{"tobacco_user":0, "tobacco_nonuser":1, "tobacco_met_ondate": 1, "pharmacotherapy_cesation":1, "pharmacotherapy_ordered":0, "tobacco_cessation_counseling":0, "medication_active_tobacco":1, "medication_active_tobacco_met_ondate":1, "medication_active_tobacco_before_met_ondate":1, "medication_order_tobacco":0, "medication_order_tobacco_before_met_ondate":0, "intervention_tobacco":1, "intervention_tobacco_same_after_metdate":0, "intervention_tobacco_before_met_ondate":1, "assessment_tobacco":0, "assessment_tobacco_start_24mons_before":1, "tobacco_nonuser":0, "tobacco_nonuser_24monts_before_date":1, "tobacco_non_user":1 }',
-      "Population 2: Received tobacco cessation intervention":
-        '{"tobacco_user":0, "tobacco_nonuser":1, "tobacco_met_ondate": 1, "pharmacotherapy_cesation":1, "pharmacotherapy_ordered":0, "tobacco_cessation_counseling":0, "medication_active_tobacco":1, "medication_active_tobacco_met_ondate":1, "medication_active_tobacco_before_met_ondate":1, "medication_order_tobacco":0, "medication_order_tobacco_before_met_ondate":0, "intervention_tobacco":1, "intervention_tobacco_same_after_metdate":0, "intervention_tobacco_before_met_ondate":1, "assessment_tobacco":0, "assessment_tobacco_start_24mons_before":1, "tobacco_nonuser":0, "tobacco_nonuser_24monts_before_date":1, "tobacco_non_user":1, "tobacco_user":0, "diagnosis":0, "diagnosis_met_overlap_ondate":1, "assessment":0, "assessment_met_before_24mons":1, "assessment_medical_reason_met_in":0, "no_tobacco_cessation_counseling":0, "no_pharmacotherapy_ordered":0, "limited_life":0, "limited_life_overlaps_on_metdate":1, "medication_not_ordered":1, "medication_not_ordered_same_after_date":0, "medication_not_ordered":1, "medication_not_ordered_before_on_metdate":1, "medication_not_ordered_in_medical_reason":0, "intervention_tobacco_user":0, "intervention_tobacco_user_same_after_date":1, "intervention_tobacco_user_before_date":0, "intervention_tobacco_user_in_medical_reason":1, "assessment_tobacco_user":0, "assessment_tobacco_before_metdate":1, "assessment_tobacco_in_medical_reason":0 }',
-    },
-  };
+  // numconditions = {
+  //   "CMS 68":
+  //     '{ "encountered":0, "encounter_met_ondate":0, "performed":0, "procedure_done":0}',
+  //   "CMS 69":
+  //     '{ "physical_exam_performed":1, "has_last_bmi_in_encounted_period":0, "bmi_not_null":0, "bmi_normal":0, "bmi_high":1, "bmi_low": 0}',
+  //   "CMS 74": '{ "fluoride_met":0, "fluoride_met_ondate":0 }',
+  //   "CMS 75": '{ "Diagnosised":0, "Diagnosised_met_ondate":1 }',
+  //   "CMS 127":
+  //     '{"Immunization_vaccine":1, "Immunization_vaccine_met_ondate":0, "procedure_vaccine":1, "procedure_vaccine_met_ondate":0 }',
+  //   "CMS 147":
+  //     '{ "communication_influzeea_vaccine":0, "communication_influzeea_vaccine_on_metdate":1, "immunization_influzeea_vaccine":0, "immunization_influzeea_vaccine_met_ondate":1, "procedure_influzeea_vaccine":0, "procedure_influzeea_vaccine_met_ondate":1}',
+  //   "CMS 165":
+  //     '{ "systolic_blood_pressure":0, "systolic_blood_pressure_not_null":1, "systolic_blood_pressure_met_ondate":1, "dialstolic_blood_pressure":0, "dialstolic_blood_pressure_on_metdate":0, "essential_hypertension":1, "essential_hypertension_6m_less_after_ondate":0, "essential_hypertension_overlaps_on_metdate":0, "outpatientVisit":0, "hypertensionDiagnosis":1, "hypertensiondiagnosis_overlap_outpatientVisit_metdate":0, "diastolicBP":0, "outpatientVisit_overlaps_diastolicBP_metdate":0, "systolicBP":1, "outpatientVisit_overlaps_systolicBP_metdate":1, "visitwithBP":1, "has_systolic_blood_pressure_less_than_140":0, "has_diastolic_blood_pressure_less_than_90":1}',
+  //   CMS155: {
+  //     "Population 1: Height, weight, and body mass index (BMI) percentile documentation":
+  //       '{"physical_exam_weight":0, "physical_exam_weight_met_ondate":0, "physical_exam_weight_not_null":0, "physical_exam_height":0, "physical_exam_height_met_ondate":0, "physical_exam_height_not_null":0, "physical_exam_percentile":0, "physical_exam_percentile_on_metdate":0, "physical_exam_percentile_not_null":0}',
+  //     "Population 2: Counseling for nutrition":
+  //       '{ "Intervention_nutrition":0, "Intervention_nutrition_on_metdate":0}',
+  //     "Population 3: Counseling for physical activity":
+  //       '{ "Intervention_physical_activity":0, "Intervention_physical_activity_on_metdate":0 }',
+  //   },
+  //   CMS138: {
+  //     "Population 1: Screened for tobacco use at least once within 24 mos":
+  //       '{"tobacco_user":0, "tobacco_nonuser":1, "tobacco_met_ondate": 1, "pharmacotherapy_cesation":1, "pharmacotherapy_ordered":0, "tobacco_cessation_counseling":0, "medication_active_tobacco":1, "medication_active_tobacco_met_ondate":1, "medication_active_tobacco_before_met_ondate":1, "medication_order_tobacco":0, "medication_order_tobacco_before_met_ondate":0, "intervention_tobacco":1, "intervention_tobacco_same_after_metdate":0, "intervention_tobacco_before_met_ondate":1, "assessment_tobacco":0, "assessment_tobacco_start_24mons_before":1, "tobacco_nonuser":0, "tobacco_nonuser_24monts_before_date":1, "tobacco_non_user":1 }',
+  //     "Population 3: Screened for tobacco use at least once within 24 mos AND received cessation intervention if identified as a tobacco user":
+  //       '{"tobacco_user":0, "tobacco_nonuser":1, "tobacco_met_ondate": 1, "pharmacotherapy_cesation":1, "pharmacotherapy_ordered":0, "tobacco_cessation_counseling":0, "medication_active_tobacco":1, "medication_active_tobacco_met_ondate":1, "medication_active_tobacco_before_met_ondate":1, "medication_order_tobacco":0, "medication_order_tobacco_before_met_ondate":0, "intervention_tobacco":1, "intervention_tobacco_same_after_metdate":0, "intervention_tobacco_before_met_ondate":1, "assessment_tobacco":0, "assessment_tobacco_start_24mons_before":1, "tobacco_nonuser":0, "tobacco_nonuser_24monts_before_date":1, "tobacco_non_user":1 }',
+  //     "Population 2: Received tobacco cessation intervention":
+  //       '{"tobacco_user":0, "tobacco_nonuser":1, "tobacco_met_ondate": 1, "pharmacotherapy_cesation":1, "pharmacotherapy_ordered":0, "tobacco_cessation_counseling":0, "medication_active_tobacco":1, "medication_active_tobacco_met_ondate":1, "medication_active_tobacco_before_met_ondate":1, "medication_order_tobacco":0, "medication_order_tobacco_before_met_ondate":0, "intervention_tobacco":1, "intervention_tobacco_same_after_metdate":0, "intervention_tobacco_before_met_ondate":1, "assessment_tobacco":0, "assessment_tobacco_start_24mons_before":1, "tobacco_nonuser":0, "tobacco_nonuser_24monts_before_date":1, "tobacco_non_user":1, "tobacco_user":0, "diagnosis":0, "diagnosis_met_overlap_ondate":1, "assessment":0, "assessment_met_before_24mons":1, "assessment_medical_reason_met_in":0, "no_tobacco_cessation_counseling":0, "no_pharmacotherapy_ordered":0, "limited_life":0, "limited_life_overlaps_on_metdate":1, "medication_not_ordered":1, "medication_not_ordered_same_after_date":0, "medication_not_ordered":1, "medication_not_ordered_before_on_metdate":1, "medication_not_ordered_in_medical_reason":0, "intervention_tobacco_user":0, "intervention_tobacco_user_same_after_date":1, "intervention_tobacco_user_before_date":0, "intervention_tobacco_user_in_medical_reason":1, "assessment_tobacco_user":0, "assessment_tobacco_before_metdate":1, "assessment_tobacco_in_medical_reason":0 }',
+  //   },
+  // };
 
   createReport() {
     this.createReportForm = this.fb.group({
@@ -1885,15 +1899,15 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
       measureList: '68,69,74,75,127,138,147,155,165',
       ranByUserID: this.createReportForm.value.providerId,
     };
-    this.createupdateEmployee(Createreport);
+    this.createQueuedReport(Createreport);
   }
 
-  createupdateEmployee(data: any) {
+  createQueuedReport(data: any) {
     this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
     this.accountservice.CreateQueuedReport(data).subscribe((data) => {
       if (data.IsSuccess) {
         this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
-        this.queuedreport();
+        this.GoBack();
         // this.toastr.success("Report created successfully", "Success Message", {
         //   timeOut: 3000,
         // });
@@ -1929,9 +1943,8 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
     this.GetProvidersLocationwise();
   }
 
-  queuedreport() {
+  GoBack() {
     this.isViewResults = false;
-    this.ViewResults = true;
     this.ViewResults = true;
     this.cqmcreatereport = false;
     this.getCQMReportsQueuedReports();
@@ -1944,26 +1957,24 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
     this.disableEndDateInput = true;
   }
 
-  showPatientListTab(details) {
-    this.patientlistdata = details;
-    //var populationdescription = details.PopulationDescription;
-    this.populationdescription = details.PopulationDescription;
-    this.stratificationText = details.StratificationText;
-    this.MeasureIdentifier = details.MeasureIdentifier;
-    this.showTopData = false;
-    this.showPatientList = true;
-    this.tabId = "patientList";
-    this.getPatientList(details.MeasureSetId);
+  showPatientListTab(measureInfo) {
+    this.selectedMeasureInfo = measureInfo;
+    //this.populationdescription = details.PopulationDescription;
+    //this.stratificationText = details.StratificationText;
+    //this.MeasureIdentifier = measureInfo.MeasureIdentifier;
+    //this.showPatientList = true;
+    this.tabId = 3
+    this.getPatientList();
     this.patientlistfilterForm.reset();
   }
 
   showDrilldownTab(i, PatientId, PracticeId) {
     this.patientinfo = i;
-    this.showTopData = false;
+    //    this.showTopData = false;
     this.showDrilldown = true;
-    this.tabId = "drilldown";
+    this.tabId =  4; //"drilldown";
     this.getDrilldownList(PatientId, PracticeId);
-    this.getCMSConditionsData(PatientId);
+    //this.getCMSConditionsData(PatientId);
     // this.drilldownConditions();
     this.drilldownViewConditions(PatientId);
   }
@@ -2260,17 +2271,18 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
   //   ];
   // }
   drilldownViewConditions(PatientId) {
+    console.log(this.selectedQueuedReport);
+    console.log(this.patientinfo);
+    console.log(this.selectedMeasureInfo);
+
     var req = {
-      // ReportId: this.MeasureReportId,
-      // MeasureId: this.MeasureSetId,
-      // PatientId: PatientId,
-      // PopulationId: this.populationdescription,
-      // Stratum: this.stratificationText
-      // for Testing
-      "ReportId": 44,
-      "MeasureId": 68,
-      "PatientId": "5c191704c832dd2f7910404b",
+      ReportId: this.MeasureReportId,
+      MeasureId: this.selectedMeasureInfo.MeasureId,
+      PopulationId: this.selectedMeasureInfo.PopulationId,
+      PatientId: PatientId
     };
+    console.log(req);
+
     this.accountservice.DrilldownViewConditions(req).subscribe(data => {
       this.conditions = JSON.parse(data.Result);
     });
@@ -2281,33 +2293,38 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
   //     }
   //  });
 
-  toTop68() {
-    document.getElementById("p68").scrollIntoView();
+  toTop(modifier){
+    document.getElementById("p"+modifier).scrollIntoView();
   }
-  toTop69() {
-    document.getElementById("p69").scrollIntoView();
-  }
-  toTop74() {
-    document.getElementById("p74").scrollIntoView();
-  }
-  toTop75() {
-    document.getElementById("p75").scrollIntoView();
-  }
-  toTop127() {
-    document.getElementById("p127").scrollIntoView();
-  }
-  toTop138() {
-    document.getElementById("p138").scrollIntoView();
-  }
-  toTop147() {
-    document.getElementById("p147").scrollIntoView();
-  }
-  toTop155() {
-    document.getElementById("p155").scrollIntoView();
-  }
-  toTop165() {
-    document.getElementById("p165").scrollIntoView();
-  }
+  // toTop68() {
+  //   document.getElementById("p68").scrollIntoView();
+  // }
+  // toTop69() {
+  //   document.getElementById("p69").scrollIntoView();
+  // }
+  // toTop74() {
+  //   document.getElementById("p74").scrollIntoView();
+  // }
+  // toTop75() {
+  //   document.getElementById("p75").scrollIntoView();
+  // }
+  // toTop127() {
+  //   document.getElementById("p127").scrollIntoView();
+  // }
+  // toTop138() {
+  //   document.getElementById("p138").scrollIntoView();
+  // }
+  // toTop147() {
+  //   document.getElementById("p147").scrollIntoView();
+  // }
+  // toTop155() {
+  //   document.getElementById("p155").scrollIntoView();
+  // }
+  // toTop165() {
+  //   document.getElementById("p165").scrollIntoView();
+  // }
+
+
   Measuresection() {
     document.getElementById("Measuresection").scrollIntoView();
   }
@@ -2316,66 +2333,83 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
   }
 
   detailsTab(event) {
-    if (event.nextId == "details") {
-      this.showTopData = true;
-      this.showPatientList = false;
+
+
+    if(event == 2){
+      this.tabId = 2;
+     // this.showPatientList = false
       this.showDrilldown = false;
-      this.tabId = "details";
-      this.getDetails();
-      // this.getdownloadQRDA3Report(this.patientlistmeasure.ReportId);
-    } else if (event.nextId == "dashBoard") {
-      this.showTopData = true;
-      this.showPatientList = false;
-      this.showDrilldown = false;
-      this.tabId = "dashBoard";
-    } else if (event.nextId == "summary") {
-      this.showTopData = true;
-      this.showPatientList = false;
-      this.showDrilldown = false;
-      this.tabId = "summary";
-      this.getDetails();
-    } else if (event.nextId == "patientList") {
-      this.showTopData = false;
-      this.showPatientList = true;
-      this.showDrilldown = false;
-      this.tabId = "patientList";
-    } else if (event == "dashBoard") {
-      this.showTopData = true;
-      this.showPatientList = false;
-      this.showDrilldown = false;
-      this.tabId = "dashBoard";
     }
+
+    if (!event || !(event instanceof MatTabChangeEvent)) return;
+    //this.showPatientList = event.index == 3;
+    this.showDrilldown = false;
+    this.tabId = event.index;
+
+
+
+    // if (event.index == "details") {
+    //   //    this.showTopData = true;
+    //   this.showPatientList = event.index != 1 || event.index != 1
+    //   this.showDrilldown = event.index != 1;
+    //   this.tabId = event.index;
+    //   this.getDetails();
+    //   // this.getdownloadQRDA3Report(this.selectedQueuedReport.ReportId);
+    // } else if (event.nextId == "dashBoard" ||
+    //   event == "dashBoard") {
+    //   //      this.showTopData = true;
+    //   this.showPatientList = false;
+    //   this.showDrilldown = false;
+    //   this.tabId = "dashBoard";
+    // } else if (event.nextId == "summary") {
+    //   //      this.showTopData = true;
+    //   this.showPatientList = false;
+    //   this.showDrilldown = false;
+    //   this.tabId = "summary";
+    //   this.getDetails();
+    // } else if (event.nextId == "patientList") {
+    //   //    this.showTopData = false;
+    //   this.showPatientList = true;
+    //   this.showDrilldown = false;
+    //   this.tabId = // "patientList";
+    // }
+    // else if (event == "dashBoard") {
+    // //  this.showTopData = true;
+    //   this.showPatientList = false;
+    //   this.showDrilldown = false;
+    //   this.tabId = "dashBoard";
+    // }
   }
   downloadpatient(PatientID) {
     var req = {
-      ReportId: this.patientlistmeasure.ReportId,
-      MeasureSetId: this.patientlistdata.MeasureSetId,
+      ReportId: this.selectedQueuedReport.ReportId,
+      MeasureSetId: this.selectedMeasureInfo.MeasureSetId,
       PatientId: PatientID,
     };
     this.downloadservice.getdownloadPatientReport(req);
   }
   getdownloadQRDA3Report() {
     var req = {
-      ReportId: this.patientlistmeasure.ReportId,
+      ReportId: this.selectedQueuedReport.ReportId,
     };
     this.downloadservice.getdownloadQRDA3Report(req);
   }
   getdownloadQRDA3() {
     var req = {
-      ReportId: this.patientlistmeasure.ReportId,
+      ReportId: this.selectedQueuedReport.ReportId,
     };
     this.downloadservice.getdownloadQRDA3(req);
   }
   getdownloadQRDA3MIPSReport() {
     var req = {
-      ReportId: this.patientlistmeasure.ReportId,
+      ReportId: this.selectedQueuedReport.ReportId,
     };
     this.downloadservice.getdownloadQRDA3MIPSReport(req);
   }
   getdownloadQRDA1Report() {
     var req = {
-      ReportId: this.patientlistmeasure.ReportId,
-      ProviderName: this.patientlistmeasure.ProviderName,
+      ReportId: this.selectedQueuedReport.ReportId,
+      ProviderName: this.selectedQueuedReport.ProviderName,
     };
     this.downloadservice.getdownloadQRDA1Report(req);
   }
@@ -2451,3 +2485,161 @@ export const messages = [
     component: "cardreader",
   },
 ];
+
+function updatePopulations(population: QueueReportPopulation[], value: QueueReportInfo) {
+  population.push(
+    {
+      Name: 'Initial Patient Population',
+      Value: value.IPP
+    }
+  );
+  population.push(
+    {
+      Name: 'Denominator',
+      Value: value.Denominator
+    }
+  );
+  population.push(
+    {
+      Name: 'Numerator',
+      Value: value.Numerator
+    }
+  );
+  if (value.DenException != null)
+    population.push(
+      {
+        Name: 'Denominator Exception',
+        Value: value.DenException
+      }
+    );
+  if (value.DenExclusion != null)
+    population.push(
+      {
+        Name: 'Denominator Exclusion',
+        Value: value.DenExclusion
+      }
+    );
+}
+
+function groupBy<_string, _QueueReportInfo>(array: QueueReportInfo[],
+  grouper: (item: QueueReportInfo) => string) {
+  let rtnValue = array.reduce((store, item) => {
+    var key = grouper(item)
+    if (!store.has(key)) {
+      store.set(key, [item])
+    } else {
+      store.get(key).push(item)
+    }
+    return store;
+  }, new Map<string, QueueReportInfo[]>())
+
+  let queueReportInfoGroup: QueueReportInfoGroup[] = [];
+  let statifications: { [index: string]: QueueReportPopulation[][] } = {};
+
+
+  rtnValue.forEach((values: QueueReportInfo[], mykey: string) => {
+    let populations: QueueReportPopulation[][] = [];
+
+    values.forEach((value, i) => {
+      var population: QueueReportPopulation[] = []
+      var strats: QueueReportPopulation[] = []
+      if (!value.StratificationText) {
+        updatePopulations(population, value);
+        populations.push(population);
+      }
+      else
+        if (value.PopulationItem == 'STRAT 1'
+          || value.PopulationItem == 'STRAT 2'
+          || value.PopulationItem == 'STRAT 3') {
+          updatePopulations(strats, value);
+          if (!statifications['IPOP 74'])
+            statifications['IPOP 74'] = [];
+          statifications['IPOP 74'].push(strats);
+        }
+        else if (value.PopulationItem == 'STRAT 1-1'
+          || value.PopulationItem == 'STRAT 1-2') {
+          updatePopulations(strats, value);
+          if (!statifications['STRAT 1'])
+            statifications['STRAT 1'] = [];
+          statifications['STRAT 1'].push(strats);
+        } else if (value.PopulationItem == 'STRAT 2-1'
+          || value.PopulationItem == 'STRAT 2-2') {
+          updatePopulations(strats, value);
+          if (!statifications['STRAT 2'])
+            statifications['STRAT 2'] = [];
+          statifications['STRAT 2'].push(strats);
+        } else if (value.PopulationItem == 'STRAT 3-1'
+          || value.PopulationItem == 'STRAT 3-2') {
+          updatePopulations(strats, value);
+          if (!statifications['STRAT 3'])
+            statifications['STRAT 3'] = [];
+          statifications['STRAT 3'].push(strats);
+          //updateStratifications(queueReportInfoGroup,statifications,'IPOP 3')
+        }
+    });
+
+
+
+    queueReportInfoGroup.push({
+      MeasureIdentifier: mykey,
+      MeasureTitle: values[0].MeasureTitle,
+      MeasureId: values[0].MeasureId,
+      StratificationText: values[0].StratificationText,
+      PopulationItem: values[0].PopulationItem,
+      Populations: populations
+    })
+  });
+
+  queueReportInfoGroup.forEach((values)=>{
+    if(values.MeasureId == 74){
+      if(!values.Statifications)
+      values.StatificationKey = 'IPOP 74'
+      values.Statifications = {};
+
+      values.Statifications['IPOP 74'] = statifications['IPOP 74'];
+    }else if(values.MeasureId == 155){
+      if(!values.Statifications)
+      values.Statifications={};
+
+
+      values.Statifications['STRAT 1'] = statifications['STRAT 1'];
+      values.Statifications['STRAT 2'] = statifications['STRAT 2'];
+      values.Statifications['STRAT 3'] = statifications['STRAT 3'];
+    }
+  })
+  return queueReportInfoGroup;
+}
+
+export class QueueReportInfoGroup {
+  MeasureIdentifier: string;
+  MeasureId: number;
+  MeasureTitle: string;
+  StratificationText: string;
+  PopulationItem: string;
+  StatificationKey?: string;
+  Populations: QueueReportPopulation[][];
+  Statifications?:  { [index: string]: QueueReportPopulation[][] }
+}
+
+export class QueueReportPopulation {
+  Name: string;
+  Value: number;
+}
+
+export class QueueReportInfo {
+  MeasureSetId: number;
+  MeasureId: number;
+  MeasureIdentifier: string;
+  MeasureTitle: string;
+  StratificationText: string;
+  PerformanceRate: number;
+  ReportingRate: number;
+  PopulationDescription: string;
+  Predicted: string;
+  IPP?: number;
+  Denominator?: number;
+  DenExclusion?: number;
+  Numerator?: number;
+  DenException?: number;
+  PopulationItem: string;
+}

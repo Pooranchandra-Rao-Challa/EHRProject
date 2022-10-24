@@ -65,8 +65,8 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "CQMReports/CQMReportMeasurePatients";
   }
 
-  get _cqmReportsUrl() {
-    return this._baseUrl + "CQMReports/CQMReports";
+  get _queuedCQMReportsUrl() {
+    return this._baseUrl + "CQMReports/QueuedCQMReports";
   }
   get _createQueuedReportUrl() {
     return this._baseUrl + "CQMReports/CreateQueuedReport";
