@@ -101,8 +101,9 @@
         </div>
         <div class="col-md-6 col-12">
           <mat-form-field appearance="outline" class="grey-matform green-calendar cstm-calendar col-md-8 col-12">
-            <input class="pointer" matInput [matDatepicker]="StartAt" placeholder="Start Date" name="startDate" (click)="StartAt.open()"
-              readonly [(ngModel)]="patientAllergy.StartAt" />
+            <input class="pointer" matInput [matDatepicker]="StartAt" placeholder="Start Date" name="startDate"
+              (click)="StartAt.open()" readonly [(ngModel)]="patientAllergy.StartAt"
+              (dateChange)="dateChange($event)" />
             <mat-datepicker-toggle matSuffix [for]="StartAt">
             </mat-datepicker-toggle>
             <mat-datepicker #StartAt disabled="false"></mat-datepicker>
@@ -115,9 +116,10 @@
         </div>
         <div class="col-md-6 col-12">
           <mat-form-field appearance="outline" class="grey-matform green-calendar cstm-calendar col-md-8 col-12">
-            <input class="pointer" matInput [matDatepicker]="EndAt" placeholder="End Date" name="endDate" (click)="EndAt.open()"
-              readonly [(ngModel)]="patientAllergy.EndAt" />
-            <mat-datepicker-toggle matSuffix [for]="EndAt">
+            <input class="pointer" matInput [matDatepicker]="EndAt" placeholder="End Date" name="endDate"
+              (click)="EndAt.open()" readonly [(ngModel)]="patientAllergy.EndAt" [min]="minDateForEndDate"
+              [disabled]="patientAllergy.StartAt == null" />
+            <mat-datepicker-toggle matSuffix [for]="EndAt" [disabled]="patientAllergy.StartAt == null">
             </mat-datepicker-toggle>
             <mat-datepicker #EndAt disabled="false"></mat-datepicker>
           </mat-form-field>
@@ -126,7 +128,7 @@
       <div class="col-md-12 mt-3">
         <label class="title-bold">Notes:</label>
         <textarea class="form-control col-12 mt-3 mt-md-0" matInput [(ngModel)]="patientAllergy.Note"></textarea>
-       
+
       </div>
     </div>
     <div class="modal-footer">

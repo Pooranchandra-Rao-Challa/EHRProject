@@ -17,6 +17,7 @@ import { ProviderConfirmationComponent } from './provider.confirmation.component
 import { EmailedUrlsComponent } from 'src/app/account/emailedurls/emailed.url.component'
 import { ChangePasswordComponent } from './change.password.component'
 import { AlertMessage } from '../_alerts/alertMessage';
+import { PatientService } from '../_services/patient.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -41,7 +42,8 @@ import { AlertMessage } from '../_alerts/alertMessage';
     ChangePasswordComponent
   ],
   providers:[
-    AlertMessage
+    AlertMessage,
+    PatientService
   ],
 })
 export class LoginModule {  }

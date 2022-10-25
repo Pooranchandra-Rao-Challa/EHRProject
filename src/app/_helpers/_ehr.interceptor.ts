@@ -14,16 +14,16 @@ export class EhrInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // add auth header with ehr user, if user is logged in and request is to the api url
-    console.log("In Ehr Interceptor ");
+    //console.log("In Ehr Interceptor ");
     const isApiUrl = request.url.startsWith(environment.baseUrl);
-    console.log("isApiUrl: ",isApiUrl);
+    //console.log("isApiUrl: ",isApiUrl);
 
     const currentUser = this.authenticationService.userValue;
-    console.log("currentUser: ",currentUser);
+   // console.log("currentUser: ",currentUser);
 
     const isLoggedIn = this.authenticationService.isLoggedIn();
 
-    console.log("isLoggedIn: ",isLoggedIn);
+  //  console.log("isLoggedIn: ",isLoggedIn);
 
     if (isLoggedIn && isApiUrl) {
       const req = request.clone({

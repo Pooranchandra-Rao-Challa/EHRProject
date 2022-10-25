@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { fromEvent, Observable, of } from 'rxjs';
+import { fromEvent, Observable, of, Subject } from 'rxjs';
 import { PracticeLocation, User } from 'src/app/_models';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { PatientService } from 'src/app/_services/patient.service';
@@ -13,6 +13,7 @@ import { DatePipe } from '@angular/common';
 import { AreaCode } from 'src/app/_models/_admin/Admins';
 import { FormControl } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
+import { DataExtractorService } from 'mat-table-exporter';
 declare var $: any;
 @Component({
   selector: 'app-insurance',
@@ -69,10 +70,22 @@ export class InsuranceComponent implements OnInit {
   searchText: string;
   @Input() max: any;
   tomorrow = new Date();
+  sample : any
   AreaCodes: AreaCode[];
   filteredAreacodes: any
   myControlPrimary = new FormControl();
+  minDateToPrimary = new Subject<string>();
+  endDateForPrimary;
+  minDateToSecondary = new Subject<string>();
+  endDateForSecondary;
 
+  dateChangeForPrimary(e) {
+    this.minDateToPrimary.next(e.value.toString());    
+  }
+  dateChangeForSecondary(e)
+  {
+    this.minDateToSecondary.next(e.value.toString());  
+  }
   constructor(private patientservice: PatientService,
     private route: ActivatedRoute,
     private authService: AuthenticationService,
@@ -85,6 +98,13 @@ export class InsuranceComponent implements OnInit {
     this.changedLocationId = this.user.CurrentLocation;
     this.InsuranceCompanyPlanList();
     this.tomorrow.setDate(this.tomorrow.getDate());
+    this.minDateToPrimary.subscribe(r => {
+      this.endDateForPrimary = new Date(r);
+    })
+    this.minDateToSecondary.subscribe(r=>
+      {
+        this.endDateForSecondary = new Date(r);
+      })
   }
 
   ngOnInit(): void {

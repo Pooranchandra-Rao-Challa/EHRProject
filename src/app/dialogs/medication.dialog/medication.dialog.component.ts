@@ -10,7 +10,7 @@ import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { PatientService } from 'src/app/_services/patient.service';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
-import { fromEvent, Observable, of } from 'rxjs';
+import { fromEvent, Observable, of, Subject } from 'rxjs';
 import { filter, map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { DatePipe } from '@angular/common';
 import { PatientEducationMaterialDialogComponent } from '../patient.education.material.dialog/patient.education.material.dialog.component';
@@ -34,6 +34,8 @@ export class MedicationDialogComponent implements OnInit {
   @ViewChild('searchMedicationName', { static: true }) searchMedicationName: ElementRef;
   medications: Observable<Drug[]>;
   ndcList: string[] = [];
+  minDateToAllergy = new Subject<string>();
+  minDateForEndDate;
 
   constructor(public overlayService: OverlayService,
     private ref: EHROverlayRef,
@@ -43,7 +45,15 @@ export class MedicationDialogComponent implements OnInit {
     private alertmsg: AlertMessage,
     public datepipe: DatePipe) {
     this.updateLocalModel(ref.RequestData);
+    this.minDateToAllergy.subscribe(r => {
+      this.minDateForEndDate = new Date(r);
+    })
+
   }
+  dateChange(e) {
+    this.minDateToAllergy.next(e.value.toString());
+  }
+
 
   ngOnInit(): void {
     // this.medications = GlobalConstants.Medication_Names;
@@ -54,7 +64,7 @@ export class MedicationDialogComponent implements OnInit {
       map((event: any) => {
         this.medications = of([]);
         this.noRecords = false;
-        if(event.target.value == ''){
+        if (event.target.value == '') {
           this.displayMessage = true;
         }
         return event.target.value;
@@ -128,6 +138,7 @@ export class MedicationDialogComponent implements OnInit {
     const ref = this.overlayService.open(content, reqdata, true);
     ref.afterClosed$.subscribe(res => {
       this.patientMedication.ReasonDescription = res.data.ReasonDescription;
+
     });
   }
 
@@ -143,7 +154,7 @@ export class MedicationDialogComponent implements OnInit {
     let isAdd = this.patientMedication.MedicationId == undefined;
     this.patientMedication.PatientId = this.currentPatient.PatientId;
     this.patientMedication.StartAt = new Date(this.datepipe.transform(this.patientMedication.StartAt, "MM/dd/yyyy hh:mm:ss"));
-    if(this.patientMedication.StopAt != null){
+    if (this.patientMedication.StopAt != null) {
       this.patientMedication.StopAt = new Date(this.datepipe.transform(this.patientMedication.StopAt, "MM/dd/yyyy hh:mm:ss"));
     }
     this.patientService.CreateMedication(this.patientMedication).subscribe((resp) => {

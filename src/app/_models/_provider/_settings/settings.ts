@@ -4,21 +4,18 @@ import { IDeleteFlag } from "../encounter";
 export class NewUser {
   PracticeRole?: string;
   Active?: boolean;
-
   UserId?: string;
   ClinicId?: string;
   ProviderId?: string;
   FirstName?: string;
   LastName?: string;
   LocationId?: string;
-
   Title?: string;
   MiddleName?: string;
   Degree?: string;
   Speciality?: string;
   SecondarySpeciality?: string;
   DentalLicence?: string;
-  
   ExpirationDate?: string;
   State?: string;
   Npi?: string;

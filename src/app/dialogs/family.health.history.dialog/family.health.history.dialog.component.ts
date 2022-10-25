@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { PatientService } from 'src/app/_services/patient.service';
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
-import { BehaviorSubject } from 'rxjs-compat';
+import { BehaviorSubject, Subject } from 'rxjs-compat';
 import { Obj } from '@popperjs/core';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { I } from '@angular/cdk/keycodes';
@@ -28,6 +28,8 @@ export class FamilyHealthHistoryDialogComponent implements OnInit {
   onSelectedDiagnoses: Diagnosis;
   // todayDate: Date;
   minBirthdate: Date;
+  minDateToFinish = new Subject<string>();
+  endDateForDiagnosis;
 
   constructor(private ref: EHROverlayRef,
     private authService: AuthenticationService,
@@ -37,15 +39,22 @@ export class FamilyHealthHistoryDialogComponent implements OnInit {
     this.currentPatient = this.authService.viewModel.Patient;
     this.updateLocalModel(ref.RequestData);
     // this.todayDate = new Date();
+    this.minDateToFinish.subscribe(d => {
+      this.endDateForDiagnosis = new Date(d);
+    })
   }
 
   ngOnInit(): void {
     this.patientRelationShip = GlobalConstants.RELATIONSHIP;
     this.diagnosesStartDate = new Date();
-    this.diagnosesStopDate = this.datepipe.transform(new Date(), "yyyy-MM-dd");
+    // this.diagnosesStopDate = this.datepipe.transform(new Date(), "yyyy-MM-dd");
+    this.endDateForDiagnosis = new Date(this.diagnosesStartDate);
+
     this.minDate();
   }
-
+  dateChange(e) {
+    this.minDateToFinish.next(e.value.toString());
+  }
   updateLocalModel(data: FamilyMedicalHistory) {
     this.patientFamilyHealthHistory.FamilyMedicalHistoryInfo = new FamilyMedicalHistory;
     if (data == null) return;
@@ -104,7 +113,7 @@ export class FamilyHealthHistoryDialogComponent implements OnInit {
     }
   }
 
-  minDate(){
+  minDate() {
     const now = new Date();
     this.minBirthdate = new Date(this.datepipe.transform(now.setFullYear(now.getFullYear() - 1), "yyyy-MM-dd"));
   }

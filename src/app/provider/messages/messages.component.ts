@@ -127,9 +127,9 @@ export class MessagesComponent implements OnDestroy, AfterContentChecked {
     this.currentMessage = message;
     if (this.currentMessageView == 'Inbox' || this.currentMessageView == 'Urgent') {
       this.messageService.ReadInboxMessages(this.currentMessage).subscribe(resp => {
-        if(resp.IsSuccess) {
+        if (resp.IsSuccess) {
           this.user.UnReadMails--;
-          if(message.Urgent) this.user.UrgentMessages--;
+          if (message.Urgent) this.user.UrgentMessages--;
           var counts: MessageCounts = new MessageCounts();
           counts.UnreadCount = this.user.UnReadMails;
           counts.UrgentCount = this.user.UrgentMessages;
@@ -199,6 +199,7 @@ export class MessagesComponent implements OnDestroy, AfterContentChecked {
 
     const ref = this.overlayService.open(content, DialogResponse);
     ref.afterClosed$.subscribe(res => {
+      this.loadMessages();
     });
 
   }

@@ -15,7 +15,7 @@ import {
   MedicalCode
 } from 'src/app/_models/codes';
 import { MatRadioButton } from '@angular/material/radio';
-import { BehaviorSubject, combineLatest, fromEvent, merge, Observable } from 'rxjs'
+import { BehaviorSubject, combineLatest, fromEvent, merge, Observable, Subject } from 'rxjs'
 import { OverlayService } from 'src/app/overlay.service';
 import { map, } from 'rxjs/operators';
 import { AlertMessage, ERROR_CODES } from './../../_alerts/alertMessage';
@@ -77,6 +77,8 @@ export class EncounterDialogComponent implements OnInit {
   patient: ProviderPatient;
   signEncounterNoteComponent = SignEncounterNoteComponent;
   isNavigateFromProductView: boolean = false;
+  minDateToFinish = new Subject<string>();
+  endDateForEncounter;
 
 
   private messageflagSubject = new BehaviorSubject<boolean>(false);
@@ -89,6 +91,14 @@ export class EncounterDialogComponent implements OnInit {
     private datePipe: DatePipe) {
     let i = 1;  //normally would use var here
     while (this.teethNumbers.push(i++) < 32) { }
+    // this.encounterInfo.ServicedAt = new Date;
+
+
+    this.minDateToFinish.subscribe(e => {
+      this.endDateForEncounter = new Date(e);
+    }
+
+    )
 
   }
 
@@ -128,8 +138,11 @@ export class EncounterDialogComponent implements OnInit {
 
     if (this.encounterInfo.Vital.CollectedAt != null)
       this.encounterInfo.Vital.CollectedTime = this.datePipe.transform(this.encounterInfo.Vital.CollectedAt, "hh:mm a");
+    this.endDateForEncounter = new Date(this.encounterInfo.ServicedAt);
   }
-
+  dateChange(e) {
+    this.minDateToFinish.next(e.value.toString());
+  }
   private computeBmi(height: number, weight: number): number {
     const bmi = (weight / ((height) * (height))) * 703;
     this.encounterInfo.Vital.BMI = Number(bmi.toFixed(2));

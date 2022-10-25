@@ -99,7 +99,8 @@
           <label class="title-field required">Start Date</label>
           <mat-form-field appearance="outline" class="grey-matform grey-calendar medication-datepicker">
             <input matInput class="pointer date-mat-class" autocomplete="off" [matDatepicker]="picker5"
-              (click)="picker5.open()" readonly placeholder="Start Date" [(ngModel)]="patientMedication.StartAt" />
+              (click)="picker5.open()" readonly placeholder="Start Date" [(ngModel)]="patientMedication.StartAt"
+              (dateChange)="dateChange($event)" />
             <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
             <mat-datepicker #picker5></mat-datepicker>
           </mat-form-field>
@@ -108,8 +109,10 @@
           <label class="title-field">End Date</label>
           <mat-form-field appearance="outline" class="grey-matform grey-calendar medication-datepicker">
             <input matInput class="pointer date-mat-class" autocomplete="off" [matDatepicker]="picker4"
-              (click)="picker4.open()" readonly placeholder="End Date" [(ngModel)]="patientMedication.StopAt" />
-            <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+              (click)="picker4.open()" readonly placeholder="End Date" [(ngModel)]="patientMedication.StopAt"
+              [min]="minDateForEndDate" [disabled]="patientMedication.StartAt == null" />
+            <mat-datepicker-toggle matSuffix [for]="picker4" [disabled]="patientMedication.StartAt == null">
+            </mat-datepicker-toggle>
             <mat-datepicker #picker4></mat-datepicker>
           </mat-form-field>
 

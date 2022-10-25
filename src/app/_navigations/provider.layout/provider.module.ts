@@ -137,6 +137,8 @@ import { NotifyMessageService } from "src/app/_navigations/provider.layout/view.
 import { NotifyProviderHeaderService } from 'src/app/_navigations/provider.layout/view.notification.service';
 import { MessagesTableDialogComponent } from 'src/app/dialogs/messages.table.dialog/messages.table.dialog.component';
 import { ViewMessageDialogComponent } from 'src/app/dialogs/view.message.dialog/view.message.dialog.component';
+import { PraticeAdduserDialogComponent } from 'src/app/dialogs/pratice.adduser.dialog/pratice.adduser.dialog.component';
+
 
 //import { AttachmentNopreviewComponent } from 'src/app/_components/attachments/attachment.nopreview.component'
 //import { AttachmentComponent } from 'src/app/_components/attachments/attachment.component'
@@ -190,6 +192,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     ViewMessageDialogComponent,
     //AttachmentNopreviewComponent,
     //AttachmentComponent,
+    PraticeAdduserDialogComponent
 
   ],
   declarations: [
@@ -274,6 +277,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     AttachmentPreviewComponent,
     MessagesTableDialogComponent,
     ViewMessageDialogComponent,
+    PraticeAdduserDialogComponent
+    
    // AttachmentNopreviewComponent,
    // AttachmentComponent
 
@@ -368,7 +373,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     EncounterTableDialogComponent,
     AppointmentsTableDialogComponent,
     MessagesTableDialogComponent,
-    ViewMessageDialogComponent]
+    ViewMessageDialogComponent,
+    PraticeAdduserDialogComponent]
 })
 export class ProviderModule {
 

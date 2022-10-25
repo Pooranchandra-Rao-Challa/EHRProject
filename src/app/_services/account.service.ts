@@ -57,13 +57,13 @@ export class Accountservice extends APIEndPoint {
 
 
   getCQMReportsQueuedReports(reqdata: any) {
-    return this._ProcessPostRequest<any>(this._cqmReportsUrl, reqdata);
+    return this._ProcessPostRequest<any>(this._queuedCQMReportsUrl, reqdata);
   }
   getCQMReportsDashboard(reqdata: any) {
-    return this._ProcessPostRequest<any>(this._cqmReportsUrl, reqdata);
+    return this._ProcessPostRequest<any>(this._queuedCQMReportsUrl, reqdata);
   }
   getCQMReportsPatientList(reqdata: any) {
-    return this._ProcessPostRequest<any>(this._cqmReportsUrl, reqdata);
+    return this._ProcessPostRequest<any>(this._queuedCQMReportsUrl, reqdata);
   }
 
   CreateQueuedReport(reqdata: any) {

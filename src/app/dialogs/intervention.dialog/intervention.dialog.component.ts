@@ -2,7 +2,7 @@ import { PatientService } from 'src/app/_services/patient.service';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { EHROverlayRef } from '../../ehr-overlay-ref';
 import { Actions, GlobalConstants, ChartInfo, Intervention, PatientChart } from './../../_models';
-import { fromEvent } from 'rxjs';
+import { fromEvent, Subject } from 'rxjs';
 import { filter, map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
@@ -30,6 +30,8 @@ export class InterventionDialogComponent implements OnInit {
   cqmNotPerformedDialogComponent = AddeditinterventionComponent;
   ActionTypes = Actions;
   chartInfo: ChartInfo = new ChartInfo;
+  endDateForInterventions;
+  minDateToFinish = new Subject<string>();
 
   constructor(private ref: EHROverlayRef,
     private patientService: PatientService,
@@ -38,6 +40,10 @@ export class InterventionDialogComponent implements OnInit {
     public datepipe: DatePipe,
     public overlayService: OverlayService) {
     this.updateLocalModel(ref.RequestData);
+    this.minDateToFinish.subscribe(i => {
+      this.endDateForInterventions = new Date(i)
+    })
+
   }
 
   ngOnInit(): void {
@@ -45,13 +51,16 @@ export class InterventionDialogComponent implements OnInit {
     this.interventionTypes = GlobalConstants.INTERVENTION_TYPES;
     this.InterventionsByPatientId();
   }
+  dateChange(e) {
+    this.minDateToFinish.next(e.value.toString());
+  }
 
   ngAfterViewInit(): void {
     fromEvent(this.searchName.nativeElement, 'keyup').pipe(
       // get value
       map((event: any) => {
         // this.interventionCodes = [];
-        if(event.target.value == ''){
+        if (event.target.value == '') {
           this.interventionCodes = this.chartInfo.Interventions;
           this.addBtnWhileSearch = true;
         }
@@ -148,7 +157,7 @@ export class InterventionDialogComponent implements OnInit {
   }
 
   disableIntervention() {
-    return !(this.patientIntervention.StartDate && this.patientIntervention.EndDate && this.patientIntervention.InterventionType && this.patientIntervention.Code )
+    return !(this.patientIntervention.StartDate && this.patientIntervention.EndDate && this.patientIntervention.InterventionType && this.patientIntervention.Code)
   }
 
   openComponentDialog(content: any | ComponentType<any> | string,
@@ -163,18 +172,18 @@ export class InterventionDialogComponent implements OnInit {
     const ref = this.overlayService.open(content, reqdata);
     ref.afterClosed$.subscribe(res => {
       // this.UpdateView(res.data);
-      if(res.data != null){
+      if (res.data != null) {
         this.ref.close(res.data);
       }
     });
   }
 
-    // Get tobacco interventions info
-    InterventionsByPatientId() {
-      this.patientService.InterventionsByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
-        if (resp.IsSuccess) this.chartInfo.Interventions = resp.ListResult;
-        this.interventionCodes = this.chartInfo.Interventions;
-        this.addBtnWhileSearch = true;
-      });
-    }
+  // Get tobacco interventions info
+  InterventionsByPatientId() {
+    this.patientService.InterventionsByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
+      if (resp.IsSuccess) this.chartInfo.Interventions = resp.ListResult;
+      this.interventionCodes = this.chartInfo.Interventions;
+      this.addBtnWhileSearch = true;
+    });
+  }
 }
