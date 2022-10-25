@@ -123,10 +123,12 @@
   </div>
   <div class="home-footer">
     <div class="container-fluid pt-2">
-      <span class="app-version">© 2022 EHR One, LLC version: v2.0 <a href="account/partnersignup" class="as">Become a
+      <div *ngFor="let item of providerFooterVersion">
+      <span class="app-version">© 2022 EHR One, LLC version:  {{item.Version}} &nbsp; &nbsp;<a href="account/partnersignup" class="as">Become a
           Development
           Partner</a>
       </span>
+    </div>
     </div>
   </div>
 </div>
