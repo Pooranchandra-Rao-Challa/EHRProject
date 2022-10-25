@@ -18,3 +18,16 @@ div.row {
   font-size: 15px !important;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 }
+.population-section{
+  padding: 20px 0 0;
+  font-weight: 600;
+}
+
+.population-condition{
+  padding: 5px 0;
+}
+
+::ng-deep div.ehr-cqm-table-container .mat-expansion-panel-header{
+  border-bottom-left-radius: unset;
+  border-bottom-right-radius: unset;
+}
