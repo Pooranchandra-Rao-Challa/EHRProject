@@ -134,6 +134,7 @@ import { AppointmentsTableDialogComponent } from 'src/app/dialogs/appointments.t
 import { FileUploadService } from 'src/app/_services/file.upload.service'
 import { AttachmentPreviewComponent } from "src/app/_components/attachments/attachment.preview.component";
 import { NotifyMessageService } from "src/app/_navigations/provider.layout/view.notification.service";
+import { NotifyProviderHeaderService } from 'src/app/_navigations/provider.layout/view.notification.service';
 import { MessagesTableDialogComponent } from 'src/app/dialogs/messages.table.dialog/messages.table.dialog.component';
 import { ViewMessageDialogComponent } from 'src/app/dialogs/view.message.dialog/view.message.dialog.component';
 
@@ -316,6 +317,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     AlertMessage, RxNormAPIService, MessagesService,
     FileUploadService,
     NotifyMessageService,
+    NotifyProviderHeaderService,
     { provide: LOCALE_ID, useValue: 'en-US' },
     { provide: MAT_DATE_LOCALE, useValue: 'en-US' },
     ProviderCodeDatabase,

@@ -1,5 +1,5 @@
 import { ProviderList } from './../_models/_admin/providerList';
-import { MessageCounts } from './../_navigations/provider.layout/view.notification.service';
+import { MessageCounts, ProviderHeader } from './../_navigations/provider.layout/view.notification.service';
 import { SecureCreds } from './../_models/_account/user';
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, Observer, observable, throwError, of } from 'rxjs';
@@ -166,6 +166,35 @@ export class AuthenticationService {
     }
   }
 
+  SwitchToPatientUser(data: { SwitchUserKey: string, SwitchUserEncKey: string }) {
+    if (this.isAdmin) {
+      const endpointUrl = this.baseUrl + "SwitchToPatientUser/";
+      let observable = this.http.post<ResponseData>(endpointUrl, data).pipe<ResponseData>(
+        tap(resp => {
+          if (resp.IsSuccess) {
+            this.revokeToken();
+            localStorage.clear();
+            this.userSubject = new BehaviorSubject<User>(resp.Result as User);
+            localStorage.setItem('user', JSON.stringify(resp.Result as User));
+            this.updateViewModel();
+            this.startRefreshTokenTimer();
+            if (this.isPatient) {
+              this.router.navigate(
+                ['/patient/dashboard'],
+                { queryParams: { name: 'dashboard' } }
+              );
+            }
+          } else {
+            this.logout(ERROR_CODES["EL005"]);
+          }
+        }, err => {
+          this.logout(ERROR_CODES["EL005"]);
+        }),
+      );
+      return observable;
+    }
+  }
+
 
   patientLoginWithFormCredentials(creds: any): Observable<ResponseData> {
     const endpointUrl = this.apiEndPoint._authenticatePatientUrl;
@@ -284,6 +313,14 @@ export class AuthenticationService {
     let u = this.userValue;
     u.UnReadMails = counts.UnreadCount;
     u.UrgentMessages = counts.UrgentCount;
+    this.userSubject.next(u);
+    localStorage.setItem('user', JSON.stringify(u as User));
+  }
+
+  updateProviderHeader(provider: ProviderHeader) {
+    let u = this.userValue;
+    u.FirstName = provider.FirstName;
+    u.LastName = provider.LastName;
     this.userSubject.next(u);
     localStorage.setItem('user', JSON.stringify(u as User));
   }

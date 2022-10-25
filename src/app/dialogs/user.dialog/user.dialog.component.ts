@@ -1,3 +1,4 @@
+import { NotifyMessageService, NotifyProviderHeaderService, ProviderHeader } from './../../_navigations/provider.layout/view.notification.service';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { Component, OnInit, HostListener, TemplateRef } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
@@ -12,6 +13,7 @@ import { OverlayService } from '../../overlay.service';
 import { Actions, Location } from 'src/app/_models/';
 import { LocationDialogComponent } from 'src/app/dialogs/location.dialog/location.dialog.component';
 import { AlertMessage, ERROR_CODES } from './../../_alerts/alertMessage';
+import { MessageCounts } from 'src/app/_navigations/provider.layout/view.notification.service';
 @Component({
   selector: 'app-user.dialog',
   templateUrl: './user.dialog.component.html',
@@ -50,6 +52,7 @@ export class UserDialogComponent implements OnInit {
     private dialog: MatDialog,
     public overlayService: OverlayService,
     private authServer: AuthenticationService,
+    private notifyProviderHeader: NotifyProviderHeaderService,
     private alertmsg: AlertMessage) {
     this.user = authServer.userValue;
     this.userQuery = {
@@ -135,6 +138,13 @@ export class UserDialogComponent implements OnInit {
       this.EditProvider.PracticeName = this.user.BusinessName;
     this.settingsService.AddUpdateUser(this.EditProvider).subscribe(resp => {
       if (resp.IsSuccess) {
+        if (this.user.ProviderId == this.EditProvider.ProviderId) {
+          var provider: ProviderHeader = new ProviderHeader();
+          provider.FirstName = this.EditProvider.FirstName;
+          provider.LastName = this.EditProvider.LastName;
+          this.notifyProviderHeader.sendData(provider);
+          this.authServer.updateProviderHeader(provider);
+        }
         this.ref.close({ 'saved': 'true' });
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2JP005"]);
       }

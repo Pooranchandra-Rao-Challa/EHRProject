@@ -40,6 +40,8 @@ export class AdminsComponent implements OnInit {
   emailPattern = /^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$/;
   emailVerfied?:boolean = null;
   emailVerficationMessage?:string;
+  pageSize: number = 10;
+  page: number = 1;
 
   constructor(private adminservice: AdminService,
     private utilityService: UtilityService,
@@ -72,8 +74,6 @@ export class AdminsComponent implements OnInit {
     this.adminservice.AdminList().subscribe(resp => {
       if (resp.IsSuccess) {
         this.adminDataSource = resp.ListResult;
-        
-  
       } else
         this.adminDataSource = [];
     });
@@ -233,7 +233,7 @@ export class AdminsComponent implements OnInit {
   // && (mNo == undefined || mNo == "" || (this.phonePattern.test(mNo)))
 
   resetDialog() {
-    this.newAdminRegistration = new AdminRegistration;
+    this.newAdminRegistration = new AdminRegistration();
   }
 
   onSelectedMobileCode(code: string) {

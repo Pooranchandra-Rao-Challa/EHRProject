@@ -1,3 +1,4 @@
+import { NotifyProviderHeaderService } from './../provider.layout/view.notification.service';
 import { NotifyMessageService } from 'src/app/_navigations/provider.layout/view.notification.service';
 import { LoaderService } from './../../_loader/loader.service';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
@@ -36,6 +37,7 @@ export class ProviderNavbarComponent implements OnInit {
     private settingsService: SettingsService,
     private viewChangeService: ViewChangeService,
     private notifyMessage: NotifyMessageService,
+    private notifyProviderHeader: NotifyProviderHeaderService,
     public loaderService: LoaderService) {
     // config.placement = 'bottom-right';
     this.user = authenticationService.userValue;
@@ -57,6 +59,10 @@ export class ProviderNavbarComponent implements OnInit {
     this.notifyMessage.getData().subscribe(value => {
       this.unreadMails = value.UnreadCount;
       this.urgentMails = value.UrgentCount;
+    });
+    this.notifyProviderHeader.getData().subscribe(value => {
+      this.user.FirstName = value.FirstName;
+      this.user.LastName = value.LastName;
     });
   }
 

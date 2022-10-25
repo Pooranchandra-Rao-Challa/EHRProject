@@ -96,3 +96,26 @@ export class NotifyMessageService {
   }
 }
 
+
+export class ProviderHeader {
+  FirstName: string;
+  LastName: string;
+}
+
+@Injectable()
+export class NotifyProviderHeaderService {
+  private subject = new Subject<any>();
+
+  sendData(provider: ProviderHeader) {
+    this.subject.next(provider);
+  }
+
+  clearData() {
+    this.subject.next();
+  }
+
+  getData(): Observable<ProviderHeader> {
+    return this.subject.asObservable();
+  }
+}
+

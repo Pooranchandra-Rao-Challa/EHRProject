@@ -25,8 +25,11 @@
 
                         <ng-container matColumnDef="Name">
                           <mat-header-cell *matHeaderCellDef mat-sort-header="FullName" class="header">Name</mat-header-cell>
-                          <mat-cell *matCellDef="let patient">
-                            {{patient?.FullName}}
+                          <mat-cell *matCellDef="let patient" style="display: block;">
+                            <span>{{patient?.FullName}}</span>
+                            <div class="d-flex justify-content-start my-2">
+                              <button class="td-btn-style" (click)="switchToPatient(patient)" [disabled]="!patient.UserId">Login</button>
+                            </div>
                           </mat-cell>
                         </ng-container>
 

@@ -13,7 +13,7 @@
       <div class="text-center">
         <img width="146" height="240" src="assets/images/one.svg">
       </div>
-  </div>
+    </div>
     <div class="content-top">
       <div class="container pt-5">
         <div class="row">
@@ -45,7 +45,7 @@
                     <mat-form-field class="w-100" appearance="outline">
                       <input matInput placeholder="Password" [type]="showPassword ? 'text' : 'password'" name="Password"
                         formControlName="Password" (keyup.enter)="OnFormSubmit()" />
-  
+
                       <img [src]="showPassword ? 'assets/images/eye-open.svg' : 'assets/images/eye-close.svg'"
                         class="img-svg-eye" (click)="togglePasswordVisibility()" />
                     </mat-form-field>
@@ -68,30 +68,27 @@
                 in</button>
             </div>
           </div>
-          <div class="col-lg-6 col-md-6 col-sm-12 px-5">
+          <div class="col-lg-6 col-md-6 col-sm-12 px-lg-5 px-0">
             <div class="row" style=" margin: unset;
-              padding: unset;
-              width: 82%; float: right;">
-              <div class="col-lg-6 col-md-12 vediologo col-sm-12">
-                <img src="assets/videologo.png"/>
+              padding: unset;float: right;">
+              <div class="col-xl-6 col-lg-8 col-md-8 col-8 vediologo">
+                <img src="assets/videologo.png" />
               </div>
-             <div class="col-lg-4 col-md-4 col-sm-4" style="margin: 15px;margin-left:-33px;
-             padding: unset;">
+              <div class="col-xl-4 col-lg-4 col-md-4 col-4 text-logo">
                 <span>(Ask us how to join)</span>
               </div>
               <!-- <div class="col-lg-6 heading ">
                 <p>(Ask us how to join)</p>
               </div> -->
-  
+
               <div class="video">
                 <video controls #videoPlayer controlsList="nodownload">
                   <source src="assets/iPrescribe-short.mp4" type="video/mp4" />
                 </video>
               </div>
             </div>
-            <div class="video-content" style="    margin: unset;
-              padding: unset;
-              width: 82%; float: right;">
+            <div class="video-content" style="margin: unset;
+              padding: unset;float: right;">
               <ul>
                 <li><i></i>Cut prescription errors down from<strong> 42.5% to 6%</strong></li>
                 <li>

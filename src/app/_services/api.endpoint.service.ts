@@ -796,6 +796,9 @@ export class APIEndPoint extends EndpointBase {
   get _switchUserKeyUrl() {
     return this._baseUrl + "SwitchUserKey";
   }
+  get _switchToPatientUserKeyUrl() {
+    return this._baseUrl + "SwitchToPatientUserKey";
+  }
   get _createBlockoutUrl() {
     return this._baseUrl + "CreateBlockout";
   }

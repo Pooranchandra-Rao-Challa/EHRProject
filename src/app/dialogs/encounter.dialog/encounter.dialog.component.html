@@ -470,7 +470,7 @@
                     <div class="form-group col-lg-6 col-md-6 col-12" style="display: inline;">
                       <label class="col-12 vital-label required">Collected date:</label>
                       <mat-form-field appearance="outline" class="col-lg-12 col-12">
-                        <input class="vital-input " matInput class="pointer" autocomplete="off"
+                        <input matInput class="pointer" autocomplete="off"
                           [matDatepicker]="collectedDate" [(ngModel)]="encounterInfo.Vital.CollectedAt"
                           (click)="collectedDate.open()" readonly placeholder="Collected Date">
                         <mat-datepicker-toggle matSuffix [for]="collectedDate"></mat-datepicker-toggle>
@@ -478,7 +478,7 @@
                       </mat-form-field>
                       <label class="col-12 vital-label required">Time:</label>
                       <mat-form-field appearance="outline" class="col-lg-12 col-12">
-                        <input matInput class="vital-input" type="text" hint="12 hours format"
+                        <input matInput type="text" hint="12 hours format"
                           [(ngModel)]="encounterInfo.Vital.CollectedTime" appTimeMask>
 
                       </mat-form-field>
@@ -499,7 +499,7 @@
                     <mat-label class="col-4 vital-label" [class.required]="this.encounterInfo.Vital.Height || this.encounterInfo.Vital.Weight">Height(in):</mat-label>
                     <mat-form-field appearance="outline" class="col-12 vital-mat-form-field">
 
-                      <input matInput type="number" class="col-6" #heightField [(ngModel)]="encounterInfo.Vital.Height">
+                      <input matInput type="number" #heightField [(ngModel)]="encounterInfo.Vital.Height">
                       <!-- <mat-hint align="end">in</mat-hint> -->
                       <mat-hint class="vital-mat-form-field-unit-label"></mat-hint>
                     </mat-form-field>
@@ -508,7 +508,7 @@
                     <mat-label class="col-4 vital-label" [class.required]="this.encounterInfo.Vital.Height || this.encounterInfo.Vital.Weight">Weight(lb):</mat-label>
                     <mat-form-field appearance="outline" class="col-12 vital-mat-form-field">
 
-                      <input matInput class="vital-input col-4" #weightField [(ngModel)]="encounterInfo.Vital.Weight">
+                      <input matInput type="number" #weightField [(ngModel)]="encounterInfo.Vital.Weight">
                       <mat-hint class="vital-mat-form-field-unit-label"></mat-hint>
                     </mat-form-field>
                   </div>
@@ -516,7 +516,7 @@
                     <mat-label class="col-4 vital-label" [class.required]="this.encounterInfo.Vital.Height || this.encounterInfo.Vital.Weight">BMI</mat-label>
                     <mat-form-field appearance="outline" class="col-12 vital-mat-form-field">
 
-                      <input matInput class="vital-input col-4" #bmiField [value]="bmi$ | async" disabled="true"
+                      <input matInput #bmiField [value]="bmi$ | async" disabled="true"
                         [(ngModel)]="encounterInfo.Vital.BMI">
                       <mat-hint class="vital-mat-form-field-unit-label"></mat-hint>
                     </mat-form-field>
@@ -527,14 +527,14 @@
                   <div class="form-group col-md-4">
                     <mat-label class="col-4 vital-label" [class.required]="this.encounterInfo.Vital.BPSystolic || this.encounterInfo.Vital.BPDiastolic">BP:Systolic(mmHg)</mat-label>
                     <mat-form-field appearance="outline" class="col-12 vital-mat-form-field">
-                      <input matInput class="col-4 vital-input" [(ngModel)]="encounterInfo.Vital.BPSystolic">
+                      <input matInput type="number" [(ngModel)]="encounterInfo.Vital.BPSystolic">
                       <mat-hint class="vital-mat-form-field-unit-label"></mat-hint>
                     </mat-form-field>
                   </div>
                   <div class="form-group col-md-4">
                     <mat-label class="col-4 vital-label" [class.required]="this.encounterInfo.Vital.BPSystolic || this.encounterInfo.Vital.BPDiastolic">BP:Diastolic(mmHg)</mat-label>
                     <mat-form-field appearance="outline" class=" col-12 vital-mat-form-field">
-                      <input matInput class="col-4 vital-input" [(ngModel)]="encounterInfo.Vital.BPDiastolic">
+                      <input matInput type="number" [(ngModel)]="encounterInfo.Vital.BPDiastolic">
                       <mat-hint class="vital-mat-form-field-unit-label"></mat-hint>
                     </mat-form-field>
                   </div>
@@ -546,7 +546,7 @@
                     <mat-label class="col-4 vital-label">Temperature(F):</mat-label>
                     <mat-form-field appearance="outline" class=" col-12 vital-mat-form-field">
 
-                      <input matInput class="col-4 vital-input" [(ngModel)]="encounterInfo.Vital.Temperature">
+                      <input matInput type="number" [(ngModel)]="encounterInfo.Vital.Temperature">
                       <mat-hint class="vital-mat-form-field-unit-label"></mat-hint>
                     </mat-form-field>
                   </div>
@@ -554,7 +554,7 @@
                     <mat-label class="col-4 vital-label" style="white-space: nowrap;">O2 Saturation(%):</mat-label>
                     <mat-form-field appearance="outline" class="col-12 vital-mat-form-field">
 
-                      <input matInput class="col-4 vital-input" [(ngModel)]="encounterInfo.Vital.O2Saturation">
+                      <input matInput type="number" [(ngModel)]="encounterInfo.Vital.O2Saturation">
                       <mat-hint class="vital-mat-form-field-unit-label"></mat-hint>
                     </mat-form-field>
                   </div>
@@ -562,7 +562,7 @@
                     <mat-label class="col-4 vital-label">Pulse(bpm):</mat-label>
                     <mat-form-field appearance="outline" class="col-12 vital-mat-form-field">
 
-                      <input matInput class="col-4 vital-input" [(ngModel)]="encounterInfo.Vital.Pulse">
+                      <input matInput type="number" [(ngModel)]="encounterInfo.Vital.Pulse">
                       <mat-hint class="vital-mat-form-field-unit-label"></mat-hint>
                     </mat-form-field>
                   </div>
@@ -572,7 +572,7 @@
                     <mat-label class="col-4 vital-label" style="white-space: nowrap;">Respiratory rate(bpm):</mat-label>
                     <mat-form-field appearance="outline" class="col-12 vital-mat-form-field">
 
-                      <input matInput class="col-4 vital-input" [(ngModel)]="encounterInfo.Vital.RespiratoryRate">
+                      <input matInput type="number" [(ngModel)]="encounterInfo.Vital.RespiratoryRate">
                       <mat-hint class="vital-mat-form-field-unit-label"></mat-hint>
                     </mat-form-field>
                   </div>
