@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router,ActivatedRoute } from '@angular/router';
 import { AlertMessage, ERROR_CODES} from 'src/app/_alerts/alertMessage'
+import { PatientService } from '../_services/patient.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -10,9 +11,10 @@ import { AlertMessage, ERROR_CODES} from 'src/app/_alerts/alertMessage'
 export class HomeComponent implements OnInit {
   providerType = "block";
   patientType = "none";
+  providerFooterVersion:any[]
   constructor(private router: Router,
     private activatedRoute:ActivatedRoute,
-    private alertMessage: AlertMessage) {
+    private alertMessage: AlertMessage,private patientservice:PatientService) {
 
 
     }
@@ -24,6 +26,7 @@ export class HomeComponent implements OnInit {
         this.alertMessage.displayErrorDailog(message);
       }
     });
+    this.GetAdminSettingVersion();
   }
   providerBtn() {
     this.providerType = "block";
@@ -32,5 +35,15 @@ export class HomeComponent implements OnInit {
   patientBtn() {
     this.patientType = "block";
     this.providerType = "none";
+  }
+  GetAdminSettingVersion()
+  {
+   this.patientservice.ChangeFooterVersion().subscribe(resp=>
+  {
+    if(resp.IsSuccess)
+    {
+      this.providerFooterVersion = resp.ListResult;
+    }
+  })
   }
 }

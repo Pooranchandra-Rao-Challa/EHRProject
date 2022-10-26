@@ -78,6 +78,22 @@ export class ActivePatientsComponent implements OnInit {
       );
   }
 
+  disableSwitchPatientUser: boolean = false;
+  switchToPatient(patient: Patient) {
+    this.disableSwitchPatientUser = true;
+    let switchKey: string = patient.UserId + ":" + patient.PatientId;
+    this.adminservice.SwitchToPatientUserKey(patient).subscribe(resp => {
+      if (resp.IsSuccess) {
+        let encKey = resp.Result;
+        this.authService.SwitchToPatientUser({ SwitchUserKey: switchKey, SwitchUserEncKey: encKey }).subscribe(logresp => {
+          if (!logresp.IsSuccess) {
+          }
+        })
+      } else {
+      }
+    })
+  }
+
 }
 
 export class PatientDatasource implements DataSource<Patient>{

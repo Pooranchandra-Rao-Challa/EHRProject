@@ -272,12 +272,12 @@
                         [readonly]="addressVerified" placeholder="Enter the address here (including suite number)">
                       <mat-icon matSuffix *ngIf="viewModel.PracticeAddress" class="FieldValid">check</mat-icon>
                       <mat-icon matSuffix *ngIf="!viewModel.PracticeAddress" [class.disable-button]="!addressVerified"
-                        class="FieldInvalid" (click)="reVerifyAddress()">clear</mat-icon>
+                        class="FieldInvalid pointer" (click)="reVerifyAddress()">clear</mat-icon>
                     </mat-form-field>
 
                     <div class="col-md-2 pt-1">
-                      <button mat-button class="reg-button col-md-12 pull-right" (click)="AddressVerification()"
-                        [disabled]="addressVerified" [class.disable-button]="addressVerified">VERIFY</button>
+                      <button mat-button class="btn reg-button col-md-12 pull-right" (click)="AddressVerification()"
+                        [disabled]="ContactInfomation.controls.PracticeAddress.invalid">VERIFY</button>
                     </div>
 
 
