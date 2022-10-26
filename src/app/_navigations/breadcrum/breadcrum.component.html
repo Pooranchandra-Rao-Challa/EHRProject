@@ -1,6 +1,7 @@
 <div class="bread-crum">
   <div class="header">
-    <div class="categories-header">
+    <div [class.bread-crum-header]="!user.IsInTrailPeriod" [class.bread-crum-header-trial]="user.IsInTrailPeriod "
+    class="categories-header">
       <div class="row">
         <div class="categories-container col-xl-6 col-lg-5 col-md-5 col-5 col-sm-5">
           <ul class="categories">

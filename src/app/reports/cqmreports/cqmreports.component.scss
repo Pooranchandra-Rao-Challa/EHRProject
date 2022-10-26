@@ -616,9 +616,13 @@
   .qr {
     color: white;
     background-color: #41b6a6;
-    border-left: 1px solid white;
+
     padding-left: 10px !important;
   }
+  .qr:not(:first-child){
+    border-left: 1px solid white;
+  }
+
 
   .qc {
     border-left: 1px solid #41b6a6;
