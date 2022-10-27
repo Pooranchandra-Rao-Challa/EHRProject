@@ -12,7 +12,6 @@ import Swal from 'sweetalert2';
   styleUrls: ['./weekly-updated.component.scss']
 })
 export class WeeklyUpdatedComponent implements OnInit {
-
   WeeklyUpdatedList: any = [];
   selectedValue: string;
   searchValue: string;
@@ -25,6 +24,8 @@ export class WeeklyUpdatedComponent implements OnInit {
   viewModel: AdminViewModal;
   weeklyUpdate: WeeklyUpdated;
   isColorActive:boolean;
+  pageSize: number = 10;
+  page: number = 1;
 
   constructor(private router: Router, private adminservice: AdminService, private authService: AuthenticationService) {
     this.weeklyUpdate = {} as WeeklyUpdated;
@@ -35,11 +36,11 @@ export class WeeklyUpdatedComponent implements OnInit {
     this.GetProviderNameList();
   }
   // ngAfterViewInit(){
-    
+
   //     this.isColorActive = true;
   //   }
 
-  
+
   GetWeeklyUpdate() {
     this.adminservice.WeeklyUpdateList().subscribe(resp => {
       if (resp.IsSuccess) {
@@ -142,7 +143,7 @@ export class WeeklyUpdatedComponent implements OnInit {
         confirmButtonColor:'#337ab7',
         customClass: {
           title: 'swal2-title-message'
-        
+
         }
         // cancelButtonText: 'No'
       }).then((result) => {
@@ -170,7 +171,7 @@ export class WeeklyUpdatedComponent implements OnInit {
         confirmButtonColor:'#337ab7',
         customClass: {
           title: 'swal2-title-message'
-        
+
         }
       }).then((result) => {
         if (result.value) {
