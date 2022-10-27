@@ -276,15 +276,13 @@ li.no-bullets {
 }
 
 #modal-about-ehr1 {
-  // .modal-dialog {
-  //   margin-top: 305px;
-  //   margin-bottom: 305px;
-  // }
+  .modal-dialog {
+    margin-top: 0px !important;
+    max-width: 405px;
+  }
 
   .modal-dialog .modal-content {
     border-radius: 3px;
-    max-width: 360px;
-    margin: auto;
   }
 
   .modal-header {
