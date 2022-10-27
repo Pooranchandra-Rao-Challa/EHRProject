@@ -138,6 +138,7 @@ import { NotifyProviderHeaderService } from 'src/app/_navigations/provider.layou
 import { MessagesTableDialogComponent } from 'src/app/dialogs/messages.table.dialog/messages.table.dialog.component';
 import { ViewMessageDialogComponent } from 'src/app/dialogs/view.message.dialog/view.message.dialog.component';
 import { PraticeAdduserDialogComponent } from 'src/app/dialogs/pratice.adduser.dialog/pratice.adduser.dialog.component';
+import { CcdaPreviewDialogComponent } from 'src/app/dialogs/ccda.preview.dialog/ccda.preview.dialog.component';
 
 
 //import { AttachmentNopreviewComponent } from 'src/app/_components/attachments/attachment.nopreview.component'
@@ -192,7 +193,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     ViewMessageDialogComponent,
     //AttachmentNopreviewComponent,
     //AttachmentComponent,
-    PraticeAdduserDialogComponent
+    PraticeAdduserDialogComponent,
+    CcdaPreviewDialogComponent
 
   ],
   declarations: [
@@ -277,8 +279,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     AttachmentPreviewComponent,
     MessagesTableDialogComponent,
     ViewMessageDialogComponent,
-    PraticeAdduserDialogComponent
-    
+    PraticeAdduserDialogComponent,
+    CcdaPreviewDialogComponent,
    // AttachmentNopreviewComponent,
    // AttachmentComponent
 
@@ -374,7 +376,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     AppointmentsTableDialogComponent,
     MessagesTableDialogComponent,
     ViewMessageDialogComponent,
-    PraticeAdduserDialogComponent]
+    PraticeAdduserDialogComponent,
+    CcdaPreviewDialogComponent
+    ]
 })
 export class ProviderModule {
 

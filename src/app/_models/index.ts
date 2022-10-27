@@ -13,3 +13,4 @@ export * from './_provider/practiceLocation';
 export * from './_provider/chart';
 export * from './_provider/_settings/settings';
 export * from './_account/newPatient';
+export * from './ccdaparams';

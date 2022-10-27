@@ -1,9 +1,10 @@
+import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { EncounterInfo } from './../../_models/_provider/encounter';
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { ComponentType } from 'ngx-toastr';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
 import { OverlayService } from 'src/app/overlay.service';
-import { Actions } from 'src/app/_models';
+import { Actions, ViewModel } from 'src/app/_models';
 import { EncounterDialogComponent } from '../encounter.dialog/encounter.dialog.component';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -19,9 +20,12 @@ export class EncounterTableDialogComponent implements OnInit {
   encounterColumns: string[] = ['ServicedAt', 'VisitingReason'];
   ActionTypes = Actions;
   encounterDialogComponent = EncounterDialogComponent;
-
+  viewModel: ViewModel;
   constructor(private ref: EHROverlayRef,
+    private authService: AuthenticationService,
     private overlayService: OverlayService) {
+      this.viewModel = authService.viewModel;
+      // this.user = this.
       this.updateLocalModel(ref.RequestData);
      }
 
@@ -44,10 +48,12 @@ export class EncounterTableDialogComponent implements OnInit {
 
   openComponentDialog(content: any | ComponentType<any> | string,
     dialogData, action: Actions = this.ActionTypes.add) {
-    let reqdata: any;
+    let reqdata: EncounterInfo;
     if (action == Actions.view && content === this.encounterDialogComponent) {
       reqdata = dialogData;
     }
+    reqdata.PatientName = this.viewModel.Patient.FirstName + ' ' + this.viewModel.Patient.LastName;
+
     const ref = this.overlayService.open(content, reqdata, true);
     ref.afterClosed$.subscribe(res => {
       if(res.data != null){

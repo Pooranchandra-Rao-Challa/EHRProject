@@ -17,7 +17,6 @@ export class SectionNewComponent implements OnInit {
   WeeklyUpdate: WeeklyUpdated;
   viewModel: AdminViewModal;
   body: string;
-  previewheading: string;
   successMsg: string;
   SequenceNumber: number;
   WeeklyUpdatedList: any = [];
@@ -74,8 +73,8 @@ export class SectionNewComponent implements OnInit {
         container: 'swal2-container-high',
         confirmButton: 'swal-messaage'
       }
-    
-      
+
+
     });
   }
 

@@ -1,6 +1,10 @@
+import { OverlayService } from './../../overlay.service';
 import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { MatCheckbox } from '@angular/material/checkbox';
+import { ComponentType } from 'ngx-toastr';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
+import { Actions, CCDAParams } from 'src/app/_models';
+import { CcdaPreviewDialogComponent } from '../ccda.preview.dialog/ccda.preview.dialog.component';
 
 @Component({
   selector: 'app-c-cda.dialog',
@@ -18,7 +22,13 @@ export class CCdaDialogComponent implements OnInit {
   @ViewChildren('transitionofCareDatailsCheckboxes') private transitionofCareDatailsCheckboxes: QueryList<any>;
   enconterDetails: boolean = true;
   toggleButtonVisibility: boolean = false;
-  constructor(private ref: EHROverlayRef,) { }
+  ccdaPreviewDialogComponent = CcdaPreviewDialogComponent;
+  ActionTypes = Actions;
+  c_CDAParams: CCDAParams = new CCDAParams();
+
+  constructor(private ref: EHROverlayRef,
+    private overlayService: OverlayService) {
+  }
 
   ngOnInit(): void {
   }
@@ -28,17 +38,29 @@ export class CCdaDialogComponent implements OnInit {
     this.ref.close(null);
   }
   TogglePatients(event) {
-    this._doCheckActions(this.patientInformationCheckboxes, event.source.checked)
+    this._doCheckActions(this.patientInformationCheckboxes, event.source.checked);
+    this.c_CDAParams.PatientInformation.forEach(source => {
+      source.Value = event.source.checked;
+    });
   }
   ToggleEncounter(event) {
-    this._doCheckActions(this.encounterDetailsCheckboxes, event.source.checked)
+    this._doCheckActions(this.encounterDetailsCheckboxes, event.source.checked);
+    this.c_CDAParams.EncounterDetails.forEach(source => {
+      source.Value = event.source.checked;
+    });
   }
   TogglePatientChartInfo(event) {
-    this._doCheckActions(this.patientChartInformationCheckboxes, event.source.checked)
+    this._doCheckActions(this.patientChartInformationCheckboxes, event.source.checked);
+    this.c_CDAParams.PatientChartInformation.forEach(source => {
+      source.Value = event.source.checked;
+    });
   }
 
   ToggleTransititionDetails(event) {
-    this._doCheckActions(this.transitionofCareDatailsCheckboxes, event.source.checked)
+    this._doCheckActions(this.transitionofCareDatailsCheckboxes, event.source.checked);
+    this.c_CDAParams.TransitionofCareDetails.forEach(source => {
+      source.Value = event.source.checked;
+    });
   }
 
   _doCheckActions(checkboxes: QueryList<any>, flag: boolean) {
@@ -47,20 +69,40 @@ export class CCdaDialogComponent implements OnInit {
     })
   }
 
-  verifyPatentToggler() {
-    this._doVerficationCheckboxGroup(this.patientInformationCheckboxes, this.patientInformationToggle)
+  verifyPatentToggler(event, patient) {
+    this._doVerficationCheckboxGroup(this.patientInformationCheckboxes, this.patientInformationToggle);
+    this.c_CDAParams.PatientInformation.forEach(source => {
+      if (source.Name == patient.Name) {
+        source.Value = event.source.checked;
+      }
+    });
   }
 
-  verifyEncounterToggler() {
-    this._doVerficationCheckboxGroup(this.encounterDetailsCheckboxes, this.encounterDetailsToggle)
+  verifyEncounterToggler(event, encounter) {
+    this._doVerficationCheckboxGroup(this.encounterDetailsCheckboxes, this.encounterDetailsToggle);
+    this.c_CDAParams.EncounterDetails.forEach(source => {
+      if (source.Name == encounter.Name) {
+        source.Value = event.source.checked;
+      }
+    });
   }
 
-  verifyPatientChartInfoToggler() {
-    this._doVerficationCheckboxGroup(this.patientChartInformationCheckboxes, this.patientChartInformationToggle)
+  verifyPatientChartInfoToggler(event, patientinfo) {
+    this._doVerficationCheckboxGroup(this.patientChartInformationCheckboxes, this.patientChartInformationToggle);
+    this.c_CDAParams.PatientChartInformation.forEach(source => {
+      if (source.Name == patientinfo.Name) {
+        source.Value = event.source.checked;
+      }
+    });
   }
 
-  verifyTransitionofCareDatailsToggler() {
-    this._doVerficationCheckboxGroup(this.transitionofCareDatailsCheckboxes, this.transitionofCareDatailsToggle)
+  verifyTransitionofCareDatailsToggler(event, transitionofCareDatails) {
+    this._doVerficationCheckboxGroup(this.transitionofCareDatailsCheckboxes, this.transitionofCareDatailsToggle);
+    this.c_CDAParams.TransitionofCareDetails.forEach(source => {
+      if (source.Name == transitionofCareDatails.Name) {
+        source.Value = event.source.checked;
+      }
+    });
   }
 
   _doVerficationCheckboxGroup(checkboxes: QueryList<any>, checkbox: MatCheckbox) {
@@ -93,42 +135,16 @@ export class CCdaDialogComponent implements OnInit {
     this.patientChartInformationToggle.checked = flag;
   }
 
-  patientInformation: any[] = [
-    { value: 'Patient Information' },
-    { value: 'Identification & Demographics' }]
-
-  encounterDetails: any[]
-    = [{ value: 'Basic Information' },
-    { value: 'Reason for visit' },
-    { value: 'Clinical Instructions' },
-    { value: 'Medication Administered' },
-    { value: 'Immunizations Administered' },
-    { value: 'Diagnostic Tests Pending' },
-    { value: 'Future Scheduled Tests' },
-    { value: 'Referrals to Other Providers' },
-    { value: 'Recommended Patient Decision Aids' }
-    ]
-  patientChartInformation: any[] = [{ value: 'Smoking Status' },
-  { value: 'Problems (Dx)' },
-  { value: 'Medications (Rx)' },
-  { value: 'Medication Allergies' },
-  { value: 'Laboratory Tests & Results' },
-  { value: 'Vital Stats' },
-  { value: 'Care Plan - Goals & Instructions' },
-  { value: 'Procedures' }, { value: 'Care Team Members' }
-  ]
-
-
-
-  TransitionofCareDatails: any[] = [{ value: 'Basic Information' },
-  { value: 'Encounter Diagnosis' },
-  { value: 'Immunizations' },
-  { value: 'Cognitive Status' },
-  { value: 'Functional Status' },
-  { value: 'Reason for Referral' },
-  { value: 'Discharge Instructions' }]
-
-
+  openComponentDialog(content: any | ComponentType<any> | string,
+    dialogData, action: Actions = this.ActionTypes.add) {
+    let reqdata: any;
+    if (action == Actions.view && content === this.ccdaPreviewDialogComponent) {
+      reqdata = dialogData;
+    }
+    const ref = this.overlayService.open(content, reqdata, true);
+    ref.afterClosed$.subscribe(res => {
+    });
+  }
 }
 
 

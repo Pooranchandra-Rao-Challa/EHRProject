@@ -945,7 +945,7 @@
         Save as Draft
       </button>
       <button type="button" class="btn btn-orange" (click)="signConfirmation()"
-        *ngIf="!encounterInfo.Signed && !dialogIsLoading">
+        *ngIf="!encounterInfo.Signed && !dialogIsLoading" [disabled]="enableSaveButtons()">
         Sign
       </button>
       <button type="button" class="btn btn-danger" (click)="closePopup()">

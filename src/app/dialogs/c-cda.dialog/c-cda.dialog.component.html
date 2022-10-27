@@ -46,7 +46,8 @@
           <div class="row">
             <div class=" col-md-4 leftblockalignments left-block">
               <div class="row">
-                <p> SECTIONS TO INCLUDE  <a class="select-all" (click)="toggleSelectAll(true)">Select all</a> | <a class="deselect-all" (click)="toggleSelectAll(false)">Select none</a> </p>
+                <p> SECTIONS TO INCLUDE <a class="select-all" (click)="toggleSelectAll(true)">Select all</a> | <a
+                    class="deselect-all" (click)="toggleSelectAll(false)">Select none</a> </p>
               </div>
               <div class="row ccda-chk-section-group">
                 <mat-checkbox #patientInformationToggle (change)="TogglePatients($event)" checked="true">
@@ -54,35 +55,38 @@
                 </mat-checkbox>
               </div>
               <div class="row pt-2 ccda-item-group">
-                <mat-checkbox #patientInformationCheckboxes *ngFor="let patient of patientInformation; let i = index;"
-                  checked="true" value="patient" (change)="verifyPatentToggler()">
-                  <span>{{patient.value}}</span>
+                <mat-checkbox #patientInformationCheckboxes
+                  *ngFor="let patient of c_CDAParams.PatientInformation; let i = index;" checked="true" value="patient"
+                  (change)="verifyPatentToggler($event,patient)">
+                  <span>{{patient.Name}}</span>
                 </mat-checkbox>
               </div>
               <div *ngIf="enconterDetails">
                 <div class="row ccda-chk-section-group">
                   <mat-checkbox #encounterDetailsToggle (change)="ToggleEncounter($event)" checked="true">
-                    <span class="ccda-mat-checkbox-label" >Encounter Details</span>
+                    <span class="ccda-mat-checkbox-label">Encounter Details</span>
                   </mat-checkbox>
                 </div>
                 <div class="row pt-2 ccda-item-group">
-                  <mat-checkbox #encounterDetailsCheckboxes *ngFor="let encounter of encounterDetails; let i = index;"
-                    checked="true" value="encounter" (change)="verifyEncounterToggler()">
-                    <span>{{encounter.value}}</span>
+                  <mat-checkbox #encounterDetailsCheckboxes
+                    *ngFor="let encounter of c_CDAParams.EncounterDetails; let i = index;" checked="true"
+                    value="encounter" (change)="verifyEncounterToggler($event,encounter)">
+                    <span>{{encounter.Name}}</span>
                   </mat-checkbox>
                 </div>
               </div>
               <div *ngIf="!enconterDetails">
                 <div class="row ccda-chk-section-group">
-                  <mat-checkbox #transitionofCareDatailsToggle (change)="ToggleTransititionDetails($event)" checked="true">
+                  <mat-checkbox #transitionofCareDatailsToggle (change)="ToggleTransititionDetails($event)"
+                    checked="true">
                     <span class="ccda-mat-checkbox-label">Transition Information</span>
                   </mat-checkbox>
                 </div>
                 <div class="row pt-2 ccda-item-group">
                   <mat-checkbox #transitionofCareDatailsCheckboxes
-                    *ngFor="let transitionofCareDatails of TransitionofCareDatails; let i = index;" checked="true"
-                    value="transitionofCareDatails" (change)="verifyTransitionofCareDatailsToggler()">
-                    <span>{{transitionofCareDatails.value}}</span>
+                    *ngFor="let transitionofCareDatails of c_CDAParams.TransitionofCareDatails; let i = index;"
+                    checked="true" value="transitionofCareDatails" (change)="verifyTransitionofCareDatailsToggler($event,transitionofCareDatails)">
+                    <span>{{transitionofCareDatails.Name}}</span>
                   </mat-checkbox>
                 </div>
 
@@ -93,9 +97,10 @@
                 </mat-checkbox>
               </div>
               <div class="row pt-2 ccda-item-group">
-                <mat-checkbox #patientChartInformationCheckboxes (change)="verifyPatientChartInfoToggler()"
-                  *ngFor="let patientinfo of patientChartInformation; let i = index;" checked="true" value="patientinfo">
-                  <span>{{patientinfo.value}}</span>
+                <mat-checkbox #patientChartInformationCheckboxes (change)="verifyPatientChartInfoToggler($event,patientinfo)"
+                  *ngFor="let patientinfo of c_CDAParams.PatientChartInformation; let i = index;" checked="true"
+                  value="patientinfo">
+                  <span>{{patientinfo.Name}}</span>
                 </mat-checkbox>
               </div>
 
@@ -107,7 +112,8 @@
                 <div class="col-md-4"></div>
                 <div class="col-md-8">
                   <button type="button" class="btn btn-green btn-msgsave col-md-4 mx-2">Preview XML</button>
-                  <button type="button" class="btn btn-green btn-msgsave col-md-4">Preview Html
+                  <button type="button" class="btn btn-green btn-msgsave col-md-4"
+                    (click)="openComponentDialog(ccdaPreviewDialogComponent, null, ActionTypes.add)">Preview Html
                   </button>
                 </div>
               </div>
