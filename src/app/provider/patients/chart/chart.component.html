@@ -62,7 +62,7 @@
       </div>
       <div class="col-xl-6 col-lg-7 col-md-12 col-12">
         <div class="row float-end mt-2 mt-lg-0 g-0">
-          <a class="btn btn-green" id="check-alerts">Check CDS Alerts</a>
+          <a class="btn btn-green" data-bs-toggle="modal" data-bs-target="#ccda-alerts-modal">Check CDS Alerts</a>
           <a class="btn btn-green mb-2 mb-md-0">Refresh Chart</a>
           <a class="btn btn-orange" (click)="openComponentDialog(encounterDialogComponent,null,ActionTypes.new)">New
             Encounter Note
@@ -606,7 +606,7 @@
 <!-- modal dialogs -->
 
 <!-- Add/Edit Immunization -->
-<div class="modal fade " id="immunization-modal" data-bs-keyboard="false" tabindex="-1"
+<div class="modal fade" id="immunization-modal" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -969,7 +969,7 @@
 </div>
 
 <!-- Immunization table -->
-<div class="modal fade " id="immunization-table-modal" data-bs-keyboard="false" tabindex="-1"
+<div class="modal fade" id="immunization-table-modal" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -1027,4 +1027,22 @@
       </div>
     </div>
   </div>
+</div>
+
+<!-- Check CDS Alert -->
+<div class="modal fade" id="ccda-alerts-modal" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content">
+    <div class="modal-header">
+      <p class="modal-title Helvetica-sans-serif-medium">Clinical Decision Support Alerts</p>
+      <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close">
+        X
+      </span>
+    </div>
+    <div class="modal-body">
+      <p class="Helvetica-sans-serif-medium text-center">Clinical Decision Support Alerts for ID Not Found</p>
+    </div>
+  </div>
+</div>
 </div>
