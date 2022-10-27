@@ -1,7 +1,7 @@
 <div class="modal-dialog ccda-preview">
   <div class="modal-content">
     <div class="modal-header">
-      <p class="modal-title Roboto-medium">Clinical Summary</p>
+      <p class="modal-title Helvetica-sans-serif-medium">Clinical Summary</p>
       <span type="button" class="cross-mark" (click)="cancel()">
         X
       </span>
@@ -359,8 +359,17 @@
         </div>
       </div>
     </div>
-    <div class="modal-footer">
-      <button class="btn btn-green pull-right">Download</button>
+    <div class="modal-footer ccda-footer">
+      <!-- <button class="btn btn-green pull-right">Download</button> -->
+      <div class="dropdown">
+        <button class="btn btn-green dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          Download
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li><a class="dropdown-item">Download XML</a></li>
+          <li><a class="dropdown-item">Download HTML</a></li>
+        </ul>
+      </div>
       <button class="btn btn-green pull-right">Print</button>
     </div>
   </div>

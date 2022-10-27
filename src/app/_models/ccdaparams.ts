@@ -41,3 +41,61 @@ export class CCDAInformation {
   Name?: string;
   Value?: boolean;
 }
+
+export class CCDAData {
+  PatientInformation?: CCDAIdentification;
+  ContactInformation?: CCDAContactInformation;
+  BasicInformation?: CCDABasicInformation;
+
+  EncounterDiagnoses?: string[] = [];
+  Immunizations?: string[] = [];
+  CognitiveStatus?: string[] = [];
+  FunctionalStatus?: string[] = [];
+  ReasonforReferral?: string[] = [];
+  DischargeInstructions?: string[] = [];
+
+
+  ReasonforVisit?: string[] = [];
+  ClinicalInstructions?: string[] = [];
+  MedicationAdmin?: string[] = [];
+  ImmunizationAdmin?: string[] = [];
+  DiagTestPending?: string[] = [];
+  FutureTests?: string[] = [];
+  ReferralsTo?: string[] = [];
+  RecommendedAID?: string[] = [];
+
+
+  SmokingStatus?: string[] = [];
+  ProblemsDX?: string[] = [];
+  Medications?: string[] = [];
+  MedicationAllergies?: string[] = [];
+  Laboratory?: string[] = [];
+  CarePlan?: string[] = [];
+  Procedures?: string[] = [];
+
+  CareTeamMembers?: string[] = [];
+}
+
+export class CCDAIdentification {
+  ID?: string;
+  FirstName?: string;
+  MiddleName?: string;
+  LastName?: string;
+  Birth?: Date;
+  Age?: number;
+  Gender?: string;
+  Active?: boolean;
+}
+
+export class CCDAContactInformation {
+  Race?: string;
+  Ethnicity?: string;
+  PreferredLanguage?: string;
+}
+
+export class CCDABasicInformation {
+  Provider?: string;
+  PracticeName?: string;
+  PracticeAddress?: string;
+  PracticePhone?: string;
+}

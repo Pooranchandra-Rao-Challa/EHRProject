@@ -5,6 +5,10 @@
   max-width: 100%;
   overflow-y: initial !important;
 
+  .modal-header p {
+    color: #fff;
+  }
+
   .modal-body {
     max-height: calc(90vh - 180px);
     overflow-y: auto;
@@ -21,6 +25,7 @@
   .rightsidemenu {
     height: calc(100vh - 315px);
     overflow-y: auto;
+    overflow-x: hidden;
   }
 
   .scrollable-container {
@@ -128,7 +133,7 @@
     padding: 0 !important;
     border-bottom: none !important;
     border-top: none !important;
-    padding-left: 10px;
+    padding-left: 10px !important;
   }
 
   .table>tbody {
@@ -140,13 +145,30 @@
   }
 
   @media (max-width: 768px) {
-    .modal-body{
+    .modal-body {
       padding: 13px;
     }
   }
-  @media (max-width: 1024px){
+
+  @media (max-width: 1024px) {
     .content {
       padding: 0px;
     }
+  }
+
+  .dropdown-item:hover {
+    background-color: #41b6a6;
+    color: #fff;
+  }
+
+  .modal-footer {
+    background-color: #41b6a6;
+    padding: 3px 10px !important;
+  }
+
+  .ccda-footer .btn-green {
+    background-color: #41b6a6;
+    border-color: #fff;
+    color: #fff;
   }
 }

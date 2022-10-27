@@ -121,14 +121,14 @@ export class CCdaDialogComponent implements OnInit {
   }
 
   toggleSelectAll(flag: boolean) {
-    this._doCheckActions(this.patientInformationCheckboxes, flag)
+    this._doCheckActions(this.patientInformationCheckboxes, flag);
     if (this.enconterDetails) {
-      this._doCheckActions(this.encounterDetailsCheckboxes, flag)
+      this._doCheckActions(this.encounterDetailsCheckboxes, flag);
       this.encounterDetailsToggle.checked = flag;
     }
-    this._doCheckActions(this.patientChartInformationCheckboxes, flag)
+    this._doCheckActions(this.patientChartInformationCheckboxes, flag);
     if (!this.enconterDetails) {
-      this._doCheckActions(this.transitionofCareDatailsCheckboxes, flag)
+      this._doCheckActions(this.transitionofCareDatailsCheckboxes, flag);
       this.transitionofCareDatailsToggle.checked = flag;
     }
     this.patientInformationToggle.checked = flag;
