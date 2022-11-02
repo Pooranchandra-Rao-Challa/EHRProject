@@ -32,6 +32,7 @@ export interface User {
   Npi:string;
   UnReadMails?:number ;
   UrgentMessages?:number;
+  UnlockToken?: string;
 }
 export class UserLocations {
   LocationId: string;

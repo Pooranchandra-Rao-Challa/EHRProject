@@ -125,12 +125,12 @@
   margin-top: 5px;
 }
 
-.btn-insurancecompany {
-  // width: 239px;
-  // height: 47px;
-  // font-size: 14px;
-  // margin-left: 38px;
-}
+// .btn-insurancecompany {
+//   width: 239px;
+//   height: 47px;
+//   font-size: 14px;
+//   margin-left: 38px;
+// }
 
 .bg-color {
   height: 45px;
@@ -431,4 +431,10 @@
     overflow-y: auto;
     overflow-x: hidden;
   }
+}
+
+.customoverlay {
+  max-height: 700px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }

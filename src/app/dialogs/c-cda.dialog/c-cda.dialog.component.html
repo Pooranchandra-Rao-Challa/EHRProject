@@ -29,7 +29,7 @@
             <div>
               <label class="Helvetica-sans-serif-medium">Document Type:
               </label>
-              <mat-radio-group>
+              <mat-radio-group [(ngModel)]="c_CDAParams.ClinicalSummary">
                 <mat-radio-button class="radio-btn-label label-design my-1" value="Clinical Summary"
                   (click)="enableEncouterDetails()" [checked]="true">
                   Clinical Summary</mat-radio-button>
@@ -84,7 +84,7 @@
                 </div>
                 <div class="row pt-2 ccda-item-group">
                   <mat-checkbox #transitionofCareDatailsCheckboxes
-                    *ngFor="let transitionofCareDatails of c_CDAParams.TransitionofCareDatails; let i = index;"
+                    *ngFor="let transitionofCareDatails of c_CDAParams.TransitionofCareDetails; let i = index;"
                     checked="true" value="transitionofCareDatails" (change)="verifyTransitionofCareDatailsToggler($event,transitionofCareDatails)">
                     <span>{{transitionofCareDatails.Name}}</span>
                   </mat-checkbox>
@@ -113,7 +113,7 @@
                 <div class="col-md-8">
                   <button type="button" class="btn btn-green btn-msgsave col-md-4 mx-2">Preview XML</button>
                   <button type="button" class="btn btn-green btn-msgsave col-md-4"
-                    (click)="openComponentDialog(ccdaPreviewDialogComponent, null, ActionTypes.add)">Preview Html
+                    (click)="openComponentDialog(ccdaPreviewDialogComponent, c_CDAParams, ActionTypes.view)">Preview Html
                   </button>
                 </div>
               </div>

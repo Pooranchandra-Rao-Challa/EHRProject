@@ -8,7 +8,7 @@
   width: 25%;
 }
 
-.login{
+.login {
   background-color: #efedee;
 }
 
@@ -85,7 +85,7 @@ ehr-img-top1 {
   color: #fff;
   background-size: cover;
   background-position: center center;
-  height:275px;
+  height: 275px;
 }
 
 .string-top {
@@ -132,25 +132,30 @@ ehr-img-top1 {
   display: block;
   position: relative;
   margin: 0 auto;
-  top: -178px
+  top: -181px;
 }
 
 .content-top-1 {
   border-bottom: 1px solid rgba(74, 74, 74, 0.5);
   //margin-top: 33px;
 }
-.authorization-signin-wrapper{
+
+.authorization-signin-wrapper {
   height: auto;
-    font-family: 'Times New Roman';
-    color: #4a4a4a;
+  font-family: 'Times New Roman';
+  color: #4a4a4a;
 }
-.authorization-content .services .google-play, .authorization-content .services .app-store {
+
+.authorization-content .services .google-play,
+.authorization-content .services .app-store {
   background-size: 216px;
   background-position: 113px center;
 }
+
 .authorization-content .services .google-play {
   background: #fff url(/assets/google-play-logo-9f0984e….svg) 86% 46% no-repeat;
 }
+
 .authorization-content .services a {
   display: inline-block;
   margin: 0 2.5px 0 2.5px;
@@ -159,14 +164,15 @@ ehr-img-top1 {
   border-radius: 8px;
   border: 1px solid #c9c7c7;
 }
-.services-1
-{
+
+.services-1 {
   margin-bottom: 8px;
   border: 1px solid #ddd;
   border-radius: 7px;
   box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
   background-color: white;
 }
+
 .main-title p {
   font-size: 18px;
   font-family: 'Times New Roman';
@@ -188,9 +194,11 @@ mat-label {
   text-align: left;
   align-items: flex-end;
 }
+
 .address .message-hints {
   text-align: left;
   cursor: pointer;
+  color: #287066 !important;
 }
 
 
@@ -202,6 +210,7 @@ li {
 .top-header {
   color: rgb(83, 83, 83);
 }
+
 .img-svg-eye {
   width: 5%;
   position: absolute;
@@ -215,7 +224,8 @@ li {
 .sign-up-here:hover {
   opacity: 0.75;
 }
-.signin{
+
+.signin {
   width: 38% !important;
   height: 45px !important;
   margin-top: 8%;
@@ -251,10 +261,12 @@ li {
     background-color: #f5f5f5;
     color: #dedede;
   }
+
   ::ng-deep .mat-form-field-appearance-outline:hover .mat-form-field-outline {
     color: #41b6a6 !important;
     // opacity: 1!important;
   }
+
   ::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
     color: #41b6a6 !important;
   }
@@ -264,11 +276,11 @@ li {
     top: 10px;
   }
 
- }
+}
 
 
- ::ng-deep .swal2-title.login-modal-header {
-  margin:unset !important;
+::ng-deep .swal2-title.login-modal-header {
+  margin: unset !important;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   padding: 20px !important;
@@ -280,28 +292,43 @@ li {
   margin-bottom: 40px !important;
 }
 
-::ng-deep .swal2-title-patient-login{
-  margin:unset !important;
+::ng-deep .swal2-title-patient-login {
+  margin: unset !important;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
 
 ::ng-deep .swal2-styled.swal2-cancel.cancel-button-patient-login,
-::ng-deep .swal2-styled.swal2-confirm.confirm-button-patient-login{
+::ng-deep .swal2-styled.swal2-confirm.confirm-button-patient-login {
   width: 45%;
-  font:600;
+  font: 600;
   border: 1px solid #41b6a6;
-  color:#41b6a6;
+  color: #41b6a6;
   background: #fff;
-  &:hover{
+
+  &:hover {
     background: #41b6a6;
-    color:#fff;
+    color: #fff;
   }
 }
-::ng-deep .swal2-actions{
+
+::ng-deep .swal2-actions {
   margin: 10px 30px !important;
 }
 
-::ng-deep .round-container{
+::ng-deep .round-container {
   border-radius: 5px;
+}
+
+.signup {
+  font-size: 23px;
+}
+
+.right-text-content {
+  width: 351px;
+  display: block;
+  margin: 0 auto;
+  color: #4a4a4a;
+  font-size: 20px;
+  font-family: 'Times New Roman';
 }

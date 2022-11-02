@@ -1,14 +1,16 @@
-
 @import "https://fonts.googleapis.com/icon?family=Material+Icons";
+
 body {
   margin: 0px;
 }
+
 .authorization-signup-wrapper {
   height: auto;
   color: #4a4a4a;
   // background-color: #ebe9e9;
   background: url(../../assets/images/pro-reg-bg.png);
 }
+
 .one-ehr-images {
   margin-top: -6rem;
 }
@@ -21,6 +23,7 @@ authorization-signup-wrapper .mat-select-panel {
   top: 34px;
   min-width: calc(100% + 22px) !important;
 }
+
 .authorization-signup-wrapper .ehr-img-top {
   position: relative;
   width: 100%;
@@ -29,25 +32,31 @@ authorization-signup-wrapper .mat-select-panel {
   top: 168px;
   background-color: #41b6a6;
 }
+
 .ehr-img-top {
   background-color: #41b6a6;
 }
+
 .ehr-img-top .text-center {
   background-color: #41b6a6;
 }
+
 .logo-rectangle {
   width: 277.2px;
   margin: 0 auto;
   background-image: url(../../assets/images/logo-rectangle.svg);
   background-repeat: no-repeat;
 }
+
 .main-title p {
   font-size: 18px;
 }
-h3{
+
+h3 {
   font-size: 24px;
   text-transform: uppercase;
 }
+
 .button-info {
   width: 50px;
 }
@@ -67,10 +76,12 @@ h3{
 .item p {
   font-size: 13px;
 }
+
 .item .title-a {
   display: table-row;
   text-transform: uppercase;
 }
+
 .item .title-a p {
   display: table-cell;
   vertical-align: middle;
@@ -89,36 +100,43 @@ h3{
 .controls {
   margin: 0 -10px 100px 0px;
 }
+
 .dots-container,
 .performed-container {
   display: none;
 }
+
 .item.active:not(.done) .dots-container {
   display: table-row;
   height: 100%;
   width: 100%;
 }
+
 .performed-icon,
 .dots {
   display: table-cell;
   vertical-align: middle;
 }
+
 .item.done .performed-container,
 .item.active.done .performed-container {
   display: table-row;
   height: 100%;
   width: 100%;
 }
+
 .item.active {
   background: #41b6a6;
   color: #fff;
   text-decoration: none !important;
 }
+
 .item.done {
   background: #41b6a6;
   color: #fff;
   text-decoration: none !important;
 }
+
 .item .fa {
   font-size: 24px;
   color: #fff;
@@ -132,6 +150,7 @@ h3{
   color: #41b6a6;
   border-radius: 3px;
 }
+
 .reg-button:hover {
   background-color: #41b6a6;
   color: #fff;
@@ -145,34 +164,41 @@ h3{
   margin-bottom: 0;
   font-family: 'Times New Roman';
 }
+
 ::ng-deep div#registration-form .mat-form-field-appearance-outline .mat-form-field-outline {
   color: #efefef !important;
   background-color: #fff;
   border-radius: 5px;
   height: 45px;
 }
+
 ::ng-deep div#registration-form .mat-form-field-appearance-outline:hover .mat-form-field-outline {
   //border: .1em #41b6a6 !important;
   color: #41b6a6 !important;
   //background-color: #fff;
 }
-div#registration-form input{
-  font-family:Roboto;
+
+div#registration-form input {
+  font-family: Roboto;
   font-size: 15px;
 }
+
 .mat-select {
   background-color: #fff;
 }
+
 a {
   color: #41b6a6;
   text-decoration: none !important;
   font-family: 'Times New Roman';
 }
+
 a:hover {
   color: #41b6a6;
   text-decoration: none;
   text-decoration: underline;
 }
+
 ::ng-deep {
   mat-form-field {
     ::placeholder {
@@ -180,47 +206,55 @@ a:hover {
     }
   }
 }
+
 // mat-option
 .mat-option.mat-active {
   background: #e5f8f5 !important;
 }
+
 .mat-option {
   border-left: 1px solid #41b6a6;
   border-right: 1px solid #41b6a6;
 }
+
 .mat-option:last-child {
   border-right: 1px solid #41b6a6;
 }
+
 .mat-option:last-child {
   border-bottom: 1px solid #41b6a6;
 }
+
 .mat-option:hover {
   background-color: #e5f8f5;
 }
+
 .mat-option.mat-selected:not(.mat-option-disabled) {
   color: black;
   text-shadow: black;
 }
+
 // mat-select
 ::ng-deep .mat-select-arrow {
   color: #4d4b4b !important;
 }
+
 ::ng-deep .mat-select-placeholder {
   color: #4d4b4b !important;
 }
+
 ::ng-deep .hover.mat-form-field-appearance-outline:hover .mat-select-arrow {
   color: white !important;
 }
-::ng-deep
-  .hover.mat-form-field-appearance-outline:hover
-  .mat-select-placeholder {
+
+::ng-deep .hover.mat-form-field-appearance-outline:hover .mat-select-placeholder {
   color: white !important;
 }
-::ng-deep
-  .hover.mat-form-field-appearance-outline:hover
-  .mat-select-value-text {
+
+::ng-deep .hover.mat-form-field-appearance-outline:hover .mat-select-value-text {
   color: white !important;
 }
+
 ::ng-deep .mat-select-panel {
   margin-top: 0px !important;
   margin-left: -10px !important;
@@ -243,16 +277,19 @@ a:hover {
   text-align: center;
   color: #61534e;
 }
+
 .content-top {
   background: none;
   border-bottom: 1px solid rgba(74, 74, 74, 0.5);
 }
+
 // sweetalert
 ::ng-deep .swal2-styled.swal2-confirm {
   background-color: #fff !important;
   color: #41b6a6 !important;
   border: 1px solid #41b6a6 !important;
 }
+
 ::ng-deep .swal2-title {
   padding: 0em 0em 0;
   background-color: #41b6a6;
@@ -260,72 +297,84 @@ a:hover {
   font-size: 20px;
   font-weight: 100;
 }
+
 .swal2-container.swal2-center>.swal2-popup {
   width: 705px !important;
 }
-.addressSuccess{
+
+.addressSuccess {
   height: 55px;
   background: #5BB85C;
-  color:white;
-  }
-  .addressInvalid{
+  color: white;
+}
+
+.addressInvalid {
   height: 55px;
   background: red;
-  }
-
-.modal-lg, .modal-xl {
-    max-width: 50%;
 }
+
+.modal-lg,
+.modal-xl {
+  max-width: 50%;
+}
+
 .modal .modal-dialog {
   margin-top: calc(300px + 60px);
 }
-.modal-content{
+
+.modal-content {
   background: white;
 }
-.btn.btn-sm, .btn-group-sm > .btn {
+
+.btn.btn-sm,
+.btn-group-sm>.btn {
   font-size: 0.875rem;
   border: 1px solid white;
   background: #48a948;
 }
-.link{
+
+.link {
   color: #41b6a6;
   margin-left: -50px;
   text-decoration: underline;
   text-transform: lowercase;
 }
-.validaddresspointer
-{
+
+.validaddresspointer {
   cursor: pointer !important;
 }
-.croxbtn{
-    border-radius: 77%;
-    height: 27px;
-    background: red;
-    color: white;
-    border-color: red;
+
+.croxbtn {
+  border-radius: 77%;
+  height: 27px;
+  background: red;
+  color: white;
+  border-color: red;
 }
-.croxbtn:hover{
+
+.croxbtn:hover {
   border: 1px solid red;
   background: white;
   color: red;
 }
-.erroclose{
+
+.erroclose {
   font-size: 0.875rem;
   border: 1px solid white;
   background: #ff0000 !important;
 }
 
 
- .FieldValid{
-   border-radius: 83%;
-    height: 22px;
-    background: #64ab5b;
-    color: #f7f2f2;
-    border-color: #51ff00;
-    text-align: center;
+.FieldValid {
+  border-radius: 83%;
+  height: 22px;
+  background: #64ab5b;
+  color: #f7f2f2;
+  border-color: #51ff00;
+  text-align: center;
 }
 
-.FieldInvalid{
+.FieldInvalid {
   border-radius: 77%;
   height: 24px;
   background: red;
@@ -334,13 +383,14 @@ a:hover {
   text-align: center;
 }
 
-form.pt-4 p.category-title{
+form.pt-4 p.category-title {
   font-size: 15px;
   font-weight: 400;
   text-transform: uppercase;
   margin: 0;
 
 }
+
 .white-light.select2-selection {
   background-color: #fff;
   border: 0px solid #dedede;
@@ -350,10 +400,12 @@ form.pt-4 p.category-title{
   //height: 45px;
   box-shadow: none;
 }
-.panel-class-alignment{
-  padding-top:25px;
+
+.panel-class-alignment {
+  padding-top: 25px;
 }
-mat-form-field{
+
+mat-form-field {
   line-height: inherit;
   font-family: 'SF UI Text Regular';
 
@@ -368,35 +420,42 @@ mat-form-field{
 ::ng-deep div#registration-form .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
   background-color: #41a6a6 !important;
 }
+
 ::ng-deep div#registration-form .mat-checkbox-ripple .mat-ripple-element,
 ::ng-deep div#registration-form .mat-checkbox-checked.mat-accent .mat-checkbox-background {
   background-color: #41a6a6 !important;
 }
-.disable-button{
+
+.disable-button {
   opacity: 0.5;
 }
+
 // .disable-button:hover{
 //   color:grey;
 //   background-color: lightgray;
 // }
-.error_message{
+.error_message {
   z-index: 1000;
   position: absolute;
   margin-top: -20px;
 }
-.error_message i{
-  font-size:14px;
+
+.error_message i {
+  font-size: 14px;
   font-style: normal;
-  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   color: #d74842;
 }
+
 .required:before {
   content: "*" !important;
   color: red !important;
 }
+
 .input-marign-alignments {
   margin: unset !important;
 }
+
 .img-fluid {
   max-width: 100%;
   height: auto;
@@ -405,3 +464,11 @@ mat-form-field{
 
 }
 
+.address-verification-modal.modal {
+  background: rgba(0, 0, 0, .4);
+  pointer-events: all !important;
+
+  .modal-content {
+    border-width: 1px !important;
+  }
+}

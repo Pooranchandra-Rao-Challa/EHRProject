@@ -1,4 +1,3 @@
-
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, } from '@angular/forms';
 import { ComponentType } from '@angular/cdk/portal';
@@ -27,6 +26,7 @@ import {
 } from 'src/app/_models/';
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 import { Router } from '@angular/router';
+import { LockedComponent } from 'src/app/dialogs/locked/locked.component';
 
 
 @Component({
@@ -54,7 +54,7 @@ export class SmartScheduleComponent implements OnInit {
   appointmentTitle: string;
   locationsubscription: Subscription;
   ActionsType = Actions
-
+  lockedComponent = LockedComponent;
   patientDialogComponent = PatientDialogComponent;
   appointmentDialogComponent = NewAppointmentDialogComponent;
   upcomingAppointmentsDialogComponent = UpcomingAppointmentsDialogComponent;
@@ -79,6 +79,9 @@ export class SmartScheduleComponent implements OnInit {
     private router: Router,
     private viewChangeService: ViewChangeService
   ) {
+    if(this.authService.userValue.UserLocked){
+      this.openLockComponentDialog(this.lockedComponent, this.authService.userValue, this.ActionsType.view);
+    }
 
     // this.patientSearchTerms
     //   .pipe(debounceTime(300),  // wait for 300ms pause in events
@@ -445,5 +448,17 @@ export class SmartScheduleComponent implements OnInit {
         }
       });
     }
+  }
+
+  openLockComponentDialog(content: any | ComponentType<any> | string,
+    dialogData, action: Actions = this.ActionsType.add) {
+    let reqdata: any;
+    if (action == Actions.view && content === this.lockedComponent) {
+      reqdata = dialogData;
+    }
+    const ref = this.overlayService.open(content, reqdata);
+    ref.afterClosed$.subscribe(res => {
+
+    });
   }
 }

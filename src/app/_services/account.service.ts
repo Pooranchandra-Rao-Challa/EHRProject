@@ -148,4 +148,8 @@ export class Accountservice extends APIEndPoint {
   CheckEmailAvailablity(creds: any) {
     return this.http.post<any>(this._checkEmailAvailablityUrl, creds);
   }
+
+  ReleaseUserLock(reqparams: any){
+    return this._ProcessPostRequest<any>(this._releaseUserLockUrl, reqparams);
+  }
 }

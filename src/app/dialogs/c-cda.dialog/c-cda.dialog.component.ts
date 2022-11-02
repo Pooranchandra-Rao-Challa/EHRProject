@@ -1,9 +1,11 @@
+import { AuthenticationService } from './../../_services/authentication.service';
+import { PatientService } from 'src/app/_services/patient.service';
 import { OverlayService } from './../../overlay.service';
 import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { ComponentType } from 'ngx-toastr';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
-import { Actions, CCDAParams } from 'src/app/_models';
+import { Actions, CCDAParams, ViewModel } from 'src/app/_models';
 import { CcdaPreviewDialogComponent } from '../ccda.preview.dialog/ccda.preview.dialog.component';
 
 @Component({
@@ -27,12 +29,12 @@ export class CCdaDialogComponent implements OnInit {
   c_CDAParams: CCDAParams = new CCDAParams();
 
   constructor(private ref: EHROverlayRef,
-    private overlayService: OverlayService) {
+    private overlayService: OverlayService,
+    private patientService: PatientService) {
   }
 
   ngOnInit(): void {
   }
-
 
   cancel() {
     this.ref.close(null);
