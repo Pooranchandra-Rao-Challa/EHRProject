@@ -18,32 +18,32 @@
                   DEMOGRAPHICS &amp; CONTACT INFORMATION</p>
                 <div class="table-patient-container col-md-12 table-responsive">
                   <table class="table">
-                    <tbody>
+                    <tbody *ngIf="c_CDAData.PatientInformation">
                       <tr>
                         <td class="greencol">FIRST:</td>
-                        <td>test</td>
+                        <td>{{c_CDAData.PatientInformation.FirstName}}</td>
                         <td class="greencol">DOB:</td>
-                        <td>01/12/2009</td>
+                        <td>{{c_CDAData.PatientInformation.Birth}}</td>
                         <td class="greencol">PATIENT ID:</td>
-                        <td>62c55bbc391cba1a91808282</td>
+                        <td>{{c_CDAData.PatientInformation.ID}}</td>
                         <td class="greencol">RACE:</td>
-                        <td>Asian</td>
+                        <td></td>
                       </tr>
                       <tr>
                         <td class="greencol">MIDDLE:</td>
-                        <td>r</td>
+                        <td>{{c_CDAData.PatientInformation.MiddleName}}</td>
                         <td class="greencol">AGE:</td>
-                        <td>13</td>
+                        <td>{{c_CDAData.PatientInformation.Age}}</td>
                         <td class="greencol">STATUS:</td>
-                        <td>ACTIVE</td>
+                        <td>{{c_CDAData.PatientInformation.Active}}</td>
                         <td class="greencol">ETHNICITY:</td>
-                        <td>Hispanic or Latino</td>
+                        <td></td>
                       </tr>
                       <tr>
                         <td class="greencol">LAST:</td>
-                        <td>test </td>
+                        <td>{{c_CDAData.PatientInformation.LastName}}</td>
                         <td class="greencol">SEX:</td>
-                        <td>male</td>
+                        <td>{{c_CDAData.PatientInformation.Gender}}</td>
                         <td class="greencol"></td>
                         <td></td>
                         <td class="greencol">PREFERRED LANGUAGE:</td>
@@ -56,25 +56,25 @@
               <!-- Transition of Care Datails -->
               <div class="table-caredetails">
                 <p class="text-center Helvetica-sans-serif-medium" id="Transition_of_Care_Datails">Transition of Care
-                  Datails</p>
+                  Details</p>
                 <div class="table-caredetails-container col-md-12 table-responsive">
                   <table class="table">
-                    <tbody>
+                    <tbody *ngIf="c_CDAData.BasicInformation">
                       <tr>
                         <td class="greencol">PROVIDER:</td>
-                        <td>Dr. Test 1234 1</td>
+                        <td>{{c_CDAData.BasicInformation.Provider}}</td>
                       </tr>
                       <tr>
                         <td class="greencol">PRACTICE NAME:</td>
-                        <td></td>
+                        <td>{{c_CDAData.BasicInformation.PracticeName}}</td>
                       </tr>
                       <tr>
                         <td class="greencol">PRACTICE ADDRESS:</td>
-                        <td></td>
+                        <td>{{c_CDAData.BasicInformation.PracticeAddress}}</td>
                       </tr>
                       <tr>
                         <td class="greencol">PRACTICE PHONE:</td>
-                        <td></td>
+                        <td>{{c_CDAData.BasicInformation.PracticePhone}}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -90,7 +90,9 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr></tr>
+                      <tr *ngFor="let encounter of c_CDAData.EncounterDiagnoses">
+                        <td>{{encounter.Name}}</td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
@@ -105,7 +107,9 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr></tr>
+                      <tr *ngFor="let immunization of c_CDAData.Immunizations">
+                        <td>{{immunization}}</td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
@@ -120,7 +124,9 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr></tr>
+                      <tr *ngFor="let cognitive of c_CDAData.CognitiveStatus">
+                        <td>{{cognitive}}</td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
@@ -135,7 +141,9 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr></tr>
+                      <tr *ngFor="let functional of c_CDAData.FunctionalStatus">
+                        <td>{{functional}}</td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
@@ -150,7 +158,9 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr></tr>
+                      <tr *ngFor="let referral of c_CDAData.ReasonforReferral">
+                        <td>{{referral}}</td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
@@ -165,11 +175,18 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr></tr>
+                      <tr *ngFor="let discharge of c_CDAData.DischargeInstructions">
+                        <td>{{discharge}}</td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
               </div>
+
+
+
+
+
               <!-- patient-chart -->
               <div class="patient-chart">
                 <p class="text-center">PATIENT CHART INFORMATION</p>
@@ -184,7 +201,9 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr></tr>
+                          <tr *ngFor="let smoking of c_CDAData.SmokingStatus">
+                            <td>{{smoking}}</td>
+                          </tr>
                         </tbody>
                       </table>
                     </div>
@@ -199,7 +218,9 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr></tr>
+                          <tr *ngFor="let problem of c_CDAData.ProblemsDX">
+                            <td>{{problem}}</td>
+                          </tr>
                         </tbody>
                       </table>
                     </div>
@@ -214,7 +235,9 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr></tr>
+                          <tr *ngFor="let medication of c_CDAData.Medications">
+                            <td>{{medication}}</td>
+                          </tr>
                         </tbody>
                       </table>
                     </div>
@@ -229,7 +252,9 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr></tr>
+                          <tr *ngFor="let allergies of c_CDAData.MedicationAllergies">
+                            <td>{{allergies}}</td>
+                          </tr>
                         </tbody>
                       </table>
                     </div>
@@ -244,7 +269,9 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr></tr>
+                          <tr *ngFor="let laboratory of c_CDAData.Laboratory">
+                            <td>{{laboratory}}</td>
+                          </tr>
                         </tbody>
                       </table>
                     </div>
@@ -259,7 +286,9 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr></tr>
+                          <!-- <tr *ngFor="let laboratory of c_CDAData.Laboratory">
+                            <td>{{laboratory}}</td>
+                          </tr> -->
                         </tbody>
                       </table>
                     </div>
@@ -274,7 +303,9 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr></tr>
+                          <tr *ngFor="let careplan of c_CDAData.CarePlan">
+                            <td>{{careplan}}</td>
+                          </tr>
                         </tbody>
                       </table>
                     </div>
@@ -289,7 +320,9 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr></tr>
+                          <tr *ngFor="let procedure of c_CDAData.Procedures">
+                            <td>{{procedure}}</td>
+                          </tr>
                         </tbody>
                       </table>
                     </div>
@@ -304,7 +337,9 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr></tr>
+                          <tr *ngFor="let teammember of c_CDAData.CareTeamMembers">
+                            <td>{{teammember}}</td>
+                          </tr>
                         </tbody>
                       </table>
                     </div>
@@ -362,7 +397,8 @@
     <div class="modal-footer ccda-footer">
       <!-- <button class="btn btn-green pull-right">Download</button> -->
       <div class="dropdown">
-        <button class="btn btn-green dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+        <button class="btn btn-green dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+          aria-expanded="false">
           Download
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
