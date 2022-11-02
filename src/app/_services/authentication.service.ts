@@ -68,18 +68,22 @@ export class AuthenticationService {
                 this.logout(ERROR_CODES["EL006"]);
               else if (!this.isProviderActive)
                 this.logout(ERROR_CODES["EL008"]);
-              else if (this.isUserLocked)
-                this.logout(ERROR_CODES["EL009"]);
+              else if (this.isUserLocked) {
+                this.router.navigate(
+                  ['provider/smartschedule'],
+                  { queryParams: { name: 'Smart Schedule' } }
+                );
+              }
               else if (!this.isProviderInTrialPeriod && !this.isProviderTrialPeriodClosed) {
                 // Provider trial period is closed please do subscribe for accessing application.
                 // alert('Provider trial period is closed please do subscribe for accessing application.');
                 this.logout(ERROR_CODES["EL012"]);
               }
               else
-                this.router.navigate(
-                  ['provider/smartschedule'],
-                  { queryParams: { name: 'Smart Schedule' } }
-                );
+              this.router.navigate(
+                ['provider/smartschedule'],
+                { queryParams: { name: 'Smart Schedule' } }
+              );
             }
             else if (this.isAdmin)
               if (this.isUserLocked)

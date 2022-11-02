@@ -874,6 +874,10 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "RaisePasswordChangeRequest";
   }
 
+  get _releaseUserLockUrl() {
+    return this._baseUrl + "ReleaseUserLock";
+  }
+
   get _checkEmailAvailablityUrl() {
     return this._baseUrl + "CheckEmailAvailablity";
   }
@@ -902,6 +906,10 @@ export class APIEndPoint extends EndpointBase {
   get _readInboxMessageUrl()
   {
     return this._baseUrl + "ReadInboxMessages";
+  }
+  get _cCDAReportUrl()
+  {
+    return this._baseUrl + "CCDAReport";
   }
   constructor(public http: HttpClient) {
     super();
