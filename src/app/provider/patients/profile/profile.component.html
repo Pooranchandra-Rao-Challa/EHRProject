@@ -15,7 +15,7 @@
     </div>
   </div>
 
-  <div class="profile-hr" style="border-right: 1px solid #41b6a6;">
+  <div class="profile-hr">
     <div class="row">
       <div class="col-lg-6 col-md-6 col-12 mycontent-left">
         <div class="row">
@@ -453,11 +453,8 @@
           </div>
         </div>
       </div>
-
       <div class="col-lg-6 col-md-6 col-12">
-        <div class="row">
-
-
+        <div class="mycontent-right">
           <!-- Contact -->
           <div class="col-lg-12 col-md-12 col-12 mb-3">
             <div class="d-inline-flex p-2 mb-3">
@@ -818,7 +815,7 @@
             <div class="d-inline-flex p-2 mb-3">
               <label class="fs-4 profile-title">Care team</label>
             </div>
-            <div class="row  mx-2">
+            <div class="row  mx-2 mb-3">
 
               <div class="col-lg-12 col-md-12 col-xl-12 col-12">
                 <div class="search-field">
@@ -826,8 +823,9 @@
                     <input matInput placeholder="Search Provider" [matAutocomplete]="auto" [formControl]="myControl"
                       class="form-control search-control">
                     <mat-autocomplete #auto="matAutocomplete" auto>
-                      <mat-option *ngFor="let item of filteredProviderOptions | async" [value]="item.FullName" (click)="getCareTeamDetails(item.ProviderId)">
-                       {{item.FullName}}
+                      <mat-option *ngFor="let item of filteredProviderOptions | async" [value]="item.FullName"
+                        (click)="getCareTeamDetails(item.ProviderId)">
+                        {{item.FullName}}
                       </mat-option>
                       <mat-option *ngIf="isShow">
                         <span> No Records Found</span>
@@ -864,7 +862,8 @@
                               <span class="mt-2">james@ehr1.us</span>
                             </td>
                             <td>
-                              <mat-icon class="close-icon Cancelbtn" (click)="deleteCareTeam(item.CareTeamId)">close</mat-icon>
+                              <mat-icon class="close-icon Cancelbtn" (click)="deleteCareTeam(item.CareTeamId)">close
+                              </mat-icon>
                             </td>
                           </tr>
                         </tbody>
@@ -939,7 +938,8 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-lg btn-green" data-bs-dismiss="modal" aria-label="Close"
           (click)="updateNote()">Save</button>
-        <button type="button" class="btn btn-lg btn-green" data-bs-dismiss="modal" aria-label="Close" (click)="cancel()">Cancel</button>
+        <button type="button" class="btn btn-lg btn-green" data-bs-dismiss="modal" aria-label="Close"
+          (click)="cancel()">Cancel</button>
       </div>
     </div>
   </div>

@@ -471,7 +471,7 @@
 
                   <!-- <div class="row"> -->
                     <div class="form-group col-lg-6 col-md-6 col-12" style="display: inline;">
-                      <label class="col-12 vital-label required">Collected date:</label>
+                      <label class="col-12 vital-label" [class.required]="isPickAny">Collected date:</label>
                       <mat-form-field appearance="outline" class="col-lg-12 col-12">
                         <input matInput class="pointer" autocomplete="off"
                           [matDatepicker]="collectedDate" [(ngModel)]="encounterInfo.Vital.CollectedAt"
@@ -479,7 +479,7 @@
                         <mat-datepicker-toggle matSuffix [for]="collectedDate"></mat-datepicker-toggle>
                         <mat-datepicker #collectedDate></mat-datepicker>
                       </mat-form-field>
-                      <label class="col-12 vital-label required">Time:</label>
+                      <label class="col-12 vital-label" [class.required]="isPickAny">Time:</label>
                       <mat-form-field appearance="outline" class="col-lg-12 col-12">
                         <input matInput type="text" hint="12 hours format"
                           [(ngModel)]="encounterInfo.Vital.CollectedTime" appTimeMask>

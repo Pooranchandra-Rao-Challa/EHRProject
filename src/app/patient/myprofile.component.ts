@@ -287,7 +287,7 @@ export class MyprofileComponent implements OnInit {
   }
   private _filterAreaCode(value: string): string[] {
     if (value == "") {
-      return ['Please enter 1 or more characters']
+      return ['Please enter 1 or more numbers']
     }
     var _areaCodes = this.AreaCodes.filter(option => option.AreaCode?.includes(value));
     if (_areaCodes.length === 0) {

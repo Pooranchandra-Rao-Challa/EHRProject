@@ -79,7 +79,7 @@ export class EncounterDialogComponent implements OnInit {
   isNavigateFromProductView: boolean = false;
   minDateToFinish = new Subject<string>();
   endDateForEncounter;
-
+  isPickAny: any;
 
   private messageflagSubject = new BehaviorSubject<boolean>(false);
   public messageflag$ = this.messageflagSubject.asObservable();
@@ -398,24 +398,31 @@ export class EncounterDialogComponent implements OnInit {
   }
 
   enableSaveButtons() {
-    let flag = ((this.encounterInfo.Vital.CollectedAt && this.encounterInfo.Vital.CollectedTime) && (this.encounterInfo.Vital.Temperature ||
-      this.encounterInfo.Vital.O2Saturation || this.encounterInfo.Vital.Pulse || this.encounterInfo.Vital.RespiratoryRate ||
-      this.encounterInfo.Vital.BloodType))
     if (this.encounterInfo.ReferredFrom == true) {
-      return !(this.encounterInfo.ReferralFrom && flag)
+      return !(this.encounterInfo.ReferralFrom)
     }
     else if (this.encounterInfo.ReferredTo == true) {
-      return !(this.encounterInfo.ReferralTo && flag)
+      return !(this.encounterInfo.ReferralTo)
     }
-    else if ((this.encounterInfo.Vital.Height || this.encounterInfo.Vital.Weight) && !(this.encounterInfo.Vital.Height && this.encounterInfo.Vital.Weight)) {
-      return !(this.encounterInfo.Vital.Height && this.encounterInfo.Vital.Weight && flag)
+    this.isPickAny = (this.encounterInfo.Vital.CollectedAt || this.encounterInfo.Vital.CollectedTime || this.encounterInfo.Vital.Height ||
+      this.encounterInfo.Vital.Weight || this.encounterInfo.Vital.Temperature || this.encounterInfo.Vital.BPSystolic || this.encounterInfo.Vital.BPDiastolic ||
+      this.encounterInfo.Vital.O2Saturation || this.encounterInfo.Vital.Pulse || this.encounterInfo.Vital.RespiratoryRate || this.encounterInfo.Vital.BloodType)
+    if(this.isPickAny) {
+      let flag = ((this.encounterInfo.Vital.CollectedAt && this.encounterInfo.Vital.CollectedTime) && (this.encounterInfo.Vital.Temperature ||
+        this.encounterInfo.Vital.O2Saturation || this.encounterInfo.Vital.Pulse || this.encounterInfo.Vital.RespiratoryRate ||
+        this.encounterInfo.Vital.BloodType))
+
+        if ((this.encounterInfo.Vital.Height || this.encounterInfo.Vital.Weight) && !(this.encounterInfo.Vital.Height && this.encounterInfo.Vital.Weight)) {
+          return !(this.encounterInfo.Vital.Height && this.encounterInfo.Vital.Weight && flag)
+        }
+        else if ((this.encounterInfo.Vital.BPSystolic || this.encounterInfo.Vital.BPDiastolic) && !(this.encounterInfo.Vital.BPSystolic && this.encounterInfo.Vital.BPDiastolic)) {
+          return !(this.encounterInfo.Vital.BPSystolic && this.encounterInfo.Vital.BPDiastolic && flag)
+        }
+        else {
+          return !(flag)
+        }
     }
-    else if ((this.encounterInfo.Vital.BPSystolic || this.encounterInfo.Vital.BPDiastolic) && !(this.encounterInfo.Vital.BPSystolic && this.encounterInfo.Vital.BPDiastolic)) {
-      return !(this.encounterInfo.Vital.BPSystolic && this.encounterInfo.Vital.BPDiastolic && flag)
-    }
-    else {
-      return !(flag)
-    }
+
 
     // return !(this.encounterInfo.Vital.CollectedAt && this.encounterInfo.Vital.CollectedTime)
 
