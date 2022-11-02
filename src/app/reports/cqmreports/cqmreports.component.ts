@@ -195,6 +195,7 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
   provider: any;
   locationNewReportList: any[];
   activeId: any;
+  repotingYears: {Year: string}[]=[];
 
   public downloadAsPDF() {
     const documenDefinition = {
@@ -366,6 +367,12 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.accountservice.CQMReportingYears().subscribe(resp =>{
+      (resp.Result as any[]).forEach(year =>{
+        this.repotingYears.push({Year:year});
+      });
+    })
+
     this.createReport();
     this.patientlistapplyfilter();
     this.queuedreportapplyfilter();

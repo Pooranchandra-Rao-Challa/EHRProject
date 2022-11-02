@@ -903,6 +903,11 @@ export class APIEndPoint extends EndpointBase {
   {
     return this._baseUrl + "ReadInboxMessages";
   }
+  get _cqmReportingYears()
+  {
+    return this._baseUrl + "CQMReports/CQMReportingYears";
+  }
+
   constructor(public http: HttpClient) {
     super();
   }

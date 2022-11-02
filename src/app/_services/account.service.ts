@@ -84,6 +84,12 @@ export class Accountservice extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._cqmReportMeasurePatientsUrl, reqdata);
   }
 
+  CQMReportingYears() {
+    return this._ProcessGetRequest<any>(this._cqmReportingYears);
+  }
+
+
+
 
   // getPractiseLocations(reqdata: any) {
   //   return this._ProcessPostRequest<any>(this._practiseLocationsUrl, reqdata);
