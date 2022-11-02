@@ -1,0 +1,77 @@
+@import "../../../assets/cstm.material.scss";
+@import"../../../assets/common.scss";
+
+.lock-screen {
+  backdrop-filter: blur(5px);
+
+  .modal-content {
+    min-width: 0;
+    max-width: 444px;
+  }
+
+  .modal-header {
+    height: 110px;
+    background-color: white;
+    border-bottom: 0;
+    border-radius: 3px 3px 0 0;
+    padding-top: 41px !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding: 0;
+    display: inline-table;
+  }
+
+  .invalid {
+    margin: 0px;
+    background: red;
+    min-height: 25px;
+  }
+
+  .invalid p {
+    margin-bottom: 0rem;
+  }
+
+  .modal-header .logo {
+    width: 100%;
+    height: 69px;
+    background-color: #41b6a6;
+    background-image: url(http://localhost:4200/assets/images/logo.svg);
+    background-repeat: no-repeat;
+    background-size: 59px;
+    background-position: center;
+  }
+
+  .modal-body {
+    padding: 23px 42px 28px 42px !important;
+  }
+
+  @media (max-width: 320px) {
+    .modal-body {
+      padding: 10px !important;
+    }
+  }
+
+  .modal-body .lockscreen-icon {
+    width: 94px;
+    height: 94px;
+    margin: 0 0 26px 0;
+    background-image: url(http://localhost:4200/assets/images/lock-screen-icon.svg);
+    background-repeat: no-repeat;
+    background-size: 94px;
+    background-size: contain;
+    background-position: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .modal-footer {
+    padding: 0 25px 25px 25px !important;
+    border-top: 0;
+    border-radius: 0 0 3px 3px;
+  }
+
+  .modal-footer .btn {
+    width: 165px;
+    margin: 0 auto;
+  }
+}

@@ -139,6 +139,7 @@ import { MessagesTableDialogComponent } from 'src/app/dialogs/messages.table.dia
 import { ViewMessageDialogComponent } from 'src/app/dialogs/view.message.dialog/view.message.dialog.component';
 import { PraticeAdduserDialogComponent } from 'src/app/dialogs/pratice.adduser.dialog/pratice.adduser.dialog.component';
 import { CcdaPreviewDialogComponent } from 'src/app/dialogs/ccda.preview.dialog/ccda.preview.dialog.component';
+import { LockedComponent } from 'src/app/dialogs/locked/locked.component';
 
 
 //import { AttachmentNopreviewComponent } from 'src/app/_components/attachments/attachment.nopreview.component'
@@ -194,7 +195,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     //AttachmentNopreviewComponent,
     //AttachmentComponent,
     PraticeAdduserDialogComponent,
-    CcdaPreviewDialogComponent
+    CcdaPreviewDialogComponent,
+    LockedComponent,
 
   ],
   declarations: [
@@ -281,6 +283,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     ViewMessageDialogComponent,
     PraticeAdduserDialogComponent,
     CcdaPreviewDialogComponent,
+    LockedComponent,
    // AttachmentNopreviewComponent,
    // AttachmentComponent
 
@@ -377,7 +380,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     MessagesTableDialogComponent,
     ViewMessageDialogComponent,
     PraticeAdduserDialogComponent,
-    CcdaPreviewDialogComponent
+    CcdaPreviewDialogComponent,
+    LockedComponent
     ]
 })
 export class ProviderModule {

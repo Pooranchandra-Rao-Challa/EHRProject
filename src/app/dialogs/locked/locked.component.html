@@ -1,0 +1,21 @@
+<div class="modal-dialog lock-screen">
+  <div class="modal-content">
+    <div class="modal-header">
+      <div class="logo"></div>
+      <div class="row invalid" *ngIf="invalidPassword">
+        <p class="Helvetica-sans-serif-medium text-center">Wrong Password</p>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="lockscreen-icon"></div>
+      <div class="row">
+        <mat-form-field appearance="outline" class="col-12">
+          <input matInput autocomplete="off" placeholder="Password" [(ngModel)]="unLock.Password">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-green pull-right" (click)="updateLock()">Unlock</button>
+    </div>
+  </div>
+</div>
