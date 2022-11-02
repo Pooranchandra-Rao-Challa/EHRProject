@@ -13,7 +13,6 @@ import { OverlayService } from '../../overlay.service';
 import { Actions, Location } from 'src/app/_models/';
 import { LocationDialogComponent } from 'src/app/dialogs/location.dialog/location.dialog.component';
 import { AlertMessage, ERROR_CODES } from './../../_alerts/alertMessage';
-import { MessageCounts } from 'src/app/_navigations/provider.layout/view.notification.service';
 @Component({
   selector: 'app-user.dialog',
   templateUrl: './user.dialog.component.html',

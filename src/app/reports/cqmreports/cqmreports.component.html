@@ -708,7 +708,7 @@
                       <tbody>
                         <tr *ngFor="let patient of patientlistfilter | paginate: { itemsPerPage: 50, currentPage: p }">
                           <td>{{patient.Patient_Name}}</td>
-                          <td>{{patient.DoB|date:'MM/dd/yyyy'}}{{patient.IppCheck}}{{patient.DenominatorCheck}}</td>
+                          <td>{{patient.DoB|date:'MM/dd/yyyy'}}</td>
                           <td>
                             <div [class.d-none]="!patient.IppCheck && !patient.DenominatorCheck" >
                               <i class="fa fa-download pointer mx-1" (click)="downloadpatient(patient.PatientId)"></i>

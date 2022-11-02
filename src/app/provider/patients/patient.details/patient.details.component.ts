@@ -137,6 +137,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
   }
 
   loadPatientAccountInfo() {
+    console.log("Refeshing loadPatientAccountInfo");
     this.patientService.PatientAccountInfo({
       PatientId: this.patient.PatientId
     }).subscribe(resp => {
@@ -237,7 +238,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
     }
   }
 
-//#endregion
+  //#endregion
 
   async loadPatientBreadcrumbView() {
     this.patientbreadcrumb.clear();
@@ -337,28 +338,30 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
     this.router.navigate(["provider/patients"]);
   }
 
-  InvitePatient(content: TemplateRef<any> | ComponentType<any> | string,action?: Actions) {
+  InvitePatient(content: TemplateRef<any> | ComponentType<any> | string, action?: Actions) {
     this.patientUser = new PatientPortalUser();
     this.patientUser.Email = this.patient.Email;
+    this.patientUser.PatientName = this.patient.FirstName + ' ' + this.patient.LastName;
     this.patientUser.DateofBirth = new Date(this.patient.Dob);
     this.patientUser.PatientId = this.patient.PatientId;
     this.utilityService.GetUserInfoForPatient(this.patientUser).subscribe(resp => {
       if (resp.IsSuccess) {
         this.patientUser = resp.Result as PatientPortalUser;
-        this.openComponentDialog(content,this.patientUser,action)
+        this.openComponentDialog(content, this.patientUser, action)
       }
     })
   }
 
-  _completePatientAccountProcess(req: PatientPortalUser) {
-    this.utilityService.CompletePatientAccountProcess(req).subscribe(resp => {
-      if (resp.IsSuccess) {
-        //this.alertmsg.displayErrorDailog(ERROR_CODES["E2AP002"])
-        this.loadPatientAccountInfo();
-      } else {
-        this.alertmsg.displayErrorDailog(ERROR_CODES["E2AP002"])
-      }
-    });
+  _completePatientAccountProcess() {
+    this.loadPatientAccountInfo();
+    // this.utilityService.CompletePatientAccountProcess(req).subscribe(resp => {
+    //   if (resp.IsSuccess) {
+    //     //this.alertmsg.displayErrorDailog(ERROR_CODES["E2AP002"])
+    //     this.loadPatientAccountInfo();
+    //   } else {
+    //     this.alertmsg.displayErrorDailog(ERROR_CODES["E2AP002"])
+    //   }
+    // });
   }
 
   openLabDialogs(procedureType: string, viewfor: string) {
@@ -425,18 +428,20 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
         }
       } else if (content === this.patientHealthPortalComponent) {
         if (res.data !== null) {
-          this._completePatientAccountProcess(res.data.patientUser)
-          if (res.data.download) {
+          console.log(res.data);
+          console.log("Refeshing loadPatientAccountInfo");
+          this._completePatientAccountProcess()
+          // if (res.data.download) {
 
-            //'straight' update to database which recied from ref.data
-            // Update Patient with invivation_sent_at, straight_invitation to database
-            this.alertmsg.displayMessageDailog(ERROR_CODES["M2AP002"])
+          //   //'straight' update to database which recied from ref.data
+          //   // Update Patient with invivation_sent_at, straight_invitation to database
+          //   this.alertmsg.displayMessageDailog(ERROR_CODES["M2AP002"])
 
-          } else if (res.data.sendemail) {
-            //'straight' update to database which recied from ref.data
-            // Update Patient with invivation_sent_at, straight_invitation to database
-            this.alertmsg.displayMessageDailog(ERROR_CODES["M2AP003"])
-          }
+          // } else if (res.data.sendemail) {
+          //   //'straight' update to database which recied from ref.data
+          //   // Update Patient with invivation_sent_at, straight_invitation to database
+          //   this.alertmsg.displayMessageDailog(ERROR_CODES["M2AP003"])
+          // }
         }
       } else if (content === this.encounterDialogComponent) {
         if (res.data != null && res.data.refreshView) {
