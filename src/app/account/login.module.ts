@@ -18,6 +18,7 @@ import { EmailedUrlsComponent } from 'src/app/account/emailedurls/emailed.url.co
 import { ChangePasswordComponent } from './change.password.component'
 import { AlertMessage } from '../_alerts/alertMessage';
 import { PatientService } from '../_services/patient.service';
+import { OverlayService } from '../overlay.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -42,6 +43,7 @@ import { PatientService } from '../_services/patient.service';
     ChangePasswordComponent
   ],
   providers:[
+    OverlayService,
     AlertMessage,
     PatientService
   ],
