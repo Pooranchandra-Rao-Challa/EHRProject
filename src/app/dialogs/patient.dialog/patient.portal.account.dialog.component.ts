@@ -1,3 +1,4 @@
+import { filter } from 'rxjs/operators';
 
 import {
   Component,
@@ -13,11 +14,11 @@ import { Accountservice } from 'src/app/_services/account.service';
   styleUrls: ['./patient.portal.account.dialog.component.scss'],
 })
 export class PatientPortalAccountComponent {
-  patientUser: PatientPortalUser = {PatinetHasNoEmail: true};
+  patientUser: PatientPortalUser = { PatinetHasNoEmail: true };
   emailVerfied?: boolean = null;
   emailVerficationMessage?: string;
   emailPattern = /^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$/;
-  constructor(private dialogRef: EHROverlayRef,private accountservice: Accountservice,) {
+  constructor(private dialogRef: EHROverlayRef, private accountservice: Accountservice,) {
     this.patientUser = dialogRef.data as PatientPortalUser;
     if (this.patientUser == null) this.patientUser = new PatientPortalUser()
     this.patientUser.Username
@@ -25,27 +26,27 @@ export class PatientPortalAccountComponent {
   cancel() {
     this.dialogRef.close();
   }
-  createPatientInvoked:boolean = false;
+  createPatientInvoked: boolean = false;
   createPatientAccount() {
     this.createPatientInvoked = true;
+    if(this.checkValidEmail())
     this.dialogRef.close(this.patientUser);
   }
-  
+
   checkEmailExistance() {
-    if (this.patientUser.PatinetHasNoEmail) {
-      this.emailVerfied = null;
-      this.emailVerficationMessage = "";
-    } else {
-      if (this.emailPattern.test(this.patientUser.Email))
-        this.accountservice.CheckEmailAvailablity({ Email: this.patientUser.Email }).subscribe((resp) => {
-          this.emailVerfied = resp.IsSuccess;
-          this.emailVerficationMessage = resp.EndUserMessage
-        })
-      else this.emailVerfied = null;
-    }
+    if (this.emailPattern.test(this.patientUser.Email))
+      this.accountservice.CheckEmailAvailablity({ Email: this.patientUser.Email }).subscribe((resp) => {
+        this.emailVerfied = resp.IsSuccess;
+        this.emailVerficationMessage = resp.EndUserMessage
+      })
+    else this.emailVerfied = null;
   }
-  ClearEmailWhenPatientHasNoEmail(event) {
-    this.patientUser.Email = "";
+
+  checkValidEmail(){
+    if(!this.emailPattern.test(this.patientUser.Email)){
+      this.patientUser.Email = `no_email@${this.patientUser.Username.toLowerCase()}.com`;
+    }
+    return true;
   }
 
 }

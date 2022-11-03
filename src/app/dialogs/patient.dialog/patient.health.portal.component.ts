@@ -34,9 +34,17 @@ export class PatientHealthPortalComponent{
 
   }
   cancel(){
-    this.dialogRef.close();
+    this.dialogRef.close({refesh:true});
   }
 
+  refreshView(){
+    this.dialogRef.close({refesh:true});
+  }
+
+  hasValidEmail(){
+
+
+  }
   downloadInviteasPDF(){
     this.patientUser.SendInvitation = false;
     this.reportInvoked = true;
@@ -47,7 +55,7 @@ export class PatientHealthPortalComponent{
   sendInviteToEmailAddress(){
     this.patientUser.SendInvitation = true;
     this.reportInvoked = true;
-    this._completePatientAccountProcess();
+    this._completePatientAccountProcess(true);
     //this.dialogRef.close({'sendemail':true,patientUser: this.patientUser });
   }
   onLoad(iframe) {
@@ -69,7 +77,7 @@ export class PatientHealthPortalComponent{
       PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
       PDF.html(this.iframe.nativeElement.contentDocument.body.innerHtml);
       PDF.save(this.patientUser.PatientId+'.pdf');
-      this.cancel()
+      this.refreshView()
     });
   }
 
@@ -77,6 +85,7 @@ export class PatientHealthPortalComponent{
     this.utilityService.CompletePatientAccountProcess(this.patientUser).subscribe(resp => {
       if (resp.IsSuccess) {
         if (!flag) {
+
           this.doReportProcess = true;
           this.reportInvoked = false;
           this.element = document.createRange().createContextualFragment(resp.Result.Html);
@@ -91,7 +100,7 @@ export class PatientHealthPortalComponent{
           //'straight' update to database which recied from ref.data
           // Update Patient with invivation_sent_at, straight_invitation to database
           //Invitation successfully sent to patient email
-          this.cancel()
+          this.refreshView()
         }
 
         //this.alertmsg.displayErrorDailog(ERROR_CODES["E2AP002"])

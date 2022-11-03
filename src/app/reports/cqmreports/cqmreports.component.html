@@ -708,7 +708,7 @@
                       <tbody>
                         <tr *ngFor="let patient of patientlistfilter | paginate: { itemsPerPage: 50, currentPage: p }">
                           <td>{{patient.Patient_Name}}</td>
-                          <td>{{patient.DoB|date:'MM/dd/yyyy'}}{{patient.IppCheck}}{{patient.DenominatorCheck}}</td>
+                          <td>{{patient.DoB|date:'MM/dd/yyyy'}}</td>
                           <td>
                             <div [class.d-none]="!patient.IppCheck && !patient.DenominatorCheck" >
                               <i class="fa fa-download pointer mx-1" (click)="downloadpatient(patient.PatientId)"></i>
@@ -2630,9 +2630,9 @@
                 <h6>CQM Update Year:<span class="asterisk">*</span></h6>
               </div>
               <mat-form-field appearance="outline" class="col-lg-12">
-                <mat-select placeholder="Select Year" disableOptionCentering formControlName="bundleYear">
-                  <mat-option value="2018">2018</mat-option>
-                  <mat-option value="2019">2019</mat-option>
+                <mat-select placeholder="Select Year" disableOptionCentering formControlName="bundleYear"
+                panelClass="report-select-option-panel">
+                  <mat-option [value]="reportingYear.Year" *ngFor="let reportingYear of repotingYears">{{reportingYear.Year}}</mat-option>
                 </mat-select>
                 <mat-error *ngIf="checkError ('bundleYear', 'required')">Please select the bundle year</mat-error>
               </mat-form-field>
@@ -2652,7 +2652,7 @@
                 <h6 class="pl-3">Providers:<span class="asterisk">*</span></h6>
                 <mat-form-field appearance="outline" class="col-12 my-2 hover">
                   <mat-select placeholder="Select Provider" disableOptionCentering #searchedItem
-                    formControlName="providerId">
+                    formControlName="providerId" panelClass="report-select-option-panel">
                     <mat-select-filter [placeholder]="'Search...'" [displayMember]="'Provider_Name'"
                       [array]="providerlist" (filteredReturn)="filteredproviderList =$event"
                       *ngIf="searchedItem.focused">
@@ -2671,7 +2671,8 @@
               <div class="col-lg-4 col-md-4">
                 <h6 class="pl-3">Locations:<span class="asterisk">*</span></h6>
                 <mat-form-field appearance="outline" class="col-12 my-2 hover">
-                  <mat-select placeholder="Select Location" disableOptionCentering formControlName="locationId">
+                  <mat-select placeholder="Select Location" disableOptionCentering formControlName="locationId"
+                  panelClass="report-select-option-panel">
                     <!-- <mat-select-filter [placeholder]="'Search...'" [displayMember]="'Location_Name'" [array]="locationslist"
                       (filteredReturn)="filteredlocationList =$event"></mat-select-filter> -->
                     <mat-option *ngFor="let name of filteredlocationList" [value]="name.Location_Id"
