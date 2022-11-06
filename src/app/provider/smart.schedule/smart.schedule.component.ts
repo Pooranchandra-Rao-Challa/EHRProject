@@ -392,7 +392,7 @@ export class SmartScheduleComponent implements OnInit {
     this.PatientAppointment.ProviderId = this.authService.userValue.ProviderId;
     this.PatientAppointment.LocationId = this.SelectedLocationId;
     this.PatientAppointment.Duration = 30;
-    this.selectedAppointmentDate = new Date(new Date().toLocaleDateString());
+    this.selectedAppointmentDate = new Date();
     this.selectedWeekday = this.selectedAppointmentDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
     this.loadDefaults();
     this.LoadAppointmentDefalts();

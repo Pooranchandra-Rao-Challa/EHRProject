@@ -126,15 +126,15 @@ export class MyhealthComponent implements OnInit {
     }
     this.patientservise.LabTestResultByPatientId(reqparam).subscribe(resp => {
         this.LabTest = resp.ListResult;
-        console.log(this.LabTest);
-        
+        //console.log(this.LabTest);
+
         // this.LabTest?.map((e) => {
 
         //   if (e.ProcedureType == 'Lab') {
-           
+
         //   }
         // })
-      
+
     })
   }
 

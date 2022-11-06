@@ -23,7 +23,7 @@ export class FilterQueryParams {
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  pageSize: number = 50;
+  pageSize: number = 10;
   page: number = 1;
 
   ProviderList: ProviderList[] = [{}];
@@ -84,7 +84,7 @@ export class DashboardComponent implements OnInit {
     this.adminservice.GetProviderList().subscribe(resp => {
       if (resp.IsSuccess) {
         this.ProviderList = resp.ListResult;
-        console.log(this.ProviderList);
+        //console.log(this.ProviderList);
 
         this.filtededProviders = this._filterProviders();
       } else

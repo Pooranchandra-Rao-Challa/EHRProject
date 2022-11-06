@@ -55,8 +55,10 @@ export class AuthenticationService {
 
   loginWithFormCredentials(creds: any): Observable<ResponseData> {
     const endpointUrl = this.baseUrl + "Authenticate/";
+    //console.log(creds);
     let observable = this.http.post<ResponseData>(endpointUrl, creds).pipe<ResponseData>(
       tap(resp => {
+        //console.log(resp);
         if (resp.IsSuccess) {
           this.userSubject = new BehaviorSubject<User>(resp.Result as User);
           if (this.userValue.IsSuccess) {
@@ -135,8 +137,10 @@ export class AuthenticationService {
   SwitchUser(data: { SwitchUserKey: string, SwitchUserEncKey: string }) {
     if (this.isAdmin) {
       const endpointUrl = this.baseUrl + "SwitchUser/";
+      //console.log(data);
       let observable = this.http.post<ResponseData>(endpointUrl, data).pipe<ResponseData>(
         tap(resp => {
+          //console.log(resp);
           if (resp.IsSuccess) {
             this.revokeToken();
             localStorage.clear();
@@ -148,8 +152,8 @@ export class AuthenticationService {
               if (!this.isProviderVerfied) {
                 this.logout(ERROR_CODES["EL006"])
               }
-              else if (!this.isProviderInTrialPeriod) {
-                this.logout(ERROR_CODES["EL006"])
+              else if (!this.isProviderTrialPeriodClosed) {
+                this.logout(ERROR_CODES["EL012"])
               }
               else
                 this.router.navigate(
@@ -172,9 +176,11 @@ export class AuthenticationService {
 
   SwitchToPatientUser(data: { SwitchUserKey: string, SwitchUserEncKey: string }) {
     if (this.isAdmin) {
+      //console.log(data);
       const endpointUrl = this.baseUrl + "SwitchToPatientUser/";
       let observable = this.http.post<ResponseData>(endpointUrl, data).pipe<ResponseData>(
         tap(resp => {
+          //console.log(resp);
           if (resp.IsSuccess) {
             this.revokeToken();
             localStorage.clear();
@@ -209,7 +215,10 @@ export class AuthenticationService {
         localStorage.setItem('user', JSON.stringify(resp.Result as User));
         this.startRefreshTokenTimer();
         this.SetViewParam("View", "dashboard")
-        if (this.isPatient || this.isRepresentative)
+        if(this.isPatient && this.isFirstTimeLogin){
+
+        }
+        else if (this.isPatient || this.isRepresentative)
           this.router.navigate(['patient/dashboard']);
         else {
           this.logout(ERROR_CODES["EL001"]);

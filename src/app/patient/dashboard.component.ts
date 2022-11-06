@@ -43,10 +43,10 @@ export class DashboardComponent {
   }
 
   ngOnInit(): void {
+
     this.getPatientUpcomingAppointments();
     this.getmessages();
     $(document).ready(function () {
-
       $('ul.navbar-nav > li')
         .click(function (e) {
           $('ul.navbar-nav > li')
@@ -66,7 +66,7 @@ export class DashboardComponent {
     this.isAccees = false;
     this.isHealth = true;
   }
-  onAcess() {
+  onAccess() {
     this.isHealth = false;
     this.isAccees = true;
   }
