@@ -490,6 +490,15 @@ textarea.form-control.inputclass:hover {
   vertical-align: -webkit-baseline-middle;
 }
 
+::ng-deep #immunization-modal .mat-select-value {
+  font-size: 14px;
+}
+
+::ng-deep .mat-select-panel .mat-option {
+  font-size: 14px;
+}
+
+
 .textarea-margin mat-label {
   padding: 0px;
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;

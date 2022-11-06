@@ -1,3 +1,4 @@
+import { AdminService } from './../../_services/admin.service';
 import { NotifyProviderHeaderService } from './../provider.layout/view.notification.service';
 import { NotifyMessageService } from 'src/app/_navigations/provider.layout/view.notification.service';
 import { LoaderService } from './../../_loader/loader.service';
@@ -10,6 +11,7 @@ import { ComponentType } from '@angular/cdk/portal';
 import { OverlayService } from 'src/app/overlay.service';
 import { SettingsService } from 'src/app/_services/settings.service';
 import { UserDialogComponent } from 'src/app/dialogs/user.dialog/user.dialog.component';
+import { LockedComponent } from 'src/app/dialogs/locked/locked.component';
 @Component({
   selector: 'provider-app-navbar',
   templateUrl: './provider.navbar.component.html',
@@ -29,6 +31,7 @@ export class ProviderNavbarComponent implements OnInit {
   userDialogComponent = UserDialogComponent;
   unreadMails: number;
   urgentMails: number;
+  lockedComponent = LockedComponent;
 
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -38,6 +41,7 @@ export class ProviderNavbarComponent implements OnInit {
     private viewChangeService: ViewChangeService,
     private notifyMessage: NotifyMessageService,
     private notifyProviderHeader: NotifyProviderHeaderService,
+    private adminservice: AdminService,
     public loaderService: LoaderService) {
     // config.placement = 'bottom-right';
     this.user = authenticationService.userValue;
@@ -110,6 +114,21 @@ export class ProviderNavbarComponent implements OnInit {
     data?: any, action?: Actions) {
     const ref = this.overlayService.open(content, data);
     ref.afterClosed$.subscribe(res => {
+    });
+  }
+
+  updateUserLock() {
+    let reqparam =
+    {
+      UserId: this.user.UserId,
+      Locked: true
+    }
+    this.adminservice.UpdateLockedUser(reqparam).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.authenticationService.userValue.UserLocked = reqparam.Locked;
+        localStorage.setItem('user', JSON.stringify(this.authenticationService.userValue as User));
+        this.openComponentDialog(this.lockedComponent, this.authenticationService.userValue, Actions.view);
+      }
     });
   }
 

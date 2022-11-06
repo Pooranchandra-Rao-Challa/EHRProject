@@ -84,7 +84,7 @@
     <li class="li-menu"><a class="nav-li text-nowrap" (click)="GetUserInfoData()">My Account</a></li>
     <li class="li-menu" data-bs-toggle="modal" data-bs-target="#modal-about-ehr1"><a class="nav-li text-nowrap">About
         EHR1</a></li>
-    <li class="li-menu border-bottom"><a class="nav-li">Lock</a></li>
+    <li class="li-menu border-bottom" (click)="updateUserLock()"><a class="nav-li">Lock</a></li>
     <li class="li-menu" (click)="logout()"><a class="nav-li">Log out</a></li>
     </mat-menu>
     </li>

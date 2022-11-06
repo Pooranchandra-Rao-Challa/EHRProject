@@ -121,4 +121,22 @@ export class DownloadService {
         }
       );
   }
+
+  getDownloadData<T>(url, reqObj: any) {
+    const endpointUrl = this.baseUrl + url;
+    this.http
+      .post(endpointUrl, reqObj, { observe: "response", responseType: "text" })
+      .subscribe(
+        (resp) => {
+          const data = resp.body;
+          const blob = new Blob([data], {
+            type: resp.headers.get("content-type"),
+          });
+          const document = window.URL.createObjectURL(blob);
+          FileSaver.saveAs(document, reqObj.Id);
+        },
+        (error) => {
+        }
+      );
+  }
 }

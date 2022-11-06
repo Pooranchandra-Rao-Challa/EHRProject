@@ -1,3 +1,4 @@
+import { DownloadService } from './../../_services/download.service';
 import { ImportFile } from 'src/app/_models/_admin/importfile';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -15,7 +16,8 @@ export class ListImportedDataComponent implements OnInit {
   pageSize: any = 20
   collectionSize: any = 10000;
   premiumData: any[] = [];
-  constructor(private router: Router, private adminservice: AdminService) { }
+  constructor(private router: Router, private adminservice: AdminService,
+    private downloadService: DownloadService) { }
   ngOnInit(): void {
     this.getImportPatient();
   }
@@ -45,5 +47,12 @@ export class ListImportedDataComponent implements OnInit {
       { queryParams: { name: name } }
     );
   }
- 
+
+  getDownloadUploadDataReport(ImportId) {
+    let req = {
+      Id: ImportId
+    };
+    this.downloadService.getDownloadData('DownloadUploadDataReport',req);
+  }
+
 }

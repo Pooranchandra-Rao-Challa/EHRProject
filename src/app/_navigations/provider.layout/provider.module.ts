@@ -140,6 +140,7 @@ import { ViewMessageDialogComponent } from 'src/app/dialogs/view.message.dialog/
 import { PraticeAdduserDialogComponent } from 'src/app/dialogs/pratice.adduser.dialog/pratice.adduser.dialog.component';
 import { CcdaPreviewDialogComponent } from 'src/app/dialogs/ccda.preview.dialog/ccda.preview.dialog.component';
 import { LockedComponent } from 'src/app/dialogs/locked/locked.component';
+import { AdminService } from 'src/app/_services/admin.service';
 
 
 //import { AttachmentNopreviewComponent } from 'src/app/_components/attachments/attachment.nopreview.component'
@@ -323,7 +324,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
 
   ],
   providers: [LocationSelectService, ViewChangeService, RecordsChangeService, PatientUpdateService,
-    UtilityService, SmartSchedulerService, OverlayService, PatientService, BillingService,
+    UtilityService, SmartSchedulerService, OverlayService, PatientService, BillingService, AdminService,
     AlertMessage, RxNormAPIService, MessagesService,
     FileUploadService,
     NotifyMessageService,

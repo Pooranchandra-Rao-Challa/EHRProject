@@ -13,6 +13,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ChangePasswordComponent implements OnInit {
   createPasswordForm: FormGroup;
   token: string;
+  showPassword: boolean = false;
+  showConfirmPassword: boolean = false;
+
   constructor(private fb: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -77,6 +80,14 @@ export class ChangePasswordComponent implements OnInit {
         showConfirmButton: false,
       });
     }
+  }
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
+
+  toggleConfirmPasswordVisibility(): void {
+    this.showConfirmPassword = !this.showConfirmPassword;
   }
 }
 

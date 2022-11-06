@@ -454,6 +454,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
 
   resetDialog() {
     this.patientImmunization = new Immunization;
+    this.searchVaccineCode.nativeElement.value = '';
   }
 
   editDialog(dialogData, name) {
