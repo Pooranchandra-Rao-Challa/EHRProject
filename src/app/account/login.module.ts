@@ -19,6 +19,7 @@ import { ChangePasswordComponent } from './change.password.component'
 import { AlertMessage } from '../_alerts/alertMessage';
 import { PatientService } from '../_services/patient.service';
 import { OverlayService } from '../overlay.service';
+import { SecurityQuestion } from 'src/app/account/security.question.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -40,7 +41,8 @@ import { OverlayService } from '../overlay.service';
     ErrorMessageComponent,
     ProviderConfirmationComponent,
     EmailedUrlsComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    SecurityQuestion
   ],
   providers:[
     OverlayService,

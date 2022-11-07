@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
 import { LayoutComponent } from './layout.component';
 import { LoginComponent } from './login.component';
 import { RubyAuthenticationFailedComponenet } from './ruby.authentication.failed.component';
@@ -12,7 +11,7 @@ import { CreatePasswordComponent } from './createpassword.component'
 import { ProviderConfirmationComponent } from './provider.confirmation.component'
 import { EmailedUrlsComponent} from 'src/app/account/emailedurls/emailed.url.component'
 import { ChangePasswordComponent } from './change.password.component'
-
+import { SecurityQuestion } from './security.question.component';
 
 const routes: Routes = [
   {
@@ -27,7 +26,7 @@ const routes: Routes = [
       { path: 'changepassword', component: ChangePasswordComponent },
       { path: 'providerconfirmation', component: ProviderConfirmationComponent },
       { path: 'emailedurls', component: EmailedUrlsComponent },
-
+      { path: 'security-question', component: SecurityQuestion },
     ]
   },
 ]
