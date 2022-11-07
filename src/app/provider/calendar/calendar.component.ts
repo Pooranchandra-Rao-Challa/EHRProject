@@ -811,7 +811,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   }
 
   handleViewDidMount(arg) {
-    console.log(arg);
+    //console.log(arg);
 
   }
 
@@ -1003,7 +1003,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         this.updateBlockOuts(true,null);
       }
       else
-      { 
+      {
       this.blockouts = [{}]
       this.updateBlockOuts(true,null);
       }

@@ -162,6 +162,7 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
   LoadAvailableTimeSlots() {
 
     let ats = {
+      "ProviderId": this.PatientAppointment.ProviderId,
       "LocationId": this.PatientAppointment.LocationId,
       "RoomId": this.PatientAppointment.RoomId,
       "Duration": this.PatientAppointment.Duration,
@@ -183,6 +184,7 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
         this.messageToShowTimeSlots == null;
       }
       else {
+        this.AvaliableTimeSlots = [];
         this.showMessage.next(true);
         this.messageToShowTimeSlots = "There are no available time slots that match your request. Please try selecting a different date, time, or duration."
       }
@@ -282,7 +284,7 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
       && this.PatientAppointment.PatientId != null
       && this.PatientAppointment.ProviderId != null
       && this.PatientAppointment.Notes != null && this.PatientAppointment.Notes !=""
-      && this.PatientAppointment.Startat != null) || this.SaveInputDisable; 
+      && this.PatientAppointment.Startat != null) || this.SaveInputDisable;
   }
   onAppointmentSave() {
     this.PatientAppointment.AppointmentTime = this.PatientAppointment.TimeSlot.StartDateTime;

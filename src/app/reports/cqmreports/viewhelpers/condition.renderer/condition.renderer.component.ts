@@ -8,7 +8,8 @@ import { Component, OnInit, Input } from "@angular/core";
 export class Condition implements OnInit {
   panelOpenState: boolean = false;
   @Input() public Conditions: [];
-  constructor() { console.log(this.Conditions);
+  constructor() {
+    //console.log(this.Conditions);
   }
   ngOnInit() { }
 }

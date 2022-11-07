@@ -205,7 +205,7 @@ export class ProfileComponent implements OnInit {
       if (resp.IsSuccess) {
         this.patientMyProfile = resp.ListResult[0];
         this.patientMyProfile.Gender = this.patientMyProfile.Gender;
-      } else console.log(resp);
+      } //else console.log(resp);
 
     });
   }
@@ -434,7 +434,7 @@ export class ProfileComponent implements OnInit {
       if (resp.IsSuccess) {
         let success = resp.EndUserMessage;
       }
-      console.log(this.patientMyProfile);
+      //(this.patientMyProfile);
 
 
     });

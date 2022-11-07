@@ -137,7 +137,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
   }
 
   loadPatientAccountInfo() {
-    console.log("Refeshing loadPatientAccountInfo");
+    //console.log("Refeshing loadPatientAccountInfo");
     this.patientService.PatientAccountInfo({
       PatientId: this.patient.PatientId
     }).subscribe(resp => {
@@ -428,8 +428,8 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
         }
       } else if (content === this.patientHealthPortalComponent) {
         if (res.data !== null) {
-          console.log(res.data);
-          console.log("Refeshing loadPatientAccountInfo");
+          //console.log(res.data);
+          //console.log("Refeshing loadPatientAccountInfo");
           this._completePatientAccountProcess()
           // if (res.data.download) {
 

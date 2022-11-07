@@ -109,13 +109,13 @@ export class DownloadService {
       .post(endpointUrl, reqObj, { observe: "response", responseType: "text" })
       .subscribe(
         (data) => {
-          const data1 = data.body;
+          const response = data.body;
 
-          const blob = new Blob([data1], {
+          const blob = new Blob([response], {
             type: data.headers.get("content-type"),
           });
-          const url = window.URL.createObjectURL(blob);
-          FileSaver.saveAs(url, reqObj.PatientId);
+          const document = window.URL.createObjectURL(blob);
+          FileSaver.saveAs(document, reqObj.PatientId);
         },
         (error) => {
         }
