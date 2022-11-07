@@ -112,7 +112,7 @@ export class AppointmentComponent {
         {
           e.ApptStatus = 'Scheduled';
           e.class = "Statusconfirmed"
-         
+
         }
         else if(e.ApptStatus == 'In-Progress')
         {
@@ -167,4 +167,16 @@ export class AppointmentComponent {
       }
     })
   }
+
+  // getGeneralSchedule() {
+  //   let reqparams = {
+  //     clinicId: this.user.ClinicId
+  //   };
+  //   this.settingsService.Generalschedule(reqparams).subscribe((resp) => {
+  //     if (resp.IsSuccess) {
+  //       if (resp.ListResult.length == 1)
+  //         this.generalSchedule = resp.ListResult[0];
+  //     }
+  //   })
+  // }
 }
