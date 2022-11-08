@@ -125,11 +125,12 @@ export class ProviderNavbarComponent implements OnInit {
     }
     this.adminservice.UpdateLockedUser(reqparam).subscribe(resp => {
       if (resp.IsSuccess) {
+        let unLockToken = resp.Result;
         this.authenticationService.userValue.UserLocked = reqparam.Locked;
+        this.authenticationService.userValue.UnlockToken = unLockToken;
         localStorage.setItem('user', JSON.stringify(this.authenticationService.userValue as User));
         this.openComponentDialog(this.lockedComponent, this.authenticationService.userValue, Actions.view);
       }
     });
   }
-
 }

@@ -216,7 +216,7 @@ export class AuthenticationService {
         this.startRefreshTokenTimer();
         this.SetViewParam("View", "dashboard")
         if(this.isPatient && this.isFirstTimeLogin){
-
+          this.router.navigate(['/account/security-question']);
         }
         else if (this.isPatient || this.isRepresentative)
           this.router.navigate(['patient/dashboard']);
@@ -250,6 +250,7 @@ export class AuthenticationService {
         return resp.Result;
       }));
   }
+
   logout(error: any = '') {
     localStorage.removeItem('user');
     this.revokeToken();

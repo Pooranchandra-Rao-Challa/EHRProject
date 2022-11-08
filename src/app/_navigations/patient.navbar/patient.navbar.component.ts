@@ -45,7 +45,6 @@ export class PatientNavbarComponent implements OnInit,AfterViewInit {
     if(this.viewModel == null){
       this.viewModel = new ViewModel();
     }
-
   }
   ngAfterViewInit(): void {
     this.menuwidth = (document.getElementById('UserDropdown').clientWidth+8);

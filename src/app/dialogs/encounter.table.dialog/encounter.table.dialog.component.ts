@@ -48,11 +48,21 @@ export class EncounterTableDialogComponent implements OnInit {
 
   openComponentDialog(content: any | ComponentType<any> | string,
     dialogData, action: Actions = this.ActionTypes.add) {
-    let reqdata: EncounterInfo;
-    if (action == Actions.view && content === this.encounterDialogComponent) {
-      reqdata = dialogData;
+    let reqdata: EncounterInfo = new EncounterInfo();
+    if (action == Actions.new && content === this.encounterDialogComponent) {
+      let ef = new EncounterInfo();
+      if (dialogData == null) {
+        ef.PatientId = this.authService.viewModel.Patient.PatientId;
+        ef.PatientName = this.authService.viewModel.Patient.FirstName + " " + this.authService.viewModel.Patient.LastName;
+      }
+      reqdata = ef;
+    } else if (action == Actions.view && content === this.encounterDialogComponent) {
+      let ef = new EncounterInfo();
+      ef.EncounterId = dialogData.EncounterId
+      ef.PatientId = dialogData.PatientId
+      ef.PatientName = this.authService.viewModel.Patient.FirstName + " " + this.authService.viewModel.Patient.LastName;
+      reqdata = ef;
     }
-    reqdata.PatientName = this.viewModel.Patient.FirstName + ' ' + this.viewModel.Patient.LastName;
 
     const ref = this.overlayService.open(content, reqdata, true);
     ref.afterClosed$.subscribe(res => {

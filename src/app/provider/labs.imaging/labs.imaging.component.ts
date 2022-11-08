@@ -104,6 +104,7 @@ export class LabsImagingComponent implements OnInit {
 
     this.viewmodel.LabandImageView = procedureType;
     this.labImageDatasource.ProcedureType = procedureType;
+    this.paginator.pageIndex = 0;
     this.loadLabandImageList();
   }
   loadDefaults() {

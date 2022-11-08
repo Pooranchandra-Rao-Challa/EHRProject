@@ -299,26 +299,6 @@ mat-accordion .mat-expansion-panel:first-of-type {
   .mat-form-field-appearance-outline .mat-form-field-suffix{
     top: 1px;
   }
-  .realease-date .mat-icon-button.mat-button-base{
-    border: 1px solid #41b6a6;
-    border-radius: 0 5px 5px 0;
-    padding: unset !important;
-    margin: -5px 0 0 0;
-    width: 45px !important;
-    height: 45px !important;
-    background: #41b6a6 !important;
-  }
-
-  .realease-date .mat-icon-button.mat-button-base svg.mat-datepicker-toggle-default-icon>path {
-    fill: #fff !important;
-    stroke: rgb(224, 220, 220) !important;
-    stroke-linejoin: round !important;
-    transition: d 0.2s !important;
-  }
-
-  .realease-date .mat-form-field-flex{
-    padding-right: 0 ;
-  }
 
   .triggeralignment.mat-select-panel {
     margin-top: 31px !important;

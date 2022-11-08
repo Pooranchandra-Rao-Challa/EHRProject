@@ -245,9 +245,8 @@
           <div class="col-md-2">
             <mat-label>Release Date(s)</mat-label>
           </div>
-          <mat-form-field appearance="outline" class="col-md-4 realease-date">
-            <input matInput class="pointer" [matDatepicker]="dp1" required placeholder="Stop Date" mouse-over-hint
-              tickImagePath="assets/images/tick-mark.svg" crossImagePath="assets/images/cross-mark.svg"
+          <mat-form-field appearance="outline" class="green-calendar col-md-4">
+            <input matInput class="pointer" [matDatepicker]="dp1" required placeholder="Release Date"
               (click)="dp1.open()" readonly [(ngModel)]="newAlert.ReleaseAt">
             <mat-datepicker-toggle matSuffix [for]="dp1">
             </mat-datepicker-toggle>
