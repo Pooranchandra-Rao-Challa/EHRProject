@@ -18,6 +18,7 @@ import { filter, map, debounceTime, distinctUntilChanged } from 'rxjs/operators'
 import {MessageDialogComponent} from 'src/app/dialogs/alert.dialog/message.dialog.component'
 import { ComponentType } from 'ngx-toastr';
 import { OverlayService } from 'src/app/overlay.service';
+import { CompleteAppointmentDialogComponent } from 'src/app/dialogs/newappointment.dialog/complete.appointment.component';
 
 
 
@@ -41,7 +42,7 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
   PracticeProviders: PracticeProviders[];
   AppointmentTypes: AppointmentTypes[]
   selectedAppointmentDate: Date;
-  Appointments: ScheduledAppointment[];
+  //Appointments: ScheduledAppointment[];
   NoofAppointment: Number;
   appointmentTitle: string;
   public flag: boolean = true;
@@ -60,6 +61,7 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
   showMessage: BehaviorSubject<boolean> = new BehaviorSubject(false);
   showHideMessage$ = this.showMessage.asObservable();
   messageDialogComponent = MessageDialogComponent;
+  completeAppointmentDialogComponent = CompleteAppointmentDialogComponent;
   ActionTypes: any;
 
   constructor(
@@ -68,6 +70,7 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
     private smartSchedulerService: SmartSchedulerService,
     private alert: AlertMessage,
     private datePipe: DatePipe,
+    private alertMessage: AlertMessage,
     private overlayService : OverlayService) {
     this.data = ref.RequestData;
     this.PatientAppointment = {} as NewAppointment;
@@ -263,16 +266,13 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
 
 
   cancelAppointment() {
-    this.smartSchedulerService.CancelAppointment({ "AppointmentId": this.PatientAppointment.AppointmentId })
-      .subscribe(resp => {
-        if (resp.IsSuccess) {
-          this.ref.close({ 'refresh': true });
-          this.alert.displayErrorDailog(ERROR_CODES["M2AA003"]);
-        }
-        else {
-          this.alert.displayErrorDailog(ERROR_CODES["E2AA003"]);
-        }
-      });
+    let data: ScheduledAppointment ={};
+    data.StatusToUpdate = "Cancelled";
+    data.AppointmentId = this.PatientAppointment.AppointmentId;
+    data.PatientId = this.PatientAppointment.PatientId;
+    data.ClinicId = this.PatientAppointment.ClinicId;
+
+    this.openComponentDialog(this.completeAppointmentDialogComponent,data,Actions.view)
   }
 
   DiabledAppointmentSave() {
@@ -309,15 +309,41 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
       }
     });
   }
+  updateAppointmentStatus(appointment: ScheduledAppointment) {
+    if (appointment.Status != appointment.StatusToUpdate) {
+      this.smartSchedulerService.UpdateAppointmentStatus(appointment).subscribe(resp => {
+        this.ref.close({ 'refresh': true });
+        if (resp.IsSuccess) {
+          if (resp.IsSuccess && resp.Result != 'Error01') {
+            this.alertMessage.displayMessageDailog(ERROR_CODES["M2JSAT004"]);
+          } else {
+            this.alertMessage.displayErrorDailog(ERROR_CODES["E2JSAT002"]);
+          }
+
+        }
+        else {
+          this.alertMessage.displayErrorDailog(ERROR_CODES["E2JSAT003"]);
+
+        }
+      });
+    }
+  }
   openComponentDialog(content: any | ComponentType<any> | string,
     dialogData, action: Actions = this.ActionTypes.add) {
     let reqdata: any;
     if (action == Actions.view && content === this.messageDialogComponent) {
       reqdata = dialogData;
     }
+    else{
+      reqdata = dialogData;
+    }
     const ref = this.overlayService.open(content, reqdata, true);
     ref.afterClosed$.subscribe(res => {
-
+      if (content == this.completeAppointmentDialogComponent) {
+        if (res.data != null && res.data.confirmed) {
+          this.updateAppointmentStatus(res.data.appointment);
+        }
+      }
     });
   }
 

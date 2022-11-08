@@ -28,6 +28,7 @@ export class NewUser {
   AltEmail?: string;
   PracticeName?: string;
   URL?: string;
+  ProfileImage?: string;
 
   Admin?: boolean;
   EmergencyAccess?: boolean;

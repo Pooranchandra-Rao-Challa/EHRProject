@@ -139,21 +139,11 @@ export class SmartScheduleComponent implements OnInit {
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
     data?: any, action?: Actions, status: string = "") {
 
-    //this.flag = false;
-    //this.patientNameOrCellNumber = "";
-
     let dialogData: any;
-
-    // if (content === this.appointmentDialogComponent && action == Actions.new) {
-    //   dialogData = this.PatientAppointmentInfoFromSearch(data, action);
-    // } else
 
     if (content === this.appointmentDialogComponent && action == Actions.view) {
       dialogData = this.PatientAppointmentInfo(data, action);
     }
-    // else if (content === this.upcomingAppointmentsDialogComponent) {
-    //   dialogData = this.PatientAppointmentInfoFromSearch(data, action);
-    // }
     else if (content === this.encounterDialogComponent) {
       dialogData = data;
     } else if (content === this.completeAppointmentDialogComponent) {

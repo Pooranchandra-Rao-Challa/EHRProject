@@ -160,4 +160,12 @@ export class SettingsService extends APIEndPoint {
   {
     return this._ProcessPostRequest<any>(this._deleteTriggerUrl,reqparams)
   }
+
+  PhotoToBase64String(reqparams: any){
+    return this._ProcessPostRequest<any>(this._photoToBase64String, reqparams);
+  }
+
+  UpdateUploadedPhotoURL(reqparams: any){
+    return this._ProcessPostRequest<any>(this._updateProviderPhotoURL, reqparams);
+  }
 }

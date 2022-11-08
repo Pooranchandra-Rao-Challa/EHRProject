@@ -7,7 +7,7 @@ import { PatientPortalUser } from 'src/app/_models/_account/NewPatient';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import { TransitionCheckState } from '@angular/material/checkbox';
+import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 
 @Component({
   selector: 'patient-health-portal-dialog',
@@ -25,13 +25,13 @@ export class PatientHealthPortalComponent{
   url:string;
   constructor(private dialogRef: EHROverlayRef,
     private plaformLocation: PlatformLocation,
-    private utilityService: UtilityService,){
+    private utilityService: UtilityService,
+    private alterMessage: AlertMessage){
     this.url = plaformLocation.href.replace(plaformLocation.pathname, '/');
     if (plaformLocation.href.indexOf('?') > -1)
       this.url = plaformLocation.href.substring(0, plaformLocation.href.indexOf('?')).replace(plaformLocation.pathname, '/');
     this.patientUser = dialogRef.data //as PatientPortalUser;
     this.patientUser.URL = this.url;
-
   }
   cancel(){
     this.dialogRef.close({refesh:true});
@@ -78,6 +78,7 @@ export class PatientHealthPortalComponent{
       PDF.html(this.iframe.nativeElement.contentDocument.body.innerHtml);
       PDF.save(this.patientUser.PatientId+'.pdf');
       this.refreshView()
+      this.alterMessage.displayMessageDailog(ERROR_CODES["AP001"]);
     });
   }
 

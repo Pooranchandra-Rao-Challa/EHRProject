@@ -77,7 +77,7 @@ export class AttachmentPreviewComponent implements OnInit {
 
   get AcceptedFileTypes(): string {
     if (this.acceptImages && this.acceptPdf && !this.acceptDocs) {
-      return ".jpg,.gif,.jpg,.jpeg,.png,.pdf";
+      return ".jpg,.gif,.jpeg,.png,.pdf";
     } else if (this.acceptImages && !this.acceptPdf && !this.acceptDocs) {
       return ".jpg,.gif,.jpeg,.png";
     } else if (!this.acceptImages && this.acceptPdf && !this.acceptDocs) {

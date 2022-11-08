@@ -43,7 +43,7 @@ export class PatientPortalUser{
   PatientRelationUsername?: string;
   SendInvitation?:boolean;
   URL?:string;
-  PatinetHasNoEmail: boolean;
+  PatientHasNoEmail: boolean;
 }
 
 export class PatientSearch{

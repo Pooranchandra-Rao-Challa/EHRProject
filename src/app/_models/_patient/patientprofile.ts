@@ -80,7 +80,6 @@ export class PatientProfile {
   WorkPhoneSuffix?: string;
   EmergencyPhonePreffix?: string;
   EmergencyPhoneSuffix?: string;
-
 }
 export interface areaCodes {
   areaId?: string;
