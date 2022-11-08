@@ -42,11 +42,8 @@ export class FileUploadInputForDirective {
     this.onFileSelected.emit(files);
     for (var i = 0; i < files.length; i++) {      let fileSize = files[i].size;
       let fileType = /\.([^\.]+)$/.exec(files[i].name);
-
         if(fileType != null && this.IsFileAccepted(size,fileSize,accept,fileType[0]))
           this._queue.add(files[i]);
-
-
     }
     this.element.nativeElement.value = "";
   }

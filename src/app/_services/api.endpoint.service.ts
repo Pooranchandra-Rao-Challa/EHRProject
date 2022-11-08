@@ -890,6 +890,10 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "api/upload/ImagetoBase64String";
   }
 
+  get _photoToBase64String() {
+    return this._baseUrl + "api/upload/PhotoToBase64String";
+  }
+
   get _importDataUrl() {
     return this._baseUrl + "ImportData";
   }
@@ -916,6 +920,24 @@ export class APIEndPoint extends EndpointBase {
   {
     return this._baseUrl + "CCDAReport";
   }
+
+  get _updateProviderPhotoURL()
+  {
+    return this._baseUrl + "UpdateProviderPhoto";
+  }
+
+
+  get _updatePatientPhotoURL()
+  {
+    return this._baseUrl + "UpdatePatientPhoto";
+  }
+
+  get _updateSecurityQuestionURL()
+  {
+    return this._baseUrl + "UpdateSecurityQuestion";
+  }
+
+
   constructor(public http: HttpClient) {
     super();
   }

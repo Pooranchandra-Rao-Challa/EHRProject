@@ -60,14 +60,11 @@
 }
 img {
   max-width: inherit;
-  border: 1px solid #2e877b;
-  background-color: #2e877b;
+  //border: 1px solid #2e877b;
   cursor: pointer !important;
 }
 
-img:hover {
-  opacity: 0.75;
-}
+
 @media (max-width: 766px) {
   .img {
     max-width: 30%;
@@ -287,4 +284,15 @@ input::-webkit-input-placeholder {
 .phone-width {
   width: 85%;
   height: 15%;
+}
+.upload-file {
+  color: #41b6a6;
+  width: 100%;
+  height: 30px;
+  text-align: center;
+  padding: 4px;
+}
+.upload-file:hover {
+  background-color: #41b6a6;
+  color: #fff;
 }

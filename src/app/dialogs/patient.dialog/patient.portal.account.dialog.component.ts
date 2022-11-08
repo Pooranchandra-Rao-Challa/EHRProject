@@ -14,7 +14,7 @@ import { Accountservice } from 'src/app/_services/account.service';
   styleUrls: ['./patient.portal.account.dialog.component.scss'],
 })
 export class PatientPortalAccountComponent {
-  patientUser: PatientPortalUser = { PatinetHasNoEmail: true };
+  patientUser: PatientPortalUser = { PatientHasNoEmail: true };
   emailVerfied?: boolean = null;
   emailVerficationMessage?: string;
   emailPattern = /^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$/;
@@ -45,7 +45,8 @@ export class PatientPortalAccountComponent {
   checkValidEmail(){
     if(!this.emailPattern.test(this.patientUser.Email)){
       this.patientUser.Email = `no_email@${this.patientUser.Username.toLowerCase()}.com`;
-    }
+      this.patientUser.PatientHasNoEmail = true;
+    }else this.patientUser.PatientHasNoEmail = false;
     return true;
   }
 

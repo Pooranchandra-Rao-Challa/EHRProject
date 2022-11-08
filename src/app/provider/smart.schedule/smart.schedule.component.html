@@ -146,7 +146,7 @@
 
                       </div>
                       <div class="col-md-2 col-2 appintment-link" *ngIf="appointment.IsPast"
-                        (click)="openComponentDialog(appointmentDialogComponent,appointment,ActionsType.view)">
+                        (click)="onPatientSelection(appointment)">
                         <div>{{appointment.PatientName}}</div>
                         <div>DOB: {{appointment.DateofBirth | date:'MMM d, y'}}</div>
                         <div> H: {{appointment.PrimaryPhone}}</div>

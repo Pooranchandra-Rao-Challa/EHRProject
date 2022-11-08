@@ -331,5 +331,16 @@ export class PatientService extends APIEndPoint {
   CCDAReport(reqparams: any) {
     return this._ProcessPostRequest<any>(this._cCDAReportUrl, reqparams);
   }
+  UpdatePatientPhoto(reqparams: any){
+    return this._ProcessPostRequest<any>(this._updatePatientPhotoURL, reqparams);
+  }
+
+  PhotoToBase64String(reqparams: any){
+    return this._ProcessPostRequest<any>(this._photoToBase64String, reqparams);
+  }
+
+  UpdateSecurityQuestion(reqparams: any){
+    return this._ProcessPostRequest<any>(this._updateSecurityQuestionURL, reqparams);
+  }
 
 }

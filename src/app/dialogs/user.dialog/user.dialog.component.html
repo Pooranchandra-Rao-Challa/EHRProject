@@ -12,18 +12,21 @@
           <div class="row">
             <div class="col-lg-2 col-md-3 col-12 avatar">
               <div class="border">
-                <div class="attachment-container">
-                  <div class="avatar-hint text-center text-sm-start">
+                <div class="attachment-container" style="height: 180px;
+                border-bottom: 1px solid #41b6a6; display:grid;">
+                  <!-- <div class="avatar-hint text-center text-sm-start" *ngIf=" this.Imagedata == null">
                     <h6 class="text-mute mx-3 my-0 Roboto-medium">File must be:</h6>
                     <h6 class="text-mute my-0 mx-3 my-0 Roboto-medium "> JPG, PNG, GIF</h6>
                     <h6 class="text-mute mx-3 my-0 Roboto-medium">Max Size: 1MB</h6>
                     <h6 class="text-mute mx-3 my-0 Roboto-medium">Min. Res: </h6>
                     <h6 class="text-mute mx-3 my-0 Roboto-medium">300x300 px.</h6>
-                    <label class="btn btn-default upload-file border mx-2 my-2">
-                      Upload File <input type="file" hidden>
-                    </label>
-                  </div>
+                  </div> -->
+                  <img src="assets/images/Photo300x30010mb.png" width="100%" style="padding:10px" *ngIf=" this.Imagedata == null">
+                  <img [src]="Imagedata" width="100%" style="padding:10px" *ngIf=" this.Imagedata != null">
                 </div>
+                <label class="btn btn-default upload-file">
+                  Upload File <input #fileUpload type="file" hidden (change)="onChange($event)" [accept]="fileTypes">
+                </label>
               </div>
             </div>
             <div class="col-lg-10 col-md-9 col-12">

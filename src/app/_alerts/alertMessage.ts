@@ -184,6 +184,10 @@ export class AlertMessage {
  * On any change in the above counter should be initialized.
  */
 export const ERROR_CODES: { [key: string]: string } = {
+
+  // Smart Schedule Patients Message
+  'AP001': 'Patient account infomration downloaded successully',
+
   // Message form Setting screen
   'M2JP001': 'Location updated successfully',
   'M2JP002': 'Location added successfully',

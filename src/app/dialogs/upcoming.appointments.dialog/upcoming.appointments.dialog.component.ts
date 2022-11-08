@@ -8,6 +8,9 @@ import { EHROverlayRef } from '../../ehr-overlay-ref';
 import { NewAppointmentDialogComponent } from '../../dialogs/newappointment.dialog/newappointment.dialog.component';
 import { ComponentType } from '@angular/cdk/portal';
 import { OverlayService } from '../../overlay.service';
+import { CompleteAppointmentDialogComponent } from 'src/app/dialogs/newappointment.dialog/complete.appointment.component';
+
+
 @Component({
   selector: 'app-upcoming.appointments.dialog',
   templateUrl: './upcoming.appointments.dialog.component.html',
@@ -18,6 +21,7 @@ export class UpcomingAppointmentsDialogComponent implements OnInit {
   appointmentId: string;
   data: AppointmentDialogInfo
   newAppointmentDialogComponent = NewAppointmentDialogComponent;
+  completeAppointmentDialogComponent = CompleteAppointmentDialogComponent;
   appointmentDialogResponse: any;
   dialogIsLoading: boolean = true;
   constructor(
@@ -72,11 +76,22 @@ export class UpcomingAppointmentsDialogComponent implements OnInit {
       this.data.status = Actions.new;
       this.data.Title = "Add New Appointment";
     }
-    this.openComponentDialog(content);
+    this.openComponentDialog(content,this.data);
   }
 
-  openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string ) {
-    const ref = this.overlayService.open(content,this.data );
+  cancelAppointment(patientapp: ScheduledAppointment) {
+    let data: ScheduledAppointment ={};
+    data.StatusToUpdate = "Cancelled";
+    data.AppointmentId = patientapp.AppointmentId;
+    data.PatientId = patientapp.PatientId;
+    data.ClinicId = patientapp.ClinicId;
+
+    this.openComponentDialog(this.completeAppointmentDialogComponent,data,Actions.view)
+  }
+
+  openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string, dialogData, action: Actions = Actions.add ) {
+
+    const ref = this.overlayService.open(content,dialogData );
     ref.afterClosed$.subscribe(res => {
        if (content === this.newAppointmentDialogComponent) {
         if(res.data && res.data.saved){
@@ -87,6 +102,11 @@ export class UpcomingAppointmentsDialogComponent implements OnInit {
           this.ref.close({'closed':true});
         }
       }
+      else if (content == this.completeAppointmentDialogComponent) {
+        if (res.data != null && res.data.confirmed) {
+          this.updateAppointmentStatus(res.data.appointment);
+        }
+      }
     });
   }
 
@@ -95,19 +115,15 @@ export class UpcomingAppointmentsDialogComponent implements OnInit {
     if (patientapp.Status != patientapp.StatusToUpdate) {
       this.smartSchedulerService.UpdateAppointmentStatus(patientapp).subscribe(resp => {
         if (resp.IsSuccess) {
-          // this.filterAppointments();
+          this.dialogIsLoading = true;
+          this.PatientAppointments(this.data.PatientAppointment.PatientId);
           this.alertMessage.displayMessageDailog(ERROR_CODES["M2JSAT005"]);
-          // if (resp.IsSuccess && resp.Result != 'Error01') {
-          //   this.alertMessage.displayMessageDailog(ERROR_CODES["M2JSAT005"]);
-          // } else {
-          //   this.alertMessage.displayErrorDailog(ERROR_CODES["E2JSAT002"]);
-          // }
         }
         else {
           this.alertMessage.displayErrorDailog(ERROR_CODES["E2JSAT004"]);
         }
       });
     }
-    this.ref.close(null);
+
   }
 }
