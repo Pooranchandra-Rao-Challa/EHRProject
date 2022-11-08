@@ -219,7 +219,8 @@ export class AuthenticationService {
           this.router.navigate(['/account/security-question']);
         }
         else if (this.isPatient || this.isRepresentative)
-          this.router.navigate(['patient/dashboard']);
+          // this.router.navigate(['patient/dashboard']);
+          this.router.navigate(['/account/security-question']);
         else {
           this.logout(ERROR_CODES["EL001"]);
         }
