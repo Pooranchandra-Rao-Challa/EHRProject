@@ -7,6 +7,7 @@ import { Accountservice } from 'src/app/_services/account.service';
 import { PracticeLocation } from 'src/app/_models/';
 import { AlertMessage, ERROR_CODES } from './../../_alerts/alertMessage';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
+import { ProviderLocationUpdateNotifier } from 'src/app/_navigations/provider.layout/view.notification.service';
 
 @Component({
   selector: 'app-location-dialog',
@@ -32,7 +33,8 @@ export class LocationDialogComponent implements OnInit {
     private authService: AuthenticationService,
     private settingsService: SettingsService,
     private accountservice: Accountservice,
-    private alertmsg: AlertMessage) {
+    private alertmsg: AlertMessage,
+    private UpdateLocations: ProviderLocationUpdateNotifier) {
     this.data = ref.RequestData as LocationDialog
 
 
@@ -115,6 +117,7 @@ export class LocationDialogComponent implements OnInit {
         this.addressVerfied = false;
         this.manuallybtn = false;
         this.PracticeLocData = new PracticeLocation;
+        this.UpdateLocations.sendData(true);
         this.ref.close({ saved: true })
         this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2JP002" : "M2JP001"])
       }
@@ -208,6 +211,7 @@ export class LocationDialogComponent implements OnInit {
     this.settingsService.DeleteLocation({ LocationId: this.PracticeLocData.LocationId }).subscribe(resp => {
       if (resp.IsSuccess) {
         this.ref.close({ deleted: true })
+        this.UpdateLocations.sendData(true);
         this.alertmsg.displayErrorDailog(ERROR_CODES["M2JP003"])
       }
       else {
@@ -215,6 +219,4 @@ export class LocationDialogComponent implements OnInit {
       }
     });
   }
-
-
 }

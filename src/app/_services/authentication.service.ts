@@ -274,6 +274,11 @@ export class AuthenticationService {
     return timediff > 0;
   }
 
+
+  UpdateUser(user: User){
+    localStorage.setItem('user', JSON.stringify(user));
+
+  }
   get isProvider(): boolean {
     if (this.userValue == undefined || this.userValue == null) return false;
     return this.userValue.Role.toLowerCase() == "provider"

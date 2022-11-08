@@ -55,7 +55,7 @@ export class AddUserDialogComponent implements OnInit {
     private accountservice: Accountservice,
     private plaformLocation: PlatformLocation,
     private idService: IdService) {
-      this.updateLocalModel(ref.RequestData);
+    this.updateLocalModel(ref.RequestData);
     this.url = plaformLocation.href.replace(plaformLocation.pathname, '/');
     if (plaformLocation.href.indexOf('?') > -1)
       this.url = plaformLocation.href.substring(0, plaformLocation.href.indexOf('?')).replace(plaformLocation.pathname, '/');
@@ -285,17 +285,17 @@ export class AddUserDialogComponent implements OnInit {
 
     return !(this.newUser.Title
       && this.newUser.FirstName
-        && this.newUser.LastName
-          && this.newUser.Degree
-            && this.newUser.Speciality
-              && this.newUser.NPI
-                && this.newUser.Address
-                  && this.newUser.ClinicId
-                  && (this.phonePattern.test(pNo))
-                  && ((!this.newUser.MobilePhonePreffix && !this.newUser.MobilePhoneSuffix) || (this.phonePattern.test(mNo)))
-                  && (this.emailPattern.test(this.newUser.Email))
-                  && (this.newUser.AltEmail == null || this.newUser.AltEmail == '' || (this.emailPattern.test(this.newUser.AltEmail)))
-                  && flag && npireg.test(this.newUser.NPI))
+      && this.newUser.LastName
+      && this.newUser.Degree
+      && this.newUser.Speciality
+      && this.newUser.NPI
+      && this.newUser.Address
+      && this.newUser.ClinicId
+      && (this.phonePattern.test(pNo))
+      && ((!this.newUser.MobilePhonePreffix && !this.newUser.MobilePhoneSuffix) || (this.phonePattern.test(mNo)))
+      && (this.emailPattern.test(this.newUser.Email))
+      && (this.newUser.AltEmail == null || this.newUser.AltEmail == '' || (this.emailPattern.test(this.newUser.AltEmail)))
+      && flag && npireg.test(this.newUser.NPI))
   }
 
   // disableProviderRegistration() {

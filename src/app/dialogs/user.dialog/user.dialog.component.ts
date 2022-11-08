@@ -1,6 +1,6 @@
 import { Attachment } from './../../_models/_provider/LabandImage';
 import { FileUploadService } from 'src/app/_services/file.upload.service';
-import { NotifyProviderHeaderService, ProviderHeader } from './../../_navigations/provider.layout/view.notification.service';
+import { NotifyProviderHeaderService, ProviderHeader, ProviderLocationUpdateNotifier } from './../../_navigations/provider.layout/view.notification.service';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import {
   Component, OnInit, HostListener, TemplateRef, ViewChild, ElementRef,
@@ -69,7 +69,8 @@ export class UserDialogComponent implements OnInit {
     public overlayService: OverlayService,
     private authService: AuthenticationService,
     private notifyProviderHeader: NotifyProviderHeaderService,
-    private alertmsg: AlertMessage) {
+    private alertmsg: AlertMessage,
+    private UpdateLocations: ProviderLocationUpdateNotifier) {
     this.user = authService.userValue;
     this.userQuery = {
       UserId: (ref.RequestData as NewUser).UserId,
@@ -135,7 +136,6 @@ export class UserDialogComponent implements OnInit {
       if (resp.IsSuccess) {
         this.EditProvider = resp.Result as NewUser;
         this.EditProvider.LocationInfo = JSON.parse(resp.Result.LocationInfo);
-        // if(this.EditProvider.LocationInfo.)
         this.updateTimeSlotString();
         this.updatePhoto();
       }
@@ -189,6 +189,7 @@ export class UserDialogComponent implements OnInit {
           this.notifyProviderHeader.sendData(provider);
           this.authService.updateProviderHeader(provider);
         }
+        this.UpdateLocations.sendData(true);
         this.ref.close({ 'saved': 'true' });
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2JP005"]);
       }
@@ -285,7 +286,7 @@ export class UserDialogComponent implements OnInit {
           let uploadInfo = event.body as Attachment;
           this.EditProvider.ProfileImage = uploadInfo.FullFileName;
           if(this.EditProvider.ProviderId != null && this.EditProvider.ProviderId != ""){
-            this.settingsService.UpdateUploadedPhotoURL(this.EditProvider).subscribe(resp =>{
+            this.settingsService.UpdateUploadedPhoto(this.EditProvider).subscribe(resp =>{
               if(resp.IsSuccess){
                 this.updatePhoto();
               }

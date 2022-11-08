@@ -165,7 +165,11 @@ export class SettingsService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._photoToBase64String, reqparams);
   }
 
-  UpdateUploadedPhotoURL(reqparams: any){
+  UpdateUploadedPhoto(reqparams: any){
     return this._ProcessPostRequest<any>(this._updateProviderPhotoURL, reqparams);
+  }
+
+  ProviderPracticeLocations(reqparams: any){
+    return this._ProcessPostRequest<any>(this._providerPracticeLocationsURL, reqparams);
   }
 }
