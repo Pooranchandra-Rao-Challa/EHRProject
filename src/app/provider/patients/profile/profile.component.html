@@ -642,6 +642,7 @@
                     </mat-option>
                     <mat-option *ngIf="isLoading">Loading ...</mat-option>
                     <mat-option *ngFor="let option of filterPatientOptions | async" [value]="option"
+                      [disabled]="option.Name == currentPatient.FirstName + ' ' + currentPatient.LastName ? 'disabled' : null"
                       class="patient-serach-option">
                       {{option.Name}}
                     </mat-option>
@@ -664,16 +665,16 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let item of patientRelationListSubject">
-                        <td>{{item?.FirstName}}</td>
-                        <td>{{item.UserName}}</td>
-                        <td>{{item.RelationShip}}</td>
-                        <td *ngIf="item.RelationShip !='' "><button class="btn btn-access allow-access" type="button"
+                      <tr *ngFor="let item of patientRelationListSubject | async">
+                        <td>{{item?.RelationFirstName + ' ' + item?.RelationLastName}}</td>
+                        <td>{{item?.RelationUserName}}</td>
+                        <td>{{item?.RelationShip}}</td>
+                        <td *ngIf="!item.HasAccess"><button class="btn btn-access allow-access" type="button"
                             data-bs-toggle="modal" data-bs-target="#RelationtoPatientModal"
                             (click)="allowAccess(item)">Allow Access</button></td>
-                        <td *ngIf="item.RelationShip =='' ">
+                        <td *ngIf="item.HasAccess">
                           <button class="btn btn-access remove-access" type="button"
-                            (click)="removeAccessed(item.PatientId)">Remove Access</button>
+                            (click)="removeAccessed(item)">Remove Access</button>
                         </td>
                         <td></td>
                       </tr>
