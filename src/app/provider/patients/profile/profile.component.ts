@@ -22,6 +22,19 @@ import { OverlayService } from 'src/app/overlay.service';
 import { DatePipe } from '@angular/common';
 import { DentalChartComponent } from '../dental.chart/dental.chart.component';
 
+export class PatientRelationShip {
+  RelationPatientId?: string;
+  ProviderId?: string;
+  RelationFirstName?: string;
+  RelationMiddleName?: string;
+  RelationLastName?: string;
+  RelationUserId?: string;
+  RelationUserName?: string;
+  RelationShip?: string;
+  PatientId?: string;
+  HasAccess?: boolean;
+}
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -41,8 +54,6 @@ export class ProfileComponent implements OnInit {
   patientsList: ProviderPatient[];
   GetFilterList: any;
   SearchKey = "";
-  allowaccess: boolean;
-  removeAccess: boolean = true;
   deleteSearch: boolean;
   relationship: any = [
     { Id: '1', value: 'Parent-Mother' },
@@ -65,8 +76,8 @@ export class ProfileComponent implements OnInit {
   primaryLanguages: any = [];
   secondaryLanguage: any = [];
   languageList: any = [];
-  patientRelationList: any = [];
-  patientRelationListSubject = new BehaviorSubject<any[]>([]);
+  patientRelationList: PatientRelationShip[] = [];
+  patientRelationListSubject = new BehaviorSubject<PatientRelationShip[]>([]);
   hoverDATEOFBIRTH: string = 'MM/DD/YYYY';
   hoverDATEOFDEATH: string = 'MM/DD/YYYY';
   addressVerfied: boolean = false;
@@ -87,6 +98,8 @@ export class ProfileComponent implements OnInit {
   isLoading: boolean = false;
   currentPatient: ProviderPatient;
   selectedPatient: ProviderPatient;
+  selectedPatientRelation: PatientRelationShip;
+  patientRelationShip: PatientRelationShip;
 
   constructor(private patientService: PatientService,
     private utilityService: UtilityService,
@@ -139,7 +152,7 @@ export class ProfileComponent implements OnInit {
     this.getPatientMyProfile();
     this.getProviderList();
     this.getlanguagesInfo();
-    this.getPatientsRelationByProvider();
+    this.getPatientRelations();
     this.getCareTeamByPatientId(this.currentPatient.PatientId);
   }
 
@@ -167,8 +180,9 @@ export class ProfileComponent implements OnInit {
 
   onPatientSelected(selected) {
     let reqParams: any = {
-      'FirstName': selected.option.value.FirstName,
-      'UserName': selected.option.value.RelationShip,
+      'RelationFirstName': selected.option.value.FirstName,
+      'RelationLastName': selected.option.value.LastName,
+      'RelationShip': selected.option.value.RelationShip,
       'PatientId': selected.option.value.PatientId
     }
     this.patientRelationList.push(reqParams);
@@ -276,51 +290,56 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  getPatientsRelationByProvider() {
+  getPatientRelations() {
     let reqparam = {
-      "ProviderId": this.user.ProviderId
+      "PatientId": this.selectedPatient.PatientId
     }
-    this.patientService.PatientsRelationByProviderId(reqparam).subscribe(resp => {
+    this.patientService.PatientRelations(reqparam).subscribe(resp => {
       if (resp.IsSuccess) {
         this.patientRelationList = resp.ListResult;
-        this.patientRelationListSubject = this.patientRelationList;
+        this.patientRelationListSubject.next(this.patientRelationList);
         this.GetFilterList = resp.ListResult;
       }
     })
   }
 
   // search patient details
-  SearchDetails() {
-    this.patientRelationList = this.GetFilterList.filter((invoice) => this.isMatch(invoice));
-    this.allowaccess = true;
-    this.deleteSearch = true;
-  }
+  // SearchDetails() {
+  //   this.patientRelationList = this.GetFilterList.filter((invoice) => this.isMatch(invoice));
+  //   this.deleteSearch = true;
+  // }
 
-  isMatch(item) {
-    if (item instanceof Object) {
-      return Object.keys(item).some((k) => this.isMatch(item[k]));
-    } else {
-      return item == null ? '' : item.toString().indexOf(this.SearchKey) > -1
-    }
-  }
+  // isMatch(item) {
+  //   if (item instanceof Object) {
+  //     return Object.keys(item).some((k) => this.isMatch(item[k]));
+  //   } else {
+  //     return item == null ? '' : item.toString().indexOf(this.SearchKey) > -1
+  //   }
+  // }
 
   savePatientRelation() {
     let reqParams = {
       "PatientId": this.selectedPatient.PatientId,
+      "PatientRelationShipId": this.selectedPatientRelation.PatientId,
       "RelationShip": this.selectedPatient.RelationShip
     }
-    this.patientService.CreatePatientsRelationShip(reqParams).subscribe(resp => {
+    this.patientService.AssignPatientRelationShip(reqParams).subscribe(resp => {
       if (resp.IsSuccess) {
-        this.getPatientsRelationByProvider();
+        this.getPatientRelations();
       }
     });
-    this.allowaccess = false;
-    this.removeAccess = false;
   }
 
-  removeAccessed(item) {
-    this.allowaccess = true;
-    this.removeAccess = true;
+  removeAccessed(item: PatientRelationShip) {
+    let reqParams = {
+      "PatientId": item.PatientId,
+      "PatientRelationShipId": item.RelationPatientId,
+    }
+    this.patientService.RemovePatientRelationShipAccess(reqParams).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.getPatientRelations();
+      }
+    });
   }
 
   removeSearch() {
@@ -519,8 +538,8 @@ export class ProfileComponent implements OnInit {
   }
 
 
-  allowAccess(item: ProviderPatient) {
-    this.selectedPatient = item;
+  allowAccess(item: PatientRelationShip) {
+    this.selectedPatientRelation = item;
   }
 
   namePattern = /^[a-zA-Z ]*$/;

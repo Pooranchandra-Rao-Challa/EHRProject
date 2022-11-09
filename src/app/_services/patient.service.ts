@@ -71,8 +71,12 @@ export class PatientService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._careTeamUrl, reqparams);
   }
 
-  PatientsRelationByProviderId(reqparam: any) {
-    return this._ProcessPostRequest<any>(this._patientsRelationByProviderIdUrl, reqparam);
+  PatientRelations(reqparam: any) {
+    return this._ProcessPostRequest<any>(this._patientRelationsUrl, reqparam);
+  }
+
+  RemovePatientRelationShipAccess(reqparam: any) {
+    return this._ProcessPostRequest<any>(this._removePatientRelationShipAccessURL, reqparam);
   }
 
   PatientProviders(reqparams: any) {
@@ -90,8 +94,8 @@ export class PatientService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._careTeamByPatientIdUrl, reqparams);
   }
 
-  CreatePatientsRelationShip(reqparams: any) {
-    return this._ProcessPostRequest<any>(this._createPatientsRelationShipUrl, reqparams);
+  AssignPatientRelationShip(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._assignPatientRelationShipUrl, reqparams);
   }
 
   LabTestResultByPatientId(reqparams: any) {

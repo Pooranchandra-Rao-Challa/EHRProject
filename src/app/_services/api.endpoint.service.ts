@@ -420,8 +420,8 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "LanguagesInfo";
   }
 
-  get _patientsRelationByProviderIdUrl() {
-    return this._baseUrl + "PatientsRelationByProviderId";
+  get _patientRelationsUrl() {
+    return this._baseUrl + "PatientRelations";
   }
   get _labTestResultByPatientIdUrl() {
     return this._baseUrl + "LabTestResultByPatientId";
@@ -882,8 +882,8 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "CheckEmailAvailablity";
   }
 
-  get _createPatientsRelationShipUrl() {
-    return this._baseUrl + "CreatePatientsRelationShip";
+  get _assignPatientRelationShipUrl() {
+    return this._baseUrl + "AssignPatientRelationShip";
   }
 
   get _imagetoBase64StringUrl() {
@@ -944,6 +944,11 @@ export class APIEndPoint extends EndpointBase {
   get _firstTimeResetPasswordURL()
   {
     return this._baseUrl + "FirstTimeResetPassword";
+  }
+
+  get _removePatientRelationShipAccessURL()
+  {
+    return this._baseUrl + "RemovePatientRelationShipAccess";
   }
 
 
