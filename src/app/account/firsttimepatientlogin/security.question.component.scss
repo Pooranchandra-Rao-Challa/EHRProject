@@ -1,5 +1,5 @@
-@import"../../assets/common.scss";
-@import"../../assets/cstm.material.scss";
+@import"../../../assets/common.scss";
+@import"../../../assets/cstm.material.scss";
 
 .security-question-wrapper {
   min-height: 100%;
@@ -7,7 +7,7 @@
   color: #4a4a4a;
   background-repeat: no-repeat;
   background-size: auto;
-  background: url(../../assets/images/pro-reg-bg.png);
+  background: url(../../../assets/images/pro-reg-bg.png);
 
   .ehr-img-top {
     position: relative;
@@ -29,7 +29,7 @@
   .logo-rectangle {
     width: 277.2px;
     margin: 0 auto;
-    background-image: url(../../assets/images/logo-rectangle.svg);
+    background-image: url(../../../assets/images/logo-rectangle.svg);
     background-repeat: no-repeat;
   }
 
@@ -70,4 +70,5 @@
   ::ng-deep .mat-checkbox-layout {
     white-space: break-spaces;
   }
+
 }

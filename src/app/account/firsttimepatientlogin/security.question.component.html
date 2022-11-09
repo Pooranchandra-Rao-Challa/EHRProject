@@ -29,7 +29,7 @@
       <div class="row">
           <b class="col-xl-2 col-md-3 col-12 required mt-3">QUESTION</b>
         <mat-form-field class="col-xl-10 col-md-9 col-12" appearance="outline">
-          <mat-select disableOptionCentering placeholder="Select one question">
+          <mat-select disableOptionCentering placeholder="Select one question" [(ngModel)]="firstTimeSecurityQuestion.Question">
             <mat-option *ngFor="let question of securityQuestions" [value]="question.key">
               {{question.value}}
             </mat-option>
@@ -39,23 +39,23 @@
       <div class="row">
         <b class="col-xl-2 col-md-3 col-12 required mt-3">ANSWER</b>
         <mat-form-field class="col-xl-10 col-md-9 col-12" appearance="outline">
-          <input matInput />
+          <input matInput [(ngModel)]="firstTimeSecurityQuestion.Answer" />
         </mat-form-field>
       </div>
       <div class="row">
         <b class="col-xl-2 col-md-3 col-12">IMPORTANT</b>
         <div class="row col-xl-10 col-md-9 col-12">
-          <mat-checkbox class="example-margin" [checked]="true">
+          <mat-checkbox class="example-margin" [(ngModel)]="firstTimeSecurityQuestion.IsAccepted">
             <span>I understand my access to patients portal will be locked if I am unable to answer this question</span>
           </mat-checkbox>
-          <mat-checkbox class="example-margin mt-4">
+          <mat-checkbox class="example-margin mt-4" [(ngModel)]="firstTimeSecurityQuestion.RememberComputer">
             <span>Remember this computer</span>
           </mat-checkbox>
         </div>
       </div>
       <div class="mt-4">
         <b class="btn-text pull-right mx-3 mt-2" (click)="logout()">Cancel and Sign out</b>
-        <button class="btn btn-green pull-right">Create</button>
+        <button class="btn btn-green pull-right" [disabled]="disableSecurityQuestion()" (click)="UpdateSecurityQuestion()">Create</button>
       </div>
     </div>
   </div>
