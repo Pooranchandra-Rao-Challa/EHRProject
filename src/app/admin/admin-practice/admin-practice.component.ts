@@ -1,5 +1,4 @@
 import { Component, OnInit,TemplateRef } from '@angular/core';
-import { AnyTxtRecord } from 'dns';
 import { ProviderList } from 'src/app/_models/_admin/providerList';
 import { AdminService } from 'src/app/_services/admin.service';
 import { ComponentType } from '@angular/cdk/portal';

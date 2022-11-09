@@ -936,6 +936,10 @@ export class APIEndPoint extends EndpointBase {
   {
     return this._baseUrl + "UpdateSecurityQuestion";
   }
+  get _providerPracticeLocationsURL()
+  {
+    return this._baseUrl + "ProviderPracticeLocations";
+  }
 
   get _firstTimeResetPasswordURL()
   {

@@ -45,6 +45,7 @@ export class DashboardComponent implements OnInit {
   message: string;
   ActionTypes = Actions;
   search?: string;
+  userIP:string;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
@@ -65,6 +66,7 @@ export class DashboardComponent implements OnInit {
         && (x.Paid == value.Paid || value.Paid == null)
       );
     })
+    this.UserIP();
   }
 
   StageChange(event) {
@@ -242,12 +244,15 @@ export class DashboardComponent implements OnInit {
     this.adminservice.SwitchUserKey(provider).subscribe(resp => {
       if (resp.IsSuccess) {
         let encKey = resp.Result;
-        this.authService.SwitchUser({ SwitchUserKey: switchKey, SwitchUserEncKey: encKey }).subscribe(logresp => {
+        this.authService.SwitchUser({ SwitchUserKey: switchKey, SwitchUserEncKey: encKey,UserIP:this.userIP }).subscribe(logresp => {
           if (!logresp.IsSuccess) {
           }
         })
       } else {
       }
     })
+  }
+  private UserIP(){
+    this.authService.UserIp().subscribe((resp:any)=>{this.userIP = resp.ip})
   }
 }

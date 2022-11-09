@@ -1,7 +1,6 @@
 import { AdminService } from './../../_services/admin.service';
-import { NotifyProviderHeaderService } from './../provider.layout/view.notification.service';
+import { NotifyProviderHeaderService, ProviderLocationUpdateNotifier } from './../provider.layout/view.notification.service';
 import { NotifyMessageService } from 'src/app/_navigations/provider.layout/view.notification.service';
-import { LoaderService } from './../../_loader/loader.service';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { Component, OnInit, Output, EventEmitter, TemplateRef } from '@angular/core';
 import { AuthenticationService } from '../../_services/authentication.service';
@@ -12,6 +11,7 @@ import { OverlayService } from 'src/app/overlay.service';
 import { SettingsService } from 'src/app/_services/settings.service';
 import { UserDialogComponent } from 'src/app/dialogs/user.dialog/user.dialog.component';
 import { LockedComponent } from 'src/app/dialogs/locked/locked.component';
+import { _RecycleViewRepeaterStrategy } from '@angular/cdk/collections';
 @Component({
   selector: 'provider-app-navbar',
   templateUrl: './provider.navbar.component.html',
@@ -42,7 +42,7 @@ export class ProviderNavbarComponent implements OnInit {
     private notifyMessage: NotifyMessageService,
     private notifyProviderHeader: NotifyProviderHeaderService,
     private adminservice: AdminService,
-    public loaderService: LoaderService) {
+    private uplodateLocations: ProviderLocationUpdateNotifier) {
     // config.placement = 'bottom-right';
     this.user = authenticationService.userValue;
     this.unreadMails = this.user.UnReadMails;
@@ -68,6 +68,20 @@ export class ProviderNavbarComponent implements OnInit {
       this.user.FirstName = value.FirstName;
       this.user.LastName = value.LastName;
     });
+    this.uplodateLocations.getData().subscribe(value =>{
+      if(value){
+        var reqparams = {
+          ProviderId: this.user.ProviderId,
+        }
+        this.settingsService.ProviderPracticeLocations(reqparams).subscribe(resp => {
+          if(resp.IsSuccess){
+            this.locationsInfo = resp.ListResult as UserLocations[];
+            this.user.LocationInfo = JSON.stringify(this.locationsInfo)
+            this.authenticationService.UpdateUser(this.user);
+          }
+        });
+      }
+    })
   }
 
   changeLocation(locationId) {

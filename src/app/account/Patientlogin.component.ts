@@ -23,21 +23,22 @@ export class PatientLoginComponent implements OnInit {
   isdefaultEdit: boolean = false;
   isdefault: boolean = true;
   showPassword: boolean = false;
+  userIP: string;
   SQDialog = PatientPasswordChangeRequestDialogComponent;
-  url:string;
+  url: string;
   constructor(private fb: FormBuilder,
     private plaformLocation: PlatformLocation,
     private authenticationService: AuthenticationService,
     private accountservice: Accountservice,
     private dialog: MatDialog,) {
-   this.url = plaformLocation.href.replace(plaformLocation.pathname, '/');
-   if (plaformLocation.href.indexOf('?') > -1)
-     this.url = plaformLocation.href.substring(0, plaformLocation.href.indexOf('?')).replace(plaformLocation.pathname, '/');
+    this.url = plaformLocation.href.replace(plaformLocation.pathname, '/');
+    if (plaformLocation.href.indexOf('?') > -1)
+      this.url = plaformLocation.href.substring(0, plaformLocation.href.indexOf('?')).replace(plaformLocation.pathname, '/');
   }
 
   ngOnInit() {
     this.buildForm();
-
+    this.UserIP();
   }
 
   buildForm() {
@@ -58,6 +59,7 @@ export class PatientLoginComponent implements OnInit {
     var creds = {
       "EmailId": data.EmailId,
       "Password": data.Password,
+      "UserIP": this.userIP
     };
 
     this.authenticationService.patientLoginWithFormCredentials(creds).subscribe(resp => {
@@ -156,7 +158,7 @@ export class PatientLoginComponent implements OnInit {
 
     });
     if (email) {
-      this.accountservice.RaisePasswordChangeRequest({Email:email,URL:this.url}).subscribe((resp)=>{
+      this.accountservice.RaisePasswordChangeRequest({ Email: email, URL: this.url }).subscribe((resp) => {
         this.openErrorDialog(resp.EndUserMessage);
       })
     }
@@ -192,7 +194,7 @@ export class PatientLoginComponent implements OnInit {
     }
   }
 
-  openErrorDialog( message:string) {
+  openErrorDialog(message: string) {
     Swal.fire({
       title: message,
       padding: '1px !important',
@@ -205,6 +207,10 @@ export class PatientLoginComponent implements OnInit {
       backdrop: true,
       showConfirmButton: false,
     });
+  }
+
+  private UserIP() {
+    this.authenticationService.UserIp().subscribe((resp: any) => { this.userIP = resp.ip })
   }
 }
 

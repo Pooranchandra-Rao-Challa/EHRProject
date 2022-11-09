@@ -1,4 +1,3 @@
-import { ProviderList } from './../_models/_admin/providerList';
 import { MessageCounts, ProviderHeader } from './../_navigations/provider.layout/view.notification.service';
 import { SecureCreds } from './../_models/_account/user';
 import { Injectable } from '@angular/core';
@@ -18,6 +17,7 @@ export class AuthenticationService {
 
 
   baseUrl: string = environment.baseUrl;
+  private userIP:string;
   private userSubject: BehaviorSubject<User>;
   public user: Observable<User>;
   public resp: Observable<ResponseData>;
@@ -132,7 +132,7 @@ export class AuthenticationService {
 
 
 
-  SwitchUser(data: { SwitchUserKey: string, SwitchUserEncKey: string }) {
+  SwitchUser(data: { SwitchUserKey: string, SwitchUserEncKey: string, UserIP: string }) {
     if (this.isAdmin) {
       const endpointUrl = this.baseUrl + "SwitchUser/";
       let observable = this.http.post<ResponseData>(endpointUrl, data).pipe<ResponseData>(
@@ -170,7 +170,7 @@ export class AuthenticationService {
     }
   }
 
-  SwitchToPatientUser(data: { SwitchUserKey: string, SwitchUserEncKey: string }) {
+  SwitchToPatientUser(data: { SwitchUserKey: string, SwitchUserEncKey: string, UserIP: string}) {
     if (this.isAdmin) {
       const endpointUrl = this.baseUrl + "SwitchToPatientUser/";
       let observable = this.http.post<ResponseData>(endpointUrl, data).pipe<ResponseData>(
@@ -217,8 +217,7 @@ export class AuthenticationService {
           this.router.navigate(['/account/reset-password']);
         }
         else if (this.isPatient || this.isRepresentative)
-          // this.router.navigate(['patient/dashboard']);
-          this.router.navigate(['/account/reset-password']);
+          this.router.navigate(['patient/dashboard']);
         else {
           this.logout(ERROR_CODES["EL001"]);
         }
@@ -273,6 +272,11 @@ export class AuthenticationService {
     return timediff > 0;
   }
 
+
+  UpdateUser(user: User){
+    localStorage.setItem('user', JSON.stringify(user));
+
+  }
   get isProvider(): boolean {
     if (this.userValue == undefined || this.userValue == null) return false;
     return this.userValue.Role.toLowerCase() == "provider"
@@ -360,6 +364,10 @@ export class AuthenticationService {
   private updateViewModel() {
     let viewModel: ViewModel = new ViewModel;
     localStorage.setItem('viewModel', JSON.stringify(viewModel));
+  }
+
+  public UserIp(): Observable<any>{
+    return this.http.get('https://jsonip.com/')
   }
 
 }
