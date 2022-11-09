@@ -2,7 +2,7 @@ export class ProviderList {
 
     UserId?: string;
     ProviderId?: string;
-    ClientId?: string;
+    ClinicId?: string;
     ProviderName?: string;
     Degree?: string;
     Email?: string;

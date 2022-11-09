@@ -17,8 +17,9 @@ export class AmendmentsComponent implements OnInit {
   amendmentlist: any = [];
   AmendmentStatusesDD: any = [];
   AmendmentSourcesDD: any = [];
+  //EntityName: string = "Amendment"
 
-  constructor(private patientservice: PatientService, private authService: AuthenticationService, 
+  constructor(private patientservice: PatientService, private authService: AuthenticationService,
     private alertmsg: AlertMessage, private ulilityservice: UtilityService, private datePipe:DatePipe) {
     this.amendment = [] as Amendments
   }
@@ -60,7 +61,7 @@ export class AmendmentsComponent implements OnInit {
     this.amendment.DateofRequest = this.datePipe.transform(this.amendment.DateofRequest,"yyyy-MM-dd");
     this.amendment.DateofAccept = this.datePipe.transform(this.amendment.DateofAccept,"yyyy-MM-dd");
     this.amendment.DateofAppended = this.datePipe.transform(this.amendment.DateofAppended,"yyyy-MM-dd");
-   
+
     this.patientservice.CreateupdateAmendment(this.amendment).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.getAmendment();
@@ -75,10 +76,10 @@ export class AmendmentsComponent implements OnInit {
 
   }
   resetDialog() {
-    
+
     this.amendment = new Amendments();
     this.getAmendment();
-    
+
   }
   basedonid(item) {
     this.amendment = item;
@@ -96,7 +97,7 @@ export class AmendmentsComponent implements OnInit {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2A001"]);
       }
     });
-   
+
   }
   getAmendmentStatuses() {
     this.ulilityservice.AmendmentStatuses().subscribe((res) => {
@@ -115,6 +116,6 @@ export class AmendmentsComponent implements OnInit {
     return !(this.amendment.DateofRequest != null
       && this.amendment.Source != null && this.amendment.Source != ""
       && this.amendment.Status != null && this.amendment.Status != "")
-      
+
   }
 }

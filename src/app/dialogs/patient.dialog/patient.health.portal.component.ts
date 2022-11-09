@@ -112,3 +112,91 @@ export class PatientHealthPortalComponent{
     });
   }
 }
+
+/*CreateUpdateInsuranceDetails*/
+/**getDocumentDefinition() {
+    sessionStorage.setItem('resume', JSON.stringify(this.resume));
+    return {
+      content: [
+        {
+          text: 'RESUME',
+          bold: true,
+          fontSize: 20,
+          alignment: 'center',
+          margin: [0, 0, 0, 20]
+        },
+        {
+          columns: [
+            [{
+              text: this.resume.name,
+              style: 'name'
+            },
+            {
+              text: this.resume.address
+            },
+            {
+              text: 'Email : ' + this.resume.email,
+            },
+            {
+              text: 'Contant No : ' + this.resume.contactNo,
+            }
+            ]
+          ]
+        },
+        {
+          text: 'Skills',
+          style: 'header'
+        },
+        {
+          columns : [
+            {
+              ul : [
+                ...this.resume.skills.filter((value, index) => index % 3 === 0).map(s => s.value)
+              ]
+            },
+            {
+              ul : [
+                ...this.resume.skills.filter((value, index) => index % 3 === 1).map(s => s.value)
+              ]
+            },
+            {
+              ul : [
+                ...this.resume.skills.filter((value, index) => index % 3 === 2).map(s => s.value)
+              ]
+            }
+          ]
+        }
+      ],
+      info: {
+        title: this.resume.name + '_RESUME',
+        author: this.resume.name,
+        subject: 'RESUME',
+        keywords: 'RESUME, ONLINE RESUME',
+      },
+        styles: {
+          header: {
+            fontSize: 18,
+            bold: true,
+            margin: [0, 20, 0, 10],
+            decoration: 'underline'
+          },
+          name: {
+            fontSize: 16,
+            bold: true
+          },
+          jobTitle: {
+            fontSize: 14,
+            bold: true,
+            italics: true
+          },
+          sign: {
+            margin: [0, 50, 0, 10],
+            alignment: 'right',
+            italics: true
+          },
+          tableHeader: {
+            bold: true,
+          }
+        }
+    };
+  } */

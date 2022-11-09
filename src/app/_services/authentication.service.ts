@@ -1,4 +1,3 @@
-import { ProviderList } from './../_models/_admin/providerList';
 import { MessageCounts, ProviderHeader } from './../_navigations/provider.layout/view.notification.service';
 import { SecureCreds } from './../_models/_account/user';
 import { Injectable } from '@angular/core';
@@ -18,6 +17,7 @@ export class AuthenticationService {
 
 
   baseUrl: string = environment.baseUrl;
+  private userIP:string;
   private userSubject: BehaviorSubject<User>;
   public user: Observable<User>;
   public resp: Observable<ResponseData>;
@@ -134,7 +134,7 @@ export class AuthenticationService {
 
 
 
-  SwitchUser(data: { SwitchUserKey: string, SwitchUserEncKey: string }) {
+  SwitchUser(data: { SwitchUserKey: string, SwitchUserEncKey: string, UserIP: string }) {
     if (this.isAdmin) {
       const endpointUrl = this.baseUrl + "SwitchUser/";
       //console.log(data);
@@ -174,7 +174,7 @@ export class AuthenticationService {
     }
   }
 
-  SwitchToPatientUser(data: { SwitchUserKey: string, SwitchUserEncKey: string }) {
+  SwitchToPatientUser(data: { SwitchUserKey: string, SwitchUserEncKey: string, UserIP: string}) {
     if (this.isAdmin) {
       //console.log(data);
       const endpointUrl = this.baseUrl + "SwitchToPatientUser/";
@@ -208,28 +208,30 @@ export class AuthenticationService {
 
   patientLoginWithFormCredentials(creds: any): Observable<ResponseData> {
     const endpointUrl = this.apiEndPoint._authenticatePatientUrl;
-    let observable = this.http.post<ResponseData>(endpointUrl, creds);
-    observable.subscribe(resp => {
-      if (resp.IsSuccess) {
-        this.userSubject = new BehaviorSubject<User>(resp.Result as User);
-        localStorage.setItem('user', JSON.stringify(resp.Result as User));
-        this.startRefreshTokenTimer();
-        this.SetViewParam("View", "dashboard")
-        if(this.isPatient && this.isFirstTimeLogin){
-          this.router.navigate(['/account/security-question']);
+    let observable = this.http.post<ResponseData>(endpointUrl, creds).pipe<ResponseData>(
+      tap(resp =>
+        {
+        if (resp.IsSuccess) {
+          this.userSubject = new BehaviorSubject<User>(resp.Result as User);
+          localStorage.setItem('user', JSON.stringify(resp.Result as User));
+          this.startRefreshTokenTimer();
+          this.SetViewParam("View", "dashboard")
+          if(this.isPatient && this.isFirstTimeLogin){
+            this.router.navigate(['/account/security-question']);
+          }
+          else if (this.isPatient || this.isRepresentative)
+            this.router.navigate(['patient/dashboard']);
+          else {
+            this.logout(ERROR_CODES["EL001"]);
+          }
+        } else {
+          this.logout(ERROR_CODES["EL001"]); // EL002
         }
-        else if (this.isPatient || this.isRepresentative)
-          this.router.navigate(['patient/dashboard']);
-        else {
-          this.logout(ERROR_CODES["EL001"]);
-        }
-      } else {
-        this.logout(ERROR_CODES["EL001"]); // EL002
-      }
-    }),
-      (error) => {
-        this.logout(ERROR_CODES["EL002"]);
-      };
+      },
+        (error) => {
+          this.logout(ERROR_CODES["EL002"]);
+        })
+    );
     return observable;
   }
 
@@ -360,6 +362,8 @@ export class AuthenticationService {
     localStorage.setItem('viewModel', JSON.stringify(viewModel));
   }
 
-
+  public UserIp(): Observable<any>{
+    return this.http.get('https://jsonip.com/')
+  }
 
 }

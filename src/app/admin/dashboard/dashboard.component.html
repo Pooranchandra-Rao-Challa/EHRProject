@@ -79,14 +79,14 @@
                     (click)="openComponentDialog(UserDialogComponent,null,ActionTypes.add)">Add New User</button>
                 </div>
                 <div class="search-box col-xl-11 col-lg-10 col-md-12 col-12">
-                  <input type="text" placeholder="Search Providers Or Practices" matInput [(ngModel)]="filterQueryParams.SearchTerm"
-                    (keyup)="StageChange($event)">
-                  
+                  <input type="text" placeholder="Search Providers Or Practices" matInput
+                    [(ngModel)]="filterQueryParams.SearchTerm" (keyup)="StageChange($event)">
+
                 </div>
               </div>
             </div>
-            
-            
+
+
 
             <div class="col-lg-12 col-md-12 col-12 col-sm-12 ">
               <hr>
@@ -115,7 +115,8 @@
                       <td class="tbl-col">
                         <span class="my-2"> {{item.ProviderName}}, {{item.Degree}}</span>
                         <div class="d-flex justify-content-start my-2">
-                          <button class="td-btn-style" (click)="switchUser(item)" [disabled]="disableSwitchUser">Login</button>
+                          <button class="td-btn-style" (click)="switchUser(item)"
+                            [disabled]="disableSwitchUser">Login</button>
                           <button class="td-btn-style mx-2"
                             (click)="primaryProviderId(item)">{{item.PrimaryProvider}}</button>
                         </div>
@@ -146,28 +147,29 @@
                     </tr>
                   </tbody>
                 </table>
-             
-                  <div *ngIf="(filtededProviders).length === 0">
-                    <div class="text-center Helvetica-sans-serif-medium norecordfound text" style="color: red;">No Data Found.</div>
-                  </div>
-               
+
+                <div *ngIf="(filtededProviders).length === 0">
+                  <div class="text-center Helvetica-sans-serif-medium norecordfound text" style="color: red;">No Data
+                    Found.</div>
+                </div>
+
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-<div [hidden]="filtededProviders.length === 0">
-    <div class="d-flex justify-content-end my-3">
-      <nav aria-label="Page navigation">
-        <ul class="pagination mt-4">
-          <ngb-pagination [pageSize]="pageSize" [collectionSize]="filtededProviders.length" [maxSize]="9" [(page)]="page"
-            aria-label="Default pagination">
-          </ngb-pagination>
-        </ul>
-      </nav>
+    <div [hidden]="filtededProviders.length === 0">
+      <div class="d-flex justify-content-end my-3">
+        <nav aria-label="Page navigation">
+          <ul class="pagination mt-4">
+            <ngb-pagination [pageSize]="pageSize" [collectionSize]="filtededProviders.length" [maxSize]="9"
+              [(page)]="page" aria-label="Default pagination">
+            </ngb-pagination>
+          </ul>
+        </nav>
+      </div>
     </div>
-  </div>
   </div>
 </div>
 

@@ -20,8 +20,8 @@ export class LoginComponent implements OnInit {
   showspinner: boolean;
   showPassword: boolean = false;
   url: string;
+  userIP:string;
   constructor(private fb: FormBuilder,
-    protected http: HttpClient,
     private authenticationService: AuthenticationService,
     private plaformLocation: PlatformLocation,
     private accountservice: Accountservice,) {
@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.showspinner = false;
     this.buildForm();
+    this.UserIP();
   }
 
   buildForm() {
@@ -54,6 +55,7 @@ export class LoginComponent implements OnInit {
     var creds = {
       "EmailId": data.UserName,
       "Password": data.Password,
+      "UserIP":this.userIP
     };
     this.authenticationService.loginWithFormCredentials(creds).subscribe(resp => {
       if (!resp.IsSuccess) {
@@ -166,5 +168,9 @@ export class LoginComponent implements OnInit {
       backdrop: true,
       showConfirmButton: false,
     });
+  }
+
+  private UserIP(){
+    this.authenticationService.UserIp().subscribe((resp:any)=>{this.userIP = resp.ip})
   }
 }

@@ -15,30 +15,32 @@ import { MatSort } from '@angular/material/sort';
 })
 export class ActivePatientsComponent implements OnInit {
 
-  patientColumns: string[] = ["Name","Email","PatientPortalAccount","Phone","Address","Status"];
+  patientColumns: string[] = ["Name", "Email", "PatientPortalAccount", "Phone", "Address", "Status"];
   public patientsDataSource: PatientDatasource;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('serchFilter') searchPatient: ElementRef;
 
+  userIP: string;
   pageSize: number = 10;
   page: number = 0;
 
 
-  constructor(private adminservice: AdminService,private authService: AuthenticationService) {
+  constructor(private adminservice: AdminService, private authService: AuthenticationService) {
 
     //viewModel
   }
 
   ngOnInit(): void {
     this.getPatients();
+    this.UserIP();
   }
 
   getPatients() {
     var reqdata = {
       Active: true
     }
-    this.patientsDataSource = new PatientDatasource(this.adminservice,reqdata);
+    this.patientsDataSource = new PatientDatasource(this.adminservice, reqdata);
     this.patientsDataSource.loadPatients();
 
   }
@@ -46,36 +48,36 @@ export class ActivePatientsComponent implements OnInit {
 
   ngAfterViewInit(): void {
     // server-side search
-    fromEvent(this.searchPatient.nativeElement,'keyup')
-    .pipe(
+    fromEvent(this.searchPatient.nativeElement, 'keyup')
+      .pipe(
         debounceTime(450),
         distinctUntilChanged(),
         tap(() => {
-            this.paginator.pageIndex = 0;
-            this.loadPatients();
+          this.paginator.pageIndex = 0;
+          this.loadPatients();
         })
-    )
-    .subscribe();
+      )
+      .subscribe();
     // reset the paginator after sorting
     this.sort.sortChange.subscribe(() => {
       this.paginator.pageIndex = 0
     });
 
     merge(this.sort.sortChange, this.paginator.page)
-        .pipe(
-            tap(() => this.loadPatients())
-        )
-        .subscribe();
+      .pipe(
+        tap(() => this.loadPatients())
+      )
+      .subscribe();
   }
 
-  loadPatients(){
+  loadPatients() {
     this.patientsDataSource.loadPatients(
       this.searchPatient.nativeElement.value,
       this.sort.active,
       this.sort.direction,
       this.paginator.pageIndex,
       this.paginator.pageSize
-      );
+    );
   }
 
   disableSwitchPatientUser: boolean = false;
@@ -85,7 +87,7 @@ export class ActivePatientsComponent implements OnInit {
     this.adminservice.SwitchToPatientUserKey(patient).subscribe(resp => {
       if (resp.IsSuccess) {
         let encKey = resp.Result;
-        this.authService.SwitchToPatientUser({ SwitchUserKey: switchKey, SwitchUserEncKey: encKey }).subscribe(logresp => {
+        this.authService.SwitchToPatientUser({ SwitchUserKey: switchKey, SwitchUserEncKey: encKey, UserIP: this.userIP }).subscribe(logresp => {
           if (!logresp.IsSuccess) {
           }
         })
@@ -93,7 +95,9 @@ export class ActivePatientsComponent implements OnInit {
       }
     })
   }
-
+  private UserIP() {
+    this.authService.UserIp().subscribe((resp: any) => { this.userIP = resp.ip })
+  }
 }
 
 export class PatientDatasource implements DataSource<Patient>{
@@ -117,7 +121,7 @@ export class PatientDatasource implements DataSource<Patient>{
     this.queryParams["Status"] = status;
   }
 
-  loadPatients(filter='', sortField = 'FULLNAME',
+  loadPatients(filter = '', sortField = 'FULLNAME',
     sortDirection = 'asc', pageIndex = 0, pageSize = 10) {
     this.queryParams["SortField"] = sortField;
     this.queryParams["SortDirection"] = sortDirection;
@@ -130,17 +134,18 @@ export class PatientDatasource implements DataSource<Patient>{
       catchError(() => of([])),
       finalize(() => this.loadingSubject.next(false))
     ).subscribe(resp => {
-        this.patientsSubject.next(resp.ListResult as Patient[])
-      });
+      this.patientsSubject.next(resp.ListResult as Patient[])
+    });
   }
 
 
   get TotalRecordSize(): number {
-    if (this.patientsSubject.getValue() && this.patientsSubject.getValue().length > 0){
+    if (this.patientsSubject.getValue() && this.patientsSubject.getValue().length > 0) {
       return this.patientsSubject.getValue()[0].TotalPatients;
     }
 
     return 0;
   }
+
 
 }
