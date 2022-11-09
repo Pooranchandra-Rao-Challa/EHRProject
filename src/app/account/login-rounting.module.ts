@@ -11,7 +11,8 @@ import { CreatePasswordComponent } from './createpassword.component'
 import { ProviderConfirmationComponent } from './provider.confirmation.component'
 import { EmailedUrlsComponent} from 'src/app/account/emailedurls/emailed.url.component'
 import { ChangePasswordComponent } from './change.password.component'
-import { SecurityQuestion } from './security.question.component';
+import { SecurityQuestion } from './firsttimepatientlogin/security.question.component';
+import { ResetPassword } from 'src/app/account/firsttimepatientlogin/reset.password.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,7 @@ const routes: Routes = [
       { path: 'providerconfirmation', component: ProviderConfirmationComponent },
       { path: 'emailedurls', component: EmailedUrlsComponent },
       { path: 'security-question', component: SecurityQuestion },
+      { path: 'reset-password', component: ResetPassword },
     ]
   },
 ]

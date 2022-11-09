@@ -937,6 +937,11 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "UpdateSecurityQuestion";
   }
 
+  get _firstTimeResetPasswordURL()
+  {
+    return this._baseUrl + "FirstTimeResetPassword";
+  }
+
 
   constructor(public http: HttpClient) {
     super();

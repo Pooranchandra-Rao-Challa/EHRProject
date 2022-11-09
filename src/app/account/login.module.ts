@@ -19,7 +19,8 @@ import { ChangePasswordComponent } from './change.password.component'
 import { AlertMessage } from '../_alerts/alertMessage';
 import { PatientService } from '../_services/patient.service';
 import { OverlayService } from '../overlay.service';
-import { SecurityQuestion } from 'src/app/account/security.question.component';
+import { SecurityQuestion } from 'src/app/account/firsttimepatientlogin/security.question.component';
+import { ResetPassword } from 'src/app/account/firsttimepatientlogin/reset.password.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -42,7 +43,8 @@ import { SecurityQuestion } from 'src/app/account/security.question.component';
     ProviderConfirmationComponent,
     EmailedUrlsComponent,
     ChangePasswordComponent,
-    SecurityQuestion
+    SecurityQuestion,
+    ResetPassword
   ],
   providers:[
     OverlayService,

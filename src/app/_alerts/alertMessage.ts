@@ -541,6 +541,15 @@ export const ERROR_CODES: { [key: string]: string } = {
   'E2B1001': 'Blockout adding error',
   'E2B1002': 'Blockout update error',
   'E2B1003': 'Blockout delete error',
+
+  // Security Question
+  'E3SQ001': 'Security question creation error',
+
+  // Reset password
+  'M3RP001': 'Reset password successfully',
+
+  // Error for reset password
+  'E3RP001': 'Reset password unsuccessfully',
 };
 
 

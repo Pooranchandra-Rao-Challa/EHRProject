@@ -33,6 +33,8 @@ export interface User {
   UnReadMails?:number ;
   UrgentMessages?:number;
   UnlockToken?: string;
+  HasSecureQuestion?: boolean;
+  ResetToken?: string;
 }
 export class UserLocations {
   LocationId: string;

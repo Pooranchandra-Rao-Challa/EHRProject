@@ -55,10 +55,8 @@ export class AuthenticationService {
 
   loginWithFormCredentials(creds: any): Observable<ResponseData> {
     const endpointUrl = this.baseUrl + "Authenticate/";
-    //console.log(creds);
     let observable = this.http.post<ResponseData>(endpointUrl, creds).pipe<ResponseData>(
       tap(resp => {
-        //console.log(resp);
         if (resp.IsSuccess) {
           this.userSubject = new BehaviorSubject<User>(resp.Result as User);
           if (this.userValue.IsSuccess) {
@@ -137,10 +135,8 @@ export class AuthenticationService {
   SwitchUser(data: { SwitchUserKey: string, SwitchUserEncKey: string }) {
     if (this.isAdmin) {
       const endpointUrl = this.baseUrl + "SwitchUser/";
-      //console.log(data);
       let observable = this.http.post<ResponseData>(endpointUrl, data).pipe<ResponseData>(
         tap(resp => {
-          //console.log(resp);
           if (resp.IsSuccess) {
             this.revokeToken();
             localStorage.clear();
@@ -176,11 +172,9 @@ export class AuthenticationService {
 
   SwitchToPatientUser(data: { SwitchUserKey: string, SwitchUserEncKey: string }) {
     if (this.isAdmin) {
-      //console.log(data);
       const endpointUrl = this.baseUrl + "SwitchToPatientUser/";
       let observable = this.http.post<ResponseData>(endpointUrl, data).pipe<ResponseData>(
         tap(resp => {
-          //console.log(resp);
           if (resp.IsSuccess) {
             this.revokeToken();
             localStorage.clear();
@@ -188,6 +182,7 @@ export class AuthenticationService {
             localStorage.setItem('user', JSON.stringify(resp.Result as User));
             this.updateViewModel();
             this.startRefreshTokenTimer();
+            // will have to show msg when the user(patient) is not login for first time
             if (this.isPatient) {
               this.router.navigate(
                 ['/patient/dashboard'],
@@ -215,11 +210,15 @@ export class AuthenticationService {
         localStorage.setItem('user', JSON.stringify(resp.Result as User));
         this.startRefreshTokenTimer();
         this.SetViewParam("View", "dashboard")
-        if(this.isPatient && this.isFirstTimeLogin){
+        if(this.isPatient && !this.hasSecureQuestion && this.isFirstTimeLogin){
           this.router.navigate(['/account/security-question']);
         }
+        else if(this.isPatient && this.hasSecureQuestion && this.isFirstTimeLogin) {
+          this.router.navigate(['/account/reset-password']);
+        }
         else if (this.isPatient || this.isRepresentative)
-          this.router.navigate(['patient/dashboard']);
+          // this.router.navigate(['patient/dashboard']);
+          this.router.navigate(['/account/reset-password']);
         else {
           this.logout(ERROR_CODES["EL001"]);
         }
@@ -303,6 +302,14 @@ export class AuthenticationService {
     return this.userValue.IsFirstTimeLogin;
   }
 
+  get hasSecureQuestion(): boolean {
+    return this.userValue.HasSecureQuestion;
+  }
+
+  get resetToken(): string {
+    return this.userValue.ResetToken;
+  }
+
   get isProviderActive(): boolean {
     return this.userValue.ProviderActive;
   }
@@ -354,7 +361,5 @@ export class AuthenticationService {
     let viewModel: ViewModel = new ViewModel;
     localStorage.setItem('viewModel', JSON.stringify(viewModel));
   }
-
-
 
 }

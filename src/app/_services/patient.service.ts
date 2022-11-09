@@ -343,4 +343,8 @@ export class PatientService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._updateSecurityQuestionURL, reqparams);
   }
 
+  FirstTimeResetPassword(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._firstTimeResetPasswordURL,reqparams);
+  }
+
 }
