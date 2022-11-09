@@ -369,7 +369,6 @@ export class ProfileComponent implements OnInit {
   }
 
   updateContactInform() {
-    this.patientMyProfile.UserId = this.user.UserId;
     this.patientService.UpdateContactInformation(this.patientMyProfile).subscribe(resp => {
       if (resp.IsSuccess) {
         this.getPatientMyProfile();
