@@ -1,11 +1,11 @@
 <ul class="patient-navigation">
   <li *ngFor="let breadcrumb of breadcrumbs">
     <a [class.patients-link]="!breadcrumb.ShowRemoveIcon" [class.patient-link]="breadcrumb.ShowRemoveIcon"
-      [href]="'../../provider/patients'" *ngIf="breadcrumb.Name=='Patients'">
+      [href]="'provider/patients'" *ngIf="breadcrumb.Name=='Patients'">
       <div class="patient-name" [class.bread-crumb-active]="breadcrumb.ActiveId">{{breadcrumb.Name}}</div>
     </a>
     <a [class.patients-link]="!breadcrumb.ShowRemoveIcon" [class.patient-link]="breadcrumb.ShowRemoveIcon"
-      [href]='"../../provider/patientdetails/?paramkey="+breadcrumb.EncKey' *ngIf="breadcrumb.Name!='Patients'">
+      [href]='"provider/patientdetails/?paramkey="+breadcrumb.EncKey' *ngIf="breadcrumb.Name!='Patients'">
       <div class="patient-name" [class.bread-crumb-active]="breadcrumb.ActiveId">{{breadcrumb.Name}}</div>
       <div class="patient-dob"  [class.bread-crumb-active]="breadcrumb.ActiveId">{{breadcrumb.DOB | date: 'MM/dd/yyyy'}}</div>
     </a>
