@@ -201,7 +201,8 @@ export class LabResultComponent implements OnInit {
     if (testCode.Query.length >= 3)
       this.openComponentDialog(this.testCodeComponent, testCode);
   }
-  save() {
+  save(item) {
+    this.labandImaging.Signed = item;
     this.saveClicked = true;
     let testResults = this.testOrders.getRawValue();
     this.labandImaging.Tests = testResults;
@@ -228,7 +229,6 @@ export class LabResultComponent implements OnInit {
     this.labandImaging.LabResult.NPI = this.labandImaging.NPI;
 
     let isAdd = this.labandImaging.LabResult.LabResultId == null || this.labandImaging.LabResult.LabResultId == '';
-
     this.labsImagingService.UpdateLabResult(this.labandImaging).subscribe(resp => {
       if (resp.IsSuccess) {
         this.ref.close({ "saved": true });
