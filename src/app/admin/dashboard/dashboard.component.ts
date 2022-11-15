@@ -1,3 +1,4 @@
+
 import { SettingsService } from 'src/app/_services/settings.service';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { BehaviorSubject, } from 'rxjs';
@@ -29,6 +30,7 @@ export class DashboardComponent implements OnInit {
   ProviderList: ProviderList[] = [{}];
   filterQueryParams: FilterQueryParams = new FilterQueryParams();
   filterSubject = new BehaviorSubject<FilterQueryParams>(this.filterQueryParams);
+  providerListBehaviour: BehaviorSubject<boolean>  = new BehaviorSubject<boolean>(false);
   filtededProviders: ProviderList[];
   TotalItems: number;
   UserDialogComponent = AddUserDialogComponent;
@@ -67,6 +69,10 @@ export class DashboardComponent implements OnInit {
       );
     })
     this.UserIP();
+    this.providerListBehaviour.subscribe(value => {
+      console.log(value);
+
+    })
   }
 
   StageChange(event) {
@@ -86,10 +92,9 @@ export class DashboardComponent implements OnInit {
     this.adminservice.GetProviderList().subscribe(resp => {
       if (resp.IsSuccess) {
         this.ProviderList = resp.ListResult;
-        //console.log(this.ProviderList);
-
         this.filtededProviders = this._filterProviders();
       } else
+        this.providerListBehaviour.next(true);
         this.ProviderList = [];
     });
   }

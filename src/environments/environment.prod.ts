@@ -1,7 +1,8 @@
 export const environment = {
   production: true,
-  showemail:false,
-  baseUrl: 'http://10.0.132.110/EHR/API/',
+  showemail:true,
+  //baseUrl: 'http://10.0.132.110/EHR/API/',
+  baseUrl: 'http://182.18.157.215/EHR/API/',
   RX_END_POINT: 'https://rxnav.nlm.nih.gov/',
   RX_URI_NDC_PROPERTIES:'REST/rxcui/{0}/properties.json',
 };
