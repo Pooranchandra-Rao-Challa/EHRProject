@@ -15,7 +15,7 @@ import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { fromEvent, Observable, of } from 'rxjs';
 import { filter, map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import {MessageDialogComponent} from 'src/app/dialogs/alert.dialog/message.dialog.component'
+import { MessageDialogComponent } from 'src/app/dialogs/alert.dialog/message.dialog.component'
 import { ComponentType } from 'ngx-toastr';
 import { OverlayService } from 'src/app/overlay.service';
 import { CompleteAppointmentDialogComponent } from 'src/app/dialogs/newappointment.dialog/complete.appointment.component';
@@ -71,7 +71,7 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
     private alert: AlertMessage,
     private datePipe: DatePipe,
     private alertMessage: AlertMessage,
-    private overlayService : OverlayService) {
+    private overlayService: OverlayService) {
     this.data = ref.RequestData;
     this.PatientAppointment = {} as NewAppointment;
 
@@ -92,8 +92,8 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
         this.PatientAppointment.LocationId != null && this.PatientAppointment.Duration != null)) {
       this.LoadAvailableTimeSlots();
     }
-    if (this.PatientAppointment && this.PatientAppointment.Startat != null)
-      this.todayDate = this.PatientAppointment.Startat;
+    // if (this.PatientAppointment && this.PatientAppointment.Startat != null)
+    //   this.todayDate = this.PatientAppointment.Startat;
 
   }
   ngAfterViewInit(): void {
@@ -171,7 +171,7 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
       "Duration": this.PatientAppointment.Duration,
       "RequestDate": this.PatientAppointment.Startat,
       "AppointmentId": this.PatientAppointment.AppointmentId,
-      "strRequestDate": this.datePipe.transform(this.PatientAppointment.Startat,"MM/dd/yyyy"),
+      "strRequestDate": this.datePipe.transform(this.PatientAppointment.Startat, "MM/dd/yyyy"),
     };
 
     this.smartSchedulerService.AvailableTimeSlots(ats).subscribe(resp => {
@@ -205,7 +205,12 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
   }
 
   close() {
-    this.ref.close({ 'closed': true });
+    // this.ref.close({ 'closed': true });
+    this.ref.close({
+      'refresh': true,
+      'UpdatedModal': PatientChart.Appointment,
+      'closed': true
+    });
   }
 
   OnLocationChange(event) {
@@ -266,13 +271,13 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
 
 
   cancelAppointment() {
-    let data: ScheduledAppointment ={};
+    let data: ScheduledAppointment = {};
     data.StatusToUpdate = "Cancelled";
     data.AppointmentId = this.PatientAppointment.AppointmentId;
     data.PatientId = this.PatientAppointment.PatientId;
     data.ClinicId = this.PatientAppointment.ClinicId;
 
-    this.openComponentDialog(this.completeAppointmentDialogComponent,data,Actions.view)
+    this.openComponentDialog(this.completeAppointmentDialogComponent, data, Actions.view)
   }
 
   DiabledAppointmentSave() {
@@ -283,20 +288,22 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
       && this.PatientAppointment.RoomId != null
       && this.PatientAppointment.PatientId != null
       && this.PatientAppointment.ProviderId != null
-      && this.PatientAppointment.Notes != null && this.PatientAppointment.Notes !=""
+      && this.PatientAppointment.Notes != null && this.PatientAppointment.Notes != ""
       && this.PatientAppointment.Startat != null) || this.SaveInputDisable;
   }
   onAppointmentSave() {
     this.PatientAppointment.AppointmentTime = this.PatientAppointment.TimeSlot.StartDateTime;
     this.PatientAppointment.strAppointmentTime =
-    this.datePipe.transform(this.PatientAppointment.TimeSlot.StartDateTime,"MM/dd/yyyy HH:mm")
+      this.datePipe.transform(this.PatientAppointment.TimeSlot.StartDateTime, "MM/dd/yyyy HH:mm")
     let isAdd = this.PatientAppointment.AppointmentId == null;
     this.SaveInputDisable = true;
     this.smartSchedulerService.CreateAppointment(this.PatientAppointment).subscribe(resp => {
       if (resp.IsSuccess) {
         this.onError = false;
-        this.ref.close({ 'refresh': true,
-        'UpdatedModal': PatientChart.Appointment });
+        this.ref.close({
+          'refresh': true,
+          'UpdatedModal': PatientChart.Appointment
+        });
         this.OperationMessage = resp.EndUserMessage;
         //this.openComponentDialog(this.messageDialogComponent,null,Actions.view);
         //if (this.data.NavigationFrom = )
@@ -334,7 +341,7 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
     if (action == Actions.view && content === this.messageDialogComponent) {
       reqdata = dialogData;
     }
-    else{
+    else {
       reqdata = dialogData;
     }
     const ref = this.overlayService.open(content, reqdata, true);

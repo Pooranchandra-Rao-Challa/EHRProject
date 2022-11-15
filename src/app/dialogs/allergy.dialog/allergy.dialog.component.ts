@@ -43,12 +43,13 @@ export class AllergyDialogComponent implements OnInit {
     this.updateLocalModel(ref.RequestData);
     if (this.patientAllergy.StartAt != (null || '' || undefined)) {
       this.patientAllergy.StartAt = this.datepipe.transform(this.patientAllergy.StartAt, "yyyy-MM-dd");
+      this.minDateForEndDate = new Date(this.patientAllergy.StartAt);
     }
     if (this.patientAllergy.EndAt != (null || '' || undefined)) {
       this.patientAllergy.EndAt = this.datepipe.transform(this.patientAllergy.EndAt, "yyyy-MM-dd");
     }
-    this.minDateToFinish.subscribe(r => {
-      this.minDateForEndDate = new Date(r);
+    this.minDateToFinish.subscribe(minDate => {
+      this.minDateForEndDate = new Date(minDate);
     })
 
   }
@@ -140,7 +141,6 @@ export class AllergyDialogComponent implements OnInit {
   }
 
   cancel() {
-    // this.ref.close(null);
     this.ref.close({
       "UpdatedModal": PatientChart.Allergies
     });

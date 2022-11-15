@@ -455,6 +455,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   resetDialog() {
     this.patientImmunization = new Immunization;
     this.searchVaccineCode.nativeElement.value = '';
+    this.ImmunizationsByPatientId();
   }
 
   editDialog(dialogData, name) {
@@ -546,19 +547,19 @@ export class ChartComponent implements OnInit, AfterViewInit {
 
   disableImmAdministered() {
     return !(this.patientImmunization.Code && this.patientImmunization.AdministeredAt && this.patientImmunization.AdministeredTime != '00:00 AM'
-      && this.patientImmunization.AdministeredById && this.patientImmunization.OrderedById && this.patientImmunization.AdministeredFacilityId
+      && this.patientImmunization.AdministeredById && this.patientImmunization.OrderedById && this.patientImmunization.LocationId
       && this.patientImmunization.Manufacturer && this.patientImmunization.Lot && this.patientImmunization.Quantity && this.patientImmunization.Dose
       && this.patientImmunization.Unit && this.patientImmunization.ExpirationAt)
   }
 
   disableImmHistorical() {
     return !(this.patientImmunization.Code && this.patientImmunization.AdministeredAt && this.patientImmunization.SourceOfInformation
-      && this.patientImmunization.AdministeredFacilityId)
+      && this.patientImmunization.LocationId)
   }
 
   disableImmRefused() {
     return !(this.patientImmunization.Code && this.patientImmunization.ReasonRefused && this.patientImmunization.ReasonCode
-      && this.patientImmunization.RefusedAt && this.patientImmunization.AdministeredFacilityId)
+      && this.patientImmunization.RefusedAt && this.patientImmunization.LocationId)
   }
 
   // Get advanced directives info

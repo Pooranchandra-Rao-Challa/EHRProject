@@ -704,7 +704,7 @@
           <div class="row">
             <mat-label class="required">Administered:</mat-label>
             <mat-form-field appearance="outline" class="col-12">
-              <mat-select placeholder="Select administered" [(ngModel)]="patientImmunization.AdministeredFacilityId">
+              <mat-select placeholder="Select administered" [(ngModel)]="patientImmunization.LocationId">
                 <mat-option *ngFor="let item of LocationAddress" [value]="item.LocationId">
                   {{item.LocationName}}
                 </mat-option>
@@ -867,7 +867,7 @@
           <div class="row">
             <mat-label class="required">Administered:</mat-label>
             <mat-form-field appearance="outline" class="col-12">
-              <mat-select placeholder="Select administered" [(ngModel)]="patientImmunization.AdministeredFacilityId">
+              <mat-select placeholder="Select administered" [(ngModel)]="patientImmunization.LocationId">
                 <mat-option *ngFor="let item of LocationAddress" [value]="item.LocationId">
                   {{item.LocationName}}
                 </mat-option>
@@ -934,7 +934,7 @@
           <div class="row">
             <mat-label class="required">Practice:</mat-label>
             <mat-form-field appearance="outline" class="col-12">
-              <mat-select placeholder="Select a practice" [(ngModel)]="patientImmunization.AdministeredFacilityId">
+              <mat-select placeholder="Select a practice" [(ngModel)]="patientImmunization.LocationId">
                 <mat-option *ngFor="let item of LocationAddress" [value]="item.LocationId">
                   {{item.LocationName}}
                 </mat-option>
@@ -1036,7 +1036,7 @@
   <div class="modal-content">
     <div class="modal-header">
       <p class="modal-title Helvetica-sans-serif-medium">Clinical Decision Support Alerts</p>
-      <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close">
+      <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close" >
         X
       </span>
     </div>

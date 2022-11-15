@@ -342,7 +342,7 @@ export class EncounterDialogComponent implements OnInit {
 
 
   closePopup() {
-    this.overlayref.close();
+    this.overlayref.close({ "UpdatedModal": PatientChart.Encounters, refreshView: true, "saved": true });
   }
 
   saveAsDraft() {

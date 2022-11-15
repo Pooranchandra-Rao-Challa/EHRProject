@@ -42,7 +42,9 @@ export class AdvancedDirectivesDialogComponent implements OnInit {
   }
 
   cancel() {
-    this.ref.close(null);
+    this.ref.close({
+      "UpdatedModal": PatientChart.AdvancedDirectives
+    });
   }
 
   updateLocalModel(data: AdvancedDirective) {

@@ -50,7 +50,9 @@ export class PastMedicalHistoryDialogComponent implements OnInit {
   cancel() {
     this.strFamilyMedicalHistories = JSON.stringify(this.patientPastMedicalHistory.FamilyMedicalHistories);
     this.patientPastMedicalHistory.FamilyMedicalHistories = this.strFamilyMedicalHistories as FamilyMedicalHistory[];
-    this.ref.close(null);
+    this.ref.close({
+      "UpdatedModal": PatientChart.PastMedicalHistory
+    });
   }
 
   CreatePastMedicalHistories() {
