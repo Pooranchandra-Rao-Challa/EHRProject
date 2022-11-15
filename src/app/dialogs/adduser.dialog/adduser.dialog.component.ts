@@ -199,7 +199,7 @@ export class AddUserDialogComponent implements OnInit {
   UseValidatedAddress() {
     this.newUser.City = this.AddressResult.components.city_name;
     this.newUser.State = this.AddressResult.components.state_abbreviation;
-    this.newUser.Address = this.AddressResult.delivery_line_1;
+    this.newUser.StreetAddress = this.AddressResult.delivery_line_1;
     this.newUser.ZipCode = this.AddressResult.components.zipcode;
     this.newUser.PracticeAddress = this.ValidAddressForUse;
     this.closePopupAddress();
@@ -224,7 +224,6 @@ export class AddUserDialogComponent implements OnInit {
       this.newUser.MobilePhone = '+1' + this.newUser.MobilePhonePreffix + this.newUser.MobilePhoneSuffix;
     }
     this.newUser.URL = this.url;
-    console.log(this.newUser);
     //return;
     this.accountservice.CreateProvider(this.newUser).subscribe(resp => {
       if (resp.IsSuccess) {
@@ -290,7 +289,7 @@ export class AddUserDialogComponent implements OnInit {
       && this.newUser.Degree
       && this.newUser.Speciality
       && this.newUser.NPI
-      && this.newUser.Address
+      && this.newUser.StreetAddress || this.newUser.Address
       && this.newUser.ClinicId
       && (this.phonePattern.test(pNo))
       && ((!this.newUser.MobilePhonePreffix && !this.newUser.MobilePhoneSuffix) || (this.phonePattern.test(mNo)))
@@ -325,7 +324,7 @@ export class AddUserDialogComponent implements OnInit {
   //         && this.newUser.Degree == undefined ? '' : this.newUser.Degree != ''
   //           && this.newUser.Speciality == undefined ? '' : this.newUser.Speciality != ''
   //             && this.newUser.NPI == undefined ? '' : this.newUser.NPI != ''
-  //               && this.newUser.Address == undefined ? '' : this.newUser.Address != ''
+  //               && this.newUser.StreetAddress == undefined ? '' : this.newUser.StreetAddress != ''
   //                 && this.newUser.ClinicId == undefined ? '' : this.newUser.ClinicId != ''
   //                 && (this.phonePattern.test(pNo))
   //                 && ((!this.newUser.MobilePhonePreffix && !this.newUser.MobilePhoneSuffix) || (this.phonePattern.test(mNo)))

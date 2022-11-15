@@ -212,3 +212,15 @@ div.search-box button:hover {
 ::ng-deep body.swal2-height-auto {
   height: 100% !important;
 }
+::ng-deep .swal2-title-admin{
+  background: #35414f !important;
+  color: #fff !important;
+}
+::ng-deep .admin-cancel-button{
+  background: #35414f !important;
+  color: #fff !important;
+}
+::ng-deep .admin-cancel-button:hover{
+  background: #fff !important;
+  color: #35414f !important;
+}
