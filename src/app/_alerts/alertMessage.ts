@@ -19,6 +19,22 @@ export class AlertMessage {
     });
   }
 
+  displayMessageDailogForAdmin(message) {
+    Swal.fire({
+      title: message,
+      position: 'top',
+      background: '#e1dddd',
+      showConfirmButton: true,
+      confirmButtonText: 'Close',
+      width: '600',
+      customClass: {
+        title: 'swal2-title-admin',
+        container: 'swal2-container-high-zindex',
+        confirmButton: 'admin-cancel-button'
+      }
+    });
+  }
+
   displayErrorDailog(message) {
     Swal.fire({
       title: message,
@@ -186,7 +202,7 @@ export class AlertMessage {
 export const ERROR_CODES: { [key: string]: string } = {
 
   // Smart Schedule Patients Message
-  'AP001': 'Patient account infomration downloaded successully',
+  'AP001': 'Patient account information downloaded successully',
 
   // Message form Setting screen
   'M2JP001': 'Location updated successfully',
@@ -250,6 +266,13 @@ export const ERROR_CODES: { [key: string]: string } = {
   'M2CP0010': 'Address verified successfully',
   'M2CP0011': 'Authorized representative added sucessfully',
   'M2CP0012': 'Authorized representative updated sucessfully',
+
+  // Message form patient relation
+  'M2PPR001': 'Assigned patient relationship successfully',
+
+  // delete for patient relation
+  'E2PPR001': 'deleted patient relationship successfully',
+  'E2PPR002': 'Assigned patient relationship error',
 
   // Error for Patient profile directives
   'E2CP001': 'Personal Information Updation error',
@@ -475,6 +498,7 @@ export const ERROR_CODES: { [key: string]: string } = {
   'EL010': 'Admin user account is locked',
   'EL011': 'Admin account is not active',
   'EL012': 'Provider trial period is closed please do subscribe for accessing application.',
+  'EL013': 'Only one user can login at a time',
 
   //Education Material Message
   'M2JPE001': 'Education Material added successfully',
@@ -550,6 +574,9 @@ export const ERROR_CODES: { [key: string]: string } = {
 
   // Error for reset password
   'E3RP001': 'Reset password unsuccessfully',
+
+  //Error Message for Appoinments
+  'E3A002': "We're sorry, unfortunately, online appointment requests are not currently being accepted for the practice selected. Please call the practice directly to schedule your appointment.",
 };
 
 
