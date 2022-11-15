@@ -1,0 +1,10 @@
+@import"../../../assets/cstm.material.scss";
+@import"../../../assets/common.scss";
+
+.patient-relationship {
+  .modal-body {
+    max-height: calc(90vh - 190px);
+    overflow-y: auto;
+  }
+}
+
