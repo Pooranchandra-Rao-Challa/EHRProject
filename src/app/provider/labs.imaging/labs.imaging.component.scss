@@ -126,9 +126,15 @@
   border-radius: 1px;
 }
 
-.plus-icon {
+.plus-icon,
+.eye-icon {
   color: #41b6a6;
   font-size: 23px !important;
+}
+
+.edit-icon {
+  color: #41b6a6;
+  font-size: 23px;
 }
 
 .search-input-dropdown {

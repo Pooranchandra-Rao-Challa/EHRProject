@@ -482,6 +482,7 @@ export class ScheduleComponent implements OnInit {
     data?: any, action?: Actions) {
     const ref = this.overlayService.open(content, data);
     ref.afterClosed$.subscribe(res => {
+      this.getProviderDetails();
     });
   }
 }

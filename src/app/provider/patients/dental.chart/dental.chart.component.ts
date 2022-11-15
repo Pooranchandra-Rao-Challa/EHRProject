@@ -30,14 +30,14 @@ export class DentalChartComponent implements OnInit, AfterViewInit {
   displayStyle = "none";
   DentalNumber: number;
   procedureCodeList: any = [];
-  currentPatient: ProviderPatient
+  currentPatient: ProviderPatient;
   procedureDialogComponent = ProcedureDialogComponent;
   encounterDialogComponent = EncounterDialogComponent;
-  ActionTypes = Actions
+  ActionTypes = Actions;
   usedProcedures: MedicalCode;
   procedureColumns: string[] = ['SELECT', 'START DATE', 'END DATE', 'TOOTH', 'SURFACE', 'CODE', 'DESCRIPTION', 'PROVIDER', 'STATUS', 'CQM STATUS', 'Encounter'];
-  @ViewChild("procedureSearch", { static: true }) procedureSearch: ElementRef
-  @ViewChild("procedureTree", { static: true }) procedureTree: TreeProcedureComponent
+  @ViewChild("procedureSearch", { static: true }) procedureSearch: ElementRef;
+  @ViewChild("procedureTree", { static: true }) procedureTree: TreeProcedureComponent;
   //patientProceduresView = new BehaviorSubject<ProceduresInfo[]> ([]);
   procedureDataSource: ProcedureDatasource;
 
@@ -84,7 +84,7 @@ export class DentalChartComponent implements OnInit, AfterViewInit {
     let reqparams = {
       "PatientId": this.currentPatient.PatientId,
     }
-    this.procedureDataSource = new ProcedureDatasource(this.dentalService, reqparams);
+    this.procedureDataSource = new ProcedureDatasource(this.dentalService, reqparams, this.authService);
     this.procedureDataSource.loadProcedures();
   }
 
@@ -158,12 +158,14 @@ export class DentalChartComponent implements OnInit, AfterViewInit {
 
 
 export class ProcedureDatasource implements DataSource<ProceduresInfo>{
-
+  currentPatient: ProviderPatient
   private proceduresSubject = new BehaviorSubject<ProceduresInfo[]>([]);
   private loadingSubject = new BehaviorSubject<boolean>(false);
   public loading$ = this.loadingSubject.asObservable();
 
-  constructor(private dentalService: DentalChartService, private queryParams: {}) {
+  constructor(private dentalService: DentalChartService, private queryParams: {},
+    private authService: AuthenticationService) {
+    this.currentPatient = authService.viewModel.Patient;
   }
   connect(collectionViewer: CollectionViewer): Observable<ProceduresInfo[] | readonly ProceduresInfo[]> {
     return this.proceduresSubject.asObservable();
@@ -180,8 +182,9 @@ export class ProcedureDatasource implements DataSource<ProceduresInfo>{
     this.queryParams["ProviderId"] = id;
   }
 
-  loadProcedures(filter = '', sortField = 'LastAccessed',
-    sortDirection = 'desc', pageIndex = 0, pageSize = 10) {
+  loadProcedures(sortField = 'CreatedDate',
+    sortDirection = 'desc', pageIndex = 0, pageSize = 30) {
+    this.queryParams["PatientId"] = this.authService.viewModel.Patient.PatientId;
     this.queryParams["SortField"] = sortField;
     this.queryParams["SortDirection"] = sortDirection;
     this.queryParams["PageIndex"] = pageIndex;

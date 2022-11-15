@@ -632,6 +632,9 @@
 
 <div class="container-fluid">
   <div class="mb-3">
+    <div class="spinner-container" *ngIf="procedureDataSource.loading$ | async">
+      <mat-progress-bar mode="indeterminate" bufferValue="50" value=100></mat-progress-bar>
+    </div>
     <div class="table-responsive procedure-list">
       <mat-table [dataSource]=procedureDataSource matSort
       matSortActive="LastAccessed" matSortDirection="desc"
@@ -726,9 +729,17 @@
         <mat-row *matRowDef="let row; columns: procedureColumns;">
         </mat-row>
       </mat-table>
-      <div class="norecords-found" *ngIf="procedureDataSource?.TotalRecordSize == 0">
+      <div class="norecords-found Helvetica-sans-serif-medium" *ngIf="procedureDataSource?.TotalRecordSize == 0">
         No Dental Charts Found
       </div>
+    </div>
+    <div class="d-flex justify-content-end my-3">
+      <div class="pg-container" [hidden]="!procedureDataSource?.TotalRecordSize">
+        <mat-paginator appPagination
+           [length]="procedureDataSource?.TotalRecordSize" pageSize="10" [pageIndex] = "0"
+           [pageSizeOptions]="[10,20,30,40,50]"  >
+          </mat-paginator>
+        </div>
     </div>
   </div>
 </div>
