@@ -48,6 +48,8 @@ export class AddUserDialogComponent implements OnInit {
   emailPattern = /^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$/;
   emailVerfied?: boolean = null;
   emailVerficationMessage?: string;
+  alertMsgTitle: string;
+  alertTextEmail: string;
 
   constructor(private ref: EHROverlayRef,
     private authService: AuthenticationService,
@@ -227,6 +229,14 @@ export class AddUserDialogComponent implements OnInit {
     //return;
     this.accountservice.CreateProvider(this.newUser).subscribe(resp => {
       if (resp.IsSuccess) {
+        if(this.newUser.ProviderId){
+          this.alertMsgTitle = 'User Updated Successfully ';
+          this.alertTextEmail = '';
+        }
+        else{
+          this.alertMsgTitle = 'Thank you for registering for an EHR1 Account! An email with instructions for how to complete  setup of your account has been sent to ';
+          this.alertTextEmail = this.newUser.Email;
+        }
         this.alertWithSuccess();
         this.ref.close({
           saved: true
@@ -249,7 +259,7 @@ export class AddUserDialogComponent implements OnInit {
     Swal.fire({
       position: 'top',
       //icon: 'success',
-      title: 'Thank you for registering for an EHR1 Account! An email with instructions for how to complete  setup of your account has been sent to ' + this.newUser.Email,
+      title: this.alertMsgTitle + this.alertTextEmail,
       confirmButtonText: 'Close',
       width: '700',
       customClass: {

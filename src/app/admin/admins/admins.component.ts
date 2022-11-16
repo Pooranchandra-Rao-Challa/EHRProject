@@ -1,7 +1,7 @@
 import { PlatformLocation } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { ViewModel } from '../../_models/_account/registration';
 import { AdminRegistration, Admins, AreaCode } from 'src/app/_models/_admin/Admins';
@@ -42,6 +42,9 @@ export class AdminsComponent implements OnInit {
   emailVerficationMessage?:string;
   pageSize: number = 10;
   page: number = 1;
+  adminListBehaviour: BehaviorSubject<boolean>  = new BehaviorSubject<boolean>(false);
+  alertMsgTitle: string;
+  alertTextEmail: string;
 
   constructor(private adminservice: AdminService,
     private utilityService: UtilityService,
@@ -74,8 +77,11 @@ export class AdminsComponent implements OnInit {
     this.adminservice.AdminList().subscribe(resp => {
       if (resp.IsSuccess) {
         this.adminDataSource = resp.ListResult;
-      } else
+      }
+      else {
+        this.adminListBehaviour.next(true);
         this.adminDataSource = [];
+      }
     });
   }
 
@@ -163,6 +169,14 @@ export class AdminsComponent implements OnInit {
     this.newAdminRegistration.URL = this.url;
     this.accountservice.CreateAdmin(this.newAdminRegistration).subscribe(resp => {
       if (resp.IsSuccess) {
+        if(this.newAdminRegistration.AdminId){
+          this.alertMsgTitle = 'User Updated Successfully ';
+          this.alertTextEmail = '';
+        }
+        else{
+          this.alertMsgTitle = 'Thank you for registering for an EHR1 Account! An email with instructions for how to complete  setup of your account has been sent to ';
+          this.alertTextEmail = this.newAdminRegistration.Email;
+        }
         this.alertWithSuccess();
         this.getAdminList();
         this.resetDialog();
@@ -188,7 +202,7 @@ export class AdminsComponent implements OnInit {
 
   alertWithSuccess() {
     Swal.fire({
-      title: 'Thank you for registering for an EHR1 Account! An email with instructions for how to complete  setup of your account has been sent to ' + this.newAdminRegistration.Email,
+      title: this.alertMsgTitle + this.alertTextEmail,
       width: '700',
       customClass: {
         cancelButton: 'admin-cancel-button',

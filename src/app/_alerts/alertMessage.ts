@@ -190,8 +190,14 @@ export class AlertMessage {
  *
  * Provider Registration : PR
  * Admins : A
+ * Upload Data : UD
  * Default Messages : DM
  * Admin Settings : AS
+ *
+ * Upload Data
+ *
+ * Import Patients : IP
+ * Import Encounters : IE
  *
  * ---------------------------------------------------
  * Errors Number shouw be three digits like 001
@@ -577,6 +583,18 @@ export const ERROR_CODES: { [key: string]: string } = {
 
   //Error Message for Appoinments
   'E3A002': "We're sorry, unfortunately, online appointment requests are not currently being accepted for the practice selected. Please call the practice directly to schedule your appointment.",
+
+  //Import patients in admin module
+  'M1UDIP001': 'Uploded patients data successfully',
+
+  // Error for Import patients
+  'E1UDIP001': 'Uploding patients data error',
+
+  //Import encounters in admin module
+  'M1UDIE001': 'Uploded encounters data successfully',
+
+  // Error for Import encounters
+  'E1UDIE001': 'Uploding encounters data error',
 };
 
 

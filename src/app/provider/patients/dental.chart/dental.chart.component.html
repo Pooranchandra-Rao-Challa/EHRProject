@@ -632,12 +632,11 @@
 
 <div class="container-fluid">
   <div class="mb-3">
-    <div class="spinner-container" *ngIf="procedureDataSource.loading$ | async">
+    <div class="spinner-container mb-2" *ngIf="procedureDataSource.loading$ | async">
       <mat-progress-bar mode="indeterminate" bufferValue="50" value=100></mat-progress-bar>
     </div>
     <div class="table-responsive procedure-list">
-      <mat-table [dataSource]=procedureDataSource matSort
-      matSortActive="LastAccessed" matSortDirection="desc"
+      <mat-table [dataSource]=procedureDataSource matSort matSortDirection="desc"
         matSortDisableClear>
         <ng-container matColumnDef="SELECT">
           <mat-header-cell *matHeaderCellDef>SELECT</mat-header-cell>
@@ -734,7 +733,7 @@
       </div>
     </div>
     <div class="d-flex justify-content-end my-3">
-      <div class="pg-container" [hidden]="!procedureDataSource?.TotalRecordSize">
+      <div class="pg-container">
         <mat-paginator appPagination
            [length]="procedureDataSource?.TotalRecordSize" pageSize="10" [pageIndex] = "0"
            [pageSizeOptions]="[10,20,30,40,50]"  >

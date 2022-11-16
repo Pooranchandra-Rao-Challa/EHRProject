@@ -111,16 +111,6 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         }
       });
 
-    this.smartSchedulerService
-      .PracticeStaff({ "ClinicId": this.authService.userValue.ClinicId })
-      .subscribe(resp => {
-        if (resp.IsSuccess) {
-          this.providerStaff = resp.ListResult as PracticeProviders[];
-          this.updateProviderAndStaff.next(this.providerStaff)
-        }
-      });
-
-
     this.settingsService
       .AppointmentTypes({ 'ProviderId': this.authService.userValue.ProviderId })
       .subscribe(resp => {
