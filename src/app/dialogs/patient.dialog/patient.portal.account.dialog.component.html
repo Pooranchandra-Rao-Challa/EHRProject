@@ -68,21 +68,72 @@
         </div>
         <div class="col-lg-6 col-md-6 col-6"></div>
         <div class="col-lg-6 col-md-6 col-6">
-          <div class="form-group">
+          <!-- <div class="form-group">
             <div class="input-group">
               <input class="form-control" placeholder="Search patient users" type="text" id="searchUsser"
                 name="searchUsser" />
             </div>
-          </div>
+          </div> -->
+
+          <mat-form-field appearance="outline" class="col-12">
+            <input matInput #searchpatient class="form-control search-control" placeholder="Search Patient"
+              type="text" id="searchpatient" name="searchpatient" [matAutocomplete]="serachpatient" />
+            <mat-autocomplete [displayWith]="displayWithPatientSearch" #serachpatient="matAutocomplete"
+              (optionSelected)="onPatientSelected($event)">
+              <mat-option [hidden]="displayMessage == false" [disabled]="true" class="text-wrap lh-1 fs-6">
+                Enter atleast 1 character, you can only select 1 item
+              </mat-option>
+              <mat-option *ngIf="isLoading">Loading ...</mat-option>
+              <mat-option *ngFor="let option of filterPatientOptions | async" [value]="option"
+                [disabled]="option.Name == currentPatient.FirstName + ' ' + currentPatient.LastName ? 'disabled' : null"
+                class="patient-serach-option">
+                {{option.Name}}
+              </mat-option>
+              <mat-option *ngIf="noRecords">No Records Found</mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+
         </div>
       </div>
-      <div class="row">
+      <!-- <div class="row">
       </div>
       <div class="row">
         <div class="col-lg-3 col-md-3 col-3">PatientName</div>
         <div class="col-lg-3 col-md-3 col-3">UserName</div>
         <div class="col-lg-3 col-md-3 col-3">Relationship with patient</div>
         <div class="col-lg-3 col-md-3 col-3">Select</div>
+      </div> -->
+      <div class="col-lg-12 col-md-12 col-12">
+        <div class="table-responsive mt-1">
+          <table class="table">
+            <thead class="th-border">
+              <tr>
+                <th scope="col">Patient Name</th>
+                <th scope="col">User Name</th>
+                <th scope="col">Relationship to Patient</th>
+                <th></th>
+                <th *ngIf="deleteSearch" (click)="removeSearch()"><b class="btn-crosss">x</b></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of patientRelationListSubject | async">
+                <td>{{item?.RelationFirstName + ' ' + item?.RelationLastName}}</td>
+                <td>{{item?.RelationUserName}}</td>
+                <td>{{item?.RelationShip}}</td>
+                <td *ngIf="!item.HasAccess"><button class="btn btn-access allow-access" type="button"
+                    (click)="openComponentDialog(patientRelationshipDialogComponent, item, ActionTypes.view)">Allow Access</button></td>
+                <td *ngIf="item.HasAccess">
+                  <button class="btn btn-access remove-access" type="button"
+                    (click)="removeAccessed(item)">Remove Access</button>
+                </td>
+                <!-- <td></td> -->
+              </tr>
+            </tbody>
+          </table>
+          <div class="table-NoRecord text-center py-2 col-12" *ngIf="patientRelationList?.length == 0">
+            No Data Found
+          </div>
+        </div>
       </div>
     </div>
     <div class="modal-footer">

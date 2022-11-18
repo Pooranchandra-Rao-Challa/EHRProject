@@ -45,7 +45,9 @@ export class SmokingStatusDialogComponent implements OnInit {
   }
 
   cancel() {
-    this.ref.close(null);
+    this.ref.close({
+      "UpdatedModal": PatientChart.SmokingStatus
+    });
   }
 
   updateLocalModel(data: SmokingStatus) {

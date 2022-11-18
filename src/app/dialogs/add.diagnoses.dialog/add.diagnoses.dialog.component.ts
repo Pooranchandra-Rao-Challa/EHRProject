@@ -1,3 +1,4 @@
+import { I } from '@angular/cdk/keycodes';
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ComponentType } from 'ngx-toastr';
@@ -23,7 +24,7 @@ export class AddDiagnosesDialogComponent implements OnInit {
   patientEducationMaterialDialogComponent = PatientEducationMaterialDialogComponent;
   ActionTypes = Actions;
   minDateToFinish = new Subject<string>()
-  endDateForDiagnosis;
+  endDateForDiagnosis: Date;
   constructor(private ref: EHROverlayRef,
     private authService: AuthenticationService,
     private patientService: PatientService,
@@ -31,11 +32,14 @@ export class AddDiagnosesDialogComponent implements OnInit {
     public datepipe: DatePipe,
     public overlayService: OverlayService) {
     this.updateLocalModel(ref.RequestData);
+    if (this.patientDiagnoses.StartAt) {
+      this.endDateForDiagnosis = new Date(this.patientDiagnoses.StartAt);
+    }
     if (this.patientDiagnoses.StopAt != (null || '' || undefined)) {
       this.patientDiagnoses.StopAt = this.datepipe.transform(this.patientDiagnoses.StopAt, "yyyy-MM-dd");
     }
-    this.minDateToFinish.subscribe(d => {
-      this.endDateForDiagnosis = new Date(d);
+    this.minDateToFinish.subscribe(minDate => {
+      this.endDateForDiagnosis = new Date(minDate);
     })
   }
 

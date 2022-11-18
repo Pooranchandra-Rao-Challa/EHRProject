@@ -9,11 +9,13 @@ import { OverlayService } from 'src/app/overlay.service';
 import { ComponentType } from '@angular/cdk/portal';
 import { Actions } from 'src/app/_models';
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
-import { BehaviorSubject, fromEvent, Observable, of } from 'rxjs';
+import { BehaviorSubject, fromEvent, merge, Observable, of } from 'rxjs';
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
-import { catchError, filter, finalize, map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { catchError, filter, finalize, map, debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { TreeProcedureComponent } from './tree.procedure.component';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 declare var $: any;
 @Component({
@@ -30,16 +32,18 @@ export class DentalChartComponent implements OnInit, AfterViewInit {
   displayStyle = "none";
   DentalNumber: number;
   procedureCodeList: any = [];
-  currentPatient: ProviderPatient
+  currentPatient: ProviderPatient;
   procedureDialogComponent = ProcedureDialogComponent;
   encounterDialogComponent = EncounterDialogComponent;
-  ActionTypes = Actions
+  ActionTypes = Actions;
   usedProcedures: MedicalCode;
   procedureColumns: string[] = ['SELECT', 'START DATE', 'END DATE', 'TOOTH', 'SURFACE', 'CODE', 'DESCRIPTION', 'PROVIDER', 'STATUS', 'CQM STATUS', 'Encounter'];
-  @ViewChild("procedureSearch", { static: true }) procedureSearch: ElementRef
-  @ViewChild("procedureTree", { static: true }) procedureTree: TreeProcedureComponent
+  @ViewChild("procedureSearch", { static: true }) procedureSearch: ElementRef;
+  @ViewChild("procedureTree", { static: true }) procedureTree: TreeProcedureComponent;
   //patientProceduresView = new BehaviorSubject<ProceduresInfo[]> ([]);
-  procedureDataSource: ProcedureDatasource;
+  public procedureDataSource: ProcedureDatasource;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private overlayService: OverlayService,
     private dentalService: DentalChartService,
@@ -63,6 +67,25 @@ export class DentalChartComponent implements OnInit, AfterViewInit {
       // subscription for response
     ).subscribe(value => this._filterProcedure(value));
 
+    this.sort.sortChange.subscribe(() => {
+      this.paginator.pageIndex = 0
+    });
+
+    merge(this.sort.sortChange, this.paginator.page)
+    .pipe(
+      tap(() => this.loadProcedures())
+    )
+    .subscribe();
+
+  }
+
+  loadProcedures() {
+    this.procedureDataSource.loadProcedures(
+      this.sort.active,
+      this.sort.direction,
+      this.paginator.pageIndex,
+      this.paginator.pageSize
+    );
   }
   _filterProcedure(term: string) {
     this.procedureTree.filter.next(term);
@@ -84,7 +107,7 @@ export class DentalChartComponent implements OnInit, AfterViewInit {
     let reqparams = {
       "PatientId": this.currentPatient.PatientId,
     }
-    this.procedureDataSource = new ProcedureDatasource(this.dentalService, reqparams);
+    this.procedureDataSource = new ProcedureDatasource(this.dentalService, reqparams, this.authService);
     this.procedureDataSource.loadProcedures();
   }
 
@@ -158,12 +181,14 @@ export class DentalChartComponent implements OnInit, AfterViewInit {
 
 
 export class ProcedureDatasource implements DataSource<ProceduresInfo>{
-
+  currentPatient: ProviderPatient
   private proceduresSubject = new BehaviorSubject<ProceduresInfo[]>([]);
   private loadingSubject = new BehaviorSubject<boolean>(false);
   public loading$ = this.loadingSubject.asObservable();
 
-  constructor(private dentalService: DentalChartService, private queryParams: {}) {
+  constructor(private dentalService: DentalChartService, private queryParams: {},
+    private authService: AuthenticationService) {
+    this.currentPatient = authService.viewModel.Patient;
   }
   connect(collectionViewer: CollectionViewer): Observable<ProceduresInfo[] | readonly ProceduresInfo[]> {
     return this.proceduresSubject.asObservable();
@@ -180,8 +205,9 @@ export class ProcedureDatasource implements DataSource<ProceduresInfo>{
     this.queryParams["ProviderId"] = id;
   }
 
-  loadProcedures(filter = '', sortField = 'LastAccessed',
+  loadProcedures(sortField = 'CreatedDate',
     sortDirection = 'desc', pageIndex = 0, pageSize = 10) {
+    this.queryParams["PatientId"] = this.authService.viewModel.Patient.PatientId;
     this.queryParams["SortField"] = sortField;
     this.queryParams["SortDirection"] = sortDirection;
     this.queryParams["PageIndex"] = pageIndex;

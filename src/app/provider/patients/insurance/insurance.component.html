@@ -188,13 +188,13 @@
               <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-12 ddl-width ddhover">
                 <mat-select panelClass="optionalignment" [(ngModel)]="primlist.SourceOfPaymentTypology"
                   #primaryPaymentTypology placeholder="Source of Payment Typology" required #sourcePTypology="ngModel">
-                  <mat-select-filter [displayMember]="'Code'" [array]="SourceOfPaymentTypologyCodesFilter"
+                  <mat-select-filter [displayMember]="'CodeDescription'" [array]="SourceOfPaymentTypologyCodesFilter"
                     (filteredReturn)="SourceOfPaymentTypologyCodes = $event" id="inputcursor"
                     *ngIf="primaryPaymentTypology.focused">
                   </mat-select-filter>
                   <mat-option *ngFor="let item of SourceOfPaymentTypologyCodes" [value]="item.Code"
                     (click)="primaryspt(item)">
-                    {{item.Code}} - {{item.Description}}
+                    {{item.CodeDescription}}
                   </mat-option>
                 </mat-select>
                 <mat-error class="sourcepaymenttypology" *ngIf="sourcePTypology.hasError('required')">
@@ -428,12 +428,12 @@
             <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-12 ddl-width ddhover">
               <mat-select panelClass="optionalignment" [(ngModel)]="secList.SourceOfPaymentTypology"
                 #secondaryPaymentTypology placeholder="Source of Payment Typology" #ssourcePTypology="ngModel" required>
-                <mat-select-filter [displayMember]="'Code'" [array]="secondarySptcFilter"
+                <mat-select-filter [displayMember]="'CodeDescription'" [array]="secondarySptcFilter"
                   (filteredReturn)="SourceOfPaymentTypologyCodes = $event" *ngIf="secondaryPaymentTypology.focused">
                 </mat-select-filter>
                 <mat-option class="matpanelalignment" *ngFor="let item of SourceOfPaymentTypologyCodes"
                   [value]="item.Code" (click)="secondaryspt(item)">
-                  {{item.Code}} - {{item.Description}}
+                  {{item.CodeDescription}}
                 </mat-option>
               </mat-select>
               <mat-error class="sourcepaymenttypology" *ngIf="ssourcePTypology.hasError('required')">

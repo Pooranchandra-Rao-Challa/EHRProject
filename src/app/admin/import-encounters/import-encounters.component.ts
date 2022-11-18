@@ -1,3 +1,4 @@
+import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { Component } from '@angular/core';
 import { AdminService } from 'src/app/_services/admin.service';
 import { PatientService } from 'src/app/_services/patient.service';
@@ -18,7 +19,7 @@ import { Router } from '@angular/router';
 
 })
 export class ImportEncountersComponent {
-
+  importFiles: ImportFile[];
   ProviderList: any = [];
   filterredProviders: any;
   providers: ProviderList = {} as ProviderList;
@@ -36,7 +37,9 @@ export class ImportEncountersComponent {
 
   constructor(private adminservice: AdminService,
     private authService: AuthenticationService,
-    private uploadService: UploadService, private router: Router) {
+    private uploadService: UploadService,
+    private router: Router,
+    private alertmsg: AlertMessage) {
       this.providers = {} as ProviderList;
     }
 
@@ -100,6 +103,12 @@ export class ImportEncountersComponent {
             if(event.body){
               this.uploadInfo = event.body;
               this.updateImportData();
+              this.getImportPatient();
+              this.alertmsg.displayMessageDailogForAdmin(ERROR_CODES["M1UDIE001"]);
+              this.router.navigate(['admin/importeddata'], { queryParams: { name: 'Import Data'} });
+            }
+            else {
+              this.alertmsg.displayErrorDailog(ERROR_CODES["E1UDIE001"]);
             }
           },
           (error: any) => {
@@ -118,6 +127,15 @@ export class ImportEncountersComponent {
       [url],
       { queryParams: { name: name } }
     );
+  }
+
+  getImportPatient() {
+    this.adminservice.AdminImportedPatientEncounter().subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.importFiles = resp.ListResult;
+      } else
+        this.importFiles = [];
+    });
   }
 }
 class Provider{

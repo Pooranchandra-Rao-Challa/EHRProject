@@ -121,9 +121,13 @@
           <ng-container matColumnDef="Result">
             <th mat-header-cell *matHeaderCellDef>Add Result</th>
             <td mat-cell *matCellDef="let lab">
-              <button class="btn" type="button" matTooltip="Add or Update Results" aria-expanded="false"
-                (click)="openResultDialog(lab)">
-                <i class="fa fa-plus plus-icon"></i>
+              <button class="btn" type="button" matTooltip="View Result" aria-expanded="false"
+                *ngIf="lab.Signed" (click)="openResultDialog(lab)">
+                <i class="fa fa-eye eye-icon"></i>
+              </button>
+              <button class="btn" type="button" matTooltip="Add or Update Result" aria-expanded="false"
+                *ngIf="!lab.Signed" (click)="openResultDialog(lab)">
+                <i class="fa fa-edit edit-icon"></i>
               </button>
             </td>
           </ng-container>
@@ -131,15 +135,16 @@
           <tr mat-header-row *matHeaderRowDef="labImagingColumn sticky: true"></tr>
           <tr mat-row class="table-row" *matRowDef="let row; columns: labImagingColumn"></tr>
         </table>
-        <div class="table-NoRecord text-center py-2 col-12" style="color: red;" *ngIf="labImageDatasource.TotalRecordSize == 0">
+        <div class="table-NoRecord text-center py-2 col-12" style="color: red;"
+          *ngIf="labImageDatasource.TotalRecordSize == 0">
           No {{labandimaging.View}} Orders
         </div>
       </div>
 
     </div>
-    <div class="d-flex justify-content-end my-3" >
+    <div class="d-flex justify-content-end my-3">
       <div class="pg-container" [hidden]="!labImageDatasource.TotalRecordSize">
-        <mat-paginator   appPagination [length]="labImageDatasource.TotalRecordSize" [pageSize]="Pagesize" [pageIndex]="0"
+        <mat-paginator appPagination [length]="labImageDatasource.TotalRecordSize" [pageSize]="Pagesize" [pageIndex]="0"
           [pageSizeOptions]="[10,20,30,40,50]">
         </mat-paginator>
       </div>

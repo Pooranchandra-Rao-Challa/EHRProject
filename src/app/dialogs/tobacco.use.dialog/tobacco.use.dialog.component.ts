@@ -78,7 +78,9 @@ export class TobaccoUseDialogComponent implements OnInit {
   }
 
   cancel() {
-    this.ref.close(null);
+    this.ref.close({
+      "UpdatedModal": PatientChart.TobaccoUse
+    });
   }
 
   // // Get tobacco interventions info

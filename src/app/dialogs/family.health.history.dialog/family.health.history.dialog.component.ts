@@ -62,7 +62,9 @@ export class FamilyHealthHistoryDialogComponent implements OnInit {
   }
 
   cancel() {
-    this.ref.close(null);
+    this.ref.close({
+      "UpdatedModal": PatientChart.FamilyMedicalHistory
+    });
   }
 
   optionChangedForDiagnosis(value: Diagnosis) {

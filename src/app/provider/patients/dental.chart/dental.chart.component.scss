@@ -706,3 +706,17 @@ ul.used_procedures{
 {
   cursor: pointer !important;
 }
+.pg-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+@media (max-width: 1024px) {
+  ::ng-deep .pg-container .mat-paginator-container {
+    display: block !important;
+  }
+  ::ng-deep.pg-container .mat-paginator-range-actions {
+    display: block !important;
+  }
+}

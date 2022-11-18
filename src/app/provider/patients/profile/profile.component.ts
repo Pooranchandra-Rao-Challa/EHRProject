@@ -325,7 +325,11 @@ export class ProfileComponent implements OnInit {
     }
     this.patientService.AssignPatientRelationShip(reqParams).subscribe(resp => {
       if (resp.IsSuccess) {
+        this.alertmsg.displayMessageDailog(ERROR_CODES["M2PPR001"]);
         this.getPatientRelations();
+      }
+      else {
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2PPR002"]);
       }
     });
   }
@@ -337,6 +341,7 @@ export class ProfileComponent implements OnInit {
     }
     this.patientService.RemovePatientRelationShipAccess(reqParams).subscribe(resp => {
       if (resp.IsSuccess) {
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2PPR001"]);
         this.getPatientRelations();
       }
     });

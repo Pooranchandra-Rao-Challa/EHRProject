@@ -25,19 +25,18 @@ import { DatePipe } from '@angular/common';
 export class ProcedureDialogComponent implements OnInit {
   teethNumbers: number[] = [];
   @ViewChild('searchProcedureCode', { static: true }) searchProcedureCode: ElementRef;
-  @ViewChild('searchReasonCode', { static: true }) searchReasonCode: ElementRef;
   filteredProcedures: Observable<MedicalCode[]>;
   procedureInfo: ProceduresInfo = new ProceduresInfo();
   patient: ProviderPatient;
-  reasonCodes: MedicalCode[] = REASON_CODES;
+  reasonCodes: MedicalCode[];
+  reasonCodesFilter: MedicalCode[];
   selectedCode: string;
   isLoading = false;
   procedureStatuses: any;
   displayMessage: boolean = true;
   noRecords: boolean = false;
   minDateToFinish = new Subject<string>();
-  minDate;
-  // minDateToFinish = new Subject<String>();
+  minDate: Date;
   endDateForProcedure;
   constructor(private overlayref: EHROverlayRef,
     private authService: AuthenticationService,
@@ -45,6 +44,13 @@ export class ProcedureDialogComponent implements OnInit {
     private utilityService: UtilityService,
     private alertmsg: AlertMessage,
     private datePipe: DatePipe) {
+      this.reasonCodes = REASON_CODES;
+      this.reasonCodes = this.reasonCodes.map((obj) => ({
+        Code: obj.Code,
+        Description: obj.Description,
+        CodeDescription: obj.Code + ' - ' + obj.Description
+      }));
+      this.reasonCodesFilter = this.reasonCodes.slice();
     let i = 1;
     while (this.teethNumbers.push(i++) < 32) {
       this.patient = authService.viewModel.Patient;
@@ -52,12 +58,12 @@ export class ProcedureDialogComponent implements OnInit {
     }
     if (overlayref.RequestData != null)
       this.procedureInfo = overlayref.RequestData;
+    if (this.procedureInfo.Date)
+    this.endDateForProcedure = new Date(this.procedureInfo.Date);
 
-    this.minDateToFinish.subscribe(r => {
-      this.endDateForProcedure = new Date(r);
+    this.minDateToFinish.subscribe(minDate => {
+      this.endDateForProcedure = new Date(minDate);
     })
-
-
   }
 
 
@@ -99,9 +105,9 @@ export class ProcedureDialogComponent implements OnInit {
     return value.Code + "-" + value.Description;
   }
 
-  onReasonSelected(selected) {
-    this.procedureInfo.ReasonCode = selected.option.value.Code;
-    this.procedureInfo.ReasonDescription = selected.option.value.Description
+  onReasonSelected(reason) {
+    this.procedureInfo.ReasonCode = reason.Code;
+    this.procedureInfo.ReasonDescription = reason.Description
   }
 
   onProcedureSelected(selected) {
@@ -442,14 +448,14 @@ cusp_distolingual */
   this.procedureInfo.Place == "surface_buccal"
   this.procedureInfo.Place == "surface_occlusal"
   this.procedureInfo.Place == "surface_lingual_v"
-  
-  
+
+
   this.procedureInfo.Place == "pit_mesiobuccal"
   this.procedureInfo.Place == "pit_mesiolingual"
   this.procedureInfo.Place == "pit_distobuccal"
   this.procedureInfo.Place == "pit_distolingual"
-  
-  
+
+
   this.procedureInfo.Place == "cusp_mesial"
   this.procedureInfo.Place == "cusp_mesiobuccal"
   this.procedureInfo.Place == "cusp_mesiolingual"

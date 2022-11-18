@@ -100,7 +100,7 @@
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="CHARTID" class="form-label label-design">Chart Id</label>
-                <input class="input-group form-control" [(ngModel)]="patientMyProfile.ChartId" placeholder="CHART ID"
+                <input class="input-group form-control" [(ngModel)]="patientMyProfile.ChartId" placeholder="Chart Id"
                   type="text" id="CHARTID">
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
@@ -616,7 +616,7 @@
             <div class="d-inline-flex p-2 mb-3">
               <label class="fs-4 profile-title">Patient Relationship</label>
             </div>
-            <div class="row">
+            <div class="row mx-2">
               <!-- <div class="d-flex col-12 mx-lg-4 mx-2">
                 <div class="find-procedure">
                   <div class="form-group">
@@ -630,30 +630,25 @@
                   </div>
                 </div>
               </div> -->
-
-              <div class="col-lg-6 col-md-6 col-12 mx-4">
-                <mat-form-field appearance="outline" class="col-12">
-                  <input matInput #searchpatient class="form-control search-control" placeholder="Search Patient"
-                    type="text" id="searchpatient" name="searchpatient" [matAutocomplete]="serachpatient" />
-                  <mat-autocomplete [displayWith]="displayWithPatientSearch" #serachpatient="matAutocomplete"
-                    (optionSelected)="onPatientSelected($event)">
-                    <mat-option [hidden]="displayMessage == false" [disabled]="true" class="text-wrap lh-1 fs-6">
-                      Enter atleast 1 character, you can only select 1 item
-                    </mat-option>
-                    <mat-option *ngIf="isLoading">Loading ...</mat-option>
-                    <mat-option *ngFor="let option of filterPatientOptions | async" [value]="option"
-                      [disabled]="option.Name == currentPatient.FirstName + ' ' + currentPatient.LastName ? 'disabled' : null"
-                      class="patient-serach-option">
-                      {{option.Name}}
-                    </mat-option>
-                    <mat-option *ngIf="noRecords">No Records Found</mat-option>
-                  </mat-autocomplete>
-                </mat-form-field>
-              </div>
-
-
+              <mat-form-field appearance="outline" class="col-lg-6 col-12">
+                <input matInput #searchpatient class="form-control search-control" placeholder="Search Patient"
+                  type="text" id="searchpatient" name="searchpatient" [matAutocomplete]="serachpatient" />
+                <mat-autocomplete [displayWith]="displayWithPatientSearch" #serachpatient="matAutocomplete"
+                  (optionSelected)="onPatientSelected($event)">
+                  <mat-option [hidden]="displayMessage == false" [disabled]="true" class="text-wrap lh-1 fs-6">
+                    Enter atleast 1 character, you can only select 1 item
+                  </mat-option>
+                  <mat-option *ngIf="isLoading">Loading ...</mat-option>
+                  <mat-option *ngFor="let option of filterPatientOptions | async" [value]="option"
+                    [disabled]="option.Name == currentPatient.FirstName + ' ' + currentPatient.LastName ? 'disabled' : null"
+                    class="patient-serach-option">
+                    {{option.Name}}
+                  </mat-option>
+                  <mat-option *ngIf="noRecords">No Records Found</mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
               <div class="col-lg-12 col-md-12 col-12">
-                <div class="table-responsive mt-1 mx-lg-4 mx-2">
+                <div class="table-responsive mt-1">
                   <table class="table">
                     <thead class="th-border">
                       <tr>
@@ -676,7 +671,6 @@
                           <button class="btn btn-access remove-access" type="button"
                             (click)="removeAccessed(item)">Remove Access</button>
                         </td>
-                        <td></td>
                       </tr>
                     </tbody>
                   </table>
@@ -817,27 +811,22 @@
               <label class="fs-4 profile-title">Care team</label>
             </div>
             <div class="row  mx-2 mb-3">
-
-              <div class="col-lg-12 col-md-12 col-xl-12 col-12">
-                <div class="search-field">
-                  <mat-form-field appearance="outline">
-                    <input matInput placeholder="Search Provider" [matAutocomplete]="auto" [formControl]="myControl"
-                      class="form-control search-control">
-                    <mat-autocomplete #auto="matAutocomplete" auto>
-                      <mat-option *ngFor="let item of filteredProviderOptions | async" [value]="item.FullName"
-                        (click)="getCareTeamDetails(item.ProviderId)">
-                        {{item.FullName}}
-                      </mat-option>
-                      <mat-option *ngIf="isShow">
-                        <span> No Records Found</span>
-                      </mat-option>
-                    </mat-autocomplete>
-                  </mat-form-field>
-                  <button class="btn btn-info btn-md btn-autosearch" type="button">
+              <mat-form-field class="col-md-6 col-12" appearance="outline">
+                <input matInput placeholder="Search Provider" [matAutocomplete]="auto" [formControl]="myControl"
+                  class="form-control search-control">
+                <mat-autocomplete #auto="matAutocomplete" auto>
+                  <mat-option *ngFor="let item of filteredProviderOptions | async" [value]="item.FullName"
+                    (click)="getCareTeamDetails(item.ProviderId)">
+                    {{item.FullName}}
+                  </mat-option>
+                  <mat-option *ngIf="isShow">
+                    <span> No Records Found</span>
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+              <!-- <button class="btn btn-info btn-md btn-autosearch" type="button">
                     <i class="fa fa-search "></i>
-                  </button>
-                </div>
-              </div>
+                  </button> -->
               <div class="col-lg-12 col-md-12 col-12">
                 <div class="team-border">
                   <div class="row">

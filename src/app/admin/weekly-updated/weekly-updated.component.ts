@@ -140,7 +140,7 @@ export class WeeklyUpdatedComponent implements OnInit {
         title: 'Are you sure you want to change the status',
         showCancelButton: true,
         confirmButtonText: 'Yes',
-        confirmButtonColor:'#337ab7',
+        confirmButtonColor:'#d64841',
         customClass: {
           title: 'swal2-title-message'
 
@@ -168,7 +168,7 @@ export class WeeklyUpdatedComponent implements OnInit {
         title: 'Are you sure you want to delete the record',
         showCancelButton: true,
         confirmButtonText: 'Yes',
-        confirmButtonColor:'#337ab7',
+        confirmButtonColor:'#d64841',
         customClass: {
           title: 'swal2-title-message'
 

@@ -14,6 +14,7 @@ import { AreaCode } from 'src/app/_models/_admin/Admins';
 import { FormControl } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 import { DataExtractorService } from 'mat-table-exporter';
+import { I } from '@angular/cdk/keycodes';
 declare var $: any;
 @Component({
   selector: 'app-insurance',
@@ -75,16 +76,16 @@ export class InsuranceComponent implements OnInit {
   filteredAreacodes: any
   myControlPrimary = new FormControl();
   minDateToPrimary = new Subject<string>();
-  endDateForPrimary;
+  endDateForPrimary: Date;
   minDateToSecondary = new Subject<string>();
-  endDateForSecondary;
+  endDateForSecondary: Date;
 
   dateChangeForPrimary(e) {
-    this.minDateToPrimary.next(e.value.toString());    
+    this.minDateToPrimary.next(e.value.toString());
   }
   dateChangeForSecondary(e)
   {
-    this.minDateToSecondary.next(e.value.toString());  
+    this.minDateToSecondary.next(e.value.toString());
   }
   constructor(private patientservice: PatientService,
     private route: ActivatedRoute,
@@ -98,12 +99,12 @@ export class InsuranceComponent implements OnInit {
     this.changedLocationId = this.user.CurrentLocation;
     this.InsuranceCompanyPlanList();
     this.tomorrow.setDate(this.tomorrow.getDate());
-    this.minDateToPrimary.subscribe(r => {
-      this.endDateForPrimary = new Date(r);
+    this.minDateToPrimary.subscribe(minDate => {
+      this.endDateForPrimary = new Date(minDate);
     })
-    this.minDateToSecondary.subscribe(r=>
+    this.minDateToSecondary.subscribe(minDate=>
       {
-        this.endDateForSecondary = new Date(r);
+        this.endDateForSecondary = new Date(minDate);
       })
   }
 
@@ -267,7 +268,11 @@ export class InsuranceComponent implements OnInit {
     this.patientservice.SourceOfPaymentTypologyCodes().subscribe(resp => {
       if (resp.IsSuccess) {
         this.SourceOfPaymentTypologyCodes = resp.ListResult;
-
+        this.SourceOfPaymentTypologyCodes = this.SourceOfPaymentTypologyCodes.map((obj) => ({
+          Code: obj.Code,
+          Description: obj.Description,
+          CodeDescription: obj.Code + ' - ' + obj.Description
+        }));
         this.SourceOfPaymentTypologyCodesFilter = this.SourceOfPaymentTypologyCodes.slice();
         this.secondarySptcFilter = this.SourceOfPaymentTypologyCodes.slice();
         if (this.primlist.SourceOfPaymentTypology! = "") {
@@ -311,6 +316,7 @@ export class InsuranceComponent implements OnInit {
         this.primlist.StartDate = this.datePipe.transform(this.primlist.StartDate, "yyyy-MM-dd");
         this.primlist.DateOfBirth = this.datePipe.transform(this.primlist.DateOfBirth, "yyyy-MM-dd");
         this.primlist.EndDate = this.datePipe.transform(this.primlist.EndDate, "yyyy-MM-dd");
+        this.endDateForPrimary = new Date(this.primlist.StartDate);
         let secondaryData = this.insuranceList.filter(x =>
           (x.InsuranceType === 'Secondary')
         )
@@ -320,6 +326,8 @@ export class InsuranceComponent implements OnInit {
           this.secList.StartDate = this.datePipe.transform(this.secList.StartDate, "yyyy-MM-dd");
           this.secList.DateOfBirth = this.datePipe.transform(this.secList.DateOfBirth, "yyyy-MM-dd");
           this.secList.EndDate = this.datePipe.transform(this.secList.EndDate, "yyyy-MM-dd");
+          this.endDateForSecondary = new Date(this.secList.StartDate);
+
         }
       }
     });

@@ -45,8 +45,11 @@ export class MedicationDialogComponent implements OnInit {
     private alertmsg: AlertMessage,
     public datepipe: DatePipe) {
     this.updateLocalModel(ref.RequestData);
-    this.minDateToAllergy.subscribe(r => {
-      this.minDateForEndDate = new Date(r);
+    if (this.patientMedication.StartAt) {
+      this.minDateForEndDate = new Date(this.patientMedication.StartAt);
+    }
+    this.minDateToAllergy.subscribe(minDate => {
+      this.minDateForEndDate = new Date(minDate);
     })
 
   }
@@ -126,7 +129,9 @@ export class MedicationDialogComponent implements OnInit {
   }
 
   cancel() {
-    this.ref.close(null);
+    this.ref.close({
+      "UpdatedModal": PatientChart.Medications
+    });
   }
 
   openComponentDialog(content: any | ComponentType<any> | string,

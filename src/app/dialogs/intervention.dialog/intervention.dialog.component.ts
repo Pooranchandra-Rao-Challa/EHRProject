@@ -40,8 +40,11 @@ export class InterventionDialogComponent implements OnInit {
     public datepipe: DatePipe,
     public overlayService: OverlayService) {
     this.updateLocalModel(ref.RequestData);
-    this.minDateToFinish.subscribe(i => {
-      this.endDateForInterventions = new Date(i)
+    if(this.patientIntervention.StartDate) {
+      this.endDateForInterventions = new Date(this.patientIntervention.StartDate);
+    }
+    this.minDateToFinish.subscribe(minDate => {
+      this.endDateForInterventions = new Date(minDate);
     })
 
   }
@@ -85,7 +88,9 @@ export class InterventionDialogComponent implements OnInit {
   }
 
   cancel() {
-    this.ref.close(null);
+    this.ref.close({
+      "UpdatedModal": PatientChart.Interventions
+    });
   }
 
   addBtnWhileSearch: boolean = true;

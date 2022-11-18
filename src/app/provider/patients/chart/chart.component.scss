@@ -154,7 +154,7 @@ input.new-search::placeholder {
 
 .form-control {
   padding: 0 20px;
-  font-size: 15px;
+  font-size: 16px;
 }
 
 // right side buttons
@@ -294,7 +294,7 @@ ew-more {
 textarea.form-control {
   min-height: 119px !important;
   resize: both;
-  font-size: 15px;
+  font-size: 16px;
   padding-top: 10px !important;
   padding-bottom: 10px !important;
   line-height: 1.5;
@@ -488,14 +488,15 @@ textarea.form-control.inputclass:hover {
 ::ng-deep #immunization-modal .mat-select,
 .mat-input-element {
   vertical-align: -webkit-baseline-middle;
+  font-size: 15px;
 }
 
 ::ng-deep #immunization-modal .mat-select-value {
-  font-size: 14px;
+  font-size: 15px;
 }
 
 ::ng-deep .mat-select-panel .mat-option {
-  font-size: 14px;
+  font-size: 15px;
 }
 
 

@@ -48,6 +48,8 @@ export class AddUserDialogComponent implements OnInit {
   emailPattern = /^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$/;
   emailVerfied?: boolean = null;
   emailVerficationMessage?: string;
+  alertMsgTitle: string;
+  alertTextEmail: string;
 
   constructor(private ref: EHROverlayRef,
     private authService: AuthenticationService,
@@ -199,7 +201,7 @@ export class AddUserDialogComponent implements OnInit {
   UseValidatedAddress() {
     this.newUser.City = this.AddressResult.components.city_name;
     this.newUser.State = this.AddressResult.components.state_abbreviation;
-    this.newUser.Address = this.AddressResult.delivery_line_1;
+    this.newUser.StreetAddress = this.AddressResult.delivery_line_1;
     this.newUser.ZipCode = this.AddressResult.components.zipcode;
     this.newUser.PracticeAddress = this.ValidAddressForUse;
     this.closePopupAddress();
@@ -224,10 +226,17 @@ export class AddUserDialogComponent implements OnInit {
       this.newUser.MobilePhone = '+1' + this.newUser.MobilePhonePreffix + this.newUser.MobilePhoneSuffix;
     }
     this.newUser.URL = this.url;
-    console.log(this.newUser);
     //return;
     this.accountservice.CreateProvider(this.newUser).subscribe(resp => {
       if (resp.IsSuccess) {
+        if(this.newUser.ProviderId){
+          this.alertMsgTitle = 'User Updated Successfully ';
+          this.alertTextEmail = '';
+        }
+        else{
+          this.alertMsgTitle = 'Thank you for registering for an EHR1 Account! An email with instructions for how to complete  setup of your account has been sent to ';
+          this.alertTextEmail = this.newUser.Email;
+        }
         this.alertWithSuccess();
         this.ref.close({
           saved: true
@@ -250,7 +259,7 @@ export class AddUserDialogComponent implements OnInit {
     Swal.fire({
       position: 'top',
       //icon: 'success',
-      title: 'Thank you for registering for an EHR1 Account! An email with instructions for how to complete  setup of your account has been sent to ' + this.newUser.Email,
+      title: this.alertMsgTitle + this.alertTextEmail,
       confirmButtonText: 'Close',
       width: '700',
       customClass: {
@@ -290,7 +299,7 @@ export class AddUserDialogComponent implements OnInit {
       && this.newUser.Degree
       && this.newUser.Speciality
       && this.newUser.NPI
-      && this.newUser.Address
+      && this.newUser.StreetAddress || this.newUser.Address
       && this.newUser.ClinicId
       && (this.phonePattern.test(pNo))
       && ((!this.newUser.MobilePhonePreffix && !this.newUser.MobilePhoneSuffix) || (this.phonePattern.test(mNo)))
@@ -325,7 +334,7 @@ export class AddUserDialogComponent implements OnInit {
   //         && this.newUser.Degree == undefined ? '' : this.newUser.Degree != ''
   //           && this.newUser.Speciality == undefined ? '' : this.newUser.Speciality != ''
   //             && this.newUser.NPI == undefined ? '' : this.newUser.NPI != ''
-  //               && this.newUser.Address == undefined ? '' : this.newUser.Address != ''
+  //               && this.newUser.StreetAddress == undefined ? '' : this.newUser.StreetAddress != ''
   //                 && this.newUser.ClinicId == undefined ? '' : this.newUser.ClinicId != ''
   //                 && (this.phonePattern.test(pNo))
   //                 && ((!this.newUser.MobilePhonePreffix && !this.newUser.MobilePhoneSuffix) || (this.phonePattern.test(mNo)))

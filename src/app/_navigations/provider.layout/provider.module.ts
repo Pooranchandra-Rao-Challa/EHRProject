@@ -141,6 +141,7 @@ import { PraticeAdduserDialogComponent } from 'src/app/dialogs/pratice.adduser.d
 import { CcdaPreviewDialogComponent } from 'src/app/dialogs/ccda.preview.dialog/ccda.preview.dialog.component';
 import { LockedComponent } from 'src/app/dialogs/locked/locked.component';
 import { AdminService } from 'src/app/_services/admin.service';
+import { PatientRelationshipDialogComponent } from 'src/app/dialogs/patient.relationship.dialog/patient.relationship.dialog.component';
 import { AddendaAttachDocumentComponent } from 'src/app/dialogs/encounter.dialog/addenda.attach.document'
 import { SignAddendaDocumentComponent } from 'src/app/dialogs/encounter.dialog/attenda.document.sign.component'
 import { AddendaReviewDocumentComponent } from 'src/app/dialogs/encounter.dialog/addenda.review.document'
@@ -202,6 +203,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     PraticeAdduserDialogComponent,
     CcdaPreviewDialogComponent,
     LockedComponent,
+    PatientRelationshipDialogComponent
+
     AddendaReviewDocumentComponent,
     AddendaCommentComponent,
   ],
@@ -290,6 +293,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     PraticeAdduserDialogComponent,
     CcdaPreviewDialogComponent,
     LockedComponent,
+    PatientRelationshipDialogComponent,
+   // AttachmentNopreviewComponent,
+   // AttachmentComponent
     AddendaAttachDocumentComponent,
     SignAddendaDocumentComponent,
     AddendaReviewDocumentComponent,
@@ -389,7 +395,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     ViewMessageDialogComponent,
     PraticeAdduserDialogComponent,
     CcdaPreviewDialogComponent,
-    LockedComponent
+    LockedComponent,
+    PatientRelationshipDialogComponent
     ]
 })
 export class ProviderModule {

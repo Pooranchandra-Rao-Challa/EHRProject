@@ -234,15 +234,15 @@
           <div class="col-lg-12 col-md-12 col-12">
             <div class="input-group">
               <label class="control-label input-group-addon">Search Reason:</label>
-              <mat-form-field class="procedure-form-field w-100" appearance="outline">
-                <input matInput #searchReasonCode class="form-control" placeholder="Select Reason Code" type="text"
-                  id="searchReasonCode" name="searchReasonCode" [matAutocomplete]="reasonCode" />
-                <mat-autocomplete [displayWith]="displayReason" #reasonCode="matAutocomplete"
-                  (optionSelected)="onReasonSelected($event)">
-                  <mat-option *ngFor="let option of reasonCodes" [value]="option" class="medical-code-option">
-                    {{option.Code}} - {{option.Description}}
+              <mat-form-field appearance="outline" class="col-12">
+                <mat-select placeholder="Select Reason Code" #searchReasonCode>
+                  <mat-select-filter [displayMember]="'CodeDescription'" [array]="reasonCodesFilter"
+                    (filteredReturn)="reasonCodes = $event" *ngIf="searchReasonCode.focused"></mat-select-filter>
+                  <mat-option class="option-white-space" *ngFor="let reason of reasonCodes" [value]="reason.Code"
+                    (click)="onReasonSelected(reason)">
+                    {{reason.CodeDescription}}
                   </mat-option>
-                </mat-autocomplete>
+                </mat-select>
               </mat-form-field>
             </div>
           </div>

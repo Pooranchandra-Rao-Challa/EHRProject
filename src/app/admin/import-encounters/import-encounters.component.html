@@ -11,7 +11,7 @@
     </div>
   </div>
   <div class="upload-input">
-    <label>Import data for provider :</label>
+    <label class="required">Import data for provider :</label>
     <div class="form-group col-lg-12 mt-2">
       <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-12">
         <mat-select class="col-lg-12 col-md-12 col-12" #searchProvider  [(ngModel)]="ProviderId" placeholder="Select Provider">
@@ -39,7 +39,7 @@
 
     <div class="form-group  col-lg-12 mt-3 ">
       <div class="actions">
-        <button type="submit" [class.btn-not-allowed]="!enableImport" class="btn btn-style"
+        <button type="submit" [class.btn-not-allowed]="!enableImport" class="btn btn-style" [disabled]="!enableImport && ProviderId"
         (click)="upload()" >Import</button>
         <button type="button" class="btn btn-back mx-2" (click)="BackToListImportData('Import Data','admin/importeddata')">Back</button>
       </div>

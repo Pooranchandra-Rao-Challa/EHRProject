@@ -40,7 +40,7 @@ export class EditDefaultMessageComponent implements OnInit {
     this.adminService.UpdateDefaultMessage(this.defaultMessage).subscribe(resp => {
       if(resp.IsSuccess) {
         this.BackDefaultMessage('Default Message','admin/defaultmessage');
-        this.alertmsg.displayMessageDailog(ERROR_CODES["M1DM001"]);
+        this.alertmsg.displayMessageDailogForAdmin(ERROR_CODES["M1DM001"]);
       }
       else {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E1A001"]);

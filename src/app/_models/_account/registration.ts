@@ -22,6 +22,7 @@ export class Registration{
   AltEmail?: string;
   Password?: string;
   Address?: string;
+  StreetAddress?: string;
   SuitNumber?: string;
   City?: string;
   State?: string;

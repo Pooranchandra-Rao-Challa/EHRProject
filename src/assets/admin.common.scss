@@ -212,3 +212,33 @@ div.search-box button:hover {
 ::ng-deep body.swal2-height-auto {
   height: 100% !important;
 }
+::ng-deep .swal2-title-admin{
+  background: #35414f !important;
+  color: #fff !important;
+}
+::ng-deep .admin-cancel-button{
+  background: #35414f !important;
+  color: #fff !important;
+}
+::ng-deep .admin-cancel-button:hover{
+  background: #fff !important;
+  color: #35414f !important;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px #2a3642 !important;
+  border-radius: 10px;
+  background: #f1f1f1;
+}
+
+
+::-webkit-scrollbar-thumb {
+  background: #2a3642 !important;
+  border-radius: 10px;
+  background-clip: padding-box;
+  border: 0.05em solid #eeeeee;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2a3642;
+}

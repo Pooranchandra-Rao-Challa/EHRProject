@@ -5,12 +5,12 @@ import { TemplateRef } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
 import { PatientService } from '../_services/patient.service';
 import { AuthenticationService } from '../_services/authentication.service';
-import { Actions, User, UserLocations } from '../_models';
+import { Actions, GeneralSchedule, User, UserLocations } from '../_models';
 import { Appointments } from '../_models/_patient/appointments';
 import { connect } from 'http2';
 import { UtilityService } from '../_services/utiltiy.service';
 import { AlertMessage, ERROR_CODES } from '../_alerts/alertMessage';
-
+import { SettingsService } from './../_services/settings.service';
 
 @Component({
   selector: 'app-appointment',
@@ -34,20 +34,35 @@ export class AppointmentComponent {
   selectedAppointmentDate: Date;
   selectedWeekday: any;
   selectedAppointmentDateString: string;
+  generalSchedule: GeneralSchedule = {} as GeneralSchedule;
+
   constructor(private overlayService: OverlayService, private patientservice: PatientService, private authenticationService: AuthenticationService, private utilityService: UtilityService,
-    private alertmsg: AlertMessage,) {
+    private alertmsg: AlertMessage, private settingsService: SettingsService) {
     this.user = authenticationService.userValue
     this.RequestAppoinments.LocationId;
     // this.locationsInfo = JSON.parse(this.user.LocationInfo)
   }
   ngOnInit(): void {
-
+    this.getGeneralSchedule();
     this.getProviders();
     this.getLocations();
     this.getPatientUpcomingAppointments();
     this.getPatientPastAppointments();
     this.selectedAppointmentDate = new Date(new Date().toLocaleDateString());
     this.selectedWeekday = this.selectedAppointmentDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+  }
+
+  // get General Schedule details
+  getGeneralSchedule() {
+    let reqparams = {
+      clinicId: this.user.ClinicId
+    };
+    this.settingsService.Generalschedule(reqparams).subscribe((resp) => {
+      if (resp.IsSuccess) {
+        if (resp.ListResult.length == 1)
+          this.generalSchedule = resp.ListResult[0];
+      }
+    })
   }
 
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string) {
@@ -108,14 +123,12 @@ export class AppointmentComponent {
           e.class = "Statusconfirmed"
 
         }
-        else if(e.ApptStatus == 'Scheduled')
-        {
+        else if (e.ApptStatus == 'Scheduled') {
           e.ApptStatus = 'Scheduled';
           e.class = "Statusconfirmed"
 
         }
-        else if(e.ApptStatus == 'In-Progress')
-        {
+        else if (e.ApptStatus == 'In-Progress') {
           e.ApptStatus = 'In-Progress';
           e.class = "Statusconfirmed"
         }
@@ -151,22 +164,33 @@ export class AppointmentComponent {
   }
 
   CancelAppoinments(AppointmentId) {
-    var req = {
-      'ClinicId': this.user.ClinicId,
-      'AppointmentId': AppointmentId
-
+    if (this.generalSchedule.ConcurrentApps == false) {
+      this.alertmsg.displayMessageDailog(ERROR_CODES["E3A002"]);
     }
-    this.patientservice.CancelPatientAppoinment(req).subscribe(resp => {
-      if (resp.IsSuccess) {
-        this.alertmsg.displayMessageDailog(ERROR_CODES["M3A002"])
-        this.getPatientPastAppointments();
-        this.getPatientUpcomingAppointments();
+    else {
+      var req = {
+        'ClinicId': this.user.ClinicId,
+        'AppointmentId': AppointmentId
+
       }
-      else {
-        this.alertmsg.displayMessageDailog(ERROR_CODES["E3A001"])
-      }
-    })
+      this.patientservice.CancelPatientAppoinment(req).subscribe(resp => {
+        if (resp.IsSuccess) {
+          this.alertmsg.displayMessageDailog(ERROR_CODES["M3A002"]);
+          this.getPatientPastAppointments();
+          this.getPatientUpcomingAppointments();
+        }
+        else {
+          this.alertmsg.displayMessageDailog(ERROR_CODES["E3A001"]);
+        }
+      })
+    }
   }
+
+  // alertMessage() {
+  //   if (this.generalSchedule.ConcurrentApps == false) {
+  //     this.alertmsg.displayMessageDailog(ERROR_CODES["E3A002"]);
+  //   }
+  // }
 
   // getGeneralSchedule() {
   //   let reqparams = {

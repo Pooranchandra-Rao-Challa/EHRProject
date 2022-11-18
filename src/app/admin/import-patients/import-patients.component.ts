@@ -7,7 +7,7 @@ import { BehaviorSubject, ReplaySubject } from 'rxjs';
 import { IUploadProgress } from 'src/app/file.upload/file-upload.type';
 import { HttpEventType } from '@angular/common/http';
 import { ImportFile } from 'src/app/_models/_admin/importfile';
-import { AlertMessage } from 'src/app/_alerts/alertMessage'
+import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage'
 import { Router } from '@angular/router';
 
 @Component({
@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./import-patients.component.scss']
 })
 export class ImportPatientsComponent {
-
+  importFiles: ImportFile[];
   ProviderList: Provider[] = [];
   filterredProviders: any;
   ProviderId: string = null;
@@ -36,7 +36,8 @@ export class ImportPatientsComponent {
     private authService: AuthenticationService,
     private alertMessage: AlertMessage,
     private uploadService: UploadService,
-    private router: Router,) { }
+    private router: Router,
+    private alertmsg: AlertMessage) { }
 
   ngOnInit(): void {
     this.GetProviderNameList();
@@ -94,7 +95,12 @@ export class ImportPatientsComponent {
             if (event.body) {
               this.uploadInfo = event.body as Attachment;
               this.updateImportData();
-
+              this.getImportPatient();
+              this.alertmsg.displayMessageDailogForAdmin(ERROR_CODES["M1UDIP001"]);
+              this.router.navigate(['admin/importeddata'], { queryParams: { name: 'Import Data'} });
+            }
+            else {
+              this.alertmsg.displayErrorDailog(ERROR_CODES["E1UDIP001"]);
             }
           },
           (error: any) => {
@@ -103,11 +109,8 @@ export class ImportPatientsComponent {
           () => this.uploadInProgressSubject.next(false)
         )
     }
-
-    // this.router.navigate(['admin/importeddata'], { queryParams: { name: 'Import Data'} }); 
-   
   }
-  
+
   get enableImport(): boolean {
     return this.ProviderId != null && this.ProviderId != "" && this.file != null;
   }
@@ -116,6 +119,15 @@ export class ImportPatientsComponent {
       [url],
       { queryParams: { name: name } }
     );
+  }
+
+  getImportPatient() {
+    this.adminservice.AdminImportedPatientEncounter().subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.importFiles = resp.ListResult;
+      } else
+        this.importFiles = [];
+    });
   }
 }
 
