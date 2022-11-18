@@ -141,6 +141,10 @@ import { PraticeAdduserDialogComponent } from 'src/app/dialogs/pratice.adduser.d
 import { CcdaPreviewDialogComponent } from 'src/app/dialogs/ccda.preview.dialog/ccda.preview.dialog.component';
 import { LockedComponent } from 'src/app/dialogs/locked/locked.component';
 import { AdminService } from 'src/app/_services/admin.service';
+import { AddendaAttachDocumentComponent } from 'src/app/dialogs/encounter.dialog/addenda.attach.document'
+import { SignAddendaDocumentComponent } from 'src/app/dialogs/encounter.dialog/attenda.document.sign.component'
+import { AddendaReviewDocumentComponent } from 'src/app/dialogs/encounter.dialog/addenda.review.document'
+import { AddendaCommentComponent } from 'src/app/dialogs/encounter.dialog/addenda.comment'
 
 
 //import { AttachmentNopreviewComponent } from 'src/app/_components/attachments/attachment.nopreview.component'
@@ -193,12 +197,13 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     AttachmentPreviewComponent,
     MessagesTableDialogComponent,
     ViewMessageDialogComponent,
-    //AttachmentNopreviewComponent,
-    //AttachmentComponent,
+    AddendaAttachDocumentComponent,
+    SignAddendaDocumentComponent,
     PraticeAdduserDialogComponent,
     CcdaPreviewDialogComponent,
     LockedComponent,
-
+    AddendaReviewDocumentComponent,
+    AddendaCommentComponent,
   ],
   declarations: [
     ProviderNavbarComponent,
@@ -285,8 +290,10 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     PraticeAdduserDialogComponent,
     CcdaPreviewDialogComponent,
     LockedComponent,
-   // AttachmentNopreviewComponent,
-   // AttachmentComponent
+    AddendaAttachDocumentComponent,
+    SignAddendaDocumentComponent,
+    AddendaReviewDocumentComponent,
+    AddendaCommentComponent
 
   ],
   imports: [

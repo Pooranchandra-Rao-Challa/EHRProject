@@ -1,4 +1,5 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, } from '@angular/forms';
 import { ComponentType } from '@angular/cdk/portal';
 import { of,  Subscription } from 'rxjs';
@@ -27,6 +28,7 @@ import {
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 import { Router } from '@angular/router';
 import { LockedComponent } from 'src/app/dialogs/locked/locked.component';
+import { MatExpansionPanel } from '@angular/material/expansion';
 
 
 @Component({
@@ -60,6 +62,15 @@ export class SmartScheduleComponent implements OnInit {
   upcomingAppointmentsDialogComponent = UpcomingAppointmentsDialogComponent;
   encounterDialogComponent = EncounterDialogComponent;
   completeAppointmentDialogComponent = CompleteAppointmentDialogComponent;
+  @ViewChild('panel1',{static:true}) panel1: MatExpansionPanel;
+  @ViewChild('panel2',{static:true}) panel2: MatExpansionPanel;
+
+  togglePanel: number = 0;
+  togglePanel2: number = 0;
+  // viewPanel1: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+  // $viewPanel1 = this.viewPanel1.asObservable();
+  // viewPanel2: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  // $viewPanel2 = this.viewPanel2.asObservable();
 
   //Auto Search Paramters
   // public patients: PatientSearchResults[];
@@ -83,33 +94,17 @@ export class SmartScheduleComponent implements OnInit {
       this.openLockComponentDialog(this.lockedComponent, this.authService.userValue, this.ActionsType.view);
     }
 
-    // this.patientSearchTerms
-    //   .pipe(debounceTime(300),  // wait for 300ms pause in events
-    //     distinctUntilChanged())   // ignore if next search term is same as previous
-    //   .subscribe((term) =>
-    //     this.smartSchedulerService
-    //       .SearchPatients({
-    //         ProviderId: this.SelectedProviderId,
-    //         ClinicId: this.authService.userValue.ClinicId,
-    //         SearchTerm: term
-    //       })
-    //       .subscribe(resp => {
-    //         if (resp.IsSuccess) {
-    //           this.patients = resp.ListResult;
-    //         }
-
-    //       })
-    //   );
     this.locationsubscription = this.locationSelectService.getData().subscribe(locationId => {
       this.SelectedLocationId = locationId;
       this.LoadAppointmentDefalts();
     });
   }
 
-  // PatinetActions(patient: PatientSearchResults) {
-  //   if (patient.NumberOfAppointments == 0) return Actions.new;
-  //   else return Actions.upcomming;
-  // }
+  AppointmentToggleView(){
+    this.togglePanel = this.togglePanel == 0 ? 1 : 0;
+    this.togglePanel2 = this.togglePanel2 == 1 ? 0 : 1;
+  }
+
 
   onPatientSelection(appoinment: ScheduledAppointment) {
 
@@ -223,42 +218,6 @@ export class SmartScheduleComponent implements OnInit {
     return data;
   }
 
-  // PatientAppointmentInfoFromSearch(PatientObj: PatientSearchResults, action?: Actions) {
-  //   let data = {} as AppointmentDialogInfo
-  //   this.PatientAppointment = {} as NewAppointment;
-
-  //   this.selectedPatient = PatientObj as PatientSearchResults;
-  //   if (this.selectedPatient.NumberOfAppointments == 0) {
-  //     this.appointmentTitle = "Add New Appointment";
-  //     data.status = action;
-  //   } else {
-  //     this.PatientAppointments(PatientObj)
-  //     this.appointmentTitle = "Edit Appointment";
-  //     data.AppointmentsOfPatient = this.AppointmentsOfPatient;
-  //     data.status = action
-  //   }
-
-  //   this.PatientAppointment.PatientId = this.selectedPatient.PatientId;
-  //   this.PatientAppointment.PatientName = this.selectedPatient.Name;
-  //   this.PatientAppointment.LocationId = this.SelectedLocationId;
-  //   this.PatientAppointment.ProviderId = this.SelectedProviderId;
-  //   this.PatientAppointment.ClinicId = this.authService.userValue.ClinicId;
-  //   this.PatientAppointment.Duration = 30;
-
-  //   data.Title = this.appointmentTitle;
-  //   data.ClinicId = this.authService.userValue.ClinicId;
-  //   data.ProviderId = this.SelectedProviderId;
-  //   data.LocationId = this.SelectedLocationId;
-  //   data.PatientAppointment = this.PatientAppointment;
-  //   data.AppointmentTypes = this.AppointmentTypes;
-  //   data.PracticeProviders = this.PracticeProviders;
-  //   data.Locations = this.Locations;
-  //   data.Rooms = this.Rooms;
-
-  //   return data;
-  // }
-
-
   loadDefaults() {
     let req = { "ClinicId": this.authService.userValue.ClinicId };
     this.smartSchedulerService.PracticeProviders(req).subscribe(resp => {
@@ -327,56 +286,18 @@ export class SmartScheduleComponent implements OnInit {
     });
   }
 
-  // searchPatient(term: string): void {
-  //   this.flag = true;
-  //   this.patientSearchTerms.next(term);
-  // }
-
-
-  // PatientAppointments(PatientObj) {
-  //   let req = {
-  //     "PatientId": PatientObj.PatientId
-  //   };
-
-  //   this.smartSchedulerService.ActiveAppointments(req).subscribe(resp => {
-  //     if (resp.IsSuccess) {
-  //       this.AppointmentsOfPatient = resp.ListResult as ScheduledAppointment[];
-  //       return this.AppointmentsOfPatient;
-  //     }
-  //   });
-  // }
-
-
-
-  // displayPatient(value: PatientSearchResults): string {
-  //   if (!value) return "";
-  //   return ""
-  //   return value.Name + "-" + value.MobilePhone;
-  // }
-
-
-  // onPatientSelected(value: any): string {
-  //   if (!value) return "";
-  //   let patient = value.option.value;
-  //   this.patients =[];
-  //   if(patient.NumberOfAppointments == 0){
-  //     this.openComponentDialog( this.appointmentDialogComponent ,patient,this.PatinetActions(patient));
-  //   }else{
-  //     this.openComponentDialog( this.upcomingAppointmentsDialogComponent ,patient,this.PatinetActions(patient));
-  //   }
-
-  //   return patient.Name + "-" + patient.MobilePhone;
-  // }
-
-
-  // openNewPatinet(trggerOpen: boolean) {
-  //   if (trggerOpen)
-  //     this.openComponentDialog(this.patientDialogComponent);
-  // }
-
-
   ngOnInit(): void {
+    // this.viewPanel1.subscribe((value)=>{
+    //   console.log('panel 1 ', value);
+    //   if(value) this.panel1.expanded  = true;
+    //   else this.panel1.expanded  = false;
+    // })
+    // this.viewPanel2.subscribe((value)=>{
+    //   console.log('panel 2 ', value);
 
+    //   if(value) this.panel2.expanded  = true;
+    //   else this.panel2.expanded  = false;
+    // })
     this.PatientAppointment = {};
     this.SelectedLocationId = this.authService.userValue.CurrentLocation;
     this.PatientAppointment.ProviderId = this.authService.userValue.ProviderId;
@@ -452,3 +373,5 @@ export class SmartScheduleComponent implements OnInit {
     });
   }
 }
+
+

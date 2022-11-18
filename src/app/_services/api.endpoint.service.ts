@@ -950,7 +950,62 @@ export class APIEndPoint extends EndpointBase {
   {
     return this._baseUrl + "RemovePatientRelationShipAccess";
   }
+  get _patientAddendaDocsURL()
+  {
+    return this._baseUrl + "PatientAddendaDocs";
+  }
 
+  get _updateAddendaDocURL()
+  {
+    return this._baseUrl + "UpdateAddendaDoc";
+  }
+
+  get _updateAddendaDocsURL()
+  {
+    return this._baseUrl + "UpdateAddendaDocs";
+  }
+
+  get _encounterAddendaDocsURL()
+  {
+    return this._baseUrl + "EncounterAddendaDocs";
+  }
+
+  get _patientProfileURL()
+  {
+    return this._baseUrl + "PatientProfile";
+  }
+  get _encountersForAddendaDocURL()
+  {
+    return this._baseUrl + "EncountersForAddendaDoc";
+  }
+
+  get _addendaDocumentTypesURL()
+  {
+    return this._baseUrl + "AddendaDocumentTypes";
+  }
+
+  get _getPatientURL()
+  {
+    return this._baseUrl + "GetPatient";
+  }
+
+  get _createAddendaDocTypeURL()
+  {
+    return this._baseUrl + "CreateAddendaDocType";
+  }
+
+  get _createAddendumURL()
+  {
+    return this._baseUrl + "CreateAddendum";
+  }
+  get _addendumsURL()
+  {
+    return this._baseUrl + "Addendums";
+  }
+  get _deleteEncounterAddendaDocURL()
+  {
+    return this._baseUrl + "DeleteEncounterAddendaDoc";
+  }
 
   constructor(public http: HttpClient) {
     super();

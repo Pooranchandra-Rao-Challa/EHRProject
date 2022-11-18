@@ -1,0 +1,117 @@
+<div class="modal-dialog" id="attach-review-doc-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 class="modal-title col-11 Helvetica-sans-serif-large" id="staticBackdropLabel">
+        Update Document Reviews
+      </h3>
+      <span type="button" class="cross-mark col-1" (click)="closePopup()" aria-label="Close">
+        X
+      </span>
+    </div>
+    <div class="modal-body padding-unset">
+      <div style="display: flex;">
+        <div class="col-6" style="padding: 10px 0px 10px 0px;
+        border: solid 1px #41b6a6;
+        margin-right: 15px;">
+          <img [src]="Imagedata" width="100%" style="padding:10px" *ngIf=" this.Imagedata != null">
+        </div>
+        <div class="col-5">
+          <div class="row doc-review">
+            <div class="col-5">Patient:</div>
+            <div class="col-5">{{addendaDoc.PatientName}}</div>
+          </div>
+          <div class="row doc-review">
+            <div class="col-5">Document Name:</div>
+            <div class="col-5">{{addendaDoc.FileName}}</div>
+          </div>
+          <div class="row doc-review">
+            <div class="col-5">Document Type:</div>
+            <div class="col-5">
+              <mat-form-field class="doctype-form-field" appearance="outline" style="width:100%">
+                <input matInput #searchDocType class="form-control" placeholder="Search Document Type" type="text"
+                  id="searchProcedureCode" name="searchProcedureCode" [matAutocomplete]="docTypeAutoComplete"
+                  [(ngModel)]="selectedDocumentType">
+                <mat-autocomplete [displayWith]="displayDocType" #docTypeAutoComplete="matAutocomplete"
+                  (optionSelected)="onDocumentTypeSelected($event)">
+                  <mat-option *ngIf="displayMessage" [disabled]="true" class="text-wrap lh-1 fs-6">
+                    Enter atleast 3 character, you can only select 1 item
+                  </mat-option>
+                  <mat-option *ngFor="let option of addendaDocTypeFilter" [value]="option"
+                    class="medical-code-option">
+                     {{option.DocType}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </div>
+            <div class="col-2" *ngIf="addButtonText != '' && addButtonText != null">
+              <button type="button" class="btn btn-green" style="width: 150px;
+              padding: 11px 10px;
+              margin-top: 4px;" (click)="AddDocumentType()">
+                {{addButtonText}}
+              </button>
+            </div>
+          </div>
+          <div class="row doc-review">
+            <div class="col-5">Date:</div>
+            <div class="col-5"><mat-form-field appearance="outline" class="col-12 green-calendar calendaricon">
+              <input matInput class="pointer" autocomplete="off" [matDatepicker]="startDate"
+                (click)="startDate.open()" readonly placeholder="Start Date"
+                [(ngModel)]="addendaDoc.ServicedDate"/>
+              <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+              <mat-datepicker #startDate></mat-datepicker>
+            </mat-form-field></div>
+          </div>
+          <div class="row doc-review">
+            <div class="col-5">Provider:</div>
+            <div class="col-5">
+              <mat-form-field appearance="outline" class="col-12 hover cstm-mat-padding">
+                <mat-select placeholder="Select One" disableOptionCentering id="encounterPracticeProviders"
+                  placeholder="Select Provider" [(ngModel)]="addendaDoc.SelectedProviderId">
+                  <mat-option *ngFor="let provider of addendaDoc.PracticeProviders" [value]="provider.ProviderId">
+                    {{provider.FullName}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-2"><button type="button" class="btn btn-green" style="white-space: nowrap;
+              padding: 11px 10px;
+              margin-top: 4px;" (click)="AssignToMe()">
+                Assign Me
+              </button></div>
+          </div>
+          <div class="row doc-review">
+            <div class="col-5">Comments:</div>
+            <div class="col-5">
+                <textarea matInput style="height: 100px; padding:10px; width: 100% !important; border: 1px solid #41b6a6;
+                border-radius: 6px;" rows="10" class="col-12" [(ngModel)]="addendaDoc.Note"></textarea>
+              </div>
+
+          </div>
+          <div class="row doc-review">
+            <div class="col-5" style="padding-top: 20px;">Attached to Encounters:</div>
+            <div class="col-5">
+              <p *ngIf="refreshingEncounters" style="margin: 5px 0;padding: 5px 10px;">
+                <svg class='fontawesomesvg fa-spin fa-2x' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                  <!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. -->
+                  <path d="M0 32C0 14.3 14.3 0 32 0H64 320h32c17.7 0 32 14.3 32 32s-14.3 32-32 32V75c0 42.4-16.9 83.1-46.9 113.1L237.3 256l67.9 67.9c30 30 46.9 70.7 46.9 113.1v11c17.7 0 32 14.3 32 32s-14.3 32-32 32H320 64 32c-17.7 0-32-14.3-32-32s14.3-32 32-32V437c0-42.4 16.9-83.1 46.9-113.1L146.7 256 78.9 188.1C48.9 158.1 32 117.4 32 75V64C14.3 64 0 49.7 0 32zM96 64V75c0 25.5 10.1 49.9 28.1 67.9L192 210.7l67.9-67.9c18-18 28.1-42.4 28.1-67.9V64H96zm0 384H288V437c0-25.5-10.1-49.9-28.1-67.9L192 301.3l-67.9 67.9c-18 18-28.1 42.4-28.1 67.9v11z"/>
+                </svg>
+              </p>
+              <div *ngFor="let encounter of encounters; let i = index">
+                <div>{{encounter.ServicedAt | date: 'MM/dd/yyyy'}}-{{encounter.VisitReason}}</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer" style="display: list-item;">
+      <button type="button" class="btn btn-green" style="float: left;" (click)="deleteAddendaDoc()">
+        Delete
+      </button>
+      <button type="button" class="btn btn-green" style="float: right;" (click)="saveAddendaDocReview()">
+        Save
+      </button>
+    </div>
+  </div>
+</div>

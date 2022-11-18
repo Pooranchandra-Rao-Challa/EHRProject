@@ -42,13 +42,13 @@
         </div>
       </div>
       <div class="row">
-        <mat-accordion class="schedule-accordion">
-          <mat-expansion-panel #panel1 [expanded]="true" hideToggle>
+        <mat-accordion class="schedule-accordion" >
+          <mat-expansion-panel #panel1 [expanded]="togglePanel === 0" hideToggle  >
             <mat-expansion-panel-header class="bg-color" >
               <mat-panel-title (click)="$event.stopPropagation()" style="cursor:default">
                 Upcoming Appointments
               </mat-panel-title>
-              <i class="fa" [class.fa-compress] = "panel1.expanded"
+              <i class="fa" [class.fa-compress] = "panel1.expanded" (click)="AppointmentToggleView()"
               [class.fa-expand] = "!panel1.expanded" style="padding-top:6px"></i>
             </mat-expansion-panel-header>
             <div class="scrollable-table" style="overflow-y:auto;overflow-x:hidden">
@@ -115,10 +115,10 @@
               </div>
             </div>
           </mat-expansion-panel>
-          <mat-expansion-panel #panel2 [expanded]="false" hideToggle class="mt-1">
+          <mat-expansion-panel #panel2 [expanded]="togglePanel2 === 1" hideToggle class="mt-1">
             <mat-expansion-panel-header class="bg-color">
               <mat-panel-title (click)="$event.stopPropagation()" style="cursor:default"> Finished Appointments </mat-panel-title>
-              <i class="fa" [class.fa-compress] = "panel2.expanded"
+              <i class="fa" [class.fa-compress] = "panel2.expanded" (click)="AppointmentToggleView()"
               [class.fa-expand] = "!panel2.expanded" style="padding-top:6px"></i>
             </mat-expansion-panel-header>
 

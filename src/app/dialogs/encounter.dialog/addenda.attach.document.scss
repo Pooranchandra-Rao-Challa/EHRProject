@@ -1,0 +1,37 @@
+@import "../../../assets/cstm.material.scss";
+@import "../../../assets/common.scss";
+
+#attach-encounter-doc-dialog.modal-dialog {
+  overflow-y: initial !important;
+  max-width: 60%;
+}
+
+#attach-encounter-doc-dialog {
+  .modal-body {
+    max-height: calc(90vh - 200px);
+    overflow-y: auto;
+  }
+
+  .modal-content {
+    max-width: 90%;
+    margin: auto;
+  }
+
+  .modal .modal-dialog .modal-content .modal-body {
+    padding: 10px 26px;
+  }
+
+  .modal-header {
+    margin-right: -1px;
+    margin-left: -1px;
+    margin-top: -1px;
+  }
+
+  .modal-body .form-group {
+    margin-bottom: 25px;
+  }
+  ::ng-deep .mat-select-value-text{
+    color:#41b6a6;
+  }
+
+}

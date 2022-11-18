@@ -1,4 +1,5 @@
 import { JsonPipe } from "@angular/common";
+import { PracticeProviders } from "./practiceProviders";
 
 
 export interface IDeleteFlag {
@@ -85,8 +86,46 @@ export class EncounterInfo {
   Diagnoses: EncounterDiagnosis[] = [];
   RecommendedProcedures: ProceduresInfo[] = [];
   CompletedProcedures: ProceduresInfo[] = [];
+  AddendaComments: AddendaComment[] =[]
+  AddendaDocs: AddendaDoc[] =[]
   Vital: VitalInfo = new VitalInfo;
 }
+
+export class AddendaComment{
+  AddendaCommentId?: string;
+  Comment?: string;
+  Source?: string;
+  Action?: string;
+  EncounterId?: string;
+  ProviderId?: string;
+  CreatedDate?: Date;
+  ByName?: string;
+}
+
+export class AddendaDoc {
+  AddendaDocId?: string;
+  ServicedDate?: Date;
+  strServicedDate?: string;
+  Signed?: boolean = false;
+  FileName?: string;
+  Note?: string;
+  DocType? : string;
+  DocTypeId?: string;
+  Selected?: boolean;
+  EncounterId?: string;
+  PatientId?: string;
+  PatientName?: string;
+  ProviderId?: string;
+  PracticeProviders?: PracticeProviders[]
+  SelectedProviderId?: string;
+
+}
+export class AddendaDocType{
+  DocType?:string;
+  DocTypeId?: string;
+  ClinicId?: string;
+}
+
 
 export class ReferralInfo {
   Reason?: string

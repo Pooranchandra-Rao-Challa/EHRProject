@@ -351,4 +351,50 @@ export class PatientService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._firstTimeResetPasswordURL,reqparams);
   }
 
+  PatientAddendaDocs(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._patientAddendaDocsURL,reqparams);
+  }
+  UpdateAddendaDoc(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._updateAddendaDocURL,reqparams);
+  }
+
+  UpdateAddendaDocs(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._updateAddendaDocsURL,reqparams);
+  }
+
+  EncounterAddendaDocs(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._encounterAddendaDocsURL,reqparams);
+  }
+
+  PatientProfile(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._patientProfileURL,reqparams);
+  }
+
+  EncountersForAddendaDoc(reqparams: any){
+    return this._ProcessPostRequest<any>(this._encountersForAddendaDocURL,reqparams);
+  }
+
+  AddendaDocumentTypes(reqparams: any){
+    return this._ProcessPostRequest<any>(this._addendaDocumentTypesURL,reqparams);
+  }
+  GetPatient(reqparams: any){
+    return this._ProcessPostRequest<any>(this._getPatientURL,reqparams);
+  }
+
+  CreateAddendaDocType(reqparams: any){
+    return this._ProcessPostRequest<any>(this._createAddendaDocTypeURL,reqparams);
+  }
+
+  CreateAddendum(reqparams: any){
+    return this._ProcessPostRequest<any>(this._createAddendumURL,reqparams);
+  }
+
+  Addendums(reqparams: any){
+    return this._ProcessPostRequest<any>(this._addendumsURL,reqparams);
+  }
+
+  DeleteEncounterAddendaDoc(reqparams: any){
+    return this._ProcessPostRequest<any>(this._deleteEncounterAddendaDocURL,reqparams);
+  }
+
 }
