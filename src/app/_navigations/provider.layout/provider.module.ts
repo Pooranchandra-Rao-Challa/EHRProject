@@ -203,8 +203,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     PraticeAdduserDialogComponent,
     CcdaPreviewDialogComponent,
     LockedComponent,
-    PatientRelationshipDialogComponent
-
+    PatientRelationshipDialogComponent,
     AddendaReviewDocumentComponent,
     AddendaCommentComponent,
   ],
