@@ -87,52 +87,50 @@
           <div class="leftblockalignments " style="border:1px solid #41b6a6">
             <div class="pagination">
               <button (click)="pagination.first()" [disabled]="pagination.isFirst">
-                <<
-              </button>
-              <button (click)="pagination.prev()" [disabled]="pagination.isFirst">
-                <
-              </button>
-              <input
-                #pager
-                simplePagination
-                #pagination="simplePagination"
-                [pageSize]="pageSize"
-                [totalPages]="totalPages"
-                (pageChange)="onPageChange($event)"
-              />
-              <span> / {{ pagination.totalPages }}</span>
-              <button (click)="pagination.next()" [disabled]="pagination.isLast">
-                >
-              </button>
-              <button (click)="pagination.last()" [disabled]="pagination.isLast">
-                >>
-              </button>
-              <span> of {{totalRecords}}</span>
+                << </button>
+                  <button (click)="pagination.prev()" [disabled]="pagination.isFirst">
+                    < </button>
+                      <input #pager simplePagination #pagination="simplePagination" [pageSize]="pageSize"
+                        [totalPages]="totalPages" (pageChange)="onPageChange($event)" />
+                      <span> / {{ pagination.totalPages }}</span>
+                      <button (click)="pagination.next()" [disabled]="pagination.isLast">
+                        >
+                      </button>
+                      <button (click)="pagination.last()" [disabled]="pagination.isLast">
+                        >>
+                      </button>
+                      <span> of {{totalRecords}}</span>
             </div>
             <div class="spinner-container mb-2" *ngIf="messageDataSource.loading$ | async">
               <mat-progress-bar mode="indeterminate" bufferValue="50" value=100></mat-progress-bar>
             </div>
             <div class="message-table-container mat-elevation-z8">
-            <mat-table matSort matSortActive="Created" matSortDirection="desc" matSortDisableClear
-              [dataSource]="messageDataSource" >
-              <ng-container matColumnDef="From">
-                <mat-header-cell *matHeaderCellDef>{{IsInbox || IsUrgent ? "From" : "To"}}</mat-header-cell>
-                <mat-cell *matCellDef="let message" (click)="showMessage(message)">
-                  <div class="text-new-line"><div>{{message.PatientName}} </div>
-                    <div [class.text-truncate]="message.Subject?.length > 50">{{message.Subject}}</div>
-                  </div>
-                </mat-cell>
-              </ng-container>
-              <ng-container matColumnDef="Date">
-                <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
-                <mat-cell *matCellDef="let message" (click)="showMessage(message)"> {{message.Updated | date:'M/d/yyyy'}} </mat-cell>
-              </ng-container>
-              <mat-header-row *matHeaderRowDef="DisplayedColumns  sticky: true" class="matheaderrow"></mat-header-row>
-              <mat-row *matRowDef="let row; columns: DisplayedColumns;" ></mat-row>
-            </mat-table>
-            <div class="norecords-found" *ngIf="messageDataSource?.TotalRecordSize == 0">
-              No Messages Found
-            </div>
+              <mat-table matSort matSortActive="Created" matSortDirection="desc" matSortDisableClear
+                [dataSource]="messageDataSource">
+                <ng-container matColumnDef="From">
+                  <mat-header-cell *matHeaderCellDef>{{IsInbox || IsUrgent ? "From" : "To"}}</mat-header-cell>
+                  <mat-cell class="pointer"
+                    [class.unreadmsg-bold]="!message.Read && (currentMessageView == 'Inbox' ||  currentMessageView == 'Urgent')"
+                    *matCellDef="let message" (click)="showMessage(message)">
+                    <div class="text-new-line">
+                      <div>{{message.PatientName}} </div>
+                      <div [class.text-truncate]="message.Subject?.length > 50">{{message.Subject}}</div>
+                    </div>
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="Date">
+                  <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+                  <mat-cell class="pointer"
+                    [class.unreadmsg-bold]="!message.Read && (currentMessageView == 'Inbox' ||  currentMessageView == 'Urgent')"
+                    *matCellDef="let message" (click)="showMessage(message)"> {{message.Updated | date:'M/d/yyyy'}}
+                  </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="DisplayedColumns  sticky: true" class="matheaderrow"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: DisplayedColumns;"></mat-row>
+              </mat-table>
+              <div class="norecords-found" *ngIf="messageDataSource?.TotalRecordSize == 0">
+                No Messages Found
+              </div>
             </div>
           </div>
           <div class="rightblockalignments mat-elevation-z8">
@@ -161,7 +159,7 @@
                 </div>
                 <div class="row email-address">
                   <div class="col-md-12" style="display: inline-flex;">
-                    Subject:<p  (mouseenter)="isExpandToggle()" (mouseleave)="isExpandToggle()"
+                    Subject:<p (mouseenter)="isExpandToggle()" (mouseleave)="isExpandToggle()"
                       style="margin-left: 10px;margin-bottom:0px" [class.overflow]="isExpand"
                       [class.show-overflow]="!isExpand">{{currentMessage.Subject}}</p>
                   </div>
@@ -188,7 +186,8 @@
                 </div> -->
               </div>
             </div>
-            <div *ngIf="currentMessage == null" class="mt-lg-5 my-2" style="text-align: center;">No Message Selected</div>
+            <div *ngIf="currentMessage == null" class="mt-lg-5 my-2" style="text-align: center;">No Message Selected
+            </div>
           </div>
         </diV>
       </div>

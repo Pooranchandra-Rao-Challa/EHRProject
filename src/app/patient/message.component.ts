@@ -135,6 +135,7 @@ export class MessageComponent {
           counts.UrgentCount = this.user.UrgentMessages;
           this.notifyMessage.sendData(counts);
           this.authService.updateMessageCounts(counts);
+          this.loadMessages();
         }
       })
     }
@@ -278,7 +279,7 @@ export class MessageDatasource implements DataSource<Messages>{
     )
       .subscribe(resp => {
         if (resp.IsSuccess) {
-          this.MessageSentSubject.next(resp.ListResult as Messages[])
+          this.MessageSentSubject.next((resp.ListResult as Messages[]).sort((a1,b1) => !a1.Read && b1.Read ? 1 : 0));
           this.recordsChangeService.sendData(this.MessageSentSubject.getValue()[0].MessagesCount + "");
         }
       });
