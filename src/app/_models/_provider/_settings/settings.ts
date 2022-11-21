@@ -142,6 +142,7 @@ export class EducationMaterialCode implements IDeleteFlag {
   Triggers?:EhrTrigger[]
   triggersInfo?:string;
   strReleaseAt?:string;
+  Active?: boolean;
  }
  export class EhrTrigger implements IDeleteFlag
  {

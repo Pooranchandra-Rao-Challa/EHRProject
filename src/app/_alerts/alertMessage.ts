@@ -292,6 +292,7 @@ export const ERROR_CODES: { [key: string]: string } = {
   'E2CP008': 'Security Question Updation Error',
   'E2CP009': 'Address verification failed',
   'E2CP0010': 'Authorized representative failed',
+  'E2CP0011': 'Wrong Answer',
   //Message for Partner signup
   'M3PS001': 'Application Submitted!',
 

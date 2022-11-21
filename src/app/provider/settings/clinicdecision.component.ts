@@ -87,34 +87,45 @@ export class ClinicDecisionComponent implements OnInit {
     this.flag = value;
     this.authService.SetViewParam("Cds", value);
   }
-  step: number;
-  setStep(index: number) {
-    this.step = index;
-  }
-  disablemedication(item, bool) {
-    item.isdisabled = bool;
+  step: number = -1;
+  // setStep(index: number) {
+  //   this.step = index;
+  // }
+  disablemedication(item, bool,i) {
     this.step = -1;
+    item.isdisabled = bool;
+    if(bool){
+      this.step = i;
+    }
+    this.UpdateCDSAlertToggle(item, bool);
   }
-  getclinicaldesupportlist() {
 
+  UpdateCDSAlertToggle(item,alert) {
+    this.newAlert.AlertId = item.AlertId;
+    this.newAlert.Active = alert;
+    this.settingservice.UpdateCDSAlertToggle(this.newAlert).subscribe((resp) => {
+      if (resp.IsSuccess) {
+        this.getclinicaldesupportlist();
+        this.resetdialog();
+      }
+    });
+  }
+
+
+  getclinicaldesupportlist() {
     var reqparams = {
       // providerid: "5b686dd4c832dd0c444f271b",
       providerid: this.user.ProviderId
     }
     this.settingservice.ClinicalDecisionSupport(reqparams).subscribe(response => {
-
-
       if (response.IsSuccess) {
-
         let alt = response.ListResult as EhrAlert[];
         alt.forEach((value) => {
           value.Triggers = JSON.parse(value.triggersInfo)
         })
         this.clinicalDecisionSupportList = alt;
-
       }
     })
-
   }
 
 

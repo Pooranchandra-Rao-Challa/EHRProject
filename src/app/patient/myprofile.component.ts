@@ -79,10 +79,10 @@ export class MyprofileComponent implements OnInit {
   fileUpload: ElementRef; files = [];
   Imagedata: string;
   @Output() PhotoValidatorEvent = new EventEmitter<PhotoFileProperties>();
-
   fileTypes = ".jpg,.gif,.png"
-
   AreaCodes: AreaCode[];
+  SecurityAnswer: string;
+
   constructor(private patientService: PatientService,
     private authenticationService: AuthenticationService,
     private alertmsg: AlertMessage,
@@ -98,7 +98,6 @@ export class MyprofileComponent implements OnInit {
     this.getPatientProfile();
     this.loadDefaults();
     this.PhotoValidatorEvent.subscribe((p: PhotoFileProperties) => {
-      console.log(p);
       if (this.fileTypes.indexOf(p.FileExtension) > 0 && p.Size < 1024 * 1024
         && p.Width <= 300 && p.Height <= 300) {
           this.uploadFile(p.File);
@@ -213,21 +212,23 @@ export class MyprofileComponent implements OnInit {
     this.updateSecurityQuestion = new PatientProfileSecurityQuestion();
   }
 
-  ChangeSecurityQuestion(item) {
+  ChangeSecurityQuestion() {
     this.updateSecurityQuestion.SecurityID = this.patientProfileSecurityQuestion.SecurityID;
     this.updateSecurityQuestion.PateientId = this.patientProfileSecurityQuestion.PateientId;
-    this.patientService.UpdatePatientMyProfileSecurityQuestion(this.updateSecurityQuestion).subscribe(
-
-      resp => {
-        if (resp.IsSuccess) {
-          this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP009"])
-        }
-        else {
-          this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP008"])
-        }
-      }
-
-    )
+    if(this.SecurityAnswer == this.patientProfileSecurityQuestion.Answer) {
+      this.patientService.UpdatePatientMyProfileSecurityQuestion(this.updateSecurityQuestion).subscribe(
+        resp => {
+          if (resp.IsSuccess) {
+            this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP009"]);
+          }
+          else {
+            this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP008"]);
+          }
+        });
+    }
+    else {
+      this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP0011"]);
+    }
   }
 
   AddressVerification() {
@@ -302,15 +303,13 @@ export class MyprofileComponent implements OnInit {
 
   enableSave() {
     return !(
-      this.updateSecurityQuestion.Answer != null && this.updateSecurityQuestion.Answer != ""
-      && this.updateSecurityQuestion.Question != null && this.updateSecurityQuestion.Question != ""
-      && this.updateSecurityQuestion.ConfiramationActive != null
+      this.updateSecurityQuestion.Answer
+      && this.updateSecurityQuestion.Question
+      && this.updateSecurityQuestion.ConfiramationActive
     )
   }
 
   updatePhoto() {
-    console.log(this.PatientProfile);
-
     if(this.PatientProfile.ProfileImage != null){
       let a: Attachment = {
         FileName: "",
@@ -423,7 +422,6 @@ export class MyprofileComponent implements OnInit {
         return of(`${file.name} upload failed.`);
       })).subscribe((event: any) => {
         if (typeof (event) === 'object') {
-          console.log(event.body);
           let uploadInfo = event.body as Attachment;
           this.PatientProfile.ProfileImage = uploadInfo.FullFileName;
           if(this.PatientProfile.PatientId != null && this.PatientProfile.PatientId != ""){

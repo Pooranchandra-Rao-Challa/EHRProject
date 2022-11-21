@@ -17,7 +17,7 @@
         <div class="col-lg-12">
           <div class="main-title">
             <h3>REGISTER TO BECOME A PARTNER APPLICATION</h3>
-            <p>Fill out the form below to submit a request to become a development partner. Expect a response in 3-5
+            <p class="Helvetica-sans-serif-medium">Fill out the form below to submit a request to become a development partner. Expect a response in 3-5
               business days.</p>
           </div>
         </div>
@@ -66,7 +66,7 @@
                     <mat-form-field appearance="outline" >
                       <input matInput placeholder="Middle Name" [(ngModel)]="partnerSignup.middle_name" alphaOnly class="mt-1">
                     </mat-form-field>
-                 
+
                    </div>
                    <div class=" form-group col-md-4">
                     <label class="Helvetica-sans-serif-medium required">Last Name</label>
@@ -77,16 +77,16 @@
                       <div class="error_message" *ngIf="lastName.errors?.required">
                           <span class="text-danger"></span>
                           <p class="errormessage">Please enter last name</p>
-                      </div> 
+                      </div>
                   </div> -->
                    </div>
                   </div>
                 </div>
               </div>
-            
+
               <div class="row">
                 <div class="col-lg-12">
-                  
+
                   <div class="row">
                     <label class="Helvetica-sans-serif-medium">Full Address</label>
                     <mat-form-field appearance="outline" class="col-lg-12">
@@ -127,7 +127,7 @@
                     <div class="col-md-6 form-group">
                       <label class="Helvetica-sans-serif-medium required">Email</label>
                       <mat-form-field appearance="outline" >
-                        <input matInput placeholder="Email" [(ngModel)]="partnerSignup.email" 
+                        <input matInput placeholder="Email" [(ngModel)]="partnerSignup.email"
                          pattern="^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$" #Email="ngModel" required class="mt-1">
                       </mat-form-field>
                       <div *ngIf="Email.errors && (Email.touched)">
@@ -141,8 +141,8 @@
                         </div>
                       </div>
                     </div>
-                
-             
+
+
                   </div>
                 </div>
               </div>
@@ -163,7 +163,7 @@
                   <img src="assets/images/Suitcase.png" class="pb-2">
                   <span class="mx-4">Company Information
                   </span>
-               
+
                   <div class="row pt-4">
                     <!-- <div class="row">
                       <div class="col-md-4"> <mat-label class="Helvetica-sans-serif-medium ">Company Name</mat-label></div>
@@ -193,9 +193,9 @@
                             <input matInput placeholder="Company Url(s)" [(ngModel)]="partnerSignup.company_url"class="mt-1">
                           </mat-form-field>
                         </div>
-                       
-                     
-                      
+
+
+
                       </div>
                       <div class="mt-3">
                         <mat-label class="Helvetica-sans-serif-medium">Company Description</mat-label>

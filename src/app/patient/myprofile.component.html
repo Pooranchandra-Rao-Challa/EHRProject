@@ -474,15 +474,16 @@
             <div class="col-lg-12 ">
               <div class="form-group ">
                 <mat-form-field class="grey-matform w-100" appearance="outline">
-                  <input matInput value="{{patientProfileSecurityQuestion?.Answer}}">
+                  <input matInput [(ngModel)]="SecurityAnswer">
                 </mat-form-field>
               </div>
+              <hr>
             </div>
           </div>
           <div class="row ">
             <div class="col-lg-12">
               <div class="form-group">
-                <label class="title">NEW QUESTION</label>
+                <label class="title required">NEW QUESTION</label>
               </div>
             </div>
             <div class="col-lg-12">
@@ -496,13 +497,12 @@
                   </mat-select>
                 </mat-form-field>
               </div>
-              <hr>
             </div>
           </div>
           <div class="row ">
             <div class="col-lg-12">
               <div class="form-group">
-                <label class="title">ANSWER</label>
+                <label class="title required">ANSWER</label>
               </div>
             </div>
             <div class="col-lg-12 ">
@@ -514,7 +514,7 @@
             </div>
           </div>
           <div class="row">
-            <label class="title ">IMPORTANT</label>
+            <label class="title required">IMPORTANT</label>
             <mat-checkbox class="grey-matform example-margin mt-2 mr-2"
               [(ngModel)]="updateSecurityQuestion.ConfiramationActive">
               <mat-label class="checkbox-label">I understand my access to patients portal will be locked if I am
@@ -525,7 +525,7 @@
           <div class="row mt-4">
             <div class="d-flex justify-content-end">
               <button type="button" class="btn btn-green mx-2 " data-bs-dismiss="modal"
-                (click)="ChangeSecurityQuestion(updateSecurityQuestion)" [disabled]="enableSave()">Change</button>
+                (click)="ChangeSecurityQuestion()" [disabled]="enableSave()">Change</button>
               <button type="button" class="btn btn-green" data-bs-dismiss="modal">Cancel</button>
             </div>
           </div>

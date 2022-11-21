@@ -669,16 +669,19 @@ export class ChartComponent implements OnInit, AfterViewInit {
   GetProviderMessagesFromPatient() {
     if(this.currentPatient== null)return;
     let reqParams = {
-      "UserId": this.viewModel.Patient.UserId,
+      "UserId": this.user.UserId,
       "SortField": 'Created',
       "SortDirection": 'desc',
       "PageIndex": 0,
-      "PageSize": 25,
+      "PageSize": 100,
       "Filter": null,
       "MessageFilter": 'Inbox'
     }
     this.messageService.Messages(reqParams).subscribe((resp) => {
-      if (resp.IsSuccess) this.patientMessages = resp.ListResult;
+      if (resp.IsSuccess) {
+        this.patientMessages = resp.ListResult.filter((fn) =>
+        fn.PatientId == this.currentPatient.PatientId);
+      }
     });
   }
 

@@ -741,6 +741,11 @@ export class APIEndPoint extends EndpointBase {
   get _createUpdateClinicalDecisionSupportUrl() {
     return this._baseUrl + "CreateUpdateClinicalDecisionSupport";
   }
+
+  get _updateCDSAlertToggleUrl() {
+    return this._baseUrl + "UpdateCDSAlertToggle";
+  }
+
   get _createTriggerUrl() {
     return this._baseUrl + "CreateTrigger";
   }
