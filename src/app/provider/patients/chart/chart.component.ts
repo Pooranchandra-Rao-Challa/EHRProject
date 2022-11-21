@@ -448,6 +448,8 @@ export class ChartComponent implements OnInit, AfterViewInit {
     this.patientService.ChartInfo({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.chartInfo = resp.Result;
+        console.log(this.chartInfo);
+
       }
     });
   }

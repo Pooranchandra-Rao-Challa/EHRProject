@@ -1,0 +1,57 @@
+<div class="modal-dialog" id="addenda-comment-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 class="modal-title col-11 Helvetica-sans-serif-large" id="staticBackdropLabel">
+        Add Addendum
+      </h3>
+      <span type="button" class="cross-mark col-1" (click)="closePopup()" aria-label="Close">
+        X
+      </span>
+    </div>
+    <div class="modal-body padding-unset">
+      <div style="display: grid;">
+      <div class="row doc-review">
+        <div class="col-2">Source:</div>
+        <div class="col-10">
+          <mat-form-field appearance="outline" class="col-12 hover cstm-mat-padding">
+            <mat-select placeholder="Select Source" disableOptionCentering id="source"
+              placeholder="Select Source" [(ngModel)]="addendaComment.Source">
+              <mat-option value="Doctor">
+                Doctor
+              </mat-option>
+              <mat-option value="Patient">
+                Patient
+              </mat-option>
+              <mat-option value="Referral">
+                Referral
+              </mat-option>
+              <mat-option value="Other">
+                Other
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row doc-review">
+        <div class="col-2">Comments:</div>
+        <div class="col-10">
+            <textarea matInput style="height: 200px; padding:10px; width: 100% !important; border: 1px solid #41b6a6;
+            border-radius: 6px;" rows="20" cols="100" class="col-12" [(ngModel)]="addendaComment.Comment"></textarea>
+          </div>
+
+      </div>
+    </div>
+   </div>
+    <div class="modal-footer" style="display:list-item;">
+      <button type="button" class="btn btn-cancel" style="float: left;" (click)="CancelAddendum()" >
+        Cancel
+      </button>
+      <button type="button" class="btn btn-green" style="float: right;" (click)="AcceptAddendum()" >
+        Accept
+      </button>
+      <button type="button" class="btn btn-green" style="float: right;" (click)="DenyAddendum()" >
+        Deny
+      </button>
+    </div>
+  </div>
+</div>

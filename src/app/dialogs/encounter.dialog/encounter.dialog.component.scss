@@ -9,21 +9,26 @@
   margin: 0 !important;
   max-width: 95%;
 }
+
 .modal-body {
   max-height: calc(90vh - 200px);
   overflow-y: auto;
 }
-.modal-content{
-  max-width: 85%;
+
+.modal-content {
+  max-width: 90%;
   margin: auto;
 }
+
 .modal .modal-dialog .modal-content .modal-body {
   padding: 10px 26px;
 }
-.modal-header{
+
+.modal-header {
   margin-right: -1px;
   margin-left: -1px;
 }
+
 .modal-body .form-group {
   margin-bottom: 25px;
 }
@@ -33,6 +38,7 @@
   border-radius: 0 3px 3px 3px;
   min-height: 450px;
 }
+
 .encounter-tab-content textarea.mat-input-element {
   height: 71px;
   border: 1px solid #41b6a6;
@@ -45,14 +51,17 @@
 .encounter-navigation .encounter-nav-tabs {
   background-color: #41b6a6;
 }
+
 .encounter-nav-tabs li {
   display: inline-block;
   margin: 7px 10px 0 0;
 }
+
 .encounter-nav-tabs li.active a#meaningful-use {
   color: #fe8f00;
   background-color: #fff;
 }
+
 .encounter-navigation .encounter-nav-tabs li a {
   padding: 4px 15px;
   font-size: 18px;
@@ -67,65 +76,70 @@
 .area-text {
   margin-bottom: 15px;
 }
-.btn-performed-red{
+
+.btn-performed-red {
   border: solid 1px maroon;
-  color:red;
-  width:50%;
+  color: red;
+  width: 50%;
 }
-.btn-performed-sea-blue{
+
+.btn-performed-sea-blue {
   border: solid 1px #41b6a6;
-  color:#41b6a6;
-  width:50%;
+  color: #41b6a6;
+  width: 50%;
 }
-::ng-deep .referral-margin span{
+
+::ng-deep .referral-margin span {
   margin-top: 8px !important;
   margin-left: 8px !important;
 }
-.encounter-diagnosis-remove-sides{
+
+.encounter-diagnosis-remove-sides {
   border-left: 0px solid #41b6a6 !important;
   border-right: 0px solid #41b6a6 !important;
 }
 
 
 ::ng-deep .procedure-table .mat-cell:first-child,
-::ng-deep .procedure-table .mat-header-cell:first-child{
+::ng-deep .procedure-table .mat-header-cell:first-child {
   //width: 5%;
   overflow: unset;
 }
 
 ::ng-deep .procedure-table .mat-cell:last-child,
-::ng-deep .procedure-table .mat-header-cell:last-child{
+::ng-deep .procedure-table .mat-header-cell:last-child {
   //width: 5%;
   overflow: unset;
 }
+
 ::ng-deep .procedure-table .mat-cell:nth-child(2),
-::ng-deep .procedure-table .mat-header-cell:nth-child(2){
+::ng-deep .procedure-table .mat-header-cell:nth-child(2) {
   width: 5%;
   //align-items: center;
 }
 
 ::ng-deep .procedure-table .mat-cell:nth-child(3),
-::ng-deep .procedure-table .mat-header-cell:nth-child(3){
+::ng-deep .procedure-table .mat-header-cell:nth-child(3) {
   //min-width: 40%;
- // align-items: center;
+  // align-items: center;
   overflow: unset;
 }
 
 ::ng-deep .procedure-table .mat-cell:nth-child(4),
-::ng-deep .procedure-table .mat-header-cell:nth-child(4){
+::ng-deep .procedure-table .mat-header-cell:nth-child(4) {
   //width: 10%;
- // align-items: center;
+  // align-items: center;
   overflow: unset;
 }
 
 ::ng-deep .procedure-table .mat-cell:nth-child(5),
-::ng-deep .procedure-table .mat-header-cell:nth-child(5){
+::ng-deep .procedure-table .mat-header-cell:nth-child(5) {
   width: 35%;
- // align-items: center;
+  // align-items: center;
   overflow: unset;
 }
 
-::ng-deep .teeth-surface-form-field .mat-form-field-flex .mat-form-field-infix{
+::ng-deep .teeth-surface-form-field .mat-form-field-flex .mat-form-field-infix {
   width: 95px;
   display: flex;
   margin-top: -6px;
@@ -136,26 +150,23 @@
 ::ng-deep #encounter-dialog .mat-datepicker-toggle-default-icon {
   color: #41b6a6 !important;
 }
-::ng-deep #encounter-dialog  .cstm-datepicker-toggle .mat-focus-indicator {
+
+::ng-deep #encounter-dialog .cstm-datepicker-toggle .mat-focus-indicator {
   background-color: #fff;
 }
-::ng-deep #encounter-dialog .mat-tab-header-pagination-controls-enabled
-  .mat-tab-header-pagination {
+
+::ng-deep #encounter-dialog .mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination {
   color: #fff !important;
 }
 
-::ng-deep #encounter-dialog  mat-datepicker-toggle.mat-datepicker-toggle
-  button.mat-icon-button
-  span.mat-button-wrapper
-  svg.mat-datepicker-toggle-default-icon
-  > path {
+::ng-deep #encounter-dialog mat-datepicker-toggle.mat-datepicker-toggle button.mat-icon-button span.mat-button-wrapper svg.mat-datepicker-toggle-default-icon>path {
   fill: #fff;
   stroke: rgb(224, 220, 220);
   stroke-linejoin: round;
   transition: d 0.2s;
 }
-::ng-deep #encounter-dialog  mat-datepicker-toggle.mat-datepicker-toggle
-  button.mat-focus-indicator.mat-icon-button {
+
+::ng-deep #encounter-dialog mat-datepicker-toggle.mat-datepicker-toggle button.mat-focus-indicator.mat-icon-button {
   background-color: #41b6a6;
   color: #fff;
   border-radius: 0%;
@@ -170,10 +181,10 @@
   top: 0.06em;
 }
 
-::ng-deep #encounter-dialog .mat-tab-header-pagination-controls-enabled
-  .mat-tab-header-pagination {
+::ng-deep #encounter-dialog .mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination {
   color: #fff !important;
 }
+
 @media (max-width: 1024px) {
   ::ng-deep #encounter-dialog .mat-tab-header-pagination {
     display: block !important;
@@ -182,13 +193,14 @@
     color: #fff;
   }
 }
+
 @media (min-width: 1440px) {
   ::ng-deep #encounter-dialog .mat-tab-header-pagination {
     display: none !important;
   }
 }
 
-::ng-deep #encounter-dialog  .mat-tab-label-active:not(.mat-tab-disabled),
+::ng-deep #encounter-dialog .mat-tab-label-active:not(.mat-tab-disabled),
 #encounter-dialog #encounter-dialog .mat-tab-label.mat-tab-label-active.cdk-keyboard-focused:not(.mat-tab-disabled) {
   ::ng-deep .mat-tab-label-content {
     background-color: #fff;
@@ -197,7 +209,8 @@
     height: 29px;
   }
 }
-::ng-deep  #Actbtn7  .mat-tab-label:first-child  {
+
+::ng-deep #Actbtn7 .mat-tab-label:first-child {
   .mat-tab-label-content {
     background-color: #fe8f00;
     color: #fff;
@@ -205,13 +218,14 @@
   }
 }
 
-::ng-deep #encounter-dialog  .mat-tab-label:first-child.mat-tab-label-active{
+::ng-deep #encounter-dialog .mat-tab-label:first-child.mat-tab-label-active {
   .mat-tab-label-content {
     background-color: #fff;
     color: #fe8f00;
     border-bottom-color: #fff;
   }
 }
+
 ::ng-deep #encounter-dialog .mat-tab-header {
   background-color: #41b6a6 !important;
   height: 38px !important;
@@ -226,6 +240,7 @@
   font-size: 16px;
   padding: 0px 15px !important;
 }
+
 ::ng-deep #encounter-dialog .mat-tab-label {
   padding: 0 5px !important;
   min-width: 0px !important;
@@ -242,6 +257,7 @@
   color: white !important;
   border-radius: 50% !important;
 }
+
 .error-close:hover {
   background-color: white !important;
   border: 1px solid rgb(253, 44, 44) !important;
@@ -249,22 +265,24 @@
 
 }
 
-#vitals-table{
-  margin-top:10px;
+#vitals-table {
+  margin-top: 10px;
 }
+
 .green-icon {
   color: #41b6a6;
 }
 
-::ng-deep #vitals-table .mat-icon-no-color{
+::ng-deep #vitals-table .mat-icon-no-color {
   color: #41b6a6 !important;
 }
-::ng-deep #vitals-table .mat-icon-no-color:hover{
+
+::ng-deep #vitals-table .mat-icon-no-color:hover {
   color: white !important;
 }
 
 .vital-buttons {
-  padding:0;
+  padding: 0;
   background: transparent;
   width: 30px;
   height: 30px;
@@ -272,43 +290,48 @@
   cursor: pointer;
   margin-right: 20px;
 }
+
 .vital-buttons:hover {
   background-color: #41b6a6;
   color: white !important;
 }
 
-.vital-label{
+.vital-label {
   font-size: 14px;
 }
-.vital-mat-form-field-unit-label{
-  font-size:12px;
-  margin-left:210px
+
+.vital-mat-form-field-unit-label {
+  font-size: 12px;
+  margin-left: 210px
 }
 
-.disable-referral:disabled{
+.disable-referral:disabled {
   cursor: not-allowed;
 }
-::ng-deep .mat-progress-bar{
+
+::ng-deep .mat-progress-bar {
   margin-bottom: 10px;
 }
 
-.encounter-label{
+.encounter-label {
   padding: 7px 10px;
-  margin-top:13px
-}
-::ng-deep .encounter-provider .mat-select-value-text{
-  color:  #41b6a6 !important;
+  margin-top: 13px
 }
 
-.encounter-title{
-  font-size:24px;
-  color:#41b6a6
+::ng-deep .encounter-provider .mat-select-value-text {
+  color: #41b6a6 !important;
 }
-.mat-cell:first-of-type{
+
+.encounter-title {
+  font-size: 24px;
+  color: #41b6a6
+}
+
+.mat-cell:first-of-type {
   padding-left: 10px;
 }
 
-.mat-cell:last-of-type{
+.mat-cell:last-of-type {
   padding-left: 10px;
 }
 
@@ -320,14 +343,17 @@
 .encounter-navigation .encounter-nav-tabs {
   background-color: #41b6a6;
 }
+
 .encounter-nav-tabs li {
   display: inline-block;
   margin: 7px 10px 0 0;
 }
+
 .encounter-nav-tabs li.active a#meaningful-use {
   color: #fe8f00;
   background-color: #fff;
 }
+
 .encounter-navigation .encounter-nav-tabs li a {
   padding: 4px 15px;
   font-size: 18px;
@@ -338,11 +364,14 @@
   border-bottom: 1px solid #41b6a6;
   cursor: pointer;
 }
+
 .encounter-tab-content {
-  padding: 10px 30px;;
+  padding: 10px 30px;
+  ;
   border-radius: 0 3px 3px 3px;
   min-height: 530px;
 }
+
 .encounter-tab-content textarea.mat-input-element {
   height: 71px;
   border: 1px solid #41b6a6;
@@ -351,6 +380,7 @@
   padding: 10px 20px;
   resize: both;
 }
+
 #vitals-modal .textarea {
   height: 71px;
   border: 1px solid #41b6a6;
@@ -371,32 +401,40 @@
   padding: 0px;
   margin: 0px;
 }
+
 #procedure-table .mat-row {
   border-left: 1px solid #41b6a6;
   border-right: 1px solid #41b6a6;
 }
+
 #procedure-table {
+
   mat-cell:nth-child(1),
   mat-header-cell:nth-child(1) {
     flex: 0 0 15%;
 
   }
+
   mat-cell:nth-child(2),
   mat-header-cell:nth-child(2) {
     flex: 0 0 15%;
   }
+
   mat-cell:nth-child(3),
   mat-header-cell:nth-child(3) {
     flex: 0 0 32%;
   }
+
   mat-cell:nth-child(4),
   mat-header-cell:nth-child(4) {
     flex: 0 0 15%;
   }
+
   mat-cell:nth-child(5),
   mat-header-cell:nth-child(5) {
     flex: 0 0 15%;
   }
+
   mat-cell:nth-child(6),
   mat-header-cell:nth-child(6) {
     flex: 0 0 8%;
@@ -415,52 +453,66 @@
   padding: 0px;
   margin: 0px;
 }
+
 #encounter_diagnoses_tab .mat-row {
   border-left: 1px solid #41b6a6;
   border-right: 1px solid #41b6a6;
 }
+
 #encounter_diagnoses_tab {
+
   mat-cell:nth-child(1),
   mat-header-cell:nth-child(1) {
     flex: 0 0 15%;
 
   }
+
   mat-cell:nth-child(2),
   mat-header-cell:nth-child(2) {
     flex: 0 0 15%;
   }
+
   mat-cell:nth-child(3),
   mat-header-cell:nth-child(3) {
     flex: 0 0 32%;
   }
+
   mat-cell:nth-child(4),
   mat-header-cell:nth-child(4) {
     flex: 0 0 15%;
   }
+
   mat-cell:nth-child(5),
   mat-header-cell:nth-child(5) {
     flex: 0 0 15%;
   }
+
   mat-cell:nth-child(6),
   mat-header-cell:nth-child(6) {
     flex: 0 0 8%;
   }
 }
-.btn:not(:last-child){margin-right: 8px !important;}
-.encounter-content-header{
+
+.btn:not(:last-child) {
+  margin-right: 8px !important;
+}
+
+.encounter-content-header {
   display: inline-flex;
   padding: 10px 30px;
 }
 
-::ng-deep .encounter-navigation .mat-tab-labels{
+::ng-deep .encounter-navigation .mat-tab-labels {
   padding: 0 32px;
 }
 
-#encounter-dialog .padding-unset{
+#encounter-dialog .padding-unset {
   padding: unset;
 }
+
 /* check box */
 ::ng-deep .encounter-checkbox {
+
   & .mat-checkbox-background,
   .mat-checkbox-frame {
     border-radius: 20% !important;
@@ -472,13 +524,17 @@
     height: 25px;
   }
 }
+
 ::ng-deep .encounter-checkbox:hover {
+
   & .mat-checkbox-background,
   .mat-checkbox-frame {
     border-color: #fe8f00;
   }
 }
+
 ::ng-deep .encounter-checkbox {
+
   .mat-checkbox-inner-container,
   .mat-checkbox-checked.mat-accent,
   .mat-checkbox-background {
@@ -494,11 +550,72 @@
   font-weight: normal !important;
 }
 
-::ng-deep .teeth-form-field .mat-select-value-text span{
+::ng-deep .teeth-form-field .mat-select-value-text span {
   margin-left: 40px;
 }
 
-::ng-deep .teeth-form-field .mat-select-arrow-wrapper{
+::ng-deep .teeth-form-field .mat-select-arrow-wrapper {
   padding-top: 0px;
 }
 
+.addenda-content .mat-lock-text-color {
+  color: #41b6a6;
+}
+
+.addenda-content .attenda-container {
+  max-height: calc(90vh - 300px);
+  overflow-y: auto;
+  height: 257px;
+  width: 100%;
+}
+
+.addenda-content .signed {
+  cursor: pointer;
+}
+
+.addenda-content .signed:hover {
+  text-decoration: underline;
+  color: #41b6a6;
+}
+
+.addenda-content {
+  .addenda-mat-column-authorize {
+    width: 5%;
+  }
+
+  .addenda-mat-column-name {
+    width: 30%;
+  }
+
+  .addenda-mat-column-doctype {
+    width: 10%;
+  }
+}
+
+.descriptions {
+  padding: 10px 0;
+}
+
+.description {
+  div:nth-child(1){
+    display: flex;
+  }
+  .distributor {
+    margin: 12px 0 0;
+    display: inline-block;
+    width: 20px;
+    height: 8px;
+    background-color: #28776C;
+  }
+
+  p {
+    font-size: 16px;
+    color: #4A4A4A;
+    margin: 5px 15px;
+  }
+
+  .status {
+    margin-top: 15px;
+    display: flex;
+  }
+}

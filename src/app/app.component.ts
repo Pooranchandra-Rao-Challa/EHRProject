@@ -1,3 +1,4 @@
+import { environment } from './../environments/environment';
 import { Component } from '@angular/core';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 
@@ -9,4 +10,8 @@ import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 })
 export class AppComponent {
   title = 'EHRProject';
+  constructor(){
+    console.log(environment.baseUrl);
+  }
+
 }

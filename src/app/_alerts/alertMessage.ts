@@ -140,6 +140,7 @@ export class AlertMessage {
  * Amendments : A
  * Patients : PA
  * CQMsNotPerformed : CNP
+ * Addenda:AD
  *
  * Details of Patients
  * AddProcedure: P1
@@ -581,6 +582,16 @@ export const ERROR_CODES: { [key: string]: string } = {
 
   // Error for reset password
   'E3RP001': 'Reset password unsuccessfully',
+
+  //2CAD Adendda Comments and Docs
+  '2CAD001': 'Uploading attachment failed',
+  '2CAD002': 'Attaching of document failed.',
+  '2CAD003': 'Document reviews are not saved',
+  '2CAD004': 'Deleted document reviews',
+  '2CAD005': 'Document reviews deletion failed',
+  '2CAD006': 'Document reviews are saved',
+  '2CAD007': 'Document comments added',
+  '2CAD008': 'Document comments addition failed',
 
   //Error Message for Appoinments
   'E3A002': "We're sorry, unfortunately, online appointment requests are not currently being accepted for the practice selected. Please call the practice directly to schedule your appointment.",

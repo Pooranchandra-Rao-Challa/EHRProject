@@ -63,7 +63,8 @@
       </div>
       <mat-progress-bar mode="indeterminate" bufferValue="50" value=100 *ngIf="dialogIsLoading"></mat-progress-bar>
       <div class="encounter-navigation">
-        <mat-tab-group animationDuration="0ms">
+        <mat-tab-group animationDuration="5ms" [selectedIndex]="currentTabIndex" #encounterTab
+          (selectedTabChange)="encounterTabChanged($event)">
           <mat-tab label="Meaningful Use" class="mat-ink-bar">
             <div class="encounter-tab-content">
               <div class="encounter-tab-pane" id="meaningful_use_tab">
@@ -417,7 +418,8 @@
                     <div class="col-lg-2">
                       <mat-checkbox class="referral-margin col-12" #referralfrom
                         (change)='onReferralFromStateChange(referralfrom.checked)'
-                        [(ngModel)]="encounterInfo.ReferredFrom" style="font-weight: normal"><span [class.required]="encounterInfo.ReferredFrom">Referred from:</span>
+                        [(ngModel)]="encounterInfo.ReferredFrom" style="font-weight: normal"><span
+                          [class.required]="encounterInfo.ReferredFrom">Referred from:</span>
                       </mat-checkbox>
                     </div>
                     <div class="col-lg-4">
@@ -429,7 +431,8 @@
                     <div class="col-lg-2">
                       <mat-checkbox class="referral-margin col-12" #referralto
                         (change)='onReferralToStateChange(referralto.checked)' [(ngModel)]="encounterInfo.ReferredTo"
-                        style="font-weight: normal"><span [class.required]="encounterInfo.ReferredTo">Referred to:</span>
+                        style="font-weight: normal"><span [class.required]="encounterInfo.ReferredTo">Referred
+                          to:</span>
                       </mat-checkbox>
                     </div>
                     <div class="col-lg-4">
@@ -470,19 +473,19 @@
                 <div class="row">
 
                   <!-- <div class="row"> -->
-                    <div class="form-group col-lg-6 col-md-6 col-12" style="display: inline;">
-                      <label class="col-12 vital-label" [class.required]="isPickAny">Collected date:</label>
-                      <mat-form-field appearance="outline" class="col-lg-12 col-12">
-                        <input matInput class="pointer" autocomplete="off"
-                          [matDatepicker]="collectedDate" [(ngModel)]="encounterInfo.Vital.CollectedAt"
-                          (click)="collectedDate.open()" readonly placeholder="Collected Date">
-                        <mat-datepicker-toggle matSuffix [for]="collectedDate"></mat-datepicker-toggle>
-                        <mat-datepicker #collectedDate></mat-datepicker>
-                      </mat-form-field>
-                      <label class="col-12 vital-label" [class.required]="isPickAny">Time:</label>
-                      <mat-form-field appearance="outline" class="col-lg-12 col-12">
-                        <input matInput type="text" hint="12 hours format"
-                          [(ngModel)]="encounterInfo.Vital.CollectedTime" appTimeMask>
+                  <div class="form-group col-lg-6 col-md-6 col-12" style="display: inline;">
+                    <label class="col-12 vital-label" [class.required]="collectAtRequired()">Collected date:</label>
+                    <mat-form-field appearance="outline" class="col-lg-12 col-12">
+                      <input matInput class="pointer" autocomplete="off" [matDatepicker]="collectedDate"
+                        [(ngModel)]="encounterInfo.Vital.CollectedAt" (click)="collectedDate.open()" readonly
+                        placeholder="Collected Date">
+                      <mat-datepicker-toggle matSuffix [for]="collectedDate"></mat-datepicker-toggle>
+                      <mat-datepicker #collectedDate></mat-datepicker>
+                    </mat-form-field>
+                    <label class="col-12 vital-label" [class.required]="collectAtRequired()">Time:</label>
+                    <mat-form-field appearance="outline" class="col-lg-12 col-12">
+                      <input matInput type="text" hint="12 hours format" [(ngModel)]="encounterInfo.Vital.CollectedTime"
+                        appTimeMask>
 
                     </mat-form-field>
                   </div>
@@ -499,24 +502,28 @@
                 </div>
                 <div class="row">
                   <div class="form-group col-md-4" style="display: flex;">
-                    <mat-label class="col-4 vital-label" [class.required]="this.encounterInfo.Vital.Height || this.encounterInfo.Vital.Weight">Height(in):</mat-label>
+                    <mat-label class="col-4 vital-label" [class.required]="this.encounterInfo.Vital.Height != null ||
+                      this.encounterInfo.Vital.Weight != null">Height(in):
+                    </mat-label>
                     <mat-form-field appearance="outline" class="col-12 vital-mat-form-field">
-
                       <input matInput type="number" #heightField [(ngModel)]="encounterInfo.Vital.Height">
                       <!-- <mat-hint align="end">in</mat-hint> -->
                       <mat-hint class="vital-mat-form-field-unit-label"></mat-hint>
                     </mat-form-field>
                   </div>
                   <div class="form-group col-md-4">
-                    <mat-label class="col-4 vital-label" [class.required]="this.encounterInfo.Vital.Height || this.encounterInfo.Vital.Weight">Weight(lb):</mat-label>
+                    <mat-label class="col-4 vital-label" [class.required]="this.encounterInfo.Vital.Height != null ||
+                      this.encounterInfo.Vital.Weight  != null">Weight(lb):
+                    </mat-label>
                     <mat-form-field appearance="outline" class="col-12 vital-mat-form-field">
-
                       <input matInput type="number" #weightField [(ngModel)]="encounterInfo.Vital.Weight">
                       <mat-hint class="vital-mat-form-field-unit-label"></mat-hint>
                     </mat-form-field>
                   </div>
                   <div class="form-group col-md-4">
-                    <mat-label class="col-4 vital-label" [class.required]="this.encounterInfo.Vital.Height || this.encounterInfo.Vital.Weight">BMI</mat-label>
+                    <mat-label class="col-4 vital-label" [class.required]="this.encounterInfo.Vital.Height != null ||
+                      this.encounterInfo.Vital.Weight  != null">BMI
+                    </mat-label>
                     <mat-form-field appearance="outline" class="col-12 vital-mat-form-field">
 
                       <input matInput #bmiField [value]="bmi$ | async" disabled="true"
@@ -528,14 +535,18 @@
                 </div>
                 <div class="row">
                   <div class="form-group col-md-4">
-                    <mat-label class="col-4 vital-label" [class.required]="this.encounterInfo.Vital.BPSystolic || this.encounterInfo.Vital.BPDiastolic">BP:Systolic(mmHg)</mat-label>
+                    <mat-label class="col-4 vital-label" style="white-space:nowrap" [class.required]="this.encounterInfo.Vital.BPSystolic != null ||
+                      this.encounterInfo.Vital.BPDiastolic  != null">
+                      BP:Systolic(mmHg)</mat-label>
                     <mat-form-field appearance="outline" class="col-12 vital-mat-form-field">
                       <input matInput type="number" [(ngModel)]="encounterInfo.Vital.BPSystolic">
                       <mat-hint class="vital-mat-form-field-unit-label"></mat-hint>
                     </mat-form-field>
                   </div>
                   <div class="form-group col-md-4">
-                    <mat-label class="col-4 vital-label" [class.required]="this.encounterInfo.Vital.BPSystolic || this.encounterInfo.Vital.BPDiastolic">BP:Diastolic(mmHg)</mat-label>
+                    <mat-label class="col-4 vital-label" style="white-space:nowrap" [class.required]="this.encounterInfo.Vital.BPSystolic != null ||
+                      this.encounterInfo.Vital.BPDiastolic  != null">
+                      BP:Diastolic(mmHg)</mat-label>
                     <mat-form-field appearance="outline" class=" col-12 vital-mat-form-field">
                       <input matInput type="number" [(ngModel)]="encounterInfo.Vital.BPDiastolic">
                       <mat-hint class="vital-mat-form-field-unit-label"></mat-hint>
@@ -544,7 +555,8 @@
                   <div class="form-group col-md-4"></div>
                 </div>
                 <div class="row">
-                  <mat-label class="vital-label col-12 mb-2"><b>Note : Please enter atleast one field of the below.</b></mat-label>
+                  <mat-label class="vital-label col-12 mb-2"><b>Note : Please enter atleast one field of the below.</b>
+                  </mat-label>
                   <div class="form-group col-md-4">
                     <mat-label class="col-4 vital-label">Temperature(F):</mat-label>
                     <mat-form-field appearance="outline" class=" col-12 vital-mat-form-field">
@@ -604,6 +616,75 @@
           </mat-tab>
           <mat-tab label="Procedure(s) Completed">
             <ng-container *ngTemplateOutlet="ProceduresCompleted"></ng-container>
+          </mat-tab>
+          <mat-tab label="Addenda" *ngIf="encounterInfo.EncounterId != null">
+            <div class="attenda-container" *ngIf="currentTabIndex == 6" style="padding:10px">
+              <div class="content height-auto">
+                <div class="addenda_content">
+                  <div class="descriptions" *ngFor="let addenda of encounterInfo.AddendaComments">
+                    <div class="description">
+                      <div class="col-lg-12">
+                        <div class="distributor"></div>
+                        <p>{{addenda.Comment}}</p>
+                        <p>{{addenda.CreatedDate | date:'MM/dd/yyyy hh:mm:ss a'}} {{addenda.Action}}ed by
+                          {{addenda.ByName}}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="addenda-content">
+                  <div class="table-responsive">
+                    <mat-table [dataSource]=encounterInfo.AddendaDocs matSort matSortActive="Name" matSortDirection="desc"
+                      matSortDisableClear>
+                      <ng-container matColumnDef="Signed/Authorized">
+                        <mat-header-cell class="addenda-mat-column-authorize" *matHeaderCellDef
+                          mat-sort-header="Signed/Authorized">Signed/Authorized</mat-header-cell>
+                        <mat-cell class="addenda-mat-column-authorize" *matCellDef="let addendadoc">
+                          <div>
+                            <mat-icon (click)="onAddendaSinged(addendadoc)" [class.signed]="!addendadoc?.Signed"
+                              class="mat-lock-text-color" *ngIf="!addendadoc?.Signed">lock_open</mat-icon>
+                            <mat-icon (click)="onAddendaSinged(addendadoc)" class="mat-lock-text-color"
+                              *ngIf="addendadoc?.Signed">lock</mat-icon>
+                          </div>
+                        </mat-cell>
+                      </ng-container>
+                      <ng-container matColumnDef="Name">
+                        <mat-header-cell class="addenda-mat-column-name" *matHeaderCellDef mat-sort-header="Name">File
+                          Name</mat-header-cell>
+                        <mat-cell class="addenda-mat-column-name" *matCellDef="let addendadoc">
+                          <div (click)="onDocumentReview(addendadoc)" [class.signed]="!addendadoc?.Signed"
+                            *ngIf="!addendadoc?.Signed">
+                            {{addendadoc?.FileName}}
+                          </div>
+                          <div *ngIf="addendadoc?.Signed">
+                            {{addendadoc?.FileName}}
+                          </div>
+                        </mat-cell>
+                      </ng-container>
+                      <ng-container matColumnDef="DocumentType">
+                        <mat-header-cell class="addenda-mat-column-doctype" *matHeaderCellDef
+                          mat-sort-header="DocumentType">Document Type
+                        </mat-header-cell>
+                        <mat-cell class="addenda-mat-column-doctype" *matCellDef="let addendadoc">{{addendadoc?.DocType}}
+                        </mat-cell>
+                      </ng-container>
+                      <ng-container matColumnDef="Comments">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header="Comments">Comments
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let addendadoc">{{addendadoc?.Note}}
+                        </mat-cell>
+                      </ng-container>
+                      <mat-header-row *matHeaderRowDef="encounterAddendaColumns" class="mat-cust-header">
+                      </mat-header-row>
+                      <mat-row *matRowDef="let row; columns: encounterAddendaColumns;">
+                      </mat-row>
+                    </mat-table>
+                  </div>
+                </div>
+              </div>
+            </div>
           </mat-tab>
         </mat-tab-group>
 
@@ -873,71 +954,17 @@
             </div>
           </div>
         </ng-template>
-        <ng-templage #teethSurface>
-          <ul class="dropdown-menu">
-            <li>
-              <ul>
-                <li><a href="#" class="place-option" data-indicator="surface_buccal_v"
-                    data-drop_label="Buccal V">Surface: Buccal V</a></li>
-                <li><a href="#" class="place-option" data-indicator="surface_facial_v"
-                    data-drop_label="Facial V">Surface: Facial V</a></li>
-                <li><a href="#" class="place-option" data-indicator="surface_mesial" data-drop_label="Mesial">Surface:
-                    Mesial</a></li>
-                <li><a href="#" class="place-option" data-indicator="surface_incisal" data-drop_label="Incisal">Surface:
-                    Incisal</a></li>
-                <li><a href="#" class="place-option" data-indicator="surface_distal" data-drop_label="Distal">Surface:
-                    Distal</a></li>
-                <li><a href="#" class="place-option" data-indicator="surface_lingual" data-drop_label="Lingual">Surface:
-                    Lingual</a></li>
-                <li><a href="#" class="place-option" data-indicator="surface_facial" data-drop_label="Facial">Surface:
-                    Facial</a></li>
-                <li><a href="#" class="place-option" data-indicator="surface_buccal" data-drop_label="Buccal">Surface:
-                    Buccal</a></li>
-                <li><a href="#" class="place-option" data-indicator="surface_occlusal"
-                    data-drop_label="Occlusal">Surface: Occlusal</a></li>
-                <li><a href="#" class="place-option" data-indicator="surface_lingual_v"
-                    data-drop_label="Lingual V">Surface: Lingual V</a></li>
-              </ul>
-              <ul>
-                <li><a href="#" class="place-option" data-indicator="pit_mesiobuccal" data-drop_label="Mesiobuccal">Pit:
-                    Mesiobuccal</a></li>
-                <li><a href="#" class="place-option" data-indicator="pit_mesiolingual"
-                    data-drop_label="Mesiolingual">Pit: Mesiolingual</a></li>
-                <li><a href="#" class="place-option" data-indicator="pit_distobuccal" data-drop_label="Distobuccal">Pit:
-                    Distobuccal</a></li>
-                <li><a href="#" class="place-option" data-indicator="pit_distolingual"
-                    data-drop_label="Distolingual">Pit: Distolingual</a></li>
-              </ul>
-              <ul>
-                <li><a href="#" class="place-option" data-indicator="cusp_mesial" data-drop_label="Mesial">Cusp:
-                    Mesial</a></li>
-                <li><a href="#" class="place-option" data-indicator="cusp_mesiobuccal"
-                    data-drop_label="Mesiobuccal">Cusp: Mesiobuccal</a></li>
-                <li><a href="#" class="place-option" data-indicator="cusp_mesiolingual"
-                    data-drop_label="Mesiolingual">Cusp: Mesiolingual</a></li>
-                <li><a href="#" class="place-option" data-indicator="cusp_distal" data-drop_label="Distal">Cusp:
-                    Distal</a></li>
-                <li><a href="#" class="place-option" data-indicator="cusp_distobuccal"
-                    data-drop_label="Distobuccal">Cusp: Distobuccal</a></li>
-                <li><a href="#" class="place-option" data-indicator="cusp_distolingual"
-                    data-drop_label="Distolingual">Cusp: Distolingual</a></li>
-              </ul>
-            </li>
-          </ul>
-        </ng-templage>
-
-
 
       </div>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-green" (click)="recordSuperBill()" *ngIf="encounterInfo.Signed">
         Record Superbill
+      </button><!-- *ngIf="encounterInfo.Signed"-->
+      <button type="button" class="btn btn-green" (click)="addAddendum()" *ngIf="encounterInfo.Signed">
+        Add Addendum
       </button>
-      <button type="button" class="btn btn-green" (click)="addAddenda()" *ngIf="encounterInfo.Signed">
-        Add Addenda
-      </button>
-      <button type="button" class="btn btn-green" (click)="attachDocuments()" *ngIf="encounterInfo.EncounterId != null">
+      <button type="button" class="btn btn-green" (click)="attachDocuments()" *ngIf="currentTabIndex == 6">
         Attach Documents
       </button>
       <button type="button" class="btn btn-green" (click)="saveAsDraft()"

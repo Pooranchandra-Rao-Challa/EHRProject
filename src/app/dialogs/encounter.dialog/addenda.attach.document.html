@@ -1,0 +1,66 @@
+<div class="modal-dialog" id="attach-encounter-doc-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 class="modal-title col-11 Helvetica-sans-serif-large" id="staticBackdropLabel">
+        Select documents to attach
+      </h3>
+      <span type="button" class="cross-mark col-1" (click)="closePopup()" aria-label="Close">
+        X
+      </span>
+    </div>
+    <div class="modal-body padding-unset">
+      <div style="display: flex; color:#41b6a6">
+        <mat-form-field appearance="outline" class="col-4" style="padding: 0 10px 0;">
+          <mat-select [(ngModel)]="requestParams.FilterDocType" placeholder="" style="color:#41b6a6">
+            <mat-option value="0">All types</mat-option>
+            <mat-option value="1">Authorization</mat-option>
+            <mat-option value="2">Other</mat-option>
+            <!-- ['All types', 0], ['Authorization', 1], ['Other', 2]-->
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-4" style="padding: 0 10px 0;">
+          <mat-select [(ngModel)]="requestParams.FilterDate" placeholder="">
+            <mat-option value="0">Last six months</mat-option>
+            <mat-option value="1">Last one year</mat-option>
+            <mat-option value="2">Last 18 months</mat-option>
+            <mat-option value="3">Last 2 years</mat-option>
+            <mat-option value="4">All time</mat-option>
+            <!--['Last six months', 0], ['Last one year', 1], ['Last 18 months', 2], ['Last 2 years', 3], ['All time', 4]-->
+          </mat-select>
+        </mat-form-field>
+        <div class="col-2" style="width: 200px; display: flex; margin: 0 5%;">
+          <label for="addendDoc" class="upload-file">
+            <mat-icon style="padding-top: 15px; vertical-align: sub;">cloud_upload</mat-icon> Upload Doc
+          </label>
+          <input id="addendDoc" #fileUpload type="file" hidden (change)="onChange($event)" [accept]="fileTypes">
+        </div>
+      </div>
+      <mat-progress-bar mode="indeterminate" bufferValue="50" value=100 *ngIf="uploadingInProgress"></mat-progress-bar>
+      <div>
+        <mat-table [dataSource]=addendaDocs matSort matSortActive="Name" matSortDirection="desc"
+          matSortDisableClear>
+          <ng-container matColumnDef="Name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="Name">File Name</mat-header-cell>
+            <mat-cell *matCellDef="let addendadoc">{{addendadoc?.FileName}}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Select">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="Select">Select</mat-header-cell>
+            <mat-cell *matCellDef="let addendadoc">
+              <mat-checkbox class="" [checked]="addendadoc?.Selected" (change)="onSelected($event,addendadoc)">
+              </mat-checkbox>
+            </mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="patientAddendaColumns" class="mat-cust-header"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: patientAddendaColumns;">
+          </mat-row>
+        </mat-table>
+
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-green" (click)="attachDocuments()" >
+        Attach Documents
+      </button>
+    </div>
+  </div>
+</div>

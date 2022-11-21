@@ -1,5 +1,8 @@
+import { MatTabGroup } from '@angular/material/tabs';
+import { MatTableDataSource } from '@angular/material/table';
+import { AddendaDoc, AddendaComment } from './../../_models/_provider/encounter';
 
-import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, TemplateRef, ViewChild, enableProdMode } from '@angular/core';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
 import { PatientService } from 'src/app/_services/patient.service';
@@ -21,6 +24,11 @@ import { map, } from 'rxjs/operators';
 import { AlertMessage, ERROR_CODES } from './../../_alerts/alertMessage';
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 import { SignEncounterNoteComponent } from 'src/app/dialogs/encounter.dialog/sign.encounter.note.component'
+import { AddendaAttachDocumentComponent } from 'src/app/dialogs/encounter.dialog/addenda.attach.document';
+import { SignAddendaDocumentComponent } from 'src/app/dialogs/encounter.dialog/attenda.document.sign.component';
+import { AddendaReviewDocumentComponent } from 'src/app/dialogs/encounter.dialog/addenda.review.document';
+import { AddendaCommentComponent } from 'src/app/dialogs/encounter.dialog/addenda.comment';
+
 import { DatePipe } from '@angular/common';
 import {
   environment,
@@ -30,6 +38,7 @@ import {
   MEDLINE_PLUS_SNOMED,
   MEDLINE_PLUS_ICD
 } from "src/environments/environment";
+import { MatTabChangeEvent } from '@angular/material/tabs/tab-group';
 
 @Component({
   selector: 'app-encounter.dialog',
@@ -76,10 +85,16 @@ export class EncounterDialogComponent implements OnInit {
   dialogIsLoading: boolean = false;
   patient: ProviderPatient;
   signEncounterNoteComponent = SignEncounterNoteComponent;
+  addendaAttachDocumentComponent = AddendaAttachDocumentComponent
+  signAddendaDocumentComponent = SignAddendaDocumentComponent;
+  addendaReviewDocumentComponent = AddendaReviewDocumentComponent;
+  addendaCommentComponent = AddendaCommentComponent
   isNavigateFromProductView: boolean = false;
   minDateToFinish = new Subject<string>();
   endDateForEncounter;
-  isPickAny: unknown = null;
+  isPickAny: boolean = false;
+  currentTabIndex: number = 0;
+  encounterAddendaColumns: string[] = ['Signed/Authorized', 'Name', 'DocumentType','Comments'];
 
   private messageflagSubject = new BehaviorSubject<boolean>(false);
   public messageflag$ = this.messageflagSubject.asObservable();
@@ -91,14 +106,11 @@ export class EncounterDialogComponent implements OnInit {
     private datePipe: DatePipe) {
     let i = 1;  //normally would use var here
     while (this.teethNumbers.push(i++) < 32) { }
-    // this.encounterInfo.ServicedAt = new Date;
 
 
     this.minDateToFinish.subscribe(e => {
       this.endDateForEncounter = new Date(e);
-    }
-
-    )
+    })
 
   }
 
@@ -117,9 +129,18 @@ export class EncounterDialogComponent implements OnInit {
 
     this.loadDefaults();
     this.appointment = this.overlayref.RequestData as ScheduledAppointment
-    this.patient = this.overlayref.RequestData as ProviderPatient;
+
     this.initEncoutnerView();
     this.loadEncouterView();
+    this.patientService.PatientProfile({"PatientId":this.authService.viewModel.Patient.PatientId})
+      .subscribe((resp)=>
+      {
+        if(resp.IsSuccess){
+            this.patient =  resp.Result as ProviderPatient;
+        }
+      })
+
+
     this.isNavigateFromProductView = this.overlayref.RequestData["From"] == "ProcedureView";
     if (this.overlayref.RequestData["From"] == "ProcedureView"
       && this.overlayref.RequestData.EncounterId == null) {
@@ -140,13 +161,19 @@ export class EncounterDialogComponent implements OnInit {
       this.encounterInfo.Vital.CollectedTime = this.datePipe.transform(this.encounterInfo.Vital.CollectedAt, "hh:mm a");
     this.endDateForEncounter = new Date(this.encounterInfo.ServicedAt);
   }
+
   dateChange(e) {
     this.minDateToFinish.next(e.value.toString());
   }
+
   private computeBmi(height: number, weight: number): number {
     const bmi = (weight / ((height) * (height))) * 703;
     this.encounterInfo.Vital.BMI = Number(bmi.toFixed(2));
     return Number(bmi.toFixed(2));
+  }
+
+  public encounterTabChanged(tabChangeEvent: MatTabChangeEvent): void {
+    this.currentTabIndex = tabChangeEvent.index;
   }
 
   initEncoutnerView() {
@@ -196,6 +223,7 @@ export class EncounterDialogComponent implements OnInit {
         this.dialogIsLoading = false;
         if (resp.AffectedRecords == 1) {
           this.encounterInfo = resp.Result as EncounterInfo;
+
           this.encounterInfo.PatientName = this.appointment.PatientName;
           this.diagnosesInfo.next(this.encounterInfo.Diagnoses);
           this.recommendedProcedures.next(this.encounterInfo.RecommendedProcedures);
@@ -215,6 +243,16 @@ export class EncounterDialogComponent implements OnInit {
           }
 
         }
+        this.isPickAny = (this.encounterInfo.Vital.CollectedAt == null ||
+          this.encounterInfo.Vital.CollectedTime == null || this.encounterInfo.Vital.Height == null ||
+          this.encounterInfo.Vital.Weight == null ||
+          this.encounterInfo.Vital.Temperature == null ||
+          this.encounterInfo.Vital.BPSystolic == null ||
+          this.encounterInfo.Vital.BPDiastolic == null ||
+          this.encounterInfo.Vital.O2Saturation == null ||
+          this.encounterInfo.Vital.Pulse == null ||
+          this.encounterInfo.Vital.RespiratoryRate == null ||
+          this.encounterInfo.Vital.BloodType == null)
 
       } else {
         this.overlayref.close();
@@ -268,18 +306,21 @@ export class EncounterDialogComponent implements OnInit {
     value.CanDelete = true;
     this.diagnosesInfo.next(this.encounterInfo.Diagnoses.filter(fn => fn.CanDelete === false));
   }
+
   onReferralFromStateChange(value) {
     if (value) {
       this.encounterInfo.ReferredTo = false;
       this.encounterInfo.ReferralTo = "";
     }
   }
+
   onReferralToStateChange(value) {
     if (value) {
       this.encounterInfo.ReferredFrom = false;
       this.encounterInfo.ReferralFrom = "";
     }
   }
+
   optionChangedForDiagnosis(value: MedicalCode) {
     let d: EncounterDiagnosis = new EncounterDiagnosis();
     d.Code = value.Code
@@ -337,9 +378,6 @@ export class EncounterDialogComponent implements OnInit {
     }
   }
 
-
-
-
   closePopup() {
     this.overlayref.close({ "UpdatedModal": PatientChart.Encounters, refreshView: true, "saved": true });
   }
@@ -396,31 +434,54 @@ export class EncounterDialogComponent implements OnInit {
     });
   }
 
+  collectAtRequired(){
+   return !(this.encounterInfo.Vital.CollectedAt == null ||
+      this.encounterInfo.Vital.CollectedTime == null || this.encounterInfo.Vital.Height == null ||
+      this.encounterInfo.Vital.Weight == null ||
+      this.encounterInfo.Vital.Temperature == null ||
+      this.encounterInfo.Vital.BPSystolic == null ||
+      this.encounterInfo.Vital.BPDiastolic == null ||
+      this.encounterInfo.Vital.O2Saturation == null ||
+      this.encounterInfo.Vital.Pulse == null ||
+      this.encounterInfo.Vital.RespiratoryRate == null ||
+      this.encounterInfo.Vital.BloodType == null)
+  }
   enableSaveButtons() {
-    if (this.encounterInfo.ReferredFrom == true) {
-      return !(this.encounterInfo.ReferralFrom)
-    }
-    else if (this.encounterInfo.ReferredTo == true) {
-      return !(this.encounterInfo.ReferralTo)
-    }
-    this.isPickAny = (this.encounterInfo.Vital.CollectedAt || this.encounterInfo.Vital.CollectedTime || this.encounterInfo.Vital.Height ||
-      this.encounterInfo.Vital.Weight || this.encounterInfo.Vital.Temperature || this.encounterInfo.Vital.BPSystolic || this.encounterInfo.Vital.BPDiastolic ||
-      this.encounterInfo.Vital.O2Saturation || this.encounterInfo.Vital.Pulse || this.encounterInfo.Vital.RespiratoryRate || this.encounterInfo.Vital.BloodType)
-    if(this.isPickAny) {
-      let flag = ((this.encounterInfo.Vital.CollectedAt && this.encounterInfo.Vital.CollectedTime) && (this.encounterInfo.Vital.Temperature ||
-        this.encounterInfo.Vital.O2Saturation || this.encounterInfo.Vital.Pulse || this.encounterInfo.Vital.RespiratoryRate ||
-        this.encounterInfo.Vital.BloodType))
+    return false;
+    // if (this.encounterInfo.ReferredFrom == true) {
+    //   return !(this.encounterInfo.ReferralFrom)
+    // }
+    // else if (this.encounterInfo.ReferredTo == true) {
+    //   return !(this.encounterInfo.ReferralTo)
+    // }
+    // let enableVitals =
+    //   (this.encounterInfo.Vital.CollectedAt == null ||
+    //     this.encounterInfo.Vital.CollectedTime == null || this.encounterInfo.Vital.Height == null ||
+    //     this.encounterInfo.Vital.Weight == null ||
+    //     this.encounterInfo.Vital.Temperature == null ||
+    //     this.encounterInfo.Vital.BPSystolic == null ||
+    //     this.encounterInfo.Vital.BPDiastolic == null ||
+    //     this.encounterInfo.Vital.O2Saturation == null ||
+    //     this.encounterInfo.Vital.Pulse == null ||
+    //     this.encounterInfo.Vital.RespiratoryRate == null ||
+    //     this.encounterInfo.Vital.BloodType == null)
 
-        if ((this.encounterInfo.Vital.Height || this.encounterInfo.Vital.Weight) && !(this.encounterInfo.Vital.Height && this.encounterInfo.Vital.Weight)) {
-          return !(this.encounterInfo.Vital.Height && this.encounterInfo.Vital.Weight && flag)
-        }
-        else if ((this.encounterInfo.Vital.BPSystolic || this.encounterInfo.Vital.BPDiastolic) && !(this.encounterInfo.Vital.BPSystolic && this.encounterInfo.Vital.BPDiastolic)) {
-          return !(this.encounterInfo.Vital.BPSystolic && this.encounterInfo.Vital.BPDiastolic && flag)
-        }
-        else {
-          return !(flag)
-        }
-    }
+
+    // if (enableVitals) {
+    //   let flag = ((this.encounterInfo.Vital.CollectedAt && this.encounterInfo.Vital.CollectedTime) && (this.encounterInfo.Vital.Temperature ||
+    //     this.encounterInfo.Vital.O2Saturation || this.encounterInfo.Vital.Pulse || this.encounterInfo.Vital.RespiratoryRate ||
+    //     this.encounterInfo.Vital.BloodType))
+
+    //   if ((this.encounterInfo.Vital.Height || this.encounterInfo.Vital.Weight) && !(this.encounterInfo.Vital.Height && this.encounterInfo.Vital.Weight)) {
+    //     return !(this.encounterInfo.Vital.Height && this.encounterInfo.Vital.Weight && flag)
+    //   }
+    //   else if ((this.encounterInfo.Vital.BPSystolic || this.encounterInfo.Vital.BPDiastolic) && !(this.encounterInfo.Vital.BPSystolic && this.encounterInfo.Vital.BPDiastolic)) {
+    //     return !(this.encounterInfo.Vital.BPSystolic && this.encounterInfo.Vital.BPDiastolic && flag)
+    //   }
+    //   else {
+    //     return !(flag)
+    //   }
+    // }
 
 
     // return !(this.encounterInfo.Vital.CollectedAt && this.encounterInfo.Vital.CollectedTime)
@@ -464,25 +525,95 @@ export class EncounterDialogComponent implements OnInit {
 
   }
 
-  addAddenda() {
-
-
+  addAddendum() {
+    let addendum: AddendaComment = {};
+    addendum.EncounterId = this.encounterInfo.EncounterId;
+    addendum.ProviderId = this.encounterInfo.ProviderId;
+    this.openComponentDialog(this.addendaCommentComponent, addendum, Actions.add)
   }
 
   attachDocuments() {
-
+    let data = {
+      "PatientId": this.encounterInfo.PatientId,
+      "EncounterId": this.encounterInfo.EncounterId
+    }
+    this.openComponentDialog(this.addendaAttachDocumentComponent, data, Actions.add)
   }
 
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
     data?: any, action?: Actions) {
 
-    const ref = this.overlayService.open(content, data);
+    const ref = this.overlayService.open(content, data,true);
     ref.afterClosed$.subscribe(res => {
       if (content === this.signEncounterNoteComponent) {
         if (res.data && res.data.signed) {
           this.signEncounter();
         }
+      } else if (content === this.addendaAttachDocumentComponent) {
+        if (res.data && res.data.Refresh) {
+          this.encounterAddendaDocs();
+        }
+      } else if(content === this.signAddendaDocumentComponent){
+        if (res.data && res.data.Signed) {
+          this.SignAddendaDoc(res.data.Addenda as AddendaDoc)
+        }
+
+      }else if(content === this.addendaReviewDocumentComponent){
+        if (res.data && res.data.Refresh) {
+          this.encounterAddendaDocs();
+        }
+      }else if(content === this.addendaCommentComponent){
+        if (res.data && res.data.Refresh) {
+          this.Addendums();
+        }
       }
     });
+  }
+
+  onAddendaSinged(addendadoc: AddendaDoc) {
+    if(!addendadoc.Signed){
+      this.openComponentDialog(this.signAddendaDocumentComponent,addendadoc,Actions.add);
+    }
+  }
+
+  SignAddendaDoc(addendadoc: AddendaDoc){
+    addendadoc.Signed = true;
+    this.patientService.UpdateAddendaDoc(addendadoc).subscribe(resp => {
+      this.encounterAddendaDocs();
+    })
+  }
+
+  encounterAddendaDocs() {
+    let requestParams = {
+      "EncounterId": this.encounterInfo.EncounterId
+    }
+    this.patientService.EncounterAddendaDocs(requestParams).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.encounterInfo.AddendaDocs = resp.ListResult as AddendaDoc[];
+      } else {
+        this.encounterInfo.AddendaDocs = [];
+      }
+    })
+
+  }
+  Addendums(){
+    let requestParams = {
+      "EncounterId": this.encounterInfo.EncounterId
+    }
+    this.patientService.Addendums(requestParams).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.encounterInfo.AddendaComments = resp.ListResult as AddendaComment[];
+      } else {
+        this.encounterInfo.AddendaComments = [];
+      }
+    })
+  }
+  onDocumentReview(addendadoc: AddendaDoc){
+    if(this.patient != null) addendadoc.PatientName = this.patient.FirstName+' '+this.patient.LastName;
+    addendadoc.PracticeProviders = this.PracticeProviders;
+    addendadoc.ProviderId = this.encounterInfo.ProviderId;
+    if(addendadoc.SelectedProviderId == null)
+      addendadoc.SelectedProviderId = this.encounterInfo.ProviderId;
+    this.openComponentDialog(this.addendaReviewDocumentComponent,addendadoc,Actions.add);
   }
 }

@@ -72,6 +72,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
     private alertmsg: AlertMessage,
     private viewChangeService: ViewChangeService,
     private patientUpdateNotifier: PatientUpdateService) {
+
     this.viewModel = authService.viewModel;
     if (this.viewModel.PatientView == null
       || this.viewModel.PatientView == '') {
@@ -122,9 +123,6 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
           this.loadCQMsNotPerformedComponent();
         this.loadingSubject.next(false)
       });
-
-
-
   }
 
   loadDependents() {
@@ -294,6 +292,14 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
             if (p.ShowDetailView) {
               this.authService.SetViewParam('Patient', p);
               this.viewModel = this.authService.viewModel;
+              this.patient = this.viewModel.Patient;
+              if(this.viewModel.PatientView == null ||
+                this.viewModel.PatientView == '')
+                this.viewModel.PatientView = 'Chart'
+              this.chartSubject.next(this.viewModel.PatientView);
+
+              console.log(this.viewModel.PatientView);
+              console.log(this.patient);
               flag = true;
             }
             this.breadcrumbs.push(pb);

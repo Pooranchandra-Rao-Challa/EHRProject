@@ -1,0 +1,44 @@
+@import "../../../assets/cstm.material.scss";
+@import "../../../assets/common.scss";
+.encounter-panel{
+  border: 2px solid #41b6a6;
+  border-radius: 6px;
+  width:500px;
+}
+
+
+.encounter-panel-title{
+  border:0 !important;
+  font-size: 24px;
+  color:white;
+}
+
+.encounter-panel-title-header{
+  background: #41b6a6;
+  min-height: 50px;
+  padding: 16px !important;
+  outline: none !important;
+}
+
+
+.encounter-panel-close-button{
+  border: solid 2px white;
+  background: #41b6a6;
+  color: white;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+
+}
+
+.encounter-panel-close-button:hover{
+  background: #41b6a6;//rgb(255, 0, 64);
+  border: solid 2px #c5fec7;
+  color: #bbf8bb;
+}
+.note-message{
+  color: #4A4A4A;
+  font-size: 12px;
+  text-align: justify;
+  padding-bottom: 30px;
+}
