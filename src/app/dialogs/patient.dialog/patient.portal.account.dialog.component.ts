@@ -5,7 +5,7 @@ import {
   Component, ElementRef, ViewChild,
 } from '@angular/core';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
-import { Actions, PatientPortalUser, PatientSearch } from 'src/app/_models';
+import { Actions, PatientPortalUser, PatientSearch, PatientWithRelationInfo } from 'src/app/_models';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { Accountservice } from 'src/app/_services/account.service';
 import { Observable } from 'rxjs-compat';
@@ -38,7 +38,7 @@ export class PatientPortalAccountComponent {
   SearchKey = "";
   deleteSearch: boolean;
   @ViewChild('searchpatient', { static: true }) searchpatient: ElementRef;
-  currentPatient: ProviderPatient;
+
   ActionTypes = Actions;
   patientRelationshipDialogComponent = PatientRelationshipDialogComponent;
 
@@ -48,14 +48,14 @@ export class PatientPortalAccountComponent {
     private overlayService: OverlayService,
     private ref: EHROverlayRef,
     private patientService: PatientService) {
-    this.currentPatient = this.authService.viewModel.Patient;
+
     this.patientUser = dialogRef.data as PatientPortalUser;
-    if (this.patientUser == null) this.patientUser = new PatientPortalUser()
+    //if (this.patientUser == null) this.patientUser = new PatientPortalUser()
     this.patientUser.Username
   }
 
   ngOnInit(): void {
-    this.getPatientRelations();
+    //this.getPatientRelations();
   }
 
   ngAfterViewInit(): void {
@@ -92,7 +92,10 @@ export class PatientPortalAccountComponent {
         this.displayMessage = false;
         if (resp.IsSuccess) {
           this.filterPatientOptions = of(
-            resp.ListResult as PatientSearch[]);
+            (resp.ListResult as PatientSearch[])
+              .filter(fn => fn.PatientId !== this.patientUser.PatientId)
+              .sort((a1,b1) => a1.Name.localeCompare(b1.Name))
+            );
         }
         else {
           this.filterPatientOptions = of([]);
@@ -102,12 +105,13 @@ export class PatientPortalAccountComponent {
   }
 
   onPatientSelected(selected) {
-    let reqParams: any = {
-      'RelationFirstName': selected.option.value.FirstName,
-      'RelationLastName': selected.option.value.LastName,
-      'RelationShip': selected.option.value.RelationShip,
-      'PatientId': selected.option.value.PatientId
-    }
+    console.log(selected);
+    var reqParams: PatientRelationShip = {};
+    reqParams.RelationFirstName = selected.option.value.FirstName;
+    reqParams.RelationLastName = selected.option.value.FirstName;
+    reqParams.RelationShip = selected.option.value.RelationShip;
+    reqParams.RelationPatientId = selected.option.value.PatientId;
+    reqParams.PatientId = this.patientUser.PatientId;
     this.patientRelationList.push(reqParams);
     this.patientRelationListSubject.next(this.patientRelationList);
   }
@@ -121,11 +125,18 @@ export class PatientPortalAccountComponent {
     dialogData, action: Actions = this.ActionTypes.add) {
     let reqdata: any;
     if (action == Actions.view && content === this.patientRelationshipDialogComponent) {
-      reqdata = dialogData;
+      let d: PatientWithRelationInfo ={};
+      d.patientRelation = dialogData;
+      d.patientUser = this.patientUser;
+      reqdata = d;
     }
     const ref = this.overlayService.open(content, reqdata, true);
     ref.afterClosed$.subscribe(res => {
-        this.getPatientRelations();
+      if (content === this.patientRelationshipDialogComponent){
+        if(res.data.Refresh){
+          this.updatePatientRelations(res.data.PatientRelation);
+        }
+      }
     });
   }
 
@@ -136,24 +147,25 @@ export class PatientPortalAccountComponent {
     }
     this.patientService.RemovePatientRelationShipAccess(reqParams).subscribe(resp => {
       if (resp.IsSuccess) {
+        this.patientRelationList = this.patientRelationList.filter((value) => value.RelationPatientId !== item.RelationPatientId)
+        this.patientRelationListSubject.next(this.patientRelationList);
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2PPR001"]);
-        this.getPatientRelations();
+
       }
     });
   }
 
-  getPatientRelations() {
+  updatePatientRelations(item: PatientRelationShip) {
     let reqparam = {
-      "PatientId": this.currentPatient.PatientId
+      "PatientId":  item.PatientId
     }
     this.patientService.PatientRelations(reqparam).subscribe(resp => {
       if (resp.IsSuccess) {
-        this.patientRelationList = resp.ListResult;
-        this.patientRelationListSubject.next(this.patientRelationList);
-      }
-      else {
-        this.patientRelationList = [];
-        this.patientRelationListSubject.next(this.patientRelationList);
+        var prs: PatientRelationShip[] = resp.ListResult as PatientRelationShip[];
+        var pr = prs.find((value)=>value.RelationPatientId == item.RelationPatientId);
+        item.HasAccess = pr.HasAccess;
+        item.RelationUserName = pr.RelationUserName;
+        item.RelationShip = pr.RelationShip;
       }
     })
   }

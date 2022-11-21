@@ -461,3 +461,19 @@ fieldset {
 #left-drawer {
   padding: 15px 20px 10px 20px;
 }
+
+.right-container{
+  .fc-col-header{
+    width:100% !important;
+  }
+  .fc-timegrid-body{
+    width:100% !important;
+  }
+
+
+  div::nth-child(2){
+    table{
+      width:100% !important;
+    }
+  }
+}

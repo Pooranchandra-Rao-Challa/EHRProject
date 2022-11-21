@@ -1,5 +1,4 @@
-import { MatTabGroup } from '@angular/material/tabs';
-import { MatTableDataSource } from '@angular/material/table';
+import { FormFieldValue } from './../../_components/advanced-medical-code-search/field-control/field-control-component';
 import { AddendaDoc, AddendaComment } from './../../_models/_provider/encounter';
 
 import { Component, ElementRef, OnInit, TemplateRef, ViewChild, enableProdMode } from '@angular/core';
@@ -72,6 +71,13 @@ export class EncounterDialogComponent implements OnInit {
   codeSystemsForDischarge: string[] = ['SNOMED'];
   codeSystemsForDocumentation: string[] = ['CPT'];
   codeSystemsForProcedures: string[] = ['CDT/CPT', 'HCPCS'];
+  selectedProcedureValue: FormFieldValue = {CodeSystem:'CDT/CPT',SearchTerm:''}
+  selectedDiagnosisValue: FormFieldValue = {CodeSystem:'SNOMED/ICD10',SearchTerm:''}
+  selectedReconcillationValue: FormFieldValue = {CodeSystem:'SNOMED',SearchTerm:''}
+  selectedDischargeValue: FormFieldValue = {CodeSystem:'SNOMED',SearchTerm:''}
+  selectedDocumentationValue: FormFieldValue = {CodeSystem:'CPT',SearchTerm:''}
+  selectedEncounterCodeValue: FormFieldValue = {CodeSystem:'CPT',SearchTerm:''}
+
   vitalDialogResponse: any;
   ActionsType = Actions;
   message: string = "";
@@ -227,11 +233,21 @@ export class EncounterDialogComponent implements OnInit {
           this.encounterInfo.PatientName = this.appointment.PatientName;
           this.diagnosesInfo.next(this.encounterInfo.Diagnoses);
           this.recommendedProcedures.next(this.encounterInfo.RecommendedProcedures);
+
+          console.log(this.encounterInfo.RecommendedProcedures);
+
+
           if (this.encounterInfo.Vital.CollectedAt != null)
             this.encounterInfo.Vital.CollectedTime = this.datePipe.transform(this.encounterInfo.Vital.CollectedAt, "hh:mm a");
+
           this.dischargeCode.Code = this.encounterInfo.DischargeStatusCode
           this.dischargeCode.Description = this.encounterInfo.DischargeStatus
           this.dischargeCode.CodeSystem = this.encounterInfo.DischargeStatusCodeSystem;
+
+          this.selectedDischargeValue.SearchTerm =
+          this.dischargeCode.Code+' - '+this.dischargeCode.Description
+          console.log(this.selectedDischargeValue);
+
 
         } else {
           this.encounterInfo.ProviderId = this.authService.userValue.ProviderId;

@@ -265,6 +265,7 @@ export class AuthenticationService {
 
   isLoggedIn() {
     if (!this.userValue) return false;
+    if(!this.userValue.JwtToken) return false;
     const jwtToken = JSON.parse(atob(this.userValue.JwtToken.split('.')[1]));
     const expires = new Date(jwtToken.exp * 1000);
     const timediff = expires.getTime() - Date.now();

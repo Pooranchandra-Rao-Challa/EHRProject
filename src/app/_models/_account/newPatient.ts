@@ -1,3 +1,4 @@
+import { PatientRelationShip } from './../_provider/patientRelationship';
 
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 export interface Patient {
@@ -57,3 +58,7 @@ export class PatientSearch{
   User?:string;
 }
 
+export class PatientWithRelationInfo{
+   patientUser?: PatientPortalUser
+   patientRelation?: PatientRelationShip
+}

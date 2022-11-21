@@ -114,7 +114,7 @@
                           <div class="input-group"> <span class="input-group-addon labelclass form-control">Street
                               Address</span>
                             <input [readonly]="!disableaddressverification" placeholder="Street Address"
-                              style="background: white" class="form-control mx-0 inputclass"
+                              style="background: white" class="form-control mx-0 inputclass"  hasVerfiyButton="true" [verified]="addressVerfied"
                               [(ngModel)]="PracticeLocData.StreetAddress" #streetAddress required mouse-over-hint
                               tickImagePath="assets/images/tick-mark.svg" crossImagePath="assets/images/cross-mark.svg"
                               [class.address-verfied]="!manuallybtn || !disableaddressverification" />
@@ -140,7 +140,7 @@
                     <div class="form-group">
                       <div class="input-group">
                         <span class="input-group-addon labelclass form-control">City</span>
-                        <input [readonly]="!disableaddressverification"
+                        <input [readonly]="!disableaddressverification" hasVerfiyButton="true" [verified]="addressVerfied"
                           class="string required inputbg form-control inputclass mx-0" type="text" required name="City"
                           id="City" mouse-over-hint tickImagePath="assets/images/tick-mark.svg"
                           crossImagePath="assets/images/cross-mark.svg" [(ngModel)]="PracticeLocData.City"
@@ -152,7 +152,7 @@
                     <div class="form-group">
                       <div class="input-group">
                         <span class="input-group-addon labelclass form-control">State</span>
-                        <input [readonly]="!disableaddressverification"
+                        <input [readonly]="!disableaddressverification"  hasVerfiyButton="true" [verified]="addressVerfied"
                           class="string required inputbg form-control inputclass mx-0" type="text" name="State"
                           id="State" required mouse-over-hint tickImagePath="assets/images/tick-mark.svg"
                           crossImagePath="assets/images/cross-mark.svg" [(ngModel)]="PracticeLocData.State"
@@ -164,7 +164,7 @@
                     <div class="form-group">
                       <div class="input-group">
                         <span class="input-group-addon labelclass form-control">Zip</span>
-                        <input class="form-conrtol" [readonly]="!disableaddressverification"
+                        <input class="form-conrtol" [readonly]="!disableaddressverification"  hasVerfiyButton="true" [verified]="addressVerfied"
                           class="string required inputbg form-control inputclass mx-0" required mouse-over-hint
                           tickImagePath="assets/images/tick-mark.svg" crossImagePath="assets/images/cross-mark.svg"
                           type="text" name="Zip" id="Zip" [(ngModel)]="PracticeLocData.Zipcode"

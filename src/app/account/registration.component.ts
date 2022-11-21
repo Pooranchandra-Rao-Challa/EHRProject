@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { PlatformLocation } from '@angular/common';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
@@ -36,6 +36,8 @@ export class RegistrationComponent implements OnInit {
   registration: Registration = {} as Registration;
   invokedRegistration: boolean = false;
   url: string;
+  addressFieldMouseOver:boolean = false;
+
 
   constructor(private fb: FormBuilder, private accountservice: Accountservice,
     private router: Router,
@@ -101,6 +103,9 @@ export class RegistrationComponent implements OnInit {
     });
   }
 
+  CheckKeyInput(event){
+    this.addressFieldMouseOver = this.practiceAddress.value != '';
+  }
   npiValidator(): ValidatorFn {
     return (control: FormControl) => {
       if (control.value != null && control.value !== '') {

@@ -158,11 +158,11 @@ button#dob.btn-outline-secondary.calendar {
   height: 45px;
 }
 
-::ng-deep .mat-focus-indicator.mat-icon-button{
+
+.new-patient-form ::ng-deep .mat-focus-indicator.mat-icon-button{
   background: #cfd2db;
   border: 0px;
 }
-
 // ::ng-deep .new-patient .mat-datepicker-toggle.mat-datepicker-toggle button.mat-focus-indicator.mat-icon-button{
 //   background: #cfd2db;
 //   border: 0px;

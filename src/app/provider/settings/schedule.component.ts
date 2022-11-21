@@ -63,10 +63,9 @@ export class ScheduleComponent implements OnInit {
   //get provide Details
   getProviderDetails() {
     var reqparams = {
-      provider_Id: this.user.ProviderId,
-      location_Id: this.user.CurrentLocation
+      ClinicId: this.user.ClinicId
     }
-    this.settingsService.ProviderDetails(reqparams).subscribe(resp => {
+    this.settingsService.ClinicProviders(reqparams).subscribe(resp => {
       if (resp.IsSuccess) {
         this.providersDataSource = resp.ListResult as NewUser[];
       } else this.providersDataSource = [];
@@ -102,6 +101,7 @@ export class ScheduleComponent implements OnInit {
     let newroomId = this.idService.decrementIds('room');
     room.controls["RoomId"].setValue(newroomId)
     this.pushRoom(room);
+    //room.get('RoomName').
     this.roomsOnEdit.push(this.rooms().length);
   }
   pushRoom(room: FormGroup) {

@@ -166,7 +166,8 @@
             <div class="col-md-7">
               <mat-label class="required">Ordering Physician:</mat-label>
               <mat-form-field appearance="outline" class="col-md-12">
-                <mat-select required placeholder="" [(ngModel)]="labandImaging.OrderingPhyscianId">
+                <mat-select required placeholder="" [(ngModel)]="labandImaging.OrderingPhyscianId"
+                (selectionChange)="updateNPI($event)">
                   <mat-option value='' selected>View All Providers</mat-option>
                   <mat-option *ngFor="let provider of practiceProviders" [value]="provider.ProviderId">
                     {{provider.FullName}}</mat-option>

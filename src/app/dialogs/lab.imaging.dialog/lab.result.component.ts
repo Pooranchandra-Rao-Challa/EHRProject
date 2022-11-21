@@ -119,12 +119,18 @@ export class LabResultComponent implements OnInit {
         }
       })
   }
-
+  updateNPI(event){
+    var a:PracticeProviders[]  = this.practiceProviders.filter((value)=>value.ProviderId==event.value);
+    if(a.length == 1)
+    this.labandImaging.LabResult.NPI = a[0].NPI;
+  }
   loadDefaults() {
     let req = { "ClinicId": this.authService.userValue.ClinicId };
     this.smartSchedulerService.PracticeProviders(req).subscribe(resp => {
       if (resp.IsSuccess) {
         this.practiceProviders = resp.ListResult as PracticeProviders[];
+        console.log(this.practiceProviders );
+
       }
     });
   }

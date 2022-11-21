@@ -84,15 +84,14 @@
                 Enter atleast 1 character, you can only select 1 item
               </mat-option>
               <mat-option *ngIf="isLoading">Loading ...</mat-option>
-              <mat-option *ngFor="let option of filterPatientOptions | async" [value]="option"
-                [disabled]="option.Name == currentPatient.FirstName + ' ' + currentPatient.LastName ? 'disabled' : null"
+              <mat-option *ngFor="let patient of filterPatientOptions | async" [value]="patient"
                 class="patient-serach-option">
-                {{option.Name}}
+                {{patient.Name}}
               </mat-option>
               <mat-option *ngIf="noRecords">No Records Found</mat-option>
             </mat-autocomplete>
           </mat-form-field>
-
+<!-- [disabled]="patient.Name == patient.FirstName + ' ' + patient.LastName ? 'disabled' : null"-->
         </div>
       </div>
       <!-- <div class="row">
@@ -126,7 +125,7 @@
                   <button class="btn btn-access remove-access" type="button"
                     (click)="removeAccessed(item)">Remove Access</button>
                 </td>
-                <!-- <td></td> -->
+
               </tr>
             </tbody>
           </table>

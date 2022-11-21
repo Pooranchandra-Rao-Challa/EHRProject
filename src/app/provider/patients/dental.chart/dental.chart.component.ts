@@ -45,12 +45,15 @@ export class DentalChartComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
+
   constructor(private overlayService: OverlayService,
     private dentalService: DentalChartService,
     private authService: AuthenticationService,
     private alertmsg: AlertMessage,) {
     this.user = authService.userValue;
     this.currentPatient = authService.viewModel.Patient;
+    console.log(this.paginator);
+
   }
   ngAfterViewInit(): void {
     fromEvent(this.procedureSearch.nativeElement, 'keyup').pipe(
@@ -227,7 +230,7 @@ export class ProcedureDatasource implements DataSource<ProceduresInfo>{
 
   get TotalRecordSize(): number {
     if (this.proceduresSubject.getValue() && this.proceduresSubject.getValue().length > 0)
-      return this.proceduresSubject.getValue()[0].TotalProcedures;
+      return this.proceduresSubject.getValue()[0].TotalRecords;
     return 0;
   }
 }

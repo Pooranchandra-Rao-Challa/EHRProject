@@ -9,6 +9,10 @@ export class MouseOverHintDirective {
 
   @Input() crossImagePath: string;
 
+  @Input() hasVerfiyButton: boolean = false;
+
+  @Input() verified: boolean;
+
   constructor(private elementRef: ElementRef) {
   }
 
@@ -43,7 +47,7 @@ export class MouseOverHintDirective {
 
   showHint() {
 
-
+    if(this.hasVerfiyButton && !this.verified) return;
     let elem: HTMLInputElement = (this.elementRef.nativeElement as HTMLInputElement);
     let req = elem.attributes.getNamedItem("required");
     if(req != null){

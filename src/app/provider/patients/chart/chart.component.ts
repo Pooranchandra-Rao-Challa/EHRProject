@@ -445,11 +445,10 @@ export class ChartComponent implements OnInit, AfterViewInit {
   }
 
   ChartInfo() {
+    if(this.currentPatient== null)return;
     this.patientService.ChartInfo({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.chartInfo = resp.Result;
-        console.log(this.chartInfo);
-
       }
     });
   }
@@ -493,6 +492,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   }
 
   CreateImmunizationsAdministered() {
+    if(this.currentPatient== null)return;
     let isAdd = this.patientImmunization.ImmunizationId == undefined;
     this.patientImmunization.PatientId = this.currentPatient.PatientId;
     this.patientImmunization.ExpirationAt = new Date(this.datepipe.transform(this.patientImmunization.ExpirationAt, "MM/dd/yyyy hh:mm:ss"));
@@ -516,6 +516,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   }
 
   CreateImmunizationsHistorical() {
+    if(this.currentPatient== null)return;
     let isAdd = this.patientImmunization.ImmunizationId == undefined;
     this.patientImmunization.PatientId = this.currentPatient.PatientId;
     this.patientService.CreateImmunizationsHistorical(this.patientImmunization).subscribe((resp) => {
@@ -532,6 +533,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   }
 
   CreateImmunizationsRefused() {
+    if(this.currentPatient== null)return;
     let isAdd = this.patientImmunization.ImmunizationId == undefined;
     this.patientImmunization.PatientId = this.currentPatient.PatientId;
     this.patientService.CreateImmunizationsRefused(this.patientImmunization).subscribe((resp) => {
@@ -587,6 +589,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
 
   // Get Past Medical Histories info
   PastMedicalHistoriesByPatientId() {
+    if(this.currentPatient== null)return;
     this.patientService.PastMedicalHistoriesByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       // this.pastMedicalHistories = resp.ListResult;
       if (resp.IsSuccess) this.chartInfo.PastMedicalHistories = resp.ListResult;
@@ -595,6 +598,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
 
   // Get Immunizations info
   ImmunizationsByPatientId() {
+    if(this.currentPatient== null)return;
     this.patientService.ImmunizationsByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       if (resp.IsSuccess) this.chartInfo.Immunizations = resp.ListResult;
     });
@@ -602,6 +606,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
 
   // Get medications info
   MedicationsByPatientId() {
+    if(this.currentPatient== null)return;
     this.patientService.MedicationsByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       if (resp.IsSuccess) this.chartInfo.Medications = resp.ListResult;
     });
@@ -609,6 +614,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
 
   // Get encounters info
   EncountersByPatientId() {
+    if(this.currentPatient== null)return;
     this.patientService.EncountersByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       if (resp.IsSuccess) this.chartInfo.Encounters = resp.ListResult;
     });
@@ -616,6 +622,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
 
   // Get appointments info
   AppointmentsByPatientId() {
+    if(this.currentPatient== null)return;
     this.patientService.AppointmentsByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       if (resp.IsSuccess) this.chartInfo.Appointments = resp.ListResult;
     });
@@ -644,6 +651,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
 
   // Get tobacco interventions info
   TobaccoUseByPatientId() {
+    if(this.currentPatient== null)return;
     this.patientService.TobaccoUseByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       if (resp.IsSuccess) this.tobaccoUseList = resp.ListResult;
     });
@@ -651,6 +659,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
 
   // Get interventions info
   InterventionsByPatientId() {
+    if(this.currentPatient== null)return;
     this.patientService.InterventionsByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       if (resp.IsSuccess) this.chartInfo.Interventions = resp.ListResult;
     });
@@ -658,6 +667,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
 
   // Get patient messages info
   GetProviderMessagesFromPatient() {
+    if(this.currentPatient== null)return;
     let reqParams = {
       "UserId": this.user.UserId,
       "SortField": 'Created',

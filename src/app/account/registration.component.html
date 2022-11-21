@@ -266,12 +266,13 @@
                   <div class="row">
 
                     <mat-form-field appearance="outline" class="col-md-6">
-                      <input matInput
+                      <input matInput PracticeAddressV
                         (mouseover)="viewModel.PracticeAddress=$event.target.value!= null&& $event.target.value!=''"
-                        (mouseleave)="viewModel.PracticeAddress=false" formControlName="PracticeAddress"
+                        (mouseleave)="viewModel.PracticeAddress=false" formControlName="PracticeAddress" (keyup)="CheckKeyInput($event)"
                         [readonly]="addressVerified" placeholder="Enter the address here (including suite number)">
-                      <mat-icon matSuffix *ngIf="viewModel.PracticeAddress" class="FieldValid">check</mat-icon>
-                      <mat-icon matSuffix *ngIf="!viewModel.PracticeAddress" [class.disable-button]="!addressVerified"
+                      <mat-icon matSuffix *ngIf="viewModel.PracticeAddress || addressFieldMouseOver " class="FieldValid">check</mat-icon>
+                      <mat-icon matSuffix *ngIf="!viewModel.PracticeAddress && !addressFieldMouseOver"
+                      [class.disable-button]="!addressVerified"
                         class="FieldInvalid pointer" (click)="reVerifyAddress()">clear</mat-icon>
                     </mat-form-field>
 

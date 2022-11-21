@@ -38,8 +38,8 @@ import { UtilityService } from '../../../_services/utiltiy.service'
 import { MedicalCode, CodeSystemGroup } from '../../../_models/codes';
 
 export interface FormFieldValue {
-  query: string;
-  scope: string;
+  SearchTerm: string;
+  CodeSystem: string;
 }
 // export interface SelectionData{
 //   code: string;
@@ -87,13 +87,18 @@ export class FieldControlComponent extends _SearchInputMixiBase
   MatFormFieldControl<FormFieldValue>,
   ControlValueAccessor,
   DoCheck {
+
+
   static nextId = 0;
   @ViewChild(MatInput, { read: ElementRef, static: true })
   input: ElementRef;
+
   @Input()
-  set value(value: FormFieldValue) {
-    this.form.patchValue(value);
-    this.stateChanges.next();
+  set value(fvalue: FormFieldValue) {
+    if(fvalue != null){
+      this.form.patchValue(fvalue);
+      this.stateChanges.next();
+    }
   }
   get value() {
     return this.form.value;
@@ -115,7 +120,7 @@ export class FieldControlComponent extends _SearchInputMixiBase
   focused: boolean;
 
   get empty(): boolean {
-    return !this.value.query && !this.value.scope;
+    return !this.value.SearchTerm && !this.value.CodeSystem;
   }
 
   @HostBinding('class.floated')
@@ -156,21 +161,11 @@ export class FieldControlComponent extends _SearchInputMixiBase
   isLoading: boolean = false;
 
   @Input()
-  selectedValue : MedicalCode
-  // set selectedValue(value: MedicalCode) {
-  //   this._selectedValue = value;
-  // }
-  // get selectedValue() {
-  //   return this._selectedValue;
-  // }
-  // private _selectedValue
+  selectedValue: MedicalCode
+
 
   @Input()
   ShowSelectedValue: boolean = true;
-
-
-
-
 
   constructor(
     private focusMonitor: FocusMonitor,
@@ -188,10 +183,10 @@ export class FieldControlComponent extends _SearchInputMixiBase
       this.ngControl.valueAccessor = this;
     }
     this.form = this.fb.group({
-      scope: new FormControl(''),
-      query: new FormControl(''),
+      CodeSystem: new FormControl(''),
+      SearchTerm: new FormControl(''),
     });
-    // (this.form.contains[1] as FormControl).
+
   }
 
   writeValue(obj: FormFieldValue): void {
@@ -233,28 +228,27 @@ export class FieldControlComponent extends _SearchInputMixiBase
         return event;
       }),
       filter(res => {
-        if (res.query != null && res.query.length < this.MinTermLength) {
+        if (res.SearchTerm != null && res.SearchTerm.length < this.MinTermLength) {
           this.isLoading = false;
           this.filteredOptions = of([]);
         }
-        return res !== null && res.query != null && res.query.length >= this.MinTermLength
+        return res !== null && res.SearchTerm != null && res.SearchTerm.length >= this.MinTermLength
       }),
       debounceTime(700),
       distinctUntilChanged(),
       tap(() => {
         this.isLoading = true;
       }),
-    )
-      .subscribe((value) => {
-        this.onChange(value);
-        this.updateSearchResults(value)
-      });
+    ).subscribe((value) => {
+      this.onChange(value);
+      this.updateSearchResults(value)
+    });
 
   }
 
   updateSearchResults(term: FormFieldValue) {
-    if (term.query.length >= this.MinTermLength && term.scope != "") {
-      this.utilityService.MedicalCodes(term.query, term.scope)
+    if (term.SearchTerm.length >= this.MinTermLength && term.CodeSystem != "") {
+      this.utilityService.MedicalCodes(term.SearchTerm, term.CodeSystem)
         .subscribe(resp => {
           this.isLoading = false;
           if (resp.IsSuccess) {
@@ -271,16 +265,11 @@ export class FieldControlComponent extends _SearchInputMixiBase
     this.optionValueChanged.emit(this.selectedValue)
   }
 
-  displayWith(value: MedicalCode) {
-    // console.log(value);
-    if (value == null) return "";
-    // console.log(JSON.stringify(this._selectedValue));
+  displayWith(medicalCode: any) {
+    if (medicalCode == null || medicalCode.length == 0) return "";
+    console.log(medicalCode);
 
-    //  console.log(value.Code);
-    // console.log(value.Description);
-
-
-    return value.Code + "-" + value.Description;
+    return medicalCode.Code + "-" + medicalCode.Description;
   }
 
   ngDoCheck() {
@@ -294,10 +283,7 @@ export class FieldControlComponent extends _SearchInputMixiBase
     this.stateChanges.complete();
   }
 }
-// export class MedicalCodeGroup{
-//   key: string;
-//   codes: MedicalCode[];
-// }
+
 function groupBy<_string, _MedicalCode>(array: MedicalCode[], grouper: (item: MedicalCode) => string) {
   let rtnValue = array.reduce((store, item) => {
     var key = grouper(item)

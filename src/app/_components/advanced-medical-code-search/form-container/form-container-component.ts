@@ -1,3 +1,4 @@
+import { FormFieldValue } from './../field-control/field-control-component';
 import { Component, OnInit,Input,Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MedicalCode } from '../../../_models/codes';
@@ -9,7 +10,10 @@ import { MedicalCode } from '../../../_models/codes';
 })
 export class FormContainerComponent implements OnInit {
   formControl = new FormControl(
-    { value: { scope: '', query: '' }, disabled: false },
+    {
+       //value: { CodeSystem: '', SearchTerm: '' },
+       disabled: false
+    },
     AdvancedSearchValidetor
   );
 
@@ -26,11 +30,15 @@ export class FormContainerComponent implements OnInit {
   showSelectedValue: boolean = true;
 
   @Input()
-  SelectedValue: MedicalCode;
+  SelectedValue: FormFieldValue;
 
   @Output() optionChanged: EventEmitter<MedicalCode> =new EventEmitter<MedicalCode>();
 
   constructor() {
+    console.log(this.codeSystems);
+
+    if(this.codeSystems != null && this.codeSystems.length > 0)
+    this.formControl.setValue({ CodeSystem: this.codeSystems[0], SearchTerm: '' })
   }
 
   ngOnInit(): void {}

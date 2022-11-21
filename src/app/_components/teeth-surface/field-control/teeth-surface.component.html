@@ -3,7 +3,7 @@
   <mat-label class="required">Teeth Surface</mat-label>
   <div style="display:flex;vertical-align: middle;">
     <input class="pointer" matInput style="width:10rem" [formControl]="teethCtrl" name="teeth-surface" placeholder="Select Surface..." readonly
-      [(ngModel)]="selectedOption" />
+     />
     <mat-icon matSuffix>arrow_drop_down</mat-icon>
   </div>
 </mat-form-field>
@@ -15,43 +15,43 @@
       <div style="display: grid;">
         <ul>
           <li>
-            <div class="place-option" [class.opttion-selected]="selectedOptions.indexOf('surface_buccal_v') > -1"
+            <div class="place-option" [class.opttion-selected]="selectedOption == teethProblems['surface_buccal_v']"
               (click)="onOptionSelected('surface_buccal_v')">Surface: Buccal V</div>
           </li>
           <li>
-            <div class="place-option" [class.opttion-selected]="selectedOptions.indexOf('surface_facial_v') > -1"
+            <div class="place-option" [class.opttion-selected]="selectedOption == teethProblems['surface_facial_v']"
               (click)="onOptionSelected('surface_facial_v')">Surface: Facial V</div>
           </li>
           <li>
-            <div class="place-option" [class.opttion-selected]="selectedOptions.indexOf('surface_mesial') > -1"
+            <div class="place-option" [class.opttion-selected]="selectedOption == teethProblems['surface_mesial']"
               (click)="onOptionSelected('surface_mesial')">Surface: Mesial</div>
           </li>
           <li>
-            <div class="place-option" [class.opttion-selected]="selectedOptions.indexOf('surface_incisal') > -1"
+            <div class="place-option" [class.opttion-selected]="selectedOption == teethProblems['surface_incisal']"
               (click)="onOptionSelected('surface_incisal')">Surface: Incisal</div>
           </li>
           <li>
-            <div class="place-option" [class.opttion-selected]="selectedOptions.indexOf('surface_distal') > -1"
+            <div class="place-option" [class.opttion-selected]="selectedOption == teethProblems['surface_distal']"
               (click)="onOptionSelected('surface_distal')">Surface: Distal</div>
           </li>
           <li>
-            <div class="place-option" [class.opttion-selected]="selectedOptions.indexOf('surface_lingual') > -1"
+            <div class="place-option" [class.opttion-selected]="selectedOption == teethProblems['surface_lingual']"
               (click)="onOptionSelected('surface_lingual')">Surface: Lingual</div>
           </li>
           <li>
-            <div class="place-option" [class.opttion-selected]="selectedOptions.indexOf('surface_facial') > -1"
+            <div class="place-option" [class.opttion-selected]="selectedOption == teethProblems['surface_facial']"
               (click)="onOptionSelected('surface_facial')">Surface: Facial</div>
           </li>
           <li>
-            <div class="place-option" [class.opttion-selected]="selectedOptions.indexOf('surface_buccal') > -1"
+            <div class="place-option" [class.opttion-selected]="selectedOption == teethProblems['surface_buccal']"
               (click)="onOptionSelected('surface_buccal')">Surface: Buccal</div>
           </li>
           <li>
-            <div class="place-option" [class.opttion-selected]="selectedOptions.indexOf('surface_occlusal') > -1"
+            <div class="place-option" [class.opttion-selected]="selectedOption == teethProblems['surface_occlusal']"
               (click)="onOptionSelected('surface_occlusal')">Surface: Occlusal</div>
           </li>
           <li>
-            <div class="place-option" [class.opttion-selected]="selectedOptions.indexOf('surface_lingual_v') > -1"
+            <div class="place-option" [class.opttion-selected]="selectedOption == teethProblems['surface_lingual_v']"
               (click)="onOptionSelected('surface_lingual_v')">Surface: Lingual V</div>
           </li>
         </ul>
@@ -59,19 +59,19 @@
       <div>
         <ul>
           <li>
-            <div class="place-option" [class.opttion-selected]="selectedOptions.indexOf('pit_mesiobuccal') > -1"
+            <div class="place-option" [class.opttion-selected]="selectedOption == teethProblems['pit_mesiobuccal']"
               (click)="onOptionSelected('pit_mesiobuccal')">Pit: Mesiobuccal</div>
           </li>
           <li>
-            <div class="place-option" [class.opttion-selected]="selectedOptions.indexOf('pit_mesiolingual') > -1"
+            <div class="place-option" [class.opttion-selected]="selectedOption == teethProblems['pit_mesiolingual']"
               (click)="onOptionSelected('pit_mesiolingual')">Pit: Mesiolingual</div>
           </li>
           <li>
-            <div class="place-option" [class.opttion-selected]="selectedOptions.indexOf('pit_distobuccal') > -1"
+            <div class="place-option" [class.opttion-selected]="selectedOption == teethProblems['pit_distobuccal']"
               (click)="onOptionSelected('pit_distobuccal')">Pit: Distobuccal</div>
           </li>
           <li>
-            <div class="place-option" [class.opttion-selected]="selectedOptions.indexOf('pit_distolingual') > -1"
+            <div class="place-option" [class.opttion-selected]="selectedOption == teethProblems['pit_distolingual']"
               (click)="onOptionSelected('pit_distolingual')">Pit: Distolingual</div>
           </li>
         </ul>
@@ -79,27 +79,27 @@
       <div>
         <ul style="padding-right:20px">
           <li>
-            <div class="place-option" [class.opttion-selected]="selectedOptions.indexOf('cusp_mesial') > -1"
+            <div class="place-option" [class.opttion-selected]="selectedOption == teethProblems['cusp_mesial']"
               (click)="onOptionSelected('cusp_mesial')">Cusp: Mesial</div>
           </li>
           <li>
-            <div class="place-option" [class.opttion-selected]="selectedOptions.indexOf('cusp_mesiobuccal') > -1"
+            <div class="place-option" [class.opttion-selected]="selectedOption == teethProblems['cusp_mesiobuccal']"
               (click)="onOptionSelected('cusp_mesiobuccal')">Cusp: Mesiobuccal</div>
           </li>
           <li>
-            <div class="place-option" [class.opttion-selected]="selectedOptions.indexOf('cusp_mesiolingual') > -1"
+            <div class="place-option" [class.opttion-selected]="selectedOption == teethProblems['cusp_mesiolingual']"
               (click)="onOptionSelected('cusp_mesiolingual')">Cusp: Mesiolingual</div>
           </li>
           <li>
-            <div class="place-option" [class.opttion-selected]="selectedOptions.indexOf('cusp_distal') > -1"
+            <div class="place-option" [class.opttion-selected]="selectedOption == teethProblems['cusp_distal']"
               (click)="onOptionSelected('cusp_distal')">Cusp: Distal</div>
           </li>
           <li>
-            <div class="place-option" [class.opttion-selected]="selectedOptions.indexOf('cusp_distobuccal') > -1"
+            <div class="place-option" [class.opttion-selected]="selectedOption == teethProblems['cusp_distobuccal']"
               (click)="onOptionSelected('cusp_distobuccal')">Cusp: Distobuccal</div>
           </li>
           <li>
-            <div class="place-option" [class.opttion-selected]="selectedOptions.indexOf('cusp_distolingual') > -1"
+            <div class="place-option" [class.opttion-selected]="selectedOption == teethProblems['cusp_distolingual']"
               (click)="onOptionSelected('cusp_distolingual')">Cusp: Distolingual</div>
           </li>
         </ul>
