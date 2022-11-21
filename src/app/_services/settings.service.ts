@@ -59,8 +59,8 @@ export class SettingsService extends APIEndPoint {
       {ClinicId:ClinicId});
   }
 
-  ProviderDetails(reqparams: any) {
-    return this._ProcessPostRequest<any>(this._providerDetailsUrl, reqparams);
+  ClinicProviders(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._clinicProvidersUrl, reqparams);
   }
 
   AddUpdateAppointmentStatus(reqparams: any) {

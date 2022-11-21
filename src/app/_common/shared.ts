@@ -14,6 +14,7 @@ import { AlphaDirective } from "../_directives/alphaonly.directive";
 import { FileUploadModule } from 'src/app/file.upload/file-upload.module'
 import { InterceptorService } from "../_loader/interceptor.service";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
+import { PaginatorDirective } from 'src/app/_directives/pagination.directive'
 
 @NgModule({
   imports: [
@@ -26,7 +27,7 @@ import { HTTP_INTERCEPTORS } from "@angular/common/http";
   exports: [
     QuickAppProMaterialModule,
     FileUploadModule,
-    //FullCalendarModule,
+    PaginatorDirective,
     GroupByPipe,
     FilterPipe,
     SearchPipe,
@@ -40,7 +41,8 @@ import { HTTP_INTERCEPTORS } from "@angular/common/http";
   ],
   declarations: [GroupByPipe, FilterPipe, SearchPipe, TimeMaskDirective,
     MouseOverHintDirective,SimplePaginationDirective,npiValidatorDirective,
-    ssnValidatorDirective,NunberMaskDirective,AlphaDirective],
+    ssnValidatorDirective,NunberMaskDirective,AlphaDirective,
+    PaginatorDirective,],
   providers : [
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
   ],

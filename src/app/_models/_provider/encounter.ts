@@ -200,7 +200,7 @@ export class ProceduresInfo implements IDeleteFlag {
   strDate?: string;
   ViewFrom?: string;
   CanDelete?: boolean = false;
-  TotalProcedures?: number;
+  TotalRecords?: number;
   ShortStatus?: string;
   CQMStatus?: string;
   ProviderName?: string;
@@ -276,6 +276,7 @@ export const TOOTH_PROBLEM_PLACES = {
   "pit_mesiolingual": "Pit Mesiolingual",
   "pit_distobuccal": "Pit Distobuccal",
   "pit_distolingual": "Pit Distolingual",
+
   "cusp_mesial": "Cusp Mesial",
   "cusp_mesiobuccal": "Cusp Mesiobuccal",
   "cusp_mesiolingual": "Cusp Mesiolingual",

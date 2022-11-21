@@ -77,6 +77,7 @@ export class TeethSurfaceComponent implements OnInit {
   get selectedOption(): string{ return TOOTH_PROBLEM_PLACES[this._selectedOption];}
   set selectedOption(v: string){ this._selectedOption = v;}
   @Input() selectedOptions: string[] = [];
+  teethProblems:{} = TOOTH_PROBLEM_PLACES;
 
   constructor(
     private focusMonitor: FocusMonitor,
@@ -85,7 +86,10 @@ export class TeethSurfaceComponent implements OnInit {
 
   ngOnInit(): void {
     this.scrollStrategy = new ConfirmScrollStrategy(this.inputEl);
+    console.log(this.selectedOption);
 
+    if(this._selectedOption != null)
+    this.teethCtrl.setValue(this.selectedOption);
     this.isPanelVisible$ = this.focusMonitor.monitor(this.inputEl).pipe(
       filter((focused) => !!focused),
       mapTo(true)
@@ -114,8 +118,10 @@ export class TeethSurfaceComponent implements OnInit {
 
     // this.teethCtrl.setValue(this.selectedOptions.join(","));
     // this.optionValueChanged.emit(this.selectedOptions);
+    console.log(value);
 
-    //this.teethCtrl.setValue(TOOTH_PROBLEM_PLACES[value]);
+    this._selectedOption = value;
+    this.teethCtrl.setValue(TOOTH_PROBLEM_PLACES[value]);
     this.optionValueChanged.emit(value);
 
     this.connectedOverlay.overlayRef.detach();

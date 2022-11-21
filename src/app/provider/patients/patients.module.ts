@@ -12,7 +12,7 @@ import { AmendmentsComponent } from './amendments/amendments.component';
 import { ResetPasswordComponent } from './resetpassword/resetpassword.component';
 import { CqmsNotPerformedComponent } from './cqms.not.performed/cqms.not.performed.component';
 import { PatientsBreadCrumComponent } from './patients-bread-crum/patients-bread-crum.component';
-import { PaginatorDirective } from 'src/app/_directives/pagination.directive'
+//import { PaginatorDirective } from 'src/app/_directives/pagination.directive'
 import { BreadcrumbComponent } from 'src/app/provider/patients/patient.breadcrumb/breadcrumb.component'
 import { TreeProcedureComponent } from 'src/app/provider/patients/dental.chart/tree.procedure.component'
 import { NgxMaskModule } from 'ngx-mask';
@@ -36,7 +36,7 @@ import { NgxMaskModule } from 'ngx-mask';
     AmendmentsComponent,
     ResetPasswordComponent,
     CqmsNotPerformedComponent,
-    PaginatorDirective,
+    //PaginatorDirective,
     BreadcrumbComponent,
     TreeProcedureComponent,
   ],
@@ -51,7 +51,7 @@ import { NgxMaskModule } from 'ngx-mask';
     ResetPasswordComponent,
     CqmsNotPerformedComponent,
     PatientsBreadCrumComponent,
-    PaginatorDirective,
+    //PaginatorDirective,
     BreadcrumbComponent,
     TreeProcedureComponent,
   ],

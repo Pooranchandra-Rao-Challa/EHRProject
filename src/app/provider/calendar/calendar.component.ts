@@ -132,6 +132,20 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     let timeGridResourceButtons = document.getElementsByClassName('fc-resourceTimeGridDay-button');
     let timeGridWeekButtons = document.getElementsByClassName('fc-timeGridWeek-button');
 
+    let fccolheader = document.getElementsByClassName('fc-col-header');
+    let fctimegridbody = document.getElementsByClassName('fc-timegrid-body');
+    if(fccolheader != null && fccolheader.length == 1){
+      document.getElementsByClassName('fc-col-header')[0].setAttribute('style','width:100%')
+    }
+    if(fctimegridbody != null && fctimegridbody.length == 1){
+      document.getElementsByClassName('fc-timegrid-body')[0].setAttribute('style','width:100%')
+      let tables = document.getElementsByClassName('fc-timegrid-body')[0].getElementsByTagName('table')
+      if(tables != null && tables.length == 2){
+        document.getElementsByClassName('fc-timegrid-body')[0].getElementsByTagName('table')[1].setAttribute('style','width:100%')
+      }
+    }
+
+
     let roomsPanel = document.getElementsByClassName('panel rooms');
 
     if (timeGridResourceButtons != null && timeGridResourceButtons.length == 1) {
@@ -458,6 +472,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       duration: 30,
       weekends: true,
       selectable: true,
+
       // columnHeaderText: function(mom){if (mom.weekday() === 5) {
       //   return 'Friday!';
       // } else {

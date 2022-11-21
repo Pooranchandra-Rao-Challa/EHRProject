@@ -97,8 +97,8 @@ export class APIEndPoint extends EndpointBase {
   get _locationByIdUrl() {
     return this._baseUrl + "GetLocationById";
   }
-  get _providerDetailsUrl() {
-    return this._baseUrl + "GetProviderListByLocation";
+  get _clinicProvidersUrl() {
+    return this._baseUrl + "ClinicProviders";
   }
   get _providerRegistrationUrl() {
     return this._baseUrl + "RegisterNewProvider";

@@ -79,7 +79,7 @@ export class PracticeComponent implements OnInit {
     this.loadFormDefaults();
   }
 
-  
+
   loadFormDefaults() {
     this.utilityService.ProviderRoles().subscribe(resp => {
       if (resp.IsSuccess) {
@@ -121,10 +121,9 @@ export class PracticeComponent implements OnInit {
   // get display User Details
   getProviderDetails() {
     var reqparams = {
-      provider_Id: this.user.ProviderId,
-      location_Id: this.changedLocationId
+      ClinicId: this.user.ClinicId
     }
-    this.settingsService.ProviderDetails(reqparams).subscribe(resp => {
+    this.settingsService.ClinicProviders(reqparams).subscribe(resp => {
       if (resp.IsSuccess) {
         this.providersDataSource = resp.ListResult as NewUser[];
       } else this.providersDataSource = [];
@@ -219,7 +218,7 @@ export class PracticeComponent implements OnInit {
           this.getProviderDetails();
           this.practiceLocations();
         }
-      } 
+      }
       else if (content === this.locationDialogComponent) {
         if (res.data != null && (res.data.saved || res.data.deleted)) {
           this.practiceLocations();
@@ -254,7 +253,7 @@ export class PracticeComponent implements OnInit {
     this.alertmsg.userCreateConfirm('Code', "Provider Name")
   }
   /*  ^[A-Za-z0-9._%-]+@[A-Za-z0-9._-]+\\.[a-z]{2,3}$*/
- 
+
   Close() {
     this.NewUserData = new NewUser()
   }

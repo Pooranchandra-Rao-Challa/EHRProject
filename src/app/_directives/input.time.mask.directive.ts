@@ -354,7 +354,10 @@ export class TimeMaskDirective implements OnInit, ControlValueAccessor, Validato
 
     this._dateValue = new Date(inputvalue);
 
-    const v = inputvalue ? this._dateToStringTime(inputvalue) : 'hh:mm XM';
+
+
+
+    const v = inputvalue != null ? this._dateToStringTime(inputvalue) : 'hh:mm XM';
 
     this._renderer.setProperty(this._el.nativeElement, 'value', v);
   }
@@ -419,6 +422,9 @@ export class TimeMaskDirective implements OnInit, ControlValueAccessor, Validato
 
   /** build a time in 00:00 AMformat */
   private _dateToStringTime(value: Date) {
+
+    if('Invalid Date'== value+'') return 'hh:mm XM';
+
     let timewithMeridian: string[] = value.toLocaleTimeString().split(' ')
     let meridian = timewithMeridian[1].replace('X','A');
     let timeParts = timewithMeridian[0].split(':');
@@ -428,10 +434,18 @@ export class TimeMaskDirective implements OnInit, ControlValueAccessor, Validato
 
     return this._zeroFill(h) + ':' + this._zeroFill(m)+' '+meridian;
   }
-
+  private _isValidDate (str) {
+    // optional condition to eliminate the tricky ones
+    // since chrome will prepend zeros (000...) to the string and then parse it
+    // let noSpace = str.replace(/\s/g, '')
+    // if( noSpace.length < 3) {
+    //   return false
+    // }
+    return Date.parse(str) > 0
+  }
   /** Turns a string in format --, -X, X-, XY into a number, considering '-' => 0 */
   private _stringToNumber(str: string,chr: string) {
-    if (str.indexOf(chr) === -1) {
+    if (str != null && str.indexOf(chr) === -1) {
       return Number(str);
     }
 

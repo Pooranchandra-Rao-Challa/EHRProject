@@ -4,6 +4,7 @@ export class PracticeProviders implements ToAddress {
   ProviderId: string;
   FullName: string;
   UserId?: string;
+  NPI?:string;
   get Name(): string
   {
     return this.FullName;

@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit {
   pageSize: number = 10;
   page: number = 1;
 
-  ProviderList: ProviderList[] = [{}];
+  providers: ProviderList[] = [{}];
   filterQueryParams: FilterQueryParams = new FilterQueryParams();
   filterSubject = new BehaviorSubject<FilterQueryParams>(this.filterQueryParams);
   providerListBehaviour: BehaviorSubject<boolean>  = new BehaviorSubject<boolean>(false);
@@ -61,17 +61,22 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.GetProivderList();
     this.filterSubject.subscribe(value => {
-      this.filtededProviders = this.ProviderList.filter(x =>
-        (value.SearchTerm == "" || x.ProviderName?.toLowerCase().match(value.SearchTerm?.toLowerCase()) ||
-          x.PracticeName?.toLowerCase().match(value.SearchTerm?.toLowerCase()))
-        && x.Status == value.Active
-        && (x.Paid == value.Paid || value.Paid == null)
-      );
+      //console.log(value);
+
+      // this.filtededProviders = this.providers.filter(x =>
+      //   (value.SearchTerm == "" || x.ProviderName?.toLowerCase().match(value.SearchTerm?.toLowerCase()) ||
+      //     x.PracticeName?.toLowerCase().match(value.SearchTerm?.toLowerCase()))
+      //   && x.Status == value.Active
+      //   && (x.Paid == value.Paid || value.Paid == null)
+      // );
+
+      // console.log(this.filtededProviders);
+      // console.log(this.providers);
+      this.GetProivderList(value);
+
     })
     this.UserIP();
     this.providerListBehaviour.subscribe(value => {
-      console.log(value);
-
     })
   }
 
@@ -88,20 +93,22 @@ export class DashboardComponent implements OnInit {
     this.filterSubject.next(this.filterQueryParams);
   }
 
-  GetProivderList() {
+  GetProivderList(value: FilterQueryParams = null) {
     this.adminservice.GetProviderList().subscribe(resp => {
       if (resp.IsSuccess) {
-        this.ProviderList = resp.ListResult;
-        this.filtededProviders = this._filterProviders();
+        this.providers = resp.ListResult;
+        this.filtededProviders = this._filterProviders(value);
+        this.providerListBehaviour.next(this.filtededProviders == null ||
+          (this.filtededProviders != null && this.filtededProviders.length == 0));
       } else
         this.providerListBehaviour.next(true);
-        this.ProviderList = [];
+        this.providers = [];
     });
   }
 
   _filterProviders(value: FilterQueryParams = null): ProviderList[] {
     let val = value == null ? new FilterQueryParams() : value;
-    return this.ProviderList.filter(x =>
+    return this.providers.filter(x =>
       (val.SearchTerm == "" || (x.ProviderName?.toLowerCase().match(val.SearchTerm?.toLowerCase())) ||
         x.PracticeName?.toLowerCase().match(value.SearchTerm?.toLowerCase()))
       && x.Status == val.Active
@@ -126,7 +133,7 @@ export class DashboardComponent implements OnInit {
     this.adminservice.UpdateAccessProvider(reqparam).subscribe(resp => {
       if (resp.IsSuccess) {
         this.primaryProviderModal = 'none';
-        this.GetProivderList();
+        this.GetProivderList(this.filterQueryParams);
         this.AccessProvider = 'block';
         this.SelectedProvider = {};
       } else {
@@ -160,7 +167,7 @@ export class DashboardComponent implements OnInit {
     let y = document.body.scrollTop;
     this.adminservice.UpdatedTrailStatus(reqparam).subscribe(resp => {
       if (resp.IsSuccess) {
-        this.GetProivderList();
+        this.GetProivderList(this.filterQueryParams);
         document.body.scrollTo(0, y);
       }
     })
@@ -179,12 +186,12 @@ export class DashboardComponent implements OnInit {
       if (resp.IsSuccess) {
         if (item.Locked == true) {
           this.displayHeading = 'unlocked';
-          this.GetProivderList();
+          this.GetProivderList(this.filterQueryParams);
           this.lockedModal = 'block';
         }
         else {
           this.displayHeading = 'locked';
-          this.GetProivderList();
+          this.GetProivderList(this.filterQueryParams);
           this.lockedModal = 'block';
         }
 
@@ -238,7 +245,7 @@ export class DashboardComponent implements OnInit {
   UpdateView(data) {
     if (data == null) return;
     if (data.saved) {
-      this.GetProivderList();
+      this.GetProivderList(this.filterQueryParams);
     }
   }
 

@@ -154,7 +154,6 @@ export class PatientDialogComponent {
             if (resp.IsSuccess) {
               this.openComponentDialog(this.patientHealthPortalComponent,
                 res.data, Actions.view);
-                //this.cancel();
             } else {
               this.cancel();
               this.alertmsg.displayErrorDailog(ERROR_CODES["E2AP002"])
