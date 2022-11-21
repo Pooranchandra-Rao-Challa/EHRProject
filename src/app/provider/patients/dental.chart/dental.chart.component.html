@@ -639,7 +639,7 @@
       <mat-table [dataSource]=procedureDataSource matSort matSortDirection="desc"
         matSortDisableClear>
         <ng-container matColumnDef="SELECT">
-          <mat-header-cell *matHeaderCellDef>SELECT</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header="SELECT">SELECT</mat-header-cell>
           <mat-cell *matCellDef="let procedure">
             <button matIcon (click)="canelProcedure(procedure)">
               <mat-icon class="mat-18">delete_forever</mat-icon>
@@ -648,21 +648,21 @@
         </ng-container>
 
         <ng-container matColumnDef="START DATE">
-          <mat-header-cell *matHeaderCellDef>START DATE</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header="START DATE">START DATE</mat-header-cell>
           <mat-cell *matCellDef="let procedure">
             <a (click)="openComponentDialog(procedureDialogComponent,procedure,ActionTypes.new,0,null)">{{procedure?.Date | date:'MM/dd/yyyy'}}</a>
           </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="END DATE">
-          <mat-header-cell *matHeaderCellDef>END DATE</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header="END DATE">END DATE</mat-header-cell>
           <mat-cell *matCellDef="let procedure">
             <a (click)="openComponentDialog(procedureDialogComponent,procedure,ActionTypes.new,0,null)">{{procedure?.EndDate | date:'MM/dd/yyyy'}}</a>
           </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="TOOTH">
-          <mat-header-cell *matHeaderCellDef>TOOTH</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header="TOOTH">TOOTH</mat-header-cell>
           <mat-cell *matCellDef="let procedure">
             <span>
               <a (click)="openComponentDialog(procedureDialogComponent,procedure,ActionTypes.new,0,null)">{{procedure?.ToothNo}}</a>
@@ -671,14 +671,14 @@
         </ng-container>
 
         <ng-container matColumnDef="SURFACE">
-          <mat-header-cell *matHeaderCellDef>SURFACE
+          <mat-header-cell *matHeaderCellDef mat-sort-header="SURFACE">SURFACE
           </mat-header-cell>
           <mat-cell *matCellDef="let procedure">
             <a (click)="openComponentDialog(procedureDialogComponent,procedure,ActionTypes.new,0,null)">{{procedure?.ToothPlace}}</a> </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="CODE">
-          <mat-header-cell *matHeaderCellDef>CODE</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header="CODE">CODE</mat-header-cell>
           <mat-cell *matCellDef="let procedure">
             <span>
               <a (click)="openComponentDialog(procedureDialogComponent,procedure,ActionTypes.new,0,null)">{{procedure?.Code}}</a>
@@ -687,18 +687,18 @@
         </ng-container>
 
         <ng-container matColumnDef="DESCRIPTION">
-          <mat-header-cell *matHeaderCellDef>DESCRIPTION</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header="DESCRIPTION">DESCRIPTION</mat-header-cell>
           <mat-cell *matCellDef="let procedure">
             <a (click)="openComponentDialog(procedureDialogComponent,procedure,ActionTypes.new,0,null)">{{procedure?.Description}}</a></mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="PROVIDER">
-          <mat-header-cell *matHeaderCellDef>PROVIDER</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header="PROVIDER">PROVIDER</mat-header-cell>
           <mat-cell *matCellDef="let procedure">{{user.FirstName}} {{user.LastName}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="STATUS">
-          <mat-header-cell *matHeaderCellDef>STATUS
+          <mat-header-cell *matHeaderCellDef mat-sort-header="STATUS">STATUS
           </mat-header-cell>
           <mat-cell *matCellDef="let procedure">
             {{procedure?.ShortStatus}}
@@ -706,7 +706,7 @@
         </ng-container>
 
         <ng-container matColumnDef="CQM STATUS">
-          <mat-header-cell *matHeaderCellDef>CQM STATUS
+          <mat-header-cell *matHeaderCellDef mat-sort-header="CQM STATUS">CQM STATUS
 
           </mat-header-cell>
           <mat-cell *matCellDef="let procedure">
@@ -715,7 +715,7 @@
         </ng-container>
 
         <ng-container matColumnDef="Encounter">
-          <mat-header-cell *matHeaderCellDef>Encounter
+          <mat-header-cell *matHeaderCellDef mat-sort-header="Encounter">Encounter
           </mat-header-cell>
           <mat-cell *matCellDef="let procedure">
             <a [class.encounter]="procedure.Signed" [class.encounter-circle]="!procedure.Signed" (click)="openComponentDialog(encounterDialogComponent,procedure,ActionTypes.view)">

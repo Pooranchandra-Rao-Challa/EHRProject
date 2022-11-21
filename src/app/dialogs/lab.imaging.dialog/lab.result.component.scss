@@ -11,7 +11,7 @@
 // }
 
 #editlaborder .modal-body {
-  max-height: calc(90vh - 200px);
+  max-height: calc(80vh - 200px);
   padding: 0 !important;
   overflow-y: auto;
   overflow-x: hidden;
@@ -104,7 +104,7 @@
   margin-bottom: 10px;
   padding-left: 5px;
   border: 1px solid #41b6a6;
-  width: 200px;
+  // width: 200px;
   border-radius: 5px;
   line-height: 25px;
 }
@@ -261,7 +261,6 @@ mat-label {
 
     .panel-tests {
       width: 1200px;
-      overflow-x: auto;
     }
   }
 }
@@ -278,3 +277,35 @@ mat-label {
   }
 }
 
+@media (max-width: 900px) {
+  .scrollable-table {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    table.order-table {
+      width: 1200px;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+  }
+}
+
+.order.scrollable-table {
+  padding: 0px 25px;
+  overflow-y: hidden;
+}
+
+.order.scrollable-table tbody tr {
+  height: 35px !important;
+}
+
+table.order-table {
+  width: 100%;
+  border: 1px solid #41b6a6;
+  border-radius: 5px;
+
+  thead {
+    border-bottom: 1px solid #41b6a6;
+  }
+}

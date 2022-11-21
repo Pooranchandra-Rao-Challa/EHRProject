@@ -152,6 +152,11 @@ export class SettingsService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._createUpdateClinicalDecisionSupportUrl,reqparams)
   }
 
+  UpdateCDSAlertToggle(reqparams: any)
+  {
+    return this._ProcessPostRequest<any>(this._updateCDSAlertToggleUrl,reqparams)
+  }
+
   CreateTrigger(reqparams: any)
   {
     return this._ProcessPostRequest<any>(this._createTriggerUrl,reqparams)

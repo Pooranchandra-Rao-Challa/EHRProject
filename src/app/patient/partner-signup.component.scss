@@ -143,7 +143,7 @@ body {
   color: #4d4b4b !important;
 }
 ::ng-deep .mat-select-placeholder {
-  color: #4d4b4b !important;
+  color: #74757e !important;
 
 ::ng-deep .hover.mat-form-field-appearance-outline:hover .mat-select-arrow {
   color: white !important;
@@ -191,8 +191,8 @@ body {
 ::ng-deep {
   mat-form-field {
     ::placeholder {
-      color: #141414 !important;
-      font-size: 120%;
+      color: #74757e !important;
+      font-size: 15px;
       margin-top: 5px;
     }
   }
@@ -211,16 +211,20 @@ body {
 
 textarea {
   background-color: #fff;
-  font-size: 15px;
   padding: 10px 20px;
   resize: both;
   border: 1px solid #dedede;
 }
 textarea.mat-input-element {
   padding: 10px 15px !important;
+  font-size: 15px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 textarea::-webkit-input-placeholder {
-  color: #4a4a4a;
+  color: #74757e;
+  font-size: 15px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
 }
 textarea:focus, textarea:hover{
    border: 1px solid #41b6a6;
@@ -240,7 +244,9 @@ textarea:focus, textarea:hover{
   height: auto;
   /* left: 12px; */
   margin: 0px 24px 0px 0px !important;
-
+}
+.mat-input-element{
+  font-size: 15px;
 }
 
 }

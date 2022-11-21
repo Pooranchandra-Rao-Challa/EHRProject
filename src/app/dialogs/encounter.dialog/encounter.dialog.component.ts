@@ -79,7 +79,7 @@ export class EncounterDialogComponent implements OnInit {
   isNavigateFromProductView: boolean = false;
   minDateToFinish = new Subject<string>();
   endDateForEncounter;
-  isPickAny: any;
+  isPickAny: unknown = null;
 
   private messageflagSubject = new BehaviorSubject<boolean>(false);
   public messageflag$ = this.messageflagSubject.asObservable();
@@ -199,7 +199,6 @@ export class EncounterDialogComponent implements OnInit {
           this.encounterInfo.PatientName = this.appointment.PatientName;
           this.diagnosesInfo.next(this.encounterInfo.Diagnoses);
           this.recommendedProcedures.next(this.encounterInfo.RecommendedProcedures);
-
           if (this.encounterInfo.Vital.CollectedAt != null)
             this.encounterInfo.Vital.CollectedTime = this.datePipe.transform(this.encounterInfo.Vital.CollectedAt, "hh:mm a");
           this.dischargeCode.Code = this.encounterInfo.DischargeStatusCode
