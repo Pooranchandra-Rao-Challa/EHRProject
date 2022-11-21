@@ -242,3 +242,7 @@ div.search-box button:hover {
 ::-webkit-scrollbar-thumb:hover {
   background: #2a3642;
 }
+
+::ng-deep .admin-sort .mat-sort-header-arrow {
+  color: #757575 !important;
+}

@@ -82,7 +82,7 @@ export class AddUserDialogComponent implements OnInit {
     if (data == null) return;
     else {
       this.newUser = data;
-      if (this.newUser.PrimaryPhone == null) {
+      if (!this.newUser.PrimaryPhone) {
         this.newUser.PrimaryPhonePreffix = '';
         this.newUser.PrimaryPhoneSuffix = '';
       }
@@ -91,7 +91,7 @@ export class AddUserDialogComponent implements OnInit {
         this.newUser.PrimaryPhonePreffix = list[1].slice(0, 3);
         this.newUser.PrimaryPhoneSuffix = list[1].slice(3, 10);
       }
-      if (this.newUser.MobilePhone == null) {
+      if (!this.newUser.MobilePhone) {
         this.newUser.MobilePhonePreffix = '';
         this.newUser.MobilePhoneSuffix = '';
       }
