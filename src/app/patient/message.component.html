@@ -76,7 +76,7 @@
 
         <diV class="mt-3 message-content">
           <div class="leftblockalignments" style="border: #41b6a6 solid 1px;">
-            <div class="pagination">
+            <div class="pagination" [hidden]="totalRecords == 0">
               <button (click)="pagination.first()" [disabled]="pagination.isFirst">
                 << </button>
                   <button (click)="pagination.prev()" [disabled]="pagination.isFirst">
@@ -91,6 +91,9 @@
                         >>
                       </button>
                       <span> of {{totalRecords}}</span>
+            </div>
+            <div class="spinner-container mb-2" *ngIf="messageDataSource.loading$ | async">
+              <mat-progress-bar mode="indeterminate" bufferValue="50" value=100></mat-progress-bar>
             </div>
             <div class="message-table-container mat-elevation-z8">
               <mat-table matSort matSortActive="Created" matSortDirection="desc" matSortDisableClear
@@ -116,6 +119,9 @@
                 <mat-header-row *matHeaderRowDef="DisplayedColumns  sticky: true" class="matheaderrow"></mat-header-row>
                 <mat-row *matRowDef="let row; columns: DisplayedColumns;"></mat-row>
               </mat-table>
+              <div class="norecords-found" *ngIf="messageDataSource?.TotalRecordSize == 0">
+                No Messages Found
+              </div>
             </div>
           </div>
           <div class="rightblockalignments mat-elevation-z8">

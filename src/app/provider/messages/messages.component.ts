@@ -23,7 +23,6 @@ import { RecordsChangeService, MessageCounts } from 'src/app/_navigations/provid
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MessagesComponent implements OnDestroy, AfterContentChecked {
-
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild("pagination", { static: true }) pagination: SimplePaginationDirective
   MessageDialogComponent = NewmessageDialogComponent;
@@ -55,6 +54,8 @@ export class MessagesComponent implements OnDestroy, AfterContentChecked {
     private notifyMessage: NotifyMessageService,
     private alertmsg: AlertMessage) {
     this.user = authService.userValue;
+    console.log(this.user);
+
   }
 
   ngOnInit(): void {
@@ -226,7 +227,6 @@ export class MessagesDatasource implements DataSource<Messages>{
   private loadingSubject = new BehaviorSubject<boolean>(false);
   public loading$ = this.loadingSubject.asObservable();
 
-
   constructor(
     private recordsChangeService: RecordsChangeService,
     private messageService: MessagesService, private queryParams: {}) {
@@ -267,6 +267,10 @@ export class MessagesDatasource implements DataSource<Messages>{
         if (resp.IsSuccess) {
           this.MessageSentSubject.next((resp.ListResult as Messages[]).sort((a1,b1) => !a1.Read && b1.Read ? 1 : 0));
           this.recordsChangeService.sendData(this.MessageSentSubject.getValue()[0].MessagesCount + "");
+        }
+        else {
+          this.MessageSentSubject.next((resp.ListResult as Messages[]));
+          this.recordsChangeService.sendData('0');
         }
       });
   }

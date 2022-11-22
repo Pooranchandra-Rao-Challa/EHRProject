@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./weekly-updated.component.scss']
 })
 export class WeeklyUpdatedComponent implements OnInit {
-  WeeklyUpdatedList: any = [];
+  WeeklyUpdatedList: any;
   selectedValue: string;
   searchValue: string;
   ProviderId: string = null;

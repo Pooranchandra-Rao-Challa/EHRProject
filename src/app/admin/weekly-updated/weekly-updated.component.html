@@ -84,8 +84,8 @@
             </tr>
           </tbody>
         </table>
-        <div class="table-NoRecord text-center py-2 col-12" *ngIf="WeeklyUpdatedList?.length == 0">
-          No Weekly Updates
+        <div class="table-NoRecord text-center text-danger py-2 col-12" *ngIf="WeeklyUpdatedList?.length == 0">
+          No Weekly Updates Found
         </div>
       </div>
       <div [hidden]="WeeklyUpdatedList?.length === 0">

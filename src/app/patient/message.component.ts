@@ -54,6 +54,8 @@ export class MessageComponent {
     private notifyMessage: NotifyMessageService,
     private alertmsg: AlertMessage) {
     this.user = authService.userValue;
+    console.log(this.user);
+
   }
 
   ngOnInit(): void {
@@ -265,7 +267,6 @@ export class MessageDatasource implements DataSource<Messages>{
 
   loadMessages(filter = '', sortField = 'Created',
     sortDirection = 'desc', pageIndex = 0, pageSize = 10) {
-
     this.queryParams["SortField"] = sortField;
     this.queryParams["SortDirection"] = sortDirection;
     this.queryParams["PageIndex"] = pageIndex;
@@ -281,6 +282,10 @@ export class MessageDatasource implements DataSource<Messages>{
         if (resp.IsSuccess) {
           this.MessageSentSubject.next((resp.ListResult as Messages[]).sort((a1,b1) => !a1.Read && b1.Read ? 1 : 0));
           this.recordsChangeService.sendData(this.MessageSentSubject.getValue()[0].MessagesCount + "");
+        }
+        else {
+          this.MessageSentSubject.next((resp.ListResult as Messages[]));
+          this.recordsChangeService.sendData('0');
         }
       });
   }
