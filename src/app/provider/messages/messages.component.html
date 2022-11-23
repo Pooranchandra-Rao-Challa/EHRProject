@@ -85,7 +85,7 @@
 
         <diV class="mt-3 message-content">
           <div class="leftblockalignments " style="border:1px solid #41b6a6">
-            <div class="pagination">
+            <div class="pagination" [hidden]="totalRecords == 0">
               <button (click)="pagination.first()" [disabled]="pagination.isFirst">
                 << </button>
                   <button (click)="pagination.prev()" [disabled]="pagination.isFirst">

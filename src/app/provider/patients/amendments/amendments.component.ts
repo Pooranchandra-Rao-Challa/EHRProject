@@ -20,7 +20,7 @@ export class AmendmentsComponent implements OnInit {
   //EntityName: string = "Amendment"
 
   constructor(private patientservice: PatientService, private authService: AuthenticationService,
-    private alertmsg: AlertMessage, private ulilityservice: UtilityService, private datePipe:DatePipe) {
+    private alertmsg: AlertMessage, private ulilityservice: UtilityService, private datePipe: DatePipe) {
     this.amendment = [] as Amendments
   }
 
@@ -35,13 +35,13 @@ export class AmendmentsComponent implements OnInit {
   }
   AmendmentsColumns = ['DateRequested', 'Status', 'Description/Location', 'Scanned']
   todayDateforDateRequested() {
-     this.amendment.DateofRequest = this.datePipe.transform(new Date(),"yyyy-MM-dd");
+    this.amendment.DateofRequest = this.datePipe.transform(new Date(), "yyyy-MM-dd");
   }
   todayDateforDateAcceptedorDenied() {
-     this.amendment.DateofAccept = this.datePipe.transform(new Date(),"yyyy-MM-dd");
+    this.amendment.DateofAccept = this.datePipe.transform(new Date(), "yyyy-MM-dd");
   }
   todayforDateAppended() {
-     this.amendment.DateofAppended = this.datePipe.transform(new Date(),"yyyy-MM-dd");
+    this.amendment.DateofAppended = this.datePipe.transform(new Date(), "yyyy-MM-dd");
   }
 
   getAmendment() {
@@ -58,9 +58,9 @@ export class AmendmentsComponent implements OnInit {
     let isAdd = this.amendment.AmendmentId == undefined;
     this.amendment.PatientId = this.PatientDetails.PatientId;
     // this.amendment.DateofAccept = new Date(this.datePipe.transform(this.amendment.DateofAccept, "MM/dd/yyyy hh:mm:ss"));
-    this.amendment.DateofRequest = this.datePipe.transform(this.amendment.DateofRequest,"yyyy-MM-dd");
-    this.amendment.DateofAccept = this.datePipe.transform(this.amendment.DateofAccept,"yyyy-MM-dd");
-    this.amendment.DateofAppended = this.datePipe.transform(this.amendment.DateofAppended,"yyyy-MM-dd");
+    this.amendment.DateofRequest = this.datePipe.transform(this.amendment.DateofRequest, "MM/dd/yyyy hh:mm:ss a");
+    this.amendment.DateofAccept = this.datePipe.transform(this.amendment.DateofAccept, "MM/dd/yyyy hh:mm:ss a");
+    this.amendment.DateofAppended = this.datePipe.transform(this.amendment.DateofAppended, "MM/dd/yyyy hh:mm:ss a");
 
     this.patientservice.CreateupdateAmendment(this.amendment).subscribe((resp) => {
       if (resp.IsSuccess) {
@@ -71,19 +71,17 @@ export class AmendmentsComponent implements OnInit {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2A001"]);
       }
     });
-
-
-
   }
-  resetDialog() {
 
+  resetDialog() {
     this.amendment = new Amendments();
     this.getAmendment();
-
   }
+
   basedonid(item) {
     this.amendment = item;
   }
+
   deleteAmendment() {
     var reqparam = {
       "AmendmentId": this.amendment.AmendmentId
@@ -97,25 +95,23 @@ export class AmendmentsComponent implements OnInit {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2A001"]);
       }
     });
-
   }
+
   getAmendmentStatuses() {
     this.ulilityservice.AmendmentStatuses().subscribe((res) => {
       this.AmendmentStatusesDD = res.ListResult == null ? [] : res.ListResult;
-
-    })
-
+    });
   }
+
   getAmendmentSources() {
     this.ulilityservice.AmendmentSources().subscribe((res) => {
       this.AmendmentSourcesDD = res.ListResult == null ? [] : res.ListResult;
-    })
+    });
   }
-  enableSave()
-  {
+
+  enableSave() {
     return !(this.amendment.DateofRequest != null
       && this.amendment.Source != null && this.amendment.Source != ""
       && this.amendment.Status != null && this.amendment.Status != "")
-
   }
 }

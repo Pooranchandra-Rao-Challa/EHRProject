@@ -1,11 +1,10 @@
 import { Drug, RxNormAPIService } from 'src/app/_services/rxnorm.api.service';
-import { REASON_CODES } from './../../_models/_provider/encounter';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { OverlayService } from 'src/app/overlay.service';
 import { DiscontinueDialogComponent } from '../discontinue.dialog/discontinue.dialog.component';
 import { ComponentType } from '@angular/cdk/portal';
 import { EHROverlayRef } from '../../ehr-overlay-ref';
-import { Actions, GlobalConstants, Medication, PatientChart } from 'src/app/_models';
+import { Actions, Medication, PatientChart } from 'src/app/_models';
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { PatientService } from 'src/app/_services/patient.service';
@@ -24,8 +23,6 @@ export class MedicationDialogComponent implements OnInit {
   discontinueDialogComponent = DiscontinueDialogComponent;
   patientEducationMaterialDialogComponent = PatientEducationMaterialDialogComponent;
   ActionTypes = Actions;
-  // medications: GlobalConstants;
-  // medicationsFilter: GlobalConstants;
   patientMedication: Medication = new Medication();
   currentPatient: ProviderPatient;
   isLoading: boolean = false;
@@ -51,16 +48,13 @@ export class MedicationDialogComponent implements OnInit {
     this.minDateToAllergy.subscribe(minDate => {
       this.minDateForEndDate = new Date(minDate);
     })
-
   }
+
   dateChange(e) {
     this.minDateToAllergy.next(e.value.toString());
   }
 
-
   ngOnInit(): void {
-    // this.medications = GlobalConstants.Medication_Names;
-    // this.medicationsFilter = this.medications.slice();
     this.currentPatient = this.authService.viewModel.Patient;
     fromEvent(this.searchMedicationName.nativeElement, 'keyup').pipe(
       // get value
@@ -158,9 +152,9 @@ export class MedicationDialogComponent implements OnInit {
   CreateMedication() {
     let isAdd = this.patientMedication.MedicationId == undefined;
     this.patientMedication.PatientId = this.currentPatient.PatientId;
-    this.patientMedication.StartAt = new Date(this.datepipe.transform(this.patientMedication.StartAt, "MM/dd/yyyy hh:mm:ss"));
-    if (this.patientMedication.StopAt != null) {
-      this.patientMedication.StopAt = new Date(this.datepipe.transform(this.patientMedication.StopAt, "MM/dd/yyyy hh:mm:ss"));
+    this.patientMedication.strStartAt = this.datepipe.transform(this.patientMedication.StartAt, "MM/dd/yyyy hh:mm:ss a");
+    if (this.patientMedication.StopAt) {
+      this.patientMedication.strStopAt = this.datepipe.transform(this.patientMedication.StopAt, "MM/dd/yyyy hh:mm:ss a");
     }
     this.patientService.CreateMedication(this.patientMedication).subscribe((resp) => {
       if (resp.IsSuccess) {
@@ -177,7 +171,7 @@ export class MedicationDialogComponent implements OnInit {
   }
 
   disableMedication() {
-    return !(this.patientMedication.DrugName && this.patientMedication.StartAt)
+    return !(this.patientMedication.DrugName && this.patientMedication.StartAt);
   }
 
   deleteMedicationName() {

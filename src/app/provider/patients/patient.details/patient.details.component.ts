@@ -1,6 +1,3 @@
-import { User } from './../../../_models/_account/user';
-import { Message } from '@angular/compiler/src/i18n/i18n_ast';
-
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { BehaviorSubject, of } from 'rxjs';
 import { AfterViewInit, Component, ComponentFactoryResolver, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
@@ -19,14 +16,12 @@ import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { EncounterDialogComponent } from 'src/app/dialogs/encounter.dialog/encounter.dialog.component';
 import { ProcedureDialogComponent } from 'src/app/dialogs/procedure.dialog/procedure.dialog.component';
 import { LabProcedureWithOrder } from 'src/app/_models/_provider/LabandImage';
-// import { OrderDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/order.dialog.component'
-// import { LabResultComponent } from 'src/app/dialogs/lab.imaging.dialog/lab.result.component'
 import { OrderResultDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/order.result.dialog.component'
 import { PatientUpdateService, ViewChangeService } from 'src/app/_navigations/provider.layout/view.notification.service';
 import { CCdaDialogComponent } from 'src/app/dialogs/c-cda.dialog/c-cda.dialog.component';
 import { AuthorizedrepresentativeDialogComponent } from 'src/app/dialogs/authorizedrepresentative.dialog/authorizedrepresentative.dialog.component';
 import { NewmessageDialogComponent } from 'src/app/dialogs/newmessage.dialog/newmessage.dialog.component';
-import { MessageDialogInfo, Messages } from 'src/app/_models/_provider/messages';
+import { MessageDialogInfo } from 'src/app/_models/_provider/messages';
 
 @Component({
   selector: 'app-patient.details',
@@ -43,7 +38,6 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
   loading$ = this.loadingSubject.asObservable();
   @ViewChild('chartview', { read: ViewContainerRef, static: true })
   private chartviewcontainerref: ViewContainerRef;
-
   @ViewChild('patientbreadcrumb', { read: ViewContainerRef, static: true })
   private patientbreadcrumb: ViewContainerRef;
   breadcrumbs: PatientBreadcurm[] = [];
@@ -60,8 +54,6 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
   authorizedRepresentativeDialogComponent = AuthorizedrepresentativeDialogComponent
   MessageDialogComponent = NewmessageDialogComponent;
 
-
-
   constructor(private authService: AuthenticationService,
     private cfr: ComponentFactoryResolver,
     private patientService: PatientService,
@@ -72,7 +64,6 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
     private alertmsg: AlertMessage,
     private viewChangeService: ViewChangeService,
     private patientUpdateNotifier: PatientUpdateService) {
-
     this.viewModel = authService.viewModel;
     if (this.viewModel.PatientView == null
       || this.viewModel.PatientView == '') {
@@ -293,7 +284,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
               this.authService.SetViewParam('Patient', p);
               this.viewModel = this.authService.viewModel;
               this.patient = this.viewModel.Patient;
-              if(this.viewModel.PatientView == null ||
+              if (this.viewModel.PatientView == null ||
                 this.viewModel.PatientView == '')
                 this.viewModel.PatientView = 'Chart'
               this.chartSubject.next(this.viewModel.PatientView);
@@ -310,12 +301,6 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
           this.loadDependents();
         }
       })
-
-
-  }
-
-  updateBreadcurmbModel() {
-
   }
 
   removePatientBreadcrumbInView(patientId: string) {
@@ -387,12 +372,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
     labOrImage.ClinicId = this.authService.userValue.ClinicId;
 
     this.openComponentDialog(this.orderResultDialogComponent, labOrImage, Actions.view)
-
   }
-
-  // InvitePatient(){
-
-  // }
 
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
     data?: any, action?: Actions) {

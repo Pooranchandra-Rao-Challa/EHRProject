@@ -7,7 +7,6 @@ import { PatientService } from '../_services/patient.service';
 import { AuthenticationService } from '../_services/authentication.service';
 import { Actions, GeneralSchedule, User, UserLocations } from '../_models';
 import { Appointments } from '../_models/_patient/appointments';
-import { connect } from 'http2';
 import { UtilityService } from '../_services/utiltiy.service';
 import { AlertMessage, ERROR_CODES } from '../_alerts/alertMessage';
 import { SettingsService } from './../_services/settings.service';
@@ -40,8 +39,8 @@ export class AppointmentComponent {
     private alertmsg: AlertMessage, private settingsService: SettingsService) {
     this.user = authenticationService.userValue
     this.RequestAppoinments.LocationId;
-    // this.locationsInfo = JSON.parse(this.user.LocationInfo)
   }
+
   ngOnInit(): void {
     this.getGeneralSchedule();
     this.getProviders();
@@ -80,14 +79,17 @@ export class AppointmentComponent {
       }
     });
   }
+
   onUpcoming() {
     this.isUpcoming = true;
     this.isPast = false;
   }
+
   onPast() {
     this.isUpcoming = false;
     this.isPast = true;
   }
+
   getPatientPastAppointments() {
     var req = {
       "PatientId": this.user.PatientId,
@@ -105,7 +107,6 @@ export class AppointmentComponent {
   }
 
   getPatientUpcomingAppointments() {
-
     var req = {
       "PatientId": this.user.PatientId,
     }
@@ -116,17 +117,14 @@ export class AppointmentComponent {
         if (e.ApptStatus == 'Not Confirmed') {
           e.ApptStatus = 'Pending';
           e.class = "Statusnotconfirmed";
-
         }
         else if (e.ApptStatus == 'Confirmed') {
           e.ApptStatus = 'Waiting';
           e.class = "Statusconfirmed"
-
         }
         else if (e.ApptStatus == 'Scheduled') {
           e.ApptStatus = 'Scheduled';
           e.class = "Statusconfirmed"
-
         }
         else if (e.ApptStatus == 'In-Progress') {
           e.ApptStatus = 'In-Progress';
@@ -135,10 +133,8 @@ export class AppointmentComponent {
         else if (e.ApptStatus == 'Cancelled') {
           e.ApptStatus = 'Cancelled';
           e.class = "StatusCancelled";
-
         }
       });
-
     })
   }
 
@@ -154,6 +150,7 @@ export class AppointmentComponent {
       this.clinicaldata = req.ListResult;
     })
   }
+
   getProviders() {
     var req = {
       "ClinicId": this.user.ClinicId,
@@ -171,7 +168,6 @@ export class AppointmentComponent {
       var req = {
         'ClinicId': this.user.ClinicId,
         'AppointmentId': AppointmentId
-
       }
       this.patientservice.CancelPatientAppoinment(req).subscribe(resp => {
         if (resp.IsSuccess) {

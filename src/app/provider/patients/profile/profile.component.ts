@@ -6,7 +6,7 @@ import { PatientProfile } from 'src/app/_models/_patient/patientprofile';
 import { PracticeProviders } from 'src/app/_models/_provider/practiceProviders';
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
-import { AbstractControl, FormControl } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, filter, map, startWith } from 'rxjs/operators';
 import { fromEvent, Observable, of } from 'rxjs';
 import { Actions, User } from 'src/app/_models';
@@ -14,13 +14,11 @@ import { ProviderPatient } from 'src/app/_models/_provider/ProviderPatient';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { Accountservice } from 'src/app/_services/account.service';
-import { calcProjectFileAndBasePath } from '@angular/compiler-cli';
 import { PatientUpdateService } from 'src/app/_navigations/provider.layout/view.notification.service';
 import { ComponentType } from '@angular/cdk/portal';
 import { AuthorizedrepresentativeDialogComponent } from 'src/app/dialogs/authorizedrepresentative.dialog/authorizedrepresentative.dialog.component';
 import { OverlayService } from 'src/app/overlay.service';
 import { DatePipe } from '@angular/common';
-import { DentalChartComponent } from '../dental.chart/dental.chart.component';
 
 export class PatientRelationShip {
   RelationPatientId?: string;
@@ -144,7 +142,6 @@ export class ProfileComponent implements OnInit {
       // subscription for response
     ).subscribe(value => this._filterPatient(value));
   }
-
 
   ngOnInit(): void {
     this.getPatientDetails();
@@ -380,8 +377,8 @@ export class ProfileComponent implements OnInit {
   }
   updatePatientInformation() {
     this.ageCalculator();
-    this.patientMyProfile.DateOfBirth = this.datepipe.transform(this.patientMyProfile.DateOfBirth, "yyyy-MM-dd");
-    this.patientMyProfile.DateOfDeath = this.datepipe.transform(this.patientMyProfile.DateOfDeath, "yyyy-MM-dd")
+    this.patientMyProfile.DateOfBirth = this.datepipe.transform(this.patientMyProfile.DateOfBirth, "MM/dd/yyyy hh:mm:ss a");
+    this.patientMyProfile.DateOfDeath = this.datepipe.transform(this.patientMyProfile.DateOfDeath, "MM/dd/yyyy hh:mm:ss a")
     this.patientService.UpdatePatientInformation(this.patientMyProfile).subscribe(resp => {
       if (resp.IsSuccess) {
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP001"])
@@ -455,22 +452,20 @@ export class ProfileComponent implements OnInit {
   }
 
   updateNote() {
-
     this.patientMyProfile.Notes = this.patientMyProfile.Notes;
     this.patientService.UpdateNotes(this.patientMyProfile).subscribe(resp => {
       if (resp.IsSuccess) {
         let success = resp.EndUserMessage;
       }
-      //(this.patientMyProfile);
-
-
     });
     this.getPatientMyProfile();
   }
+
   cancel() {
     this.patientMyProfile.Notes = '';
     this.getPatientMyProfile();
   }
+
   AddressVerification() {
     this.accountservice.VerifyAddress(this.patientMyProfile.Street).subscribe(resp => {
       if (resp.IsSuccess) {
@@ -492,7 +487,6 @@ export class ProfileComponent implements OnInit {
   enableManualEntry() {
     this.clearAddress();
     this.manuallybtn = true;
-
   }
 
   clearAddress() {
@@ -506,8 +500,6 @@ export class ProfileComponent implements OnInit {
   enterAddressManually() {
     this.disableaddressverification = true;
   }
-
-
 
   EmergencyAddressVerification() {
     this.accountservice.VerifyAddress(this.patientMyProfile.EmergencyStreet).subscribe(resp => {
@@ -530,7 +522,6 @@ export class ProfileComponent implements OnInit {
   EmergencyenableManualEntry() {
     this.EmergencyclearAddress();
     this.emergencyManuallybtn = true;
-
   }
 
   EmergencyclearAddress() {
@@ -544,7 +535,6 @@ export class ProfileComponent implements OnInit {
   EmergencyenterAddressManually() {
     this.emergencyDisableAddressVerification = true;
   }
-
 
   allowAccess(item: PatientRelationShip) {
     this.selectedPatientRelation = item;
@@ -561,7 +551,6 @@ export class ProfileComponent implements OnInit {
         || this.namePattern.test(this.patientMyProfile.MiddleName))
       && (this.patientMyProfile.SSecuirtyNumber == null || this.patientMyProfile.SSecuirtyNumber == ''
         || ssnPattern.test(this.patientMyProfile.SSecuirtyNumber)));
-
     return flag;
   }
 
@@ -577,14 +566,11 @@ export class ProfileComponent implements OnInit {
       && this.patientMyProfile.RelationshipToPatient != null && this.patientMyProfile.RelationshipToPatient != ''
       && (this.patientMyProfile.Phone == null || this.patientMyProfile.Phone == ""
         || this.phonepattern.test(this.patientMyProfile.Phone)));
-
-
     return flag;
   }
 
 
   enablePatientContactInfo() {
-
     let flag = !((this.patientMyProfile.email == null || this.patientMyProfile.email == ""
       || this.email.test(this.patientMyProfile.email))
       && (this.patientMyProfile.PrimaryPhone == null || this.patientMyProfile.PrimaryPhone == ""
@@ -593,8 +579,6 @@ export class ProfileComponent implements OnInit {
         || this.phonepattern.test(this.patientMyProfile.MobilePhone))
       && (this.patientMyProfile.WorkPhone == null || this.patientMyProfile.WorkPhone == ""
         || this.phonepattern.test(this.patientMyProfile.WorkPhone)))
-
-
     return flag;
   }
 
@@ -614,16 +598,12 @@ export class ProfileComponent implements OnInit {
 
   openComponentDialog(content: any | ComponentType<any> | string,
     dialogData, action: Actions = this.ActionTypes.add) {
-
     let reqdata: any;
     if (action == Actions.view && content === this.authorizedRepresentativeDialogComponent) {
       reqdata = dialogData;
     }
-
     const ref = this.overlayService.open(content, reqdata);
     ref.afterClosed$.subscribe(res => {
-
-
     });
   }
 

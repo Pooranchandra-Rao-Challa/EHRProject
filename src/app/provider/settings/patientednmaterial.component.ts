@@ -1,15 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { SettingsService } from '../../_services/settings.service';
-import { UtilityService } from '../../_services/utiltiy.service';
-import { EducationMaterialCode, EncounterDiagnosis, EncounterInfo, PatientEducationInfomation, User, UserLocations } from '../../_models';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject, Subscription } from 'rxjs';
-import { LocationSelectService } from '../../_navigations/provider.layout/view.notification.service';
-import Swal from 'sweetalert2';
+import { EducationMaterialCode, PatientEducationInfomation, User } from '../../_models';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs';
 import { MedicalCode } from 'src/app/_models/codes';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
-declare var $: any;
 
 @Component({
   selector: 'patientednmaterial-settings',
@@ -21,29 +17,25 @@ export class PatientEdnMaterialComponent implements OnInit {
   searchnow: boolean = true;
   patientmaterialfrom: FormGroup
   expandedchangecolor: boolean = false;
-  codeSystemsForPatientEducation: string[] = ['SNOMED/ICD10','SNOMED/ICD10','CDT/CPT','Lonics','NDC','RxNorm'];
+  codeSystemsForPatientEducation: string[] = ['SNOMED/ICD10', 'SNOMED/ICD10', 'CDT/CPT', 'Lonics', 'NDC', 'RxNorm'];
   patientEducationInfo: PatientEducationInfomation = new PatientEducationInfomation();
-   patientEducationSearchList= new BehaviorSubject<EducationMaterialCode[]>([]);
-  // columnsToDisplay = [ 'name', 'codeSystem', 'resouceNote', 'attachments'];
+  patientEducationSearchList = new BehaviorSubject<EducationMaterialCode[]>([]);
   columnsToDisplay = ['action', 'name', 'weight', 'symbol', 'position'];
-  patientEdMaterialSearchColumns = ["CODE", "CODE SYSTEM", "DESCRIPTION","Delete"];
+  patientEdMaterialSearchColumns = ["CODE", "CODE SYSTEM", "DESCRIPTION", "Delete"];
   Patientedmateriallist: any = [];
-  educationMaterialCode:EducationMaterialCode=new EducationMaterialCode();
+  educationMaterialCode: EducationMaterialCode = new EducationMaterialCode();
+  indexExpanded: number = 0;
+  valuedisable: boolean = false
 
-
-
-
-  constructor(private fb: FormBuilder, private settingservice: SettingsService, private authService: AuthenticationService,private alertmsg: AlertMessage) {
+  constructor(private fb: FormBuilder, private settingservice: SettingsService, private authService: AuthenticationService, private alertmsg: AlertMessage) {
     this.user = authService.userValue;
-
   }
+
   ngOnInit(): void {
     this.pageloadevent();
     this.getPatientedmateriallist();
-
-
-
   }
+
   getPatientedmateriallist() {
     var reqparams = {
       ClinicId: this.user.ClinicId
@@ -52,57 +44,52 @@ export class PatientEdnMaterialComponent implements OnInit {
       this.Patientedmateriallist = response.ListResult;
     })
   }
-  indexExpanded: number = 0;
 
   togglePanels(index: number) {
     this.indexExpanded = index == this.indexExpanded ? -1 : index;
     this.expandedchangecolor = false;
   }
+
   pageloadevent() {
     this.patientmaterialfrom = this.fb.group({
-
     })
   }
-  get attachments() {
 
+  get attachments() {
     return this.patientmaterialfrom.get('attachments') as FormArray
   }
-  attachements() {
 
+  attachements() {
     this.attachments.push(
       this.newattachedfile());
   }
-  newattachedfile() {
 
+  newattachedfile() {
     return this.fb.group({
       file: "",
-
-    })
-
+    });
   }
-  removeattachemnt(i: number) {
 
+  removeattachemnt(i: number) {
     this.attachments.removeAt(i);
   }
-  refershform() {
 
+  refershform() {
     this.patientmaterialfrom.reset();
     (this.patientmaterialfrom.controls['attachments'] as FormArray).clear();
-
   }
-  valuedisable:boolean = false
+
   optionChangedForPed(value: MedicalCode) {
-  //  this.educationMaterialCode= new EducationMaterialCode();
-   this.educationMaterialCode.Code = value.Code
-   this.educationMaterialCode.CodeSystem = value.CodeSystem
-   this.educationMaterialCode.Name = value.Description
-   this.educationMaterialCode.CanDelete = false;
+    //  this.educationMaterialCode= new EducationMaterialCode();
+    this.educationMaterialCode.Code = value.Code
+    this.educationMaterialCode.CodeSystem = value.CodeSystem
+    this.educationMaterialCode.Name = value.Description
+    this.educationMaterialCode.CanDelete = false;
     this.patientEducationInfo.EducationMat.push(this.educationMaterialCode);
     this.patientEducationSearchList.next(this.patientEducationInfo.EducationMat.filter(fn => fn.CanDelete === false));
-    
     return " ";
-    
   }
+
   displayWithPatientEd(value: MedicalCode): string {
     if (!value) return "";
     return "";
@@ -113,13 +100,15 @@ export class PatientEdnMaterialComponent implements OnInit {
     this.patientEducationSearchList.next(this.patientEducationInfo.EducationMat.filter(fn => fn.CanDelete === false));
     this.educationMaterialCode = new EducationMaterialCode();
   }
+
   resetDialog() {
     this.educationMaterialCode = new EducationMaterialCode();
     this.patientEducationSearchList = new BehaviorSubject<EducationMaterialCode[]>([]);
-    this.patientEducationInfo= new PatientEducationInfomation();
+    this.patientEducationInfo = new PatientEducationInfomation();
     // this.patientEducationSearchList.next(this.patientEducationInfo.EducationMat);
     this.getPatientedmateriallist();
   }
+
   createUpadateEducationMaterial() {
     let isAdd = this.educationMaterialCode.EducationalId == undefined;
     this.educationMaterialCode.ClinicId = this.user.ClinicId;
@@ -134,18 +123,16 @@ export class PatientEdnMaterialComponent implements OnInit {
       }
     });
   }
-  editEducationMaterial(item)
-  {
 
-    this.educationMaterialCode=item;
-
+  editEducationMaterial(item) {
+    this.educationMaterialCode = item;
   }
-enableSavePed()
-{
-  return !(this.educationMaterialCode.Code!=null && this.educationMaterialCode.Code!=''
-          && this.educationMaterialCode.CodeSystem!=null && this.educationMaterialCode.CodeSystem!=''
-          && this.educationMaterialCode.Name!=null && this.educationMaterialCode!=''
-          && this.educationMaterialCode.ResourceNotes!=null && this.educationMaterialCode!='')
-}
+
+  enableSavePed() {
+    return !(this.educationMaterialCode.Code != null && this.educationMaterialCode.Code != ''
+      && this.educationMaterialCode.CodeSystem != null && this.educationMaterialCode.CodeSystem != ''
+      && this.educationMaterialCode.Name != null && this.educationMaterialCode != ''
+      && this.educationMaterialCode.ResourceNotes != null && this.educationMaterialCode != '')
+  }
 }
 

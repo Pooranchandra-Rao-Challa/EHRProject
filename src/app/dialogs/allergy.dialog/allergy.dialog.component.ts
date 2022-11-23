@@ -1,4 +1,3 @@
-import { I } from '@angular/cdk/keycodes';
 import { DatePipe } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { fromEvent, Observable, of, Subject } from 'rxjs';
@@ -32,14 +31,11 @@ export class AllergyDialogComponent implements OnInit {
   minDateToFinish = new Subject<string>();
   minDateForEndDate;
 
-
   constructor(private ref: EHROverlayRef,
     public datepipe: DatePipe,
     private alertmsg: AlertMessage,
     private authService: AuthenticationService,
-    private patientService: PatientService,
-    private datePipe: DatePipe
-  ) {
+    private patientService: PatientService) {
     this.updateLocalModel(ref.RequestData);
     if (this.patientAllergy.StartAt != (null || '' || undefined)) {
       this.patientAllergy.StartAt = this.datepipe.transform(this.patientAllergy.StartAt, "yyyy-MM-dd");
@@ -51,11 +47,12 @@ export class AllergyDialogComponent implements OnInit {
     this.minDateToFinish.subscribe(minDate => {
       this.minDateForEndDate = new Date(minDate);
     })
-
   }
+
   dateChange(e) {
     this.minDateToFinish.next(e.value.toString());
   }
+
   updateLocalModel(data: Allergy) {
     this.patientAllergy = new Allergy;
     if (data == null) return;
@@ -149,8 +146,8 @@ export class AllergyDialogComponent implements OnInit {
   CreateAllergies() {
     let isAdd = this.patientAllergy.AlergieId == undefined;
     this.patientAllergy.PatientId = this.currentPatient.PatientId;
-    this.patientAllergy.StartAt = this.datepipe.transform(this.patientAllergy.StartAt, "MM/dd/yyyy hh:mm:ss");
-    this.patientAllergy.EndAt = this.datepipe.transform(this.patientAllergy.EndAt, "MM/dd/yyyy hh:mm:ss");
+    this.patientAllergy.StartAt = this.datepipe.transform(this.patientAllergy.StartAt, "MM/dd/yyyy hh:mm:ss a");
+    this.patientAllergy.EndAt = this.datepipe.transform(this.patientAllergy.EndAt, "MM/dd/yyyy hh:mm:ss a");
     this.patientAllergy.EncounterId = '60d72688391cba0e236c28c8';
 
     this.patientService.CreateAllergies(this.patientAllergy).subscribe((resp) => {

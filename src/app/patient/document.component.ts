@@ -6,19 +6,21 @@ import { Component } from '@angular/core';
   styleUrls: ['./document.component.scss']
 })
 export class DocumentComponent {
+  isPast: boolean = false;
+  isUpcoming: boolean = true;
 
-  isPast:boolean=false;
-  isUpcoming:boolean=true;
   constructor() { }
 
   ngOnInit(): void {
   }
-  onUpcoming(){
-    this.isUpcoming=true;
-    this.isPast=false;
+
+  onUpcoming() {
+    this.isUpcoming = true;
+    this.isPast = false;
   }
-  onPast(){
-    this.isUpcoming=false;
-    this.isPast=true;
+
+  onPast() {
+    this.isUpcoming = false;
+    this.isPast = true;
   }
 }

@@ -14,21 +14,16 @@ import { MatSort } from '@angular/material/sort';
   styleUrls: ['./activepatients.component.scss']
 })
 export class ActivePatientsComponent implements OnInit {
-
   patientColumns: string[] = ["Name", "Email", "PatientPortalAccount", "Phone", "Address", "Status"];
   public patientsDataSource: PatientDatasource;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('serchFilter') searchPatient: ElementRef;
-
   userIP: string;
   pageSize: number = 10;
   page: number = 0;
 
-
   constructor(private adminservice: AdminService, private authService: AuthenticationService) {
-
-    //viewModel
   }
 
   ngOnInit(): void {
@@ -42,9 +37,7 @@ export class ActivePatientsComponent implements OnInit {
     }
     this.patientsDataSource = new PatientDatasource(this.adminservice, reqdata);
     this.patientsDataSource.loadPatients();
-
   }
-
 
   ngAfterViewInit(): void {
     // server-side search
@@ -95,6 +88,7 @@ export class ActivePatientsComponent implements OnInit {
       }
     })
   }
+
   private UserIP() {
     this.authService.UserIp().subscribe((resp: any) => { this.userIP = resp.ip })
   }
@@ -105,7 +99,6 @@ export class PatientDatasource implements DataSource<Patient>{
   private patientsSubject = new BehaviorSubject<Patient[]>([]);
   private loadingSubject = new BehaviorSubject<boolean>(false);
   public loading$ = this.loadingSubject.asObservable();
-
 
   constructor(private adminservice: AdminService, private queryParams: {}) {
   }
@@ -138,14 +131,11 @@ export class PatientDatasource implements DataSource<Patient>{
     });
   }
 
-
   get TotalRecordSize(): number {
     if (this.patientsSubject.getValue() && this.patientsSubject.getValue().length > 0) {
       return this.patientsSubject.getValue()[0].TotalPatients;
     }
-
     return 0;
   }
-
 
 }

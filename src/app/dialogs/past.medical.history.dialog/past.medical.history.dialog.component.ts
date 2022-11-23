@@ -1,4 +1,3 @@
-import { FormArray } from '@angular/forms';
 import { FamilyMedicalHistory, PatientChart } from './../../_models/_provider/chart';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
 import { Component, OnInit } from '@angular/core';

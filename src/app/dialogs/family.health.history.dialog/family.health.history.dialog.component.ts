@@ -4,13 +4,9 @@ import { Component, OnInit } from '@angular/core';
 import { PatientService } from 'src/app/_services/patient.service';
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
-import { BehaviorSubject, Subject } from 'rxjs-compat';
-import { Obj } from '@popperjs/core';
+import { Subject } from 'rxjs-compat';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
-import { I } from '@angular/cdk/keycodes';
 import { DatePipe } from '@angular/common';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-
 @Component({
   selector: 'app-family.health.history.dialog',
   templateUrl: './family.health.history.dialog.component.html',
@@ -26,7 +22,6 @@ export class FamilyHealthHistoryDialogComponent implements OnInit {
   diagnosesStopDate: string;
   originalDiagnoses: any[] = [];
   onSelectedDiagnoses: Diagnosis;
-  // todayDate: Date;
   minBirthdate: Date;
   minDateToFinish = new Subject<string>();
   endDateForDiagnosis;
@@ -38,7 +33,6 @@ export class FamilyHealthHistoryDialogComponent implements OnInit {
     private patientService: PatientService) {
     this.currentPatient = this.authService.viewModel.Patient;
     this.updateLocalModel(ref.RequestData);
-    // this.todayDate = new Date();
     this.minDateToFinish.subscribe(d => {
       this.endDateForDiagnosis = new Date(d);
     })
@@ -47,14 +41,14 @@ export class FamilyHealthHistoryDialogComponent implements OnInit {
   ngOnInit(): void {
     this.patientRelationShip = GlobalConstants.RELATIONSHIP;
     this.diagnosesStartDate = new Date();
-    // this.diagnosesStopDate = this.datepipe.transform(new Date(), "yyyy-MM-dd");
     this.endDateForDiagnosis = new Date(this.diagnosesStartDate);
-
     this.minDate();
   }
+
   dateChange(e) {
     this.minDateToFinish.next(e.value.toString());
   }
+
   updateLocalModel(data: FamilyMedicalHistory) {
     this.patientFamilyHealthHistory.FamilyMedicalHistoryInfo = new FamilyMedicalHistory;
     if (data == null) return;

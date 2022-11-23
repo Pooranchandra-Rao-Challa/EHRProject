@@ -3,10 +3,10 @@ import { Messages } from './../../../_models/_patient/messages';
 import { ViewModel } from './../../../_models/_account/user';
 import { DiscontinueDialogComponent } from './../../../dialogs/discontinue.dialog/discontinue.dialog.component';
 import { filter, map, } from 'rxjs/operators';
-import { Observable, of, BehaviorSubject, fromEvent } from 'rxjs';
+import { Observable, of, fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { ProviderPatient } from './../../../_models/_provider/Providerpatient';
-import { Component, OnInit, ElementRef, ViewChild, AfterViewInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
 import { OverlayService } from '../../../overlay.service';
 import { AdvancedDirectivesDialogComponent } from '../../../dialogs/advanced.directives.dialog/advanced.directives.dialog.component';
@@ -14,7 +14,7 @@ import { SmokingStatusDialogComponent } from 'src/app/dialogs/smoking.status.dia
 import { InterventionDialogComponent } from 'src/app/dialogs/intervention.dialog/intervention.dialog.component';
 import { PatientService } from '../../../_services/patient.service';
 import {
-  ChartInfo, PatientChart, PastMedicalHistory, Actions,
+  ChartInfo, PatientChart, Actions,
   Immunization, EncounterInfo, NewAppointment, TobaccoUseScreenings, TobaccoUseInterventions, PracticeProviders,
   AppointmentTypes, UserLocations, Room, AppointmentDialogInfo, Vaccine, User, TobaccoUse, GlobalConstants,
   PatientSearchResults, Labandimaging, PatientSearch
@@ -58,14 +58,11 @@ export class ChartComponent implements OnInit, AfterViewInit {
   public selectedPatient: PatientSearchResults[];
   @ViewChild('searchVaccineCode', { static: true }) searchVaccineCode: ElementRef;
   @ViewChild('searchPatient', { static: true })
-
   searchPatient: ElementRef;
   labandimaging: Labandimaging;
-
   vaccines: Observable<Vaccine[]>;
   filteredMedicines: any = [];
   isLoading: boolean = false;
-
   filteredPatients: Observable<PatientSearch[]>;
   frequentlyUsedDiagnosesDialogComponent = FrequentlyUsedDiagnosesDialogComponent;
   addDiagnosesDialogComponent = AddDiagnosesDialogComponent;
@@ -139,8 +136,8 @@ export class ChartComponent implements OnInit, AfterViewInit {
     this.user = authService.userValue;
     this.viewModel = authService.viewModel;
   }
-  ngAfterViewInit(): void {
 
+  ngAfterViewInit(): void {
     fromEvent(this.searchVaccineCode.nativeElement, 'keyup').pipe(
       // get value
       map((event: any) => {
@@ -201,9 +198,11 @@ export class ChartComponent implements OnInit, AfterViewInit {
         }
       })
   }
+
   onPatientSelected(selected) {
     //this.labandImaging.CurrentPatient = selected.option.value;
   }
+
   displayWithPatientSearch(value: PatientSearch): string {
     if (!value) return "";
     return value.Name;
@@ -495,12 +494,12 @@ export class ChartComponent implements OnInit, AfterViewInit {
     if(this.currentPatient== null)return;
     let isAdd = this.patientImmunization.ImmunizationId == undefined;
     this.patientImmunization.PatientId = this.currentPatient.PatientId;
-    this.patientImmunization.ExpirationAt = new Date(this.datepipe.transform(this.patientImmunization.ExpirationAt, "MM/dd/yyyy hh:mm:ss"));
+    this.patientImmunization.strExpirationAt = this.datepipe.transform(this.patientImmunization.ExpirationAt, "MM/dd/yyyy hh:mm:ss a");
     // var dateString = this.datepipe.transform(this.patientImmunization.AdministeredAt, "yyyy-MM-dd");
     //   var datetime = dateString.split(' ');
     //   var onlyDate = datetime[0];
     //   this.patientImmunization.AdministeredAt = onlyDate + 'T' + this.patientImmunization.AdministeredTime;
-    this.patientImmunization.AdministeredAt = this.datepipe.transform(this.patientImmunization.AdministeredAt, "yyyy-MM-dd");
+    this.patientImmunization.AdministeredAt = this.datepipe.transform(this.patientImmunization.AdministeredAt, "MM/dd/yyyy");
     this.patientImmunization.AdministeredAt = this.patientImmunization.AdministeredAt + ' ' + this.patientImmunization.AdministeredTime;
     this.patientService.CreateImmunizationsAdministered(this.patientImmunization).subscribe((resp) => {
       if (resp.IsSuccess) {
@@ -591,7 +590,6 @@ export class ChartComponent implements OnInit, AfterViewInit {
   PastMedicalHistoriesByPatientId() {
     if(this.currentPatient== null)return;
     this.patientService.PastMedicalHistoriesByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
-      // this.pastMedicalHistories = resp.ListResult;
       if (resp.IsSuccess) this.chartInfo.PastMedicalHistories = resp.ListResult;
     });
   }
@@ -726,7 +724,6 @@ export class ChartComponent implements OnInit, AfterViewInit {
   }
 
   PatientAppointmentInfoForNew(action: Actions) {
-
     let data = {} as AppointmentDialogInfo;
     let PatientAppointment: NewAppointment = {};
     PatientAppointment.PatientId = this.currentPatient.PatientId;

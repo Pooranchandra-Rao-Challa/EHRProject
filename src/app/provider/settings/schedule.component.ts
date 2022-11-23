@@ -1,6 +1,6 @@
 import { Actions } from 'src/app/_models';
 import { LocationSelectService } from 'src/app/_navigations/provider.layout/view.notification.service';
-import { Component, OnInit, NgModule, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { SettingsService } from '../../_services/settings.service';
 import { User } from '../../_models';
@@ -44,8 +44,8 @@ export class ScheduleComponent implements OnInit {
     private locationChanged: LocationSelectService,
     private alertmsg: AlertMessage) {
     this.user = authService.userValue;
-
   }
+
   ngOnInit(): void {
     this.getGeneralSchedule();
     this.getLocationsList();
@@ -60,6 +60,7 @@ export class ScheduleComponent implements OnInit {
       this.getRoomsForLocation();
     })
   }
+
   //get provide Details
   getProviderDetails() {
     var reqparams = {
@@ -71,6 +72,7 @@ export class ScheduleComponent implements OnInit {
       } else this.providersDataSource = [];
     });
   }
+
   // get display Location Details
   getLocationsList() {
     this.ClinicLocations = [];
@@ -87,15 +89,18 @@ export class ScheduleComponent implements OnInit {
       rooms: this.fb.array([]),
     });
   }
+
   rooms(): FormArray {
     return this.roomForm.get("rooms") as FormArray
   }
+
   newRoom(): FormGroup {
     return this.fb.group({
       RoomId: [''],
       RoomName: ['']
     })
   }
+
   addRoom() {
     let room = this.newRoom();
     let newroomId = this.idService.decrementIds('room');
@@ -104,6 +109,7 @@ export class ScheduleComponent implements OnInit {
     //room.get('RoomName').
     this.roomsOnEdit.push(this.rooms().length);
   }
+
   pushRoom(room: FormGroup) {
     this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
     this.rooms().push(room);
@@ -112,20 +118,24 @@ export class ScheduleComponent implements OnInit {
       $('body').removeClass('loadactive')
     }, 1000);
   }
+
   clearRooms() {
     this.rooms().clear();
   }
+
   clearSaveIndex(roomIndex: number) {
     let findIndex = this.roomsOnEdit.findIndex(roomindex => roomIndex)
     findIndex !== -1 && this.roomsOnEdit.splice(findIndex, 1)
     //if(!isNaN(addIndex))
   }
+
   isNewRoom(roomIndex: number) {
     let id = this.rooms().controls[roomIndex].get('RoomId').value
     if (isNaN(Number(id))) {
       return false || this.roomsOnEdit.findIndex(roomindex => roomindex === roomIndex) > -1;
     } return true;
   }
+
   onEditRooms(roomIndex: number) {
     this.roomsOnEdit.push(roomIndex);
   }
@@ -136,9 +146,11 @@ export class ScheduleComponent implements OnInit {
       status: this.fb.array([]),
     });
   }
+
   status(): FormArray {
     return this.statusForm.get("status") as FormArray
   }
+
   newStatus(appointmentStatus: AppointmentStatus = {}): FormGroup {
     return this.fb.group({
       Id: [appointmentStatus.Id],
@@ -147,6 +159,7 @@ export class ScheduleComponent implements OnInit {
       Editable: [appointmentStatus.Editable]
     })
   }
+
   addStatus() {
     let status = this.newStatus();
     let newstatusId = this.idService.decrementIds('appointmentStatus');
@@ -154,6 +167,7 @@ export class ScheduleComponent implements OnInit {
     this.pushStatus(status);
     this.statusOnEdit.push(this.status().length);
   }
+
   pushStatus(appointmentstatus: FormGroup) {
     this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
     this.status().push(appointmentstatus);
@@ -162,34 +176,42 @@ export class ScheduleComponent implements OnInit {
       $('body').removeClass('loadactive')
     }, 1000);
   }
+
   clearStatus() {
     this.status().clear();
   }
+
   clearSaveStatusIndex(statusIndex: number) {
     let findIndex = this.statusOnEdit.findIndex(statusindex => statusIndex)
     findIndex !== -1 && this.statusOnEdit.splice(findIndex, 1)
   }
+
   isNewStatus(statusIndex: number) {
     let id = this.status().controls[statusIndex].get('Id').value
     if (isNaN(Number(id))) {
       return false || this.statusOnEdit.findIndex(statusindex => statusindex === statusIndex) > -1;
     } return true;
   }
+
   onEditStatus(statusIndex: number) {
     this.statusOnEdit.push(statusIndex);
   }
+
   onAppTypeLog(ctrlType: AbstractControl, event) {
     ctrlType.value.Colour = event.color;
   }
+
   // Appointment Type
   buildTypeForm() {
     this.typeForm = this.fb.group({
       type: this.fb.array([]),
     });
   }
+
   type(): FormArray {
     return this.typeForm.get("type") as FormArray
   }
+
   newType(appointmentType: AppointmentType = new AppointmentType()): FormGroup {
     return this.fb.group({
       Id: appointmentType.Id,
@@ -199,6 +221,7 @@ export class ScheduleComponent implements OnInit {
       AppointmenttypeStatus: false
     })
   }
+
   addType() {
     let appType = this.newType();
     let newtypeId = this.idService.decrementIds('appointmentType');
@@ -206,6 +229,7 @@ export class ScheduleComponent implements OnInit {
     this.pushType(appType);
     this.typeOnEdit.push(this.type().length);
   }
+
   pushType(appointmenttype: FormGroup) {
     this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
     this.type().push(appointmenttype);
@@ -214,13 +238,16 @@ export class ScheduleComponent implements OnInit {
       $('body').removeClass('loadactive')
     }, 1000);
   }
+
   clearType() {
     this.type().clear();
   }
+
   clearSaveTypeIndex(typeIndex: number) {
     let findIndex = this.typeOnEdit.findIndex(typeindex => typeIndex)
     findIndex !== -1 && this.typeOnEdit.splice(findIndex, 1)
   }
+
   isTypeEditable(rowIndex: number) {
     let ctlValue = this.typeForm.controls.type["controls"][rowIndex].value;
     let id = ctlValue.Id;
@@ -229,6 +256,7 @@ export class ScheduleComponent implements OnInit {
     let flag = Number(id) < 0 ? true : editable;
     return flag;
   }
+
   onEditType(typeIndex: number) {
     this.typeOnEdit.push(typeIndex);
   }
@@ -272,7 +300,6 @@ export class ScheduleComponent implements OnInit {
         })
       }
       else if (resp.IsSuccess == false) {
-
         this.clearStatus();
       }
     });
@@ -451,8 +478,6 @@ export class ScheduleComponent implements OnInit {
       concurrentapps: this.generalSchedule.ConcurrentApps,
       reschedulepatient: this.generalSchedule.PatientRescedule
     }
-
-
     this.settingsService.UpdateReschedule(reqparams).subscribe(resp => {
       if (resp.IsSuccess) {
         this.alertmsg.displayMessageDailog(resp.EndUserMessage);
@@ -464,7 +489,6 @@ export class ScheduleComponent implements OnInit {
       }
     })
   }
-
 
   GetUserInfoData(provider) {
     var reqparams = {
@@ -478,6 +502,7 @@ export class ScheduleComponent implements OnInit {
       this.openComponentDialog(this.userDialogComponent, UserInfo, Actions.view)
     });
   }
+
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
     data?: any, action?: Actions) {
     const ref = this.overlayService.open(content, data);

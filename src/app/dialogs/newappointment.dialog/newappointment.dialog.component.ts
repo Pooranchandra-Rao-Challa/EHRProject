@@ -20,8 +20,6 @@ import { ComponentType } from 'ngx-toastr';
 import { OverlayService } from 'src/app/overlay.service';
 import { CompleteAppointmentDialogComponent } from 'src/app/dialogs/newappointment.dialog/complete.appointment.component';
 
-
-
 @Component({
   selector: 'app-newappointment.dialog',
   templateUrl: './newappointment.dialog.component.html',
@@ -42,7 +40,6 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
   PracticeProviders: PracticeProviders[];
   AppointmentTypes: AppointmentTypes[]
   selectedAppointmentDate: Date;
-  //Appointments: ScheduledAppointment[];
   NoofAppointment: Number;
   appointmentTitle: string;
   public flag: boolean = true;
@@ -74,10 +71,7 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
     private overlayService: OverlayService) {
     this.data = ref.RequestData;
     this.PatientAppointment = {} as NewAppointment;
-
     this.PatientAppointment = this.data.PatientAppointment;
-
-
     this.appointmentTitle = this.data.Title;
     this.AppointmentTypes = this.data.AppointmentTypes;
     this.PracticeProviders = this.data.PracticeProviders;
@@ -129,12 +123,9 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
       { Text: "2 hours 45 min", Value: 165 },
       { Text: "3 hours", Value: 180 },
       { Text: "Full Day", Value: 1440 }];
-
-
   }
 
   _filterPatients(term) {
-
     this.isLoading = true;
     this.smartSchedulerService
       .SearchPatients({
@@ -163,7 +154,6 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
   }
 
   LoadAvailableTimeSlots() {
-
     let ats = {
       "ProviderId": this.PatientAppointment.ProviderId,
       "LocationId": this.PatientAppointment.LocationId,
@@ -219,6 +209,7 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
     this.UpdateRooms();
     this.ClearTimeSlots();
   }
+
   UpdateRooms() {
     let lreq = { "LocationId": this.SelectedLocationId };
     this.smartSchedulerService.RoomsForLocation(lreq).subscribe(resp => {
@@ -231,6 +222,7 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
       }
     });
   }
+
   ClearTimeSlots() {
     this.AvaliableTimeSlots = [];
     this.PatientAppointment.TimeSlot = null;
@@ -253,7 +245,6 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
     let req = {
       "PatientId": PatientObj.PatientId
     };
-
     this.smartSchedulerService.ActiveAppointments(req).subscribe(resp => {
       if (resp.IsSuccess) {
         this.AppointmentsOfPatient = resp.ListResult as ScheduledAppointment[];
@@ -269,14 +260,12 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
     this.LoadAvailableTimeSlots();
   }
 
-
   cancelAppointment() {
     let data: ScheduledAppointment = {};
     data.StatusToUpdate = "Cancelled";
     data.AppointmentId = this.PatientAppointment.AppointmentId;
     data.PatientId = this.PatientAppointment.PatientId;
     data.ClinicId = this.PatientAppointment.ClinicId;
-
     this.openComponentDialog(this.completeAppointmentDialogComponent, data, Actions.view)
   }
 
@@ -291,6 +280,7 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
       && this.PatientAppointment.Notes != null && this.PatientAppointment.Notes != ""
       && this.PatientAppointment.Startat != null) || this.SaveInputDisable;
   }
+
   onAppointmentSave() {
     this.PatientAppointment.AppointmentTime = this.PatientAppointment.TimeSlot.StartDateTime;
     this.PatientAppointment.strAppointmentTime =
@@ -335,6 +325,7 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
       });
     }
   }
+
   openComponentDialog(content: any | ComponentType<any> | string,
     dialogData, action: Actions = this.ActionTypes.add) {
     let reqdata: any;

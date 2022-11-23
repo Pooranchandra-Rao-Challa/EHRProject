@@ -97,6 +97,7 @@ export class Immunization {
   AdministeredAt?: string;
   AdministeredDate?: Date;
   ExpirationAt?: Date;
+  strExpirationAt?: string;
   Notes?: string;
   ImmType?: string = 'administered';
   Code?: string = '';
@@ -148,6 +149,8 @@ export class Medication {
   DaysSupply?: number;
   StartAt?: Date;
   StopAt?: Date = null;
+  strStartAt?: string;
+  strStopAt?: string;
   ReasonCode?: string;
   ReasonDescription?: string;
   Notes?: string;
@@ -184,12 +187,14 @@ export class TobaccoUse {
   ScreeningId?: string;
   ScreeningType?: string;
   ScreeningDate?: Date;
+  strScreeningDate?: string;
   ScreeningDescription?: string;
   ScreeningCode?: string;
   Status?: string;
   ScreeningPerformed?: string;
   CI_Id?: string;
   CI_Date?: Date;
+  strCI_Date?: string;
   CI_Type?: string;
   CI_Code?: string;
   CI_Description?: string;
@@ -219,6 +224,8 @@ export class Intervention {
   PatientId?: string;
   StartDate?: Date;
   EndDate?: Date;
+  strStartDate?: string;
+  strEndDate?: string;
   InterventionType?: string;
   Code?: string;
   Description?: string;

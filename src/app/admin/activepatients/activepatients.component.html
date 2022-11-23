@@ -28,7 +28,7 @@
                           <mat-cell *matCellDef="let patient" style="display: block;">
                             <span>{{patient?.FullName}}</span>
                             <div class="d-flex justify-content-start my-2">
-                              <button class="td-btn-style" (click)="switchToPatient(patient)" [disabled]="!patient.UserId">Login</button>
+                              <button class="btn td-btn-style" (click)="switchToPatient(patient)" [disabled]="!patient.UserId || patient.PatientPortalAccount == ''">Login</button>
                             </div>
                           </mat-cell>
                         </ng-container>

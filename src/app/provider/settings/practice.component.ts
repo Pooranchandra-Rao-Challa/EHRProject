@@ -1,5 +1,5 @@
 
-import { Component, OnInit, TemplateRef, HostListener, ElementRef, ViewChild, Inject, AfterViewInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, Inject } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ComponentType } from '@angular/cdk/portal';
@@ -9,14 +9,12 @@ import { SettingsService } from '../../_services/settings.service';
 import { UtilityService } from '../../_services/utiltiy.service';
 import { LocationDialog, User } from '../../_models';
 import { LocationSelectService } from '../../_navigations/provider.layout/view.notification.service';
-import { Accountservice } from '../../_services/account.service';
 import { Actions, NewUser } from 'src/app/_models/';
 import { UserDialogComponent } from 'src/app/dialogs/user.dialog/user.dialog.component';
 import { OverlayService } from '../../overlay.service';
 import { AlertMessage, ERROR_CODES } from './../../_alerts/alertMessage';
 import { LocationDialogComponent } from 'src/app/dialogs/location.dialog/location.dialog.component';
 import { PraticeAdduserDialogComponent } from 'src/app/dialogs/pratice.adduser.dialog/pratice.adduser.dialog.component';
-
 
 @Component({
   selector: 'practice-settings',
@@ -39,7 +37,6 @@ export class PracticeComponent implements OnInit {
   locationsubscription: Subscription;
   changedLocationId: string;
   NewUserData: NewUser;
-  private updateSubscription: Subscription;
   userDialogComponent = UserDialogComponent;
   locationDialogComponent = LocationDialogComponent;
   userDialogResponse = null;
@@ -47,6 +44,8 @@ export class PracticeComponent implements OnInit {
   user: User;
   url: string;
   praticeAdduserDialogComponent = PraticeAdduserDialogComponent
+  filterTimeZone: any
+  timelist: any
 
   constructor(private fb: FormBuilder,
     private authService: AuthenticationService,
@@ -72,13 +71,13 @@ export class PracticeComponent implements OnInit {
   ngOnDestroy() {
     this.locationsubscription.unsubscribe();
   }
+
   ngOnInit(): void {
     this.getTimeZoneList();
     this.practiceLocations();
     this.getProviderDetails();
     this.loadFormDefaults();
   }
-
 
   loadFormDefaults() {
     this.utilityService.ProviderRoles().subscribe(resp => {
@@ -87,8 +86,7 @@ export class PracticeComponent implements OnInit {
       }
     });
   }
-  filterTimeZone: any
-  timelist: any
+
   // dropdown for TimeZone
   getTimeZoneList() {
     this.settingsService.TimeZones().subscribe(resp => {
@@ -100,6 +98,7 @@ export class PracticeComponent implements OnInit {
       }
     });
   }
+
   // DatetimeZone data
   DisplayDateTimeZone() {
     this.settingsService.DisplayDateTimeOfZone(this.user.TimeZone).subscribe(resp => {
@@ -110,6 +109,7 @@ export class PracticeComponent implements OnInit {
       }
     });
   }
+
   // get display Location Details
   practiceLocations() {
     this.settingsService.PracticeLocations(null, this.user.ClinicId).subscribe(resp => {         /* this.user.ProviderId -- reqparam in place of null */
@@ -118,6 +118,7 @@ export class PracticeComponent implements OnInit {
       }
     });
   }
+
   // get display User Details
   getProviderDetails() {
     var reqparams = {
@@ -129,12 +130,15 @@ export class PracticeComponent implements OnInit {
       } else this.providersDataSource = [];
     });
   }
+
   toggleAdmin(user: NewUser) {
     this.updateToggleUserFieldValues("Admin", user);
   }
+
   toggleEmergencyAccess(user: NewUser) {
     this.updateToggleUserFieldValues("EmergencyAccess", user);
   }
+
   toggleStatus(user: NewUser) {
     user.Active = user.Active == null ? true : user.Active.valueOf() == false ? true : false;
     this.updateToggleUserFieldValues("Active", user);
@@ -151,7 +155,6 @@ export class PracticeComponent implements OnInit {
         message = resp.Message;
       }
     });
-
   }
   //This method will be available praticeAdduserDialogComponent
   // updateUser() {
@@ -179,7 +182,6 @@ export class PracticeComponent implements OnInit {
       LoginProviderId: this.user.ProviderId,
       ClinicId: this.user.ClinicId
     }
-
     this.settingsService.UserInfoWithPracticeLocations(reqparams).subscribe(resp => {
       this.NewUserData = resp.Result as NewUser;
       this.NewUserData.LocationInfo = JSON.parse(resp.Result.LocationInfo);
@@ -189,9 +191,9 @@ export class PracticeComponent implements OnInit {
   userInfoForEdit(data, action: Actions) {
     return data;
   }
+
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
     data?: any, action?: Actions) {
-
     let dialogData: any;
     if (content === this.userDialogComponent && action == Actions.view) {
       dialogData = this.userInfoForEdit(data, action);
@@ -201,8 +203,7 @@ export class PracticeComponent implements OnInit {
         locdig.ProviderId = this.user.ProviderId;
         locdig.LocationInfo = data;
       }
-      else if(content === this.praticeAdduserDialogComponent)
-      {
+      else if (content === this.praticeAdduserDialogComponent) {
 
       }
       else {
@@ -225,14 +226,12 @@ export class PracticeComponent implements OnInit {
           this.getProviderDetails();
         }
       }
-      else if(content === this.praticeAdduserDialogComponent)
-      {
+      else if (content === this.praticeAdduserDialogComponent) {
         this.practiceLocations();
         this.getProviderDetails();
       }
     });
   }
-
 
   updateTimeZone() {
     this.settingsService.UpdateTimeZone(this.user).subscribe(resp => {
@@ -249,6 +248,7 @@ export class PracticeComponent implements OnInit {
   timeZoneChanged(value) {
     //this.DisplayDateTimeZone();
   }
+
   OpenMessageDiloag() {
     this.alertmsg.userCreateConfirm('Code', "Provider Name")
   }
