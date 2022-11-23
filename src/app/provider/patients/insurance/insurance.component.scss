@@ -438,3 +438,9 @@
   overflow-y: auto;
   overflow-x: hidden;
 }
+
+.insurance-panel-view{
+  max-height: calc(75vh - 150px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}

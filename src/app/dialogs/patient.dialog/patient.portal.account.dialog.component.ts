@@ -197,8 +197,8 @@ export class PatientPortalAccountComponent {
   checkValidEmail(){
     if(this.patientUser.Email != null && !this.emailPattern.test(this.patientUser.Email)){
       this.patientUser.Email = `no_email@${this.patientUser.Username.toLowerCase()}.com`;
-      this.patientUser.PatientHasNoEmail = true;
-    }else this.patientUser.PatientHasNoEmail = false;
+      this.patientUser.PatientHasNoEmail = false;
+    }else this.patientUser.PatientHasNoEmail = true;
     return true;
   }
 

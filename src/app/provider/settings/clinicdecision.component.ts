@@ -7,6 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 import { MedicalCode } from 'src/app/_models/codes';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { DatePipe } from '@angular/common';
+import { FormFieldValue } from 'src/app/_components/advanced-medical-code-search/field-control/field-control-component';
 
 @Component({
   selector: 'clinicdecision-settings',
@@ -20,6 +21,7 @@ export class ClinicDecisionComponent implements OnInit {
   triggerSearchList = new BehaviorSubject<EhrTrigger[]>([]);
   ehrTrigger: EhrTrigger = new EhrTrigger();
   codeSystemsForClinicalDecision: string[] = ['SNOMED/ICD10', 'Local'];
+  selectedCodeSystemValue: FormFieldValue = {CodeSystem:'SNOMED/ICD10',SearchTerm:''}
   clinicalDecisionSearchColumns = ["CODE", "CODE SYSTEM", "DESCRIPTION", "Delete"];
   user: User;
   multi: boolean = false;
