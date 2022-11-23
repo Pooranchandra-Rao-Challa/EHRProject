@@ -135,3 +135,4 @@ export class ProviderLocationUpdateNotifier {
     return this.subject.asObservable();
   }
 }
+

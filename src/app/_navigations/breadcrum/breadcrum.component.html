@@ -15,25 +15,13 @@
         [class.col-5] = showemail [col-sm-4] = showemail
         [class.col-xl-6] = !showemail [class.col-lg-6] = !showemail [class.col-md-6] = !showemail
         [class.col-6] = !showemail [col-sm-6] = !showemail
-        style="padding-top: 8px;">
+        style="padding-top: 4px;">
 
         <div style="float:right;
           width: 100%;">
-           <button style="margin-left: 30px;
-           float:right;
-           border: white;
-           margin-right:20px;
-           color:#41b6a6;
-           line-height: 30px;
-           height: 30px;
-           background-color: white;    padding-left: 28px;
-    padding-right: 28px;    border-radius: 3px;    padding-top: 5px;
-    padding-bottom: 30px;
-    font-size: 18px;
-    text-align: center">Subscribe
+           <button class="bread-crumb-button">Subscribe
            </button>
-          <p style=" margin: unset;
-          float:right; text-align: center;font-size:18px;">{{TrailText}}</p>
+          <p class="bread-crumb-text">{{TrailText}}</p>
           </div>
         </div>
         <a *ngIf="showemail" style=" float:right;

@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 
 import {
   BACKSPACE,
@@ -62,7 +63,8 @@ export class TimeMaskDirective implements OnInit, ControlValueAccessor, Validato
    */
   private _fieldJustGotFocus = false;
 
-  constructor(@Self() private _el: ElementRef, private _renderer: Renderer2) {}
+  constructor(@Self() private _el: ElementRef, private _renderer: Renderer2,
+  private _datePipe: DatePipe) {}
 
   ngOnInit() {
     this._el.nativeElement.style.fontFamily = 'monospace';
@@ -185,6 +187,7 @@ export class TimeMaskDirective implements OnInit, ControlValueAccessor, Validato
    */
   public _setInputText(key: string) {
     const inputvalue = this._el.nativeElement.value;
+
     const meridian = inputvalue.split(' ')[1];
     const input: string[] = inputvalue.split(' ')[0].split(':');
 
@@ -340,25 +343,18 @@ export class TimeMaskDirective implements OnInit, ControlValueAccessor, Validato
   writeValue(value: Date): void {
     let inputvalue = value;
     if (value && !(value instanceof Date)) {
-      let regexp = new RegExp('^(0?[1-9]|1[0-2]):[0-5][0-9]?(\s*[AaPp][Mm])?')
+      let regexp = new RegExp('^(0?[1-9]|1[0-2]):[0-5][0-9]?(\s[AaPp][Mm])?')
       let test = regexp.test(value);
       if(test){
         let strvalue: string = value;
-        strvalue = strvalue.replace('AM', " AM").replace('PM', " PM")
-        inputvalue = new Date(new Date().toLocaleDateString()+' '+strvalue);
+        inputvalue = new Date(this._datePipe.transform(new Date(),"MM/dd/yyyy")+' '+strvalue);
       }
       else{
         throw new Error('A diretive appTimeMask requires the component value to be of type Date');
       }
     }
-
     this._dateValue = new Date(inputvalue);
-
-
-
-
     const v = inputvalue != null ? this._dateToStringTime(inputvalue) : 'hh:mm XM';
-
     this._renderer.setProperty(this._el.nativeElement, 'value', v);
   }
 
@@ -424,13 +420,12 @@ export class TimeMaskDirective implements OnInit, ControlValueAccessor, Validato
   private _dateToStringTime(value: Date) {
 
     if('Invalid Date'== value+'') return 'hh:mm XM';
-
-    let timewithMeridian: string[] = value.toLocaleTimeString().split(' ')
-    let meridian = timewithMeridian[1].replace('X','A');
-    let timeParts = timewithMeridian[0].split(':');
-    let h = Number(this._stringToNumber(timeParts[0],'h'));
-    let m = Number(this._stringToNumber(timeParts[1],'m'));
-
+    if (value && !(value instanceof Date)) return 'hh:mm XM';
+    const [timeComponents, meridianComponent] = value.toLocaleTimeString().toUpperCase().split(' ');
+    const [hours, minitus, seconds] = timeComponents.split(':');
+    let meridian = meridianComponent.replace('X','A');
+    let h = Number(this._stringToNumber(hours,'h'));
+    let m = Number(this._stringToNumber(minitus,'m'));
 
     return this._zeroFill(h) + ':' + this._zeroFill(m)+' '+meridian;
   }

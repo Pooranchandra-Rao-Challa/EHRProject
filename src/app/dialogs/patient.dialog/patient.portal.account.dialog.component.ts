@@ -182,7 +182,7 @@ export class PatientPortalAccountComponent {
   createPatientAccount() {
     this.createPatientInvoked = true;
     if(this.checkValidEmail())
-    this.dialogRef.close(this.patientUser);
+      this.dialogRef.close(this.patientUser);
   }
 
   checkEmailExistance() {
@@ -195,7 +195,7 @@ export class PatientPortalAccountComponent {
   }
 
   checkValidEmail(){
-    if(!this.emailPattern.test(this.patientUser.Email)){
+    if(this.patientUser.Email != null && !this.emailPattern.test(this.patientUser.Email)){
       this.patientUser.Email = `no_email@${this.patientUser.Username.toLowerCase()}.com`;
       this.patientUser.PatientHasNoEmail = true;
     }else this.patientUser.PatientHasNoEmail = false;

@@ -86,7 +86,6 @@ export class TeethSurfaceComponent implements OnInit {
 
   ngOnInit(): void {
     this.scrollStrategy = new ConfirmScrollStrategy(this.inputEl);
-    console.log(this.selectedOption);
 
     if(this._selectedOption != null)
     this.teethCtrl.setValue(this.selectedOption);
@@ -118,7 +117,6 @@ export class TeethSurfaceComponent implements OnInit {
 
     // this.teethCtrl.setValue(this.selectedOptions.join(","));
     // this.optionValueChanged.emit(this.selectedOptions);
-    console.log(value);
 
     this._selectedOption = value;
     this.teethCtrl.setValue(TOOTH_PROBLEM_PLACES[value]);

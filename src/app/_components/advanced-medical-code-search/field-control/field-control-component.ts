@@ -38,13 +38,12 @@ import { UtilityService } from '../../../_services/utiltiy.service'
 import { MedicalCode, CodeSystemGroup } from '../../../_models/codes';
 
 export interface FormFieldValue {
-  SearchTerm: string;
+  SearchTerm: any;
   CodeSystem: string;
+  Code?:string;
+  Description?: string;
 }
-// export interface SelectionData{
-//   code: string;
-//   description: string;
-// }
+
 export class CustomErrorMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl): boolean {
     return control.dirty && control.invalid;
@@ -103,6 +102,7 @@ export class FieldControlComponent extends _SearchInputMixiBase
   get value() {
     return this.form.value;
   }
+  @Output() valueChange = new EventEmitter<FormFieldValue>();
 
   @HostBinding()
   id = `medical-code-form-field-id-${FieldControlComponent.nextId++}`;
@@ -151,12 +151,11 @@ export class FieldControlComponent extends _SearchInputMixiBase
 
   @Output() optionValueChanged: EventEmitter<MedicalCode> = new EventEmitter<MedicalCode>();
 
-  filteredOptions: Observable<CodeSystemGroup[]>;
+  filteredOptions: Observable<CodeSystemGroup[]> = new Observable<CodeSystemGroup[]> ();
 
-  minLengthTerm: number = 5;
 
   @Input()
-  MinTermLength: number = 5
+  MinTermLength: number
 
   isLoading: boolean = false;
 
@@ -174,7 +173,7 @@ export class FieldControlComponent extends _SearchInputMixiBase
     public _defaultErrorStateMatcher: ErrorStateMatcher,
     @Optional() _parentForm: NgForm,
     @Optional() _parentFormGroup: FormGroupDirective,
-    private utilityService: UtilityService
+    private utilityService: UtilityService,
   ) {
     super(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl);
 
@@ -190,6 +189,8 @@ export class FieldControlComponent extends _SearchInputMixiBase
   }
 
   writeValue(obj: FormFieldValue): void {
+    console.log('write value', obj);
+
     this.value = obj;
   }
   registerOnChange(fn: any): void {
@@ -212,6 +213,7 @@ export class FieldControlComponent extends _SearchInputMixiBase
   }
 
   ngOnInit(): void {
+
     this.focusMonitor.monitor(this.input).subscribe((focused) => {
       this.focused = !!focused;
       this.stateChanges.next();
@@ -231,16 +233,17 @@ export class FieldControlComponent extends _SearchInputMixiBase
         if (res.SearchTerm != null && res.SearchTerm.length < this.MinTermLength) {
           this.isLoading = false;
           this.filteredOptions = of([]);
+          return false;
         }
         return res !== null && res.SearchTerm != null && res.SearchTerm.length >= this.MinTermLength
       }),
-      debounceTime(700),
+      debounceTime(400),
       distinctUntilChanged(),
       tap(() => {
         this.isLoading = true;
       }),
     ).subscribe((value) => {
-      this.onChange(value);
+      //this.onChange(value);
       this.updateSearchResults(value)
     });
 
@@ -261,14 +264,22 @@ export class FieldControlComponent extends _SearchInputMixiBase
     } else this.filteredOptions = of([]);
   }
 
-  onSelected() {
-    this.optionValueChanged.emit(this.selectedValue)
+  onSelected(obj) {
+    let ffv: FormFieldValue = {
+      CodeSystem: (obj.option.value as MedicalCode ).Code,
+      SearchTerm: (obj.option.value as MedicalCode ).Description,
+      Code :(obj.option.value as MedicalCode ).Code,
+      Description: (obj.option.value as MedicalCode ).Description,
+    }
+    console.log(this.value);
+
+    this.onChange(ffv);
+    console.log(this.value);
+    this.optionValueChanged.emit(obj.option.value as MedicalCode)
   }
 
   displayWith(medicalCode: any) {
     if (medicalCode == null || medicalCode.length == 0) return "";
-    console.log(medicalCode);
-
     return medicalCode.Code + "-" + medicalCode.Description;
   }
 

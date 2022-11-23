@@ -30,13 +30,23 @@ export class FormContainerComponent implements OnInit {
   showSelectedValue: boolean = true;
 
   @Input()
-  SelectedValue: FormFieldValue;
+  Value: FormFieldValue
+  // _fvalue: FormFieldValue
+  // @Input()
+  // set Value(fvalue: FormFieldValue) {
+  //   console.log(this._fvalue);
+
+  //   this._fvalue = fvalue;
+  // }
+  // get Value() {
+  //   return this._fvalue;
+  // }
+
+  // @Output() ValueChange = new EventEmitter<FormFieldValue>();
 
   @Output() optionChanged: EventEmitter<MedicalCode> =new EventEmitter<MedicalCode>();
 
   constructor() {
-    console.log(this.codeSystems);
-
     if(this.codeSystems != null && this.codeSystems.length > 0)
     this.formControl.setValue({ CodeSystem: this.codeSystems[0], SearchTerm: '' })
   }
@@ -44,13 +54,15 @@ export class FormContainerComponent implements OnInit {
   ngOnInit(): void {}
 
   optionValueChanged(data: MedicalCode){
+    console.log(data);
+
     this.optionChanged.emit(data);
   }
 }
 
 
 function AdvancedSearchValidetor(control: FormControl) {
-  return control.value.scope !== null && control.value.query !== ''
+  return control.value.CodeSystem !== null && control.value.SearchTerm !== ''
     ? null
     : {
         validateSearch: {

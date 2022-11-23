@@ -374,6 +374,7 @@ export const ERROR_CODES: { [key: string]: string } = {
   'E2AP001': 'Patient Adding error',
   'E2AP002': 'Patient User account create error',
   'M2AP002': 'Patient Invitaion pdf downloaded',
+  'E2AP004': 'Patient Invitaion pdf download error',
   'M2AP003': 'Invitation successfully sent to patient email',
   'M2AP004': 'Patient deleted successsfully',
   'E2AP003': 'Patient deletion error',

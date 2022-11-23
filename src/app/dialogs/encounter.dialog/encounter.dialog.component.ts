@@ -1,3 +1,4 @@
+
 import { FormFieldValue } from './../../_components/advanced-medical-code-search/field-control/field-control-component';
 import { AddendaDoc, AddendaComment } from './../../_models/_provider/encounter';
 
@@ -38,6 +39,7 @@ import {
   MEDLINE_PLUS_ICD
 } from "src/environments/environment";
 import { MatTabChangeEvent } from '@angular/material/tabs/tab-group';
+import { FormContainerComponent } from 'src/app/_components/advanced-medical-code-search/form-container/form-container-component';
 
 @Component({
   selector: 'app-encounter.dialog',
@@ -74,9 +76,10 @@ export class EncounterDialogComponent implements OnInit {
   selectedProcedureValue: FormFieldValue = {CodeSystem:'CDT/CPT',SearchTerm:''}
   selectedDiagnosisValue: FormFieldValue = {CodeSystem:'SNOMED/ICD10',SearchTerm:''}
   selectedReconcillationValue: FormFieldValue = {CodeSystem:'SNOMED',SearchTerm:''}
-  selectedDischargeValue: FormFieldValue = {CodeSystem:'SNOMED',SearchTerm:''}
+  selectedDischargeValue: FormFieldValue = {CodeSystem:'SNOMED',SearchTerm: ''}
   selectedDocumentationValue: FormFieldValue = {CodeSystem:'CPT',SearchTerm:''}
   selectedEncounterCodeValue: FormFieldValue = {CodeSystem:'CPT',SearchTerm:''}
+
 
   vitalDialogResponse: any;
   ActionsType = Actions;
@@ -113,7 +116,6 @@ export class EncounterDialogComponent implements OnInit {
     let i = 1;  //normally would use var here
     while (this.teethNumbers.push(i++) < 32) { }
 
-
     this.minDateToFinish.subscribe(e => {
       this.endDateForEncounter = new Date(e);
     })
@@ -121,6 +123,7 @@ export class EncounterDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.EnableNewEncounterData = this.authService.userValue.EnableStage3;
     this.heightValue$ = fromEvent<Event>(this.heightField.nativeElement, 'input')
       .pipe(map(e => +(<HTMLInputElement>e.target).value));
@@ -234,19 +237,12 @@ export class EncounterDialogComponent implements OnInit {
           this.diagnosesInfo.next(this.encounterInfo.Diagnoses);
           this.recommendedProcedures.next(this.encounterInfo.RecommendedProcedures);
 
-          console.log(this.encounterInfo.RecommendedProcedures);
-
-
           if (this.encounterInfo.Vital.CollectedAt != null)
             this.encounterInfo.Vital.CollectedTime = this.datePipe.transform(this.encounterInfo.Vital.CollectedAt, "hh:mm a");
 
           this.dischargeCode.Code = this.encounterInfo.DischargeStatusCode
           this.dischargeCode.Description = this.encounterInfo.DischargeStatus
           this.dischargeCode.CodeSystem = this.encounterInfo.DischargeStatusCodeSystem;
-
-          this.selectedDischargeValue.SearchTerm =
-          this.dischargeCode.Code+' - '+this.dischargeCode.Description
-          console.log(this.selectedDischargeValue);
 
 
         } else {
@@ -290,7 +286,7 @@ export class EncounterDialogComponent implements OnInit {
     }
   }
 
-  onDischargeCodeChange(value: MedicalCode) {
+  onDischargeCodeChange(value: any) {
     this.encounterInfo.DischargeStatus = value.Description;
     this.encounterInfo.DischargeStatusCode = value.Code
     this.encounterInfo.DischargeStatusCodeSystem = value.CodeSystem;
@@ -417,7 +413,11 @@ export class EncounterDialogComponent implements OnInit {
 
 
   updateEncounter() {
+
     let isAdd = this.encounterInfo.EncounterId == null;
+
+    console.log(this.encounterInfo);
+
 
     if (this.encounterInfo.Vital.CollectedAt != null)
       this.encounterInfo.Vital.strCollectedAt = this.datePipe.transform(this.encounterInfo.Vital.CollectedAt, "MM/dd/yyyy")

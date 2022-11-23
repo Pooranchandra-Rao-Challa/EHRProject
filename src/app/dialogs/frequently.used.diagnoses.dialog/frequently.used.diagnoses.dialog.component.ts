@@ -9,6 +9,7 @@ import { AddDiagnosesDialogComponent } from '../add.diagnoses.dialog/add.diagnos
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { PatientService } from 'src/app/_services/patient.service';
+import { FormFieldValue } from 'src/app/_components/advanced-medical-code-search/field-control/field-control-component';
 
 @Component({
   selector: 'app-frequently.used.diagnoses.dialog',
@@ -23,6 +24,7 @@ export class FrequentlyUsedDiagnosesDialogComponent implements OnInit {
   encounterInfo: EncounterInfo = new EncounterInfo;
   ActionTypes = Actions;
   addDiagnosesDialogComponent = AddDiagnosesDialogComponent;
+  selectedDiagnosisValue: FormFieldValue = {CodeSystem:'SNOMED/ICD10',SearchTerm:''}
   currentPatient: ProviderPatient;
   updatedModelNo: number;
 

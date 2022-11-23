@@ -85,6 +85,8 @@ export class PatientHealthPortalComponent{
   _completePatientAccountProcess(flag: boolean = false) {
     this.utilityService.CompletePatientAccountProcess(this.patientUser).subscribe(resp => {
       if (resp.IsSuccess) {
+        console.log(resp);
+
         if (!flag) {
 
           this.doReportProcess = true;
@@ -106,9 +108,10 @@ export class PatientHealthPortalComponent{
 
         //this.alertmsg.displayErrorDailog(ERROR_CODES["E2AP002"])
       }
-      // else {
-      //   this.alertmsg.displayErrorDailog(ERROR_CODES["E2AP002"])
-      // }
+      else {
+        this.reportInvoked = false;
+        this.alterMessage.displayErrorDailog(ERROR_CODES["E2AP004"])
+      }
     });
   }
 }

@@ -24,6 +24,7 @@
         </div>
         <div class="col-sm-8 col-md-8 col-lg-8 side-boder">
           <medical-code-container class="mt-3 mb-5" [codeSystems]="codeSystemsForDiagnosis"
+            [Value]="selectedDiagnosisValue"
             (optionChanged)="optionChangedForDiagnosis($event)" [MinTermLength]="3" [showSelectedValue]="false">
           </medical-code-container>
           <div class="row pt-5 pb-3">

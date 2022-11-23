@@ -52,7 +52,6 @@ export class ProfileComponent implements OnInit {
   isShow: boolean;
   user: User;
   patientsList: ProviderPatient[];
-  GetFilterList: any;
   SearchKey = "";
   deleteSearch: boolean;
   relationship: any = [
@@ -274,6 +273,8 @@ export class ProfileComponent implements OnInit {
       if (resp.IsSuccess) {
         this.CareTeamList = resp.ListResult;
         this.careTeamName = this.CareTeamList.FirstName;
+      }else{
+        this.CareTeamList = [];
       }
     });
   }
@@ -298,7 +299,10 @@ export class ProfileComponent implements OnInit {
       if (resp.IsSuccess) {
         this.patientRelationList = resp.ListResult;
         this.patientRelationListSubject.next(this.patientRelationList);
-        this.GetFilterList = resp.ListResult;
+
+      }else{
+        this.patientRelationList = []
+        this.patientRelationListSubject.next(this.patientRelationList);
       }
     })
   }

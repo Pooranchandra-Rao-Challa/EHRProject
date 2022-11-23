@@ -205,7 +205,6 @@ export class ProceduresInfo implements IDeleteFlag {
   CQMStatus?: string;
   ProviderName?: string;
   Place?: string;
-  ToothPlace?: string;
   Signed?: boolean;
 }
 

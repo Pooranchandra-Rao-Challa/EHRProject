@@ -52,7 +52,7 @@ export class DentalChartComponent implements OnInit, AfterViewInit {
     private alertmsg: AlertMessage,) {
     this.user = authService.userValue;
     this.currentPatient = authService.viewModel.Patient;
-    console.log(this.paginator);
+
 
   }
   ngAfterViewInit(): void {
@@ -73,12 +73,14 @@ export class DentalChartComponent implements OnInit, AfterViewInit {
     this.sort.sortChange.subscribe(() => {
       this.paginator.pageIndex = 0
     });
-
-    merge(this.sort.sortChange, this.paginator.page)
-    .pipe(
-      tap(() => this.loadProcedures())
-    )
-    .subscribe();
+    if(this.paginator != null)
+      merge(this.sort.sortChange, this.paginator.page)
+      .pipe(
+        tap(() => this.loadProcedures())
+      )
+      .subscribe();
+    else
+      this.sort.sortChange.pipe(tap(() => this.loadProcedures())).subscribe();
 
   }
 
@@ -86,8 +88,8 @@ export class DentalChartComponent implements OnInit, AfterViewInit {
     this.procedureDataSource.loadProcedures(
       this.sort.active,
       this.sort.direction,
-      this.paginator.pageIndex,
-      this.paginator.pageSize
+      this.paginator ? this.paginator.pageIndex : 1,
+      this.paginator ? this.paginator.pageSize : 10
     );
   }
   _filterProcedure(term: string) {

@@ -168,9 +168,9 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px">
                           <medical-code-container [codeSystems]="codeSystemsForDischarge"
-                            (optionChanged)="onDischargeCodeChange($event)" MinTermLength="3"
+                            MinTermLength="3"
                             PlaceHolderText="Discharge Status (SNOMED)" [showSelectedValue]="true"
-                            [SelectedValue]="selectedDischargeValue">
+                            [(Value)]="selectedDischargeValue">
                           </medical-code-container>
                         </div>
                       </div>
@@ -180,9 +180,9 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px">
                           <medical-code-container [codeSystems]="codeSystemsForDischarge"
-                            (optionChanged)="onEncounterCodeChange($event)" MinTermLength="3"
+                            MinTermLength="3"
                             PlaceHolderText="Encounter Code" [showSelectedValue]="true"
-                            [SelectedValue]="selectedEncounterCodeValue"></medical-code-container>
+                            [(Value)]="selectedEncounterCodeValue"></medical-code-container>
                         </div>
                       </div>
                       <div class="row">
@@ -325,10 +325,12 @@
                             aria-label="Example home icon">help_outline</mat-icon>
                         </div>
                         <div class="col-lg-6 col-md-6 col-12">
-                          <medical-code-container [codeSystems]="codeSystemsForDischarge"
-                            PlaceHolderText="Discharge Status (SNOMED)" (optionChanged)="onDischargeCodeChange($event)"
-                            MinTermLength="5" [showSelectedValue]="true"
-                            [SelectedValue]="selectedReconcillationValue"></medical-code-container>
+                          <medical-code-container dischargeCodeCtl [codeSystems]="codeSystemsForDischarge"
+                            PlaceHolderText="Discharge Status (SNOMED)"
+                            (optionChanged)="onDischargeCodeChange($event)"
+                            MinTermLength="3" [showSelectedValue]="true"
+                            [Value]="selectedDischargeValue"></medical-code-container>
+                          <div>{{this.encounterInfo.DischargeStatusCode+'-'+this.encounterInfo.DischargeStatus}}</div>
                         </div>
                       </div>
                       <div class="row">
@@ -356,7 +358,7 @@
                           <medical-code-container [codeSystems]="codeSystemsForDocumentation"
                             (optionChanged)="onDocumentedReasonChange($event)" MinTermLength="2"
                             PlaceHolderText="Documented Reason" [showSelectedValue]="true"
-                            [SelectedValue]="selectedDocumentationValue"></medical-code-container>
+                            [(Value)]="selectedDocumentationValue"></medical-code-container>
                         </div>
                       </div>
                       <div class="row">
@@ -702,7 +704,7 @@
                     <medical-code-container [codeSystems]="codeSystemsForDiagnosis"
                       (optionChanged)="optionChangedForDiagnosis($event)" [MinTermLength]="3"
                       [showSelectedValue]="false"
-                      [SelectedValue]="selectedDiagnosisValue"></medical-code-container>
+                      [(Value)]="selectedDiagnosisValue"></medical-code-container>
                   </div>
                 </div>
                 <div class="scrollable-mat-table">
@@ -784,7 +786,7 @@
                   <div class="col-lg-12 col-md-12 col-12">
                     <medical-code-container [codeSystems]="codeSystemsForProcedures"
                       (optionChanged)="onProceduresRecommended($event)" [MinTermLength]="2"
-                      [SelectedValue]="selectedProcedureValue">
+                      [(Value)]="selectedProcedureValue">
                     </medical-code-container>
                   </div>
                 </div>
@@ -847,7 +849,7 @@
                           </mat-form-field> -->
                         <app-teeth-surface class="pointer" readonly
                           (optionValueChanged)="onToothSurfaceSelectedForRP($event,item,i)"
-                          [selectedOption]="item.Surface"></app-teeth-surface>
+                          [selectedOption]="item.Place"></app-teeth-surface>
                       </mat-cell>
                     </ng-container>
 
