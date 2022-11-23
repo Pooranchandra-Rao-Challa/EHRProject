@@ -73,8 +73,11 @@ export class AddDiagnosesDialogComponent implements OnInit {
   CreateDiagnoses() {
     let isAdd = this.patientDiagnoses.DiagnosisId == undefined;
     this.patientDiagnoses.PatinetId = this.currentPatient.PatientId;
+
     this.patientDiagnoses.StartAt = new Date(this.datepipe.transform(this.patientDiagnoses.StartAt, "yyyy-MM-dd", "en-US"));
-    this.patientDiagnoses.StopAt = this.datepipe.transform(this.patientDiagnoses.StopAt, "yyyy-MM-dd", "en-US");
+    this.patientDiagnoses.strStartAt = this.datepipe.transform(this.patientDiagnoses.StartAt, "MM/dd/yyyy hh:mm:ss a", "en-US")
+    this.patientDiagnoses.StopAt = this.datepipe.transform(this.patientDiagnoses.StopAt, "MM/dd/yyyy hh:mm:ss a", "en-US");
+
     let reqparams = {
       DiagnosisId: this.patientDiagnoses.DiagnosisId,
       PatinetId: this.patientDiagnoses.PatinetId,

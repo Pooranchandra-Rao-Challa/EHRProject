@@ -416,7 +416,7 @@ export class EncounterDialogComponent implements OnInit {
 
     let isAdd = this.encounterInfo.EncounterId == null;
 
-    console.log(this.encounterInfo);
+
 
 
     if (this.encounterInfo.Vital.CollectedAt != null)
@@ -424,7 +424,9 @@ export class EncounterDialogComponent implements OnInit {
 
     if (this.encounterInfo.Vital.CollectedTime != null)
       this.encounterInfo.Vital.strCollectedAt = this.encounterInfo.Vital.strCollectedAt + " " + this.encounterInfo.Vital.CollectedTime;
-    this.encounterInfo.strServicedAt = this.datePipe.transform(this.encounterInfo.ServicedAt, "MM/dd/yyyy")
+
+      this.encounterInfo.strServicedAt = this.datePipe.transform(this.encounterInfo.ServicedAt, "MM/dd/yyyy")
+
     if (this.encounterInfo.ServiceEndAt != null)
       this.encounterInfo.strServiceEndAt = this.datePipe.transform(this.encounterInfo.ServiceEndAt, "MM/dd/yyyy")
 

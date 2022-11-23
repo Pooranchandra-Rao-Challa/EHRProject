@@ -203,6 +203,7 @@ export class Diagnosis {
   Code?: string;
   Description?: string;
   StartAt?: Date;
+  strStartAt?:string;
   StopAt?: string;
   CreatedAt?: Date;
   UpdatedAt?: Date;
