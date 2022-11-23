@@ -7,7 +7,6 @@ import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { ProviderPatient } from '../../_models/_provider/Providerpatient';
 import { PatientChart } from '../../_models/_provider/chart';
-//const moment = require('moment');
 
 @Component({
   selector: 'app-smoking.status.dialog',
@@ -22,12 +21,10 @@ export class SmokingStatusDialogComponent implements OnInit {
     private patientService: PatientService,
     public datepipe: DatePipe,
     private alertmsg: AlertMessage,
-    private authService: AuthenticationService,
-    private datePipe:DatePipe) {
+    private authService: AuthenticationService) {
     this.updateLocalModel(ref.RequestData);
     if (this.smokingStatus.EffectiveFrom != (null || '' || undefined)) {
       this.smokingStatus.EffectiveFrom = this.datepipe.transform(this.smokingStatus.EffectiveFrom, "yyyy-MM-dd");
-      //moment(this.smokingStatus.EffectiveFrom).format('YYYY-MM-DD');
     }
   }
 
@@ -41,7 +38,7 @@ export class SmokingStatusDialogComponent implements OnInit {
   }
 
   disablesmokingStatus() {
-    return !(this.smokingStatus.Status && this.smokingStatus.EffectiveFrom)
+    return !(this.smokingStatus.Status && this.smokingStatus.EffectiveFrom);
   }
 
   cancel() {
@@ -59,7 +56,7 @@ export class SmokingStatusDialogComponent implements OnInit {
   CreateSmokingStatus() {
     let isAdd = this.smokingStatus.SmokingStatusId == undefined;
     this.smokingStatus.PatientId = this.currentPatient.PatientId;
-    this.smokingStatus.EffectiveFrom = this.datepipe.transform(this.smokingStatus.EffectiveFrom, "MM/dd/yyyy hh:mm:ss");
+    this.smokingStatus.EffectiveFrom = this.datepipe.transform(this.smokingStatus.EffectiveFrom, "MM/dd/yyyy hh:mm:ss a");
     this.patientService.CreateSmokingStatus(this.smokingStatus).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.ref.close({

@@ -1,14 +1,8 @@
-import { element } from 'protractor';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { SettingsService } from '../../_services/settings.service';
-import { UtilityService } from '../../_services/utiltiy.service';
-import { User, UserLocations } from '../../_models';
+import { User } from '../../_models';
 import { Subject } from 'rxjs-compat';
-import { borderTopRightRadius } from 'html2canvas/dist/types/css/property-descriptors/border-radius';
-
-
-
 declare var $: any;
 
 @Component({
@@ -17,17 +11,14 @@ declare var $: any;
   styleUrls: ['./auditlog.component.scss']
 })
 
-
 export class AuditLogComponent implements OnInit {
   @ViewChild('TABLE') table: ElementRef;
   pageSize: number = 10;
   page: number = 1;
   collectionSize: any = 5000;
-
   displayedColumns = ['Date', 'Patient', 'LocationName', 'Provider',
     'DataType', 'Action', 'Details'];
   mockHeaders = `Date,Patient,User,DataType,Action,Details`
-
   mockHeaders1 = `Name,Type,Value
     `
   TotalItems: any;
@@ -48,22 +39,20 @@ export class AuditLogComponent implements OnInit {
 
   constructor(private authService: AuthenticationService, private settingservice: SettingsService) {
     this.user = authService.userValue;
-    this.minDateToFinish.subscribe(a =>
-      {
-        this.endDateForAuditLog = new Date(a);
-      })
+    this.minDateToFinish.subscribe(a => {
+      this.endDateForAuditLog = new Date(a);
+    })
   }
-
-
 
   ngOnInit(): void {
     // this.getdata();
     this.getAuditLogList('');
   }
-  dateChange(e)
-  {
-  this.minDateToFinish.next(e.value.toString());
+
+  dateChange(e) {
+    this.minDateToFinish.next(e.value.toString());
   }
+
   getAuditLogList(event) {
     if (event == 'reset') {
       this.startDate = '';
@@ -77,7 +66,6 @@ export class AuditLogComponent implements OnInit {
     }
     else {
       var reqparams = {
-
         ProviderId: this.user.ProviderId,
         // ProviderId: "5b686dd4c832dd0c444f271b",
         from: this.startDate,
@@ -90,18 +78,12 @@ export class AuditLogComponent implements OnInit {
         this.customizedspinner = false;
         $('body').removeClass('loadactive')
       }, 2000);
-     
       this.auditLogList = reponse.ListResult;
       this.loglist = this.auditLogList
-
-      // this.TotalItems = this.auditLogList.length;
-
     })
   }
- 
-  
- 
-  customizedspinner:boolean
+
+  customizedspinner: boolean
   // auditloglistspinner() {
   //   this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
   //   setTimeout(() => {
@@ -141,6 +123,7 @@ export class AuditLogComponent implements OnInit {
   SearchDetails() {
     this.auditLogList = this.loglist.filter((invoice) => this.isMatch(invoice));
   }
+
   isMatch(item) {
     if (item instanceof Object) {
       return Object.keys(item).some((k) => this.isMatch(item[k]));
@@ -148,6 +131,7 @@ export class AuditLogComponent implements OnInit {
       return item == null ? '' : item.toString().indexOf(this.SearchKey) > -1
     }
   }
+
   convertToCSV(objArray) {
     var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
     var str = '';
@@ -182,6 +166,7 @@ export class AuditLogComponent implements OnInit {
       }
     }
   }
+
   formatToCsvData() {
     let itemsFormatted = [];
     this.auditLogList.forEach((item) => {
@@ -193,12 +178,10 @@ export class AuditLogComponent implements OnInit {
         Action: item.Action,
         Detail: item.Detail,
       });
-
     });
     const jsonObject = JSON.stringify(itemsFormatted);
     const csv = this.convertToCSV(jsonObject);
     this.mockCsvData = this.mockHeaders + csv;
-
   }
 
 }

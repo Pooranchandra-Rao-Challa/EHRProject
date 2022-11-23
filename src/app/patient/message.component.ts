@@ -1,6 +1,6 @@
 import { NotifyMessageService } from 'src/app/_navigations/provider.layout/view.notification.service';
 import { SimplePaginationDirective } from 'src/app/_directives/simple.pagination.directive';
-import { AfterContentChecked, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
 import { OverlayService } from '../overlay.service';
 import { ComponentType } from '@angular/cdk/portal';
 import { NewmessageDialogComponent } from '../dialogs/newmessage.dialog/newmessage.dialog.component';
@@ -14,7 +14,6 @@ import { MatSort } from '@angular/material/sort';
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { MessageDialogInfo, Messages } from 'src/app/_models/_provider/messages';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
-import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { MessageCounts, RecordsChangeService } from 'src/app/_navigations/provider.layout/view.notification.service';
 @Component({
   selector: 'app-message',
@@ -22,11 +21,9 @@ import { MessageCounts, RecordsChangeService } from 'src/app/_navigations/provid
   styleUrls: ['./message.component.scss']
 })
 export class MessageComponent {
-
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild("pagination", { static: true }) pagination: SimplePaginationDirective
   MessageDialogComponent = NewmessageDialogComponent;
-
   public messageDataSource: MessageDatasource;
   user?: User;
   @ViewChild('searchMessage', { static: true }) searchMessage: ElementRef;
@@ -37,13 +34,13 @@ export class MessageComponent {
     { value: '75', text: '75 Msg' },
     { value: '100', text: '100 Msg' },
   ];
-
   currentMessageView: string = 'Inbox';
   currentMessage: Messages = null;
   pageSize: number = 25;
   currentPage: number = 1;
   totalPages: number = 1;
   totalRecords: number;
+  isExpand: boolean = true;
 
   constructor(
     private recordsChangeService: RecordsChangeService,
@@ -54,13 +51,12 @@ export class MessageComponent {
     private notifyMessage: NotifyMessageService,
     private alertmsg: AlertMessage) {
     this.user = authService.userValue;
-    console.log(this.user);
-
   }
 
   ngOnInit(): void {
     this.initMessage(this.currentMessageView);
   }
+
   ngAfterViewInit(): void {
     // server-side search
     fromEvent(this.searchMessage.nativeElement, 'keyup')
@@ -89,6 +85,7 @@ export class MessageComponent {
       this.initPages();
     })
   }
+
   ngAfterContentChecked(): void {
     this.changeDedectionRef.detectChanges();
   }
@@ -96,8 +93,8 @@ export class MessageComponent {
   ngOnDestroy() {
     this.recordsChangeService = null;
   }
-  initPages() {
 
+  initPages() {
     let records = this.totalRecords;
     this.totalPages = Math.floor(records / this.pageSize) * this.pageSize == records ?
       records / this.pageSize : Math.floor(records / this.pageSize) + 1;
@@ -111,6 +108,7 @@ export class MessageComponent {
     this.messageDataSource = new MessageDatasource(this.recordsChangeService, this.messageService, reqparams);
     this.loadMessages()
   }
+
   getMessages(filter: string) {
     this.currentMessageView = filter;
     this.messageDataSource.MessageFilter = filter;
@@ -119,7 +117,6 @@ export class MessageComponent {
     this.pagination.pageNo = 1;
     this.loadMessages()
   }
-  isExpand: boolean = true;
 
   isExpandToggle() {
     this.isExpand = !this.isExpand;
@@ -129,9 +126,9 @@ export class MessageComponent {
     this.currentMessage = message;
     if (this.currentMessageView == 'Inbox' || this.currentMessageView == 'Urgent') {
       this.messageService.ReadInboxMessages(this.currentMessage).subscribe(resp => {
-        if(resp.IsSuccess) {
+        if (resp.IsSuccess) {
           this.user.UnReadMails--;
-          if(message.Urgent) this.user.UrgentMessages--;
+          if (message.Urgent) this.user.UrgentMessages--;
           var counts: MessageCounts = new MessageCounts();
           counts.UnreadCount = this.user.UnReadMails;
           counts.UrgentCount = this.user.UrgentMessages;
@@ -143,7 +140,6 @@ export class MessageComponent {
     }
   }
 
-
   loadMessages() {
     this.messageDataSource.loadMessages(
       this.searchMessage != null ? this.searchMessage.nativeElement.value : "",
@@ -153,15 +149,18 @@ export class MessageComponent {
       this.pageSize
     );
   }
+
   onPageChange(event) {
     this.currentPage = event;
     this.loadMessages();
   }
+
   onPageSizeChange(event) {
     this.pageSize = event.value;
     this.initPages();
     this.loadMessages();
   }
+
   get IsInbox(): boolean {
     return this.currentMessageView == "Inbox"
   }
@@ -186,16 +185,15 @@ export class MessageComponent {
     action: Actions = this.ActionTypes.add, message: string) {
     let DialogResponse: MessageDialogInfo = {};
     if (action == Actions.view && content === this.MessageDialogComponent) {
-      if(message == 'Reply')
-      {
-      DialogResponse.MessageFor = message
-      DialogResponse.Messages = data;
-      DialogResponse.Messages.toAddress = {}
-      DialogResponse.Messages.toAddress.Name = (data as Messages).ProviderName
-      DialogResponse.Messages.toAddress.UserId = (data as Messages).ProviderId
-      DialogResponse.ForwardReplyMessage = message;
+      if (message == 'Reply') {
+        DialogResponse.MessageFor = message
+        DialogResponse.Messages = data;
+        DialogResponse.Messages.toAddress = {}
+        DialogResponse.Messages.toAddress.Name = (data as Messages).ProviderName
+        DialogResponse.Messages.toAddress.UserId = (data as Messages).ProviderId
+        DialogResponse.ForwardReplyMessage = message;
       }
-      else{
+      else {
         DialogResponse.MessageFor = message
         DialogResponse.Messages = data;
         DialogResponse.Messages.toAddress = {}
@@ -215,6 +213,7 @@ export class MessageComponent {
     });
 
   }
+
   DeleteMessages(item) {
     let data = item;
     var req = {
@@ -232,26 +231,19 @@ export class MessageComponent {
   }
 
 }
-
-
-
-
 export class MessageDatasource implements DataSource<Messages>{
-
   private MessageSentSubject = new BehaviorSubject<Messages[]>([]);
   private loadingSubject = new BehaviorSubject<boolean>(false);
   public loading$ = this.loadingSubject.asObservable();
 
-
   constructor(
     private recordsChangeService: RecordsChangeService,
     private messageService: MessagesService, private queryParams: {}) {
-
-
   }
   connect(collectionViewer: CollectionViewer): Observable<Messages[] | readonly Messages[]> {
     return this.MessageSentSubject.asObservable();
   }
+
   disconnect(collectionViewer: CollectionViewer): void {
     this.MessageSentSubject.complete();
     this.loadingSubject.complete();
@@ -273,14 +265,13 @@ export class MessageDatasource implements DataSource<Messages>{
     this.queryParams["PageSize"] = pageSize;
     this.queryParams["Filter"] = filter;
     this.loadingSubject.next(true);
-
     this.messageService.Messages(this.queryParams).pipe(
       catchError(() => of([])),
       finalize(() => this.loadingSubject.next(false))
     )
       .subscribe(resp => {
         if (resp.IsSuccess) {
-          this.MessageSentSubject.next((resp.ListResult as Messages[]).sort((a1,b1) => !a1.Read && b1.Read ? 1 : 0));
+          this.MessageSentSubject.next((resp.ListResult as Messages[]).sort((a1, b1) => !a1.Read && b1.Read ? 1 : 0));
           this.recordsChangeService.sendData(this.MessageSentSubject.getValue()[0].MessagesCount + "");
         }
         else {
@@ -295,7 +286,6 @@ export class MessageDatasource implements DataSource<Messages>{
     if (this.MessageSentSubject.getValue() && this.MessageSentSubject.getValue().length > 0) {
       return this.MessageSentSubject.getValue()[0].MessagesCount;
     }
-
     return 0;
   }
 

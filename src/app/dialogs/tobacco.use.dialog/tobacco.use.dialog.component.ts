@@ -1,9 +1,7 @@
-import { pipe } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { OverlayService } from 'src/app/overlay.service';
-import { Actions, GlobalConstants, TobaccoUseConstants, TobaccoUse, TobaccoUseInterventions, TobaccoUseScreenings, PatientChart } from 'src/app/_models';
+import { Actions, TobaccoUseConstants, TobaccoUse, TobaccoUseInterventions, TobaccoUseScreenings, PatientChart } from 'src/app/_models';
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { PatientService } from 'src/app/_services/patient.service';
@@ -137,8 +135,8 @@ export class TobaccoUseDialogComponent implements OnInit {
   CreateTobaccoUse() {
     let isAdd = this.patientTobaccoUse.TobaccoUseId == undefined;
     this.patientTobaccoUse.PatientId = this.currentPatient.PatientId;
-    this.patientTobaccoUse.ScreeningDate = new Date(this.datepipe.transform(this.patientTobaccoUse.ScreeningDate, "yyyy-MM-dd", "en-US"));
-    this.patientTobaccoUse.CI_Date = new Date(this.datepipe.transform(this.patientTobaccoUse.CI_Date, "yyyy-MM-dd", "en-US"));
+    this.patientTobaccoUse.strScreeningDate = this.datepipe.transform(this.patientTobaccoUse.ScreeningDate, "MM/dd/yyyy hh:mm:ss a", "en-US");
+    this.patientTobaccoUse.strCI_Date = this.datepipe.transform(this.patientTobaccoUse.CI_Date, "MM/dd/yyyy hh:mm:ss a", "en-US");
     this.patientService.CreateTobaccoUse(this.patientTobaccoUse).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.ref.close({
@@ -187,25 +185,25 @@ export class TobaccoUseDialogComponent implements OnInit {
   }
 
   disableRecordScreening() {
-    return !(this.patientTobaccoUse.ScreeningType == undefined ? '' : this.patientTobaccoUse.ScreeningType != ''
-      && this.patientTobaccoUse.ScreeningDate == undefined ? '' : this.patientTobaccoUse.ScreeningDate.toString() != ''
-        && this.patientTobaccoUse.ScreeningCode == undefined ? '' : this.patientTobaccoUse.ScreeningCode != ''
-          && this.patientTobaccoUse.Status == undefined ? '' : this.patientTobaccoUse.Status != '')
+    return !(this.patientTobaccoUse.ScreeningType
+      && this.patientTobaccoUse.ScreeningDate
+        && this.patientTobaccoUse.ScreeningCode
+          && this.patientTobaccoUse.Status);
   }
 
   disableRecordIntervention() {
-    return !(this.patientTobaccoUse.CI_Type == undefined ? '' : this.patientTobaccoUse.CI_Type != ''
-      && this.patientTobaccoUse.CI_Date == undefined ? '' : this.patientTobaccoUse.CI_Date.toString() != ''
-        && this.patientTobaccoUse.CI_Code == undefined ? '' : this.patientTobaccoUse.CI_Code != '')
+    return !(this.patientTobaccoUse.CI_Type
+      && this.patientTobaccoUse.CI_Date
+        && this.patientTobaccoUse.CI_Code);
   }
 
   disableTobaccoUse() {
-    return !(this.patientTobaccoUse.ScreeningType == undefined ? '' : this.patientTobaccoUse.ScreeningType != ''
-      && this.patientTobaccoUse.ScreeningDate == undefined ? '' : this.patientTobaccoUse.ScreeningDate.toString() != ''
-        && this.patientTobaccoUse.ScreeningCode == undefined ? '' : this.patientTobaccoUse.ScreeningCode != ''
-          && this.patientTobaccoUse.Status == undefined ? '' : this.patientTobaccoUse.Status != ''
-            && this.patientTobaccoUse.CI_Type == undefined ? '' : this.patientTobaccoUse.CI_Type != ''
-              && this.patientTobaccoUse.CI_Date == undefined ? '' : this.patientTobaccoUse.CI_Date.toString() != ''
-                && this.patientTobaccoUse.CI_Code == undefined ? '' : this.patientTobaccoUse.CI_Code != '')
+    return !(this.patientTobaccoUse.ScreeningType
+      && this.patientTobaccoUse.ScreeningDate
+        && this.patientTobaccoUse.ScreeningCode
+          && this.patientTobaccoUse.Status
+            && this.patientTobaccoUse.CI_Type
+              && this.patientTobaccoUse.CI_Date
+                && this.patientTobaccoUse.CI_Code);
   }
 }

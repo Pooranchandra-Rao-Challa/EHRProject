@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { SettingsService } from '../../_services/settings.service';
-import { EducationMaterialCode, EhrAlert, EhrTrigger, PatientEducationInfomation, TriggerInformation, User, UserLocations, ViewModel } from '../../_models';
-import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject, Subscription } from 'rxjs';
-
+import { EhrAlert, EhrTrigger, TriggerInformation, User, ViewModel } from '../../_models';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs';
 import { MedicalCode } from 'src/app/_models/codes';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { DatePipe } from '@angular/common';
@@ -18,12 +17,10 @@ export class ClinicDecisionComponent implements OnInit {
   clinicalDecisionSupportList: EhrAlert[] = [];
   newAlert?: EhrAlert = {};
   ehrTriggerList: TriggerInformation = new TriggerInformation;
-  // patientEducationInfo: PatientEducationInfomation = new PatientEducationInfomation();
   triggerSearchList = new BehaviorSubject<EhrTrigger[]>([]);
   ehrTrigger: EhrTrigger = new EhrTrigger();
   codeSystemsForClinicalDecision: string[] = ['SNOMED/ICD10', 'Local'];
   clinicalDecisionSearchColumns = ["CODE", "CODE SYSTEM", "DESCRIPTION", "Delete"];
-
   user: User;
   multi: boolean = false;
   disabled: boolean = false;
@@ -50,13 +47,13 @@ export class ClinicDecisionComponent implements OnInit {
   buttonopen: boolean;
   viewModel: ViewModel;
   TriggerSearchColumns = ["CODE", "CODE SYSTEM", "DESCRIPTION", "Delete"];
-
   TriggerRuleDD: any[] = [
     { value: 'ONE', viewValue: 'ONE' },
     { value: 'ONE of each category', viewValue: 'ONE of each category' },
     { value: 'Two or More', viewValue: 'Two or More' },
     { value: 'All', viewValue: 'All' },
   ];
+
   constructor(private fb: FormBuilder, private authService: AuthenticationService,
     private settingservice: SettingsService, private alertmsg: AlertMessage,
     private datePipe: DatePipe) {
@@ -65,13 +62,11 @@ export class ClinicDecisionComponent implements OnInit {
     this.show = this.viewModel.Cds;
     this.flag = this.viewModel.Cds;
   }
-  ngOnInit(): void {
 
+  ngOnInit(): void {
     this.getclinicaldesupportlist();
     // this.viewModel.Cds="Off"
   }
-
-
 
   flag: boolean = true;
 
@@ -80,27 +75,28 @@ export class ClinicDecisionComponent implements OnInit {
     this.step = -1
     this.flag = value;
     this.authService.SetViewParam("Cds", value);
-
   }
+
   close(value: boolean) {
     this.show = false;
     this.flag = value;
     this.authService.SetViewParam("Cds", value);
   }
+
   step: number = -1;
   // setStep(index: number) {
   //   this.step = index;
   // }
-  disablemedication(item, bool,i) {
+  disablemedication(item, bool, i) {
     this.step = -1;
     item.isdisabled = bool;
-    if(bool){
+    if (bool) {
       this.step = i;
     }
     this.UpdateCDSAlertToggle(item, bool);
   }
 
-  UpdateCDSAlertToggle(item,alert) {
+  UpdateCDSAlertToggle(item, alert) {
     this.newAlert.AlertId = item.AlertId;
     this.newAlert.Active = alert;
     this.settingservice.UpdateCDSAlertToggle(this.newAlert).subscribe((resp) => {
@@ -110,7 +106,6 @@ export class ClinicDecisionComponent implements OnInit {
       }
     });
   }
-
 
   getclinicaldesupportlist() {
     var reqparams = {
@@ -134,7 +129,6 @@ export class ClinicDecisionComponent implements OnInit {
     let isAdd = alert.AlertId == undefined;
     alert.ProviderId = this.user.ProviderId
     this.settingservice.CreateUpdateClinicalDecisionSupport(alert).subscribe((resp) => {
-
       if (resp.IsSuccess) {
         this.getclinicaldesupportlist();
         this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2JCDS001" : "M2JCDS002"]);
@@ -154,25 +148,21 @@ export class ClinicDecisionComponent implements OnInit {
       && this.newAlert.Bibliography != null && this.newAlert.Bibliography != ""
       && this.newAlert.Developer != null && this.newAlert.Developer != ""
       && this.newAlert.Rule != null && this.newAlert.Rule != ""
-
     )
-
-
   }
+
   triggerSave() {
     return !(
       this.ehrTrigger.Code != null && this.ehrTrigger.Code != ""
       && this.ehrTrigger.System != null && this.ehrTrigger.System != ""
       && this.ehrTrigger.Description != null && this.ehrTrigger.Description != ""
-
-
     )
-
-
   }
+
   resetdialog() {
     this.newAlert = new EhrAlert
   }
+
   resettriggerdialog() {
     this.ehrTrigger = new EhrTrigger();
     this.triggerSearchList = new BehaviorSubject<EhrTrigger[]>([]);
@@ -186,23 +176,22 @@ export class ClinicDecisionComponent implements OnInit {
     this.ehrTrigger.CanDelete = false;
     this.ehrTriggerList.Addtrigger.push(this.ehrTrigger);
     this.triggerSearchList.next(this.ehrTriggerList.Addtrigger.filter(fn => fn.CanDelete === false));
-
   }
-
 
   removetrigger(value: EhrTrigger, index: number) {
     value.CanDelete = true;
     this.triggerSearchList.next(this.ehrTriggerList.Addtrigger.filter(fn => fn.CanDelete === false));
     this.ehrTrigger = new EhrTrigger();
   }
+
   newtrigger(item) {
     this.ehrTrigger.AlertId = item;
     let d: MedicalCode = new MedicalCode()
     this.triggerSearchList = new BehaviorSubject<EhrTrigger[]>([]);
   }
+
   CreateTrigger(ehrTrigger) {
     this.settingservice.CreateTrigger(ehrTrigger).subscribe((resp) => {
-
       if (resp.IsSuccess) {
         this.getclinicaldesupportlist();
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2JCDS003"]);
@@ -214,13 +203,12 @@ export class ClinicDecisionComponent implements OnInit {
       }
     });
   }
-  DeleteTrigger(data) {
 
+  DeleteTrigger(data) {
     var req = {
       TriggerId: data
     }
     this.settingservice.DeleteTrigger(req).subscribe((resp) => {
-
       if (resp.IsSuccess) {
         this.getclinicaldesupportlist();
         this.alertmsg.displayErrorDailog(ERROR_CODES["M2JCDS004"]);
@@ -229,11 +217,9 @@ export class ClinicDecisionComponent implements OnInit {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2JCDS003"]);
       }
     });
-
   }
 }
 
 class CDSViewModel {
   Name: boolean = false;
-
 }

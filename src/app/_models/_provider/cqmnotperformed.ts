@@ -4,6 +4,7 @@ export class CQMNotPerformed {
   ProviderId?: string;
   ItemNotPerformed?: string;
   Date?: Date;
+  strDate?: string;
   InterventionType?: string;
   InterventionCode?: string;
   InterventionDescription?: string;

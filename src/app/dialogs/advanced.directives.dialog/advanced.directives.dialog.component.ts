@@ -1,4 +1,3 @@
-import { ToAddress } from './../../_models/_provider/smart.scheduler.data';
 import { Component, OnInit } from '@angular/core';
 import { EHROverlayRef } from '../../ehr-overlay-ref';
 import { AdvancedDirective } from '../../_models/_provider/chart';
@@ -23,9 +22,6 @@ export class AdvancedDirectivesDialogComponent implements OnInit {
     private alertmsg: AlertMessage,
     private authService: AuthenticationService) {
     this.updateLocalModel(ref.RequestData);
-    // if (this.advDirective.RecordAt != (null || '' || undefined)) {
-    //   this.advDirective.RecordAt = this.datepipe.transform(this.advDirective.RecordAt, "yyyy-MM-dd");
-    // }
   }
 
   ngOnInit(): void {
@@ -37,8 +33,7 @@ export class AdvancedDirectivesDialogComponent implements OnInit {
   }
 
   disableadvDirective() {
-    return !(this.advDirective.RecordAt != 'Invalid date'
-      && this.advDirective.Notes != '')
+    return !(this.advDirective.RecordAt && this.advDirective.Notes)
   }
 
   cancel() {
@@ -56,7 +51,7 @@ export class AdvancedDirectivesDialogComponent implements OnInit {
   CreateAdvancedDirectives() {
     let isAdd = this.advDirective.AdvancedDirectiveId == "";
     this.advDirective.PatientId = this.currentPatient.PatientId;
-    this.advDirective.RecordAt = this.datepipe.transform(this.advDirective.RecordAt, "MM/dd/yyyy hh:mm:ss");
+    this.advDirective.RecordAt = this.datepipe.transform(this.advDirective.RecordAt, "MM/dd/yyyy hh:mm:ss a");
     this.patientService.CreateAdvancedDirectives(this.advDirective).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.ref.close({

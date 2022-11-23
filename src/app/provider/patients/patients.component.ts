@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, QueryList, ViewChildren, ViewChild, ElementRef, ViewContainerRef, ComponentFactoryResolver, AfterViewInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, ElementRef, ViewContainerRef, ComponentFactoryResolver, AfterViewInit } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
 import { OverlayService } from '../../overlay.service';
 import { PatientDialogComponent } from '../../dialogs/patient.dialog/patient.dialog.component';
@@ -22,8 +22,7 @@ declare var $: any;
   templateUrl: './patients.component.html',
   styleUrls: ['./patients.component.scss']
 })
-export class PatientsComponent implements OnInit,AfterViewInit {
-  // customizedspinner: boolean;
+export class PatientsComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('SearchPatient', { static: true })
@@ -47,15 +46,11 @@ export class PatientsComponent implements OnInit,AfterViewInit {
     private cfr: ComponentFactoryResolver) {
     this.user = authService.userValue;
     this.removedPatientIdsInBreadcurmb = authService.viewModel.PatientBreadCrumb
-
   }
 
   ngOnInit(): void {
-
     this.loadPatientProviders();
-
     this.getPatientsByProvider();
-
     this.loadBreadcurmData();
   }
 
@@ -108,10 +103,6 @@ export class PatientsComponent implements OnInit,AfterViewInit {
       })
   }
 
-  updateBreadcurmbModel() {
-
-  }
-
   removePatientBreadcrumbInView(patientId: string) {
     if (this.removedPatientIdsInBreadcurmb == null)
       this.removedPatientIdsInBreadcurmb = [];
@@ -144,10 +135,12 @@ export class PatientsComponent implements OnInit,AfterViewInit {
       )
       .subscribe();
   }
-  onProviderChange(providerId: string){
+
+  onProviderChange(providerId: string) {
     this.patientsDataSource.ProviderId = providerId == "All" ? null : providerId;
     this.loadPatients();
   }
+
   loadPatientProviders() {
     let req = { "ClinicId": this.authService.userValue.ClinicId };
     this.smartSchedulerService.PracticeProviders(req).subscribe(resp => {
@@ -159,7 +152,7 @@ export class PatientsComponent implements OnInit,AfterViewInit {
 
   onChangeViewState(patientview) {
     this.viewChangeService.sendData("Patients");
-    this.authService.SetViewParam("View","Patients")
+    this.authService.SetViewParam("View", "Patients")
     this.authService.SetViewParam("Patient", patientview);
     this.authService.SetViewParam("PatientView", "Chart");
     this.router.navigate(["/provider/patientdetails"]);
@@ -171,12 +164,7 @@ export class PatientsComponent implements OnInit,AfterViewInit {
       "ProviderId": null,
       "Status": "All"
     }
-    // this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
     this.patientsDataSource = new PatientDatasource(this.patientService, reqparams);
-    // setTimeout(() => {
-    //   this.customizedspinner = false;
-    //   $('body').removeClass('loadactive')
-    // }, 2000);
     this.patientsDataSource.loadPatients();
   }
 
@@ -189,8 +177,9 @@ export class PatientsComponent implements OnInit,AfterViewInit {
       this.paginator.pageSize
     );
   }
+
   showInactivePatients(event) {
-    this.patientsDataSource.Status = event.checked ? "InActive" :  "All"
+    this.patientsDataSource.Status = event.checked ? "InActive" : "All"
     this.loadPatients();
   }
 
@@ -214,14 +203,13 @@ export class PatientDatasource implements DataSource<ProviderPatient>{
   private loadingSubject = new BehaviorSubject<boolean>(false);
   public loading$ = this.loadingSubject.asObservable();
 
-
   constructor(private patientService: PatientService, private queryParams: {}) {
-
-
   }
+
   connect(collectionViewer: CollectionViewer): Observable<ProviderPatient[] | readonly ProviderPatient[]> {
     return this.patientsSubject.asObservable();
   }
+
   disconnect(collectionViewer: CollectionViewer): void {
     //collectionViewer.viewChange.
     this.patientsSubject.complete();
@@ -231,7 +219,7 @@ export class PatientDatasource implements DataSource<ProviderPatient>{
   set Status(status: string) {
     this.queryParams["Status"] = status;
   }
-  set ProviderId(id:string){
+  set ProviderId(id: string) {
     this.queryParams["ProviderId"] = id;
   }
 
@@ -250,18 +238,10 @@ export class PatientDatasource implements DataSource<ProviderPatient>{
       finalize(() => this.loadingSubject.next(false))
     )
       .subscribe(resp => {
-        if(resp.IsSuccess){}
-        console.log(resp);
-
-        console.log(new Date());
+        if (resp.IsSuccess) { }
         this.patientsSubject.next(resp.ListResult as ProviderPatient[]);
-        // setTimeout(() => {
-        //   this.customizedspinner = false;
-        //   $('body').removeClass('loadactive')
-        // }, 1000);
       });
   }
-
 
   get TotalRecordSize(): number {
     if (this.patientsSubject.getValue() && this.patientsSubject.getValue().length > 0)

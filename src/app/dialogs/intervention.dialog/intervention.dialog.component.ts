@@ -133,8 +133,8 @@ export class InterventionDialogComponent implements OnInit {
   CreateIntervention() {
     let isAdd = this.patientIntervention.InterventionId == undefined;
     this.patientIntervention.PatientId = this.currentPatient.PatientId;
-    this.patientIntervention.StartDate = new Date(this.datepipe.transform(this.patientIntervention.StartDate, "yyyy-MM-dd", "en-US"));
-    this.patientIntervention.EndDate = new Date(this.datepipe.transform(this.patientIntervention.EndDate, "yyyy-MM-dd", "en-US"));
+    this.patientIntervention.strStartDate = this.datepipe.transform(this.patientIntervention.StartDate, "MM/dd/yyyy hh:mm:ss a", "en-US");
+    this.patientIntervention.strEndDate = this.datepipe.transform(this.patientIntervention.EndDate, "MM/dd/yyyy hh:mm:ss a", "en-US");
     let Count = this.selectedInterventionCodes.length;
     if (Count > 0) {
       this.selectedInterventionCodes.forEach(intervention => {

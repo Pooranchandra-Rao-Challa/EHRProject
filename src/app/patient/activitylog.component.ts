@@ -4,7 +4,6 @@ import { AuthenticationService } from '../_services/authentication.service';
 import { User, UserLocations } from '../_models'
 import { ActiveLog } from '../_models/_patient/activelog';
 import { Subject } from 'rxjs-compat';
-import { A } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-activitylog',
@@ -12,7 +11,6 @@ import { A } from '@angular/cdk/keycodes';
   styleUrls: ['./activitylog.component.scss']
 })
 export class ActivityLogComponent {
-
   ActiveLogData: ActiveLog;
   locationsInfo: UserLocations[];
   user: User
@@ -27,15 +25,15 @@ export class ActivityLogComponent {
       this.endDateForActivityLog = new Date(a);
     })
   }
+
   ngOnInit(): void {
     this.getActivetLogList('');
   }
 
-
   dateChange(e) {
     this.minDateToFinish.next(e.value.toString());
-
   }
+
   getActivetLogList(event) {
     if (event == 'reset') {
       this.startDate = '';
@@ -53,10 +51,9 @@ export class ActivityLogComponent {
         to: this.enddate
       }
     }
-
     this.patientservise.MyActivityLogs(reqparams).subscribe(resp => {
       this.ActiveLogData = resp.ListResult;
-    })
+    });
   }
 
 }

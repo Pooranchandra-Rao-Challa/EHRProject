@@ -19,48 +19,43 @@ export class AuthorizedrepresentativeDialogComponent implements OnInit {
   addauthorizedRepresentativeDialogComponent = AddauthorizedrepresentativeDialogComponent;
   currentPatient: ProviderPatient;
   athorizedRepresentatives: Authorizedrepresentative[] = [];
-  constructor(private ref:EHROverlayRef, public overlayService: OverlayService,private authService: AuthenticationService,
+
+  constructor(private ref: EHROverlayRef, public overlayService: OverlayService, private authService: AuthenticationService,
     private patientservice: PatientService,) {
-      this.currentPatient = this.authService.viewModel.Patient;
-      // this.getauthorizedrepresentatives();
-    }
+    this.currentPatient = this.authService.viewModel.Patient;
+  }
 
   ngOnInit(): void {
     this.getauthorizedrepresentatives();
   }
+
   cancel() {
-
-      this.ref.close(null);
-
-}
-openComponentDialog(content: any | ComponentType<any> | string,
-  dialogData, action: Actions = this.ActionTypes.add) {
-  let reqdata: any;
-  if (action == Actions.view && content === this.addauthorizedRepresentativeDialogComponent) {
-    reqdata = dialogData;
+    this.ref.close(null);
   }
-
-  const ref = this.overlayService.open(content, reqdata);
-  ref.afterClosed$.subscribe(res => {
-
-    this.getauthorizedrepresentatives();
-
-  });
-
-}
-
-getauthorizedrepresentatives()
-{
-  var reqparam = {
-    "PatientId": this.currentPatient.PatientId
-  }
-  this.patientservice.AuthorizedRepresentatives(reqparam).subscribe((resp)=>
-  {
-    if(resp.IsSuccess)
-    {
-      this.athorizedRepresentatives = resp.ListResult;
+  openComponentDialog(content: any | ComponentType<any> | string,
+    dialogData, action: Actions = this.ActionTypes.add) {
+    let reqdata: any;
+    if (action == Actions.view && content === this.addauthorizedRepresentativeDialogComponent) {
+      reqdata = dialogData;
     }
 
-  })
-}
+    const ref = this.overlayService.open(content, reqdata);
+    ref.afterClosed$.subscribe(res => {
+
+      this.getauthorizedrepresentatives();
+
+    });
+
+  }
+
+  getauthorizedrepresentatives() {
+    var reqparam = {
+      "PatientId": this.currentPatient.PatientId
+    }
+    this.patientservice.AuthorizedRepresentatives(reqparam).subscribe((resp) => {
+      if (resp.IsSuccess) {
+        this.athorizedRepresentatives = resp.ListResult;
+      }
+    })
+  }
 }

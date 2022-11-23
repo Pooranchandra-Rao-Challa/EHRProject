@@ -1,12 +1,10 @@
-import { Router, RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 import { CQMNotPerformed, InterventionCodes } from 'src/app/_models/_provider/cqmnotperformed';
-import { Component, ComponentFactoryResolver, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, ComponentFactoryResolver, OnInit } from '@angular/core';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
-import { PatientChart, User, ViewModel } from 'src/app/_models';
 import { CQMNotPerformedService } from 'src/app/_services/cqmnotperforemed.service';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
-import { BehaviorSubject } from 'rxjs';
 import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-addeditintervention',
@@ -14,7 +12,6 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./addeditintervention.component.scss']
 })
 export class AddeditinterventionComponent implements OnInit {
-
   itemNotPerformed: any = [
     { Id: '1', value: 'Current Meds Documented' },
     { Id: '2', value: 'BMI Screening/Follow-up' },
@@ -107,7 +104,7 @@ export class AddeditinterventionComponent implements OnInit {
     let isAdd = this.CQMNotPerformed.NPRId == undefined;
     this.CQMNotPerformed.PatientId = this.PatientDetails.PatientId;
     this.CQMNotPerformed.ProviderId = this.PatientDetails.ProviderId;
-    this.CQMNotPerformed.Date = new Date(this.datepipe.transform(this.CQMNotPerformed.Date, "yyyy-MM-dd", "en-US"));
+    this.CQMNotPerformed.strDate = this.datepipe.transform(this.CQMNotPerformed.Date, "MM/dd/yyyy hh:mm:ss a", "en-US");
     this.cqmNotperformedService.AddUpdateCQMNotPerformed(this.CQMNotPerformed).subscribe(resp => {
       if (resp.IsSuccess) {
         this.ref.close({

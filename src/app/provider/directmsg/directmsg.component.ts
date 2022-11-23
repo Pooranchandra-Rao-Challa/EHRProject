@@ -10,11 +10,9 @@ declare var $: any;
   styleUrls: ['./directmsg.component.scss']
 })
 export class DirectMsgComponent  {
-
   displayReq = "none";
   MessageDialogComponent = NewmessageDialogComponent;
   DialogResponse = null;
-
 
   constructor(private overlayService :OverlayService) { }
 
@@ -23,9 +21,9 @@ export class DirectMsgComponent  {
       $('#myModal').modal({show:true});
     })
   }
+
   openComponentDialogmessage(content: TemplateRef<any> | ComponentType<any> | string) {
     const ref = this.overlayService.open(content, null);
-
     ref.afterClosed$.subscribe(res => {
       if (typeof content === 'string') {
       //} else if (content === this.yesNoComponent) {

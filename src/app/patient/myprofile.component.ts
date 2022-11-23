@@ -1,11 +1,11 @@
 
 import { PatientNavbarComponent } from './../_navigations/patient.navbar/patient.navbar.component';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
-import { areaCodes, PatientProfile, PatientProfileSecurityQuestion } from './../_models/_patient/patientprofile';
+import { PatientProfile, PatientProfileSecurityQuestion } from './../_models/_patient/patientprofile';
 import { PatientService } from 'src/app/_services/patient.service';
 import { Component, ElementRef, EventEmitter, OnInit, ViewChild, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable, of} from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { catchError, map, startWith } from 'rxjs/operators';
 import { User } from '../_models';
 import { AlertMessage, ERROR_CODES } from '../_alerts/alertMessage';
@@ -17,10 +17,6 @@ import { HttpErrorResponse, HttpEventType } from '@angular/common/http';
 import { Attachment } from '../_models/_provider/LabandImage';
 import { FileUploadService } from '../_services/file.upload.service';
 import { PhotoFileProperties } from 'src/app/_models/_account/user';
-import { L } from '@angular/cdk/keycodes';
-
-
-
 
 @Component({
   selector: 'app-myprofile',
@@ -91,7 +87,6 @@ export class MyprofileComponent implements OnInit {
     private uploadService: FileUploadService,
     private utilityService: UtilityService,) {
     this.user = authenticationService.userValue;
-
   }
 
   ngOnInit(): void {
@@ -100,12 +95,11 @@ export class MyprofileComponent implements OnInit {
     this.PhotoValidatorEvent.subscribe((p: PhotoFileProperties) => {
       if (this.fileTypes.indexOf(p.FileExtension) > 0 && p.Size < 1024 * 1024
         && p.Width <= 300 && p.Height <= 300) {
-          this.uploadFile(p.File);
+        this.uploadFile(p.File);
       } else {
         this.alertmsg.displayMessageDailog(p.Message);
       }
     });
-
     this.filteredOptionsMobilePhone = this.myControlMobilePhone.valueChanges.pipe(startWith(''), map(value => this._filterAreaCode(value)));
     this.filteredOptionPrimaryPhone = this.myControlPrimaryPhone.valueChanges.pipe(startWith(''), map(value => this._filterAreaCode(value)));
     this.filteredOptionWorkPhone = this.myControlWorkPhone.valueChanges.pipe(startWith(''), map(value => this._filterAreaCode(value)));
@@ -215,7 +209,7 @@ export class MyprofileComponent implements OnInit {
   ChangeSecurityQuestion() {
     this.updateSecurityQuestion.SecurityID = this.patientProfileSecurityQuestion.SecurityID;
     this.updateSecurityQuestion.PateientId = this.patientProfileSecurityQuestion.PateientId;
-    if(this.SecurityAnswer == this.patientProfileSecurityQuestion.Answer) {
+    if (this.SecurityAnswer == this.patientProfileSecurityQuestion.Answer) {
       this.patientService.UpdatePatientMyProfileSecurityQuestion(this.updateSecurityQuestion).subscribe(
         resp => {
           if (resp.IsSuccess) {
@@ -295,8 +289,8 @@ export class MyprofileComponent implements OnInit {
   emergencyEnableManualEntry() {
     this.EmergencyclearAddress();
     this.emergencyManuallybtn = true;
-
   }
+
   emergencyAddressEnterManually(item) {
     this.emergencydisableaddressverification = true;
   }
@@ -310,7 +304,7 @@ export class MyprofileComponent implements OnInit {
   }
 
   updatePhoto() {
-    if(this.PatientProfile.ProfileImage != null){
+    if (this.PatientProfile.ProfileImage != null) {
       let a: Attachment = {
         FileName: "",
         AttachmentId: "",
@@ -325,8 +319,8 @@ export class MyprofileComponent implements OnInit {
       });
     }
   }
-  loadDefaults() {
 
+  loadDefaults() {
     this.utilityService.AreaCodes()
       .subscribe(resp => {
         if (resp.IsSuccess) {
@@ -339,12 +333,13 @@ export class MyprofileComponent implements OnInit {
         });
 
   }
+
   private _filterAreaCode(value: string): string[] {
     if (value == "") {
       return ['Please enter 1 or more numbers']
     }
     var _areaCodes = this.AreaCodes?.filter(option => option.AreaCode?.includes(value));
-    if ( _areaCodes?.length === 0) {
+    if (_areaCodes?.length === 0) {
       return ['No Data Found']
     }
     return _areaCodes?.map(value => value.AreaCode);
@@ -357,12 +352,15 @@ export class MyprofileComponent implements OnInit {
   onSelectedCellPhoneCode(code: string) {
     this.PatientProfile.MobilePhone = code;
   }
+
   onSelectedWorkPhone(code: string) {
     this.PatientProfile.WorkPhone = code;
   }
+
   onSelectedEmergencyPhone(code: string) {
     this.PatientProfile.Phone = code;
   }
+
   public onChange($event): any {
     if (this.fileUpload.nativeElement.files.length == 1) {
       let file = this.fileUpload.nativeElement.files[0];
@@ -383,7 +381,7 @@ export class MyprofileComponent implements OnInit {
         let width = img.width;
         let height = img.height;
         message =
-          'File can\'t be uploaded. May be File Size, Width or Height in pixels is not matching with specified image properies.'+
+          'File can\'t be uploaded. May be File Size, Width or Height in pixels is not matching with specified image properies.' +
           '\nName: ' + file.name +
           '\nSize: ' + Math.round(file.size) + ' bytes' +
           '\nWidth: ' + width +
@@ -424,9 +422,9 @@ export class MyprofileComponent implements OnInit {
         if (typeof (event) === 'object') {
           let uploadInfo = event.body as Attachment;
           this.PatientProfile.ProfileImage = uploadInfo.FullFileName;
-          if(this.PatientProfile.PatientId != null && this.PatientProfile.PatientId != ""){
-            this.patientService.UpdatePatientPhoto(this.PatientProfile).subscribe(resp =>{
-              if(resp.IsSuccess){
+          if (this.PatientProfile.PatientId != null && this.PatientProfile.PatientId != "") {
+            this.patientService.UpdatePatientPhoto(this.PatientProfile).subscribe(resp => {
+              if (resp.IsSuccess) {
                 this.updatePhoto();
               }
             })

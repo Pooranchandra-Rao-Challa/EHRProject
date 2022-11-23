@@ -1,10 +1,8 @@
-import { element } from 'protractor';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { PatientService } from 'src/app/_services/patient.service';
 import { Component, OnInit } from '@angular/core';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
 import { CCDAData, CCDAParams, ViewModel } from 'src/app/_models';
-import { keyframes } from '@angular/animations';
 
 export class localPatientChartInformation {
   SmokingStatus?: boolean;

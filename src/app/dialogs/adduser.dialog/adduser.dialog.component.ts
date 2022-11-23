@@ -12,21 +12,17 @@ import { UtilityService } from 'src/app/_services/utiltiy.service';
 import Swal from 'sweetalert2';
 import { User } from 'src/app/_models';
 import { AreaCode, Clinic } from 'src/app/_models/_admin/Admins';
-import { of } from 'rxjs';
+
 @Component({
   selector: 'app-adduser.dialog',
   templateUrl: './adduser.dialog.component.html',
   styleUrls: ['./adduser.dialog.component.scss']
 })
 export class AddUserDialogComponent implements OnInit {
-
   myControlPrimary = new FormControl();
   myControlSecondary = new FormControl();
-
   filteredOptionsPrimary: any;
   filteredOptionsSecondary: any;
-  //codeListPrimary: string[] = ['201', '202', '203', '204', '601', '603'];
-  //codeListSecondary: string[] = ['501', '502', '401', '402', '601', '603'];
   AreaCodes: AreaCode[];
   DisplayPwdInput: boolean = true;
   titles: {}[];
@@ -104,7 +100,6 @@ export class AddUserDialogComponent implements OnInit {
   }
 
   checkEmailExistance() {
-
     if (this.emailPattern.test(this.newUser.Email))
       this.accountservice.CheckEmailAvailablity({ Email: this.newUser.Email }).subscribe((resp) => {
         this.emailVerfied = resp.IsSuccess;
@@ -128,9 +123,11 @@ export class AddUserDialogComponent implements OnInit {
     this.randomPassword = this.idService.generateID(12);
     this.DisplayPwdInput = false;
   }
+
   onCheckboxChange(event) {
     this.showPassword = event.target.checked
   }
+
   close() {
     this.ref.close(null);
   }
@@ -156,8 +153,6 @@ export class AddUserDialogComponent implements OnInit {
         this.Clinics = resp.ListResult as Clinic[];
       }
     });
-
-
     this.utilityService.AreaCodes()
       .subscribe(resp => {
         if (resp.IsSuccess) {
@@ -168,7 +163,6 @@ export class AddUserDialogComponent implements OnInit {
       },
         error => {
         });
-
   }
 
   AddressVerification() {
@@ -180,7 +174,6 @@ export class AddUserDialogComponent implements OnInit {
           this.AddressResult = resp.Result;
           this.ValidAddressForUse = resp.Result["delivery_line_1"] + ", " + resp.Result["last_line"]
           this.displaymsg = resp.EndUserMessage;
-
         }
         else {
           this.displayDialog = true;
@@ -194,6 +187,7 @@ export class AddUserDialogComponent implements OnInit {
   openPopupAddress() {
     this.displayAddress = "block";
   }
+
   closePopupAddress() {
     this.displayAddress = "none";
   }
@@ -226,14 +220,13 @@ export class AddUserDialogComponent implements OnInit {
       this.newUser.MobilePhone = '+1' + this.newUser.MobilePhonePreffix + this.newUser.MobilePhoneSuffix;
     }
     this.newUser.URL = this.url;
-    //return;
     this.accountservice.CreateProvider(this.newUser).subscribe(resp => {
       if (resp.IsSuccess) {
-        if(this.newUser.ProviderId){
+        if (this.newUser.ProviderId) {
           this.alertMsgTitle = 'User Updated Successfully ';
           this.alertTextEmail = '';
         }
-        else{
+        else {
           this.alertMsgTitle = 'Thank you for registering for an EHR1 Account! An email with instructions for how to complete  setup of your account has been sent to ';
           this.alertTextEmail = this.newUser.Email;
         }
@@ -274,7 +267,6 @@ export class AddUserDialogComponent implements OnInit {
   }
 
   disableProviderRegistration() {
-    // this.NPIValidator();
     var npireg = /^[0-9]{10}$/;
     let pNo = this.newUser.PrimaryPhonePreffix + this.newUser.PrimaryPhoneSuffix;
     let mNo = this.newUser.MobilePhonePreffix + this.newUser.MobilePhoneSuffix;
@@ -308,40 +300,4 @@ export class AddUserDialogComponent implements OnInit {
       && flag && npireg.test(this.newUser.NPI))
   }
 
-  // disableProviderRegistration() {
-  //   // this.NPIValidator();
-  //   var npireg = /^[0-9]{10}$/;
-  //   let pNo = this.newUser.PrimaryPhonePreffix + this.newUser.PrimaryPhoneSuffix;
-  //   let mNo = this.newUser.MobilePhonePreffix + this.newUser.MobilePhoneSuffix;
-  //   let flag = (this.newUser.EPrescribeFrom == 'dosespot'
-  //     && this.newUser.IsDoseSpotRegistation != null && this.newUser.IsDoseSpotRegistation == true
-  //     && this.newUser.DoseSpotClinicKey != null && this.newUser.DoseSpotClinicKey != ""
-  //     && this.newUser.DoseSpotClinicianId != null && this.newUser.DoseSpotClinicianId != "") ||
-  //     (this.newUser.EPrescribeFrom == 'drfirst'
-  //       && this.newUser.VendorSecretKey != null && this.newUser.VendorSecretKey != ""
-  //       && this.newUser.VendorUsername != null && this.newUser.VendorUsername != ""
-  //       && this.newUser.ProviderUsername != null && this.newUser.ProviderUsername != ""
-  //       && this.newUser.ProviderPassword != null && this.newUser.ProviderPassword != ""
-  //       && this.newUser.PracticeUsername != null && this.newUser.PracticeUsername != ""
-  //       && this.newUser.PracticePassword != null && this.newUser.PracticePassword != ""
-  //       // && this.newUser.UserExternalId != null && this.newUser.UserExternalId != ""
-  //     ) ||
-  //     this.newUser.EPrescribeFrom == 'none' || this.newUser.EPrescribeFrom == undefined
-
-  //   return !(this.newUser.Title == undefined ? '' : this.newUser.Title != ''
-  //     && this.newUser.FirstName == undefined ? '' : this.newUser.FirstName != ''
-  //       && this.newUser.LastName == undefined ? '' : this.newUser.LastName != ''
-  //         && this.newUser.Degree == undefined ? '' : this.newUser.Degree != ''
-  //           && this.newUser.Speciality == undefined ? '' : this.newUser.Speciality != ''
-  //             && this.newUser.NPI == undefined ? '' : this.newUser.NPI != ''
-  //               && this.newUser.StreetAddress == undefined ? '' : this.newUser.StreetAddress != ''
-  //                 && this.newUser.ClinicId == undefined ? '' : this.newUser.ClinicId != ''
-  //                 && (this.phonePattern.test(pNo))
-  //                 && ((!this.newUser.MobilePhonePreffix && !this.newUser.MobilePhoneSuffix) || (this.phonePattern.test(mNo)))
-  //                 && (this.emailPattern.test(this.newUser.Email))
-  //                 && (this.newUser.AltEmail == null || this.newUser.AltEmail == '' || (this.emailPattern.test(this.newUser.AltEmail)))
-  //                 && flag && npireg.test(this.newUser.NPI))
-  // }
 }
-
-

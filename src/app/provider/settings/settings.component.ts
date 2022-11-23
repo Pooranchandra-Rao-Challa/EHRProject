@@ -1,25 +1,16 @@
 import { AfterViewInit, Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { AuthenticationService } from '../../_services/authentication.service';
-import { User,ViewModel } from '../../_models';
+import { User, ViewModel } from '../../_models';
 import { BehaviorSubject, of, Subscription } from 'rxjs';
 import { ActivatedRoute, Route, Router } from '@angular/router';
-
-// import { PracticeComponent } from './practice.component';
-// import { ScheduleComponent } from './schedule.component';
-// import { ErxComponent } from './erx.component';
-// import { AuditLogComponent } from './auditlog.component';
-// import { AccessPermissionComponent } from './access.permission.component';
-// import { PatientEdnMaterialComponent } from './patientednmaterial.component';
-// import { ClinicDecisionComponent } from './clinicdecision.component';
 import { catchError, finalize } from 'rxjs/operators';
-
 
 @Component({
   selector: 'menu-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss']
 })
-export class SettingsComponent implements OnInit,AfterViewInit {
+export class SettingsComponent implements OnInit, AfterViewInit {
   user: User;
   locationsubscription: Subscription;
   view: string;
@@ -34,12 +25,13 @@ export class SettingsComponent implements OnInit,AfterViewInit {
     private cfr: ComponentFactoryResolver,
     private authService: AuthenticationService,
     private route: ActivatedRoute,
-    private router:Router) {
+    private router: Router) {
     this.user = this.authService.userValue;
     this.viewModel = authService.viewModel;
-    if(!this.viewModel.SubView)
+    if (!this.viewModel.SubView)
       this.viewModel.SubView = 'practice';
   }
+
   ngAfterViewInit(): void {
     this.settingsSubject.next(this.viewModel.SubView);
   }
@@ -48,7 +40,7 @@ export class SettingsComponent implements OnInit,AfterViewInit {
     this.changedSettingView$
       .pipe(
         catchError(() => of([])),
-         finalize(() => this.loadingSubject.next(false))
+        finalize(() => this.loadingSubject.next(false))
       ).subscribe((viewname) => {
         this.loadingSubject.next(true);
         if (viewname == 'practice')
@@ -69,16 +61,11 @@ export class SettingsComponent implements OnInit,AfterViewInit {
       });
   }
 
-  onChangeViewState(view){
-    this.authService.SetViewParam("SubView",view);
+  onChangeViewState(view) {
+    this.authService.SetViewParam("SubView", view);
     this.viewModel = this.authService.viewModel;
     this.settingsSubject.next(view);
-    // this.router.navigate(
-    //   ['/provider/settings'],
-    // );
   }
-
-
 
   async loadPracticeComponent() {
     if (this.viewModel.SubView != 'practice')
@@ -104,7 +91,6 @@ export class SettingsComponent implements OnInit,AfterViewInit {
     }
   }
 
-
   async loadErxComponent() {
     if (this.viewModel.SubView != 'erx')
       this.settingsviewcontainerref.clear();
@@ -117,8 +103,6 @@ export class SettingsComponent implements OnInit,AfterViewInit {
     }
   }
 
-
-
   async loadAccessPermissionComponent() {
     if (this.viewModel.SubView != 'accesspermission')
       this.settingsviewcontainerref.clear();
@@ -130,7 +114,6 @@ export class SettingsComponent implements OnInit,AfterViewInit {
       );
     }
   }
-
 
   async loadClinicDecisionComponent() {
     if (this.viewModel.SubView != 'clinicdecision')
@@ -155,7 +138,6 @@ export class SettingsComponent implements OnInit,AfterViewInit {
       );
     }
   }
-
 
   async loadAuditLogComponent() {
     if (this.viewModel.SubView != 'auditlog')

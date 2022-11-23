@@ -8,7 +8,6 @@ import { ComponentType } from '@angular/cdk/portal';
 import { PatientService } from '../_services/patient.service';
 import { Appointments } from '../_models/_patient/appointments';
 import { Router } from '@angular/router';
-
 import { MessageDialogInfo, Messages } from '../_models/_provider/messages';
 import { MessagesService } from '../_services/messages.service';
 declare var $: any;
@@ -34,7 +33,8 @@ export class DashboardComponent {
   messagescount: number = 0;
   currentMessageView: string = 'Inbox';
   viewAppoinments: Appointments = {} as Appointments;
-  viewMessages:Messages = {} as Messages;
+  viewMessages: Messages = {} as Messages;
+
   constructor(private authenticationService: AuthenticationService, private overlayService: OverlayService, private patientservice: PatientService, private router: Router,
     private messageService: MessagesService,) {
     this.user = authenticationService.userValue;
@@ -43,7 +43,6 @@ export class DashboardComponent {
   }
 
   ngOnInit(): void {
-
     this.getPatientUpcomingAppointments();
     this.getmessages();
     $(document).ready(function () {
@@ -55,6 +54,7 @@ export class DashboardComponent {
         });
     });
   }
+
   onChangeViewState(view) {
     this.authenticationService.SetViewParam("SubView", view);
     this.viewModel = this.authenticationService.viewModel;
@@ -62,14 +62,17 @@ export class DashboardComponent {
       ['/patient/dashboard'],
     );
   }
+
   onhealth() {
     this.isAccees = false;
     this.isHealth = true;
   }
+
   onAccess() {
     this.isHealth = false;
     this.isAccees = true;
   }
+
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string) {
     const ref = this.overlayService.open(content, null);
     ref.afterClosed$.subscribe(res => {
@@ -83,7 +86,6 @@ export class DashboardComponent {
       }
     });
   }
-
 
   openComponentDialogmessage(content: any | ComponentType<any> | string, data,
     action: Actions = this.ActionTypes.add, message: string) {
@@ -106,6 +108,7 @@ export class DashboardComponent {
     });
 
   }
+
   getPatientUpcomingAppointments() {
     var req = {
       "PatientId": this.user.PatientId,
@@ -116,6 +119,7 @@ export class DashboardComponent {
       this.PatientUpcomingAppointmentsCount = res.ListResult?.length;
     })
   }
+
   getmessages() {
     var req = {
       // "PatientId": "5836dafef2e48f36ba90a996",
@@ -132,9 +136,11 @@ export class DashboardComponent {
       this.messagescount = res.ListResult == null ? 0 : res.ListResult[0].MessagesCount;
     });
   }
+
   showappoinments(item) {
     this.viewAppoinments = item;
   }
+
   showMessages(messages) {
     this.viewMessages = messages;
   }

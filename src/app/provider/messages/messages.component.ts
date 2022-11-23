@@ -14,8 +14,8 @@ import { MatSort } from '@angular/material/sort';
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { MessageDialogInfo, Messages } from 'src/app/_models/_provider/messages';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
-import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { RecordsChangeService, MessageCounts } from 'src/app/_navigations/provider.layout/view.notification.service';
+
 @Component({
   selector: 'app-labs.imaging',
   templateUrl: './messages.component.html',
@@ -37,7 +37,6 @@ export class MessagesComponent implements OnDestroy, AfterContentChecked {
     { value: '75', text: '75 Msg' },
     { value: '100', text: '100 Msg' },
   ];
-
   currentMessageView: string = 'Inbox';
   currentMessage: Messages = null;
   pageSize: number = 25;
@@ -54,13 +53,12 @@ export class MessagesComponent implements OnDestroy, AfterContentChecked {
     private notifyMessage: NotifyMessageService,
     private alertmsg: AlertMessage) {
     this.user = authService.userValue;
-    console.log(this.user);
-
   }
 
   ngOnInit(): void {
     this.initMessage(this.currentMessageView);
   }
+
   ngAfterViewInit(): void {
     // server-side search
     fromEvent(this.searchMessage.nativeElement, 'keyup')
@@ -96,6 +94,7 @@ export class MessagesComponent implements OnDestroy, AfterContentChecked {
   ngOnDestroy() {
     this.recordsChangeService = null;
   }
+
   initPages() {
 
     let records = this.totalRecords;
@@ -111,6 +110,7 @@ export class MessagesComponent implements OnDestroy, AfterContentChecked {
     this.messageDataSource = new MessagesDatasource(this.recordsChangeService, this.messageService, reqparams);
     this.loadMessages()
   }
+
   getMessages(filter: string) {
     this.currentMessageView = filter;
     this.messageDataSource.MessageFilter = filter;
@@ -119,11 +119,13 @@ export class MessagesComponent implements OnDestroy, AfterContentChecked {
     this.pagination.pageNo = 1;
     this.loadMessages()
   }
+
   isExpand: boolean = true;
 
   isExpandToggle() {
     this.isExpand = !this.isExpand;
   }
+
   showMessage(message: Messages) {
     this.currentMessage = message;
     if (this.currentMessageView == 'Inbox' || this.currentMessageView == 'Urgent') {
@@ -151,15 +153,18 @@ export class MessagesComponent implements OnDestroy, AfterContentChecked {
       this.pageSize
     );
   }
+
   onPageChange(event) {
     this.currentPage = event;
     this.loadMessages();
   }
+
   onPageSizeChange(event) {
     this.pageSize = event.value;
     this.initPages();
     this.loadMessages();
   }
+
   get IsInbox(): boolean {
     return this.currentMessageView == "Inbox"
   }
@@ -198,13 +203,12 @@ export class MessagesComponent implements OnDestroy, AfterContentChecked {
       DialogResponse.Messages = null;
       DialogResponse.ForwardReplyMessage = null;
     }
-
     const ref = this.overlayService.open(content, DialogResponse);
     ref.afterClosed$.subscribe(res => {
       this.loadMessages();
     });
-
   }
+
   DeleteMessages(item) {
     let data = item;
     var req = {
@@ -230,12 +234,11 @@ export class MessagesDatasource implements DataSource<Messages>{
   constructor(
     private recordsChangeService: RecordsChangeService,
     private messageService: MessagesService, private queryParams: {}) {
-
-
   }
   connect(collectionViewer: CollectionViewer): Observable<Messages[] | readonly Messages[]> {
     return this.MessageSentSubject.asObservable();
   }
+
   disconnect(collectionViewer: CollectionViewer): void {
     this.MessageSentSubject.complete();
     this.loadingSubject.complete();
@@ -265,7 +268,7 @@ export class MessagesDatasource implements DataSource<Messages>{
     )
       .subscribe(resp => {
         if (resp.IsSuccess) {
-          this.MessageSentSubject.next((resp.ListResult as Messages[]).sort((a1,b1) => !a1.Read && b1.Read ? 1 : 0));
+          this.MessageSentSubject.next((resp.ListResult as Messages[]).sort((a1, b1) => !a1.Read && b1.Read ? 1 : 0));
           this.recordsChangeService.sendData(this.MessageSentSubject.getValue()[0].MessagesCount + "");
         }
         else {
@@ -275,12 +278,10 @@ export class MessagesDatasource implements DataSource<Messages>{
       });
   }
 
-
   get TotalRecordSize(): number {
     if (this.MessageSentSubject.getValue() && this.MessageSentSubject.getValue().length > 0) {
       return this.MessageSentSubject.getValue()[0].MessagesCount;
     }
-
     return 0;
   }
 

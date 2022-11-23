@@ -447,9 +447,9 @@ export class InsuranceComponent implements OnInit {
       this.primlist.PatientId = this.PatientDetails.PatientId;
       this.primlist.LocationId = this.changedLocationId;
       this.primlist.InsuranceType = this.primaryInsuranceType;
-      this.primlist.DateOfBirth = this.datePipe.transform(this.primlist.DateOfBirth, "MM/dd/yyyy");
-      this.primlist.StartDate = this.datePipe.transform(this.primlist.StartDate, "MM/dd/yyyy");
-      this.primlist.EndDate = this.datePipe.transform(this.primlist.EndDate, "MM/dd/yyyy");
+      this.primlist.DateOfBirth = this.datePipe.transform(this.primlist.DateOfBirth, "MM/dd/yyyy hh:mm:ss a");
+      this.primlist.StartDate = this.datePipe.transform(this.primlist.StartDate, "MM/dd/yyyy hh:mm:ss a");
+      this.primlist.EndDate = this.datePipe.transform(this.primlist.EndDate, "MM/dd/yyyy hh:mm:ss a");
 
       this.patientservice.CreateUpdateInsuranceDetails(this.primlist).subscribe((resp) => {
         if (resp.IsSuccess) {
@@ -472,9 +472,9 @@ export class InsuranceComponent implements OnInit {
       this.secList.PatientId = this.PatientDetails.PatientId;
       this.secList.LocationId = this.changedLocationId;
       this.secList.InsuranceType = this.secondaryInsuranceType;
-      this.secList.DateOfBirth = this.datePipe.transform(this.secList.DateOfBirth, "MM/dd/yyyy");
-      this.secList.StartDate = this.datePipe.transform(this.secList.StartDate, "MM/dd/yyyy");
-      this.secList.EndDate = this.datePipe.transform(this.secList.EndDate, "MM/dd/yyyy");
+      this.secList.DateOfBirth = this.datePipe.transform(this.secList.DateOfBirth, "MM/dd/yyyy hh:mm:ss a");
+      this.secList.StartDate = this.datePipe.transform(this.secList.StartDate, "MM/dd/yyyy hh:mm:ss a");
+      this.secList.EndDate = this.datePipe.transform(this.secList.EndDate, "MM/dd/yyyy hh:mm:ss a");
 
       this.patientservice.CreateUpdateInsuranceDetails(this.secList).subscribe((resp) => {
         if (resp.IsSuccess) {

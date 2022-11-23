@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
-import { UtilityService } from 'src/app/_services/utiltiy.service';
 
-export class AddressValidation{
+export class AddressValidation {
   Address?: string;
   IsValid?: boolean
   ValidatedAddress?: any;
@@ -15,6 +14,7 @@ export class AddressValidation{
 })
 export class AddressVerificationDialogComponent implements OnInit {
   addressValidation: AddressValidation = {};
+
   constructor(private dialogRef: EHROverlayRef) {
     this.addressValidation = this.dialogRef.RequestData;
   }
@@ -22,12 +22,13 @@ export class AddressVerificationDialogComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  close(){
-    this.addressValidation.UseAddress =false;
-    this.dialogRef.close({'useThis':this.addressValidation});
+  close() {
+    this.addressValidation.UseAddress = false;
+    this.dialogRef.close({ 'useThis': this.addressValidation });
   }
-  useThis(){
-    this.addressValidation.UseAddress =true;
-    this.dialogRef.close({'useThis':this.addressValidation})
+
+  useThis() {
+    this.addressValidation.UseAddress = true;
+    this.dialogRef.close({ 'useThis': this.addressValidation })
   }
 }
