@@ -210,12 +210,14 @@ export class AuthenticationService {
         localStorage.setItem('user', JSON.stringify(resp.Result as User));
         this.startRefreshTokenTimer();
         this.SetViewParam("View", "dashboard")
+
         if(this.isPatient && !this.hasSecureQuestion && this.isFirstTimeLogin){
           this.router.navigate(['/account/security-question']);
         }
         else if(this.isPatient && this.hasSecureQuestion && this.isFirstTimeLogin) {
           this.router.navigate(['/account/reset-password']);
         }
+        // this.IsPatient && this.HasPatientRelations
         else if (this.isPatient || this.isRepresentative)
           this.router.navigate(['patient/dashboard']);
         else {

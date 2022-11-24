@@ -49,10 +49,12 @@ export class ListImportedDataComponent implements OnInit {
   }
 
   getDownloadUploadDataReport(ImportId) {
+    console.log(ImportId);
+
     let req = {
-      Id: ImportId
+      ImportId: ImportId
     };
-    this.downloadService.getDownloadData('DownloadUploadDataReport',req);
+    this.downloadService.DownloadFile(req);
   }
 
 }

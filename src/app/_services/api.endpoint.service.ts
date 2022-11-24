@@ -1012,6 +1012,12 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "DeleteEncounterAddendaDoc";
   }
 
+  get _patientRelationInfoURL()
+  {
+    return this._baseUrl + "PatientRelationInfo";
+  }
+
+
   constructor(public http: HttpClient) {
     super();
   }

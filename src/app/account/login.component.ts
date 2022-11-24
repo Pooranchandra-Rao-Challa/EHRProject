@@ -79,6 +79,9 @@ export class LoginComponent implements OnInit {
   public togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
   }
+  public hidePassword(){
+    this.showPassword = false;
+  }
 
   async openResetPassword() {
     const { value: email } = await Swal.fire({

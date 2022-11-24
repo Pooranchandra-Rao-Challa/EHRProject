@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { SettingsService } from '../../_services/settings.service';
-import { EhrAlert, EhrTrigger, TriggerInformation, User, ViewModel } from '../../_models';
+import { CDSAlert, CDSTrigger, TriggerInformation, User, ViewModel } from '../../_models';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import { MedicalCode } from 'src/app/_models/codes';
@@ -15,11 +15,11 @@ import { FormFieldValue } from 'src/app/_components/advanced-medical-code-search
   styleUrls: ['./clinicdecision.component.scss']
 })
 export class ClinicDecisionComponent implements OnInit {
-  clinicalDecisionSupportList: EhrAlert[] = [];
-  newAlert?: EhrAlert = {};
+  clinicalDecisionSupportList: CDSAlert[] = [];
+  newAlert?: CDSAlert = {};
   ehrTriggerList: TriggerInformation = new TriggerInformation;
-  triggerSearchList = new BehaviorSubject<EhrTrigger[]>([]);
-  ehrTrigger: EhrTrigger = new EhrTrigger();
+  triggerSearchList = new BehaviorSubject<CDSTrigger[]>([]);
+  ehrTrigger: CDSTrigger = new CDSTrigger();
   codeSystemsForClinicalDecision: string[] = ['SNOMED/ICD10', 'Local'];
   selectedCodeSystemValue: FormFieldValue = {CodeSystem:'SNOMED/ICD10',SearchTerm:''}
   clinicalDecisionSearchColumns = ["CODE", "CODE SYSTEM", "DESCRIPTION", "Delete"];
@@ -50,10 +50,10 @@ export class ClinicDecisionComponent implements OnInit {
   viewModel: ViewModel;
   TriggerSearchColumns = ["CODE", "CODE SYSTEM", "DESCRIPTION", "Delete"];
   TriggerRuleDD: any[] = [
-    { value: 'ONE', viewValue: 'ONE' },
-    { value: 'ONE of each category', viewValue: 'ONE of each category' },
-    { value: 'Two or More', viewValue: 'Two or More' },
-    { value: 'All', viewValue: 'All' },
+    { value: 'ONE', text: 'ONE' },
+    { value: 'ONE of each category', text: 'ONE of each category' },
+    { value: 'Two or More', text: 'Two or More' },
+    { value: 'All', text: 'All' },
   ];
 
   constructor(private fb: FormBuilder, private authService: AuthenticationService,
@@ -116,7 +116,7 @@ export class ClinicDecisionComponent implements OnInit {
     }
     this.settingservice.ClinicalDecisionSupport(reqparams).subscribe(response => {
       if (response.IsSuccess) {
-        let alt = response.ListResult as EhrAlert[];
+        let alt = response.ListResult as CDSAlert[];
         alt.forEach((value) => {
           value.Triggers = JSON.parse(value.triggersInfo)
         })
@@ -126,7 +126,7 @@ export class ClinicDecisionComponent implements OnInit {
   }
 
 
-  InsertUpadateClincialDecisionSupport(alert: EhrAlert) {
+  InsertUpadateClincialDecisionSupport(alert: CDSAlert) {
     alert.strReleaseAt = this.datePipe.transform(alert.ReleaseAt, "MM/dd/yyyy")
     let isAdd = alert.AlertId == undefined;
     alert.ProviderId = this.user.ProviderId
@@ -162,12 +162,12 @@ export class ClinicDecisionComponent implements OnInit {
   }
 
   resetdialog() {
-    this.newAlert = new EhrAlert
+    this.newAlert = new CDSAlert
   }
 
   resettriggerdialog() {
-    this.ehrTrigger = new EhrTrigger();
-    this.triggerSearchList = new BehaviorSubject<EhrTrigger[]>([]);
+    this.ehrTrigger = new CDSTrigger();
+    this.triggerSearchList = new BehaviorSubject<CDSTrigger[]>([]);
     this.ehrTriggerList = new TriggerInformation();
   }
 
@@ -180,16 +180,16 @@ export class ClinicDecisionComponent implements OnInit {
     this.triggerSearchList.next(this.ehrTriggerList.Addtrigger.filter(fn => fn.CanDelete === false));
   }
 
-  removetrigger(value: EhrTrigger, index: number) {
+  removetrigger(value: CDSTrigger, index: number) {
     value.CanDelete = true;
     this.triggerSearchList.next(this.ehrTriggerList.Addtrigger.filter(fn => fn.CanDelete === false));
-    this.ehrTrigger = new EhrTrigger();
+    this.ehrTrigger = new CDSTrigger();
   }
 
   newtrigger(item) {
     this.ehrTrigger.AlertId = item;
     let d: MedicalCode = new MedicalCode()
-    this.triggerSearchList = new BehaviorSubject<EhrTrigger[]>([]);
+    this.triggerSearchList = new BehaviorSubject<CDSTrigger[]>([]);
   }
 
   CreateTrigger(ehrTrigger) {
@@ -197,7 +197,7 @@ export class ClinicDecisionComponent implements OnInit {
       if (resp.IsSuccess) {
         this.getclinicaldesupportlist();
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2JCDS003"]);
-        this.ehrTrigger = new EhrTrigger;
+        this.ehrTrigger = new CDSTrigger;
         this.resettriggerdialog();
       }
       else {

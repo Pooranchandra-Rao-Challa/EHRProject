@@ -139,4 +139,23 @@ export class DownloadService {
         }
       );
   }
+
+  DownloadFile<T>(reqObj: any){
+    const endpointUrl = this.baseUrl + 'DownloadImportErrors';
+    this.http
+      .post(endpointUrl, reqObj, { observe: "response", responseType: "text" })
+      .subscribe(
+        (resp) => {
+          console.log(resp);
+          const data = resp.body;
+          const blob = new Blob([data], {
+            type: resp.headers.get("content-type"),
+          });
+          const document = window.URL.createObjectURL(blob);
+          FileSaver.saveAs(document, reqObj.ImportId);
+        },
+        (error) => {
+        }
+      );
+  }
 }

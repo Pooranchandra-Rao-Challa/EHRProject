@@ -397,4 +397,8 @@ export class PatientService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._deleteEncounterAddendaDocURL,reqparams);
   }
 
+  PatientRelationInfo(reqparams: any){
+    return this._ProcessPostRequest<any>(this._patientRelationInfoURL,reqparams);
+  }
+
 }

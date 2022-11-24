@@ -70,7 +70,9 @@ export class PatientLoginComponent implements OnInit {
       }
     });
   }
-
+  public hidePassword(){
+    this.showPassword = false;
+  }
   openChangePasswordDialog() {
 
     const dialogConfig = new MatDialogConfig();
