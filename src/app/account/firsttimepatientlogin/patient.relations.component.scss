@@ -1,0 +1,59 @@
+@import"../../../assets/common.scss";
+@import"../../../assets/cstm.material.scss";
+
+.patient-relations-wrapper {
+  min-height: 100%;
+  font-family: Helvetica Neue,Helvetica,Arial,sans-serif !important;
+  color: #4a4a4a;
+  background-repeat: no-repeat;
+  background-size: auto;
+  background: url(../../../assets/images/pro-reg-bg.png);
+
+  .ehr-img-top {
+    position: relative;
+    width: 100%;
+    left: 0%;
+    height: 89px;
+    top: 108px;
+    background-color: #41b6a6;
+  }
+
+  .ehr-img-top {
+    background-color: #41b6a6;
+  }
+
+  .ehr-img-top .text-center {
+    background-color: #41b6a6;
+  }
+
+  .logo-rectangle {
+    width: 277.2px;
+    margin: 0 auto;
+    background-image: url(../../../assets/images/logo-rectangle.svg);
+    background-repeat: no-repeat;
+  }
+
+  .ehr-img-top .text-center {
+    background-color: #41b6a6;
+  }
+
+  .img-fluid {
+    max-width: 100%;
+    height: auto;
+    margin: 0px 28px 0px 0px !important;
+  }
+
+  .content .container {
+    max-width: 700px;
+  }
+
+  .patient-portal {
+    padding: 50px 80px;
+  }
+
+  @media(max-width: 425px) {
+    .patient-portal {
+      padding: 20px 10px;
+    }
+  }
+}

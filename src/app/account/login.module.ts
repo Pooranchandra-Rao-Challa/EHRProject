@@ -21,6 +21,7 @@ import { PatientService } from '../_services/patient.service';
 import { OverlayService } from '../overlay.service';
 import { SecurityQuestion } from 'src/app/account/firsttimepatientlogin/security.question.component';
 import { ResetPassword } from 'src/app/account/firsttimepatientlogin/reset.password.component';
+import { PatientRelationsComponent } from 'src/app/account/firsttimepatientlogin/patient.relations.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -44,7 +45,8 @@ import { ResetPassword } from 'src/app/account/firsttimepatientlogin/reset.passw
     EmailedUrlsComponent,
     ChangePasswordComponent,
     SecurityQuestion,
-    ResetPassword
+    ResetPassword,
+    PatientRelationsComponent
   ],
   providers:[
     OverlayService,

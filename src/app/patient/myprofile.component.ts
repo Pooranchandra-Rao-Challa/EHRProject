@@ -33,7 +33,7 @@ export class MyprofileComponent implements OnInit {
   filteredOptions: Observable<string[]>;
   filterNumbers: any;
   SourceData: any[];
-  questions: any[] = SECURE_QUESTIONS
+  questions: any[] = SECURE_QUESTIONS;
   relationship: any = [
     { Id: '1', value: 'Parent-Mother' },
     { Id: '2', value: 'Parent-Father' },
@@ -431,6 +431,11 @@ export class MyprofileComponent implements OnInit {
           }
         }
       });
+  }
+
+  resetSecurityQuestion() {
+    this.SecurityAnswer = '';
+    this.updateSecurityQuestion = new PatientProfileSecurityQuestion();
   }
 }
 

@@ -32,7 +32,7 @@
                 </mat-datepicker-toggle>
                 <mat-datepicker #DateOfBirth disabled="false"></mat-datepicker>
               </mat-form-field>
-              <div *ngIf="dateofbirth.errors && (dateofbirth.touched)">
+              <div *ngIf="dateofbirth.errors && dateofbirth.touched">
                 <div class="error_message" *ngIf="dateofbirth.errors?.required">
                   <span class="e_arrow"></span>
                   <p class="errormessage">Please select date of birth</p>
@@ -622,7 +622,7 @@
                     <option value="May">May</option>
                     <option value="Jun">Jun</option>
                     <option value="Jul">Jul</option>
-                    <option value="Jul">Aug</option>
+                    <option value="Aug">Aug</option>
                     <option value="Sep">Sep</option>
                     <option value="Oct">Oct</option>
                     <option value="Nov">Nov</option>

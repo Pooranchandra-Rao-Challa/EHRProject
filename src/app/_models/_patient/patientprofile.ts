@@ -89,7 +89,7 @@ export interface areaCodes {
 
 export class PatientProfileSecurityQuestion {
   SecurityID?: string;
-  Question?: string;
+  Question?: string = 'In what city was your first job?';
   Answer?: string;
   PateientId?: string;
   CreatedAt?: Date;
@@ -98,7 +98,9 @@ export class PatientProfileSecurityQuestion {
 }
 
 
-export const SECURE_QUESTIONS: { key: string, value: string }[] = [{ key: 'What is your favorite sports team?', value: 'What is your favorite sports team?' },
+export const SECURE_QUESTIONS: { key: string, value: string }[] = [
+{ key: 'In what city was your first job?', value: 'In what city was your first job?' },
+{ key: 'What is your favorite sports team?', value: 'What is your favorite sports team?' },
 { key: 'Which historical figure would you most like to meet?', value: 'Which historical figure would you most like to meet?' },
 { key: 'In what city were you born?', value: 'In what city were you born?' },
 { key: 'What was the make and model of your first car?', value: 'What was the make and model of your first car?' },
@@ -108,6 +110,5 @@ export const SECURE_QUESTIONS: { key: string, value: string }[] = [{ key: 'What 
 { key: 'What was your favorite sport in high school?', value: 'What was your favorite sport in high school?' },
 { key: 'What is the name of your favorite book?', value: 'What is the name of your favorite book?' },
 { key: 'What was the last name of your first grade teacher?', value: 'What was the last name of your first grade teacher?' },
-{ key: 'Where were you when you had your first kiss?', value: 'Where were you when you had your first kiss?' },
 { key: 'Where were you when you had your first kiss?', value: 'Where were you when you had your first kiss?' },
 { key: 'What is the last name of the teacher who gave you your first falling grade?', value: 'What is the last name of the teacher who gave you your first falling grade?' }];

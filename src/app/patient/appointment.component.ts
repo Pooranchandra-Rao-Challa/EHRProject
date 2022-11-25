@@ -160,26 +160,38 @@ export class AppointmentComponent {
     })
   }
 
-  CancelAppoinments(AppointmentId) {
-    if (this.generalSchedule.ConcurrentApps == false) {
-      this.alertmsg.displayMessageDailog(ERROR_CODES["E3A002"]);
+  CancelAppoinments(Appt) {
+    var startTime = new Date(Appt.StartAt);
+    var endTime = new Date(startTime.getTime() + (this.generalSchedule.RescheduleTime * 60 * 60 * 1000));
+    var todayDate = new Date();
+    if(this.generalSchedule.PatientRescedule){
+      if(todayDate < endTime){
+        this.alertmsg.displayMessageDailog(ERROR_CODES["E3A002"]);
+      }
+      else {
+        this.confirmCancelAppointment(Appt.AppointmentId);
+      }
     }
     else {
-      var req = {
-        'ClinicId': this.user.ClinicId,
-        'AppointmentId': AppointmentId
-      }
-      this.patientservice.CancelPatientAppoinment(req).subscribe(resp => {
-        if (resp.IsSuccess) {
-          this.alertmsg.displayMessageDailog(ERROR_CODES["M3A002"]);
-          this.getPatientPastAppointments();
-          this.getPatientUpcomingAppointments();
-        }
-        else {
-          this.alertmsg.displayMessageDailog(ERROR_CODES["E3A001"]);
-        }
-      })
+      this.confirmCancelAppointment(Appt.AppointmentId);
     }
+  }
+
+  confirmCancelAppointment(AppointmentId) {
+    var req = {
+      'ClinicId': this.user.ClinicId,
+      'AppointmentId': AppointmentId
+    }
+    this.patientservice.CancelPatientAppoinment(req).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.alertmsg.displayMessageDailog(ERROR_CODES["M3A002"]);
+        this.getPatientPastAppointments();
+        this.getPatientUpcomingAppointments();
+      }
+      else {
+        this.alertmsg.displayMessageDailog(ERROR_CODES["E3A001"]);
+      }
+    })
   }
 
   // alertMessage() {
