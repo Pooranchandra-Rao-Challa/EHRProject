@@ -27,3 +27,19 @@ export const PATIENT_RELATIONSHIP: { Id: string, value: string }[] = [
   { Id: '14', value: 'Other' },
   { Id: '15', value: 'UnKnown' },
 ];
+
+export class PatientRelationInfo
+{
+    RepresentativeUserId?:string;
+    PatientId?:string;
+    UserName?:string;
+    Role?:string;
+    FirstName?:string;
+    MiddleName?:string;
+    LastName?:string;
+    ClinicId?:string;
+    UserId?:string;
+    UnreadMessages?:number;
+    UrgentMessages?:number;
+    HasPatientRelations?:boolean;
+}

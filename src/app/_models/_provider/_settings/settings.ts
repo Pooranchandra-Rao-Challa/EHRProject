@@ -126,7 +126,7 @@ export class EducationMaterialCode implements IDeleteFlag {
   ResourceNotes?:string;
   CanDelete?: boolean = false;
 }
- export class EhrAlert
+ export class CDSAlert
  {
   AlertId?:String
   AlertName?:String
@@ -139,12 +139,12 @@ export class EducationMaterialCode implements IDeleteFlag {
   Resolution?:string
   Rule?:String
   CanDelete?: boolean = false;
-  Triggers?:EhrTrigger[]
+  Triggers?:CDSTrigger[]
   triggersInfo?:string;
   strReleaseAt?:string;
   Active?: boolean;
  }
- export class EhrTrigger implements IDeleteFlag
+ export class CDSTrigger implements IDeleteFlag
  {
    TriggerId?:String
    Category?:String
@@ -155,7 +155,7 @@ export class EducationMaterialCode implements IDeleteFlag {
    CanDelete?: boolean = false;
  }
  export class TriggerInformation {
-  Addtrigger?: EhrTrigger [] = [];
+  Addtrigger?: CDSTrigger [] = [];
 }
 
 // export class Trig implements IDeleteFlag{

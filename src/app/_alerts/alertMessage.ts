@@ -35,6 +35,22 @@ export class AlertMessage {
     });
   }
 
+  displayErrorDailogForAdmin(message) {
+    Swal.fire({
+      title: message,
+      position: 'top',
+      background: 'red',
+      showConfirmButton: true,
+      confirmButtonText: 'Close',
+      width: '600',
+      customClass: {
+        title: 'swal2-title-admin',
+        container: 'swal2-container-high-zindex',
+        confirmButton: 'admin-cancel-button'
+      }
+    });
+  }
+
   displayErrorDailog(message) {
     Swal.fire({
       title: message,

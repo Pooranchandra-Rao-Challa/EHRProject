@@ -35,6 +35,7 @@ export interface User {
   UnlockToken?: string;
   HasSecureQuestion?: boolean;
   ResetToken?: string;
+  HasPatientRelations?: boolean;
 }
 export class UserLocations {
   LocationId: string;

@@ -84,8 +84,9 @@ export class PatientHealthPortalComponent{
 
   _completePatientAccountProcess(flag: boolean = false) {
     this.utilityService.CompletePatientAccountProcess(this.patientUser).subscribe(resp => {
+      console.log(resp);
       if (resp.IsSuccess) {
-        console.log(resp);
+
 
         if (!flag) {
 

@@ -47,7 +47,8 @@
                         formControlName="Password" (keyup.enter)="OnLoginSubmit()" />
 
                       <img [src]="showPassword ? 'assets/images/eye-open.svg' : 'assets/images/eye-close.svg'"
-                        class="img-svg-eye" (click)="togglePasswordVisibility()" />
+                        class="img-svg-eye" (click)="togglePasswordVisibility()" (mouseleave)="hidePassword()"
+                        (mouseout)="hidePassword()" />
                     </mat-form-field>
                   </div>
                   <div class="pull-right address">

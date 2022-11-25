@@ -10,6 +10,7 @@ import { environment } from "src/environments/environment";
 import { User, ResponseData, ViewModel, AdminViewModal } from '../_models';
 import { ERROR_CODES } from 'src/app/_alerts/alertMessage'
 import { getLogger } from "../logger.config";
+import { PatientRelationInfo } from '../_models/_provider/patientRelationship';
 const logModel = getLogger("ehr");
 const logger = logModel.getChildCategory("AuthenticationService");
 @Injectable({ providedIn: 'root' })
@@ -210,12 +211,14 @@ export class AuthenticationService {
         localStorage.setItem('user', JSON.stringify(resp.Result as User));
         this.startRefreshTokenTimer();
         this.SetViewParam("View", "dashboard")
+
         if(this.isPatient && !this.hasSecureQuestion && this.isFirstTimeLogin){
           this.router.navigate(['/account/security-question']);
         }
         else if(this.isPatient && this.hasSecureQuestion && this.isFirstTimeLogin) {
           this.router.navigate(['/account/reset-password']);
         }
+        // this.IsPatient && this.HasPatientRelations
         else if (this.isPatient || this.isRepresentative)
           this.router.navigate(['patient/dashboard']);
         else {
@@ -276,7 +279,19 @@ export class AuthenticationService {
 
   UpdateUser(user: User){
     localStorage.setItem('user', JSON.stringify(user));
+  }
 
+  UpdatePatientUser(patientRelation: PatientRelationInfo)
+  {
+    this.userValue.PatientId =  patientRelation.PatientId;
+    this.userValue.FirstName = patientRelation.FirstName;
+    this.userValue.LastName = patientRelation.LastName;
+    this.userValue.Role = patientRelation.Role;
+    this.userValue.Username = patientRelation.UserName;
+    this.userValue.UserId = patientRelation.UserId;
+    this.userValue.UrgentMessages = patientRelation.UrgentMessages;
+    this.userValue.UnReadMails = patientRelation.UnreadMessages;
+    localStorage.setItem('user', JSON.stringify(this.userValue));
   }
   get isProvider(): boolean {
     if (this.userValue == undefined || this.userValue == null) return false;

@@ -70,7 +70,10 @@ export class ImportPatientsComponent {
     this.adminservice.ImportData(importFile).subscribe((resp) => {
       this.uploaded = true;
       if (resp.IsSuccess) {
-
+        this.alertmsg.displayMessageDailogForAdmin(ERROR_CODES["M1UDIP001"]);
+        this.router.navigate(['admin/importeddata'], { queryParams: { name: 'Import Data',  id:this.uploadInfo.AttachmentId} });
+      }else{
+        this.alertMessage.displayErrorDailogForAdmin(ERROR_CODES["E1UDIP001"])
       }
     })
   }
@@ -95,9 +98,6 @@ export class ImportPatientsComponent {
             if (event.body) {
               this.uploadInfo = event.body as Attachment;
               this.updateImportData();
-              this.getImportPatient();
-              this.alertmsg.displayMessageDailogForAdmin(ERROR_CODES["M1UDIP001"]);
-              this.router.navigate(['admin/importeddata'], { queryParams: { name: 'Import Data'} });
             }
             else {
               this.alertmsg.displayErrorDailog(ERROR_CODES["E1UDIP001"]);
@@ -121,14 +121,14 @@ export class ImportPatientsComponent {
     );
   }
 
-  getImportPatient() {
-    this.adminservice.AdminImportedPatientEncounter().subscribe(resp => {
-      if (resp.IsSuccess) {
-        this.importFiles = resp.ListResult;
-      } else
-        this.importFiles = [];
-    });
-  }
+  // getImportPatient() {
+  //   this.adminservice.AdminImportedPatientEncounter().subscribe(resp => {
+  //     if (resp.IsSuccess) {
+  //       this.importFiles = resp.ListResult;
+  //     } else
+  //       this.importFiles = [];
+  //   });
+  // }
 }
 
 class Provider {
