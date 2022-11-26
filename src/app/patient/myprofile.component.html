@@ -453,7 +453,7 @@
     <div class="modal-content body">
       <div class="modal-header">
         <h4 class="Helvetica-sans-serif-medium">CHANGE SECURITY QUESTION</h4>
-        <span type="button" class="cross-mark" data-bs-dismiss="modal">
+        <span type="button" class="cross-mark" data-bs-dismiss="modal" (click)="resetSecurityQuestion()">
           X
         </span>
       </div>
@@ -489,8 +489,7 @@
             <div class="col-lg-12">
               <div class="form-group ">
                 <mat-form-field appearance="outline" class="dropdown grey-matform col-lg-12 col-md-12 col-sm-12 col-12">
-                  <mat-select placeholder="In what city was your first job?"
-                    [(ngModel)]="updateSecurityQuestion.Question">
+                  <mat-select [(ngModel)]="updateSecurityQuestion.Question">
                     <mat-option class="menu" *ngFor="let question of questions" [value]="question.key">
                       {{question.value}}
                     </mat-option>
@@ -526,7 +525,7 @@
             <div class="d-flex justify-content-end">
               <button type="button" class="btn btn-green mx-2 " data-bs-dismiss="modal"
                 (click)="ChangeSecurityQuestion()" [disabled]="enableSave()">Change</button>
-              <button type="button" class="btn btn-green" data-bs-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-green" data-bs-dismiss="modal" (click)="resetSecurityQuestion()">Cancel</button>
             </div>
           </div>
           <!-- end personal info -->

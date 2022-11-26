@@ -13,6 +13,7 @@ import { EmailedUrlsComponent} from 'src/app/account/emailedurls/emailed.url.com
 import { ChangePasswordComponent } from './change.password.component'
 import { SecurityQuestion } from './firsttimepatientlogin/security.question.component';
 import { ResetPassword } from 'src/app/account/firsttimepatientlogin/reset.password.component';
+import { PatientRelationsComponent } from './firsttimepatientlogin/patient.relations.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,7 @@ const routes: Routes = [
       { path: 'emailedurls', component: EmailedUrlsComponent },
       { path: 'security-question', component: SecurityQuestion },
       { path: 'reset-password', component: ResetPassword },
+      { path: 'patient-relations', component: PatientRelationsComponent },
     ]
   },
 ]

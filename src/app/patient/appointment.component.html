@@ -51,7 +51,7 @@
               <td class="Helvetica-sans-serif-medium">
                 <p class="mt-2" [ngClass]="item?.class">{{item.ApptStatus}}</p>
                 <p class="mt-2 cancelpointer" style="color: red;" *ngIf="item?.ApptStatus != 'Cancelled'"
-                  (click)="CancelAppoinments(item.AppointmentId)">
+                  (click)="CancelAppoinments(item)">
                   Cancel</p>
               </td>
 

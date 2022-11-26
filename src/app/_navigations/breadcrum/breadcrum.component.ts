@@ -31,6 +31,10 @@ export class BreadcrumComponent implements OnInit {
     this.router.navigate(["account/emailedurls"]);
   }
 
+  onHome() {
+    this.viewChangeService.sendData('Smart Schedule');
+  }
+
   get TrailText() {
     return `Your Trial Period Ends in ${this.user.TrialDaysLeft.valueOf()} day(s)`;
   }
