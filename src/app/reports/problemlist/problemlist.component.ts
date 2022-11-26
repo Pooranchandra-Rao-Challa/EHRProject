@@ -90,7 +90,6 @@ export class ProblemlistComponent implements OnInit {
   ngOnInit() {
     this.ProblemReportForm();
     this.getProviderList();
-    this.getLocationsList("");
   }
   ngAfterViewInit(): void {
     this.problemreportlist.paginator = this.paginator.toArray()[0];
@@ -199,21 +198,14 @@ export class ProblemlistComponent implements OnInit {
     });
   }
 
-  getLocationsList(Location: any) {
-    this.service.getLocationsList(Location.ProviderId).subscribe((data) => {
+  onProviderSelected(Provider: any) {
+    this.smartSchedulerService.ProviderPracticeLocations({"ProviderId":Provider.ProviderId}).subscribe(data => {
       if (data.IsSuccess) {
         this.locationslist = data.ListResult;
         this.filteredlocationList = this.locationslist.slice();
       }
     });
-    // if (Location == "") {
-    //   this.service.getLocationsList(Location).subscribe((data) => {
-    //     if (data.IsSuccess) {
-    //       this.locationslist = data.ListResult;
-    //       this.filteredlocationList = this.locationslist.slice();
-    //     }
-    //   });
-    // }
+
   }
   downloadProblemListExcel() {
     if (this.problemreportlist.data.length != 0) {

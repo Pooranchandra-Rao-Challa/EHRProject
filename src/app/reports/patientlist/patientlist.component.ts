@@ -86,8 +86,7 @@ export class PatientlistComponent implements OnInit {
   ngOnInit() {
     this.PatientForm();
     this.getProviderList();
-    this.getLocationsList("");
-    
+
   }
   ngAfterViewInit(): void {
     this.allPatientList.paginator = this.paginator.toArray()[0];
@@ -101,14 +100,14 @@ export class PatientlistComponent implements OnInit {
       AendDate: [""],
       Checked: [""],
       ProviderId: [""],
-      location_Id: [""],
+      locationId: [""],
     });
   }
 
   onSubmitallpatientlist() {
     if (
       this.patientForm.value.ProviderId == "" &&
-      this.patientForm.value.location_Id == ""
+      this.patientForm.value.locationId == ""
     ) {
       return;
     }
@@ -139,9 +138,9 @@ export class PatientlistComponent implements OnInit {
           ? null
           : this.patientForm.value.ProviderId,
       location_Id:
-        this.patientForm.value.location_Id == ""
+        this.patientForm.value.locationId == ""
           ? null
-          : this.patientForm.value.location_Id,
+          : this.patientForm.value.locationId,
     };
     this.getAllPatientList(patientlist);
     this.patientlistdata = patientlist;
@@ -150,7 +149,7 @@ export class PatientlistComponent implements OnInit {
     var ProviderId =
       this.patientForm.value.ProviderId == null
         ? ""
-        : this.patientForm.value.provider_Id;
+        : this.patientForm.value.providerId;
     var StartDate =
       this.patientForm.value.SstartDate == null
         ? ""
@@ -277,20 +276,13 @@ export class PatientlistComponent implements OnInit {
       );
     }
   }
-  getLocationsList(Location: any) {
-    this.service.getLocationsList(Location.ProviderId).subscribe((data) => {
+  onProviderSelected(Provider: any) {
+    this.smartSchedulerService.ProviderPracticeLocations({"ProviderId":Provider.ProviderId}).subscribe(data => {
       if (data.IsSuccess) {
         this.locationslist = data.ListResult;
         this.filteredlocationList = this.locationslist.slice();
       }
     });
-    // if (Location == "") {
-    //   this.service.getLocationsList(Location).subscribe((data) => {
-    //     if (data.IsSuccess) {
-    //       this.locationslist = data.ListResult;
-    //       this.filteredlocationList = this.locationslist.slice();
-    //     }
-    //   });
-    // }
+
   }
 }

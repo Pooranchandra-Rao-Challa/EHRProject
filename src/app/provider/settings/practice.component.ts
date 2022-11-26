@@ -112,7 +112,9 @@ export class PracticeComponent implements OnInit {
 
   // get display Location Details
   practiceLocations() {
-    this.settingsService.PracticeLocations(null, this.user.ClinicId).subscribe(resp => {         /* this.user.ProviderId -- reqparam in place of null */
+    console.log(this.user.ProviderId, this.user.ClinicId);
+
+    this.settingsService.PracticeLocations(this.user.ProviderId, this.user.ClinicId).subscribe(resp => {         /* this.user.ProviderId -- reqparam in place of null */
       if (resp.IsSuccess) {
         this.locationdataSource = resp.ListResult;
       }

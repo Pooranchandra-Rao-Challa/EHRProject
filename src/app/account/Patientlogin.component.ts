@@ -62,13 +62,14 @@ export class PatientLoginComponent implements OnInit {
       "UserIP": this.userIP
     };
 
-    this.authenticationService.patientLoginWithFormCredentials(creds).subscribe(resp => {
-      if (!resp.IsSuccess) {
-        this.showspinner = false;
-        this.message = '';
-        this.authfailedmessage = "Enter valid Email Id and Password";
-      }
-    });
+    this.authenticationService.patientLoginWithFormCredentials(creds)
+    // .subscribe(resp => {
+    //   if (!resp.IsSuccess) {
+    //     this.showspinner = false;
+    //     this.message = '';
+    //     this.authfailedmessage = "Enter valid Email Id and Password";
+    //   }
+    // });
   }
   public hidePassword(){
     this.showPassword = false;

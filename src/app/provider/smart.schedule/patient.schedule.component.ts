@@ -21,14 +21,14 @@ import { ViewChangeService } from 'src/app/_navigations/provider.layout/view.not
   templateUrl: './patient.schedule.component.html',
   styleUrls: ['./smart.schedule.component.scss']
 })
-export class PatientScheduleComponent implements OnInit{
+export class PatientScheduleComponent implements OnInit {
 
   patientDialogComponent = PatientDialogComponent;
   appointmentDialogComponent = NewAppointmentDialogComponent;
   upcomingAppointmentsDialogComponent = UpcomingAppointmentsDialogComponent;
   @Input() SelectedProviderId: string;
   @Input() SelectedLocationId: string
-  @Input() SwitchUrl:string;
+  @Input() SwitchUrl: string;
   @Input() PracticeProviders: PracticeProviders[];
   @Input() AppointmentTypes: AppointmentTypes[];
   @Input() Locations: UserLocations[];
@@ -38,7 +38,7 @@ export class PatientScheduleComponent implements OnInit{
 
   selectedPatient: PatientSearchResults;
   noSearchResults: boolean = false;
-  @Output() RefreshParentView:EventEmitter<boolean> = new EventEmitter();
+  @Output() RefreshParentView: EventEmitter<boolean> = new EventEmitter();
   private patientSearchTerms = new Subject<string>();
   public patients: PatientSearchResults[];
   AppointmentsOfPatient: NewAppointment[];
@@ -51,49 +51,51 @@ export class PatientScheduleComponent implements OnInit{
     private overlayService: OverlayService,
     private router: Router,
     private viewChangeService: ViewChangeService
-    // private locationSelectService: LocationSelectService,
-    // private alertMessage: AlertMessage,
 
-) {}
+  ) {
+    if (this.SelectedProviderId == null)
+      this.SelectedProviderId = this.authService.userValue.ProviderId;
 
+    console.log(this.SelectedProviderId);
 
-@HostListener('document:click', ['$event'])
-  clickedOut($event: any) {
-    if($event.target.id != 'patientSerarch'){
-      this.patients=[];
-      this.patientNameOrCellNumber="";
-    }
-    $event.stopPropagation();
   }
 
 
+  @HostListener('document:click', ['$event'])
+  clickedOut($event: any) {
+    if ($event.target.id != 'patientSerarch') {
+      this.patients = [];
+      this.patientNameOrCellNumber = "";
+    }
+    $event.stopPropagation();
+  }
   ngOnInit(): void {
     this.patientSearchTerms
-    .pipe(
-      map(value=>{
-        this.noSearchResults = false;
-        this.patients =[]
-        return value;
-      }),
-      debounceTime(300),  // wait for 300ms pause in events
-      distinctUntilChanged())   // ignore if next search term is same as previous
-    .subscribe((term) =>
-      this.smartSchedulerService
-        .SearchPatients({
-          ProviderId: this.SelectedProviderId,
-          ClinicId: this.authService.userValue.ClinicId,
-          SearchTerm: term
-        })
-        .subscribe(resp => {
-          if (resp.IsSuccess) {
-            this.patients = resp.ListResult;
-          }else{
-            this.noSearchResults = true;
-            this.patients = [];
-          }
+      .pipe(
+        map(value => {
+          this.noSearchResults = false;
+          this.patients = []
+          return value;
+        }),
+        debounceTime(300),  // wait for 300ms pause in events
+        distinctUntilChanged())   // ignore if next search term is same as previous
+      .subscribe((term) =>
+        this.smartSchedulerService
+          .SearchPatients({
+            ProviderId: this.SelectedProviderId,
+            ClinicId: this.authService.userValue.ClinicId,
+            SearchTerm: term
+          })
+          .subscribe(resp => {
+            if (resp.IsSuccess) {
+              this.patients = resp.ListResult;
+            } else {
+              this.noSearchResults = true;
+              this.patients = [];
+            }
 
-        })
-    );
+          })
+      );
   }
 
   searchPatient(term: string): void {
@@ -102,22 +104,18 @@ export class PatientScheduleComponent implements OnInit{
 
   displayPatient(value: PatientSearchResults): string {
     if (!value) return "";
-    return ""
     return value.Name + "-" + value.MobilePhone;
   }
 
   onPatientSelected(value: any) {
-
-    //this.PatientSelected.emit(value);
     if (!value) return "";
     let patient = value.option.value;
-
-    this.patients =[];
-    if(patient != null){
-      if(patient.NumberOfAppointments == 0){
-        this.openComponentDialog( this.appointmentDialogComponent ,patient,this.PatinetActions(patient));
-      }else{
-        this.openComponentDialog( this.upcomingAppointmentsDialogComponent ,patient,this.PatinetActions(patient));
+    this.patients = [];
+    if (patient != null) {
+      if (patient.NumberOfAppointments == 0) {
+        this.openComponentDialog(this.appointmentDialogComponent, patient, this.PatinetActions(patient));
+      } else {
+        this.openComponentDialog(this.upcomingAppointmentsDialogComponent, patient, this.PatinetActions(patient));
       }
     }
   }
@@ -135,7 +133,7 @@ export class PatientScheduleComponent implements OnInit{
     this.PatientAppointment.ProviderId = appointment.ProviderId;
     this.PatientAppointment.ClinicId = this.authService.userValue.ClinicId;
     this.PatientAppointment.Duration = 30;
-    data.Title =  "Edit Appointment";
+    data.Title = "Edit Appointment";
     data.ClinicId = this.authService.userValue.ClinicId;
     data.ProviderId = appointment.ProviderId;
     data.LocationId = appointment.LocationId;
@@ -156,7 +154,7 @@ export class PatientScheduleComponent implements OnInit{
   }
 
 
-  PatientAppointments(PatientObj,data) {
+  PatientAppointments(PatientObj, data) {
     let req = {
       "PatientId": PatientObj.PatientId
     };
@@ -178,11 +176,12 @@ export class PatientScheduleComponent implements OnInit{
       data.Title = "Add New Appointment";
       data.status = action;
     } else {
-      this.PatientAppointments(PatientObj,data)
+      this.PatientAppointments(PatientObj, data)
       data.Title = "Edit Appointment";
       //data.AppointmentsOfPatient = this.AppointmentsOfPatient;
       data.status = action
     }
+    console.log(this.SelectedProviderId);
 
     this.PatientAppointment.PatientId = this.selectedPatient.PatientId;
     this.PatientAppointment.PatientName = this.selectedPatient.Name;
@@ -206,9 +205,7 @@ export class PatientScheduleComponent implements OnInit{
   }
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
     data?: any, action?: Actions, status: string = "") {
-
-    //this.flag = false;
-    //this.patientNameOrCellNumber = "";
+      console.log(action);
 
     let dialogData: any;
     if (content === this.appointmentDialogComponent && action == Actions.new) {
@@ -218,57 +215,29 @@ export class PatientScheduleComponent implements OnInit{
     } else if (content === this.upcomingAppointmentsDialogComponent) {
       dialogData = this.PatientAppointmentInfoFromSearch(data, action);
     }
-
-    // else if (content === this.completeAppointmentDialogComponent) {
-    //   let d = data as ScheduledAppointment;
-    //   d.StatusToUpdate = status;
-    //   dialogData = d;
-    // }
-
     const ref = this.overlayService.open(content, dialogData);
 
     ref.afterClosed$.subscribe(res => {
-
-
-      if (content === this.patientDialogComponent) {
-
-      }
-      else if (content === this.appointmentDialogComponent) {
-
-
-
-        //this.flag = false;
-        //this.patientNameOrCellNumber = "";
+      if (content === this.appointmentDialogComponent) {
         if (res.data && res.data.refresh) {
-          //this.filterAppointments();
           this.RefreshParentView.emit(true);
         }
       }
       else if (content === this.upcomingAppointmentsDialogComponent) {
-        //this.flag = false;
-        //this.patientNameOrCellNumber = "";
-
-
         if (res.data && res.data.saved) {
-          //this.filterAppointments();
           this.RefreshParentView.emit(true);
         }
       }
-      // else if (content == this.completeAppointmentDialogComponent) {
-      //   if (res.data != null && res.data.confirmed) {
-      //     this.updateAppointmentStatus(res.data.appointment, res.data.AppComponent.StatusToUpdate);
-      //   }
-      // }
     });
 
   }
 
-  SwitchView(){
-    if(this.SwitchUrl == '/provider/calendar'){
+  SwitchView() {
+    if (this.SwitchUrl == '/provider/calendar') {
       this.authService.SetViewParam("View", "Calender");
       this.viewChangeService.sendData("Calender");
       this.router.navigate([this.SwitchUrl]);
-    }else{
+    } else {
       this.authService.SetViewParam("View", "Smart Schedule");
       this.viewChangeService.sendData("Smart Schedule");
       this.router.navigate([this.SwitchUrl]);

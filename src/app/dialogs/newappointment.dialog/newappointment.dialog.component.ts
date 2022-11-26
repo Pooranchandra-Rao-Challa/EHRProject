@@ -77,7 +77,7 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
     this.PracticeProviders = this.data.PracticeProviders;
     this.Locations = this.data.Locations;
     this.Rooms = this.data.Rooms;
-    if (this.Rooms && this.Rooms.length == 1
+    if (this.Rooms && this.Rooms.length > 0
       && this.PatientAppointment.RoomId == null)
       this.PatientAppointment.RoomId = this.Rooms[0].RoomId;
 
@@ -86,8 +86,6 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
         this.PatientAppointment.LocationId != null && this.PatientAppointment.Duration != null)) {
       this.LoadAvailableTimeSlots();
     }
-    // if (this.PatientAppointment && this.PatientAppointment.Startat != null)
-    //   this.todayDate = this.PatientAppointment.Startat;
 
   }
   ngAfterViewInit(): void {

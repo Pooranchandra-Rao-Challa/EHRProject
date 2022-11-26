@@ -107,12 +107,10 @@ export class ImportEncountersComponent {
               this.uploadInfo = event.body;
               this.updateImportData();
             }
-            else {
-              this.alertmsg.displayErrorDailogForAdmin(ERROR_CODES["E1UDIE001"]);
-            }
           },
           (error: any) => {
             this.uploadInProgressSubject.next(false);
+            this.alertmsg.displayErrorDailogForAdmin(ERROR_CODES["E1UDIE001"])
           },
           () => this.uploadInProgressSubject.next(false)
         )
