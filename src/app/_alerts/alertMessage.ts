@@ -39,14 +39,15 @@ export class AlertMessage {
     Swal.fire({
       title: message,
       position: 'top',
-      background: 'red',
+      background: 'e1dddd',
+      color:'red',
       showConfirmButton: true,
       confirmButtonText: 'Close',
       width: '600',
       customClass: {
-        title: 'swal2-title-admin',
+        title: 'swal2-title-error',
         container: 'swal2-container-high-zindex',
-        confirmButton: 'admin-cancel-button'
+        confirmButton: 'swal2-error'
       }
     });
   }
@@ -624,6 +625,8 @@ export const ERROR_CODES: { [key: string]: string } = {
 
   // Error for Import encounters
   'E1UDIE001': 'Uploding encounters data error',
+
+  'M3D001' :'Contact your provider for scheduling, rescheduling and cancelling an appointment',
 };
 
 

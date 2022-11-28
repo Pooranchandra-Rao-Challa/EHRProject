@@ -67,18 +67,6 @@ export class SmartScheduleComponent implements OnInit {
 
   togglePanel: number = 0;
   togglePanel2: number = 0;
-  // viewPanel1: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
-  // $viewPanel1 = this.viewPanel1.asObservable();
-  // viewPanel2: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  // $viewPanel2 = this.viewPanel2.asObservable();
-
-  //Auto Search Paramters
-  // public patients: PatientSearchResults[];
-  // private patientSearchTerms = new Subject<string>();
-  // public patientNameOrCellNumber = '';
-  // public flag: boolean = true;
-  //public selectedPatient: PatientSearchResults;
-  // End of Auto SerachParamters
 
 
   constructor(private fb: FormBuilder,
@@ -97,6 +85,7 @@ export class SmartScheduleComponent implements OnInit {
     this.locationsubscription = this.locationSelectService.getData().subscribe(locationId => {
       this.SelectedLocationId = locationId;
       this.LoadAppointmentDefalts();
+      this.filterAppointments();
     });
   }
 
@@ -153,26 +142,12 @@ export class SmartScheduleComponent implements OnInit {
       if (typeof content === 'string') {
 
       }
-      // else if (content === this.patientDialogComponent) {
-      //   //this.patientDialogResponse = res.data;
-      // }
       else if (content === this.appointmentDialogComponent) {
-
-        //this.flag = false;
-        //this.patientNameOrCellNumber = "";
         if (res.data && res.data.refresh) {
           this.filterAppointments();
         }
       }
-      // else if (content === this.upcomingAppointmentsDialogComponent) {
-      //   //this.flag = false;
-      //   //this.patientNameOrCellNumber = "";
-      //   if (res.data && res.data.saved) {
-      //     this.filterAppointments();
-      //   }
-      // }
       else if (content == this.encounterDialogComponent) {
-        //this.encounterDialogResponse = res.data;
         if (res.data != null && res.data.saved) {
           this.filterAppointments();
         }
@@ -241,12 +216,10 @@ export class SmartScheduleComponent implements OnInit {
       this.SelectedProviderId == "")
       this.Locations = JSON.parse(this.authService.userValue.LocationInfo);
     else {
-      this.smartSchedulerService.PracticeLocations(this.SelectedProviderId,
-        this.authService.userValue.ClinicId)
+      this.smartSchedulerService.ProviderPracticeLocations({"ProviderId":this.SelectedProviderId})
         .subscribe(resp => {
           if (resp.IsSuccess) {
-            this.Locations = resp.ListResult as UserLocations[];
-          }
+            this.Locations = resp.ListResult as UserLocations[];          }
         });
     }
 
@@ -266,7 +239,7 @@ export class SmartScheduleComponent implements OnInit {
     let req = {
       "ClinicId": this.authService.userValue.ClinicId,
       "ProviderId": this.SelectedProviderId,
-      "LocationId": this.authService.userValue.CurrentLocation,
+      "LocationId": this.SelectedLocationId,
       "AppointmentDate": moment.utc(this.selectedAppointmentDate).toISOString()
     };
 
@@ -287,21 +260,11 @@ export class SmartScheduleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.viewPanel1.subscribe((value)=>{
-    //   console.log('panel 1 ', value);
-    //   if(value) this.panel1.expanded  = true;
-    //   else this.panel1.expanded  = false;
-    // })
-    // this.viewPanel2.subscribe((value)=>{
-    //   console.log('panel 2 ', value);
-
-    //   if(value) this.panel2.expanded  = true;
-    //   else this.panel2.expanded  = false;
-    // })
     this.PatientAppointment = {};
     this.SelectedLocationId = this.authService.userValue.CurrentLocation;
     this.PatientAppointment.ProviderId = this.authService.userValue.ProviderId;
     this.PatientAppointment.LocationId = this.SelectedLocationId;
+    //this.SelectedProviderId = this.authService.userValue.ProviderId;
     this.PatientAppointment.Duration = 30;
     this.selectedAppointmentDate = new Date();
     this.selectedWeekday = this.selectedAppointmentDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })

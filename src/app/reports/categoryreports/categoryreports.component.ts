@@ -34,12 +34,13 @@ export class CategoryreportsComponent implements OnInit {
   }
 
   changereports(req) {
+    this.clearReportView();
     this.categoryId = req;
     if (req == 1) {
       this.Reports = [
         { RepId: 1, Name: 'MU Summary', Id: 1 },
       ];
-      // this.reports == 0;
+
     }
 
     else if (req == 2) {
@@ -73,6 +74,13 @@ export class CategoryreportsComponent implements OnInit {
     // this.showReport(this.categoryId);
   }
 
+  clearReportView(){
+    this.mureports = false;
+      this.patientlist = false;
+      this.encounterlist = false;
+      this.problem = false;
+      this.cqmreports = false;
+  }
   reportsId(req) {
     this.reports = req;
     if (req == 0 || req == null) {

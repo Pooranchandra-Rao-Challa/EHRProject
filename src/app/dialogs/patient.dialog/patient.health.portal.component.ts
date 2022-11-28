@@ -30,7 +30,7 @@ export class PatientHealthPortalComponent{
     this.url = plaformLocation.href.replace(plaformLocation.pathname, '/');
     if (plaformLocation.href.indexOf('?') > -1)
       this.url = plaformLocation.href.substring(0, plaformLocation.href.indexOf('?')).replace(plaformLocation.pathname, '/');
-    this.patientUser = dialogRef.data //as PatientPortalUser;
+    this.patientUser = dialogRef.data
     this.patientUser.URL = this.url;
   }
   cancel(){

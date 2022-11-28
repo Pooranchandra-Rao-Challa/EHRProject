@@ -11,11 +11,12 @@
           <p class="float-left my-4">Provider:<span class="asterisk">*</span></p>
         </div>
         <mat-form-field appearance="outline" class="col-lg-2 col-md-6 my-2 hover">
-          <mat-select placeholder="Select One" disableOptionCentering #searchedItem formControlName="ProviderId">
+          <mat-select placeholder="Select One" disableOptionCentering #searchedItem formControlName="ProviderId"
+          panelClass="report-select-option-panel">
             <mat-select-filter [placeholder]="'Search...'" [displayMember]="'FullName'" [array]="PracticeProviders"
               (filteredReturn)="PracticeProviders =$event" *ngIf="searchedItem.focused"></mat-select-filter>
             <mat-option *ngFor="let item of PracticeProviders" [value]="item.ProviderId"
-              (click)="getLocationsList(item)">
+              (click)="onProviderSelected(item)">
               {{item.FullName}}
             </mat-option>
           </mat-select>
@@ -24,11 +25,9 @@
           <p class="float-left my-4 mr-md-2">Location(s):</p>
         </div>
         <mat-form-field appearance="outline" class="col-lg-2 col-md-6 mx-lg-3 my-2 hover">
-          <mat-select placeholder="Select One" disableOptionCentering>
-            <!-- <mat-select-filter [placeholder]="'Search...'" [displayMember]="'Location_Name'" [array]="locationslist"
-              (filteredReturn)="filteredlocationList =$event"></mat-select-filter> -->
-            <mat-option *ngFor="let name of filteredlocationList" [value]="name.Location_Id">
-              {{name.Location_Name}}
+          <mat-select placeholder="Select One" disableOptionCentering panelClass="report-select-option-panel">
+            <mat-option *ngFor="let name of filteredlocationList" [value]="name.LocationId">
+              {{name.LocationName}}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -38,13 +37,12 @@
           <p class="float-left my-3">Stage:<span class="asterisk">*</span></p>
         </div>
         <mat-form-field appearance="outline" class="col-lg-2 col-md-6 hover">
-          <mat-select placeholder="Select One" disableOptionCentering formControlName="stage_type">
+          <mat-select placeholder="Select One" disableOptionCentering formControlName="stage_type"
+          panelClass="report-select-option-panel">
             <mat-option value="2">Stage2</mat-option>
             <mat-option value="3">Stage3</mat-option>
           </mat-select>
         </mat-form-field>
-        <!-- <div class="col-lg-1 col-md-6">
-          </div> -->
         <mat-form-field appearance="outline" class="col-lg-2 col-md-6 ">
           <input matInput class="pointer date-mat-class" autocomplete="off" [max]="tomorrow"
             (dateChange)="disableEndDate()" [matDatepicker]="picker1" (click)="picker1.open()" readonly

@@ -85,5 +85,7 @@ export class SmartSchedulerService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._blockoutInfoUrl, reqParams);
   }
 
-
+  ProviderPracticeLocations(reqparams: any){
+    return this._ProcessPostRequest<any>(this._providerPracticeLocationsURL, reqparams);
+  }
 }

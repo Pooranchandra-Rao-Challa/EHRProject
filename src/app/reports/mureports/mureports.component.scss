@@ -439,3 +439,7 @@
   width: 1em;
   height: 1em;
 }
+::ng-deep .report-select-option-panel{
+  margin-top: 28px !important;
+  margin-left: -10px;
+}

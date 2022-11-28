@@ -1945,13 +1945,15 @@ export class MureportsComponent implements OnInit {
     }
   }
 
-  constructor(private authenticationService: AuthenticationService,private smartSchedulerService: SmartSchedulerService, private service: Accountservice, private fb: FormBuilder, public datepipe: DatePipe) {
+  constructor(private authenticationService: AuthenticationService,
+    private smartSchedulerService: SmartSchedulerService,
+    private service: Accountservice, private fb: FormBuilder, public datepipe: DatePipe) {
     pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
   }
 
   ngOnInit() {
-    this.getLocationsList('');
+    //this.onProviderSelected('');
     this.getProviderList();
     //this.loadPatientProviders();
     this.Stage3Form();
@@ -1980,21 +1982,13 @@ export class MureportsComponent implements OnInit {
   //   });
   // }
 
-  getLocationsList(Location: any) {
-    this.service.getLocationsList(Location.ProviderId).subscribe(data => {
+  onProviderSelected(Provider: any) {
+    this.smartSchedulerService.ProviderPracticeLocations({"ProviderId":Provider.ProviderId}).subscribe(data => {
       if (data.IsSuccess) {
         this.locationslist = data.ListResult;
         this.filteredlocationList = this.locationslist.slice();
       }
     });
-    // if (Location == "") {
-    //   this.service.getLocationsList(Location).subscribe(data => {
-    //     if (data.IsSuccess) {
-    //       this.locationslist = data.ListResult;
-    //       this.filteredlocationList = this.locationslist.slice();
-    //     }
-    //   });
-    // }
   }
   onStage2SubmitPatientList(req) {
     this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
@@ -2137,6 +2131,8 @@ export class MureportsComponent implements OnInit {
   }
 
   getStage2NumeDenomicount(data: any) {
+    console.log(data);
+
     this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
     this.stage2NumeDenomicount = null;
     this.stage3NumeDenomicount = null;

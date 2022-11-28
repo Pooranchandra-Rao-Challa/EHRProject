@@ -82,7 +82,6 @@ export class EncounterlistComponent implements OnInit {
 
   ngOnInit() {
     this.getProviderList();
-    this.getLocationsList("");
     this.EncounterForm();
   }
   ngAfterViewInit(): void {
@@ -147,14 +146,14 @@ export class EncounterlistComponent implements OnInit {
       SendDate: [""],
       Checked: false,
       ProviderId: [""],
-      location_Id: [""],
+      locationId: [""],
     });
   }
 
   onSubmitEncounterlist() {
     if (
       this.encounterForm.value.ProviderId == "" &&
-      this.encounterForm.value.location_Id == ""
+      this.encounterForm.value.locationId == ""
     ) {
       return;
     }
@@ -175,9 +174,9 @@ export class EncounterlistComponent implements OnInit {
           ? null
           : this.encounterForm.value.ProviderId,
       location_Id:
-        this.encounterForm.value.location_Id == ""
+        this.encounterForm.value.locationId == ""
           ? null
-          : this.encounterForm.value.location_Id,
+          : this.encounterForm.value.locationId,
     };
     this.getEncountersList(encounterlist);
     this.encounterdata = encounterlist;
@@ -207,21 +206,14 @@ export class EncounterlistComponent implements OnInit {
       }
     });
   }
-  getLocationsList(Location: any) {
-    this.service.getLocationsList(Location.ProviderId).subscribe((data) => {
+  onProviderSelected(Provider: any) {
+    this.smartSchedulerService.ProviderPracticeLocations({"ProviderId":Provider.ProviderId}).subscribe(data => {
       if (data.IsSuccess) {
         this.locationslist = data.ListResult;
         this.filteredlocationList = this.locationslist.slice();
       }
     });
-    // if (Location == "") {
-    //   this.service.getLocationsList(Location).subscribe((data) => {
-    //     if (data.IsSuccess) {
-    //       this.locationslist = data.ListResult;
-    //       this.filteredlocationList = this.locationslist.slice();
-    //     }
-    //   });
-    // }
+
   }
 
   downloadEncountersExcel() {

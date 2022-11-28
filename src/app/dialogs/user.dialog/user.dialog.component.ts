@@ -78,6 +78,9 @@ export class UserDialogComponent implements OnInit {
       ClinicId: this.user.ClinicId
     }
 
+    console.log(this.userQuery);
+
+
     this.getUserDataforEdit();
     this.loadFormDefaults();
     this.getScreenSize();
@@ -282,7 +285,7 @@ export class UserDialogComponent implements OnInit {
         return of(`${file.name} upload failed.`);
       })).subscribe((event: any) => {
         if (typeof (event) === 'object') {
-          console.log(event.body);
+
           let uploadInfo = event.body as Attachment;
           this.EditProvider.ProfileImage = uploadInfo.FullFileName;
           if(this.EditProvider.ProviderId != null && this.EditProvider.ProviderId != ""){

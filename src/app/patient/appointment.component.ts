@@ -42,7 +42,7 @@ export class AppointmentComponent {
   }
 
   ngOnInit(): void {
-    this.getGeneralSchedule();
+    this.GeneralScheduleInfo();
     this.getProviders();
     this.getLocations();
     this.getPatientUpcomingAppointments();
@@ -51,33 +51,25 @@ export class AppointmentComponent {
     this.selectedWeekday = this.selectedAppointmentDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
   }
 
-  // get General Schedule details
-  getGeneralSchedule() {
-    let reqparams = {
-      clinicId: this.user.ClinicId
-    };
-    this.settingsService.Generalschedule(reqparams).subscribe((resp) => {
-      if (resp.IsSuccess) {
-        if (resp.ListResult.length == 1)
-          this.generalSchedule = resp.ListResult[0];
-      }
-    })
-  }
 
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string) {
-    const ref = this.overlayService.open(content, null);
+    if(!this.generalSchedule.PatientRescedule){
+      this.alertmsg.displayMessageDailog(ERROR_CODES["M3D001"]);
+    }else{
+      const ref = this.overlayService.open(content, null);
 
-    ref.afterClosed$.subscribe(res => {
-      if (typeof content === 'string') {
-        //} else if (content === this.yesNoComponent) {
-        //this.yesNoComponentResponse = res.data;
-      }
-      else if (content === this.PatientDialogComponent) {
-        this.DialogResponse = res.data;
-        this.getPatientPastAppointments();
-        this.getPatientUpcomingAppointments();
-      }
-    });
+      ref.afterClosed$.subscribe(res => {
+        if (typeof content === 'string') {
+          //} else if (content === this.yesNoComponent) {
+          //this.yesNoComponentResponse = res.data;
+        }
+        else if (content === this.PatientDialogComponent) {
+          this.DialogResponse = res.data;
+          this.getPatientPastAppointments();
+          this.getPatientUpcomingAppointments();
+        }
+      });
+    }
   }
 
   onUpcoming() {
@@ -138,6 +130,19 @@ export class AppointmentComponent {
     })
   }
 
+  GeneralScheduleInfo() {
+    let reqparams = {
+      clinicId: this.user.ClinicId
+    };
+
+    this.settingsService.Generalschedule(reqparams).subscribe((resp) => {
+      if (resp.IsSuccess) {
+        if (resp.ListResult.length == 1)
+          this.generalSchedule = resp.ListResult[0];
+
+      }
+    })
+  }
   // reschedule(item) {
   //   this.RequestAppoinments = item;
   //   this.RequestAppoinments.LocationId = item.LocationId

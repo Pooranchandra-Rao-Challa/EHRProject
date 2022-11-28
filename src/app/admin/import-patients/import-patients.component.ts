@@ -99,12 +99,10 @@ export class ImportPatientsComponent {
               this.uploadInfo = event.body as Attachment;
               this.updateImportData();
             }
-            else {
-              this.alertmsg.displayErrorDailog(ERROR_CODES["E1UDIP001"]);
-            }
           },
           (error: any) => {
             this.uploadInProgressSubject.next(false);
+            this.alertmsg.displayErrorDailog(ERROR_CODES["E1UDIP001"]);
           },
           () => this.uploadInProgressSubject.next(false)
         )
