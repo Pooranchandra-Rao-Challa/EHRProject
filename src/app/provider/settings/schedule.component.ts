@@ -465,6 +465,8 @@ export class ScheduleComponent implements OnInit {
       if (resp.IsSuccess) {
         if (resp.ListResult.length == 1)
           this.generalSchedule = resp.ListResult[0];
+          console.log(this.generalSchedule);
+
       }
     })
   }
@@ -478,6 +480,8 @@ export class ScheduleComponent implements OnInit {
       concurrentapps: this.generalSchedule.ConcurrentApps,
       reschedulepatient: this.generalSchedule.PatientRescedule
     }
+    console.log(reqparams);
+
     this.settingsService.UpdateReschedule(reqparams).subscribe(resp => {
       if (resp.IsSuccess) {
         this.alertmsg.displayMessageDailog(resp.EndUserMessage);

@@ -2,7 +2,7 @@ import { AdminService } from './../../_services/admin.service';
 import { NotifyProviderHeaderService, ProviderLocationUpdateNotifier } from './../provider.layout/view.notification.service';
 import { NotifyMessageService } from 'src/app/_navigations/provider.layout/view.notification.service';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { Component, OnInit, Output, EventEmitter, TemplateRef } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, TemplateRef,AfterViewInit } from '@angular/core';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { Actions, NewUser, User, UserLocations, ViewModel } from '../../_models';
 import { ViewChangeService } from '../provider.layout/view.notification.service';
@@ -17,7 +17,7 @@ import { _RecycleViewRepeaterStrategy } from '@angular/cdk/collections';
   templateUrl: './provider.navbar.component.html',
   styleUrls: ['./provider.navbar.component.scss']
 })
-export class ProviderNavbarComponent implements OnInit {
+export class ProviderNavbarComponent implements OnInit,AfterViewInit {
 
   navbarOpen: boolean = false;
   user: User;
@@ -32,6 +32,7 @@ export class ProviderNavbarComponent implements OnInit {
   unreadMails: number;
   urgentMails: number;
   lockedComponent = LockedComponent;
+  menuwidth: number;
 
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -83,7 +84,10 @@ export class ProviderNavbarComponent implements OnInit {
       }
     })
   }
+  ngAfterViewInit(): void {
+    this.menuwidth = (document.getElementById('UserDropdown').clientWidth+8);
 
+  }
   changeLocation(locationId) {
     this.user.CurrentLocation = locationId;
     this.LocationChanged.emit(locationId);

@@ -63,7 +63,7 @@ export class PracticeComponent implements OnInit {
       this.changedLocationId = LocationId;
       this.getProviderDetails();
     });
-    this.practiceLocations();
+
     this.NewUserData = {
     }
   }
@@ -112,7 +112,6 @@ export class PracticeComponent implements OnInit {
 
   // get display Location Details
   practiceLocations() {
-    console.log(this.user.ProviderId, this.user.ClinicId);
 
     this.settingsService.PracticeLocations(this.user.ProviderId, this.user.ClinicId).subscribe(resp => {         /* this.user.ProviderId -- reqparam in place of null */
       if (resp.IsSuccess) {

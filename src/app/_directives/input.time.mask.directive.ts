@@ -341,12 +341,20 @@ export class TimeMaskDirective implements OnInit, ControlValueAccessor, Validato
 
   /** Implementation for ControlValueAccessor interface */
   writeValue(value: Date): void {
+    console.log(value);
+
     let inputvalue = value;
     if (value && !(value instanceof Date)) {
+      let regexp1 = new RegExp('^(0?[1-9]|1[0-2]):[0-5][0-9]?([AaPp][Mm])?')
       let regexp = new RegExp('^(0?[1-9]|1[0-2]):[0-5][0-9]?(\s[AaPp][Mm])?')
       let test = regexp.test(value);
+      let test1 = regexp1.test(value);
+      let strvalue: string = value;
+      if(test1){
+        strvalue = strvalue.replace("AM"," AM").replace("PM"," PM")
+        inputvalue = new Date(this._datePipe.transform(new Date(),"MM/dd/yyyy")+' '+strvalue);
+      }
       if(test){
-        let strvalue: string = value;
         inputvalue = new Date(this._datePipe.transform(new Date(),"MM/dd/yyyy")+' '+strvalue);
       }
       else{
@@ -418,6 +426,7 @@ export class TimeMaskDirective implements OnInit, ControlValueAccessor, Validato
 
   /** build a time in 00:00 AMformat */
   private _dateToStringTime(value: Date) {
+    console.log(value);
 
     if('Invalid Date'== value+'') return 'hh:mm XM';
     if (value && !(value instanceof Date)) return 'hh:mm XM';

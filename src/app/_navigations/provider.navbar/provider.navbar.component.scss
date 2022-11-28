@@ -343,3 +343,7 @@ li.no-bullets {
 ::ng-deep .loader-container .mat-progress-bar .mat-progress-bar-element::after {
   background-color: #d64841 !important;
 }
+::ng-deep .report-select-option-panel{
+  margin-top: 28px !important;
+  margin-left: -10px;
+}

@@ -71,10 +71,11 @@
         <img class="img-xs rounded-circle header-avatar mx-1" src="assets/images/header-dropdown-img.svg">
       </a>
       <mat-menu #menu="matMenu" [hasBackdrop]="true">
-        <div class="list" style="border-top: 1px solid #86c1bb; width: 100%;" (click)="$event.stopPropagation()"
-          (keydown)="$event.stopPropagation()">
+        <div class="list" style="border-top: 1px solid #86c1bb;" (click)="$event.stopPropagation()"
+          (keydown)="$event.stopPropagation()" [style.width.px]="menuwidth">
           <mat-form-field appearance="outline" class="col-lg-12 hover">
-            <mat-select class="textcolor" [value]="user.CurrentLocation" name="location" disableOptionCentering>
+            <mat-select class="textcolor" [value]="user.CurrentLocation" name="location" disableOptionCentering
+            panelClass="report-select-option-panel">
               <mat-option *ngFor="let location of locationsInfo" [value]="location.LocationId"
                 (click)="changeLocation(location.LocationId)"> {{ location.LocationName }}
               </mat-option>
