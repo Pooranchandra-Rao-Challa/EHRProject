@@ -219,6 +219,9 @@ export class AuthenticationService {
           this.router.navigate(['/account/reset-password']);
         }
         // this.IsPatient && this.HasPatientRelations
+        else if(this.isPatient && this.hasPatientRelations) {
+          this.router.navigate(['/account/patient-relations']);
+        }
         else if (this.isPatient || this.isRepresentative)
           this.router.navigate(['patient/dashboard']);
         else {
@@ -324,6 +327,10 @@ export class AuthenticationService {
 
   get hasSecureQuestion(): boolean {
     return this.userValue.HasSecureQuestion;
+  }
+
+  get hasPatientRelations(): boolean {
+    return this.userValue.HasPatientRelations;
   }
 
   get resetToken(): string {
