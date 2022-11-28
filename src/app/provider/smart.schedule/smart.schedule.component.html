@@ -63,7 +63,7 @@
                     <div class="col-md-2 col-2 appointment-note">Notes</div>
                     <div class="col-md-1 col-1">Encounter</div>
                   </div>
-                  <div class="noappintment" *ngIf="Appointments!= null && Appointments.length == 0">
+                  <div class="noappintment" *ngIf="!hasActiveAppointments">
                     You don't have any appointments for today
                   </div>
 
@@ -134,7 +134,7 @@
                     <div class="col-md-2 appointment-note">Notes</div>
                     <div class="col-md-1">Encounter</div>
                   </div>
-                  <div class="noappintment" *ngIf="Appointments!= null && Appointments.length == 0">
+                  <div class="noappintment" *ngIf="!hasFinishedAppointments">
                     You don't have any appointments for today
                   </div>
                   <div class="row text-center table-body" *ngFor="let appointment of Appointments" [ngStyle]="{display:appointment.IsPast?'inline-flux':'none'}">

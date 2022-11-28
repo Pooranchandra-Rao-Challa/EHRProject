@@ -1017,6 +1017,17 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "PatientRelationInfo";
   }
 
+  get _resetPatientPasswordURL()
+  {
+    return this._baseUrl + "ResetPatientPassword";
+  }
+
+  get _updateResetPasswordURL()
+  {
+    return this._baseUrl + "UpdateResetPassword";
+  }
+
+
 
   constructor(public http: HttpClient) {
     super();

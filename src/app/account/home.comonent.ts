@@ -20,6 +20,11 @@ export class HomeComponent implements OnInit {
     }
 
   ngOnInit() {
+    let message1 = localStorage.getItem("message")
+    localStorage.removeItem("message");
+    if(message1 != null && message1 !=''){
+      this.alertMessage.displayErrorDailog(message1);
+    }
     this.activatedRoute.queryParams.subscribe(params => {
       const message = params['message'];
       if(message != null && message !=''){

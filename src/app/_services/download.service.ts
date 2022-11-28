@@ -146,7 +146,6 @@ export class DownloadService {
       .post(endpointUrl, reqObj, { observe: "response", responseType: "text" })
       .subscribe(
         (resp) => {
-          console.log(resp);
           const data = resp.body;
           const blob = new Blob([data], {
             type: resp.headers.get("content-type"),

@@ -36,6 +36,8 @@ export interface User {
   HasSecureQuestion?: boolean;
   ResetToken?: string;
   HasPatientRelations?: boolean;
+  PatientActive?: boolean;
+  RepresentativeActive?: boolean;
 }
 export class UserLocations {
   LocationId: string;

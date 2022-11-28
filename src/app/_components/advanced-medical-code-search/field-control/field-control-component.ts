@@ -189,8 +189,6 @@ export class FieldControlComponent extends _SearchInputMixiBase
   }
 
   writeValue(obj: FormFieldValue): void {
-    console.log('write value', obj);
-
     this.value = obj;
   }
   registerOnChange(fn: any): void {
@@ -271,10 +269,8 @@ export class FieldControlComponent extends _SearchInputMixiBase
       Code :(obj.option.value as MedicalCode ).Code,
       Description: (obj.option.value as MedicalCode ).Description,
     }
-    console.log(this.value);
 
     this.onChange(ffv);
-    console.log(this.value);
     this.optionValueChanged.emit(obj.option.value as MedicalCode)
   }
 

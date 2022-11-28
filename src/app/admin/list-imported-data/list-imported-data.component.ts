@@ -49,7 +49,6 @@ export class ListImportedDataComponent implements OnInit {
   }
 
   getDownloadUploadDataReport(ImportId) {
-    console.log(ImportId);
 
     let req = {
       ImportId: ImportId

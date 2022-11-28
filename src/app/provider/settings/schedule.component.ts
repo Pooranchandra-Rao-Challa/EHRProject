@@ -76,9 +76,9 @@ export class ScheduleComponent implements OnInit {
   // get display Location Details
   getLocationsList() {
     this.ClinicLocations = [];
-    this.settingsService.PracticeLocations(null, this.user.ClinicId).subscribe(resp => {       /* this.user.ProviderId -- reqparam in place of null */
-      if (resp.IsSuccess) {
-        this.ClinicLocations = resp.ListResult;
+    this.settingsService.ProviderPracticeLocations({"ProviderId":this.user.ProviderId}).subscribe(data => {
+      if (data.IsSuccess) {
+        this.ClinicLocations = data.ListResult;
       }
     });
   }
@@ -465,8 +465,6 @@ export class ScheduleComponent implements OnInit {
       if (resp.IsSuccess) {
         if (resp.ListResult.length == 1)
           this.generalSchedule = resp.ListResult[0];
-          console.log(this.generalSchedule);
-
       }
     })
   }
@@ -480,8 +478,6 @@ export class ScheduleComponent implements OnInit {
       concurrentapps: this.generalSchedule.ConcurrentApps,
       reschedulepatient: this.generalSchedule.PatientRescedule
     }
-    console.log(reqparams);
-
     this.settingsService.UpdateReschedule(reqparams).subscribe(resp => {
       if (resp.IsSuccess) {
         this.alertmsg.displayMessageDailog(resp.EndUserMessage);

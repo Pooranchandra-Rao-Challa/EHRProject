@@ -11,6 +11,7 @@ import { User, ResponseData, ViewModel, AdminViewModal } from '../_models';
 import { ERROR_CODES } from 'src/app/_alerts/alertMessage'
 import { getLogger } from "../logger.config";
 import { PatientRelationInfo } from '../_models/_provider/patientRelationship';
+import { TransitionCheckState } from '@angular/material/checkbox';
 const logModel = getLogger("ehr");
 const logger = logModel.getChildCategory("AuthenticationService");
 @Injectable({ providedIn: 'root' })
@@ -146,7 +147,10 @@ export class AuthenticationService {
             this.updateViewModel();
             this.startRefreshTokenTimer();
             if (this.isProvider) {
-              if (!this.isProviderVerfied) {
+              if(!this.isProviderActive){
+                this.logout(ERROR_CODES["EL008"])
+              }
+              else if (!this.isProviderVerfied) {
                 this.logout(ERROR_CODES["EL006"])
               }
               else if (!this.isProviderTrialPeriodClosed) {
@@ -185,10 +189,15 @@ export class AuthenticationService {
             this.startRefreshTokenTimer();
             // will have to show msg when the user(patient) is not login for first time
             if (this.isPatient) {
-              this.router.navigate(
-                ['/patient/dashboard'],
-                { queryParams: { name: 'dashboard' } }
-              );
+              if(!this.isPatientActive){
+                this.logout(ERROR_CODES["EL014"])
+              }else{
+                this.router.navigate(
+                  ['/patient/dashboard'],
+                  { queryParams: { name: 'dashboard' } }
+                );
+              }
+
             }
           } else {
             this.logout(ERROR_CODES["EL005"]);
@@ -211,16 +220,18 @@ export class AuthenticationService {
         localStorage.setItem('user', JSON.stringify(resp.Result as User));
         this.startRefreshTokenTimer();
         this.SetViewParam("View", "dashboard")
-
         if(this.isPatient && !this.hasSecureQuestion && this.isFirstTimeLogin){
           this.router.navigate(['/account/security-question']);
         }
         else if(this.isPatient && this.hasSecureQuestion && this.isFirstTimeLogin) {
           this.router.navigate(['/account/reset-password']);
         }
-        // this.IsPatient && this.HasPatientRelations
-        else if(this.isPatient && this.hasPatientRelations) {
+        else if(this.isPatient && this.hasPatientRelations && this.isPatientActive) {
           this.router.navigate(['/account/patient-relations']);
+        }else if(!this.isPatientActive){
+          this.logout(ERROR_CODES["EL014"])
+        }else if(!this.isRepresentaiveActive){
+          this.logout(ERROR_CODES["EL015"])
         }
         else if (this.isPatient || this.isRepresentative)
           this.router.navigate(['patient/dashboard']);
@@ -259,14 +270,16 @@ export class AuthenticationService {
     localStorage.removeItem('user');
     this.revokeToken();
     this.stopRefreshTokenTimer();
-    if (error == '')
+    if(error != '' && error != null)
+      localStorage.setItem('message',error);
+    //if (error == '')
       this.router.navigate(['/account/home']);
-    else {
-      this.router.navigate(
-        ['/account/home'],
-        { queryParams: { message: error } }
-      );
-    }
+    // else {
+    //   this.router.navigate(
+    //     ['/account/home'],
+    //     { queryParams: { message: error } }
+    //   );
+    // }
   }
 
   isLoggedIn() {
@@ -284,7 +297,7 @@ export class AuthenticationService {
     localStorage.setItem('user', JSON.stringify(user));
   }
 
-  UpdatePatientUser(patientRelation: PatientRelationInfo)
+  UpdatePatientUser(patientRelation: PatientRelationInfo):boolean
   {
     this.userValue.PatientId =  patientRelation.PatientId;
     this.userValue.FirstName = patientRelation.FirstName;
@@ -295,11 +308,14 @@ export class AuthenticationService {
     this.userValue.UrgentMessages = patientRelation.UrgentMessages;
     this.userValue.UnReadMails = patientRelation.UnreadMessages;
     localStorage.setItem('user', JSON.stringify(this.userValue));
+    return true;
   }
   get isProvider(): boolean {
     if (this.userValue == undefined || this.userValue == null) return false;
     return this.userValue.Role.toLowerCase() == "provider"
   }
+
+
 
   get isAdmin(): boolean {
     if (this.userValue == undefined || this.userValue == null) return false;
@@ -322,38 +338,57 @@ export class AuthenticationService {
   }
 
   get isFirstTimeLogin(): boolean {
+    if (this.userValue == undefined || this.userValue == null) return false;
     return this.userValue.IsFirstTimeLogin;
   }
 
   get hasSecureQuestion(): boolean {
+    if (this.userValue == undefined || this.userValue == null) return false;
     return this.userValue.HasSecureQuestion;
   }
 
   get hasPatientRelations(): boolean {
+    if (this.userValue == undefined || this.userValue == null) return false;
     return this.userValue.HasPatientRelations;
   }
 
   get resetToken(): string {
+    if (this.userValue == undefined || this.userValue == null) return "";
     return this.userValue.ResetToken;
   }
 
   get isProviderActive(): boolean {
+    if (this.userValue == undefined || this.userValue == null) return false;
     return this.userValue.ProviderActive;
   }
 
   get isUserLocked(): boolean {
+    if (this.userValue == undefined || this.userValue == null) return false;
     return this.userValue.UserLocked;
   }
 
   get isAdminActive(): boolean {
+    if (this.userValue == undefined || this.userValue == null) return false;
     return this.userValue.AdminActive;
   }
 
+  get isPatientActive():boolean{
+    if (this.userValue == undefined || this.userValue == null) return false;
+    return this.userValue.PatientActive;
+  }
+
+  get isRepresentaiveActive():boolean{
+    if (this.userValue == undefined || this.userValue == null) return false;
+    return this.userValue.RepresentativeActive;
+  }
+
   get isProviderInTrialPeriod(): boolean {
+    if (this.userValue == undefined || this.userValue == null) return false;
     return this.userValue.TrialDaysLeft > 0;
   }
 
   get isProviderTrialPeriodClosed(): boolean {
+    if (this.userValue == undefined || this.userValue == null) return false;
     return this.userValue.TrialDaysLeft == null;
   }
 

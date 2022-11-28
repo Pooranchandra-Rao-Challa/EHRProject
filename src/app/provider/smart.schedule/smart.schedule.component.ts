@@ -66,7 +66,9 @@ export class SmartScheduleComponent implements OnInit {
   @ViewChild('panel2',{static:true}) panel2: MatExpansionPanel;
 
   togglePanel: number = 0;
-  togglePanel2: number = 0;
+  togglePanel2: number = 0
+  hasActiveAppointments: boolean = false;
+  hasFinishedAppointments:boolean = false;
 
 
   constructor(private fb: FormBuilder,
@@ -248,6 +250,9 @@ export class SmartScheduleComponent implements OnInit {
       if (resp.IsSuccess) {
         this.Appointments = resp.ListResult as ScheduledAppointment[];
         this.NoofAppointment = this.Appointments.length;
+        this.hasActiveAppointments = this.Appointments.filter(fn => fn.IsCurrent).length > 0
+        this.hasFinishedAppointments = this.Appointments.filter(fn => fn.IsPast).length > 0
+
 
 
 

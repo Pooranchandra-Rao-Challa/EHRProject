@@ -105,7 +105,6 @@ export class PatientPortalAccountComponent {
   }
 
   onPatientSelected(selected) {
-    console.log(selected);
     var reqParams: PatientRelationShip = {};
     reqParams.RelationFirstName = selected.option.value.FirstName;
     reqParams.RelationLastName = selected.option.value.FirstName;

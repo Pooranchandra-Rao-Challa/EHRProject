@@ -53,9 +53,9 @@ export class AppointmentComponent {
 
 
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string) {
-    if(!this.generalSchedule.PatientRescedule){
-      this.alertmsg.displayMessageDailog(ERROR_CODES["M3D001"]);
-    }else{
+    if (!this.generalSchedule.PatientRescedule) {
+      this.alertmsg.displayMessageDailog(ERROR_CODES["E3A002"]);
+    } else {
       const ref = this.overlayService.open(content, null);
 
       ref.afterClosed$.subscribe(res => {
@@ -143,10 +143,7 @@ export class AppointmentComponent {
       }
     })
   }
-  // reschedule(item) {
-  //   this.RequestAppoinments = item;
-  //   this.RequestAppoinments.LocationId = item.LocationId
-  // }
+
   getLocations() {
     var req = {
       "ClinicId": this.user.ClinicId,
@@ -166,19 +163,18 @@ export class AppointmentComponent {
   }
 
   CancelAppoinments(Appt) {
-    var startTime = new Date(Appt.StartAt);
-    var endTime = new Date(startTime.getTime() + (this.generalSchedule.RescheduleTime * 60 * 60 * 1000));
-    var todayDate = new Date();
-    if(this.generalSchedule.PatientRescedule){
-      if(todayDate < endTime){
+    if (!this.generalSchedule.PatientRescedule) {
+      this.alertmsg.displayMessageDailog(ERROR_CODES["E3A002"]);
+    } else {
+      var startTime = new Date(Appt.StartAt);
+      var todayDate = new Date();
+      var diffInTime = (startTime.getTime() - todayDate.getTime())/(1000 * 3600)
+      if (diffInTime > 0 && diffInTime <= this.generalSchedule.RescheduleTime ) {
         this.alertmsg.displayMessageDailog(ERROR_CODES["E3A002"]);
       }
       else {
         this.confirmCancelAppointment(Appt.AppointmentId);
       }
-    }
-    else {
-      this.confirmCancelAppointment(Appt.AppointmentId);
     }
   }
 

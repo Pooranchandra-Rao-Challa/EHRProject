@@ -20,7 +20,7 @@
         <p>Select a Patient Portal:</p>
         <mat-form-field appearance="outline" class="col-12">
           <mat-select disableOptionCentering [(value)]="defaultSelectedValue">
-            <mat-option disabled="null" *ngFor="let relation of patientRelationShipInfo" [value]="relation.PatientId" (click)="patientRelationInfo(relation)">
+            <mat-option  *ngFor="let relation of patientRelationShipInfo" [value]="relation.PatientId" (click)="patientRelationInfo(relation)">
               {{relation.FirstName + ' ' + relation.LastName}}
             </mat-option>
           </mat-select>

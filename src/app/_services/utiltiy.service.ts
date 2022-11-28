@@ -87,4 +87,9 @@ export class UtilityService extends APIEndPoint {
   ClinicsForAdmin(){
     return this._ProcessGetRequest<any>(this._clinicsForAdminUrl);
   }
+
+  UpdateResetPassword(reqparams: any){
+    return this._ProcessPostRequest<any>(this._updateResetPasswordURL,reqparams);
+  }
+
 }

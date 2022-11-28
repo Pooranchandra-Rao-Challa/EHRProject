@@ -1,8 +1,8 @@
 import { AdminService } from './../../_services/admin.service';
 import { NotifyProviderHeaderService, ProviderLocationUpdateNotifier } from './../provider.layout/view.notification.service';
 import { NotifyMessageService } from 'src/app/_navigations/provider.layout/view.notification.service';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { Component, OnInit, Output, EventEmitter, TemplateRef,AfterViewInit } from '@angular/core';
+import { ActivatedRoute,  Router } from '@angular/router';
+import { Component, OnInit, Output, EventEmitter, TemplateRef,AfterViewInit,ChangeDetectorRef  } from '@angular/core';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { Actions, NewUser, User, UserLocations, ViewModel } from '../../_models';
 import { ViewChangeService } from '../provider.layout/view.notification.service';
@@ -43,6 +43,7 @@ export class ProviderNavbarComponent implements OnInit,AfterViewInit {
     private notifyMessage: NotifyMessageService,
     private notifyProviderHeader: NotifyProviderHeaderService,
     private adminservice: AdminService,
+    private chdetref :ChangeDetectorRef,
     private uplodateLocations: ProviderLocationUpdateNotifier) {
     // config.placement = 'bottom-right';
     this.user = authenticationService.userValue;
@@ -86,7 +87,7 @@ export class ProviderNavbarComponent implements OnInit,AfterViewInit {
   }
   ngAfterViewInit(): void {
     this.menuwidth = (document.getElementById('UserDropdown').clientWidth+8);
-
+    this.chdetref.detectChanges();
   }
   changeLocation(locationId) {
     this.user.CurrentLocation = locationId;

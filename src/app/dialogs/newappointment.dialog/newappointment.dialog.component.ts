@@ -190,6 +190,11 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
 
   onProviderChangeFromAppointmentForm() {
     this.SelectedProviderId = this.PatientAppointment.ProviderId
+    this.smartSchedulerService.ProviderPracticeLocations({"ProviderId":this.SelectedProviderId})
+    .subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.Locations = resp.ListResult as UserLocations[];          }
+    });
   }
 
   close() {

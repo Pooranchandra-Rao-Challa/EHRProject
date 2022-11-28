@@ -56,8 +56,6 @@ export class PatientScheduleComponent implements OnInit {
     if (this.SelectedProviderId == null)
       this.SelectedProviderId = this.authService.userValue.ProviderId;
 
-    console.log(this.SelectedProviderId);
-
   }
 
 
@@ -181,7 +179,6 @@ export class PatientScheduleComponent implements OnInit {
       //data.AppointmentsOfPatient = this.AppointmentsOfPatient;
       data.status = action
     }
-    console.log(this.SelectedProviderId);
 
     this.PatientAppointment.PatientId = this.selectedPatient.PatientId;
     this.PatientAppointment.PatientName = this.selectedPatient.Name;
@@ -205,8 +202,6 @@ export class PatientScheduleComponent implements OnInit {
   }
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
     data?: any, action?: Actions, status: string = "") {
-      console.log(action);
-
     let dialogData: any;
     if (content === this.appointmentDialogComponent && action == Actions.new) {
       dialogData = this.PatientAppointmentInfoFromSearch(data, action);

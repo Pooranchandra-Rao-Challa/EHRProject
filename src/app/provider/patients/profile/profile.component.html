@@ -3,8 +3,8 @@
     <div class="d-flex justify-content-end flex-sm-row flex-column" style="float: right;
     padding-right: unset;">
       <!-- Button trigger modal -->
-      <div class="p-2"><button type="button" class="btn btn-lg btn-styles" data-bs-toggle="modal"
-          data-bs-target="#ResetPwdModal">Reset Password</button></div>
+      <div class="p-2"><button type="button" class="btn btn-lg btn-styles" (click)="resetPassword()"
+          >Reset Password</button></div>
       <div class="p-2"><button type="button" class="btn btn-lg btn-styles" data-bs-toggle="modal"
           data-bs-target="#noteModal">Notes</button></div>
       <div class="p-2" style="padding-right: unset !important;"><button type="button"
@@ -632,7 +632,8 @@
               </div> -->
               <mat-form-field appearance="outline" class="col-lg-6 col-12">
                 <input matInput #searchpatient class="form-control search-control" placeholder="Search Patient"
-                  type="text" id="searchpatient" name="searchpatient" [matAutocomplete]="serachpatient" />
+                  type="text" id="searchpatient" name="searchpatient" [matAutocomplete]="serachpatient"
+                  [(ngModel)]="searchRelationPatient" />
                 <mat-autocomplete [displayWith]="displayWithPatientSearch" #serachpatient="matAutocomplete"
                   (optionSelected)="onPatientSelected($event)">
                   <mat-option [hidden]="displayMessage == false" [disabled]="true" class="text-wrap lh-1 fs-6">
@@ -640,7 +641,7 @@
                   </mat-option>
                   <mat-option *ngIf="isLoading">Loading ...</mat-option>
                   <mat-option *ngFor="let option of filterPatientOptions | async" [value]="option"
-                    [disabled]="option.Name == currentPatient.FirstName + ' ' + currentPatient.LastName ? 'disabled' : null"
+                    [disabled]="option.Name == selectedPatient.FirstName + ' ' + selectedPatient.LastName ? 'disabled' : null"
                     class="patient-serach-option">
                     {{option.Name}}
                   </mat-option>
@@ -813,7 +814,7 @@
             <div class="row  mx-2 mb-3">
               <mat-form-field class="col-md-6 col-12" appearance="outline">
                 <input matInput placeholder="Search Provider" [matAutocomplete]="auto" [formControl]="myControl"
-                  class="form-control search-control">
+                  class="form-control search-control" [(ngModel)]="careTeamSelectedMember">
                 <mat-autocomplete #auto="matAutocomplete" auto>
                   <mat-option *ngFor="let item of filteredProviderOptions | async" [value]="item.FullName"
                     (click)="getCareTeamDetails(item.ProviderId)">
@@ -886,18 +887,20 @@
       </div>
       <div class="modal-body">
         <div class="row my-3">
-          <div class="col-lg-12 col-md-4 col-sm-4">
-            <label for="Username" class="form-label label-design">Username</label>
-            <input class="input-group form-control" placeholder="Username" type="text" id="Username">
+          <div class="col-lg-12 col-md-4 col-sm-4" style="display: flex; align-items: center;">
+            <label for="Username" class="form-label label-design" style="margin-right: 10px;">Username</label>
+            <!-- <input class="input-group form-control" placeholder="Username" type="text" id="Username"> -->
+            <input class="input-group form-control pwd-cursor  my-3" [placeholder]="patientMyProfile.username" type="text" id="Username">
           </div>
-          <div class="col-lg-12 col-md-4 col-sm-4 my-3">
+          <!-- <div class="col-lg-12 col-md-4 col-sm-4 my-3">
             <input class="input-group form-control pwd-cursor  my-3" placeholder="dsfsffd" type="text" id="Username">
-          </div>
+          </div> -->
         </div>
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-lg btn-green" data-bs-toggle="modal" data-bs-target="#ResetModal">Reset
+        <button type="button" class="btn btn-lg btn-green"
+        (click)="resetPassword()">Reset
           Password</button>
         <button type="button" class="btn btn-lg btn-green" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
       </div>

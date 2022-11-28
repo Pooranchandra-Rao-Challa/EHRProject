@@ -34,8 +34,6 @@ export class FormContainerComponent implements OnInit {
   // _fvalue: FormFieldValue
   // @Input()
   // set Value(fvalue: FormFieldValue) {
-  //   console.log(this._fvalue);
-
   //   this._fvalue = fvalue;
   // }
   // get Value() {
@@ -54,9 +52,7 @@ export class FormContainerComponent implements OnInit {
   ngOnInit(): void {}
 
   optionValueChanged(data: MedicalCode){
-    console.log(data);
-
-    this.optionChanged.emit(data);
+     this.optionChanged.emit(data);
   }
 }
 

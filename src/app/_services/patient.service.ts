@@ -401,4 +401,10 @@ export class PatientService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._patientRelationInfoURL,reqparams);
   }
 
+  ResetPatientPassword(reqparams: any){
+    return this._ProcessPostRequest<any>(this._resetPatientPasswordURL,reqparams);
+  }
+
+
+
 }

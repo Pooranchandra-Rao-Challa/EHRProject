@@ -341,8 +341,6 @@ export class TimeMaskDirective implements OnInit, ControlValueAccessor, Validato
 
   /** Implementation for ControlValueAccessor interface */
   writeValue(value: Date): void {
-    console.log(value);
-
     let inputvalue = value;
     if (value && !(value instanceof Date)) {
       let regexp1 = new RegExp('^(0?[1-9]|1[0-2]):[0-5][0-9]?([AaPp][Mm])?')
@@ -426,8 +424,6 @@ export class TimeMaskDirective implements OnInit, ControlValueAccessor, Validato
 
   /** build a time in 00:00 AMformat */
   private _dateToStringTime(value: Date) {
-    console.log(value);
-
     if('Invalid Date'== value+'') return 'hh:mm XM';
     if (value && !(value instanceof Date)) return 'hh:mm XM';
     const [timeComponents, meridianComponent] = value.toLocaleTimeString().toUpperCase().split(' ');

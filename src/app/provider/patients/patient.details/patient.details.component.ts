@@ -288,9 +288,6 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
                 this.viewModel.PatientView == '')
                 this.viewModel.PatientView = 'Chart'
               this.chartSubject.next(this.viewModel.PatientView);
-
-              console.log(this.viewModel.PatientView);
-              console.log(this.patient);
               flag = true;
             }
             this.breadcrumbs.push(pb);

@@ -77,10 +77,6 @@ export class UserDialogComponent implements OnInit {
       LoginProviderId: this.user.ProviderId,
       ClinicId: this.user.ClinicId
     }
-
-    console.log(this.userQuery);
-
-
     this.getUserDataforEdit();
     this.loadFormDefaults();
     this.getScreenSize();
@@ -90,7 +86,6 @@ export class UserDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.PhotoValidatorEvent.subscribe((p: PhotoFileProperties) => {
-      console.log(p);
       if (this.fileTypes.indexOf(p.FileExtension) > 0 && p.Size < 1024 * 1024
         && p.Width <= 300 && p.Height <= 300) {
           this.uploadFile(p.File);

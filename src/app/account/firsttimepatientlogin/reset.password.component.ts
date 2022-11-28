@@ -30,8 +30,13 @@ export class ResetPassword implements OnInit {
     this.firstTimeSecurityQuestion.ResetToken = this.authenticationService.userValue.ResetToken;
     this.patientService.FirstTimeResetPassword(this.firstTimeSecurityQuestion).subscribe((resp) => {
       if (resp.IsSuccess) {
-        this.router.navigate(['patient/dashboard']);
-        this.alertmsg.displayMessageDailog(ERROR_CODES["M3RP001"]);
+        if(!this.authenticationService.userValue.HasPatientRelations){
+          this.router.navigate(['patient/dashboard']);
+          this.alertmsg.displayMessageDailog(ERROR_CODES["M3RP001"]);
+        }else{
+          this.router.navigate(['/account/patient-relations']);
+        }
+
       }
       else {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E3RP001"]);

@@ -231,7 +231,6 @@ export class PatientDatasource implements DataSource<ProviderPatient>{
     this.queryParams["PageSize"] = pageSize;
     this.queryParams["Filter"] = filter;
     this.loadingSubject.next(true);
-    console.log(new Date());
 
     this.patientService.FilteredPatientsOfProvider(this.queryParams).pipe(
       catchError(() => of([])),

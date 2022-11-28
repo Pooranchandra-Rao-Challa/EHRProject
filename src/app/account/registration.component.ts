@@ -348,8 +348,6 @@ export class RegistrationComponent implements OnInit {
     }
     this.invokedRegistration = true;
     this.accountservice.RegisterNewProvider(reqparams).subscribe(resp => {
-      console.log(resp);
-
       if (resp.IsSuccess) {
         this.alertWithSuccess();
         this.router.navigate(['/account/home']);

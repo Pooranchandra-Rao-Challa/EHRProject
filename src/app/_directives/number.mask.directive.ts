@@ -209,7 +209,6 @@ export class NunberMaskDirective implements ControlValueAccessor {
 //     //in the following case, you are typing in the middle
 //     if(preInputValue.length >= start){
 //       //change cursor according to special chars.
-//       // console.log(start+removedD);
 //       if(removedD == '('){
 //         start = start +1;
 //         end = end +1;

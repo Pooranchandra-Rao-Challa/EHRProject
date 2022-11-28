@@ -109,8 +109,7 @@ export class InsuranceComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this._filterProcedure();
-    // this.events();
+
     this.getPatientDetails();
     this.getSourceOfPaymentTypologyCodesDD();
     this.InsuranceCompanyPlanList();
@@ -212,6 +211,12 @@ export class InsuranceComponent implements OnInit {
     this.btnstate = event;
 
   }
+  resetTheInsurancePlansContentScrollPosition(){
+    let aa = document.getElementsByClassName("insurancePlansContent");
+    if(aa.length == 1){
+      aa[0].scrollTop = 0;
+    }
+  }
   primaryplus(item) {
     this.plusvalue = item;
     this.rowClicked = -1;
@@ -219,15 +224,18 @@ export class InsuranceComponent implements OnInit {
     this.isValid = false;
     this.cancel2 = false;
     this.cancel1 = false;
+    this.resetTheInsurancePlansContentScrollPosition()
     this.InsuranceCompanyPlanList();
   }
   secondaryplus(item) {
+
     this.plusvalue = item;
     this.rowClicked = -1;
     this.data = true;
     this.isValid = false;
     this.cancel2 = false;
     this.cancel1 = false;
+    this.resetTheInsurancePlansContentScrollPosition();
     this.InsuranceCompanyPlanList();
   }
   Selected() {

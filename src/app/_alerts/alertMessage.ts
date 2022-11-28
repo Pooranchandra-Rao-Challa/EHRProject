@@ -519,12 +519,14 @@ export const ERROR_CODES: { [key: string]: string } = {
   'EL005': 'The login to provider account is failed.',
   'EL006': 'Email is not verified, if you haven\'t received Email, please click on the \'Resend Email Verification\' in login form.',
   'EL007': 'Admin account is not set up, raise the request for change password',
-  'EL008': 'Provider account is not active',
+  'EL008': 'Provider is not active, contact administrator',
   'EL009': 'Provider user account is locked',
   'EL010': 'Admin user account is locked',
   'EL011': 'Admin account is not active',
   'EL012': 'Provider trial period is closed please do subscribe for accessing application.',
   'EL013': 'Only one user can login at a time',
+  'EL014': 'Patient is not active, contact provider/administrator',
+  'EL015': 'Representative is not active, contact provider/administrator',
 
   //Education Material Message
   'M2JPE001': 'Education Material added successfully',
@@ -627,6 +629,9 @@ export const ERROR_CODES: { [key: string]: string } = {
   'E1UDIE001': 'Uploding encounters data error',
 
   'M3D001' :'Contact your provider for scheduling, rescheduling and cancelling an appointment',
+
+  'M2CP0013':'Care team member deleted successfully',
+  'E2CP0012':'Care team member not deleted',
 };
 
 

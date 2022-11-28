@@ -1,3 +1,4 @@
+import { PatientPortalUser } from 'src/app/_models';
 import { BehaviorSubject } from 'rxjs';
 import { PatientSearch } from './../../../_models/_account/newPatient';
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
@@ -17,6 +18,7 @@ import { Accountservice } from 'src/app/_services/account.service';
 import { PatientUpdateService } from 'src/app/_navigations/provider.layout/view.notification.service';
 import { ComponentType } from '@angular/cdk/portal';
 import { AuthorizedrepresentativeDialogComponent } from 'src/app/dialogs/authorizedrepresentative.dialog/authorizedrepresentative.dialog.component';
+import { ResetPatientPasswordComponent } from 'src/app/dialogs/patient.dialog/reset.password';
 import { OverlayService } from 'src/app/overlay.service';
 import { DatePipe } from '@angular/common';
 
@@ -88,12 +90,13 @@ export class ProfileComponent implements OnInit {
   disableupcomingdates = new Date();
   ActionTypes = Actions;
   authorizedRepresentativeDialogComponent = AuthorizedrepresentativeDialogComponent;
+  resetPatientPassword = ResetPatientPasswordComponent;
   @ViewChild('searchpatient', { static: true }) searchpatient: ElementRef;
   diabledPatientSearch: boolean = false
   displayMessage: boolean = true;
   noRecords: boolean = false;
   isLoading: boolean = false;
-  currentPatient: ProviderPatient;
+  //currentPatient: ProviderPatient;
   selectedPatient: ProviderPatient;
   selectedPatientRelation: PatientRelationShip;
   patientRelationShip: PatientRelationShip;
@@ -108,8 +111,9 @@ export class ProfileComponent implements OnInit {
     private patientUpdateNotifier: PatientUpdateService,
     public overlayService: OverlayService,) {
     this.user = authService.userValue;
-    this.currentPatient = this.authService.viewModel.Patient;
+    //this.currentPatient = this.authService.viewModel.Patient;
     this.selectedPatient = this.authService.viewModel.Patient;
+
     this.patientMyProfile = {} as PatientProfile;
     this.PhonePattern = {
       0: {
@@ -149,7 +153,8 @@ export class ProfileComponent implements OnInit {
     this.getProviderList();
     this.getlanguagesInfo();
     this.getPatientRelations();
-    this.getCareTeamByPatientId(this.currentPatient.PatientId);
+    this.getCareTeamByPatientId(this.selectedPatient.PatientId);
+
   }
 
   _filterPatient(term) {
@@ -183,6 +188,7 @@ export class ProfileComponent implements OnInit {
     }
     this.patientRelationList.push(reqParams);
     this.patientRelationListSubject.next(this.patientRelationList);
+    this.searchRelationPatient = ''
   }
 
   displayWithPatientSearch(value: PatientSearch): string {
@@ -215,6 +221,7 @@ export class ProfileComponent implements OnInit {
       if (resp.IsSuccess) {
         this.patientMyProfile = resp.ListResult[0];
         this.patientMyProfile.Gender = this.patientMyProfile.Gender;
+
       } //else console.log(resp);
 
     });
@@ -245,6 +252,8 @@ export class ProfileComponent implements OnInit {
     return searchData
   }
 
+  careTeamSelectedMember: string = ''
+  searchRelationPatient: string = ''
   getCareTeamDetails(id) {
     let Providers: any = []
     Providers = id;
@@ -258,6 +267,7 @@ export class ProfileComponent implements OnInit {
     this.patientService.CreateCareTeam(reqparams).subscribe(resp => {
       if (resp.IsSuccess) {
         this.getCareTeamByPatientId(patientId);
+        this.careTeamSelectedMember = ''
       }
     });
   }
@@ -303,21 +313,6 @@ export class ProfileComponent implements OnInit {
       }
     })
   }
-
-  // search patient details
-  // SearchDetails() {
-  //   this.patientRelationList = this.GetFilterList.filter((invoice) => this.isMatch(invoice));
-  //   this.deleteSearch = true;
-  // }
-
-  // isMatch(item) {
-  //   if (item instanceof Object) {
-  //     return Object.keys(item).some((k) => this.isMatch(item[k]));
-  //   } else {
-  //     return item == null ? '' : item.toString().indexOf(this.SearchKey) > -1
-  //   }
-  // }
-
   savePatientRelation() {
     let reqParams = {
       "PatientId": this.selectedPatient.PatientId,
@@ -364,6 +359,9 @@ export class ProfileComponent implements OnInit {
     this.patientService.DeleteCareTeamProviderIds(reqparam).subscribe(resp => {
       if (resp.IsSuccess) {
         this.getCareTeamByPatientId(this.PatientDetails.PatientId);
+        this.alertmsg.displayErrorDailog(ERROR_CODES["M2CP0013"]);
+      }else{
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP0012"]);
       }
     })
     // this.CareTeamList.splice(index, 1);
@@ -595,11 +593,23 @@ export class ProfileComponent implements OnInit {
     return flag;
   }
 
+  resetPassword(){
+    let ppu: PatientPortalUser = {PatientHasNoEmail:true};
+    ppu.Username = this.patientMyProfile.username;
+    ppu.PatientName = this.patientMyProfile.FirstName+' '+this.patientMyProfile.LastName;
+    ppu.LocationName = this.authService.userValue.BusinessName;
+    ppu.PatientId = this.patientMyProfile.PatientId;
+    this.patientService.ResetPatientPassword(ppu).subscribe((resp)=>{
+      this.openComponentDialog(this.resetPatientPassword,resp.Result as PatientPortalUser)
+    })
+  }
 
   openComponentDialog(content: any | ComponentType<any> | string,
     dialogData, action: Actions = this.ActionTypes.add) {
     let reqdata: any;
     if (action == Actions.view && content === this.authorizedRepresentativeDialogComponent) {
+      reqdata = dialogData;
+    }else if( content === this.resetPatientPassword){
       reqdata = dialogData;
     }
     const ref = this.overlayService.open(content, reqdata);

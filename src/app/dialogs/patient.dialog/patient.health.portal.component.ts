@@ -84,12 +84,8 @@ export class PatientHealthPortalComponent{
 
   _completePatientAccountProcess(flag: boolean = false) {
     this.utilityService.CompletePatientAccountProcess(this.patientUser).subscribe(resp => {
-      console.log(resp);
       if (resp.IsSuccess) {
-
-
         if (!flag) {
-
           this.doReportProcess = true;
           this.reportInvoked = false;
           this.element = document.createRange().createContextualFragment(resp.Result.Html);

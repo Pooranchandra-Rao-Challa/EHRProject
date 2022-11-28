@@ -146,6 +146,7 @@ import { AddendaAttachDocumentComponent } from 'src/app/dialogs/encounter.dialog
 import { SignAddendaDocumentComponent } from 'src/app/dialogs/encounter.dialog/attenda.document.sign.component'
 import { AddendaReviewDocumentComponent } from 'src/app/dialogs/encounter.dialog/addenda.review.document'
 import { AddendaCommentComponent } from 'src/app/dialogs/encounter.dialog/addenda.comment'
+import { ResetPatientPasswordComponent } from 'src/app/dialogs/patient.dialog/reset.password'
 
 
 //import { AttachmentNopreviewComponent } from 'src/app/_components/attachments/attachment.nopreview.component'
@@ -206,6 +207,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     PatientRelationshipDialogComponent,
     AddendaReviewDocumentComponent,
     AddendaCommentComponent,
+    ResetPatientPasswordComponent,
   ],
   declarations: [
     ProviderNavbarComponent,
@@ -298,7 +300,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     AddendaAttachDocumentComponent,
     SignAddendaDocumentComponent,
     AddendaReviewDocumentComponent,
-    AddendaCommentComponent
+    AddendaCommentComponent,
+    ResetPatientPasswordComponent,
 
   ],
   imports: [
@@ -395,7 +398,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     PraticeAdduserDialogComponent,
     CcdaPreviewDialogComponent,
     LockedComponent,
-    PatientRelationshipDialogComponent
+    PatientRelationshipDialogComponent,
+    ResetPatientPasswordComponent
     ]
 })
 export class ProviderModule {

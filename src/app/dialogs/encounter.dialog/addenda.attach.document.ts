@@ -42,15 +42,12 @@ export class AddendaAttachDocumentComponent implements OnInit {
     authService: AuthenticationService,
     private datePipe: DatePipe) {
     this.requestParams = overlayref.RequestData;
-    this.requestParams.FilterDocType = "0"
-    this.requestParams.FilterDate = "0"
-    console.log(this.requestParams);
-
+    this.requestParams.DocType = "0"
+    this.requestParams.DateFilter = "0"
   }
 
   ngOnInit(): void {
     this.PhotoValidatorEvent.subscribe((p: UploadFileProperties) => {
-      console.log(p);
       if (this.fileTypes.indexOf(p.FileExtension) > 0 && p.Size < 20 * 1024 * 1024) {
         this.uploadFile(p.File);
       } else {
@@ -60,6 +57,14 @@ export class AddendaAttachDocumentComponent implements OnInit {
     this.patientAddendaDocs();
   }
 
+  onDocTypeChange($event){
+    this.requestParams.DocType = $event.value
+    this.patientAddendaDocs();
+  }
+  oFilterChange($event){
+    this.requestParams.DateFilter =  $event.value
+    this.patientAddendaDocs();
+  }
   closePopup() {
     this.overlayref.close();
   }
@@ -72,7 +77,6 @@ export class AddendaAttachDocumentComponent implements OnInit {
       if (resp.IsSuccess) {
         this.uploadingInProgress = false;
         this.addendaDocs = resp.ListResult;
-        console.log(this.addendaDocs);
       } else {
         this.addendaDocs = [];
         this.uploadingInProgress = false;

@@ -2131,8 +2131,6 @@ export class MureportsComponent implements OnInit {
   }
 
   getStage2NumeDenomicount(data: any) {
-    console.log(data);
-
     this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
     this.stage2NumeDenomicount = null;
     this.stage3NumeDenomicount = null;

@@ -11,7 +11,8 @@
     <div class="modal-body padding-unset">
       <div style="display: flex; color:#41b6a6">
         <mat-form-field appearance="outline" class="col-4" style="padding: 0 10px 0;">
-          <mat-select [(ngModel)]="requestParams.FilterDocType" placeholder="" style="color:#41b6a6">
+          <mat-select [(ngModel)]="requestParams.DocType" placeholder="" style="color:#41b6a6"
+          (selectionChange)="onDocTypeChange($event)">
             <mat-option value="0">All types</mat-option>
             <mat-option value="1">Authorization</mat-option>
             <mat-option value="2">Other</mat-option>
@@ -19,7 +20,8 @@
           </mat-select>
         </mat-form-field>
         <mat-form-field appearance="outline" class="col-4" style="padding: 0 10px 0;">
-          <mat-select [(ngModel)]="requestParams.FilterDate" placeholder="">
+          <mat-select [(ngModel)]="requestParams.DateFilter" placeholder=""
+          (selectionChange)="oFilterChange($event)">
             <mat-option value="0">Last six months</mat-option>
             <mat-option value="1">Last one year</mat-option>
             <mat-option value="2">Last 18 months</mat-option>
