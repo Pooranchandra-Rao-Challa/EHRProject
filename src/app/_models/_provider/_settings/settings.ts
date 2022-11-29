@@ -105,11 +105,14 @@ export class ChangePassword{
   Username?: string;
   SecureQuestion?:string;
   Answer?:string;
+  QAnswer?:string;
+  SecurityCode?: string;
 }
 
 export class ChangePasswordResult{
   Valid?:boolean;
   HasQuestion?:boolean;
+
 }
 
 

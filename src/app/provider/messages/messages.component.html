@@ -138,7 +138,8 @@
               <div class="message-bounds">
                 <div class="row email-address">
                   <div class="col-md-6">
-                    From: {{IsInbox || IsUrgent ? currentMessage.PatientName : currentMessage.ProviderName}}
+                    <!-- From: {{IsInbox || IsUrgent ? currentMessage.PatientName : currentMessage.ProviderName}} -->
+                    From: {{currentMessage.PatientName}}
                   </div>
                   <div class="col-md-2">
                   </div>
@@ -148,7 +149,8 @@
                 </div>
                 <div class="row email-address">
                   <div class="col-md-4">
-                    To: {{IsInbox || IsUrgent ? currentMessage.ProviderName : currentMessage.PatientName}}
+                    <!-- To: {{IsInbox || IsUrgent ? currentMessage.ProviderName : currentMessage.PatientName}} -->
+                    To: {{currentMessage.ProviderName}}
                   </div>
                   <div class="col-md-2">
 
@@ -175,15 +177,16 @@
                   <button class="btn  btn-danger btn-msgdanger  Helvetica-sans-serif-medium pull-right" type="button"
                     (click)="DeleteMessages(currentMessage.EmailMessageId)">Delete</button>
                 </div>
+
                 <div class="col-md-6 d-none d-sm-inline-flex"></div>
-                <!-- <div class="col-md-2 col justify-content-start flex-sm-row flex-column">
+                <div class="col-md-2 col justify-content-start flex-sm-row flex-column">
                   <button class="btn btn-green btn-messagesgreen Helvetica-sans-serif-medium pull-right" type="button"
                     (click)="openComponentDialogmessage(MessageDialogComponent,currentMessage,ActionTypes.view,'Reply' )">Reply</button>
                 </div>
                 <div class="col-md-2 col justify-content-end flex-sm-row flex-column">
                   <button class="btn  btn-green btn-messagesgreen  Helvetica-sans-serif-medium pull-right" type="button"
                     (click)="openComponentDialogmessage(MessageDialogComponent,currentMessage,ActionTypes.view,'Forward')">Forward</button>
-                </div> -->
+                </div>
               </div>
             </div>
             <div *ngIf="currentMessage == null" class="mt-lg-5 my-2" style="text-align: center;">No Message Selected

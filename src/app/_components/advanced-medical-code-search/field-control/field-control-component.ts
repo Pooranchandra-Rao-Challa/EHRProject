@@ -264,14 +264,14 @@ export class FieldControlComponent extends _SearchInputMixiBase
 
   onSelected(obj) {
     let ffv: FormFieldValue = {
-      CodeSystem: (obj.option.value as MedicalCode ).Code,
-      SearchTerm: (obj.option.value as MedicalCode ).Description,
-      Code :(obj.option.value as MedicalCode ).Code,
-      Description: (obj.option.value as MedicalCode ).Description,
+      CodeSystem: "", //(obj.option.value as MedicalCode ).Code,
+      SearchTerm: "", //(obj.option.value as MedicalCode ).Description,
+      Code : "",  //(obj.option.value as MedicalCode ).Code,
+      Description: "" //(obj.option.value as MedicalCode ).Description,
     }
-
-    this.onChange(ffv);
     this.optionValueChanged.emit(obj.option.value as MedicalCode)
+    //this.value = ffv;
+    //this.onChange(ffv);
   }
 
   displayWith(medicalCode: any) {

@@ -23,7 +23,7 @@ import { AlertMessage } from 'src/app/_alerts/alertMessage';
 import { LocationSelectService, ViewChangeService,RecordsChangeService } from '../provider.layout/view.notification.service';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
-import { PatientPasswordChangeRequestDialogComponent } from 'src/app/dialogs/patient.login.options/patient.securequestion.dialog'
+import { PatientSecurityQuestionDialogComponent } from 'src/app/dialogs/patient.login.options/patient.securequestion.dialog'
 import { OverlayComponent } from '../../overlay/overlay.component';
 import { OverlayService } from '../../overlay.service'
 import { MessagesService } from 'src/app/_services/messages.service';import { NgxMaskModule } from 'ngx-mask';
@@ -49,7 +49,7 @@ import { NotifyMessageService } from 'src/app/_navigations/provider.layout/view.
     NewmessageDialogComponent,
     FooterComponent,
     ActivityLogComponent,
-    PatientPasswordChangeRequestDialogComponent,
+    PatientSecurityQuestionDialogComponent,
     AttachmentNopreviewComponent,
   ],
   imports: [
@@ -63,7 +63,7 @@ import { NotifyMessageService } from 'src/app/_navigations/provider.layout/view.
     SmartSchedulerService,MessagesService,RecordsChangeService,NotifyMessageService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  entryComponents: [PatientPasswordChangeRequestDialogComponent]
+  entryComponents: [PatientSecurityQuestionDialogComponent]
 })
 export class PatientModule {
 

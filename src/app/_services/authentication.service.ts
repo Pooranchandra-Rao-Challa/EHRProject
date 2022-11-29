@@ -131,8 +131,15 @@ export class AuthenticationService {
     const endpointUrl = this.baseUrl + "ValidatePatientChangePasswordInputs";
     return this.http.post<any>(endpointUrl, creds);
   }
+  ResetPasswordForPatient(creds: any) {
+    const endpointUrl = this.baseUrl + "ResetPasswordForPatient";
+    return this.http.post<any>(endpointUrl, creds);
+  }
 
-
+  PatientSecurityQuestion(userInfo: any){
+    const endpointUrl = this.baseUrl + "PatientSecurityQuestion";
+    return this.http.post<any>(endpointUrl, userInfo);
+  }
 
   SwitchUser(data: { SwitchUserKey: string, SwitchUserEncKey: string, UserIP: string }) {
     if (this.isAdmin) {
@@ -228,9 +235,9 @@ export class AuthenticationService {
         }
         else if(this.isPatient && this.hasPatientRelations && this.isPatientActive) {
           this.router.navigate(['/account/patient-relations']);
-        }else if(!this.isPatientActive){
+        }else if(this.isPatient && !this.isPatientActive){
           this.logout(ERROR_CODES["EL014"])
-        }else if(!this.isRepresentaiveActive){
+        }else if(this.isRepresentative && !this.isRepresentaiveActive){
           this.logout(ERROR_CODES["EL015"])
         }
         else if (this.isPatient || this.isRepresentative)

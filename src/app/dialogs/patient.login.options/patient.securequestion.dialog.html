@@ -10,39 +10,38 @@
     </div>
     <div class="modal-body">
       <div *ngIf="!resultProcessed">
-        <div class="row validation-inputs">
-          <div class="col-lg-4 col-md-4 col-4">
-
-            <label class="control-label input-group-addon required">Username:</label>
+        <div class="row" *ngIf="!validUser" style="text-align:center;">
+          <div class="col-lg-12 col-md-12 col-md-12">
+            <label class="control-label  info-message">Please enter your EHR1 Patient Portal Username and follow the prompts to reset password.</label>
+          </div >
+          <div style="padding: 30px 0px 0px 80px;">
+            <div class="col-lg-12 col-md-12 col-md-12"  style="text-align: left;">
+            <label class="control-label input-group-addon info-message-3">Username:</label>
           </div>
-          <div class="col-lg-8 col-md-8 col-8">
+          <div class="col-lg-12 col-md-12 col-12" style="text-align: left;">
             <mat-form-field class="col-12" class="procedure-form-field" appearance="outline">
               <input matInput class="form-control" placeholder="Username" id="userName" name="userName"
-                [(ngModel)]="userInfo.Username" />
+                [(ngModel)]="userInfo.Username" [disabled]="validUser" />
             </mat-form-field>
+          </div></div>
 
-          </div>
         </div>
-        <div class="row validation-inputs">
-          <div class="col-lg-4 col-md-4 col-4">
-            <label class="control-label input-group-addon required">Secure Questions:</label>
-          </div>
-          <div class="col-lg-8 col-md-8col-8">
 
-            <mat-form-field class=" col-12" appearance="outline">
-              <mat-select placeholder="Select secure question" [(ngModel)]="userInfo.SecureQuestion">
-                <mat-option *ngFor="let question of secureQuestions" [value]="question.key">
-                  {{question.value}}.</mat-option>
-              </mat-select>
-            </mat-form-field>
-
+        <div class="row " *ngIf="validUser" style="padding: 30px 0px 0px 80px;">
+          <div class="col-lg-12 col-md-12 col-12">
+            <label class="control-label info-message-2">Please Answer your security Question to reset
+            your EHR1 patient portal password</label>
           </div>
-        </div>
-        <div class="row validation-inputs">
-          <div class="col-lg-4 col-md-4 col-4">
-            <label class="control-label input-group-addon required">Answer:</label>
+          <div class="col-lg-12 col-md-12 col-12">
+            <label class="control-label input-group-addon info-message-3">Security Question</label>
           </div>
-          <div class="col-lg-8 col-md-8col-8">
+          <div class="col-lg-12 col-md-12 col-12">
+            <label class="control-label input-group-addon">{{userInfo.SecureQuestion}}</label>
+          </div>
+          <div class="col-lg-12 col-md-12 col-12">
+            <label class="control-label input-group-addon info-message-3">Answer:</label>
+          </div>
+          <div class="col-lg-12 col-md-12 col-12">
             <mat-form-field class="col-12" class="procedure-form-field" appearance="outline">
               <input matInput class="form-control" placeholder="Answer" id="Answer" name="Answer"
                 [(ngModel)]="userInfo.Answer" />
@@ -59,14 +58,17 @@
         <div>Security Question is not matched for patient username. Please contact EHR1 Support by</div>
         <div>email at: support@ehr1.zendesk.com or by phone at: (888) 399-5507.</div>
       </div>
+      <div class="row messages" style="padding-left: 80px;" *ngIf="showmessage">
+        <div class="error">Your Answer is incorrect.</div>
+      </div>
       <div *ngIf="resultProcessed && result.Valid">
         <form [formGroup]="resetPassowrdForm">
           <div class="row">
             <div class="form-group">
               <label class="control-label input-group-addon required">Password:</label>
               <mat-form-field class=" col-12" appearance="outline">
-                <input matInput autocomplete="off" class="form-control" formControlName="Password" placeholder="Password"
-                  type="password" pattern="^[a-zA-Z0-9 ]{8,15}$" id="password" type="password">
+                <input matInput autocomplete="off" class="form-control" formControlName="Password"
+                  placeholder="Password" type="password" pattern="^[a-zA-Z0-9@$&*#]{8,15}$" id="password" type="password">
               </mat-form-field>
             </div>
             <div *ngIf="v.Password.touched && v.Password.errors" class=" alert-danger">
@@ -76,9 +78,9 @@
             </div>
             <div class="form-group">
               <label class="control-label input-group-addon required">Confirm Password:</label>
-              <mat-form-field  class=" col-12" appearance="outline">
+              <mat-form-field class=" col-12" appearance="outline">
                 <input matInput autocomplete="off" class="form-control" formControlName="ConfirmPassword"
-                  placeholder="Confirm Password" type="password" pattern="^[a-zA-Z0-9 ]{8,15}$" name="confirm_password"
+                  placeholder="Confirm Password" type="password" pattern="^[a-zA-Z0-9@$&*#]{8,15}$" name="confirm_password"
                   id="confirm_password">
               </mat-form-field>
             </div>
@@ -94,9 +96,16 @@
         </form>
       </div>
     </div>
-    <div class="modal-footer">
-      <button type="button" *ngIf="!resultProcessed" class="btn btn-green" (click)="continue()"
+    <div class="modal-footer" style="align-items: center;margin: auto;">
+      <button type="button" *ngIf="!resultProcessed && validUser" class="btn btn-green" (click)="goback()">
+        Go back
+      </button>
+      <button type="button" *ngIf="!resultProcessed && validUser" class="btn btn-green" (click)="continue()"
         [disabled]="disableContinue()">
+        Reset Password
+      </button>
+      <button type="button" *ngIf="!resultProcessed && !validUser" class="btn btn-green"
+        (click)="continueForSecurityQuestion()" [disabled]="disableContinueForUsername()">
         Continue
       </button>
       <button type="button" *ngIf="resultProcessed && result.Valid" class="btn btn-green" (click)="ResetPassword()"

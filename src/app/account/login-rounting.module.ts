@@ -2,18 +2,18 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LayoutComponent } from './layout.component';
 import { LoginComponent } from './login.component';
-import { RubyAuthenticationFailedComponenet } from './ruby.authentication.failed.component';
 import { RegistrationComponent } from "../account/registration.component";
 import { HomeComponent } from "../account/home.comonent";
 import { PatientLoginComponent } from './Patientlogin.component';
 import { PartnerSignupComponent } from '../patient/partner-signup.component';
 import { CreatePasswordComponent } from './createpassword.component'
 import { ProviderConfirmationComponent } from './provider.confirmation.component'
-import { EmailedUrlsComponent} from 'src/app/account/emailedurls/emailed.url.component'
+import { EmailedUrlsComponent } from 'src/app/account/emailedurls/emailed.url.component'
 import { ChangePasswordComponent } from './change.password.component'
 import { SecurityQuestion } from './firsttimepatientlogin/security.question.component';
 import { ResetPassword } from 'src/app/account/firsttimepatientlogin/reset.password.component';
 import { PatientRelationsComponent } from './firsttimepatientlogin/patient.relations.component';
+import { ResetPatientPasswordComponent } from 'src/app/dialogs/patient.login.options/patient.reset.password.component';
 
 const routes: Routes = [
   {
@@ -31,6 +31,7 @@ const routes: Routes = [
       { path: 'security-question', component: SecurityQuestion },
       { path: 'reset-password', component: ResetPassword },
       { path: 'patient-relations', component: PatientRelationsComponent },
+      { path: 'reset-patient-password', component: ResetPatientPasswordComponent },
     ]
   },
 ]

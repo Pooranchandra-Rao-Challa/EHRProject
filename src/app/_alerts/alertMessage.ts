@@ -527,6 +527,8 @@ export const ERROR_CODES: { [key: string]: string } = {
   'EL013': 'Only one user can login at a time',
   'EL014': 'Patient is not active, contact provider/administrator',
   'EL015': 'Representative is not active, contact provider/administrator',
+  'ML001': 'Password is update can login now.',
+  'EL016': 'Password is not updated, contract provider/administrator',
 
   //Education Material Message
   'M2JPE001': 'Education Material added successfully',

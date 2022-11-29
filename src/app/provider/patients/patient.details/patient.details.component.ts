@@ -114,6 +114,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
           this.loadCQMsNotPerformedComponent();
         this.loadingSubject.next(false)
       });
+
   }
 
   loadDependents() {
@@ -255,6 +256,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
     this.patientService.LatestUpdatedPatientsUrl({
       ProviderId: this.authService.userValue.ProviderId,
       RemovedPatientIds: this.removedPatientIdsInBreadcurmb,
+      PatientId: this.patient != null ? this.patient.PatientId : "",
       EncKey: paramkey
     })
       .subscribe(resp => {

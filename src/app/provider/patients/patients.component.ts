@@ -72,7 +72,8 @@ export class PatientsComponent implements OnInit, AfterViewInit {
   loadBreadcurmData() {
     this.patientService.LatestUpdatedPatientsUrl({
       ProviderId: this.authService.userValue.ProviderId,
-      RemovedPatientIds: this.removedPatientIdsInBreadcurmb
+      RemovedPatientIds: this.removedPatientIdsInBreadcurmb,
+      PatientId : ''
     })
       .subscribe(resp => {
         if (resp.IsSuccess) {

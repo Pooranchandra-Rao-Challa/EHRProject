@@ -194,22 +194,4 @@ export class AppointmentComponent {
       }
     })
   }
-
-  // alertMessage() {
-  //   if (this.generalSchedule.ConcurrentApps == false) {
-  //     this.alertmsg.displayMessageDailog(ERROR_CODES["E3A002"]);
-  //   }
-  // }
-
-  // getGeneralSchedule() {
-  //   let reqparams = {
-  //     clinicId: this.user.ClinicId
-  //   };
-  //   this.settingsService.Generalschedule(reqparams).subscribe((resp) => {
-  //     if (resp.IsSuccess) {
-  //       if (resp.ListResult.length == 1)
-  //         this.generalSchedule = resp.ListResult[0];
-  //     }
-  //   })
-  // }
 }

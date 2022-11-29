@@ -3,7 +3,7 @@ import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dial
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { AuthenticationService } from '../_services/authentication.service';
-import { PatientPasswordChangeRequestDialogComponent } from 'src/app/dialogs/patient.login.options/patient.securequestion.dialog'
+import { PatientSecurityQuestionDialogComponent } from 'src/app/dialogs/patient.login.options/patient.securequestion.dialog'
 import Swal from 'sweetalert2';
 import { PlatformLocation } from '@angular/common';
 import { Accountservice } from '../_services/account.service';
@@ -24,7 +24,7 @@ export class PatientLoginComponent implements OnInit {
   isdefault: boolean = true;
   showPassword: boolean = false;
   userIP: string;
-  SQDialog = PatientPasswordChangeRequestDialogComponent;
+  SQDialog = PatientSecurityQuestionDialogComponent;
   url: string;
   constructor(private fb: FormBuilder,
     private plaformLocation: PlatformLocation,
@@ -75,7 +75,6 @@ export class PatientLoginComponent implements OnInit {
     this.showPassword = false;
   }
   openChangePasswordDialog() {
-
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -131,6 +130,10 @@ export class PatientLoginComponent implements OnInit {
     })
 
   }
+
+ async userNameForResetPassword()  {
+
+ }
   async openResetPassword() {
     const { value: email } = await Swal.fire({
       title: 'Reset Your Password',
