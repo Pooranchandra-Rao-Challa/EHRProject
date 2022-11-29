@@ -55,7 +55,10 @@ export class AddDiagnosesDialogComponent implements OnInit {
   }
 
   cancel() {
-    this.ref.close(null);
+    // this.ref.close(null);
+    this.ref.close({
+      "UpdatedModal": PatientChart.Diagnoses,
+    });
   }
 
   todayStartAt() {

@@ -26,6 +26,7 @@ export interface NewAppointment {
 	AppointmentType? : string;
   ProviderName? : string;
   strAppointmentTime?: string;
+  IsCancelBtn?: boolean;
 };
 
 export interface SearchPatient {
@@ -115,6 +116,7 @@ export class AppointmentDialogInfo{
   TimeSlot?: AvailableTimeSlot;
   NavigationFrom?: string = "Smart Schedule";
   IsInBusinessHours?: boolean;
+  IsCancelBtn?: boolean = false;
 }
 
 export enum Actions {
