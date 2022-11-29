@@ -45,14 +45,11 @@ export class PatientRelationsComponent implements OnInit {
     });
   }
 
-  showNextBtn: boolean = false;
-
   patientRelationInfo(selectedRelation: PatientRelationInfo) {
 
     if (selectedRelation.PatientId != this.authenticationService.userValue.PatientId) {
       this.authenticationService.UpdatePatientUser(selectedRelation);
     }
-    this.showNextBtn = true;
   }
 
 }

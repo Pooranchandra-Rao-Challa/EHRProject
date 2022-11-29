@@ -84,7 +84,7 @@ export class DashboardComponent {
 
 
     if(!this.generalSchedule.PatientRescedule){
-      this.alertmsg.displayMessageDailog(ERROR_CODES["M3D001"]);
+      this.alertmsg.displayMessageDailog(ERROR_CODES["E3A002"]);
     }else{
       const ref = this.overlayService.open(content, null);
       ref.afterClosed$.subscribe(res => {

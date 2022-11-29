@@ -113,8 +113,8 @@ button.timeslot-selected{
   // width: 1045px;
   }
   .findopentime{
-    padding-top: 1px; 
-    padding-bottom:1px; 
+    padding-top: 1px;
+    padding-bottom:1px;
     border-radius: 5px;
     height: 45px;
   }
@@ -137,4 +137,7 @@ button.timeslot-selected{
   }
   .cancelpointer{
     cursor: pointer !important;
+  }
+  .cancelpointer:hover{
+    opacity: 0.7;
   }

@@ -1,3 +1,6 @@
+<div id="pause" class="d-flex align-items-center justify-content-center" *ngIf="customizedspinner">
+  <div id="spinner"></div>
+</div>
 <div class="dashboard-patient wrapper mt-2">
   <div class="content container" id="appointments-wrapper">
     <div class="top-block">
@@ -53,8 +56,10 @@
                 <p class="mt-2 cancelpointer" style="color: red;" *ngIf="item?.ApptStatus != 'Cancelled'"
                   (click)="CancelAppoinments(item)">
                   Cancel</p>
+                  <p class="mt-2 cancelpointer" style="color: orange;"
+                  (click)="ResheduleAppoinment(item)">
+                  Reschedule</p>
               </td>
-
             </tr>
             <tr>
               <td *ngIf="PatientUpcomingAppointmentsList?.length==null || PatientUpcomingAppointmentsList?.length==0"
@@ -64,7 +69,6 @@
             </tr>
           </tbody>
         </table>
-
       </div>
 
       <div *ngIf="isPast" class="table-responsive">

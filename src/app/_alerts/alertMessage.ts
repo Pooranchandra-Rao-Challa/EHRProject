@@ -628,8 +628,6 @@ export const ERROR_CODES: { [key: string]: string } = {
   // Error for Import encounters
   'E1UDIE001': 'Uploding encounters data error',
 
-  'M3D001' :'Contact your provider for scheduling, rescheduling and cancelling an appointment',
-
   'M2CP0013':'Care team member deleted successfully',
   'E2CP0012':'Care team member not deleted',
 };

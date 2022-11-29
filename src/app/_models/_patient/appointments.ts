@@ -17,7 +17,7 @@ RoomId?:string;
 StartAt?:Date;
 Title?: string;
 LocationName?:string;
-LocationId?:String;
+LocationId?:string;
 ClinicId?:string;
 status?:string;
 AppointmentTime?: string;
