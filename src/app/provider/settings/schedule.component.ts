@@ -476,7 +476,8 @@ export class ScheduleComponent implements OnInit {
       ToDate: this.generalSchedule.CalendarTo,
       outsidehours: this.generalSchedule.OutSidePracticeHour,
       concurrentapps: this.generalSchedule.ConcurrentApps,
-      reschedulepatient: this.generalSchedule.PatientRescedule
+      reschedulepatient: this.generalSchedule.PatientRescedule,
+      rescheduleTime: this.generalSchedule.PatientRescedule ? this.generalSchedule.RescheduleTime : 24
     }
     this.settingsService.UpdateReschedule(reqparams).subscribe(resp => {
       if (resp.IsSuccess) {

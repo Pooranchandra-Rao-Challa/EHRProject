@@ -33,6 +33,7 @@ export class ProviderNavbarComponent implements OnInit,AfterViewInit {
   urgentMails: number;
   lockedComponent = LockedComponent;
   menuwidth: number;
+  hasEmergencyAccess: boolean = true;
 
   constructor(private route: ActivatedRoute,
     private router: Router,

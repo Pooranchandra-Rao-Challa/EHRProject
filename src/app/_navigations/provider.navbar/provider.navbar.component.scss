@@ -224,6 +224,15 @@ a.disabled {
   border-bottom: 3px solid #fe8f00;
 }
 
+.nav-item.access {
+  background-color: #BC4641;
+}
+
+.navbar-nav>.nav-item.access:hover {
+  background-color: #BC4641 !important;
+  border-color: #D0021B !important;
+}
+
 .nav-li {
   color: rgba(255, 255, 255, 0.8);
   margin-top: -4px;

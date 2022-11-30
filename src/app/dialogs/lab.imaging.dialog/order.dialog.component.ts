@@ -71,6 +71,10 @@ export class OrderDialogComponent implements OnInit {
       this.labandImaging.Attachments = JSON.parse(this.labandImaging.StrAttachments) as Attachment[];
     else this.labandImaging.Attachments = [];
 
+    if(this.labandImaging.ReceivedAt) {
+      this.labandImaging.ReceivedAt = this.datePipe.transform(this.labandImaging.ReceivedAt, "yyyy-MM-dd");
+    }
+
   }
 
 
