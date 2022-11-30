@@ -718,7 +718,8 @@
           <mat-header-cell *matHeaderCellDef mat-sort-header="Encounter">Encounter
           </mat-header-cell>
           <mat-cell *matCellDef="let procedure">
-            <a [class.encounter]="procedure.Signed" [class.encounter-circle]="!procedure.Signed" (click)="openComponentDialog(encounterDialogComponent,procedure,ActionTypes.view)">
+            <a [class.encounter]="procedure.Signed" [class.encounter-circle]="!procedure.Signed"
+            (click)="openComponentDialog(encounterDialogComponent,procedure,ActionTypes.view)">
               <i class="fa" [class.fa-check]="procedure.Signed" [class.fa-plus]="!procedure.Signed"></i>
             </a>
           </mat-cell>

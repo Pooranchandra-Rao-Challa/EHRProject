@@ -86,7 +86,15 @@ export class ProviderNavbarComponent implements OnInit,AfterViewInit {
     })
   }
   ngAfterViewInit(): void {
-    this.menuwidth = (document.getElementById('UserDropdown').clientWidth+8);
+    this.menuwidth = (document.getElementById('UserDropdown').clientWidth+ (this.user.EmergencyAccess ? 30 : 8));
+    var usernavbar = document.getElementsByClassName("user-nav-bar-normal");
+    if(usernavbar == null || usernavbar.length == 0)
+      usernavbar = document.getElementsByClassName("user-nav-bar-access");
+    if(usernavbar != null && usernavbar.length == 1)
+      if(usernavbar[0].getAttribute("style")==null){
+        usernavbar[0].setAttribute("style","width:"+this.menuwidth+"px");
+      }
+
     this.chdetref.detectChanges();
   }
   changeLocation(locationId) {

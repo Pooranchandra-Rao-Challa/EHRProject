@@ -23,6 +23,30 @@ export interface EncounterData {
 
 }
 
+export const DENTAL_SURFACES = {
+  "surface_buccal_v": "BV",
+  "surface_facial_v": "FV",
+  "surface_mesial": "M",
+  "surface_incisal": "I",
+  "surface_distal": "D",
+  "surface_lingual": "L",
+  "cusp_mesiolingual": "CML",
+  "surface_facial": "F",
+  "surface_buccal": "B",
+  "surface_occlusal": "O",
+  "surface_lingual_v": "LV",
+  "pit_mesiobuccal": "PMB",
+  "pit_mesiolingual": "PML",
+  "pit_distobuccal": "PDB",
+  "pit_distolingual": "PDL",
+  "cusp_mesial": "CM",
+  "cusp_mesiobuccal": "CMB",
+  "cusp_distal":"CD",
+  "cusp_distobuccal":"CDB",
+  "cusp_distolingual":"CDL"
+}
+
+
 
 export class EncounterInfo {
   EncounterId?: string;

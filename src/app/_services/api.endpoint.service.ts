@@ -1027,6 +1027,10 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "UpdateResetPassword";
   }
 
+  get _singAddendaDocsURL()
+  {
+    return this._baseUrl + "SingAddendaDocs";
+  }
 
 
   constructor(public http: HttpClient) {

@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { GroupByPipe } from "../_pipes/group-by.pipe";
 import { FilterPipe } from "../_pipes/search-filter.pipe";
-import { SearchPipe } from '../_pipes/search-filter.pipe';
+import { SearchPipe ,TeethPlacePipe} from '../_pipes/search-filter.pipe';
 import { QuickAppProMaterialModule } from "./material";
 import { TimeMaskDirective } from 'src/app/_directives/input.time.mask.directive'
 import { MouseOverHintDirective } from 'src/app/_directives/mouseover.hint.directive'
@@ -31,6 +31,7 @@ import { PaginatorDirective } from 'src/app/_directives/pagination.directive'
     GroupByPipe,
     FilterPipe,
     SearchPipe,
+    TeethPlacePipe,
     TimeMaskDirective,
     SimplePaginationDirective,
     npiValidatorDirective,
@@ -39,7 +40,7 @@ import { PaginatorDirective } from 'src/app/_directives/pagination.directive'
     NunberMaskDirective,
     AlphaDirective,
   ],
-  declarations: [GroupByPipe, FilterPipe, SearchPipe, TimeMaskDirective,
+  declarations: [GroupByPipe, FilterPipe, SearchPipe, TimeMaskDirective,TeethPlacePipe,
     MouseOverHintDirective,SimplePaginationDirective,npiValidatorDirective,
     ssnValidatorDirective,NunberMaskDirective,AlphaDirective,
     PaginatorDirective,],

@@ -1,6 +1,7 @@
 
+
 import { FormFieldValue } from './../../_components/advanced-medical-code-search/field-control/field-control-component';
-import { AddendaDoc, AddendaComment } from './../../_models/_provider/encounter';
+import { AddendaDoc, AddendaComment, DENTAL_SURFACES } from './../../_models/_provider/encounter';
 
 import { Component, ElementRef, OnInit, TemplateRef, ViewChild, enableProdMode } from '@angular/core';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
@@ -80,6 +81,7 @@ export class EncounterDialogComponent implements OnInit {
   selectedDischargeValue: FormFieldValue = {CodeSystem:'SNOMED',SearchTerm: ''}
   selectedDocumentationValue: FormFieldValue = {CodeSystem:'CPT',SearchTerm:''}
   selectedEncounterCodeValue: FormFieldValue = {CodeSystem:'CPT',SearchTerm:''}
+  dentalSurfaces=DENTAL_SURFACES;
 
 
   vitalDialogResponse: any;
@@ -154,10 +156,22 @@ export class EncounterDialogComponent implements OnInit {
     this.isNavigateFromProductView = this.overlayref.RequestData["From"] == "ProcedureView";
     if (this.overlayref.RequestData["From"] == "ProcedureView"
       && this.overlayref.RequestData.EncounterId == null) {
-      this.encounterInfo.RecommendedProcedures.push(this.overlayref.RequestData as ProceduresInfo);
+        let proceduredata = this.overlayref.RequestData as ProceduresInfo;
+
+
+        if(proceduredata.Status == "Completed"){
+          this.encounterInfo.CompletedProcedures.push(this.overlayref.RequestData as ProceduresInfo);
+        }
+        else{
+          this.encounterInfo.RecommendedProcedures.push(this.overlayref.RequestData as ProceduresInfo);
+        }
+
     }
     this.encounterInfo.EnableNewEncounterData = this.EnableNewEncounterData;
+    console.log(this.encounterInfo.Diagnoses);
+
     this.encounterInfo.Diagnoses.forEach(fn => {
+      fn.PatientEdn = "Medline Plus"
       fn.MedLineUrl = this.medLinePlusUrl({
         Code: fn.Code,
         CodeSystem: fn.CodeSystem
@@ -165,6 +179,7 @@ export class EncounterDialogComponent implements OnInit {
     })
     this.diagnosesInfo.next(this.encounterInfo.Diagnoses);
     this.recommendedProcedures.next(this.encounterInfo.RecommendedProcedures);
+    this.completedProcedures.next(this.encounterInfo.CompletedProcedures);
 
 
     if (this.encounterInfo.Vital.CollectedAt != null)
@@ -237,6 +252,7 @@ export class EncounterDialogComponent implements OnInit {
           this.encounterInfo.PatientName = this.appointment.PatientName;
           this.diagnosesInfo.next(this.encounterInfo.Diagnoses);
           this.recommendedProcedures.next(this.encounterInfo.RecommendedProcedures);
+          this.completedProcedures.next(this.encounterInfo.CompletedProcedures);
 
           if (this.encounterInfo.Vital.CollectedAt != null)
             this.encounterInfo.Vital.CollectedTime = this.datePipe.transform(this.encounterInfo.Vital.CollectedAt, "hh:mm a");
@@ -244,7 +260,13 @@ export class EncounterDialogComponent implements OnInit {
           this.dischargeCode.Code = this.encounterInfo.DischargeStatusCode
           this.dischargeCode.Description = this.encounterInfo.DischargeStatus
           this.dischargeCode.CodeSystem = this.encounterInfo.DischargeStatusCodeSystem;
-
+          this.encounterInfo.Diagnoses.forEach(fn => {
+            fn.PatientEdn = "Medline Plus"
+            fn.MedLineUrl = this.medLinePlusUrl({
+              Code: fn.Code,
+              CodeSystem: fn.CodeSystem
+            })
+          })
 
         } else {
           this.encounterInfo.ProviderId = this.authService.userValue.ProviderId;
@@ -371,6 +393,7 @@ export class EncounterDialogComponent implements OnInit {
     p.CodeSystem = value.CodeSystem
     p.Description = value.Description
     p.CanDelete = false;
+    p.Status = "Completed";
     this.encounterInfo.CompletedProcedures.push(p);
     this.completedProcedures.next(
       this.encounterInfo.CompletedProcedures.filter(fn => fn.CanDelete === false));
@@ -427,7 +450,7 @@ export class EncounterDialogComponent implements OnInit {
 
     let isAdd = this.encounterInfo.EncounterId == null;
 
-
+    console.log(this.encounterInfo);
 
 
     if (this.encounterInfo.Vital.CollectedAt != null)
@@ -607,7 +630,7 @@ export class EncounterDialogComponent implements OnInit {
 
   SignAddendaDoc(addendadoc: AddendaDoc){
     addendadoc.Signed = true;
-    this.patientService.UpdateAddendaDoc(addendadoc).subscribe(resp => {
+    this.patientService.SingAddendaDocs(addendadoc).subscribe(resp => {
       this.encounterAddendaDocs();
     })
   }

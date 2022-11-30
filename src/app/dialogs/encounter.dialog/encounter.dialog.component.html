@@ -753,7 +753,7 @@
                         <p class="text-capitalize-first">Primary DX</p>
                       </mat-header-cell>
                       <mat-cell *matCellDef="let item">
-                        <mat-checkbox class="encounter-checkbox" [(ngModel)]="item.PrimaryDx"></mat-checkbox>
+                        <mat-checkbox [disabled]="item.DiagnosisId != null" class="encounter-checkbox" [(ngModel)]="item.PrimaryDx"></mat-checkbox>
                       </mat-cell>
                     </ng-container>
 
@@ -793,9 +793,6 @@
                 <div class="scrollable-mat-table">
                   <mat-table mat-table [dataSource]="recommendedProcedures"
                     class="pt-2  encounter-diagnosis-remove-sides">
-
-
-
                     <ng-container matColumnDef="CODE">
                       <mat-header-cell *matHeaderCellDef>
                         <p class="text-capitalize-first">CODE</p>
@@ -828,12 +825,14 @@
                         <p class="text-capitalize-first">TOOTH</p>
                       </mat-header-cell>
                       <mat-cell *matCellDef="let item">
-                        <mat-form-field class="teeth-form-field" appearance="outline" [ngStyle]="{'width': '120px'}">
+                        <mat-form-field class="teeth-form-field" appearance="outline" [ngStyle]="{'width': '120px'}"
+                        *ngIf="item.ProcedureId == null">
                           <mat-label class="required">Tooth</mat-label>
                           <mat-select class="select" [(ngModel)]="item.ToothNo" style="width: 100px;">
                             <mat-option *ngFor="let teethno  of teethNumbers" [value]="teethno">{{teethno}}</mat-option>
                           </mat-select>
                         </mat-form-field>
+                        <span *ngIf="item.ProcedureId != null">{{item.ToothNo}}</span>
                       </mat-cell>
                     </ng-container>
 
@@ -847,9 +846,10 @@
                             <input matInput teethSurface style="width: 80px;">
                             <mat-icon pull-right>arrow_drop_down</mat-icon>
                           </mat-form-field> -->
-                        <app-teeth-surface class="pointer" readonly
+                        <app-teeth-surface class="pointer" readonly *ngIf="item.ProcedureId == null"
                           (optionValueChanged)="onToothSurfaceSelectedForRP($event,item,i)"
                           [selectedOption]="item.Place"></app-teeth-surface>
+                          <span *ngIf="item.ProcedureId != null">{{dentalSurfaces[item.Place]}}</span>
                       </mat-cell>
                     </ng-container>
 
@@ -886,7 +886,7 @@
                 </div>
                 <div class="scrollable-mat-table">
                   <mat-table mat-table [dataSource]="completedProcedures"
-                    class="ehr-cqm-container procedure-table">
+                    class="pt-2  encounter-diagnosis-remove-sides">
 
 
 
@@ -922,12 +922,14 @@
                         <p class="text-capitalize-first">TOOTH</p>
                       </mat-header-cell>
                       <mat-cell *matCellDef="let item">
-                        <mat-form-field class="teeth-form-field" appearance="outline" [ngStyle]="{'width': '120px'}">
+                        <mat-form-field class="teeth-form-field" appearance="outline" [ngStyle]="{'width': '120px'}"
+                          *ngIf="item.ProcedureId == null">
                           <mat-label class="required">Tooth</mat-label>
                           <mat-select class="select" [(ngModel)]="item.ToothNo" style="width: 100px;">
                             <mat-option *ngFor="let teethno  of teethNumbers" [value]="teethno">{{teethno}}</mat-option>
                           </mat-select>
                         </mat-form-field>
+                        <span *ngIf="item.ProcedureId != null">{{item.ToothNo}}</span>
                       </mat-cell>
                     </ng-container>
 
@@ -944,9 +946,10 @@
                         <!-- <app-teeth-surface (optionValueChanged)="onToothSurfaceSelectedForCP($event,item,i)"
                           [selectedOption]="item.Surface"></app-teeth-surface> -->
                         <!-- <span>{{item.Surface}}</span> -->
-                        <app-teeth-surface class="pointer" readonly
+                        <app-teeth-surface class="pointer" readonly *ngIf="item.ProcedureId == null"
                         (optionValueChanged)="onToothSurfaceSelectedForRP($event,item,i)"
                         [selectedOption]="item.Place"></app-teeth-surface>
+                        <span *ngIf="item.ProcedureId != null">{{dentalSurfaces[item.Place]}}</span>
                       </mat-cell>
                     </ng-container>
 
@@ -983,7 +986,7 @@
       </button>
       <button type="button" class="btn btn-green" (click)="saveAsDraft()"
         *ngIf="!encounterInfo.Signed  && !dialogIsLoading" [disabled]="enableSaveButtons()">
-        Save as Draft
+        {{encounterInfo.EncounterId != null ? "Save" : "Save as Draft"}}
       </button>
       <button type="button" class="btn btn-orange" (click)="signConfirmation()"
         *ngIf="!encounterInfo.Signed && !dialogIsLoading" [disabled]="enableSaveButtons()">

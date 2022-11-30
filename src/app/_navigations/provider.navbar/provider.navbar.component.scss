@@ -88,9 +88,16 @@ button.mat-menu-item:hover {
   // border-left: 3px solid #fe8f00;
 }
 
-::ng-deep .mat-menu-panel {
-  border: 1px solid #2e877b !important;
-  background-color: #2e877b !important;
+::ng-deep .mat-menu-panel-normal {
+    border: 1px solid #2e877b !important;
+    background-color: #2e877b !important;
+}
+
+
+
+::ng-deep .mat-menu-panel-access {
+  background-color: #BC4641 !important;
+  border-bottom: 1px solid #D0021B !important;
 }
 
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
@@ -186,6 +193,42 @@ button.mat-menu-item:hover {
   margin: 0px !important;
 }
 
+.provider-header .user-nav-bar-access{
+  min-height: inherit;
+  background-color: #BC4641 !important;
+  height: 75px;
+  padding-top: 5px;
+}
+.provider-header .user-nav-bar-normal{
+  min-height: inherit;
+  height: 75px;
+  padding-top: 5px;
+}
+
+.provider-header .user-nav-bar-normal:hover{
+  background-color: #22645b !important;
+  border-left: 3px solid #fe8f00;
+}
+
+.provider-header .user-nav-bar-normal:active{
+  background-color: #22645b !important;
+  border-left: 3px solid #fe8f00;
+}
+::ng-deep .mat-menu-panel-access .mat-form-field-outline .mat-form-field-outline-start{
+  border-radius:unset;
+  border-left: 1px  #BC4641 !important; ;
+}
+
+::ng-deep .mat-menu-panel-access .mat-form-field-outline .mat-form-field-outline-end{
+  border-radius:unset;
+  border-right: 1px  #BC4641 !important; ;
+}
+::ng-deep .mat-menu-panel-access .mat-form-field-outline .mat-form-field-outline-gap{
+  border-width: 1px;
+  border-top: 1px  #BC4641 !important;
+  border-bottom: 1px  #BC4641 !important; ;
+}
+
 .messages-count {
   position: absolute;
     right: 20%;
@@ -228,9 +271,9 @@ a.disabled {
 //   background-color: #BC4641;
 // }
 
-.navbar-nav>.nav-item.access:hover {
+.nav-user.access{
   background-color: #BC4641 !important;
-  border-color: #D0021B !important;
+  border-bottom: 3px solid #D0021B !important;
 }
 
 .nav-item.access {
@@ -239,12 +282,12 @@ a.disabled {
 }
 
 .li-menu.access:hover {
- background-color: #BC4641 !important;
+ background-color: #ed6e6a !important;
  border-left: 3px solid #D0021B;
 }
 
 ::ng-deep .provider-dropdown .mat-form-field-wrapper {
-  margin: .25em 0 0 0 !important;
+  //margin: .25em 0 0 0 !important;
   padding-bottom: 0px;
   width: 100%;
 }

@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { DENTAL_SURFACES } from '../_models';
 
 @Pipe({
   name: 'search'
@@ -52,3 +53,14 @@ export class FilterPipe implements PipeTransform {
     });
   }
 }
+
+
+@Pipe({
+  name: 'teethplace'
+})
+export class TeethPlacePipe implements PipeTransform {
+  transform(surface: string): string {
+    return DENTAL_SURFACES[surface]
+  }
+}
+

@@ -405,6 +405,10 @@ export class PatientService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._resetPatientPasswordURL,reqparams);
   }
 
+  SingAddendaDocs(reqparams: any){
+    return this._ProcessPostRequest<any>(this._singAddendaDocsURL,reqparams);
+  }
+
 
 
 }
