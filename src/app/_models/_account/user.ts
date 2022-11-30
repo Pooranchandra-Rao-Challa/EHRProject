@@ -38,6 +38,7 @@ export interface User {
   HasPatientRelations?: boolean;
   PatientActive?: boolean;
   RepresentativeActive?: boolean;
+  EmergencyAccess?: boolean;
 }
 export class UserLocations {
   LocationId: string;

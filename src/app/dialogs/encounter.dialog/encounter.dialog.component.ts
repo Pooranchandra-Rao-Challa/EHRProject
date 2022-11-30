@@ -56,6 +56,7 @@ export class EncounterDialogComponent implements OnInit {
 
   EnableNewEncounterData: boolean;
   recommendedProcedures = new BehaviorSubject<ProceduresInfo[]>([]);
+  completedProcedures = new BehaviorSubject<ProceduresInfo[]>([]);
   diagnosesInfo = new BehaviorSubject<EncounterDiagnosis[]>([]);
   vitalsInfo = new BehaviorSubject<VitalInfo[]>([]);
   teethNumbers = [] // [0,1,2,3,4]
@@ -311,7 +312,15 @@ export class EncounterDialogComponent implements OnInit {
   }
 
   removeCompletedProcedure(value: ProceduresInfo, index: number) {
-    value.CanDelete = true;
+
+    if (this.overlayref.RequestData.ViewFrom != "ProcedureView") {
+      value.CanDelete = true;
+      this.completedProcedures.next(this.encounterInfo.CompletedProcedures.filter(fn => fn.CanDelete === false));
+    }
+    else {
+      this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP1003"])
+      // Can't delete this procedure from encounter form, however this procedure can be deleted from the parent form i.e. Dental form.
+    }
   }
 
   removeEncounterDiagnosis(value: EncounterDiagnosis, index: number) {
@@ -363,6 +372,8 @@ export class EncounterDialogComponent implements OnInit {
     p.Description = value.Description
     p.CanDelete = false;
     this.encounterInfo.CompletedProcedures.push(p);
+    this.completedProcedures.next(
+      this.encounterInfo.CompletedProcedures.filter(fn => fn.CanDelete === false));
   }
 
 
