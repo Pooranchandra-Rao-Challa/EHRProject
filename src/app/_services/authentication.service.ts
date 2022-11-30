@@ -68,9 +68,9 @@ export class AuthenticationService {
             if (this.isProvider) {
               if (!this.isProviderVerfied)
                 this.logout(ERROR_CODES["EL006"]);
-              else if (!this.isProviderActive)
+              else if (!this.isProviderActive && !this.hasEmergencyAccess)
                 this.logout(ERROR_CODES["EL008"]);
-              else if (this.isUserLocked) {
+              else if (this.isUserLocked && !this.hasEmergencyAccess) {
                 this.router.navigate(
                   ['provider/smartschedule'],
                   { queryParams: { name: 'Smart Schedule' } }
@@ -317,6 +317,12 @@ export class AuthenticationService {
     localStorage.setItem('user', JSON.stringify(this.userValue));
     return true;
   }
+
+  UpdateEmergencyAccess() {
+    this.userValue.EmergencyAccess = false;
+    localStorage.setItem('user', JSON.stringify(this.userValue));
+  }
+
   get isProvider(): boolean {
     if (this.userValue == undefined || this.userValue == null) return false;
     return this.userValue.Role.toLowerCase() == "provider"
@@ -367,6 +373,11 @@ export class AuthenticationService {
   get isProviderActive(): boolean {
     if (this.userValue == undefined || this.userValue == null) return false;
     return this.userValue.ProviderActive;
+  }
+
+  get hasEmergencyAccess(): boolean {
+    if (this.userValue == undefined || this.userValue == null) return false;
+    return this.userValue.EmergencyAccess;
   }
 
   get isUserLocked(): boolean {

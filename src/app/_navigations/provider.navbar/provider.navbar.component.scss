@@ -224,13 +224,29 @@ a.disabled {
   border-bottom: 3px solid #fe8f00;
 }
 
-.nav-item.access {
-  background-color: #BC4641;
-}
+// .nav-item.access {
+//   background-color: #BC4641;
+// }
 
 .navbar-nav>.nav-item.access:hover {
   background-color: #BC4641 !important;
   border-color: #D0021B !important;
+}
+
+.nav-item.access {
+  background-color: #BC4641 !important;
+  border-bottom: 3px solid #D0021B !important;
+}
+
+.li-menu.access:hover {
+ background-color: #BC4641 !important;
+ border-left: 3px solid #D0021B;
+}
+
+::ng-deep .provider-dropdown .mat-form-field-wrapper {
+  margin: .25em 0 0 0 !important;
+  padding-bottom: 0px;
+  width: 100%;
 }
 
 .nav-li {

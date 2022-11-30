@@ -33,7 +33,6 @@ export class ProviderNavbarComponent implements OnInit,AfterViewInit {
   urgentMails: number;
   lockedComponent = LockedComponent;
   menuwidth: number;
-  hasEmergencyAccess: boolean = true;
 
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -150,6 +149,22 @@ export class ProviderNavbarComponent implements OnInit,AfterViewInit {
         this.authenticationService.userValue.UnlockToken = unLockToken;
         localStorage.setItem('user', JSON.stringify(this.authenticationService.userValue as User));
         this.openComponentDialog(this.lockedComponent, this.authenticationService.userValue, Actions.view);
+      }
+    });
+  }
+
+  deactivateEmergencyAccess() {
+    var reqparams = {
+      fieldToUpdate: 'EmergencyAccess',
+      user: {
+        FirstName: this.user.FirstName,
+        UserId: this.user.UserId,
+        EmergencyAccess: false
+      }
+    }
+    this.settingsService.ToggleUserFieldValues(reqparams).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.authenticationService.UpdateEmergencyAccess();
       }
     });
   }
