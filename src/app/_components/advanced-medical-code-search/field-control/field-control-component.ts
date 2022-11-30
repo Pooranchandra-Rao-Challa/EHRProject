@@ -40,8 +40,6 @@ import { MedicalCode, CodeSystemGroup } from '../../../_models/codes';
 export interface FormFieldValue {
   SearchTerm: any;
   CodeSystem: string;
-  Code?:string;
-  Description?: string;
 }
 
 export class CustomErrorMatcher implements ErrorStateMatcher {
@@ -92,9 +90,10 @@ export class FieldControlComponent extends _SearchInputMixiBase
   @ViewChild(MatInput, { read: ElementRef, static: true })
   input: ElementRef;
 
+
   @Input()
   set value(fvalue: FormFieldValue) {
-    if(fvalue != null){
+    if (fvalue != null) {
       this.form.patchValue(fvalue);
       this.stateChanges.next();
     }
@@ -151,7 +150,7 @@ export class FieldControlComponent extends _SearchInputMixiBase
 
   @Output() optionValueChanged: EventEmitter<MedicalCode> = new EventEmitter<MedicalCode>();
 
-  filteredOptions: Observable<CodeSystemGroup[]> = new Observable<CodeSystemGroup[]> ();
+  filteredOptions: Observable<CodeSystemGroup[]> = new Observable<CodeSystemGroup[]>();
 
 
   @Input()
@@ -264,14 +263,11 @@ export class FieldControlComponent extends _SearchInputMixiBase
 
   onSelected(obj) {
     let ffv: FormFieldValue = {
-      CodeSystem: "", //(obj.option.value as MedicalCode ).Code,
-      SearchTerm: "", //(obj.option.value as MedicalCode ).Description,
-      Code : "",  //(obj.option.value as MedicalCode ).Code,
-      Description: "" //(obj.option.value as MedicalCode ).Description,
+      CodeSystem: this.form.value.CodeSystem,
+      SearchTerm: "",
     }
-    this.optionValueChanged.emit(obj.option.value as MedicalCode)
-    //this.value = ffv;
-    //this.onChange(ffv);
+    this.optionValueChanged.emit(obj.option.value as MedicalCode);
+    this.value = ffv;
   }
 
   displayWith(medicalCode: any) {

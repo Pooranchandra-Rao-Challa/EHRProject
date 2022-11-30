@@ -878,16 +878,14 @@
             <div class="encounter-tab-pane" id="encounter_diagnoses_tab">
               <div class="content">
                 <div class="row">
-                  <div class="col-lg-3 col-md-4 col-12">
-
-                  </div>
-                  <div class="col-lg-8 col-md-8 col-12">
-                    <!-- <medical-code-container [codeSystems]="codeSystemsForProcedures"
-                        (optionChanged)="onProcedureCompleted($event)" [MinTermLength]="2" [showSelectedValue]="false"></medical-code-container> -->
+                  <div class="col-lg-12 col-md-12 col-12">
+                    <medical-code-container [codeSystems]="codeSystemsForProcedures"
+                        (optionChanged)="onProcedureCompleted($event)" [MinTermLength]="2"
+                        [(Value)]="selectedProcedureValue"></medical-code-container>
                   </div>
                 </div>
                 <div class="scrollable-mat-table">
-                  <mat-table mat-table [dataSource]="encounterInfo.CompletedProcedures"
+                  <mat-table mat-table [dataSource]="completedProcedures"
                     class="ehr-cqm-container procedure-table">
 
 
@@ -924,7 +922,12 @@
                         <p class="text-capitalize-first">TOOTH</p>
                       </mat-header-cell>
                       <mat-cell *matCellDef="let item">
-                        <span>{{item.ToothNo}}</span>
+                        <mat-form-field class="teeth-form-field" appearance="outline" [ngStyle]="{'width': '120px'}">
+                          <mat-label class="required">Tooth</mat-label>
+                          <mat-select class="select" [(ngModel)]="item.ToothNo" style="width: 100px;">
+                            <mat-option *ngFor="let teethno  of teethNumbers" [value]="teethno">{{teethno}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
                       </mat-cell>
                     </ng-container>
 
@@ -940,7 +943,10 @@
                           </mat-form-field> -->
                         <!-- <app-teeth-surface (optionValueChanged)="onToothSurfaceSelectedForCP($event,item,i)"
                           [selectedOption]="item.Surface"></app-teeth-surface> -->
-                        <span>{{item.Surface}}</span>
+                        <!-- <span>{{item.Surface}}</span> -->
+                        <app-teeth-surface class="pointer" readonly
+                        (optionValueChanged)="onToothSurfaceSelectedForRP($event,item,i)"
+                        [selectedOption]="item.Place"></app-teeth-surface>
                       </mat-cell>
                     </ng-container>
 
@@ -949,9 +955,9 @@
                         <p class="text-capitalize-first">Delete</p>
                       </mat-header-cell>
                       <mat-cell *matCellDef="let item; let i = index; ">
-                        <!-- <button type="button" class="btn cross-mark error-close"
+                        <button type="button" class="btn cross-mark error-close"
                           (click)="removeCompletedProcedure(item,i)"
-                          title="Delete completed Procedure">x</button> -->
+                          title="Delete completed Procedure">x</button>
                       </mat-cell>
                     </ng-container>
                     <mat-header-row *matHeaderRowDef="procedureColumns"></mat-header-row>
