@@ -157,8 +157,6 @@ export class EncounterDialogComponent implements OnInit {
     if (this.overlayref.RequestData["From"] == "ProcedureView"
       && this.overlayref.RequestData.EncounterId == null) {
         let proceduredata = this.overlayref.RequestData as ProceduresInfo;
-
-
         if(proceduredata.Status == "Completed"){
           this.encounterInfo.CompletedProcedures.push(this.overlayref.RequestData as ProceduresInfo);
         }
