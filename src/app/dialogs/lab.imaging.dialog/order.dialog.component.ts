@@ -60,7 +60,6 @@ export class OrderDialogComponent implements OnInit {
     this.labandImaging = ref.RequestData as LabProcedureWithOrder;
     this.fileUploadUrl = UPLOAD_URL('api/upload/UploadSingleFile')
 
-
     if (this.labandImaging.CurrentPatient == null)
       this.labandImaging.CurrentPatient = new PatientSearch();
     this.labandImaging.ProcedureType = this.labandImaging.View;
@@ -74,7 +73,6 @@ export class OrderDialogComponent implements OnInit {
     if(this.labandImaging.ReceivedAt) {
       this.labandImaging.ReceivedAt = this.datePipe.transform(this.labandImaging.ReceivedAt, "yyyy-MM-dd");
     }
-
   }
 
 
@@ -93,7 +91,7 @@ export class OrderDialogComponent implements OnInit {
         return event.target.value;
       })
       // if character length greater then 2
-      , filter(res => res.length > 2 && res.length < 6)
+      , filter(res => res.length > 2)
       // Time in milliseconds between key events
       , debounceTime(1000)
       // If previous query is diffent from current
@@ -179,7 +177,7 @@ export class OrderDialogComponent implements OnInit {
       .subscribe(resp => {
         if (resp.IsSuccess) {
           let pat = resp.ListResult as PatientSearch[];
-          if (pat.length == 1) {
+          if (pat.length > 0) {
             this.labandImaging.CurrentPatient = pat[0];
           } else {
             this.labandImaging.CurrentPatient = new PatientSearch()

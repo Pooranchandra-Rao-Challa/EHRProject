@@ -15,6 +15,7 @@ export class ProviderPatient{
   PrimaryPhone?: string;
   ProviderId?: string;
   active?: boolean;
+  IsDeleted?: boolean;
   EncKey?:string;
   ShowDetailView?: boolean;
   AdvancedDirectives?: AdvancedDirective[] = [];

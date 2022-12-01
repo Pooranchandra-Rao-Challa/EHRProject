@@ -110,7 +110,7 @@ export class EncounterDialogComponent implements OnInit {
 
   private messageflagSubject = new BehaviorSubject<boolean>(false);
   public messageflag$ = this.messageflagSubject.asObservable();
-  constructor(private overlayref: EHROverlayRef, private authService: AuthenticationService,
+  constructor(private overlayref: EHROverlayRef, public authService: AuthenticationService,
     private smartSchedulerService: SmartSchedulerService,
     private patientService: PatientService,
     private overlayService: OverlayService,
@@ -122,7 +122,6 @@ export class EncounterDialogComponent implements OnInit {
     this.minDateToFinish.subscribe(e => {
       this.endDateForEncounter = new Date(e);
     })
-
   }
 
   ngOnInit(): void {

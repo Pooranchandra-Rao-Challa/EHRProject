@@ -8,7 +8,7 @@
     </div>
     <div class="modal-header body-header">
       <div>
-        <p>Current Status (Select one only)</p>
+        <p class="required">Current Status (Select one only):</p>
       </div>
     </div>
     <div class="modal-body">
@@ -40,6 +40,7 @@
         </mat-radio-group>
       </div>
       <div class="row pt-2">
+        <p class="required">Effective Date:</p>
         <mat-form-field appearance="outline" class="grey-matform grey-calendar col-md-6">
           <input matInput class="pointer date-mat-class" autocomplete="off" [matDatepicker]="picker1"
             (click)="picker1.open()" readonly placeholder="Effective Date" [(ngModel)]="smokingStatus.EffectiveFrom">

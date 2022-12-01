@@ -226,7 +226,7 @@ export class AlertMessage {
 export const ERROR_CODES: { [key: string]: string } = {
 
   // Smart Schedule Patients Message
-  'AP001': 'Patient account information downloaded successully',
+  'AP001': 'Patient account information downloaded successfully',
 
   // Message form Setting screen
   'M2JP001': 'Location updated successfully',
@@ -288,8 +288,8 @@ export const ERROR_CODES: { [key: string]: string } = {
   //Security Question
   'M2CP009': 'Security question is updated successfully ',
   'M2CP0010': 'Address verified successfully',
-  'M2CP0011': 'Authorized representative added sucessfully',
-  'M2CP0012': 'Authorized representative updated sucessfully',
+  'M2CP0011': 'Authorized representative added successfully',
+  'M2CP0012': 'Authorized representative updated successfully',
 
   // Message form patient relation
   'M2PPR001': 'Assigned patient relationship successfully',
