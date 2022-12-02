@@ -48,6 +48,7 @@ export class UserLocations {
 export class ViewModel {
   View?: string = "Smart Schedule";
   SubView?: string = "";
+  QuickLink?: string;
   PatinetId?: string = "";
   Patient?: ProviderPatient;
   PatientView?: string = "";
