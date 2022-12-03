@@ -28,7 +28,8 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<u
     }
 
     // not logged in so redirect to login page with the return url
-    this.router.navigate(['/account/home'], { queryParams: { message: ERROR_CODES["EL003"] } });
+    localStorage.setItem('message',ERROR_CODES["EL003"]);
+    this.router.navigate(['/account/home']);
     return false;
   }
 

@@ -132,7 +132,6 @@ import { AddauthorizedrepresentativeDialogComponent } from 'src/app/dialogs/adda
 import { EncounterTableDialogComponent } from 'src/app/dialogs/encounter.table.dialog/encounter.table.dialog.component';
 import { AppointmentsTableDialogComponent } from 'src/app/dialogs/appointments.table.dialog/appointments.table.dialog.component';
 import { FileUploadService } from 'src/app/_services/file.upload.service'
-import { AttachmentPreviewComponent } from "src/app/_components/attachments/attachment.preview.component";
 import { NotifyMessageService } from "src/app/_navigations/provider.layout/view.notification.service";
 import { NotifyProviderHeaderService, ProviderLocationUpdateNotifier } from 'src/app/_navigations/provider.layout/view.notification.service';
 import { MessagesTableDialogComponent } from 'src/app/dialogs/messages.table.dialog/messages.table.dialog.component';
@@ -196,7 +195,6 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     AddauthorizedrepresentativeDialogComponent,
     EncounterTableDialogComponent,
     AppointmentsTableDialogComponent,
-    AttachmentPreviewComponent,
     MessagesTableDialogComponent,
     ViewMessageDialogComponent,
     AddendaAttachDocumentComponent,
@@ -288,7 +286,6 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     AddauthorizedrepresentativeDialogComponent,
     EncounterTableDialogComponent,
     AppointmentsTableDialogComponent,
-    AttachmentPreviewComponent,
     MessagesTableDialogComponent,
     ViewMessageDialogComponent,
     PraticeAdduserDialogComponent,

@@ -128,3 +128,41 @@ input::-webkit-input-placeholder {
   max-height: calc(90vh - 200px);
   overflow-y: auto;
 }
+
+.upload-btn-wrapper{
+  padding: 5px;
+  border: 1px solid #41b6a6;
+  border-radius: 4px;
+  margin-top: -5px;
+  color: #41b6a6;
+}
+
+.upload-btn-wrapper:hover{
+  background-color: #41b6a6;
+  color: white;
+}
+::ng-deep .message-upload .mat-card{
+  width: 50%;
+}
+::ng-deep .message-upload .actions{
+  float: left !important;
+}
+
+#form-message .remove{
+  margin: 10px 10px;
+  float: right;
+  color: #41b6a6;
+  border: 1px #41b6a6 solid;
+  border-radius: 6px;
+  text-align: center;
+  padding: 4px 0 0 0;
+  :hover{
+    color: white;
+    background-color:  #41b6a6;
+  }
+  mat-icon{
+    width: 34px;
+    height: 34px;
+    padding: 4px
+  }
+}

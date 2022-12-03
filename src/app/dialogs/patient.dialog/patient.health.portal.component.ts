@@ -32,6 +32,8 @@ export class PatientHealthPortalComponent{
       this.url = plaformLocation.href.substring(0, plaformLocation.href.indexOf('?')).replace(plaformLocation.pathname, '/');
     this.patientUser = dialogRef.data
     this.patientUser.URL = this.url;
+    console.log(this.patientUser);
+
   }
   cancel(){
     this.dialogRef.close({refesh:true});

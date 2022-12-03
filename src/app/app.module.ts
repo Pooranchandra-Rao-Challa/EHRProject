@@ -36,8 +36,6 @@ import { MessagesService } from './_services/messages.service';
   ],
   declarations: [
     AppComponent,
-
-
   ],
   imports: [
     NgbModule,

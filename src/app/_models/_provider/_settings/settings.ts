@@ -1,3 +1,4 @@
+import { Attachment } from './../LabandImage';
 import { Time } from "@angular/common";
 import { IDeleteFlag } from "../encounter";
 
@@ -117,17 +118,20 @@ export class ChangePasswordResult{
 
 
 export class PatientEducationInfomation {
-  EducationMat?: EducationMaterialCode[] = [];
+  EducationMat?: EducationMaterial[] = [];
 
 }
-export class EducationMaterialCode implements IDeleteFlag {
+export class EducationMaterial implements IDeleteFlag {
   EducationalId?:string
   ClinicId?:string;
+  PatientId?:string;
   Code?: string;
   CodeSystem?: string;
   Name?: string;
   ResourceNotes?:string;
   CanDelete?: boolean = false;
+  Attachments?: Attachment[] =[]
+  strAttachments?: string;
 }
  export class CDSAlert
  {

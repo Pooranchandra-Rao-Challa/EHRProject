@@ -50,8 +50,8 @@ export class PatientPortalAccountComponent {
     private patientService: PatientService) {
 
     this.patientUser = dialogRef.data as PatientPortalUser;
-    //if (this.patientUser == null) this.patientUser = new PatientPortalUser()
-    this.patientUser.Username
+
+    console.log(this.patientUser);
   }
 
   ngOnInit(): void {

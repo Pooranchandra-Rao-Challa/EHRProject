@@ -113,8 +113,13 @@
                     [class.unreadmsg-bold]="!message.Read && (currentMessageView == 'Inbox' ||  currentMessageView == 'Urgent')"
                     *matCellDef="let message" (click)="showMessage(message)">
                     <div class="text-new-line">
-                      <div>{{message.PatientName}} </div>
-                      <div [class.text-truncate]="message.Subject?.length > 50">{{message.Subject}}</div>
+                      <div>{{IsInbox || IsUrgent || IsDraft ? message.PatientName : message.ProviderName}} </div>
+                      <div [class.text-truncate]="message.Subject?.length > 50" style="display:inline">{{message.Subject}}</div>
+                      <label for="singleFile" class="upload-btn-wrapper" *ngIf="message.Attachments.length > 0"
+                        style=" margin-left: 20px;
+                        vertical-align: middle;" >
+                        <mat-icon>attach_file</mat-icon>
+                      </label>
                     </div>
                   </mat-cell>
                 </ng-container>
@@ -159,12 +164,18 @@
                     <img src="assets/images/header-dropdown-img.svg" class="img-xs rounded-circle header-avatar">
                   </div>
                 </div>
-                <div class="row email-address">
+                <div class="row email-address" style="display:inline">
                   <div class="col-md-12" style="display: inline-flex;">
                     Subject:<p (mouseenter)="isExpandToggle()" (mouseleave)="isExpandToggle()"
                       style="margin-left: 10px;margin-bottom:0px" [class.overflow]="isExpand"
                       [class.show-overflow]="!isExpand">{{currentMessage.Subject}}</p>
+
                   </div>
+                  <label for="singleFile" class="upload-btn-wrapper" *ngIf="currentMessage.Attachments.length > 0"
+                    style=" margin-left: 20px;
+                    vertical-align: middle;" >
+                    <mat-icon>attach_file</mat-icon>
+                  </label>
                 </div>
                 <div style="border-bottom: 1px solid #41b6a6 ;"></div>
                 <div class="row body">

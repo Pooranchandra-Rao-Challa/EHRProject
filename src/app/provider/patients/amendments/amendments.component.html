@@ -5,60 +5,61 @@
         <!-- <button type="button" class="btn btn-md btn-danger btn-authorized">Authorized Rep.</button> -->
       </div>
       <div class="p-2">
-         <!-- <button type="button" class="btn btn-md btn-green btn-authorized" disabled>Print</button>  -->
+        <!-- <button type="button" class="btn btn-md btn-green btn-authorized" disabled>Print</button>  -->
       </div>
     </div>
   </div>
   <div class="pull-right mt-2">
     <button class="plusicon pull-right" type="button" aria-expanded="false" data-bs-toggle="modal"
-      data-bs-target="#modal-Patient-Education" (click)="resetDialog()">
+      data-bs-target="#modal-patient-amendments" (click)="resetDialog()">
       <i class="fa fa-plus"></i>
     </button>
   </div>
   <div class=" mt-5">
-    <mat-table [dataSource]="amendmentlist">
+    <mat-table [dataSource]="amendments">
       <ng-container matColumnDef="DateRequested">
         <mat-header-cell *matHeaderCellDef>Date Requested</mat-header-cell>
         <a>
-          <mat-cell *matCellDef="let patient" (click)="basedonid(patient)" data-bs-toggle="modal"
-            data-bs-target="#modal-Patient-Education">{{patient.DateofRequest | date:'MM/dd/yyyy'}}
+          <mat-cell *matCellDef="let amendment" (click)="onSelectedOfAmendment(amendment)" data-bs-toggle="modal"
+            data-bs-target="#modal-patient-amendments">{{amendment.DateofRequest | date:'MM/dd/yyyy'}}
           </mat-cell>
         </a>
       </ng-container>
 
       <ng-container matColumnDef="Status">
         <mat-header-cell *matHeaderCellDef> Status</mat-header-cell>
-        <mat-cell *matCellDef="let patient">
-          {{patient.Status}}
+        <mat-cell *matCellDef="let amendment">
+          {{amendment.Status}}
         </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="Description/Location">
         <mat-header-cell *matHeaderCellDef>Description/Location</mat-header-cell>
-        <mat-cell *matCellDef="let patient">
-          {{patient.Description}}
+        <mat-cell *matCellDef="let amendment">
+          {{amendment.Description}}
         </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="Scanned">
         <mat-header-cell *matHeaderCellDef>Scanned</mat-header-cell>
-        <mat-cell *matCellDef="let patient">
+        <mat-cell *matCellDef="let amendment">
         </mat-cell>
       </ng-container>
       <mat-header-row *matHeaderRowDef="AmendmentsColumns" class="mat-cust-header"></mat-header-row>
       <mat-row *matRowDef="let row; columns: AmendmentsColumns;">
       </mat-row>
     </mat-table>
-    <div  class="norecords-found" *ngIf="amendmentlist.length == 0" style="font-size: 14px;
-    font-family: Roboto" >
-        No Amendments Found
+    <div class="norecords-found" *ngIf="amendments.length == 0" style="font-size: 14px;
+    font-family: Roboto">
+      No Amendments Found
     </div>
   </div>
-  <div class="modal modal-amendments" id="modal-Patient-Education" data-bs-keyboard="false" tabindex="-1"
+
+  <div class="modal modal-amendments" id="modal-patient-amendments" data-bs-keyboard="false" tabindex="-1"
     aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header" style="margin-top:-1px;">
           <span class="Helvetica-sans-serif-medium">
             {{amendment?.AmendmentId == null ? 'New Amendment' : 'Edit Amendment'}}
           </span>
@@ -77,7 +78,8 @@
               <mat-datepicker #DateRequest></mat-datepicker>
             </mat-form-field>
             <div class="col-lg-5 col-md-5">
-              <button class="btn btn-green btn-today col-12 pull-right"(click)="todayDateforDateRequested()">Today</button>
+              <button class="btn btn-green btn-today col-12 pull-right"
+                (click)="todayDateforDateRequested()">Today</button>
             </div>
           </div>
           <div class="row">
@@ -89,7 +91,8 @@
               <mat-datepicker #DateAccepted></mat-datepicker>
             </mat-form-field>
             <div class="col-lg-5 col-md-5">
-              <button class="btn btn-green btn-today col-12 pull-right" (click)="todayDateforDateAcceptedorDenied()">Today</button>
+              <button class="btn btn-green btn-today col-12 pull-right"
+                (click)="todayDateforDateAcceptedorDenied()">Today</button>
             </div>
           </div>
           <div class="row">
@@ -144,22 +147,46 @@
           </div>
           <div class="pattach" *ngIf="amendment?.AmendmentId != null && amendment?.AmendmentId !=''">
             <div class="row">
-              <!-- <div class="col-md-1"></div> -->
-              <div class="col-md-10">
+              <div class="col-lg-10 col-md-10">
                 <p class="title mt-3 "><b>Attachments:</b></p>
               </div>
+              <div class="col-lg-2 col-md-2 mt-2">
+                <div class="col-md-4 col-lg-4">
+                  <label for="singleFile" class="upload-btn-wrapper">
+                    <mat-icon>attach_file</mat-icon>
+                  </label>
+                  <input id="singleFile" name="myFile" [accept]="fileTypes" type="file" hidden="true"
+                    [fileUploadInputFor]="fileUploadQueue" [size]="fileSize" />
+                </div>
+              </div>
+            </div>
+            <div class="row" style=" margin: 10px;">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <file-upload-queue #fileUploadQueue [fileAlias]="EntityId" [httpRequestParams]="httpRequestParams"
+                  [httpUrl]="fileUploadUrl" class="message-upload">
+                  <file-upload [file]="file" [id]="i" *ngFor="let file of fileUploadQueue.files; let i = index"
+                    [httpRequestParams]="httpRequestParams" [fileAlias]="uploadTo" (onUpload)="UploadCompleted($event)"
+                    (onItemRemove)="ItemRemoved($event)">
+                  </file-upload>
+                </file-upload-queue>
+              </div>
+            </div>
+            <div class="row" style=" margin: 10px;">
 
-              <div class="col-md-2 mt-2 ">
-                <button class="plusicon  pull-right" style="margin-right: 10px;" type="button">
-                  <i class="fa fa-plus"></i>
-                </button>
+              <div class="col-lg-12 col-md-12 col-sm-12" style="padding-top:10px;"
+                [class.attachment-border]="Attachments.length > 0">
+                <div *ngFor="let item of Attachments;let i = index" style="display: flex;align-items: center;">
+                  {{item.FileName}}
+                  <div for="forremove" class="remove" (click)="DeleteAttachment(item.AttachmentId)">
+                    <mat-icon>delete</mat-icon>
+                  </div>
+
+                  <div for="forremove" class="remove" (click)="DownloadAttachment(item)">
+                    <mat-icon>cloud_download</mat-icon>
+                  </div>
+                </div>
               </div>
-              <div class="col-lg-8 col-md-8 col-sm-8">
-                <!-- <app-nopreview-attachment [EntityName]="EntityName" [EntityId]="message.EmailMessageId"
-                [Attachments]="message.Attachments || []" (onItemsModify)="ItemsModified($event)"
-                [fileSize]="10" [httpUrl]="fileUploadUrl"></app-nopreview-attachment>
-                <app-attachment-preview></app-attachment-preview> -->
-              </div>
+
             </div>
           </div>
         </div>

@@ -21,9 +21,8 @@
   <div class="prevent-click" *ngIf="show">
     <div class="expansion-boder"></div>
     <mat-accordion class="prevent-click" style="border-top: 1px solid #41b6a6;">
-      <mat-expansion-panel [disabled]="!item?.Active"
-        [ngStyle]="!item?.Active?{'opacity': '0.75'} : {'opacity': '1'}" [expanded]="step === i"
-        (opened)="step" class="customheader" hideToggle="true" #example
+      <mat-expansion-panel [disabled]="!item?.Active" [ngStyle]="!item?.Active?{'opacity': '0.75'} : {'opacity': '1'}"
+        [expanded]="step === i" (opened)="step" class="customheader" hideToggle="true" #example
         *ngFor="let item of clinicalDecisionSupportList; let i=index">
         <mat-expansion-panel-header class="panel-header">
           <mat-panel-title>
@@ -75,42 +74,42 @@
             </div>
           </div>
           <div class="scrollable-table clinical-decision-table">
-          <table class="table table-borderless">
-            <thead class="bg-color">
-              <tr>
-                <td></td>
-                <td>
-                  Category
-                </td>
-                <td>
-                  Code
-                </td>
-                <td>
-                  Code System
-                </td>
-                <td>
-                  Description
-                </td>
-                <td></td>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let data of item.Triggers">
-                <td></td>
-                <td>
-                  {{data.Category}}
-                </td>
-                <td>{{data.Code}}</td>
-                <td>{{data.CodeSystem}}</td>
-                <td>{{data.Description}}</td>
-                <td (click)="DeleteTrigger(data.TriggerId)">
-                  <mat-icon class="close-icon  Cancelbtn" style="cursor: pointer;">close
-                  </mat-icon>
-                </td>
-              </tr>
+            <table class="table table-borderless">
+              <thead class="bg-color">
+                <tr>
+                  <td></td>
+                  <td>
+                    Category
+                  </td>
+                  <td>
+                    Code
+                  </td>
+                  <td>
+                    Code System
+                  </td>
+                  <td>
+                    Description
+                  </td>
+                  <td></td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of item.Triggers">
+                  <td></td>
+                  <td>
+                    {{data.Category}}
+                  </td>
+                  <td>{{data.Code}}</td>
+                  <td>{{data.CodeSystem}}</td>
+                  <td>{{data.Description}}</td>
+                  <td (click)="DeleteTrigger(data.TriggerId)">
+                    <mat-icon class="close-icon  Cancelbtn" style="cursor: pointer;">close
+                    </mat-icon>
+                  </td>
+                </tr>
 
-            </tbody>
-          </table>
+              </tbody>
+            </table>
           </div>
           <br>
           <div class="row field-align">
@@ -150,7 +149,8 @@
             </div>
 
             <mat-form-field appearance="outline" class="green-calendar col-md-4">
-              <input matInput class="pointer" [matDatepicker]="dp" placeholder="" [(ngModel)]="item.ReleaseAt" (click)="dp?.open()" readonly>
+              <input matInput class="pointer" [matDatepicker]="dp" placeholder="" [(ngModel)]="item.ReleaseAt"
+                (click)="dp?.open()" readonly>
               <mat-datepicker-toggle matSuffix [for]="dp">
                 <button _ngcontent-mqh-c316="" aria-hidden="true" class="is-primary button fa fa-calendar"></button>
               </mat-datepicker-toggle>
@@ -338,8 +338,8 @@
             </mat-cell>
           </ng-container>
           <mat-header-row *matHeaderRowDef="clinicalDecisionSearchColumns" class="headeralig"></mat-header-row>
-          <mat-row *matRowDef=" let row; let i = index; columns: clinicalDecisionSearchColumns
-          " class="headerowalig"></mat-row>
+          <mat-row *matRowDef=" let row; let i = index; columns: clinicalDecisionSearchColumns" class="headerowalig">
+          </mat-row>
         </mat-table>
 
         <div>

@@ -13,7 +13,7 @@
         <div class="card-body">
           <div fxLayout="column">
             <mat-accordion [displayMode]="'flat'">
-              <mat-expansion-panel class="expansion" *ngFor="let item of Patientedmateriallist; let i =index"
+              <mat-expansion-panel class="expansion" *ngFor="let item of EducationMaterials; let i =index"
                 [expanded]="indexExpanded == i " disabled="true" hideToggle="true" #example>
                 <mat-expansion-panel-header [ngClass]="!expandedchangecolor?'open-exp':'close-exp'">
                   <mat-icon class="play-left-arrow" (click)="togglePanels(i)" *ngIf="!example.expanded">play_arrow
@@ -48,7 +48,7 @@
                   </table>
                 </div>
               </mat-expansion-panel>
-              <div class="text-center py-2 col-12" *ngIf="Patientedmateriallist.length == 0">
+              <div class="text-center py-2 col-12" *ngIf="EducationMaterials.length == 0">
                 <h6 class="Helvetica-sans-serif-medium" style="color: red;"> No Education Materials Found.</h6>
               </div>
             </mat-accordion>
@@ -66,8 +66,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <span class="Helvetica-sans-serif-medium">
-          {{educationMaterialCode?.EducationalId == null ? 'Add Patient Education Material' : 'View Patient Education
-          Material'}}
+          {{educationMaterial?.EducationalId == null ? 'Add Patient Education Material' : 'View Patient Education Material'}}
         </span>
         <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close"
           style="border: 1px solid #fff;" (click)="resetDialog()">
@@ -129,14 +128,14 @@
           <div class="col-md-6">
             <mat-label> Code System :</mat-label>
             <mat-form-field appearance="outline" class="col-md-12">
-              <input matInput placeholder="" [(ngModel)]="educationMaterialCode.CodeSystem" readonly disabled
+              <input matInput placeholder="" [(ngModel)]="educationMaterial.CodeSystem" readonly disabled
                 class="inputfeildisable">
             </mat-form-field>
           </div>
           <div class="col-md-6">
             <mat-label> Code</mat-label>
             <mat-form-field appearance="outline" class="col-md-12">
-              <input matInput placeholder="" [(ngModel)]="educationMaterialCode.Code" readonly disabled
+              <input matInput placeholder="" [(ngModel)]="educationMaterial.Code" readonly disabled
                 class="inputfeildisable">
             </mat-form-field>
           </div>
@@ -145,78 +144,62 @@
         <div class="row">
           <mat-label>Name:</mat-label>
           <mat-form-field appearance="outline" class="col-md-12">
-            <input matInput placeholder="" [(ngModel)]="educationMaterialCode.Name" readonly disabled
+            <input matInput placeholder="" [(ngModel)]="educationMaterial.Name" readonly disabled
               class="inputfeildisable">
           </mat-form-field>
         </div>
         <div class="row">
           <div class="col-12">
             <mat-label class="col-12">Resource Notes:</mat-label>
-            <textarea matInput class="col-12 text-area" [(ngModel)]="educationMaterialCode.ResourceNotes" matInput></textarea>
-          
+            <textarea matInput class="col-12 text-area" [(ngModel)]="educationMaterial.ResourceNotes"
+              matInput></textarea>
+
 
           </div>
         </div>
         <div class="pattach">
           <div class="container-fluid">
             <div class="row">
-              <!-- <div class="col-md-1"></div> -->
-              <div class="col-md-10">
-                <p class="title mt-3"><b>Attachments:</b></p>
-              </div>
-              <div class="col-md-2 mt-2 ">
-                <button class="plusicon icon-border pull-right" type="button">
-                  <i class="fa fa-plus"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- <form [formGroup]="patientmaterialfrom">
 
 
-          <div class="row">
-            <div class="col-12">
-              <mat-label class="col-12">Resource Notes:</mat-label>
-              <textarea class="col-12 text-area" formControlName="resouceNote"></textarea>
-            </div>
-          </div>
-          <div class="pattach">
-            <div class="container-fluid">
-            <div class="row">
-              <!-- <div class="col-md-1"></div> -->
-        <!-- <div class="col-md-10">
-              <p class="title mt-3"><b>Attachments:</b></p>
-            </div>
-            <div class="col-md-2 mt-2 ">
-              <button class="plusicon icon-border pull-right" type="button" (click)="attachements()">
-                <i class="fa fa-plus"></i>
-              </button>
-            </div>
-          </div>
-          </div>
-          </div>
-          <div formArrayName="attachments" class="row formarray">
-            <div *ngFor="let atta of attachments.controls; let i=index ">
-              <div [formGroupName]="i">
-                <div class="row">
-                  <div class="col-md-1  pt-2 pb-2">
-                    <input type="file" formControlName="file">
+              <div class="col-lg-12" style="padding:10px">
+                <div style="display:inline;">Attachments:</div>
+                <div style="float: right;">
+                  <label for="singleFile" class="upload-btn-wrapper maticon">
+                    <mat-icon>attach_file</mat-icon>
+                  </label>
+                  <input id="singleFile" name="myFile" [accept]="fileTypes" type="file" hidden="true"
+                    [fileUploadInputFor]="fileUploadQueue" [size]="fileSize" />
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <file-upload-queue #fileUploadQueue [fileAlias]="EntityId" [httpRequestParams]="httpRequestParams"
+                  [httpUrl]="fileUploadUrl" class="message-upload">
+                  <file-upload [file]="file" [id]="i" *ngFor="let file of fileUploadQueue.files; let i = index"
+                    [httpRequestParams]="httpRequestParams" [fileAlias]="uploadTo" (onUpload)="UploadCompleted($event)"
+                    (onItemRemove)="ItemRemoved($event)">
+                  </file-upload>
+                </file-upload-queue>
+
+              </div>
+              <div class="col-lg-12 col-md-12 col-sm-12" style="padding-top:10px;" [class.attachment-border]="Attachments.length > 0">
+                <div *ngFor="let item of Attachments;let i = index" style="display: flex;align-items: center;">
+                  {{item.FileName}}
+                  <div for="forremove" class="remove" (click)="DeleteAttachment(item)">
+                    <mat-icon>delete</mat-icon>
                   </div>
-                  <div class="col-md-10"></div>
-                  <div class="col-md-1 pt-2 pb-2">
-                    <mat-icon class="closefile" (click)="removeattachemnt(i)">close</mat-icon>
+                  <div for="forremove" class="remove" (click)="DownloadAttachment(item)">
+                  <mat-icon>cloud_download</mat-icon>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </form>  -->
-
+        </div>
       </div>
       <div class="modal-footer">
         <button mat-raised-button type="submit" class="btn btn-green searchnow  pull-right" data-bs-dismiss="modal"
-          (click)="createUpadateEducationMaterial()" [disabled]="enableSavePed()">Save</button>
+          (click)="createUpadateEducationMaterial()" [disabled]="enableSavePEDN()">Save</button>
         <button mat-raised-button type="submit" class="btn btn-green searchnow  pull-right" data-bs-dismiss="modal"
           (click)="resetDialog()">Cancel</button>
       </div>

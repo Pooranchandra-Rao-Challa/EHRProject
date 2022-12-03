@@ -337,6 +337,8 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
     this.utilityService.GetUserInfoForPatient(this.patientUser).subscribe(resp => {
       if (resp.IsSuccess) {
         this.patientUser = resp.Result as PatientPortalUser;
+        console.log(this.patientUser);
+
         this.openComponentDialog(content, this.patientUser, action)
       }
     })

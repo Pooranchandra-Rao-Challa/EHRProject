@@ -177,4 +177,8 @@ export class SettingsService extends APIEndPoint {
   ProviderPracticeLocations(reqparams: any){
     return this._ProcessPostRequest<any>(this._providerPracticeLocationsURL, reqparams);
   }
+
+  DeleteAttachment(reqparams: any){
+    return this._ProcessPostRequest<any>(this._deleteAttachmentURL, reqparams);
+  }
 }

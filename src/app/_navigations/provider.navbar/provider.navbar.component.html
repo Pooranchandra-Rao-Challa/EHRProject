@@ -64,34 +64,41 @@
     </ul>
   </div>
   <div [class.user-nav-bar-normal]="!user.EmergencyAccess" [class.user-nav-bar-access]="user.EmergencyAccess">
-  <ul class="navbar-nav pull-right m-auto m-lg-0">
-    <li [matMenuTriggerFor]="menu" class="nav-top-right"  [class.access]="user.EmergencyAccess"  [class.nav-user]="user.EmergencyAccess" [class.nav-user]="!user.EmergencyAccess">
-      <a class="nav-link dropdown-toggle" id="UserDropdown">
-        <span class="profile-text">{{ this.user.FirstName}}&nbsp;&nbsp;{{this.user.LastName}}</span>
-        <img class="img-xs rounded-circle header-avatar mx-1" src="assets/images/header-dropdown-img.svg">
-      </a>
-      <mat-menu #menu="matMenu" [hasBackdrop]="true" [class]="user.EmergencyAccess ? 'mat-menu-panel-access' : 'mat-menu-panel-normal' ">
-        <div class="list" style="width: 100%;" (click)="$event.stopPropagation()"
-          (keydown)="$event.stopPropagation()" [style.width.px]="menuwidth">
-          <mat-form-field appearance="outline" class="col-lg-12 provider-dropdown hover">
-            <mat-select class="textcolor" [value]="user.CurrentLocation" name="location" disableOptionCentering
-            panelClass="report-select-option-panel">
-              <mat-option *ngFor="let location of locationsInfo" [value]="location.LocationId"
-                (click)="changeLocation(location.LocationId)"> {{ location.LocationName }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <li [class]="user.EmergencyAccess ? 'access li-menu': 'li-menu'" *ngIf="user.EmergencyAccess" (click)="deactivateEmergencyAccess()"><a class="nav-li text-nowrap">Disable Emergency Access</a></li>
-        <li [class]="user.EmergencyAccess ? 'access li-menu': 'li-menu'"><a class="nav-li text-nowrap" (click)="GetUserInfoData()">My Account</a></li>
-        <li [class]="user.EmergencyAccess ? 'access li-menu': 'li-menu'" data-bs-toggle="modal" data-bs-target="#modal-about-ehr1"><a class="nav-li text-nowrap">About
-            EHR1</a></li>
-        <li class="border-bottom" [class]="user.EmergencyAccess ? 'access li-menu': 'li-menu'" (click)="updateUserLock()"><a class="nav-li">Lock</a></li>
-        <li [class]="user.EmergencyAccess ? 'access li-menu': 'li-menu'" (click)="logout()"><a class="nav-li">Log out</a></li>
-    </mat-menu>
-    </li>
-  </ul>
-</div>
+    <ul class="navbar-nav pull-right m-auto m-lg-0">
+      <li [matMenuTriggerFor]="menu" class="nav-top-right" [class.access]="user.EmergencyAccess"
+        [class.nav-user]="user.EmergencyAccess" [class.nav-user]="!user.EmergencyAccess">
+        <a class="nav-link dropdown-toggle" id="UserDropdown">
+          <span class="profile-text">{{ this.user.FirstName}}&nbsp;&nbsp;{{this.user.LastName}}</span>
+          <img class="img-xs rounded-circle header-avatar mx-1" src="assets/images/header-dropdown-img.svg">
+        </a>
+        <mat-menu #menu="matMenu" [hasBackdrop]="true"
+          [class]="user.EmergencyAccess ? 'mat-menu-panel-access' : 'mat-menu-panel-normal' ">
+          <div class="list" style="width: 100%;" (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()"
+            [style.width.px]="menuwidth">
+            <mat-form-field appearance="outline" class="col-lg-12 provider-dropdown hover">
+              <mat-select class="textcolor" [value]="user.CurrentLocation" name="location" disableOptionCentering
+                panelClass="report-select-option-panel">
+                <mat-option *ngFor="let location of locationsInfo" [value]="location.LocationId"
+                  (click)="changeLocation(location.LocationId)"> {{ location.LocationName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+      <li [class]="user.EmergencyAccess ? 'access li-menu': 'li-menu'" *ngIf="user.EmergencyAccess"
+        (click)="deactivateEmergencyAccess()"><a class="nav-li text-nowrap">Disable Emergency Access</a></li>
+      <li [class]="user.EmergencyAccess ? 'access li-menu': 'li-menu'"><a class="nav-li text-nowrap"
+          (click)="GetUserInfoData()">My Account</a></li>
+      <li [class]="user.EmergencyAccess ? 'access li-menu': 'li-menu'" data-bs-toggle="modal"
+        data-bs-target="#modal-about-ehr1"><a class="nav-li text-nowrap">About
+          EHR1</a></li>
+      <li class="border-bottom" [class]="user.EmergencyAccess ? 'access li-menu': 'li-menu'" (click)="updateUserLock()">
+        <a class="nav-li">Lock</a></li>
+      <li [class]="user.EmergencyAccess ? 'access li-menu': 'li-menu'" (click)="logout()"><a class="nav-li">Log out</a>
+      </li>
+      </mat-menu>
+      </li>
+    </ul>
+  </div>
 </nav>
 
 

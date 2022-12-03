@@ -1,7 +1,5 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, throwError } from "rxjs";
-import { catchError, tap } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 
 import * as FileSaver from "file-saver";
@@ -157,4 +155,24 @@ export class DownloadService {
         }
       );
   }
+
+
+  DownloadAttachment<T>(reqObj: any){
+    const endpointUrl = this.baseUrl + 'DownloadImportErrors';
+    this.http
+      .post(endpointUrl, reqObj, { observe: "response", responseType: "text" })
+      .subscribe(
+        (resp) => {
+          const data = resp.body;
+          const blob = new Blob([data], {
+            type: resp.headers.get("content-type"),
+          });
+          const document = window.URL.createObjectURL(blob);
+          FileSaver.saveAs(document, reqObj.ImportId);
+        },
+        (error) => {
+        }
+      );
+  }
+
 }

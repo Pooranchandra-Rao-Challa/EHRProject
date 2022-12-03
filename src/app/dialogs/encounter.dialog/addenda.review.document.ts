@@ -59,6 +59,8 @@ export class AddendaReviewDocumentComponent implements OnInit {
     this.refreshingEncounters = true;
     this.patientService.EncountersForAddendaDoc({ "AddendaDocId": this.addendaDoc.AddendaDocId })
       .subscribe((resp) => {
+        console.log(resp);
+
         if (resp.IsSuccess) {
           this.encounters = resp.ListResult as EncounterInfo[]
           this.refreshingEncounters = false;
@@ -94,6 +96,8 @@ export class AddendaReviewDocumentComponent implements OnInit {
       // get value
       map((event: any) => {
         this.addendaDocTypeFilter = []
+        console.log(event);
+
         if (event.target.value == '') {
           this.displayMessage = true;
           this.addButtonText = '';
@@ -101,7 +105,7 @@ export class AddendaReviewDocumentComponent implements OnInit {
         }
         return event.target.value;
       })
-      // if character length greater then 2
+      // if character length greater then 0
       , filter(res => res.length > 0)
       // Time in milliseconds between key events
       , debounceTime(1000)
@@ -112,12 +116,18 @@ export class AddendaReviewDocumentComponent implements OnInit {
       this.displayMessage = false;
       this.addendaDocTypeFilter = this.addendaDocTypes
           .filter((unit) => unit.DocType.toLowerCase().indexOf(value.toLowerCase()) > -1)
+
       this.addendaDocTypes.forEach(element => {
         if (value != '' && element.DocType.toLowerCase() != value.toLowerCase()) {
           this.addButtonText = `Add '${value}'`;
           this.newDocumentType = value;
         } else this.addButtonText = ''
       });
+      if(this.addendaDocTypes.length == 0){
+        this.addButtonText = `Add '${value}'`;
+        this.newDocumentType = value;
+      }
+
     });
   }
 

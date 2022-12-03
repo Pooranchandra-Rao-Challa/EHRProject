@@ -1032,6 +1032,10 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "SingAddendaDocs";
   }
 
+  get _deleteAttachmentURL()
+  {
+    return this._baseUrl + "DeleteAttachment";
+  }
 
   constructor(public http: HttpClient) {
     super();

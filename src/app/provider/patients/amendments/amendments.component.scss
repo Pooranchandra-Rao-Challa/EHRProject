@@ -128,3 +128,48 @@ mat-cell:nth-child(1):hover {
   height: 45px;
   margin-left: -1px;
 }
+
+
+.upload-btn-wrapper{
+  border-radius: 6px;
+  color: #41b6a6;
+  text-align: center;
+  margin: unset;
+  :hover{
+    color: white;
+    background-color:  #41b6a6;
+  }
+}
+#modal-patient-amendments{
+  .modal-body{
+    height: calc(70vh - 40px);
+    overflow: auto;
+  }
+}
+
+#modal-patient-amendments .remove{
+  margin: 10px 10px;
+  float: right;
+  color: #41b6a6;
+  border-radius: 6px;
+  text-align: center;
+  padding: 4px 0 0 0;
+  :hover{
+    color: white;
+    background-color:  #41b6a6;
+  }
+}
+
+#modal-patient-amendments{
+
+  .mat-icon{
+    width: 34px;
+    height: 34px;
+    padding: 4px;
+    border: 1px #41b6a6 solid;
+  }
+
+  .attachment-border{
+    border-top:1px solid #41b6a6
+  }
+}

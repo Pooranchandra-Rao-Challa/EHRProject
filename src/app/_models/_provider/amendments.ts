@@ -1,14 +1,17 @@
-export class Amendments {
-  AmendmentId?:  string;
-    DateofRequest?: string='';
-    DateofAccept?: string='';
-    DateofAppended?: string='';
-    Status?: string;
-    Source?: string;
-    Description?:string;
-    Note?: string;
-    PatientId?:string;
-  }
+import { Attachment } from './LabandImage';
+export class Amendment {
+  AmendmentId?: string;
+  DateofRequest?: string = '';
+  DateofAccept?: string = '';
+  DateofAppended?: string = '';
+  Status?: string;
+  Source?: string;
+  Description?: string;
+  Note?: string;
+  PatientId?: string;
+  Attachments?: Attachment[] = []
+  strAttachments?: string;
+}
 
   // {
   //   "AmendmentId": "sample string 1",

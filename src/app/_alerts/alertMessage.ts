@@ -607,6 +607,7 @@ export const ERROR_CODES: { [key: string]: string } = {
 
   //2CAD Adendda Comments and Docs
   '2CAD001': 'Uploading attachment failed',
+
   '2CAD002': 'Attaching of document failed.',
   '2CAD003': 'Document reviews are not saved',
   '2CAD004': 'Deleted document reviews',
@@ -614,6 +615,8 @@ export const ERROR_CODES: { [key: string]: string } = {
   '2CAD006': 'Document reviews are saved',
   '2CAD007': 'Document comments added',
   '2CAD008': 'Document comments addition failed',
+  '2AD001': 'Attachment deleted successfully',
+  '2EAD001': 'Attachment not deleted',
 
   //Error Message for Appoinments
   'E3A002': "We're sorry, unfortunately, online appointment requests are not currently being accepted for the practice selected. Please call the practice directly to schedule your appointment.",

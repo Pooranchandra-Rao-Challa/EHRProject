@@ -1,11 +1,15 @@
+
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { SettingsService } from '../../_services/settings.service';
-import { EducationMaterialCode, PatientEducationInfomation, User } from '../../_models';
+import { EducationMaterial, PatientEducationInfomation, User } from '../../_models';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import { MedicalCode } from 'src/app/_models/codes';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
+import { UPLOAD_URL } from 'src/environments/environment';
+import { HttpParams } from '@angular/common/http';
+import { Attachment } from 'src/app/_models/_provider/LabandImage';
 
 @Component({
   selector: 'patientednmaterial-settings',
@@ -18,17 +22,28 @@ export class PatientEdnMaterialComponent implements OnInit {
   patientmaterialfrom: FormGroup
   expandedchangecolor: boolean = false;
   codeSystemsForPatientEducation: string[] = ['SNOMED/ICD10', 'SNOMED/ICD10', 'CDT/CPT', 'Lonics', 'NDC', 'RxNorm'];
-  patientEducationInfo: PatientEducationInfomation = new PatientEducationInfomation();
-  patientEducationSearchList = new BehaviorSubject<EducationMaterialCode[]>([]);
+  EducationMaterials: EducationMaterial[];
+  patientEducationSearchList = new BehaviorSubject<EducationMaterial[]>([]);
   columnsToDisplay = ['action', 'name', 'weight', 'symbol', 'position'];
   patientEdMaterialSearchColumns = ["CODE", "CODE SYSTEM", "DESCRIPTION", "Delete"];
   Patientedmateriallist: any = [];
-  educationMaterialCode: EducationMaterialCode = new EducationMaterialCode();
+  educationMaterial: EducationMaterial = new EducationMaterial();
   indexExpanded: number = 0;
   valuedisable: boolean = false
+  EntityName: string = "EdnMaterial"
+  fileUploadUrl: string = ""
+  fileTypes = ".jpg,.gif,.png"
+  fileSize: number = 20;
+  EntityId: string;
+  httpRequestParams = new HttpParams();
 
-  constructor(private fb: FormBuilder, private settingservice: SettingsService, private authService: AuthenticationService, private alertmsg: AlertMessage) {
+  constructor(private fb: FormBuilder, private settingservice: SettingsService,
+    private authService: AuthenticationService, private alertmsg: AlertMessage,
+    ) {
     this.user = authService.userValue;
+    this.fileUploadUrl = UPLOAD_URL('api/upload/UploadSingleFile')
+
+    this.httpRequestParams = this.httpRequestParams.append("EntityName", this.EntityName);
   }
 
   ngOnInit(): void {
@@ -41,7 +56,12 @@ export class PatientEdnMaterialComponent implements OnInit {
       ClinicId: this.user.ClinicId
     }
     this.settingservice.EducationMaterials(reqparams).subscribe(response => {
-      this.Patientedmateriallist = response.ListResult;
+      if (response.IsSuccess) {
+        this.EducationMaterials = response.ListResult as EducationMaterial[];
+        this.EducationMaterials.forEach(endmaterial =>{
+          endmaterial.Attachments = JSON.parse(endmaterial.strAttachments);
+        })
+      } else this.EducationMaterials = []
     })
   }
 
@@ -80,13 +100,10 @@ export class PatientEdnMaterialComponent implements OnInit {
   }
 
   optionChangedForPed(value: MedicalCode) {
-    //  this.educationMaterialCode= new EducationMaterialCode();
-    this.educationMaterialCode.Code = value.Code
-    this.educationMaterialCode.CodeSystem = value.CodeSystem
-    this.educationMaterialCode.Name = value.Description
-    this.educationMaterialCode.CanDelete = false;
-    this.patientEducationInfo.EducationMat.push(this.educationMaterialCode);
-    this.patientEducationSearchList.next(this.patientEducationInfo.EducationMat.filter(fn => fn.CanDelete === false));
+    this.educationMaterial.Code = value.Code
+    this.educationMaterial.CodeSystem = value.CodeSystem
+    this.educationMaterial.Name = value.Description
+    this.educationMaterial.CanDelete = false;
     return " ";
   }
 
@@ -95,24 +112,21 @@ export class PatientEdnMaterialComponent implements OnInit {
     return "";
   }
 
-  removePatientEdM(value: EducationMaterialCode, index: number) {
+  removePatientEdM(value: EducationMaterial, index: number) {
     value.CanDelete = true;
-    this.patientEducationSearchList.next(this.patientEducationInfo.EducationMat.filter(fn => fn.CanDelete === false));
-    this.educationMaterialCode = new EducationMaterialCode();
+    this.educationMaterial = new EducationMaterial();
   }
 
   resetDialog() {
-    this.educationMaterialCode = new EducationMaterialCode();
-    this.patientEducationSearchList = new BehaviorSubject<EducationMaterialCode[]>([]);
-    this.patientEducationInfo = new PatientEducationInfomation();
-    // this.patientEducationSearchList.next(this.patientEducationInfo.EducationMat);
+    this.educationMaterial = new EducationMaterial();
+    this.patientEducationSearchList = new BehaviorSubject<EducationMaterial[]>([]);
     this.getPatientedmateriallist();
   }
 
   createUpadateEducationMaterial() {
-    let isAdd = this.educationMaterialCode.EducationalId == undefined;
-    this.educationMaterialCode.ClinicId = this.user.ClinicId;
-    this.settingservice.CreatePatientEducationMaterial(this.educationMaterialCode).subscribe((resp) => {
+    let isAdd = this.educationMaterial.EducationalId == undefined;
+    this.educationMaterial.ClinicId = this.user.ClinicId;
+    this.settingservice.CreatePatientEducationMaterial(this.educationMaterial).subscribe((resp) => {
       this.resetDialog();
       if (resp.IsSuccess) {
         this.getPatientedmateriallist();
@@ -125,14 +139,52 @@ export class PatientEdnMaterialComponent implements OnInit {
   }
 
   editEducationMaterial(item) {
-    this.educationMaterialCode = item;
+    this.educationMaterial = item;
   }
 
-  enableSavePed() {
-    return !(this.educationMaterialCode.Code != null && this.educationMaterialCode.Code != ''
-      && this.educationMaterialCode.CodeSystem != null && this.educationMaterialCode.CodeSystem != ''
-      && this.educationMaterialCode.Name != null && this.educationMaterialCode != ''
-      && this.educationMaterialCode.ResourceNotes != null && this.educationMaterialCode != '')
+  enableSavePEDN() {
+    return !(this.educationMaterial.Code != null && this.educationMaterial.Code != ''
+      && this.educationMaterial.CodeSystem != null && this.educationMaterial.CodeSystem != ''
+      && this.educationMaterial.Name != null && this.educationMaterial.Name != ''
+      && this.educationMaterial.ResourceNotes != null && this.educationMaterial.ResourceNotes != '')
+  }
+
+  ItemsModified(data) {
+    this.educationMaterial.Attachments = data;
+  }
+
+
+  public UploadCompleted(data): any {
+    if (data.event.body) {
+      if (!this.educationMaterial.Attachments)
+        this.educationMaterial.Attachments = [];
+      this.educationMaterial.Attachments.push(data.event.body as Attachment);
+    }
+  }
+  DeleteAttachment(attachment) {
+    if (attachment) {
+      this.educationMaterial.Attachments.filter(fn => fn.AttachmentId == attachment.attachmentId)[0].IsDeleted = true;
+      this.settingservice.DeleteAttachment(attachment).subscribe((resp) =>{
+        if(resp.IsSuccess){
+          this.alertmsg.displayMessageDailog(ERROR_CODES["2AD001"]);
+          this.getPatientedmateriallist();
+        }else{
+          this.alertmsg.displayErrorDailog(ERROR_CODES["2EAD001"]);
+        }
+      })
+    }
+  }
+  DownloadAttachment(attachment: Attachment){
+    attachment.EntityName = this.EntityName;
+
+  }
+
+  get Attachments(): Attachment[] {
+    if (!this.educationMaterial.Attachments) this.educationMaterial.Attachments = [];
+    return this.educationMaterial.Attachments.filter(fn => !fn.IsDeleted);
+  }
+  ItemRemoved($event) {
+    console.log($event);
   }
 }
 

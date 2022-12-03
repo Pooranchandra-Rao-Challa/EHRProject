@@ -26,6 +26,7 @@ export class Messages {
   toAddress?: ToAddress = {};
   ForwardReplyMessage?: string;
   Attachments?: Attachment[] =[];
+  strAttachments?: string;
   Read?:boolean;
 }
 

@@ -15,7 +15,8 @@ import { FileUploadModule } from 'src/app/file.upload/file-upload.module'
 import { InterceptorService } from "../_loader/interceptor.service";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { PaginatorDirective } from 'src/app/_directives/pagination.directive'
-
+import { AttachmentPreviewComponent } from "src/app/_components/attachments/attachment.preview.component";
+import { AttachmentNopreviewComponent } from 'src/app/_components/attachments/attachment.nopreview.component'
 @NgModule({
   imports: [
     QuickAppProMaterialModule,
@@ -39,11 +40,13 @@ import { PaginatorDirective } from 'src/app/_directives/pagination.directive'
     MouseOverHintDirective,
     NunberMaskDirective,
     AlphaDirective,
+    AttachmentPreviewComponent,
+    AttachmentNopreviewComponent,
   ],
   declarations: [GroupByPipe, FilterPipe, SearchPipe, TimeMaskDirective,TeethPlacePipe,
     MouseOverHintDirective,SimplePaginationDirective,npiValidatorDirective,
     ssnValidatorDirective,NunberMaskDirective,AlphaDirective,
-    PaginatorDirective,],
+    PaginatorDirective,AttachmentPreviewComponent,AttachmentNopreviewComponent,],
   providers : [
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
   ],

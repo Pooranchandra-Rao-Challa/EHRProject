@@ -5,12 +5,14 @@ import { PatientProfile } from 'src/app/_models/_patient/patientprofile';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { PatientService } from 'src/app/_services/patient.service';
 import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
-import { fromEvent, Observable, of } from 'rxjs';
+import { BehaviorSubject, fromEvent, Observable, of } from 'rxjs';
 import { MessagesService } from 'src/app/_services/messages.service';
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { MessageDialogInfo, Messages } from 'src/app/_models/_provider/messages';
 import { UPLOAD_URL } from 'src/environments/environment'
+import { HttpParams } from '@angular/common/http';
+import { Attachment } from 'src/app/_models/_provider/LabandImage';
 class ToAddress {
   UserId?: string;
   Name?: string;
@@ -23,7 +25,7 @@ class ToAddress {
 export class NewmessageDialogComponent implements OnInit {
 
   PatientProfile: PatientProfile;
-  EntityName: string = "Message"
+  EntityName: string = "EmailMessage"
   @ViewChild('searchpatient', { static: true }) searchpatient: ElementRef;
   filteredToAddressMembers: Observable<ToAddress[]>;
   isLoading: boolean = false;
@@ -34,6 +36,11 @@ export class NewmessageDialogComponent implements OnInit {
   diabledPatientSearch: boolean = false
   displayMessage: boolean = true;
   noRecords: boolean = false;
+  fileTypes = ".jpg,.gif,.png"
+  fileSize: number = 20;
+  EntityId: string;
+  httpRequestParams = new HttpParams();
+  attachmentSubject: BehaviorSubject<Attachment[]> = new BehaviorSubject<Attachment[]>([]);
 
   constructor(private ref: EHROverlayRef,
     private patientService: PatientService,
@@ -45,6 +52,9 @@ export class NewmessageDialogComponent implements OnInit {
     this.messageDialogData = ref.RequestData;
     this.message = this.messageDialogData.Messages;
     this.fileUploadUrl = UPLOAD_URL('api/upload/UploadSingleFile')
+    console.log(this.fileUploadUrl);
+
+    this.httpRequestParams = this.httpRequestParams.append("EntityName", this.EntityName);
 
     if (this.message == null)
       this.message = {}
@@ -56,7 +66,7 @@ export class NewmessageDialogComponent implements OnInit {
       map((event: any) => {
         this.filteredToAddressMembers = of([]);
         this.noRecords = false;
-        if(event.target.value == ''){
+        if (event.target.value == '') {
           this.displayMessage = true;
         }
         return event.target.value;
@@ -90,7 +100,6 @@ export class NewmessageDialogComponent implements OnInit {
       else if (this.messageDialogData.MessageFor == undefined) {
         this.searchpatient.nativeElement.value = ''
       }
-
     });
   }
 
@@ -189,7 +198,26 @@ export class NewmessageDialogComponent implements OnInit {
       this.diabledPatientSearch = true;
   }
 
-  ItemsModified(data) {
-    this.message.Attachments = data;
+
+  public UploadCompleted(data): any {
+    if (data.event.body) {
+      if (!this.message.Attachments)
+        this.message.Attachments = [];
+      this.message.Attachments.push(data.event.body as Attachment);
+      this.attachmentSubject.next(this.message.Attachments);
+    }
+  }
+  DeleteAttachment(attachmentId) {
+    if (attachmentId) {
+      this.message.Attachments.filter(fn => fn.AttachmentId == attachmentId)[0].IsDeleted = true;
+    }
+  }
+  ItemRemoved($event) {
+    console.log($event);
+  }
+
+  get Attachments(): Attachment[]{
+    if(!this.message.Attachments) this.message.Attachments =[]
+    return this.message.Attachments.filter(fn => !fn.IsDeleted);
   }
 }
