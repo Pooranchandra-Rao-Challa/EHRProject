@@ -7,7 +7,8 @@
       </span>
     </div>
     <div class="modal-body adv-modal-body">
-      <div class="row">
+      <div class="row mb-3 mb-md-0">
+        <mat-label class="required">Date Recorded:</mat-label>
         <mat-form-field appearance="outline" class="grey-matform grey-calendar col-lg-8 col-md-6">
           <input matInput class="pointer date-mat-class" autocomplete="off" [matDatepicker]="picker1"
             (click)="picker1.open()" readonly placeholder="Date Recorded" [(ngModel)]="advDirective.RecordAt">
@@ -18,6 +19,7 @@
           <button class="btn btn-green col-12" (click)="todayDate()">Today</button>
         </div>
       </div>
+      <mat-label class="required">Notes:</mat-label>
       <textarea placeholder="Advanced Directive Notes" class="form-control col-12 mt-3 mt-md-0"
         [(ngModel)]="advDirective.Notes"></textarea>
     </div>

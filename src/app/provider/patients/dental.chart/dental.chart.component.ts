@@ -37,7 +37,7 @@ export class DentalChartComponent implements OnInit, AfterViewInit {
   encounterDialogComponent = EncounterDialogComponent;
   ActionTypes = Actions;
   usedProcedures: MedicalCode;
-  procedureColumns: string[] = ['SELECT', 'START DATE', 'END DATE', 'TOOTH', 'SURFACE', 'CODE', 'DESCRIPTION', 'PROVIDER', 'STATUS', 'CQM STATUS', 'Encounter'];
+  procedureColumns: string[] = ['SELECT', 'ServicedAt', 'END DATE', 'ToothNo', 'SURFACE', 'CODE', 'Description', 'PROVIDER', 'Status', 'CQM STATUS', 'Encounter'];
   @ViewChild("procedureSearch", { static: true }) procedureSearch: ElementRef;
   @ViewChild("procedureTree", { static: true }) procedureTree: TreeProcedureComponent;
   //patientProceduresView = new BehaviorSubject<ProceduresInfo[]> ([]);
@@ -88,7 +88,7 @@ export class DentalChartComponent implements OnInit, AfterViewInit {
     this.procedureDataSource.loadProcedures(
       this.sort.active,
       this.sort.direction,
-      this.paginator ? this.paginator.pageIndex : 1,
+      this.paginator ? this.paginator.pageIndex : 0,
       this.paginator ? this.paginator.pageSize : 10
     );
   }
@@ -210,7 +210,7 @@ export class ProcedureDatasource implements DataSource<ProceduresInfo>{
     this.queryParams["ProviderId"] = id;
   }
 
-  loadProcedures(sortField = 'CreatedDate',
+  loadProcedures(sortField = 'ServicedAt',
     sortDirection = 'desc', pageIndex = 0, pageSize = 10) {
     this.queryParams["PatientId"] = this.authService.viewModel.Patient.PatientId;
     this.queryParams["SortField"] = sortField;

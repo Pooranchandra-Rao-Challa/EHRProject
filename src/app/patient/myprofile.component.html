@@ -10,7 +10,8 @@
               <div class="attachment-container" style="    height: 230px;
               border-bottom: 1px solid #41b6a6;
               display: grid;">
-                <img src="assets/images/avatar-empty-white.svg" styclass="admin-side-logo mx-2" *ngIf=" this.Imagedata == null" class="img">
+                <img src="assets/images/avatar-empty-white.svg" styclass="admin-side-logo mx-2"
+                  *ngIf=" this.Imagedata == null" class="img">
                 <img [src]="Imagedata" width="100%" style="padding:10px" *ngIf=" this.Imagedata != null">
               </div>
               <label class="btn btn-default upload-file">
@@ -72,9 +73,9 @@
                   </label>
                   <div class="form-group">
                     <mat-form-field appearance="outline" class="grey-matform ">
-                      <input matInput class="pointer" [matDatepicker]="dp" placeholder="Start Date" (click)="dp?.open()" readonly
-                        [(ngModel)]="PatientProfile.DateOfBirth" #DateofBirth="ngModel" name="DateofBirth" required
-                      >
+                      <input matInput class="pointer" [matDatepicker]="dp" placeholder="Start Date" (click)="dp?.open()"
+                        readonly [(ngModel)]="PatientProfile.DateOfBirth" #DateofBirth="ngModel" name="DateofBirth"
+                        required>
                       <mat-datepicker-toggle matSuffix [for]="dp">
                       </mat-datepicker-toggle>
                       <mat-datepicker #dp disabled="false"></mat-datepicker>
@@ -197,9 +198,11 @@
             <div class="row">
               <h5 class="Helvetica-sans-serif-small">HOME ADDRESS</h5>
               <div class="col-md-9 mt-1">
-                <mat-form-field appearance="outline" class="filed-border col-lg-12 col-md-12 col-sm-12 col-12">
+                <mat-form-field appearance="outline" class="filed-border col-lg-12 col-md-12 col-sm-12 col-12"
+                  [class.noHover]="disableaddressverification">
                   <input matInput placeholder="Enter full address here (including suite number)"
-                    [disabled]="disableaddressverification" [(ngModel)]="PatientProfile.Street">
+                    [class.noHover]="disableaddressverification" [disabled]="disableaddressverification"
+                    [(ngModel)]="PatientProfile.Street">
                 </mat-form-field>
               </div>
               <div class="col-md-3 mt-2">
@@ -210,39 +213,45 @@
             </div>
             <div class="row mt-1">
               <div class="col-md-7">
-                <mat-form-field appearance="outline" class="filed-border noHover col-md-12 ">
+                <mat-form-field appearance="outline" class="filed-border col-md-12"
+                  [class.noHover]="!manuallybtn || !disableaddressverification">
                   <input matInput readonly placeholder="Street Address" [(ngModel)]="PatientProfile.StreetAddress"
                     id="StreetAddress" name="StreetAddress" #StreetAddress="ngModel"
-                    [readonly]="!disableaddressverification" [class.address-verfied]="!manuallybtn">
+                    [readonly]="!disableaddressverification"
+                    [class.address-verfied]="!manuallybtn || !disableaddressverification">
                 </mat-form-field>
               </div>
               <div class="col-md-1"><button type="button" class="btn cross-mark error-close"
                   *ngIf="addressVerfied && !manuallybtn" (click)="enableManualEntry()"
                   title="Can enter manully when the verification results are in correct by clicking this icon">x</button>
               </div>
-              <div class="col-md-4  patient-street-address d-flex justify-content-end flex-sm-row flex-column">
+              <div class="col-md-4 patient-street-address d-flex justify-content-end flex-sm-row flex-column">
                 <div class="form-group">
-                  <button class="btn-green btn manualbtn  py-0 btn-lg btn-md"
+                  <button class="btn-green btn manualbtn py-0 mt-md-1 btn-lg btn-md"
                     *ngIf="manuallybtn || disableaddressverification" (click)="enterAddressManually()">Enter Address
                     Manually</button>
                 </div>
               </div>
             </div>
             <div class="row">
-              <mat-form-field appearance="outline"
-                class="grey-matform noHover col-lg-4 col-md-4 col-sm-12 col-12 mt-3 ">
+              <mat-form-field appearance="outline" class="grey-matform col-lg-4 col-md-4 col-sm-12 col-12 mt-3"
+                [class.noHover]="!manuallybtn || !disableaddressverification">
                 <input matInput readonly placeholder="City" [readonly]="!disableaddressverification"
+                  [class.address-verfied]="!manuallybtn || !disableaddressverification"
                   [(ngModel)]="PatientProfile.city" id="city" name="city" #city="ngModel">
               </mat-form-field>
-              <mat-form-field appearance="outline"
-                class="grey-matform noHover  col-lg-4 col-md-4 col-sm-12 col-12 mt-3 ">
+              <mat-form-field appearance="outline" class="grey-matform col-lg-4 col-md-4 col-sm-12 col-12 mt-3"
+                [class.noHover]="!manuallybtn || !disableaddressverification">
                 <input matInput readonly placeholder="State" [readonly]="!disableaddressverification"
+                  [class.address-verfied]="!manuallybtn || !disableaddressverification"
                   [(ngModel)]="PatientProfile.state" id="state" name="state" #state="ngModel">
               </mat-form-field>
 
-              <mat-form-field appearance="outline" class="grey-matform noHover col-lg-4 col-md-4 col-sm-12 col-12 mt-3">
+              <mat-form-field appearance="outline" class="grey-matform col-lg-4 col-md-4 col-sm-12 col-12 mt-3"
+                [class.noHover]="!manuallybtn || !disableaddressverification">
                 <input matInput readonly placeholder="Zip" [readonly]="!disableaddressverification"
-                  [(ngModel)]="PatientProfile.zip" id="zip" name="zip" #zip="ngModel">
+                  [class.address-verfied]="!manuallybtn || !disableaddressverification" [(ngModel)]="PatientProfile.zip"
+                  id="zip" name="zip" #zip="ngModel">
               </mat-form-field>
             </div>
             <div class="row mb-3">
@@ -327,8 +336,10 @@
             <div class="row mt-1">
               <h5 class="Helvetica-sans-serif-small">HOME ADDRESS</h5>
               <div class="col-md-9 mt-1">
-                <mat-form-field appearance="outline" class="filed-border col-lg-12 col-md-12 col-sm-12 col-12">
+                <mat-form-field appearance="outline" class="filed-border col-lg-12 col-md-12 col-sm-12 col-12"
+                  [class.noHover]="emergencydisableaddressverification">
                   <input matInput placeholder="Enter full address here (including suite number)"
+                    [class.noHover]="emergencydisableaddressverification"
                     [disabled]="emergencydisableaddressverification" [(ngModel)]="PatientProfile.EmergencyStreet">
                 </mat-form-field>
               </div>
@@ -340,39 +351,47 @@
             </div>
             <div class="row mt-1">
               <div class="col-md-7">
-                <mat-form-field appearance="outline" class="filed-border noHover col-md-12">
+                <mat-form-field appearance="outline" class="filed-border col-md-12"
+                  [class.noHover]="!emergencyManuallybtn || !emergencydisableaddressverification">
                   <input readonly matInput placeholder="Street Address"
                     [(ngModel)]="PatientProfile.EmergencyStreetAddress" id="EmergencyStreetAddress"
                     name="EmergencyStreetAddress" #EmergencyStreetAddress="ngModel"
-                    [readonly]="!emergencydisableaddressverification" [class.address-verfied]="!emergencyManuallybtn">
+                    [readonly]="!emergencydisableaddressverification"
+                    [class.address-verfied]="!emergencyManuallybtn || !emergencydisableaddressverification">
                 </mat-form-field>
               </div>
               <div class="col-md-1"><button type="button" class="btn cross-mark error-close"
                   *ngIf="emergencyAdressVerfied && !emergencyManuallybtn" (click)="emergencyEnableManualEntry()"
                   title="Can enter manully when the verification results are in correct by clicking this icon">x</button>
               </div>
-              <div class="col-md-4  patient-street-address d-flex justify-content-end flex-sm-row flex-column">
+              <div class="col-md-4 patient-street-address d-flex justify-content-end flex-sm-row flex-column">
                 <div class="form-group">
-                  <button class="btn-green btn manualbtn  py-0 btn-lg btn-md"
+                  <button class="btn-green btn manualbtn py-0 mt-md-1 btn-lg btn-md"
                     *ngIf="emergencyManuallybtn || emergencydisableaddressverification"
                     (click)="emergencyAddressEnterManually()">Enter Address Manually</button>
                 </div>
               </div>
             </div>
             <div class="row ">
-              <mat-form-field appearance="outline" class="grey-matform noHover col-lg-4 col-md-4 col-sm-12 col-12 mt-3">
+              <mat-form-field appearance="outline" class="grey-matform col-lg-4 col-md-4 col-sm-12 col-12 mt-3"
+                [class.noHover]="!emergencyManuallybtn || !emergencydisableaddressverification">
                 <input matInput readonly placeholder="City" [(ngModel)]="PatientProfile.EmergencyCity"
                   id="EmergencyCity" name="EmergencyCity" #EmergencyCity="ngModel"
-                  [readonly]="!emergencydisableaddressverification">
+                  [readonly]="!emergencydisableaddressverification"
+                  [class.address-verfied]="!emergencyManuallybtn || !emergencydisableaddressverification">
               </mat-form-field>
-              <mat-form-field appearance="outline" class="grey-matform noHover col-lg-4 col-md-4 col-sm-12 col-12 mt-3">
+              <mat-form-field appearance="outline" class="grey-matform col-lg-4 col-md-4 col-sm-12 col-12 mt-3"
+                [class.noHover]="!emergencyManuallybtn || !emergencydisableaddressverification">
                 <input matInput readonly placeholder="State" [(ngModel)]="PatientProfile.EmergencyState"
                   id="EmergencyState" name="EmergencyState" #EmergencyState="ngModel"
-                  [readonly]="!emergencydisableaddressverification">
+                  [readonly]="!emergencydisableaddressverification"
+                  [class.address-verfied]="!emergencyManuallybtn || !emergencydisableaddressverification">
               </mat-form-field>
-              <mat-form-field appearance="outline" class="grey-matform noHover col-lg-4 col-md-4 col-sm-12 col-12 mt-3">
+              <mat-form-field appearance="outline" class="grey-matform col-lg-4 col-md-4 col-sm-12 col-12 mt-3"
+                [class.noHover]="!emergencyManuallybtn || !emergencydisableaddressverification">
                 <input matInput readonly placeholder="Zip" [(ngModel)]="PatientProfile.EmergencyZip" id="EmergencyZip"
-                  name="EmergencyZip" #EmergencyZip="ngModel" [readonly]="!emergencydisableaddressverification">
+                  name="EmergencyZip" #EmergencyZip="ngModel" [readonly]="!emergencydisableaddressverification"
+                  [class.address-verfied]="!emergencyManuallybtn || !emergencydisableaddressverification">
               </mat-form-field>
             </div>
             <div class="row mb-3">
@@ -525,7 +544,8 @@
             <div class="d-flex justify-content-end">
               <button type="button" class="btn btn-green mx-2 " data-bs-dismiss="modal"
                 (click)="ChangeSecurityQuestion()" [disabled]="enableSave()">Change</button>
-              <button type="button" class="btn btn-green" data-bs-dismiss="modal" (click)="resetSecurityQuestion()">Cancel</button>
+              <button type="button" class="btn btn-green" data-bs-dismiss="modal"
+                (click)="resetSecurityQuestion()">Cancel</button>
             </div>
           </div>
           <!-- end personal info -->

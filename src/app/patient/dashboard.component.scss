@@ -252,3 +252,8 @@ ul>.active>a {
 {
   color: #fe8f00 !important;
 }
+
+.nav-item.active {
+  background-color: #2e877b;
+  border-bottom: 3px solid #fe8f00;
+}

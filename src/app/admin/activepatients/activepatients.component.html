@@ -81,7 +81,7 @@
                   <div class="admin-pg-container" [hidden]="!patientsDataSource.TotalRecordSize">
                     <mat-paginator adminPagination
                        [length]="patientsDataSource.TotalRecordSize" [pageSize]="pageSize"
-                       [pageIndex] = "page"
+                       [pageIndex]="page"
                        [pageSizeOptions]="[10,20,30,40,50]"  >
                       </mat-paginator>
                     </div>

@@ -52,16 +52,16 @@
         <span class="profile-text">{{LoggedInUser}}</span>
         <img class="img-xs rounded-circle header-avatar mx-1" src="assets/images/header-dropdown-img.svg">
       </a>
-      <mat-menu dropmenuuser #menu="matMenu" [hasBackdrop]="true" >
+      <mat-menu class="mat-menu-panel-normal" dropmenuuser #menu="matMenu" [hasBackdrop]="true" >
         <div class="list"  id="dropmenu-user" [style.width.px]="menuwidth" style="border-top: 1px solid #86c1bb;overflow: hidden;" (click)="$event.stopPropagation()"
           (keydown)="$event.stopPropagation()">
-    <li class="li-menu" routerLink="/patient/profile">
+    <li class="li-menu" [class.active]="viewModel.View == 'profile'" (click)="patientSubView('profile')">
       <a class="nav-li">My Profile</a>
     </li>
-    <li class="li-menu" routerLink="/patient/health">
+    <li class="li-menu" [class.active]="viewModel.View == 'health'" (click)="patientSubView('health')">
       <a class="nav-li">My Health</a>
     </li>
-    <li class="li-menu border-bottom" routerLink="/patient/activitylog">
+    <li class="li-menu border-bottom" [class.active]="viewModel.View == 'activitylog'" (click)="patientSubView('activitylog')">
       <a class="nav-li">Activity Log</a>
     </li>
     <li class="li-menu" (click)="logout()">

@@ -45,7 +45,8 @@ export class PatientNavbarComponent implements OnInit,AfterViewInit {
     if(this.viewModel == null){
       this.viewModel = new ViewModel();
       this.viewModel.View = "dashboard"
-    }this.viewModel.View = "dashboard"
+    }
+    // this.viewModel.View = "dashboard"
   }
   ngAfterViewInit(): void {
     this.menuwidth = (document.getElementById('UserDropdown').clientWidth+8);
@@ -96,4 +97,11 @@ export class PatientNavbarComponent implements OnInit,AfterViewInit {
     else return this.user.FirstName +' '+ this.user.LastName;
 
   }
+
+  patientSubView(view: string) {
+    this.viewModel.View = view;
+    localStorage.setItem('viewModel', JSON.stringify(this.viewModel as ViewModel));
+    this.router.navigate(['/patient/' + view]);
+  }
+
 }

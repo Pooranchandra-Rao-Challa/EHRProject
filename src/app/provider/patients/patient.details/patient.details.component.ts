@@ -467,7 +467,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
   }
 
   DeletePatient() {
-    this.patient.active = false;
+    this.patient.IsDeleted = true;
     this.patientService.DeletePatient(this.patient).subscribe(resp => {
       if (resp.IsSuccess) {
         this.alertmsg.displayErrorDailog(ERROR_CODES["M2AP004"]);

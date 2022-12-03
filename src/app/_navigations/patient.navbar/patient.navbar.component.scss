@@ -18,6 +18,12 @@
   white-space: nowrap !important;
 }
 
+.li-menu.active {
+  background-color: #22645b !important;
+  border-left: 3px solid #fe8f00;
+  padding: 13px 30px 0 20px !important;
+}
+
 .messages-count {
   position: absolute;
     right: 20%;
