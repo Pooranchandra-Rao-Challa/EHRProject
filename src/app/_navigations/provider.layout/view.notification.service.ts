@@ -136,3 +136,20 @@ export class ProviderLocationUpdateNotifier {
   }
 }
 
+@Injectable()
+export class UpdateEmergencyAccess {
+  private subject = new Subject<any>();
+
+  sendData(updateAccess: boolean) {
+    this.subject.next(updateAccess);
+  }
+
+  clearData() {
+    this.subject.next();
+  }
+
+  getData(): Observable<boolean> {
+    return this.subject.asObservable();
+  }
+}
+

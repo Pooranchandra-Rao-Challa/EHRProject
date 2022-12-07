@@ -318,11 +318,6 @@ export class AuthenticationService {
     return true;
   }
 
-  UpdateEmergencyAccess() {
-    this.userValue.EmergencyAccess = false;
-    localStorage.setItem('user', JSON.stringify(this.userValue));
-  }
-
   get isProvider(): boolean {
     if (this.userValue == undefined || this.userValue == null) return false;
     return this.userValue.Role.toLowerCase() == "provider"
@@ -424,6 +419,12 @@ export class AuthenticationService {
     u.LastName = provider.LastName;
     this.userSubject.next(u);
     localStorage.setItem('user', JSON.stringify(u as User));
+  }
+
+  UpdateEmergencyAccess() {
+    this.userValue.EmergencyAccess = false;
+    this.userSubject.next(this.userValue);
+    localStorage.setItem('user', JSON.stringify(this.userValue as User));
   }
 
   private startRefreshTokenTimer() {

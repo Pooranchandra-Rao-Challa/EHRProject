@@ -28,6 +28,7 @@ import { OverlayComponent } from '../../overlay/overlay.component';
 import { OverlayService } from '../../overlay.service'
 import { MessagesService } from 'src/app/_services/messages.service';import { NgxMaskModule } from 'ngx-mask';
 import { NotifyMessageService } from 'src/app/_navigations/provider.layout/view.notification.service';
+import { CommunicationSettingsComponent } from 'src/app/patient/communication.settings/communication.settings.component';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { NotifyMessageService } from 'src/app/_navigations/provider.layout/view.
     FooterComponent,
     ActivityLogComponent,
     PatientSecurityQuestionDialogComponent,
+    CommunicationSettingsComponent
   ],
   imports: [
     PatientRoutingModule,

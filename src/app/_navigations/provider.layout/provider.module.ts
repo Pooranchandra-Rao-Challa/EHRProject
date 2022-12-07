@@ -133,7 +133,7 @@ import { EncounterTableDialogComponent } from 'src/app/dialogs/encounter.table.d
 import { AppointmentsTableDialogComponent } from 'src/app/dialogs/appointments.table.dialog/appointments.table.dialog.component';
 import { FileUploadService } from 'src/app/_services/file.upload.service'
 import { NotifyMessageService } from "src/app/_navigations/provider.layout/view.notification.service";
-import { NotifyProviderHeaderService, ProviderLocationUpdateNotifier } from 'src/app/_navigations/provider.layout/view.notification.service';
+import { NotifyProviderHeaderService, ProviderLocationUpdateNotifier, UpdateEmergencyAccess } from 'src/app/_navigations/provider.layout/view.notification.service';
 import { MessagesTableDialogComponent } from 'src/app/dialogs/messages.table.dialog/messages.table.dialog.component';
 import { ViewMessageDialogComponent } from 'src/app/dialogs/view.message.dialog/view.message.dialog.component';
 import { PraticeAdduserDialogComponent } from 'src/app/dialogs/pratice.adduser.dialog/pratice.adduser.dialog.component';
@@ -341,6 +341,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     FileUploadService,ProviderLocationUpdateNotifier,
     NotifyMessageService,
     NotifyProviderHeaderService,
+    UpdateEmergencyAccess,
     { provide: LOCALE_ID, useValue: 'en-US' },
     { provide: MAT_DATE_LOCALE, useValue: 'en-US' },
     ProviderCodeDatabase,
