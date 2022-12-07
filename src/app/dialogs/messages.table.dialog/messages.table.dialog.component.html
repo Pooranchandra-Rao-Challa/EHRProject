@@ -9,7 +9,7 @@
     <div class="modal-body scrollable-mat-table">
       <mat-table [dataSource]="patientMessages" matSort>
         <ng-container matColumnDef="Subject">
-          <mat-header-cell *matHeaderCellDef mat-sort-header="Subject">Message Subject
+          <mat-header-cell *matHeaderCellDef mat-sort-header="Subject">Subject
           </mat-header-cell>
           <mat-cell *matCellDef="let message">
             <a (click)="openComponentDialog(viewMessageDialogComponent,message,ActionTypes.view)">
@@ -17,11 +17,11 @@
             </a>
           </mat-cell>
         </ng-container>
-        <ng-container matColumnDef="Updated">
-          <mat-header-cell *matHeaderCellDef mat-sort-header="Updated">Message Updated</mat-header-cell>
+        <ng-container matColumnDef="Created">
+          <mat-header-cell *matHeaderCellDef mat-sort-header="Created">Created Date</mat-header-cell>
           <mat-cell *matCellDef="let message">
             <a (click)="openComponentDialog(viewMessageDialogComponent,message,ActionTypes.view)">
-              {{message.ApptStatus | date: 'MM/dd/yyyy'}}
+              {{message.Created | date: 'MM/dd/yyyy'}}
             </a>
           </mat-cell>
         </ng-container>

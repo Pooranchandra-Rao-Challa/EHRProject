@@ -6,7 +6,7 @@ import { filter, map, } from 'rxjs/operators';
 import { Observable, of, fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { ProviderPatient } from './../../../_models/_provider/Providerpatient';
-import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, AfterViewInit, ViewChildren, QueryList } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
 import { OverlayService } from '../../../overlay.service';
 import { AdvancedDirectivesDialogComponent } from '../../../dialogs/advanced.directives.dialog/advanced.directives.dialog.component';
@@ -47,6 +47,8 @@ import { MessageDialogInfo } from 'src/app/_models/_provider/messages';
 import { NewmessageDialogComponent } from 'src/app/dialogs/newmessage.dialog/newmessage.dialog.component';
 import { MessagesTableDialogComponent } from 'src/app/dialogs/messages.table.dialog/messages.table.dialog.component';
 import { ViewMessageDialogComponent } from 'src/app/dialogs/view.message.dialog/view.message.dialog.component';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 declare var $: any;
 
 @Component({
@@ -56,6 +58,8 @@ declare var $: any;
 })
 export class ChartComponent implements OnInit, AfterViewInit {
   public selectedPatient: PatientSearchResults[];
+  public chartInfoImmunizations = new MatTableDataSource<Immunization>();
+  @ViewChildren(MatSort) sort = new QueryList<MatSort>();
   @ViewChild('searchVaccineCode', { static: true }) searchVaccineCode: ElementRef;
   @ViewChild('searchPatient', { static: true })
   searchPatient: ElementRef;
@@ -111,7 +115,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   AppointmentTypes: AppointmentTypes[];
   Locations: UserLocations[];
   Rooms: Room[];
-  immunizationColumns: string[] = ['VaccineDescription', 'CVXCode', 'Date', 'Status'];
+  immunizationColumns: string[] = ['Description', 'CVXCode', 'Date', 'Status'];
   administered: boolean = false;
   historical: boolean = true;
   refused: boolean = true;
@@ -138,6 +142,8 @@ export class ChartComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    this.chartInfoImmunizations.sort = this.sort.toArray()[0];
+
     fromEvent(this.searchVaccineCode.nativeElement, 'keyup').pipe(
       // get value
       map((event: any) => {
@@ -424,13 +430,13 @@ export class ChartComponent implements OnInit, AfterViewInit {
       this.MedicationsByPatientId();
     }
     else if (data.UpdatedModal == PatientChart.Interventions) {
-      data.InterventionsDataSource = data.InterventionsDataSource == undefined ? [] : data.InterventionsDataSource.length;
-      if (this.chartInfo.Interventions.length < data.InterventionsDataSource.length) {
-        this.chartInfo.Interventions = data.InterventionsDataSource;
-      }
-      else {
+      // data.InterventionsDataSource = data.InterventionsDataSource == undefined ? [] : data.InterventionsDataSource.length;
+      // if (this.chartInfo.Interventions.length < data.InterventionsDataSource.length) {
+      //   this.chartInfo.Interventions = data.InterventionsDataSource;
+      // }
+      // else {
         this.InterventionsByPatientId();
-      }
+      // }
     }
     else if (data.UpdatedModal == PatientChart.Encounters) {
       this.EncountersByPatientId();
@@ -448,6 +454,9 @@ export class ChartComponent implements OnInit, AfterViewInit {
     this.patientService.ChartInfo({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.chartInfo = resp.Result;
+        if(this.chartInfo){
+          this.chartInfoImmunizations.data = this.chartInfo.Immunizations;
+        }
       }
     });
   }
@@ -598,7 +607,10 @@ export class ChartComponent implements OnInit, AfterViewInit {
   ImmunizationsByPatientId() {
     if(this.currentPatient== null)return;
     this.patientService.ImmunizationsByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
-      if (resp.IsSuccess) this.chartInfo.Immunizations = resp.ListResult;
+      if (resp.IsSuccess) {
+        this.chartInfo.Immunizations = resp.ListResult;
+        this.chartInfoImmunizations.data = this.chartInfo.Immunizations;
+      }
     });
   }
 

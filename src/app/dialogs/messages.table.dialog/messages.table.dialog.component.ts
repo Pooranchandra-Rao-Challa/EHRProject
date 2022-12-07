@@ -1,5 +1,5 @@
 import { OverlayService } from './../../overlay.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ComponentType } from 'ngx-toastr';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
@@ -8,6 +8,7 @@ import { MessageDialogInfo, Messages } from 'src/app/_models/_provider/messages'
 import { NewmessageDialogComponent } from '../newmessage.dialog/newmessage.dialog.component';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { ViewMessageDialogComponent } from '../view.message.dialog/view.message.dialog.component';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-messages.table.dialog',
@@ -16,7 +17,8 @@ import { ViewMessageDialogComponent } from '../view.message.dialog/view.message.
 })
 export class MessagesTableDialogComponent implements OnInit {
   public patientMessages = new MatTableDataSource<Messages>();
-  messagesColumns: string[] = ['Subject', 'Updated'];
+  @ViewChildren(MatSort) sort = new QueryList<MatSort>();
+  messagesColumns: string[] = ['Subject', 'Created'];
   ActionTypes = Actions;
   newmessageDialogComponent = NewmessageDialogComponent;
   viewMessageDialogComponent = ViewMessageDialogComponent;
@@ -30,6 +32,10 @@ export class MessagesTableDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  ngAfterViewInit(): void {
+    this.patientMessages.sort = this.sort.toArray()[0];
   }
 
   updateLocalModel(data: Messages) {

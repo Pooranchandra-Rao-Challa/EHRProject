@@ -86,12 +86,12 @@
             </mat-cell>
           </ng-container>
 
-          <ng-container matColumnDef="CqmStatus">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="CqmStatus"
+          <ng-container matColumnDef="CQMStatus">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="CQMStatus"
               [style.display]="patientIntervention.InterventionId ? 'flex' : 'none'">Cqm Status</mat-header-cell>
             <mat-cell *matCellDef="let intervention"
               [style.display]="patientIntervention.InterventionId ? 'flex' : 'none'">
-              <a>{{intervention.CqmStatus}}
+              <a>{{intervention.CQMStatus}}
               </a>
             </mat-cell>
           </ng-container>

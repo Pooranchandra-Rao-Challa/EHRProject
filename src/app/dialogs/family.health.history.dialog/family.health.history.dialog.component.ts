@@ -7,6 +7,7 @@ import { AuthenticationService } from 'src/app/_services/authentication.service'
 import { Subject } from 'rxjs-compat';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { DatePipe } from '@angular/common';
+import { FormFieldValue } from 'src/app/_components/advanced-medical-code-search/field-control/field-control-component';
 @Component({
   selector: 'app-family.health.history.dialog',
   templateUrl: './family.health.history.dialog.component.html',
@@ -16,6 +17,7 @@ export class FamilyHealthHistoryDialogComponent implements OnInit {
   patientFamilyHealthHistory: PastMedicalHistory = new PastMedicalHistory;
   patientRelationShip: GlobalConstants;
   codeSystemsForDiagnosis: string[] = ['SNOMED/ICD10'];
+  selectedCodeSystemValue: FormFieldValue = {CodeSystem:'SNOMED/ICD10',SearchTerm:''}
   currentPatient: ProviderPatient;
   disableAddDxbtn: boolean = true;
   diagnosesStartDate: Date;
@@ -42,6 +44,7 @@ export class FamilyHealthHistoryDialogComponent implements OnInit {
     this.patientRelationShip = GlobalConstants.RELATIONSHIP;
     this.diagnosesStartDate = new Date();
     this.endDateForDiagnosis = new Date(this.diagnosesStartDate);
+    this.diagnosesStopDate = this.datepipe.transform(new Date(), "yyyy-MM-dd");
     this.minDate();
   }
 
