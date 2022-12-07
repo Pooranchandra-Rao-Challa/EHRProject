@@ -94,6 +94,10 @@
         type="button" role="tab" aria-controls="pills-insurance" [class.active]="viewModel.PatientView == 'Insurance'" (click)="UpdatePatientView('Insurance')">Insurance</button>
     </li>
     <li class="nav-item" role="presentation">
+      <button class="nav-link" id="pills-notify-settings-tab" data-bs-toggle="pill" data-bs-target="#pills-notify-settings"
+        type="button" role="tab" aria-controls="pills-notify-settings" [class.active]="viewModel.PatientView == 'NotificationSettings'" (click)="UpdatePatientView('NotificationSettings')">Notification Settings</button>
+    </li>
+    <li class="nav-item" role="presentation">
       <button class="nav-link" id="pills-amendments-tab" data-bs-toggle="pill" data-bs-target="#pills-amendments"
         type="button" role="tab" aria-controls="pills-amendments" [class.active]="viewModel.PatientView == 'Amendments'" (click)="UpdatePatientView('Amendments')">Amendments</button>
     </li>

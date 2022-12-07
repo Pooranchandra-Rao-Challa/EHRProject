@@ -1,3 +1,4 @@
+import { UpdateEmergencyAccess } from './../../_navigations/provider.layout/view.notification.service';
 
 import { Component, OnInit, TemplateRef, Inject } from '@angular/core';
 import { Subscription } from 'rxjs';
@@ -55,6 +56,7 @@ export class PracticeComponent implements OnInit {
     private locationSelectService: LocationSelectService,
     private plaformLocation: PlatformLocation,
     private alertmsg: AlertMessage,
+    private updateEmergencyAccess: UpdateEmergencyAccess,
     @Inject(DOCUMENT) private _document: Document) {
     this.user = authService.userValue;
     this.url = plaformLocation.href.replace(plaformLocation.pathname, '/');
@@ -73,6 +75,10 @@ export class PracticeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.updateEmergencyAccess.getData().subscribe(value => {
+      this.user.EmergencyAccess = value;
+      this.getProviderDetails();
+    });
     this.getTimeZoneList();
     this.practiceLocations();
     this.getProviderDetails();

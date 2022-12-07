@@ -175,4 +175,10 @@ export class DashboardComponent {
   showMessages(messages) {
     this.viewMessages = messages;
   }
+
+  showSettings: boolean = false;
+
+  showNotifySettings() {
+    this.showSettings = !this.showSettings;
+  }
 }

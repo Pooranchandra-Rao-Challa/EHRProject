@@ -1,0 +1,79 @@
+@import"../../../assets/common.scss";
+@import "../../../assets/cstm.material.scss";
+
+.notification-settings-wrapper {
+  .container-fluid {
+    padding: 10px 20px;
+  }
+
+  .status {
+    display: flex;
+    align-items: baseline;
+  }
+
+  .btn.btn-green {
+    min-height: 45px;
+  }
+
+  .ml-10 {
+    margin-left: 1rem;
+  }
+
+  .send-patient .num-input.mat-form-field-appearance-outline {
+    width: 40px;
+  }
+
+  .send-patient .days-select.mat-form-field-appearance-outline {
+    width: 100px;
+  }
+
+  ::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+    background-color: rgba(65, 182, 166, 0.54);
+  }
+
+  ::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+    background-color: #41b6a6;
+  }
+
+  // .send-patient  .num-input.mat-form-field-appearance-outline,
+  // label{
+  //   vertical-align: baseline;
+  // }
+
+  ::ng-deep .mat-form-field-appearance-outline {
+    font-size: 15px;
+  }
+
+  .btn.btn-green {
+    margin-bottom: 1rem;
+    margin-top: 7px;
+    vertical-align: middle;
+  }
+
+  @media (max-width: 425px) {
+
+    .status,
+    .controls {
+      display: grid;
+    }
+
+    .ml-10 {
+      margin-left: 0rem;
+    }
+
+    .num-input.ml-10,
+    .days-select.ml-10 {
+      margin-left: 1rem;
+    }
+  }
+
+  .title {
+    text-decoration: underline;
+    font-weight: 600;
+    color: #333;
+  }
+
+  .fa-exclamation-circle.no-cell-icon {
+    color: #d12d2d;
+  }
+}

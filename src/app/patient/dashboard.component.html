@@ -1,11 +1,22 @@
 <div class="dashboard-patient wrapper ">
-  <div class="content container ignore_spinner ">
+  <div class="content container ignore_spinner">
+    <div class="welcome-text">
     <h4 class="h4-title">
       Welcome
       <span class="authorization-welcome-username text-break">{{user.FirstName}}&nbsp;&nbsp;{{user.LastName}}</span>
     </h4>
+    <div class="notify-btn">
+      <button class="btn btn-blue" (click)="showNotifySettings()">
+        Set Up SMS/Text/Email Notifications
+      </button>
+      <i class="fa fa-exclamation-circle top-icon"></i>
+    </div>
+  </div>
     <div class="row">
       <div class="col-lg-9 left-block">
+        <div class="communication-settings mt-3" *ngIf="showSettings">
+          <app-communication-settings></app-communication-settings>
+        </div>
         <div class="form-row-field">
           <h4>
             Upcoming Appointments

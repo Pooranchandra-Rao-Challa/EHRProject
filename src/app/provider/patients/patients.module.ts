@@ -16,6 +16,7 @@ import { PatientsBreadCrumComponent } from './patients-bread-crum/patients-bread
 import { BreadcrumbComponent } from 'src/app/provider/patients/patient.breadcrumb/breadcrumb.component'
 import { TreeProcedureComponent } from 'src/app/provider/patients/dental.chart/tree.procedure.component'
 import { NgxMaskModule } from 'ngx-mask';
+import { NotificationSettingsComponent } from './notification.settings/notification.settings.component';
 
 
 
@@ -34,6 +35,7 @@ import { NgxMaskModule } from 'ngx-mask';
     ProfileComponent,
     InsuranceComponent,
     AmendmentsComponent,
+    NotificationSettingsComponent,
     ResetPasswordComponent,
     CqmsNotPerformedComponent,
     //PaginatorDirective,
@@ -54,6 +56,7 @@ import { NgxMaskModule } from 'ngx-mask';
     //PaginatorDirective,
     BreadcrumbComponent,
     TreeProcedureComponent,
+    NotificationSettingsComponent,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'en-US' }],
