@@ -12,7 +12,7 @@
           <div class="form-group">
             <div class="input-group">
               <label class="control-label input-group-addon required">First Name</label>
-              <input class="form-control" alphaOnly mouse-over-hint tickImagePath="assets/images/tick-mark.svg"
+              <input class="form-control" #searchFirstName alphaOnly mouse-over-hint tickImagePath="assets/images/tick-mark.svg"
                 crossImagePath="assets/images/cross-mark.svg" placeholder="First Name" type="text" id="firstName"
                 name="firstName" required #firstName="ngModel" [(ngModel)]="PatientData.FirstName"
                 [ngModelOptions]="{standalone: true}" />
@@ -41,7 +41,7 @@
           <div class="form-group">
             <div class="input-group mt-md-4 mt-lg-0">
               <label class="control-label input-group-addon required">Last Name</label>
-              <input class="form-control" mouse-over-hint tickImagePath="assets/images/tick-mark.svg"
+              <input class="form-control" #searchLastName mouse-over-hint tickImagePath="assets/images/tick-mark.svg"
                 crossImagePath="assets/images/cross-mark.svg" placeholder="Last Name" type="text" id="lastName"
                 name="lastName" required #lastName="ngModel" [ngModelOptions]="{standalone: true}"
                 [(ngModel)]="PatientData.LastName" alphaOnly />
@@ -62,7 +62,7 @@
               <mat-form-field appearance="outline" class="grey-matform grey-calendar">
                 <input class="pointer" matInput [matDatepicker]="dp" placeholder="Date of Birth" [(ngModel)]="PatientData.DateofBirth"
                   #dateofBirth="ngModel" name="DateofBirth" (click)="dp.open()" readonly required
-                  pattern="^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$" [max]="todayDate">
+                  pattern="^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$" [max]="todayDate" (dateChange)="_filterPatient()">
                 <mat-datepicker-toggle matSuffix [for]="dp">
                 </mat-datepicker-toggle>
                 <mat-datepicker #dp disabled="false"></mat-datepicker>
@@ -77,7 +77,6 @@
 
           </div>
         </div>
-
         <div class="col-lg-6 col-md-6 col-12 gender-radio-button-group">
           <div class="form-group">
             <div class="input-group" style="display:contents;">
@@ -92,6 +91,45 @@
             </div>
           </div>
         </div>
+
+        <div class="matching-patients-wrapper" *ngIf="filteredPatients && hideMatchingPatients">
+          <div class="col-12">
+            <div class="row">
+              <div class="col-lg-10 col-md-9 col-10">
+                <p class="title heading">Possible Matching Patients Found</p>
+              </div>
+              <div class="col-lg-2 col-md-3 col-2 btn-dismiss">
+                <a class="btn-sm btn-danger pointer dismiss pull-right" (click)="dismiss()">Dismiss</a>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>NAME / DOB</th>
+                    <th>Mobile Phone</th>
+                    <th>Email</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let patient of filteredPatients | async">
+                    <td><img class="avatar avatar-empty" src="assets/images/avatar-empty.svg" width="20" height="20"></td>
+                    <td>
+                      <a class="pointer" (click)="onChangeViewState(patient)">{{patient.PatientName}}</a>
+                      <br>
+                      <br>
+                      <span class="mt-1">{{patient.Dob | date: 'MM/dd/yyyy'}}</span>
+                    </td>
+                    <td>{{patient.PrimaryPhone}}</td>
+                    <td>{{patient.Email}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
         <div class="col-lg-6 col-md-6 col-12">
           <div class="form-group">
             <div class="input-group mt-md-4 mt-lg-0">

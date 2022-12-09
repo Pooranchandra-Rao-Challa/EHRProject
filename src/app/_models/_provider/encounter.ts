@@ -228,6 +228,7 @@ export class ProceduresInfo implements IDeleteFlag {
   ShortStatus?: string;
   CQMStatus?: string;
   ProviderName?: string;
+  PatientName?: string;
   Place?: string;
   Signed?: boolean;
 }

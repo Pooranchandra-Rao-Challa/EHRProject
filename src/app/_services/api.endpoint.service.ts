@@ -1037,6 +1037,11 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "DeleteAttachment";
   }
 
+  get _matchingPatientsURL()
+  {
+    return this._baseUrl + "MatchingPatients";
+  }
+
   constructor(public http: HttpClient) {
     super();
   }
