@@ -90,7 +90,7 @@
                 << </button>
                   <button (click)="pagination.prev()" [disabled]="pagination.isFirst">
                     < </button>
-                      <input #pager simplePagination #pagination="simplePagination" [pageSize]="pageSize"
+                      <input simplePagination #pagination="simplePagination" [pageSize]="pageSize"
                         [totalPages]="totalPages" (pageChange)="onPageChange($event)" />
                       <span> / {{ pagination.totalPages }}</span>
                       <button (click)="pagination.next()" [disabled]="pagination.isLast">

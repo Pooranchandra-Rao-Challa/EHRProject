@@ -156,6 +156,7 @@ export class DentalChartComponent implements OnInit, AfterViewInit {
       }
     } else if (content === this.encounterDialogComponent) {
       reqData = dialogData;
+      reqData.PatientName = this.authService.viewModel.Patient.FirstName + ' ' + this.authService.viewModel.Patient.LastName;
       reqData.ViewFrom = "ProcedureView";
       reqData["From"] = "ProcedureView";
     }
