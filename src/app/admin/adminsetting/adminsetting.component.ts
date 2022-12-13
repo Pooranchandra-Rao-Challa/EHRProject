@@ -44,7 +44,7 @@ export class AdminsettingComponent implements OnInit {
   }
   alertWithSuccess() {
     Swal.fire({
-      title: 'App version is updated sucessfully' ,
+      title: 'App version is updated successfully' ,
       width: '700',
       customClass: {
         cancelButton: 'admin-cancel-button',
