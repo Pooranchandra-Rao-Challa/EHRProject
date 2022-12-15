@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -18,8 +19,10 @@ export class DiagnosesTableDialogComponent implements OnInit {
   diagnosesColumns: string[] = ['Description', 'Code', 'CodeType', 'Start', 'Stop', 'Status'];
   addDiagnosesDialogComponent = AddDiagnosesDialogComponent;
   ActionTypes = Actions;
+  todayDate: string;
 
   constructor(private ref: EHROverlayRef,
+    private datepipe: DatePipe,
     private overlayService: OverlayService) {
     this.updateLocalModel(ref.RequestData);
    }
@@ -35,6 +38,7 @@ export class DiagnosesTableDialogComponent implements OnInit {
     this.patientDiagnosesList.data = [];
     if (data == null) return;
     this.patientDiagnosesList.data = data as Diagnosis[];
+    this.todayDate = this.datepipe.transform(new Date(), "MM/dd/yyyy hh:mm:ss a");
   }
 
   cancel() {

@@ -246,3 +246,13 @@ div.search-box button:hover {
 ::ng-deep .admin-sort .mat-sort-header-arrow {
   color: #757575 !important;
 }
+
+::ng-deep .mat-select-panel {
+  border-radius: 4px;
+  margin-top: 0px !important;
+  margin-left: -10px !important;
+  position: relative !important;
+  top: 29px;
+  margin-bottom: 60px !important;
+  min-width: calc(100% + 22px) !important;
+}

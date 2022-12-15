@@ -18,7 +18,7 @@ import { OverlayService } from 'src/app/overlay.service';
   styleUrls: ['./intervention.dialog.component.scss']
 })
 export class InterventionDialogComponent implements OnInit {
-  interventionColumns: string[] = ['Empty', 'InterventionType', 'Code', 'Description', 'ReasonNotPerformed', 'Reason', 'CqmStatus'];
+  interventionColumns: string[] = ['Empty', 'InterventionType', 'Code', 'Description', 'ReasonNotPerformed', 'Reason', 'CQMStatus'];
   interventionCodes: any[] = [];
   patientIntervention: Intervention = new Intervention();
   interventionTypes: GlobalConstants;
@@ -178,6 +178,9 @@ export class InterventionDialogComponent implements OnInit {
     ref.afterClosed$.subscribe(res => {
       // this.UpdateView(res.data);
       if (res.data != null) {
+        if(res.data.saved == true) {
+          this.InterventionsByPatientId();
+        }
         this.ref.close(res.data);
       }
     });

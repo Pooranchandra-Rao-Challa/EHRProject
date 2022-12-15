@@ -35,7 +35,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTreeModule } from '@angular/material/tree'
-
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @NgModule({
   imports: [
@@ -72,7 +72,8 @@ import { MatTreeModule } from '@angular/material/tree'
     MatDatepickerModule,
     MatListModule,
     MatSidenavModule,
-    MatTreeModule
+    MatTreeModule,
+    MatSlideToggleModule
   ],
   exports: [
     NgxPaginationModule,
@@ -109,7 +110,7 @@ import { MatTreeModule } from '@angular/material/tree'
     MatSidenavModule,
     MatTabsModule,
     MatTreeModule,
-
+    MatSlideToggleModule
 
   ],
 })

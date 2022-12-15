@@ -1,5 +1,5 @@
 import { AdminService } from './../../_services/admin.service';
-import { NotifyProviderHeaderService, ProviderLocationUpdateNotifier } from './../provider.layout/view.notification.service';
+import { NotifyProviderHeaderService, ProviderLocationUpdateNotifier, UpdateEmergencyAccess } from './../provider.layout/view.notification.service';
 import { NotifyMessageService } from 'src/app/_navigations/provider.layout/view.notification.service';
 import { ActivatedRoute,  Router } from '@angular/router';
 import { Component, OnInit, Output, EventEmitter, TemplateRef,AfterViewInit,ChangeDetectorRef  } from '@angular/core';
@@ -33,6 +33,7 @@ export class ProviderNavbarComponent implements OnInit,AfterViewInit {
   urgentMails: number;
   lockedComponent = LockedComponent;
   menuwidth: number;
+  providersDataSource: NewUser[];
 
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -42,6 +43,7 @@ export class ProviderNavbarComponent implements OnInit,AfterViewInit {
     private viewChangeService: ViewChangeService,
     private notifyMessage: NotifyMessageService,
     private notifyProviderHeader: NotifyProviderHeaderService,
+    private notifyEmergencyAccess: UpdateEmergencyAccess,
     private adminservice: AdminService,
     private chdetref :ChangeDetectorRef,
     private uplodateLocations: ProviderLocationUpdateNotifier) {
@@ -172,8 +174,23 @@ export class ProviderNavbarComponent implements OnInit,AfterViewInit {
     }
     this.settingsService.ToggleUserFieldValues(reqparams).subscribe(resp => {
       if (resp.IsSuccess) {
+        this.user.EmergencyAccess = false;
+        this.notifyEmergencyAccess.sendData(this.user.EmergencyAccess);
         this.authenticationService.UpdateEmergencyAccess();
+        // this.getProviderDetails();
       }
     });
   }
+
+    // get display User Details
+    getProviderDetails() {
+      var reqparams = {
+        ClinicId: this.user.ClinicId
+      }
+      this.settingsService.ClinicProviders(reqparams).subscribe(resp => {
+        if (resp.IsSuccess) {
+          this.providersDataSource = resp.ListResult as NewUser[];
+        } else this.providersDataSource = [];
+      });
+    }
 }

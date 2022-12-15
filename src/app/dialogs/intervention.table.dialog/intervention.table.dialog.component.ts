@@ -19,7 +19,7 @@ export class InterventionTableDialogComponent implements OnInit {
   @ViewChildren(MatSort) sort = new QueryList<MatSort>();
   public interventionDatasource = new MatTableDataSource<Intervention>();
   interventionColumns: string[] = ['StartDate', 'EndDate', 'ProviderName', 'InterventionType', 'Code', 'CodeDescription',
-    'Performed', 'ReasonNotPerformed', 'CqmStatus'];
+    'Performed', 'ReasonNotPerformed', 'CQMStatus'];
   user: User;
   interventionDialogComponent = InterventionDialogComponent;
   ActionTypes = Actions;

@@ -1,0 +1,104 @@
+<div class="notification-settings-wrapper mt-3">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="mt-2 ml-10">
+          <h4 class="Helvetica-sans-serif-large title">Secure SMS/ Text Notification Setting</h4>
+          <p class="Helvetica-sans-serif-medium">
+            No cell phone number affiliated with this account
+            <i class="fa fa-exclamation-circle no-cell-icon"></i>
+          </p>
+        </div>
+        <div class="controls mt-2">
+          <mat-form-field appearance="outline" class="ml-10">
+            <input matInput placeholder="Cell Phone Number" type="tel" mask=" (000) 000-0000" prefix="+1"
+            [showMaskTyped]="true" [patterns]="PhonePattern" />
+          </mat-form-field>
+          <button class="btn btn-green ml-10">Add</button>
+          <button class="btn btn-green ml-10"> Use Registered Cell #</button>
+        </div>
+        <div class="send-patient">
+          <mat-slide-toggle class="ml-10"></mat-slide-toggle>
+          <label class="Helvetica-sans-serif-medium ml-10">Send patient a SMS/Text notification</label>
+          <mat-form-field appearance="outline" class="num-input ml-10">
+            <input matInput value="30" />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="days-select ml-10">
+            <mat-select>
+              <mat-option>Days</mat-option>
+              <mat-option>Months</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <label class="Helvetica-sans-serif-medium ml-10">BEFORE my schedule appointment</label>
+        </div>
+        <div>
+          <mat-slide-toggle class="ml-10"></mat-slide-toggle>
+          <label class="Helvetica-sans-serif-medium ml-10">Send me a SMS/Text notification when I receive a message in my patient portal.</label>
+          <hr>
+        </div>
+        <div class="mt-2 ml-10">
+          <h4 class="Helvetica-sans-serif-large title">Secure Email Notification Setting</h4>
+          <p class="Helvetica-sans-serif-medium">No Email address affiliated with this account</p>
+        </div>
+        <div class="controls mt-2">
+          <mat-form-field appearance="outline" class="ml-10">
+            <input matInput placeholder="Email Address" />
+          </mat-form-field>
+          <button class="btn btn-green ml-10">Add</button>
+          <button class="btn btn-green ml-10">Use Registered Email</button>
+        </div>
+        <div class="send-patient">
+          <mat-slide-toggle class="ml-10"></mat-slide-toggle>
+          <label class="Helvetica-sans-serif-medium ml-10">Send me an Email notification</label>
+          <mat-form-field appearance="outline" class="num-input ml-10">
+            <input matInput value="30" />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="days-select ml-10">
+            <mat-select>
+              <mat-option>Days</mat-option>
+              <mat-option>Months</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <label class="Helvetica-sans-serif-medium ml-10">BEFORE my schedule appointment</label>
+        </div>
+        <div>
+          <mat-slide-toggle class="ml-10"></mat-slide-toggle>
+          <label class="Helvetica-sans-serif-medium ml-10">Send me an email notification when I receive a message in my patient portal.</label>
+          <hr>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="mt-2 ml-10">
+          <h4 class="Helvetica-sans-serif-large title">Automated Voice Messaging</h4>
+          <p class="Helvetica-sans-serif-medium">
+            No cell phone number affiliated with this account
+            <i class="fa fa-exclamation-circle no-cell-icon"></i>
+          </p>
+        </div>
+        <div class="controls mt-2">
+          <mat-form-field appearance="outline" class="ml-10">
+            <input matInput placeholder="Cell Phone Number" type="tel" mask=" (000) 000-0000" prefix="+1"
+            [showMaskTyped]="true" [patterns]="PhonePattern" />
+          </mat-form-field>
+          <button class="btn btn-green ml-10">Add</button>
+          <button class="btn btn-green ml-10"> Use Registered Home #</button>
+          <button class="btn btn-green ml-10"> Use Registered Cell #</button>
+        </div>
+        <div class="send-patient">
+          <mat-slide-toggle class="ml-10"></mat-slide-toggle>
+          <label class="Helvetica-sans-serif-medium ml-10">Call them</label>
+          <mat-form-field appearance="outline" class="num-input ml-10">
+            <input matInput value="30" />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="days-select ml-10">
+            <mat-select>
+              <mat-option>Days</mat-option>
+              <mat-option>Months</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <label class="Helvetica-sans-serif-medium ml-10">BEFORE my schedule appointment</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

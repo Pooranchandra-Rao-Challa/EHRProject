@@ -409,6 +409,8 @@ export class PatientService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._singAddendaDocsURL,reqparams);
   }
 
-
+  MatchingPatients(reqparams: any){
+    return this._ProcessPostRequest<any>(this._matchingPatientsURL,reqparams);
+  }
 
 }

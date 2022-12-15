@@ -1,5 +1,6 @@
 @import"../../assets/common.scss";
 @import"../../assets/cstm.material.scss";
+
 .h4-title {
   margin-top: 36px !important;
 }
@@ -45,6 +46,7 @@ a :hover {
   cursor: pointer;
 
 }
+
 a :active {
   color: #fe8f00;
   cursor: pointer;
@@ -227,6 +229,7 @@ ul>.active>a {
 .nav-link {
   padding: 0.2rem 1rem !important;
 }
+
 .save-button {
   height: 41px;
   border-radius: 3px;
@@ -234,30 +237,71 @@ ul>.active>a {
   width: 25%;
   margin-top: 1%;
 }
-.modal-content.view-appoinments
-{
-  width:500px
+
+.modal-content.view-appoinments {
+  width: 500px
 }
+
 // .nav-item.link-active {
 //   color: #fe8f00 !important;
 // }
 // .nav-item.link-active a:active, .nav-item.link-active a:visited, .nav-item.link-active a:focus{color: #fe8f00 !important;}
 
 
-.secondary-text-dark:focus
-{
+.secondary-text-dark:focus {
   color: #fe8f00 !important;
 }
-.secondary-text-dark:active
-{
+
+.secondary-text-dark:active {
   color: #fe8f00 !important;
 }
-.secondary-text-dark:visited
-{
+
+.secondary-text-dark:visited {
   color: #fe8f00 !important;
 }
 
 .nav-item.active {
   background-color: #2e877b;
   border-bottom: 3px solid #fe8f00;
+}
+
+.welcome-text,
+.notify-btn {
+  display: flex;
+}
+
+@media (max-width: 425px) {
+  .welcome-text {
+    display: contents;
+  }
+  .btn.btn-blue {
+    margin: 0px 10px 4px 10px !important;
+    width: 100%;
+  }
+  .fa-exclamation-circle {
+    top: -13px !important;
+  }
+}
+
+.btn.btn-blue {
+  margin: 28px 10px 4px 10px;
+  min-height: 45px;
+  width: 320px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #5bc0de;
+  border-color: #46b8da;
+}
+
+.fa-exclamation-circle {
+  position: relative;
+  font-size: 22px;
+  top: 15px;
+  left: -13px;
+  color: #ff8100;
+}
+
+.communication-settings {
+  border: 1px solid #41b6a6;
+  border-radius: 5px;
 }

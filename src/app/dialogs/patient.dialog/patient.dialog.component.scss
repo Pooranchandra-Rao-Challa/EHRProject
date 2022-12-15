@@ -6,20 +6,25 @@
   max-width: inherit !important;
   margin: 0 !important;
 }
+
 .modal-body {
   max-height: calc(90vh - 200px);
   overflow-y: auto;
 }
-.modal-content{
+
+.modal-content {
   max-width: 920px;
   margin: auto;
 }
+
 .modal .modal-dialog .modal-content .modal-body {
   padding: 10px 26px;
 }
-.modal-header{
+
+.modal-header {
   margin-right: -1px;
 }
+
 .modal-body .form-group {
   margin-bottom: 25px;
 }
@@ -29,6 +34,7 @@
   background-color: #d0d2db;
   padding: 14px 15px;
 }
+
 .input-group-addon {
   padding: 0 20px;
   font-size: 14px;
@@ -37,6 +43,7 @@
   border: 1px solid #ccc;
   border-radius: 4px;
 }
+
 .input-group .form-control {
   padding: 0 20px;
   font-size: 14px;
@@ -47,20 +54,24 @@
   height: 45px;
   margin: 0px;
 }
+
 .input-group .form-control:hover {
   border: 1px solid #41b6a6;
 }
+
 // .required::after {
 //   content: "*";
 //   color: red;
 // }
-.form-group .input-group .form-control{
+.form-group .input-group .form-control {
   width: 40px
 }
-.control-label.input-group-addon{
+
+.control-label.input-group-addon {
   padding: 11px 10px !important;
 }
-.control-label.input-group-addon.gender-right-space.required{
+
+.control-label.input-group-addon.gender-right-space.required {
   margin-right: 10px !important;
 }
 
@@ -71,37 +82,42 @@ button#dob.btn-outline-secondary {
   border-bottom-color: #dedede;
   border-left-color: #dedede;
 }
+
 button#dob.btn-outline-secondary.calendar {
-  background: linear-gradient(
-      0deg,
+  background: linear-gradient(0deg,
       rgba(194, 197, 197, 0.5),
-      rgba(121, 131, 130, 0.5)
-    ),
+      rgba(121, 131, 130, 0.5)),
     url(../../../assets/images/calendar.svg);
   background-repeat: no-repeat;
   background-position: center;
   background-blend-mode: multiply;
 }
-.dateofbirth-txt{
-  width:80px;
+
+.dateofbirth-txt {
+  width: 80px;
 }
+
 ::ng-deep .ngb-dp-day,
- ::ng-deep .ngb-dp-week-number,
- ::ng-deep .ngb-dp-weekday {
+::ng-deep .ngb-dp-week-number,
+::ng-deep .ngb-dp-weekday {
   height: 1.5rem !important;
   width: 1.5rem !important;
 }
-::ng-deep .ngb-dp-day :hover{
+
+::ng-deep .ngb-dp-day :hover {
   background-color: #f5f5f5;
 }
 
 ::ng-deep .patient-email-checkbox:hover {
+
   & .mat-checkbox-background,
   .mat-checkbox-frame {
     border-color: #41b6a6;
   }
 }
+
 ::ng-deep .patient-email-checkbox {
+
   & .mat-checkbox-background,
   .mat-checkbox-frame {
     border-radius: 20% !important;
@@ -113,6 +129,7 @@ button#dob.btn-outline-secondary.calendar {
     height: 19px;
   }
 }
+
 .mat-checkbox {
   font-weight: bold;
 }
@@ -137,32 +154,35 @@ button#dob.btn-outline-secondary.calendar {
 //   background: #bbb;
 // }
 
-.link{
+.link {
   cursor: pointer;
 }
-.patient-email-checkbox{
-  width:20px;
+
+.patient-email-checkbox {
+  width: 20px;
   height: 20px;
   margin-left: 0px !important;
 }
 
 .tooltip {
-  display:flexbox;
+  display: flexbox;
   border-bottom: 1px solid black;
   position: absolute;
   z-index: 2000000 !important;
   background-color: red;
   visibility: visible;
 }
-.btn.btn-green{
+
+.btn.btn-green {
   height: 45px;
 }
 
 
-.new-patient-form ::ng-deep .mat-focus-indicator.mat-icon-button{
+.new-patient-form ::ng-deep .mat-focus-indicator.mat-icon-button {
   background: #cfd2db;
   border: 0px;
 }
+
 // ::ng-deep .new-patient .mat-datepicker-toggle.mat-datepicker-toggle button.mat-focus-indicator.mat-icon-button{
 //   background: #cfd2db;
 //   border: 0px;
@@ -174,18 +194,18 @@ button#dob.btn-outline-secondary.calendar {
 //   stroke-linejoin: round;
 // }
 
-.address-verfied{
-  cursor:not-allowed;
+.address-verfied {
+  cursor: not-allowed;
 }
 
-.new-patient-form .error_message{
+.new-patient-form .error_message {
   color: #8c2929;
   content: '*';
   display: flex;
   align-items: center;
 }
 
-.new-patient-form .success_message{
+.new-patient-form .success_message {
   color: rgb(0, 152, 3);
   content: '*';
   display: flex;
@@ -198,7 +218,93 @@ button#dob.btn-outline-secondary.calendar {
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
 }
-.fontawesomesvg {width: 1em;
+
+.fontawesomesvg {
+  width: 1em;
   height: 1em;
   vertical-align: -.125em;
+}
+
+.matching-patients-wrapper {
+  background-color: #d0d2db;
+  margin-bottom: 20px;
+
+  .heading {
+    border-top: 1px solid #ddd;
+    font-weight: bold;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 0px;
+    font-size: 15px;
+  }
+
+  .btn-sm {
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+  }
+
+  .btn-danger {
+    color: #fff;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+  }
+
+  .btn-danger:hover {
+    color: #fff;
+    background-color: #c9302c;
+    border-color: #ac2925;
+  }
+
+  .table-responsive {
+    border-radius: 3px;
+    border: 1px solid #41b6a6;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  .table {
+    width: 100%;
+    margin-bottom: 25px;
+    --bs-table-accent-bg: transparent;
+  }
+
+  thead tr {
+    border-bottom: 1px solid #ddd;
+  }
+
+  th,
+  td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    font-size: 15px;
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+  }
+
+  th {
+    font-weight: 600;
+  }
+
+  .avatar.avatar-empty {
+    background: #D8D8D8;
+  }
+
+  .avatar {
+    border-radius: 50%;
+    border: 0;
+    background-color: transparent;
+    transition: background 0.2s, border 0.2s;
+  }
+
+  td a {
+    color: #337ab7;
+    text-decoration: none;
+  }
+
+  td a:hover {
+    color: #23527c;
+    text-decoration: underline;
+  }
 }

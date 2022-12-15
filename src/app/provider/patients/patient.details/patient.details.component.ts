@@ -106,6 +106,8 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
           this.loadProfileComponent();
         else if (viewname == 'Insurance')
           this.loadInsuranceComponent();
+          else if (viewname == 'NotificationSettings')
+          this.loadNotificationSettingsComponent();
         else if (viewname == 'Amendments')
           this.loadAmendmentsComponent();
         else if (viewname == 'Patients')
@@ -127,7 +129,6 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
   }
 
   loadPatientAccountInfo() {
-    //console.log("Refeshing loadPatientAccountInfo");
     this.patientService.PatientAccountInfo({
       PatientId: this.patient.PatientId
     }).subscribe(resp => {
@@ -190,6 +191,18 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
       const { InsuranceComponent } = await import('../insurance/insurance.component');
       let viewcomp = this.chartviewcontainerref.createComponent(
         this.cfr.resolveComponentFactory(InsuranceComponent)
+      );
+    }
+  }
+
+  async loadNotificationSettingsComponent() {
+    if (this.viewModel.PatientView != 'NotificationSettings')
+      this.chartviewcontainerref.clear();
+    else {
+      this.chartviewcontainerref.clear();
+      const { NotificationSettingsComponent } = await import('../notification.settings/notification.settings.component');
+      let viewcomp = this.chartviewcontainerref.createComponent(
+        this.cfr.resolveComponentFactory(NotificationSettingsComponent)
       );
     }
   }
@@ -343,8 +356,6 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
     this.utilityService.GetUserInfoForPatient(this.patientUser).subscribe(resp => {
       if (resp.IsSuccess) {
         this.patientUser = resp.Result as PatientPortalUser;
-        console.log(this.patientUser);
-
         this.openComponentDialog(content, this.patientUser, action)
       }
     })
@@ -421,8 +432,6 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
         }
       } else if (content === this.patientHealthPortalComponent) {
         if (res.data !== null) {
-          //console.log(res.data);
-          //console.log("Refeshing loadPatientAccountInfo");
           this._completePatientAccountProcess()
           // if (res.data.download) {
 

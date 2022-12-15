@@ -1,9 +1,12 @@
+import { PatientService } from 'src/app/_services/patient.service';
 import { DatePipe, PlatformLocation } from '@angular/common';
 import {
   Component,
   Output,
   EventEmitter,
   TemplateRef,
+  ElementRef,
+  ViewChild,
 } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
@@ -16,7 +19,11 @@ import { PatientPortalAccountComponent } from 'src/app/dialogs/patient.dialog/pa
 import { PatientHealthPortalComponent } from 'src/app/dialogs/patient.dialog/patient.health.portal.component';
 import { AddressVerificationDialogComponent, AddressValidation } from 'src/app/dialogs/address.verification.dialog/address.verification.dialog.component';
 import { Accountservice } from 'src/app/_services/account.service';
-
+import { fromEvent, Observable, of } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
+import { ViewChangeService } from 'src/app/_navigations/provider.layout/view.notification.service';
+import { Router } from '@angular/router';
+import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 
 @Component({
   selector: 'patient-dialog',
@@ -24,18 +31,23 @@ import { Accountservice } from 'src/app/_services/account.service';
   styleUrls: ['./patient.dialog.component.scss'],
 })
 export class PatientDialogComponent {
-  PatientData: Patient = {Gender: 'male' };
-  PhonePattern: {};
   @Output() onPatientClose = new EventEmitter();
-  hideSaveButton: boolean = false;
-  addressIsVarified: boolean = false;
+  @ViewChild('searchFirstName', { static: true }) searchFirstName: ElementRef;
+  @ViewChild('searchLastName', { static: true }) searchLastName: ElementRef;
   patientPortalAccountComponent = PatientPortalAccountComponent;
   patientHealthPortalComponent = PatientHealthPortalComponent;
   addressVerificationDialogComponent = AddressVerificationDialogComponent;
+  PatientData: Patient = { Gender: 'male' };
+  filteredPatients: Observable<ProviderPatient[]>;
+  hideMatchingPatients: boolean = true;
+  hideSaveButton: boolean = false;
+  addressIsVarified: boolean = false;
+  phonepattern = /^[0-9]{10}/;
+  showHourglass: boolean = false;
+  saveInvoked: boolean = false;
+  PhonePattern: {};
   todayDate: Date;
   url: string;
-
-
 
   constructor(private dialogRef: EHROverlayRef,
     private authService: AuthenticationService,
@@ -44,6 +56,9 @@ export class PatientDialogComponent {
     private overlayService: OverlayService,
     private plaformLocation: PlatformLocation,
     private accountservice: Accountservice,
+    private pateintService: PatientService,
+    private router: Router,
+    private viewChangeService: ViewChangeService,
     private datePipe: DatePipe) {
     this.url = plaformLocation.href.replace(plaformLocation.pathname, '/');
     if (plaformLocation.href.indexOf('?') > -1)
@@ -57,23 +72,88 @@ export class PatientDialogComponent {
     };
     this.todayDate = new Date();
   }
+
+  ngAfterViewInit() {
+    fromEvent(this.searchFirstName.nativeElement, 'keyup').pipe(
+      // get value
+      map((event: any) => {
+        return event.target.value;
+      })
+      // if character length greater then 2
+      , filter(res => res.length >= 0)
+      // Time in milliseconds between key events
+      , debounceTime(1000)
+      // If previous query is diffent from current
+      , distinctUntilChanged()
+      // subscription for response
+    ).subscribe(value => this._filterPatient());
+    fromEvent(this.searchLastName.nativeElement, 'keyup').pipe(
+      // get value
+      map((event: any) => {
+        return event.target.value;
+      })
+      // if character length greater then 2
+      , filter(res => res.length >= 0)
+      // Time in milliseconds between key events
+      , debounceTime(1000)
+      // If previous query is diffent from current
+      , distinctUntilChanged()
+      // subscription for response
+    ).subscribe(value => this._filterPatient());
+  }
+
+  _filterPatient() {
+    if (this.PatientData.FirstName || this.PatientData.LastName || this.PatientData.DateofBirth) {
+      this.pateintService
+        .MatchingPatients({
+          SearchFirstName: this.PatientData.FirstName ? this.PatientData.FirstName : '',
+          SearchLastName: this.PatientData.LastName ? this.PatientData.LastName : '',
+          SearchDOB: this.PatientData.DateofBirth ? this.datePipe.transform(this.PatientData.DateofBirth, "yyyy-MM-dd") : '',
+          ProviderId: this.authService.userValue.ProviderId
+        })
+        .subscribe(resp => {
+          if (resp.IsSuccess) {
+            this.filteredPatients = of(
+              resp.ListResult as ProviderPatient[]);
+            this.hideMatchingPatients = true;
+          } else {
+            this.filteredPatients = of([]);
+          }
+        });
+    }
+    else {
+      this.filteredPatients = of([]);
+      this.hideMatchingPatients = false;
+    }
+  }
+
+  dismiss() {
+    this.hideMatchingPatients = false;
+  }
+
+  onChangeViewState(patientview) {
+    this.dialogRef.close({
+      'refresh': true
+    });
+    this.viewChangeService.sendData("Patients");
+    this.authService.SetViewParam("View", "Patients")
+    this.authService.SetViewParam("Patient", patientview);
+    this.authService.SetViewParam("PatientView", "Chart");
+    this.router.navigate(["/provider/patientdetails"]);
+  }
+
   cancel() {
     this.dialogRef.close({ 'refresh': true });
   }
-
-  phonepattern =/^[0-9]{10}/;
-
 
   enableSave() {
     return !(this.PatientData.FirstName != null && this.PatientData.FirstName != ""
       && this.PatientData.LastName != null && this.PatientData.LastName != ""
       && this.PatientData.DateofBirth != null
       && this.PatientData.Gender != null && this.PatientData.Gender != ""
-   )
+    )
   }
 
-
-  showHourglass:boolean = false;
   VerifyPatientAddress() {
     this.showHourglass = true;
     this.utilityService.VerifyAddress(this.PatientData.Address).subscribe(resp => {
@@ -91,7 +171,6 @@ export class PatientDialogComponent {
     });
   }
 
-
   UseValidatedAddress() {
     this.PatientData.City = this.PatientData.AddressResult.components.city_name;
     this.PatientData.State = this.PatientData.AddressResult.components.state_abbreviation;
@@ -99,7 +178,7 @@ export class PatientDialogComponent {
     this.PatientData.Zipcode = this.PatientData.AddressResult.components.zipcode;
     this.PatientData.Address = this.PatientData.ValidatedAddress;
   }
-  saveInvoked:boolean=false;
+
   UpdatePatient() {
     this.hideSaveButton = true;
     this.saveInvoked = true;
@@ -134,7 +213,6 @@ export class PatientDialogComponent {
     });
 
   }
-
 
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
     data?: any, action?: Actions) {

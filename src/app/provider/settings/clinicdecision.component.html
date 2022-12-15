@@ -264,7 +264,7 @@
             <mat-select panelClass="triggeralignment" required placeholder="Trigger Rule" [(ngModel)]="newAlert.Rule">
               <!-- mouse-over-hint tickImagePath="assets/images/tick-mark.svg" crossImagePath="assets/images/cross-mark.svg" -->
               <mat-option *ngFor="let trigger of TriggerRuleDD" [value]="trigger.value">
-                {{trigger.viewValue}}
+                {{trigger.text}}
               </mat-option>
             </mat-select>
           </mat-form-field>

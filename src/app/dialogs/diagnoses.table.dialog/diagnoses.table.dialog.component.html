@@ -53,7 +53,7 @@
           <mat-header-cell *matHeaderCellDef mat-sort-header="Status">Status</mat-header-cell>
           <mat-cell *matCellDef="let diagnosis">
             <a (click)="openComponentDialog(addDiagnosesDialogComponent, diagnosis, ActionTypes.view)">
-              {{diagnosis.Status}}
+              {{diagnosis.StopAt > todayDate ? 'Active' : 'Resolved'}}
             </a>
           </mat-cell>
         </ng-container>

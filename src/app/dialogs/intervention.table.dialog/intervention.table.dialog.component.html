@@ -50,7 +50,7 @@
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="CodeDescription">
-          <mat-header-cell *matHeaderCellDef mat-sort-header="CodeDescription">Code Description</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header="Description">Code Description</mat-header-cell>
           <mat-cell *matCellDef="let intervention">
             <a (click)="openComponentDialog(interventionDialogComponent,intervention,ActionTypes.view)">
               {{intervention.Description}}
@@ -58,23 +58,23 @@
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="Performed">
-          <mat-header-cell *matHeaderCellDef mat-sort-header="Performed">Performed</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef>Performed</mat-header-cell>
           <mat-cell *matCellDef="let intervention">
-            <a>{{intervention.Performed}}
+            <a>{{intervention.CQMReason ? 'No' : 'Yes'}}
             </a>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="ReasonNotPerformed">
-          <mat-header-cell *matHeaderCellDef mat-sort-header="ReasonNotPerformed">Reason Not Performed</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header="CQMReason">Reason Not Performed</mat-header-cell>
           <mat-cell *matCellDef="let intervention">
-            <a>{{intervention.ReasonNotPerformed}}
+            <a>{{intervention.CQMReason}}
             </a>
           </mat-cell>
         </ng-container>
-        <ng-container matColumnDef="CqmStatus">
-          <mat-header-cell *matHeaderCellDef mat-sort-header="CqmStatus">Cqm Status</mat-header-cell>
+        <ng-container matColumnDef="CQMStatus">
+          <mat-header-cell *matHeaderCellDef mat-sort-header="CQMStatus">Cqm Status</mat-header-cell>
           <mat-cell *matCellDef="let intervention">
-            <a>{{intervention.CqmStatus}}
+            <a>{{intervention.CQMStatus}}
             </a>
           </mat-cell>
         </ng-container>

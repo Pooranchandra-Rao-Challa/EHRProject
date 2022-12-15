@@ -1,7 +1,7 @@
 import { ERROR_CODES } from './../_alerts/alertMessage';
 import { NewmessageDialogComponent } from './../dialogs/newmessage.dialog/newmessage.dialog.component';
 import { PatientappointmentDialogComponent } from 'src/app/dialogs/patientappointment.dialog/patientappointment.dialog.component';
-import { Component, TemplateRef } from '@angular/core';
+import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { OverlayService } from '../overlay.service';
 import { Actions, GeneralSchedule, User, UserLocations, ViewModel } from '../_models';
 import { AuthenticationService } from '../_services/authentication.service';
@@ -13,6 +13,8 @@ import { MessageDialogInfo, Messages } from '../_models/_provider/messages';
 import { MessagesService } from '../_services/messages.service';
 import { SettingsService } from '../_services/settings.service';
 import { AlertMessage } from '../_alerts/alertMessage';
+import { MatPaginator } from '@angular/material/paginator';
+import { tap } from 'rxjs/operators';
 declare var $: any;
 @Component({
   selector: 'app-dashboard',
@@ -20,6 +22,7 @@ declare var $: any;
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   isHealth: boolean = false;
   isAccees: boolean = false;
   ActionTypes = Actions;
@@ -60,6 +63,10 @@ export class DashboardComponent {
     //       $(this).addClass('active');
     //     });
     // });
+    this.paginator.page.pipe(
+      tap(() => this.getmessages(this.paginator.pageSize, this.paginator.pageIndex))
+    )
+    .subscribe();
   }
 
   onChangeViewState(view) {
@@ -151,12 +158,12 @@ export class DashboardComponent {
   }
 
 
-  getmessages() {
+  getmessages(pageSize: number = 10, pageIndex: number = 0) {
     var req = {
       // "PatientId": "5836dafef2e48f36ba90a996",
       "UserId": this.user.UserId,
-      "PageIndex": 0,
-      "PageSize": 10,
+      "PageIndex": pageIndex,
+      "PageSize": pageSize,
       "SortField": "Created",
       "SortDirection": "desc",
       "Filter": "",
@@ -174,5 +181,11 @@ export class DashboardComponent {
 
   showMessages(messages) {
     this.viewMessages = messages;
+  }
+
+  showSettings: boolean = false;
+
+  showNotifySettings() {
+    this.showSettings = !this.showSettings;
   }
 }

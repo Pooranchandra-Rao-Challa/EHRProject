@@ -163,7 +163,7 @@
                   </a>
                   <br>
                 </div>
-                <div *ngFor="let screening_interventions of tobaccoUseList | slice:0:2">
+                <div *ngFor="let screening_interventions of tobaccoUseList | slice:0:4">
                   <ul class="main-list">
                     <li>
                       <a
@@ -201,7 +201,7 @@
                     </li>
                   </ul>
                 </div>
-                <ul class="main-list" *ngIf="tobaccoUseList.length == 0">
+                <ul class="main-list" *ngIf="tobaccoUseList.length == 4">
                   <li>
                     <span>No tobacco use recorded.</span>
                   </li>
@@ -980,9 +980,9 @@
         </span>
       </div>
       <div class="modal-body">
-        <mat-table [dataSource]="chartInfo?.Immunizations" matSort>
-          <ng-container matColumnDef="VaccineDescription">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="VaccineDescription">Vaccine Description
+        <mat-table [dataSource]="chartInfoImmunizations" matSort>
+          <ng-container matColumnDef="Description">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="Description">Vaccine Description
             </mat-header-cell>
             <mat-cell *matCellDef="let loc">
               <a data-bs-toggle="modal" data-bs-target="#immunization-modal"
@@ -991,7 +991,7 @@
             </mat-cell>
           </ng-container>
           <ng-container matColumnDef="CVXCode">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="CVXCode">CVX Code</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="Code">CVX Code</mat-header-cell>
             <mat-cell *matCellDef="let loc">
               <a data-bs-toggle="modal" data-bs-target="#immunization-modal"
                 (click)="editDialog(loc, 'immunization')">{{loc.Code}}
@@ -999,7 +999,7 @@
             </mat-cell>
           </ng-container>
           <ng-container matColumnDef="Date">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="Date">Date</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="AdministeredAt">Date</mat-header-cell>
             <mat-cell *matCellDef="let loc">
               <a data-bs-toggle="modal" data-bs-target="#immunization-modal"
                 (click)="editDialog(loc, 'immunization')">{{loc.AdministeredAt | date: 'MM/dd/yyyy'}}
@@ -1007,7 +1007,7 @@
             </mat-cell>
           </ng-container>
           <ng-container matColumnDef="Status">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="Status">Status</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="ImmType">Status</mat-header-cell>
             <mat-cell *matCellDef="let loc">
               <a data-bs-toggle="modal" data-bs-target="#immunization-modal"
                 (click)="editDialog(loc, 'immunization')">{{loc.ImmType}}
