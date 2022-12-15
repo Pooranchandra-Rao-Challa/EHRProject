@@ -1,7 +1,7 @@
 import { User } from './../../_models/_account/user';
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../_services/authentication.service';
-import { LoaderService } from 'src/app/_loader/loader.service';
+//import { LoaderService } from 'src/app/_loader/loader.service';
 
 @Component({
   selector: 'app-admin-navbar',
@@ -11,8 +11,7 @@ import { LoaderService } from 'src/app/_loader/loader.service';
 export class AdminNavbarComponent implements OnInit {
   user:User
 
-  constructor(private authenticationService: AuthenticationService,
-    public loaderService: LoaderService) {
+  constructor(private authenticationService: AuthenticationService) {
     this.user = this.authenticationService.userValue;
   }
 

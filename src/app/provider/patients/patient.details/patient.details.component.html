@@ -1,6 +1,10 @@
 <div class="patients-navigation d-none d-lg-block">
   <!-- <patient-breadcrumb></patient-breadcrumb> -->
   <ng-template #patientbreadcrumb></ng-template>
+  <div style="padding-left: 100px;
+  padding-top: 15px;" *ngIf="loadingBreadcrumb">
+  <mat-progress-spinner mode="indeterminate" value="50" color="primary" diameter="30"></mat-progress-spinner>
+</div>
 </div>
 <div class="patients-navigation-info" style="clear: both;">
   <img class="avatar avatar-empty" src="assets/images/avatar-empty.svg" alt="Avatar empty">

@@ -41,6 +41,8 @@ export class NewmessageDialogComponent implements OnInit {
   EntityId: string;
   httpRequestParams = new HttpParams();
   attachmentSubject: BehaviorSubject<Attachment[]> = new BehaviorSubject<Attachment[]>([]);
+  previousMessage: string =""
+  previousSubject: string = ""
 
   constructor(private ref: EHROverlayRef,
     private patientService: PatientService,
@@ -52,7 +54,6 @@ export class NewmessageDialogComponent implements OnInit {
     this.messageDialogData = ref.RequestData;
     this.message = this.messageDialogData.Messages;
     this.fileUploadUrl = UPLOAD_URL('api/upload/UploadSingleFile')
-    console.log(this.fileUploadUrl);
 
     this.httpRequestParams = this.httpRequestParams.append("EntityName", this.EntityName);
 
@@ -117,6 +118,7 @@ export class NewmessageDialogComponent implements OnInit {
     return "No"
   }
   cancel() {
+    this.message.Subject =this.previousSubject;
     this.ref.close(null);
   }
   _filterPatient(term) {
@@ -156,7 +158,7 @@ export class NewmessageDialogComponent implements OnInit {
       }
     });
   }
-  onPatientSelected(selected) {
+  onToAddressSelected(selected) {
     this.message.toAddress = selected.option.value;
     this.message.ToId = selected.option.value.UserId;
   }
@@ -177,7 +179,8 @@ export class NewmessageDialogComponent implements OnInit {
       this.message.ProviderName = this.user.FirstName;
       this.message.Draft = item;
       this.message.Sent = sent;
-      this.message.ToId = this.messageDialogData.Messages ? this.messageDialogData.Messages.toAddress.UserId : this.message.ToId;
+      this.message.ToId = this.messageDialogData.Messages ?
+      this.messageDialogData.Messages.toAddress.UserId : this.message.ToId;
     }
     this.messageservice.CreateMessage(this.message).subscribe(resp => {
       if (resp.IsSuccess) {
@@ -194,8 +197,20 @@ export class NewmessageDialogComponent implements OnInit {
 
   ngAfterViewInit() {
     if (this.messageDialogData.MessageFor == 'Reply'
-      || this.messageDialogData.MessageFor == 'PatientReply')
-      this.diabledPatientSearch = true;
+      || this.messageDialogData.MessageFor == 'PatientReply'){
+        this.previousMessage = this.message.Body;
+        this.message.Body = "";
+        this.previousSubject = this.message.Subject;
+        this.message.Subject ="Re: "+this.message.Subject
+      }
+    else if (this.messageDialogData.MessageFor == 'Forward'
+    || this.messageDialogData.MessageFor == 'PatientForward'){
+      this.previousMessage = this.message.Body;
+      this.message.Body = "";
+      this.previousSubject = this.message.Subject;
+      this.message.Subject ="Fw: "+this.message.Subject
+    }
+
   }
 
 

@@ -89,6 +89,7 @@ import { MatTreeModule } from '@angular/material/tree'
     NgxMatSelectSearchModule,
     MatSelectFilterModule,
     MatTableExporterModule,
+    MatProgressSpinnerModule,
     Ng2OrderModule,
     MatAutocompleteModule,
     MatProgressBarModule,

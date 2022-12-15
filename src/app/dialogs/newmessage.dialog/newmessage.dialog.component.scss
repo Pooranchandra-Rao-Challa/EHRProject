@@ -148,6 +148,14 @@ input::-webkit-input-placeholder {
   float: left !important;
 }
 
+.previousMessage{
+  padding: 10px 0 10px 0;
+  color: #41b6a6;
+  font-weight: 500;
+}
+.previousMessage .prev.message{
+  font-weight: 700;
+}
 #form-message .remove{
   margin: 10px 10px;
   float: right;

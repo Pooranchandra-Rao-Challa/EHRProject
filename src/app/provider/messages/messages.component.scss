@@ -83,7 +83,14 @@
   .nav-tabs.styled .nav-tabs.message-count.active {
     // border: 1px solid #fff;
   }
-
+  .attach-btn{
+    color:#41b6a6;
+    cursor: pointer;
+  }
+  .attach-btn:hover{
+    color:#fff;
+    background-color: #41b6a6;
+  }
 
   .nav-tabs.message-count.active {
     border: 1px solid red;

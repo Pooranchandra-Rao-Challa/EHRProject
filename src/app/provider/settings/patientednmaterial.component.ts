@@ -1,3 +1,5 @@
+import { DownloadService } from './../../_services/download.service';
+import { saveAs } from 'file-saver';
 
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../_services/authentication.service';
@@ -22,7 +24,7 @@ export class PatientEdnMaterialComponent implements OnInit {
   patientmaterialfrom: FormGroup
   expandedchangecolor: boolean = false;
   codeSystemsForPatientEducation: string[] = ['SNOMED/ICD10', 'SNOMED/ICD10', 'CDT/CPT', 'Lonics', 'NDC', 'RxNorm'];
-  EducationMaterials: EducationMaterial[];
+  EducationMaterials: EducationMaterial[] =[];
   patientEducationSearchList = new BehaviorSubject<EducationMaterial[]>([]);
   columnsToDisplay = ['action', 'name', 'weight', 'symbol', 'position'];
   patientEdMaterialSearchColumns = ["CODE", "CODE SYSTEM", "DESCRIPTION", "Delete"];
@@ -32,14 +34,14 @@ export class PatientEdnMaterialComponent implements OnInit {
   valuedisable: boolean = false
   EntityName: string = "EdnMaterial"
   fileUploadUrl: string = ""
-  fileTypes = ".jpg,.gif,.png"
+  fileTypes = ".jpg,.gif,.png,.pdf"
   fileSize: number = 20;
   EntityId: string;
   httpRequestParams = new HttpParams();
 
   constructor(private fb: FormBuilder, private settingservice: SettingsService,
     private authService: AuthenticationService, private alertmsg: AlertMessage,
-    ) {
+    private downloadService: DownloadService) {
     this.user = authService.userValue;
     this.fileUploadUrl = UPLOAD_URL('api/upload/UploadSingleFile')
 
@@ -162,8 +164,9 @@ export class PatientEdnMaterialComponent implements OnInit {
     }
   }
   DeleteAttachment(attachment) {
+    if(!attachment.EntityName) attachment.EntityName = this.EntityName;
     if (attachment) {
-      this.educationMaterial.Attachments.filter(fn => fn.AttachmentId == attachment.attachmentId)[0].IsDeleted = true;
+      this.educationMaterial.Attachments.filter(fn => fn.AttachmentId == attachment.AttachmentId)[0].IsDeleted = true;
       this.settingservice.DeleteAttachment(attachment).subscribe((resp) =>{
         if(resp.IsSuccess){
           this.alertmsg.displayMessageDailog(ERROR_CODES["2AD001"]);
@@ -176,7 +179,7 @@ export class PatientEdnMaterialComponent implements OnInit {
   }
   DownloadAttachment(attachment: Attachment){
     attachment.EntityName = this.EntityName;
-
+    this.downloadService.DownloadAttachment(attachment);
   }
 
   get Attachments(): Attachment[] {

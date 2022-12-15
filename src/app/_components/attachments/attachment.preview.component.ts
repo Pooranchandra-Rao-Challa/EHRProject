@@ -18,7 +18,7 @@ export class AttachmentPreviewComponent implements OnInit {
 
   private _entityId: string;
   private _entityName: string;
-  private _attachments: Attachment[];
+  private _attachments: Attachment[] = [];
   httpRequestParams = new HttpParams();
   attachmentSubject: BehaviorSubject<Attachment[]> = new BehaviorSubject<Attachment[]>([]);
   activeAttachments: Attachment[] = [];

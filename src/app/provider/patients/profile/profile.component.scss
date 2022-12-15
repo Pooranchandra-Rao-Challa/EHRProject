@@ -784,9 +784,9 @@ input.mat-input-element {
 }
 
 .profile-hr {
-  border-left: 1px solid #41b6a6;
+  border: 1px solid #41b6a6;
   padding: 0px 5px 0px 0px;
-  max-height: 630px;
+  height: calc(55vh - 20px);
   overflow-y: auto;
   overflow-x: hidden;
 }

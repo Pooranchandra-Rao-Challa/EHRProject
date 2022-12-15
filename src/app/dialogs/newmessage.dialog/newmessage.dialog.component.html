@@ -18,7 +18,7 @@
                 [disabled]="diabledPatientSearch" [readonly]="diabledPatientSearch"
                 [(ngModel)]="this.message.toAddress" />
               <mat-autocomplete [displayWith]="displayWithPatientSearch" #serachpatient="matAutocomplete"
-                (optionSelected)="onPatientSelected($event)">
+                (optionSelected)="onToAddressSelected($event)">
                 <mat-option [hidden]="displayMessage == false" [disabled]="true" class="text-wrap lh-1 fs-6">
                   Enter atleast 1 character, you can only select 1 item
                 </mat-option>
@@ -48,7 +48,15 @@
                 [(ngModel)]="message.Subject">
             </div>
             <div class="mt-2 col-md-12">
+
+              <div class="previousMessage" *ngIf="this.messageDialogData.MessageFor == 'Reply'
+              || this.messageDialogData.MessageFor == 'PatientReply' ||
+              this.messageDialogData.MessageFor == 'Forward'
+              || this.messageDialogData.MessageFor == 'PatientForward'" >
+              <label for="message" class="prev message">Previous Message:&nbsp;&nbsp;</label>
+              {{previousMessage}}</div>
               <label for="message" class="form-label" style="margin-bottom: unset;">Message</label>
+
               <textarea matInput placeholder="" class="form-control textareaclass inputclass col-md-12 rows-5" rows="15"
                 [(ngModel)]="message.Body" [disabled]="diabledPatientSearch"
                 [readonly]="diabledPatientSearch"></textarea>

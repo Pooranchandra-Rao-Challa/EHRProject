@@ -51,7 +51,7 @@ export class PatientPortalAccountComponent {
 
     this.patientUser = dialogRef.data as PatientPortalUser;
 
-    console.log(this.patientUser);
+
   }
 
   ngOnInit(): void {
@@ -180,8 +180,8 @@ export class PatientPortalAccountComponent {
 
   createPatientAccount() {
     this.createPatientInvoked = true;
-    if(this.checkValidEmail())
-      this.dialogRef.close(this.patientUser);
+    this.updateValidEmail();
+
   }
 
   checkEmailExistance() {
@@ -193,12 +193,17 @@ export class PatientPortalAccountComponent {
     else this.emailVerfied = null;
   }
 
-  checkValidEmail(){
-    if(this.patientUser.Email != null && !this.emailPattern.test(this.patientUser.Email)){
-      this.patientUser.Email = `no_email@${this.patientUser.Username.toLowerCase()}.com`;
+  updateValidEmail(){
+
+   let tempemail = `no_email@${this.patientUser.Username.toLowerCase()}.com`;
+   if(this.patientUser.Email != null && this.emailPattern.test(this.patientUser.Email)
+    && tempemail !=  this.patientUser.Email){
       this.patientUser.PatientHasNoEmail = false;
-    }else this.patientUser.PatientHasNoEmail = true;
-    return true;
+   }else{
+    this.patientUser.Email = tempemail;
+    this.patientUser.PatientHasNoEmail = true;
+   }
+    this.dialogRef.close(this.patientUser);
   }
 
 }

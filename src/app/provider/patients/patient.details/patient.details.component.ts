@@ -240,13 +240,16 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
     viewcomp.instance.navigateTo.subscribe((pbc: PatientBreadcurm) => {
       if (pbc.ViewType == 1) this._detailsView(pbc.Details);
       else if (pbc.ViewType == 0) this._listView();
+      this.loadingBreadcrumb = false;
     });
     viewcomp.instance.removePatientInBreadcrumb.subscribe(($event) => {
       this.removePatientBreadcrumbInView($event);
     });
   }
 
+  loadingBreadcrumb: boolean= false;
   loadBreadcurmData() {
+    this.loadingBreadcrumb= true;
     let paramkey = this.activatedRoute.snapshot.queryParams.paramkey;
     if (paramkey == null) {
       this.patient = this.authService.viewModel.Patient;
@@ -298,6 +301,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
           this.patient = this.authService.viewModel.Patient;
           this.loadPatientBreadcrumbView();
           this.loadDependents();
+          this.loadingBreadcrumb= false;
         }
       })
   }
@@ -330,6 +334,8 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
 
   InvitePatient(content: TemplateRef<any> | ComponentType<any> | string, action?: Actions) {
     this.patientUser = new PatientPortalUser();
+    console.log( this.patient);
+
     this.patientUser.Email = this.patient.Email;
     this.patientUser.PatientName = this.patient.FirstName + ' ' + this.patient.LastName;
     this.patientUser.DateofBirth = new Date(this.patient.Dob);

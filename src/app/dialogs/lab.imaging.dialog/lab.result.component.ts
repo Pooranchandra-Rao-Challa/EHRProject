@@ -79,6 +79,8 @@ export class LabResultComponent implements OnInit {
       .subscribe(resp => {
         if (resp.IsSuccess) {
           let labResult = resp.Result as LabResultInfo;
+
+
           if (labResult.CollectedDate != null) {
             labResult.CollectedDate = new Date(labResult.CollectedDate);
             labResult.CollectedTime = this.datePipe.transform(labResult.CollectedDate, "hh:mm a");
@@ -229,8 +231,12 @@ export class LabResultComponent implements OnInit {
     if (this.labandImaging.LabResult.TestReportedDate != null)
       this.labandImaging.LabResult.TestReportedAt = this.datePipe.transform(this.labandImaging.LabResult.TestReportedDate, "MM/dd/yyyy");
 
+
     this.labandImaging.strResult = JSON.stringify(this.labandImaging.LabResult);
     this.labandImaging.LabResult.NPI = this.labandImaging.NPI;
+
+
+
 
     let isAdd = this.labandImaging.LabResult.LabResultId == null || this.labandImaging.LabResult.LabResultId == '';
     this.labsImagingService.UpdateLabResult(this.labandImaging).subscribe(resp => {

@@ -14,7 +14,7 @@ export class LabProcedureWithOrder {
   OrderStatus?: string; // Status.
   ScheduledAt?: string;
   StrScheduledAt?: string // use 'MM/dd/yyyy'
-  OrderingPhyscianId?: string;
+  OrderingPhysicianId?: string;
   OrderingFacility?: string;
   ResultStatus?: string; // Lab and Imaging Status
   ReceivedAt?: string;

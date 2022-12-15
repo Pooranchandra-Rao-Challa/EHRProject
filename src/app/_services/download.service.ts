@@ -158,21 +158,25 @@ export class DownloadService {
 
 
   DownloadAttachment<T>(reqObj: any){
-    const endpointUrl = this.baseUrl + 'DownloadImportErrors';
+    const endpointUrl = this.baseUrl + 'DownloadAttachment';
     this.http
-      .post(endpointUrl, reqObj, { observe: "response", responseType: "text" })
+      .post(endpointUrl, reqObj, { observe: "response", responseType: "arraybuffer" })
       .subscribe(
         (resp) => {
-          const data = resp.body;
-          const blob = new Blob([data], {
+          console.log(resp.headers.get("content-type"));
+          const blob = new Blob([resp.body], {
             type: resp.headers.get("content-type"),
           });
           const document = window.URL.createObjectURL(blob);
-          FileSaver.saveAs(document, reqObj.ImportId);
+          FileSaver.saveAs(document, reqObj.AttachmentId);
         },
         (error) => {
         }
       );
   }
+  // ImagetoBase64String(reqparams: any){
+  //   const endpointUrl = this.baseUrl + 'DownloadImage';
+  //   return this._ProcessPostRequest<any>(this._imagetoBase64StringUrl, reqparams);
+  // }
 
 }

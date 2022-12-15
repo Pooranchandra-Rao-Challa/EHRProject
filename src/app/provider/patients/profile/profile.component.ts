@@ -220,7 +220,7 @@ export class ProfileComponent implements OnInit {
     this.patientService.PatientMyProfileByPatientId(reqparam).subscribe(resp => {
       if (resp.IsSuccess) {
         this.patientMyProfile = resp.ListResult[0];
-        this.patientMyProfile.Gender = this.patientMyProfile.Gender;
+
 
       } //else console.log(resp);
 
@@ -375,8 +375,10 @@ export class ProfileComponent implements OnInit {
   }
   updatePatientInformation() {
     this.ageCalculator();
-    this.patientMyProfile.DateOfBirth = this.datepipe.transform(this.patientMyProfile.DateOfBirth, "MM/dd/yyyy hh:mm:ss a");
-    this.patientMyProfile.DateOfDeath = this.datepipe.transform(this.patientMyProfile.DateOfDeath, "MM/dd/yyyy hh:mm:ss a")
+    this.patientMyProfile.strDateOfBirth = this.datepipe.transform(this.patientMyProfile.DateOfBirth, "MM/dd/yyyy hh:mm:ss a");
+    this.patientMyProfile.strDateOfDeath = this.datepipe.transform(this.patientMyProfile.DateOfDeath, "MM/dd/yyyy hh:mm:ss a");
+    console.log(this.patientMyProfile);
+
     this.patientService.UpdatePatientInformation(this.patientMyProfile).subscribe(resp => {
       if (resp.IsSuccess) {
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP001"])
