@@ -15,6 +15,8 @@ import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { MessageDialogInfo, Messages } from 'src/app/_models/_provider/messages';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { RecordsChangeService, MessageCounts } from 'src/app/_navigations/provider.layout/view.notification.service';
+import { Attachment } from 'src/app/_models/_provider/LabandImage';
+import { DownloadService } from 'src/app/_services/download.service';
 
 @Component({
   selector: 'app-labs.imaging',
@@ -51,7 +53,8 @@ export class MessagesComponent implements OnDestroy, AfterContentChecked {
     private authService: AuthenticationService,
     private changeDedectionRef: ChangeDetectorRef,
     private notifyMessage: NotifyMessageService,
-    private alertmsg: AlertMessage) {
+    private alertmsg: AlertMessage,
+    private downloadService: DownloadService) {
     this.user = authService.userValue;
   }
 
@@ -184,7 +187,7 @@ export class MessagesComponent implements OnDestroy, AfterContentChecked {
   }
 
   get DisplayedColumns(): string[] {
-    return ['From', 'Date']
+    return ['From', 'Date','Attach']
   }
 
   openComponentDialogmessage(content: any | ComponentType<any> | string, data,
@@ -226,7 +229,17 @@ export class MessagesComponent implements OnDestroy, AfterContentChecked {
       }
     })
   }
+
+  EntityName: string = "EmailMessage"
+  DownloadAttachment(attachment: Attachment[]){
+    attachment.forEach(attach=>{
+      attach.EntityName = this.EntityName;
+      this.downloadService.DownloadAttachment(attach);
+    })
+
+  }
 }
+
 export class MessagesDatasource implements DataSource<Messages>{
 
   private MessageSentSubject = new BehaviorSubject<Messages[]>([]);

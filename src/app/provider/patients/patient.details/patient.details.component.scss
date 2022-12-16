@@ -195,3 +195,6 @@ a.disabled{
   overflow-y: auto;
 }
 
+:host ::ng-deep .track circle{
+  stroke-opacity: 0.3 !important;
+}

@@ -113,10 +113,10 @@ li a.inactive{
   border-width: 0px;
   border-radius: 20px;
   box-shadow: inset 0px -2px 1px rgb(0 0 0 / 80%), inset 0 2px 1px rgb(255 255 255);
-  background: linear-gradient(to top, #ffffff, #41b6a6);
-  background: -webkit-linear-gradient(to top, #ffffff, #41b6a6);
-  background: -moz-linear-gradient(to top, #ffffff, #41b6a6);
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(100%, #ffffff), color-stop(0%, #41b6a6));
+  background: linear-gradient(to top, #41b6a6, #41b6a6);
+  background: -webkit-linear-gradient(to top, #41b6a6, #41b6a6);
+  background: -moz-linear-gradient(to top, #41b6a6, #41b6a6);
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(100%, #41b6a6), color-stop(0%, #41b6a6));
 }
 .bread-crumb-button:hover{
   color:hsl(0, 98%, 34%); //#d74842

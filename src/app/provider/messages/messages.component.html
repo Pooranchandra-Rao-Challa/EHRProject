@@ -115,11 +115,6 @@
                     <div class="text-new-line">
                       <div>{{IsInbox || IsUrgent || IsDraft ? message.PatientName : message.ProviderName}} </div>
                       <div [class.text-truncate]="message.Subject?.length > 50" style="display:inline">{{message.Subject}}</div>
-                      <label for="singleFile" class="upload-btn-wrapper" *ngIf="message.Attachments.length > 0"
-                        style=" margin-left: 20px;
-                        vertical-align: middle;" >
-                        <mat-icon>attach_file</mat-icon>
-                      </label>
                     </div>
                   </mat-cell>
                 </ng-container>
@@ -128,6 +123,16 @@
                   <mat-cell class="pointer"
                     [class.unreadmsg-bold]="!message.Read && (currentMessageView == 'Inbox' ||  currentMessageView == 'Urgent')"
                     *matCellDef="let message" (click)="showMessage(message)"> {{message.Updated | date:'M/d/yyyy'}}
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="Attach">
+                  <mat-header-cell *matHeaderCellDef> Attachment </mat-header-cell>
+                  <mat-cell class="pointer" *matCellDef="let message">
+                    <label for="singleFile" *ngIf="message.Attachments.length > 0"
+                      style=" margin-left: 20px;
+                      vertical-align: middle;" (click)="DownloadAttachment(message.Attachments)">
+                      <mat-icon class="attach-btn">attach_file</mat-icon>
+                    </label>
                   </mat-cell>
                 </ng-container>
                 <mat-header-row *matHeaderRowDef="DisplayedColumns  sticky: true" class="matheaderrow"></mat-header-row>
@@ -164,20 +169,22 @@
                     <img src="assets/images/header-dropdown-img.svg" class="img-xs rounded-circle header-avatar">
                   </div>
                 </div>
-                <div class="row email-address" style="display:inline">
-                  <div class="col-md-12" style="display: inline-flex;">
+                <div class="row email-address">
+                  <div class="col-md-8" style="display: inline-flex;">
                     Subject:<p (mouseenter)="isExpandToggle()" (mouseleave)="isExpandToggle()"
                       style="margin-left: 10px;margin-bottom:0px" [class.overflow]="isExpand"
                       [class.show-overflow]="!isExpand">{{currentMessage.Subject}}</p>
-
                   </div>
-                  <label for="singleFile" class="upload-btn-wrapper" *ngIf="currentMessage.Attachments.length > 0"
-                    style=" margin-left: 20px;
-                    vertical-align: middle;" >
-                    <mat-icon>attach_file</mat-icon>
-                  </label>
+                  <div class="col-md-4">
+                    <label for="singleFile"  *ngIf="currentMessage.Attachments.length > 0"
+                      style=" margin-left: 20px;vertical-align: middle;" (click)="DownloadAttachment(currentMessage.Attachments)">
+                      <mat-icon class="attach-btn">attach_file</mat-icon>
+                    </label>
+                  </div>
                 </div>
-                <div style="border-bottom: 1px solid #41b6a6 ;"></div>
+                <div style="border-bottom: 1px solid #41b6a6 ;">
+
+                </div>
                 <div class="row body">
                   {{currentMessage.Body}}
                 </div>

@@ -20,6 +20,9 @@ import { OverlayService } from 'src/app/overlay.service';
 import { FileUploadService } from 'src/app/_services/file.upload.service';
 import { DatePipe } from '@angular/common'
 import { UPLOAD_URL } from 'src/environments/environment'
+import { HttpParams } from '@angular/common/http';
+import { DownloadService } from 'src/app/_services/download.service';
+import { SettingsService } from 'src/app/_services/settings.service';
 
 @Component({
   selector: 'app-order-dialog',
@@ -32,18 +35,23 @@ export class OrderDialogComponent implements OnInit {
   orderTypeDD = [{ value: 'Lab', viewValue: 'Lab' }, { value: 'Imaging', viewValue: 'Imaging' }]
   formGroups: FormGroup;
   OrderStatuses: any = [];
-  ResultStatuses: any[];
-  PracticeProviders: PracticeProviders[];
+  ResultStatuses: any[] = [];
+  PracticeProviders: PracticeProviders[] = [];
   labandImaging?: LabProcedureWithOrder = new LabProcedureWithOrder();
   isLoading: boolean = false;
   filteredOptions: Observable<MedicalCode[]>;
   testCodeComponent = TestCodeComponent;
-  orderingFacilities: UserLocations[];
+  orderingFacilities: UserLocations[] = [];
   saveClicked: boolean = false;
   diabledPatientSearch: boolean = false;
   EntityName: string = "laborder"
   fileUploadUrl: string;
   norecords: boolean = false
+  showImage: boolean = false;
+  httpRequestParams = new HttpParams();
+  fileSize: number = 20
+  AcceptedFileTypes: string = ".jpg,.gif,.jpeg,.png,.pdf";
+
 
   constructor(private ref: EHROverlayRef,
     private fb: FormBuilder,
@@ -55,9 +63,15 @@ export class OrderDialogComponent implements OnInit {
     private authService: AuthenticationService,
     private overlayService: OverlayService,
     private patientService: PatientService,
-    private fileUploadService: FileUploadService,
+    private settingsService: SettingsService,
     private datePipe: DatePipe) {
     this.labandImaging = ref.RequestData as LabProcedureWithOrder;
+
+    this.httpRequestParams = this.httpRequestParams.append("EntityName", this.EntityName);
+    if (this.labandImaging.LabProcedureId)
+      this.httpRequestParams = this.httpRequestParams.append("EntityId", this.labandImaging.LabProcedureId);
+
+
     this.fileUploadUrl = UPLOAD_URL('api/upload/UploadSingleFile')
 
     if (this.labandImaging.CurrentPatient == null)
@@ -70,7 +84,7 @@ export class OrderDialogComponent implements OnInit {
       this.labandImaging.Attachments = JSON.parse(this.labandImaging.StrAttachments) as Attachment[];
     else this.labandImaging.Attachments = [];
 
-    if(this.labandImaging.ReceivedAt) {
+    if (this.labandImaging.ReceivedAt) {
       this.labandImaging.ReceivedAt = this.datePipe.transform(this.labandImaging.ReceivedAt, "yyyy-MM-dd");
     }
   }
@@ -112,8 +126,7 @@ export class OrderDialogComponent implements OnInit {
         if (resp.IsSuccess) {
           this.filteredPatients = of(
             resp.ListResult as PatientSearch[]);
-        } else
-        {
+        } else {
           this.filteredPatients = of([]);
           this.norecords = true
         }
@@ -144,10 +157,11 @@ export class OrderDialogComponent implements OnInit {
   initFormGroups() {
     this.formGroups = this.fb.group({
       orders: this.fb.array([]),
-      attachments: this.fb.array([])
+      //attachments: this.fb.array([])
     })
   }
   get orders() {
+
     return this.formGroups.get('orders') as FormArray
   }
   addLabOrder(order: TestOrder = {}) {
@@ -196,23 +210,23 @@ export class OrderDialogComponent implements OnInit {
 
 
 
-  get attachments() {
-    return this.formGroups.get('attachments') as FormArray
-  }
+  // get attachments() {
+  //   return this.formGroups.get('attachments') as FormArray
+  // }
 
-  attachements() {
-    this.attachments.push(
-      this.addAttachment());
-  }
+  // attachements() {
+  //   this.attachments.push(
+  //     this.addAttachment());
+  // }
 
-  addAttachment() {
-    return this.fb.group({
-      file: "",
-    })
-  }
-  removeAttachemnt(index: number) {
-    this.attachments.removeAt(index);
-  }
+  // addAttachment() {
+  //   return this.fb.group({
+  //     file: "",
+  //   })
+  // }
+  // removeAttachemnt(index: number) {
+  //   this.attachments.removeAt(index);
+  // }
 
   InitOrderStatuses() {
     this.utilityService.OrderStatuses().subscribe(resp => {
@@ -239,7 +253,7 @@ export class OrderDialogComponent implements OnInit {
       && this.labandImaging.LabName != null && this.labandImaging.LabName != ""
       && this.labandImaging.OrderStatus != null && this.labandImaging.OrderStatus != ""
       && this.labandImaging.ScheduledAt != null && this.labandImaging.ScheduledAt != ""
-      && this.labandImaging.OrderingPhyscianId != null && this.labandImaging.OrderingPhyscianId != ""
+      && this.labandImaging.OrderingPhysicianId != null && this.labandImaging.OrderingPhysicianId != ""
       && this.labandImaging.OrderingFacility != null && this.labandImaging.OrderingFacility != ""
       && this.labandImaging.ResultStatus != null && this.labandImaging.ResultStatus != ""
       && this.labandImaging.CurrentPatient != null && this.labandImaging.CurrentPatient.PatientId != null
@@ -318,5 +332,59 @@ export class OrderDialogComponent implements OnInit {
 
   ItemsModified(data) {
     this.labandImaging.Attachments = data;
+  }
+
+  public UploadCompleted(data): any {
+    if (data.event.body) {
+      if (!this.labandImaging.Attachments)
+        this.labandImaging.Attachments = [];
+      this.labandImaging.Attachments.push(data.event.body as Attachment);
+    }
+  }
+  DeleteAttachment(attachment: Attachment) {
+    if(!attachment.EntityName) attachment.EntityName = this.EntityName;
+    if (attachment) {
+      this.labandImaging.Attachments.filter(fn => fn.AttachmentId == attachment.AttachmentId)[0].IsDeleted = true;
+      if (this.currentViewAttachment != null &&
+        this.currentViewAttachment.FileName == attachment.FileName) {
+        this.showImage = false;
+        this.Imagedata = "";
+        this.currentViewAttachment = null;
+      }
+      this.settingsService.DeleteAttachment(attachment).subscribe((resp) => {
+        if (resp.IsSuccess) {
+          this.alertMessage.displayMessageDailog(ERROR_CODES["2AD001"]);
+
+        } else {
+          this.alertMessage.displayErrorDailog(ERROR_CODES["2EAD001"]);
+        }
+      })
+    }
+  }
+
+  get Attachments(): Observable<Attachment[]> {
+    if (!this.labandImaging.Attachments) this.labandImaging.Attachments = [];
+    return of(this.labandImaging.Attachments.filter(fn => !fn.IsDeleted));
+  }
+  Imagedata: any;
+  showPdf: boolean = false;
+  pdfUrl: string = "";
+
+  currentViewAttachment: Attachment = null;
+  showDocument(attachment) {
+    if (attachment.FileName.endsWith(".pdf"))
+      return;
+    this.labsImagingService.ImagetoBase64String(attachment).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.showImage = true;
+        this.Imagedata = resp.Result;
+        this.currentViewAttachment = attachment;
+      } else {
+        this.showImage = false;
+      }
+    });
+  }
+  ItemRemoved($event) {
+
   }
 }

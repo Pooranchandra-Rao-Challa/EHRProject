@@ -27,7 +27,7 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { AppMomentDateAdapter,MOMENT_DATE_FORMATS }from 'src/app/_common/app.moment.date.adapter';
 import { MessagesService } from './_services/messages.service';
 
-
+//import { QRCodeModule } from 'angularx-qrcode'
 
 
 // HttpClientModule is only needed if you want to log on server or if you want to inspect sourcemaps
@@ -45,6 +45,7 @@ import { MessagesService } from './_services/messages.service';
     BrowserModule,
     RouterModule,
     CommonModule,
+    //QRCodeModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: EhrInterceptor, multi: true },

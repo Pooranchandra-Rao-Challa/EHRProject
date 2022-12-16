@@ -61,6 +61,7 @@ export class AuthenticationService {
       tap(resp => {
         if (resp.IsSuccess) {
           this.userSubject = new BehaviorSubject<User>(resp.Result as User);
+
           if (this.userValue.IsSuccess) {
             localStorage.setItem('user', JSON.stringify(resp.Result as User));
             this.updateViewModel();
@@ -160,7 +161,7 @@ export class AuthenticationService {
               else if (!this.isProviderVerfied) {
                 this.logout(ERROR_CODES["EL006"])
               }
-              else if (!this.isProviderTrialPeriodClosed) {
+              else if (!this.isProviderInTrialPeriod && !this.isProviderTrialPeriodClosed) {
                 this.logout(ERROR_CODES["EL012"])
               }
               else

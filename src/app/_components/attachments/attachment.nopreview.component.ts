@@ -17,7 +17,7 @@ export class AttachmentNopreviewComponent implements OnInit {
 
   private _entityId: string;
   private _entityName: string;
-  private _attachments: Attachment[];
+  private _attachments: Attachment[] =[];
   httpRequestParams = new HttpParams();
   attachmentSubject: BehaviorSubject<Attachment[]> = new BehaviorSubject<Attachment[]>([]);
   activeAttachments: Attachment[] = [];
@@ -91,6 +91,7 @@ export class AttachmentNopreviewComponent implements OnInit {
   }
 
   get ActiveAttachments(): Attachment[] {
+    if(!this.activeAttachments) this.activeAttachments = []
     return this.activeAttachments;
   }
 

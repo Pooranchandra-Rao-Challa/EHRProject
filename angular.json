@@ -28,7 +28,8 @@
               "raf",
               "jspdf-autotable",
               "moment-timezone",
-              "moment"
+              "moment",
+              "qrcode"
             ],
             "outputPath": "dist/EHRProject",
             "index": "src/index.html",

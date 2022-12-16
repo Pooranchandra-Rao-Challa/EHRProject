@@ -90,6 +90,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     NgxMatSelectSearchModule,
     MatSelectFilterModule,
     MatTableExporterModule,
+    MatProgressSpinnerModule,
     Ng2OrderModule,
     MatAutocompleteModule,
     MatProgressBarModule,
