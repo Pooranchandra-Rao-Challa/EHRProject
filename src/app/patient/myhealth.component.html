@@ -78,7 +78,7 @@
 
             <div class="col-md-6F"> <span class="green-color">Smoking Status:- </span>
               <span *ngFor="let i of StatusList" class="Helvetica-sans-serif-large">{{i.Status}}
-                {{i.EffectiveFrom}},</span>
+                {{i.EffectiveFrom | date: 'MM/dd/yyyy'}},</span>
               <div>
                 <!-- <span  class="Helvetica-sans-serif-large"> </span> -->
               </div>

@@ -141,12 +141,6 @@ a {
   border-radius: 36px;
   background: #D8D8D8;
 }
-.pg-container {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-}
 ::ng-deep .patients-search .mat-form-field-appearance-outline .mat-form-field-label{
    top: 1.7em;
 }
@@ -164,12 +158,3 @@ a {
   width: 100% !important;
 }
 
-
-@media (max-width: 1024px) {
-  ::ng-deep .pg-container .mat-paginator-container {
-    display: block !important;
-  }
-  ::ng-deep.pg-container .mat-paginator-range-actions {
-    display: block !important;
-  }
-}

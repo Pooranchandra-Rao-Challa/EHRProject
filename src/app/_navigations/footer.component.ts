@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PatientService } from '../_services/patient.service';
 
 @Component({
   selector: 'app-footer',
@@ -6,10 +7,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent implements OnInit {
+  providerFooterVersion: any[]
 
-  constructor() { }
+  constructor(private patientservice: PatientService) { }
 
   ngOnInit() {
+    this.GetAdminSettingVersion();
+  }
+
+  GetAdminSettingVersion() {
+    this.patientservice.ChangeFooterVersion().subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.providerFooterVersion = resp.ListResult;
+      }
+    });
   }
 
 }

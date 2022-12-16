@@ -421,7 +421,20 @@
   background-image: url(../assets/images/icon-delete-hover.svg);
 }
 
-
+.pg-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+@media (max-width: 768px) {
+  ::ng-deep .pg-container .mat-paginator-container {
+    display: block !important;
+  }
+  ::ng-deep.pg-container .mat-paginator-range-actions {
+    display: block !important;
+  }
+}
 
 /* width */
 ::-webkit-scrollbar {
