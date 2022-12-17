@@ -1,6 +1,6 @@
 import { UpdateEmergencyAccess } from './../../_navigations/provider.layout/view.notification.service';
 
-import { Component, OnInit, TemplateRef, Inject } from '@angular/core';
+import { Component, OnInit, TemplateRef, Inject, QueryList, ViewChildren } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ComponentType } from '@angular/cdk/portal';
@@ -16,6 +16,8 @@ import { OverlayService } from '../../overlay.service';
 import { AlertMessage, ERROR_CODES } from './../../_alerts/alertMessage';
 import { LocationDialogComponent } from 'src/app/dialogs/location.dialog/location.dialog.component';
 import { PraticeAdduserDialogComponent } from 'src/app/dialogs/pratice.adduser.dialog/pratice.adduser.dialog.component';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'practice-settings',
@@ -27,8 +29,9 @@ export class PracticeComponent implements OnInit {
   TimeZoneList: any;
   UTCTime: any;
   CurrentTime: any;
-  locationdataSource: any;
-  providersDataSource: NewUser[];
+  public locationdataSource = new MatTableDataSource<any>();
+  @ViewChildren(MatPaginator) paginator = new QueryList<MatPaginator>();
+  public providersDataSource = new MatTableDataSource<NewUser>();
   ProviderId: any;
   locationColumns: string[] = ['Location', 'Address', 'Phone', 'Providers'];
   providerColumns: string[] = ['Image', 'FullName', 'Email', 'Role', 'Space', 'Status', 'EmergencyAccess']
@@ -85,6 +88,11 @@ export class PracticeComponent implements OnInit {
     this.loadFormDefaults();
   }
 
+  ngAfterViewInit(): void {
+    this.locationdataSource.paginator = this.paginator.toArray()[0];
+    this.providersDataSource.paginator = this.paginator.toArray()[1];
+  }
+
   loadFormDefaults() {
     this.utilityService.ProviderRoles().subscribe(resp => {
       if (resp.IsSuccess) {
@@ -118,11 +126,11 @@ export class PracticeComponent implements OnInit {
 
   // get display Location Details
   practiceLocations() {
-
     this.settingsService.PracticeLocations(this.user.ProviderId, this.user.ClinicId).subscribe(resp => {         /* this.user.ProviderId -- reqparam in place of null */
       if (resp.IsSuccess) {
-        this.locationdataSource = resp.ListResult;
+        this.locationdataSource.data = resp.ListResult;
       }
+      else this.locationdataSource.data = [];
     });
   }
 
@@ -133,8 +141,8 @@ export class PracticeComponent implements OnInit {
     }
     this.settingsService.ClinicProviders(reqparams).subscribe(resp => {
       if (resp.IsSuccess) {
-        this.providersDataSource = resp.ListResult as NewUser[];
-      } else this.providersDataSource = [];
+        this.providersDataSource.data = resp.ListResult as NewUser[];
+      } else this.providersDataSource.data = [];
     });
   }
 
