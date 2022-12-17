@@ -48,7 +48,7 @@
     "jspdf-autotable": "^3.5.23",
     "mat-select-filter": "^2.3.9",
     "mat-table-exporter": "^10.2.3",
-    "moment-timezone": "^0.5.34",
+    "moment-timezone": "^0.5.40",
     "ng-bootstrap": "^1.6.3",
     "ng-packagr": "^10.1.2",
     "ng2-order-pipe": "^0.1.5",

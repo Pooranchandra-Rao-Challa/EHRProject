@@ -493,7 +493,7 @@ cusp_distolingual */
   save() {
     let isAdd = this.procedureInfo.ProcedureId == null;
     this.procedureInfo.PatientId = this.patient.PatientId;
-    if (this.procedureInfo.ProviderId)
+    if (!this.procedureInfo.ProviderId)
       this.procedureInfo.ProviderId = this.patient.ProviderId;
     this.procedureInfo.LocationId = this.authService.userValue.CurrentLocation;
     this.procedureInfo.strDate = this.datePipe.transform(this.procedureInfo.Date, "MM/dd/yyyy")
