@@ -49,7 +49,7 @@
           <tbody>
             <tr *ngFor="let item of PatientUpcomingAppointmentsList">
               <td class="Helvetica-sans-serif-medium">{{item.StartAt | date:'M/d/yyyy'}}</td>
-              <td class="Helvetica-sans-serif-medium">{{item.StartAt | date:'shortTime'}}</td>
+              <td class="Helvetica-sans-serif-medium">{{item.StartAt | date:'shortTime'}} - {{item.TimeZone}}</td>
               <td class="Helvetica-sans-serif-medium">{{item.ProviderName}}</td>
               <td class="Helvetica-sans-serif-medium">
                 <p class="mt-2" [ngClass]="item?.class">{{item.ApptStatus}}</p>
@@ -84,7 +84,7 @@
           <tbody>
             <tr *ngFor="let item of PatientPastAppointmentsList">
               <td class="Helvetica-sans-serif-medium">{{item.StartAt | date:'M/d/yyyy'}}</td>
-              <td class="Helvetica-sans-serif-medium">{{item.StartAt | date:'shortTime'}}</td>
+              <td class="Helvetica-sans-serif-medium">{{item.StartAt | date:'shortTime'}} - {{item.TimeZone}}</td>
               <td class="Helvetica-sans-serif-medium">{{item.ProviderName}}</td>
               <td class="Helvetica-sans-serif-medium" [ngClass]="item?.class">{{item.ApptStatus}}</td>
             </tr>

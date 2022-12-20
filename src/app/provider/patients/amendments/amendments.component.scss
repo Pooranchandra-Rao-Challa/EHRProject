@@ -172,4 +172,10 @@ mat-cell:nth-child(1):hover {
   .attachment-border{
     border-top:1px solid #41b6a6
   }
+
+  input.mat-input-element,
+  .mat-select {
+    font-size: 15px;
+  }
+
 }

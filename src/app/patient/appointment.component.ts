@@ -101,9 +101,22 @@ export class AppointmentComponent {
     this.patientservice.PatientPastAppointments(req).subscribe(res => {
       this.PatientPastAppointmentsList = res.ListResult;
       this.PatientPastAppointmentsList?.map((e) => {
-
         if (e.ApptStatus == 'Cancelled') {
           e.class = "StatusCancelled";
+        }
+        if(e.TimeZone) {
+          if(e.TimeZone == 'Alaska') {
+            e.TimeZone = 'AST';
+          }
+          else if(e.TimeZone == 'Arizona') {
+            e.TimeZone = 'MST';
+          }
+          else if(e.TimeZone == 'Indiana East') {
+            e.TimeZone = 'EST';
+          }
+          else {
+            e.TimeZone = e.TimeZone.charAt(0) + 'ST';
+          }
         }
       })
 
@@ -137,6 +150,21 @@ export class AppointmentComponent {
         else if (e.ApptStatus == 'Cancelled') {
           e.ApptStatus = 'Cancelled';
           e.class = "StatusCancelled";
+        }
+
+        if(e.TimeZone) {
+          if(e.TimeZone == 'Alaska') {
+            e.TimeZone = 'AST';
+          }
+          else if(e.TimeZone == 'Arizona') {
+            e.TimeZone = 'MST';
+          }
+          else if(e.TimeZone == 'Indiana East') {
+            e.TimeZone = 'EST';
+          }
+          else {
+            e.TimeZone = e.TimeZone.charAt(0) + 'ST';
+          }
         }
       });
     })

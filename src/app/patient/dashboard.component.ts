@@ -32,7 +32,7 @@ export class DashboardComponent {
   PatientDialogComponent = PatientappointmentDialogComponent;
   MessageDialogComponent = NewmessageDialogComponent;
   DialogResponse = null;
-  PatientUpcomingAppointmentsList: Appointments;
+  PatientUpcomingAppointmentsList: Appointments[];
   PatientUpcomingAppointmentsCount: number = 0;
   viewModel: ViewModel;
   messages: Messages;
@@ -139,6 +139,22 @@ export class DashboardComponent {
     }
     this.patientservice.PatientUpcomingAppointments(req).subscribe(res => {
       this.PatientUpcomingAppointmentsList = res.ListResult == null ? [] : res.ListResult;
+      this.PatientUpcomingAppointmentsList?.map((e) => {
+        if(e.TimeZone) {
+          if(e.TimeZone == 'Alaska') {
+            e.TimeZone = 'AST';
+          }
+          else if(e.TimeZone == 'Arizona') {
+            e.TimeZone = 'MST';
+          }
+          else if(e.TimeZone == 'Indiana East') {
+            e.TimeZone = 'EST';
+          }
+          else {
+            e.TimeZone = e.TimeZone.charAt(0) + 'ST';
+          }
+        }
+      });
       this.PatientUpcomingAppointmentsCount = res.ListResult?.length;
     })
   }

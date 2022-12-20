@@ -15,6 +15,7 @@ ProviderName?: string;
 Room?: string;
 RoomId?:string;
 StartAt?:Date;
+TimeZone?: string;
 Title?: string;
 LocationName?:string;
 LocationId?:string;

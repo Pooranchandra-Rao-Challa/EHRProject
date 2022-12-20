@@ -175,7 +175,7 @@
                         {{appointment.Notes}}
                       </div>
                       <div class="col-md-1 col-1 " *ngIf="appointment.IsPast">
-                        <button class="btn btn-orange btn-encounter-padding" type="button" (click)="openComponentDialog(encounterDialogComponent,appointment,ActionsType.view)">
+                        <button class="btn btn-orange btn-encounter-padding" type="button" (click)="openComponentDialog(encounterDialogComponent,appointment,ActionsType.view)" [disabled]="appointment.Status != 'Completed'">
                           Record Encounter
                         </button>
                       </div>
