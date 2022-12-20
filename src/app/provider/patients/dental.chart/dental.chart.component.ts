@@ -70,15 +70,16 @@ export class DentalChartComponent implements OnInit, AfterViewInit {
       // subscription for response
     ).subscribe(value => this._filterProcedure(value));
 
-    this.sort.sortChange.subscribe(() => {
-      this.paginator.pageIndex = 0
-    });
-    if(this.paginator != null)
+    if (this.paginator != null)
+      this.sort.sortChange.subscribe(() => {
+        this.paginator.pageIndex = 0
+      });
+    if (this.paginator != null)
       merge(this.sort.sortChange, this.paginator.page)
-      .pipe(
-        tap(() => this.loadProcedures())
-      )
-      .subscribe();
+        .pipe(
+          tap(() => this.loadProcedures())
+        )
+        .subscribe();
     else
       this.sort.sortChange.pipe(tap(() => this.loadProcedures())).subscribe();
 

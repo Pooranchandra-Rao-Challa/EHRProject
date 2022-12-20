@@ -170,7 +170,7 @@ export class AddendaReviewDocumentComponent implements OnInit {
         confirmButton: 'swal2-messaage'
       },
       didOpen: () => {
-        Swal.showLoading()
+        Swal.showLoading(Swal.getCloseButton())
       },
     })
   }
