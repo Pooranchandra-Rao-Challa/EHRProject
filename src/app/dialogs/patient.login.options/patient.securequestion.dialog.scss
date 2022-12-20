@@ -20,6 +20,7 @@
   .modal-content {
     width: 400px !important;
     height: 430px !important;
+    overflow-x: hidden;
   }
 
   .modal-header {
@@ -34,8 +35,8 @@
   .modal-body {
     background-attachment: fixed;
     background: #e9e9e9;
-    height: 600px
-
+    height: 600px;
+    padding: 10px;
   }
 
   .validation-inputs {

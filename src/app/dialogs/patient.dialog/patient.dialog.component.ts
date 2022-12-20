@@ -39,7 +39,7 @@ export class PatientDialogComponent {
   addressVerificationDialogComponent = AddressVerificationDialogComponent;
   PatientData: Patient = { Gender: 'male' };
   filteredPatients: Observable<ProviderPatient[]>;
-  hideMatchingPatients: boolean = true;
+  showMatchingPatients: boolean = false;
   hideSaveButton: boolean = false;
   addressIsVarified: boolean = false;
   phonepattern = /^[0-9]{10}/;
@@ -115,20 +115,21 @@ export class PatientDialogComponent {
           if (resp.IsSuccess) {
             this.filteredPatients = of(
               resp.ListResult as ProviderPatient[]);
-            this.hideMatchingPatients = true;
+            this.showMatchingPatients = true;
           } else {
             this.filteredPatients = of([]);
+            this.showMatchingPatients = false;
           }
         });
     }
     else {
       this.filteredPatients = of([]);
-      this.hideMatchingPatients = false;
+      this.showMatchingPatients = false;
     }
   }
 
   dismiss() {
-    this.hideMatchingPatients = false;
+    this.showMatchingPatients = false;
   }
 
   onChangeViewState(patientview) {

@@ -100,7 +100,7 @@
       <button type="button" *ngIf="!resultProcessed && validUser" class="btn btn-green" (click)="goback()">
         Go back
       </button>
-      <button type="button" *ngIf="!resultProcessed && validUser" class="btn btn-green" (click)="continue()"
+      <button type="button" *ngIf="!resultProcessed && validUser" class="btn btn-green mx-2" (click)="continue()"
         [disabled]="disableContinue()">
         Reset Password
       </button>
@@ -112,7 +112,7 @@
         [disabled]="disableResetPassword()">
         Reset Password
       </button>
-      <button type="button" *ngIf="resultProcessed" class="btn btn-green" (click)="cancel()">
+      <button type="button" *ngIf="resultProcessed" class="btn btn-green mx-2" (click)="cancel()">
         Close
       </button>
     </div>

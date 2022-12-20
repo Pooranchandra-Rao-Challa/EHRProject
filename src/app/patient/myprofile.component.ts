@@ -17,6 +17,7 @@ import { HttpErrorResponse, HttpEventType } from '@angular/common/http';
 import { Attachment } from '../_models/_provider/LabandImage';
 import { FileUploadService } from '../_services/file.upload.service';
 import { PhotoFileProperties } from 'src/app/_models/_account/user';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-myprofile',
@@ -78,10 +79,12 @@ export class MyprofileComponent implements OnInit {
   fileTypes = ".jpg,.gif,.png"
   AreaCodes: AreaCode[];
   SecurityAnswer: string;
+  disableupcomingdates = new Date();
 
   constructor(private patientService: PatientService,
     private authenticationService: AuthenticationService,
     private alertmsg: AlertMessage,
+    public datepipe: DatePipe,
     private PatientNavbar: PatientNavbarComponent,
     private accountservice: Accountservice,
     private uploadService: FileUploadService,
@@ -155,6 +158,7 @@ export class MyprofileComponent implements OnInit {
   }
 
   updatePatientMyProfile() {
+    this.PatientProfile.strDateOfBirth = this.datepipe.transform(this.PatientProfile.DateOfBirth, "MM/dd/yyyy hh:mm:ss a");
     this.patientService.UpdatePatientMyprofile(this.PatientProfile).subscribe(resp => {
       if (resp.IsSuccess) {
         this.PatientNavbar.getPatientProfile();

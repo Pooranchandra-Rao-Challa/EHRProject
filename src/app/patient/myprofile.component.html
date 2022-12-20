@@ -74,7 +74,7 @@
                   <div class="form-group">
                     <mat-form-field appearance="outline" class="grey-matform ">
                       <input matInput class="pointer" [matDatepicker]="dp" placeholder="Start Date" (click)="dp?.open()"
-                        readonly [(ngModel)]="PatientProfile.DateOfBirth" #DateofBirth="ngModel" name="DateofBirth"
+                        readonly [(ngModel)]="PatientProfile.DateOfBirth" #DateofBirth="ngModel" name="DateofBirth" [max]="disableupcomingdates"
                         required>
                       <mat-datepicker-toggle matSuffix [for]="dp">
                       </mat-datepicker-toggle>
