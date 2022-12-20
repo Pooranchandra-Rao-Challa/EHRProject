@@ -387,13 +387,13 @@ export const ERROR_CODES: { [key: string]: string } = {
   'E1WU001': 'Please insert the data into the fields',
 
   'T2JP001': 'User has been added!',
-  'M2AP001': 'Patient Added successsfully',
+  'M2AP001': 'Patient Added successfully',
   'E2AP001': 'Patient Adding error',
   'E2AP002': 'Patient User account create error',
   'M2AP002': 'Patient Invitaion pdf downloaded',
   'E2AP004': 'Patient Invitaion pdf download error',
   'M2AP003': 'Invitation successfully sent to patient email',
-  'M2AP004': 'Patient deleted successsfully',
+  'M2AP004': 'Patient deleted successfully',
   'E2AP003': 'Patient deletion error',
 
   //Message for allergies in chart screen

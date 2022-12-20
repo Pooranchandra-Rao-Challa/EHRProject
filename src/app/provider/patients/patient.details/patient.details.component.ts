@@ -53,6 +53,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
   cCdaDialogComponent = CCdaDialogComponent;
   authorizedRepresentativeDialogComponent = AuthorizedrepresentativeDialogComponent
   MessageDialogComponent = NewmessageDialogComponent;
+  confirmPatientDeletion: boolean = false;
 
   constructor(private authService: AuthenticationService,
     private cfr: ComponentFactoryResolver,

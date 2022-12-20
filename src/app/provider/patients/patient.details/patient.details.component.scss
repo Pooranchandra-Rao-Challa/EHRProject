@@ -198,3 +198,91 @@ a.disabled{
 :host ::ng-deep .track circle{
   stroke-opacity: 0.3 !important;
 }
+
+// delete patient confirmation
+#delete-patient-modal {
+  .modal-dialog {
+    max-width: 700px;
+    margin-top: 0px !important;
+  }
+
+  .modal-content {
+    border: 1px solid #D9534E;
+    background-color: #fff;
+  }
+
+  .modal-header {
+    background-color: #D9534E;
+    border-bottom: 1px solid #D9534E;
+    min-height: 50px;
+    padding: 1rem;
+  }
+
+  .modal-title {
+    line-height: 1.5;
+    color: #fff;
+  }
+
+  .modal-footer {
+    border-top: transparent;
+  }
+
+  .btn.btn-danger {
+    color: #d64841;
+    background-color: #fff;
+  }
+  .btn.btn-danger:hover {
+    color: #fff;
+    background-color: #d64841;
+  }
+
+  .Helvetica-sans-serif-medium{
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+    font-size: 15px;
+  }
+
+  .modal-dialog .cross-mark {
+    border: 1px solid currentColor;
+    width: 23px;
+    height: 23px;
+    text-align: center;
+    border-radius: 3px;
+    padding: 0px !important;
+    color: white;
+    font-family: cursive;
+  }
+  .modal-dialog .cross-mark:hover {
+    opacity: 0.75;
+  }
+
+  // check box
+::ng-deep .mat-checkbox {
+
+  & .mat-checkbox-background,
+  .mat-checkbox-frame {
+    border-color: #d64841 !important;
+    background-color: #fff !important;
+  }
+}
+
+::ng-deep .mat-checkbox:hover {
+
+  & .mat-checkbox-background,
+  .mat-checkbox-frame {
+    border-color: #d64841;
+  }
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent {
+
+  .mat-checkbox-background,
+  .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+    background-color: #fff !important;
+    border-color: #d64841 !important;
+  }
+
+  .mat-checkbox-checkmark-path {
+    stroke: #d64841 !important;
+  }
+}
+}

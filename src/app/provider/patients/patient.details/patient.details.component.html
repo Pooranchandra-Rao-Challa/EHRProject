@@ -3,8 +3,8 @@
   <ng-template #patientbreadcrumb></ng-template>
   <div style="padding-left: 100px;
   padding-top: 15px;" *ngIf="loadingBreadcrumb">
-  <mat-progress-spinner mode="indeterminate" value="50" color="primary" diameter="30"></mat-progress-spinner>
-</div>
+    <mat-progress-spinner mode="indeterminate" value="50" color="primary" diameter="30"></mat-progress-spinner>
+  </div>
 </div>
 <div class="patients-navigation-info" style="clear: both;">
   <img class="avatar avatar-empty" src="assets/images/avatar-empty.svg" alt="Avatar empty">
@@ -22,14 +22,14 @@
       <b>H:</b>{{patient.PrimaryPhone}}
     </li>
     <li *ngIf="patientAccountInfo.HasAccount">
-        <span class="fa fa-check-circle"></span> Patient Portal: Enrolled
+      <span class="fa fa-check-circle"></span> Patient Portal: Enrolled
     </li>
     <li *ngIf="!patientAccountInfo.HasAccount && patientAccountInfo.InvitationSentAt != null">
-        <span class="fa fa-minus-circle"></span> Patient Portal: Pending
+      <span class="fa fa-minus-circle"></span> Patient Portal: Pending
     </li>
     <li *ngIf="!patientAccountInfo.HasAccount && patientAccountInfo.InvitationSentAt == null">
       <a class="btn-modal inivte-to-portal-button"
-      (click)="InvitePatient(patientPortalAccountComponent,ActionTypes.view)">
+        (click)="InvitePatient(patientPortalAccountComponent,ActionTypes.view)">
         <span class="fa fa-plus-circle"></span> Invite to Patient Portal</a>
     </li>
   </ul>
@@ -39,7 +39,8 @@
       Patient Actions
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-      <li><a (click)="openComponentDialog(procedureDialogComponent,procedureInfo,ActionTypes.new)">Add Procedure</a></li>
+      <li><a (click)="openComponentDialog(procedureDialogComponent,procedureInfo,ActionTypes.new)">Add Procedure</a>
+      </li>
       <li><a (click)="openComponentDialog(encounterDialogComponent,null,ActionTypes.new)">Add Encounter Note</a></li>
       <li>
         <hr class="dropdown-divider">
@@ -52,7 +53,8 @@
         <hr class="dropdown-divider">
       </li>
       <li><a (click)="InvitePatient(patientPortalAccountComponent,ActionTypes.view)">Invite to Patient Portal</a></li>
-      <li><a (click)="openComponentDialogmessage(MessageDialogComponent,null,ActionTypes.view, 'Patient')">Send a Message</a></li>
+      <li><a (click)="openComponentDialogmessage(MessageDialogComponent,null,ActionTypes.view, 'Patient')">Send a
+          Message</a></li>
       <li>
         <hr class="dropdown-divider">
       </li>
@@ -70,40 +72,53 @@
           <li><a class="disabled">Perio Chart</a></li>
         </ul>
       </li>
-      <li><a class="create-ccda"(click)="openComponentDialog(cCdaDialogComponent,null,ActionTypes.view)">Create C-CDA</a></li>
-      <li><a class="Authorized-Represtative"(click)="openComponentDialog(authorizedRepresentativeDialogComponent,null,ActionTypes.view)">Authorized Representative</a></li>
+      <li><a class="create-ccda" (click)="openComponentDialog(cCdaDialogComponent,null,ActionTypes.view)">Create
+          C-CDA</a></li>
+      <li><a class="Authorized-Represtative"
+          (click)="openComponentDialog(authorizedRepresentativeDialogComponent,null,ActionTypes.view)">Authorized
+          Representative</a></li>
       <li>
         <hr class="dropdown-divider">
       </li>
-      <li><a (click)="DeletePatient()" class="delete-patient">Delete Patient</a></li>
+      <li data-bs-toggle="modal" data-bs-target="#delete-patient-modal"><a class="delete-patient">Delete Patient</a>
+      </li>
     </ul>
   </div>
 </div>
 <div class="show-patient" role="tabpanel">
   <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
     <li class="nav-item" role="presentation">
-      <button class="nav-link" id="pills-chart-tab" data-bs-toggle="pill" data-bs-target="#pills-chart"
-        type="button" role="tab" aria-controls="pills-chart" [class.active]="viewModel.PatientView == 'Chart' ? true :false" (click)="UpdatePatientView('Chart')">Chart</button>
+      <button class="nav-link" id="pills-chart-tab" data-bs-toggle="pill" data-bs-target="#pills-chart" type="button"
+        role="tab" aria-controls="pills-chart" [class.active]="viewModel.PatientView == 'Chart' ? true :false"
+        (click)="UpdatePatientView('Chart')">Chart</button>
     </li>
     <li class="nav-item" role="presentation">
       <button class="nav-link" id="pills-dentalchart-tab" data-bs-toggle="pill" data-bs-target="#pills-dentalchart"
-        type="button" role="tab" aria-controls="pills-dentalchart" [class.active]="viewModel.PatientView == 'Dental Chart' ? true :false" (click)="UpdatePatientView('Dental Chart')">Dental Chart</button>
+        type="button" role="tab" aria-controls="pills-dentalchart"
+        [class.active]="viewModel.PatientView == 'Dental Chart' ? true :false"
+        (click)="UpdatePatientView('Dental Chart')">Dental Chart</button>
     </li>
     <li class="nav-item" role="presentation">
       <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile"
-        type="button" role="tab" aria-controls="pills-profile" [class.active]="viewModel.PatientView == 'Profile' ? true :false" (click)="UpdatePatientView('Profile')">Profile</button>
+        type="button" role="tab" aria-controls="pills-profile"
+        [class.active]="viewModel.PatientView == 'Profile' ? true :false"
+        (click)="UpdatePatientView('Profile')">Profile</button>
     </li>
     <li class="nav-item" role="presentation">
       <button class="nav-link" id="pills-insurance-tab" data-bs-toggle="pill" data-bs-target="#pills-insurance"
-        type="button" role="tab" aria-controls="pills-insurance" [class.active]="viewModel.PatientView == 'Insurance'" (click)="UpdatePatientView('Insurance')">Insurance</button>
+        type="button" role="tab" aria-controls="pills-insurance" [class.active]="viewModel.PatientView == 'Insurance'"
+        (click)="UpdatePatientView('Insurance')">Insurance</button>
     </li>
     <li class="nav-item" role="presentation">
-      <button class="nav-link" id="pills-notify-settings-tab" data-bs-toggle="pill" data-bs-target="#pills-notify-settings"
-        type="button" role="tab" aria-controls="pills-notify-settings" [class.active]="viewModel.PatientView == 'NotificationSettings'" (click)="UpdatePatientView('NotificationSettings')">Notification Settings</button>
+      <button class="nav-link" id="pills-notify-settings-tab" data-bs-toggle="pill"
+        data-bs-target="#pills-notify-settings" type="button" role="tab" aria-controls="pills-notify-settings"
+        [class.active]="viewModel.PatientView == 'NotificationSettings'"
+        (click)="UpdatePatientView('NotificationSettings')">Notification Settings</button>
     </li>
     <li class="nav-item" role="presentation">
       <button class="nav-link" id="pills-amendments-tab" data-bs-toggle="pill" data-bs-target="#pills-amendments"
-        type="button" role="tab" aria-controls="pills-amendments" [class.active]="viewModel.PatientView == 'Amendments'" (click)="UpdatePatientView('Amendments')">Amendments</button>
+        type="button" role="tab" aria-controls="pills-amendments" [class.active]="viewModel.PatientView == 'Amendments'"
+        (click)="UpdatePatientView('Amendments')">Amendments</button>
     </li>
     <!-- <li class="nav-item" role="presentation">
       <button class="nav-link" id="pills-patients-tab" data-bs-toggle="pill" data-bs-target="#pills-patients"
@@ -111,13 +126,42 @@
     </li> -->
     <li class="nav-item" role="presentation">
       <button class="nav-link" id="pills-cqmNperformed-tab" data-bs-toggle="pill" data-bs-target="#pills-cqmNperformed"
-        type="button" role="tab" aria-controls="pills-cqmNperformed" [class.active]="viewModel.PatientView == 'CQMs Not Performed'" (click)="UpdatePatientView('CQMs Not Performed')">CQMs Not Performed</button>
+        type="button" role="tab" aria-controls="pills-cqmNperformed"
+        [class.active]="viewModel.PatientView == 'CQMs Not Performed'"
+        (click)="UpdatePatientView('CQMs Not Performed')">CQMs Not Performed</button>
     </li>
   </ul>
 
-  <mat-progress-bar mode="indeterminate" bufferValue="50" value=100 *ngIf="loading$ | async" ></mat-progress-bar>
+  <mat-progress-bar mode="indeterminate" bufferValue="50" value=100 *ngIf="loading$ | async"></mat-progress-bar>
 
   <div class="tab-content" id="pills-tabContent">
     <ng-template #chartview></ng-template>
+  </div>
+</div>
+
+
+<!-- Deleting the patient -->
+<div class="modal fade" id="delete-patient-modal" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <p class="modal-title Helvetica-sans-serif-medium">Delete Patient</p>
+        <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close">
+          x
+        </span>
+      </div>
+      <div class="modal-body">
+        <p class="Helvetica-sans-serif-medium">Delete Patient One?</p>
+        <p class="Helvetica-sans-serif-medium">Note: This deletion is permanent and can not be undone.</p>
+        <mat-checkbox class="col-lg-12 col-12" [(ngModel)]="confirmPatientDeletion">
+          Confirm patient deletion
+        </mat-checkbox>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button class="btn btn-danger Helvetica-sans-serif-medium" (click)="DeletePatient()"
+          [disabled]="!confirmPatientDeletion" data-bs-dismiss="modal">Delete Patient</button>
+      </div>
+    </div>
   </div>
 </div>

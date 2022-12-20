@@ -40,8 +40,8 @@
         </div>
       </div>
       <div class="patients scrollable-mat-table" tyle=" clear: both;">
-        <div class="spinner-container" *ngIf="patientsDataSource.loading$ | async">
-          <mat-spinner></mat-spinner>
+        <div class="spinner-container mb-2" *ngIf="patientsDataSource.loading$ | async">
+          <mat-progress-bar mode="indeterminate" bufferValue="50" value=100></mat-progress-bar>
         </div>
 
         <mat-table [dataSource]=patientsDataSource
@@ -132,7 +132,7 @@
       </div>
       <div class="d-flex justify-content-end my-3">
         <div class="pg-container" [hidden]="!patientsDataSource.TotalRecordSize">
-          <mat-paginator appPagination 
+          <mat-paginator appPagination
              [length]="patientsDataSource.TotalRecordSize" pageSize="10" [pageIndex] = "0"
              [pageSizeOptions]="[10,20,30,40,50]"  >
             </mat-paginator>
