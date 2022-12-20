@@ -1,3 +1,4 @@
+import { filter } from 'rxjs/operators';
 
 import { SettingsService } from 'src/app/_services/settings.service';
 import { AuthenticationService } from 'src/app/_services/authentication.service';

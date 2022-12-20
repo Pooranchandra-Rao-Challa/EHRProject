@@ -77,6 +77,7 @@ export class LabResultComponent implements OnInit {
 
     this.labsImagingService.LabResult(this.labandImaging)
       .subscribe(resp => {
+
         if (resp.IsSuccess) {
           let labResult = resp.Result as LabResultInfo;
 
@@ -102,6 +103,8 @@ export class LabResultComponent implements OnInit {
           this.labandImaging.LabResult = labResult;
         } else {
           this.labandImaging.LabResult = new LabResultInfo();
+          this.labandImaging.LabResult.ProviderId = this.labandImaging.OrderingPhysicianId;
+          this.labandImaging.LabResult.NPI = this.labandImaging.NPI;
         }
       })
   }

@@ -166,24 +166,28 @@
                         <div class="col-lg-6 col-md-6 col-12 encounter-label">
                           Discharge Status
                         </div>
-                        <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px">
+                        <div class="col-lg-6 col-md-6 col-12" style="padding: 0px 10px">
                           <medical-code-container [codeSystems]="codeSystemsForDischarge"
-                            MinTermLength="3"
+                            MinTermLength="3" (optionChanged)="onDischargeCodeChange($event)"
                             PlaceHolderText="Discharge Status (SNOMED)" [showSelectedValue]="true"
                             [(Value)]="selectedDischargeValue">
                           </medical-code-container>
                         </div>
+                        <div class="col-lg-6 col-md-6 col-12"></div>
+                        <div class="col-lg-6 col-md-6 col-12">{{this.encounterInfo.DischargeStatusCode+'-'+this.encounterInfo.DischargeStatus}}</div>
                       </div>
                       <div class="row">
                         <div class="col-lg-6 col-md-6 col-12 encounter-label">
                           Encounter Code
                         </div>
-                        <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px">
-                          <medical-code-container [codeSystems]="codeSystemsForDischarge"
-                            MinTermLength="3"
+                        <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px 0 10px">
+                          <medical-code-container [codeSystems]="codeSystemsForDocumentation"
+                            MinTermLength="3" (optionChanged)="onDocumentedReasonChange($event)"
                             PlaceHolderText="Encounter Code" [showSelectedValue]="true"
-                            [(Value)]="selectedEncounterCodeValue"></medical-code-container>
+                            [(Value)]="selectedDocumentationValue"></medical-code-container>
                         </div>
+                        <div class="col-lg-6 col-md-6 col-12"></div>
+                        <div class="col-lg-6 col-md-6 col-12">{{this.encounterInfo.EncounterCode+'-'+this.encounterInfo.EncounterDescription}}</div>
                       </div>
                       <div class="row">
                         <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px;">
