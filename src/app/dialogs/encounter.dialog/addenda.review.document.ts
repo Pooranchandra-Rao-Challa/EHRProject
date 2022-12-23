@@ -206,10 +206,10 @@ export class AddendaReviewDocumentComponent implements OnInit {
        'EncounterId':this.addendaDoc.EncounterId}
     ).subscribe((resp)=>{
       if(resp.IsSuccess){
-        this.alertmsg.displayMessageDailog(ERROR_CODES['2CAD004'])
+        this.alertmsg.displayErrorDailog(ERROR_CODES['2CAD004']);
         this.closePopupWithRefresh();
       }else{
-        this.alertmsg.displayMessageDailog(ERROR_CODES['2CAD005'])
+        this.alertmsg.displayErrorDailog(ERROR_CODES['2CAD005']);
         this.closePopup();
       }
     })

@@ -151,6 +151,13 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       if(tables != null && tables.length == 2){
         document.getElementsByClassName('fc-timegrid-body')[0].getElementsByTagName('table')[1].setAttribute('style','width:100%')
       }
+      let fcTimeGridSlots = document.getElementsByClassName('fc-timegrid-slots');
+      if(fcTimeGridSlots != null && fcTimeGridSlots.length == 1) {
+        let fcTimeGridSlotsTable = fcTimeGridSlots[0].getElementsByTagName('table');
+        if(fcTimeGridSlotsTable != null && fcTimeGridSlotsTable.length == 1) {
+          document.getElementsByClassName('fc-timegrid-slots')[0].getElementsByTagName('table')[0].setAttribute('style','width:100%');
+        }
+      }
     }
 
 

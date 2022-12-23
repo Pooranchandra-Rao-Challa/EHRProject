@@ -97,7 +97,7 @@
               <span >
                 <p *ngIf="patient?.MobilePhone!=null " style="margin: auto;">H:{{patient?.MobilePhone}} </p>
                 <p *ngIf="patient?.PrimaryPhone!=null" style="margin:auto;">P:{{patient?.PrimaryPhone}}</p>
-                {{patient?.Email}}
+                {{patient?.Email ? patient?.Email : 'No Email'}}
               </span>
             </mat-cell>
           </ng-container>
