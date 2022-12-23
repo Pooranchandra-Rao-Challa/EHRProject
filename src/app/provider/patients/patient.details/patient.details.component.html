@@ -33,7 +33,7 @@
         <span class="fa fa-plus-circle"></span> Invite to Patient Portal</a>
     </li>
   </ul>
-  <div class="dropdown float-lg-end" style="margin-top:10px;">
+  <div class="dropdown float-lg-end" style="margin-top:10px; display: flex;">
     <button class="btn btn-orange font-family dropdown-toggle" type="button" id="dropdownMenuButton2"
       data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
       Patient Actions
@@ -83,6 +83,10 @@
       <li data-bs-toggle="modal" data-bs-target="#delete-patient-modal"><a class="delete-patient">Delete Patient</a>
       </li>
     </ul>
+    <button class="btn btn-orange font-family" type="button" hidden
+    (click)="openComponentDialog(e_PrescribeDialogComponent,null,ActionTypes.new)" style="margin-left: 10px">
+    Open eRX
+  </button>
   </div>
 </div>
 <div class="show-patient" role="tabpanel">

@@ -1,0 +1,10 @@
+@import"../../../assets/cstm.material.scss";
+@import"../../../assets/common.scss";
+
+.e-prescribe-wrapper {
+  max-width: 750px;
+
+  .modal-body {
+    padding: 40px 20px !important;
+  }
+}

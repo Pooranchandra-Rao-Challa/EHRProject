@@ -133,3 +133,44 @@ li a.inactive{
   font-size:14px;
   padding-top: 4px;
 }
+
+.eRX-notice-wrapper {
+  background-color: #d64841;
+  min-height: 50px;
+
+  p {
+    color: #fff;
+    padding: 15px 0px;
+  }
+
+  a {
+    text-decoration: underline;
+    cursor: pointer;
+    color: #fff;
+    z-index: 1050;
+  }
+
+  a:hover {
+    ul {
+      display: contents !important;
+    }
+  }
+
+  ul {
+    display: none;
+  }
+
+}
+
+::ng-deep .mat-menu-item {
+  list-style: none;
+  a {
+    text-decoration: underline !important;
+    color: #4A4A4A;
+    font-weight: 600;
+  }
+}
+
+::ng-deep .mat-menu-item:hover {
+  color: #41b6a6 !important;
+}
