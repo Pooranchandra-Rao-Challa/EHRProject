@@ -1,15 +1,17 @@
 import { User } from 'src/app/_models';
 import { Router } from '@angular/router';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { ViewChangeService } from '../provider.layout/view.notification.service';
+import { MatMenuTrigger } from '@angular/material/menu';
 @Component({
   selector: 'app-breadcrum',
   templateUrl: './breadcrum.component.html',
   styleUrls: ['./breadcrum.component.scss']
 })
 export class BreadcrumComponent implements OnInit {
+  @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
   isSubscribe: boolean = false;
   currentView: string = "Smart Schedule"
   showemail: boolean = environment.showemail;
@@ -38,5 +40,13 @@ export class BreadcrumComponent implements OnInit {
   get TrailText() {
     return `Your Trial Period Ends in ${this.user.TrialDaysLeft.valueOf()} day(s)`;
   }
+
+  openMyMenu() {
+    this.trigger.toggleMenu();
+  }
+
+  // closeMyMenu() {
+  //   this.trigger.closeMenu();
+  // }
 
 }

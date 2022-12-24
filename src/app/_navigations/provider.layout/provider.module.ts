@@ -146,6 +146,7 @@ import { SignAddendaDocumentComponent } from 'src/app/dialogs/encounter.dialog/a
 import { AddendaReviewDocumentComponent } from 'src/app/dialogs/encounter.dialog/addenda.review.document'
 import { AddendaCommentComponent } from 'src/app/dialogs/encounter.dialog/addenda.comment'
 import { ResetPatientPasswordComponent } from 'src/app/dialogs/patient.dialog/reset.password'
+import { EPrescribeDialogComponent } from 'src/app/dialogs/e-prescribe.dialog/e-prescribe.dialog.component';
 
 
 //import { AttachmentNopreviewComponent } from 'src/app/_components/attachments/attachment.nopreview.component'
@@ -206,6 +207,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     AddendaReviewDocumentComponent,
     AddendaCommentComponent,
     ResetPatientPasswordComponent,
+    EPrescribeDialogComponent
   ],
   declarations: [
     ProviderNavbarComponent,
@@ -299,6 +301,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     AddendaReviewDocumentComponent,
     AddendaCommentComponent,
     ResetPatientPasswordComponent,
+    EPrescribeDialogComponent
 
   ],
   imports: [
@@ -397,7 +400,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     CcdaPreviewDialogComponent,
     LockedComponent,
     PatientRelationshipDialogComponent,
-    ResetPatientPasswordComponent
+    ResetPatientPasswordComponent,
+    EPrescribeDialogComponent
     ]
 })
 export class ProviderModule {

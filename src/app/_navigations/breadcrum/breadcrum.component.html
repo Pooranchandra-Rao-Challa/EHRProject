@@ -1,7 +1,20 @@
+<div class="eRX-notice-wrapper" hidden>
+  <p class="text-center mb-0">eRX Notice: You currently have <span>0</span> Transmission Errors, <span>0</span> Refill
+    Notices and <span>0</span>
+    Pending Prescriptions.
+    <a (mouseover)="openMyMenu()" [matMenuTriggerFor]="openeRX">Open eRX</a>
+    <mat-menu #openeRX="matMenu">
+      <li mat-menu-item class="mat-menu-item"><a>eRX Messages</a></li>
+      <li mat-menu-item class="mat-menu-item"><a>eRX Reports</a></li>
+    </mat-menu>
+    to resolve.
+  </p>
+</div>
+
 <div class="bread-crum">
   <div class="header">
     <div [class.bread-crum-header]="!user.IsInTrailPeriod" [class.bread-crum-header-trial]="user.IsInTrailPeriod "
-    class="categories-header">
+      class="categories-header">
       <div class="row">
         <div class="categories-container col-xl-6 col-lg-5 col-md-5 col-5 col-sm-5">
           <ul class="categories">
@@ -10,18 +23,16 @@
             <li><a class="active">{{currentView}}</a></li>
           </ul>
         </div>
-        <div *ngIf="user.IsInTrailPeriod" class="categories-container"
-        [class.col-xl-4] = showemail [class.col-lg-4] = showemail [class.col-md-4] = showemail
-        [class.col-5] = showemail [col-sm-4] = showemail
-        [class.col-xl-6] = !showemail [class.col-lg-6] = !showemail [class.col-md-6] = !showemail
-        [class.col-6] = !showemail [col-sm-6] = !showemail
-        style="padding-top: 4px;">
+        <div *ngIf="user.IsInTrailPeriod" class="categories-container" [class.col-xl-4]=showemail
+          [class.col-lg-4]=showemail [class.col-md-4]=showemail [class.col-5]=showemail [col-sm-4]=showemail
+          [class.col-xl-6]=!showemail [class.col-lg-6]=!showemail [class.col-md-6]=!showemail [class.col-6]=!showemail
+          [col-sm-6]=!showemail style="padding-top: 4px;">
 
-        <div style="float:right;
+          <div style="float:right;
           width: 100%;">
-           <button class="bread-crumb-button">Subscribe
-           </button>
-          <p class="bread-crumb-text">{{TrailText}}</p>
+            <button class="bread-crumb-button">Subscribe
+            </button>
+            <p class="bread-crumb-text">{{TrailText}}</p>
           </div>
         </div>
         <a *ngIf="showemail" style=" float:right;
@@ -32,10 +43,11 @@
       text-align: right;
       color: blue;
       cursor: pointer;" class="categories-container col-xl-1 col-lg-1 col-md-1 col-1 col-sm-1"
-      [class.col-xl-1] ="user.IsInTrailPeriod" [class.col-lg-1] ="user.IsInTrailPeriod"
-      [class.col-md-1] ="user.IsInTrailPeriod" [class.col-1] ="user.IsInTrailPeriod" [class.col-sm-1] ="user.IsInTrailPeriod"
-      [class.col-xl-6] ="!user.IsInTrailPeriod" [class.col-lg-6] ="!user.IsInTrailPeriod"
-      [class.col-md-6] ="!user.IsInTrailPeriod" [class.col-6] ="!user.IsInTrailPeriod" [class.col-sm-6] ="!user.IsInTrailPeriod"
+          [class.col-xl-1]="user.IsInTrailPeriod" [class.col-lg-1]="user.IsInTrailPeriod"
+          [class.col-md-1]="user.IsInTrailPeriod" [class.col-1]="user.IsInTrailPeriod"
+          [class.col-sm-1]="user.IsInTrailPeriod" [class.col-xl-6]="!user.IsInTrailPeriod"
+          [class.col-lg-6]="!user.IsInTrailPeriod" [class.col-md-6]="!user.IsInTrailPeriod"
+          [class.col-6]="!user.IsInTrailPeriod" [class.col-sm-6]="!user.IsInTrailPeriod"
           [routerLink]="['../account/emailedurls']" routerLinkActive="router-link-active" target="_blank">
           Verify Email</a>
       </div>

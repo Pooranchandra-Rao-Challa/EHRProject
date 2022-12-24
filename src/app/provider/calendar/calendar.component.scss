@@ -11,6 +11,16 @@
   height: calc(90vh - 97px);
 }
 
+@media (max-width: 1024px) {
+  .calendar-wrapper {
+    max-width: 1200px;
+    overflow-x: scroll;
+  }
+  .calendar-width {
+    width: 1200px;
+  }
+}
+
 // @media screen and (max-width: 640px) {
 //   .calendar-sidenav {
 //     width: 58%;

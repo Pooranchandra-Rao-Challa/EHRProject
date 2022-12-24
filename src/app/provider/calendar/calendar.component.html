@@ -1,94 +1,101 @@
-<mat-drawer-container class="calendar-drawer">
-  <mat-drawer #drawer opened="true" class="calendar-sidenav" mode="side" (openedChange)="handleButtons()">
-    <div class="arrows-toggle pull-right" (click)="drawer.toggle()" *ngIf="toggleButtonVisibility">
-      <i class="fa fa-angle-double-left"></i>
-    </div>
-    <div id="left-drawer">
-      <br>
-      <mat-calendar class="mat-calendar" [selected]="selectedDate" (selectedChange)="SwitchfullcalendarToDate($event)"></mat-calendar>
-      <mat-expansion-panel class="panel providers">
-        <mat-expansion-panel-header class="panel-header">
-          <mat-panel-title> Provider/Staff </mat-panel-title>
-        </mat-expansion-panel-header>
-        <div class="row cstm-checkbox-1 pt-2">
-          <mat-checkbox #providerToggle (change)="ToggleProviders($event)" checked="true">
-            <span class="cstm-mat-checkbox-label">Select all</span>
-          </mat-checkbox>
+<div class="calendar-wrapper">
+  <div class="calendar-width">
+    <mat-drawer-container class="calendar-drawer">
+      <mat-drawer #drawer opened="true" class="calendar-sidenav" mode="side" (openedChange)="handleButtons()">
+        <div class="arrows-toggle pull-right" (click)="drawer.toggle()" *ngIf="toggleButtonVisibility">
+          <i class="fa fa-angle-double-left"></i>
         </div>
-        <div class="row pt-2">
-          <mat-checkbox #providerCheckboxes *ngFor="let provider of providerAndStaff; let i = index;" checked="true"
-            value="provider" (change)="updateProviderCheckbox($event,provider)">
-            <span>{{provider.FullName}}</span>
-          </mat-checkbox>
-        </div>
-      </mat-expansion-panel>
-      <mat-expansion-panel class="panel appointment-status">
-        <mat-expansion-panel-header class="panel-header">
-          <mat-panel-title> Appointment Status </mat-panel-title>
-        </mat-expansion-panel-header>
-        <div class="row cstm-checkbox-1 pt-2">
-          <mat-checkbox #appointmentStatusesToggle checked="true" (change)="ToggleAllAppointmentStatuses($event)">
-            <span class="cstm-mat-checkbox-label">Select all</span>
-          </mat-checkbox>
-        </div>
-        <div class="row pt-2">
-          <mat-checkbox #appointmentStatusCheckboxes *ngFor="let status of appointmentStatuses; let i = index"
-            (change)="updateAppointmentStatus($event,status)" checked="true" value="status">
-            <div class="color-item-group">
-              <div class="color-items" [style.background-color]="status.Colour"></div><span>{{status.Name == null ? "." : status.Name }}</span>
+        <div id="left-drawer">
+          <br>
+          <mat-calendar class="mat-calendar" [selected]="selectedDate"
+            (selectedChange)="SwitchfullcalendarToDate($event)"></mat-calendar>
+          <mat-expansion-panel class="panel providers">
+            <mat-expansion-panel-header class="panel-header">
+              <mat-panel-title> Provider/Staff </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="row cstm-checkbox-1 pt-2">
+              <mat-checkbox #providerToggle (change)="ToggleProviders($event)" checked="true">
+                <span class="cstm-mat-checkbox-label">Select all</span>
+              </mat-checkbox>
             </div>
-          </mat-checkbox>
-        </div>
-      </mat-expansion-panel>
-      <mat-expansion-panel class="panel appointment-types">
-        <mat-expansion-panel-header class="panel-header">
-          <mat-panel-title> Appointment Type </mat-panel-title>
-        </mat-expansion-panel-header>
-        <div class="row cstm-checkbox-1 pt-2">
-          <mat-checkbox #appointmentTypesToggle checked="true" (change)="ToggleAllAppointmentTypes($event)">
-            <span class="cstm-mat-checkbox-label">Select all</span>
-          </mat-checkbox>
-        </div>
-        <div class="row pt-2">
-          <mat-checkbox #appointmentTypeCheckboxes checked="true" *ngFor="let type of appointmentTypes; let i = index;"
-            (change)="updateAppointmentType($event,type)">
-            <div class="color-item-group">
-              <div class="color-items" [style.background-color]="type.Colour"></div><span>{{type.AppointmentType == null ? "." : type.AppointmentType}}</span>
+            <div class="row pt-2">
+              <mat-checkbox #providerCheckboxes *ngFor="let provider of providerAndStaff; let i = index;" checked="true"
+                value="provider" (change)="updateProviderCheckbox($event,provider)">
+                <span>{{provider.FullName}}</span>
+              </mat-checkbox>
             </div>
-          </mat-checkbox>
-        </div>
-      </mat-expansion-panel>
+          </mat-expansion-panel>
+          <mat-expansion-panel class="panel appointment-status">
+            <mat-expansion-panel-header class="panel-header">
+              <mat-panel-title> Appointment Status </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="row cstm-checkbox-1 pt-2">
+              <mat-checkbox #appointmentStatusesToggle checked="true" (change)="ToggleAllAppointmentStatuses($event)">
+                <span class="cstm-mat-checkbox-label">Select all</span>
+              </mat-checkbox>
+            </div>
+            <div class="row pt-2">
+              <mat-checkbox #appointmentStatusCheckboxes *ngFor="let status of appointmentStatuses; let i = index"
+                (change)="updateAppointmentStatus($event,status)" checked="true" value="status">
+                <div class="color-item-group">
+                  <div class="color-items" [style.background-color]="status.Colour"></div><span>{{status.Name == null ?
+                    "." : status.Name }}</span>
+                </div>
+              </mat-checkbox>
+            </div>
+          </mat-expansion-panel>
+          <mat-expansion-panel class="panel appointment-types">
+            <mat-expansion-panel-header class="panel-header">
+              <mat-panel-title> Appointment Type </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="row cstm-checkbox-1 pt-2">
+              <mat-checkbox #appointmentTypesToggle checked="true" (change)="ToggleAllAppointmentTypes($event)">
+                <span class="cstm-mat-checkbox-label">Select all</span>
+              </mat-checkbox>
+            </div>
+            <div class="row pt-2">
+              <mat-checkbox #appointmentTypeCheckboxes checked="true"
+                *ngFor="let type of appointmentTypes; let i = index;" (change)="updateAppointmentType($event,type)">
+                <div class="color-item-group">
+                  <div class="color-items" [style.background-color]="type.Colour"></div><span>{{type.AppointmentType ==
+                    null ? "." : type.AppointmentType}}</span>
+                </div>
+              </mat-checkbox>
+            </div>
+          </mat-expansion-panel>
 
-      <mat-expansion-panel class="panel rooms fc-hide-control">
-        <mat-expansion-panel-header class="panel-header">
-          <mat-panel-title> Rooms </mat-panel-title>
-        </mat-expansion-panel-header>
-        <div class="row cstm-checkbox-1 pt-2">
-          <mat-checkbox #roomsToggle checked="true" (change)="ToggleAllRooms($event)">
-            <span class="cstm-mat-checkbox-label">Select all</span>
-          </mat-checkbox>
-        </div>
-        <div class="row pt-2">
-          <mat-checkbox #roomCheckboxes *ngFor="let room of Rooms; let i = index;" checked="true"
-            (change)="updateRoom($event,room,i)" [value]="room">
-            <span>{{room.RoomName}}</span>
-          </mat-checkbox>
-        </div>
-      </mat-expansion-panel>
+          <mat-expansion-panel class="panel rooms fc-hide-control">
+            <mat-expansion-panel-header class="panel-header">
+              <mat-panel-title> Rooms </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="row cstm-checkbox-1 pt-2">
+              <mat-checkbox #roomsToggle checked="true" (change)="ToggleAllRooms($event)">
+                <span class="cstm-mat-checkbox-label">Select all</span>
+              </mat-checkbox>
+            </div>
+            <div class="row pt-2">
+              <mat-checkbox #roomCheckboxes *ngFor="let room of Rooms; let i = index;" checked="true"
+                (change)="updateRoom($event,room,i)" [value]="room">
+                <span>{{room.RoomName}}</span>
+              </mat-checkbox>
+            </div>
+          </mat-expansion-panel>
 
-      <button mat-button class="btn-blockout col-12" (click)="OpenBlockoutDialog()">Block Out Time</button>
-    </div>
-  </mat-drawer>
-  <mat-drawer-content>
-    <div class="arrows-toggle" (click)="drawer.toggle()" *ngIf="!toggleButtonVisibility">
-      <i class="fa fa-angle-double-right"></i>
-    </div>
-    <div class="right-container schedule-wrapper" style="padding:30px 10px 0 10px">
-      <full-calendar #fullcalendar [options]="calendarOptions" class="full-calendar" style="width:100%">
-      </full-calendar>
-    </div>
-  </mat-drawer-content>
-</mat-drawer-container>
+          <button mat-button class="btn-blockout col-12" (click)="OpenBlockoutDialog()">Block Out Time</button>
+        </div>
+      </mat-drawer>
+      <mat-drawer-content>
+        <div class="arrows-toggle" (click)="drawer.toggle()" *ngIf="!toggleButtonVisibility">
+          <i class="fa fa-angle-double-right"></i>
+        </div>
+        <div class="right-container schedule-wrapper" style="padding:30px 10px 0 10px">
+          <full-calendar #fullcalendar [options]="calendarOptions" class="full-calendar" style="width:100%">
+          </full-calendar>
+        </div>
+      </mat-drawer-content>
+    </mat-drawer-container>
+  </div>
+</div>
 <div class="row" style="width: 98.1%; margin-left: 20px;">
   <patient-schedule [SelectedProviderId]="SelectedProviderId" [SelectedLocationId]="SelectedLocationId"
     [PracticeProviders]="practiceProviders" [AppointmentTypes]="appointmentTypes" [Locations]="locations"
