@@ -1,6 +1,5 @@
 import { Attachment } from './LabandImage';
 import { ToAddress } from './smart.scheduler.data';
-import { PatientSearch } from "../_account/newPatient";
 
 export class Messages {
   EmailMessageId?: string;

@@ -126,7 +126,7 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
   _filterPatients(term) {
     this.isLoading = true;
     this.smartSchedulerService
-      .SearchPatients({
+      .SearchPatientsWithAppointments({
         ProviderId: this.SelectedProviderId,
         ClinicId: this.authService.userValue.ClinicId,
         SearchTerm: term

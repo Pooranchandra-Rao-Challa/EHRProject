@@ -79,7 +79,7 @@ export class PatientScheduleComponent implements OnInit {
         distinctUntilChanged())   // ignore if next search term is same as previous
       .subscribe((term) =>
         this.smartSchedulerService
-          .SearchPatients({
+          .SearchPatientsWithAppointments({
             ProviderId: this.SelectedProviderId,
             ClinicId: this.authService.userValue.ClinicId,
             SearchTerm: term

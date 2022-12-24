@@ -203,8 +203,8 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "IndividualProviders";
   }
 
-  get _searchPatientsUrl() {
-    return this._baseUrl + "SearchPatients";
+  get _searchPatientsWithAppointmentsUrl() {
+    return this._baseUrl + "SearchPatientsWithAppointments";
   }
   get _toggleUserFieldValuesUrl() {
     return this._baseUrl + "ToggleUserFieldValues";
