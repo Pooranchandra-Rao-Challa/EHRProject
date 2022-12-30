@@ -17,7 +17,7 @@ export class FamilyHealthHistoryDialogComponent implements OnInit {
   patientFamilyHealthHistory: PastMedicalHistory = new PastMedicalHistory;
   patientRelationShip: GlobalConstants;
   codeSystemsForDiagnosis: string[] = ['SNOMED/ICD10'];
-  selectedCodeSystemValue: FormFieldValue = {CodeSystem:'SNOMED/ICD10',SearchTerm:''}
+  selectedCodeSystemValue: FormFieldValue = { CodeSystem: 'SNOMED/ICD10', SearchTerm: '' }
   currentPatient: ProviderPatient;
   disableAddDxbtn: boolean = true;
   diagnosesStartDate: Date;
@@ -120,6 +120,7 @@ export class FamilyHealthHistoryDialogComponent implements OnInit {
   Create() {
     let isAdd = this.patientFamilyHealthHistory.FamilyMedicalHistoryInfo.FamilyHealthHistoryId == undefined;
     this.patientFamilyHealthHistory.PatientId = this.currentPatient.PatientId;
+    this.patientFamilyHealthHistory.FamilyMedicalHistoryInfo.BirthAt = this.datepipe.transform(this.patientFamilyHealthHistory.FamilyMedicalHistoryInfo.BirthAt, "MM/dd/yyyy hh:mm:ss a");
     this.patientService.CreateFamilyHealthHistories(this.patientFamilyHealthHistory).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.ref.close({

@@ -34,10 +34,7 @@ export class AmendmentsComponent implements OnInit {
     private alertmsg: AlertMessage, private ulilityservice: UtilityService, private datePipe: DatePipe) {
     this.amendment = {}
     this.fileUploadUrl = UPLOAD_URL('api/upload/UploadSingleFile')
-    console.log(this.fileUploadUrl);
-
     this.httpRequestParams = this.httpRequestParams.append("EntityName", this.EntityName);
-
   }
 
   ngOnInit(): void {
@@ -66,9 +63,11 @@ export class AmendmentsComponent implements OnInit {
     }
     this.patientservice.AmendmentDetails(reqparam).subscribe((resp) => {
       if(resp.IsSuccess){
-        this.amendments = resp.ListResult as Amendment[]
+        this.amendments = resp.ListResult as Amendment[];
         this.amendments.forEach((amendment) =>{
           amendment.Attachments = JSON.parse(amendment.strAttachments);
+          amendment.DateofAccept = this.datePipe.transform(amendment.DateofAccept, "yyyy-MM-dd");
+          amendment.DateofAppended = this.datePipe.transform(amendment.DateofAppended, "yyyy-MM-dd");
         })
       }else this.amendments =  [];
     });
@@ -101,8 +100,6 @@ export class AmendmentsComponent implements OnInit {
   }
 
   onSelectedOfAmendment(item) {
-    console.log(item);
-
     this.amendment = item;
   }
 
@@ -143,11 +140,8 @@ export class AmendmentsComponent implements OnInit {
     if (data.event.body) {
       if (!this.amendment.Attachments)
         this.amendment.Attachments = [];
-      console.log(data.event.body);
       this.amendment.Attachments.push(data.event.body as Attachment);
       this.attachmentSubject.next(this.amendment.Attachments);
-      console.log(this.amendment.Attachments);
-
     }
   }
   DeleteAttachment(attachmentId) {
@@ -157,6 +151,7 @@ export class AmendmentsComponent implements OnInit {
       this.amendment.Attachments.filter(fn => fn.AttachmentId == attachmentId)[0].IsDeleted = true;
     }
   }
+
   ItemRemoved($event) {
     console.log($event);
   }
