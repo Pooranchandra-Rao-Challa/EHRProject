@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   baseUrl: 'http://localhost:4345/',
+  //baseUrl: 'http://172.31.26.238:126/',
   //baseUrl: 'http://182.18.157.215/EHR/API/',
   RX_END_POINT: 'https://rxnav.nlm.nih.gov/',
   RX_URI_NDC_PROPERTIES:'REST/rxcui/{0}/properties.json',
