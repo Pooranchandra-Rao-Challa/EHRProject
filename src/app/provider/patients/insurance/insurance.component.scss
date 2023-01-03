@@ -437,6 +437,10 @@
   max-height: 700px;
   overflow-y: auto;
   overflow-x: hidden;
+
+  ::ng-deep .mat-select {
+    font-size: 14px;
+  }
 }
 
 .insurance-panel-view{

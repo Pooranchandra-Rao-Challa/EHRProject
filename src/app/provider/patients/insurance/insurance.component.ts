@@ -283,7 +283,7 @@ export class InsuranceComponent implements OnInit {
         }));
         this.SourceOfPaymentTypologyCodesFilter = this.SourceOfPaymentTypologyCodes.slice();
         this.secondarySptcFilter = this.SourceOfPaymentTypologyCodes.slice();
-        if (this.primlist.SourceOfPaymentTypology! = "") {
+        if (this.primlist.SourceOfPaymentTypology) {
           let data = this.primlist.SourceOfPaymentTypology;
           let SourceOfPaymentTypologyCodes = this.SourceOfPaymentTypologyCodes.find(x => x.Code == data);
           this.primlist.SourceOfPaymentTypology = SourceOfPaymentTypologyCodes.Code;
