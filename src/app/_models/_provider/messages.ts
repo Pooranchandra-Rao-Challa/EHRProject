@@ -24,13 +24,32 @@ export class Messages {
   ReplyMessage?: string;
   toAddress?: ToAddress = {};
   ForwardReplyMessage?: string;
-  Attachments?: Attachment[] =[];
+  Attachments?: Attachment[] = [];
   strAttachments?: string;
-  Read?:boolean;
+  Read?: boolean;
 }
 
-export class MessageDialogInfo{
+export class MessageDialogInfo {
   Messages?: Messages;
   ForwardReplyMessage?: string;
   MessageFor?: string;
+}
+
+export class PatientNotificationSettingType {
+  Email?: string
+  ConfirmEmail?:string;
+  IsVerified?: boolean = false;
+  VerificationCode?: string
+  PhoneNumber?: string
+  ConfirmPhoneNumber?: string;
+  Duration?: string = "days";
+  NotificationType?: string
+  NoOfDays?: number = 30
+  IsEnabled?: boolean
+  IsPrefered?: boolean
+  NotifyThroEmail?: boolean
+  NotifyThroMessage?: boolean
+  PatientId?: string
+  NotificationTypeId?:string;
+  URL?: string;
 }

@@ -26,10 +26,7 @@ export class AddauthorizedrepresentativeDialogComponent implements OnInit {
     private patientservice: PatientService,
     private plaformLocation: PlatformLocation,
     private alertmsg: AlertMessage,) {
-    this.url = plaformLocation.href.replace(plaformLocation.pathname, '/');
-    if (plaformLocation.href.indexOf('?') > -1) {
-      this.url = plaformLocation.href.substring(0, plaformLocation.href.indexOf('?')).replace(plaformLocation.pathname, '/');
-    }
+      this.url = `${plaformLocation.protocol}//${plaformLocation.hostname}:${plaformLocation.port}/`;
     this.updateLocalModel(ref.RequestData);
     this.PhonePattern = {
       0: {

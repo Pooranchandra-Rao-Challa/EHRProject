@@ -13,6 +13,7 @@ import { ssnValidatorDirective } from 'src/app/_directives/ssn.validator.directi
 import { NunberMaskDirective } from 'src/app/_directives/number.mask.directive'
 import { AlphaDirective } from "../_directives/alphaonly.directive";
 import { FileUploadModule } from 'src/app/file.upload/file-upload.module'
+import { MaxValueDirective,MinValueDirective} from 'src/app/_directives/min.max.validator.directive'
 //import { InterceptorService } from "../_loader/interceptor.service";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { PaginatorDirective } from 'src/app/_directives/pagination.directive'
@@ -50,7 +51,7 @@ import { AttachmentNopreviewComponent } from 'src/app/_components/attachments/at
   ],
   declarations: [GroupByPipe, FilterPipe, SearchPipe, TimeMaskDirective,TeethPlacePipe,
     MouseOverHintDirective,SimplePaginationDirective,npiValidatorDirective,
-    ssnValidatorDirective,NunberMaskDirective,AlphaDirective,
+    ssnValidatorDirective,NunberMaskDirective,AlphaDirective,MaxValueDirective,MinValueDirective,
     PaginatorDirective,AttachmentPreviewComponent,AttachmentNopreviewComponent,],
   // providers : [
   //   { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },

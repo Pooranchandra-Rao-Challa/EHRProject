@@ -15,6 +15,7 @@ export class ChangePasswordComponent implements OnInit {
   token: string;
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
+  disableClick: boolean = false;
 
   constructor(private fb: FormBuilder,
     private activatedRoute: ActivatedRoute,
@@ -39,6 +40,7 @@ export class ChangePasswordComponent implements OnInit {
   get v() { return this.createPasswordForm.controls; }
 
   UpdatePassword() {
+    this.disableClick = true;
     let formValues = this.createPasswordForm.value;
     formValues.PasswordToken = this.token;
     this.authService.UpdatePasswordOnRequest(formValues).subscribe(resp => {

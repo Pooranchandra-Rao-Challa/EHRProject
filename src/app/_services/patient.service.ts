@@ -413,4 +413,39 @@ export class PatientService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._matchingPatientsURL,reqparams);
   }
 
+  HasNotifications(patientId:string){
+    return this._ProcessGetRequestWithId<any>(this._hasNotificationsURL,patientId)
+  }
+
+  EnableDistableNotification(patientId:string){
+    return this._ProcessGetRequestWithId<any>(this._enableDistableNotificationURL,patientId)
+  }
+
+  SetNotificationTypesAsDefault(reqparams:any){
+    return this._ProcessPostRequest<any>(this._setNotificationTypesAsDefaultURL,reqparams)
+  }
+
+  PatientNotificationSettingTypes(patientId:string){
+    return this._ProcessGetRequestWithId<any>(this._patientNotificationSettingTypesURL,patientId)
+  }
+
+  AddNotification(reqparams:any){
+    return this._ProcessPostRequest<any>(this._addNotificationURL,reqparams)
+  }
+
+  ValidateNotificationType(reqparams:any){
+    return this._ProcessPostRequest<any>(this._validateNotificationTypeURL,reqparams)
+  }
+
+  ResendVerficationCode(reqparams:any){
+    return this._ProcessPostRequest<any>(this._resendVerficationCodeURL,reqparams)
+  }
+
+  ClearNotification(reqparams:any){
+    return this._ProcessPostRequest<any>(this._clearNotificationURL,reqparams)
+  }
+
+  CommunicationSetting(){
+    return this._ProcessGetRequest<any>(this._communicationSettingURL);
+  }
 }

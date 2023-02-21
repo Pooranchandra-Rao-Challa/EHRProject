@@ -1,3 +1,4 @@
+import { AdminService } from 'src/app/_services/admin.service';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { BehaviorSubject, of } from 'rxjs';
 import { AfterViewInit, Component, ComponentFactoryResolver, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
@@ -23,6 +24,7 @@ import { AuthorizedrepresentativeDialogComponent } from 'src/app/dialogs/authori
 import { NewmessageDialogComponent } from 'src/app/dialogs/newmessage.dialog/newmessage.dialog.component';
 import { MessageDialogInfo } from 'src/app/_models/_provider/messages';
 import { EPrescribeDialogComponent } from 'src/app/dialogs/e-prescribe.dialog/e-prescribe.dialog.component';
+import { CommunicationSetting } from 'src/app/_models/_admin/adminsettings';
 
 @Component({
   selector: 'app-patient.details',
@@ -56,6 +58,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
   MessageDialogComponent = NewmessageDialogComponent;
   e_PrescribeDialogComponent = EPrescribeDialogComponent;
   confirmPatientDeletion: boolean = false;
+  communicationSetting: CommunicationSetting = {};
 
   constructor(private authService: AuthenticationService,
     private cfr: ComponentFactoryResolver,
@@ -64,10 +67,12 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
     private activatedRoute: ActivatedRoute,
     private overlayService: OverlayService,
     private utilityService: UtilityService,
+    private adminService:AdminService,
     private alertmsg: AlertMessage,
     private viewChangeService: ViewChangeService,
     private patientUpdateNotifier: PatientUpdateService) {
     this.viewModel = authService.viewModel;
+
     if (this.viewModel.PatientView == null
       || this.viewModel.PatientView == '') {
       this.viewModel.PatientView = 'Chart';
@@ -80,6 +85,13 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.adminService.CommunicationSetting().subscribe(resp=>{
+      if(resp.IsSuccess){
+        this.communicationSetting = resp.Result as CommunicationSetting;
+
+
+      }
+    })
     this.loadBreadcurmData();
     this.patientUpdateNotifier.getData().subscribe(patientUpdatedData => {
       this.patient.Dob = patientUpdatedData.DateOfBirth
@@ -374,6 +386,11 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
     //     this.alertmsg.displayErrorDailog(ERROR_CODES["E2AP002"])
     //   }
     // });
+  }
+
+  openDrfirstUrlOrCreatePatientDrfirstAccount(){
+
+
   }
 
   openLabDialogs(procedureType: string, viewfor: string) {

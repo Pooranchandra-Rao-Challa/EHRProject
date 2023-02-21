@@ -32,6 +32,7 @@
     "@popperjs/core": "^2.11.6",
     "@syncfusion/ej2-angular-dropdowns": "^19.4.56",
     "@types/jspdf": "^2.0.0",
+    "angular-md5": "^0.1.10",
     "angular2-uuid": "^1.1.1",
     "bootstrap": "^5.2.3",
     "bufferutil": "^4.0.7",
@@ -63,6 +64,7 @@
     "rxjs-compat": "^6.6.7",
     "simple-line-icons": "^2.4.0",
     "sweetalert2": "^11.6.15",
+    "timers": "^0.1.1",
     "tslib": "^2.4.1",
     "typescript-logging": "^2.0.2",
     "typescript-logging-category-style": "^2.0.2",
@@ -70,6 +72,7 @@
     "webpack": "^4.37.0",
     "webpack-subresource-integrity": "^5.1.0",
     "xlsx": "^0.17.5",
+    "xml2js": "^0.4.23",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {

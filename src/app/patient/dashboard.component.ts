@@ -15,6 +15,7 @@ import { SettingsService } from '../_services/settings.service';
 import { AlertMessage } from '../_alerts/alertMessage';
 import { MatPaginator } from '@angular/material/paginator';
 import { tap } from 'rxjs/operators';
+import { CommunicationSetting } from '../_models/_admin/adminsettings';
 declare var $: any;
 @Component({
   selector: 'app-dashboard',
@@ -41,10 +42,11 @@ export class DashboardComponent {
   viewAppoinments: Appointments = {} as Appointments;
   viewMessages: Messages = {} as Messages;
   generalSchedule: GeneralSchedule = {} as GeneralSchedule;
+  communicationSetting: CommunicationSetting = {}
 
   constructor(private authenticationService: AuthenticationService, private overlayService: OverlayService,
     private patientservice: PatientService, private router: Router,
-    private messageService: MessagesService,private settingsService: SettingsService,
+    private messageService: MessagesService, private settingsService: SettingsService,
     private alertmsg: AlertMessage) {
     this.user = authenticationService.userValue;
     this.locationsInfo = JSON.parse(this.user.LocationInfo)
@@ -52,6 +54,13 @@ export class DashboardComponent {
   }
 
   ngOnInit(): void {
+    this.patientservice.CommunicationSetting().subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.communicationSetting = resp.Result as CommunicationSetting;
+
+
+      } else this.communicationSetting = {};
+    })
     this.getPatientUpcomingAppointments();
     this.getmessages();
     this.GeneralScheduleInfo();
@@ -66,7 +75,7 @@ export class DashboardComponent {
     this.paginator.page.pipe(
       tap(() => this.getmessages(this.paginator.pageSize, this.paginator.pageIndex))
     )
-    .subscribe();
+      .subscribe();
   }
 
   onChangeViewState(view) {
@@ -90,9 +99,9 @@ export class DashboardComponent {
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string) {
 
 
-    if(!this.generalSchedule.PatientRescedule){
+    if (!this.generalSchedule.PatientRescedule) {
       this.alertmsg.displayMessageDailog(ERROR_CODES["E3A002"]);
-    }else{
+    } else {
       const ref = this.overlayService.open(content, null);
       ref.afterClosed$.subscribe(res => {
         if (typeof content === 'string') {
@@ -140,14 +149,14 @@ export class DashboardComponent {
     this.patientservice.PatientUpcomingAppointments(req).subscribe(res => {
       this.PatientUpcomingAppointmentsList = res.ListResult == null ? [] : res.ListResult;
       this.PatientUpcomingAppointmentsList?.map((e) => {
-        if(e.TimeZone) {
-          if(e.TimeZone == 'Alaska') {
+        if (e.TimeZone) {
+          if (e.TimeZone == 'Alaska') {
             e.TimeZone = 'AST';
           }
-          else if(e.TimeZone == 'Arizona') {
+          else if (e.TimeZone == 'Arizona') {
             e.TimeZone = 'MST';
           }
-          else if(e.TimeZone == 'Indiana East') {
+          else if (e.TimeZone == 'Indiana East') {
             e.TimeZone = 'EST';
           }
           else {

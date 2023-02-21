@@ -1,105 +1,242 @@
 <div class="notification-settings-wrapper mt-3">
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12 status mt-2">
+    <div class="">
+      <div class="col-md-12 status mt-2 content-border">
         <p class="Helvetica-sans-serif-large ml-10">Status:
-          <span class="Helvetica-sans-serif-medium">Enable</span>
+          <span class="Helvetica-sans-serif-medium">{{Status}}</span>
         </p>
-        <button class="btn btn-green ml-10">Disable Notifications</button>
-        <button class="btn btn-green ml-10">Set Default</button>
+        <button class="btn btn-green ml-10" (click)="EnableDisableNotifications()">{{StatusButtonText}}</button>
+
       </div>
-      <div class="col-md-6">
+      <div class="col-md-12 content-border" *ngIf="hasNotification">
         <div class="mt-4 ml-10">
-          <h4 class="Helvetica-sans-serif-large">Secure SMS/ Text Notification Setting</h4>
-          <p class="Helvetica-sans-serif-medium">No cell phone number affiliated with this account</p>
+          <div class="notification-item">
+            <h4 class="Helvetica-sans-serif-large">Secure SMS/ Text Notification Setting</h4>
+            <button class="btn btn-green ml-10" type="button"
+              [disabled]="SMSNotificatonType.NotificationTypeId==null">Set
+              Default</button>
+            <button class="btn btn-green ml-10" [disabled] = "isResending('text_sms')"
+              *ngIf="SMSNotificatonType.NotificationTypeId != null && !SMSNotificatonType.IsVerified"
+              (click)="ResendVerficationCode('text_sms')">{{resendSmsNotificationText}}</button>
+            <button class="btn btn-green ml-10" [disabled] = "isClearing('text_sms')"
+              *ngIf="SMSNotificatonType.NotificationTypeId != null && !SMSNotificatonType.IsVerified"
+              (click)="ClearNotification('text_sms')">{{clearSmsNotificationText}}</button>
+          </div>
+          <p class="Helvetica-sans-serif-medium"
+            *ngIf="(SMSNotificatonType!=undefined && SMSNotificatonType.PhoneNumber == null)||SMSNotificatonType==undefined">
+            No cell phone number affiliated with this account</p>
+
         </div>
-        <div class="controls mt-4">
-          <mat-form-field appearance="outline" class="ml-10">
-            <input matInput placeholder="Cell Phone Number" type="tel" mask=" (000) 000-0000" prefix="+1"
-            [showMaskTyped]="true" [patterns]="PhonePattern" />
-          </mat-form-field>
-          <mat-form-field appearance="outline" class="ml-10">
-            <input matInput placeholder="Confirm Cell Phone Number" type="tel" mask=" (000) 000-0000" prefix="+1"
-            [showMaskTyped]="true" [patterns]="PhonePattern" />
-          </mat-form-field>
-          <button class="btn btn-green ml-10">Add</button>
-          <button class="btn btn-green ml-10"> Use Registered Cell #</button>
-        </div>
-        <div class="send-patient">
-          <mat-slide-toggle class="ml-10"></mat-slide-toggle>
-          <label class="Helvetica-sans-serif-medium ml-10">Send patient a SMS/Text notification</label>
-          <mat-form-field appearance="outline" class="num-input ml-10">
-            <input matInput value="30" />
-          </mat-form-field>
-          <mat-form-field appearance="outline" class="days-select ml-10">
-            <mat-select>
-              <mat-option>Days</mat-option>
-              <mat-option>Months</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <label class="Helvetica-sans-serif-medium ml-10">BEFORE their schedule appointment</label>
-        </div>
-        <div class="mt-4 ml-10">
-          <h4 class="Helvetica-sans-serif-large">Secure Email Notification Setting</h4>
-          <p class="Helvetica-sans-serif-medium">No Email address affiliated with this account</p>
-        </div>
-        <div class="controls mt-4">
-          <mat-form-field appearance="outline" class="ml-10">
-            <input matInput placeholder="Email Address" />
-          </mat-form-field>
-          <mat-form-field appearance="outline" class="ml-10">
-            <input matInput placeholder="Confirm Email Address" />
-          </mat-form-field>
-          <button class="btn btn-green ml-10">Add</button>
-          <button class="btn btn-green ml-10">Use Registered Email</button>
-        </div>
-        <div class="send-patient">
-          <mat-slide-toggle class="ml-10"></mat-slide-toggle>
-          <label class="Helvetica-sans-serif-medium ml-10">Send patient a Email notification</label>
-          <mat-form-field appearance="outline" class="num-input ml-10">
-            <input matInput value="30" />
-          </mat-form-field>
-          <mat-form-field appearance="outline" class="days-select ml-10">
-            <mat-select>
-              <mat-option>Days</mat-option>
-              <mat-option>Months</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <label class="Helvetica-sans-serif-medium ml-10">BEFORE their schedule appointment</label>
-        </div>
+        <form [formGroup]="smsForm">
+          <div class="controls mt-4">
+            <mat-form-field appearance="outline" class="ml-10">
+              <input matInput placeholder="Cell Phone Number" type="tel" mask=" (000) 000-0000" prefix="+1"
+                [showMaskTyped]="true" [patterns]="PhonePattern" formControlName="PhoneNumber" />
+              <div *ngIf="smsForm.controls['PhoneNumber']?.errors?.required" class="notification-error-message">
+                Enter phone number.
+              </div>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="ml-10">
+              <input matInput placeholder="Confirm Cell Phone Number" type="tel" mask=" (000) 000-0000" prefix="+1"
+                [showMaskTyped]="true" [patterns]="PhonePattern" formControlName="ConfirmPhoneNumber" />
+              <div *ngIf="smsForm.controls['ConfirmPhoneNumber']?.errors?.required" class="notification-error-message">
+                Enter confirm phone number.
+              </div>
+              <div *ngIf="smsForm.controls['ConfirmPhoneNumber']?.errors?.confirmedValidator"
+                class="notification-error-message">
+                Entered phone number and confirm phone number should match each other.
+              </div>
+
+            </mat-form-field>
+            <button class="btn btn-green ml-10" *ngIf="(SMSNotificatonType.NotificationTypeId == null ||
+            (SMSNotificatonType.NotificationTypeId != null && SMSNotificatonType.IsVerified))" (click)="SaveSms()"
+              [disabled]="disableSMS">{{smsButtonText}}</button>
+            <button class="btn btn-green ml-10"
+              *ngIf="SMSNotificatonType.NotificationTypeId != null && !SMSNotificatonType.IsVerified"
+              (click)="VerifySmsPhoneNumber()">Verify Phone Number</button>
+            <button class="btn btn-green ml-10" *ngIf="HasCellNumber" (click)="UseCellNumber(true)"> Use Registered Cell
+              #</button>
+          </div>
+
+          <div class="send-patient" style="white-space: nowrap;">
+            <mat-slide-toggle class="ml-10" formControlName="NotifyThrough"></mat-slide-toggle>
+            <label class="Helvetica-sans-serif-medium ml-10">Send patient a SMS/Text notification</label>
+            <mat-form-field appearance="outline" class="num-input ml-10">
+              <input matInput formControlName="NoOfDays" />
+              <div *ngIf="smsForm.controls['NoOfDays']?.errors?.required" class="notification-error-message"
+                style="white-space:nowrap">
+                Enter number between 1 and 12 for months else between 1 and 30 for days.
+              </div>
+              <div class="notification-error-message" style="white-space:nowrap"
+                *ngIf="smsForm.controls['NoOfDays']?.errors?.min || smsForm.controls['NoOfDays']?.errors?.max">
+                Number must be between {{smsMinValue}} and {{smsMaxValue}}.
+              </div>
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline" class="days-select ml-10">
+              <mat-select formControlName="Duration" (selectionChange)="selectChanged($event,'text_sms')">
+                <mat-option value="days">Days</mat-option>
+                <mat-option value="months">Months</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <label class="Helvetica-sans-serif-medium ml-10">BEFORE their schedule appointment</label>
+          </div>
+        </form>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-12 content-border" *ngIf="hasNotification">
+
         <div class="mt-4 ml-10">
-          <h4 class="Helvetica-sans-serif-large">Automated Voice Messaging Setting</h4>
-          <p class="Helvetica-sans-serif-medium">No cell phone number affiliated with this account</p>
+          <div class="notification-item">
+            <h4 class="Helvetica-sans-serif-large">Secure Email Notification Setting</h4>
+            <button class="btn btn-green ml-10" type="button"
+              [disabled]="EmailNotificatonType.NotificationTypeId==null">Set
+              Default</button>
+            <button class="btn btn-green ml-10" [disabled] = "isResending('email')"
+              *ngIf="EmailNotificatonType.NotificationTypeId != null && !EmailNotificatonType.IsVerified"
+              (click)="ResendVerficationCode('email')">{{resendEmailNotificationText}}</button>
+            <button class="btn btn-green ml-10" [disabled] = "isClearing('email')"
+              *ngIf="EmailNotificatonType.NotificationTypeId != null && !EmailNotificatonType.IsVerified"
+              (click)="ClearNotification('email')">{{clearEmailNotificationText}}</button>
+          </div>
+          <p class="Helvetica-sans-serif-medium"
+            *ngIf="(EmailNotificatonType!=undefined && EmailNotificatonType.Email == null)||EmailNotificatonType==undefined">
+            No Email address affiliated with this account</p>
         </div>
-        <div class="controls mt-4">
-          <mat-form-field appearance="outline" class="ml-10">
-            <input matInput placeholder="Cell Phone Number" type="tel" mask=" (000) 000-0000" prefix="+1"
-            [showMaskTyped]="true" [patterns]="PhonePattern" />
-          </mat-form-field>
-          <mat-form-field appearance="outline" class="ml-10">
-            <input matInput placeholder="Confirm Cell Phone Number" type="tel" mask=" (000) 000-0000" prefix="+1"
-            [showMaskTyped]="true" [patterns]="PhonePattern" />
-          </mat-form-field>
-          <button class="btn btn-green ml-10">Add</button>
-          <button class="btn btn-green ml-10"> Use Registered Home #</button>
-          <button class="btn btn-green ml-10"> Use Registered Cell #</button>
+        <form [formGroup]="emailForm">
+          <div class="controls mt-4">
+            <mat-form-field appearance="outline" class="ml-10">
+              <input matInput placeholder="Email Address" formControlName="Email" />
+              <div *ngIf="emailForm.controls['Email']?.errors?.required" class="notification-error-message">
+                Enter email.
+              </div>
+              <div *ngIf="emailForm.controls['Email']?.errors?.pattern" class="notification-error-message">
+                Email is should be abc@def.com foramt.
+              </div>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="ml-10">
+              <input matInput placeholder="Confirm Email Address" formControlName="ConfirmEmail" />
+              <div *ngIf="emailForm.controls['ConfirmEmail']?.errors?.required" class="notification-error-message">
+                Enter email.
+              </div>
+              <div *ngIf="emailForm.controls['ConfirmEmail']?.errors?.pattern" class="notification-error-message">
+                Email is should be abc@def.com foramt.
+              </div>
+              <div *ngIf="emailForm.controls['ConfirmEmail']?.errors?.confirmedValidator"
+                class="notification-error-message">
+                Entered email and confirm email should match each other.
+              </div>
+            </mat-form-field>
+            <button class="btn btn-green ml-10" *ngIf="(EmailNotificatonType.NotificationTypeId == null ||
+            (EmailNotificatonType.NotificationTypeId != null && EmailNotificatonType.IsVerified))"
+              (click)="SaveEmail()" [disabled]="disableEmail">{{emailButtonText}}</button>
+            <button class="btn btn-green ml-10"
+              *ngIf="EmailNotificatonType.NotificationTypeId != null && !EmailNotificatonType.IsVerified"
+              (click)="VerifyEmail()">Verify Email</button>
+            <button class="btn btn-green ml-10" *ngIf="HasEmail" (click)="UseEmail()">Use Registered Email</button>
+          </div>
+          <div class="send-patient">
+            <mat-slide-toggle class="ml-10" formControlName="NotifyThrough"></mat-slide-toggle>
+            <label class="Helvetica-sans-serif-medium ml-10">Send patient a Email notification</label>
+            <mat-form-field appearance="outline" class="num-input ml-10">
+              <input matInput formControlName="NoOfDays" />
+              <div *ngIf="emailForm.controls['NoOfDays']?.errors?.required" class="notification-error-message"
+                style="white-space:nowrap">
+                Enter number between 1 and 12 for months else between 1 and 30 for days.
+              </div>
+              <div class="notification-error-message" style="white-space:nowrap"
+                *ngIf="emailForm.controls['NoOfDays']?.errors?.min || emailForm.controls['NoOfDays']?.errors?.max">
+                Number must be between {{emailMinValue}} and {{emailMaxValue}}.
+              </div>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="days-select ml-10">
+              <mat-select formControlName="Duration" (selectionChange)="selectChanged($event,'email')">
+                <mat-option value="days">Days</mat-option>
+                <mat-option value="months">Months</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <label class="Helvetica-sans-serif-medium ml-10">BEFORE their schedule appointment</label>
+          </div>
+        </form>
+      </div>
+
+      <div class="col-md-12 content-border" *ngIf="hasNotification">
+        <div class="mt-4 ml-10">
+          <div class="notification-item">
+            <h4 class="Helvetica-sans-serif-large">Automated Voice Messaging Setting</h4>
+            <button class="btn btn-green ml-10" type="button"
+              [disabled]="VoiceNotificatonType.NotificationTypeId==null">Set
+              Default</button>
+            <button class="btn btn-green ml-10"  [disabled] = "isResending('automated_voice')"
+              *ngIf="VoiceNotificatonType.NotificationTypeId != null && !VoiceNotificatonType.IsVerified"
+              (click)="ResendVerficationCode('automated_voice')">{{resendVoiceNotificationText}}</button>
+            <button class="btn btn-green ml-10" [disabled] = "isClearing('automated_voice')"
+              *ngIf="VoiceNotificatonType.NotificationTypeId != null && !VoiceNotificatonType.IsVerified"
+              (click)="ClearNotification('automated_voice')">{{clearVoiceNotificationText}}</button>
+          </div>
+          <p class="Helvetica-sans-serif-medium"
+            *ngIf="(VoiceNotificatonType!=undefined && VoiceNotificatonType.PhoneNumber == null)||VoiceNotificatonType==undefined">
+            No cell phone number
+            affiliated with this account</p>
         </div>
-        <div class="send-patient">
-          <mat-slide-toggle class="ml-10"></mat-slide-toggle>
-          <label class="Helvetica-sans-serif-medium ml-10">Call them</label>
-          <mat-form-field appearance="outline" class="num-input ml-10">
-            <input matInput value="30" />
-          </mat-form-field>
-          <mat-form-field appearance="outline" class="days-select ml-10">
-            <mat-select>
-              <mat-option>Days</mat-option>
-              <mat-option>Months</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <label class="Helvetica-sans-serif-medium ml-10">BEFORE their schedule appointment</label>
-        </div>
+
+        <form [formGroup]="automatedVoiceForm">
+          <div class="controls mt-4">
+            <mat-form-field appearance="outline" class="ml-10">
+              <input matInput placeholder="Cell Phone Number" type="tel" mask=" (000) 000-0000" prefix="+1"
+                [showMaskTyped]="true" [patterns]="PhonePattern" formControlName="PhoneNumber" />
+              <div *ngIf="automatedVoiceForm.controls['PhoneNumber']?.errors?.required"
+                class="notification-error-message">
+                Enter phone number.
+              </div>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="ml-10">
+              <input matInput placeholder="Confirm Cell Phone Number" type="tel" mask=" (000) 000-0000" prefix="+1"
+                [showMaskTyped]="true" [patterns]="PhonePattern" formControlName="ConfirmPhoneNumber" />
+              <div *ngIf="automatedVoiceForm.controls['ConfirmPhoneNumber']?.errors?.required"
+                class="notification-error-message">
+                Enter confirm phone number.
+              </div>
+              <div *ngIf="automatedVoiceForm.controls['ConfirmPhoneNumber']?.errors?.confirmedValidator"
+                class="notification-error-message">
+                Entered phone number and confirm phone number should match each other.
+              </div>
+            </mat-form-field>
+            <button class="btn btn-green ml-10" *ngIf="(VoiceNotificatonType.NotificationTypeId == null ||
+            (VoiceNotificatonType.NotificationTypeId != null && VoiceNotificatonType.IsVerified))"
+              (click)="SaveVoice()" [disabled]="disableVoice">{{voiceButtonText}}</button>
+            <button class="btn btn-green ml-10"
+              *ngIf="VoiceNotificatonType.NotificationTypeId != null && !VoiceNotificatonType.IsVerified"
+              (click)="VerifyVoicePhoneNumber()">Verify Phone Number</button>
+            <button class="btn btn-green ml-10" *ngIf="HasHomeNumber" (click)="UseHomeNumber()"> Use Registered Home
+              #</button>
+            <button class="btn btn-green ml-10" *ngIf="HasCellNumber" (click)="UseCellNumber()"> Use Registered
+              Cell
+              #</button>
+          </div>
+          <div class="send-patient">
+            <mat-slide-toggle class="ml-10" formControlName="NotifyThrough"></mat-slide-toggle>
+            <label class="Helvetica-sans-serif-medium ml-10">Call them</label>
+            <mat-form-field appearance="outline" class="num-input ml-10">
+              <input matInput formControlName="NoOfDays" />
+              <div *ngIf="automatedVoiceForm.controls['NoOfDays']?.errors?.required" class="notification-error-message"
+                style="white-space:nowrap">
+                Enter number between 1 and 12 for months else between 1 and 30 for days.
+              </div>
+              <div class="notification-error-message" style="white-space:nowrap"
+                *ngIf="automatedVoiceForm.controls['NoOfDays']?.errors?.min || automatedVoiceForm.controls['NoOfDays']?.errors?.max">
+                Number must be between {{voiceMinValue}} and {{voiceMaxValue}}.
+              </div>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="days-select ml-10">
+              <mat-select formControlName="Duration" (selectionChange)="selectChanged($event,'automated_voice')">
+                <mat-option value="days">Days</mat-option>
+                <mat-option value="months">Months</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <label class="Helvetica-sans-serif-medium ml-10">BEFORE their schedule appointment</label>
+          </div>
+        </form>
       </div>
     </div>
   </div>

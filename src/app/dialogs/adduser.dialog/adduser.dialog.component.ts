@@ -54,9 +54,7 @@ export class AddUserDialogComponent implements OnInit {
     private plaformLocation: PlatformLocation,
     private idService: IdService) {
     this.updateLocalModel(ref.RequestData);
-    this.url = plaformLocation.href.replace(plaformLocation.pathname, '/');
-    if (plaformLocation.href.indexOf('?') > -1)
-      this.url = plaformLocation.href.substring(0, plaformLocation.href.indexOf('?')).replace(plaformLocation.pathname, '/');
+    this.url = `${plaformLocation.protocol}//${plaformLocation.hostname}:${plaformLocation.port}/`;
     this.user = authService.userValue;
     this.PhonePattern = {
       0: {

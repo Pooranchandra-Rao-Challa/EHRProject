@@ -14,47 +14,45 @@ import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
   templateUrl: './patient.health.portal.component.html',
   styleUrls: ['./patient.health.portal.component.scss'],
 })
-export class PatientHealthPortalComponent{
+export class PatientHealthPortalComponent {
   @ViewChild('iframe', { static: true })
   iframe: ElementRef;
   doc;
   element;
   patientUser: PatientPortalUser;
   doReportProcess: boolean = false;
-  reportInvoked:boolean = false;
-  url:string;
+  reportInvoked: boolean = false;
+  url: string;
   constructor(private dialogRef: EHROverlayRef,
     private plaformLocation: PlatformLocation,
     private utilityService: UtilityService,
-    private alterMessage: AlertMessage){
-    this.url = plaformLocation.href.replace(plaformLocation.pathname, '/');
-    if (plaformLocation.href.indexOf('?') > -1)
-      this.url = plaformLocation.href.substring(0, plaformLocation.href.indexOf('?')).replace(plaformLocation.pathname, '/');
+    private alterMessage: AlertMessage) {
+    this.url = `${plaformLocation.protocol}//${plaformLocation.hostname}:${plaformLocation.port}/`;
     this.patientUser = dialogRef.data
     this.patientUser.URL = this.url;
     console.log(this.patientUser);
 
   }
-  cancel(){
-    this.dialogRef.close({refesh:true});
+  cancel() {
+    this.dialogRef.close({ refesh: true });
   }
 
-  refreshView(){
-    this.dialogRef.close({refesh:true});
+  refreshView() {
+    this.dialogRef.close({ refesh: true });
   }
 
-  hasValidEmail(){
+  hasValidEmail() {
 
 
   }
-  downloadInviteasPDF(){
+  downloadInviteasPDF() {
     this.patientUser.SendInvitation = false;
     this.reportInvoked = true;
     this._completePatientAccountProcess();
     //this.dialogRef.close({'download':true,patientUser: this.patientUser });
   }
 
-  sendInviteToEmailAddress(){
+  sendInviteToEmailAddress() {
     this.patientUser.SendInvitation = true;
     this.reportInvoked = true;
     this._completePatientAccountProcess(true);
@@ -63,7 +61,7 @@ export class PatientHealthPortalComponent{
   onLoad(iframe) {
     this.doc = iframe.contentDocument || iframe.contentWindow;
   }
-  get iframedisplay():string{
+  get iframedisplay(): string {
     return !this.doReportProcess ? 'none' : 'block';
   }
 
@@ -78,7 +76,7 @@ export class PatientHealthPortalComponent{
       let position = 10;
       PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
       PDF.html(this.iframe.nativeElement.contentDocument.body.innerHtml);
-      PDF.save(this.patientUser.PatientId+'.pdf');
+      PDF.save(this.patientUser.PatientId + '.pdf');
       this.refreshView()
       this.alterMessage.displayMessageDailog(ERROR_CODES["AP001"]);
     });

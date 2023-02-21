@@ -6,6 +6,9 @@
     padding: 10px 20px;
   }
 
+  .content-border{
+    border-bottom: 1px solid #41b6a6;
+  }
   .status {
     display: flex;
     align-items: baseline;
@@ -35,11 +38,19 @@
     background-color: #41b6a6;
   }
 
-  // .send-patient  .num-input.mat-form-field-appearance-outline,
-  // label{
-  //   vertical-align: baseline;
-  // }
 
+  .notification-item{
+    display: flex;
+    align-items: center;
+  }
+  .notification-error-message{
+    margin: unset;
+    margin-top: 12px;
+    margin-left: -12px;
+    color: #EA1A00;
+    width: 120%;
+    //white-space: nowrap;
+  }
   ::ng-deep .mat-form-field-appearance-outline {
     font-size: 15px;
   }

@@ -16,6 +16,7 @@ export class CreatePasswordComponent implements OnInit {
   secureCred: SecureCreds = {};
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
+  disableClick = false;
 
   constructor(private fb: FormBuilder,
     private activatedRoute: ActivatedRoute,
@@ -41,6 +42,7 @@ export class CreatePasswordComponent implements OnInit {
   get v() { return this.createPasswordForm.controls; }
 
   UpdatePassword() {
+    this.disableClick = true;
     let formValues = this.createPasswordForm.value;
     this.secureCred.Password = formValues.NewPassword;
     this.secureCred.SecurityCode = formValues.SecurityCode;

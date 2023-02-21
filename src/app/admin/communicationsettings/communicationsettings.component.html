@@ -9,8 +9,8 @@
     <div class="heading">
         <div class="row">
             <div class="col-lg-3">
-                <p><span class="bold">Status: </span><span>Disabled</span><a class="btn btn-style"
-                      >Enable</a></p>
+                <p><span class="bold">Status: </span><span>{{Status}}</span>
+                  <a class="btn btn-style" (click)="UpdateStatus(ToggleStatus)">{{ActionStatus}}</a></p>
             </div>
         </div>
     </div>

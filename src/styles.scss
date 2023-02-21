@@ -1067,6 +1067,20 @@ i {
   margin-bottom: 40px !important;
 }
 
+.swal2-title.notification-modal-header {
+  margin: unset !important;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  padding: 20px !important;
+  background-color: #41b6a6 !important;
+  color: #fff;
+  font-size: 24px;
+  font-family: "Roboto";
+  font-weight: 400;
+  margin-bottom: 40px !important;
+}
+
+
 // pagination
 .pg-container .page-green.pagination .page-item.active .page-link {
   color: #fff !important;

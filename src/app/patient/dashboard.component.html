@@ -5,7 +5,7 @@
       Welcome
       <span class="authorization-welcome-username text-break">{{user.FirstName}}&nbsp;&nbsp;{{user.LastName}}</span>
     </h4>
-    <div class="notify-btn">
+    <div class="notify-btn" *ngIf="communicationSetting?.Status == 'enabled'">
       <button class="btn btn-blue" (click)="showNotifySettings()">
         Set Up SMS/Text/Email Notifications
       </button>

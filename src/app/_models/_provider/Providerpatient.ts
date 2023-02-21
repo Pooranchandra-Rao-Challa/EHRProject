@@ -44,3 +44,9 @@ export class PatientAccountInfo{
 export enum ENavigationView{
   list, view
 }
+
+export class PatientNotificationSetting {
+  Patientid : string
+  NotificationType : string
+  Enable : boolean
+}

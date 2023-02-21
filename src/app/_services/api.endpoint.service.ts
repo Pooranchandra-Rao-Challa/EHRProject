@@ -1041,6 +1041,54 @@ export class APIEndPoint extends EndpointBase {
   {
     return this._baseUrl + "MatchingPatients";
   }
+  get _communicationSettingURL()
+  {
+    return this._baseUrl + "CommunicationSetting";
+  }
+  get _updateCommunicationSettingURL()
+  {
+    return this._baseUrl + "UpdateCommunicationSetting";
+  }
+  get _hasNotificationsURL()
+  {
+    return this._baseUrl + "HasNotifications";
+  }
+
+  get _enableDistableNotificationURL()
+  {
+    return this._baseUrl + "EnableDistableNotification";
+  }
+
+  get _setNotificationTypesAsDefaultURL()
+  {
+    return this._baseUrl + "SetNotificationTypesAsDefault";
+  }
+  get _patientNotificationSettingTypesURL()
+  {
+    return this._baseUrl + "PatientNotificationSettingTypes";
+  }
+
+  get _addNotificationURL()
+  {
+    return this._baseUrl + "AddNotification";
+  }
+
+
+  get _validateNotificationTypeURL()
+  {
+    return this._baseUrl + "ValidateNotificationType";
+  }
+
+  get _resendVerficationCodeURL()
+  {
+    return this._baseUrl + "ResendVerficationCode";
+  }
+
+  get _clearNotificationURL()
+  {
+    return this._baseUrl + "ClearNotification";
+  }
+
 
   constructor(public http: HttpClient) {
     super();
@@ -1069,6 +1117,15 @@ export class APIEndPoint extends EndpointBase {
 
   _ProcessGetRequest<T>(apiurl: string): Observable<T> {
     return this.http.get<T>(apiurl).pipe(
+      tap((data) => {
+        return data;
+      }),
+      catchError(this._handleError)
+    );
+  }
+
+  _ProcessGetRequestWithId<T>(apiurl: string,id: string): Observable<T> {
+    return this.http.get<T>(`${apiurl}/${id}`).pipe(
       tap((data) => {
         return data;
       }),

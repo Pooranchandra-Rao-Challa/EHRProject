@@ -82,4 +82,12 @@ export class AdminService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._updateAdminVersionUrl,reqparams);
   }
 
+  CommunicationSetting(){
+    return this._ProcessGetRequest<any>(this._communicationSettingURL);
+  }
+
+  UpdateCommunicationSetting(reqparams: any){
+    return this._ProcessPostRequest<any>(this._updateCommunicationSettingURL,reqparams);
+  }
+
 }

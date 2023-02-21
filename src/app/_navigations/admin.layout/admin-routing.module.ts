@@ -28,7 +28,7 @@ const routes: Routes = [
       { path: 'admins', component: AdminsComponent },
       { path: 'defaultmessage', component: DefaultMessagesComponent },
       { path: 'setting', component: AdminsettingComponent},
-      { path: 'communication', component: CommunicationsettingsComponent },
+      { path: 'communicationsettings', component: CommunicationsettingsComponent },
       { path: 'practice', component: AdminPracticeComponent },
       { path: 'weeklyupdates', component: WeeklyUpdatedComponent },
       { path: 'activepatient', component: ActivePatientsComponent },

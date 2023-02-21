@@ -6,8 +6,19 @@
 
   .container-fluid {
     padding: 10px 20px;
+    //margin: unset;
+    //margin: auto;
+    /* border: 5px solid; */
+    //display: flex;
+    //justify-content: center;
+    //width: 80%;
   }
 
+  .content-border{
+    border-bottom: 1px solid #41b6a6;
+    /* border-bottom: 1px solid #41b6a6; */
+    //border-left: 1px solid #41b6a6;
+  }
   .status {
     display: flex;
     align-items: baseline;
@@ -37,10 +48,34 @@
     background-color: #41b6a6;
   }
 
+  .notification-item{
+    display: flex;
+    align-items: center;
+  }
+  .notification-error-message{
+    margin: unset;
+    margin-top: 12px;
+    margin-left: -12px;
+    color: #EA1A00;
+    width: 120%;
+    //white-space: nowrap;
+  }
   // .send-patient  .num-input.mat-form-field-appearance-outline,
   // label{
   //   vertical-align: baseline;
   // }
+  ::ng-deep .swal2-title.notification-modal-header {
+    margin: unset !important;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    padding: 20px !important;
+    background-color: #41b6a6;
+    color: #fff;
+    font-size: 24px;
+    font-family: "Roboto";
+    font-weight: 400;
+    margin-bottom: 40px !important;
+  }
 
   ::ng-deep .mat-form-field-appearance-outline {
     font-size: 15px;

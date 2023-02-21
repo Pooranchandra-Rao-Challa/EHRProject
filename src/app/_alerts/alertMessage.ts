@@ -158,6 +158,7 @@ export class AlertMessage {
  * Patients : PA
  * CQMsNotPerformed : CNP
  * Addenda:AD
+ * Notifications: N
  *
  * Details of Patients
  * AddProcedure: P1
@@ -635,6 +636,18 @@ export const ERROR_CODES: { [key: string]: string } = {
 
   'M2CP0013':'Care team member deleted successfully',
   'E2CP0012':'Care team member not deleted',
+
+  'M2CN001':'Message notification setting is updated successfully. The service is used after verification.',
+  'M2CN002':'Email notification setting is updated successfully. The service is used after verification.',
+  'M2CN003':'Voice notification setting is updated successfully. The service is used after verification.',
+  'M2CN004':'Verification code re-sent again.',
+  'M2CN005':'Cleared notification setting',
+
+  'E2CN001':'Message notification setting is not updated.',
+  'E2CN002':'Email notification setting is not updated.',
+  'E2CN003':'Voice notification setting is not updated.',
+  'E2CN004':'Resend verification code is failed.',
+  'E2CN005':'Notification setting is not Cleared ',
 };
 
 
